@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag hypot_ of functor hypot 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct hypot_ {};
+    struct hypot_ : ext::elementwise_<hypot_> { typedef ext::elementwise_<hypot_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::hypot_, hypot, 2)
 } }

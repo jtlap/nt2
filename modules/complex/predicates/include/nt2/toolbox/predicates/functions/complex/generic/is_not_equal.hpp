@@ -123,7 +123,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return logical_or(is_not_equal(imag(a1),a0()), is_nez(real(a1))); 
+      return logical_or(is_not_equal(imag(a1),imag(a0)), is_nez(real(a1))); 
     }
   };
   // imaginary/imaginary
@@ -136,7 +136,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_not_equal(a1(),a0()); 
+      return is_not_equal(imag(a1),imag(a0)); 
     }
   };
   // imaginary/arithmetic

@@ -20,6 +20,7 @@
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 //tanh ( x + iy ) = tanh ( x ) + i . tan ( y ) 1 + i . tanh ( x ) tan ( y ) .
 namespace nt2 { namespace ext
 {
@@ -35,7 +36,10 @@ namespace nt2 { namespace ext
       rtype c, s, ch, sh;
       sincos(imag(aa0), s, c);
       sinhcosh(real(aa0), sh, ch);
-      return result_type(sh, s)/(c+ch);     
+      rtype tmp = c+ch; 
+      rtype r_part = if_zero_else(is_imag(a0),sh/tmp); 
+      rtype i_part = if_zero_else(is_real(a0),s/tmp);
+      return result_type(r_part, i_part);       
     }
   };
 
@@ -47,7 +51,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::tan(imag(a0))); 
+      return bitwise_cast<result_type>(nt2::tan(imag(a0))); 
     }
   };
   
@@ -56,10 +60,10 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_imaginary<rA0>::type result_type; 
+    typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::tanh(real(a0))); 
+      return bitwise_cast<result_type>(nt2::tanh(real(a0))); 
     }
   };
 

@@ -9,12 +9,9 @@
 #ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
 #define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
 
-/*!
- *\file detect.hpp
-*/
-
-#include <boost/simd/sdk/config/arch.hpp>
-#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
+#include <boost/simd/sdk/config/details/x86/detect.hpp>
+#include <boost/simd/sdk/config/details/powerpc/detect.hpp>
+#include <boost/simd/sdk/config/details/arm/detect.hpp>
 
 namespace boost{ namespace simd{ namespace config{ namespace details{
 
@@ -23,24 +20,6 @@ namespace boost{ namespace simd{ namespace config{ namespace details{
     return false;
   }
 
-#ifdef BOOST_SIMD_ARCH_X86
-  bool detect(tag::sse2_ const&   );
-  bool detect(tag::sse3_ const&   );
-  bool detect(tag::ssse3_ const&  );
-  bool detect(tag::sse4a_ const&  );
-  bool detect(tag::sse4_1_ const& );
-  bool detect(tag::sse4_2_ const& );
-  bool detect(tag::avx_ const&    );
-#endif
-  
-#ifdef BOOST_SIMD_ARCH_LRB
-  bool detect(tag::lrb_ const&);
-#endif
-
-#ifdef BOOST_SIMD_ARCH_POWERPC
-  bool detect(tag::altivec_ const&);
-#endif
-
-} } } }  
+} } } }
 
 #endif

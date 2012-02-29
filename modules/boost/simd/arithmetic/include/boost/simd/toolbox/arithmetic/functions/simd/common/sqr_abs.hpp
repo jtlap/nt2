@@ -16,7 +16,6 @@
 #include <boost/simd/include/functions/muls.hpp>
 #include <boost/simd/include/functions/is_nez.hpp>
 #include <boost/simd/include/functions/is_greater_equal.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {

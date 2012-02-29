@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_CONJ_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_CONJ_HPP_INCLUDED
-#include <nt2/toolbox/arithmetic/functions/conj.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/hypot.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
@@ -37,7 +35,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(-imag(a0)); 
+      return bitwise_cast<result_type>(-imag(a0)); 
     }
   };
   

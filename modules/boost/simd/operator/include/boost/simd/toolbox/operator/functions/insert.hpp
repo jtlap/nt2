@@ -51,7 +51,7 @@
 
 namespace boost { namespace simd
 {
-  namespace tag { struct insert_ {}; }
+  namespace tag { struct insert_ : ext::unspecified_<insert_> { typedef ext::unspecified_<insert_> parent; }; }
     /*!
      * \brief Define the tag insert_ of functor insert 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator

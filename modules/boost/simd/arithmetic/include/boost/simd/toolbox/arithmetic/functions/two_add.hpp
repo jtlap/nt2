@@ -56,7 +56,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag two_add_ of functor two_add 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct two_add_ {};
+    struct two_add_ : ext::elementwise_<two_add_> { typedef ext::elementwise_<two_add_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::two_add_, two_add, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_add_, two_add,(A0 const&)(A0 const&)(A0&), 1)

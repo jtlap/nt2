@@ -32,7 +32,6 @@
 #include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {

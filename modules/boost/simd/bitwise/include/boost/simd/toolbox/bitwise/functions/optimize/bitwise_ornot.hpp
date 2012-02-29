@@ -18,17 +18,11 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_or_
-                                    , boost::simd::tag::optimize_
-                                    , (A0)(A1)(Domain)(Arity)
-                                    , (unspecified_<A0>)
-                                      ((expr_ < unspecified_<A1>
-                                              , Domain
-                                              , boost::simd::tag::complement_
-                                              , Arity
-                                              >
-                                      ))
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_or_, boost::simd::tag::optimize_
+                            , (A0)(A1)
+                            , (unspecified_<A0>)
+                              ((node_<A1, boost::simd::tag::complement_, mpl::long_<1> >))
+                            )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::bitwise_ornot_(
           A0 const&,
@@ -41,16 +35,27 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::bitwise_or_
-                                    , boost::simd::tag::optimize_
-                                    , (A0)(A1)(Domain)(Arity)
-                                    , ((expr_ < unspecified_<A0>
-                                              , Domain
-                                              , boost::simd::tag::complement_
-                                              , Arity
-                                              >
-                                      ))
-                                      (unspecified_<A1>)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_or_, boost::simd::tag::optimize_
+                            , (A0)(A1)
+                            , ((node_<A0, boost::simd::tag::complement_, mpl::long_<1> >))
+                              (unspecified_<A1>)
+                            )
+  {
+    typedef typename dispatch::meta::call< boost::simd::tag::bitwise_ornot_(
+          A1 const&,
+          typename boost::proto::result_of::child_c<A0, 0>::type const&
+        ) >::type result_type; 
+
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return bitwise_ornot(a1, boost::proto::child_c<0>(a0));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_or_, boost::simd::tag::optimize_
+                            , (A0)(A1)
+                            , ((node_<A0, boost::simd::tag::complement_, mpl::long_<1> >))
+                              ((node_<A1, boost::simd::tag::complement_, mpl::long_<1> >))
                             )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::bitwise_ornot_(

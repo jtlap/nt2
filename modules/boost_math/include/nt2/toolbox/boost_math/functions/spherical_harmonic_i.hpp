@@ -69,7 +69,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag spherical_harmonic_i_ of functor spherical_harmonic_i 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct spherical_harmonic_i_ {};
+    struct spherical_harmonic_i_ : ext::elementwise_<spherical_harmonic_i_> { typedef ext::elementwise_<spherical_harmonic_i_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::spherical_harmonic_i_, spherical_harmonic_i, 4)
   } }

@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag tgamma_lower_ of functor tgamma_lower 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct tgamma_lower_ {};
+    struct tgamma_lower_ : ext::elementwise_<tgamma_lower_> { typedef ext::elementwise_<tgamma_lower_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::tgamma_lower_, tgamma_lower, 2)
   } }

@@ -17,7 +17,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Pass some alignment_ as an option and check everythign go out properly
+// Pass some alignment_ as an option and check everything go out properly
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( alignment_ )
 {
@@ -39,7 +39,7 @@ NT2_TEST_CASE( alignment_ )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Pass some alignment_ as default and check everythign go out properly
+// Pass some alignment_ as default and check everything go out properly
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( alignment_default )
 {
@@ -60,7 +60,7 @@ NT2_TEST_CASE( alignment_default )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Pass some alignment_ as a setting and check everythign go out properly
+// Pass some alignment_ as a setting and check everything go out properly
 ////////////////////////////////////////////////////////////////////////////////
 nt2::settings align  (nt2::unaligned_, nt2::aligned_);
 nt2::settings unalign(nt2::aligned_  , nt2::unaligned_);
@@ -85,7 +85,7 @@ NT2_TEST_CASE( setting_alignment_ )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Pass some alignment_ as a default setting and check everythign go out properly
+// Pass some alignment_ as a default setting and check everything go out properly
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( setting_alignment_default )
 {

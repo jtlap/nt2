@@ -70,14 +70,6 @@ namespace nt2 { namespace ext
     {
       // C99 definition here; atan(z) = -i atanh(iz):
       return mul_minus_i(nt2::atanh(mul_i(a0)));
-      
-//    if(x.real() == 0)
-//    {
-//       if(x.imag() == 1)
-//          return std::complex<T>(0, std::numeric_limits<T>::has_infinity ? std::numeric_limits<T>::infinity() : static_cast<T>(HUGE_VAL));
-//       if(x.imag() == -1)
-//          return std::complex<T>(0, std::numeric_limits<T>::has_infinity ? -std::numeric_limits<T>::infinity() : -static_cast<T>(HUGE_VAL));
-//    }
     }
   };
 
@@ -98,11 +90,10 @@ namespace nt2 { namespace ext
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_complex<rtype>::type result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return mul_minus_i(nt2::atanh(mul_i(a0)));
+      return bitwise_cast<result_type>(nt2::atan(real(a0))); 
     }
   };
   

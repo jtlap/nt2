@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( jn_real__2_0,  NT2_REAL_TYPES)
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << ", a1 = "<< u_t(a1 = tab_a1[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::fdlibm::jn(a0,a1),nt2::jni(a0,a1),100);
+        NT2_TEST_ULP_EQUAL( nt2::fdlibm::jn(a0,a1),nt2::jni(a0,a1),200);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

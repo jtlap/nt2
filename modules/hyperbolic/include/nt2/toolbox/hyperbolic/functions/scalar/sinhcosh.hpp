@@ -8,16 +8,19 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINHCOSH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINHCOSH_HPP_INCLUDED
-#include <nt2/sdk/meta/as_logical.hpp>
-#include <boost/fusion/tuple.hpp>
+
+#include <nt2/toolbox/hyperbolic/functions/sinhcosh.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_equal.hpp>
+#include <nt2/include/functions/negif.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/is_negative.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/half.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
+#include <boost/fusion/tuple.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -30,18 +33,14 @@ namespace nt2 { namespace ext
     typedef int result_type;    
     inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
-      if (is_inf(a0))
-        {
-          a1 = a2 = a0;
-        }
-      else
-        {
-          const A1 u = expm1(tofloat(a0));
-          const A1 up1 = oneplus(u);
-          const A1 tmp =u/up1; 
-          a1 = Half<A1>()*tmp*(oneplus(up1));
-          a2 = oneplus(Half<A1>()*tmp*u);
-        }
+      a2 =  nt2::abs(a0); 
+      a1 = a0;
+      if (a2 == Inf<A1>()) return 0; 
+      const A1 u = expm1(a2);
+      const A1 up1 = oneplus(u);
+      const A1 tmp =u/up1; 
+      a1 = negif(is_negative(a0), Half<A1>()*tmp*(oneplus(up1)));
+      a2 = oneplus(Half<A1>()*tmp*u);
       return 0;
     }
   };

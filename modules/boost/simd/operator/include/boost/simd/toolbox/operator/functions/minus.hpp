@@ -65,11 +65,25 @@ namespace boost { namespace simd
      * \brief Define the tag minus_ of functor minus 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    typedef boost::proto::tag::minus minus_;
+    struct minus_ : ext::elementwise_<minus_> { typedef ext::elementwise_<minus_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minus_             , minus            , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minus_             , sub              , 2 )
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<>
+  struct hierarchy_of<boost::proto::tag::minus>
+  {
+    typedef boost::simd::tag::minus_ type;
+  };
+  template<>
+  struct proto_tag<boost::simd::tag::minus_>
+  {
+    typedef boost::proto::tag::minus type;
+  };
+} } }
 
 #endif

@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag firstbitunset_ of functor firstbitunset 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
-    struct firstbitunset_ {};
+    struct firstbitunset_ : ext::elementwise_<firstbitunset_> { typedef ext::elementwise_<firstbitunset_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::firstbitunset_, firstbitunset, 1)
 } }

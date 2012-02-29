@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_DSL_DETAILS_NULLARY_FUNCTION_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_DETAILS_NULLARY_FUNCTION_HPP_INCLUDED
 
+#include <nt2/core/functions/function.hpp>
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
@@ -19,7 +20,7 @@ namespace nt2 { namespace container { namespace ext
   // Generator nullary function call case - handle expr()
   //==========================================================================
   template<class Domain, class Expr>
-  struct generator<boost::proto::tag::function, Domain, 1, Expr>
+  struct generator<tag::function_, Domain, 1, Expr>
   {
     typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
 

@@ -58,7 +58,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag ellik_ of functor ellik 
      *        in namespace nt2::tag for toolbox elliptic
     **/
-    struct ellik_ {};
+    struct ellik_ : ext::elementwise_<ellik_> { typedef ext::elementwise_<ellik_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::ellik_, ellik, 2)
 }

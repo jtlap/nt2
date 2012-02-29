@@ -55,8 +55,22 @@ namespace extension
   
   template<> struct value_at_impl<std_complex_tag>
   {
+    template<class Sequence, int I>
+    struct apply_impl;
+    
     template<class Sequence, class Index>
-    struct apply
+    struct apply : apply_impl<Sequence, Index::value>
+    {
+    };
+    
+    template<class Sequence>
+    struct apply_impl<Sequence, 0>
+    {
+      typedef typename Sequence::value_type type;
+    };
+    
+    template<class Sequence>
+    struct apply_impl<Sequence, 1>
     {
       typedef typename Sequence::value_type type;
     };
@@ -75,18 +89,18 @@ namespace extension
     template<class Sequence>
     struct apply_impl<Sequence, 0>
     {
-      static typename Sequence::value_type
-      call(Sequence& seq)
+      typedef typename Sequence::value_type type;
+      static type call(Sequence& seq)
       {
         return seq.real();
       }
     };
-    
+
     template<class Sequence>
     struct apply_impl<Sequence, 1>
     {
-      static typename Sequence::value_type
-      call(Sequence& seq)
+      typedef typename Sequence::value_type type;
+      static type call(Sequence& seq)
       {
         return seq.imag();
       }

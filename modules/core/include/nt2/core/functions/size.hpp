@@ -13,8 +13,16 @@
 
 namespace nt2
 {
-  namespace tag { struct size_ {}; }
+  namespace tag
+  {
+    struct size_ : ext::unspecified_<size_>
+    {
+      typedef ext::unspecified_<size_> parent;
+    };
+  }
+
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::size_, size, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::size_, size, 2)
 }
 
 #endif

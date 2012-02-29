@@ -12,6 +12,7 @@
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details
 {
@@ -27,7 +28,10 @@ namespace nt2 { namespace details
     template<class Expr, class State, class Data>
     struct impl : boost::proto::transform_impl<Expr, State, Data>
     {
-      typedef Trait< typename boost::proto::tag_of<typename impl::expr>::type
+      typedef Trait< typename boost::dispatch::meta::
+                     hierarchy_of< typename boost::proto::
+                                   tag_of<typename impl::expr>::type
+                                 >::type
                    , Domain
                    , boost::proto::arity_of<typename impl::expr>::value
                    , typename impl::expr

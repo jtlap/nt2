@@ -74,10 +74,7 @@ namespace nt2 { namespace ext
                     if_else(gezra0,
                             result_type(sqrtx,Zero<rtype>()),
                             result_type(Zero<rtype>(),sqrtx)),
-                    if_else(is_imag(a0),
-                            result_type(Zero<rtype>(), nt2::sqrt(iaa0)),
-                            z)
-                    );  // perhaps put that after test
+                    z);  
         if (all(is_finite(z))) return if_else(negimag, conj(z), z);
         z = if_else(eq(iaa0, Inf<rtype>()),
                     result_type(Inf<rtype>(), Inf<rtype>()),
@@ -87,6 +84,7 @@ namespace nt2 { namespace ext
                                 Inf<rtype>()
                                 ),
                     z);
+        z = if_else(logical_and(is_real(a0), is_nan(a0)), a0, z); 
         return if_else(negimag, conj(z), z);    
       }
   };

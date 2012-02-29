@@ -70,7 +70,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag nextafter_ of functor nextafter 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct nextafter_ {};
+    struct nextafter_ : ext::elementwise_<nextafter_> { typedef ext::elementwise_<nextafter_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::nextafter_, nextafter, 2)
   } }

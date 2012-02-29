@@ -13,7 +13,7 @@
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/value_at.hpp>
 
-namespace boost { namespace simd 
+namespace boost { namespace simd
 {
   template<typename Seq, int N>
   struct at_iterator
@@ -43,7 +43,7 @@ namespace boost { namespace simd
       at_c< typename It::sequence_type
           , It::index
           >::type                                         type;
-          
+
       static type call(It const& it){ return boost::fusion::at_c<N>(it.seq_); }
     };
 
@@ -53,7 +53,7 @@ namespace boost { namespace simd
       typedef at_iterator< typename It::sequence_type
                          , It::index + 1
                          >                                type;
-                         
+
       static type call(It const& it) { return type(it.seq_); }
     };
 
@@ -63,7 +63,7 @@ namespace boost { namespace simd
       typedef at_iterator< typename It::sequence_type
                          , It::index - 1
                          >                                type;
-                         
+
       static type call(It const& it) { return type(it.seq_); }
     };
 
@@ -72,8 +72,8 @@ namespace boost { namespace simd
     {
       typedef typename boost::mpl::
       int_<It2::index - It1::index>::type                 type;
-      
-      static type call(It1 const& it1, It2 const& it2) { return type(); }
+
+      static type call(It1 const& , It2 const& ) { return type(); }
     };
 
     template<typename It, typename M>

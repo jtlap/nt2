@@ -18,7 +18,7 @@
 
 namespace nt2
 {
-  namespace tag { struct deflate_ {}; }
+  namespace tag { struct deflate_ : ext::unspecified_<deflate_> { typedef ext::unspecified_<deflate_> parent; }; }
 
   //============================================================================
   /*!

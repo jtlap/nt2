@@ -48,31 +48,31 @@ NT2_TEST_CASE_TPL ( rec_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
   // specific values tests
    NT2_TEST_EQUAL(nt2::rec(cT(1)), T(1));
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Inf<T>(), nt2::Inf<T>())), nt2::Zero<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Minf<T>(), nt2::Minf<T>())), nt2::Zero<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Inf<T>(), nt2::Zero<T>())), nt2::Zero<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Inf<T>())), nt2::Zero<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Minf<T>(), nt2::Zero<T>())), nt2::Zero<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Minf<T>())), nt2::Zero<cT>());
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Inf<T>(), nt2::Inf<T>())), cT(nt2::Zero<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Minf<T>(), nt2::Minf<T>())), cT(nt2::Zero<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Inf<T>(), nt2::Zero<T>())), cT(nt2::Zero<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Inf<T>())), cT(nt2::Zero<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Minf<T>(), nt2::Zero<T>())), cT(nt2::Zero<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Minf<T>())), cT(nt2::Zero<cT>()));
    
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Zero<T>())), nt2::Inf<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Mzero<T>(), nt2::Zero<T>())), nt2::Minf<cT>());
-
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::Nan<T>())), nt2::Nan<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::One<T>())), nt2::Nan<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::One<T>(), nt2::Nan<T>())), nt2::Nan<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::Zero<T>())), nt2::Nan<cT>());
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Nan<T>())), nt2::Nan<cT>());
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Zero<T>())), cT(nt2::Inf<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Mzero<T>(), nt2::Zero<T>())), cT(nt2::Minf<cT>()));
    
-//    std::complex < T > a(1, 0);
-//    NT2_TEST_EQUAL(nt2::rec(a), nt2::One<T>());
-//    std::complex < T > b(3, 4);
-//    NT2_TEST_EQUAL(nt2::rec(b), nt2::Five<T>());
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Inf<cT>()), nt2::Zero<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Minf<cT>()), nt2::Zero<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Mone<cT>()), nt2::Mone<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Nan<cT>()), nt2::Nan<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::One<cT>()), nt2::One<cT>(), 0);
-//    NT2_TEST_ULP_EQUAL(rec(nt2::Zero<cT>()), nt2::Inf<cT>(), 0);
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::Nan<T>())), cT(nt2::Nan<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::One<T>())), cT(nt2::Nan<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::One<T>(), nt2::Nan<T>())), cT(nt2::Nan<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::Zero<T>())), cT(nt2::Nan<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Nan<T>())), cT(nt2::Nan<cT>()));
+   
+   std::complex < T > a(1, 0);
+   NT2_TEST_EQUAL(nt2::rec(a), nt2::One<T>());
+   std::complex < T > b(1, 1);
+   NT2_TEST_ULP_EQUAL(nt2::rec(b), cT(0.5, -0.5), 0);
+   //    NT2_TEST_ULP_EQUAL(rec(nt2::Inf<dT>()), dT(nt2::Zero<T>()), 0);
+   //    NT2_TEST_ULP_EQUAL(rec(nt2::Minf<dT>()), dT(nt2::Zero<T>()), 0);
+   //    NT2_TEST_ULP_EQUAL(rec(nt2::Mone<dT>()), dT(nt2::Mone<T>()), 0);
+   //    NT2_TEST_ULP_EQUAL(rec(nt2::Nan<dT>()), dT(nt2::Nan<T>()), 0);
+   //    NT2_TEST_ULP_EQUAL(rec(nt2::One<dT>()), dT(nt2::One<T>()), 0);
+   //    NT2_TEST_ULP_EQUAL(rec(nt2::Zero<dT>()), dT(nt2::Inf<T>()), 0);
 } // end of test for floating_
 

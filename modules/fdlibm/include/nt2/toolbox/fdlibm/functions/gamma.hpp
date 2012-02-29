@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag gamma_ of functor gamma 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct gamma_ {};
+    struct gamma_ : ext::elementwise_<gamma_> { typedef ext::elementwise_<gamma_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::gamma_, gamma, 1)
   } }

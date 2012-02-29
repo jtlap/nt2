@@ -80,8 +80,13 @@ long double PIL     = 3.1415926535897932384626L;
 long double PIO2L   = 1.5707963267948966192313L;
 long double PIO4L   = 7.8539816339744830961566E-1L;
 #ifdef INFINITIES
+#if defined(__ICC) || defined(__INTEL_COMPILER)
+long double NANL = ((__builtin_nanl("")));
+long double INFINITYL = ((__builtin_huge_vall()));
+#else
 long double NANL = 0.0L / 0.0L;
 long double INFINITYL = 1.0L / 0.0L;
+#endif
 #else
 long double INFINITYL = 1.189731495357231765021263853E4932L;
 long double NANL = 0.0L;

@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag two_split_ of functor two_split 
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct two_split_ {};
+    struct two_split_ : ext::elementwise_<two_split_> { typedef ext::elementwise_<two_split_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::two_split_, two_split, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::two_split_, two_split,(A0 const&)(A0&), 1)

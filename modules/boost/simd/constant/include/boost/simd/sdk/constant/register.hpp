@@ -30,7 +30,7 @@
  */
 //==============================================================================
 #define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)           \
-struct TAG                                                                \
+struct TAG : ext::constant_<TAG>                                          \
 {                                                                         \
   typedef TYPE default_type;                                              \
   template<class T, class D=void> struct apply                            \

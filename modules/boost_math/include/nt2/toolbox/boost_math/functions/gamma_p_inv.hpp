@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag gamma_p_inv_ of functor gamma_p_inv 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct gamma_p_inv_ {};
+    struct gamma_p_inv_ : ext::elementwise_<gamma_p_inv_> { typedef ext::elementwise_<gamma_p_inv_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::gamma_p_inv_, gamma_p_inv, 2)
   } }

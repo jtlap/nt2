@@ -12,20 +12,22 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/ones.hpp>
 #include <nt2/core/functions/of_size.hpp>
-#include <nt2/core/utility/generator/generator.hpp>
-#include <nt2/core/utility/generator/preprocessor.hpp>
-#include <nt2/core/utility/generator/constant_adaptor.hpp>
+#include <nt2/core/utility/generative/generative.hpp>
+#include <nt2/core/utility/generative/preprocessor.hpp>
+#include <nt2/core/utility/generative/constant_adaptor.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
   // Generates all integral set + types overload
   //============================================================================
-  BOOST_PP_REPEAT_FROM_TO ( 1
+  BOOST_PP_REPEAT_FROM_TO ( 2
                           , BOOST_PP_INC(NT2_MAX_DIMENSIONS)
                           , NT2_PP_GENERATIVE_MAKE_FROM_SIZE
                           , nt2::tag::One
                           )
+
+  NT2_PP_GENERATIVE_MAKE_FROM_SINGLE( nt2::tag::One )
 
   //============================================================================
   // Generates Ones from fusion sequence (support of_size calls)
@@ -35,24 +37,25 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::fusion::result_of::size<Seq>::type size_type;
+
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::constant_generator<nt2::tag::One>
                       , double
                       , settings(typename make_size<size_type::value>::type)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(Seq const& seq) const
     {
-      container::domain domain_;
       nt2::details::constant_generator<nt2::tag::One> callee;
       typename make_size<size_type::value>::type sizee(seq);
-
-      return domain_( expr_type::make( base(sizee,callee) ) );
+      base that(sizee,callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
   };
 
@@ -66,24 +69,25 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::fusion::result_of::size<Seq>::type size_type;
+
     typedef nt2::details::
-            generator < nt2::tag::table_
+            generative< nt2::tag::table_
                       , nt2::details::constant_generator<nt2::tag::One>
                       , typename T::type
                       , settings(typename make_size<size_type::value>::type)
                       > base;
 
-    typedef typename boost::proto::terminal<base>::type  expr_type;
-    typedef typename boost::
-            result_of<container::domain(expr_type)>::type const result_type;
+    typedef typename  boost::proto::
+                      result_of::as_expr< base
+                                        , container::domain
+                                        >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(Seq const& seq, T const&) const
     {
-      container::domain domain_;
       nt2::details::constant_generator<nt2::tag::One> callee;
       typename make_size<size_type::value>::type sizee(seq);
-
-      return domain_( expr_type::make( base(sizee,callee) ) );
+      base that(sizee,callee);
+      return boost::proto::as_expr<container::domain>(that);
     }
   };
 } }

@@ -115,6 +115,12 @@ foreach(module ${NT2_MODULES})
   endif()
 endforeach()
 
+# Ensure all tools get set up
+file(GLOB NT2_TOOLS RELATIVE ${PROJECT_SOURCE_DIR}/tools ${PROJECT_SOURCE_DIR}/tools/*/)
+foreach(tool ${NT2_TOOLS})
+  nt2_module_tool_setup(${tool})
+endforeach()
+
 nt2_postconfigure_run()
 
 ################################################################################

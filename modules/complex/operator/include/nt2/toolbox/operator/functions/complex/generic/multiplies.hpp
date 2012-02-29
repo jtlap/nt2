@@ -35,6 +35,7 @@
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <iostream>
 
 namespace nt2 { namespace ext
@@ -48,13 +49,18 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
       {
+//         std::cout << "icitte0" << std::endl; 
+//         std::cout << "a0  " << a0 << std::endl;
+//         std::cout << "a1  " << a1 << std::endl; 
         typedef typename meta::as_real<A0>::type rA0;
         typedef typename meta::as_logical<rA0>::type lA0; 
         const rA0 a = real(a0);
         const rA0 b = imag(a0);
         const rA0 c = real(a1);
         const rA0 d = imag(a1);
-        result_type r = result_type(a*c-b*d, a*d+b*c);
+        rA0 x = a*c-b*d;
+        rA0 y = a*d+b*c; 
+        result_type r = result_type(x, y); //result_type(a*c-b*d, a*d+b*c);
         lA0 test = is_finite(r);
         if (all(test)) return r;
         lA0 cur  = is_real(a0);
@@ -81,6 +87,7 @@ namespace nt2 { namespace ext
         cur = is_imag(a1); 
         if (any(cur))
           {
+//             std::cout << "icitte" << std::endl; 
             r = if_else(cur, nt2::multiplies(a0, pure(a1)), r);
             test = logical_or(test, cur);
             if (all(test)) return r;
@@ -125,6 +132,28 @@ namespace nt2 { namespace ext
         return r; 
       }
   };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+                                     , ((generic_< dry_ < arithmetic_<A0> > >))
+                                       ((generic_< complex_< arithmetic_<A1> > >))
+                                     )
+  {
+    typedef A1 result_type;
+    NT2_FUNCTOR_CALL(2)
+      {
+        return nt2::multiplies(real(a0), a1);
+      }
+  }; 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+                                     , ((generic_< complex_< arithmetic_<A0> > >))
+                                     ((generic_< dry_ < arithmetic_<A1> > >))
+                                     )
+  {
+    typedef A0 result_type;
+    NT2_FUNCTOR_CALL(2)
+      {
+        return nt2::multiplies(a0, real(a1));
+      }
+  }; 
   
   // complex/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
@@ -154,13 +183,31 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        result_type r = result_type(if_zero_else(is_imag(a0),-imag(a0)*imag(a1)),
-                                    if_zero_else(is_real(a0),real(a0)*imag(a1))); 
-        typedef typename meta::as_real<A1>::type rtype;
+//         std::cout << "icitte2" << std::endl;
+//         std::cout << "a0     " << a0 << std::endl;
+//         std::cout << "a1     " << a1 << std::endl;
+        typedef typename meta::as_real<A0>::type rtype;
         typedef typename meta::as_logical<rtype>::type ltype;
+        rtype rr = if_zero_else(is_imag(a0),-imag(a0)*imag(a1));
+        rtype ii = if_zero_else(is_real(a0),real(a0)*imag(a1)); 
+        result_type r = result_type(rr, ii);
+//         std::cout << "real(a0)   " << real(a0) << std::endl;
+//         std::cout << "imag(a0)   " << imag(a0) << std::endl;
+//         std::cout << "real(a1)   " << real(a1) << std::endl;
+//         std::cout << "imag(a1)   " << imag(a1) << std::endl;
+//         std::cout << "p r        " << -imag(a0)*imag(a1)<< std::endl;
+//         std::cout << "rr         " << rr                << std::endl;
+//         std::cout << "p i        " << real(a0)*imag(a1)<< std::endl;
+//         std::cout << "ii         " << ii                << std::endl;
+        
+//         std::cout << "icitte3 a0 " << a0 << std::endl;
+//         std::cout << "icitte3 a1 " << a1 << std::endl;
+//         std::cout << "icitte3 r  " << r  << std::endl;
         ltype z = is_eqz(a0); 
+//         std::cout << "any(z)     " << any(z) << std::endl;
         if(any(z))
           r = if_else(z, result_type(real(a0), imag(a0)*imag(a1)), r);
+//         std::cout << "icitte4 r  " << r  << std::endl;  
         return r; 
       }
   };
@@ -174,7 +221,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(a0*imag(a1));
+        return bitwise_cast<result_type>(a0*imag(a1));
       }
   };
   
@@ -186,7 +233,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(imag(a0)*a1);
+        return bitwise_cast<result_type>(imag(a0)*a1);
       }
   };
   
@@ -196,10 +243,46 @@ namespace nt2 { namespace ext
                                      ((generic_< imaginary_< arithmetic_<A1> > >))
                                      )
   {
-    typedef typename meta::as_real<A0>::type result_type;
+    typedef typename meta::as_dry<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return -(imag(a0) * imag(a1));
+        return bitwise_cast<result_type>(-imag(a0) * imag(a1));
+      }
+  };
+  // dry/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+                                     , ((generic_< dry_< arithmetic_<A0> > >))
+                                     ((generic_< dry_< arithmetic_<A1> > >))
+                                     )
+  {
+    typedef typename meta::as_dry<A0>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+      {
+        return bitwise_cast<result_type>(real(a0)*real(a1));
+      }
+  };
+  // dry/imaginary
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+                                     , ((generic_< dry_< arithmetic_<A0> > >))
+                                     ((generic_< imaginary_< arithmetic_<A1> > >))
+                                     )
+  {
+    typedef typename meta::as_imaginary<A0>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+      {
+        return bitwise_cast<result_type>(real(a0)*imag(a1));
+      }
+  };
+  // imaginary/dry
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
+                                     , ((generic_< imaginary_< arithmetic_<A0> > >))
+                                     ((generic_< dry_< arithmetic_<A1> > >))
+                                     )
+  {
+    typedef typename meta::as_imaginary<A0>::type result_type;
+    NT2_FUNCTOR_CALL(2)
+      {
+        return bitwise_cast<result_type>(imag(a0)*real(a1));
       }
   };
   

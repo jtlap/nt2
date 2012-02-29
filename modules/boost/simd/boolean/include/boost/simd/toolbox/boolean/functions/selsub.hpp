@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag selsub_ of functor selsub 
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
-    struct selsub_ {};
+    struct selsub_ : ext::elementwise_<selsub_> { typedef ext::elementwise_<selsub_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::selsub_, selsub, 3)
 } }

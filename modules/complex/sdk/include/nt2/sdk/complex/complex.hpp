@@ -10,7 +10,8 @@
 #define NT2_SDK_COMPLEX_COMPLEX_HPP_INCLUDED
 
 #include <nt2/sdk/complex/details/complex/meta.hpp>
-#include <boost/simd/sdk/simd/composite.hpp>
+#include <boost/simd/sdk/simd/native_tuple.hpp>
 #include <nt2/sdk/complex/details/complex/logical.hpp>
+#include <nt2/sdk/complex/io.hpp>
 
 #endif

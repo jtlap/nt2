@@ -13,7 +13,7 @@
 
 namespace boost { namespace simd { namespace meta
 {
-  template<class T,class Extension>
+  template<class T, class Extension, class Enable = void>
   struct as_simd
   {
     typedef dispatch::meta::na_ type;

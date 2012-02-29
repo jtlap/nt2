@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // specific values tests
-  NT2_TEST_EQUAL(exp2(cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));
+  NT2_TEST_ULP_EQUAL(exp2(cT(nt2::Inf<T>())), cT(nt2::Inf<T>()), 0);
   NT2_TEST_EQUAL(exp2(cT(nt2::Minf<T>())), cT(nt2::Zero<T>()));
   NT2_TEST_EQUAL(exp2(cT(nt2::Mone<T>())), cT(nt2::Half<T>()));
   NT2_TEST_EQUAL(exp2(cT(nt2::Nan<T>())), cT(nt2::Nan<T>()));

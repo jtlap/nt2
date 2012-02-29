@@ -72,7 +72,7 @@ namespace nt2 { namespace libc { namespace tag
      * \brief Define the tag cos_ of functor cos 
      *        in namespace nt2::libc::tag for toolbox libc
     **/
-    struct cos_ {};
+    struct cos_ : ext::elementwise_<cos_> { typedef ext::elementwise_<cos_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(libc::tag::cos_, cos, 1)
   } }

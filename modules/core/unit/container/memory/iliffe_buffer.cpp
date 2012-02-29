@@ -19,7 +19,6 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-#include <boost/fusion/include/vector_tie.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 
 //==============================================================================
@@ -160,7 +159,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_automatic_2D_default_ctor, NT2_TYPES)
 }
 
 //==============================================================================
-// Test for 2D static [1 N] ]iliffe_ buffer default ctor
+// Test for 2D static [1 N] iliffe_ buffer default ctor
 //==============================================================================
 NT2_TEST_CASE_TPL( iliffe_buffer_automatic_2D1D_default_ctor, NT2_TYPES)
 {
@@ -182,7 +181,7 @@ NT2_TEST_CASE_TPL( iliffe_buffer_automatic_2D1D_default_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(b.inner_upper(),   1 );
   NT2_TEST_EQUAL(b.outer_upper(),   4 );
 }
-/*
+
 //==============================================================================
 // Test for dynamic 1D iliffe_buffer copy ctor
 //==============================================================================
@@ -197,7 +196,7 @@ NT2_TEST_CASE_TPL( buffer_1D_copy_ctor, NT2_TYPES)
   buffer_t b( boost::fusion::make_vector(7) );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    b[boost::fusion::make_vector(i)] = T(4+i);
+    b(i) = T(4+i);
 
   buffer_t x(b);
 
@@ -212,7 +211,16 @@ NT2_TEST_CASE_TPL( buffer_1D_copy_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], T(4+i));
+    NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(0));
 }
 
 //==============================================================================
@@ -228,7 +236,7 @@ NT2_TEST_CASE_TPL( buffer_static_1D_copy_ctor, NT2_TYPES)
   buffer_t b( boost::fusion::make_vector(7) );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    b[boost::fusion::vector_tie(i)] = T(4+i);
+    b(i) = T(4+i);
 
   buffer_t x(b);
 
@@ -243,7 +251,16 @@ NT2_TEST_CASE_TPL( buffer_static_1D_copy_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], T(4+i));
+    NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( x(i), T(0));
 }
 
 //==============================================================================
@@ -260,7 +277,7 @@ NT2_TEST_CASE_TPL( buffer_2D_copy_ctor, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
-      b[boost::fusion::vector_tie(i,j)] = T(3+i + 10*j);
+      b(i,j) = T(3+i + 10*j);
 
   buffer_t x(b);
 
@@ -276,7 +293,19 @@ NT2_TEST_CASE_TPL( buffer_2D_copy_ctor, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i,j)], T(3+i + 10*j) );
+    NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    x(i,j) = 0;
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(0) );
 }
 
 //==============================================================================
@@ -293,7 +322,7 @@ NT2_TEST_CASE_TPL( buffer_static_2D_copy_ctor, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
-      b[boost::fusion::vector_tie(i,j)] = T(3+i + 10*j);
+      b(i,j) = T(3+i + 10*j);
 
   buffer_t x(b);
 
@@ -309,7 +338,19 @@ NT2_TEST_CASE_TPL( buffer_static_2D_copy_ctor, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i,j)], T(3+i + 10*j) );
+    NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    x(i,j) = 0;
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( x(i,j), T(0) );
 }
 
 //==============================================================================
@@ -325,7 +366,7 @@ NT2_TEST_CASE_TPL( buffer_1D_assignment, NT2_TYPES)
   buffer_t x,b( boost::fusion::make_vector(7) );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    b[boost::fusion::vector_tie(i)] = T(4+i);
+    b(i) = T(4+i);
 
   x = b;
 
@@ -340,7 +381,13 @@ NT2_TEST_CASE_TPL( buffer_1D_assignment, NT2_TYPES)
   NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], T(4+i));
+    NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
 }
 
 //==============================================================================
@@ -356,7 +403,7 @@ NT2_TEST_CASE_TPL( buffer_static_1D_assignment, NT2_TYPES)
   buffer_t x,b( boost::fusion::make_vector(7) );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    b[boost::fusion::vector_tie(i)] = T(4+i);
+    b(i) = T(4+i);
 
   x = b;
 
@@ -371,7 +418,13 @@ NT2_TEST_CASE_TPL( buffer_static_1D_assignment, NT2_TYPES)
   NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], T(4+i));
+    NT2_TEST_EQUAL( x(i), T(4+i));
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    x(i) = T(0);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( b(i), T(4+i));
 }
 
 //==============================================================================
@@ -388,7 +441,7 @@ NT2_TEST_CASE_TPL( buffer_2D_assignment, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
-      b[boost::fusion::vector_tie(i,j)] = T(3+i + 10*j);
+      b(i,j) = T(3+i + 10*j);
 
   x = b;
 
@@ -404,7 +457,15 @@ NT2_TEST_CASE_TPL( buffer_2D_assignment, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i,j)], T(3+i + 10*j));
+    NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j));
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      x(i,j) = T(0);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j));
 }
 
 //==============================================================================
@@ -421,7 +482,7 @@ NT2_TEST_CASE_TPL( buffer_static_2D_assignment, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
-      b[boost::fusion::vector_tie(i,j)] = T(3+i + 10*j);
+      b(i,j) = T(3+i + 10*j);
 
   x = b;
 
@@ -437,7 +498,15 @@ NT2_TEST_CASE_TPL( buffer_static_2D_assignment, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i,j)], T(3+i + 10*j));
+    NT2_TEST_EQUAL( x(i,j), T(3+i + 10*j));
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      x(i,j) = T(0);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+    NT2_TEST_EQUAL( b(i,j), T(3+i + 10*j));
 }
 
 //==============================================================================
@@ -453,10 +522,10 @@ NT2_TEST_CASE_TPL( buffer_1D_swap, NT2_TYPES)
   buffer_t x(boost::fusion::make_vector(4)),b(boost::fusion::make_vector(7));
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    b[boost::fusion::vector_tie(i)] = T(4+i);
+    b(i) = T(4+i);
 
   for ( typename buffer_t::difference_type i = -3; i <= 0; ++i )
-    x[boost::fusion::vector_tie(i)] = T(-i);
+    x(i) = T(-i);
 
   swap(b,x);
 
@@ -485,10 +554,10 @@ NT2_TEST_CASE_TPL( buffer_1D_swap, NT2_TYPES)
   NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], T(4+i));
+    NT2_TEST_EQUAL( x(i), T(4+i));
 
   for ( typename buffer_t::difference_type i = -3; i <= 0; ++i )
-    NT2_TEST_EQUAL( b[boost::fusion::vector_tie(i)], T(-i));
+    NT2_TEST_EQUAL( b(i), T(-i));
 }
 
 //==============================================================================
@@ -504,10 +573,10 @@ NT2_TEST_CASE_TPL( buffer_static_1D_swap, NT2_TYPES)
   buffer_t x,b;
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    b[boost::fusion::vector_tie(i)] = T(4);
+    b(i) = T(4);
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    x[boost::fusion::vector_tie(i)] = T(10);
+    x(i) = T(10);
 
   swap(b,x);
 
@@ -532,12 +601,12 @@ NT2_TEST_CASE_TPL( buffer_static_1D_swap, NT2_TYPES)
   NT2_TEST_EQUAL(x.outer_upper(),    1 );
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i)], T(4));
+    NT2_TEST_EQUAL( x(i), T(4));
 
   for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
-    NT2_TEST_EQUAL( b[boost::fusion::vector_tie(i)], T(10));
+    NT2_TEST_EQUAL( b(i), T(10));
 }
-
+/*
 //==============================================================================
 // Test for static 2D iliffe_buffer swap
 //==============================================================================
@@ -554,11 +623,11 @@ NT2_TEST_CASE_TPL( buffer_static_2D_swap, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = 1; i <= 5; ++i )
-      b[boost::fusion::vector_tie(i,j)] = T(7);
+      b(i,j) = T(7);
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = 1; i <= 5; ++i )
-      x[boost::fusion::vector_tie(i,j)] = T(9);
+      x(i,j) = T(9);
 
   swap(b,x);
 
@@ -584,10 +653,88 @@ NT2_TEST_CASE_TPL( buffer_static_2D_swap, NT2_TYPES)
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = 1; i <= 5; ++i )
-    NT2_TEST_EQUAL( x[boost::fusion::vector_tie(i,j)], T(7));
+    NT2_TEST_EQUAL( x(i,j), T(7));
 
   for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
     for ( typename buffer_t::difference_type i = 1; i <= 5; ++i )
-    NT2_TEST_EQUAL( b[boost::fusion::vector_tie(i,j)], T(9));
+    NT2_TEST_EQUAL( b(i,j), T(9));
 }
 */
+
+//==============================================================================
+// Test for dynamic 1D iliffe_buffer get
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_1D_get, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+
+  typedef iliffe_buffer<buffer<T,-3>, void> buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(7) );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4+i);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( *b.get(i), T(4+i));
+}
+
+//==============================================================================
+// Test for automatic 1D iliffe_buffer get
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_1D_get, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer<array_buffer<T,7,-3>, void> buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(7) );
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    b(i) = T(4+i);
+
+  for ( typename buffer_t::difference_type i = -3; i <= 3; ++i )
+    NT2_TEST_EQUAL( *b.get(i), T(4+i));
+}
+
+//==============================================================================
+// Test for dynamic 2D iliffe_buffer get
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_2D_get, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::buffer;
+
+  typedef iliffe_buffer<buffer<T,-2>,buffer<T*,1> > buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(5,3) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      b(i,j) = T(3+i + 10*j);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    NT2_TEST_EQUAL( b.get(j)[0], T(3 + 10*j));
+}
+
+//==============================================================================
+// Test for static 2D iliffe_buffer get
+//==============================================================================
+NT2_TEST_CASE_TPL( buffer_static_2D_get, NT2_TYPES)
+{
+  using nt2::memory::iliffe_buffer;
+  using nt2::memory::array_buffer;
+
+  typedef iliffe_buffer<array_buffer<T,15,-2>, array_buffer<T*, 3, 1> > buffer_t;
+
+  buffer_t b( boost::fusion::make_vector(5,3) );
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    for ( typename buffer_t::difference_type i = -2; i <= 2; ++i )
+      b(i,j) = T(3+i + 10*j);
+
+  for ( typename buffer_t::difference_type j = 1; j <= 3; ++j )
+    NT2_TEST_EQUAL( b.get(j)[0], T(3 + 10*j));
+}

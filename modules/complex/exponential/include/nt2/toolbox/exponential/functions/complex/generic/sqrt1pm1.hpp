@@ -13,7 +13,6 @@
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/constants/half.hpp>
 
 namespace nt2 { namespace ext
@@ -23,12 +22,13 @@ namespace nt2 { namespace ext
                             , ((generic_<complex_< floating_<A0 > > >))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type tmp = sqrt(oneplus(tofloat(a0))); 
-      return if_else(lt(nt2::abs(a0), Half<A0>()),
-                     a0/oneplus(tmp),
+      typedef typename meta::as_real<result_type>::type rtype; 
+      result_type tmp = nt2::sqrt(oneplus(a0));
+      return if_else(lt(nt2::abs(a0), Half<rtype>()),
+                     nt2::divides(a0, oneplus(tmp)),
                      minusone(tmp)); 
     }
   };

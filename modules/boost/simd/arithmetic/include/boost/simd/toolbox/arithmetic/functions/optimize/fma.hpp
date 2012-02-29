@@ -18,16 +18,8 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::plus_
-                                    , boost::simd::tag::optimize_
-                                    , (A0)(A1)(Domain)(Arity)
-                                    , ((expr_ < unspecified_<A0>
-                                              , Domain
-                                              , boost::simd::tag::multiplies_
-                                              , Arity
-                                              >
-                                      ))
-                                      (unspecified_<A1>)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)
+                                   , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> >))(unspecified_<A1>)
                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(
@@ -42,17 +34,9 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::plus_
-                                    , boost::simd::tag::optimize_
-                                    , (A0)(A1)(Domain)(Arity)
-                                    , (unspecified_<A0>)
-                                      ((expr_ < unspecified_<A1>
-                                              , Domain
-                                              , boost::simd::tag::multiplies_
-                                              , Arity
-                                              >
-                                      ))
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)
+                                   , (unspecified_<A0>)((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> >))
+                                   )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(
           typename boost::proto::result_of::child_c<A1, 0>::type const&,
@@ -66,21 +50,8 @@ namespace boost { namespace simd { namespace ext
     }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_
-                                   , boost::simd::tag::optimize_
-                                   , (A0)(A1)(Domain)(Arity0)(Arity1)
-                                   , ((expr_< unspecified_<A0>
-                                            , Domain
-                                            , boost::simd::tag::multiplies_
-                                            , Arity0
-                                            >
-                                     ))
-                                     ((expr_< unspecified_<A1>
-                                            , Domain
-                                            , boost::simd::tag::multiplies_
-                                            , Arity1
-                                            >
-                                     ))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , boost::simd::tag::optimize_, (A0)(A1)
+                                   , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> >))((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> >))
                                    )
   {
     typedef typename dispatch::meta::call< boost::simd::tag::fma_(

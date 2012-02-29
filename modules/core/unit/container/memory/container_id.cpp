@@ -284,3 +284,25 @@ NT2_TEST_CASE_TPL( container_swap, NT2_TYPES)
     for(typename type::difference_type i=1;i<=32;++i)
       NT2_TEST_EQUAL(x[boost::fusion::vector_tie(i,j)], T(i));
 }
+
+//==============================================================================
+// Test for container get
+//==============================================================================
+NT2_TEST_CASE_TPL( container_get, NT2_TYPES)
+{
+  using nt2::id_;
+  using nt2::of_size;
+  using nt2::settings;
+  using nt2::tag::table_;
+  using nt2::memory::container;
+
+  typedef container<table_,id_<101>,T,settings()> type;
+  type b( of_size(32,3) );
+
+  for(typename type::difference_type j=1;j<=3;++j)
+    for(typename type::difference_type i=1;i<=32;++i)
+      b[boost::fusion::vector_tie(i,j)] = T(i + j);
+
+  for(typename type::difference_type j=1;j<=3;++j)
+    NT2_TEST_EQUAL(b.get(j)[1], T(1 + j));
+}

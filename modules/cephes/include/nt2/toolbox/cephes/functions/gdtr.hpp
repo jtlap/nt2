@@ -74,7 +74,7 @@ namespace nt2 { namespace cephes { namespace tag
      * \brief Define the tag gdtr_ of functor gdtr 
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
-    struct gdtr_ {};
+    struct gdtr_ : ext::elementwise_<gdtr_> { typedef ext::elementwise_<gdtr_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(cephes::tag::gdtr_, gdtr, 3)
   } }

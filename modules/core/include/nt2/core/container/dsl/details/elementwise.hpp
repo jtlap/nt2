@@ -90,14 +90,14 @@ namespace nt2 { namespace container { namespace ext
 
     template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
     typename result<size_fold(A0 const&, A1 const&)>::type
-    selection(A0 const& a0, A1 const& a1, boost::mpl::true_ const&) const
+    selection(A0 const& a0, A1 const&, boost::mpl::true_ const&) const
     {
       return a0;
     }
 
     template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE
     typename result<size_fold(A0 const&, A1 const&)>::type
-    selection(A0 const& a0, A1 const& a1, boost::mpl::false_ const&) const
+    selection(A0 const&, A1 const& a1, boost::mpl::false_ const&) const
     {
       return a1;
     }

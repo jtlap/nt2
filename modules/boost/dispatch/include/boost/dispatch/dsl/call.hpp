@@ -47,7 +47,7 @@ namespace boost { namespace dispatch { namespace details
   };
   
   template<class T>
-  struct proto_value_impl<T, typename enable_if_c< proto::arity_of<T>::value == 0 >::type>
+  struct proto_value_impl<T, typename enable_if< is_same<typename proto::tag_of<T>::type, proto::tag::terminal> >::type>
     : add_reference<T>
   {
   };
@@ -61,7 +61,14 @@ namespace boost { namespace dispatch { namespace details
 namespace tag
 {
   struct ast_ {};
-    
+}
+namespace meta
+{
+  template<class T>
+  struct proto_tag
+  {
+    typedef T type;
+  };
 } } }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -96,7 +103,7 @@ template<class This,BOOST_PP_ENUM_PARAMS(n,class A)>                           \
 struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
 {                                                                              \
   typedef typename boost::proto::result_of::                                   \
-  make_expr < Func                                                             \
+  make_expr < typename meta::proto_tag<Func>::type                             \
             , boost::proto::deduce_domain                                      \
             , BOOST_PP_ENUM_BINARY_PARAMS(n, typename details::                \
                                    proto_value<A, >::type BOOST_PP_INTERCEPT)  \
@@ -110,7 +117,7 @@ typename result<implement                                                      \
 operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const                       \
 {                                                                              \
   return boost::proto::detail::                                                \
-  make_expr_< Func                                                             \
+  make_expr_< typename meta::proto_tag<Func>::type                             \
             , boost::proto::                                                   \
               deduce_domain                                                    \
             , BOOST_PP_ENUM_BINARY_PARAMS(n, typename details::                \

@@ -42,7 +42,7 @@ namespace nt2
     static std::size_t size() { return 0;     }
     static bool empty()       { return true;  }
 
-    const_reference    operator[](std::size_t i) const { return 1; }
+    const_reference    operator[](std::size_t ) const { return 1; }
 
     std::size_t* data()             { return 0; }
     std::size_t const* data() const { return 0; }
@@ -59,10 +59,10 @@ namespace nt2
 
     of_size_() {}
 
-    template<class Seq>
-    of_size_( Seq const& other
-            , typename  boost::enable_if
-                        < boost::fusion::traits::is_sequence<Seq> >::type* = 0
+    template<class S>
+    of_size_( S const& other
+            , typename boost::enable_if
+              < boost::fusion::traits::is_sequence<S> >::type* = 0
             )
     {
       details::check_all_equal(other, 1);

@@ -13,6 +13,7 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -36,7 +37,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(-imag(a0));
+      return bitwise_cast<result_type>(-imag(a0));
     }
   };
 
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(-real(a0));
+      return bitwise_cast<result_type>(-real(a0));
     }
   };  
 } }

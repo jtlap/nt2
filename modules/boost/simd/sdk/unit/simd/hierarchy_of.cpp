@@ -16,190 +16,231 @@
 #include <boost/type_traits/is_same.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
 #include <iostream>
+
+struct hierarchy_
+{
+  template<class X>
+  struct apply : boost::dispatch::meta::hierarchy_of<X>
+  {
+  };
+};
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test category of SIMD types
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(simd_category)
 {
+  using namespace boost::dispatch::meta;
   using boost::simd::native;
-  using boost::dispatch::meta::hierarchy_of;
-  using boost::dispatch::meta::simd_; 
-  using boost::is_same;
-  using namespace boost::simd;
+  using boost::mpl::_;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
 
   #if defined(BOOST_SIMD_SSE_FAMILY)
-  NT2_TEST((is_same<  hierarchy_of< native<double,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::double_<native<double,ext_t> > ,ext_t>
-                    >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<native<boost::simd::uint64_t,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::uint64_<native<boost::simd::uint64_t,ext_t> > ,ext_t>
-                    >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<native<boost::simd::int64_t,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::int64_<native<boost::simd::int64_t,ext_t> > ,ext_t>
-                    >::value
-          ));
+  {
+    native<double, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< double_< native<double, ext_t> >, ext_t > )
+                      );
+  }
+  {
+    native<boost::simd::uint64_t, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< uint64_< native<boost::simd::uint64_t, ext_t> >, ext_t > )
+                      );
+  }
+  {
+    native<boost::simd::int64_t, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< int64_< native<boost::simd::int64_t, ext_t> >, ext_t > )
+                      );
+  }
   #endif
 
-  NT2_TEST((is_same<  hierarchy_of<native<float,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::single_< native<float,ext_t> >,ext_t>
-                    >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<native<boost::simd::uint32_t,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::uint32_<native<boost::simd::uint32_t,ext_t> >,ext_t>
-                    >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<native<boost::simd::int32_t,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::int32_<native<boost::simd::int32_t,ext_t> > ,ext_t>
-                    >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<native<boost::simd::uint16_t,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::uint16_<native<boost::simd::uint16_t,ext_t> > ,ext_t>
-                    >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<native<boost::simd::int16_t,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::int16_<native<boost::simd::int16_t,ext_t> > ,ext_t>
-                    >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<native<boost::simd::uint8_t,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::uint8_<native<boost::simd::uint8_t,ext_t> > ,ext_t>
-                    >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<native<boost::simd::int8_t,ext_t> >::type
-                    , boost::dispatch::meta::simd_< boost::dispatch::meta::int8_<native<boost::simd::int8_t,ext_t> > ,ext_t>
-                    >::value
-          ));
+  {
+    native<float, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< single_< native<float, ext_t> >, ext_t > )
+                      );
+  }
+  {
+    native<boost::simd::uint32_t, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< uint32_< native<boost::simd::uint32_t, ext_t> >, ext_t > )
+                      );
+  }
+  {
+    native<boost::simd::int32_t, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< int32_< native<boost::simd::int32_t, ext_t> >, ext_t > )
+                      );
+  }
+  {
+    native<boost::simd::uint16_t, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< uint16_< native<boost::simd::uint16_t, ext_t> >, ext_t > )
+                      );
+  }
+  {
+    native<boost::simd::int16_t, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< int16_< native<boost::simd::int16_t, ext_t> >, ext_t > )
+                      );
+  }
+  {
+    native<boost::simd::uint8_t, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< uint8_< native<boost::simd::uint8_t, ext_t> >, ext_t > )
+                      );
+  }
+  {
+    native<boost::simd::int8_t, ext_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( simd_< int8_< native<boost::simd::int8_t, ext_t> >, ext_t > )
+                      );
+  }
 }
 
 NT2_TEST_CASE(pack_category)
 {
-  using boost::simd::pack;
-  using boost::dispatch::meta::hierarchy_of;
-  using boost::dispatch::meta::simd_;
-  using boost::is_same;
+  using namespace boost::dispatch::meta;
   using namespace boost::simd;
+  using boost::mpl::_;
 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::domain           domain_;
-  typedef boost::proto::tag::terminal   tag_;
-  typedef boost::mpl::long_<0>          arity_;
-
-  std::cout << nt2::type_id< hierarchy_of< pack<double> >::type >() << std::endl;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION   ext_t;
+  typedef boost::simd::domain            domain_;
+  typedef boost::simd::tag::terminal_    tag_;
+  typedef boost::mpl::long_<0>           arity_;
 
   #if defined(BOOST_SIMD_SSE_FAMILY)
-  NT2_TEST((is_same<  hierarchy_of< pack<double> >::type
-                    , boost::dispatch::meta::expr_<
-                        boost::dispatch::meta::simd_< boost::dispatch::meta::double_< pack<double> >, ext_t >
-                      , domain_, tag_, arity_> >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<pack<boost::simd::uint64_t> >::type
-                    , boost::dispatch::meta::expr_<
-                        boost::dispatch::meta::simd_< boost::dispatch::meta::uint64_<pack<boost::simd::uint64_t> > ,ext_t>
-                      , domain_, tag_, arity_> >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<pack<boost::simd::int64_t> >::type
-                    , boost::dispatch::meta::expr_<
-                        boost::dispatch::meta::simd_< boost::dispatch::meta::int64_<pack<boost::simd::int64_t> > ,ext_t>
-                      , domain_, tag_, arity_> >::value
-          ));
+  {
+    pack<double> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< double_< pack<double> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
+  {
+    pack<boost::simd::uint64_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< uint64_< pack<boost::simd::uint64_t> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
+  {
+    pack<boost::simd::int64_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< int64_< pack<boost::simd::int64_t> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
   #endif
 
-  NT2_TEST((is_same<  hierarchy_of<pack<float> >::type
-                    , boost::dispatch::meta::expr_<
-                        boost::dispatch::meta::simd_< boost::dispatch::meta::single_< pack<float> >,ext_t>
-                      , domain_, tag_, arity_> >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<pack<boost::simd::uint32_t> >::type
-                    , boost::dispatch::meta::expr_<
-                        boost::dispatch::meta::simd_< boost::dispatch::meta::uint32_<pack<boost::simd::uint32_t> >,ext_t>
-                      , domain_, tag_, arity_> >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<pack<boost::simd::int32_t> >::type
-                    , boost::dispatch::meta::expr_<
-                        boost::dispatch::meta::simd_< boost::dispatch::meta::int32_<pack<boost::simd::int32_t> > ,ext_t>
-                      , domain_, tag_, arity_> >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<pack<boost::simd::uint16_t> >::type
-                    , boost::dispatch::meta::expr_<
-                       boost::dispatch::meta::simd_< boost::dispatch::meta::uint16_<pack<boost::simd::uint16_t> > ,ext_t>
-                     , domain_, tag_, arity_>  >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<pack<boost::simd::int16_t> >::type
-                    , boost::dispatch::meta::expr_<
-                        boost::dispatch::meta::simd_< boost::dispatch::meta::int16_<pack<boost::simd::int16_t> > ,ext_t>
-                      , domain_, tag_, arity_> >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<pack<boost::simd::uint8_t> >::type
-                    , boost::dispatch::meta::expr_<
-                        boost::dispatch::meta::simd_< boost::dispatch::meta::uint8_<pack<boost::simd::uint8_t> > ,ext_t>
-                      , domain_, tag_, arity_> >::value
-          ));
-
-  NT2_TEST((is_same<  hierarchy_of<pack<boost::simd::int8_t> >::type
-                    , boost::dispatch::meta::expr_<
-                        boost::dispatch::meta::simd_< boost::dispatch::meta::int8_<pack<boost::simd::int8_t> > ,ext_t>
-                      , domain_, tag_, arity_> >::value
-          ));
+  {
+    pack<float> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< single_< pack<float> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
+  {
+    pack<boost::simd::uint32_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< uint32_< pack<boost::simd::uint32_t> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
+  {
+    pack<boost::simd::int32_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< int32_< pack<boost::simd::int32_t> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
+  {
+    pack<boost::simd::uint16_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< uint16_< pack<boost::simd::uint16_t> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
+  {
+    pack<boost::simd::int16_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< int16_< pack<boost::simd::int16_t> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
+  {
+    pack<boost::simd::uint8_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< uint8_< pack<boost::simd::uint8_t> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
+  {
+    pack<boost::simd::int8_t> p;
+    NT2_TEST_EXPR_TYPE( p, hierarchy_
+                      , ( expr_< simd_< int8_< pack<boost::simd::int8_t> >, ext_t >
+                               , tag_, arity_
+                               >
+                        )
+                      );
+  }
 }
 
 NT2_TEST_CASE_TPL(pack_expr_category, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::pack;
-  using boost::is_same;
   using namespace boost::dispatch::meta;
-
-  NT2_TEST((
-    is_same<
-        typename hierarchy_of<pack<T> >::type
-      , expr_<
-            typename hierarchy_of<
-                typename semantic_of<
-                    pack<T>
-                >::type,
-                pack<T>
-            >::type
-          , typename boost::proto::domain_of<pack<T> >::type
-          , boost::proto::tag::terminal
-          , boost::mpl::long_<0>
-        >
-    >::value
-  ));
+  using boost::mpl::_;
 
   pack<T> x,y;
+
+  NT2_TEST_EXPR_TYPE( x
+                    , hierarchy_
+                    , ( expr_< typename hierarchy_of< typename semantic_of< pack<T> >::type
+                                                    , pack<T>
+                                                    >::type
+                             , boost::simd::tag::terminal_
+                             , typename boost::proto::arity_of< pack<T> >::type
+                             >
+                      )
+                    );
   
   typedef BOOST_DISPATCH_TYPEOF(x+y) type_t_;
   typedef typename strip<type_t_>::type type_t;
-  typedef typename boost::proto::domain_of<type_t>::type domain_t;
+  typedef typename boost::proto::arity_of<type_t>::type arity_t;
   typedef typename semantic_of<type_t>::type semantic_t;
 
-  NT2_TEST(( is_same< typename hierarchy_of<type_t>::type
-                    , expr_< typename hierarchy_of<semantic_t, type_t>::type
-                           , domain_t
-                           , boost::proto::tag::plus
-                           , boost::mpl::long_<2>
-                           >
-                    >::value
-          ));
+  NT2_TEST_EXPR_TYPE( x + y
+                    , hierarchy_
+                    , ( expr_< typename hierarchy_of<semantic_t, type_t>::type
+                             , boost::simd::tag::plus_
+                             , arity_t
+                             >
+                      )
+                    );
 }

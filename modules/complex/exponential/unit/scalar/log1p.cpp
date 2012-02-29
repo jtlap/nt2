@@ -48,13 +48,13 @@ NT2_TEST_CASE_TPL ( log1p_real__1_0,  NT2_REAL_TYPES)
   ulpd=0.0;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Inf<cT>()),   nt2::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Minf<cT>()),  cT(nt2::Inf<T>(), nt2::Pi<T>()), 0);
-  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Mone<cT>()),  cT(nt2::Minf<T>(), nt2::Zero<T>()), 0); 
-  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Nan<cT>()),   cT(nt2::Nan<T>(), nt2::Nan<T>()), 0);
-  NT2_TEST_ULP_EQUAL(nt2::log1p(cT(nt2::Nan<T>(),nt2::Nan<T>())),  cT(nt2::Nan<T>(), nt2::Nan<T>()), 0);
-  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::One<cT>()),   cT(nt2::Log_2<T>(), nt2::Zero<T>()), 0);
-  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Zero<cT>()),  cT(nt2::Zero<T>(), nt2::Zero<T>()), 0);
+  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Inf<cT>()),   cT(nt2::Inf<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Minf<cT>()),  cT(nt2::Inf<T>(), nt2::Pi<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Mone<cT>()),  cT(nt2::Minf<T>(), nt2::Zero<T>()), 0.5); 
+  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Nan<cT>()),   cT(nt2::Nan<T>(), nt2::Nan<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::log1p(cT(nt2::Nan<T>(),nt2::Nan<T>())),  cT(nt2::Nan<T>(), nt2::Nan<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::One<cT>()),   cT(nt2::Log_2<T>(), nt2::Zero<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::log1p(nt2::Zero<cT>()),  cT(nt2::Zero<T>(), nt2::Zero<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::log1p(cT(nt2::Zero<T>(), nt2::One<T>())),cT(nt2::log(nt2::Sqrt_2<T>()), nt2::Pio_2<T>()/2), 0.5); 
 } // end of test for floating_
 

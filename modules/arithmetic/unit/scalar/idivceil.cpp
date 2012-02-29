@@ -108,6 +108,10 @@ NT2_TEST_CASE_TPL ( idivceil_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
+#ifdef BOOST_MSVC
+  #pragma warning(push)
+  #pragma warning(disable: 4723) // potential divide by 0
+#endif
 
 
   // specific values tests
@@ -117,3 +121,6 @@ NT2_TEST_CASE_TPL ( idivceil_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(idivceil(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivceil(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
 } // end of test for signed_int_
+#ifdef BOOST_MSVC
+  #pragma warning(pop)
+#endif

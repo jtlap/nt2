@@ -36,6 +36,21 @@ namespace nt2 { namespace ext
       return that;
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::size_, tag::cpu_
+                            , (A0)(S0)(A1)
+                            , ((table_< unspecified_<A0>, S0>))
+                              (scalar_< unspecified_<A1> >)
+                            )
+  {
+    typedef std::size_t result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0,const A1& a1) const
+    {
+      return nt2::extent(a0)[a1-1];
+    }
+  };
 } }
 
 #endif

@@ -55,7 +55,7 @@ namespace nt2 { namespace tag
      * \brief Define the tag gammaln_ of functor gammaln 
      *        in namespace nt2::tag for toolbox euler
     **/
-    struct gammaln_ {};
+    struct gammaln_ : ext::elementwise_<gammaln_> { typedef ext::elementwise_<gammaln_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::gammaln_, gammaln, 1)
 }

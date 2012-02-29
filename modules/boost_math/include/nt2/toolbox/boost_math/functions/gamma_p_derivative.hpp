@@ -67,7 +67,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag gamma_p_derivative_ of functor gamma_p_derivative 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct gamma_p_derivative_ {};
+    struct gamma_p_derivative_ : ext::elementwise_<gamma_p_derivative_> { typedef ext::elementwise_<gamma_p_derivative_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::gamma_p_derivative_, gamma_p_derivative, 2)
   } }

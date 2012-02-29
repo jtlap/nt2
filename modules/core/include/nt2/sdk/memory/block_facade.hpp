@@ -26,7 +26,7 @@ namespace nt2 { namespace memory
    *
    **/
   //============================================================================
-  template<class Shape, class Type, class Settings> class block;
+  template<class Shape, class Type, class Settings> struct block;
 
   //============================================================================
   /**!
@@ -53,6 +53,8 @@ namespace nt2 { namespace memory
     typedef typename buffer_t::const_reference  const_reference;
     typedef typename buffer_t::size_type        size_type;
     typedef typename buffer_t::difference_type  difference_type;
+    typedef typename buffer_t::pointer          pointer;
+    typedef typename buffer_t::const_pointer    const_pointer;
 
     //==========================================================================
     // Default Constructor

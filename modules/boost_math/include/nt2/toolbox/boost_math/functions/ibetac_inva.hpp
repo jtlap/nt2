@@ -68,7 +68,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag ibetac_inva_ of functor ibetac_inva 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct ibetac_inva_ {};
+    struct ibetac_inva_ : ext::elementwise_<ibetac_inva_> { typedef ext::elementwise_<ibetac_inva_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::ibetac_inva_, ibetac_inva, 3)
   } }

@@ -68,7 +68,7 @@ namespace nt2 { namespace standard { namespace tag
      * \brief Define the tag fmod_ of functor fmod 
      *        in namespace nt2::standard::tag for toolbox standard
     **/
-    struct fmod_ {};
+    struct fmod_ : ext::elementwise_<fmod_> { typedef ext::elementwise_<fmod_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(standard::tag::fmod_, fmod, 2)
   } }

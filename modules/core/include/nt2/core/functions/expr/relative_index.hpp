@@ -9,6 +9,9 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_RELATIVE_INDEX_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_RELATIVE_INDEX_HPP_INCLUDED
 
+#include <nt2/table.hpp>
+#include <nt2/core/functions/extent.hpp>
+
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/container/category.hpp>
 
@@ -18,13 +21,8 @@ namespace nt2 { namespace ext
   // When indexing an expression, return the evaluation of said expression
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
-                            , (A0)(Tag)(A1)(A2)(Arity)
-                            , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
-                                      , Tag
-                                      , Arity
-                                      >
-                              ))
+                            , (A0)(A1)(A2)
+                            , (ast_<A0>)
                               (fusion_sequence_<A1>)
                               (mpl_integral_< scalar_< integer_<A2> > >)
                             )
@@ -47,8 +45,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
                             , (A0)(A1)(A2)(Arity)
                             , ((expr_ < colon_< A0 >
-                                      , nt2::container::domain
-                                      , tag::terminal_
+                                      , nt2::tag::terminal_
                                       , Arity
                                       >
                               ))

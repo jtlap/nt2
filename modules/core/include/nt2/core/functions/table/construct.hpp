@@ -15,6 +15,7 @@
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <boost/fusion/include/fold.hpp>
+#include <nt2/dsl/functions/terminal.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -24,11 +25,10 @@ namespace nt2 { namespace ext
   // Construct a terminal from a size
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(Arity)(A1)
+                            , (A0)(A1)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
-                                      , tag::terminal_
-                                      , Arity
+                                      , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               (fusion_sequence_<A1>)
@@ -50,11 +50,10 @@ namespace nt2 { namespace ext
   // Construct a terminal from a size and some unspecified allocator
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(A1)(A2)(Arity)
+                            , (A0)(A1)(A2)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
-                                      , tag::terminal_
-                                      , Arity
+                                      , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               (fusion_sequence_<A1>)
@@ -78,17 +77,15 @@ namespace nt2 { namespace ext
   // Construct a terminal from another expression
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(Arity0)(A1)(Tag)(Arity1)
+                            , (A0)(A1)(Tag)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
-                                      , tag::terminal_
-                                      , Arity0
+                                      , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               ((expr_ < unspecified_<A1>
-                                      , nt2::container::domain
                                       , Tag
-                                      , Arity1
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                             )
@@ -106,11 +103,10 @@ namespace nt2 { namespace ext
   // Construct a terminal from a scalar
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(Arity)(A1)
+                            , (A0)(A1)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
-                                      , tag::terminal_
-                                      , Arity
+                                      , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               (scalar_< unspecified_<A1> >)
@@ -130,11 +126,10 @@ namespace nt2 { namespace ext
   // Construct a terminal from a size and a Iterator pair
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
-                            , (A0)(Arity0)(A1)(A2)(A3)
+                            , (A0)(A1)(A2)(A3)
                             , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
-                                      , tag::terminal_ 
-                                      , Arity0
+                                      , nt2::tag::terminal_
+                                      , boost::mpl::long_<0>
                                       >
                               ))
                               (fusion_sequence_<A1>)

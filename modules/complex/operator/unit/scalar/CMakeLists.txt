@@ -12,6 +12,10 @@ set( SOURCES
   minus.cpp
   multiplies.cpp
   divides.cpp
+  imag.cpp
+  real.cpp
+  i.cpp
+  sqrti.cpp
    )
 
 nt2_module_add_tests(complex.operator.scalar.unit ${SOURCES})

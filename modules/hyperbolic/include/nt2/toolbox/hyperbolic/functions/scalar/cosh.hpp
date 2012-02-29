@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_COSH_HPP_INCLUDED
 #include <nt2/include/constants/real.hpp>
 
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/rec.hpp>
 
@@ -30,7 +31,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
-      const type tmp=nt2::exp(type(a0));
+      const type tmp=nt2::exp(nt2::abs(type(a0)));
       return (tmp+rec(tmp))*Half<type>();
     }
   };

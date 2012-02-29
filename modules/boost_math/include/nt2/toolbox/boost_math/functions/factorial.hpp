@@ -67,13 +67,10 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag factorial_ of functor factorial 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    template < class T> struct factorial_ {};
+    template < class T> struct factorial_ : ext::elementwise_< factorial_<T> > { typedef ext::elementwise_< factorial_<T> > parent; };
   }
   NT2_BOOST_MATH_FUNCTION_IMPLEMENTATION_TPL(factorial,1)
   } }
-
-#include <nt2/toolbox/boost_math/functions/scalar/factorial.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/factorial.hpp> 
 
 #endif
 

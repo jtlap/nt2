@@ -16,7 +16,7 @@
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/group.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
-//#include <iostream>
+
 //TODO suppress the file or make a performing simd impl
 //moreover the commented part induce in short errors in clang
 // results depending on cout being there or not

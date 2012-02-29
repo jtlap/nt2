@@ -10,6 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/extent.hpp>
+#include <nt2/include/functions/size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -34,6 +35,12 @@ NT2_TEST_CASE( of_size_ctor )
   {
     table<float> x( of_size(2,3) );
     NT2_TEST( nt2::extent(x) == of_size(2,3) );
+
+    table<float, of_size_<5, 1>  > b;
+    NT2_TEST( nt2::extent(b) == of_size(5, 1) );
+
+    table<float, of_size_<5>  > c;
+    NT2_TEST( nt2::extent(c) == of_size(5) );
   }
 
   {
@@ -130,5 +137,18 @@ NT2_TEST_CASE( shared_ctor )
     for(int j=1;j<=2;++j)
      for(int i=1;i<=3;++i)
         NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
+  }
+
+  {
+    float f = 1.f;
+
+    table < float, settings ( shared_ , no_padding_ )
+          > x(nt2::extent(f), share(&f, &f + 1));
+
+    NT2_TEST( nt2::extent(x) == of_size(1) );
+
+    NT2_TEST_EQUAL( float(x(1,1)), 1.f );
+    x = 2.f;
+    NT2_TEST_EQUAL( float(x(1,1)), 2.f );
   }
 }

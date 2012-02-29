@@ -27,6 +27,8 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
+#include <nt2/include/functions/safe_max.hpp>
+#include <nt2/include/functions/safe_min.hpp>
 
 #include <nt2/include/constants/four.hpp>
 #include <nt2/include/constants/inf.hpp>
@@ -35,7 +37,6 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/smallestposval.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -187,16 +188,6 @@ namespace nt2 { namespace ext
       i = negif( ltzia0,i); 
       return result_type(r, i); 
     }
-    template < class T > 
-      static inline T safe_max(const T& t)
-      {
-        return nt2::sqrt(Valmax<T>())/t;
-      }
-    template < class T > 
-      static inline T safe_min(const T& t)
-      {
-        return nt2::sqrt(Smallestposval<T>())/t;
-      }
   };
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::atanh_, tag::cpu_, (A0)
@@ -217,10 +208,13 @@ namespace nt2 { namespace ext
                               , (generic_< dry_< arithmetic_<A0> > >)
                               )
   {
-    typedef A0 result_type; 
+    typedef typename meta::as_real<A0>::type rtype;
+    typedef typename meta::as_complex<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
       {
+      if (nt2::all(is_real(a0)) && nt2::all(le(nt2::abs(a0), One<rtype>())))
         return result_type(nt2::atanh(real(a0))); 
+      return nt2::atanh(result_type(real(a0), Zero<rtype>()));
       }
   };
   

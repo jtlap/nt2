@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag splatted_first_ of functor splatted_first 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct splatted_first_ {};
+    struct splatted_first_ : ext::unspecified_<splatted_first_> { typedef ext::unspecified_<splatted_first_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::splatted_first_, splatted_first, 1)
 } }

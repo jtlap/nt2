@@ -46,10 +46,10 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_complex<A0>::type result_type; 
+    typedef typename meta::as_dry<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(oneplus(real(a0))); 
+      return bitwise_cast<result_type>(oneplus(real(a0))); 
     }
   };
   

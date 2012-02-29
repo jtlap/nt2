@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_eqz(a0()); 
+      return is_eqz(imag(a0)); 
     }
   };
   // dry
@@ -50,7 +50,8 @@ namespace nt2 { namespace ext
   {
     typedef typename  meta::as_real<A0>::type rA0; 
     typedef typename meta::as_logical<rA0>::type result_type;
-    NT2_FUNCTOR_CALL(1)
+    
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       return True<result_type>(); 
     }

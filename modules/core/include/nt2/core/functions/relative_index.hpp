@@ -17,8 +17,14 @@
 #include <nt2/include/functor.hpp>
 
 namespace nt2 
-{ 
-  namespace tag { struct relative_index_ {}; }
+{
+  namespace tag
+  {
+    struct relative_index_ : ext::unspecified_<relative_index_>
+    {
+      typedef ext::unspecified_<relative_index_> parent;
+    };
+  }
 
   //============================================================================
   /*!

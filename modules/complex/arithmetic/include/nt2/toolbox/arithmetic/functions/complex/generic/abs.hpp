@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::abs(a0); 
+      return nt2::abs(real(a0)); 
     }
   };  
 } }

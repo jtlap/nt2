@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag rshr_ of functor rshr 
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
-    struct rshr_ {};
+    struct rshr_ : ext::elementwise_<rshr_> { typedef ext::elementwise_<rshr_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rshr_, rshr, 2)
 } }

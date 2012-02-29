@@ -57,8 +57,8 @@ NT2_TEST_CASE_TPL ( exp_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Zero<T>())), cT(nt2::One<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(cT(0, nt2::Pi<T>())),  cT(nt2::Mone<T>()), 0.75);
   
-  NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Zero<T>(),  nt2::Zero<T>())), nt2::One<cT>(), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Mzero<T>(), nt2::Zero<T>())), nt2::One<cT>(), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Zero<T>(),  nt2::Zero<T>())), cT(nt2::One<T>()), 0.75);
+  NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Mzero<T>(), nt2::Zero<T>())), cT(nt2::One<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Inf  <T>(), nt2::Zero<T>())), cT(nt2::Inf<T>(), nt2::Zero<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::exp(cT(nt2::Nan  <T>(), nt2::Zero<T>())), cT(nt2::Nan <T>(), nt2::Zero<T>()), 0.75);
   

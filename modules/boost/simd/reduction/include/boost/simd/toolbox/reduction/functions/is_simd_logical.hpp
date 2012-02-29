@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_simd_logical_ of functor is_simd_logical 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct is_simd_logical_ {};
+    struct is_simd_logical_ : ext::reduction_<is_simd_logical_> { typedef ext::reduction_<is_simd_logical_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_simd_logical_, is_simd_logical, 1)
 } }

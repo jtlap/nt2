@@ -146,5 +146,5 @@ namespace boost { namespace dispatch { namespace meta
 } } }
 
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/simd/details/logical/meta.hpp>
+#include <boost/simd/sdk/simd/details/logical.hpp>
 #endif

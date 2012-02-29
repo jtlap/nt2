@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag fast_frexp_ of functor fast_frexp 
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    struct fast_frexp_ {};
+    struct fast_frexp_ : ext::elementwise_<fast_frexp_> { typedef ext::elementwise_<fast_frexp_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_frexp_, fast_frexp, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fast_frexp_, fast_frexp,(A0 const&)(A1&)(A2&),3)

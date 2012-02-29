@@ -11,6 +11,8 @@
 
 #include <nt2/core/functions/inflate.hpp>
 #include <boost/fusion/include/value_at.hpp>
+#include <boost/fusion/include/mpl.hpp>
+#include <boost/fusion/adapted/mpl.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -52,7 +54,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval(const A0& size, const A1& pos, boost::mpl::true_ const& ) const
+    eval(const A0&, const A1&, boost::mpl::true_ const& ) const
     {
       result_type that(1,1);
       return that;
@@ -73,7 +75,7 @@ namespace nt2 { namespace ext
     typedef typename boost::fusion::result_of::at_c<A1 const,0 >::type index_t;
     typedef typename boost::fusion::result_of::at_c<A2 const,0 >::type base_t;
 
-    typedef boost::mpl::bool_< boost::mpl::size<A1>::value==0>      is_0d_t;
+    typedef boost::mpl::bool_< boost::fusion::result_of::size<A1>::value==0>      is_0d_t;
 
     typedef boost::fusion::vector < std::ptrdiff_t
                                   , std::ptrdiff_t
@@ -99,9 +101,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval( const A0& size, const A1& pos, const A2& base
-        , boost::mpl::true_ const&
-        ) const
+    eval(const A0&, const A1&, const A2& base, boost::mpl::true_ const&) const
     {
       result_type that( boost::fusion::at_c<0>(base)
                       , boost::fusion::at_c<0>(base)

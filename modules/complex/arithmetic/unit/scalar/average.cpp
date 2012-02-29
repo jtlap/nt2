@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( average_real__2_0,  BOOST_SIMD_REAL_TYPES)
   
   
   // specific values tests
-  NT2_TEST_EQUAL(average(cT(nt2::Inf<T>()), cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));
+  NT2_TEST_ULP_EQUAL(average(cT(nt2::Inf<T>()), cT(nt2::Inf<T>())), cT(nt2::Inf<T>()), 0);
   NT2_TEST_EQUAL(average(cT(nt2::One<T>()), cT(nt2::Zero<T>())), cT(nt2::Half<T>())); 
   NT2_TEST_EQUAL(average(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())),cT(nt2::Zero<T>())); 
   NT2_TEST_EQUAL(average(cT(0, 1), cT(1, 0)), cT(nt2::Half<T>(),nt2::Half<T>()));

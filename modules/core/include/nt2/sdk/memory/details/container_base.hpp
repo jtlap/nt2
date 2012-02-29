@@ -19,6 +19,7 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <nt2/core/settings/normalize_settings.hpp>
+#include <nt2/core/settings/specific_data.hpp>
 
 namespace nt2 { namespace details
 {
@@ -37,18 +38,20 @@ namespace nt2 { namespace details
     //==========================================================================
     // Public type interface
     //==========================================================================
-    typedef typename block_t::allocator_type        allocator_type;
-    typedef typename block_t::value_type            value_type;
-    typedef typename block_t::iterator              iterator;
-    typedef typename block_t::const_iterator        const_iterator;
-    typedef typename block_t::reference             reference;
-    typedef typename block_t::const_reference       const_reference;
-    typedef typename block_t::size_type             size_type;
-    typedef typename block_t::difference_type       difference_type;
-    typedef typename allocator_type::pointer        pointer;
-    typedef typename allocator_type::const_pointer  const_pointer;
-    typedef Tag                                     tag_type; 
-    typedef S                                       base_settings_type;
+    typedef typename block_t::allocator_type                    allocator_type;
+    typedef typename block_t::value_type                        value_type;
+    typedef typename block_t::iterator                          iterator;
+    typedef typename block_t::const_iterator                    const_iterator;
+    typedef typename block_t::reference                         reference;
+    typedef typename block_t::const_reference                   const_reference;
+    typedef typename block_t::size_type                         size_type;
+    typedef typename block_t::difference_type                   difference_type;
+    typedef typename allocator_type::pointer                    pointer;
+    typedef typename allocator_type::const_pointer              const_pointer;
+    typedef Tag                                                 tag_type;
+    typedef S                                                   base_settings_type;
+    typedef typename specific_data<
+      typename boost::dispatch::default_site<T>::type, T>::type specific_data_type;
     //==========================================================================
     // container is handling the size/base storage for the proto terminal
     //==========================================================================
@@ -76,7 +79,7 @@ namespace nt2 { namespace details
     }
 
     template<class Size> static
-    inline void init( block_t&, Size const&, boost::mpl::false_ const& ) {}
+    inline void init( block_t&, Size const&, boost::mpl::false_ const&) {}
 
     //==========================================================================
     // Resize inner block if resizing is allowed
@@ -175,6 +178,24 @@ namespace nt2 { namespace details
       return b(boost::fusion::at_c<0>(p));
     }
 
+    template<class Position>
+    static BOOST_FORCEINLINE reference
+    access( Position const& p, block_t& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<2> const&
+          )
+    {
+      return b(boost::fusion::at_c<0>(p));
+    }
+
+    template<class Position>
+    static BOOST_FORCEINLINE const_reference
+    access( Position const& p, block_t const& b, sizes_type const&
+          , boost::mpl::size_t<1> const&, boost::mpl::size_t<2> const&
+          )
+    {
+      return b(boost::fusion::at_c<0>(p));
+    }
+
     template<class Position, std::size_t N>
     static BOOST_FORCEINLINE reference
     access( Position const& p, block_t& b, sizes_type const&
@@ -202,7 +223,7 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
           )
     {
-      return access( unpack(p,s,lead_t()), b, s );
+      return unpack(p,b,s,lead_t());
     }
 
     template<class Position, std::size_t N>
@@ -211,25 +232,25 @@ namespace nt2 { namespace details
           , boost::mpl::size_t<N> const&, boost::mpl::size_t<1> const&
           )
     {
-      return access( unpack(p,s,lead_t()), b, s );
+      return unpack(p,b,s,lead_t());
     }
 
     template<class Position, std::size_t N>
     static BOOST_FORCEINLINE reference
-    access( Position const& p, block_t& b, sizes_type const& s
-          , boost::mpl::size_t<N> const& n, boost::mpl::size_t<0> const&
+    access( Position const&, block_t& b, sizes_type const&
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
           )
     {
-      return access(p, b, s, n, boost::mpl::size_t<1>() );
+      return b(boost::fusion::at_c<0>(typename index_type::type()));
     }
 
     template<class Position, std::size_t N>
     static BOOST_FORCEINLINE const_reference
-    access( Position const& p, block_t const& b, sizes_type const& s
-          , boost::mpl::size_t<N> const& n, boost::mpl::size_t<0> const&
+    access( Position const&, block_t const& b, sizes_type const&
+          , boost::mpl::size_t<N> const&, boost::mpl::size_t<0> const&
           )
     {
-      return access(p, b, s, n, boost::mpl::size_t<1>() );
+      return b(boost::fusion::at_c<0>(typename index_type::type()));
     }
 
     //==========================================================================
@@ -260,21 +281,40 @@ namespace nt2 { namespace details
     //==========================================================================
     // Unpack 1D position if lead padding is present
     //==========================================================================
-    template<class Pos> static BOOST_FORCEINLINE
-    Pos const&  unpack( Pos const& p, sizes_type const&
-                      , lead_padding_<1> const&
-                      )
-    {
-      return p;
-    }
-
-    template<class Pos,std::ptrdiff_t N> static BOOST_FORCEINLINE
-    boost::fusion::vector<difference_type,difference_type>
-    unpack( Pos const& p, sizes_type const& sz
-          , lead_padding_<N> const&
+    template<class Position>
+    static BOOST_FORCEINLINE reference
+    unpack( Position const& p, block_t& b, sizes_type const&
+          , lead_padding_<1> const&
           )
     {
-      return nt2::inflate(sz,p,typename index_type::type());
+      return b(boost::fusion::at_c<0>(p));
+    }
+
+    template<class Position>
+    static BOOST_FORCEINLINE const_reference
+    unpack( Position const& p, block_t const& b, sizes_type const&
+          , lead_padding_<1> const&
+          )
+    {
+      return b(boost::fusion::at_c<0>(p));
+    }
+
+    template<class Position, std::ptrdiff_t N>
+    static BOOST_FORCEINLINE reference
+    unpack( Position const& p, block_t& b
+          , sizes_type const& s, lead_padding_<N> const&
+          )
+    {
+      return access ( nt2::inflate(s,p,typename index_type::type()), b, s );
+    }
+
+    template<class Position, std::ptrdiff_t N>
+    static BOOST_FORCEINLINE const_reference
+    unpack( Position const& p, block_t const& b
+          , sizes_type const& s, lead_padding_<N> const&
+          )
+    {
+      return access ( nt2::inflate(s,p,typename index_type::type()), b, s );
     }
   };
 } }

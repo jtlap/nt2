@@ -69,7 +69,7 @@ namespace nt2 { namespace fdlibm { namespace tag
      * \brief Define the tag asinh_ of functor asinh 
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
-    struct asinh_ {};
+    struct asinh_ : ext::elementwise_<asinh_> { typedef ext::elementwise_<asinh_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(fdlibm::tag::asinh_, asinh, 1)
   } }

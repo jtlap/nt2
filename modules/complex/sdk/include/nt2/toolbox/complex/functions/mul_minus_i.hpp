@@ -59,7 +59,7 @@ namespace nt2
      * \brief Define the tag mul_minus_i_ of functor mul_minus_i 
      *        in namespace nt2::tag for toolbox complex
     **/
-    struct mul_minus_i_ {};
+    struct mul_minus_i_ : ext::elementwise_<mul_minus_i_> { typedef ext::elementwise_<mul_minus_i_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mul_minus_i_, mul_minus_i, 1)

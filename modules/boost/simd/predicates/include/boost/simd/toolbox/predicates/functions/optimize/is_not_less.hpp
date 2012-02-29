@@ -17,16 +17,10 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::logical_not_
-                                    , boost::simd::tag::optimize_
-                                    , (A0)(Domain)(Arity)
-                                    , ((expr_ < unspecified_<A0>
-                                              , Domain
-                                              , boost::simd::tag::is_less_
-                                              , Arity
-                                              >
-                                      ))
-                                    )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
+                                   , boost::simd::tag::optimize_, (A0)(Arity)
+                                   , ((node_<A0, boost::simd::tag::is_less_, Arity>))
+                                   )
   {
     typedef typename dispatch::meta::call< tag::is_not_less_(
           typename boost::proto::result_of::child_c<A0, 0>::type const&

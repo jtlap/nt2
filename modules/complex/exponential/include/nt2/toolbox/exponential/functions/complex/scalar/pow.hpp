@@ -15,107 +15,107 @@
 #include <complex>
 #include <cmath>
 
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                              , (A0)
-                            , (scalar_< complex_<floating_<A0> > >)
-                              (scalar_< complex_<floating_<A0> > >)
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
-    {
-      return static_cast<result_type>(std::pow(a0, a1));
-    }
-  };
+// namespace nt2 { namespace ext
+// {
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//                               , (A0)
+//                             , (scalar_< complex_<floating_<A0> > >)
+//                               (scalar_< complex_<floating_<A0> > >)
+//                             )
+//   {
+//     typedef A0 result_type;
+//     NT2_FUNCTOR_CALL_REPEAT(2)
+//     {
+//       return static_cast<result_type>(std::pow(a0, a1));
+//     }
+//   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_< complex_<floating_<A0> > >)
-                                (scalar_< floating_<A1> >)
-                            )
-  {
-    typedef A0  result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      result_type ca1 = result_type(a1, Zero<A1>()); 
-      return static_cast<result_type>(std::pow(a0, ca1));
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//                               , (A0)(A1)
+//                               , (scalar_< complex_<floating_<A0> > >)
+//                                 (scalar_< floating_<A1> >)
+//                             )
+//   {
+//     typedef A0  result_type;
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       result_type ca1 = result_type(a1, Zero<A1>()); 
+//       return static_cast<result_type>(std::pow(a0, ca1));
+//     }
+//   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_< floating_<A0> >)
-                                (scalar_< complex_<floating_<A1> > >)
-                            )
-  {
-    typedef A1 result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      result_type ca0 = result_type(a0, Zero<A0>()); 
-      return static_cast<result_type>(std::pow(ca0, a1));
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//                               , (A0)(A1)
+//                               , (scalar_< floating_<A0> >)
+//                                 (scalar_< complex_<floating_<A1> > >)
+//                             )
+//   {
+//     typedef A1 result_type;
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       result_type ca0 = result_type(a0, Zero<A0>()); 
+//       return static_cast<result_type>(std::pow(ca0, a1));
+//     }
+//   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< complex_<floating_<A0> > >)
-                              (scalar_< imaginary_<floating_<A1> > >)
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      result_type ca1 = result_type(Zero<A1>(), a1); 
-      return static_cast<result_type>(std::pow(a0, ca1));
-     }
-   };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//                             , (A0)(A1)
+//                             , (scalar_< complex_<floating_<A0> > >)
+//                               (scalar_< imaginary_<floating_<A1> > >)
+//                             )
+//   {
+//     typedef A0 result_type;
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       result_type ca1 = result_type(Zero<A1>(), a1); 
+//       return static_cast<result_type>(std::pow(a0, ca1));
+//      }
+//    };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< imaginary_<floating_<A0> > >)
-                              (scalar_< complex_<floating_<A1> > >)
-                            )
-  {
-    typedef A0 result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      result_type ca0 = result_type(Zero<A1>(), a0()); 
-      return static_cast<result_type>(std::pow(ca0, a1));
-     }
-   };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//                             , (A0)(A1)
+//                             , (scalar_< imaginary_<floating_<A0> > >)
+//                               (scalar_< complex_<floating_<A1> > >)
+//                             )
+//   {
+//     typedef A0 result_type;
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       result_type ca0 = result_type(Zero<A1>(), a0()); 
+//       return static_cast<result_type>(std::pow(ca0, a1));
+//      }
+//    };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_< imaginary_<floating_<A0> > >)
-                              (scalar_< floating_<A1> >)
-                            )
-  {
-    typedef meta::as_complex<A1> result_type;
-    NT2_FUNCTOR_CALL(2)
-      {
-        result_type ca1 = result_type(a1, Zero<A1>()); 
-        result_type ca0 = result_type(Zero<A1>(), a0()); 
-        return static_cast<result_type>(std::pow(ca0, ca1));
-      }
-   };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//                             , (A0)(A1)
+//                             , (scalar_< imaginary_<floating_<A0> > >)
+//                               (scalar_< floating_<A1> >)
+//                             )
+//   {
+//     typedef meta::as_complex<A1> result_type;
+//     NT2_FUNCTOR_CALL(2)
+//       {
+//         result_type ca1 = result_type(a1, Zero<A1>()); 
+//         result_type ca0 = result_type(Zero<A1>(), a0()); 
+//         return static_cast<result_type>(std::pow(ca0, ca1));
+//       }
+//    };
   
-   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
-                            , (A0)(A1)
-                            ,  (scalar_< floating_<A0> >)
-                               (scalar_< imaginary_<floating_<A1> > >)
-                            )
-  {
-    typedef meta::as_complex<A0> result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      result_type ca0 = result_type(a0, Zero<A1>()); 
-      result_type ca1 = result_type(Zero<A1>(), a1()); 
-      return static_cast<result_type>(std::pow(ca0, ca1));
-     }
-   }; 
-} }
+//    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
+//                             , (A0)(A1)
+//                             ,  (scalar_< floating_<A0> >)
+//                                (scalar_< imaginary_<floating_<A1> > >)
+//                             )
+//   {
+//     typedef meta::as_complex<A0> result_type;
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       result_type ca0 = result_type(a0, Zero<A1>()); 
+//       result_type ca1 = result_type(Zero<A1>(), a1()); 
+//       return static_cast<result_type>(std::pow(ca0, ca1));
+//      }
+//    }; 
+// } }
 
 
 #endif

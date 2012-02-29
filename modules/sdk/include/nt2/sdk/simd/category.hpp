@@ -11,11 +11,16 @@
 
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/constant/constant.hpp>
 
 namespace nt2 { namespace ext
 {
   using boost::simd::ext::simd_;
   using boost::simd::ext::logical_;
+  
+  using boost::simd::ext::elementwise_;
+  using boost::simd::ext::reduction_;
+  using boost::simd::ext::constant_;
 } }
 
 #endif

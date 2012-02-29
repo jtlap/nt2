@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::formal_
                                     , (A0)
-                                    , (ast_< unspecified_<A0> >)
+                                    , (ast_<A0>)
                                     )
   {
     typedef proto::
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
                                     , (A0)(State)
-                                    , (ast_< unspecified_<A0> >)
+                                    , (ast_<A0>)
                                       (unspecified_<State>)
                                     )
   {
@@ -94,11 +94,10 @@ namespace boost { namespace simd { namespace ext
   // When run on a terminal, we directly jump into the terminal functor
   //============================================================================  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(Domain)(State)(Arity)
+                                    , (A0)(State)
                                     , ((expr_ < unspecified_<A0>
-                                              , Domain
-                                              , tag::terminal_
-                                              , Arity
+                                              , boost::simd::tag::terminal_
+                                              , mpl::long_<0>
                                               >
                                       ))
                                       (unspecified_<State>)
@@ -108,13 +107,13 @@ namespace boost { namespace simd { namespace ext
     
     template<class This, class A0_, class State_>
     struct  result<This(A0_, State_)>
-          : dispatch::meta::call<tag::terminal_(A0_, State_)> {};
+          : dispatch::meta::call<boost::proto::tag::terminal(A0_, State_)> {};
       
     template<class A0_, class State_>
     BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, State_&)>::type
     operator()(A0_& a0, State_& state) const
     {
-      typename dispatch::make_functor<tag::terminal_, A0>::type callee;
+      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type callee;
       return callee(a0, state);
     }
   };
@@ -125,7 +124,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
                                     , (A0)(State)(Data)
-                                    , (ast_< unspecified_<A0> >)
+                                    , (ast_<A0>)
                                       (unspecified_<State>)
                                       (unspecified_<Data>)
                                     )
@@ -167,11 +166,10 @@ namespace boost { namespace simd { namespace ext
   // When run on a terminal, we directly jump into the terminal functor
   //============================================================================    
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(Domain)(State)(Data)(Arity)
+                                    , (A0)(State)(Data)
                                     , ((expr_ < unspecified_<A0>
-                                              , Domain
-                                              , tag::terminal_
-                                              , Arity
+                                              , boost::simd::tag::terminal_
+                                              , mpl::long_<0>
                                               >
                                       ))
                                       (unspecified_<State>)
@@ -182,14 +180,14 @@ namespace boost { namespace simd { namespace ext
     
     template<class This, class A0_, class State_, class Data_>
     struct  result<This(A0_, State_, Data_)>
-          : dispatch::meta::call<tag::terminal_(A0_, State_, Data_)>
+          : dispatch::meta::call<boost::proto::tag::terminal(A0_, State_, Data_)>
     {};
       
     template<class A0_, class State_, class Data_> BOOST_DISPATCH_FORCE_INLINE 
     typename result<implement(A0_&, State_&, Data_&)>::type
     operator()(A0_& a0, State_& state, Data_& data) const
     {
-      typename dispatch::make_functor<tag::terminal_, A0>::type callee;
+      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type callee;
       return callee(a0, state,data);
     }
   }; 

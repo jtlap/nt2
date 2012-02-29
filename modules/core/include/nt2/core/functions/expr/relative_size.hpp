@@ -22,7 +22,6 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_size_, tag::cpu_
                             , (Idx)(Tag)(Arity)(Size)(Current)(Dims)
                             , ((expr_ < unspecified_<Idx>
-                                      , nt2::container::domain
                                       , Tag
                                       , Arity
                                       >
@@ -47,8 +46,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_size_, tag::cpu_
                             , (Idx)(Arity)(Size)(Current)(Dims)
                             , ((expr_ < colon_< Idx >
-                                      , nt2::container::domain
-                                      , tag::terminal_
+                                      , nt2::tag::terminal_
                                       , Arity
                                       >
                               ))

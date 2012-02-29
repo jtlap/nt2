@@ -14,6 +14,8 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/tanh.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/mul_minus_i.hpp>
+#include <nt2/include/functions/mul_i.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
@@ -29,6 +31,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
+      //      return mul_minus_i(tanh(mul_i(a0))); 
       typedef typename meta::as_real<A0>::type rtype;
       result_type aa0 =  a0+a0; 
       rtype c, s, ch, sh;
@@ -48,7 +51,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::tanh(imag(a0))); 
+      return bitwise_cast<result_type>(nt2::tanh(imag(a0))); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tan_, tag::cpu_, (A0)
@@ -58,7 +61,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::tan(real(a0))); 
+      return bitwise_cast<result_type>(nt2::tan(real(a0))); 
     }
   };  
 } }

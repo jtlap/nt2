@@ -66,7 +66,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag log1p_ of functor log1p 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct log1p_ {};
+    struct log1p_ : ext::elementwise_<log1p_> { typedef ext::elementwise_<log1p_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::log1p_, log1p, 1)
   } }

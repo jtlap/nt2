@@ -8,17 +8,17 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_SCALAR_LOG_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_SCALAR_LOG_HPP_INCLUDED
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/arg.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
-#include <complex>
-#include <cmath>
+// #include <nt2/include/functions/log.hpp>
+// #include <nt2/include/functions/arg.hpp>
+// #include <nt2/include/functions/abs.hpp>
+// #include <boost/dispatch/meta/as_floating.hpp>
+// #include <nt2/sdk/complex/meta/as_complex.hpp>
+// #include <nt2/sdk/complex/meta/as_real.hpp>
+// #include <complex>
+// #include <cmath>
 
-namespace nt2 { namespace ext
-{
+// namespace nt2 { namespace ext
+// {
 //   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
 //                             , (A0)
 //                             , (scalar_< complex_<floating_<A0> > >)
@@ -31,19 +31,19 @@ namespace nt2 { namespace ext
 //     }
 //   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
-                            , (A0)
-                            , (scalar_< imaginary_<floating_<A0> > >)
-                            )
-  {
-    typedef typename meta::as_real<A0>::type             rtype; 
-    typedef typename meta::as_complex<rtype>::type result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return arg(a0); 
-    }
-  };
-} }
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log_, tag::cpu_
+//                             , (A0)
+//                             , (scalar_< imaginary_<floating_<A0> > >)
+//                             )
+//   {
+//     typedef typename meta::as_real<A0>::type             rtype; 
+//     typedef typename meta::as_complex<rtype>::type result_type;
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return arg(a0); 
+//     }
+//   };
+//} }
 
 
 #endif

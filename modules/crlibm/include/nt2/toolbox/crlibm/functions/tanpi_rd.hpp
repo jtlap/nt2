@@ -73,7 +73,7 @@ namespace nt2 { namespace crlibm { namespace tag
      * \brief Define the tag tanpi_rd_ of functor tanpi_rd 
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
-    struct tanpi_rd_ {};
+    struct tanpi_rd_ : ext::elementwise_<tanpi_rd_> { typedef ext::elementwise_<tanpi_rd_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(crlibm::tag::tanpi_rd_, tanpi_rd, 1)
 } }

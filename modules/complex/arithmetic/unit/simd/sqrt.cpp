@@ -13,72 +13,81 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
 /// 
-#include <nt2/toolbox/arithmetic/include/functions/sqrt.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/extract.hpp>
+#include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/cos.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/pure.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/include/constants/i.hpp>
+#include <nt2/include/functions/real.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <nt2/sdk/meta/upgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
+
 #include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/functions/splat.hpp>
+
+#include <nt2/include/functions/load.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
-NT2_TEST_CASE_TPL ( sqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-  
-  using nt2::sqrt;
-  using nt2::tag::sqrt_;
-  typedef typename std::complex<T> cT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<sqrt_(cT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_dry<T>::type dT;
-  typedef cT wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  using boost::simd::native;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef std::complex<T>                              cT; 
+  typedef native<T ,ext_t>                             vT;
+  typedef native<cT ,ext_t>                           vcT;
+  typedef typename nt2::meta::as_imaginary<T>::type   ciT; 
+  typedef native<ciT ,ext_t>                         vciT;
+  typedef typename nt2::meta::as_dry<T>::type          dT; 
+  typedef native<dT ,ext_t>                           vdT; 
   double ulpd;
- ulpd=0.0; 
+  ulpd=0.0;
 
-  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
-  // specific values tests
-   NT2_TEST_EQUAL(nt2::sqrt(cT(1)), cT(1));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>())); 
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Inf<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Zero<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));  
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>())), cT(0, nt2::Inf<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Mone<T>())), cT(0, nt2::One<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>())), cT(nt2::Nan<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>())), cT(nt2::One<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Zero<T>())), cT(nt2::Zero<T>()));
-   std::complex < T > a(1, 0);
-   NT2_TEST_EQUAL(nt2::sqrt(a), cT(nt2::One<T>()));
-   std::complex < T > b(nt2::Zero<T>(), nt2::Inf<T>());
-   
-   NT2_TEST_EQUAL(nt2::sqrt(nt2::pure(b)), cT(nt2::Inf<T>(), nt2::Inf<T>()));
-   dT aa = dT(nt2::One<T>());
-   dT bb = dT(nt2::Mone<T>());
-   dT cc =    nt2::Mone<dT>();
-   std::cout << cc<< std::endl;
-   std::cout << nt2::sqrt(aa) << std::endl;
-   std::cout << nt2::sqrt(bb) << std::endl;
-   typename nt2::meta::as_real<dT>::type bbb(real(bb));
-   std::cout << nt2::sqrt(nt2::real(aa)) << std::endl;
-   std::cout << nt2::sqrt(nt2::real(bb)) << std::endl;
-   std::cout <<  nt2::plus(aa, T(1)) << std::endl;
-   std::cout <<  nt2::plus(nt2::sqrt(bb), aa)<< std::endl;
+  {
+    typedef vcT r_t; 
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Inf<vcT>())[0], cT(nt2::Inf<cT>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Minf<vcT>())[0], cT(0, nt2::Inf<T>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Mone<vcT>())[0], cT(0, 1),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Nan<vcT>())[0], cT(nt2::Nan<cT>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::One<vcT>())[0], cT(nt2::One<cT>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Zero<vcT>())[0], cT(nt2::Zero<cT>()),0);
+  }  
+  {
+    typedef vcT r_t; 
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Inf<vciT>())[0],  cT(nt2::Inf<T>(), nt2::Inf<T>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Minf<vciT>())[0], cT(nt2::Inf<T>(),nt2::Minf<T>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Mone<vciT>())[0], cT(nt2::Sqrt_2o_2<T>(), -nt2::Sqrt_2o_2<T>()) ,0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Nan<vciT>())[0],  cT(nt2::Nan<T>(), nt2::Nan<T>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::One<vciT>())[0],  cT(nt2::Sqrt_2o_2<T>(), nt2::Sqrt_2o_2<T>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Zero<vciT>())[0], nt2::Zero<T>(),0);
+  }
+  {
+    typedef vcT r_t; 
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Inf<vdT>())[0], nt2::Inf<T>(),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Minf<vdT>())[0], cT(nt2::Zero<T>(), nt2::Inf<T>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Mone<vdT>())[0], cT(nt2::Zero<T>(), nt2::One<T>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Nan<vdT>())[0], nt2::Nan<T>(),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::One<vdT>())[0], nt2::One<T>(),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Zero<vdT>())[0], nt2::Zero<T>(),0);
+  }
 } // end of test for floating_
+
 

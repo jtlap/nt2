@@ -68,7 +68,7 @@ namespace nt2 { namespace boost_math { namespace tag
      * \brief Define the tag legendre3_p_ of functor legendre3_p 
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
-    struct legendre3_p_ {};
+    struct legendre3_p_ : ext::elementwise_<legendre3_p_> { typedef ext::elementwise_<legendre3_p_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(boost_math::tag::legendre3_p_, legendre3_p, 3)
   } }

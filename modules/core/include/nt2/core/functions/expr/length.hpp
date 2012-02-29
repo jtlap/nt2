@@ -19,13 +19,8 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::length_, tag::cpu_
-                            , (A0)(Tag)(Arity)
-                            , ((expr_ < unspecified_<A0>
-                                      , nt2::container::domain
-                                      , Tag
-                                      , Arity
-                                      >
-                              ))
+                            , (A0)
+                            , (ast_<A0>)
                             )
   {
     typedef typename meta::strip<typename A0::extent_type>::type  base;
