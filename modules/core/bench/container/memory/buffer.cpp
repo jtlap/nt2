@@ -26,8 +26,8 @@ template<class T> struct buffer_test
   typedef typename buffer_t::difference_type  difference_type;
 
   buffer_test ( size_type sz)
-              : data(boost::fusion::vector_tie(sz))
-              , data2(boost::fusion::vector_tie(sz))
+              : data(sz)
+              , data2(sz)
   {}
 
   buffer_test ( buffer_test const& s) : data(s.data), data2(s.data2)  {}
