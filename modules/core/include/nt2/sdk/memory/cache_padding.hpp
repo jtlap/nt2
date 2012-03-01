@@ -33,19 +33,19 @@ namespace nt2 { namespace memory
     struct  result<This(T,N,V)>
           : result_impl<T,meta::strip<N>::type::value> {};
 
-    template<class T,int N> struct result_impl  { typedef T           type; };
+    template<class T,int N> struct result_impl  : meta::strip<T> {};
     template<class T> struct result_impl<T,0>   { typedef std::size_t type; };
 
     template<class T, class N, class V>
-    typename result<cache_padding(T&, N const&, V const&)>::type
-    operator()(T& t, N const& n, V const& v) const
+    typename result<cache_padding(T const&, N const&, V const&)>::type
+    operator()(T const& t, N const& n, V const& v) const
     {
       return eval(t,n,v,boost::mpl::bool_<N::value==0>());
     }
 
     template<class T, class N, class V>
-    typename result<cache_padding(T&, N const&, V const&)>::type
-    eval(T& t, N const&, V const&, boost::mpl::true_ const&) const
+    typename result<cache_padding(T const&, N const&, V const&)>::type
+    eval(T const& t, N const&, V const&, boost::mpl::true_ const&) const
     {
       static const std::size_t  tz = sizeof(typename V::type);
 
@@ -56,8 +56,9 @@ namespace nt2 { namespace memory
       return sz/tz;
     }
 
-    template<class T, class N, class V> T&
-    eval(T& t, N const&, V const&, boost::mpl::false_ const&) const
+    template<class T, class N, class V>
+    typename result<cache_padding(T const&, N const&, V const&)>::type
+    eval(T const& t, N const&, V const&, boost::mpl::false_ const&) const
     {
       return t;
     }
