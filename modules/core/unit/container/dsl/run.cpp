@@ -110,9 +110,11 @@ NT2_TEST_CASE_TPL( alignment_load_store, BOOST_SIMD_SIMD_TYPES )
     for (int j = 1; j < 32; j++)
       NT2_TEST( T(aligned_table1(i+1,j)) == T(unaligned_table1(i,j)) );
 
+#ifndef BOOST_SIMD_NO_SIMD
   // Store unaligned data in aligned table
   table<T, settings(aligned_, shared_, no_padding_)> fake_aligned_table(of_size(32,32), share(q, q + 32 * 32));
   NT2_TEST_THROW( fake_aligned_table = aligned_table1, nt2::assert_exception );
+#endif
 
   table<T, settings(aligned_, shared_, no_padding_)> aligned_table2(of_size(32,32), share(p, p + 32 * 32));
   table<T, settings(unaligned_, shared_, no_padding_)> unaligned_table2(of_size(32,32), share(q, q + 32 * 32));
