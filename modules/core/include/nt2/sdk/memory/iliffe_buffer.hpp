@@ -15,6 +15,8 @@
   * \brief Defines and implements the \c nt2::memory::iliffe_buffer class
   **/
 //==============================================================================
+#include <iostream>
+
 #include <nt2/sdk/meta/view_at.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/meta/as_sequence.hpp>
@@ -278,7 +280,7 @@ namespace nt2 { namespace memory
       local.swap(src);
     }
 
-    template<class TT, std::size_t SS, std::ptrdiff_t BB>
+    template<class TT, std::ptrdiff_t SS, std::ptrdiff_t BB>
     void index_swap( array_buffer<TT,SS,BB>&, array_buffer<TT,SS,BB>& ) {}
 
     //==========================================================================
