@@ -110,7 +110,7 @@ NT2_TEST_CASE( make_position )
 
   typedef table<float, _2D> table_type;
   typedef vector<int, int> seq_type;
-  typedef typename meta::make_position<table_type, seq_type>::type position_type;
+  typedef meta::make_position<table_type, seq_type>::type position_type;
 
   seq_type s = make_vector(12, 13);
   position_type p(s);
@@ -210,7 +210,7 @@ NT2_TEST_CASE( hierarchy_of_position )
                     );
 
   typedef container::table<float, _2D> table_type;
-  typedef typename meta::make_position<table_type, vector<> >::type position_type;
+  typedef meta::make_position<table_type, vector<> >::type position_type;
   position_type p3(make_vector());
 
   NT2_TEST_EXPR_TYPE( p3,
