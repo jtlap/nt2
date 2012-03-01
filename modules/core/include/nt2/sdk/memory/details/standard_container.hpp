@@ -62,10 +62,11 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size>
     container( Size const& sz, allocator_type const& a = allocator_type() )
-      : block_(sz,a)
-      , sizes_(sz)
+      : sizes_(sz)
       , specific_data_()
-    {}
+    {
+      parent::init(block_,sz,a);
+    }
 
     //==========================================================================
     /*!
