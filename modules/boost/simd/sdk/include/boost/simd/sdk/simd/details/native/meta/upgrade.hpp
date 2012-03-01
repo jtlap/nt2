@@ -48,8 +48,8 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename 
     boost::mpl::if_< typename 
                      simd::meta::is_vectorizable<uT,Ext>::type 
-                   , typename simd::native<uT,Ext>
-                   , typename simd::native< T,Ext>
+                     , typename simd::native<simd::logical<uT>,Ext>
+                     , typename simd::native<simd::logical< T>,Ext>
                    >::type type;
   };
 
