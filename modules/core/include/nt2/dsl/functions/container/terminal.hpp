@@ -64,15 +64,15 @@ namespace nt2 { namespace ext
                             )
   {
     template<class Sig>
-    struct result;
+      struct result;
 
     template<class This, class A0_, class State_, class Data_>
-    struct result<This(A0_, State_, Data_)>
+      struct result<This(A0_, State_, Data_)>
     {
       typedef typename boost::dispatch::meta::
       scalar_of< typename boost::dispatch::meta::
-                 semantic_of<A0_>::type
-                >::type                                     type;
+      semantic_of<A0_>::type
+                 >::type                                     type;
     };
 
     template<class A0_> BOOST_FORCEINLINE
@@ -98,15 +98,15 @@ namespace nt2 { namespace ext
                             )
   {
     template<class Sig>
-    struct result;
+      struct result;
 
     template<class This, class A0_, class State_, class Data_>
-    struct result<This(A0_, State_, Data_)>
+      struct result<This(A0_, State_, Data_)>
     {
       typedef typename boost::dispatch::meta::
       scalar_of< typename boost::dispatch::meta::
-                 semantic_of<A0_>::type
-               >::type                                     type;
+      semantic_of<A0_>::type
+                 >::type                                     type;
     };
 
     template<class A0_> BOOST_FORCEINLINE
@@ -131,11 +131,23 @@ namespace nt2 { namespace ext
                               ((target_< simd_<unspecified_<Data>, X> >))
                             )
   {
-    typedef typename Data::type                                  result_type;
+    template<class Sig>
+    struct result;
 
-    BOOST_FORCEINLINE
-    result_type operator()(A0 const& a0, State const& state, Data const&) const
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
     {
+      typedef typename boost::dispatch::meta::strip<A0_>::type::value_type sbase;
+      typedef boost::simd::native<sbase,X> type;
+    };
+    
+
+
+    template<class A0_> BOOST_FORCEINLINE 
+    typename result<implement(A0&, State const&, Data const&)>::type
+    operator()(A0_& a0, State const& state, Data const& data) const
+    {
+      typedef typename result<implement(A0&, State const&, Data const&)>::type result_type;
       return load<result_type>(&boost::proto::value(a0)[state]);
     }
   };
@@ -154,11 +166,21 @@ namespace nt2 { namespace ext
                               ((simd_<unspecified_<Data>, X>))
                             )
   {
-    typedef Data                                                 result_type;
 
-    template<class A0_>
-    BOOST_FORCEINLINE
-    result_type operator()(A0_& a0, State const& state, Data const& data) const
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class State_, class Data_>
+    struct result<This(A0_, State_, Data_)>
+    {
+      typedef typename boost::dispatch::meta::strip<A0_>::type::value_type sbase;
+      typedef boost::simd::native<sbase,X> type;
+    };
+
+    
+    template<class A0_> BOOST_FORCEINLINE
+    typename result<implement(A0&, State const&, Data const&)>::type
+    operator()(A0_& a0, State const& state, Data const& data) const
     {
       return store(data, &boost::proto::value(a0)[state]);
     }
