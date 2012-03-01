@@ -98,7 +98,10 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence>
     struct apply
     {
-      typedef boost::simd::at_iterator<Sequence, Sequence::static_size> type;
+      typedef typename remove_reference<typename Sequence::sequence_type>::type seq_type;
+      typedef typename boost::fusion::result_of::size<seq_type>::type size_type;
+      typedef boost::simd::at_iterator<Sequence, size_type::value> type;
+
       static type call(Sequence& seq) { return type(seq); }
     };
   };
