@@ -138,7 +138,6 @@ NT2_TEST_CASE( shared_apply )
   using nt2::tag::table_;
   using boost::simd::memory::allocator;
   using nt2::memory::fixed_allocator;
-  using nt2::memory::padded_allocator;
   using nt2::memory::array_buffer;
   using nt2::meta::normalize_settings;
 
@@ -213,7 +212,6 @@ NT2_TEST_CASE( owned_apply )
   using nt2::memory::array_buffer;
   using nt2::memory::cache_padding;
   using nt2::memory::fixed_allocator;
-  using nt2::memory::padded_allocator;
   using boost::simd::memory::allocator;
   using boost::simd::memory::allocator_adaptor;
   using nt2::meta::normalize_settings;

@@ -20,7 +20,6 @@
 #include <nt2/core/settings/padding.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/sdk/memory/array_buffer.hpp>
-#include <nt2/sdk/memory/padded_allocator.hpp>
 #include <nt2/sdk/meta/make_aligned_allocator.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 
@@ -117,3 +116,4 @@ namespace nt2
 }
 
 #endif
+

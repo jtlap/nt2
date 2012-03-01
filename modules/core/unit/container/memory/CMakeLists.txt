@@ -13,7 +13,6 @@ SET( SOURCES
   container.cpp
   container_id.cpp
   dimensions_of.cpp
-  padded_allocator.cpp
   fixed_allocator.cpp
   iliffe_buffer.cpp
   padding.cpp
