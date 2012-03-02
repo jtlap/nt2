@@ -10,6 +10,7 @@
 #define BOOST_DISPATCH_DSL_UNPACK_HPP_INCLUDED
 
 #include <boost/dispatch/meta/result_of.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/proto/traits.hpp>
 
 #if defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
