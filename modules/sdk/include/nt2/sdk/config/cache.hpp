@@ -39,10 +39,10 @@ namespace nt2{ namespace config
   inline int shared_cache_line_size()
   {
     // Find a better way to select this value
-    return  config::has_cache(L2)
-          ? config::cache_line_size(config::L2)
-          : config::cache_line_size(config::L1);
+    return  config::has_cache(L3)
+          ? config::cache_line_size(config::L3)
+          : config::cache_line_size(config::L2);
   }
 } }
 
-#endif /* NT2_SDK_CONFIG_CACHE_HPP */
+#endif
