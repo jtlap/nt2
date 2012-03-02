@@ -27,7 +27,7 @@ namespace nt2 { namespace container { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return result_type(e, size_of<Tag, Domain, 0, Expr>()(e));
+      return result_type(e);
     }
   };
 } } }

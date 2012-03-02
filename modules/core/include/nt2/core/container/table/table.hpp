@@ -52,16 +52,10 @@ namespace nt2 { namespace container
     //==========================================================================
     //  table constructor from its allocator
     //==========================================================================
-    table( allocator_type const& a)
+    table( allocator_type const& a )
+     : parent(container_type(a))
     {
-      container_type that(a);
-      boost::proto::value(*this).swap(that);
     }
-
-    //==========================================================================
-    // table copy constructor
-    //==========================================================================
-    table( table const& src ) { nt2::construct(*this, src); }
 
     //==========================================================================
     // table constructor from a single initializer.
@@ -94,14 +88,6 @@ namespace nt2 { namespace container
     // Enable base expression handling of assignment
     //==========================================================================
     using parent::operator=;
-
-    //==========================================================================
-    // Non-content preserving resize.
-    //==========================================================================
-    template<class Size> void resize( Size const& sz )
-    {
-      boost::proto::value(*this).resize(extent_type(sz));
-    }
   };
 } }
 
