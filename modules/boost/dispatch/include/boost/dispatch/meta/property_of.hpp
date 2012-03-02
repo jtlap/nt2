@@ -56,16 +56,16 @@ namespace meta
   struct  property_of
         : details::property_of_impl< typename meta::strip<T>::type
                                    , typename meta::scalar_of<typename meta::strip<T>::type>::type
-                                   , typename meta::strip<Origin>::type
+                                   , typename remove_reference<Origin>::type
                                    >
   {
   };
 
   template<class T, class Origin>
-  struct  property_of<T&, Origin> : property_of<T, Origin> {};
+  struct  property_of<T&, Origin> : property_of<T, typename remove_reference<Origin>::type> {};
 
   template<class T, class Origin>
-  struct  property_of<T const, Origin> : property_of<T, Origin> {};
+  struct  property_of<T const, Origin> : property_of<T, typename remove_reference<Origin>::type> {};
 } } }
 
 #include <boost/dispatch/meta/details/property_of.hpp>

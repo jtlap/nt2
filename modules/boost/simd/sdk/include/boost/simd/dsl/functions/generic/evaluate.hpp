@@ -24,13 +24,13 @@ namespace boost { namespace simd { namespace ext
                             , (ast_<A0>)
                             )
   {
-    typedef typename dispatch::meta::call<tag::optimize_(A0 const&)>::type           optimized;
+    typedef typename dispatch::meta::call<tag::optimize_(A0&)>::type                 optimized;
     typedef typename dispatch::make_functor<tag::run_, A0>::type                     F;
-    typedef typename dispatch::meta::call<tag::schedule_(optimized, F const&)>::type scheduled;
+    typedef typename dispatch::meta::call<tag::schedule_(optimized, F&)>::type       scheduled;
     typedef typename dispatch::meta::result_of<F(scheduled)>::type                   result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
+    operator()(A0& a0) const
     {
       F f;
       return f(schedule(optimize(a0), f));

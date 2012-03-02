@@ -51,7 +51,9 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Origin>
   struct hierarchy_of< nt2::imaginary<T>, Origin >
   {
-    typedef scalar_< imaginary_< typename property_of<T, Origin>::type > > type;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same< nt2::imaginary<T>, stripped >, stripped, Origin >::type origin_;
+    typedef scalar_< imaginary_< typename property_of<T, origin_>::type > > type;
   };
   
   template<class T>

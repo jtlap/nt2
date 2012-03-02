@@ -83,9 +83,9 @@ namespace boost { namespace dispatch
     struct result<This(Args...)>
       : meta::
         result_of< typename meta::
-                   dispatch_call< Tag(Args...)
+                   dispatch_call< Tag(typename meta::as_ref<Args>::type...)
                                 , EvalContext
-                                >::type(Args...)
+                                >::type(typename meta::as_ref<Args>::type...)
                  >
     {};
 
@@ -127,9 +127,9 @@ namespace boost { namespace dispatch
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
       : meta::                                                                \
         result_of< typename meta::                                            \
-                   dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))              \
+                   dispatch_call< Tag(BOOST_PP_ENUM(n,M2,~))                  \
                                 , EvalContext                                 \
-                                >::type(BOOST_PP_ENUM_PARAMS(n,A))            \
+                                >::type(BOOST_PP_ENUM(n,M2,~))                \
                  >                                                            \
     {};                                                                       \
                                                                               \
@@ -176,6 +176,8 @@ namespace boost { namespace dispatch
     #define bits(z, n, _) ((0)(1))
     #define n_size(seq) BOOST_PP_SEQ_SIZE(seq)
     
+    #define M1(z,n,t) typename meta::as_ref<A##n>::type
+
     #define call_operator(r, constness)                                       \
     template<BOOST_PP_ENUM_PARAMS(n_size(constness),class A)> BOOST_FORCEINLINE \
     typename result< functor                                                  \
@@ -196,9 +198,9 @@ namespace boost { namespace dispatch
     struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                            \
       : meta::                                                                \
         result_of< typename meta::                                            \
-                   dispatch_call< Tag(BOOST_PP_ENUM_PARAMS(n,A))              \
+                   dispatch_call< Tag(BOOST_PP_ENUM(n,M1,~))                  \
                                 , EvalContext                                 \
-                                >::type(BOOST_PP_ENUM_PARAMS(n,A))            \
+                                >::type(BOOST_PP_ENUM(n,M1,~))                \
                  >                                                            \
     {};                                                                       \
                                                                               \
@@ -212,6 +214,7 @@ namespace boost { namespace dispatch
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M0,~)    
 
     #undef M0
+    #undef M1
     #undef bits
     #undef n_size
     #undef c1

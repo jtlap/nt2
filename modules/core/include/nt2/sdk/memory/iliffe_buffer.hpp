@@ -152,6 +152,8 @@ namespace nt2 { namespace memory
 
       make_links();
       inner_up_ = data_.lower() + inner_ - 1;
+      
+      return *this;
     }
 
     //==========================================================================
