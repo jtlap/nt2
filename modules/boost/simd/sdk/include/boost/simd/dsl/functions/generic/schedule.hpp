@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/assign.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
-#include <boost/dispatch/dsl/proto/unpack.hpp>
+#include <boost/dispatch/dsl/unpack.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 
 #include <boost/proto/make_expr.hpp>
@@ -24,54 +24,22 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  template<class Tag>
-  struct unpack_schedule_impl
-  : proto::
-    unpack< proto::
-            call< dispatch::
-                  functor<Tag, tag::formal_>
-                > ( proto::
-                    when< proto::_
-                        , proto::call< typename dispatch::
-                                       make_functor< tag::schedule_, Tag>
-                                                     ::type ( proto::_expr
-                                                            , proto::_state
-                                                            )
-                                     >
-                        >
-                  )
-          >
-  {
-  };
-
+  template<class Expr, class State>
   struct unpack_schedule
   {
-    template<class Sig>
-    struct result;
+    typedef dispatch::
+            unpack< Expr
+                  , dispatch::functor< typename proto::tag_of<Expr>::type, tag::formal_ >
+                  , dispatch::with_state<tag::schedule_, State> const
+                  >
+    transform;
 
-    template<class This, class Expr, class State>
-    struct result<This(Expr, State)>
-      : unpack_schedule_impl<typename proto::tag_of<Expr>::type>::template
-        result< unpack_schedule_impl< typename proto::tag_of<Expr
-                                    >::type> ( typename dispatch::meta::as_ref<Expr>::type
-                                             , State
-                                             )
-              >
-    {
-    };
+    typedef typename transform::result_type result_type;
 
-    template<class Expr, class State>
-    typename result<unpack_schedule(Expr&, State const&)>::type
-    operator()(Expr& expr, State const& st) const
+    BOOST_FORCEINLINE result_type
+    operator()(Expr& expr, State& state) const
     {
-      return unpack_schedule_impl<typename proto::tag_of<Expr>::type>()(expr, st);
-    }
-
-    template<class Expr, class State>
-    typename result<unpack_schedule(Expr const&, State const&)>::type
-    operator()(Expr const& expr, State const& st) const
-    {
-      return unpack_schedule_impl<typename proto::tag_of<Expr>::type>()(expr, st);
+      return transform()(expr, dispatch::with_state<tag::schedule_, State>(state));
     }
   };
 
@@ -105,14 +73,14 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename unpack_schedule::template result<unpack_schedule(A0&, F&)>::type  child0;
-    typedef typename unpack_schedule::template result<unpack_schedule(A1&, F&)>::type  child1;
-    typedef typename dispatch::meta::call<tag::assign_(child0, child1)>::type          result_type;
+    typedef typename unpack_schedule<A0, F>::result_type                       child0;
+    typedef typename unpack_schedule<A1, F>::result_type                       child1;
+    typedef typename dispatch::meta::call<tag::assign_(child0, child1)>::type  result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1, F& f) const
     {
-      return boost::simd::assign(unpack_schedule()(a0, f), unpack_schedule()(a1, f));
+      return boost::simd::assign(unpack_schedule<A0, F>()(a0, f), unpack_schedule<A1, F>()(a1, f));
     }
   };
 
@@ -122,12 +90,12 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename unpack_schedule::template result<unpack_schedule(A0&, F&)>::type result_type;
+    typedef typename unpack_schedule<A0, F>::result_type result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, F& f) const
     {
-      return unpack_schedule()(a0, f);
+      return unpack_schedule<A0, F>()(a0, f);
     }
   };
 
@@ -141,15 +109,15 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename unpack_schedule::template result<unpack_schedule(A0&, F&)>::type  child0;
-    typedef typename unpack_schedule::template result<unpack_schedule(A1&, F&)>::type  child1;
-    typedef typename dispatch::meta::call<tag::assign_(child0, child1)>::type          assigned;
-    typedef typename dispatch::meta::result_of<F(assigned)>::type                      result_type;
+    typedef typename unpack_schedule<A0, F>::result_type                       child0;
+    typedef typename unpack_schedule<A1, F>::result_type                       child1;
+    typedef typename dispatch::meta::call<tag::assign_(child0, child1)>::type  assigned;
+    typedef typename dispatch::meta::result_of<F(assigned)>::type              result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1, F& f) const
     {
-      return f(boost::simd::assign(unpack_schedule()(a0, f), unpack_schedule()(a1, f)));
+      return f(boost::simd::assign(unpack_schedule<A0, F>()(a0, f), unpack_schedule<A1, F>()(a1, f)));
     }
   };
 
@@ -163,12 +131,12 @@ namespace boost { namespace simd { namespace ext
             strip< typename dispatch::meta::
                   terminal_of< typename dispatch::meta::semantic_of<A0&>::type
                              >::type
-                 >::type                                                               terminal;
-    typedef terminal                                                                   child0;
-    typedef typename unpack_schedule::template result<unpack_schedule(A0&, F&)>::type  child1;
+                 >::type                                           terminal;
+    typedef terminal                                               child0;
+    typedef typename unpack_schedule<A0, F>::result_type           child1;
     typedef typename proto::result_of::
-            make_expr<proto::tag::assign, child0, child1>::type                        assigned;
-    typedef typename dispatch::meta::result_of<F(assigned)>::type                      result_type;
+            make_expr<proto::tag::assign, child0, child1>::type    assigned;
+    typedef typename dispatch::meta::result_of<F(assigned)>::type  result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, F& f) const
@@ -179,7 +147,7 @@ namespace boost { namespace simd { namespace ext
                                , reference_wrapper<typename remove_reference<child1>::type>
                                , child1 const&
                                >::type ref;
-      return f(proto::make_expr<proto::tag::assign>(terminal(), ref(unpack_schedule()(a0, f))));
+      return f(proto::make_expr<proto::tag::assign>(terminal(), ref(unpack_schedule<A0, F>()(a0, f))));
     }
   };
 

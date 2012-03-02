@@ -26,14 +26,13 @@ namespace boost { namespace simd { namespace ext
   {
     typedef dispatch::
             unpack< A0
-                  , dispatch::
-                    functor< typename proto::tag_of<A0>::type, tag::optimize_ >
+                  , dispatch::functor< typename proto::tag_of<A0>::type, tag::optimize_ >
                   , typename dispatch::make_functor<tag::optimize_, A0>::type
                   >
     transform;
-     
+
     typedef typename transform::result_type result_type;
-     
+
     BOOST_FORCEINLINE result_type
     operator()(A0& a0) const
     {
