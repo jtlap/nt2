@@ -40,7 +40,7 @@ template<class T> struct table_test
   }
 
   nt2::container::table<T> a0,a1,a2;
-  int N,M;
+  std::size_t N,M;
 };
 
 template<class T> struct vector_test
@@ -60,7 +60,7 @@ template<class T> struct vector_test
   }
 
   std::vector<T> a0,a1,a2;
-  int N,M;
+  std::size_t N,M;
 };
 
 template<class T> void do_test()
