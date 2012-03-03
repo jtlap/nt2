@@ -8,8 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::config::cache"
 
-#include <nt2/sdk/config/cache.hpp>
 #include <iostream>
+#include <nt2/sdk/config/cache.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 
 using namespace nt2::config;
@@ -39,14 +40,14 @@ NT2_TEST_CASE(cache_line_size)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test as_cache and display the result
+// Test has_cache and display the result
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(as_cache)
 {
-  std::cout << "Cache L1Code available : " << std::boolalpha << nt2::config::as_cache(L1Code) << std::endl;
-  std::cout << "Cache L1Data available : " << std::boolalpha << nt2::config::as_cache(L1Data) << std::endl;
-  std::cout << "Cache L1     available : " << std::boolalpha << nt2::config::as_cache(L1) << std::endl;
-  std::cout << "Cache L2     available : " << std::boolalpha << nt2::config::as_cache(L2) << std::endl;
-  std::cout << "Cache L3     available : " << std::boolalpha << nt2::config::as_cache(L3) << std::endl;
+  std::cout << "Cache L1Code available : " << std::boolalpha << nt2::config::has_cache(L1Code) << std::endl;
+  std::cout << "Cache L1Data available : " << std::boolalpha << nt2::config::has_cache(L1Data) << std::endl;
+  std::cout << "Cache L1     available : " << std::boolalpha << nt2::config::has_cache(L1) << std::endl;
+  std::cout << "Cache L2     available : " << std::boolalpha << nt2::config::has_cache(L2) << std::endl;
+  std::cout << "Cache L3     available : " << std::boolalpha << nt2::config::has_cache(L3) << std::endl;
 }
 

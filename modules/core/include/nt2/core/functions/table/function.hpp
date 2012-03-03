@@ -15,12 +15,9 @@
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/sdk/meta/is_colon.hpp>
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/sdk/memory/slice.hpp>
-#include <nt2/sdk/memory/no_padding.hpp>
+#include <nt2/include/functions/numel.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/pop_front.hpp>
-#include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -54,29 +51,22 @@ namespace nt2 { namespace container { namespace ext
     template<class Sz, class Children, int N, int M, class Enable = void>
     struct impl
     {
-      typedef typename boost::fusion::result_of::
-      fold< typename boost::
-            remove_reference< typename size_transform<Domain>::template
-                              result<size_transform<Domain>( typename boost::fusion::result_of::
-                                                             at_c< Children
-                                                                 , N
-                                                                 >::type
-                                                           )
-                                    >::type
-                            >::type
-          , boost::mpl::size_t<1>
-          , nt2::functor<tag::multiplies_>
-          >::type
-      result_type;
+      typedef typename boost::
+              remove_reference< typename size_transform<Domain>::template
+                                result<size_transform<Domain>
+                                ( typename  boost::fusion::result_of::
+                                            at_c<Children,N>::type
+                                )
+                                >::type
+                              >::type                           seq_t;
+
+      typedef typename meta::call<tag::numel_( seq_t )>::type   result_type;
 
       BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(Sz, Children children) const
       {
-        return boost::fusion::fold(
-            size_transform<Domain>()(boost::fusion::at_c<N>(children))
-          , boost::mpl::size_t<1>()
-          , nt2::functor<tag::multiplies_>()
-          );
+        return
+        nt2::numel( size_transform<Domain>()(boost::fusion::at_c<N>(children)) );
       }
     };
 
@@ -92,11 +82,8 @@ namespace nt2 { namespace container { namespace ext
                               , N
                               >   false_type;
 
-      typedef meta::
-              call<tag::slice_( Sz
-                              , memory::no_padding
-                              , boost::mpl::int_<N+1>
-                              )>  true_type;
+      typedef typename boost::fusion::result_of::pop_front<Sz>::type  seq_t;
+      typedef meta::call<tag::numel_( seq_t )>                        true_type;
 
       typedef boost::mpl::bool_<(N == M-1)> is_final;
 
@@ -112,7 +99,7 @@ namespace nt2 { namespace container { namespace ext
       BOOST_DISPATCH_FORCE_INLINE
       result_type compute(Sz sz, boost::mpl::true_ const&) const
       {
-        return slice<N+1>(sz,memory::no_padding());
+        return nt2::numel(boost::fusion::pop_front(sz));
       }
 
       BOOST_DISPATCH_FORCE_INLINE

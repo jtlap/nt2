@@ -107,18 +107,6 @@ NT2_TEST_CASE_TPL( array_buffer_data_ctor, NT2_TYPES)
 }
 
 //==============================================================================
-// Test for array_buffer asserting constructor
-//==============================================================================
-NT2_TEST_CASE_TPL( array_buffer_wrong_data_ctor, NT2_TYPES)
-{
-  using nt2::memory::array_buffer;
-  typedef array_buffer<T,5,-2> buffer_type ;
-
-  NT2_TEST_ASSERT( buffer_type too_much(7) );
-  NT2_TEST_ASSERT( buffer_type too_few(2)  );
-}
-
-//==============================================================================
 // Test for array_buffer assignment
 //==============================================================================
 NT2_TEST_CASE_TPL(array_buffer_assignment, NT2_TYPES )
@@ -221,17 +209,4 @@ NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x(i), T(f(3+i)) );
-}
-
-//==============================================================================
-// Test for array_buffer asserting resize
-//==============================================================================
-NT2_TEST_CASE_TPL( array_buffer_wrong_resize, NT2_TYPES)
-{
-  using nt2::memory::array_buffer;
-  typedef array_buffer<T,5,-2> buffer_type ;
-  buffer_type b;
-
-  NT2_TEST_ASSERT( b.resize(7) );
-  NT2_TEST_ASSERT( b.resize(1) );
 }
