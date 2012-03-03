@@ -47,7 +47,7 @@ endif()
   endif()
     
   if(HAS_GCC_WALL)
-    set(NT2_FLAGS "${NT2_FLAGS} -Wall -Wno-unused-but-set-variable  -Wno-sign-compare")
+    set(NT2_FLAGS "${NT2_FLAGS} -Wall -Wno-unused-but-set-variable -Wno-sign-compare")
   endif()
 if(NT2_EXTRA_WARNINGS)
   if(HAS_GCC_WEXTRA)
