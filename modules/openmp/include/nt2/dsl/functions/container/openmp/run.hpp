@@ -28,17 +28,17 @@
 namespace nt2 { namespace ext
 {
   // nD element-wise operation
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, nt2::tag::openmp_<Site>
-                            , (A0)(S0)(Site)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, nt2::tag::openmp_<Site>
+                            , (A0)(S0)(T0)(N0)(A1)(T1)(N1)(Site)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::assign_
-                                     , boost::mpl::long_<2>
+                                     , T0
+                                     , N0
                                      >
                               ))
+                              ((node_<A1, elementwise_<T1>, N1))
                             )
   {
-    typedef typename boost::proto::result_of::
-    child_c<A0 const&, 0>::type                             result_type;
+    typedef A0&                                            result_type;
 
     typedef typename meta::
             strip< typename meta::
@@ -49,11 +49,14 @@ namespace nt2 { namespace ext
                                                             target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
+    operator()(A0& a0, A1& a1) const
     {
+      typename meta::call<tag::assign_(A0&, A1&)>::type
+      assigned = nt2::assign(a0, a1);
+
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      boost::proto::child_c<0>(a0).resize(a0.extent());
+      a0.resize(assigned.extent());
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
@@ -63,9 +66,9 @@ namespace nt2 { namespace ext
       {
         std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
         std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-        std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
-        std::ptrdiff_t ibound = ilow + boost::fusion::at_c<0>(a0.extent())/N*N;
-        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
+        std::ptrdiff_t bound  = boost::fusion::at_c<0>(assigned.extent()) + ilow;
+        std::ptrdiff_t ibound = ilow + boost::fusion::at_c<0>(assigned.extent())/N*N;
+        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(assigned.extent()));
 
         #pragma omp for
         for(std::ptrdiff_t j=olow; j<obound; ++j)
@@ -93,22 +96,23 @@ namespace nt2 { namespace ext
         boost::rethrow_exception(exception);
 #endif
 
-      return boost::proto::child_c<0>(a0);
+      return a0;
     }
   };
 
   // 1D element-wise operation
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::run_, nt2::tag::openmp_<Site>
-                            , (class A0)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class Site)
+  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::run_assign_, nt2::tag::openmp_<Site>
+                            , (class A0)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T0)(class N0)
+                              (class A1)(class T1)(class N1)
+                              (class Site)
                             , ((expr_< table_< unspecified_<A0>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind) >
-                                     , nt2::tag::assign_
-                                     , boost::mpl::long_<2>
+                                     , T0
+                                     , N0
                                      >
                               ))
                             )
   {
-    typedef typename boost::proto::result_of::
-    child_c<A0 const&, 0>::type                             result_type;
+    typedef A0&                                            result_type;
 
     typedef typename meta::
             strip< typename meta::
@@ -119,16 +123,19 @@ namespace nt2 { namespace ext
                                                             target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
+    operator()(A0& a0, A1& a1) const
     {
+      typename meta::call<tag::assign_(A0&, A1&)>::type
+      assigned = nt2::assign(a0, a1);
+
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      boost::proto::child_c<0>(a0).resize(a0.extent());
+      a0.resize(assigned.extent());
 
       typename A0::index_type::type bs;
       std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
-      std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(a0.extent())/N*N;
+      std::ptrdiff_t bound = boost::fusion::at_c<0>(assigned.extent()) + low;
+      std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(assigned.extent())/N*N;
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
@@ -155,9 +162,9 @@ namespace nt2 { namespace ext
 #endif
 
       for(std::ptrdiff_t i=aligned_bound; i<bound; ++i)
-        nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<stype>());
+        nt2::run_assign(a0, a1, boost::fusion::vector_tie(i), meta::as_<stype>());
 
-      return boost::proto::child_c<0>(a0);
+      return a0;
     }
   };
 
@@ -166,17 +173,17 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   // nD element-wise operation
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, nt2::tag::openmp_<Site>
-                            , (A0)(S0)(Site)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, nt2::tag::openmp_<Site>
+                            , (A0)(S0)(T0)(N0)(A1)(T1)(N1)(Site)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::assign_
-                                     , boost::mpl::long_<2>
+                                     , T0
+                                     , N0
                                      >
                               ))
+                              ((node_<A1, elementwise_<T1>, N1>))
                             )
   {
-    typedef typename boost::proto::result_of::
-    child_c<A0 const&, 0>::type                             result_type;
+    typedef A0&                                            result_type;
 
     typedef typename meta::
             strip< typename meta::
@@ -184,11 +191,14 @@ namespace nt2 { namespace ext
                  >::type                                    target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
+    operator()(A0& a0, A1& a1) const
     {
+      typename meta::call<tag::assign_(A0&, A1&)>::type
+      assigned = nt2::assign(a0, a1);
+
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      boost::proto::child_c<0>(a0).resize(a0.extent());
+      a0.resize(assigned.extent());
 
       typename A0::index_type::type bs;
 
@@ -199,8 +209,8 @@ namespace nt2 { namespace ext
       {
         std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
         std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-        std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
-        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
+        std::ptrdiff_t bound  = boost::fusion::at_c<0>(assigned.extent()) + ilow;
+        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(assigned.extent()));
 
         #pragma omp for
         for(std::ptrdiff_t j=olow; j<obound; ++j)
@@ -227,22 +237,23 @@ namespace nt2 { namespace ext
         boost::rethrow_exception(exception);
 #endif
 
-      return boost::proto::child_c<0>(a0);
+      return a0;
     }
   };
 
   // 1D element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::run_, nt2::tag::openmp_<Site>
-                            , (class A0)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class Site)
+                            , (class A0)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T0)(class N0)
+                              (class A1)(class T1)(class N1)
+                              (class Site)
                             , ((expr_< table_< unspecified_<A0>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind) >
-                                     , nt2::tag::assign_
-                                     , boost::mpl::long_<2>
+                                     , T0
+                                     , N0
                                      >
                               ))
                             )
   {
-    typedef typename boost::proto::result_of::
-    child_c<A0 const&, 0>::type                             result_type;
+    typedef A0&                                            result_type;
 
     typedef typename meta::
             strip< typename meta::
@@ -250,15 +261,18 @@ namespace nt2 { namespace ext
                  >::type                                    target_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
+    operator()(A0& a0, A1& a1) const
     {
+      typename meta::call<tag::assign_(A0&, A1&)>::type
+      assigned = nt2::assign(a0, a1);
+
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      boost::proto::child_c<0>(a0).resize(a0.extent());
+      a0.resize(assigned.extent());
 
       typename A0::index_type::type bs;
       std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
+      std::ptrdiff_t bound = boost::fusion::at_c<0>(assigned.extent()) + low;
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
@@ -284,8 +298,7 @@ namespace nt2 { namespace ext
       if(exception)
         boost::rethrow_exception(exception);
 #endif
-
-      return boost::proto::child_c<0>(a0);
+      return a0;
     }
   };
 
