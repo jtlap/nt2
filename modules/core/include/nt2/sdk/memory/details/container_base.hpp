@@ -100,39 +100,32 @@ namespace nt2 { namespace details
     // Two-phase initialisation suppport
     //==========================================================================
     template<class Size> static inline
-    void init( block_t& block, Size const& sz, allocator_type const& a)
+    void init( block_t& block, Size const& sz)
     {
       if( nt2::numel(sz) != nt2::length(sz) )
-      {
-        // padd as usual
-        block_t that(pad<value_type>(sz,typename padd_t::type()),a);
-        block.swap(that);
-      }
+        block.resize(pad<value_type>(sz,typename padd_t::type()));
       else
-      {
-        // else, don't pad this [1 1 ... N] size
-        block_t that(sz,a);
-        block.swap(that);
-      }
+        block.resize(sz);
     }
 
     template<class Size> static BOOST_FORCEINLINE
-    void init ( block_t& block, Size const& sz, allocator_type const& a
-              , boost::mpl::true_ const&
-              )
+    void init ( block_t& block, Size const& sz, boost::mpl::true_ const& )
     {
-      init(block,sz,a);
+      init(block,sz);
     }
 
     template<class Size> static BOOST_FORCEINLINE
-    void init ( block_t&, Size const&, allocator_type const&
-              , boost::mpl::false_ const&
-              )
-    {}
+    void init ( block_t&, Size const&, boost::mpl::false_ const& ) {}
 
     //==========================================================================
     // Resize inner block if resizing is allowed
     //==========================================================================
+    template<class Size> static inline
+    void resize ( block_t& block, Size const& new_sz, sizes_type& old_sz )
+    {
+      resize(block,new_sz,old_sz,boost::mpl::bool_<sizes_type::static_status>());
+    }
+
     template<class Size> static inline
     void resize ( block_t& block, Size const& new_sz, sizes_type& old_sz
                 , boost::mpl::false_ const&

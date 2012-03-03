@@ -35,30 +35,19 @@ namespace nt2 { namespace memory
     typedef typename parent::specific_data_type           specific_data_type;
 
     //==========================================================================
-    // Default constructor can be called endlessly to reuse data
-    //==========================================================================
-    container()
-    {
-      if(!status_)
-      {
-        parent::init( block_,sizes_, allocator_type()
-                    , typename parent::require_static_init()
-                    );
-        status_ = true;
-      }
-    }
-
-    //==========================================================================
     // First constructor call is given priority over the others
     // Default constructor never throw nor assert as multiple instance can
     // coexist
     //==========================================================================
-    container( allocator_type const& a )
+    container( allocator_type const& a = allocator_type())
     {
       if(!status_)
       {
         typename parent::block_t that(a);
-        block_.swap(that);
+        block_.swap(that);  // bleh swap :s
+        parent::init( block_,sizes_
+                    , typename parent::require_static_init()
+                    );
         status_ = true;
       }
     }
@@ -70,7 +59,9 @@ namespace nt2 { namespace memory
     {
       if(!status_)
       {
-        parent::init(block_,sz, a);
+        typename parent::block_t that(a);
+        block_.swap(that);
+        parent::init(block_,sz);
         sizes_ = sz;
         status_ = true;
       }
@@ -147,7 +138,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size> static BOOST_FORCEINLINE void resize( Size const& szs )
     {
-      parent::resize(block_,szs,sizes_,typename parent::require_static_init());
+      parent::resize(block_,szs,sizes_);
     }
 
     private:

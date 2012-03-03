@@ -50,9 +50,11 @@ namespace nt2 { namespace memory
      * Default constructor
      */
     //==========================================================================
-    container( allocator_type const& a = allocator_type() ) : specific_data_()
+    container ( allocator_type const& a = allocator_type() )
+              : block_(a)
+              , specific_data_()
     {
-      parent::init(block_,sizes_,a, typename parent::require_static_init());
+      parent::init(block_,sizes_, typename parent::require_static_init());
     }
 
     //==========================================================================
@@ -61,11 +63,12 @@ namespace nt2 { namespace memory
      */
     //==========================================================================
     template<class Size>
-    container( Size const& sz, allocator_type const& a = allocator_type() )
-      : sizes_(sz)
-      , specific_data_()
+    container ( Size const& sz, allocator_type const& a = allocator_type() )
+              : block_(a)
+              , sizes_(sz)
+              , specific_data_()
     {
-      parent::init(block_,sz,a);
+      parent::init(block_,sz);
     }
 
     //==========================================================================
@@ -126,7 +129,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size> BOOST_FORCEINLINE void resize( Size const& szs )
     {
-      parent::resize(block_,szs,sizes_,typename parent::require_static_init());
+      parent::resize(block_,szs,sizes_);
     }
 
     //==========================================================================
