@@ -19,7 +19,7 @@
 namespace boost { namespace fusion { namespace extension
 {
   //============================================================================
-  // Register padded_sequence_tag as fusion random access sequence
+  // Register padded_sequence_tag as fusion random access view
   //============================================================================
   template<> struct is_sequence_impl<nt2::tag::padded_sequence_tag>
   {
@@ -37,7 +37,7 @@ namespace boost { namespace fusion { namespace extension
   };
 
   //============================================================================
-  // Size of padded_sequence_tag is given by its static_size member
+  // Size of padded_sequence_tag is given by its inner sequence member size
   //============================================================================
   template<> struct size_impl<nt2::tag::padded_sequence_tag>
   {
@@ -48,7 +48,7 @@ namespace boost { namespace fusion { namespace extension
   };
 
   //============================================================================
-  // at_c value of padded_sequence_tag is given by its static size or dynamic size if -1
+  // at_c value of is computed using the padding strategy functor
   //============================================================================
   template<> struct at_impl<nt2::tag::padded_sequence_tag>
   {
