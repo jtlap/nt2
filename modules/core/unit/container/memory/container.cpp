@@ -95,7 +95,6 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, DIMS)
   using nt2::memory::container;
 
   container<table_,id_<0>,double,settings(T)> b;
-  int dims = T::static_size;
 
   NT2_TEST(b.empty());
   NT2_TEST_EQUAL(b.size()       ,  0 );

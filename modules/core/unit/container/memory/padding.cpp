@@ -22,7 +22,7 @@ NT2_TEST_CASE_TPL(padding_on_non_singular, NT2_TYPES)
   using nt2::of_size;
   using boost::proto::value;
 
-  int N = 256/sizeof(T)-1, M = 2, k = 0;
+  std::size_t N = 256/sizeof(T)-1, M = 2, k = 0;
   table<T> t0( of_size(N,M) );
 
   for(std::size_t j=1; j<=M; ++j)
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL(padding_on_non_singular, NT2_TYPES)
       t0(i, j) = T(k++);
 
   T* pt0 = value(t0).begin();
-  int rest = value(t0).leading_size() - N; // how many crap to jump over
+  std::size_t rest = value(t0).leading_size() - N; // how many crap to jump over
 
   for(std::size_t j=1; j<=M; ++j)
   {
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(padding_on_singular, NT2_TYPES)
   using nt2::of_size;
   using boost::proto::value;
 
-  int N = 1, M = 256/sizeof(T)-1, k = 0;
+  std::size_t N = 1, M = 256/sizeof(T)-1, k = 0;
   table<T> t0( of_size(N,M) );
 
   for(std::size_t j=1; j<=M; ++j)

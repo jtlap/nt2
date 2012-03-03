@@ -208,5 +208,5 @@ NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
   std::transform(b,e,b,f);
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x(i), T(f(3+i)) );
+    NT2_TEST_EQUAL( x(i), f(T(3+i)) );
 }
