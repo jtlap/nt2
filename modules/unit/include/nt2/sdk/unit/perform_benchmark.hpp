@@ -37,7 +37,7 @@ namespace nt2 { namespace unit
   nt2::details::cycles_t perform_benchmark(Test test, double duration)
   {
     std::vector<nt2::details::cycles_t> cycles;
-    double c(0.),t(0.),vt(0.);   
+    double t(0.),vt(0.);
     nt2::details::cycles_t vc;
 
     do
@@ -52,7 +52,7 @@ namespace nt2 { namespace unit
       t += vt;
       cycles.push_back(vc);
     } while(t < duration);
-    
+
     return median(cycles.begin(),cycles.end());
   }
 } }
