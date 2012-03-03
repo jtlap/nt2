@@ -113,7 +113,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State& state, Data const& data) const
     {
-       return transform()(a0, dispatch::with_state_data<tag::run_, State, Data>(state, data));
+       return transform()(a0, dispatch::with_state_data<tag::run_, State, Data const>(state, data));
     }
   };
 
