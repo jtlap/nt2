@@ -20,11 +20,11 @@ using namespace nt2::config;
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(cache_size)
 {
-  std::cout << "Cache L1Code size : " << nt2::config::cache_size(L1Code) << " KBytes" << std::endl;
-  std::cout << "Cache L1Data size : " << nt2::config::cache_size(L1Data) << " KBytes" << std::endl;
-  std::cout << "Cache L1     size : " << nt2::config::cache_size(L1) << " KBytes" << std::endl;
-  std::cout << "Cache L2     size : " << nt2::config::cache_size(L2) << " KBytes" << std::endl;
-  std::cout << "Cache L3     size : " << nt2::config::cache_size(L3) << " KBytes" << std::endl;
+  std::cout << "Cache L1Code size : " << nt2::config::cache_size(L1Code) << " Kbytes" << std::endl;
+  std::cout << "Cache L1Data size : " << nt2::config::cache_size(L1Data) << " Kbytes" << std::endl;
+  std::cout << "Cache L1     size : " << nt2::config::cache_size(L1) << " Kbytes" << std::endl;
+  std::cout << "Cache L2     size : " << nt2::config::cache_size(L2) << " Kbytes" << std::endl;
+  std::cout << "Cache L3     size : " << nt2::config::cache_size(L3) << " Kbytes" << std::endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -32,11 +32,11 @@ NT2_TEST_CASE(cache_size)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(cache_line_size)
 {
-  std::cout << "Cache L1Code size : " << nt2::config::cache_line_size(L1Code) << " KBytes" << std::endl;
-  std::cout << "Cache L1Data size : " << nt2::config::cache_line_size(L1Data) << " KBytes" << std::endl;
-  std::cout << "Cache L1     size : " << nt2::config::cache_line_size(L1) << " KBytes" << std::endl;
-  std::cout << "Cache L2     size : " << nt2::config::cache_line_size(L2) << " KBytes" << std::endl;
-  std::cout << "Cache L3     size : " << nt2::config::cache_line_size(L3) << " KBytes" << std::endl;
+  std::cout << "Cache L1Code size : " << nt2::config::cache_line_size(L1Code) << " bytes" << std::endl;
+  std::cout << "Cache L1Data size : " << nt2::config::cache_line_size(L1Data) << " bytes" << std::endl;
+  std::cout << "Cache L1     size : " << nt2::config::cache_line_size(L1) << " bytes" << std::endl;
+  std::cout << "Cache L2     size : " << nt2::config::cache_line_size(L2) << " bytes" << std::endl;
+  std::cout << "Cache L3     size : " << nt2::config::cache_line_size(L3) << " bytes" << std::endl;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
