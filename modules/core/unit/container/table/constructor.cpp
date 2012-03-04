@@ -91,6 +91,38 @@ NT2_TEST_CASE( range_ctor )
       NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
 }
 
+struct adhoc_
+{
+  typedef boost::mpl::true_ padding_status;
+
+  template<class Sig> struct result;
+  template<class T, int N> struct result_impl;
+
+  template<class This, class T, class N, class V>
+  struct  result<This(T,N,V)> { typedef std::size_t type; };
+
+  template<class T, class N, class V>
+  typename result<adhoc_(T const&, N const&, V const&)>::type
+  operator()(T const& t, N const& n, V const& v) const
+  {
+    return eval(t,n,v,boost::mpl::bool_<N::value==0>());
+  }
+
+  template<class T, class N, class V>
+  typename result<adhoc_(T const&, N const&, V const&)>::type
+  eval(T const& t, N const&, V const&, boost::mpl::true_ const&) const
+  {
+    return 4;
+  }
+
+  template<class T, class N, class V>
+  typename result<adhoc_(T const&, N const&, V const&)>::type
+  eval(T const& t, N const&, V const&, boost::mpl::false_ const&) const
+  {
+    return t;
+  }
+};
+
 NT2_TEST_CASE( shared_ctor )
 {
   using nt2::table;
@@ -98,7 +130,10 @@ NT2_TEST_CASE( shared_ctor )
   using nt2::shared_;
   using nt2::settings;
   using nt2::no_padding_;
+  using nt2::padding_;
   using nt2::share;
+  using nt2::first_index;
+  using nt2::last_index;
 
   float data[] =  {
                     1,2,3,0
@@ -117,9 +152,8 @@ NT2_TEST_CASE( shared_ctor )
         NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
   }
 
-/*
   {
-    table<float, settings(shared_,lead_padding_<4>)>
+    table<float, settings(shared_,padding_<adhoc_>)>
     x(of_size(3,2), share(&data[0], &data[0] + 8));
 
     NT2_TEST( nt2::extent(x) == of_size(3,2) );
@@ -128,7 +162,6 @@ NT2_TEST_CASE( shared_ctor )
      for(int i=1;i<=3;++i)
         NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
   }
-*/
 
   {
     float f = 1.f;
