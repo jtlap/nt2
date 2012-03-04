@@ -188,6 +188,27 @@ namespace nt2 { namespace ext
       return nt2::run( a0, boost::fusion::vector0<>(), meta::as_<stype>() );
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)
+                            , ((expr_< unspecified_<A0>
+                                     , boost::simd::tag::assign_
+                                     , boost::mpl::long_<2>
+                                     >
+                              ))
+                            )
+  {
+    typedef typename boost::dispatch::meta::
+            call<tag::run_assign_( typename boost::proto::result_of::child_c<A0&, 0>::type
+                                 , typename boost::proto::result_of::child_c<A0&, 1>::type
+                                 )
+                >::type                                        result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
+    {
+      return nt2::run_assign(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0));
+    }
+  };
 } }
 
 #endif
