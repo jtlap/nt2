@@ -58,6 +58,8 @@ namespace nt2 {  namespace memory
     //==========================================================================
     array_buffer( size_type s, allocator_type const& = allocator_type() ) {}
 
+    const_iterator  raw() const  { return &storage_[0]; }
+
     //==========================================================================
     /**!
      * Return a (const) iterator to the biased beginning of the buffer data.

@@ -22,6 +22,7 @@ namespace nt2 { namespace memory
     typedef typename parent::reference        reference;
     typedef typename parent::const_reference  const_reference;
     typedef typename parent::allocator_type   allocator_type;
+    typedef typename parent::const_pointer    const_pointer;
 
     iliffe_buffer( allocator_type const& a = allocator_type()) : parent(a) {}
 
@@ -38,6 +39,8 @@ namespace nt2 { namespace memory
     {
       parent::resize(boost::fusion::at_c<0>(szs));
     }
+
+    const_pointer raw() const { return parent::raw(); }
 
     inline size_type        inner_size()  const { return parent::size();  }
     inline size_type        outer_size()  const { return 1;               }

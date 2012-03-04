@@ -30,6 +30,8 @@ namespace nt2 { namespace memory
     typedef typename parent::difference_type              difference_type;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
+    typedef typename parent::iterator                     iterator;
+    typedef typename parent::const_iterator               const_iterator;
     typedef typename parent::pointer                      pointer;
     typedef typename parent::const_pointer                const_pointer;
     typedef typename parent::specific_data_type           specific_data_type;
@@ -62,7 +64,7 @@ namespace nt2 { namespace memory
         typename parent::block_t that(a);
         block_.swap(that);
         parent::init(block_,sz);
-        sizes_ = sz;
+        sizes_  = sz;
         status_ = true;
       }
     }
@@ -122,6 +124,17 @@ namespace nt2 { namespace memory
     static BOOST_FORCEINLINE bool empty() { return block_.empty(); }
 
     static BOOST_FORCEINLINE specific_data_type get_spec_data() { return specific_data_; }
+
+    //==========================================================================
+    /*!
+     * Return the begin of the raw memory
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE const_pointer  raw()  const   { return block_.raw();    }
+    BOOST_FORCEINLINE iterator       begin()        { return block_.begin();  }
+    BOOST_FORCEINLINE const_iterator begin() const  { return block_.begin();  }
+    BOOST_FORCEINLINE iterator       end()          { return block_.end();    }
+    BOOST_FORCEINLINE const_iterator end() const    { return block_.end();    }
 
     //==========================================================================
     /*!
