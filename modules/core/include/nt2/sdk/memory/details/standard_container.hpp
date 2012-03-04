@@ -165,11 +165,26 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     /*!
+     * Return the begin of the raw memory
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE const_pointer raw() const { return block_.raw(); }
+
+    //==========================================================================
+    /*!
      * Return the begin of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       begin()       { return block_.data().begin(); }
-    BOOST_FORCEINLINE const_iterator begin() const { return block_.data().begin(); }
+    BOOST_FORCEINLINE iterator       begin()       { return block_.begin(); }
+    BOOST_FORCEINLINE const_iterator begin() const { return block_.begin(); }
+
+    //==========================================================================
+    /*!
+     * Return the end of the data
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE iterator       end()       { return block_.end(); }
+    BOOST_FORCEINLINE const_iterator end() const { return block_.end(); }
 
     //==========================================================================
     /*!
@@ -178,14 +193,6 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE specific_data_type&  get_spec_data()       { return specific_data_; }
     BOOST_FORCEINLINE specific_data_type&  get_spec_data() const { return specific_data_; }
-
-    //==========================================================================
-    /*!
-     * Return the end of the data
-     */
-    //==========================================================================
-    BOOST_FORCEINLINE iterator       end()       { return block_.data().end(); }
-    BOOST_FORCEINLINE const_iterator end() const { return block_.data().end(); }
 
     private:
     block_t                     block_;

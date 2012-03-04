@@ -9,8 +9,10 @@
 #define NT2_UNIT_MODULE "nt2::table constructor checks"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/size.hpp>
+#include <nt2/include/functions/extent.hpp>
+#include <nt2/include/functions/first_index.hpp>
+#include <nt2/include/functions/last_index.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -73,6 +75,8 @@ NT2_TEST_CASE( range_ctor )
 {
   using nt2::table;
   using nt2::of_size;
+  using nt2::first_index;
+  using nt2::last_index;
 
   float data[] =  {
                     1,2,3
@@ -82,8 +86,8 @@ NT2_TEST_CASE( range_ctor )
   table<float> x( of_size(3,2), &data[0], &data[0] + 6 );
   NT2_TEST( nt2::extent(x) == of_size(3,2) );
 
-  for(int j=1;j<=2;++j)
-   for(int i=1;i<=3;++i)
+  for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
+   for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
       NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
 }
 
@@ -108,10 +112,11 @@ NT2_TEST_CASE( shared_ctor )
 
     NT2_TEST( nt2::extent(x) == of_size(4,2) );
 
-    for(int j=1;j<=2;++j)
-     for(int i=1;i<=4;++i)
+  for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
+   for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
         NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
   }
+
 /*
   {
     table<float, settings(shared_,lead_padding_<4>)>
@@ -124,6 +129,7 @@ NT2_TEST_CASE( shared_ctor )
         NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
   }
 */
+
   {
     float f = 1.f;
 

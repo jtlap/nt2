@@ -99,6 +99,7 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, DIMS)
   NT2_TEST(b.empty());
   NT2_TEST_EQUAL(b.size()       ,  0 );
   NT2_TEST(b.extent() == of_size_<0>());
+  NT2_TEST_EQUAL(b.raw(), (double*)(0));
 }
 
 //==============================================================================

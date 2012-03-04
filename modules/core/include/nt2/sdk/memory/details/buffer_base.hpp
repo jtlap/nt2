@@ -34,7 +34,9 @@ namespace nt2 { namespace memory { namespace details
     typedef typename Allocator::difference_type   difference_type;
 
     buffer_data ( Allocator const& a )
-                : parent_allocator(a), origin_(0), up_(BaseIndex-1) {}
+                : parent_allocator(a), origin_(0), begin_(0), end_(0)
+                , up_(BaseIndex-1)
+    {}
 
     void allocate(size_type const& s)
     {
@@ -57,7 +59,9 @@ namespace nt2 { namespace memory { namespace details
 
     void clamp(size_type const& s)
     {
-      up_  = BaseIndex + s - 1;
+      begin_  = origin_ ? origin_ + BaseIndex : origin_;
+      end_    = begin_ + s;
+      up_     = BaseIndex + s - 1;
     }
 
     size_type realloc(size_type const& s)
@@ -82,17 +86,19 @@ namespace nt2 { namespace memory { namespace details
     difference_type inner_upper() const { return up_; }
     difference_type outer_upper() const { return 1;   }
 
-    iterator origin()  { return origin_;             }
-    iterator begin()   { return origin_ + BaseIndex; }
-    iterator end()     { return origin_ + up_ + 1;   }
+    iterator origin()  { return origin_;  }
+    iterator begin()   { return begin_;   }
+    iterator end()     { return end_;     }
 
-    const_iterator origin()  const { return origin_;             }
-    const_iterator begin()   const { return origin_ + BaseIndex; }
-    const_iterator end()     const { return origin_ + up_ + 1;   }
+    const_iterator origin()  const { return origin_;  }
+    const_iterator begin()   const { return begin_;   }
+    const_iterator end()     const { return end_;     }
 
     void swap(buffer_data& src)
     {
       boost::swap(origin_ , src.origin_ );
+      boost::swap(begin_  , src.begin_  );
+      boost::swap(end_    , src.end_    );
       boost::swap(up_     , src.up_     );
     }
 
@@ -106,7 +112,7 @@ namespace nt2 { namespace memory { namespace details
       return static_cast<parent_allocator const&>(*this);
     }
 
-    iterator        origin_;
+    iterator        origin_, begin_, end_;
     difference_type up_;
   };
 } } }

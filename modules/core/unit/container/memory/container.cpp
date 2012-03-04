@@ -99,6 +99,7 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, DIMS)
   NT2_TEST(b.empty());
   NT2_TEST_EQUAL(b.size()       ,  0 );
   NT2_TEST(b.extent() == of_size_<0>());
+  NT2_TEST_EQUAL(b.raw(), (double*)(0));
 }
 
 //==============================================================================
@@ -119,6 +120,7 @@ NT2_TEST_CASE_TPL( container_static_default_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST( (b.extent() == of_size_<3,7>()) );
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=7;++j)
       for(typename type::difference_type i=1;i<=3;++i)
@@ -135,6 +137,7 @@ NT2_TEST_CASE_TPL( container_static_default_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST( (b.extent() == of_size_<1,7>()) );
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=7;++j)
       for(typename type::difference_type i=1;i<=1;++i)
@@ -164,6 +167,7 @@ NT2_TEST_CASE_TPL( container_automatic_static_default_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST( (b.extent() == of_size_<3,7>()) );
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=7;++j)
       for(typename type::difference_type i=1;i<=3;++i)
@@ -180,6 +184,7 @@ NT2_TEST_CASE_TPL( container_automatic_static_default_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST( (b.extent() == of_size_<1,7>()) );
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=7;++j)
       for(typename type::difference_type i=1;i<=1;++i)
@@ -208,6 +213,7 @@ NT2_TEST_CASE_TPL( container_size_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST( (b.extent() == of_size(5,3)) );
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=3;++j)
       for(typename type::difference_type i=1;i<=5;++i)
@@ -224,6 +230,7 @@ NT2_TEST_CASE_TPL( container_size_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST( (b.extent() == of_size(1,3)) );
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=3;++j)
       for(typename type::difference_type i=1;i<=1;++i)
@@ -258,6 +265,7 @@ NT2_TEST_CASE_TPL( container_copy_ctor, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=3;++j)
       for(typename type::difference_type i=1;i<=5;++i)
@@ -276,6 +284,7 @@ NT2_TEST_CASE_TPL( container_copy_ctor, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(1,3)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=3;++j)
       for(typename type::difference_type i=1;i<=1;++i)
@@ -308,6 +317,7 @@ NT2_TEST_CASE_TPL( automatic_container_copy_ctor, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(3,7)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=7;++j)
       for(typename type::difference_type i=1;i<=3;++i)
@@ -326,6 +336,7 @@ NT2_TEST_CASE_TPL( automatic_container_copy_ctor, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(1,7)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=7;++j)
       for(typename type::difference_type i=1;i<=1;++i)
@@ -357,6 +368,7 @@ NT2_TEST_CASE_TPL( container_assignment, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=3;++j)
       for(typename type::difference_type i=1;i<=5;++i)
@@ -377,6 +389,7 @@ NT2_TEST_CASE_TPL( container_assignment, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(1,3)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=3;++j)
       for(typename type::difference_type i=1;i<=1;++i)
@@ -411,6 +424,7 @@ NT2_TEST_CASE_TPL( automatic_container_assignment, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=3;++j)
       for(typename type::difference_type i=1;i<=5;++i)
@@ -431,6 +445,7 @@ NT2_TEST_CASE_TPL( automatic_container_assignment, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(1,3)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=3;++j)
       for(typename type::difference_type i=1;i<=1;++i)
@@ -466,9 +481,11 @@ NT2_TEST_CASE_TPL( container_swap, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     NT2_TEST(!b.empty());
     NT2_TEST( (b.extent() == of_size(3,2)) );
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=2;++j)
       for(typename type::difference_type i=1;i<=3;++i)
@@ -496,9 +513,11 @@ NT2_TEST_CASE_TPL( container_swap, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST( (x.extent() == of_size(1,3)) );
+    NT2_TEST_EQUAL(x.raw(), &x[boost::fusion::make_vector(1,1)]);
 
     NT2_TEST(!b.empty());
     NT2_TEST( (b.extent() == of_size(1,2)) );
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=2;++j)
       for(typename type::difference_type i=1;i<=1;++i)
@@ -529,11 +548,13 @@ NT2_TEST_CASE_TPL( container_resize, NT2_TYPES)
     NT2_TEST(b.empty());
     NT2_TEST_EQUAL(b.size(),  0 );
     NT2_TEST(b.extent() == of_size_<0>());
+    NT2_TEST_EQUAL(b.raw(), (T*)(0));
 
     b.resize( of_size(3,2) );
 
     NT2_TEST(!b.empty());
     NT2_TEST(b.extent() == of_size(3,2));
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=2;++j)
       for(typename type::difference_type i=1;i<=3;++i)
@@ -541,6 +562,20 @@ NT2_TEST_CASE_TPL( container_resize, NT2_TYPES)
 
     for(typename type::difference_type j=1;j<=2;++j)
       for(typename type::difference_type i=1;i<=3;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i+j));
+
+    b.resize( of_size(2,7) );
+
+    NT2_TEST(!b.empty());
+    NT2_TEST(b.extent() == of_size(2,7));
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=2;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i+j);
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=2;++i)
         NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i+j));
   }
 
@@ -551,11 +586,13 @@ NT2_TEST_CASE_TPL( container_resize, NT2_TYPES)
     NT2_TEST(b.empty());
     NT2_TEST_EQUAL(b.size(),  0 );
     NT2_TEST(b.extent() == of_size_<0>());
+    NT2_TEST_EQUAL(b.raw(), (T*)(0));
 
     b.resize( of_size(1,2) );
 
     NT2_TEST(!b.empty());
     NT2_TEST(b.extent() == of_size(1,2));
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
 
     for(typename type::difference_type j=1;j<=2;++j)
       for(typename type::difference_type i=1;i<=1;++i)
@@ -563,6 +600,20 @@ NT2_TEST_CASE_TPL( container_resize, NT2_TYPES)
 
     for(typename type::difference_type j=1;j<=2;++j)
       for(typename type::difference_type i=1;i<=1;++i)
+        NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i+j));
+
+    b.resize( of_size(2,7) );
+
+    NT2_TEST(!b.empty());
+    NT2_TEST(b.extent() == of_size(2,7));
+    NT2_TEST_EQUAL(b.raw(), &b[boost::fusion::make_vector(1,1)]);
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=2;++i)
+        b[boost::fusion::vector_tie(i,j)] = T(i+j);
+
+    for(typename type::difference_type j=1;j<=7;++j)
+      for(typename type::difference_type i=1;i<=2;++i)
         NT2_TEST_EQUAL(b[boost::fusion::vector_tie(i,j)], T(i+j));
   }
 }
