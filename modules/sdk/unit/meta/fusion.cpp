@@ -33,12 +33,12 @@ NT2_TEST_CASE_TPL(hierarchy_of_ref_cref, NT2_TYPES)
 
   typedef array<T,7> base;
   typedef typename hierarchy_of<base>::type        hvalue;
-  typedef typename hierarchy_of<base const>::type  cvalue;
+  typedef typename hierarchy_of<base const>::type  chvalue;
   typedef typename hierarchy_of<base&>::type       rvalue;
   typedef typename hierarchy_of<base const&>::type crvalue;
 
   NT2_TEST_EXPR_TYPE( rvalue(),  _, hvalue );
-  NT2_TEST_EXPR_TYPE( crvalue(), _, crvalue );
+  NT2_TEST_EXPR_TYPE( crvalue(), _, chvalue );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -17,6 +17,7 @@ SET( SOURCES
    isvector.cpp
    length.cpp
    linspace.cpp
+   first_last_index.cpp
    ndims.cpp
    numel.cpp
    ones.cpp

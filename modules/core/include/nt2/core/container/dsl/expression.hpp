@@ -142,15 +142,15 @@ namespace nt2 { namespace container
     // Expression initialization called from generator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
-    expression() : size_(nt2::extent(parent::proto_base().child0)) {}
+    expression() : size_(size_transform<domain>()(parent::proto_base())) {}
 
     BOOST_DISPATCH_FORCE_INLINE
-    expression(Expr const& x) : parent(x), size_(size_transform<domain>()(x)) {}
+    expression(Expr const& x) : parent(x), size_(size_transform<domain>()(parent::proto_base())) {}
 
     BOOST_DISPATCH_FORCE_INLINE
     expression(expression const& xpr)
      : parent(xpr.proto_base())
-     , size_(details::size_recompute(parent::proto_base(), xpr))
+     , size_(size_transform<domain>()(parent::proto_base()))
     {
       #ifdef NT2_LOG_COPIES
       typedef typename boost::mpl::eval_if_c< boost::proto::arity_of<Expr>::value == 0
