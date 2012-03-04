@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL(hierarchy_of_ref_cref, NT2_TYPES)
   typedef typename hierarchy_of<base const&>::type crvalue;
 
   NT2_TEST_EXPR_TYPE( rvalue(),  _, hvalue );
-  NT2_TEST_EXPR_TYPE( crvalue(), _, chvalue );
+  NT2_TEST_EXPR_TYPE( crvalue(), _, crvalue );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
