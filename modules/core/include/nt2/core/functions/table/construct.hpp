@@ -21,6 +21,7 @@ namespace nt2 { namespace ext
 
   //============================================================================
   // Construct a terminal from a size
+  //  * Perform a resize on the table's container
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)
@@ -39,13 +40,16 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
-      container_type that((extent_type(a1)));
-      boost::proto::value(a0).swap(that);
+      boost::proto::value(a0).resize(a1);
     }
   };
 
   //============================================================================
   // Construct a terminal from a size and some unspecified allocator
+  //  * Construct a proper container from size and allocator
+  //  * Swap with the table's container
+  // This is done even if swap sounds bad with automatic storage table. Good
+  // news are that automatic_ storage table usually don't require allocators ;)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)(A2)
@@ -73,6 +77,8 @@ namespace nt2 { namespace ext
 
   //============================================================================
   // Construct a terminal from another expression
+  // Non trivial assignment is passed to the parent expression type that will
+  // select hwo to perform the expression evaluation.
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)(Tag)
@@ -98,7 +104,9 @@ namespace nt2 { namespace ext
     }
   };
   //============================================================================
-  // Construct a terminal from a scalar
+  // Construct a terminal from a scalar:
+  //  * Resize table to [1 1]
+  //  * Copy the scalar to the table memory (*raw() is the easiest way)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)
@@ -115,8 +123,8 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
-      typedef typename A0::parent parent;
-      static_cast<parent&>(a0) = a1;
+      boost::proto::value(a0).resize(of_size_<1,1>());
+      *(a0.raw()) = a1;
     }
   };
 
@@ -151,9 +159,9 @@ namespace nt2 { namespace ext
       );
 
       //========================================================================
-      // Build recipient
+      // Resize current table
       //========================================================================
-      type that(a1);
+      boost::proto::value(a0).resize(a1);
 
       //========================================================================
       // copy elementwisely
@@ -162,12 +170,7 @@ namespace nt2 { namespace ext
       pos[0] = boost::mpl::at_c<typename A0::index_type::type,0>::type::value;
 
       for(A2 beg_ = a2; beg_ != a3; ++pos[0], ++beg_)
-        that[ pos ] = *beg_;
-
-      //========================================================================
-      // Swap to destination
-      //========================================================================
-      boost::proto::value(a0).swap(that);
+        boost::proto::value(a0)[ pos ] = *beg_;
     }
   };
 } }

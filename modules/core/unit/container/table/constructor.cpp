@@ -28,6 +28,17 @@ NT2_TEST_CASE( default_ctor )
   NT2_TEST( nt2::extent(x) == of_size(0) );
 }
 
+NT2_TEST_CASE_TPL( scalar_ctor, NT2_TYPES )
+{
+  using nt2::table;
+  using nt2::of_size;
+
+  table<T> x = T(42);
+
+  NT2_TEST( nt2::extent(x) == of_size(1,1) );
+  NT2_TEST_EQUAL( T(x(1)), T(42) );
+}
+
 NT2_TEST_CASE( of_size_ctor )
 {
   using nt2::table;
