@@ -146,6 +146,7 @@ NT2_TEST_CASE( shared_ctor )
     x(of_size(4,2), share(&data[0], &data[0] + 8));
 
     NT2_TEST( nt2::extent(x) == of_size(4,2) );
+    NT2_TEST_EQUAL( x.raw(), &data[0] );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
    for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
@@ -157,6 +158,7 @@ NT2_TEST_CASE( shared_ctor )
     x(of_size(3,2), share(&data[0], &data[0] + 8));
 
     NT2_TEST( nt2::extent(x) == of_size(3,2) );
+    NT2_TEST_EQUAL( x.raw(), &data[0] );
 
     for(int j=1;j<=2;++j)
      for(int i=1;i<=3;++i)
@@ -170,6 +172,7 @@ NT2_TEST_CASE( shared_ctor )
           > x(nt2::extent(f), share(&f, &f + 1));
 
     NT2_TEST( nt2::extent(x) == of_size(1) );
+    NT2_TEST_EQUAL( x.raw(), &f );
 
     NT2_TEST_EQUAL( float(x(1,1)), 1.f );
     x = 2.f;
