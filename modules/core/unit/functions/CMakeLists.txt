@@ -25,6 +25,9 @@ SET( SOURCES
 #  sub2sub.cpp
   size.cpp
   zeros.cpp
+  issquare.cpp
+  issymetric.cpp
+  ishermitian.cpp
 # List of test files for toolbox core.settings
    )
 
