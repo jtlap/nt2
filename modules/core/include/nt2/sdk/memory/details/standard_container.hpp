@@ -168,7 +168,8 @@ namespace nt2 { namespace memory
      * Return the begin of the raw memory
      */
     //==========================================================================
-    BOOST_FORCEINLINE const_pointer raw() const { return block_.raw(); }
+    pointer       raw()       { return block_.raw(); }
+    const_pointer raw() const { return block_.raw(); }
 
     //==========================================================================
     /*!

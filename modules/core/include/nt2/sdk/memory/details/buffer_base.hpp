@@ -94,6 +94,9 @@ namespace nt2 { namespace memory { namespace details
     const_iterator begin()   const { return begin_;   }
     const_iterator end()     const { return end_;     }
 
+    pointer       raw()       { return begin_; }
+    const_pointer raw() const { return begin_; }
+
     void swap(buffer_data& src)
     {
       boost::swap(origin_ , src.origin_ );

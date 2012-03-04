@@ -130,11 +130,12 @@ namespace nt2 { namespace memory
      * Return the begin of the raw memory
      */
     //==========================================================================
-    BOOST_FORCEINLINE const_pointer  raw()  const   { return block_.raw();    }
-    BOOST_FORCEINLINE iterator       begin()        { return block_.begin();  }
-    BOOST_FORCEINLINE const_iterator begin() const  { return block_.begin();  }
-    BOOST_FORCEINLINE iterator       end()          { return block_.end();    }
-    BOOST_FORCEINLINE const_iterator end() const    { return block_.end();    }
+    BOOST_FORCEINLINE pointer         raw()          { return block_.raw();    }
+    BOOST_FORCEINLINE const_pointer   raw() const    { return block_.raw();    }
+    BOOST_FORCEINLINE iterator        begin()        { return block_.begin();  }
+    BOOST_FORCEINLINE const_iterator  begin() const  { return block_.begin();  }
+    BOOST_FORCEINLINE iterator        end()          { return block_.end();    }
+    BOOST_FORCEINLINE const_iterator  end() const    { return block_.end();    }
 
     //==========================================================================
     /*!

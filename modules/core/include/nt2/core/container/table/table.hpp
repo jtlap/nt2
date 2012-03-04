@@ -54,10 +54,7 @@ namespace nt2 { namespace container
     //==========================================================================
     //  table constructor from its allocator
     //==========================================================================
-    table( allocator_type const& a )
-     : parent(container_type(a))
-    {
-    }
+    table( allocator_type const& a ) : parent(container_type(a)) {}
 
     //==========================================================================
     // table constructor from a single initializer.
@@ -94,6 +91,7 @@ namespace nt2 { namespace container
     //==========================================================================
     // Access to raw data
     //==========================================================================
+    pointer       raw()       { return boost::proto::value(*this).raw(); }
     const_pointer raw() const { return boost::proto::value(*this).raw(); }
   };
 } }

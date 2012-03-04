@@ -58,7 +58,8 @@ namespace nt2 {  namespace memory
     //==========================================================================
     array_buffer( size_type s, allocator_type const& = allocator_type() ) {}
 
-    const_iterator  raw() const  { return &storage_[0]; }
+    pointer       raw()       { return &storage_[0]; }
+    const_pointer raw() const { return &storage_[0]; }
 
     //==========================================================================
     /**!
