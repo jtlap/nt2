@@ -10,8 +10,7 @@
 #define NT2_CORE_FUNCTIONS_COMMON_ISSQUARE_HPP_INCLUDED
 
 #include <nt2/core/functions/issquare.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/extent.hpp>
+#include <nt2/include/functions/ismatrix.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -22,15 +21,13 @@ namespace nt2 { namespace ext
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0) const
+    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
       typename meta::call<tag::extent_(A0 const&)>::type ex = nt2::extent(a0);
       std::size_t nz = nt2::numel(ex);
 
-      return  (nz > 0)
-        &&  (nt2::meta::safe_at_c<0>(ex)*nt2::meta::safe_at_c<1>(ex) == nz)
-        &&  (nt2::meta::safe_at_c<0>(ex) == nt2::meta::safe_at_c<1>(ex));
+      return  ismatrix(a0)
+          &&  (meta::safe_at_c<0>(ex) == meta::safe_at_c<1>(ex));
     }
   };
 } }
