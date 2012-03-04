@@ -30,12 +30,12 @@ namespace nt2 { namespace details
   template<class Tag, class Functor, class T, class S>
   struct generative
   {
-    typedef T                                             value_type;
-    typedef Tag                                           tag_type;
-    typedef Functor                                       generator_type;
-    typedef S                                             settings_type;
-    typedef typename meta::option<S,tag::of_size_>::type  sizes_type;
-    typedef sizes_type const&                             extent_type;
+    typedef T                                                 value_type;
+    typedef Tag                                               tag_type;
+    typedef Functor                                           generator_type;
+    typedef typename meta::normalize_settings<Tag,T,S>::type  settings_type;
+    typedef typename meta::option<S,tag::of_size_>::type      sizes_type;
+    typedef sizes_type const&                                 extent_type;
 
     generative( extent_type sz, generator_type const& g = generator_type() )
               :  generator_(g), sizes_(sz) {}
