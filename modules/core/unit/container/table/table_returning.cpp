@@ -10,7 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-
+#include <nt2/include/functions/first_index.hpp>
 #include <boost/type_traits/common_type.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -37,21 +37,16 @@ NT2_TEST_CASE_TPL( table_dimensions ,NT2_TYPES)
          a(i, j) = T(i + j); 
        }
    }
- nt2::table<T, nt2::C_index_> b; 
- for(int i=1; i <= 3; i++)
-   {
-     for(int j=1; j <= 3; j++)
-       {
-         b(i-1, j-1) = T(i + j); 
-       }
-   }
+ nt2::table<T, nt2::C_index_> b(nt2::of_size(3, 3)); 
  //  b = transmit(a);
- //  b =  a; 
-  for(int i=1; i <= 3; i++)
+  b =  a;
+  int fa = nt2::first_index<1>(a);
+  int fb = nt2::first_index<1>(b); 
+  for(int i=0; i < 3; i++)
     {
-      for(int j=1; j <= 3; j++)
+      for(int j=0; j < 3; j++)
         {
-          NT2_TEST_ULP_EQUAL(a(i, j), b(i-1, j-1), 0); 
+          NT2_TEST_ULP_EQUAL(a(i+fa, j+fa), b(i+fb, j+fb), 0); 
         }
     }
   
