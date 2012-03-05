@@ -29,6 +29,7 @@ SET( SOURCES
   issquare.cpp
   issymetric.cpp
   ishermitian.cpp
+  istriangular.cpp
 # List of test files for toolbox core.settings
    )
 

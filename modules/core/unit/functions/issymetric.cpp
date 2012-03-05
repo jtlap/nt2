@@ -25,10 +25,10 @@ NT2_TEST_CASE( fundamental_issymetric )
 
  NT2_TEST_CASE( container_issymetric )
  {
-//    std::cout << nt2::ones(4)(1) << std::endl;
-//    std::cout << nt2::ones(4, 4)(1, 1) << std::endl;
-    std::cout << nt2::first_index<1>(nt2::ones(4, 4, nt2::meta::as_<float>())) << std::endl;
-   //   NT2_TEST( !nt2::issymetric( nt2::ones(4, nt2::meta::as_<float>()))      );
+//        std::cout << nt2::ones(4)(1) << std::endl;
+//        std::cout << nt2::ones(4, 4)(1, 1) << std::endl;
+
+      NT2_TEST( !nt2::issymetric( nt2::ones(4, nt2::meta::as_<float>()))      );
    //   NT2_TEST( nt2::issymetric( nt2::ones(4,4))     );
    
    //   NT2_TEST( !nt2::issymetric( nt2::ones(4,1,1))   );
@@ -72,7 +72,7 @@ NT2_TEST_CASE( table_issymetric )
   NT2_TEST( !nt2::issymetric(a)     );
 
   
-  nt2::table<float> b; //= nt2::ones(nt2::of_size(3, 4), nt2::meta::as_<float>() );//(nt2::of_size(3, 4), nt2::meta::as_<float>());
+  nt2::table<float> b;
   b =  nt2::ones(3, 4, nt2::meta::as_<float>()); 
   NT2_TEST( !nt2::issymetric(b)     );
 
