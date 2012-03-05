@@ -20,6 +20,10 @@
 #include <boost/fusion/include/vector_tie.hpp>
 #include <cstddef>
 
+#ifndef BOOST_NO_EXCEPTIONS
+#include <boost/exception_ptr.hpp>
+#endif
+
 #ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
 {
@@ -51,6 +55,9 @@ namespace nt2 { namespace ext
 
       boost::proto::child_c<0>(a0).resize(a0.extent());
 
+#ifndef BOOST_NO_EXCEPTIONS
+      boost::exception_ptr exception;
+#endif
       typename A0::index_type::type bs;
       #pragma omp parallel
       {
@@ -63,13 +70,28 @@ namespace nt2 { namespace ext
         #pragma omp for
         for(std::ptrdiff_t j=olow; j<obound; ++j)
         {
-          for(std::ptrdiff_t i=ilow; i<ibound; i+=N)
-            nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<target_type>());
+#ifndef BOOST_NO_EXCEPTIONS
+          try
+          {
+#endif
+            for(std::ptrdiff_t i=ilow; i<ibound; i+=N)
+              nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<target_type>());
 
-          for(std::ptrdiff_t i=ibound; i<bound; ++i)
-            nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<stype>());
+            for(std::ptrdiff_t i=ibound; i<bound; ++i)
+              nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<stype>());
+#ifndef BOOST_NO_EXCEPTIONS
+          }
+          catch(...)
+          {
+            exception = boost::current_exception();
+          }
+#endif
         }
       }
+#ifndef BOOST_NO_EXCEPTIONS
+      if(exception)
+        boost::rethrow_exception(exception);
+#endif
 
       return boost::proto::child_c<0>(a0);
     }
@@ -108,9 +130,29 @@ namespace nt2 { namespace ext
       std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
       std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(a0.extent())/N*N;
 
+#ifndef BOOST_NO_EXCEPTIONS
+      boost::exception_ptr exception;
+#endif
       #pragma omp parallel for
       for(std::ptrdiff_t i=low; i<aligned_bound; i+=N)
-        nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<target_type>());
+      {
+#ifndef BOOST_NO_EXCEPTIONS
+        try
+        {
+#endif
+          nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<target_type>());
+#ifndef BOOST_NO_EXCEPTIONS
+        }
+        catch(...)
+        {
+          exception = boost::current_exception();
+        }
+#endif
+      }
+#ifndef BOOST_NO_EXCEPTIONS
+      if(exception)
+        boost::rethrow_exception(exception);
+#endif
 
       for(std::ptrdiff_t i=aligned_bound; i<bound; ++i)
         nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<stype>());
@@ -149,6 +191,10 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a0).resize(a0.extent());
 
       typename A0::index_type::type bs;
+
+#ifndef BOOST_NO_EXCEPTIONS
+      boost::exception_ptr exception;
+#endif
       #pragma omp parallel
       {
         std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
@@ -158,9 +204,28 @@ namespace nt2 { namespace ext
 
         #pragma omp for
         for(std::ptrdiff_t j=olow; j<obound; ++j)
+        {
           for(std::ptrdiff_t i=ilow; i<bound; ++i)
-            nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<target_type>());
+          {
+#ifndef BOOST_NO_EXCEPTIONS
+            try
+            {
+#endif
+              nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<target_type>());
+#ifndef BOOST_NO_EXCEPTIONS
+            }
+            catch(...)
+            {
+              exception = boost::current_exception();
+            }
+#endif
+          }
+        }
       }
+#ifndef BOOST_NO_EXCEPTIONS
+      if(exception)
+        boost::rethrow_exception(exception);
+#endif
 
       return boost::proto::child_c<0>(a0);
     }
@@ -195,9 +260,30 @@ namespace nt2 { namespace ext
       std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
       std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
 
+#ifndef BOOST_NO_EXCEPTIONS
+      boost::exception_ptr exception;
+#endif
+
       #pragma omp parallel for
       for(std::ptrdiff_t i=low; i<bound; ++i)
-        nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<target_type>());
+      {
+#ifndef BOOST_NO_EXCEPTIONS
+        try
+        {
+#endif
+          nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<target_type>());
+#ifndef BOOST_NO_EXCEPTIONS
+        }
+        catch(...)
+        {
+          exception = boost::current_exception();
+        }
+#endif
+      }
+#ifndef BOOST_NO_EXCEPTIONS
+      if(exception)
+        boost::rethrow_exception(exception);
+#endif
 
       return boost::proto::child_c<0>(a0);
     }
