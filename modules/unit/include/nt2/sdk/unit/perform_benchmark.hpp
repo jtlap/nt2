@@ -15,46 +15,79 @@
 
 namespace nt2 { namespace unit
 {
-  template<class RandAccessIter> inline
-  nt2::details::cycles_t median(RandAccessIter begin, RandAccessIter end)
+
+  template <typename T> 
+  struct perform_benchmark_res_t
+  {
+    perform_benchmark_res_t(): median(0.){}
+    std::vector<T> data;
+    T median;
+  };
+
+  template<class RandAccessIter, typename T> inline
+  void median(RandAccessIter begin, RandAccessIter end, T& res)
   {
     std::size_t size = end - begin;
     std::size_t middleIdx = size/2;
     RandAccessIter target = begin + middleIdx;
     std::nth_element(begin, target, end);
 
-    if(size % 2) return *target;
+    if(size % 2) res = *target;
     else
     {
-      nt2::details::cycles_t a = *target;
+      T a = *target;
       RandAccessIter targetNeighbor= target-1;
       std::nth_element(begin, targetNeighbor, end);
-      return (a+*targetNeighbor)/nt2::details::cycles_t(2);
+      res =  (a+*targetNeighbor)/T(2);
     }
   }
 
-  template<class Test> inline
-  nt2::details::cycles_t perform_benchmark(Test test, double duration)
+  template<class Test, typename T> inline
+  void perform_benchmark(Test test, double duration, perform_benchmark_res_t<T>& res )
   {
-    std::vector<nt2::details::cycles_t> cycles;
+    std::vector<T> cycles;
     double t(0.),vt(0.);
-    nt2::details::cycles_t vc;
-
-    do
-    {
-      vt = nt2::details::now();
-      {
-        vc = nt2::details::read_cycles();
-        test();
-        vc = nt2::details::read_cycles() - vc;
-      }
-      vt = nt2::details::now() - vt;
-      t += vt;
-      cycles.push_back(vc);
-    } while(t < duration);
-
-    return median(cycles.begin(),cycles.end());
+    T vc;
+    
+      do
+        {
+          vt = nt2::details::now();
+          {
+            vc = nt2::details::read_cycles();
+            test();
+            vc = nt2::details::read_cycles() - vc;
+          }
+          vt = nt2::details::now() - vt;
+          t += vt;
+          cycles.push_back(vc);
+        } while(t < duration);
+      res.data = cycles;
+      median(cycles.begin(),cycles.end(), res.median);
   }
+
+  template<class Test> inline
+  void perform_benchmark(Test test, double duration, perform_benchmark_res_t<double>& res )
+  {
+    std::vector<double> time;
+    double t(0.),vt(0.);
+    double vc;
+    
+      do
+        {
+          vt = nt2::details::now();
+          {
+            vc = nt2::details::now();
+            test();
+            vc = nt2::details::now() - vc;
+          }
+          vt = nt2::details::now() - vt;
+          t += vt;
+          time.push_back(vc);
+        } while(t < duration);
+      res.data = time;
+      median(time.begin(),time.end(), res.median);
+  }
+
 } }
 
 #endif
