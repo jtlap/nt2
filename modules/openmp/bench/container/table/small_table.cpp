@@ -69,12 +69,12 @@ template<class T> void do_test()
   {
     std::cout << N << "\t" << N << "\t";
     table_test<T> tt(N,N,-.28319, .28319);
-    nt2::unit::benchmark_res_t<nt2::details::cycles_t> dv;
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
     nt2::unit::perform_benchmark( tt, 1., dv);
     std::cout << dv.median/(double)(N*N) << "\t";
 
     vector_test<T> vv(N,N,-.28319, .28319);
-    nt2::unit::benchmark_res_t<nt2::details::cycles_t> dw;
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
     nt2::unit::perform_benchmark( vv, 1., dw);
     std::cout << dw.median/(double)(N*N) << "\t";
     std::cout << (double)dw.median/dv.median << "\n";

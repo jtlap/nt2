@@ -17,9 +17,9 @@ namespace nt2 { namespace unit
 {
 
   template <typename T> 
-  struct benchmark_res_t
+  struct benchmark_result
   {
-    benchmark_res_t(): median(0.){}
+    benchmark_result(): median(0.){}
     std::vector<T> data;
     T median;
   };
@@ -43,7 +43,7 @@ namespace nt2 { namespace unit
   }
 
   template<class Test, typename T> inline
-  void perform_benchmark(Test test, double duration, benchmark_res_t<T>& res )
+  void perform_benchmark(Test test, double duration, benchmark_result<T>& res )
   {
     std::vector<T> cycles;
     double t(0.),vt(0.);
@@ -66,7 +66,7 @@ namespace nt2 { namespace unit
   }
 
   template<class Test> inline
-  void perform_benchmark(Test test, double duration, benchmark_res_t<double>& res )
+  void perform_benchmark(Test test, double duration, benchmark_result<double>& res )
   {
     std::vector<double> time;
     double t(0.),vt(0.);
