@@ -50,16 +50,16 @@ namespace nt2{ namespace config{ namespace details{
 
         switch(type)
         {
-          case 1 :  cache_sizes_[level]      = size/1024;
-                    cache_line_sizes_[level] = line_size+1;
-                    break;
-          case 2 :  cache_sizes_[0]      = size/1024;
-                    cache_line_sizes_[0] = line_size+1;
-                    break;
-          case 3 :  cache_sizes_[level]      = size/1024;
-                    cache_line_sizes_[level] = line_size+1;
-                    break;
-          default : break;
+        case 1 :  *(&cache_sizes_[0]+level) = size/1024;
+                  cache_line_sizes_[level]  = line_size+1;
+                  break;
+        case 2 :  cache_sizes_[0]      = size/1024;
+                  cache_line_sizes_[0] = line_size+1;
+                  break;
+        case 3 :  *(&cache_sizes_[0]+level) = size/1024;
+                  cache_line_sizes_[level]  = line_size+1;
+                  break;
+        default : break;
         }
 
         cache_ecx++;
