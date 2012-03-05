@@ -67,21 +67,25 @@ template<class T> void do_test()
 {
   for(int N=1;N<=4096;N*=2)
   {
+    std::cout.precision(5);
     std::cout << N << "\t" << N << "\t";
     table_test<T> tt(N,N,-.28319, .28319);
-    nt2::unit::perform_benchmark_res_t<nt2::details::cycles_t> dv;
+    nt2::unit::benchmark_res_t<nt2::details::cycles_t> dv;
     nt2::unit::perform_benchmark( tt, 1., dv);
-    //    nt2::unit::perform_benchmark_res_t<double> tv;
-    //    nt2::unit::perform_benchmark( tt, 1., tv);
-    std::cout << dv.median/(double)(N*N) << "\t";
+    nt2::unit::benchmark_res_t<double> tv;
+    nt2::unit::perform_benchmark( tt, 1., tv);
+    std::cout << std::scientific << dv.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << tv.median << "\t";
 
     vector_test<T> vv(N,N,-.28319, .28319);
-    nt2::unit::perform_benchmark_res_t<nt2::details::cycles_t> dw;
+    nt2::unit::benchmark_res_t<nt2::details::cycles_t> dw;
     nt2::unit::perform_benchmark( vv, 1., dw);
-    // nt2::unit::perform_benchmark_res_t<double> tw;
-    // nt2::unit::perform_benchmark( vv, 1., tw);
-    std::cout << dw.median/(double)(N*N) << "\t";
-    std::cout << (double)dw.median/dv.median << "\t";
+    nt2::unit::benchmark_res_t<double> tw;
+    nt2::unit::perform_benchmark( vv, 1., tw);
+    std::cout << std::scientific << dw.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << tw.median << "\t";
+    std::cout << std::scientific << (double)dw.median/dv.median << "\t";
+    std::cout << std::scientific << (double)tw.median/tv.median << "\n";
   }
 }
 
