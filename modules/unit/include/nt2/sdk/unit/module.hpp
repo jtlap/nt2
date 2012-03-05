@@ -76,12 +76,12 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
   }
   catch(std::exception const& e)
   {
-    std::cerr << "uncaught exception: " << e.what() << std::endl;
+    std::cout << "uncaught exception: " << e.what() << std::endl;
     return 1;
   }
   catch(...)
   {
-    std::cerr << "uncaught exception" << std::endl;
+    std::cout << "uncaught exception" << std::endl;
     return 1;
   }
 }
@@ -96,8 +96,8 @@ namespace boost
 {
   extern inline BOOST_ATTRIBUTE_NORETURN void throw_exception(std::exception const& e)
   {
-    std::cerr << "uncaught exception: " << e.what() << std::endl;
-    std::exit(1);
+    std::cout << "uncaught exception: " << e.what() << std::endl;
+    std::abort();
   }
 }
 #endif
