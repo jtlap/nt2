@@ -65,8 +65,7 @@ namespace boost { namespace simd { namespace ext
     typedef stype const& result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      typedef BOOST_SIMD_MAY_ALIAS stype stype_alias;
-      return reinterpret_cast<stype_alias const*>(&a0)[a1];
+      return reinterpret_cast<stype BOOST_SIMD_MAY_ALIAS const*>(&a0)[a1];
     }
   };
   
