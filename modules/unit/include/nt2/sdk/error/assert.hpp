@@ -102,11 +102,17 @@ namespace boost
     #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
     std::ostringstream ss;
     ss << f << ':' << l << ": " << fn << ": Assertion " << expr << " failed.";
+    #ifndef BOOST_EXCEPTION_DISABLE
     ::boost::exception_detail
     ::throw_exception_(   ::nt2::assert_exception(ss.str())
                       <<  ::nt2::details::assert_info(expr)
                         , fn,f,l
                       );
+    #else
+    ::boost::throw_exception(   ::nt2::assert_exception(ss.str())
+                            <<  ::nt2::details::assert_info(expr)
+                            );
+    #endif
     #elif defined(NT2_DEBUG)
     fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n",f,l,fn,expr);
     ::nt2::trap();
@@ -124,11 +130,17 @@ namespace boost
     #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
     std::ostringstream ss;
     ss << f << ':' << l << ": " << fn << ": Assertion " << expr << " failed.\n\t" << msg;
+    #ifndef BOOST_EXCEPTION_DISABLE
     ::boost::exception_detail
     ::throw_exception_(   ::nt2::assert_exception(ss.str())
                       <<  ::nt2::details::assert_info(expr)
                         , fn,f,l
                       );
+    #else
+    ::boost::throw_exception(   ::nt2::assert_exception(ss.str())
+                            <<  ::nt2::details::assert_info(expr)
+                            );
+    #endif
 #elif defined(NT2_DEBUG)
     fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n\t%s",f,l,fn,expr,msg);
     ::nt2::trap();

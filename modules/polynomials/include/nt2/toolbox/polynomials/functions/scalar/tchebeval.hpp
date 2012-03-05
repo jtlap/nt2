@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
       typename A1::const_iterator p = a1.begin();
       A0 b0 = *p++;
       A0 b1 = Zero<A0>();
-      A0 b2;
+      A0 b2 = Zero<A0>();;
       while (p != a1.end())
       {
         b2 = -b1;

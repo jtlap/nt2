@@ -59,7 +59,7 @@ void timing_test( Func callee, size_t size
   std::vector<double> timings;
   double c(0.),t(0.);
 
-  static const size_t nb = nt2::meta::cardinal_of<r_in0>::value;
+  static const size_t nb = boost::simd::meta::cardinal_of<r_in0>::value;
 
   do
   {

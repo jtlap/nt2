@@ -15,12 +15,11 @@
 //==============================================================================
 // nD specialisation for iliffe_buffer of "compact" automatic storage
 //==============================================================================
-
 namespace nt2 { namespace memory
 {
   //============================================================================
   // iliffe_buffer is specialized in automatic storage nD case to behave as an
-  // 1D array_buffer of contiguous data if Inner/Outer size is the same.
+  // 1D array_buffer of contiguous data if Inner/Outer size are equals.
   //============================================================================
   template< typename T, std::ptrdiff_t S
           , std::ptrdiff_t BI , std::ptrdiff_t BO
@@ -37,6 +36,8 @@ namespace nt2 { namespace memory
     typedef typename parent::difference_type  difference_type;
     typedef typename parent::reference        reference;
     typedef typename parent::const_reference  const_reference;
+    typedef typename parent::pointer          pointer;
+    typedef typename parent::const_pointer    const_pointer;
 
     iliffe_buffer( allocator_type const& = allocator_type()) {}
 
@@ -48,6 +49,9 @@ namespace nt2 { namespace memory
     {
       parent::resize(boost::fusion::at_c<0>(szs));
     }
+
+    pointer       raw()       { return parent::raw(); }
+    const_pointer raw() const { return parent::raw(); }
 
     //==========================================================================
     // Element random access
@@ -62,15 +66,15 @@ namespace nt2 { namespace memory
       return parent::operator()(i);
     }
 
-    BOOST_FORCEINLINE reference operator()(difference_type i, difference_type )
+    BOOST_FORCEINLINE reference operator()(difference_type , difference_type j)
     {
-      return parent::operator()(i);
+      return parent::operator()(j);
     }
 
     BOOST_FORCEINLINE const_reference
-    operator()(difference_type i, difference_type ) const
+    operator()(difference_type , difference_type j) const
     {
-      return parent::operator()(i);
+      return parent::operator()(j);
     }
 
     inline size_type        inner_size()  const { return 1;       }

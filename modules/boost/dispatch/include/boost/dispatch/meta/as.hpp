@@ -63,7 +63,9 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Origin>
   struct hierarchy_of< as_<T>, Origin>
   {
-    typedef target_<typename hierarchy_of<T, Origin>::type>  type;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same< stripped, as_<T> >, stripped, Origin >::type origin_;
+    typedef target_<typename hierarchy_of<T, origin_>::type>  type;
   };
 
   //============================================================================

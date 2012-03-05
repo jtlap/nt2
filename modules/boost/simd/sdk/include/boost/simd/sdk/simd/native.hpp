@@ -35,12 +35,12 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // native<S,E> models RandomAccessRange and FusionRandomAccessSequence
     ////////////////////////////////////////////////////////////////////////////
-    typedef BOOST_SIMD_MAY_ALIAS Scalar                         value_type;
-    typedef value_type&                                          reference;
-    typedef value_type const&                              const_reference;
+    typedef Scalar                                              value_type;
+    typedef value_type BOOST_SIMD_MAY_ALIAS&                     reference;
+    typedef value_type BOOST_SIMD_MAY_ALIAS const&         const_reference;
     typedef std::size_t                                          size_type;
-    typedef Scalar*                                               iterator;
-    typedef Scalar const*                                   const_iterator;
+    typedef Scalar BOOST_SIMD_MAY_ALIAS*                          iterator;
+    typedef Scalar BOOST_SIMD_MAY_ALIAS const*              const_iterator;
     typedef boost::fusion::boost_array_tag                      fusion_tag;
 
     template<class U> struct rebind
@@ -116,13 +116,13 @@ namespace boost { namespace simd
     native_type data_;
     
     BOOST_FORCEINLINE
-    value_type* data()
+    iterator data()
     {
-      return reinterpret_cast<value_type*>(&data_);
+      return reinterpret_cast<iterator>(&data_);
     }
 
     BOOST_FORCEINLINE
-    const value_type* data() const
+    const_iterator data() const
     {
       return const_cast<native&>(*this).data();
     }

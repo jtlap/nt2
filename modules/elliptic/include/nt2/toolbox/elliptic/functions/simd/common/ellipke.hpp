@@ -22,6 +22,7 @@
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/maximum.hpp>
 #include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
@@ -148,7 +149,7 @@ namespace nt2 { namespace ext
         A0 s0 = m;
         int32_t i1 = 0;
         sA0 mm = One<sA0>();
-        A0 aa1; 
+        A0 aa1 = Zero<A0>();  
         while (gt(mm, a1))
           {
             aa1 = average(aa0, bb0);

@@ -15,6 +15,7 @@ nt2_preprocess(boost.dispatch0x.preprocess ${NT2_BOOST.DISPATCH_ROOT}/include/bo
                                            ${NT2_BOOST.DISPATCH_ROOT}/include/boost/dispatch/functor/details/dispatch.hpp
                                            ${NT2_BOOST.DISPATCH_ROOT}/include/boost/dispatch/functor/meta/call.hpp
                                            ${NT2_BOOST.DISPATCH_ROOT}/include/boost/dispatch/dsl/call.hpp
+                                           ${NT2_BOOST.DISPATCH_ROOT}/include/boost/dispatch/dsl/unpack.hpp
                                            ${NT2_BOOST.DISPATCH_ROOT}/include/boost/dispatch/meta/as_floating.hpp
                                            ${NT2_BOOST.DISPATCH_ROOT}/include/boost/dispatch/meta/result_of.hpp
                OPTIONS -DBOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES

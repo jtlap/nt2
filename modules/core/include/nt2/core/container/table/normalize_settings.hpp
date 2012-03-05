@@ -20,6 +20,7 @@
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/core/settings/alignment.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <nt2/sdk/memory/cache_padding.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <nt2/core/settings/storage_order.hpp>
@@ -30,10 +31,7 @@
 
 namespace nt2
 {
-  namespace tag
-  {
-    struct table_;
-  }
+  namespace tag { struct table_; }
 
   namespace meta
   {
@@ -52,38 +50,40 @@ namespace nt2
     //
     // Memory:
     // + table owns its memory
-    // + table uses no global padding value
     // + table allocates its memory dynamically
     // + table uses conventional storage scheme
     // + table uses boost::simd::memory::allocator
-    // + table uses the architectural lead padding value
+    // + table uses the align_on_cache passing strategy
     //==========================================================================
     template<typename T, typename S>
     struct normalize_settings<tag::table_, T, S>
     {
+      // Static identifier
       typedef typename option<S,tag::id_              , id_<0>        >::type id;
 
+      // Memory layout
       typedef typename option<S,tag::of_size_         , _4D           >::type sz;
       typedef typename option<S,tag::shape_           , rectangular_  >::type sh;
+      typedef typename option<S,tag::storage_scheme_  , conventional_ >::type ss;
+      typedef settings layout(sz,sh,ss);
+
+      // Access layout
       typedef typename option<S,tag::index_           , matlab_index_ >::type bs;
       typedef typename option<S,tag::alignment_       , aligned_      >::type ag;
       typedef typename option<S,tag::storage_order_   , matlab_order_ >::type so;
 
+      // Memory Management
       typedef typename option<S,tag::sharing_         , owned_        >::type sg;
       typedef typename option<S,tag::storage_duration_, dynamic_      >::type sd;
-      typedef typename option<S,tag::storage_scheme_  , conventional_ >::type ss;
       typedef typename option<S,tag::allocator_
                                ,allocator_< boost::simd::memory::allocator<T> >
                                >::type                                        al;
-      typedef typename option<S,tag::global_padding_
-                               , global_padding_<>           
-                               >::type                                        gp;
-      typedef typename option<S,tag::lead_padding_
-                               , lead_padding_<> 
-                               >::type                                        lp;
-      typedef typename option<S,tag::buffer_, buffer_<>               >::type bf;
-      typedef settings type(id,sz,sh,bs,ag,so,sg,sd,ss,al,gp,lp,bf);
-      typedef settings layout(sz,sh,ss);
+      typedef typename option<S , tag::padding_
+                                , padding_<memory::cache_padding> >::type     pd;
+      typedef typename option<S,tag::buffer_, buffer_<>            >::type    bf;
+
+      // Normalized settings
+      typedef settings type(id,sz,sh,bs,ag,so,sg,sd,ss,al,pd,bf);
     };
   }
 

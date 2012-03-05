@@ -10,12 +10,10 @@
 #define NT2_CORE_FUNCTIONS_TABLE_CONSTRUCT_HPP_INCLUDED
 
 #include <nt2/core/functions/construct.hpp>
-#include <nt2/core/container/table/category.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
-#include <boost/dispatch/meta/fusion.hpp>
-#include <boost/fusion/include/fold.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/core/container/table/category.hpp>
+#include <boost/simd/sdk/memory/details/category.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -23,6 +21,7 @@ namespace nt2 { namespace ext
 
   //============================================================================
   // Construct a terminal from a size
+  //  * Perform a resize on the table's container
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)
@@ -41,13 +40,16 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
-      container_type that((extent_type(a1)));
-      boost::proto::value(a0).swap(that);
+      boost::proto::value(a0).resize(a1);
     }
   };
 
   //============================================================================
   // Construct a terminal from a size and some unspecified allocator
+  //  * Construct a proper container from size and allocator
+  //  * Swap with the table's container
+  // This is done even if swap sounds bad with automatic storage table. Good
+  // news are that automatic_ storage table usually don't require allocators ;)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)(A2)
@@ -75,6 +77,8 @@ namespace nt2 { namespace ext
 
   //============================================================================
   // Construct a terminal from another expression
+  // Non trivial assignment is passed to the parent expression type that will
+  // select hwo to perform the expression evaluation.
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)(Tag)
@@ -100,7 +104,9 @@ namespace nt2 { namespace ext
     }
   };
   //============================================================================
-  // Construct a terminal from a scalar
+  // Construct a terminal from a scalar:
+  //  * Resize table to [1 1]
+  //  * Copy the scalar to the table memory (*raw() is the easiest way)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)
@@ -117,8 +123,8 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(A0& a0, A1 const& a1) const
     {
-      typedef typename A0::parent parent;
-      static_cast<parent&>(a0) = a1;
+      boost::proto::value(a0).resize(of_size_<1,1>());
+      *(a0.raw()) = a1;
     }
   };
 
@@ -142,20 +148,18 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0& a0, A1 const& a1, A2 const& a2, A3 const& a3) const
     {
+      typedef typename boost::proto::result_of::value<A0>::type type;
+
       //========================================================================
       // Check we don't copy more than expected
       //========================================================================
       BOOST_ASSERT_MSG
-      ( boost::fusion::fold ( a1
-                            , boost::mpl::size_t<1>()
-                            , functor<tag::multiplies_>()
-                            )
-        >= static_cast<size_t>(std::distance(a2,a3))
+      ( nt2::numel(a1) >= static_cast<size_t>(std::distance(a2,a3))
       , "Source range is larger than destination container."
       );
 
       //========================================================================
-      // Resize to target extent
+      // Resize current table
       //========================================================================
       boost::proto::value(a0).resize(a1);
 

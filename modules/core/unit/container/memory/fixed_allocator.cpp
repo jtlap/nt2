@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL(fixed_allocator, NT2_TYPES )
     v(i) = T(1+10*(i-v.lower()));
 
   for( std::size_t i=0; i<5; ++i )
-    NT2_TEST_EQUAL( data[i], 1+10*i );
+    NT2_TEST_EQUAL( data[i], T(1+10*i) );
 }
 
 NT2_TEST_CASE_TPL(fixed_allocator_copy, NT2_TYPES )
@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL(fixed_allocator_copy, NT2_TYPES )
     v(i) = T(1+10*(i-v.lower()));
 
   for( std::size_t i=0; i<5; ++i )
-    NT2_TEST_EQUAL( data[i], 1+10*i );
+    NT2_TEST_EQUAL( data[i], T(1+10*i) );
 
   for( std::ptrdiff_t i=w.lower(); i<=w.upper(); ++i )
     NT2_TEST_EQUAL( w(i), v(i) );

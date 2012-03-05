@@ -99,6 +99,10 @@ namespace nt2 { namespace details
   }
 } }
 
+#ifdef NT2_LOG_COPIES
+#include <nt2/sdk/details/type_id.hpp>
+#endif
+
 namespace nt2 { namespace container
 {
   template<class Expr, class ResultType>
@@ -138,17 +142,27 @@ namespace nt2 { namespace container
     // Expression initialization called from generator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
-    expression() : size_(nt2::extent(parent::proto_base().child0)) {}
+    expression() : size_(size_transform<domain>()(parent::proto_base())) {}
 
-    template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE
-    expression(Expr const& x, Sz const& sz) : parent(x), size_(sz) {}
+    expression(Expr const& x) : parent(x), size_(size_transform<domain>()(parent::proto_base())) {}
 
     BOOST_DISPATCH_FORCE_INLINE
     expression(expression const& xpr)
      : parent(xpr.proto_base())
-     , size_(details::size_recompute(parent::proto_base(), xpr))
+     , size_(size_transform<domain>()(parent::proto_base()))
     {
+      #ifdef NT2_LOG_COPIES
+      typedef typename boost::mpl::eval_if_c< boost::proto::arity_of<Expr>::value == 0
+                                            , boost::proto::result_of::value<Expr&>
+                                            , boost::mpl::identity<int&>
+                                            >::type T;
+      if(!boost::is_reference<T>::value)
+      {
+        std::cout << "copying ";
+        nt2::display_type<Expr>();
+      }
+      #endif
     }
 
     //==========================================================================

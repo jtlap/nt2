@@ -73,7 +73,7 @@ namespace nt2 { namespace container
 
       BOOST_FORCEINLINE result_type operator()(Expr& e) const
       {
-        return result_type(e, size_of<Tag, Domain, Arity, Expr>()(e));
+        return result_type(e);
       }
     };
   }

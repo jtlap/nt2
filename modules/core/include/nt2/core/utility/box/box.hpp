@@ -62,7 +62,7 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // table use container<tag::table_> to do its biddings
   //============================================================================
-  template<class T> struct semantic_of< nt2::box<T> > { typedef T type; };
+  template<class T> struct semantic_of< nt2::box<T> > : semantic_of<T> {};
 } } }
 
 #endif

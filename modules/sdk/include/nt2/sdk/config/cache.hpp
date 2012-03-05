@@ -16,26 +16,33 @@
  *\Runtime function to get cache informations
 */
 
-namespace nt2{ namespace config{
+namespace nt2{ namespace config
+{
+  enum { L1Code=0, L1Data=1, L1=1, L2=2, L3=3 };
 
-  enum{L1Code=0, L1Data=1, L1=1, L2=2, L3=3 };
-
-  inline int cache_size(int const& level)
+  inline int cache_size(int level)
   {
     return details::init_cache()[0][level];
   }
 
-  inline int cache_line_size(int const& level)
+  inline int cache_line_size(int level)
   {
     return details::init_cache()[1][level];
   }
 
-  inline bool as_cache(int const& level)
+  inline bool has_cache(int level)
   {
     if(details::init_cache()[0][level] == 0) return false;
     else return true;
   }
 
+  inline int shared_cache_line_size()
+  {
+    // Find a better way to select this value
+    return  config::has_cache(L3)
+          ? config::cache_line_size(config::L3)
+          : config::cache_line_size(config::L2);
+  }
 } }
 
-#endif /* NT2_SDK_CONFIG_CACHE_HPP */
+#endif

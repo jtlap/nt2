@@ -40,7 +40,7 @@ template<class T> struct table_test
   }
 
   nt2::container::table<T> a0,a1,a2;
-  int N,M;
+  std::size_t N,M;
 };
 
 template<class T> struct vector_test
@@ -60,22 +60,32 @@ template<class T> struct vector_test
   }
 
   std::vector<T> a0,a1,a2;
-  int N,M;
+  std::size_t N,M;
 };
 
 template<class T> void do_test()
 {
   for(int N=1;N<=4096;N*=2)
   {
+    std::cout.precision(5);
     std::cout << N << "\t" << N << "\t";
     table_test<T> tt(N,N,-.28319, .28319);
-    double dv = nt2::unit::perform_benchmark( tt, 1.);
-    std::cout << dv/(N*N) << "\t";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
+    nt2::unit::perform_benchmark( tt, 1., dv);
+    nt2::unit::benchmark_result<double> tv;
+    nt2::unit::perform_benchmark( tt, 1., tv);
+    std::cout << std::scientific << dv.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << tv.median << "\t";
 
     vector_test<T> vv(N,N,-.28319, .28319);
-    double dw = nt2::unit::perform_benchmark( vv, 1.);
-    std::cout << dw/(N*N) << "\t";
-    std::cout << dw/dv << "\n";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
+    nt2::unit::perform_benchmark( vv, 1., dw);
+    nt2::unit::benchmark_result<double> tw;
+    nt2::unit::perform_benchmark( vv, 1., tw);
+    std::cout << std::scientific << dw.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << tw.median << "\t";
+    std::cout << std::scientific << (double)dw.median/dv.median << "\t";
+    std::cout << std::scientific << (double)tw.median/tv.median << "\n";
   }
 }
 

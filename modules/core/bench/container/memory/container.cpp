@@ -24,7 +24,7 @@ template<class T> struct container_1D_dynamic_test
   typedef nt2::memory::
           container <nt2::tag::table_, nt2::id_<0>, T, nt2::settings(nt2::_1D)>  buffer_t;
 
-  container_1D_dynamic_test ( std::ptrdiff_t s0 )
+  container_1D_dynamic_test ( std::size_t s0 )
                             : data(boost::fusion::vector_tie(s0))
                             , data2(boost::fusion::vector_tie(s0))
                             , s0_(s0)
@@ -49,7 +49,7 @@ template<class T> struct container_1D_static_test
                     >  buffer_t;
 
 
-  container_1D_static_test( std::ptrdiff_t s0 )
+  container_1D_static_test( std::size_t s0 )
                           : data(boost::fusion::vector_tie(s0))
                           , data2(boost::fusion::vector_tie(s0))
                           , s0_(s0)
@@ -208,6 +208,6 @@ template<class T> void do_small(int H, int W)
 
 NT2_TEST_CASE_TPL( container_small, (double)(float)(short)(char) )
 {
-  for(int N=1;N<=256;N*=2)
+  for(std::size_t N=1;N<=256;N*=2)
     do_small<T>(N,N);
 }
