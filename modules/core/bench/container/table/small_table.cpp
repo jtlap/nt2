@@ -65,10 +65,12 @@ template<class T> struct vector_test
 
 template<class T> void do_test()
 {
+  std::cout << "Size\ttable (c/e)\ttable (s)\tvector (c/e)\tvector (s)\tG(c/e)\tG(s)\n";
+
   for(int N=1;N<=4096;N*=2)
   {
-    std::cout.precision(5);
-    std::cout << N << "\t" << N << "\t";
+    std::cout.precision(3);
+    std::cout << N << "\t";
     table_test<T> tt(N,N,-.28319, .28319);
     nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
     nt2::unit::perform_benchmark( tt, 1., dv);
@@ -84,8 +86,9 @@ template<class T> void do_test()
     nt2::unit::perform_benchmark( vv, 1., tw);
     std::cout << std::scientific << dw.median/(double)(N*N) << "\t";
     std::cout << std::scientific << tw.median << "\t";
-    std::cout << std::scientific << (double)dw.median/dv.median << "\t";
-    std::cout << std::scientific << (double)tw.median/tv.median << "\n";
+
+    std::cout << std::fixed << (double)dw.median/dv.median << "\t";
+    std::cout << std::fixed << (double)tw.median/tv.median << "\n";
   }
 }
 
