@@ -22,11 +22,12 @@ namespace nt2 { namespace ext
    * Once done, they go to unspecified_ as we don't know how to deal with them
    */
   //==========================================================================
-  template<class Tag, class Op, class Neutral>
-  struct reduction_ : unspecified_<Tag>
-  {
-    typedef unspecified_<Tag> parent;
-  };
+  //FIXME nt2::ext::reduction_ is already defined in boost simd module
+  // template<class Tag, class Op, class Neutral>
+  // struct reduction_ : unspecified_<Tag>
+  // {
+  //   typedef unspecified_<Tag> parent;
+  // };
 
   //==========================================================================
   /*!

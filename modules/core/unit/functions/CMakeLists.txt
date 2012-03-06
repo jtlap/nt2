@@ -27,9 +27,10 @@ SET( SOURCES
   size.cpp
   zeros.cpp
   issquare.cpp
-  issymetric.cpp
-  ishermitian.cpp
-  istriangular.cpp
+#  issymetric.cpp
+#  ishermitian.cpp
+#  istriangular.cpp
+  global_sum.cpp
 # List of test files for toolbox core.settings
    )
 
