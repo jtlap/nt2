@@ -12,6 +12,7 @@
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -39,7 +40,9 @@ namespace nt2 { namespace meta
   template<class T>
   struct reference_ < T 
                     , typename  boost::dispatch::meta::
-                      enable_if_type<typename T::reference>::type
+                      enable_if_type< typename boost::dispatch::meta::
+                                      strip<T>::type::reference
+                                    >::type
                     >
   {
     typedef typename T::reference type;
@@ -48,7 +51,9 @@ namespace nt2 { namespace meta
   template<class T>
   struct const_reference_ < T 
                           , typename  boost::dispatch::meta::
-                            enable_if_type<typename T::const_reference>::type
+                            enable_if_type< typename boost::dispatch::meta::
+                                            strip<T>::type::const_reference
+                                          >::type
                           >
   {
     typedef typename T::const_reference type;
@@ -57,7 +62,9 @@ namespace nt2 { namespace meta
   template<class T>
   struct value_type_< T 
                     , typename  boost::dispatch::meta::
-                      enable_if_type<typename T::value_type>::type
+                      enable_if_type< typename boost::dispatch::meta::
+                                      strip<T>::type::value_type
+                                    >::type
                     >
   {
     typedef typename T::value_type type;
