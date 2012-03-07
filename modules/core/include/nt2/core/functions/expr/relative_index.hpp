@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     typedef typename boost::fusion::result_of::at_c<A1 const,A2::value>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(const A0& indexer, const A1& pos, const A2& ) const
+    operator()(const A0& indexer, const A1& pos, const A2&) const
     {
       return nt2::run ( indexer
                       , pos

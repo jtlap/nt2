@@ -51,7 +51,7 @@ namespace nt2
       typedef typename boost::proto::result_of::
                        child_c<Expr const&, 0>::type child0;
       typedef typename boost::fusion::result_of::pop_front<Expr const>::type pop_front_expr_type;
-        
+
       typedef typename boost::fusion::result_of::
                        as_vector<typename boost::array<int, Arity::value-1> >::type scalar_access_type;
       typedef typename nt2::meta::make_position<child0, scalar_access_type>::type position_type;
