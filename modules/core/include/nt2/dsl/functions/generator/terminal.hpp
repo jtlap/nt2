@@ -40,6 +40,7 @@ namespace nt2 { namespace ext
     template<class A0_> BOOST_FORCEINLINE result_type
     operator()(A0_& a0, State const& p, Data const& ) const
     {
+        std::cout << "terminal generative" << std::endl;
       return boost::proto::value(a0)(p,meta::as_<result_type>());
     }
   };

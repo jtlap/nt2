@@ -24,7 +24,6 @@ namespace nt2 { namespace meta
 {
   template<typename T, typename Seq> struct make_position
   {
-    //typedef typename boost::proto::result_of::value< typename meta::strip<T>::type >::type::settings_type settings_type;
     typedef typename meta::strip<T>::type expr_type;
     typedef typename expr_type::index_type index_type;
     typedef typename expr_type::storage_order_type storage_order_type;

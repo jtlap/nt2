@@ -55,7 +55,6 @@ namespace nt2 { namespace ext
                         , Target()
                         )
               );
-
       return boost::proto::child_c<0>(a0);
     }
   };

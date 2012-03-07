@@ -15,7 +15,7 @@
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <boost/fusion/include/fold.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
+#include <nt2/include/functions/terminal.hpp>
 
 namespace nt2 { namespace ext
 {

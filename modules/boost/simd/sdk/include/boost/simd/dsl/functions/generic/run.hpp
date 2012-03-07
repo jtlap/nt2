@@ -188,7 +188,7 @@ namespace boost { namespace simd { namespace ext
     operator()(A0_& a0, State_& state, Data_& data) const
     {
       typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type callee;
-      return callee(a0, state,data);
+      return callee(a0, state, data);
     }
   }; 
 } } }
