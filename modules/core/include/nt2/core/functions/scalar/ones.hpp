@@ -11,10 +11,9 @@
 
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/ones.hpp>
+#include <nt2/include/functions/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
-#include <nt2/core/utility/generative/generative.hpp>
-#include <nt2/core/utility/generative/preprocessor.hpp>
-#include <nt2/core/utility/generative/constant_adaptor.hpp>
+#include <nt2/core/functions/details/generative_preprocessor.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -24,70 +23,67 @@ namespace nt2 { namespace ext
   BOOST_PP_REPEAT_FROM_TO ( 2
                           , BOOST_PP_INC(NT2_MAX_DIMENSIONS)
                           , NT2_PP_GENERATIVE_MAKE_FROM_SIZE
-                          , nt2::tag::One
+                          , (nt2::tag::ones_,nt2::tag::One)
                           )
 
-  NT2_PP_GENERATIVE_MAKE_FROM_SINGLE( nt2::tag::One )
+  NT2_PP_GENERATIVE_MAKE_FROM_SINGLE( (nt2::tag::ones_,nt2::tag::One) )
 
   //============================================================================
-  // Generates Ones from fusion sequence (support of_size calls)
+  // Generates ones from fusion sequence (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::One, tag::cpu_
-                            , (Seq), (fusion_sequence_<Seq>)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ones_, tag::cpu_
+                            , (Seq)
+                            , (fusion_sequence_<Seq>)
                             )
   {
-    typedef typename boost::fusion::result_of::size<Seq>::type size_type;
-
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::constant_generator<nt2::tag::One>
-                      , double
-                      , settings(typename make_size<size_type::value>::type)
-                      > base;
-
+    typedef typename meta::strip<Seq>::type seq_t;
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::ones_
+                                          , container::domain
+                                          , box<seq_t>
+                                          , box<meta::constant_<nt2::tag::One> >
+                                          , meta::as_<double>
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(Seq const& seq) const
     {
-      nt2::details::constant_generator<nt2::tag::One> callee;
-      typename make_size<size_type::value>::type sizee(seq);
-      base that(sizee,callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return  boost::proto::
+              make_expr < nt2::tag::ones_
+                        , container::domain
+                        > ( boxify(seq)
+                          , boxify(meta::constant_<nt2::tag::One>())
+                          , meta::as_<double>()
+                          );
     }
   };
 
   //============================================================================
-  // Generates Ones from fusion sequence + types(support of_size calls)
+  // Generates ones from fusion sequence + types (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::One, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ones_, tag::cpu_
                             , (Seq)(T)
                             , (fusion_sequence_<Seq>)
                               (target_< scalar_< unspecified_<T> > >)
                             )
   {
-    typedef typename boost::fusion::result_of::size<Seq>::type size_type;
-
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::constant_generator<nt2::tag::One>
-                      , typename T::type
-                      , settings(typename make_size<size_type::value>::type)
-                      > base;
-
+    typedef typename meta::strip<Seq>::type seq_t;
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::ones_
+                                          , container::domain
+                                          , box<seq_t>
+                                          , box< meta::constant_<nt2::tag::One> >
+                                          , T
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(Seq const& seq, T const&) const
+    BOOST_FORCEINLINE result_type operator()(Seq const& seq, T const& tgt) const
     {
-      nt2::details::constant_generator<nt2::tag::One> callee;
-      typename make_size<size_type::value>::type sizee(seq);
-      base that(sizee,callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return  boost::proto::
+              make_expr<  nt2::tag::ones_
+                        , container::domain
+                        > ( boxify(seq)
+                          , boxify(meta::constant_<nt2::tag::One>())
+                          , tgt
+                          );
     }
   };
 } }

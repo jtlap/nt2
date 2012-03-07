@@ -19,10 +19,10 @@ namespace nt2 { namespace container
   //==========================================================================
   struct colon_
   {
-    // colon_ acts as an anything-goes sink for tie
+    // colon_ as a sink for tie
     template<class T> colon_ const& operator=(T const&) const { return *this; }
 
-    // colon also acts as : generator
+    // colon as a:b
     template<class Begin, class End>
     typename meta::call<nt2::tag::colon_(Begin,End)>::type
     operator()(Begin const& b, End const& e) const
@@ -30,6 +30,7 @@ namespace nt2 { namespace container
       return nt2::colon(b,e);
     }
 
+    // colon as a:s:b
     template<class Begin, class Step, class End>
     typename meta::call<nt2::tag::colon_(Begin,Step,End)>::type
     operator()(Begin const& b, Step const& s, End const& e) const

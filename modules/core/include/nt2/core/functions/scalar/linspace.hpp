@@ -11,11 +11,11 @@
 
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/linspace.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <nt2/core/utility/generative/generative.hpp>
 
 //==============================================================================
 // linspace actual functor forward declaration
@@ -33,24 +33,23 @@ namespace nt2 { namespace ext
                               (scalar_< floating_<A0> >)
                             )
   {
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::linspace<A0>
-                      , A0
-                      , settings(of_size_<1,100>)
-                      > base;
-
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::linspace_
+                                          , container::domain
+                                          , box< of_size_<1,100> >
+                                          , box< nt2::details::linspace<A0> >
+                                          , meta::as_<A0>
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& l, A0 const& u) const
     {
-      nt2::details::linspace<A0> callee(l,u,100);
-      of_size_<1,100> sizee;
-      base that(sizee,callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return  boost::proto::
+              make_expr < nt2::tag::linspace_
+                        , container::domain
+                        > ( boxify(of_size_<1,100>())
+                          , boxify(nt2::details::linspace<A0>(l,u,100))
+                          , meta::as_<A0>()
+                          );
     }
   };
 
@@ -64,24 +63,28 @@ namespace nt2 { namespace ext
                               (scalar_< integer_<A1> >)
                             )
   {
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::linspace<A0>
-                      , A0
-                      , settings(_2D)
-                      > base;
-
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::linspace_
+                                          , container::domain
+                                          , box< _2D >
+                                          , box< nt2::details::linspace<A0> >
+                                          , meta::as_<A0>
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& l, A0 const& u, A1 const& n) const
     {
-      nt2::details::linspace<A0> callee((n<2 ? u : l),u,(n<2 ? 2 : n));
-      base that(of_size(1,n),callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return  boost::proto::
+              make_expr < nt2::tag::linspace_
+                        , container::domain
+                        > ( boxify(of_size(1,n))
+                          , boxify(nt2::details::linspace<A0> ( (n<2 ? u : l)
+                                                              , u
+                                                              , (n<2 ? 2 : n)
+                                                              )
+                                  )
+                          , meta::as_<A0>()
+                          );
     }
   };
 } }
@@ -93,6 +96,7 @@ namespace nt2 { namespace details
   //============================================================================
   template<class T> struct linspace
   {
+    linspace() {}
     linspace( T const& l, T const& u, std::size_t n )
             : lower_(l), step_((u-l)/(n-1)) {}
 
