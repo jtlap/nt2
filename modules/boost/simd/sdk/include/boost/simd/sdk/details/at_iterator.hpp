@@ -12,17 +12,19 @@
 #include <boost/fusion/iterator/iterator_facade.hpp>
 #include <boost/fusion/sequence/intrinsic/at.hpp>
 #include <boost/fusion/sequence/intrinsic/value_at.hpp>
+#include <climits>
 
 namespace boost { namespace simd
 {
-  template<typename Seq, int N>
+  template<typename Seq, int N, int Max = INT_MAX>
   struct at_iterator
       : boost::fusion::
         iterator_facade < at_iterator<Seq, N>
                         , boost::fusion::random_access_traversal_tag
                         >
   {
-    BOOST_STATIC_CONSTANT(int index, = N);
+    BOOST_STATIC_CONSTANT(int index,   = N);
+    BOOST_STATIC_CONSTANT(int maximum, = Max);
     typedef Seq sequence_type;
 
     at_iterator(Seq& seq) : seq_(seq) {}
@@ -51,7 +53,8 @@ namespace boost { namespace simd
     struct next
     {
       typedef at_iterator< typename It::sequence_type
-                         , It::index + 1
+                         , (It::index >= It::maximum) ? It::maximum : (It::index + 1)
+                         , It::maximum
                          >                                type;
 
       static type call(It const& it) { return type(it.seq_); }
@@ -61,7 +64,8 @@ namespace boost { namespace simd
     struct prior
     {
       typedef at_iterator< typename It::sequence_type
-                         , It::index - 1
+                         , (It::index <= 0) ? 0 : (It::index - 1)
+                         , It::maximum
                          >                                type;
 
       static type call(It const& it) { return type(it.seq_); }
@@ -80,11 +84,13 @@ namespace boost { namespace simd
     struct advance
     {
       typedef at_iterator< typename It::sequence_type
-                         , It::index + M::value
+                         , (It::index + M::value >= It::maximum) ? It::maximum : (It::index + M::value)
+                         , It::maximum
                          >                                type;
 
       static type call(It const& it) { return type(it.seq_); }
     };
+
   };
 } }
 
