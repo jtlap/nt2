@@ -15,7 +15,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 
-
 NT2_TEST_CASE( fundamental_issymetric )
 {
   NT2_TEST( nt2::issymetric('e') );
