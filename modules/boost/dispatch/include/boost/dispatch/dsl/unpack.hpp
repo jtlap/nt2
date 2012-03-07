@@ -12,6 +12,7 @@
 #include <boost/dispatch/meta/result_of.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/proto/traits.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 #if defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/details/parameters.hpp>
