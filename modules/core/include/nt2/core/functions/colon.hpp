@@ -10,14 +10,18 @@
 #define NT2_CORE_FUNCTIONS_COLON_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/functions/details/colon.hpp>
+#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/details/generative.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct colon_ : ext::unspecified_<colon_>
+    struct colon_ : ext::generative_<colon_>
     {
-      typedef ext::unspecified_<colon_> parent;
+      typedef ext::generative_<colon_> parent;
     };
   }
 
@@ -25,5 +29,18 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::colon_, colon, 3)
 }
 
-#endif
+namespace nt2 { namespace container { namespace ext
+{
+  //============================================================================
+  // Register colon as a generative expression
+  //============================================================================
+  template<class Domain, class Expr, int N>
+  struct generator<tag::colon_,Domain,N,Expr>   : generative_generator<Expr>
+  {};
 
+  template<class Domain, class Expr, int N>
+  struct size_of<tag::colon_,Domain,N,Expr>     : generative_size_of<Expr>
+  {};
+} } }
+
+#endif

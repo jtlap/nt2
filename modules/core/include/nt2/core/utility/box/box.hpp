@@ -16,11 +16,20 @@
 
 namespace nt2
 {
-  namespace tag { struct box_ {}; }
+  //============================================================================
+  // box_ is an elementwise operation
+  //============================================================================
+  namespace tag
+  {
+    struct box_ : ext::elementwise_<box_>
+    {
+      typedef ext::elementwise_<box_> parent;
+    };
+  }
 
   //============================================================================
-  // box is a terminal taking care of wrapping a box into something usable by a
-  // nt2 AST.
+  // box is a nullary expression taking care of wrapping helper types into a
+  // node assimilable by nt2 ASTs.
   //============================================================================
   template<class T>
   struct box  :
@@ -50,7 +59,7 @@ namespace nt2
     T const& value() const { return boost::proto::value(*this); }
   };
 
-  template<class T> BOOST_FORCEINLINE box<T> as_box(T const& v)
+  template<class T> BOOST_FORCEINLINE box<T> boxify(T const& v)
   {
     box<T> that(v);
     return that;
@@ -60,9 +69,9 @@ namespace nt2
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
-  // table use container<tag::table_> to do its biddings
+  // Semantic of box<T> is T
   //============================================================================
-  template<class T> struct semantic_of< nt2::box<T> > : semantic_of<T> {};
+  template<class T> struct semantic_of< nt2::box<T> > { typedef T type; };
 } } }
 
 #endif
