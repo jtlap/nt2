@@ -148,7 +148,7 @@ namespace nt2 { namespace ext
         try
         {
 #endif
-          nt2::run_assign(a0, boost::fusion::vector_tie(i), meta::as_<target_type>());
+          nt2::run_assign(a0, a1, boost::fusion::vector_tie(i), meta::as_<target_type>());
 #ifndef BOOST_NO_EXCEPTIONS
         }
         catch(...)
