@@ -28,7 +28,6 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
       typedef typename A0::value_type value_type;
-
       // Non-square matrix can't be symmetric
       if (!issquare(a0)) return false;
 
