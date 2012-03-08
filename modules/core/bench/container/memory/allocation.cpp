@@ -69,14 +69,17 @@ NT2_TEST_CASE_TPL( allocation_test, NT2_TYPES )
     std_allocation_test<T>    f(N);
 
     std::cout << "Allocating " << N << " elements.\n";
-    nt2::details::cycles_t dv = nt2::unit::perform_benchmark( f, 1.);
-    std::cout << "std::allocator   : " << dv/double(N) << " cpe\n";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
+    nt2::unit::perform_benchmark(f, 1., dv);
+    std::cout << "std::allocator   : " << dv.median/double(N) << " cpe\n";
 
-    nt2::details::cycles_t dw = nt2::unit::perform_benchmark(g , 1.);
-    std::cout << "simd::allocator  : " << dw/double(N) << " cpe\n";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
+    nt2::unit::perform_benchmark(g, 1., dw);
+    std::cout << "simd::allocator  : " << dw.median/double(N) << " cpe\n";
 
-    nt2::details::cycles_t du = nt2::unit::perform_benchmark(i , 1.);
-    std::cout << "fixed allocator : " << du/double(N) << " cpe\n";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> du;
+    nt2::unit::perform_benchmark(i, 1., du);
+    std::cout << "fixed allocator : " << du.median/double(N) << " cpe\n";
     std::cout << "\n";
   }
 }

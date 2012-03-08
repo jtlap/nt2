@@ -148,16 +148,24 @@ template<class T> struct std_2D_test
 template<class T> void do_large(int H, int W)
 {
   container_1D_dynamic_test<T> b(H*W);
-  double d = nt2::unit::perform_benchmark( b, 1.)/2.;
+  nt2::unit::benchmark_result<nt2::details::cycles_t> db;
+  nt2::unit::perform_benchmark(b, 1., db);
+  double d = db.median/2.;
 
   container_2D_dynamic_test<T> c(H,W);
-  double e = nt2::unit::perform_benchmark( c, 1.)/2.;
-
+  nt2::unit::benchmark_result<nt2::details::cycles_t> dc;
+  nt2::unit::perform_benchmark(c, 1., dc);
+  double e = dc.median/2.;
+  
   std_1D_test<T> z(H,W);
-  double w = nt2::unit::perform_benchmark( z, 1.)/2.;
-
+  nt2::unit::benchmark_result<nt2::details::cycles_t> dz;
+  nt2::unit::perform_benchmark(z, 1., dz);
+  double w = dz.median/2.;
+    
   std_2D_test<T> y(H,W);
-  double v = nt2::unit::perform_benchmark( y, 1.)/2.;
+  nt2::unit::benchmark_result<nt2::details::cycles_t> dy;
+  nt2::unit::perform_benchmark(y, 1., dy);
+  double v = dy.median/2.;
 
   printf( "%d x %d : 1D %3.3f %3.3f (%3.3f%%) | 2D: %3.3f %3.3f (%3.3f%%)\n"
         , H, W
@@ -178,22 +186,34 @@ NT2_TEST_CASE_TPL( container_large, (double)(float)(short)(char) )
 template<class T> void do_small(int H, int W)
 {
   container_1D_dynamic_test<T> b(H*W);
-  double d = nt2::unit::perform_benchmark( b, 1.)/2.;
+  nt2::unit::benchmark_result<nt2::details::cycles_t> db;
+  nt2::unit::perform_benchmark(b, 1., db);
+  double d = db.median/2.;
 
   std_1D_test<T> z(H,W);
-  double w = nt2::unit::perform_benchmark( z, 1.)/2.;
+  nt2::unit::benchmark_result<nt2::details::cycles_t> dz;
+  nt2::unit::perform_benchmark(z, 1., dz);
+  double w = dz.median/2.;
 
   container_2D_dynamic_test<T> c(H,W);
-  double e = nt2::unit::perform_benchmark( c, 1.)/2.;
+  nt2::unit::benchmark_result<nt2::details::cycles_t> dc;
+  nt2::unit::perform_benchmark(c, 1., dc);
+  double e = dc.median/2.;
 
   container_1D_static_test<T> bs(H*W);
-  double ds = nt2::unit::perform_benchmark( bs, 1.)/2.;
+  nt2::unit::benchmark_result<nt2::details::cycles_t> dbs;
+  nt2::unit::perform_benchmark(bs, 1., dbs);
+  double ds = dbs.median/2.;
 
   container_2D_static_test<T> cs(H,W);
-  double es = nt2::unit::perform_benchmark( cs, 1.)/2.;
+  nt2::unit::benchmark_result<nt2::details::cycles_t> dcs;
+  nt2::unit::perform_benchmark(cs, 1., dcs);
+  double es = dcs.median/2.;
 
   std_2D_test<T> y(H,W);
-  double v = nt2::unit::perform_benchmark( y, 1.)/2.;
+  nt2::unit::benchmark_result<nt2::details::cycles_t> dy;
+  nt2::unit::perform_benchmark(y, 1., dy);
+  double v = dy.median/2.;
 
   std::cout << H << "x" << W << " : "
             << "1D "  << d/(H*W) << " (" <<  ((d-w)/w)*100    << ") "
