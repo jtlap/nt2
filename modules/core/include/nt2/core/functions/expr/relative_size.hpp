@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval(const Size& sz, const Current&, boost::mpl::false_ const& ) const
+    eval(const Size& sz, const Current&, boost::mpl::false_ const&) const
     {
       return boost::fusion::at_c<Current::value>(sz);
     }

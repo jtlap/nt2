@@ -11,6 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/relative_index.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
