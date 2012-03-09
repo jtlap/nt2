@@ -18,13 +18,6 @@
 #include <nt2/include/functions/numel.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/pop_front.hpp>
-<<<<<<< HEAD
-=======
-#include <boost/fusion/adapted/mpl.hpp>
-#include <boost/fusion/include/mpl.hpp>
-#include <boost/fusion/include/at_c.hpp>
-#include <boost/type_traits/is_class.hpp>
->>>>>>> master
 #include <boost/type_traits/remove_reference.hpp>
 
 #include <nt2/core/functions/table/details/function/size.hpp>

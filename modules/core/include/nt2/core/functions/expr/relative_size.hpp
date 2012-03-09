@@ -58,10 +58,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     // If _ is the last indexer, return the slice of all remaining sizes
     //==========================================================================
-    typedef meta::call<tag::slice_( Size
-                                  , memory::no_padding
-                                  , boost::mpl::int_<Current::value+1>
-                                  )>                                  true_type;
+    typedef meta::call<tag::numel_( Size, boost::mpl::int_<Current::value+1> )> true_type;
 
     //==========================================================================
     // Else, return current size
@@ -94,7 +91,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const Size& sz, const Current&, boost::mpl::true_ const&) const
     {
-      return slice<Current::value+1>(sz,memory::no_padding());
+      return numel(sz, boost::mpl::int_<Current::value+1>());
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type

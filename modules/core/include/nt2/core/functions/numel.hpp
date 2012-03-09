@@ -29,6 +29,7 @@ namespace nt2
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::numel_, numel, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::numel_, numel, 2)
 }
 
 #endif
