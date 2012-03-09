@@ -12,7 +12,7 @@
 #include <boost/simd/dsl/functions/optimize.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
-#include <boost/dispatch/dsl/compute.hpp>
+#include <boost/dispatch/dsl/unpack.hpp>
 
 //==============================================================================
 // Recognition of expressions
@@ -24,21 +24,20 @@ namespace boost { namespace simd { namespace ext
                           , (ast_<A0>)
                           )
   {
-     typedef boost::dispatch::meta::compute<boost::simd::tag::optimize_> transform;
-     
-     template<class Sig>
-     struct result;
-     
-     template<class This, class A0_>
-     struct result<This(A0_)> : transform::result<transform(A0_)> {};
-     
-     template<class A0_>
-     BOOST_DISPATCH_FORCE_INLINE
-     typename result<implement(A0_&)>::type
-     operator()(A0_& a0) const
-     {
-        return transform()(a0);
-     }
+    typedef dispatch::
+            unpack< A0
+                  , dispatch::functor< typename proto::tag_of<A0>::type, tag::optimize_ >
+                  , typename dispatch::make_functor<tag::optimize_, A0>::type
+                  >
+    transform;
+
+    typedef typename transform::result_type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0) const
+    {
+       return transform()(a0);
+    }
   };
 } } }
 

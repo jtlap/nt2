@@ -10,14 +10,36 @@
 #define NT2_CORE_FUNCTIONS_LINSPACE_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/details/generative.hpp>
 
 namespace nt2
 {
-  namespace tag { struct linspace_ : ext::unspecified_<linspace_> { typedef ext::unspecified_<linspace_> parent; }; }
+  namespace tag
+  {
+    struct linspace_ : ext::generative_<linspace_>
+    {
+      typedef ext::generative_<linspace_> parent;
+    };
+  }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::linspace_, linspace, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::linspace_, linspace, 3)
 }
+
+namespace nt2 { namespace container { namespace ext
+{
+  //============================================================================
+  // Register colon as a generative expression
+  //============================================================================
+  template<class Domain, class Expr, int N>
+  struct generator<tag::linspace_,Domain,N,Expr> : generative_generator<Expr>
+  {};
+
+  template<class Domain, class Expr, int N>
+  struct size_of<tag::linspace_,Domain,N,Expr>   : generative_size_of<Expr>
+  {};
+} } }
 
 #endif
 

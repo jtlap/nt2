@@ -30,7 +30,6 @@ namespace nt2{ namespace config{ namespace details{
   inline void detect_cache(Seq& cache_sizes_, Seq& cache_line_sizes_)
   {
     int regs[4] = {0,0,0,0};
-    int byte0, byte1, byte2, byte3;
     int cache_ecx = 0;
     int type;
 
@@ -40,7 +39,7 @@ namespace nt2{ namespace config{ namespace details{
 
       do{
         boost::simd::config::x86::cpuidex(regs, 0x00000004, cache_ecx);
-        
+
         int level      = (regs[0] & 0x000000E0) >> 5;
         int ways       = (regs[1] & 0xFFC00000) >> 22;
         int partitions = (regs[1] & 0x003FF000) >> 12;
@@ -48,28 +47,28 @@ namespace nt2{ namespace config{ namespace details{
         int sets       = (regs[2]);
         int size       = (ways+1)*(partitions+1)*(line_size+1)*(sets+1);
         type           = (regs[0] & 0x0000001F);
-        
+
         switch(type)
         {
-          case 1 :  cache_sizes_[level]      = size/1024;
-                    cache_line_sizes_[level] = line_size+1;
-                    break;
-          case 2 :  cache_sizes_[0]      = size/1024;
-                    cache_line_sizes_[0] = line_size+1;
-                    break;
-          case 3 :  cache_sizes_[level]      = size/1024;
-                    cache_line_sizes_[level] = line_size+1;
-                    break;
-          default : break;
+        case 1 :  *(&cache_sizes_[0]+level) = size/1024;
+                  cache_line_sizes_[level]  = line_size+1;
+                  break;
+        case 2 :  cache_sizes_[0]      = size/1024;
+                  cache_line_sizes_[0] = line_size+1;
+                  break;
+        case 3 :  *(&cache_sizes_[0]+level) = size/1024;
+                  cache_line_sizes_[level]  = line_size+1;
+                  break;
+        default : break;
         }
-        
+
         cache_ecx++;
       }while(type != 0x00000000);
-      
+
       break;
-      
+
     case boost::simd::config::amd :
-      
+
       boost::simd::config::x86::cpuidex(regs,0x80000005,0);
       cache_line_sizes_[0] = regs[3] & 0x000000FF;
       cache_sizes_[0]      = regs[3] >> 24;

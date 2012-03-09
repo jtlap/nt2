@@ -34,7 +34,7 @@ namespace boost { namespace dispatch { namespace meta
   template<typename Seq, typename B, typename SO, typename A>
   struct value_of< nt2::position< Seq, B, SO, A> >
   {
-    typedef std::ptrdiff_t type;
+    typedef Seq type;
   };
 
   //============================================================================
@@ -45,7 +45,11 @@ namespace boost { namespace dispatch { namespace meta
   {
     struct type
     {
-      struct apply { typedef nt2::position< Seq, B, SO, A > type; };
+      template<class X>
+      struct apply
+      {
+        typedef nt2::position< X, B, SO, A > type;
+      };
     };
   };
 } } }

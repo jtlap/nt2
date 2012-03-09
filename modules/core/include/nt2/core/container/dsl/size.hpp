@@ -54,15 +54,15 @@ namespace nt2 { namespace container
     };
   }
 
-    //==========================================================================
-    /*!
-     * proto::transfrom performing the computation of the type able to store
-     * an expression in a given domain
-     **/
-    //==========================================================================
-    template<class Domain>
-    struct size_transform : details::trait_transform< ext::size_of, Domain >
-    {};
+  //============================================================================
+  /*!
+   * proto::transfrom performing the computation of the type able to store
+   * an expression in a given domain
+   **/
+  //============================================================================
+  template<class Domain>
+  struct size_transform : details::trait_transform< ext::size_of, Domain >
+  {};
 } }
 
 #include <nt2/core/container/dsl/details/elementwise.hpp>

@@ -127,6 +127,15 @@ namespace nt2 { namespace memory
     BOOST_FORCEINLINE difference_type inner_upper() const { return data_.inner_upper();  }
     BOOST_FORCEINLINE difference_type outer_upper() const { return data_.outer_upper();  }
 
+    BOOST_FORCEINLINE pointer       raw()       { return data_.raw(); }
+    BOOST_FORCEINLINE const_pointer raw() const { return data_.raw(); }
+
+    BOOST_FORCEINLINE iterator        begin()       { return data_.begin(); }
+    BOOST_FORCEINLINE const_iterator  begin() const { return data_.begin(); }
+
+    BOOST_FORCEINLINE iterator        end()         { return data_.end(); }
+    BOOST_FORCEINLINE const_iterator  end()   const { return data_.end(); }
+
     //==========================================================================
     // Access to data
     //==========================================================================

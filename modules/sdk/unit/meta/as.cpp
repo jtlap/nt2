@@ -13,6 +13,7 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #define M0(z,n,t) ::parent
 #define UP(T,N) T BOOST_PP_REPEAT(N,M0,~)
@@ -22,17 +23,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(hierarchy_of_ref_cref, NT2_TYPES)
 {
-  using boost::is_same;
+  using boost::mpl::_;
   using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
-  using namespace nt2::ext;
 
   typedef typename hierarchy_of<as_<T> >::type        hvalue;
   typedef typename hierarchy_of<as_<T>& >::type       rvalue;
   typedef typename hierarchy_of<as_<T>const&  >::type crvalue;
 
-  NT2_TEST( (is_same<hvalue, rvalue>::value) );
-  NT2_TEST( (is_same<hvalue, crvalue>::value) );
+  NT2_TEST_EXPR_TYPE( rvalue(),  _, hvalue );
+  NT2_TEST_EXPR_TYPE( crvalue(), _, hvalue );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -16,9 +16,11 @@ namespace nt2
   namespace tag
   {
     using boost::simd::tag::run_;
+    using boost::simd::tag::run_assign_;
   }
 
   using boost::simd::run;
+  using boost::simd::run_assign;
 }
 
 #endif

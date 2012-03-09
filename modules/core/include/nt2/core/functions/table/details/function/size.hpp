@@ -103,10 +103,10 @@ namespace nt2 { namespace container { namespace ext
   struct size_of<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of
-                          ::child_c<Expr, 0>::type      child0;
+                          ::child_c<Expr&, 0>::type      child0;
 
     typedef typename  boost::fusion::result_of
-                           ::pop_front<Expr>::type      childN;
+                           ::pop_front<Expr const>::type      childN;
 
     typedef typename size_transform<Domain>::template
     result<size_transform<Domain>(child0)>::type        sz;

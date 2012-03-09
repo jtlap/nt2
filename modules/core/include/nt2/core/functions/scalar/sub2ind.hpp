@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A1>)
                             )
   {
-    typedef std::size_t result_type;
+    typedef std::ptrdiff_t result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos) const
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A2>)
                             )
   {
-    typedef std::size_t result_type;
+    typedef std::ptrdiff_t result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos, const A2& base) const

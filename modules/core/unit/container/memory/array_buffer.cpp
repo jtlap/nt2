@@ -75,6 +75,7 @@ NT2_TEST_CASE_TPL( array_buffer_default_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(b.upper()      , 2 );
   NT2_TEST_EQUAL(b.inner_upper(), 2 );
   NT2_TEST_EQUAL(b.outer_upper(), 1 );
+  NT2_TEST_EQUAL(b.raw(),&b(b.lower()));
 }
 
 //==============================================================================
@@ -101,21 +102,10 @@ NT2_TEST_CASE_TPL( array_buffer_data_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(x.upper()      ,  2 );
   NT2_TEST_EQUAL(x.inner_upper(),  2 );
   NT2_TEST_EQUAL(x.outer_upper(),  1 );
+  NT2_TEST_EQUAL(x.raw(),&x(x.lower()));
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x(i), T(3+i) );
-}
-
-//==============================================================================
-// Test for array_buffer asserting constructor
-//==============================================================================
-NT2_TEST_CASE_TPL( array_buffer_wrong_data_ctor, NT2_TYPES)
-{
-  using nt2::memory::array_buffer;
-  typedef array_buffer<T,5,-2> buffer_type ;
-
-  NT2_TEST_ASSERT( buffer_type too_much(7) );
-  NT2_TEST_ASSERT( buffer_type too_few(2)  );
 }
 
 //==============================================================================
@@ -142,6 +132,7 @@ NT2_TEST_CASE_TPL(array_buffer_assignment, NT2_TYPES )
   NT2_TEST_EQUAL(x.upper()      ,  2 );
   NT2_TEST_EQUAL(x.inner_upper(),  2 );
   NT2_TEST_EQUAL(x.outer_upper(),  1 );
+  NT2_TEST_EQUAL(x.raw(),&x(x.lower()));
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x(i), T(3+i) );
@@ -176,6 +167,7 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(x.upper()      ,  5 );
   NT2_TEST_EQUAL(x.inner_upper(),  5 );
   NT2_TEST_EQUAL(x.outer_upper(),  1 );
+  NT2_TEST_EQUAL(x.raw(),&x(x.lower()));
 
   NT2_TEST_EQUAL(b.size()       ,  5 );
   NT2_TEST_EQUAL(b.inner_size() ,  5 );
@@ -186,6 +178,7 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
   NT2_TEST_EQUAL(b.upper()      ,  5 );
   NT2_TEST_EQUAL(b.inner_upper(),  5 );
   NT2_TEST_EQUAL(b.outer_upper(),  1 );
+  NT2_TEST_EQUAL(b.raw(),&b(b.lower()));
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
     NT2_TEST_EQUAL( x(i), T(3+i) );
@@ -220,18 +213,5 @@ NT2_TEST_CASE_TPL(array_buffer_iterator, NT2_TYPES )
   std::transform(b,e,b,f);
 
   for ( typename buffer_type::difference_type i = x.lower(); i <= x.upper(); ++i )
-    NT2_TEST_EQUAL( x(i), T(f(3+i)) );
-}
-
-//==============================================================================
-// Test for array_buffer asserting resize
-//==============================================================================
-NT2_TEST_CASE_TPL( array_buffer_wrong_resize, NT2_TYPES)
-{
-  using nt2::memory::array_buffer;
-  typedef array_buffer<T,5,-2> buffer_type ;
-  buffer_type b;
-
-  NT2_TEST_ASSERT( b.resize(7) );
-  NT2_TEST_ASSERT( b.resize(1) );
+    NT2_TEST_EQUAL( x(i), f(T(3+i)) );
 }

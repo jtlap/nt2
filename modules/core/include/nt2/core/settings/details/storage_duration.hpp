@@ -9,17 +9,17 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_STORAGE_DURATION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_STORAGE_DURATION_HPP_INCLUDED
 
+#include <boost/mpl/fold.hpp>
+#include <boost/mpl/times.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/eval_if.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/index.hpp>
-#include <nt2/sdk/meta/padded_size.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/padding.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/sdk/memory/array_buffer.hpp>
-#include <nt2/sdk/memory/padded_allocator.hpp>
 #include <nt2/sdk/meta/make_aligned_allocator.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 
@@ -38,19 +38,9 @@ namespace nt2
       // Get the base index
       typedef typename meta::option<S,tag::index_>::type index_t;
 
-      // Get the global padding strategy
-      typedef typename meta::option<S,tag::global_padding_>::type padding_t;
-
       // Make the allocator aligned if needed
-      typedef typename meta::make_aligned_allocator<typename D::type>::type alloc_t;
-
-      // Wrap it in a padded_allocator if needed
-      typedef typename  boost::mpl
-                      ::if_c<   (padding_t::value != 1)
-                            &&  (!boost::is_pointer<T>::value)
-                            , memory::padded_allocator<padding_t::value,alloc_t>
-                            , alloc_t
-                            >:: type                      base_alloc_type;
+      typedef typename
+              meta::make_aligned_allocator<typename D::type>::type base_alloc_t;
 
       // Extract the proper Index (0 if T, 1 if T*)
       typedef typename  boost::mpl
@@ -60,8 +50,8 @@ namespace nt2
                                 >::type base_t;
 
       // Here is the fancy new buffer
-      typedef typename base_alloc_type::template rebind<T>::other allocator_type;
-      typedef memory::buffer<T,base_t::value,allocator_type>      type;
+      typedef typename base_alloc_t::template rebind<T>::other  allocator_type;
+      typedef memory::buffer<T,base_t::value,allocator_type>    type;
     };
 
     template<typename T, typename S> struct apply<T,S>
@@ -92,32 +82,6 @@ namespace nt2
       );
 
       //========================================================================
-      // If you trigger this assertion, you specified a lead padding value
-      // which is either runtime-specified or not aligned on a power of 2.
-      // Check your container settings.
-      //========================================================================
-      typedef typename meta::option<S,tag::lead_padding_  >::type   lead_;
-
-      BOOST_MPL_ASSERT_MSG
-      ( (lead_::value != -1) && (boost::simd::meta::is_power_of_2<lead_>::value)
-      , SETTINGS_MISMATCH_AUTOMATIC_STORAGE_WITH_INVALID_LEAD_PADDING_OPTIONS
-      , (lead_)
-      );
-
-      //========================================================================
-      // If you trigger this assertion, you specified a global padding value
-      // which is either runtime-specified or not aligned on a power of 2.
-      // Check your container settings.
-      //========================================================================
-      typedef typename meta::option<S,tag::global_padding_>::type   global_;
-
-      BOOST_MPL_ASSERT_MSG
-      ( (global_::value != -1) && (boost::simd::meta::is_power_of_2<global_>::value)
-      , SETTINGS_MISMATCH_AUTOMATIC_STORAGE_WITH_INVALID_GLOBAL_PADDING_OPTIONS
-      , (global_)
-      );
-
-      //========================================================================
       // Cut-off the size at proper level for index vs data generation
       // Index is when we generate a buffer from a pointer type T
       //========================================================================
@@ -128,8 +92,15 @@ namespace nt2
                             , base_size
                             >::type               sizes;
 
+      // Compute total size
+      typedef typename  boost::mpl::fold< sizes
+                                        , boost::mpl::int_<1>
+                                        , boost::mpl::times < boost::mpl::_1
+                                                            , boost::mpl::_2
+                                                            >
+                                        >::type           dims_t;
       // Get the base index
-      typedef typename meta::option<S,tag::index_>::type index_t;
+      typedef typename meta::option<S,tag::index_>::type  index_t;
 
       // Extract the proper Index (0 if T, 1 if T*)
       typedef typename  boost::mpl
@@ -138,20 +109,11 @@ namespace nt2
                                 , boost::mpl::at_c< typename index_t::type, 0>
                                 >::type base_t;
 
-      // Pad the data but not the pointer
-      typedef typename  boost::mpl
-                      ::eval_if < boost::is_pointer<T>
-                                , meta::padded_size < sizes
-                                                    , boost::mpl::int_<1>
-                                                    , boost::mpl::int_<1>
-                                                    >
-                                , meta::padded_size<sizes,global_,lead_>
-                                >::type dims_;
-
       // Make me an array_buffer sandwich
-      typedef memory::array_buffer<T,dims_::value,base_t::value>    type;
+      typedef memory::array_buffer<T,dims_t::value,base_t::value>    type;
     };
   };
 }
 
 #endif
+

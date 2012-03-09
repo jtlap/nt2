@@ -15,11 +15,16 @@
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/sdk/meta/is_colon.hpp>
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/sdk/memory/slice.hpp>
-#include <nt2/sdk/memory/no_padding.hpp>
+#include <nt2/include/functions/numel.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/pop_front.hpp>
+<<<<<<< HEAD
+=======
+#include <boost/fusion/adapted/mpl.hpp>
+#include <boost/fusion/include/mpl.hpp>
+#include <boost/fusion/include/at_c.hpp>
+#include <boost/type_traits/is_class.hpp>
+>>>>>>> master
 #include <boost/type_traits/remove_reference.hpp>
 
 #include <nt2/core/functions/table/details/function/size.hpp>

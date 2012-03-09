@@ -19,7 +19,7 @@
 namespace boost { namespace fusion { namespace extension
 {
   //============================================================================
-  // Register position_ as fusion random access sequence
+  // Register position_ as fusion random access view
   //============================================================================
   template<> struct is_sequence_impl<nt2::tag::position_>
   {
@@ -36,73 +36,69 @@ namespace boost { namespace fusion { namespace extension
     typedef random_access_traversal_tag type;
   };
 
-  //============================================================================
-  // Size of position_ is given by its static_size member
-  //============================================================================
-  template<> struct size_impl<nt2::tag::position_>
+  template<>
+  struct size_impl<nt2::tag::position_>
   {
-    template<typename Seq> struct apply :
-      boost::fusion::result_of::size<typename remove_reference<typename Seq::sequence_type>::type> {};
+    template<typename Seq>
+    struct apply
+     : boost::fusion::result_of::size<typename remove_reference<typename Seq::sequence_type>::type>
+    {
+    };
   };
 
-  //============================================================================
-  // at_c value of position_ is given by its static size
-  //============================================================================
-  template<> struct at_impl<nt2::tag::position_>
+  template<>
+  struct at_impl<nt2::tag::position_>
   {
-    template<class Seq, std::ptrdiff_t N> struct apply_impl;
-
     template<class Seq, class Index>
-    struct  apply : apply_impl< Seq, Index::value> {};
-
-    template<class Seq, std::ptrdiff_t N> struct apply_impl
+    struct apply
     {
       typedef typename remove_reference<typename Seq::sequence_type>::type seq_type;
-      typedef typename boost::fusion::result_of::at_c<seq_type const,N>::type type;
+      typedef typename boost::fusion::result_of::at<seq_type const, Index>::type type;
 
       static type call(Seq& seq)
       {
-        return boost::fusion::at_c<N>(seq.seq_);
+        return boost::fusion::at<Index>(seq.seq_);
       }
     };
   };
 
-  template<> struct value_at_impl<nt2::tag::position_>
+  template<>
+  struct value_at_impl<nt2::tag::position_>
   {
     template<class Seq, class Index>
     struct apply
     {
-      typedef typename at_impl<nt2::tag::position_>
-                       ::template apply<Seq, Index>::type base;
-      typedef typename remove_reference<base>::type type;
+      typedef typename remove_reference<typename Seq::sequence_type>::type seq_type;
+      typedef typename boost::fusion::result_of::value_at<seq_type const, Index>::type type;
     };
   };
 
-  //==========================================================================
-  // begin returns the inner data_type begin as it is itself a Fusion Sequence
-  //==========================================================================
-  template<> struct begin_impl<nt2::tag::position_>
-  {
-    template<typename Sequence> struct apply
-    {
-      typedef boost::simd::at_iterator<Sequence, 0> type;
-      static type call(Sequence& seq) { return type(seq); }
-    };
-  };
-
-  //==========================================================================
-  // end returns the inner data_type end as it is itself a Fusion Sequence
-  //==========================================================================
-  template<> struct end_impl<nt2::tag::position_>
+  template<>
+  struct begin_impl<nt2::tag::position_>
   {
     template<typename Sequence>
     struct apply
     {
-      typedef typename remove_reference<typename Sequence::sequence_type>::type seq_type;
-      typedef typename boost::fusion::result_of::size<seq_type>::type size_type;
-      typedef boost::simd::at_iterator<Sequence, size_type::value> type;
+      typedef boost::simd::at_iterator<Sequence, 0> type;
+      static type call(Sequence& seq)
+      {
+        return type(seq);
+      }
+    };
+  };
 
-      static type call(Sequence& seq) { return type(seq); }
+  template<>
+  struct end_impl<nt2::tag::position_>
+  {
+    template<typename Sequence>
+    struct apply
+    {
+      typedef typename boost::fusion::result_of::size<Sequence>::type size_type;
+      typedef boost::simd::at_iterator<Sequence, size_type::value> type;
+      static type call(Sequence& seq)
+      {
+        return type(seq);
+      }
     };
   };
 } } }

@@ -153,10 +153,10 @@ NT2_TEST_CASE( hierarchy_of_position )
             aligned_
           > aligned_2d_position_b;
 
-  aligned_2d_position p1(make_vector(12,13)); 
-  aligned_2d_position_a p1a(make_vector(12,13,14)); 
+  aligned_2d_position p1(make_vector(12,13));
+  aligned_2d_position_a p1a(make_vector(12,13,14));
   aligned_2d_position_b p1b(make_vector(12,13));
- 
+
   NT2_TEST_EXPR_TYPE( p1,
                       hierarchy<_>,
                       (position_<aligned_2d_position,
@@ -261,6 +261,14 @@ NT2_TEST_CASE( as_aligned )
                         aligned_> >::type)
                     );
 
+  NT2_TEST_EXPR_TYPE( p2,
+                      model<_>,
+                      (model<position<vector<int, int>,
+                        index_<1l, 1l>,
+                        matlab_order_,
+                        aligned_> >::type)
+                    );
+
   vector<int, int> seq = make_vector(12, 13);
   NT2_TEST_EXPR_TYPE( as_aligned(p1, seq),
                       model<_>,
@@ -269,7 +277,7 @@ NT2_TEST_CASE( as_aligned )
                         matlab_order_,
                         aligned_> >::type)
                     );
-  
+
   NT2_TEST_EXPR_TYPE( as_aligned(seq),
                       model<_>,
                       (model<position<vector<int, int>,
@@ -327,6 +335,14 @@ NT2_TEST_CASE( as_unaligned )
                         unaligned_> >::type)
                     );
 
+  NT2_TEST_EXPR_TYPE( p2,
+                      model<_>,
+                      (model<position<vector<int, int>,
+                        index_<1l, 1l>,
+                        matlab_order_,
+                        unaligned_> >::type)
+                    );
+
   vector<int, int> seq = make_vector(12, 13);
   NT2_TEST_EXPR_TYPE( as_unaligned(p1, seq),
                       model<_>,
@@ -367,7 +383,7 @@ NT2_TEST_CASE( as_unaligned )
 NT2_TEST_CASE( have_compatible_assignments )
 {
   using namespace nt2;
-  
+
   NT2_TEST((nt2::have_compatible_alignments<table<double>, aligned_>::value));
   NT2_TEST(!(nt2::have_compatible_alignments<table<double>, unaligned_>::value));
   NT2_TEST(!(nt2::have_compatible_alignments<table<double, unaligned_>, aligned_>::value));

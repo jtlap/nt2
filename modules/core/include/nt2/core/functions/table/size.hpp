@@ -23,16 +23,21 @@ namespace nt2 { namespace ext
     typedef typename meta::call<tag::extent_(A0)>::type base;
     typedef typename meta::strip<base>::type  ext_t;
 
+    static const std::size_t len = ext_t::static_size;
+    static const std::size_t olen = len > 2 ? len : 2;
+
     typedef table < std::size_t
-                  , settings(automatic_, of_size_<1,ext_t::static_size>)
+                  , settings(automatic_, of_size_<1, olen>)
                   >                                         result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
-      result_type that( of_size_<1,ext_t::static_size>()
-                      , nt2::extent(a0).begin()
-                      , nt2::extent(a0).end()
-                      );
+      result_type that;
+      std::size_t i=1;
+      for(; i<len+1; ++i)
+        that(i) = nt2::extent(a0)[i-1];
+      for(; i<olen+1; ++i)
+        that(i) = std::size_t(1);
       return that;
     }
   };
@@ -48,7 +53,8 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0,const A1& a1) const
     {
-      return nt2::extent(a0)[a1-1];
+      std::size_t nb_dims = nt2::extent(a0).size();
+      return std::size_t(a1-1) < nb_dims ? nt2::extent(a0)[a1-1] : 1;
     }
   };
 } }

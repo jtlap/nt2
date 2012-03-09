@@ -19,7 +19,7 @@
 namespace boost { namespace fusion { namespace extension
 {
   //============================================================================
-  // Register padded_sequence_tag as fusion random access sequence
+  // Register padded_sequence_tag as fusion random access view
   //============================================================================
   template<> struct is_sequence_impl<nt2::tag::padded_sequence_tag>
   {
@@ -37,7 +37,7 @@ namespace boost { namespace fusion { namespace extension
   };
 
   //============================================================================
-  // Size of padded_sequence_tag is given by its static_size member
+  // Size of padded_sequence_tag is given by its inner sequence member size
   //============================================================================
   template<> struct size_impl<nt2::tag::padded_sequence_tag>
   {
@@ -48,38 +48,27 @@ namespace boost { namespace fusion { namespace extension
   };
 
   //============================================================================
-  // at_c value of padded_sequence_tag is given by its static size or dynamic size if -1
+  // at_c value of is computed using the padding strategy functor
   //============================================================================
   template<> struct at_impl<nt2::tag::padded_sequence_tag>
   {
-    template<class Seq, std::ptrdiff_t N> struct apply_impl;
-
-    template<class Seq, class Index>
-    struct  apply : apply_impl< Seq, Index::value> {};
-
-    template<class Seq> struct apply_impl<Seq, 0>
+    template<class Seq, class Index> struct  apply
     {
-      typedef typename Seq::sequence_type seq_type;
-      typedef typename Seq::value_type    value_type;
-      typedef typename boost::fusion::result_of::at_c<seq_type,0>::type base;
-      typedef typename boost::dispatch::meta::
-              call<boost::simd::tag::align_on_(base,value_type)>::type type;
+      typedef typename  Seq::sequence_type                seq_type;
+      typedef typename  Seq::strategy_type                strategy_type;
+      typedef typename  Seq::value_type                   value_type;
+      typedef typename  boost::fusion::result_of::
+                        at_c<seq_type,Index::value>::type                 base;
+      typedef typename
+              boost::result_of<strategy_type(base,Index,value_type)>::type type;
 
       static type call(Seq& seq)
       {
-        return  boost::simd::memory::
-                align_on(boost::fusion::at_c<0>(seq.seq_),seq.value_);
-      }
-    };
-
-    template<class Seq, std::ptrdiff_t N> struct apply_impl
-    {
-      typedef typename Seq::sequence_type seq_type;
-      typedef typename boost::fusion::result_of::at_c<seq_type const,N>::type type;
-
-      static type call(Seq& seq)
-      {
-        return boost::fusion::at_c<N>(seq.seq_);
+        strategy_type callee;
+        return  callee( boost::fusion::at_c<Index::value>(seq.seq_)
+                      , Index()
+                      , value_type()
+                      );
       }
     };
   };

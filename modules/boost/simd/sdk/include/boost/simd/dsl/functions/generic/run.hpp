@@ -10,7 +10,7 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_GENERIC_RUN_HPP_INCLUDED
 
 #include <boost/simd/dsl/functions/run.hpp>
-#include <boost/dispatch/dsl/proto/unpack.hpp>
+#include <boost/dispatch/dsl/unpack.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/include/functions/terminal.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
@@ -25,27 +25,19 @@ namespace boost { namespace simd { namespace ext
                                     , (ast_<A0>)
                                     )
   {
-    typedef proto::
-    unpack< proto::
-            call< dispatch::
-                  functor< typename proto::tag_of<A0>::type >
-                > ( proto::call< typename dispatch::
-                                 make_functor<tag::run_, A0>::type
-                               >
-                  )
-          >
+    typedef dispatch::
+            unpack< A0
+                  , dispatch::functor< typename proto::tag_of<A0>::type >
+                  , typename dispatch::make_functor<tag::run_, A0>::type
+                  >
     transform;
-    
-    template<class Sig> struct result;
-    
-    template<class This, class A0_>
-    struct result<This(A0_)> : transform::template result<transform(A0_)> {};
-    
-    template<class A0_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&)>::type
-    operator()(A0_& a0) const
+
+    typedef typename transform::result_type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0) const
     {
-      return transform()(a0);
+       return transform()(a0);
     }
   };
 
@@ -58,34 +50,19 @@ namespace boost { namespace simd { namespace ext
                                       (unspecified_<State>)
                                     )
   {
-    typedef proto::
-    unpack< proto::
-            call< dispatch::
-                  functor< typename proto::tag_of<A0>::type >
-                > ( proto::
-                    when< proto::_
-                        , proto::call< typename dispatch::
-                                       make_functor< tag::run_, A0>
-                                                    ::type  ( proto::_expr
-                                                            , proto::_state
-                                                            )
-                                     >
-                        >
-                  )
-          >
+    typedef dispatch::
+            unpack< A0
+                  , dispatch::functor< typename proto::tag_of<A0>::type >
+                  , dispatch::with_state<tag::run_, State> const
+                  >
     transform;
-    
-    template<class Sig> struct result;
-    
-    template<class This, class A0_, class State_>
-    struct  result<This(A0_, State_)>
-          : transform::template result<transform(A0_, State_)> {};
-    
-    template<class A0_, class State_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, State_&)>::type
-    operator()(A0_& a0, State_& state) const
+
+    typedef typename transform::result_type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State& state) const
     {
-      return transform()(a0, state);
+       return transform()(a0, dispatch::with_state<tag::run_, State>(state));
     }
   };
   
@@ -103,21 +80,16 @@ namespace boost { namespace simd { namespace ext
                                       (unspecified_<State>)
                                     )
   {
-    template<class Sig> struct result;
-    
-    template<class This, class A0_, class State_>
-    struct  result<This(A0_, State_)>
-          : dispatch::meta::call<boost::proto::tag::terminal(A0_, State_)> {};
-      
-    template<class A0_, class State_>
-    BOOST_DISPATCH_FORCE_INLINE typename result<implement(A0_&, State_&)>::type
-    operator()(A0_& a0, State_& state) const
+    typedef typename dispatch::meta::
+            call<boost::proto::tag::terminal(A0&, State&)>::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State& state) const
     {
-      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type callee;
-      return callee(a0, state);
+      return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
+                      (a0, state);
     }
   };
-
 
   //============================================================================
   // Run an expression with a state and a data
@@ -129,35 +101,19 @@ namespace boost { namespace simd { namespace ext
                                       (unspecified_<Data>)
                                     )
   {
-    typedef proto::
-    unpack< proto::
-            call< dispatch::
-                  functor< typename proto::tag_of<A0>::type >
-                > ( proto::
-                    when< proto::_
-                        , proto::call< typename dispatch::
-                                       make_functor< tag::run_, A0>                                       
-                                                   ::type ( proto::_expr
-                                                          , proto::_state
-                                                          , proto::_data
-                                                          )
-                                     >
-                        >
-                  )
-          >
+    typedef dispatch::
+            unpack< A0
+                  , dispatch::functor< typename proto::tag_of<A0>::type >
+                  , dispatch::with_state_data<tag::run_, State, Data const> const
+                  >
     transform;
-    
-    template<class Sig> struct result;
-    
-    template<class This, class A0_, class State_, class Data_>
-    struct  result<This(A0_, State_, Data_)>
-          : transform::template result<transform(A0_, State_, Data_)> {};
-    
-    template<class A0_, class State_, class Data_> BOOST_DISPATCH_FORCE_INLINE     
-    typename result<implement(A0_&, State_&, Data_&)>::type
-    operator()(A0_& a0, State_& state, Data_& data) const
+
+    typedef typename transform::result_type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State& state, Data const& data) const
     {
-      return transform()(a0, state, data);
+       return transform()(a0, dispatch::with_state_data<tag::run_, State, Data const>(state, data));
     }
   };
 
@@ -176,19 +132,14 @@ namespace boost { namespace simd { namespace ext
                                       (unspecified_<Data>)
                                     )
   {
-    template<class Sig> struct result;
-    
-    template<class This, class A0_, class State_, class Data_>
-    struct  result<This(A0_, State_, Data_)>
-          : dispatch::meta::call<boost::proto::tag::terminal(A0_, State_, Data_)>
-    {};
+    typedef typename dispatch::meta::
+            call<boost::proto::tag::terminal(A0&, State&, Data const&)>::type result_type;
       
-    template<class A0_, class State_, class Data_> BOOST_DISPATCH_FORCE_INLINE 
-    typename result<implement(A0_&, State_&, Data_&)>::type
-    operator()(A0_& a0, State_& state, Data_& data) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State& state, Data const& data) const
     {
-      typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type callee;
-      return callee(a0, state, data);
+      return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
+                      (a0, state,data);
     }
   }; 
 } } }
