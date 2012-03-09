@@ -244,13 +244,14 @@ namespace nt2 { namespace ext
   // 1D element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::run_, nt2::tag::openmp_<Site>
                             , (class A0)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T0)(class N0)
-                              (class A1)(class T1)(class N1)
+                              (A1)(T1)(N1)
                               (class Site)
                             , ((expr_< table_< unspecified_<A0>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind) >
                                      , T0
                                      , N0
                                      >
                               ))
+                              ((node_<A1, elementwise_<T1>, N1>))
                             )
   {
     typedef A0&                                            result_type;
