@@ -42,7 +42,7 @@ namespace boost { namespace fusion { namespace extension
   {
     template<typename Pos>
     struct apply :
-      boost::fusion::result_of::size<typename remove_reference<typename Pos::sequence_pos_type>::type>
+      boost::fusion::result_of::size<typename remove_reference<typename Pos::pos_type>::type>
     {
     };
   };
@@ -53,9 +53,9 @@ namespace boost { namespace fusion { namespace extension
     template<class Pos, class Index>
     struct apply
     {
-      typedef typename remove_reference<typename Pos::sequence_pos_type>::type pos_type;
-      typedef typename boost::fusion::result_of::at<pos_type const, Index>::type type;
-        
+      typedef typename boost::fusion::result_of::at<typename Pos::expr_type const, Index>::type sub_expr_type;
+      typedef typename nt2::meta::call<nt2::tag::relative_index_(sub_expr_type, typename Pos::pos_type, Index)>::type type;
+
       static type call(Pos& pos)
       {
         return nt2::relative_index(boost::fusion::at<Index>(pos.expr_), pos.pos_, Index());

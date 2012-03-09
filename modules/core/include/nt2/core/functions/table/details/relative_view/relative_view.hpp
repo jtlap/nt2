@@ -22,7 +22,9 @@ namespace nt2
   struct relative_view
   {
     typedef tag::relative_view_ fusion_tag;
-    typedef Pos sequence_pos_type;
+    typedef Expr expr_type;
+    typedef Size size_type;
+    typedef Pos pos_type;
 
     relative_view (Expr const& expr, Size const& sz, Pos const& pos) : expr_(expr), sz_(sz), pos_(pos) {}
 
