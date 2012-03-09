@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const Size& sz, const Current&, boost::mpl::true_ const&) const
     {
-      return numel(sz, boost::mpl::int_<Current::value+1>());
+      return numel(sz, boost::mpl::int_<Current::value>());
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
