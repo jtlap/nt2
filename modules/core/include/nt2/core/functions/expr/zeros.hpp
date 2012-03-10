@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
 
       of_size_max sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
-      for(std::size_t i=1;i<sz;++i) sizee[i-1] = a0(i);
+      std::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::zeros_
                                     , container::domain
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
 
       of_size_max sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
-      for(std::size_t i=1;i<sz;++i) sizee[i-1] = a0(i);
+      std::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::zeros_
                                     , container::domain
