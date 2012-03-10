@@ -86,9 +86,9 @@ NT2_TEST_CASE( size_size )
 
   nt2::table<int> a( nt2::of_size(4,5) );
   NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a), 1)), 1u);
-  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a), 2)), 2u);  
+  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a), 2)), 4u);  
   NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a))(1)), 1u);
-  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a))(2)), 2u);  
+  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a))(2)), 4u);  
 }
 
 ////////////////////////////////////////////////////////////////////////////////
