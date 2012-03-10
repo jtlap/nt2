@@ -95,25 +95,23 @@ NT2_TEST_CASE_TPL( eye_value_type, NT2_TYPES )
 
  }
 
-// NT2_TEST_CASE( eye_expr )
-// {
-//   nt2::table<int> a( nt2::of_size(4,5) );
-//   nt2::table<double> x1 = nt2::eye( nt2::size(a) );
-//   for(int i=1;i<=4;++i) for(int j=1;j<=5;++j){
-//     std::cout << "i  "<< i << " j  " << j << " (i == j)  " << int(i == j) <<" x1(i, j) " << x1(i, j) << std::endl; 
-//     NT2_TEST_EQUAL(  double(i == j), double(x1(i, j)) );
-//   }
-//   NT2_TEST_ASSERT( x1 = nt2::eye(a) );
-// }
+NT2_TEST_CASE( eye_expr )
+{
+  nt2::table<int> a( nt2::of_size(4,5) );
+  nt2::table<double> x1 = nt2::eye( nt2::size(a) );
+  for(int i=1;i<=4;++i) for(int j=1;j<=5;++j) NT2_TEST_EQUAL(  double(i == j), double(x1(i, j)) );
+  NT2_TEST_ASSERT( x1 = nt2::eye(a) );
+}
 
-// NT2_TEST_CASE_TPL( eye_typed_expr, NT2_TYPES )
-// {
-//   nt2::table<int> a( nt2::of_size(4,5) );
-//   nt2::table<int> t(nt2::of_size(2, 1) );
-//   t(1) = t(2) = 8; 
-//   nt2::table<T> x1 = nt2::eye( t, nt2::meta::as_<T>() );
-//   for(int i=1;i<=8;++i) for(int j=1;j<=8;++j) NT2_TEST_EQUAL( T(i == j), T(x1(i, j)));
-//   nt2::table<T> x2 = nt2::eye( nt2::size(a), nt2::meta::as_<T>() );
-//   for(int i=1;i<=8;++i) for(int j=1;j<=8;++j) NT2_TEST_EQUAL( T(i == j), T(x2(i, j)));
+NT2_TEST_CASE_TPL( eye_typed_expr, NT2_TYPES )
+{
+  nt2::table<int> t(nt2::of_size(1, 2) );
+  t(1) = 3;
+  t(2) = 4; 
+  nt2::table<T> x1 = nt2::eye( t, nt2::meta::as_<T>() );
+  for(int i=1;i<=3;++i) for(int j=1;j<=4;++j) NT2_TEST_EQUAL( T(i == j), T(x1(i, j)));
+  nt2::table<int> a( nt2::of_size(4,5) );
+  nt2::table<T> x2 = nt2::eye( nt2::size(a), nt2::meta::as_<T>() );
+  for(int i=1;i<=4;++i) for(int j=1;j<=5;++j) NT2_TEST_EQUAL( T(i == j), T(x2(i, j)));
 
-// }
+}

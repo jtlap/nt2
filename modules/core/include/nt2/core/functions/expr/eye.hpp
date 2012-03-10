@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::eye_
                                           , container::domain
-                                          , box< _2D >
+                                          , box<_2D>
                                           , box<nt2::details::eye>
                                           , meta::as_<double>
                                           >::type             result_type;
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::eye_
                                           , container::domain
-                                          , box<of_size_<1,2> >
+                                          , box<_2D>
                                           , box<nt2::details::eye>
                                           , T
                                           >::type             result_type;
