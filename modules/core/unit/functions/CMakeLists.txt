@@ -30,7 +30,7 @@ SET( SOURCES
   issymetric.cpp
   ishermitian.cpp
   istriangular.cpp
-  global_sum.cpp
+  eye.cpp
 # List of test files for toolbox core.settings
    )
 
