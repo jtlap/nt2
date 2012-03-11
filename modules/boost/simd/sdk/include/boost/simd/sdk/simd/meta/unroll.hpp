@@ -132,9 +132,9 @@ namespace boost{ namespace simd{ namespace meta{
          , SimdOutputIterator& out, UnOp f)
     {
       typename SimdInputIterator::difference_type distance = end - in;
-      typename SimdInputIterator::difference_type n = (distance + 3) / 4;
+      typename SimdInputIterator::difference_type n = (distance + 7) / 8;
       
-      switch(distance % 4)
+      switch(distance % 8)
       {
         case 0 : do{
           *out++ = f(*in++);
@@ -155,9 +155,9 @@ namespace boost{ namespace simd{ namespace meta{
          , SimdInputIterator const& end, SimdOutputIterator& out, BinOp f)
     {
       typename SimdInputIterator::difference_type distance = end - in1;
-      typename SimdInputIterator::difference_type n = (distance + 3) / 4;
+      typename SimdInputIterator::difference_type n = (distance + 7) / 8;
       
-      switch(distance % 4)
+      switch(distance % 8)
       {
         case 0 : do{
           *out++ = f(*in1++,*in2++);
@@ -182,9 +182,9 @@ namespace boost{ namespace simd{ namespace meta{
          , SimdOutputIterator& out, UnOp f)
     {
       typename SimdInputIterator::difference_type distance = end - in;
-      typename SimdInputIterator::difference_type n = (distance + 3) / 4;
+      typename SimdInputIterator::difference_type n = (distance + 15) / 16;
       
-      switch(distance % 4)
+      switch(distance % 16)
       {
         case 0 : do{
           *out++ = f(*in++);
@@ -213,9 +213,9 @@ namespace boost{ namespace simd{ namespace meta{
          , SimdInputIterator const& end, SimdOutputIterator& out, BinOp f)
     {
       typename SimdInputIterator::difference_type distance = end - in1;
-      typename SimdInputIterator::difference_type n = (distance + 3) / 4;
+      typename SimdInputIterator::difference_type n = (distance + 15) / 16;
       
-      switch(distance % 4)
+      switch(distance % 16)
       {
         case 0 : do{
           *out++ = f(*in1++,*in2++);
