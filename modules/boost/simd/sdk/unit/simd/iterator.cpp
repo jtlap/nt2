@@ -15,7 +15,6 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <vector>
-#include <iostream>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test boost::simd::input_iterator behavior
