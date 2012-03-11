@@ -38,6 +38,7 @@ SET( SOURCES
   shift_left.cpp
   shift_right.cpp
   splat.cpp
+  stream.cpp
   )
 
 nt2_module_add_tests(boost.simd.operator.simd.unit ${SOURCES})
