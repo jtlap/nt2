@@ -27,6 +27,7 @@
 #include <nt2/core/utility/position/position.hpp>
 #include <nt2/core/utility/position/adapted.hpp>
 #include <nt2/core/utility/position/alignment.hpp>
+#include <nt2/core/utility/position/make_position.hpp>
 
 template<class T> struct hierarchy
 {

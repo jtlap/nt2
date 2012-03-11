@@ -9,13 +9,31 @@
 #define NT2_UNIT_MODULE "nt2 container box"
 
 #include <nt2/sdk/meta/as.hpp>
-#include <nt2/core/utility/box/box.hpp>
+#include <nt2/include/functions/box.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 struct foo { int i; };
+
+NT2_TEST_CASE( arity_of )
+{
+  using nt2::box;
+  using nt2::_2D;
+  using boost::mpl::_;
+  using nt2::tag::box_;
+  using nt2::meta::as_;
+  using boost::proto::arity_of;
+
+  box < foo         > a0;
+  box < as_<float>  > a1;
+  box < _2D         > a2;
+
+  NT2_TEST_EXPR_TYPE( a0, arity_of<_>, (boost::mpl::long_<0l>) );
+  NT2_TEST_EXPR_TYPE( a1, arity_of<_>, (boost::mpl::long_<0l>) );
+  NT2_TEST_EXPR_TYPE( a2, arity_of<_>, (boost::mpl::long_<0l>) );
+}
 
 NT2_TEST_CASE( semantic_of )
 {
@@ -52,8 +70,6 @@ NT2_TEST_CASE( value_semantic )
   NT2_TEST_EQUAL( f.i, a0.value().i );
 }
 
-foo make_foo(int i) { foo f = {i}; return f; }
-
 // For the sake of it, let's pretend foo can do plus
 namespace boost { namespace simd { namespace ext
 {
@@ -67,15 +83,18 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
+foo make_foo(int i) { foo f = {i}; return f; }
+
 NT2_TEST_CASE( temp_semantic )
 {
   using nt2::box;
+  using nt2::boxify;
   using nt2::tag::box_;
 
   box < foo > a0(make_foo(42));
   NT2_TEST_EQUAL( 42, a0.value().i );
 
-  BOOST_AUTO(temporary_boxes, box<foo>(make_foo(42)) + box<foo>(make_foo(24)) );
+  BOOST_AUTO(temporary_boxes, boxify( make_foo(42) ) + boxify( make_foo(24) ) );
 
   NT2_TEST_EQUAL( 42, boost::proto::child_c<0>( temporary_boxes).value().i );
   NT2_TEST_EQUAL( 24, boost::proto::child_c<1>( temporary_boxes ).value().i );

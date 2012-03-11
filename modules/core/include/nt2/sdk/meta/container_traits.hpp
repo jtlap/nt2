@@ -12,55 +12,65 @@
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 namespace nt2 { namespace meta
 {
   //==============================================================================
   //==============================================================================
-  template<class T, class Enable=void> 
+  template<class T, class Enable=void>
   struct reference_ : boost::add_reference<T>
   {};
 
   //==============================================================================
   //==============================================================================
-  template<class T, class Enable=void> 
-  struct  const_reference_ 
+  template<class T, class Enable=void>
+  struct  const_reference_
         : boost::add_reference< typename boost::add_const<T>::type >
   {};
 
   //==============================================================================
   //==============================================================================
-  template<class T, class Enable=void> 
+  template<class T, class Enable=void>
   struct value_type_
   {
     typedef T type;
   };
 
   template<class T>
-  struct reference_ < T 
+  struct reference_ < T
                     , typename  boost::dispatch::meta::
-                      enable_if_type<typename T::reference>::type
+                      enable_if_type< typename boost::dispatch::meta::
+                                      strip<T>::type::reference
+                                    >::type
                     >
   {
-    typedef typename T::reference type;
+    typedef typename boost::dispatch::meta::
+                      strip<T>::type::reference type;
   };
 
   template<class T>
-  struct const_reference_ < T 
+  struct const_reference_ < T
                           , typename  boost::dispatch::meta::
-                            enable_if_type<typename T::const_reference>::type
+                            enable_if_type< typename boost::dispatch::meta::
+                                            strip<T>::type::const_reference
+                                          >::type
                           >
   {
-    typedef typename T::const_reference type;
+    typedef typename boost::dispatch::meta::
+                      strip<T>::type::const_reference type;
   };
 
   template<class T>
-  struct value_type_< T 
+  struct value_type_< T
                     , typename  boost::dispatch::meta::
-                      enable_if_type<typename T::value_type>::type
+                      enable_if_type< typename boost::dispatch::meta::
+                                      strip<T>::type::value_type
+                                    >::type
                     >
   {
-    typedef typename T::value_type type;
+    typedef typename  boost::dispatch::meta::
+                      strip<T>::type::value_type type;
   };
 } }
 

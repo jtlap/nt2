@@ -14,6 +14,8 @@
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/is_not_equal.hpp>
+// #include <nt2/sdk/details/type_id.hpp>
+// #include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -27,12 +29,15 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
     {
-      typedef typename A0::value_type value_type; 
+      typedef typename A0::value_type value_type;
+//       typedef typename nt2::meta::scalar_of<typename boost::dispatch::meta::semantic_of<A0>::type >::type type;
+//       typedef typename nt2::meta::strip<type>::type value_type; 
+      //      std::cout << nt2::type_id<value_type>() << std::endl; 
       if (!issquare(a0)) return false; 
       for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)
         {
           for(std::ptrdiff_t i=j+1; i <= last_index<1>(a0) ; ++i)
-            {
+            { 
               if ((value_type(a0(i, j)) != value_type(a0(j, i)))) return false; 
             }
         }

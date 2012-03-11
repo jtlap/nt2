@@ -25,7 +25,11 @@ template<class T> struct array_buffer_test
   typedef typename buffer_t::size_type         size_type;
   typedef typename buffer_t::difference_type   difference_type;
 
-  array_buffer_test(size_type sz) : up(sz+data.lower()-1) {}
+  array_buffer_test(size_type sz) : up(sz+data.lower()-1)
+  {
+    for(difference_type i = data.lower(); i <= up; ++i)
+      data(i) = 0;
+  }
 
   ~array_buffer_test() { pump = data(1 + rand() % up); }
 
@@ -65,7 +69,11 @@ template<class T> struct array_buffer_std_test
 
 template<class T> struct array_buffer_raw_test
 {
-  array_buffer_raw_test(int i) : size_(i) {}
+  array_buffer_raw_test(int i) : size_(i)
+  {
+    for(std::size_t i = 0; i < size_; ++i)
+      data[i] = 0;
+  }
 
   void operator()()
   {
@@ -91,19 +99,25 @@ NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
   for(int i=0;i<11;++i)
   {
     array_buffer_raw_test<T>     b(1 << i);
-    raw[i] = (nt2::unit::perform_benchmark( b, 1.) / (int(1 << i)))/2.;
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
+    nt2::unit::perform_benchmark(b, 1., dv);
+    raw[i] = (dv.median / (int(1 << i)))/2.;
   }
 
   for(int i=0;i<11;++i)
   {
     array_buffer_test<T>     b(1 << i);
-    buff[i] = (nt2::unit::perform_benchmark( b, 1.) / (int(1 << i)))/2.;
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
+    nt2::unit::perform_benchmark(b, 1., dv);
+    buff[i] = (dv.median / (int(1 << i)))/2.;
   }
 
   for(int i=0;i<11;++i)
   {
     array_buffer_std_test<T>     b(1 << i);
-    std_[i] = (nt2::unit::perform_benchmark( b, 1.) / (int(1 << i)))/2.;
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
+    nt2::unit::perform_benchmark(b, 1., dv);
+    std_[i] = (dv.median / (int(1 << i)))/2.;
   }
 
   for(int i=0;i<11;++i)

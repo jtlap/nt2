@@ -12,6 +12,7 @@
 #include <nt2/core/settings/forward/alignment.hpp>
 #include <nt2/core/settings/forward/index.hpp>
 #include <nt2/core/settings/forward/storage_order.hpp>
+#include <nt2/core/utility/position/position.hpp>
 
 namespace nt2
 {
