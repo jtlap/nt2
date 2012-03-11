@@ -106,38 +106,6 @@ namespace boost { namespace simd
   }
 
 ////////////////////////////////////////////////////////////////////////////////
-// The class proxy is returned by output_iterator for handling proper memory
-// writing without loss of performance.
-////////////////////////////////////////////////////////////////////////////////
-  template<class T, std::size_t C = meta::cardinal_of< pack<T> >::value>
-  struct proxy
-  {
-  public:
-
-    typedef pack<T,C>                      pack_type;
-    typedef typename pack<T,C>::data_type  native_type;
-
-    proxy(T* p) : mem(p) {}
-    proxy(proxy const& px){ mem = px.mem; }
-
-    BOOST_DISPATCH_FORCE_INLINE
-    void operator=(pack_type const& right)
-    {
-      boost::simd::store(right, mem, 0);
-    }
-
-    template<class Expr>
-    BOOST_DISPATCH_FORCE_INLINE
-    void operator=(Expr const& right)
-    {
-      boost::simd::store(right, mem, 0);
-    }
-
-  private:
-    T* mem;
-  };
-
-////////////////////////////////////////////////////////////////////////////////
 // simd::output_iterator reference a pack of N elements of type T that can only 
 // be write.
 ////////////////////////////////////////////////////////////////////////////////
@@ -148,7 +116,7 @@ namespace boost { namespace simd
                                 , typename pack<T,C>::data_type*
                                 , pack<T,C>
                                 , boost::random_access_traversal_tag
-                                , proxy<T,C>
+                                , output_iterator<T,C>
                                 >
   {
   private:
@@ -172,13 +140,27 @@ namespace boost { namespace simd
         );
     }
 
+    BOOST_DISPATCH_FORCE_INLINE
+    void operator=(pack_type const& right)
+    {
+      boost::simd::store(right, reinterpret_cast<T*>(this->base()), 0);
+    }
+
+    template<class Expr>
+    BOOST_DISPATCH_FORCE_INLINE
+    void operator=(Expr const& right)
+    {
+      boost::simd::store(right, reinterpret_cast<T*>(this->base()), 0);
+    }
+    
   private:
     friend class boost::iterator_core_access;
-
+    
     BOOST_DISPATCH_FORCE_INLINE
     typename output_iterator::reference dereference() const
     {
-      return proxy<T,C>(reinterpret_cast<T*>(this->base()));
+      return *this;
+      //return proxy<T,C>(reinterpret_cast<T*>(this->base()));
     }
   };
 
