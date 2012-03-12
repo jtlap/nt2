@@ -54,8 +54,6 @@ namespace nt2 { namespace ext
     {
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      a0.resize(a1.extent());
-
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
@@ -123,8 +121,6 @@ namespace nt2 { namespace ext
     {
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      a0.resize(a1.extent());
-
       typename A0::index_type::type bs;
       std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
       std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
@@ -184,10 +180,6 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-
-      a0.resize(a1.extent());
-
       typename A0::index_type::type bs;
 
 #ifndef BOOST_NO_EXCEPTIONS
@@ -249,10 +241,6 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-
-      a0.resize(a1.extent());
-
       typename A0::index_type::type bs;
       std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
       std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
