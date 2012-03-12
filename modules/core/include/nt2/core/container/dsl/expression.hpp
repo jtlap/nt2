@@ -185,6 +185,13 @@ namespace nt2 { namespace container
       return *this;
     }
 
+    BOOST_DISPATCH_FORCE_INLINE
+    expression& operator=(expression const& xpr)
+    {
+      process( xpr );
+      return *this;
+    }
+
     //==========================================================================
     // Op-Assignment operators generate proper tree then evaluates
     //==========================================================================
