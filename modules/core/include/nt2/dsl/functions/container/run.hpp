@@ -13,6 +13,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/transform.hpp>
+#include <nt2/include/functions/fold.hpp>
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
@@ -20,10 +21,7 @@
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // When an assign(lhs,rhs) expression is run, we perform the evaluation of rhs
-  // then store it in lhs. Depending on the lhs nature (real terminal or a node
-  // containing a call to any indexing function, the result of the evaluation is
-  // returned, usually as non-const reference.
+  // Element-wise operations go to transform
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(T0)(N0)(A1)(T1)(N1)
@@ -43,9 +41,34 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // When an arbitrary expression is run, we perform its evaluation into a
-  // local temporary container of proper type. This temporary is then returned by
-  // value.
+  // Reductions operations go to fold
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+                            , (A0)(T0)(N0)(A1)(T1)(N1)
+                            , ((node_<A0, elementwise_<T0>, N0>))
+                              ((node_<A1, reduction_<T1>, N1>))
+                            )
+  {
+    typedef A0&                                             result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, A1& a1) const
+    {
+      a0.resize(a1.extent());
+      // TODO
+      #if 0
+      fold( a0, boost::proto::child_c<0>(a1)
+           , typename T1::init()
+           , typename nt2::make_functor<T1>::type()
+           , boost::proto::child_c<1>(a1)
+           );
+      #endif
+      return a0;
+    }
+  };
+
+  //============================================================================
+  // Non-assign table expressions are reduced to assign expressions
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(S0)(T)(N)
@@ -73,8 +96,7 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // When a scalar expression is run, we don't perform the operation into
-  // a temporary, but rather directly return it.
+  // Non-assign scalar expressions are evaluated directly
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(T)(N)
@@ -96,6 +118,9 @@ namespace nt2 { namespace ext
     }
   };
 
+  //============================================================================
+  // Assign expressions call run_assign
+  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)
                             , ((node_< A0
