@@ -13,11 +13,8 @@
 // This file generate basic EDSL expression wrapper over any nt2 function
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/proto/make_expr.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/remove_reference.hpp>
-#include <boost/type_traits/add_reference.hpp>
-#include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/dispatch/meta/any.hpp>
+#include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -30,35 +27,10 @@
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #endif
 
-namespace boost { namespace dispatch { namespace details
-{
-  template<class T, class Enable = void>
-  struct proto_value
-    : meta::as_ref<T>
-  {
-  };
-  
-  template<class T, class Enable = void>
-  struct proto_value_impl
-   : remove_reference<T>
-  {
-  };
-  
-  template<class T>
-  struct proto_value_impl<T, typename enable_if< is_same<typename proto::tag_of<T>::type, proto::tag::terminal> >::type>
-    : add_reference<T>
-  {
-  };
-  
-  template<class T>
-  struct proto_value<T, typename enable_if< proto::is_expr<T> >::type>
-   : proto_value_impl<T>
-  {
-  };
-}
-namespace tag
+namespace boost { namespace dispatch { namespace tag
 {
   struct ast_ {};
 }
@@ -85,8 +57,9 @@ namespace meta
 #define M1(z,n,t) boost::dispatch::meta::as_child(BOOST_PP_CAT(a,n))
 #define M2(z,n,t) (BOOST_PP_CAT(A,n))
 #define M3(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
+#define M4(z,n,t) boost::reference_wrapper<A##n>(a##n)
 
-#define M4(z,n,t)                                                              \
+#define M5(z,n,t)                                                              \
 BOOST_DISPATCH_REGISTER_TO_IF((boost)(dispatch)(meta), Func, tag::formal_      \
                         , (Func)BOOST_PP_REPEAT(n,M2,~)                        \
                         , (any< boost::proto::is_expr<boost::mpl::_>           \
@@ -104,9 +77,8 @@ struct result<This(BOOST_PP_ENUM_PARAMS(n,A))>                                 \
 {                                                                              \
   typedef typename boost::proto::result_of::                                   \
   make_expr < typename meta::proto_tag<Func>::type                             \
-            , boost::proto::deduce_domain                                      \
-            , BOOST_PP_ENUM_BINARY_PARAMS(n, typename details::                \
-                                   proto_value<A, >::type BOOST_PP_INTERCEPT)  \
+            , BOOST_PP_ENUM_BINARY_PARAMS(n, typename meta::                   \
+                                   as_ref<A, >::type BOOST_PP_INTERCEPT)       \
             >::type type;                                                      \
 };                                                                             \
 template<BOOST_PP_ENUM_PARAMS(n,class A)>                                      \
@@ -116,13 +88,9 @@ typename result<implement                                                      \
                >::type                                                         \
 operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const                       \
 {                                                                              \
-  return boost::proto::detail::                                                \
-  make_expr_< typename meta::proto_tag<Func>::type                             \
-            , boost::proto::                                                   \
-              deduce_domain                                                    \
-            , BOOST_PP_ENUM_BINARY_PARAMS(n, typename details::                \
-                                   proto_value<A, &>::type BOOST_PP_INTERCEPT) \
-            >()( BOOST_PP_ENUM_PARAMS(n, a) );                                 \
+  return boost::proto::                                                        \
+  make_expr< typename meta::proto_tag<Func>::type >                            \
+           >( BOOST_PP_ENUM(n, M4, ~) );                                       \
 }                                                                              \
 /**/
 
@@ -133,7 +101,7 @@ namespace boost { namespace dispatch { namespace meta
                                                       , BOOST_PROTO_MAX_ARITY
                                                       )
                                         )
-                          ,M4,~
+                          ,M5,~
                           )
 
   template<class Func,class Dummy>
@@ -155,6 +123,7 @@ namespace boost { namespace dispatch { namespace meta
 #undef M2
 #undef M3
 #undef M4
+#undef M5
 
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
