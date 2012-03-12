@@ -15,13 +15,13 @@
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/dispatch/dsl/unpack.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 
 #include <boost/proto/make_expr.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/ref.hpp>
+#include <nt2/core/utility/box/box.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -128,17 +128,15 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename dispatch::meta::
-            strip< typename dispatch::meta::
-                  terminal_of< typename dispatch::meta::semantic_of<A0&>::type
-                             >::type
-                 >::type                                           terminal;
+    typedef nt2::box< typename dispatch::meta::
+                      strip< typename dispatch::meta::semantic_of<A0&>::type
+                           >::type
+                    >                                              terminal;
     typedef terminal                                               child0;
     typedef typename unpack_schedule<A0, F>::result_type           child1;
     typedef typename proto::result_of::
             make_expr<proto::tag::assign, child0, child1>::type    assigned;
-    typedef typename dispatch::meta::result_of<F(assigned)>::type  result_type0;
-    typedef typename dispatch::meta::strip<result_type0>::type     result_type;
+    typedef typename dispatch::meta::result_of<F(assigned)>::type  result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, F& f) const
