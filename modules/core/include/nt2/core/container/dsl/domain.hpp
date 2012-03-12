@@ -13,46 +13,34 @@
 #include <nt2/core/container/dsl/generator.hpp>
 #include <boost/proto/domain.hpp>
 
-#include <boost/dispatch/meta/as_ref.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/type_traits/add_reference.hpp>
-#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace nt2 { namespace container
 {
-  template<class T, class Enable = void>
-  struct proto_value
-    : boost::dispatch::meta::as_ref<T>
-  {
-  };
-
-  template<class T, class Enable = void>
-  struct proto_value_impl
-   : boost::dispatch::meta::strip<T>
-  {
-  };
-
-  template<class T>
-  struct proto_value_impl<T, typename boost::enable_if< boost::is_same<typename boost::proto::tag_of<T>::type, boost::proto::tag::terminal> >::type>
-    : boost::add_reference<T>
-  {
-  };
-
-  template<class T>
-  struct proto_value<T, typename boost::enable_if< boost::proto::is_expr<T> >::type>
-   : proto_value_impl<T>
-  {
-  };
-
   struct  domain
         : boost::proto::domain< container::generator_transform<domain>
                               , container::grammar
                               >
   {
-    template<class T>
-    struct as_child : boost::proto::callable
+    template<class T, class Dummy = void>
+    struct as_child
+     : domain::proto_base_domain::template as_child<T>
     {
-      typedef typename proto_value<T>::type result_type;
+    };
+
+    template<class T>
+    struct as_child<T, typename T::proto_is_expr_>
+     : boost::proto::callable
+    {
+      typedef typename boost::proto::tag_of<T>::type Tag;
+
+      typedef typename boost::mpl::
+              if_< boost::is_same<Tag, boost::proto::tag::terminal>
+                 , T&
+                 , typename boost::remove_const<T>::type
+                 >::type result_type;
       BOOST_FORCEINLINE result_type
       operator()(T& t) const
       {
