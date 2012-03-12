@@ -90,7 +90,7 @@ operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & a)) const                       \
 {                                                                              \
   return boost::proto::                                                        \
   make_expr< typename meta::proto_tag<Func>::type >                            \
-           >( BOOST_PP_ENUM(n, M4, ~) );                                       \
+           ( BOOST_PP_ENUM(n, M4, ~) );                                        \
 }                                                                              \
 /**/
 
