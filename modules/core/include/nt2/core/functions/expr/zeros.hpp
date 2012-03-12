@@ -15,6 +15,8 @@
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/length.hpp>
+#include <boost/detail/workaround.hpp>
+#include <iterator>
 
 namespace nt2 { namespace ext
 {
@@ -44,7 +46,13 @@ namespace nt2 { namespace ext
 
       of_size_max sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
+      stdext::unchecked_copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
+      std::copy(a0.raw(), a0.raw()+sz, stdext::make_unchecked_array_iterator(&sizee[0]));
+#else
       std::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+#endif
 
       return boost::proto::make_expr< nt2::tag::zeros_
                                     , container::domain
@@ -82,7 +90,13 @@ namespace nt2 { namespace ext
 
       of_size_max sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
+      stdext::unchecked_copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
+      std::copy(a0.raw(), a0.raw()+sz, stdext::make_unchecked_array_iterator(&sizee[0]));
+#else
       std::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+#endif
 
       return boost::proto::make_expr< nt2::tag::zeros_
                                     , container::domain
