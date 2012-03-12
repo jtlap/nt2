@@ -145,7 +145,7 @@ namespace nt2 { namespace container
     expression() : size_(size_transform<domain>()(parent::proto_base())) {}
 
     BOOST_DISPATCH_FORCE_INLINE
-    expression(Expr const& x) : parent(x), size_(size_transform<domain>()(parent::proto_base())) {}
+    explicit expression(Expr const& x) : parent(x), size_(size_transform<domain>()(parent::proto_base())) {}
 
     BOOST_DISPATCH_FORCE_INLINE
     expression(expression const& xpr)
@@ -182,16 +182,6 @@ namespace nt2 { namespace container
     expression& operator=(Xpr const& xpr)
     {
       process( xpr );
-      return *this;
-    }
-
-    //==========================================================================
-    // Assignment operator from same expression type
-    //==========================================================================
-    BOOST_DISPATCH_FORCE_INLINE
-    expression& operator=(expression const& xpr)
-    {
-      nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
 
