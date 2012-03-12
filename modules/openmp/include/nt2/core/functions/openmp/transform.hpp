@@ -6,11 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_DSL_FUNCTIONS_CONTAINER_OPENMP_RUN_HPP_INCLUDED
-#define NT2_DSL_FUNCTIONS_CONTAINER_OPENMP_RUN_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_OPENMP_TRANSFORM_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_OPENMP_TRANSFORM_HPP_INCLUDED
 #ifdef _OPENMP
 
-#include <nt2/dsl/functions/run.hpp>
+#include <nt2/core/functions/transform.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/openmp/openmp.hpp>
@@ -18,6 +18,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
+#include <nt2/core/utility/position/alignment.hpp>
 #include <cstddef>
 
 #ifndef BOOST_NO_EXCEPTIONS
@@ -28,21 +29,21 @@
 namespace nt2 { namespace ext
 {
   // nD element-wise operation
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, nt2::tag::openmp_<Site>
-                            , (A0)(S0)(T0)(N0)(A1)(T1)(N1)(Site)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , T0
-                                     , N0
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, nt2::tag::openmp_<Site>
+                            , (A0)(A1)(S1)(T1)(N1)(Site)
+                            , (ast_<A0>)
+                              ((expr_< table_< unspecified_<A1>, S1 >
+                                     , T1
+                                     , N1
                                      >
                               ))
-                              ((node_<A1, elementwise_<T1>, N1))
                             )
   {
-    typedef A0&                                            result_type;
+    typedef void                                            result_type;
 
     typedef typename meta::
             strip< typename meta::
-                   scalar_of<result_type>::type
+                   scalar_of<A0>::type
                  >::type                                    stype;
 
     typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION>
@@ -51,12 +52,9 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      typename meta::call<tag::assign_(A0&, A1&)>::type
-      assigned = nt2::assign(a0, a1);
-
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      a0.resize(assigned.extent());
+      a0.resize(a1.extent());
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
@@ -66,9 +64,9 @@ namespace nt2 { namespace ext
       {
         std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
         std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-        std::ptrdiff_t bound  = boost::fusion::at_c<0>(assigned.extent()) + ilow;
-        std::ptrdiff_t ibound = ilow + boost::fusion::at_c<0>(assigned.extent())/N*N;
-        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(assigned.extent()));
+        std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
+        std::ptrdiff_t ibound = ilow + boost::fusion::at_c<0>(a0.extent())/N*N;
+        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
 
         #pragma omp for
         for(std::ptrdiff_t j=olow; j<obound; ++j)
@@ -78,10 +76,10 @@ namespace nt2 { namespace ext
           {
 #endif
             for(std::ptrdiff_t i=ilow; i<ibound; i+=N)
-              nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<target_type>());
+              nt2::run(a0, as_aligned(boost::fusion::vector_tie(i,j)), nt2::run(a1, as_aligned(boost::fusion::vector_tie(i,j)), meta::as_<target_type>()));
 
             for(std::ptrdiff_t i=ibound; i<bound; ++i)
-              nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<stype>());
+              nt2::run(a0, boost::fusion::vector_tie(i,j), nt2::run(a1, boost::fusion::vector_tie(i,j), meta::as_<stype>()));
 #ifndef BOOST_NO_EXCEPTIONS
           }
           catch(...)
@@ -95,28 +93,26 @@ namespace nt2 { namespace ext
       if(exception)
         boost::rethrow_exception(exception);
 #endif
-
-      return a0;
     }
   };
 
   // 1D element-wise operation
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::run_assign_, nt2::tag::openmp_<Site>
-                            , (class A0)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T0)(class N0)
-                              (class A1)(class T1)(class N1)
+  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::transform_, nt2::tag::openmp_<Site>
+                            , (class A0)(class A1)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T1)(class N1)
                               (class Site)
-                            , ((expr_< table_< unspecified_<A0>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind) >
-                                     , T0
-                                     , N0
+                            , (ast_<A0>)
+                              ((expr_< table_< unspecified_<A1>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind) >
+                                     , T1
+                                     , N1
                                      >
                               ))
                             )
   {
-    typedef A0&                                            result_type;
+    typedef void                                            result_type;
 
     typedef typename meta::
             strip< typename meta::
-                   scalar_of<result_type>::type
+                   scalar_of<A0>::type
                  >::type                                    stype;
 
     typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION>
@@ -125,17 +121,14 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      typename meta::call<tag::assign_(A0&, A1&)>::type
-      assigned = nt2::assign(a0, a1);
-
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      a0.resize(assigned.extent());
+      a0.resize(a1.extent());
 
       typename A0::index_type::type bs;
       std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t bound = boost::fusion::at_c<0>(assigned.extent()) + low;
-      std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(assigned.extent())/N*N;
+      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
+      std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(a0.extent())/N*N;
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
@@ -147,7 +140,7 @@ namespace nt2 { namespace ext
         try
         {
 #endif
-          nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<target_type>());
+          nt2::run(a0, as_aligned(boost::fusion::vector_tie(i)), nt2::run(a1, as_aligned(boost::fusion::vector_tie(i)), meta::as_<target_type>()));
 #ifndef BOOST_NO_EXCEPTIONS
         }
         catch(...)
@@ -162,9 +155,7 @@ namespace nt2 { namespace ext
 #endif
 
       for(std::ptrdiff_t i=aligned_bound; i<bound; ++i)
-        nt2::run_assign(a0, a1, boost::fusion::vector_tie(i), meta::as_<stype>());
-
-      return a0;
+        nt2::run(a0, boost::fusion::vector_tie(i), nt2::run(a1, boost::fusion::vector_tie(i), meta::as_<stype>()));
     }
   };
 
@@ -173,32 +164,29 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   // nD element-wise operation
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, nt2::tag::openmp_<Site>
-                            , (A0)(S0)(T0)(N0)(A1)(T1)(N1)(Site)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , T0
-                                     , N0
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, nt2::tag::openmp_<Site>
+                            , (A0)(A1)(S1)(T1)(N1)(Site)
+                            , (ast_<A0>)
+                              ((expr_< table_< unspecified_<A1>, S1 >
+                                     , T1
+                                     , N1
                                      >
                               ))
-                              ((node_<A1, elementwise_<T1>, N1>))
                             )
   {
-    typedef A0&                                            result_type;
+    typedef void                                            result_type;
 
     typedef typename meta::
             strip< typename meta::
-                   scalar_of<result_type>::type
+                   scalar_of<A0>::type
                  >::type                                    target_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      typename meta::call<tag::assign_(A0&, A1&)>::type
-      assigned = nt2::assign(a0, a1);
-
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      a0.resize(assigned.extent());
+      a0.resize(a1.extent());
 
       typename A0::index_type::type bs;
 
@@ -209,8 +197,8 @@ namespace nt2 { namespace ext
       {
         std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
         std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-        std::ptrdiff_t bound  = boost::fusion::at_c<0>(assigned.extent()) + ilow;
-        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(assigned.extent()));
+        std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
+        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
 
         #pragma omp for
         for(std::ptrdiff_t j=olow; j<obound; ++j)
@@ -221,7 +209,7 @@ namespace nt2 { namespace ext
             try
             {
 #endif
-              nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<target_type>());
+              nt2::run(a0, boost::fusion::vector_tie(i,j), nt2::run(a1, boost::fusion::vector_tie(i,j), meta::as_<target_type>()));
 #ifndef BOOST_NO_EXCEPTIONS
             }
             catch(...)
@@ -236,44 +224,38 @@ namespace nt2 { namespace ext
       if(exception)
         boost::rethrow_exception(exception);
 #endif
-
-      return a0;
     }
   };
 
   // 1D element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::run_, nt2::tag::openmp_<Site>
-                            , (class A0)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T0)(class N0)
-                              (class A1)(class T1)(class N1)
+                            , (class A0)(class A1)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T1)(class N1)
                               (class Site)
-                            , ((expr_< table_< unspecified_<A0>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind) >
-                                     , T0
-                                     , N0
+                            , (ast_<A0>)
+                              ((expr_< table_< unspecified_<A1>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind) >
+                                     , T1
+                                     , N1
                                      >
                               ))
-                              ((node_<A1, elementwise_<T1>, N1>))
                             )
   {
-    typedef A0&                                            result_type;
+    typedef void                                            result_type;
 
     typedef typename meta::
             strip< typename meta::
-                   scalar_of<result_type>::type
+                   scalar_of<A0>::type
                  >::type                                    target_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      typename meta::call<tag::assign_(A0&, A1&)>::type
-      assigned = nt2::assign(a0, a1);
-
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      a0.resize(assigned.extent());
+      a0.resize(a1.extent());
 
       typename A0::index_type::type bs;
       std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t bound = boost::fusion::at_c<0>(assigned.extent()) + low;
+      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
@@ -286,7 +268,7 @@ namespace nt2 { namespace ext
         try
         {
 #endif
-          nt2::run(a0, boost::fusion::vector_tie(i), meta::as_<target_type>());
+          nt2::run(a0, boost::fusion::vector_tie(i), nt2::run(a1, boost::fusion::vector_tie(i), meta::as_<target_type>()));
 #ifndef BOOST_NO_EXCEPTIONS
         }
         catch(...)
@@ -299,7 +281,6 @@ namespace nt2 { namespace ext
       if(exception)
         boost::rethrow_exception(exception);
 #endif
-      return a0;
     }
   };
 
