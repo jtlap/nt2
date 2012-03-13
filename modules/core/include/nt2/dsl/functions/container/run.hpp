@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     operator()(A0& a0, A1& a1) const
     {
       a0.resize(a1.extent());
-      transform(a0, a1);
+      nt2::transform(a0, a1);
       return a0;
     }
   };
@@ -57,11 +57,11 @@ namespace nt2 { namespace ext
       a0.resize(a1.extent());
       // TODO
       #if 0
-      fold( a0, boost::proto::child_c<0>(a1)
-           , typename T1::init()
-           , typename nt2::make_functor<T1>::type()
-           , boost::proto::child_c<1>(a1)
-           );
+      nt2::fold( a0, boost::proto::child_c<0>(a1)
+               , typename T1::init()
+               , typename nt2::make_functor<T1>::type()
+               , boost::proto::child_c<1>(a1)
+               );
       #endif
       return a0;
     }
