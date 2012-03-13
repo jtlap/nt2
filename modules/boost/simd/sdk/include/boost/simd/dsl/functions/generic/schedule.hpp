@@ -23,6 +23,8 @@
 #include <boost/ref.hpp>
 #include <nt2/core/utility/box/box.hpp>
 
+namespace nt2 { template<class T> struct box; }
+
 namespace boost { namespace simd { namespace ext
 {
   template<class Expr, class State>
