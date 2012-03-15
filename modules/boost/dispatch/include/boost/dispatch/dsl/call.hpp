@@ -13,6 +13,9 @@
 // This file generate basic EDSL expression wrapper over any nt2 function
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/proto/make_expr.hpp>
+#include <boost/type_traits/is_base_of.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/not.hpp>
 #include <boost/dispatch/meta/any.hpp>
 #include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/dispatch/dsl/category.hpp>
@@ -61,10 +64,12 @@ namespace meta
 
 #define M5(z,n,t)                                                              \
 BOOST_DISPATCH_REGISTER_TO_IF((boost)(dispatch)(meta), Func, tag::formal_      \
-                        , (Func)BOOST_PP_REPEAT(n,M2,~)                        \
-                        , (any< boost::proto::is_expr<boost::mpl::_>           \
-                              , BOOST_PP_ENUM_PARAMS(n,A)                      \
-                             >                                                 \
+                      , (Func)BOOST_PP_REPEAT(n,M2,~)                          \
+                      , (mpl::and_< mpl::not_< is_base_of<tag::formal_, Func> > \
+                                  , any< boost::proto::is_expr<boost::mpl::_>  \
+                                       , BOOST_PP_ENUM_PARAMS(n,A)             \
+                                       >                                       \
+                                  >                                            \
                           )                                                    \
                       , BOOST_PP_REPEAT(n,M3,~)                                \
                       , (implement<Func(tag::ast_), tag::formal_>)             \
