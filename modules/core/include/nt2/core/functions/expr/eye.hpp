@@ -16,6 +16,8 @@
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/first_index.hpp>
+#include <boost/detail/workaround.hpp>
+#include <iterator>
 
 namespace nt2 { namespace ext
 {
@@ -43,7 +45,13 @@ namespace nt2 { namespace ext
       );
 
       _2D sizee;
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
+      stdext::unchecked_copy(a0.raw(), a0.raw()+2, &sizee[0]);
+#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
+      std::copy(a0.raw(), a0.raw()+2, stdext::make_unchecked_array_iterator(&sizee[0]));
+#else
       std::copy(a0.raw(), a0.raw()+2, &sizee[0]);
+#endif
 
       return boost::proto::make_expr< nt2::tag::eye_
         , container::domain
@@ -80,7 +88,13 @@ namespace nt2 { namespace ext
       );
 
       _2D sizee;
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
+      stdext::unchecked_copy(a0.raw(), a0.raw()+2, &sizee[0]);
+#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
+      std::copy(a0.raw(), a0.raw()+2, stdext::make_unchecked_array_iterator(&sizee[0]));
+#else
       std::copy(a0.raw(), a0.raw()+2, &sizee[0]);
+#endif
 
       return boost::proto::make_expr< nt2::tag::eye_
                                     , container::domain

@@ -21,6 +21,9 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/ref.hpp>
+#include <nt2/core/utility/box/box.hpp>
+
+namespace nt2 { template<class T> struct box; }
 
 namespace boost { namespace simd { namespace ext
 {
@@ -127,11 +130,10 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename dispatch::meta::
-            strip< typename dispatch::meta::
-                  terminal_of< typename dispatch::meta::semantic_of<A0&>::type
-                             >::type
-                 >::type                                           terminal;
+    typedef nt2::box< typename dispatch::meta::
+                      strip< typename dispatch::meta::semantic_of<A0&>::type
+                           >::type
+                    >                                              terminal;
     typedef terminal                                               child0;
     typedef typename unpack_schedule<A0, F>::result_type           child1;
     typedef typename proto::result_of::

@@ -13,13 +13,41 @@
 #include <nt2/core/container/dsl/generator.hpp>
 #include <boost/proto/domain.hpp>
 
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/if.hpp>
+
 namespace nt2 { namespace container
 {
   struct  domain
         : boost::proto::domain< container::generator_transform<domain>
                               , container::grammar
                               >
-  {};
+  {
+    template<class T, class Dummy = void>
+    struct as_child
+     : domain::proto_base_domain::template as_child<T>
+    {
+    };
+
+    template<class T>
+    struct as_child<T, typename T::proto_is_expr_>
+     : boost::proto::callable
+    {
+      typedef typename boost::proto::tag_of<T>::type Tag;
+
+      typedef typename boost::mpl::
+              if_< boost::is_same<Tag, boost::proto::tag::terminal>
+                 , T&
+                 , typename boost::remove_const<T>::type
+                 >::type result_type;
+      BOOST_FORCEINLINE result_type
+      operator()(T& t) const
+      {
+        return result_type(t);
+      }
+    };
+  };
 } }
 
 #endif
