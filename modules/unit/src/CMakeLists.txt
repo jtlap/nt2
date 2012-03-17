@@ -11,8 +11,6 @@ include(NT2Module)
 nt2_module_source_setup(unit)
 
 set(SOURCES
-    error/assert_exception.cpp
-    error/exception.cpp
     timing/now.cpp
     timing/timers.cpp
     config/version.cpp
