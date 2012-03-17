@@ -12,6 +12,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <boost/proto/tags.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // For a given proto expression class, retrieves its semantic info as a type
