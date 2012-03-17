@@ -121,6 +121,8 @@ foreach(tool ${NT2_TOOLS})
   nt2_module_tool_setup(${tool})
 endforeach()
 
+set(CMAKE_MODULE_PATH ${NT2_MODULE_PATH})
+add_subdirectory(doc)
 nt2_postconfigure_run()
 
 ################################################################################
