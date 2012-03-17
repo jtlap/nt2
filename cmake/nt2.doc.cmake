@@ -130,7 +130,7 @@ macro(nt2_doc_doxygen file)
                     COMMAND ${DOXYGEN_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile
                     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
                     DEPENDS ${file}.doxyfile
-                    COMMENT "Running doxygen with XML onput on ${file}.doxyfile..."
+                    COMMENT "Running doxygen with XML onput on ${file}.dox..."
                     SOURCES ${file}.doxyfile
                    )
   add_custom_command(OUTPUT ${file}.doxygen/index.xml
