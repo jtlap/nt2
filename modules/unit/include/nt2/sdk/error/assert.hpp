@@ -42,14 +42,20 @@
 #define NT2_DISABLE_ASSERTS
 #endif
 
+#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_ENABLE_ASSERT_HANDLER)
+#error BOOST_ENABLE_ASSERT_HANDLER must be defined to use NT2_ASSERTS_AS_EXCEPTIONS
+#endif
+
+#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
+
 //==============================================================================
 // Make assertion into exceptions
 //==============================================================================
+
 #include <iosfwd>
 #include <nt2/sdk/error/error.hpp>
 #include <sstream>
-
-#if  !defined(NT2_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
+#include <boost/throw_exception.hpp>
 
 namespace nt2
 {
@@ -66,10 +72,6 @@ namespace nt2
   };
 }
 
-#endif
-
-#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_ENABLE_ASSERT_HANDLER)
-#error BOOST_ENABLE_ASSERT_HANDLER must be defined to use NT2_ASSERTS_AS_EXCEPTIONS
 #endif
 
 //==============================================================================
