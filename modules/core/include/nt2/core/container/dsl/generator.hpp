@@ -78,15 +78,15 @@ namespace nt2 { namespace container
     };
   }
 
-    //==========================================================================
-    /*!
-     * proto::transform performing the computation of the type and the generation
-     * of a nt2::container::expression
-     **/
-    //==========================================================================
-    template<class Domain>
-    struct  generator_transform
-          : details::trait_transform< ext::generator, Domain > {};
+  //============================================================================
+  /*!
+   * proto::transform performing the computation of the type and the generation
+   * of a nt2::container::expression
+   **/
+  //============================================================================
+  template<class Domain>
+  struct  generator_transform
+        : details::trait_transform< ext::generator, Domain > {};
 } }
 
 #include <nt2/core/container/dsl/details/terminal.hpp>
