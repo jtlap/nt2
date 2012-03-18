@@ -31,6 +31,7 @@ SET( SOURCES
   ishermitian.cpp
   istriangular.cpp
   eye.cpp
+  triu.cpp
 # List of test files for toolbox core.settings
    )
 

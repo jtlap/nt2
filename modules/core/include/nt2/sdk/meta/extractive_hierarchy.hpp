@@ -6,33 +6,26 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_FORWARD_SHAPE_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_FORWARD_SHAPE_HPP_INCLUDED
+#ifndef NT2_SDK_META_EXTRACTIVE_HIERARCHY_HPP_INCLUDED
+#define NT2_SDK_META_EXTRACTIVE_HIERARCHY_HPP_INCLUDED
 
-#include <nt2/core/settings/option.hpp>
+#include <nt2/sdk/simd/category.hpp>
+#include <nt2/sdk/meta/hierarchy_of.hpp>
 
-namespace nt2
+namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
-  /*! The default container shape. Data are laid out in a hypercube
-   *  of N dimensions and contains only non-trivial values.
-   **/
-  //============================================================================
-  struct rectangular_;
-
-  struct upper_triangular_ {};
-
-  namespace tag
-  {
     //==========================================================================
-    /*!
-     * Option tag for shape options
-     **/
+    // Extarctive node hierarchy
     //==========================================================================
-    struct shape_ {};
-  }
+    template<class Tag> struct extractive_ : elementwise_<Tag>
+    {
+      typedef elementwise_<Tag> parent;
+    };
+} } }
 
-}
-
+namespace nt2 { namespace ext
+{
+  using boost::dispatch::meta::extractive_;
+} }
 
 #endif
