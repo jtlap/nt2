@@ -9,8 +9,6 @@
 #ifndef NT2_DSL_FUNCTIONS_GENERATOR_RUN_HPP_INCLUDED
 #define NT2_DSL_FUNCTIONS_GENERATOR_RUN_HPP_INCLUDED
 
-#include <iostream>
-#include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
