@@ -18,12 +18,10 @@
 namespace nt2 { namespace details
 {
   //============================================================================
-  // eye actual functor 
+  // eye actual functor
   //============================================================================
   struct eye
   {
-    eye() {}
-
     template<class Pos, class Size, class Target>
     typename Target::type
     operator()(Pos const& p, Size const&, Target const&) const
@@ -31,8 +29,8 @@ namespace nt2 { namespace details
       typedef typename Target::type type;
       return nt2::if_else(eq(nt2::enumerate<type>(boost::fusion::at_c<0>(p)),
                              nt2::splat<type>(boost::fusion::at_c<1>(p))
-                             ), 
-                         One<type>(), Zero<type>()); 
+                             ),
+                         One<type>(), Zero<type>());
     }
 
   };
