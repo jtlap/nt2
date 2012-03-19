@@ -15,6 +15,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // numel of arithmetic types
@@ -96,4 +97,31 @@ NT2_TEST_CASE( expression_numel )
   NT2_TEST_EQUAL( numel(t2-t2*t2), 4U   );
   NT2_TEST_EQUAL( numel(t3/t3+t3), 8U   );
   NT2_TEST_EQUAL( numel(t4 * -t4), 16U  );
+}
+
+NT2_TEST_CASE( static_numel )
+{
+  using nt2::numel;
+  using nt2::of_size_;
+  using nt2::table;
+  using boost::mpl::_;
+
+  float a;
+  of_size_<2, 3> b;
+  table<float, of_size_<2, 3> > c;
+
+  NT2_TEST_EXPR_TYPE( numel(a)
+                    , _
+                    , boost::mpl::size_t<1>
+                    );
+
+  NT2_TEST_EXPR_TYPE( numel(b)
+                    , _
+                    , ( boost::mpl::integral_c<std::size_t, 6> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( numel(c)
+                    , _
+                    , ( boost::mpl::integral_c<std::size_t, 6> )
+                    );
 }

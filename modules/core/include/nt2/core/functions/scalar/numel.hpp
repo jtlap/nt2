@@ -45,14 +45,17 @@ namespace nt2 { namespace ext
                             , (fusion_sequence_<A0>)
                             )
   {
-    typedef typename  boost::dispatch::
-                      make_functor<tag::multiplies_,A0>::type func_t;
+    typedef typename boost::dispatch::
+            make_functor<tag::multiplies_, A0>::type           func_t;
 
-    typedef typename  boost::fusion::result_of::
-                      fold<A0,boost::mpl::size_t<1>,func_t>::type   result_type;
+    typedef typename boost::fusion::result_of::
+            fold< A0
+                , boost::mpl::size_t<1> const
+                , func_t
+                >::type                                        result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0) const
+    result_type operator()(A0& a0) const
     {
       return boost::fusion::fold( a0
                                 , boost::mpl::size_t<1>()
@@ -68,17 +71,21 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename  boost::dispatch::
-    make_functor<tag::multiplies_,A0>::type func_t;
-
-    typedef typename  boost::fusion::result_of::
-    fold<A0,boost::mpl::size_t<1>,func_t>::type   result_type;
+            make_functor<tag::multiplies_, A0>::type           func_t;
 
     typedef typename boost::fusion::result_of::begin<A0>::type begin_type;
-    typedef typename boost::fusion::result_of::end<A0>::type end_type;
-    typedef typename boost::fusion::result_of::advance<begin_type, A1>::type new_begin_type;
+    typedef typename boost::fusion::result_of::end<A0>::type   end_type;
+    typedef typename boost::fusion::result_of::
+            advance<begin_type, A1>::type                      new_begin_type;
+
+    typedef typename  boost::fusion::result_of::
+            fold< boost::fusion::iterator_range<new_begin_type, end_type> const
+                , boost::mpl::size_t<1> const
+                , func_t
+                >::type                                        result_type;
     
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0, const A1& a1) const
+    result_type operator()(A0& a0, const A1&) const
     {
       return boost::fusion::fold( boost::fusion::iterator_range<new_begin_type, end_type>(new_begin_type(a0), end_type(a0))
                                 , boost::mpl::size_t<1>()
