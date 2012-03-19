@@ -81,7 +81,7 @@ NT2_TEST_CASE( position )
   NT2_TEST_EQUAL(at_c<1>(p2), 13);
 
   // From a fusion view
-  position<vector<int, int>,
+  position<position<vector<int, int>, index_<1, 1>, matlab_order_, unaligned_>,
            index_<1l, 1l>,
            matlab_order_,
            unaligned_
@@ -91,7 +91,7 @@ NT2_TEST_CASE( position )
   NT2_TEST_EQUAL(at_c<1>(p3), 13);
 
   // From a fusion view with a different alignment
-  position<vector<int, int>,
+  position<position<vector<int, int>, index_<1, 1>, matlab_order_, aligned_>,
            index_<1l, 1l>,
            matlab_order_,
            unaligned_
