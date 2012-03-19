@@ -21,7 +21,7 @@ SET( SOURCES
    ndims.cpp
    numel.cpp
    ones.cpp
-#  ind2sub.cpp
+   ind2sub.cpp
    sub2ind.cpp
 #  sub2sub.cpp
   size.cpp

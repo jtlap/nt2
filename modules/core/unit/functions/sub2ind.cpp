@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::length function"
+#define NT2_UNIT_MODULE "nt2::sub2ind function"
 
 #include <nt2/include/functions/sub2ind.hpp>
 

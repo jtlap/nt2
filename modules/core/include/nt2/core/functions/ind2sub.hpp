@@ -6,33 +6,32 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SUB2IND_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SUB2IND_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_IND2SUB_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_IND2SUB_HPP_INCLUDED
 
 /*!
  * \file
- * \brief Defines and implements the nt2::sub2ind function
+ * \brief Defines and implements the nt2::ind2sub function
  */
 
 #include <nt2/include/functor.hpp>
 
 namespace nt2
 {
-  namespace tag { struct sub2ind_ : ext::unspecified_<sub2ind_> { typedef ext::unspecified_<sub2ind_> parent; }; }
+  namespace tag { struct ind2sub_ : ext::unspecified_<ind2sub_> { typedef ext::unspecified_<ind2sub_> parent; }; }
 
   //============================================================================
   /*!
-   * Determines the linear index equivalents to the specified subscripts for
-   * each dimension of an N-dimensional container of size .
+   * Determines the subscript equivalent to the linear index.
    *
-   * \param size Size sequence of target container
-   * \param pos  Subscript to convert
+   * \param size Size sequence of source container
+   * \param pos  Linear index to convert
    * \param base Optional base index sequence for non canonic container
    * \return A linear index pointing to the same element than \c pos.
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sub2ind_, sub2ind, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sub2ind_, sub2ind, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ind2sub_, ind2sub, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ind2sub_, ind2sub, 3)
 }
 
 #endif
