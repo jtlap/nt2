@@ -56,12 +56,14 @@ NT2_TEST_CASE( position )
   using boost::mpl::_;
   using namespace nt2;
 
+  vector<int, int> v(12, 13);
+
   // Aligned
   position<vector<int, int>,
            index_<1l, 1l>,
            matlab_order_,
            aligned_
-    > p1(make_vector(12,13));
+    > p1(v);
 
   NT2_TEST_EQUAL(size(p1), 2);
   NT2_TEST_EQUAL(at_c<0>(p1), 12);
@@ -72,7 +74,7 @@ NT2_TEST_CASE( position )
            index_<1l, 1l>,
            matlab_order_,
            unaligned_
-    > p2(make_vector(12,13));
+    > p2(v);
 
   NT2_TEST_EQUAL(size(p2), 2);
   NT2_TEST_EQUAL(at_c<0>(p2), 12);
