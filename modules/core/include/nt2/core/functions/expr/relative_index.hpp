@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
                               (scalar_ < unspecified_<A1> >)
                             )
   {
-    typedef A1 const& result_type;
+    typedef A1 result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0&, const A1& pos) const
