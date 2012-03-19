@@ -33,7 +33,11 @@ namespace boost { namespace fusion { namespace extension
 
   template<> struct category_of_impl<nt2::tag::position_>
   {
-    typedef random_access_traversal_tag type;
+    template<typename Seq>
+    struct apply
+    {
+      typedef random_access_traversal_tag type;
+    };
   };
 
   template<>
@@ -41,7 +45,7 @@ namespace boost { namespace fusion { namespace extension
   {
     template<typename Seq>
     struct apply
-     : boost::fusion::result_of::size<typename remove_reference<typename Seq::sequence_type>::type>
+     : boost::fusion::result_of::size<typename remove_reference<typename Seq::sequence_type>::type>::type
     {
     };
   };
