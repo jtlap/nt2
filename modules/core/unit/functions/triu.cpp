@@ -9,24 +9,43 @@
 #define NT2_UNIT_MODULE "nt2::triu function"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/triu.hpp>
-#include <nt2/include/functions/ones.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-NT2_TEST_CASE_TPL( triu, (double)(float) )
+NT2_TEST_CASE_TPL( triu, NT2_TYPES )
 {
-  using boost::simd::native;
-  typedef T r_t;
-  double ulpd;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef typename nt2::meta::as_integer<n_t>::type vtype; 
+  nt2::table<T> x,y( nt2::of_size(4,5) );
 
-  nt2::table<T> xd = nt2::ones(nt2::of_size(3, 3), nt2::meta::as_<T>());
-  vtype i = nt2::enumerate<vtype>(1);
-  std::cout << xd(i) << std::endl; 
-  //  nt2::table<T> yd = nt2::triu(xd); 
+  for(int j=1;j<=5;j++)
+    for(int i=1;i<=4;i++)
+      y(i,j) = T(i + 10*j);
+
+  x = nt2::triu(y);
+
+  for(int j=1;j<=5;j++)
+    for(int i=1;i<=4;i++)
+      NT2_TEST_EQUAL( T(x(i,j)), (i<=j) ? T(y(i,j)) : T(0));
+}
+
+NT2_TEST_CASE_TPL( offset_triu, NT2_TYPES )
+{
+  nt2::table<T> x,y( nt2::of_size(4,5) );
+
+  for(int j=1;j<=5;j++)
+    for(int i=1;i<=4;i++)
+      y(i,j) = T(i + 10*j);
+
+  x = nt2::triu(y,1);
+
+  for(int j=1;j<=5;j++)
+    for(int i=1;i<=4;i++)
+      NT2_TEST_EQUAL( T(x(i,j)), (i<=(j+1)) ? T(y(i,j)) : T(0));
+
+  x = nt2::triu(y,-1);
+
+  for(int j=1;j<=5;j++)
+    for(int i=1;i<=4;i++)
+      NT2_TEST_EQUAL( T(x(i,j)), (i<=(j-1)) ? T(y(i,j)) : T(0));
 }
