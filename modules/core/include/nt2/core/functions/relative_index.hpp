@@ -20,9 +20,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct relative_index_ : ext::unspecified_<relative_index_>
+    struct relative_index_ : tag::formal_
     {
-      typedef ext::unspecified_<relative_index_> parent;
+      typedef tag::formal_ parent;
     };
   }
 
@@ -31,12 +31,11 @@ namespace nt2
    * Performs an index translation to be used in indexed access computation
    *
    * \param xpr Indexing expression
-   * \param pos Original position   
-   * \param idx Static index being computed
+   * \param idx Index being computed
    * \return The translated index to access current indexing expression
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::relative_index_, relative_index, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::relative_index_, relative_index, 2)
 }
 
 #endif

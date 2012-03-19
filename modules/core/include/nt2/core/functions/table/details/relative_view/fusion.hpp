@@ -1,3 +1,4 @@
+
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -42,7 +43,7 @@ namespace boost { namespace fusion { namespace extension
   {
     template<typename Pos>
     struct apply :
-      boost::fusion::result_of::size<typename remove_reference<typename Pos::pos_type>::type>
+      boost::fusion::result_of::size<typename Pos::pos_type>::type
     {
     };
   };
@@ -53,8 +54,8 @@ namespace boost { namespace fusion { namespace extension
     template<class Pos, class Index>
     struct apply
     {
-      typedef typename boost::fusion::result_of::at<typename Pos::expr_type const, Index>::type sub_expr_type;
-      typedef typename nt2::meta::call<nt2::tag::relative_index_(sub_expr_type, typename Pos::pos_type, Index)>::type type;
+      typedef typename boost::fusion::result_of::at<typename Pos::expr_type, Index>::type sub_expr_type;
+      typedef typename nt2::meta::call<nt2::tag::relative_index_(sub_expr_type, typename Pos::pos_type, Index)/*>::type*/>::type type;
 
       static type call(Pos& pos)
       {

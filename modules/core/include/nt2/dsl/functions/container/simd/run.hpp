@@ -62,7 +62,6 @@ namespace nt2 { namespace ext
       {
         for(std::ptrdiff_t i=ilow; i!=ibound; i+=N)
           nt2::run_assign(a0, a1, boost::fusion::vector_tie(i,j), meta::as_<target_type>());
-
         for(std::ptrdiff_t i=ibound; i!=bound; ++i)
           nt2::run_assign(a0, a1, boost::fusion::vector_tie(i,j), meta::as_<stype>());
       }
@@ -110,7 +109,6 @@ namespace nt2 { namespace ext
 
       for(std::ptrdiff_t i=low;i!=aligned_bound; i+=N)
         nt2::run_assign(a0, a1, boost::fusion::vector_tie(i), meta::as_<target_type>());
-
       for(std::ptrdiff_t i=aligned_bound; i!=bound; ++i)
         nt2::run_assign(a0, a1, boost::fusion::vector_tie(i), meta::as_<stype>());
 

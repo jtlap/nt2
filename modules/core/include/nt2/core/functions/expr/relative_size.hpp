@@ -12,7 +12,6 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/container/category.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/core/functions/relative_index.hpp>
 
 namespace nt2 { namespace ext
 {

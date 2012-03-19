@@ -15,7 +15,6 @@
   * \brief Defines and implements the \c nt2::memory::iliffe_buffer class
   **/
 //==============================================================================
-#include <iostream>
 
 #include <nt2/sdk/meta/view_at.hpp>
 #include <boost/fusion/include/at.hpp>
