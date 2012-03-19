@@ -10,16 +10,16 @@
 #define NT2_CORE_FUNCTIONS_TABLE_DETAILS_FUNCTION_SIZE_HPP_INCLUDED
 
 #include <nt2/core/settings/size.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-#include <boost/fusion/include/fold.hpp>
+#include <nt2/include/functions/relative_size.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/extent.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
-#include <boost/type_traits/is_class.hpp>
 #include <boost/fusion/include/pop_front.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <boost/dispatch/meta/strip.hpp>
+#include <boost/type_traits/is_class.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
-#include <nt2/include/functions/relative_size.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 
 namespace nt2 { namespace details
@@ -28,20 +28,22 @@ namespace nt2 { namespace details
   // If the result of a size computation is a MPL Integral, keep it;
   // If not, return -1 so the of_size will be flagged as dynamic
   //============================================================================
-  template<class T, class Enable = void> struct mpl_value : boost::mpl::int_<-1> {};
+  template<class T, class Enable = void>
+  struct mpl_value : boost::mpl::int_<-1> {};
 
   template<class T>
-  struct  mpl_value < T
-                    , typename boost::
-                      enable_if < boost::
-                                  is_class< typename meta::strip<T>::type >
-                                >::type
-                    >
-        : meta::strip<T>::type
+  struct mpl_value < T
+                   , typename boost::
+                     enable_if < boost::
+                                 is_class< typename meta::strip<T>::type >
+                               >::type
+                   >
+    : meta::strip<T>::type
   {};
 
   // build size
-  template<int N, class Sizes, class Children> struct make_size;
+  template<int N, class Sizes, class Children>
+  struct make_size;
 
   #define M1(z,n,t)                                                             \
   mpl_value < typename meta::                                                   \
@@ -103,22 +105,69 @@ namespace nt2 { namespace container { namespace ext
   struct size_of<tag::function_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of
-                          ::child_c<Expr&, 0>::type      child0;
+                          ::child_c<Expr&, 0>::type           child0;
 
-    typedef typename  boost::fusion::result_of
-                           ::pop_front<Expr const>::type      childN;
+    typedef typename boost::fusion::result_of
+                          ::pop_front<Expr const>::type       childN;
 
-    typedef typename size_transform<Domain>::template
-    result<size_transform<Domain>(child0)>::type        sz;
+    typedef typename meta::call<tag::extent_(child0)>::type   sz;
 
-    typedef details::make_size<N-1, sz, childN>         impl;
-    typedef typename impl::result_type                  result_type;
+    typedef details::make_size<N-1, sz, childN>               impl;
+    typedef typename impl::result_type                        result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(Expr& e) const
     {
-      return impl() ( size_transform<Domain>()(boost::proto::child_c<0>(e))
-                    , boost::fusion::pop_front(e)
-                    );
+      return impl()( boost::proto::child_c<0>(e).extent()
+                   , boost::fusion::pop_front(e)
+                   );
+    }
+  };
+
+  // Special unary case: if argument is not colon, keep shape
+  template<class Expr, class Domain>
+  struct size_of<tag::function_, Domain, 2, Expr>
+  {
+    typedef typename boost::proto::result_of
+                          ::child_c<Expr&, 0>::type     child0;
+
+    typedef typename boost::proto::result_of
+                          ::child_c<Expr&, 1>::type     child1;
+
+    template<bool B, class Dummy = void>
+    struct apply;
+
+    template<class Dummy>
+    struct apply<true, Dummy> // is colon
+    {
+      typedef typename meta::call<tag::numel_(child0)>::type num;
+      typedef of_size_< details::mpl_value<num>::value > result_type;
+
+      BOOST_FORCEINLINE result_type
+      operator()(Expr& e) const
+      {
+        return result_type(numel(boost::proto::child_c<0>(e)));
+      }
+    };
+
+    template<class Dummy>
+    struct apply<false, Dummy> // is not colon
+    {
+      typedef typename meta::call<tag::extent_(child1)>::type result_type;
+
+      BOOST_FORCEINLINE result_type
+      operator()(Expr& e) const
+      {
+        return boost::proto::child_c<1>(e).extent();
+      }
+    };
+
+    typedef apply< meta::is_colon<child1>::value >      impl;
+    typedef typename impl::result_type                  result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(Expr& e) const
+    {
+      return impl()(e);
     }
   };
 } } }
