@@ -15,6 +15,84 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+
+template<class T>
+struct size_of
+{
+  typedef typename nt2::meta::settings_of<T>::type settings;
+  typedef typename nt2::meta::option<settings, nt2::tag::of_size_>::type type;
+};
+
+NT2_TEST_CASE( semantic_dimensions )
+{
+  typedef double T;
+  using nt2::_;
+  namespace mpl = boost::mpl;
+  using nt2::of_size_;
+  nt2::table<T, nt2::_4D> a;
+  nt2::table<T, nt2::of_size_<2, 2> > b;
+
+  NT2_TEST_EXPR_TYPE( a()
+                    , size_of<mpl::_>
+                    , ( of_size_<-1, -1, -1, -1> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(_, _, _, _)
+                    , size_of<mpl::_>
+                    , ( of_size_<-1, -1, -1, -1> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(_, _, _)
+                    , size_of<mpl::_>
+                    , ( of_size_<-1, -1, -1> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(_, _)
+                    , size_of<mpl::_>
+                    , ( of_size_<-1, -1> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(_)
+                    , size_of<mpl::_>
+                    , ( of_size_<-1> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(1)
+                    , size_of<mpl::_>
+                    , ( of_size_<> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(_, 1)
+                    , size_of<mpl::_>
+                    , ( of_size_<-1> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(1, _)
+                    , size_of<mpl::_>
+                    , ( of_size_<1, -1> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(_, 1, _, 1)
+                    , size_of<mpl::_>
+                    , ( of_size_<-1, 1, -1> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(b)
+                    , size_of<mpl::_>
+                    , ( of_size_<2, 2> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(b, 1)
+                    , size_of<mpl::_>
+                    , ( of_size_<4> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( a(b, b)
+                    , size_of<mpl::_>
+                    , ( of_size_<4, 4> )
+                    );
+}
 
 NT2_TEST_CASE( integral_subscript )
 {
