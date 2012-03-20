@@ -19,6 +19,7 @@
 #include <boost/utility/enable_if.hpp>
 #include <nt2/core/utility/of_size/fusion.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
+#include <nt2/core/functions/scalar/numel.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
@@ -134,7 +135,7 @@ namespace nt2
       details::copy(details::pop_back_c<osz - msz>(other),&data_[0]);
 
       for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
-      details::check_all_equal(details::pop_front_c<msz>(other), 1u);
+      data_[static_size-1] *= numel(details::pop_front_c<msz>(other));
     }
 
     //==========================================================================
