@@ -22,7 +22,19 @@
 
 namespace nt2 { namespace meta
 {
-  template<typename T, typename Seq> struct make_position
+  template<typename T, typename Seq, typename Align = void>
+  struct make_position
+  {
+    typedef typename meta::strip<T>::type expr_type;
+    typedef typename expr_type::index_type index_type;
+    typedef typename expr_type::storage_order_type storage_order_type;
+    typedef typename expr_type::alignment_type alignment_type;
+
+    typedef position<Seq, index_type, storage_order_type, Align> type;
+  };
+
+  template<typename T, typename Seq>
+  struct make_position<T, Seq>
   {
     typedef typename meta::strip<T>::type expr_type;
     typedef typename expr_type::index_type index_type;
@@ -31,6 +43,7 @@ namespace nt2 { namespace meta
 
     typedef position<Seq, index_type, storage_order_type, alignment_type> type;
   };
+
 } }
 
 #endif
