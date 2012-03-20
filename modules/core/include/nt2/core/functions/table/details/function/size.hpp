@@ -9,10 +9,12 @@
 #ifndef NT2_CORE_FUNCTIONS_TABLE_DETAILS_FUNCTION_SIZE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TABLE_DETAILS_FUNCTION_SIZE_HPP_INCLUDED
 
+#include <nt2/core/functions/function.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/include/functions/relative_size.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
+#include <nt2/sdk/meta/is_colon.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
