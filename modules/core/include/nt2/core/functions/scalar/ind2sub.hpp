@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ind2sub_, tag::cpu_
                             , (A0)(A1)
                             , (fusion_sequence_<A0>)
-                              (mpl_integral_< scalar_< unspecified_<A1> > >)
+                              (scalar_< unspecified_<A1> >)
                             )
   {
     typedef typename boost::array<int, boost::fusion::result_of::size<A0>::value> result_type;
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ind2sub_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (fusion_sequence_<A0>)
-                              (mpl_integral_< scalar_< unspecified_<A1> > >)
+                              (scalar_< unspecified_<A1> >)
                               (fusion_sequence_<A2>)
                             )
   {
