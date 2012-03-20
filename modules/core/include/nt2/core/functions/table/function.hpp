@@ -25,8 +25,6 @@
 #include <boost/fusion/include/transform_view.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 
-#include <iostream>
-
 namespace nt2
 {
   namespace ext
@@ -49,7 +47,6 @@ namespace nt2
       typename result<relative_view_call(T const&)>::type
       operator()(T const& t) const
       {
-        std::cout << "relative_index " << boost::fusion::at_c<1>(t) << std::endl;
         return nt2::relative_index(boost::fusion::at_c<0>(t), boost::fusion::at_c<1>(t));
       }
     };
