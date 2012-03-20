@@ -112,14 +112,15 @@ namespace nt2 { namespace container { namespace ext
     typedef typename boost::fusion::result_of
                           ::pop_front<Expr const>::type       childN;
 
-    typedef typename meta::call<tag::extent_(child0)>::type   sz;
+    typedef typename size_transform<Domain>::template
+            result<size_transform<Domain>(child0)>::type      sz;
 
     typedef details::make_size<N-1, sz, childN>               impl;
     typedef typename impl::result_type                        result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(Expr& e) const
     {
-      return impl()( boost::proto::child_c<0>(e).extent()
+      return impl()( size_transform<Domain>()(boost::proto::child_c<0>(e))
                    , boost::fusion::pop_front(e)
                    );
     }
@@ -154,12 +155,13 @@ namespace nt2 { namespace container { namespace ext
     template<class Dummy>
     struct apply<false, Dummy> // is not colon
     {
-      typedef typename meta::call<tag::extent_(child1)>::type result_type;
+      typedef typename size_transform<Domain>::template
+              result<size_transform<Domain>(child1)>::type result_type;
 
       BOOST_FORCEINLINE result_type
       operator()(Expr& e) const
       {
-        return boost::proto::child_c<1>(e).extent();
+        return size_transform<Domain>()(boost::proto::child_c<1>(e));
       }
     };
 
