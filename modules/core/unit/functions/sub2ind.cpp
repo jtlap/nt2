@@ -16,6 +16,22 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+NT2_TEST_CASE( sub2ind_0D )
+{
+  using nt2::sub2ind;
+  using boost::fusion::make_vector;
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(), make_vector() ), 1);
+}
+
+NT2_TEST_CASE( sub2ind_0D_base )
+{
+  using nt2::sub2ind;
+  using boost::fusion::make_vector;
+
+  NT2_TEST_EQUAL( sub2ind( make_vector(), make_vector(), make_vector(-1) ), -1);
+}
+
 NT2_TEST_CASE( sub2ind_1D )
 {
   using nt2::sub2ind;
