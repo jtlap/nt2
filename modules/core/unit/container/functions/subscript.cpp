@@ -35,37 +35,37 @@ NT2_TEST_CASE( semantic_dimensions )
 
   NT2_TEST_EXPR_TYPE( a()
                     , size_of<mpl::_>
-                    , ( of_size_<-1, -1, -1, -1> )
+                    , nt2::_4D
                     );
 
   NT2_TEST_EXPR_TYPE( a(_, _, _, _)
                     , size_of<mpl::_>
-                    , ( of_size_<-1, -1, -1, -1> )
+                    , nt2::_4D
                     );
 
   NT2_TEST_EXPR_TYPE( a(_, _, _)
                     , size_of<mpl::_>
-                    , ( of_size_<-1, -1, -1> )
+                    , nt2::_3D
                     );
 
   NT2_TEST_EXPR_TYPE( a(_, _)
                     , size_of<mpl::_>
-                    , ( of_size_<-1, -1> )
+                    , nt2::_2D
                     );
 
   NT2_TEST_EXPR_TYPE( a(_)
                     , size_of<mpl::_>
-                    , ( of_size_<-1> )
+                    , nt2::_1D
                     );
 
   NT2_TEST_EXPR_TYPE( a(1)
                     , size_of<mpl::_>
-                    , ( of_size_<> )
+                    , nt2::_0D
                     );
 
   NT2_TEST_EXPR_TYPE( a(_, 1)
                     , size_of<mpl::_>
-                    , ( of_size_<-1> )
+                    , nt2::_1D
                     );
 
   NT2_TEST_EXPR_TYPE( a(1, _)
@@ -75,7 +75,7 @@ NT2_TEST_CASE( semantic_dimensions )
 
   NT2_TEST_EXPR_TYPE( a(_, 1, _, 1)
                     , size_of<mpl::_>
-                    , ( of_size_<-1, 1, -1> )
+                    , nt2::_4D
                     );
 
   NT2_TEST_EXPR_TYPE( a(b)
@@ -91,6 +91,12 @@ NT2_TEST_CASE( semantic_dimensions )
   NT2_TEST_EXPR_TYPE( a(b, b)
                     , size_of<mpl::_>
                     , ( of_size_<4, 4> )
+                    );
+
+  nt2::table<T, nt2::_3D> c;
+  NT2_TEST_EXPR_TYPE( c(_, _, _)
+                    , size_of<mpl::_>
+                    , nt2::_3D
                     );
 }
 
