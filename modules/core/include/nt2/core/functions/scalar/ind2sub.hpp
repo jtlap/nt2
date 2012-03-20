@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
     }
 
     template<class N>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE void
     eval(boost::array<int, boost::fusion::result_of::size<A0>::value>& sub,
          const size_t& p, const A0& s, const N&, const N&) const
     {
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
     }
 
     template<class N>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE void
     eval(boost::array<int, boost::fusion::result_of::size<A0>::value>& sub,
          const size_t& p, const A0& s, const A2& b, const N&, const N&) const
     {

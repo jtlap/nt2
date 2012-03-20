@@ -23,7 +23,7 @@ NT2_TEST_CASE( ind2sub_2D )
   using boost::mpl::int_;
 
   boost::array<int, 2> a = nt2::ind2sub( make_vector(3,3), int_<3>() );
-  boost::array<int, 2> b = {3,1};
+  boost::array<int, 2> b = {{3,1}};
   for(int i=0;i<2;++i) NT2_TEST_EQUAL( a[i], b[i] );
 }
 
@@ -33,7 +33,7 @@ NT2_TEST_CASE( ind2sub_2D_base )
   using boost::mpl::int_;
 
   boost::array<int, 2> a = nt2::ind2sub( make_vector(3,3), int_<3>(), make_vector(1,1) );
-  boost::array<int, 2> b = {3,1};
+  boost::array<int, 2> b = {{3,1}};
   for(int i=0;i<2;++i) NT2_TEST_EQUAL( a[i], b[i] );
 }
 
@@ -43,7 +43,7 @@ NT2_TEST_CASE( ind2sub_4D )
   using boost::mpl::int_;
 
   boost::array<int, 4> a = nt2::ind2sub( make_vector(7,5,3,2), int_<93>() );
-  boost::array<int, 4> b = {2,4,3,1};
+  boost::array<int, 4> b = {{2,4,3,1}};
   for(int i=0;i<4;++i) NT2_TEST_EQUAL( a[i], b[i] );
 }
 
@@ -53,6 +53,6 @@ NT2_TEST_CASE( ind2sub_4D_base )
   using boost::mpl::int_;
 
   boost::array<int, 4> a = nt2::ind2sub( make_vector(7,5,3,2), int_<93>(), make_vector(1,1,1,1) );
-  boost::array<int, 4> b = {2,4,3,1};
+  boost::array<int, 4> b = {{2,4,3,1}};
   for(int i=0;i<4;++i) NT2_TEST_EQUAL( a[i], b[i] );
 }
