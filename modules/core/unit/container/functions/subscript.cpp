@@ -24,39 +24,45 @@ struct size_of
   typedef typename nt2::meta::option<settings, nt2::tag::of_size_>::type type;
 };
 
-NT2_TEST_CASE( semantic_dimensions )
+NT2_TEST_CASE( dimensions )
 {
   typedef double T;
   using nt2::_;
   namespace mpl = boost::mpl;
   using nt2::of_size_;
-  nt2::table<T, nt2::_4D> a;
+  using nt2::of_size;
+  nt2::table<T, nt2::_4D> a(of_size(5, 4, 3, 2));
   nt2::table<T, nt2::of_size_<2, 2> > b;
 
   NT2_TEST_EXPR_TYPE( a()
                     , size_of<mpl::_>
                     , nt2::_4D
                     );
+  NT2_TEST( a().extent() == of_size(5, 4, 3, 2) );
 
   NT2_TEST_EXPR_TYPE( a(_, _, _, _)
                     , size_of<mpl::_>
                     , nt2::_4D
                     );
+  NT2_TEST( a(_, _, _, _).extent() == of_size(5, 4, 3, 2) );
 
   NT2_TEST_EXPR_TYPE( a(_, _, _)
                     , size_of<mpl::_>
                     , nt2::_3D
                     );
+  NT2_TEST( a(_, _, _).extent() == of_size(5, 4, 6) );
 
   NT2_TEST_EXPR_TYPE( a(_, _)
                     , size_of<mpl::_>
                     , nt2::_2D
                     );
+  NT2_TEST( a(_, _).extent() == of_size(5, 24) );
 
   NT2_TEST_EXPR_TYPE( a(_)
                     , size_of<mpl::_>
                     , nt2::_1D
                     );
+  NT2_TEST( a(_).extent() == of_size(120) );
 
   NT2_TEST_EXPR_TYPE( a(1)
                     , size_of<mpl::_>
@@ -67,16 +73,19 @@ NT2_TEST_CASE( semantic_dimensions )
                     , size_of<mpl::_>
                     , nt2::_1D
                     );
+  NT2_TEST( a(_, 1).extent() == of_size(5) );
 
   NT2_TEST_EXPR_TYPE( a(1, _)
                     , size_of<mpl::_>
                     , ( of_size_<1, -1> )
                     );
+  NT2_TEST( a(1, _).extent() == of_size(1, 24) );
 
   NT2_TEST_EXPR_TYPE( a(_, 1, _, 1)
                     , size_of<mpl::_>
                     , ( of_size_<-1, 1, -1, 1> )
                     );
+  NT2_TEST( a(1, _).extent() == of_size(1, 24) );
 
   NT2_TEST_EXPR_TYPE( a(b)
                     , size_of<mpl::_>
