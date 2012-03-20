@@ -25,6 +25,8 @@
 #include <boost/fusion/include/transform_view.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 
+#include <iostream>
+
 namespace nt2
 {
   namespace ext
@@ -47,6 +49,7 @@ namespace nt2
       typename result<relative_view_call(T const&)>::type
       operator()(T const& t) const
       {
+        std::cout << "relative_index " << boost::fusion::at_c<1>(t) << std::endl;
         return nt2::relative_index(boost::fusion::at_c<0>(t), boost::fusion::at_c<1>(t));
       }
     };
@@ -69,9 +72,9 @@ namespace nt2
       typedef typename nt2::make_size<Arity::value-1>::type reinterpreted_size;
 
       typedef typename meta::
-              call<tag::sub2sub_( reinterpreted_size const&
+              call<tag::sub2sub_( typename meta::call<tag::extent_(Expr&)>::type
                                 , State
-                                , typename meta::call<tag::extent_(child0)>::type
+                                , reinterpreted_size const&
                                 )
                   >::type pos;
 
@@ -87,7 +90,7 @@ namespace nt2
       BOOST_FORCEINLINE result_type
       operator()(Expr& expr, State& state, Data const& data) const
       {
-        position_type p( boost::fusion::transform(zipped(seq(boost::fusion::pop_front(expr), sub2sub(reinterpreted_size(expr.extent()), state, boost::proto::child_c<0>(expr).extent()))), relative_view_call()) );
+        position_type p( boost::fusion::transform(zipped(seq(boost::fusion::pop_front(expr), sub2sub(expr.extent(), state, reinterpreted_size(boost::proto::child_c<0>(expr).extent())))), relative_view_call()) );
 
         return nt2::run( boost::proto::child_c<0>(expr), p, data );
       }
