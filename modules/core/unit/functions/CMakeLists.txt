@@ -17,6 +17,7 @@ SET( SOURCES
    isvector.cpp
    length.cpp
    linspace.cpp
+   first_last_index.cpp
    ndims.cpp
    numel.cpp
    ones.cpp
@@ -25,6 +26,11 @@ SET( SOURCES
 #  sub2sub.cpp
   size.cpp
   zeros.cpp
+  issquare.cpp
+  issymetric.cpp
+  ishermitian.cpp
+  istriangular.cpp
+  eye.cpp
 # List of test files for toolbox core.settings
    )
 

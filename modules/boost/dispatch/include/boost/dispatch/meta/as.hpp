@@ -17,6 +17,7 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/dsl/category.hpp>
 
 #if defined(DOXYGEN_ONLY)
 namespace boost { namespace dispatch { namespace meta
@@ -29,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
    * \tparam T Wrapped type hierarchy
    */
   //============================================================================
-  template<class T> struct target_ {};
+  template<class T> struct target_{};
 } } }
 #endif
 
@@ -62,7 +63,9 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Origin>
   struct hierarchy_of< as_<T>, Origin>
   {
-    typedef target_<typename hierarchy_of<T, Origin>::type>  type;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same< stripped, as_<T> >, stripped, Origin >::type origin_;
+    typedef target_<typename hierarchy_of<T, origin_>::type>  type;
   };
 
   //============================================================================

@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_DSL_GRAMMAR_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_GRAMMAR_HPP_INCLUDED
 
+#include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/meta/lambda_terminal.hpp>
@@ -19,7 +20,13 @@ namespace nt2 { namespace tag { struct box_; } }
 namespace nt2 { namespace container
 {
   //============================================================================
-  // Anything goes in the grammar except for low level operators and assignment
+  // NT2 container grammar accept :
+  //  - any container
+  //  - any scalar value
+  //  - the _ operator
+  //  - the as_<> helper
+  //  - the box helper
+  //  - any oerations except for low-level ones and assignment
   //============================================================================
   struct  grammar
         : boost::proto
@@ -28,6 +35,7 @@ namespace nt2 { namespace container
                 , boost::dispatch::
                   lambda_terminal< boost::is_arithmetic<boost::proto::_value> >
                 , boost::proto::terminal<colon_>
+                , boost::proto::terminal< meta::as_<boost::proto::_> >
                 , boost::proto::nullary_expr<tag::box_, boost::proto::_>
                 , boost::proto::
                   and_< boost::proto::

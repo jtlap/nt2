@@ -22,18 +22,34 @@ NT2_TEST_CASE( value_at )
   using nt2::of_size;
   typedef float T;
 
-  table<T> a0(of_size(2, 3));
-  table<T> a1(of_size(2, 3));
+  table<T> a0(of_size(4, 3));
+  table<T> a1(of_size(4, 3));
 
   for(std::size_t j=1; j!=3+1; ++j)
-    for(std::size_t i=1; i!=2+1; ++i)
+    for(std::size_t i=1; i!=4+1; ++i)
       a0(i, j) = T(i+j);
 
   a1 = a0 + T(1);
 
   for(std::size_t j=1; j!=3+1; ++j)
-    for(std::size_t i=1; i!=2+1; ++i)
+    for(std::size_t i=1; i!=4+1; ++i)
       NT2_TEST_EQUAL( T(a1(i, j)), T(i+j+1) );
+
+  table<T, nt2::_1D> a2(of_size(13));
+  table<T, nt2::_1D> a3(of_size(13));
+  for(std::size_t i=1; i!=13+1; ++i)
+    a2(i) = T(i);
+
+  a3 = a2 + T(1);
+
+  for(std::size_t i=1; i!=13+1; ++i)
+    NT2_TEST_EQUAL( T(a3(i)), T(i+1) );
+
+/*
+  table<T, nt2::_1D> xd = nt2::_(T(0),T(2),T(9));
+  table<T, nt2::_1D> a2_(of_size(5));
+  a2_ = a2(xd);
+*/
 }
 
 NT2_TEST_CASE( scalar_size )

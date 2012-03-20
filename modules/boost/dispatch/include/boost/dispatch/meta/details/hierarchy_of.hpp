@@ -13,6 +13,9 @@
 #include <boost/dispatch/meta/details/scalar.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace dispatch { namespace details
@@ -27,7 +30,9 @@ namespace boost { namespace dispatch { namespace details
                         boost::enable_if< boost::is_fundamental<T> >::type
                       >
   {
-    typedef meta::scalar_<typename meta::property_of<T, Origin>::type>  type;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same< T, stripped >, stripped, Origin>::type origin_;
+    typedef meta::scalar_<typename meta::property_of<T, origin_>::type>  type;
   };
 
   //============================================================================

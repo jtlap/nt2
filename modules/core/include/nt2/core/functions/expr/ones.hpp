@@ -11,76 +11,99 @@
 
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/ones.hpp>
+#include <nt2/include/functions/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
-#include <nt2/core/utility/generative/generative.hpp>
-#include <nt2/core/utility/generative/preprocessor.hpp>
-#include <nt2/core/utility/generative/constant_adaptor.hpp>
+#include <nt2/include/functions/isrow.hpp>
+#include <nt2/include/functions/length.hpp>
+#include <boost/detail/workaround.hpp>
+#include <iterator>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Generates Ones from expression (support size(a) calls)
+  // Generates ones from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::One, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ones_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )
   {
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::constant_generator<nt2::tag::One>
-                      , double
-                      , settings(of_size_max)
-                      > base;
-
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::ones_
+                                          , container::domain
+                                          , box<of_size_max>
+                                          , box< meta::constant_<nt2::tag::One> >
+                                          , meta::as_<double>
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
+      // Expression must be a row vector
+      BOOST_ASSERT_MSG
+      ( nt2::isrow(a0)
+      , "Error using ones: Size vector must be a row vector."
+      );
+
       of_size_max sizee;
-      nt2::details::constant_generator<nt2::tag::One> callee;
+      std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
+      stdext::unchecked_copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
+      std::copy(a0.raw(), a0.raw()+sz, stdext::make_unchecked_array_iterator(&sizee[0]));
+#else
+      std::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+#endif
 
-      for(std::size_t i=1;i<of_size_max::size();++i) sizee[i-1] = a0(i);
-
-      base that(sizee,callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return boost::proto::make_expr< nt2::tag::ones_
+                                    , container::domain
+                                    > ( boxify(sizee)
+                                      , boxify(meta::constant_<nt2::tag::One>())
+                                      , meta::as_<double>()
+                                      );
     }
   };
 
-
   //============================================================================
-  // Generates Ones from expression + types (support size(a) calls)
+  // Generates ones from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::One, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ones_, tag::cpu_
                             , (A0)(T)
                             , (ast_<A0>)
                               (target_< scalar_< unspecified_<T> > >)
                             )
   {
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::constant_generator<nt2::tag::One>
-                      , typename T::type
-                      , settings(of_size_max)
-                      > base;
-
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::ones_
+                                          , container::domain
+                                          , box<of_size_max>
+                                          , box< meta::constant_<nt2::tag::One> >
+                                          , T
+                                          >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& tgt) const
     {
+      // Expression must be a row vector
+      BOOST_ASSERT_MSG
+      ( nt2::isrow(a0)
+      , "Error using ones: Size vector must be a row vector."
+      );
+
       of_size_max sizee;
-      nt2::details::constant_generator<nt2::tag::One> callee;
+      std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
+      stdext::unchecked_copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
+      std::copy(a0.raw(), a0.raw()+sz, stdext::make_unchecked_array_iterator(&sizee[0]));
+#else
+      std::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+#endif
 
-      for(std::size_t i=1;i<of_size_max::size();++i) sizee[i-1] = a0(i);
-
-      base that(sizee,callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return boost::proto::make_expr< nt2::tag::ones_
+                                    , container::domain
+                                    > ( boxify(sizee)
+                                      , boxify(meta::constant_<nt2::tag::One>())
+                                      , tgt
+                                      );
     }
   };
 } }

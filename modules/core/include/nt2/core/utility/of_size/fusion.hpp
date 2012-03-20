@@ -48,28 +48,34 @@ namespace boost { namespace fusion { namespace extension
 
   //============================================================================
   // at_c value of of_size_ is given by its static size or dynamic size if -1
+  // always return 1 if accessed past-the-end
   //============================================================================
   template<> struct at_impl<nt2::tag::of_size_>
   {
-    template<class Seq, class Index, std::size_t S>     struct select_apply;
-    template<class Seq, class Index, std::ptrdiff_t N>  struct apply_impl;
+    template<class Seq, class Index, std::size_t S, bool B = !(Index::value >= S)>
+    struct select_apply;
+
+    template<class Seq, class Index, std::ptrdiff_t N>
+    struct apply_impl;
 
     template<class Seq, class Index>
     struct  apply
-          : select_apply< Seq, Index, Seq::static_size>
+          : select_apply<Seq, Index, Seq::static_size>
     {};
 
     template<class Seq, class Index, std::size_t S>
-    struct  select_apply
+    struct  select_apply<Seq, Index, S, true>
           : apply_impl< Seq, Index
                       , mpl::at<typename Seq::values_type, Index>::type::value
                       >
     {};
 
-    template<class Seq, class Index>
-    struct select_apply<Seq,Index,0> : apply_impl<Seq,Index,1> {};
-
-    template<class Seq, class Index, std::size_t S> struct select_apply;
+    template<class Seq, class Index, std::size_t S>
+    struct select_apply<Seq, Index, S, false>
+    {
+      typedef mpl::size_t<1> type;
+      static type call(Seq&) { return type(); }
+    };
 
     template<class Seq, class Index>
     struct apply_impl<Seq, Index, -1>
@@ -108,7 +114,7 @@ namespace boost { namespace fusion { namespace extension
   {
     template<typename Sequence> struct apply
     {
-      typedef boost::simd::at_iterator<Sequence, 0> type;
+      typedef boost::simd::at_iterator<Sequence, 0, Sequence::static_size> type;
       static type call(Sequence& seq) { return type(seq); }
     };
   };
@@ -121,7 +127,7 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence>
     struct apply
     {
-      typedef boost::simd::at_iterator<Sequence, Sequence::static_size> type;
+      typedef boost::simd::at_iterator<Sequence, Sequence::static_size, Sequence::static_size> type;
       static type call(Sequence& seq) { return type(seq); }
     };
   };

@@ -11,24 +11,12 @@
 
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/colon.hpp>
-#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/constants/threeeps.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
-#include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/fuzzy_equal.hpp>
 #include <nt2/include/functions/tolerant_floor.hpp>
-#include <nt2/include/constants/threeeps.hpp>
-#include <nt2/core/utility/generative/generative.hpp>
-
-//==============================================================================
-// colon actual functor forward declaration
-//==============================================================================
-namespace nt2 { namespace details
-{
-  template<class T> struct colon;
-  template<class T> struct unity_colon;
-} }
 
 namespace nt2 { namespace ext
 {
@@ -41,25 +29,23 @@ namespace nt2 { namespace ext
                               (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::unity_colon<A0>
-                      , A0
-                      , settings(_2D)
-                      > base;
-
-
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::colon_
+                                          , container::domain
+                                          , box<_2D>
+                                          , box< nt2::details::unity_colon<A0> >
+                                          , meta::as_<A0>
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& l, A0 const& u) const
     {
       std::size_t n = (u>=l) ? std::size_t(u-l+1) : 0;
-      nt2::details::unity_colon<A0> callee(l);
-      base that(of_size(1,n),callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return boost::proto::make_expr< nt2::tag::colon_
+                                    , container::domain
+                                    > ( boxify(of_size(1,n))
+                                      , boxify(nt2::details::unity_colon<A0>(l))
+                                      , meta::as_<A0>()
+                                      );
     }
   };
 
@@ -74,26 +60,24 @@ namespace nt2 { namespace ext
                               (scalar_< int_<A0> >)
                             )
   {
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::colon<A0>
-                      , A0
-                      , settings(_2D)
-                      > base;
-
-
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::colon_
+                                          , container::domain
+                                          , box<_2D>
+                                          , box< nt2::details::colon<A0> >
+                                          , meta::as_<A0>
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& l, A0 const& s, A0 const& u) const
     {
       std::size_t n = (s) ?(((u>l)==(s>0))? ((u-l+s)/s) : 0) : u;
-      nt2::details::colon<A0> callee(l,s);
-      base that(of_size(1,n),callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return boost::proto::make_expr< nt2::tag::colon_
+                                    , container::domain
+                                    > ( boxify(of_size(1,n))
+                                      , boxify(nt2::details::colon<A0>(l,s))
+                                      , meta::as_<A0>()
+                                      );
     }
   };
 
@@ -108,25 +92,24 @@ namespace nt2 { namespace ext
                               (scalar_< uint_<A0> >)
                             )
   {
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::colon<A0>
-                      , A0
-                      , settings(_2D)
-                      > base;
-
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::colon_
+                                          , container::domain
+                                          , box<_2D>
+                                          , box< nt2::details::colon<A0> >
+                                          , meta::as_<A0>
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& l, A0 const& s, A0 const& u) const
     {
       std::size_t n = (s) ?((u>l)? ((u-l+s)/s) : 0) : u;
-      nt2::details::colon<A0> callee(l,s);
-      base that(of_size(1,n),callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return boost::proto::make_expr< nt2::tag::colon_
+                                    , container::domain
+                                    > ( boxify(of_size(1,n))
+                                      , boxify(nt2::details::colon<A0>(l,s))
+                                      , meta::as_<A0>()
+                                      );
     }
   };
 
@@ -143,17 +126,13 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::dispatch::meta::as_floating<A0,A1,A2>::type base_t;
 
-    typedef nt2::details::
-            generative< nt2::tag::table_
-                      , nt2::details::colon<base_t>
-                      , base_t
-                      , settings(_2D)
-                      > base;
-
     typedef typename  boost::proto::
-                      result_of::as_expr< base
-                                        , container::domain
-                                        >::type             result_type;
+                      result_of::make_expr< nt2::tag::colon_
+                                          , container::domain
+                                          , box<_2D>
+                                          , box< nt2::details::colon<base_t> >
+                                          , meta::as_<base_t>
+                                          >::type             result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& l, A1 const& s, A2 const& u) const
@@ -161,9 +140,12 @@ namespace nt2 { namespace ext
       std::size_t n = (s) ? (((u-l)*s >= 0) ? colon_size(l,s,u) : 0)
                           : std::size_t(u);
 
-      nt2::details::colon<A0> callee(l,s);
-      base that(of_size(1,n),callee);
-      return boost::proto::as_expr<container::domain>(that);
+      return boost::proto::make_expr< nt2::tag::colon_
+                                    , container::domain
+                                    > ( boxify(of_size(1,n))
+                                      , boxify(nt2::details::colon<A0>(l,s))
+                                      , meta::as_<A0>()
+                                      );
     }
 
     BOOST_FORCEINLINE std::size_t
@@ -179,48 +161,6 @@ namespace nt2 { namespace ext
       }
       return nelt;
     }
-  };
-} }
-
-namespace nt2 { namespace details
-{
-  //============================================================================
-  // colon actual functor : precompute step and just iterate over
-  //============================================================================
-  template<class T> struct colon
-  {
-    colon( T const& l, T const& s) : lower_(l), step_(s) {}
-
-    template<class Pos, class Size, class Target>
-    typename Target::type
-    operator()(Pos const& p, Size const&, Target const&) const
-    {
-      typedef typename Target::type type;
-
-      return nt2::fma ( nt2::enumerate<type>(boost::fusion::at_c<1>(p)-1)
-                      , nt2::splat<type>(step_)
-                      , nt2::splat<type>(lower_)
-                      );
-    }
-
-    T lower_, step_;
-  };
-
-  template<class T> struct unity_colon
-  {
-    unity_colon( T const& l ) : lower_(l) {}
-
-    template<class Pos, class Size, class Target>
-    typename Target::type
-    operator()(Pos const& p, Size const&, Target const&) const
-    {
-      typedef typename Target::type type;
-
-      return  nt2::enumerate<type>(boost::fusion::at_c<1>(p)-1)
-            + nt2::splat<type>(lower_);
-    }
-
-    T lower_;
   };
 } }
 

@@ -73,6 +73,8 @@ namespace boost { namespace dispatch { namespace details
                         >                                          type;
   };
 
+ 
+
   template<class T>
   struct value_of< T
                  , typename boost::

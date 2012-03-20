@@ -9,7 +9,6 @@
 #define NT2_UNIT_MODULE "nt2 container allocation"
 
 #include <boost/simd/sdk/memory/allocator.hpp>
-#include <nt2/sdk/memory/padded_allocator.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>
 
 #include <iostream>
@@ -50,23 +49,6 @@ template<class T> struct simd_allocation_test
   int N;
 };
 
-template<class T> struct padded_allocation_test
-{
-  padded_allocation_test(int n) : alloc(base), N(n) {}
-
-  ~padded_allocation_test()
-  {
-    for(int n=0;n<a0.size();++n) alloc.deallocate(a0[n],N);
-  }
-
-  void operator()() { a0.push_back(alloc.allocate(N)); }
-
-  boost::simd::memory::allocator<T> base;
-  nt2::memory::padded_allocator<32,boost::simd::memory::allocator<T> >  alloc;
-  std::vector<T*> a0;
-  int N;
-};
-
 template<class T> struct fixed_allocation_test
 {
   fixed_allocation_test(int n) : data(n), alloc(&data[0],&data[0]+n) {}
@@ -83,22 +65,21 @@ NT2_TEST_CASE_TPL( allocation_test, NT2_TYPES )
   for(int N = 1; N <= 1*65536*256; N *= 4)
   {
     fixed_allocation_test<T>  i(N);
-    padded_allocation_test<T> h(N);
     simd_allocation_test<T>   g(N);
     std_allocation_test<T>    f(N);
 
     std::cout << "Allocating " << N << " elements.\n";
-    nt2::details::cycles_t dv = nt2::unit::perform_benchmark( f, 1.);
-    std::cout << "std::allocator   : " << dv/double(N) << " cpe\n";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
+    nt2::unit::perform_benchmark(f, 1., dv);
+    std::cout << "std::allocator   : " << dv.median/double(N) << " cpe\n";
 
-    nt2::details::cycles_t dw = nt2::unit::perform_benchmark(g , 1.);
-    std::cout << "simd::allocator  : " << dw/double(N) << " cpe\n";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
+    nt2::unit::perform_benchmark(g, 1., dw);
+    std::cout << "simd::allocator  : " << dw.median/double(N) << " cpe\n";
 
-    nt2::details::cycles_t dz = nt2::unit::perform_benchmark(h , 1.);
-    std::cout << "padded allocator : " << dz/double(N) << " cpe\n";
-
-    nt2::details::cycles_t du = nt2::unit::perform_benchmark(i , 1.);
-    std::cout << "fixed allocator : " << du/double(N) << " cpe\n";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> du;
+    nt2::unit::perform_benchmark(i, 1., du);
+    std::cout << "fixed allocator : " << du.median/double(N) << " cpe\n";
     std::cout << "\n";
   }
 }

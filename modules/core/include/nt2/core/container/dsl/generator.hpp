@@ -66,12 +66,14 @@ namespace nt2 { namespace container
                                      >::type
                               , value_type
                               >::type
-         >::type                                                   type;
-      typedef expression<Expr, type>                               result_type;
+         >::type                                                    type;
+      typedef expression< typename boost::
+                          remove_const<Expr>::type
+                        , type>                                     result_type;
 
       BOOST_FORCEINLINE result_type operator()(Expr& e) const
       {
-        return result_type(e, size_of<Tag, Domain, Arity, Expr>()(e));
+        return result_type(e);
       }
     };
   }

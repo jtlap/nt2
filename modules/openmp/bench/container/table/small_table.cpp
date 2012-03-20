@@ -63,19 +63,63 @@ template<class T> struct vector_test
   int N,M;
 };
 
+template<class T> struct vector_omp_test
+{
+  vector_omp_test(int n, int m, T const& min, T const& max )
+      : a0(n*m), a1(n*m), a2(n*m)
+      , N(n), M(m)
+  {
+    for(std::size_t i=0; i<M*N; ++i)
+      a2[i] = a1[i] = a0[i] = roll<T>(min,max);
+  }
+
+  void operator()()
+  {
+    #pragma omp parallel for
+    for(std::size_t i=0; i<M*N; ++i)
+      a1[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a2[i]*a2[i]/a1[i]);
+  }
+
+  std::vector<T> a0,a1,a2;
+  int N,M;
+};
+
 template<class T> void do_test()
 {
+  std::cout << "Size\ttable (c/e)\ttable (s)\tvector (c/e)\tvector (s)";
+  std::cout << "\tOvec (c/e)\tvOvec (s) \tG(c/e)\tG(s)\tOG(c/e)\tOG(s)\n";
+
   for(int N=1;N<=4096;N*=2)
   {
-    std::cout << N << "\t" << N << "\t";
+    std::cout.precision(3);
+    std::cout << N << "\t";
     table_test<T> tt(N,N,-.28319, .28319);
-    double dv = nt2::unit::perform_benchmark( tt, 1.);
-    std::cout << dv/(N*N) << "\t";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
+    nt2::unit::perform_benchmark( tt, 1., dv);
+    nt2::unit::benchmark_result<double> tv;
+    nt2::unit::perform_benchmark( tt, 1., tv);
+    std::cout << std::scientific << dv.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << tv.median << "\t";
 
     vector_test<T> vv(N,N,-.28319, .28319);
-    double dw = nt2::unit::perform_benchmark( vv, 1.);
-    std::cout << dw/(N*N) << "\t";
-    std::cout << dw/dv << "\n";
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
+    nt2::unit::perform_benchmark( vv, 1., dw);
+    nt2::unit::benchmark_result<double> tw;
+    nt2::unit::perform_benchmark( vv, 1., tw);
+    std::cout << std::scientific << dw.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << tw.median << "\t";
+
+    vector_omp_test<T> vo(N,N,-.28319, .28319);
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dow;
+    nt2::unit::perform_benchmark( vo, 1., dow);
+    nt2::unit::benchmark_result<double> tow;
+    nt2::unit::perform_benchmark( vo, 1., tow);
+    std::cout << std::scientific << dow.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << tow.median << "\t";
+    std::cout << std::fixed << (double)dw.median/dv.median << "\t";
+    std::cout << std::fixed << (double)tw.median/tv.median << "\t";
+    std::cout << std::fixed << (double)dow.median/dv.median << "\t";
+    std::cout << std::fixed << (double)tow.median/tv.median << "\n";
   }
 }
 

@@ -26,8 +26,8 @@ template<class T> struct buffer_test
   typedef typename buffer_t::difference_type  difference_type;
 
   buffer_test ( size_type sz)
-              : data(boost::fusion::vector_tie(sz))
-              , data2(boost::fusion::vector_tie(sz))
+              : data(sz)
+              , data2(sz)
   {}
 
   buffer_test ( buffer_test const& s) : data(s.data), data2(s.data2)  {}
@@ -61,8 +61,12 @@ NT2_TEST_CASE_TPL( buffer_access, NT2_TYPES )
   {
     buffer_std_test<T>     b(i);
     buffer_test<T>  c(i);
-    double d = nt2::unit::perform_benchmark( b, 1.) / 2.;
-    double e = nt2::unit::perform_benchmark( c, 1.) / 2.;
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
+    nt2::unit::perform_benchmark( b, 1., dv);
+    double d = dv.median / 2.;
+    nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
+    nt2::unit::perform_benchmark( c, 1., dw);
+    double e = dw.median / 2.;
     printf( "Size: %d - buffer %3.3f c/e - std::vector %3.3f c/e"
             " - overhead %3.3f %%\n"
           , i, e/i, d/i, ((e-d)/d)*100

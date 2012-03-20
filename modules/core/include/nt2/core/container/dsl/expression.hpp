@@ -78,24 +78,30 @@ namespace nt2 { namespace container { namespace ext
 
 namespace nt2 { namespace details
 {
-  template<class Expr>
-  typename boost::enable_if_c< boost::proto::arity_of<Expr>::type::value == 0
+  template<class Base, class Expr>
+  BOOST_DISPATCH_FORCE_INLINE
+  typename boost::enable_if_c< Base::proto_arity_c == 0
                              , typename Expr::extent_type
                              >::type
-  size_recompute(Expr const& this_, Expr const& old)
+  size_recompute(Base const& this_, Expr const& old)
   {
-    return nt2::extent(this_.proto_base().child0);
+    return nt2::extent(this_.child0);
   }
 
-  template<class Expr>
-  typename boost::disable_if_c< boost::proto::arity_of<Expr>::type::value == 0
+  template<class Base, class Expr>
+  BOOST_DISPATCH_FORCE_INLINE
+  typename boost::disable_if_c< Base::proto_arity_c == 0
                               , typename Expr::extent_type
                               >::type
-  size_recompute(Expr const&, Expr const& old)
+  size_recompute(Base const&, Expr const& old)
   {
     return old.extent();
   }
 } }
+
+#ifdef NT2_LOG_COPIES
+#include <nt2/sdk/details/type_id.hpp>
+#endif
 
 namespace nt2 { namespace container
 {
@@ -123,6 +129,8 @@ namespace nt2 { namespace container
 
     typedef typename meta::settings_of<ResultType>::type            settings_type;
     typedef typename meta::option<settings_type, tag::index_>::type index_type;
+    typedef typename meta::option<settings_type, tag::storage_order_>::type storage_order_type;
+    typedef typename meta::option<settings_type, tag::alignment_>::type alignment_type;
 
     //==========================================================================
     // Compute storage type for size
@@ -134,13 +142,28 @@ namespace nt2 { namespace container
     // Expression initialization called from generator
     //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
-    expression() : size_(nt2::extent(parent::proto_base().child0)) {}
+    expression() : size_(size_transform<domain>()(parent::proto_base())) {}
 
-    template<class Sz>
     BOOST_DISPATCH_FORCE_INLINE
-    expression(Expr const& x, Sz const& sz) : parent(x), size_(sz) {}
+    explicit expression(Expr const& x) : parent(x), size_(size_transform<domain>()(parent::proto_base())) {}
 
-    expression(expression const& xpr) : parent(static_cast<parent const&>(xpr)), size_(details::size_recompute(*this, xpr)) {}
+    BOOST_DISPATCH_FORCE_INLINE
+    expression(expression const& xpr)
+     : parent(xpr.proto_base())
+     , size_(size_transform<domain>()(parent::proto_base()))
+    {
+      #ifdef NT2_LOG_COPIES
+      typedef typename boost::mpl::eval_if_c< boost::proto::arity_of<Expr>::value == 0
+                                            , boost::proto::result_of::value<Expr&>
+                                            , boost::mpl::identity<int&>
+                                            >::type T;
+      if(!boost::is_reference<T>::value)
+      {
+        std::cout << "copying ";
+        nt2::display_type<Expr>();
+      }
+      #endif
+    }
 
     //==========================================================================
     // Assignment operator force evaluation - LHS non-terminal version
@@ -162,13 +185,10 @@ namespace nt2 { namespace container
       return *this;
     }
 
-    //==========================================================================
-    // Assignment operator from same expression type
-    //==========================================================================
     BOOST_DISPATCH_FORCE_INLINE
     expression& operator=(expression const& xpr)
     {
-      nt2::evaluate( nt2::assign(*this, xpr) );
+      process( xpr );
       return *this;
     }
 

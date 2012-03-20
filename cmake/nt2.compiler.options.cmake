@@ -18,7 +18,7 @@ if(MSVC)
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
   # Strict aliasing disabled due to GCC bug #50800
   set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -D_GLIBCXX_DEBUG=1 -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
-  set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} -O3 -fomit-frame-pointer -fno-exceptions")
+  set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} -O3 -fomit-frame-pointer -fno-exceptions -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
 else()
   set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
   set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} ${CMAKE_CXX_FLAGS_RELEASE}")

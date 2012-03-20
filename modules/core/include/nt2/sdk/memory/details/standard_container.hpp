@@ -33,23 +33,28 @@ namespace nt2 { namespace memory
     typedef typename parent::allocator_type               allocator_type;
     typedef typename parent::iterator                     iterator;
     typedef typename parent::const_iterator               const_iterator;
+    typedef typename parent::value_type                   value_type;
     typedef typename parent::extent_type                  extent_type;
     typedef typename parent::sizes_type                   sizes_type;
     typedef typename parent::size_type                    size_type;
     typedef typename parent::difference_type              difference_type;
-    typedef typename parent::is_static_sized              is_static_sized;
     typedef typename parent::reference                    reference;
     typedef typename parent::const_reference              const_reference;
+    typedef typename parent::pointer                      pointer;
+    typedef typename parent::const_pointer                const_pointer;
     typedef Tag                                           tag_type;
     typedef typename parent::specific_data_type           specific_data_type;
+
     //==========================================================================
     /*!
      * Default constructor
      */
     //==========================================================================
-    container( allocator_type const& a = allocator_type() ) : block_(a), specific_data_()
+    container ( allocator_type const& a = allocator_type() )
+              : block_(a)
+              , specific_data_()
     {
-      parent::init(block_,sizes_, is_static_sized());
+      parent::init(block_,sizes_, typename parent::require_static_init());
     }
 
     //==========================================================================
@@ -58,17 +63,23 @@ namespace nt2 { namespace memory
      */
     //==========================================================================
     template<class Size>
-    container( Size const& sz, allocator_type const& a = allocator_type() )
-      : block_( pad(sz,parent::lead_t::value) ,a), sizes_(sz), specific_data_()
-    {}
+    container ( Size const& sz, allocator_type const& a = allocator_type() )
+              : block_(a)
+              , sizes_(sz)
+              , specific_data_()
+    {
+      parent::init(block_,sz);
+    }
 
     //==========================================================================
     /*!
      * Copy Constructor
      */
     //==========================================================================
-    container( container const& s) : block_( s.block_ ), sizes_(s.sizes_), specific_data_(s.specific_data_){
-    }
+    container( container const& s)  : block_(s.block_)
+                                    , sizes_(s.sizes_)
+                                    , specific_data_(s.specific_data_)
+    {}
 
     //==========================================================================
     /*!
@@ -99,6 +110,18 @@ namespace nt2 { namespace memory
       return parent::access(pos,block_,sizes_);
     }
 
+    template<class Position> BOOST_FORCEINLINE
+    pointer get( Position const& pos )
+    {
+      return block_.get(pos);
+    }
+
+    template<class Position> BOOST_FORCEINLINE
+    const_pointer get( Position const& pos ) const
+    {
+      return block_.get(pos);
+    }
+
     //==========================================================================
     /*!
      * Redefine the container shape using a new Dimensions Set
@@ -106,7 +129,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size> BOOST_FORCEINLINE void resize( Size const& szs )
     {
-      parent::resize( block_,szs,sizes_,is_static_sized() );
+      parent::resize(block_,szs,sizes_);
     }
 
     //==========================================================================
@@ -132,11 +155,37 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     /*!
+     * Return the number of physical element on the leading dimension
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE size_type leading_size()  const
+    {
+      return parent::leading_size(sizes_);
+    }
+
+    //==========================================================================
+    /*!
+     * Return the begin of the raw memory
+     */
+    //==========================================================================
+    pointer       raw()       { return block_.raw(); }
+    const_pointer raw() const { return block_.raw(); }
+
+    //==========================================================================
+    /*!
      * Return the begin of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       begin()       { return block_.data().begin(); }
-    BOOST_FORCEINLINE const_iterator begin() const { return block_.data().begin(); }
+    BOOST_FORCEINLINE iterator       begin()       { return block_.begin(); }
+    BOOST_FORCEINLINE const_iterator begin() const { return block_.begin(); }
+
+    //==========================================================================
+    /*!
+     * Return the end of the data
+     */
+    //==========================================================================
+    BOOST_FORCEINLINE iterator       end()       { return block_.end(); }
+    BOOST_FORCEINLINE const_iterator end() const { return block_.end(); }
 
     //==========================================================================
     /*!
@@ -146,18 +195,10 @@ namespace nt2 { namespace memory
     BOOST_FORCEINLINE specific_data_type&  get_spec_data()       { return specific_data_; }
     BOOST_FORCEINLINE specific_data_type&  get_spec_data() const { return specific_data_; }
 
-    //==========================================================================
-    /*!
-     * Return the end of the data
-     */
-    //==========================================================================
-    BOOST_FORCEINLINE iterator       end()       { return block_.data().end(); }
-    BOOST_FORCEINLINE const_iterator end() const { return block_.data().end(); }
-
     private:
-    block_t             block_;
-    sizes_type          sizes_;
-    mutable  specific_data_type  specific_data_;
+    block_t                     block_;
+    sizes_type                  sizes_;
+    mutable specific_data_type  specific_data_;
   };
 } }
 

@@ -10,7 +10,6 @@
 #define NT2_CORE_CONTAINER_MEMORY_ARRAY_BUFFER_HPP_INCLUDED
 
 #include <boost/swap.hpp>
-#include <boost/assert.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
@@ -43,6 +42,8 @@ namespace nt2 {  namespace memory
     typedef T const*                                  const_iterator;
     typedef T&                                        reference;
     typedef const T&                                  const_reference;
+    typedef T*                                        pointer;
+    typedef T const*                                  const_pointer;
     typedef std::ptrdiff_t                            size_type;
     typedef std::ptrdiff_t                            difference_type;
 
@@ -55,10 +56,10 @@ namespace nt2 {  namespace memory
     // Constructor from Size. Size information is discarded but checked if
     // comaptible with static storage size
     //==========================================================================
-    array_buffer( size_type s, allocator_type const& = allocator_type() )
-    {
-      BOOST_ASSERT_MSG(N == s, "Buffer constructed with incompatible size.");
-    }
+    array_buffer( size_type s, allocator_type const& = allocator_type() ) {}
+
+    pointer       raw()       { return &storage_[0]; }
+    const_pointer raw() const { return &storage_[0]; }
 
     //==========================================================================
     /**!
@@ -161,6 +162,25 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
+     * Return a pointer to the ith element of the buffer.
+     *
+     * \param  pos 1D Index of the element to point
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE pointer
+    get(difference_type i)
+    {
+      return &storage_[i-BaseIndex];
+    }
+
+    BOOST_FORCEINLINE const_pointer
+    get(difference_type i) const
+    {
+      return &storage_[i-BaseIndex];
+    }
+
+    //==========================================================================
+    /**!
      * Swap the contents of the buffer with another one.
      *
      * \param src buffer to swap with
@@ -180,10 +200,7 @@ namespace nt2 {  namespace memory
      * index.
      **/
     //==========================================================================
-    void resize(size_type s)
-    {
-      BOOST_ASSERT_MSG(N == s, "Buffer resized with incompatible size.");
-    }
+    size_type resize(size_type s) { return N; }
 
     protected:
     BOOST_SIMD_ALIGNED_TYPE(value_type) storage_[N];

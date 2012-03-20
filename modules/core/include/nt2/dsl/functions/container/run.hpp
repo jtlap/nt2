@@ -12,96 +12,67 @@
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/assign.hpp>
-#include <nt2/include/functions/extent.hpp>
-#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/transform.hpp>
+#include <nt2/include/functions/fold.hpp>
+#include <nt2/include/functions/terminal.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-#include <boost/fusion/include/pop_front.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Assignment of tables evaluates the right-hand-side in read mode and passes
-  // the result to the left-hand-side for writing
+  // Element-wise operations go to transform
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(Position)(Target)
-                            , ((expr_< unspecified_<A0>
-                                     , nt2::tag::assign_
-                                     , boost::mpl::long_<2>
-                                     >
-                              ))
-                             (fusion_sequence_<Position>)
-                             (target_<unspecified_<Target> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+                            , (A0)(T0)(N0)(A1)(T1)(N1)
+                            , ((node_<A0, elementwise_<T0>, N0>))
+                              ((node_<A1, elementwise_<T1>, N1>))
                             )
   {
-    typedef typename boost::proto::result_of::
-            child_c<A0 const&, 0>::type                             result_type;
-      
-    result_type operator()(A0 const& a0, Position const& pos, Target const&) const
-    {
-      nt2::run( boost::proto::child_c<0>(a0)
-              , pos
-              , nt2::run( boost::proto::child_c<1>(a0)
-                        , pos
-                        , Target()
-                        )
-              );
-
-      return boost::proto::child_c<0>(a0);
-    }
-  };
-    
-  //============================================================================
-  // When an assign(lhs,rhs) expression is run, we perform the evaluation of rhs
-  // then store it in lhs. Depending on the lhs nature (real terminal or a node
-  // containing a call to any indexing function, the result of the evaluation is
-  // returned, usually as non-const reference.
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(S0)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::assign_
-                                     , boost::mpl::long_<2>
-                                     >
-                              ))
-                            )
-  {
-    typedef typename boost::proto::result_of::
-    child_c<A0 const&, 0>::type                             result_type;
-
-    typedef typename meta::
-            strip< typename meta::
-                   scalar_of<result_type>::type
-                 >::type                                    stype;
+    typedef A0&                                             result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
+    operator()(A0& a0, A1& a1) const
     {
-      boost::proto::child_c<0>(a0).resize(a0.extent());
-
-      typename A0::index_type::type bs;
-      std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-      std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
-      std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
-
-      for(std::ptrdiff_t j=olow; j!=obound; ++j)
-        for(std::ptrdiff_t i=ilow; i!=bound; ++i)
-          nt2::run(a0, boost::fusion::vector_tie(i,j), meta::as_<stype>());
-
-      return boost::proto::child_c<0>(a0);
+      a0.resize(a1.extent());
+      nt2::transform(a0, a1);
+      return a0;
     }
   };
 
   //============================================================================
-  // When an arbitrary expression is run, we perform its evaluation into a
-  // local temporary container of proper type. This temporary is then returned by
-  // value.
+  // Reductions operations go to fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+                            , (A0)(T0)(N0)(A1)(T1)(N1)
+                            , ((node_<A0, elementwise_<T0>, N0>))
+                              ((node_<A1, reduction_<T1>, N1>))
+                            )
+  {
+    typedef A0&                                             result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, A1& a1) const
+    {
+      a0.resize(a1.extent());
+      // TODO
+      #if 0
+      nt2::fold( a0, boost::proto::child_c<0>(a1)
+               , typename T1::init()
+               , typename nt2::make_functor<T1>::type()
+               , boost::proto::child_c<1>(a1)
+               );
+      #endif
+      return a0;
+    }
+  };
+
+  //============================================================================
+  // Non-assign table expressions are reduced to assign expressions
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(S0)(T)(N)
+                            , (mpl::not_< is_same<T, boost::simd::tag::assign_> >)
                             , ((expr_< table_< unspecified_<A0>, S0 >
                                      , T
                                      , N
@@ -112,53 +83,24 @@ namespace nt2 { namespace ext
     typedef typename boost::
     remove_reference< typename boost::dispatch::meta::
                       terminal_of< typename boost::dispatch::meta::
-                                   semantic_of<A0 const&>::type
+                                   semantic_of<A0&>::type
                                  >::type
                     >::type                                result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
       result_type tmp;
-      run(assign(tmp, a0));
+      run_assign(tmp, a0);
       return tmp;
     }
   };
 
   //============================================================================
-  // When an assign(lhs,rhs) scalar expression is run, we perform a single
-  // assignment of said scalar value.
+  // Non-assign scalar expressions are evaluated directly
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_, (A0)
-                            , ((expr_< scalar_< unspecified_<A0> >
-                                     , nt2::tag::assign_
-                                     , boost::mpl::long_<2>
-                                     >
-                              ))
-                            )
-  {
-    typedef typename boost::proto::result_of::
-    child_c<A0 const&, 0>::type                             result_type;
-
-    typedef typename meta::
-            strip< typename meta::scalar_of<result_type>::type>::type
-            target_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0) const
-    {
-      boost::proto::child_c<0>(a0).resize(a0.extent());
-
-      nt2::run(a0, boost::fusion::vector0<>(), meta::as_<target_type>());
-      return boost::proto::child_c<0>(a0);
-    }
-  };
-
-  //============================================================================
-  // When a scalar expression is run, we don't perform the operation into
-  // a temporary, but rather directly return it.
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(T)(N)
+                            , (mpl::not_< is_same<T, boost::simd::tag::assign_> >)
                             , ((expr_< scalar_< unspecified_<A0> >
                                      , T
                                      , N
@@ -167,12 +109,36 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::
-    semantic_of<A0 const&>::type                            result_type;
+    semantic_of<A0&>::type                                  result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
       typedef typename meta::strip<result_type>::type stype;
       return nt2::run( a0, boost::fusion::vector0<>(), meta::as_<stype>() );
+    }
+  };
+
+  //============================================================================
+  // Assign expressions call run_assign
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)
+                            , ((node_< A0
+                                     , boost::simd::tag::assign_
+                                     , boost::mpl::long_<2>
+                                     >
+                              ))
+                            )
+  {
+    typedef typename boost::dispatch::meta::
+            call<tag::run_assign_( typename boost::proto::result_of::child_c<A0&, 0>::type
+                                 , typename boost::proto::result_of::child_c<A0&, 1>::type
+                                 )
+                >::type                                        result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
+    {
+      return nt2::run_assign(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0));
     }
   };
 } }

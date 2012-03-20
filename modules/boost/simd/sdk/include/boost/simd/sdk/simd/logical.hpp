@@ -110,7 +110,9 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Origin>
   struct  hierarchy_of< simd::logical<T>, Origin>
   {
-    typedef meta::scalar_< simd::ext::logical_<Origin> >  type;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same< simd::logical<T>, stripped >, stripped, Origin >::type origin_;
+    typedef meta::scalar_< simd::ext::logical_<origin_> >  type;
   };
  
   template<class T, class Origin>

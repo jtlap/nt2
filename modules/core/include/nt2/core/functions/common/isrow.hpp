@@ -12,6 +12,7 @@
 #include <nt2/core/functions/isrow.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
+#include <nt2/sdk/meta/safe_at.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -28,7 +29,7 @@ namespace nt2 { namespace ext
       typename meta::call<tag::extent_(A0 const&)>::type ex = nt2::extent(a0);
       std::size_t nz = nt2::numel(ex);
 
-      return (details::safe_at_c<1>(ex) == nz ) && (nz > 0);
+      return (meta::safe_at_c<1>(ex) == nz ) && (nz > 0);
     }
   };
 } }

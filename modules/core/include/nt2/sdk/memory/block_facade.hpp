@@ -53,6 +53,8 @@ namespace nt2 { namespace memory
     typedef typename buffer_t::const_reference  const_reference;
     typedef typename buffer_t::size_type        size_type;
     typedef typename buffer_t::difference_type  difference_type;
+    typedef typename buffer_t::pointer          pointer;
+    typedef typename buffer_t::const_pointer    const_pointer;
 
     //==========================================================================
     // Default Constructor
@@ -124,6 +126,15 @@ namespace nt2 { namespace memory
     BOOST_FORCEINLINE difference_type upper()       const { return data_.upper();        }
     BOOST_FORCEINLINE difference_type inner_upper() const { return data_.inner_upper();  }
     BOOST_FORCEINLINE difference_type outer_upper() const { return data_.outer_upper();  }
+
+    BOOST_FORCEINLINE pointer       raw()       { return data_.raw(); }
+    BOOST_FORCEINLINE const_pointer raw() const { return data_.raw(); }
+
+    BOOST_FORCEINLINE iterator        begin()       { return data_.begin(); }
+    BOOST_FORCEINLINE const_iterator  begin() const { return data_.begin(); }
+
+    BOOST_FORCEINLINE iterator        end()         { return data_.end(); }
+    BOOST_FORCEINLINE const_iterator  end()   const { return data_.end(); }
 
     //==========================================================================
     // Access to data

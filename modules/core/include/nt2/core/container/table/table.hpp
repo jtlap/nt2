@@ -43,6 +43,8 @@ namespace nt2 { namespace container
     typedef typename container_type::extent_type                  extent_type;
     typedef typename container_type::index_type                   index_type;
     typedef typename container_type::allocator_type               allocator_type;
+    typedef typename container_type::pointer                      pointer;
+    typedef typename container_type::const_pointer                const_pointer;
 
     //==========================================================================
     //  table default constructor
@@ -52,16 +54,7 @@ namespace nt2 { namespace container
     //==========================================================================
     //  table constructor from its allocator
     //==========================================================================
-    table( allocator_type const& a)
-    {
-      container_type that(a);
-      boost::proto::value(*this).swap(that);
-    }
-
-    //==========================================================================
-    // table copy constructor
-    //==========================================================================
-    table( table const& src ) { nt2::construct(*this, src); }
+    table( allocator_type const& a ) : parent(container_type(a)) {}
 
     //==========================================================================
     // table constructor from a single initializer.
@@ -96,12 +89,10 @@ namespace nt2 { namespace container
     using parent::operator=;
 
     //==========================================================================
-    // Non-content preserving resize.
+    // Access to raw data
     //==========================================================================
-    template<class Size> void resize( Size const& sz )
-    {
-      boost::proto::value(*this).resize(extent_type(sz));
-    }
+    pointer       raw()       { return boost::proto::value(*this).raw(); }
+    const_pointer raw() const { return boost::proto::value(*this).raw(); }
   };
 } }
 

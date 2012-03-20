@@ -15,6 +15,8 @@
   * \brief Defines and implements the \c nt2::memory::iliffe_buffer class
   **/
 //==============================================================================
+#include <iostream>
+
 #include <nt2/sdk/meta/view_at.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/meta/as_sequence.hpp>
@@ -74,6 +76,16 @@ namespace nt2 { namespace memory
     typedef typename Data::const_reference              const_reference;
 
     //==========================================================================
+    /** Type of pointer to a value                                            */
+    //==========================================================================
+    typedef typename Data::pointer                      pointer;
+
+    //==========================================================================
+    /** Type of pointer to a value                                            */
+    //==========================================================================
+    typedef typename Data::const_pointer                const_pointer;
+
+    //==========================================================================
     /** Type representing an amount of values                                 */
     //==========================================================================
     typedef typename Data::size_type                    size_type;
@@ -126,6 +138,31 @@ namespace nt2 { namespace memory
       make_links();
       inner_up_ = data_.lower() + inner_ - 1;
     }
+
+    iliffe_buffer(iliffe_buffer const& src)
+      : data_ (src.data_), index_(src.index_.size()), inner_(src.inner_)
+    {
+      make_links();
+      inner_up_ = data_.lower() + inner_ - 1;
+    }
+
+    iliffe_buffer& operator=(iliffe_buffer const& src)
+    {
+      data_  = src.data_;
+      index_.resize(src.index_.size());
+      inner_    = src.inner_;
+
+      make_links();
+      inner_up_ = data_.lower() + inner_ - 1;
+
+      return *this;
+    }
+
+    //==========================================================================
+    // Raw data block
+    //==========================================================================
+    pointer       raw()       { return data_.raw(); }
+    const_pointer raw() const { return data_.raw(); }
 
     //==========================================================================
     /**
@@ -196,10 +233,10 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<typename Sizes> inline void resize( Sizes const& szs )
     {
-      data_.resize(data_size(szs));
-      index_.resize(index_size(szs));
+      std::size_t index_size_ = index_.resize(index_size(szs));
+      std::size_t data_size_  = data_.resize(data_size(szs));
 
-      inner_    = boost::fusion::at_c<0>(szs);
+      inner_ = index_size_ ? data_size_/index_size_: data_size_;
       inner_up_ = data_.lower() + inner_ - 1;
       make_links();
     }
@@ -231,6 +268,24 @@ namespace nt2 { namespace memory
       return index_(j)[i];
     }
 
+    //==========================================================================
+    /**
+     * Return the ith index
+     * \param pos 1D Index of the element to point
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE pointer
+    get( difference_type i )
+    {
+      return index_(i);
+    }
+
+    BOOST_FORCEINLINE const_pointer
+    get( difference_type i ) const
+    {
+      return index_(i);
+    }
+
     void swap( iliffe_buffer& src )
     {
       data_.swap(src.data_);
@@ -250,7 +305,7 @@ namespace nt2 { namespace memory
       local.swap(src);
     }
 
-    template<class TT, std::size_t SS, std::ptrdiff_t BB>
+    template<class TT, std::ptrdiff_t SS, std::ptrdiff_t BB>
     void index_swap( array_buffer<TT,SS,BB>&, array_buffer<TT,SS,BB>& ) {}
 
     //==========================================================================
@@ -291,8 +346,8 @@ namespace nt2 { namespace memory
       {
         typename Index::difference_type i = index_.lower();
         typename Index::difference_type u = index_.upper();
-
         index_(i++) = data_.origin();
+
         for(; i <= u; ++i) index_(i) = index_(i-1) + inner_;
       }
     }

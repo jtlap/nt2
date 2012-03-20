@@ -21,6 +21,7 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/begin.hpp>
 #include <boost/fusion/include/end.hpp>
+#include <nt2/sdk/meta/safe_at.hpp>
 
 namespace nt2 { namespace details
 {
@@ -151,24 +152,6 @@ namespace nt2 { namespace details
     );
   }
 
-  template<int N, class T> BOOST_FORCEINLINE
-  typename boost::lazy_enable_if_c
-  < (N < boost::fusion::result_of::size<T>::type::value)
-  , boost::fusion::result_of::at_c<const T, N>
-  >::type safe_at_c(const T& t)
-  {
-    return boost::fusion::at_c<N>(t);
-  }
-
-  template<int N, class T> BOOST_FORCEINLINE
-  typename boost::disable_if_c
-  < (N < boost::fusion::result_of::size<T>::type::value)
-  , boost::mpl::size_t<1>
-  >::type safe_at_c(const T&)
-  {
-    return boost::mpl::size_t<1>();
-  }
-
   template<typename A1, typename A2> BOOST_FORCEINLINE
   bool compare_equal(A1 const&, A2 const&, boost::mpl::long_<-1> const&)
   {
@@ -178,13 +161,13 @@ namespace nt2 { namespace details
   template<typename A1, typename A2> BOOST_FORCEINLINE
   bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<0> const&)
   {
-    return (details::safe_at_c<0>(a1) == details::safe_at_c<0>(a2) );
+    return (meta::safe_at_c<0>(a1) == meta::safe_at_c<0>(a2) );
   }
 
   template<typename A1, typename A2, long N> BOOST_FORCEINLINE
   bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<N> const&)
   {
-    return (details::safe_at_c<N>(a1) == details::safe_at_c<N>(a2) )
+    return (meta::safe_at_c<N>(a1) == meta::safe_at_c<N>(a2) )
         &&  compare_equal(a1,a2,boost::mpl::long_<N-1>());
   }
 
@@ -197,13 +180,13 @@ namespace nt2 { namespace details
   template<typename A1, typename A2> BOOST_FORCEINLINE
   bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<0> const&)
   {
-    return (details::safe_at_c<0>(a1) != details::safe_at_c<0>(a2) );
+    return (meta::safe_at_c<0>(a1) != meta::safe_at_c<0>(a2) );
   }
 
   template<typename A1, typename A2, long N> BOOST_FORCEINLINE
   bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<N> const&)
   {
-    return (details::safe_at_c<N>(a1) != details::safe_at_c<N>(a2) )
+    return (meta::safe_at_c<N>(a1) != meta::safe_at_c<N>(a2) )
         ||  compare_not_equal(a1,a2,boost::mpl::long_<N-1>());
   }
 } }

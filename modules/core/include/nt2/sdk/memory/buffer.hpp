@@ -15,6 +15,7 @@
  * Defines the nt2::memory::buffer class and related interface
  **/
 //==============================================================================
+#include <iterator>
 #include <boost/assert.hpp>
 #include <boost/mpl/integral_c.hpp>
 #include <boost/fusion/include/at.hpp>
@@ -24,7 +25,6 @@
 #include <nt2/sdk/memory/adapted/buffer.hpp>
 #include <nt2/sdk/memory/details/buffer_base.hpp>
 #include <boost/detail/workaround.hpp>
-#include <iterator>
 
 namespace nt2 {  namespace memory
 {
@@ -58,6 +58,8 @@ namespace nt2 {  namespace memory
     typedef typename parent_data::const_reverse_iterator  const_reverse_iterator;
     typedef typename parent_data::reference               reference;
     typedef typename parent_data::const_reference         const_reference;
+    typedef typename parent_data::pointer                 pointer;
+    typedef typename parent_data::const_pointer           const_pointer;
     typedef typename parent_data::size_type               size_type;
     typedef typename parent_data::difference_type         difference_type;
 
@@ -144,6 +146,7 @@ namespace nt2 {  namespace memory
      * Return a (const) pointer to the biased beginning of the buffer data
      **/
     //==========================================================================
+    using parent_data::raw;
     using parent_data::origin;
 
     //==========================================================================
@@ -235,6 +238,25 @@ namespace nt2 {  namespace memory
 
     //==========================================================================
     /**!
+     * Return a pointer to the ith element of the buffer.
+     *
+     * \param  pos 1D Index of the element to point
+     **/
+    //==========================================================================
+    BOOST_FORCEINLINE pointer
+    get(difference_type i)
+    {
+      return &parent_data::origin_[i];
+    }
+
+    BOOST_FORCEINLINE const_pointer
+    get(difference_type i) const
+    {
+      return &parent_data::origin_[i];
+    }
+
+    //==========================================================================
+    /**!
      * Swap the contents of the buffer with another one.
      *
      * \param src buffer to swap with
@@ -254,7 +276,7 @@ namespace nt2 {  namespace memory
      * \param s A Boost.Fusion \c RandomAccessSequence containing the new size.
      **/
     //==========================================================================
-    void resize(size_type sz) { parent_data::resize( sz ); }
+    size_type resize(size_type sz) { return parent_data::resize( sz ); }
 
     protected:
     using parent_data::allocator;

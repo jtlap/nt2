@@ -14,27 +14,13 @@
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #include <iostream>
 
 #define M0(z,n,t) ::parent
 #define UP(T,N) T BOOST_PP_REPEAT(N,M0,~)
-////////////////////////////////////////////////////////////////////////////////
-// Test that hierarchy_of is correct for ref, value and const ref
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(hierarchy_of_ref_cref, BOOST_SIMD_TYPES)
-{
-  using boost::is_same;
-  using namespace boost::simd::meta;
-  using namespace boost::dispatch::meta;
 
-  typedef typename hierarchy_of<as_<T> >::type        hvalue;
-  typedef typename hierarchy_of<as_<T>& >::type       rvalue;
-  typedef typename hierarchy_of<as_<T>const&  >::type crvalue;
-
-  NT2_TEST( (is_same<hvalue, rvalue>::value) );
-  NT2_TEST( (is_same<hvalue, crvalue>::value) );
-}
 /*
 NT2_TEST_CASE(hierarchy_of_ints64)
 {

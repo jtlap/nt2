@@ -34,11 +34,10 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::scalar_of<A0>::type stype;
-    typedef stype const& result_type;
+    typedef stype BOOST_SIMD_MAY_ALIAS const& result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      typedef BOOST_SIMD_MAY_ALIAS stype stype_alias;
-      return reinterpret_cast<stype_alias const*>(&a0)[a1];
+      return reinterpret_cast<stype BOOST_SIMD_MAY_ALIAS const*>(&a0)[a1];
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)
@@ -47,11 +46,10 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::scalar_of<A0>::type stype;
-    typedef stype const& result_type;
+    typedef stype BOOST_SIMD_MAY_ALIAS const& result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      typedef BOOST_SIMD_MAY_ALIAS stype stype_alias;
-      return reinterpret_cast<stype_alias const*>(&a0)[a1];
+      return reinterpret_cast<stype BOOST_SIMD_MAY_ALIAS const*>(&a0)[a1];
     }
   };
   
