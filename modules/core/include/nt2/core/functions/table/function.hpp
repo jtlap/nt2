@@ -66,12 +66,12 @@ namespace nt2
                        child_c<Expr&, 0>::type                               child0;
       typedef typename boost::fusion::result_of::pop_front<Expr const>::type childN;
 
-      typedef typename nt2::make_size<Arity::value-1>::type reinterpreted_size;
+      typedef typename nt2::make_size< boost::fusion::result_of::size<State>::type::value >::type reinterpreted_size;
 
       typedef typename meta::
-              call<tag::sub2sub_( typename meta::call<tag::extent_(Expr&)>::type
+              call<tag::sub2sub_( reinterpreted_size const&
                                 , State
-                                , reinterpreted_size const&
+                                , typename meta::call<tag::extent_(Expr&)>::type
                                 )
                   >::type pos;
 
@@ -87,7 +87,7 @@ namespace nt2
       BOOST_FORCEINLINE result_type
       operator()(Expr& expr, State& state, Data const& data) const
       {
-        position_type p( boost::fusion::transform(zipped(seq(boost::fusion::pop_front(expr), sub2sub(expr.extent(), state, reinterpreted_size(boost::proto::child_c<0>(expr).extent())))), relative_view_call()) );
+        position_type p( boost::fusion::transform(zipped(seq(boost::fusion::pop_front(expr), sub2sub(reinterpreted_size(expr.extent()), state, expr.extent()))), relative_view_call()) );
 
         return nt2::run( boost::proto::child_c<0>(expr), p, data );
       }
