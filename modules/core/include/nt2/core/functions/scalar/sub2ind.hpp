@@ -71,6 +71,14 @@ namespace nt2 { namespace ext
     {
       return boost::fusion::at_c<0>(p);
     }
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval( const A0&, const A1& p
+        , const boost::mpl::int_<0>&, const boost::mpl::int_<-1>&
+        ) const
+    {
+      return 1;
+    }
   };
 
   //============================================================================
@@ -129,6 +137,14 @@ namespace nt2 { namespace ext
         ) const
     {
       return boost::fusion::at_c<0>(p);
+    }
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval( const A0&, const A1& p, const A2& b
+        , const boost::mpl::int_<0>&, const boost::mpl::int_<-1>&
+        ) const
+    {
+      return boost::fusion::at_c<0>(b);
     }
   };
 } }
