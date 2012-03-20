@@ -22,13 +22,12 @@ namespace nt2
 
   //============================================================================
   /*!
-   * TODO Determines the linear index equivalents to the specified subscripts for
-   * each dimension of an N-dimensional container of size .
+   * Determines a N-dimensional subscript from a M-dimensional subscript.
    *
-   * \param size Size sequence of target container
-   * \param pos  Subscript to convert
-   * \param base Optionnal base index sequence for non canonic container
-   * \return A linear index pointing to the same element than \c pos.
+   * \param sizein  Input size M
+   * \param pos     Subscript to convert
+   * \param sizeout Output size N
+   * \return The subscript of size N corresponding to pos of size M.
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sub2sub_, sub2sub, 3)
