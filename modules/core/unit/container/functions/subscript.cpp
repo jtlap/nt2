@@ -75,7 +75,7 @@ NT2_TEST_CASE( semantic_dimensions )
 
   NT2_TEST_EXPR_TYPE( a(_, 1, _, 1)
                     , size_of<mpl::_>
-                    , nt2::_4D
+                    , ( of_size_<-1, 1, -1, 1> )
                     );
 
   NT2_TEST_EXPR_TYPE( a(b)
