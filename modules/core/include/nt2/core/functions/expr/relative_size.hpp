@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
     //==========================================================================
     // If _ is the last indexer, return the slice of all remaining sizes
     //==========================================================================
-    typedef meta::call<tag::numel_( Size, boost::mpl::int_<Current::value+1> )> true_type;
+    typedef meta::call<tag::numel_( Size, boost::mpl::int_<Current::value> )> true_type;
 
     //==========================================================================
     // Else, return current size
