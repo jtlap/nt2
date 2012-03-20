@@ -107,7 +107,7 @@ namespace nt2
       BOOST_FORCEINLINE result_type
       operator()(Expr const& expr, State const& state, Data const& data) const
       {
-        position_type p(transform(zipped(seq(boost::fusion::pop_front(expr), details::get_pos<new_type>(state))), relative_view_call()));
+        position_type p(boost::fusion::transform(zipped(seq(boost::fusion::pop_front(expr), details::get_pos<new_type>(state))), relative_view_call()));
 
         return nt2::run( boost::proto::child_c<0>(expr), as_unaligned(p), data );
       }
@@ -166,7 +166,7 @@ namespace nt2
       BOOST_FORCEINLINE result_type
       operator()(Expr const& expr, Seq const& state, Data const& data) const
       {
-        position_type p( transform(zipped(seq(boost::fusion::pop_front(expr), details::get_pos<new_type>(state.seq_))), relative_view_call()) );
+        position_type p( boost::fusion::transform(zipped(seq(boost::fusion::pop_front(expr), details::get_pos<new_type>(state.seq_))), relative_view_call()) );
 
         return nt2::run( boost::proto::child_c<0>(expr), as_unaligned(p), data );
       }

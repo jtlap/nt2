@@ -42,17 +42,20 @@
 #define NT2_DISABLE_ASSERTS
 #endif
 
+#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_ENABLE_ASSERT_HANDLER)
+#error BOOST_ENABLE_ASSERT_HANDLER must be defined to use NT2_ASSERTS_AS_EXCEPTIONS
+#endif
+
+#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
+
 //==============================================================================
 // Make assertion into exceptions
 //==============================================================================
+
 #include <iosfwd>
 #include <nt2/sdk/error/error.hpp>
 #include <sstream>
-
-#if  !defined(NT2_NO_EXCEPTIONS) || defined(DOXYGEN_ONLY)
-
-
-namespace nt2 { namespace details { NT2_ERROR_INFO(assert_info, char const*); } }
+#include <boost/throw_exception.hpp>
 
 namespace nt2
 {
@@ -66,14 +69,9 @@ namespace nt2
   struct assert_exception : nt2::exception
   {
     assert_exception(std::string const& msg) : nt2::exception(msg) {}
-    virtual void display(std::ostream& os) const throw();
   };
 }
 
-#endif
-
-#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_ENABLE_ASSERT_HANDLER)
-#error BOOST_ENABLE_ASSERT_HANDLER must be defined to use NT2_ASSERTS_AS_EXCEPTIONS
 #endif
 
 //==============================================================================
@@ -105,12 +103,10 @@ namespace boost
     #ifndef BOOST_EXCEPTION_DISABLE
     ::boost::exception_detail
     ::throw_exception_(   ::nt2::assert_exception(ss.str())
-                      <<  ::nt2::details::assert_info(expr)
                         , fn,f,l
                       );
     #else
     ::boost::throw_exception(   ::nt2::assert_exception(ss.str())
-                            <<  ::nt2::details::assert_info(expr)
                             );
     #endif
     #elif defined(NT2_DEBUG)
@@ -133,12 +129,10 @@ namespace boost
     #ifndef BOOST_EXCEPTION_DISABLE
     ::boost::exception_detail
     ::throw_exception_(   ::nt2::assert_exception(ss.str())
-                      <<  ::nt2::details::assert_info(expr)
                         , fn,f,l
                       );
     #else
     ::boost::throw_exception(   ::nt2::assert_exception(ss.str())
-                            <<  ::nt2::details::assert_info(expr)
                             );
     #endif
 #elif defined(NT2_DEBUG)

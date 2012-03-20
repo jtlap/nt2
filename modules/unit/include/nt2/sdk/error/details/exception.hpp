@@ -11,65 +11,26 @@
 
 /*!
  * \file
- * \brief Defines the \ref boost::dispatch::exception class
+ * \brief Defines the \ref nt2::exception class
  */
 
-#include <iosfwd>
+#include <boost/exception/exception.hpp>
+#include <stdexcept>
 #include <string>
-#include <boost/exception/all.hpp>
-
-//==============================================================================
-/*!
- * \ingroup error
- * Define a new Boost.Dispatch exception information carrier. Information carriers are
- * used to feed informations from the throwing site to the exception instance
- * in a safe way.
- *
- * \param NAME Name of the diagnostic carrier
- * \param TYPE Type of the information gathered by the carrier
- */
-//==============================================================================
-#define NT2_ERROR_INFO(NAME,TYPE)                                     \
-typedef boost::error_info<struct BOOST_PP_CAT(tag_,NAME),TYPE>  NAME  \
 
 namespace nt2
 {
   //============================================================================
   /*!
    * \ingroup error
-   * exception is the base abstract class for all Boost.Dispatch exceptions. It implements
-   * the classical STD compliant interface, is compatible with boost::exception
-   * and can be directly streamed for easy display.
+   * exception is the base abstract class for all NT2 exceptions. It implements
+   * the classical STD compliant interface, and is compatible with boost::exception.
    */
   //============================================================================
   struct exception : boost::exception, std::runtime_error
   {
     exception(const std::string& msg) : boost::exception(), std::runtime_error(msg) {}
-
-    //==========================================================================
-    /*!
-     * Stream exception information context to an output stream. This abstract
-     * member function has to be overloaded when defining a new exception
-     * sub-class.
-     *
-     * \param os an output stream to send the exception context to.
-     */
-    //==========================================================================
-    virtual void display(std::ostream& os) const throw() = 0;
   };
-
-  //============================================================================
-  /*!
-   * \ingroup error
-   * Stream an exception information to an output stream.
-   *
-   * \param os an output stream to send the exception context to.
-   * \param e  exception instance to stream out.
-   *
-   * \return The updated output stream
-   */
-  //============================================================================
-  std::ostream& operator<<( std::ostream& os, exception const& e );
 }
 
 #endif

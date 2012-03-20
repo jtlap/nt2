@@ -30,6 +30,8 @@ SET( SOURCES
   issymetric.cpp
   ishermitian.cpp
   istriangular.cpp
+  eye.cpp
+  triu.cpp
 # List of test files for toolbox core.settings
    )
 

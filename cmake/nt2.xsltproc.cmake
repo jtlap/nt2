@@ -7,12 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(NT2Module)
-nt2_module_source_setup(unit)
-
-set(SOURCES
-    timing/now.cpp
-    timing/timers.cpp
-    config/version.cpp
-   )
-nt2_module_add_library(nt2 ${SOURCES})
+set(ENV{XML_CATALOG_FILES} ${CATALOG})
+execute_process(COMMAND ${XSLTPROC_EXECUTABLE} --output ${OUTPUT} --xinclude --nonet ${ARGS})

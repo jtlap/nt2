@@ -7,12 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(NT2Module)
-nt2_module_source_setup(unit)
+include(nt2.doc)
 
-set(SOURCES
-    timing/now.cpp
-    timing/timers.cpp
-    config/version.cpp
-   )
-nt2_module_add_library(nt2 ${SOURCES})
+nt2_doc(doc qbk/nt2.qbk ref.doxyfile)

@@ -6,19 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SETTINGS_SPECIFIC_DATA_HPP_INCLUDED
-#define NT2_SETTINGS_SPECIFIC_DATA_HPP_INCLUDED
+#ifndef NT2_SDK_META_ADD_SETTINGS_HPP_INCLUDED
+#define NT2_SDK_META_ADD_SETTINGS_HPP_INCLUDED
 
-namespace nt2
+#include <nt2/core/settings/settings.hpp>
+
+namespace nt2 { namespace meta
 {
-  template <typename Tag, typename Type> struct specific_data
+  template<class Type, class Settings> struct add_settings
   {
-    struct type { 
-      void swap(type& ) {} 
-
-      void SyncData(){}
-    };
+    typedef Type type;
   };
-}
+} }
 
 #endif

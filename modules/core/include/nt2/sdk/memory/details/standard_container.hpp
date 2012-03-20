@@ -101,12 +101,14 @@ namespace nt2 { namespace memory
     template<class Position> BOOST_FORCEINLINE
     reference operator[]( Position const& pos )
     {
+      specific_data_.SyncData();      
       return parent::access(pos,block_,sizes_);
     }
 
     template<class Position> BOOST_FORCEINLINE
     const_reference operator[]( Position const& pos ) const
     {
+      specific_data_.SyncData();
       return parent::access(pos,block_,sizes_);
     }
 
