@@ -280,7 +280,6 @@ NT2_TEST_CASE( colon_subscript )
       for(int i=1;i<=5;i++)
        NT2_TEST_EQUAL( T(a1(i,j,k)), T(a0(i,j,k)) );
 
-
     for(int r=1;r<=5;r++)
     {
       table<T> a2 = a0(r,_,_);
@@ -310,11 +309,65 @@ NT2_TEST_CASE( colon_subscript )
        for(int i=1;i<=5;i++)
         NT2_TEST_EQUAL( T(a2(i,j,1)), T(a0(i,j,r)) );
     }
-
   }
+
   //============================================================================
   // 4D subscript
   //============================================================================
+  {
+    table<T> a1 = a0(_,_,_,_);
+
+    NT2_TEST( nt2::extent( a1 ) == of_size(5,4,3,2) );
+    for(int l=1;l<=2;l++)
+      for(int k=1;k<=3;k++)
+        for(int j=1;j<=4;j++)
+          for(int i=1;i<=5;i++)
+            NT2_TEST_EQUAL( T(a1(i,j,k,l)), T(a0(i,j,k,l)) );
+
+    for(int r=1;r<=5;r++)
+    {
+      table<T> a2 = a0(r,_,_,_);
+      NT2_TEST( nt2::extent( a2 ) == of_size(1,4,3,2) );
+
+      for(int k=1;k<=2;k++)
+        for(int j=1;j<=3;j++)
+          for(int i=1;i<=4;i++)
+            NT2_TEST_EQUAL( T(a2(1,i,j,k)), T(a0(r,i,j,k)) );
+    }
+
+    for(int r=1;r<=4;r++)
+    {
+      table<T> a2 = a0(_,r,_,_);
+      NT2_TEST( nt2::extent( a2 ) == of_size(5,1,3,2) );
+
+      for(int k=1;k<=2;k++)
+        for(int j=1;j<=3;j++)
+          for(int i=1;i<=5;i++)
+            NT2_TEST_EQUAL( T(a2(i,1,j,k)), T(a0(i,r,j,k)) );
+    }
+
+    for(int r=1;r<=3;r++)
+    {
+      table<T> a2 = a0(_,_,r,_);
+      NT2_TEST( nt2::extent( a2 ) == of_size(5,4,1,2) );
+
+      for(int k=1;k<=2;k++)
+        for(int j=1;j<=4;j++)
+          for(int i=1;i<=5;i++)
+            NT2_TEST_EQUAL( T(a2(i,j,1,k)), T(a0(i,j,r,k)) );
+    }
+
+    for(int r=1;r<=2;r++)
+    {
+      table<T> a2 = a0(_,_,_,r);
+      NT2_TEST( nt2::extent( a2 ) == of_size(5,4,3,1) );
+
+      for(int k=1;k<=3;k++)
+        for(int j=1;j<=4;j++)
+          for(int i=1;i<=5;i++)
+            NT2_TEST_EQUAL( T(a2(i,j,k,1)), T(a0(i,j,k,r)) );
+    }
+  }
 }
 
 NT2_TEST_CASE( colon_subscript_extent )
