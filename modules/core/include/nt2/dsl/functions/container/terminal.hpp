@@ -126,26 +126,12 @@ namespace nt2 { namespace ext
 
     inline result_type eval ( A0 const& a0, Seq const& state, boost::mpl::true_ const& ) const
     {
-      return load<result_type>(boost::proto::value(a0).get(
-                                 boost::fusion::at_c<
-                                   boost::fusion::result_of::size<Seq>::type::value-1
-                                 >(state)
-                               ),
-                               nt2::meta::default_at_c<
-                                 boost::fusion::result_of::size<Seq>::type::value-2, 0
-                               >(state));
+      return load<result_type>(&boost::proto::value(a0)[state]);
     }
 
     inline result_type eval ( A0 const& a0, Seq const& state, boost::mpl::false_ const& ) const
     {
-      return boost::simd::unaligned_load<result_type>(boost::proto::value(a0).get(
-                                 boost::fusion::at_c<
-                                   boost::fusion::result_of::size<Seq>::type::value-1
-                                 >(state)
-                               ),
-                               nt2::meta::default_at_c<
-                                 boost::fusion::result_of::size<Seq>::type::value-2, 0
-                               >(state));
+      return unaligned_load<result_type>(&boost::proto::value(a0)[state]);
     }
   };
 
@@ -174,27 +160,13 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     eval(A0& a0, Seq const& state, Data const& data, boost::mpl::true_ const&) const
     {
-      return store<result_type>(data, boost::proto::value(a0).get(
-                                  boost::fusion::at_c<
-                                    boost::fusion::result_of::size<Seq>::type::value-1
-                                  >(state)
-                                ),
-                                nt2::meta::default_at_c<
-                                  boost::fusion::result_of::size<Seq>::type::value-2, 0
-                                >(state));
+      return store<result_type>(data, &boost::proto::value(a0)[state]);
     }
 
     BOOST_FORCEINLINE result_type
     eval(A0& a0, Seq const& state, Data const& data, boost::mpl::false_ const&) const
     {
-      return boost::simd::unaligned_store<result_type>(data, boost::proto::value(a0).get(
-                                  boost::fusion::at_c<
-                                    boost::fusion::result_of::size<Seq>::type::value-1
-                                  >(state)
-                                ),
-                                nt2::meta::default_at_c<
-                                  boost::fusion::result_of::size<Seq>::type::value-2, 0
-                                >(state));
+      return unaligned_store<result_type>(data, &boost::proto::value(a0)[state]);
     }
   };
 
