@@ -89,7 +89,9 @@ namespace nt2
       BOOST_FORCEINLINE result_type
       operator()(Expr& expr, State& state, Data const& data) const
       {
-        position_type p( boost::fusion::transform(zipped(seq(boost::fusion::pop_front(expr), reinterpreted_pos(sub2sub(reinterpreted_size(expr.extent()), state, expr.extent())))), relative_view_call()) );
+        childN children = boost::fusion::pop_front(expr);
+        reinterpreted_pos pos = sub2sub(reinterpreted_size(expr.extent()), state, expr.extent());
+        position_type p( boost::fusion::transform(zipped(seq(children, pos)), relative_view_call()) );
 
         return nt2::run( boost::proto::child_c<0>(expr), p, data );
       }
