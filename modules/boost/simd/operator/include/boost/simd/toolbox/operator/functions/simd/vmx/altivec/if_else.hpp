@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      A1 that = { vec_sel(a1(), a2(),complement(genmask(a0))()) };
+      result_type that = { vec_sel(a1(), a2(),complement(genmask(a0))()) };
       return that;
     }
   };
