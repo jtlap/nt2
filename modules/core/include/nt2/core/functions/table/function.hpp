@@ -75,8 +75,10 @@ namespace nt2
                                 )
                   >::type pos;
 
+      typedef typename nt2::make_size< Arity::value-1 >::type reinterpreted_pos;
+
       typedef boost::fusion::vector< childN const&
-                                   , pos const&
+                                   , reinterpreted_pos const&
                                    > seq;
       typedef boost::fusion::zip_view<seq> zipped;
       typedef boost::fusion::transform_view<zipped const, relative_view_call> transformed;
@@ -87,7 +89,7 @@ namespace nt2
       BOOST_FORCEINLINE result_type
       operator()(Expr& expr, State& state, Data const& data) const
       {
-        position_type p( boost::fusion::transform(zipped(seq(boost::fusion::pop_front(expr), sub2sub(reinterpreted_size(expr.extent()), state, expr.extent()))), relative_view_call()) );
+        position_type p( boost::fusion::transform(zipped(seq(boost::fusion::pop_front(expr), reinterpreted_pos(sub2sub(reinterpreted_size(expr.extent()), state, expr.extent())))), relative_view_call()) );
 
         return nt2::run( boost::proto::child_c<0>(expr), p, data );
       }
