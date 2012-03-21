@@ -29,14 +29,8 @@ namespace nt2 { namespace container
     typedef expression< typename boost::proto::terminal<container_type>::type
                       , container_type
                       >                                           parent;
-    typedef typename container_type::extent_type                  extent_type;
-    typedef typename container_type::index_type                   index_type;
-    typedef typename container_type::order_type                   order_type;
-    typedef typename container_type::allocator_type               allocator_type;
-    typedef typename container_type::pointer                      pointer;
-    typedef typename container_type::const_pointer                const_pointer;
-    typedef typename container_type::reference                    reference;
-    typedef typename container_type::const_reference              const_reference;
+    typedef typename parent::pointer                              pointer;
+    typedef typename parent::const_pointer                        const_pointer;
 
     //==========================================================================
     //  table default constructor
@@ -51,16 +45,16 @@ namespace nt2 { namespace container
     //==========================================================================
     // table copy constructor
     //==========================================================================
-    template<class A0> table( table const& a0 )
+    table( table const& a0 ) : parent(a0)
     {
-      boost::proto::value(*this) = boost::proto::value(a0);
     }
 
     //==========================================================================
     // table constructor from a single initializer.
     // This version handles initializing from of_size or expression.
     //==========================================================================
-    template<class A0> table( A0 const& a0 )
+    template<class A0>
+    table( A0 const& a0 )
     {
       nt2::construct(*this,a0);
     }
@@ -68,7 +62,8 @@ namespace nt2 { namespace container
     //==========================================================================
     // table constructor from a pair of initializer.
     //==========================================================================
-    template<class A0, class A1> table( A0 const& a0, A1 const& a1 )
+    template<class A0, class A1>
+    table( A0 const& a0, A1 const& a1 )
     {
       nt2::construct(*this,a0,a1);
     }

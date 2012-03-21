@@ -13,7 +13,6 @@
 #include <nt2/sdk/meta/add_settings.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/core/container/dsl/forward.hpp>
 
 //==============================================================================
 // Forward declaration
