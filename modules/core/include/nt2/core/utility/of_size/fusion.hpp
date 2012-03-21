@@ -35,7 +35,7 @@ namespace boost { namespace fusion { namespace extension
 
   template<> struct category_of_impl<nt2::tag::of_size_>
   {
-    typedef random_access_traversal_tag type;
+    template<typename Seq> struct apply { typedef random_access_traversal_tag type; };
   };
 
   //============================================================================
