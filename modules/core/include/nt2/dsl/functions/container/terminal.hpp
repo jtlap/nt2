@@ -15,6 +15,8 @@
 #include <boost/dispatch/meta/transfer_qualifiers.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/store.hpp>
+#include <nt2/include/functions/unaligned_load.hpp>
+#include <nt2/include/functions/unaligned_store.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/core/container/category.hpp>
 #include <nt2/core/utility/position/position.hpp>
