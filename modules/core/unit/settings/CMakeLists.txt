@@ -8,9 +8,9 @@
 ################################################################################
 
 SET( SOURCES
+     alignment.cpp
      allocator.cpp
      buffer.cpp
-     id.cpp
      index.cpp
      size.cpp
      storage_order.cpp
@@ -18,8 +18,6 @@ SET( SOURCES
      sharing.cpp
      storage_duration.cpp
      storage_scheme.cpp
-     alignment.cpp
-     padding.cpp
    )
 
 include(CheckCXXCompilerFlag)

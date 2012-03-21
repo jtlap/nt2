@@ -23,16 +23,22 @@ namespace nt2 { namespace memory
   {
     typedef boost::mpl::false_ padding_status;
 
-    template<class Sig> struct result;
-    template<class This, class T, class N, class V>
-    struct result<This(T,N,V)> : boost::dispatch::meta::as_ref<T> {};
-
-    template<class T, class N,class V>
-    typename result<no_padding(T const&, N const&, V const&)>::type
-    operator()(T const& t, N const&, V const&) const
+    template<class Target> struct apply
     {
-      return t;
-    }
+      struct type
+      {
+        template<class Sig> struct result;
+        template<class This, class V, class N>
+        struct result<This(V,N)> : boost::dispatch::meta::as_ref<V> {};
+
+        template<class V,class N>
+        typename result<no_padding(V const&, N const&)>::type
+        operator()(V const& v, N const&) const
+        {
+          return v;
+        }
+      };
+    };
   };
 } }
 

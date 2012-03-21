@@ -126,11 +126,8 @@ namespace nt2
                         <boost::fusion::traits::is_sequence<Sz> >::type* = 0
             )
     {
-      enum{ osz = boost::fusion::result_of::size<Sz>::type::value, 
+      enum{ osz = boost::fusion::result_of::size<Sz>::type::value,
             msz = (osz < static_size) ? osz : static_size};
-      // static const  std::size_t
-      //               osz = boost::fusion::result_of::size<Sz>::type::value
-      //             , msz = (osz < static_size) ? osz : static_size;
 
       details::copy(details::pop_back_c<osz - msz>(other),&data_[0]);
 

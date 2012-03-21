@@ -13,10 +13,10 @@ namespace nt2
 {
   template <typename Tag, typename Type> struct specific_data
   {
-    struct type { 
-      void swap(type& ) {} 
-
-      void SyncData(){}
+    struct type
+    {
+      BOOST_FORCEINLINE void swap(type&)    {}
+      BOOST_FORCEINLINE void synchronize()  {}
     };
   };
 }

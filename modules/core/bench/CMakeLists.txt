@@ -9,3 +9,4 @@
 
 nt2_module_use_modules(unit sdk trigonometric core)
 ADD_SUBDIRECTORY(container)
+ADD_SUBDIRECTORY(memory)

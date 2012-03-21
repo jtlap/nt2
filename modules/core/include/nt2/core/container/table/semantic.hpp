@@ -6,28 +6,24 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_TABLE_NORMALIZE_SETTINGS_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_TABLE_NORMALIZE_SETTINGS_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_TABLE_SEMANTIC_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_TABLE_SEMANTIC_HPP_INCLUDED
 
-#include <nt2/core/settings/id.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/shape.hpp>
 #include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/settings/sharing.hpp>
-#include <nt2/core/settings/padding.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/core/settings/alignment.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
-#include <nt2/sdk/memory/cache_padding.hpp>
+#include <nt2/core/settings/normalize.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <nt2/core/settings/storage_duration.hpp>
-#include <nt2/core/settings/normalize_settings.hpp>
 
 namespace nt2
 {
@@ -38,12 +34,12 @@ namespace nt2
     //==========================================================================
     // Table settings normalization specify the following default :
     //
-    // Info:
-    // + table has no static ID
-    //
     // Layout:
     // + table is _4D
     // + table is rectangular_
+    // + table uses conventional storage scheme
+    //
+    // Access:
     // + table has a base index of 1
     // + table contains aligned data
     // + table use Matlab storage order
@@ -51,16 +47,10 @@ namespace nt2
     // Memory:
     // + table owns its memory
     // + table allocates its memory dynamically
-    // + table uses conventional storage scheme
     // + table uses boost::simd::memory::allocator
-    // + table uses the align_on_cache passing strategy
     //==========================================================================
-    template<typename T, typename S>
-    struct normalize_settings<tag::table_, T, S>
+    template<typename T, typename S> struct normalize<tag::table_, T, S>
     {
-      // Static identifier
-      typedef typename option<S,tag::id_              , id_<0>        >::type id;
-
       // Memory layout
       typedef typename option<S,tag::of_size_         , _4D           >::type sz;
       typedef typename option<S,tag::shape_           , rectangular_  >::type sh;
@@ -78,27 +68,26 @@ namespace nt2
       typedef typename option<S,tag::allocator_
                                ,allocator_< boost::simd::memory::allocator<T> >
                                >::type                                        al;
-      typedef typename option<S , tag::padding_
-                                , padding_<memory::cache_padding> >::type     pd;
       typedef typename option<S,tag::buffer_, buffer_<>            >::type    bf;
 
       // Normalized settings
-      typedef settings type(id,sz,sh,bs,ag,so,sg,sd,ss,al,pd,bf);
+      typedef settings type(tag::table_,sz,sh,bs,ag,so,sg,sd,ss,al,bf);
     };
   }
 
   namespace tag
   {
+    //==========================================================================
+    // table_ tag marking a type as usign the table semantic
+    //==========================================================================
     struct table_
     {
-      template<class T, class S, class Origin>
-      struct apply
+      template<class T, class S, class Origin> struct apply
       {
-        typedef ext::table_< typename boost::dispatch::meta::
-                             property_of<T, Origin>::type
-                           , typename meta::
-                             normalize_settings<table_, T, S>::layout
-                           >                                                type;
+        typedef ext::table_
+                < typename boost::dispatch::meta::property_of<T,Origin>::type
+                , typename meta::normalize<table_,T,S>::layout
+                >                                                type;
       };
     };
   }

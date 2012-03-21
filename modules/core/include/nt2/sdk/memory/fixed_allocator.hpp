@@ -90,7 +90,7 @@ namespace nt2 {  namespace memory
     {
       BOOST_ASSERT_MSG
       ( (s <= max_size())
-      , "Allocation requests more memory than available in this fixed_allocator"
+      , "Allocation requests more memory than available in fixed_allocator"
       );
 
       return begin_;

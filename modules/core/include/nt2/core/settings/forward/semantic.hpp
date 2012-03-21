@@ -6,33 +6,20 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_ID_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_ID_HPP_INCLUDED
+#ifndef NT2_CORE_SETTINGS_FORWARD_SEMANTIC_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_FORWARD_SEMANTIC_HPP_INCLUDED
 
-
-
-#include <boost/cstdint.hpp>
-#include <boost/mpl/string.hpp>
-#include <nt2/core/settings/option.hpp>
-#include <nt2/core/settings/forward/id.hpp>
-
-
-namespace nt2 
-{ 
-
-  namespace meta
+namespace nt2
+{
+  namespace tag
   {
     //==========================================================================
-    // Make options extracting the ID from id_
+    /*!
+     * Option tag for semantic options
+     **/
     //==========================================================================
-    template<boost::uint32_t ID, class Default>
-    struct option<id_<ID>, tag::id_, Default>
-    {
-      typedef id_<ID> type;
-    };
-  } 
+    struct semantic_ {};
+  }
 }
-
-
 
 #endif

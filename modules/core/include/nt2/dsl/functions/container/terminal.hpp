@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const&) const
     {
-       return boost::proto::value(a0)[state];
+       return boost::proto::value(a0)(state);
     }
   };
 
@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const& data) const
     {
-       return boost::proto::value(a0)[state] = data;
+       return boost::proto::value(a0)(state) = data;
     }
   };
 
@@ -118,22 +118,29 @@ namespace nt2 { namespace ext
                               ((target_< simd_<unspecified_<Data>, X> >))
                             )
   {
-    typedef typename Data::type                                  result_type;
+    typedef typename boost::dispatch::meta::
+            strip< typename boost::dispatch::meta::
+                   scalar_of< typename boost::dispatch::meta::
+                              semantic_of<A0&>::type
+                            >::type
+                 >::type                            stype;
+             
+    typedef boost::simd::native<stype, X>           result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, Seq const& state, Data const&) const
     {
-      return eval(a0, state, have_compatible_alignments<A0, A>());
+      return eval(a0, state, boost::mpl::false_());//have_compatible_alignments<A0, A>());
     }
 
     inline result_type eval ( A0 const& a0, Seq const& state, boost::mpl::true_ const& ) const
     {
-      return load<result_type>(&boost::proto::value(a0)[state]);
+      return load<result_type>(&boost::proto::value(a0)(state));
     }
 
     inline result_type eval ( A0 const& a0, Seq const& state, boost::mpl::false_ const& ) const
     {
-      return unaligned_load<result_type>(&boost::proto::value(a0)[state]);
+      return unaligned_load<result_type>(&boost::proto::value(a0)(state));
     }
   };
 
@@ -156,19 +163,19 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, Seq const& state, Data const& data) const
     {
-      return eval(a0, state, data, have_compatible_alignments<A0, A>());
+      return eval(a0, state, data, boost::mpl::false_());//have_compatible_alignments<A0, A>());
     }
 
     BOOST_FORCEINLINE result_type
     eval(A0& a0, Seq const& state, Data const& data, boost::mpl::true_ const&) const
     {
-      return store<result_type>(data, &boost::proto::value(a0)[state]);
+      return store<result_type>(data, &boost::proto::value(a0)(state));
     }
 
     BOOST_FORCEINLINE result_type
     eval(A0& a0, Seq const& state, Data const& data, boost::mpl::false_ const&) const
     {
-      return unaligned_store<result_type>(data, &boost::proto::value(a0)[state]);
+      return unaligned_store<result_type>(data, &boost::proto::value(a0)(state));
     }
   };
 

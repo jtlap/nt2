@@ -7,5 +7,4 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-ADD_SUBDIRECTORY(memory)
 ADD_SUBDIRECTORY(table)

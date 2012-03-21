@@ -6,18 +6,23 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_CALL_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_CALL_HPP_INCLUDED
+#ifndef NT2_CORE_SETTINGS_SEMANTIC_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_SEMANTIC_HPP_INCLUDED
 
-#include <nt2/sdk/functor/hierarchy.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <nt2/core/settings/forward/semantic.hpp>
+#include <nt2/core/settings/option.hpp>
 
-//==============================================================================
-// Semantic of expressions
-//==============================================================================
-namespace nt2 { namespace ext
+namespace nt2
 {
-  // TODO
-} }
+  namespace tag { struct table_; }
+
+  namespace meta
+  {
+    template<class Default> struct option<tag::table_, tag::semantic_, Default>
+    {
+      typedef tag::table_ type;
+    };
+  }
+}
 
 #endif

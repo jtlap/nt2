@@ -12,9 +12,8 @@
 #include <nt2/core/settings/forward/alignment.hpp>
 #include <nt2/core/settings/option.hpp>
 
-namespace nt2 
+namespace nt2
 {
-
   namespace meta
   {
     template<class Default> struct option<aligned_, tag::alignment_, Default>
@@ -26,7 +25,7 @@ namespace nt2
     {
       typedef unaligned_ type;
     };
-  } 
+  }
 }
 
 #endif

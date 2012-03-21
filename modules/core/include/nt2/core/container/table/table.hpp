@@ -13,38 +13,30 @@
 #include <nt2/include/functions/construct.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
+#include <nt2/core/container/table/semantic.hpp>
 #include <nt2/core/container/table/adapted/table.hpp>
-
-namespace nt2 { namespace meta
-{
-  template<class Tag, class T, class S>
-  struct make_container
-  {
-    typedef typename meta::option<S, tag::id_, id_<0> >::type   id_t;
-    typedef memory::container<Tag,id_t,T,S>                     type;
-  };
-
-  template<class Tag, class T, class S>
-  struct make_terminal
-  {
-    typedef typename make_container<Tag,T,S>::type                    cont_t;
-    typedef typename boost::dispatch::meta::terminal_of<cont_t>::type type;
-  };
-} }
 
 namespace nt2 { namespace container
 {
   template<class T, class S>
   struct  table
-        : meta::make_terminal<tag::table_,T,S>::type
+        : expression< typename boost::proto::
+                      terminal< nt2::memory::container<T,S> >::type
+                    , nt2::memory::container<T,S>
+                    >
   {
-    typedef typename meta::make_container<tag::table_,T,S>::type  container_type;
-    typedef typename meta::make_terminal<tag::table_,T,S>::type   parent;
+    typedef memory::container<T,S>                                container_type;
+    typedef expression< typename boost::proto::terminal<container_type>::type
+                      , container_type
+                      >                                           parent;
     typedef typename container_type::extent_type                  extent_type;
     typedef typename container_type::index_type                   index_type;
+    typedef typename container_type::order_type                   order_type;
     typedef typename container_type::allocator_type               allocator_type;
     typedef typename container_type::pointer                      pointer;
     typedef typename container_type::const_pointer                const_pointer;
+    typedef typename container_type::reference                    reference;
+    typedef typename container_type::const_reference              const_reference;
 
     //==========================================================================
     //  table default constructor
@@ -55,6 +47,14 @@ namespace nt2 { namespace container
     //  table constructor from its allocator
     //==========================================================================
     table( allocator_type const& a ) : parent(container_type(a)) {}
+
+    //==========================================================================
+    // table copy constructor
+    //==========================================================================
+    template<class A0> table( table const& a0 )
+    {
+      boost::proto::value(*this) = boost::proto::value(a0);
+    }
 
     //==========================================================================
     // table constructor from a single initializer.
@@ -97,4 +97,3 @@ namespace nt2 { namespace container
 } }
 
 #endif
-

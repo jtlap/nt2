@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ishermitian_, tag::cpu_
                             , (A0)
-                            , (unspecified_<A0>)
+                            , (ast_<A0>)
                             )
   {
     typedef bool result_type;
@@ -28,16 +28,16 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
     {
-      typedef typename A0::value_type value_type; 
-      if (!issquare(a0)) return false; 
+      typedef typename A0::value_type value_type;
+      if (!issquare(a0)) return false;
       for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)
         {
           for(std::ptrdiff_t i=j; i <= last_index<1>(a0) ; ++i)
             {
-              if ((value_type(a0(i, j)) != conj(value_type(a0(j, i))))) return false; 
+              if ((value_type(a0(i, j)) != conj(value_type(a0(j, i))))) return false;
             }
         }
-      return true; 
+      return true;
     }
   };
 } }

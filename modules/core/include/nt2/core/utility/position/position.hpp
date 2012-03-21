@@ -19,19 +19,26 @@
 namespace nt2
 {
   namespace tag { struct position_ {}; }
-  
+
   template<typename Seq, typename B, typename SO, typename A>
   struct position
   {
     typedef tag::position_ fusion_tag;
-    typedef typename boost::mpl::if_<boost::fusion::traits::is_view<Seq>, Seq const, Seq const&>::type sequence_type;
-    
+    typedef typename boost::mpl::if_< boost::fusion::traits::is_view<Seq>
+                                    , Seq const
+                                    , Seq const&
+                                    >::type sequence_type;
+
+    typedef typename B::type  index_type;
+    typedef SO                storage_type;
+
     position (Seq const& seq) : seq_(seq) {}
-    
+
     sequence_type seq_;
   };
 }
 
 #include <nt2/core/utility/position/fusion.hpp>
+#include <nt2/core/utility/position/adapted.hpp>
 
 #endif

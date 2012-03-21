@@ -112,10 +112,10 @@ NT2_TEST_CASE( size_static_table2D )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( size_cont )
 {
-  using nt2::meta::make_container;
+  using nt2::memory::container;
   using nt2::of_size_;
   using nt2::table;
-  typedef make_container<nt2::tag::table_, float, of_size_<5> >::type cont;
+  typedef container<float, of_size_<5> > cont;
   cont x;
 
   NT2_TEST_EQUAL( std::size_t(nt2::size(x)(1)), 5u);

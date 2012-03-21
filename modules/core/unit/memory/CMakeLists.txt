@@ -10,13 +10,11 @@
 SET( SOURCES
   array_buffer.cpp
   buffer.cpp
+  composite_buffer.cpp
   container.cpp
-  container_id.cpp
-  dimensions_of.cpp
   fixed_allocator.cpp
-  iliffe_buffer.cpp
-  padding.cpp
+# padding.cpp
 ## List of scalar test files for toolbox core.memory
    )
 
-nt2_module_add_tests(core.container.memory.unit ${SOURCES})
+nt2_module_add_tests(core.memory.unit ${SOURCES})

@@ -11,7 +11,7 @@
 #include <nt2/core/settings/sharing.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/core/container/table/normalize_settings.hpp>
+#include <nt2/core/container/table/semantic.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -128,69 +128,24 @@ NT2_TEST_CASE( shared_apply )
 {
   using boost::mpl::_;
   using nt2::settings;
-  using nt2::of_size_;
   using nt2::shared_;
-  using nt2::automatic_;
-  using nt2::dynamic_;
   using nt2::allocator_;
-  using nt2::no_padding_;
   using nt2::memory::buffer;
   using nt2::tag::table_;
-  using boost::simd::memory::allocator;
   using nt2::memory::fixed_allocator;
-  using nt2::memory::array_buffer;
-  using nt2::meta::normalize_settings;
+  using nt2::meta::normalize;
 
-  NT2_TEST_EXPR_TYPE( shared_::index()
+  NT2_TEST_EXPR_TYPE( shared_()
                     , (apply_ < _
                               , int
-                              , normalize_settings
+                              , normalize
                                 < table_
                                 , int
-                                , settings( automatic_
-                                          , of_size_<2,2>
-                                          , no_padding_
-                                          , shared_
-                                          )
+                                , settings( shared_ )
                                 >::type
                               >
                       )
-                    , (array_buffer<int*, 2, 1>)
-                    );
-
-  NT2_TEST_EXPR_TYPE( shared_::data()
-                    , (apply_ < _
-                              , int
-                              , normalize_settings
-                                < table_
-                                , int
-                                , settings( automatic_
-                                          , of_size_<2,2>
-                                          , no_padding_
-                                          , shared_
-                                          )
-                                >::type
-                              >
-                      )
-                    , (buffer<int, 1, fixed_allocator<int> >)
-                    );
-
-  NT2_TEST_EXPR_TYPE( shared_::index()
-                    , (apply_ < _
-                              , int
-                              , normalize_settings
-                                < table_
-                                , int
-                                , settings( dynamic_
-                                          , of_size_<2,2>
-                                          , no_padding_
-                                          , shared_
-                                          , allocator_< allocator<int> >
-                                          )
-                                >::type
-                              >
-                      )
-                    , (buffer<int*, 1, allocator<int*> >)
+                    , (buffer<int, fixed_allocator<int> >)
                     );
 }
 
@@ -206,68 +161,32 @@ NT2_TEST_CASE( owned_apply )
   using nt2::automatic_;
   using nt2::dynamic_;
   using nt2::allocator_;
-  using nt2::no_padding_;
-  using nt2::padding_;
   using nt2::memory::buffer;
   using nt2::memory::array_buffer;
-  using nt2::memory::cache_padding;
-  using nt2::memory::fixed_allocator;
   using boost::simd::memory::allocator;
   using boost::simd::memory::allocator_adaptor;
-  using nt2::meta::normalize_settings;
+  using nt2::meta::normalize;
   using nt2::tag::table_;
 
-  NT2_TEST_EXPR_TYPE( owned_::index()
+  NT2_TEST_EXPR_TYPE( owned_()
                     , (apply_ < _
                               , int
-                              , normalize_settings
+                              , normalize
                                 < table_
                                 , int
                                 , settings( automatic_
                                           , of_size_<2,2>
-                                          , no_padding_
                                           )
                                 >::type
                               >
                       )
-                    , (array_buffer<int*, 2, 1>)
+                    , (array_buffer<int, boost::mpl::integral_c<long,4> >)
                     );
 
-  NT2_TEST_EXPR_TYPE( owned_::data()
+  NT2_TEST_EXPR_TYPE( owned_()
                     , (apply_ < _
                               , int
-                              , normalize_settings
-                                < table_
-                                , int
-                                , settings( automatic_
-                                          , of_size_<2,2>
-                                          , padding_<cache_padding>
-                                          )
-                                >::type
-                              >
-                      )
-                    , (array_buffer<int, 4, 1>)
-                    );
-
-  NT2_TEST_EXPR_TYPE( owned_::index()
-                    , (apply_ < _
-                              , int
-                              , normalize_settings
-                                < table_
-                                , int
-                                , settings( dynamic_
-                                          , of_size_<2,2>
-                                          )
-                                >::type
-                              >
-                      )
-                    , (buffer<int*, 1, allocator<int*> >)
-                    );
-
-  NT2_TEST_EXPR_TYPE( owned_::data()
-                    , (apply_ < _
-                              , int
-                              , normalize_settings
+                              , normalize
                                 < table_
                                 , int
                                 , settings( dynamic_
@@ -277,6 +196,6 @@ NT2_TEST_CASE( owned_apply )
                                 >::type
                               >
                       )
-                    , (buffer<int, 1, allocator_adaptor< int, std::allocator<int> > >)
+                    , (buffer<int,allocator_adaptor< int, std::allocator<int> > >)
                     );
 }

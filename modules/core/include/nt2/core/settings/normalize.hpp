@@ -6,13 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SETTINGS_NORMALIZE_SETTINGS_HPP_INCLUDED
-#define NT2_CORE_SETTINGS_NORMALIZE_SETTINGS_HPP_INCLUDED
+#ifndef NT2_CORE_SETTINGS_NORMALIZE_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_NORMALIZE_HPP_INCLUDED
+
+namespace nt2 { namespace tag { struct table_; } }
 
 namespace nt2 {  namespace meta
 {
-  template<typename Tag, typename Type, typename Settings>
-  struct normalize_settings;
+  template<typename Semantic, typename Type, typename Settings>
+  struct normalize;
 } }
 
 #endif
