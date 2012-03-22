@@ -100,14 +100,14 @@ namespace nt2 { namespace ext
                                         , std::multiplies<std::size_t>()
                                         );
 
-        std::size_t hi = std::accumulate( input.extent().data()+red+1
+        std::size_t hi = std::accumulate( input.extent().data()+red
                                         , input.extent().data()+dim
                                         , std::size_t(1)
                                         , std::multiplies<std::size_t>()
                                         );
 
         nt2::partial_fold( reshape(a0, of_size(lo, hi))
-                         , reshape(input, of_size(lo, red, hi))
+                         , reshape(input, of_size(lo, input.extent()[red-1], hi))
                          , typename nt2::make_functor<Neutral1, A0>::type()
                          , typename nt2::make_functor<O1, A0>::type()
                          );
