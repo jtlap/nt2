@@ -14,6 +14,10 @@
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/transform.hpp>
 #include <nt2/include/functions/fold.hpp>
+#include <nt2/include/functions/inner_fold.hpp>
+#include <nt2/include/functions/outer_fold.hpp>
+//#include <nt2/include/functions/partial_fold.hpp>
+//#include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
@@ -54,21 +58,73 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      std::size_t reduced_dim = nt2::run(boost::proto::child_c<1>(a1));
-      //      std::cout<< reduced_dim << "\n";
-
       a0.resize(a1.extent());
 
-      // TODO
-#if 0
-      nt2::fold( a0
-                 , boost::proto::child_c<0>(a1)
-                 , typename nt2::make_functor<Neutral1>::type()
-                 , typename nt2::make_functor<O1>::type()
-                 , boost::proto::child_c<1>(a1)
-                 );
-#endif
+      typename boost::proto::child_c<A1&, 0>::type input = boost::proto::child_c<0>(a1);
+      std::size_t dim = input.extent().size();
+      std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
+
+      if(red > dim)
+        return a0;
+
+      if(dim == 1)
+      {
+        nt2::run( a0, boost::fusion::vector0<>(), nt2::fold( input
+                                                           , typename nt2::make_functor<Neutral1, A0>::type()
+                                                           , typename nt2::make_functor<O1, A0>::type()
+                                                           )
+                );
+      }
+      else if(red == 1)
+      {
+        nt2::inner_fold( a0
+                       , input
+                       , typename nt2::make_functor<Neutral1, A0>::type()
+                       , typename nt2::make_functor<O1, A0>::type()
+                       );
+      }
+      else if(red == dim)
+      {
+        nt2::outer_fold( a0
+                       , input
+                       , typename nt2::make_functor<Neutral1, A0>::type()
+                       , typename nt2::make_functor<O1, A0>::type()
+                       );
+      }
+      else
+      {
+      #if 0
+        std::size_t lo = std::accumulate( input.extent().data()
+                                        , input.extent().data()+red-1
+                                        , std::size_t(1)
+                                        , std::multiplies<std::size_t>()
+                                        );
+
+        std::size_t hi = std::accumulate( input.extent().data()+red+1
+                                        , input.extent().data()+dim
+                                        , std::size_t(1)
+                                        , std::multiplies<std::size_t>()
+                                        );
+
+        nt2::partial_fold( reshape(a0, of_size(lo, hi))
+                         , reshape(input, of_size(lo, red, hi))
+                         , typename nt2::make_functor<Neutral1, A0>::type()
+                         , typename nt2::make_functor<O1, A0>::type()
+                         );
+      #endif
+      }
+
       return a0;
+    }
+    
+    std::size_t reduction_dim(A1&, boost::mpl::false_)
+    {
+      return 1;
+    }
+    
+    std::size_t reduction_dim(A1& a1, boost::mpl::true_)
+    {
+      return nt2::run(boost::proto::child_c<1>(a1));
     }
   };
 
