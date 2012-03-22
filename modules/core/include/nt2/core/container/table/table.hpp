@@ -29,8 +29,9 @@ namespace nt2 { namespace container
     typedef expression< typename boost::proto::terminal<container_type>::type
                       , container_type
                       >                                           parent;
-    typedef typename parent::pointer                              pointer;
-    typedef typename parent::const_pointer                        const_pointer;
+    typedef typename container_type::pointer                      pointer;
+    typedef typename container_type::const_pointer                const_pointer;
+    typedef typename container_type::allocator_type               allocator_type;
 
     //==========================================================================
     //  table default constructor
