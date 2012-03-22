@@ -13,6 +13,11 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <boost/simd/toolbox/constant/constants/zero.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/type_traits.hpp>
+#include <iostream>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -62,10 +67,79 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag sum_ of functor sum 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct sum_ : ext::reduction_<sum_> { typedef ext::reduction_<sum_> parent; };
+    struct sum_ : ext::reduction_<sum_, tag::plus_, tag::Zero> 
+    { 
+      typedef ext::reduction_<sum_, tag::plus_, tag::Zero> parent; 
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sum_, sum, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sum_, sum, 2)
+
 } }
+
+namespace nt2 { namespace container { namespace ext
+{
+
+  template<class Domain, class Expr>
+  struct  size_of<boost::simd::tag::sum_,Domain,1,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr,0>::type     expr_t;
+    typedef typename nt2::make_size<NT2_MAX_DIMENSIONS>::type            result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      result_type res;
+      for(std::size_t i =0; i < NT2_MAX_DIMENSIONS; ++i)
+        res[i] = 1;
+
+      return res;
+    }
+    
+  };
+
+  template<class Domain, class Expr>
+  struct  size_of<boost::simd::tag::sum_,Domain,2,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr,0>::type      expr_t;
+    typedef typename nt2::make_size<NT2_MAX_DIMENSIONS>::type            result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      result_type res = boost::proto::child_c<0>(e).extent();
+      res[boost::proto::child_c<1>(e)-1] = 1;
+      return res;
+    }
+    
+  };
+
+
+  template<class Domain, class Expr, int N>
+  struct  generator<boost::simd::tag::sum_,Domain,N,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr,0>::type               expr_t;
+    typedef typename boost::dispatch::meta::semantic_of<expr_t>::type             sema_t;
+
+    typedef typename boost::proto::tag_of<Expr>::type                             tag_type;
+    typedef typename size_of<boost::simd::tag::sum_,Domain,N,Expr>::result_type   size_type;
+    typedef typename nt2::memory::container< typename sema_t::tag_type
+                                             , nt2::id_<0>
+                                             , typename sema_t::value_type
+                                             , size_type >                        type;
+
+    typedef expression< typename boost::remove_const<Expr>::type
+                      , type
+                      >                                                           result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
+
+
+
+
+} } }
 
 #endif
 

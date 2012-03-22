@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag any_ of functor any 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct any_ : ext::reduction_<any_> { typedef ext::reduction_<any_> parent; };
+    struct any_ : ext::unspecified_<any_> { typedef ext::unspecified_<any_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 1)
 } }

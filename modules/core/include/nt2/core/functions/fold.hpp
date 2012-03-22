@@ -27,7 +27,7 @@ namespace nt2
    *
    * \param a0 Expression to store result in
    * \param a1 Expression to reduce
-   * \param a2 Value to initialize with
+   * \param a2 Functor to initialize with
    * \param a3 Function to apply for reduction (binary + unary if SIMD is used)
    * \param a5 Dimension to reduce on
    * \return nothing

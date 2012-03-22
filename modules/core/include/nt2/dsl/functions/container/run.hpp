@@ -17,7 +17,7 @@
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-
+#include <iostream>
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -44,9 +44,9 @@ namespace nt2 { namespace ext
   // Reductions operations go to fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                            , (A0)(T0)(N0)(A1)(T1)(N1)
+                              , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
                             , ((node_<A0, elementwise_<T0>, N0>))
-                              ((node_<A1, reduction_<T1>, N1>))
+                              ((node_<A1, reduction_<T1,O1,Neutral1>, N1>))
                             )
   {
     typedef A0&                                             result_type;
@@ -54,18 +54,22 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
+
       a0.resize(a1.extent());
       // TODO
-      #if 0
-      nt2::fold( a0, boost::proto::child_c<0>(a1)
-               , typename T1::init()
-               , typename nt2::make_functor<T1>::type()
-               , boost::proto::child_c<1>(a1)
-               );
-      #endif
+#if 0
+      nt2::fold( a0
+                 , boost::proto::child_c<0>(a1)
+                 , typename nt2::make_functor<Neutral1>::type()
+                 , typename nt2::make_functor<O1>::type()
+                 , boost::proto::child_c<1>(a1)
+                 );
+#endif
       return a0;
     }
   };
+
+
 
   //============================================================================
   // Non-assign table expressions are reduced to assign expressions
