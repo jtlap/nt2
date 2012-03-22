@@ -60,19 +60,25 @@ namespace nt2 { namespace ext
     {
       a0.resize(a1.extent());
 
-      typename boost::proto::child_c<A1&, 0>::type input = boost::proto::child_c<0>(a1);
+      typename boost::proto::result_of::child_c<A1&, 0>::type input = boost::proto::child_c<0>(a1);
       std::size_t dim = input.extent().size();
-      std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
+      std::size_t red = reduction_dim(a1
+                                      , boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
+
+      std::cout<< "red " << red << "\n";
+
 
       if(red > dim)
         return a0;
 
+#if 0
       if(dim == 1)
       {
-        nt2::run( a0, boost::fusion::vector0<>(), nt2::fold( input
-                                                           , typename nt2::make_functor<Neutral1, A0>::type()
-                                                           , typename nt2::make_functor<O1, A0>::type()
-                                                           )
+        nt2::run( a0, boost::fusion::vector0<>()
+                  , nt2::fold( input
+                               , typename nt2::make_functor<Neutral1, A0>::type()
+                               , typename nt2::make_functor<O1, A0>::type()
+                               )
                 );
       }
       else if(red == 1)
@@ -113,16 +119,16 @@ namespace nt2 { namespace ext
                          );
       #endif
       }
-
+#endif
       return a0;
     }
     
-    std::size_t reduction_dim(A1&, boost::mpl::false_)
+    inline std::size_t reduction_dim(A1&, boost::mpl::false_)
     {
       return 1;
     }
     
-    std::size_t reduction_dim(A1& a1, boost::mpl::true_)
+    inline std::size_t reduction_dim(A1& a1, boost::mpl::true_)
     {
       return nt2::run(boost::proto::child_c<1>(a1));
     }
