@@ -114,8 +114,8 @@ NT2_TEST_CASE( reduction_size )
   a1 = sum(a2,1);
   NT2_TEST( (a1.extent() == of_size(1,32,32,32)) );
 
-  a1 = sum(a2);
-  NT2_TEST( (a1.extent() == of_size(1)) );
+  // a1 = sum(a2);
+  // NT2_TEST( (a1.extent() == of_size(1)) );
 
 
 }

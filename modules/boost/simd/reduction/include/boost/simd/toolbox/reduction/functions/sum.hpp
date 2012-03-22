@@ -15,8 +15,6 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/type_traits.hpp>
 #include <iostream>
 
 /*!

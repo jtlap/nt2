@@ -13,6 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_ALL_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <nt2/include/functions/logical_and.hpp>
+#include <boost/simd/toolbox/constant/constants/one.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -62,7 +64,10 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag all_ of functor all 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct all_ : ext::unspecified_<all_> { typedef ext::unspecified_<all_> parent;  };
+    struct all_ : ext::reduction_<all_, tag::logical_and_, tag::One> 
+    { 
+      typedef ext::reduction_<all_, tag::logical_and_, tag::One> parent;  
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::all_, all, 1)
 } }

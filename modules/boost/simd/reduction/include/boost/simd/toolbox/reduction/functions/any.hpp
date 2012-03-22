@@ -13,6 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_ANY_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <nt2/include/functions/logical_or.hpp>
+#include <boost/simd/toolbox/constant/constants/zero.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -62,7 +64,10 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag any_ of functor any 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct any_ : ext::unspecified_<any_> { typedef ext::unspecified_<any_> parent; };
+    struct any_ : ext::reduction_<any_, tag::logical_or_, tag::Zero> 
+    { 
+      typedef ext::reduction_<any_, tag::logical_or_, tag::Zero> parent; 
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 1)
 } }

@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                               , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
                             , ((node_<A0, elementwise_<T0>, N0>))
-                              ((node_<A1, reduction_<T1,O1,Neutral1>, N1>))
+                              ((node_<A1, reduction_<T1,O1,Neutral1>, N1 >))
                             )
   {
     typedef A0&                                             result_type;
@@ -54,8 +54,11 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
+      std::size_t reduced_dim = nt2::run(boost::proto::child_c<1>(a1));
+      //      std::cout<< reduced_dim << "\n";
 
       a0.resize(a1.extent());
+
       // TODO
 #if 0
       nt2::fold( a0
@@ -68,7 +71,6 @@ namespace nt2 { namespace ext
       return a0;
     }
   };
-
 
 
   //============================================================================
