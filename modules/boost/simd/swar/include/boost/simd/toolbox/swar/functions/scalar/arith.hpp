@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(T const& ) const
     {
-      Zero<T>();
+      return Zero<result_type>();
     }
   };
 
