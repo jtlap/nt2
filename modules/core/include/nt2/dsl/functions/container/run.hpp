@@ -18,6 +18,7 @@
 #include <nt2/include/functions/outer_fold.hpp>
 //#include <nt2/include/functions/partial_fold.hpp>
 //#include <nt2/include/functions/reshape.hpp>
+#include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
@@ -61,45 +62,58 @@ namespace nt2 { namespace ext
       a0.resize(a1.extent());
 
       typename boost::proto::result_of::child_c<A1&, 0>::type input = boost::proto::child_c<0>(a1);
-      std::size_t dim = input.extent().size();
-      std::size_t red = reduction_dim(a1
-                                      , boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
+      std::size_t dim = nt2::ndims(input);
+      std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
-      std::cout<< "red " << red << "\n";
-
+      // if table is not flagged nt2::_1D, dim returns by ndims is forced to 1 when size is like [x 1 1 1]
+      if(dim == 2 && input.extent().size() != 1)
+      {
+        dim = (input.extent()[1] == 1)? 1:2;
+      }
+      
 
       if(red > dim)
         return a0;
 
-#if 0
-      if(dim == 1)
+
+      if(dim == 1 || input.extent().size() == 1)
       {
+        std::cout<< "fold " << "\n";
+#if 0
         nt2::run( a0, boost::fusion::vector0<>()
                   , nt2::fold( input
                                , typename nt2::make_functor<Neutral1, A0>::type()
                                , typename nt2::make_functor<O1, A0>::type()
                                )
                 );
+#endif
       }
       else if(red == 1)
       {
+        std::cout<< "inner fold " << "\n";
+#if 0
         nt2::inner_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
                        );
+#endif
       }
       else if(red == dim)
       {
+        std::cout<< "outer fold " << "\n";
+#if 0
         nt2::outer_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
                        );
+#endif
       }
       else
       {
-      #if 0
+        std::cout<< "partial fold " << "\n";
+#if 0
         std::size_t lo = std::accumulate( input.extent().data()
                                         , input.extent().data()+red-1
                                         , std::size_t(1)
@@ -119,16 +133,16 @@ namespace nt2 { namespace ext
                          );
       #endif
       }
-#endif
+
       return a0;
     }
     
-    inline std::size_t reduction_dim(A1&, boost::mpl::false_)
+    inline std::size_t reduction_dim(A1&, boost::mpl::false_) const
     {
       return 1;
     }
     
-    inline std::size_t reduction_dim(A1& a1, boost::mpl::true_)
+    inline std::size_t reduction_dim(A1& a1, boost::mpl::true_) const
     {
       return nt2::run(boost::proto::child_c<1>(a1));
     }

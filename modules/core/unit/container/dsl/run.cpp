@@ -95,27 +95,36 @@ NT2_TEST_CASE( reduction_size )
   using nt2::table;
   using nt2::of_size;
   using nt2::sum;
-  using boost::mpl::_;
+  //  using boost::mpl::_;
   typedef double T;
+  using nt2::_;
+
+  table<T,nt2::_1D> a00(of_size(32));
+  table<T> a01(of_size(32));
 
   table<T> a1(of_size(1,32));
   table<T> a2(of_size(32,32,32,32));
-
+  table<T> a3(of_size(32,32,32,1));
 
   a1 = sum(a2,4);
   NT2_TEST( (a1.extent() == of_size(32,32,32)) );
+  NT2_TEST( (a2.extent() == of_size(32,32,32,32)) );
 
   a1 = sum(a2,3);
   NT2_TEST( (a1.extent() == of_size(32,32,1,32)) );
+  NT2_TEST( (a2.extent() == of_size(32,32,32,32)) );
 
   a1 = sum(a2,2);
   NT2_TEST( (a1.extent() == of_size(32,1,32,32)) );
+  NT2_TEST( (a2.extent() == of_size(32,32,32,32)) );
 
   a1 = sum(a2,1);
   NT2_TEST( (a1.extent() == of_size(1,32,32,32)) );
+  NT2_TEST( (a2.extent() == of_size(32,32,32,32)) );
 
-  // a1 = sum(a2);
-  // NT2_TEST( (a1.extent() == of_size(1)) );
-
+  a1 = sum(a00);
+  NT2_TEST( (a1.extent() == of_size(1)) );
+  a1 = sum(a01);
+  NT2_TEST( (a1.extent() == of_size(1)) );
 
 }
