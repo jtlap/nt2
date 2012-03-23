@@ -22,6 +22,7 @@
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <numeric>
 #include <iostream>
 namespace nt2 { namespace ext
 {
@@ -91,13 +92,13 @@ namespace nt2 { namespace ext
       else if(red == 1)
       {
         std::cout<< "inner fold " << "\n";
-#if 0
+        //#if 0
         nt2::inner_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
                        );
-#endif
+        //#endif
       }
       else if(red == dim)
       {
@@ -113,19 +114,21 @@ namespace nt2 { namespace ext
       else
       {
         std::cout<< "partial fold " << "\n";
+
+        std::size_t lo = std::accumulate( input.extent().begin()
+                                        , input.extent().begin()+red-1
+                                        , std::size_t(1)
+                                        , std::multiplies<std::size_t>()
+                                        );
+
+        std::size_t hi = std::accumulate( input.extent().begin()+red
+                                        , input.extent().begin()+dim
+                                        , std::size_t(1)
+                                        , std::multiplies<std::size_t>()
+                                        );
+        std::cout << "lo " << lo << "\n";
+        std::cout << "hi " << hi << "\n";
 #if 0
-        std::size_t lo = std::accumulate( input.extent().data()
-                                        , input.extent().data()+red-1
-                                        , std::size_t(1)
-                                        , std::multiplies<std::size_t>()
-                                        );
-
-        std::size_t hi = std::accumulate( input.extent().data()+red
-                                        , input.extent().data()+dim
-                                        , std::size_t(1)
-                                        , std::multiplies<std::size_t>()
-                                        );
-
         nt2::partial_fold( reshape(a0, of_size(lo, hi))
                          , reshape(input, of_size(lo, input.extent()[red-1], hi))
                          , typename nt2::make_functor<Neutral1, A0>::type()
