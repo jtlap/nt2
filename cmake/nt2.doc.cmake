@@ -168,6 +168,7 @@ macro(nt2_doc target)
       if(NOT main)
         set(main ${file_base})
       endif()
+
       if(ext STREQUAL ".qbk")
         nt2_doc_quickbook(${file_base})
       elseif(ext STREQUAL ".doxyfile")

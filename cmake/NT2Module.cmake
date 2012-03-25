@@ -210,7 +210,8 @@ macro(nt2_module_main module)
   endif()
 
   if(NT2_DOCUMENTATION_ENABLED)
-    nt2_doc(${module}.doc doc/${module}.qbk doc/setup.doxyfile)
+    string(REPLACE "." "_" doc_target ${module})
+    nt2_doc(${module}.doc doc/${doc_target}.qbk doc/setup.doxyfile)
     nt2_module_target_parent(${module}.doc)
   endif()
 
