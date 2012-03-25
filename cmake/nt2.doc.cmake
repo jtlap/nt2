@@ -28,7 +28,6 @@ foreach(arg DOXYGEN_EXECUTABLE XSLTPROC_EXECUTABLE QUICKBOOK_EXECUTABLE BOOSTBOO
     set(NT2_DOCUMENTATION_ENABLED 0)
   endif()
 endforeach()
-configure_file(${NT2_SOURCE_DIR}/cmake/boostbook/catalog.xml.in ${NT2_BINARY_DIR}/catalog.xml)
 
 macro(nt2_absolute var file)
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${file})
@@ -154,6 +153,13 @@ endmacro()
 
 macro(nt2_doc target)
   if(NT2_DOCUMENTATION_ENABLED)
+
+    # Locally build the xml catalog
+    if(NOT EXISTS "${NT2_BINARY_DIR}/catalog.xml")
+    configure_file(${NT2_SOURCE_DIR}/cmake/boostbook/catalog.xml.in ${NT2_BINARY_DIR}/catalog.xml)
+    message(STATUS "[nt2.doc] Building catalog ... (${NT2_BINARY_DIR}/catalog.xml)")
+    endif()
+
     set(dependencies)
     set(main)
     foreach(e ${ARGN})
