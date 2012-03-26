@@ -55,21 +55,25 @@ namespace nt2 { namespace ext
                               ((node_<A1, reduction_<T1,O1,Neutral1>, N1 >))
                             )
   {
-    typedef A0&                                             result_type;
-
+    typedef A0&                                                                result_type;
+    typedef typename boost::proto::result_of::child_c<A1&, 0>::type            input_type;
+    typedef typename boost::remove_reference<input_type>::type::extent_type    extent_type;
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
       a0.resize(a1.extent());
 
-      typename boost::proto::result_of::child_c<A1&, 0>::type input = boost::proto::child_c<0>(a1);
+      input_type input = boost::proto::child_c<0>(a1);
+      extent_type ext = input.extent();
       std::size_t dim = nt2::ndims(input);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
+
+
       // if table is not flagged nt2::_1D, dim returns by ndims is forced to 1 when size is like [x 1 1 1]
-      if(dim == 2 && input.extent().size() != 1)
+      if(dim == 2 && ext.size() != 1)
       {
-        dim = (input.extent()[1] == 1)? 1:2;
+        dim = (ext[1] == 1)? 1:2;
       }
       
 
@@ -77,7 +81,7 @@ namespace nt2 { namespace ext
         return a0;
 
 
-      if(dim == 1 || input.extent().size() == 1)
+      if(dim == 1 || ext.size() == 1)
       {
         std::cout<< "fold " << "\n";
 #if 0
@@ -92,13 +96,11 @@ namespace nt2 { namespace ext
       else if(red == 1)
       {
         std::cout<< "inner fold " << "\n";
-        //#if 0
         nt2::inner_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
                        );
-        //#endif
       }
       else if(red == dim)
       {
@@ -115,14 +117,14 @@ namespace nt2 { namespace ext
       {
         std::cout<< "partial fold " << "\n";
 
-        std::size_t lo = std::accumulate( input.extent().begin()
-                                        , input.extent().begin()+red-1
+        std::size_t lo = std::accumulate( ext.begin()
+                                        , ext.begin()+red-1
                                         , std::size_t(1)
                                         , std::multiplies<std::size_t>()
                                         );
 
-        std::size_t hi = std::accumulate( input.extent().begin()+red
-                                        , input.extent().begin()+dim
+        std::size_t hi = std::accumulate( ext.begin()+red
+                                        , ext.begin()+dim
                                         , std::size_t(1)
                                         , std::multiplies<std::size_t>()
                                         );
@@ -130,7 +132,7 @@ namespace nt2 { namespace ext
         std::cout << "hi " << hi << "\n";
 #if 0
         nt2::partial_fold( reshape(a0, of_size(lo, hi))
-                         , reshape(input, of_size(lo, input.extent()[red-1], hi))
+                         , reshape(input, of_size(lo, ext[red-1], hi))
                          , typename nt2::make_functor<Neutral1, A0>::type()
                          , typename nt2::make_functor<O1, A0>::type()
                          );
