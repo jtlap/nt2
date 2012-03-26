@@ -64,7 +64,7 @@ macro(nt2_doc_html target file)
               )
 
   add_custom_target(${target}
-                    COMMAND ${CMAKE_COMMAND} -E copy_directory ${NT2_SOURCE_ROOT}/${file}/html ${NT2_BINARY_DIR}/${file}/html
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory ${NT2_SOURCE_ROOT}/doc/html ${NT2_BINARY_DIR}/${file}/html
                     DEPENDS ${NT2_BINARY_DIR}/${file}/html/index.html
                    )
 endmacro()
@@ -73,6 +73,7 @@ macro(nt2_doc_boostbook file)
   nt2_absolute(absolute ${file}.xml)
 
   nt2_xsltproc(${file}.docbook
+               #--stringparam boost.header.root file://${CMAKE_CURRENT_SOURCE_DIR}/include
                ${BOOSTBOOK_XSL_DIR}/docbook.xsl
                ${absolute}
                DEPENDS ${ARGN}
@@ -157,13 +158,14 @@ macro(nt2_doc_doxygen file)
                     )
 
   nt2_xsltproc(${file}.doxygen/all.xml
-               ${file}.doxygen/combine.xslt
+               ${file}.doxygen/combine.xslt #${BOOSTBOOK_XSL_DIR}/doxygen/collect.xsl
                ${file}.doxygen/index.xml
                DEPENDS ${file}.doxygen/index.xml
                COMMENT "Combining Doxygen XML output..."
               )
 
   nt2_xsltproc(${file}.xml
+               --stringparam boost.doxygen.header.prefix nt2
                ${BOOSTBOOK_XSL_DIR}/doxygen/doxygen2boostbook.xsl
                ${file}.doxygen/all.xml
                DEPENDS ${file}.doxygen/all.xml
