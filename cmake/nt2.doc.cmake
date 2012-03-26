@@ -56,7 +56,7 @@ macro(nt2_doc_html target file)
   nt2_absolute(absolute ${file}.docbook)
   get_filename_component(path ${file} PATH)
 
-  nt2_xsltproc(${NT2_BINARY_DIR}/doc/${path}/html/index.html
+  nt2_xsltproc(${NT2_BINARY_DIR}/${file}/html/index.html
                ${BOOSTBOOK_XSL_DIR}/xhtml.xsl
                ${absolute}
                DEPENDS ${file}.docbook
@@ -64,8 +64,8 @@ macro(nt2_doc_html target file)
               )
 
   add_custom_target(${target}
-                    COMMAND ${CMAKE_COMMAND} -E copy_directory ${NT2_SOURCE_DIR}/doc/${path}/html ${NT2_BINARY_DIR}/doc/${path}/html
-                    DEPENDS ${NT2_BINARY_DIR}/doc/${path}/html/index.html
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory ${NT2_SOURCE_DIR}/${file}/html ${NT2_BINARY_DIR}/${file}/html
+                    DEPENDS ${NT2_BINARY_DIR}/${file}/html/index.html
                    )
 endmacro()
 
@@ -111,13 +111,23 @@ macro(nt2_doc_doxygen file)
   if(NOT IS_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen)
     file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen)
   endif()
+
+  # We compute the include from the setup position
+  string(REPLACE "/doc/setup.doxyfile" "/include/" include_path ${relative})
+  string(REPLACE "/doc/setup.doxyfile" "/examples/" examples_path ${relative})
+
   file(READ ${absolute} DOXYGEN_CONTENT)
   set(DOXYGEN_CONTENT ${DOXYGEN_CONTENT}
       "QUIET = NO\n"
-      "WARN_IF_UNDOCUMENTED = NO\n"
+      "EXTRACT_ALL = NO\n"
+      "WARN_IF_UNDOCUMENTED = YES\n"
       "GENERATE_LATEX = NO\n"
       "GENERATE_HTML = NO\n"
       "GENERATE_XML = YES\n"
+      "EXAMPLE_PATH = ${NT2_SOURCE_DIR}/${examples_path}\n"
+      "STRIP_FROM_PATH = ${NT2_SOURCE_DIR}/${include_path}/\n"
+      "STRIP_FROM_INC_PATH = ${NT2_SOURCE_DIR}/${include_path}/\n"
+      "INPUT = ${NT2_SOURCE_DIR}/${include_path}\n"
       "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n"
      )
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile ${DOXYGEN_CONTENT})
@@ -157,7 +167,6 @@ macro(nt2_doc target)
     # Locally build the xml catalog
     if(NOT EXISTS "${NT2_BINARY_DIR}/catalog.xml")
     configure_file(${NT2_SOURCE_DIR}/cmake/boostbook/catalog.xml.in ${NT2_BINARY_DIR}/catalog.xml)
-    message(STATUS "[nt2.doc] Building catalog ... (${NT2_BINARY_DIR}/catalog.xml)")
     endif()
 
     set(dependencies)
