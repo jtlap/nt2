@@ -35,11 +35,11 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       if(ext.size() == 4){
-        for(std::size_t c_3 = 1; c_3 <= ext[3]; ++c_3){
-          for(std::size_t c_2 = 1; c_2 <= ext[2]; ++c_2){
-            for(std::size_t c_1 = 1; c_1 <= ext[1]; ++c_1){
+        for(std::ptrdiff_t c_3 = 1; c_3 <= ext[3]; ++c_3){
+          for(std::ptrdiff_t c_2 = 1; c_2 <= ext[2]; ++c_2){
+            for(std::ptrdiff_t c_1 = 1; c_1 <= ext[1]; ++c_1){
               out(1,c_1,c_2,c_3) = neutral(nt2::meta::as_<value_type>());
-              for(std::size_t c_0 = 1; c_0 <=ext[0]; ++c_0){
+              for(std::ptrdiff_t c_0 = 1; c_0 <=ext[0]; ++c_0){
                 out(1,c_1,c_2,c_3) = op(out(1,c_1,c_2,c_3), in(c_0,c_1,c_2,c_3));
               }
             }
@@ -47,19 +47,19 @@ namespace nt2 { namespace ext
         }
       }
       else if(ext.size() == 3){
-        for(std::size_t c_2 = 1; c_2 <= ext[2]; ++c_2){
-          for(std::size_t c_1 = 1; c_1 <= ext[1]; ++c_1){
+        for(std::ptrdiff_t c_2 = 1; c_2 <= ext[2]; ++c_2){
+          for(std::ptrdiff_t c_1 = 1; c_1 <= ext[1]; ++c_1){
             out(1,c_1,c_2) = neutral(nt2::meta::as_<value_type>());
-            for(std::size_t c_0 = 1; c_0 <=ext[0]; ++c_0){
+            for(std::ptrdiff_t c_0 = 1; c_0 <=ext[0]; ++c_0){
               out(1,c_1,c_2) = op(out(1,c_1,c_2), in(c_0,c_1,c_2));
             }
           }
         }
       }
       else if(ext.size() == 2){
-        for(std::size_t c_1 = 1; c_1 <= ext[1]; ++c_1){
+        for(std::ptrdiff_t c_1 = 1; c_1 <= ext[1]; ++c_1){
           out(1,c_1) = neutral(nt2::meta::as_<value_type>());
-          for(std::size_t c_0 = 1; c_0 <=ext[0]; ++c_0){
+          for(std::ptrdiff_t c_0 = 1; c_0 <=ext[0]; ++c_0){
             out(1,c_1) = op(out(1,c_1), in(c_0,c_1));
           }
         }

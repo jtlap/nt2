@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       result_type out = neutral(nt2::meta::as_<result_type>());
-      for(std::size_t c_0 = 1; c_0 <=ext[0]; ++c_0){
+      for(std::ptrdiff_t c_0 = 1; c_0 <=ext[0]; ++c_0){
         out = op(out, in(c_0));
       }
       return out;     
