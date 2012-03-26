@@ -154,6 +154,9 @@ NT2_TEST_CASE( reduction_value )
   std::size_t O = 4;
   std::size_t P = 5;
 
+  table<T,nt2::_1D> a00(of_size(N));
+  table<T> a01(of_size(N));
+
   table<T> a1(of_size(1,M));
   table<T> a2_4(of_size(N,M,O,P));
   table<T, nt2::_3D> a2_3(of_size(N,M,O));
@@ -166,6 +169,8 @@ NT2_TEST_CASE( reduction_value )
           a2_4(i,j,k,l) = T(1);
           a2_3(i,j,k) = T(1);
           a2_2(i,j) = T(1);
+          a00(i) = T(1);
+          a01(i) = T(1);
         }
       }
     }
@@ -192,6 +197,12 @@ NT2_TEST_CASE( reduction_value )
   for(std::size_t j = 1; j <= M; ++j){
     NT2_TEST_EQUAL(T(a1(1,j)),T(N)) ;
   }
+
+
+  a1 = sum(a00);
+  NT2_TEST_EQUAL(T(a1(1)),T(N)) ;
+  a1 = sum(a01);
+  NT2_TEST_EQUAL(T(a1(1)),T(N)) ;
   
 
 
