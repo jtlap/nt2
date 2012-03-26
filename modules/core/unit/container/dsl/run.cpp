@@ -98,37 +98,37 @@ NT2_TEST_CASE( reduction_size )
   typedef double T;
   using nt2::_;
 
-  std::size_t N = 2;
-  std::size_t M = 3;
+  std::size_t M = 2;
+  std::size_t N = 3;
   std::size_t O = 4;
   std::size_t P = 5;
 
-  table<T,nt2::_1D> a00(of_size(N));
-  table<T> a01(of_size(N));
+  table<T,nt2::_1D> a00(of_size(M));
+  table<T> a01(of_size(M));
 
   table<T> a1(of_size(1,M));
-  table<T> a2_4(of_size(N,M,O,P));
-  table<T, nt2::_3D> a2_3(of_size(N,M,O));
-  table<T, nt2::_2D> a2_2(of_size(N,M));
+  table<T> a2_4(of_size(M,N,O,P));
+  table<T, nt2::_3D> a2_3(of_size(M,N,O));
+  table<T, nt2::_2D> a2_2(of_size(M,N));
 
-  table<T> a3(of_size(N,M,O,1));
+  table<T> a3(of_size(M,N,O,1));
 
   a1 = sum(a2_4,4);
-  NT2_TEST( (a1.extent() == of_size(N,M,O)) );
-  NT2_TEST( (a2_4.extent() == of_size(N,M,O,P)) );
+  NT2_TEST( (a1.extent() == of_size(M,N,O)) );
+  NT2_TEST( (a2_4.extent() == of_size(M,N,O,P)) );
 
   a1 = sum(a2_4,3);
-  NT2_TEST( (a1.extent() == of_size(N,M,1,P)) );
+  NT2_TEST( (a1.extent() == of_size(M,N,1,P)) );
 
   a1 = sum(a2_4,2);
-  NT2_TEST( (a1.extent() == of_size(N,1,O,P)) );
+  NT2_TEST( (a1.extent() == of_size(M,1,O,P)) );
 
   a1 = sum(a2_4,1);
-  NT2_TEST( (a1.extent() == of_size(1,M,O,P)) );
+  NT2_TEST( (a1.extent() == of_size(1,N,O,P)) );
   a1 = sum(a2_3,1);
-  NT2_TEST( (a1.extent() == of_size(1,M,O)) );
+  NT2_TEST( (a1.extent() == of_size(1,N,O)) );
   a1 = sum(a2_2,1);
-  NT2_TEST( (a1.extent() == of_size(1,M)) );
+  NT2_TEST( (a1.extent() == of_size(1,N)) );
 
 
   a1 = sum(a00);
@@ -149,23 +149,23 @@ NT2_TEST_CASE( reduction_value )
   using nt2::_;
 
 
-  std::size_t N = 2;
-  std::size_t M = 3;
+  std::size_t M = 2;
+  std::size_t N = 3;
   std::size_t O = 4;
   std::size_t P = 5;
 
-  table<T,nt2::_1D> a00(of_size(N));
-  table<T> a01(of_size(N));
+  table<T,nt2::_1D> a00(of_size(M));
+  table<T> a01(of_size(M));
 
-  table<T> a1(of_size(1,M));
-  table<T> a2_4(of_size(N,M,O,P));
-  table<T, nt2::_3D> a2_3(of_size(N,M,O));
-  table<T, nt2::_2D> a2_2(of_size(N,M));
+  table<T> a1(of_size(1,N));
+  table<T> a2_4(of_size(M,N,O,P));
+  table<T, nt2::_3D> a2_3(of_size(M,N,O));
+  table<T, nt2::_2D> a2_2(of_size(M,N));
 
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
-      for(std::size_t j = 1; j <= M; ++j){
-        for(std::size_t i = 1; i <= N; ++i){
+      for(std::size_t j = 1; j <= N; ++j){
+        for(std::size_t i = 1; i <= M; ++i){
           a2_4(i,j,k,l) = T(1);
           a2_3(i,j,k) = T(1);
           a2_2(i,j) = T(1);
@@ -180,30 +180,55 @@ NT2_TEST_CASE( reduction_value )
   a1 = sum(a2_4,1);
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
-      for(std::size_t j = 1; j <= M; ++j){
-        NT2_TEST_EQUAL(T(a1(1,j,k,l)),T(N)) ;
+      for(std::size_t j = 1; j <= N; ++j){
+        NT2_TEST_EQUAL(T(a1(1,j,k,l)),T(M)) ;
       }
     }
   }
 
   a1 = sum(a2_3,1);
   for(std::size_t k = 1; k <= O; ++k){
-    for(std::size_t j = 1; j <= M; ++j){
-      NT2_TEST_EQUAL(T(a1(1,j,k)),T(N)) ;
+    for(std::size_t j = 1; j <= N; ++j){
+      NT2_TEST_EQUAL(T(a1(1,j,k)),T(M)) ;
     }
   }
 
   a1 = sum(a2_2,1);
-  for(std::size_t j = 1; j <= M; ++j){
-    NT2_TEST_EQUAL(T(a1(1,j)),T(N)) ;
+  for(std::size_t j = 1; j <= N; ++j){
+    NT2_TEST_EQUAL(T(a1(1,j)),T(M)) ;
   }
 
 
   a1 = sum(a00);
-  NT2_TEST_EQUAL(T(a1(1)),T(N)) ;
+  NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
   a1 = sum(a01);
-  NT2_TEST_EQUAL(T(a1(1)),T(N)) ;
+  NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
   
+
+  a1 = sum(a2_4,4);
+  for(std::size_t k = 1; k <= O; ++k){
+    for(std::size_t j = 1; j <= N; ++j){
+      for(std::size_t i = 1; i <= M; ++i){
+        NT2_TEST_EQUAL(T(a1(i,j,k,1)),T(P)) ;
+      }
+    }
+  }
+
+  a1 = sum(a2_3,3);
+  for(std::size_t j = 1; j <= N; ++j){
+    for(std::size_t i = 1; i <= M; ++i){
+      NT2_TEST_EQUAL(T(a1(i,j,1)),T(O)) ;
+    }
+  }
+
+
+  a1 = sum(a2_2,2);
+  for(std::size_t i = 1; i <= M; ++i){
+    NT2_TEST_EQUAL(T(a1(i,1)),T(N)) ;
+  }
+
+
+
 
 
 }

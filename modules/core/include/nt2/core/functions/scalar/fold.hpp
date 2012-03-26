@@ -17,12 +17,11 @@ namespace nt2 { namespace ext
   // Generates fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fold_, tag::cpu_, (A1)(A2)(A3)
-                            , (ast_< A1>)
+                              , ((ast_< A1>))
                               (unspecified_<A2>)
                               (unspecified_<A3>)
                             )
   {
-    //    typedef void                                                               result_type;
     typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
     typedef typename boost::remove_reference<A1>::type::value_type             result_type;
 
@@ -35,7 +34,7 @@ namespace nt2 { namespace ext
       }
       return out;     
 
-
+    }
   };
 
 } }
