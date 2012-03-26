@@ -1,0 +1,39 @@
+[section fast_frexp]
+
+[h5 Description]
+
+This functor acts similarly as the standard `frexp` function returning two values a mantissa and an exponent, 
+except that integer type of the exponent is given as `as_integer<T>::type` where T is the type of the input. 
+
+That is `nt2::int32_t` for `float` and `nt2::int64_t` for `double`
+
+if `tie(m,e) = frexp(a)`, then `m = mantissa(a)/Two` and `e = exponent(a)+One`
+
+`fast_frexp` is fast because it does not give proper result for invalid datas 
+(`nan`, `inf`, `-inf`):the result will be undefined.
+Use `frexp` if your datas can be invalid and you still care in these cases.
+
+
+[h5 Synonyms]
+
+[h5 Synopsis]
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/fast_frexp.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

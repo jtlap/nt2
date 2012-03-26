@@ -1,0 +1,30 @@
+[section is_odd]
+
+[h5 Description]
+Tests whether the input is odd.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> __unspecified__ is_not_odd(A0 const& a0);
+    } }
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[a0]        [Operation's argument]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/predicates/include/is_odd.hpp>
+[h5 Expression Semantics]
+   is_odd(a);
+
+[*Return type: ] When operating on scalar types, the function returns a boolean, otherwise
+                 when operating on SIMD types it returns a variable of a's type.
+
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

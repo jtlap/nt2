@@ -1,0 +1,36 @@
+[section saturate_at]
+
+[h5 Description]
+This functor take a template parameter which is the tag of a boost::simd constant C and
+saturate the parameter between -C and C.
+ For example saturate<tag::Pi>(4.0) is Pi<double>().
+
+Be cautious that the input type is the output type :
+saturate<tag::Pi>(4) is Pi<int>() so... 3
+
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <constant_tag C, class A0> A0 saturate_at(A0 const& a0);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/saturate_at.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

@@ -1,0 +1,30 @@
+[section is_nltz]
+
+[h5 Description]
+Tests whether the input is not less than zero.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> __unspecified__ is_nltz(A0 const& a0);
+    } }
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[a0]        [Operation's argument]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/predicates/include/is_nltz.hpp>
+[h5 Expression Semantics]
+   is_nltz(a);
+
+[*Return type: ] When operating on scalar types, the function returns a boolean, otherwise
+                 when operating on SIMD types it returns a variable of a's type.
+
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

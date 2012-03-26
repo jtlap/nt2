@@ -1,0 +1,38 @@
+[section saturate]
+
+[h5 Description]
+
+saturate the parameter for values of type T.
+
+``if (a0 > Valmax<T>())
+     return Valmax<T>();
+  else if (a0 <  Valmin<T>())
+     return Valmin<T>();
+  else
+     return a0;`` 
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class T,class A0> A0 saturate(A0 const& a0);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/saturate.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

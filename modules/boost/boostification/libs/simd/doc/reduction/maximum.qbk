@@ -1,0 +1,29 @@
+[section maximum]
+
+[h5 Description]
+Finds the maximum value stored in a SIMD register.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0>
+      typename meta::scalar_of<A0>::type max(A0 const& a0);
+    } }
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[a0]        [Operation's argument]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/reduction/include/maximum.hpp>
+[h5 Expression Semantics]
+   maximum(a);
+
+[*Return type: ] The scalar type stored in a.
+
+[*Semantics:   ] The highest value found in a.
+
+[h5 Example]
+
+[endsect]

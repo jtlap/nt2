@@ -1,0 +1,33 @@
+[section exponentbits]
+
+[h5 Description]
+
+returns an unsigned (SIMD vector) in which all the bits of the floating  (SIMD vector) entry
+have being set to 0 except the exponent bits of the ieee representation.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0>
+      typename dispatch::meta::as_integer<A0,signed>::type exponenbits(A0 const& a0);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/exponentbits.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

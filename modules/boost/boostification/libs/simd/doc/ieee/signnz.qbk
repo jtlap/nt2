@@ -1,0 +1,35 @@
+[section signnz]
+
+[h5 Description]
+
+`One` or `Mone` according to the fact the input `is_positive` or not.
+
+Take care that with floating point numbers, there are two representation of `Zero` :
+`Zero` and `Mzero` (-0).
+The first one `is_positive` the second is not but the two are equal (!)
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> A0 signnz(A0 const& a0);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/signnz.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

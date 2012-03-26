@@ -1,0 +1,30 @@
+[section frac]
+
+[h5 Description]
+Return the fractionnal part of the input. For integer input always returns `Zero`
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> A0 frac(A0 const& a0);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/frac.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

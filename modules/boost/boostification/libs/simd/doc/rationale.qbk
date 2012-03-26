@@ -1,0 +1,155 @@
+[section Rationale]
+
+[section Considerations on SIMD programming]
+
+When one use SIMD instructions to speed up his programs , he is confronted to two main points:
+
+* first he must deal with small vectors instead of scalar: [*['the Multiple Data part]]
+* second he has to do the same thing to all the elements of 
+  these vectors: [*['the Single Instruction part]]
+
+This has some practical issues.
+
+[h5 Considerations about sizes and types:]
+
+Generally (and totally in our current implementation) SIMD vectors have a 
+common bit size (64, 128 or 256 bits up to now)
+in which on can put a small number of datas. This number is rightly computed as being the ratio 
+of this size by the size of the individual element
+
+For example an SSE2 vector of 128 bits can hold 16 [c++] `char`,
+ 8 [c++] `short`, 4 [c++] `int` or [c++] `float`, etc. 
+
+SIMD API generally provide operation acting on SIMD vector for given element type: 
+it is senseless to add a vector of 16 [c++] `char` to one of 8 [c++] `int`.
+This operation are done in place, and that mean that:
+
+* for integer values there is no intermediate promotion as in C. [c++] `(char(100)+char(100))-char(80)`
+ will not produce the same result if they are part of 3 vectors of [c++] `char` or merely scalars, 
+because in C the computation is done in int and the clipped if we put the result back in a char.
+* for floating on intel cpus this also implies no passing through 80 bits extended registers...
+
+
+[h5 Considerations  about logic and branching:]
+
+Consider the simple piece of code:
+
+  ``if (a>=0) b = 1 else b = -1;``
+
+This can of course be writen with scalar operands, but what if they are SIMD vectors ?
+
+first we cannot write [c++] `a>=0` because this operator 
+compare vector in lexicographical order to preserve STL compatibility when iterating on arrays, 
+so we can use something like:
+
+             ``ge(a,Zero)``
+
+But the ge function that takes two SIMD vectors of same size and element types will return a
+vector of N results, one for each element, and two problems are at sight, what is the type of
+the resulting elements and what can be done with then in a SIMDish fashion ?
+
+In fact the second part with be of great infuence on the first:
+
+
+* the returned elements are not boolean stricto sensu. 
+  They are of the common type of a and Zero and to not hold vector of 0 and 1 but of 0 and -1 
+  for integers (0 and -Nan for real)
+* why: because -Nan and -1 share the property of having an identical bit representation ~0, 
+  meaning all bits are at one.
+* what is the interest of this oddity ? The answer is that such values provide 
+  bit mask for bitwise operations.
+
+then the if...else story can be rewritten:
+
+  b = select(ge(a,Zero),One,Mone)
+
+in fact using  & and | and ~ the preceding line can be formally rewritten
+
+  b = (One & ge(a,Zero)) | (Mone & ~ge(a,Zero))
+
+because the predicate returns a bunch of 1 for True and 0 for False.
+
+All this of course has a cost : In each test both branches have to be evaluated and the rigth results selected.
+
+[endsect]
+
+[section Parameters and return types]
+
+As for the restrictions seen precedently on SIMD operations, the library has two
+distinct policies for accepting functors input parameters according their SIMD
+or Scalar nature.
+
+[h3 Run time input parameters]
+
+The functors can be divided in three categories according to their
+number of run time input parameters 0 (nullary), 1 (unary) or more (binary, ternary ... n-ary) 
+
+[h4 Nullary and unary functors]
+For nullary and unary functors (the functors taking only one parameters) there is not so much
+problems. The only peculiarity is that functions that takes a scalar floating parameter can also
+in general take an integer because of automatic conversion. In SIMD such conversions do not exist.
+
+Most of the time in case of scalar function properly designed for floating entries, implementations
+are provided for integer ones if they make sense.  
+For example, you can call [c++] `boost::simd::next(a)` with (SIMD vector) integer parameter [c++] `a`. In this case
+it will be equivalent to saturated [c++] `a+One`, satration being taken in the integer type of [c++] `a`.
+
+[h4 Binary and n-ary functors]
+For Binary and n-ary functors there are more restrictions.
+
+All SIMD vector parameters must have the same number of elements.
+
+This is the only restriction for bitwise operators as [c++] `&` or [c++] `|`.
+
+Almost all functors can have only one type of SIMD parameter 
+(can also have sometimes integer scalar parameters like [c++] `shli` or [c++] `shri`)
+
+For example operator [c++] `+` does not work for adding an SIMD vector of int to an SIMD vector unsigned int or
+an SIMD vector of float, even if the number of vector elements is the same for these three kinds
+
+Finally in SIMD direct conversions are not allowed from integer types with wrong element size
+to floating ones.
+
+tofloat for instance can only work with vector of integer elements the size of which is 32 or 64 bits
+namely the size of a [c++] `float` or of a [c++] `double`...
+
+To convert a vector of char to a vector of float you have to split it 
+in four parts before conversion ([c++] `split`
+is part of toolbox [c++] `swar`) 
+ 
+Of course direct functors to do that, could have been provided, the rationale not to do so is to
+prevent  the user to mix types to often, because this is generally inefficient in SIMD.
+
+[h3 Return types]
+
+Most SIMD functors return a vector of the same type as the first SIMD input parameter, the major
+exception being in the [c++] `reduction` toolbox the functors of which always return a scalar value computed
+from all the vector elements and of course also in the conversion routines, namely:
+
+[c++] `tofloat, toint, bitfloating, bitinteger`  
+[/ TODO complete the list]
+
+In scalar mode, the return type is computed as being the smallest promotion of types that matter in the call.
+It is rather difficult to give a definition of 'that matter', but quite easy to understand the concept from an
+example : [c++] `select(a, 1.0f, 2)` will always return a [c++] `float` (never a [c++] `int`) and the scalar  
+type of [c++] `a` does not matter: it is only a boolean-like just to choose the result.
+ 
+
+Some functors as [c++] `frexp` or [c++] `modf` return several results for one call. In this case 
+a choice of implementation is at disposal, one can call
+
+`` boost::tie(m,e) = boost::simd::frexp(a)`` 
+
+or  
+
+`` m = boost::simd::frexp(a,e)`` 
+
+or
+
+`` boost::simd::frexp(a,m,e)`` 
+
+provided that the variables [c++] `a, m` and [c++] `e` are consistantly defined and [c++] `tie` available.
+
+[endsect]
+[endsect]
+

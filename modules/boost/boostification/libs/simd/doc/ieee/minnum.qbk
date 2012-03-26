@@ -1,0 +1,30 @@
+[section minnum]
+
+[h5 Description]
+return from each element of the two parameters the elements the one that have the least absolute value.
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0, class A1>
+      __unspecified__ minnum(A0 const& a0, A1 const& a1);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/minnum.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

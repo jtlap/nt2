@@ -1,0 +1,28 @@
+[section reversebits]
+
+[h5 Description]
+Reverse the bits' order of the input.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> A0 reversebits(A0 const& a0);
+    } }
+
+[table Parameters
+    [[Parameter] [Description]]
+    [[a0]        [Operation's argument]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/bitwise/include/reversebits.hpp>
+[h5 Expression Semantics]
+   reversebits(a);
+
+[*Return type: ] Returns a variable of `a`'s type.
+
+[*Semantics:   ] Returns a copy of `a` but with inversed bits order.
+
+[h5 Example]
+
+[endsect]

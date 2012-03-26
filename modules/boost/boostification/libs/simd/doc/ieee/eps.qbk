@@ -1,0 +1,36 @@
+[section eps]
+
+[h5 Description]
+
+returns the distance from `abs(a0)` to the next greater number of the same type.
+for integer types it's always `One`
+
+The constant `Eps<T>()` is equal to `eps(T(1))`.
+
+It is `2^-52` for double and `2^-23` for floats
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> A0 eps(A0 const& a0);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/eps.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

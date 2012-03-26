@@ -1,0 +1,32 @@
+[section predecessor]
+
+[h5 Description]
+`predecessor(x,n)` returns the nth `prev` iteration: 
+for example `predecessor(x,3)` is `prev(prev(prev(x)))` 
+and `predecessor(x,1)` is simply  `prev(x)`.
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0> A0 predecessor(A0 const& a0);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/predecessor.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

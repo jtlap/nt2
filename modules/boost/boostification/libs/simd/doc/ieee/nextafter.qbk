@@ -1,0 +1,36 @@
+[section nextafter]
+
+[h5 Description]
+nextafter(a0,a1) returns the closest element of the same type as a0 in the direction of a1.
+that means 
+
+``if a0<a1 then next(a0) 
+  else if a0>a1 then prev(a0) 
+  else a0``
+
+
+[h5 Synopsis]
+    namespace boost { namespace simd
+    {
+      template <class A0, class A1> A0 nextafter(A0 const& a0, A1 const& a1);
+    } }
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/nextafter.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

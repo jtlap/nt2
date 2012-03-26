@@ -1,0 +1,24 @@
+[section majority]
+
+[h5 Description]
+
+[h5 Synopsis]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/predicates/include/majority.hpp>
+[h5 Expression Semantics]
+   majority(a);
+
+[*Return type: ] When operating on scalar types, the function returns a boolean, otherwise
+                 when operating on SIMD types it returns a variable of a's type.
+
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]

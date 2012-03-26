@@ -1,0 +1,33 @@
+[section modf]
+
+[h5 Description]
+return the integer and fractional part of the input.
+For floating entries these are equivalent to `trunc(a)` and `frac(a)`
+For integer entries the results are trivial.
+
+The sum of the two parts give the original
+
+
+[h5 Synonyms]
+
+[h5 Synopsis]
+
+[table Template Parameters
+    [[Parameter] [Requirement] [Description]]
+]
+
+[table Parameters
+    [[Parameter] [Description]]
+]
+
+[h5 Header]
+   #include <boost/simd/toolbox/ieee/include/modf.hpp>
+[h5 Expression Semantics]
+
+[*Return type: ]
+
+[*Semantics:   ]
+
+[h5 Example]
+
+[endsect]
