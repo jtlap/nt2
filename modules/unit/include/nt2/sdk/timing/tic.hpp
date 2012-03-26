@@ -15,7 +15,7 @@
 **/
 
 #include <nt2/sdk/timing/now.hpp>
-#include <nt2/sdk/timing/timer.hpp>
+#include <nt2/sdk/timing/details/timer.hpp>
 
 namespace nt2 { namespace details
 {
@@ -28,6 +28,8 @@ namespace nt2 { namespace details
     static inline double  Time() { return details::now(); }
   };
 
+  // INTERNAL ONLY
+  // Static const instance of a double based counter
   counter<double,second_based_timer> const sec_timer = {};
 } }
 
@@ -62,7 +64,7 @@ namespace nt2
   *
   * @see tic()
   **/
-  inline double  toc( bool display = true)
+  inline double toc( bool display = true )
   {
     return details::sec_timer.toc(display);
   }

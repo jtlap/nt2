@@ -13,8 +13,9 @@
 * @file
 * @brief Defines and implements the nt2::time::cycle_timer scoped timer class.
 **/
+
 #include <nt2/sdk/timing/ctic.hpp>
-#include <nt2/sdk/timing/impl/cycles.hpp>
+#include <nt2/sdk/timing/details/cycles.hpp>
 
 namespace nt2 { namespace time
 {

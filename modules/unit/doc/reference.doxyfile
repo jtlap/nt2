@@ -16,13 +16,20 @@ HIDE_UNDOC_MEMBERS     = YES
 HIDE_UNDOC_CLASSES     = YES
 HIDE_SCOPE_NAMES       = YES
 INLINE_INFO            = YES
-INPUT                  = ../include/
+INTERNAL_DOCS          = NO
+INPUT                   = ../include/nt2/sdk/unit/ ../include/nt2/sdk/timing/
+INPUT                  +=../include/nt2/sdk/error/ ../include/nt2/sdk/config/
 EXAMPLE_PATH           = ../examples/
 FULL_PATH_NAMES        = NO
 INHERIT_DOCS           = NO
 SEARCH_INCLUDES        = YES
-RECURSIVE              = YES
+RECURSIVE              = NO
 ENABLE_PREPROCESSING   = YES
 MACRO_EXPANSION        = YES
 PREDEFINED             = DOXYGEN_ONLY
 EXPAND_AS_DEFINED      = BOOST_PP_EMPTY BOOST_PP_COMMA
+
+################################################################################
+# Some useful aliases
+################################################################################
+ALIASES   = "usage=\par Usage:"

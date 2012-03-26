@@ -13,6 +13,7 @@
 * @file
 * @brief Defines and implements the nt2::time::second_timer scoped timer class.
 **/
+
 #include <nt2/sdk/timing/tic.hpp>
 
 namespace nt2 { namespace time
