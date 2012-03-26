@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::strip<result_type>::type stype;
       return nt2::run ( a0
-                      , boost::fusion::vector0<>()
+                      , 1u
                       , meta::as_<stype>()
                       );
     }

@@ -53,16 +53,16 @@ namespace boost { namespace simd { namespace ext
     typedef dispatch::
             unpack< A0
                   , dispatch::functor< typename proto::tag_of<A0>::type >
-                  , dispatch::with_state<tag::run_, State> const
+                  , dispatch::with_state<tag::run_, State const> const
                   >
     transform;
 
     typedef typename transform::result_type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State& state) const
+    operator()(A0& a0, State const& state) const
     {
-       return transform()(a0, dispatch::with_state<tag::run_, State>(state));
+       return transform()(a0, dispatch::with_state<tag::run_, State const>(state));
     }
   };
   
@@ -81,10 +81,10 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename dispatch::meta::
-            call<boost::proto::tag::terminal(A0&, State&)>::type result_type;
+            call<boost::proto::tag::terminal(A0&, State const&)>::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State& state) const
+    operator()(A0& a0, State const& state) const
     {
       return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
                       (a0, state);
@@ -104,16 +104,16 @@ namespace boost { namespace simd { namespace ext
     typedef dispatch::
             unpack< A0
                   , dispatch::functor< typename proto::tag_of<A0>::type >
-                  , dispatch::with_state_data<tag::run_, State, Data const> const
+                  , dispatch::with_state_data<tag::run_, State const, Data const> const
                   >
     transform;
 
     typedef typename transform::result_type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State& state, Data const& data) const
+    operator()(A0& a0, State const& state, Data const& data) const
     {
-       return transform()(a0, dispatch::with_state_data<tag::run_, State, Data const>(state, data));
+       return transform()(a0, dispatch::with_state_data<tag::run_, State const, Data const>(state, data));
     }
   };
 
@@ -133,13 +133,13 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename dispatch::meta::
-            call<boost::proto::tag::terminal(A0&, State&, Data const&)>::type result_type;
+            call<boost::proto::tag::terminal(A0&, State const&, Data const&)>::type result_type;
       
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State& state, Data const& data) const
+    operator()(A0& a0, State const& state, Data const& data) const
     {
       return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
-                      (a0, state,data);
+                      (a0, state, data);
     }
   }; 
 } } }

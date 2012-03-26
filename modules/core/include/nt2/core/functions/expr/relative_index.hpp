@@ -9,11 +9,10 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_RELATIVE_INDEX_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_RELATIVE_INDEX_HPP_INCLUDED
 
-#include <nt2/table.hpp>
-#include <nt2/core/functions/extent.hpp>
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/core/container/category.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
+#include <nt2/core/functions/relative_index.hpp>
+#include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -21,62 +20,66 @@ namespace nt2 { namespace ext
   // When indexing an expression, return the evaluation of said expression
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
-                            , (A0)(A1)
+                            , (A0)(A1)(A2)
                             , (ast_<A0>)
                               (scalar_ < unspecified_<A1> >)
+                              (target_< unspecified_<A2> >)
                             )
   {
-    typedef std::size_t result_type;
+    typedef typename A2::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(const A0& indexer, const A1& pos) const
+    operator()(const A0& indexer, const A1& pos, const A2&) const
     {
       return nt2::run ( indexer
-                      , boost::fusion::vector_tie(pos)
+                      , pos
                       , meta::as_<result_type>()
                       );
     }
   };
 
   //============================================================================
-  // When indexing a scalar, return the evaluation of said expression
+  // When indexing a scalar, evaluate as a scalar then splat
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
-                            , (A0)(Arity)(A1)
+                            , (A0)(Arity)(A1)(A2)
                             , ((expr_ < scalar_< unspecified_<A0> >
                                       , nt2::tag::terminal_
                                       , Arity
                                       >
                               ))
                               (scalar_ < unspecified_<A1> >)
+                              (target_< unspecified_<A2> >)
                             )
   {
-    typedef typename boost::dispatch::meta::semantic_of<A0&>::type result_type; 
+    typedef typename A0::value_type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(const A0& ind, const A1&) const
+    operator()(const A0& indexer, const A1& pos, const A2&) const
     {
-      return boost::proto::value(ind);
+      return nt2::run( indexer, pos, meta::as_<result_type>() );
     }
   };
 
   //============================================================================
-  // When indexing on _, return the current index unchanged
+  // When indexing on _, return the consecutive positions
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
-                            , (A0)(Arity)(A1)
+                            , (A0)(Arity)(A1)(A2)
                             , ((expr_ < colon_< A0 >
                                       , nt2::tag::terminal_
                                       , Arity
                                       >
                               ))
                               (scalar_ < unspecified_<A1> >)
+                              (target_< unspecified_<A2> >)
                             )
   {
-    typedef A1 result_type;
+    typedef typename boost::dispatch::meta::
+            scalar_of<typename A2::type>::type  result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(const A0&, const A1& pos) const
+    operator()(const A0&, const A1& pos, const A2&) const
     {
       return pos;
     }

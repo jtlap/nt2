@@ -32,10 +32,11 @@ namespace nt2
    *
    * \param xpr Indexing expression
    * \param idx Index being computed
+   * \param target Desired index type
    * \return The translated index to access current indexing expression
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::relative_index_, relative_index, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::relative_index_, relative_index, 3)
 }
 
 #endif

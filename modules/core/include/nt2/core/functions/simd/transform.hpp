@@ -48,19 +48,20 @@ namespace nt2 { namespace ext
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
       typename A0::index_type::type bs;
-      std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-      std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
-      std::ptrdiff_t ibound = ilow + (boost::fusion::at_c<0>(a0.extent())/N) * N;
-      std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
+      std::ptrdiff_t low       = boost::fusion::at_c<0>(bs);
+      std::ptrdiff_t in_sz     = boost::fusion::at_c<0>(a0.extent());
+      std::ptrdiff_t in_sz_bnd = in_sz/N*N;
+      std::ptrdiff_t outer_sz  = nt2::numel(boost::fusion::pop_front(a0.extent()));
 
-      for(std::ptrdiff_t j=olow; j!=obound; ++j)
+      std::ptrdiff_t it = low;
+
+      for(std::ptrdiff_t j=0; j!=outer_sz; ++j)
       {
-        for(std::ptrdiff_t i=ilow; i!=ibound; i+=N)
-          nt2::run(a0, as_aligned(boost::fusion::vector_tie(i,j)), nt2::run(a1, as_aligned(boost::fusion::vector_tie(i,j)), meta::as_<target_type>()));
+        for(std::ptrdiff_t i=0; i!=in_sz_bnd; i+=N, it+=N)
+          nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
-        for(std::ptrdiff_t i=ibound; i!=bound; ++i)
-          nt2::run(a0, boost::fusion::vector_tie(i,j), nt2::run(a1, boost::fusion::vector_tie(i,j), meta::as_<stype>()));
+        for(std::ptrdiff_t i=in_sz_bnd; i!=in_sz; ++i, ++it)
+          nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
       }
     }
   };
@@ -97,10 +98,10 @@ namespace nt2 { namespace ext
       std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(a0.extent())/N*N;
 
       for(std::ptrdiff_t i=low;i!=aligned_bound; i+=N)
-        nt2::run(a0, as_aligned(boost::fusion::vector_tie(i)), nt2::run(a1, as_aligned(boost::fusion::vector_tie(i)), meta::as_<target_type>()));
+        nt2::run(a0, i, nt2::run(a1, i, meta::as_<target_type>()));
 
       for(std::ptrdiff_t i=aligned_bound; i!=bound; ++i)
-        nt2::run(a0, boost::fusion::vector_tie(i), nt2::run(a1, boost::fusion::vector_tie(i), meta::as_<stype>()));
+        nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
     }
   };
 } }

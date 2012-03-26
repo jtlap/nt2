@@ -298,51 +298,6 @@ namespace nt2 { namespace memory
     }
 
     //==========================================================================
-    // Position based access
-    //==========================================================================
-    #if 0
-    template<class Position> BOOST_FORCEINLINE
-    reference operator()(Position const& p)
-    {
-      specific_.synchronize();
-      return data_[ scheme_type::linearize( as_aligned( p
-                                                      , index_type()
-                                                      , order_type()
-                                                      )
-                                          ,sizes_
-                                          )
-                  ];
-    }
-
-    template<class Position> BOOST_FORCEINLINE
-    const_reference operator()(Position const& p) const
-    {
-      specific_.synchronize();
-      return data_[ scheme_type::linearize( as_aligned( p
-                                                      , index_type()
-                                                      , order_type()
-                                                      )
-                                          ,sizes_
-                                          )
-                  ];
-    }
-    #else
-    template<class Position>
-    BOOST_FORCEINLINE reference
-    operator()(Position const& p)
-    {
-      return data_[sub2ind(sizes_, p)-1];
-    }
-
-    template<class Position>
-    BOOST_FORCEINLINE const_reference
-    operator()(Position const& p) const
-    {
-      return data_[sub2ind(sizes_, p)-1];
-    }
-    #endif
-
-    //==========================================================================
     /*!
      * @brief Access to the architecture specific container data
      * As the inner structure of a container may change with the hardware
