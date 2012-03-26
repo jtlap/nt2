@@ -23,7 +23,6 @@
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <numeric>
-#include <iostream>
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -83,8 +82,6 @@ namespace nt2 { namespace ext
 
       if(dim == 1 || ext.size() == 1)
       {
-        std::cout<< "fold " << "\n";
-
         nt2::run( a0, boost::fusion::vector0<>()
                   , nt2::fold( input
                                , typename nt2::make_functor<Neutral1, A0>::type()
@@ -95,7 +92,6 @@ namespace nt2 { namespace ext
       }
       else if(red == 1)
       {
-        std::cout<< "inner fold " << "\n";
         nt2::inner_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
@@ -104,7 +100,6 @@ namespace nt2 { namespace ext
       }
       else if(red == dim)
       {
-        std::cout<< "outer fold " << "\n";
         nt2::outer_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
@@ -113,7 +108,6 @@ namespace nt2 { namespace ext
       }
       else
       {
-        std::cout<< "partial fold " << "\n";
 
         std::size_t lo = std::accumulate( ext.begin()
                                         , ext.begin()+red-1
@@ -126,8 +120,6 @@ namespace nt2 { namespace ext
                                         , std::size_t(1)
                                         , std::multiplies<std::size_t>()
                                         );
-        std::cout << "lo " << lo << "\n";
-        std::cout << "hi " << hi << "\n";
 #if 0
         nt2::partial_fold( reshape(a0, of_size(lo, hi))
                          , reshape(input, of_size(lo, ext[red-1], hi))
