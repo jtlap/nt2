@@ -199,9 +199,13 @@ macro(nt2_module_main module)
   nt2_module_use_modules(${module})
 
   if(NT2_DOCUMENTATION_ENABLED)
-    string(REPLACE "." "_" doc_target ${module})
-    nt2_doc(${module}.doc doc/${doc_target}.qbk doc/setup.doxyfile)
-    nt2_module_target_parent(${module}.doc)
+    #nt2_module_dir(doc)
+  if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc)
+      add_subdirectory(doc)
+      set_property(TARGET ${NT2_CURRENT_MODULE}.doc PROPERTY FOLDER doc)
+      nt2_module_target_parent(${NT2_CURRENT_MODULE}.doc)
+      project(NT2_${NT2_CURRENT_MODULE_U}.doc) # would be better in directory
+    endif()
   endif()
 
   nt2_configure_tests()

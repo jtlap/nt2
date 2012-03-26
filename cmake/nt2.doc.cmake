@@ -56,7 +56,7 @@ macro(nt2_doc_html target file)
   nt2_absolute(absolute ${file}.docbook)
   get_filename_component(path ${file} PATH)
 
-  nt2_xsltproc(${NT2_BINARY_DIR}/${file}/html/index.html
+  nt2_xsltproc(${NT2_BINARY_DIR}/doc/${file}/html/index.html
                ${BOOSTBOOK_XSL_DIR}/xhtml.xsl
                ${absolute}
                DEPENDS ${file}.docbook
@@ -64,8 +64,8 @@ macro(nt2_doc_html target file)
               )
 
   add_custom_target(${target}
-                    COMMAND ${CMAKE_COMMAND} -E copy_directory ${NT2_SOURCE_ROOT}/doc/html ${NT2_BINARY_DIR}/${file}/html
-                    DEPENDS ${NT2_BINARY_DIR}/${file}/html/index.html
+                    COMMAND ${CMAKE_COMMAND} -E copy_directory ${NT2_SOURCE_ROOT}/doc/html ${NT2_BINARY_DIR}/doc/${file}/html
+                    DEPENDS ${NT2_BINARY_DIR}/doc/${file}/html/index.html
                    )
 endmacro()
 
@@ -116,25 +116,6 @@ macro(nt2_doc_doxygen file)
   file(READ ${absolute} DOXYGEN_CONTENT)
   set(DOXYGEN_CONTENT ${DOXYGEN_CONTENT}
       "QUIET                  = NO\n"
-      "WARN_IF_UNDOCUMENTED   = YES\n"
-      "WARNINGS               = YES\n"
-      "EXTRACT_ALL            = YES\n"
-      "EXTRACT_PRIVATE        = NO\n"
-      "REPEAT_BRIEF           = YES\n"
-      "HIDE_UNDOC_MEMBERS     = YES\n"
-      "HIDE_UNDOC_CLASSES     = YES\n"
-      "HIDE_SCOPE_NAMES       = YES\n"
-      "INLINE_INFO            = YES\n"
-      "INPUT                  = include/\n"
-      "EXAMPLE_PATH           = examples/\n"
-      "FULL_PATH_NAMES        = NO\n"
-      "INHERIT_DOCS           = NO\n"
-      "SEARCH_INCLUDES        = YES\n"
-      "RECURSIVE              = YES\n"
-      "ENABLE_PREPROCESSING   = YES\n"
-      "MACRO_EXPANSION        = YES\n"
-      "PREDEFINED             = DOXYGEN_ONLY\n"
-      "EXPAND_AS_DEFINED      = BOOST_PP_EMPTY BOOST_PP_COMMA\n"
       "GENERATE_LATEX         = NO\n"
       "GENERATE_HTML          = NO\n"
       "GENERATE_XML           = YES\n"

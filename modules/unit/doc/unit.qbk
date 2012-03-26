@@ -14,4 +14,4 @@ This module provides macros, classes and functions to setup and run NT2 unit tes
 and benchmarks
 [endsect] [/ Preface]
 
-[xinclude setup.xml]
+[xinclude reference.xml]
