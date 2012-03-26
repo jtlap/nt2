@@ -118,18 +118,32 @@ macro(nt2_doc_doxygen file)
 
   file(READ ${absolute} DOXYGEN_CONTENT)
   set(DOXYGEN_CONTENT ${DOXYGEN_CONTENT}
-      "QUIET = NO\n"
-      "EXTRACT_ALL = NO\n"
-      "WARN_IF_UNDOCUMENTED = YES\n"
-      "GENERATE_LATEX = NO\n"
-      "GENERATE_HTML = NO\n"
-      "GENERATE_XML = YES\n"
-      "EXAMPLE_PATH = ${NT2_SOURCE_DIR}/${examples_path}\n"
-      "STRIP_FROM_PATH = ${NT2_SOURCE_DIR}/${include_path}/\n"
-      "STRIP_FROM_INC_PATH = ${NT2_SOURCE_DIR}/${include_path}/\n"
-      "INPUT = ${NT2_SOURCE_DIR}/${include_path}\n"
-      "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n"
+      "QUIET                  = NO\n"
+      "WARN_IF_UNDOCUMENTED   = YES\n"
+      "WARNINGS               = YES\n"
+      "EXTRACT_ALL            = YES\n"
+      "EXTRACT_PRIVATE        = NO\n"
+      "REPEAT_BRIEF           = YES\n"
+      "HIDE_UNDOC_MEMBERS     = YES\n"
+      "HIDE_UNDOC_CLASSES     = YES\n"
+      "HIDE_SCOPE_NAMES       = YES\n"
+      "INLINE_INFO            = YES\n"
+      "INPUT                  = ${NT2_SOURCE_DIR}/${include_path}\n"
+      "EXAMPLE_PATH           = ${NT2_SOURCE_DIR}/${examples_path}\n"
+      "FULL_PATH_NAMES        = NO\n"
+      "INHERIT_DOCS           = NO\n"
+      "SEARCH_INCLUDES        = YES\n"
+      "RECURSIVE              = YES\n"
+      "ENABLE_PREPROCESSING   = YES\n"
+      "MACRO_EXPANSION        = YES\n"
+      "PREDEFINED             = DOXYGEN_ONLY\n"
+      "EXPAND_AS_DEFINED      = BOOST_PP_EMPTY BOOST_PP_COMMA\n"
+      "GENERATE_LATEX         = NO\n"
+      "GENERATE_HTML          = NO\n"
+      "GENERATE_XML           = YES\n"
+      "XML_OUTPUT             = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n"
      )
+
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile ${DOXYGEN_CONTENT})
 
   # We always run Doxygen because we cannot reliably identify dependencies
@@ -159,6 +173,10 @@ macro(nt2_doc_doxygen file)
                DEPENDS ${file}.doxygen/all.xml
                COMMENT "Converting Doxygen XML to Boostbook (${file}.xml)..."
               )
+
+  # Copy css and images next to target results
+  # TODO
+
 endmacro()
 
 macro(nt2_doc target)

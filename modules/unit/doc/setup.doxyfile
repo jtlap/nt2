@@ -1,6 +1,6 @@
 ################################################################################
-#         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-#         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 #
 #          Distributed under the Boost Software License, Version 1.0.
 #                 See accompanying file LICENSE.txt or copy at
@@ -8,90 +8,24 @@
 ################################################################################
 
 ################################################################################
-# Project related configuration options
+## This prototype doxygen file is editable if you want to add aliases for your
+## documentation. Interesting tidbits are done using CMake
 ################################################################################
-DOXYFILE_ENCODING      = UTF-8
-PROJECT_NAME           = NT2.Unit
-OUTPUT_LANGUAGE        = English
-BRIEF_MEMBER_DESC      = YES
-REPEAT_BRIEF           = NO
-INLINE_INHERITED_MEMB  = YES
-FULL_PATH_NAMES        = NO
-SHORT_NAMES            = NO
-TYPEDEF_HIDES_STRUCT   = YES
-
-ALIASES += "usage=\par Usage:"
+ALIASES += "metafunction=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/metafunction.html\">Metafunction</a>"
+ALIASES += "metalambda=<a href=\"http://www.boost.org/doc/libs/1_46_1/libs/mpl/doc/refmanual/lambda-expression.html\">Lambda Expression</a>"
+ALIASES += "metaint=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/integral-constant.html\">Integral Constant</a>"
+ALIASES += "dco=<a href=\"http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html\">Defered Callable Object</a>"
+ALIASES += "metasequence=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/forward-sequence.html\">MPL Sequence</a>"
+ALIASES += "true_=\c boost::mpl::true_"
+ALIASES += "false_=\c boost::mpl::false_"
+ALIASES += "iterator=<a href=\"http://www.sgi.com/tech/stl/Iterators.html\">Iterator</a>"
+ALIASES += "readableiterator=<a href=\"http://www.boost.org/doc/libs/release/libs/iterator/doc/new-iter-concepts.html#readable-iterators-lib-readable-iterators\">ReadableIterator</a>"
+ALIASES += "singlepassrange=<a href=\"http://www.boost.org/doc/libs/release/libs/range/doc/html/range/concepts/single_pass_range.html\">SinglePassRange</a>"
+ALIASES += "usage=\par Example Usage:"
 ALIASES += "semantic=\par Semantic:"
 ALIASES += "model=\par Model:"
 ALIASES += "synopsis=\par Synopsis:"
 ALIASES += "description=\par Description:"
 ALIASES += "matlab=<span style=\"font-variant: small-caps;\">Matlab</span>"
 ALIASES += "nt2=<b>NT²</b>"
-
-################################################################################
-# Build related configuration options
-################################################################################
-EXTRACT_PRIVATE        = NO
-EXTRACT_STATIC         = NO
-EXTRACT_LOCAL_CLASSES  = NO
-EXTRACT_LOCAL_METHODS  = NO
-EXTRACT_ANON_NSPACES   = NO
-HIDE_UNDOC_MEMBERS     = YES
-HIDE_UNDOC_CLASSES     = YES
-HIDE_FRIEND_COMPOUNDS  = YES
-HIDE_IN_BODY_DOCS      = YES
-INTERNAL_DOCS          = NO
-CASE_SENSE_NAMES       = NO
-HIDE_SCOPE_NAMES       = NO
-SHOW_INCLUDE_FILES     = NO
-FORCE_LOCAL_INCLUDES   = NO
-INLINE_INFO            = NO
-SORT_MEMBER_DOCS       = YES
-SORT_BRIEF_DOCS        = YES
-SORT_MEMBERS_CTORS_1ST = YES
-SORT_GROUP_NAMES       = YES
-SORT_BY_SCOPE_NAME     = NO
-GENERATE_TODOLIST      = YES
-GENERATE_TESTLIST      = NO
-GENERATE_BUGLIST       = YES
-GENERATE_DEPRECATEDLIST= YES
-MAX_INITIALIZER_LINES  = 0
-SHOW_USED_FILES        = NO
-SHOW_DIRECTORIES       = NO
-SHOW_FILES             = YES
-SHOW_NAMESPACES        = YES
-
-################################################################################
-# configuration options related to the input files
-################################################################################
-INPUT_ENCODING         = UTF-8
-FILE_PATTERNS          = *.hpp
-RECURSIVE              = YES
-EXCLUDE_SYMLINKS       = YES
-EXAMPLE_RECURSIVE      = NO
-IMAGE_PATH             =
-FILTER_SOURCE_FILES    = NO
-
-################################################################################
-# configuration options related to source browsing
-################################################################################
-SOURCE_BROWSER         = NO
-INLINE_SOURCES         = YES
-STRIP_CODE_COMMENTS    = YES
-REFERENCED_BY_RELATION = NO
-REFERENCES_RELATION    = NO
-REFERENCES_LINK_SOURCE = YES
-USE_HTAGS              = NO
-VERBATIM_HEADERS       = NO
-ALPHABETICAL_INDEX     = NO
-USE_MATHJAX            = YES
-MATHJAX_RELPATH        = http://www.mathjax.org/mathjax
-
-ENABLE_PREPROCESSING   = YES
-MACRO_EXPANSION        = NO
-EXPAND_ONLY_PREDEF     = YES
-SEARCH_INCLUDES        = YES
-PREDEFINED             = DOXYGEN_ONLY
-EXPAND_AS_DEFINED      =
-SKIP_FUNCTION_MACROS   = YES
-CLASS_DIAGRAMS         = NO
+ALIASES += "container=<a href=\"http://www.sgi.com/tech/stl/Container.html\">Container</a>"
