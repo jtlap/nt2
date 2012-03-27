@@ -152,10 +152,6 @@ macro(nt2_doc_doxygen file)
                DEPENDS ${file}.doxygen/all.xml
                COMMENT "Converting Doxygen XML to Boostbook (${file}.xml)..."
               )
-
-  # Copy css and images next to target results
-  # TODO
-
 endmacro()
 
 macro(nt2_doc target)

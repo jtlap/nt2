@@ -137,10 +137,6 @@ endmacro()
 
 macro(nt2_module_dir dir)
   if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/${dir})
-      add_custom_target(${NT2_CURRENT_MODULE}.${dir})
-      set_property(TARGET ${NT2_CURRENT_MODULE}.${dir} PROPERTY FOLDER ${dir})
-      nt2_module_target_parent(${NT2_CURRENT_MODULE}.${dir})
-
       if(${dir} STREQUAL bench)
         set(BUILD_TYPE NT2Bench)
       else()
@@ -199,13 +195,7 @@ macro(nt2_module_main module)
   nt2_module_use_modules(${module})
 
   if(NT2_DOCUMENTATION_ENABLED)
-    #nt2_module_dir(doc)
-  if(IS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/doc)
-      add_subdirectory(doc)
-      set_property(TARGET ${NT2_CURRENT_MODULE}.doc PROPERTY FOLDER doc)
-      nt2_module_target_parent(${NT2_CURRENT_MODULE}.doc)
-      project(NT2_${NT2_CURRENT_MODULE_U}.doc) # would be better in directory
-    endif()
+    nt2_module_dir(doc)
   endif()
 
   nt2_configure_tests()
