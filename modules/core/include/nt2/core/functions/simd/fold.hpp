@@ -12,7 +12,7 @@
 #include <nt2/core/functions/fold.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/toolbox/swar/include/functions/splatted_sum.hpp>
-#include <iostream>
+
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -34,18 +34,21 @@ namespace nt2 { namespace ext
       extent_type ext = in.extent();
       std::ptrdiff_t card = boost::simd::meta::cardinal_of<native_type>();
       result_type out = neutral(nt2::meta::as_<result_type>());
-      native_type vec = neutral(nt2::meta::as_<native_type>());
+      native_type vec_0 = neutral(nt2::meta::as_<native_type>());
+      native_type vec_1 = neutral(nt2::meta::as_<native_type>());
 
       if( card <= ext[0]){
 
         std::ptrdiff_t nb_iter = ext[0]/card;
         for(std::ptrdiff_t c_0 = 0; c_0 < nb_iter; ++c_0){
           for(std::ptrdiff_t j = 0; j < card; ++j){
-            vec[j] = in(c_0*card + j + 1);
+            vec_1[j] = in(c_0*card + j + 1);
           }
-          out = op(out, boost::simd::splatted_sum(vec)[0]); 
-          //FIXME : Made specialisation of functor fold_ to avoid to use splatted_sum in general case
+          vec_0 = op(vec_0, vec_1);
         }
+
+        //FIXME : Made specialisation of functor fold_ to avoid to use splatted_sum in general case
+        out = boost::simd::splatted_sum(vec_0)[0]; 
 
         // Compute the end of the table with scalar version        
         for(std::ptrdiff_t c_0 = nb_iter*card; c_0 < ext[0]; ++c_0){
