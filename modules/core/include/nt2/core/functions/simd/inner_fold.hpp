@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
 
               for(std::ptrdiff_t c_0 = 0; c_0 < nb_iter; ++c_0){
                 for(std::ptrdiff_t j = 0; j < card; ++j){
-                  vec_1[j] = in(c_0*card + j + 1);
+                  vec_1[j] = in(c_0*card + j + 1, c_1, c_2, c_3);
                 }
                 vec_0 = op(vec_0, vec_1);
               }
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
 
               for(std::ptrdiff_t c_0 = 0; c_0 < nb_iter; ++c_0){
                 for(std::ptrdiff_t j = 0; j < card; ++j){
-                  vec_1[j] = in(c_0*card + j + 1);
+                  vec_1[j] = in(c_0*card + j + 1, c_1, c_2);
                 }
                 vec_0 = op(vec_0, vec_1);
               }
@@ -99,7 +99,7 @@ namespace nt2 { namespace ext
 
               for(std::ptrdiff_t c_0 = 0; c_0 < nb_iter; ++c_0){
                 for(std::ptrdiff_t j = 0; j < card; ++j){
-                  vec_1[j] = in(c_0*card + j + 1);
+                  vec_1[j] = in(c_0*card + j + 1, c_1);
                 }
                 vec_0 = op(vec_0, vec_1);
               }
