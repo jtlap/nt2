@@ -23,6 +23,7 @@
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <numeric>
+#include <iostream>
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -108,7 +109,7 @@ namespace nt2 { namespace ext
       }
       else
       {
-
+        std::cout << "Partial reduction\n";
         std::size_t lo = std::accumulate( ext.begin()
                                         , ext.begin()+red-1
                                         , std::size_t(1)
@@ -120,13 +121,14 @@ namespace nt2 { namespace ext
                                         , std::size_t(1)
                                         , std::multiplies<std::size_t>()
                                         );
+        std::cout << "lo = " << lo << " hi = " << hi << "\n";
 #if 0
         nt2::partial_fold( reshape(a0, of_size(lo, hi))
                          , reshape(input, of_size(lo, ext[red-1], hi))
                          , typename nt2::make_functor<Neutral1, A0>::type()
                          , typename nt2::make_functor<O1, A0>::type()
                          );
-      #endif
+#endif
       }
 
       return a0;

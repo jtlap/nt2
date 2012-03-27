@@ -15,7 +15,7 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <iostream>
+#include <nt2/sdk/memory/details/standard_container.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
