@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 /*!
  * \ingroup boost_simd_constant
@@ -66,10 +67,10 @@ namespace boost { namespace simd
     };
   }
 
-  template<class Target, boost::simd::int64_t N> 
+  template<class Target, typename boost::dispatch::meta::scalar_of<Target>::type N>
   inline Target integral_constant()
   {
-    typename dispatch::make_functor< tag::Intpattern<N>, Target >::type callee;
+    typename dispatch::make_functor< tag::Intpattern<boost::simd::int64_t(N)>, Target >::type callee;
     return callee( dispatch::meta::as_<Target>() );
   }
 } }
