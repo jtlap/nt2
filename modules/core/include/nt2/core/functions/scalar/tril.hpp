@@ -6,18 +6,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SCALAR_TRIU_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SCALAR_TRIU_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_TRIL_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_TRIL_HPP_INCLUDED
 
-#include <nt2/core/functions/triu.hpp>
+#include <nt2/core/functions/tril.hpp>
 #include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Generates triu from a pair of [a, k]
+  // Generates tril from a pair of [a, k]
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::triu_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tril_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
@@ -25,11 +25,11 @@ namespace nt2 { namespace ext
     typedef A0  result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& k) const
     {
-      return k < 0 ? Zero<A0>() : a;
+      return k > 0 ? Zero<A0>() : a;
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::triu_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tril_, tag::cpu_, (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
