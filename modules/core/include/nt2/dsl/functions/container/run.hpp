@@ -87,6 +87,7 @@ namespace nt2 { namespace ext
                   , nt2::fold( input
                                , typename nt2::make_functor<Neutral1, A0>::type()
                                , typename nt2::make_functor<O1, A0>::type()
+                               , typename nt2::make_functor<T1, A0>::type()
                                )
                   );
         
@@ -97,6 +98,7 @@ namespace nt2 { namespace ext
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
+                       , typename nt2::make_functor<T1, A0>::type()
                        );
       }
       else if(red == dim)

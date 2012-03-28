@@ -11,55 +11,57 @@
 
 #include <nt2/core/functions/fold.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/toolbox/swar/include/functions/splatted_sum.hpp>
+#include <nt2/include/functions/run.hpp>
+#include <boost/fusion/include/vector_tie.hpp>
+#include <nt2/core/utility/position/alignment.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
   // Generates fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fold_, boost::simd::tag::simd_, (A1)(A2)(A3)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fold_, boost::simd::tag::simd_, (A1)(A2)(A3)(A4)
                               , ((ast_< A1>))
                               (unspecified_<A2>)
                               (unspecified_<A3>)
+                              (unspecified_<A4>)
                             )
   {
     typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
     typedef typename boost::remove_reference<A1>::type::value_type             result_type;
-    typedef BOOST_SIMD_DEFAULT_EXTENSION                                       extension_type;
-    typedef boost::simd::native<result_type,extension_type>                    native_type;
+    typedef boost::simd::native<result_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
-    BOOST_FORCEINLINE result_type operator()(A1& in, A2 const& neutral, A3 const& op ) const
+    BOOST_FORCEINLINE result_type operator()(A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
-      std::ptrdiff_t card = boost::simd::meta::cardinal_of<native_type>();
+      static const std::ptrdiff_t N = boost::simd::meta::cardinal_of<target_type>::value;
+      typename A1::index_type::type bs;
+      std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
+      std::ptrdiff_t bound  = boost::fusion::at_c<0>(ext) + low;
+      std::ptrdiff_t aligned_bound = low + (boost::fusion::at_c<0>(ext)/N) * N;
+
+
       result_type out = neutral(nt2::meta::as_<result_type>());
-      native_type vec_0 = neutral(nt2::meta::as_<native_type>());
-      native_type vec_1 = neutral(nt2::meta::as_<native_type>());
+      target_type vec_out = neutral(nt2::meta::as_<target_type>());
 
-      if( card <= ext[0]){
 
-        std::ptrdiff_t nb_iter = ext[0]/card;
-        for(std::ptrdiff_t c_0 = 0; c_0 < nb_iter; ++c_0){
-          for(std::ptrdiff_t j = 0; j < card; ++j){
-            vec_1[j] = in(c_0*card + j + 1);
-          }
-          vec_0 = op(vec_0, vec_1);
-        }
+      if( N <= (aligned_bound - low)){
 
-        //FIXME : Made specialisation of functor fold_ to avoid to use splatted_sum in general case
-        out = boost::simd::splatted_sum(vec_0)[0]; 
+        for(std::ptrdiff_t i=low;i!=aligned_bound; i+=N)
+          vec_out = bop(vec_out, nt2::run(in, as_aligned(boost::fusion::vector_tie(i)), meta::as_<target_type>()));
 
-        // Compute the end of the table with scalar version        
-        for(std::ptrdiff_t c_0 = nb_iter*card; c_0 < ext[0]; ++c_0){
-          out = op(out, in(c_0));
-        }
+        out = uop(vec_out);
+
+        for(std::ptrdiff_t i=aligned_bound; i!=bound; ++i)
+          out = bop(out, nt2::run(in, boost::fusion::vector_tie(i), meta::as_<result_type>()));
 
       }
       else{
         //Use scalar version
-        for(std::ptrdiff_t c_0 = 1; c_0 <= ext[0]; ++c_0){
-          out = op(out, in(c_0));
+        for(std::ptrdiff_t i = low ; i!= bound; ++i){
+          out = bop(out, nt2::run(in, boost::fusion::vector_tie(i), meta::as_<result_type>()));
         }
       }
       return out;     

@@ -30,8 +30,8 @@ namespace nt2
    * \return nothing
    */
   //============================================================================
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0 const&)(A1 const&)(A2 const&), 3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0&)(A1 const&)(A2 const&), 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0 const&)(A1 const&)(A2 const&)(A3 const&), 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0&)(A1 const&)(A2 const&)(A3 const&), 4)
 }
 
 #endif
