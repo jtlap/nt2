@@ -10,6 +10,8 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_INNER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/inner_fold.hpp>
+#include <boost/fusion/include/pop_front.hpp>
+#include <nt2/include/functions/numel.hpp>
 
 namespace nt2 { namespace ext
 {

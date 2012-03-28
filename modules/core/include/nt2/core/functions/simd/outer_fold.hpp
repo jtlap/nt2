@@ -10,13 +10,15 @@
 #define NT2_CORE_FUNCTIONS_SIMD_OUTER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/outer_fold.hpp>
+#include <boost/fusion/include/pop_front.hpp>
+#include <boost/fusion/include/pop_back.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
   // Generates outer_fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::outer_fold_, boost::simd::tag::simd_, (A0)(S0)(A1)(A2)(A3)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::outer_fold_, boost::simd::tag::simd_, (A0)(S0)(A1)(A2)(A3)(A4)
                             , ((expr_< table_< unspecified_<A0>, S0 >
                                      , nt2::tag::terminal_
                                      , boost::mpl::long_<0>
@@ -25,79 +27,57 @@ namespace nt2 { namespace ext
                               (ast_< A1>)
                               (unspecified_<A2>)
                               (unspecified_<A3>)
+                              (unspecified_<A4>)
                             )
   {
-    typedef void                                                               result_type;
-    typedef typename A0::value_type                                            value_type;
-    typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
-    typedef BOOST_SIMD_DEFAULT_EXTENSION                                       extension_type;
-    typedef boost::simd::native<value_type,extension_type>                     native_type;
+    typedef void                                                              result_type;
+    typedef typename A0::value_type                                           value_type;
+    typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
+    typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& op ) const
+    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
-      std::ptrdiff_t card = boost::simd::meta::cardinal_of<native_type>();
-      std::ptrdiff_t nb_iter = ext[0]/card;
-      native_type vec_0;
-      native_type vec_1;
+      static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+      typename A0::index_type::type bs;
+      std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);// it's not 0 it's ext.size() -1;
+      std::ptrdiff_t olow   = boost::fusion::at_c<0>(bs);
+      std::ptrdiff_t ibound = ilow + ext[ext.size()-1]; 
 
-      if(ext.size() == 4){
-        for(std::ptrdiff_t c_0 = 1; c_0 <= ext[0]; ++c_0){
-          for(std::ptrdiff_t c_1 = 1; c_1 <= ext[1]; ++c_1){
-            for(std::ptrdiff_t c_2 = 1; c_2 <= ext[2]; ++c_2){
-              out(c_0,c_1,c_2,1) = neutral(nt2::meta::as_<value_type>());
-              for(std::ptrdiff_t c_3 = 1; c_3 <=ext[3]; ++c_3){
-                out(c_0,c_1,c_2,1) = op(out(c_0,c_1,c_2,1), in(c_0,c_1,c_2,c_3));
+      // Workaround to have nt2::numel(boost::fusion::pop_back(ext));
+      std::ptrdiff_t numel  = 1;
+      for(std::ptrdiff_t m = 0; m!= ext.size()-1 ; ++m)
+        numel*=ext[m];
 
-              }
-            }
-          }
-        }
-      }
-      else if(ext.size() == 3){
-        for(std::ptrdiff_t c_0 = 0; c_0 < nb_iter; ++c_0){
-          for(std::ptrdiff_t c_1 = 1; c_1 <= ext[1]; ++c_1){
-            out(c_0,c_1,1) = neutral(nt2::meta::as_<value_type>());
-            for(std::ptrdiff_t c_2 = 1; c_2 <=ext[2]; ++c_2){
-              out(c_0,c_1,1) = op(out(c_0,c_1,1), in(c_0,c_1,c_2));
-            }
-          }
-        }
+      std::ptrdiff_t bound  = olow + ((numel)/N) * N;
+      std::ptrdiff_t obound = olow + (numel);
 
-        // for(std::ptrdiff_t c_0 = 1; c_0 <= ext[0]; ++c_0){
-        //   for(std::ptrdiff_t c_1 = 1; c_1 <= ext[1]; ++c_1){
-        //     out(c_0,c_1,1) = neutral(nt2::meta::as_<value_type>());
-        //     for(std::ptrdiff_t c_2 = 1; c_2 <=ext[2]; ++c_2){
-        //       out(c_0,c_1,1) = op(out(c_0,c_1,1), in(c_0,c_1,c_2));
-        //     }
-        //   }
-        // }
 
-      }
-      else if(ext.size() == 2){
-        for(std::ptrdiff_t c_0 = 0; c_0 < nb_iter; ++c_0){
-          vec_0 = neutral(nt2::meta::as_<native_type>());
-          vec_1 = neutral(nt2::meta::as_<native_type>());
-          for(std::ptrdiff_t c_1 = 1; c_1 <= ext[1]; ++c_1){
-            for(std::ptrdiff_t j = 0; j < card; ++j){
-              vec_1[j] = in(c_0*card + j + 1, c_1);
-            }
-            vec_0 = op(vec_0, vec_1);
-          }
-          for(std::ptrdiff_t j = 0; j < card; ++j){
-            out(c_0*card + j +1 ,1) = vec_0[j];
-          }
-        }
+      target_type vec_out ;
 
-        for(std::ptrdiff_t c_0 = nb_iter*card; c_0 <= ext[0]; ++c_0){
-          out(c_0,1) = neutral(nt2::meta::as_<value_type>());
-          for(std::ptrdiff_t c_1 = 1; c_1 <= ext[1]; ++c_1){
-            out(c_0,1) = op(out(c_0,1), in(c_0, c_1));
-          }
+      for(std::ptrdiff_t j=olow; j!=bound; j+=N)
+        {
+          out(j,1) = neutral(nt2::meta::as_<value_type>());
+          vec_out = neutral(nt2::meta::as_<target_type>());
+          
+          for(std::ptrdiff_t i=ilow; i!=ibound; ++i)
+            vec_out = bop(vec_out,nt2::run(in, as_aligned(boost::fusion::vector_tie(j,i)), meta::as_<target_type>()));
+
+          //stored the result in out(j,1)          
+          for(std::ptrdiff_t n = 0; n!=N; ++n)
+            out(j+n,1) = vec_out[n];
         }
 
 
-      }
+      // scalar part
+      for(std::ptrdiff_t j=bound; j!=obound; ++j)
+        { 
+          out(j,1) = neutral(nt2::meta::as_<value_type>());
+          for(std::ptrdiff_t i=ilow; i!=ibound; ++i)
+            out(j,1) = bop(out(j,1), nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>()));
+        }
+      
+
     }
   };
 

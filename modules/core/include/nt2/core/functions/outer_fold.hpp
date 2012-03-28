@@ -32,10 +32,10 @@ namespace nt2
    * \return nothing
    */
   //============================================================================
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0 const&)(A1 const&)(A2 const&)(A3 const&), 4)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0&)(A1 const&)(A2 const&)(A3 const&), 4)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0 const&)(A1&)(A2 const&)(A3 const&), 4)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0&)(A1&)(A2 const&)(A3 const&), 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0 const&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0 const&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::outer_fold_, outer_fold, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
 }
 
 #endif
