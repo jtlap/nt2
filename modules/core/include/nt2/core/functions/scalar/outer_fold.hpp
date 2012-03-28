@@ -43,28 +43,19 @@ namespace nt2 { namespace ext
       std::ptrdiff_t ilow   = boost::fusion::at_c<3>(bs);
       std::ptrdiff_t olow   = boost::fusion::at_c<0>(bs);
       std::ptrdiff_t ibound  = ext[ext.size()-1] + ilow;
-      std::ptrdiff_t obound = olow + ext[0]*ext[1];//nt2::numel(boost::fusion::pop_back(ext));
 
+      std::ptrdiff_t numel  = 1;
+      for(std::ptrdiff_t m = 0; m!= ext.size()-1 ; ++m)
+        numel*=ext[m];
 
-      std::cout << "ilow " << ilow << "\n";
-      std::cout << "olow " << olow << "\n";
-      std::cout << "ext[ext.size()-1] " << ext[ext.size()-1] << "\n";
-      std::cout << "ibound " << ibound << "\n";
-      std::cout << "obound " << obound << "\n";
-
-      // std::cout << "pop_back = " << boost::fusion::pop_back(ext) << "\n";
-      // std::cout << "pop_front = " << boost::fusion::pop_front(ext)<< "\n";
+      std::ptrdiff_t obound = olow + numel;//nt2::numel(boost::fusion::pop_back(ext));
 
 
       for(std::ptrdiff_t j = olow; j != obound; ++j){
         out(j,1) = neutral(nt2::meta::as_<value_type>());
         for(std::ptrdiff_t i = ilow; i != ibound; ++i){
-          std::cout << "(" << j << ", " << i << ")\t";
-          std::cout << out(j,1) << " + " << nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>()) << " = ";
           out(j,1) = bop(out(j,1), nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>()));
-          std::cout << out(j,1) << "\t";
         }
-        std::cout << "--> " <<out(j,1) << "\n";
       }
 
     }

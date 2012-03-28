@@ -44,6 +44,9 @@ namespace nt2 { namespace ext
       std::ptrdiff_t olow   = boost::fusion::at_c<0>(bs);
       std::ptrdiff_t ibound = ilow + ext[ext.size()-1]; 
 
+
+      //std::ptrdiff_t numel  = nt2::numel(boost::fusion::pop_back(ext));
+      
       // Workaround to have nt2::numel(boost::fusion::pop_back(ext));
       std::ptrdiff_t numel  = 1;
       for(std::ptrdiff_t m = 0; m!= ext.size()-1 ; ++m)
@@ -63,7 +66,7 @@ namespace nt2 { namespace ext
           for(std::ptrdiff_t i=ilow; i!=ibound; ++i)
             vec_out = bop(vec_out,nt2::run(in, as_aligned(boost::fusion::vector_tie(j,i)), meta::as_<target_type>()));
 
-          //stored the result in out(j,1)          
+          //store the result in out(j,1)
           for(std::ptrdiff_t n = 0; n!=N; ++n)
             out(j+n,1) = vec_out[n];
         }
