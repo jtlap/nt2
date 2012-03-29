@@ -12,6 +12,8 @@
 #include <nt2/core/functions/outer_fold.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <boost/fusion/include/pop_back.hpp>
+#include <nt2/sdk/config/cache.hpp>
+
 
 namespace nt2 { namespace ext
 {
@@ -38,7 +40,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
-      static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+      static const std::ptrdiff_t N = boost::simd::meta::cardinal_of<target_type>::value;
       typename A0::index_type::type bs;
       std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);// it's not 0 it's ext.size() -1;
       std::ptrdiff_t olow   = boost::fusion::at_c<0>(bs);
@@ -52,34 +54,57 @@ namespace nt2 { namespace ext
       for(std::ptrdiff_t m = 0; m!= ext.size()-1 ; ++m)
         numel*=ext[m];
 
-      std::ptrdiff_t bound  = olow + ((numel)/N) * N;
       std::ptrdiff_t obound = olow + (numel);
 
+      std::ptrdiff_t cache_line_size = nt2::config::cache_line_size(2); // in byte
+      std::ptrdiff_t nb_vec = cache_line_size/(sizeof(value_type)*N);
+      std::ptrdiff_t cache_bound = (nb_vec)*N;
+      std::ptrdiff_t bound  = olow + ((numel)/cache_bound) * cache_bound;
 
-      target_type vec_out ;
 
-      for(std::ptrdiff_t j=olow; j!=bound; j+=N)
+      // std::cout << "numel = " << numel << "\tnb_vec = " << nb_vec << "\tN = "<<N << "\t sizeof(value_type) = "<<sizeof(value_type) <<"\n";
+      // std::cout << "cache_bound = " << cache_bound << "\tbound = " << bound << "\tobound = " << obound << "\n";
+
+      std::ptrdiff_t new_dim = 1;
+
+      if(numel >= cache_bound){
+      for(std::ptrdiff_t j=olow; j!=bound; j+=cache_bound)
         {
-          out(j,1) = neutral(nt2::meta::as_<value_type>());
-          vec_out = neutral(nt2::meta::as_<target_type>());
-          
-          for(std::ptrdiff_t i=ilow; i!=ibound; ++i)
-            vec_out = bop(vec_out,nt2::run(in, as_aligned(boost::fusion::vector_tie(j,i)), meta::as_<target_type>()));
+          //Initialise 
+          for(std::ptrdiff_t k=0, id=j; k!=nb_vec; ++k, id+=N){
+            nt2::run(out, as_aligned(boost::fusion::vector_tie(id,new_dim)), meta::as_<target_type>()) = neutral(nt2::meta::as_<target_type>());
+          }
 
-          //store the result in out(j,1)
-          for(std::ptrdiff_t n = 0; n!=N; ++n)
-            out(j+n,1) = vec_out[n];
+
+          for(std::ptrdiff_t i=ilow; i!=ibound; ++i){
+            for(std::ptrdiff_t k=0, id=j; k!=nb_vec; ++k, id+=N){
+
+              nt2::run(out, as_aligned(boost::fusion::vector_tie(id,new_dim)),
+                bop(nt2::run(out, as_aligned(boost::fusion::vector_tie(id,new_dim)), meta::as_<target_type>())
+                    ,nt2::run(in, as_aligned(boost::fusion::vector_tie(id,i)), meta::as_<target_type>())));
+              
+            }
+          }
+            
         }
-
 
       // scalar part
-      for(std::ptrdiff_t j=bound; j!=obound; ++j)
-        { 
+      for(std::ptrdiff_t j=bound; j!=obound; ++j){ 
           out(j,1) = neutral(nt2::meta::as_<value_type>());
-          for(std::ptrdiff_t i=ilow; i!=ibound; ++i)
+          for(std::ptrdiff_t i=ilow; i!=ibound; ++i){
             out(j,1) = bop(out(j,1), nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>()));
+          }
         }
-      
+      }
+
+      else {
+        for(std::ptrdiff_t j=olow; j!=obound; ++j){ 
+          out(j,1) = neutral(nt2::meta::as_<value_type>());
+          for(std::ptrdiff_t i=ilow; i!=ibound; ++i){
+            out(j,1) = bop(out(j,1), nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>()));
+          }
+        }
+      }
 
     }
   };
