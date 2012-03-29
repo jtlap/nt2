@@ -29,6 +29,7 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/nb_rand_tests.hpp>
 
 #define NT2_TEST_ULP_EQUAL(A,B,N)          \
