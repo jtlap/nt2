@@ -45,22 +45,21 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
+      typename A0::extent_type e = a0.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      typename A0::index_type::type bs;
-      std::ptrdiff_t low       = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t in_sz     = boost::fusion::at_c<0>(a0.extent());
-      std::ptrdiff_t in_sz_bnd = in_sz/N*N;
-      std::ptrdiff_t outer_sz  = nt2::numel(boost::fusion::pop_front(a0.extent()));
+      std::size_t in_sz     = boost::fusion::at_c<0>(e);
+      std::size_t in_sz_bnd = (in_sz/N)*N;
+      std::size_t outer_sz  = nt2::numel(boost::fusion::pop_front(e));
 
-      std::ptrdiff_t it = low;
+      std::size_t  it = 0;
 
-      for(std::ptrdiff_t j=0; j!=outer_sz; ++j)
+      for(std::size_t j=0; j < outer_sz; ++j)
       {
-        for(std::ptrdiff_t i=0; i!=in_sz_bnd; i+=N, it+=N)
+        for(std::size_t i=0; i < in_sz_bnd; i+=N, it+=N)
           nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
-        for(std::ptrdiff_t i=in_sz_bnd; i!=in_sz; ++i, ++it)
+        for(std::size_t i=in_sz_bnd; i < in_sz; ++i, ++it)
           nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
       }
     }
@@ -92,15 +91,14 @@ namespace nt2 { namespace ext
     {
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      typename A0::index_type::type bs;
-      std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
-      std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(a0.extent())/N*N;
+      std::size_t bound          = boost::fusion::at_c<0>(a0.extent());
+      std::size_t aligned_bound  = (bound/N)*N;
+      std::size_t i;
 
-      for(std::ptrdiff_t i=low;i!=aligned_bound; i+=N)
+      for(i=0;i < aligned_bound; i+=N)
         nt2::run(a0, i, nt2::run(a1, i, meta::as_<target_type>()));
 
-      for(std::ptrdiff_t i=aligned_bound; i!=bound; ++i)
+      for(i; i<bound; ++i)
         nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
     }
   };

@@ -11,6 +11,7 @@
 
 #include <nt2/core/functions/sub2ind.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/value_at.hpp>
 #include <boost/fusion/include/size.hpp>
@@ -68,7 +69,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const A0& s,const A1& p,const boost::mpl::int_<0>&,const Sz& sz) const
     {
-      return  boost::fusion::at_c<0>(p)
+      return  boost::fusion::at_c<0>(p) - 1
             + boost::fusion::at_c<0>(s)
             * eval(s,p,boost::mpl::int_<1>(),sz);
     }
@@ -85,7 +86,7 @@ namespace nt2 { namespace ext
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {
-      return boost::fusion::at_c<0>(p);
+      return boost::fusion::at_c<0>(p) - 1;
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
@@ -93,7 +94,7 @@ namespace nt2 { namespace ext
         , const boost::mpl::int_<0>&, const boost::mpl::int_<-1>&
         ) const
     {
-      return One<result_type>();
+      return Zero<result_type>();
     }
   };
 
@@ -135,7 +136,7 @@ namespace nt2 { namespace ext
         , const boost::mpl::int_<0>&, const Sz& sz
         ) const
     {
-      return  boost::fusion::at_c<0>(p)
+      return  boost::fusion::at_c<0>(p) - boost::fusion::at_c<0>(b)
             + boost::fusion::at_c<0>(s)
             * eval(s,p,b,boost::mpl::int_<1>(),sz);
     }
@@ -148,19 +149,19 @@ namespace nt2 { namespace ext
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval( const A0&, const A1& p, const A2&
+    eval( const A0&, const A1& p, const A2& b
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {
-      return boost::fusion::at_c<0>(p);
+      return boost::fusion::at_c<0>(p) - boost::fusion::at_c<0>(b);
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval( const A0&, const A1& p, const A2& b
+    eval( const A0&, const A1& p, const A2&
         , const boost::mpl::int_<0>&, const boost::mpl::int_<-1>&
         ) const
     {
-      return boost::fusion::at_c<0>(b);
+      return Zero<result_type>();
     }
   };
 } }

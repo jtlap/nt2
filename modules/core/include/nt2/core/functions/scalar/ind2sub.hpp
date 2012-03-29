@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_IND2SUB_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_IND2SUB_HPP_INCLUDED
 
+#include <iostream>
 #include <boost/mpl/int.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/size.hpp>
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
     operator()(const A0& size, const A1& pos) const
     {
       boost::array<int, boost::fusion::result_of::size<A0>::value> sub;
-      eval(sub, pos - 1, size, boost::mpl::int_<0>(),
+      eval(sub, pos, size, boost::mpl::int_<0>(),
            boost::mpl::int_<boost::fusion::result_of::size<A0>::value>());
       return sub;
     }
@@ -43,9 +44,22 @@ namespace nt2 { namespace ext
          const size_t& p, const A0& s, const N&, const M&) const
     {
       sub[N::value] = p % boost::fusion::at_c<N::value>(s) + 1;
-      eval(sub, p / boost::fusion::at_c<N::value>(s), s,
-           boost::mpl::int_<N::value+1>(), boost::mpl::int_<M::value>());
+
+      eval( sub, p / boost::fusion::at_c<N::value>(s), s
+          , boost::mpl::int_<N::value+1>()
+          , boost::mpl::int_<M::value>()
+          );
+
       return sub;
+    }
+
+    BOOST_DISPATCH_FORCE_INLINE void
+    eval( boost::array<int, boost::fusion::result_of::size<A0>::value>& sub
+        , const size_t& p, const A0& s
+        , const boost::mpl::int_<0>&, const boost::mpl::int_<1>&
+        ) const
+    {
+      sub[0] = p + 1;
     }
 
     template<class N>
@@ -72,8 +86,10 @@ namespace nt2 { namespace ext
     operator()(const A0& size, const A1& pos, const A2& base) const
     {
       boost::array<int, boost::fusion::result_of::size<A0>::value> sub;
-      eval(sub, pos - boost::fusion::at_c<0>(base), size, base,
-           boost::mpl::int_<0>(), boost::mpl::int_<boost::fusion::result_of::size<A0>::value>());
+      eval( sub, pos, size, base
+          , boost::mpl::int_<0>()
+          , boost::mpl::int_<boost::fusion::result_of::size<A0>::value>()
+          );
       return sub;
     }
 
@@ -82,10 +98,24 @@ namespace nt2 { namespace ext
     eval(boost::array<int, boost::fusion::result_of::size<A0>::value>& sub,
          const size_t& p, const A0& s, const A2& b, const N&, const M&) const
     {
-      sub[N::value] = p % boost::fusion::at_c<N::value>(s) + boost::fusion::at_c<N::value>(b);
-      eval(sub, p / boost::fusion::at_c<N::value>(s), s, b,
-           boost::mpl::int_<N::value+1>(), boost::mpl::int_<M::value>());
+      sub[N::value] = p % boost::fusion::at_c<N::value>(s)
+                    + boost::fusion::at_c<N::value>(b);
+
+      eval( sub, p / boost::fusion::at_c<N::value>(s), s, b
+          , boost::mpl::int_<N::value+1>()
+          , boost::mpl::int_<M::value>()
+          );
+
       return sub;
+    }
+
+    BOOST_DISPATCH_FORCE_INLINE void
+    eval( boost::array<int, boost::fusion::result_of::size<A0>::value>& sub
+        , const size_t& p, const A0& s, const A2& b
+        , const boost::mpl::int_<0>&, const boost::mpl::int_<1>&
+        ) const
+    {
+      sub[0] = p + boost::fusion::at_c<0>(b);
     }
 
     template<class N>

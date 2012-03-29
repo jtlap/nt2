@@ -117,13 +117,23 @@ namespace nt2
       BOOST_FORCEINLINE result_type
       operator()(Expr& expr, State const& state, Data const& data) const
       {
-        childN children = boost::fusion::pop_front(expr);
-        reinterpreted_pos pos = ind2sub(expr.extent(), state);
-        targets tgts;
+        // Retrieve children if the node which contains the indexers
+        childN children       = boost::fusion::pop_front(expr);
 
-        transformed trs = boost::fusion::transform(zipped(seq(children, pos, tgts)), relative_view_call());
+        // Get the subscript from the linear position
+        reinterpreted_pos pos = ind2sub(expr.extent(), state);
+
+        // Apply indexers to each subscript value
+        targets tgts;
+        transformed trs = boost::fusion::
+                          transform ( zipped(seq(children, pos, tgts))
+                                    , relative_view_call()
+                                    );
+
+        // Get the new linear position from the transformed subscript
         idx p = sub2ind( boost::proto::child_c<0>(expr).extent(), trs );
 
+        // Evakuate the data
         return nt2::run( boost::proto::child_c<0>(expr), p, data );
       }
     };

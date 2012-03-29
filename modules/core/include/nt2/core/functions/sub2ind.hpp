@@ -22,13 +22,13 @@ namespace nt2
 
   //============================================================================
   /*!
-   * Determines the linear index equivalents to the specified subscripts for
+   * Determines the C linear index equivalents to the specified subscripts for
    * each dimension of an N-dimensional container of size .
    *
    * \param size Size sequence of target container
    * \param pos  Subscript to convert
    * \param base Optional base index sequence for non canonic container
-   * \return A linear index pointing to the same element than \c pos.
+   * \return A C linear index pointing to the same element than \c pos.
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sub2ind_, sub2ind, 2)
