@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const&) const
     {
-       return boost::proto::value(a0)[state-1];
+       return boost::proto::value(a0)[state];
     }
   };
 
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const& data) const
     {
-       return boost::proto::value(a0)[state-1] = data;
+       return boost::proto::value(a0)[state] = data;
     }
   };
 
@@ -109,17 +109,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
-      return eval(a0, state, boost::mpl::false_());//have_compatible_alignments<A0, A>());
-    }
-
-    inline result_type eval ( A0 const& a0, State const& state, boost::mpl::true_ const& ) const
-    {
-      return load<result_type>(boost::proto::value(a0).raw(), state-1);
-    }
-
-    inline result_type eval ( A0 const& a0, State const& state, boost::mpl::false_ const& ) const
-    {
-      return unaligned_load<result_type>(boost::proto::value(a0).raw(), state-1);
+      return unaligned_load<result_type>(&boost::proto::value(a0)[state]);
     }
   };
 
@@ -142,19 +132,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const& state, Data const& data) const
     {
-      return eval(a0, state, data, boost::mpl::false_());//have_compatible_alignments<A0, A>());
-    }
-
-    BOOST_FORCEINLINE result_type
-    eval(A0& a0, State const& state, Data const& data, boost::mpl::true_ const&) const
-    {
-      return store<result_type>(data, boost::proto::value(a0).raw(), state-1);
-    }
-
-    BOOST_FORCEINLINE result_type
-    eval(A0& a0, State const& state, Data const& data, boost::mpl::false_ const&) const
-    {
-      return unaligned_store<result_type>(data, boost::proto::value(a0).raw(), state-1);
+      return unaligned_store<result_type>(data, &boost::proto::value(a0)[state]);
     }
   };
 
@@ -178,7 +156,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const&, Data const&) const
     {
-       return boost::proto::value(a0);
+      return boost::proto::value(a0);
     }
   };
 

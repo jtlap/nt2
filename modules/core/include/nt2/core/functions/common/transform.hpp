@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      nt2::run(a0, 1, nt2::run(a1, 1, meta::as_<stype>()));
+      nt2::run(a0, 0, nt2::run(a1, 0, meta::as_<stype>()));
     }
   };
 
@@ -63,11 +63,9 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      typename A0::index_type::type bs;
-      std::ptrdiff_t low    = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t bound  = low + nt2::numel(a0.extent());
+      std::ptrdiff_t bound  = nt2::numel(a0);
 
-      for(std::ptrdiff_t i=low; i!=bound; ++i)
+      for(std::size_t i=0; i < bound; ++i)
         nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
     }
   };
