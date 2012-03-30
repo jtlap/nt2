@@ -15,23 +15,22 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/extractive_hierarchy.hpp>
-#include <nt2/core/container/dsl/details/extractive.hpp>
+#include <nt2/core/container/dsl/details/relative.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct triu_ : ext::extractive_<triu_>
+    struct triu_ : ext::elementwise_<triu_>
     {
-      typedef ext::extractive_<triu_> parent;
-      typedef upper_triangular_       shape_type;
+      typedef ext::elementwise_<triu_> parent;
+      typedef upper_triangular_        shape_type;
     };
 
-    struct offset_triu_ : ext::extractive_<offset_triu_>
+    struct offset_triu_ : ext::elementwise_<offset_triu_>
     {
-      typedef ext::extractive_<offset_triu_>  parent;
-      typedef rectangular_                    shape_type;
+      typedef ext::elementwise_<offset_triu_>  parent;
+      typedef rectangular_                     shape_type;
     };
   }
 
@@ -48,24 +47,24 @@ namespace nt2
 
 namespace nt2 { namespace container { namespace ext
 {
-  template<class Domain, class Expr, int N>
-  struct  generator<nt2::tag::triu_,Domain,N,Expr>
-        : extractive_generator<Expr>
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::triu_,Domain,1,Expr>
+        : relative_generator<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  generator<nt2::tag::offset_triu_,Domain,N,Expr>
-        : extractive_generator<Expr>
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::offset_triu_,Domain,2,Expr>
+        : relative_generator<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::triu_,Domain,N,Expr>
-        : extractive_size_of<Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::triu_,Domain,1,Expr>
+        : relative_size_of<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::offset_triu_,Domain,N,Expr>
-        : extractive_size_of<Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::offset_triu_,Domain,2,Expr>
+        : relative_size_of<Expr>
   {};
 } } }
 

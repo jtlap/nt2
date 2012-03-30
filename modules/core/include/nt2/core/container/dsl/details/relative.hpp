@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_EXTRACTIVE_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_DETAILS_EXTRACTIVE_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_RELATIVE_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DSL_DETAILS_RELATIVE_HPP_INCLUDED
 
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
@@ -16,18 +16,18 @@
 namespace nt2 { namespace container { namespace ext
 {
   //============================================================================
-  // This is the factorized generator for all extractive function.
+  // This is the factorized generator for all relative function.
   // For any given generative function tag XTR, the registration of their
   // generator is simply :
   //
   // namespace nt2 { namespace container { namespace ext
   // {
   //  template<class D, class X, int N>
-  //  struct generator<XTR,D,N,X> : extractive_generator<X> {};
+  //  struct generator<XTR,D,N,X> : relative_generator<X> {};
   // } } }
   //
   //============================================================================
-  template<class Expr> struct extractive_generator
+  template<class Expr> struct relative_generator
   {
     //==========================================================================
     // Behaves like his first child
@@ -36,7 +36,7 @@ namespace nt2 { namespace container { namespace ext
     typedef typename boost::dispatch::meta::semantic_of<expr_t>::type sema_t;
 
     //==========================================================================
-    // Extractive is like a normal expression *except* it change the shape of
+    // relative is like a normal expression *except* it change the shape of
     // the result which is accessible via Tag::shape_type
     //==========================================================================
     typedef typename boost::proto::tag_of<Expr>::type             tag_type;
@@ -54,18 +54,18 @@ namespace nt2 { namespace container { namespace ext
   };
 
   //============================================================================
-  // This is the factorized size_of for all extractive function.
+  // This is the factorized size_of for all relative function.
   // For any given generative function tag XTR, the registration of their
   // size_of is simply :
   //
   // namespace nt2 { namespace container { namespace ext
   // {
   //  template<class D, class X, int N>
-  //  struct size_of<XTR,D,N,X> : extractive_size_of<X> {};
+  //  struct size_of<XTR,D,N,X> : relative_size_of<X> {};
   // } } }
   //
   //============================================================================
-  template<class Expr> struct extractive_size_of
+  template<class Expr> struct relative_size_of
   {
     typedef typename boost::proto::result_of::child_c<Expr,0>::type expr_t;
     typedef typename expr_t::extent_type                            result_type;
