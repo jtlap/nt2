@@ -11,22 +11,16 @@
 
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/tril.hpp>
-#include <nt2/include/functions/box.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
-#include <nt2/core/functions/details/tril.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Unary tril
-  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tril_, tag::cpu_, (A0), (ast_<A0>) )
   {
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::tril_
                                           , container::domain
                                           , A0 const&
-                                          , box<nt2::details::tril>
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
@@ -38,15 +32,10 @@ namespace nt2 { namespace ext
 
       return boost::proto::make_expr< nt2::tag::tril_
                                     , container::domain
-                                    > ( boost::cref(a0)
-                                      , boxify(nt2::details::tril())
-                                      );
+                                    > ( boost::cref(a0) );
     }
   };
 
-  //============================================================================
-  // Binary tril
-  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_tril_, tag::cpu_
                             , (A0)(A1)
                             , (ast_<A0>)
@@ -57,7 +46,7 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::offset_tril_
                                           , container::domain
                                           , A0 const&
-                                          , box<nt2::details::offset_tril>
+                                          , A1
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
@@ -69,9 +58,7 @@ namespace nt2 { namespace ext
 
       return boost::proto::make_expr< nt2::tag::offset_tril_
                                     , container::domain
-                                    > ( boost::cref(a0)
-                                      , boxify(nt2::details::offset_tril(a1))
-                                      );
+                                    > ( boost::cref(a0), a1 );
     }
   };
 } }

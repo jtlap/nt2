@@ -14,6 +14,21 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+NT2_TEST_CASE_TPL( tril_scalar, NT2_TYPES )
+{
+  T x = nt2::tril(T(42));
+  NT2_TEST_EQUAL( x, T(42) );
+
+  x = nt2::tril(T(42),1);
+  NT2_TEST_EQUAL( x, T(42) );
+
+  x = nt2::tril(T(42),0);
+  NT2_TEST_EQUAL( x, T(42) );
+
+  x = nt2::tril(T(42),-1);
+  NT2_TEST_EQUAL( x, T(0) );
+}
+
 NT2_TEST_CASE_TPL( tril, NT2_TYPES )
 {
   nt2::table<T> x,y( nt2::of_size(4,5) );
@@ -26,7 +41,7 @@ NT2_TEST_CASE_TPL( tril, NT2_TYPES )
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i >=j) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( T(x(i,j)), (i>=j) ? T(y(i,j)) : T(0));
 }
 
 NT2_TEST_CASE_TPL( offset_tril, NT2_TYPES )
@@ -41,11 +56,11 @@ NT2_TEST_CASE_TPL( offset_tril, NT2_TYPES )
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i >=(j+1)) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( T(x(i,j)), (i>=(j+1)) ? T(y(i,j)) : T(0));
 
   x = nt2::tril(y,-1);
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i >=(j-1)) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( T(x(i,j)), (i>=(j-1)) ? T(y(i,j)) : T(0));
 }

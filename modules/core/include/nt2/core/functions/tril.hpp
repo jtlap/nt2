@@ -15,22 +15,21 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/extractive_hierarchy.hpp>
-#include <nt2/core/container/dsl/details/extractive.hpp>
+#include <nt2/core/container/dsl/details/relative.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct tril_ : ext::extractive_<tril_>
+    struct tril_ : ext::elementwise_<tril_>
     {
-      typedef ext::extractive_<tril_> parent;
+      typedef ext::elementwise_<tril_> parent;
       typedef lower_triangular_       shape_type;
     };
 
-    struct offset_tril_ : ext::extractive_<offset_tril_>
+    struct offset_tril_ : ext::elementwise_<offset_tril_>
     {
-      typedef ext::extractive_<offset_tril_>  parent;
+      typedef ext::elementwise_<offset_tril_>  parent;
       typedef rectangular_                    shape_type;
     };
   }
@@ -48,24 +47,24 @@ namespace nt2
 
 namespace nt2 { namespace container { namespace ext
 {
-  template<class Domain, class Expr, int N>
-  struct  generator<nt2::tag::tril_,Domain,N,Expr>
-        : extractive_generator<Expr>
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::tril_,Domain,1,Expr>
+        : relative_generator<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  generator<nt2::tag::offset_tril_,Domain,N,Expr>
-        : extractive_generator<Expr>
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::offset_tril_,Domain,1,Expr>
+        : relative_generator<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::tril_,Domain,N,Expr>
-        : extractive_size_of<Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::tril_,Domain,2,Expr>
+        : relative_size_of<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::offset_tril_,Domain,N,Expr>
-        : extractive_size_of<Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::offset_tril_,Domain,2,Expr>
+        : relative_size_of<Expr>
   {};
 } } }
 
