@@ -15,28 +15,27 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/extractive_hierarchy.hpp>
-#include <nt2/core/container/dsl/details/extractive.hpp>
+#include <nt2/core/container/dsl/details/relative.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct band_ : ext::extractive_<band_>
+    struct band_ : ext::elementwise_<band_>
     {
-      typedef ext::extractive_<band_> parent;
+      typedef ext::elementwise_<band_> parent;
       typedef diagonal_       shape_type;
     };
 
-    struct offset_band1_ : ext::extractive_<offset_band1_>
+    struct offset_band1_ : ext::elementwise_<offset_band1_>
     {
-      typedef ext::extractive_<offset_band1_>  parent;
+      typedef ext::elementwise_<offset_band1_>  parent;
       typedef rectangular_                    shape_type;
     };
 
-    struct offset_band2_ : ext::extractive_<offset_band2_>
+    struct offset_band2_ : ext::elementwise_<offset_band2_>
     {
-      typedef ext::extractive_<offset_band2_>  parent;
+      typedef ext::elementwise_<offset_band2_>  parent;
       typedef rectangular_                    shape_type;
     };
   }
@@ -56,34 +55,34 @@ namespace nt2
 
 namespace nt2 { namespace container { namespace ext
 {
-  template<class Domain, class Expr, int N>
-  struct  generator<nt2::tag::band_,Domain,N,Expr>
-        : extractive_generator<Expr>
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::band_,Domain,1,Expr>
+        : relative_generator<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  generator<nt2::tag::offset_band1_,Domain,N,Expr>
-        : extractive_generator<Expr>
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::offset_band1_,Domain,2,Expr>
+        : relative_generator<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  generator<nt2::tag::offset_band2_,Domain,N,Expr>
-        : extractive_generator<Expr>
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::offset_band2_,Domain,3,Expr>
+        : relative_generator<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::band_,Domain,N,Expr>
-        : extractive_size_of<Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::band_,Domain,1,Expr>
+        : relative_size_of<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::offset_band1_,Domain,N,Expr>
-        : extractive_size_of<Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::offset_band1_,Domain,2,Expr>
+        : relative_size_of<Expr>
   {};
   
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::offset_band2_,Domain,N,Expr>
-        : extractive_size_of<Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::offset_band2_,Domain,3,Expr>
+        : relative_size_of<Expr>
   {};
 } } }
 

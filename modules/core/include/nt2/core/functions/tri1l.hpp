@@ -15,22 +15,21 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/extractive_hierarchy.hpp>
-#include <nt2/core/container/dsl/details/extractive.hpp>
+#include <nt2/core/container/dsl/details/relative.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct tri1l_ : ext::extractive_<tri1l_>
+    struct tri1l_ : ext::elementwise_<tri1l_>
     {
-      typedef ext::extractive_<tri1l_> parent;
+      typedef ext::elementwise_<tri1l_> parent;
       typedef lower_triangular_       shape_type;
     };
 
-    struct offset_tri1l_ : ext::extractive_<offset_tri1l_>
+    struct offset_tri1l_ : ext::elementwise_<offset_tri1l_>
     {
-      typedef ext::extractive_<offset_tri1l_>  parent;
+      typedef ext::elementwise_<offset_tri1l_>  parent;
       typedef rectangular_                    shape_type;
     };
   }
@@ -38,6 +37,7 @@ namespace nt2
   //============================================================================
   /*!
    * inferior triangular part of a 2D table.
+   * the upper non nul diag being made of ones if non empty
    *
    * \param xpr 2D table (must verify is_matrix(a))
    */
@@ -48,24 +48,24 @@ namespace nt2
 
 namespace nt2 { namespace container { namespace ext
 {
-  template<class Domain, class Expr, int N>
-  struct  generator<nt2::tag::tri1l_,Domain,N,Expr>
-        : extractive_generator<Expr>
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::tri1l_,Domain,1,Expr>
+        : relative_generator<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  generator<nt2::tag::offset_tri1l_,Domain,N,Expr>
-        : extractive_generator<Expr>
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::offset_tri1l_,Domain,2,Expr>
+        : relative_generator<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::tri1l_,Domain,N,Expr>
-        : extractive_size_of<Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::tri1l_,Domain,1,Expr>
+        : relative_size_of<Expr>
   {};
 
-  template<class Domain, class Expr, int N>
-  struct  size_of<nt2::tag::offset_tri1l_,Domain,N,Expr>
-        : extractive_size_of<Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::offset_tri1l_,Domain,2,Expr>
+        : relative_size_of<Expr>
   {};
 } } }
 

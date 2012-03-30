@@ -53,12 +53,12 @@ namespace nt2 { namespace container { namespace ext
   {};
 
   template<class Domain, class Expr>
-  struct  generator<nt2::tag::offset_tril_,Domain,1,Expr>
+  struct  generator<nt2::tag::offset_tril_,Domain,2,Expr>
         : relative_generator<Expr>
   {};
 
   template<class Domain, class Expr>
-  struct  size_of<nt2::tag::tril_,Domain,2,Expr>
+  struct  size_of<nt2::tag::tril_,Domain,1,Expr>
         : relative_size_of<Expr>
   {};
 

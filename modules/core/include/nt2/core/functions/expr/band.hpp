@@ -13,7 +13,6 @@
 #include <nt2/core/functions/band.hpp>
 #include <nt2/include/functions/box.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
-#include <nt2/core/functions/details/band.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -26,7 +25,6 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::band_
                                           , container::domain
                                           , A0 const&
-                                          , box<nt2::details::band>
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
@@ -38,9 +36,7 @@ namespace nt2 { namespace ext
 
       return boost::proto::make_expr< nt2::tag::band_
                                     , container::domain
-                                    > ( boost::cref(a0)
-                                      , boxify(nt2::details::band())
-                                      );
+                                    > ( boost::cref(a0) );
     }
   };
 
@@ -57,7 +53,7 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::offset_band1_
                                           , container::domain
                                           , A0 const&
-                                          , box<nt2::details::offset_band1>
+                                          , A1
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
@@ -69,9 +65,7 @@ namespace nt2 { namespace ext
 
       return boost::proto::make_expr< nt2::tag::offset_band1_
                                     , container::domain
-                                    > ( boost::cref(a0)
-                                      , boxify(nt2::details::offset_band1(a1))
-                                      );
+                                    > ( boost::cref(a0), a1);
     }
   };
 
@@ -89,7 +83,8 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::offset_band2_
                                           , container::domain
                                           , A0 const&
-                                          , box<nt2::details::offset_band2>
+                                          , A1
+                                          , A2
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
@@ -101,9 +96,7 @@ namespace nt2 { namespace ext
 
       return boost::proto::make_expr< nt2::tag::offset_band2_
                                     , container::domain
-                                    > ( boost::cref(a0)
-                                      , boxify(nt2::details::offset_band2(a1, a2))
-                                      );
+                                    > ( boost::cref(a0), a1, a2);
     }
   };  
 } }
