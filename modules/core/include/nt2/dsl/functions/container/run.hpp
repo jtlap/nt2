@@ -68,8 +68,6 @@ namespace nt2 { namespace ext
       std::size_t dim = nt2::ndims(input);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
-
-
       // if table is not flagged nt2::_1D, dim returns by ndims is forced to 1 when size is like [x 1 1 1]
       if(dim == 2 && ext.size() != 1)
       {
@@ -77,12 +75,15 @@ namespace nt2 { namespace ext
       }
       
 
-      if(red > dim)
+      if(red > ext.size()){
+        std::cout << "red>dim no reduction\n";
         return a0;
+      }
 
 
       if(dim == 1 || ext.size() == 1)
       {
+        std::cout << "global reduction\n";
         nt2::run( a0, boost::fusion::vector0<>()
                   , nt2::fold( input
                                , typename nt2::make_functor<Neutral1, A0>::type()
@@ -94,6 +95,7 @@ namespace nt2 { namespace ext
       }
       else if(red == 1)
       {
+        std::cout << "in reduction\n";
         nt2::inner_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
@@ -101,8 +103,9 @@ namespace nt2 { namespace ext
                        , typename nt2::make_functor<T1, A0>::type()
                        );
       }
-      else if(red == dim)
+      else if(red == ext.size())
       {
+        std::cout << "out reduction\n";
         nt2::outer_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
