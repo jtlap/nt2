@@ -60,48 +60,46 @@ namespace nt2 { namespace ext
       std::ptrdiff_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::ptrdiff_t cache_bound = (nb_vec)*N;
       std::ptrdiff_t bound  = olow + ((numel)/cache_bound) * cache_bound;
-
-
-      // std::cout << "numel = " << numel << "\tnb_vec = " << nb_vec << "\tN = "<<N << "\t sizeof(value_type) = "<<sizeof(value_type) <<"\n";
-      // std::cout << "cache_bound = " << cache_bound << "\tbound = " << bound << "\tobound = " << obound << "\n";
-
       std::ptrdiff_t new_dim = 1;
 
       if(numel >= cache_bound){
-      for(std::ptrdiff_t j=olow; j!=bound; j+=cache_bound)
-        {
-          //Initialise 
-          for(std::ptrdiff_t k=0, id=j; k!=nb_vec; ++k, id+=N){
-            nt2::run(out, as_aligned(boost::fusion::vector_tie(id,new_dim)), meta::as_<target_type>()) = neutral(nt2::meta::as_<target_type>());
-          }
-
-
-          for(std::ptrdiff_t i=ilow; i!=ibound; ++i){
+        for(std::ptrdiff_t j=olow; j!=bound; j+=cache_bound)
+          {
+            //Initialise 
             for(std::ptrdiff_t k=0, id=j; k!=nb_vec; ++k, id+=N){
-
-              nt2::run(out, as_aligned(boost::fusion::vector_tie(id,new_dim)),
-                bop(nt2::run(out, as_aligned(boost::fusion::vector_tie(id,new_dim)), meta::as_<target_type>())
-                    ,nt2::run(in, as_aligned(boost::fusion::vector_tie(id,i)), meta::as_<target_type>())));
               
+              nt2::run(out, as_aligned(boost::fusion::vector_tie(id,new_dim)), neutral(nt2::meta::as_<target_type>()));
             }
-          }
             
-        }
-
-      // scalar part
-      for(std::ptrdiff_t j=bound; j!=obound; ++j){ 
+            
+            for(std::ptrdiff_t i=ilow; i!=ibound; ++i){
+              for(std::ptrdiff_t k=0, id=j; k!=nb_vec; ++k, id+=N){
+                nt2::run(out, as_aligned(boost::fusion::vector_tie(id,new_dim)),
+                         bop(nt2::run(out, as_aligned(boost::fusion::vector_tie(id,new_dim)), meta::as_<target_type>())
+                             ,nt2::run(in, as_aligned(boost::fusion::vector_tie(id,i)), meta::as_<target_type>())));
+              }
+            }
+            
+          }
+        
+        // scalar part
+        for(std::ptrdiff_t j=bound; j!=obound; ++j){ 
           out(j,1) = neutral(nt2::meta::as_<value_type>());
           for(std::ptrdiff_t i=ilow; i!=ibound; ++i){
-            out(j,1) = bop(out(j,1), nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>()));
+            nt2::run(out, as_aligned(boost::fusion::vector_tie(j,new_dim)),
+                     bop(  nt2::run(out, as_aligned(boost::fusion::vector_tie(j,new_dim)), meta::as_<value_type>())
+                         , nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>())));
           }
         }
       }
-
+      
       else {
         for(std::ptrdiff_t j=olow; j!=obound; ++j){ 
           out(j,1) = neutral(nt2::meta::as_<value_type>());
           for(std::ptrdiff_t i=ilow; i!=ibound; ++i){
-            out(j,1) = bop(out(j,1), nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>()));
+            nt2::run(out, as_aligned(boost::fusion::vector_tie(j,new_dim)),
+                     bop(nt2::run(out, as_aligned(boost::fusion::vector_tie(j,new_dim)),meta::as_<value_type>())
+                                  , nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>())));
           }
         }
       }

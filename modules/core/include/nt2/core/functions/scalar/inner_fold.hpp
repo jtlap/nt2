@@ -42,12 +42,14 @@ namespace nt2 { namespace ext
       std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
       std::ptrdiff_t ibound  = boost::fusion::at_c<0>(ext) + ilow;
       std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(ext));
-
+      std::ptrdiff_t new_dim = 1;
 
       for(std::ptrdiff_t j = olow; j !=obound; ++j){
-        out(1,j) = neutral(nt2::meta::as_<value_type>());
+        nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)), neutral(nt2::meta::as_<value_type>()));
         for(std::ptrdiff_t i = ilow; i!=ibound; ++i){
-          out(1,j) = bop(out(1,j), nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<value_type>()));
+          nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j))
+                   ,bop(nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)),meta::as_<value_type>())
+                        , nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<value_type>())));
         }
       }
 

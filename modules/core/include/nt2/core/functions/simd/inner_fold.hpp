@@ -45,23 +45,24 @@ namespace nt2 { namespace ext
       std::ptrdiff_t bound  = boost::fusion::at_c<0>(ext) + ilow;
       std::ptrdiff_t ibound = ilow + (boost::fusion::at_c<0>(ext)/N) * N;
       std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(ext));
-
-
+      std::ptrdiff_t new_dim = 1;
       target_type vec_out ;
 
 
         for(std::ptrdiff_t j=olow; j!=obound; ++j)
           {
-            out(1,j) = neutral(nt2::meta::as_<value_type>());
+            nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)), neutral(nt2::meta::as_<value_type>()));
             vec_out = neutral(nt2::meta::as_<target_type>());
 
             for(std::ptrdiff_t i=ilow; i!=ibound; i+=N)
               vec_out = bop(vec_out,nt2::run(in, as_aligned(boost::fusion::vector_tie(i,j)), meta::as_<target_type>()));
 
-            out(1,j) = uop(vec_out);
+            nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)), uop(vec_out));
 
             for(std::ptrdiff_t i=ibound; i!=bound; ++i)
-              out(1,j) = bop(out(1,j), nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<value_type>()));
+              nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j))
+                       , bop(nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)),meta::as_<value_type>())
+                             , nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<value_type>())));
           }
 
     }

@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
       extent_type ext = in.extent();
 
       typename A0::index_type::type bs;
-      std::ptrdiff_t ilow   = boost::fusion::at_c<3>(bs);
+      std::ptrdiff_t ilow   = boost::fusion::at_c<3>(bs);//it's not 3, it must be ext.size()-1
       std::ptrdiff_t olow   = boost::fusion::at_c<0>(bs);
       std::ptrdiff_t ibound  = ext[ext.size()-1] + ilow;
 
@@ -49,12 +49,17 @@ namespace nt2 { namespace ext
         numel*=ext[m];
 
       std::ptrdiff_t obound = olow + numel;//nt2::numel(boost::fusion::pop_back(ext));
-
+      std::ptrdiff_t new_dim = 1;
 
       for(std::ptrdiff_t j = olow; j != obound; ++j){
-        out(j,1) = neutral(nt2::meta::as_<value_type>());
+
+        nt2::run(out, as_aligned(boost::fusion::vector_tie(j,new_dim)), neutral(nt2::meta::as_<value_type>()));
+
         for(std::ptrdiff_t i = ilow; i != ibound; ++i){
-          out(j,1) = bop(out(j,1), nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>()));
+          nt2::run(out, as_aligned(boost::fusion::vector_tie(j,new_dim))
+                   , bop(nt2::run(out, as_aligned(boost::fusion::vector_tie(j,new_dim)),meta::as_<value_type>())
+                         , nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>())));
+
         }
       }
 

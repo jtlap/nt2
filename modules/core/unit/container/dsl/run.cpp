@@ -170,15 +170,15 @@ NT2_TEST_CASE( reduction_value )
   std::size_t M = 4;
   std::size_t N = 4;
   std::size_t O = 4;
-  std::size_t P = 5;
+  std::size_t P = 4;
 
   table<T,nt2::_1D> a00(of_size(M));
   table<T>          a01(of_size(M));
 
-  table<T> a1;
-  table<T> a2_4(of_size(M,N,O,P));
-  table<T, nt2::_3D> a2_3(of_size(M,N,O));
-  table<T, nt2::_2D> a2_2(of_size(M,N));
+  table<T, nt2::settings(nt2::no_padding_)> a1;
+  table<T, nt2::settings(nt2::no_padding_)> a2_4(of_size(M,N,O,P));
+  table<T, nt2::settings(nt2::no_padding_, nt2::_3D)> a2_3(of_size(M,N,O));
+  table<T, nt2::settings(nt2::_2D, nt2::no_padding_)> a2_2(of_size(M,N));
 
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
@@ -226,7 +226,7 @@ NT2_TEST_CASE( reduction_value )
   // // NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
   
   std::cout << "4\n";
-  std::cout << "["<<M<<", "<<N<<", "<<O<<", "<< P <<"\n";
+  std::cout << "["<<M<<", "<<N<<", "<<O<<", "<< P <<"]\n";
   a1 = sum(a2_4,4);
   for(std::size_t k = 1; k <= O; ++k){
     for(std::size_t j = 1; j <= N; ++j){
