@@ -76,14 +76,14 @@ namespace nt2 { namespace ext
       
 
       if(red > ext.size()){
-        std::cout << "red>dim no reduction\n";
+        //        std::cout << "red>dim no reduction\n";
         return a0;
       }
 
 
       if(dim == 1 || ext.size() == 1)
       {
-        std::cout << "global reduction\n";
+        //        std::cout << "global reduction\n";
         nt2::run( a0, boost::fusion::vector0<>()
                   , nt2::fold( input
                                , typename nt2::make_functor<Neutral1, A0>::type()
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
       }
       else if(red == 1)
       {
-        std::cout << "in reduction\n";
+        //        std::cout << "in reduction\n";
         nt2::inner_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
       }
       else if(red == ext.size())
       {
-        std::cout << "out reduction\n";
+        //        std::cout << "out reduction\n";
         nt2::outer_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
