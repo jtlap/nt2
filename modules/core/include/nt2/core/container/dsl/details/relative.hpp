@@ -36,16 +36,16 @@ namespace nt2 { namespace container { namespace ext
     typedef typename boost::dispatch::meta::semantic_of<expr_t>::type sema_t;
 
     //==========================================================================
-    // relative is like a normal expression *except* it change the shape of
+    // relative is like a normal expression *except* it can change the shape of
     // the result which is accessible via Tag::shape_type
     //==========================================================================
-    typedef typename boost::proto::tag_of<Expr>::type             tag_type;
+    typedef typename boost::proto::tag_of<Expr>::type               tag_type;
     typedef typename tag_type::shape_type                         shape_type;
-    typedef typename meta::add_settings<sema_t, shape_type>::type type;
+    typedef typename meta::add_settings<sema_t, shape_type>::type       type;
 
     typedef expression< typename boost::remove_const<Expr>::type
                       , type
-                      >                                     result_type;
+                      >                                          result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {

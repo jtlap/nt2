@@ -30,9 +30,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
+      typedef typename meta::as_integer<result_type>::type i_type;
       return nt2::if_else
-            ( nt2::le ( nt2::enumerate<result_type>( boost::fusion::at_c<0>(p) )
-                      , nt2::splat<result_type>    ( boost::fusion::at_c<1>(p) )
+            ( nt2::le ( nt2::enumerate<i_type>( boost::fusion::at_c<0>(p) )
+                      , nt2::splat<i_type>    ( boost::fusion::at_c<1>(p) )
                       )
             , nt2::run(boost::proto::child_c<0>(a0),p,t)
             , Zero<result_type>()
@@ -52,9 +53,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
+      typedef typename meta::as_integer<result_type>::type i_type;
       return nt2::if_else
-            ( nt2::le ( nt2::enumerate<result_type>( boost::fusion::at_c<0>(p) )
-                      , nt2::splat<result_type>
+            ( nt2::le ( nt2::enumerate<i_type>( boost::fusion::at_c<0>(p) )
+                      , nt2::splat<i_type>
                         ( boost::fusion::at_c<1>(p)
                         + boost::proto::value(boost::proto::child_c<1>(a0))
                         )
