@@ -56,11 +56,11 @@ NT2_TEST_CASE_TPL( offset_tril, NT2_TYPES )
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i>=(j+1)) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( T(x(i,j)), (i+1>=j) ? T(y(i,j)) : T(0));
 
   x = nt2::tril(y,-1);
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i>=(j-1)) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( T(x(i,j)), (i-1>=j) ? T(y(i,j)) : T(0));
 }

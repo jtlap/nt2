@@ -59,11 +59,11 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<result_type>::type i_type;
       i_type iis = nt2::enumerate<i_type>( boost::fusion::at_c<0>(p) );
-      i_type jjs = nt2::splat<i_type>( boost::fusion::at_c<1>(p)+
-                                                 boost::proto::value(boost::proto::child_c<1>(a0) ));
+      i_type jjs = nt2::splat<i_type>( boost::fusion::at_c<1>(p)-
+                                       boost::proto::value(boost::proto::child_c<1>(a0) ));
       return nt2::if_else( nt2::eq(iis, jjs),
                            One<result_type>(),
-                           nt2::if_else( nt2::gt(iis, jjs),
+                           nt2::if_else( nt2::lt(iis, jjs),
                                          nt2::run(boost::proto::child_c<0>(a0),p,t), 
                                          Zero<result_type>()
                                          )

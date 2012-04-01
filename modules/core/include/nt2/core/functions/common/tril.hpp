@@ -57,8 +57,8 @@ namespace nt2 { namespace ext
       return nt2::if_else
             ( nt2::ge ( nt2::enumerate<i_type>( boost::fusion::at_c<0>(p) )
                       , nt2::splat<i_type>
-                        ( boost::fusion::at_c<1>(p)
-                        + boost::proto::value(boost::proto::child_c<1>(a0))
+                        ( boost::fusion::at_c<1>(p)-
+                          boost::proto::value(boost::proto::child_c<1>(a0))
                         )
                       )
             , nt2::run(boost::proto::child_c<0>(a0),p,t)
