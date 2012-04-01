@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( fast_cosd_real__1_0,  NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_180<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_90<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
