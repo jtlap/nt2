@@ -236,8 +236,8 @@ NT2_TEST_CASE( reduction_value )
   for(std::size_t k = 1; k <= O; ++k){
     for(std::size_t j = 1; j <= N; ++j){
       for(std::size_t i = 1; i <= M; ++i){
-        std::cout<<a1(i,j,k,1)<< ", ";
-        //   NT2_TEST_EQUAL(T(a1(i,j,k,1)),T(P)) ;
+        //std::cout<<a1(i,j,k,1)<< ", ";
+        NT2_TEST_EQUAL(T(a1(i,j,k,1)),T(P)) ;
       }
       std::cout<<"\n";
     }

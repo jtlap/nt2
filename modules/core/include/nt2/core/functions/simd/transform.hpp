@@ -19,6 +19,7 @@
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/core/utility/position/alignment.hpp>
 
+#ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
 {
   // nD element-wise operation
@@ -105,4 +106,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+#endif
 #endif
