@@ -133,7 +133,7 @@ namespace nt2
         // Get the new linear position from the transformed subscript
         idx p = sub2ind( boost::proto::child_c<0>(expr).extent(), trs );
 
-        // Evakuate the data
+        // Evaluate the data
         return nt2::run( boost::proto::child_c<0>(expr), p, data );
       }
     };
