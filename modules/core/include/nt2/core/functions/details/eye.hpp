@@ -24,17 +24,24 @@ namespace nt2 { namespace details
   {
     template<class Pos, class Size, class Target>
     typename Target::type
-    operator()(Pos const& p, Size const&, Target const&) const
+    operator()(Pos const& p, Size const& sz, Target const&) const
     {
-      typedef typename Target::type type;
-      return nt2::if_else(eq(nt2::enumerate<type>(boost::fusion::at_c<0>(p)),
-                             nt2::splat<type>(boost::fusion::at_c<1>(p))
-                             ),
-                         One<type>(), Zero<type>());
+      typedef typename Target::type                                   type;
+      typedef typename meta::as_integer<type>::type                   i_t;
+      typedef typename meta::call<nt2::tag::ind2sub_(_2D,Pos)>::type  sub_t;
+
+      // Retrieve 2D position from the linear index
+      sub_t const pos = ind2sub(sz,p);
+
+      // Return a diagonal of 1
+      return nt2::if_else ( nt2::eq ( nt2::enumerate<i_t>( pos[0] )
+                                    , nt2::splat<i_t>( pos[1] )
+                                    )
+                          , One<type>()
+                          , Zero<type>()
+                          );
     }
-
   };
-
 } }
 
 #endif

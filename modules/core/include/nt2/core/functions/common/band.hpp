@@ -25,76 +25,96 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)(N)
                             , ((node_<A0, nt2::tag::band_, N>))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type result_type;
+    typedef typename meta::strip<Data>::type::type                    result_type;
+    typedef typename meta::as_integer<result_type>::type              i_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      typedef typename meta::as_integer<result_type>::type i_type;
-      return nt2::if_else
-        ( nt2::eq ( nt2::enumerate<i_type>( boost::fusion::at_c<0>(p) ), 
-                    nt2::splat<i_type>    ( boost::fusion::at_c<1>(p) )
-                    ), 
-          nt2::run(boost::proto::child_c<0>(a0),p,t), 
-          Zero<result_type>()
-          );
+      // Retrieve 2D position from the linear index
+      sub_t const pos = ind2sub(_2D(a0.extent()),p);
+
+      // Return the upper triangular section with 1 on the diagonal
+      return nt2::if_else ( nt2::eq ( nt2::enumerate<i_t>( pos[0] )
+                                    , nt2::splat<i_t>( pos[1] )
+                                    )
+                          , nt2::run(boost::proto::child_c<0>(a0),p,t)
+                          , Zero<result_type>()
+                          );
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)(N)
                             , ((node_<A0, nt2::tag::offset_band1_, N>))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type result_type;
+    typedef typename meta::strip<Data>::type::type                    result_type;
+    typedef typename meta::as_integer<result_type>::type              i_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      typedef typename meta::as_integer<result_type>::type i_type;
-      i_type iis   = nt2::enumerate<i_type>( boost::fusion::at_c<0>(p) );
-      i_type jjsup = nt2::splat<i_type>( boost::fusion::at_c<1>(p)+
-                                              boost::proto::value(boost::proto::child_c<1>(a0)) );
-      i_type jjsdn = nt2::splat<i_type>( boost::fusion::at_c<1>(p)-
-                                              boost::proto::value(boost::proto::child_c<1>(a0)) );
-      return nt2::if_else( nt2::logical_and(nt2::le(iis,jjsup), nt2::ge(iis,jjsdn)), 
-                           nt2::run(boost::proto::child_c<0>(a0),p,t), 
-                           Zero<result_type>()
-                           );
+      // Retrieve 2D position from the linear index
+      std::ptrdiff_t offset = boost::proto::value(boost::proto::child_c<1>(a0));
+      sub_t const pos = ind2sub(_2D(a0.extent()),p);
+      i_t const   is  = nt2::enumerate<i_t>( pos[0] );
+      i_t const   ju  = nt2::splat<i_t>( pos[1] + offset );
+      i_t const   jd  = nt2::splat<i_t>( pos[1] - offset );
+
+      // Return the band between +/-offset around the main diagonal
+      return nt2::if_else ( nt2::logical_and( nt2::le(is,ju)
+                                            , nt2::ge(is,jd)
+                                            )
+                          , nt2::run(boost::proto::child_c<0>(a0),p,t)
+                          , Zero<result_type>()
+                          );
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)(N)
                             , ((node_<A0, nt2::tag::offset_band2_, N>))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type result_type;
+    typedef typename meta::strip<Data>::type::type                    result_type;
+    typedef typename meta::as_integer<result_type>::type              i_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      typedef typename meta::as_integer<result_type>::type i_type;
-      i_type iis   = nt2::enumerate<i_type>( boost::fusion::at_c<0>(p) );
-      i_type jjsup = nt2::splat<i_type>( boost::fusion::at_c<1>(p)+
-                                              boost::proto::value(boost::proto::child_c<2>(a0)) );
-      i_type jjsdn = nt2::splat<i_type>( boost::fusion::at_c<1>(p)-
-                                              boost::proto::value(boost::proto::child_c<1>(a0)) );
-      return nt2::if_else( nt2::logical_and(nt2::le(iis,jjsup), nt2::ge(iis,jjsdn)), 
-                           nt2::run(boost::proto::child_c<0>(a0),p,t), 
-                           Zero<result_type>()
-                           );
+      // Retrieve 2D position from the linear index
+      sub_t const pos = ind2sub(_2D(a0.extent()),p);
+      i_t const   is  = nt2::enumerate<i_t>( pos[0] );
+      i_t const   ju  = nt2::splat<i_t>
+                            ( pos[1]
+                            + boost::proto::value(boost::proto::child_c<2>(a0))
+                            );
+      i_t const   jd  = nt2::splat<i_t>
+                            ( pos[1]
+                            - boost::proto::value(boost::proto::child_c<1>(a0))
+                            );
+
+      // Return the band between +/-offset around the main diagonal
+      return nt2::if_else ( nt2::logical_and( nt2::le(is,ju)
+                                            , nt2::ge(is,jd)
+                                            )
+                          , nt2::run(boost::proto::child_c<0>(a0),p,t)
+                          , Zero<result_type>()
+                          );
     }
   };
-
 } }
 
 #endif
