@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/toolbox/swar/include/functions/splatted_sum.hpp>
 
+#ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -72,4 +73,5 @@ namespace nt2 { namespace ext
 
 } }
 
+#endif
 #endif

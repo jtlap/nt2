@@ -38,7 +38,6 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
-
       typename A0::index_type::type bs;
       std::ptrdiff_t ilow   = boost::fusion::at_c<3>(bs);//it's not 3, it must be ext.size()-1
       std::ptrdiff_t olow   = boost::fusion::at_c<0>(bs);

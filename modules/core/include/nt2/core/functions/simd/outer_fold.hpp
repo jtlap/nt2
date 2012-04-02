@@ -14,7 +14,7 @@
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/sdk/config/cache.hpp>
 
-
+#ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -108,4 +108,5 @@ namespace nt2 { namespace ext
 
 } }
 
+#endif
 #endif
