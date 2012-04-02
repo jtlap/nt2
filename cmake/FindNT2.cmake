@@ -31,6 +31,7 @@
 # - NT2_LINK_FLAGS                  flags that must be passed to the linker to use all the requested components
 # - NT2_FOUND_COMPONENTS            list of all NT2 modules that have been found
 # - NT2_MODULE_PATH                 list of directories containing NT2 CMake modules
+# - NT2_USE_FILE                    file to include to use everything that has been found
 #
 # Additionally, the script also adds all the NT2-specific CMake modules to the CMAKE_MODULE_PATH.
 #
@@ -562,6 +563,8 @@ function(nt2_find)
   if(NT2_FIND_REQUIRED AND NOT NT2_FOUND)
     message(FATAL_ERROR "NT2 was not found")
   endif()
+
+  find_file(NT2_USE_FILE UseNT2.cmake PATHS ${NT2_MODULE_PATH})
 
 endfunction()
 

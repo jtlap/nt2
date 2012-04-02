@@ -6,22 +6,12 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
-cmake_minimum_required(VERSION 2.6)
 
-set(NT2_DIR ${CMAKE_SOURCE_DIR}/../cmake)
-find_package(NT2 REQUIRED)
-include(${NT2_USE_FILE})
+set(CMAKE_MODULE_PATH ${NT2_DIR})
+if(EXISTS ${NT2_DIR}/../CMakeLists.txt)
+  set(NT2_SOURCE_ROOT ${NT2_DIR}/..)
+else()
+  set(NT2_ROOT ${NT2_DIR}/..)
+endif()
 
-set( SOURCES
-#    rec_block.cpp
-     pack.cpp
-#    foo.cpp
-#    table_dim.cpp
-     transform_pass.cpp
-     table.cpp
-   )
-
-foreach(src ${SOURCES})
-  string(REGEX REPLACE "\\.cpp$" "" exe ${src})
-  add_executable(${exe} ${src})
-endforeach()
+include(FindNT2)

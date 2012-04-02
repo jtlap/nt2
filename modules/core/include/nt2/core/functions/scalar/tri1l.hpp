@@ -6,34 +6,37 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SCALAR_TRIU_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SCALAR_TRIU_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_TRI1L_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_TRI1L_HPP_INCLUDED
 
-#include <nt2/core/functions/triu.hpp>
+#include <nt2/core/functions/tri1l.hpp>
 #include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_triu_, tag::cpu_, (A0)(A1)
+  //============================================================================
+  // Generates tri1l from a pair of [a, k]
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_tri1l_, tag::cpu_, (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef A0  result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& k) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&a0, A1 const& k) const
     {
-      return (k > 0) ? Zero<A0>() : a;
+      return k == 0 ? One<result_type>():( k < 0 ? Zero<result_type>() : a0 );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::triu_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri1l_, tag::cpu_, (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef A0  result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
-      return a;
+      return One<result_type>();
     }
   };
 } }

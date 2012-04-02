@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_OPENMP_TRANSFORM_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_OPENMP_TRANSFORM_HPP_INCLUDED
-#ifdef _OPENMP
+#if defined(_OPENMP) && _OPENMP >= 200203 /* OpenMP 2.0 */
 
 #include <nt2/core/functions/transform.hpp>
 #include <nt2/include/functions/numel.hpp>

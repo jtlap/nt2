@@ -32,6 +32,10 @@ SET( SOURCES
   istriangular.cpp
   eye.cpp
   triu.cpp
+  tril.cpp  
+  band.cpp
+  tri1u.cpp
+  tri1l.cpp
 # List of test files for toolbox core.settings
    )
 

@@ -6,19 +6,19 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_EXPR_TRIU_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_TRIU_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_EXPR_TRI1U_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_EXPR_TRI1U_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/triu.hpp>
+#include <nt2/core/functions/tri1u.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::triu_, tag::cpu_, (A0), (ast_<A0>) )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tri1u_, tag::cpu_, (A0), (ast_<A0>) )
   {
     typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::triu_
+                      result_of::make_expr< nt2::tag::tri1u_
                                           , container::domain
                                           , A0 const&
                                           >::type             result_type;
@@ -27,23 +27,23 @@ namespace nt2 { namespace ext
     {
       // Expression must be a matrix
       BOOST_ASSERT_MSG( nt2::ismatrix(a0)
-                      , "Error using triu: First input must be 2D."
+                      , "Error using tri1u: First input must be 2D."
                       );
 
-      return boost::proto::make_expr< nt2::tag::triu_
+      return boost::proto::make_expr< nt2::tag::tri1u_
                                     , container::domain
                                     > ( boost::cref(a0) );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_triu_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_tri1u_, tag::cpu_
                             , (A0)(A1)
                             , (ast_<A0>)
                               (scalar_< integer_<A1> >)
                             )
   {
     typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::offset_triu_
+                      result_of::make_expr< nt2::tag::offset_tri1u_
                                           , container::domain
                                           , A0 const&
                                           , A1
@@ -53,10 +53,10 @@ namespace nt2 { namespace ext
     {
       // Expression must be a matrix
       BOOST_ASSERT_MSG( nt2::ismatrix(a0)
-                      , "Error using triu: First input must be 2D."
+                      , "Error using tri1u: First input must be 2D."
                       );
 
-      return boost::proto::make_expr< nt2::tag::offset_triu_
+      return boost::proto::make_expr< nt2::tag::offset_tri1u_
                                     , container::domain
                                     > ( boost::cref(a0), a1 );
     }
