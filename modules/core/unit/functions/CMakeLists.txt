@@ -21,6 +21,7 @@ SET( SOURCES
   ndims.cpp
   numel.cpp
   ones.cpp
+  reshape.cpp
   ind2sub.cpp
   sub2ind.cpp
   sub2sub.cpp
@@ -32,7 +33,7 @@ SET( SOURCES
   istriangular.cpp
   eye.cpp
   triu.cpp
-  tril.cpp  
+  tril.cpp
   band.cpp
   tri1u.cpp
   tri1l.cpp

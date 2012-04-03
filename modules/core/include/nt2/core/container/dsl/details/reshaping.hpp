@@ -12,7 +12,7 @@
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
-#include <tn2/sdk/meta/add_settings.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -33,7 +33,7 @@ namespace nt2 { namespace container { namespace ext
   {
     // The size is contained in the second child
     typedef typename boost::proto::result_of::child_c<Expr&,1>::type  term_t;
-    typedef typename boost::proto::result_of::value<term_t>::type     sizes_t;
+    typedef typename boost::proto::result_of::value<term_t>::type     result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
@@ -58,7 +58,7 @@ namespace nt2 { namespace container { namespace ext
   {
     // We behave as our child
     typedef typename boost::proto::result_of::child_c<Expr&,0>::type  c_sema_t;
-    typedef typename meta::semantic_of<c_sema_t>::type                sema_t;
+    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type                sema_t;
 
     // .. except we have a special size
     typedef typename boost::proto::result_of::child_c<Expr&,1>::type  c_sizes_t;
