@@ -17,7 +17,6 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 #include <boost/fusion/include/pop_front.hpp>
-#include <nt2/core/utility/position/alignment.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -67,7 +66,9 @@ namespace nt2 { namespace ext
 
   // 1D element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::transform_, boost::simd::tag::simd_
-                            , (class A0)(class A1)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T1)(class N1)
+                            , (class A0)
+                              (class A1)(class Shape)(class StorageKind)
+                              (std::ptrdiff_t Sz)(class T1)(class N1)
                             , (ast_<A0>)
                               ((expr_< table_< unspecified_<A1>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind)>
                                      , T1

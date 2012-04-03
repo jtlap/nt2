@@ -12,22 +12,11 @@
 #include <nt2/sdk/simd/category.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
-#include <boost/dispatch/meta/transfer_qualifiers.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/include/functions/store.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/unaligned_load.hpp>
 #include <nt2/include/functions/unaligned_store.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/core/container/category.hpp>
-#include <nt2/core/utility/position/position.hpp>
-#include <nt2/core/utility/position/adapted.hpp>
-#include <nt2/core/utility/position/have_compatible_alignments.hpp>
-#include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
-#include <boost/simd/toolbox/operator/functions/unaligned_store.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
-
-// TODO: storage order is not used.
+#include <nt2/core/container/category.hpp>
 
 namespace nt2 { namespace ext
 {
