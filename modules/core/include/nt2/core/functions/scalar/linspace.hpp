@@ -106,7 +106,7 @@ namespace nt2 { namespace details
     {
       typedef typename Target::type type;
 
-      return nt2::fma ( nt2::enumerate<type>(boost::fusion::at_c<1>(p)-1)
+      return nt2::fma ( nt2::enumerate<type>(p)
                       , nt2::splat<type>(step_)
                       , nt2::splat<type>(lower_)
                       );
