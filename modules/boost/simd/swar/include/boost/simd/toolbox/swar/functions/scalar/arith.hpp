@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(T const& ) const
     {
-      Zero<T>();
+      Zero<result_type>();
     }
   };
 
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a0, T const& ) const
     {
-      return static_cast<T>(a0);
+      return static_cast<result_type>(a0);
     }
   };
   
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a0, A1 const&, T const& ) const
     {
-      return static_cast<T>(a0);
+      return static_cast<result_type>(a0);
     }
   };
     
