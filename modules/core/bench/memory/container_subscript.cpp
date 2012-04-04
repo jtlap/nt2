@@ -11,7 +11,6 @@
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/container/table/semantic.hpp>
-#include <nt2/core/utility/position/alignment.hpp>
 
 #include <iostream>
 #include <nt2/sdk/unit/module.hpp>
@@ -31,10 +30,7 @@ template<class T> struct container_1D_test
 
   void operator()()
   {
-    using boost::fusion::vector_tie;
-    for(std::size_t i = 1; i <= s0_; ++i)
-        data(nt2::as_aligned( vector_tie(i)))
-      = data2(nt2::as_aligned( vector_tie(i)));
+    for(std::size_t i = 0; i < s0_; ++i) data[i] = data2[i];
   }
 
   buffer_t        data,data2;
@@ -47,8 +43,7 @@ template<class T> struct std_1D_test
 
   void operator()()
   {
-    for(std::size_t i = 0; i < s0_; ++i)
-      data[i] = data2[i];
+    for(std::size_t i = 0; i < s0_; ++i) data[i] = data2[i];
   }
 
   std::size_t  s0_;
