@@ -6,5 +6,13 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
+include(nt2.doc)
 
-nt2_doc(unit.doc unit.qbk reference.doxyfile)
+if(NT2_DOCUMENTATION_ENABLED)
+SET ( DOCS
+      unit.qbk
+      reference.doxyfile
+    )
+
+  nt2_doc_generate(unit ${DOCS})
+endif()

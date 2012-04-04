@@ -9,4 +9,4 @@
 
 include(nt2.doc)
 
-nt2_doc(doc qbk/nt2.qbk ref.doxyfile)
+nt2_doc()
