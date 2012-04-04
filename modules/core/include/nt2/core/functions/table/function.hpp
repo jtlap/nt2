@@ -104,6 +104,7 @@ namespace nt2
                                    , reinterpreted_pos const&
                                    , targets const&
                                    > seq;
+
       typedef boost::fusion::zip_view<seq> zipped;
       typedef boost::fusion::transform_view<zipped const, relative_view_call> transformed;
 
@@ -117,11 +118,13 @@ namespace nt2
       BOOST_FORCEINLINE result_type
       operator()(Expr& expr, State const& state, Data const& data) const
       {
+        typename boost::remove_reference<child0>::type::index_type::type  index_type;
+
         // Retrieve children if the node which contains the indexers
         childN children       = boost::fusion::pop_front(expr);
 
         // Get the subscript from the linear position
-        reinterpreted_pos pos = ind2sub(expr.extent(), state);
+        reinterpreted_pos pos = ind2sub(expr.extent(), state, index_type);
 
         // Apply indexers to each subscript value
         targets tgts;
@@ -131,7 +134,7 @@ namespace nt2
                                     );
 
         // Get the new linear position from the transformed subscript
-        idx p = sub2ind( boost::proto::child_c<0>(expr).extent(), trs );
+        idx p = sub2ind( boost::proto::child_c<0>(expr).extent(), trs, index_type );
 
         // Evaluate the data
         return nt2::run( boost::proto::child_c<0>(expr), p, data );
