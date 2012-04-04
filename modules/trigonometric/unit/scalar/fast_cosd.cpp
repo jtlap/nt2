@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( fast_cosd_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_180<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_90<T>()), nt2::Nan<r_t>(), 0.5);
 } // end of test for floating_
 
@@ -87,7 +87,7 @@ NT2_TEST_CASE_TPL ( fast_cosd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 1.0);
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( fast_cosd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -110,7 +110,7 @@ NT2_TEST_CASE_TPL ( fast_cosd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cosd(-nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(fast_cosd(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(fast_cosd(nt2::_45<T>()), nt2::Sqrt_2o_2<r_t>(), 1.0);
 } // end of test for signed_int_

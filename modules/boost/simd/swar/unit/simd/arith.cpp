@@ -36,9 +36,9 @@ NT2_TEST_CASE_TPL ( arith, BOOST_SIMD_SIMD_TYPES)
   std::cout << arith<vT>(T(10)) << std::endl; 
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(arith<vT>(T(10))[i], T(i+10));
-  std::cout << arith<vT>(T(10), T(0.5)) << std::endl; 
+  std::cout << arith<vT>(T(10), T(2.0)) << std::endl; 
   for(std::size_t i=0; i < vT::static_size;++i)
-    NT2_TEST_EQUAL(arith<vT>(T(10), T(0.5))[i], T(10 + T(0.5)*i));
+    NT2_TEST_EQUAL(arith<vT>(T(10), T(2.0))[i], T(10 + T(2.0)*i));
 }
 
 NT2_TEST_CASE_TPL ( arith_from_int, BOOST_SIMD_SIMD_TYPES)
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( arith_from_int, BOOST_SIMD_SIMD_TYPES)
   std::cout << arith<vT>(int(10)) << std::endl; 
   for(std::size_t i=0; i < vT::static_size;++i)
     NT2_TEST_EQUAL(arith<vT>(int(10))[i], T(10 + i));
-  std::cout << arith<vT>(int(10), T(0.5)) << std::endl; 
+  std::cout << arith<vT>(int(10), T(2.0)) << std::endl; 
   for(std::size_t i=0; i < vT::static_size;++i)
-    NT2_TEST_EQUAL(arith<vT>(int(10), T(0.5))[i], T(10 + T(0.5)*i));
+    NT2_TEST_EQUAL(arith<vT>(int(10), T(2.0))[i], T(10 + T(2.0)*i));
 }
