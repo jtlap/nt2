@@ -95,7 +95,6 @@ namespace nt2 { namespace ext
       }
       else if(red == 1)
       {
-        //        std::cout << "in reduction\n";
         nt2::inner_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()

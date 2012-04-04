@@ -169,14 +169,15 @@ NT2_TEST_CASE( reduction_value )
 
   std::size_t M = 4;
   std::size_t N = 4;
-  std::size_t O = 1;
-  std::size_t P = 1;
+  std::size_t O = 4;
+  std::size_t P = 4;
 
   table<T,nt2::_1D> a00(of_size(M));
   table<T>          a01(of_size(M));
 
   table<T, nt2::settings(nt2::no_padding_)> a1;
   table<T, nt2::settings(nt2::no_padding_)> a2_4(of_size(M,N,O,P));
+  table<T, nt2::settings(nt2::no_padding_)> b2_4(of_size(M,N,O,P));
   table<T, nt2::settings(nt2::no_padding_, nt2::_3D)> a2_3(of_size(M,N,O));
   table<T, nt2::settings(nt2::_2D, nt2::no_padding_)> a2_2(of_size(M,N));
 
@@ -185,6 +186,7 @@ NT2_TEST_CASE( reduction_value )
       for(std::size_t j = 1; j <= N; ++j){
         for(std::size_t i = 1; i <= M; ++i){
           a2_4(i,j,k,l) = T(1);
+          b2_4(i,j,k,l) = T(1);
           //a2_4(i,j,k,l) = T(i*j);
           //          std::cout<<a2_4(i,j,k,l)<< ", ";
           a2_3(i,j,k) = T(1);
@@ -205,6 +207,15 @@ NT2_TEST_CASE( reduction_value )
     for(std::size_t k = 1; k <= O; ++k){
       for(std::size_t j = 1; j <= N; ++j){
         NT2_TEST_EQUAL(T(a1(1,j,k,l)),T(M)) ;
+      }
+    }
+  }
+
+  a1 = sum(a2_4 + b2_4,1);
+  for(std::size_t l = 1; l <= P; ++l){
+    for(std::size_t k = 1; k <= O; ++k){
+      for(std::size_t j = 1; j <= N; ++j){
+        NT2_TEST_EQUAL(T(a1(1,j,k,l)),2*T(M)) ;
       }
     }
   }

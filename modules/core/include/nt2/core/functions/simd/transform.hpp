@@ -18,7 +18,6 @@
 #include <boost/fusion/include/vector_tie.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/core/utility/position/alignment.hpp>
-
 #ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
 {

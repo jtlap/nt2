@@ -15,7 +15,6 @@
 #include <boost/fusion/include/vector_tie.hpp>
 #include <nt2/core/utility/position/alignment.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <iostream>
 
 #ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
