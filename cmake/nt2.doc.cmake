@@ -105,52 +105,11 @@ macro(nt2_doc_boostbook file)
   nt2_absolute(absolute ${file}.xml)
 
   nt2_xsltproc(${file}.docbook
-               #--stringparam boost.header.root file://${CMAKE_CURRENT_SOURCE_DIR}/include
                ${BOOSTBOOK_XSL_DIR}/docbook.xsl
                ${absolute}
                DEPENDS ${ARGN}
                COMMENT "Converting Boostbook file ${file}.xml to Docbook..."
               )
-endmacro()
-
-################################################################################
-## Produce the main doc target
-################################################################################
-macro(nt2_doc)
-  if(NT2_DOCUMENTATION_ENABLED)
-    # Locally build the xml catalog
-    configure_file( ${NT2_SOURCE_ROOT}/cmake/boostbook/catalog.xml.in
-                    ${NT2_BINARY_DIR}/catalog.xml
-                  )
-
-    set(dependencies)
-    foreach(module ${NT2_MODULES})
-      # Find the canonical place where xml fiels are for a given doc
-      set(doc_source ${NT2_BINARY_DIR}/modules/${module}/doc)
-
-      if(IS_DIRECTORY ${doc_source})
-        # Glob every xml in there
-        file(GLOB xml_files RELATIVE ${NT2_BINARY_DIR} "${doc_source}/*.xml")
-        list(APPEND dependencies ${xml_files})
-      endif()
-    endforeach()
-
-    set(xinclude)
-    foreach(file ${dependencies})
-      # Generate a chain of [xinclude ${xml_files}] to add to dev.qbk
-      set(xinclude "${xinclude}[xinclude ${file}]\n")
-    endforeach()
-
-    message(STATUS "${xinclude}")
-
-    # Build root files for the doc
-    nt2_doc_generate(manual nt2.qbk)
-
-    # Build the docbook and HTML
-    nt2_doc_boostbook(nt2 ${dependencies})
-    nt2_doc_html(doc nt2)
-  endif()
-
 endmacro()
 
 ################################################################################

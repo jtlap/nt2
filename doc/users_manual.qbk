@@ -1,4 +1,4 @@
-[section User's Manual]
+[part User Manual]
 [section Basic types] [endsect]
 [section Containers] [endsect]
 
@@ -34,5 +34,3 @@ namespace. Other toolboxes introduce their own namespace, i.e. all functions the
 a namespace with the same name as the toolbox name (they are referred /usr/:).
 
 [endsect] [/ Function Toolboxes]
-
-[endsect] [/ User's Manual]

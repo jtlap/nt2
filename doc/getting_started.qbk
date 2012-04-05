@@ -1,4 +1,11 @@
-[section Getting Started]
+[part Getting Started
+    [quickbook 1.5]
+        [copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Blaise Pascal]
+        [copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI]
+    [source-mode c++]
+]
+
+[include macros.qbk]
 
 [section Getting __NT2__]
 
@@ -10,7 +17,7 @@ to get a copy of the source from the [@http://git-scm.com/ Git] repository,
 hosted on [@https://github.com/MetaScale/nt2/ GitHub].
 
 Consult the [@http://progit.org/book/ Pro Git book] for information on how to
-set up and use Git. 
+set up and use Git.
 
 If you wish to collaborate to __NT2__, create a GitHub account and consult
 the [@http://help.github.com/set-up-git-redirect GitHub documentation]
@@ -66,7 +73,7 @@ flattened into a module-less tree.
 
 [section Using __NT2__]
 
-The binary layout of __NT2__ is normally needed to use the library in 
+The binary layout of __NT2__ is normally needed to use the library in
 your project.
 
 However, if you happen to use CMake to build your project, if it also possible to
@@ -138,7 +145,7 @@ add_executable(myexe mysource.cpp)
 ``
 
 [note The eight last variables from the
-[link nt2.getting_started.building___nt2__.configuration CMake configuration section]
+[link getting_started.building___nt2__.configuration CMake configuration section]
 may also affect your usage of __NT2__.]
 
 [endsect]
@@ -257,7 +264,7 @@ Unit tests executable are copied to =unit/= in the build directory, cover tests 
 
 If using Makefile generators, you also get the [^[~target]/fast] variants for each target [~target],
 which avoids testing for dependencies (which can provide a significant speedup if =NT2_WITH_TESTS_FULL=
-is set to =ON=). 
+is set to =ON=).
 
 With those generators, you can also build [^[~file].i], and [^[~file].o], where [~file] is the name of a
 C++ source file without the =.cpp= extension, which is is quite interesting to build a single test when
@@ -281,5 +288,3 @@ may be used to run all unit tests from module [~module].
 [endsect] [/ Testing]
 
 [endsect] [/ Building __NT2__]
-
-[endsect] [/ Getting Started]
