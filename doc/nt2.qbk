@@ -13,3 +13,4 @@
 [xinclude preface.xml]
 [xinclude getting_started.xml]
 [xinclude developers_manual.xml]
+[xinclude modules.xml]

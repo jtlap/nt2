@@ -16,7 +16,7 @@ if(NT2_DOCUMENTATION_ENABLED)
                 )
 
   set(dependencies)
-  set(xinclude)
+  set(MODULES_LIST)
   foreach(module ${NT2_MODULES})
     # Find the canonical place where xml files are for a given doc
     set(doc_source ${NT2_SOURCE_DIR}/modules/${module}/doc)
@@ -25,22 +25,27 @@ if(NT2_DOCUMENTATION_ENABLED)
     if(IS_DIRECTORY ${doc_source})
       # Glob every xml in there
       set(dependencies "${doc_output}/${module}.xml;${dependencies}")
-      set(xinclude "${xinclude}[xinclude ${doc_output}/${module}.xml]\n")
+      set(MODULES_LIST "${MODULES_LIST}[xinclude ${doc_output}/${module}.xml]\n")
     endif()
   endforeach()
 
-  message(STATUS "${xinclude}")
+  # Generate the proper qbk containing the list of all module xml files
+  configure_file( ${NT2_SOURCE_ROOT}/doc/modules.qbk.in
+                  modules.qbk
+                )
 
   set ( MANUAL_SRC
         nt2.qbk
         preface.qbk
         developers_manual.qbk
         getting_started.qbk
+        modules.qbk
       )
 
+  # Generate the xml for the manuals
   nt2_doc_generate(manual ${MANUAL_SRC})
 
-  # Build the docbook and HTML
+  # Build the complete docs
   nt2_doc_boostbook(nt2 nt2.xml ${dependencies})
   nt2_doc_html(doc nt2)
 endif()

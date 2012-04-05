@@ -5,8 +5,6 @@
     [source-mode c++]
 ]
 
-[include macros.qbk]
-
 [section Getting __NT2__]
 
 Installers are available for testing, but are not available on any regular
