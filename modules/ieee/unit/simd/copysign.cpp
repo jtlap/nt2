@@ -15,8 +15,8 @@
 /// 
 #include <nt2/toolbox/ieee/include/functions/copysign.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include<nt2/include/functions/signnz.hpp>
-#include<nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/signnz.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

@@ -15,7 +15,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 01/12/2010',
-             'included' : ['#include<nt2/include/functions/ceil.hpp>'],
+             'included' : ['#include <nt2/include/functions/ceil.hpp>'],
              'notes' : [],
              'stamp' : 'modified by jt the 13/12/2010',
             },

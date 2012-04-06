@@ -10,7 +10,7 @@
 #include <nt2/include/functions/iround.hpp>
 #include <cmath>
 
-#include<nt2/toolbox/standard/include/ceil.hpp>
+#include <nt2/toolbox/standard/include/ceil.hpp>
 
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

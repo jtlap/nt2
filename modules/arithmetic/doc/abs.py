@@ -17,7 +17,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 30/11/2010',
-             'cover_included' : ['#include<nt2/toolbox/standard/include/functions/abs.hpp>'],
+             'cover_included' : ['#include <nt2/toolbox/standard/include/functions/abs.hpp>'],
              'no_ulp' : 'True',
              'stamp' : 'modified by jt the 13/12/2010',
             },

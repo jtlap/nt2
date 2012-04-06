@@ -17,9 +17,9 @@
 #include <nt2/toolbox/arithmetic/include/functions/average.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include<nt2/include/functions/round.hpp>
+#include <nt2/include/functions/round.hpp>
 
-#include<nt2/include/functions/iround.hpp>
+#include <nt2/include/functions/iround.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
