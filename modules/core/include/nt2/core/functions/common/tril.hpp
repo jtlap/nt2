@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_COMMON_TRIL_HPP_INCLUDED
 
 #include <nt2/core/functions/tril.hpp>
+#include <nt2/include/functions/ge.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/splat.hpp>
@@ -21,19 +22,24 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)(N)
                             , ((node_<A0, nt2::tag::tril_, N>))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type result_type;
-    
+    typedef typename meta::strip<Data>::type::type                    result_type;
+    typedef typename meta::as_integer<result_type>::type              i_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
+
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      typedef typename meta::as_integer<result_type>::type i_type;
+      // Retrieve 2D position from the linear index
+      sub_t pos = ind2sub(_2D(a0.extent()),p);
+
+      // Return the lower triangular section
       return nt2::if_else
-            ( nt2::ge ( nt2::enumerate<i_type>( boost::fusion::at_c<0>(p) )
-                      , nt2::splat<i_type>    ( boost::fusion::at_c<1>(p) )
+            ( nt2::ge ( nt2::enumerate<i_t>( pos[0] )
+                      , nt2::splat<i_t>    ( pos[1] )
                       )
             , nt2::run(boost::proto::child_c<0>(a0),p,t)
             , Zero<result_type>()
@@ -44,21 +50,26 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)(N)
                             , ((node_<A0, nt2::tag::offset_tril_, N>))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type result_type;
+    typedef typename meta::strip<Data>::type::type                    result_type;
+    typedef typename meta::as_integer<result_type>::type              i_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      typedef typename meta::as_integer<result_type>::type i_type;
+      // Retrieve 2D position from the linear index
+      sub_t pos = ind2sub(_2D(a0.extent()),p);
+
+      // Return the shifted lower triangular section
       return nt2::if_else
-            ( nt2::ge ( nt2::enumerate<i_type>( boost::fusion::at_c<0>(p) )
-                      , nt2::splat<i_type>
-                        ( boost::fusion::at_c<1>(p)-
-                          boost::proto::value(boost::proto::child_c<1>(a0))
+            ( nt2::ge ( nt2::enumerate<i_t>( pos[0] )
+                      , nt2::splat<i_t>
+                        ( pos[1]
+                        - boost::proto::value(boost::proto::child_c<1>(a0))
                         )
                       )
             , nt2::run(boost::proto::child_c<0>(a0),p,t)

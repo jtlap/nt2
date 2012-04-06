@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(Tag)(State)(Data)(N)
                             , ((node_<A0, generative_<Tag>, N>))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
                               ((unspecified_<Data>))
                             )
   {

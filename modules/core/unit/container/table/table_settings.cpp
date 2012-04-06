@@ -18,28 +18,6 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// table type has some dimensions
-////////////////////////////////////////////////////////////////////////////////
-
-NT2_TEST_CASE_TPL( table_dimensions ,NT2_TYPES)
-{
-  using nt2::table;
-  using nt2::_1D;
-  using nt2::_2D;
-  using nt2::_3D;
-  using nt2::_4D;
-  using nt2::meta::dimensions_of;
-
-  // test default dimension of table
-  NT2_TEST_EQUAL( (dimensions_of<table<T> >::value), 4UL) ;
-
-  NT2_TEST_EQUAL( (dimensions_of<table<T,_1D> >::value), 1UL) ;
-  NT2_TEST_EQUAL( (dimensions_of<table<T,_2D> >::value), 2UL) ;
-  NT2_TEST_EQUAL( (dimensions_of<table<T,_3D> >::value), 3UL) ;
-  NT2_TEST_EQUAL( (dimensions_of<table<T,_4D> >::value), 4UL) ;
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // table type has some value
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( table_values, NT2_TYPES )

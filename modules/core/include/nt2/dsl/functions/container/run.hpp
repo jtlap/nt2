@@ -114,7 +114,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
       typedef typename meta::strip<result_type>::type stype;
-      return nt2::run( a0, boost::fusion::vector0<>(), meta::as_<stype>() );
+      return nt2::run ( a0
+                      , 1u
+                      , meta::as_<stype>()
+                      );
     }
   };
 

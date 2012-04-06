@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(T const& ) const
     {
-      Zero<result_type>();
+      return Zero<result_type>();
     }
   };
 
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
       return static_cast<result_type>(a0);
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
                                       , (A0)(A1)(T)
                                       , (scalar_< arithmetic_<A0> >)
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
       return static_cast<result_type>(a0);
     }
   };
-    
+
 } } }
 
 #endif

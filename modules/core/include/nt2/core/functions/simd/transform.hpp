@@ -17,7 +17,6 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 #include <boost/fusion/include/pop_front.hpp>
-#include <nt2/core/utility/position/alignment.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -45,29 +44,31 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
+      typename A0::extent_type e = a0.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      typename A0::index_type::type bs;
-      std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-      std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
-      std::ptrdiff_t ibound = ilow + (boost::fusion::at_c<0>(a0.extent())/N) * N;
-      std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
+      std::size_t in_sz     = boost::fusion::at_c<0>(e);
+      std::size_t in_sz_bnd = (in_sz/N)*N;
+      std::size_t outer_sz  = nt2::numel(boost::fusion::pop_front(e));
 
-      for(std::ptrdiff_t j=olow; j!=obound; ++j)
+      std::size_t  it = 0;
+
+      for(std::size_t j=0; j < outer_sz; ++j)
       {
-        for(std::ptrdiff_t i=ilow; i!=ibound; i+=N)
-          nt2::run(a0, as_aligned(boost::fusion::vector_tie(i,j)), nt2::run(a1, as_aligned(boost::fusion::vector_tie(i,j)), meta::as_<target_type>()));
+        for(std::size_t i=0; i < in_sz_bnd; i+=N, it+=N)
+          nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
-        for(std::ptrdiff_t i=ibound; i!=bound; ++i)
-          nt2::run(a0, boost::fusion::vector_tie(i,j), nt2::run(a1, boost::fusion::vector_tie(i,j), meta::as_<stype>()));
+        for(std::size_t i=in_sz_bnd; i < in_sz; ++i, ++it)
+          nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
       }
     }
   };
 
   // 1D element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::transform_, boost::simd::tag::simd_
-                            , (class A0)(class A1)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T1)(class N1)
+                            , (class A0)
+                              (class A1)(class Shape)(class StorageKind)
+                              (std::ptrdiff_t Sz)(class T1)(class N1)
                             , (ast_<A0>)
                               ((expr_< table_< unspecified_<A1>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind)>
                                      , T1
@@ -91,16 +92,14 @@ namespace nt2 { namespace ext
     {
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
 
-      typename A0::index_type::type bs;
-      std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
-      std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(a0.extent())/N*N;
+      std::size_t bound          = boost::fusion::at_c<0>(a0.extent());
+      std::size_t aligned_bound  = (bound/N)*N;
 
-      for(std::ptrdiff_t i=low;i!=aligned_bound; i+=N)
-        nt2::run(a0, as_aligned(boost::fusion::vector_tie(i)), nt2::run(a1, as_aligned(boost::fusion::vector_tie(i)), meta::as_<target_type>()));
+      for(std::size_t i=0;i < aligned_bound; i+=N)
+        nt2::run(a0, i, nt2::run(a1, i, meta::as_<target_type>()));
 
-      for(std::ptrdiff_t i=aligned_bound; i!=bound; ++i)
-        nt2::run(a0, boost::fusion::vector_tie(i), nt2::run(a1, boost::fusion::vector_tie(i), meta::as_<stype>()));
+      for(std::size_t i=aligned_bound; i<bound; ++i)
+        nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
     }
   };
 } }

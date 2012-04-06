@@ -6,15 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_BUFFER_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_ARRAY_BUFFER_HPP_INCLUDED
+#ifndef NT2_SDK_META_MEMORY_ADAPTED_ARRAY_BUFFER_HPP_INCLUDED
+#define NT2_SDK_META_MEMORY_ADAPTED_ARRAY_BUFFER_HPP_INCLUDED
 
-#include <vector>
-#include <boost/mpl/size.hpp>
 #include <boost/mpl/apply.hpp>
-#include <boost/mpl/size_t.hpp>
-#include <nt2/sdk/meta/as_sequence.hpp>
-#include <boost/fusion/include/at_c.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 
@@ -23,7 +18,7 @@ namespace nt2 {  namespace memory
   //============================================================================
   // Forward declaration
   //============================================================================
-  template<typename Type, std::ptrdiff_t N, std::ptrdiff_t B> struct array_buffer;
+  template<typename T, typename Size> struct array_buffer;
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -31,23 +26,23 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-  template<typename T, std::ptrdiff_t N, std::ptrdiff_t B>
-  struct value_of< nt2::memory::array_buffer<T,N,B> > : value_of<T>
+  template<typename T, typename Size>
+  struct value_of< nt2::memory::array_buffer<T,Size> > : value_of<T>
   {};
 
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<  class Type, std::ptrdiff_t N, std::ptrdiff_t B >
-  struct model_of< nt2::memory::array_buffer<Type,N,B> >
+  template<typename T, typename Size>
+  struct model_of< nt2::memory::array_buffer<T,Size> >
   {
     struct type
     {
       template<class X> struct apply
       {
         typedef typename  boost::mpl::
-                          apply<typename model_of<Type>::type,X>::type base;
-        typedef nt2::memory::array_buffer<base,N,B>  type;
+                          apply<typename model_of<T>::type,X>::type base_t;
+        typedef nt2::memory::array_buffer<base_t,Size>              type;
       };
     };
   };

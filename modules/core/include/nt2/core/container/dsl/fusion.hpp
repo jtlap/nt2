@@ -15,6 +15,10 @@
 #include <boost/simd/sdk/details/at_iterator.hpp>
 #include <nt2/sdk/meta/is_statically_sized.hpp>
 
+////////////////////////////////////////////////////////////////////////////////
+// TODO REFRESH TO USE PROPER TYPES ETC...
+// TODO MAKE TABLE AND OTHER CONTAINER USE THIS
+////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace tag
 {
   //============================================================================

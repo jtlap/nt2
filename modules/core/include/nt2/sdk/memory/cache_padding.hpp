@@ -26,42 +26,48 @@ namespace nt2 { namespace memory
   {
     typedef boost::mpl::true_ padding_status;
 
-    template<class Sig> struct result;
-    template<class T, int N> struct result_impl;
-
-    template<class This, class T, class N, class V>
-    struct  result<This(T,N,V)>
-          : result_impl<T,meta::strip<N>::type::value> {};
-
-    template<class T,int N> struct result_impl  : meta::strip<T> {};
-    template<class T> struct result_impl<T,0>   { typedef std::size_t type; };
-
-    template<class T, class N, class V>
-    typename result<cache_padding(T const&, N const&, V const&)>::type
-    operator()(T const& t, N const& n, V const& v) const
+    template<class Target> struct apply
     {
-      return eval(t,n,v,boost::mpl::bool_<N::value==0>());
-    }
+      struct type
+      {
+        template<class Sig> struct result;
+        template<class V, int N> struct result_impl;
 
-    template<class T, class N, class V>
-    typename result<cache_padding(T const&, N const&, V const&)>::type
-    eval(T const& t, N const&, V const&, boost::mpl::true_ const&) const
-    {
-      static const std::size_t  tz = sizeof(typename V::type);
+        template<class This, class V, class N>
+        struct  result<This(V,N)>
+              : result_impl<V,meta::strip<N>::type::value> {};
 
-      const std::size_t sz =
-            boost::simd::memory::align_on ( t*tz
-                                          , config::shared_cache_line_size()
-                                          );
-      return sz/tz;
-    }
+        template<class V,int N> struct result_impl  : meta::strip<V> {};
+        template<class V> struct result_impl<V,0>   { typedef std::size_t type; };
 
-    template<class T, class N, class V>
-    typename result<cache_padding(T const&, N const&, V const&)>::type
-    eval(T const& t, N const&, V const&, boost::mpl::false_ const&) const
-    {
-      return t;
-    }
+        template<class V, class N>
+        typename result<cache_padding(V const&, N const&)>::type
+        operator()(V const& v, N const& n) const
+        {
+          return eval(v,n,boost::mpl::bool_<N::value==0>());
+        }
+
+        template<class V, class N>
+        typename result<cache_padding(V const&, N const&)>::type
+        eval(V const& v, N const&, boost::mpl::true_ const&) const
+        {
+          static const std::size_t  tz = sizeof(Target);
+
+          const std::size_t sz =
+                boost::simd::memory::align_on ( v*tz
+                                              , config::shared_cache_line_size()
+                                              );
+          return sz/tz;
+        }
+
+        template<class V, class N>
+        typename result<cache_padding(V const&, N const&)>::type
+        eval(V const& v, N const&, boost::mpl::false_ const&) const
+        {
+          return v;
+        }
+      };
+    };
   };
 } }
 

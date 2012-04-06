@@ -11,5 +11,7 @@ nt2_module_use_modules(unit sdk operator)
 
 ADD_SUBDIRECTORY(container)
 ADD_SUBDIRECTORY(functions)
+ADD_SUBDIRECTORY(memory)
+ADD_SUBDIRECTORY(meta)
 ADD_SUBDIRECTORY(settings)
 ADD_SUBDIRECTORY(utility)

@@ -16,27 +16,30 @@
 
 NT2_TEST_CASE_TPL( tri1u_scalar, NT2_TYPES )
 {
-  nt2::table<T> tx,ty( nt2::of_size(1, 1) );
-  ty(1) = T(42); 
-  tx= nt2::tri1u(ty); 
   T x = nt2::tri1u(T(42));
   NT2_TEST_EQUAL( x, T(1) );
-  NT2_TEST_EQUAL( T(tx(1)), T(1) );
-
-
-  tx= nt2::tri1u(ty, 1); 
   x = nt2::tri1u(T(42),1);
   NT2_TEST_EQUAL( x, T(0) );
-  NT2_TEST_EQUAL( T(tx(1)), T(0) );
-
-  tx= nt2::tri1u(ty, 0); 
    x = nt2::tri1u(T(42),0);
   NT2_TEST_EQUAL( x, T(1) );
-  NT2_TEST_EQUAL( T(tx(1)), T(1) );
-
-  tx= nt2::tri1u(ty, -1); 
   x = nt2::tri1u(T(42),-1);
   NT2_TEST_EQUAL( x, T(42) );
+}
+
+NT2_TEST_CASE_TPL( tri1u_scalar_table, NT2_TYPES )
+{
+  nt2::table<T> tx,ty( nt2::of_size(1, 1) );
+  ty(1) = T(42);
+  tx = nt2::tri1u(ty);
+  NT2_TEST_EQUAL( T(tx(1)), T(1) );
+
+  tx = nt2::tri1u(ty, 1);
+  NT2_TEST_EQUAL( T(tx(1)), T(0) );
+
+  tx = nt2::tri1u(ty, 0);
+  NT2_TEST_EQUAL( T(tx(1)), T(1) );
+
+  tx = nt2::tri1u(ty, -1);
   NT2_TEST_EQUAL( T(tx(1)), T(42) );
 }
 
@@ -54,13 +57,13 @@ NT2_TEST_CASE_TPL( tri1u, NT2_TYPES )
       std::cout << std::endl;
     }
   std::cout << std::endl;
-  
+
   x = nt2::tri1u(y);
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
       NT2_TEST_EQUAL( T(x(i,j)), (i == j) ? T(1) : (i<=j) ? T(y(i,j)) : T(0));
-  
+
   for(int i=1;i<=4;i++)
     {
       for(int j=1;j<=5;j++)

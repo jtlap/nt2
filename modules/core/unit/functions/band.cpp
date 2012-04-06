@@ -21,22 +21,9 @@ NT2_TEST_CASE_TPL( band, NT2_TYPES )
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
       y(i,j) = T(i + 10*j);
-  for(int i=1;i<=4;i++)
-    {
-      for(int j=1;j<=5;j++)
-        std::cout << y(i,j) << "\t";
-      std::cout << std::endl;
-    }
-  std::cout << std::endl;
+
   x = nt2::diagonal(y);
-  for(int i=1;i<=4;i++)
-    {
-      for(int j=1;j<=5;j++)
-        std::cout << x(i,j) << "\t";
-      std::cout << std::endl;
-    }
-  std::cout << std::endl;
-  
+
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
       NT2_TEST_EQUAL( T(x(i,j)), (i==j) ? T(y(i,j)) : T(0));
@@ -50,36 +37,15 @@ NT2_TEST_CASE_TPL( offset_band1, NT2_TYPES )
     for(int i=1;i<=4;i++)
       y(i,j) = T(i + 10*j);
 
-  for(int j=1;j<=5;j++){
-    for(int i=1;i<=4;i++)
-      std::cout <<  y(i,j)<< "\t";
-    std::cout << std::endl;
-  }
-  std::cout << std::endl;
-
   x = nt2::band(y,1);
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
       NT2_TEST_EQUAL( T(x(i,j)), ((i>=(j-1))&&(i<=j+1)) ? T(y(i,j)) : T(0));
 
-  for(int j=1;j<=5;j++){
-    for(int i=1;i<=4;i++)
-      std::cout <<  x(i,j)<< "\t";
-    std::cout << std::endl;
-  }
-  std::cout << std::endl;
-
   x = nt2::band(y,1,2);
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
       NT2_TEST_EQUAL( T(x(i,j)), ((i>=(j-1))&&(i<=j+2))? T(y(i,j)) : T(0));
-  for(int j=1;j<=5;j++){
-    for(int i=1;i<=4;i++)
-      std::cout <<  x(i,j) << "\t";
-    std::cout << std::endl;
-  }
-  std::cout << std::endl;
-  
 }

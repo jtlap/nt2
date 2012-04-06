@@ -9,34 +9,30 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_REPNUM_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_REPNUM_HPP_INCLUDED
 
-#include <boost/fusion/include/at.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace details
 {
   //============================================================================
   // repnum actual functor
   //============================================================================
-  template < class T > 
+  template < class T >
   struct repnum
   {
-    repnum(): val_(Zero<T>()) {}
-    repnum(const T& val): val_(val) {}
+    repnum() {}
+    repnum(const T& val)  : val_(val) {}
+
     template<class Pos, class Size, class Target>
-    typename Target::type
+    BOOST_FORCEINLINE typename Target::type
     operator()(Pos const& , Size const&, Target const& ) const
     {
       typedef typename Target::type type;
-      return nt2::splat<type>(val_); 
+      return nt2::splat<type>(val_);
     }
-  private:
-    T val_; 
-  };
 
+    private:
+    T val_;
+  };
 } }
 
 #endif

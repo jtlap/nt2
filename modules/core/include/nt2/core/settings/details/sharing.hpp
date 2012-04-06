@@ -10,61 +10,32 @@
 #define NT2_CORE_SETTINGS_DETAILS_SHARING_HPP_INCLUDED
 
 #include <nt2/core/settings/option.hpp>
-#include <nt2/core/settings/alignment.hpp>
-#include <nt2/core/settings/allocator.hpp>
-#include <nt2/core/settings/storage_duration.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>
+#include <nt2/core/settings/storage_duration.hpp>
 
-namespace nt2 
+namespace nt2
 {
   //============================================================================
-  // When memory is shared by the container, the index buffer is dependent on
-  // the storage_duration passed as a setting while the data buffer is forced
-  // to be a dynamic_ buffer with a (potentially adapted) fixed_allocator
+  // When container shares memory, use a dynamic_ buffer with a fixed_allocator
   //============================================================================
   struct shared_
   {
-    struct index
+    template<class T, class S> struct apply
     {
-      template<class T, class S> struct apply
-      {
-        typedef typename meta::option<S,tag::storage_duration_>::type sd_t;
-        typedef typename sd_t::template apply<T*,S>::type             type;
-      };
+      typedef allocator_< memory::fixed_allocator<T> >              alloc_t;
+      typedef typename dynamic_::template apply<T,S,alloc_t>::type  type;
     };
-
-    struct data
-    {
-      template<class T, class S> struct apply
-      {
-        typedef allocator_< memory::fixed_allocator<T> >              alloc_t;
-        typedef typename dynamic_::template apply<T,S,alloc_t>::type  type;
-      };
-    };
-  }; 
+  };
 
   //============================================================================
-  // When memory is owned by the container, both index and data buffers are
-  // dependent on the storage_duration passed as a setting.
+  // When memory is owned by the container, buffer dependd on storage_duration
   //============================================================================
   struct owned_
   {
-    struct index
+    template<class T, class S> struct apply
     {
-      template<class T, class S> struct apply
-      {
-        typedef typename meta::option<S,tag::storage_duration_>::type sd_t;
-        typedef typename sd_t::template apply<T*,S>::type             type;
-      };
-    };
-
-    struct data
-    {
-      template<class T, class S> struct apply
-      {
-        typedef typename meta::option<S,tag::storage_duration_>::type sd_t;
-        typedef typename sd_t::template apply<T,S>::type              type;
-      };
+      typedef typename meta::option<S,tag::storage_duration_>::type sd_t;
+      typedef typename sd_t::template apply<T,S>::type              type;
     };
   };
 }

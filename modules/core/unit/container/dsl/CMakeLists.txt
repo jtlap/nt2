@@ -11,7 +11,6 @@ SET( SOURCES
      box.cpp
      generator.cpp
      run.cpp
-     run_alignment.cpp
      optimize.cpp
      schedule.cpp
    )

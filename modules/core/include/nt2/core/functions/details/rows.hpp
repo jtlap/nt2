@@ -9,35 +9,33 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_ROWS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_ROWS_HPP_INCLUDED
 
-#include <boost/fusion/include/at.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/functions/arith.hpp>
-#include <nt2/include/constants/one.hpp>
 
 namespace nt2 { namespace details
 {
   //============================================================================
-  // rows actual functor 
+  // rows actual functor
   //============================================================================
-  template < class T>
-  struct rows
+  template<class T> struct rows
   {
-    rows()                : start_(T())  {}
-    rows(const T & start) : start_(start){}
-    template<class Pos, class Size, class Target>
-    typename Target::type
-    operator()(Pos const& p, Size const&, Target const& ) const
-    {
-      typedef typename Target::type type;
-      return nt2::enumerate<type>(boost::fusion::at_c<0>(p))+splat<type>(start_); 
-    }
-  private :
-    T start_; 
-  };
+    rows() {}
+    rows(const T & start) : start_(start) {}
 
+    template<class Pos, class Size, class Target>
+    BOOST_FORCEINLINE typename Target::type
+    operator()(Pos const& p, Size const& sz, Target const& ) const
+    {
+      typedef typename Target::type                                   type;
+      typedef typename meta::call<nt2::tag::ind2sub_(Size,Pos)>::type  sub_t;
+
+      sub_t const pos = ind2sub(sz,p);
+      return nt2::enumerate<type>(pos[0]+start_);
+    }
+
+    private :
+    T start_;
+  };
 
 //   template < class T, class T1>
 //   struct rows_scaled
@@ -48,12 +46,12 @@ namespace nt2 { namespace details
 //     typename Target::type operator()(Pos const& p, Size const&, Target const& ) const
 //     {
 //       typedef typename Target::type result_type;
-//       typedef typename meta::scalar_of<result_type>::type s_type; 
-//       return nt2::arith<result_type>(boost::fusion::at_c<0>(p)+s_type(start_), s_type(h_)); 
+//       typedef typename meta::scalar_of<result_type>::type s_type;
+//       return nt2::arith<result_type>(boost::fusion::at_c<0>(p)+s_type(start_), s_type(h_));
 //     }
 //   private :
 //     T start_;
-//     T h_; 
+//     T h_;
 //   };
 } }
 

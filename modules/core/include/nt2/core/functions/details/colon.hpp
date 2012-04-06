@@ -29,8 +29,7 @@ namespace nt2 { namespace details
     operator()(Pos const& p, Size const&, Target const&) const
     {
       typedef typename Target::type type;
-
-      return nt2::fma ( nt2::enumerate<type>(boost::fusion::at_c<1>(p)-1)
+      return nt2::fma ( nt2::enumerate<type>(p)
                       , nt2::splat<type>(step_)
                       , nt2::splat<type>(lower_)
                       );
@@ -52,9 +51,7 @@ namespace nt2 { namespace details
     operator()(Pos const& p, Size const&, Target const&) const
     {
       typedef typename Target::type type;
-
-      return  nt2::enumerate<type>(boost::fusion::at_c<1>(p)-1)
-            + nt2::splat<type>(lower_);
+      return  nt2::enumerate<type>(p+lower_);
     }
 
     T lower_;

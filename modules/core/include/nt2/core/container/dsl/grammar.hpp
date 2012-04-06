@@ -26,7 +26,7 @@ namespace nt2 { namespace container
   //  - the _ operator
   //  - the as_<> helper
   //  - the box helper
-  //  - any oerations except for low-level ones and assignment
+  //  - any operations except for low-level ones and assignment
   //============================================================================
   struct  grammar
         : boost::proto
