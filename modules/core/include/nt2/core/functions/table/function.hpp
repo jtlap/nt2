@@ -120,7 +120,7 @@ namespace nt2
       {
         typename boost::remove_reference<child0>::type::index_type::type  index_type;
 
-        // Retrieve children if the node which contains the indexers
+        // Retrieve children from the node that contain the indexers
         childN children       = boost::fusion::pop_front(expr);
 
         // Get the subscript from the linear position
