@@ -12,11 +12,7 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/mpl/apply.hpp>
-
-namespace std
-{
-  template<class T> class complex;
-}
+#include <complex>
 
 namespace nt2
 {
