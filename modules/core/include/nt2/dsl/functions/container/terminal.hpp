@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
-      return unaligned_load<result_type>(&boost::proto::value(a0)[state]);
+      return unaligned_load<result_type>(boost::proto::value(a0).raw(), state);
     }
   };
 
@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const& state, Data const& data) const
     {
-      return unaligned_store<result_type>(data, &boost::proto::value(a0)[state]);
+      return unaligned_store<result_type>(data, boost::proto::value(a0).raw(), state);
     }
   };
 

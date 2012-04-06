@@ -9,7 +9,6 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_IND2SUB_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_IND2SUB_HPP_INCLUDED
 
-#include <iostream>
 #include <boost/mpl/int.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/size.hpp>
