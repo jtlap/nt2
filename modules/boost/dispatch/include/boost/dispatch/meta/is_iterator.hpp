@@ -27,11 +27,17 @@
 // Fix a couple of things for restrict pointers
 // FIXME: integrate upstream
 //============================================================================
-#if defined(_MSC_VER) || defined(__GNUC__) && !BOOST_PP_IS_EMPTY(__restrict)
+#if defined(__GNUC__)
+#define BOOST_DISPATCH_RESTRICT __restrict__
+#elif defined(_MSC_VER)
+#define BOOST_DISPATCH_RESTRICT __restrict
+#endif
+
+#if defined(BOOST_DISPATCH_RESTRICT) && !BOOST_PP_IS_EMPTY(BOOST_DISPATCH_RESTRICT)
 namespace boost
 {
   template<class T>
-  struct is_pointer<T* __restrict>
+  struct is_pointer<T* BOOST_DISPATCH_RESTRICT>
    : mpl::true_
   {
   };
@@ -42,10 +48,10 @@ namespace boost
     struct iterator_traits;
 
     template<class T>
-    struct iterator_traits<T* __restrict>
+    struct iterator_traits<T* BOOST_DISPATCH_RESTRICT>
      : boost::detail::iterator_traits<T*>
     {
-      typedef T* __restrict pointer;
+      typedef T* BOOST_DISPATCH_RESTRICT pointer;
     };
   }
 }
