@@ -9,15 +9,16 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_STORAGE_DURATION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_STORAGE_DURATION_HPP_INCLUDED
 
-#include <boost/mpl/fold.hpp>
-#include <boost/mpl/times.hpp>
-#include <boost/mpl/assert.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/sdk/memory/array_buffer.hpp>
+#include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/sdk/meta/make_aligned_allocator.hpp>
+#include <boost/mpl/fold.hpp>
+#include <boost/mpl/times.hpp>
+#include <boost/mpl/size_t.hpp>
+#include <boost/mpl/assert.hpp>
 
 namespace nt2
 {
@@ -57,7 +58,7 @@ namespace nt2
   };
 
   //============================================================================
-  // When using automatic memory, we rely on array_buffer to stores our data
+  // When using automatic memory, we rely on array_buffer to store our data
   //============================================================================
   struct automatic_
   {
@@ -80,7 +81,7 @@ namespace nt2
       // Make me an array_buffer sandwich of proper size
       //========================================================================
       typedef typename boost::mpl::fold < typename size_::values_type
-                                        , boost::mpl::int_<1>
+                                        , boost::mpl::size_t<1>
                                         , boost::mpl::times < boost::mpl::_1
                                                             , boost::mpl::_2
                                                             >

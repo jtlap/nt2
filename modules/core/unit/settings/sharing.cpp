@@ -180,7 +180,7 @@ NT2_TEST_CASE( owned_apply )
                                 >::type
                               >
                       )
-                    , (array_buffer<int, boost::mpl::integral_c<long,4> >)
+                    , (array_buffer<int, boost::mpl::integral_c<size_t,4> >)
                     );
 
   NT2_TEST_EXPR_TYPE( owned_()
