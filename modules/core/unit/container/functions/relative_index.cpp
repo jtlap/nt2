@@ -22,7 +22,7 @@ NT2_TEST_CASE( integral_subscript )
   using nt2::table;
   using nt2::of_size;
   typedef double T;
-  boost::dispatch::meta::as_<typename boost::dispatch::meta::as_integer<T>::type> tgt;
+  boost::dispatch::meta::as_< boost::dispatch::meta::as_integer<T>::type > tgt;
 
   table<T> a( of_size(5,4,3,2) );
 
@@ -35,7 +35,7 @@ NT2_TEST_CASE( colon_subscript )
   using nt2::table;
   using nt2::of_size;
   typedef double T;
-  boost::dispatch::meta::as_<typename boost::dispatch::meta::as_integer<T>::type> tgt;
+  boost::dispatch::meta::as_< boost::dispatch::meta::as_integer<T>::type > tgt;
 
   table<T> a( of_size(5,4,3,2) );
 
