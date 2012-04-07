@@ -103,6 +103,9 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace container { namespace ext
 {
+  //============================================================================
+  // Size of a function call node is depends of the indexers
+  //============================================================================
   template<class Expr, class Domain, int N>
   struct size_of<tag::function_, Domain, N, Expr>
   {
@@ -126,7 +129,9 @@ namespace nt2 { namespace container { namespace ext
     }
   };
 
-  // Special unary case: if argument is not colon, keep shape
+  //============================================================================
+  // Unary function call node case: if argument is not colon, keep shape
+  //============================================================================
   template<class Expr, class Domain>
   struct size_of<tag::function_, Domain, 2, Expr>
   {
@@ -172,6 +177,25 @@ namespace nt2 { namespace container { namespace ext
     operator()(Expr& e) const
     {
       return impl()(e);
+    }
+  };
+
+  //============================================================================
+  // Nullnary function call node case: needed to avoid some ambiguity
+  //============================================================================
+  template<class Expr, class Domain>
+  struct size_of<tag::function_, Domain, 1, Expr>
+  {
+    typedef typename boost::proto::result_of
+                          ::child_c<Expr&, 0>::type     child0;
+
+    typedef typename size_transform<Domain>::template
+              result<size_transform<Domain>(child0)>::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(Expr& e) const
+    {
+      return size_transform<Domain>()(boost::proto::child_c<0>(e));
     }
   };
 } } }
