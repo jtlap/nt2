@@ -34,16 +34,16 @@ NT2_TEST_CASE_TPL( tri1l_scalar_table, NT2_TYPES )
   nt2::table<T> tx,ty( nt2::of_size(1, 1) );
   ty(1) = T(42);
   tx= nt2::tri1l(ty);
-  NT2_TEST_EQUAL( T(tx(1)), T(1) );
+  NT2_TEST_EQUAL( tx(1), T(1) );
 
   tx= nt2::tri1l(ty, 1);
-  NT2_TEST_EQUAL( T(tx(1)), T(42) );
+  NT2_TEST_EQUAL( tx(1), T(42) );
 
   tx= nt2::tri1l(ty, 0);
-  NT2_TEST_EQUAL( T(tx(1)), T(1) );
+  NT2_TEST_EQUAL( tx(1), T(1) );
 
   tx= nt2::tri1l(ty, -1);
-  NT2_TEST_EQUAL( T(tx(1)), T(0) );
+  NT2_TEST_EQUAL( tx(1), T(0) );
 }
 
 NT2_TEST_CASE_TPL( tri1l, NT2_TYPES )
@@ -52,13 +52,13 @@ NT2_TEST_CASE_TPL( tri1l, NT2_TYPES )
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      y(i,j) = T(i + 10*j);
+      y(i,j) = i + 10*j;
 
   x = nt2::tri1l(y);
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i == j) ? T(1) : (i>=j) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( x(i,j), (i == j) ? T(1) : (i>=j) ? y(i,j) : T(0));
 }
 
 NT2_TEST_CASE_TPL( offset_tri1l, NT2_TYPES )
@@ -67,17 +67,17 @@ NT2_TEST_CASE_TPL( offset_tri1l, NT2_TYPES )
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      y(i,j) = T(i + 10*j);
+      y(i,j) = i + 10*j;
 
   x = nt2::tri1l(y,1);
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i+1 == j) ? T(1) : (i+1>j) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( x(i,j), (i+1 == j) ? T(1) : (i+1>j) ? y(i,j) : T(0));
 
   x = nt2::tri1l(y,-1);
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i-1 == j) ? T(1) : (i-1>j) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( x(i,j), (i-1 == j) ? T(1) : (i-1>j) ? y(i,j) : T(0));
 }

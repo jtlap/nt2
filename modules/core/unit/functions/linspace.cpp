@@ -26,14 +26,14 @@ NT2_TEST_CASE_TPL( linspace, (double)(float) )
   NT2_TEST( xd.extent() == nt2::of_size(1,100) );
 
   for(int i=1;i<=100;++i)
-    NT2_TEST_ULP_EQUAL( T(xd(i)), T(0) + (T(1)/99)*(i-1), 0.5 );
+    NT2_TEST_ULP_EQUAL( xd(i), T(0) + (T(1)/99)*(i-1), 0.5 );
 
   nt2::table<T> xr = nt2::linspace(T(1),T(0));
 
   NT2_TEST( xr.extent() == nt2::of_size(1,100) );
 
   for(int i=1;i<=100;++i)
-    NT2_TEST_ULP_EQUAL( T(xr(i)), T(1) + ((T(0)-T(1))/99)*(i-1),0.5 );
+    NT2_TEST_ULP_EQUAL( xr(i), T(1) + ((T(0)-T(1))/99)*(i-1),0.5 );
 }
 
 NT2_TEST_CASE_TPL( linspace_with_size, (double)(float) )
@@ -46,19 +46,19 @@ NT2_TEST_CASE_TPL( linspace_with_size, (double)(float) )
   NT2_TEST( xd.extent() == nt2::of_size(1,7) );
 
   for(int i=1;i<=7;++i)
-    NT2_TEST_ULP_EQUAL( T(xd(i)), T(0) + (T(1)/6)*(i-1),0.5 );
+    NT2_TEST_ULP_EQUAL( xd(i), T(0) + (T(1)/6)*(i-1),0.5 );
 
   nt2::table<T> xr = nt2::linspace(T(1),T(0),5);
 
   NT2_TEST( xr.extent() == nt2::of_size(1,5) );
 
   for(int i=1;i<=5;++i)
-    NT2_TEST_ULP_EQUAL( T(xr(i)), T(1) + ((T(0)-T(1))/4)*(i-1),0.5 );
+    NT2_TEST_ULP_EQUAL( xr(i), T(1) + ((T(0)-T(1))/4)*(i-1),0.5 );
 
   nt2::table<T> xn1 = nt2::linspace(T(0),T(9),1);
 
   NT2_TEST( xn1.extent() == nt2::of_size(1,1) );
-  NT2_TEST_EQUAL( T(xn1(1)), T(9) );
+  NT2_TEST_EQUAL( xn1(1), 9 );
 }
 
 NT2_TEST_CASE_TPL( simd_linspace, (double)(float) )
