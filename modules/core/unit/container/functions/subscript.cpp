@@ -8,7 +8,6 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2 container subscript"
 
-#include <iostream>
 #include <nt2/table.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/of_size.hpp>
