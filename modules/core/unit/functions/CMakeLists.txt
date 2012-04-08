@@ -22,6 +22,7 @@ SET( SOURCES
   numel.cpp
   ones.cpp
   reshape.cpp
+  squeeze.cpp
   ind2sub.cpp
   sub2ind.cpp
   sub2sub.cpp
