@@ -9,10 +9,12 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_RESHAPE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_RESHAPE_HPP_INCLUDED
 
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/reshape.hpp>
-#include <nt2/include/functions/length.hpp>
+
+#include <nt2/sdk/memory/copy.hpp>
+#include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/box.hpp>
+#include <nt2/include/functions/length.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -67,13 +69,7 @@ namespace nt2 { namespace ext
     {
       of_size_max sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a1));
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
-      stdext::unchecked_copy(a1.raw(), a1.raw()+sz, &sizee[0]);
-#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
-      std::copy(a1.raw(), a1.raw()+sz, stdext::make_unchecked_array_iterator(&sizee[0]));
-#else
-      std::copy(a1.raw(), a1.raw()+sz, &sizee[0]);
-#endif
+      nt2::memory::copy(a1.raw(), a1.raw()+sz, &sizee[0]);
 
       BOOST_ASSERT_MSG
       ( nt2::numel(a0) == nt2::numel(sizee)

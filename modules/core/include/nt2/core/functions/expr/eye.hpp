@@ -9,14 +9,15 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_EYE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_EYE_HPP_INCLUDED
 
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/eye.hpp>
+
+#include <nt2/sdk/memory/copy.hpp>
+#include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/first_index.hpp>
-#include <boost/detail/workaround.hpp>
 #include <iterator>
 
 namespace nt2 { namespace ext
@@ -45,20 +46,14 @@ namespace nt2 { namespace ext
       );
 
       _2D sizee;
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
-      stdext::unchecked_copy(a0.raw(), a0.raw()+2, &sizee[0]);
-#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
-      std::copy(a0.raw(), a0.raw()+2, stdext::make_unchecked_array_iterator(&sizee[0]));
-#else
-      std::copy(a0.raw(), a0.raw()+2, &sizee[0]);
-#endif
+      nt2::memory::copy(a0.raw(), a0.raw()+2, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::eye_
-        , container::domain
-        > ( boxify(sizee)
-            , boxify(nt2::details::eye())
-            , meta::as_<double>()
-            );
+                                    , container::domain
+                                    > ( boxify(sizee)
+                                      , boxify(nt2::details::eye())
+                                      , meta::as_<double>()
+                                      );
     }
   };
 
@@ -88,13 +83,7 @@ namespace nt2 { namespace ext
       );
 
       _2D sizee;
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
-      stdext::unchecked_copy(a0.raw(), a0.raw()+2, &sizee[0]);
-#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
-      std::copy(a0.raw(), a0.raw()+2, stdext::make_unchecked_array_iterator(&sizee[0]));
-#else
-      std::copy(a0.raw(), a0.raw()+2, &sizee[0]);
-#endif
+      nt2::memory::copy(a0.raw(), a0.raw()+2, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::eye_
                                     , container::domain

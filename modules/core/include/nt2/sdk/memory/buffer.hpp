@@ -11,6 +11,7 @@
 
 #include <cstddef>
 #include <boost/swap.hpp>
+#include <nt2/sdk/memory/copy.hpp>
 #include <boost/detail/iterator.hpp>
 #include <nt2/sdk/memory/adapted/buffer.hpp>
 
@@ -65,7 +66,7 @@ namespace nt2 { namespace memory
     {
       begin_ = alloc.allocate(src.size());
       if(begin_) end_ = capacity_ = begin_ + src.size();
-      copy(src);
+      nt2::memory::copy(src.begin(),src.end(),begin());
     }
 
     //==========================================================================
@@ -82,7 +83,7 @@ namespace nt2 { namespace memory
     buffer& operator=(buffer const& src)
     {
       resize(src.size());
-      copy(src);
+      nt2::memory::copy(src.begin(),src.end(),begin());
       return *this;
     }
 
@@ -152,21 +153,6 @@ namespace nt2 { namespace memory
     //==========================================================================
     inline reference       operator[](size_type i)       { return begin_[i]; }
     inline const_reference operator[](size_type i) const { return begin_[i]; }
-
-    protected:
-
-    void copy(buffer const& src)
-    {
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
-      stdext::unchecked_copy(src.begin(),src.end(),begin());
-#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
-      std::copy ( src.begin(),src.end()
-                , stdext::make_unchecked_array_iterator(begin())
-                );
-#else
-      std::copy(src.begin(),src.end(),begin());
-#endif
-    }
 
     private:
     pointer         begin_, end_, capacity_;
