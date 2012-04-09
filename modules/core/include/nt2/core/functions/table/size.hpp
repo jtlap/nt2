@@ -9,10 +9,10 @@
 #ifndef NT2_CORE_FUNCTIONS_TABLE_SIZE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TABLE_SIZE_HPP_INCLUDED
 
-#include <nt2/table.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/extent.hpp>
 #include <nt2/core/container/category.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -26,9 +26,9 @@ namespace nt2 { namespace ext
     static const std::size_t len = ext_t::static_size;
     static const std::size_t olen = len > 2 ? len : 2;
 
-    typedef table < std::size_t
-                  , settings(automatic_, of_size_<1, olen>)
-                  >                                         result_type;
+    typedef container::table< std::size_t
+                            , settings(automatic_, of_size_<1, olen>)
+                            >                                 result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
