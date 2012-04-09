@@ -41,6 +41,8 @@ SET( SOURCES
   ric.cpp
   rif.cpp
   rows.cpp
+  resize.cpp
+  expand.cpp
 # List of test files for toolbox core.settings
    )
 
