@@ -35,9 +35,11 @@ namespace nt2 { namespace ext
     operator()(A0 const& a0, State const& p, Data const& t) const
     { 
       i_t nl = splat<i_t>(numel(boost::proto::child_c<0>(a0))); //old total size
-      sub2ind(boost::proto::child_c<1>(a0), ind2sub(extent(boost::proto::child_c<0>(a0)), p));
-      //      ind2sub(extent(boost::proto::child_c<0>(a0)), p); 
-      i_t pp; //= nt2::enumerate<i_t>( sub2ind(boost::proto::child_c<1>(a0), ind2sub(extent(boost::proto::child_c<0>(a0)), p))); 
+//       sub2ind(boost::proto::child_c<1>(a0), ind2sub(extent(boost::proto::child_c<0>(a0)), p));
+      i_t pp = nt2::enumerate<i_t>( sub2ind(boost::proto::child_c<1>(a0),
+                                           ind2sub(extent(boost::proto::child_c<0>(a0)), p)
+                                           )
+                                   ); 
       // Return 0 if out of bounds value in a0 instead
       return nt2::if_else
             ( nt2::lt ( pp, nl )
