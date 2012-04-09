@@ -8,7 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::size function"
 
-#include <iostream>
+#include <nt2/table.hpp>
 #include <nt2/include/functions/size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -86,9 +86,9 @@ NT2_TEST_CASE( size_size )
 
   nt2::table<int> a( nt2::of_size(4,5) );
   NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a), 1)), 1u);
-  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a), 2)), 4u);  
+  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a), 2)), 4u);
   NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a))(1)), 1u);
-  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a))(2)), 4u);  
+  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a))(2)), 4u);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

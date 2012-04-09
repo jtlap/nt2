@@ -9,9 +9,9 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_SIZE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_SIZE_HPP_INCLUDED
 
-#include <nt2/table.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/extent.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -19,7 +19,9 @@ namespace nt2 { namespace ext
                             , (A0), (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef table<std::size_t,settings(automatic_,of_size_<1,2>)> result_type;
+        typedef container::table< std::size_t
+                                , settings(automatic_,of_size_<1,2>)
+                                >                       result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&) const
     {

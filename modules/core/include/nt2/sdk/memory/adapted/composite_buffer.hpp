@@ -18,7 +18,7 @@ namespace nt2 {  namespace memory
   //============================================================================
   // Forward declaration
   //============================================================================
-  template<typename Buffer> struct composite_buffer;
+  template<typename Buffer> class composite_buffer;
 } }
 
 namespace boost { namespace dispatch { namespace meta
