@@ -41,6 +41,7 @@ SET( SOURCES
   ric.cpp
   rif.cpp
   rows.cpp
+  streaming.cpp
 # List of test files for toolbox core.settings
    )
 
