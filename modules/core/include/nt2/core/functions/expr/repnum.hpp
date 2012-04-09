@@ -9,23 +9,24 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_REPNUM_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_REPNUM_HPP_INCLUDED
 
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/repnum.hpp>
+
+#include <nt2/sdk/memory/copy.hpp>
+#include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/length.hpp>
-#include <boost/detail/workaround.hpp>
-#include <iterator>
 #include <nt2/core/functions/details/repnum.hpp>
+#include <iterator>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
   // Generates repnum from expression (support size(a) + type calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_, 
-                              (A0)(A1), 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_,
+                              (A0)(A1),
                               (scalar_<unspecified_<A0> > )
                               (ast_<A1>)
                             )
@@ -48,13 +49,7 @@ namespace nt2 { namespace ext
 
       of_size_max sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a1));
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
-      stdext::unchecked_copy(a1.raw(), a1.raw()+sz, &sizee[0]);
-#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
-      std::copy(a1.raw(), a1.raw()+sz, stdext::make_unchecked_array_iterator(&sizee[0]));
-#else
-      std::copy(a1.raw(), a1.raw()+sz, &sizee[0]);
-#endif
+      nt2::memory::copy(a1.raw(), a1.raw()+sz, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::repnum_
                                     , container::domain

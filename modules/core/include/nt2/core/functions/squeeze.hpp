@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_RESHAPE_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_RESHAPE_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SQUEEZE_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SQUEEZE_HPP_INCLUDED
 
 /*!
  * \file
- * \brief Defines and implements the nt2::reshape function
+ * \brief Defines and implements the nt2::squeeze function
  */
 
 #include <nt2/include/functor.hpp>
@@ -22,38 +22,31 @@ namespace nt2
 {
   namespace tag
   {
-    struct reshape_ : ext::reshaping_<reshape_>
+    struct squeeze_ : ext::reshaping_<squeeze_>
     {
-      typedef ext::reshaping_<reshape_> parent;
+      typedef ext::reshaping_<squeeze_> parent;
     };
   }
 
   //============================================================================
   /*!
-   * reshape an expression while keeping its numel constant
+   * squeeze an expression by removing its singleton dimensions
    *
-   * \param xpr   Expression to reshape
-   * \param size  New size of the expression
+   * \param xpr   Expression to squeeze
    */
   //============================================================================
-  #define M0(z,n,t)                                       \
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::reshape_, reshape, n) \
-  /**/
-
-  BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
-
-  #undef M0
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::squeeze_, squeeze, 1)
 }
 
 namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, class Expr>
-  struct  generator<nt2::tag::reshape_,Domain,2,Expr>
+  struct  generator<nt2::tag::squeeze_,Domain,2,Expr>
         : reshaping_generator<Expr>
   {};
 
   template<class Domain, class Expr>
-  struct  size_of<nt2::tag::reshape_,Domain,2,Expr>
+  struct  size_of<nt2::tag::squeeze_,Domain,2,Expr>
         : reshaping_size_of<Expr>
   {};
 } } }

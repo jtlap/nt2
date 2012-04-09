@@ -11,14 +11,19 @@
 
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
+namespace nt2 { namespace container
+{
+  struct colon_;
+} }
+
 namespace boost { namespace dispatch { namespace meta
 {
   //==========================================================================
   // colon_ hierarchy is colon_<T> -> unspecified_<T>
   //==========================================================================
-  template<class T> struct  colon_ : unspecified_<T> 
-  { 
-    typedef unspecified_<T> parent; 
+  template<class T> struct  colon_ : unspecified_<T>
+  {
+    typedef unspecified_<T> parent;
   };
 
   //==========================================================================

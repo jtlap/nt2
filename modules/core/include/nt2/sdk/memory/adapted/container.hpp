@@ -19,7 +19,7 @@
 //==============================================================================
 namespace nt2 { namespace memory
 {
-  template<class T, class S> struct container;
+  template<class T, class S> class container;
 } }
 
 namespace nt2 { namespace meta

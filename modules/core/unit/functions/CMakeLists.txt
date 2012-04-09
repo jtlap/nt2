@@ -22,6 +22,7 @@ SET( SOURCES
   numel.cpp
   ones.cpp
   reshape.cpp
+  squeeze.cpp
   ind2sub.cpp
   sub2ind.cpp
   sub2sub.cpp
@@ -40,6 +41,7 @@ SET( SOURCES
   ric.cpp
   rif.cpp
   rows.cpp
+  streaming.cpp
 # List of test files for toolbox core.settings
    )
 

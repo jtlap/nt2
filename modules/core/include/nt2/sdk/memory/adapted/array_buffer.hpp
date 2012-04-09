@@ -18,7 +18,7 @@ namespace nt2 {  namespace memory
   //============================================================================
   // Forward declaration
   //============================================================================
-  template<typename T, typename Size> struct array_buffer;
+  template<typename T, typename Size> class array_buffer;
 } }
 
 namespace boost { namespace dispatch { namespace meta

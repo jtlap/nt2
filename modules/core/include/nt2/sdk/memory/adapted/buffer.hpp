@@ -21,7 +21,7 @@ namespace nt2 { namespace memory
   //============================================================================
   template< typename T
           , typename Allocator = boost::simd::memory::allocator<T>
-          > struct buffer;
+          > class buffer;
 } }
 
 namespace boost { namespace dispatch { namespace meta
