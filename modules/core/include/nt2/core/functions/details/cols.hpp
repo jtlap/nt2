@@ -28,15 +28,36 @@ namespace nt2 { namespace details
     cols(const T & start) : start_(start){}
     template<class Pos, class Size, class Target>
     typename Target::type
-    operator()(Pos const& p, Size const&, Target const& ) const
+    operator()(Pos const& p, Size const&sz, Target const& ) const
     {
-      typedef typename Target::type type;
-      return nt2::splat<type>(boost::fusion::at_c<0>(p))+splat<type>(start_); 
+      typedef typename Target::type                                     type;
+      typedef typename meta::call<nt2::tag::ind2sub_(Size,Pos)>::type  sub_t;
+
+      sub_t const pos = ind2sub(sz,p);
+      return nt2::splat<type>(pos[1]-1+start_);
     }
   private :
     T start_; 
   };
 
+  template < class T, class T1>
+  struct cols_scaled
+  {
+    cols_scaled()                         : start_(T()), h_(One<T>()){}
+    cols_scaled(const T & start, const T1 & h) : start_(start), h_(h){}
+    template<class Pos, class Size, class Target>
+    typename Target::type operator()(Pos const& p, Size const&sz, Target const& ) const
+    {
+      typedef typename Target::type                                     type;
+      typedef typename meta::call<nt2::tag::ind2sub_(Size,Pos)>::type  sub_t;
+      
+      sub_t const pos = ind2sub(sz,p);
+      return nt2::splat<type>(h_*(pos[1]-1)+start_);
+    }
+  private :
+    T start_;
+    T h_;
+  };
 } }
 
 #endif

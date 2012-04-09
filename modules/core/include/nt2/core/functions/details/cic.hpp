@@ -27,11 +27,13 @@ namespace nt2 { namespace details
 
     template<class Pos, class Size, class Target>
     typename Target::type
-    operator()(Pos const& p, Size const&, Target const&) const
+    operator()(Pos const& p, Size const&sz, Target const&) const
     {
-      typedef typename Target::type type;
-      static const int b = One<int>(); //-boost::mpl::at_c< typename Pos::index_type, 0>::type::value; 
-      return nt2::splat<type>(boost::fusion::at_c<0>(p)-b); 
+      typedef typename Target::type                                     type;
+      typedef typename meta::call<nt2::tag::ind2sub_(Size,Pos)>::type  sub_t;
+
+      sub_t const pos = ind2sub(sz,p);
+      return nt2::splat<type>(pos[1]-1);
     }
 
   };

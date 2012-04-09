@@ -44,6 +44,9 @@ SET( SOURCES
   resize.cpp
   expand.cpp 
   streaming.cpp
+  cic.cpp
+  cif.cpp
+  cols.cpp
 # List of test files for toolbox core.settings
    )
 
