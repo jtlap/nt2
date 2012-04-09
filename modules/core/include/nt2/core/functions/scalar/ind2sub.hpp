@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
                               (scalar_< unspecified_<A1> >)
                             )
   {
-    typedef typename boost::array<int, boost::fusion::result_of::size<A0>::value> result_type;
+    typedef boost::array<int, boost::fusion::result_of::size<A0>::value> result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos) const
