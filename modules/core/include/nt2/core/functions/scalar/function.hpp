@@ -11,29 +11,29 @@
 
 #include <nt2/core/functions/function.hpp>
 #include <nt2/sdk/parameters.hpp>
+#include <nt2/dsl/functions/terminal.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 namespace nt2 { namespace ext
 {
-#define M0(z,n,t) (BOOST_PP_CAT(I,n))
-#define M1(z,n,t) (scalar_< integer_<BOOST_PP_CAT(I,n)> >)
+#define M0(z,n,t) (I##n)
+#define M1(z,n,t) (scalar_< integer_<I##n> >)
 
 #define M2(z,n,t)                                                               \
 NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                      \
-                          , (A0)(S)(N)BOOST_PP_REPEAT(n,M0,~)                   \
-                          , ((expr_ < table_<unspecified_<A0>, S>               \
-                                    , nt2::tag::terminal_, N                    \
-                                    >                                           \
-                            ))                                                  \
-                            BOOST_PP_REPEAT(n,M1,~)                             \
+                          , (A0)BOOST_PP_REPEAT(n,M0,~)                         \
+                          , (ast_<A0>)BOOST_PP_REPEAT(n,M1,~)                   \
                           )                                                     \
 {                                                                               \
   typedef typename boost::remove_const<A0>::type                  base;         \
   typedef typename boost::mpl::if_< boost::is_const<A0>                         \
-                                  , typename base::const_reference              \
+                                  , typename base::value_type                   \
                                   , typename base::reference                    \
                                   >::type                         result_type;  \
   typedef typename base::index_type::type                         idx_t;        \
@@ -41,13 +41,14 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                      
   BOOST_FORCEINLINE result_type                                                 \
   operator()(A0& a0, BOOST_PP_ENUM_BINARY_PARAMS(n,I,i) ) const                 \
   {                                                                             \
-    return  boost::proto::value(a0)                                             \
-            [ nt2::sub2ind( a0.extent()                                         \
+    return nt2::run ( a0                                                        \
+                    , nt2::sub2ind( nt2::extent(a0)                             \
                           , boost::fusion::                                     \
                             vector_tie(BOOST_PP_ENUM_PARAMS(n,i))               \
                           , idx_t()                                             \
                           )                                                     \
-            ];                                                                  \
+                    , meta::as_<typename base::value_type>()                    \
+                    );                                                          \
   }                                                                             \
 };                                                                              \
 /**/

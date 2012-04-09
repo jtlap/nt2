@@ -40,18 +40,14 @@ namespace nt2
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
-  // Bind proto::function tag to nt2::function_ hierarchy
-  //============================================================================
-  template<> struct hierarchy_of<boost::proto::tag::function>
+  template<>
+  struct hierarchy_of<boost::proto::tag::function>
   {
     typedef nt2::tag::function_ type;
   };
 
-  //============================================================================
-  // Bind nt2::function_ hierarchy to proto::function tag
-  //============================================================================
-  template<> struct proto_tag<nt2::tag::function_>
+  template<>
+  struct proto_tag<nt2::tag::function_>
   {
     typedef boost::proto::tag::function type;
   };

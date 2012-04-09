@@ -196,6 +196,25 @@ NT2_TEST_CASE( integral_subscript )
           NT2_TEST_EQUAL( a0(i,j,k,l) , i + 10*j + 100*k + 1000*l );
 }
 
+NT2_TEST_CASE( integral_subscript_expr )
+{
+  using nt2::table;
+  using nt2::of_size;
+
+  table<double> a0( of_size(5,4,3,2) );
+  for(int j=1;j<=5*4*3*2;j++) a0(j) = j;
+
+  int ii(1);
+  for(int l=1;l<=2;l++)
+    for(int k=1;k<=3;k++)
+      for(int j=1;j<=4;j++)
+        for(int i=1;i<=5;i++)
+        {
+          NT2_TEST_EQUAL( (a0+a0(3)*a0)(i,j,k,l) , ii+a0(3)*ii);
+          ii++;
+        }
+}
+
 NT2_TEST_CASE( integral_subscript_extent )
 {
   using nt2::table;
@@ -207,6 +226,11 @@ NT2_TEST_CASE( integral_subscript_extent )
   NT2_TEST( nt2::extent( a0(1,1)     ) == of_size(1) );
   NT2_TEST( nt2::extent( a0(1,1,1)   ) == of_size(1) );
   NT2_TEST( nt2::extent( a0(1,1,1,1) ) == of_size(1) );
+
+  NT2_TEST( nt2::extent( (a0+a0)(1)       ) == of_size(1) );
+  NT2_TEST( nt2::extent( (a0-a0)(1,1)     ) == of_size(1) );
+  NT2_TEST( nt2::extent( (a0*a0)(1,1,1)   ) == of_size(1) );
+  NT2_TEST( nt2::extent( (a0/a0)(1,1,1,1) ) == of_size(1) );
 }
 
 NT2_TEST_CASE( colon_subscript )

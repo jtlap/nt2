@@ -22,60 +22,31 @@ namespace nt2 { namespace ext
                               , (ast_<A0>)
                             )
   {
-     typedef bool result_type;
+    typedef bool result_type;
 
-//     BOOST_DISPATCH_FORCE_INLINE
-//       result_type operator()(const A0& a0, char a1) const
-//     {
-//       typedef typename A0::value_type value_type;
-//       if (a1 == 'L' or a1 == 'l')
-//         {
-//           for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)
-//             {
-//               for(std::ptrdiff_t i=j+1; i <= last_index<1>(a0) ; ++i)
-//                 {
-//                   if (value_type(a0(i, j))) return false;
-//                 }
-//             }
-//         }
-//       else
-//         {
-//           for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)
-//             {
-//               for(std::ptrdiff_t i=first_index<1>(a0); i < j ; ++i)
-//                 {
-//                   if (value_type(a0(i, j))) return false;
-//                 }
-//             }
-//         }
-//       return true;
-//     }
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
-      typedef typename A0::value_type value_type;
       bool ok = true;
       for(std::ptrdiff_t i=first_index<1>(a0); i <= last_index<1>(a0) ; ++i)
+      {
+        for(std::ptrdiff_t j=i+1; j <= last_index<2>(a0) ; ++j)
         {
-          for(std::ptrdiff_t j=i+1; j <= last_index<2>(a0) ; ++j)
-            {
-              //              std::cout << "a (" << i << ", " << j << ") -> " << value_type(a0(i, j)) << std::endl;
-              if (value_type(a0(i, j)))
-                {
-                  ok = false;
-                  break;
-                }
-            }
-          if (!ok) break;
+          if(a0(i, j))
+          {
+            ok = false;
+            break;
+          }
         }
+        if (!ok) break;
+      }
       if (ok) return true;
       for(std::ptrdiff_t i=first_index<1>(a0); i <= last_index<1>(a0) ; ++i)
+      {
+        for(std::ptrdiff_t j=first_index<2>(a0); j < i ; ++j)
         {
-          for(std::ptrdiff_t j=first_index<2>(a0); j < i ; ++j)
-            {
-              //              std::cout << "b (" << i << ", " << j << ") -> " << value_type(a0(i, j)) << std::endl;
-              if (value_type(a0(i, j))) return false;
-            }
+          if(a0(i, j)) return false;
         }
+      }
       return true;
     }
   };

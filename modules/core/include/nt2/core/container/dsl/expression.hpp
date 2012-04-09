@@ -16,6 +16,7 @@
 #include <nt2/sdk/parameters.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/core/functions/function.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/assign.hpp>
@@ -25,8 +26,11 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <nt2/core/container/dsl/details/resize.hpp>
 #include <nt2/core/container/dsl/details/expression.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 #ifdef NT2_LOG_COPIES
 #include <nt2/sdk/details/type_id.hpp>
@@ -314,8 +318,11 @@ namespace nt2 { namespace container
     void process( Xpr const&, boost::mpl::false_ const& ) const
     {
       //========================================================================
-      // If you trigger this assertion, you tried to assign an invalid
-      // expression into a nt2 Container or Container view.
+      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      // If this static assert triggers, an invalid expression was assigned to
+      // a NT2 reference-like expression. Check your code for bad expression
+      // construction.
+      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (sizeof(Xpr) == 0)
                           , NT2_EXPRESSION_GRAMMAR_MISMATCH

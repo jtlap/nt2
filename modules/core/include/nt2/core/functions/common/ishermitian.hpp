@@ -28,15 +28,14 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
     {
-      typedef typename A0::value_type value_type;
-      if (!issquare(a0)) return false;
+      if(!issquare(a0)) return false;
       for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)
+      {
+        for(std::ptrdiff_t i=j; i <= last_index<1>(a0) ; ++i)
         {
-          for(std::ptrdiff_t i=j; i <= last_index<1>(a0) ; ++i)
-            {
-              if ((value_type(a0(i, j)) != conj(value_type(a0(j, i))))) return false;
-            }
+          if( a0(i, j) != conj(a0(j, i)) ) return false;
         }
+      }
       return true;
     }
   };
