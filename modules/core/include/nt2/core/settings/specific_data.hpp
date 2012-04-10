@@ -15,8 +15,8 @@ namespace nt2
   {
     struct type
     {
-      BOOST_FORCEINLINE void swap(type&)    {}
-      BOOST_FORCEINLINE void synchronize()  {}
+      inline void swap(type&)    {}
+      inline void synchronize()  {}
     };
   };
 }
