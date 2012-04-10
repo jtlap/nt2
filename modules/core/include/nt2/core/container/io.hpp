@@ -9,7 +9,9 @@
 #ifndef NT2_CORE_CONTAINER_IO_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_IO_HPP_INCLUDED
 
+#include <string>
 #include <iostream>
+#include <boost/preprocessor/stringize.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
@@ -23,10 +25,10 @@ namespace nt2
   {
     // INTERNAL ONLY
     // Display a 2D page from an expression
-    template<class Xpr, class Str, class Pos> inline
+    template<class Xpr, class Pos> inline
     void print_expr ( std::ostream& os
-                    , Str const& name , Xpr const& xpr
-                    , Pos& p          , boost::mpl::int_<2> const&
+                    , std::string const& name , Xpr const& xpr
+                    , Pos& p                  , boost::mpl::int_<2> const&
                     )
     {
       typedef typename Xpr::value_type          value_type;
@@ -40,7 +42,7 @@ namespace nt2
       const std::ptrdiff_t b = boost::mpl::at_c<index_type,0>::type::value;
 
       // Display the name
-      if(name)
+      if(!name.empty())
       {
         os << name;
         if(Pos::static_size > 2)
@@ -59,7 +61,9 @@ namespace nt2
           ++p[0]
           )
       {
-        if(name)  os  << "     ";
+        if(!name.empty())
+          os  << "     ";
+
         for ( p[1]  = nt2::first_index<2>(xpr);
               p[1] <= nt2::last_index<2>(xpr);
             ++p[1]
@@ -75,10 +79,10 @@ namespace nt2
 
     // INTERNAL ONLY
     // Display a nD page from an expression by recursively calls itself
-    template<class Xpr, class Str, class Pos, int N> inline
+    template<class Xpr, class Pos, int N> inline
     void print_expr ( std::ostream& os
-                    , Str  const& name, Xpr const& xpr
-                    , Pos& p          , boost::mpl::int_<N> const&
+                    , std::string const& name , Xpr const& xpr
+                    , Pos& p                  , boost::mpl::int_<N> const&
                     )
     {
       typedef typename Xpr::value_type          value_type;
@@ -104,8 +108,8 @@ namespace nt2
 
     // INTERNAL ONLY
     // Perform the needed checks for expression stream insertion
-    template<class Str,class Xpr,class R> inline
-    void disp ( Str const& name, std::ostream& os
+    template<class Xpr,class R> inline
+    void disp ( std::string const& name, std::ostream& os
               , nt2::container::expression<Xpr,R> const& xpr
               )
     {
@@ -132,7 +136,7 @@ case n: boost::array<std::ptrdiff_t,n> p##n;                \
       else
       {
         // Display the lonely empty matrix
-        if(name) os << name << " = \n     ";
+        if(!name.empty()) os << name << " = \n     ";
         os << "[]\n";
       }
     }
@@ -142,8 +146,8 @@ case n: boost::array<std::ptrdiff_t,n> p##n;                \
   // disp function for nt2 expressions with name or without
   // Note that disp(name,xpr) is an addendum with respect to matlab
   //============================================================================
-  template<class Str,class Xpr,class R> inline
-  void disp( Str const& name, nt2::container::expression<Xpr,R> const& xpr )
+  template<class Xpr,class R> inline
+  void disp( std::string const& name, nt2::container::expression<Xpr,R> const& xpr )
   {
     details::disp(name,std::cout,xpr);
   }
@@ -155,13 +159,18 @@ case n: boost::array<std::ptrdiff_t,n> p##n;                \
   }
 
   //============================================================================
+  // All-in-one NT2_DISP macro
+  //============================================================================
+#define NT2_DISP(x) nt2::disp(BOOST_PP_STRINGIZE(x),x)
+
+  //============================================================================
   // Stream insertion operator for nt2 expressions
   // By design, this is equivalent to disp(xpr)
   //============================================================================
   template<class Xpr,class R> std::ostream&
   operator<<(std::ostream& os, nt2::container::expression<Xpr,R> const& xpr)
   {
-    details::disp(0, os, xpr);
+    details::disp("", os, xpr);
     return os;
   }
 }

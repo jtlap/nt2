@@ -18,7 +18,7 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
     nt2::table<T> x;
     std::cout << x << "\n";
 
-    nt2::disp("x", x);
+    NT2_DISP(x);
     std::cout << "\n";
   }
 
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
 
     std::cout << (x+x*T(3)) << std::endl;
 
-    nt2::disp("x+x*3", (x+x*T(3)));
+    NT2_DISP(x+x*T(3));
     std::cout << "\n";
   }
 
