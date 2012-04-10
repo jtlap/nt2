@@ -47,6 +47,8 @@ SET( SOURCES
   cic.cpp
   cif.cpp
   cols.cpp
+  colvect.cpp
+  rowvect.cpp
 # List of test files for toolbox core.settings
    )
 
