@@ -50,6 +50,7 @@ SET( SOURCES
   colvect.cpp
   rowvect.cpp
   fliplr.cpp
+  width.cpp
 # List of test files for toolbox core.settings
    )
 
