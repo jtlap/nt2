@@ -49,6 +49,7 @@ SET( SOURCES
   cols.cpp
   colvect.cpp
   rowvect.cpp
+  fliplr.cpp
 # List of test files for toolbox core.settings
    )
 
