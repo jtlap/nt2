@@ -37,6 +37,20 @@ namespace boost { namespace simd
   }
 
   //////////////////////////////////////////////////////////////////////////////
+  // Unaligned_Load a data of type T from the memory zone given by (a0)
+  //////////////////////////////////////////////////////////////////////////////
+  template<class T,class A0> inline
+  typename boost::dispatch::meta::call<tag::unaligned_load_ ( A0 const&, int
+                                                , boost::dispatch::meta::as_<T>
+                                                )
+                            >::type
+  unaligned_load(A0 const& a0)
+  {
+    typename boost::dispatch::make_functor<tag::unaligned_load_, A0>::type callee;
+    return callee(a0,0,boost::dispatch::meta::as_<T>());
+  }
+
+  //////////////////////////////////////////////////////////////////////////////
   // Unaligned_Load a data of type T from the memory zone given by (a0,a1) and a sub-type
   // level offset
   //////////////////////////////////////////////////////////////////////////////
@@ -53,18 +67,21 @@ namespace boost { namespace simd
   }
 
   //////////////////////////////////////////////////////////////////////////////
-  // Unaligned_Load a data of type T from the memory zone given by (a0)
+  // Unaligned_Load a data of type T from the memory zone given by (a0) and a sub-type
+  // level offset
   //////////////////////////////////////////////////////////////////////////////
-  template<class T,class A0> inline
-  typename boost::dispatch::meta::call<tag::unaligned_load_ ( A0 const&
+  template<class T,int Offset,class A0> inline
+  typename boost::dispatch::meta::call<tag::unaligned_load_ ( A0 const&, int
                                                 , boost::dispatch::meta::as_<T>
+                                                , boost::mpl::int_<Offset>
                                                 )
                             >::type
   unaligned_load(A0 const& a0)
   {
     typename boost::dispatch::make_functor<tag::unaligned_load_, A0>::type callee;
-    return callee(a0,boost::dispatch::meta::as_<T>());
+    return callee(a0,0,boost::dispatch::meta::as_<T>(),boost::mpl::int_<Offset>());
   }
+
 } }
 
 #endif
