@@ -37,7 +37,44 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::reverse_, boost::simd::tag::avx_,
+                         (A0),
+                         ((simd_<double_<A0>,boost::simd::tag::avx_>))
+                        )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      typedef typename meta::scalar_of<A0>::type sctype;
+      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
+      svtype a000 = { _mm256_extractf128_pd(a0, 0)};
+      svtype a011 = { _mm256_extractf128_pd(a0, 1)};
+      svtype a00 =  reverse(a000);
+      svtype a01 =  reverse(a011);
+      A0 that = simd::bitwise_cast<A0>(_mm256_insertf128_pd(that,a01, 0));
+      that =  simd::bitwise_cast<A0>(_mm256_insertf128_pd(that, a00, 1));
+      return that;
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::reverse_, boost::simd::tag::avx_,
+                         (A0),
+                         ((simd_<single_<A0>,boost::simd::tag::avx_>))
+                        )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    {
+      typedef typename meta::scalar_of<A0>::type sctype;
+      typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
+      svtype a000 = { _mm256_extractf128_ps(a0, 0)};
+      svtype a011 = { _mm256_extractf128_ps(a0, 1)};
+      svtype a00 =  reverse(a000);
+      svtype a01 =  reverse(a011);
+      A0 that = simd::bitwise_cast<A0>(_mm256_insertf128_ps(that,a01, 0));
+      that =  simd::bitwise_cast<A0>(_mm256_insertf128_ps(that, a00, 1));
+      return that;
+    }
+  };  
 } } }
 #endif
 #endif
