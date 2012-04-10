@@ -36,16 +36,22 @@ namespace nt2
                                         , value_type
                                         >::type     display_t;
 
+      // Base index for making the linear index properly C based
+      const std::ptrdiff_t b = boost::mpl::at_c<index_type,0>::type::value;
+
       // Display the name
-      os << name;
-      if(Pos::static_size > 2)
+      if(name)
       {
-        // .. and the potential (:,:,...) indicator
-        os << "(:,:";
-        for(int i=2;i<Pos::static_size;++i) os << "," << p[i];
-        os << ")";
+        os << name;
+        if(Pos::static_size > 2)
+        {
+          // .. and the potential (:,:,...) indicator
+          os << "(:,:";
+          for(int i=2;i<Pos::static_size;++i) os << "," << p[i];
+          os << ")";
+        }
+        os << " = \n\n";
       }
-      os << " = \n\n";
 
       // Display the current 2D page
       for ( p[0]  = nt2::first_index<1>(xpr);
@@ -53,13 +59,13 @@ namespace nt2
           ++p[0]
           )
       {
-        os  << "     ";
-      for ( p[1]  = nt2::first_index<2>(xpr);
-            p[1] <= nt2::last_index<2>(xpr);
-          ++p[1]
-          )
+        if(name)  os  << "     ";
+        for ( p[1]  = nt2::first_index<2>(xpr);
+              p[1] <= nt2::last_index<2>(xpr);
+            ++p[1]
+            )
         {
-          os  << display_t(xpr(nt2::sub2ind(nt2::extent(xpr),p,index_type())))
+          os  << display_t(xpr(nt2::sub2ind(nt2::extent(xpr),p,index_type())+b))
               << " ";
         }
 
@@ -126,7 +132,8 @@ case n: boost::array<std::ptrdiff_t,n> p##n;                \
       else
       {
         // Display the lonely empty matrix
-        os << name << " = \n     []\n";
+        if(name) os << name << " = \n     ";
+        os << "[]\n";
       }
     }
   }
@@ -154,7 +161,7 @@ case n: boost::array<std::ptrdiff_t,n> p##n;                \
   template<class Xpr,class R> std::ostream&
   operator<<(std::ostream& os, nt2::container::expression<Xpr,R> const& xpr)
   {
-    details::disp("ans", os, xpr);
+    details::disp(0, os, xpr);
     return os;
   }
 }
