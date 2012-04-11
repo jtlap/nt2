@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_SELECTION_TAGS_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_SELECTION_TAGS_HPP_INCLUDED
-#include <nt2/toolbox/common/tags.hpp>
+
+#include <nt2/sdk/meta/tags.hpp>
 
 namespace nt2
 {

@@ -1,0 +1,16 @@
+[book NT2
+    [quickbook 1.5]
+    [authors [Falcou, Joel], [Lapresté, Jean-Thierry], [Gaunard, Mathias]]
+        [copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Blaise Pascal]
+        [copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI]
+    [license Distributed under the Boost Software License, Version 1.0.
+        (See accompanying file LICENSE_1_0.txt or copy at
+        [@http://www.boost.org/LICENSE_1_0.txt])
+    ]
+    [source-mode c++]
+]
+
+[xinclude preface.xml]
+[xinclude getting_started.xml]
+[xinclude developers_manual.xml]
+[xinclude modules.xml]

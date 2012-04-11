@@ -7,6 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_EXPONENTIAL_DEPENDENCIES_EXTRA arithmetic bitwise boolean constant ieee operator predicates reduction
-                                      polynomials
-   )
+nt2_module_doc(unit manual.qbk reference.doxyfile)

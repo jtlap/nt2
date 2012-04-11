@@ -8,6 +8,6 @@
 ################################################################################
 
 SET(NT2_TRIGONOMETRIC_DEPENDENCIES_EXTRA arithmetic bitwise boolean constant ieee operator predicates reduction swar
-                                         common polynomials
+                                        polynomials
                                          exponential
    )
