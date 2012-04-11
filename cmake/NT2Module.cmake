@@ -7,7 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.doc)
 include(nt2.add_library)
 
 macro(nt2_module_install_setup)
@@ -641,6 +640,8 @@ macro(nt2_module_postconfigure)
 endmacro()
 
 macro(nt2_postconfigure_init)
+
+  include(nt2.doc)
 
   define_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED
                   BRIEF_DOCS "Whether nt2_postconfigure_init has already been called"

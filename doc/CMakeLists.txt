@@ -7,12 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.doc)
-
-if(NOT NT2_DOCUMENTATION_ENABLED)
-  return()
-endif()
-
 set(dependencies)
 set(MODULES_LIST)
 foreach(module ${NT2_MODULES})

@@ -101,7 +101,9 @@ endforeach()
 ################################################################################
 # Setup documentation after all modules have been downloaded
 ################################################################################
-add_subdirectory(doc)
+if(NT2_DOCUMENTATION_ENABLED)
+  add_subdirectory(doc)
+endif()
 
 ################################################################################
 # Load modules
