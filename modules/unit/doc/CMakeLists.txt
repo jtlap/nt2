@@ -8,11 +8,8 @@
 ################################################################################
 include(nt2.doc)
 
-if(NT2_DOCUMENTATION_ENABLED)
-SET ( DOCS
-      unit.qbk
-      reference.doxyfile
-    )
-
-  nt2_doc_generate(unit ${DOCS})
+if(NOT NT2_DOCUMENTATION_ENABLED)
+  return()
 endif()
+
+nt2_module_doc(unit manual.qbk reference.doxyfile)

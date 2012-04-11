@@ -9,43 +9,42 @@
 
 include(nt2.doc)
 
-if(NT2_DOCUMENTATION_ENABLED)
-  # Locally build the xml catalog
-  configure_file( ${NT2_SOURCE_ROOT}/cmake/boostbook/catalog.xml.in
-                  ${NT2_BINARY_DIR}/catalog.xml
-                )
-
-  set(dependencies)
-  set(MODULES_LIST)
-  foreach(module ${NT2_MODULES})
-    # Find the canonical place where xml files are for a given doc
-    set(doc_source ${NT2_SOURCE_DIR}/modules/${module}/doc)
-    set(doc_output ${NT2_BINARY_DIR}/modules/${module}/doc)
-
-    if(IS_DIRECTORY ${doc_source})
-      # Glob every xml in there
-      set(dependencies "${doc_output}/${module}.xml;${dependencies}")
-      set(MODULES_LIST "${MODULES_LIST}[xinclude ${doc_output}/${module}.xml]\n")
-    endif()
-  endforeach()
-
-  # Generate the proper qbk containing the list of all module xml files
-  configure_file( ${NT2_SOURCE_ROOT}/doc/modules.qbk.in
-                  modules.qbk
-                )
-
-  set ( MANUAL_SRC
-        nt2.qbk
-        preface.qbk
-        developers_manual.qbk
-        getting_started.qbk
-        modules.qbk
-      )
-
-  # Generate the xml for the manuals
-  nt2_doc_generate(manual ${MANUAL_SRC})
-
-  # Build the complete docs
-  nt2_doc_boostbook(nt2 nt2.xml ${dependencies})
-  nt2_doc_html(doc nt2)
+if(NOT NT2_DOCUMENTATION_ENABLED)
+  return()
 endif()
+
+set(dependencies)
+set(MODULES_LIST)
+foreach(module ${NT2_MODULES})
+  string(TOUPPER ${module} module_U)
+
+  # Only add module if it's got a documentation
+  if(EXISTS ${NT2_${module_U}_ROOT}/doc/CMakeLists.txt)
+    set(MODULES_LIST "${MODULES_LIST}[xinclude ${module}.xml]\n")
+  endif()
+endforeach()
+
+# Generate qbk file containing the list of all modules
+configure_file(modules.qbk.in modules.qbk)
+
+set(MANUAL_SRC
+    nt2.qbk
+    preface.qbk
+    developers_manual.qbk
+    getting_started.qbk
+    modules.qbk
+   )
+
+# Generate the xml for the manuals;
+# boostbook target forces all modules to be built before
+nt2_doc(doc.xml ${MANUAL_SRC} boostbook)
+
+# Convert to Docbook and then HTML; make a doc target for HTML generation
+nt2_doc_boostbook(doc)
+nt2_doc_html(${NT2_BINARY_DIR}/doc doc)
+add_custom_target(doc
+                  COMMAND ${CMAKE_COMMAND}
+                  -E copy_directory ${NT2_SOURCE_ROOT}/doc/html
+                                    ${NT2_BINARY_DIR}/doc/html
+                  DEPENDS ${NT2_BINARY_DIR}/doc/html/index.html
+                 )
