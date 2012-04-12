@@ -205,43 +205,8 @@ namespace nt2 { namespace container
     //==========================================================================
     // Idempotent operator() indexing
     //==========================================================================
-    BOOST_FORCEINLINE
-    expression< boost::proto::expr< boost::proto::tag::function
-                                  , boost::proto::list1<expression const &>
-                                  , 1
-                                  >
-              , Result
-              >
-    operator ()() const
-    {
-      typedef boost::proto::expr< boost::proto::tag::function
-                                , boost::proto::list1<expression const&>
-                                , 1
-                                > expr_t;
-
-      expr_t that = { *this };
-
-      return expression<expr_t, Result>( that );
-    }
-
-    BOOST_FORCEINLINE
-    expression< boost::proto::expr< boost::proto::tag::function
-                                  , boost::proto::list1<expression&>
-                                  , 1
-                                  >
-              , Result
-              >
-    operator ()()
-    {
-      typedef boost::proto::expr< boost::proto::tag::function
-                                , boost::proto::list1<expression&>
-                                , 1
-                                > expr_t;
-
-      expr_t that = { *this };
-
-      return expression<expr_t, Result>( that );
-    }
+    BOOST_FORCEINLINE expression&        operator()()        { return *this; }
+    BOOST_FORCEINLINE expression const&  operator()() const  { return *this; }
 
     //==========================================================================
     // Return current expression extent
