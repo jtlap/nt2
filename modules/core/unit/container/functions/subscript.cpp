@@ -30,9 +30,10 @@ NT2_TEST_CASE( dimensions )
   namespace mpl = boost::mpl;
   using nt2::of_size_;
   using nt2::of_size;
+  typedef double T;
 
-  nt2::table<double, nt2::_4D> a(of_size(5, 4, 3, 2));
-  nt2::table<double, nt2::of_size_<2, 2> > b;
+  nt2::table<T, nt2::_4D> a(of_size(5, 4, 3, 2));
+  nt2::table<T, nt2::of_size_<2, 2> > b;
 
   NT2_TEST_EXPR_TYPE( a()
                     , size_of<mpl::_>
@@ -102,7 +103,7 @@ NT2_TEST_CASE( dimensions )
                     , ( of_size_<4, 4> )
                     );
 
-  nt2::table<double, nt2::_3D> c;
+  nt2::table<T, nt2::_3D> c;
   NT2_TEST_EXPR_TYPE( c(_, _, _)
                     , size_of<mpl::_>
                     , nt2::_3D
@@ -113,8 +114,9 @@ NT2_TEST_CASE( integral_subscript )
 {
   using nt2::table;
   using nt2::of_size;
+  typedef double T;
 
-  table<double> a0( of_size(5,4,3,2) );
+  table<T> a0( of_size(5,4,3,2) );
 
   //============================================================================
   // 1D subscript
@@ -200,8 +202,9 @@ NT2_TEST_CASE( integral_subscript_expr )
 {
   using nt2::table;
   using nt2::of_size;
+  typedef double T;
 
-  table<double> a0( of_size(5,4,3,2) );
+  table<T> a0( of_size(5,4,3,2) );
   for(int j=1;j<=5*4*3*2;j++) a0(j) = j;
 
   int ii(1);
@@ -219,8 +222,9 @@ NT2_TEST_CASE( integral_subscript_extent )
 {
   using nt2::table;
   using nt2::of_size;
+  typedef double T;
 
-  table<double> a0( of_size(5,4,3,2) );
+  table<T> a0( of_size(5,4,3,2) );
 
   NT2_TEST( nt2::extent( a0(1)       ) == of_size(1) );
   NT2_TEST( nt2::extent( a0(1,1)     ) == of_size(1) );
@@ -240,7 +244,7 @@ NT2_TEST_CASE( colon_subscript )
   using nt2::_;
   typedef double T;
 
-  table<double> a0( of_size(5,4,3,2) );
+  table<T> a0( of_size(5,4,3,2) );
 
   for(int l=1;l<=2;l++)
    for(int k=1;k<=3;k++)
@@ -252,7 +256,7 @@ NT2_TEST_CASE( colon_subscript )
   // 1D subscript
   //============================================================================
   {
-    table<double> a1 = a0(_);
+    table<T> a1 = a0(_);
     NT2_TEST_EQUAL( a1(1) , 1111 );
     NT2_TEST_EQUAL( a1(5) , 1115 );
     NT2_TEST_EQUAL( a1(10), 1125 );
@@ -264,7 +268,7 @@ NT2_TEST_CASE( colon_subscript )
   // 2D subscript
   //============================================================================
   {
-    table<double> a1 = a0(_,_);
+    table<T> a1 = a0(_,_);
 
     NT2_TEST( nt2::extent( a1 ) == of_size(5,24) );
     for(int j=1;j<=24;j++)
@@ -273,7 +277,7 @@ NT2_TEST_CASE( colon_subscript )
 
     for(int r=1;r<=5;r++)
     {
-      table<double> a2 = a0(r,_);
+      table<T> a2 = a0(r,_);
       NT2_TEST( nt2::extent( a2 ) == of_size(1,24) );
 
       for(int i=1;i<=24;i++)
@@ -282,7 +286,7 @@ NT2_TEST_CASE( colon_subscript )
 
     for(int r=1;r<=24;r++)
     {
-      table<double> a3 = a0(_,r);
+      table<T> a3 = a0(_,r);
       NT2_TEST( nt2::extent( a3 ) == of_size(5,1) );
 
       for(int i=1;i<=5;i++)
@@ -294,7 +298,7 @@ NT2_TEST_CASE( colon_subscript )
   // 3D subscript
   //============================================================================
   {
-    table<double> a1 = a0(_,_,_);
+    table<T> a1 = a0(_,_,_);
 
     NT2_TEST( nt2::extent( a1 ) == of_size(5,4,6) );
     for(int k=1;k<=6;k++)
@@ -304,7 +308,7 @@ NT2_TEST_CASE( colon_subscript )
 
     for(int r=1;r<=5;r++)
     {
-      table<double> a2 = a0(r,_,_);
+      table<T> a2 = a0(r,_,_);
       NT2_TEST( nt2::extent( a2 ) == of_size(1,4,6) );
 
       for(int j=1;j<=6;j++)
@@ -314,7 +318,7 @@ NT2_TEST_CASE( colon_subscript )
 
     for(int r=1;r<=4;r++)
     {
-      table<double> a2 = a0(_,r,_);
+      table<T> a2 = a0(_,r,_);
       NT2_TEST( nt2::extent( a2 ) == of_size(5,1,6) );
 
       for(int j=1;j<=6;j++)
@@ -324,7 +328,7 @@ NT2_TEST_CASE( colon_subscript )
 
     for(int r=1;r<=6;r++)
     {
-      table<double> a2 = a0(_,_,r);
+      table<T> a2 = a0(_,_,r);
       NT2_TEST( nt2::extent( a2 ) == of_size(5,4,1) );
 
       for(int j=1;j<=4;j++)
@@ -337,7 +341,7 @@ NT2_TEST_CASE( colon_subscript )
   // 4D subscript
   //============================================================================
   {
-    table<double> a1 = a0(_,_,_,_);
+    table<T> a1 = a0(_,_,_,_);
 
     NT2_TEST( nt2::extent( a1 ) == of_size(5,4,3,2) );
     for(int l=1;l<=2;l++)
@@ -348,7 +352,7 @@ NT2_TEST_CASE( colon_subscript )
 
     for(int r=1;r<=5;r++)
     {
-      table<double> a2 = a0(r,_,_,_);
+      table<T> a2 = a0(r,_,_,_);
       NT2_TEST( nt2::extent( a2 ) == of_size(1,4,3,2) );
 
       for(int k=1;k<=2;k++)
@@ -359,7 +363,7 @@ NT2_TEST_CASE( colon_subscript )
 
     for(int r=1;r<=4;r++)
     {
-      table<double> a2 = a0(_,r,_,_);
+      table<T> a2 = a0(_,r,_,_);
       NT2_TEST( nt2::extent( a2 ) == of_size(5,1,3,2) );
 
       for(int k=1;k<=2;k++)
@@ -370,7 +374,7 @@ NT2_TEST_CASE( colon_subscript )
 
     for(int r=1;r<=3;r++)
     {
-      table<double> a2 = a0(_,_,r,_);
+      table<T> a2 = a0(_,_,r,_);
       NT2_TEST( nt2::extent( a2 ) == of_size(5,4,1,2) );
 
       for(int k=1;k<=2;k++)
@@ -381,7 +385,7 @@ NT2_TEST_CASE( colon_subscript )
 
     for(int r=1;r<=2;r++)
     {
-      table<double> a2 = a0(_,_,_,r);
+      table<T> a2 = a0(_,_,_,r);
       NT2_TEST( nt2::extent( a2 ) == of_size(5,4,3,1) );
 
       for(int k=1;k<=3;k++)
@@ -397,8 +401,9 @@ NT2_TEST_CASE( colon_subscript_extent )
   using nt2::table;
   using nt2::of_size;
   using nt2::_;
+  typedef double T;
 
-  table<double> a0( of_size(5,4,3,2) );
+  table<T> a0( of_size(5,4,3,2) );
 
   NT2_TEST( nt2::extent( a0(_)       ) == of_size(120)     );
 
