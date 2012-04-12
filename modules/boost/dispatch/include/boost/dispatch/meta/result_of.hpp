@@ -11,11 +11,10 @@
 
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/function_types/result_type.hpp>
-#include <boost/mpl/has_xxx.hpp>
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/mpl/or.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/utility/enable_if.hpp>
 
 #if (defined(BOOST_NO_VARIADIC_TEMPLATES) && defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)) || defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
@@ -29,9 +28,7 @@ namespace boost { namespace dispatch
   namespace meta
   {
     template<class Sig, class Enable = void>
-    struct result_of;
-    
-    BOOST_MPL_HAS_XXX_TRAIT_DEF(result_type);
+    struct result_of {};
     
     template<class T>
     struct is_function
@@ -51,13 +48,13 @@ namespace boost { namespace dispatch { namespace meta
   };
   
   template<class F, class... Args>
-  struct result_of<F(Args...), typename boost::enable_if< has_result_type<F> >::type>
+  struct result_of<F(Args...), typename enable_if_type< typename F::result_type >::type>
   {
     typedef typename F::result_type type;
   };
   
   template<class F, class... Args>
-  struct result_of<F(Args...), typename boost::disable_if< boost::mpl::or_< is_function<F>, has_result_type<F> > >::type>
+  struct result_of<F(Args...), typename enable_if_type< typename F::template result<F(Args...)>::type >::type>
   {
     typedef typename F::template result<F(Args...)>::type type;
   };
@@ -81,13 +78,13 @@ namespace boost { namespace dispatch { namespace meta
     };                                                                                     \
                                                                                            \
     template<class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>                \
-    struct result_of<F(BOOST_PP_ENUM_PARAMS(n, A)), typename boost::enable_if< has_result_type<F> >::type>\
+    struct result_of<F(BOOST_PP_ENUM_PARAMS(n, A)), typename enable_if_type< typename F::result_type >::type>\
     {                                                                                      \
       typedef typename F::result_type type;                                                \
     };                                                                                     \
                                                                                            \
     template<class F BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n, class A)>                \
-    struct result_of<F(BOOST_PP_ENUM_PARAMS(n, A)), typename boost::disable_if< boost::mpl::or_< is_function<F>, has_result_type<F> > >::type>\
+    struct result_of<F(BOOST_PP_ENUM_PARAMS(n, A)), typename enable_if_type< typename F::template result<F(BOOST_PP_ENUM_PARAMS(n, A))>::type >::type>\
     {                                                                                      \
       typedef typename F::template result<F(BOOST_PP_ENUM_PARAMS(n, A))>::type type;       \
     };

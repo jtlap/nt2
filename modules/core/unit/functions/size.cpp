@@ -26,6 +26,7 @@ NT2_TEST_CASE( fundamental_size )
   NT2_TEST_EQUAL( size( 3 )(2), 1u);
   NT2_TEST_EQUAL( size( 3 , 1 ), 1u);
   NT2_TEST_EQUAL( size( 3 , 2 ), 1u);
+  NT2_TEST_EQUAL( size( 3 , 3 ), 1u);
 }
 
 ////////////////////////////////////////////////////////////////////////////////

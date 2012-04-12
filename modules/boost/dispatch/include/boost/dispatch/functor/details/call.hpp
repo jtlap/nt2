@@ -9,41 +9,27 @@
 #ifndef BOOST_DISPATCH_FUNCTOR_DETAILS_CALL_HPP_INCLUDED
 #define BOOST_DISPATCH_FUNCTOR_DETAILS_CALL_HPP_INCLUDED
 
-////////////////////////////////////////////////////////////////////////////////
-// User-overloadable call meta-function
-// Documentation:http://nt2.lri.fr/extension/custom_function.html
-////////////////////////////////////////////////////////////////////////////////
-#include <boost/mpl/assert.hpp>
-#include <boost/type_traits/is_same.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
-// Forward declare the unknown_ tag and the error_with helper
-////////////////////////////////////////////////////////////////////////////////
+// Forward declare the unknown_ tag
 namespace boost { namespace dispatch { namespace tag { struct unknown_;    } } }
-namespace boost { namespace dispatch { namespace tag { struct error_with;  } } }
+
+//==========================================================================
+/*
+ * If you get an error here, you tried to call a function not supported
+ * or implemented for values of the given types.
+ * Check that you included the proper toolbox or use the correct types in
+ * your function call.
+ */
+//==========================================================================
+template<class Call, class Site>
+struct BOOST_DISPATCH_UNSUPPORTED_FUNCTION_CALL;
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // Call to non-categorizable types ends up in error
-  //////////////////////////////////////////////////////////////////////////////
-  template<class Function,class Site,class Dummy>
-  struct implement<Function(tag::unknown_),Site,Dummy>
+  // Calls to unknown functions end up as errors or as SFINAE
+  template<class Site, class Dummy>
+  struct implement<tag::unknown_, Site, Dummy>
   {
-    struct unsupported_function_call {};
-    typedef unsupported_function_call result_type;
-    //==========================================================================
-    /*
-     * If you get an error here, you tried to call a function on values which 
-     * types is not supported or which is not implemented on the given type.
-     * Check that you included the proper toolbox or use the correct type in 
-     * your function call.
-     */
-    //==========================================================================
-    BOOST_MPL_ASSERT_MSG( (boost::is_same<Function,void>::value)
-                        , BOOST_DISPATCH_UNSUPPORTED_FUNCTION_CALL
-                        , (Function)
-                        );
+    //typedef BOOST_DISPATCH_UNSUPPORTED_FUNCTION_CALL<Dummy, Site> result_type;
   };
 } } }
 

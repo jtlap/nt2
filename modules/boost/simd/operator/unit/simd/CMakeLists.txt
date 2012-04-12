@@ -13,6 +13,7 @@ SET( SOURCES
   map.cpp
   make.cpp
   load.cpp
+  unaligned_load.cpp
   if_else.cpp
   compare_less_equal.cpp
   compare_less.cpp

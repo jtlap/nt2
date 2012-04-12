@@ -41,7 +41,16 @@ SET( SOURCES
   ric.cpp
   rif.cpp
   rows.cpp
+  resize.cpp
+  expand.cpp 
   streaming.cpp
+  cic.cpp
+  cif.cpp
+  cols.cpp
+  colvect.cpp
+  rowvect.cpp
+  fliplr.cpp
+  width.cpp
 # List of test files for toolbox core.settings
    )
 
