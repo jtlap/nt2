@@ -32,10 +32,9 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                      
                           )                                                     \
 {                                                                               \
   typedef typename boost::remove_const<A0>::type                  base;         \
-  typedef typename boost::mpl::if_< boost::is_const<A0>                         \
-                                  , typename base::value_type                   \
-                                  , typename base::reference                    \
-                                  >::type                         result_type;  \
+  typedef typename meta::                                                       \
+          scalar_of < typename boost::dispatch::meta::semantic_of<A0&>::type    \
+                    >::type                                       result_type;  \
   typedef typename base::index_type::type                         idx_t;        \
                                                                                 \
   BOOST_FORCEINLINE result_type                                                 \
