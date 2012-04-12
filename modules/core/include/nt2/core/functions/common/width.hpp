@@ -26,7 +26,6 @@ namespace nt2 { namespace ext
     result_type operator()(const A0& a0) const
     {
       return nt2::size(a0, 2);
-
     }
   };
 } }

@@ -27,7 +27,14 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type                    result_type;
+    typedef typename boost::dispatch::meta::
+            call<nt2::tag::run_ ( typename  boost::proto::result_of::
+                                            child_c<A0&, 0>::type
+                                , State&, Data&
+                                )
+                >::type                                        base_type;
+
+    typedef typename meta::strip<base_type>::type              result_type;
     typedef typename meta::as_integer<result_type>::type              i_t;
 
     BOOST_FORCEINLINE result_type

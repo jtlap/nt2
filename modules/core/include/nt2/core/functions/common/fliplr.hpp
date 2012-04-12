@@ -29,22 +29,27 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type                    result_type;
+    typedef typename boost::dispatch::meta::
+            call<nt2::tag::run_ ( typename  boost::proto::result_of::
+                                            child_c<A0&, 0>::type
+                                , State&, Data&
+                                )
+                >::type                                        result_type;
+
     typedef typename meta::as_integer<result_type>::type              i_t;
     typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, State const& p, Data const& t) const
+    operator()(A0& a0, State const& p, Data const& t) const
     {
-      // Retrieve 2D position from the linear index
-      sub_t pos = ind2sub(_2D(a0.extent()),p);
-      std::size_t n = width(a0)+1;
-      pos[0] = n-pos[0]; 
-      State p1 = sub2ind(_2D(a0.extent()),pos);
-      return nt2::run(boost::proto::child_c<0>(a0),p1,t); 
+      _2D ex = a0.extent();
+
+      sub_t pos    = ind2sub(ex,p);
+      pos[1] = width(a0)-pos[1]+1;
+
+      return nt2::run(boost::proto::child_c<0>(a0),sub2ind(ex,pos),t);
     }
   };
-
 } }
 
 #endif

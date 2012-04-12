@@ -17,7 +17,6 @@
 #include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -28,18 +27,23 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type                    result_type;
+    typedef typename boost::dispatch::meta::
+            call<nt2::tag::run_ ( typename  boost::proto::result_of::
+                                            child_c<A0&, 0>::type
+                                , State&, Data&
+                                )
+                >::type                                        result_type;
     typedef typename meta::as_integer<result_type>::type              i_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
-    { 
-      i_t nl = splat<i_t>(numel(boost::proto::child_c<0>(a0))); //old total size
-//       sub2ind(boost::proto::child_c<1>(a0), ind2sub(extent(boost::proto::child_c<0>(a0)), p));
+    {
+      i_t nl = splat<i_t>(numel(boost::proto::child_c<0>(a0)));
       i_t pp = nt2::enumerate<i_t>( sub2ind(boost::proto::child_c<1>(a0),
                                            ind2sub(extent(boost::proto::child_c<0>(a0)), p)
                                            )
-                                   ); 
+                                   );
+
       // Return 0 if out of bounds value in a0 instead
       return nt2::if_else
             ( nt2::lt ( pp, nl )

@@ -29,7 +29,12 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type                    result_type;
+    typedef typename boost::dispatch::meta::
+            call<nt2::tag::run_ ( typename  boost::proto::result_of::
+                                            child_c<A0&, 0>::type
+                                , State&, Data&
+                                )
+                >::type                                        result_type;
     typedef typename meta::as_integer<result_type>::type              i_t;
     typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
 
@@ -38,7 +43,7 @@ namespace nt2 { namespace ext
     {
       // Retrieve 2D position from the linear index
       sub_t pos = ind2sub(_2D(a0.extent()),p);
-      std::size_t n = height(a0); 
+      std::size_t n = height(a0);
       return  nt2::run(boost::proto::child_c<0>(a0),p,t); //INCORRECT MUST CHANGE run here
     }
   };
