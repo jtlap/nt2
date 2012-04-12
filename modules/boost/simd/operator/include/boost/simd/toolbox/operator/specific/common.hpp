@@ -85,11 +85,12 @@ namespace boost { namespace simd { namespace ext                               \
                                                                                \
     template<class This, BOOST_PP_ENUM_PARAMS(n, class _A)>                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n, _A))>                           \
+     : boost::dispatch::meta::                                                 \
+       call<tag::map_ ( dispatch::functor<Tag>                                 \
+                      , BOOST_PP_ENUM_PARAMS(n, _A)                            \
+                      )                                                        \
+           >                                                                   \
     {                                                                          \
-      typedef typename dispatch::meta::                                        \
-      call<tag::map_ ( dispatch::functor<Tag>                                  \
-                     , BOOST_PP_ENUM_PARAMS(n, _A)                             \
-                     )>::type type;                                            \
     };                                                                         \
                                                                                \
     template<BOOST_PP_ENUM_PARAMS(n, class _A)>                                \
