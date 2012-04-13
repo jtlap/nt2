@@ -16,14 +16,13 @@
   **/
 //==============================================================================
 
-#include <boost/mpl/size.hpp>
 #include <boost/mpl/transform.hpp>
-#include <boost/fusion/include/at.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/fusion/include/as_vector.hpp>
+#include <nt2/sdk/memory/details/composite_traits.hpp>
 #include <nt2/sdk/memory/adapted/composite_buffer.hpp>
 
 namespace nt2 { namespace memory
@@ -35,40 +34,59 @@ namespace nt2 { namespace memory
     * composite_buffer allow type registered as composite to automatically be
     * promoted to a structure of array instead of an array of structure.
     *
-    * \tparam Buffer Model of the buffer to use as an underlying storage
+    * \tparam Buffer Buffer to use as an underlying storage
    **/
   //============================================================================
-  template< typename Buffer >
-  struct composite_buffer
+  template<typename Buffer> class composite_buffer
   {
-    typedef typename boost::dispatch::meta::value_of<Buffer>::type      values;
-    typedef typename boost::dispatch::meta::model_of<Buffer>::type      model;
-    typedef typename boost::fusion::result_of::as_vector<values>::type  types;
-    typedef typename boost::mpl::transform<types,model>::type           data_type;
+    public:
+    //==========================================================================
+    // Extract the value type of Buffer and its meta-model, convert the value
+    // to its equivalent fusion tuple and apply a transform to turn each types
+    // in this tuple into a buffer of proper model.
+    //==========================================================================
+    typedef typename boost::dispatch::meta::value_of<Buffer>::type      base_t;
+    typedef typename boost::dispatch::meta::model_of<Buffer>::type      model_t;
+    typedef typename boost::fusion::result_of::as_vector<base_t>::type  types_t;
+    typedef typename boost::mpl::transform<types_t,model_t>::type       data_t;
 
-    template<typename Sizes, typename Bases, typename Padding>
-    inline void initialize( Sizes const& s, Bases const& b, Padding const& p )
-    {
-      initialize(s,b,p, typename boost::mpl::size<data_type>::type());
-    }
+    //==========================================================================
+    // Container types
+    //==========================================================================
+    typedef types_t                                       value_type;
+    typedef typename boost::mpl::
+            transform < data_t
+                      , details::composite_ref
+                      >::type                             reference;
+    typedef typename boost::mpl::
+            transform < data_t
+                      , details::composite_cref
+                      >::type                             const_reference;
+    typedef typename boost::mpl::
+            transform < data_t
+                      , details::composite_iterator
+                      >::type                             iterator;
+    typedef typename boost::mpl::
+            transform < data_t
+                      , details::composite_citerator
+                      >::type                             const_iterator;
+    typedef typename boost::mpl::
+            transform < data_t
+                      , details::composite_riterator
+                      >::type                             reverse_iterator;
+    typedef typename boost::mpl::
+            transform < data_t
+                      , details::composite_criterator
+                        >::type                           const_reverse_iterator;
+    typedef std::size_t                                   size_type;
+    typedef std::ptrdiff_t                                difference_type;
 
-    template<typename Sizes, typename Bases, typename Padding, int N>
-    inline void
-    initialize( Sizes const& s, Bases const& b
-              , Padding const& p, boost::mpl::int_<N> const &
-              )
-    {
-      memory::initialize(boost::fusion::at_c<N-1>(data_),s,b,p);
-      initialize(s,b,p, boost::mpl::int_<N-1>());
-    }
+    //==========================================================================
+    // Container interface
+    //==========================================================================
 
-    template<typename Sizes, typename Bases, typename Padding> inline void
-    initialize( Sizes const& /*s*/, Bases const& /*b*/
-              , Padding const& /*p*/, boost::mpl::int_<0> const &
-              )
-    {}
-
-    data_type data_;
+    private:
+    data_t data_;
   };
 } }
 

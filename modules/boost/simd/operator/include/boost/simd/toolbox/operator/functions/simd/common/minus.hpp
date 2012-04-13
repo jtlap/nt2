@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::minus(boost::simd::splat<A0>(a0), a1);
+      return boost::simd::minus(boost::simd::splat<A1>(a0), a1);
     }
   };
 } } }

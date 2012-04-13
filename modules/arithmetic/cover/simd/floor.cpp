@@ -16,7 +16,7 @@
 #include <nt2/toolbox/arithmetic/include/functions/floor.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include<nt2/toolbox/standard/include/functions/floor.hpp>
+#include <nt2/toolbox/standard/include/functions/floor.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

@@ -15,8 +15,8 @@
 /// 
 #include <nt2/toolbox/arithmetic/include/functions/idivceil.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include<nt2/include/functions/ceil.hpp>
-#include<nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/ceil.hpp>
+#include <nt2/include/functions/toint.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -33,6 +33,9 @@
 
 #include <nt2/toolbox/constant/constant.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4723) // potential divide by 0
+#endif
 
 NT2_TEST_CASE_TPL ( idivceil_real__2_0,  NT2_REAL_TYPES)
 {
@@ -108,11 +111,6 @@ NT2_TEST_CASE_TPL ( idivceil_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   std::cout << std::endl; 
   double ulpd;
   ulpd=0.0;
-#ifdef BOOST_MSVC
-  #pragma warning(push)
-  #pragma warning(disable: 4723) // potential divide by 0
-#endif
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(idivceil(nt2::Four<T>(),nt2::Three<T>()), nt2::Two<r_t>(), 0);
@@ -121,6 +119,3 @@ NT2_TEST_CASE_TPL ( idivceil_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(idivceil(nt2::Mone<T>(), nt2::Mone<T>()), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(idivceil(nt2::One<T>(), nt2::One<T>()), nt2::One<r_t>(), 0);
 } // end of test for signed_int_
-#ifdef BOOST_MSVC
-  #pragma warning(pop)
-#endif

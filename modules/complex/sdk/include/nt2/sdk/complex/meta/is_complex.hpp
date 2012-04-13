@@ -11,12 +11,7 @@
 
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/mpl/bool.hpp>
-
-namespace std
-{
-  template<class T>
-  class complex;
-}
+#include <complex>
 
 namespace nt2 { namespace details
 {

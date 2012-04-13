@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+     relative_index.cpp
+     relative_size.cpp
      subscript.cpp
    )
 

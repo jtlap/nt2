@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -13,78 +13,49 @@
  * \file
  * \brief Defines macros and functions controlling runtime assertions
  */
+
 #include <nt2/sdk/error/debug.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
-
-#if defined(DOXYGEN_ONLY)
-//==============================================================================
-/*!
- * \ingroup error_config
- * If NT2_ASSERTS_AS_EXCEPTIONS is defined, all runtime assertion will throw
- * an instance of assert_exception instead of triggering a runtime assertion.
- *
- * \see NT2_DISABLE_ERROR
- * \see NT2_DISABLE_ASSERTS
- */
-//==============================================================================
-#define NT2_ASSERTS_AS_EXCEPTIONS
-
-//==============================================================================
-/*!
- * \ingroup error_config
- * If \c NT2_DISABLE_ASSERTS is defined, all runtime assertion are disabled.
- * Note than defining \c BOOST_DISABLE_ASSERTS triggers this definition.
- *
- * \see NT2_DISABLE_ERROR
- * \see NT2_ASSERTS_AS_EXCEPTIONS
- */
-//==============================================================================
-#define NT2_DISABLE_ASSERTS
-#endif
 
 #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(BOOST_ENABLE_ASSERT_HANDLER)
 #error BOOST_ENABLE_ASSERT_HANDLER must be defined to use NT2_ASSERTS_AS_EXCEPTIONS
 #endif
 
-#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
-
-//==============================================================================
-// Make assertion into exceptions
-//==============================================================================
-
+#if (defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)) \
+    || defined(DOXYGEN_ONLY)
 #include <iosfwd>
-#include <nt2/sdk/error/error.hpp>
 #include <sstream>
+#include <nt2/sdk/error/error.hpp>
 #include <boost/throw_exception.hpp>
 
 namespace nt2
 {
-  //============================================================================
-  /*!
-   * \ingroup error
-   * assert_exception is the exception thrown when a runtime assertion fails and
-   * NT2_ASSERTS_AS_EXCEPTIONS is defined.
-   */
-  //============================================================================
+  /**
+  * @brief Runtime assertion exception
+  *
+  * assert_exception is thrown when a runtime assertion triggers while the
+  * preprocessor symbol NT2_ASSERTS_AS_EXCEPTIONS is defined.
+  *
+  * @usage
+  * @include assert_exception.cpp
+  **/
   struct assert_exception : nt2::exception
   {
+    /**
+    * Builds an assert_exception from the actual runtime assertion message
+    **/
     assert_exception(std::string const& msg) : nt2::exception(msg) {}
   };
 }
-
 #endif
 
-//==============================================================================
 // Debug mode has SIGTRAP to the assertion
-//==============================================================================
 #if defined(NT2_DEBUG) && !defined(NT2_ASSERTS_AS_EXCEPTIONS)                  \
  && defined(BOOST_ENABLE_ASSERT_HANDLER)
 #include <nt2/sdk/error/trap.hpp>
 #endif
 
-//==============================================================================
 // Include assert and forward the macro
-//==============================================================================
 #include <boost/assert.hpp>
 
 #if defined(BOOST_ENABLE_ASSERT_HANDLER)
@@ -94,6 +65,8 @@ namespace nt2
 
 namespace boost
 {
+  // INTERNAL ONLY
+  // Define a BOOST_ASSERT handler for the NT2_ASSERTS_AS_EXCEPTIONS mode.
   extern inline
   void assertion_failed(char const* expr, char const* fn, char const* f, long l)
   {
@@ -120,6 +93,8 @@ namespace boost
     #endif
   }
 
+  // INTERNAL ONLY
+  // Define a BOOST_ASSERT_MSG handler for the NT2_ASSERTS_AS_EXCEPTIONS mode.
   extern inline
   void assertion_failed_msg(char const* expr, char const* msg, char const* fn, char const* f, long l)
   {

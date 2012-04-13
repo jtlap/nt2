@@ -23,6 +23,7 @@ SET( SOURCES
   splatted_second.cpp
   splatted_sum.cpp
   split.cpp
+  reverse.cpp
 # List of simd test files for toolbox swar
    )
 

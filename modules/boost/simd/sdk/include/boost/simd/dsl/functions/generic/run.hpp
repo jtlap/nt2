@@ -53,16 +53,16 @@ namespace boost { namespace simd { namespace ext
     typedef dispatch::
             unpack< A0
                   , dispatch::functor< typename proto::tag_of<A0>::type >
-                  , dispatch::with_state<tag::run_, State> const
+                  , dispatch::with_state<tag::run_, State const> const
                   >
     transform;
 
     typedef typename transform::result_type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State& state) const
+    operator()(A0& a0, State const& state) const
     {
-       return transform()(a0, dispatch::with_state<tag::run_, State>(state));
+       return transform()(a0, dispatch::with_state<tag::run_, State const>(state));
     }
   };
   
@@ -81,10 +81,10 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename dispatch::meta::
-            call<boost::proto::tag::terminal(A0&, State&)>::type result_type;
+            call<boost::proto::tag::terminal(A0&, State const&)>::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State& state) const
+    operator()(A0& a0, State const& state) const
     {
       return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
                       (a0, state);
@@ -104,27 +104,47 @@ namespace boost { namespace simd { namespace ext
     typedef dispatch::
             unpack< A0
                   , dispatch::functor< typename proto::tag_of<A0>::type >
-                  , dispatch::with_state_data<tag::run_, State, Data const> const
+                  , dispatch::with_state_data<tag::run_, State const, Data const> const
                   >
     transform;
 
     typedef typename transform::result_type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State& state, Data const& data) const
+    operator()(A0& a0, State const& state, Data const& data) const
     {
-       return transform()(a0, dispatch::with_state_data<tag::run_, State, Data const>(state, data));
+       return transform()(a0, dispatch::with_state_data<tag::run_, State const, Data const>(state, data));
     }
   };
 
   //============================================================================
   // Run an expression with a state and data - Terminal cases
   // When run on a terminal, we directly jump into the terminal functor
-  //============================================================================    
+  //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(State)(Data)
+                                    , (A0)(T)
                                     , ((expr_ < unspecified_<A0>
-                                              , boost::simd::tag::terminal_
+                                              , T
+                                              , mpl::long_<0>
+                                              >
+                                      ))
+                                    )
+  {
+    typedef typename dispatch::meta::
+            call<T(A0&)>::type  result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0) const
+    {
+      return typename dispatch::make_functor<T, A0>::type()
+                      (a0);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
+                                    , (A0)(T)(State)(Data)
+                                    , ((expr_ < unspecified_<A0>
+                                              , T
                                               , mpl::long_<0>
                                               >
                                       ))
@@ -133,13 +153,13 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename dispatch::meta::
-            call<boost::proto::tag::terminal(A0&, State&, Data const&)>::type result_type;
-      
+            call<T(A0&, State const&, Data const&)>::type  result_type;
+
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State& state, Data const& data) const
+    operator()(A0& a0, State const& state, Data const& data) const
     {
-      return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
-                      (a0, state,data);
+      return typename dispatch::make_functor<T, A0>::type()
+                      (a0, state, data);
     }
   }; 
 } } }

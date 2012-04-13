@@ -11,7 +11,7 @@
 
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/box.hpp>
+#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/linspace.hpp>
 #include <nt2/include/functions/splat.hpp>
@@ -106,7 +106,7 @@ namespace nt2 { namespace details
     {
       typedef typename Target::type type;
 
-      return nt2::fma ( nt2::enumerate<type>(boost::fusion::at_c<1>(p)-1)
+      return nt2::fma ( nt2::enumerate<type>(p)
                       , nt2::splat<type>(step_)
                       , nt2::splat<type>(lower_)
                       );

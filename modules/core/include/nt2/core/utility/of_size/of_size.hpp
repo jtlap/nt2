@@ -13,12 +13,13 @@
 #include <iterator>
 #include <boost/array.hpp>
 #include <boost/mpl/at.hpp>
-#include <boost/detail/workaround.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <boost/mpl/vector_c.hpp>
+#include <nt2/sdk/memory/copy.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <nt2/core/utility/of_size/fusion.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
+#include <nt2/core/functions/scalar/numel.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
@@ -125,16 +126,13 @@ namespace nt2
                         <boost::fusion::traits::is_sequence<Sz> >::type* = 0
             )
     {
-      enum{ osz = boost::fusion::result_of::size<Sz>::type::value, 
+      enum{ osz = boost::fusion::result_of::size<Sz>::type::value,
             msz = (osz < static_size) ? osz : static_size};
-      // static const  std::size_t
-      //               osz = boost::fusion::result_of::size<Sz>::type::value
-      //             , msz = (osz < static_size) ? osz : static_size;
 
       details::copy(details::pop_back_c<osz - msz>(other),&data_[0]);
 
       for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
-      details::check_all_equal(details::pop_front_c<msz>(other), 1u);
+      data_[static_size-1] *= numel(details::pop_front_c<msz>(other));
     }
 
     //==========================================================================
@@ -148,14 +146,7 @@ namespace nt2
     {
       const std::size_t osz = e - b;
       const std::size_t msz = (osz < static_size) ? osz : static_size;
-
-#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
-      stdext::unchecked_copy(b, b+msz, &data_[0]);
-#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
-      std::copy(b, b+msz, stdext::make_unchecked_array_iterator(&data_[0]));
-#else
-      std::copy(b, b+msz, &data_[0]);
-#endif
+      nt2::memory::copy(b, b+msz, &data_[0]);
       for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
     }
 

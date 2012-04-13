@@ -12,6 +12,7 @@
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
+#include <nt2/sdk/memory/container.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -65,8 +66,7 @@ namespace nt2 { namespace container { namespace ext
 
     // Rebuidl proper expression type with semantic
     typedef expression< typename boost::remove_const<Expr>::type
-                      , memory::container < tag::table_, id_<0>
-                                          , typename target_t::type
+                      , memory::container < typename target_t::type
                                           , sizes_t
                                           >
                       >                                     result_type;

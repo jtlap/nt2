@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -16,6 +16,7 @@
 #include <csignal>
 #endif
 
+#if !defined(DOXYGEN_ONLY)
 #if (   defined(_M_IX86) || defined(__i386__)   \
     ||  defined(_M_IA64) || defined(__ia64__)   \
     )                                           \
@@ -27,6 +28,8 @@
 #define NT2_DEBUG_TRAP() ::raise(SIGTRAP)
 #else
 #define NT2_DEBUG_TRAP()
+#endif
+
 #endif
 
 #endif

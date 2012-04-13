@@ -21,6 +21,9 @@ namespace nt2
   struct rectangular_;
 
   struct upper_triangular_ {};
+  struct lower_triangular_ {};
+  struct band_diagonal_    {};
+  struct diagonal_         {};
 
   namespace tag
   {

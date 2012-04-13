@@ -14,27 +14,24 @@
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/is_not_equal.hpp>
-// #include <nt2/sdk/details/type_id.hpp>
-// #include <iostream>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issymetric_, tag::cpu_
-                            , (A0), (unspecified_<A0>)
+                            , (A0)
+                            , (ast_<A0>)
                             )
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0& a0) const
     {
-      typedef typename A0::value_type value_type;
-      // Non-square matrix can't be symmetric
       if (!issquare(a0)) return false;
 
-      // Check for everything upward/below diagonal
       for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)
         for(std::ptrdiff_t i=j+1; i <= last_index<1>(a0) ; ++i)
-          if( (value_type(a0(i, j)) != value_type(a0(j, i)))) return false;
+          if ( a0(i, j) != a0(j, i) ) return false;
 
       return true;
     }

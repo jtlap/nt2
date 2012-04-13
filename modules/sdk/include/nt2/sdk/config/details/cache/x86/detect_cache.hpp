@@ -14,7 +14,7 @@
 #ifdef NT2_ARCH_X86
 #include <boost/simd/sdk/config/details/detector/cpuid.hpp>
 #include <boost/simd/sdk/config/details/get_vendor.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2{ namespace config{ namespace details{
 

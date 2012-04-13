@@ -19,7 +19,6 @@
 
 NT2_TEST_CASE( semantic_of )
 {
-  using nt2::id_;
   using nt2::table;
   using nt2::tag::table_;
   using nt2::memory::container;
@@ -33,23 +32,22 @@ NT2_TEST_CASE( semantic_of )
 
   NT2_TEST_EXPR_TYPE( a0
                     , semantic_of<_>
-                    , (container<table_,nt2::id_<0>,T,S>)
+                    , (container<T,S>)
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::assign(a0, a1)
                     , semantic_of<_>
-                    , (container<table_,nt2::id_<0>,T,S>&)
+                    , (container<T,S>&)
                     );
 
   NT2_TEST_EXPR_TYPE( a0 + a1
                     , semantic_of<_>
-                    , (container<table_,nt2::id_<0>,T,S>)
+                    , (container<T,S>)
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::toint(a0)
                     , semantic_of<_>
-                    , (container< table_,nt2::id_<0>
-                                , boost::dispatch::meta::as_integer<T>::type
+                    , (container< boost::dispatch::meta::as_integer<T>::type
                                 , S
                                 >
                       )
@@ -57,7 +55,7 @@ NT2_TEST_CASE( semantic_of )
 
   NT2_TEST_EXPR_TYPE( a0(1)
                     , semantic_of<_>
-                    , T&
+                    , T
                     );
 
   NT2_TEST_EXPR_TYPE( ((a0 + a1)(1))
@@ -67,7 +65,7 @@ NT2_TEST_CASE( semantic_of )
 
   NT2_TEST_EXPR_TYPE( a0 + T(1)
                     , semantic_of<_>
-                    , (container<table_,nt2::id_<0>,T,S>)
+                    , (container<T,S>)
                     );
 }
 
@@ -119,11 +117,6 @@ NT2_TEST_CASE( extent_type )
   NT2_TEST_THROW( a0 + a2, nt2::assert_exception );
 
   NT2_TEST((a2 + a2).extent() == of_size(1, 2));
-
-  NT2_TEST_EXPR_TYPE( a0(1)
-                    , extent_type<_>
-                    , _0D
-                    );
 
   NT2_TEST_EXPR_TYPE( nt2::assign(a0, a1)
                     , extent_type<_>

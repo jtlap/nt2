@@ -34,13 +34,8 @@ set(NT2_VERSION "3.0.0")
 include(nt2.package)
 
 ################################################################################
-# Add Documentation target
+# Start configuration
 ################################################################################
-#ADD_CUSTOM_TARGET ( doc
-#                    COMMAND make html
-#                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc
-#                  )
-
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 include(NT2Module)
 nt2_configure_tests()
@@ -52,8 +47,10 @@ nt2_postconfigure_init()
 set(NT2_MODULES_EXTRA "" CACHE STRING "Extra modules to load")
 set(NT2_MODULES_BLACKLIST "" CACHE STRING "Modules that should not be loaded")
 
+################################################################################
 # We load all directories of modules/ for which a CMakeLists.txt is present;
 # if none is found in the directory, we search recursively until we find one.
+################################################################################
 if(NOT NT2_MODULES)
   file(GLOB NT2_MODULES RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
   set(i 0)
@@ -83,49 +80,61 @@ if(NT2_MODULES_EXTRA)
   list(REMOVE_DUPLICATES "NT2_MODULES")
 endif()
 
+################################################################################
 # Download extra modules and set include directories
+################################################################################
 include(nt2.download)
 foreach(module ${NT2_MODULES})
   list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
   if(module_found LESS 0)
     string(REPLACE "." "/" module_path ${module})
-  
+
     if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
       nt2_download_module(${module})
     endif()
-    
+
     include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
-    
+
   endif()
 endforeach()
 
+################################################################################
+# Setup documentation after all modules have been downloaded
+################################################################################
+if(NT2_DOCUMENTATION_ENABLED)
+  add_subdirectory(doc)
+endif()
+
+################################################################################
 # Load modules
+################################################################################
 foreach(module ${NT2_MODULES})
   list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
   if(module_found LESS 0)
     string(REPLACE "." "/" module_path ${module})
-  
+
     if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
       message(STATUS "[nt2] module ${module} not found")
     else()
       message(STATUS "[nt2] loading module ${module}")
       add_subdirectory(modules/${module_path})
     endif()
-    
+
   endif()
 endforeach()
 
+################################################################################
 # Ensure all tools get set up
+################################################################################
 file(GLOB NT2_TOOLS RELATIVE ${PROJECT_SOURCE_DIR}/tools ${PROJECT_SOURCE_DIR}/tools/*/)
 foreach(tool ${NT2_TOOLS})
   nt2_module_tool_setup(${tool})
 endforeach()
 
 set(CMAKE_MODULE_PATH ${NT2_MODULE_PATH})
-add_subdirectory(doc)
-nt2_postconfigure_run()
 
 ################################################################################
-# Post-config message
+# Post-config phase
 ################################################################################
+nt2_postconfigure_run()
 include(nt2.directive)

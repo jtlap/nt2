@@ -12,20 +12,15 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/storage_order.hpp>
 
-namespace nt2 
-{ 
-  namespace meta
+namespace nt2 { namespace meta
+{
+  template<class SO, class Default>
+  struct option < storage_order_<SO>
+                , tag::storage_order_, Default
+                >
   {
-    template<class SO, class Default>
-    struct option < storage_order_<SO>
-                  , tag::storage_order_, Default
-                  >
-    {    
-       typedef storage_order_<SO>  type;
-    };
-  }
-
-}
-
+     typedef storage_order_<SO>  type;
+  };
+} }
 
 #endif

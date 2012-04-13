@@ -10,42 +10,30 @@
 #define NT2_CORE_CONTAINER_MEMORY_ADAPTED_CONTAINER_HPP_INCLUDED
 
 #include <nt2/sdk/meta/is_container.hpp>
-#include <nt2/sdk/meta/container_of.hpp>
 #include <nt2/sdk/meta/add_settings.hpp>
-#include <nt2/sdk/meta/dimensions_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/terminal_of.hpp>
 
 //==============================================================================
 // Forward declaration
 //==============================================================================
 namespace nt2 { namespace memory
 {
-  template<class Tag, class ID, class T, class S> struct container;
+  template<class T, class S> class container;
 } }
 
 namespace nt2 { namespace meta
 {
   //============================================================================
-  // container dimensions are in its extent_type
-  //============================================================================
-  template<class Tag, class ID, class T, class S>
-  struct  dimensions_of< memory::container<Tag,ID,T,S> >
-        : boost::mpl::
-          size_t<memory::container<Tag,ID,T,S>::sizes_type::static_size>
-  {};
-
-  //============================================================================
   // Register container as a proper container
   //============================================================================
-  template<class Tag, class ID, class T, class S>
-  struct is_container< memory::container<Tag, ID, T, S> > : boost::mpl::true_ {};
+  template<class T, class S>
+  struct is_container< memory::container<T, S> > : boost::mpl::true_ {};
 
-  template<class Tag, class ID, class T, class S, class S2>
-  struct add_settings< memory::container<Tag, ID, T, S>, S2 >
+  template<class T, class S, class S2>
+  struct add_settings< memory::container<T, S>, S2 >
   {
-    typedef memory::container<Tag, ID, T, nt2::settings(S2,S) > type;
+    typedef memory::container<T, nt2::settings(S2,S) > type;
   };
 } }
 
@@ -54,50 +42,34 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-  template<class Tag, class ID, class T, class S>
-  struct  value_of< nt2::memory::container<Tag,ID,T,S> >
-        : value_of<T>
-  {};
+  template<class T, class S>
+  struct value_of< nt2::memory::container<T,S> > : value_of<T> {};
 
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<class Tag, class ID, class T, class S>
-  struct model_of< nt2::memory::container<Tag,ID,T,S> >
+  template<class T, class S>
+  struct model_of< nt2::memory::container<T,S> >
   {
     struct type
     {
       template<class X> struct apply
       {
-        typedef typename model_of<T>::type model;
-
-        typedef nt2::memory::container< Tag,ID
-                                      , typename boost::mpl::
-                                        apply<model,X>::type
-                                      , S
-                                      >     type;
+        typedef typename model_of<T>::type                              model;
+        typedef nt2::memory::
+                container<typename boost::mpl::apply<model,X>::type,S>  type;
       };
     };
   };
 
-  template<class Tag, class ID, class T, class S, class Origin>
-  struct hierarchy_of< nt2::memory::container<Tag, ID, T, S>, Origin >
-  {
-    typedef typename Tag::template apply<T,S,Origin>::type type;
-  };
-
-
   //============================================================================
-  // container produce container expression from proper type and settings.
+  // container hierarchy is given by its semantic_
   //============================================================================
-  template<class Tag, class ID, class T, class S>
-  struct terminal_of< nt2::memory::container<Tag,ID,T,S> >
+  template<class T, class S, class Origin>
+  struct hierarchy_of< nt2::memory::container<T, S>, Origin >
   {
-    typedef nt2::container::
-            expression< typename boost::proto::
-                        terminal< nt2::memory::container<Tag,ID,T,S> >::type
-                      , nt2::memory::container<Tag,ID,T, S>
-                      >                                                 type;
+    typedef typename nt2::memory::container<T, S>::semantic_t     semantic_t;
+    typedef typename semantic_t::template apply<T,S,Origin>::type type;
   };
 } } }
 

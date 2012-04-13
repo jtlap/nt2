@@ -17,10 +17,10 @@ namespace nt2 { namespace tag
   struct container_;
 } }
 
-namespace nt2 { namespace details
+namespace nt2
 {
   template<class T> struct box;
-} }
+}
 
 namespace nt2 { namespace container
 {

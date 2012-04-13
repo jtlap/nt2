@@ -15,11 +15,8 @@
  * \brief Defines and implements the boost::dispatch::meta::is_result_of_supported \metafunction
  */
 
-#include <boost/mpl/or.hpp>
-#include <boost/utility/enable_if.hpp>
-#include <boost/function_types/result_type.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/dispatch/meta/result_of.hpp>
-#include <boost/dispatch/meta/details/is_result_of_supported.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -54,19 +51,13 @@ namespace boost { namespace dispatch { namespace meta
   #endif
 
   template<class T, class Enable=void>
-  struct is_result_of_supported : public boost::mpl::false_ {};
+  struct is_result_of_supported : boost::mpl::false_ {};
 
   template<class T>
-  struct is_result_of_supported<T, typename boost::enable_if_c<
-        boost::mpl::or_< meta::has_result_type<
-                        typename boost::function_types::result_type<T>::type
-                                                 >
-                       , details::result_defined<
-                        typename boost::function_types::result_type<T>::type,T
-                                                >
-                       >::value
-          >::type
-      > : boost::mpl::true_ {};
+  struct is_result_of_supported<T, typename enable_if_type< typename result_of<T>::type >::type>
+   : boost::mpl::true_
+  {
+  };
 } } }
 
 #endif

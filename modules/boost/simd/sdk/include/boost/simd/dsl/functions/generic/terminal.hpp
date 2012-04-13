@@ -14,6 +14,9 @@
 #include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
 #include <boost/dispatch/meta/identity.hpp>
 #include <boost/proto/traits.hpp>
+#include <boost/type_traits/remove_const.hpp>
+
+#include <boost/shared_ptr.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -35,6 +38,29 @@ namespace boost { namespace simd { namespace ext
     {
       return boost::proto::value(a0);
     }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::box_, tag::formal_, (A0), (ast_<A0>) )
+  {
+    typedef typename boost::remove_const<A0>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const { return a0; }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dereference_, tag::cpu_, (A0)
+                            , ((expr_< unspecified_<A0>, nt2::tag::dereference_, boost::mpl::long_<0> >))
+                            )
+  {
+    typedef typename boost::proto::result_of::value<A0&>::value_type::element_type& result_type;
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const { return *boost::proto::value(a0).get(); }
+  };
+} } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T>
+  struct value_of< boost::shared_ptr<T> >
+  {
+    typedef T type;
   };
 } } }
 

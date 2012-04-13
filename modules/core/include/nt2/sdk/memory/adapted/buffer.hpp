@@ -6,11 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_BUFFER_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_BUFFER_HPP_INCLUDED
+#ifndef NT2_SDK_META_MEMORY_ADAPTED_VECTOR_HPP_INCLUDED
+#define NT2_SDK_META_MEMORY_ADAPTED_VECTOR_HPP_INCLUDED
 
-#include <boost/mpl/size_t.hpp>
-#include <nt2/sdk/meta/as_sequence.hpp>
+#include <boost/mpl/apply.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
@@ -20,10 +19,9 @@ namespace nt2 { namespace memory
   //============================================================================
   // Forward declaration
   //============================================================================
-  template< typename Type
-          , std::ptrdiff_t B
-          , typename A = boost::simd::memory::allocator<Type> >
-  struct buffer;
+  template< typename T
+          , typename Allocator = boost::simd::memory::allocator<T>
+          > class buffer;
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -31,24 +29,24 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specialization
   //============================================================================
-  template< typename T, std::ptrdiff_t B, typename A>
-  struct value_of< nt2::memory::buffer<T,B,A> >
-  {
-    typedef T type;
-  };
+  template<typename T, typename Allocator>
+  struct value_of< nt2::memory::buffer<T,Allocator> > : value_of<T>
+  {};
 
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<typename T, std::ptrdiff_t B, typename A>
-  struct model_of< nt2::memory::buffer<T,B,A> >
+  template<typename T, typename Allocator>
+  struct model_of< nt2::memory::buffer<T,Allocator> >
   {
     struct type
     {
       template<class X> struct apply
       {
-        typedef nt2::memory::
-                buffer<X,B,typename A::template rebind<X>::other>  type;
+        typedef typename  boost::mpl::
+                          apply<typename model_of<T>::type,X>::type base_t;
+        typedef typename Allocator::template rebind<base_t>::other  alloc_t;
+        typedef nt2::memory::buffer<base_t,alloc_t>                 type;
       };
     };
   };
