@@ -80,12 +80,12 @@ namespace nt2 { namespace ext
                               ))
                             )
   {
-    typedef typename boost::
-    remove_reference< typename boost::dispatch::meta::
-                      terminal_of< typename boost::dispatch::meta::
-                                   semantic_of<A0&>::type
-                                 >::type
-                    >::type                                result_type;
+    typedef typename boost::dispatch::meta::
+            strip< typename boost::dispatch::meta::
+                   terminal_of< typename boost::dispatch::meta::
+                                semantic_of<A0&>::type
+                              >::type
+                 >::type                                   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
