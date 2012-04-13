@@ -26,23 +26,6 @@
 
 namespace nt2 { namespace details
 {
-  //============================================================================
-  // If the result of a size computation is a MPL Integral, keep it;
-  // If not, return -1 so the of_size will be flagged as dynamic
-  //============================================================================
-  template<class T, class Enable = void>
-  struct mpl_value : boost::mpl::int_<-1> {};
-
-  template<class T>
-  struct mpl_value < T
-                   , typename boost::
-                     enable_if < boost::
-                                 is_class< typename meta::strip<T>::type >
-                               >::type
-                   >
-    : meta::strip<T>::type
-  {};
-
   // build size
   template<int N, class Sizes, class Children>
   struct make_size;
@@ -148,7 +131,7 @@ namespace nt2 { namespace container { namespace ext
     struct apply<true, Dummy> // is colon
     {
       typedef typename meta::call<tag::numel_(child0)>::type num;
-      typedef of_size_< details::mpl_value<num>::value > result_type;
+      typedef of_size_< mpl_value<num>::value > result_type;
 
       BOOST_FORCEINLINE result_type
       operator()(Expr& e) const
