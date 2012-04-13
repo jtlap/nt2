@@ -24,9 +24,9 @@ namespace nt2 { namespace ext
   // table terminal with a position in scalar read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(S0)(State)(Data)
+                            , (A0)(T0)(S0)(State)(Data)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
@@ -35,14 +35,12 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0&>::type
-              >::type                               result_type;
+    scalar_of<A0&>::type                               result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const&) const
     {
-       return boost::proto::value(a0)[state];
+       return nt2::terminal(a0)[state];
     }
   };
 
@@ -50,9 +48,9 @@ namespace nt2 { namespace ext
   // table terminal with a position in scalar write mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(S0)(State)(Data)
+                            , (A0)(T0)(S0)(State)(Data)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
@@ -61,14 +59,12 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0&>::type
-             >::type                                result_type;
+    scalar_of<A0&>::type                                result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const& data) const
     {
-       return boost::proto::value(a0)[state] = data;
+       return nt2::terminal(a0)[state] = data;
     }
   };
 
@@ -76,9 +72,9 @@ namespace nt2 { namespace ext
   // table terminal with a position in SIMD read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(S0)(State)(Data)(X)
+                            , (A0)(T0)(S0)(State)(Data)(X)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
@@ -98,7 +94,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
-      return unaligned_load<result_type>(boost::proto::value(a0).raw(), state);
+      return unaligned_load<result_type>(nt2::terminal(a0).raw(), state);
     }
   };
 
@@ -106,9 +102,9 @@ namespace nt2 { namespace ext
   // table terminal with a position in SIMD write mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(S0)(State)(Data)(X)
+                            , (A0)(T0)(S0)(State)(Data)(X)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
@@ -121,7 +117,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const& state, Data const& data) const
     {
-      return unaligned_store<result_type>(data, boost::proto::value(a0).raw(), state);
+      return unaligned_store<result_type>(data, nt2::terminal(a0).raw(), state);
     }
   };
 
@@ -129,9 +125,9 @@ namespace nt2 { namespace ext
   // scalar terminal, return value in scalar mode (LHS not allowed)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(State)(Data)
+                            , (A0)(T0)(State)(Data)
                             , ((expr_< scalar_< unspecified_<A0> >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
@@ -139,13 +135,12 @@ namespace nt2 { namespace ext
                               (target_< scalar_< unspecified_<Data> > >)
                             )
   {
-    typedef typename boost::dispatch::meta::
-    semantic_of<A0&>::type                                  result_type;
+    typedef typename nt2::meta::call<T0(A0&)>::type result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const&, Data const&) const
     {
-      return boost::proto::value(a0);
+      return nt2::terminal(a0);
     }
   };
 
@@ -153,9 +148,9 @@ namespace nt2 { namespace ext
   // scalar terminal, splat value in SIMD read mode (LHS not allowed)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(State)(Data)(X)
+                            , (A0)(T0)(State)(Data)(X)
                             , ((expr_< scalar_< unspecified_<A0> >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
@@ -173,7 +168,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const&, Data const&) const
     {
-      return nt2::splat<result_type>(boost::proto::value(a0));
+      return nt2::splat<result_type>(nt2::terminal(a0));
     }
   };
 } }

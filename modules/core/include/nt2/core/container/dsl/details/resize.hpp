@@ -40,16 +40,15 @@ namespace nt2 { namespace container { namespace ext
   {
     template<class Sz> BOOST_FORCEINLINE void operator()(Expr& x, Sz const& sz)
     {
-      typedef typename meta::
-              is_container< typename boost::proto::result_of::value<Expr>::type
-              >::type                                                   status_t;
+      typedef typename meta::call<Tag(Expr&)>::type value;
+      typedef typename meta::is_container<value>::type status_t;
       return (*this)(x, sz, status_t());
     }
 
     template<class Sz>
     BOOST_FORCEINLINE void operator()(Expr& x, Sz const& sz, boost::mpl::true_)
     {
-      boost::proto::value(x).resize(sz);
+      nt2::terminal(x).resize(sz);
     }
 
     template<class Sz>
