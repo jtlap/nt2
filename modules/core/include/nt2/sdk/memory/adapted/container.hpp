@@ -14,6 +14,8 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/terminal_of.hpp>
 
 //==============================================================================
 // Forward declaration
