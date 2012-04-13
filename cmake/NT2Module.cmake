@@ -147,7 +147,9 @@ macro(nt2_module_dir dir)
       add_subdirectory(${dir})
       nt2_module_restore_build_type()
 
-      nt2_module_target_parent(${NT2_CURRENT_MODULE}.${dir})
+      if(NOT ${dir} STREQUAL doc)
+        nt2_module_target_parent(${NT2_CURRENT_MODULE}.${dir})
+      endif()
     endif()
 endmacro()
 

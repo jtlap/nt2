@@ -99,13 +99,6 @@ foreach(module ${NT2_MODULES})
 endforeach()
 
 ################################################################################
-# Setup documentation after all modules have been downloaded
-################################################################################
-if(NT2_DOCUMENTATION_ENABLED)
-  add_subdirectory(doc)
-endif()
-
-################################################################################
 # Load modules
 ################################################################################
 foreach(module ${NT2_MODULES})
@@ -122,6 +115,13 @@ foreach(module ${NT2_MODULES})
 
   endif()
 endforeach()
+
+################################################################################
+# Setup documentation after all modules have been downloaded
+################################################################################
+if(NT2_DOCUMENTATION_ENABLED)
+  add_subdirectory(doc)
+endif()
 
 ################################################################################
 # Ensure all tools get set up
