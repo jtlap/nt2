@@ -120,11 +120,31 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Run an expression with a state and data - Terminal cases
   // When run on a terminal, we directly jump into the terminal functor
-  //============================================================================    
+  //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(State)(Data)
+                                    , (A0)(T)
                                     , ((expr_ < unspecified_<A0>
-                                              , boost::simd::tag::terminal_
+                                              , T
+                                              , mpl::long_<0>
+                                              >
+                                      ))
+                                    )
+  {
+    typedef typename dispatch::meta::
+            call<T(A0&)>::type  result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0) const
+    {
+      return typename dispatch::make_functor<T, A0>::type()
+                      (a0);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
+                                    , (A0)(T)(State)(Data)
+                                    , ((expr_ < unspecified_<A0>
+                                              , T
                                               , mpl::long_<0>
                                               >
                                       ))
@@ -133,12 +153,12 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename dispatch::meta::
-            call<boost::proto::tag::terminal(A0&, State const&, Data const&)>::type result_type;
-      
+            call<T(A0&, State const&, Data const&)>::type  result_type;
+
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const& data) const
     {
-      return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
+      return typename dispatch::make_functor<T, A0>::type()
                       (a0, state, data);
     }
   }; 
