@@ -175,11 +175,11 @@ NT2_TEST_CASE( reduction_value )
   table<T,nt2::_1D> a00(of_size(M));
   table<T>          a01(of_size(M));
 
-  table<T, nt2::settings(nt2::no_padding_)> a1;
-  table<T, nt2::settings(nt2::no_padding_)> a2_4(of_size(M,N,O,P));
-  table<T, nt2::settings(nt2::no_padding_)> b2_4(of_size(M,N,O,P));
-  table<T, nt2::settings(nt2::no_padding_, nt2::_3D)> a2_3(of_size(M,N,O));
-  table<T, nt2::settings(nt2::_2D, nt2::no_padding_)> a2_2(of_size(M,N));
+  table<T> a1;
+  table<T> a2_4(of_size(M,N,O,P));
+  table<T> b2_4(of_size(M,N,O,P));
+  table<T, nt2::_3D> a2_3(of_size(M,N,O));
+  table<T, nt2::_2D> a2_2(of_size(M,N));
 
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){

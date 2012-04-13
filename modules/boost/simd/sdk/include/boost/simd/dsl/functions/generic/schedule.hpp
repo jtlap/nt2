@@ -22,9 +22,6 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/ref.hpp>
-#include <nt2/core/utility/box/box.hpp>
-
-namespace nt2 { template<class T> struct box; }
 
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>

@@ -58,21 +58,21 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
 // <<<<<<< HEAD
-//                               , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
-//                             , ((node_<A0, elementwise_<T0>, N0>))
-//                               ((node_<A1, reduction_<T1,O1,Neutral1>, N1 >))
-//                             )
-//   {
-//     typedef A0&                                                                result_type;
-//     typedef typename boost::proto::result_of::child_c<A1&, 0>::type            input_type;
-//     typedef typename boost::remove_reference<input_type>::type::extent_type    extent_type;
-// =======
-                            , (A0)(T0)(N0)(A1)(T1)(N1)
+                              , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
                             , ((node_<A0, elementwise_<T0>, N0>))
-                              ((node_<A1, reduction_<T1>, N1>))
+                              ((node_<A1, reduction_<T1,O1,Neutral1>, N1 >))
                             )
   {
-    typedef A0&                                             result_type;
+    typedef A0&                                                                result_type;
+    typedef typename boost::proto::result_of::child_c<A1&, 0>::type            input_type;
+    typedef typename boost::remove_reference<input_type>::type::extent_type    extent_type;
+// =======
+                            // , (A0)(T0)(N0)(A1)(T1)(N1)
+                            // , ((node_<A0, elementwise_<T0>, N0>))
+                            //   ((node_<A1, reduction_<T1>, N1>))
+                            // )
+  // {
+  //   typedef A0&                                             result_type;
 
     //>>>>>>> master
     BOOST_FORCEINLINE result_type

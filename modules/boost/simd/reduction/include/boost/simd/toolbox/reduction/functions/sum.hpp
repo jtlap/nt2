@@ -15,7 +15,7 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <nt2/sdk/memory/details/standard_container.hpp>
+#include <nt2/sdk/memory/container.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -119,9 +119,7 @@ namespace nt2 { namespace container { namespace ext
 
     typedef typename boost::proto::tag_of<Expr>::type                             tag_type;
     typedef typename size_of<boost::simd::tag::sum_,Domain,N,Expr>::result_type   size_type;
-    typedef typename nt2::memory::container< typename sema_t::tag_type
-                                             , nt2::id_<0>
-                                             , typename sema_t::value_type
+    typedef typename nt2::memory::container<  typename sema_t::value_type
                                              , size_type >                        type;
 
     typedef expression< typename boost::remove_const<Expr>::type
