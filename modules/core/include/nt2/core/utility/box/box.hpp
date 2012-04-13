@@ -9,24 +9,14 @@
 #ifndef NT2_CORE_UTILITY_BOX_BOX_HPP_INCLUDED
 #define NT2_CORE_UTILITY_BOX_BOX_HPP_INCLUDED
 
-#include <boost/proto/traits.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
+#include <nt2/dsl/functions/terminal.hpp>
+#include <boost/proto/traits.hpp>
 
 namespace nt2
 {
-  //============================================================================
-  // box_ is an elementwise operation
-  //============================================================================
-  namespace tag
-  {
-    struct box_ : ext::elementwise_<box_>
-    {
-      typedef ext::elementwise_<box_> parent;
-    };
-  }
-
   //============================================================================
   // box is a nullary expression taking care of wrapping helper types into a
   // node assimilable by nt2 ASTs.
@@ -41,16 +31,9 @@ namespace nt2
     typedef T value_type;
 
     box() {}
-    box( box const& b)  { boost::proto::value(*this) = boost::proto::value(b); }
-    box( T const& b)    { boost::proto::value(*this) = b; }
+    box(T const& b) { boost::proto::value(*this) = b; }
 
-    box& operator=( box const& b)
-    {
-      boost::proto::value(*this) = boost::proto::value(b);
-      return *this;
-    }
-
-    box& operator=( T const& b)
+    box& operator=(T const& b)
     {
       boost::proto::value(*this) = b;
       return *this;

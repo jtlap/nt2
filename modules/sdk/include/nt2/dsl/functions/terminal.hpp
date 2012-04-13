@@ -16,6 +16,7 @@ namespace nt2
   namespace tag
   {
     using boost::simd::tag::terminal_;
+    using boost::simd::tag::box_;
   }
 
   using boost::simd::terminal;
