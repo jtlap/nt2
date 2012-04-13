@@ -9,9 +9,10 @@
 #ifndef BOOST_SIMD_DSL_FUNCTIONS_TERMINAL_HPP_INCLUDED
 #define BOOST_SIMD_DSL_FUNCTIONS_TERMINAL_HPP_INCLUDED
 
-#include <boost/proto/tags.hpp>
 #include <boost/dispatch/functor/preprocessor/function.hpp>
+#include <boost/dispatch/dsl/call.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
+#include <boost/proto/tags.hpp>
 
 namespace boost { namespace simd
 {
@@ -19,6 +20,7 @@ namespace boost { namespace simd
   {
     struct terminal_ : ext::elementwise_<terminal_> { typedef ext::elementwise_<terminal_> parent; };
     struct box_ : terminal_{ typedef terminal_ parent; };
+    struct dereference_ : box_ { typedef box_ parent; };
   }
 
   template<class Expr>
@@ -34,9 +36,6 @@ namespace boost { namespace simd
   {
     return boost::dispatch::functor<typename boost::dispatch::meta::hierarchy_of<typename Expr::proto_tag>::type>()(e);
   }
-
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::terminal_, terminal, (A0 const&)(A1&), 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::terminal_, terminal, (A0 const&)(A1&)(A2 const&), 3)
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -51,11 +50,21 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef boost::proto::tag::terminal type;
   };
-
   template<>
   struct is_formal<boost::simd::tag::terminal_>
    : mpl::true_
   {
+  };
+
+  template<>
+  struct hierarchy_of<boost::proto::tag::dereference>
+  {
+    typedef boost::simd::tag::dereference_ type;
+  };
+  template<>
+  struct proto_tag<boost::simd::tag::dereference_>
+  {
+    typedef boost::proto::tag::dereference type;
   };
 } } }
 

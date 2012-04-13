@@ -193,10 +193,10 @@ NT2_TEST_CASE( reduction )
 
   using nt2::sum;
 
-  SCHEDULE( sum(a0), f, 1u, nt2::tag::box_ );
+  SCHEDULE( sum(a0), f, 1u, boost::proto::tag::dereference );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , boost::proto::tag::terminal
                                     >
@@ -218,13 +218,13 @@ NT2_TEST_CASE( reduction )
   SCHEDULE( a0 + sum(a1), f, 1u
           , ( node2< boost::proto::tag::plus
                    , boost::proto::tag::terminal
-                   , nt2::tag::box_
+                   , boost::proto::tag::dereference
                    >
              )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , boost::proto::tag::terminal
                                     >
@@ -237,14 +237,14 @@ NT2_TEST_CASE( reduction )
                    , boost::proto::tag::terminal
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , nt2::tag::box_
+                          , boost::proto::tag::dereference
                           >
                    >
             )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , boost::proto::tag::terminal
                                     >
@@ -256,7 +256,7 @@ NT2_TEST_CASE( reduction )
           , ( node2< boost::proto::tag::plus
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , nt2::tag::box_
+                          , boost::proto::tag::dereference
                           >
                    , boost::proto::tag::terminal
                    >
@@ -264,7 +264,7 @@ NT2_TEST_CASE( reduction )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , node2< boost::proto::tag::plus
                                            , boost::proto::tag::terminal
@@ -279,7 +279,7 @@ NT2_TEST_CASE( reduction )
           , ( node2< boost::proto::tag::plus
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , nt2::tag::box_
+                          , boost::proto::tag::dereference
                           >
                    , boost::proto::tag::terminal
                    >
@@ -287,7 +287,7 @@ NT2_TEST_CASE( reduction )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , node2< boost::proto::tag::plus
                                            , boost::proto::tag::terminal
@@ -299,12 +299,12 @@ NT2_TEST_CASE( reduction )
                     );
   NT2_TEST_TYPE_INFO( *f.trees.at(1)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , node2< boost::proto::tag::plus
                                            , node2< boost::proto::tag::plus
                                                   , boost::proto::tag::terminal
-                                                  , nt2::tag::box_
+                                                  , boost::proto::tag::dereference
                                                   >
                                            , boost::proto::tag::terminal
                                            >
@@ -352,14 +352,14 @@ NT2_TEST_CASE( subscript )
                           >
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , nt2::tag::box_
+                          , boost::proto::tag::dereference
                           >
                    >
             )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , boost::proto::tag::terminal
                                     >
@@ -370,13 +370,13 @@ NT2_TEST_CASE( subscript )
   SCHEDULE( nt2::assign(a0(sum(a1)), sum(a2)), f, 2u
           , ( node2< boost::proto::tag::function
                    , boost::proto::tag::terminal
-                   , nt2::tag::box_
+                   , boost::proto::tag::dereference
                    >
             )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , boost::proto::tag::terminal
                                     >
@@ -387,7 +387,7 @@ NT2_TEST_CASE( subscript )
                     , ( node2< boost::proto::tag::assign
                              , node2< boost::proto::tag::function
                                     , boost::proto::tag::terminal
-                                    , nt2::tag::box_
+                                    , boost::proto::tag::dereference
                                     >
                              , node1< boost::simd::tag::sum_
                                     , boost::proto::tag::terminal
@@ -402,19 +402,19 @@ NT2_TEST_CASE( subscript )
                           , boost::proto::tag::terminal
                           , node2< boost::proto::tag::plus
                                  , boost::proto::tag::terminal
-                                 , nt2::tag::box_
+                                 , boost::proto::tag::dereference
                                  >
                           >
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , nt2::tag::box_
+                          , boost::proto::tag::dereference
                           >
                    >
             )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , boost::proto::tag::terminal
                                     >
@@ -423,7 +423,7 @@ NT2_TEST_CASE( subscript )
                     );
   NT2_TEST_TYPE_INFO( *f.trees.at(1)
                     , ( node2< boost::proto::tag::assign
-                             , nt2::tag::box_
+                             , boost::proto::tag::dereference
                              , node1< boost::simd::tag::sum_
                                     , boost::proto::tag::terminal
                                     >

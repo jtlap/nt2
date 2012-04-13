@@ -12,7 +12,7 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/rif.hpp>
 #include <nt2/core/functions/details/rif.hpp>
-#include <nt2/include/functions/box.hpp>
+#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 
 namespace nt2 { namespace ext
