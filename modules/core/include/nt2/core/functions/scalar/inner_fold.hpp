@@ -37,18 +37,15 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
-      typename A0::index_type::type bs;
-      std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-      std::ptrdiff_t ibound  = boost::fusion::at_c<0>(ext) + ilow;
-      std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(ext));
-      std::ptrdiff_t new_dim = 1;
+      std::size_t ibound  = boost::fusion::at_c<0>(ext);
+      std::size_t obound =  nt2::numel(boost::fusion::pop_front(ext));
+      std::size_t new_dim = 1;
 
-      for(std::ptrdiff_t j = olow; j !=obound; ++j){
-        nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)), neutral(nt2::meta::as_<value_type>()));
-        for(std::ptrdiff_t i = ilow; i!=ibound; ++i){
-          nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j))
-                   ,bop(nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)),meta::as_<value_type>())
+      for(std::size_t j = 0; j < obound; ++j){
+        nt2::run(out, boost::fusion::vector_tie(new_dim,j), neutral(nt2::meta::as_<value_type>()));
+        for(std::size_t i = 0; i < ibound; ++i){
+          nt2::run(out, boost::fusion::vector_tie(new_dim,j)
+                   ,bop(nt2::run(out, boost::fusion::vector_tie(new_dim,j),meta::as_<value_type>())
                         , nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<value_type>())));
         }
       }

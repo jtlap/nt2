@@ -40,29 +40,26 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-      typename A0::index_type::type bs;
-      std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-      std::ptrdiff_t bound  = boost::fusion::at_c<0>(ext) + ilow;
-      std::ptrdiff_t ibound = ilow + (boost::fusion::at_c<0>(ext)/N) * N;
-      std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(ext));
-      std::ptrdiff_t new_dim = 1;
+      std::size_t bound  = boost::fusion::at_c<0>(ext);
+      std::size_t ibound = (boost::fusion::at_c<0>(ext)/N) * N;
+      std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
+      std::size_t new_dim = 1;
       target_type vec_out ;
 
 
-        for(std::ptrdiff_t j=olow; j!=obound; ++j)
+        for(std::size_t j = 0; j < obound; ++j)
           {
-            nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)), neutral(nt2::meta::as_<value_type>()));
+            nt2::run(out, boost::fusion::vector_tie(new_dim,j), neutral(nt2::meta::as_<value_type>()));
             vec_out = neutral(nt2::meta::as_<target_type>());
 
-            for(std::ptrdiff_t i=ilow; i!=ibound; i+=N)
-              vec_out = bop(vec_out,nt2::run(in, as_aligned(boost::fusion::vector_tie(i,j)), meta::as_<target_type>()));
+            for(std::size_t i = 0; i < ibound; i+=N)
+              vec_out = bop(vec_out,nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<target_type>()));
 
-            nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)), uop(vec_out));
+            nt2::run(out, boost::fusion::vector_tie(new_dim,j), uop(vec_out));
 
-            for(std::ptrdiff_t i=ibound; i!=bound; ++i)
-              nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j))
-                       , bop(nt2::run(out, as_aligned(boost::fusion::vector_tie(new_dim,j)),meta::as_<value_type>())
+            for(std::size_t i = ibound; i < bound; ++i)
+              nt2::run(out, boost::fusion::vector_tie(new_dim,j)
+                       , bop(nt2::run(out, boost::fusion::vector_tie(new_dim,j),meta::as_<value_type>())
                              , nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<value_type>())));
           }
 

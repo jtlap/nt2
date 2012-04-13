@@ -30,8 +30,8 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       result_type out = neutral(nt2::meta::as_<result_type>());
-      for(std::ptrdiff_t c_0 = 1; c_0 <=ext[0]; ++c_0){
-        out = bop(out, in(c_0));
+      for(std::size_t i = 0; i < ext[0]; ++i){
+        out = bop(out, nt2::run(in, i, meta::as_<result_type>()));
       }
       return out;     
 
