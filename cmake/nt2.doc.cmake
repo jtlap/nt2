@@ -232,6 +232,7 @@ macro(nt2_module_doc module)
   nt2_module_target_parent(${module}.boostbook)
 
   if(NOT NT2_SOURCE_DIR)
+    message(STATUS "wtf????")
     nt2_doc_boostbook(${module})
     nt2_doc_html(${NT2_BINARY_DIR}/doc ${module})
     add_custom_target(doc
