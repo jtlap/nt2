@@ -22,8 +22,8 @@ NT2_TEST_CASE( fundamental_size )
 {
   using nt2::size;
 
-  NT2_TEST_EQUAL( std::size_t( size( 3 )(1)), 1u);
-  NT2_TEST_EQUAL( std::size_t( size( 3 )(2)), 1u);
+  NT2_TEST_EQUAL( size( 3 )(1), 1u);
+  NT2_TEST_EQUAL( size( 3 )(2), 1u);
   NT2_TEST_EQUAL( size( 3 , 1 ), 1u);
   NT2_TEST_EQUAL( size( 3 , 2 ), 1u);
   NT2_TEST_EQUAL( size( 3 , 3 ), 1u);
@@ -38,9 +38,9 @@ NT2_TEST_CASE( size_table )
 
   table<float, nt2::settings(nt2::_3D)> x( nt2::of_size(4,5,6) );
 
-  NT2_TEST_EQUAL( std::size_t(nt2::size( x )(1)), 4u);
-  NT2_TEST_EQUAL( std::size_t(nt2::size( x )(2)), 5u);
-  NT2_TEST_EQUAL( std::size_t(nt2::size( x )(3)), 6u);
+  NT2_TEST_EQUAL( nt2::size( x )(1), 4u);
+  NT2_TEST_EQUAL( nt2::size( x )(2), 5u);
+  NT2_TEST_EQUAL( nt2::size( x )(3), 6u);
 
   NT2_TEST_EQUAL( nt2::size( x , 1), 4u);
   NT2_TEST_EQUAL( nt2::size( x , 2), 5u);
@@ -56,9 +56,9 @@ NT2_TEST_CASE( size_expression )
 
   table<float, nt2::settings(nt2::_3D)> x( nt2::of_size(4,5,6) );
 
-  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(1)), 4u);
-  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(2)), 5u);
-  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(3)), 6u);
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f )(1), 4u);
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f )(2), 5u);
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f )(3), 6u);
 
   NT2_TEST_EQUAL( nt2::size( x+x/3.f , 1), 4u);
   NT2_TEST_EQUAL( nt2::size( x+x/3.f , 2), 5u);
@@ -73,23 +73,23 @@ NT2_TEST_CASE( size_size )
   using nt2::table;
   table<float, nt2::settings(nt2::_3D)> x( nt2::of_size(4,5,6) );
 
-  NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size(x) )(1)), 1u);
-  NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size(x) )(2)), 3u);
+  NT2_TEST_EQUAL( nt2::size( nt2::size(x) )(1), 1u);
+  NT2_TEST_EQUAL( nt2::size( nt2::size(x) )(2), 3u);
 
   NT2_TEST_EQUAL( nt2::size( nt2::size(x) , 1), 1u);
   NT2_TEST_EQUAL( nt2::size( nt2::size(x) , 2), 3u);
 
-  NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size( nt2::size(x) ) )(1)), 1u);
-  NT2_TEST_EQUAL( std::size_t(nt2::size( nt2::size( nt2::size(x) ) )(2)), 2u);
+  NT2_TEST_EQUAL( nt2::size( nt2::size( nt2::size(x) ) )(1), 1u);
+  NT2_TEST_EQUAL( nt2::size( nt2::size( nt2::size(x) ) )(2), 2u);
 
   NT2_TEST_EQUAL( nt2::size( nt2::size( nt2::size(x) ) , 1), 1u);
   NT2_TEST_EQUAL( nt2::size( nt2::size( nt2::size(x) ) , 2), 2u);
 
   nt2::table<int> a( nt2::of_size(4,5) );
-  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a), 1)), 1u);
-  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a), 2)), 4u);
-  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a))(1)), 1u);
-  NT2_TEST_EQUAL( std::size_t( nt2::size(nt2::size(a))(2)), 4u);
+  NT2_TEST_EQUAL( nt2::size(nt2::size(a), 1), 1u);
+  NT2_TEST_EQUAL( nt2::size(nt2::size(a), 2), 4u);
+  NT2_TEST_EQUAL( nt2::size(nt2::size(a))(1), 1u);
+  NT2_TEST_EQUAL( nt2::size(nt2::size(a))(2), 4u);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -101,8 +101,8 @@ NT2_TEST_CASE( size_static_table2D )
   using nt2::table;
   table < float, nt2::settings(of_size_<5, 2>) > x;
 
-  NT2_TEST_EQUAL( std::size_t(nt2::size(x)(1)), 5u);
-  NT2_TEST_EQUAL( std::size_t(nt2::size(x)(2)), 2u);
+  NT2_TEST_EQUAL( nt2::size(x)(1), 5u);
+  NT2_TEST_EQUAL( nt2::size(x)(2), 2u);
 
   NT2_TEST_EQUAL( nt2::size(x, 1), 5u);
   NT2_TEST_EQUAL( nt2::size(x, 2), 2u);
@@ -119,8 +119,8 @@ NT2_TEST_CASE( size_cont )
   typedef container<float, of_size_<5> > cont;
   cont x;
 
-  NT2_TEST_EQUAL( std::size_t(nt2::size(x)(1)), 5u);
-  NT2_TEST_EQUAL( std::size_t(nt2::size(x)(2)), 1u);
+  NT2_TEST_EQUAL( nt2::size(x)(1), 5u);
+  NT2_TEST_EQUAL( nt2::size(x)(2), 1u);
 
   NT2_TEST_EQUAL( nt2::size(x, 1), 5u);
   NT2_TEST_EQUAL( nt2::size(x, 2), 1u);
@@ -135,8 +135,8 @@ NT2_TEST_CASE( size_static_table )
   using nt2::table;
   table < float, nt2::settings(of_size_<5>) > x;
 
-  NT2_TEST_EQUAL( std::size_t(nt2::size(x)(1)), 5u);
-  NT2_TEST_EQUAL( std::size_t(nt2::size(x)(2)), 1u);
+  NT2_TEST_EQUAL( nt2::size(x)(1), 5u);
+  NT2_TEST_EQUAL( nt2::size(x)(2), 1u);
 
   NT2_TEST_EQUAL( nt2::size(x, 1), 5u);
   NT2_TEST_EQUAL( nt2::size(x, 2), 1u);

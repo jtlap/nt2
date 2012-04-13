@@ -12,6 +12,7 @@
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
+#include <nt2/sdk/memory/container.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {

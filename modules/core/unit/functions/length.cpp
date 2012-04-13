@@ -22,7 +22,7 @@
 NT2_TEST_CASE( fundamental_length )
 {
   using nt2::length;
-  
+
   NT2_TEST_EQUAL( length('4'), 1U  );
   NT2_TEST_EQUAL( length(4)  , 1U  );
   NT2_TEST_EQUAL( length(4.) , 1U  );
@@ -37,7 +37,7 @@ NT2_TEST_CASE( table_length )
   using nt2::length;
   using nt2::of_size;
   using nt2::table;
-  
+
   table<float> t0;
   table<float> t1( of_size(2) );
   table<float> t2( of_size(4,2) );
@@ -49,5 +49,4 @@ NT2_TEST_CASE( table_length )
   NT2_TEST_EQUAL( length(t2), 4U  );
   NT2_TEST_EQUAL( length(t3), 6U  );
   NT2_TEST_EQUAL( length(t4), 8U  );
-  
 }

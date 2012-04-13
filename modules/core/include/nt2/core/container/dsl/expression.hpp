@@ -13,8 +13,10 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/extends.hpp>
+#include <nt2/sdk/parameters.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/core/functions/function.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/assign.hpp>
@@ -24,6 +26,11 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <nt2/core/container/dsl/details/resize.hpp>
 #include <nt2/core/container/dsl/details/expression.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 #ifdef NT2_LOG_COPIES
 #include <nt2/sdk/details/type_id.hpp>
@@ -48,7 +55,7 @@ namespace nt2 { namespace container
                                   , expression<Expr, Result>
                                   , container::domain
                                   >                                parent;
-    
+
     //==========================================================================
     // Extract Container information from Result
     //==========================================================================
@@ -161,15 +168,54 @@ namespace nt2 { namespace container
     //==========================================================================
     BOOST_FORCEINLINE operator Result() const
     {
-      // assert numel is 1
       return nt2::evaluate(*this);
     }
+
+    //==========================================================================
+    // Expression indexing
+    //==========================================================================
+    #define M0(z,n,t)                                                 \
+    template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE       \
+    typename meta::call                                               \
+    < nt2::tag::function_                                             \
+      ( expression const&                                             \
+      , BOOST_PP_ENUM_BINARY_PARAMS(n,A, const& BOOST_PP_INTERCEPT)   \
+      )                                                               \
+    >::type                                                           \
+    operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A, const& a) ) const    \
+    {                                                                 \
+      return nt2::function(*this, BOOST_PP_ENUM_PARAMS(n,a) );        \
+    }                                                                 \
+    template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE       \
+    typename meta::call                                               \
+    < nt2::tag::function_                                             \
+      ( expression&                                                   \
+      , BOOST_PP_ENUM_BINARY_PARAMS(n,A, const& BOOST_PP_INTERCEPT)   \
+      )                                                               \
+    >::type                                                           \
+    operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A, const& a) )          \
+    {                                                                 \
+      return nt2::function(*this, BOOST_PP_ENUM_PARAMS(n,a) );        \
+    }                                                                 \
+    /**/
+
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
+    #undef M0
+
+    //==========================================================================
+    // Idempotent operator() indexing
+    //==========================================================================
+    BOOST_FORCEINLINE expression&        operator()()        { return *this; }
+    BOOST_FORCEINLINE expression const&  operator()() const  { return *this; }
 
     //==========================================================================
     // Return current expression extent
     //==========================================================================
     BOOST_FORCEINLINE extent_type extent() const { return size_; }
 
+    //==========================================================================
+    // Destructive resize of expression
+    //==========================================================================
     template<class Sz> BOOST_FORCEINLINE void resize(Sz const& sz)
     {
       ext::resize< typename boost::dispatch::meta::
@@ -237,8 +283,11 @@ namespace nt2 { namespace container
     void process( Xpr const&, boost::mpl::false_ const& ) const
     {
       //========================================================================
-      // If you trigger this assertion, you tried to assign an invalid
-      // expression into a nt2 Container or Container view.
+      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      // If this static assert triggers, an invalid expression was assigned to
+      // a NT2 reference-like expression. Check your code for bad expression
+      // construction.
+      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (sizeof(Xpr) == 0)
                           , NT2_EXPRESSION_GRAMMAR_MISMATCH

@@ -20,13 +20,13 @@ NT2_TEST_CASE_TPL( band, NT2_TYPES )
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      y(i,j) = T(i + 10*j);
+      y(i,j) = i + 10*j;
 
   x = nt2::diagonal(y);
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i==j) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( x(i,j), (i==j) ? y(i,j) : T(0));
 }
 
 NT2_TEST_CASE_TPL( offset_band1, NT2_TYPES )
@@ -35,17 +35,17 @@ NT2_TEST_CASE_TPL( offset_band1, NT2_TYPES )
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      y(i,j) = T(i + 10*j);
+      y(i,j) = i + 10*j;
 
   x = nt2::band(y,1);
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), ((i>=(j-1))&&(i<=j+1)) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( x(i,j), ((i>=(j-1))&&(i<=j+1)) ? y(i,j) : T(0));
 
   x = nt2::band(y,1,2);
 
   for(int j=1;j<=5;j++)
     for(int i=1;i<=4;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), ((i>=(j-1))&&(i<=j+2))? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( x(i,j), ((i>=(j-1))&&(i<=j+2))? y(i,j) : T(0));
 }

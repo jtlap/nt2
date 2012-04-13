@@ -35,13 +35,13 @@ NT2_TEST_CASE_TPL( tril, NT2_TYPES )
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      y(i,j) = T(i + 10*j);
+      y(i,j) = i + 10*j;
 
   x = nt2::tril(y);
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i>=j) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( x(i,j), (i>=j) ? y(i,j) : 0);
 }
 
 NT2_TEST_CASE_TPL( offset_tril, NT2_TYPES )
@@ -50,17 +50,17 @@ NT2_TEST_CASE_TPL( offset_tril, NT2_TYPES )
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      y(i,j) = T(i + 10*j);
+      y(i,j) = i + 10*j;
 
   x = nt2::tril(y,1);
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i+1>= j) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( x(i,j), (i+1>= j) ? y(i,j) : 0);
 
   x = nt2::tril(y,-1);
 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL( T(x(i,j)), (i-1>=j) ? T(y(i,j)) : T(0));
+      NT2_TEST_EQUAL( x(i,j), (i-1>=j) ? y(i,j) : 0);
 }

@@ -43,52 +43,52 @@ NT2_TEST_CASE( rif_untyped_square )
 
   for(int i=1;i<= 3;++i)
     for(int j=1;j<= 3;++j)
-      NT2_TEST_EQUAL( double(i), double(x0(i, j)) );
+      NT2_TEST_EQUAL( i, x0(i, j) );
 
   nt2::table<double, nt2::C_index_> x1 = nt2::rif(3);
 
   for(int i=0;i< 3;++i)
     for(int j=0;j< 3;++j)
-      NT2_TEST_EQUAL( double(i+1), double(x1(i, j)) );
+      NT2_TEST_EQUAL( i+1, x1(i, j) );
 }
 
 NT2_TEST_CASE( rif_nd_untyped )
 {
- nt2::table<double> x2 = nt2::rif(8, 4);
- for(int i=1;i<=8;++i)
-  for(int j=1;j<=4;++j)
-    NT2_TEST_EQUAL( double(i), double(x2(i, j)) );
+  nt2::table<double> x2 = nt2::rif(8, 4);
+  for(int i=1;i<=8;++i)
+    for(int j=1;j<=4;++j)
+      NT2_TEST_EQUAL( i, x2(i, j) );
 
- nt2::table<double> x3 = nt2::rif(2, 4);
- for(int i=1;i<=2;++i)
-  for(int j=1;j<=4;++j)
-    NT2_TEST_EQUAL( double(i), double(x3(i, j)) );
+  nt2::table<double> x3 = nt2::rif(2, 4);
+  for(int i=1;i<=2;++i)
+    for(int j=1;j<=4;++j)
+      NT2_TEST_EQUAL( i, x3(i, j) );
 
   nt2::table<double> x4 = nt2::rif(1, 4);
-  for(int j=1;j<=4;++j) NT2_TEST_EQUAL( double(1), double(x4(1, j)) );
+  for(int j=1;j<=4;++j) NT2_TEST_EQUAL( 1, x4(1, j) );
 
- nt2::table<double> x5 = nt2::rif(2, 1);
- for(int i=1;i<=2;++i) NT2_TEST_EQUAL( double(i), double(x5(i, 1)) );
+  nt2::table<double> x5 = nt2::rif(2, 1);
+  for(int i=1;i<=2;++i) NT2_TEST_EQUAL( i, x5(i, 1) );
 
- nt2::table<double> x6 = nt2::rif(nt2::of_size(8, 6));
- for(int i=1;i<=8;++i)
-  for(int j=1;j<=6;++j)
-  NT2_TEST_EQUAL( double(i), double(x6(i, j)) );
+  nt2::table<double> x6 = nt2::rif(nt2::of_size(8, 6));
+  for(int i=1;i<=8;++i)
+    for(int j=1;j<=6;++j)
+      NT2_TEST_EQUAL( i, x6(i, j) );
 }
 
 NT2_TEST_CASE_TPL( rif_nd_typed, NT2_TYPES )
 {
   nt2::table<T> x1 = nt2::rif(8, nt2::meta::as_<T>() );
-  for(int i=1;i<=8;++i) for(int j=1;j<=8;++j) NT2_TEST_EQUAL( T(i), T(x1(i, j)) );
+  for(int i=1;i<=8;++i) for(int j=1;j<=8;++j) NT2_TEST_EQUAL( i, x1(i, j) );
 
   nt2::table<T> x2 = nt2::rif(8,4, nt2::meta::as_<T>() );
-  for(int i=1;i<=8;++i) for(int j=1;j<=4;++j) NT2_TEST_EQUAL( T(i), T(x2(i, j)) );
+  for(int i=1;i<=8;++i) for(int j=1;j<=4;++j) NT2_TEST_EQUAL( i, x2(i, j) );
 
   nt2::table<T> x3 = nt2::rif(2,4, nt2::meta::as_<T>() );
-  for(int i=1;i<=2;++i) for(int j=1;j<=4;++j) NT2_TEST_EQUAL( T(i), T(x3(i, j)) );
+  for(int i=1;i<=2;++i) for(int j=1;j<=4;++j) NT2_TEST_EQUAL( i, x3(i, j) );
 
   nt2::table<T> x4 = nt2::rif(nt2::of_size(8, 6), nt2::meta::as_<T>() );
-  for(int i=1;i<=8;++i) for(int j=1;j<=6;++j) NT2_TEST_EQUAL( T(i), T(x4(i, j)) );
+  for(int i=1;i<=8;++i) for(int j=1;j<=6;++j) NT2_TEST_EQUAL( i, x4(i, j) );
 }
 
 NT2_TEST_CASE( rif_expr )
@@ -100,14 +100,14 @@ NT2_TEST_CASE( rif_expr )
   nt2::table<double> x1 = nt2::rif( t );
   for(int i=1;i<=3;++i)
     for(int j=1;j<=4;++j)
-      NT2_TEST_EQUAL( double(i), double(x1(i, j)));
+      NT2_TEST_EQUAL( i, x1(i, j) );
 
   nt2::table<int> a( nt2::of_size(4,5) );
   nt2::table<double> x2 = nt2::rif( nt2::size(a) );
 
   for(int i=1;i<=4;++i)
     for(int j=1;j<=5;++j)
-      NT2_TEST_EQUAL( double(i), double(x2(i, j)));
+      NT2_TEST_EQUAL( i, x2(i, j) );
 
   NT2_TEST_ASSERT( x1 = nt2::rif(a) );
 }
@@ -121,14 +121,14 @@ NT2_TEST_CASE_TPL( rif_typed_expr, NT2_TYPES )
   nt2::table<T> x1 = nt2::rif( t, nt2::meta::as_<T>() );
   for(int i=1;i<=3;++i)
     for(int j=1;j<=4;++j)
-      NT2_TEST_EQUAL( T(i), T(x1(i, j)));
+      NT2_TEST_EQUAL( i, x1(i, j) );
 
   nt2::table<int> a( nt2::of_size(4,5) );
   nt2::table<T> x2 = nt2::rif( nt2::size(a), nt2::meta::as_<T>() );
 
   for(int i=1;i<=4;++i)
     for(int j=1;j<=5;++j)
-      NT2_TEST_EQUAL( T(i), T(x2(i, j)));
+      NT2_TEST_EQUAL( i, x2(i, j) );
 
   NT2_TEST_ASSERT( x1 = nt2::rif(a, nt2::meta::as_<T>() ) );
 }

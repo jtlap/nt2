@@ -129,7 +129,7 @@ NT2_TEST_CASE( fma )
                              >
                       )
                     );
-                    
+
   NT2_TEST_EXPR_TYPE( nt2::optimize(a0 + a1 * (a2 * a0 + a1))
                     , as_node<_>
                     , ( node3< nt2::tag::fma_
@@ -174,10 +174,5 @@ NT2_TEST_CASE( terminal_ref )
   NT2_TEST_EXPR_TYPE( boost::mpl::identity< nt2::meta::call<nt2::tag::optimize_(table<T>&)>::type >()
                     , type
                     , table<T>&
-                    );
-
-  NT2_TEST_EXPR_TYPE( nt2::optimize(a0(1))
-                    , child0
-                    , table<T>::parent&
                     );
 }

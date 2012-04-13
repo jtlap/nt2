@@ -103,6 +103,9 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace container { namespace ext
 {
+  //============================================================================
+  // Size of a function call node is depends of the indexers
+  //============================================================================
   template<class Expr, class Domain, int N>
   struct size_of<tag::function_, Domain, N, Expr>
   {
@@ -126,7 +129,9 @@ namespace nt2 { namespace container { namespace ext
     }
   };
 
-  // Special unary case: if argument is not colon, keep shape
+  //============================================================================
+  // Unary function call node case: if argument is not colon, keep shape
+  //============================================================================
   template<class Expr, class Domain>
   struct size_of<tag::function_, Domain, 2, Expr>
   {

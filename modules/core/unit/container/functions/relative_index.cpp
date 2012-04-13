@@ -27,7 +27,7 @@ NT2_TEST_CASE( integral_subscript )
   table<T> a( of_size(5,4,3,2) );
 
   for(int i=1;i<=5*4*3*2;i++)
-    NT2_TEST_EQUAL( nt2::relative_index(boost::proto::child_c<1>(a(i)), boost::mpl::int_<0>(), tgt), i );
+    NT2_TEST_EQUAL( nt2::relative_index(boost::proto::child_c<1>(a(i,nt2::_)), boost::mpl::int_<0>(), tgt), i );
 }
 
 NT2_TEST_CASE( colon_subscript )

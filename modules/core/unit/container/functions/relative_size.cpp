@@ -25,10 +25,10 @@ NT2_TEST_CASE( integral_subscript )
 
   table<T> a( of_size(5,4,3,2) );
 
-  NT2_TEST_EQUAL( nt2::relative_size(boost::proto::child_c<1>(a(4,3,2,1)), of_size(5,4,3,2), boost::mpl::int_<0>(), boost::mpl::int_<4>()), 1 );
-  NT2_TEST_EQUAL( nt2::relative_size(boost::proto::child_c<2>(a(4,3,2,1)), of_size(5,4,3,2), boost::mpl::int_<1>(), boost::mpl::int_<4>()), 1 );
-  NT2_TEST_EQUAL( nt2::relative_size(boost::proto::child_c<3>(a(4,3,2,1)), of_size(5,4,3,2), boost::mpl::int_<2>(), boost::mpl::int_<4>()), 1 );
-  NT2_TEST_EQUAL( nt2::relative_size(boost::proto::child_c<4>(a(4,3,2,1)), of_size(5,4,3,2), boost::mpl::int_<3>(), boost::mpl::int_<4>()), 1 );
+  NT2_TEST_EQUAL( nt2::relative_size(boost::proto::child_c<1>(a(4,3,2,nt2::_)), of_size(5,4,3,2), boost::mpl::int_<0>(), boost::mpl::int_<4>()), 1 );
+  NT2_TEST_EQUAL( nt2::relative_size(boost::proto::child_c<2>(a(4,3,nt2::_,1)), of_size(5,4,3,2), boost::mpl::int_<1>(), boost::mpl::int_<4>()), 1 );
+  NT2_TEST_EQUAL( nt2::relative_size(boost::proto::child_c<3>(a(4,nt2::_,2,1)), of_size(5,4,3,2), boost::mpl::int_<2>(), boost::mpl::int_<4>()), 1 );
+  NT2_TEST_EQUAL( nt2::relative_size(boost::proto::child_c<4>(a(nt2::_,3,2,1)), of_size(5,4,3,2), boost::mpl::int_<3>(), boost::mpl::int_<4>()), 1 );
 }
 
 NT2_TEST_CASE( colon_subscript )

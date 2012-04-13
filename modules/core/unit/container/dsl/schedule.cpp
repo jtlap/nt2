@@ -470,9 +470,4 @@ NT2_TEST_CASE( terminal )
                     , child0
                     , table<T>&
                     );
-
-  NT2_TEST_EXPR_TYPE( nt2::schedule(a0(1), f)
-                    , child0
-                    , table<T>::parent&
-                    );
 }

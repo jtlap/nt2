@@ -24,36 +24,36 @@ NT2_TEST_CASE( squeeze_2D )
   nt2::table<double, nt2::_2D> y( nt2::of_size(5,1) ), sy;
   nt2::table<double, nt2::_2D> z( nt2::of_size(1,1) ), sz;
 
-  for(std::size_t i=1;i<=5;++i) x(i) = double(i);
+  for(std::size_t i=1;i<=5;++i) x(i) = i;
   sx = nt2::squeeze(x);
 
   NT2_TEST( sx.extent() == x.extent() );
-  for(std::size_t i=1;i<=5;++i) NT2_TEST_EQUAL( double(x(i)) , double(sx(i)) );
+  for(std::size_t i=1;i<=5;++i) NT2_TEST_EQUAL( x(i) , sx(i) );
 
-  for(std::size_t i=1;i<=5;++i) y(i) = double(i);
+  for(std::size_t i=1;i<=5;++i) y(i) = i;
   sy = nt2::squeeze(y);
 
   NT2_TEST( sy.extent() == y.extent() );
-  for(std::size_t i=1;i<=5;++i) NT2_TEST_EQUAL( double(y(i)) , double(sy(i)) );
+  for(std::size_t i=1;i<=5;++i) NT2_TEST_EQUAL( y(i) , sy(i) );
 
-  z(1) = double(1);
+  z(1) = 1;
   sz = nt2::squeeze(z);
 
   NT2_TEST( sz.extent() == z.extent() );
-  NT2_TEST_EQUAL( double(z(1)) , double(sy(1)) );
+  NT2_TEST_EQUAL( z(1) , sy(1) );
 }
 
 template<class S, class Z> void test_squeeze(S const& old_s, Z const& new_s)
 {
   nt2::table<double, S> x(old_s);
-  for(std::size_t i=1;i<=nt2::numel(old_s);++i) x(i) = double(i);
+  for(std::size_t i=1;i<=nt2::numel(old_s);++i) x(i) = i;
 
   nt2::table<double, S> sx = nt2::squeeze(x);
 
   NT2_TEST( sx.extent() == new_s );
 
   for(std::size_t i=1;i<=nt2::numel(old_s);++i)
-    NT2_TEST_EQUAL( double(x(i)) , double(sx(i)) );
+    NT2_TEST_EQUAL( x(i), sx(i) );
 }
 
 NT2_TEST_CASE( squeeze_3D )
