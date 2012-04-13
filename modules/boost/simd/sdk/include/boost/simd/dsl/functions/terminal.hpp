@@ -11,7 +11,7 @@
 
 #include <boost/dispatch/functor/preprocessor/function.hpp>
 #include <boost/dispatch/dsl/call.hpp>
-#include <boost\simd\sdk\simd\category.hpp>
+#include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/proto/tags.hpp>
 
