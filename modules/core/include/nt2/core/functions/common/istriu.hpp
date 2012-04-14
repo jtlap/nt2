@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_COMMON_ISTRIANGULAR_HPP_INCLUDED 
-#define NT2_CORE_FUNCTIONS_COMMON_ISTRIANGULAR_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_COMMON_ISTRIU_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_COMMON_ISTRIU_HPP_INCLUDED
 
-#include <nt2/core/functions/istriangular.hpp>
+#include <nt2/core/functions/istriu.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
@@ -17,37 +17,25 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::istriangular_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::istriu_, tag::cpu_
                               , (A0)
                               , (ast_<A0>)
                             )
   {
     typedef bool result_type;
-
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
+    
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0) const
     {
-      bool ok = true;
-      for(std::ptrdiff_t i=first_index<1>(a0); i <= last_index<1>(a0) ; ++i)
-      {
-        for(std::ptrdiff_t j=i+1; j <= last_index<2>(a0) ; ++j)
+      typedef typename A0::value_type value_type;
+      for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)
         {
-          if(a0(i, j))
-          {
-            ok = false;
-            break;
-          }
+          for(std::ptrdiff_t i=first_index<1>(a0); i < j ; ++i)
+            {
+              if (value_type(a0(i, j))) return false; 
+            }
         }
-        if (!ok) break;
-      }
-      if (ok) return true;
-      for(std::ptrdiff_t i=first_index<1>(a0); i <= last_index<1>(a0) ; ++i)
-      {
-        for(std::ptrdiff_t j=first_index<2>(a0); j < i ; ++j)
-        {
-          if(a0(i, j)) return false;
-        }
-      }
-      return true;
+      return true; 
     }
   };
 } }
