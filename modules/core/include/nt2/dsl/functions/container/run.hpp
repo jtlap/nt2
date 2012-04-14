@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
       if(dim == 1 || ext.size() == 1)
       {
         //        std::cout << "global reduction\n";
-        nt2::run( a0, boost::fusion::vector0<>()
+        nt2::run( a0, 0u
                   , nt2::fold( input
                                , typename nt2::make_functor<Neutral1, A0>::type()
                                , typename nt2::make_functor<O1, A0>::type()
