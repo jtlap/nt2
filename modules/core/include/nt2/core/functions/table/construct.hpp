@@ -14,6 +14,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
+#include <nt2/sdk/memory/copy.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -148,7 +149,7 @@ namespace nt2 { namespace ext
       );
 
       boost::proto::value(a0).resize(a1);
-      std::copy( a0.raw(), a0.raw()+range_size, a2 );
+      nt2::memory::copy( a0.raw(), a0.raw()+range_size, a2 );
     }
   };
 } }
