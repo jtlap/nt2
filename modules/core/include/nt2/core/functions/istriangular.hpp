@@ -44,7 +44,7 @@
  *  
 **/
 
-namespace nt2y
+namespace nt2
 {
   namespace tag
   {

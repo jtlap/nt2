@@ -32,6 +32,8 @@ SET( SOURCES
   issymetric.cpp
   ishermitian.cpp
   istriangular.cpp
+  istril.cpp
+  istriu.cpp
   eye.cpp
   triu.cpp
   tril.cpp
