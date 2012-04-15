@@ -29,19 +29,19 @@ NT2_TEST_CASE( fundamental_istril )
 NT2_TEST_CASE( table_istril )
 {
   nt2::table<float> a(nt2::of_size(3, 4));
-  nt2::container::table<float> aa(nt2::of_size(3, 4));
 
-  for(std::ptrdiff_t i=1; i <= 3; i++)
-    for(std::ptrdiff_t j=1; j <= 4; j++)
-      a(i, j) = (i >= j) ? (i+j) : 0;
+  for(std::ptrdiff_t j=1; j <= 4; j++)
+    for(std::ptrdiff_t i=1; i <= 3; i++)
+      a(i, j) = (i >=  j) ? (i+j) : 0;
+
   NT2_TEST( nt2::istril(a) );
 
-  a(1, 2) = 25;
+  a(1,2) = 25;
   NT2_TEST( !nt2::istril(a) );
 
-  for(std::ptrdiff_t i=1; i <= 3; i++)
-    for(std::ptrdiff_t j=1; j <= 4; j++)
-      a(i, j) = (i <=  j) ? (i+j) : 0;
+  for(std::ptrdiff_t j=1; j <= 4; j++)
+    for(std::ptrdiff_t i=1; i <= 3; i++)
+      a(i, j) = (i <= j) ? (i+j) : 0;
 
   NT2_TEST( !nt2::istril(a) );
 }
