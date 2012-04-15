@@ -11,12 +11,11 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/istril.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/sin.hpp>
+#include <nt2/include/functions/tril.hpp>
+#include <nt2/include/functions/triu.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/toolbox/operator/operator.hpp>
-#include <nt2/include/functions/function.hpp>
 
 NT2_TEST_CASE( fundamental_istril )
 {
@@ -44,4 +43,10 @@ NT2_TEST_CASE( table_istril )
       a(i, j) = (i <= j) ? (i+j) : 0;
 
   NT2_TEST( !nt2::istril(a) );
+}
+
+NT2_TEST_CASE( expr_istril )
+{
+  NT2_TEST( nt2::istril( nt2::tril(nt2::ones(4,3)) ) );
+  NT2_TEST( !nt2::istril( nt2::triu(nt2::ones(4,3)) ) );
 }
