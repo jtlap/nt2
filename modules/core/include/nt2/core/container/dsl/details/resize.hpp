@@ -9,11 +9,12 @@
 #ifndef NT2_CORE_CONTAINER_DSL_DETAILS_RESIZE_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_DETAILS_RESIZE_HPP_INCLUDED
 
-#include <boost/assert.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/proto/traits.hpp>
+#include <nt2/dsl/functions/terminal.hpp>
+#include <nt2/core/functions/function.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {

@@ -10,7 +10,7 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_TERMINAL_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/include/functions/terminal.hpp>
+#include <nt2/dsl/functions/terminal.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/type_traits/remove_const.hpp>
 

@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_TABLE_EXTENT_HPP_INCLUDED
 
 #include <nt2/core/functions/extent.hpp>
+#include <nt2/core/container/table/category.hpp>
 
 namespace nt2 { namespace ext
 {

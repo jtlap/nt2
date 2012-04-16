@@ -9,12 +9,9 @@
 #ifndef NT2_CORE_CONTAINER_DSL_SIZE_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_SIZE_HPP_INCLUDED
 
-#include <boost/proto/core.hpp>
-#include <boost/proto/traits.hpp>
-#include <boost/proto/transform.hpp>
-#include <nt2/core/settings/size.hpp>
-#include <nt2/core/functions/extent.hpp>
 #include <nt2/core/container/dsl/details/trait_transform.hpp>
+#include <nt2/include/functions/extent.hpp>
+#include <boost/proto/traits.hpp>
 
 namespace nt2 { namespace container
 {
