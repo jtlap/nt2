@@ -20,12 +20,20 @@
 
 namespace boost { namespace simd { namespace ext
 {
+  // Terminal returns ASTs by reference, Box by value
   BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::terminal_, tag::formal_
                             , (A0)
                             , (ast_<A0>)
                             , identity
                             )
 
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::box_, tag::formal_, (A0), (ast_<A0>) )
+  {
+    typedef typename boost::remove_const<A0>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const { return a0; }
+  };
+
+  // When evaluating a terminal, get its value
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::terminal_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
@@ -40,12 +48,19 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::box_, tag::formal_, (A0), (ast_<A0>) )
-  {
-    typedef typename boost::remove_const<A0>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const { return a0; }
-  };
+  // Terminal functions on non-ASTs do nothing
+  BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::terminal_, tag::cpu_
+                            , (A0)
+                            , (unspecified_<A0>)
+                            , identity
+                            )
+  BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::terminal_, tag::cpu_
+                            , (A0)
+                            , (generic_< unspecified_<A0> >)
+                            , identity
+                            )
 
+  // Except dereference, which dereferences
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dereference_, tag::cpu_, (A0)
                             , (unspecified_<A0>)
                             )
@@ -54,6 +69,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& a0) const { return *a0.get(); }
   };
 
+  // All terminals other than the actual terminal tag call the tag on the value
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::terminal_, tag::cpu_, (A0)(T0)
                             , (mpl::not_< is_same<T0, boost::simd::tag::terminal_> >)
                             , ((expr_< unspecified_<A0>, T0, boost::mpl::long_<0> >))
