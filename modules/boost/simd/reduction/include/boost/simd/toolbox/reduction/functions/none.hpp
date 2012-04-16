@@ -69,7 +69,9 @@ namespace boost { namespace simd { namespace tag
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 2)
 } }
+
 
 #endif
 

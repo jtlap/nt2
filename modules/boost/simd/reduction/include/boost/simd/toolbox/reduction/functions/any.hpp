@@ -70,7 +70,9 @@ namespace boost { namespace simd { namespace tag
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 2)
 } }
+
 
 #endif
 

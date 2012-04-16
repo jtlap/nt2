@@ -70,7 +70,9 @@ namespace boost { namespace simd { namespace tag
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maximum_, maximum, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maximum_, maximum, 2)
 } }
+
 
 #endif
 

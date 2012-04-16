@@ -270,7 +270,7 @@ NT2_TEST_CASE( reduction_value )
   }
 
 
-  a1 = sum(a2_4,3);
+  //  a1 = sum(a2_4,3);
 
 
 

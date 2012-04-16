@@ -70,6 +70,7 @@ namespace boost { namespace simd { namespace tag
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minimum_, minimum, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minimum_, minimum, 2)
 } }
 
 #endif
