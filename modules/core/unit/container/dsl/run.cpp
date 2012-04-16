@@ -168,8 +168,8 @@ NT2_TEST_CASE( reduction_value )
 
   std::size_t M = 4;
   std::size_t N = 4;
-  std::size_t O = 4;
-  std::size_t P = 4;
+  std::size_t O = 1;
+  std::size_t P = 1;
 
   table<T,nt2::_1D> a00(of_size(M));
   table<T>          a01(of_size(M));
@@ -193,14 +193,14 @@ NT2_TEST_CASE( reduction_value )
           a00(i) = T(1);
           a01(i) = T(1);
         }
-        //        std::cout<<"\n";
+        //std::cout<<"\n";
       }
-      //      std::cout<<"\n";
+      //std::cout<<"\n";
     }
-    //    std::cout<<"\n";
+    //std::cout<<"\n";
   }
   
-  std::cout << "["<<M<<", "<<N<<", "<<O<<", "<<P<<"]\n";
+  //  std::cout << "["<<M<<", "<<N<<", "<<O<<", "<<P<<"]\n";
   a1 = sum(a2_4,1);
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
@@ -219,7 +219,7 @@ NT2_TEST_CASE( reduction_value )
     }
   }
 
-  std::cout << "["<<M<<", "<<N<<", "<<O<<", 1]\n";
+  //  std::cout << "["<<M<<", "<<N<<", "<<O<<", 1]\n";
   a1 = sum(a2_3,1);
   for(std::size_t k = 1; k <= O; ++k){
     for(std::size_t j = 1; j <= N; ++j){
@@ -227,7 +227,7 @@ NT2_TEST_CASE( reduction_value )
     }
   }
 
-  std::cout << "["<<M<<", "<<N<<", 1, 1]\n";
+  //  std::cout << "["<<M<<", "<<N<<", 1, 1]\n";
   a1 = sum(a2_2,1);
   for(std::size_t j = 1; j <= N; ++j){
     NT2_TEST_EQUAL(T(a1(1,j)),T(M)) ;
@@ -240,8 +240,7 @@ NT2_TEST_CASE( reduction_value )
   // // a1 = sum(a01);
   // // NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
   
-  std::cout << "4\n";
-  std::cout << "["<<M<<", "<<N<<", "<<O<<", "<< P <<"]\n";
+  //  std::cout << "["<<M<<", "<<N<<", "<<O<<", "<< P <<"]\n";
   a1 = sum(a2_4,4);
   for(std::size_t k = 1; k <= O; ++k){
     for(std::size_t j = 1; j <= N; ++j){
@@ -249,14 +248,14 @@ NT2_TEST_CASE( reduction_value )
         //std::cout<<a1(i,j,k,1)<< ", ";
         NT2_TEST_EQUAL(T(a1(i,j,k,1)),T(P)) ;
       }
-      std::cout<<"\n";
+      //      std::cout<<"\n";
     }
-    std::cout<<"\n";
+    //    std::cout<<"\n";
   }
-  std::cout<<"\n";
+  //  std::cout<<"\n";
 
-  std::cout << "["<<M<<", "<<N<<", "<<O<<"]\n";
-  std::cout << "3\n";
+  // std::cout << "["<<M<<", "<<N<<", "<<O<<"]\n";
+  // std::cout << "3\n";
   a1 = sum(a2_3,3);
   for(std::size_t j = 1; j <= N; ++j){
     for(std::size_t i = 1; i <= M; ++i){
@@ -264,12 +263,14 @@ NT2_TEST_CASE( reduction_value )
     }
   }
 
-  std::cout << "2\n";
+  //  std::cout << "2\n";
   a1 = sum(a2_2,2);
   for(std::size_t i = 1; i <= M; ++i){
     NT2_TEST_EQUAL(T(a1(i,1)),T(N)) ;
   }
 
+
+  a1 = sum(a2_4,3);
 
 
 

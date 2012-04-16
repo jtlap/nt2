@@ -12,7 +12,6 @@
 #include <nt2/core/functions/outer_fold.hpp>
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/sdk/config/cache.hpp>
-#include <iostream>
 
 #ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
@@ -39,7 +38,6 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
-      std::cout <<"simd\n";
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
       std::size_t ibound = ext[ext.size()-1]; 
