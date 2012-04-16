@@ -10,9 +10,7 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_NULLARY_FUNCTION_HPP_INCLUDED
 
 #include <nt2/core/functions/function.hpp>
-#include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
-#include <boost/proto/transform.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
