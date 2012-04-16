@@ -48,43 +48,46 @@ set(NT2_MODULES_EXTRA "" CACHE STRING "Extra modules to load")
 set(NT2_MODULES_BLACKLIST "" CACHE STRING "Modules that should not be loaded")
 
 ################################################################################
-# We load all directories of modules/ for which a CMakeLists.txt is present;
+# We search a directory under modules/ for which a CMakeLists.txt is present;
 # if none is found in the directory, we search recursively until we find one.
 ################################################################################
-if(NOT NT2_MODULES)
-  file(GLOB NT2_MODULES RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
+macro(expand_submodules modules)
   set(i 0)
-  list(LENGTH NT2_MODULES len)
+  list(LENGTH ${modules} len)
   while(i LESS len)
-    list(GET NT2_MODULES ${i} module)
+    list(GET ${modules} ${i} module)
     string(REPLACE "." "/" module_path ${module})
     if(${module} MATCHES boostification)
-      list(REMOVE_ITEM NT2_MODULES ${module})
-      list(LENGTH NT2_MODULES len)
+      list(REMOVE_ITEM ${modules} ${module})
+      list(LENGTH ${modules} len)
     elseif(NOT EXISTS ${PROJECT_SOURCE_DIR}/modules/${module_path}/CMakeLists.txt)
-      list(REMOVE_ITEM NT2_MODULES ${module})
-      file(GLOB NT2_MODULES_ RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/${module_path}/*/)
-      if(NT2_MODULES_)
-        string(REPLACE "/" "." NT2_MODULES_ "${NT2_MODULES_}")
-        list(APPEND NT2_MODULES ${NT2_MODULES_})
+      list(REMOVE_ITEM ${modules} ${module})
+      file(GLOB ${modules}_ RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/${module_path}/*/)
+      if(${modules}_)
+        string(REPLACE "/" "." ${modules}_ "${${modules}_}")
+        list(APPEND ${modules} ${${modules}_})
       endif()
-      list(LENGTH NT2_MODULES len)
+      list(LENGTH ${modules} len)
     else()
       math(EXPR i "${i} + 1")
     endif()
   endwhile()
-endif()
-
-if(NT2_MODULES_EXTRA)
-  list(APPEND NT2_MODULES ${NT2_MODULES_EXTRA})
-  list(REMOVE_DUPLICATES "NT2_MODULES")
-endif()
+endmacro()
 
 ################################################################################
-# Download extra modules and set include directories
+# If no explicit modules are set, we use all modules we can find
+################################################################################
+if(NOT NT2_MODULES)
+  file(GLOB NT2_MODULES RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
+endif()
+expand_submodules(NT2_MODULES)
+
+################################################################################
+# Download extra modules
 ################################################################################
 include(nt2.download)
-foreach(module ${NT2_MODULES})
+list(REMOVE_DUPLICATES NT2_MODULES_EXTRA)
+foreach(module ${NT2_MODULES_EXTRA})
   list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
   if(module_found LESS 0)
     string(REPLACE "." "/" module_path ${module})
@@ -92,9 +95,23 @@ foreach(module ${NT2_MODULES})
     if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
       nt2_download_module(${module})
     endif()
+  endif()
+endforeach()
+expand_submodules(NT2_MODULES_EXTRA)
+if(NT2_MODULES_EXTRA)
+  list(APPEND NT2_MODULES ${NT2_MODULES_EXTRA})
+  list(REMOVE_DUPLICATES NT2_MODULES)
+endif()
+
+################################################################################
+# Set include directories
+################################################################################
+foreach(module ${NT2_MODULES})
+  list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
+  if(module_found LESS 0)
+    string(REPLACE "." "/" module_path ${module})
 
     include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
-
   endif()
 endforeach()
 
