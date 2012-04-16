@@ -6,27 +6,27 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_ISTRIANGULAR_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_ISTRIANGULAR_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_ISTRIU_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_ISTRIU_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup core
- * \defgroup core_istriangular istriangular
+ * \defgroup core_istriu istriu
  *
  * \par Description
- * Returns true or false according a0 is a triangular matrix
- * (lower or upper) or not.
+ * Returns true or false according a0 is an upper triangular matrix
+ * or not.
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/istriangular.hpp>
+ * #include <nt2/include/functions/istriu.hpp>
  * \endcode
  * 
  * \par Alias 
- * \arg is_triangular
+ * \arg is_tril
  * 
  * \synopsis
  *
@@ -34,11 +34,11 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     bool istriangular(const A0 & a0);
+ *     bool istriu(const A0 & a0);
  * }
  * \endcode
  *
- * \param a0 the first parameter of istriangular
+ * \param a0 the first parameter of istriu
  * 
  * \return a bool value
  *  
@@ -46,16 +46,18 @@
 
 namespace nt2
 {
+
   namespace tag
   {
-    struct istriangular_ : ext::unspecified_<istriangular_>
+    struct istriu_ : ext::unspecified_<istriu_>
     {
-      typedef ext::unspecified_<istriangular_> parent;
+      typedef ext::unspecified_<istriu_> parent;
     };
   }
 
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istriangular_, istriangular, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istriangular_, is_triangular, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istriu_, istriu, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istriu_, is_triu, 1)
+
 }
 
 #endif

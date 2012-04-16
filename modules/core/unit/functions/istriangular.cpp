@@ -29,7 +29,6 @@ NT2_TEST_CASE( fundamental_istriangular )
 NT2_TEST_CASE( table_istriangular )
 {
   nt2::table<float> a(nt2::of_size(3, 4));
-  nt2::container::table<float> aa(nt2::of_size(3, 4));
 
   for(std::ptrdiff_t i=1; i <= 3; i++)
     for(std::ptrdiff_t j=1; j <= 4; j++)

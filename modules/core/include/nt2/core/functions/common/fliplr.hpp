@@ -34,9 +34,10 @@ namespace nt2 { namespace ext
                                             child_c<A0&, 0>::type
                                 , State&, Data&
                                 )
-                >::type                                        result_type;
+                >::type                                               result_type;
 
-    typedef typename meta::as_integer<result_type>::type              i_t;
+    typedef typename meta::strip<result_type>::type                   base_type;
+    typedef typename meta::as_integer<base_type>::type                i_t;
     typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
 
     BOOST_FORCEINLINE result_type

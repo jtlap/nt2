@@ -6,25 +6,35 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_COMMON_ISTRIANGULAR_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_COMMON_ISTRIANGULAR_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_COMMON_ISTRIL_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_COMMON_ISTRIL_HPP_INCLUDED
 
-#include <nt2/core/functions/istriangular.hpp>
-#include <nt2/include/functions/istriu.hpp>
-#include <nt2/include/functions/istril.hpp>
+#include <nt2/core/functions/istril.hpp>
+#include <nt2/include/functions/issquare.hpp>
+#include <nt2/include/functions/last_index.hpp>
+#include <nt2/include/functions/first_index.hpp>
+#include <nt2/include/functions/is_not_equal.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::istriangular_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::istril_, tag::cpu_
                               , (A0)
                               , (ast_<A0>)
                             )
   {
     typedef bool result_type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0) const
     {
-      return nt2::istriu(a0) || nt2::istril(a0);
+      for(std::ptrdiff_t j=first_index<2>(a0); j <= last_index<2>(a0) ; ++j)
+      {
+        for(std::ptrdiff_t i=1; i < j ; ++i)
+        {
+          if(a0(i, j)) return false;
+        }
+      }
+      return true;
     }
   };
 } }

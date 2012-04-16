@@ -9,9 +9,9 @@
 #ifndef NT2_SDK_OPTION_OPTIONS_HPP_INCLUDED
 #define NT2_SDK_OPTION_OPTIONS_HPP_INCLUDED
 
+#include <boost/mpl/assert.hpp>
 #include <nt2/sdk/option/option_pack.hpp>
 #include <nt2/sdk/option/option_expr.hpp>
-#include <nt2/sdk/error/static_assert.hpp>
 
 namespace nt2 { namespace details
 {
@@ -20,10 +20,10 @@ namespace nt2 { namespace details
     template<class Opts>
     Opts const& operator[](Opts const& opts) const
     {
-      NT2_STATIC_ASSERT ( (boost::proto::matches<Opts, option_pack>::value)
-                        , UNKNOWN_NAMED_OPTIONS
-                        , "Trying to retrieve unknown named option."
-                        );
+      BOOST_MPL_ASSERT_MSG( (boost::proto::matches<Opts, option_pack>::value)
+                          , NT2_UNKNOWN_NAMED_OPTIONS
+                          , (Opts)
+                          );
       return opts;
     }
   };
@@ -41,7 +41,7 @@ namespace nt2
 struct NAME ## _ {};                                                \
 nt2::details::option_expr<                                          \
     boost::proto::terminal<nt2::details::option<NAME ## _> >::type  \
-> const NAME = {};                                                  \
+> const NAME = {}                                                   \
 /**/
 
 #endif
