@@ -25,8 +25,8 @@ namespace boost { namespace simd { namespace ext
                             , (ast_<A0>)
                             , identity
                             )
-    
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::terminal_,tag::cpu_
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::terminal_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )
@@ -54,12 +54,17 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& a0) const { return *a0.get(); }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dereference_, tag::cpu_, (A0)
-                            , ((expr_< unspecified_<A0>, boost::simd::tag::dereference_, boost::mpl::long_<0> >))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::terminal_, tag::cpu_, (A0)(T0)
+                            , (mpl::not_< is_same<T0, boost::simd::tag::terminal_> >)
+                            , ((expr_< unspecified_<A0>, T0, boost::mpl::long_<0> >))
                             )
   {
-    typedef typename boost::proto::result_of::value<A0&>::value_type::element_type& result_type;
-    BOOST_FORCEINLINE result_type operator()(A0& a0) const { return *boost::proto::value(a0).get(); }
+    typedef typename dispatch::meta::
+            call<T0(typename boost::proto::result_of::value<A0&>::type)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
+    {
+      return dispatch::functor<T0>(boost::proto::value(a0));
+    }
   };
 } } }
 

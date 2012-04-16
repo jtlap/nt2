@@ -38,7 +38,7 @@ namespace nt2 { namespace container { namespace ext
   struct generator<Tag, Domain, 0, Expr>
   {
     typedef expression< typename boost::remove_const<Expr>::type
-                      , typename meta::call<typename Expr::proto_tag(typename boost::proto::result_of::value<Expr>::type)>::type
+                      , typename meta::call<Tag(typename boost::proto::result_of::value<Expr>::type)>::type
                       > result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
