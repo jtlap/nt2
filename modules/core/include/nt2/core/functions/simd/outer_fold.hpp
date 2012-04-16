@@ -10,9 +10,9 @@
 #define NT2_CORE_FUNCTIONS_SIMD_OUTER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/outer_fold.hpp>
-#include <boost/fusion/include/pop_front.hpp>
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/sdk/config/cache.hpp>
+#include <iostream>
 
 #ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
-      //      std::cout <<"simd\n";
+      std::cout <<"simd\n";
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
       std::size_t ibound = ext[ext.size()-1]; 
@@ -57,54 +57,49 @@ namespace nt2 { namespace ext
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
       std::size_t bound  =  ((numel)/cache_bound) * cache_bound;
-      std::size_t new_dim = 1;
 
       if(numel >= cache_bound){
         for(std::size_t j = 0; j < bound; j+=cache_bound){
           //Initialise 
           for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N){              
-            nt2::run(out, boost::fusion::vector_tie(id,new_dim), neutral(nt2::meta::as_<target_type>()));
+            nt2::run(out, id, neutral(nt2::meta::as_<target_type>()));
           }
-          
-          
-          for(std::size_t i = 0; i < ibound; ++i){
+
+          for(std::size_t i = 0, l = 0; i < ibound; ++i, l+=obound ){
             for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N){
-              nt2::run(out, boost::fusion::vector_tie(id,new_dim),
-                       bop(nt2::run(out, boost::fusion::vector_tie(id,new_dim), meta::as_<target_type>())
-                           ,nt2::run(in, boost::fusion::vector_tie(id,i), meta::as_<target_type>())));
-              //              std::cout<<out(id,1)<<", "<<out(id+1,1)<<", "<<out(id+2,1)<<", "<<out(id+3,1)<<"\n";
+              nt2::run(out, id,
+                       bop(nt2::run(out, id, meta::as_<target_type>())
+                           ,nt2::run(in, id+l, meta::as_<target_type>())));
             }
           }
         }
         
         // scalar part
         for(std::size_t j = bound; j < obound; ++j){ 
-          nt2::run(out, boost::fusion::vector_tie(j,new_dim), neutral(nt2::meta::as_<value_type>()));
-          for(std::size_t i=0; i < ibound; ++i){
-            nt2::run(out, boost::fusion::vector_tie(j,new_dim),
-                     bop(  nt2::run(out, boost::fusion::vector_tie(j,new_dim), meta::as_<value_type>())
-                           , nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>())));
+          nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
+          for(std::size_t i = 0, k = 0; i < ibound; ++i, k+=obound){
+            nt2::run(out, j,
+                     bop(  nt2::run(out, j, meta::as_<value_type>())
+                           , nt2::run(in, j+k, meta::as_<value_type>())));
           }
         }
       }
       
       else {
         for(std::size_t j = 0; j < obound; ++j){ 
-          nt2::run(out, boost::fusion::vector_tie(j,new_dim), neutral(nt2::meta::as_<value_type>()));
-          for(std::size_t i = 0; i < ibound; ++i){
-            nt2::run(out, boost::fusion::vector_tie(j,new_dim),
-                     bop(nt2::run(out, boost::fusion::vector_tie(j,new_dim),meta::as_<value_type>())
-                         , nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>())));
-            //            std::cout<<out(j,1)<<", ";
+          nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
+          for(std::size_t i = 0, k = 0; i < ibound; ++i, k+=obound){
+            nt2::run(out, j,
+                     bop(nt2::run(out, j,meta::as_<value_type>())
+                         , nt2::run(in, j+k, meta::as_<value_type>())));
           }
-          //          std::cout<<"\n";
         }
       }
 
     }
   };
 
-} }
+  } }
 
 #endif
 #endif

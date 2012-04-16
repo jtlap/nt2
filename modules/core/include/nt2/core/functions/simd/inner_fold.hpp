@@ -11,7 +11,6 @@
 
 #include <nt2/core/functions/inner_fold.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/toolbox/swar/include/functions/splatted_sum.hpp>
 
 #ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
@@ -43,32 +42,30 @@ namespace nt2 { namespace ext
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t ibound = (boost::fusion::at_c<0>(ext)/N) * N;
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
-      std::size_t new_dim = 1;
       target_type vec_out ;
 
 
-        for(std::size_t j = 0; j < obound; ++j)
-          {
-            nt2::run(out, boost::fusion::vector_tie(new_dim,j), neutral(nt2::meta::as_<value_type>()));
-            vec_out = neutral(nt2::meta::as_<target_type>());
+      for(std::size_t j = 0, k = 0; j < obound; ++j, k+=bound)
+      {
+        nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
+        vec_out = neutral(nt2::meta::as_<target_type>());
 
-            for(std::size_t i = 0; i < ibound; i+=N)
-              vec_out = bop(vec_out,nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<target_type>()));
-
-            nt2::run(out, boost::fusion::vector_tie(new_dim,j), uop(vec_out));
-
-            for(std::size_t i = ibound; i < bound; ++i)
-              nt2::run(out, boost::fusion::vector_tie(new_dim,j)
-                       , bop(nt2::run(out, boost::fusion::vector_tie(new_dim,j),meta::as_<value_type>())
-                             , nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<value_type>())));
-          }
-
+        for(std::size_t i = 0; i < ibound; i+=N)
+          vec_out = bop(vec_out,nt2::run(in, i+k, meta::as_<target_type>()));
+        
+        nt2::run(out, j, uop(vec_out));
+        
+        for(std::size_t i = ibound; i < bound; ++i)
+          nt2::run(out, j
+                   , bop(nt2::run(out, j, meta::as_<value_type>())
+                         , nt2::run(in, i+k, meta::as_<value_type>())));
+        
+      }
     }
-    
 
   };
 
-} }
+  } }
 
 #endif
 #endif

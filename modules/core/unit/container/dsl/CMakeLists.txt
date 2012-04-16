@@ -8,8 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
-#     box.cpp
-#     generator.cpp
+     box.cpp
+     generator.cpp
      run.cpp
      optimize.cpp
      schedule.cpp

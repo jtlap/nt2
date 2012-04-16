@@ -39,14 +39,13 @@ namespace nt2 { namespace ext
       extent_type ext = in.extent();
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
       std::size_t obound =  nt2::numel(boost::fusion::pop_front(ext));
-      std::size_t new_dim = 1;
 
-      for(std::size_t j = 0; j < obound; ++j){
-        nt2::run(out, boost::fusion::vector_tie(new_dim,j), neutral(nt2::meta::as_<value_type>()));
+      for(std::size_t j = 0, k = 0; j < obound; ++j, k+=ibound){
+        nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
         for(std::size_t i = 0; i < ibound; ++i){
-          nt2::run(out, boost::fusion::vector_tie(new_dim,j)
-                   ,bop(nt2::run(out, boost::fusion::vector_tie(new_dim,j),meta::as_<value_type>())
-                        , nt2::run(in, boost::fusion::vector_tie(i,j), meta::as_<value_type>())));
+          nt2::run(out, j
+                   ,bop(nt2::run(out, j,meta::as_<value_type>())
+                        , nt2::run(in, i+k, meta::as_<value_type>())));
         }
       }
 

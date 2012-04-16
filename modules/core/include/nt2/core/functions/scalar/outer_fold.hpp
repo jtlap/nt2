@@ -10,9 +10,9 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_OUTER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/outer_fold.hpp>
-#include <boost/fusion/include/pop_front.hpp>
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/include/functions/numel.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -37,6 +37,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
+      std::cout << "scalar outer_fold\n";
       extent_type ext = in.extent();
       std::size_t ibound  = ext[ext.size()-1];
 
@@ -45,21 +46,19 @@ namespace nt2 { namespace ext
         numel*=ext[m];
 
       std::size_t obound = numel;//nt2::numel(boost::fusion::pop_back(ext));
-      std::size_t new_dim = 1;
 
       for(std::size_t j = 0; j < obound; ++j){
 
-        nt2::run(out, boost::fusion::vector_tie(j,new_dim), neutral(nt2::meta::as_<value_type>()));
+        nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
 
-        for(std::size_t i = 0; i < ibound; ++i){
-          nt2::run(out, boost::fusion::vector_tie(j,new_dim)
-                   , bop(nt2::run(out, boost::fusion::vector_tie(j,new_dim),meta::as_<value_type>())
-                         , nt2::run(in, boost::fusion::vector_tie(j,i), meta::as_<value_type>())));
-
+        for(std::size_t i = 0, k=0; i < ibound; ++i, k+=obound){
+          nt2::run(out, j
+                   , bop(nt2::run(out, j,meta::as_<value_type>())
+                         , nt2::run(in, j+k, meta::as_<value_type>())));
         }
       }
-
     }
+
   };
 
 } }
