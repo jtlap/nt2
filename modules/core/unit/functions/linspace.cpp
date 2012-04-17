@@ -20,7 +20,13 @@ NT2_TEST_CASE_TPL( linspace, (double)(float) )
 {
   typedef T r_t;
   double ulpd;
-
+  {
+    nt2::table<T> xd = nt2::linspace(T(0),T(1), 1);
+    
+    NT2_TEST( xd.extent() == nt2::of_size(1,1) );
+    
+    NT2_TEST_ULP_EQUAL( xd(1), T(1), 0.5 );
+  }
   nt2::table<T> xd = nt2::linspace(T(0),T(1));
 
   NT2_TEST( xd.extent() == nt2::of_size(1,100) );

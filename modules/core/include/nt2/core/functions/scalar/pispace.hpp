@@ -17,7 +17,7 @@
 #include <nt2/core/functions/pispace.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/constants/Log10_pi.hpp>
+#include <nt2/include/constants/log10_pi.hpp>
 
 //==============================================================================
 // pispace actual functor forward declaration

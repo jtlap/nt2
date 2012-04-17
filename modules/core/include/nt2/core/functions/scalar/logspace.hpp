@@ -12,6 +12,8 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/exp10.hpp>
+#include <nt2/include/constants/log10_pi.hpp>
+#include <nt2/include/constants/pi.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/logspace.hpp>
@@ -42,7 +44,39 @@ namespace nt2 { namespace ext
                                           , meta::as_<A0>
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& l, A0 const& u) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& l, A0 const & uu) const
+    {
+      A0 u = (uu ==  nt2::Pi<A0>()) ? nt2::Log10_pi<A0>() : uu; //This is matlab!
+      return  boost::proto::
+              make_expr < nt2::tag::logspace_
+                        , container::domain
+                        > ( boxify(of_size_<1,50>())
+                          , boxify(nt2::details::logspace<A0>(l,u,50))
+                          , meta::as_<A0>()
+                          );
+    }
+  };
+  
+  //============================================================================
+  // Generates logspace from a pair of [low,up]
+  // without the matlab special pi case
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
+                              , (A0)(A2)
+                            , (scalar_< floating_<A0> >)
+                              (scalar_< floating_<A0> >)
+                              ((target_ < unspecified_ < A2> >)) 
+                            )
+  {
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::logspace_
+                                          , container::domain
+                                          , box< of_size_<1,50> >
+                                          , box< nt2::details::logspace<A0> >
+                                          , meta::as_<A0>
+                                          >::type             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& l, A0 const & u, A2 const &) const
     {
       return  boost::proto::
               make_expr < nt2::tag::logspace_
@@ -73,8 +107,9 @@ namespace nt2 { namespace ext
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& l, A0 const& u, A1 const& n) const
+    operator()(A0 const& l, A0 const& uu, A1 const& n) const
     {
+      A0 u = (uu ==  nt2::Pi<A0>()) ? nt2::Log10_pi<A0>() : uu; //This is matlab!
       return  boost::proto::
               make_expr < nt2::tag::logspace_
                         , container::domain
@@ -88,6 +123,39 @@ namespace nt2 { namespace ext
                           );
     }
   };
+
+  //============================================================================
+  // Generates logspace from a pair of [low,up]
+  // without the matlab special pi case
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::logspace_, tag::cpu_
+                              , (A0)(A1)(A2)
+                            , (scalar_< floating_<A0> >)
+                              (scalar_< floating_<A0> >)
+                              (scalar_< integer_ <A1> >)
+                              ((target_ < unspecified_ < A2> >)) 
+                            )
+  {
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::logspace_
+                                          , container::domain
+                                          , box<_2D >
+                                          , box< nt2::details::logspace<A0> >
+                                          , meta::as_<A0>
+                                          >::type             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& l, A0 const & u,  A1 const &n, A2 const &) const
+    {
+      return  boost::proto::
+              make_expr < nt2::tag::logspace_
+                        , container::domain
+                        > ( boxify(of_size(1,n))
+                          , boxify(nt2::details::logspace<A0>(l,u,n))
+                          , meta::as_<A0>()
+                          );
+    }
+  };
+  
 } }
 
 namespace nt2 { namespace details
@@ -99,7 +167,7 @@ namespace nt2 { namespace details
   {
     logspace() {}
     logspace( T const& l, T const& u, std::size_t n )
-            : lower_(l), step_((u-l)/(n-1)) {}
+      : lower_(n != 1?l:u), step_(n != 1?(u-l)/(n-1):0) { }
 
     template<class Pos, class Size, class Target>
     typename Target::type
