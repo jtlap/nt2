@@ -53,6 +53,8 @@ SET( SOURCES
   rowvect.cpp
   fliplr.cpp
   width.cpp
+  logspace.cpp
+  pispace.cpp
 # List of test files for toolbox core.settings
    )
 
