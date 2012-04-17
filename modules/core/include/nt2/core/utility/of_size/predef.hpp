@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_UTILITY_OF_SIZE_PREDEF_HPP_INCLUDED
 #define NT2_CORE_UTILITY_OF_SIZE_PREDEF_HPP_INCLUDED
 
-#include <nt2/core/utility/of_size/of_size.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
