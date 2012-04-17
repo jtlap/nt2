@@ -12,16 +12,18 @@
 #include <nt2/core/functions/partial_fold.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/numel.hpp>
+#include <nt2/sdk/details/type_id.hpp>
+
 
 namespace nt2 { namespace ext
 {
   //============================================================================
   // Generates partial_fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::partial_fold_, tag::cpu_, (A0)(S0)(A1)(A2)(A3)(A4)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::partial_fold_, tag::cpu_, (A0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::terminal_
-                                     , boost::mpl::long_<0>
+                                     , T0
+                                     , N0
                                      >
                               ))
                               (ast_< A1>)
@@ -37,21 +39,27 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
-      std::size_t ibound  = boost::fusion::at_c<0>(ext);
-      std::size_t obound =  nt2::numel(boost::fusion::pop_front(ext));
 
-      for(std::size_t j = 0, k = 0; j < obound; ++j, k+=ibound){
-        nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
+      std::size_t ibound  = boost::fusion::at_c<0>(ext);
+      std::size_t mbound =  boost::fusion::at_c<1>(ext);
+      std::size_t obound =  boost::fusion::at_c<2>(ext);
+      std::size_t id;
+
+      for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
         for(std::size_t i = 0; i < ibound; ++i){
-          nt2::run(out, j
-                   ,bop(nt2::run(out, j,meta::as_<value_type>())
-                        , nt2::run(in, i+k, meta::as_<value_type>())));
+          id = i+o_;
+          nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
+          for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound){
+            nt2::run(out, id
+                     , bop(nt2::run(out, id,meta::as_<value_type>())
+                           ,nt2::run(in, id+m_,meta::as_<value_type>()))
+                     );
+          }
         }
       }
-
     }
 
-    };
+  };
     
   } }
 

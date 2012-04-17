@@ -12,6 +12,7 @@
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details

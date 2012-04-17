@@ -36,12 +36,12 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::                                          \
                       result_of::make_expr< nt2::tag::reshape_                \
                                           , container::domain                 \
-                                          , A0 const&                         \
+                                          , A0 &                              \
                                           , box<sizes_t>                      \
                                           >::type   result_type;              \
                                                                               \
     BOOST_FORCEINLINE result_type                                             \
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(BOOST_PP_INC(n),A,const& a)) const \
+    operator()(BOOST_PP_ENUM_BINARY_PARAMS(BOOST_PP_INC(n),A,& a)) const      \
     {                                                                         \
       sizes_t sizee(BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(n),a));         \
       BOOST_ASSERT_MSG                                                        \
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
       return  boost::proto::                                                  \
               make_expr < nt2::tag::reshape_                                  \
                         , container::domain                                   \
-                        > ( boost::cref(a0), boxify(sizee) );                 \
+        > ( boost::reference_wrapper<A0>(a0), boxify(sizee) ); \
     }                                                                         \
   };                                                                          \
   /**/

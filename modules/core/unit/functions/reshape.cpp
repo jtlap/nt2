@@ -116,15 +116,12 @@ NT2_TEST_CASE_TPL( reshape_expr, (float) )
   nt2::table<T, nt2::_3D> r3;
   nt2::table<T, nt2::_2D> r2;
   nt2::table<T, nt2::_2D> y( nt2::of_size(4,4) );
-  nt2::table<T, nt2::_2D> x( nt2::of_size(4,4) );
 
   for(int j=1;j<=4;j++)
-    for(int i=1;i<=4;i++){
+    for(int i=1;i<=4;i++)
       y(i,j) = T(i + 10*j);
-      x(i,j) = T(i + 10*j);
-    }
 
-  r4 = nt2::reshape(x+y, nt2::size( nt2::ones(2,2,2,2) ) );
+  r4 = nt2::reshape(y, nt2::size( nt2::ones(2,2,2,2) ) );
 
   NT2_TEST_EQUAL( nt2::ndims(r4)  , 4 );
   NT2_TEST_EQUAL( nt2::size(r4,1) , 2 );
@@ -135,10 +132,10 @@ NT2_TEST_CASE_TPL( reshape_expr, (float) )
   for(int l=1;l<=2;l++)
    for(int k=1;k<=2;k++)
     for(int j=1;j<=2;j++)
-      for(int i=1;i<=2;i++){
-        NT2_TEST_EQUAL( r4(i,j,k,l) , 2*(y(i+2*(j-1),k+2*(l-1))) );
-      }
-
+      for(int i=1;i<=2;i++)
+        NT2_TEST_EQUAL( r4(i,j,k,l) , y(i+2*(j-1),k+2*(l-1)) );
+      
+  
   r3 = nt2::reshape(y, nt2::size( nt2::ones(2,2,4) ) );
 
   NT2_TEST_EQUAL( nt2::ndims(r3)  , 3 );

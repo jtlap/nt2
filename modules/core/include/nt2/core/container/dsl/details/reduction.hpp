@@ -30,9 +30,9 @@ namespace nt2 { namespace container { namespace ext
   // } } }
   //
   //============================================================================
-  template<class RED, class Domain, int N, class Expr> struct reduction_size_of{};
+  template<class RED, int N, class Expr> struct reduction_size_of{};
 
-  template<class RED, class Domain, class Expr> struct reduction_size_of<RED,Domain,1,Expr>
+  template<class RED, class Expr> struct reduction_size_of<RED,1,Expr>
   {
     typedef typename boost::proto::result_of::child_c<Expr,0>::type     expr_t;
     typedef typename nt2::make_size<NT2_MAX_DIMENSIONS>::type           result_type;
@@ -47,7 +47,7 @@ namespace nt2 { namespace container { namespace ext
     }
   };
 
-  template<class RED, class Domain, class Expr> struct reduction_size_of<RED,Domain,2,Expr>
+  template<class RED, class Expr> struct reduction_size_of<RED,2,Expr>
   {
    typedef typename boost::proto::result_of::child_c<Expr,0>::type      expr_t;
     typedef typename nt2::make_size<NT2_MAX_DIMENSIONS>::type           result_type;
@@ -74,13 +74,13 @@ namespace nt2 { namespace container { namespace ext
   // } } }
   //
   //============================================================================
-  template<class RED, class Domain, int N, class Expr> struct reduction_generator
+  template<class RED, int N, class Expr> struct reduction_generator
   {
     typedef typename boost::proto::result_of::child_c<Expr,0>::type               expr_t;
     typedef typename boost::dispatch::meta::semantic_of<expr_t>::type             sema_t;
 
     typedef typename boost::proto::tag_of<Expr>::type                             tag_type;
-    typedef typename size_of<RED,Domain,N,Expr>::result_type                      size_type;
+    typedef typename reduction_size_of<RED,N,Expr>::result_type                   size_type;
     typedef typename nt2::memory::container<  typename sema_t::value_type
                                              , size_type >                        type;
 

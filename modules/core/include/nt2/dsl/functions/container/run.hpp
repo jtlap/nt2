@@ -17,7 +17,7 @@
 #include <nt2/include/functions/inner_fold.hpp>
 #include <nt2/include/functions/outer_fold.hpp>
 #include <nt2/include/functions/partial_fold.hpp>
-//#include <nt2/include/functions/reshape.hpp>
+#include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/core/container/table/table.hpp>
@@ -77,14 +77,12 @@ namespace nt2 { namespace ext
       
 
       if(red > ext.size()){
-        //        std::cout << "red>dim no reduction\n";
         return a0;
       }
 
 
       if(dim == 1 || ext.size() == 1)
       {
-        //        std::cout << "global reduction\n";
         nt2::run( a0, 0u
                   , nt2::fold( input
                                , typename nt2::make_functor<Neutral1, A0>::type()
@@ -105,7 +103,6 @@ namespace nt2 { namespace ext
       }
       else if(red == ext.size())
       {
-        //        std::cout << "out reduction\n";
         nt2::outer_fold( a0
                        , input
                        , typename nt2::make_functor<Neutral1, A0>::type()
@@ -115,27 +112,27 @@ namespace nt2 { namespace ext
       }
       else
       {
-        std::cout << "Partial reduction\n";
         std::size_t lo = std::accumulate( ext.begin()
-                                        , ext.begin()+red-1
-                                        , std::size_t(1)
-                                        , std::multiplies<std::size_t>()
-                                        );
-
+                                          , ext.begin()+red-1
+                                          , std::size_t(1)
+                                          , std::multiplies<std::size_t>()
+                                          );
+        
         std::size_t hi = std::accumulate( ext.begin()+red
-                                        , ext.begin()+dim
-                                        , std::size_t(1)
-                                        , std::multiplies<std::size_t>()
-                                        );
-        std::cout << "lo = " << lo << " hi = " << hi << "\n";
-#if 0
-        nt2::partial_fold( reshape(a0, of_size(lo, hi))
-                         , reshape(input, of_size(lo, ext[red-1], hi))
-                         , typename nt2::make_functor<Neutral1, A0>::type()
-                         , typename nt2::make_functor<O1, A0>::type()
-                         , typename nt2::make_functor<T1, A0>::type()  
-                         );
-#endif
+                                          , ext.begin()+dim
+                                          , std::size_t(1)
+                                          , std::multiplies<std::size_t>()
+                                          );
+        // std::cout << "lo = " << lo << " hi = " << hi << "\n";
+        // std::cout << "lo = " << lo << " ext = " << ext[red-1] <<" hi = " << hi << "\n";
+
+        nt2::partial_fold(   reshape(a0, of_size(lo,hi))
+                           , reshape(input, of_size(lo, ext[red-1], hi))
+                           , typename nt2::make_functor<Neutral1, A0>::type()
+                           , typename nt2::make_functor<O1, A0>::type()
+                           , typename nt2::make_functor<T1, A0>::type()  
+                           );
+
       }
 
       return a0;

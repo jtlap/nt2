@@ -80,16 +80,16 @@ namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, class Expr>
   struct size_of<boost::simd::tag::sum_,Domain,1,Expr> 
-    : reduction_size_of<boost::simd::tag::sum_, Domain, 1, Expr>{};
+    : reduction_size_of<boost::simd::tag::sum_, 1, Expr>{};
 
   template<class Domain, class Expr>
   struct size_of<boost::simd::tag::sum_,Domain,2,Expr> 
-    : reduction_size_of<boost::simd::tag::sum_, Domain, 2, Expr>{};
+    : reduction_size_of<boost::simd::tag::sum_, 2, Expr>{};
 
 
   template<class Domain, int N, class Expr>
   struct generator<boost::simd::tag::sum_,Domain,N,Expr> 
-    : reduction_generator<boost::simd::tag::sum_,Domain,N,Expr> {};
+    : reduction_generator<boost::simd::tag::sum_,N,Expr> {};
 } } }
 
 #endif

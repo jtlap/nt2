@@ -166,10 +166,10 @@ NT2_TEST_CASE( reduction_value )
   using nt2::_;
 
 
-  std::size_t M = 4;
+  std::size_t M = 5;
   std::size_t N = 4;
-  std::size_t O = 1;
-  std::size_t P = 1;
+  std::size_t O = 3;
+  std::size_t P = 2;
 
   table<T,nt2::_1D> a00(of_size(M));
   table<T>          a01(of_size(M));
@@ -186,21 +186,15 @@ NT2_TEST_CASE( reduction_value )
         for(std::size_t i = 1; i <= M; ++i){
           a2_4(i,j,k,l) = T(1);
           b2_4(i,j,k,l) = T(1);
-          //a2_4(i,j,k,l) = T(i*j);
-          //          std::cout<<a2_4(i,j,k,l)<< ", ";
           a2_3(i,j,k) = T(1);
           a2_2(i,j) = T(1);
           a00(i) = T(1);
           a01(i) = T(1);
         }
-        //std::cout<<"\n";
       }
-      //std::cout<<"\n";
     }
-    //std::cout<<"\n";
   }
   
-  //  std::cout << "["<<M<<", "<<N<<", "<<O<<", "<<P<<"]\n";
   a1 = sum(a2_4,1);
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
@@ -209,6 +203,8 @@ NT2_TEST_CASE( reduction_value )
       }
     }
   }
+
+
 
   a1 = sum(a2_4 + b2_4,1);
   for(std::size_t l = 1; l <= P; ++l){
@@ -219,7 +215,6 @@ NT2_TEST_CASE( reduction_value )
     }
   }
 
-  //  std::cout << "["<<M<<", "<<N<<", "<<O<<", 1]\n";
   a1 = sum(a2_3,1);
   for(std::size_t k = 1; k <= O; ++k){
     for(std::size_t j = 1; j <= N; ++j){
@@ -227,7 +222,6 @@ NT2_TEST_CASE( reduction_value )
     }
   }
 
-  //  std::cout << "["<<M<<", "<<N<<", 1, 1]\n";
   a1 = sum(a2_2,1);
   for(std::size_t j = 1; j <= N; ++j){
     NT2_TEST_EQUAL(T(a1(1,j)),T(M)) ;
@@ -237,25 +231,21 @@ NT2_TEST_CASE( reduction_value )
   a1 = sum(a00);
   NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
 
-  // // a1 = sum(a01);
-  // // NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
+  // a1 = sum(a2_4(nt2::_));
+  // NT2_TEST_EQUAL(T(a1(1)),T(nt2::numel(a2_4))) ;
+
+  a1 = sum(a01);
+  NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
   
-  //  std::cout << "["<<M<<", "<<N<<", "<<O<<", "<< P <<"]\n";
   a1 = sum(a2_4,4);
   for(std::size_t k = 1; k <= O; ++k){
     for(std::size_t j = 1; j <= N; ++j){
       for(std::size_t i = 1; i <= M; ++i){
-        //std::cout<<a1(i,j,k,1)<< ", ";
         NT2_TEST_EQUAL(T(a1(i,j,k,1)),T(P)) ;
       }
-      //      std::cout<<"\n";
     }
-    //    std::cout<<"\n";
   }
-  //  std::cout<<"\n";
 
-  // std::cout << "["<<M<<", "<<N<<", "<<O<<"]\n";
-  // std::cout << "3\n";
   a1 = sum(a2_3,3);
   for(std::size_t j = 1; j <= N; ++j){
     for(std::size_t i = 1; i <= M; ++i){
@@ -263,16 +253,38 @@ NT2_TEST_CASE( reduction_value )
     }
   }
 
-  //  std::cout << "2\n";
   a1 = sum(a2_2,2);
   for(std::size_t i = 1; i <= M; ++i){
     NT2_TEST_EQUAL(T(a1(i,1)),T(N)) ;
   }
 
 
-  //  a1 = sum(a2_4,3);
+  a1 = sum(a2_4,3);
+  for(std::size_t l = 1; l <= P; ++l){
+    for(std::size_t j = 1; j <= N; ++j){
+      for(std::size_t i = 1; i <= M; ++i){
+        NT2_TEST_EQUAL(T(a1(i,j,1,l)),T(O)) ;
+      }
+    }
+  }
 
 
+  a1 = sum(a2_4,2);
+  for(std::size_t l = 1; l <= P; ++l){
+    for(std::size_t k = 1; k <= O; ++k){
+      for(std::size_t i = 1; i <= M; ++i){
+        NT2_TEST_EQUAL(T(a1(i,1,k,l)),T(N)) ;
+      }
+    }
+  }
 
+  a1 = sum(a2_3,2);
+  for(std::size_t k = 1; k <= O; ++k){
+    for(std::size_t i = 1; i <= M; ++i){
+      NT2_TEST_EQUAL(T(a1(i,1,k)),T(N)) ;
+    }
+  }
+  
+  
 
 }
