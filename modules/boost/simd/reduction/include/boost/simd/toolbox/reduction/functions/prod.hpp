@@ -14,6 +14,7 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <boost/simd/toolbox/operator/functions/multiplies.hpp>
 #include <boost/simd/toolbox/constant/constants/one.hpp>
 /*!
@@ -77,16 +78,16 @@ namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, class Expr>
   struct size_of<boost::simd::tag::prod_,Domain,1,Expr> 
-    : reduction_size_of<boost::simd::tag::prod_, Domain, 1, Expr>{};
+    : reduction_size_of<boost::simd::tag::prod_, 1, Expr>{};
 
   template<class Domain, class Expr>
   struct size_of<boost::simd::tag::prod_,Domain,2,Expr> 
-    : reduction_size_of<boost::simd::tag::prod_, Domain, 2, Expr>{};
+    : reduction_size_of<boost::simd::tag::prod_, 2, Expr>{};
 
 
   template<class Domain, class Expr, int N>
   struct generator<boost::simd::tag::prod_,Domain,N,Expr> 
-    : reduction_generator<boost::simd::tag::prod_,Domain,N,Expr> {};
+    : reduction_generator<boost::simd::tag::prod_,N,Expr> {};
 } } }
 
 #endif

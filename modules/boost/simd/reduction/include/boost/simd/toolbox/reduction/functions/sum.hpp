@@ -13,10 +13,11 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/plus.hpp>
+#include <boost/simd/toolbox/operator/functions/plus.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
