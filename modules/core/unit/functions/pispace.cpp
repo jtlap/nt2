@@ -13,7 +13,7 @@
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/pispace.hpp>
 #include <nt2/include/functions/exp10.hpp>
-#include <nt2/include/constants/Log10_pi.hpp>
+#include <nt2/include/constants/log10_pi.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
