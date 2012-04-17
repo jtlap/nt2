@@ -36,6 +36,6 @@ namespace nt2
   }
 }
 
-#include <nt2/core/utility/of_size/of_size.hpp>
+#include <nt2/core/utility/of_size.hpp>
 
 #endif

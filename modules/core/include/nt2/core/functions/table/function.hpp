@@ -13,7 +13,7 @@
 #include <nt2/core/functions/table/details/function/size.hpp>
 #include <nt2/core/functions/table/details/function/value_type.hpp>
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/core/utility/of_size/of_size.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <nt2/include/functions/relative_index.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
