@@ -9,11 +9,12 @@
 #ifndef NT2_CORE_CONTAINER_DSL_DETAILS_REDUCTION_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_DETAILS_REDUCTION_HPP_INCLUDED
 
-#include <boost/proto/core.hpp>
-#include <boost/proto/traits.hpp>
-#include <boost/proto/transform.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/sdk/memory/container.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/core/utility/of_size/predef.hpp>
-#include <nt2/sdk/meta/add_settings.hpp>
+#include <boost/proto/traits.hpp>
+#include <boost/type_traits/remove_const.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
