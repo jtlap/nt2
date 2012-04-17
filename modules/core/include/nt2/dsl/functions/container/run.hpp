@@ -23,7 +23,6 @@
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <numeric>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -67,15 +66,8 @@ namespace nt2 { namespace ext
 
       input_type input = boost::proto::child_c<0>(a1);
       extent_type ext = input.extent();
-      std::size_t dim = nt2::ndims(input);
+      std::size_t dim = nt2::ndims(ext);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
-
-      // if table is not flagged nt2::_1D, dim returns by ndims is forced to 1 when size is like [x 1 1 1]
-      if(dim == 2 && ext.size() != 1)
-      {
-        dim = (ext[1] == 1)? 1:2;
-      }
-      
 
       if(red > ext.size()){
         return a0;
@@ -124,8 +116,6 @@ namespace nt2 { namespace ext
                                           , std::size_t(1)
                                           , std::multiplies<std::size_t>()
                                           );
-        // std::cout << "lo = " << lo << " hi = " << hi << "\n";
-        // std::cout << "lo = " << lo << " ext = " << ext[red-1] <<" hi = " << hi << "\n";
 
         nt2::partial_fold(   reshape(a0, of_size(lo,hi))
                            , reshape(input, of_size(lo, ext[red-1], hi))
