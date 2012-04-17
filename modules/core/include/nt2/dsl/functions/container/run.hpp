@@ -11,6 +11,7 @@
 
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/transform.hpp>
 #include <nt2/include/functions/fold.hpp>
