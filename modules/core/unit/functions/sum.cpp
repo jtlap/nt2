@@ -157,13 +157,10 @@ NT2_TEST_CASE( sum )
   }
 
   w = sum(x+y,1) + z;
-  
-  nt2::display_type(sum(x+y,1)+z);
-
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
-      for(std::size_t i = 1; i <= M; ++i){
-        NT2_TEST_EQUAL(T(w(i,1,k,l)),T(3)*T(M)) ;
+      for(std::size_t j = 1; j <= N; ++j){
+        NT2_TEST_EQUAL(T(w(1,j,k,l)),T(2)*T(M)+T(1)) ;
       }
     }
   }
