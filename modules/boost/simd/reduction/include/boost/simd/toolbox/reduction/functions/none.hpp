@@ -13,7 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_NONE_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-
+#include <nt2/include/functions/logical_notand.hpp>
+#include <boost/simd/toolbox/constant/constants/true.hpp>
 /*!
  * \ingroup boost_simd_reduction
  * \defgroup boost_simd_reduction_none none
@@ -62,10 +63,15 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag none_ of functor none 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct none_ : ext::reduction_<none_> { typedef ext::reduction_<none_> parent; };
+    struct none_ : ext::reduction_<none_, tag::logical_notand_, tag::True> 
+    { 
+      typedef ext::reduction_<none_, tag::logical_notand_, tag::True> parent; 
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 2)
 } }
+
 
 #endif
 

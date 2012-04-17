@@ -19,24 +19,19 @@
 namespace nt2
 {
   namespace tag { struct fold_ : ext::unspecified_<fold_> { typedef ext::unspecified_<fold_> parent; }; }
-
   //============================================================================
   /*!
-   * Folds elements of \c a1 along dimension \c a3, possibly in parallel, and store
-   * the result in \c a0.
+   * Folds elements of \c a1, possibly in parallel, and returns the result.
    *
-   * \param a0 Expression to store result in
-   * \param a1 Expression to reduce
-   * \param a2 Value to initialize with
-   * \param a3 Function to apply for reduction (binary + unary if SIMD is used)
-   * \param a5 Dimension to reduce on
+   * \param a0 Expression to reduce
+   * \param a1 Functor to initialize with
+   * \param a2 Function to apply for reduction (binary + unary if SIMD is used)
    * \return nothing
    */
   //============================================================================
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0 const&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0 const&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0 const&)(A1 const&)(A2 const&)(A3 const&), 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fold_, fold, (A0&)(A1 const&)(A2 const&)(A3 const&), 4)
+
 }
 
 #endif

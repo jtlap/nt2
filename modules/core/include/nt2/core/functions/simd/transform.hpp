@@ -18,6 +18,7 @@
 #include <boost/fusion/include/vector_tie.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 
+#ifndef BOOST_SIMD_NO_SIMD
 namespace nt2 { namespace ext
 {
   // nD element-wise operation
@@ -54,21 +55,19 @@ namespace nt2 { namespace ext
       std::size_t  it = 0;
 
       for(std::size_t j=0; j < outer_sz; ++j)
-      {
-        for(std::size_t i=0; i < in_sz_bnd; i+=N, it+=N)
-          nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
+        {
+          for(std::size_t i=0; i < in_sz_bnd; i+=N, it+=N)
+            nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
-        for(std::size_t i=in_sz_bnd; i < in_sz; ++i, ++it)
-          nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
-      }
+          for(std::size_t i=in_sz_bnd; i < in_sz; ++i, ++it)
+            nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
+        }
     }
   };
 
   // 1D element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::transform_, boost::simd::tag::simd_
-                            , (class A0)
-                              (class A1)(class Shape)(class StorageKind)
-                              (std::ptrdiff_t Sz)(class T1)(class N1)
+                            , (class A0)(class A1)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T1)(class N1)
                             , (ast_<A0>)
                               ((expr_< table_< unspecified_<A1>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind)>
                                      , T1
@@ -104,4 +103,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+#endif
 #endif

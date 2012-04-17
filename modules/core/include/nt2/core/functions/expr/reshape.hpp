@@ -15,6 +15,7 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/include/functions/length.hpp>
+#include <nt2/core/utility/of_size/predef.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -31,11 +32,11 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::reshape_
                                           , container::domain
-                                          , A0 const&
+                                          , A0 &
                                           , box<sizes_t>
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 & a0, A1 const& a1) const
     {
       BOOST_ASSERT_MSG
       ( nt2::numel(a0) == nt2::numel(a1)
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::reshape_
                         , container::domain
-                        > ( boost::cref(a0), boxify(a1) );
+                        > ( boost::reference_wrapper<A0>(a0), boxify(a1) );
     }
   };
 
@@ -61,7 +62,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::reshape_
                                           , container::domain
-                                          , A0 const&
+                                          , A0 &
                                           , box<of_size_max>
                                           >::type             result_type;
 
@@ -79,7 +80,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::reshape_
                         , container::domain
-                        > ( boost::cref(a0), boxify(sizee) );
+                        > ( boost::reference_wrapper<A0>(a0), boxify(sizee) );
     }
   };
 } }

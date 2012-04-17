@@ -13,6 +13,10 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <boost/simd/toolbox/constant/constants/zero.hpp>
+#include <nt2/sdk/memory/container.hpp>
+#include <nt2/core/container/dsl/details/reduction.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -62,10 +66,31 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag sum_ of functor sum 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct sum_ : ext::reduction_<sum_> { typedef ext::reduction_<sum_> parent; };
+    struct sum_ : ext::reduction_<sum_, tag::plus_, tag::Zero> 
+    { 
+      typedef ext::reduction_<sum_, tag::plus_, tag::Zero> parent; 
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sum_, sum, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sum_, sum, 2)
+
 } }
+
+namespace nt2 { namespace container { namespace ext
+{
+  template<class Domain, class Expr>
+  struct size_of<boost::simd::tag::sum_,Domain,1,Expr> 
+    : reduction_size_of<boost::simd::tag::sum_, 1, Expr>{};
+
+  template<class Domain, class Expr>
+  struct size_of<boost::simd::tag::sum_,Domain,2,Expr> 
+    : reduction_size_of<boost::simd::tag::sum_, 2, Expr>{};
+
+
+  template<class Domain, int N, class Expr>
+  struct generator<boost::simd::tag::sum_,Domain,N,Expr> 
+    : reduction_generator<boost::simd::tag::sum_,N,Expr> {};
+} } }
 
 #endif
 

@@ -104,7 +104,6 @@ macro(nt2_doc_qbk file)
   # We always build Quickbook files because we cannot reliably identify dependencies
   set(target_name target_${relative})
   string(REPLACE "/" "_" target_name ${target_name})
-
   add_custom_target(${target_name}
                     COMMAND ${CMAKE_COMMAND} -E copy_if_different
                             ${absolute} ${CMAKE_BINARY_DIR}/${relative}
