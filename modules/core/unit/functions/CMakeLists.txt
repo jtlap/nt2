@@ -55,6 +55,7 @@ SET( SOURCES
   width.cpp
   logspace.cpp
   pispace.cpp
+  freqspace1.cpp
 # List of test files for toolbox core.settings
    )
 
