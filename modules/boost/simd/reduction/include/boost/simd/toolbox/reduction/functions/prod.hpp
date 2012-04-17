@@ -13,7 +13,9 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_PROD_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-
+#include <nt2/core/container/dsl/details/reduction.hpp>
+#include <boost/simd/toolbox/operator/functions/multiplies.hpp>
+#include <boost/simd/toolbox/constant/constants/one.hpp>
 /*!
  * \ingroup boost_simd_reduction
  * \defgroup boost_simd_reduction_prod prod
@@ -62,10 +64,30 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag prod_ of functor prod 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct prod_ : ext::reduction_<prod_> { typedef ext::reduction_<prod_> parent; };
+    struct prod_ : ext::reduction_<prod_, tag::multiplies_, tag::One> 
+    { 
+      typedef ext::reduction_<prod_, tag::multiplies_, tag::One> parent; 
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prod_, prod, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prod_, prod, 2)
 } }
+
+namespace nt2 { namespace container { namespace ext
+{
+  template<class Domain, class Expr>
+  struct size_of<boost::simd::tag::prod_,Domain,1,Expr> 
+    : reduction_size_of<boost::simd::tag::prod_, Domain, 1, Expr>{};
+
+  template<class Domain, class Expr>
+  struct size_of<boost::simd::tag::prod_,Domain,2,Expr> 
+    : reduction_size_of<boost::simd::tag::prod_, Domain, 2, Expr>{};
+
+
+  template<class Domain, class Expr, int N>
+  struct generator<boost::simd::tag::prod_,Domain,N,Expr> 
+    : reduction_generator<boost::simd::tag::prod_,Domain,N,Expr> {};
+} } }
 
 #endif
 

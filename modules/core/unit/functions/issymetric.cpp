@@ -39,6 +39,7 @@ NT2_TEST_CASE( container_issymetric )
 NT2_TEST_CASE( table_issymetric )
 {
   nt2::table<float> a(nt2::of_size(3, 3));
+
   for(std::ptrdiff_t i=1; i <= 3; i++)
     for(std::ptrdiff_t j=1; j <= 3; j++)
       a(i, j) = i+j;
@@ -52,3 +53,4 @@ NT2_TEST_CASE( table_issymetric )
   b =  nt2::ones(3, 4, nt2::meta::as_<float>());
   NT2_TEST( !nt2::issymetric(b) );
 }
+
