@@ -11,10 +11,12 @@
 
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/fma.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/freqspace1.hpp>
-#include <nt2/core/functions/details/freqspace1.hpp>
+#include <nt2/core/functions/details/colon.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 
@@ -35,7 +37,7 @@ namespace nt2 { namespace ext
       result_of::make_expr< nt2::tag::freqspace1_
       , container::domain
       , box<_2D>
-      , box< nt2::details::freqspace1<value_type> >
+      , box< nt2::details::colon<value_type> >
       , T
       >::type             result_type;
     
@@ -44,8 +46,8 @@ namespace nt2 { namespace ext
       return  boost::proto::
         make_expr < nt2::tag::freqspace1_
         , container::domain
-        > ( boxify(of_size(1,n-1))
-            , boxify(nt2::details::freqspace1<value_type>(n))
+        > ( boxify(of_size(1,n/2+1))
+            , boxify(nt2::details::colon<value_type>(Zero<value_type>(), Two<value_type>()/n))
             , T()
             );
     }
@@ -63,7 +65,7 @@ namespace nt2 { namespace ext
       result_of::make_expr< nt2::tag::freqspace1_
       , container::domain
       , box<_2D>
-      , box< nt2::details::freqspace1<double> >
+      , box< nt2::details::colon<double> >
       , meta::as_<double > 
       >::type             result_type;
     
@@ -72,8 +74,8 @@ namespace nt2 { namespace ext
       return  boost::proto::
         make_expr < nt2::tag::freqspace1_
         , container::domain
-        > ( boxify(of_size(1,n-1))
-            , boxify(nt2::details::freqspace1<double>(n))
+        > ( boxify(of_size(1,n/2+1))
+            , boxify(nt2::details::colon<double>(0.0, 2.0/n))
             , meta::as_<double>()
             );
     }
@@ -95,7 +97,7 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::freqspace1_
                                           , container::domain
                                           , box< _2D >
-                                          , box< nt2::details::freqspace1<value_type> >
+                                          , box< nt2::details::colon<value_type> >
                                           , T
                                           >::type             result_type;
 
@@ -106,7 +108,7 @@ namespace nt2 { namespace ext
               make_expr < nt2::tag::freqspace1_
                         , container::domain
                         > ( boxify(of_size(1,n))
-                            , boxify(nt2::details::freqspace1<value_type>(n))
+                            , boxify(nt2::details::colon<value_type>(Zero<value_type>(), Two<value_type>()/n))
                             , T()
                           );
     }
@@ -125,7 +127,7 @@ namespace nt2 { namespace ext
       result_of::make_expr< nt2::tag::freqspace1_
       , container::domain
       , box< _2D >
-      , box< nt2::details::freqspace1<double> >
+      , box< nt2::details::colon<double> >
       , meta::as_<double>
       >::type             result_type;
     
@@ -136,7 +138,7 @@ namespace nt2 { namespace ext
         make_expr < nt2::tag::freqspace1_
         , container::domain
         > ( boxify(of_size(1,n))
-            , boxify(nt2::details::freqspace1<double>(n))
+            , boxify(nt2::details::colon<double>(0.0, 2.0/n))
             , meta::as_<double>()
             );
     }
