@@ -60,7 +60,6 @@ namespace nt2 { namespace container { namespace ext
     }
   };
 
-
   //============================================================================
   // This is the factorized generator for all reduction function.
   // For any given reduction function tag RED, the registration of their
@@ -78,10 +77,11 @@ namespace nt2 { namespace container { namespace ext
   {
     typedef typename boost::proto::result_of::child_c<Expr,0>::type               expr_t;
     typedef typename boost::dispatch::meta::semantic_of<expr_t>::type             sema_t;
+    typedef typename meta::strip<sema_t>::type                                    ssema_t;
 
     typedef typename boost::proto::tag_of<Expr>::type                             tag_type;
     typedef typename reduction_size_of<RED,N,Expr>::result_type                   size_type;
-    typedef typename nt2::memory::container<  typename sema_t::value_type
+    typedef typename nt2::memory::container<  typename ssema_t::value_type
                                              , size_type >                        type;
 
     typedef expression< typename boost::remove_const<Expr>::type
