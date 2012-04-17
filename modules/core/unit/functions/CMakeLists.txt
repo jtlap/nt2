@@ -58,6 +58,7 @@ SET( SOURCES
   freqspace1.cpp
   freqspace2.cpp  
   sum.cpp
+  sum2.cpp
 # List of test files for toolbox core.settings
    )
 
