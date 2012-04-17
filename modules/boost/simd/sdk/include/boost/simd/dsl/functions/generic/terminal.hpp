@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   // All terminals other than the actual terminal tag call the tag on the value
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::terminal_, tag::cpu_, (A0)(T0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::dereference_, tag::cpu_, (A0)(T0)
                             , (mpl::not_< is_same<T0, boost::simd::tag::terminal_> >)
                             , ((expr_< unspecified_<A0>, T0, boost::mpl::long_<0> >))
                             )
@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
             call<T0(typename boost::proto::result_of::value<A0&>::type)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
-      return dispatch::functor<T0>(boost::proto::value(a0));
+      return dispatch::functor<T0>()(boost::proto::value(a0));
     }
   };
 } } }

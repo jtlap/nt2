@@ -18,7 +18,7 @@
 
 namespace nt2
 {
-  namespace tag { struct inner_fold_ : ext::unspecified_<inner_fold_> { typedef ext::unspecified_<inner_fold_> parent; }; }
+  namespace tag { struct inner_fold_ : boost::dispatch::tag::formal_ { typedef boost::dispatch::tag::formal_ parent; }; }
 
   //============================================================================
   /*!

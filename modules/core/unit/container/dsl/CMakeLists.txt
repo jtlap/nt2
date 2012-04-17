@@ -14,5 +14,5 @@ SET( SOURCES
 #     optimize.cpp
 #     schedule.cpp
    )
-set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
+#set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
 nt2_module_add_tests(core.container.dsl.unit ${SOURCES})

@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 container runner"
 
 #include <nt2/table.hpp>
+#include <nt2/include/functions/function.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/sum.hpp>
@@ -180,6 +181,11 @@ NT2_TEST_CASE( reduction_value )
   table<T, nt2::_3D> a2_3(of_size(M,N,O));
   table<T, nt2::_2D> a2_2(of_size(M,N));
 
+  table<T> w(of_size(M,N,O,P));
+  table<T> x(of_size(M,N,O,P));
+  table<T> y(of_size(M,N,O,P));
+  table<T> z(of_size(1,N,O,P));
+
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
       for(std::size_t j = 1; j <= N; ++j){
@@ -190,6 +196,7 @@ NT2_TEST_CASE( reduction_value )
           a2_2(i,j) = T(1);
           a00(i) = T(1);
           a01(i) = T(1);
+          w(i,j,k,l) = x(i,j,k,l) = y(i,j,k,l) = z(1,j,k,l) = T(1);
         }
       }
     }
@@ -231,8 +238,8 @@ NT2_TEST_CASE( reduction_value )
   a1 = sum(a00);
   NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
 
-  // a1 = sum(a2_4(nt2::_));
-  // NT2_TEST_EQUAL(T(a1(1)),T(nt2::numel(a2_4))) ;
+  a1 = sum(a2_4(nt2::_));
+  NT2_TEST_EQUAL(T(a1(1)),T(nt2::numel(a2_4))) ;
 
   a1 = sum(a01);
   NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
@@ -284,7 +291,16 @@ NT2_TEST_CASE( reduction_value )
       NT2_TEST_EQUAL(T(a1(i,1,k)),T(N)) ;
     }
   }
+
+  w = sum(x+y,1) + z;
   
+  for(std::size_t l = 1; l <= P; ++l){
+    for(std::size_t k = 1; k <= O; ++k){
+      for(std::size_t j = 1; j <= N; ++j){
+        NT2_TEST_EQUAL(T(w(1,j,k,l)),T(2)*T(M) +T(1)) ;
+      }
+    }
+  }
   
 
 }

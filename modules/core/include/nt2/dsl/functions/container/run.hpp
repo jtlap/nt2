@@ -24,6 +24,7 @@
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <numeric>
 #include <iostream>
+
 namespace nt2 { namespace ext
 {
   //============================================================================
