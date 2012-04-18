@@ -59,6 +59,9 @@ SET( SOURCES
   freqspace2.cpp  
   sum.cpp
   sum2.cpp
+  sum1.cpp 
+  sump.cpp 
+  maximum.cpp
 # List of test files for toolbox core.settings
    )
 

@@ -13,8 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_MAXIMUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/compare_greater_equal.hpp>
-#include <boost/simd/toolbox/constant/constants/minf.hpp>
+#include <boost/simd/toolbox/constant/constants/valmin.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/max.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -64,9 +64,9 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag maximum_ of functor maximum 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct maximum_ : ext::reduction_<maximum_, tag::compare_greater_equal_, tag::Minf> 
+    struct maximum_ : ext::reduction_<maximum_, tag::max_, tag::Valmin> 
     { 
-      typedef ext::reduction_<maximum_, tag::compare_greater_equal_, tag::Minf> parent;  
+      typedef ext::reduction_<maximum_, tag::max_, tag::Valmin> parent;  
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maximum_, maximum, 1)

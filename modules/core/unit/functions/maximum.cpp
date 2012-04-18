@@ -6,71 +6,54 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::sump function"
+#define NT2_UNIT_MODULE "nt2::maximum function"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/sump.hpp>
-#include <nt2/include/functions/sum.hpp>
+// #include <nt2/include/functions/maximum.hpp>      
+// #include <nt2/sdk/unit/module.hpp>
+// #include <nt2/sdk/unit/tests/relation.hpp>
+
+#include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/maximum.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-
-NT2_TEST_CASE_TPL( sump_scalar, (float)(double))//NT2_TYPES )
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
+NT2_TEST_CASE_TPL( maximum_scalar, (float)(double))//NT2_TYPES )
 {
-//   T x = nt2::sump(T(42));
+//   T x = nt2::maximum(T(42));
 //   NT2_TEST_EQUAL( x, sqr(T(42)) );
 
-//   x = nt2::sump(T(42),1);
+//   x = nt2::maximum(T(42),1);
 //   NT2_TEST_EQUAL( x, T(0) );
 
-//   x = nt2::sump(T(42),0);
+//   x = nt2::maximum(T(42),0);
 //   NT2_TEST_EQUAL( x, sqr(T(42)) );
 
 }
 
-NT2_TEST_CASE_TPL( sump, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( maximum_expr, (float)(double))//NT2_TYPES )
 {
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy( nt2::of_size(1,3) );
-  nt2::table<T> sy2( nt2::of_size(1,3) );
-
-  //  sy = nt2::sum(y, 0);
-  disp("sy", sy);
- 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
   disp("y", y); 
-  sy = nt2::sum(y);
+  sy = nt2::maximum(y);
   std::cout << size(sy) << std::endl; 
   disp("sy", sy);
-  sy2 = nt2::sump(y, T(1));
-  std::cout << size(sy2) << std::endl; 
-  disp("sy2", sy2);
-  
-  disp("y", y); 
-  sy = nt2::sum(y, 1);
+  sy = nt2::maximum(y, 1);
   std::cout << size(sy) << std::endl; 
   disp("sy", sy);
-  sy2 = nt2::sump(y, T(1), 1);
-  std::cout << size(sy2) << std::endl; 
-  disp("sy2", sy2);
-
-  disp("y", y); 
-  sy = nt2::sum(y, 2);
+  sy = nt2::maximum(y, 2);
   std::cout << size(sy) << std::endl; 
   disp("sy", sy);
-  sy2 = nt2::sump(y,T(1), 2);
-  std::cout << size(sy2) << std::endl; 
-  disp("sy2", sy2);
- 
-  disp("y", y); 
-  sy = nt2::sum(y, 3);
+  sy = nt2::maximum(y, 3);
   std::cout << size(sy) << std::endl; 
   disp("sy", sy);
-  sy2 = nt2::sump(y, T(1), 3);
-  std::cout << size(sy2) << std::endl; 
-   disp("sy2", sy2);
-
 }
 
