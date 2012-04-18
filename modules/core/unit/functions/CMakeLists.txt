@@ -58,10 +58,11 @@ SET( SOURCES
   freqspace1.cpp
   freqspace2.cpp
   sum.cpp
-  sum2.cpp
-  sum1.cpp 
-  sump.cpp 
+  asum2.cpp
+  asum1.cpp 
+  asump.cpp 
   maximum.cpp
+  minimum.cpp
   firstnonsingleton.cpp
   tie.cpp
 # List of test files for toolbox core.settings

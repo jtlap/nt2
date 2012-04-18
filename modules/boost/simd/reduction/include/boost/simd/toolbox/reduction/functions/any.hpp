@@ -14,7 +14,7 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/include/functions/logical_or.hpp>
-#include <boost/simd/toolbox/constant/constants/zero.hpp>
+#include <boost/simd/toolbox/constant/constants/false.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -64,9 +64,9 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag any_ of functor any 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct any_ : ext::reduction_<any_, tag::logical_or_, tag::Zero> 
+    struct any_ : ext::reduction_<any_, tag::logical_or_, tag::False> 
     { 
-      typedef ext::reduction_<any_, tag::logical_or_, tag::Zero> parent; 
+      typedef ext::reduction_<any_, tag::logical_or_, tag::False> parent; 
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 1)

@@ -13,8 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_MINIMUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/compare_less_equal.hpp>
-#include <boost/simd/toolbox/constant/constants/inf.hpp>
+#include <nt2/include/functions/min.hpp>
+#include <boost/simd/toolbox/constant/constants/valmax.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -64,13 +64,12 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag minimum_ of functor minimum 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct minimum_ : ext::reduction_<minimum_, tag::compare_less_equal_, tag::Inf> 
+    struct minimum_ : ext::reduction_<minimum_, tag::min_, tag::Valmax> 
     { 
-      typedef ext::reduction_<minimum_, tag::compare_less_equal_, tag::Inf> parent; 
+      typedef ext::reduction_<minimum_, tag::min_, tag::Valmax> parent; 
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minimum_, minimum, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minimum_, min    , 1)  
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minimum_, minimum, 2)
 } }
 

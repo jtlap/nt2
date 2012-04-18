@@ -6,29 +6,29 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::sum1 function"
+#define NT2_UNIT_MODULE "nt2::asum2 function"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/sum1.hpp>
+#include <nt2/include/functions/asum2.hpp>
 #include <nt2/include/functions/sum.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-NT2_TEST_CASE_TPL( sum1_scalar, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( asum2_scalar, (float)(double))//NT2_TYPES )
 {
-//   T x = nt2::sum1(T(42));
-//   NT2_TEST_EQUAL( x, sqr(T(42)) );
+  T x = nt2::asum2(T(42));
+  NT2_TEST_EQUAL( x, sqr(T(42)) );
 
-//   x = nt2::sum1(T(42),1);
-//   NT2_TEST_EQUAL( x, T(0) );
+  x = nt2::asum2(T(42),1);
+  NT2_TEST_EQUAL( x, sqr(T(42)) );
 
-//   x = nt2::sum1(T(42),0);
-//   NT2_TEST_EQUAL( x, sqr(T(42)) );
+  x = nt2::asum2(T(42),0);
+  NT2_TEST_EQUAL( x, sqr(T(42)) );
 
 }
 
-NT2_TEST_CASE_TPL( sum1, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( asum2, (float)(double))//NT2_TYPES )
 {
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy( nt2::of_size(1,3) );
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL( sum1, (float)(double))//NT2_TYPES )
   sy = nt2::sum(y);
   std::cout << size(sy) << std::endl; 
   disp("sy", sy);
-  sy2 = nt2::sum1(y);
+  sy2 = nt2::asum2(y);
   std::cout << size(sy2) << std::endl; 
   disp("sy2", sy2);
   
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL( sum1, (float)(double))//NT2_TYPES )
   sy = nt2::sum(y, 1);
   std::cout << size(sy) << std::endl; 
   disp("sy", sy);
-  sy2 = nt2::sum1(y);
+  sy2 = nt2::asum2(y);
   std::cout << size(sy2) << std::endl; 
   disp("sy2", sy2);
 
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL( sum1, (float)(double))//NT2_TYPES )
   sy = nt2::sum(y, 2);
   std::cout << size(sy) << std::endl; 
   disp("sy", sy);
-  sy2 = nt2::sum1(y, 2);
+  sy2 = nt2::asum2(y, 2);
   std::cout << size(sy2) << std::endl; 
   disp("sy2", sy2);
  
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL( sum1, (float)(double))//NT2_TYPES )
   sy = nt2::sum(y, 3);
   std::cout << size(sy) << std::endl; 
   disp("sy", sy);
-  sy2 = nt2::sum1(y, 3);
+  sy2 = nt2::asum2(y, 3);
   std::cout << size(sy2) << std::endl; 
    disp("sy2", sy2);
 
