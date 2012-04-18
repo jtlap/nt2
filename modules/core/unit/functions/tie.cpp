@@ -16,16 +16,75 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE( tie )
+NT2_TEST_CASE( semantic_of )
 {
-  nt2::table<float>   f;
-  nt2::table<double>  d;
-  nt2::table<char>    c;
+  using nt2::table;
+  using nt2::settings;
+  using boost::mpl::_;
+  using nt2::memory::container;
+  using boost::fusion::vector1;
+  using boost::fusion::vector2;
+  using boost::fusion::vector3;
+  using boost::fusion::vector4;
+  using boost::dispatch::meta::semantic_of;
 
-  std::cout << nt2::type_id( nt2::tie(f) ) << "\n";
-  std::cout << nt2::type_id( nt2::tie(f,f) ) << "\n";
-  std::cout << nt2::type_id( nt2::tie(f,f,f) ) << "\n";
-  std::cout << nt2::type_id( nt2::tie(f,f,f,f) ) << "\n";
-  std::cout << nt2::type_id( nt2::tie(f,f,f,f,f) ) << "\n";
-  std::cout << nt2::type_id( nt2::tie(f,f,f,f,f,f) ) << "\n";
+  table<double> d;
+  table<float>  f;
+  table<short>  s;
+  table<char>   c;
+
+  NT2_TEST_EXPR_TYPE( nt2::tie(d)
+                    , semantic_of<_>
+                    , (vector1< container<double,settings()>& >)
+                    );
+
+  NT2_TEST_EXPR_TYPE( nt2::tie(f,d)
+                    , semantic_of<_>
+                    , (vector2< container<float,settings()>&
+                              , container<double,settings()>&
+                              >
+                      )
+                    );
+
+  NT2_TEST_EXPR_TYPE( nt2::tie(f,d,s)
+                    , semantic_of<_>
+                    , (vector3< container<float,settings()>&
+                              , container<double,settings()>&
+                              , container<short,settings()>&
+                              >
+                      )
+                    );
+
+  NT2_TEST_EXPR_TYPE( nt2::tie(c,f,d,s)
+                    , semantic_of<_>
+                    , (vector4< container<char,settings()>&
+                              , container<float,settings()>&
+                              , container<double,settings()>&
+                              , container<short,settings()>&
+                              >
+                      )
+                    );
+}
+
+template <class T> struct extent_
+{
+  typedef typename T::extent_type type;
+};
+
+NT2_TEST_CASE( extent )
+{
+  using nt2::table;
+  using nt2::settings;
+  using nt2::of_size_;
+  using boost::mpl::_;
+
+  table<double> d;
+  table<float>  f;
+  table<short>  s;
+  table<char>   c;
+
+  NT2_TEST_EXPR_TYPE( nt2::tie(d)       , extent_<_>, (of_size_<1>) );
+  NT2_TEST_EXPR_TYPE( nt2::tie(f,d)     , extent_<_>, (of_size_<1>) );
+  NT2_TEST_EXPR_TYPE( nt2::tie(f,d,s)   , extent_<_>, (of_size_<1>) );
+  NT2_TEST_EXPR_TYPE( nt2::tie(c,f,d,s) , extent_<_>, (of_size_<1>) );
 }

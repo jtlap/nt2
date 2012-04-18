@@ -16,10 +16,10 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/core/utility/of_size.hpp>
-#include <boost/fusion/include/as_vector.hpp>
-#include <boost/mpl/transform.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/details/parameters.hpp>
+#include <boost/fusion/include/as_vector.hpp>
+#include <boost/mpl/transform.hpp>
 
 namespace nt2
 {
@@ -81,8 +81,8 @@ namespace nt2 { namespace container { namespace ext
   // INTERNAL ONLY
   // tie size is just <1>
   //============================================================================
-  template<class Domain, int N, class Expr>
-  struct  size_of<nt2::tag::tie_,Domain,N,Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::tie_,Domain,1,Expr>
   {
     typedef of_size_<1> result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
