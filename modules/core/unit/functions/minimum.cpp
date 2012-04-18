@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL( minimum_expr, NT2_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       NT2_TEST_GREATER_EQUAL(y(i, j), sy(i, j)); 
-  sy = minimum(y(_))
+  sy = minimum(y(_)); 
   disp("sy", sy);    
   NT2_TEST_EQUAL(sy(1), 11); 
 }
