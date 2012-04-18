@@ -23,6 +23,7 @@
 #include <nt2/include/functions/terminal.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
+#include <nt2/include/functions/firstnonsingleton.hpp>
 #include <numeric>
 
 namespace nt2 { namespace ext
@@ -75,12 +76,7 @@ namespace nt2 { namespace ext
         return a0;
       }
       else if(red == 1 && ext[0] == 1){
-        for(std::size_t i = 1; i < ext.size(); ++i){
-          if(ext[i] != 1){
-            red = i+1;
-            break;
-          }
-        }
+        red = nt2::firstnonsingleton(ext);
       }
       else if(red - 1 <= ext.size() && ext[red-1] == 1)
       {

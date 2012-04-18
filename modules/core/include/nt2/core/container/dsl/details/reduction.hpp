@@ -15,6 +15,7 @@
 #include <nt2/core/utility/of_size/predef.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/type_traits/remove_const.hpp>
+#include <nt2/include/functions/firstnonsingleton.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -41,14 +42,7 @@ namespace nt2 { namespace container { namespace ext
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type res = boost::proto::child_c<0>(e).extent();
-      if(res[0] != 1)
-        res[0] = 1;
-      else
-        for(std::size_t i = 1; i < res.size(); ++i)
-          if(res[i] != 1){
-            res[i] = 1;
-            break;
-          }
+      res[nt2::firstnonsingleton(res)-1] = 1;
 
       return res;
     }
