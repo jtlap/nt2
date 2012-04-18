@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.COMPLEX.PREDICATES_DEPENDENCIES_EXTRA boost.simd.predicates)
+SET(NT2_COMPLEX.PREDICATES_DEPENDENCIES_EXTRA boost.simd.predicates)

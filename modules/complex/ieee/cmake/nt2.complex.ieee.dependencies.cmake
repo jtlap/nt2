@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.COMPLEX.IEEE_DEPENDENCIES_EXTRA boost.simd.ieee)
+SET(NT2_COMPLEX.IEEE_DEPENDENCIES_EXTRA boost.simd.ieee)
