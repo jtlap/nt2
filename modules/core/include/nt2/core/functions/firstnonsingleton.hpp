@@ -16,13 +16,19 @@
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 
-{ 
-  namespace tag { struct firstnonsingleton_ : boost::dispatch::tag::formal_ { typedef boost::dispatch::tag::formal_ parent; }; }
+namespace nt2
+{
+  namespace tag
+  {
+    struct firstnonsingleton_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
+    };
+  }
 
   //============================================================================
   /*!
-   * Find the first non singleton value 
+   * Find the first non singleton value
    *
    * \param xpr Expression to find the first non singleton value
    * \return The value of the fisrt non singleton value

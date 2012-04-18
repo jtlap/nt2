@@ -15,7 +15,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // firstnonsingleton of arithmetic types
@@ -31,26 +30,24 @@ NT2_TEST_CASE( fundamental_firstnonsingleton )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// firstnonsingleton of container
+// firstnonsingleton of of_size
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( container_firstnonsingleton )
+NT2_TEST_CASE(of_size_firstnonsingleton )
 {
   using nt2::firstnonsingleton;
-  using nt2::of_size;
+  using nt2::_4D;
 
-  typedef nt2::memory::container<float,nt2::settings()> container_t;
+  _4D t0;
+  _4D t1(2,2,2,2);
+  _4D t2(1,2,2,2);
+  _4D t3(1,1,2,2);
+  _4D t4(1,1,1,2);
 
-  container_t t0;
-  container_t t1( of_size(2,2,2,2) );
-  container_t t2( of_size(1,2,2,2) );
-  container_t t3( of_size(1,1,2,2) );
-  container_t t4( of_size(1,1,1,2) );
-
-  NT2_TEST_EQUAL( firstnonsingleton(t0.extent()), 1U   );
-  NT2_TEST_EQUAL( firstnonsingleton(t1.extent()), 1U   );
-  NT2_TEST_EQUAL( firstnonsingleton(t2.extent()), 2U   );
-  NT2_TEST_EQUAL( firstnonsingleton(t3.extent()), 3U   );
-  NT2_TEST_EQUAL( firstnonsingleton(t4.extent()), 4U  );
+  NT2_TEST_EQUAL( firstnonsingleton(t0), 1U );
+  NT2_TEST_EQUAL( firstnonsingleton(t1), 1U );
+  NT2_TEST_EQUAL( firstnonsingleton(t2), 2U );
+  NT2_TEST_EQUAL( firstnonsingleton(t3), 3U );
+  NT2_TEST_EQUAL( firstnonsingleton(t4), 4U );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,11 +65,11 @@ NT2_TEST_CASE( table_firstnonsingleton )
   table<float> t3( of_size(1,1,2) );
   table<float> t4( of_size(1,1,1,2) );
 
-  NT2_TEST_EQUAL( firstnonsingleton(t0.extent()), 1U   );
-  NT2_TEST_EQUAL( firstnonsingleton(t1.extent()), 1U   );
-  NT2_TEST_EQUAL( firstnonsingleton(t2.extent()), 2U   );
-  NT2_TEST_EQUAL( firstnonsingleton(t3.extent()), 3U   );
-  NT2_TEST_EQUAL( firstnonsingleton(t4.extent()), 4U  );
+  NT2_TEST_EQUAL( firstnonsingleton(t0), 1U   );
+  NT2_TEST_EQUAL( firstnonsingleton(t1), 1U   );
+  NT2_TEST_EQUAL( firstnonsingleton(t2), 2U   );
+  NT2_TEST_EQUAL( firstnonsingleton(t3), 3U   );
+  NT2_TEST_EQUAL( firstnonsingleton(t4), 4U  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -90,9 +87,9 @@ NT2_TEST_CASE( expression_firstnonsingleton )
   table<float> t3( of_size(1,1,2) );
   table<float> t4( of_size(1,1,1,2) );
 
-  NT2_TEST_EQUAL( firstnonsingleton((-t0).extent())     , 1U   );
-  NT2_TEST_EQUAL( firstnonsingleton((t1*t1).extent())   , 1U   );
-  NT2_TEST_EQUAL( firstnonsingleton((t2-t2*t2).extent()), 2U   );
-  NT2_TEST_EQUAL( firstnonsingleton((t3/t3+t3).extent()), 3U   );
-  NT2_TEST_EQUAL( firstnonsingleton((t4 * -t4).extent()), 4U  );
+  NT2_TEST_EQUAL( firstnonsingleton((-t0))     , 1U );
+  NT2_TEST_EQUAL( firstnonsingleton((t1*t1))   , 1U );
+  NT2_TEST_EQUAL( firstnonsingleton((t2-t2*t2)), 2U );
+  NT2_TEST_EQUAL( firstnonsingleton((t3/t3+t3)), 3U );
+  NT2_TEST_EQUAL( firstnonsingleton((t4 * -t4)), 4U );
 }

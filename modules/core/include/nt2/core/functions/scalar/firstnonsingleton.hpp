@@ -9,12 +9,8 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_FIRSTNONSINGLETON_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_FIRSTNONSINGLETON_HPP_INCLUDED
 
-#include <boost/mpl/size_t.hpp>
 #include <nt2/core/functions/firstnonsingleton.hpp>
-#include <boost/fusion/include/fold.hpp>
-#include <boost/fusion/include/iterator_range.hpp>
-#include <boost/fusion/include/advance.hpp>
-#include <nt2/include/functions/multiplies.hpp>
+#include <boost/mpl/size_t.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -25,7 +21,7 @@ namespace nt2 { namespace ext
     typedef boost::mpl::size_t<1> result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0&) const { return result_type(); }
+    result_type operator()(A0 const&) const { return result_type(); }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::firstnonsingleton_, tag::cpu_
@@ -36,16 +32,14 @@ namespace nt2 { namespace ext
     typedef std::size_t                                      result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0& a0) const
+    result_type operator()(A0 const& a0) const
     {
       for(std::size_t i = 0; i < A0::static_size; ++i)
-        if(a0[i] != 1)
-          return i+1;
+        if(a0[i] != 1) return i+1;
 
       return 1;
     }
   };
-
-  } }
+} }
 
 #endif
