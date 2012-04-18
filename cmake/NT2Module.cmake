@@ -300,6 +300,10 @@ macro(nt2_module_add_exe name)
   set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/${suffix})
 
+  if(NT2_PCH_TARGET)
+    add_dependencies(${name} ${NT2_PCH_TARGET})
+  endif()
+
   set(BUILD_TYPE)
   if(suffix STREQUAL unit OR suffix STREQUAL cover)
     set(BUILD_TYPE NT2TEST)
@@ -319,6 +323,10 @@ macro(nt2_module_add_example name)
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER examples)
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/examples)
+
+  if(NT2_PCH_TARGET)
+    add_dependencies(${name} ${NT2_PCH_TARGET})
+  endif()
 
   string(REGEX REPLACE "\\.sample$" ".examples" suite ${name})
   nt2_module_target_parent(${suite})
