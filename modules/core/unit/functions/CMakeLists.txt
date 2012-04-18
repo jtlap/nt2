@@ -44,7 +44,7 @@ SET( SOURCES
   rif.cpp
   rows.cpp
   resize.cpp
-  expand.cpp 
+  expand.cpp
   streaming.cpp
   cic.cpp
   cif.cpp
@@ -56,10 +56,11 @@ SET( SOURCES
   logspace.cpp
   pispace.cpp
   freqspace1.cpp
-  freqspace2.cpp  
+  freqspace2.cpp
   sum.cpp
-   sum2.cpp
-   firstnonsingleton.cpp
+  sum2.cpp
+  firstnonsingleton.cpp
+  tie.cpp
 # List of test files for toolbox core.settings
    )
 
