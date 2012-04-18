@@ -77,32 +77,32 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-        typedef A1                    int_type;
-        typedef result_type             r_type;
-        r_type a00 =  tofloat(a0); 
-        r_type x = nt2::abs(a00); 
-        r_type r = x; 
-        int_type sign_n = signnz( a1 );
-        int_type n = nt2::abs(a1);
-        r_type n_oddf = if_else_zero(is_odd(n), One<r_type>());
-        r_type nf = n_oddf;
-        r_type y = madd(n_oddf,x,oneminus(n_oddf));
-        r_type w = x;
-        n = shri(n,1);
-        while( nt2::any(n) )
+      typedef typename meta::as_integer<A0>::type       int_type;
+      typedef result_type             r_type;
+      r_type a00 =  tofloat(a0); 
+      r_type x = nt2::abs(a00); 
+      r_type r = x; 
+      A1 sign_n = signnz( a1 );
+      A1 n = nt2::abs(a1);
+      r_type n_oddf = if_else_zero(is_odd(n), One<r_type>());
+      r_type nf = n_oddf;
+      r_type y = madd(n_oddf,x,oneminus(n_oddf));
+      r_type w = x;
+      n = shri(n,1);
+      while( nt2::any(n) )
         {
           w =sqr(w);
           n_oddf = if_else_zero(is_odd(n), One<r_type>());
           y = y*madd(n_oddf,w,oneminus(n_oddf));
           n = shri(n,1);
         }
-
-        w = y; //b_xor(y, sign_x);
-        y = madd(nf, w, (oneminus(nf))*y);
-
-        w = rec(y);
-        x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
-        return if_nan_else(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
+      
+      w = y; //b_xor(y, sign_x);
+      y = madd(nf, w, (oneminus(nf))*y);
+      
+      w = rec(y);
+      x = tofloat(shri(oneplus(sign_n),1));  // 1 if positive, else 0
+      return if_nan_else(is_nan(a00), sel(is_inf(a00), sel(is_gtz(a1), r, rec(r)), madd(x,y,oneminus(x)*w)));
     }
   };
 } }
