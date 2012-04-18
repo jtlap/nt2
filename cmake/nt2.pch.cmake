@@ -28,11 +28,15 @@ macro(nt2_pch name)
     endforeach()
 
     string(REPLACE "/" "_" pch_base ${name})
+    string(REGEX REPLACE "\\.hpp$" "" pch_base ${pch_base})
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${pch_base} "#error this file has not been precompiled, make the ${pch_base}.pch target")
-    add_custom_target(${pch_base}.pch
-                      COMMAND ${CMAKE_CXX_COMPILER} ${FLAGS} ${INCLUDES} -x c++-header -c ${file} -o ${pch_base}.gch
-                      DEPENDS ${file}
-                      COMMENT "Precompiling header file ${name}..."
+    add_custom_command(OUTPUT ${pch_base}.gch
+                       COMMAND ${CMAKE_CXX_COMPILER} ${FLAGS} ${INCLUDES} -x c++-header -c ${file} -o ${pch_base}.gch
+                       IMPLICIT_DEPENDS CXX ${file}
+                       COMMENT "Precompiling header file ${name}..."
+                      )
+    add_custom_target(${pch_base}.pch ALL
+                      DEPENDS ${pch_base}.gch
                      )
     add_definitions(-include ${CMAKE_CURRENT_BINARY_DIR}/${pch_base} -Winvalid-pch)
   endif()
