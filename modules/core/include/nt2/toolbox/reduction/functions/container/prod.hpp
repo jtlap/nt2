@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_COMMON_SUM_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_COMMON_SUM_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_COMMON_PROD_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_COMMON_PROD_HPP_INCLUDED
 
 #include <boost/simd/toolbox/reduction/functions/prod.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>

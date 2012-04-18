@@ -205,6 +205,7 @@ NT2_TEST_CASE( sum_4D )
   table<T> a(of_size(M,N,O,P));
   table<T> b(of_size(M,N,O,P));
 
+
   table<T> w(of_size(M,N,O,P));
   table<T> x(of_size(M,N,O,P));
   table<T> y(of_size(M,N,O,P));
@@ -285,6 +286,74 @@ NT2_TEST_CASE( sum_4D )
       }
     }
   }
+
+
   
+}
+
+NT2_TEST_CASE( sum )
+{
+
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::sum;
+  typedef double T;
+  using nt2::_;
+ 
+
+  std::size_t M = 5;
+  std::size_t N = 4;
+  std::size_t O = 3;
+  std::size_t P = 2;
+
+  table<T> r, r1;
+
+  table<T> a(of_size(M,N,O,P));
+
+  table<T> c2(of_size(1,N,O,P));
+  table<T> c3(of_size(1,1,O,P));
+  table<T> c4(of_size(1,1,1,P));
+
+
+  for(std::size_t l = 1; l <= P; ++l){
+    for(std::size_t k = 1; k <= O; ++k){
+      for(std::size_t j = 1; j <= N; ++j){
+        for(std::size_t i = 1; i <= M; ++i){
+          a(i,j,k,l) = T(1);
+          c2(1,j,k,l) = T(1);
+          c3(1,1,k,l) = T(1);
+          c4(1,1,1,l) = T(1);
+        }
+      }
+    }
+  }
+
+  r = sum(sum(a));
+  for(std::size_t l = 1; l <= P; ++l)
+    for(std::size_t k = 1; k <= O; ++k)
+      NT2_TEST_EQUAL(r(1,1,k,l),N*M) ;
+  
+  
+  r = sum(sum(sum(a)));
+  for(std::size_t l = 1; l <= P; ++l)
+    NT2_TEST_EQUAL(r(1,1,1,l),N*M*O) ;
+
+  
+  r = sum(sum(sum(sum(a))));
+  NT2_TEST_EQUAL(r(1,1,1,1),N*M*O*P) ;
+
+
+
+  r = sum(c2);
+  for(std::size_t l = 1; l <= P; ++l)
+    for(std::size_t k = 1; k <= O; ++k)
+      NT2_TEST_EQUAL(r(1,1,k,l),N) ;
+
+  r = sum(c3);
+  for(std::size_t l = 1; l <= P; ++l)
+    NT2_TEST_EQUAL(r(1,1,1,l),O) ;
+
+  r = sum(c4);
+  NT2_TEST_EQUAL(r(1,1,1,1),P) ;
 
 }
