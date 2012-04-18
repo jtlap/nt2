@@ -59,6 +59,7 @@ namespace nt2 { namespace ext
     typedef A0&                                                                result_type;
     typedef typename boost::proto::result_of::child_c<A1&, 0>::type            input_type;
     typedef typename boost::remove_reference<input_type>::type::extent_type    extent_type;
+    typedef typename boost::remove_reference<input_type>::type::value_type     value_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
@@ -73,9 +74,14 @@ namespace nt2 { namespace ext
       if(red > ext.size()){
         return a0;
       }
+      else if(red - 1 <= ext.size() && ext[red-1] == 1)
+      {
+        for(std::size_t i = 0; i < nt2::numel(input); ++i)
+          nt2::run(a0,i,nt2::run(input,i,nt2::meta::as_<value_type>()));
 
-
-      if(dim == 1 || ext.size() == 1)
+        return a0;
+      }
+      else if(dim == 1 || ext.size() == 1)
       {
         nt2::run( a0, 0u
                   , nt2::fold( input

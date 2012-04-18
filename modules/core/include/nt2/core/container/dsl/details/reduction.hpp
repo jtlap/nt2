@@ -31,7 +31,7 @@ namespace nt2 { namespace container { namespace ext
   // } } }
   //
   //============================================================================
-  template<class RED, int N, class Expr> struct reduction_size_of{};
+  template<class RED, int N, class Expr> struct reduction_size_of {};
 
   template<class RED, class Expr> struct reduction_size_of<RED,1,Expr>
   {
@@ -40,9 +40,8 @@ namespace nt2 { namespace container { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      result_type res;
-      for(std::size_t i =0; i < NT2_MAX_DIMENSIONS; ++i)
-        res[i] = 1;
+      result_type res = boost::proto::child_c<0>(e).extent();
+      res[0] = 1;
 
       return res;
     }

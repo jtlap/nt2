@@ -17,11 +17,176 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/sdk/unit/tests/exceptions.hpp>
 
-#include <nt2/sdk/details/type_id.hpp>
+NT2_TEST_CASE( sum_1D )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::sum;
+  typedef double T;
+  using nt2::_;
+  
+  std::size_t M = 5;
+
+  table<T> r, r1;
+  table<T> a(of_size(M));
+  table<T> b(of_size(M));
+
+  for(std::size_t i = 1; i <= M; ++i)
+    a(i) = b(i)= 1;
 
 
-NT2_TEST_CASE( sum )
+  r = sum(a);
+  NT2_TEST_EQUAL(r(1),M) ;
+
+  r1 = sum(a,1);
+  NT2_TEST_EQUAL(r(1), r1(1)) ;
+  
+  for(int j = 2; j <= NT2_MAX_DIMENSIONS; ++j){
+    r = sum(a,j);
+    for(std::size_t i = 1; i <= M; ++i)
+      NT2_TEST_EQUAL(r(i), a(i));
+  }
+
+  r = sum(a+b);
+  NT2_TEST_EQUAL(r(1),2*M) ;
+
+  r = sum(a(nt2::_));
+  NT2_TEST_EQUAL(r(1),M) ;
+
+
+}
+
+NT2_TEST_CASE( sum_2D )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::sum;
+  typedef double T;
+  using nt2::_;
+ 
+
+  std::size_t M = 5;
+  std::size_t N = 4;
+
+  table<T> r, r1;
+  table<T> a(of_size(M,N));
+  table<T> b(of_size(M,N));
+
+  for(std::size_t j = 1; j <= N; ++j){
+    for(std::size_t i = 1; i <= M; ++i){
+      a(i,j) = b(i,j) = T(1);
+    }
+  }
+
+  r1 = sum(a,1);
+  for(std::size_t j = 1; j <= N; ++j){
+    NT2_TEST_EQUAL(r1(1,j),M) ;
+  }
+
+  r = sum(a);
+  for(std::size_t j = 1; j <= N; ++j)
+    NT2_TEST_EQUAL(r(1,j), M) ;
+      
+
+  for(std::size_t j = 1; j <= N; ++j)
+    NT2_TEST_EQUAL(r(1,j), r1(1,j)) ;
+
+  r1 = sum(a,2);
+
+  for(std::size_t i = 1; i <= M; ++i)
+    NT2_TEST_EQUAL(r1(i,1),N) ;
+  
+
+  for(int j = 3; j <= NT2_MAX_DIMENSIONS; ++j){
+    r = sum(a,j);
+    for(std::size_t j = 1; j <= N; ++j)
+      for(std::size_t i = 1; i <= M; ++i)
+        NT2_TEST_EQUAL(r(i,j), a(i,j));
+  }
+
+  r = sum(a+b);
+  for(std::size_t j = 1; j <= N; ++j)
+    NT2_TEST_EQUAL(r(1,j), 2*M) ;
+
+  r = sum(a(nt2::_));
+  NT2_TEST_EQUAL(r(1),nt2::numel(a)) ;
+
+}
+
+NT2_TEST_CASE( sum_3D )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::sum;
+  typedef double T;
+  using nt2::_;
+ 
+
+  std::size_t M = 5;
+  std::size_t N = 4;
+  std::size_t O = 4;
+
+
+  table<T> r, r1;
+  table<T> a(of_size(M,N,O));
+  table<T> b(of_size(M,N,O));
+
+  for(std::size_t k = 1; k <= O; ++k){
+    for(std::size_t j = 1; j <= N; ++j){
+      for(std::size_t i = 1; i <= M; ++i){
+        a(i,j,k) = b(i,j,k) = T(1);
+      }
+    }
+  }
+  
+  r1 = sum(a,1);
+  for(std::size_t k = 1; k <= O; ++k)
+    for(std::size_t j = 1; j <= N; ++j)
+      NT2_TEST_EQUAL(r1(1,j,k),M) ;
+
+  r = sum(a);
+  for(std::size_t k = 1; k <= O; ++k)
+    for(std::size_t j = 1; j <= N; ++j)
+      NT2_TEST_EQUAL(r(1,j,k),M) ;
+      
+  for(std::size_t k = 1; k <= O; ++k)
+    for(std::size_t j = 1; j <= N; ++j)
+      NT2_TEST_EQUAL(r(1,j,k), r1(1,j,k)) ;
+
+
+  r = sum(a+b);
+  for(std::size_t k = 1; k <= O; ++k)
+    for(std::size_t j = 1; j <= N; ++j)
+      NT2_TEST_EQUAL(r(1,j,k), 2*M) ;
+
+
+  r = sum(a(nt2::_));
+  NT2_TEST_EQUAL(r(1),nt2::numel(a)) ;
+
+  r1 = sum(a,2);
+  for(std::size_t k = 1; k <= O; ++k)
+      for(std::size_t i = 1; i <= M; ++i)
+        NT2_TEST_EQUAL(r1(i,1,k),N) ;
+
+  r1 = sum(a,3);
+  for(std::size_t j = 1; j <= N; ++j)
+    for(std::size_t i = 1; i <= M; ++i)
+      NT2_TEST_EQUAL(r1(i,j,1),O) ;
+
+
+  for(int j = 4; j <= NT2_MAX_DIMENSIONS; ++j){
+    r = sum(a,j);
+    for(std::size_t k = 1; k <= O; ++k)
+      for(std::size_t j = 1; j <= N; ++j)
+        for(std::size_t i = 1; i <= M; ++i)
+          NT2_TEST_EQUAL(r(i,j,k), a(i,j,k));
+  }
+
+}
+
+NT2_TEST_CASE( sum_4D )
 {
 
   using nt2::table;
@@ -29,21 +194,16 @@ NT2_TEST_CASE( sum )
   using nt2::sum;
   typedef double T;
   using nt2::_;
-
+ 
 
   std::size_t M = 5;
   std::size_t N = 4;
   std::size_t O = 3;
   std::size_t P = 2;
 
-  table<T,nt2::_1D> a00(of_size(M));
-  table<T>          a01(of_size(M));
-
-  table<T> a1;
-  table<T> a2_4(of_size(M,N,O,P));
-  table<T> b2_4(of_size(M,N,O,P));
-  table<T, nt2::_3D> a2_3(of_size(M,N,O));
-  table<T, nt2::_2D> a2_2(of_size(M,N));
+  table<T> r, r1;
+  table<T> a(of_size(M,N,O,P));
+  table<T> b(of_size(M,N,O,P));
 
   table<T> w(of_size(M,N,O,P));
   table<T> x(of_size(M,N,O,P));
@@ -54,113 +214,74 @@ NT2_TEST_CASE( sum )
     for(std::size_t k = 1; k <= O; ++k){
       for(std::size_t j = 1; j <= N; ++j){
         for(std::size_t i = 1; i <= M; ++i){
-          a2_4(i,j,k,l) = T(1);
-          b2_4(i,j,k,l) = T(1);
-          a2_3(i,j,k) = T(1);
-          a2_2(i,j) = T(1);
-          a00(i) = T(1);
-          a01(i) = T(1);
+          a(i,j,k,l) = T(1);
+          b(i,j,k,l) = T(1);
           w(i,j,k,l) = x(i,j,k,l) = y(i,j,k,l) = z(1,j,k,l) = T(1);
         }
       }
     }
   }
   
-  a1 = sum(a2_4,1);
-  for(std::size_t l = 1; l <= P; ++l){
-    for(std::size_t k = 1; k <= O; ++k){
-      for(std::size_t j = 1; j <= N; ++j){
-        NT2_TEST_EQUAL(T(a1(1,j,k,l)),T(M)) ;
-      }
-    }
-  }
+  r1 = sum(a,1);
+  for(std::size_t l = 1; l <= P; ++l)
+    for(std::size_t k = 1; k <= O; ++k)
+      for(std::size_t j = 1; j <= N; ++j)
+        NT2_TEST_EQUAL(r1(1,j,k,l),M) ;
 
 
-
-  a1 = sum(a2_4 + b2_4,1);
-  for(std::size_t l = 1; l <= P; ++l){
-    for(std::size_t k = 1; k <= O; ++k){
-      for(std::size_t j = 1; j <= N; ++j){
-        NT2_TEST_EQUAL(T(a1(1,j,k,l)),2*T(M)) ;
-      }
-    }
-  }
-
-  a1 = sum(a2_3,1);
-  for(std::size_t k = 1; k <= O; ++k){
-    for(std::size_t j = 1; j <= N; ++j){
-      NT2_TEST_EQUAL(T(a1(1,j,k)),T(M)) ;
-    }
-  }
-
-  a1 = sum(a2_2,1);
-  for(std::size_t j = 1; j <= N; ++j){
-    NT2_TEST_EQUAL(T(a1(1,j)),T(M)) ;
-  }
+  r = sum(a);
+  for(std::size_t l = 1; l <= P; ++l)
+    for(std::size_t k = 1; k <= O; ++k)
+      for(std::size_t j = 1; j <= N; ++j)
+        NT2_TEST_EQUAL(r(1,j,k,l),M) ;
 
 
-  a1 = sum(a00);
-  NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
-
-  // a1 = sum(a2_4(nt2::_));
-  // NT2_TEST_EQUAL(T(a1(1)),T(nt2::numel(a2_4))) ;
-
-  a1 = sum(a01);
-  NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
+  for(std::size_t l = 1; l <= P; ++l)
+    for(std::size_t k = 1; k <= O; ++k)
+      for(std::size_t j = 1; j <= N; ++j)
+        NT2_TEST_EQUAL(r(1,j,k,l), r1(1,j,k,l)) ;
   
-  a1 = sum(a2_4,4);
-  for(std::size_t k = 1; k <= O; ++k){
-    for(std::size_t j = 1; j <= N; ++j){
-      for(std::size_t i = 1; i <= M; ++i){
-        NT2_TEST_EQUAL(T(a1(i,j,k,1)),T(P)) ;
-      }
-    }
-  }
 
-  a1 = sum(a2_3,3);
-  for(std::size_t j = 1; j <= N; ++j){
-    for(std::size_t i = 1; i <= M; ++i){
-      NT2_TEST_EQUAL(T(a1(i,j,1)),T(O)) ;
-    }
-  }
-
-  a1 = sum(a2_2,2);
-  for(std::size_t i = 1; i <= M; ++i){
-    NT2_TEST_EQUAL(T(a1(i,1)),T(N)) ;
-  }
+  r = sum(a+b,1);
+  for(std::size_t l = 1; l <= P; ++l)
+    for(std::size_t k = 1; k <= O; ++k)
+      for(std::size_t j = 1; j <= N; ++j)
+        NT2_TEST_EQUAL(r(1,j,k,l),2*M) ;
 
 
-  a1 = sum(a2_4,3);
-  for(std::size_t l = 1; l <= P; ++l){
-    for(std::size_t j = 1; j <= N; ++j){
-      for(std::size_t i = 1; i <= M; ++i){
-        NT2_TEST_EQUAL(T(a1(i,j,1,l)),T(O)) ;
-      }
-    }
-  }
+  r = sum(a(nt2::_));
+  NT2_TEST_EQUAL(r(1),nt2::numel(a)) ;
+
+  
+  r = sum(a,4);
+  for(std::size_t k = 1; k <= O; ++k)
+    for(std::size_t j = 1; j <= N; ++j)
+      for(std::size_t i = 1; i <= M; ++i)
+        NT2_TEST_EQUAL(r(i,j,k,1),P) ;
 
 
-  a1 = sum(a2_4,2);
-  for(std::size_t l = 1; l <= P; ++l){
-    for(std::size_t k = 1; k <= O; ++k){
-      for(std::size_t i = 1; i <= M; ++i){
-        NT2_TEST_EQUAL(T(a1(i,1,k,l)),T(N)) ;
-      }
-    }
-  }
 
-  a1 = sum(a2_3,2);
-  for(std::size_t k = 1; k <= O; ++k){
-    for(std::size_t i = 1; i <= M; ++i){
-      NT2_TEST_EQUAL(T(a1(i,1,k)),T(N)) ;
-    }
-  }
+  r = sum(a,3);
+  for(std::size_t l = 1; l <= P; ++l)
+    for(std::size_t j = 1; j <= N; ++j)
+      for(std::size_t i = 1; i <= M; ++i)
+        NT2_TEST_EQUAL(r(i,j,1,l),O) ;
+
+
+
+  r = sum(a,2);
+  for(std::size_t l = 1; l <= P; ++l)
+    for(std::size_t k = 1; k <= O; ++k)
+      for(std::size_t i = 1; i <= M; ++i)
+        NT2_TEST_EQUAL(r(i,1,k,l),N) ;
+
+
 
   w = sum(x+y,1) + z;
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
       for(std::size_t j = 1; j <= N; ++j){
-        NT2_TEST_EQUAL(T(w(1,j,k,l)),T(2)*T(M)+T(1)) ;
+        NT2_TEST_EQUAL(w(1,j,k,l),2*M+1) ;
       }
     }
   }
