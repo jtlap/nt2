@@ -41,7 +41,14 @@ namespace nt2 { namespace container { namespace ext
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type res = boost::proto::child_c<0>(e).extent();
-      res[0] = 1;
+      if(res[0] != 1)
+        res[0] = 1;
+      else
+        for(std::size_t i = 1; i < res.size(); ++i)
+          if(res[i] != 1){
+            res[i] = 1;
+            break;
+          }
 
       return res;
     }

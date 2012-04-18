@@ -285,6 +285,20 @@ NT2_TEST_CASE( sum_4D )
       }
     }
   }
-  
+
+  r = sum(sum(a));
+  for(std::size_t l = 1; l <= P; ++l)
+    for(std::size_t k = 1; k <= O; ++k)
+      NT2_TEST_EQUAL(r(1,1,k,l),N*M) ;
+
+
+  r = sum(sum(sum(a)));
+  for(std::size_t l = 1; l <= P; ++l)
+    NT2_TEST_EQUAL(r(1,1,1,l),N*M*O) ;
+
+
+  r = sum(sum(sum(sum(a))));
+  NT2_TEST_EQUAL(r(1,1,1,1),N*M*O*P) ;
+
 
 }
