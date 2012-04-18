@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SUM2_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SUM2_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/include/functions/sqr_abs.hpp>
@@ -18,15 +18,15 @@
 
 /*!
  * \ingroup core
- * \defgroup core sump
+ * \defgroup core asum1
  *
  * \par Description
- * Returns the sump of the elements of the SIMD vector
+ * Returns the asum1 of the elements of the SIMD vector
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/sump.hpp>
+ * #include <nt2/include/functions/asum1.hpp>
  * \endcode
  * 
  * 
@@ -35,15 +35,13 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class A0, class A1,  class A2>
- *     meta::call<tag::sump_(const A0& a0, const A1& p, const A2 n = 1)>::type
- *     sump(const A0 & a0);
+ *   template <class A0>
+ *     meta::call<tag::asum1_(A0)>::type
+ *     asum1(const A0 & a0);
  * }
  * \endcode
  *
- * \param a0 the first parameter of sump
- * \param  p the second parameter of sump
- * \param  n the thrird parameter of sump
+ * \param a0 the unique parameter of asum1
  * 
  * \return always a scalar value
  *  
@@ -65,7 +63,7 @@ namespace nt2
 {
   namespace tag
   {
-    struct sump_ : tag::formal_ 
+    struct asum1_ : tag::formal_ 
     { 
       typedef tag::formal_ parent; 
     };
@@ -73,11 +71,15 @@ namespace nt2
 
   //============================================================================
   /*!
-   * sum of absolute p power of a table
+   * sum of absolute squares of a table
+   *
+   * \param xpr  table 
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sump_       , sump, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sump_       , sump, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum1, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum1, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum, 2)
 }
 
 

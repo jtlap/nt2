@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SUM1_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SUM1_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_ASUM2_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_ASUM2_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/include/functions/sqr_abs.hpp>
@@ -18,15 +18,15 @@
 
 /*!
  * \ingroup core
- * \defgroup core sum1
+ * \defgroup core asum2
  *
  * \par Description
- * Returns the sum1 of the elements of the SIMD vector
+ * Returns the asum2 of the elements of the SIMD vector
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/sum1.hpp>
+ * #include <nt2/include/functions/asum2.hpp>
  * \endcode
  * 
  * 
@@ -36,12 +36,12 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::sum1_(A0)>::type
- *     sum1(const A0 & a0);
+ *     meta::call<tag::asum2_(A0)>::type
+ *     asum2(const A0 & a0);
  * }
  * \endcode
  *
- * \param a0 the unique parameter of sum1
+ * \param a0 the unique parameter of asum2
  * 
  * \return always a scalar value
  *  
@@ -63,7 +63,7 @@ namespace nt2
 {
   namespace tag
   {
-    struct sum1_ : tag::formal_ 
+    struct asum2_ : tag::formal_ 
     { 
       typedef tag::formal_ parent; 
     };
@@ -76,10 +76,8 @@ namespace nt2
    * \param xpr  table 
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sum1_       , sum1, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sum1_       , sum1, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sum1_       , asum, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sum1_       , asum, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum2_       , asum2, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum2_       , asum2, 2)
 }
 
 
