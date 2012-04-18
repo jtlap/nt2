@@ -6,12 +6,12 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::maximum function"
+#define NT2_UNIT_MODULE "nt2::minimum function"
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/include/functions/maximum.hpp>
+#include <nt2/include/functions/minimum.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -19,51 +19,50 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL( maximum_scalar, NT2_TYPES )
+NT2_TEST_CASE_TPL( minimum_scalar, NT2_TYPES )
 {
-  T x = nt2::maximum(T(42));
+  T x = nt2::minimum(T(42));
   NT2_TEST_EQUAL( x, (T(42)) );
 
-  x = nt2::maximum(T(42),1);
+  x = nt2::minimum(T(42),1);
   NT2_TEST_EQUAL( x, T(42) );
 
-  x = nt2::maximum(T(42),2);
+  x = nt2::minimum(T(42),2);
   NT2_TEST_EQUAL( x, (T(42)) );
 
 }
 
-NT2_TEST_CASE_TPL( maximum_expr, NT2_TYPES )
+NT2_TEST_CASE_TPL( minimum_expr, NT2_TYPES )
 {
-  using nt2::_;
+  using nt2::_; 
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy( nt2::of_size(1,3) );
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
   disp("y", y); 
-  sy = nt2::maximum(y);
+  sy = nt2::minimum(y);
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_LESSER_EQUAL(y(i, j), sy(j)); 
+      NT2_TEST_GREATER_EQUAL(y(i, j), sy(j)); 
         
   disp("sy", sy);
-  sy = nt2::maximum(y, 1);
+  sy = nt2::minimum(y, 1);
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_LESSER_EQUAL(y(i, j), sy(j)); 
+      NT2_TEST_GREATER_EQUAL(y(i, j), sy(j)); 
   disp("sy", sy);
-  sy = nt2::maximum(y, 2);
+  sy = nt2::minimum(y, 2);
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_LESSER_EQUAL(y(i, j), sy(i)); 
+      NT2_TEST_GREATER_EQUAL(y(i, j), sy(i)); 
   disp("sy", sy);
-  sy = nt2::maximum(y, 3);
+  sy = nt2::minimum(y, 3);
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_LESSER_EQUAL(y(i, j), sy(i, j)); 
-  disp("sy", sy);
-  sy = nt2::maximum(y(_));
-  disp(sy); 
-  NT2_TEST_EQUAL(sy(1), 35); 
+      NT2_TEST_GREATER_EQUAL(y(i, j), sy(i, j)); 
+  sy = minimum(y(_))
+  disp("sy", sy);    
+  NT2_TEST_EQUAL(sy(1), 11); 
 }
 
