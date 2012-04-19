@@ -43,10 +43,9 @@ NT2_TEST_CASE_TPL( freqspace1, (double)(float) )
        NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
    }
 }
-NT2_TEST_CASE( freqspace1_no_type )
+NT2_TEST_CASE_TPL( freqspace1_no_type, (double) )
 {
-  typedef double T;
-  typedef double r_t; 
+  typedef T r_t;
   double ulpd;
   {
     for(int n = 1; n <= 10; ++n)
