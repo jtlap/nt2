@@ -14,7 +14,7 @@
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/iterator_range.hpp>
 #include <boost/fusion/include/advance.hpp>
-#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/toolbox/operator/functions/multiplies.hpp>
 
 namespace nt2 { namespace ext
 {

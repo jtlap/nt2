@@ -15,6 +15,7 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/include/functions/logical_notand.hpp>
 #include <boost/simd/toolbox/constant/constants/true.hpp>
+
 /*!
  * \ingroup boost_simd_reduction
  * \defgroup boost_simd_reduction_none none

@@ -6,26 +6,26 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_ANY_HPP_INCLUDED
-#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_ANY_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_NONE_HPP_INCLUDED
+#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_NONE_HPP_INCLUDED
 
-#include <boost/simd/toolbox/reduction/functions/any.hpp>
+#include <boost/simd/toolbox/reduction/functions/none.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, class Expr>
-  struct size_of<boost::simd::tag::any_,Domain,1,Expr>
-    : reduction_size_of<boost::simd::tag::any_, 1, Expr>{};
+  struct size_of<boost::simd::tag::none_,Domain,1,Expr>
+    : reduction_size_of<boost::simd::tag::none_, 1, Expr>{};
 
   template<class Domain, class Expr>
-  struct size_of<boost::simd::tag::any_,Domain,2,Expr>
-    : reduction_size_of<boost::simd::tag::any_, 2, Expr>{};
+  struct size_of<boost::simd::tag::none_,Domain,2,Expr>
+    : reduction_size_of<boost::simd::tag::none_, 2, Expr>{};
 
   template<class Domain, int N, class Expr>
-  struct generator<boost::simd::tag::any_,Domain,N,Expr>
-    : reduction_generator<boost::simd::tag::any_,N,Expr> {};
+  struct generator<boost::simd::tag::none_,Domain,N,Expr>
+    : reduction_generator<boost::simd::tag::none_,N,Expr> {};
 } } }
 
 #endif
