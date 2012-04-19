@@ -11,6 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/asum1.hpp>
 #include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/size.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
