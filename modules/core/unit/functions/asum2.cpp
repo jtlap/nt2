@@ -20,13 +20,13 @@
 NT2_TEST_CASE_TPL( asum2_scalar, (float)(double))//NT2_TYPES )
 {
   T x = nt2::asum2(T(42));
-  NT2_TEST_EQUAL( x, sqr(T(42)) );
+  NT2_TEST_EQUAL( x, nt2::sqr(T(42)) );
 
   x = nt2::asum2(T(42),1);
-  NT2_TEST_EQUAL( x, sqr(T(42)) );
+  NT2_TEST_EQUAL( x, nt2::sqr(T(42)) );
 
   x = nt2::asum2(T(42),0);
-  NT2_TEST_EQUAL( x, sqr(T(42)) );
+  NT2_TEST_EQUAL( x, nt2::sqr(T(42)) );
 
 }
 
