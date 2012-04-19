@@ -21,7 +21,7 @@ NT2_TEST_CASE_TPL( asump_scalar, (float)(double))//NT2_TYPES )
   NT2_TEST_EQUAL( x, nt2::sqr(T(42)) );
 
   x = nt2::asump(T(42),T(2), 1);
-  NT2_TEST_EQUAL( x, T(0) );
+  NT2_TEST_EQUAL( x, nt2::sqr(T(42)) );
 
   x = nt2::asump(T(42),T(2), 2);
   NT2_TEST_EQUAL( x, nt2::sqr(T(42)) );
