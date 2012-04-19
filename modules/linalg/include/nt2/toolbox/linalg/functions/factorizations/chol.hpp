@@ -40,16 +40,16 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::chol_, tag::cpu_
-                            , (A0)(A1)(N)
-                            , ((node_<A0,nt2::tag::terminal_,N>))
+                            , (A0)(A1)(IP)
+                            , (ast_<A0>)
                               (scalar_< type8_<A1> >)
-                              (unspecified_< meta::as_<nt2::details::in_place_> >)
+                              (unspecified_< IP >)
                             )
   {
     typedef details::cholesky_result<A0&> result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1 const& u, meta::as_<nt2::details::in_place_> const&) const
+    operator()(A0& a0, A1 const& u, IP const&) const
     {
       BOOST_ASSERT_MSG( nt2::issquare(a0)
                       , "??? Error using 'chol' : Matrix must be square."

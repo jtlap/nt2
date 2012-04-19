@@ -18,6 +18,25 @@ namespace nt2 { namespace meta
 {
   //==============================================================================
   //==============================================================================
+  template<class T, class Enable=void> struct size_type_
+  {
+    typedef std::size_t type;
+  };
+
+  //==============================================================================
+  //==============================================================================
+  template<class T, class Enable=void>
+  struct pointer_ : boost::add_pointer<T>
+  {};
+
+  //==============================================================================
+  //==============================================================================
+  template<class T, class Enable=void>
+  struct const_pointer_ : boost::add_pointer<T const>
+  {};
+
+  //==============================================================================
+  //==============================================================================
   template<class T, class Enable=void>
   struct reference_ : boost::add_reference<T>
   {};
@@ -35,6 +54,42 @@ namespace nt2 { namespace meta
   struct value_type_
   {
     typedef T type;
+  };
+
+  template<class T>
+  struct size_type_ < T
+                  , typename  boost::dispatch::meta::
+                    enable_if_type< typename boost::dispatch::meta::
+                                    strip<T>::type::size_type
+                                  >::type
+                  >
+  {
+    typedef typename boost::dispatch::meta::
+                      strip<T>::type::size_type type;
+  };
+
+  template<class T>
+  struct pointer_ < T
+                  , typename  boost::dispatch::meta::
+                    enable_if_type< typename boost::dispatch::meta::
+                                    strip<T>::type::pointer
+                                  >::type
+                  >
+  {
+    typedef typename boost::dispatch::meta::
+                      strip<T>::type::pointer type;
+  };
+
+  template<class T>
+  struct const_pointer_ < T
+                  , typename  boost::dispatch::meta::
+                    enable_if_type< typename boost::dispatch::meta::
+                                    strip<T>::type::const_pointer
+                                  >::type
+                  >
+  {
+    typedef typename boost::dispatch::meta::
+                      strip<T>::type::const_pointer type;
   };
 
   template<class T>

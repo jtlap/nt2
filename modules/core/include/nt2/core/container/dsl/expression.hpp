@@ -63,6 +63,9 @@ namespace nt2 { namespace container
     typedef typename meta::value_type_<Result>::type        value_type;
     typedef typename meta::reference_<Result>::type         reference;
     typedef typename meta::const_reference_<Result>::type   const_reference;
+    typedef typename meta::pointer_<Result>::type           pointer;
+    typedef typename meta::const_pointer_<Result>::type     const_pointer;
+    typedef typename meta::size_type_<Result>::type         size_type;
 
     typedef typename meta::settings_of<Result>::type        settings_type;
     typedef typename meta::
@@ -220,6 +223,55 @@ namespace nt2 { namespace container
     // Return current expression base indexes
     //==========================================================================
     BOOST_FORCEINLINE indexes_type indexes() const { return indexes_type(); }
+
+    //==========================================================================
+    // Return current expression leading_size
+    //==========================================================================
+    BOOST_FORCEINLINE size_type leading_size() const
+    {
+      typedef typename meta::strip<extent_type>::type sizes_t;
+      typedef typename boost::mpl
+                            ::apply < storage_order_type
+                                    , boost::mpl::size_t<sizes_t::static_size>
+                                    , boost::mpl::size_t<0U>
+                                    >::type                     dim_t;
+      return size_[dim_t::value];
+    }
+
+    //==========================================================================
+    // Access to raw data
+    //==========================================================================
+    pointer       raw()
+    {
+      //========================================================================
+      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      // If this static assert triggers, the raw memory of a non terminal node
+      // has been requested.
+      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      //========================================================================
+      BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<Expr>::value == 0)
+                          , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
+                          , (Expr)
+                          );
+
+      return nt2::terminal(*this).raw();
+    }
+
+    pointer raw() const
+    {
+      //========================================================================
+      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      // If this static assert triggers, the raw memory of a non terminal node
+      // has been requested.
+      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      //========================================================================
+      BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<Expr>::value == 0)
+                          , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
+                          , (Expr)
+                          );
+
+      return nt2::terminal(*this).raw();
+    }
 
     //==========================================================================
     // Destructive resize of expression
