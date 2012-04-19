@@ -14,7 +14,6 @@
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/iterator_range.hpp>
 #include <boost/fusion/include/advance.hpp>
-#include <nt2/toolbox/operator/functions/multiplies.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -40,26 +39,36 @@ namespace nt2 { namespace ext
     result_type operator()(const A0&, const A1&) const { return result_type(); }
   };
 
+  // INTERNAL ONLY
+  // Less strict multiply functor
+  struct local_multiply
+  {
+    typedef std::size_t result_type;
+
+    template<class A, class B> result_type
+    operator()(A const& a, B const& b) const
+    {
+      return result_type(a) * result_type(b);
+    }
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::numel_, tag::cpu_
                             , (A0)
                             , (fusion_sequence_<A0>)
                             )
   {
-    typedef typename boost::dispatch::
-            make_functor<tag::multiplies_, A0>::type           func_t;
-
     typedef typename boost::fusion::result_of::
             fold< A0
                 , boost::mpl::size_t<1> const
-                , func_t
+                , local_multiply
                 >::type                                        result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0& a0) const
+    result_type operator()(A0 const& a0) const
     {
       return boost::fusion::fold( a0
                                 , boost::mpl::size_t<1>()
-                                , func_t()
+                                , local_multiply()
                                 );
     }
   };
@@ -70,26 +79,24 @@ namespace nt2 { namespace ext
                               (mpl_integral_< scalar_< unspecified_<A1> > >)
                             )
   {
-    typedef typename  boost::dispatch::
-            make_functor<tag::multiplies_, A0>::type           func_t;
-
-    typedef typename boost::fusion::result_of::begin<A0>::type begin_type;
-    typedef typename boost::fusion::result_of::end<A0>::type   end_type;
+    typedef typename boost::fusion::result_of::begin<A0>::type  begin_t;
+    typedef typename boost::fusion::result_of::end<A0>::type    end_t;
     typedef typename boost::fusion::result_of::
-            advance<begin_type, A1>::type                      new_begin_type;
+                            advance<begin_t, A1>::type          new_begin_t;
+    typedef boost::fusion::iterator_range<new_begin_t, end_t>   it_t;
 
-    typedef typename  boost::fusion::result_of::
-            fold< boost::fusion::iterator_range<new_begin_type, end_type> const
-                , boost::mpl::size_t<1> const
-                , func_t
-                >::type                                        result_type;
-    
+    typedef typename  boost::fusion::result_of
+                           ::fold< it_t const
+                                 , boost::mpl::size_t<1> const
+                                 , local_multiply
+                                 >::type                      result_type;
+
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0& a0, const A1&) const
+    result_type operator()(A0 const& a0, const A1&) const
     {
-      return boost::fusion::fold( boost::fusion::iterator_range<new_begin_type, end_type>(new_begin_type(a0), end_type(a0))
+      return boost::fusion::fold( it_t(new_begin_t(a0), end_t(a0))
                                 , boost::mpl::size_t<1>()
-                                , func_t()
+                                , local_multiply()
                                 );
     }
   };
