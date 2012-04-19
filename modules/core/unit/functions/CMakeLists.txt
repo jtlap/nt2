@@ -65,6 +65,10 @@ SET( SOURCES
   minimum.cpp
   firstnonsingleton.cpp
   tie.cpp
+  all.cpp
+  any.cpp
+  none.cpp
+  nbtrue.cpp
 # List of test files for toolbox core.settings
    )
 

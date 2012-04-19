@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace tag
     **/
     struct none_ : ext::reduction_<none_, tag::logical_notand_, tag::True> 
     { 
-      typedef ext::reduction_<none_, tag::logical_notand_, tag::True> parent; 
+      typedef ext::reduction_<none_, tag::logical_and_, tag::True> parent; 
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 1)
