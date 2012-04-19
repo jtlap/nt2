@@ -13,6 +13,7 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_NBTRUE_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <boost/simd/toolbox/constant/constants/zero.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -62,9 +63,14 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag nbtrue_ of functor nbtrue 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct nbtrue_ : ext::unspecified_<nbtrue_> { typedef ext::unspecified_<nbtrue_> parent; };
+    struct nbtrue_ : ext::reduction_<nbtrue_, tag::plus_, tag::Zero> 
+    { 
+      typedef ext::reduction_<nbtrue_, tag::plus_, tag::Zero> parent;  
+    };
+    //    struct nbtrue_ : ext::unspecified_<nbtrue_> { typedef ext::unspecified_<nbtrue_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::nbtrue_, nbtrue, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::nbtrue_, nbtrue, 2)
 } }
 
 #endif
