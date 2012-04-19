@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_COMMON_MINIMUM_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_COMMON_MINIMUM_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_MINIMUM_HPP_INCLUDED
+#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_MINIMUM_HPP_INCLUDED
 
 #include <boost/simd/toolbox/reduction/functions/minimum.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>

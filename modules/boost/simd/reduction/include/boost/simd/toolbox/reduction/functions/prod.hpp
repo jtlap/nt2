@@ -15,6 +15,7 @@
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/operator/functions/multiplies.hpp>
 #include <boost/simd/toolbox/constant/constants/one.hpp>
+
 /*!
  * \ingroup boost_simd_reduction
  * \defgroup boost_simd_reduction_prod prod

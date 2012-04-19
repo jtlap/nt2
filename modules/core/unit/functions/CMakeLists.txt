@@ -65,6 +65,7 @@ SET( SOURCES
   minimum.cpp
   firstnonsingleton.cpp
   tie.cpp
+  prod.cpp
 # List of test files for toolbox core.settings
    )
 

@@ -13,7 +13,7 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_ALL_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/logical_and.hpp>
+#include <boost/simd/toolbox/operator/functions/logical_and.hpp>
 #include <boost/simd/toolbox/constant/constants/true.hpp>
 
 /*!

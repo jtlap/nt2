@@ -6,26 +6,26 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_PROD_HPP_INCLUDED
-#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_PROD_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_ALL_HPP_INCLUDED
+#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_ALL_HPP_INCLUDED
 
-#include <boost/simd/toolbox/reduction/functions/prod.hpp>
+#include <boost/simd/toolbox/reduction/functions/all.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, class Expr>
-  struct size_of<boost::simd::tag::prod_,Domain,1,Expr>
-    : reduction_size_of<boost::simd::tag::prod_, 1, Expr>{};
+  struct size_of<boost::simd::tag::all_,Domain,1,Expr>
+    : reduction_size_of<boost::simd::tag::all_, 1, Expr>{};
 
   template<class Domain, class Expr>
-  struct size_of<boost::simd::tag::prod_,Domain,2,Expr>
-    : reduction_size_of<boost::simd::tag::prod_, 2, Expr>{};
+  struct size_of<boost::simd::tag::all_,Domain,2,Expr>
+    : reduction_size_of<boost::simd::tag::all_, 2, Expr>{};
 
-  template<class Domain, class Expr, int N>
-  struct generator<boost::simd::tag::prod_,Domain,N,Expr>
-    : reduction_generator<boost::simd::tag::prod_,N,Expr> {};
+  template<class Domain, int N, class Expr>
+  struct generator<boost::simd::tag::all_,Domain,N,Expr>
+    : reduction_generator<boost::simd::tag::all_,N,Expr> {};
 } } }
 
 #endif

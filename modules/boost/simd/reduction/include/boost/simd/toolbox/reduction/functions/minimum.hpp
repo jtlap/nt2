@@ -13,8 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_MINIMUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/min.hpp>
 #include <boost/simd/toolbox/constant/constants/valmax.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/min.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
