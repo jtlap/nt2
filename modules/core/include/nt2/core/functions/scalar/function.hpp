@@ -32,14 +32,14 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
                           )                                                    \
 {                                                                              \
   typedef typename make_functor<tag::run_, A0>::type              F;           \
-  typedef typename meta::call<tag::schedule(A0&, F const&)>::type scheduled;   \
+  typedef typename meta::call<tag::schedule_(A0&, F const&)>::type scheduled;  \
   typedef typename boost::remove_reference<scheduled>::type       stripped;    \
                                                                                \
   typedef typename meta::                                                      \
           scalar_of< typename boost::dispatch::meta::                          \
-                     semantic_of<scheduled>::type                              \
+                      semantic_of<A0&>::type                                   \
                    >::type                                        result_type; \
-  typedef stripped::index_type::type                              idx_t;       \
+  typedef typename stripped::index_type::type                     idx_t;       \
                                                                                \
   BOOST_FORCEINLINE result_type                                                \
   operator()(A0& a0, BOOST_PP_ENUM_BINARY_PARAMS(n,I,i) ) const                \
