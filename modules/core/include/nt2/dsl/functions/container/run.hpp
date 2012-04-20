@@ -25,6 +25,7 @@
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 #include <numeric>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -72,13 +73,13 @@ namespace nt2 { namespace ext
       std::size_t dim = nt2::ndims(ext);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
-      if(red > ext.size()){
-        return a0;
-      }
-      else if(red == 1 && ext[0] == 1){
+      // if(red > ext.size()){
+      //   return a0;
+      // }
+      if(red == 1 && ext[0] == 1){
         red = nt2::firstnonsingleton(ext);
       }
-      else if(red - 1 <= ext.size() && ext[red-1] == 1)
+      else if((red - 1 <= ext.size() && ext[red-1] == 1) || ext.size() < red)
       {
         for(std::size_t i = 0; i < nt2::numel(input); ++i)
           nt2::run(a0,i,nt2::run(input,i,nt2::meta::as_<value_type>()));

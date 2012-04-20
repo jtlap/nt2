@@ -13,8 +13,31 @@
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/numel.hpp>
 
+namespace nt2 { namespace details
+{
+  template <class X, class N, class B, class U>
+  BOOST_FORCEINLINE typename X::value_type
+  inner_fold_step(X const& in, const std::size_t& p, N const& neutral, B const& bop, U const& uop)
+  {
+    typedef typename X::value_type   value_type;
+    typedef typename X::extent_type  extent_type;
+    extent_type ext = in.extent();
+
+    std::size_t ibound  = boost::fusion::at_c<0>(ext);
+    value_type out = neutral(nt2::meta::as_<value_type>());
+      
+    for(std::size_t i = 0; i < ibound; ++i)
+    {
+        out = bop(out, nt2::run(in, i+p, meta::as_<value_type>()));
+    }
+    
+    return out;
+  }
+} }
+
 namespace nt2 { namespace ext
 {
+
   //============================================================================
   // Generates inner_fold
   //============================================================================
@@ -36,13 +59,9 @@ namespace nt2 { namespace ext
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
       std::size_t obound =  nt2::numel(boost::fusion::pop_front(ext));
 
-      for(std::size_t j = 0, k = 0; j < obound; ++j, k+=ibound){
-        nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
-        for(std::size_t i = 0; i < ibound; ++i){
-          nt2::run(out, j
-                   ,bop(nt2::run(out, j,meta::as_<value_type>())
-                        , nt2::run(in, i+k, meta::as_<value_type>())));
-        }
+      for(std::size_t j = 0, k = 0; j < obound; ++j, k+=ibound)
+      {
+          nt2::run(out, j, details::inner_fold_step(in,k, neutral, bop, uop));
       }
 
     }

@@ -13,6 +13,30 @@
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/include/functions/numel.hpp>
 
+
+namespace nt2 { namespace details
+{
+  template <class X, class N, class B, class U>
+  BOOST_FORCEINLINE typename X::value_type
+  outer_fold_step(X const& in, const std::size_t& p, const std::size_t& obound, N const& neutral, B const& bop, U const& uop)
+  {
+    typedef typename X::value_type   value_type;
+    typedef typename X::extent_type  extent_type;
+    extent_type ext = in.extent();
+
+    std::size_t ibound  = ext[ext.size()-1];
+    value_type out = neutral(nt2::meta::as_<value_type>());
+      
+    for(std::size_t i = 0, k=0; i < ibound; ++i, k+=obound)
+    {
+        out = bop(out, nt2::run(in, k + p, meta::as_<value_type>()));
+    }
+    
+    return out;
+  }
+} }
+
+
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -33,7 +57,6 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
-      std::size_t ibound  = ext[ext.size()-1];
 
       std::size_t numel  = 1;
       for(std::size_t m = 0; m!= ext.size()-1 ; ++m)
@@ -41,15 +64,9 @@ namespace nt2 { namespace ext
 
       std::size_t obound = numel;//nt2::numel(boost::fusion::pop_back(ext));
 
-      for(std::size_t j = 0; j < obound; ++j){
-
-        nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
-
-        for(std::size_t i = 0, k=0; i < ibound; ++i, k+=obound){
-          nt2::run(out, j
-                   , bop(nt2::run(out, j,meta::as_<value_type>())
-                         , nt2::run(in, j+k, meta::as_<value_type>())));
-        }
+      for(std::size_t j = 0; j < obound; ++j)
+      {
+          nt2::run(out, j, details::outer_fold_step(in, j, obound, neutral, bop, uop));
       }
     }
 

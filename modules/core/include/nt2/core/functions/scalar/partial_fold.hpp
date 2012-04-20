@@ -15,6 +15,30 @@
 #include <nt2/sdk/details/type_id.hpp>
 
 
+namespace nt2 { namespace details
+{
+  template <class X, class N, class B, class U>
+  BOOST_FORCEINLINE typename X::value_type
+  partial_fold_step(X const& in, const std::size_t& p, const std::size_t& mbound, N const& neutral, B const& bop, U const& uop)
+  {
+    typedef typename X::value_type   value_type;
+    typedef typename X::extent_type  extent_type;
+    extent_type ext = in.extent();
+
+    std::size_t ibound  = boost::fusion::at_c<0>(ext);
+    value_type out = neutral(nt2::meta::as_<value_type>());
+      
+    for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
+    {
+        out = bop(out, nt2::run(in, m_+p, meta::as_<value_type>()));
+    }
+
+    
+    return out;
+  }
+} }
+
+
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -44,13 +68,14 @@ namespace nt2 { namespace ext
       for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
         for(std::size_t i = 0; i < ibound; ++i){
           id = i+o_;
-          nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
-          for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound){
-            nt2::run(out, id
-                     , bop(nt2::run(out, id,meta::as_<value_type>())
-                           ,nt2::run(in, id+m_,meta::as_<value_type>()))
-                     );
-          }
+//          nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
+          nt2::run(out, id, details::partial_fold_step(in,id,mbound,neutral,bop,uop));
+          // for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound){
+          //   nt2::run(out, id
+          //            , bop(nt2::run(out, id,meta::as_<value_type>())
+          //                  ,nt2::run(in, id+m_,meta::as_<value_type>()))
+          //            );
+          // }
         }
       }
     }
