@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_MAXIMUM_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_MAXIMUM_HPP_INCLUDED
 
+#include <boost/simd/toolbox/arithmetic/functions/max.hpp>
 #include <boost/simd/toolbox/reduction/functions/maximum.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
 #include <nt2/core/container/colon/colon.hpp>
@@ -16,8 +17,8 @@
 
 namespace nt2
 {
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::maximum_, maximum , 3)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::maximum_, max     , 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::max_, maximum , 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::max_, max     , 3)
 }
 
 namespace nt2 { namespace container { namespace ext
@@ -37,7 +38,7 @@ namespace nt2 { namespace container { namespace ext
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::maximum_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::max_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (ast_<A0>)
                               (target_< unspecified_<A1> >)
