@@ -50,6 +50,8 @@ namespace nt2 { namespace ext
 
   //============================================================================
   // Reductions operations go to fold
+  // Note that Matlab reduction functions has a f(x,i) and a f(x,[],i) form
+  // that we handle by having a relative child_c calls
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                               , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
@@ -85,7 +87,7 @@ namespace nt2 { namespace ext
 
         return a0;
       }
-      
+
 
       if(dim == 1 || ext.size() == 1)
       {
@@ -96,7 +98,7 @@ namespace nt2 { namespace ext
                                , typename nt2::make_functor<T1, A0>::type()
                                )
                   );
-        
+
       }
       else if(red == 1)
       {
@@ -123,7 +125,7 @@ namespace nt2 { namespace ext
                                           , std::size_t(1)
                                           , std::multiplies<std::size_t>()
                                           );
-        
+
         std::size_t hi = std::accumulate( ext.begin()+red
                                           , ext.begin()+dim
                                           , std::size_t(1)
@@ -134,25 +136,24 @@ namespace nt2 { namespace ext
                            , reshape(input, of_size(lo, ext[red-1], hi))
                            , typename nt2::make_functor<Neutral1, A0>::type()
                            , typename nt2::make_functor<O1, A0>::type()
-                           , typename nt2::make_functor<T1, A0>::type()  
+                           , typename nt2::make_functor<T1, A0>::type()
                            );
 
       }
 
       return a0;
     }
-    
+
     inline std::size_t reduction_dim(A1&, boost::mpl::false_) const
     {
       return 1;
     }
-    
+
     inline std::size_t reduction_dim(A1& a1, boost::mpl::true_) const
     {
-      return nt2::run(boost::proto::child_c<1>(a1));
+      return nt2::run(boost::proto::child_c<N1::value - 1>(a1));
     }
   };
-
 
   //============================================================================
   // Non-assign table expressions are reduced to assign expressions

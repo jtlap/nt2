@@ -32,7 +32,18 @@ namespace nt2 { namespace container { namespace ext
   // } } }
   //
   //============================================================================
-  template<class RED, int N, class Expr> struct reduction_size_of {};
+  template<class RED, int N, class Expr> struct reduction_size_of
+  {
+   typedef typename boost::proto::result_of::child_c<Expr,0>::type      expr_t;
+    typedef typename nt2::make_size<NT2_MAX_DIMENSIONS>::type           result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      result_type res = boost::proto::child_c<0>(e).extent();
+      res[boost::proto::child_c<N-1>(e)-1] = 1;
+      return res;
+    }
+  };
 
   template<class RED, class Expr> struct reduction_size_of<RED,1,Expr>
   {
@@ -43,20 +54,6 @@ namespace nt2 { namespace container { namespace ext
     {
       result_type res = boost::proto::child_c<0>(e).extent();
       res[nt2::firstnonsingleton(res)-1] = 1;
-
-      return res;
-    }
-  };
-
-  template<class RED, class Expr> struct reduction_size_of<RED,2,Expr>
-  {
-   typedef typename boost::proto::result_of::child_c<Expr,0>::type      expr_t;
-    typedef typename nt2::make_size<NT2_MAX_DIMENSIONS>::type           result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      result_type res = boost::proto::child_c<0>(e).extent();
-      res[boost::proto::child_c<1>(e)-1] = 1;
       return res;
     }
   };
