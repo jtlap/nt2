@@ -18,12 +18,24 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0>::type result_type;
+    typedef int32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
         return a0 ? One<result_type>() : Zero<result_type>(); 
       }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
+                                     , (A0)(A1)
+                                     , (scalar_< fundamental_<A0> >)
+                                     (scalar_< integer_<A1> > )
+                                     )
+  {
+    typedef boost::simd::int32_t result_type;
+    inline result_type operator()(A0 const & a0, A1 const &) const
+      {
+        return a0 ? One<result_type>() : Zero<result_type>(); 
+      }
+  };  
 } } }
 
 
