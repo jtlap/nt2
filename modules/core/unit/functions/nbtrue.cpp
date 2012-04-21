@@ -9,9 +9,17 @@
 #define NT2_UNIT_MODULE "nt2::nbtrue function"
 
 #include <nt2/table.hpp>
-// #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
+#include <nt2/include/functions/sb2b.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/sum.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/ten.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -19,54 +27,73 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL( nbtrue_scalar, NT2_TYPES )
+// NT2_TEST_CASE_TPL( nbtrue_scalar, (float)(double))//NT2_TYPES )
+// {
+//   nt2::int32_t x = nt2::nbtrue(1);
+//   NT2_TEST_EQUAL( x, 1 );
+  
+//   x = nt2::nbtrue(1,1);
+//   NT2_TEST_EQUAL( x, 1 );
+  
+//   x = nt2::nbtrue(1,2);
+//   NT2_TEST_EQUAL( x, 1) ;
+  
+//   x = nt2::nbtrue(0,2);
+//   NT2_TEST_EQUAL( x, 2) ;
+  
+// }
+
+NT2_TEST_CASE_TPL( nbtrue_expr, (float))//(double))//NT2_TYPES )
 {
-//   T x = nt2::nbtrue(nt2::True<T>());
-//   NT2_TEST_EQUAL( x, (nt2::True<T>()) );
-
-//   x = nt2::nbtrue(nt2::True<T>(),1);
-//   NT2_TEST_EQUAL( x, nt2::True<T>() );
-
-//   x = nt2::nbtrue(nt2::True<T>(),2);
-//   NT2_TEST_EQUAL( x, (nt2::True<T>()) );
-
-}
-
-NT2_TEST_CASE_TPL( nbtrue_expr, NT2_TYPES )
-{
-//   using nt2::_;
-//   nt2::table<T> y( nt2::of_size(5,3) );
-//   nt2::table<logical<T > > sy( nt2::of_size(1,3) );
+  using nt2::_;
+  nt2::table<T> y( nt2::of_size(5,3) );
+  nt2::table<T> y1, sy1, sy, sy2, sy3; 
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      y(i,j) = i + 5*j;
+  y1 = nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>());
+  sy =  sum(y);
+  disp("y", y); 
+  disp("sy", sy); 
+  sy1 =  sum(y1); 
+  sy2 =  sum(nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>()));
+  //sy3 =  sb2b(nt2::gt(y, nt2::Ten<T>())); 
+  disp("y1", y1); 
+  disp("sy1", sy1);
+  disp("sy2", sy2);
+  std::cout << "----------" << std::endl; 
+  disp("y", y); 
+  //sy = nt2::nbtrue(y);
+  disp("sy1", nt2::is_nez(y));
+  disp("sy2", nt2::sb2b(nt2::is_nez(y)));
+  disp("sy3", nt2::if_else(nt2::is_nez(y), nt2::Ten<T>(), nt2::Zero<T>())); 
+  disp("sy4", nt2::sum(nt2::is_nez(y))); 
+  disp("sy5", nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>()));
+  sy = nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>());
+  disp("sy ",sy); 
+  disp("sy6", nt2::sum(nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>())));
+  disp("sy7", nt2::sum(y)); 
+  disp("sy8", nt2::nbtrue(y));
+  disp("sy9", nt2::sum(sy)); 
+  
 //   for(int j=1;j<=3;j++)
-//     for(int i=1;i<=5;i++)
-//       y(i,j) = i + 10*j;
-//   disp("y", y); 
-//   sy = nt2::nbtrue(y);
-//   for(int j=1;j<=3;j++)
-//     {
-//     bool z = true;  
-//     for(int i=1;i<=5;i++) z&&= y(i, j); 
-//     NT2_TEST_EQUAL(is_true(z), sy(j));
-//     }
-        
-//   disp("sy", sy);
+//     NT2_TEST_EQUAL(nt2::size(y,1) , sy(j));
+  
 //   sy = nt2::nbtrue(y, 1);
 //   for(int j=1;j<=3;j++)
-//     for(int i=1;i<=5;i++)
-//       NT2_TEST_LESSER_EQUAL(y(i, j), sy(j)); 
-//   disp("sy", sy);
+//     NT2_TEST_EQUAL(nt2::size(y,1) , sy(j));
+  
 //   sy = nt2::nbtrue(y, 2);
-//   for(int j=1;j<=3;j++)
-//     for(int i=1;i<=5;i++)
-//       NT2_TEST_LESSER_EQUAL(y(i, j), sy(i)); 
-//   disp("sy", sy);
+//   for(int j=1;j<=5;j++)
+//     NT2_TEST_EQUAL(nt2::size(y,2) , sy(j));
+  
 //   sy = nt2::nbtrue(y, 3);
-//   for(int j=1;j<=3;j++)
-//     for(int i=1;i<=5;i++)
-//       NT2_TEST_LESSER_EQUAL(y(i, j), sy(i, j)); 
-//   disp("sy", sy);
+//   for(int j=1;j<=5;j++)
+//     for(int i=1;i<=5;i++)    
+//       NT2_TEST_EQUAL(nt2::size(y,3) , sy(i, j));
+  
 //   sy = nt2::nbtrue(y(_));
 //   disp(sy); 
-//   NT2_TEST_EQUAL(sy(1), True<T>()); 
-}
+//   NT2_TEST_EQUAL(sy(1), nt2::numel(y)); 
+ }
 

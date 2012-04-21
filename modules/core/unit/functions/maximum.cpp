@@ -19,7 +19,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL( maximum_scalar, NT2_TYPES )
+NT2_TEST_CASE_TPL( maximum_scalar, (float)(double))//NT2_TYPES )
 {
   T x = nt2::maximum(T(42));
   NT2_TEST_EQUAL( x, (T(42)) );

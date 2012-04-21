@@ -70,6 +70,7 @@ SET( SOURCES
   none.cpp
   nbtrue.cpp
   prod.cpp
+  mean.cpp
 # List of test files for toolbox core.settings
    )
 set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
