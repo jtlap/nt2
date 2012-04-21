@@ -12,7 +12,7 @@
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/tril.hpp>
 #include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/leading_size.hpp>
+#include <nt2/include/functions/expand.hpp>
 #include <nt2/toolbox/linalg/details/lapack/potrf.hpp>
 #include <nt2/toolbox/linalg/details/lapack/potrs.hpp>
 #include <nt2/toolbox/linalg/details/lapack/pocon.hpp>
@@ -33,14 +33,21 @@ namespace nt2 { namespace details
     cholesky_result ( char uplo, Input& xpr )
                     : values_(xpr)
                     , height_( nt2::height(xpr) )
-                    , leading_( nt2::leading_size(values_) )
+                    , leading_( values_.leading_size() )
                     , info_(0)
                     , uplo_(uplo)
     {
-      nt2::details::potrf ( &uplo_, &height_
-                          , boost::proto::value(values_).raw()
-                          , &leading_, &info_
-                          );
+      nt2::details::potrf(&uplo_, &height_, values_.raw(), &leading_, &info_);
+    }
+
+    cholesky_result& operator=(cholesky_result const& src)
+    {
+      values_   = src.values_;
+      height_   = src.height_;
+      leading_  = src.leading_;
+      info_     = src.info_;
+      uplo_     = src.uplo_;
+      return *this;
     }
 
     //==========================================================================
@@ -57,33 +64,50 @@ namespace nt2 { namespace details
       if(uplo_ == 'U')  that = nt2::triu(values_);
       else              that = nt2::tril(values_);
 
-      // TODO Add expand to trim too [p-1 p-1] size
-      ////if(p > 0) that = nt2::expand(that, nt2::of_size(p-1,p-1) );
+      if(info_ > 0) that = nt2::expand(that, info_-1, info_-1 );
       return that;
     }
 
     //==========================================================================
     // Return upper formatted result
-    // TODO Add expand to trim too [p-1 p-1] size
     //==========================================================================
-    typename meta::call<tag::triu_(data_t const&)>::type upper_result() const
+    typename  meta::
+              call< tag::expand_
+                    ( typename  meta::
+                                call<tag::triu_(data_t const&)>::type const&
+                    , nt2_la_int
+                    , nt2_la_int
+                    )
+                  >::type
+    upper_result() const
     {
       BOOST_ASSERT_MSG( (uplo_ == 'U')
                       , "Lower Cholesky can't return upper result"
                       );
-      return nt2::triu(values_);
+
+      nt2_la_int p = info_ > 0 ? info_-1 : height_;
+      return nt2::expand(nt2::triu(values_), p, p);
     }
 
     //==========================================================================
-    // Return upper formatted result
-    // TODO Add expand to trim too [p-1 p-1] size
+    // Return lower formatted result
     //==========================================================================
-    typename meta::call<tag::tril_(data_t const&)>::type lower_result() const
+    typename  meta::
+              call< tag::expand_
+                    ( typename  meta::
+                                call<tag::tril_(data_t const&)>::type const&
+                    , nt2_la_int
+                    , nt2_la_int
+                    )
+                  >::type
+    lower_result() const
     {
       BOOST_ASSERT_MSG( (uplo_ == 'L')
                       , "Upper Cholesky can't return lower result"
                       );
-      return nt2::tril(values_);
+
+      nt2_la_int p = info_ > 0 ? info_-1 : height_;
+      return nt2::expand(nt2::tril(values_), p, p);
     }
 
     //==========================================================================
@@ -103,7 +127,7 @@ namespace nt2 { namespace details
 
       base_t res;
       nt2::details::pocon ( &uplo_, &height_
-                          , boost::proto::value(values_).raw()
+                          , values_.raw()
                           , &leading_
                           , &anorm, &res, &info_
                           );
@@ -124,11 +148,10 @@ namespace nt2 { namespace details
     template<class Xpr> void inplace_solve(Xpr& b ) const
     {
       long int nrhs       = nt2::size(b, 1);
-      long int leading_b  = nt2::leading_size(b);
+      long int leading_b  = b.leading_size();
 
       nt2::details::potrs ( &uplo_, &height_, &nrhs
-                          , boost::proto::value(values_).raw()
-                          , &leading_
+                          , values_.raw()   , &leading_
                           , b.raw()         , &leading_b
                           , &info_
                           );

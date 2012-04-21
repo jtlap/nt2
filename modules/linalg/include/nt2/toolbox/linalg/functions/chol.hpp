@@ -51,8 +51,11 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 2)
 
   // Those variant are used for the tied(x...) = chol(..) syntax
-  NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 3)
-  NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 4)
+  NT2_FUNCTION_IMPLEMENTATION_TPL ( tag::chol_
+                                  , chol
+                                  , (A0 const&)(A1 const&)(A2&)(A3&)
+                                  , 4
+                                  )
 
   namespace factorization
   {

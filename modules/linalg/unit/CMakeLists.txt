@@ -9,4 +9,5 @@
 
 nt2_module_use_modules(unit core)
 
+ADD_SUBDIRECTORY(functions)
 ADD_SUBDIRECTORY(factorization)

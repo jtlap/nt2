@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
                               (unspecified_< IP >)
                             )
   {
-    typedef details::cholesky_result<A0&> result_type;
+    typedef details::cholesky_result<A0&>       result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1 const& u, IP const&) const
