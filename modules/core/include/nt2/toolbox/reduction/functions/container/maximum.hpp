@@ -16,21 +16,8 @@
 
 namespace nt2
 {
-  template<class A0,class A1> BOOST_FORCEINLINE
-  typename boost::dispatch::meta::call<tag::maximum_ (A0 const&, A1 const&)>::type
-  maximum(A0 const& a0,meta::as_<details::empty_t> const&,A1 const& a1)
-  {
-    typename boost::dispatch::make_functor<tag::maximum_, A0>::type callee;
-    return callee(a0,a1);
-  }
-
-  template<class A0,class A1> BOOST_FORCEINLINE
-  typename boost::dispatch::meta::call<tag::maximum_ (A0 const&, A1 const&)>::type
-  max(A0 const& a0,meta::as_<details::empty_t> const&,A1 const& a1)
-  {
-    typename boost::dispatch::make_functor<tag::maximum_, A0>::type callee;
-    return callee(a0,a1);
-  }
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::maximum_, maximum , 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::maximum_, max     , 3)
 }
 
 namespace nt2 { namespace container { namespace ext
@@ -47,5 +34,24 @@ namespace nt2 { namespace container { namespace ext
   struct generator<boost::simd::tag::maximum_,Domain,N,Expr>
     : reduction_generator<boost::simd::tag::maximum_,N,Expr> {};
 } } }
+
+namespace nt2 { namespace ext
+{
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::maximum_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (ast_<A0>)
+                              (target_< unspecified_<A1> >)
+                              (scalar_< integer_<A2> >)
+                            )
+  {
+    typedef typename meta::call< nt2::tag::maximum_(A0 const&, A2)>::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0,A1 const&,A2 const& a2) const
+    {
+      return nt2::maximum(a0,a2);
+    }
+  };
+} }
 
 #endif
