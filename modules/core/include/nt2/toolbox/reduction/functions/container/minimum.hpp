@@ -11,7 +11,27 @@
 
 #include <boost/simd/toolbox/reduction/functions/minimum.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
+#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+
+namespace nt2
+{
+  template<class A0,class A1> BOOST_FORCEINLINE
+  typename boost::dispatch::meta::call<tag::minimum_ (A0 const&, A1 const&)>::type
+  minimum(A0 const& a0,meta::as_<details::empty_t> const&,A1 const& a1)
+  {
+    typename boost::dispatch::make_functor<tag::minimum_, A0>::type callee;
+    return callee(a0,a1);
+  }
+
+  template<class A0,class A1> BOOST_FORCEINLINE
+  typename boost::dispatch::meta::call<tag::minimum_ (A0 const&, A1 const&)>::type
+  min(A0 const& a0,meta::as_<details::empty_t> const&,A1 const& a1)
+  {
+    typename boost::dispatch::make_functor<tag::minimum_, A0>::type callee;
+    return callee(a0,a1);
+  }
+}
 
 namespace nt2 { namespace container { namespace ext
 {

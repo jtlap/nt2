@@ -151,7 +151,7 @@ namespace nt2 { namespace ext
 
     inline std::size_t reduction_dim(A1& a1, boost::mpl::true_) const
     {
-      return nt2::run(boost::proto::child_c<N1::value - 1>(a1));
+      return nt2::run(boost::proto::child_c<1>(a1));
     }
   };
 
