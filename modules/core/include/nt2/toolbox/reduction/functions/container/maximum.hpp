@@ -23,6 +23,10 @@ namespace nt2 { namespace container { namespace ext
   struct size_of<boost::simd::tag::maximum_,Domain,2,Expr>
     : reduction_size_of<boost::simd::tag::maximum_, 2, Expr>{};
 
+  template<class Domain, class Expr>
+  struct size_of<boost::simd::tag::maximum_,Domain,3,Expr>
+    : reduction_size_of<boost::simd::tag::maximum_, 3, Expr>{};
+
   template<class Domain, int N, class Expr>
   struct generator<boost::simd::tag::maximum_,Domain,N,Expr>
     : reduction_generator<boost::simd::tag::maximum_,N,Expr> {};
