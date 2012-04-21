@@ -57,25 +57,7 @@ NT2_TEST_CASE_TPL( nbtrue_expr, (float))//(double))//NT2_TYPES )
   disp("sy", sy); 
   sy1 =  sum(y1); 
   sy2 =  sum(nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>()));
-  //sy3 =  sb2b(nt2::gt(y, nt2::Ten<T>())); 
-  disp("y1", y1); 
-  disp("sy1", sy1);
-  disp("sy2", sy2);
-  std::cout << "----------" << std::endl; 
-  disp("y", y); 
-  //sy = nt2::nbtrue(y);
-  disp("sy1", nt2::is_nez(y));
-  disp("sy2", nt2::sb2b(nt2::is_nez(y)));
-  disp("sy3", nt2::if_else(nt2::is_nez(y), nt2::Ten<T>(), nt2::Zero<T>())); 
-  disp("sy4", nt2::sum(nt2::is_nez(y))); 
-  disp("sy5", nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>()));
-  sy = nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>());
-  disp("sy ",sy); 
-  disp("sy6", nt2::sum(nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>())));
-  disp("sy7", nt2::sum(y)); 
-  disp("sy8", nt2::nbtrue(y));
-  disp("sy9", nt2::sum(sy)); 
-  
+
 //   for(int j=1;j<=3;j++)
 //     NT2_TEST_EQUAL(nt2::size(y,1) , sy(j));
   
