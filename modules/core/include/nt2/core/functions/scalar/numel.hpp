@@ -16,7 +16,6 @@
 #include <boost/fusion/include/value_at.hpp>
 #include <nt2/core/utility/of_size/mpl_value.hpp>
 #include <boost/fusion/include/iterator_range.hpp>
-#include <boost/simd/toolbox/operator/functions/multiplies.hpp>
 #include <boost/simd/toolbox/operator/functions/scalar/multiplies.hpp>
 
 namespace nt2 { namespace ext

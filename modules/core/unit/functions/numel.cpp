@@ -27,21 +27,21 @@ NT2_TEST_CASE( fundamental_numel )
   using boost::mpl::_;
 
   NT2_TEST_EQUAL( numel('4'), 1U  );
-  NT2_TEST_EXPR_TYPE( numel('4'), _, (mpl_::size_t<1ul>) );
+  NT2_TEST_EXPR_TYPE( numel('4'), _, (boost::mpl::size_t<1ul>) );
 
   NT2_TEST_EQUAL( numel(4)  , 1U  );
-  NT2_TEST_EXPR_TYPE( numel(4), _, (mpl_::size_t<1ul>) );
+  NT2_TEST_EXPR_TYPE( numel(4), _, (boost::mpl::size_t<1ul>) );
 
   NT2_TEST_EQUAL( numel(4.) , 1U  );
-  NT2_TEST_EXPR_TYPE( numel(4.), _, (mpl_::size_t<1ul>) );
+  NT2_TEST_EXPR_TYPE( numel(4.), _, (boost::mpl::size_t<1ul>) );
 
   NT2_TEST_EQUAL( numel(4.f), 1U  );
-  NT2_TEST_EXPR_TYPE( numel(4.f), _, (mpl_::size_t<1ul>) );
+  NT2_TEST_EXPR_TYPE( numel(4.f), _, (boost::mpl::size_t<1ul>) );
 
   // Numel of fusion vector preserves types
   boost::fusion::vector<nt2::uint16_t,nt2::uint16_t> fv(2,3);
   NT2_TEST_EQUAL( numel(fv), nt2::uint16_t(6) );
-  NT2_TEST_EXPR_TYPE( numel(fv), _, ( nt2::uint16_t ) );
+  NT2_TEST_EXPR_TYPE( numel(fv), _, (nt2::uint16_t) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
