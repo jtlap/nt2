@@ -70,17 +70,17 @@ NT2_TEST_CASE( isinside_simd )
 
   for(std::size_t j=8;j<=10;++j)
     for(std::size_t i=1;i<=8;i+=step)
-      NT2_TEST( nt2::none(nt2::isinside(make_vector(nt2::enumerate<n_t>(i),nt2::splat<n_t>(j)),x)) );
+      NT2_TEST( !nt2::all(nt2::isinside(make_vector(nt2::enumerate<n_t>(i),nt2::splat<n_t>(j)),x)) );
 
   std::cout << "\n";
 
   for(std::size_t j=1;j<=7;++j)
     for(std::size_t i=9;i<=12;i+=step)
-      NT2_TEST( nt2::none(nt2::isinside(make_vector(nt2::enumerate<n_t>(i),nt2::splat<n_t>(j)),x)) );
+      NT2_TEST( !nt2::all(nt2::isinside(make_vector(nt2::enumerate<n_t>(i),nt2::splat<n_t>(j)),x)) );
 
   std::cout << "\n";
 
   for(std::size_t j=0;j<1;++j)
     for(std::size_t i=0;i<1;i+=step)
-      NT2_TEST( nt2::none(nt2::isinside(make_vector(nt2::enumerate<n_t>(i),nt2::splat<n_t>(j)),x)) );
+      NT2_TEST( !nt2::all(nt2::isinside(make_vector(nt2::enumerate<n_t>(i),nt2::splat<n_t>(j)),x)) );
 }
