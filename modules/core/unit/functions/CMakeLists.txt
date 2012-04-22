@@ -15,6 +15,7 @@ SET( SOURCES
   isrow.cpp
   isscalar.cpp
   isvector.cpp
+  isinside.cpp
   length.cpp
   linspace.cpp
   first_last_index.cpp
@@ -59,8 +60,8 @@ SET( SOURCES
   freqspace2.cpp
   sum.cpp
   asum2.cpp
-  asum1.cpp 
-  asump.cpp 
+  asum1.cpp
+  asump.cpp
   maximum.cpp
   minimum.cpp
   firstnonsingleton.cpp
