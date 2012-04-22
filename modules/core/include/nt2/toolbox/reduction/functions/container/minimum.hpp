@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_MINIMUM_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_MINIMUM_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/functions/minimum.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/min.hpp>
 #include <boost/simd/toolbox/reduction/functions/minimum.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
 #include <nt2/core/container/colon/colon.hpp>
