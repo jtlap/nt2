@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ind2ind_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (fusion_sequence_<A0>)
-                              (geenric_< integer_<A1> >)
+                              (generic_< integer_<A1> >)
                               (fusion_sequence_<A2>)
                             )
   {
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& from, const A1& index, const A2& to) const
     {
-      return sub2ind(to,ind2sub(from,index))
+      return sub2ind(to,ind2sub(from,index));
     }
   };
 } }

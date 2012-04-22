@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ind2sub_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (fusion_sequence_<A0>)
-                              (scalar_< unspecified_<A1> >)
+                              (generic_< unspecified_<A1> >)
                               (fusion_sequence_<A2>)
                             )
   {
@@ -100,10 +100,10 @@ namespace nt2 { namespace ext
         , const A1& p, const A0& s, const A2& b, const N&, const M&
         ) const
     {
-      sub[N::value] = p % boost::fusion::at_c<N::value>(s)
-                    + boost::fusion::at_c<N::value>(b);
+      sub[N::value] = p % splat<base_t>(boost::fusion::at_c<N::value>(s))
+                    + splat<base_t>(boost::fusion::at_c<N::value>(b));
 
-      eval( sub, p / boost::fusion::at_c<N::value>(s), s, b
+      eval( sub, p / splat<base_t>(boost::fusion::at_c<N::value>(s)), s, b
           , boost::mpl::int_<N::value+1>()
           , boost::mpl::int_<M::value>()
           );
