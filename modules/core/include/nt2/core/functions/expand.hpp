@@ -29,18 +29,16 @@ namespace nt2
 
   //============================================================================
   /*!
-   * expand an expression 
+   * expand an expression
    *
    * \param xpr   Expression to expand
    * \param size  New size of the expression
    */
   //============================================================================
-  #define M0(z,n,t)                                       \
+  #define M0(z,n,t)                                         \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::expand_, expand, n) \
   /**/
-
   BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
-
   #undef M0
 }
 
