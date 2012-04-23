@@ -27,7 +27,10 @@ NT2_TEST_CASE( integral_subscript )
   table<T> a( of_size(5,4,3,2) );
 
   for(int i=1;i<=5*4*3*2;i++)
-    NT2_TEST_EQUAL( nt2::relative_index(boost::proto::child_c<1>(a(i,nt2::_)), boost::mpl::int_<0>(), tgt), i );
+    NT2_TEST_EQUAL( nt2::relative_index
+                    ( boost::proto::child_c<1>(a(i,nt2::_)), 1, 5, 1, tgt )
+                  , i
+                  );
 }
 
 NT2_TEST_CASE( colon_subscript )
@@ -39,7 +42,44 @@ NT2_TEST_CASE( colon_subscript )
 
   table<T> a( of_size(5,4,3,2) );
 
-  NT2_TEST_EQUAL( nt2::relative_index(boost::proto::child_c<1>(a(nt2::_)), boost::mpl::int_<0>(), tgt), 0 );
-  NT2_TEST_EQUAL( nt2::relative_index(boost::proto::child_c<1>(a(nt2::_)), boost::mpl::int_<1>(), tgt), 1 );
-  NT2_TEST_EQUAL( nt2::relative_index(boost::proto::child_c<1>(a(nt2::_)), boost::mpl::int_<2>(), tgt), 2 );
+  for(int i=1;i<=5*4*3*2;i++)
+    NT2_TEST_EQUAL( nt2::relative_index ( boost::proto::child_c<1>(a(nt2::_))
+                                        , 1, 5, i, tgt
+                                        )
+                  , i
+                  );
+}
+
+NT2_TEST_CASE( unity_colon_subscript )
+{
+  using nt2::table;
+  using nt2::of_size;
+  typedef double T;
+  boost::dispatch::meta::as_< boost::dispatch::meta::as_integer<T>::type > tgt;
+
+  table<T> a( of_size(5,4) );
+
+  for(int i=2;i<=4;i++)
+    NT2_TEST_EQUAL( nt2::relative_index ( boost::proto::child_c<1>(a(nt2::_(2,4)))
+                                        , 1, 5, i-1, tgt
+                                        )
+                  , i
+                  );
+}
+
+NT2_TEST_CASE( strided_colon_subscript )
+{
+  using nt2::table;
+  using nt2::of_size;
+  typedef double T;
+  boost::dispatch::meta::as_< boost::dispatch::meta::as_integer<T>::type > tgt;
+
+  table<T> a( of_size(15,4) );
+
+  for(int i=1;i<=5;i++)
+    NT2_TEST_EQUAL( nt2::relative_index ( boost::proto::child_c<1>(a(nt2::_(2,3,14)))
+                                        , 1, 5, i, tgt
+                                        )
+                  , 2+(i-1)*3
+                  );
 }

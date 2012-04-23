@@ -16,7 +16,7 @@
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 
+namespace nt2
 {
   namespace tag
   {
@@ -31,12 +31,14 @@ namespace nt2
    * Performs an index translation to be used in indexed access computation
    *
    * \param xpr Indexing expression
+   * \param bi  Base indexes of indexed expression
+   * \param sz  Sizes of indexed expression
    * \param idx Index being computed
    * \param target Desired index type
    * \return The translated index to access current indexing expression
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::relative_index_, relative_index, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::relative_index_, relative_index, 5)
 }
 
 #endif
