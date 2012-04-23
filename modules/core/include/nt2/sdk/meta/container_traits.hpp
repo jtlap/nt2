@@ -10,6 +10,7 @@
 #define NT2_SDK_META_CONTAINER_TRAITS_HPP_INCLUDED
 
 #include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/add_pointer.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/dispatch/meta/strip.hpp>
