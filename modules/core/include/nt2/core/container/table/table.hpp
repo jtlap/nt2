@@ -83,12 +83,6 @@ namespace nt2 { namespace container
     // Enable base expression handling of assignment
     //==========================================================================
     using parent::operator=;
-
-    //==========================================================================
-    // Access to raw data
-    //==========================================================================
-    pointer       raw()       { return boost::proto::value(*this).raw(); }
-    const_pointer raw() const { return boost::proto::value(*this).raw(); }
   };
 } }
 

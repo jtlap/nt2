@@ -11,7 +11,6 @@
 
 #include <boost/mpl/assert.hpp>
 #include <nt2/core/functions/tie.hpp>
-#include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/assign.hpp>
 
 namespace nt2 { namespace ext

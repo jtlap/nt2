@@ -21,8 +21,7 @@ namespace nt2 { namespace ext
                               (scalar_< arithmetic_<A1> > )
                             )
   {
-    typedef typename  meta::as_floating<A0>::type  f_type;
-    typedef typename  meta::as_real<f_type>::type result_type; 
+    typedef A0 result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& p) const
     {
       return nt2::pow_abs(a, p);
@@ -35,8 +34,7 @@ namespace nt2 { namespace ext
                               (scalar_< integer_<A2> > )
                             )
   {
-    typedef typename  meta::as_floating<A0>::type  f_type;
-    typedef typename  meta::as_real<f_type>::type result_type; 
+    typedef A0 result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& p, A2 const& ) const
     {
       return nt2::pow_abs(a, p);

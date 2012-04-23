@@ -31,13 +31,13 @@ template<class T> struct outer_4D_test
           for(std::size_t i=1; i<=M; ++i)
             a1(i,j,k,l)  = a0(i,j,k,l) = roll<T>(min,max);
   }
-  
+
   void operator()()
   {
     a1 = nt2::sum(a0,4);
   }
 
-  nt2::container::table<T, nt2::settings(nt2::no_padding_, nt2::_4D)> a0,a1;
+  nt2::container::table<T, nt2::settings(nt2::_4D)> a0,a1;
   std::size_t M,N,O,P;
 };
 

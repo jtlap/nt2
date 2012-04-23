@@ -38,6 +38,8 @@ namespace nt2
             typename boost::fusion::result_of::at_c<typename boost::remove_reference<T>::type const, 0>::type
           , typename boost::fusion::result_of::at_c<typename boost::remove_reference<T>::type const, 1>::type
           , typename boost::fusion::result_of::at_c<typename boost::remove_reference<T>::type const, 2>::type
+          , typename boost::fusion::result_of::at_c<typename boost::remove_reference<T>::type const, 3>::type
+          , typename boost::fusion::result_of::at_c<typename boost::remove_reference<T>::type const, 4>::type
           )>
       {
       };
@@ -46,7 +48,12 @@ namespace nt2
       typename result<relative_view_call(T const&)>::type
       operator()(T const& t) const
       {
-        return nt2::relative_index(boost::fusion::at_c<0>(t), boost::fusion::at_c<1>(t), boost::fusion::at_c<2>(t));
+        return nt2::relative_index( boost::fusion::at_c<0>(t)
+                                  , boost::fusion::at_c<1>(t)
+                                  , boost::fusion::at_c<2>(t)
+                                  , boost::fusion::at_c<3>(t)
+                                  , boost::fusion::at_c<4>(t)
+                                  );
       }
     };
 
@@ -100,7 +107,10 @@ namespace nt2
                                    >::type
                        >::type                                               targets;
 
+      typedef typename meta::strip<child0>::type base0;
       typedef boost::fusion::vector< childN const&
+                                   , typename base0::indexes_type const&
+                                   , typename base0::extent_type
                                    , reinterpreted_pos const&
                                    , targets const&
                                    > seq;
@@ -129,9 +139,17 @@ namespace nt2
         // Apply indexers to each subscript value
         targets tgts;
         transformed trs = boost::fusion::
-                          transform ( zipped(seq(children, pos, tgts))
-                                    , relative_view_call()
-                                    );
+                          transform
+                          ( zipped( seq
+                                    ( children
+                                    , boost::proto::child_c<0>(expr).indexes()
+                                    , boost::proto::child_c<0>(expr).extent()
+                                    , pos
+                                    , tgts
+                                    )
+                                  )
+                          , relative_view_call()
+                          );
 
         // Get the new linear position from the transformed subscript
         idx p = sub2ind( boost::proto::child_c<0>(expr).extent(), trs, index_type );

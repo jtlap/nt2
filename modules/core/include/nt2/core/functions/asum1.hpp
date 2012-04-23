@@ -21,7 +21,11 @@
  * \defgroup core asum1
  *
  * \par Description
- * Returns the asum1 of the elements of the SIMD vector
+ * Returns the sum of absolute values of the elements matrix along the selected direction,
+ * i.e. the 1-norm asum1(a0, n))
+ * by default n is the first non-singleton dimension of a0
+ *
+ * \alias norm1,  asum
  *
  * \par Header file
  * 
@@ -80,6 +84,8 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum1, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , norm1, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , norm1, 2)
 }
 
 

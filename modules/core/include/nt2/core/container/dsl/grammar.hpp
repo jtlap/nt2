@@ -25,6 +25,7 @@ namespace nt2 { namespace container
   //  - the _ operator
   //  - the as_<> helper
   //  - the box helper
+  //  - the dereference terminal
   //  - any operations except for low-level ones and assignment
   //============================================================================
   struct  grammar
@@ -36,6 +37,9 @@ namespace nt2 { namespace container
                 , boost::proto::terminal<colon_>
                 , boost::proto::terminal< meta::as_<boost::proto::_> >
                 , boost::proto::nullary_expr<tag::box_, boost::proto::_>
+                , boost::proto::nullary_expr< boost::proto::tag::dereference
+                                            , boost::proto::_
+                                            >
                 , boost::proto::
                   and_< boost::proto::
                         nary_expr < boost::proto::_
