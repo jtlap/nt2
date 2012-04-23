@@ -6,38 +6,40 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SCALAR_ASUMP_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SCALAR_ASUMP_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_NORMP_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_NORMP_HPP_INCLUDED
 
-#include <nt2/core/functions/asump.hpp>
-#include <nt2/include/functions/pow_abs.hpp>
+#include <nt2/core/functions/normp.hpp>
+#include <nt2/include/functions/abs.hpp>
 
 //TODO include complex cases
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asump_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normp_, tag::cpu_, (A0)(A1)
                             , (scalar_< floating_<A0> >)
                               (scalar_< arithmetic_<A1> > )
                             )
   {
-    typedef A0 result_type; 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& p) const
+    typedef typename  meta::as_floating<A0>::type  f_type;
+    typedef typename  meta::as_real<f_type>::type result_type; 
+    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& ) const
     {
-      return nt2::pow_abs(a, p);
+      return nt2::abs(a);
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asump_, tag::cpu_, (A0)(A1)(A2)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normp_, tag::cpu_, (A0)(A1)(A2)
                             , (scalar_< floating_<A0> >)
                               (scalar_< arithmetic_<A1> > )
                               (scalar_< integer_<A2> > )
                             )
   {
-    typedef A0 result_type; 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& p, A2 const& ) const
+    typedef typename  meta::as_floating<A0>::type  f_type;
+    typedef typename  meta::as_real<f_type>::type result_type; 
+    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& , A2 const& ) const
     {
-      return nt2::pow_abs(a, p);
+      return nt2::abs(a);
     }
   };  
 } }

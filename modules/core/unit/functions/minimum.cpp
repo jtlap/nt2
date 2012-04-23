@@ -42,6 +42,9 @@ NT2_TEST_CASE_TPL( minimum_expr, NT2_TYPES )
       y(i,j) = i + 10*j;
   disp("y", y); 
   sy = nt2::minimum(y);
+  // sy = nt2::min(y);
+  sy = nt2::min(y, _(), 1);
+ 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       NT2_TEST_GREATER_EQUAL(y(i, j), sy(j)); 

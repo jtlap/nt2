@@ -15,7 +15,7 @@
 #include <nt2/include/functions/is_true.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/functions/logical_and.hpp>
-
+#include <nt2/include/functions/sb2b.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL( all_expr, NT2_TYPES )
       nt2::logical<T> z = nt2::True<T>();  
       for(int i=1;i<=5;i++) z= nt2::logical_and(z, y(i, j)); 
       //NT2_TEST_EQUAL(bool(z), bool(sy(j)));
-      //NT2_TEST(z == sy(j)); 
+      //NT2_TEST(nt2::sb2b(z) == nt2::sb2b(sy(j))); 
     }
         
  //  disp("sy", sy);

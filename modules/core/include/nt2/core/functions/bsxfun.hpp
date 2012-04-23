@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_BSXFUN_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_BSXFUN_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/include/functions/sqr_abs.hpp>
@@ -18,19 +18,15 @@
 
 /*!
  * \ingroup core
- * \defgroup core asum1
+ * \defgroup core bsxfun
  *
  * \par Description
- * Returns the sum of absolute values of the elements matrix along the selected direction,
- * i.e. the 1-norm asum1(a0, n))
- * by default n is the first non-singleton dimension of a0
- *
- * \alias norm1,  asum
+ * Returns the bsxfun of the elements of the SIMD vector
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/asum1.hpp>
+ * #include <nt2/include/functions/bsxfun.hpp>
  * \endcode
  * 
  * 
@@ -39,14 +35,15 @@
  * \code
  * namespace boost::simd
  * {
- *   template <class A0>
- *     meta::call<tag::asum1_(A0)>::type
- *     asum1(const A0 & a0);
+ *   template <class A0, class A1, class A2>
+ *     meta::call<tag::bsxfun_(A0, A1, A2)>::type
+ *     bsxfun(const A0 & a0, const A1 & a1, const A2 & a2);
  * }
  * \endcode
  *
- * \param a0 the unique parameter of asum1
- * 
+ * \param a0 a two parameters elementwise func...something
+ * \param a1 a2 the two parameters on which
+* 
  * \return always a scalar value
  *  
  * \par Notes
@@ -67,7 +64,7 @@ namespace nt2
 {
   namespace tag
   {
-    struct asum1_ : tag::formal_ 
+    struct bsxfun_ : tag::formal_ 
     { 
       typedef tag::formal_ parent; 
     };
@@ -80,12 +77,7 @@ namespace nt2
    * \param xpr  table 
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum1, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum1, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , norm1, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , norm1, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::bsxfun_       , bsxfun, 3)
 }
 
 

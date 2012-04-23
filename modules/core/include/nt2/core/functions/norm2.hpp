@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_NORM2_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_NORM2_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/include/functions/sqr_abs.hpp>
@@ -18,19 +18,18 @@
 
 /*!
  * \ingroup core
- * \defgroup core asum1
+ * \defgroup core norm2
  *
  * \par Description
- * Returns the sum of absolute values of the elements matrix along the selected direction,
- * i.e. the 1-norm asum1(a0, n))
+ * Returns the norm2 of the elements matrix along the selected direction,
+ * i.e. the euclidian norm sqrt(asum2(a0, n))
  * by default n is the first non-singleton dimension of a0
  *
- * \alias norm1,  asum
- *
+ * \alias norm_eucl
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/asum1.hpp>
+ * #include <nt2/include/functions/norm2.hpp>
  * \endcode
  * 
  * 
@@ -40,12 +39,12 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::asum1_(A0)>::type
- *     asum1(const A0 & a0);
+ *     meta::call<tag::norm2_(A0)>::type
+ *     norm2(const A0 & a0);
  * }
  * \endcode
  *
- * \param a0 the unique parameter of asum1
+ * \param a0 the unique parameter of norm2
  * 
  * \return always a scalar value
  *  
@@ -67,7 +66,7 @@ namespace nt2
 {
   namespace tag
   {
-    struct asum1_ : tag::formal_ 
+    struct norm2_ : tag::formal_ 
     { 
       typedef tag::formal_ parent; 
     };
@@ -80,12 +79,10 @@ namespace nt2
    * \param xpr  table 
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum1, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum1, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , norm1, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , norm1, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm2, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm2, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm_eucl, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm_eucl, 2)
 }
 
 
