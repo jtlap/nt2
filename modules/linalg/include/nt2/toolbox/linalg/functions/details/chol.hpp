@@ -37,7 +37,7 @@ namespace nt2 { namespace details
                     , info_(0)
                     , uplo_(uplo)
     {
-      nt2::details::potrf(&uplo_, &height_, values_.raw(), &leading_, &info_);
+      nt2::details::potrf(&uplo_, &height_, (type_t*)values_.raw(), &leading_, &info_);
     }
 
     cholesky_result& operator=(cholesky_result const& src)
@@ -122,13 +122,12 @@ namespace nt2 { namespace details
     {
       char norm = '1';
       base_t anorm = nt2::details::lange( &norm,  &height_,  &height_
-                                        , values_.raw(), &leading_
+                                        , (type_t*)values_.raw(), &leading_
                                         );
 
       base_t res;
       nt2::details::pocon ( &uplo_, &height_
-                          , values_.raw()
-                          , &leading_
+                          , (type_t*)values_.raw(), &leading_
                           , &anorm, &res, &info_
                           );
 
@@ -151,8 +150,8 @@ namespace nt2 { namespace details
       long int leading_b  = b.leading_size();
 
       nt2::details::potrs ( &uplo_, &height_, &nrhs
-                          , values_.raw()   , &leading_
-                          , b.raw()         , &leading_b
+                          , (type_t*)values_.raw(), &leading_
+                          , b.raw()               , &leading_b
                           , &info_
                           );
     }

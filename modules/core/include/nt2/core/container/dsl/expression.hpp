@@ -257,7 +257,7 @@ namespace nt2 { namespace container
       return nt2::terminal(*this).raw();
     }
 
-    pointer raw() const
+    const_pointer raw() const
     {
       //========================================================================
       //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
