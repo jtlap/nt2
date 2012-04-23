@@ -20,10 +20,14 @@ namespace nt2
 
     // Markee for in place option
     struct in_place_ {};
+
+    // Markee for [] option
+    struct empty_t {};
   }
 
-  meta::as_<details::lower_>    const lower_ = {};
+  meta::as_<details::lower_>    const lower_    = {};
   meta::as_<details::in_place_> const in_place_ = {};
+  meta::as_<details::empty_t>   const empty_    = {};
 }
 
 #endif
