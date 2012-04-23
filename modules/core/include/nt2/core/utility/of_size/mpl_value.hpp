@@ -34,16 +34,19 @@ namespace nt2
 
   //============================================================================
   // If the result of a size computation is a MPL Integral, extract its type;
-  // If not, return the original type
+  // If not, return std::ptrdiff_t type
   //============================================================================
   template<class T, class Enable = void>
-  struct mpl_value_type { typedef T type; };
+  struct mpl_value_type
+  {
+    typedef std::size_t type;
+  };
 
   template<class T>
   struct mpl_value_type < T
-                        , typename boost::
-                          enable_if < boost::
-                                    is_class< typename meta::strip<T>::type >
+                        , typename meta::
+                          enable_if_type < typename meta::strip<T>
+                                                    ::type::value_type
                                     >::type
                         >
   {

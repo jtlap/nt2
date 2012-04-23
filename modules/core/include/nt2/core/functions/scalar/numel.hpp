@@ -52,6 +52,7 @@ namespace nt2 { namespace ext
             make_functor<boost::simd::tag::multiplies_, A0>::type     func_t;
 
     // Proper types of the neutral element
+    // If the sequence is non-empty, type of the first, else return std::ptrdiff_t
     typedef typename  boost::fusion::result_of::
                       value_at<A0, boost::mpl::int_<0> >::type  first_t;
     typedef typename  mpl_value_type<first_t>::type             base_t;
