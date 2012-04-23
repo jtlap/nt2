@@ -13,7 +13,6 @@ SET( SOURCES
   composite_buffer.cpp
   container.cpp
   fixed_allocator.cpp
-# padding.cpp
 ## List of scalar test files for toolbox core.memory
    )
 
