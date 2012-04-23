@@ -31,6 +31,24 @@ namespace nt2
                    >
     : meta::strip<T>::type
   {};
+
+  //============================================================================
+  // If the result of a size computation is a MPL Integral, extract its type;
+  // If not, return the original type
+  //============================================================================
+  template<class T, class Enable = void>
+  struct mpl_value_type { typedef T type; };
+
+  template<class T>
+  struct mpl_value_type < T
+                        , typename boost::
+                          enable_if < boost::
+                                    is_class< typename meta::strip<T>::type >
+                                    >::type
+                        >
+  {
+    typedef typename meta::strip<T>::type::value_type type;
+  };
 }
 
 #endif

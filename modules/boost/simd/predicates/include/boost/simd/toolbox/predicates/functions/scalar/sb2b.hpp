@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_SB2B_HPP_INCLUDED
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/constants/false.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -22,13 +23,27 @@ namespace boost { namespace simd { namespace ext
                             )
   {
 
-    typedef typename meta::as_logical<A0>::type result_type;
+    typedef A0 result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return result_type(a0!= Zero<A0>());
+      return result_type(a0!= boost::simd::Zero<A0>());
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sb2b_, tag::cpu_
+                            , (A0)
+                            , (scalar_<logical_<A0> >)
+                            )
+  {
+
+    typedef typename A0::value_type result_type;
+
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return result_type(a0!= boost::simd::False<A0>());
+    }
+  };
+  
 } } }
 
 

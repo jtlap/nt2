@@ -10,17 +10,13 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_EXPAND_HPP_INCLUDED
 
 #include <nt2/core/functions/expand.hpp>
-#include <nt2/core/functions/common/expand.hpp>
-
-#include <nt2/sdk/memory/copy.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/category.hpp>
 #include <nt2/core/utility/box.hpp>
-#include <nt2/include/functions/length.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Generates linearize_ from expression + N size value
+  // Generates expand_ from expression + N size value
   //============================================================================
   #define M2(z,n,t) (BOOST_PP_CAT(A,n))
   #define M1(z,n,t) (scalar_< integer_<BOOST_PP_CAT(A,n)> >)

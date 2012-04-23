@@ -8,7 +8,9 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::ind2sub function"
 
+#include <iostream>
 #include <nt2/include/functions/ind2sub.hpp>
+#include <nt2/include/functions/unaligned_load.hpp>
 
 #include <boost/array.hpp>
 #include <boost/fusion/include/make_vector.hpp>
@@ -28,6 +30,24 @@ NT2_TEST_CASE( ind2sub_1D )
     boost::array<int, 1> b = {{i+1}};
     for(int n=0;n<1;++n) NT2_TEST_EQUAL( a[n], b[n] );
   }
+}
+
+NT2_TEST_CASE( ind2sub_1D_simd )
+{
+  using boost::simd::native;
+  using boost::fusion::make_vector;
+  using boost::mpl::int_;
+
+  typedef native<std::size_t, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+
+  std::size_t va[sz];
+  for(int i=0;i<sz;++i) va[i] = 4*i;
+
+  boost::array<idx_t, 1> a = nt2::ind2sub( make_vector(16), nt2::unaligned_load<idx_t>(&va[0]) );
+  for(int n=0;n<1;++n)
+    for(int j=0;j<sz;++j)
+      NT2_TEST_EQUAL( a[n][j], va[j]+1 );
 }
 
 NT2_TEST_CASE( ind2sub_1D_base1 )
@@ -53,6 +73,38 @@ NT2_TEST_CASE( ind2sub_1D_base )
     boost::array<int, 1> a = nt2::ind2sub( make_vector(4), i, make_vector(-1) );
     boost::array<int, 1> b = {{i-1}};
     for(int n=0;n<1;++n) NT2_TEST_EQUAL( a[n], b[n] );
+  }
+}
+
+NT2_TEST_CASE( ind2sub_2D_simd )
+{
+  using boost::simd::native;
+  using boost::fusion::make_vector;
+  using boost::mpl::int_;
+
+  typedef native<std::size_t, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+
+  for(int j=0;j<2;++j)
+  {
+    for(int i=0;i<3;++i)
+    {
+      std::size_t va[sz], vb[sz];
+      for(int k=0;k<sz;++k) va[k] = (i+3*j+k) % 6;
+
+      boost::array<idx_t, 2>
+      a = nt2::ind2sub( make_vector(3,2), nt2::unaligned_load<idx_t>(&va[0]) );
+
+      std::cout << nt2::unaligned_load<idx_t>(&va[0]) << " => "
+                << a[0] << ", " << a[1]
+                << "\n";
+
+      for(int k=0;k<sz;++k)
+      {
+        NT2_TEST_EQUAL( a[0][k], i+1 );
+        NT2_TEST_EQUAL( a[1][k], j+1 );
+      }
+    }
   }
 }
 

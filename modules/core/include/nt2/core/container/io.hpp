@@ -11,13 +11,14 @@
 
 #include <string>
 #include <iostream>
+#include <nt2/core/container/dsl/expression.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
-#include <nt2/core/container/dsl/expression.hpp>
+#include <nt2/include/functions/schedule.hpp>
 
 namespace nt2
 {
@@ -115,16 +116,23 @@ namespace nt2
     {
       if(!nt2::isempty(xpr))
       {
+        // We schedule xpr to be sure everything is evaluated if needed.
+        typedef nt2::container::expression<Xpr,R> expr_t;
+        typedef typename make_functor<tag::run_, expr_t>::type               run_t;
+        typedef typename meta::call<tag::schedule_(expr_t const&, run_t)>::type scheduled;
+
+        scheduled s = schedule(xpr, run_t());
+
         // We print expression based on their runtime ndims so the various
         // ans(:,:,...) are not tainted by useless 1's
-        switch(nt2::ndims(xpr))
+        switch(nt2::ndims(s))
         {
           case 1:
 
-#define M0(z,n,t)                                           \
-case n: boost::array<std::ptrdiff_t,n> p##n;                \
-        print_expr(os,name,xpr,p##n,boost::mpl::int_<n>()); \
-        break;                                              \
+#define M0(z,n,t)                                         \
+case n: boost::array<std::ptrdiff_t,n> p##n;              \
+        print_expr(os,name,s,p##n,boost::mpl::int_<n>()); \
+        break;                                            \
 /**/
 
           BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)

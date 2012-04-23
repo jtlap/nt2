@@ -11,6 +11,7 @@
 #include <boost/simd/toolbox/predicates/functions/sb2b.hpp>
 #include <boost/simd/include/functions/if_else_zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <nt2/sdk/details/type_id.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,10 +21,26 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+    BOOST_SIMD_FUNCTOR_CALL(1)
     {
       return if_else_zero(a0, One<A0>());
     }
   };
+
+   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sb2b_, tag::cpu_,
+                       (A0)(X),
+                       ((simd_<logical_<A0>,X>))
+                      )
+  {
+    typedef typename A0::type result_type;
+    
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      std::cout << "nt2::type_id<A0>() " << nt2::type_id<A0>() << std::endl;
+      std::cout << "nt2::type_id<result_type>() " << nt2::type_id<result_type>() << std::endl;
+      //      return result_type(); 
+      return if_else_zero(a0, boost::simd::One<result_type>());
+    }
+  }; 
 } } }
 #endif

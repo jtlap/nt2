@@ -11,6 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <boost/mpl/vector.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -23,11 +24,24 @@
 NT2_TEST_CASE( fundamental_numel )
 {
   using nt2::numel;
+  using boost::mpl::_;
 
   NT2_TEST_EQUAL( numel('4'), 1U  );
+  NT2_TEST_EXPR_TYPE( numel('4'), _, (boost::mpl::size_t<1ul>) );
+
   NT2_TEST_EQUAL( numel(4)  , 1U  );
+  NT2_TEST_EXPR_TYPE( numel(4), _, (boost::mpl::size_t<1ul>) );
+
   NT2_TEST_EQUAL( numel(4.) , 1U  );
+  NT2_TEST_EXPR_TYPE( numel(4.), _, (boost::mpl::size_t<1ul>) );
+
   NT2_TEST_EQUAL( numel(4.f), 1U  );
+  NT2_TEST_EXPR_TYPE( numel(4.f), _, (boost::mpl::size_t<1ul>) );
+
+  // Numel of fusion vector preserves types
+  boost::fusion::vector<nt2::uint16_t,nt2::uint16_t> fv(2,3);
+  NT2_TEST_EQUAL( numel(fv), nt2::uint16_t(6) );
+  NT2_TEST_EXPR_TYPE( numel(fv), _, (nt2::uint16_t) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -107,6 +121,7 @@ NT2_TEST_CASE( static_numel )
   float a;
   of_size_<2, 3> b;
   table<float, of_size_<2, 3> > c;
+  boost::mpl::vector_c<nt2::int16_t,2,3,4> mv;
 
   NT2_TEST_EXPR_TYPE( numel(a)
                     , _
@@ -121,5 +136,10 @@ NT2_TEST_CASE( static_numel )
   NT2_TEST_EXPR_TYPE( numel(c)
                     , _
                     , ( boost::mpl::integral_c<std::size_t, 6> )
+                    );
+
+  NT2_TEST_EXPR_TYPE( numel(mv)
+                    , _
+                    , ( boost::mpl::integral_c<nt2::int16_t, 24> )
                     );
 }

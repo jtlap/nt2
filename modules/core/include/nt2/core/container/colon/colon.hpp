@@ -9,8 +9,11 @@
 #ifndef NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 
+#include <nt2/sdk/meta/as.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+
+namespace nt2 { namespace details { struct empty_t {}; } }
 
 namespace nt2 { namespace container
 {
@@ -21,6 +24,12 @@ namespace nt2 { namespace container
   {
     // colon_ as a sink for tie
     template<class T> colon_ const& operator=(T const&) const { return *this; }
+
+    // _() as []
+    meta::as_<details::empty_t> const operator()() const
+    {
+      return meta::as_<details::empty_t>();
+    }
 
     // colon as a:b
     template<class Begin, class End>
@@ -48,10 +57,13 @@ namespace nt2
    *
    *   - it acts as \matlab \c : in indexing expression
    *   - it enables \c :(b,s,e) to mimic \matlab \c b:s:e iota notation
+   *   - _() is Matlab []
    *   - it acts as a sink in tie expressions
    **/
   //==========================================================================
   container::colon_ const _ = {};
+
+  meta::as_<details::empty_t> const empty_ = {};
 }
 
 #endif
