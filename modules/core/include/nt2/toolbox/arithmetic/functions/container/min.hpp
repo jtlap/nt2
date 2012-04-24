@@ -14,6 +14,7 @@
 
 namespace nt2
 {
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::min_, min     , 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::min_, min     , 3)
 }
 

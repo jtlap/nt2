@@ -14,6 +14,7 @@
 
 namespace nt2
 {
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::max_, max     , 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::max_, max     , 3)
 }
 
