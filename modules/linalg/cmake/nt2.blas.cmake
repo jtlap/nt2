@@ -16,7 +16,9 @@ set(NT2_BLAS_FOUND FALSE)
   # Intel MKL
   if(NT2_BLAS_VENDOR STREQUAL "Intel" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_BLAS_FOUND))
 
-    message(STATUS "[nt2.linalg] Looking for Intel MKL ...")
+    if(NOT DEFINED NT2_BLAS_VENDOR)
+      message(STATUS "[nt2.blas] trying Intel...")
+    endif()
 
     if(NT2_ARCH_X86_64)
       set(NT2_MKL_LIBRARY_DIR ${NT2_BLAS_ROOT} /opt/intel/mkl/lib/intel64)
@@ -90,14 +92,16 @@ set(NT2_BLAS_FOUND FALSE)
 
     endif()
 
-    if(NT2_BLAS_FOUND)
+    if(NT2_BLAS_FOUND AND NOT DEFINED NT2_BLAS_VENDOR)
       set(NT2_BLAS_VENDOR Intel)
-      message(STATUS "[nt2.linalg] Intel MKL found")
+      message(STATUS "[nt2.blas] Intel found")
     endif()
   endif()
 
   if(NT2_BLAS_VENDOR STREQUAL "Goto2" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_BLAS_FOUND))
-    message(STATUS "[nt2.linalg] Looking for GotoBLAS 2...")
+    if(NOT DEFINED NT2_BLAS_VENDOR)
+      message(STATUS "[nt2.blas] trying Goto2...")
+    endif()
 
     find_library(NT2_GOTO2 NAMES goto2
                  PATHS ${NT2_BLAS_ROOT})
@@ -107,13 +111,15 @@ set(NT2_BLAS_FOUND FALSE)
 
       if(NOT DEFINED NT2_BLAS_VENDOR)
         set(NT2_BLAS_VENDOR Goto2)
-        message(STATUS "[nt2.linalg] Goto.BLAS2 found")
+        message(STATUS "[nt2.linalg] Goto2 found")
       endif()
     endif()
   endif()
 
   if(NT2_BLAS_VENDOR STREQUAL "Netlib" OR (NOT DEFINED NT2_BLAS_VENDOR AND NOT NT2_BLAS_FOUND))
-    message(STATUS "[nt2.linalg] Looking for Netlib BLAS...")
+    if(NOT DEFINED NT2_BLAS_VENDOR)
+      message(STATUS "[nt2.blas] trying Netlib...")
+    endif()
 
     find_library(NT2_NETLIB NAMES blas_LINUX
                  PATHS ${NT2_BLAS_ROOT})
@@ -123,13 +129,16 @@ set(NT2_BLAS_FOUND FALSE)
 
       if(NOT DEFINED NT2_BLAS_VENDOR)
         set(NT2_BLAS_VENDOR Netlib)
-        message(STATUS "[nt2.linalg] Netlib BLAS found")
+        message(STATUS "[nt2.blas] Netlib found")
       endif()
     endif()
   endif()
 
   if(NOT NT2_BLAS_FOUND) # TODO : Other support if findBlas failed
-    message(STATUS "[nt2.linalg] Looking for built-in BLAS...")
+
+    if(NOT DEFINED NT2_BLAS_VENDOR)
+      message(STATUS "[nt2.blas] trying built-in...")
+    endif()
 
     find_package(BLAS QUIET)
     set(NT2_BLAS_FOUND ${BLAS_FOUND})
@@ -138,27 +147,23 @@ set(NT2_BLAS_FOUND FALSE)
 
     if(BLAS_FOUND AND NOT DEFINED NT2_BLAS_VENDOR)
       set(NT2_BLAS_VENDOR "")
-      message(STATUS "[nt2.linalg] built-in BLAS found")
+      message(STATUS "[nt2.blas] built-in found")
     endif()
 
   endif()
 
   if(NOT NT2_LAPACK_FOUND) # Find lapack if not MKL
-    message(STATUS "[nt2.linalg] Looking for LAPACK...")
+    message(STATUS "[nt2.linalg] looking for LAPACK...")
     find_package(LAPACK QUIET)
     set(NT2_LAPACK_FOUND ${LAPACK_FOUND})
     set(NT2_LAPACK_LIBRARIES ${LAPACK_LIBRARIES})
-  endif()
 
-  if(NT2_LAPACK_FOUND) # Find lapack if not MKL
-    message(STATUS "[nt2.linalg] Found LAPACK...")
+    if(NT2_LAPACK_FOUND) # Find lapack if not MKL
+      message(STATUS "[nt2.linalg] LAPACK found")
+    endif()
   endif()
 
   set(NT2_BLAS_VENDOR ${NT2_BLAS_VENDOR} CACHE STRING "BLAS vendor (supported: \"Intel\", \"Goto2\", \"Netlib\")")
   if(NOT NT2_BLAS_FOUND OR NOT NT2_LAPACK_FOUND)
-    message(STATUS "[nt2.linalg] BLAS/LAPACK not found, if available please specify NT2_BLAS_ROOT or NT2_BLAS_VENDOR")
-    set(NT2_LINALG_SETUP 0)
-  else()
-    message(STATUS "[nt2.linalg] BLAS and LAPACK found.")
-    set(NT2_LINALG_SETUP 1)
+    message(STATUS "[nt2.linalg] BLAS or LAPACK not found, if available please specify NT2_BLAS_ROOT or NT2_BLAS_VENDOR")
   endif()
