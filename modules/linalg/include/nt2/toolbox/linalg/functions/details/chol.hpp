@@ -146,7 +146,7 @@ namespace nt2 { namespace details
 
     template<class Xpr> void inplace_solve(Xpr& b ) const
     {
-      long int nrhs       = nt2::size(b, 1);
+      long int nrhs       = nt2::size(b, 2);
       long int leading_b  = b.leading_size();
 
       nt2::details::potrs ( &uplo_, &height_, &nrhs

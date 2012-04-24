@@ -37,8 +37,8 @@ namespace nt2
    * For any given matrix expression, performs a Cholesky factorization of
    * said matrix using the specified output layout for the Cholevsky method.
    *
-   * Contrary to the cholesky function which performs a partial evalaution of
-   * said decomposition, chol returns a result similar to the Matlab interface,
+   * Contrary to the nt2::factorization::chol function which performs a partial evaluation of
+   * said decomposition, nt2::chol returns a result similar to the Matlab interface,
    * making it useful for Matlab like usage.
    *
    * @param  xpr  Matrix expression to factorize
