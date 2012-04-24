@@ -76,16 +76,8 @@ NT2_TEST_CASE_TPL( asump, (float)(double))//NT2_TYPES )
 //     for(int i=1;i<=5;i++)
 //       NT2_TEST_EQUAL(sz(i, j), sy(i, j));
   
-  nt2::table<T> zut =  y(_); 
-  sy = nt2::asump(zut, nt2::Three<T>());
-  sz = nt2::sum(nt2::pow_abs(zut, nt2::Three<T>()));
-  std::cout << size(sy) << std::endl; 
-  std::cout << size(sz) << std::endl;
-  std::cout << sy(1) << std::endl;
-  std::cout << sz(1) << std::endl; 
-  //  disp("asump(zut, 3)", sy)
-  NT2_TEST_EQUAL(sy(1), sz(1));
   sy = nt2::asump(y(_), nt2::Three<T>());
+  disp("rr", nt2::sum(nt2::pow_abs(y(_), nt2::Three<T>()))); 
   //  disp("asump(zy(_), 3)", sy); 
   sz = nt2::sum(nt2::pow_abs(y(_), nt2::Three<T>()));
   std::cout << size(sy) << std::endl; 
@@ -93,6 +85,15 @@ NT2_TEST_CASE_TPL( asump, (float)(double))//NT2_TYPES )
   std::cout << sy(1) << std::endl;
   std::cout << sz(1) << std::endl; 
   NT2_TEST_EQUAL(sy(1), sz(1));
+  //  nt2::table<T> zut =  y(_); 
+//   sy = nt2::asump(zut, nt2::Three<T>());
+//   sz = nt2::sum(nt2::pow_abs(zut, nt2::Three<T>()));
+//   std::cout << size(sy) << std::endl; 
+//   std::cout << size(sz) << std::endl;
+//   std::cout << sy(1) << std::endl;
+//   std::cout << sz(1) << std::endl; 
+//   //  disp("asump(zut, 3)", sy)
+//   NT2_TEST_EQUAL(sy(1), sz(1));
 
 
 }

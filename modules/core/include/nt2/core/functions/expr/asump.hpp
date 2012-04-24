@@ -12,7 +12,6 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/pow_abs.hpp>
-#include <nt2/include/functions/sum.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -23,7 +22,7 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename A0::value_type value_type; 
-    typedef typename meta::call<tag::sum_(typename meta::call<tag::pow_abs_(A0 const&, A1 const&)>::type) > ::type
+    typedef typename meta::call<tag::sum_(typename meta::call<tag::pow_abs_(A0 const&, value_type)>::type) > ::type
       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& p) const
@@ -32,6 +31,7 @@ namespace nt2 { namespace ext
       return nt2::sum(nt2::pow_abs(a0, p));
     }
   };
+  
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asump_, tag::cpu_,
                               (A0)(A1)(A2),
                               (ast_<A0>)
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename A0::value_type value_type; 
-    typedef typename meta::call<tag::sum_(typename meta::call<tag::pow_abs_(A0 const&, A1 const&)>::type,
+    typedef typename meta::call<tag::sum_(typename meta::call<tag::pow_abs_(A0 const&, value_type)>::type,
                                           A2)>::type
       result_type;
 
