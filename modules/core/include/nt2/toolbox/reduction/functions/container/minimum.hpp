@@ -9,17 +9,9 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_MINIMUM_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_MINIMUM_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/functions/min.hpp>
-#include <boost/simd/toolbox/reduction/functions/minimum.hpp>
+#include <nt2/toolbox/reduction/functions/minimum.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
-#include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/dsl/size.hpp>
-
-namespace nt2
-{
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::min_, minimum , 3)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::min_, min     , 3)
-}
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -35,24 +27,5 @@ namespace nt2 { namespace container { namespace ext
   struct generator<boost::simd::tag::minimum_,Domain,N,Expr>
     : reduction_generator<boost::simd::tag::minimum_,N,Expr> {};
 } } }
-
-namespace nt2 { namespace ext
-{
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (ast_<A0>)
-                              (target_< unspecified_<A1> >)
-                              (scalar_< integer_<A2> >)
-                            )
-  {
-    typedef typename meta::call< nt2::tag::minimum_(A0 const&, A2)>::type result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0,A1 const&,A2 const& a2) const
-    {
-      return nt2::minimum(a0,a2);
-    }
-  };
-} }
 
 #endif
