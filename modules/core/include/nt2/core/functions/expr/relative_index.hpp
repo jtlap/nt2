@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // When indexing a scalar, evaluate as a scalar then splat
+  // When indexing a scalar, evaluate as scalar type of expression then convert
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
                             , (A0)(Arity)(A1)(A2)(A3)(A4)
