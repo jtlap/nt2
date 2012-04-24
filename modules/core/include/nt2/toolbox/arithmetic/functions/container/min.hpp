@@ -12,6 +12,11 @@
 #include <nt2/toolbox/arithmetic/functions/min.hpp>
 #include <nt2/include/functions/minimum.hpp>
 
+namespace nt2
+{
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::min_, min     , 3)
+}
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::min_, tag::cpu_

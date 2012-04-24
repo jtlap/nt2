@@ -12,6 +12,11 @@
 #include <nt2/toolbox/arithmetic/functions/max.hpp>
 #include <nt2/include/functions/maximum.hpp>
 
+namespace nt2
+{
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::max_, max     , 3)
+}
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::max_, tag::cpu_
