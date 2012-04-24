@@ -13,8 +13,8 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/none.hpp>
 #include <nt2/include/functions/logical_andnot.hpp>
+#include <nt2/include/functions/is_true.hpp>
 #include <nt2/include/constants/true.hpp>
-#include <nt2/include/constants/is_true.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
