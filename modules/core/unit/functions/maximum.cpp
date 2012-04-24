@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL( maximum_scalar, (float)(double))//NT2_TYPES )
 
 }
 
-NT2_TEST_CASE_TPL( maximum_expr, NT2_TYPES )
+NT2_TEST_CASE_TPL( maximum_expr, (float)(double) )
 {
   using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );

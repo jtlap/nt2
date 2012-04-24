@@ -13,6 +13,7 @@
 // Include and injects table into nt2 namespace with all required features
 //==============================================================================
 #include <nt2/core/utility/share.hpp>
+#include <nt2/core/container/table/semantic.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/toolbox/operator/operator.hpp>
 #include <nt2/core/container/table/table.hpp>
