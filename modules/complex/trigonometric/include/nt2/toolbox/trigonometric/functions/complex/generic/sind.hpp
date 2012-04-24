@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
       rtype r = c*sh;
       rtype i = s*ch;
       result_type res = result_type(r, i); 
-      if (any(is_invalid(a00)))
+      if (nt2::any(is_invalid(a00)))
         {
           r = if_else(logical_and(is_inf(real(a00)), is_invalid(imag(a00))), real(a00), r);
           i = if_else(logical_and(is_inf(real(a00)), is_nan(imag(a00))), nt2::Nan<rtype>(), i);

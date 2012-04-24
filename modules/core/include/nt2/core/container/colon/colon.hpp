@@ -33,7 +33,7 @@ namespace nt2 { namespace container
     // colon as a:b
     template<class Begin, class End>
     typename meta::call<nt2::tag::colon_(Begin,End)>::type
-    operator()(Begin const& b, End const& e) const
+    operator()(Begin b, End e) const
     {
       return nt2::colon(b,e);
     }
@@ -41,7 +41,7 @@ namespace nt2 { namespace container
     // colon as a:s:b
     template<class Begin, class Step, class End>
     typename meta::call<nt2::tag::colon_(Begin,Step,End)>::type
-    operator()(Begin const& b, Step const& s, End const& e) const
+    operator()(Begin  b, Step s, End e) const
     {
       return nt2::colon(b,s,e);
     }

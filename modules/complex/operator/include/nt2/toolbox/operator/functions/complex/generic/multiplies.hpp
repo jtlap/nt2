@@ -60,28 +60,28 @@ namespace nt2 { namespace ext
       lA0 test = is_finite(r);
       if (all(test)) return r;
       lA0 cur  = is_real(a0);
-      if (any(cur))
+      if (nt2::any(cur))
         {
           r = if_else(cur, nt2::multiplies(real(a0), a1), r);
           test = logical_or(test, cur);
           if (all(test)) return r;
         }
       cur = is_imag(a0);
-      if (any(cur))
+      if (nt2::any(cur))
         {
           r = if_else(cur, nt2::multiplies(pure(a0), a1), r);
           test = logical_or(test, cur);
           if (all(test)) return r;
         }
       cur = is_real(a1);
-      if (any(cur))
+      if (nt2::any(cur))
       {
         r = if_else(cur, nt2::multiplies(a0, real(a1)), r);
         test = logical_or(test, cur);
         if (all(test)) return r;
       }
       cur = is_imag(a1);
-      if (any(cur))
+      if (nt2::any(cur))
       {
         r = if_else(cur, nt2::multiplies(a0, pure(a1)), r);
         test = logical_or(test, cur);
@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
                                     if_zero_else(is_real(a1), a0*imag(a1)));
         typedef typename meta::as_logical<A0>::type ltype;
         ltype z = is_eqz(a1);
-        if (any(z))
+        if (nt2::any(z))
           r = if_else(z, result_type(a0*real(a1)), r);
         return r;
       }
@@ -122,7 +122,7 @@ namespace nt2 { namespace ext
                                     if_zero_else(is_real(a0), imag(a0)*a1));
         typedef typename meta::as_logical<A1>::type ltype;
         ltype z = is_eqz(a0);
-        if (any(z))
+        if (nt2::any(z))
           r = if_else(z, result_type(a1*real(a0)), r);
         return r;
       }
@@ -164,7 +164,7 @@ namespace nt2 { namespace ext
         typedef typename meta::as_real<A1>::type rtype;
         typedef typename meta::as_logical<rtype>::type ltype;
         ltype z = is_eqz(a1);
-        if(any(z))
+        if(nt2::any(z))
           r = if_else(z, result_type(real(a1), imag(a0)*imag(a1)), r);
         return r;
       }
@@ -184,7 +184,7 @@ namespace nt2 { namespace ext
         rtype ii = if_zero_else(is_real(a0),real(a0)*imag(a1));
         result_type r = result_type(rr, ii);
         ltype z = is_eqz(a0);
-        if(any(z))
+        if(nt2::any(z))
           r = if_else(z, result_type(real(a0), imag(a0)*imag(a1)), r);
         return r;
       }
