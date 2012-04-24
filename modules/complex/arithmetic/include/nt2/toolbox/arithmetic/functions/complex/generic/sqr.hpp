@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
         rA0 x = sqr(real(a0)) - sqr(imag(a0));
         rA0 y = Two<rA0>()*real(a0)*imag(a0);
         result_type r = result_type(x, y);
-        if (any(logical_or(is_invalid(x), is_invalid(y))))
+        if (nt2::any(logical_or(is_invalid(x), is_invalid(y))))
           {
             lA0 test = is_real(a0);
             r = if_else(test, result_type(sqr(real(a0))), r);
