@@ -14,23 +14,23 @@
 
 extern "C"
 {
-  void NT2_F77NAME(dpotrf)( const char* uplo, const long int* n
-                          , double* a       , const long int* lda
+  void NT2_F77NAME(dpotrf)( const char* uplo, const nt2_la_int* n
+                          , double* a       , const nt2_la_int* lda
                           , nt2_la_int* info
                           );
 
-  void NT2_F77NAME(spotrf)( const char* uplo, const long int* n
-                          , float* a        , const long int* lda
+  void NT2_F77NAME(spotrf)( const char* uplo, const nt2_la_int* n
+                          , float* a        , const nt2_la_int* lda
                           , nt2_la_int* info
                           );
 
-  void NT2_F77NAME(cpotrf)( const char* uplo  , const long int* n
-                          , nt2_la_complex* a , const long int* lda
+  void NT2_F77NAME(cpotrf)( const char* uplo  , const nt2_la_int* n
+                          , nt2_la_complex* a , const nt2_la_int* lda
                           , nt2_la_int* info
                           );
 
-  void NT2_F77NAME(zpotrf)(const char* uplo   , const long int* n
-                          , nt2_la_complex* a , const long int* lda
+  void NT2_F77NAME(zpotrf)(const char* uplo   , const nt2_la_int* n
+                          , nt2_la_complex* a , const nt2_la_int* lda
                           , nt2_la_int* info
                           );
 }
@@ -38,8 +38,8 @@ extern "C"
 namespace nt2 { namespace details
 {
 #define NT2_POTRF(NAME, T)                                \
-inline void potrf ( const char* uplo, const long int* n   \
-                  , T* a            , const long int* lda \
+inline void potrf ( const char* uplo, const nt2_la_int* n   \
+                  , T* a            , const nt2_la_int* lda \
                   , nt2_la_int* info                      \
                   )                                       \
 {                                                         \
