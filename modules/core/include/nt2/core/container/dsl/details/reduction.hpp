@@ -36,7 +36,6 @@ namespace nt2 { namespace container { namespace ext
 
   template<class RED, class Expr> struct reduction_size_of<RED,2,Expr>
   {
-   typedef typename boost::proto::result_of::child_c<Expr,0>::type      expr_t;
     typedef typename nt2::make_size<NT2_MAX_DIMENSIONS>::type           result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -49,7 +48,6 @@ namespace nt2 { namespace container { namespace ext
 
   template<class RED, class Expr> struct reduction_size_of<RED,1,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr,0>::type     expr_t;
     typedef typename nt2::make_size<NT2_MAX_DIMENSIONS>::type           result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -75,14 +73,14 @@ namespace nt2 { namespace container { namespace ext
   //============================================================================
   template<class RED, int N, class Expr> struct reduction_generator
   {
-    typedef typename boost::proto::result_of::child_c<Expr,0>::type               expr_t;
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type             expr_t;
     typedef typename boost::dispatch::meta::semantic_of<expr_t>::type             sema_t;
     typedef typename meta::strip<sema_t>::type                                    ssema_t;
 
-    typedef typename boost::proto::tag_of<Expr>::type                             tag_type;
     typedef typename reduction_size_of<RED,N,Expr>::result_type                   size_type;
-    typedef typename nt2::memory::container<  typename ssema_t::value_type
-                                             , size_type >                        type;
+    typedef typename nt2::memory::container< typename ssema_t::value_type
+                                           , size_type
+                                           >                                      type;
 
     typedef expression< typename boost::remove_const<Expr>::type
                       , type

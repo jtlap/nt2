@@ -67,22 +67,22 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  NT2_SIMD_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(any(nt2::Inf<vcT>()), nt2::True<sr_t>());
-  NT2_TEST_EQUAL(any(nt2::Minf<vcT>()), nt2::True<sr_t>());
-  NT2_TEST_EQUAL(any(nt2::Mone<vcT>()), nt2::True<sr_t>());
-  NT2_TEST_EQUAL(any(nt2::Nan<vcT>()), nt2::True<sr_t>());
-  NT2_TEST_EQUAL(any(nt2::One<vcT>()), nt2::True<sr_t>());
-  NT2_TEST_EQUAL(any(nt2::Zero<vcT>()), nt2::False<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Inf<vdT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Minf<vdT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Mone<vdT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Nan<vdT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::One<vdT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Zero<vdT>()), nt2::False<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Inf<viT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Minf<viT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Mone<viT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Nan<viT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::One<viT>()), nt2::True<sr_t>());
-//   NT2_TEST_EQUAL(any(nt2::Zero<viT>()), nt2::False<sr_t>());
+  NT2_TEST_EQUAL(nt2::any(nt2::Inf<vcT>()), nt2::True<sr_t>());
+  NT2_TEST_EQUAL(nt2::any(nt2::Minf<vcT>()), nt2::True<sr_t>());
+  NT2_TEST_EQUAL(nt2::any(nt2::Mone<vcT>()), nt2::True<sr_t>());
+  NT2_TEST_EQUAL(nt2::any(nt2::Nan<vcT>()), nt2::True<sr_t>());
+  NT2_TEST_EQUAL(nt2::any(nt2::One<vcT>()), nt2::True<sr_t>());
+  NT2_TEST_EQUAL(nt2::any(nt2::Zero<vcT>()), nt2::False<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Inf<vdT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Minf<vdT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Mone<vdT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Nan<vdT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::One<vdT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Zero<vdT>()), nt2::False<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Inf<viT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Minf<viT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Mone<viT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Nan<viT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::One<viT>()), nt2::True<sr_t>());
+//   NT2_TEST_EQUAL(nt2::any(nt2::Zero<viT>()), nt2::False<sr_t>());
 } // end of test for floating_
