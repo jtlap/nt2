@@ -21,23 +21,23 @@
 namespace nt2 { namespace details
 {
   /**
-   * @brief LAPACK memory block wfapper
+   * @brief LAPACK memory block wrapper
    *
    * Every LAPACK routine is able to use a preallocated workspace to optimize
    * its own memory allocation within the routine itself. This class is a wrapper
-   * for these memory buffer sand can be used either as a learning process by
+   * for these memory buffers and can be used either as a learning process by
    * passing an empty workspace to a routine and check how much memory is
    * required or as the regular memory block for internal LAPACK usage.
    **/
   template<class T> class workspace
   {
     public :
-    typedef T                                 value_type;
-    typedef typename meta::as_real<T>::type   base_value_type;
+    typedef T                                          value_type;
+    typedef typename meta::as_real<T>::type       base_value_type;
 
-    typedef memory::buffer<value_type>      main_workspace_t;
+    typedef memory::buffer<value_type>           main_workspace_t;
     typedef memory::buffer<base_value_type> main_base_workspace_t;
-    typedef memory::buffer<nt2_la_int >     main_int_workspace_t;
+    typedef memory::buffer<nt2_la_int >      main_int_workspace_t;
 
     /**
      * @brief Default constructor
@@ -114,7 +114,7 @@ namespace nt2 { namespace details
     typename main_workspace_t::pointer      main()      { return &main_[0];     }
     typename main_base_workspace_t::pointer reals()     { return &reals_[0];    }
     typename main_int_workspace_t::pointer  integers()  { return &integers_[0]; }
-    typename main_int_workspace_t::pointer  logiclas()  { return &logicals_[0]; }
+    typename main_int_workspace_t::pointer  logicals()  { return &logicals_[0]; }
 
     const nt2_la_int& main_need(nt2_la_int s = 0)
     {

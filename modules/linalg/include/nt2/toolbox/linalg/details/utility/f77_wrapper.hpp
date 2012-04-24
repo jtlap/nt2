@@ -24,7 +24,7 @@
 // FORTRAN library in use, setting the proper type to use integer type for
 // BLAS/LAPACK
 #ifndef NT2_F77INT
-#define NT2_F77INT long int
+#define NT2_F77INT nt2::int32_t
 #endif
 
 // INTERNAL ONLY
