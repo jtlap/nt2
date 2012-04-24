@@ -20,9 +20,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct relative_size_ : ext::unspecified_<relative_size_>
+    struct relative_size_ : tag::formal_
     {
-      typedef ext::unspecified_<relative_size_> parent;
+      typedef tag::formal_ parent;
     };
   }
 
