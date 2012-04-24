@@ -21,6 +21,7 @@ SET( SOURCES
   gamma.cpp
   beta.cpp
   expni.cpp
+  erf.cpp
 # List of simd test files for toolbox euler
    )
 
