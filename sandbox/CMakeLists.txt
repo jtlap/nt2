@@ -13,6 +13,8 @@ set(NT2_MODULES_BLACKLIST cuda)
 find_package(NT2 REQUIRED)
 include(${NT2_USE_FILE})
 
+add_definitions(-g)
+
 set( SOURCES
 #    rec_block.cpp
      pack.cpp
