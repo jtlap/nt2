@@ -428,3 +428,24 @@ NT2_TEST_CASE( colon_subscript_extent )
   NT2_TEST( nt2::extent( a0(1,1,_,1) ) == of_size(1,1,3)   );
   NT2_TEST( nt2::extent( a0(1,1,1,_) ) == of_size(1,1,1,2) );
 }
+
+NT2_TEST_CASE_TPL( colon_values_subscript, (float)(double) )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::_;
+
+  table<T> a0( of_size(15,4,3,2) );
+
+  for(int l=1;l<=2;l++)
+   for(int k=1;k<=3;k++)
+    for(int j=1;j<=4;j++)
+     for(int i=1;i<=15;i++)
+      a0(i,j,k,l) = i + 10*j + 100*k + 1000*l;
+
+  table<T> a1 = a0(_(2,14), _(2, 3), _(2, 2), _(1, 1));
+  NT2_TEST( nt2::extent( a1 ) == of_size(13,2) );
+  for(int j=1;j<=2;j++)
+    for(int i=1;i<=13;i++)
+      NT2_TEST_EQUAL( a1(i,j), a0(i+1,j+1,2,1) );
+}

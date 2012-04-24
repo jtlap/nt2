@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& idx, const A1&, const A2&, const A3&, const A4&) const
     {
-      return nt2::run(idx,0,meta::as_<result_type>());
+      return nt2::run(idx,0u,meta::as_<result_type>());
     }
   };
 
@@ -85,6 +85,28 @@ namespace nt2 { namespace ext
     operator()(const A0&, const A1&, const A2&, const A3& p, const A4&) const
     {
       return p;
+    }
+  };
+
+  //============================================================================
+  // When indexing on _(a, b), return the consecutive positions
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)(A4)
+                            , ((node_<A0, nt2::tag::colon_, boost::mpl::long_<3> >))
+                              (scalar_< unspecified_<A1> >)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
+                              (target_< unspecified_<A4> >)
+                            )
+  {
+    typedef typename boost::dispatch::meta::
+            scalar_of<typename A4::type>::type  result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(const A0& idx, const A1& bi, const A2&, const A3& p, const A4&) const
+    {
+      return nt2::run(idx,p-bi,meta::as_<result_type>());
     }
   };
 } }
