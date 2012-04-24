@@ -24,27 +24,28 @@ namespace nt2 { namespace ext
   // Generates colon from a pair of [low,up]
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
-                            , (A0)
+                              , (A0)(A1)
                             , (scalar_< arithmetic_<A0> >)
-                              (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A1> >)
                             )
   {
+      typedef typename boost::common_type<A0,A1>::type base_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
                                           , box<_2D>
-                                          , box< nt2::details::unity_colon<A0> >
-                                          , meta::as_<A0>
+                                          , box< nt2::details::unity_colon<base_t> >
+                                          , meta::as_<base_t>
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& l, A0 const& u) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& l, A1 const& u) const
     {
       std::size_t n = (u>=l) ? std::size_t(u-l+1) : 0;
       return boost::proto::make_expr< nt2::tag::colon_
                                     , container::domain
                                     > ( boxify(of_size(1,n))
-                                      , boxify(nt2::details::unity_colon<A0>(l))
-                                      , meta::as_<A0>()
+                                      , boxify(nt2::details::unity_colon<base_t>(l))
+                                      , meta::as_<base_t>()
                                       );
     }
   };
