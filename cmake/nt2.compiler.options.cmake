@@ -32,10 +32,11 @@ set(CMAKE_EXE_LINKER_FLAGS_NT2BENCH ${CMAKE_EXE_LINKER_FLAGS_RELEASE})
 set_property(GLOBAL APPEND PROPERTY DEBUG_CONFIGURATIONS NT2Test)
 
 include(options/nt2.extra.warnings)
-add_definitions(${NT2_FLAGS})
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${NT2_FLAGS}")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${NT2_FLAGS}")
 
-if("${CMAKE_CXX_FLAGS} ${NT2_FLAGS}" MATCHES "[^ ]")
-  message(STATUS "[nt2] Global flags: ${CMAKE_CXX_FLAGS} ${NT2_FLAGS}")
+if(CMAKE_CXX_FLAGS MATCHES "[^ ]")
+  message(STATUS "[nt2] Global flags: ${CMAKE_CXX_FLAGS}")
 endif()
 
 message(STATUS "[nt2] Debug flags: ${CMAKE_CXX_FLAGS_DEBUG}")
