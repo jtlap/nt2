@@ -74,6 +74,22 @@ macro(expand_submodules modules)
   endwhile()
 endmacro()
 
+macro(remove_blacklisted modules)
+  set(${modules}_)
+  foreach(module ${${modules}})
+    set(module_found 1)
+    foreach(bl ${NT2_MODULES_BLACKLIST})
+      if(${module} MATCHES "^${bl}($|\\.)")
+        set(module_found 0)
+      endif()
+    endforeach()
+    if(module_found)
+      list(APPEND ${modules}_ ${module})
+    endif()
+  endforeach()
+  set(${modules} ${${modules}_})
+endmacro()
+
 ################################################################################
 # If no explicit modules are set, we use all modules we can find
 ################################################################################
@@ -81,23 +97,23 @@ if(NOT NT2_MODULES)
   file(GLOB NT2_MODULES RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
 endif()
 expand_submodules(NT2_MODULES)
+remove_blacklisted(NT2_MODULES)
 
 ################################################################################
 # Download extra modules
 ################################################################################
 include(nt2.download)
 list(REMOVE_DUPLICATES NT2_MODULES_EXTRA)
+remove_blacklisted(NT2_MODULES_EXTRA)
 foreach(module ${NT2_MODULES_EXTRA})
-  list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
-  if(module_found LESS 0)
     string(REPLACE "." "/" module_path ${module})
 
     if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
       nt2_download_module(${module})
     endif()
-  endif()
 endforeach()
 expand_submodules(NT2_MODULES_EXTRA)
+remove_blacklisted(NT2_MODULES_EXTRA)
 if(NT2_MODULES_EXTRA)
   list(APPEND NT2_MODULES ${NT2_MODULES_EXTRA})
   list(REMOVE_DUPLICATES NT2_MODULES)
@@ -107,29 +123,20 @@ endif()
 # Set include directories
 ################################################################################
 foreach(module ${NT2_MODULES})
-  list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
-  if(module_found LESS 0)
-    string(REPLACE "." "/" module_path ${module})
-
-    include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
-  endif()
+  string(REPLACE "." "/" module_path ${module})
+  include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
 endforeach()
 
 ################################################################################
 # Load modules
 ################################################################################
 foreach(module ${NT2_MODULES})
-  list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
-  if(module_found LESS 0)
-    string(REPLACE "." "/" module_path ${module})
-
-    if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
-      message(STATUS "[nt2] module ${module} not found")
-    else()
-      message(STATUS "[nt2] loading module ${module}")
-      add_subdirectory(modules/${module_path})
-    endif()
-
+  string(REPLACE "." "/" module_path ${module})
+  if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
+    message(STATUS "[nt2] module ${module} not found")
+  else()
+    message(STATUS "[nt2] loading module ${module}")
+    add_subdirectory(modules/${module_path})
   endif()
 endforeach()
 
