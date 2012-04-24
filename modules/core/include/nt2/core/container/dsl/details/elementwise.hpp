@@ -21,7 +21,7 @@ namespace nt2 { namespace container { namespace ext
   // element-wise size selection logic
   struct size_fold
   {
-    template<class A0, class A1, class Dummy = void>
+    template<class A0, class A1, class qA0, class qA1>
     struct select;
 
     template<class Sig>
@@ -33,13 +33,15 @@ namespace nt2 { namespace container { namespace ext
       typedef typename
       select< typename meta::strip<A0>::type
             , typename meta::strip<A1>::type
-            >::type const& type;
+            , A0
+            , A1
+            >::type type;
     };
 
-    template<class A1, class Dummy>
-    struct select<_0D, A1, Dummy>
+    template<class A1, class qA0, class qA1>
+    struct select<_0D, A1, qA0, qA1>
     {
-      typedef A1 type;
+      typedef qA1 type;
     };
     template<class A1>
     BOOST_DISPATCH_FORCE_INLINE
@@ -49,10 +51,10 @@ namespace nt2 { namespace container { namespace ext
       return a1;
     }
 
-    template<class A0, class Dummy>
-    struct select<A0, _0D, Dummy>
+    template<class A0, class qA0, class qA1>
+    struct select<A0, _0D, qA0, qA1>
     {
-      typedef A0 type;
+      typedef qA0 type;
     };
     template<class A0>
     BOOST_DISPATCH_FORCE_INLINE
@@ -62,10 +64,10 @@ namespace nt2 { namespace container { namespace ext
       return a0;
     }
 
-    template<class Dummy>
-    struct select<_0D, _0D, Dummy>
+    template<class qA0, class qA1>
+    struct select<_0D, _0D, qA0, qA1>
     {
-      typedef _0D type;
+      typedef qA0 type;
     };
     BOOST_DISPATCH_FORCE_INLINE
     result<size_fold(_0D const&, _0D const&)>::type
@@ -74,11 +76,11 @@ namespace nt2 { namespace container { namespace ext
       return a0;
     }
 
-    template<class A0, class A1, class Dummy>
+    template<class A0, class A1, class qA0, class qA1>
     struct select
     {
       typedef typename
-      boost::mpl::if_c< A0::static_status,A0,A1>::type type;
+      boost::mpl::if_c<A0::static_status, qA0, qA1>::type type;
     };
 
     template<class A0, class A1> BOOST_DISPATCH_FORCE_INLINE

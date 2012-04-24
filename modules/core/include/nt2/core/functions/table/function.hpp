@@ -84,12 +84,6 @@ namespace nt2
                        child_c<Expr&, 0>::type                               child0;
       typedef typename boost::fusion::result_of::pop_front<Expr const>::type childN;
 
-      typedef typename meta::
-              call<tag::ind2sub_( typename meta::call<tag::extent_(Expr&)>::type
-                                , State const&
-                                )
-                  >::type pos;
-
       typedef typename nt2::make_size< Arity::value-1 >::type                reinterpreted_pos;
       typedef boost::array< boost::dispatch::meta::
                             as_< typename boost::dispatch::meta::
@@ -110,7 +104,7 @@ namespace nt2
       typedef typename meta::strip<child0>::type base0;
       typedef boost::fusion::vector< childN const&
                                    , typename base0::indexes_type const&
-                                   , typename base0::extent_type
+                                   , typename meta::call<tag::extent_(child0)>::type
                                    , reinterpreted_pos const&
                                    , targets const&
                                    > seq;
