@@ -12,24 +12,7 @@
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/linalg/functions/details/svd.hpp>
-//  svd    Singular value decomposition.
-//     [U,S,V] = svd(X) produces a diagonal matrix S, of the same 
-//     dimension as X and with nonnegative diagonal elements in
-//     decreasing order, and unitary matrices U and V so that
-//     X = U*S*V'.
- 
-//     S = svd(X) returns a vector containing the singular values.
- 
-//     [U,S,V] = svd(X,0) produces the "economy size"
-//     decomposition. If X is m-by-n with m > n, then only the
-//     first n columns of U are computed and S is n-by-n.
-//     For m <= n, svd(X,0) is equivalent to svd(X).
- 
-//     [U,S,V] = svd(X,'econ') also produces the "economy size"
-//     decomposition. If X is m-by-n with m >= n, then it is
-//     equivalent to svd(X,0). For m < n, only the first m columns 
-//     of V are computed and S is m-by-m.
- 
+
 namespace nt2
 {
   namespace tag

@@ -21,14 +21,69 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/fliplr.hpp>
+#include <nt2/include/functions/repnum.hpp>
+#include <nt2/include/functions/zeros.hpp>
 //#include <nt2/include/functions/trans.hpp> //TODO
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gesvd.hpp>
 #include <iostream>
+// TODO:
+// these are the kind of syntaxes to be enforced by nt2::chol
+//  svd    Singular value decomposition.
+//     [u,s,v] = svd(x) produces a diagonal matrix s, of the same 
+//     dimension as x and with nonnegative diagonal elements in
+//     decreasing order, and unitary matrices u and v so that
+//     x = u*s*v'.
+// -> [u w v ]
 
+//     s = svd(x) returns a vector containing the singular values.
+ 
+//     [u,s,v] = svd(x,0) produces the "economy size"
+//     decomposition. if x is m-by-n with m > n, then only the
+//     first n columns of u are computed and s is n-by-n.
+//     for m <= n, svd(x,0) is equivalent to svd(x).
+// -> [u w v ] jobu ==  'o', jobvt ==  'a'
+ 
+//     [u,s,v] = svd(x,'econ') also produces the "economy size"
+//     decomposition. if x is m-by-n with m >= n, then it is
+//     equivalent to svd(x,0). for m < n, only the first m columns 
+//     of v are computed and s is m-by-m.
+// -> [u w v ] jobu ==  'a' jobvt ==  'o'
+ 
+////////////////////////////////////////////////////////////////////////////////////////
+// The class provides:
+// constructor from an expression or matrix a
+//
+// accesors to u, v, vt and singular also w as a vector
+// u returns the left singular vectors
+// v returns the right singular vectors
+// vt returns the transpose of the right singular vectors
+// w returns the diagonal matrix of the singular values
+// singular returns the vector of the singular values
+// we have u*w*vt = a
 
-
+/////////////////////////////////////////////////// 
+//
+// the class allow to compute
+//
+// status the plu status from lapack
+//
+// rank the matrix rank up to epsi
+//
+//
+// Two solvers
+// solve and inplace_solve
+//
+// a matrix pseudo inversion penrose pseudo inverse
+// pinv
+// if z =  a.pinv(),  one has z*a*z = z and a*z*a = a
+//
+// null returns orthogonal basis of the kernel of the input up to epsi
+// orth returns orthogonal basis of the image  of the input up to epsi
+// zerosolve returns the a norm one  vector such that ||a*x|| is minimal
+// (zero if a is singular)
+//
 namespace nt2 { namespace details
 {
   template<class T> struct svd_result
@@ -47,8 +102,9 @@ namespace nt2 { namespace details
     typedef nt2::table<type_t,index_t>                   result_type;
 
     template<class Input>
-    svd_result ( Input& xpr, char jobz = 'A')
-      : jobz_(jobz)
+    svd_result ( Input& xpr, char jobu = 'A', char jobvt = 'A')
+      : jobu_(jobu)
+      , jobvt_(jobvt)
       , a_(xpr)
       , aa_(xpr)
       , m_( nt2::height(xpr) )
@@ -56,13 +112,27 @@ namespace nt2 { namespace details
       , lda_( a_.leading_size() )
       , info_(0)
     {
-      allocate();
-      init();
+      BOOST_ASSERT_MSG((jobvt_ != 'O' || jobu_ != 'O'),
+                        "jobu and jobvt cannot be 'O' simultaneously");
+      ldu_  = (jobu_== 'N') ? 1 : m_;
+      ucol_ = (jobu_== 'S'||jobu_== 'O') ? nt2::min(n_, m_) : ((jobu_== 'N') ? 1 : m_); 
+      
+      vtcol_  = (jobu_== 'N') ? 1 : n_;
+      ldvt_   = (jobu_== 'S'||jobu_== 'O') ? nt2::min(n_, m_) : ((jobu_== 'N') ? 1 : n_);
+      u_.resize(of_size(ldu_, ucol_));
+      ldu_ = u_.leading_size();
+      vt_.resize(of_size(ldvt_, vtcol_));
+      ldvt_ = vt_.leading_size();
+      w_.resize(of_size(nt2::min(n_, m_), 1));
+      nt2::details::gesvd(&jobu_, &jobvt_, &m_, &n_, aa_.raw(), &lda_,
+                          w_.raw(), u_.raw(), &ldu_,
+                          vt_.raw(), &ldvt_, &info_, wrk_);
     }
 
     svd_result& operator=(svd_result const& src)
     {
-      jobz_   = src.jobz_;
+      jobu_   = src.jobu_;
+      jobvt_  = src.jobvt_;
       a_      = src.a_;
       aa_     = src.aa_;
       m_      = src.m_;
@@ -75,23 +145,40 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return raw values
     //==========================================================================
-    result_type values() const { return a_; }
+    result_type values() const { return aa_; }
 
     //==========================================================================
     // Return u part
     //==========================================================================
     result_type u() const
     {
-      BOOST_ASSERT_MSG(jobz_ != 'N', "please call svd wit jobz = 'A', 'S' or 'O'");
-      return u_;
+      BOOST_ASSERT_MSG(jobu_ != 'N', "please call svd with jobu = 'A', 'S' or 'O'");
+      if (jobu_ == 'O')
+        return expand(aa_, min(m_, n_), n_);
+      else
+        return u_;
+    }
+
+    //==========================================================================
+    // Return v part
+    //==========================================================================
+    result_type v() const {
+      BOOST_ASSERT_MSG(jobvt_ != 'N', "please call svd with jobvt= 'A', 'S' or 'O'");
+      if (jobvt_ == 'O')
+        return trans(expand(aa_, min(m_, n_), n_));
+      else
+        return trans(vt_);
     }
 
     //==========================================================================
     // Return vt part
     //==========================================================================
     result_type vt() const {
-      BOOST_ASSERT_MSG(jobz_ != 'N', "please call svd wit jobz = 'A', 'S' or 'O'");
-      return vt_;
+      BOOST_ASSERT_MSG(jobvt_ != 'N', "please call svd wit jobz = 'A', 'S' or 'O'");
+       if (jobvt_ == 'O')
+        return expand(aa_, min(m_, n_), n_);
+      else
+        return vt_;
     }
 
     //==========================================================================
@@ -115,15 +202,24 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return matrix condition number
     //==========================================================================
-    base_t     cond()       const { return  w_(1)/w(nt2::min(m_, n_)); }
+    base_t     cond()       const { return  w_(1)/w_(nt2::min(m_, n_)); }
 
     //==========================================================================
     // Return matrix rank up to epsi
     //==========================================================================
      size_t      rank(base_t epsi = -1) const
     {
-      epsi =  (is_ltz(epsi)) ?  nt2::max(n_, m_)*nt2::eps(w_(1)): epsi;
-      return sum(sb2b(gt(w, epsi)));
+      epsi =  (epsi < 0) ?  nt2::max(n_, m_)*nt2::eps(w_(1)): epsi;
+      size_t r = 0; 
+      for(int i=1; i <= numel(w_); ++i)
+        {
+          if (w_(i) > epsi)
+            ++r;
+          else
+            return r; 
+        }
+      return r; 
+       //     return sum(sb2b(gt(w_, epsi))); //TO DO
     }
 
     //==========================================================================
@@ -156,7 +252,7 @@ namespace nt2 { namespace details
         int j = numel(w_);
         for(; (j > 0) && (w_(j)<= epsi); j--);
         j++;
-        return nt2::fliplr(trans(vt_(_(j, last_index<1>(vt_)), _)));//TODO
+        return nt2::fliplr(trans(vt()(_(j, last_index<1>(vt_)), _)));//TODO trans
       }
 
     //==========================================================================
@@ -164,12 +260,13 @@ namespace nt2 { namespace details
     //==========================================================================
       tab_t orth(base_t epsi =  -1)const
       {
-        return u(_, nt2::_(1, rank(epsi)));
+        int32_t r = rank(epsi); 
+        return u()(_, _(1, r));
       }
 
       tab_t zerosolve()const
       {
-        return trans(vt(vt.last_index<1>(), _));
+        return trans(vt()(last_index<1>(vt_), _));
       }
 
       tab_t pinv(base_t epsi = -1 )const
@@ -186,9 +283,10 @@ namespace nt2 { namespace details
       }
 
   private:
-    char                           jobz_;
+    char                           jobu_;
+    char                          jobvt_; 
     data_t                            a_;
-    tab_t                            aa_;
+    tab_t                            aa_; 
     tab_t                             u_;
     tab_t                            vt_;
     tab_t                             w_;
@@ -201,66 +299,26 @@ namespace nt2 { namespace details
     nt2_la_int                     info_;
     workspace_t                     wrk_;
 
-    inline void allocate()
-    {
-      switch (jobz_)
-        {
-        case 'A':
-          ldu_ = m_;  ucol_ = m_;
-          ldvt_ = n_; vtcol_ = n_;
-          break;
-        case 'S':
-          ldu_ = m_;  ucol_ = nt2::min(n_, m_);
-          ldvt_ = n_; vtcol_ = n_;
-          break;
-        case 'O':
-          ldu_ = m_;  ucol_ = nt2::min(n_, m_);
-          ldvt_ = n_; vtcol_ = nt2::min(n_, m_);
-          break;
-        case 'N':
-          ldu_ = 1;  ucol_ = 1;
-          ldvt_ = 1; vtcol_ = 1;
-          break;
-        default :
-          break;
-        }
-      u_.resize(of_size(ldu_, ucol_));
-      ldu_ = u_.leading_size();
-      vt_.resize(of_size(ldvt_, vtcol_));
-      ldvt_ = vt_.leading_size();
-      w_.resize(of_size(nt2::max(n_, m_), 1));
-    }
-
-    inline void init()
-    {
-      std::cout << "jobz_ " << jobz_ << std::endl;
-      nt2::details::gesvd(&jobz_, &jobz_, &m_, &n_, aa_.raw(), &lda_,
-                          w_.raw(), u_.raw(), &ldu_,
-                          vt_.raw(), &ldvt_, &info_, wrk_);
-
-      for(size_t i = nt2::min(n_, m_)+1; i<= nt2::numel(w_); ++i) w_(i) = Zero<base_t>();
-      //w_(_(nt2::min(n_, m_)+1, nt2::numel(w_))) =  Zero<base_t>();
-    }
 
     template < class S>
-    static S diag_of(const S& a)
+    static tab_t diag_of(const S& a)
     {
-      S d(of_size(nt2::min(width(a), height(a)), 1));
+      tab_t d(of_size(nt2::min(width(a), height(a)), 1));
       for (int i = 1; i <= nt2::min(width(a), height(a)); ++i) d(i) = a(i, i);
       return d;
     }
     template < class S>
-    static S from_diag(const S& w)
+    static btab_t from_diag(const S& w)
     {
-      S m(of_size(numel(w), numel(w)));
+      tab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
       for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
       return m;
     }
     template < class S>
-    static S trans(const S& a)
+    static tab_t trans(const S& a)
     {
-      S ta(of_size(width(a), height(a)));
-      for (int i = 1; i <= heigth(a); ++i)
+      tab_t ta(of_size(width(a), height(a)));
+      for (int i = 1; i <= height(a); ++i)
         for (int j = 1; j <= width(a); ++j) ta(j, i) = a(i, j);
       return ta;
     }
