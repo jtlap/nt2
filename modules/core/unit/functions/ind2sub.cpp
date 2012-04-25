@@ -10,9 +10,13 @@
 
 #include <iostream>
 #include <nt2/include/functions/ind2sub.hpp>
+#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/arith.hpp>
 #include <nt2/include/functions/unaligned_load.hpp>
 
 #include <boost/array.hpp>
+#include <boost/fusion/include/io.hpp>
+#include <boost/fusion/include/as_vector.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 #include <boost/mpl/int.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -28,6 +32,10 @@ NT2_TEST_CASE( ind2sub_1D )
   {
     boost::array<int, 1> a = nt2::ind2sub( make_vector(3), i );
     boost::array<int, 1> b = {{i+1}};
+
+    std::cout << boost::fusion::as_vector(a) << " == ";
+    std::cout << boost::fusion::as_vector(b) << "\n";
+
     for(int n=0;n<1;++n) NT2_TEST_EQUAL( a[n], b[n] );
   }
 }
@@ -38,29 +46,16 @@ NT2_TEST_CASE( ind2sub_1D_simd )
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<std::size_t, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
-  std::size_t va[sz];
-  for(int i=0;i<sz;++i) va[i] = 4*i;
+  boost::array<idx_t, 1> a = nt2::ind2sub( make_vector(16), nt2::enumerate<idx_t>(0) );
 
-  boost::array<idx_t, 1> a = nt2::ind2sub( make_vector(16), nt2::unaligned_load<idx_t>(&va[0]) );
+  std::cout << boost::fusion::as_vector(a) << "\n";
+
   for(int n=0;n<1;++n)
     for(int j=0;j<sz;++j)
-      NT2_TEST_EQUAL( a[n][j], va[j]+1 );
-}
-
-NT2_TEST_CASE( ind2sub_1D_base1 )
-{
-  using boost::fusion::make_vector;
-  using boost::mpl::int_;
-
-  for(int i=0;i<5;++i)
-  {
-    boost::array<int, 1> a = nt2::ind2sub( make_vector(5), i, make_vector(1) );
-    boost::array<int, 1> b = {{i+1}};
-    for(int n=0;n<1;++n) NT2_TEST_EQUAL( a[n], b[n] );
-  }
+      NT2_TEST_EQUAL( a[n][j], j+1 );
 }
 
 NT2_TEST_CASE( ind2sub_1D_base )
@@ -72,40 +67,31 @@ NT2_TEST_CASE( ind2sub_1D_base )
   {
     boost::array<int, 1> a = nt2::ind2sub( make_vector(4), i, make_vector(-1) );
     boost::array<int, 1> b = {{i-1}};
+
+    std::cout << boost::fusion::as_vector(a) << " == ";
+    std::cout << boost::fusion::as_vector(b) << "\n";
+
     for(int n=0;n<1;++n) NT2_TEST_EQUAL( a[n], b[n] );
   }
 }
 
-NT2_TEST_CASE( ind2sub_2D_simd )
+NT2_TEST_CASE( ind2sub_1D_simd_base )
 {
   using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<std::size_t, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
-  for(int j=0;j<2;++j)
-  {
-    for(int i=0;i<3;++i)
-    {
-      std::size_t va[sz], vb[sz];
-      for(int k=0;k<sz;++k) va[k] = (i+3*j+k) % 6;
+  boost::array<idx_t, 1>
+  a = nt2::ind2sub( make_vector(16), nt2::enumerate<idx_t>(0), make_vector(-1) );
 
-      boost::array<idx_t, 2>
-      a = nt2::ind2sub( make_vector(3,2), nt2::unaligned_load<idx_t>(&va[0]) );
+  std::cout << boost::fusion::as_vector(a) << "\n";
 
-      std::cout << nt2::unaligned_load<idx_t>(&va[0]) << " => "
-                << a[0] << ", " << a[1]
-                << "\n";
-
-      for(int k=0;k<sz;++k)
-      {
-        NT2_TEST_EQUAL( a[0][k], i+1 );
-        NT2_TEST_EQUAL( a[1][k], j+1 );
-      }
-    }
-  }
+  for(int n=0;n<1;++n)
+    for(int j=0;j<sz;++j)
+      NT2_TEST_EQUAL( a[n][j], j-1 );
 }
 
 NT2_TEST_CASE( ind2sub_2D )
@@ -119,23 +105,34 @@ NT2_TEST_CASE( ind2sub_2D )
     {
       boost::array<int, 2> a = nt2::ind2sub( make_vector(3,2), i + 3*j );
       boost::array<int, 2> b = {{i+1,j+1}};
+
+      std::cout << boost::fusion::as_vector(a) << " == ";
+      std::cout << boost::fusion::as_vector(b) << "\n";
       for(int n=0;n<2;++n) NT2_TEST_EQUAL( a[n], b[n] );
     }
   }
 }
 
-NT2_TEST_CASE( ind2sub_2D_base1 )
+NT2_TEST_CASE( ind2sub_2D_simd )
 {
+  using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
+  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+
   for(int j=0;j<2;++j)
   {
-    for(int i=0;i<3;++i)
+    boost::array<idx_t, 2>
+    a = nt2::ind2sub( make_vector(sz,2), nt2::arith<idx_t>(j*sz,1) );
+
+    std::cout << boost::fusion::as_vector(a);
+
+    for(int k=0;k<sz;++k)
     {
-      boost::array<int, 2> a = nt2::ind2sub( make_vector(3,2), i + 3*j, make_vector(1,1) );
-      boost::array<int, 2> b = {{i+1,j+1}};
-      for(int n=0;n<2;++n) NT2_TEST_EQUAL( a[n], b[n] );
+      NT2_TEST_EQUAL( a[0][k], k+1 );
+      NT2_TEST_EQUAL( a[1][k], j+1 );
     }
   }
 }
@@ -151,7 +148,34 @@ NT2_TEST_CASE( ind2sub_2D_base )
     {
       boost::array<int, 2> a = nt2::ind2sub( make_vector(3,2), i + 3*j, make_vector(-1,1) );
       boost::array<int, 2> b = {{i-1,j+1}};
-      for(int n=0;n<2;++n) NT2_TEST_EQUAL( a[n], b[n] );
+
+      std::cout << boost::fusion::as_vector(a) << " == ";
+      std::cout << boost::fusion::as_vector(b) << "\n";
+
+      for(int n=0;n<2;++n)  NT2_TEST_EQUAL( a[n], b[n] );
+    }
+  }
+}
+
+NT2_TEST_CASE( ind2sub_2D_simd_base )
+{
+  using boost::simd::native;
+  using boost::fusion::make_vector;
+  using boost::mpl::int_;
+
+  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+
+  for(std::ptrdiff_t j=0;j<5;++j)
+  {
+    boost::array<idx_t, 2>
+    a = nt2::ind2sub(make_vector(sz,5),nt2::arith<idx_t>(j*sz,1),make_vector(-1,-2));
+
+    std::cout << boost::fusion::as_vector(a) << "\n";
+    for(std::ptrdiff_t k=0;k<sz;++k)
+    {
+      NT2_TEST_EQUAL( a[0][k], k-1 );
+      NT2_TEST_EQUAL( a[1][k], j-2 );
     }
   }
 }
@@ -169,26 +193,39 @@ NT2_TEST_CASE( ind2sub_3D )
       {
         boost::array<int, 3> a = nt2::ind2sub( make_vector(3,2,5), i + 3*(j+2*k) );
         boost::array<int, 3> b = {{i+1,j+1,k+1}};
+
+        std::cout << boost::fusion::as_vector(a) << " == ";
+        std::cout << boost::fusion::as_vector(b) << "\n";
+
         for(int n=0;n<3;++n) NT2_TEST_EQUAL( a[n], b[n] );
       }
     }
   }
 }
 
-NT2_TEST_CASE( ind2sub_3D_base1 )
+NT2_TEST_CASE( ind2sub_3D_simd )
 {
+  using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
+
+  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int k=0;k<5;++k)
   {
     for(int j=0;j<2;++j)
     {
-      for(int i=0;i<3;++i)
+      boost::array<idx_t, 3>
+      a = nt2::ind2sub( make_vector(sz,2,5), nt2::arith<idx_t>(sz*(j+2*k),1) );
+
+      std::cout << boost::fusion::as_vector(a) << "\n";
+
+      for(std::ptrdiff_t n=0;n<sz;++n)
       {
-        boost::array<int, 3> a = nt2::ind2sub( make_vector(3,2,5), i + 3*(j+2*k), make_vector(1,1,1) );
-        boost::array<int, 3> b = {{i+1,j+1,k+1}};
-        for(int n=0;n<3;++n) NT2_TEST_EQUAL( a[n], b[n] );
+        NT2_TEST_EQUAL( a[0][n], n+1 );
+        NT2_TEST_EQUAL( a[1][n], j+1 );
+        NT2_TEST_EQUAL( a[2][n], k+1 );
       }
     }
   }
@@ -205,9 +242,43 @@ NT2_TEST_CASE( ind2sub_3D_base )
     {
       for(int i=0;i<3;++i)
       {
-        boost::array<int, 3> a = nt2::ind2sub( make_vector(3,2,5), i + 3*(j+2*k), make_vector(-1,1,2) );
+        boost::array<int, 3>
+        a = nt2::ind2sub( make_vector(3,2,5), i + 3*(j+2*k), make_vector(-1,1,2) );
+
         boost::array<int, 3> b = {{i-1,j+1,k+2}};
+
+        std::cout << boost::fusion::as_vector(a) << " == ";
+        std::cout << boost::fusion::as_vector(b) << "\n";
+
         for(int n=0;n<3;++n) NT2_TEST_EQUAL( a[n], b[n] );
+      }
+    }
+  }
+}
+
+NT2_TEST_CASE( ind2sub_3D_simd_base )
+{
+  using boost::simd::native;
+  using boost::fusion::make_vector;
+  using boost::mpl::int_;
+
+  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+
+  for(int k=0;k<5;++k)
+  {
+    for(int j=0;j<2;++j)
+    {
+      boost::array<idx_t, 3>
+      a = nt2::ind2sub( make_vector(sz,2,5), nt2::arith<idx_t>(sz*(j+2*k),1), make_vector(-1,-1,-2) );
+
+      std::cout << boost::fusion::as_vector(a) << "\n";
+
+      for(std::ptrdiff_t n=0;n<sz;++n)
+      {
+        NT2_TEST_EQUAL( a[0][n], n-1 );
+        NT2_TEST_EQUAL( a[1][n], j-1 );
+        NT2_TEST_EQUAL( a[2][n], k-2 );
       }
     }
   }
@@ -226,8 +297,14 @@ NT2_TEST_CASE( ind2sub_4D )
       {
         for(int i=0;i<3;++i)
         {
-          boost::array<int, 4> a = nt2::ind2sub( make_vector(3,2,5,3), i + 3*(j+2*(k+5*l)) );
+          boost::array<int, 4>
+          a = nt2::ind2sub( make_vector(3,2,5,3), i + 3*(j+2*(k+5*l)) );
+
           boost::array<int, 4> b = {{i+1,j+1,k+1,l+1}};
+
+          std::cout << boost::fusion::as_vector(a) << " == ";
+          std::cout << boost::fusion::as_vector(b) << "\n";
+
           for(int n=0;n<4;++n) NT2_TEST_EQUAL( a[n], b[n] );
         }
       }
@@ -235,10 +312,14 @@ NT2_TEST_CASE( ind2sub_4D )
   }
 }
 
-NT2_TEST_CASE( ind2sub_4D_base1 )
+NT2_TEST_CASE( ind2sub_4D_simd )
 {
+  using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
+
+  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int l=0;l<3;++l)
   {
@@ -246,11 +327,17 @@ NT2_TEST_CASE( ind2sub_4D_base1 )
     {
       for(int j=0;j<2;++j)
       {
-        for(int i=0;i<3;++i)
+        boost::array<idx_t, 4>
+        a = nt2::ind2sub( make_vector(sz,2,5,3), nt2::arith<idx_t>(sz*(j+2*(k+5*l)),1) );
+
+        std::cout << boost::fusion::as_vector(a) << "\n";
+
+        for(std::ptrdiff_t n=0;n<sz;++n)
         {
-          boost::array<int, 4> a = nt2::ind2sub( make_vector(3,2,5,3), i + 3*(j+2*(k+5*l)), make_vector(1,1,1,1) );
-          boost::array<int, 4> b = {{i+1,j+1,k+1,l+1}};
-          for(int n=0;n<4;++n) NT2_TEST_EQUAL( a[n], b[n] );
+          NT2_TEST_EQUAL( a[0][n], n+1 );
+          NT2_TEST_EQUAL( a[1][n], j+1 );
+          NT2_TEST_EQUAL( a[2][n], k+1 );
+          NT2_TEST_EQUAL( a[3][n], l+1 );
         }
       }
     }
@@ -270,9 +357,45 @@ NT2_TEST_CASE( ind2sub_4D_base )
       {
         for(int i=0;i<3;++i)
         {
-          boost::array<int, 4> a = nt2::ind2sub( make_vector(3,2,5,3), i + 3*(j+2*(k+5*l)), make_vector(-1,1,-2,2) );
+          boost::array<int, 4>
+          a = nt2::ind2sub( make_vector(3,2,5,3), i + 3*(j+2*(k+5*l)), make_vector(-1,1,-2,2) );
           boost::array<int, 4> b = {{i-1,j+1,k-2,l+2}};
           for(int n=0;n<4;++n) NT2_TEST_EQUAL( a[n], b[n] );
+        }
+      }
+    }
+  }
+}
+
+NT2_TEST_CASE( ind2sub_4D_simd_base )
+{
+  using boost::simd::native;
+  using boost::fusion::make_vector;
+  using boost::mpl::int_;
+
+  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+
+  for(int l=0;l<3;++l)
+  {
+    for(int k=0;k<5;++k)
+    {
+      for(int j=0;j<2;++j)
+      {
+        boost::array<idx_t, 4>
+        a = nt2::ind2sub( make_vector(sz,2,5,3)
+                        , nt2::arith<idx_t>(sz*(j+2*(k+5*l)),1)
+                        , make_vector(-1,1,-2,2)
+                        );
+
+        std::cout << boost::fusion::as_vector(a) << "\n";
+
+        for(std::ptrdiff_t n=0;n<sz;++n)
+        {
+          NT2_TEST_EQUAL( a[0][n], n-1 );
+          NT2_TEST_EQUAL( a[1][n], j+1 );
+          NT2_TEST_EQUAL( a[2][n], k-2 );
+          NT2_TEST_EQUAL( a[3][n], l+2 );
         }
       }
     }

@@ -9,15 +9,17 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_IND2SUB_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_IND2SUB_HPP_INCLUDED
 
-#include <boost/mpl/int.hpp>
-#include <boost/fusion/include/at.hpp>
-#include <boost/fusion/include/size.hpp>
-#include <boost/fusion/adapted/array.hpp>
 #include <nt2/core/functions/ind2sub.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/modulo.hpp>
-#include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/divides.hpp>
+#include <boost/dispatch/meta/as_signed.hpp>
+#include <boost/fusion/adapted/array.hpp>
+#include <boost/fusion/include/size.hpp>
+#include <boost/fusion/include/at.hpp>
+#include <boost/mpl/int.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -30,29 +32,29 @@ namespace nt2 { namespace ext
                               (generic_< unspecified_<A1> >)
                             )
   {
-    typedef typename meta::strip<A1>::type base_t;
-    typedef boost::array<base_t, boost::fusion::result_of::size<A0>::value> result_type;
+    typedef typename meta::strip<A1>::type                          base_t;
+    typedef typename boost::dispatch::meta::as_signed<base_t>::type type_t;
+    typedef boost::fusion::result_of::size<A0>                      dims_t;
+    typedef boost::array<type_t,dims_t::value>                      result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos) const
     {
+      type_t p;
       result_type sub;
-      eval(sub, pos, size, boost::mpl::int_<0>(),
-           boost::mpl::int_<boost::fusion::result_of::size<A0>::value>());
+
+      p = pos;
+      eval(sub,p,size,boost::mpl::int_<0>(),boost::mpl::int_<dims_t::value>());
       return sub;
     }
 
     template<class N, class M>
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval(result_type& sub,const A1& p, const A0& s, const N&, const M&) const
+    eval(result_type& sub,const A1& p, const A0& s, const N&, const M& m) const
     {
-      sub[N::value] = p % splat<base_t>(boost::fusion::at_c<N::value>(s))
-                    + splat<base_t>(1);
-
-      eval( sub, p / splat<base_t>(boost::fusion::at_c<N::value>(s)), s
-          , boost::mpl::int_<N::value+1>()
-          , boost::mpl::int_<M::value>()
-          );
+      type_t ls     = splat<type_t>(boost::fusion::at_c<N::value>(s));
+      sub[N::value] = p % ls + One<type_t>();
+      eval( sub, p/ls, s, boost::mpl::int_<N::value+1>(), m );
 
       return sub;
     }
@@ -62,7 +64,7 @@ namespace nt2 { namespace ext
         , const boost::mpl::int_<0>&, const boost::mpl::int_<1>&
         ) const
     {
-      sub[0] = p + splat<base_t>(1);
+      sub[0] = p + One<type_t>();
     }
 
     template<class N>
@@ -80,49 +82,47 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A2>)
                             )
   {
-    typedef typename meta::strip<A1>::type base_t;
-    typedef boost::array<base_t, boost::fusion::result_of::size<A0>::value> result_type;
+    typedef typename meta::strip<A1>::type                          base_t;
+    typedef typename boost::dispatch::meta::as_signed<base_t>::type type_t;
+    typedef boost::fusion::result_of::size<A0>                      dims_t;
+    typedef boost::array<type_t,dims_t::value>                      result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos, const A2& base) const
     {
+      type_t p;
       result_type sub;
-      eval( sub, pos, size, base
-          , boost::mpl::int_<0>()
-          , boost::mpl::int_<boost::fusion::result_of::size<A0>::value>()
-          );
+
+      p = pos;
+      eval(sub,p,size,base,boost::mpl::int_<0>(),boost::mpl::int_<dims_t::value>());
+
       return sub;
     }
 
     template<class N, class M>
     BOOST_DISPATCH_FORCE_INLINE result_type
-    eval( result_type& sub
-        , const A1& p, const A0& s, const A2& b, const N&, const M&
+    eval( result_type& sub,const A1& p, const A0& s, const A2& b
+        , const N&, const M& m
         ) const
     {
-      sub[N::value] = p % splat<base_t>(boost::fusion::at_c<N::value>(s))
-                    + splat<base_t>(boost::fusion::at_c<N::value>(b));
-
-      eval( sub, p / splat<base_t>(boost::fusion::at_c<N::value>(s)), s, b
-          , boost::mpl::int_<N::value+1>()
-          , boost::mpl::int_<M::value>()
-          );
+      type_t ls     = splat<type_t>(boost::fusion::at_c<N::value>(s));
+      sub[N::value] = p % ls + splat<type_t>(boost::fusion::at_c<N::value>(b));
+      eval( sub, p/ls, s, b, boost::mpl::int_<N::value+1>(), m );
 
       return sub;
     }
 
     BOOST_DISPATCH_FORCE_INLINE void
-    eval( result_type& sub
-        , const A1& p, const A0& s, const A2& b
+    eval( result_type& sub, const A1& p, const A0& s, const A2& b
         , const boost::mpl::int_<0>&, const boost::mpl::int_<1>&
         ) const
     {
-      sub[0] = p + splat<base_t>(boost::fusion::at_c<0>(b));
+      sub[0] = p + splat<type_t>(boost::fusion::at_c<0>(b));
     }
 
     template<class N>
     BOOST_DISPATCH_FORCE_INLINE void
-    eval(result_type&,const A1&,const A0&,const A2&,const N&,const N&) const {}
+    eval(result_type&,const A1&,const A0&,const A2&,const N&,const N&) const  {}
   };
 } }
 
