@@ -28,9 +28,9 @@ namespace nt2 { namespace ext
     {
       typename meta::call<tag::extent_(A0 const&)>::type ex = nt2::extent(a0);
       std::size_t nz = nt2::numel(ex);
-
-      return  (nz > 0)
-          &&  (meta::safe_at_c<0>(ex)*meta::safe_at_c<1>(ex) == nz);
+      // 4x0x1x1 is matrix but I do not know if 4x0x4x1 is ?!
+      return (nz == 0) ||((nz > 0)
+                          &&  (meta::safe_at_c<0>(ex)*meta::safe_at_c<1>(ex) == nz));
     }
   };
 } }
