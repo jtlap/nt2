@@ -20,6 +20,7 @@ SET( SOURCES
   dawson.cpp
   beta.cpp
   erf.cpp
+  erfc.cpp 
 # List of simd test files for toolbox euler
    )
 

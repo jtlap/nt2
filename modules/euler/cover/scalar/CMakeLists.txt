@@ -20,6 +20,7 @@ SET( SOURCES
   dawson.cpp
   beta.cpp
   erf.cpp
+  erfc.cpp
 # List of scalar test files for toolbox euler
    )
 
