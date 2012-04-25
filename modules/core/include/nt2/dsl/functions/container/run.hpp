@@ -25,7 +25,6 @@
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 #include <numeric>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -170,11 +169,10 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::
-            strip< typename boost::dispatch::meta::
-                   terminal_of< typename boost::dispatch::meta::
-                                semantic_of<A0&>::type
-                              >::type
-                 >::type                                   result_type;
+            terminal_of< typename boost::dispatch::meta::
+                         semantic_of<A0&>::type
+                       >::type
+                                                           result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {

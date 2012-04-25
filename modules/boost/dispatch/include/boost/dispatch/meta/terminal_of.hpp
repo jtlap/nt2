@@ -24,9 +24,9 @@ namespace boost { namespace dispatch { namespace meta
    * \tparam Type type to convert into a terminal
    */
   template<class T> struct terminal_of { typedef T type; };
-  
-  template<class T> struct terminal_of<T&> { typedef typename terminal_of<T>::type& type; };
-  template<class T> struct terminal_of<T const> { typedef typename terminal_of<T>::type const type; };
+
+  template<class T> struct terminal_of<T&> : terminal_of<T> {};
+  template<class T> struct terminal_of<T const> : terminal_of<T> {};
   
 } } }
 
