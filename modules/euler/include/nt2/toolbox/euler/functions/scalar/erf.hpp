@@ -9,6 +9,8 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_ERF_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_ERF_HPP_INCLUDED
 
+#include <nt2/toolbox/euler/functions/erf.hpp>
+
 // #include <nt2/include/constants/pi.hpp>
 // #include <nt2/include/constants/three.hpp>
 // #include <nt2/include/constants/four.hpp>
@@ -24,9 +26,9 @@
 #include <nt2/include/functions/polevl.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/negif.hpp>
+#include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is arithmetic_
