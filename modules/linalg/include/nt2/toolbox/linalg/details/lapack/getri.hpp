@@ -43,11 +43,11 @@ namespace nt2
       NT2_F77NAME(NAME)(n,a,lda,ipiv,           \
                         w.main(),query(),       \
                         info);                  \
-      w.resize_main(w.main_need());             \
+      nt2_la_int wn =  w.main_need();           \
+      w.resize_main(wn);                        \
       NT2_F77NAME(NAME)(n,a,lda,                \
                         ipiv,w.main(),          \
-                        &w.main_need(),         \
-                        info);                  \
+                        &wn, info);             \
     }                                           \
     inline void getri(const nt2_la_int* n,      \
                       T* a,                     \
