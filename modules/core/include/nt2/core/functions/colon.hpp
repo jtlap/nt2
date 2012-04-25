@@ -14,6 +14,7 @@
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 #include <nt2/core/container/dsl/details/generative.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <nt2/core/container/table/semantic.hpp>
 
 namespace nt2
 {
