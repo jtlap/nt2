@@ -136,7 +136,7 @@ namespace nt2
                            const nt2_la_complex* vt, const nt2_la_int* ldvt,
                            nt2_la_complex* work, const nt2_la_int* lwork, double* rwork, nt2_la_int* info);
     }
-    
+
 #define NT2_GESVD(NAME, T, TBASE)                                       \
     inline void gesvd(const char* jobu,                                 \
                       const char* jobvt,                                \
@@ -155,9 +155,10 @@ namespace nt2
       w.resize_reals(5*nt2::min(*m,*n));                                \
       NT2_F77NAME( NAME )(jobu, jobvt, m, n, a, lda, s, u, ldu,         \
                           vt, ldvt, w.main(), query(), w.reals(), info);\
-      w.resize_main(w.main_need());                                     \
+      nt2_la_int wn = w.main_need();                                    \
+      w.resize_main(wn);                                                \
       NT2_F77NAME( NAME )(jobu, jobvt, m, n, a, lda, s, u, ldu,         \
-                      vt,ldvt,w.main(),&w.main_need(),w.reals(),info);  \
+                      vt,ldvt,w.main(),&wn,w.reals(),info);             \
     }                                                                   \
     inline void gesvd(const char* jobu,                                 \
                       const char* jobvt,                                \
@@ -197,9 +198,10 @@ namespace nt2
     {                                                                   \
       NT2_F77NAME( NAME )(jobu, jobvt, m, n, a, lda, s, u, ldu,         \
                           vt, ldvt, w.main(), query(), info);           \
-      w.resize_main(w.main_need());                                     \
+      nt2_la_int wn = w.main_need(); \
+      w.resize_main(wn);                                     \
       NT2_F77NAME( NAME )(jobu, jobvt, m, n, a, lda, s, u, ldu,         \
-                          vt,ldvt,w.main(),&w.main_need(),info);        \
+                          vt,ldvt,w.main(),&wn,info);        \
     }                                                                   \
     inline void gesvd(const char* jobu,                                 \
                       const char* jobvt,                                \
@@ -221,7 +223,7 @@ namespace nt2
     NT2_GESVD(sgesvd, float)
     NT2_GESVD(dgesvd, double)
 #undef NT2_GESVD
-     
+
   }
 }
 

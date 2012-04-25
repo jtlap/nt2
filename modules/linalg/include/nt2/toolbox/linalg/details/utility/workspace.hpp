@@ -116,22 +116,23 @@ namespace nt2 { namespace details
     typename main_int_workspace_t::pointer  integers()  { return &integers_[0]; }
     typename main_int_workspace_t::pointer  logicals()  { return &logicals_[0]; }
 
-    const nt2_la_int& main_need(nt2_la_int s = 0)
+    nt2_la_int main_need(nt2_la_int s = 0)
     {
-      return main_need_ = (s ? s : static_cast<nt2_la_int>(nt2::real(main_[0])));
+      main_need_ = (s ? s : static_cast<nt2_la_int>(nt2::real(main_[0])));
+      return main_need_;
     }
 
-    const nt2_la_int& real_need(nt2_la_int s = 0)
+    nt2_la_int real_need(nt2_la_int s = 0)
     {
       return reals_need_ = (s ? s : static_cast<nt2_la_int>(reals_[0]));
     }
 
-    const nt2_la_int& integers_need(nt2_la_int s = 0)
+    nt2_la_int integers_need(nt2_la_int s = 0)
     {
       return integers_need_ = (s ? s : integers_[0]);
     }
 
-    const nt2_la_int& logicals_need(nt2_la_int s = 0)
+    nt2_la_int logicals_need(nt2_la_int s = 0)
     {
       return logicals_need_ = (s ? s : logicals_[0]);
     }

@@ -28,7 +28,7 @@
 #include <iostream>
 
 
- 
+
 namespace nt2 { namespace details
 {
   template<class T> struct svd_result
@@ -41,11 +41,11 @@ namespace nt2 { namespace details
     typedef T                                                 data_t;
     typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
     typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t; 
+    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
     typedef nt2::details::workspace<type_t>              workspace_t;
     typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
     typedef nt2::table<type_t,index_t>                   result_type;
-    
+
     template<class Input>
     svd_result ( Input& xpr, char jobz = 'A')
       : jobz_(jobz)
@@ -57,43 +57,43 @@ namespace nt2 { namespace details
       , info_(0)
     {
       allocate();
-      init(); 
+      init();
     }
-    
+
     svd_result& operator=(svd_result const& src)
     {
-      jobz_   = src.jobz_; 
+      jobz_   = src.jobz_;
       a_      = src.a_;
       aa_     = src.aa_;
       m_      = src.m_;
       n_      = src.n_;
-      lda_    = src.lda_; 
+      lda_    = src.lda_;
       info_   = src.info_;
-      wrk_    = src.wrk_; 
+      wrk_    = src.wrk_;
       return *this;
     }
     //==========================================================================
     // Return raw values
     //==========================================================================
     result_type values() const { return a_; }
-    
+
     //==========================================================================
     // Return u part
     //==========================================================================
     result_type u() const
     {
-      BOOST_ASSERT_MSG(jobz_ != 'N', "please call svd wit jobz = 'A', 'S' or 'O'"); 
+      BOOST_ASSERT_MSG(jobz_ != 'N', "please call svd wit jobz = 'A', 'S' or 'O'");
       return u_;
     }
-    
+
     //==========================================================================
     // Return vt part
     //==========================================================================
     result_type vt() const {
-      BOOST_ASSERT_MSG(jobz_ != 'N', "please call svd wit jobz = 'A', 'S' or 'O'");     
+      BOOST_ASSERT_MSG(jobz_ != 'N', "please call svd wit jobz = 'A', 'S' or 'O'");
       return vt_;
     }
-   
+
     //==========================================================================
     // Return singular values as a vector
     //==========================================================================
@@ -111,7 +111,7 @@ namespace nt2 { namespace details
     // Return lapack status
     //==========================================================================
     nt2_la_int  status()         const { return info_; }
- 
+
     //==========================================================================
     // Return matrix condition number
     //==========================================================================
@@ -123,9 +123,9 @@ namespace nt2 { namespace details
      size_t      rank(base_t epsi = -1) const
     {
       epsi =  (is_ltz(epsi)) ?  nt2::max(n_, m_)*nt2::eps(w_(1)): epsi;
-      return sum(sb2b(gt(w, epsi))); 
+      return sum(sb2b(gt(w, epsi)));
     }
-    
+
     //==========================================================================
     // Solver interface
     // The default solver is not in place
@@ -136,135 +136,135 @@ namespace nt2 { namespace details
     }
     template<class XPR> result_type solve(const XPR & b,
                                           base_t epsi = Mone<base_t>() )const{
-      epsi =  epsi < 0 ? nt2::eps(w_(1)) : epsi; 
+      epsi =  epsi < 0 ? nt2::eps(w_(1)) : epsi;
       //      tab_t w1 = if_else( (w > epsi), nt2::rec(w), Zero<base_t>()); //TODO
       tab_t w1(w.extent());
       for(int i=1; i <= numel(w1) ; ++i)
         {
-          w1(i) = w(i) > epsi ? nt2::rec(w) : Zero<base_t>(); 
+          w1(i) = w(i) > epsi ? nt2::rec(w) : Zero<base_t>();
         }
       //      return (nt2::trans(vt)*(nt2::from_diag(w1)*nt2::trans(u)))*b; //TODO
       return prodMM(prodtMM(vt_, prodMtM(from_diag(w1), u_)), b);
       }
-        
+
     //==========================================================================
     // null space basis up to epsi
     //==========================================================================
       tab_t null(base_t epsi = -1 )const
       {
         epsi =  epsi < 0 ? nt2::eps(w_(1)) : epsi;
-        int j = numel(w_); 
+        int j = numel(w_);
         for(; (j > 0) && (w_(j)<= epsi); j--);
         j++;
         return nt2::fliplr(trans(vt_(_(j, last_index<1>(vt_)), _)));//TODO
       }
-      
+
     //==========================================================================
     // image space basis up to epsi
     //==========================================================================
       tab_t orth(base_t epsi =  -1)const
       {
-        return u(_, nt2::_(1, rank(epsi))); 
+        return u(_, nt2::_(1, rank(epsi)));
       }
-      
+
       tab_t zerosolve()const
       {
         return trans(vt(vt.last_index<1>(), _));
       }
-      
+
       tab_t pinv(base_t epsi = -1 )const
       {
-        epsi = epsi < 0 ? nt2::eps(w(1)) : epsi; 
+        epsi = epsi < 0 ? nt2::eps(w(1)) : epsi;
         tab_t w1(w.extent());
         for(int i=1; i <= numel(w1) ; ++i)
         {
-          w1(i) = w_(i) > length(a_)*epsi ? nt2::rec(w) : Zero<base_t>(); 
+          w1(i) = w_(i) > length(a_)*epsi ? nt2::rec(w) : Zero<base_t>();
         }
         //        w1 = if_else( (w1 > length(a)*epsi), rec(w1), Zero<base_t>());
         // return (nt2::trans(vt_)*(nt2::diag(w1)*nt2::trans(u_)));
-        return prodtMM(vt_, prodMtM(diag_from(w1), u_)); 
+        return prodtMM(vt_, prodMtM(diag_from(w1), u_));
       }
 
   private:
-    char                           jobz_; 
+    char                           jobz_;
     data_t                            a_;
-    tab_t                            aa_; 
+    tab_t                            aa_;
     tab_t                             u_;
     tab_t                            vt_;
     tab_t                             w_;
     nt2_la_int                     m_,n_;
-    nt2_la_int                      lda_; 
+    nt2_la_int                      lda_;
     nt2_la_int                      ldu_;
     nt2_la_int                     ldvt_;
     nt2_la_int                     ucol_;
-    nt2_la_int                    vtcol_; 
-    nt2_la_int                     info_; 
+    nt2_la_int                    vtcol_;
+    nt2_la_int                     info_;
     workspace_t                     wrk_;
-    
+
     inline void allocate()
     {
       switch (jobz_)
         {
         case 'A':
-          ldu_ = m_;  ucol_ = m_; 
-          ldvt_ = n_; vtcol_ = n_; 
+          ldu_ = m_;  ucol_ = m_;
+          ldvt_ = n_; vtcol_ = n_;
           break;
         case 'S':
-          ldu_ = m_;  ucol_ = nt2::min(n_, m_); 
-          ldvt_ = n_; vtcol_ = n_; 
+          ldu_ = m_;  ucol_ = nt2::min(n_, m_);
+          ldvt_ = n_; vtcol_ = n_;
           break;
         case 'O':
-          ldu_ = m_;  ucol_ = nt2::min(n_, m_); 
-          ldvt_ = n_; vtcol_ = nt2::min(n_, m_);             
+          ldu_ = m_;  ucol_ = nt2::min(n_, m_);
+          ldvt_ = n_; vtcol_ = nt2::min(n_, m_);
           break;
         case 'N':
-          ldu_ = 1;  ucol_ = 1; 
-          ldvt_ = 1; vtcol_ = 1;             
+          ldu_ = 1;  ucol_ = 1;
+          ldvt_ = 1; vtcol_ = 1;
           break;
         default :
           break;
         }
       u_.resize(of_size(ldu_, ucol_));
-      ldu_ = u_.leading_size(); 
+      ldu_ = u_.leading_size();
       vt_.resize(of_size(ldvt_, vtcol_));
-      ldvt_ = vt_.leading_size(); 
-      w_.resize(of_size(nt2::max(n_, m_), 1)); 
+      ldvt_ = vt_.leading_size();
+      w_.resize(of_size(nt2::max(n_, m_), 1));
     }
-    
+
     inline void init()
     {
-      std::cout << "jobz_ " << jobz_ << std::endl; 
+      std::cout << "jobz_ " << jobz_ << std::endl;
       nt2::details::gesvd(&jobz_, &jobz_, &m_, &n_, aa_.raw(), &lda_,
                           w_.raw(), u_.raw(), &ldu_,
                           vt_.raw(), &ldvt_, &info_, wrk_);
-      
+
       for(size_t i = nt2::min(n_, m_)+1; i<= nt2::numel(w_); ++i) w_(i) = Zero<base_t>();
       //w_(_(nt2::min(n_, m_)+1, nt2::numel(w_))) =  Zero<base_t>();
     }
-    
+
     template < class S>
     static S diag_of(const S& a)
     {
-      S d(of_size(nt2::min(width(a), height(a)), 1)); 
+      S d(of_size(nt2::min(width(a), height(a)), 1));
       for (int i = 1; i <= nt2::min(width(a), height(a)); ++i) d(i) = a(i, i);
-      return d; 
+      return d;
     }
     template < class S>
     static S from_diag(const S& w)
     {
-      S m(of_size(numel(w), numel(w))); 
+      S m(of_size(numel(w), numel(w)));
       for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-      return m; 
+      return m;
     }
     template < class S>
     static S trans(const S& a)
     {
-      S ta(of_size(width(a), height(a))); 
+      S ta(of_size(width(a), height(a)));
       for (int i = 1; i <= heigth(a); ++i)
         for (int j = 1; j <= width(a); ++j) ta(j, i) = a(i, j);
-      return ta; 
+      return ta;
     }
-      
+
   };
 } }
 
