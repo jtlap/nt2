@@ -24,7 +24,7 @@ namespace nt2 { namespace container
     template<class T> colon_ const& operator=(T const&) const { return *this; }
 
     // _() as []
-    typename meta::call<nt2::tag::colon_(double,double)>::type operator()() const
+    meta::call<nt2::tag::colon_(double, double)>::type operator()() const
     {
       return nt2::colon(1.,0.);
     }
