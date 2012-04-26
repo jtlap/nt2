@@ -10,6 +10,7 @@
 #define BOOST_DISPATCH_ATTRIBUTES_HPP_INCLUDED
 
 #include <boost/config.hpp>
+#include <boost/preprocessor/facilities/is_empty.hpp>
 
 #ifndef BOOST_FORCEINLINE
 #  if defined(__GNUC__)
@@ -37,6 +38,17 @@
 #define BOOST_DISPATCH_DEPRECATED __declspec(deprecated)
 #else
 #define BOOST_DISPATCH_DEPRECATED
+#endif
+
+#if defined(__GNUC__)
+#define BOOST_DISPATCH_RESTRICT __restrict__
+#elif defined(_MSC_VER)
+#define BOOST_DISPATCH_RESTRICT __restrict
+#else
+#define BOOST_DISPATCH_RESTRICT
+#endif
+#if BOOST_PP_IS_EMPTY(BOOST_DISPATCH_RESTRICT)
+#undef BOOST_DISPATCH_NO_RESTRICT
 #endif
 
 #endif

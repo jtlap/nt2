@@ -14,26 +14,20 @@
  * \brief Defines and implements the boost::dispatch::meta::is_iterator \metafunction
  */
 
-#include <boost/mpl/bool.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
-#include <boost/preprocessor/facilities/is_empty.hpp>
 
 //============================================================================
 // Fix a couple of things for restrict pointers
 // FIXME: integrate upstream
 //============================================================================
-#if defined(__GNUC__)
-#define BOOST_DISPATCH_RESTRICT __restrict__
-#elif defined(_MSC_VER)
-#define BOOST_DISPATCH_RESTRICT __restrict
-#endif
-
-#if defined(BOOST_DISPATCH_RESTRICT) && !BOOST_PP_IS_EMPTY(BOOST_DISPATCH_RESTRICT)
+#ifndef BOOST_DISPATCH_NO_RESTRICT
 namespace boost
 {
   template<class T>
@@ -52,6 +46,7 @@ namespace boost
      : boost::detail::iterator_traits<T*>
     {
       typedef T* BOOST_DISPATCH_RESTRICT pointer;
+      typedef T& BOOST_DISPATCH_RESTRICT reference;
     };
   }
 }
