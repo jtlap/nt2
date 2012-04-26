@@ -21,53 +21,13 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< type32_<A0> >)
+                            , (scalar_< real_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-    #ifdef BOOST_MSVC
-      return __popcnt(a0);
-    #else
-      return __builtin_popcount(a0);
-    #endif
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< double_<A0> >)
-                            )
-  {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      boost::int64_t v = sbits(a0);
-    #if defined BOOST_MSVC && defined _WIN64
-      return __popcnt64(v);
-    #elif defined BOOST_MSVC
-      return  __popcnt( hi(v) ) + __popcnt( lo(v) );
-    #else
-      return  __builtin_popcount( hi(v) )
-        + __builtin_popcount( lo(v));
-    #endif
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< single_<A0> >)
-                            )
-  {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      #ifdef BOOST_MSVC
-      return __popcnt(sbits(a0));
-    #else
-      return __builtin_popcount(sbits(a0));
-    #endif
+      return boost::simd::popcnt(boost::simd::sbits(a0));
     }
   };
 
@@ -102,13 +62,28 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
+                            , (scalar_< type32_<A0> >)
+                            )
+  {
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+    #ifdef BOOST_MSVC
+      return __popcnt(a0);
+    #else
+      return __builtin_popcount(a0);
+    #endif
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
                             , (scalar_< type64_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      #if defined BOOST_MSVC && defined _WIN64
+    #if defined BOOST_MSVC && defined _WIN64
       return __popcnt64(a0);
     #elif defined BOOST_MSVC
       return  __popcnt( hi(a0) )
