@@ -145,7 +145,19 @@ case n: boost::array<std::ptrdiff_t,n> p##n;              \
       {
         // Display the lonely empty matrix
         if(!name.empty()) os << name << " = \n     ";
-        os << "[]\n";
+
+        // "[]" is used for 0x0 or 0x1 table
+        if( (nt2::ndims(xpr) < 3) && ( !nt2::size(xpr,2) ) )
+        {
+          os << "[]\n";
+        }
+        else
+        {
+          os  << "     Empty array: " << nt2::size(xpr,1);
+          for(int i=2;i<=nt2::ndims(xpr);++i)
+            os << "-by-" << nt2::size(xpr,i);
+          os << "\n";
+        }
       }
     }
   }
