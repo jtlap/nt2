@@ -21,7 +21,7 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< real_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;

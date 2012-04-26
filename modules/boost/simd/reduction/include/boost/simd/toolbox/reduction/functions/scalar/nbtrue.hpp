@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef typename meta::int32_t_<A0>::type result_type;
-    inline result_type operator()(A0 const & a0, A1 const &) const
+    inline result_type operator()(A0 const & a0) const
     {
       return a0 ? One<result_type>() : Zero<result_type>();
     }
