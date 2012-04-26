@@ -10,6 +10,7 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_REDUCTION_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/core/utility/of_size/predef.hpp>
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/proto/traits.hpp>
@@ -36,14 +37,19 @@ namespace nt2 { namespace container { namespace ext
 
   template<class RED, class Expr> struct reduction_size_of<RED,2,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
-    typedef typename meta::strip<child0>::type                        schild0;
-    typedef typename meta::strip<typename schild0::extent_type>::type result_type;
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type    child0;
+    typedef typename meta::strip<child0>::type                          schild0;
+    typedef typename meta::strip<typename schild0::extent_type>::type     ext_t;
+    typedef typename nt2::make_size<ext_t::static_size>::type       result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type res = boost::proto::child_c<0>(e).extent();
-      res[nt2::terminal(boost::proto::child_c<1>(e))-1] = 1;
+      std::size_t red_dim = nt2::terminal(boost::proto::child_c<1>(e)) - 1;
+
+      // If we reduce over the number of dimensions, do nothing
+      if(red_dim < result_type::static_size) res[red_dim] = 1;
+
       return res;
     }
   };
