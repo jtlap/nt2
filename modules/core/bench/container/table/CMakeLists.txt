@@ -9,6 +9,7 @@
 
 SET( SOURCES
   small_table.cpp
+  redundant_loads.cpp
   subscript.cpp
   sum.cpp
 # List of scalar test files for toolbox fuzzy

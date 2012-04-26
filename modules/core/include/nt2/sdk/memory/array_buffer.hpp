@@ -106,8 +106,8 @@ namespace nt2 {  namespace memory
       for(size_type i=0; i<static_size; ++i) boost::swap(elems[i],y.elems[i]);
     }
 
-    const T*  raw() const { return elems; }
-    T*        raw()       { return elems; }
+    const_pointer  raw() const { return elems; }
+    pointer        raw()       { return elems; }
   };
 
   //============================================================================
