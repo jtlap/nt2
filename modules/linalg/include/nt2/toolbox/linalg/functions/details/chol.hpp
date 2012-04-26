@@ -73,8 +73,7 @@ namespace nt2 { namespace details
     //==========================================================================
     typename  meta::
               call< tag::expand_
-                    ( typename  meta::
-                                call<tag::triu_(data_t const&)>::type const&
+                    ( typename  meta::call<tag::triu_(data_t const&)>::type
                     , nt2_la_int
                     , nt2_la_int
                     )
@@ -94,8 +93,7 @@ namespace nt2 { namespace details
     //==========================================================================
     typename  meta::
               call< tag::expand_
-                    ( typename  meta::
-                                call<tag::tril_(data_t const&)>::type const&
+                    ( typename  meta::call<tag::tril_(data_t const&)>::type
                     , nt2_la_int
                     , nt2_la_int
                     )
