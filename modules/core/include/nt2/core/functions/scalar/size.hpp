@@ -19,14 +19,14 @@ namespace nt2 { namespace ext
                             , (A0), (scalar_< unspecified_<A0> >)
                             )
   {
-        typedef container::table< std::size_t
-                                , settings(automatic_,of_size_<1,2>)
-                                >                       result_type;
+    typedef container::table< std::size_t
+                            , settings(automatic_,of_size_<1,2>)
+                            >                       result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&) const
     {
       result_type that;
-      that(1) = that(2) = std::size_t(1);
+      that.raw()[0] = that.raw()[1] = std::size_t(1);
       return that;
     }
   };
