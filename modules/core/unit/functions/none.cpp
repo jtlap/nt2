@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
     {
     bool z = true;  
     for(int i=1;i<=5;i++) z= nt2::logical_andnot(z, y(i, j)); 
-    NT2_TEST_EQUAL(is_true(z), sy(j));
+    NT2_TEST_EQUAL(nt2::is_true(z), sy(j));
     }
         
 //   disp("sy", sy);

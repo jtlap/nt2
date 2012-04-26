@@ -80,8 +80,8 @@ NT2_TEST_CASE_TPL( asump, (float)(double))//NT2_TYPES )
   disp("rr", nt2::sum(nt2::pow_abs(y(_), nt2::Three<T>()))); 
   //  disp("asump(zy(_), 3)", sy); 
   sz = nt2::sum(nt2::pow_abs(y(_), nt2::Three<T>()));
-  std::cout << size(sy) << std::endl; 
-  std::cout << size(sz) << std::endl; 
+  std::cout << nt2::size(sy) << std::endl;
+  std::cout << nt2::size(sz) << std::endl;
   std::cout << sy(1) << std::endl;
   std::cout << sz(1) << std::endl; 
   NT2_TEST_EQUAL(sy(1), sz(1));
