@@ -76,13 +76,13 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type sftype;
-      if (maximum(abs(a0)) > boost::simd::Valmax<int32_t>())
+      typedef typename boost::simd::meta::int32_t_<A0>::type htype;
+      if (maximum(abs(a0)) > boost::simd::Valmax<htype>())
       {
         return boost::simd::make<result_type>( static_cast<sftype>(a0[0])
                                 , static_cast<sftype>(a0[1])
                                 );
       }
-      typedef typename boost::simd::meta::int32_t_<A0>::type htype;
       result_type v = { _mm_cvtepi32_pd(_mm_shuffle_epi32(a0,_MM_SHUFFLE(3,1,2,0)))};
       return v;
     }
