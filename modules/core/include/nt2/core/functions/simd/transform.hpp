@@ -52,16 +52,15 @@ namespace nt2 { namespace ext
       std::size_t in_sz_bnd = (in_sz/N)*N;
       std::size_t outer_sz  = nt2::numel(boost::fusion::pop_front(e));
 
-      std::size_t  it = 0;
+      std::size_t it = 0;
+      for(std::size_t j=0; j != outer_sz; ++j)
+      {
+        for(std::size_t m=it+in_sz_bnd; it < m; it+=N)
+          nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
-      for(std::size_t j=0; j < outer_sz; ++j)
-        {
-          for(std::size_t i=0; i < in_sz_bnd; i+=N, it+=N)
-            nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
-
-          for(std::size_t i=in_sz_bnd; i < in_sz; ++i, ++it)
-            nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
-        }
+        for(std::size_t m=it+in_sz-in_sz_bnd; it < m; ++it)
+          nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
+      }
     }
   };
 

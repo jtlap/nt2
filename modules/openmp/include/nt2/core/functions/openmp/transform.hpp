@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
-      // - loop nest is 2D so we can walk over the scalar epilogue of each rows.
+      // - loop nest is 2D so we can walk over the scalar epilogue of each row.
       #pragma omp parallel for schedule(static)
       for(std::size_t j=0; j<outer_sz; ++j)
       {
@@ -74,11 +74,11 @@ namespace nt2 { namespace ext
         {
 #endif
           // Process all vectorizable chunks
-          for(std::size_t i=0; i < in_sz_bnd; i+=N, it+=N)
+          for(std::size_t m=it+in_sz_bnd; i < m; it+=N)
             nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
           // Process the scalar epilogue
-          for(std::size_t i=in_sz_bnd; i < in_sz; ++i, ++it)
+          for(std::size_t m=it+in_sz-in_sz_bnd; it < m; ++it)
             nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
 
 #ifndef BOOST_NO_EXCEPTIONS
