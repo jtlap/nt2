@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return boost::fusion::fold(a0,Zero<result_type>(),dispatch::functor<boost::simd::tag::plus_>());
+      return boost::fusion::fold(a0,Zero<result_type>(),typename dispatch::make_functor<boost::simd::tag::plus_, A0>::type());
     }
   };
 } } }

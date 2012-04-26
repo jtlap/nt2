@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                                 )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return map(dispatch::functor<boost::simd::tag::rshl_>(), a0, a1); }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return map(typename dispatch::make_functor<boost::simd::tag::rshl_, A0>::type(), a0, a1); }
   };
 
 } } }

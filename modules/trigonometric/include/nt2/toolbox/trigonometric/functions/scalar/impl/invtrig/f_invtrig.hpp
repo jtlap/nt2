@@ -84,11 +84,11 @@ namespace nt2
 
         static inline A0 acos(const  A0& a0)
         {
-          if (a0 < Mhalf<float>())
-            return Pi<float>()-asin( nt2::sqrt(oneplus(a0)*Half<float>()))*Two<float>();
-          else if (a0 > Half<float>())
-            return asin( nt2::sqrt(oneminus(a0)*Half<float>()))*Two<float>();
-          return (Pio_2<float>()-asin(a0));
+          if (a0 < Mhalf<A0>())
+            return Pi<A0>()-asin( nt2::sqrt(oneplus(a0)*Half<A0>()))*Two<A0>();
+          else if (a0 > Half<A0>())
+            return asin( nt2::sqrt(oneminus(a0)*Half<A0>()))*Two<A0>();
+          return (Pio_2<A0>()-asin(a0));
         }
 
         static inline A0 atan(const  A0& a0)
@@ -98,13 +98,13 @@ namespace nt2
           A0 y;
           A0 x = nt2::abs(a0);
           A0 sgn =  bitofsign(a0);
-          if( x >single_constant<float,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
+          if( x >single_constant<A0,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
             {
               y = Pio_2<A0>();
               x = -rec(x);
             }
 
-          else if( x > single_constant<float,0x3ed413cd>()) //0.4142135623730950f ) /* tan pi/8 */
+          else if( x > single_constant<A0,0x3ed413cd>()) //0.4142135623730950f ) /* tan pi/8 */
             {
               y = Pio_4<A0>();
               x = minusone(x)/oneplus(x);

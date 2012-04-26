@@ -91,24 +91,6 @@ namespace boost { namespace simd { namespace ext
   };
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int8_
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sum_, boost::simd::tag::ssse3_,
-                      (A0),
-                      ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                     )
-  {
-    typedef typename meta::scalar_of<A0>::type       result_type;
-    
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
-    {
-      return boost::fusion::fold(a0,0,dispatch::functor<boost::simd::tag::plus_>());
-    }
-  };
-
-/////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int32_
 /////////////////////////////////////////////////////////////////////////////
 
