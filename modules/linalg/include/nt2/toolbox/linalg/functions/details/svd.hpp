@@ -309,7 +309,7 @@ namespace nt2 { namespace details
       return d;
     }
     template < class S>
-    static btab_t from_diag(const S& w)
+    static tab_t from_diag(const S& w)
     {
       tab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
       for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);

@@ -17,10 +17,14 @@
 //     [q,r] = qr(a,0) produces the "economy size" decomposition.
 //     if m>n, only the first n columns of q and the first n rows of r are
 //     computed. if m<=n, this is the same as [q,r] = qr(a).
+
 // and also these
 //     x = qr(a) and x = qr(a,0) return the output of lapack's *geqrf routine.
+//     (values() in the class)
 //     triu(x) is the upper triangular factor r.
-
+//////////// TODO
+// to get the econmy size we much expand the results to the liked dimensions
+////////////
 // The others use pqr
 
 //     if a is full:
@@ -247,7 +251,6 @@ namespace nt2 {
         return d; 
       }
       
-      //      const char       jobu, jobvt;
       data_t                 a_; 
       tab_t                 aa_;
       nt2_la_int     m_, n_, k_;
