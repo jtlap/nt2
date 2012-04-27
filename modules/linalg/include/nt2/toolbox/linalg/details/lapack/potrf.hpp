@@ -8,8 +8,6 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_LINALG_DETAILS_LAPACK_POTRF_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_DETAILS_LAPACK_POTRF_HPP_INCLUDED
-
-#include <complex>
 #include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
 
 extern "C"
@@ -37,14 +35,14 @@ extern "C"
 
 namespace nt2 { namespace details
 {
-#define NT2_POTRF(NAME, T)                                \
+#define NT2_POTRF(NAME, T)                                  \
 inline void potrf ( const char* uplo, const nt2_la_int* n   \
                   , T* a            , const nt2_la_int* lda \
-                  , nt2_la_int* info                      \
-                  )                                       \
-{                                                         \
-  NT2_F77NAME(NAME)(uplo, n, a, lda, info);               \
-}                                                         \
+                  , nt2_la_int* info                        \
+                  )                                         \
+{                                                           \
+  NT2_F77NAME(NAME)(uplo, n, a, lda, info);                 \
+}                                                           \
 /**/
 
   NT2_POTRF(spotrf, float)
