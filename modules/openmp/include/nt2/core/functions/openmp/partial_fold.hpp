@@ -30,22 +30,22 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::partial_fold_, nt2::tag::openmp_<Site>
                               , (A0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)(Site)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , T0
-                                     , N0
-                                     >
-                              ))
-                              (ast_< A1>)
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
-                              (unspecified_<A4>)
-                            )
+                              , ((expr_< table_< unspecified_<A0>, S0 >
+                                  , T0
+                                  , N0
+                                  >
+                                 ))
+    (ast_< A1>)
+    (unspecified_<A2>)
+    (unspecified_<A3>)
+    (unspecified_<A4>)
+    )
   {
     typedef void                                                              result_type;
     typedef typename A0::value_type                                           value_type;
     typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
-
+    
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
@@ -54,94 +54,102 @@ namespace nt2 { namespace ext
       std::size_t mbound =  boost::fusion::at_c<1>(ext);
       std::size_t obound =  boost::fusion::at_c<2>(ext);
       std::size_t id;
-
+      
       std::size_t cache_line_size = nt2::config::cache_line_size(2); // in byte
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
       std::size_t bound  =  ((ibound)/cache_bound) * cache_bound;
-
-      if(ibound >= cache_bound){
-
-#ifndef BOOST_NO_EXCEPTIONS
-      boost::exception_ptr exception;
-#endif
-
-        #pragma omp parallel 
+      
+      if(ibound >= cache_bound)
         {
-          #pragma omp for schedule(static) private(id)
-          for(std::size_t o = 0; o < obound; ++o){
-            std::size_t o_ = o*ibound;
+          
 #ifndef BOOST_NO_EXCEPTIONS
-            try
-            {
+          boost::exception_ptr exception;
 #endif
-              for(std::size_t i = 0; i < bound; i+=cache_bound){
-                id = i+o_;
-                
-                for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
-                  nt2::run(out, k_, neutral(nt2::meta::as_<target_type>()));
-                
-                for(std::size_t m = 0; m < mbound; ++m){
-                  std::size_t m_ = m*ibound;
-                  for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
-                    nt2::run(out, k_
-                             , bop(nt2::run(out, k_, meta::as_<target_type>())
-                                   ,nt2::run(in, k_+m_, meta::as_<target_type>()))
-                      );
-                }
+          
+#pragma omp parallel 
+          {
+#pragma omp for schedule(static) private(id)
+            for(std::size_t o = 0; o < obound; ++o)
+              {
+                std::size_t o_ = o*ibound;
+#ifndef BOOST_NO_EXCEPTIONS
+                try
+                  {
+#endif
+                    for(std::size_t i = 0; i < bound; i+=cache_bound)
+                      {
+                        id = i+o_;
+                        
+                        for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
+                          nt2::run(out, k_, neutral(nt2::meta::as_<target_type>()));
+                        
+                        for(std::size_t m = 0; m < mbound; ++m)
+                          {
+                            std::size_t m_ = m*ibound;
+                            for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
+                              nt2::run(out, k_
+                                       , bop(nt2::run(out, k_, meta::as_<target_type>())
+                                             ,nt2::run(in, k_+m_, meta::as_<target_type>()))
+                                       );
+                          }
+                      }
+#ifndef BOOST_NO_EXCEPTIONS
+                  }
+                catch(...)
+                  {
+                    // Store exception for late rethrow
+                    exception = boost::current_exception();
+                  }
+#endif
               }
+            //          }
 #ifndef BOOST_NO_EXCEPTIONS
-            }
-            catch(...)
+            if(exception)
+              boost::rethrow_exception(exception);
+#endif
+            
+          }
+          
+          
+          //scalar part
+          for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound)
             {
-              // Store exception for late rethrow
-              exception = boost::current_exception();
+              for(std::size_t i = bound; i < ibound; ++i)
+                {
+                  id = i+o_;
+                  nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
+                  for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
+                    {
+                      nt2::run(out, id
+                               , bop(nt2::run(out, id,meta::as_<value_type>())
+                                     ,nt2::run(in, id+m_,meta::as_<value_type>()))
+                               );
+                    }
+                }
             }
-#endif
-          }
         }
-#ifndef BOOST_NO_EXCEPTIONS
-        if(exception)
-          boost::rethrow_exception(exception);
-#endif
-
-      }
       
-        
-        //scalar part
-        for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
-          for(std::size_t i = bound; i < ibound; ++i){
-            id = i+o_;
-            nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
-            for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound){
-              nt2::run(out, id
-                       , bop(nt2::run(out, id,meta::as_<value_type>())
-                             ,nt2::run(in, id+m_,meta::as_<value_type>()))
-                       );
+      else
+        {
+          
+          for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
+            for(std::size_t i = 0; i < ibound; ++i){
+              id = i+o_;
+              nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
+              for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound){
+                nt2::run(out, id
+                         , bop(nt2::run(out, id,meta::as_<value_type>())
+                               ,nt2::run(in, id+m_,meta::as_<value_type>()))
+                         );
+              }
             }
           }
         }
-      }
-      
-      else {
-
-        for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
-          for(std::size_t i = 0; i < ibound; ++i){
-            id = i+o_;
-            nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
-            for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound){
-              nt2::run(out, id
-                       , bop(nt2::run(out, id,meta::as_<value_type>())
-                             ,nt2::run(in, id+m_,meta::as_<value_type>()))
-                       );
-            }
-          }
-        }
-      }
     }
   };
-
-  } }
+  
+} }
 #else
 namespace nt2 { namespace details
 {
