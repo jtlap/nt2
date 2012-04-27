@@ -15,10 +15,8 @@
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/openmp/openmp.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/core/container/table/table.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/fusion/include/at.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
 
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>

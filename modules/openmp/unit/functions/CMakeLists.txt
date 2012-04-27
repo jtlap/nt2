@@ -22,6 +22,7 @@ SET( SOURCES
   ric.cpp
   rif.cpp
 #  rows.cpp
+  sum.cpp
 # List of test files for toolbox core.settings
    )
 
