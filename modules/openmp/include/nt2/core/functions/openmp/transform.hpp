@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
         {
 #endif
           // Process all vectorizable chunks
-          for(std::size_t m=it+in_sz_bnd; i < m; it+=N)
+          for(std::size_t m=it+in_sz_bnd; it < m; it+=N)
             nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
           // Process the scalar epilogue
