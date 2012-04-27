@@ -7,7 +7,11 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit sdk trigonometric core)
-ADD_SUBDIRECTORY(container)
-ADD_SUBDIRECTORY(memory)
-ADD_SUBDIRECTORY(fluid)
+SET( SOURCES
+  fluid.cpp
+# List of scalar test files for toolbox fuzzy
+   )
+
+nt2_module_add_tests(core.fluid.bench ${SOURCES})
+
+
