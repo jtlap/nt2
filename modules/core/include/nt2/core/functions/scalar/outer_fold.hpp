@@ -13,7 +13,6 @@
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/include/functions/numel.hpp>
 
-
 namespace nt2 { namespace details
 {
   template <class X, class N, class B, class U>

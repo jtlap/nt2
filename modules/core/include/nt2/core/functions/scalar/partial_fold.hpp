@@ -68,14 +68,7 @@ namespace nt2 { namespace ext
       for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
         for(std::size_t i = 0; i < ibound; ++i){
           id = i+o_;
-//          nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
           nt2::run(out, id, details::partial_fold_step(in,id,mbound,neutral,bop,uop));
-          // for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound){
-          //   nt2::run(out, id
-          //            , bop(nt2::run(out, id,meta::as_<value_type>())
-          //                  ,nt2::run(in, id+m_,meta::as_<value_type>()))
-          //            );
-          // }
         }
       }
     }

@@ -16,7 +16,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/openmp/openmp.hpp>
-#include <iostream>
+
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
 #endif
@@ -54,7 +54,6 @@ namespace nt2 { namespace ext
 
       result_type out = neutral(nt2::meta::as_<result_type>());
       target_type gvec_out = neutral(nt2::meta::as_<target_type>());
-      std::cout << "fold openMP\n";
 
       if( N <= (aligned_bound)){
 
