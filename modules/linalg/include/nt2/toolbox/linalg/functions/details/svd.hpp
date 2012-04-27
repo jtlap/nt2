@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_FACTORIZATIONS_SVD_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_FACTORIZATIONS_SVD_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SVD_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SVD_HPP_INCLUDED
 
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
@@ -84,6 +84,7 @@
 // zerosolve returns the a norm one  vector such that ||a*x|| is minimal
 // (zero if a is singular)
 //
+
 namespace nt2 { namespace details
 {
   template<class T> struct svd_result

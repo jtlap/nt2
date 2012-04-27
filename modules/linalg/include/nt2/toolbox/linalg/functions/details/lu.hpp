@@ -243,10 +243,10 @@ namespace nt2 { namespace details
     {
       int32_t r = 0;
       btab_t m = nt2::max(nt2::abs(diag_of(lu_))); 
-      base_t c = nt2::max(n_, m_)*epsi*m(1); 
-      for(int i=1; i <= nt2::min(n_, m_); i++)
+      base_t thresh = nt2::max(n_, m_)*epsi*m(1); 
+      for(int i=1; i <= nt2::min(n_, m_); ++i)
         {
-          if(nt2::abs(lu_(i, i)) > c) r++; 
+          if(nt2::abs(lu_(i, i)) > thresh) ++r; 
         }
       return r; 
       //      nt2::nbtrue(nt2::abs(diag_of(lu_)) > nt2::max(n_, m_)*epsi*nt2::max(abs(diag_of(lu_()))) );
