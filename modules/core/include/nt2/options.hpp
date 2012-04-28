@@ -15,14 +15,14 @@ namespace nt2
 {
   namespace details
   {
-    // Markee for 'lower' option
-    struct lower_ {};
-
     // Markee for in place option
     struct in_place_ {};
   }
 
-  meta::as_<details::lower_>    const lower_    = {};
+  // Lower/upper
+  static const char lower_    = 'L';
+  static const char upper_    = 'U';
+
   meta::as_<details::in_place_> const in_place_ = {};
 }
 
