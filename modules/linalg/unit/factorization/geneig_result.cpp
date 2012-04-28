@@ -30,15 +30,17 @@ NT2_TEST_CASE_TPL(geneig_result, NT2_REAL_TYPES)
   typedef nt2::table<itype_t> it_t; 
   t_t a =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-  t_t b =  eye(4,4, nt2::meta::as_<T>()); 
-  nt2::details::geneig_result<t_t> f(a, b);
+  t_t b =  nt2::eye(4,4, nt2::meta::as_<T>()); 
   nt2::disp("a     ", a); 
   nt2::disp("b     ", b); 
+  nt2::details::geneig_result<t_t> f(a, b);
   nt2::disp("values", f.values());
-  t_t w  = f.w();
-  nt2::disp("w    ", w);
-  t_t v = f.vsl();
+  t_t wr  = f.wr();
+  nt2::disp("wr    ", wr);
+  t_t wi  = f.wi();
+  nt2::disp("wi    ", wi);
+  t_t vsl = f.vl();
   nt2::disp("vsl    ", vsl);
-  t_t v = f.vsr();
+  t_t vsr = f.vr();
   nt2::disp("vsr    ", vsr);
 }

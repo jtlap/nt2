@@ -39,7 +39,7 @@ namespace nt2 { namespace details
     typedef nt2::table<type_t,index_t>                   result_type;
     
     template<class Input1, class Input2>
-    geneig_result ( Input1& xpr1,Input2& xpr2
+    geneig_result ( Input1& xpr1,Input2& xpr2, 
                     const char & jobvsl = 'V',
                     const char & jobvsr = 'V',
                     const char & sort = 'N')
@@ -53,22 +53,22 @@ namespace nt2 { namespace details
       , bb_(xpr2)
       , ldb_(b_.leading_size())
       , sdim_(0) 
+      , n_(height(a_))
       , alpha_(of_size(1, n_))
       , beta_(of_size(1, n_))
-      , n_(height(a_))
-      , vsl_(of_size(1, jobvsl_ == 'V'?n_:1))
+      , vsl_(jobvsl_ == 'V'?of_size(n_, n_):of_size(1, 1))
       , ldvsl_(vsl_.leading_size())
-      , vsr_(of_size(1, jobvsr_ == 'V'?n_:1))
+      , vsr_(jobvsr_ == 'V'?of_size(n_, n_):of_size(1, 1))
       , ldvsr_(vsr_.leading_size())
       , info_(0) 
     {
       BOOST_ASSERT_MSG(nt2::issquare(a_), "inputs  must be squares matrix"); 
       BOOST_ASSERT_MSG(nt2::issquare(b_), "inputs  must be squares matrix");
       BOOST_ASSERT_MSG(n_ = height(b_), "inputs  must be of same size");
-      nt2::details::gges(jobvsl_, jobvsr_, sort_,
-                         a_,  aa_, lda_,  b_,  bb_, ldb_,
-                         sdim_, alpha, beta_,  n_,
-                         vsl_, ldvsl_, vsr_, ldvsr_, info_, wrk_); 
+      nt2::details::gges(&jobvsl_, &jobvsr_, &sort_, &nt2::details::selectall, &n_, 
+                         aa_.raw(), &lda_, bb_.raw(), &ldb_,
+                         &sdim_, alpha_.raw(), beta_.raw(),
+                         vsl_.raw(), &ldvsl_, vsr_.raw(), &ldvsr_, &info_, wrk_); 
     }
 
     geneig_result& operator=(geneig_result const& src)
@@ -155,7 +155,7 @@ namespace nt2 { namespace details
     }
     char          jobvsl_;
     char          jobvsr_;
-    char             sort; 
+    char            sort_; 
     data_t             a_;
     tab_t             aa_;
     nt2_la_int       lda_;
@@ -163,8 +163,8 @@ namespace nt2 { namespace details
     tab_t             bb_;
     nt2_la_int       ldb_;
     nt2_la_int      sdim_; 
-    tab_t   alpha_, beta_; 
     nt2_la_int         n_;
+    tab_t   alpha_, beta_; 
     tab_t            vsl_;
     nt2_la_int     ldvsl_;
     tab_t            vsr_;
@@ -173,8 +173,8 @@ namespace nt2 { namespace details
     workspace_t      wrk_;
   };
 
-  template<class T > ,
-  struct geneig_result < T,, boost::mpl::false_ >  
+  template<class T > 
+  struct geneig_result < T, boost::mpl::false_ >  
   {
     typedef typename meta::strip<T>::type                   source_t;
     typedef typename source_t::value_type                     type_t;
@@ -189,11 +189,11 @@ namespace nt2 { namespace details
     typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
     typedef nt2::table<type_t,index_t>                   result_type;
     
-    template<class Input>
-    geneig_result ( Input1& xpr1,Input2 xpr2
+    template<class Input1, class Input2>
+    geneig_result ( Input1& xpr1,Input2 xpr2, 
                     const char & jobvsl = 'V',
                     const char & jobvsr = 'V',
-                    const char & sort = 'N')
+                    const char & sort = 'S')
       : jobvsl_(jobvsl)
       , jobvsr_(jobvsr)
       , sort_ (sort)
@@ -204,23 +204,23 @@ namespace nt2 { namespace details
       , bb_(xpr2)
       , ldb_(b_.leading_size())
       , sdim_(0) 
+      , n_(height(a_))
       , alphar_(of_size(1, n_))
       , alphai_(of_size(1, n_))
       , beta_(of_size(1, n_))
-      , n_(height(a_))
-      , vsl_(of_size(1, jobvsl_ == 'V'?n_:1))
+       , vsl_(jobvsl_ == 'V'?of_size(n_, n_):of_size(1, 1))
       , ldvsl_(vsl_.leading_size())
-      , vsr_(of_size(1, jobvsr_ == 'V'?n_:1))
+      , vsr_(jobvsr_ == 'V'?of_size(n_, n_):of_size(1, 1))
       , ldvsr_(vsr_.leading_size())
       , info_(0) 
     {
       BOOST_ASSERT_MSG(nt2::issquare(a_), "inputs  must be squares matrix"); 
       BOOST_ASSERT_MSG(nt2::issquare(b_), "inputs  must be squares matrix");
-      BOOST_ASSERT_MSG(n_ = height(b_), "inputs  must be of same size");
-      nt2::details::gges(jobvsl_, jobvsr_, sort_,
-                         a_,  aa_, lda_,  b_,  bb_, ldb_,
-                         sdim_, alphar_, alphai_, beta_,  n_,
-                         vsl_, ldvsl_, vsr_, ldvsr_, info_, wrk_); 
+      BOOST_ASSERT_MSG(n_ = height(b_), "inputs  must be of same size");     
+      nt2::details::gges(&jobvsl_, &jobvsr_, &sort_, &nt2::details::selectall2, &n_, 
+                         aa_.raw(), &lda_,  bb_.raw(), &ldb_,
+                         &sdim_, alphar_.raw(), alphai_.raw(), beta_.raw(),  
+                         vsl_.raw(), &ldvsl_, vsr_.raw(), &ldvsr_, &info_, wrk_); 
     }
 
     geneig_result& operator=(geneig_result const& src)
@@ -273,10 +273,15 @@ namespace nt2 { namespace details
     //==========================================================================
     // return left generalized eigenvalues
     //==========================================================================
-    tab_t alpha ()
+    tab_t alphar ()
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors"); 
-      return alpha_;
+      return alphar_;
+    }
+    tab_t alphai ()
+    {
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors"); 
+      return alphai_;
     }
 
     //==========================================================================
@@ -291,10 +296,15 @@ namespace nt2 { namespace details
     //==========================================================================
     // return  eigenvalues
     //==========================================================================
-    tab_t w ()
+    tab_t wr ()
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
-      return alpha_/beta_;
+      return alphar_/beta_;
+    }
+    tab_t wi ()
+    {
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
+      return alphai_/beta_;
     }
 
     
@@ -308,7 +318,7 @@ namespace nt2 { namespace details
     }
     char          jobvsl_;
     char          jobvsr_;
-    char             sort; 
+    char            sort_; 
     data_t             a_;
     tab_t             aa_;
     nt2_la_int       lda_;
@@ -316,10 +326,10 @@ namespace nt2 { namespace details
     tab_t             bb_;
     nt2_la_int       ldb_;
     nt2_la_int      sdim_; 
+    nt2_la_int         n_;
     btab_t        alphar_;
     btab_t        alphai_;
     btab_t          beta_; 
-    nt2_la_int         n_;
     tab_t            vsl_;
     nt2_la_int     ldvsl_;
     tab_t            vsr_;

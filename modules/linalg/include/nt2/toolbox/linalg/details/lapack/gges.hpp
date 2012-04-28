@@ -168,28 +168,28 @@ namespace nt2
     extern "C"
     {
       void NT2_F77NAME(cgges)(const char* jobvsl, const char* jobvsr, const char* sort,
-                          const nt2_la_int* selctg, const nt2_la_int* n, nt2_la_complex* a,
+                          const selectall_t* selctg, const nt2_la_int* n, nt2_la_complex* a,
                           const nt2_la_int* lda, const nt2_la_complex* b, const nt2_la_int* ldb,
                           nt2_la_int* sdim, nt2_la_complex* alpha, nt2_la_complex* beta,
                           const nt2_la_complex* vsl, const nt2_la_int* ldvsl, const nt2_la_complex* vsr,
                           const nt2_la_int* ldvsr, nt2_la_complex* work, const nt2_la_int* lwork,
                           float* rwork, nt2_la_int* bwork, nt2_la_int* info);
       void NT2_F77NAME(dgges)(const char* jobvsl, const char* jobvsr, const char* sort,
-                          const nt2_la_int* delctg, const nt2_la_int* n, double* a,
+                          const selectall2_t* delctg, const nt2_la_int* n, double* a,
                           const nt2_la_int* lda, const double* b, const nt2_la_int* ldb,
                           nt2_la_int* sdim, double* alphar, double* alphai, double* beta,
                           const double* vsl, const nt2_la_int* ldvsl, const double* vsr,
                           const nt2_la_int* ldvsr, double* work, const nt2_la_int* lwork,
                           nt2_la_int* bwork, nt2_la_int* info);
       void NT2_F77NAME(sgges)(const char* jobvsl, const char* jobvsr, const char* sort,
-                          const nt2_la_int* selctg, const nt2_la_int* n, float* a,
+                          const selectall2_t* selctg, const nt2_la_int* n, float* a,
                           const nt2_la_int* lda, const float* b, const nt2_la_int* ldb,
                           nt2_la_int* sdim, float* alphar, float* alphai, float* beta,
                           const float* vsl, const nt2_la_int* ldvsl, const float* vsr,
                           const nt2_la_int* ldvsr, float* work, const nt2_la_int* lwork,
                           nt2_la_int* bwork, nt2_la_int* info);
       void NT2_F77NAME(zgges)(const char* jobvsl, const char* jobvsr, const char* sort,
-                          const nt2_la_int* delctg, const nt2_la_int* n, nt2_la_complex* a,
+                          const selectall_t* delctg, const nt2_la_int* n, nt2_la_complex* a,
                           const nt2_la_int* lda, const nt2_la_complex* b, const nt2_la_int* ldb,
                           nt2_la_int* sdim, nt2_la_complex* alpha, nt2_la_complex* beta,
                           const nt2_la_complex* vsl, const nt2_la_int* ldvsl, const nt2_la_complex* vsr,
@@ -201,7 +201,7 @@ namespace nt2
   inline void gges(const char* jobvsl,          \
                    const char* jobvsr,          \
                    const char* sort,            \
-                   const nt2_la_int* selctg,    \
+                   const selectall2_t* selctg,  \
                    const nt2_la_int* n,         \
                    T* a,                        \
                    const nt2_la_int* lda,       \
@@ -218,7 +218,7 @@ namespace nt2
                    nt2_la_int* info,            \
                    workspace<T> & w)            \
   {                                             \
-    w.resize_logicals(*sort == 'n'?1:*n);       \
+    w.resize_logicals(*sort == 'N'?1:*n);       \
     NT2_F77NAME(NAME)(jobvsl, jobvsr, sort,     \
                       selctg, n, a, lda,        \
                       b, ldb, sdim, alphar,     \
@@ -239,7 +239,7 @@ namespace nt2
   inline void gges(const char* jobvsl,          \
                    const char* jobvsr,          \
                    const char* sort,            \
-                   const nt2_la_int* selctg,    \
+                   const selectall2_t* selctg,  \
                    const nt2_la_int* n,         \
                    T* a,                        \
                    const nt2_la_int* lda,       \
@@ -272,7 +272,7 @@ namespace nt2
   inline void gges(const char* jobvsl,          \
                    const char* jobvsr,          \
                    const char* sort,            \
-                   const nt2_la_int* delctg,    \
+                   const selectall_t* delctg,   \
                    const nt2_la_int* n,         \
                    T* a,                        \
                    const nt2_la_int* lda,       \
@@ -289,7 +289,7 @@ namespace nt2
                    workspace<T> & w)            \
   {                                             \
     w.resize_reals(8**n);                       \
-    w.resize_logicals(*sort == 'n'?1:*n);       \
+    w.resize_logicals(*sort == 'N'?1:*n);       \
     NT2_F77NAME(NAME)(jobvsl, jobvsr, sort,     \
                       delctg, n, a, lda,        \
                       b, ldb, sdim, alpha,      \
@@ -298,7 +298,7 @@ namespace nt2
                       w.reals(), w.logicals(),  \
                       info);                    \
     nt2_la_int wn = w.main_need();              \
-    w.resize_main(wn);\
+    w.resize_main(wn);                          \
     NT2_F77NAME(NAME)(jobvsl, jobvsr, sort,     \
                       delctg, n, a, lda,        \
                       b, ldb, sdim, alpha,      \
@@ -310,7 +310,7 @@ namespace nt2
   inline void gges(const char* jobvsl,          \
                    const char* jobvsr,          \
                    const char* sort,            \
-                   const nt2_la_int* delctg,    \
+                   const selectall_t* delctg,    \
                    const nt2_la_int* n,         \
                    T* a,                        \
                    const nt2_la_int* lda,       \
