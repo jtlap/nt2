@@ -12,6 +12,27 @@
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/linalg/functions/details/symeig.hpp>
+////////////////////////////////////////////////////////////////////////////////
+// Construct the class choosing the computation model :
+// float,  double or complex < float >  or complex < double > and a matrix or
+// matrix expression as:
+//                     symeig_result<table <double> >s(1.0/(cif(5)+rif(5)-1)); 
+// or
+//                     matrix < double >  a(1.0/(cif(5)+rif(5)-1));
+//                     symeig<table < double > >s(a)
+//
+// then you can extract v, w and using the accessors v(), w() to
+// obtain 2 matrices such that up to rounding errors :
+//                     s.v()*a = s.v()*s.w()
+// is the original matrix
+// If you just want the eigenvalues but not the eigenvectors call s(a, 'N')
+// Take care that the input expression is supposed to be hermitian
+// (symetric if real),  but that by default the upper part of the expression
+// is considered an even a not "really" symetric input will be taken as such.
+//
+// Use s(a, 'N', 'L') or  s(a, 'V', 'L') to use the lower part.
+////////////////////////////////////////////////////////////////////////////////
+
 
 namespace nt2
 {

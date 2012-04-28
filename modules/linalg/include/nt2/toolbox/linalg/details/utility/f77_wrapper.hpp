@@ -43,4 +43,15 @@ typedef NT2_F77INT      nt2_la_int;
 // Type used by BLAS/LAPACK to pass array of complex
 typedef NT2_F77COMPLEX  nt2_la_complex;
 
+
+// INTERNAL ONLY
+// Type used by BLAS/LAPACK to pass select elements
+namespace nt2 { namespace details
+{
+  inline nt2_la_int selectall(void* ) { return true; }
+  inline nt2_la_int selectall2( const void*, const  void* ) { return true; }
+  typedef nt2_la_int selectall_t(void*) ; 
+  typedef nt2_la_int selectall2_t(const void*, const void*); 
+} }
+
 #endif
