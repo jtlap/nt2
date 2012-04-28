@@ -19,86 +19,72 @@ namespace nt2 { namespace ext
 {
   //============================================================================
   // This version of chol is called whenever a tie(a,p) = chol(...) is captured
-  // before assign is resolved
+  // before assign is resolved. AS a tieable function, chol retrieves fusion
+  // Sequences and static nargin/nargout as inputs
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::chol_, tag::cpu_
-                            , (A0)(A1)(A2)(A3)
-                            , (ast_<A0>)
-                              (scalar_< type8_<A1> >)
-                              (ast_<A2>)
-                              (scalar_< integer_<A3> >)
+                            , (ARGIN)(ARGOUT)(NARGIN)(NARGOUT)
+                            , (fusion_sequence_<ARGIN>)
+                              (fusion_sequence_<ARGOUT>)
+                              (mpl_integral_<scalar_<unspecified_<NARGIN> > > )
+                              (mpl_integral_<scalar_<unspecified_<NARGOUT> > >)
                             )
   {
-    typedef void                                            result_type;
+    typedef void                                                    result_type;
+    typedef typename boost::fusion::result_of::at_c<ARGOUT,0>::type dest_t;
     typedef typename meta::
-            call< nt2::tag::factorization::
-                  chol_(A2&,char,nt2::details::in_place_)
-                >::type                                     tmp_t;
+            call< nt2::tag::
+                  factorization::chol_(dest_t,char,nt2::details::in_place_)
+                >::type                                             fact_t;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A1 const& a1, A2& a2, A3& a3) const
+    operator()( ARGIN const& argin    , ARGOUT const& argout
+              , NARGIN const&  nargin , NARGOUT const& nargout
+              ) const
     {
-      // Copy data in a2 first to factorize in place later
-      a2 = a0;
-      tmp_t tmp = factorization::chol(a2,a1,in_place_);
+      // Retrieve the up/lo options
+      char ul = uplo(argin, nargin);
+
+      // Copy data in output first
+      boost::fusion::at_c<0>(argout) = boost::fusion::at_c<0>(argin);
+
+      // Factorize in place
+      fact_t t = factorization::chol(boost::fusion::at_c<0>(argout),ul,in_place_);
 
       // Retrieve correct version with minimum amount of (re)allocation
-      // TODO : Doing better ?
-      if(a1 == 'U') a2 = tmp.upper_result();
-      else          a2 = tmp.lower_result();
+      if(ul == 'U') boost::fusion::at_c<0>(argout) = t.upper_result();
+      else          boost::fusion::at_c<0>(argout) = t.lower_result();
 
       // Retrieve status
-      a3 = tmp.status();
+      status(argout, nargout, t.status());
     }
-  };
 
-  //============================================================================
-  // Capture a tie(a) = chol(...) at assign time and resolve to optimized call
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
-                            , (A0)(A1)(N1)
-                            , ((node_<A0,nt2::tag::tie_,boost::mpl::long_<1> >))
-                              ((node_<A1,nt2::tag::chol_,N1>))
-                            )
-  {
-    typedef A0& result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+    private:
+    //==========================================================================
+    // INTERNAL ONLY
+    // Extract a 'U' or a 'L' from lower_/upper_ or mpl::void_
+    //==========================================================================
+    BOOST_FORCEINLINE char uplo(ARGIN const&, boost::mpl::long_<1> const&) const
     {
-      int ignore_this;
-
-      // Pass original x, potential option, destination container and status
-      nt2::chol ( boost::proto::child_c<0>(a1)
-                , N1::value==1 ? 'U' : 'L'
-                , boost::proto::child_c<0>(a0)
-                , ignore_this
-                );
-
-      return a0;
+      return 'U';
     }
-  };
 
-  //============================================================================
-  // Capture a tie(a,p) = chol(...) at assign time and resolve to optimized call
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
-                            , (A0)(A1)(N1)
-                            , ((node_<A0,nt2::tag::tie_,boost::mpl::long_<2> >))
-                              ((node_<A1,nt2::tag::chol_,N1>))
-                            )
-  {
-    typedef A0& result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+    BOOST_FORCEINLINE char uplo(ARGIN const& in, boost::mpl::long_<2> const&) const
     {
-      // Pass original x, potential option, destination container and status
-      nt2::chol ( boost::proto::child_c<0>(a1)
-                , N1::value==1 ? 'U' : 'L'
-                , boost::proto::child_c<0>(a0)
-                , boost::proto::value(boost::proto::child_c<1>(a0))
-                );
+      return boost::proto::value(boost::fusion::at_c<1>(in));
+    }
 
-      return a0;
+    //==========================================================================
+    // INTERNAL ONLY
+    // If nargout is 2, fill the status
+    //==========================================================================
+    template<class Status> BOOST_FORCEINLINE
+    void status(ARGOUT&, boost::mpl::long_<1> const&, Status const& ) const {}
+
+    template<class Status> BOOST_FORCEINLINE
+    void status(ARGOUT& o, boost::mpl::long_<2> const&, Status const& t) const
+    {
+      boost::proto::value(boost::fusion::at_c<1>(o)) = t;
     }
   };
 } }

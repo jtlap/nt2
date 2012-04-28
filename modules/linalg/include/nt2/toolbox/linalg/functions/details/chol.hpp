@@ -37,7 +37,9 @@ namespace nt2 { namespace details
                     , info_(0)
                     , uplo_(uplo)
     {
-      nt2::details::potrf(&uplo_, &height_, (type_t*)values_.raw(), &leading_, &info_);
+      nt2::details::potrf ( &uplo_, &height_
+                          , (type_t*)values_.raw(), &leading_, &info_
+                          );
     }
 
     cholesky_result& operator=(cholesky_result const& src)

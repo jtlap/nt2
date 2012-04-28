@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_FACTORIZATIONS_CHOL_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_FACTORIZATIONS_CHOL_HPP_INCLUDED
 
-#include <nt2/toolbox/linalg/functions/chol.hpp>
 #include <nt2/options.hpp>
+#include <nt2/toolbox/linalg/functions/chol.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/toolbox/linalg/functions/details/chol.hpp>
@@ -46,16 +46,16 @@ namespace nt2 { namespace ext
                               (unspecified_< IP >)
                             )
   {
-    typedef details::cholesky_result<A0&>       result_type;
+    typedef details::cholesky_result<A0&> result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1 const& u, IP const&) const
+    operator()(A0& a0, A1 const& uplo, IP const&) const
     {
       BOOST_ASSERT_MSG( nt2::issquare(a0)
                       , "??? Error using 'chol' : Matrix must be square."
                       );
 
-      result_type that(u, a0);
+      result_type that(uplo, a0);
       return that;
     }
   };
