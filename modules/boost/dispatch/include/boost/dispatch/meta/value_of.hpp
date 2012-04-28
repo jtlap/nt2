@@ -44,9 +44,9 @@ namespace meta
   {
   };
 
-#ifndef BOOST_DISPATCH_NO_RESTRICT
+#ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
   template<class T>
-  struct value_of<T BOOST_DISPATCH_RESTRICT>
+  struct value_of<T & BOOST_DISPATCH_RESTRICT>
    : value_of<T>
   {
   };

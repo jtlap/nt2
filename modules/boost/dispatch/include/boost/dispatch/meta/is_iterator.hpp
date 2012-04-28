@@ -46,7 +46,9 @@ namespace boost
      : boost::detail::iterator_traits<T*>
     {
       typedef T* BOOST_DISPATCH_RESTRICT pointer;
+#ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
       typedef T& BOOST_DISPATCH_RESTRICT reference;
+#endif
     };
   }
 }
