@@ -28,8 +28,15 @@ NT2_TEST_CASE_TPL( freqspace2, (double)(float) )
     const int m = 7; 
     nt2::table<T> xd1, xd2;
     boost::fusion::tie(xd1, xd2)= nt2::freqspace2(m, n, nt2::meta::as_<T>());
-    nt2::table<T> yd1 = nt2::colon(T(-1),T(2)/n, T(1)-T(2)/n);
-    nt2::table<T> yd2 = nt2::colon(T(-1)+T(1)/m,T(2)/m, T(1)-T(1)/m);
+    T hvm = m*nt2::Half<T>(); 
+    T hm = nt2::rec(hvm);  
+    T lm = -nt2::floor(hvm)*hm; 
+    T hvn = n*nt2::Half<T>(); 
+    T hn = nt2::rec(hvn);  
+    T ln = -nt2::floor(hvn)*hn; 
+
+    nt2::table<T> yd1 = nt2::colon(ln, hn, T(1)-T(2)/n);
+    nt2::table<T> yd2 = nt2::colon(lm, hm, T(1)-T(1)/m);
     NT2_TEST( xd1.extent() == nt2::of_size(1,n) );
     NT2_TEST( xd2.extent() == nt2::of_size(1,m) );
     

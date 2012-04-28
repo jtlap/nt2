@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      value_type f =  nt2::rec(nt2::size(a0, nt2::firstnonsingleton(a0)));
+      value_type f =  nt2::rec(value_type(nt2::size(a0, nt2::firstnonsingleton(a0))));
       return nt2::multiplies(f, nt2::sum(a0));
     }
   };
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     typedef typename meta::call < nt2::tag::multiplies_(value_type, T1)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-      value_type f =  nt2::rec(nt2::size(a0, a1));
+      value_type f =  nt2::rec(value_type(nt2::size(a0, a1)));
       return nt2::multiplies(f, nt2::sum(a0, a1));
     }
   };

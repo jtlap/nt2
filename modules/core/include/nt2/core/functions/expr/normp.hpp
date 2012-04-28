@@ -23,13 +23,13 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename A0::value_type value_type; 
-    typedef typename meta::call<tag::pow_(typename meta::call<tag::asump_(A0 const&, A1 const&)>::type,
+    typedef typename meta::call<tag::pow_(typename meta::call<tag::asump_(A0 const&, A1 const)>::type,
                                           value_type) >::type
       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& p) const
     {
-      value_type one_o_p = rec(p); 
+      value_type one_o_p = rec(value_type(p)); 
       return pow(nt2::asump(a0, p), one_o_p);
     }
   };
@@ -41,14 +41,14 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename A0::value_type value_type; 
-    typedef typename meta::call<tag::pow_(typename meta::call<tag::asump_(A0 const&, A1 const&,
-                                                                          A2 const &) >::type ,
+    typedef typename meta::call<tag::pow_(typename meta::call<tag::asump_(A0 const&, A1 const,
+                                                                          A2 const ) >::type ,
                                 value_type)>::type
       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& p, A2 const& n) const
     {
-      value_type one_o_p = rec(p); 
+      value_type one_o_p = rec(value_type(p)); 
       return pow(nt2::asump(a0, p, n), one_o_p);
     }
   };

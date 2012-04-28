@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL( pispace, (double)(float) )
     NT2_TEST( xd.extent() == nt2::of_size(1,50) );
     
     for(int i=1;i<=50;++i)
-      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
+      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 1.5 );
   }
   {
     nt2::table<T> xd = nt2::pispace(T(2));
@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL( pispace, (double)(float) )
     NT2_TEST( xd.extent() == nt2::of_size(1,50) );
     
     for(int i=1;i<=50;++i)
-      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
+      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 1.5 );
   }
   {
     nt2::table<T> xd = nt2::pispace(T(2),7);
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL( pispace, (double)(float) )
     std::cout << xd << std::endl; 
     
     for(int i=1;i<=7;++i)
-      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
+      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 1.5 );
   }
 
 }
