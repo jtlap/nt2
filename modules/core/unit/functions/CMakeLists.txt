@@ -74,6 +74,11 @@ SET( SOURCES
   mean.cpp
   norm2.cpp
   normp.cpp
+#  isequal.cpp
+#  isequaln.cpp
+  havesamesize.cpp
+  isinteger.cpp
+  isfloating.cpp
 # List of test files for toolbox core.settings
    )
 set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
