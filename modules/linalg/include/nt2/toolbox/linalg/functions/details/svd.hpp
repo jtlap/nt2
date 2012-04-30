@@ -23,6 +23,7 @@
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/rec.hpp>
 //#include <nt2/include/functions/trans.hpp> //TODO
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
@@ -205,6 +206,16 @@ namespace nt2 { namespace details
     //==========================================================================
     base_t     cond()       const { return  w_(1)/w_(nt2::min(m_, n_)); }
 
+    //==========================================================================
+    // Return matrix norm
+    //==========================================================================
+    base_t     norm()       const { return  w_(1); }
+    
+    //==========================================================================
+    // Return matrix norm
+    //==========================================================================
+    base_t     norminv()       const { return  nt2::rec(w_(nt2::min(m_, n_))); }
+    
     //==========================================================================
     // Return matrix rank up to epsi
     //==========================================================================
