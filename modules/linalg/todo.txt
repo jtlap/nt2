@@ -24,7 +24,7 @@
 // condeig           Condition number with respect to eigenvalues                  |
 // det               Matrix determinant                                            | done also 2 versions of absdet one with no overflow
 // norm              Vector and matrix norms                                       | done
-// normest           2-norm estimate                                               | done
+// normest           2-norm estimate                                               | done not working yet
 // null              Null space                                                    | done
 // orth              Range space of matrix                                         | done
 // rank              Rank of matrix                                                | done
