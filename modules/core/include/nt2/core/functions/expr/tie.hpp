@@ -43,11 +43,48 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
+  // Handles tie(...) = terminal as the elementwise extraction of values
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::tie_      , N0>))
+                              ((node_<A1, nt2::tag::terminal_ , N1>))
+                            )
+  {
+    typedef A0&                                         result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
+    {
+      BOOST_ASSERT_MSG( numel(a1) >= boost::proto::arity_of<A0>::value
+                      , "Size mismatch in tuple assignment"
+                      );
+
+      // Unroll evaluation of a1(N) in child_c<N>(a0)
+      eval( a0, a1
+          , boost::mpl::int_<0>()
+          , boost::mpl::int_<N0::value>()
+          );
+
+      return a0;
+    }
+
+    template<class N, class M> BOOST_FORCEINLINE
+    void eval(A0& a0, A1& a1, N const&, M const& m) const
+    {
+      boost::proto::value(boost::proto::child_c<N::value>(a0)) = a1(N::value+1);
+      eval(a0,a1,boost::mpl::int_<N::value+1>(),m);
+    }
+
+    template<class N> BOOST_FORCEINLINE
+    void eval(A0& a0, A1& a1, N const&, N const&) const {}
+  };
+
+  //============================================================================
   // Handles terminal = tieable_func(...) by looking at it as a tie(terminal)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
-                            , (A0)(N0)(A1)(T1)(N1)
-                            , ((node_<A0, nt2::tag::terminal_ , N0>))
+                            , (A0)(T0)(A1)(T1)(N1)
+                            , ((node_<A0, T0 , boost::mpl::long_<0> >))
                               ((node_<A1, tieable_<T1>, N1>))
                             )
   {

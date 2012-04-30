@@ -90,6 +90,7 @@ namespace nt2 { namespace container { namespace ext
       return result_type();
     }
   };
+
   template<class Domain, int N, class Expr>
   struct  size_of<nt2::tag::tie_,Domain,N,Expr>
   {
