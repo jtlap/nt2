@@ -15,6 +15,7 @@ SET( SOURCES
      schur_result.cpp
      symeig_result.cpp
      geneig_result.cpp
+     balance_result.cpp
    )
 
 nt2_module_add_tests(linalg.factorization.unit ${SOURCES})
