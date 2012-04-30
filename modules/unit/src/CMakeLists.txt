@@ -13,6 +13,9 @@ nt2_module_source_setup(unit)
 set(SOURCES
     timing/now.cpp
     timing/timers.cpp
-    config/version.cpp
    )
+
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  add_definitions(-fvisibility=hidden)
+endif()
 nt2_module_add_library(nt2 ${SOURCES})

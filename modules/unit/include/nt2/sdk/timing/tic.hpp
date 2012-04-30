@@ -14,6 +14,7 @@
 * @brief Defines and implements the tic() and toc() timing functions.
 **/
 
+#include <nt2/sdk/timing/config.hpp>
 #include <nt2/sdk/timing/now.hpp>
 #include <nt2/sdk/timing/details/timer.hpp>
 
@@ -24,8 +25,8 @@ namespace nt2 { namespace details
   // It use now() to retrieves second based timestamps.
   struct second_based_timer
   {
-    static        void    Print(const double& val);
-    static inline double  Time() { return details::now(); }
+    NT2_UNIT_DECL static        void    Print(const double& val);
+                  static inline double  Time() { return details::now(); }
   };
 
   // INTERNAL ONLY

@@ -15,6 +15,7 @@
  */
 
 #include <boost/exception/exception.hpp>
+#include <boost/config.hpp>
 #include <stdexcept>
 #include <string>
 
@@ -27,7 +28,7 @@ namespace nt2
    * the classical STD compliant interface, and is compatible with boost::exception.
    */
   //============================================================================
-  struct exception : boost::exception, std::runtime_error
+  struct BOOST_SYMBOL_VISIBLE exception : boost::exception, std::runtime_error
   {
     exception(const std::string& msg) : boost::exception(), std::runtime_error(msg) {}
   };

@@ -6,19 +6,19 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_TIMING_NOW_HPP_INCLUDED
-#define NT2_SDK_TIMING_NOW_HPP_INCLUDED
+#ifndef NT2_SDK_TIMING_CONFIG_HPP_INCLUDED
+#define NT2_SDK_TIMING_CONFIG_HPP_INCLUDED
 
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/timing/config.hpp>
+#include <boost/config.hpp>
 
-namespace nt2 { namespace details
-{
-  typedef nt2::uint64_t   cycles_t;
-  NT2_UNIT_DECL double    now();
-  inline cycles_t         read_cycles();
-} }
-
-#include <nt2/sdk/timing/details/cycles.hpp>
+#ifdef NT2_UNIT_DYN_LINK
+#  ifdef NT2_UNIT_SOURCE
+#    define NT2_UNIT_DECL BOOST_SYMBOL_EXPORT
+#  else
+#    define NT2_UNIT_DECL BOOST_SYMBOL_IMPORT
+#  endif
+#else
+#  define NT2_UNIT_DECL
+#endif
 
 #endif

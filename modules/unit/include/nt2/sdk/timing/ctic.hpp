@@ -14,6 +14,7 @@
 * @brief Defines and implements the ctic() and ctoc() timing functions.
 **/
 
+#include <nt2/sdk/timing/config.hpp>
 #include <nt2/sdk/timing/now.hpp>
 #include <nt2/sdk/timing/details/timer.hpp>
 
@@ -24,8 +25,8 @@ namespace nt2 { namespace details
   // It use read_cycles() to retrieves cycles based timestamps.
   struct cycle_based_timer
   {
-    static void Print(const cycles_t& val);
-    static inline cycles_t Time() { return read_cycles(); }
+    NT2_UNIT_DECL static void             Print(const cycles_t& val);
+                  static inline cycles_t  Time() { return read_cycles(); }
   };
 
   // INTERNAL ONLY

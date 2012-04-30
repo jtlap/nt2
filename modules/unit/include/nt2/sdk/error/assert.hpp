@@ -27,6 +27,7 @@
 #include <sstream>
 #include <nt2/sdk/error/error.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/config.hpp>
 
 namespace nt2
 {
@@ -39,7 +40,7 @@ namespace nt2
   * @usage
   * @include assert_exception.cpp
   **/
-  struct assert_exception : nt2::exception
+  struct BOOST_SYMBOL_VISIBLE assert_exception : nt2::exception
   {
     /**
     * Builds an assert_exception from the actual runtime assertion message

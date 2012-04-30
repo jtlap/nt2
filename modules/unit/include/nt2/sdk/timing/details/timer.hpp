@@ -9,9 +9,8 @@
 #ifndef NT2_SDK_TIMING_DETAILS_TIMER_HPP_INCLUDED
 #define NT2_SDK_TIMING_DETAILS_TIMER_HPP_INCLUDED
 
-#include <stack>
 #include <boost/assert.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <stack>
 
 namespace nt2 { namespace details
 {

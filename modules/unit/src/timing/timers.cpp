@@ -7,18 +7,19 @@
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
 
-#include <iostream>
 #include <nt2/sdk/timing/tic.hpp>
 #include <nt2/sdk/timing/ctic.hpp>
+#include <nt2/sdk/timing/config.hpp>
+#include <iostream>
 
 namespace nt2 { namespace details
 {
-  void cycle_based_timer::Print(const cycles_t& val)
+  NT2_UNIT_DECL void cycle_based_timer::Print(const cycles_t& val)
   {
     std::cout << "Elapsed time is " << val << " CPU cycle(s).\n";
   }
 
-  void second_based_timer::Print(const double& val)
+  NT2_UNIT_DECL void second_based_timer::Print(const double& val)
   {
     std::cout << "Elapsed time is " << val << " s.\n";
   }
