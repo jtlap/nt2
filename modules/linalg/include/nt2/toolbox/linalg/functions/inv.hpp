@@ -6,13 +6,16 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_TRACE_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_TRACE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_INV_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_INV_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
+#include <boost/simd/include/simd.hpp>
+#include <boost/dispatch/include/functor.hpp>
+#include <nt2/sdk/memory/container.hpp>
 
 /*!
  * \ingroup algebra
- * \defgroup algebra_trace trace
+ * \defgroup algebra_inv inv
  *
  * \par Description
  * Elementary Least square
@@ -20,36 +23,33 @@
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/trace.hpp>
+ * #include <nt2/include/functions/inv.hpp>
  * \endcode
  * 
  * 
  * \synopsis
  *
- * \param a the matrix a 
+ * \param a the matrix or vector expression a 
  *
- * \param p the norm in which trace is computed
- *          p can be 1, 2 inf or 'fro'
+ * \param type of inv required
  * 
  * \par Notes
  *   Call the dedicated lapack routines available on the target.
  * \par
  *  
 **/
-//==============================================================================
-// trace actual class forward declaration
-//==============================================================================
 
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag trace_ of functor trace
+     * \brief Define the tag inv_ of functor inv
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct trace_ :  tag::formal_ { typedef tag::formal_ parent; };
+    struct inv_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
   
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::trace_, trace, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::inv_, inv, 1)
+
 }
 
 #endif
