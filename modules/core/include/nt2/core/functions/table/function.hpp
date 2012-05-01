@@ -84,7 +84,11 @@ namespace nt2
                        child_c<Expr&, 0>::type                               child0;
       typedef typename boost::fusion::result_of::pop_front<Expr const>::type childN;
 
-      typedef typename nt2::make_size< Arity::value-1 >::type                reinterpreted_pos;
+      typedef typename boost::
+              remove_reference<child0>::type::index_type::type               index_type;
+      typedef typename nt2::make_size< Arity::value-1 >::type                size_type;
+      typedef size_type                                                      pos_type;
+
       typedef boost::array< boost::dispatch::meta::
                             as_< typename boost::dispatch::meta::
                                  as_integer< typename boost::dispatch::meta::
@@ -92,21 +96,20 @@ namespace nt2
                                            >::type
                                >
                           , Arity::value-2
-                          >                                                  targets_base;
+                          >                                                  target_base;
 
       typedef typename boost::fusion::result_of::
               as_vector< typename boost::fusion::result_of::
-                         push_front< targets_base
+                         push_front< target_base
                                    , typename as_integer_target<Data>::type
                                    >::type
-                       >::type                                               targets;
+                       >::type                                               target_type;
 
-      typedef typename meta::strip<child0>::type base0;
       typedef boost::fusion::vector< childN const&
-                                   , typename base0::indexes_type const&
-                                   , typename meta::call<tag::extent_(child0)>::type
-                                   , reinterpreted_pos const&
-                                   , targets const&
+                                   , index_type const&
+                                   , size_type const&
+                                   , pos_type const&
+                                   , target_type const&
                                    > seq;
 
       typedef boost::fusion::zip_view<seq> zipped;
@@ -115,6 +118,7 @@ namespace nt2
       typedef typename meta::
               call<tag::sub2ind_( typename meta::call<tag::extent_(child0)>::type
                                 , transformed const&
+                                , index_type const&
                                 )
                   >::type idx;
       typedef typename meta::call<tag::run_(child0, idx const&, Data const&)>::type result_type;
@@ -122,31 +126,30 @@ namespace nt2
       BOOST_FORCEINLINE result_type
       operator()(Expr& expr, State const& state, Data const& data) const
       {
-        typename boost::remove_reference<child0>::type::index_type::type  index_type;
-
         // Retrieve children from the node that contain the indexers
         childN children       = boost::fusion::pop_front(expr);
 
+        index_type indexes;
+        size_type sz = boost::proto::child_c<0>(expr).extent();
+
         // Get the subscript from the linear position
-        reinterpreted_pos pos = ind2sub(expr.extent(), state, index_type);
+        pos_type pos = ind2sub(expr.extent(), state, indexes);
 
         // Apply indexers to each subscript value
-        targets tgts;
+        target_type targets;
         transformed trs = boost::fusion::
-                          transform
-                          ( zipped( seq
-                                    ( children
-                                    , boost::proto::child_c<0>(expr).indexes()
-                                    , boost::proto::child_c<0>(expr).extent()
-                                    , pos
-                                    , tgts
-                                    )
-                                  )
-                          , relative_view_call()
-                          );
+                          transform( zipped( seq( children
+                                                , indexes
+                                                , sz
+                                                , pos
+                                                , targets
+                                                )
+                                           )
+                                   , relative_view_call()
+                                   );
 
         // Get the new linear position from the transformed subscript
-        idx p = sub2ind( boost::proto::child_c<0>(expr).extent(), trs, index_type );
+        idx p = sub2ind( boost::proto::child_c<0>(expr).extent(), trs, indexes );
 
         // Evaluate the data
         return nt2::run( boost::proto::child_c<0>(expr), p, data );
