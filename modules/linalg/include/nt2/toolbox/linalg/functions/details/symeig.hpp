@@ -62,8 +62,8 @@ namespace nt2 { namespace details
     
     template<class Input>
     symeig_result ( Input& xpr, const char & jobz = 'V', const char & uplo = 'U')
-      : jobz_(?jobz == 'V' ? 'V':'N')
-      , uplo_(?uplo == 'L' ? 'L':'U')
+      : jobz_(jobz == 'V' ? 'V':'N')
+      , uplo_(uplo == 'L' ? 'L':'U')
       , a_(xpr)
       , aa_(xpr)
       , n_( nt2::height(xpr)  )

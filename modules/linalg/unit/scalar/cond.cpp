@@ -29,10 +29,10 @@ NT2_TEST_CASE_TPL(cond, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(cond(n), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(cond(n+n), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(cond(n, 1), nt2::One<T>(), 0);
-  //  NT2_TEST_ULP_EQUAL(cond(n+n, 1), nt2::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(cond(n+n, 1), nt2::One<T>(), 0);
   n(10, 10) = 10; 
   NT2_TEST_ULP_EQUAL(cond(n), nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(cond(n+n), nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(cond(n, 1), nt2::Ten<T>(), 0);
-  //  NT2_TEST_ULP_EQUAL(cond(n+n, 1), nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(cond(n+n, 1), nt2::Ten<T>(), 0);
  }
