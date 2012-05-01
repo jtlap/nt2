@@ -225,13 +225,13 @@ namespace nt2 { namespace details
     //==========================================================================
     // Reverse conditioning evaluation
     //==========================================================================
-    base_t rcond(char c = '1') const
+    base_t rcond(char c = '1')
     {
       if (c !=  '1' || rc_ == base_t(-1))
         {
           char norm = c;
-          base_t anorm = nt2::details::lange(&norm,  &n_,  &n_, lu_.raw(), &ldlu_, w_); 
-          nt2::details::gecon(&norm, &n_,  lu_.raw(), &ldlu_, &anorm, &rc_, &info_, w_);
+          base_t anorm = nt2::details::lange(&norm,  &n_,  &n_, lu_.raw(), &ldlu_); 
+          nt2::details::gecon(&norm, &n_,  lu_.raw(), &ldlu_, &anorm, &rc_, &info_);
        }
       return rc_;      
     }

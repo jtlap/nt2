@@ -19,6 +19,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/repnum.hpp>
@@ -204,7 +205,11 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return matrix condition number
     //==========================================================================
-    base_t     cond()       const { return  w_(1)/w_(nt2::min(m_, n_)); }
+    base_t     cond()       const
+    {
+      base_t r =  w_(1)/w_(nt2::min(m_, n_));
+      return is_nan(r) ? Inf<base_t>() : r; 
+    }
 
     //==========================================================================
     // Return matrix norm
