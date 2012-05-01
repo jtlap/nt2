@@ -8,10 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-     vecnorm.cpp
-     norm.cpp
-     cond.cpp
-     trace.cpp
+     inv.cpp
    )
 
-nt2_module_add_tests(linalg.scalar.unit ${SOURCES})
+nt2_module_add_tests(linalg.general.unit ${SOURCES})
