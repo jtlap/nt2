@@ -12,6 +12,7 @@ SET( SOURCES
      norm.cpp
      cond.cpp
      trace.cpp
+     rank.cpp
    )
 
 nt2_module_add_tests(linalg.scalar.unit ${SOURCES})
