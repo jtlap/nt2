@@ -87,18 +87,3 @@ NT2_TEST_CASE( extent )
   NT2_TEST_EXPR_TYPE( nt2::tie(f,d,s)   , extent_<_>, (of_size_<1>) );
   NT2_TEST_EXPR_TYPE( nt2::tie(c,f,d,s) , extent_<_>, (of_size_<1>) );
 }
-
-NT2_TEST_CASE( tie_from_terminal )
-{
-  using nt2::_;
-  using nt2::table;
-
-  double a,b,c,d = -1;
-  table<double> k;
-  k = _(1.,4.);
-
-  std::cout << k << "\n";
-  nt2::tie(a,b,c) = k;
-
-  std::cout << a << " "<< b << " "<< c << " "<< d << "\n";
-}

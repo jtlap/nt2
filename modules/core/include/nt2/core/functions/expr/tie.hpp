@@ -32,51 +32,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
     {
       func_t callee;
-      callee( boost::fusion::as_vector(a1)
-            , boost::fusion::as_vector(a0)
-            , typename boost::proto::arity_of<A1>::type()
-            , typename boost::proto::arity_of<A0>::type()
-            );
+      callee(a1, a0);
 
       return a0;
     }
-  };
-
-  //============================================================================
-  // Handles tie(...) = terminal as the elementwise extraction of values
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
-                            , (A0)(N0)(A1)(N1)
-                            , ((node_<A0, nt2::tag::tie_      , N0>))
-                              ((node_<A1, nt2::tag::terminal_ , N1>))
-                            )
-  {
-    typedef A0&                                         result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
-    {
-      BOOST_ASSERT_MSG( numel(a1) >= boost::proto::arity_of<A0>::value
-                      , "Size mismatch in tuple assignment"
-                      );
-
-      // Unroll evaluation of a1(N) in child_c<N>(a0)
-      eval( a0, a1
-          , boost::mpl::int_<0>()
-          , boost::mpl::int_<N0::value>()
-          );
-
-      return a0;
-    }
-
-    template<class N, class M> BOOST_FORCEINLINE
-    void eval(A0& a0, A1& a1, N const&, M const& m) const
-    {
-      boost::proto::value(boost::proto::child_c<N::value>(a0)) = a1(N::value+1);
-      eval(a0,a1,boost::mpl::int_<N::value+1>(),m);
-    }
-
-    template<class N> BOOST_FORCEINLINE
-    void eval(A0& a0, A1& a1, N const&, N const&) const {}
   };
 
   //============================================================================
@@ -96,11 +55,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
     {
       func_t callee;
-      callee( boost::fusion::as_vector(a1)
-            , boost::fusion::as_vector(nt2::tie(a0))
-            , typename boost::proto::arity_of<A1>::type()
-            , boost::mpl::long_<1>()
-            );
+      callee( a1, nt2::tie(a0));
 
       return a0;
     }
@@ -129,11 +84,7 @@ namespace nt2 { namespace ext
       nt2::table<value_type> bound = boost::proto::child_c<0>(a1);
 
       func_t callee;
-      callee( boost::fusion::as_vector(a1)
-            , boost::fusion::as_vector(nt2::tie(bound))
-            , typename boost::proto::arity_of<A1>::type()
-            , boost::mpl::long_<1>()
-            );
+      callee( a1, nt2::tie(bound) );
 
       a0 = bound;
       return a0;
