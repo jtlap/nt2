@@ -1,30 +1,18 @@
+Prioririty to : logical with all and any
+                use of begin and end in indexes
+                indexing with vector of indices 
+                diag_of and from_diag
+                easy ways to construct a table from datas (cons {} or from C array or boost_array)
+                repmat
 
-// Elementary Matrices and Arrays
-
-// blkdiag         Construct block diagonal matrix from input arguments            | 
-// colon (:)       Create vectors, array subscripting, and for-loop iterators      | done _(i, j),  _,  _(i, h, j)
-// diag            Diagonal matrices and diagonals of matrix                       | must be done with diag_of and from_diag which themselves are to be done     
-// eye             Identity matrix                                                 | done
-// freqspace       Frequency spacing for frequency response                        | done differently
-// ind2sub         Subscripts from linear index                                    | done
-// linspace        Generate linearly spaced vectors                                | done
-// logspace        Generate logarithmically spaced vectors                         | done     
-// ndgrid          Rectangular grid in N-D space                                   | 
-// ones            Create array of all ones                                        | done 
-// rand            Uniformly distributed pseudorandom numbers                      |     
-// randi           Uniformly distributed pseudorandom integers                     |          
-// randn           Normally distributed pseudorandom numbers                       |
-// RandStream      Random number stream                                            |               
-// rng             Control random number generation                                |
-// sub2ind         Convert subscripts to linear indices                            | done 
-// zeros           Create array of all zeros                                       | done 
-                                                                               
+                                                                            
 // Matrix Analysis
 // cond              Condition number with respect to inversion                    | done
 // condeig           Condition number with respect to eigenvalues                  |
-// det               Matrix determinant                                            | done also 2 versions of absdet one with no overflow
+// det               Matrix determinant                                            | done also 2 versions of absdet 
+//                                                                                   one with no overflow
 // norm              Vector and matrix norms                                       | done
-// normest           2-norm estimate                                               | done not working yet
+// normest           2-norm estimate                                               | done
 // null              Null space                                                    | done
 // orth              Range space of matrix                                         | done
 // rank              Rank of matrix                                                | done
@@ -33,7 +21,7 @@
 // subspace          Angle between two subspacestraceSum of diagonal elements      | done
                                                                                 
 // Linear Equations                                                             
-// chol              Cholesky factorization
+// chol              Cholesky factorization                                        | done
 // cholinc           Sparse incomplete Cholesky and Cholesky-Infinity              |  SPARSE
 // cond              Condition number with respect to inversion                    | done
 // condest           1-norm condition number estimate                              | done 
@@ -52,10 +40,9 @@
 // rcond             Matrix reciprocal condition number estimate                   | done
 
 // Eigenvalues and Singular Values
-// balance              Diagonal scaling to improve eigenvalue accuracy            |
 // cdf2rdf              Convert complex diagonal form to real block diagonal form  |
 // condeig              Condition number with respect to eigenvalues               |
-// eig                  Eigenvalues and eigenvectors                               | partially done
+// eig                  Eigenvalues and eigenvectors                               | done
 // eigs                 Largest eigenvalues and eigenvectors of matrix             |
 // gsvd                 Generalized singular value decomposition                   | 
 // hess                 Hessenberg form of matrix                                  |
@@ -77,13 +64,14 @@
 // sqrtm                  Matrix square root                                       |
 
 // Factorization
-// balance                Diagonal scaling to improve eigenvalue accuracy          |
-// cdf2rdf                Convert complex diagonal form to real block diagonal form|
+// balance                Diagonal scaling to improve eigenvalue accuracy          | done partially
+// cdf2rdf                Convert complex diagonal form to real block diagonal form| source exists in matlab
 // cholupdate             Rank 1 update to Cholesky factorization                  |
-// planerot               Givens plane rotation                                    |
-// qrdelete               Remove column or row from QR factorization               |
-// qrinsert               Insert column or row into QR factorization               |
-// qrupdate               Rank 1 update to QR factorization                        |
-// qz                     QZ factorization for generalized eigenvalues             |
-// rsf2csf                Convert real Schur form to complex Schur form            |
+// planerot               Givens plane rotation                                    | source exists in matlab
+// qrdelete               Remove column or row from QR factorization               | source exists in matlab
+// qrinsert               Insert column or row into QR factorization               | source exists in matlab
+// qrupdate               Rank 1 update to QR factorization                        | qrupdate is implemented in 
+                                                                                   | libqrupdate lib which is gpl and in FORTRAN
+// qz                     QZ factorization for generalized eigenvalues             | in lapack not done
+// rsf2csf                Convert real Schur form to complex Schur form            | source exists in matlab 
 
