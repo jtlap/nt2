@@ -11,15 +11,37 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/utility/of_size/predef.hpp>
+#include <nt2/include/functions/firstnonsingleton.hpp>
+#include <nt2/include/functions/terminal.hpp>
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/proto/traits.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/type_traits/remove_const.hpp>
-#include <nt2/include/functions/firstnonsingleton.hpp>
-#include <nt2/include/functions/terminal.hpp>
+#include <boost/type_traits/is_same.hpp>
+
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/enum_shifted_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/punctuation/comma_if.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/arithmetic/dec.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
+  template<class T>
+  struct of_size_reduce;
+
+  #define M0(z, n, t)                                                                              \
+  template<BOOST_PP_ENUM_PARAMS(n, std::ptrdiff_t D)>                                              \
+  struct of_size_reduce< of_size_< BOOST_PP_ENUM_PARAMS(n, D) > >                                  \
+  {                                                                                                \
+    typedef of_size_<1 BOOST_PP_COMMA_IF(BOOST_PP_DEC(n)) BOOST_PP_ENUM_SHIFTED_PARAMS(n, D)> type; \
+  };                                                                                               \
+  /**/
+  BOOST_PP_REPEAT(BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
+  #undef M0
+
   //============================================================================
   // This is the factorized size_of for all reduction function.
   // For any given reduction function tag RED, the registration of their
@@ -58,12 +80,19 @@ namespace nt2 { namespace container { namespace ext
   {
     typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
     typedef typename meta::strip<child0>::type                        schild0;
-    typedef typename meta::strip<typename schild0::extent_type>::type result_type;
+    typedef typename meta::strip<typename schild0::extent_type>::type ext_t;
+    typedef typename of_size_reduce<ext_t>::type                      result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      result_type res = boost::proto::child_c<0>(e).extent();
-      res[nt2::firstnonsingleton(res)-1] = 1;
+      ext_t sz = boost::proto::child_c<0>(e).extent();
+      std::size_t d = nt2::firstnonsingleton(sz);
+
+      result_type res;
+      for(std::size_t i=0; i!=d; ++i)
+        res[i] = 1;
+      for(std::size_t i=d; i!=sz.size(); ++i)
+        res[i] = sz[i];
       return res;
     }
   };
@@ -85,12 +114,14 @@ namespace nt2 { namespace container { namespace ext
   {
     typedef typename boost::proto::result_of::child_c<Expr&, 0>::type             expr_t;
     typedef typename boost::dispatch::meta::semantic_of<expr_t>::type             sema_t;
-    typedef typename meta::strip<sema_t>::type                                    ssema_t;
+    typedef typename meta::strip<sema_t>::type::value_type                        value_type;
 
     typedef typename reduction_size_of<RED,N,Expr>::result_type                   size_type;
-    typedef typename nt2::memory::container< typename ssema_t::value_type
-                                           , size_type
-                                           >                                      type;
+    typedef typename boost::mpl::
+    if_< boost::is_same< size_type, _0D >
+       , value_type
+       , memory::container<value_type, size_type>
+       >::type                                                                    type;
 
     typedef expression< typename boost::remove_const<Expr>::type
                       , type

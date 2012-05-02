@@ -54,7 +54,8 @@ NT2_TEST_CASE( sum_1D )
 
   r = sum(a(nt2::_));
   NT2_TEST_EQUAL(r(1),M) ;
-
+  T rs = sum(a(nt2::_));
+  NT2_TEST_EQUAL(rs,M) ;
 
 }
 
