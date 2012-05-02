@@ -74,30 +74,18 @@ namespace nt2 { namespace ext
       std::size_t dim = nt2::ndims(ext);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
-      // if(red > ext.size()){
-      //   return a0;
-      // }
-      if(red == 1 && ext[0] == 1){
-        red = nt2::firstnonsingleton(ext);
-      }
-      else if((red - 1 <= ext.size() && ext[red-1] == 1) || ext.size() < red)
-      {
-        for(std::size_t i = 0; i < nt2::numel(input); ++i)
-          nt2::run(a0,i,nt2::run(input,i,nt2::meta::as_<value_type>()));
-
-        return a0;
-      }
-
+      if((red - 1 < ext.size() && ext[red-1] == 1) || ext.size() < red)
+        return nt2::run_assign(a0, input);
 
       if(dim == 1 || ext.size() == 1)
       {
         nt2::run( a0, 0u
-                  , nt2::fold( input
-                               , typename nt2::make_functor<Neutral1, A0>::type()
-                               , typename nt2::make_functor<O1, A0>::type()
-                               , typename nt2::make_functor<T1, A0>::type()
-                               )
-                  );
+                , nt2::fold( input
+                           , typename nt2::make_functor<Neutral1, A0>::type()
+                           , typename nt2::make_functor<O1, A0>::type()
+                           , typename nt2::make_functor<T1, A0>::type()
+                           )
+                );
 
       }
       else if(red == 1)
@@ -121,32 +109,31 @@ namespace nt2 { namespace ext
       else
       {
         std::size_t lo = std::accumulate( ext.begin()
-                                          , ext.begin()+red-1
-                                          , std::size_t(1)
-                                          , std::multiplies<std::size_t>()
-                                          );
+                                        , ext.begin()+red-1
+                                        , std::size_t(1)
+                                        , std::multiplies<std::size_t>()
+                                        );
 
         std::size_t hi = std::accumulate( ext.begin()+red
-                                          , ext.begin()+dim
-                                          , std::size_t(1)
-                                          , std::multiplies<std::size_t>()
-                                          );
+                                        , ext.begin()+dim
+                                        , std::size_t(1)
+                                        , std::multiplies<std::size_t>()
+                                        );
 
-        nt2::partial_fold(   reshape(a0, of_size(lo,hi))
-                           , reshape(input, of_size(lo, ext[red-1], hi))
-                           , typename nt2::make_functor<Neutral1, A0>::type()
-                           , typename nt2::make_functor<O1, A0>::type()
-                           , typename nt2::make_functor<T1, A0>::type()
-                           );
-
+        nt2::partial_fold( reshape(a0, of_size(lo,hi))
+                         , reshape(input, of_size(lo, ext[red-1], hi))
+                         , typename nt2::make_functor<Neutral1, A0>::type()
+                         , typename nt2::make_functor<O1, A0>::type()
+                         , typename nt2::make_functor<T1, A0>::type()
+                         );
       }
 
       return a0;
     }
 
-    inline std::size_t reduction_dim(A1&, boost::mpl::false_) const
+    inline std::size_t reduction_dim(A1& a1, boost::mpl::false_) const
     {
-      return 1;
+      return nt2::firstnonsingleton(boost::proto::child_c<0>(a1).extent());
     }
 
     inline std::size_t reduction_dim(A1& a1, boost::mpl::true_) const
