@@ -24,12 +24,18 @@ namespace nt2
   //============================================================================
   template<> struct of_size_<>
   {
+    struct one
+    {
+      BOOST_FORCEINLINE one(std::size_t i) { BOOST_ASSERT_MSG(i == 1, "Trying to change static size of 1"); }
+      BOOST_FORCEINLINE operator std::size_t() const { return 1; }
+    };
+
     typedef tag::of_size_                           fusion_tag;
     typedef boost::fusion::fusion_sequence_tag      tag;
     typedef boost::mpl::vector_c< std::ptrdiff_t >  values_type;
     typedef std::size_t                             value_type;
-    typedef std::size_t                             reference;
-    typedef std::size_t                             const_reference;
+    typedef one                                     reference;
+    typedef one                                     const_reference;
     typedef std::size_t*                            iterator;
     typedef std::size_t const*                      const_iterator;
     typedef std::reverse_iterator<iterator>         reverse_iterator;
