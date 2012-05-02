@@ -65,16 +65,7 @@ namespace nt2 { namespace container { namespace ext
   // } } }
   //
   //============================================================================
-  template<class Expr> struct relative_size_of
-  {
-    typedef typename boost::proto::result_of::child_c<Expr,0>::type expr_t;
-    typedef typename expr_t::extent_type                            result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
+  template<class Expr> struct relative_size_of : size_as<Expr,0> {};
 } } }
 
 #endif

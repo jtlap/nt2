@@ -13,6 +13,7 @@
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
 #include <nt2/sdk/meta/add_settings.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -29,17 +30,7 @@ namespace nt2 { namespace container { namespace ext
   // } } }
   //
   //============================================================================
-  template<class Expr> struct reshaping_size_of
-  {
-    // The size is contained in the second child
-    typedef typename boost::proto::result_of::child_c<Expr&,1>::type  term_t;
-    typedef typename boost::proto::result_of::value<term_t>::type     result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::value( boost::proto::child_c<1>(e) );
-    }
-  };
+  template<class Expr> struct reshaping_size_of : boxed_size_of<Expr,1> {};
 
   //============================================================================
   // This is the factorized generator for all reshaping function.
@@ -57,8 +48,8 @@ namespace nt2 { namespace container { namespace ext
   template<class Expr> struct reshaping_generator
   {
     // We behave as our child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type  c_sema_t;
-    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type                sema_t;
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type    c_sema_t;
+    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
 
     // .. except we have a special size
     typedef typename boost::proto::result_of::child_c<Expr&,1>::type  c_sizes_t;
