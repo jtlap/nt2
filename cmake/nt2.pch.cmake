@@ -36,7 +36,7 @@ macro(nt2_pch name)
 
       string(REPLACE "/" "_" pch_base ${name})
       string(REGEX REPLACE "\\.hpp$" "" rule ${pch_base})
-      file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${pch_base} "#error this file has not been precompiled, make the ${rule}.pch target")
+      file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${pch_base} "#include <${name}>\n")
       add_custom_command(OUTPUT ${pch_base}.gch
                          COMMAND ${CMAKE_CXX_COMPILER} ${FLAGS} ${INCLUDES} -x c++-header -c ${file} -o ${pch_base}.gch
                          IMPLICIT_DEPENDS CXX ${file}
