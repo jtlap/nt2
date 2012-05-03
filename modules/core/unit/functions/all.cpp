@@ -13,6 +13,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/is_true.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/sb2b.hpp>
@@ -43,34 +44,50 @@ NT2_TEST_CASE_TPL( all_expr, NT2_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
-  disp("y", y); 
+  y(2, 2) = 0;
+  
+  disp("y", y);
+  
   sy = nt2::all(y);
+  disp("sy", sy); 
   for(int j=1;j<=3;j++)
     {
       nt2::logical<T> z = nt2::True<T>();  
       for(int i=1;i<=5;i++) z= nt2::logical_and(z, y(i, j)); 
-      //NT2_TEST_EQUAL(bool(z), bool(sy(j)));
-      //NT2_TEST(nt2::sb2b(z) == nt2::sb2b(sy(j))); 
+      NT2_TEST_EQUAL(z, sy(j));
     }
-        
- //  disp("sy", sy);
-//   sy = nt2::all(y, 1);
-//   for(int j=1;j<=3;j++)
-//     for(int i=1;i<=5;i++)
-//       NT2_TEST_LESSER_EQUAL(y(i, j), sy(j)); 
-//   disp("sy", sy);
-//   sy = nt2::all(y, 2);
-//   for(int j=1;j<=3;j++)
-//     for(int i=1;i<=5;i++)
-//       NT2_TEST_LESSER_EQUAL(y(i, j), sy(i)); 
-//   disp("sy", sy);
-//   sy = nt2::all(y, 3);
-//   for(int j=1;j<=3;j++)
-//     for(int i=1;i<=5;i++)
-//       NT2_TEST_LESSER_EQUAL(y(i, j), sy(i, j)); 
-//   disp("sy", sy);
+  sy = nt2::all(y, 1);
+  disp("sy", sy); 
+  for(int j=1;j<=3;j++)
+    {
+      nt2::logical<T> z = nt2::True<T>();  
+      for(int i=1;i<=5;i++) z= nt2::logical_and(z, y(i, j)); 
+      NT2_TEST_EQUAL(z, sy(j));
+    }
+
+  sy = nt2::all(y, 2);
+  disp("sy", sy); 
+  for(int j=1;j<=5;j++)
+    {
+      nt2::logical<T> z = nt2::True<T>();  
+      for(int i=1;i<=3;i++) z= nt2::logical_and(z, y(j, i)); 
+      NT2_TEST_EQUAL(z, sy(j));
+    }
+
+  sy = nt2::all(y, 3);
+  disp("sy", sy); 
+  for(int j=1;j<=3;j++)
+    {
+      nt2::logical<T> z; 
+      for(int i=1;i<=5;i++)
+        {
+          z= nt2::is_nez(y(i, j)); 
+          NT2_TEST_EQUAL(z, sy(i, j));
+        }
+    }
 //   sy = nt2::all(y(_));
-//   disp(sy); 
-//   NT2_TEST_EQUAL(sy(1), True<T>()); 
+//   disp("sy", sy); 
+//   NT2_TEST_EQUAL(nt2::False<T>(), sy(1));
+  
 }
 
