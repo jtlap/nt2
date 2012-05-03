@@ -11,7 +11,40 @@
 
 #include <boost/simd/toolbox/reduction/functions/none.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+
+namespace nt2 { namespace ext
+{
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::none_, tag::cpu_
+                            , (A0)(T)(N)
+                            , ((expr_< generic_<arithmetic_<A0> >,T,N >))
+                            )
+  {
+    typedef typename meta::call< nt2::tag::is_nez_(A0 const&)>::type base_t;
+    typedef typename meta::call< nt2::tag::none_(base_t)>::type      result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    {
+      return nt2::none( nt2::is_nez(a0) );
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::none_, tag::cpu_
+                            , (A0)(T)(N)(A1)
+                            , ((expr_< generic_<arithmetic_<A0> >,T,N >))
+                              (scalar_< integer_<A1> >)
+                            )
+  {
+    typedef typename meta::call< nt2::tag::is_nez_(A0 const&)>::type base_t;
+    typedef typename meta::call< nt2::tag::none_(base_t,A1)>::type    result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    {
+      return nt2::none( nt2::is_nez(a0), a1 );
+    }
+  };
+} }
 
 namespace nt2 { namespace container { namespace ext
 {
