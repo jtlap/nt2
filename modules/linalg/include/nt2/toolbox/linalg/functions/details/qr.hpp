@@ -144,7 +144,7 @@ namespace nt2 {
       
       result_type q ()
       {
-        if(is_empty(q_))
+        if(isempty(q_))
           {
             nt2_la_int nn = nop_ ? k_ : m_; 
             q_ = nt2::expand(aa_, nn, nn);
@@ -158,7 +158,7 @@ namespace nt2 {
       }
       result_type p()
       {
-        if(is_empty(p_))
+        if(isempty(p_))
           {
             if (nop_)
               {

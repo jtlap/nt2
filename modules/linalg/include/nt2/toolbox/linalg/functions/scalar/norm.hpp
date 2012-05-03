@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
           std::cout << "icitte" << std::endl; 
           nt2_la_int m = height(a0), n = width(a0);
           nt2_la_int lda0 = a0.leading_size(); 
-          if (is_empty(a0)){
+          if (isempty(a0)){
             return Zero<result_type>();
           } else if (a1 == 'I'|| a1 == 'i'|| a1 == Inf<A1>()){ 
             const char c = 'I';
@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
       else if (is_matrix(a0))
         {
           std::cout << "latte" << std::endl; 
-          if (is_empty(a0)){
+          if (isempty(a0)){
             return Zero<result_type>();
           } else if (a1 == 'I'|| a1 == 'i'|| a1 == Inf<A1>()){ 
             btab_t r =  nt2::max(nt2::asum1(a0, 2));
