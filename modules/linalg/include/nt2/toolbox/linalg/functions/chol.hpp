@@ -50,7 +50,6 @@ namespace nt2
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::chol_, chol, 4)
 
   namespace factorization
   {
