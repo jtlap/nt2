@@ -9,10 +9,8 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_FACTORIZATIONS_LU_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_FACTORIZATIONS_LU_HPP_INCLUDED
 
-#include <nt2/options.hpp>
 #include <nt2/toolbox/linalg/functions/lu.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/issquare.hpp>
 #include <nt2/toolbox/linalg/functions/details/lu.hpp>
 
 namespace nt2 { namespace ext
@@ -42,8 +40,7 @@ namespace nt2 { namespace ext
   {
     typedef details::lu_result<A0&>       result_type;
 
-    BOOST_FORCEINLINE result_type
-    operator()(A0& a0, IP const&) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0, IP const&) const
     {
       result_type that(a0);
       return that;
