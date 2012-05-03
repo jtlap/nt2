@@ -34,10 +34,15 @@ namespace nt2
     {
       typedef typename Xpr::value_type          value_type;
       typedef typename Xpr::index_type::type    index_type;
-      typedef typename boost::mpl::if_c < sizeof(value_type) == 1
-                                        , int
-                                        , value_type
-                                        >::type     display_t;
+
+      // Display int and not char
+      typedef typename boost::mpl::
+              if_c<(    boost::is_same<value_type,int8_t>::value
+                    ||  boost::is_same<value_type,uint8_t>::value
+                    )
+                  , int
+                  , value_type
+                  >::type                       display_t;
 
       // Base index for making the linear index properly C based
       const std::ptrdiff_t b = boost::mpl::at_c<index_type,0>::type::value;
