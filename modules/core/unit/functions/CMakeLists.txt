@@ -81,6 +81,7 @@ SET( SOURCES
   isfloating.cpp
   dot.cpp
   diag_of.cpp
+  from_diag.cpp
 # List of test files for toolbox core.settings
    )
 set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
