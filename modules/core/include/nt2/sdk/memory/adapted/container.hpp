@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
   // value_of specialization
   //============================================================================
   template<class T, class S>
-  struct value_of< nt2::memory::container<T,S> > : value_of<T> {};
+  struct value_of< nt2::memory::container<T,S> > { typedef T type; };
 
   //============================================================================
   // model_of specialization
