@@ -17,63 +17,70 @@
 
 namespace nt2 { namespace ext
 {
+
   //============================================================================
-  // This version of lu is called whenever a tie(l,u,p) = lu(...) is captured
-  // before assign is resolved
+  // Capture a tie(l, u, p) = lu(...) at assign time and resolve to optimized call
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lu_, tag::cpu_
-                              , (A0)(A1)(A2)(A3)
-                              , (ast_<A0>)
-                              (ast_<A1>)
-                              (ast_<A2>)
-                              (ast_<A3>) 
-                            )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+                              , (A0)(N0)(A1)(N1)
+                              , ((node_<A0, nt2::tag::lu_, N0>))
+                              ((node_<A1, nt2::tag::tie_ , N1>))
+                              )
   {
-    typedef void                                            result_type;
+    typedef void                                                    result_type;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type  child0;
+    typedef typename meta::strip<child0>::type                      dest_t;
     typedef typename meta::
-            call< nt2::tag::factorization::
-                  lu_(A2&,nt2::details::in_place_)
-                >::type                                     tmp_t;
+            call< nt2::tag::
+                  factorization::lu_(dest_t&,nt2::details::in_place_)
+                >::type                                             fact_t;
 
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, A1& a1, A2& a2, A3& a3) const
+    BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      // Copy data in a2 first to factorize in place later
-      a1 = a0;
-      tmp_t tmp = factorization::lu(a1,in_place_);
+      // Copy data in output first
+      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
 
-      // Retrieve correct version with minimum amount of (re)allocation
-      // TODO : Doing better ?
-      a1 = tmp.l();
-      a2 = tmp.u();
-      a3 = tmp.p();
+      // Factorize in place
+      fact_t f = factorization::lu(boost::proto::child_c<0>(a1),in_place_);
+
+      decomp(f, a1, N1()); 
     }
+   private:
+    //==========================================================================
+    // INTERNAL ONLY
+    // Extract a 'N' or a 'P' 
+    //==========================================================================
+    BOOST_FORCEINLINE char choice(A0 const&, boost::mpl::long_<1> const&) const
+    {
+      return 'N';
+    }
+
+    BOOST_FORCEINLINE char choice(A0 const& in, boost::mpl::long_<2> const&) const
+    {
+      return boost::proto::value(boost::proto::child_c<1>(in));
+    }
+
+    //==========================================================================
+    // INTERNAL ONLY
+    // fill the args out
+    //==========================================================================
+    BOOST_FORCEINLINE void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<1> const&) const
+    {
+       boost::proto::child_c<0>(a1) = f.values(); 
+    }
+    BOOST_FORCEINLINE void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
+    {
+      boost::proto::child_c<0>(a1) = f.l(); 
+      boost::proto::child_c<1>(a1) = f.u(); 
+    }
+    BOOST_FORCEINLINE void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<3> const&) const
+    {
+      boost::proto::child_c<0>(a1) = f.l(); 
+      boost::proto::child_c<1>(a1) = f.u(); 
+      boost::proto::child_c<2>(a1) = f.p(); 
+    }
+    
   };
-
-//   //============================================================================
-//   // Capture a tie(l, u, p) = lu(...) at assign time and resolve to optimized call
-//   //============================================================================
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
-//                             , (A0)(A1)
-//                             , ((node_<A0,nt2::tag::tie_,boost::mpl::long_<3>  >))
-//                               ((node_<A1,nt2::tag::lu_ >))
-//                             )
-//   {
-//     typedef A0& result_type;
-
-//     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
-//     {
-//       int ignore_this;
-
-//       // Pass original x, potential option, destination container and status
-//       nt2::lu ( boost::proto::child_c<0>(a1)
-//                 , boost::proto::child_c<0>(a0)
-//                 , ignore_this
-//                 );
-
-//       return a0;
-//     }
-//   };
 
 } }
 

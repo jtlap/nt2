@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL(qr_factorization, NT2_REAL_TYPES)
 
   typedef typename nt2::meta::call<qr_(t_t const&, char)>::type result_type;
 
-  result_type res = nt2::factorization::qr(b);
+  result_type res = nt2::factorization::qr(b, 'N');
 
    NT2_DISP(res.p());
    NT2_DISP(res.q());

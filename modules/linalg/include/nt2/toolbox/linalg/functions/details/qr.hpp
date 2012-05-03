@@ -88,7 +88,7 @@ namespace nt2 {
       typedef nt2::table<type_t,index_t>                   result_type;
       
       template<class Input>
-      qr_result ( Input& xpr, const char & nop = 'P')
+      qr_result ( Input& xpr, const char & nop)
         : a_(xpr)
         , aa_(xpr)
         , m_(nt2::height(xpr))
