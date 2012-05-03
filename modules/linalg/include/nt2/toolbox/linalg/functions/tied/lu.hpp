@@ -13,19 +13,17 @@
 #include <nt2/toolbox/linalg/functions/factorizations/lu.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/options.hpp>
 
 namespace nt2 { namespace ext
 {
-
   //============================================================================
   // Capture a tie(l, u, p) = lu(...) at assign time and resolve to optimized call
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::lu_, N0>))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::lu_, tag::cpu_
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::lu_, N0>))
                               ((node_<A1, nt2::tag::tie_ , N1>))
-                              )
+                            )
   {
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type  child0;
@@ -43,12 +41,13 @@ namespace nt2 { namespace ext
       // Factorize in place
       fact_t f = factorization::lu(boost::proto::child_c<0>(a1),in_place_);
 
-      decomp(f, a1, N1()); 
+      decomp(f, a1, N1());
     }
-   private:
+
+    private:
     //==========================================================================
     // INTERNAL ONLY
-    // Extract a 'N' or a 'P' 
+    // Extract a 'N' or a 'P'
     //==========================================================================
     BOOST_FORCEINLINE char choice(A0 const&, boost::mpl::long_<1> const&) const
     {
@@ -64,24 +63,27 @@ namespace nt2 { namespace ext
     // INTERNAL ONLY
     // fill the args out
     //==========================================================================
-    BOOST_FORCEINLINE void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<1> const&) const
+    BOOST_FORCEINLINE
+    void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<1> const&) const
     {
-       boost::proto::child_c<0>(a1) = f.values(); 
+       boost::proto::child_c<0>(a1) = f.values();
     }
-    BOOST_FORCEINLINE void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
-    {
-      boost::proto::child_c<0>(a1) = f.l(); 
-      boost::proto::child_c<1>(a1) = f.u(); 
-    }
-    BOOST_FORCEINLINE void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<3> const&) const
-    {
-      boost::proto::child_c<0>(a1) = f.l(); 
-      boost::proto::child_c<1>(a1) = f.u(); 
-      boost::proto::child_c<2>(a1) = f.p(); 
-    }
-    
-  };
 
+    BOOST_FORCEINLINE
+    void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
+    {
+      boost::proto::child_c<0>(a1) = f.l();
+      boost::proto::child_c<1>(a1) = f.u();
+    }
+
+    BOOST_FORCEINLINE
+    void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<3> const&) const
+    {
+      boost::proto::child_c<0>(a1) = f.l();
+      boost::proto::child_c<1>(a1) = f.u();
+      boost::proto::child_c<2>(a1) = f.p();
+    }
+  };
 } }
 
 #endif
