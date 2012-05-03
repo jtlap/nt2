@@ -10,10 +10,10 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_TIED_LU_HPP_INCLUDED
 
 #include <nt2/toolbox/linalg/functions/lu.hpp>
-#include <nt2/options.hpp>
-#include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/assign.hpp>
 #include <nt2/toolbox/linalg/functions/factorizations/lu.hpp>
+#include <nt2/include/functions/assign.hpp>
+#include <nt2/include/functions/tie.hpp>
+#include <nt2/options.hpp>
 
 namespace nt2 { namespace ext
 {

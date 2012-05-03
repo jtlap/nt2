@@ -9,6 +9,7 @@
 
 SET( SOURCES
      chol.cpp
+     lu.cpp
      lu_result.cpp
      svd_result.cpp 
      qr_result.cpp
