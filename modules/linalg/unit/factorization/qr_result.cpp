@@ -31,12 +31,12 @@ NT2_TEST_CASE_TPL(qr_result, NT2_REAL_TYPES)
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
   //  b(_, 1) = b(_, 3); 
-  nt2::details::qr_result<t_t> f(b, nt2::no_p());
+  nt2::details::qr_result<t_t> f(b, 'N');
 
   nt2::disp("b     ", b); 
   nt2::disp("values", f.values());
   t_t p  = f.p();
-  nt2::disp("p    ", p);
+  nt2::disp("p    ", p); 
   t_t q = f.q();
   nt2::disp("q    ", q);
   t_t r  = f.r(); 

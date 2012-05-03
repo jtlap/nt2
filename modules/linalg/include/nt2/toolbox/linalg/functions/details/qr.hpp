@@ -55,7 +55,7 @@
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
-//#include <nt2/include/functions/diag_of.hpp>
+#include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/isempty.hpp>
@@ -113,6 +113,12 @@ namespace nt2 {
                                 tau_.raw(), &info_, wrk_);
           }
       }
+
+      qr_result(qr_result const& src)
+      : a_(src.a_),aa_(src.aa_),m_(src.m_),n_(src.n_),
+        k_(src.k_),lda_(src.lda_),q_(src.q_),jpvt_(src.jpvt_),
+        tau_(src.tau_),info_(src.info_),p_(src.p_),
+        nop_(src.nop_){}
       
       qr_result& operator=(qr_result const& src)
       {
@@ -130,13 +136,13 @@ namespace nt2 {
         nop_    =  src.nop_; 
         return *this;
       }
-      result_type values() const { return aa_; }
+      data_t values() const { return aa_; }
       
       result_type q ()
       {
         if(isempty(q_))
           {
-            nt2_la_int nn = nop_ ? k_ : m_; 
+            nt2_la_int nn = (nop_ == 'N')? k_ : m_; 
             q_ = nt2::expand(aa_, nn, nn);
             nt2::details::gqr(&m_, &nn, &k_, q_.raw(), &lda_, tau_.raw(), &info_);
           }
@@ -189,8 +195,9 @@ namespace nt2 {
         //nt2::sum(nt2::abs(nt2::diag_of(aa_())) > nt2::max(n, m)*epsi*nt2::max(nt2::abs(aa_)));
       }
       base_t absdet()const{
-        BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation"); 
-        return nt2::prod(nt2::abs(diag_of(aa_)))(1);
+        BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
+        btab_t r = nt2::prod(nt2::abs(diag_of(aa_)));
+        return r(1); 
       }
       
       //==========================================================================

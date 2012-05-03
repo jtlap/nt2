@@ -30,30 +30,19 @@ NT2_TEST_CASE_TPL(lu_factorization, NT2_REAL_TYPES)
 
   typedef typename nt2::meta::call<lu_(t_t const&)>::type result_type;
   result_type res = nt2::factorization::lu(b);
-
+  NT2_DISP(b); 
   NT2_DISP(res.p());
   NT2_DISP(res.l());
   NT2_DISP(res.u());
   NT2_TEST_EQUAL(res.status(), 0u);
- //   nt2::disp("b     ", b); 
-//    nt2::disp("values", f.values());
-//    t_t p = f.p();
-//    t_t l = f.l();
-//    t_t u = f.u();
-//    t_t pl= f.pl();
-//    it_t ip= f.ip();
-//    nt2::disp("p    ", p);
-//    nt2::disp("l    ", l);
-//   nt2::disp("u    ", u);
-//   nt2::disp("pl   ", pl);
-//   nt2::disp("ip   ", ip); 
-//   itype_t e; 
-//   T m =  f.absdet(e); 
-//   std::cout << "asbdet order " << e << std::endl;
-//   std::cout << "asbdet mant  " << m << std::endl;
-//   std::cout << "asbdet       " << nt2::ldexp(m, e) << std::endl;
-//   std::cout << "asbdet       " << f.absdet()<< std::endl;
-//   std::cout << "rank         " << f.rank()  << std::endl;
-//   std::cout << "signdet      " << f.signdet()<< std::endl;
-//   std::cout << "det          " << f.det()<< std::endl;
+
+  itype_t e; 
+  T m =  res.absdet(e); 
+  std::cout << "asbdet order " << e << std::endl;
+  std::cout << "asbdet mant  " << m << std::endl;
+  std::cout << "asbdet       " << nt2::ldexp(m, e) << std::endl;
+  std::cout << "asbdet       " << res.absdet()<< std::endl;
+  std::cout << "rank         " << res.rank()  << std::endl;
+  std::cout << "signdet      " << res.signdet()<< std::endl;
+  std::cout << "det          " << res.det()<< std::endl;
  }

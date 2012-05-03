@@ -76,51 +76,48 @@ namespace nt2
 
 namespace nt2 { namespace container { namespace ext
 {
-//   template<class Domain, int N, class Expr>
-//   struct  size_of<tag::qr_,Domain,N,Expr>
-//         ////: reduction_size_of<tag::sum_, 1, Expr>{};
-//   {
-//     // The size is contained in the first child
-//     typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-//     typedef typename meta::strip<seq_term>::type::extent_type        result_type;
+  template<class Domain, int N, class Expr>
+  struct  size_of<tag::qr_,Domain,N,Expr>
+  {
+    // The size is contained in the first child
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
 
-//     BOOST_FORCEINLINE result_type operator()(Expr& e) const
-//     {
-//       return boost::proto::child_c<0>(e).extent();
-//     }
-//   };
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return boost::proto::child_c<0>(e).extent();
+    }
+  };
 
-//   template<class Domain, class Expr>
-//   struct  size_of<tag::qr_,Domain,1,Expr>
-//         ////: reduction_size_of<tag::sum_, 1, Expr>{};
-//   {
-//     // The size is contained in the first child
-//     typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-//     typedef typename meta::strip<seq_term>::type::extent_type        result_type;
+  template<class Domain, class Expr>
+  struct  size_of<tag::qr_,Domain,1,Expr>
+  {
+    // The size is contained in the first child
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
 
-//     BOOST_FORCEINLINE result_type operator()(Expr& e) const
-//     {
-//       return boost::proto::child_c<0>(e).extent();
-//     }
-//   };
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return boost::proto::child_c<0>(e).extent();
+    }
+  };
 
-//   template<class Domain, int N, class Expr>
-//   struct  generator<tag::qr_,Domain,N,Expr>
-//         ////: reduction_generator<tag::qr_,N,Expr> {};
-//   {
-//     typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-//     typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
+  template<class Domain, int N, class Expr>
+  struct  generator<tag::qr_,Domain,N,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
 
-//     // Rebuidl proper expression type with semantic
-//     typedef expression< typename boost::remove_const<Expr>::type
-//                       , sema_t
-//                       >                                     result_type;
+    // Rebuild proper expression type with semantic
+    typedef expression< typename boost::remove_const<Expr>::type
+                      , sema_t
+                      >                                     result_type;
 
-//     BOOST_FORCEINLINE result_type operator()(Expr& e) const
-//     {
-//       return result_type(e);
-//     }
-//   };
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
 } } }
 
 #endif
