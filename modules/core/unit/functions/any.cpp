@@ -13,6 +13,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/constants/true.hpp>
+#include <nt2/include/functions/zeros.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -41,8 +42,8 @@ NT2_TEST_CASE_TPL( any_expr, NT2_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
-  y(2, _) = T(0);
-  y(_, 2) = T(0);
+  y(2, _) = nt2::zeros(1, 3, nt2::meta::as_<T>());
+  y(_, 2) = nt2::zeros(5, 1, nt2::meta::as_<T>());
   
   disp("y", y);
   
