@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      std::size_t offset = boost::proto::child_c<1>(a0).value();
+      std::size_t offset = boost::proto::child_c<1>(a0);
       return nt2::run ( boost::proto::child_c<0>(a0)
                       , nt2::arith<id_t>(p*offset,offset)
                       , t

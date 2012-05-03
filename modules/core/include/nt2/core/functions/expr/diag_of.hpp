@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::diag_of_
                                           , container::domain
                                           , A0 const&
-                                          , box<std::size_t>
+                                          , std::size_t
                                           , box<_2D>
                                           >::type             result_type;
 
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
       return boost::proto::make_expr< nt2::tag::diag_of_
                                     , container::domain
                                     > ( boost::cref(a0)
-                                      , boxify(offset)
+                                      , offset
                                       , boxify(_2D(h,1))
                                       );
     }
