@@ -11,6 +11,7 @@
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/toolbox/linalg/functions/details/qr.hpp>
 
 namespace nt2
@@ -25,9 +26,9 @@ namespace nt2
       };
     }
 
-    struct qr_ : ext::unspecified_<qr_>
+    struct qr_ :  ext::tieable_<qr_>
     {
-      typedef ext::unspecified_<qr_>  parent;
+      typedef ext::tieable_<qr_>  parent;
     };
   }
 
@@ -48,13 +49,6 @@ namespace nt2
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::qr_, qr, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::qr_, qr, 2)
-
-  // Those variant are used for the tied(x...) = qr(..) syntax
-  NT2_FUNCTION_IMPLEMENTATION_TPL ( tag::qr_
-                                  , qr
-                                  , (A0 const&)(A1 const&)(A2&)(A3&)(A4&)
-                                  , 5
-                                  )
 
   namespace factorization
   {
