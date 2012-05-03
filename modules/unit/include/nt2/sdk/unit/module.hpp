@@ -27,6 +27,7 @@
 #include <stdexcept>
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 
 #if !defined(DOXYGEN_ONLY)
 
@@ -42,8 +43,14 @@
 // INTERNAL ONLY
 // Embedded main for testing purpose
 #ifndef BOOST_NO_EXCEPTIONS
-NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
+NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
+  if(argc > 1 && !strcmp(argv[1], "--no-catch"))
+  {
+    nt2::details::main_suite.process();
+    return nt2::details::error_count() ? -1: 0;
+  }
+
   try
   {
     nt2::details::main_suite.process();
