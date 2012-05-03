@@ -69,8 +69,8 @@ namespace nt2
      * @return A unspecified type containing the precomputed elements of the
      * qr factorization.
      **/
-    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::qr_, qr, 1)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::qr_, qr, 2)
+    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::qr_, qr, 2)
+    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::qr_, qr, 3)
   }
 }
 

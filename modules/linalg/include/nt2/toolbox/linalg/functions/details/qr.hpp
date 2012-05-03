@@ -88,7 +88,7 @@ namespace nt2 {
       typedef nt2::table<type_t,index_t>                   result_type;
       
       template<class Input>
-      qr_result ( Input& xpr)
+      qr_result ( Input& xpr, const char & nop = 'P')
         : a_(xpr)
         , aa_(xpr)
         , m_(nt2::height(xpr))
@@ -100,28 +100,18 @@ namespace nt2 {
         , tau_(nt2::of_size(k_,1)) 
         , info_(0)
         , p_(of_size(0, 1))
-        , nop_(false)
+        , nop_(nop)
       {
-        nt2::details::geqp3(&m_, &n_, aa_.raw(), &lda_,
-                            jpvt_.raw(), tau_.raw(), &info_);
-      }
-      
-      template<class Input>
-      qr_result ( Input& xpr, const no_p&)
-        : a_(xpr)
-        , aa_(xpr)
-        , m_(nt2::height(xpr))
-        , n_(nt2::width(xpr))
-        , k_(nt2::min(m_, n_))
-        , lda_(a_.leading_size())
-        , q_(of_size(0, 1))
-        , jpvt_(nt2::of_size(0,1)) 
-        , tau_(nt2::of_size(k_,1)) 
-        , info_(0)
-        , p_(of_size(0, 1))
-        , nop_(true)
-      {
-        nt2::details::geqrf(&m_, &n_, aa_.raw(), &lda_, tau_.raw(), &info_, wrk_);
+        if (nop_ != 'N')
+          {
+            nt2::details::geqp3(&m_, &n_, aa_.raw(), &lda_,
+                                jpvt_.raw(), tau_.raw(), &info_);
+          }
+        else
+          {
+            nt2::details::geqrf(&m_, &n_, aa_.raw(), &lda_,
+                                tau_.raw(), &info_, wrk_);
+          }
       }
       
       qr_result& operator=(qr_result const& src)
@@ -135,9 +125,9 @@ namespace nt2 {
         jpvt_   = src.jpvt_; 
         tau_    = src.tau_;  
         info_   = src.info_;
-        p_ = src.p_;
-        q_ = src.q_;
-        nop_ =  src.nop_; 
+        p_      = src.p_;
+        q_      = src.q_;
+        nop_    =  src.nop_; 
         return *this;
       }
       result_type values() const { return aa_; }
@@ -160,7 +150,7 @@ namespace nt2 {
       {
         if(isempty(p_))
           {
-            if (nop_)
+            if (nop_ == 'N')
               {
                 p_ = nt2::eye(n_, n_, meta::as_<type_t>());
                 return p_; 
@@ -260,7 +250,7 @@ namespace nt2 {
       tab_t                tau_; 
       nt2_la_int          info_;
       tab_t                  p_;
-      bool                 nop_;
+      char                 nop_;
       mutable workspace_t  wrk_;
 
     };
