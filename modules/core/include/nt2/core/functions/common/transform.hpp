@@ -20,37 +20,9 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
-                            , (A0)(A1)(T1)(N1)
+                            , (A0)(A1)
                             , (ast_<A0>)
-                              ((expr_< scalar_< unspecified_<A1> >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
-                            )
-  {
-    typedef void result_type;
-
-    typedef typename meta::
-            strip< typename meta::
-                   scalar_of<A0>::type
-                 >::type                                    stype;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1& a1) const
-    {
-      nt2::run(a0, 0u, nt2::run(a1, 0u, meta::as_<stype>()));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
-                            , (A0)(A1)(S1)(T1)(N1)
-                            , (ast_<A0>)
-                              ((expr_< table_< unspecified_<A1>, S1 >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
+                              (ast_<A1>)
                             )
   {
     typedef void result_type;

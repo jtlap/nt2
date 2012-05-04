@@ -23,13 +23,9 @@ namespace nt2 { namespace ext
 {
   // nD element-wise operation
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, boost::simd::tag::simd_
-                            , (A0)(A1)(S1)(T1)(N1)
+                            , (A0)(A1)
                             , (ast_<A0>)
-                              ((expr_< table_< unspecified_<A1>, S1 >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
+                              (ast_<A1>)
                             )
   {
     typedef void                                             result_type;

@@ -33,13 +33,9 @@ namespace nt2 { namespace ext
   // nD element-wise operation
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, nt2::tag::openmp_<Site>
-                            , (A0)(A1)(S1)(T1)(N1)(Site)
+                            , (A0)(A1)(Site)
                             , (ast_<A0>)
-                              ((expr_< table_< unspecified_<A1>, S1 >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
+                              (ast_<A1>)
                             )
   {
     typedef void                                            result_type;
@@ -176,13 +172,9 @@ namespace nt2 { namespace ext
   // Element-wise operation
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, nt2::tag::openmp_<Site>
-                            , (A0)(A1)(S1)(T1)(N1)(Site)
+                            , (A0)(A1)(Site)
                             , (ast_<A0>)
-                              ((expr_< table_< unspecified_<A1>, S1 >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
+                              (ast_<A1>)
                             )
   {
     typedef void                                            result_type;

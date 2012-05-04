@@ -18,7 +18,10 @@
 
 namespace nt2
 {
-  namespace tag { struct transform_ : ext::unspecified_<transform_> { typedef ext::unspecified_<transform_> parent; }; }
+  namespace tag
+  {
+    struct transform_ : tag::formal_ { typedef tag::formal_ parent; };
+  }
 
   //============================================================================
   /*!
