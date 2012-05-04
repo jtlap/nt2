@@ -8,12 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOGSPACE_ADD_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOGSPACE_ADD_HPP_INCLUDED
-#include <nt2/include/functions/logspace_add.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/log1p.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/scalar/logspace_add.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
+#include <nt2/include/functions/scalar/log1p.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
 
 namespace nt2 { namespace ext
 {

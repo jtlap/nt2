@@ -11,13 +11,13 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/invtrig.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
+#include <nt2/include/functions/scalar/sign.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/is_greater.hpp>
+#include <nt2/include/functions/scalar/is_nez.hpp>
+#include <nt2/include/functions/scalar/seladd.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

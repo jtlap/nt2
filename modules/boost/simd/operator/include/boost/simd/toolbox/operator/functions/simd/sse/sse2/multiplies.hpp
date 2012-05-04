@@ -13,7 +13,7 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 
-#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_NEGIF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_NEGIF_HPP_INCLUDED
 #include <boost/simd/sdk/meta/size.hpp>
-#include <boost/simd/include/functions/unary_minus.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 
 namespace boost { namespace simd { namespace ext

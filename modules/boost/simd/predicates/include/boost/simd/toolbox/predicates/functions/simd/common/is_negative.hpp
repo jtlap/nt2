@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NEGATIVE_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/bitofsign.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/bitofsign.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/false.hpp>

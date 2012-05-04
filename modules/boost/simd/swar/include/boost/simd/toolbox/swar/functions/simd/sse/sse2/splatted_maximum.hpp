@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLATTED_MAXIMUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLATTED_MAXIMUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/maximum.hpp>
+#include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/include/functions/simd/maximum.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

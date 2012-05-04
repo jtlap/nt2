@@ -10,9 +10,9 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_FUNCTION_HPP_INCLUDED
 
 #include <nt2/core/functions/function.hpp>
-#include <nt2/include/functions/sub2ind.hpp>
-#include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/schedule.hpp>
+#include <nt2/include/functions/scalar/sub2ind.hpp>
+#include <nt2/include/functions/scalar/run.hpp>
+#include <nt2/include/functions/scalar/schedule.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <nt2/sdk/parameters.hpp>

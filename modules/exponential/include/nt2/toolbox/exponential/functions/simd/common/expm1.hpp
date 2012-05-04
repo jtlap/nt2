@@ -14,21 +14,21 @@
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/round2even.hpp>
-#include <nt2/include/functions/fast_toint.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/fast_ldexp.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/logical_not.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/fast_toint.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/fast_ldexp.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_not.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

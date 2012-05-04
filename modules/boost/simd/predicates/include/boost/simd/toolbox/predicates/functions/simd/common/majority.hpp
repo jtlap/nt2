@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_MAJORITY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_MAJORITY_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/logical_and.hpp>
-#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

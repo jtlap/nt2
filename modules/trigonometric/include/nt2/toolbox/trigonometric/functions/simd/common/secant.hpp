@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SECANT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SECANT_HPP_INCLUDED
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/functions/cosine.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/cosine.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

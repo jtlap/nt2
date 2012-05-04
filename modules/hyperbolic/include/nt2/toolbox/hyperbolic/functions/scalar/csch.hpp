@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_CSCH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_CSCH_HPP_INCLUDED
 
-#include <nt2/include/functions/sinh.hpp>
+#include <nt2/include/functions/scalar/sinh.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

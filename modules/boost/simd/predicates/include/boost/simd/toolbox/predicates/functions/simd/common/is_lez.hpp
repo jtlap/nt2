@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_LEZ_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_lez.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/is_less_equal.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/is_less_equal.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext

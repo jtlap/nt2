@@ -11,8 +11,8 @@
 #ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
 
 #include <boost/simd/toolbox/predicates/functions/is_gez.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/logical_not.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 

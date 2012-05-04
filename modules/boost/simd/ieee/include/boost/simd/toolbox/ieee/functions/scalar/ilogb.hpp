@@ -11,8 +11,8 @@
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
+#include <boost/simd/include/functions/scalar/is_gtz.hpp>
+#include <boost/simd/include/functions/scalar/exponent.hpp>
 #include <boost/simd/toolbox/ieee/details/math.hpp>
 
 namespace boost { namespace simd { namespace ext

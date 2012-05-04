@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SPLIT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/swar/functions/group.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/simd/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>

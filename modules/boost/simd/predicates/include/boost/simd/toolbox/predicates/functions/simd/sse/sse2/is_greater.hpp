@@ -13,10 +13,10 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/logical_or.hpp>
-#include <boost/simd/include/functions/logical_and.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

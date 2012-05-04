@@ -13,7 +13,7 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_

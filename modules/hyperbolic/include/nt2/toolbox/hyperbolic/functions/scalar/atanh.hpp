@@ -11,12 +11,12 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/log1p.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/scalar/log1p.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sign.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

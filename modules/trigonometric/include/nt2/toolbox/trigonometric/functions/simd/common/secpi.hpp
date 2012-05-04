@@ -12,10 +12,10 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/cospi.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/cospi.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

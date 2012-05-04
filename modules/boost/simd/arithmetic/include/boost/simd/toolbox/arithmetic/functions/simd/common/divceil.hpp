@@ -10,13 +10,13 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVCEIL_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/divceil.hpp>
-#include <boost/simd/include/functions/group.hpp>
-#include <boost/simd/include/functions/split.hpp>
-#include <boost/simd/include/functions/iceil.hpp>
+#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/iceil.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/rdivide.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/rdivide.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

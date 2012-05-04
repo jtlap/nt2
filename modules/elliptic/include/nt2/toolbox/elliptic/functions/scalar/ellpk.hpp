@@ -12,8 +12,8 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

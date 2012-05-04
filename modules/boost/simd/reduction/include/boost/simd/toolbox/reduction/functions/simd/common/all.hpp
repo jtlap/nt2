@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_ALL_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/all.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/include/functions/hmsb.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/include/functions/simd/hmsb.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

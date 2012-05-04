@@ -8,11 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_DEFINITELY_GREATER_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_DEFINITELY_GREATER_HPP_INCLUDED
-#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/is_ord.hpp>
-#include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/simd/is_ord.hpp>
+#include <nt2/include/functions/simd/successor.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

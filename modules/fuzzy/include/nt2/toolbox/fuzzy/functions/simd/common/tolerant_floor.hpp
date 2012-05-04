@@ -12,14 +12,14 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/functions/floor.hpp>
-#include <nt2/include/functions/min.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
+#include <nt2/include/functions/simd/floor.hpp>
+#include <nt2/include/functions/simd/min.hpp>
+#include <nt2/include/functions/simd/max.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_less_equal.hpp>
 
 namespace nt2 { namespace ext
 {

@@ -11,10 +11,10 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/frexp.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/minusone.hpp>
-#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/scalar/frexp.hpp>
+#include <boost/simd/include/functions/scalar/tofloat.hpp>
+#include <boost/simd/include/functions/scalar/minusone.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

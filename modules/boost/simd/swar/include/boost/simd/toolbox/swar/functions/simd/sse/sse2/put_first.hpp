@@ -12,8 +12,8 @@
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/shli.hpp>
-#include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/simd/shli.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double

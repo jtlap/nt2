@@ -13,7 +13,7 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 
 

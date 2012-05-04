@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_BITOFSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_BITOFSIGN_HPP_INCLUDED
 #include <boost/simd/toolbox/ieee/functions/bitofsign.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/constants/mzero.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
 

@@ -10,9 +10,9 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_FREQSPACE2_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/floor.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/floor.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/half.hpp>
@@ -20,8 +20,8 @@
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/freqspace2.hpp>
 #include <nt2/core/functions/details/colon.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/scalar/splat.hpp>
+#include <nt2/include/functions/scalar/enumerate.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 

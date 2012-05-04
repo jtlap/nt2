@@ -11,10 +11,10 @@
 
 #include <nt2/core/functions/ind2sub.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/modulo.hpp>
-#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/scalar/plus.hpp>
+#include <nt2/include/functions/scalar/splat.hpp>
+#include <nt2/include/functions/scalar/modulo.hpp>
+#include <nt2/include/functions/scalar/divides.hpp>
 #include <boost/dispatch/meta/as_signed.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/fusion/include/size.hpp>

@@ -10,9 +10,9 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/rem_pio2.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/include/functions/ldexp.hpp>
-#include <nt2/include/functions/floor.hpp>
+#include <nt2/include/functions/scalar/bitwise_cast.hpp>
+#include <nt2/include/functions/scalar/ldexp.hpp>
+#include <nt2/include/functions/scalar/floor.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/zero.hpp>

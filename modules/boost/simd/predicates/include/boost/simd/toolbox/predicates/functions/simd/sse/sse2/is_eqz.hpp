@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_EQZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/predicates/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -12,11 +12,11 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/functions/floor.hpp>
-#include <nt2/include/functions/min.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/negif.hpp>
+#include <nt2/include/functions/scalar/floor.hpp>
+#include <nt2/include/functions/scalar/min.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/negif.hpp>
 
 namespace nt2 { namespace ext
 {

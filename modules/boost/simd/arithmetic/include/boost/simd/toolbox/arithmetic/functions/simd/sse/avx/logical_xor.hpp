@@ -11,8 +11,8 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/toolbox/arithmetic/functions/logical_xor.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/bitwise_xor.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

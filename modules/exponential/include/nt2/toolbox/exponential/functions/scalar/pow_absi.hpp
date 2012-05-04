@@ -9,19 +9,19 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_POW_ABSI_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_POW_ABSI_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/signnz.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/shri.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_gtz.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/copysign.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/signnz.hpp>
+#include <nt2/include/functions/scalar/is_odd.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/shri.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_gtz.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/copysign.hpp>
 #include <nt2/include/constants/real.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

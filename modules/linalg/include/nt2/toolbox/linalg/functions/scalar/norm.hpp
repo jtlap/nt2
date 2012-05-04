@@ -8,16 +8,16 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_NORM_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_NORM_HPP_INCLUDED
-#include <nt2/include/functions/norm.hpp>
-#include <nt2/include/functions/isvector.hpp>
-#include <nt2/include/functions/ismatrix.hpp>
-#include <nt2/include/functions/vecnorm.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/is_finite.hpp>
-#include <nt2/include/functions/is_gtz.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/sum.hpp>
-#include <nt2/include/functions/svd.hpp>
+#include <nt2/include/functions/scalar/norm.hpp>
+#include <nt2/include/functions/scalar/isvector.hpp>
+#include <nt2/include/functions/scalar/ismatrix.hpp>
+#include <nt2/include/functions/scalar/vecnorm.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/is_finite.hpp>
+#include <nt2/include/functions/scalar/is_gtz.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
+#include <nt2/include/functions/scalar/sum.hpp>
+#include <nt2/include/functions/scalar/svd.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/toolbox/linalg/details/lapack/lange.hpp>
 #include <nt2/table.hpp>

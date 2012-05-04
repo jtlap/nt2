@@ -13,15 +13,15 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/j0.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/all.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
-#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/j0.hpp>
+#include <nt2/include/functions/simd/sin.hpp>
+#include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

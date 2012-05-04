@@ -9,11 +9,11 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_SQRT1PM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_SQRT1PM1_HPP_INCLUDED
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/constants/half.hpp>
 
 namespace nt2 { namespace ext

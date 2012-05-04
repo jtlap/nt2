@@ -10,11 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND2EVEN_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/round.hpp>
-#include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/seladd.hpp>
+#include <boost/simd/include/functions/scalar/round.hpp>
+#include <boost/simd/include/functions/scalar/is_inf.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -8,12 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXTAFTER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXTAFTER_HPP_INCLUDED
-#include <boost/simd/include/functions/sign.hpp>
+#include <boost/simd/include/functions/scalar/sign.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/toolbox/ieee/details/math.hpp>
 #include <boost/math/special_functions/next.hpp>
-#include <boost/simd/include/functions/oneplus.hpp>
-#include <boost/simd/include/functions/minusone.hpp>
+#include <boost/simd/include/functions/scalar/oneplus.hpp>
+#include <boost/simd/include/functions/scalar/minusone.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 

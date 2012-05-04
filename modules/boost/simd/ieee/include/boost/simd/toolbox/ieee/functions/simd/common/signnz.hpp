@@ -9,15 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SIGNNZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SIGNNZ_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/is_gez.hpp>
-#include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/is_positive.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/simd/include/functions/simd/is_nan.hpp>
+#include <boost/simd/include/functions/simd/is_positive.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

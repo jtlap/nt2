@@ -11,12 +11,12 @@
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/dist.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/predecessor.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/scalar/dist.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/successor.hpp>
+#include <nt2/include/functions/scalar/predecessor.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

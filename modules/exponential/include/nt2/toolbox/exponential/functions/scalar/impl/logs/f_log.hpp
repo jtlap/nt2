@@ -10,16 +10,16 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 
 #include <boost/fusion/include/vector_tie.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/bitwise_and.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/fast_frexp.hpp>
-#include <nt2/include/functions/genmask.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/bitwise_and.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/fast_frexp.hpp>
+#include <nt2/include/functions/scalar/genmask.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/multiplies.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 

@@ -13,11 +13,11 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/log.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 
 

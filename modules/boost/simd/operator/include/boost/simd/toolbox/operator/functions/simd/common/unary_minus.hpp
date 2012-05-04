@@ -11,8 +11,8 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/bitwise_xor.hpp>
-#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

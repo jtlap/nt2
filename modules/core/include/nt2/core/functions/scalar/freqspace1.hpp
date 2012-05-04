@@ -10,15 +10,15 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_FREQSPACE1_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/freqspace1.hpp>
 #include <nt2/core/functions/details/colon.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/scalar/splat.hpp>
+#include <nt2/include/functions/scalar/enumerate.hpp>
 
 
 namespace nt2 { namespace ext

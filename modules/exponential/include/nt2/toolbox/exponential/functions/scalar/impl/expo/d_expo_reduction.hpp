@@ -9,11 +9,11 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_D_EXPO_REDUCTION_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_D_EXPO_REDUCTION_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/round2even.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/is_greater_equal.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/round2even.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/is_greater_equal.hpp>
+#include <nt2/include/functions/scalar/is_less_equal.hpp>
 #include <nt2/include/constants/digits.hpp>
 
 namespace nt2

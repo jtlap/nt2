@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_NAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_NAN_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/is_unord.hpp>
+#include <boost/simd/include/functions/simd/is_unord.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

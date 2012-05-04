@@ -10,18 +10,18 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/if_else_zero.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/logical_not.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_not.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

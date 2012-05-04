@@ -8,12 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_SQRT1PM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_SQRT1PM1_HPP_INCLUDED
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/is_less.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
 #include <nt2/include/constants/half.hpp>
 
 namespace nt2 { namespace ext

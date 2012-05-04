@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_POW_ABS_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_POW_ABS_HPP_INCLUDED
-#include <nt2/include/functions/pow_absi.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/is_flint.hpp>
+#include <nt2/include/functions/scalar/pow_absi.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/is_odd.hpp>
+#include <nt2/include/functions/scalar/is_flint.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_

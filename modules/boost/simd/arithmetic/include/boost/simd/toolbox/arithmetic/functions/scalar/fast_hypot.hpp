@@ -12,11 +12,11 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/nan.hpp>  
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/sqrt.hpp>
-#include <boost/simd/include/functions/sqr.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/ldexp.hpp>
+#include <boost/simd/include/functions/scalar/sqrt.hpp>
+#include <boost/simd/include/functions/scalar/sqr.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/is_inf.hpp>
+#include <boost/simd/include/functions/scalar/ldexp.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext

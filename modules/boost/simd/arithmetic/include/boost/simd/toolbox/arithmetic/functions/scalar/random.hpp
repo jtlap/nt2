@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_RANDOM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_RANDOM_HPP_INCLUDED
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/iround.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/dist.hpp>
+#include <boost/simd/include/functions/scalar/iround.hpp>
+#include <boost/simd/include/functions/scalar/min.hpp>
+#include <boost/simd/include/functions/scalar/dist.hpp>
 
 // TO DO proper generator
 /////////////////////////////////////////////////////////////////////////////

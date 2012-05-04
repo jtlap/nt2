@@ -11,17 +11,17 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/any.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/toolbox/euler/constants/fastgammalargelim.hpp>
-#include <nt2/include/functions/sinpi.hpp>
+#include <nt2/include/functions/simd/sinpi.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

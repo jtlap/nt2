@@ -15,7 +15,7 @@
 //  MIGRATION WARNING you have to provide the file for the previous include from
 //  nt2/core/numeric/functions/details/simd/common/impl/trigo.hpp
 //  of the old nt2
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 
 

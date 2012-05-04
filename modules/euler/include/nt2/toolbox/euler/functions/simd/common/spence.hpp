@@ -12,14 +12,14 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/polevl.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/polevl.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 

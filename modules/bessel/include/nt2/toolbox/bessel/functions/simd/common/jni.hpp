@@ -13,18 +13,18 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/cos.hpp>
-#include <nt2/include/functions/j0.hpp>
-#include <nt2/include/functions/j1.hpp>
-#include <nt2/include/functions/cospi.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/cos.hpp>
+#include <nt2/include/functions/simd/j0.hpp>
+#include <nt2/include/functions/simd/j1.hpp>
+#include <nt2/include/functions/simd/cospi.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 
 
 

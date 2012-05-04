@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_COPYSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_COPYSIGN_HPP_INCLUDED
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/bitofsign.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
-#include <boost/simd/include/functions/signnz.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/bitofsign.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/signnz.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

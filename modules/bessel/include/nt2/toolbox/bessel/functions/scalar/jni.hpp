@@ -9,13 +9,13 @@
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_JNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_JNI_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/j0.hpp>
-#include <nt2/include/functions/j1.hpp>
-#include <nt2/include/functions/cospi.hpp>
+#include <nt2/include/functions/scalar/j0.hpp>
+#include <nt2/include/functions/scalar/j1.hpp>
+#include <nt2/include/functions/scalar/cospi.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/scalar/is_less.hpp>
+#include <nt2/include/functions/scalar/is_greater.hpp>
+#include <nt2/include/functions/scalar/splat.hpp>
 #include <nt2/toolbox/bessel/details/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

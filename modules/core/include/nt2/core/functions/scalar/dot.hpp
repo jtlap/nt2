@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_DOT_HPP_INCLUDED
 
 #include <nt2/core/functions/dot.hpp>
-#include <nt2/include/functions/conj.hpp>
+#include <nt2/include/functions/scalar/conj.hpp>
 
 //TODO include complex cases
 namespace nt2 { namespace ext

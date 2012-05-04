@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_INFINITE_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

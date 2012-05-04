@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ABSS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ABSS_HPP_INCLUDED
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/saturate.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
+#include <boost/simd/include/functions/scalar/saturate.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

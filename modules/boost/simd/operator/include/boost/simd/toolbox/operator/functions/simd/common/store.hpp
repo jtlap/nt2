@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_STORE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/store.hpp>
-#include <boost/simd/include/functions/unaligned_store.hpp>
+#include <boost/simd/include/functions/simd/unaligned_store.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/assert.hpp>

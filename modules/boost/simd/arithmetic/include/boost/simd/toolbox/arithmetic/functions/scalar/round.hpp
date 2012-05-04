@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
-#include <boost/simd/include/functions/round2even.hpp>
+#include <boost/simd/include/functions/scalar/round2even.hpp>
 // TO DO round is round2even: must they be different ?
 
 namespace boost { namespace simd { namespace ext

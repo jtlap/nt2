@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ABSS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ABSS_HPP_INCLUDED
-#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

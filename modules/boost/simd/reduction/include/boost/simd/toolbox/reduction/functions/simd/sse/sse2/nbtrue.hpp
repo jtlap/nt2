@@ -11,8 +11,8 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/reduction/functions/nbtrue.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/include/functions/popcnt.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/include/functions/simd/popcnt.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 

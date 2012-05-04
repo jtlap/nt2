@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/toolbox/swar/functions/arith.hpp>
-#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
 // Is there nothing to do for float vectors ? TO DO
 namespace boost { namespace simd { namespace ext
 {

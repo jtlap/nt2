@@ -11,8 +11,8 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/mzero.hpp>
 #include <boost/simd/include/constants/maxleftshift.hpp>
-#include <boost/simd/include/functions/bitwise_notand.hpp>
-#include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/simd/bitwise_notand.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

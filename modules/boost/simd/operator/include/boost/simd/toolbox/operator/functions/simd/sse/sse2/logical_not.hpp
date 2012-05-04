@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_NOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_NOT_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/complement.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -15,7 +15,7 @@
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 namespace boost { namespace simd { namespace ext
 {

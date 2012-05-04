@@ -11,7 +11,7 @@
 #include <boost/simd/include/constants/mzero.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

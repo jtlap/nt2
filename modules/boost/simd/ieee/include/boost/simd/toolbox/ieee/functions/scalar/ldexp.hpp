@@ -12,9 +12,9 @@
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/functions/is_finite.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/scalar/is_finite.hpp>
+#include <boost/simd/include/functions/scalar/is_nez.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_andnot.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

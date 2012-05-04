@@ -11,12 +11,12 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/floor.hpp>
-#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/is_lez.hpp>
+#include <nt2/include/functions/scalar/is_flint.hpp>
+#include <nt2/include/functions/scalar/is_odd.hpp>
+#include <nt2/include/functions/scalar/floor.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

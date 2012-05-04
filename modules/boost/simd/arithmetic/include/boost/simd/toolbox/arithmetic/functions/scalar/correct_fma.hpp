@@ -8,8 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_CORRECT_FMA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_CORRECT_FMA_HPP_INCLUDED
-#include <boost/simd/include/functions/two_prod.hpp>
-#include <boost/simd/include/functions/two_add.hpp>
+#include <boost/simd/include/functions/scalar/two_prod.hpp>
+#include <boost/simd/include/functions/scalar/two_add.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

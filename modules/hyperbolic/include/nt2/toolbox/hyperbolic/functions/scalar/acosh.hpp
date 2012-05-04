@@ -12,11 +12,11 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/log1p.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/log1p.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

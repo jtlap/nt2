@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_SB2B_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_SB2B_HPP_INCLUDED
 #include <boost/simd/toolbox/predicates/functions/sb2b.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <nt2/sdk/details/type_id.hpp>
 

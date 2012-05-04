@@ -15,13 +15,13 @@
 #include <boost/simd/include/constants/mindenormal.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-#include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
-#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/simd/ldexp.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/is_invalid.hpp>
+#include <boost/simd/include/functions/simd/exponent.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

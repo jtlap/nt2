@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MODF_HPP_INCLUDED
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/trunc.hpp>
+#include <boost/simd/include/functions/simd/trunc.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/vector.hpp>
 

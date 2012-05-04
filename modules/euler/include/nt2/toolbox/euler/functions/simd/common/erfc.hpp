@@ -13,17 +13,17 @@
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/four.hpp>
 #include <nt2/include/constants/eight.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

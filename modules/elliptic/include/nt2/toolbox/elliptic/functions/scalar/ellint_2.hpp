@@ -13,9 +13,9 @@
 #include <nt2/include/constants/real.hpp>
 
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

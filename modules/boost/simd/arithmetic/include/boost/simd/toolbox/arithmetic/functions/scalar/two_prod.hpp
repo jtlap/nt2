@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TWO_PROD_HPP_INCLUDED
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/two_split.hpp>
+#include <boost/simd/include/functions/scalar/is_invalid.hpp>
+#include <boost/simd/include/functions/scalar/two_split.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

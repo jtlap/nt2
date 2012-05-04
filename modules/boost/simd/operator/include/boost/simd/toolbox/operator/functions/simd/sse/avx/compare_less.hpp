@@ -13,9 +13,9 @@
 #include <boost/simd/toolbox/operator/functions/compare_less.hpp>
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/include/constants/false.hpp>
-#include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/reversebits.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/reversebits.hpp>
 #include <boost/simd/toolbox/operator/functions/simd/common/details/compare_less_helper.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>

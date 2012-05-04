@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_LOGICAL_NOTAND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_LOGICAL_NOTAND_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/bitwise_notand.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/include/functions/simd/bitwise_notand.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

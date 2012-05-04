@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_HI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_HI_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext

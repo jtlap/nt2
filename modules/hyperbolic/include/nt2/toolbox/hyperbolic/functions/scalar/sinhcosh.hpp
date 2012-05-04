@@ -10,13 +10,13 @@
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINHCOSH_HPP_INCLUDED
 
 #include <nt2/toolbox/hyperbolic/functions/sinhcosh.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/is_negative.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
+#include <nt2/include/functions/scalar/expm1.hpp>
+#include <nt2/include/functions/scalar/negif.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/is_negative.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>

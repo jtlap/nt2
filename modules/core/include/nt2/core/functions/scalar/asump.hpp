@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_ASUMP_HPP_INCLUDED
 
 #include <nt2/core/functions/asump.hpp>
-#include <nt2/include/functions/pow_abs.hpp>
+#include <nt2/include/functions/scalar/pow_abs.hpp>
 
 //TODO include complex cases
 namespace nt2 { namespace ext

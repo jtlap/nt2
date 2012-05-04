@@ -13,11 +13,11 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_DIVS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/arithmetic/functions/divs.hpp>
-#include <boost/simd/include/functions/group.hpp>
-#include <boost/simd/include/functions/split.hpp>
+#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 
 namespace boost { namespace simd { namespace ext

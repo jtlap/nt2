@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_FAST_SINCOSPI_HPP_INCLUDED
 #include <boost/fusion/tuple.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation
 /////////////////////////////////////////////////////////////////////////////

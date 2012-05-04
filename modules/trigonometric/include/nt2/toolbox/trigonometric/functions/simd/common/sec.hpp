@@ -11,8 +11,8 @@
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/cos.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/simd/cos.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

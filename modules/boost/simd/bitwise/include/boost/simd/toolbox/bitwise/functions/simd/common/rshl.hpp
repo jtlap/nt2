@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RSHL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RSHL_HPP_INCLUDED
-#include <boost/simd/include/functions/shli.hpp>
-#include <boost/simd/include/functions/shri.hpp>  
-#include <boost/simd/include/functions/is_gtz.hpp>  
+#include <boost/simd/include/functions/simd/shli.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>  
+#include <boost/simd/include/functions/simd/is_gtz.hpp>  
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::rshl_, tag::cpu_, (A0)(A1)(X)

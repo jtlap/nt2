@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/floor.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/selsub.hpp>
-#include <boost/simd/include/functions/round2even.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
+#include <boost/simd/include/functions/scalar/selsub.hpp>
+#include <boost/simd/include/functions/scalar/round2even.hpp>
+#include <boost/simd/include/functions/scalar/is_greater.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

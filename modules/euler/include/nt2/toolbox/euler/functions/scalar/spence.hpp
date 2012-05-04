@@ -11,11 +11,11 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 
-#include <nt2/include/functions/polevl.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/scalar/polevl.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

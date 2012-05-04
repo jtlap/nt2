@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_PREV_HPP_INCLUDED
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/minf.hpp>
-#include <boost/simd/include/functions/minusone.hpp>
-#include <boost/simd/include/functions/nextafter.hpp>
+#include <boost/simd/include/functions/scalar/minusone.hpp>
+#include <boost/simd/include/functions/scalar/nextafter.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

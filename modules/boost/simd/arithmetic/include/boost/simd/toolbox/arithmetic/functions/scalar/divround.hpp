@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVROUND_HPP_INCLUDED
-#include <boost/simd/include/functions/round2even.hpp>
-#include <boost/simd/include/functions/rdivide.hpp>
-#include <boost/simd/include/functions/iround.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
+#include <boost/simd/include/functions/scalar/round2even.hpp>
+#include <boost/simd/include/functions/scalar/rdivide.hpp>
+#include <boost/simd/include/functions/scalar/iround.hpp>
+#include <boost/simd/include/functions/scalar/tofloat.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>

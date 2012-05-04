@@ -11,19 +11,19 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/cos.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/cos.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_less.hpp>
+#include <nt2/include/functions/scalar/is_greater.hpp>
+#include <nt2/include/functions/scalar/if_else.hpp>
+#include <nt2/include/functions/scalar/splat.hpp>
 
 #include <nt2/toolbox/bessel/details/math.hpp>
 

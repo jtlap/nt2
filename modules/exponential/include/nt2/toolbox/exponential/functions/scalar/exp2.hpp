@@ -11,7 +11,7 @@
 
 #include <nt2/toolbox/exponential/functions/exp2.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo.hpp>
-#include <nt2/include/functions/ldexp.hpp>
+#include <nt2/include/functions/scalar/ldexp.hpp>
 #include <nt2/include/constants/one.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

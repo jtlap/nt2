@@ -8,11 +8,11 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_COND_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_COND_HPP_INCLUDED
-#include <nt2/include/functions/cond.hpp>
-#include <nt2/include/functions/svd.hpp>
-#include <nt2/include/functions/issquare.hpp>
-#include <nt2/include/functions/inv.hpp>
-#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/scalar/cond.hpp>
+#include <nt2/include/functions/scalar/svd.hpp>
+#include <nt2/include/functions/scalar/issquare.hpp>
+#include <nt2/include/functions/scalar/inv.hpp>
+#include <nt2/include/functions/scalar/norm.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>
 

@@ -11,16 +11,16 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/selsub.hpp>
-#include <nt2/include/functions/sb2b.hpp>
-#include <nt2/include/functions/floor.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/if_else_zero.hpp>
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/simd/is_lez.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/selsub.hpp>
+#include <nt2/include/functions/simd/sb2b.hpp>
+#include <nt2/include/functions/simd/floor.hpp>
+#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
 
 
 

@@ -11,7 +11,7 @@
 #include <boost/math/special_functions.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

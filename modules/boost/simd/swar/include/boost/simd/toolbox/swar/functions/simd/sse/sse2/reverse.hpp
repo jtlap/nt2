@@ -11,8 +11,8 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/split.hpp>
-#include <boost/simd/include/functions/group.hpp>
+#include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/group.hpp>
 #include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////

@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SORT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/swar/functions/sort.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/include/functions/store.hpp>
+#include <boost/simd/include/functions/simd/load.hpp>
+#include <boost/simd/include/functions/simd/store.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>

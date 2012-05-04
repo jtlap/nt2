@@ -13,10 +13,10 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/bitwise_notand.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/scalar/is_invalid.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_notand.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/shri.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 

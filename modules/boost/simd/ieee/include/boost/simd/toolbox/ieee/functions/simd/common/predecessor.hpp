@@ -8,17 +8,17 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_PREDECESSOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_PREDECESSOR_HPP_INCLUDED
-#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/constants/minf.hpp>
 #include <boost/simd/include/constants/mone.hpp>  
 #include <boost/simd/include/constants/valmin.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/is_not_equal.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/prev.hpp>
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/bitinteger.hpp>
-#include <boost/simd/include/functions/bitfloating.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/is_not_equal.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/prev.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/bitinteger.hpp>
+#include <boost/simd/include/functions/simd/bitfloating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

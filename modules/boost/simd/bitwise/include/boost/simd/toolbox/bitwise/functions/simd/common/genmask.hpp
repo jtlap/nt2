@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_GENMASK_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/genmask.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/mpl/equal_to.hpp>

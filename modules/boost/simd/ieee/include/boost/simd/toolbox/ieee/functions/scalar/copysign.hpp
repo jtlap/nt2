@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_COPYSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_COPYSIGN_HPP_INCLUDED
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/signnz.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/signnz.hpp>
 #include <boost/simd/toolbox/ieee/details/math.hpp>
 #include <boost/math/special_functions/sign.hpp>
 

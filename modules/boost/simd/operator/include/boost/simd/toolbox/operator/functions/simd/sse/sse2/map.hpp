@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/sdk/simd/category.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/fusion/include/at.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////

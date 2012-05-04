@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_POPCNT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_POPCNT_HPP_INCLUDED
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/lo.hpp>
-#include <boost/simd/include/functions/hi.hpp>
-#include <boost/simd/include/functions/sbits.hpp>
+#include <boost/simd/include/functions/scalar/lo.hpp>
+#include <boost/simd/include/functions/scalar/hi.hpp>
+#include <boost/simd/include/functions/scalar/sbits.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 #ifdef BOOST_MSVC

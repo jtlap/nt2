@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SECD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SECD_HPP_INCLUDED
 
-#include <nt2/include/functions/cosd.hpp>
-#include <nt2/include/functions/secpi.hpp>
+#include <nt2/include/functions/scalar/cosd.hpp>
+#include <nt2/include/functions/scalar/secpi.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

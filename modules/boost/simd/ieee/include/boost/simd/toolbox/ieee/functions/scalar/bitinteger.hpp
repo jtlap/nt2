@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_BITINTEGER_HPP_INCLUDED
 
 #include <boost/simd/toolbox/ieee/functions/bitinteger.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/is_positive.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/include/functions/scalar/is_positive.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 

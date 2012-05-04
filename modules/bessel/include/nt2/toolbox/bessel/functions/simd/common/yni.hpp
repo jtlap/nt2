@@ -11,17 +11,17 @@
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/cos.hpp>
-#include <nt2/include/functions/y0.hpp>
-#include <nt2/include/functions/y1.hpp>
-#include <nt2/include/functions/cospi.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/cos.hpp>
+#include <nt2/include/functions/simd/y0.hpp>
+#include <nt2/include/functions/simd/y1.hpp>
+#include <nt2/include/functions/simd/cospi.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
 
 
 

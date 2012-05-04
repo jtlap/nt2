@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MINUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MINUS_HPP_INCLUDED
 #include <boost/simd/toolbox/operator/functions/minus.hpp>
-#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
 //TODO is that necessary ?
 //////////////////////////////////////////////////////////////////////////////
 // mixed scalar/simd minus

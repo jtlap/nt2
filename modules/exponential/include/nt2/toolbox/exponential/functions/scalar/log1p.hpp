@@ -12,10 +12,10 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/mone.hpp>
 
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/oneplus.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MAX_HPP_INCLUDED
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/constants/nan.hpp>
 
 namespace boost { namespace simd { namespace ext

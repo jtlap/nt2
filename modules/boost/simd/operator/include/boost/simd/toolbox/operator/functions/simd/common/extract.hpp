@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_EXTRACT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/extract.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>

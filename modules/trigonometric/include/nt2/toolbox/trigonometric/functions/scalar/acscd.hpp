@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ACSCD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ACSCD_HPP_INCLUDED
 
-#include <nt2/include/functions/acsc.hpp>
-#include <nt2/include/functions/indeg.hpp>
+#include <nt2/include/functions/scalar/acsc.hpp>
+#include <nt2/include/functions/scalar/indeg.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

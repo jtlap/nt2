@@ -12,8 +12,8 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext

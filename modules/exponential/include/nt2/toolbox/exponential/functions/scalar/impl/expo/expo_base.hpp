@@ -11,7 +11,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
 
 namespace nt2
 {

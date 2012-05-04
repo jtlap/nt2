@@ -10,13 +10,13 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_PISPACE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/exp10.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/exp10.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/pispace.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/scalar/splat.hpp>
+#include <nt2/include/functions/scalar/enumerate.hpp>
 #include <nt2/include/constants/log10_pi.hpp>
 
 //==============================================================================

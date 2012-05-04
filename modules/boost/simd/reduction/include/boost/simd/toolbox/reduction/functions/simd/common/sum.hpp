@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_SUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_SUM_HPP_INCLUDED
 #include <boost/simd/toolbox/reduction/functions/sum.hpp>
-#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/fusion/algorithm/iteration/fold.hpp>

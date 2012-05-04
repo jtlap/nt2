@@ -10,13 +10,13 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ULP_HPP_INCLUDED
 #include <boost/simd/include/constants/one.hpp> 
 #include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/predecessor.hpp>
-#include <boost/simd/include/functions/successor.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/if_allbits_else.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/predecessor.hpp>
+#include <boost/simd/include/functions/simd/successor.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

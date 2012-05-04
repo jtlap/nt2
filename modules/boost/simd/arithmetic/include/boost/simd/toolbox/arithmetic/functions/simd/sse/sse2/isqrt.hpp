@@ -12,24 +12,24 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/arithmetic/functions/isqrt.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/toint.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/sqrt.hpp>
-#include <boost/simd/include/functions/shri.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/plus.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/divides.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/is_greater_equal.hpp>
-#include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/if_else_allbits.hpp>
-#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/sqrt.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/is_greater_equal.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/if_else_allbits.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

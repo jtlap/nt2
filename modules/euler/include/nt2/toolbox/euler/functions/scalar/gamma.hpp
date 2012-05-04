@@ -15,22 +15,22 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/trunc.hpp>
-#include <nt2/include/functions/frac.hpp>
-#include <nt2/include/functions/bitwise_ornot.hpp>
-#include <nt2/include/functions/sinpi.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/is_ltz.hpp> 
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
+#include <nt2/include/functions/scalar/nbtrue.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/trunc.hpp>
+#include <nt2/include/functions/scalar/frac.hpp>
+#include <nt2/include/functions/scalar/bitwise_ornot.hpp>
+#include <nt2/include/functions/scalar/sinpi.hpp>
+#include <nt2/include/functions/scalar/negif.hpp>
+#include <nt2/include/functions/scalar/is_flint.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp> 
+#include <nt2/include/functions/scalar/if_else.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/constants/eps_related.hpp>
-#include <nt2/include/functions/signnz.hpp>
+#include <nt2/include/functions/scalar/signnz.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is arithmetic_

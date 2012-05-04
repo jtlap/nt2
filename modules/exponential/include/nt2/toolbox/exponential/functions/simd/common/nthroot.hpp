@@ -14,17 +14,17 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/mone.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/pow.hpp>
-#include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 
 namespace nt2 { namespace ext
 {

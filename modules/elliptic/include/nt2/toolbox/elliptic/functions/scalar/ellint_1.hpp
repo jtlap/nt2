@@ -13,7 +13,7 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

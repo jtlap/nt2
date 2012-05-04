@@ -11,7 +11,7 @@
 
 #include <boost/mpl/size_t.hpp>
 #include <nt2/core/functions/length.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/front.hpp>
 

@@ -12,11 +12,11 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/acos.hpp>
-#include <nt2/include/functions/indeg.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/acos.hpp>
+#include <nt2/include/functions/simd/indeg.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
 
 
 

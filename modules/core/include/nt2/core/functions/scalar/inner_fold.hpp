@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/inner_fold.hpp>
 #include <boost/fusion/include/pop_front.hpp>
-#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/scalar/numel.hpp>
 
 namespace nt2 { namespace details
 {

@@ -14,12 +14,12 @@
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/maximum.hpp>
-#include <boost/simd/include/functions/is_gez.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/maximum.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/toolbox/arithmetic/functions/simd/common/tofloat.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPARE_GREATER_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPARE_GREATER_EQUAL_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/compare_less.hpp>
+#include <boost/simd/include/functions/simd/compare_less.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 namespace boost { namespace simd { namespace ext
 {

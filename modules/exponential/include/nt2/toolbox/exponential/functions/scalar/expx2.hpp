@@ -12,11 +12,11 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/floor.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/floor.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

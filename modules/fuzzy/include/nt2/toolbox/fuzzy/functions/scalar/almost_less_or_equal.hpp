@@ -8,14 +8,14 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_ALMOST_LESS_OR_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_ALMOST_LESS_OR_EQUAL_HPP_INCLUDED
-#include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/scalar/successor.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/scalar/logical_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

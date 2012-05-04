@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FRAC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FRAC_HPP_INCLUDED
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/trunc.hpp>
+#include <boost/simd/include/functions/scalar/trunc.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

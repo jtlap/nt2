@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_EXPO_EXPO_BASE_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_EXPO_EXPO_BASE_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
 

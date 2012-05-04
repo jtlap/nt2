@@ -11,9 +11,9 @@
 
 #include <nt2/toolbox/trigonometric/functions/fast_cotpi.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/include/functions/copysign.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/copysign.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 

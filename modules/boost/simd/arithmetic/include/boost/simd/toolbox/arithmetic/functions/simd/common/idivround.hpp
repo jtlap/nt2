@@ -11,13 +11,13 @@
 
 #include <boost/simd/toolbox/arithmetic/functions/idivround.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/iround2even.hpp>
-#include <boost/simd/include/functions/iround.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/group.hpp>
-#include <boost/simd/include/functions/split.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/iround2even.hpp>
+#include <boost/simd/include/functions/simd/iround.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/group.hpp>
+#include <boost/simd/include/functions/simd/split.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

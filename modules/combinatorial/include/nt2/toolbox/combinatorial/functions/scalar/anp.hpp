@@ -11,13 +11,13 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/round2even.hpp>
-#include <nt2/include/functions/gammaln.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/is_ngez.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/round2even.hpp>
+#include <nt2/include/functions/scalar/gammaln.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/is_ngez.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/is_less.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

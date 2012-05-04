@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/simd/include/functions/min.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
 /////////////////////////////////////////////////////////////////////////////

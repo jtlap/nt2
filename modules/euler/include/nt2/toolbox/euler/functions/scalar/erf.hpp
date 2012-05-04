@@ -15,18 +15,18 @@
 // #include <nt2/include/constants/three.hpp>
 // #include <nt2/include/constants/four.hpp>
 // #include <nt2/include/constants/eight.hpp>
-// #include <nt2/include/functions/sqr.hpp>
-// #include <nt2/include/functions/sqrt.hpp>
-// #include <nt2/include/functions/exp.hpp>
-// #include <nt2/include/functions/oneplus.hpp>
-// #include <nt2/include/functions/oneminus.hpp>
+// #include <nt2/include/functions/scalar/sqr.hpp>
+// #include <nt2/include/functions/scalar/sqrt.hpp>
+// #include <nt2/include/functions/scalar/exp.hpp>
+// #include <nt2/include/functions/scalar/oneplus.hpp>
+// #include <nt2/include/functions/scalar/oneminus.hpp>
 
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/plevl.hpp>
-#include <nt2/include/functions/polevl.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/oneminus.hpp>
+#include <nt2/include/functions/scalar/plevl.hpp>
+#include <nt2/include/functions/scalar/polevl.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/negif.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/two.hpp>
 

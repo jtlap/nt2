@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_FUZZY_DEFINITELY_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_FUZZY_DEFINITELY_LESS_HPP_INCLUDED
 
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

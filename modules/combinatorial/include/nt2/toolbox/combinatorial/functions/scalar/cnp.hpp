@@ -10,13 +10,13 @@
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_CNP_HPP_INCLUDED
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/round2even.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/gammaln.hpp>
-#include <nt2/include/functions/is_ngez.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/scalar/round2even.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/gammaln.hpp>
+#include <nt2/include/functions/scalar/is_ngez.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_equal.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

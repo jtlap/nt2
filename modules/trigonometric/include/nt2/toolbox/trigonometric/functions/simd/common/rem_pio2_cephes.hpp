@@ -13,11 +13,11 @@
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/constant/include/constants/three.hpp>
 #include <nt2/toolbox/constant/include/constants/zero.hpp>
-#include <nt2/include/functions/round2even.hpp>
-#include <nt2/include/functions/fast_toint.hpp>
-#include <nt2/include/functions/bitwise_and.hpp>
-#include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/fast_toint.hpp>
+#include <nt2/include/functions/simd/bitwise_and.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
 

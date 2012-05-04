@@ -9,13 +9,13 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_DAWSON_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_DAWSON_HPP_INCLUDED
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/plevl.hpp>
-#include <nt2/include/functions/polevl.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/scalar/plevl.hpp>
+#include <nt2/include/functions/scalar/polevl.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 
-#include <nt2/include/functions/copysign.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/scalar/copysign.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 #include <boost/array.hpp>
 
 

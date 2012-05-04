@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINUSONE_HPP_INCLUDED
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
-#include <boost/simd/include/functions/selsub.hpp>
-#include <boost/simd/include/functions/is_not_equal.hpp>
+#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/is_not_equal.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -11,22 +11,22 @@
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/ldexp.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/any.hpp>
-#include <nt2/include/functions/maximum.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/ldexp.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/average.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

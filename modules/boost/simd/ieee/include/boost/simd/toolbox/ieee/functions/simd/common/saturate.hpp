@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SATURATE_HPP_INCLUDED
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

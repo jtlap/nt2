@@ -11,11 +11,11 @@
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/all.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

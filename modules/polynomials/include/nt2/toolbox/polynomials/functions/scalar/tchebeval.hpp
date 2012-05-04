@@ -9,11 +9,11 @@
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SCALAR_TCHEBEVAL_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SCALAR_TCHEBEVAL_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
 #include <nt2/toolbox/polynomials/category.hpp>
 #include <nt2/sdk/meta/fusion.hpp>
 #include <boost/fusion/adapted/array.hpp>
-#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

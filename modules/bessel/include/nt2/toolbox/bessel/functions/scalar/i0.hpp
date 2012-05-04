@@ -10,11 +10,11 @@
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_I0_HPP_INCLUDED
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/toolbox/polynomials/include/functions/tchebeval.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <boost/array.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

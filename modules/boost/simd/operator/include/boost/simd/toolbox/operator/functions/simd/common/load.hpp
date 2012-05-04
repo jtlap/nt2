@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOAD_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/load.hpp>
-#include <boost/simd/include/functions/unaligned_load.hpp>
+#include <boost/simd/include/functions/simd/unaligned_load.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/mpl/equal_to.hpp>

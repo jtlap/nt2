@@ -15,19 +15,19 @@
 #include <nt2/include/constants/three.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/third.hpp>
-#include <nt2/include/functions/is_gez.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/frexp.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/fast_ldexp.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/negate.hpp>
-#include <nt2/include/functions/remquo.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/simd/is_gez.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/frexp.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/fast_ldexp.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/negate.hpp>
+#include <nt2/include/functions/simd/remquo.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 
 

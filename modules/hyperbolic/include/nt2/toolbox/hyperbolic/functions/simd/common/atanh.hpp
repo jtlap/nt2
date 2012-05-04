@@ -13,16 +13,16 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/log1p.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/log1p.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
 
 
 

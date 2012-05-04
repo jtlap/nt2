@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSSE3_LOOKUP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
 #include <boost/simd/toolbox/swar/functions/lookup.hpp>
-#include <boost/simd/include/functions/shli.hpp>
-#include <boost/simd/include/functions/plus.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/shli.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is type8_

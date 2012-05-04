@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_COTH_HPP_INCLUDED
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/tanh.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/scalar/tanh.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/properties.hpp>
 

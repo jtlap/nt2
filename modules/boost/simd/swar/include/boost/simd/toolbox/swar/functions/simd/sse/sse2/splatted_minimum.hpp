@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLATTED_MINIMUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/minimum.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/minimum.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_

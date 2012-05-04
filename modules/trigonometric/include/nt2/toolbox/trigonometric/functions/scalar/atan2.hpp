@@ -10,10 +10,10 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ATAN2_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/constant/include/constants/real.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/copysign.hpp>
+#include <nt2/include/functions/scalar/is_invalid.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/copysign.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <cmath>
 

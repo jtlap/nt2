@@ -13,12 +13,12 @@
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/functions/shli.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/is_finite.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/rshl.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/shli.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/is_finite.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/rshl.hpp>
+#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

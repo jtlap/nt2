@@ -8,10 +8,10 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_FACTORIAL_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_FACTORIAL_HPP_INCLUDED
-#include <nt2/include/functions/gamma.hpp>
-#include <nt2/include/functions/trunc.hpp>
-#include <nt2/include/functions/round.hpp>
-#include <nt2/include/functions/abss.hpp>
+#include <nt2/include/functions/scalar/gamma.hpp>
+#include <nt2/include/functions/scalar/trunc.hpp>
+#include <nt2/include/functions/scalar/round.hpp>
+#include <nt2/include/functions/scalar/abss.hpp>
 
 namespace nt2 { namespace ext
 {

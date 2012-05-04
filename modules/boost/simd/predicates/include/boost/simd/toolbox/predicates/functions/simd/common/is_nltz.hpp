@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NLTZ_HPP_INCLUDED
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_not_less.hpp>
+#include <boost/simd/include/functions/simd/is_not_less.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

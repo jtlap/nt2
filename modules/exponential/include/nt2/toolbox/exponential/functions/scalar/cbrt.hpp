@@ -11,7 +11,7 @@
 
 #include <nt2/toolbox/exponential/details/math.hpp>
 #include <boost/math/special_functions/cbrt.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/scalar/is_invalid.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

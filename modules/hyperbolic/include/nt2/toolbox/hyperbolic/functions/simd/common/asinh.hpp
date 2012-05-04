@@ -13,18 +13,18 @@
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/log1p.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/madd.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/log1p.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/madd.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

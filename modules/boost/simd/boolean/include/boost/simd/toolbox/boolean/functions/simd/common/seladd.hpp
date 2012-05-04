@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_SELADD_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/boolean/functions/seladd.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
-#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
 

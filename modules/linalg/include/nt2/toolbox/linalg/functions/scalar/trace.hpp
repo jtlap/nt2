@@ -8,14 +8,14 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_TRACE_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_TRACE_HPP_INCLUDED
-#include <nt2/include/functions/trace.hpp>
-#include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/first_index.hpp>
-#include <nt2/include/functions/ismatrix.hpp>
+#include <nt2/include/functions/scalar/trace.hpp>
+#include <nt2/include/functions/scalar/height.hpp>
+#include <nt2/include/functions/scalar/width.hpp>
+#include <nt2/include/functions/scalar/first_index.hpp>
+#include <nt2/include/functions/scalar/ismatrix.hpp>
 #include <nt2/include/constants/zero.hpp>
-// #include <nt2/include/functions/sum.hpp>
-// #include <nt2/include/functions/diag_of.hpp>
+// #include <nt2/include/functions/scalar/sum.hpp>
+// #include <nt2/include/functions/scalar/diag_of.hpp>
 
 //sum of diagonal elements even if a is not square
 

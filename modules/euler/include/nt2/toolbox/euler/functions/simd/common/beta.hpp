@@ -12,10 +12,10 @@
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 
-#include <nt2/include/functions/signgam.hpp>
-#include <nt2/include/functions/gammaln.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/signgam.hpp>
+#include <nt2/include/functions/simd/gammaln.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 /**
  * \ingroup euler_beta

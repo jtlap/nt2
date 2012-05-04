@@ -12,10 +12,10 @@
 #include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
-#include <boost/simd/include/functions/if_allbits_else.hpp>
+#include <boost/simd/include/functions/simd/is_nan.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
+#include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 // No implementation for integer types
 
 namespace boost { namespace simd { namespace ext

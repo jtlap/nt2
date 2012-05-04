@@ -10,11 +10,11 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_CSCPI_HPP_INCLUDED
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/sinpi.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/bitwise_or.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/scalar/is_flint.hpp>
+#include <nt2/include/functions/scalar/sinpi.hpp>
+#include <nt2/include/functions/scalar/bitofsign.hpp>
+#include <nt2/include/functions/scalar/bitwise_or.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

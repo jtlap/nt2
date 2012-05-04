@@ -12,13 +12,13 @@
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/cos.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/all.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/cos.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

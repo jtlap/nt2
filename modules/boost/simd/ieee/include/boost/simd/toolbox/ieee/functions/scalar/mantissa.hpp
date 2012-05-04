@@ -13,9 +13,9 @@
 #include <boost/simd/include/constants/ldexpmask.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/scalar/is_invalid.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

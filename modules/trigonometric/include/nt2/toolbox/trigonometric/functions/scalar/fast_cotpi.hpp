@@ -11,9 +11,9 @@
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/bitwise_or.hpp>
+#include <nt2/include/functions/scalar/is_flint.hpp>
+#include <nt2/include/functions/scalar/bitofsign.hpp>
+#include <nt2/include/functions/scalar/bitwise_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

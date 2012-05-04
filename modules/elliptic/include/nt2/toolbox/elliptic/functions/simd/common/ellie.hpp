@@ -14,16 +14,16 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/tan.hpp>
-#include <nt2/include/functions/ceil.hpp>
-#include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/any.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/tan.hpp>
+#include <nt2/include/functions/simd/ceil.hpp>
+#include <nt2/include/functions/simd/average.hpp>
+#include <nt2/include/functions/simd/sin.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

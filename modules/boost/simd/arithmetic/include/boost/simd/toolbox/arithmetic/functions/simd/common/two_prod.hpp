@@ -10,14 +10,14 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TWO_PROD_HPP_INCLUDED
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/two_split.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/logical_or.hpp>
-#include <boost/simd/include/functions/if_zero_else.hpp>
-#include <boost/simd/include/functions/logical_and.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/is_inf.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/two_split.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
+#include <boost/simd/include/functions/simd/if_zero_else.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
 #include <boost/simd/toolbox/arithmetic/functions/two_prod.hpp>
 #include <boost/fusion/tuple.hpp>
 

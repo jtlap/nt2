@@ -10,9 +10,9 @@
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_COSH_HPP_INCLUDED
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

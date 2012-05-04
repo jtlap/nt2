@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_BITFLOATING_HPP_INCLUDED
 
 #include <boost/simd/toolbox/ieee/functions/bitfloating.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/shli.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/include/functions/scalar/shli.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/zero.hpp>

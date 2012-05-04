@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
 
 #include <boost/simd/toolbox/predicates/functions/is_less_equal.hpp>
-#include <boost/simd/include/functions/logical_not.hpp>
+#include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

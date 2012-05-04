@@ -12,8 +12,8 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/first.hpp>
-#include <boost/simd/include/functions/second.hpp>
+#include <boost/simd/include/functions/simd/first.hpp>
+#include <boost/simd/include/functions/simd/second.hpp>
 #include <boost/fusion/include/fold.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_

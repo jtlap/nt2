@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_POSITIVE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_POSITIVE_HPP_INCLUDED
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/sbits.hpp>
+#include <boost/simd/include/functions/scalar/sbits.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

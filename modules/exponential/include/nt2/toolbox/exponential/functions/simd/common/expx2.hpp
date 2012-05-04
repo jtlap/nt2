@@ -14,11 +14,11 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/floor.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/floor.hpp>
 #include <nt2/toolbox/exponential/constants.hpp>
 
 

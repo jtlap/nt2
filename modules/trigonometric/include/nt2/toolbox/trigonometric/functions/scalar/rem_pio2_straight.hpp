@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_STRAIGHT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_STRAIGHT_HPP_INCLUDED
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>

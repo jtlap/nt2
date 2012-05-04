@@ -15,8 +15,8 @@
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/constants/threeeps.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
-#include <nt2/include/functions/fuzzy_equal.hpp>
-#include <nt2/include/functions/tolerant_floor.hpp>
+#include <nt2/include/functions/scalar/fuzzy_equal.hpp>
+#include <nt2/include/functions/scalar/tolerant_floor.hpp>
 
 namespace nt2 { namespace ext
 {

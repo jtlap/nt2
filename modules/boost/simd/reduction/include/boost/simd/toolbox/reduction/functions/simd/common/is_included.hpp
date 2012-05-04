@@ -8,9 +8,9 @@
  ******************************************************************************/
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
-#include <boost/simd/include/functions/bitwise_or.hpp>
-#include <boost/simd/include/functions/all.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/all.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

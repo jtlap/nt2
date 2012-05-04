@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MOD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MOD_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/mod.hpp>
-#include <boost/simd/include/functions/selsub.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/divfloor.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/divfloor.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

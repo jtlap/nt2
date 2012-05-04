@@ -11,12 +11,12 @@
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/seladd.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is integer

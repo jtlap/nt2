@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_MAXIMUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/simd/include/functions/max.hpp>
+#include <boost/simd/include/functions/simd/max.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

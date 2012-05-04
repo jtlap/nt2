@@ -14,13 +14,13 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/tchebeval.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/bitwise_ornot.hpp>
-#include <nt2/include/functions/if_else_allbits.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/tchebeval.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/bitwise_ornot.hpp>
+#include <nt2/include/functions/simd/if_else_allbits.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

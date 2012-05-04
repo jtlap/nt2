@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/ieee/functions/next.hpp>
-#include <boost/simd/include/functions/oneplus.hpp>
-#include <boost/simd/include/functions/nextafter.hpp>
+#include <boost/simd/include/functions/scalar/oneplus.hpp>
+#include <boost/simd/include/functions/scalar/nextafter.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 

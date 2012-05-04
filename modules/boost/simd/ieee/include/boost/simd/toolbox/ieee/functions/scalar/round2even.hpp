@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ROUND2EVEN_HPP_INCLUDED
 #include <boost/simd/toolbox/ieee/functions/round2even.hpp>
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/bitofsign.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/bitofsign.hpp>
 #include <boost/simd/include/constants/twotonmb.hpp>
 
 namespace boost { namespace simd { namespace ext
