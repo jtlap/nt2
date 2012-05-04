@@ -9,12 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/iround.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/scalar/seladd.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/functions/scalar/is_inf.hpp>
 #include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/functions/scalar/round.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

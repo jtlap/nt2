@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOFLOAT_HPP_INCLUDED
 
+#include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::tofloat_, tag::cpu_, (A0)
