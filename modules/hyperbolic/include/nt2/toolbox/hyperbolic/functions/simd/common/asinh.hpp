@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ASINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ASINH_HPP_INCLUDED
@@ -25,7 +25,6 @@
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/nbtrue.hpp>
-#include <nt2/include/functions/simd/madd.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -65,11 +64,11 @@ namespace nt2 { namespace ext
       sign =  bitofsign(a0);
       const A0 x2            = nt2::sqr(xx);
       return b_xor(sel(is_equal(xx, Inf<A0>()),
-		       xx, 
-		       nt2::log1p(xx+x2/nt2::oneplus(nt2::sqrt(nt2::oneplus(x2))))
-		       ),
-		   sign
-		   );
+           xx,
+           nt2::log1p(xx+x2/nt2::oneplus(nt2::sqrt(nt2::oneplus(x2))))
+           ),
+       sign
+       );
     }
   };
 } }
@@ -88,7 +87,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_logical<A0>::type bA0; 
+      typedef typename meta::as_logical<A0>::type bA0;
       A0 x = nt2::abs(a0);
       bA0 lthalf = lt(x,Half<A0>());
       A0 x2 = nt2::sqr(x);
@@ -106,6 +105,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif
