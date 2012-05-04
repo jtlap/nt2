@@ -15,7 +15,7 @@
 #include <boost/simd/include/functions/simd/iceil.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
-#include <boost/simd/include/functions/simd/rdivide.hpp>
+#include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/rdivide.hpp>
+#include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 //TODO...a common version or delete the file
 

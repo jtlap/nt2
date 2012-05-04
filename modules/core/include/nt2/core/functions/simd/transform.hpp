@@ -10,8 +10,8 @@
 #define NT2_CORE_FUNCTIONS_SIMD_TRANSFORM_HPP_INCLUDED
 
 #include <nt2/core/functions/transform.hpp>
-#include <nt2/include/functions/simd/run.hpp>
-#include <nt2/include/functions/simd/numel.hpp>
+#include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/scalar/numel.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>

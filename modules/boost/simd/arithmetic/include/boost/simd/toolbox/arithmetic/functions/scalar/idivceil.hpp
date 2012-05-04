@@ -11,7 +11,7 @@
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/scalar/sign.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
-#include <boost/simd/include/functions/scalar/rdivide.hpp>
+#include <boost/simd/include/functions/rdivide.hpp>
 #include <boost/simd/include/functions/scalar/tofloat.hpp>
 #include <boost/simd/include/functions/scalar/iceil.hpp>
 #include <boost/simd/include/functions/scalar/ceil.hpp>

@@ -12,7 +12,7 @@
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/functions/scalar/sqrt.hpp>
-#include <boost/simd/include/functions/scalar/itrunc.hpp>
+#include <boost/simd/include/functions/itrunc.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/fold.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/simd/run.hpp>
+#include <nt2/include/functions/run.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 #ifndef BOOST_SIMD_NO_SIMD
