@@ -36,10 +36,13 @@ namespace nt2 { namespace ext
     {
       result_type that;
       std::size_t i=1;
+
       for(; i<len+1; ++i)
         that(i) = nt2::extent(a0)[i-1];
+
       for(; i<olen+1; ++i)
         that(i) = std::size_t(1);
+
       return that;
     }
   };
@@ -55,8 +58,10 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0,const A1& a1) const
     {
-      std::size_t nb_dims = nt2::extent(a0).size();
-      return std::size_t(a1-1) < nb_dims ? nt2::extent(a0)[a1-1] : 1;
+      std::size_t nb_dims   = nt2::extent(a0).size();
+      return  std::size_t(a1-1) < nb_dims
+            ? std::size_t(nt2::extent(a0)[a1-1])
+            : std::size_t(1);
     }
   };
 } }
