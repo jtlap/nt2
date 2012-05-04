@@ -47,20 +47,6 @@ namespace nt2 { namespace ext
     private:
     //==========================================================================
     // INTERNAL ONLY
-    // Extract a 'N' or a 'P'
-    //==========================================================================
-    BOOST_FORCEINLINE char choice(A0 const&, boost::mpl::long_<1> const&) const
-    {
-      return 'N';
-    }
-
-    BOOST_FORCEINLINE char choice(A0 const& in, boost::mpl::long_<2> const&) const
-    {
-      return boost::proto::value(boost::proto::child_c<1>(in));
-    }
-
-    //==========================================================================
-    // INTERNAL ONLY
     // fill the args out
     //==========================================================================
     BOOST_FORCEINLINE

@@ -29,17 +29,17 @@
 
 //     if a is full:
  
-//     [q,r,e] = qr(a) produces unitary q, upper triangular r and a
-//     permutation matrix e so that a*e = q*r. the column permutation e is
+//     [q,r,p] = qr(a) produces unitary q, upper triangular r and a
+//     permutation matrix p so that a*p = q*r. the column permutation p is
 //     chosen so that abs(diag(r)) is decreasing.
  
-//     [q,r,e] = qr(a,'vector') returns the permutation information as a
-//     vector instead of a matrix.  that is, e is a row vector such that 
-//     a(:,e) = q*r. similarly, [q,r,e] = qr(a,'matrix') returns a permutation 
+//     [q,r,p] = qr(a,'vector') returns the permutation information as a
+//     vector instead of a matrix.  that is, p is a row vector such that 
+//     a(:,p) = q*r. similarly, [q,r,p] = qr(a,'matrix') returns a permutation 
 //     matrix e. this is the default behavior.
  
-//     [q,r,e] = qr(a,0) produces an "economy size" decomposition in which e
-//     is a permutation vector, so that a(:,e) = q*r.
+//     [q,r,p] = qr(a,0) produces an "economy size" decomposition in which p
+//     is a permutation vector, so that a(:,p) = q*r.
  
  
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
@@ -55,6 +55,7 @@
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/eps.hpp>
@@ -86,6 +87,8 @@ namespace nt2 {
       typedef nt2::details::workspace<type_t>              workspace_t;
       typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
       typedef nt2::table<type_t,index_t>                   result_type;
+      typedef nt2::table<itype_t,index_t>                 iresult_type;
+      
       
       template<class Input>
       qr_result ( Input& xpr, const char & nop)
@@ -95,11 +98,9 @@ namespace nt2 {
         , n_(nt2::width(xpr))
         , k_(nt2::min(m_, n_))
         , lda_(a_.leading_size())
-        , q_(of_size(0, 1))
         , jpvt_(nt2::of_size(n_,1)) 
         , tau_(nt2::of_size(k_,1)) 
         , info_(0)
-        , p_(of_size(0, 1))
         , nop_(nop)
       {
         if (nop_ != 'N')
@@ -116,8 +117,8 @@ namespace nt2 {
 
       qr_result(qr_result const& src)
       : a_(src.a_),aa_(src.aa_),m_(src.m_),n_(src.n_),
-        k_(src.k_),lda_(src.lda_),q_(src.q_),jpvt_(src.jpvt_),
-        tau_(src.tau_),info_(src.info_),p_(src.p_),
+        k_(src.k_),lda_(src.lda_),jpvt_(src.jpvt_),
+        tau_(src.tau_),info_(src.info_),
         nop_(src.nop_){}
       
       qr_result& operator=(qr_result const& src)
@@ -131,20 +132,21 @@ namespace nt2 {
         jpvt_   = src.jpvt_; 
         tau_    = src.tau_;  
         info_   = src.info_;
-        p_      = src.p_;
-        q_      = src.q_;
         nop_    =  src.nop_; 
         return *this;
       }
-      data_t values() const { return aa_; }
+      data_t values() const { return a_; }
+      result_type qr() const { return aa_; }
       
-      result_type q ()
+      result_type q () const
       {
+        nt2_la_int info; 
+        static tab_t q_(of_size(0, 1)); 
         if(isempty(q_))
           {
             nt2_la_int nn = (nop_ == 'N')? k_ : m_; 
             q_ = nt2::expand(aa_, nn, nn);
-            nt2::details::gqr(&m_, &nn, &k_, q_.raw(), &lda_, tau_.raw(), &info_);
+            nt2::details::gqr(&m_, &nn, &k_, q_.raw(), &lda_, tau_.raw(), &info);
           }
         return q_;
       }
@@ -152,8 +154,9 @@ namespace nt2 {
       {
         return triu(aa_);
       }
-      result_type p()
+      result_type p() const
       {
+        static tab_t p_(of_size(0, 1));
         if(isempty(p_))
           {
             if (nop_ == 'N')
@@ -169,14 +172,15 @@ namespace nt2 {
         return p_; 
       }
       
-      itab_t  jp()
+      iresult_type jp() const
       {
+        itype_t start = first_index<1>(a_); //boost::mpl::at_c<index_t, 0>::type::value; 
         itab_t jip(of_size(1, numel(jpvt_))); 
         if (nop_)
           {
-            return ones(1, n_, nt2::meta::as_<itype_t>());
+            return _(start, n_+start-1);
           }
-        for(size_t i=1; i <= numel(jpvt_); ++i) jip(i) = jpvt_(i); 
+        for(size_t i=1; i <= numel(jpvt_); ++i) jip(i) = jpvt_(i)+start-1; 
         return jip; 
       }
       
@@ -252,11 +256,9 @@ namespace nt2 {
       tab_t                 aa_;
       nt2_la_int     m_, n_, k_;
       nt2_la_int           lda_; 
-      tab_t                  q_; 
       ibuf_t              jpvt_;
       tab_t                tau_; 
       nt2_la_int          info_;
-      tab_t                  p_;
       char                 nop_;
       mutable workspace_t  wrk_;
 
