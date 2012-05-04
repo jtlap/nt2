@@ -69,8 +69,11 @@ struct depth_compare
 typedef std::set<std::string, depth_compare> FileSet;
 typedef std::map<std::string, FileSet      > Files  ;
 
-void find_files_recursive_worker( Files & files, std::string const & path, std::set<std::string> const & ignore )
+void find_files_recursive_worker( Files & files, std::string const & path, std::set<std::string> const & ignore, int max )
 {
+    if(max == 0)
+        return;
+
     BOOST_ASSERT( fs::current_path().size() > path.size() );
     std::string cwd_relative_path( fs::current_path().c_str() + path.size() + 1 );
     #ifdef _WIN32
@@ -92,7 +95,7 @@ void find_files_recursive_worker( Files & files, std::string const & path, std::
             int ec;
             fs::current_path( entry_name, ec );
             if ( !ec )
-                find_files_recursive_worker( files, path, ignore );
+                find_files_recursive_worker( files, path, ignore, max-1 );
         }
     }
 }
@@ -103,7 +106,8 @@ void find_files
     Files                          & files,
     std::vector<std::string> const & paths,
     std::set<std::string>    const & ignore,
-    std::string              const & source_dir
+    std::string              const & source_dir,
+    int                              max
 )
 {
     BOOST_FOREACH( std::string const & path, paths )
@@ -120,7 +124,7 @@ void find_files
         if( ec )
             continue;
         
-        find_files_recursive_worker( files, absolute_path, ignore );
+        find_files_recursive_worker( files, absolute_path, ignore, max );
     }
 }
 
@@ -168,6 +172,7 @@ int main(int argc, char* argv[])
         std::set<std::string>    ignore;
         std::string              binary_path;
         int                      write = 0;
+        int                      max = -1;
         
         Files files;
         for(int i = 1; i != argc; ++i)
@@ -184,6 +189,13 @@ int main(int argc, char* argv[])
             if(!std::strcmp(argv[i], "-I") && i != argc-1)
             {
                 paths.push_back(argv[i+1]);
+                ++i;
+                continue;
+            }
+            
+            if(!std::strcmp(argv[i], "--max") && i != argc-1)
+            {
+                max = strtol(argv[i+1], NULL, 10);
                 ++i;
                 continue;
             }
@@ -248,7 +260,9 @@ int main(int argc, char* argv[])
             if(regular_file)
                 files[ fs::filename( path ) ].insert( path );
             else
-                find_files( files, paths, ignore, path );
+                find_files( files, paths, ignore, path, max );
+            
+            max = -1;
         }
     }
     catch(const std::exception& e)

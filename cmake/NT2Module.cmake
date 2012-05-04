@@ -452,6 +452,7 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
     endif()
 
     nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
+                                             --max 1 ${prefix}/toolbox/${toolbox}/functions
                                              ${prefix}/toolbox/${toolbox}/functions/generic
                                              ${prefix}/toolbox/${toolbox}/functions/${component}
                                              ${extra}
