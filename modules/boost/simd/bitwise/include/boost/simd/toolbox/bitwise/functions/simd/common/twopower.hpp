@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_TWOPOWER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_TWOPOWER_HPP_INCLUDED
+
 #include <boost/simd/toolbox/bitwise/functions/twopower.hpp>
-#include <boost/simd/include/functions/simd/shli.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/functions/simd/shift_left.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
