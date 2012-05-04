@@ -146,13 +146,6 @@ namespace nt2 { namespace details
 
     
   private:
-    template < class S>
-    static btab_t from_diag(const S& w)
-    {
-      btab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
-      for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-      return m;
-    }
     char          jobvsl_;
     char          jobvsr_;
     char            sort_; 
@@ -309,13 +302,6 @@ namespace nt2 { namespace details
 
     
   private:
-    template < class S>
-    static btab_t from_diag(const S& w)
-    {
-      btab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
-      for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-      return m;
-    }
     char          jobvsl_;
     char          jobvsr_;
     char            sort_; 

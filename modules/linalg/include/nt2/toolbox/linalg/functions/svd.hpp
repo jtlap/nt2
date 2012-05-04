@@ -49,13 +49,6 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::svd_, svd, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::svd_, svd, 2)
 
-  // Those variant are used for the tied(x...) = svd(..) syntax
-  NT2_FUNCTION_IMPLEMENTATION_TPL ( tag::svd_
-                                  , svd
-                                  , (A0 const&)(A1 const&)(A2&)(A3&)
-                                  , 4
-                                  )
-
   namespace factorization
   {
     /**
@@ -76,58 +69,55 @@ namespace nt2
      * @return A unspecified type containing the precomputed elements of the
      * Svd factorization.
      **/
-    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::svd_, svd, 1)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::svd_, svd, 2)
+    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::svd_, svd, 3)
+    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::svd_, svd, 4)
   }
 }
 
-// namespace nt2 { namespace container { namespace ext
-// {
-//   template<class Domain, int N, class Expr>
-//   struct  size_of<tag::svd_,Domain,N,Expr>
-//         ////: reduction_size_of<tag::sum_, 1, Expr>{};
-//   {
-//     // The size is contained in the first child
-//     typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-//     typedef typename meta::strip<seq_term>::type::extent_type        result_type;
+namespace nt2 { namespace container { namespace ext
+{
+  template<class Domain, int N, class Expr>
+  struct  size_of<tag::svd_,Domain,N,Expr>
+  {
+    // The size is contained in the first child
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
 
-//     BOOST_FORCEINLINE result_type operator()(Expr& e) const
-//     {
-//       return boost::proto::child_c<0>(e).extent();
-//     }
-//   };
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return boost::proto::child_c<0>(e).extent();
+    }
+  };
 
-//   template<class Domain, class Expr>
-//   struct  size_of<tag::svd_,Domain,1,Expr>
-//         ////: reduction_size_of<tag::sum_, 1, Expr>{};
-//   {
-//     // The size is contained in the first child
-//     typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-//     typedef typename meta::strip<seq_term>::type::extent_type        result_type;
+  template<class Domain, class Expr>
+  struct  size_of<tag::svd_,Domain,1,Expr>
+  {
+    // The size is contained in the first child
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
 
-//     BOOST_FORCEINLINE result_type operator()(Expr& e) const
-//     {
-//       return boost::proto::child_c<0>(e).extent();
-//     }
-//   };
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return boost::proto::child_c<0>(e).extent();
+    }
+  };
 
-//   template<class Domain, int N, class Expr>
-//   struct  generator<tag::svd_,Domain,N,Expr>
-//         ////: reduction_generator<tag::svd_,N,Expr> {};
-//   {
-//     typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-//     typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
+  template<class Domain, int N, class Expr>
+  struct  generator<tag::svd_,Domain,N,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
 
-//     // Rebuidl proper expression type with semantic
-//     typedef expression< typename boost::remove_const<Expr>::type
-//                       , sema_t
-//                       >                                     result_type;
+    // Rebuild proper expression type with semantic
+    typedef expression< typename boost::remove_const<Expr>::type
+                      , sema_t
+                      >                                     result_type;
 
-//     BOOST_FORCEINLINE result_type operator()(Expr& e) const
-//     {
-//       return result_type(e);
-//     }
-//   };
-//} } }
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
+} } }
 
 #endif

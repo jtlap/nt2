@@ -153,14 +153,6 @@ namespace nt2 { namespace details
     btab_t                       scale_;
     itab_t                        ipiv_; 
     nt2_la_int                    info_;
-    template < class S>
-    static tab_t from_diag(const S& w)
-    {
-      tab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
-      for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-      return m;
-    }
-
   };
 } }
 

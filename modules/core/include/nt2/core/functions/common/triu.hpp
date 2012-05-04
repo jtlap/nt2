@@ -16,6 +16,7 @@
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/is_less_equal.hpp>
 
 namespace nt2 { namespace ext
 {

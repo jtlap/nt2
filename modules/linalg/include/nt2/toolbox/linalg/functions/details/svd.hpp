@@ -25,6 +25,8 @@
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/diag_of.hpp>
+#include <nt2/include/functions/from_diag.hpp>
 //#include <nt2/include/functions/trans.hpp> //TODO
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
@@ -105,7 +107,7 @@ namespace nt2 { namespace details
     typedef nt2::table<type_t,index_t>                   result_type;
 
     template<class Input>
-    svd_result ( Input& xpr, char jobu = 'A', char jobvt = 'A')
+    svd_result ( Input& xpr, char jobu, char jobvt)
       : jobu_(jobu)
       , jobvt_(jobvt)
       , a_(xpr)
@@ -145,6 +147,14 @@ namespace nt2 { namespace details
       wrk_    = src.wrk_;
       return *this;
     }
+
+
+    svd_result(svd_result const& src)
+     :jobu_(src.jobu_),jobvt_(src.jobvt_),
+      a_(src.a_),aa_(src.aa_),m_(src.m_),n_(src.n_),
+      lda_(src.lda_),info_(src.info_),wrk_(src.wrk_)
+    {}
+    
     //==========================================================================
     // Return raw values
     //==========================================================================
@@ -317,20 +327,20 @@ namespace nt2 { namespace details
     workspace_t                     wrk_;
 
 
-    template < class S>
-    static tab_t diag_of(const S& a)
-    {
-      tab_t d(of_size(nt2::min(width(a), height(a)), 1));
-      for (int i = 1; i <= nt2::min(width(a), height(a)); ++i) d(i) = a(i, i);
-      return d;
-    }
-    template < class S>
-    static tab_t from_diag(const S& w)
-    {
-      tab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
-      for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-      return m;
-    }
+//    template < class S>
+//     static tab_t diag_of(const S& a)
+//     {
+//       tab_t d(of_size(nt2::min(width(a), height(a)), 1));
+//       for (int i = 1; i <= nt2::min(width(a), height(a)); ++i) d(i) = a(i, i);
+//       return d;
+//     }
+//     template < class S>
+//     static tab_t from_diag(const S& w)
+//     {
+//       tab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
+//       for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
+//       return m;
+//     }
     template < class S>
     static tab_t trans(const S& a)
     {

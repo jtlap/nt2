@@ -43,7 +43,7 @@
   
 // }
 
-NT2_TEST_CASE_TPL( nbtrue_expr, (float))//(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( nbtrue_expr, (float)(double))//NT2_TYPES )
 {
   using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );
@@ -52,11 +52,15 @@ NT2_TEST_CASE_TPL( nbtrue_expr, (float))//(double))//NT2_TYPES )
     for(int i=1;i<=5;i++)
       y(i,j) = i + 5*j;
   y1 = nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>());
-  sy =  sum(y);
+  disp("y1", y1); 
   disp("y", y); 
-  disp("sy", sy); 
-  sy1 =  sum(y1); 
-  sy2 =  sum(nt2::if_else(nt2::gt(y, nt2::Ten<T>()), nt2::One<T>(), nt2::Zero<T>()));
+
+  nt2::table<nt2::logical<T> > l; 
+  l = gt(y, T(13));
+  disp("l ",  l);
+//   nt2::table<size_t > nb; 
+//   nb = nbtrue(l);
+//   disp("nb ",  nb);
 
 //   for(int j=1;j<=3;j++)
 //     NT2_TEST_EQUAL(nt2::size(y,1) , sy(j));

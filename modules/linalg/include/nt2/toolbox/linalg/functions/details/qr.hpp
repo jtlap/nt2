@@ -48,6 +48,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/triu.hpp>
@@ -66,7 +67,7 @@
 #include <nt2/toolbox/linalg/details/lapack/mqr.hpp>
 #include <nt2/toolbox/linalg/details/lapack/trtrs.hpp>
 #include <nt2/table.hpp>
-//#include <iostream>
+#include <iostream>
 
 namespace nt2 {
   struct no_p {};
@@ -195,12 +196,17 @@ namespace nt2 {
           {
             if (nt2::abs(aa_(i, i)) > thresh) ++r; 
           }
+//         table<logical<base_t> > l = nt2::diag_of(aa_()) > thresh;
+//         disp("l", l); 
+//         table<size_t > s = nbtrue(l); 
+//         disp("s", s); 
         return r;
         //nt2::sum(nt2::abs(nt2::diag_of(aa_())) > nt2::max(n, m)*epsi*nt2::max(nt2::abs(aa_)));
       }
       base_t absdet()const{
         BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
         btab_t r = nt2::prod(nt2::abs(diag_of(aa_)));
+        std::cout << "r  " << r << std::endl; 
         return r(1); 
       }
       
@@ -244,14 +250,7 @@ namespace nt2 {
         //      res(jpvt_(_(1, m)), _) = bb; //TODO
         return res; 
       }
-      template < class S>
-      static S diag_of(const S& a)
-      {
-        S d(of_size(nt2::min(width(a), height(a)), 1)); 
-        for (int i = 1; i <= nt2::min(width(a), height(a)); ++i) d(i) = a(i, i);
-        return d; 
-      }
-      
+     
       data_t                 a_; 
       tab_t                 aa_;
       nt2_la_int     m_, n_, k_;

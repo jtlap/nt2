@@ -50,3 +50,15 @@ NT2_TEST_CASE_TPL( diag_of_expr, NT2_TYPES )
     NT2_TEST_EQUAL( x(i), (y+y-T(1))(i,i) );
 }
 
+NT2_TEST_CASE_TPL( more, NT2_TYPES )
+{
+  nt2::table<T> x,y( nt2::of_size(7,7) );
+
+  for(int j=1;j<=7;j++)
+    for(int i=1;i<=7;i++)
+      y(i,j) = i + 10*j;
+
+  nt2::table<nt2::logical<T> > l; 
+  l = le(y, T(50)); 
+}
+

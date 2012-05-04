@@ -17,6 +17,7 @@
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/issymetric.hpp>
+#include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/table.hpp>
 ////////////////////////////////////////////////////////////////////////////////
@@ -118,7 +119,7 @@ namespace nt2 { namespace details
     //     // /////////////////////////////////////////////////////////////////////////////
     //     // return eigen values (as diagonal matrix of dry)
     //     // /////////////////////////////////////////////////////////////////////////////
-    //     dtab_t      dw ()         { return diag_from(w_);}
+    //     dtab_t      dw ()         { return from_diag(w_);}
     
     nt2_la_int status() const { return info_;   }
     
@@ -142,13 +143,13 @@ namespace nt2 { namespace details
     }
     
   private:
-    template < class S>
-    static btab_t from_diag(const S& w)
-    {
-      btab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
-      for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-      return m;
-    }
+//     template < class S>
+//     static btab_t from_diag(const S& w)
+//     {
+//       btab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
+//       for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
+//       return m;
+//     }
     char     jobz_, uplo_;
     data_t             a_;
     tab_t             aa_; 

@@ -16,6 +16,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/isempty.hpp>
+#include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/toolbox/linalg/details/lapack/geesx.hpp>
@@ -26,7 +27,6 @@
 
 #include <nt2/table.hpp>
 //#include <iostream>
-//#include <nt2/include/functions/diag.hpp>
 
 //  schur  schur decomposition.
 //     [u,t] = schur(x) produces a quasitriangular schur matrix t and
@@ -117,12 +117,6 @@ namespace nt2 {
       }
     private:
       template<class S>
-      static tab_t from_diag(const S& w)
-      {
-        tab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
-        for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-        return m;
-      }
       char                 jobvs_, sort_;
       char                        sense_;
       data_t                          a_;
@@ -216,13 +210,6 @@ namespace nt2 {
       tab_t                     wr_, wi_;  
       nt2_la_int                   info_; 
       workspace_t                   wrk_;
-      template <class S>
-      static tab_t from_diag(const S& w)
-      {
-        tab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
-        for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-        return m;
-      }
     }; 
   }
 }

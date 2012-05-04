@@ -11,7 +11,6 @@
 
 #include <nt2/toolbox/linalg/functions/chol.hpp>
 #include <nt2/options.hpp>
-#include <nt2/toolbox/linalg/functions/chol.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/toolbox/linalg/functions/details/chol.hpp>
