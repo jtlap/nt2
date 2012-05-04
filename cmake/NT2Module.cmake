@@ -413,7 +413,7 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
   endif()
 
   set(reduce)
-  foreach(component functions functions/scalar functions/simd constants)
+  foreach(component functions constants)
 
     set(extra)
     foreach(arg ${ARGN})
@@ -439,6 +439,27 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
   nt2_module_postconfigure(gather_includes ${reduce}
                                            --out ${prefix}/toolbox/${toolbox}/${toolbox}.hpp
                           )
+
+  foreach(component scalar simd)
+    set(extra)
+    foreach(arg ${ARGN})
+      list(APPEND extra ${arg}/functions/generic ${arg}/functions/${component})
+    endforeach()
+
+    set(postfix)
+    if(${is_sys})
+      set(postfix --out ${prefix}/include/functions/${component})
+    endif()
+
+    nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
+                                             ${prefix}/toolbox/${toolbox}/functions/generic
+                                             ${prefix}/toolbox/${toolbox}/functions/${component}
+                                             ${extra}
+                                             --out ${prefix}/toolbox/${toolbox}/include/functions/${component}
+                                             ${prefix}/toolbox/${toolbox}/include/functions/${component}
+                                             ${postfix}
+                            )
+  endforeach()
 
 endmacro()
 
