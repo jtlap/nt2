@@ -122,8 +122,8 @@ namespace nt2 { namespace details
       ldu_  = (jobu_== 'N') ? 1 : m_;
       ucol_ = (jobu_== 'S'||jobu_== 'O') ? nt2::min(n_, m_) : ((jobu_== 'N') ? 1 : m_); 
       
-      vtcol_  = (jobu_== 'N') ? 1 : n_;
-      ldvt_   = (jobu_== 'S'||jobu_== 'O') ? nt2::min(n_, m_) : ((jobu_== 'N') ? 1 : n_);
+      vtcol_  = (jobvt_== 'N') ? 1 : n_;
+      ldvt_   = (jobvt_== 'S'||jobvt_== 'O') ? nt2::min(n_, m_) : ((jobvt_== 'N') ? 1 : n_);
       u_.resize(of_size(ldu_, ucol_));
       ldu_ = u_.leading_size();
       vt_.resize(of_size(ldvt_, vtcol_));
@@ -176,11 +176,13 @@ namespace nt2 { namespace details
     // Return v part
     //==========================================================================
     result_type v() const {
+      result_type z; 
       BOOST_ASSERT_MSG(jobvt_ != 'N', "please call svd with jobvt= 'A', 'S' or 'O'");
       if (jobvt_ == 'O')
-        return trans(expand(aa_, min(m_, n_), n_));
+        z = trans(expand(aa_, min(m_, n_), n_));
       else
-        return trans(vt_);
+        z = trans(vt_);
+      return z; 
     }
 
     //==========================================================================
@@ -344,9 +346,10 @@ namespace nt2 { namespace details
     template < class S>
     static tab_t trans(const S& a)
     {
-      tab_t ta(of_size(width(a), height(a)));
+      tab_t ta = zeros(width(a), height(a), meta::as_<type_t>());
       for (int i = 1; i <= height(a); ++i)
-        for (int j = 1; j <= width(a); ++j) ta(j, i) = a(i, j);
+        for (int j = 1; j <= width(a); ++j)
+          ta(j, i) = a(i, j);
       return ta;
     }
 

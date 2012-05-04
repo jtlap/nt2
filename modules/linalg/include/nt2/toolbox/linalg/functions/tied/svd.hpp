@@ -13,6 +13,7 @@
 #include <nt2/toolbox/linalg/functions/factorizations/svd.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -41,8 +42,22 @@ namespace nt2 { namespace ext
       // Retrieve the economy options
       econ = options(a0, N0());
       // translate to lapack job
-      jobu = econ == 'A' ? 'A' : (econ = 'R' ? 'O' : 'S'); 
-      jobvt= 'A'; 
+      if (N1::value == 1)
+        {
+          jobu = jobvt = 'N';
+        }
+      else if ( econ == 'N')
+        {
+          jobu = jobvt = 'A';
+        }
+      else if (econ == 'L')
+        {
+          jobu = 'S'; jobvt = 'A';
+        }
+      else
+        {
+          jobu = 'S'; jobvt = 'S';
+        }
       // Copy data in output first
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
 
@@ -63,7 +78,9 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE char options(A0 const& in, boost::mpl::long_<2> const&) const
     {
-      return boost::proto::value(boost::proto::child_c<1>(in));
+      char econ = boost::proto::value(boost::proto::child_c<1>(in));
+      if (econ != 'R' && econ !=  'L') econ = 'A';
+      return econ; 
     }
 
     //==========================================================================
@@ -88,7 +105,7 @@ namespace nt2 { namespace ext
     {
       boost::proto::child_c<0>(a1) = f.u();
       boost::proto::child_c<1>(a1) = f.w();
-      boost::proto::child_c<2>(a1) = f.vt(); 
+      boost::proto::child_c<2>(a1) = f.v(); 
     }
   };
 } }

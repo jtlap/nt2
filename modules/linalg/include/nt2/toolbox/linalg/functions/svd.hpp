@@ -11,6 +11,7 @@
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/toolbox/linalg/functions/details/svd.hpp>
 
 namespace nt2
@@ -27,7 +28,7 @@ namespace nt2
 
     struct svd_ : ext::unspecified_<svd_>
     {
-      typedef ext::unspecified_<svd_>  parent;
+       typedef ext::tieable_<svd_>  parent;
     };
   }
 

@@ -67,7 +67,7 @@
 #include <nt2/toolbox/linalg/details/lapack/mqr.hpp>
 #include <nt2/toolbox/linalg/details/lapack/trtrs.hpp>
 #include <nt2/table.hpp>
-#include <iostream>
+//#include <iostream>
 
 namespace nt2 {
   struct no_p {};
@@ -206,7 +206,6 @@ namespace nt2 {
       base_t absdet()const{
         BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
         btab_t r = nt2::prod(nt2::abs(diag_of(aa_)));
-        std::cout << "r  " << r << std::endl; 
         return r(1); 
       }
       
