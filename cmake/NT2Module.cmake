@@ -441,9 +441,10 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
                           )
 
   foreach(component scalar simd)
+
     set(extra)
     foreach(arg ${ARGN})
-      list(APPEND extra ${arg}/functions/generic ${arg}/functions/${component})
+      list(APPEND extra ${arg}/functions/generic ${arg}/functions/scalar ${arg}/functions/${component})
     endforeach()
 
     set(postfix)
@@ -454,6 +455,7 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
     nt2_module_postconfigure(gather_includes --ignore impl --ignore details --ignore preprocessed
                                              --max 1 ${prefix}/toolbox/${toolbox}/functions
                                              ${prefix}/toolbox/${toolbox}/functions/generic
+                                             ${prefix}/toolbox/${toolbox}/functions/scalar
                                              ${prefix}/toolbox/${toolbox}/functions/${component}
                                              ${extra}
                                              --out ${prefix}/toolbox/${toolbox}/include/functions/${component}
