@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_SPHERICAL_HARMONIC_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_SPHERICAL_HARMONIC_HPP_INCLUDED
+#include <nt2/toolbox/boost_math/functions/spherical_harmonic.hpp>
 #include <nt2/toolbox/boost_math/specific/interface.hpp>
 //Attention the result must be complex ! TO DO
 

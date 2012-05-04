@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEGATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEGATE_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/negate.hpp>
 #include <boost/simd/include/functions/scalar/is_nez.hpp>
 #include <boost/simd/include/functions/scalar/is_gez.hpp>
 

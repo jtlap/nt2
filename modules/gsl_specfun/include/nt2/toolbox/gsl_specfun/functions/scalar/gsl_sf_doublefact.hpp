@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_SCALAR_GSL_SF_DOUBLEFACT_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_SCALAR_GSL_SF_DOUBLEFACT_HPP_INCLUDED
+#include <nt2/toolbox/gsl_specfun/functions/gsl_sf_doublefact.hpp>
 #include <nt2/toolbox/gsl_specfun/specific/interface.hpp>
   extern "C"{
     extern double gsl_sf_doublefact ( int );

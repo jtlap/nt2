@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SECH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SECH_HPP_INCLUDED
 
+#include <nt2/toolbox/hyperbolic/functions/sech.hpp>
 #include <nt2/include/functions/scalar/cosh.hpp>
 
 

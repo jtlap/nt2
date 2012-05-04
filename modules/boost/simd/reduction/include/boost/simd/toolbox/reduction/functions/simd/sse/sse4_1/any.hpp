@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_ANY_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#include <boost/simd/toolbox/reduction/functions/any.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/allbits.hpp>

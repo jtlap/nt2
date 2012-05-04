@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_NORM2_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_NORM2_HPP_INCLUDED
 
+#include <nt2/core/functions/norm2.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/norm2.hpp>
 #include <nt2/include/functions/sqrt.hpp>

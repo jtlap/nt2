@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_TRACE_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_TRACE_HPP_INCLUDED
+#include <nt2/toolbox/linalg/functions/trace.hpp>
 #include <nt2/include/functions/scalar/trace.hpp>
 #include <nt2/include/functions/scalar/height.hpp>
 #include <nt2/include/functions/scalar/width.hpp>

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MINMAG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MINMAG_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/minmag.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 
 namespace boost { namespace simd { namespace ext

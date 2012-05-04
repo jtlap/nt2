@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_LENGTH_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_LENGTH_HPP_INCLUDED
 
+#include <nt2/core/functions/length.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <nt2/core/functions/length.hpp>
 #include <nt2/include/functions/scalar/max.hpp>

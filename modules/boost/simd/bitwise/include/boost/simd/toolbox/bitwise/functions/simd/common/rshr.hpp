@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RSHR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RSHR_HPP_INCLUDED
+#include <boost/simd/toolbox/bitwise/functions/rshr.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/simd/shli.hpp>
 #include <boost/simd/include/functions/simd/shri.hpp>

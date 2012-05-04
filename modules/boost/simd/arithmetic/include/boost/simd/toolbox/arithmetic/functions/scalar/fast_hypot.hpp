@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FAST_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FAST_HYPOT_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/fast_hypot.hpp>
 #include <boost/simd/include/constants/eps.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/nan.hpp>  

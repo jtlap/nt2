@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_COMMON_TIE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_COMMON_TIE_HPP_INCLUDED
 
+#include <nt2/core/functions/tie.hpp>
 #include <boost/mpl/assert.hpp>
 #include <nt2/core/functions/tie.hpp>
 #include <nt2/include/functions/assign.hpp>

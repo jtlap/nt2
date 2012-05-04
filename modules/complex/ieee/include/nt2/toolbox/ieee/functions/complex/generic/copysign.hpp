@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_IEEE_FUNCTIONS_GENERIC_COPYSIGN_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTIONS_GENERIC_COPYSIGN_HPP_INCLUDED
+#include <nt2/toolbox/ieee/functions/copysign.hpp>
 #include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>

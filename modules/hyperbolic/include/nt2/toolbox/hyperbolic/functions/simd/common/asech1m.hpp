@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ASECH1M_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_ASECH1M_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/asech1m.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

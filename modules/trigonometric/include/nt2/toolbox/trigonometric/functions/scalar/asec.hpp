@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ASEC_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ASEC_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/asec.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/functions/scalar/acsc.hpp>

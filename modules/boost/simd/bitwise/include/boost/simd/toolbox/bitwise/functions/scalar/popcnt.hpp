@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_POPCNT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_POPCNT_HPP_INCLUDED
+#include <boost/simd/toolbox/bitwise/functions/popcnt.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/scalar/lo.hpp>
 #include <boost/simd/include/functions/scalar/hi.hpp>

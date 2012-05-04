@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MINNUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MINNUM_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/minnum.hpp>
 #include <boost/simd/include/functions/scalar/min.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 

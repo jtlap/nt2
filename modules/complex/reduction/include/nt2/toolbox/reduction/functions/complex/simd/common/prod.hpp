@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SIMD_COMMON_PROD_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SIMD_COMMON_PROD_HPP_INCLUDED
+#include <nt2/toolbox/reduction/functions/prod.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>

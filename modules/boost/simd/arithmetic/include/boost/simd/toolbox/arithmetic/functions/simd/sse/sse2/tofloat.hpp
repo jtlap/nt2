@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>

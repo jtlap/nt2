@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEGATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEGATE_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/negate.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>

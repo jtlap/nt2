@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_OPENMP_TRANSFORM_HPP_INCLUDED
 #if defined(_OPENMP) && _OPENMP >= 200203 /* OpenMP 2.0 */
 
+#include <nt2/core/functions/transform.hpp>
 #include <cstddef>
 #include <nt2/core/functions/transform.hpp>
 #include <nt2/sdk/config/cache.hpp>

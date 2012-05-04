@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_SSE_SSE_LOGICAL_ANDNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_SSE_SSE_LOGICAL_ANDNOT_HPP_INCLUDED
+#include <boost/simd/toolbox/boolean/functions/logical_andnot.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>

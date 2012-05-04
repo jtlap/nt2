@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSSE3_REVERSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSSE3_REVERSE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
+#include <boost/simd/toolbox/swar/functions/reverse.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>

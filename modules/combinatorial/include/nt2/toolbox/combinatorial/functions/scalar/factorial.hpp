@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_FACTORIAL_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_FACTORIAL_HPP_INCLUDED
+#include <nt2/toolbox/combinatorial/functions/factorial.hpp>
 #include <nt2/include/functions/scalar/gamma.hpp>
 #include <nt2/include/functions/scalar/trunc.hpp>
 #include <nt2/include/functions/scalar/round.hpp>

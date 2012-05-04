@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_REAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_REAL_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_imag.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

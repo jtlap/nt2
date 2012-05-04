@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_OR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_LOGICAL_OR_HPP_INCLUDED
+#include <boost/simd/toolbox/operator/functions/logical_or.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>

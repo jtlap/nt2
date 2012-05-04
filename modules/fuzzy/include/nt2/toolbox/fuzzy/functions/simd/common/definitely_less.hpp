@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_DEFINITELY_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_DEFINITELY_LESS_HPP_INCLUDED
+#include <nt2/toolbox/fuzzy/functions/definitely_less.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/is_ord.hpp>
 #include <nt2/include/functions/simd/successor.hpp>

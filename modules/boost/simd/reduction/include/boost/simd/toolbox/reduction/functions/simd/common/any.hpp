@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_ANY_HPP_INCLUDED
+#include <boost/simd/toolbox/reduction/functions/any.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/any.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>

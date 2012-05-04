@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_NOT_LESS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_NOT_LESS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#include <boost/simd/toolbox/predicates/functions/is_not_less.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_not_less.hpp>
 

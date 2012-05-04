@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_FLINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_FLINT_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_flint.hpp>
 #include <boost/simd/include/functions/scalar/is_eqz.hpp>
 #include <boost/simd/include/functions/scalar/frac.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>

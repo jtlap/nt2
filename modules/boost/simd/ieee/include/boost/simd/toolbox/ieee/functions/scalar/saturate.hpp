@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/saturate.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 

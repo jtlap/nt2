@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellint_1.hpp>
 #include <boost/math/special_functions.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/infinites.hpp>

@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_NORM_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_NORM_HPP_INCLUDED
+#include <nt2/toolbox/linalg/functions/norm.hpp>
 #include <nt2/include/functions/scalar/norm.hpp>
 #include <nt2/include/functions/scalar/isvector.hpp>
 #include <nt2/include/functions/scalar/ismatrix.hpp>

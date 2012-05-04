@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_NONE_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_NONE_HPP_INCLUDED
 
+#include <nt2/toolbox/reduction/functions/none.hpp>
 #include <boost/simd/toolbox/reduction/functions/none.hpp>
 #include <nt2/core/container/dsl/details/reduction.hpp>
 #include <nt2/include/functions/is_nez.hpp>

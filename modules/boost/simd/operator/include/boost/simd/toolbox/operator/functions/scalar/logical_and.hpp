@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_LOGICAL_AND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_LOGICAL_AND_HPP_INCLUDED
+#include <boost/simd/toolbox/operator/functions/logical_and.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

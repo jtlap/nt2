@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_GROUP_HPP_INCLUDED
 
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/swar/functions/group.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

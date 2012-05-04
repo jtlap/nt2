@@ -12,7 +12,6 @@
 #include <nt2/core/functions/iscolumn.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/include/functions/extent.hpp>
 #include <nt2/sdk/meta/safe_at.hpp>
 
 namespace nt2 { namespace ext

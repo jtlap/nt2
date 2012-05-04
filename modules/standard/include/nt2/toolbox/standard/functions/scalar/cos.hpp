@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_STANDARD_FUNCTIONS_SCALAR_COS_HPP_INCLUDED
 #define NT2_TOOLBOX_STANDARD_FUNCTIONS_SCALAR_COS_HPP_INCLUDED
+#include <nt2/toolbox/standard/functions/cos.hpp>
 #include <cmath>
 
 

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MAXNUMMAG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_MAXNUMMAG_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/maxnummag.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 

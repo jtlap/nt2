@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_MUL_I_HPP_INCLUDED
 #define NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_MUL_I_HPP_INCLUDED
+#include <nt2/toolbox/complex/functions/mul_i.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/toolbox/complex/functions/mul_i.hpp>

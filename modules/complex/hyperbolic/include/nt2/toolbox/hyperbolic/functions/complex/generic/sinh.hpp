@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_SINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_SINH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/sinh.hpp>
 #include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/sinh.hpp>

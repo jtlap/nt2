@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLIPKE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLIPKE_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellipke.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/ldexp.hpp>

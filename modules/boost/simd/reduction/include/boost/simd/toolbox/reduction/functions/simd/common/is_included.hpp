@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_INCLUDED_HPP_INCLUDED
+#include <boost/simd/toolbox/reduction/functions/is_included.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/all.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SINCOS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SINCOS_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/sincos.hpp>
 #include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/real.hpp>

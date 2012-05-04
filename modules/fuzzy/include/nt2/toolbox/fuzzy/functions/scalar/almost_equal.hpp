@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_ALMOST_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_ALMOST_EQUAL_HPP_INCLUDED
+#include <nt2/toolbox/fuzzy/functions/almost_equal.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/simd/logical.hpp>

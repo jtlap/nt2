@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSSE3_ABS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSSE3_ABS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
+#include <boost/simd/toolbox/arithmetic/functions/abs.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>

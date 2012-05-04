@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IDIVCEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IDIVCEIL_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/idivceil.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/scalar/sign.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>

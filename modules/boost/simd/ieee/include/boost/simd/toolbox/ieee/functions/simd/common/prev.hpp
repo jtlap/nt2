@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_PREV_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_PREV_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/prev.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/simd/subs.hpp>
 #include <boost/simd/include/functions/simd/if_allbits_else.hpp>

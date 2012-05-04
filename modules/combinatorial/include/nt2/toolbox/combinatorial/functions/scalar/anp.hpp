@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_ANP_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_ANP_HPP_INCLUDED
+#include <nt2/toolbox/combinatorial/functions/anp.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 

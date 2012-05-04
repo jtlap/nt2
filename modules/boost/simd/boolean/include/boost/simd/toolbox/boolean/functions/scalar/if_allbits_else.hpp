@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_IF_ALLBITS_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_IF_ALLBITS_ELSE_HPP_INCLUDED
+#include <boost/simd/toolbox/boolean/functions/if_allbits_else.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 

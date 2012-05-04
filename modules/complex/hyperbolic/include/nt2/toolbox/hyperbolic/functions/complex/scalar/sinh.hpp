@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_SINH_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_SINH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/sinh.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/real.hpp>

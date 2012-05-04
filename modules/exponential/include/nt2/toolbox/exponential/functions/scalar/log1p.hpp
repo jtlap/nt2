@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOG1P_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOG1P_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/log1p.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/mone.hpp>

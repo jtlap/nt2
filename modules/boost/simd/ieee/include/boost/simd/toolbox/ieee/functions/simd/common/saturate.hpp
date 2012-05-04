@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SATURATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SATURATE_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/saturate.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>

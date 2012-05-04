@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_LCM_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_LCM_HPP_INCLUDED
+#include <nt2/toolbox/combinatorial/functions/lcm.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/round2even.hpp>
 #include <nt2/include/functions/simd/gcd.hpp>

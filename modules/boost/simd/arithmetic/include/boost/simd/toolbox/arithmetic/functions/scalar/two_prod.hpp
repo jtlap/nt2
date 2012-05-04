@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TWO_PROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TWO_PROD_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/two_prod.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/scalar/is_invalid.hpp>

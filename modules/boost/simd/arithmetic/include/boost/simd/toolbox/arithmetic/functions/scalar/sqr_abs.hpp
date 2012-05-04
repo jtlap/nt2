@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_SQR_ABS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_SQR_ABS_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/sqr_abs.hpp>
 #include <boost/simd/include/functions/scalar/sqr.hpp>
 #include <boost/simd/include/functions/scalar/abss.hpp>
 #include <boost/simd/include/constants/valmin.hpp>

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPLEMENT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_COMPLEMENT_HPP_INCLUDED
+#include <boost/simd/toolbox/operator/functions/complement.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/bitwise_xor.hpp>
 #include <boost/simd/include/functions/simd/logical_xor.hpp>

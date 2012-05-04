@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_ZERO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_IF_ELSE_ZERO_HPP_INCLUDED
 
+#include <boost/simd/toolbox/boolean/functions/if_else_zero.hpp>
 #include <boost/simd/toolbox/boolean/functions/if_zero_else.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>

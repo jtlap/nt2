@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/pow.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>

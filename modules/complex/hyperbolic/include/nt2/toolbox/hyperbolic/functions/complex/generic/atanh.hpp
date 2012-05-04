@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ATANH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ATANH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/atanh.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/minusone.hpp>

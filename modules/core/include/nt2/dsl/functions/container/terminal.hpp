@@ -9,6 +9,7 @@
 #ifndef NT2_DSL_FUNCTIONS_CONTAINER_TERMINAL_HPP_INCLUDED
 #define NT2_DSL_FUNCTIONS_CONTAINER_TERMINAL_HPP_INCLUDED
 
+#include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <nt2/dsl/functions/terminal.hpp>

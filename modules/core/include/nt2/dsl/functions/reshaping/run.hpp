@@ -9,6 +9,7 @@
 #ifndef NT2_DSL_FUNCTIONS_RESHAPING_RUN_HPP_INCLUDED
 #define NT2_DSL_FUNCTIONS_RESHAPING_RUN_HPP_INCLUDED
 
+#include <nt2/dsl/functions/run.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>

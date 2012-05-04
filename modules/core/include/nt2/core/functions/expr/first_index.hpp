@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_FIRST_INDEX_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_FIRST_INDEX_HPP_INCLUDED
 
+#include <nt2/core/functions/first_index.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <nt2/core/container/category.hpp>

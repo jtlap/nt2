@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_POW_ABSI_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_POW_ABSI_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/pow_absi.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/signnz.hpp>

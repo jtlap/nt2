@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_NEGATE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_NEGATE_HPP_INCLUDED
+#include <nt2/toolbox/ieee/functions/negate.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_nan.hpp>

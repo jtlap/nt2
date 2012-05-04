@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND2EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND2EVEN_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/iround2even.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
 #include <boost/simd/include/functions/scalar/seladd.hpp>

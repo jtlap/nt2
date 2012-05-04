@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPE_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellpe.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>

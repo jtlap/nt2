@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_VECNORM_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_VECNORM_HPP_INCLUDED
+#include <nt2/toolbox/linalg/functions/vecnorm.hpp>
 #include <nt2/include/functions/scalar/vecnorm.hpp>
 #include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/functions/scalar/is_finite.hpp>

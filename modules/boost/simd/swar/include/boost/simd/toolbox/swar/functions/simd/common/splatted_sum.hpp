@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_SUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_SUM_HPP_INCLUDED
+#include <boost/simd/toolbox/swar/functions/splatted_sum.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/simd/sum.hpp>
 /////////////////////////////////////////////////////////////////////////////

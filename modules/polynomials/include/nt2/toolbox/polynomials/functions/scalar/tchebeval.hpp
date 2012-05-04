@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SCALAR_TCHEBEVAL_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SCALAR_TCHEBEVAL_HPP_INCLUDED
+#include <nt2/toolbox/polynomials/functions/tchebeval.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/scalar/average.hpp>
 #include <nt2/toolbox/polynomials/category.hpp>

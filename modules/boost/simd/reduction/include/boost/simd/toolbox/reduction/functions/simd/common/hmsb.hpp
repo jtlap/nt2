@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_HMSB_HPP_INCLUDED
+#include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
 #include <boost/simd/include/functions/simd/bits.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <climits>

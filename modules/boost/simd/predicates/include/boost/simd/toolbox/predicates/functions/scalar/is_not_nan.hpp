@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_NAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_NAN_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_not_nan.hpp>
 #include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_POW_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_POW_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/pow.hpp>
 #include <nt2/include/functions/scalar/powi.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/is_odd.hpp>

@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_PUT_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_PUT_FIRST_HPP_INCLUDED
 
+#include <boost/simd/toolbox/swar/functions/put_first.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>

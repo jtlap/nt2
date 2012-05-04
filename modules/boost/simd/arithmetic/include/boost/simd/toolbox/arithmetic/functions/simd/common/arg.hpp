@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ARG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ARG_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/arg.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/sdk/simd/meta/is_real_convertible.hpp>
 #include <boost/simd/include/constants/real.hpp>

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_CRLIBM_FUNCTIONS_SCALAR_LOG2_RD_HPP_INCLUDED
 #define NT2_TOOLBOX_CRLIBM_FUNCTIONS_SCALAR_LOG2_RD_HPP_INCLUDED
+#include <nt2/toolbox/crlibm/functions/log2_rd.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 
   extern "C"{

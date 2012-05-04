@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_MINUS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
+#include <boost/simd/toolbox/operator/functions/minus.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 

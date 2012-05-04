@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMALN_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMALN_HPP_INCLUDED
 
+#include <nt2/toolbox/euler/functions/gammaln.hpp>
 #include <nt2/toolbox/euler/details/math.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/is_invalid.hpp>

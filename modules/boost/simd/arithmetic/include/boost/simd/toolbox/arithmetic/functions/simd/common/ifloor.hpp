@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IFLOOR_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/ifloor.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/simd/floor.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>

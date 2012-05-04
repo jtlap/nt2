@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLPE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLPE_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellpe.hpp>
 #include <boost/math/special_functions.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>

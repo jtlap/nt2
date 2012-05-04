@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TWO_PROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TWO_PROD_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/two_prod.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>

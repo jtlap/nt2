@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_BETA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_BETA_HPP_INCLUDED
 
+#include <nt2/toolbox/euler/functions/beta.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 

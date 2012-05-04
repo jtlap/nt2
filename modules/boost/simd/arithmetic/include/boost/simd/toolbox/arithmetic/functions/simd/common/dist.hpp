@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIST_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/dist.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>

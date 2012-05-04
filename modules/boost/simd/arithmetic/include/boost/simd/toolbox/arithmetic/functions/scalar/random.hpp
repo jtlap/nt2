@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_RANDOM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_RANDOM_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/random.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/scalar/iround.hpp>
 #include <boost/simd/include/functions/scalar/min.hpp>

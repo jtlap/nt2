@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NAN_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_nan.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/is_unord.hpp>
 

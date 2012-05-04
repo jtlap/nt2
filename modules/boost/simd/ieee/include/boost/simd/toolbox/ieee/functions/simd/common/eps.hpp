@@ -9,6 +9,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EPS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EPS_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/eps.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>

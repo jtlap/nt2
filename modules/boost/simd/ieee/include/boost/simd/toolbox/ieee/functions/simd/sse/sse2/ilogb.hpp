@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/ieee/functions/ilogb.hpp>
 #include <boost/simd/toolbox/ieee/functions/simd/common/ilogb.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>

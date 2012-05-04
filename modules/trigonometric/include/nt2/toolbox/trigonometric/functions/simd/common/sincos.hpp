@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOS_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/sincos.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>

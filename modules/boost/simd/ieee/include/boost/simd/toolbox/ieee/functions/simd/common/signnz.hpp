@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SIGNNZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SIGNNZ_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/signnz.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/functions/simd/is_gez.hpp>

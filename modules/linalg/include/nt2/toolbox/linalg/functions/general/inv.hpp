@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_INV_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_INV_HPP_INCLUDED
+#include <nt2/toolbox/linalg/functions/inv.hpp>
 #include <nt2/include/functions/inv.hpp>
 #include <nt2/include/functions/lu.hpp>
 #include <nt2/include/functions/issquare.hpp>

@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SQRT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SQRT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/arithmetic/functions/sqrt.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_SCALAR_GSL_SF_PSI_N_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_SCALAR_GSL_SF_PSI_N_HPP_INCLUDED
+#include <nt2/toolbox/gsl_specfun/functions/gsl_sf_psi_n.hpp>
 #include <nt2/toolbox/gsl_specfun/specific/interface.hpp>
 
 

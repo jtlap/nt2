@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_ABS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_ABS_HPP_INCLUDED
+#include <nt2/toolbox/arithmetic/functions/arg.hpp>
 #include <nt2/toolbox/arithmetic/functions/abs.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>

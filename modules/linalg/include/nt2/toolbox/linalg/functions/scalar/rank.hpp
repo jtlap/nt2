@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_RANK_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_RANK_HPP_INCLUDED
+#include <nt2/toolbox/linalg/functions/rank.hpp>
 #include <nt2/include/functions/scalar/rank.hpp>
 #include <nt2/include/functions/scalar/svd.hpp>
 

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_POSITIVE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_POSITIVE_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_positive.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>

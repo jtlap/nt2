@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_FACTORIZATIONS_QR_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_FACTORIZATIONS_QR_HPP_INCLUDED
 
+#include <nt2/toolbox/linalg/functions/qr.hpp>
 #include <nt2/options.hpp>
 #include <nt2/toolbox/linalg/functions/qr.hpp>
 #include <nt2/core/container/table/table.hpp>

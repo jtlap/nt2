@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_SQRT1PM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_SQRT1PM1_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/sqrt1pm1.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/functions/simd/sqrt.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>

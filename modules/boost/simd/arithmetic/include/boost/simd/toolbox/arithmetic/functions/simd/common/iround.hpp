@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/iround.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/simd/iround2even.hpp>
 

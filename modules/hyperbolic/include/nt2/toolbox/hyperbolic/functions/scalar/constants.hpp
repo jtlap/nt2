@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_CONSTANTS_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_CONSTANTS_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/constants.hpp>
 #include <nt2/sdk/constant/constant.hpp>
 #include <nt2/include/constants/real.hpp>
 

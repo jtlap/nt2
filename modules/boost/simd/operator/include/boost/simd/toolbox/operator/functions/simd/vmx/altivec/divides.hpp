@@ -13,6 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Altivec division algorithm are long-ass. Let's hide them for clarity purpose
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/toolbox/operator/functions/divides.hpp>
 #include <boost/simd/toolbox/operator/functions/simd/vmx/altivec/impl/divides_float.hpp>
 //#include <boost/simd/toolbox/operator/functions/simd/vmx/altivec/impl/divides_int32.hpp>
 //#include <boost/simd/toolbox/operator/functions/simd/vmx/altivec/impl/divides_int16.hpp>

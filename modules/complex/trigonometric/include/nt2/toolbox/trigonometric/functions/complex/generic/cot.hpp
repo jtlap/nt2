@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COT_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/cot.hpp>
 #include <nt2/include/functions/tan.hpp>
 #include <nt2/include/functions/cot.hpp>
 #include <nt2/include/functions/coth.hpp>

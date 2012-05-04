@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_LDEXP_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/ldexp.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/simd/include/constants/ldexpmask.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>

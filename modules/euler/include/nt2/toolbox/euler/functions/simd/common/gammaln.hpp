@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_GAMMALN_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_GAMMALN_HPP_INCLUDED
+#include <nt2/toolbox/euler/functions/gammaln.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/sdk/meta/strip.hpp>

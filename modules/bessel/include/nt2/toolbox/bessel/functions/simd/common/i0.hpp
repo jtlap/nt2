@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_I0_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_I0_HPP_INCLUDED
+#include <nt2/toolbox/bessel/functions/i0.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>

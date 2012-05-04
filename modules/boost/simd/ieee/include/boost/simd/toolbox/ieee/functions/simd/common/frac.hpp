@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FRAC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FRAC_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/frac.hpp>
 #include <boost/simd/include/functions/simd/is_invalid.hpp>
 #include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/functions/simd/trunc.hpp>

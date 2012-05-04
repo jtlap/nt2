@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_ANY_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_ANY_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#include <boost/simd/toolbox/reduction/functions/any.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/reduction/functions/any.hpp>
 #include <boost/simd/include/constants/true.hpp>

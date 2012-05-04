@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_COMPARE_LESS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_COMPARE_LESS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/operator/functions/compare_less.hpp>
 #include <boost/simd/include/functions/simd/is_less.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/reversebits.hpp>

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REC_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/rec.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 

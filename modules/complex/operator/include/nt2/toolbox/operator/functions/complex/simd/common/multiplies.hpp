@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
+#include <nt2/toolbox/operator/functions/multiplies.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_SQRT1PM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_SQRT1PM1_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/sqrt1pm1.hpp>
 #include <nt2/include/functions/scalar/tofloat.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/functions/scalar/oneplus.hpp>

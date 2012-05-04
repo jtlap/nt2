@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NLTZ_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NLTZ_HPP_INCLUDED
+#include <nt2/toolbox/predicates/functions/is_nltz.hpp>
 #include <nt2/include/functions/is_nltz.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/complex/complex.hpp>

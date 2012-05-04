@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FAST_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FAST_FREXP_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/fast_frexp.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/simd/shri.hpp>

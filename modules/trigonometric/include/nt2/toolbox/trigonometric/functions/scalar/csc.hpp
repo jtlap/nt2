@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_CSC_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_CSC_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/csc.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/scalar/sin.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>

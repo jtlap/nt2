@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ULP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ULP_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/ulp.hpp>
 #include <boost/simd/include/constants/one.hpp> 
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>

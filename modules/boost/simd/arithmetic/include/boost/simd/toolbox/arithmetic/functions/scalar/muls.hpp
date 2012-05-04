@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MULS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MULS_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/muls.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/scalar/genmask.hpp>
 #include <boost/simd/include/functions/scalar/adds.hpp>

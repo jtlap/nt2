@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_NUMEL_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_NUMEL_HPP_INCLUDED
 
+#include <nt2/core/functions/numel.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <nt2/core/functions/numel.hpp>
 #include <boost/fusion/include/fold.hpp>

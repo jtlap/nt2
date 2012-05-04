@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_GROUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_GROUP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#include <boost/simd/toolbox/swar/functions/group.hpp>
 #include <boost/simd/sdk/meta/templatize.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/include/constants/zero.hpp>

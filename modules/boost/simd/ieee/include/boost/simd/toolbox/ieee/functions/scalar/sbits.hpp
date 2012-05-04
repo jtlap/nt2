@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SBITS_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/sbits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 

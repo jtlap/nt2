@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SIGN_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/sign.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXTAFTER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXTAFTER_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/nextafter.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>
 #include <boost/simd/include/functions/simd/is_not_equal.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>

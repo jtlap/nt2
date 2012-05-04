@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_2_IS_GTZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_2_IS_GTZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
+#include <boost/simd/toolbox/predicates/functions/is_gtz.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/constants/zero.hpp>

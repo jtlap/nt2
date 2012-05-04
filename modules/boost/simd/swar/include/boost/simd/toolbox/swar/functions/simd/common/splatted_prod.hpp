@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_PROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_PROD_HPP_INCLUDED
+#include <boost/simd/toolbox/swar/functions/splatted_prod.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/simd/prod.hpp>
 /////////////////////////////////////////////////////////////////////////////

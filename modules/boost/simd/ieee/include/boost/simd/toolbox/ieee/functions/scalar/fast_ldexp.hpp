@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FAST_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FAST_LDEXP_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/fast_ldexp.hpp>
 #include <boost/simd/include/constants/ldexpmask.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

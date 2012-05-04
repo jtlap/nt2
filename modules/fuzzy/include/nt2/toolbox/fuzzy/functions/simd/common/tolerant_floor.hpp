@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_TOLERANT_FLOOR_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_TOLERANT_FLOOR_HPP_INCLUDED
+#include <nt2/toolbox/fuzzy/functions/tolerant_floor.hpp>
 #include <nt2/include/constants/threeeps.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>

@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_CIF_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_CIF_HPP_INCLUDED
 
+#include <nt2/core/functions/cif.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/cif.hpp>
 #include <nt2/core/utility/box.hpp>

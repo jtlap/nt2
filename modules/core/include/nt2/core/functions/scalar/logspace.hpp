@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_LOGSPACE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_LOGSPACE_HPP_INCLUDED
 
+#include <nt2/core/functions/logspace.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/functions/scalar/exp10.hpp>

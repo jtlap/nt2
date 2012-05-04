@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/sinh.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/scalar/is_negative.hpp>

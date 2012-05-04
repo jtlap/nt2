@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SINPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SINPI_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/sinpi.hpp>
 #include <nt2/include/functions/sincospi.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/sinh.hpp>

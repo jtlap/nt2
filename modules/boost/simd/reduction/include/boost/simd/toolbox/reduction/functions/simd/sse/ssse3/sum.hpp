@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_SUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_SUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
+#include <boost/simd/toolbox/reduction/functions/sum.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/strip.hpp>

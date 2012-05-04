@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_1_IS_EQUAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE4_1_IS_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#include <boost/simd/toolbox/predicates/functions/is_equal.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

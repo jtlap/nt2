@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IROUND_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/iround.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/scalar/seladd.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>

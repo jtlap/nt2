@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGNNZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGNNZ_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/signnz.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/functions/scalar/is_gez.hpp>

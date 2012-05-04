@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_MAP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
+#include <boost/simd/toolbox/operator/functions/map.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 

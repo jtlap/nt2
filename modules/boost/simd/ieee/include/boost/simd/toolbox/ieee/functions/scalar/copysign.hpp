@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_COPYSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_COPYSIGN_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/copysign.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/signnz.hpp>

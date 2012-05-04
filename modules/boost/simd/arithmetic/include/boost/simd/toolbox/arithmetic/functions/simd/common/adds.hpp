@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ADDS_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/adds.hpp>
 #include <boost/mpl/logical.hpp>
 #include <boost/simd/toolbox/arithmetic/functions/adds.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>

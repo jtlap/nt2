@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIST_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/dist.hpp>
 #include <boost/simd/include/functions/scalar/logical_xor.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 

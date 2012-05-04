@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_LOGICAL_ORNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_LOGICAL_ORNOT_HPP_INCLUDED
+#include <boost/simd/toolbox/boolean/functions/logical_ornot.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/bitwise_ornot.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>

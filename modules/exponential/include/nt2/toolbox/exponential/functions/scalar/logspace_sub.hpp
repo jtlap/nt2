@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOGSPACE_SUB_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOGSPACE_SUB_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/logspace_sub.hpp>
 #include <nt2/include/functions/scalar/logspace_sub.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/max.hpp>

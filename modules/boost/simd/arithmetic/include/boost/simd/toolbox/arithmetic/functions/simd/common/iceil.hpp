@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ICEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ICEIL_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/iceil.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/functions/simd/toint.hpp>
 

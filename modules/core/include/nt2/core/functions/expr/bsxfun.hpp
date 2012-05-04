@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_BSXFUN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_BSXFUN_HPP_INCLUDED
 
+#include <nt2/core/functions/bsxfun.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/bsxfun.hpp>
 #include <nt2/include/functions/abs.hpp>

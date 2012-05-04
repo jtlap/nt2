@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_SPLATTED_MINIMUM_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_SPLATTED_MINIMUM_HPP_INCLUDED
+#include <nt2/toolbox/swar/functions/splatted_minimum.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/minimum.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>

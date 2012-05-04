@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_FAST_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_FAST_GAMMA_HPP_INCLUDED
+#include <nt2/toolbox/euler/functions/fast_gamma.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>

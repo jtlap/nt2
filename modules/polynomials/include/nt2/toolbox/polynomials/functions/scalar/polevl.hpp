@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SCALAR_POLEVL_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SCALAR_POLEVL_HPP_INCLUDED
+#include <nt2/toolbox/polynomials/functions/polevl.hpp>
 #include <nt2/include/functions/scalar/tchebeval.hpp>
 #include <nt2/toolbox/polynomials/category.hpp>
 #include <nt2/sdk/meta/fusion.hpp>

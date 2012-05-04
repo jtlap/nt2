@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MANTISSA_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MANTISSA_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/mantissa.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

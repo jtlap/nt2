@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_CEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_CEIL_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/ceil.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/functions/scalar/seladd.hpp>
 #include <boost/simd/include/functions/scalar/round2even.hpp>

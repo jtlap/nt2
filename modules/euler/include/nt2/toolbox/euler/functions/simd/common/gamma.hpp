@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_GAMMA_HPP_INCLUDED
+#include <nt2/toolbox/euler/functions/gamma.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>

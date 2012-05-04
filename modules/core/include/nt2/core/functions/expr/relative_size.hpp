@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_RELATIVE_SIZE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_RELATIVE_SIZE_HPP_INCLUDED
 
+#include <nt2/core/functions/relative_size.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/container/category.hpp>
 #include <nt2/include/functions/numel.hpp>

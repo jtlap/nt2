@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_LOGSPACE_ADD_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_LOGSPACE_ADD_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/logspace_add.hpp>
 #include <nt2/include/functions/simd/logspace_add.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/max.hpp>

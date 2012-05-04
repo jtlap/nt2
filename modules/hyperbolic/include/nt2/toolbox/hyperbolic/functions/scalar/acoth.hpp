@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ACOTH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ACOTH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/acoth.hpp>
 #include <nt2/include/constants/real.hpp>
 
 // #include <nt2/include/functions/scalar/minusone.hpp>

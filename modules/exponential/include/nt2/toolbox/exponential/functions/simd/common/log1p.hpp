@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_LOG1P_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_LOG1P_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/log1p.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>

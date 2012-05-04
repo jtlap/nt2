@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_SELADD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_SELADD_HPP_INCLUDED
+#include <boost/simd/toolbox/boolean/functions/seladd.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

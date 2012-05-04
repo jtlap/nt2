@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_MAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_MAX_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/arithmetic/functions/max.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/compare_less.hpp>

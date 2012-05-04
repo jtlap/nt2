@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FRAC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FRAC_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/frac.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/scalar/trunc.hpp>
 

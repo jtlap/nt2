@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_RSQRT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_RSQRT_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/rsqrt.hpp>
 #include <boost/simd/include/functions/scalar/rec.hpp>
 #include <boost/simd/include/functions/scalar/sqrt.hpp>
 //TO DO some asks for a fast inaccurate version

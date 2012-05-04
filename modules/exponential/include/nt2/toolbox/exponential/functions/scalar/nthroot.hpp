@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_NTHROOT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_NTHROOT_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/nthroot.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/scalar/signnz.hpp>
 #include <nt2/include/functions/scalar/pow.hpp>
