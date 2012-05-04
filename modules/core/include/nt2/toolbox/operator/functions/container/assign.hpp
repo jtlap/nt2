@@ -14,20 +14,20 @@
 
 namespace nt2 { namespace container { namespace ext
 {
-  // size is that of right-hand side
+  // size is that of left-hand side
   template<class Domain, class Expr>
   struct size_of<tag::assign_, Domain, 2, Expr>
   {
     typedef typename boost::proto::result_of::
-    child_c<Expr&, 1>::type                         child1;
+    child_c<Expr&, 0>::type                         child0;
 
     typedef typename size_transform<Domain>::template
-    result<size_transform<Domain>(child1)>::type    result_type;
+    result<size_transform<Domain>(child0)>::type    result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
-      return size_transform<Domain>()(boost::proto::child_c<1>(e));
+      return size_transform<Domain>()(boost::proto::child_c<0>(e));
     }
   };
 
