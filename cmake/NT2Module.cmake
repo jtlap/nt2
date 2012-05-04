@@ -413,7 +413,7 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
   endif()
 
   set(reduce)
-  foreach(component functions constants)
+  foreach(component functions functions/scalar functions/simd constants)
 
     set(extra)
     foreach(arg ${ARGN})
