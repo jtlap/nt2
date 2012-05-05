@@ -52,8 +52,7 @@ namespace nt2 { namespace container { namespace ext
     typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
 
     // .. except we have a special size
-    typedef typename boost::proto::result_of::child_c<Expr&,1>::type  c_sizes_t;
-    typedef typename boost::proto::result_of::value<c_sizes_t>::type  sizes_t;
+    typedef typename reshaping_size_of<Expr>::result_type               sizes_t;
 
     // Rebuild proper expression type with semantic using the new size
     // and revoking any shape settings
