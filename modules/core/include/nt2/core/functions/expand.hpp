@@ -16,7 +16,7 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
-#include <nt2/core/container/dsl/details/reshaping.hpp>
+
 namespace nt2
 {
   namespace tag
@@ -45,13 +45,34 @@ namespace nt2
 namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, class Expr>
-  struct  generator<nt2::tag::expand_,Domain,2,Expr>
-        : reshaping_generator<Expr>
+  struct  size_of<nt2::tag::expand_,Domain,2,Expr>
+        : boxed_size_of<Expr,1>
   {};
 
   template<class Domain, class Expr>
-  struct  size_of<nt2::tag::expand_,Domain,2,Expr>
-        : reshaping_size_of<Expr>
-  {};
+  struct  generator<nt2::tag::expand_,Domain,2,Expr>
+  {
+    // We behave as our child but without allowing references
+    typedef typename boost::proto::result_of::child_c<Expr,0>::type    c_sema_t;
+    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
+
+    // .. except we have a special size
+    typedef typename boost::proto::result_of::child_c<Expr,1>::type   c_sizes_t;
+    typedef typename boost::proto::result_of::value<c_sizes_t>::type  sizes_t;
+
+    // Rebuild proper expression type with semantic using the new size
+    // and revoking any shape settings
+    typedef expression< typename boost::remove_const<Expr>::type
+                      , typename meta::
+                        add_settings< sema_t
+                                    , settings(rectangular_,sizes_t)
+                                    >::type
+                      >                                             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
 } } }
 #endif
