@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL(geneig_result, NT2_REAL_TYPES)
   t_t b =  nt2::eye(4,4, nt2::meta::as_<T>()); 
   nt2::disp("a     ", a); 
   nt2::disp("b     ", b); 
-  nt2::details::geneig_result<t_t> f(a, b);
+  nt2::details::geneig_result<t_t> f(a, b, 'V', 'V', 'S');
   nt2::disp("values", f.values());
   t_t wr  = f.wr();
   nt2::disp("wr    ", wr);

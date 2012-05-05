@@ -33,16 +33,16 @@ namespace nt2 { namespace details
     typedef T                                                 data_t;
     typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
     typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t; 
     typedef nt2::details::workspace<type_t>              workspace_t;
     typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
     typedef nt2::table<type_t,index_t>                   result_type;
-
+    
     template<class Input1, class Input2>
-    geneig_result ( Input1& xpr1,Input2& xpr2,
-                    const char & jobvsl = 'V',
-                    const char & jobvsr = 'V',
-                    const char & sort = 'N')
+    geneig_result ( Input1& xpr1,Input2& xpr2, 
+                    const char & jobvsl/* = 'V'*/,
+                    const char & jobvsr/* = 'V'*/,
+                    const char & sort  /* = 'N'*/)
       : jobvsl_(jobvsl)
       , jobvsr_(jobvsr)
       , sort_ (sort)
@@ -52,7 +52,7 @@ namespace nt2 { namespace details
       , b_(xpr2)
       , bb_(xpr2)
       , ldb_(b_.leading_size())
-      , sdim_(0)
+      , sdim_(0) 
       , n_(height(a_))
       , alpha_(of_size(1, n_))
       , beta_(of_size(1, n_))
@@ -60,41 +60,62 @@ namespace nt2 { namespace details
       , ldvsl_(vsl_.leading_size())
       , vsr_(jobvsr_ == 'V'?of_size(n_, n_):of_size(1, 1))
       , ldvsr_(vsr_.leading_size())
-      , info_(0)
+      , info_(0) 
     {
-      BOOST_ASSERT_MSG(nt2::issquare(a_), "inputs  must be squares matrix");
+      BOOST_ASSERT_MSG(nt2::issquare(a_), "inputs  must be squares matrix"); 
       BOOST_ASSERT_MSG(nt2::issquare(b_), "inputs  must be squares matrix");
       BOOST_ASSERT_MSG(n_ = height(b_), "inputs  must be of same size");
-      nt2::details::gges(&jobvsl_, &jobvsr_, &sort_, &nt2::details::selectall, &n_,
+      nt2::details::gges(&jobvsl_, &jobvsr_, &sort_, &nt2::details::selectall, &n_, 
                          aa_.raw(), &lda_, bb_.raw(), &ldb_,
                          &sdim_, alpha_.raw(), beta_.raw(),
-                         vsl_.raw(), &ldvsl_, vsr_.raw(), &ldvsr_, &info_, wrk_);
+                         vsl_.raw(), &ldvsl_, vsr_.raw(), &ldvsr_, &info_, wrk_); 
     }
 
     geneig_result& operator=(geneig_result const& src)
     {
-      jobvsl_ = src.jobvsl_;
-      jobvsr_ = src.jobvsr_;
-      sort_ = src.sort_;
-      a_ = src.a_;
-      aa_ = src.aa_;
-      lda_ = src.lda_;
-      b_ = src.b_;
-      bb_ = src.bb_;
-      ldb_ = src.ldb_;
-      sdim_ = src.sdim_;
-      alpha = src.alpha;
-      beta_ = src.beta_;
-      n_ = src.n_;
-      vsl_ = src.vsl_;
-      ldvsl_ = src.ldvsl_;
-      vsr_ = src.vsr_;
-      ldvsr_ = src.ldvsr_;
-      info_ = src.info_;
-      wrk_ = src.wrk_;
+      jobvsl_ = src.jobvsl_;  
+      jobvsr_ = src.jobvsr_;  
+      sort_ = src.sort_;  
+      a_ = src.a_;  
+      aa_ = src.aa_;  
+      lda_ = src.lda_;  
+      b_ = src.b_;  
+      bb_ = src.bb_;  
+      ldb_ = src.ldb_;  
+      sdim_ = src.sdim_;  
+      alpha_ = src.alpha;  
+      beta_ = src.beta_;  
+      n_ = src.n_;  
+      vsl_ = src.vsl_;  
+      ldvsl_ = src.ldvsl_;  
+      vsr_ = src.vsr_;  
+      ldvsr_ = src.ldvsr_;  
+      info_ = src.info_;  
+      wrk_ = src.wrk_;  
       return *this;
     }
-
+    geneig_result(geneig_result const& src)
+      :  jobvsl_ ( src.jobvsl_),  
+         jobvsr_ ( src.jobvsr_),  
+         sort_ ( src.sort_),  
+         a_ ( src.a_),  
+         aa_ ( src.aa_),  
+         lda_ ( src.lda_),  
+         b_ ( src.b_),  
+         bb_ ( src.bb_),  
+         ldb_ ( src.ldb_),  
+         sdim_ ( src.sdim_),  
+         alpha_ ( src.alpha),  
+         beta_ ( src.beta_),  
+         n_ ( src.n_),  
+         vsl_ ( src.vsl_),  
+         ldvsl_ ( src.ldvsl_),  
+         vsr_ ( src.vsr_),  
+         ldvsr_ ( src.ldvsr_),  
+         info_ ( src.info_),  
+         wrk_ ( src.wrk_)  
+    {}
+    
     //==========================================================================
     // Return raw values
     //==========================================================================
@@ -103,71 +124,71 @@ namespace nt2 { namespace details
     //==========================================================================
     // return left eigen vectors
     //==========================================================================
-    tab_t vl ()
+    tab_t vl () const
     {
-      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors"); 
       return vsl_;
     }
     //==========================================================================
     // return right eigen vectors
     //==========================================================================
-    tab_t vr ()
+    tab_t vr () const
     {
-      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
       return vsr_;
     }
-
+    
     //==========================================================================
     // return left generalized eigenvalues
     //==========================================================================
-    tab_t alpha ()
+    tab_t alpha () const
     {
-      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors"); 
       return alpha_;
     }
 
     //==========================================================================
     // return right generalized eigenvalues
     //==========================================================================
-    tab_t beta ()
+    tab_t beta () const
     {
-      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
       return beta_;
     }
-
+    
     //==========================================================================
     // return  eigenvalues
     //==========================================================================
-    tab_t w ()
+    tab_t w () const
     {
-      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
       return alpha_/beta_;
     }
 
-
+    
   private:
     char          jobvsl_;
     char          jobvsr_;
-    char            sort_;
+    char            sort_; 
     data_t             a_;
     tab_t             aa_;
     nt2_la_int       lda_;
     data_t             b_;
     tab_t             bb_;
     nt2_la_int       ldb_;
-    nt2_la_int      sdim_;
+    nt2_la_int      sdim_; 
     nt2_la_int         n_;
-    tab_t   alpha_, beta_;
+    tab_t   alpha_, beta_; 
     tab_t            vsl_;
     nt2_la_int     ldvsl_;
     tab_t            vsr_;
     nt2_la_int     ldvsr_;
-    nt2_la_int      info_;
+    nt2_la_int      info_; 
     workspace_t      wrk_;
   };
 
-  template<class T >
-  struct geneig_result < T, boost::mpl::false_ >
+  template<class T > 
+  struct geneig_result < T, boost::mpl::false_ >  
   {
     typedef typename meta::strip<T>::type                   source_t;
     typedef typename source_t::value_type                     type_t;
@@ -177,16 +198,16 @@ namespace nt2 { namespace details
     typedef T                                                 data_t;
     typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
     typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t; 
     typedef nt2::details::workspace<type_t>              workspace_t;
     typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
     typedef nt2::table<type_t,index_t>                   result_type;
-
+    
     template<class Input1, class Input2>
-    geneig_result ( Input1& xpr1,Input2 xpr2,
-                    const char & jobvsl = 'V',
-                    const char & jobvsr = 'V',
-                    const char & sort = 'S')
+    geneig_result ( Input1& xpr1,Input2 xpr2, 
+                    const char & jobvsl = /* 'V'*/,
+                    const char & jobvsr = /* 'V'*/,
+                    const char & sort = /* 'S'*/)
       : jobvsl_(jobvsl)
       , jobvsr_(jobvsr)
       , sort_ (sort)
@@ -201,7 +222,7 @@ namespace nt2 { namespace details
       , alphar_(of_size(1, n_))
       , alphai_(of_size(1, n_))
       , beta_(of_size(1, n_))
-       , vsl_(jobvsl_ == 'V'?of_size(n_, n_):of_size(1, 1))
+      , vsl_(jobvsl_ == 'V'?of_size(n_, n_):of_size(1, 1))
       , ldvsl_(vsl_.leading_size())
       , vsr_(jobvsr_ == 'V'?of_size(n_, n_):of_size(1, 1))
       , ldvsr_(vsr_.leading_size())
@@ -240,7 +261,33 @@ namespace nt2 { namespace details
       wrk_ = src.wrk_;
       return *this;
     }
+<<<<<<< HEAD
 
+=======
+    
+    geneig_result(geneig_result const& src)
+      :  jobvsl_ ( src.jobvsl_),  
+         jobvsr_ ( src.jobvsr_),  
+         sort_ ( src.sort_),  
+         a_ ( src.a_),  
+         aa_ ( src.aa_),  
+         lda_ ( src.lda_),  
+         b_ ( src.b_),  
+         bb_ ( src.bb_),  
+         ldb_ ( src.ldb_),  
+         sdim_ ( src.sdim_),  
+         alpha_ ( src.alpha),  
+         beta_ ( src.beta_),  
+         n_ ( src.n_),  
+         vsl_ ( src.vsl_),  
+         ldvsl_ ( src.ldvsl_),  
+         vsr_ ( src.vsr_),  
+         ldvsr_ ( src.ldvsr_),  
+         info_ ( src.info_),  
+         wrk_ ( src.wrk_)  
+    {}
+     
+>>>>>>> geneig debut de modif
     //==========================================================================
     // Return raw values
     //==========================================================================
@@ -249,7 +296,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // return left eigen vectors
     //==========================================================================
-    tab_t vl ()
+    tab_t vl () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
       return vsl_;
@@ -257,7 +304,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // return right eigen vectors
     //==========================================================================
-    tab_t vr ()
+    tab_t vr () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return vsr_;
@@ -266,12 +313,12 @@ namespace nt2 { namespace details
     //==========================================================================
     // return left generalized eigenvalues
     //==========================================================================
-    tab_t alphar ()
+    tab_t alphar () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
       return alphar_;
     }
-    tab_t alphai ()
+    tab_t alphai () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
       return alphai_;
@@ -280,7 +327,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // return right generalized eigenvalues
     //==========================================================================
-    tab_t beta ()
+    tab_t beta () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return beta_;
@@ -289,12 +336,12 @@ namespace nt2 { namespace details
     //==========================================================================
     // return  eigenvalues
     //==========================================================================
-    tab_t wr ()
+    tab_t wr () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return alphar_/beta_;
     }
-    tab_t wi ()
+    tab_t wi () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return alphai_/beta_;
