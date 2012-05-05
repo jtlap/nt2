@@ -25,36 +25,39 @@ namespace nt2 { namespace ext
 #define M0(z,n,t) (I##n)
 #define M1(z,n,t) (scalar_< integer_<I##n> >)
 
-#define M2(z,n,t)                                                              \
-NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
-                          , (A0)BOOST_PP_REPEAT(n,M0,~)                        \
-                          , (ast_<A0>)BOOST_PP_REPEAT(n,M1,~)                  \
-                          )                                                    \
-{                                                                              \
-  typedef typename make_functor<tag::run_, A0>::type              F;           \
-  typedef typename meta::call<tag::schedule_(A0&, F const&)>::type scheduled;  \
-  typedef typename boost::remove_reference<scheduled>::type       stripped;    \
-                                                                               \
-  typedef typename meta::                                                      \
-          scalar_of< typename boost::dispatch::meta::                          \
-                      semantic_of<A0&>::type                                   \
-                   >::type                                        result_type; \
-  typedef typename stripped::index_type::type                     idx_t;       \
-                                                                               \
-  BOOST_FORCEINLINE result_type                                                \
-  operator()(A0& a0, BOOST_PP_ENUM_BINARY_PARAMS(n,I,i) ) const                \
-  {                                                                            \
-    scheduled s = schedule(a0, F());                                           \
-    return nt2::run( s                                                         \
-                   , nt2::sub2ind( s.extent()                                  \
-                                 , boost::fusion::                             \
-                                   vector_tie(BOOST_PP_ENUM_PARAMS(n,i))       \
-                                 , idx_t()                                     \
-                                 )                                             \
-                   , meta::as_<typename stripped::value_type>()                \
-                   );                                                          \
-  }                                                                            \
-};                                                                             \
+#define M2(z,n,t)                                                               \
+NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                      \
+                          , (A0)BOOST_PP_REPEAT(n,M0,~)                         \
+                          , (ast_<A0>)BOOST_PP_REPEAT(n,M1,~)                   \
+                          )                                                     \
+{                                                                               \
+  typedef typename make_functor<tag::run_, A0>::type                F;          \
+  typedef typename meta::call<tag::schedule_(A0&, F const&)>::type  scheduled;  \
+  typedef typename boost::remove_reference<scheduled>::type         stripped;   \
+                                                                                \
+  typedef typename meta::                                                       \
+          call<tag::run_( scheduled                                             \
+                        , std::size_t                                           \
+                        , meta::as_<typename stripped::value_type>              \
+                        )                                                       \
+              >::type                                             result_type;  \
+                                                                                \
+  typedef typename stripped::index_type::type                     idx_t;        \
+                                                                                \
+  BOOST_FORCEINLINE result_type                                                 \
+  operator()(A0& a0, BOOST_PP_ENUM_BINARY_PARAMS(n,I,i) ) const                 \
+  {                                                                             \
+    scheduled s = schedule(a0, F());                                            \
+    return nt2::run( s                                                          \
+                   , nt2::sub2ind( s.extent()                                   \
+                                 , boost::fusion::                              \
+                                   vector_tie(BOOST_PP_ENUM_PARAMS(n,i))        \
+                                 , idx_t()                                      \
+                                 )                                              \
+                   , meta::as_<typename stripped::value_type>()                 \
+                   );                                                           \
+  }                                                                             \
+};                                                                              \
 /**/
 
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M2,~)
