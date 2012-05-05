@@ -14,8 +14,8 @@
 // Documentation: http://nt2.lri.fr/sdk/unit/tests.html
 ////////////////////////////////////////////////////////////////////////////////
 #include <nt2/sdk/details/preprocessor.hpp>
-#include <nt2/include/functions/random.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/scalar/random.hpp>
+#include <nt2/include/functions/scalar/ulpdist.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

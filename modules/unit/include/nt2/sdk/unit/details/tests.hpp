@@ -11,7 +11,7 @@
 #include <boost/dispatch/details/ignore_unused.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/common_type.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/scalar/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
