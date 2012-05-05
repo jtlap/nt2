@@ -74,8 +74,8 @@ SET( SOURCES
   mean.cpp
   norm2.cpp
   normp.cpp
-#  isequal.cpp
-#  isequaln.cpp
+  isequal.cpp
+  isequaln.cpp
   havesamesize.cpp
   isinteger.cpp
   isfloating.cpp

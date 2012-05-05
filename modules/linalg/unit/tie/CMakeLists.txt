@@ -12,6 +12,7 @@ SET( SOURCES
      lu.cpp
      qr.cpp
      svd.cpp
+     schur.cpp
    )
 
 nt2_module_add_tests(linalg.tie.unit ${SOURCES})

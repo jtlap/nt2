@@ -23,8 +23,6 @@
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
-#include <iostream>
-
 #include <nt2/table.hpp>
 //#include <iostream>
 
@@ -53,7 +51,7 @@ namespace nt2 {
   namespace details
   {
     template<class T,
-             class CPLX = typename nt2::details::is_complex<typename T::value_type >::type>
+             class CPLX = typename nt2::details::is_complex<typename meta::strip<T>::type::value_type >::type>
     struct schur_result
     {
       typedef typename meta::strip<T>::type                   source_t;
@@ -72,9 +70,9 @@ namespace nt2 {
       
       template<class Input>
       schur_result ( Input& xpr
-                     , char jobvs = 'V'
-                     , char sort  = 'N'
-                     , char sense = 'N')
+                     , char jobvs/* = 'V'*/
+                     , char sort /* = 'N'*/
+                     , char sense/* = 'N'*/)
         : jobvs_(jobvs)
         , sort_(sort)
         , sense_(sense)
@@ -83,19 +81,32 @@ namespace nt2 {
         , n_(nt2::height(xpr))
         , lda_(a_.leading_size())
       {
+        BOOST_ASSERT_MSG(is_square(aa_), "Error using schur. Matrix must be square."); 
         jobvs_ = (sense_ == 'E' || sense_ == 'B') ? 'V':jobvs_;
-        sort_ = (sense_ == 'N') ? sort_ : 'S'; 
+        sort_ = (sense_ == 'E') ? 'S' : sort_; 
         ldvs_ = (jobvs_ == 'N') ? n_ : 1;
         w_.resize(nt2::of_size(n_, 1));
         vs_.resize(of_size(ldvs_, ldvs_));
         ldvs_ = vs_.leading_size(); 
-        
         nt2::details::geesx(&jobvs_, &sort_, &nt2::details::selectall , &sense_, &n_, 
                             aa_.raw(), &lda_, &sdim_, w_.raw(),
                             vs_.raw(), &ldvs_,
                             &rconde_, &rcondv_, 
                             &info_, wrk_);
       }
+
+      schur_result(schur_result const& src)
+        : jobvs_(src.jobvs_)
+        , sort_(src.sort_)
+        , sense_(src.sense_)
+        , a_(src.a_)
+        , aa_(src.aa_)
+        , n_(src.n_)
+        , lda_(src.lda_)
+    {}
+    
+
+      
       result_type values() const { return aa_; }
       result_type     w () const { return from_diag(w);}
       result_type     t () const { return aa_;     }
@@ -116,7 +127,6 @@ namespace nt2 {
         return rcondv_; 
       }
     private:
-      template<class S>
       char                 jobvs_, sort_;
       char                        sense_;
       data_t                          a_;
@@ -151,9 +161,9 @@ namespace nt2 {
       
       template<class Input>
       schur_result ( Input& xpr
-                     , char jobvs = 'V'
-                     , char sort  = 'N'
-                     , char sense = 'N')
+                     , char jobvs/* = 'V'*/
+                     , char sort /* = 'N'*/
+                     , char sense/* = 'N'*/)
         : jobvs_(jobvs)
         , sort_(sort)
         , sense_(sense)
@@ -162,22 +172,30 @@ namespace nt2 {
         , n_(nt2::height(xpr))
         , lda_(a_.leading_size())
       {
-        std::cout << "icitte" << std::endl;
+        BOOST_ASSERT_MSG(is_square(aa_), "Error using schur. Matrix must be square."); 
         jobvs_ = (sense_ == 'E' || sense_ == 'B') ? 'V':jobvs_;
-        std::cout << "jobvs " << jobvs_ << std::endl; 
-        sort_ = (sense_ == 'N') ? sort_ : 'S'; 
+        sort_ = (sense_ == 'E') ? 'S' : sort_; 
         ldvs_ = (jobvs_ == 'V') ? n_ : 1;
         wr_.resize(nt2::of_size(n_, 1));
         wi_.resize(nt2::of_size(n_, 1)); 
         vs_.resize(of_size(ldvs_, ldvs_));
         ldvs_ = vs_.leading_size(); 
-        
         nt2::details::geesx(&jobvs_, &sort_, &nt2::details::selectall2 , &sense_, &n_, 
                             aa_.raw(), &lda_, &sdim_, wr_.raw(), wi_.raw(), 
                             vs_.raw(), &ldvs_,
                             &rconde_, &rcondv_, 
                             &info_, wrk_);
       }
+     schur_result(schur_result const& src)
+        : jobvs_(src.jobvs_)
+        , sort_(src.sort_)
+        , sense_(src.sense_)
+        , a_(src.a_)
+        , aa_(src.aa_)
+        , n_(src.n_)
+        , lda_(src.lda_)
+    {}
+    
       result_type values() const { return aa_; }
       result_type     t () const { return aa_;     }
       result_type     z () const 
