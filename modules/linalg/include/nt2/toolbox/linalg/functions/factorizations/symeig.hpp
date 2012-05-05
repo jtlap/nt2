@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_FACTORIZATIONS_SYMEIG_HPP_INCLUDED
 
 #include <nt2/toolbox/linalg/functions/symeig.hpp>
-#include <nt2/options.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/toolbox/linalg/functions/details/symeig.hpp>
@@ -20,8 +19,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::symeig_, tag::cpu_
                               , (A0)(A1)(A2)
                               , (ast_<A0>)
-                              (scalar_< type8_<A1> >)
-                              (scalar_< type8_<A2> >)
+                                (scalar_< type8_<A1> >)
+                                (scalar_< type8_<A2> >)
                               )
   {
     typedef typename meta::strip<A0>::type                            base_t;
@@ -33,7 +32,7 @@ namespace nt2 { namespace ext
                                              A1 const & jobz,
                                              A2 const & uplo) const
     {
-      BOOST_ASSERT_MSG(is_square(a0), "Error using symeig. Matrix must be square."); 
+      BOOST_ASSERT_MSG(is_square(a0), "Error using symeig. Matrix must be square.");
       result_type that(a0, jobz, uplo);
       return that;
     }
@@ -52,10 +51,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
       operator()(A0& a0,
                  A1 const & jobz,
-                 A2 const & uplo, 
+                 A2 const & uplo,
                  IP const&)
     {
-      BOOST_ASSERT_MSG(is_square(a0), "Error using symeig. Matrix must be square."); 
+      BOOST_ASSERT_MSG(is_square(a0), "Error using symeig. Matrix must be square.");
       result_type that(a0, jobz, uplo);
       return that;
     }

@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_BALANCE_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_BALANCE_HPP_INCLUDED
+
 #include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/issquare.hpp>
@@ -19,17 +20,17 @@
 //     row and column norms.  t is a permutation of a diagonal matrix
 //     whose elements are integer powers of two so that the balancing
 //     doesn't introduce any round-off error.
- 
+
 //     b = balance(a) returns the balanced matrix b.
- 
+
 //     [s,p,b] = balance(a) returns the scaling vector s and the
-//     permutation vector p separately.  the transformation t and 
-//     balanced matrix b are obtained from a,s,p by 
+//     permutation vector p separately.  the transformation t and
+//     balanced matrix b are obtained from a,s,p by
 //        t(:,p) = diag(s),    b(p,p) = diag(1./s)*a*diag(s).
-    
+
 //     to scale a without permuting its rows and columns, use
 //     the syntax balance(a,'noperm').
- 
+
 namespace nt2 { namespace details
 {
   template<class T> struct balance_result
@@ -67,17 +68,17 @@ namespace nt2 { namespace details
       nt2::details::gebal(&job_, &n_, aa_.raw(), &lda_,
                           &ilo_, &ihi_, scale_.raw(),
                           &info_);
-    // I have not understood yet how to compute properly ipiv_ from original scale_    
+    // I have not understood yet how to compute properly ipiv_ from original scale_
       disp("scale ", scale_);
       disp("low   ",_(1,  ilo_-1));
       disp("high  ", _(ihi_+1, n_));
       if (job_ != 'N')
         {
-          ipiv_ = _(One<itype_t>(), n_); 
-          for(int i=1; i < ilo_; ++i) ipiv_(i) = toint(scale_(i)); 
-          for(int i=ihi_+1; i <= n_; ++i) ipiv_(i) = toint(scale_(i)); 
+          ipiv_ = _(One<itype_t>(), n_);
+          for(int i=1; i < ilo_; ++i) ipiv_(i) = toint(scale_(i));
+          for(int i=ihi_+1; i <= n_; ++i) ipiv_(i) = toint(scale_(i));
           scale_(1, _(1,  ilo_-1)) = ones(1, ilo_-1, meta::as_<base_t>());
-          scale_(1, _(ihi_+1, n_)) = ones(1, n_-ihi_-1, meta::as_<base_t>());  
+          scale_(1, _(ihi_+1, n_)) = ones(1, n_-ihi_-1, meta::as_<base_t>());
         }
     }
     balance_result& operator=(balance_result const& src)
@@ -87,10 +88,10 @@ namespace nt2 { namespace details
       aa_     = src.aa_;
       n_      = src.n_;
       lda_    = src.lda_;
-      ilo_    = src.ilo_; 
+      ilo_    = src.ilo_;
       ihi_    = src.ihi_;
       scale_  = src.scale_;
-      ipiv_   = src.ipiv_; 
+      ipiv_   = src.ipiv_;
       info_   = src.info_;
       return *this;
     }
@@ -134,24 +135,24 @@ namespace nt2 { namespace details
     //       BOOST_ASSERT_MSG(job_ != 'N', "please call balance with job = 'P', 'S' or 'B'");
     //       tab_t tt_ = aa_;
     //       tt_(_(ilo_, ihi_), _) = from_diag(scale_(1, _(ilo_, ihi_)));
-    //       return tt_; 
+    //       return tt_;
     //     }
-    
+
     //==========================================================================
     // Return lapack status
     //==========================================================================
     nt2_la_int  status()         const { return info_; }
     nt2_la_int  ilo   ()         const { return ilo_;  }
-    nt2_la_int  ihi   ()         const { return ihi_;  }  
-   private: 
+    nt2_la_int  ihi   ()         const { return ihi_;  }
+   private:
     char                           job_;
     data_t                           a_;
-    tab_t                           aa_; 
+    tab_t                           aa_;
     nt2_la_int                       n_;
     nt2_la_int                     lda_;
-    nt2_la_int               ilo_, ihi_; 
+    nt2_la_int               ilo_, ihi_;
     btab_t                       scale_;
-    itab_t                        ipiv_; 
+    itab_t                        ipiv_;
     nt2_la_int                    info_;
   };
 } }

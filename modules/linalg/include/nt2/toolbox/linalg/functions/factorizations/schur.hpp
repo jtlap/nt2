@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
                  A2 const & sort,
                  A3 const & sense) const
     {
-      BOOST_ASSERT_MSG(is_square(aa_), "Error using schur. Matrix must be square."); 
+      BOOST_ASSERT_MSG(is_square(a0), "Error using schur. Matrix must be square.");
       result_type that(a0, jobvs, sort, sense);
       return that;
     }
@@ -57,10 +57,10 @@ namespace nt2 { namespace ext
       operator()(A0& a0,
                  A1 const & jobvs,
                  A2 const & sort,
-                 A3 const & sense, 
-                 IP const&) 
+                 A3 const & sense,
+                 IP const&)
     {
-      BOOST_ASSERT_MSG(is_square(aa_), "Error using schur. Matrix must be square."); 
+      BOOST_ASSERT_MSG(is_square(a0), "Error using schur. Matrix must be square.");
       result_type that(a0, jobvs, sort, sense);
       return that;
     }

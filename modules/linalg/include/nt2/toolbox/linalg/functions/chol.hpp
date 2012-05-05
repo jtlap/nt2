@@ -72,8 +72,8 @@ namespace nt2
      * @return A unspecified type containing the precomputed elements of the
      * Cholesky factorization.
      **/
-    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::chol_, chol, 1)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::chol_, chol, 2)
+    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::chol_, chol, 2)
+    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::chol_, chol, 3)
   }
 }
 

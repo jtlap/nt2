@@ -38,8 +38,8 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       // Retrieve the up/lo options
-      char jobz = (N1::value == 1) ? 'N' : 'V'; 
-      char uplo = 'U';  
+      char jobz = (N1::value == 1) ? 'N' : 'V';
+      char uplo = 'U';
       // Copy data in output first
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
 
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
       decomp(f, a1, N1());
     }
 
-  private:
+    private:
     //==========================================================================
     // INTERNAL ONLY
     // fill the args out
@@ -65,7 +65,6 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = f.v();
       boost::proto::child_c<1>(a1) = f.w();
     }
-
   };
 } }
 

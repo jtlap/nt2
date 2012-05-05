@@ -29,23 +29,19 @@ NT2_TEST_CASE_TPL ( svd, NT2_REAL_TYPES)
   z = nt2::svd(b);
   NT2_DISP(z); // just vector of singular values
 
-  table_t u, w, v; 
+  table_t u, w, v;
   nt2::tie(u, w, v) = nt2::svd(b, 'N'); //no economy
-   NT2_DISP(u);
-   NT2_DISP(w);
-   NT2_DISP(v);
-  
+  NT2_DISP(u);
+  NT2_DISP(w);
+  NT2_DISP(v);
+
   nt2::tie(u, w, v) = nt2::svd(b, 'R'); //economy 0
   NT2_DISP(u);
   NT2_DISP(w);
   NT2_DISP(v);
-   
+
   nt2::tie(u, w, v) = nt2::svd(b, 'L');//economy 'econ'
   NT2_DISP(u);
   NT2_DISP(w);
   NT2_DISP(v);
-
-
 }
-
-

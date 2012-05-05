@@ -18,6 +18,7 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/frexp.hpp>

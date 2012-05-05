@@ -23,17 +23,18 @@
 
 NT2_TEST_CASE_TPL(schur_result, NT2_REAL_TYPES)
 {
-  using nt2::_; 
+  using nt2::_;
   using nt2::tag::factorization::schur_;
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t; 
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t; 
+  typedef nt2::table<itype_t> it_t;
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-  //  b(_, 1) = b(_, 3); 
-  nt2::details::schur_result<t_t> f(b);
+  //  b(_, 1) = b(_, 3);
 
-  nt2::disp("b     ", b); 
+  nt2::details::schur_result<t_t> f(b,'V','N','N');
+
+  nt2::disp("b     ", b);
   nt2::disp("values", f.values());
   t_t z  = f.z();
   nt2::disp("z    ", z);
