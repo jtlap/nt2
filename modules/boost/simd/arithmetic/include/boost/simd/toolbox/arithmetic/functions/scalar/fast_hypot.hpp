@@ -8,16 +8,18 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FAST_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FAST_HYPOT_HPP_INCLUDED
+
 #include <boost/simd/toolbox/arithmetic/functions/fast_hypot.hpp>
-#include <boost/simd/include/constants/eps.hpp>
-#include <boost/simd/include/constants/inf.hpp>
-#include <boost/simd/include/constants/nan.hpp>  
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/scalar/sqrt.hpp>
 #include <boost/simd/include/functions/scalar/sqr.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/functions/scalar/is_inf.hpp>
 #include <boost/simd/include/functions/scalar/ldexp.hpp>
+#include <boost/simd/include/constants/eps.hpp>
+#include <boost/simd/include/constants/inf.hpp>
+#include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,7 +27,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
-                        (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A0> >)
                             )
   {
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
@@ -39,7 +41,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
                             , (A0)
                             , (scalar_< double_<A0> >)
-                        (scalar_< double_<A0> >)
+                              (scalar_< double_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -58,7 +60,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_hypot_, tag::cpu_
                             , (A0)
                             , (scalar_< single_<A0> >)
-                        (scalar_< single_<A0> >)
+                              (scalar_< single_<A0> >)
                             )
   {
     typedef A0 result_type;
