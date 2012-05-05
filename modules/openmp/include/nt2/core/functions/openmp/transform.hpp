@@ -12,7 +12,7 @@
 
 #include <nt2/core/functions/transform.hpp>
 #include <cstddef>
-#include <nt2/core/functions/transform.hpp>
+#include <nt2/include/functions/run.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/openmp/openmp.hpp>
 #include <nt2/include/functions/numel.hpp>
