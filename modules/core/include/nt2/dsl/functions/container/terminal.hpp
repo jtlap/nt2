@@ -18,6 +18,7 @@
 #include <nt2/include/functions/unaligned_store.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
 #include <nt2/core/container/category.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -123,7 +124,7 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // scalar terminal, return value in scalar mode (LHS not allowed)
+  // scalar terminal, return value in read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(T0)(State)(Data)
@@ -146,7 +147,30 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // scalar terminal, splat value in SIMD read mode (LHS not allowed)
+  // scalar terminal, assign value in write mode
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                            , (A0)(T0)(State)(Data)
+                            , ((expr_< scalar_< unspecified_<A0> >
+                                     , T0
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
+                              (generic_< integer_<State> >)
+                              (scalar_< unspecified_<Data> >)
+                            )
+  {
+    typedef typename nt2::meta::call<T0(A0&)>::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State const&, Data const& data) const
+    {
+      return nt2::terminal(a0) = data;
+    }
+  };
+
+  //============================================================================
+  // scalar terminal, splat value in SIMD read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
                             , (A0)(T0)(State)(Data)(X)
@@ -170,6 +194,30 @@ namespace nt2 { namespace ext
     result_type operator()(A0& a0, State const&, Data const&) const
     {
       return nt2::splat<result_type>(nt2::terminal(a0));
+    }
+  };
+
+  //============================================================================
+  // scalar terminal, error in SIMD write mode
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                            , (A0)(T0)(State)(Data)(X)
+                            , ((expr_< scalar_< unspecified_<A0> >
+                                     , T0
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
+                              (generic_< integer_<State> >)
+                              ((simd_< unspecified_<Data>,X >))
+                            )
+  {
+    typedef Data const&      result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0& a0, State const&, Data const& data) const
+    {
+      BOOST_ASSERT_MSG(0, "Writing SIMD value to scalar not allowed");
+      return data;
     }
   };
 } }
