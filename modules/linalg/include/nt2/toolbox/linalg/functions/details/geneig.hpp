@@ -206,9 +206,9 @@ namespace nt2 { namespace details
     
     template<class Input1, class Input2>
     geneig_result ( Input1& xpr1,Input2 xpr2, 
-                    const char & jobvsl = /* 'V'*/,
-                    const char & jobvsr = /* 'V'*/,
-                    const char & sort = /* 'S'*/)
+                    const char & jobvsl  /*= 'V'*/,
+                    const char & jobvsr  /*= 'V'*/,
+                    const char & sort  /*= 'S'*/)
       : jobvsl_(jobvsl)
       , jobvsr_(jobvsr)
       , sort_ (sort)

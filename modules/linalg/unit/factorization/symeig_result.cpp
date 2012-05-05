@@ -24,7 +24,6 @@
 NT2_TEST_CASE_TPL(symeig_result, NT2_REAL_TYPES)
 {
   using nt2::_; 
-  using nt2::tag::factorization::symeig_;
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t; 
   typedef nt2::table<T> t_t;
   typedef nt2::table<itype_t> it_t; 
