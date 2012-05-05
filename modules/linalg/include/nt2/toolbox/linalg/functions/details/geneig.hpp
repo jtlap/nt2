@@ -22,7 +22,7 @@
 namespace nt2 { namespace details
 {
   template<class T,
-           class CPLX = typename nt2::details::is_complex<typename T::value_type >::type>
+           class CPLX = typename nt2::details::is_complex<typename meta::strip<T>::type::value_type >::type>
   struct geneig_result
   {
     typedef typename meta::strip<T>::type                   source_t;
@@ -70,7 +70,7 @@ namespace nt2 { namespace details
                          &sdim_, alpha_.raw(), beta_.raw(),
                          vsl_.raw(), &ldvsl_, vsr_.raw(), &ldvsr_, &info_, wrk_); 
     }
-
+    
     geneig_result& operator=(geneig_result const& src)
     {
       jobvsl_ = src.jobvsl_;  
@@ -94,6 +94,7 @@ namespace nt2 { namespace details
       wrk_ = src.wrk_;  
       return *this;
     }
+
     geneig_result(geneig_result const& src)
       :  jobvsl_ ( src.jobvsl_),  
          jobvsr_ ( src.jobvsr_),  
@@ -120,7 +121,7 @@ namespace nt2 { namespace details
     // Return raw values
     //==========================================================================
     result_type values() const { return aa_; }
-
+    
     //==========================================================================
     // return left eigen vectors
     //==========================================================================
@@ -146,7 +147,7 @@ namespace nt2 { namespace details
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors"); 
       return alpha_;
     }
-
+    
     //==========================================================================
     // return right generalized eigenvalues
     //==========================================================================
@@ -164,7 +165,7 @@ namespace nt2 { namespace details
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
       return alpha_/beta_;
     }
-
+    
     
   private:
     char          jobvsl_;
@@ -186,8 +187,8 @@ namespace nt2 { namespace details
     nt2_la_int      info_; 
     workspace_t      wrk_;
   };
-
-  template<class T > 
+  
+  template<class T> 
   struct geneig_result < T, boost::mpl::false_ >  
   {
     typedef typename meta::strip<T>::type                   source_t;
@@ -236,7 +237,7 @@ namespace nt2 { namespace details
                          &sdim_, alphar_.raw(), alphai_.raw(), beta_.raw(),
                          vsl_.raw(), &ldvsl_, vsr_.raw(), &ldvsr_, &info_, wrk_);
     }
-
+    
     geneig_result& operator=(geneig_result const& src)
     {
       jobvsl_ = src.jobvsl_;
@@ -261,9 +262,6 @@ namespace nt2 { namespace details
       wrk_ = src.wrk_;
       return *this;
     }
-<<<<<<< HEAD
-
-=======
     
     geneig_result(geneig_result const& src)
       :  jobvsl_ ( src.jobvsl_),  
@@ -276,7 +274,8 @@ namespace nt2 { namespace details
          bb_ ( src.bb_),  
          ldb_ ( src.ldb_),  
          sdim_ ( src.sdim_),  
-         alpha_ ( src.alpha),  
+         alphar_ ( src.alphar_),  
+         alphai_ ( src.alphai_),  
          beta_ ( src.beta_),  
          n_ ( src.n_),  
          vsl_ ( src.vsl_),  
@@ -286,13 +285,11 @@ namespace nt2 { namespace details
          info_ ( src.info_),  
          wrk_ ( src.wrk_)  
     {}
-     
->>>>>>> geneig debut de modif
     //==========================================================================
     // Return raw values
     //==========================================================================
     result_type values() const { return aa_; }
-
+    
     //==========================================================================
     // return left eigen vectors
     //==========================================================================
@@ -323,7 +320,7 @@ namespace nt2 { namespace details
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
       return alphai_;
     }
-
+    
     //==========================================================================
     // return right generalized eigenvalues
     //==========================================================================
@@ -346,8 +343,6 @@ namespace nt2 { namespace details
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return alphai_/beta_;
     }
-
-
   private:
     char          jobvsl_;
     char          jobvsr_;
@@ -372,6 +367,7 @@ namespace nt2 { namespace details
   };
 
 } }
-
-
+  
+  
 #endif
+  
