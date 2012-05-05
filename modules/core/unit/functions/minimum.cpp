@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::minimum function"
 
 #include <nt2/table.hpp>
+#include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/minimum.hpp>
 

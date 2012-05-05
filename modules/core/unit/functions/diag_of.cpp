@@ -11,7 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/diag_of.hpp>
-#include <nt2/include/functions/less_or_equal.hpp>
+#include <nt2/include/functions/is_less_equal.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
