@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<child0>::type                      dest_t;
     typedef typename meta::
             call< nt2::tag::
-                  factorization::symeig_(dest_t&,const char&, const char& ,nt2::details::in_place_)
+                  factorization::symeig_(dest_t&,char,char,nt2::details::in_place_)
                 >::type                                             fact_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
