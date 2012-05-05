@@ -12,7 +12,7 @@
 // unit test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/erf.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_erfl(long double);}
@@ -32,13 +32,10 @@ extern "C" {long double cephes_erfl(long double);}
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
-
 NT2_TEST_CASE_TPL ( erf_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
-  
   using nt2::erf;
   using nt2::tag::erf_;
-  using nt2::load; 
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -52,7 +49,7 @@ NT2_TEST_CASE_TPL ( erf_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
- 
+
   // specific values tests
   NT2_TEST_ULP_EQUAL(erf(nt2::Inf<vT>())[0], nt2::One<sr_t>(), 10);
   NT2_TEST_ULP_EQUAL(erf(nt2::Mzero<vT>())[0], nt2::Zero<sr_t>(), 10);

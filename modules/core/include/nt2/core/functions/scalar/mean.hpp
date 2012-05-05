@@ -10,36 +10,40 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_MEAN_HPP_INCLUDED
 
 #include <nt2/core/functions/mean.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 //TODO include complex cases
 namespace nt2 { namespace ext
 {
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mean_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mean_, tag::cpu_
+                            , (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
-    typedef typename  meta::as_floating<A0>::type  f_type;
-    typedef typename  meta::as_real<f_type>::type result_type; 
+    typedef typename  meta::as_floating<A0>::type f_type;
+    typedef typename  meta::as_real<f_type>::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
       return a;
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mean_, tag::cpu_, (A0)(A1)
-                            , (scalar_< floating_<A0> >)
-                              (scalar_< integer_<A1> > )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mean_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< floating_<A0> > )
+                              (scalar_< integer_<A1>  > )
                             )
   {
-    typedef typename  meta::as_floating<A0>::type  f_type;
-    typedef typename  meta::as_real<f_type>::type result_type; 
+    typedef typename  meta::as_floating<A0>::type f_type;
+    typedef typename  meta::as_real<f_type>::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &) const
     {
       return a;
     }
-  };  
+  };
 } }
 
 #endif

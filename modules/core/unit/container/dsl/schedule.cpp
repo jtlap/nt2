@@ -346,7 +346,6 @@ NT2_TEST_CASE( subscript )
   typedef double T;
 
   table<T> a0, a1, a2, a3, a4;
-  using nt2::sum;
   scheduler f;
 
   SCHEDULE( nt2::assign(a0(a1), red(a2)), f, 1u

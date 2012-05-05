@@ -23,10 +23,10 @@ namespace nt2 { namespace ext
   // pair as inputs
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::svd_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::svd_, N0>))
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::svd_, N0>))
                               ((node_<A1, nt2::tag::tie_ , N1>))
-                              )
+                            )
   {
     typedef void                                               result_type;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type  child0;
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      char jobu, jobvt, econ; 
+      char jobu, jobvt, econ;
       // Retrieve the economy options
       econ = options(a0, N0());
       // translate to lapack job
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
 
       // Factorize in place
       fact_t f = factorization::svd(boost::proto::child_c<0>(a1),jobu,jobvt,in_place_);
-      decomp(f, a1, N1()); 
+      decomp(f, a1, N1());
     }
 
     private:
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
     {
       char econ = boost::proto::value(boost::proto::child_c<1>(in));
       if (econ != 'R' && econ !=  'L') econ = 'A';
-      return econ; 
+      return econ;
     }
 
     //==========================================================================
@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
     {
       boost::proto::child_c<0>(a1) = f.u();
       boost::proto::child_c<1>(a1) = f.w();
-      boost::proto::child_c<2>(a1) = f.v(); 
+      boost::proto::child_c<2>(a1) = f.v();
     }
   };
 } }

@@ -11,6 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/diag_of.hpp>
+#include <nt2/include/functions/less_or_equal.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -58,7 +59,6 @@ NT2_TEST_CASE_TPL( more, NT2_TYPES )
     for(int i=1;i<=7;i++)
       y(i,j) = i + 10*j;
 
-  nt2::table<nt2::logical<T> > l; 
-  l = le(y, T(50)); 
+  nt2::table<nt2::logical<T> > l;
+  l = nt2::le(y, T(50));
 }
-

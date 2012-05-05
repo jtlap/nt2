@@ -10,6 +10,8 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_DOT_HPP_INCLUDED
 
 #include <nt2/core/functions/dot.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/functions/scalar/conj.hpp>
 
 //TODO include complex cases
@@ -22,7 +24,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename  meta::as_floating<A0>::type  f_type;
-    typedef typename  meta::as_real<f_type>::type result_type; 
+    typedef typename  meta::as_real<f_type>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 const& b) const
     {
       return a*nt2::conj(b);
@@ -36,12 +38,12 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename  meta::as_floating<A0>::type  f_type;
-    typedef typename  meta::as_real<f_type>::type result_type; 
+    typedef typename  meta::as_real<f_type>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 const& b, A1 const &) const
     {
       return a*nt2::conj(b);
     }
-  };  
+  };
 } }
 
 #endif
