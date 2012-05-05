@@ -15,8 +15,6 @@
 #include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/functions/simd/shift_right.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
-#include <boost/simd/include/functions/scalar/shift_left.hpp>
-#include <boost/simd/include/functions/scalar/shift_right.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

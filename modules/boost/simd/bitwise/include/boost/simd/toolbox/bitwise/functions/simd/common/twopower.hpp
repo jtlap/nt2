@@ -10,7 +10,6 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_TWOPOWER_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/twopower.hpp>
-#include <boost/simd/include/functions/scalar/shift_left.hpp>
 #include <boost/simd/include/functions/simd/shift_left.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
