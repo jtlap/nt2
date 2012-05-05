@@ -103,6 +103,7 @@ namespace nt2 {
         , aa_(src.aa_)
         , n_(src.n_)
         , lda_(src.lda_)
+        , wrk_(src.wrk_)          
     {}
     
 
@@ -194,6 +195,7 @@ namespace nt2 {
         , aa_(src.aa_)
         , n_(src.n_)
         , lda_(src.lda_)
+        , wrk_(src.wrk_)
     {}
     
       result_type values() const { return aa_; }

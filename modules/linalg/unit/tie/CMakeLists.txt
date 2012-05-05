@@ -13,6 +13,7 @@ SET( SOURCES
      qr.cpp
      svd.cpp
      schur.cpp
+     symeig.cpp
    )
 
 nt2_module_add_tests(linalg.tie.unit ${SOURCES})

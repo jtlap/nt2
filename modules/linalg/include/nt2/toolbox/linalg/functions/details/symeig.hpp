@@ -62,7 +62,9 @@ namespace nt2 { namespace details
     typedef nt2::table<type_t,index_t>                   result_type;
     
     template<class Input>
-    symeig_result ( Input& xpr, const char & jobz = 'V', const char & uplo = 'U')
+    symeig_result ( Input& xpr,
+                    char jobz/* = 'V'*/,
+                    char uplo/* = 'U'*/)
       : jobz_(jobz == 'V' ? 'V':'N')
       , uplo_(uplo == 'L' ? 'L':'U')
       , a_(xpr)
@@ -72,7 +74,7 @@ namespace nt2 { namespace details
       , lda_( aa_.leading_size() )
       , info_(0)
     {
-      BOOST_ASSERT_MSG(nt2::issymetric(a_), "input must be a symetric matrix"); 
+      //      BOOST_ASSERT_MSG(nt2::issymetric(a_), "input must be a symetric matrix"); 
       nt2::details::hsev(&jobz_, &uplo_, &n_,
                          aa_.raw(), &lda_, w_.raw(),
                          &info_, wrk_);
@@ -88,6 +90,15 @@ namespace nt2 { namespace details
       wrk_    = src.wrk_; 
       return *this;
     }
+    
+    symeig_result(symeig_result const& src)
+      :a_(src.a_),
+       aa_(src.aa_),
+       n_(src.n_),
+       lda_(src.lda_),
+       info_(src.info_),
+       wrk_(src.wrk_)
+    {}
     
     //==========================================================================
     // Return raw values
@@ -110,7 +121,7 @@ namespace nt2 { namespace details
     // /////////////////////////////////////////////////////////////////////////////
     // return eigen values (as diagonal matrix of reals)
     // /////////////////////////////////////////////////////////////////////////////
-    btab_t      w ()         { return from_diag(w_);}//TODO
+    btab_t      w ()         { return from_diag(w_);}
     
     //     // /////////////////////////////////////////////////////////////////////////////
     //     // return eigen values (as vector of dry)
@@ -143,13 +154,6 @@ namespace nt2 { namespace details
     }
     
   private:
-//     template < class S>
-//     static btab_t from_diag(const S& w)
-//     {
-//       btab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
-//       for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-//       return m;
-//     }
     char     jobz_, uplo_;
     data_t             a_;
     tab_t             aa_; 

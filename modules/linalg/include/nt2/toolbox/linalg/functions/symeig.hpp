@@ -11,6 +11,7 @@
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/toolbox/linalg/functions/details/symeig.hpp>
 ////////////////////////////////////////////////////////////////////////////////
 // Construct the class choosing the computation model :
@@ -46,9 +47,9 @@ namespace nt2
       };
     }
 
-    struct symeig_ : ext::unspecified_<symeig_>
+    struct symeig_ : ext::tieable_<symeig_>
     {
-      typedef ext::unspecified_<symeig_>  parent;
+      typedef ext::tieable_<symeig_>  parent;
     };
   }
 
@@ -70,13 +71,6 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::symeig_, symeig, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::symeig_, symeig, 2)
 
-  // Those variant are used for the tied(x...) = symeig(..) syntax
-  NT2_FUNCTION_IMPLEMENTATION_TPL ( tag::symeig_
-                                  , symeig
-                                  , (A0 const&)(A1 const&)(A2&)(A3&)(A4&)
-                                  , 5
-                                  )
-
   namespace factorization
   {
     /**
@@ -97,12 +91,27 @@ namespace nt2
      * @return A unspecified type containing the precomputed elements of the
      * Lu factorization.
      **/
-    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::symeig_, symeig, 1)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::symeig_, symeig, 2)
+    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::symeig_, symeig, 3)
+    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::symeig_, symeig, 4)
   }
 }
 namespace nt2 { namespace container { namespace ext
 {
-  //TODO
+  template<class Domain, int N, class Expr>
+  struct  generator<tag::symeig_,Domain,N,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
+
+    // Rebuidl proper expression type with semantic
+    typedef expression< typename boost::remove_const<Expr>::type
+                      , sema_t
+                      >                                     result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
 } } }
 #endif
