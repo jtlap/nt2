@@ -39,7 +39,7 @@ NT2_TEST_CASE( container_isequal )
   nt2::table<float> a = nt2::ones(4, nt2::meta::as_<float>());
   nt2::table<float> b = nt2::ones(4, nt2::meta::as_<float>());
 
-  NT2_TEST( nt2::isequaln( a, b) );
+  NT2_TEST( nt2::isequal( a, b) );
 
   a(3, 3) = b(3, 3) = nt2::Nan<float>();
   NT2_TEST( nt2::isequaln( a, b) );
