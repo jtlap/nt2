@@ -13,7 +13,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/none.hpp>
 #include <nt2/include/functions/logical_andnot.hpp>
-#include <nt2/include/functions/is_true.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/constants/true.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
@@ -32,25 +32,24 @@ NT2_TEST_CASE_TPL( none_scalar, NT2_TYPES )
 
   x = nt2::none(nt2::True<T>(),2);
   NT2_TEST_EQUAL( x, (nt2::True<T>()) );
-
 }
 
 NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
 {
   using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );
-  nt2::table<T> sy( nt2::of_size(1,3) );
+  nt2::table< nt2::logical<T> > sy( nt2::of_size(1,3) );
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
   disp("y", y);
   sy = nt2::none(y);
   for(int j=1;j<=3;j++)
-    {
-    bool z = true;
+  {
+    nt2::logical<T> z = nt2::True<T>();
     for(int i=1;i<=5;i++) z= nt2::logical_andnot(z, y(i, j));
-    NT2_TEST_EQUAL(nt2::is_nez(z), sy(j));
-    }
+    NT2_TEST_EQUAL( nt2::is_nez(z), sy(j) );
+  }
 
 //   disp("sy", sy);
 //   sy = nt2::none(y, 1);
@@ -70,6 +69,6 @@ NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
 //   disp("sy", sy);
   sy = nt2::none(y(_));
   disp(sy);
-  NT2_TEST_EQUAL(sy(1), True<T>());
+  NT2_TEST(sy(1));
 }
 
