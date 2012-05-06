@@ -254,8 +254,7 @@ namespace nt2 { namespace details
     size_t rank(base_t epsi = nt2::Eps<base_t>()) //provisouare
     {
       int32_t r = 0;
-      btab_t m = nt2::max(nt2::abs(nt2::diag_of(lu_)));
-      base_t thresh = nt2::max(n_, m_)*epsi*m(1);
+      base_t thresh = nt2::max(n_, m_)*epsi*nt2::max(nt2::abs(nt2::diag_of(lu_)));
       for(int i=1; i <= nt2::min(n_, m_); ++i)
         {
           if(nt2::abs(lu_(i, i)) > thresh) ++r;
@@ -267,14 +266,14 @@ namespace nt2 { namespace details
     base_t absdet()
     {
       BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
-      return nt2::prod(nt2::abs(nt2::diag_of(lu_)))(1);
+      return nt2::prod(nt2::abs(nt2::diag_of(lu_)));
     }
 
     type_t signdet(bool check = true){
       BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
       // if (check)     BOOST_ASSERT_MSG(is_real<type_t>::value, "determinant sign is not avalaible for complex matrices");
       //count modulo 2 the number of ipiv_ elements such that ipiv_(i) !=  i
-      //return nt2::sum(nt2::sb2b(ipiv_ != cif(numel(ipiv_), 1, meta::as_<itype_t>())))(1)&1 ? Mone<type_t>() : One<type_t>();
+      //return nt2::sum(nt2::sb2b(ipiv_ != cif(numel(ipiv_), 1, meta::as_<itype_t>())))&1 ? Mone<type_t>() : One<type_t>();
       type_t s = One<type_t>();
       for(int i=1; i < numel(ipiv_) ; ++i)
         {
@@ -287,7 +286,7 @@ namespace nt2 { namespace details
       BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
       //     BOOST_ASSERT_MSG(is_real<type_t>::value, "determinant sign is not avalaible for complex matrices");
       //count modulo 2 the number of ipiv_ elements such that ipiv_(i) !=  i
-      return  nt2::prod(nt2::diag_of(lu_))(1)*signdet(false);
+      return  nt2::prod(nt2::diag_of(lu_))*signdet(false);
     }
 
     type_t absdet(itype_t & exponent)

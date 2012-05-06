@@ -144,8 +144,7 @@ namespace nt2 { namespace details
     size_t     rank(base_t epsi = nt2::Eps<base_t>())
     {
       int32_t r = 0;
-      btab_t m = nt2::max(nt2::abs(w_));
-      base_t thresh = n_*epsi*m(1);
+      base_t thresh = n_*epsi*nt2::max(nt2::abs(w_(_)));
       for(int i=1; i <= n_; ++i)
         {
           if(nt2::abs(w_(i)) > thresh) ++r;

@@ -31,6 +31,8 @@ NT2_TEST_CASE_TPL ( symeig, NT2_REAL_TYPES)
   nt2::tie(v, d) = nt2::symeig(b); 
   NT2_DISP(v);
   NT2_DISP(d);
+  NT2_DISP(b);
+  
 }
 NT2_TEST_CASE_TPL ( symeig_m_test, NT2_REAL_TYPES)
 {

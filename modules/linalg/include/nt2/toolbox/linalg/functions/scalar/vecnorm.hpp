@@ -42,8 +42,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<rtype_t>::type result_type;
     inline result_type operator()(A0 const &a0) const
       {
-        table<result_type> r = norm2(a0(_));
-        return r(1);
+        return norm2(a0(_));
       }
   };
 
@@ -60,19 +59,17 @@ namespace nt2 { namespace ext
       {
         result_type choice = result_type(a1);
         if (is_nan(choice)) return Nan<result_type>();
-        table<result_type> r;
         if (choice == Two<result_type>()){
-          r = nt2::norm2(a0(_));
+          return nt2::norm2(a0(_));
         } else if (choice == One<result_type>()){
-          r = nt2::norm1(a0(_));
+          return nt2::norm1(a0(_));
         } else if (nt2::is_finite(choice)){
-          r = nt2::normp(a0(_), choice);
+          return nt2::normp(a0(_), choice);
         } else if (is_gtz(choice)){
-          r = nt2::max(nt2::abs(a0(_)));
+          return nt2::max(nt2::abs(a0(_)));
         } else {
-          r = nt2::min(nt2::abs(a0(_)));
+          return nt2::min(nt2::abs(a0(_)));
         }
-        return r(1);
       }
   };
 
