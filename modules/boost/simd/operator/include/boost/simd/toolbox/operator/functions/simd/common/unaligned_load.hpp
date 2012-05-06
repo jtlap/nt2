@@ -11,6 +11,7 @@
 #include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
@@ -18,6 +19,24 @@
 
 namespace boost { namespace simd { namespace ext
 {
+  // scalar emulation
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
+                            , (A0)(A1)(A2)(X)
+                            , (iterator_<scalar_< fundamental_<A0> > >)
+                              (scalar_< fundamental_<A1> >)
+                              ((target_< simd_< fundamental_<A2>, X > >))
+                            )
+  {
+    typedef typename A2::type result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
+    {
+      result_type that;
+      for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
+        that[i] = a0[a1+i];
+      return that;
+    }
+  };
+
   // regular load
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
@@ -44,10 +63,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A2::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      result_type that;
-      for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
-        that[i] = a0[a1+i];
-      return that;
+      return is_nez(unaligned_load<typename result_type::type>(a0, a1));
     }
   };
 
