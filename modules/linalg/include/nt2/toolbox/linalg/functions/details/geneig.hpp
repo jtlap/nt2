@@ -83,9 +83,9 @@ namespace nt2 { namespace details
       bb_ = src.bb_;  
       ldb_ = src.ldb_;  
       sdim_ = src.sdim_;  
+      n_ = src.n_;  
       alpha_ = src.alpha;  
       beta_ = src.beta_;  
-      n_ = src.n_;  
       vsl_ = src.vsl_;  
       ldvsl_ = src.ldvsl_;  
       vsr_ = src.vsr_;  
@@ -106,9 +106,9 @@ namespace nt2 { namespace details
          bb_ ( src.bb_),  
          ldb_ ( src.ldb_),  
          sdim_ ( src.sdim_),  
+         n_ ( src.n_),  
          alpha_ ( src.alpha),  
          beta_ ( src.beta_),  
-         n_ ( src.n_),  
          vsl_ ( src.vsl_),  
          ldvsl_ ( src.ldvsl_),  
          vsr_ ( src.vsr_),  
@@ -160,12 +160,20 @@ namespace nt2 { namespace details
     //==========================================================================
     // return  eigenvalues
     //==========================================================================
-    tab_t w () const
+    tab_t eigen () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
       return alpha_/beta_;
     }
     
+     //==========================================================================
+    // return  eigenvalues
+    //==========================================================================
+    tab_t w () const
+    {
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
+      return from_diag(alpha_/beta_);
+    }
     
   private:
     char          jobvsl_;
@@ -193,16 +201,19 @@ namespace nt2 { namespace details
   {
     typedef typename meta::strip<T>::type                   source_t;
     typedef typename source_t::value_type                     type_t;
+    typedef typename nt2::meta::as_complex<type_t>::type     ctype_t; 
     typedef typename meta::as_integer<type_t, signed>::type  itype_t;
     typedef typename source_t::index_type                    index_t;
     typedef typename meta::as_real<type_t>::type              base_t;
     typedef T                                                 data_t;
     typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
     typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t; 
+    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+    typedef nt2::table<ctype_t,nt2::matlab_index_>            ctab_t;
     typedef nt2::details::workspace<type_t>              workspace_t;
     typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
     typedef nt2::table<type_t,index_t>                   result_type;
+    typedef nt2::table<ctype_t,index_t>                 cresult_type;  
     
     template<class Input1, class Input2>
     geneig_result ( Input1& xpr1,Input2 xpr2, 
@@ -250,10 +261,10 @@ namespace nt2 { namespace details
       bb_ = src.bb_;
       ldb_ = src.ldb_;
       sdim_ = src.sdim_;
+      n_ = src.n_;
       alphar_ = src.alphar_;
       alphai_ = src.alphai_;
       beta_ = src.beta_;
-      n_ = src.n_;
       vsl_ = src.vsl_;
       ldvsl_ = src.ldvsl_;
       vsr_ = src.vsr_;
@@ -274,10 +285,10 @@ namespace nt2 { namespace details
          bb_ ( src.bb_),  
          ldb_ ( src.ldb_),  
          sdim_ ( src.sdim_),  
+         n_ ( src.n_),  
          alphar_ ( src.alphar_),  
          alphai_ ( src.alphai_),  
          beta_ ( src.beta_),  
-         n_ ( src.n_),  
          vsl_ ( src.vsl_),  
          ldvsl_ ( src.ldvsl_),  
          vsr_ ( src.vsr_),  
@@ -293,7 +304,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // return left eigen vectors
     //==========================================================================
-    tab_t vl () const
+    result_type vl () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
       return vsl_;
@@ -301,7 +312,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // return right eigen vectors
     //==========================================================================
-    tab_t vr () const
+    result_type vr () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return vsr_;
@@ -310,39 +321,47 @@ namespace nt2 { namespace details
     //==========================================================================
     // return left generalized eigenvalues
     //==========================================================================
-    tab_t alphar () const
+    result_type  alphar () const
     {
-      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
       return alphar_;
     }
-    tab_t alphai () const
+    result_type  alphai () const
     {
-      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
       return alphai_;
+    }
+    cresult_type alpha () const
+    {
+      ctab_t al(alphar_, alphai_);
+      return al; 
     }
     
     //==========================================================================
     // return right generalized eigenvalues
     //==========================================================================
-    tab_t beta () const
+    result_type beta () const
     {
-      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return beta_;
     }
 
     //==========================================================================
     // return  eigenvalues
     //==========================================================================
-    tab_t wr () const
+    result_type wr () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return alphar_/beta_;
     }
-    tab_t wi () const
+    result_type wi () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return alphai_/beta_;
     }
+    cresult_type w () const
+    {
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
+      return alpha()/beta_;
+    }
+    
   private:
     char          jobvsl_;
     char          jobvsr_;
