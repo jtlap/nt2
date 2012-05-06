@@ -16,7 +16,6 @@
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 /*!
@@ -100,5 +99,7 @@ namespace boost { namespace simd
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Allbits, Allbits)
 } }
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif
