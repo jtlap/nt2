@@ -189,7 +189,7 @@ namespace nt2 {
       
       size_t     rank(base_t epsi = nt2::Eps<base_t>())const
       {
-        base_t thresh = nt2::max(n_, m_)*epsi*nt2::max(nt2::abs(diag_of(aa_)));
+        base_t thresh = nt2::max(n_, m_)*epsi*nt2::max(nt2::abs(diag_of(aa_)(_)));
         size_t r = 0; 
         for(int i=1; i <= min(n_, m_); ++i)
           {
@@ -204,7 +204,7 @@ namespace nt2 {
       }
       base_t absdet()const{
         BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
-        return nt2::prod(nt2::abs(diag_of(aa_)));
+        return nt2::prod(nt2::abs(diag_of(aa_)(_)));
       }
       
       //==========================================================================
