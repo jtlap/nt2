@@ -13,7 +13,7 @@ if(NOT BOOST_ROOT)
 endif()
 
 # Find all doc related tools and files
-find_program(DOXYGEN_EXECUTABLE doxygen)
+find_package(Doxygen QUIET)
 find_program(XSLTPROC_EXECUTABLE xsltproc)
 find_program(QUICKBOOK_EXECUTABLE quickbook ${BOOST_ROOT}/dist/bin)
 find_path(BOOSTBOOK_XSL_DIR docbook.xsl ${BOOST_ROOT}/tools/boostbook/xsl)

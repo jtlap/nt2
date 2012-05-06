@@ -584,4 +584,4 @@ to an existing PFO (`BOOST_DISPATCH_REGISTER_DISPATCH`).
 
 [endsect]
 
-[xinclude reference.xml]
+[/ [xinclude reference.xml]]
