@@ -9,9 +9,13 @@
 #ifndef NT2_DSL_FUNCTIONS_GENERATOR_RUN_HPP_INCLUDED
 #define NT2_DSL_FUNCTIONS_GENERATOR_RUN_HPP_INCLUDED
 
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/apply.hpp>
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/dsl/functions/run.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 namespace nt2 { namespace ext
@@ -26,12 +30,32 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename meta::strip<Data>::type::type result_type;
+    // The semantic of A0 gives the type to be generated
+    typedef typename meta::
+            scalar_of < typename  boost::dispatch::meta::
+                                  semantic_of<A0&>::type
+                      >::type                                         value_t;
+
+    // Data selects if the generative target should be SIMD or not
+    typedef typename Data::type                                       target_t;
+    typedef typename boost::dispatch::meta::model_of<target_t>::type  m_t;
+
+    // Compute the proper type
+    // TODO: Make a proper way to transfer 'SIMD'ness to type
+    typedef typename boost::mpl::if_< boost::simd::meta::is_native<target_t>
+                                    , typename boost::mpl::apply<m_t,value_t>::type
+                                    , value_t
+                                    >::type                         result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& a0, State const& p, Data const& t) const
+    operator()(A0 const& a0, State const& p, Data const&) const
     {
-      return boost::proto::value(boost::proto::child_c<1>(a0))(p,a0.extent(),t);
+      // We call functor in child1 over current position, size and target
+      return  boost::proto::value (boost::proto::child_c<1>(a0))
+                                  ( p
+                                  , a0.extent()
+                                  , meta::as_<result_type>()
+                                  );
     }
   };
 } }
