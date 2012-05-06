@@ -21,6 +21,7 @@
 #include <boost/fusion/include/pop_front.hpp>
 #include <boost/fusion/include/zip_view.hpp>
 #include <boost/fusion/include/transform_view.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 
 namespace nt2
@@ -60,7 +61,10 @@ namespace nt2
     template<class T>
     struct as_integer_target
     {
-      typedef boost::dispatch::meta::as_< typename boost::dispatch::meta::as_integer<T>::type > type;
+      // Remove any potential logical<> and turn into integers
+      typedef typename boost::simd::meta::as_arithmetic<T>::type        arith_t;
+      typedef typename boost::dispatch::meta::as_integer<arith_t>::type base_t;
+      typedef boost::dispatch::meta::as_<base_t>                        type;
     };
 
     template<class T>
@@ -121,6 +125,7 @@ namespace nt2
                                 , index_type const&
                                 )
                   >::type idx;
+
       typedef typename meta::call<tag::run_(child0, idx const&, Data const&)>::type result_type;
 
       BOOST_FORCEINLINE result_type
