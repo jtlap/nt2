@@ -33,3 +33,12 @@ NT2_TEST_CASE(cardinal_of_scalar)
   NT2_TEST_EQUAL( cardinal_of<boost::simd::int8_t>::value   , 1 );
   NT2_TEST_EQUAL( cardinal_of<bool>::value          , 1 );
 }
+
+NT2_TEST_CASE_TPL(cardinal_of_cref, BOOST_SIMD_TYPES)
+{
+  using boost::simd::meta::cardinal_of;
+
+  NT2_TEST_EQUAL( cardinal_of<T&>::value      , cardinal_of<T>::value );
+  NT2_TEST_EQUAL( cardinal_of<T const>::value , cardinal_of<T>::value );
+  NT2_TEST_EQUAL( cardinal_of<T const&>::value, cardinal_of<T>::value );
+}
