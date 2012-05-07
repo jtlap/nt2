@@ -13,6 +13,8 @@
 #include <boost/swap.hpp>
 #include <nt2/sdk/memory/copy.hpp>
 #include <boost/detail/iterator.hpp>
+#include <nt2/sdk/memory/destruct.hpp>
+#include <nt2/sdk/memory/construct.hpp>
 #include <nt2/sdk/memory/adapted/buffer.hpp>
 
 namespace nt2 { namespace memory
@@ -45,28 +47,29 @@ namespace nt2 { namespace memory
     // Default constructor
     //==========================================================================
     buffer( allocator_type a = allocator_type())
-          : begin_(0), end_(0), capacity_(0), alloc(a)
+          : begin_(0), end_(0), capacity_(0), alloc_(a)
     {}
 
     //==========================================================================
     // Size constructor
     //==========================================================================
     buffer( size_type n, allocator_type a = allocator_type())
-          : begin_(0), end_(0), capacity_(0), alloc(a)
+          : begin_(0), end_(0), capacity_(0), alloc_(a)
     {
-      begin_ = alloc.allocate(n);
+      begin_ = alloc_.allocate(n);
       if(begin_) end_ = capacity_ = begin_ + n;
+      nt2::memory::default_construct(begin_,end_,alloc_);
     }
 
     //==========================================================================
     // Copy constructor
     //==========================================================================
     buffer( buffer const& src)
-          : begin_(0), end_(0), capacity_(0), alloc(src.alloc)
+          : begin_(0), end_(0), capacity_(0), alloc_(src.alloc_)
     {
-      begin_ = alloc.allocate(src.size());
+      begin_ = alloc_.allocate(src.size());
       if(begin_) end_ = capacity_ = begin_ + src.size();
-      nt2::memory::copy(src.begin(),src.end(),begin());
+      nt2::memory::copy_construct(src.begin(),src.end(),begin_,alloc_);
     }
 
     //==========================================================================
@@ -74,7 +77,11 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~buffer()
     {
-      if(begin_) alloc.deallocate(begin_,size());
+      if(begin_)
+      {
+        nt2::memory::destruct(begin_,capacity_,alloc_);
+        alloc_.deallocate(begin_,size());
+      }
     }
 
     //==========================================================================
@@ -94,7 +101,7 @@ namespace nt2 { namespace memory
     {
       if(sz > capacity() )
       {
-        buffer that(sz,alloc);
+        buffer that(sz,alloc_);
         swap(that);
       }
       else
@@ -111,7 +118,7 @@ namespace nt2 { namespace memory
       boost::swap(begin_    , src.begin_    );
       boost::swap(end_      , src.end_      );
       boost::swap(capacity_ , src.capacity_ );
-      boost::swap(alloc     , src.alloc     );
+      boost::swap(alloc_    , src.alloc_    );
     }
 
     //==========================================================================
@@ -156,7 +163,7 @@ namespace nt2 { namespace memory
 
     private:
     pointer         begin_, end_, capacity_;
-    allocator_type  alloc;
+    allocator_type  alloc_;
   };
 
   //============================================================================
@@ -166,8 +173,10 @@ namespace nt2 { namespace memory
    * \param y Second \c pointer_buffer to swap
    **/
   //============================================================================
-  template<class T, class A> inline
-  void swap (buffer<T,A>& x, buffer<T,A>& y)  { x.swap(y); }
+  template<class T, class A> inline void swap(buffer<T,A>& x, buffer<T,A>& y)
+  {
+    x.swap(y);
+  }
 } }
 
 #endif
