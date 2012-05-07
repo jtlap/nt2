@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( none_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
+  typedef n_t                                     vT; 
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<none_(vT)>::type r_t;

@@ -30,7 +30,7 @@
 
 #include <nt2/toolbox/reduction/functions/nbtrue.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/toolbox/reduction/functions/nbtrue.hpp>
+#include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/is_nez.hpp>

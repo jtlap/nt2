@@ -21,12 +21,10 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                         )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef typename meta::scalar_of<A0>::type type;
-      type z = {_mm_extract_epi64(a0, 1)};
-      return z;
+      return _mm_extract_epi64(a0, 1);
     }
   };
 } } }
@@ -39,12 +37,10 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type type;
-      type z ={ _mm_extract_epi32(a0,1)}; 
-      return z; 
+      return  _mm_extract_epi32(a0,1); 
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::second_, boost::simd::tag::sse4_1_,
@@ -52,12 +48,10 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type type;
-      type z = { _mm_extract_epi16(a0,1)}; 
-      return z; 
+      return _mm_extract_epi16(a0,1); 
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::second_, boost::simd::tag::sse4_1_,
@@ -65,12 +59,10 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type type;
-      type z = { _mm_extract_epi8(a0,1)}; 
-      return z; 
+      return _mm_extract_epi8(a0,1); 
     }
   };    
 } } }
