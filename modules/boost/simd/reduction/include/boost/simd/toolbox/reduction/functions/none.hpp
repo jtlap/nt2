@@ -13,8 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_NONE_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <nt2/include/functions/logical_notand.hpp>
 #include <boost/simd/toolbox/constant/constants/true.hpp>
-#include <boost/simd/toolbox/operator/functions/logical_and.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -24,12 +24,12 @@
  * returns true if all elements of the input vector are zero.
  *
  * \par Header file
- *
+ * 
  * \code
  * #include <nt2/include/functions/none.hpp>
  * \endcode
- *
- *
+ * 
+ * 
  * \synopsis
  *
  * \code
@@ -42,9 +42,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of none
- *
+ * 
  * \return always a scalar value
- *
+ *  
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -55,25 +55,25 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *
+ *  
 **/
 
-namespace boost { namespace simd
-{
-  namespace tag
-  {
+namespace boost { namespace simd { namespace tag
+  {         
     /*!
-     * \brief Define the tag none_ of functor none
+     * \brief Define the tag none_ of functor none 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct none_ : ext::reduction_<none_, tag::logical_and_, tag::True>
-    {
-      typedef ext::reduction_<none_, tag::logical_and_, tag::True> parent;
+    struct none_ : ext::reduction_<none_, tag::logical_notand_, tag::True> 
+    { 
+      typedef ext::reduction_<none_, tag::logical_and_, tag::True> parent; 
     };
   }
-
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 2)
 } }
 
+
 #endif
+
+// modified by jt the 25/12/2010

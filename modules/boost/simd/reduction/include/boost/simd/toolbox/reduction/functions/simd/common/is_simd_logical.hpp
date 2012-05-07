@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_IS_SIMD_LOGICAL_HPP_INCLUDED
 
 #include <boost/simd/toolbox/reduction/functions/is_simd_logical.hpp>
-#include <boost/simd/include/functions/simd/all.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/all.hpp>
 #include <boost/simd/include/functions/simd/is_eqz.hpp>
 #include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
