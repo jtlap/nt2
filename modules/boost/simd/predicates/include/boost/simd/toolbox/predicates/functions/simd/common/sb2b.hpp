@@ -11,7 +11,6 @@
 #include <boost/simd/toolbox/predicates/functions/sb2b.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <nt2/sdk/details/type_id.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -36,9 +35,6 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      std::cout << "nt2::type_id<A0>() " << nt2::type_id<A0>() << std::endl;
-      std::cout << "nt2::type_id<result_type>() " << nt2::type_id<result_type>() << std::endl;
-      //      return result_type(); 
       return if_else_zero(a0, boost::simd::One<result_type>());
     }
   }; 

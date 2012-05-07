@@ -15,7 +15,6 @@
 #include <nt2/include/functions/simd/is_lez.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
 #include <nt2/include/functions/simd/selsub.hpp>
-#include <nt2/include/functions/simd/sb2b.hpp>
 #include <nt2/include/functions/simd/floor.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>

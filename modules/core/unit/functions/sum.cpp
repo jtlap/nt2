@@ -358,3 +358,10 @@ NT2_TEST_CASE( sum )
   NT2_TEST_EQUAL(r(1,1,1,1),P) ;
 
 }
+NT2_TEST_CASE_TPL( asum1, NT2_TYPES )
+{
+  using nt2::_; 
+  nt2::table<T> y( nt2::of_size(5,3) );
+  nt2::table<T> sy;
+  sy = sum(y); 
+}
