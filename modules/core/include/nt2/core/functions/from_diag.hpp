@@ -25,6 +25,10 @@ namespace nt2
     {
       typedef ext::elementwise_<from_diag_> parent;
     };
+    struct offset_from_diag_ : ext::elementwise_<offset_from_diag_>
+    {
+      typedef ext::elementwise_<offset_from_diag_> parent;
+    };
   }
 
   //============================================================================
@@ -35,6 +39,7 @@ namespace nt2
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::from_diag_, from_diag, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_from_diag_, from_diag, 2)
 }
 
 namespace nt2 { namespace container { namespace ext
@@ -57,6 +62,27 @@ namespace nt2 { namespace container { namespace ext
 
   template<class Domain, int N, class Expr>
   struct size_of<nt2::tag::from_diag_,Domain,N,Expr> : boxed_size_of<Expr,1> {};
+
+  
+  template<class Domain, int N, class Expr>
+  struct generator<nt2::tag::offset_from_diag_,Domain,N,Expr>
+
+  {
+    typedef typename boost::proto::result_of::child_c<Expr,0>::type expr_t;
+    typedef typename meta::strip<expr_t>::type::value_type          value_type;
+
+    typedef expression< typename boost::remove_const<Expr>::type
+                        , memory::container<value_type,_2D>
+                      >                                          result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
+
+  template<class Domain, int N, class Expr>
+  struct size_of<nt2::tag::offset_from_diag_,Domain,N,Expr> : boxed_size_of<Expr,3> {};
 } } }
 
 #endif
