@@ -63,7 +63,7 @@ namespace nt2 { namespace container { namespace ext
   template<class Domain, int N, class Expr>
   struct size_of<nt2::tag::from_diag_,Domain,N,Expr> : boxed_size_of<Expr,1> {};
 
-  
+
   template<class Domain, int N, class Expr>
   struct generator<nt2::tag::offset_from_diag_,Domain,N,Expr>
 
@@ -82,7 +82,7 @@ namespace nt2 { namespace container { namespace ext
   };
 
   template<class Domain, int N, class Expr>
-  struct size_of<nt2::tag::offset_from_diag_,Domain,N,Expr> : boxed_size_of<Expr,3> {};
+  struct size_of<nt2::tag::offset_from_diag_,Domain,N,Expr> : boxed_size_of<Expr,2> {};
 } } }
 
 #endif

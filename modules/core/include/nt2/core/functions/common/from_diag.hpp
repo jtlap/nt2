@@ -68,29 +68,33 @@ namespace nt2 { namespace ext
                 >::type                                               base_type;
 
     typedef typename meta::strip<base_type>::type                     result_type;
-    typedef typename meta::as_integer<result_type,unsigned>::type     id_t;
+    typedef typename meta::as_integer<result_type,signed>::type       id_t;
     typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
+      // Retrieve diagonal offset
+      std::ptrdiff_t offset  = boost::proto::child_c<1>(a0);
+
       // Retrieve 2D position from the linear index
-      sub_t const pos = ind2sub(boost::proto::child_c<3>(a0).value(),p);
-      std::size_t offset = boost::proto::child_c<2>(a0);
-      std::size_t start = boost::proto::child_c<1>(a0);
+      sub_t const pos = ind2sub(boost::proto::child_c<2>(a0).value(),p);
+
       // Compute which part of the input table to load for selection
-      std::size_t k = ((pos[1]-1) 
-                    & ~(boost::simd::meta::cardinal_of<result_type>::value-1));
-      std::cout <<  "**k  "<<  k  << std::endl;
+      ////TODO This smells a bit hacky, better be replaced by some inner_shift
+      std::size_t k = ((pos[1]- 1 - offset)
+                    & ~(boost::simd::meta::cardinal_of<result_type>::value-1))
+                    + (offset < 0 ? offset : 0);
+
       // Return a diagonal built from boost::proto::child_c<0>(a0)
-      return nt2::if_else ( nt2::eq ( nt2::enumerate<id_t>( pos[0]+offset )
+      return nt2::if_else ( nt2::eq ( nt2::enumerate<id_t>( pos[0] + offset )
                                     , nt2::splat<id_t>( pos[1] )
                                     )
                           , nt2::run(boost::proto::child_c<0>(a0), k, t)
                           , Zero<result_type>()
                           );
     }
-  };  
+  };
 } }
 
 #endif

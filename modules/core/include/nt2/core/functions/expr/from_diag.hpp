@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // from_diag construct a of a 2D  ith diagonal matrix from a vector 
+  // from_diag construct a of a 2D  ith diagonal matrix from a vector
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_from_diag_, tag::cpu_, (A0)(A1), (ast_<A0>)(scalar_< integer_<A1> >) )
   {
@@ -56,7 +56,6 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::offset_from_diag_
                                           , container::domain
                                           , A0 const&
-                                          , std::size_t
                                           , A1
                                           , box<_2D>
                                           >::type             result_type;
@@ -69,17 +68,15 @@ namespace nt2 { namespace ext
                         "First input must be a vector"
                       );
 
-      std::size_t n = nt2::length(a0)+std::abs(a1);
-      std::size_t start = (a1 > 0) ? a1*nt2::size(a0,1) : -a1; 
+      std::size_t n = nt2::length(a0) + nt2::abs(a1);
       return boost::proto::make_expr< nt2::tag::offset_from_diag_
                                     , container::domain
                                     > ( boost::cref(a0)
-                                        , start
                                         , a1
                                         , boxify(_2D(n,n))
                                         );
     }
-  };  
+  };
 } }
 
 #endif
