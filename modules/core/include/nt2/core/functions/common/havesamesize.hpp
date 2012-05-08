@@ -10,16 +10,14 @@
 #define NT2_CORE_FUNCTIONS_COMMON_HAVESAMESIZE_HPP_INCLUDED
 
 #include <nt2/core/functions/havesamesize.hpp>
-#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
 
 namespace nt2 { namespace ext
-                {
+{
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::havesamesize_, tag::cpu_
-                              , (A0)(A1)
-                              , (unspecified_<A0>)
-                              (unspecified_<A1>)  
+                            , (A0)(A1)
+                            , (unspecified_<A0>)
+                              (unspecified_<A1>)
                             )
   {
     typedef bool result_type;
@@ -27,14 +25,14 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
-
-      return extent(a0) == extent(a1); 
+      return nt2::extent(a0) == nt2::extent(a1);
     }
   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::havesamesize_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_<fundamental_<A0> >)
-                                (scalar_<fundamental_<A1> >)  
+                            , (A0)(A1)
+                            , (scalar_<fundamental_<A0> >)
+                              (scalar_<fundamental_<A1> >)
                             )
   {
     typedef bool result_type;
@@ -42,10 +40,9 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
-
-      return true; 
+      return true;
     }
-  };  
+  };
 } }
 
 #endif
