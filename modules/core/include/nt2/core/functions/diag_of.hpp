@@ -25,7 +25,11 @@ namespace nt2
     {
       typedef ext::elementwise_<diag_of_> parent;
     };
-  }
+    struct offset_diag_of_ : ext::elementwise_<offset_diag_of_>
+    {
+      typedef ext::elementwise_<offset_diag_of_>  parent;
+    };
+   }
 
   //============================================================================
   /*!
@@ -34,7 +38,8 @@ namespace nt2
    * \param xpr 2D table (must verify is_matrix(a))
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diag_of_, diag_of, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diag_of_       , diag_of, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_diag_of_, diag_of, 2)
 }
 
 namespace nt2 { namespace container { namespace ext
@@ -44,6 +49,12 @@ namespace nt2 { namespace container { namespace ext
 
   template<class Domain, int N, class Expr>
   struct  size_of<nt2::tag::diag_of_,Domain,N,Expr> : boxed_size_of<Expr,2> {};
+
+  template<class Domain, int N, class Expr>
+  struct generator<nt2::tag::offset_diag_of_,Domain,N,Expr> : generate_as<Expr,0> {};
+
+  template<class Domain, int N, class Expr>
+  struct  size_of<nt2::tag::offset_diag_of_,Domain,N,Expr> : boxed_size_of<Expr,3> {};
 } } }
 
 #endif

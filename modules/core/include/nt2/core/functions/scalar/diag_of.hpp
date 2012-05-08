@@ -17,12 +17,28 @@ namespace nt2 { namespace ext
   // diag_of extracts the diagonal of a scalar value
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::diag_of_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
+                              , (A0)
+                              , (scalar_< arithmetic_<A0> >)
+                              )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const { return a0; }
+  };
+  //============================================================================
+  // diag_of extracts the diagonal of a scalar value
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_diag_of_, tag::cpu_
+                              , (A0)(A1)
+                              , (scalar_< arithmetic_<A0> >)
+                                (scalar_< integer_<A1> >)
+                              )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    {
+      BOOST_ASSERT_MSG(a1 == 1, "diag_of cannot be called on a scalar to return an empty array"); 
+      return a0;
+    }
   };
 } }
 
