@@ -17,7 +17,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 NT2_TEST_CASE_TPL( diag_of, NT2_TYPES )
-{
+{ 
   nt2::table<T> x,y( nt2::of_size(4,5) );
 
   for(int j=1;j<=5;j++)
@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL( diag_of, NT2_TYPES )
   x = nt2::diag_of(y);
 
   for(int i=1;i<=nt2::length(x);i++)
-     NT2_TEST_EQUAL( x(i), y(i,i) );
+    NT2_TEST_EQUAL( x(i), y(i,i) );
 }
 
 NT2_TEST_CASE_TPL( diag_of_scalar, NT2_TYPES )
@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL( diag_of_scalar, NT2_TYPES )
   NT2_TEST_EQUAL(x, y);
 }
 
-NT2_TEST_CASE_TPL( diag_of_expr, NT2_TYPES )
+NT2_TEST_CASE_TPL( diag_of_expr, (float))//NT2_TYPES )
 {
   nt2::table<T> x,y( nt2::of_size(7,7) );
 
@@ -45,16 +45,16 @@ NT2_TEST_CASE_TPL( diag_of_expr, NT2_TYPES )
     for(int i=1;i<=7;i++)
       y(i,j) = i + 10*j;
 
-  NT2_DISP(y);
-
+  disp("y", y);
+  
   x = nt2::diag_of(y, 1);
-  NT2_DISP(nt2::diag_of(y, 1));
+  disp("diag_of(y, 1)",nt2::diag_of(y, 1));
 
   for(int i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), y(i,i+1) );
 }
 
-NT2_TEST_CASE_TPL( diag_of_expr1, NT2_TYPES )
+NT2_TEST_CASE_TPL( diag_of_expr1, (float))//NT2_TYPES )
 {
   nt2::table<T> x,y( nt2::of_size(10,7) );
 
@@ -62,10 +62,10 @@ NT2_TEST_CASE_TPL( diag_of_expr1, NT2_TYPES )
     for(int i=1;i<=10;i++)
       y(i,j) = i + 10*j;
 
-  NT2_DISP(y);
-
+  disp("y", y);
+  
   x = nt2::diag_of(y, -1);
-  NT2_DISP(nt2::diag_of(y, -1));
+  disp("diag_of(y, 1)",nt2::diag_of(y, -1));
 
   for(int i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), y(i+1,i) );
@@ -83,4 +83,16 @@ NT2_TEST_CASE_TPL( diag_of_1, NT2_TYPES )
 
   for(int i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), (y+y-T(1))(i,i) );
+}
+
+NT2_TEST_CASE_TPL( more, NT2_TYPES )
+{
+  nt2::table<T> x,y( nt2::of_size(7,7) );
+
+  for(int j=1;j<=7;j++)
+    for(int i=1;i<=7;i++)
+      y(i,j) = i + 10*j;
+
+  nt2::table<nt2::logical<T> > l;
+  l = nt2::le(y, T(50));
 }

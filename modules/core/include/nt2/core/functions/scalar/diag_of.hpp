@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_DIAG_OF_HPP_INCLUDED
 
 #include <nt2/core/functions/diag_of.hpp>
+#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -33,11 +34,13 @@ namespace nt2 { namespace ext
                                 (scalar_< integer_<A1> >)
                               )
   {
-    typedef A0 result_type;
+    typedef table <A0> result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      BOOST_ASSERT_MSG(a1 == 1, "diag_of cannot be called on a scalar to return an empty array"); 
-      return a0;
+      size_t n = a1 == 0;
+      result_type r(of_size(n, 1));
+      if (n != 0) r(1) = a0; 
+      return r;
     }
   };
 } }
