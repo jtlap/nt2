@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SINPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SINPI_HPP_INCLUDED
@@ -16,6 +16,8 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/sin.hpp>
+#include <nt2/include/functions/mul_i.hpp>
+#include <nt2/include/functions/mul_minus_i.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/sign.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -38,14 +40,14 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype;
       //      return mul_minus_i(nt2::sinh(mul_i(a0*Pi<rtype>())));
-      result_type a00 =  mul_i(a0); 
+      result_type a00 =  mul_i(a0);
       rtype c, s, ch, sh;
       sincospi(imag(a00), s, c);
-      a00 = a00*Pi<rtype>(); 
+      a00 = a00*Pi<rtype>();
       sinhcosh(real(a00), sh, ch);
       rtype r = c*sh;
       rtype i = s*ch;
-      result_type res = result_type(r, i); 
+      result_type res = result_type(r, i);
       if (nt2::any(is_invalid(a00)))
         {
           r = if_else(logical_and(is_inf(real(a00)), is_invalid(imag(a00))), real(a00), r);
@@ -61,13 +63,13 @@ namespace nt2 { namespace ext
 //       typedef A0 result_type;
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       typedef typename meta::as_real<A0>::type rtype; 
+//       typedef typename meta::as_real<A0>::type rtype;
 //       rtype c, s, ch, sh;
 //       sincospi(real(a0), s, c);
 //       sinhcosh(imag(a0)*Pi<rtype>(), sh, ch);
 //       rtype r = if_zero_else(is_imag(a0), s*ch);
 //       rtype i = if_zero_else(is_real(a0), c*sh);
-//       return result_type(r, i);     
+//       return result_type(r, i);
     }
   };
 
@@ -76,22 +78,22 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_imaginary<rtype>::type result_type; 
+    typedef typename meta::as_imaginary<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::sinh(imag(a0)*Pi<rtype>())); 
+      return bitwise_cast<result_type>(nt2::sinh(imag(a0)*Pi<rtype>()));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpi_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
     typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_dry<rA0>::type result_type; 
+    typedef typename meta::as_dry<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::sinpi(real(a0))); 
+      return bitwise_cast<result_type>(nt2::sinpi(real(a0)));
     }
   };
 } }
