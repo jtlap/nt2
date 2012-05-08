@@ -42,13 +42,13 @@ namespace nt2 { namespace ext
                       );
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                              , (A0)(State)(Data)(N)
-                              , ((node_<A0, nt2::tag::offset_diag_of_, N>))
+                            , (A0)(State)(Data)(N)
+                            , ((node_<A0, nt2::tag::offset_diag_of_, N>))
                               (generic_< integer_<State> >)
                               ((unspecified_<Data>))
-                              )
+                            )
   {
     typedef typename boost::dispatch::meta::
             call<nt2::tag::run_ ( typename  boost::proto::result_of::
@@ -63,21 +63,14 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      std::size_t offset = boost::proto::child_c<2>(a0);//1 + nt2::size(boost::proto::child_c<0>(a0),1);//boost::proto::child_c<2>(a0);
+      std::size_t offset = boost::proto::child_c<2>(a0);
       std::size_t start  = boost::proto::child_c<1>(a0);
-//       std::cout << " ========================= " << std::endl;
-//       std::cout << "offset " << offset << std::endl;
-//       std::cout << "start  " << start  << std::endl;
-//       std::cout << "start+p*offset " << start+p*offset << std::endl;
-//       std::cout << "p              " << p              << std::endl; 
-//       std::cout << " ------------------------- " << std::endl;
       return nt2::run ( boost::proto::child_c<0>(a0)
                       , nt2::arith<id_t>(start+p*offset,offset)
                       , t
                       );
     }
   };
-  
 } }
 
 #endif
