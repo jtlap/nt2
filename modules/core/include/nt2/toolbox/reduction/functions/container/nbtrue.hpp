@@ -33,36 +33,35 @@
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
-#include <nt2/include/functions/is_nez.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_,
                               (A0),
-                              (ast_<A0>) )
+                              (ast_<A0>)
+                            )
   {
-    typedef typename meta::call <tag::is_nez_ ( A0 const&) >::type T1;
-    typedef typename meta::call <tag::sb2b_   ( T1)        >::type T2;
-    typedef typename meta::call <tag::toint_  ( T2)        >::type T3;
-    typedef typename meta::call <tag::sum_    ( T3)        >::type  result_type;
+    typedef typename meta::call <tag::sb2b_  (A0 const&) >::type T1;
+    typedef typename meta::call <tag::toint_ (T1)        >::type T2;
+    typedef typename meta::call <tag::sum_   (T2)        >::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return nt2::sum(nt2::toint(nt2::sb2b(nt2::is_nez(a0))));
+      return nt2::sum(nt2::toint(nt2::sb2b(a0)));
     }
   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_,
                               (A0)(A1),
                               (ast_<A0>)
-                              (scalar_<integer_<A1> > )
-                              )
+                              (scalar_<integer_<A1> >)
+                            )
   {
-    typedef typename meta::call <tag::is_nez_ ( A0 const&)     >::type T1;
-    typedef typename meta::call <tag::sb2b_   ( T1)            >::type T2;
-    typedef typename meta::call <tag::toint_  ( T2)            >::type T3;    
-    typedef typename meta::call <tag::sum_    ( T3, A1 const &)>::type  result_type;
+    typedef typename meta::call <tag::sb2b_  (A0 const&)     >::type T1;
+    typedef typename meta::call <tag::toint_ (T1)            >::type T2;
+    typedef typename meta::call <tag::sum_   (T2, A1 const&) >::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-      return  nt2::sum(nt2::toint(nt2::sb2b(nt2::is_nez(a0))), a1);
+      return  nt2::sum(nt2::toint(nt2::sb2b(a0), a1));
     }
   };
 } }
