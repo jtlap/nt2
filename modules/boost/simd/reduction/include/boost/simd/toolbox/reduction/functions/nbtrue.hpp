@@ -13,7 +13,6 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_NBTRUE_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/constant/constants/zero.hpp>
 
 /*!
  * \ingroup boost_simd_reduction

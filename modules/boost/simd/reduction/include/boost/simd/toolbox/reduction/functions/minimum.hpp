@@ -13,8 +13,6 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_MINIMUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-#include <boost/simd/toolbox/constant/constants/valmax.hpp>
-#include <boost/simd/toolbox/arithmetic/functions/min.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -58,8 +56,13 @@
  *  
 **/
 
-namespace boost { namespace simd { namespace tag
-  {         
+namespace boost { namespace simd
+{
+  namespace tag
+  {
+    struct min_;
+    struct Valmax;
+
     /*!
      * \brief Define the tag minimum_ of functor minimum 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
@@ -74,5 +77,3 @@ namespace boost { namespace simd { namespace tag
 } }
 
 #endif
-
-// modified by jt the 25/12/2010
