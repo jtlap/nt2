@@ -14,6 +14,7 @@ SET( SOURCES
      svd.cpp
      schur.cpp
      symeig.cpp
+     balance.cpp
    )
 
 nt2_module_add_tests(linalg.tie.unit ${SOURCES})

@@ -11,6 +11,7 @@
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/toolbox/linalg/functions/details/balance.hpp>
 
 namespace nt2
@@ -25,9 +26,9 @@ namespace nt2
       };
     }
 
-    struct balance_ : ext::unspecified_<balance_>
+    struct balance_ :  ext::tieable_<balance_>
     {
-      typedef ext::unspecified_<balance_>  parent;
+      typedef ext::tieable_<balance_>  parent;
     };
   }
 
@@ -49,13 +50,6 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::balance_, balance, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::balance_, balance, 2)
 
-  // Those variant are used for the tied(x...) = balance(..) syntax
-  NT2_FUNCTION_IMPLEMENTATION_TPL ( tag::balance_
-                                  , balance
-                                  , (A0 const&)(A1 const&)(A2&)(A3&)(A4&)
-                                  , 5
-                                  )
-
   namespace factorization
   {
     /**
@@ -76,14 +70,55 @@ namespace nt2
      * @return A unspecified type containing the precomputed elements of the
      * Balance factorization.
      **/
-    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::balance_, balance, 1)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::balance_, balance, 2)
+    NT2_FUNCTION_IMPLEMENTATION(tag::factorization::balance_, balance, 2)
+    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::balance_, balance, 3)
   }
 }
 
 namespace nt2 { namespace container { namespace ext
 {
-  // TODO
+  template<class Domain, int N, class Expr>
+  struct  size_of<tag::balance_,Domain,N,Expr>
+  {
+    // The size is contained in the first child
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return boost::proto::child_c<0>(e).extent();
+    }
+  };
+
+  template<class Domain, class Expr>
+  struct  size_of<tag::balance_,Domain,1,Expr>
+  {
+    // The size is contained in the first child
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return boost::proto::child_c<0>(e).extent();
+    }
+  };
+
+  template<class Domain, int N, class Expr>
+  struct  generator<tag::balance_,Domain,N,Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
+    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
+
+    // Rebuild proper expression type with semantic
+    typedef expression< typename boost::remove_const<Expr>::type
+                      , sema_t
+                      >                                     result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
 } } }
 
 #endif

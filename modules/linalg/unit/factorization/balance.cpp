@@ -6,7 +6,7 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - balance_result factorization"
+#define NT2_UNIT_MODULE "nt2 linalg toolbox - balance factorization"
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -22,7 +22,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL(balance_result, (double))// NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(balance, (double))// NT2_REAL_TYPES)
 {
   using nt2::_; 
   using nt2::tag::factorization::balance_;
@@ -47,7 +47,11 @@ NT2_TEST_CASE_TPL(balance_result, (double))// NT2_REAL_TYPES)
         }
       
     }
-  nt2::details::balance_result<t_t> f(b, 'b');
+  typedef typename nt2::meta::call<balance_(t_t const&,char)>::type result_type;
+
+  
+  result_type f = nt2::factorization::balance(b,'B');
+
   nt2::disp("b     ", b); 
   nt2::disp("values", f.values());
   t_t s  = f.scale();

@@ -12,8 +12,10 @@
 #include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/issquare.hpp>
-#include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/reshape.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gebal.hpp>
+#include <nt2/toolbox/linalg/details/lapack/gebak.hpp>  
 #include <nt2/table.hpp>
 //     [t,b] = balance(a) finds a similarity transformation t such
 //     that b = t\a*t has, as nearly as possible, approximately equal
@@ -51,16 +53,16 @@ namespace nt2 { namespace details
     //must be dry I think
 
     template<class Input>
-    balance_result ( Input& xpr, char job = 'B')
+    balance_result ( Input& xpr, char job/* = 'B'*/)
       : job_(job)
       , a_(xpr)
       , aa_(xpr)
       , n_( nt2::height(a_)  )
       , lda_( a_.leading_size() )
+      , t_(of_size(n_, n_))
       , ilo_(0)
       , ihi_(0)
       , scale_(of_size(1, n_))
-      , ipiv_(of_size(1, n_))
       , info_(0)
     {
       BOOST_ASSERT_MSG(issquare(aa_),
@@ -68,75 +70,93 @@ namespace nt2 { namespace details
       nt2::details::gebal(&job_, &n_, aa_.raw(), &lda_,
                           &ilo_, &ihi_, scale_.raw(),
                           &info_);
-    // I have not understood yet how to compute properly ipiv_ from original scale_
-      disp("scale ", scale_);
-      disp("low   ",_(1,  ilo_-1));
-      disp("high  ", _(ihi_+1, n_));
-      if (job_ != 'N')
-        {
-          ipiv_ = _(One<itype_t>(), n_);
-          for(int i=1; i < ilo_; ++i) ipiv_(i) = toint(scale_(i));
-          for(int i=ihi_+1; i <= n_; ++i) ipiv_(i) = toint(scale_(i));
-          scale_(1, _(1,  ilo_-1)) = ones(1, ilo_-1, meta::as_<base_t>());
-          scale_(1, _(ihi_+1, n_)) = ones(1, n_-ihi_-1, meta::as_<base_t>());
-        }
+      t_ = nt2::eye(n_, n_, meta::as_<type_t>());
+      nt2_la_int ldt = t_.leading_size();
+      char side =  'R'; 
+      nt2::details::gebak(&job_, &side, &n_,
+                          &ilo_, &ihi_, scale_.raw(),
+                          &n_, t_.raw(), &ldt, &info_); 
     }
+
     balance_result& operator=(balance_result const& src)
     {
       job_    = src.job_;
       a_      = src.a_;
       aa_     = src.aa_;
       n_      = src.n_;
+      t_      = src.t_;
       lda_    = src.lda_;
       ilo_    = src.ilo_;
       ihi_    = src.ihi_;
       scale_  = src.scale_;
-      ipiv_   = src.ipiv_;
       info_   = src.info_;
       return *this;
     }
+    balance_result(balance_result const& src)
+      : job_(src.job_),
+        a_(src.a_),
+        aa_(src.aa_),
+        n_(src.n_),
+        lda_(src.lda_),
+        t_(src.t_),
+        ilo_(src.ilo_),
+        ihi_(src.ihi_),
+        scale_(src.scale_),
+        info_(src.info_)
+    {}
+    
     //==========================================================================
     // Return raw values
     //==========================================================================
-    result_type values() const { return aa_; }
-
+    data_t values() const { return a_; }
+    result_type balanced() const { return aa_; }
+    
     //==========================================================================
     // Return scale part as a vector
+    // This surely can be done in a more clever way directly from scale_
     //==========================================================================
     bresult_type scale() const
     {
-      BOOST_ASSERT_MSG(job_ != 'N', "please call balance with job = 'P', 'S' or 'B'");
-      return scale_;
+      return nt2::reshape(nt2::max(t_, nt2::_(), 2), 1, n_); 
     }
     //==========================================================================
     // Return permute part as a vector of indices
+    // This surely can be done in a more clever way directly from scale_
     //==========================================================================
     itab_t ipiv() const
     {
-      BOOST_ASSERT_MSG(job_ != 'N', "please call balance with jobu = 'P', 'S' or 'B'");
-      return ipiv_;
+      //return nt2::reshape(nt2::posmax(t_, 2), 1, n_);
+      itab_t ipi(of_size(1, n_)); 
+      for(int i=1; i <= n_; ++i)
+        {
+          for(int j=1; j <= n_; ++j)
+            {
+              if(t_(i, j))
+                {
+                  ipi(i) = j;
+                  break;
+                }
+            }
+        }
+      return ipi;
     }
-    //I DO NOT UNDERSTAND YET HOW TO GET PERM FROM SCALE !?
-    //     //==========================================================================
-    //     // Return permute part as matrix
-    //     //==========================================================================
-    //     bresult_type p() const
-    //     {
-    //       BOOST_ASSERT_MSG(job_ != 'N', "please call balance with job = 'P', 'S' or 'B'");
-    //       btab_t p =  eye(n_, meta::as_<base_t>());
-    //       for(int i=n_; i > ihi_; i++) p(ipiv(i), _) = p(i, _);
-    //       for(int i=1;  i < ilo_; i++) p(ipiv(i), _) = p(i, _);
-    //     }
-    //     //==========================================================================
-    //     // Return t transform
-    //     //==========================================================================
-    //     result_type t() const
-    //     {
-    //       BOOST_ASSERT_MSG(job_ != 'N', "please call balance with job = 'P', 'S' or 'B'");
-    //       tab_t tt_ = aa_;
-    //       tt_(_(ilo_, ihi_), _) = from_diag(scale_(1, _(ilo_, ihi_)));
-    //       return tt_;
-    //     }
+    //==========================================================================
+    // Return t transform
+    //==========================================================================
+    result_type t() const
+    {
+      return t_;
+    }
+    result_type invt()
+    {
+      tab_t invt = nt2::eye(n_, n_, meta::as_<type_t>());
+      nt2_la_int ldt = invt.leading_size();
+      char side =  'L'; 
+      nt2::details::gebak(&job_, &side, &n_,
+                          &ilo_, &ihi_, scale_.raw(),
+                          &n_, invt.raw(), &ldt, &info_);
+      return invt; 
+    }
 
     //==========================================================================
     // Return lapack status
@@ -150,9 +170,9 @@ namespace nt2 { namespace details
     tab_t                           aa_;
     nt2_la_int                       n_;
     nt2_la_int                     lda_;
+    tab_t                            t_;
     nt2_la_int               ilo_, ihi_;
     btab_t                       scale_;
-    itab_t                        ipiv_;
     nt2_la_int                    info_;
   };
 } }
