@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< type8_<A0> >)
+                            , (scalar_< ints8_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< type16_<A0> >)
+                            , (scalar_< ints16_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< type32_<A0> >)
+                            , (scalar_< ints32_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< type64_<A0> >)
+                            , (scalar_< ints64_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
