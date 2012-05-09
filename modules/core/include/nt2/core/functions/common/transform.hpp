@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
     {
       std::size_t bound  = nt2::numel(a0);
 
-      for(std::size_t i=0; i < bound; ++i)
+      for(std::size_t i=0; i != bound; ++i)
         nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
     }
   };

@@ -69,11 +69,11 @@ namespace nt2 { namespace ext
         {
 #endif
           // Process all vectorizable chunks
-          for(std::size_t m=it+in_sz_bnd; it < m; it+=N)
+          for(std::size_t m=it+in_sz_bnd; it != m; it+=N)
             nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
           // Process the scalar epilogue
-          for(std::size_t m=it+in_sz-in_sz_bnd; it < m; ++it)
+          for(std::size_t m=it+in_sz-in_sz_bnd; it != m; ++it)
             nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
 
 #ifndef BOOST_NO_EXCEPTIONS
@@ -157,7 +157,7 @@ namespace nt2 { namespace ext
 #endif
 
       // Process the scalar epilogue
-      for(std::size_t i=aligned_bound; i<bound; ++i)
+      for(std::size_t i=aligned_bound; i!=bound; ++i)
         nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
     }
   };

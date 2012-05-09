@@ -51,10 +51,10 @@ namespace nt2 { namespace ext
       std::size_t it = 0;
       for(std::size_t j=0; j != outer_sz; ++j)
       {
-        for(std::size_t m=it+in_sz_bnd; it < m; it+=N)
+        for(std::size_t m=it+in_sz_bnd; it != m; it+=N)
           nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
-        for(std::size_t m=it+in_sz-in_sz_bnd; it < m; ++it)
+        for(std::size_t m=it+in_sz-in_sz_bnd; it != m; ++it)
           nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
       }
     }
@@ -89,10 +89,10 @@ namespace nt2 { namespace ext
       std::size_t bound          = boost::fusion::at_c<0>(a0.extent());
       std::size_t aligned_bound  = (bound/N)*N;
 
-      for(std::size_t i=0;i < aligned_bound; i+=N)
+      for(std::size_t i=0; i != aligned_bound; i+=N)
         nt2::run(a0, i, nt2::run(a1, i, meta::as_<target_type>()));
 
-      for(std::size_t i=aligned_bound; i<bound; ++i)
+      for(std::size_t i=aligned_bound; i != bound; ++i)
         nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
     }
   };
