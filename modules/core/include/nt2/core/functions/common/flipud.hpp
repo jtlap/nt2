@@ -14,6 +14,7 @@
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/arith.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/height.hpp>
@@ -42,9 +43,10 @@ namespace nt2 { namespace ext
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      sub_t pos = ind2sub(_2D(a0.extent()),p);
-      std::size_t n = height(a0);
-      return  nt2::run(boost::proto::child_c<0>(a0),p,t); //INCORRECT MUST CHANGE run here
+      _2D ex = a0.extent();
+      sub_t pos = ind2sub(ex,p);
+      pos[0] = height(a0)-pos[0]+1;
+      return  nt2::run(boost::proto::child_c<0>(a0),nt2::arith<i_t>(sub2ind(ex,pos),-1),t);
     }
   };
 

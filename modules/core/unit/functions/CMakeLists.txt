@@ -53,6 +53,7 @@ SET( SOURCES
   colvect.cpp
   rowvect.cpp
   fliplr.cpp
+  flipud.cpp
   width.cpp
   logspace.cpp
   pispace.cpp
