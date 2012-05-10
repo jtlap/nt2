@@ -328,21 +328,6 @@ namespace nt2 { namespace details
     nt2_la_int                     info_;
     workspace_t                     wrk_;
 
-
-//    template < class S>
-//     static tab_t diag_of(const S& a)
-//     {
-//       tab_t d(of_size(nt2::min(width(a), height(a)), 1));
-//       for (int i = 1; i <= nt2::min(width(a), height(a)); ++i) d(i) = a(i, i);
-//       return d;
-//     }
-//     template < class S>
-//     static tab_t from_diag(const S& w)
-//     {
-//       tab_t m = nt2::zeros(numel(w), numel(w), meta::as_<type_t>());
-//       for (int i = 1; i <= numel(w); ++i) m(i, i) = w(i);
-//       return m;
-//     }
     template < class S>
     static tab_t trans(const S& a)
     {

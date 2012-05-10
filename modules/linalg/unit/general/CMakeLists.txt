@@ -9,6 +9,9 @@
 
 SET( SOURCES
      inv.cpp
+     rot90.cpp
+     orth.cpp
+     null.cpp
    )
 
 nt2_module_add_tests(linalg.general.unit ${SOURCES})

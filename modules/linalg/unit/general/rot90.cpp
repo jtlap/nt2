@@ -6,11 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - inv factorization"
+#define NT2_UNIT_MODULE "nt2 linalg toolbox - rot90 factorization"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/inv.hpp>
-#include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/rot90.hpp>
+#include <nt2/include/functions/cif.hpp>
+#include <nt2/include/functions/rif.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
 
@@ -19,18 +20,19 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(rot90, NT2_REAL_TYPES)
 {
   typedef T r_t; 
-  using nt2::inv; 
-  using nt2::tag::inv_;
+  using nt2::rot90; 
+  using nt2::tag::rot90_;
   double ulpd =  0.0; 
-  nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
-  nt2::table<T> invn = nt2::inv(n);
+  nt2::table<T> n = nt2::cif(3, 3, nt2::meta::as_<T>())+T(10)*nt2::rif(3, 3, nt2::meta::as_<T>());
   NT2_DISP(n); 
-  NT2_DISP(invn); 
-  for(int i=0; i < 100; i++)
-    {
-      NT2_TEST_ULP_EQUAL(invn(i),n(i), 0.5);
-    }
- }
+  for(int i=1; i <= 4; ++i)
+   {
+     nt2::table<T> rot90n = nt2::rot90(n, i);
+     std::cout << "i = " << i << std::endl; 
+     NT2_DISP(rot90n); 
+   }
+}
+
