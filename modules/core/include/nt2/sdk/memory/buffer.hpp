@@ -6,13 +6,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_VECTOR_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_VECTOR_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED
 
 #include <cstddef>
 #include <boost/swap.hpp>
 #include <nt2/sdk/memory/copy.hpp>
 #include <boost/detail/iterator.hpp>
+#include <nt2/sdk/memory/destruct.hpp>
+#include <nt2/sdk/memory/local_ptr.hpp>
+#include <nt2/sdk/memory/construct.hpp>
 #include <nt2/sdk/memory/adapted/buffer.hpp>
 
 namespace nt2 { namespace memory
@@ -22,7 +25,8 @@ namespace nt2 { namespace memory
    * @brief buffer is a dynamically-sized sequence using dynamic storage.
    **/
   //===========================================================================
-  template<class T, class Allocator> class buffer
+  template<class T, class Allocator>
+  class buffer : private Allocator
   {
     public:
     //==========================================================================
@@ -45,28 +49,57 @@ namespace nt2 { namespace memory
     // Default constructor
     //==========================================================================
     buffer( allocator_type a = allocator_type())
-          : begin_(0), end_(0), capacity_(0), alloc(a)
+          : allocator_type(a), begin_(0), end_(0), capacity_(0)
     {}
 
+    private:
+    //==========================================================================
+    // Local helper for constructor dealing with memory
+    //==========================================================================
+    struct deleter
+    {
+      std::size_t size_;
+      allocator_type& alloc_;
+
+      deleter(std::size_t s, allocator_type& a) : size_(s), alloc_(a) {}
+      void operator()(pointer ptr) { alloc_.deallocate(ptr,size_); }
+    };
+
+    public:
     //==========================================================================
     // Size constructor
     //==========================================================================
     buffer( size_type n, allocator_type a = allocator_type())
-          : begin_(0), end_(0), capacity_(0), alloc(a)
+          : allocator_type(a), begin_(0), end_(0), capacity_(0)
     {
-      begin_ = alloc.allocate(n);
+      local_ptr<T,deleter> that ( allocator_type::allocate(n)
+                                , deleter(n,get_allocator())
+                                );
+
+      nt2::memory::default_construct(that.get(),that.get() + n,get_allocator());
+
+      begin_ = that.release();
       if(begin_) end_ = capacity_ = begin_ + n;
     }
 
     //==========================================================================
     // Copy constructor
     //==========================================================================
-    buffer( buffer const& src)
-          : begin_(0), end_(0), capacity_(0), alloc(src.alloc)
+    buffer( buffer const& src )
+          : allocator_type(src.get_allocator())
+          , begin_(0), end_(0), capacity_(0)
     {
-      begin_ = alloc.allocate(src.size());
+      local_ptr<T,deleter> that ( allocator_type::allocate(src.size())
+                                , deleter(src.size(),get_allocator())
+                                );
+
+      nt2::memory::copy_construct ( src.begin(),src.end()
+                                  , that.get()
+                                  , get_allocator()
+                                  );
+
+      begin_ = that.release();
       if(begin_) end_ = capacity_ = begin_ + src.size();
-      nt2::memory::copy(src.begin(),src.end(),begin());
     }
 
     //==========================================================================
@@ -74,7 +107,11 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~buffer()
     {
-      if(begin_) alloc.deallocate(begin_,size());
+      if(begin_)
+      {
+        nt2::memory::destruct(begin_,capacity_,get_allocator());
+        allocator_type::deallocate(begin_,size());
+      }
     }
 
     //==========================================================================
@@ -88,13 +125,13 @@ namespace nt2 { namespace memory
     }
 
     //==========================================================================
-    // Resize
+    // Non-conservative resize
     //==========================================================================
     void resize( size_type sz )
     {
       if(sz > capacity() )
       {
-        buffer that(sz,alloc);
+        buffer that(sz,get_allocator());
         swap(that);
       }
       else
@@ -108,10 +145,10 @@ namespace nt2 { namespace memory
     //==========================================================================
     void swap( buffer& src )
     {
-      boost::swap(begin_    , src.begin_    );
-      boost::swap(end_      , src.end_      );
-      boost::swap(capacity_ , src.capacity_ );
-      boost::swap(alloc     , src.alloc     );
+      boost::swap(begin_          , src.begin_          );
+      boost::swap(end_            , src.end_            );
+      boost::swap(capacity_       , src.capacity_       );
+      boost::swap(get_allocator() , src.get_allocator() );
     }
 
     //==========================================================================
@@ -136,6 +173,19 @@ namespace nt2 { namespace memory
     }
 
     //==========================================================================
+    // Allocator access
+    //==========================================================================
+    allocator_type& get_allocator()
+    {
+      return static_cast<allocator_type&>(*this);
+    }
+
+    allocator_type const& get_allocator() const
+    {
+      return static_cast<allocator_type const&>(*this);
+    }
+
+    //==========================================================================
     // Raw values
     //==========================================================================
     pointer        raw()       { return begin_;  }
@@ -155,8 +205,7 @@ namespace nt2 { namespace memory
     inline const_reference operator[](size_type i) const { return begin_[i]; }
 
     private:
-    pointer         begin_, end_, capacity_;
-    allocator_type  alloc;
+    pointer begin_, end_, capacity_;
   };
 
   //============================================================================
@@ -166,8 +215,10 @@ namespace nt2 { namespace memory
    * \param y Second \c pointer_buffer to swap
    **/
   //============================================================================
-  template<class T, class A> inline
-  void swap (buffer<T,A>& x, buffer<T,A>& y)  { x.swap(y); }
+  template<class T, class A> inline void swap(buffer<T,A>& x, buffer<T,A>& y)
+  {
+    x.swap(y);
+  }
 } }
 
 #endif

@@ -9,9 +9,12 @@
 
 SET( SOURCES
   array_buffer.cpp
+  array_buffer_non_pod.cpp
   buffer.cpp
+  buffer_non_pod.cpp
   composite_buffer.cpp
   container.cpp
+  container_non_pod.cpp
   fixed_allocator.cpp
 ## List of scalar test files for toolbox core.memory
    )
