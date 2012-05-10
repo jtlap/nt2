@@ -6,14 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_VECTOR_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_VECTOR_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED
 
 #include <cstddef>
 #include <boost/swap.hpp>
 #include <nt2/sdk/memory/copy.hpp>
 #include <boost/detail/iterator.hpp>
 #include <nt2/sdk/memory/destruct.hpp>
+#include <nt2/sdk/memory/local_ptr.hpp>
 #include <nt2/sdk/memory/construct.hpp>
 #include <nt2/sdk/memory/adapted/buffer.hpp>
 
@@ -50,15 +51,31 @@ namespace nt2 { namespace memory
           : begin_(0), end_(0), capacity_(0), alloc_(a)
     {}
 
+    private:
+    //==========================================================================
+    // Local helper for constructor dealing with memory
+    //==========================================================================
+    struct deleter
+    {
+      std::size_t size_;
+      Allocator& alloc_;
+
+      deleter(std::size_t s, Allocator& a) : size_(s), alloc_(a) {}
+      void operator()(pointer ptr) { alloc_.deallocate(ptr,size_); }
+    };
+
+    public:
     //==========================================================================
     // Size constructor
     //==========================================================================
     buffer( size_type n, allocator_type a = allocator_type())
           : begin_(0), end_(0), capacity_(0), alloc_(a)
     {
-      begin_ = alloc_.allocate(n);
+      local_ptr<T,deleter> that(alloc_.allocate(n),deleter(n,alloc_));
+      nt2::memory::default_construct(that.get(),that.get() + n,alloc_);
+
+      begin_ = that.release();
       if(begin_) end_ = capacity_ = begin_ + n;
-      nt2::memory::default_construct(begin_,end_,alloc_);
     }
 
     //==========================================================================
@@ -67,9 +84,14 @@ namespace nt2 { namespace memory
     buffer( buffer const& src)
           : begin_(0), end_(0), capacity_(0), alloc_(src.alloc_)
     {
-      begin_ = alloc_.allocate(src.size());
+      local_ptr<T,deleter> that ( alloc_.allocate(src.size())
+                                , deleter(src.size(),alloc_)
+                                );
+
+      nt2::memory::copy_construct(src.begin(),src.end(),that.get(),alloc_);
+
+      begin_ = that.release();
       if(begin_) end_ = capacity_ = begin_ + src.size();
-      nt2::memory::copy_construct(src.begin(),src.end(),begin_,alloc_);
     }
 
     //==========================================================================
@@ -95,7 +117,7 @@ namespace nt2 { namespace memory
     }
 
     //==========================================================================
-    // Resize
+    // Non-conservative resize
     //==========================================================================
     void resize( size_type sz )
     {
