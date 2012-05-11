@@ -13,6 +13,9 @@
 #include <nt2/core/container/dsl/details/reduction.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 
+#include <nt2/include/functions/min.hpp>
+#include <nt2/include/constants/valmax.hpp>
+
 namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, class Expr>

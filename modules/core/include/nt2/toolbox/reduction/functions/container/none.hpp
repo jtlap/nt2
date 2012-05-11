@@ -15,6 +15,9 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 
+#include <nt2/include/functions/logical_notand.hpp>
+#include <nt2/include/constants/true.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::none_, tag::cpu_
