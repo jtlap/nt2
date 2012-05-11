@@ -8,20 +8,24 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_EXPX2_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_EXPX2_HPP_INCLUDED
+
 #include <nt2/toolbox/exponential/functions/expx2.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/floor.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/toolbox/exponential/constants.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/abs.hpp>
-#include <nt2/include/functions/simd/floor.hpp>
-#include <nt2/toolbox/exponential/constants.hpp>
-
+#include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -68,12 +72,12 @@ namespace nt2 { namespace ext
       A0 u1 = Two<A0>() * m * x  +  sqr(x);
       /* u is exact, u1 is small.  */
       return sel(is_inf(a0),
-		 Inf<A0>(),
-		 sel(gt(u+u1, Maxlog<A0>()),
-		     Inf<A0>(),
-		     exp(u) * exp(u1)
-		     )
-		 );
+                 Inf<A0>(),
+                 sel(gt(u+u1, Maxlog<A0>()),
+                     Inf<A0>(),
+                     exp(u) * exp(u1)
+                     )
+                 );
     }
   };
 } }

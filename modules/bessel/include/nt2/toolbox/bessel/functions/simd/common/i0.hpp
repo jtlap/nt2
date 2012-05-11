@@ -8,20 +8,29 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_I0_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_I0_HPP_INCLUDED
+
 #include <nt2/toolbox/bessel/functions/i0.hpp>
-#include <nt2/sdk/simd/logical.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/is_less_equal.hpp>
+#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/if_nan_else.hpp>
+#include <nt2/include/functions/simd/if_else_nan.hpp>
 #include <nt2/include/functions/simd/sqrt.hpp>
 #include <nt2/include/functions/simd/tchebeval.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
-#include <nt2/include/functions/simd/nbtrue.hpp>
-#include <nt2/include/functions/simd/bitwise_ornot.hpp>
-#include <nt2/include/functions/simd/if_else_allbits.hpp>
-#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/bitwise_and.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/include/constants/real.hpp>
+#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

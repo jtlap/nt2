@@ -10,22 +10,25 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_ERFC_HPP_INCLUDED
 
 #include <nt2/toolbox/euler/functions/erfc.hpp>
-#include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/three.hpp>
-#include <nt2/include/constants/four.hpp>
-#include <nt2/include/constants/eight.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/sqrt.hpp>
-#include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/nbtrue.hpp>
-#include <nt2/include/functions/simd/sign.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/polevl.hpp>
-#include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/polevl.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/logical_andnot.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

@@ -10,22 +10,30 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_NTHROOT_HPP_INCLUDED
 
 #include <nt2/toolbox/exponential/functions/nthroot.hpp>
-#include <nt2/sdk/simd/logical.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/one.hpp>
-#include <nt2/include/constants/mone.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/pow.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
-#include <nt2/include/functions/simd/is_ltz.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/rec.hpp>
-#include <nt2/include/functions/simd/bitofsign.hpp>
-#include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/bitwise_or.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/is_even.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
 {

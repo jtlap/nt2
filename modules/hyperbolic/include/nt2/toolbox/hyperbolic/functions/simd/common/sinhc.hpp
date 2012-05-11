@@ -8,21 +8,23 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINHC_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SIMD_COMMON_SINHC_HPP_INCLUDED
+
 #include <nt2/toolbox/hyperbolic/functions/sinhc.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/sinh.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/is_greater_equal.hpp>
+#include <nt2/include/constants/digits.hpp>
 #include <nt2/toolbox/hyperbolic/functions/scalar/constants.hpp>
 #include <nt2/include/constants/eps_related.hpp>
-
-
+#include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
