@@ -9,6 +9,7 @@
 
 SET( SOURCES
   colon.cpp
+  class.cpp
   iscolumn.cpp
   isempty.cpp
   ismatrix.cpp
