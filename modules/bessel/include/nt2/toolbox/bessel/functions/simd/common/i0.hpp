@@ -15,8 +15,8 @@
 #include <nt2/include/functions/simd/is_less_equal.hpp>
 #include <nt2/include/functions/simd/nbtrue.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/simd/if_nan_else.hpp>
-#include <nt2/include/functions/simd/if_else_nan.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else_allbits.hpp>
 #include <nt2/include/functions/simd/sqrt.hpp>
 #include <nt2/include/functions/simd/tchebeval.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
