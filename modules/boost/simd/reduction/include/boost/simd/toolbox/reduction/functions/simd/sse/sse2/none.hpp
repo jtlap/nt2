@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_NONE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/reduction/functions/none.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/any.hpp>
 #include <boost/simd/include/functions/simd/logical_not.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -21,14 +21,14 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::none_, boost::simd::tag::sse2_
                             , (A0)
-                            , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
+                            , ((simd_<fundamental_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef typename meta::scalar_of<A0>::type sA0;
     typedef typename meta::as_logical<sA0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return result_type(logical_not(boost::simd::any(a0)));
+      return logical_not(boost::simd::any(a0));
     }
   };
 } } }
