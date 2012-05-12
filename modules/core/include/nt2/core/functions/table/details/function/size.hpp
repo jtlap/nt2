@@ -125,7 +125,7 @@ namespace nt2 { namespace container { namespace ext
                           ::child_c<Expr&, 1>::type     child1;
 
     template<bool B, class Dummy = void>
-    struct apply;
+    struct apply {};
 
     template<class Dummy>
     struct apply<true, Dummy> // is colon
