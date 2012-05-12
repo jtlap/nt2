@@ -42,22 +42,22 @@ NT2_TEST_CASE( repnum_nd_untyped_of_size )
   for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x0(i) );
 
   nt2::table<double> x1 = nt2::repnum(11.5, nt2::of_size(1, 64));
-  for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x1(i) )
+  for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x1(i) ); 
 
   nt2::table<double> x2 = nt2::repnum(11.5,nt2::of_size(8,8));
-  for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x2(i) )
+  for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x2(i) ); 
 
   nt2::table<double> x3 = nt2::repnum(11.5,nt2::of_size(8,4,2));
-  for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x3(i) )
+  for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x3(i) ); 
 
   nt2::table<double> x4 = nt2::repnum(11.5,nt2::of_size(4,4,2,2));
-  for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x4(i) )
+  for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x4(i) ); 
 }
 
 NT2_TEST_CASE( repnum_nd_untyped )
 {
-  nt2::table<double> x1 = nt2::repnum(11.5, 8);
-  for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x1(i) );
+   nt2::table<double> x1 = nt2::repnum(11.5, 8);
+   for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x1(i) );
 
   nt2::table<double> x2 = nt2::repnum(11.5,8,8);
   for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, x2(i) );
