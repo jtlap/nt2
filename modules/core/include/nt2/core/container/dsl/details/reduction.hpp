@@ -113,8 +113,8 @@ namespace nt2 { namespace container { namespace ext
   template<class RED, int N, class Expr> struct reduction_generator
   {
     typedef typename boost::proto::result_of::child_c<Expr&, 0>::type             expr_t;
-    typedef typename boost::dispatch::meta::semantic_of<expr_t>::type             sema_t;
-    typedef typename meta::strip<sema_t>::type::value_type                        value_type;
+    typedef typename meta::scalar_of<expr_t>::type                                sstype;
+    typedef typename meta::call<RED(sstype)>::type                                value_type;
 
     typedef typename reduction_size_of<RED,N,Expr>::result_type                   size_type;
     typedef typename boost::mpl::
