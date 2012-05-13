@@ -21,8 +21,6 @@
 #include <boost/exception_ptr.hpp>
 #endif
 
-
-
 #ifndef BOOST_SIMD_NO_SIMD
 //==============================================================================
 // openMP + SIMD
@@ -33,15 +31,16 @@ namespace nt2 { namespace ext
   // Generates fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fold_, nt2::tag::openmp_<Site>
-                              , (A1)(A2)(A3)(A4)(Site)
-                              , ((ast_< A1>))
+                            , (A1)(A2)(A3)(A4)(Site)
+                            , ((ast_< A1>))
                               (unspecified_<A2>)
                               (unspecified_<A3>)
                               (unspecified_<A4>)
                             )
   {
     typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
-    typedef typename boost::remove_reference<A1>::type::value_type             result_type;
+    typedef typename boost::remove_reference<A1>::type::value_type             stype;
+    typedef typename boost::dispatch::meta::result_of<A4 const(stype)>::type   result_type;
     typedef boost::simd::native<result_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
     BOOST_FORCEINLINE result_type operator()(A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
@@ -125,15 +124,16 @@ namespace nt2 { namespace ext
   // Generates fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fold_, nt2::tag::openmp_<Site>
-                              , (A1)(A2)(A3)(A4)(Site)
-                              , ((ast_< A1>))
+                            , (A1)(A2)(A3)(A4)(Site)
+                            , ((ast_< A1>))
                               (unspecified_<A2>)
                               (unspecified_<A3>)
                               (unspecified_<A4>)
                             )
   {
     typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
-    typedef typename boost::remove_reference<A1>::type::value_type             result_type;
+    typedef typename boost::remove_reference<A1>::type::value_type             stype;
+    typedef typename boost::dispatch::meta::result_of<A4 const(stype)>::type   result_type;
 
     BOOST_FORCEINLINE result_type operator()(A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
@@ -172,7 +172,6 @@ namespace nt2 { namespace ext
         gout = bop(gout, out);
 
       }
-
 
 #ifndef BOOST_NO_EXCEPTIONS
         if(exception)
