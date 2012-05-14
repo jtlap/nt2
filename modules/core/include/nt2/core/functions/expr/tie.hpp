@@ -10,7 +10,9 @@
 #define NT2_CORE_FUNCTIONS_EXPR_TIE_HPP_INCLUDED
 
 #include <nt2/core/functions/tie.hpp>
+#include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/assign.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
 namespace nt2 { namespace ext
@@ -81,7 +83,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
     {
-      nt2::table<value_type> bound = boost::proto::child_c<0>(a1);
+      nt2::container::table<value_type> bound = boost::proto::child_c<0>(a1);
 
       func_t callee;
       callee( a1, nt2::tie(bound) );

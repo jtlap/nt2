@@ -16,7 +16,7 @@
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 
+namespace nt2
 {
   namespace tag
   {
@@ -32,12 +32,11 @@ namespace nt2
    *
    * \param xpr   Indexing expression
    * \param szs   Indexed node Size
-   * \param idx   Static index being computed
-   * \param ndims Number of indexing being performed
+   * \param bis   Indexed node base indices
    * \return The number of elements dimensions required to store \c xpr
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::relative_size_, relative_size, 4)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::relative_size_, relative_size, 3)
 }
 
 #endif

@@ -11,40 +11,72 @@
 
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/dsl/functions/terminal.hpp>
+#include <boost/dispatch/meta/is_scalar.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/meta/lambda_terminal.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
 
 namespace nt2 { namespace container
 {
   //============================================================================
-  // NT2 container grammar accept :
-  //  - any container
-  //  - any scalar value
-  //  - the _ operator
-  //  - the as_<> helper
-  //  - the box helper
-  //  - the dereference terminal
-  //  - any operations except for low-level ones and assignment
+  // NT2 container grammar accepts :
   //============================================================================
   struct  grammar
         : boost::proto
-          ::or_ < boost::dispatch::
-                  lambda_terminal< meta::is_container<boost::proto::_value> >
-                , boost::dispatch::
-                  lambda_terminal< boost::is_arithmetic<boost::proto::_value> >
-                , boost::proto::terminal<colon_>
-                , boost::proto::terminal< meta::as_<boost::proto::_> >
-                , boost::proto::nullary_expr<tag::box_, boost::proto::_>
-                , boost::proto::nullary_expr< boost::proto::tag::dereference
+          ::or_ <
+                  //============================================================
+                  //  - any container     (types registered as such)
+                  //  - any scalar value  (types with scalar_ hierarchy)
+                  //============================================================
+                    boost::proto
+                    ::or_ < boost::dispatch::
+                            lambda_terminal < meta::
+                                            is_container<boost::proto::_value>
+                                            >
+                          , boost::dispatch::
+                            lambda_terminal < boost::dispatch::meta::
+                                              is_scalar<boost::proto::_value>
+                                            >
+                          >
+                  //============================================================
+                  //  - the _ object
+                  //  - the end_ object
+                  //  - the begin_ object
+                  //  - the as_ helper
+                  //============================================================
+                  , boost::proto
+                    ::or_ < boost::proto::terminal<colon_>
+                          , boost::proto::terminal< extremum<false> >
+                          , boost::proto::terminal< extremum<true> >
+                          , boost::proto::terminal< meta::as_<boost::proto::_> >
+                          >
+                  //============================================================
+                  //  - the box helper
+                  //  - the dereference terminal
+                  //============================================================
+                  , boost::proto
+                    ::or_ < boost::proto::
+                                nullary_expr<tag::box_, boost::proto::_>
+                          , boost::proto::
+                                nullary_expr< boost::proto::tag::dereference
                                             , boost::proto::_
                                             >
+                          >
+                  //============================================================
+                  //  - any operators and functions calls
+                  //============================================================
                 , boost::proto::
                   and_< boost::proto::
                         nary_expr < boost::proto::_
                                   , boost::proto::vararg< grammar >
                                   >
+                        //======================================================
+                        //  Except for:
+                        // - address_of operator  (stl compliance)
+                        // - dereference operator (stl compliance)
+                        // - assignment operators (handled directly)
+                        //======================================================
                       , boost::proto::
                         not_< boost::proto::or_ < boost::proto::
                                                   address_of< grammar >

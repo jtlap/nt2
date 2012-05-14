@@ -16,6 +16,9 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
+template<class T, class N0>
+struct node1 {};
+
 template<class T, class N0, class N1>
 struct node2 {};
 
@@ -38,6 +41,13 @@ template<class Tag, class Expr>
 struct as_node_impl<Tag, Expr, 0>
 {
   typedef Tag type;
+};
+
+template<class Tag, class Expr>
+struct as_node_impl<Tag, Expr, 1>
+{
+  typedef node1<Tag, typename as_node< typename boost::proto::result_of::child_c<Expr, 0>::type >::type
+               > type;
 };
 
 template<class Tag, class Expr>
@@ -67,10 +77,13 @@ NT2_TEST_CASE( function )
 
   NT2_TEST_EXPR_TYPE( nt2::optimize( a0(a1) )
                     , as_node<_>
-                    , ( node2< boost::proto::tag::function
-                             , boost::proto::tag::terminal
-                             , boost::proto::tag::terminal
-                             >
+                    , ( node3 < boost::proto::tag::function
+                              , boost::proto::tag::terminal
+                              , node1 < nt2::tag::aggregate_
+                                      , boost::proto::tag::terminal
+                                      >
+                              , boost::simd::tag::box_
+                              >
                       )
                     )
 }

@@ -25,13 +25,11 @@ namespace nt2
 
 namespace nt2 { namespace container
 {
+  template<bool B> struct extremum;
   struct colon_;
 
-  template<class Domain>
-  struct generator_transform;
-
-  template<class Domain>
-  struct size_transform;
+  template<class Domain>  struct generator_transform;
+  template<class Domain>  struct size_transform;
 
   struct grammar;
   struct domain;

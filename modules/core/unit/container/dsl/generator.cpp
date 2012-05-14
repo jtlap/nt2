@@ -289,4 +289,9 @@ NT2_TEST_CASE( extent_type )
                     , extent_type<_>
                     , _2D const&
                     );
+
+  NT2_TEST_EXPR_TYPE( nt2::assign(a0, a4)
+                    , extent_type<_>
+                    , (of_size_<1, 2> const&)
+                    );
 }

@@ -25,6 +25,9 @@ struct node1 {};
 template<class T, class N0, class N1>
 struct node2 {};
 
+template<class T, class N0, class N1, class N2>
+struct node3 {};
+
 template<class Tag, class Expr, int N>
 struct as_node_impl;
 
@@ -55,6 +58,15 @@ struct as_node_impl<Tag, Expr, 2>
 {
   typedef node2<Tag, typename as_node< typename boost::proto::result_of::child_c<Expr, 0>::type >::type
                    , typename as_node< typename boost::proto::result_of::child_c<Expr, 1>::type >::type
+               > type;
+};
+
+template<class Tag, class Expr>
+struct as_node_impl<Tag, Expr, 3>
+{
+  typedef node3<Tag, typename as_node< typename boost::proto::result_of::child_c<Expr, 0>::type >::type
+                   , typename as_node< typename boost::proto::result_of::child_c<Expr, 1>::type >::type
+                   , typename as_node< typename boost::proto::result_of::child_c<Expr, 2>::type >::type
                > type;
 };
 
@@ -349,17 +361,22 @@ NT2_TEST_CASE( subscript )
   scheduler f;
 
   SCHEDULE( nt2::assign(a0(a1), red(a2)), f, 1u
-          , ( node2< boost::proto::tag::function
-                   , boost::proto::tag::terminal
-                   , boost::proto::tag::terminal
-                   >
+          , ( node3 < boost::proto::tag::function
+                    , boost::proto::tag::terminal
+                    , node1<nt2::tag::aggregate_,boost::proto::tag::terminal>
+                    , boost::simd::tag::box_
+                    >
             )
           );
+
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , node2< boost::proto::tag::function
+                             , node3< boost::proto::tag::function
                                     , boost::proto::tag::terminal
-                                    , boost::proto::tag::terminal
+                                    , node1 < nt2::tag::aggregate_
+                                            , boost::proto::tag::terminal
+                                            >
+                                    , boost::simd::tag::box_
                                     >
                              , node1< tag::red_
                                     , boost::proto::tag::terminal
@@ -370,9 +387,12 @@ NT2_TEST_CASE( subscript )
 
   SCHEDULE( nt2::assign(a0(a1), a2 + red(a3)), f, 1u
           , ( node2< boost::proto::tag::assign
-                   , node2< boost::proto::tag::function
+                   , node3< boost::proto::tag::function
                           , boost::proto::tag::terminal
-                          , boost::proto::tag::terminal
+                          , node1 < nt2::tag::aggregate_
+                                  , boost::proto::tag::terminal
+                                  >
+                          , boost::simd::tag::box_
                           >
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
@@ -392,10 +412,13 @@ NT2_TEST_CASE( subscript )
                     );
 
   SCHEDULE( nt2::assign(a0(red(a1)), red(a2)), f, 2u
-          , ( node2< boost::proto::tag::function
-                   , boost::proto::tag::terminal
-                   , boost::proto::tag::dereference
-                   >
+          , ( node3 < boost::proto::tag::function
+                    , boost::proto::tag::terminal
+                    , node1 < nt2::tag::aggregate_
+                            , boost::proto::tag::dereference
+                            >
+                    , boost::simd::tag::box_
+                    >
             )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
@@ -409,9 +432,12 @@ NT2_TEST_CASE( subscript )
                     );
   NT2_TEST_TYPE_INFO( *f.trees.at(1)
                     , ( node2< boost::proto::tag::assign
-                             , node2< boost::proto::tag::function
+                             , node3< boost::proto::tag::function
                                     , boost::proto::tag::terminal
-                                    , boost::proto::tag::dereference
+                                    , node1 < nt2::tag::aggregate_
+                                            , boost::proto::tag::dereference
+                                            >
+                                    , boost::simd::tag::box_
                                     >
                              , node1< tag::red_
                                     , boost::proto::tag::terminal
@@ -422,13 +448,16 @@ NT2_TEST_CASE( subscript )
 
   SCHEDULE( nt2::assign(a0(a1 + red(a2)), a3 + red(a4)), f, 2u
           , ( node2< boost::proto::tag::assign
-                   , node2< boost::proto::tag::function
-                          , boost::proto::tag::terminal
-                          , node2< boost::proto::tag::plus
-                                 , boost::proto::tag::terminal
-                                 , boost::proto::tag::dereference
-                                 >
-                          >
+                    , node3 < boost::proto::tag::function
+                            , boost::proto::tag::terminal
+                            , node1 < nt2::tag::aggregate_
+                                    , node2 < boost::proto::tag::plus
+                                            , boost::proto::tag::terminal
+                                            , boost::proto::tag::dereference
+                                            >
+                                    >
+                            , boost::simd::tag::box_
+                            >
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
                           , boost::proto::tag::dereference
