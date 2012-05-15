@@ -62,7 +62,7 @@ namespace nt2 {  namespace details
   inline std::ostream& indent(std::ostream& os, size_t depth)
   {
     for(size_t i=0; i<depth; ++i)
-      os << "    ";
+      os << ' ';
 
     return os;
   }
@@ -161,13 +161,15 @@ namespace nt2
     std::string s = type_id<T>();
 
     size_t depth = 0;
+    size_t tab   = 4;
     bool prevspace = true;
     for(std::string::const_iterator it = s.begin(); it != s.end(); ++it)
     {
       switch(*it)
       {
         case '<':
-          depth++;
+        case '(':
+          depth += tab;
           std::cout << *it;
           std::cout << '\n';
           details::indent(std::cout, depth);
@@ -175,7 +177,8 @@ namespace nt2
           break;
 
         case '>':
-          depth--;
+        case ')':
+          depth -= tab;
           std::cout << '\n';
           details::indent(std::cout, depth);
           std::cout << *it;
@@ -184,8 +187,8 @@ namespace nt2
 
         case ',':
           std::cout << '\n';
-          details::indent(std::cout, depth);
-          std::cout << *it;
+          details::indent(std::cout, depth-2);
+          std::cout << ", ";
           prevspace = true;
           break;
 
