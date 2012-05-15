@@ -12,19 +12,19 @@ Prioririty to : logical with all and any
 // det               Matrix determinant                                            | done also 2 versions of absdet 
 //                                                                                   one with no overflow
 // norm              Vector and matrix norms                                       | done
-// normest           2-norm estimate                                               | done
+// normest           2-norm estimate                                               | almost done
 // null              Null space                                                    | done
 // orth              Range space of matrix                                         | done
 // rank              Rank of matrix                                                | done
 // rcond             Matrix reciprocal condition number estimate                   | done
 // rref              Reduced row echelon form                                      | done
-// subspace          Angle between two subspacestraceSum of diagonal elements      | done
+// subspace          Angle between two subspacestraceSum of diagonal elements      | almost done
                                                                                 
 // Linear Equations                                                             
 // chol              Cholesky factorization                                        | done
 // cholinc           Sparse incomplete Cholesky and Cholesky-Infinity              |  SPARSE
 // cond              Condition number with respect to inversion                    | done
-// condest           1-norm condition number estimate                              | done 
+// condest           1-norm condition number estimate                              | almost done 
 // funm              Evaluate general matrix function                              |
 // ichol             Incomplete Cholesky factorization                             |  SPARSE
 // ilu               Sparse incomplete LU factorization                            |  SPARSE
@@ -35,7 +35,7 @@ Prioririty to : logical with all and any
 // lsqnonneg         Solve nonnegative least-squares constraints problem           |
 // lu                LU matrix factorization                                       | done
 // luinc             Sparse incomplete LU factorization                            |   SPARSE
-// pinv              Moore-Penrose pseudoinverse of matrix                         | done
+// pinv              Moore-Penrose pseudoinverse of matrix                         | almost done
 // qr                Orthogonal-triangular decomposition                           | done
 // rcond             Matrix reciprocal condition number estimate                   | done
 
@@ -59,15 +59,15 @@ Prioririty to : logical with all and any
 // svds                 Find singular values and vectors                           |    SPARSE
 
 // Matrix Logarithms and Exponentials
-// expm                   Matrix exponential                                       |
-// logm                   Matrix logarithm                                         |
-// sqrtm                  Matrix square root                                       |
+// expm                   Matrix exponential                                       | matlab source
+// logm                   Matrix logarithm                                         | matlab source
+// sqrtm                  Matrix square root                                       | matlab source
 
 // Factorization
-// balance                Diagonal scaling to improve eigenvalue accuracy          | done partially
-// cdf2rdf                Convert complex diagonal form to real block diagonal form| source exists in matlab
-// cholupdate             Rank 1 update to Cholesky factorization                  |
-// planerot               Givens plane rotation                                    | source exists in matlab
+// balance                Diagonal scaling to improve eigenvalue accuracy          | done
+// cdf2rdf                Convert complex diagonal form to real block diagonal form|  matlab source
+// cholupdate             Rank 1 update to Cholesky factorization                  | 
+// planerot               Givens plane rotation                                    | done
 // qrdelete               Remove column or row from QR factorization               | source exists in matlab
 // qrinsert               Insert column or row into QR factorization               | source exists in matlab
 // qrupdate               Rank 1 update to QR factorization                        | qrupdate is implemented in 

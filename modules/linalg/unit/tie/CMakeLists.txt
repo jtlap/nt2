@@ -16,6 +16,7 @@ SET( SOURCES
      symeig.cpp
      balance.cpp
      rref.cpp
+     planerot.cpp
    )
 
 nt2_module_add_tests(linalg.tie.unit ${SOURCES})
