@@ -43,10 +43,8 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const& a1,A2 const& a2) const
     {
-      std::cout << "a0 " << a0 << std::endl; 
-//       BOOST_ASSERT_MSG(arecatcompatible(a1, a2, a0),
-//                        "cat arguments dimensions are not consistent."); 
-      // Expressions must be  matrices
+       BOOST_ASSERT_MSG(arecatcompatible(a1, a2, a0),
+                        "cat arguments dimensions are not consistent."); 
       size_t along = a0-1; 
       of_size_max sizee = of_size_max(a1.extent());
       sizee[along] += a2.extent()[along];
