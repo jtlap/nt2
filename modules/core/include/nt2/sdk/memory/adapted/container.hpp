@@ -6,24 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_ADAPTED_CONTAINER_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_ADAPTED_CONTAINER_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_ADAPTED_CONTAINER_HPP_INCLUDED
+#define NT2_SDK_MEMORY_ADAPTED_CONTAINER_HPP_INCLUDED
 
+#include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
 #include <nt2/sdk/meta/add_settings.hpp>
-#include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-
-//==============================================================================
-// Forward declaration
-//==============================================================================
-namespace nt2 { namespace memory
-{
-  template<class T, class S> class container;
-} }
 
 namespace nt2 { namespace meta
 {
