@@ -8,15 +8,15 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_EXPO_FINALIZATION_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_EXPO_FINALIZATION_HPP_INCLUDED
-#include <nt2/include/functions/scalar/fast_ldexp.hpp>
-#include <nt2/include/functions/scalar/fast_toint.hpp>
-#include <nt2/include/functions/scalar/if_else.hpp>
-#include <nt2/include/functions/scalar/is_flint.hpp>
-#include <nt2/include/functions/scalar/is_gtz.hpp>
-#include <nt2/include/functions/scalar/genmask.hpp>
-#include <nt2/include/functions/scalar/oneminus.hpp>
-#include <nt2/include/functions/scalar/round2even.hpp>
-#include <nt2/include/functions/scalar/logical_and.hpp>
+#include <nt2/include/functions/simd/fast_ldexp.hpp>
+#include <nt2/include/functions/simd/fast_toint.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/is_gtz.hpp>
+#include <nt2/include/functions/simd/genmask.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
 
 namespace nt2
 {

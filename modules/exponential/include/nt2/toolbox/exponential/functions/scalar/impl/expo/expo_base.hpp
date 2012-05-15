@@ -12,7 +12,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo/selection_tags.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo/f_expo_reduction.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo/d_expo_reduction.hpp>

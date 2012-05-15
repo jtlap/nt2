@@ -9,10 +9,10 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_D_TRIG_EVALUATION_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_TRIGO_D_TRIG_EVALUATION_HPP_INCLUDED
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/scalar/rec.hpp>
-#include <nt2/include/functions/scalar/fma.hpp>
-#include <nt2/include/functions/scalar/oneminus.hpp>
-#include <nt2/include/functions/scalar/multiplies.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 
 namespace nt2

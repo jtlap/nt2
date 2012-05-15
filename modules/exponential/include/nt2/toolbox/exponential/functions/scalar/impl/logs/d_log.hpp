@@ -10,19 +10,19 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_D_LOG_HPP_INCLUDED
 
 #include <boost/fusion/include/vector_tie.hpp>
-#include <nt2/include/functions/scalar/sqr.hpp>
-#include <nt2/include/functions/scalar/tofloat.hpp>
-#include <nt2/include/functions/scalar/is_nan.hpp>
-#include <nt2/include/functions/scalar/is_ltz.hpp>
-#include <nt2/include/functions/scalar/is_eqz.hpp>
-#include <nt2/include/functions/scalar/is_greater.hpp>
-#include <nt2/include/functions/scalar/multiplies.hpp>
-#include <nt2/include/functions/scalar/plus.hpp>
-#include <nt2/include/functions/scalar/fast_frexp.hpp>
-#include <nt2/include/functions/scalar/genmask.hpp>
-#include <nt2/include/functions/scalar/fma.hpp>
-#include <nt2/include/functions/scalar/minusone.hpp>
-#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/fast_frexp.hpp>
+#include <nt2/include/functions/simd/genmask.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 
