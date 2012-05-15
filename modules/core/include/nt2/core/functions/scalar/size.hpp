@@ -12,6 +12,7 @@
 #include <nt2/core/functions/size.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/extent.hpp>
+#include <nt2/sdk/meta/make_dependent.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
@@ -20,9 +21,10 @@ namespace nt2 { namespace ext
                             , (A0), (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef container::table< std::size_t
-                            , settings(automatic_,of_size_<1,2>)
-                            >                       result_type;
+    typedef container::
+            table < typename meta::make_dependent<std::size_t,A0>::type
+                  , settings(automatic_,of_size_<1,2>)
+                  >                                         result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&) const
     {
