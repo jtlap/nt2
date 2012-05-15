@@ -42,3 +42,4 @@ NT2_TEST_CASE( horzcat_size2 )
   nt2::table<float> d = horzcat(a, b); 
   NT2_DISP(d); 
 }
+ 

@@ -22,23 +22,25 @@
 
 NT2_TEST_CASE( vertcat_size )
 {
-  nt2::table<float> a = nt2::rif(nt2::of_size(2, 3), nt2::meta::as_<float>());
-  nt2::table<float> b = nt2::cif(nt2::of_size(4, 3), nt2::meta::as_<float>());
+  typedef short int T; 
+  nt2::table<T> a = nt2::rif(nt2::of_size(3, 3), nt2::meta::as_<T>());
+  nt2::table<T> b = nt2::cif(nt2::of_size(5, 3), nt2::meta::as_<T>());
   NT2_DISP(a); 
   NT2_DISP(b); 
-  nt2::table<float> c = vertcat(a); 
+  nt2::table<T> c = vertcat(a); 
   NT2_DISP(c); 
-  nt2::table<float> d = vertcat(a, b); 
+  nt2::table<T> d = vertcat(a, b); 
   NT2_DISP(d); 
 }
 NT2_TEST_CASE( vertcat_size2 )
 {
-  nt2::table<float> a = nt2::rif(nt2::of_size(6, 7), nt2::meta::as_<float>());
-  nt2::table<float> b = nt2::cif(nt2::of_size(9, 7), nt2::meta::as_<float>());
+  typedef short int T; 
+  nt2::table<T> a = nt2::rif(nt2::of_size(5, 7), nt2::meta::as_<T>());
+  nt2::table<T> b = nt2::cif(nt2::of_size(9, 7), nt2::meta::as_<T>());
   NT2_DISP(a); 
   NT2_DISP(b); 
-  nt2::table<float> c = vertcat(a); 
+  nt2::table<T> c = vertcat(a); 
   NT2_DISP(c); 
-  nt2::table<float> d = vertcat(a, b); 
+  nt2::table<T> d = vertcat(a, b); 
   NT2_DISP(d); 
 }

@@ -91,7 +91,7 @@ SET( SOURCES
   horzcat.cpp
   arecatcompatible.cpp
   isvectoralong.cpp
-#  cat.cpp
+  cat.cpp
   vertcat.cpp
 # List of test files for toolbox core.settings
    )
