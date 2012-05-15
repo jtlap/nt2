@@ -84,6 +84,15 @@ SET( SOURCES
   dot.cpp
   diag_of.cpp
   from_diag.cpp
+#  repmat.cpp
+  repnum.cpp
+#  fill_pattern.cpp
+  blkdiag.cpp
+  horzcat.cpp
+  arecatcompatible.cpp
+  isvectoralong.cpp
+#  cat.cpp
+  vertcat.cpp
 # List of test files for toolbox core.settings
    )
 set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")

@@ -33,9 +33,10 @@ namespace nt2 { namespace ext
       ext2_t ex2 = nt2::extent(a1);
       if (isempty(a0) || isempty(a1)) return true; 
       int sz =  nt2::min(ex1.size(), ex2.size());
+      size_t d = dim-1;
       for(int i=0; i < sz; ++i)
         {
-          if ((i != dim) && (ex1[i]!= ex2[i])) return false; 
+          if ((i != d) && (ex1[i]!= ex2[i])) return false; 
         }
       for(int i=sz; i < ex1.size(); ++i)
         {
