@@ -10,18 +10,22 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_TIE_HPP_INCLUDED
 
 #include <nt2/core/functions/tie.hpp>
+#include <nt2/core/container/dsl/domain.hpp>
+
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 
 namespace nt2 { namespace ext
 {
 
-#define M0(z,n,t) boost::ref(a##n)
+#define M0(z,n,t) boost::ref(boost::proto::as_child(a##n))
 #define M1(z,n,t) (A##n)
-#define M2(z,n,t) (scalar_< arithmetic_<A##n> >)
+#define M2(z,n,t) (unspecified_<A##n>) // FIXME: ambiguous with generic_ / common
+#define M3(z,n,t) typename boost::proto::result_of::as_child<A##n>::type&
 
-#define M3(z,n,t)                                                                 \
+#define M4(z,n,t)                                                                 \
 NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tie_, tag::cpu_                             \
                           , BOOST_PP_REPEAT(n,M1,~)                               \
                           , BOOST_PP_REPEAT(n,M2,~)                               \
@@ -29,7 +33,7 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tie_, tag::cpu_                           
 {                                                                                 \
   typedef typename  boost::proto::result_of::make_expr                            \
                     < nt2::tag::tie_, container::domain                           \
-                    , BOOST_PP_ENUM_BINARY_PARAMS(n,A,& BOOST_PP_INTERCEPT)       \
+                    , BOOST_PP_ENUM(n,M3,~)                                       \
                     >::type                       result_type;                    \
                                                                                   \
   BOOST_FORCEINLINE result_type                                                   \
@@ -41,12 +45,13 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tie_, tag::cpu_                           
 };                                                                                \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M3,~)
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M4,~)
 
 #undef M0
 #undef M1
 #undef M2
 #undef M3
+#undef M4
 } }
 
 #endif

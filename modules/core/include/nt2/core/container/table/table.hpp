@@ -10,23 +10,24 @@
 #define NT2_CORE_CONTAINER_TABLE_TABLE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/sdk/memory/container.hpp>
+
 #include <nt2/include/functions/construct.hpp>
 #include <nt2/core/container/table/category.hpp>
-#include <nt2/core/container/dsl/expression.hpp>
 #include <nt2/core/container/table/semantic.hpp>
 #include <nt2/core/container/table/adapted/table.hpp>
 
 namespace nt2 { namespace container
 {
-  template<class T, class S>
+  template<class T, class S, class Dummy>
   struct  table
         : expression< typename boost::proto::
-                      terminal< nt2::memory::container<T,S> >::type
+                      terminal< nt2::memory::container<T,S> >::proto_grammar
                     , nt2::memory::container<T,S>
                     >
   {
     typedef memory::container<T,S>                                container_type;
-    typedef expression< typename boost::proto::terminal<container_type>::type
+    typedef expression< typename boost::proto::terminal<container_type>::proto_grammar
                       , container_type
                       >                                           parent;
     typedef typename container_type::pointer                      pointer;

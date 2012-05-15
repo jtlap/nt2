@@ -42,20 +42,13 @@ namespace nt2 { namespace container
   //============================================================================
   // proto expression wrapper for nt2 containers
   //============================================================================
-  template<class Expr, class Result>
-  struct  expression
-        : boost::proto::extends < Expr
-                                , expression<Expr, Result>
-                                , container::domain
-                                >
+  template<class Expr, class Result, class Dummy>
+  struct expression
   {
     //==========================================================================
     /*! Type of the parent expression                                         */
     //==========================================================================
-    typedef boost::proto::extends < Expr
-                                  , expression<Expr, Result>
-                                  , container::domain
-                                  >                                parent;
+    BOOST_PROTO_BASIC_EXTENDS(Expr, expression, domain)
 
     //==========================================================================
     // Extract Container information from Result
@@ -87,17 +80,17 @@ namespace nt2 { namespace container
     // Expression initialization called from generator
     //==========================================================================
     BOOST_FORCEINLINE
-    expression() : size_(size_transform<domain>()(parent::proto_base())) {}
+    expression() : size_(size_transform<domain>()(proto_base())) {}
 
     BOOST_FORCEINLINE
     explicit  expression(Expr const& x)
-            : parent(x), size_(size_transform<domain>()(parent::proto_base()))
+            : proto_expr_(x), size_(size_transform<domain>()(proto_base()))
     {}
 
     BOOST_FORCEINLINE
     expression( expression const& xpr )
-              : parent(xpr.proto_base())
-              , size_(size_transform<domain>()(parent::proto_base()))
+              : proto_expr_(xpr.proto_base())
+              , size_(size_transform<domain>()(proto_base()))
     {
       #ifdef NT2_LOG_COPIES
       typedef typename boost::mpl::
@@ -279,9 +272,9 @@ namespace nt2 { namespace container
     template<class Sz> BOOST_FORCEINLINE void resize(Sz const& sz)
     {
       ext::resize< typename boost::dispatch::meta::
-                   hierarchy_of< typename boost::proto::tag_of<parent>::type >::type
+                   hierarchy_of<proto_tag>::type
                  , domain
-                 , boost::proto::arity_of<parent>::type::value
+                 , proto_arity_c
                  , expression<Expr, Result>
                  >
       ()(*this, sz);
@@ -290,9 +283,9 @@ namespace nt2 { namespace container
     template<class Sz> BOOST_FORCEINLINE void resize(Sz const& sz) const
     {
       ext::resize< typename boost::dispatch::meta::
-                   hierarchy_of< typename boost::proto::tag_of<parent>::type >::type
+                   hierarchy_of<proto_tag>::type
                  , domain
-                 , boost::proto::arity_of<parent>::type::value
+                 , proto_arity_c
                  , expression<Expr, Result> const
                  >
       ()(*this, sz);

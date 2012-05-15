@@ -77,6 +77,11 @@ namespace nt2 { namespace container
     };
   }
 
+  struct generator_transform_basic
+  {
+    typedef void proto_use_basic_expr_;
+  };
+
   //============================================================================
   /*!
    * proto::transform performing the computation of the type and the generation
@@ -85,7 +90,9 @@ namespace nt2 { namespace container
   //============================================================================
   template<class Domain>
   struct  generator_transform
-        : details::trait_transform< ext::generator, Domain > {};
+        : details::trait_transform< ext::generator, Domain >
+        , generator_transform_basic
+  {};
 } }
 
 #include <nt2/core/container/dsl/details/terminal.hpp>

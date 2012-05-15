@@ -36,21 +36,29 @@ namespace nt2
    * Tie terminals for multi-return function handling
    */
   //============================================================================
-  #define M0(z,n,t)                                                           \
-  template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE                 \
-  typename boost::dispatch::meta::call<tag::tie_                              \
-                      (BOOST_PP_ENUM_BINARY_PARAMS(n,A,& BOOST_PP_INTERCEPT)) \
-                                      >::type                                 \
-  tie(BOOST_PP_ENUM_BINARY_PARAMS(n,A,& a))                                   \
-  {                                                                           \
-    typename boost::dispatch::make_functor<tag::tie_, A0>::type callee;       \
-    return callee( BOOST_PP_ENUM_PARAMS(n,a) );                               \
-  }                                                                           \
-  /**/
+/* `tie' constructs the node directly to avoid issues with ambiguous specializations;
+ * should maybe be fixed in a different manner. */
+#define M0(z,n,t) boost::ref(boost::proto::as_child(a##n))
+#define M1(z,n,t) typename boost::proto::result_of::as_child<A##n>::type&
 
-  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_META_ARITY),M0,~)
+#define M2(z,n,t)                                                                 \
+template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE                       \
+typename boost::proto::result_of::make_expr                                       \
+         < nt2::tag::tie_, container::domain                                      \
+         , BOOST_PP_ENUM(n,M1,~)                                                  \
+         >::type                                                                  \
+tie(BOOST_PP_ENUM_BINARY_PARAMS(n,A,& a))                                         \
+{                                                                                 \
+  return boost::proto::                                                           \
+         make_expr<nt2::tag::tie_, container::domain>(BOOST_PP_ENUM(n,M0,~));     \
+}                                                                                 \
+/**/
 
-  #undef M0
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M2,~)
+
+#undef M0
+#undef M1
+#undef M2
 }
 
 namespace nt2 { namespace container { namespace ext

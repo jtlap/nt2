@@ -12,10 +12,8 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <boost/proto/domain.hpp>
-
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/add_reference.hpp>
 
 namespace nt2 { namespace container
 {
@@ -25,26 +23,43 @@ namespace nt2 { namespace container
                               >
   {
     template<class T, class Dummy = void>
-    struct  as_child
-          : domain::proto_base_domain::template as_child<T> {};
-
-    template<class T>
-    struct  as_child<T, typename T::proto_is_expr_>
-          : boost::proto::callable
+    struct as_child : boost::proto::callable
     {
-      typedef typename boost::proto::tag_of<T>::type Tag;
+      typedef typename boost::remove_const<T>::type term_t;
+      typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term_t> > expr_t;
+      typedef expression<expr_t, term_t> result_type;
+      BOOST_FORCEINLINE result_type operator()(typename boost::add_reference<T>::type t) const
+      {
+        return result_type(expr_t::make(t));
+      }
+    };
 
-      typedef typename boost::mpl::
-              if_< boost::is_same<Tag, boost::proto::tag::terminal>
-                 , T&
-                 , typename boost::remove_const<T>::type
-                 >::type                              result_type;
-
+    template<class T, class Tag>
+    struct as_child_expr : boost::proto::callable
+    {
+      typedef typename boost::remove_const<T>::type result_type;
       BOOST_FORCEINLINE result_type operator()(T& t) const
       {
         return result_type(t);
       }
     };
+
+    template<class T>
+    struct as_child_expr<T, boost::proto::tag::terminal>
+     : boost::proto::callable
+    {
+      typedef as_child< typename boost::proto::result_of::value<T&>::type > impl;
+      typedef typename impl::result_type result_type;
+
+      BOOST_FORCEINLINE result_type operator()(T& t) const
+      {
+        return impl()(boost::proto::value(t));
+      }
+    };
+
+    template<class T>
+    struct as_child<T, typename T::proto_is_expr_>
+         : as_child_expr<T, typename T::proto_tag> {};
   };
 } }
 

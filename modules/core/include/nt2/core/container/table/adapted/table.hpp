@@ -9,19 +9,14 @@
 #ifndef NT2_CORE_CONTAINER_TABLE_ADAPTED_TABLE_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_TABLE_ADAPTED_TABLE_HPP_INCLUDED
 
-#include <boost/mpl/size_t.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/sdk/memory/forward/container.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/sdk/meta/container_of.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
 #include <nt2/core/settings/option.hpp>
-#include <nt2/sdk/memory/container.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-
-//==============================================================================
-// Forward declaration
-//==============================================================================
-namespace nt2
-{
-  namespace container { template<class T, class S> struct table; }
-}
 
 namespace nt2 { namespace meta
 {
