@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
       for(int i=0; i < sz; ++i)
         {
           //      std::cout << "i " << i << " d " << d << " ex1[i] "<< ex1[i] << " ex2[i] " << ex2[i] << std::endl; 
-          if ((i != d) && (ex1[i]!= ex2[i])) return false; 
+          if ((i != d) && (ex1.data()[i]!= ex2.data()[i])) return false;
         }
       for(int i=sz; i < ex1.size(); ++i)
         {
