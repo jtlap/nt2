@@ -13,6 +13,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/assign.hpp>
+#include <nt2/include/functions/optimize.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -216,6 +217,11 @@ NT2_TEST_CASE( expr_lifetime )
   expr_lifetime_2_t(a0 + a1);
   expr_lifetime_2_i(a0 + i);
   expr_lifetime_2_ir(a0 + boost::proto::as_child(i));
+
+  expr_lifetime_0(nt2::optimize(a0));
+  expr_lifetime_2_t(nt2::optimize(a0 + a1));
+  expr_lifetime_2_i(nt2::optimize(a0 + i));
+  expr_lifetime_2_ir(nt2::optimize(a0 + boost::proto::as_child(i)));
 
   // TODO?
   // nt2::display_type(boost::proto::make_expr<boost::proto::tag::assign, nt2::container::domain>(boost::ref(i), boost::ref(i)));

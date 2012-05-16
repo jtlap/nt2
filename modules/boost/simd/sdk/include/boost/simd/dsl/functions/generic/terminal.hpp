@@ -14,24 +14,17 @@
 #include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
 #include <boost/dispatch/meta/identity.hpp>
 #include <boost/proto/traits.hpp>
-#include <boost/type_traits/remove_const.hpp>
 
 #include <boost/shared_ptr.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  // Terminal returns ASTs by reference, Box by value
+  // Terminal returns ASTs by reference
   BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::terminal_, tag::formal_
                             , (A0)
                             , (ast_<A0>)
                             , identity
                             )
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::box_, tag::formal_, (A0), (ast_<A0>) )
-  {
-    typedef typename boost::remove_const<A0>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const { return a0; }
-  };
 
   // When evaluating a terminal, get its value
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::terminal_, tag::cpu_

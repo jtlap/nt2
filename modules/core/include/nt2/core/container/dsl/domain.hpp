@@ -11,9 +11,12 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/sdk/meta/is_container.hpp>
 #include <boost/proto/domain.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
+#include <boost/type_traits/add_const.hpp>
+#include <boost/type_traits/is_const.hpp>
 
 namespace nt2 { namespace container
 {
@@ -48,7 +51,11 @@ namespace nt2 { namespace container
     struct as_child_expr<T, boost::proto::tag::terminal>
      : boost::proto::callable
     {
-      typedef as_child< typename boost::proto::result_of::value<T&>::type > impl;
+      typedef typename boost::proto::result_of::value<T&>::value_type value_type;
+      typedef typename boost::mpl::if_< boost::is_const<T>, typename boost::add_const<value_type>::type, value_type >::type type;
+      typedef typename boost::mpl::if_< meta::is_container<type>, typename boost::add_reference<type>::type, type>::type term;
+
+      typedef as_child<term> impl;
       typedef typename impl::result_type result_type;
 
       BOOST_FORCEINLINE result_type operator()(T& t) const
