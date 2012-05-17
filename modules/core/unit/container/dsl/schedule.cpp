@@ -460,8 +460,8 @@ struct child0
 {
   template<class X>
   struct apply
-   : boost::proto::result_of::child_c<X const&, 0>
   {
+    typedef typename boost::proto::result_of::child_c<X, 0>::value_type type;
   };
 };
 
@@ -478,20 +478,28 @@ NT2_TEST_CASE( terminal )
 {
   using boost::mpl::_;
   using nt2::table;
+  using nt2::memory::container;
   typedef double T;
+  typedef nt2::settings S(nt2::_4D);
 
-  table<T> a0, a1;
+  table<T, S> a0, a1;
   scheduler f;
 
   SCHEDULE( a0, f, 0u, boost::proto::tag::terminal );
 
-  NT2_TEST_EXPR_TYPE( boost::mpl::identity< nt2::meta::call<nt2::tag::schedule_(table<T>&, scheduler const&)>::type >()
+  NT2_TEST_EXPR_TYPE( boost::mpl::identity< nt2::meta::call<nt2::tag::schedule_(table<T, S>&, scheduler const&)>::type >()
                     , type
-                    , table<T>&
+                    , (table<T, S>&)
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::schedule(nt2::assign(a0, a1), f)
                     , child0
-                    , table<T>&
+                    , (nt2::container::expression< boost::proto::basic_expr< boost::proto::tag::terminal
+                                                                           , boost::proto::term< container<T, S>& >
+                                                                           , 0
+                                                                           >
+                                                 ,  container<T, S>&
+                                                 >
+                      )
                     );
 }
