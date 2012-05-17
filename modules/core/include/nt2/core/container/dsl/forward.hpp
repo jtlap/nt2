@@ -19,7 +19,8 @@ namespace nt2 { namespace tag
 
 namespace nt2
 {
-  template<class T> struct box;
+  template<class T, class Dummy = boost::proto::is_proto_expr>
+  struct box;
 }
 
 namespace nt2 { namespace container

@@ -21,7 +21,7 @@ namespace nt2
   // box is a nullary expression taking care of wrapping helper types into a
   // node assimilable by nt2 ASTs.
   //============================================================================
-  template<class T>
+  template<class T, class Dummy>
   struct box  :
             nt2::container::
             expression< typename boost::proto::nullary_expr<tag::box_,T>::type
