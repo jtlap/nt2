@@ -25,6 +25,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -123,8 +124,6 @@ namespace nt2 { namespace details
       , n_( nt2::width(xpr)  )
       , ldlu_( lu_.leading_size() )
       , ipiv_(nt2::of_size(nt2::min(n_, m_), 1))
-      , r_(of_size(0, 1))
-      , c_(of_size(0, 1))
       , rc_(base_t(-1))
       , info_(0)
     {
@@ -134,7 +133,7 @@ namespace nt2 { namespace details
     lu_result(lu_result const& src)
       : a_(src.a_) , lu_(src.lu_), m_( src.m_ ), n_( src.n_ )
       , ldlu_( src.ldlu_ ) , ipiv_(src.ipiv_)
-      , r_(src.r_) , c_(src.c_) , rc_(src.rc_)
+      , rc_(src.rc_)
       , info_(src.info_) , w_(src.w_)
     {}
 
@@ -146,8 +145,6 @@ namespace nt2 { namespace details
       n_      = src.n_;
       ldlu_   = src.ldlu_;
       ipiv_   = src.ipiv_;
-      r_      = src.r_;
-      c_      = src.c_;
       rc_     = src.rc_;
       info_   = src.info_;
       w_      = src.w_;
@@ -338,7 +335,7 @@ namespace nt2 { namespace details
      //==========================================================================
     // Solver interface
     //==========================================================================
-    template<class XPR> result_type solve(const XPR& b ) const
+    template<class XPR> result_type solve(const XPR& b )
     {
       result_type bb = b;
       inplace_solve(bb);
@@ -360,45 +357,44 @@ namespace nt2 { namespace details
       return i;
     }
 
-    template<class Xpr> void inplace_solve(Xpr& b ) const
+    template<class Xpr> void inplace_solve(Xpr& b )
     {
-      long int nrhs = nt2::size(b, 2);
-      long int ldb  = b.leading_size();
-      tab_t bb(b);
+      BOOST_ASSERT_MSG(issquare(a_), "matrix must be square to use the lu solver"); 
+      nt2_la_int nrhs = nt2::size(b, 2);
+      nt2_la_int ldb  = b.leading_size();
+      tab_t x(b);
+      nt2_la_int ldx  = x.leading_size();
       btab_t ferr(of_size(nrhs, 1)), berr(of_size(nrhs, 1));
-      if (isempty(r_))
-        {
-          r_.resize(of_size(n_, 1));
-          c_.resize(of_size(n_, 1));
-        }
-
-      nt2::details::gesvx(&nt2::details::lapack_option('F'),
-                          &nt2::details::lapack_option('N'),
+      btab_t r_(of_size(n_, 1)), c_(of_size(n_, 1));
+      char equed = 'N'; 
+      nt2::details::gesvx(nt2::details::lapack_option('F'),
+                          nt2::details::lapack_option('N'),
                           &n_, &nrhs,
                           a_.raw(), &ldlu_,
                           lu_.raw(), &ldlu_,
                           ipiv_.raw(),
-                          &nt2::details::lapack_option('N'),
-                          r_.raw(), c_.raw(),
-                          bb.raw(), &ldb,
+                          &equed,
+                          r_.raw(),
+                          c_.raw(),
                           b.raw(), &ldb,
+                          x.raw(), &ldx,
                           &rc_,
                           ferr.raw(),
                           berr.raw(),
-                          &info_, w_);
-      return b;
+                          &info_,
+                          w_);
+      b = x; 
     }
-
+    
   private:
     data_t                            a_;
     tab_t                            lu_;
     nt2_la_int                     m_,n_;
     nt2_la_int                     ldlu_;
-    ibuf_t                         ipiv_;
-    btab_t                        r_, c_;
-    base_t                           rc_;
-    nt2_la_int                     info_;
-    workspace_t                       w_;
+    ibuf_t                 ipiv_;
+    base_t                   rc_;
+    nt2_la_int             info_;
+    workspace_t               w_;
   };
 } }
 

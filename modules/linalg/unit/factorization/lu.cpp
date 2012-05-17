@@ -45,4 +45,8 @@ NT2_TEST_CASE_TPL(lu_factorization, NT2_REAL_TYPES)
   std::cout << "rank         " << res.rank()  << std::endl;
   std::cout << "signdet      " << res.signdet()<< std::endl;
   std::cout << "det          " << res.det()<< std::endl;
- }
+  t_t c =  nt2::ones (4, 1, nt2::meta::as_<T>()); 
+  NT2_DISP(c); 
+  t_t x = res.solve(c);
+  NT2_DISP(x);
+}
