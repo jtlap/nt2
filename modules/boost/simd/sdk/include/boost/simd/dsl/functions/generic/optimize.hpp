@@ -19,6 +19,12 @@
 //==============================================================================
 namespace boost { namespace simd { namespace ext
 {
+  BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::optimize_, tag::formal_
+                            , (A0)
+                            , (unspecified_<A0>)
+                            , identity
+                            )
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::optimize_, tag::formal_
                           , (A0)
                           , (ast_<A0>)
