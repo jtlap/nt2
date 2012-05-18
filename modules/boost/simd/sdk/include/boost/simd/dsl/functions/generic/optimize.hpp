@@ -12,6 +12,8 @@
 #include <boost/simd/dsl/functions/optimize.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
+#include <boost/dispatch/meta/identity.hpp>
 #include <boost/dispatch/dsl/unpack.hpp>
 
 //==============================================================================
