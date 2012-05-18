@@ -122,7 +122,7 @@ namespace nt2 { namespace details
       return main_need_;
     }
 
-    nt2_la_int real_need(nt2_la_int s = 0)
+    nt2_la_int reals_need(nt2_la_int s = 0)
     {
       return reals_need_ = (s ? s : static_cast<nt2_la_int>(reals_[0]));
     }
