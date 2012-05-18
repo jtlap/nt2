@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                               ((target_<simd_<arithmetic_<A2>,boost::simd::tag::altivec_> >))
                             )
   {
-    typedef typename A1::type result_type;
+    typedef typename A2::type result_type;
     typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
     inline result_type operator()(const A0& a0, const A1&)const
     {
