@@ -15,6 +15,7 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
 
 namespace nt2
@@ -53,18 +54,20 @@ namespace nt2 { namespace container { namespace ext
   struct  generator<nt2::tag::expand_,Domain,2,Expr>
   {
     // We behave as our child but without allowing references
-    typedef typename boost::proto::result_of::child_c<Expr,0>::type    c_sema_t;
-    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::type  child0;
+    typedef typename boost::dispatch::meta::semantic_of<child0>::type sema_t;
+    typedef typename meta::strip<sema_t>::type                        cont_t;
 
     // .. except we have a special size
-    typedef typename boost::proto::result_of::child_c<Expr,1>::type   c_sizes_t;
-    typedef typename boost::proto::result_of::value<c_sizes_t>::type  sizes_t;
+    typedef typename boost::proto::result_of::child_c<Expr&,1>::type  child1;
+    typedef typename boost::proto::result_of::value<child1>::type     extent_t;
+    typedef typename meta::strip<extent_t>::type                      sizes_t;
 
     // Rebuild proper expression type with semantic using the new size
     // and revoking any shape settings
     typedef expression< typename boost::remove_const<Expr>::type
                       , typename meta::
-                        add_settings< sema_t
+                        add_settings< cont_t
                                     , settings(rectangular_,sizes_t)
                                     >::type
                       >                                             result_type;
