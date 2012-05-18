@@ -332,8 +332,9 @@ macro(nt2_module_add_example name)
     add_dependencies(${name} ${NT2_PCH_TARGET})
   endif()
 
-  string(REGEX REPLACE "\\.sample$" ".examples" suite ${name})
+  string(REGEX REPLACE "[^.]+\\.sample$" "examples" suite ${name})
   nt2_module_target_parent(${suite})
+  add_dependencies(${suite} ${name})
 endmacro()
 
 macro(nt2_module_add_tests name)
