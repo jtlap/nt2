@@ -225,14 +225,14 @@ namespace nt2 {
         char tr = (transpose) ? 'N' : !is_real(type_t(1))? 'C':'T';
         nt2_la_int M = nt2::size(b, 1), N = nt2::size(b, 2); 
         nt2_la_int ldb = b.leading_size();
-        nt2_la_int info; 
+        nt2_la_int info;
         nt2::details::mqr(&side, &tr, &M, &N, &k_, aa_.raw(), &lda_, tau_.raw(), b.raw(), &ldb, &info, wrk_);
-        nt2_la_int nrhs = size(b, 2); 
+         nt2_la_int nrhs = size(b, 2); 
         char uplo =  'U', d = 'N';
         char tr1 = (transpose) ?  (!is_real(type_t(1))? 'C':'T') : 'N';
         nt2_la_int rk = rank(epsi); 
-        nt2::details::trtrs(&uplo, &tr1, &d, &rk, &nrhs, aa_.raw(), &lda_, b.raw(), &ldb, &info);
-        if (!nop_) b = permute(b);
+         nt2::details::trtrs(&uplo, &tr1, &d, &rk, &nrhs, aa_.raw(), &lda_, b.raw(), &ldb, &info);
+         if (!nop_) b = permute(b);
       }
       
     private :

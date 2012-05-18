@@ -15,6 +15,7 @@
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/assert.hpp>
+//#include <iostream>
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -86,6 +87,14 @@ namespace nt2 { namespace container { namespace ext
     operator()(A0 const& a0, A1 const& a1) const
     {
       BOOST_ASSERT_MSG(a0 == a1, "Sizes are not compatible");
+      //       if (a0!= a1)
+      //         std::cout << "Sizes are not compatible"<< std::endl;
+      //       std::cout << "a0 " << std::endl; 
+      //       for(int i=0; i < a0.size(); i++) std::cout << a0[i] << " "; 
+      //       std::cout << std::endl; 
+      //       std::cout << "a1 " << std::endl; 
+      //       for(int i=0; i < a1.size(); i++) std::cout << a1[i] << " "; 
+      //       std::cout << std::endl; 
       return selection(a0,a1,boost::mpl::bool_<A0::static_status>());
     }
 

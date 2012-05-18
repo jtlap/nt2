@@ -17,6 +17,8 @@
 #include <nt2/core/utility/box.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/repmat.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -29,23 +31,26 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A1>)
                             )
   {
-    typedef typename boost::remove_const<A1>::type sizes_t;
+    typedef typename A0::value_type               value_type; 
+    typedef nt2::table<value_type>                     tab_t; 
+    typedef typename boost::remove_const<A1>::type   sizes_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::fill_pattern_
                                           , container::domain
-                                          , A0 const&
+                                          , tab_t const&
                                           , box<sizes_t>
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      typedef typename A0::value_type value_type; 
-      typedef typename meta::as_integer < value_type>::type              i_t;
-      nt2::size_t n = meta::cardinal_of<i_t>/numel(a0)+ (nume(a0) != meta::cardinal_of<i_t>); 
+      typedef typename meta::as_integer<value_type>::type        i_t;
+      std::size_t n = meta::cardinal_of<i_t>::value/numel(a0)+
+        (numel(a0) != meta::cardinal_of<i_t>::value);
+      tab_t p = nt2::repmat(a0,1,n); 
       return  boost::proto::
               make_expr < nt2::tag::fill_pattern_
                         , container::domain
-        > ( boost::cref(nt2::repmat(a0, 1, n)), boxify(a1) );
+        > ( boost::cref(p), boxify(a1) );
     }
   };
 
@@ -58,10 +63,12 @@ namespace nt2 { namespace ext
                               (ast_<A1>)
                             )
   {
+    typedef typename A0::value_type               value_type; 
+    typedef nt2::table<value_type>                     tab_t; 
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::fill_pattern_
                                           , container::domain
-                                          , A0 const&
+                                          , tab_t const&
                                           , box<of_size_max>
                                           >::type             result_type;
 
@@ -69,15 +76,17 @@ namespace nt2 { namespace ext
     {
       typedef typename A0::value_type value_type; 
       typedef typename meta::as_integer < value_type>::type              i_t;
-      nt2::size_t n = meta::cardinal_of<i_t>/numel(a0)+ (nume(a0) != meta::cardinal_of<i_t>); 
+      std::size_t n = meta::cardinal_of<i_t>::value/numel(a0)+
+        (numel(a0) != meta::cardinal_of<i_t>::value); 
       of_size_max sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a1));
       nt2::memory::copy(a1.raw(), a1.raw()+sz, &sizee[0]);
+      tab_t p = nt2::repmat(a0,1,n); 
 
       return  boost::proto::
               make_expr < nt2::tag::fill_pattern_
                         , container::domain
-                        > ( boost::cref(nt2::repmat(a0, 1, n)), boxify(sizee) );
+                        > ( boost::cref(p), boxify(sizee) );
     }
   };
 } }

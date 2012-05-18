@@ -79,3 +79,26 @@ NT2_TEST_CASE_TPL( expand, NT2_TYPES )
     }
   }
 }
+NT2_TEST_CASE_TPL( expand1, NT2_TYPES )
+{
+  nt2::table<T> in( nt2::of_size(3,2) ), out;
+
+  for(int j=1;j<=6;j++) in(j) = j;
+
+  out = nt2::expand(in,nt2::of_size(0,0));
+  NT2_TEST_EQUAL( nt2::numel(out), 0);
+
+  for(int j=1;j<10;++j)
+  {
+    for(int i=1;i<10;++i)
+    {
+      out = nt2::expand(in,nt2::of_size(i,j));
+
+      NT2_TEST( nt2::extent(out) == nt2::of_size(i,j));
+
+      for(int vj=1;vj<=j;++vj)
+        for(int vi=1;vi<=i;++vi)
+          NT2_TEST_EQUAL( out(vi,vj), (vi<=3 && vj<=2) ? in(vi,vj) : 0);
+    }
+  }
+}
