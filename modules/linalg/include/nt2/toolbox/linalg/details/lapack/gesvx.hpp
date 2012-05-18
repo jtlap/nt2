@@ -290,8 +290,8 @@ namespace nt2
                       nt2_la_int* info,                           \
                       workspace<T> & w)                           \
     {                                                             \
-      w.resize_integers(4**n);                                    \
-      w.resize_main(*n);                                          \
+      w.resize_integers(*n);                                      \
+      w.resize_main(4**n);                                        \
       NT2_F77NAME( NAME )(fact, trans, n, nrhs, a, lda, af, ldaf, \
                           ipiv, equed, r, c, b, ldb, x, ldx,      \
                           rcond, ferr, berr, w.main(),            \
