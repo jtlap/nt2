@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,18 +9,10 @@
 #ifndef NT2_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
 #define NT2_SDK_DETAILS_TYPE_ID_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines types to string conversion utility functions
- *
- */
-
-/*!
- * \ingroup meta
- * \defgroup metadebug Meta-Programming Debug Utilities
- * This module gathers functions and meta-functions to help debugging template
- * meta-programms in a Human rights compatible way.
- */
+/**
+* @file
+* @brief Defines types to string conversion utility functions
+**/
 
 #if (__GNUC__ && __cplusplus && __GNUC__ >= 3)
 //==============================================================================
@@ -39,9 +31,8 @@
 
 namespace nt2 {  namespace details
 {
-  //============================================================================
+  // INTERNAL ONLY
   // demangle a type name retrieved through typeid()
-  //============================================================================
   inline std::string demangle(const char* name)
   {
     #if(__GNUC__ && __cplusplus && __GNUC__ >= 3)
@@ -65,40 +56,40 @@ namespace nt2 {  namespace details
     return out;
     #endif
   }
-  
+
+  // INTERNAL ONLY
+  // Stream some indentation on a output stream
   inline std::ostream& indent(std::ostream& os, size_t depth)
   {
     for(size_t i=0; i<depth; ++i)
-      os << "    ";
-      
+      os << ' ';
+
     return os;
   }
-  
 } }
 
 namespace nt2
 {
-  //////////////////////////////////////////////////////////////////////////////
-  /*!
-   * \ingroup metadebug
-   * Returns a string containing the demangled typename of a given type
-   *
-   * \param expr Expression which type is to be stringized
-   * \return \c T type name as a readable \c std::string
-   *
-   * \par Example Usage:
-   *
-   * \include type_id.cpp
-   *
-   * This examples output:
-   *
-   * \code
-   * char [21]
-   * float
-   * std::vector<long*, std::allocator<long*> >
-   * \endcode
-   */
-  //////////////////////////////////////////////////////////////////////////////
+  /**
+  * @brief Type name demangling function
+  *
+  * For any given type @c T, returns a human readable string containing the fully
+  * qualified name of @c T.
+  *
+  * @tparam T   Type to turn into a string
+  * @return @c std::string containing the type of @c T
+  *
+  * @usage
+  * @include type_id.cpp
+  *
+  * This examples output:
+  *
+  * @code
+  * char [21]
+  * float
+  * std::vector<long*, std::allocator<long*> >
+  * @endcode
+  **/
   template<typename T> inline std::string type_id()
   {
     std::string s = details::demangle(typeid(T).name());
@@ -108,75 +99,104 @@ namespace nt2
       s += "&";
     return s;
   }
-  
-  template<typename T> inline std::string type_id(const T&)
+
+  /**
+  * @brief Type name demangling function
+  *
+  * For any given value @c x of type @c T, returns a human readable string
+  * containing the fully qualified name of @c T.
+  *
+  * @param  x   Value to analyze
+  * @return @c  std::string containing the type of @c x
+  *
+  * @usage
+  * @include type_id.cpp
+  *
+  * This examples output:
+  *
+  * @code
+  * char [21]
+  * float
+  * std::vector<long*, std::allocator<long*> >
+  * @endcode
+  **/
+  template<typename T> inline std::string
+  type_id ( const T&
+#if defined(DOXYGEN_ONLY)
+            x
+#endif
+          )
   {
     return type_id<T>();
   }
-  
-  //////////////////////////////////////////////////////////////////////////////
-  /*!
-   * \ingroup metadebug
-   * Display the demangled typename of a given type on the standard output.
-   *
-   * \param expr Expression which type is to be displayed
-   *
-   * \par Example Usage:
-   *
-   * \include display_type.cpp
-   *
-   * This examples outpus:
-   *
-   * \code
-   * char [21]
-   * float
-   * std::vector<
-   *              long*
-   *              ,std::allocator<
-   *                              long*
-   *                              >
-   *            >
-   * \endcode
-   */
-  //////////////////////////////////////////////////////////////////////////////
+
+  /**
+  *
+  * @brief Type name streaming function
+  *
+  * For any given type @c T, displays a human readable string containing the fully
+  * qualified name of @c T on the standard output. Formatting is applied on this
+  * output so template types and other complex structures are properly displayed.
+  *
+  * @tparam T   Type to display
+  *
+  * @usage
+  * @include display_type.cpp
+  *
+  * This examples outpus:
+  *
+  * @code
+  * char [21]
+  * float
+  * std::vector<
+  *              long*
+  *              ,std::allocator<
+  *                              long*
+  *                              >
+  *            >
+  * @endcode
+  **/
   template<typename T> inline void display_type()
   {
     std::string s = type_id<T>();
-    
+
     size_t depth = 0;
+    size_t tab   = 4;
     bool prevspace = true;
     for(std::string::const_iterator it = s.begin(); it != s.end(); ++it)
     {
       switch(*it)
       {
         case '<':
-          depth++;
+        case '(':
+          depth += tab;
           std::cout << *it;
           std::cout << '\n';
           details::indent(std::cout, depth);
           prevspace = true;
           break;
-          
+
         case '>':
-          depth--;
+        case ')':
+          depth -= tab;
           std::cout << '\n';
           details::indent(std::cout, depth);
           std::cout << *it;
           prevspace = false;
           break;
-          
+
         case ',':
           std::cout << '\n';
-          details::indent(std::cout, depth);
-          std::cout << *it;
+          details::indent(std::cout, depth-2);
+          std::cout << ", ";
           prevspace = true;
           break;
-          
+
         case ' ':
           if(!prevspace)
             std::cout << *it;
           break;
-          
+
         default:
           std::cout << *it;
           prevspace = false;
@@ -184,8 +204,40 @@ namespace nt2
     }
     std::cout << std::endl;
   }
-  
-  template<typename T> inline void display_type(T const&)
+
+  /**
+  * @brief Type name streaming function
+  *
+  * For any given value @c x of type @c T, displays a human readable string
+  * containing the fully qualified name of @c T on the standard output.
+  * Formatting is applied on this output so template types and other complex
+  * structures are properly displayed.
+  *
+  * @param x   Value to display type from
+  *
+  * @usage
+  *
+  * @include display_type.cpp
+  *
+  * This examples outpus:
+  *
+  * @code
+  * char [21]
+  * float
+  * std::vector<
+  *              long*
+  *              ,std::allocator<
+  *                              long*
+  *                              >
+  *            >
+  * @endcode
+  **/
+  template<typename T> inline void
+  display_type( const T&
+#if defined(DOXYGEN_ONLY)
+                x
+#endif
+              )
   {
     return display_type<T>();
   }

@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
 
 // namespace boost { namespace simd { namespace ext
 // {

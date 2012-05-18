@@ -11,29 +11,48 @@
 
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/buffer.hpp>
-#include <nt2/sdk/memory/iliffe_buffer.hpp>
+#include <boost/fusion/include/size.hpp>
+#include <nt2/include/functions/sub2ind.hpp>
+#include <nt2/core/functions/scalar/numel.hpp>
 
 namespace nt2
 {
   //============================================================================
-  // Use iliffe_buffer to build a proper buffer
+  // rectangular_ shape
   //============================================================================
   struct rectangular_
   {
-    template<class T, class S>
-    struct apply
+    //==========================================================================
+    // rectangular_ just use the buffer we asked for
+    //==========================================================================
+    template<class T, class S> struct apply
     {
-      typedef typename meta::option<S,tag::buffer_>::type           buffer_t;
-
-      typedef memory::iliffe_buffer < boost::mpl::_2
-                                    , boost::mpl::_3
-                                    >                               model_t;
-
-      typedef typename buffer_t::template apply<model_t,T,S>::type  type;
+      typedef typename meta::option<S,tag::buffer_>::type   buffer_t;
+      typedef typename buffer_t::template apply<T,S>::type  type;
     };
+
+    //==========================================================================
+    // a rectangular [D0 ... D1] container has Prod(Di) element
+    //==========================================================================
+    template<class S> static BOOST_FORCEINLINE
+    std::size_t nnz(S const& sz) { return nt2::numel(sz); }
+
+    //==========================================================================
+    // a rectangular container access its element without any special case
+    //==========================================================================
+    template<class P, class S> static
+    BOOST_FORCEINLINE std::size_t linearize(P const& p,S const& s)
+    {
+      typedef typename boost::mpl::
+              apply < typename P::storage_type
+                    , boost::mpl::size_t<S::static_size>
+                    , boost::mpl::size_t<0U>
+                    >::type                     dim_t;
+
+      return  nt2::sub2ind(s,p)
+            - boost::mpl::at_c<typename P::index_type,dim_t::value>::type::value;
+    }
   };
 }
-
-#include <nt2/sdk/memory/rectangular_block.hpp>
 
 #endif

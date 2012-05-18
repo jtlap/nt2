@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 
+#include <nt2/sdk/meta/as.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
@@ -22,10 +23,16 @@ namespace nt2 { namespace container
     // colon_ as a sink for tie
     template<class T> colon_ const& operator=(T const&) const { return *this; }
 
+    // _() as []
+    meta::call<nt2::tag::colon_(double, double)>::type operator()() const
+    {
+      return nt2::colon(1.,0.);
+    }
+
     // colon as a:b
     template<class Begin, class End>
     typename meta::call<nt2::tag::colon_(Begin,End)>::type
-    operator()(Begin const& b, End const& e) const
+    operator()(Begin b, End e) const
     {
       return nt2::colon(b,e);
     }
@@ -33,7 +40,7 @@ namespace nt2 { namespace container
     // colon as a:s:b
     template<class Begin, class Step, class End>
     typename meta::call<nt2::tag::colon_(Begin,Step,End)>::type
-    operator()(Begin const& b, Step const& s, End const& e) const
+    operator()(Begin  b, Step s, End e) const
     {
       return nt2::colon(b,s,e);
     }
@@ -48,6 +55,7 @@ namespace nt2
    *
    *   - it acts as \matlab \c : in indexing expression
    *   - it enables \c :(b,s,e) to mimic \matlab \c b:s:e iota notation
+   *   - _() is Matlab []
    *   - it acts as a sink in tie expressions
    **/
   //==========================================================================

@@ -8,16 +8,17 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLINT_2_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLINT_2_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellint_2.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/log.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 
 

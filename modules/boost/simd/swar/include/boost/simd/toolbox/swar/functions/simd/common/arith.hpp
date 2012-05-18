@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_ARITH_HPP_INCLUDED
 
 #include <boost/simd/toolbox/swar/functions/arith.hpp>
-#include <boost/simd/include/functions/plus.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

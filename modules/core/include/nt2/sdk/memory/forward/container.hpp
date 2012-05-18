@@ -6,15 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_FORWARD_CONTAINER_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_FORWARD_CONTAINER_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_FORWARD_CONTAINER_HPP_INCLUDED
+#define NT2_SDK_MEMORY_FORWARD_CONTAINER_HPP_INCLUDED
 
 //==============================================================================
 // Forward declaration
 //==============================================================================
 namespace nt2 { namespace memory
 {
-  template<class Tag, class ID, class T, class S>   struct container ;
+  template<class T, class S>   struct container ;
 
 } }
 

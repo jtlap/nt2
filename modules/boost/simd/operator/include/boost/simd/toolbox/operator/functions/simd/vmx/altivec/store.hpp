@@ -15,6 +15,7 @@
 // TODO : Documentation for simd store
 // TODO : Make them work properly with ContiguousRandomAccessIterator
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/toolbox/operator/functions/store.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/assert.hpp>

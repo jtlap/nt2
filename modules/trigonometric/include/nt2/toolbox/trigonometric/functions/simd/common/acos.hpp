@@ -8,15 +8,16 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ACOS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ACOS_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/acos.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/invtrig.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
 
 
 

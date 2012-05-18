@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_BITWISE_XOR_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/toolbox/operator/functions/bitwise_xor.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

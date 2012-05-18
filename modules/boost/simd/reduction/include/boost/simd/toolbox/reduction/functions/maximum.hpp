@@ -22,12 +22,12 @@
  * Returns the greatest element of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/maximum.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of maximum
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,20 +53,27 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
-namespace boost { namespace simd { namespace tag
-  {         
+namespace boost { namespace simd
+{
+  namespace tag
+  {
+    struct max_;
+    struct Valmin;
+
     /*!
-     * \brief Define the tag maximum_ of functor maximum 
+     * \brief Define the tag maximum_ of functor maximum
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct maximum_ : ext::reduction_<maximum_> { typedef ext::reduction_<maximum_> parent; };
+    struct maximum_ : ext::reduction_<maximum_, tag::max_, tag::Valmin>
+    {
+      typedef ext::reduction_<maximum_, tag::max_, tag::Valmin> parent;
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maximum_, maximum, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::maximum_, maximum, 2)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

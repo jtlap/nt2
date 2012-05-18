@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ICEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ICEIL_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/iceil.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/ceil.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/is_inf.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/functions/scalar/ceil.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/is_inf.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 

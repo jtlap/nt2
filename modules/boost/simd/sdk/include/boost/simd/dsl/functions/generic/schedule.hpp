@@ -10,20 +10,21 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_GENERIC_SCHEDULE_HPP_INCLUDED
 
 #include <boost/simd/dsl/functions/schedule.hpp>
+#include <boost/simd/dsl/functions/terminal.hpp>
 #include <boost/simd/include/functions/assign.hpp>
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/dispatch/dsl/unpack.hpp>
-#include <boost/dispatch/meta/terminal_of.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
 #include <boost/proto/make_expr.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/ref.hpp>
-#include <nt2/core/utility/box/box.hpp>
 
-namespace nt2 { template<class T> struct box; }
+#include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -130,26 +131,31 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef nt2::box< typename dispatch::meta::
-                      strip< typename dispatch::meta::semantic_of<A0&>::type
-                           >::type
-                    >                                              terminal;
-    typedef terminal                                               child0;
+    typedef typename dispatch::meta::
+            strip< typename dispatch::meta::semantic_of<A0&>::type
+                 >::type                                           semantic;
+    typedef boost::shared_ptr<semantic>                            ptr;
+    typedef typename boost::proto::
+            nullary_expr<boost::proto::tag::dereference, ptr>::type node;
+    typedef typename A0::proto_generator::template
+            result<typename A0::proto_generator(node const)>::type child0;
     typedef typename unpack_schedule<A0, F>::result_type           child1;
     typedef typename proto::result_of::
             make_expr<proto::tag::assign, child0, child1>::type    assigned;
-    typedef typename dispatch::meta::result_of<F(assigned)>::type  result_type;
+    typedef typename dispatch::meta::result_of<F(assigned)>::type  result;
+    typedef typename dispatch::meta::strip<result>::type           result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, F& f) const
     {
-      /* FIXME: this leads to the terminal being copied many times over;
-       *        find a way to avoid all copies. */
       typedef typename mpl::if_< is_reference<child1>
                                , reference_wrapper<typename remove_reference<child1>::type>
                                , child1 const&
                                >::type ref;
-      return f(proto::make_expr<proto::tag::assign>(terminal(), ref(unpack_schedule<A0, F>()(a0, f))));
+      return f(proto::make_expr<proto::tag::assign>( typename A0::proto_generator()(node::make(boost::make_shared<semantic>()))
+                                                   , ref(unpack_schedule<A0, F>()(a0, f))
+                                                   )
+              );
     }
   };
 

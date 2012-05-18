@@ -9,17 +9,17 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINMOD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MINMOD_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/minmod.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
-#include <boost/simd/include/functions/logical_or.hpp>
-#include <boost/simd/include/functions/bitwise_xor.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/is_gez.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
-#include <boost/simd/include/functions/if_allbits_else.hpp>
-#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_xor.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
+#include <boost/simd/include/functions/simd/is_nan.hpp>
+#include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_GROUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_GROUP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#include <boost/simd/toolbox/swar/functions/group.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 #define BOOST_SIMD_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))

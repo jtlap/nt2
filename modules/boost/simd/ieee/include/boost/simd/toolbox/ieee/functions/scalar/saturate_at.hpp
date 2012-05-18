@@ -8,13 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_AT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_AT_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/saturate_at.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/functor/forward.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/unary_minus.hpp>
-#include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
+#include <boost/simd/include/functions/scalar/min.hpp>
+#include <boost/simd/include/functions/scalar/is_greater.hpp>
+#include <boost/simd/include/functions/scalar/unary_minus.hpp>
+#include <boost/simd/include/functions/scalar/is_less.hpp>
+#include <boost/simd/include/functions/scalar/if_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_DIGAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_DIGAMMA_HPP_INCLUDED
+#include <nt2/toolbox/euler/functions/digamma.hpp>
 #include <boost/math/special_functions.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FDLIBM_FUNCTIONS_SCALAR_IEEE754_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_FDLIBM_FUNCTIONS_SCALAR_IEEE754_GAMMA_HPP_INCLUDED
+#include <nt2/toolbox/fdlibm/functions/__ieee754_gamma.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 
   extern "C"{

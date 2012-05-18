@@ -15,7 +15,7 @@
 /// 
 #include <nt2/toolbox/bitwise/include/functions/hi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include<nt2/sdk/meta/downgrade.hpp>
+#include <nt2/sdk/meta/downgrade.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

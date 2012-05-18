@@ -9,7 +9,6 @@
 #ifndef BOOST_DISPATCH_DSL_SEMANTIC_OF_HPP_INCLUDED
 #define BOOST_DISPATCH_DSL_SEMANTIC_OF_HPP_INCLUDED
 
-#include <boost/proto/traits.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
@@ -29,25 +28,25 @@ namespace boost { namespace dispatch { namespace meta
   };
   
   template<class Expr>
-  struct semantic_of<const Expr, typename enable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
+  struct semantic_of<const Expr, typename enable_if_c<Expr::proto_arity_c == 0>::type>
     : add_const<typename semantic_of<Expr>::type>
   {
   };
   
   template<class Expr>
-  struct semantic_of<const Expr, typename disable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
+  struct semantic_of<const Expr, typename disable_if_c<Expr::proto_arity_c == 0>::type>
     : semantic_of<Expr>
   {
   };
   
   template<class Expr>
-  struct semantic_of<Expr&, typename enable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
+  struct semantic_of<Expr&, typename enable_if_c<Expr::proto_arity_c == 0>::type>
     : add_reference<typename semantic_of<Expr>::type>
   {
   };
   
   template<class Expr>
-  struct semantic_of<Expr&, typename disable_if< is_same<typename proto::tag_of<Expr>::type, proto::tag::terminal> >::type>
+  struct semantic_of<Expr&, typename disable_if_c<Expr::proto_arity_c == 0>::type>
     : semantic_of<Expr>
   {
   };

@@ -9,13 +9,14 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SUCCESSOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SUCCESSOR_HPP_INCLUDED
 
-#include <boost/simd/include/functions/is_not_equal.hpp>
-#include <boost/simd/include/functions/next.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/toolbox/ieee/functions/successor.hpp>
+#include <boost/simd/include/functions/simd/is_not_equal.hpp>
+#include <boost/simd/include/functions/simd/next.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

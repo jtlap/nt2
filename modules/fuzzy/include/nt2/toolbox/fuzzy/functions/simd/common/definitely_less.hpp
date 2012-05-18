@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_DEFINITELY_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_DEFINITELY_LESS_HPP_INCLUDED
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/is_ord.hpp>
-#include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/subs.hpp>
+#include <nt2/toolbox/fuzzy/functions/definitely_less.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/is_ord.hpp>
+#include <nt2/include/functions/simd/successor.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/subs.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

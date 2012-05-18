@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVFIX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVFIX_HPP_INCLUDED
-#include <boost/simd/include/functions/trunc.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/divfix.hpp>
+#include <boost/simd/include/functions/scalar/trunc.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
 
 namespace boost { namespace simd { namespace ext

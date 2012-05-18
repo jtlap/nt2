@@ -8,9 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
-
-
-
+  erf.cpp
+  erfc.cpp
   fast_gamma.cpp
   spence.cpp
   stirling.cpp

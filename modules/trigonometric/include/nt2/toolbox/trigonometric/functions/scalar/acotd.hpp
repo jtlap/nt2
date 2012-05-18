@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ACOTD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ACOTD_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/acotd.hpp>
 #include <nt2/include/constants/digits.hpp>
 
-#include <nt2/include/functions/atand.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/bitwise_or.hpp>
+#include <nt2/include/functions/scalar/atand.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
+#include <nt2/include/functions/scalar/bitwise_or.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

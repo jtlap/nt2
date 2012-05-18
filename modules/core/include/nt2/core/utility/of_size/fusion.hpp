@@ -25,7 +25,7 @@ namespace boost { namespace fusion { namespace extension
   //============================================================================
   template<> struct is_sequence_impl<nt2::tag::of_size_>
   {
-    template<typename T> struct apply : mpl::true_ {};
+    template<typename Seq> struct apply : mpl::true_ {};
   };
 
   template<> struct is_view_impl<nt2::tag::of_size_>
@@ -35,7 +35,11 @@ namespace boost { namespace fusion { namespace extension
 
   template<> struct category_of_impl<nt2::tag::of_size_>
   {
-    typedef random_access_traversal_tag type;
+    template<typename Seq>
+    struct apply
+    {
+      typedef random_access_traversal_tag type;
+    };
   };
 
   //============================================================================

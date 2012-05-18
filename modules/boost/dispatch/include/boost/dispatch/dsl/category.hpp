@@ -12,8 +12,6 @@
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
-#include <boost/proto/domain.hpp>
-#include <boost/proto/traits.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -60,16 +58,14 @@ namespace boost { namespace dispatch { namespace details
   template<class T, class Origin>
   struct hierarchy_of< T
                      , Origin
-                     , typename boost::
-                       enable_if< proto::is_expr<T> >::type
+                     , typename T::proto_is_expr_
                      >
   {
     typedef typename meta::semantic_of<T>::type  semantic_type;
-    typedef typename proto::tag_of<T>::type      tag_type;
     
     typedef meta::expr_ < typename meta::hierarchy_of<semantic_type, Origin>::type
-                        , typename meta::hierarchy_of<tag_type>::type
-                        , typename proto::arity_of<T>::type
+                        , typename meta::hierarchy_of<typename T::proto_tag>::type
+                        , typename T::proto_arity
                         >                                          type;
   };
 
@@ -77,8 +73,7 @@ namespace boost { namespace dispatch { namespace details
 
   template<class T>
   struct value_of< T
-                 , typename boost::
-                   enable_if< proto::is_expr<T> >::type
+                 , typename T::proto_is_expr_
                  >
     : meta::semantic_of<T>
   {

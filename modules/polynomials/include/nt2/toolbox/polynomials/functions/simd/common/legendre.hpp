@@ -10,16 +10,16 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SIMD_COMMON_LEGENDRE_HPP_INCLUDED
 
 #include <nt2/toolbox/polynomials/functions/legendre.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/bitwise_or.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/include/functions/minus.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/divides.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/bitwise_or.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>

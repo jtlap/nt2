@@ -8,17 +8,18 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ACOTD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ACOTD_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/acotd.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/atand.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/simd/atand.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/include/functions/if_else_zero.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

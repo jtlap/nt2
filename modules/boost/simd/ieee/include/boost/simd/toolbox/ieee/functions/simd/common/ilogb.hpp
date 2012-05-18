@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ILOGB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ILOGB_HPP_INCLUDED
 #include <boost/simd/toolbox/ieee/functions/ilogb.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
+#include <boost/simd/include/functions/simd/exponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/swar/functions/arith.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -67,7 +67,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(T const&) const
     {
-      return make<result_type>(0, 1, 2, 3);
+      return bitwise_cast<result_type>(_mm256_set_epi32(0,3,0,2,0,1,0,0));
     }
   };
 

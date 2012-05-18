@@ -22,12 +22,6 @@
 #include <boost/fusion/include/size.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
 
-// workaround for circular includes
-namespace boost { namespace simd { namespace tag
-{
-  struct Allbits;
-} } }
-
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::insert_, tag::cpu_, (A0)(A1)(A2)(X)
@@ -94,8 +88,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1& a1, A2 const& a2) const
     {
       typedef typename meta::scalar_of<typename A1::type>::type type;
-      type allbits = typename dispatch::make_functor<tag::Allbits, A0>::type()(dispatch::meta::as_<type>());
-      insert(a0 ? allbits : a0, reinterpret_cast<typename A1::type&>(a1), a2);
+      insert(a0 ? Allbits<type>() : a0, reinterpret_cast<typename A1::type&>(a1), a2);
       return a1;
     }
   };

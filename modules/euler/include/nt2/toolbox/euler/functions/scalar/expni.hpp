@@ -8,22 +8,23 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_EXPNI_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_EXPNI_HPP_INCLUDED
+#include <nt2/toolbox/euler/functions/expni.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/eps_related.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/pow.hpp>
-#include <nt2/include/functions/gamma.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/exp.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/pow.hpp>
+#include <nt2/include/functions/scalar/gamma.hpp>
+#include <nt2/include/functions/scalar/is_nez.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_odd.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_

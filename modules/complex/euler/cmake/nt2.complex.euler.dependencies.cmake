@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.COMPLEX.EULER_DEPENDENCIES_EXTRA exponential)
+SET(NT2_COMPLEX.EULER_DEPENDENCIES_EXTRA exponential)

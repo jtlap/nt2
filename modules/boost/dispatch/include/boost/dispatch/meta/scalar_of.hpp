@@ -10,6 +10,8 @@
 #define BOOST_DISPATCH_META_SCALAR_OF_HPP_INCLUDED
 
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -24,7 +26,7 @@ namespace details
     : meta::scalar_of<U>
   {
   };
-  
+
   template<class T>
   struct scalar_of<T, T>
   {
@@ -35,8 +37,28 @@ namespace details
 namespace meta
 {
   template<class T>
-  struct scalar_of
-    : details::scalar_of<T>
+  struct  scalar_of
+        : details::scalar_of<T> {};
+
+  template<class T>
+  struct scalar_of<T&>
+    : mpl::if_< is_same< typename meta::scalar_of<T>::type
+                       , T
+                       >
+              , T&
+              , typename details::scalar_of<T&>::type
+              >
+  {
+  };
+
+  template<class T>
+  struct scalar_of<T const>
+    : mpl::if_< is_same< typename meta::scalar_of<T>::type
+                       , T
+                       >
+              , T const
+              , typename details::scalar_of<T const>::type
+              >
   {
   };
 } } }

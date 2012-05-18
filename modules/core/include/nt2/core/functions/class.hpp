@@ -1,0 +1,25 @@
+//==============================================================================
+//         Copyright 2003 - 2012  LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#ifndef NT2_CORE_FUNCTIONS_CLASS_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_CLASS_HPP_INCLUDED
+
+#include <nt2/sdk/meta/as.hpp>
+#include <nt2/sdk/meta/container_traits.hpp>
+
+namespace nt2
+{
+  template<class T> BOOST_FORCEINLINE
+  meta::as_<typename meta::value_type_<T>::type> class_( T const& )
+  {
+    meta::as_< typename meta::value_type_<T>::type > that;
+    return that;
+  }
+}
+
+#endif

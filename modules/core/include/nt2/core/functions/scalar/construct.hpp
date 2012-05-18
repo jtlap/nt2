@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_CONSTRUCT_HPP_INCLUDED
 
 #include <nt2/core/functions/construct.hpp>
-#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/scalar/multiplies.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <boost/fusion/include/fold.hpp>

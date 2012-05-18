@@ -8,7 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_EQZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_EQZ_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_eqz.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/include/functions/scalar/logical_not.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -20,6 +22,14 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return result_type(!a0); }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_eqz_, tag::cpu_
+                            , (A0)
+                            , (scalar_< logical_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1) { return logical_not(a0); }
+  };  
 } } }
 
 

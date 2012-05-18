@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_EVEN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_EVEN_HPP_INCLUDED
 #include <boost/simd/toolbox/predicates/functions/is_even.hpp>
-#include <boost/simd/include/functions/is_flint.hpp>
+#include <boost/simd/include/functions/scalar/is_flint.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/half.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>

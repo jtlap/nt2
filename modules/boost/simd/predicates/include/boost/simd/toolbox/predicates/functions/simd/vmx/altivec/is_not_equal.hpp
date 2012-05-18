@@ -11,8 +11,8 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/toolbox/predicates/functions/is_not_equal.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/logical_not.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

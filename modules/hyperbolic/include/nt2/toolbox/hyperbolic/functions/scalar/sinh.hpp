@@ -8,14 +8,15 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/sinh.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/is_negative.hpp>
-#include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/scalar/is_negative.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
 
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/expm1.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

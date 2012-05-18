@@ -9,13 +9,14 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SQRT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_SQRT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/arithmetic/functions/sqrt.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/toint.hpp>
-#include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/sqr.hpp>
-#include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/simd/include/functions/simd/sqr.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

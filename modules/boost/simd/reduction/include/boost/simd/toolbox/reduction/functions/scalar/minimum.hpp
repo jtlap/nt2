@@ -19,6 +19,16 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1) { return a0; }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minimum_, tag::cpu_
+                                     , (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              (scalar_< integer_<A1> > )        
+                            )
+  {
+    typedef A0 result_type;
+    inline result_type operator()(A0 const & a0,  A1 const &)const
+      { return a0; }
+  };  
 } } }
 
 

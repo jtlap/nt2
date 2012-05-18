@@ -9,9 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_EXPONENTBITS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_EXPONENTBITS_HPP_INCLUDED
 
+#include <boost/simd/toolbox/ieee/functions/exponentbits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 

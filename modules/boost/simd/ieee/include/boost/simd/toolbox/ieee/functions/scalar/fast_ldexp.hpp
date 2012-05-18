@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FAST_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FAST_LDEXP_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/fast_ldexp.hpp>
 #include <boost/simd/include/constants/ldexpmask.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

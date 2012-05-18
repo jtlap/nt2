@@ -8,13 +8,12 @@
 ################################################################################
 cmake_minimum_required(VERSION 2.6)
 
-set(NT2_SOURCE_ROOT ${CMAKE_SOURCE_DIR}/..)
-list(APPEND CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
-find_package(NT2)
-include_directories(${NT2_INCLUDE_DIR})
-link_directories(${NT2_LIBRARY_DIR})
-link_libraries(${NT2_LIBRARIES})
-add_definitions(${NT2_FLAGS})
+set(NT2_DIR ${CMAKE_SOURCE_DIR}/../cmake)
+set(NT2_MODULES_BLACKLIST cuda)
+find_package(NT2 REQUIRED)
+include(${NT2_USE_FILE})
+
+add_definitions(-g)
 
 set( SOURCES
 #    rec_block.cpp
@@ -23,6 +22,7 @@ set( SOURCES
 #    table_dim.cpp
      transform_pass.cpp
      table.cpp
+     index_test.cpp
    )
 
 foreach(src ${SOURCES})

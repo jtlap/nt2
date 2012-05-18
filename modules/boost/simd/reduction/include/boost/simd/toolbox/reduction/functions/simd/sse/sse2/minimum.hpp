@@ -1,26 +1,29 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_MINIMUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_MINIMUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/reduction/functions/minimum.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/sdk/meta/templatize.hpp>
-#include <boost/simd/include/functions/min.hpp>
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int16_
-/////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, boost::simd::tag::sse2_,
-                          (A0),
-                          ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
-                         )
+  //============================================================================
+  // Implementation when type A0 is int16_
+  //============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minimum_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
@@ -38,17 +41,16 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is double
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, boost::simd::tag::sse2_,
-                          (A0),
-                          ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                         )
+  //============================================================================
+  // Implementation when type A0 is double
+  //============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minimum_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
-    typedef typename meta::scalar_of<A0 > ::type result_type;
+    typedef typename meta::scalar_of<A0> ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       A0 that = {_mm_min_sd(a0, _mm_unpackhi_pd(a0,a0))};
@@ -56,15 +58,14 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int64_
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, boost::simd::tag::sse2_,
-                          (A0),
-                          ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
-                         )
+  //============================================================================
+  // Implementation when type A0 is int64_
+  //============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minimum_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
@@ -73,15 +74,14 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, boost::simd::tag::sse2_,
-                          (A0),
-                          ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                         )
+  //============================================================================
+  // Implementation when type A0 is float
+  //============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minimum_
+                                    , boost::simd::tag::sse2_
+                                    ,(A0)
+                                    , ((simd_<single_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
@@ -92,20 +92,21 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int8_
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, boost::simd::tag::sse2_,
-                          (A0),
-                          ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
-                         )
+  //============================================================================
+  // Implementation when type A0 is int8_
+  //============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minimum_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
-    typedef typename meta::scalar_of<A0 > ::type result_type;
+    typedef typename meta::scalar_of<A0>::type              result_type;
+    typedef typename meta::make_dependent<double,A0>::type  double_t;
+    typedef simd::native<double_t,boost::simd::tag::sse_>   rtype;
+
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef simd::native<typename boost::simd::meta::double__<A0>::type,boost::simd::tag::sse_> rtype;
       rtype v0 = simd::bitwise_cast<rtype>(a0);
       A0 pack = simd::bitwise_cast<A0>(_mm_unpackhi_pd(v0,v0));
       A0 min1 = boost::simd::min(a0,pack);
@@ -115,15 +116,14 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is int32_
-/////////////////////////////////////////////////////////////////////////////
-
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::minimum_, boost::simd::tag::sse2_,
-                          (A0),
-                          ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                         )
+  //============================================================================
+  // Implementation when type A0 is int32_
+  //============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::minimum_
+                                    , boost::simd::tag::sse2_
+                                    ,(A0)
+                                    ,((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                    )
   {
     typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
@@ -134,5 +134,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 } } }
+
 #endif
 #endif

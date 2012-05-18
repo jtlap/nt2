@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MINUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MINUS_HPP_INCLUDED
 #include <boost/simd/toolbox/operator/functions/minus.hpp>
-#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
 //TODO is that necessary ?
 //////////////////////////////////////////////////////////////////////////////
 // mixed scalar/simd minus
@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::minus(boost::simd::splat<A0>(a0), a1);
+      return boost::simd::minus(boost::simd::splat<A1>(a0), a1);
     }
   };
 } } }

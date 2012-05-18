@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_STANDARD_FUNCTIONS_SCALAR_FREXP_HPP_INCLUDED
 #define NT2_TOOLBOX_STANDARD_FUNCTIONS_SCALAR_FREXP_HPP_INCLUDED
+#include <nt2/toolbox/standard/functions/frexp.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>

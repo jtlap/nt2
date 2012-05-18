@@ -10,8 +10,8 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINECOSINE_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/sinecosine.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <boost/fusion/tuple.hpp>

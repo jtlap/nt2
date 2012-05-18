@@ -10,9 +10,9 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ATANPI_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/atanpi.hpp>
-#include <nt2/include/functions/atan.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/simd/atan.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/invpi.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 

@@ -15,7 +15,7 @@
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/load.hpp>
+#include <nt2/include/functions/simd/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

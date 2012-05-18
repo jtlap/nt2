@@ -9,8 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_FFS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_FFS_HPP_INCLUDED
 
+#include <boost/simd/toolbox/bitwise/functions/ffs.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 
 #ifdef BOOST_MSVC
 #include <intrin.h>

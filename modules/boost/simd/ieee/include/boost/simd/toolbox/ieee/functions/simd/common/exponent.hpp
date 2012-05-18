@@ -8,14 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EXPONENT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EXPONENT_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/exponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/shri.hpp>
-#include <boost/simd/include/functions/exponentbits.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/exponentbits.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/is_invalid.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

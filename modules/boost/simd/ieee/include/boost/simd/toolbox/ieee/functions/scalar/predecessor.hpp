@@ -8,13 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_PREDECESSOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_PREDECESSOR_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/predecessor.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/minf.hpp>
-#include <boost/simd/include/functions/bitfloating.hpp>
-#include <boost/simd/include/functions/bitinteger.hpp>
-#include <boost/simd/include/functions/minusone.hpp>
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/bitfloating.hpp>
+#include <boost/simd/include/functions/scalar/bitinteger.hpp>
+#include <boost/simd/include/functions/scalar/minusone.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

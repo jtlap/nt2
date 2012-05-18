@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_1_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellint_1.hpp>
 #include <boost/math/special_functions.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_SPLAT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/splat.hpp>
-#include <boost/simd/include/functions/insert.hpp>
+#include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 

@@ -10,11 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_TOFLOAT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/plus.hpp>
-#include <boost/simd/include/functions/is_gez.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>

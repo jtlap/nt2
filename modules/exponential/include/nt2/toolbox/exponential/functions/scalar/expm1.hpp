@@ -8,14 +8,15 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_EXPM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_EXPM1_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/expm1.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/is_invalid.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

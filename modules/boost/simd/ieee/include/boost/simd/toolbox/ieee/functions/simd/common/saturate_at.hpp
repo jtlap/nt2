@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SATURATE_AT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_SATURATE_AT_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/saturate_at.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/is_less.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

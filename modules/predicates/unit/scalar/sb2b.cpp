@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<sb2b_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 
@@ -63,6 +63,7 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(sb2b(nt2::Quarter<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(sb2b(nt2::Two<T>()), nt2::True<r_t>());
   NT2_TEST_EQUAL(sb2b(nt2::Zero<T>()), nt2::False<r_t>());
+
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( sb2b_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -74,7 +75,7 @@ NT2_TEST_CASE_TPL ( sb2b_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::call<sb2b_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 
@@ -100,7 +101,7 @@ NT2_TEST_CASE_TPL ( sb2b_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::call<sb2b_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename nt2::meta::as_logical<T>::type wished_r_t;
+  typedef T wished_r_t;
 
 
   // return type conformity test 

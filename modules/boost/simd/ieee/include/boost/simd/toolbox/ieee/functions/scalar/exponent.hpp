@@ -8,14 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_EXPONENT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_EXPONENT_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/exponent.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/shri.hpp>
-#include <boost/simd/include/functions/exponentbits.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/if_else_zero.hpp>
+#include <boost/simd/include/functions/scalar/is_invalid.hpp>
+#include <boost/simd/include/functions/scalar/shri.hpp>
+#include <boost/simd/include/functions/scalar/exponentbits.hpp>
+#include <boost/simd/include/functions/scalar/is_nez.hpp>
+#include <boost/simd/include/functions/scalar/is_eqz.hpp>
+#include <boost/simd/include/functions/scalar/if_else_zero.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/toolbox/ieee/details/math.hpp>

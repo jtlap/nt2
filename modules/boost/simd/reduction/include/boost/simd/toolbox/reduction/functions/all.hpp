@@ -56,17 +56,25 @@
  *  
 **/
 
-namespace boost { namespace simd { namespace tag
-  {         
+namespace boost { namespace simd
+{
+  namespace tag
+  {
+    struct logical_and_;
+    struct True;
+
     /*!
      * \brief Define the tag all_ of functor all 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct all_ : ext::reduction_<all_> { typedef ext::reduction_<all_> parent; };
+    struct all_ : ext::reduction_<all_, tag::logical_and_, tag::True> 
+    { 
+      typedef ext::reduction_<all_, tag::logical_and_, tag::True> parent;  
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::all_, all, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::all_, all, 2)
 } }
 
-#endif
 
-// modified by jt the 25/12/2010
+#endif

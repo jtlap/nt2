@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_DOT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/reduction/functions/dot.hpp>
-#include <boost/simd/include/functions/sum.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/simd/sum.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type  is arithmetic_

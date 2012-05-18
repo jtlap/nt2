@@ -10,10 +10,10 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_COMPARATOR_HPP_INCLUDED
 
 #include <boost/simd/toolbox/swar/functions/comparator.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/any.hpp>
-#include <boost/simd/include/functions/is_not_equal_with_equal_nans.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/include/functions/simd/any.hpp>
+#include <boost/simd/include/functions/simd/is_not_equal_with_equal_nans.hpp>
 #include <boost/fusion/include/vector.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

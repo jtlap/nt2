@@ -12,7 +12,6 @@
 #include <nt2/core/functions/iscolumn.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/include/functions/extent.hpp>
 #include <nt2/sdk/meta/safe_at.hpp>
 
 namespace nt2 { namespace ext
@@ -29,8 +28,16 @@ namespace nt2 { namespace ext
     {
       typename meta::call<tag::extent_(A0 const&)>::type ex = nt2::extent(a0);
       std::size_t nz = nt2::numel(ex);
-
-      return (meta::safe_at_c<0>(ex) == nz ) && (nz > 0);
+      if (nz)
+        return meta::safe_at_c<0>(ex) == nz;
+      else
+        {
+          for(int i=1; i < ex.size(); ++i)
+            {
+              if (ex[i] !=  1) return false;
+            }
+        }
+      return true; 
     }
   };
 } }

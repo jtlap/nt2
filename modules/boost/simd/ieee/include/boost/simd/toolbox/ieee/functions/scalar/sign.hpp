@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGN_HPP_INCLUDED
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
+#include <boost/simd/toolbox/ieee/functions/sign.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
+#include <boost/simd/include/functions/scalar/is_gtz.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/is_nez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

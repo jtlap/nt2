@@ -12,6 +12,8 @@
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
+#include <nt2/sdk/memory/container.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -28,17 +30,7 @@ namespace nt2 { namespace container { namespace ext
   // } } }
   //
   //============================================================================
-  template<class Expr> struct generative_size_of
-  {
-    // The size is contained in the first child : box<Size>
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename boost::proto::result_of::value<seq_term>::type result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::value( boost::proto::child_c<0>(e) );
-    }
-  };
+  template<class Expr> struct generative_size_of : boxed_size_of<Expr,0> {};
 
   //============================================================================
   // This is the factorized generator for all generative function.
@@ -65,8 +57,7 @@ namespace nt2 { namespace container { namespace ext
 
     // Rebuidl proper expression type with semantic
     typedef expression< typename boost::remove_const<Expr>::type
-                      , memory::container < tag::table_, id_<0>
-                                          , typename target_t::type
+                      , memory::container < typename target_t::type
                                           , sizes_t
                                           >
                       >                                     result_type;

@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_GCD_HPP_INCLUDED
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SCALAR_GCD_HPP_INCLUDED
-#include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/is_not_finite.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/rem.hpp>
+#include <nt2/toolbox/combinatorial/functions/gcd.hpp>
+#include <nt2/include/functions/scalar/is_flint.hpp>
+#include <nt2/include/functions/scalar/is_not_finite.hpp>
+#include <nt2/include/functions/scalar/is_nez.hpp>
+#include <nt2/include/functions/scalar/rem.hpp>
 #include <nt2/include/constants/real.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

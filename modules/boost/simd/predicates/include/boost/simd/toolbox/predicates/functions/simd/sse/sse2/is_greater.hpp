@@ -9,14 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_GREATER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_GREATER_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/predicates/functions/is_greater.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/logical_or.hpp>
-#include <boost/simd/include/functions/logical_and.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

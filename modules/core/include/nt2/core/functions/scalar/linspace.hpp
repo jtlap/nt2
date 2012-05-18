@@ -9,13 +9,14 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_LINSPACE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_LINSPACE_HPP_INCLUDED
 
+#include <nt2/core/functions/linspace.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/box.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/linspace.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/scalar/splat.hpp>
+#include <nt2/include/functions/scalar/enumerate.hpp>
 
 //==============================================================================
 // linspace actual functor forward declaration
@@ -106,7 +107,7 @@ namespace nt2 { namespace details
     {
       typedef typename Target::type type;
 
-      return nt2::fma ( nt2::enumerate<type>(boost::fusion::at_c<1>(p)-1)
+      return nt2::fma ( nt2::enumerate<type>(p)
                       , nt2::splat<type>(step_)
                       , nt2::splat<type>(lower_)
                       );

@@ -9,9 +9,10 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SEC_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SEC_HPP_INCLUDED
 
-#include <nt2/include/functions/cos.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/toolbox/trigonometric/functions/sec.hpp>
+#include <nt2/include/functions/scalar/cos.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

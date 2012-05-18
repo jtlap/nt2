@@ -14,6 +14,7 @@
 /// created  by jt the 24/02/2011
 /// 
 #include <boost/simd/toolbox/reduction/include/functions/sum.hpp>
+#include <boost/simd/include/functions/enumerate.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -49,10 +50,42 @@ NT2_TEST_CASE_TPL ( sum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
   // specific values tests
+  int c = cardinal_of<n_t>(); 
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Inf<vT>()), boost::simd::Inf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Minf<vT>()), boost::simd::Minf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Mone<vT>()), -int(cardinal_of<n_t>()), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Nan<vT>()), boost::simd::Nan<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), int(cardinal_of<n_t>()), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), c, 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Two<vT>()), 2*c, 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::enumerate<vT>(1)), c*(c+1)/2, 0);
 } // end of test for floating_
+
+NT2_TEST_CASE_TPL ( sum_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+{
+  using boost::simd::sum;
+  using boost::simd::tag::sum_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef typename boost::dispatch::meta::scalar_of<T>::type sT;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<sum_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+  int c = cardinal_of<n_t>(); 
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), c, 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Two<vT>()), 2*c, 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::enumerate<vT>(1)), c*(c+1)/2, 0); 
+} // 

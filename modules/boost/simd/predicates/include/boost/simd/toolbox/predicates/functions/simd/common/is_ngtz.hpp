@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NGTZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NGTZ_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_ngtz.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/is_not_greater.hpp>
+#include <boost/simd/include/functions/simd/is_not_greater.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -9,17 +9,17 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/bitwise_notand.hpp>
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/bitwise_notand.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/if_else_zero.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
+#include <nt2/include/functions/simd/any.hpp>
 
 namespace nt2
 {

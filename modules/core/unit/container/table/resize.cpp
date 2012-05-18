@@ -96,10 +96,8 @@ NT2_TEST_CASE( resize_less_dims )
   NT2_TEST( nt2::extent(x) == of_size(9) );
 
   float u = 0;
-  for(int i=1;i<=9;++i)
-    x(i) = u++;
+  for(int i=1;i<=9;++i) x(i) = u++;
 
   u = 0;
-  for(int i=1;i<=9;++i)
-    NT2_TEST_EQUAL(float(x(i)), u++);
+  for(int i=1;i<=9;++i) NT2_TEST_EQUAL(float(x(i)), u++);
 }

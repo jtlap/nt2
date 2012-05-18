@@ -9,10 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_SUBS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_SUBS_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/subs.hpp>
-#include <boost/simd/include/functions/saturate.hpp>
-#include <boost/simd/include/functions/adds.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
+#include <boost/simd/include/functions/scalar/saturate.hpp>
+#include <boost/simd/include/functions/scalar/adds.hpp>
+#include <boost/simd/include/functions/scalar/is_greater.hpp>
+#include <boost/simd/include/functions/scalar/is_equal.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mone.hpp>

@@ -10,9 +10,9 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SIMD_COMMON_POLEVL_HPP_INCLUDED
 
 #include <nt2/toolbox/polynomials/functions/polevl.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
 #include <boost/fusion/adapted/array.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

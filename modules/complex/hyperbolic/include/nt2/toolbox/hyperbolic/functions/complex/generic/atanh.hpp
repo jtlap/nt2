@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ATANH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ATANH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/atanh.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/minusone.hpp>
@@ -88,7 +89,7 @@ namespace nt2 { namespace ext
       ltype not_in_safe_zone = logical_or(logical_or(gt(x,s_max), lt(x,s_min)),
                                           logical_or(gt(y,s_max), lt(y,s_min)));
       ltype invalid = is_invalid(a0);
-      if(any(not_in_safe_zone))
+      if(nt2::any(not_in_safe_zone))
         {
           //treat underflow or overflow
           // one or both of x and y are small, calculate divisor carefully:
@@ -130,7 +131,7 @@ namespace nt2 { namespace ext
           i =  if_else(ltxmin, tmp_i, i); 
         }
       ltype test = logical_and(eq(inf, x), eq(inf, y));
-      if(any(test))
+      if(nt2::any(test))
         {
           //inf x, inf y
           r = if_zero_else(test, r);
@@ -138,7 +139,7 @@ namespace nt2 { namespace ext
         }      
       test = is_nan(a0);
       
-      if(any(test))
+      if(nt2::any(test))
         {
           //nan x, inf y
           r = if_zero_else(logical_and(is_nan(x), eq(y, inf)), r);

@@ -34,13 +34,8 @@ set(NT2_VERSION "3.0.0")
 include(nt2.package)
 
 ################################################################################
-# Add Documentation target
+# Start configuration
 ################################################################################
-#ADD_CUSTOM_TARGET ( doc
-#                    COMMAND make html
-#                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/doc
-#                  )
-
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 include(NT2Module)
 nt2_configure_tests()
@@ -52,78 +47,118 @@ nt2_postconfigure_init()
 set(NT2_MODULES_EXTRA "" CACHE STRING "Extra modules to load")
 set(NT2_MODULES_BLACKLIST "" CACHE STRING "Modules that should not be loaded")
 
-# We load all directories of modules/ for which a CMakeLists.txt is present;
+################################################################################
+# We search a directory under modules/ for which a CMakeLists.txt is present;
 # if none is found in the directory, we search recursively until we find one.
-if(NOT NT2_MODULES)
-  file(GLOB NT2_MODULES RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
+################################################################################
+macro(expand_submodules modules)
   set(i 0)
-  list(LENGTH NT2_MODULES len)
+  list(LENGTH ${modules} len)
   while(i LESS len)
-    list(GET NT2_MODULES ${i} module)
+    list(GET ${modules} ${i} module)
     string(REPLACE "." "/" module_path ${module})
     if(${module} MATCHES boostification)
-      list(REMOVE_ITEM NT2_MODULES ${module})
-      list(LENGTH NT2_MODULES len)
+      list(REMOVE_ITEM ${modules} ${module})
+      list(LENGTH ${modules} len)
     elseif(NOT EXISTS ${PROJECT_SOURCE_DIR}/modules/${module_path}/CMakeLists.txt)
-      list(REMOVE_ITEM NT2_MODULES ${module})
-      file(GLOB NT2_MODULES_ RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/${module_path}/*/)
-      if(NT2_MODULES_)
-        string(REPLACE "/" "." NT2_MODULES_ "${NT2_MODULES_}")
-        list(APPEND NT2_MODULES ${NT2_MODULES_})
+      list(REMOVE_ITEM ${modules} ${module})
+      file(GLOB ${modules}_ RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/${module_path}/*/)
+      if(${modules}_)
+        string(REPLACE "/" "." ${modules}_ "${${modules}_}")
+        list(APPEND ${modules} ${${modules}_})
       endif()
-      list(LENGTH NT2_MODULES len)
+      list(LENGTH ${modules} len)
     else()
       math(EXPR i "${i} + 1")
     endif()
   endwhile()
-endif()
+endmacro()
 
-if(NT2_MODULES_EXTRA)
-  list(APPEND NT2_MODULES ${NT2_MODULES_EXTRA})
-  list(REMOVE_DUPLICATES "NT2_MODULES")
-endif()
+macro(remove_blacklisted modules)
+  set(${modules}_)
+  foreach(module ${${modules}})
+    set(module_found 1)
+    foreach(bl ${NT2_MODULES_BLACKLIST})
+      if(${module} MATCHES "^${bl}($|\\.)")
+        set(module_found 0)
+      endif()
+    endforeach()
+    if(module_found)
+      list(APPEND ${modules}_ ${module})
+    endif()
+  endforeach()
+  set(${modules} ${${modules}_})
+endmacro()
 
-# Download extra modules and set include directories
+################################################################################
+# If no explicit modules are set, we use all modules we can find
+################################################################################
+if(NOT NT2_MODULES)
+  file(GLOB NT2_MODULES RELATIVE ${PROJECT_SOURCE_DIR}/modules ${PROJECT_SOURCE_DIR}/modules/*/)
+endif()
+expand_submodules(NT2_MODULES)
+remove_blacklisted(NT2_MODULES)
+
+################################################################################
+# Download extra modules
+################################################################################
 include(nt2.download)
-foreach(module ${NT2_MODULES})
-  list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
-  if(module_found LESS 0)
+list(REMOVE_DUPLICATES NT2_MODULES_EXTRA)
+remove_blacklisted(NT2_MODULES_EXTRA)
+foreach(module ${NT2_MODULES_EXTRA})
     string(REPLACE "." "/" module_path ${module})
-  
+
     if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
       nt2_download_module(${module})
     endif()
-    
-    include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
-    
-  endif()
 endforeach()
+expand_submodules(NT2_MODULES_EXTRA)
+remove_blacklisted(NT2_MODULES_EXTRA)
+if(NT2_MODULES_EXTRA)
+  list(APPEND NT2_MODULES ${NT2_MODULES_EXTRA})
+  list(REMOVE_DUPLICATES NT2_MODULES)
+endif()
 
-# Load modules
+################################################################################
+# Set include directories
+################################################################################
 foreach(module ${NT2_MODULES})
-  list(FIND NT2_MODULES_BLACKLIST ${module} module_found)
-  if(module_found LESS 0)
-    string(REPLACE "." "/" module_path ${module})
-  
-    if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
-      message(STATUS "[nt2] module ${module} not found")
-    else()
-      message(STATUS "[nt2] loading module ${module}")
-      add_subdirectory(modules/${module_path})
-    endif()
-    
+  string(REPLACE "." "/" module_path ${module})
+  include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
+endforeach()
+
+################################################################################
+# Load modules
+################################################################################
+foreach(module ${NT2_MODULES})
+  string(REPLACE "." "/" module_path ${module})
+  if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
+    message(STATUS "[nt2] module ${module} not found")
+  else()
+    message(STATUS "[nt2] loading module ${module}")
+    add_subdirectory(modules/${module_path})
   endif()
 endforeach()
 
+################################################################################
+# Setup documentation after all modules have been downloaded
+################################################################################
+if(NT2_DOCUMENTATION_ENABLED)
+  add_subdirectory(doc)
+endif()
+
+################################################################################
 # Ensure all tools get set up
+################################################################################
 file(GLOB NT2_TOOLS RELATIVE ${PROJECT_SOURCE_DIR}/tools ${PROJECT_SOURCE_DIR}/tools/*/)
 foreach(tool ${NT2_TOOLS})
   nt2_module_tool_setup(${tool})
 endforeach()
 
-nt2_postconfigure_run()
+set(CMAKE_MODULE_PATH ${NT2_MODULE_PATH})
 
 ################################################################################
-# Post-config message
+# Post-config phase
 ################################################################################
+nt2_postconfigure_run()
 include(nt2.directive)

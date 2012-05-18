@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FAST_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_FAST_FREXP_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/fast_frexp.hpp>
 #include <boost/mpl/vector.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

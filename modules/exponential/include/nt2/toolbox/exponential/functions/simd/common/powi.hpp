@@ -8,22 +8,23 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POWI_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POWI_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/powi.hpp>
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/signnz.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/is_even.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/shri.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/signnz.hpp>
+#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/simd/is_even.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/shri.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/any.hpp>
 
 
 

@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <boost/simd/include/functions/unaligned_load.hpp>
+#include <boost/simd/include/functions/simd/unaligned_load.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/assert.hpp>
 

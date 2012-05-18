@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REMQUO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REMQUO_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/remquo.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/mpl/vector.hpp>
-#include <boost/simd/include/functions/remainder.hpp>
-#include <boost/simd/include/functions/idivround.hpp>
+#include <boost/simd/include/functions/scalar/remainder.hpp>
+#include <boost/simd/include/functions/scalar/idivround.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

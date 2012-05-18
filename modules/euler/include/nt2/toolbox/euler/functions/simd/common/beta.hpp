@@ -9,13 +9,14 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_BETA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_BETA_HPP_INCLUDED
 
+#include <nt2/toolbox/euler/functions/beta.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 
-#include <nt2/include/functions/signgam.hpp>
-#include <nt2/include/functions/gammaln.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/signgam.hpp>
+#include <nt2/include/functions/simd/gammaln.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 /**
  * \ingroup euler_beta

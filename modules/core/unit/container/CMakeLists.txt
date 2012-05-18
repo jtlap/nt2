@@ -8,8 +8,5 @@
 ##############################################################################
 
 ADD_SUBDIRECTORY(dsl)
-#ADD_SUBDIRECTORY(functions)
-ADD_SUBDIRECTORY(memory)
-ADD_SUBDIRECTORY(meta)
+ADD_SUBDIRECTORY(functions)
 ADD_SUBDIRECTORY(table)
-

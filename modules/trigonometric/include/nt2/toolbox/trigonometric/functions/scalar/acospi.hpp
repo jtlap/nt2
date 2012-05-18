@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ACOSPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ACOSPI_HPP_INCLUDED
-#include <nt2/include/functions/acos.hpp>
+#include <nt2/toolbox/trigonometric/functions/acospi.hpp>
+#include <nt2/include/functions/scalar/acos.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

@@ -10,10 +10,11 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_ELEMENTWISE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/generator.hpp>
-#include <boost/assert.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <boost/fusion/include/transform.hpp>
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/at_c.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -32,7 +33,7 @@ namespace nt2 { namespace container { namespace ext
       typedef typename
       select< typename meta::strip<A0>::type
             , typename meta::strip<A1>::type
-            >::type const& type;
+            >::type type;
     };
 
     template<class A1, class Dummy>

@@ -14,8 +14,7 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/meta/lambda_terminal.hpp>
 #include <boost/simd/sdk/dsl/is_assignment_expression.hpp>
-
-namespace nt2 { namespace tag { struct box_; } }
+#include <nt2/dsl/functions/terminal.hpp>
 
 namespace nt2 { namespace container
 {
@@ -26,7 +25,8 @@ namespace nt2 { namespace container
   //  - the _ operator
   //  - the as_<> helper
   //  - the box helper
-  //  - any oerations except for low-level ones and assignment
+  //  - the dereference terminal
+  //  - any operations except for low-level ones and assignment
   //============================================================================
   struct  grammar
         : boost::proto
@@ -37,6 +37,9 @@ namespace nt2 { namespace container
                 , boost::proto::terminal<colon_>
                 , boost::proto::terminal< meta::as_<boost::proto::_> >
                 , boost::proto::nullary_expr<tag::box_, boost::proto::_>
+                , boost::proto::nullary_expr< boost::proto::tag::dereference
+                                            , boost::proto::_
+                                            >
                 , boost::proto::
                   and_< boost::proto::
                         nary_expr < boost::proto::_

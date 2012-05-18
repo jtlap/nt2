@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_SCALAR_LOG_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_SCALAR_LOG_HPP_INCLUDED
-// #include <nt2/include/functions/log.hpp>
+// #include <nt2/toolbox/exponential/functions/log.hpp>
+#include <nt2/include/functions/log.hpp>
 // #include <nt2/include/functions/arg.hpp>
 // #include <nt2/include/functions/abs.hpp>
 // #include <boost/dispatch/meta/as_floating.hpp>

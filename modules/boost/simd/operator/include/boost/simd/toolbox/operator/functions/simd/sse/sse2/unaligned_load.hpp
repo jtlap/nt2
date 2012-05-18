@@ -13,6 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // unaligned_load for SSE2 SIMD types
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>

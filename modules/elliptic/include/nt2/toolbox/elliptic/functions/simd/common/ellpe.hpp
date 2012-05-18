@@ -8,15 +8,16 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPE_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellpe.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

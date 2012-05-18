@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_INVALID_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_INVALID_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_invalid.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/simd/is_nan.hpp>
 //TODO alias of is_not_finite
 
 namespace boost { namespace simd { namespace ext

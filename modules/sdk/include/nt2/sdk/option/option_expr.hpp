@@ -16,7 +16,6 @@
 #include <nt2/sdk/option/option_pack.hpp>
 
 #include <boost/proto/core.hpp>
-#include <nt2/sdk/error/static_assert.hpp>
 
 namespace nt2 { namespace details
 {
@@ -52,15 +51,15 @@ namespace nt2 { namespace details
     typename result<option_expr const(Option const)>::type
     operator()(Option const &opt) const
     {
-      NT2_STATIC_ASSERT ( (boost::proto::matches<Option const,option_term>::value)
-                        , UNKNOWN_NAMED_OPTIONS
-                        , "Trying to retrieve unknown named option."
-                        );
+      BOOST_MPL_ASSERT_MSG( (boost::proto::matches<Option const,option_term>::value)
+                          , UNKNOWN_NAMED_OPTIONS
+                          , (Option)
+                          );
 
-      NT2_STATIC_ASSERT ( (has_option<Option const>::value)
-                        , NO_SUCH_OPTION_IN_CURRENT_OPTIONS_PACK
-                        , "Named option is not used in this options pack."
-                        );
+      BOOST_MPL_ASSERT_MSG( (has_option<Option const>::value)
+                          , NO_SUCH_OPTION_IN_CURRENT_OPTIONS_PACK
+                          , (Option)
+                          );
 
       return option_pack()(*this, opt);
     }
@@ -69,10 +68,10 @@ namespace nt2 { namespace details
       typename result<option_expr const(Option const, Default const)>::type
       operator()(Option const &opt, Default const &def) const
       {
-      NT2_STATIC_ASSERT ( (boost::proto::matches<Option const,option_term>::value)
-                        , UNKNOWN_NAMED_OPTIONS
-                        , "Trying to retrieve unknown named option."
-                        );
+      BOOST_MPL_ASSERT_MSG( (boost::proto::matches<Option const,option_term>::value)
+                          , UNKNOWN_NAMED_OPTIONS
+                          , (Option,Default)
+                          );
 
         return this->with_default(opt, def, has_option<Option const>());
       }

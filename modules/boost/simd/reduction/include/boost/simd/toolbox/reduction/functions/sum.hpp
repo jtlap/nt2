@@ -13,6 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <boost/simd/toolbox/operator/functions/plus.hpp>
+#include <boost/simd/toolbox/constant/constants/zero.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -22,12 +24,12 @@
  * Returns the sum of the elements of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sum.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +42,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of sum
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,20 +55,23 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sum_ of functor sum 
+     * \brief Define the tag sum_ of functor sum
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct sum_ : ext::reduction_<sum_> { typedef ext::reduction_<sum_> parent; };
+    struct sum_ : ext::reduction_<sum_, tag::plus_, tag::Zero>
+    {
+      typedef ext::reduction_<sum_, tag::plus_, tag::Zero> parent;
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sum_, sum, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sum_, sum, 2)
+
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

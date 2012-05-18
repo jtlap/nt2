@@ -16,8 +16,8 @@
 #include <nt2/toolbox/arithmetic/include/functions/idivceil.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
-#include<nt2/include/functions/ceil.hpp>
-#include<nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/ceil.hpp>
+#include <nt2/include/functions/toint.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MOD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MOD_HPP_INCLUDED
-#include <boost/simd/include/functions/idivfloor.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/mod.hpp>
+#include <boost/simd/include/functions/scalar/idivfloor.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // The mod function computes the remainder of dividing x by y.  The
 // return value is x-n*y, where n is the value x / y, rounded to -inf.

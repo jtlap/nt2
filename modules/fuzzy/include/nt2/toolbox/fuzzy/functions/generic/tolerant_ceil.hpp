@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_GENERIC_TOLERANT_CEIL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_GENERIC_TOLERANT_CEIL_HPP_INCLUDED
+#include <nt2/toolbox/fuzzy/functions/tolerant_ceil.hpp>
 #include <nt2/include/functions/tolerant_floor.hpp>
 
 namespace nt2 { namespace ext

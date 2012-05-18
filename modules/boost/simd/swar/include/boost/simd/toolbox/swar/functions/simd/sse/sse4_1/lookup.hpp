@@ -9,14 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#include <boost/simd/toolbox/swar/functions/lookup.hpp>
 #include <boost/simd/toolbox/swar/functions/simd/sse/ssse3/lookup.hpp>
 // #include <boost/dispatch/meta/as_floating.hpp>
 // #include <boost/simd/sdk/meta/size.hpp>
 // #include <boost/dispatch/meta/strip.hpp>
 // #include <boost/simd/sdk/memory/aligned_type.hpp>
-// // #include <boost/simd/include/functions/at.hpp>
-// // #include <boost/simd/include/functions/load.hpp>
-// // #include <boost/simd/include/functions/store.hpp>
+// // #include <boost/simd/include/functions/simd/at.hpp>
+// // #include <boost/simd/include/functions/simd/load.hpp>
+// // #include <boost/simd/include/functions/simd/store.hpp>
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is arithmetic_
 // /////////////////////////////////////////////////////////////////////////////

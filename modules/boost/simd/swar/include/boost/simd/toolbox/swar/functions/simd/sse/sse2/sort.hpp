@@ -9,11 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/swar/functions/sort.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/minimum.hpp>
-#include <boost/simd/include/functions/maximum.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/minimum.hpp>
+#include <boost/simd/include/functions/simd/maximum.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #define BOOST_SIMD_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 #define BOOST_SIMD_CAST(T, a)   simd::bitwise_cast<T>(a)()
 /////////////////////////////////////////////////////////////////////////////

@@ -8,19 +8,19 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/fast_frexp.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/if_else_zero.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/fast_frexp.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 
 namespace nt2
 {

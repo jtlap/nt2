@@ -9,14 +9,15 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSSE3_ABS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSSE3_ABS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
+#include <boost/simd/toolbox/arithmetic/functions/abs.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/is_lez.hpp>
-#include <boost/simd/include/functions/bitwise_notand.hpp>
-#include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/is_lez.hpp>
+#include <boost/simd/include/functions/simd/bitwise_notand.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

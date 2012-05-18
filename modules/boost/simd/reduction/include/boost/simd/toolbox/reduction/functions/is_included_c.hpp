@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag is_included_c_ of functor is_included_c 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct is_included_c_ : ext::reduction_<is_included_c_> { typedef ext::reduction_<is_included_c_> parent; };
+    struct is_included_c_ : ext::unspecified_<is_included_c_> { typedef ext::unspecified_<is_included_c_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, is_included_c, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, testz, 2)

@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_MAXIMUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SPLATTED_MAXIMUM_HPP_INCLUDED
+#include <boost/simd/toolbox/swar/functions/splatted_maximum.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
-#include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/include/functions/maximum.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/maximum.hpp>
 
 
 

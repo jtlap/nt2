@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SECANT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SECANT_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/secant.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/cosine.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/scalar/cosine.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

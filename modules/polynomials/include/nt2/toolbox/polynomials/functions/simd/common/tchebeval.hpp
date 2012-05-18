@@ -10,12 +10,12 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_SIMD_COMMON_TCHEBEVAL_HPP_INCLUDED
 
 #include <nt2/toolbox/polynomials/functions/tchebeval.hpp>
-#include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/unary_minus.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/simd/average.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/unary_minus.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 

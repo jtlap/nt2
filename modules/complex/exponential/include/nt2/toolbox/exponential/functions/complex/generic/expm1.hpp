@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/expm1.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/constants/mtwo.hpp>
 #include <nt2/include/constants/one.hpp>

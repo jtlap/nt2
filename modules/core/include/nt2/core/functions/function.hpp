@@ -14,12 +14,27 @@
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
-namespace nt2 
-{ 
-  namespace tag { struct function_ : ext::elementwise_<function_> { typedef ext::elementwise_<function_> parent; }; }
-  
-  #define M0(z, n, t) NT2_FUNCTION_IMPLEMENTATION(nt2::tag::function_, function, n)
-  BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
+namespace nt2
+{
+  namespace tag
+  {
+    struct function_ : ext::elementwise_<function_>
+    {
+      typedef ext::elementwise_<function_> parent;
+    };
+  }
+
+  //============================================================================
+  // Generate all calls from function(lhs) to function(lhs, i0, ..., in)
+  // with both const and non const lhs variant
+  //============================================================================
+  #define M0(z, n, t)                                                 \
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::function_, function, n)       \
+  NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::function_, function, n)  \
+  /**/
+
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
+
   #undef M0
 }
 
@@ -30,6 +45,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef nt2::tag::function_ type;
   };
+
   template<>
   struct proto_tag<nt2::tag::function_>
   {

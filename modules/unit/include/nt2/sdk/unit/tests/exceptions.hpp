@@ -29,14 +29,15 @@
 #define NT2_TEST_THROW(X,E)                                             \
   do {                                                                  \
     ::nt2::details::test_count()++;                                     \
-    bool catched = false;                                               \
+    bool caught = false;                                                \
     try             { X; }                                              \
     catch( E& ex )  {                                                   \
       ::boost::dispatch::ignore_unused(ex);                             \
-      ::nt2::details::pass(#X); catched = true;                         \
+      ::nt2::details::pass(#X " throws " #E);                           \
+      caught = true;                                                    \
     }                                                                   \
     catch(...)      {}                                                  \
-    if(!catched) ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION); \
+    if(!caught) ::nt2::details::fail(#X " throws " #E, __LINE__, BOOST_CURRENT_FUNCTION); \
   } while(0)                                                            \
 /**/
 
@@ -65,10 +66,11 @@ do {                                                            \
   try { X; }                                                    \
   catch(...)                                                    \
   {                                                             \
-    ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION); \
+    ::nt2::details::fail(#X " does not throw", __LINE__, BOOST_CURRENT_FUNCTION); \
     nt2_test_no_throw = false;                                  \
   }                                                             \
-  if(nt2_test_no_throw) ::nt2::details::pass(#X);               \
+  if(nt2_test_no_throw)                                         \
+    ::nt2::details::pass(#X " does not throw");                 \
 } while(0)                                                      \
 /**/
 
@@ -88,11 +90,12 @@ do {                                                            \
   try { X; }                                                    \
   catch(E& e)                                                   \
   {                                                             \
-    ::nt2::details::fail(#X, __LINE__, BOOST_CURRENT_FUNCTION); \
+    ::nt2::details::fail(#X " does not throw " #E, __LINE__, BOOST_CURRENT_FUNCTION); \
     nt2_test_no_throw = false;                                  \
   }                                                             \
   catch(...) {}                                                 \
-  if(nt2_test_no_throw) ::nt2::details::pass(#X);               \
+  if(nt2_test_no_throw)                                         \
+    ::nt2::details::pass(#X " does not throw " #E);             \
 } while(0)                                                      \
 /**/
 

@@ -11,8 +11,8 @@
 
 #include <nt2/toolbox/trigonometric/functions/fast_tanpi.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/include/functions/genmask.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/genmask.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext

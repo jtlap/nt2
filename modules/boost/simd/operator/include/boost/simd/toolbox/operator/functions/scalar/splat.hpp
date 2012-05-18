@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_SPLAT_HPP_INCLUDED
+#include <boost/simd/toolbox/operator/functions/splat.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 

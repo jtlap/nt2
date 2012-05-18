@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSC_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSC_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/csc.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>

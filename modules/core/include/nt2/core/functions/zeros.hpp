@@ -9,14 +9,16 @@
 #ifndef NT2_CORE_FUNCTIONS_ZEROS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ZEROS_HPP_INCLUDED
 
-#include <nt2/sdk/parameters.hpp>
-#include <nt2/include/functor.hpp>
-#include <nt2/include/constants/zero.hpp>
+#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <boost/preprocessor/arithmetic/inc.hpp>
-#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/functor.hpp>
+
+#include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
 
 namespace nt2
 {

@@ -9,9 +9,10 @@
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ACSCH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ACSCH_HPP_INCLUDED
 
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/asinh.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/toolbox/hyperbolic/functions/acsch.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/asinh.hpp>
+#include <nt2/include/functions/scalar/bitofsign.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

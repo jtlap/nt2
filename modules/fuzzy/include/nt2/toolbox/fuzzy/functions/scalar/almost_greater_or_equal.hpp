@@ -8,15 +8,16 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_ALMOST_GREATER_OR_EQUAL_HPP_INCLUDED
-#include <nt2/include/functions/predecessor.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/subs.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/toolbox/fuzzy/functions/almost_greater_or_equal.hpp>
+#include <nt2/include/functions/scalar/predecessor.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/subs.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/scalar/logical_or.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

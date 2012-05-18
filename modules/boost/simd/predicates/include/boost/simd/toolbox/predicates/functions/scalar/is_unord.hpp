@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_UNORD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_UNORD_HPP_INCLUDED
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
+#include <boost/simd/toolbox/predicates/functions/is_unord.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 

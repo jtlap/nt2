@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_REAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_REAL_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_not_real.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/false.hpp>
 

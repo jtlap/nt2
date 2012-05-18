@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_LAST_INDEX_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_LAST_INDEX_HPP_INCLUDED
 
+#include <nt2/core/functions/last_index.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <nt2/core/container/category.hpp>
@@ -29,7 +30,7 @@ namespace nt2 { namespace ext
     {
       typedef typename boost::mpl::
               at_c< typename A0::index_type::type, A1::value-1>::type base;
-      return (base::value-1) + nt2::size(a0,A1::value);
+      return (base::value-1) + result_type(nt2::size(a0,A1::value));
     }
   };
 } }

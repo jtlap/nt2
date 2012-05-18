@@ -8,35 +8,34 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_OPENMP_TRANSFORM_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_OPENMP_TRANSFORM_HPP_INCLUDED
-#ifdef _OPENMP
+#if defined(_OPENMP) && _OPENMP >= 200203 /* OpenMP 2.0 */
 
 #include <nt2/core/functions/transform.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/sdk/openmp/openmp.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/fusion/include/at.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
-#include <nt2/core/utility/position/alignment.hpp>
 #include <cstddef>
+#include <nt2/include/functions/run.hpp>
+#include <nt2/sdk/config/cache.hpp>
+#include <nt2/sdk/openmp/openmp.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/fusion/include/at.hpp>
 
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
 #endif
 
 #ifndef BOOST_SIMD_NO_SIMD
+//==============================================================================
+// openMP + SIMD
+//==============================================================================
 namespace nt2 { namespace ext
 {
+  //============================================================================
   // nD element-wise operation
+  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, nt2::tag::openmp_<Site>
-                            , (A0)(A1)(S1)(T1)(N1)(Site)
+                            , (A0)(A1)(Site)
                             , (ast_<A0>)
-                              ((expr_< table_< unspecified_<A1>, S1 >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
+                              (ast_<A1>)
                             )
   {
     typedef void                                            result_type;
@@ -52,56 +51,64 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+      static const std::size_t N  = target_type::static_size;
+      const std::size_t in_sz     = boost::fusion::at_c<0>(a0.extent());
+      const std::size_t in_sz_bnd = (in_sz/N)*N;
+      const std::size_t outer_sz  = nt2::numel(boost::fusion::pop_front(a0.extent()));
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
-      typename A0::index_type::type bs;
-      #pragma omp parallel
+      // - loop nest is 2D so we can walk over the scalar epilogue of each row.
+      #pragma omp parallel for schedule(static)
+      for(std::size_t j=0; j<outer_sz; ++j)
       {
-        std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
-        std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-        std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
-        std::ptrdiff_t ibound = ilow + boost::fusion::at_c<0>(a0.extent())/N*N;
-        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
-
-        #pragma omp for
-        for(std::ptrdiff_t j=olow; j<obound; ++j)
+        std::size_t it = j*in_sz;
+#ifndef BOOST_NO_EXCEPTIONS
+        try
         {
-#ifndef BOOST_NO_EXCEPTIONS
-          try
-          {
 #endif
-            for(std::ptrdiff_t i=ilow; i<ibound; i+=N)
-              nt2::run(a0, as_aligned(boost::fusion::vector_tie(i,j)), nt2::run(a1, as_aligned(boost::fusion::vector_tie(i,j)), meta::as_<target_type>()));
+          // Process all vectorizable chunks
+          for(std::size_t m=it+in_sz_bnd; it != m; it+=N)
+            nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()));
 
-            for(std::ptrdiff_t i=ibound; i<bound; ++i)
-              nt2::run(a0, boost::fusion::vector_tie(i,j), nt2::run(a1, boost::fusion::vector_tie(i,j), meta::as_<stype>()));
+          // Process the scalar epilogue
+          for(std::size_t m=it+in_sz-in_sz_bnd; it != m; ++it)
+            nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()));
+
 #ifndef BOOST_NO_EXCEPTIONS
-          }
-          catch(...)
-          {
-            exception = boost::current_exception();
-          }
-#endif
         }
+        catch(...)
+        {
+          // Save the exception for later rethrow so we don't mess up openMP
+          exception = boost::current_exception();
+        }
+#endif
       }
 #ifndef BOOST_NO_EXCEPTIONS
+      // Rethrow any exception we may have caught in the parallel loop nest
       if(exception)
         boost::rethrow_exception(exception);
 #endif
     }
   };
 
+  //============================================================================
   // 1D element-wise operation
+  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::transform_, nt2::tag::openmp_<Site>
-                            , (class A0)(class A1)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T1)(class N1)
+                            , (class A0)
+                              (class A1)(class T1)(class N1)
+                              (class Shape)(class StorageKind)(std::ptrdiff_t Sz)
                               (class Site)
                             , (ast_<A0>)
-                              ((expr_< table_< unspecified_<A1>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind) >
-                                     , T1
-                                     , N1
+                              ((expr_< table_ < unspecified_<A1>
+                                              , nt2::settings ( nt2::of_size_<Sz>
+                                                              , Shape
+                                                              , StorageKind
+                                                              )
+                                              >
+                                     , T1, N1
                                      >
                               ))
                             )
@@ -119,28 +126,27 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-
-      typename A0::index_type::type bs;
-      std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
-      std::ptrdiff_t aligned_bound  = low + boost::fusion::at_c<0>(a0.extent())/N*N;
+      static const std::size_t N = target_type::static_size;
+      std::size_t bound = boost::fusion::at_c<0>(a0.extent());
+      std::size_t aligned_bound  = (bound/N)*N;
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
-      #pragma omp parallel for
-      for(std::ptrdiff_t i=low; i<aligned_bound; i+=N)
+      // - 1D loop nest stops just before the scalar epilogue
+      #pragma omp parallel for schedule(static)
+      for(std::size_t i=0; i<aligned_bound; i+=N)
       {
 #ifndef BOOST_NO_EXCEPTIONS
         try
         {
 #endif
-          nt2::run(a0, as_aligned(boost::fusion::vector_tie(i)), nt2::run(a1, as_aligned(boost::fusion::vector_tie(i)), meta::as_<target_type>()));
+          nt2::run(a0, i, nt2::run(a1, i, meta::as_<target_type>()));
 #ifndef BOOST_NO_EXCEPTIONS
         }
         catch(...)
         {
+          // Store exception for late rethrow
           exception = boost::current_exception();
         }
 #endif
@@ -150,24 +156,25 @@ namespace nt2 { namespace ext
         boost::rethrow_exception(exception);
 #endif
 
-      for(std::ptrdiff_t i=aligned_bound; i<bound; ++i)
-        nt2::run(a0, boost::fusion::vector_tie(i), nt2::run(a1, boost::fusion::vector_tie(i), meta::as_<stype>()));
+      // Process the scalar epilogue
+      for(std::size_t i=aligned_bound; i!=bound; ++i)
+        nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
     }
   };
-
 } }
 #else
+//==============================================================================
+// openMP + no SIMD
+//==============================================================================
 namespace nt2 { namespace ext
 {
-  // nD element-wise operation
+  //============================================================================
+  // Element-wise operation
+  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, nt2::tag::openmp_<Site>
-                            , (A0)(A1)(S1)(T1)(N1)(Site)
+                            , (A0)(A1)(Site)
                             , (ast_<A0>)
-                              ((expr_< table_< unspecified_<A1>, S1 >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
+                              (ast_<A1>)
                             )
   {
     typedef void                                            result_type;
@@ -180,83 +187,23 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      typename A0::index_type::type bs;
+      std::size_t bound       = boost::fusion::at_c<0>(a0.extent());
+      const std::size_t chunk = config::shared_cache_line_size()/sizeof(target_type);
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
-      #pragma omp parallel
-      {
-        std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
-        std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-        std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
-        std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
-
-        #pragma omp for
-        for(std::ptrdiff_t j=olow; j<obound; ++j)
-        {
-          for(std::ptrdiff_t i=ilow; i<bound; ++i)
-          {
-#ifndef BOOST_NO_EXCEPTIONS
-            try
-            {
-#endif
-              nt2::run(a0, boost::fusion::vector_tie(i,j), nt2::run(a1, boost::fusion::vector_tie(i,j), meta::as_<target_type>()));
-#ifndef BOOST_NO_EXCEPTIONS
-            }
-            catch(...)
-            {
-              exception = boost::current_exception();
-            }
-#endif
-          }
-        }
-      }
-#ifndef BOOST_NO_EXCEPTIONS
-      if(exception)
-        boost::rethrow_exception(exception);
-#endif
-    }
-  };
-
-  // 1D element-wise operation
-  NT2_FUNCTOR_IMPLEMENTATION_TPL( nt2::tag::run_, nt2::tag::openmp_<Site>
-                            , (class A0)(class A1)(class Shape)(class StorageKind)(std::ptrdiff_t Sz)(class T1)(class N1)
-                              (class Site)
-                            , (ast_<A0>)
-                              ((expr_< table_< unspecified_<A1>, nt2::settings(nt2::of_size_<Sz>, Shape, StorageKind) >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
-                            )
-  {
-    typedef void                                            result_type;
-
-    typedef typename meta::
-            strip< typename meta::
-                   scalar_of<A0>::type
-                 >::type                                    target_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1& a1) const
-    {
-      typename A0::index_type::type bs;
-      std::ptrdiff_t low   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent()) + low;
-
-#ifndef BOOST_NO_EXCEPTIONS
-      boost::exception_ptr exception;
-#endif
-
-      #pragma omp parallel for
-      for(std::ptrdiff_t i=low; i<bound; ++i)
+      // - 1D loop nest as no epilogue or special cases occur
+      // - static schedule is set on using cache line sized chunks to limit
+      // effects of false sharing.
+      #pragma omp parallel for schedule(static,chunk)
+      for(std::size_t i=0; i<bound; ++i)
       {
 #ifndef BOOST_NO_EXCEPTIONS
         try
         {
 #endif
-          nt2::run(a0, boost::fusion::vector_tie(i), nt2::run(a1, boost::fusion::vector_tie(i), meta::as_<target_type>()));
+          nt2::run(a0, i, nt2::run(a1, i, meta::as_<target_type>()));
 #ifndef BOOST_NO_EXCEPTIONS
         }
         catch(...)
@@ -271,7 +218,6 @@ namespace nt2 { namespace ext
 #endif
     }
   };
-
 } }
 #endif
 

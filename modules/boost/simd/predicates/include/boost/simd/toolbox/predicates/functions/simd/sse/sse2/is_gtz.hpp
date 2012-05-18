@@ -11,9 +11,9 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/predicates/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/logical_and.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/is_gez.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

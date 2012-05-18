@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ONEMINUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ONEMINUS_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/oneminus.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/min.hpp>
+#include <boost/simd/include/functions/scalar/min.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

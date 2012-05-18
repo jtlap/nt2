@@ -56,17 +56,25 @@
  *  
 **/
 
-namespace boost { namespace simd { namespace tag
-  {         
+namespace boost { namespace simd
+{
+  namespace tag
+  {
+    struct logical_or_;
+    struct False;
+
     /*!
      * \brief Define the tag any_ of functor any 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct any_ : ext::reduction_<any_> { typedef ext::reduction_<any_> parent; };
+    struct any_ : ext::reduction_<any_, tag::logical_or_, tag::False> 
+    { 
+      typedef ext::reduction_<any_, tag::logical_or_, tag::False> parent; 
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 2)
 } }
 
-#endif
 
-// modified by jt the 25/12/2010
+#endif

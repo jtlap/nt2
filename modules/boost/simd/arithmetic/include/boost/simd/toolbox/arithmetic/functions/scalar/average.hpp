@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_AVERAGE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_AVERAGE_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/average.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/functions/shrai.hpp>
+#include <boost/simd/include/functions/scalar/shrai.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

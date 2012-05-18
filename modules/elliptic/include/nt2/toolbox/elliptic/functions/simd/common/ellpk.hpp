@@ -8,14 +8,15 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPK_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLPK_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellpk.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is double
 /////////////////////////////////////////////////////////////////////////////

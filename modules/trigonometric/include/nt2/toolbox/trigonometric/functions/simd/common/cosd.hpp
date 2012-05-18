@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_COSD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_COSD_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/cosd.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
@@ -15,7 +16,7 @@
 //  MIGRATION WARNING you have to provide the file for the previous include from
 //  nt2/core/numeric/functions/details/simd/common/impl/trigo.hpp
 //  of the old nt2
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 
 

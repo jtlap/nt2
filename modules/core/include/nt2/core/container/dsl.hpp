@@ -18,5 +18,8 @@
 #include <nt2/core/container/dsl/domain.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/include/functions/terminal.hpp>
+#include <nt2/include/functions/evaluate.hpp>
+#include <nt2/include/functions/function.hpp>
+#include <nt2/include/functions/extent.hpp>
 
 #endif

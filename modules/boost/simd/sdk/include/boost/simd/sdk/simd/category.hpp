@@ -33,7 +33,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef unspecified_<T> parent;
   };
   
-  template<class T>
+  template<class T, class Op, class Neutral>
   struct reduction_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;

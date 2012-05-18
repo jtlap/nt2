@@ -8,16 +8,16 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/bitwise_xor.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>

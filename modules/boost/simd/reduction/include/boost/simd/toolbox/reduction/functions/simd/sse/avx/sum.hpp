@@ -11,8 +11,8 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/reduction/functions/sum.hpp>
-#include <boost/simd/include/functions/sum.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/simd/sum.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type  is arithmetic_

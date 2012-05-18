@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_IF_ZERO_ELSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SCALAR_IF_ZERO_ELSE_HPP_INCLUDED
+#include <boost/simd/toolbox/boolean/functions/if_zero_else.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 

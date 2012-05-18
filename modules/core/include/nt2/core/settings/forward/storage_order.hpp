@@ -9,24 +9,17 @@
 #ifndef NT2_CORE_SETTINGS_FORWARD_STORAGE_ORDER_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_FORWARD_STORAGE_ORDER_HPP_INCLUDED
 
-#include <boost/mpl/apply.hpp>
+#include <boost/mpl/size_t.hpp>
 
-namespace nt2 
-{ 
-
+namespace nt2
+{
   //============================================================================
-   /*! Specify the SO meta-function as the current container storage order 
-    *  permutation.
-   **/
+  /**!
+   * Specify the SO meta-function as the current container storage order
+   * permutation.
+  **/
   //============================================================================
-
-  template <class SO>
-  struct storage_order_
-  {
-    template <typename S, typename D>
-    struct apply : boost::mpl::apply<SO,S,D> 
-    {};
-  };
+  template <class SO> struct storage_order_ : SO {};
 
   namespace details
   {
@@ -34,14 +27,13 @@ namespace nt2
     {
       struct matlab_storage_
       {
-        template <typename S, typename D>
-        struct apply : boost::mpl::int_<S::value - 1 - D::value>  {};
+        template<class S, class D> struct apply : D {};
       };
-    
+
       struct C_storage_
       {
-        template <typename S, typename D>
-        struct apply : D  {};
+        template<class S, class D>
+        struct apply : boost::mpl::size_t<S::value - 1 - D::value> {};
       };
     }
 
@@ -55,14 +47,15 @@ namespace nt2
   //==========================================================================
   typedef storage_order_<details::matlab_storage_>  matlab_order_;
   typedef storage_order_<details::matlab_storage_>  fortran_order_;
+  typedef storage_order_<details::matlab_storage_>  column_major_;
 
   //==========================================================================
-  /*! Predefined settings for C style (row major) storage order.
-  **/
+  /**!
+   * Predefined settings for C style (row major) storage order.
+   **/
   //==========================================================================
   typedef storage_order_<details::C_storage_>       C_order_;
-
-
+  typedef storage_order_<details::C_storage_>       row_major_;
 
   namespace tag
   {
@@ -73,10 +66,6 @@ namespace nt2
     //==========================================================================
     struct storage_order_ {};
   }
-
-
-
 }
-
 
 #endif

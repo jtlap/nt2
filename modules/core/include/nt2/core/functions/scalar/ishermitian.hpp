@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_ISHERMITIAN_HPP_INCLUDED
 
 #include <nt2/core/functions/ishermitian.hpp>
-#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/scalar/is_real.hpp>
 
 namespace nt2 { namespace ext
 {

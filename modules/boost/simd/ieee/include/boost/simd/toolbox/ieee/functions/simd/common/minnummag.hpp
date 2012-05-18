@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MINNUMMAG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MINNUMMAG_HPP_INCLUDED
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
-#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/toolbox/ieee/functions/minnummag.hpp>
+#include <boost/simd/include/functions/simd/min.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/is_nan.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

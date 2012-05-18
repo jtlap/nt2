@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_ENUMERATE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/swar/functions/enumerate.hpp>
-
+#include <boost/simd/include/constants/zero.hpp>
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
@@ -24,6 +24,18 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const& a0, T const& ) const
     {
       return static_cast<result_type>(a0);
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+                                      , (T)
+                                      , (target_< scalar_< arithmetic_<T> > >)
+                                    )
+  {
+    typedef typename T::type result_type;
+
+    result_type operator()(T const& ) const
+    {
+      return Zero<result_type>();
     }
   };
 } } }

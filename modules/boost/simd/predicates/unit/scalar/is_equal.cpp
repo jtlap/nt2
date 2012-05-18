@@ -78,3 +78,31 @@ NT2_TEST_CASE_TPL ( is_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_equal(boost::simd::One<T>(),boost::simd::Zero<T>()), r_t(false));
   NT2_TEST_EQUAL(is_equal(boost::simd::Zero<T>(), boost::simd::Zero<T>()), r_t(true));
 } // end of test for floating_
+
+NT2_TEST_CASE_TPL ( is_equall,  BOOST_SIMD_SIMD_TYPES)
+{
+  
+  using boost::simd::is_equal;
+  using boost::simd::tag::is_equal_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<is_equal_(T,T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef boost::simd::logical<T> wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+
+
+  // specific values tests
+
+  NT2_TEST_EQUAL(is_equal(boost::simd::True<T>(), boost::simd::True<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_equal(boost::simd::False<T>(), boost::simd::False<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_equal(boost::simd::True<T>(), boost::simd::False<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_equal(boost::simd::False<T>(), boost::simd::True<T>()), r_t(false));
+} 

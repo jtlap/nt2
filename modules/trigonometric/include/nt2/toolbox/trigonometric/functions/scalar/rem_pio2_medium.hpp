@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_MEDIUM_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_MEDIUM_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/rem_pio2_medium.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/include/functions/round2even.hpp>
-#include <nt2/include/functions/fast_toint.hpp>
+#include <nt2/include/functions/scalar/round2even.hpp>
+#include <nt2/include/functions/scalar/fast_toint.hpp>
 #include <boost/fusion/tuple.hpp>
 
 namespace nt2 { namespace ext

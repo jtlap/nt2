@@ -10,11 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_SHRI_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/shri.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/map.hpp>
-#include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/include/functions/shift_right.hpp>
-#include <boost/simd/include/functions/splat.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/map.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/shift_right.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type ntype;
-      return bitwise_cast<A0>( map( dispatch::functor<tag::shift_right_>()
+      return bitwise_cast<A0>( map( typename dispatch::make_functor<tag::shift_right_, A0>::type()
                                        , simd::bitwise_cast<ntype>(a0)
                                        , splat<ntype>(a1)
                                        )

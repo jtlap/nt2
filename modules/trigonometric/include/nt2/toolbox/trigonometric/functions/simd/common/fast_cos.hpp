@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_COS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_COS_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/fast_cos.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/include/functions/if_else_zero.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

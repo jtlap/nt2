@@ -8,22 +8,23 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_Y1_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_Y1_HPP_INCLUDED
+#include <nt2/toolbox/bessel/functions/y1.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/j1.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/any.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/j1.hpp>
+#include <nt2/include/functions/simd/sin.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
 
 
 

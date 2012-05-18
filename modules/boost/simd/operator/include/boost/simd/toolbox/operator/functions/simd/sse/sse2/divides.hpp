@@ -11,9 +11,9 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/divides.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/logical_and.hpp>
-#include <boost/simd/include/functions/if_allbits_else.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 

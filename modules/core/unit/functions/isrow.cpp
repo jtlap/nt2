@@ -24,6 +24,12 @@ NT2_TEST_CASE( fundamental_isrow )
 
 NT2_TEST_CASE( container_isrow )
 {
+  NT2_TEST( !nt2::isrow( nt2::ones(0))       );
+  NT2_TEST( nt2::isrow( nt2::ones(1,0))      );
+  NT2_TEST( !nt2::isrow( nt2::ones(2,0,2))   );
+  NT2_TEST( !nt2::isrow( nt2::ones(3,3,0,1)) );
+  NT2_TEST( nt2::isrow( nt2::ones(1,0,1,1)) );
+
   NT2_TEST( nt2::isrow( nt2::ones(1))       );
   NT2_TEST( nt2::isrow( nt2::ones(1,3))     );
   NT2_TEST( nt2::isrow( nt2::ones(1,3,1))   );

@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_MINUS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
+#include <boost/simd/toolbox/operator/functions/minus.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 

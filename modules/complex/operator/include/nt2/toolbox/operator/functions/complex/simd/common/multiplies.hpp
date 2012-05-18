@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
+#include <nt2/toolbox/operator/functions/multiplies.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
@@ -47,7 +48,7 @@
 //         rA0 x = a0a1r - a0a1i; 
 //         rA0 y = (real(a0) + imag(a0)) * (real(a1) + imag(a1)) - a0a1r - a0a1i; 
 //         result_type r = result_type(x, y); 
-//         if (any(logical_or(is_invalid(x), is_invalid(y))))
+//         if (nt2::any(logical_or(is_invalid(x), is_invalid(y))))
 //           {
 //             lA0 test = is_real(a0); 
 //             r = if_else(test, nt2::multiplies(real(a0), a1), r);
@@ -75,7 +76,7 @@
 //                                     if_zero_else(is_real(a1), a0*imag(a1)));
 //         typedef typename meta::as_logical<A0>::type ltype;
 //         ltype z = is_eqz(a1); 
-//         if (any(z))
+//         if (nt2::any(z))
 //           r = if_else(z, result_type(a0*real(a1)), r);
 //         return r;    
 //       }
@@ -93,7 +94,7 @@
 //                                     if_zero_else(is_real(a0), imag(a0)*a1));
 //         typedef typename meta::as_logical<A1>::type ltype;
 //         ltype z = is_eqz(a0); 
-//         if (any(z))
+//         if (nt2::any(z))
 //           r = if_else(z, result_type(a1*real(a0)), r);
 //         return r; 
 //       }
@@ -113,7 +114,7 @@
 //         typedef typename meta::as_real<A1>::type rtype;
 //         typedef typename meta::as_logical<rtype>::type ltype;
 //         ltype z = is_eqz(a1); 
-//         if(any(z))
+//         if(nt2::any(z))
 //           r = if_else(z, result_type(real(a1), imag(a0)*imag(a1)), r);
 //         return r; 
 //       }
@@ -132,7 +133,7 @@
 //         typedef typename meta::as_real<A1>::type rtype;
 //         typedef typename meta::as_logical<rtype>::type ltype;
 //         ltype z = is_eqz(a0); 
-//         if(any(z))
+//         if(nt2::any(z))
 //           {
 //             result_type tmp = result_type(real(a0), multiplies(imag(a0), imag(a1))); 
 //             r = if_else(z, tmp, r);

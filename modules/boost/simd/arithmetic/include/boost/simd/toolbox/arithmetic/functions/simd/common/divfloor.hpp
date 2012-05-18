@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVFLOOR_HPP_INCLUDED
-#include <boost/simd/include/functions/divceil.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/divfloor.hpp>
+#include <boost/simd/include/functions/simd/divceil.hpp>
 #include <boost/simd/include/functions/rdivide.hpp>
-#include <boost/simd/include/functions/floor.hpp>
+#include <boost/simd/include/functions/simd/floor.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

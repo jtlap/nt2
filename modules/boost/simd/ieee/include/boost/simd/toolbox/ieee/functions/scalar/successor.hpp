@@ -10,10 +10,10 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SUCCESSOR_HPP_INCLUDED
 
 #include <boost/simd/toolbox/ieee/functions/successor.hpp>
-#include <boost/simd/include/functions/oneplus.hpp>
-#include <boost/simd/include/functions/bitinteger.hpp>
-#include <boost/simd/include/functions/bitfloating.hpp>
-#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/scalar/oneplus.hpp>
+#include <boost/simd/include/functions/scalar/bitinteger.hpp>
+#include <boost/simd/include/functions/scalar/bitfloating.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

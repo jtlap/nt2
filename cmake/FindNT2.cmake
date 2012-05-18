@@ -31,6 +31,7 @@
 # - NT2_LINK_FLAGS                  flags that must be passed to the linker to use all the requested components
 # - NT2_FOUND_COMPONENTS            list of all NT2 modules that have been found
 # - NT2_MODULE_PATH                 list of directories containing NT2 CMake modules
+# - NT2_USE_FILE                    file to include to use everything that has been found
 #
 # Additionally, the script also adds all the NT2-specific CMake modules to the CMAKE_MODULE_PATH.
 #
@@ -131,15 +132,14 @@ endmacro()
 macro(nt2_find_module_dependencies _COMPONENT)
 
   string(TOUPPER ${_COMPONENT} _COMPONENT_U)
-  
-  if(NT2_MODULES_BLACKLIST)
-    list(FIND NT2_MODULES_BLACKLIST ${_COMPONENT} _COMPONENT_INDEX)
-    if(NOT _COMPONENT_INDEX EQUAL -1)
+
+  foreach(bl ${NT2_MODULES_BLACKLIST})
+    if(${_COMPONENT} MATCHES "^${bl}($|\\.)")
       nt2_find_log("${_COMPONENT} is blacklisted, skipping")
       return()
     endif()
-  endif()
-  
+  endforeach()
+
   string(REPLACE "." "/" _COMPONENT_PATH ${_COMPONENT})
   # Search for module source
   if(NOT NT2_${_COMPONENT_U}_ROOT)
@@ -359,12 +359,13 @@ function(nt2_find_module COMPONENT)
       # Configure/build if source
       if(NT2_${EXTRA_COMPONENT_U}_ROOT)
         nt2_find_module_path_push()
+        string(REPLACE "." "/" EXTRA_COMPONENT_PATH ${EXTRA_COMPONENT})
         if(IS_DIRECTORY ${NT2_${EXTRA_COMPONENT_U}_ROOT}/src)
-          add_subdirectory(${NT2_${EXTRA_COMPONENT_U}_ROOT}/src ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
+          add_subdirectory(${NT2_${EXTRA_COMPONENT_U}_ROOT}/src ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src)
         else()
-          file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
-          file(WRITE ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src/CMakeLists.txt "include(NT2Module)\nnt2_module_source_setup(${EXTRA_COMPONENT})")
-          add_subdirectory(${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
+          file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src)
+          file(WRITE ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src/CMakeLists.txt "include(NT2Module)\nnt2_module_source_setup(${EXTRA_COMPONENT})")
+          add_subdirectory(${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src)
         endif()
         nt2_find_module_path_pop()
       endif()
@@ -562,6 +563,8 @@ function(nt2_find)
   if(NT2_FIND_REQUIRED AND NOT NT2_FOUND)
     message(FATAL_ERROR "NT2 was not found")
   endif()
+
+  find_file(NT2_USE_FILE UseNT2.cmake PATHS ${NT2_MODULE_PATH})
 
 endfunction()
 

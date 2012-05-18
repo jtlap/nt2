@@ -1,19 +1,21 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_SQRT1PM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_SQRT1PM1_HPP_INCLUDED
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/toolbox/exponential/functions/sqrt1pm1.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/is_less.hpp>
+#include <nt2/include/functions/scalar/tofloat.hpp>
 #include <nt2/include/constants/half.hpp>
 
 namespace nt2 { namespace ext
@@ -45,8 +47,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      A0 tmp = sqrt(oneplus(a0)); 
-      return lt(nt2::abs(a0), Half<A0>()) ? a0/oneplus(tmp) : minusone(tmp); 
+      A0 tmp = sqrt(oneplus(a0));
+      return lt(nt2::abs(a0), Half<A0>()) ? a0/oneplus(tmp) : minusone(tmp);
     }
   };
 } }

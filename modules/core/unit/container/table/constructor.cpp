@@ -89,104 +89,98 @@ NT2_TEST_CASE( range_ctor )
   using nt2::first_index;
   using nt2::last_index;
 
-  float data[] =  {
-                    1,2,3
-                  , 4,5,6
-                  };
+  float data[] =  { 1,2,3, 4,5,6 };
 
   table<float> x( of_size(3,2), &data[0], &data[0] + 6 );
   NT2_TEST( nt2::extent(x) == of_size(3,2) );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
-   for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
+    for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
       NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
 }
 
-struct adhoc_
-{
-  typedef boost::mpl::true_ padding_status;
-
-  template<class Sig> struct result;
-  template<class T, int N> struct result_impl;
-
-  template<class This, class T, class N, class V>
-  struct  result<This(T,N,V)> { typedef std::size_t type; };
-
-  template<class T, class N, class V>
-  typename result<adhoc_(T const&, N const&, V const&)>::type
-  operator()(T const& t, N const& n, V const& v) const
-  {
-    return eval(t,n,v,boost::mpl::bool_<N::value==0>());
-  }
-
-  template<class T, class N, class V>
-  typename result<adhoc_(T const&, N const&, V const&)>::type
-  eval(T const& t, N const&, V const&, boost::mpl::true_ const&) const
-  {
-    return 4;
-  }
-
-  template<class T, class N, class V>
-  typename result<adhoc_(T const&, N const&, V const&)>::type
-  eval(T const& t, N const&, V const&, boost::mpl::false_ const&) const
-  {
-    return t;
-  }
-};
-
-NT2_TEST_CASE( shared_ctor )
+NT2_TEST_CASE( shared_ctor_boost_array )
 {
   using nt2::table;
   using nt2::of_size;
   using nt2::shared_;
   using nt2::settings;
-  using nt2::no_padding_;
-  using nt2::padding_;
   using nt2::share;
   using nt2::first_index;
   using nt2::last_index;
 
-  float data[] =  {
-                    1,2,3,0
-                  , 4,5,6,0
-                  , 0,0,0,0
-                  , 0,0,0,0
-                  };
-  {
-    table<float, settings(shared_,no_padding_)>
-    x(of_size(4,2), share(&data[0], &data[0] + 8));
+  boost::array<float,6> data = {{ 1,2,3,4,5,6 }};
 
-    NT2_TEST( nt2::extent(x) == of_size(4,2) );
-    NT2_TEST_EQUAL( x.raw(), &data[0] );
+  table<float, settings(shared_)> x(of_size(3,2), share(data));
+
+  NT2_TEST( nt2::extent(x) == of_size(3,2) );
+  NT2_TEST_EQUAL( x.raw(), &data[0] );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
-   for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
-        NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
-  }
+    for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
+      NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
+}
 
-  {
-    table<float, settings(shared_,padding_<adhoc_>)>
-    x(of_size(3,2), share(&data[0], &data[0] + 8));
+NT2_TEST_CASE( shared_ctor_c_array )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::shared_;
+  using nt2::settings;
+  using nt2::share;
+  using nt2::first_index;
+  using nt2::last_index;
 
-    NT2_TEST( nt2::extent(x) == of_size(3,2) );
-    NT2_TEST_EQUAL( x.raw(), &data[0] );
+  float data[] =  { 1,2,3,4,5,6 };
 
-    for(int j=1;j<=2;++j)
-     for(int i=1;i<=3;++i)
-        NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*4]) ;
-  }
+  table<float, settings(shared_)> x(of_size(3,2), share(data));
 
-  {
-    float f = 1.f;
+  NT2_TEST( nt2::extent(x) == of_size(3,2) );
+  NT2_TEST_EQUAL( x.raw(), &data[0] );
 
-    table < float, settings ( shared_ , no_padding_ )
-          > x(nt2::extent(f), share(&f, &f + 1));
+  for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
+    for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
+      NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
+}
 
-    NT2_TEST( nt2::extent(x) == of_size(1) );
-    NT2_TEST_EQUAL( x.raw(), &f );
+NT2_TEST_CASE( shared_ctor_pointer )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::shared_;
+  using nt2::settings;
+  using nt2::share;
+  using nt2::first_index;
+  using nt2::last_index;
 
-    NT2_TEST_EQUAL( float(x(1,1)), 1.f );
-    x = 2.f;
-    NT2_TEST_EQUAL( float(x(1,1)), 2.f );
-  }
+  float data[] =  { 1,2,3,4,5,6 };
+
+  table<float, settings(shared_)> x(of_size(3,2), share(&data[0], &data[0] + 6));
+
+  NT2_TEST( nt2::extent(x) == of_size(3,2) );
+  NT2_TEST_EQUAL( x.raw(), &data[0] );
+
+  for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
+    for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
+      NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
+}
+
+NT2_TEST_CASE( shared_ctor_scalar )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::shared_;
+  using nt2::settings;
+  using nt2::share;
+
+  float f = 1.f;
+
+  table<float,settings(shared_)> x(nt2::extent(f), share(&f, &f + 1));
+
+  NT2_TEST( nt2::extent(x) == of_size(1) );
+  NT2_TEST_EQUAL( x.raw(), &f );
+
+  NT2_TEST_EQUAL( float(x(1,1)), 1.f );
+  x = 2.f;
+  NT2_TEST_EQUAL( float(x(1,1)), 2.f );
 }

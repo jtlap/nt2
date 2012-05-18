@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_IROUND2EVEN_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/iround2even.hpp>
-#include <boost/simd/include/functions/round2even.hpp>
-#include <boost/simd/include/functions/toint.hpp>
+#include <boost/simd/include/functions/simd/round2even.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp> 
 #include <boost/dispatch/meta/as_integer.hpp>

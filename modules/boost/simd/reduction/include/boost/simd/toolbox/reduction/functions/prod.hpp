@@ -13,6 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_PROD_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <boost/simd/toolbox/operator/functions/multiplies.hpp>
+#include <boost/simd/toolbox/constant/constants/one.hpp>
 
 /*!
  * \ingroup boost_simd_reduction
@@ -22,12 +24,12 @@
  * Returns the product of the elements of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/prod.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +42,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of prod
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,18 +55,22 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag prod_ of functor prod 
+     * \brief Define the tag prod_ of functor prod
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct prod_ : ext::reduction_<prod_> { typedef ext::reduction_<prod_> parent; };
+    struct prod_ : ext::reduction_<prod_, tag::multiplies_, tag::One>
+    {
+      typedef ext::reduction_<prod_, tag::multiplies_, tag::One> parent;
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prod_, prod, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::prod_, prod, 2)
 } }
 
 #endif

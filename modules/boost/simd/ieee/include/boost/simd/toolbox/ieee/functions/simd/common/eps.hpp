@@ -9,19 +9,20 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EPS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_EPS_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/eps.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/smallestposval.hpp>
 #include <boost/simd/include/constants/mindenormal.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/simd/include/constants/nan.hpp>
-#include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
-#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/simd/ldexp.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/is_invalid.hpp>
+#include <boost/simd/include/functions/simd/exponent.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

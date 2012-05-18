@@ -9,12 +9,12 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_NEXT_HPP_INCLUDED
 #include <boost/simd/toolbox/ieee/functions/next.hpp>
-#include <boost/simd/include/functions/oneplus.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/bitinteger.hpp>
-#include <boost/simd/include/functions/bitfloating.hpp>
-#include <boost/simd/include/functions/oneplus.hpp>
+#include <boost/simd/include/functions/simd/oneplus.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/bitinteger.hpp>
+#include <boost/simd/include/functions/simd/bitfloating.hpp>
+#include <boost/simd/include/functions/simd/oneplus.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/one.hpp>
 

@@ -11,8 +11,8 @@
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/if_else.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
