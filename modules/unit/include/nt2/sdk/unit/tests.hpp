@@ -32,41 +32,93 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/nb_rand_tests.hpp>
 
-#define NT2_TEST_ULP_EQUAL(A,B,N)          \
-  {                  \
-    typedef typename nt2::meta::scalar_of<r_t>::type sr_t;    \
-    sr_t r1 = A;              \
-    sr_t r2 = B;              \
-    ulpd = double(nt2::ulpdist(r1, r2));  \
-    bool b;                 \
-    b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,    \
-              BOOST_CURRENT_FUNCTION,    \
-              r1, r2, N);       \
-      if (!b)                \
-  {                \
-    std::cout <<  std::setprecision(20) << "   because " << #A << " = " << r1    \
-        << " and " << #B << " = " << r2 <<  std::endl;  \
-    std::cout << "   and ulp distance is "      \
-        << ulpd << std::endl;        \
-  }                \
-  }                  \
+#include <nt2/sdk/meta/primitive_of.hpp>
+
+namespace nt2 { namespace details
+{
+  template< class T, class U
+          , class pT = typename meta::primitive_of<T>::type
+          , class pU = typename meta::primitive_of<U>::type
+          >
+  struct smallest_a_impl
+  {
+    typedef T type;
+  };
+
+  template<class T, class U>
+  typename smallest_a_impl<T, U>::type
+  smallest_a(T const& a, U const&)
+  {
+    return typename smallest_a_impl<T, U>::type(a);
+  }
+
+  template<class T, class U>
+  struct smallest_a_impl<T, U, double, float>
+  {
+    typedef U type;
+  };
+
+  template< class T, class U
+          , class pT = typename meta::primitive_of<T>::type
+          , class pU = typename meta::primitive_of<U>::type
+          >
+  struct smallest_b_impl
+  {
+    typedef U type;
+  };
+
+  template<class T, class U>
+  typename smallest_b_impl<T, U>::type
+  smallest_b(T const&, U const& b)
+  {
+    return typename smallest_a_impl<T, U>::type(b);
+  }
+
+  template<class T, class U>
+  struct smallest_b_impl<T, U, float, double>
+  {
+    typedef T type;
+  };
+} }
+
+#define NT2_TEST_ULP_EQUAL(A, B, N)                                            \
+{                                                                              \
+  double ulpd = nt2::ulpdist( nt2::details::smallest_a(A, B)                   \
+                            , nt2::details::smallest_b(A, B)                   \
+                            );                                                 \
+  bool b = nt2::details::                                                      \
+           test_ulp_eq( #A, #B, #N, __LINE__                                   \
+                      , BOOST_CURRENT_FUNCTION                                 \
+                      , nt2::details::smallest_a(A, B)                         \
+                      , nt2::details::smallest_b(A, B)                         \
+                      , N                                                      \
+                      );                                                       \
+  if (!b)                                                                      \
+  {                                                                            \
+    std::cout << std::setprecision(20) << "   because " << #A << " = "         \
+              << nt2::details::smallest_a(A, B)                                \
+              << " and " << #B << " = "                                        \
+              << nt2::details::smallest_b(A, B)                                \
+              <<  std::endl;                                                   \
+    std::cout << "   and ulp distance is " << ulpd << std::endl;               \
+  }                                                                            \
+}                                                                              \
 /**/
 
-#define NT2_TEST_TUPLE_ULP_EQUAL(A,B,N)          \
-  {                  \
-    bool b;                 \
-    b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,    \
-              BOOST_CURRENT_FUNCTION,    \
-              A, B, N);       \
-    ulpd = nt2::ulpdist(A, B);          \
-      if (!b)                \
-  {                \
-    std::cout << "   because " << #A << " = " << A    \
-        << " and " << #B << " = " << B <<  std::endl;  \
-    std::cout << "   and ulp distance is "      \
-        << ulpd << std::endl;      \
-  }                \
-  }                  \
+#define NT2_TEST_TUPLE_ULP_EQUAL(A, B, N)                                      \
+{                                                                              \
+  bool b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,                   \
+            BOOST_CURRENT_FUNCTION,                                            \
+            A, B, N);                                                          \
+  double ulpd = nt2::ulpdist(A, B);                                            \
+  if (!b)                                                                      \
+  {                                                                            \
+    std::cout << "   because " << #A << " = " << A                             \
+        << " and " << #B << " = " << B <<  std::endl;                          \
+    std::cout << "   and ulp distance is "                                     \
+        << ulpd << std::endl;                                                  \
+  }                                                                            \
+}                                                                              \
 /**/
 
 ////////////////////////////////////////////////////////////////////////////////
