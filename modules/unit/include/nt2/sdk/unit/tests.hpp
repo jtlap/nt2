@@ -40,45 +40,30 @@ namespace nt2 { namespace details
           , class pT = typename meta::primitive_of<T>::type
           , class pU = typename meta::primitive_of<U>::type
           >
-  struct smallest_a_impl
+  struct smallest_impl
   {
     typedef T type;
   };
 
   template<class T, class U>
-  typename smallest_a_impl<T, U>::type
+  struct smallest_impl<T, U, double, float>
+  {
+    typedef U type;
+  };
+
+  template<class T, class U>
+  typename smallest_impl<T, U>::type
   smallest_a(T const& a, U const&)
   {
-    return typename smallest_a_impl<T, U>::type(a);
+    return typename smallest_impl<T, U>::type(a);
   }
 
   template<class T, class U>
-  struct smallest_a_impl<T, U, double, float>
-  {
-    typedef U type;
-  };
-
-  template< class T, class U
-          , class pT = typename meta::primitive_of<T>::type
-          , class pU = typename meta::primitive_of<U>::type
-          >
-  struct smallest_b_impl
-  {
-    typedef U type;
-  };
-
-  template<class T, class U>
-  typename smallest_b_impl<T, U>::type
+  typename smallest_impl<U, T>::type
   smallest_b(T const&, U const& b)
   {
-    return typename smallest_a_impl<T, U>::type(b);
+    return typename smallest_impl<U, T>::type(b);
   }
-
-  template<class T, class U>
-  struct smallest_b_impl<T, U, float, double>
-  {
-    typedef T type;
-  };
 } }
 
 #define NT2_TEST_ULP_EQUAL(A, B, N)                                            \
