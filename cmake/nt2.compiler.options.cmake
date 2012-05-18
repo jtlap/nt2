@@ -12,16 +12,17 @@ set(NT2_COMPILER_OPTIONS_INCLUDED 1)
 
 set(NT2_FLAGS_TEST "-DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ASSERTS_AS_EXCEPTIONS")
 set(NT2_FLAGS_BENCH "-DNT2_DISABLE_ERROR -DNDEBUG")
+# No debug symbols because of excessive time and memory costs at compile time
 if(MSVC)
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /MDd /MP /Zi /D_SECURE_SCL=1 /D_ITERATOR_DEBUG_LEVEL=2 /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHa")
+  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /MDd /MP /D_SECURE_SCL=1 /D_ITERATOR_DEBUG_LEVEL=2 /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHa")
   set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} /MD /MP /D_SECURE_SCL=0 /GL /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHs-c- /wd4530")
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
   # Strict aliasing disabled due to GCC bug #50800
-  #set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -D_GLIBCXX_DEBUG=1 -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO} -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
+  # -D_GLIBCXX_DEBUG=1 not used because of incompatibilities with libraries
+  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -O2 -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
   set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} -O3 -fomit-frame-pointer -fno-exceptions -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
 else()
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} ${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST}")
   set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} ${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
 set(CMAKE_C_FLAGS_NT2TEST ${NT2_FLAGS_TEST})
