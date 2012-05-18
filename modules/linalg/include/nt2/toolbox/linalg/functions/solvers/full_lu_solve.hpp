@@ -42,19 +42,19 @@ namespace nt2 { namespace ext
       return that;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::solvers::full_lu_solve_, tag::cpu_
                               , (A0)(A1)(A2)(IP)
                               , (ast_<A0>)
-                              (ast_<A1>)
-                              (scalar_<type8_< A2> >)
-                              (unspecified_< IP >)
+                                (ast_<A1>)
+                                (scalar_<type8_< A2> >)
+                                (unspecified_< IP >)
                               )
   {
     typedef details::full_lu_solve_result<A0&> result_type;
-    
+
     BOOST_FORCEINLINE result_type
-      operator()(A0& a, A1& b, char const & trans, IP const&) const
+      operator()(A0& a, A1& b, A2 const& trans, IP const&) const
     {
       BOOST_ASSERT_MSG( nt2::issquare(a)
                         , "??? Error using 'full_lu_solve' : Matrix must be square."

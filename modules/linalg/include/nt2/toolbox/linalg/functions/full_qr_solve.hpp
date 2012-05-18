@@ -79,7 +79,8 @@ namespace nt2
      **/
     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::full_qr_solve_, full_qr_solve, 2)
     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::full_qr_solve_, full_qr_solve, 3)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::solvers::full_qr_solve_, full_qr_solve, 3)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_qr_solve_, full_qr_solve,(A0&)(A1&)(const A2&), 3)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_qr_solve_, full_qr_solve,(A0&)(A1&)(const A2&)(const A3&), 4)
   }
 }
 

@@ -25,27 +25,34 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::full_qr_solve_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
                               , ((node_<A0, nt2::tag::full_qr_solve_, N0>))
-                              ((node_<A1, nt2::tag::tie_ , N1>))
+                                ((node_<A1, nt2::tag::tie_ , N1>))
                             )
   {
     typedef void                                                    result_type;
-    typedef typename solvers::options                                    opts_t; 
-    typedef typename boost::proto::result_of::child_c<A1&,0>::type       child0;
+    typedef typename solvers::options                                    opts_t;
+    typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
     typedef typename meta::strip<child0>::type                          dest0_t;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
+    typedef typename meta::strip<child1>::type                          dest1_t;
     typedef typename meta::
             call< nt2::tag::
-                  solvers::full_qr_solve_(dest0_t&, dest0_t&, char, nt2::details::in_place_)
+                  solvers::full_qr_solve_ ( dest0_t&, dest1_t&
+                                          , char, nt2::details::in_place_
+                                          )
                 >::type                                                 solve_t;
-    
+
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       // Copy equation rhs in output first
       boost::proto::child_c<0>(a1) = boost::proto::child_c<1>(a0);
+
       // Copy the matrix somewhere
-      dest0_t a = boost::proto::child_c<0>(a0); 
+      dest0_t a = boost::proto::child_c<0>(a0);
 
       // solve in place
-      solve_t f = solvers::full_qr_solve(a, boost::proto::child_c<0>(a1),'N',in_place_);
+      solve_t
+      f = solvers::full_qr_solve(a, boost::proto::child_c<0>(a1),'N',in_place_);
+
       solve(f, a1, N1());
     }
 

@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_SOLVERS_FULL_QR_SOLVE_HPP_INCLUDED
 
 #include <nt2/toolbox/linalg/functions/full_qr_solve.hpp>
-#include <nt2/options.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/toolbox/linalg/functions/details/full_qr_solve.hpp>
@@ -39,19 +38,19 @@ namespace nt2 { namespace ext
       return that;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::solvers::full_qr_solve_, tag::cpu_
                               , (A0)(A1)(A2)(IP)
                               , (ast_<A0>)
-                              (ast_<A1>)
-                              (scalar_<type8_< A2> >)
-                              (unspecified_< IP >)
+                                (ast_<A1>)
+                                (scalar_<type8_< A2> >)
+                                (unspecified_< IP >)
                               )
   {
     typedef details::full_qr_solve_result<A0&, A1&> result_type;
-    
+
     BOOST_FORCEINLINE result_type
-      operator()(A0& a, A1& b, char const & trans, IP const&) 
+    operator()(A0& a, A1& b, A2 const & trans, IP const&)
     {
       BOOST_ASSERT_MSG(height(a) == height(b),
                        "a and b have different heights");
