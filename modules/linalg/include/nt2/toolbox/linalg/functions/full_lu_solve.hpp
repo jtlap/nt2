@@ -78,10 +78,8 @@ namespace nt2
      **/
     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::full_lu_solve_, full_lu_solve, 3)
     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::full_lu_solve_, full_lu_solve, 4)
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_lu_solve_, full_lu_solve,(A0&)(A1&)(const A1&), 3)
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_lu_solve_, full_lu_solve,(A0&)(A1&)(const A1&)(const A2&), 34)
-      
-      
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_lu_solve_, full_lu_solve,(A0&)(A1&)(const A2&), 3)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_lu_solve_, full_lu_solve,(A0&)(A1&)(const A2&)(const A3&), 4)
   }
 }
 
