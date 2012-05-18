@@ -17,10 +17,12 @@
 #include <nt2/core/container/dsl/details/expression.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
 #include <nt2/sdk/meta/settings_of.hpp>
+#include <nt2/sdk/meta/is_scalar.hpp>
 #include <nt2/core/functions/function.hpp>
 #include <nt2/core/functions/extent.hpp>
 #include <nt2/toolbox/operator/functions/assign.hpp>
 #include <nt2/include/functions/evaluate.hpp>
+#include <nt2/include/functions/scalar/numel.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/extends.hpp>
@@ -39,11 +41,37 @@
 
 namespace nt2 { namespace container
 {
+  //==========================================================================
+  // Conversion operator for integration with scalars:
+  // - used for reductions that return scalars;
+  // - used for table-to-scalar conversion.
+  //==========================================================================
+  template<class Expr, class Result, bool IsScalar>
+  struct expression_scalar
+  {
+    BOOST_FORCEINLINE operator typename meta::value_type_<Result>::type() const
+    {
+      BOOST_ASSERT_MSG( nt2::numel( static_cast<expression<Expr, Result> const*>(this)->extent() ) == 1u
+                      , "Table is not a scalar"
+                      );
+      return nt2::evaluate( static_cast<expression<Expr, Result> const&>(*this) ).raw()[0];
+    }
+  };
+
+  template<class Expr, class Result>
+  struct expression_scalar<Expr, Result, true>
+  {
+    BOOST_FORCEINLINE operator Result() const
+    {
+      return nt2::evaluate( static_cast<expression<Expr, Result> const&>(*this) );
+    }
+  };
+
   //============================================================================
   // proto expression wrapper for nt2 containers
   //============================================================================
   template<class Expr, class Result, class Dummy>
-  struct expression
+  struct expression : expression_scalar<Expr, Result, meta::is_scalar<Result>::value>
   {
     //==========================================================================
     /*! Type of the parent expression                                         */
@@ -161,14 +189,6 @@ namespace nt2 { namespace container
     NT2_MAKE_ASSIGN_OP(<<)
 
     #undef NT2_MAKE_ASSIGN_OP
-
-    //==========================================================================
-    // Conversion operator forces evaluation - used for reduction operator
-    //==========================================================================
-    BOOST_FORCEINLINE operator Result() const
-    {
-      return nt2::evaluate(*this);
-    }
 
     //==========================================================================
     // Expression indexing
