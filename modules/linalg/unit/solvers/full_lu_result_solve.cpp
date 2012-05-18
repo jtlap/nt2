@@ -13,7 +13,6 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/full_lu_solve.hpp>
-#include <nt2/include/functions/ldexp.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
