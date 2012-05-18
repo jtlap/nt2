@@ -15,6 +15,7 @@
  **/
 
 #include <iterator>
+#include <boost/array.hpp>
 #include <nt2/sdk/memory/fixed_allocator.hpp>
 
 namespace nt2
@@ -51,12 +52,34 @@ namespace nt2
    **/
   //============================================================================
   template<class ContiguousIterator>
-  memory::fixed_allocator<typename std::iterator_traits<ContiguousIterator>::value_type>
+  memory::fixed_allocator
+          < typename std::iterator_traits<ContiguousIterator>::value_type >
   share(ContiguousIterator begin, ContiguousIterator end)
   {
-    typedef typename std::iterator_traits<ContiguousIterator>::value_type value_type;
-    memory::fixed_allocator<value_type> that(begin,end);
+    memory::fixed_allocator
+          < typename std::iterator_traits<ContiguousIterator>::value_type >
+    that(begin,end);
 
+    return that;
+  }
+
+  //============================================================================
+  // Overload for static array and boost::array
+  // TODO: std::array support
+  //============================================================================
+  template<class Type, std::size_t Size>
+  memory::fixed_allocator<Type>
+  share( boost::array<Type,Size>& values)
+  {
+    memory::fixed_allocator<Type> that(values.begin(),values.end());
+    return that;
+  }
+
+  template<class Type, std::size_t Size>
+  memory::fixed_allocator<Type>
+  share( Type (&values)[Size])
+  {
+    memory::fixed_allocator<Type> that(&values[0], &values[0]+Size);
     return that;
   }
 }

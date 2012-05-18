@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_SHRI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_SHRI_HPP_INCLUDED
@@ -12,22 +12,25 @@
 #include <boost/simd/toolbox/bitwise/functions/shri.hpp>
 #include <boost/dispatch/meta/is_scalar.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/meta/templatize.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, boost::simd::tag::sse2_
-                            , (A0)(A1)
-                            , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
-                              (scalar_< integer_<A1> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shri_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
+                                      (scalar_< integer_<A1> >)
+                                    )
   {
     typedef A0 result_type;
+    typedef typename meta::make_dependent<int32_t,A0>::type int_t;
+
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef native<typename boost::simd::meta::int32_t_<A0>::type, boost::simd::tag::sse_> gen_type;
+      typedef native<int_t, boost::simd::tag::sse_> gen_type;
       result_type const Mask1 =  bitwise_cast<result_type>(boost::simd::integral_constant<gen_type, 0x00ff00ff>());
       result_type const Mask2 =  bitwise_cast<result_type>(boost::simd::integral_constant<gen_type, 0xff00ff00>());
       result_type tmp  = b_and(a0, Mask1);
@@ -39,11 +42,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::shri_, boost::simd::tag::sse2_
-                            , (A0)(A1)
-                            , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
-                              (scalar_< integer_<A1> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shri_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
+                                      (scalar_< integer_<A1> >)
+                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
@@ -54,11 +58,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, boost::simd::tag::sse2_
-                            , (A0)(A1)
-                            , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
-                              (scalar_< integer_<A1> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shri_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
+                                      (scalar_< integer_<A1> >)
+                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
@@ -69,11 +74,11 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::shri_, boost::simd::tag::sse2_
-                            , (A0)(A1)
-                            , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
-                              (scalar_< integer_<A1> >)
-                            )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shri_, boost::simd::tag::sse2_
+                                    , (A0)(A1)
+                                    , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
+                                      (scalar_< integer_<A1> >)
+                                    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)

@@ -28,20 +28,20 @@ namespace nt2 { namespace ext
     static const std::size_t len = ext_t::static_size;
     static const std::size_t olen = len > 2 ? len : 2;
 
-    typedef container::table< std::size_t
+    typedef container::table< typename ext_t::value_type
                             , settings(automatic_, of_size_<1, olen>)
                             >                           result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
       result_type that;
-      std::size_t i=1;
+      typename ext_t::value_type i=1;
 
       for(; i<len+1; ++i)
         that(i) = nt2::extent(a0)[i-1];
 
       for(; i<olen+1; ++i)
-        that(i) = std::size_t(1);
+        that(i) = typename ext_t::value_type(1);
 
       return that;
     }
