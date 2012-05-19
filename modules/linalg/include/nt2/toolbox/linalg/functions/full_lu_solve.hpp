@@ -54,6 +54,7 @@ namespace nt2
    * @return A tuple-like type containing the solution and optionnaly the rcond number of the system
    * of the success of the factorization
    **/
+  NT2_FUNCTION_IMPLEMENTATION(tag::full_lu_solve_, full_lu_solve, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::full_lu_solve_, full_lu_solve, 3)
 
   namespace solvers
@@ -76,10 +77,10 @@ namespace nt2
      * @return A unspecified type containing the precomputed elements of the
      * Full_Lu_solve factorization.
      **/
+    NT2_FUNCTION_IMPLEMENTATION(tag::solvers::full_lu_solve_, full_lu_solve, 2)
     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::full_lu_solve_, full_lu_solve, 3)
-    NT2_FUNCTION_IMPLEMENTATION(tag::solvers::full_lu_solve_, full_lu_solve, 4)
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_lu_solve_, full_lu_solve,(A0&)(A1&)(const A1&), 3)
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_lu_solve_, full_lu_solve,(A0&)(A1&)(const A1&)(const A2&), 4)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_lu_solve_, full_lu_solve,(A0&)(A1&)(const A2&), 3)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_lu_solve_, full_lu_solve,(A0&)(A1&)(const A2&)(const A3&), 4)
       
       
   }

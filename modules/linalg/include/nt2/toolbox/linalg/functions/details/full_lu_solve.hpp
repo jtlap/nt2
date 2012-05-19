@@ -13,11 +13,6 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
-#include <iostream>
-
-//==============================================================================
-// svd actual functor forward declaration
-//==============================================================================
 
 namespace nt2 { namespace details
 {
@@ -26,8 +21,9 @@ namespace nt2 { namespace details
   //============================================================================
   template<class A, class B = A> struct full_lu_solve_result
   {
-    typedef typename A::value_type                       type_t;
-    typedef typename A::index_type                      index_t; 
+    typedef typename meta::strip<A>::type               strip_t;
+    typedef typename strip_t::value_type                 type_t;
+    typedef typename strip_t::index_type                index_t;
     typedef typename meta::as_real<type_t>::type        btype_t; 
     typedef nt2::table<type_t,nt2::matlab_index_>        ftab_t;
     typedef nt2::table<btype_t,nt2::matlab_index_>      fbtab_t;
@@ -35,20 +31,22 @@ namespace nt2 { namespace details
     typedef nt2::table<type_t,index_t>                    tab_t;
     typedef nt2::table<btype_t,index_t>                  btab_t;
     typedef nt2::table<nt2_la_int,index_t>               itab_t;
-    
+    typedef A                                           data1_t;
+    typedef B                                           data2_t;
     ////////////////////////////////////////////////////////////////////////////
     // General LU Solver
     //  A is            N x N
     //  B is            N x nrhs
     ////////////////////////////////////////////////////////////////////////////
-    full_lu_solve_result(A& a, B& b, const char & trans)
+    template < class Input1,  class Input2 > 
+    full_lu_solve_result(Input1& a, Input2& b, const char & trans)
       :
       a_(a)
       , b_(b)
       , lda_(a_.leading_size())
       , ldb_(b_.leading_size())
-      , n_(height(a))
-      , nrhs_(width(b))
+      , n_(height(a_))
+      , nrhs_(width(b_))
       , x_(nt2::of_size(n_, nrhs_))
       , ipiv_(nt2::of_size(n_, 1))
       , af_(nt2::of_size(n_, n_))
@@ -77,8 +75,8 @@ namespace nt2 { namespace details
     tab_t  berr()       const { return berr_; }
     tab_t  x()          const { return x_;    }
   private:
-    ftab_t                a_;
-    ftab_t                b_;
+    data1_t               a_;
+    data2_t               b_;
     nt2_la_int          lda_;
     nt2_la_int          ldb_;
     nt2_la_int            n_;

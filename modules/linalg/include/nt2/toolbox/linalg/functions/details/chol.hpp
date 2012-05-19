@@ -38,7 +38,7 @@ namespace nt2 { namespace details
                     , uplo_(uplo)
     {
       nt2::details::potrf ( &uplo_, &height_
-                          , (type_t*)values_.raw(), &leading_, &info_
+                          , values_.raw(), &leading_, &info_
                           );
     }
 

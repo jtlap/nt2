@@ -14,18 +14,13 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/expand.hpp>
-#include <iostream>
-
-//==============================================================================
-// svd actual functor forward declaration
-//==============================================================================
 
 namespace nt2 { namespace details
 {
   //============================================================================
   // full_qr_solve actual functor
   //============================================================================
-  template<class A, class B = A> struct full_qr_solve_result
+  template<class A> struct full_qr_solve_result
   {
     typedef typename meta::strip<A>::type               strip_t;
     typedef typename strip_t::value_type                 type_t;
@@ -37,15 +32,17 @@ namespace nt2 { namespace details
     typedef nt2::table<type_t,index_t>                    tab_t;
     typedef nt2::table<btype_t,index_t>                  btab_t;
     typedef nt2::table<nt2_la_int,index_t>               itab_t;
+    typedef A                                            data_t;
 
     ////////////////////////////////////////////////////////////////////////////
     // General QR Solver
     //  A is            N x M
     //  B is            N x nrhs
     ////////////////////////////////////////////////////////////////////////////
-    full_qr_solve_result(A& a, B& b, const char &)
-      : lda_(a.leading_size())
-      , ldb_(b.leading_size())
+    template < class Input, class B > 
+    full_qr_solve_result(Input& a, const B& b, const char &trans)
+      : a_(a)
+      , lda_(a_.leading_size())
       , m_(height(a))
       , n_(width(a))
       , nrhs_(width(b))
@@ -53,7 +50,7 @@ namespace nt2 { namespace details
       , jpvt_(nt2::of_size(n_, 1))
     {
       nt2_la_int ldx  = x_.leading_size();
-      nt2::details::gelsy (&m_, &n_, &nrhs_, a.raw(), &lda_,
+      nt2::details::gelsy (&m_, &n_, &nrhs_, a_.raw(), &lda_,
                            x_.raw(), &ldx, jpvt_.raw(), &rcond_,
                            &rank_, &info_);
       //NOT THERE      BOOST_ASSERT_MSG(info == 0, "Warning: Matrix is singular to working precision.");
@@ -65,12 +62,13 @@ namespace nt2 { namespace details
     nt2_la_int status() const { return info_; }
     tab_t  x()          const { return x_;    }
   private:
+    data_t                a_; 
     nt2_la_int          lda_;
     nt2_la_int          ldb_;
     nt2_la_int            m_;
     nt2_la_int            n_;
     nt2_la_int         nrhs_;
-    tab_t                x_;
+    tab_t                 x_;
     fitab_t            jpvt_;
     nt2_la_int         info_;
     btype_t           rcond_;

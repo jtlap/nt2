@@ -6,13 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_SOLVES_FULL_LU_SOLVE_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_SOLVES_FULL_LU_SOLVE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_SOLVERS_FULL_LU_SOLVE_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_SOLVERS_FULL_LU_SOLVE_HPP_INCLUDED
 
 #include <nt2/toolbox/linalg/functions/full_lu_solve.hpp>
 #include <nt2/options.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/issquare.hpp>
+#include <nt2/include/functions/ofsameheight.hpp>
 #include <nt2/toolbox/linalg/functions/details/full_lu_solve.hpp>
 
 namespace nt2 { namespace ext
@@ -36,7 +37,7 @@ namespace nt2 { namespace ext
       BOOST_ASSERT_MSG( nt2::issquare(a)
                       , "??? Error using 'full_lu_solve' : Matrix must be square."
                       );
-      BOOST_ASSERT_MSG(height(a) == height(b),
+      BOOST_ASSERT_MSG(ofsameheight(a, b),
                        "a and b have different heights");
       result_type that(a, b, trans);
       return that;
@@ -51,7 +52,7 @@ namespace nt2 { namespace ext
                                 (unspecified_< IP >)
                               )
   {
-    typedef details::full_lu_solve_result<A0&> result_type;
+    typedef details::full_lu_solve_result<A0&, A1&> result_type;
 
     BOOST_FORCEINLINE result_type
       operator()(A0& a, A1& b, A2 const& trans, IP const&) const
@@ -59,7 +60,7 @@ namespace nt2 { namespace ext
       BOOST_ASSERT_MSG( nt2::issquare(a)
                         , "??? Error using 'full_lu_solve' : Matrix must be square."
                         );
-      BOOST_ASSERT_MSG(height(a) == height(b),
+      BOOST_ASSERT_MSG(ofsameheight(a, b),
                        "a and b have different heights");
       result_type that(a, b, trans);
       return that;
