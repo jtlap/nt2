@@ -9,11 +9,14 @@
 #ifndef NT2_SDK_META_CONTAINER_TRAITS_HPP_INCLUDED
 #define NT2_SDK_META_CONTAINER_TRAITS_HPP_INCLUDED
 
+#include <boost/dispatch/meta/enable_if_type.hpp>
+#include <boost/dispatch/meta/strip.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/type_traits/add_reference.hpp>
-#include <boost/dispatch/meta/enable_if_type.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <boost/type_traits/is_const.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -33,7 +36,8 @@ namespace nt2 { namespace meta
   //==============================================================================
   //==============================================================================
   template<class T, class Enable=void>
-  struct const_pointer_ : boost::add_pointer<T const>
+  struct  const_pointer_
+        : boost::add_pointer< typename boost::add_const<T>::type >
   {};
 
   //==============================================================================
@@ -76,9 +80,11 @@ namespace nt2 { namespace meta
                                     strip<T>::type::pointer
                                   >::type
                   >
+    : boost::mpl::if_< boost::is_const< typename boost::remove_reference<T>::type >
+                     , typename const_pointer_<T>::type
+                     , typename boost::dispatch::meta::strip<T>::type::pointer
+                     >
   {
-    typedef typename boost::dispatch::meta::
-                      strip<T>::type::pointer type;
   };
 
   template<class T>
@@ -100,9 +106,11 @@ namespace nt2 { namespace meta
                                       strip<T>::type::reference
                                     >::type
                     >
+    : boost::mpl::if_< boost::is_const< typename boost::remove_reference<T>::type >
+                     , typename const_reference_<T>::type
+                     , typename boost::dispatch::meta::strip<T>::type::reference
+                     >
   {
-    typedef typename boost::dispatch::meta::
-                      strip<T>::type::reference type;
   };
 
   template<class T>
