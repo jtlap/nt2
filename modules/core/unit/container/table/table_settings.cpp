@@ -60,9 +60,19 @@ NT2_TEST_CASE_TPL( table_models, NT2_TYPES )
   typedef typename model_of< table<T,_3D> >::type model3d;
   typedef typename model_of< table<T,_4D> >::type model4d;
 
+  NT2_TEST_TYPE_IS( (typename apply<model1d,float>::type)
+                  , (table<float,_1D>)
+                  );
 
-  NT2_TEST((is_same<typename apply<model1d,float>::type, table<float,_1D> >::value ));
-  NT2_TEST((is_same<typename apply<model2d,float>::type, table<float,_2D> >::value ));
-  NT2_TEST((is_same<typename apply<model3d,float>::type, table<float,_3D> >::value ));
-  NT2_TEST((is_same<typename apply<model4d,float>::type, table<float,_4D> >::value ));
+  NT2_TEST_TYPE_IS( (typename apply<model2d,float>::type)
+                  , (table<float,_2D>)
+                  );
+
+  NT2_TEST_TYPE_IS( (typename apply<model3d,float>::type)
+                  , (table<float,_3D>)
+                  );
+
+  NT2_TEST_TYPE_IS( (typename apply<model4d,float>::type)
+                  , (table<float,_4D>)
+                  );
 }
