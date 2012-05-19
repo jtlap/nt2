@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( full_lu_solve_expr, NT2_REAL_TYPES)
   NT2_DISP(a);
   t_t x, b =  nt2::ones(5, 1, nt2::meta::as_<T>());
   NT2_DISP(b);
-  int32_t r; 
+  T r; 
   nt2::tie(x, r) = nt2::full_lu_solve(a, b, 'N');
   NT2_DISP(x);
   std::cout << r << std::endl; 
