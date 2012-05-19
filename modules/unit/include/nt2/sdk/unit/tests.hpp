@@ -52,6 +52,18 @@ namespace nt2 { namespace details
     typedef U type;
   };
 
+  template<class T, class U>
+  struct smallest_impl<T, U, long double, float>
+  {
+    typedef U type;
+  };
+
+  template<class T, class U>
+  struct smallest_impl<T, U, long double, double>
+  {
+    typedef U type;
+  };
+
   template<class T, class U, class X>
   struct smallest_impl<boost::simd::details::soa_proxy<T, X>, U>
    : smallest_impl<T, U>
