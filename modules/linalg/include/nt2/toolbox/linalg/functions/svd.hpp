@@ -49,6 +49,7 @@ namespace nt2
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::svd_, svd, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::svd_, svd, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::svd_, svd, 3)
 
   namespace factorization
   {

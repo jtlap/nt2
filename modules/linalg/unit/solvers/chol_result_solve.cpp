@@ -30,4 +30,4 @@ NT2_TEST_CASE_TPL(chol_result, NT2_REAL_TYPES)
 
   nt2::disp("x", f.x());
   NT2_DISP(a); 
-}
+} 

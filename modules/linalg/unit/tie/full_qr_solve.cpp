@@ -11,7 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/eye.hpp>
+#include <nt2/include/functions/eye.hpp> 
 #include <nt2/include/functions/full_qr_solve.hpp>
 #include <nt2/include/functions/tie.hpp>
 

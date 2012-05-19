@@ -13,6 +13,7 @@ SET( SOURCES
   full_qr_result_solve.cpp
   chol_result_solve.cpp
   svd_result_solve.cpp 
+  tr_result_solve.cpp
    )
 
 nt2_module_add_tests(linalg.solvers.unit ${SOURCES})
