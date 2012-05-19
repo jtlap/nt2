@@ -33,6 +33,7 @@
 #include <nt2/sdk/unit/nb_rand_tests.hpp>
 
 #include <nt2/sdk/meta/primitive_of.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
 
 namespace nt2 { namespace details
 {
@@ -49,6 +50,54 @@ namespace nt2 { namespace details
   struct smallest_impl<T, U, double, float>
   {
     typedef U type;
+  };
+
+  template<class T, class U, class X>
+  struct smallest_impl<boost::simd::details::soa_proxy<T, X>, U>
+   : smallest_impl<T, U>
+  {
+  };
+
+  template<class T, class U, class X>
+  struct smallest_impl<T, boost::simd::details::soa_proxy<U, X> >
+   : smallest_impl<T, U>
+  {
+  };
+
+  template<class T, class U, class X, class Y>
+  struct smallest_impl<boost::simd::details::soa_proxy<T, X>, boost::simd::details::soa_proxy<U, Y> >
+   : smallest_impl<T, U>
+  {
+  };
+
+  template<class T, class U>
+  struct smallest_impl<T, std::complex<U> >
+   : smallest_impl< typename meta::as_complex<T>::type, U >
+  {
+  };
+
+  template<class T, class U, class X>
+  struct smallest_impl<boost::simd::details::soa_proxy<T, X>, std::complex<U> >
+   : smallest_impl< typename meta::as_complex<T>::type, U >
+  {
+  };
+
+  template<class T, class U>
+  struct smallest_impl< nt2::dry<T>, U >
+   : smallest_impl< T, U >
+  {
+  };
+
+  template<class T, class U, class X>
+  struct smallest_impl< nt2::dry<T>, boost::simd::details::soa_proxy<U, X> >
+   : smallest_impl< T, U >
+  {
+  };
+
+  template<class T, class U>
+  struct smallest_impl< nt2::dry<T>, std::complex<U> >
+   : smallest_impl< std::complex<T>, U >
+  {
   };
 
   template<class T, class U>
@@ -71,14 +120,14 @@ namespace nt2 { namespace details
   double ulpd = nt2::ulpdist( nt2::details::smallest_a(A, B)                   \
                             , nt2::details::smallest_b(A, B)                   \
                             );                                                 \
-  bool b = nt2::details::                                                      \
-           test_ulp_eq( #A, #B, #N, __LINE__                                   \
-                      , BOOST_CURRENT_FUNCTION                                 \
-                      , nt2::details::smallest_a(A, B)                         \
-                      , nt2::details::smallest_b(A, B)                         \
-                      , N                                                      \
-                      );                                                       \
-  if (!b)                                                                      \
+  if(!nt2::details::                                                           \
+      test_ulp_eq( #A, #B, #N, __LINE__                                        \
+                 , BOOST_CURRENT_FUNCTION                                      \
+                 , nt2::details::smallest_a(A, B)                              \
+                 , nt2::details::smallest_b(A, B)                              \
+                 , N                                                           \
+                 )                                                             \
+    )                                                                          \
   {                                                                            \
     std::cout << std::setprecision(20) << "   because " << #A << " = "         \
               << nt2::details::smallest_a(A, B)                                \
@@ -92,11 +141,13 @@ namespace nt2 { namespace details
 
 #define NT2_TEST_TUPLE_ULP_EQUAL(A, B, N)                                      \
 {                                                                              \
-  bool b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,                   \
-            BOOST_CURRENT_FUNCTION,                                            \
-            A, B, N);                                                          \
   double ulpd = nt2::ulpdist(A, B);                                            \
-  if (!b)                                                                      \
+  if(!nt2::details::                                                           \
+      test_ulp_eq( #A, #B, #N, __LINE__                                        \
+                 , BOOST_CURRENT_FUNCTION                                      \
+                 , A, B, N                                                     \
+                 )                                                             \
+    )                                                                          \
   {                                                                            \
     std::cout << "   because " << #A << " = " << A                             \
         << " and " << #B << " = " << B <<  std::endl;                          \
