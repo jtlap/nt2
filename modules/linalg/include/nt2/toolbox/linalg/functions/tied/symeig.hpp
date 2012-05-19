@@ -29,10 +29,9 @@ namespace nt2 { namespace ext
   {
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type  child0;
-    typedef typename meta::strip<child0>::type                      dest_t;
     typedef typename meta::
             call< nt2::tag::
-                  factorization::symeig_(dest_t&,char,char,nt2::details::in_place_)
+                  factorization::symeig_(child0,char,char,nt2::details::in_place_)
                 >::type                                             fact_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const

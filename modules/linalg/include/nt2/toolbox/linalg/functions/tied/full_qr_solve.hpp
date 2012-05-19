@@ -31,12 +31,11 @@ namespace nt2 { namespace ext
     typedef void                                                    result_type;
     typedef typename solvers::options                                    opts_t;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
-    typedef typename meta::strip<child0>::type                          dest0_t;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
-    typedef typename meta::strip<child1>::type                          dest1_t;
+
     typedef typename meta::
             call< nt2::tag::
-                  solvers::full_qr_solve_ ( dest0_t&, dest1_t&
+                  solvers::full_qr_solve_ ( child0, child1
                                           , char, nt2::details::in_place_
                                           )
                 >::type                                                 solve_t;
@@ -47,7 +46,7 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = boost::proto::child_c<1>(a0);
 
       // Copy the matrix somewhere
-      dest0_t a = boost::proto::child_c<0>(a0);
+      child0 a = boost::proto::child_c<0>(a0);
 
       // solve in place
       solve_t
