@@ -100,7 +100,7 @@ std::string type_id_identity(T const&)
   std::cout << " * Test type   `" << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(T)) << "`\n"         \
             << "          is   `" << NT2_PP_STRINGIZE(BOOST_DISPATCH_PP_STRIP(Type)) << "`\n"      \
             << "         aka   `" << nt2::type_id<BOOST_DISPATCH_PP_STRIP(Type)>() << "`\n";       \
-  if(boost::is_same<BOOST_DISPATCH_PP_STRIP(Type), T>::value)                                      \
+  if(boost::is_same<BOOST_DISPATCH_PP_STRIP(Type), BOOST_DISPATCH_PP_STRIP(T)>::value)             \
   {                                                                                                \
     std::cout << " **passed**\n\n";                                                                \
   }                                                                                                \
