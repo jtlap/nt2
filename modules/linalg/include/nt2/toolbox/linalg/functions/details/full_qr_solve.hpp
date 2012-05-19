@@ -53,8 +53,8 @@ namespace nt2 { namespace details
       , jpvt_(nt2::of_size(n_, 1))
     {
       nt2_la_int ldx  = x_.leading_size();
-      nt2::details::gelsy (&m_, &n_, &nrhs_, (type_t*)a.raw(), &lda_,
-                           (type_t*)x_.raw(), &ldx, (nt2_la_int*)jpvt_.raw(), &rcond_,
+      nt2::details::gelsy (&m_, &n_, &nrhs_, a.raw(), &lda_,
+                           x_.raw(), &ldx, jpvt_.raw(), &rcond_,
                            &rank_, &info_);
       //NOT THERE      BOOST_ASSERT_MSG(info == 0, "Warning: Matrix is singular to working precision.");
     }
