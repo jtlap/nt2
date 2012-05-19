@@ -14,6 +14,7 @@ SET( SOURCES
   full_qr_solve.cpp
   chol_result_solve.cpp
   svd_result_solve.cpp 
+  svd_solve.cpp
   tr_result_solve.cpp
    )
 

@@ -6,23 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - qr_ solvers"
+#define NT2_UNIT_MODULE "nt2 linalg toolbox - svd solvers"
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/full_qr_solve.hpp>
-#include <nt2/include/functions/ldexp.hpp>
+#include <nt2/include/functions/svd_solve.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL(full_qr_solver_result, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(svd_solve_result, NT2_REAL_TYPES)
 {
   using nt2::_; 
-  using nt2::tag::solvers::full_qr_solve_;
+  using nt2::tag::solvers::svd_solve_;
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t; 
   typedef nt2::table<T> t_t;
   typedef nt2::table<itype_t> it_t; 
@@ -31,10 +30,11 @@ NT2_TEST_CASE_TPL(full_qr_solver_result, NT2_REAL_TYPES)
   t_t b = nt2::ones(4, 1, nt2::meta::as_<T>()); 
   nt2::disp("a     ", a); 
   nt2::disp("b     ", b); 
-  typedef typename nt2::meta::call<full_qr_solve_(t_t const&, t_t const&, char)>::type result_type;
-  result_type f = nt2::solvers::full_qr_solve(a, b, 'N');
+  typedef typename nt2::meta::call<svd_solve_(t_t const&, t_t const&)>::type result_type;
+  result_type f = nt2::solvers::svd_solve(a, b);
 
   nt2::disp("values", f.x());
+  
 //   t_t p = f.p();
 //   t_t l = f.l();
 //   t_t u = f.u();
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL(full_qr_solver_result, NT2_REAL_TYPES)
 //   std::cout << "asbdet mant  " << m << std::endl;
 //   std::cout << "asbdet       " << nt2::ldexp(m, e) << std::endl;
 //   std::cout << "asbdet       " << f.absdet()<< std::endl;
-//   std::cout << "rank         " << f.rank()  << std::endl;
+   std::cout << "rank         " << f.rank()  << std::endl;
 //   std::cout << "signdet      " << f.signdet()<< std::endl;
 //   std::cout << "det          " << f.det()<< std::endl;
  }
