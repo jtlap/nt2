@@ -14,6 +14,9 @@
 #include <nt2/include/functions/eye.hpp> 
 #include <nt2/include/functions/tr_solve.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/tril.hpp>
+#include <nt2/include/functions/triu.hpp>
+#include <nt2/include/functions/rif.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -25,28 +28,25 @@ NT2_TEST_CASE_TPL ( tr_solve_expr, NT2_REAL_TYPES)
   typedef nt2::table<T> t_t;
   typedef nt2::table<itype_t> it_t; 
 
-  T bc[25] =  {
-    1.0, 2.0, 0., 0., 0.,
-    0. , 2.0, 0., 0., 0., 
-    1.,  100.,  10000., 4., 0.2, 
-    .01,  1.,  100., 0.2, 0.1,
-    .0001,  .01,  1., 0., 0.000
-  };
-  
-  int k = 0;
   t_t a(nt2::of_size(5, 5)); 
   for(int i=1; i <= 5; i++)
     {
       for(int j=1; j <= 5; j++)
         {
-          a(i, j) = bc[k++]; 
+          a(i, j) =i >= j;  
         }
       
     }
   NT2_DISP(a);
-  t_t x, b =  nt2::ones(5, 1, nt2::meta::as_<T>());
+  t_t x, b =  nt2::rif(5, 1, nt2::meta::as_<T>());
   NT2_DISP(b);
+  x = nt2::tr_solve(nt2::tril(a), b, 'L', 'N', 'N');
+  NT2_DISP(x);
   x = nt2::tr_solve(a, b, 'L', 'N', 'N');
+  NT2_DISP(x);
+  x = nt2::tr_solve(nt2::triu(a), b, 'L', 'N', 'N');
+  NT2_DISP(x);
+  x = nt2::tr_solve(a, b, 'U', 'N', 'N');
   NT2_DISP(x);
 
 

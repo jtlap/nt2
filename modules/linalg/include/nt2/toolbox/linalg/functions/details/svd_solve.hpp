@@ -50,7 +50,9 @@ namespace nt2 { namespace details
     //  B is            M x nrhs
     ////////////////////////////////////////////////////////////////////////////
     template < class Input, class B>
-    svd_solve_result(Input& a, const B& b, const rtype_t & rcond = rtype_t(-1))
+    svd_solve_result(Input& a,
+                     const B& b,
+                     const rtype_t & rcond = rtype_t(-1))
       : a_(a)
     {
       const nt2_la_int ml   = size(a_, 1);
@@ -90,10 +92,8 @@ namespace nt2 { namespace details
   private:
     data_t                  a_;
     ftab_t                  x_;
-    nt2_la_int           info_;
     nt2_la_int           rank_;
-    rtype_t             rcond_;
-
+    nt2_la_int           info_;
   };
 } }
 

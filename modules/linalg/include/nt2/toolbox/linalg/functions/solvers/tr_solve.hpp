@@ -13,8 +13,11 @@
 #include <nt2/options.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/issquare.hpp>
+#include <nt2/include/functions/istril.hpp>
+#include <nt2/include/functions/istriu.hpp>
 #include <nt2/include/functions/ofsameheight.hpp>
 #include <nt2/toolbox/linalg/functions/details/tr_solve.hpp>
+#include <nt2/sdk/error/warning.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -65,6 +68,10 @@ namespace nt2 { namespace ext
     {
       BOOST_ASSERT_MSG(ofsameheight(a, b),
                        "a and b have different heights");
+      NT2_WARNING(istril(a)&&(uplo == 'L'),
+                       "a is not lower triangular, but only the lower part of the matrix will be used");
+      NT2_WARNING(istriu(a)&&(uplo == 'U'),
+                       "a is not upper triangular, but only the upper part of the matrix will be used");
       result_type that(a, b, uplo, trans, diag);
       return that;
     }

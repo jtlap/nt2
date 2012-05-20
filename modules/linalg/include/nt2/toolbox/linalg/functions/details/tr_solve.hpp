@@ -18,7 +18,7 @@
 namespace nt2 {namespace details
 {
   //============================================================================
-  // svd actual functor : precompute
+  // tr actual functor : precompute
   //============================================================================
   template<class A, class B = A> struct tr_solve_result
   {
@@ -64,11 +64,12 @@ namespace nt2 {namespace details
       nt2::details::trtrs(&uplo, &trans, &diag, &m, &k,
                           a_.raw(), &lda, bx_.raw(), &ldx, &info_);
       //      BOOST_ASSERT_MSG(info_ == 0, "lapack error : gels in solve_tr_ip");
+      NT2_DISP(bx_); 
     }
     ~tr_solve_result(){}
-    nt2_la_int status()    const { return info_; }
     ftab_t x()             const { return bx_;   }
     ftab_t values()        const { return a_;    }
+    nt2_la_int status()    const { return info_; }
   private:
     data1_t        a_; 
     data2_t       bx_;  
