@@ -31,13 +31,18 @@ namespace nt2 { namespace ext
     typedef void                                                    result_type;
     typedef typename solvers::options                                    opts_t;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
-    typedef typename boost::proto::result_of::child_c<A0&,1>::type       child1;
-    //    typedef typename meta::strip<child0>::type::value_type               type_t; 
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
+
+    typedef typename boost::dispatch::meta::
+            terminal_of< typename boost::dispatch::meta::
+                         semantic_of<child0>::type
+                       >::type                                          dest0_t;
+
     typedef typename meta::
             call< nt2::tag::
-                 solvers::svd_solve_ ( child0, child1
-                                       , nt2::details::in_place_
-                                       )
+                 solvers::svd_solve_( dest0_t&, child1
+                                    , nt2::details::in_place_
+                                    )
                 >::type                                                 solve_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
@@ -46,7 +51,7 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = boost::proto::child_c<1>(a0);
 
       // Copy the matrix somewhere
-      child0 a = boost::proto::child_c<0>(a0);
+      dest0_t a = boost::proto::child_c<0>(a0);
 
       // solve in place
       solve_t
@@ -72,13 +77,13 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = f.x();
       boost::proto::child_c<1>(a1) = f.rank();
     }
-     
+
     BOOST_FORCEINLINE
     void solve(solve_t const& f, A1 & a1, boost::mpl::long_<3> const&) const
     {
       boost::proto::child_c<0>(a1) = f.x();
       boost::proto::child_c<1>(a1) = f.rank();
-      boost::proto::child_c<2>(a1) = f.status(); 
+      boost::proto::child_c<2>(a1) = f.status();
     }
   };
 } }
