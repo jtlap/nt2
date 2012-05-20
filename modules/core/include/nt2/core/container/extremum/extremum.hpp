@@ -21,6 +21,14 @@ namespace nt2 { namespace container
     template<class B, class Sz>
     BOOST_FORCEINLINE std::ptrdiff_t index(B const& b, Sz const& s) const
     {
+      BOOST_ASSERT_MSG( isEnd && (offset_ <= 0)
+                      , "end_ is used with a non negative offset"
+                      );
+
+      BOOST_ASSERT_MSG( !isEnd && (offset_ >= 0)
+                      , "begin_ is used with a non positive offset"
+                      );
+
       return index(b,s,boost::mpl::bool_<isEnd>());
     }
 
@@ -40,21 +48,15 @@ namespace nt2 { namespace container
     }
   };
 
-  //==========================================================================
-  // Handles the end_ - i scenario by storing the offset in a new end_
-  //==========================================================================
-  template<class T>
-  BOOST_FORCEINLINE extremum<true> operator-(extremum<true> const& e, T o)
+  template<class T, bool B>
+  BOOST_FORCEINLINE extremum<B> operator-(extremum<B> const& e, T o)
   {
     extremum<true> that = { e.offset_ - o };
     return that;
   }
 
-  //==========================================================================
-  // Handles the begin_ + i scenario by storing the offset in a new begin_
-  //==========================================================================
-  template<class T>
-  BOOST_FORCEINLINE extremum<false> operator+(extremum<false> const& e, T o)
+  template<class T, bool B>
+  BOOST_FORCEINLINE extremum<false> operator+(extremum<B> const& e, T o)
   {
     extremum<false> that = { e.offset_ + o };
     return that;
