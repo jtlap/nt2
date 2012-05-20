@@ -20,10 +20,8 @@ SET( SOURCES
      linsolve.cpp
      full_qr_solve.cpp
      full_lu_solve.cpp  
-<<<<<<< Updated upstream
      svd_solve.cpp
-=======
->>>>>>> Stashed changes
+#     tr_solve.cpp
    )
 
 nt2_module_add_tests(linalg.tie.unit ${SOURCES})
