@@ -9,6 +9,8 @@
 #ifndef NT2_CORE_CONTAINER_EXTREMUM_EXTREMUM_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_EXTREMUM_EXTREMUM_HPP_INCLUDED
 
+#include <iostream>
+
 namespace nt2 { namespace container
 {
   //==========================================================================
@@ -21,14 +23,6 @@ namespace nt2 { namespace container
     template<class B, class Sz>
     BOOST_FORCEINLINE std::ptrdiff_t index(B const& b, Sz const& s) const
     {
-      BOOST_ASSERT_MSG( isEnd && (offset_ <= 0)
-                      , "end_ is used with a non negative offset"
-                      );
-
-      BOOST_ASSERT_MSG( !isEnd && (offset_ >= 0)
-                      , "begin_ is used with a non positive offset"
-                      );
-
       return index(b,s,boost::mpl::bool_<isEnd>());
     }
 
@@ -37,6 +31,9 @@ namespace nt2 { namespace container
     BOOST_FORCEINLINE
     std::ptrdiff_t index(B const& b, Sz const& s, boost::mpl::true_) const
     {
+      BOOST_ASSERT_MSG( (offset_ <= 0)
+                      , "end_ is used with a non negative offset"
+                      );
       return s + b - 1 + offset_;
     }
 
@@ -44,6 +41,9 @@ namespace nt2 { namespace container
     BOOST_FORCEINLINE
     std::ptrdiff_t index(B const& b, Sz const&, boost::mpl::false_) const
     {
+      BOOST_ASSERT_MSG( (offset_ >= 0)
+                      , "begin_ is used with a non positive offset"
+                      );
       return b + offset_;
     }
   };
@@ -51,14 +51,14 @@ namespace nt2 { namespace container
   template<class T, bool B>
   BOOST_FORCEINLINE extremum<B> operator-(extremum<B> const& e, T o)
   {
-    extremum<true> that = { e.offset_ - o };
+    extremum<B> that = { e.offset_ - o };
     return that;
   }
 
   template<class T, bool B>
-  BOOST_FORCEINLINE extremum<false> operator+(extremum<B> const& e, T o)
+  BOOST_FORCEINLINE extremum<B> operator+(extremum<B> const& e, T o)
   {
-    extremum<false> that = { e.offset_ + o };
+    extremum<B> that = { e.offset_ + o };
     return that;
   }
 

@@ -108,14 +108,14 @@ namespace nt2 { namespace details
 
     template<bool B, class Dummy = void> struct apply {};
 
-    // Case of colon indexer
+    // Case of colon indexer - make 1D
     template<class Dummy> struct apply<true, Dummy>
     {
       typedef typename meta::call<tag::numel_(Indexed)>::type num;
       typedef of_size_< mpl_value<num>::value > result_type;
 
-      template<class I, class C>
-      BOOST_FORCEINLINE result_type operator()(I& i, C&) const
+      template<class I, class C, class S, class B> BOOST_FORCEINLINE
+      result_type operator()(I& i, C& c, S const&, B const&) const
       {
         return result_type(numel(i));
       }
@@ -124,14 +124,41 @@ namespace nt2 { namespace details
     // Case of non-colon indexer
     template<class Dummy> struct apply<false, Dummy>
     {
+      typedef typename boost::proto::tag_of<idx_t>::type              tag_t;
+
       typedef typename
               container::size_transform<Domain>::template
-              result<container::size_transform<Domain>(idx_t)>::type result_type;
+              result<container::size_transform<Domain>(idx_t)>::type  shape_t;
 
-      template<class I, class C>
-      BOOST_FORCEINLINE result_type operator()(I&, C& c) const
+      typedef typename boost::mpl::if_< boost::is_same< tag_t
+                                                      , tag::relative_colon_
+                                                      >
+                                      , _2D
+                                      , shape_t
+                                      >::type                       result_type;
+
+      template<class I, class C, class S, class B> BOOST_FORCEINLINE
+      result_type operator()(I& i, C& c, S const& s, B const& b) const
+      {
+        return eval(i,c,s,b, tag_t());
+      }
+
+      // If non-colon and not relative colon, keep the shape
+      template<class I,class C, class S, class B, class Tag> BOOST_FORCEINLINE
+      result_type eval(I& ,C& c, S const&, B const&, Tag const&) const
       {
         return container::size_transform<Domain>()(boost::proto::child_c<0>(c));
+      }
+
+      // If relative colon, return a _2D size with proper size w/r to indexed
+      template<class I,class C, class S, class B>
+      BOOST_FORCEINLINE result_type
+      eval(I& i, C& c, S const& s, B const& b, tag::relative_colon_) const
+      {
+        bool        is1D  = nt2::ndims(i.extent()) == 1;
+        std::size_t nelem = nt2::relative_size(boost::proto::child_c<0>(c),s,b);
+        result_type that( (is1D ? nelem : 1u), (is1D ? 1u : nelem));
+        return that;
       }
     };
 
@@ -139,9 +166,13 @@ namespace nt2 { namespace details
     typedef typename impl::result_type            result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(Indexed i, Sizes, Bases, Children children) const
+    result_type operator()(Indexed i, Sizes s, Bases b, Children children) const
     {
-      return impl()(i, children);
+      return impl() ( i
+                    , children
+                    , boost::fusion::at_c<0>(s)
+                    , boost::fusion::at_c<0>(b)
+                    );
     }
   };
 } }
