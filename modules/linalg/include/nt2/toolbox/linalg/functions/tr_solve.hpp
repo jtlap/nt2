@@ -77,9 +77,12 @@ namespace nt2
      * Tr_solve factorization.
      **/
     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::tr_solve_, tr_solve, 5)
-    NT2_FUNCTION_IMPLEMENTATION(tag::solvers::tr_solve_, tr_solve, 6)
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::tr_solve_, tr_solve,(A0&)(A1&)(const A1&), 5)
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::tr_solve_, tr_solve,(A0&)(A1&)(const A1&)(const A2&), 6)
+//     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::tr_solve_, tr_solve, 6)
+//     NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::tr_solve_, tr_solve,(A0&)(A1&)
+//                                     (const A2&)(const A3&)(const A4&), 5)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::tr_solve_, tr_solve,(A0&)(A1&)
+                                    (const A2&)(const A3&)
+                                    (const A4&)(const A5&), 6)
       
       
   }

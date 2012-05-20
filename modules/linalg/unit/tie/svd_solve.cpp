@@ -46,14 +46,9 @@ NT2_TEST_CASE_TPL ( svd_solve_expr, NT2_REAL_TYPES)
   NT2_DISP(a);
   t_t x, b =  nt2::ones(5, 1, nt2::meta::as_<T>());
   NT2_DISP(b);
-  T r; 
-  nt2::tie(x, r) = nt2::svd_solve(a, b);
-  NT2_DISP(x);
-  std::cout << r << std::endl;
   int32_t rank; 
-  nt2::tie(x, r, rank) = nt2::svd_solve(a, b);
+  nt2::tie(x, rank) = nt2::svd_solve(a, b);
   NT2_DISP(x);
-  std::cout << r << std::endl;
   std::cout << rank<< std::endl;
 
 }

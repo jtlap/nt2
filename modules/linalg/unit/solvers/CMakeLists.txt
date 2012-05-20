@@ -16,6 +16,7 @@ SET( SOURCES
   svd_result_solve.cpp 
   svd_solve.cpp
   tr_result_solve.cpp
+#  tr_solve.cpp
    )
 
 nt2_module_add_tests(linalg.solvers.unit ${SOURCES})

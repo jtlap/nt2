@@ -22,8 +22,9 @@ namespace nt2 {namespace details
   //============================================================================
   template<class A, class B = A> struct tr_solve_result
   {
-    typedef typename A::value_type                     type_t;
-    typedef typename A::index_type                    index_t; 
+    typedef typename meta::strip<A>::type             strip_t;
+    typedef typename strip_t::value_type               type_t;
+    typedef typename strip_t::index_type              index_t;
     typedef typename meta::as_real<type_t>::type      btype_t; 
     typedef nt2::table<type_t,nt2::matlab_index_>      ftab_t;
     typedef nt2::table<btype_t,nt2::matlab_index_>    fbtab_t;
@@ -31,6 +32,8 @@ namespace nt2 {namespace details
     typedef nt2::table<type_t,index_t>                  tab_t;
     typedef nt2::table<btype_t,index_t>                btab_t;
     typedef nt2::table<nt2_la_int,index_t>             itab_t;
+    typedef A                                         data1_t; 
+    typedef B                                         data2_t; 
     
     ////////////////////////////////////////////////////////////////////////////
     //  Solve triangular systems
@@ -43,8 +46,10 @@ namespace nt2 {namespace details
     //  do not assume diag elements are special, use diag = 'u' to suppose ones
     //  on the diagonal and no access to a diagonal elements
     ////////////////////////////////////////////////////////////////////////////
-    tr_solve_result(A& a, B& bx,
-                    const char & uplo    /*= 'l'*/,
+    template < class Input1, class Input2>
+    tr_solve_result(Input1& a,
+                    Input2& bx,
+                    const char& uplo  /*= 'l'*/,
                     const char& trans /*= 'n'*/,      
                     const char& diag  /*= 'n'*/ )
       : a_(a),
@@ -56,16 +61,17 @@ namespace nt2 {namespace details
       const nt2_la_int k = width(bx_);
       const nt2_la_int lda = a_.leading_size();
       const nt2_la_int ldx = bx_.leading_size();
-      nt2::details::trtrs(&uplo, &trans, &diag, &m, &k, a_.raw(), &lda, bx_.raw(), &ldx, &info_);
-      BOOST_ASSERT_MSG(info_ == 0, "lapack error : gels in solve_tr_ip");
+      nt2::details::trtrs(&uplo, &trans, &diag, &m, &k,
+                          a_.raw(), &lda, bx_.raw(), &ldx, &info_);
+      //      BOOST_ASSERT_MSG(info_ == 0, "lapack error : gels in solve_tr_ip");
     }
     ~tr_solve_result(){}
     nt2_la_int status()    const { return info_; }
     ftab_t x()             const { return bx_;   }
     ftab_t values()        const { return a_;    }
   private:
-    A& a_; 
-    B& bx_;  
+    data1_t        a_; 
+    data2_t       bx_;  
     nt2_la_int  info_; 
     
   };

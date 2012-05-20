@@ -55,8 +55,8 @@ namespace nt2
    * of the success of the factorization
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::svd_solve_, svd_solve, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::svd_solve_, svd_solve, 3)
-  NT2_FUNCTION_IMPLEMENTATION(tag::svd_solve_, svd_solve, 4)
+//   NT2_FUNCTION_IMPLEMENTATION(tag::svd_solve_, svd_solve, 3)
+//   NT2_FUNCTION_IMPLEMENTATION(tag::svd_solve_, svd_solve, 4)
 
   namespace solvers
   {
@@ -79,9 +79,9 @@ namespace nt2
      * svd_Solve factorization.
      **/
     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::svd_solve_, svd_solve, 2)
-    NT2_FUNCTION_IMPLEMENTATION(tag::solvers::svd_solve_, svd_solve, 3)
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::svd_solve_, svd_solve,(A0&)(A1&), 2)
-    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::svd_solve_, svd_solve,(A0&)(A1&)(const A2&), 3)
+    //    NT2_FUNCTION_IMPLEMENTATION(tag::solvers::svd_solve_, svd_solve, 3)
+    //    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::svd_solve_, svd_solve,(A0&)(A1&), 2)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::svd_solve_, svd_solve,(A0&)(const A1&)(const A2&), 3)
   }
 }
 

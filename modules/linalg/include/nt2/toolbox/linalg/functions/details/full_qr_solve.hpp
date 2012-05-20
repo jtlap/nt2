@@ -39,16 +39,11 @@ namespace nt2 { namespace details
     //  A is            N x M
     //  B is            N x nrhs
     ////////////////////////////////////////////////////////////////////////////
-<<<<<<< Updated upstream
     template < class Input, class B > 
     full_qr_solve_result(Input& a, const B& b, const char &trans)
       : a_(a)
       , lda_(a_.leading_size())
-=======
-    full_qr_solve_result(A& a, const B& b, const char &trans)
-      : lda_(a.leading_size())
       , ldb_(b.leading_size())
->>>>>>> Stashed changes
       , m_(height(a))
       , n_(width(a))
       , nrhs_(width(b))
@@ -56,11 +51,7 @@ namespace nt2 { namespace details
       , jpvt_(nt2::of_size(n_, 1))
     {
       nt2_la_int ldx  = x_.leading_size();
-<<<<<<< Updated upstream
       nt2::details::gelsy (&m_, &n_, &nrhs_, a_.raw(), &lda_,
-=======
-      nt2::details::gelsy (&m_, &n_, &nrhs_, (type_t*)a.raw(), &lda_,
->>>>>>> Stashed changes
                            x_.raw(), &ldx, jpvt_.raw(), &rcond_,
                            &rank_, &info_);
       //NOT THERE      BOOST_ASSERT_MSG(info == 0, "Warning: Matrix is singular to working precision.");
