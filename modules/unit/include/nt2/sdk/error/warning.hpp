@@ -43,18 +43,15 @@
     //==========================================================================
     // This warning_handler has to be user defined
     //==========================================================================
-    void warning_handler( char const* cond    , char const* msg
-                        , char const* function, char const* file
-                        , long line
+    void warning_handler( char const* cond, char const* msg
+                        , char const* file, long line
                         );
   }
 
-  #define NT2_WARNING(cond,msg)                                         \
-  ((cond) ? ((void)0)                                                   \
-          : ::nt2::warning_handler( #cond, msg, BOOST_CURRENT_FUNCTION  \
-                                  , __FILE__, __LINE__                  \
-                                  )                                     \
-  )                                                                     \
+  #define NT2_WARNING(cond,msg)                                       \
+  ((cond) ? ((void)0)                                                 \
+          : ::nt2::warning_handler( #cond, msg, __FILE__, __LINE__ )  \
+  )                                                                   \
   /**/
 
 //==============================================================================
@@ -70,26 +67,20 @@
   namespace nt2 { namespace details
   {
     BOOST_FORCEINLINE
-    void warning_handler( char const* cond    , char const* msg
-                        , char const* function, char const* file
-                        , long line
+    void warning_handler( char const* cond, char const* msg
+                        , char const* file, long line
                         )
     {
-      ::fprintf ( stderr
-                , "Warning: %s failed - %s in %s @ %s:%ld\n"
-                , cond, msg
-                , function, file, line
+      ::fprintf ( stderr, "Warning: %s failed: %s\nIn %s:%ld\n"
+                        , cond, msg, file, line
                 );
     }
   } }
 
-  #define NT2_WARNING(cond,msg)                                       \
-  ((cond) ? ((void)0)                                                 \
-          : ::nt2::details::warning_handler ( #cond, msg              \
-                                            , BOOST_CURRENT_FUNCTION  \
-                                            , __FILE__, __LINE__      \
-                                            )                         \
-  )                                                                   \
+  #define NT2_WARNING(cond,msg)                                               \
+  ((cond) ? ((void)0)                                                         \
+          : ::nt2::details::warning_handler( #cond, msg, __FILE__, __LINE__ ) \
+  )                                                                           \
   /**/
   #endif
 #endif
