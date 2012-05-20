@@ -9,8 +9,6 @@
 #ifndef NT2_CORE_CONTAINER_EXTREMUM_EXTREMUM_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_EXTREMUM_EXTREMUM_HPP_INCLUDED
 
-#include <iostream>
-
 namespace nt2 { namespace container
 {
   //==========================================================================
