@@ -27,12 +27,18 @@ namespace nt2 { namespace ext
                               ((node_<A1, nt2::tag::tie_ , N1>))
                             )
   {
-    typedef void                                                    result_type;
+    typedef void                                                     result_type;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type  child0;
-    typedef typename meta::
+    typedef typename boost::dispatch::meta::
+             terminal_of< typename boost::dispatch::meta::
+                         semantic_of<child0>::type
+                       >::type                                          dest0_t;
+    
+      typedef typename meta::
             call< nt2::tag::
                   factorization::chol_(child0,char,nt2::details::in_place_)
-                >::type                                             fact_t;
+                >::type                                                  fact_t;
+ 
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {

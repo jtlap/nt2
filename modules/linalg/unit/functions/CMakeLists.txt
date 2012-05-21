@@ -8,7 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-     chol.cpp
    )
 
 nt2_module_add_tests(linalg.functions.unit ${SOURCES})
