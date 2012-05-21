@@ -58,20 +58,19 @@ namespace nt2 { namespace ext
                               )
   {
     typedef details::tr_solve_result<A0&, A1&> result_type;
-    BOOST_FORCEINLINE result_type
-    operator()(A0& a,
-               A1& b,
-               A2 const & uplo,
-               A3 const & trans, 
-               A4 const & diag,  
-               IP const &)
+    BOOST_FORCEINLINE result_type operator()  (A0& a,
+                                               A1& b,
+                                               A2 const & uplo,
+                                               A3 const & trans, 
+                                               A4 const & diag,  
+                                               IP const &) const
     {
       BOOST_ASSERT_MSG(ofsameheight(a, b),
                        "a and b have different heights");
-      NT2_WARNING(istril(a)&&(uplo == 'L'),
-                       "a is not lower triangular, but only the lower part of the matrix will be used");
-      NT2_WARNING(istriu(a)&&(uplo == 'U'),
-                       "a is not upper triangular, but only the upper part of the matrix will be used");
+//       NT2_WARNING(istril(a)&&(uplo == 'L'),
+//                   "a is not lower triangular, but only the lower part of the matrix will be used");
+//       NT2_WARNING(istriu(a)&&(uplo == 'U'),
+//                   "a is not upper triangular, but only the upper part of the matrix will be used");
       result_type that(a, b, uplo, trans, diag);
       return that;
     }

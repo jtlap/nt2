@@ -69,7 +69,7 @@ namespace nt2 {namespace details
     ~lsq_lse_solve_result(){}
     nt2_la_int status()    const { return info_; }
     ftab_t x()           const { return x_;              }
-    ftab_t residuals()   const { return c_(_(begin_+(n_-p_), begin_+(m_-1))); }
+    ftab_t residuals()   const { return c_(_(begin_+(n_-p_), end_)); }
   private:
     a_t                  a_;
     b_t                  b_;

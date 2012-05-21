@@ -14,7 +14,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/expand.hpp>
-
+#include <nt2/sdk/error/warning.hpp>
 namespace nt2 { namespace details
 {
   //============================================================================
@@ -54,7 +54,7 @@ namespace nt2 { namespace details
       nt2::details::gelsy (&m_, &n_, &nrhs_, a_.raw(), &lda_,
                            x_.raw(), &ldx, jpvt_.raw(), &rcond_,
                            &rank_, &info_);
-      //NOT THERE      BOOST_ASSERT_MSG(info == 0, "Warning: Matrix is singular to working precision.");
+      //      NT2_WARNING(info_ <= 0, "Warning: Matrix is singular to working precision.");
     }
 
     fitab_t ipiv()      const { return jpvt_; }

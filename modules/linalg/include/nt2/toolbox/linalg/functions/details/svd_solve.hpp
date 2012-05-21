@@ -80,7 +80,7 @@ namespace nt2 { namespace details
         {
           x_ = b;
           nt2_la_int ldx_ =  x_.leading_size();
-          nt2::details::gelsd(&ml, &nl, &nrhs, (type_t*)a_.raw(), &lda, x_.raw(), &ldx_,
+          nt2::details::gelsd(&ml, &nl, &nrhs, a_.raw(), &lda, x_.raw(), &ldx_,
                               s.raw(), &rcond, &rank_, &info_);
           //          BOOST_ASSERT_MSG(info == 0, "lapack error : gelsd in solve_svd_ip(2)");
         }

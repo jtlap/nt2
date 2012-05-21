@@ -398,6 +398,16 @@ namespace nt2 { namespace details
     base_t                   rc_;
     nt2_la_int             info_;
     workspace_t               w_;
+    //    template < class T, class XPR1, class XPR2 > XPR2 cast(const XPR1& a)
+    //     {
+    //       typedef typename XPR1::index_type index_t; 
+    //       table<T, index_t> b;
+    //       for(int i=nt2::first_index<0>(a); i < nt2::first_index<0>(a)+numel(a); ++i)
+    //         {
+    //           b(i) = a(i); 
+    //         }
+    //       return b; 
+    //     }
   };
 } }
 

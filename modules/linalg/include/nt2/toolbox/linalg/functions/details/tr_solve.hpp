@@ -12,9 +12,11 @@
 #include <nt2/toolbox/linalg/details/lapack/trtrs.hpp>
 #include <nt2/table.hpp>
 #include <nt2/include/functions/issquare.hpp>
+#include <nt2/include/functions/istriangular.hpp>
 #include <nt2/include/functions/ofsameheight.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
+#include <nt2/sdk/error/warning.hpp>
 namespace nt2 {namespace details
 {
   //============================================================================
@@ -55,6 +57,8 @@ namespace nt2 {namespace details
       : a_(a),
         bx_(bx)
     {
+      NT2_WARNING(nt2::istriangular(a_)||(uplo == 'L'), "in tr_solve input is not triangular: only the upper matrix part will be used");
+      NT2_WARNING(nt2::istriangular(a_)||(uplo == 'U'), "in tr_solve input is not triangular: only the lower matrix part will be used");
       BOOST_ASSERT_MSG(nt2::issquare(a), "matrix a is not square");
       BOOST_ASSERT_MSG(nt2::ofsameheight(a_, bx_), "a and x have different heights");
       const nt2_la_int m = height(a_);
@@ -63,7 +67,6 @@ namespace nt2 {namespace details
       const nt2_la_int ldx = bx_.leading_size();
       nt2::details::trtrs(&uplo, &trans, &diag, &m, &k,
                           a_.raw(), &lda, bx_.raw(), &ldx, &info_);
-      //      BOOST_ASSERT_MSG(info_ == 0, "lapack error : gels in solve_tr_ip");
       NT2_DISP(bx_); 
     }
     ~tr_solve_result(){}

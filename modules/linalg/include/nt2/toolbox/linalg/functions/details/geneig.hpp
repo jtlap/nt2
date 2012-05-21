@@ -121,7 +121,7 @@ namespace nt2 { namespace details
     // Return raw values
     //==========================================================================
     result_type values() const { return aa_; }
-    
+    nt2_la_int status()  const {return info_; }
     //==========================================================================
     // return left eigen vectors
     //==========================================================================

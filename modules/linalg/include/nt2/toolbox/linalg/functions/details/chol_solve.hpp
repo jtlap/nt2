@@ -48,14 +48,13 @@ namespace nt2 { namespace details
       : a_(a),
         b_(bx)
     {
-//       BOOST_ASSERT_MSG(nt2::issquare(a_), "matrix a is not square");
-//       BOOST_ASSERT_MSG(nt2::ofsameheight(a_, b_), "a and x have different heights");
+      BOOST_ASSERT_MSG(nt2::issquare(a_), "matrix a is not square");
+      BOOST_ASSERT_MSG(nt2::ofsameheight(a_, b_), "a and x have different heights");
       const nt2_la_int m = height(a);
       const nt2_la_int k = width(bx);
       const nt2_la_int lda = a_.leading_size();
       const nt2_la_int ldx = b_.leading_size();
       nt2::details::posv(&uplo, &m, &k, a_.raw(), &lda, b_.raw(), &ldx, &info_);
-      //NOT THERE        BOOST_ASSERT_MSG(info == 0, "lapack error : posv in solve_chol_ip");
     }
     ~chol_solve_result(){}
     nt2_la_int status()    const { return info_; }

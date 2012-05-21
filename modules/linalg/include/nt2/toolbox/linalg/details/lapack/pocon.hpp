@@ -13,6 +13,10 @@
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 #include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
 
+//         info is integer
+//          = 0:  successful exit
+//          < 0:  if info = -i, the i-th argument had an illegal value
+
 extern "C"
 {
   void NT2_F77NAME(cpocon)( const char* uplo        , const nt2_la_int* n

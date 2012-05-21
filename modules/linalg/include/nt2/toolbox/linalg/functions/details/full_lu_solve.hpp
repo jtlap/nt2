@@ -13,6 +13,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
+#include <nt2/sdk/error/warning.hpp>
 
 namespace nt2 { namespace details
 {
@@ -65,7 +66,7 @@ namespace nt2 { namespace details
                           b_.raw(), &ldb_,
                           x_.raw(), &ldx, &rcond_,
                           ferr_.raw(), berr_.raw(), &info_);
-      //NOT THERE      BOOST_ASSERT_MSG(info == 0, "Warning: Matrix is singular to working precision.");
+      NT2_WARNING(info_ <=  0, "Warning: Matrix is singular to working precision.");
     }
     ~full_lu_solve_result(){}
     itab_t ipiv()       const { return ipiv_; }
