@@ -64,56 +64,56 @@ namespace nt2 { namespace ext
       return that;
     }
   };  
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::linsolve_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , (ast_<A0>)
-                              (ast_<A1>)
-                              (options_<A2>)
-                            )
-  {
-    typedef typename meta::strip<A0>::type                                base_t;
-    typedef typename base_t::value_type                                  value_t;
-    typedef typename base_t::settings_type                            settings_t;
-    typedef details::linsolve_result< table<value_t,settings_t> >    result_type;
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::linsolve_, tag::cpu_
+//                               , (A0)(A1)(A2)
+//                               , (ast_<A0>)
+//                               (ast_<A1>)
+//                               (unspecified_<A2>)
+//                             )
+//   {
+//     typedef typename meta::strip<A0>::type                                base_t;
+//     typedef typename base_t::value_type                                  value_t;
+//     typedef typename base_t::settings_type                            settings_t;
+//     typedef details::linsolve_result< table<value_t,settings_t> >    result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& b, A2 const & opts) const
-    {
-      BOOST_ASSERT_MSG( nt2::ismatrix(a)
-                      , "??? Error using 'linsolve' : argument a must be matrix."
-                      );
-      BOOST_ASSERT_MSG( nt2::ismatrix(b)
-                      , "??? Error using 'linsolve' : argument b must be matrix."
-                      );
-      result_type that(a, b, opts);
-      return that;
-    }
-  };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::linsolve_, tag::cpu_
-                              , (A0)(A1)(A2)(IP)
-                              , (ast_<A0>)
-                              (ast_<A1>)
-                              (options_<A2>)
-                              (unspecified_<IP>)
-                            )
-  {
-    typedef typename meta::strip<A0>::type                                base_t;
-    typedef typename base_t::value_type                                  value_t;
-    typedef typename base_t::settings_type                            settings_t;
-    typedef details::linsolve_result< table<value_t,settings_t> >    result_type;
+//     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const& b, A2 const & opts) const
+//     {
+//       BOOST_ASSERT_MSG( nt2::ismatrix(a)
+//                       , "??? Error using 'linsolve' : argument a must be matrix."
+//                       );
+//       BOOST_ASSERT_MSG( nt2::ismatrix(b)
+//                       , "??? Error using 'linsolve' : argument b must be matrix."
+//                       );
+//       result_type that(a, b, opts);
+//       return that;
+//     }
+//   };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::linsolve_, tag::cpu_
+//                               , (A0)(A1)(A2)(IP)
+//                               , (ast_<A0>)
+//                               (ast_<A1>)
+//                               (options_<A2>)
+//                               (unspecified_<IP>)
+//                             )
+//   {
+//     typedef typename meta::strip<A0>::type                                base_t;
+//     typedef typename base_t::value_type                                  value_t;
+//     typedef typename base_t::settings_type                            settings_t;
+//     typedef details::linsolve_result< table<value_t,settings_t> >    result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& a, A1 const& b,
-                                             A2 const & opts, IP const &) const
-    {
-      BOOST_ASSERT_MSG( nt2::ismatrix(a)
-                      , "??? Error using 'linsolve' : argument a must be matrix."
-                      );
-      BOOST_ASSERT_MSG( nt2::ismatrix(b)
-                      , "??? Error using 'linsolve' : argument b must be matrix."
-                      );
-      result_type that(a, b, opts);
-      return that;
-    }
-  };  
+//     BOOST_FORCEINLINE result_type operator()(A0& a, A1 const& b,
+//                                              A2 const & opts, IP const &) const
+//     {
+//       BOOST_ASSERT_MSG( nt2::ismatrix(a)
+//                       , "??? Error using 'linsolve' : argument a must be matrix."
+//                       );
+//       BOOST_ASSERT_MSG( nt2::ismatrix(b)
+//                       , "??? Error using 'linsolve' : argument b must be matrix."
+//                       );
+//       result_type that(a, b, opts);
+//       return that;
+//     }
+//   };  
 
 } }
 
