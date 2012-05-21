@@ -6,21 +6,24 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - tied lsq_lse_solve function"
+#define NT2_UNIT_MODULE "nt2 linalg toolbox - tied svd_solve function"
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp> 
-#include <nt2/include/functions/lsq_lse_solve.hpp>
+#include <nt2/include/functions/svd_solve.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/expand.hpp>
+#include <nt2/include/functions/triu.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL ( lsq_lse_solve_expr, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( svd_solve_expr, NT2_REAL_TYPES)
 {
+  using nt2::_; 
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t; 
   typedef nt2::table<T> t_t;
   typedef nt2::table<itype_t> it_t; 
@@ -34,10 +37,12 @@ NT2_TEST_CASE_TPL ( lsq_lse_solve_expr, NT2_REAL_TYPES)
   nt2::disp("b     ", b);
   nt2::disp("c     ", c);
   nt2::disp("d     ", d);
-
-  nt2::tie(x, residuals, status) = nt2::lsq_lse_solve(a, b, c, d);
+  t_t x;
+  int32_t rank;
+  nt2_la_int status; 
+  nt2::tie(x, rank, status) = nt2::svd_solve(a, b);
   NT2_DISP(x);
-  NT2_DISP(residuals);
-  std::cout << "status" << status << std::endl; 
+  std::cout << "rank    " << rank << std::endl; 
+  std::cout << "status  " << status << std::endl; 
 
 }

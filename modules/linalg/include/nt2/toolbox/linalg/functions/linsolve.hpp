@@ -12,7 +12,7 @@
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
-#include <nt2/toolbox/linalg/functions/details/linsolve.hpp>
+
 
 //  linsolve solve linear system a*x=b.
 //     x = linsolve(a,b) solves the linear system a*x=b using
