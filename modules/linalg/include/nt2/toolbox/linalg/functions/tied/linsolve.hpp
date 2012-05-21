@@ -35,16 +35,21 @@ namespace nt2 { namespace ext
     typedef typename solvers::options                                    opts_t; 
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
-    typedef typename meta::strip<child0>::type                          dest0_t;
+    typedef typename boost::dispatch::meta::
+            terminal_of< typename boost::dispatch::meta::
+                         semantic_of<child0>::type
+                       >::type                                          dest0_t;
+    typedef typename dest0_t::value_type                                value_t; 
+
     typedef typename meta::
             call< nt2::tag::
-                  solvers::full_lu_solve_ ( dest0_t&, child1
+                  solvers::full_lu_solve_ ( dest0_t&, dest0_t&
                                           , char, nt2::details::in_place_
                                           )
                 >::type                                              solve_lu_t;
     typedef typename meta::
             call< nt2::tag::
-                  solvers::full_qr_solve_ ( dest0_t&, child1
+                  solvers::full_qr_solve_ ( dest0_t&, dest0_t&
                                           , char, nt2::details::in_place_
                                           )
                 >::type                                              solve_qr_t;
@@ -53,21 +58,22 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       // Copy equation rhs in output first
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<1>(a0);
+      //      boost::proto::child_c<0>(a1) = boost::proto::child_c<1>(a0);
       // Copy the matrix somwhere
-      dest0_t a = boost::proto::child_c<0>(a0); 
+      dest0_t a = boost::proto::child_c<0>(a0);
+      dest0_t b = boost::proto::child_c<1>(a0);
       // Retrieve the Linsolve/Scale options
       opts_t opts = options(a0, N0()); 
 
       // solve in place
       if(nt2::issquare(a))
         {
-          solve_lu_t f = solvers::full_lu_solve(a, boost::proto::child_c<0>(a1),'N',in_place_);
+          solve_lu_t f = solvers::full_lu_solve(a, b,'N',in_place_);
           solve(f, a1, N1());
         }
       else
         {
-          solve_qr_t f = solvers::full_qr_solve(a, boost::proto::child_c<0>(a1),'N',in_place_);
+          solve_qr_t f = solvers::full_qr_solve(a, b,'N',in_place_);
           solve(f, a1, N1());
         }        
     }
@@ -103,7 +109,7 @@ namespace nt2 { namespace ext
     void solve(solve_qr_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
     {
       boost::proto::child_c<0>(a1) = f.x();
-      boost::proto::child_c<1>(a1) = f.rank();
+      boost::proto::child_c<1>(a1) = value_t(f.rank());
     }
     BOOST_FORCEINLINE
     void solve(solve_lu_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
