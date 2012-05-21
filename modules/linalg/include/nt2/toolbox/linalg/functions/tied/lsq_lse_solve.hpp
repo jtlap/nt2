@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 
     typedef typename meta::
             call< nt2::tag::
-                 solvers::lsq_lse_solve_( dest0_t&, child1, dest0_t&, dest0_t&
+                 solvers::lsq_lse_solve_( dest0_t&, dest0_t&, dest0_t&, dest0_t&
                                     , nt2::details::in_place_
                                     )
                 >::type                                                 solve_t;
@@ -48,16 +48,17 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       // Copy equation rhs in output first
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<2>(a0);
+      //      boost::proto::child_c<0>(a1) = boost::proto::child_c<2>(a0);
 
       // Copy the other matrices somewhere
       dest0_t a = boost::proto::child_c<0>(a0);
       dest0_t b = boost::proto::child_c<1>(a0);
+      dest0_t c = boost::proto::child_c<2>(a0);
       dest0_t d = boost::proto::child_c<3>(a0);
 
       // solve in place
       solve_t
-        f = solvers::lsq_lse_solve(a, b, boost::proto::child_c<0>(a1), d, in_place_);
+        f = solvers::lsq_lse_solve(a, b, c, d, in_place_);
 
       solve(f, a1, N1());
     }

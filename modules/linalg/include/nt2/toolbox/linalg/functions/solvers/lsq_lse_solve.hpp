@@ -26,10 +26,10 @@ namespace nt2 { namespace ext
                               (ast_<A3>)
                             )
   {
-    typedef typename meta::strip<A0>::type                              base_t;
-    typedef typename base_t::value_type                                value_t;
-    typedef typename meta::as_real<value_t>::type                     bvalue_t;
-    typedef typename base_t::settings_type                          settings_t;
+    typedef typename meta::strip<A0>::type                                  base_t;
+    typedef typename base_t::value_type                                    value_t;
+    typedef typename meta::as_real<value_t>::type                         bvalue_t;
+    typedef typename base_t::settings_type                              settings_t;
     typedef details::lsq_lse_solve_result< table<value_t,settings_t> > result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a,
@@ -58,13 +58,13 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<A0>::type                              base_t;
     typedef typename base_t::value_type                                value_t;
     typedef typename meta::as_real<value_t>::type                     bvalue_t;
-    typedef details::lsq_lse_solve_result<A0&>                         result_type;
+    typedef details::lsq_lse_solve_result<A0&>                     result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a,
                                              A1& b,
                                              A2& c,
                                              A3& d,
-                                             IP&)
+                                             const IP&) const
     {
       BOOST_ASSERT_MSG(ofsameheight(a, c),
                        "a and c have different heights");
