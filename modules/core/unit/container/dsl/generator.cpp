@@ -60,12 +60,12 @@ NT2_TEST_CASE( semantic_of )
                       )
                     );
 
-  NT2_TEST_EXPR_TYPE( a0(1)
+  NT2_TEST_EXPR_TYPE( a0(boost::proto::as_expr(1))
                     , semantic_of<_>
-                    , T
+                    , T&
                     );
 
-  NT2_TEST_EXPR_TYPE( ((a0 + a1)(1))
+  NT2_TEST_EXPR_TYPE( ((a0 + a1)(boost::proto::as_expr(1)))
                     , semantic_of<_>
                     , T
                     );
