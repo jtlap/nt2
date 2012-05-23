@@ -6,5 +6,11 @@
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
-nt2_module_use_modules(unit sdk core)
-ADD_SUBDIRECTORY(scalar)
+
+SET( SOURCES
+#     gemm.cpp
+#     gemv.cpp
+      norm.cpp
+   )
+
+nt2_module_add_tests(linalg.scalar.bench ${SOURCES})
