@@ -10,10 +10,14 @@
 ################################################################################
 # Find and detect Boost libraries
 ################################################################################
-SET(Boost_ADDITIONAL_VERSIONS "1.48")
-FIND_PACKAGE( Boost 1.48.0 QUIET )
-IF(Boost_FOUND)
-  MESSAGE(STATUS "[boost.dispatch] Boost version: ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
-ELSE()
-  MESSAGE(STATUS "[boost.dispatch] Boost NOT found")
-ENDIF()
+set(Boost_ADDITIONAL_VERSIONS "1.48")
+find_package( Boost 1.48.0 QUIET )
+if(Boost_VERSION LESS 104800)
+  message(STATUS "[boost.dispatch] Boost version ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION} not recent enough, needs 1.48.0")
+  set(Boost_FOUND 0)
+endif()
+if(Boost_FOUND)
+  message(STATUS "[boost.dispatch] Boost version: ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION}")
+else()
+  message(STATUS "[boost.dispatch] Boost NOT found")
+endif()
