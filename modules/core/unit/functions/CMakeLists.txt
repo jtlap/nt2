@@ -32,6 +32,7 @@ SET( SOURCES
   flipdim.cpp
   fliplr.cpp
   flipud.cpp
+  freqspace.cpp
   freqspace1.cpp
   freqspace2.cpp
   from_diag.cpp

@@ -11,28 +11,26 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/colon.hpp>
-#include <nt2/include/functions/freqspace.hpp>
 #include <nt2/include/functions/log10.hpp>
 #include <nt2/include/functions/exp10.hpp>
-#include <boost/fusion/include/make_vector.hpp>
+#include <nt2/include/functions/freqspace.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+#include <boost/proto/debug.hpp>
 
 NT2_TEST_CASE_TPL( freqspace, (double)(float) )
 {
-  typedef T r_t;
-  double ulpd;
-  {
-    using nt2::freqspace; 
-    nt2::table<T> f1, f2;
-    tie(f1) = freqspace(10);
-    tie(f1) = freqspace(10, nt2::_);
-    tie(f1, f2) = freqspace(10); 
-    tie(f1, f2) = freqspace(10, nt2::_);
-    tie(f1, f2) = freqspace(of_size(10, 5)); 
-    tie(f1, f2) = freqspace(of_size(10, 5), nt2::_); 
-      
-  }
+  using nt2::freqspace;
+  nt2::table<T> f1, f2;
 
+  tie(f1) = freqspace(10);
+  tie(f1) = freqspace(10, nt2::meta::as_<T>() );
 
+  tie(f1,f2) = freqspace(10);
+  tie(f1,f2) = freqspace(10, nt2::meta::as_<T>() );
+  tie(f1) = freqspace(10, nt2::whole_);
+  tie(f1, f2) = freqspace(10, nt2::whole_);
+  ////tie(f1, f2) = freqspace(nt2::of_size(10, 5));
+  ////tie(f1, f2) = freqspace(nt2::of_size(10, 5), nt2::);
+}

@@ -31,6 +31,29 @@ namespace nt2 { namespace container { namespace ext
   };
 
   //============================================================================
+  // This is the factorized generator for all generator that just generate an
+  // expression with a container semantic which type is in a as_ node
+  //============================================================================
+  template<class Expr, class Model, int N> struct generate_as_target
+  {
+    // The target is contained in the Nth child as a as_<T>
+    typedef typename boost::proto::result_of::child_c<Expr,N>::type tgt_term;
+    typedef typename boost::proto::result_of::value<tgt_term>::type target_t;
+
+    // Rebuidl proper expression type with semantic
+    typedef expression< typename boost::remove_const<Expr>::type
+                      , typename boost::mpl::apply< Model
+                                                  , typename target_t::type
+                                                  >::type
+                      >                                             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
+
+  //============================================================================
   // This is the factorized size_of for all size_of that just generate an
   // expression with the exact same extent than one of their children.
   //============================================================================

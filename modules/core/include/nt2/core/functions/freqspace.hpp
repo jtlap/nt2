@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_FREQSPACE_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/options.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
 /*!
@@ -21,16 +21,16 @@
  * Frequency spacing for frequency response. 1D case
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/freqspace.hpp>
  * \endcode
- * 
+ *
  *   f =  freqspace(n, whole_, as<T>())
  *   f =  freqspace(n, as<T>())
  *
  *   f = freqspace(n, as<T>()) returns the 1-d frequency vector f assuming n
- *                              equally spaced points around the unit circle.  
+ *                              equally spaced points around the unit circle.
  *                              f = _(0, 2/n, 1).
  *   f = freqspace(n, whole_, as<T>()) returns all n equally spaced points.
  *                                 In this case, f = _(0, 2/n, 2*(n-1)/n).
@@ -57,47 +57,19 @@ namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::freqspace_,Domain,N,Expr>
-  {
-    // The size is contained in the first child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
-
-  template<class Domain, class Expr>
-  struct  size_of<tag::freqspace_,Domain,1,Expr>
-  {
-    // The size is contained in the first child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
+        : boxed_size_of<Expr,0>
+  {};
 
   template<class Domain, int N, class Expr>
   struct  generator<tag::freqspace_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
-
-    // Rebuild proper expression type with semantic
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , sema_t
-                      >                                     result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
+        : generate_as_target< Expr
+                            , memory::container
+                              < boost::mpl::_
+                              , typename boxed_size_of<Expr,0>::result_type
+                              >
+                            , 2
+                            >
+  {};
 } } }
 
 #endif
-

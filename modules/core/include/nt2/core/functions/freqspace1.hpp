@@ -20,16 +20,16 @@
  * Frequency spacing for frequency response. 1D case
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/freqspace1.hpp>
  * \endcode
- * 
+ *
  *   f =  freqspace1(n, whole_, as<T>())
  *   f =  freqspace1(n, as<T>())
  *
  *   f = freqspace1(n, as<T>()) returns the 1-d frequency vector f assuming n
- *                              equally spaced points around the unit circle.  
+ *                              equally spaced points around the unit circle.
  *                              f = _(0, 2/n, 1).
  *   f = freqspace1(n, whole_, as<T>()) returns all n equally spaced points.
  *                                 In this case, f = _(0, 2/n, 2*(n-1)/n).
@@ -49,9 +49,6 @@
  */
 namespace nt2
 {
-  struct whole_t {};
-  const meta::as_<whole_t> whole_ = {};
-
   namespace tag
   {
     struct freqspace1_ : ext::generative_<freqspace1_>

@@ -30,7 +30,7 @@
 //         tab_t f2 = ((_(0, minusone(s1))-nt2::floor(s1*Half<value_type>()))*(Two<value_type>()/s1));
 
 // f1 = ((0:n(2)-1)-floor(n(2)/2))*(2/(n(2)));
-        
+
 // ou
 //    n odd,  f1 = (-1+1/n:2/n:1-1/n).
 //    n even  f1 = (-1    :2/n:1-2/n).
@@ -44,10 +44,10 @@ namespace nt2 { namespace ext
                               , (A0)(A1)(T)
                               , (scalar_< integer_<A0> >)
                                 (scalar_< integer_<A1> >)
-                              ((target_<scalar_< floating_<T> > > ))   
+                                ((target_<scalar_< floating_<T> > > ))
                               )
   {
-    typedef typename T::type value_type; 
+    typedef typename T::type value_type;
     typedef typename  boost::proto::
       result_of::make_expr< nt2::tag::freqspace2_
       , container::domain
@@ -55,15 +55,15 @@ namespace nt2 { namespace ext
       , box< nt2::details::colon<value_type> >
       , T
       >::type             type;
-    typedef boost::fusion::vector< type,type>  result_type; 
+    typedef boost::fusion::vector< type,type>  result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n, T const&) const
     {
-      value_type hvm = m*Half<value_type>(); 
-      value_type hm = nt2::rec(hvm);  
-      value_type lm = -nt2::floor(hvm)*hm; 
-      value_type hvn = n*Half<value_type>(); 
-      value_type hn = nt2::rec(hvn);  
-      value_type ln = -nt2::floor(hvn)*hn; 
+      value_type hvm = m*Half<value_type>();
+      value_type hm = nt2::rec(hvm);
+      value_type lm = -nt2::floor(hvm)*hm;
+      value_type hvn = n*Half<value_type>();
+      value_type hn = nt2::rec(hvn);
+      value_type ln = -nt2::floor(hvn)*hn;
         return boost::fusion::make_vector(
                   boost::proto::
                   make_expr < nt2::tag::freqspace2_
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
                   > ( boxify(of_size(1, n))
                       , boxify(nt2::details::colon<value_type>(ln,hn))
                       , T()
-                      ), 
+                      ),
                     boost::proto::
                   make_expr < nt2::tag::freqspace2_
                   , container::domain
@@ -89,10 +89,10 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace2_, tag::cpu_
                               , (A0)(T)
                               , (scalar_< integer_<A0> >)
-                              ((target_<scalar_< floating_<T> > > ))   
+                                ((target_<scalar_< floating_<T> > > ))
                               )
   {
-    typedef typename T::type value_type; 
+    typedef typename T::type value_type;
     typedef typename  boost::proto::
       result_of::make_expr< nt2::tag::freqspace2_
       , container::domain
@@ -100,12 +100,12 @@ namespace nt2 { namespace ext
       , box< nt2::details::colon<value_type> >
       , T
       >::type             type;
-    typedef boost::fusion::vector< type,type>  result_type; 
+    typedef boost::fusion::vector< type,type>  result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& n, T const&) const
     {
-      value_type hv = n*Half<value_type>(); 
-      value_type h =nt2::rec(hv);  
-      value_type l = -nt2::floor(hv)*h; 
+      value_type hv = n*Half<value_type>();
+      value_type h =nt2::rec(hv);
+      value_type l = -nt2::floor(hv)*h;
         return boost::fusion::make_vector(
                   boost::proto::
                   make_expr < nt2::tag::freqspace2_
@@ -113,18 +113,18 @@ namespace nt2 { namespace ext
                   > ( boxify(of_size(1, n))
                       , boxify(nt2::details::colon<value_type>(l,h))
                       , T()
-                      ), 
+                      ),
                   boost::proto::
                   make_expr < nt2::tag::freqspace2_
                   , container::domain
                   > ( boxify(of_size(1, n))
                       , boxify(nt2::details::colon<value_type>(l,h))
                       , T()
-                      ) 
+                      )
                   );
     }
   };
-  
+
   //============================================================================
   // Generates freqspace2 from m and n to double
   //============================================================================
@@ -134,23 +134,23 @@ namespace nt2 { namespace ext
                                 (scalar_< integer_<A1> >)
                               )
   {
-    typedef double value_type;         
+    typedef double value_type;
     typedef typename  boost::proto::
       result_of::make_expr< nt2::tag::freqspace2_
       , container::domain
       , box<_2D>
       , box< nt2::details::colon<double> >
-      , meta::as_<double > 
+      , meta::as_<double >
       >::type             type;
-    typedef boost::fusion::vector<type,type>  result_type; 
-    
+    typedef boost::fusion::vector<type,type>  result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n) const
     {
-      return freqspace2(n, m, nt2::meta::as_<double>()); 
+      return freqspace2(n, m, nt2::meta::as_<double>());
     }
   };
-  
-   
+
+
   //============================================================================
   // Generates freqspace2 from n to double
   //============================================================================
@@ -159,26 +159,21 @@ namespace nt2 { namespace ext
                               , (scalar_< integer_<A0> >)
                               )
   {
-    typedef double value_type;         
+    typedef double value_type;
     typedef typename  boost::proto::
       result_of::make_expr< nt2::tag::freqspace2_
       , container::domain
       , box<_2D>
       , box< nt2::details::colon<double> >
-      , meta::as_<double > 
+      , meta::as_<double >
       >::type             type;
-    typedef boost::fusion::vector< type,type>  result_type; 
-    
+    typedef boost::fusion::vector< type,type>  result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n) const
     {
-      return freqspace2(n, nt2::meta::as_<double>()); 
+      return freqspace2(n, nt2::meta::as_<double>());
     }
   };
-  
- 
-  
 } }
 
-
 #endif
- 

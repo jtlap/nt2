@@ -21,15 +21,15 @@
  * Elementary Least square
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/freqspace2.hpp>
  * \endcode
- * 
+ *
  *   tie(f1,f2) = freqspace2(n, as_<T>) returns the 2-d frequency range vectors
  *                              f1 and f2 for an n-by-n matrix.
  *   tie(f1,f2) = freqspace2(m, n, as_<T>) or  freqspace2(of_size(m, n), as_<T>)
-                                returns the 2-d frequency range 
+                                returns the 2-d frequency range
  *                              vectors for an m-by-n matrix.
  *
  *  this means for n odd,  f = _(-1+1/n,2/n,1-1/n).
