@@ -46,13 +46,12 @@ NT2_TEST_CASE_TPL(norm, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(norm(a, 'f'), nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(norm(a, "fro"), nt2::Ten<T>(), 0);
 
-  // WHY THESE DO NOT COMPILE
-  //   NT2_TEST_ULP_EQUAL(norm(a+a, 1), 2*nt2::Ten<T>(), 0);
-  //   NT2_TEST_ULP_EQUAL(norm(a+a, 2), norm(a+a), 0);
-  //   NT2_TEST_ULP_EQUAL(norm(a+a, nt2::Inf<T>()), 2*nt2::Ten<T>(), 0);
-  //   NT2_TEST_ULP_EQUAL(norm(a+a, 'I'), 2*nt2::Ten<T>(), 0);
-  //   NT2_TEST_ULP_EQUAL(norm(a+a, '1'), 2*nt2::Ten<T>(), 0);
-  //   NT2_TEST_ULP_EQUAL(norm(a+a, 'f'), 2*nt2::Ten<T>(), 0);
-  //   NT2_TEST_ULP_EQUAL(norm(a+a, "fro"), 2*nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(norm(a+a, 1), 2*nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(norm(a+a, 2), norm(a+a), 0);
+  NT2_TEST_ULP_EQUAL(norm(a+a, nt2::Inf<T>()), 2*nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(norm(a+a, 'I'), 2*nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(norm(a+a, '1'), 2*nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(norm(a+a, 'f'), 2*nt2::Ten<T>(), 0);
+  NT2_TEST_ULP_EQUAL(norm(a+a, "fro"), 2*nt2::Ten<T>(), 0);
   
 }
