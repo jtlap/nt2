@@ -95,9 +95,10 @@ SET( SOURCES
   vertcat.cpp
   width.cpp
   zeros.cpp
+  cast.cpp
 #  fill_pattern.cpp
 #  repmat.cpp
 # List of test files for toolbox core.settings
    )
-set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
+#set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
 nt2_module_add_tests(core.functions.unit ${SOURCES})
