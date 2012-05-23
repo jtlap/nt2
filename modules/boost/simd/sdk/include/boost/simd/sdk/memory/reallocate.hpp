@@ -89,7 +89,8 @@ namespace boost { namespace simd {  namespace memory
    *
    **/ 
   //============================================================================
-  template<class Allocator> inline byte*
+  template<class Allocator>
+  typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer, byte* >::type
   reallocate( Allocator& a
             ,  byte* ptr
             , std::size_t nbytes
