@@ -37,6 +37,16 @@
  * T can be any floating type
 **/
 
+/* 'whole'
+  [f]       = freqspace(n)
+  [f]       = freqspace(n, whole_, as<T>())
+  [f]       = freqspace(n,         as<T>())
+  [f1, f2]  = freqspace(n)
+  [f1, f2]  = freqspace([m, n])
+  [f1, f2]  = freqspace([m, n], meshgrid_)
+  [f1, f2]  = freqspace([m, n], as<T>())
+  [f1, f2]  = freqspace([m, n], meshgrid_,  as<T>())
+ */
 namespace nt2
 {
   struct whole_t {};

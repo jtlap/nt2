@@ -12,6 +12,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 #include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/include/functions/freqspace1.hpp>
 /*!
  * \ingroup algebra
  * \defgroup algebra_freqspace2 freqspace2
@@ -40,9 +41,6 @@
 **/
 namespace nt2
 {
-  struct whole_t {};
-  const meta::as_<whole_t> whole_ = {};
-
   namespace tag
   {
     struct freqspace2_ : ext::generative_<freqspace2_>
