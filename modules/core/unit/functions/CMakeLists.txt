@@ -98,7 +98,9 @@ SET( SOURCES
 #   bsxfun.cpp
 #  fill_pattern.cpp
 #  repmat.cpp
-  freqspace.cpp
+#  freqspace.cpp
+  rephorz.cpp
+  repvert.cpp
 # List of test files for toolbox core.settings
    )
 set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
