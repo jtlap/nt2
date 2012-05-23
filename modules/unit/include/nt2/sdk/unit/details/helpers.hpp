@@ -11,6 +11,8 @@
 
 #include <string>
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
 #include <nt2/sdk/details/type_id.hpp>
 #include <boost/algorithm/string/replace.hpp>
 
@@ -36,6 +38,11 @@ template<class T,class X, class Y> inline T roll(X mn, Y mx)
   double r = ((double)rand()/RAND_MAX)*(mx-mn) + mn;
   T that  = nt2::splat<T>(r);
   return that;
+}
+
+template<class T> inline T roll()
+{
+  return roll<T>(nt2::Valmin<T>()/2, nt2::Valmax<T>()/2) * 2;
 }
 
 #endif
