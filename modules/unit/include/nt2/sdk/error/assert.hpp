@@ -27,6 +27,7 @@
 #include <sstream>
 #include <nt2/sdk/error/error.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/exception/info.hpp>
 #include <boost/config.hpp>
 
 namespace nt2
@@ -99,14 +100,15 @@ namespace boost
   extern inline
   void assertion_failed_msg(char const* expr, char const* msg, char const* fn, char const* f, long l)
   {
-    #if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
+#if defined(NT2_ASSERTS_AS_EXCEPTIONS) && !defined(NT2_NO_EXCEPTIONS)
     std::ostringstream ss;
     ss << f << ':' << l << ": " << fn << ": Assertion " << expr << " failed.\n\t" << msg;
     #ifndef BOOST_EXCEPTION_DISABLE
-    ::boost::exception_detail
-    ::throw_exception_(   ::nt2::assert_exception(ss.str())
-                        , fn,f,l
-                      );
+    ::boost::throw_exception( ::boost::enable_error_info( ::nt2::assert_exception(ss.str()) ) <<
+        ::boost::throw_function(fn) <<
+        ::boost::throw_file(f) <<
+        ::boost::throw_line(l)
+    );
     #else
     ::boost::throw_exception(   ::nt2::assert_exception(ss.str())
                             );
@@ -116,10 +118,10 @@ namespace boost
     ::nt2::trap();
 #else
     boost::dispatch::ignore_unused(expr);
+    boost::dispatch::ignore_unused(msg);
     boost::dispatch::ignore_unused(fn);
     boost::dispatch::ignore_unused(f);
     boost::dispatch::ignore_unused(l);
-    boost::dispatch::ignore_unused(msg);
 #endif
   }
 }
