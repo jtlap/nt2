@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_FREQSPACE2_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FREQSPACE2_HPP_INCLUDED
 
+#include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 #include <nt2/core/container/dsl/details/generative.hpp>
@@ -69,4 +70,3 @@ namespace nt2 { namespace container { namespace ext
 } } }
 
 #endif
-
