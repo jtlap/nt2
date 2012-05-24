@@ -18,7 +18,7 @@
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <nt2/sdk/details/type_id.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
@@ -44,10 +44,10 @@ namespace nt2 { namespace ext
     {
       _2D ex0 = boost::proto::child_c<0>(a0).extent();
       sub_t pos = ind2sub(a0.extent(),p);
-      i_t p0 = nt2::enumerate<i_t>(pos[0]); 
+      i_t p0 = nt2::enumerate<i_t>(pos[0]);
       if(pos[1] <= ex0[1]) // this is in the a0 stack
         {
-          State pp = sub2ind(ex0, pos); 
+          State pp = sub2ind(ex0, pos);
           return nt2::if_else( nt2::le(p0, nt2::splat<i_t>(ex0[0])),
                                nt2::run(boost::proto::child_c<0>(a0),pp,t),
                                Zero<result_type>());
@@ -56,8 +56,8 @@ namespace nt2 { namespace ext
         {
           _2D ex1 = boost::proto::child_c<1>(a0).extent();
           pos[0] -= ex0[0];
-          pos[1] -= ex0[1]; 
-          State pp = sub2ind(ex1, pos); 
+          pos[1] -= ex0[1];
+          State pp = sub2ind(ex1, pos);
           return nt2::if_else( nt2::gt(p0, nt2::splat<i_t>(ex0[0])),
                                nt2::run(boost::proto::child_c<1>(a0),pp,t),
                                Zero<result_type>());
