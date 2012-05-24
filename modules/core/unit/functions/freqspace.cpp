@@ -21,16 +21,21 @@
 
 NT2_TEST_CASE_TPL( freqspace, (double)(float) )
 {
-  using nt2::freqspace;
+  using nt2::freqspace;  
   nt2::table<T> f1, f2;
-
+  nt2::table<int, nt2::settings(nt2::_2D)> a(nt2::of_size(1, 4));
+  a(1) = 8; a(2) = 24; 
   tie(f1) = freqspace(10);
-  tie(f1) = freqspace(10, nt2::meta::as_<T>() );
-
-  tie(f1,f2) = freqspace(10);
-  tie(f1,f2) = freqspace(10, nt2::meta::as_<T>() );
-  tie(f1) = freqspace(10, nt2::whole_);
-  tie(f1, f2) = freqspace(10, nt2::whole_);
-  ////tie(f1, f2) = freqspace(nt2::of_size(10, 5));
-  ////tie(f1, f2) = freqspace(nt2::of_size(10, 5), nt2::);
+  std::cout << " f1 " << f1 << std::endl; 
+//   tie(f1,f2) = freqspace(10);
+//   tie(f1) = freqspace(10, nt2::whole_);
+//   tie(f1, f2) = freqspace(10, nt2::whole_);
+//   //   tie(f1, f2) = freqspace(nt2::of_size(10, 5));
+//   //   tie(f1, f2) = freqspace(nt2::of_size(10, 5), nt2::_);
+//   tie(f1, f2) = freqspace(a);
+  //  tie(f1, f2) = freqspace(size(a));
+  //  std::cout << nt2::of_size(2, 3)(nt2::begin_) << std::endl; 
+  //  table < int > a = {3, 4}; 
+  //  tie(f1, f2) = freqspace(a, nt2::meshgrid_);
+  
 }
