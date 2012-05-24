@@ -11,12 +11,12 @@
 
 #include <vector>
 #include <algorithm>
-#include <nt2/include/timing.hpp>
+#include <nt2/sdk/timing/now.hpp>
 
 namespace nt2 { namespace unit
 {
 
-  template <typename T> 
+  template <typename T>
   struct benchmark_result
   {
     benchmark_result(): median(0.){}
@@ -48,7 +48,7 @@ namespace nt2 { namespace unit
     std::vector<T> cycles;
     double t(0.),vt(0.);
     T vc;
-    
+
       do
         {
           vt = nt2::details::now();
@@ -71,7 +71,7 @@ namespace nt2 { namespace unit
     std::vector<double> time;
     double t(0.),vt(0.);
     double vc;
-    
+
       do
         {
           vt = nt2::details::now();

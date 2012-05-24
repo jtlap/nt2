@@ -36,7 +36,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 #ifdef NT2_LOG_COPIES
-#include <nt2/sdk/details/type_id.hpp>
+#include <nt2/sdk/unit/type_id.hpp>
 #endif
 
 namespace nt2 { namespace container

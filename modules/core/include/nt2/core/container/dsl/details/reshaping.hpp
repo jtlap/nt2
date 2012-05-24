@@ -12,6 +12,7 @@
 #include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/transform.hpp>
+#include <nt2/core/settings/shape.hpp>
 #include <nt2/sdk/meta/add_settings.hpp>
 #include <nt2/core/container/dsl/details/generate_as.hpp>
 
