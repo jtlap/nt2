@@ -100,7 +100,7 @@ namespace nt2 { namespace container
     // Compute storage type for size
     //==========================================================================
     typedef typename size_transform<domain>::
-            template result<size_transform<domain>(Expr)>::type extent_type;
+            template result<size_transform<domain>(Expr&)>::type extent_type;
 
     typedef typename index_type::type                           indexes_type;
 

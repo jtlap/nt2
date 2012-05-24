@@ -49,13 +49,11 @@ namespace nt2 { namespace container { namespace ext
   template<class Domain, class Expr>
   struct size_of<nt2::tag::cast_, Domain, 2, Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
-    typedef typename size_transform<Domain>::
-            template result< size_transform<Domain>(child0)
-                           >::type                                    result_type;
+    typedef typename boost::proto::result_of::child_c<Expr, 0>::type  child0;
+    typedef typename child0::extent_type                              result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return size_transform<Domain>()(boost::proto::child_c<0>(e));
+      return boost::proto::child_c<0>(e).extent();
     }
   };
 } } }

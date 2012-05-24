@@ -104,7 +104,7 @@ namespace nt2 { namespace details
           >
   struct make_size<1, Domain, Indexed, Sizes, Bases, Children>
   {
-    typedef typename boost::proto::result_of::child_c<Children, 0>::type  idx_t;
+    typedef typename boost::proto::result_of::child_c<Children, 0>::value_type  idx_t;
 
     template<bool B, class Dummy = void> struct apply {};
 
@@ -125,11 +125,7 @@ namespace nt2 { namespace details
     template<class Dummy> struct apply<false, Dummy>
     {
       typedef typename boost::proto::tag_of<idx_t>::type              tag_t;
-
-      typedef typename
-              container::size_transform<Domain>::template
-              result<container::size_transform<Domain>(idx_t)>::type  shape_t;
-
+      typedef typename idx_t::extent_type                             shape_t;
       typedef typename boost::mpl::if_< boost::is_same< tag_t
                                                       , tag::relative_colon_
                                                       >
@@ -147,7 +143,7 @@ namespace nt2 { namespace details
       template<class I,class C, class S, class B, class Tag> BOOST_FORCEINLINE
       result_type eval(I& ,C& c, S const&, B const&, Tag const&) const
       {
-        return container::size_transform<Domain>()(boost::proto::child_c<0>(c));
+        return boost::proto::child_c<0>(c).extent();
       }
 
       // If relative colon, return a _2D size with proper size w/r to indexed
