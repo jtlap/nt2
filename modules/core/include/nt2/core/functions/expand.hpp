@@ -15,6 +15,7 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
 
 namespace nt2
