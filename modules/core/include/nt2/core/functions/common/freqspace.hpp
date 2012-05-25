@@ -31,11 +31,18 @@ namespace nt2 { namespace ext
   {
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1; 
     typedef typename boost::dispatch::meta::
             terminal_of< typename boost::dispatch::meta::
                          semantic_of<child0>::type
                        >::type                                            in0_t;
-
+    typedef typename boost::dispatch::meta::
+            terminal_of< typename boost::dispatch::meta::
+                         semantic_of<child1>::type
+                       >::type                                            out_t;
+    
+    typedef typename out_t::value_type                                  value_t;
+    
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       int n = 0, m = 0;
@@ -51,18 +58,18 @@ namespace nt2 { namespace ext
     void compute(A1 & a1, int m, int n, bool whole, bool meshgrid, boost::mpl::long_<1> const&) const
     {
       if (whole)
-        boost::proto::child_c<0>(a1) = freqspace1(m, nt2::whole_);
+        boost::proto::child_c<0>(a1) = freqspace1(m, nt2::whole_, meta::as_<value_t>());
       else
-        boost::proto::child_c<0>(a1) = freqspace1(m);
+        boost::proto::child_c<0>(a1) = freqspace1(m, meta::as_<value_t>());
     }
     void compute(A1 & a1, int m, int n, bool whole, bool meshgrid, boost::mpl::long_<2> const&) const
     {
       if (meshgrid)
         tie(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1))
-          = freqspace2(m,n);
+          = freqspace2(m,n, meta::as_<value_t>());
       else
         tie(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1))
-          = freqspace2(m, n); //, nt2::meshgrid_);
+          = freqspace2(m,n, meta::as_<value_t>()); //, nt2::meshgrid_);
     }
     
     BOOST_FORCEINLINE  //[f]       = freqspace(n)
