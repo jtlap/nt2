@@ -36,7 +36,7 @@
  * {
  *   template <class A0>
  *     meta::call<tag::imag_(A0)>::type
- *     imag(const A0 & a0);
+ *     nt2::imag(const A0 & a0);
  * }
  * \endcode
  *

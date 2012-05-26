@@ -50,10 +50,10 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rA0;
       typedef typename meta::as_logical<rA0>::type lA0;
-      const rA0 a = real(a0);
-      const rA0 b = imag(a0);
-      const rA0 c = real(a1);
-      const rA0 d = imag(a1);
+      const rA0 a = nt2::real(a0);
+      const rA0 b = nt2::imag(a0);
+      const rA0 c = nt2::real(a1);
+      const rA0 d = nt2::imag(a1);
       rA0 x = a*c-b*d;
       rA0 y = a*d+b*c;
       result_type r = result_type(x, y); //result_type(a*c-b*d, a*d+b*c);
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
       lA0 cur  = is_real(a0);
       if (nt2::any(cur))
         {
-          r = if_else(cur, nt2::multiplies(real(a0), a1), r);
+          r = if_else(cur, nt2::multiplies(nt2::real(a0), a1), r);
           test = logical_or(test, cur);
           if (all(test)) return r;
         }
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
       cur = is_real(a1);
       if (nt2::any(cur))
       {
-        r = if_else(cur, nt2::multiplies(a0, real(a1)), r);
+        r = if_else(cur, nt2::multiplies(a0, nt2::real(a1)), r);
         test = logical_or(test, cur);
         if (all(test)) return r;
       }
@@ -100,12 +100,12 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        result_type r = result_type(if_zero_else(is_imag(a1), a0*real(a1)),
-                                    if_zero_else(is_real(a1), a0*imag(a1)));
+        result_type r = result_type(if_zero_else(is_imag(a1), a0*nt2::real(a1)),
+                                    if_zero_else(is_real(a1), a0*nt2::imag(a1)));
         typedef typename meta::as_logical<A0>::type ltype;
         ltype z = is_eqz(a1);
         if (nt2::any(z))
-          r = if_else(z, result_type(a0*real(a1)), r);
+          r = if_else(z, result_type(a0*nt2::real(a1)), r);
         return r;
       }
   };
@@ -118,12 +118,12 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        result_type r = result_type(if_zero_else(is_imag(a0), real(a0)*a1),
-                                    if_zero_else(is_real(a0), imag(a0)*a1));
+        result_type r = result_type(if_zero_else(is_imag(a0), nt2::real(a0)*a1),
+                                    if_zero_else(is_real(a0), nt2::imag(a0)*a1));
         typedef typename meta::as_logical<A1>::type ltype;
         ltype z = is_eqz(a0);
         if (nt2::any(z))
-          r = if_else(z, result_type(a1*real(a0)), r);
+          r = if_else(z, result_type(a1*nt2::real(a0)), r);
         return r;
       }
   };
@@ -135,7 +135,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::multiplies(real(a0), a1);
+        return nt2::multiplies(nt2::real(a0), a1);
       }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_, (A0)(A1)
@@ -146,7 +146,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::multiplies(a0, real(a1));
+        return nt2::multiplies(a0, nt2::real(a1));
       }
   };
 
@@ -159,13 +159,13 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        result_type r = result_type(if_zero_else(is_real(a1), -imag(a0)*imag(a1)),
-                                    if_zero_else(is_imag(a1),imag(a0)*real(a1)));
+        result_type r = result_type(if_zero_else(is_real(a1), -nt2::imag(a0)*nt2::imag(a1)),
+                                    if_zero_else(is_imag(a1),nt2::imag(a0)*nt2::real(a1)));
         typedef typename meta::as_real<A1>::type rtype;
         typedef typename meta::as_logical<rtype>::type ltype;
         ltype z = is_eqz(a1);
         if(nt2::any(z))
-          r = if_else(z, result_type(real(a1), imag(a0)*imag(a1)), r);
+          r = if_else(z, result_type(nt2::real(a1), nt2::imag(a0)*nt2::imag(a1)), r);
         return r;
       }
   };
@@ -180,12 +180,12 @@ namespace nt2 { namespace ext
       {
         typedef typename meta::as_real<A0>::type rtype;
         typedef typename meta::as_logical<rtype>::type ltype;
-        rtype rr = if_zero_else(is_imag(a0),-imag(a0)*imag(a1));
-        rtype ii = if_zero_else(is_real(a0),real(a0)*imag(a1));
+        rtype rr = if_zero_else(is_imag(a0),-nt2::imag(a0)*nt2::imag(a1));
+        rtype ii = if_zero_else(is_real(a0),nt2::real(a0)*nt2::imag(a1));
         result_type r = result_type(rr, ii);
         ltype z = is_eqz(a0);
         if(nt2::any(z))
-          r = if_else(z, result_type(real(a0), imag(a0)*imag(a1)), r);
+          r = if_else(z, result_type(nt2::real(a0), nt2::imag(a0)*nt2::imag(a1)), r);
         return r;
       }
   };
@@ -199,7 +199,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return bitwise_cast<result_type>(a0*imag(a1));
+        return bitwise_cast<result_type>(a0*nt2::imag(a1));
       }
   };
 
@@ -211,7 +211,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return bitwise_cast<result_type>(imag(a0)*a1);
+        return bitwise_cast<result_type>(nt2::imag(a0)*a1);
       }
   };
 
@@ -224,7 +224,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return bitwise_cast<result_type>(-imag(a0) * imag(a1));
+        return bitwise_cast<result_type>(-nt2::imag(a0) * nt2::imag(a1));
       }
   };
   // dry/dry
@@ -236,7 +236,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return bitwise_cast<result_type>(real(a0)*real(a1));
+        return bitwise_cast<result_type>(nt2::real(a0)*nt2::real(a1));
       }
   };
   // dry/imaginary
@@ -248,7 +248,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return bitwise_cast<result_type>(real(a0)*imag(a1));
+        return bitwise_cast<result_type>(nt2::real(a0)*nt2::imag(a1));
       }
   };
   // imaginary/dry
@@ -260,7 +260,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return bitwise_cast<result_type>(imag(a0)*real(a1));
+        return bitwise_cast<result_type>(nt2::imag(a0)*nt2::real(a1));
       }
   };
 } }

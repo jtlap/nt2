@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return bitwise_cast<result_type>(nt2::max(real(a0), real(a1))); 
+      return bitwise_cast<result_type>(nt2::max(nt2::real(a0), nt2::real(a1))); 
     }
   };
 
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      result_type ca0 = result_type(Zero<rtype>(), imag(a0)); 
+      result_type ca0 = result_type(Zero<rtype>(), nt2::imag(a0)); 
       rtype absa0 = nt2::abs(a0);
       rtype absa1 = nt2::abs(a1);
       result_type r = select(gt(absa0, absa1), ca0, a1);
@@ -117,7 +117,7 @@ namespace nt2 { namespace ext
       typedef A0 rtype; 
       rtype absa0 = nt2::abs(a0);
       rtype absa1 = nt2::abs(a1);
-      result_type ca1 = result_type(Zero<rtype>(), imag(a1));
+      result_type ca1 = result_type(Zero<rtype>(), nt2::imag(a1));
       result_type ca0 = result_type(a0, Zero<rtype>()); 
       result_type r = select(gt(absa0, absa1), ca0, ca1);
       return select(eq(absa0, absa1), select(gt(arg(a0), arg(a1)), ca0, ca1), r); 
@@ -134,7 +134,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef A0 rtype; 
-      return nt2::max(real(a0), a1); 
+      return nt2::max(nt2::real(a0), a1); 
     }
   };
   
@@ -150,7 +150,7 @@ namespace nt2 { namespace ext
       typedef A1 rtype; 
       rtype absa0 = nt2::abs(a0);
       rtype absa1 = nt2::abs(a1);
-      result_type ca0 = result_type(Zero<rtype>(), imag(a0));
+      result_type ca0 = result_type(Zero<rtype>(), nt2::imag(a0));
       result_type ca1 = result_type(a1, Zero<rtype>()); 
       result_type r = select(gt(absa0, absa1), ca0, ca1);
       return select(eq(absa0, absa1), select(gt(arg(a0), arg(a1)), ca0, ca1), r); 
@@ -166,7 +166,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::max(a0, real(a1)); 
+      return nt2::max(a0, nt2::real(a1)); 
     }
   };
 
@@ -182,7 +182,7 @@ namespace nt2 { namespace ext
       typedef A0 rtype; 
       rtype absa0 = nt2::abs(a0);
       rtype absa1 = nt2::abs(a1);
-      result_type ca0 = result_type(real(a0), Zero<rtype>());
+      result_type ca0 = result_type(nt2::real(a0), Zero<rtype>());
       result_type r = select(gt(absa0, absa1), ca0, a1);
       return select(eq(absa0, absa1), select(gt(arg(a0), arg(a1)), ca0, a1), r); 
     }
@@ -197,7 +197,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::max(real(a0), a1); 
+      return nt2::max(nt2::real(a0), a1); 
     }
   };
   
@@ -228,7 +228,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::max(a0, real(a1)); 
+      return nt2::max(a0, nt2::real(a1)); 
     }
   };
   

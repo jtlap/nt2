@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::floor(real(a0)),nt2::floor(imag(a0))); 
+      return result_type(nt2::floor(nt2::real(a0)),nt2::floor(nt2::imag(a0))); 
     }
   };
 
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::floor(imag(a0))); 
+      return bitwise_cast<result_type>(nt2::floor(nt2::imag(a0))); 
     }
   };
   
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::floor(real(a0))); 
+      return bitwise_cast<result_type>(nt2::floor(nt2::real(a0))); 
     }
   };
 

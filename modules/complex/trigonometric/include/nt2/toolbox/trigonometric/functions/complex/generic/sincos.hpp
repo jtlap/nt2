@@ -32,8 +32,8 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype; 
       rtype c, s, ch, sh;
-      sincos(real(a0), s, c);
-      sinhcosh(imag(a0), sh, ch);
+      sincos(nt2::real(a0), s, c);
+      sinhcosh(nt2::imag(a0), sh, ch);
       rtype r1 = if_zero_else(is_imag(a0), s*ch);
       rtype i1 = if_zero_else(is_real(a0), c*sh);
       rtype r2 = c*ch;
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype; 
       rtype ch, sh;
-      sinhcosh(imag(a0), sh, ch);
+      sinhcosh(nt2::imag(a0), sh, ch);
       a1 =  bitwise_cast<A1>(ch);
       a2 =  bitwise_cast<A0>(-sh);     
       return 0; 
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype; 
       rtype c, s;
-      sincos(real(a0), s, c);
+      sincos(nt2::real(a0), s, c);
       a1 =  bitwise_cast<A0>(c);
       a2 =  bitwise_cast<A0>(s);     
       return 0; 

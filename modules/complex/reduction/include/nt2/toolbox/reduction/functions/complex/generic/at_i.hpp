@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<stype>::type result_type; 
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(real(a0)[a1], imag(a0)[a1]); 
+        return result_type(nt2::real(a0)[a1], nt2::imag(a0)[a1]); 
       }
   };
   
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<stype>::type result_type; 
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(real(a0)[a1]);
+        return result_type(nt2::real(a0)[a1]);
       }
   };
 

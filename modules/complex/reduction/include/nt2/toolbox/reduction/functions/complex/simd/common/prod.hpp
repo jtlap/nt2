@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       const result_type signedness = (meta::cardinal_of<A0>::value <= 2) ? Mone<result_type>() : One<result_type>(); 
-      return nt2::prod(imag(a0))*signedness; 
+      return nt2::prod(nt2::imag(a0))*signedness; 
     }
   };
   

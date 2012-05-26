@@ -26,7 +26,7 @@ namespace nt2  { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type(nt2::ldexp(real(a0), a1),nt2::ldexp(imag(a0), a1));
+      return result_type(nt2::ldexp(nt2::real(a0), a1),nt2::ldexp(nt2::imag(a0), a1));
     }
   };
 
@@ -38,7 +38,7 @@ namespace nt2  { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type(nt2::ldexp(imag(a0), a1));
+      return result_type(nt2::ldexp(nt2::imag(a0), a1));
     }
   };
 
@@ -50,7 +50,7 @@ namespace nt2  { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return result_type(nt2::ldexp(real(a0), a1));
+      return result_type(nt2::ldexp(nt2::real(a0), a1));
     }
   };    
 } } 

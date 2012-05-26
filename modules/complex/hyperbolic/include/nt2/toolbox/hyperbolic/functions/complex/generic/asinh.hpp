@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
     {
       //asinh is bijective on the real axis and its computation
       // involves no proper complex value
-      return bitwise_cast<result_type>(nt2::asinh(real(a0))); 
+      return bitwise_cast<result_type>(nt2::asinh(nt2::real(a0))); 
     }
   };
   

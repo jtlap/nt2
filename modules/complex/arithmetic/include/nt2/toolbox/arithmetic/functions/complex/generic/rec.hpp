@@ -41,18 +41,18 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<result_type>::type rtype; 
       typedef typename meta::as_integer<rtype>::type itype; 
-      rtype rr =  nt2::abs(real(a0));
-      rtype ii =  nt2::abs(imag(a0));
+      rtype rr =  nt2::abs(nt2::real(a0));
+      rtype ii =  nt2::abs(nt2::imag(a0));
       itype e =  -if_else(lt(rr, ii), exponent(ii), exponent(rr));
       A0 aa0 =  nt2::ldexp(a0, e); 
       rtype denom =  sqr_abs(aa0);
       A0 num = conj(aa0);
       A0 r =  ldexp(num/denom, e);
-      r = if_else(is_eqz(denom), result_type(copysign(Inf<rtype>(), real(a0)), Zero<rtype>()), r);
+      r = if_else(is_eqz(denom), result_type(copysign(Inf<rtype>(), nt2::real(a0)), Zero<rtype>()), r);
       if (all(is_finite(a0))) return r; 
-      r = if_else(is_inf(a0),  result_type(rec(copysign(denom, real(a0))), Zero<rtype>()), r);
-      r = if_else(is_imag(a0), result_type(Zero<rtype>(), imag(r)), r);
-      r = if_else(is_real(a0), result_type(real(r)), r);
+      r = if_else(is_inf(a0),  result_type(rec(copysign(denom, nt2::real(a0))), Zero<rtype>()), r);
+      r = if_else(is_imag(a0), result_type(Zero<rtype>(), nt2::imag(r)), r);
+      r = if_else(is_real(a0), result_type(nt2::real(r)), r);
       return r;
     }
   };
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(-nt2::rec(imag(a0))); 
+      return bitwise_cast<result_type>(-nt2::rec(nt2::imag(a0))); 
     }
   };
 
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::rec(real(a0))); 
+      return bitwise_cast<result_type>(nt2::rec(nt2::real(a0))); 
     }
   };
   

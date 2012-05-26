@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(lookup(real(a0), a1), lookup(imag(a0), a1)); 
+      return result_type(lookup(nt2::real(a0), a1), lookup(nt2::imag(a0), a1)); 
     }
   };
 
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(lookup(imag(a0), a1)); 
+      return result_type(lookup(nt2::imag(a0), a1)); 
     }
   };
 
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(lookup(real(a0), a1)); 
+      return result_type(lookup(nt2::real(a0), a1)); 
     }
   };
   

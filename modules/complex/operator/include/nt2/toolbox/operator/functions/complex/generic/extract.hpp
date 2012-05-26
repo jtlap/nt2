@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return result_type(extract(real(a0), a1), extract(imag(a0), a1));
+      return result_type(extract(nt2::real(a0), a1), extract(nt2::imag(a0), a1));
     }
   };
 

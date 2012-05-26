@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type result_type;
-      return sqr(real(a0)) + sqr(imag(a0));
+      return sqr(nt2::real(a0)) + sqr(nt2::imag(a0));
     }
   };
   
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type result_type;
-      return sqr(imag(a0)); 
+      return sqr(nt2::imag(a0)); 
     }
   };
 
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type result_type;
-      return sqr(real(a0)); 
+      return sqr(nt2::real(a0)); 
     }
   };
     
