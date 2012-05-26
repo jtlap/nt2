@@ -72,7 +72,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1& a1, A2 const& a2) const
     {
       typedef typename meta::scalar_of<A1>::type stype;
-      reinterpret_cast<stype BOOST_SIMD_MAY_ALIAS*>(&a1)[a2] = a0;
+      reinterpret_cast<typename meta::may_alias<stype>::type*>(&a1)[a2] = a0;
       return a1;
     }
   };
