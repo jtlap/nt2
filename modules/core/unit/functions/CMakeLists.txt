@@ -96,8 +96,8 @@ SET( SOURCES
   vertcat.cpp
   width.cpp
   zeros.cpp
-  bsyfun.cpp
-#   bsxfun.cpp
+#  bsyfun.cpp
+#  bsxfun.cpp
 #  fill_pattern.cpp
 #  repmat.cpp
 #  rephorz.cpp
