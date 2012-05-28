@@ -8,12 +8,14 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_IMAG_HPP_INCLUDED
 #define NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_IMAG_HPP_INCLUDED
+
 #include <nt2/toolbox/complex/functions/imag.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {

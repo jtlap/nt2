@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return result_type(-imag(a0), real(a0));
+      return result_type(-nt2::imag(a0), nt2::real(a0));
     }
   }; 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mul_i_, tag::cpu_, (A0)
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return result_type(real(a0));
+      return result_type(nt2::real(a0));
     }
   };
 
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return result_type(-imag(a0));
+      return result_type(-nt2::imag(a0));
     }
   };
   

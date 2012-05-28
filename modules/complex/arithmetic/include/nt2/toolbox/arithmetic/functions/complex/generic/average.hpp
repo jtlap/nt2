@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(average(real(a0), real(a1)),average(imag(a0), imag(a1))) ; 
+      return result_type(average(nt2::real(a0), nt2::real(a1)),average(nt2::imag(a0), nt2::imag(a1))) ; 
     }
   };
 
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return bitwise_cast<result_type>(average(real(a0), real(a1))) ; 
+      return bitwise_cast<result_type>(average(nt2::real(a0), nt2::real(a1))) ; 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::average_, tag::cpu_, (A0)(A1)
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<A1>::type rA1;
-      return result_type(real(a1)*Half<rA1>(),average(imag(a0), imag(a1))) ; 
+      return result_type(nt2::real(a1)*Half<rA1>(),average(nt2::imag(a0), nt2::imag(a1))) ; 
     }
   };
   
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<A0>::type rA0;
-      return result_type(real(a0)*Half<rA0>(),average(imag(a0), imag(a1))) ; 
+      return result_type(nt2::real(a0)*Half<rA0>(),average(nt2::imag(a0), nt2::imag(a1))) ; 
     }
   };
   
@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return bitwise_cast<result_type>(average(imag(a0), imag(a1))); 
+      return bitwise_cast<result_type>(average(nt2::imag(a0), nt2::imag(a1))); 
     }
   };
 
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(a0, imag(a1))*Half<A0>() ; 
+      return result_type(a0, nt2::imag(a1))*Half<A0>() ; 
     }
   };
   
@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<A0>::type rtype;
-      return result_type(real(a0), imag(a1))*Half<rtype>() ; 
+      return result_type(nt2::real(a0), nt2::imag(a1))*Half<rtype>() ; 
     }
   };
 
@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(a1, imag(a0))*Half<A1>() ; 
+      return result_type(a1, nt2::imag(a0))*Half<A1>() ; 
     }
   };
 
@@ -134,7 +134,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(real(a1), imag(a0))*Half<A1>() ; 
+      return result_type(nt2::real(a1), nt2::imag(a0))*Half<A1>() ; 
     }
   };
 
@@ -147,7 +147,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(average(real(a0), real(a1)),imag(a1)*Half<A0>()) ; 
+      return result_type(average(nt2::real(a0), nt2::real(a1)),nt2::imag(a1)*Half<A0>()) ; 
     }
   };
   
@@ -161,7 +161,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
      typedef typename meta::as_real<A0>::type rtype;
-       return result_type(average(real(a0), real(a1)),imag(a1)*Half<rtype>()) ; 
+       return result_type(average(nt2::real(a0), nt2::real(a1)),nt2::imag(a1)*Half<rtype>()) ; 
     }
   };
 
@@ -174,7 +174,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(average(real(a0), real(a1)),imag(a0)*Half<A1>()) ; 
+      return result_type(average(nt2::real(a0), nt2::real(a1)),nt2::imag(a0)*Half<A1>()) ; 
     }
   };  
 
@@ -188,7 +188,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<A1>::type rtype;
-      return result_type(average(real(a0), real(a1)),imag(a0)*Half<rtype>()) ; 
+      return result_type(average(nt2::real(a0), nt2::real(a1)),nt2::imag(a0)*Half<rtype>()) ; 
     }
   };
 } }

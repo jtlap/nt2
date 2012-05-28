@@ -16,6 +16,7 @@
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -49,39 +50,43 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_TYPES )
   using nt2::_;
   typedef typename nt2::meta::as_integer<T>::type itype_t; 
   nt2::table<T> y( nt2::of_size(5,3) );
-  nt2::table<T> y1, sy1, sy, sy2, sy3; 
+  nt2::table<T> y1;
+  nt2::table<itype_t> sy1, sy, sy2, sy3; 
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 5*j;
   disp("y", y); 
 
-  nt2::table<nt2::logical<T> > l; 
-  l = gt(y, T(13));
-  disp("l ",  l);
-  nt2::table<itype_t > nb; 
-  nb = nt2::nbtrue(l); 
-  std::cout << nt2::type_id(nbtrue(l)) << std::endl; 
-  disp("nb ",  nbtrue(l));
-  disp("nb ",  nb);
+//   nt2::table<nt2::logical<T> > l; 
+//   l = gt(y, T(13));
+//   disp("l ",  l);
+//   nt2::table<itype_t > nb; 
+//   nb = nt2::nbtrue(l); 
+//   //  std::cout << nt2::type_id(nbtrue(l)) << std::endl; 
+//   disp("nb ",  nbtrue(l));
+//   disp("nb ",  nb);
 
-//   for(int j=1;j<=3;j++)
-//     NT2_TEST_EQUAL(nt2::size(y,1) , sy(j));
+  sy = nt2::nbtrue(y, 1);
+  for(int j=1;j<=3;j++)
+     NT2_TEST_EQUAL(nt2::size(y,1) , sy(j));
+  NT2_DISP(sy); 
+  std::cout <<  nt2::size(y,1) << std::endl; 
+
+  sy = nt2::nbtrue(y, 2);
+  for(int j=1;j<=5;j++)
+    NT2_TEST_EQUAL(nt2::size(y,2) , sy(j));
+  NT2_DISP(sy); 
+  std::cout <<  nt2::size(y,2) << std::endl; 
   
-//   sy = nt2::nbtrue(y, 1);
-//   for(int j=1;j<=3;j++)
-//     NT2_TEST_EQUAL(nt2::size(y,1) , sy(j));
+  sy = nt2::nbtrue(y, 3);
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)    
+      NT2_TEST_EQUAL(nt2::size(y,3), sy(i, j));
+  NT2_DISP(sy); 
+  std::cout <<  nt2::size(y,3) << std::endl; 
   
-//   sy = nt2::nbtrue(y, 2);
-//   for(int j=1;j<=5;j++)
-//     NT2_TEST_EQUAL(nt2::size(y,2) , sy(j));
-  
-//   sy = nt2::nbtrue(y, 3);
-//   for(int j=1;j<=5;j++)
-//     for(int i=1;i<=5;i++)    
-//       NT2_TEST_EQUAL(nt2::size(y,3) , sy(i, j));
-  
-//   sy = nt2::nbtrue(y(_));
-//   disp(sy); 
-//   NT2_TEST_EQUAL(sy(1), nt2::numel(y)); 
+  sy = nt2::nbtrue(y(_));
+  NT2_DISP(sy); 
+  NT2_TEST_EQUAL(sy(1), nt2::numel(y)); 
  }
 

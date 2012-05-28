@@ -33,8 +33,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      return result_type(if_else(a0, real(a1), real(a2)),
-                         if_else(a0, imag(a1), imag(a2)));
+      return result_type(if_else(a0, nt2::real(a1), nt2::real(a2)),
+                         if_else(a0, nt2::imag(a1), nt2::imag(a2)));
     }
   };
   
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      return bitwise_cast<result_type>(if_else(a0, imag(a1), imag(a2)));
+      return bitwise_cast<result_type>(if_else(a0, nt2::imag(a1), nt2::imag(a2)));
     }
   };
   
@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return if_else(a0, a1, result_type(Zero<rtype>(), imag(a2)));
+      return if_else(a0, a1, result_type(Zero<rtype>(), nt2::imag(a2)));
     }
   };
   
@@ -120,7 +120,7 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return if_else(a0, result_type(Zero<rtype>(), imag(a1)), a2);
+      return if_else(a0, result_type(Zero<rtype>(), nt2::imag(a1)), a2);
     }
   };
   
@@ -135,7 +135,7 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return if_else(is_nez(a0), result_type(Zero<rtype>(), imag(a1)), a2 );
+      return if_else(is_nez(a0), result_type(Zero<rtype>(), nt2::imag(a1)), a2 );
     }
   };
 
@@ -149,7 +149,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      return result_type(if_else(a0, real(a1), real(a2)));
+      return result_type(if_else(a0, nt2::real(a1), nt2::real(a2)));
     }
   };
 
@@ -177,7 +177,7 @@ namespace nt2 { namespace ext
     typedef A2 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
-      return if_else(a0, result_type(real(a1)), a2);
+      return if_else(a0, result_type(nt2::real(a1)), a2);
     }
   };
   
@@ -205,7 +205,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
-      return if_else(a0, a1, result_type(real(a2)));
+      return if_else(a0, a1, result_type(nt2::real(a2)));
     }
   };
   
@@ -234,7 +234,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rtype>::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
-      return if_else(a0, result_type(real(a1)), result_type(Zero<rtype>(), imag(a2)));
+      return if_else(a0, result_type(nt2::real(a1)), result_type(Zero<rtype>(), nt2::imag(a2)));
     }
   };
   
@@ -264,7 +264,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rtype>::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
-      return if_else(a0, result_type(Zero<rtype>(), imag(a1)), result_type(real(a2)));
+      return if_else(a0, result_type(Zero<rtype>(), nt2::imag(a1)), result_type(nt2::real(a2)));
     }
   };
   
@@ -293,7 +293,7 @@ namespace nt2 { namespace ext
     typedef A2 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
-      return result_type(if_else(a0, a1, real(a2)));
+      return result_type(if_else(a0, a1, nt2::real(a2)));
     }
   };
 
@@ -349,7 +349,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A1>::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
-      return if_else(a0, result_type(a1), result_type(Zero<A1>(), imag(a2)));
+      return if_else(a0, result_type(a1), result_type(Zero<A1>(), nt2::imag(a2)));
     }
   };
   
@@ -378,7 +378,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
-      return result_type(if_else(a0, real(a1), a2));
+      return result_type(if_else(a0, nt2::real(a1), a2));
     }
   };
 
@@ -434,7 +434,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A2>::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
-      return result_type(if_else(a0, result_type(Zero<A2>(), imag(a1)), result_type(a2)));
+      return result_type(if_else(a0, result_type(Zero<A2>(), nt2::imag(a1)), result_type(a2)));
     }
   };
 

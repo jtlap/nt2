@@ -36,8 +36,8 @@ namespace nt2 { namespace ext
 //     {
 //       typedef typename meta::as_real<A1>::type rA1; 
 //       rA1 ar0, ar1, ai0, ai1; 
-//       split(real(a0), ar0, ar1); 
-//       split(imag(a0), ai0, ai1);
+//       split(nt2::real(a0), ar0, ar1); 
+//       split(nt2::imag(a0), ai0, ai1);
 //       a1 = A1(ar0, ai0);
 //       a2 = A1(ar1, ai1);
 //       return 0; 
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
 //     {
 //       typedef typename meta::as_real<A1>::type rA1; 
 //       rA1 ai0, ai1; 
-//       split(imag(a0), ai0, ai1);
+//       split(nt2::imag(a0), ai0, ai1);
 //       a1 = A1(ai0);
 //       a2 = A1(ai1);
 //       return 0; 
@@ -111,7 +111,7 @@ namespace nt2 { namespace ext
 //     {
 //       typedef typename meta::as_real<A1>::type rA1; 
 //       rA1 ai0, ai1; 
-//       split(imag(a0), ai0, ai1);
+//       split(nt2::imag(a0), ai0, ai1);
 //       a1 = A1(ai0);
 //       a2 = A1(ai1);
 //       return 0; 

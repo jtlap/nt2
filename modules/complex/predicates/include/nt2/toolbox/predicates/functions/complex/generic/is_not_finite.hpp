@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return logical_or(is_not_finite(real(a0)), is_not_finite(imag(a0))); 
+      return logical_or(is_not_finite(nt2::real(a0)), is_not_finite(nt2::imag(a0))); 
     }
   };
   // imaginary
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_not_finite(imag(a0)); 
+      return is_not_finite(nt2::imag(a0)); 
     }
   };
 
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_not_finite(real(a0)); 
+      return is_not_finite(nt2::real(a0)); 
     }
   };
   

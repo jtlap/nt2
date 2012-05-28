@@ -31,6 +31,7 @@
 #include <nt2/toolbox/reduction/functions/nbtrue.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
 
@@ -41,7 +42,7 @@ namespace nt2 { namespace ext
                               (ast_<A0>)
                             )
   {
-    typedef typename meta::call <tag::sb2b_  (A0 const&) >::type T1;
+    typedef typename meta::call <tag::sb2b_  (A0) >::type T1;
     typedef typename meta::call <tag::toint_ (T1)        >::type T2;
     typedef typename meta::call <tag::sum_   (T2)        >::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
@@ -56,12 +57,20 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A1> >)
                             )
   {
-    typedef typename meta::call <tag::sb2b_  (A0 const&)     >::type T1;
+    typedef typename meta::call <tag::sb2b_  (A0)     >::type T1;
     typedef typename meta::call <tag::toint_ (T1)            >::type T2;
-    typedef typename meta::call <tag::sum_   (T2, A1 const&) >::type result_type;
+    typedef typename meta::call <tag::sum_   (T2, A1) >::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-      return  nt2::sum(nt2::toint(nt2::sb2b(a0), a1));
+      std::cout << "---------------icitte" << std::endl;
+      NT2_DISP(a0);
+      NT2_DISP(nt2::sb2b(a0));
+      NT2_DISP(nt2::toint(nt2::sb2b(a0)));
+      NT2_DISP(  nt2::sum(nt2::toint(nt2::sb2b(a0)), a1));
+      NT2_DISP(  nt2::sum(nt2::tofloat(nt2::sb2b(a0)), a1));
+      std::cout << "---------------fin icitte" << std::endl;
+
+      return  nt2::sum(nt2::toint(nt2::sb2b(a0)), a1);
     }
   };
 } }

@@ -12,11 +12,12 @@
 #include <nt2/sdk/complex/details/imaginary/meta.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <boost/simd/sdk/details/aliasing.hpp>
 
 namespace nt2
 {
   template<class T>
-  struct imaginary
+  struct BOOST_SIMD_MAY_ALIAS imaginary
   {
     typedef typename meta::as_complex<T>::type c_type; 
     typedef T type;

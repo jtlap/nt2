@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(-nt2::coth(imag(a0))); 
+      return bitwise_cast<result_type>(-nt2::coth(nt2::imag(a0))); 
     }
   };
   

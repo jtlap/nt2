@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return logical_or(is_nez(imag(a0)),is_nez(real(a0))); 
+      return logical_or(is_nez(nt2::imag(a0)),is_nez(nt2::real(a0))); 
     }
   };
 
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_nez(imag(a0)); 
+      return is_nez(nt2::imag(a0)); 
     }
   };
 
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_nez(real(a0)); 
+      return is_nez(nt2::real(a0)); 
     }
   };  
 } }

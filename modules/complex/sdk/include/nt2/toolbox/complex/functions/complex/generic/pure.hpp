@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<A0>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return bitwise_cast<result_type>(imag(a0));
+      return bitwise_cast<result_type>(nt2::imag(a0));
     }
   };
 

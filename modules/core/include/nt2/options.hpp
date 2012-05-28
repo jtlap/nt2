@@ -17,7 +17,7 @@ namespace nt2
   {
     // Markee for in place option
     struct in_place_  {};
-
+    struct meshgrid_  {};
     struct whole_     {};
   }
 
@@ -27,6 +27,7 @@ namespace nt2
 
   meta::as_<details::in_place_> const in_place_ = {};
   meta::as_<details::whole_>    const whole_    = {};
+  meta::as_<details::meshgrid_> const meshgrid_ = {};
 
 }
 

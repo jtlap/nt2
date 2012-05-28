@@ -28,8 +28,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(-imag(a1), imag(a2), fma(real(a1), real(a2), real(a0))),
-                         fma(real(a1), imag(a2), fma(real(a2), imag(a1), imag(a0)))); 
+      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), fma(nt2::real(a1), nt2::real(a2), nt2::real(a0))),
+                         fma(nt2::real(a1), nt2::imag(a2), fma(nt2::real(a2), nt2::imag(a1), nt2::imag(a0)))); 
     }
   };
   
@@ -42,8 +42,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(fma(-imag(a1), imag(a2), real(a0)),
-                         fma(real(a1), imag(a2), imag(a0))); 
+      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), nt2::real(a0)),
+                         fma(nt2::real(a1), nt2::imag(a2), nt2::imag(a0))); 
     }
   };
 
@@ -56,8 +56,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(fma(real(a1), real(a2), real(a0)),
-                         fma(real(a2), imag(a1), imag(a0))); 
+      return result_type(fma(nt2::real(a1), nt2::real(a2), nt2::real(a0)),
+                         fma(nt2::real(a2), nt2::imag(a1), nt2::imag(a0))); 
     }
   };
 
@@ -70,8 +70,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(fma(-imag(a1), imag(a2), (real(a1)*real(a2))),
-                         fma(real(a1), imag(a2), fma(real(a2), imag(a1), imag(a0))));  
+      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), (nt2::real(a1)*nt2::real(a2))),
+                         fma(nt2::real(a1), nt2::imag(a2), fma(nt2::real(a2), nt2::imag(a1), nt2::imag(a0))));  
     }
   };
   
@@ -84,8 +84,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(fma(-imag(a1), imag(a2), real(a0)),
-                         fma(real(a1), imag(a2), imag(a0))); 
+      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), nt2::real(a0)),
+                         fma(nt2::real(a1), nt2::imag(a2), nt2::imag(a0))); 
     }
   };
 
@@ -98,8 +98,8 @@ namespace nt2 { namespace ext
     typedef A2 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(-imag(a1)*imag(a2),
-                         fma(real(a2), imag(a1), imag(a0))); 
+      return result_type(-nt2::imag(a1)*nt2::imag(a2),
+                         fma(nt2::real(a2), nt2::imag(a1), nt2::imag(a0))); 
     }
   };
 
@@ -112,8 +112,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(-imag(a1)*imag(a2),
-                         fma(real(a1), imag(a2), imag(a0))); 
+      return result_type(-nt2::imag(a1)*nt2::imag(a2),
+                         fma(nt2::real(a1), nt2::imag(a2), nt2::imag(a0))); 
     }
   };
 
@@ -127,7 +127,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rA0>::type result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(-imag(a1)*imag(a2), imag(a0)); 
+      return result_type(-nt2::imag(a1)*nt2::imag(a2), nt2::imag(a0)); 
     }
   };
 
@@ -140,8 +140,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(-imag(a1), imag(a2), fma(real(a1), real(a2), a0)),
-                         fma(real(a1), imag(a2), real(a2)*imag(a1))); 
+      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), fma(nt2::real(a1), nt2::real(a2), a0)),
+                         fma(nt2::real(a1), nt2::imag(a2), nt2::real(a2)*nt2::imag(a1))); 
     }
   };
   
@@ -154,8 +154,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(a1, real(a2), real(a0)),
-                         fma(a1, imag(a2), imag(a0))); 
+      return result_type(fma(a1, nt2::real(a2), nt2::real(a0)),
+                         fma(a1, nt2::imag(a2), nt2::imag(a0))); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
@@ -167,8 +167,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(real(a1), a2, real(a0)),
-                         fma(a2, imag(a1), imag(a0))); 
+      return result_type(fma(nt2::real(a1), a2, nt2::real(a0)),
+                         fma(a2, nt2::imag(a1), nt2::imag(a0))); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
@@ -180,8 +180,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(a1, a2, real(a0)),
-                         imag(a0)); 
+      return result_type(fma(a1, a2, nt2::real(a0)),
+                         nt2::imag(a0)); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
@@ -193,8 +193,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(real(a1), a2, a0),
-                         a2*imag(a1)); 
+      return result_type(fma(nt2::real(a1), a2, a0),
+                         a2*nt2::imag(a1)); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)(A1)(A2)
@@ -206,8 +206,8 @@ namespace nt2 { namespace ext
     typedef A2 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(a1, real(a2), a0),
-                         a1*imag(a2)); 
+      return result_type(fma(a1, nt2::real(a2), a0),
+                         a1*nt2::imag(a2)); 
     }
   };
   
@@ -220,8 +220,8 @@ namespace nt2 { namespace ext
     typedef A2 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(-imag(a1), imag(a2), a0),
-                         real(a2)*imag(a1)); 
+      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), a0),
+                         nt2::real(a2)*nt2::imag(a1)); 
     }
   };
 
@@ -234,8 +234,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(-imag(a1), imag(a2), a0),
-                         real(a1)*imag(a2)); 
+      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), a0),
+                         nt2::real(a1)*nt2::imag(a2)); 
     }
   };
   
@@ -248,8 +248,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(real(a0),
-                         fma(a2, imag(a1), imag(a0))); 
+      return result_type(nt2::real(a0),
+                         fma(a2, nt2::imag(a1), nt2::imag(a0))); 
     }
   };
   
@@ -262,8 +262,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(real(a1)*a2,
-                         fma(a2, imag(a1), imag(a0))); 
+      return result_type(nt2::real(a1)*a2,
+                         fma(a2, nt2::imag(a1), nt2::imag(a0))); 
     }
   };
   
@@ -276,8 +276,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(real(a0),
-                         fma(a1, imag(a2), imag(a0))); 
+      return result_type(nt2::real(a0),
+                         fma(a1, nt2::imag(a2), nt2::imag(a0))); 
     }
   };
   
@@ -291,8 +291,8 @@ namespace nt2 { namespace ext
     typedef A2 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(a1*real(a2),
-                         fma(a1, imag(a2), imag(a0))); 
+      return result_type(a1*nt2::real(a2),
+                         fma(a1, nt2::imag(a2), nt2::imag(a0))); 
     }
   };
   

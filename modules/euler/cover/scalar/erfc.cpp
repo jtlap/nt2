@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( erfc_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::erfc(a0),nt2::boost_math::erfc(a0),25.0);
+        NT2_TEST_ULP_EQUAL( nt2::erfc(a0),nt2::boost_math::erfc(a0),12500.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

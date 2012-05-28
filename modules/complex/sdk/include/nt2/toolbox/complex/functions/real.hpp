@@ -36,7 +36,7 @@
  * {
  *     template <class A0>
  *     meta::call<tag::real_(A0)>::type
- *     real(const A0 & a0);
+ *     nt2::real(const A0 & a0);
  * }
  * \endcode
  *

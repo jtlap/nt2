@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
     { 
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::as_dry<rtype>::type dtype; 
-      return mul_minus_i(nt2::atanh(-imag(a0)));
+      return mul_minus_i(nt2::atanh(-nt2::imag(a0)));
     }
   };
 
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::atan(real(a0))); 
+      return bitwise_cast<result_type>(nt2::atan(nt2::real(a0))); 
     }
   };
   

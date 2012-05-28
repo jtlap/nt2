@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_ngtz(real(a0)); 
+      return is_ngtz(nt2::real(a0)); 
     }
   };
 
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_ngtz(real(a0)); 
+      return is_ngtz(nt2::real(a0)); 
     }
   };
   
