@@ -12,7 +12,7 @@
 #include <nt2/toolbox/complex/functions/mul_i.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/constants/unary_minus.hpp>
+#include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/dry.hpp>
