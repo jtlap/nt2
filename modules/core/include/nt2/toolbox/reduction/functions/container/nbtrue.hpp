@@ -35,6 +35,8 @@
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
 
+#include <nt2/core/container/io.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_,
