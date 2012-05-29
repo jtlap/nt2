@@ -9,11 +9,7 @@
 #ifndef NT2_SDK_META_DETAILS_DEMANGLE_HPP_INCLUDED
 #define NT2_SDK_META_DETAILS_DEMANGLE_HPP_INCLUDED
 
-
 #if (__GNUC__ && __cplusplus && __GNUC__ >= 3)
-//==============================================================================
-// Includes abi::__cxa_demangle
-//==============================================================================
 #include <cxxabi.h>
 #endif
 
@@ -24,8 +20,8 @@
 
 namespace nt2 {  namespace details
 {
-  // INTERNAL ONLY
-  // demangle a type name retrieved through typeid()
+  /// INTERNAL ONLY
+  /// demangle a type name retrieved through typeid()
   inline std::string demangle(const char* name)
   {
     #if(__GNUC__ && __cplusplus && __GNUC__ >= 3)

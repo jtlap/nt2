@@ -4,7 +4,7 @@
 
 int main()
 {
-  std::vector<long*> vx;
+  std::vector< long* > vx;
 
   std::cout << nt2::type_id<char[21]>() << "\n";
   std::cout << nt2::type_id(3.141592f)  << "\n";

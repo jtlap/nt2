@@ -1,6 +1,5 @@
 #include <iostream>
-#include <boost/assert.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <nt2/sdk/error/assert_as_exceptions.hpp>
 
 int main()
 {

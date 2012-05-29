@@ -11,6 +11,23 @@ SET( SOURCES
   assert_exception.cpp
   display_type.cpp
   type_id.cpp
+  test.cpp
+  test_error.cpp
+  test_assert.cpp
+  test_throw.cpp
+  test_no_throw.cpp
+  test_no_assert.cpp
+  test_case.cpp
+  test_case_tpl.cpp
+  test_type_expr.cpp
+  test_type_info.cpp
+  test_type_is.cpp
+  test_equal.cpp
+  test_not_equal.cpp
+  test_greater.cpp
+  test_greater_equal.cpp
+  test_lesser.cpp
+  test_lesser_equal.cpp
   )
 
 FOREACH( EXAMPLE ${SOURCES})

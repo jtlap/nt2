@@ -12,7 +12,7 @@
 // cover test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/remquo.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::remquo;
   using nt2::tag::remquo_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -74,12 +74,12 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  NT2_SIMD_REAL_TYPES)
         r_t r = nt2::remquo(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           sr_t sr =  nt2::remquo(a0[i],a1[i]);
-          NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r)[i],
+          NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(r)[i],
                                     boost::fusion::get<0>(sr), 1.5);
           ulp0 = nt2::max(ulpd,ulp0);
-          NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r)[i],
+          NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(r)[i],
                                     boost::fusion::get<1>(sr), 1.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }

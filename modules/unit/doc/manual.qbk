@@ -1,17 +1,15 @@
-[library Unit Test Module
-    [quickbook 1.5]
-    [authors [Falcou, Joel], [Lapresté, Jean-Thierry], [Gaunard, Mathias]]
-        [copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Blaise Pascal]
-        [copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI]
-    [license Distributed under the Boost Software License, Version 1.0.
-        (See accompanying file LICENSE_1_0.txt or copy at
-        [@http://www.boost.org/LICENSE_1_0.txt])
-    ]
+[library NT2.Unit
+  [quickbook 1.5]
 ]
 
-[section Preface]
-This module provides macros, classes and functions to setup and run NT2 unit tests
-and benchmarks
-[endsect] [/ Preface]
+[def __NT2__    *NT2* ]
+
+[section Introduction]
+This module provides macros, classes and functions to setup run NT2 unit
+tests and benchmarks in a sane and reproductible fashion.
+[endsect]
+
+[include test.qbk]
+[include benchs.qbk]
 
 [xinclude reference.xml]

@@ -108,33 +108,7 @@ namespace nt2
     std::cout << std::endl;
   }
 
-  /**
-  * @brief Type name streaming function
-  *
-  * For any given value @c x of type @c T, displays a human readable string
-  * containing the fully qualified name of @c T on the standard output.
-  * Formatting is applied on this output so template types and other complex
-  * structures are properly displayed.
-  *
-  * @param x   Value to display type from
-  *
-  * @usage
-  *
-  * @include display_type.cpp
-  *
-  * This examples outpus:
-  *
-  * @code
-  * char [21]
-  * float
-  * std::vector<
-  *     long*
-  *   , std::allocator<
-  *         long*
-  *     >
-  * >
-  * @endcode
-  **/
+  /// @overload
   template<typename T> inline void display_type( const T& )
   {
     return display_type<T>();

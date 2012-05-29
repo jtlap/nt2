@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL ( sincos_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
 {
   using nt2::sincos;
   using nt2::tag::sincos_;
-  using nt2::load; 
+  using nt2::load;
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -47,19 +47,18 @@ NT2_TEST_CASE_TPL ( sincos_real_convert__1,  NT2_REAL_CONVERTIBLE_TYPES)
     NT2_CREATE_SIMD_BUFFER(a0,T, NR, T(-60), T(60));
     double ulp0 = 0.0, ulpd = 0.0;
     for(int j = 0; j < NR/cardinal_of<n_t>::value; j++)
+    {
+      vT a0 = load<n_t>(&tab_a0[0],j);
+      r_t r = nt2::sincos(a0);
+      for(int i = 0; i< cardinal_of<n_t>::value; i++)
       {
-        vT a0 = load<n_t>(&tab_a0[0],j);
-	r_t r = nt2::sincos(a0); 
-        for(int i = 0; i< cardinal_of<n_t>::value; i++)
-        {
-          int k = i+j*cardinal_of<n_t>::value;
-	  sr_t sr =  nt2::sincos(tab_a0[k]);
-	  NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r)[i], boost::fusion::get<0>(sr), 0.5);
-	  NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r)[i], boost::fusion::get<1>(sr), 0.5);
-          ulp0 = nt2::max(ulpd,ulp0);
-        }
- 
+        int k = i+j*cardinal_of<n_t>::value;
+        sr_t sr =  nt2::sincos(tab_a0[k]);
+        NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(r)[i], boost::fusion::get<0>(sr), 0.5);
+        NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(r)[i], boost::fusion::get<1>(sr), 0.5);
+        ulp0 = nt2::max(ulpd,ulp0);
       }
-    std::cout << "max ulp found is: " << ulp0 << std::endl; 
+    }
+    std::cout << "max ulp found is: " << ulp0 << std::endl;
   }
 } // end of test for real_convert_

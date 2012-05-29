@@ -21,24 +21,25 @@
 namespace nt2
 {
   /**
-  * @brief Type name demangling function
-  *
-  * For any given type @c T, returns a human readable string containing the fully
-  * qualified name of @c T.
-  *
-  * @tparam T   Type to turn into a string
-  * @return @c std::string containing the type of @c T
-  *
-  * @usage
-  * @include type_id.cpp
-  *
-  * This examples output:
-  *
-  * @code
-  * char [21]
-  * float
-  * std::vector<long*, std::allocator<long*> >
-  * @endcode
+    @brief Portable type name demangling function
+
+    For any given type @c T or any value @c x of type @c T, type_id returns
+    a @c std::string containing the fully qualified name of type @c T in a
+    human readable format including @c const and reference qualifiers.
+
+    @usage
+
+    @include type_id.cpp
+
+    This examples output:
+
+    @code
+    char [21]
+    float
+    std::vector<long*, std::allocator<long*> >
+    @endcode
+
+    @return a @c std::string containing the type of @c T
   **/
   template<typename T> inline std::string type_id()
   {
@@ -50,26 +51,7 @@ namespace nt2
     return s;
   }
 
-  /**
-  * @brief Type name demangling function
-  *
-  * For any given value @c x of type @c T, returns a human readable string
-  * containing the fully qualified name of @c T.
-  *
-  * @param  x   Value to analyze
-  * @return @c  std::string containing the type of @c x
-  *
-  * @usage
-  * @include type_id.cpp
-  *
-  * This examples output:
-  *
-  * @code
-  * char [21]
-  * float
-  * std::vector<long*, std::allocator<long*> >
-  * @endcode
-  **/
+  /// @overload
   template<typename T> inline std::string type_id( const T& )
   {
     return type_id<T>();
