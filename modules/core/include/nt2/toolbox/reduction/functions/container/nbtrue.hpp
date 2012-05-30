@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
       NT2_DISP(nt2::sb2b(a0));
       NT2_DISP(nt2::toint(nt2::sb2b(a0)));
       NT2_DISP(  nt2::sum(nt2::toint(nt2::sb2b(a0)), a1));
-      NT2_DISP(  nt2::sum(nt2::tofloat(nt2::sb2b(a0)), a1));
+     // NT2_DISP(  nt2::sum(nt2::tofloat(nt2::sb2b(a0)), a1));
       std::cout << "---------------fin icitte" << std::endl;
 
       return  nt2::sum(nt2::toint(nt2::sb2b(a0)), a1);
