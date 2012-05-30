@@ -100,6 +100,10 @@ NT2_TEST_CASE_TPL(array_buffer_swap, NT2_TYPES )
 //==============================================================================
 // array_buffer Range interface
 //==============================================================================
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4996) // unsafe std::transform
+#endif
+
 struct f_
 {
   template<class T> T operator()(T const& e) const { return T(10*e); }

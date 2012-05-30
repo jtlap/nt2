@@ -123,6 +123,10 @@ NT2_TEST_CASE(array_buffer_swap)
 //==============================================================================
 // array_buffer Range interface
 //==============================================================================
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4996) // unsafe std::transform
+#endif
+
 struct f_
 {
   template<class T> std::string operator()(T const& e) const
