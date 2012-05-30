@@ -22,13 +22,13 @@
 
 NT2_TEST_CASE_TPL( freqspace, (double) )
 {
-  using nt2::freqspace;  
+  using nt2::freqspace;
   nt2::table<T> f1, f2;
   nt2::table<int, nt2::settings(nt2::_2D)> a(nt2::of_size(1, 4));
   a(1) = 8; a(2) = 24; 
-  boost::fusion::tie(f1) = freqspace(10);
+  nt2::tie(f1) = freqspace(10);
   std::cout << " f1 " << f1 << std::endl; 
-  boost::fusion::tie(f1,f2) = freqspace(10);
+  nt2::tie(f1,f2) = freqspace(10);
   std::cout << " f1 " << f1 << std::endl; 
   std::cout << " f2 " << f2 << std::endl; 
   boost::fusion::tie(f1, f2)= nt2::freqspace2(10, 10, nt2::meta::as_<T>());

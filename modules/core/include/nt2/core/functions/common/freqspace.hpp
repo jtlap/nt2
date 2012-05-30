@@ -65,10 +65,10 @@ namespace nt2 { namespace ext
     void compute(A1 & a1, int m, int n, bool whole, bool meshgrid, boost::mpl::long_<2> const&) const
     {
       if (meshgrid)
-        tie(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1))
+        boost::fusion::tie(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1))
           = freqspace2(m,n, meta::as_<value_t>());
       else
-        tie(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1))
+        boost::fusion::tie(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1))
           = freqspace2(m,n, meta::as_<value_t>()); //, nt2::meshgrid_);
     }
     
