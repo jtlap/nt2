@@ -64,13 +64,13 @@ namespace nt2 { namespace ext
     typedef typename meta::call <tag::sum_   (T2, A1) >::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-      std::cout << "---------------icitte" << std::endl;
-      NT2_DISP(a0);
-      NT2_DISP(nt2::sb2b(a0));
-      NT2_DISP(nt2::toint(nt2::sb2b(a0)));
-      NT2_DISP(  nt2::sum(nt2::toint(nt2::sb2b(a0)), a1));
-     // NT2_DISP(  nt2::sum(nt2::tofloat(nt2::sb2b(a0)), a1));
-      std::cout << "---------------fin icitte" << std::endl;
+       std::cout << "---------------icitte" << std::endl;
+       NT2_DISP(a0);
+       NT2_DISP(nt2::sb2b(a0));
+       NT2_DISP(nt2::toint(nt2::sb2b(a0)));
+       NT2_DISP(  nt2::sum(nt2::toint(nt2::sb2b(a0)), a1));
+       //       NT2_DISP(  nt2::sum(nt2::tofloat(nt2::sb2b(a0)), a1));
+       std::cout << "---------------fin icitte" << std::endl;
 
       return  nt2::sum(nt2::toint(nt2::sb2b(a0)), a1);
     }

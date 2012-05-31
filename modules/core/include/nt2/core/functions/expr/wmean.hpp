@@ -42,10 +42,10 @@ namespace nt2 { namespace ext
   };
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::wmean_, tag::cpu_,
-                              (A0)(A1),
+                              (A0)(A1)(A2),
                               (ast_<A0>)
                               (ast_<A1>)
-                              (scalar_<integer_<A1> > )
+                              (scalar_<integer_<A2> > )
                               )
   {
     typedef typename A0::value_type value_type;
@@ -53,10 +53,10 @@ namespace nt2 { namespace ext
     typedef typename meta::call < tag::sum_(T1 const&, A1 const&)>::type T2;
     typedef typename meta::call < tag::multiplies_(value_type, T1)>::type result_type; 
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w, const A2& dim) const
     {
       value_type f =  rec(nt2::sum(w(_))); 
-      return nt2::multiplies(f, nt2::sum(nt2::bsxfun(tag::multiplies_(), a0, w), a1));
+      return nt2::multiplies(f, nt2::sum(nt2::bsxfun(tag::multiplies_(), a0, w), dim));
     }
   };
 } }

@@ -98,14 +98,15 @@ SET( SOURCES
   zeros.cpp
   cast.cpp
 #  bsyfun.cpp
-#  bsxfun.cpp
+  bsxfun.cpp
 #  fill_pattern.cpp
 #  repmat.cpp
 #  rephorz.cpp
 #  repvert.cpp
 #  freqspace.cpp
-  nansum.cpp
-  nanmean.cpp
+#  nansum.cpp
+#  nanmean.cpp
+#  nanasum2.cpp
 # List of test files for toolbox core.settings
    )
 set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
