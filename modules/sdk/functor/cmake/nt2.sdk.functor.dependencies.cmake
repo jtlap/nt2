@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_SDK.FUNCTOR_DEPENDENCIES_EXTRA simd.meta boost.simd.sdk)
+SET(NT2_SDK.FUNCTOR_DEPENDENCIES_EXTRA sdk.meta boost.simd.sdk)
