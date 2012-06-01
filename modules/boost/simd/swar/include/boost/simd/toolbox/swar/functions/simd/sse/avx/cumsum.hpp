@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
       svtype a00 =  cumsum(a000);
       svtype a01 =  cumsum(a011);
       svtype z = splat<svtype>(a00[meta::cardinal_of<svtype>::value-1]);
-      A0 that = simd::bitwise_cast<A0>(_mm256_insertf128_si256(that,a00, 0));
+      A0 that = simd::bitwise_cast<A0>(_mm256_castsi128_si256(a00));
       that =  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, a01+z, 1));
       return that;
     }
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
       svtype a00 =  cumsum(a000);
       svtype a01 =  cumsum(a011);
       svtype z = splat<svtype>(a00[meta::cardinal_of<svtype>::value-1]);
-      A0 that = simd::bitwise_cast<A0>(_mm256_insertf128_pd(that,a00, 0));
+      A0 that = simd::bitwise_cast<A0>(_mm256_castpd128_pd256(a00));
       that =  simd::bitwise_cast<A0>(_mm256_insertf128_pd(that, a01+z, 1));
       return that;
     }
@@ -87,7 +87,7 @@ namespace boost { namespace simd { namespace ext
       svtype a00 =  cumsum(a000);
       svtype a01 =  cumsum(a011);
       svtype z = splat<svtype>(a00[meta::cardinal_of<svtype>::value-1]);
-      A0 that = {_mm256_insertf128_ps(that,a00, 0)};
+      A0 that = {_mm256_castps128_ps256(a00)};
       that =  _mm256_insertf128_ps(that, a01+z, 1);
       return that;
     }
