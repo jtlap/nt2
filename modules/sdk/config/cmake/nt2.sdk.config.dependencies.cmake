@@ -7,8 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.boost)
-
-SET(NT2_SDK.CONFIG_DEPENDENCIES_FOUND ${Boost_FOUND})
-SET(NT2_SDK.CONFIG_DEPENDENCIES_INCLUDE_DIR ${Boost_INCLUDE_DIRS})
-SET(NT2_SDK.CONFIG_DEPENDENCIES_LIBRARY_DIR ${Boost_LIBRARY_DIRS})
+SET(NT2_SDK.CONFIG_DEPENDENCIES_EXTRA boost.simd.sdk)
