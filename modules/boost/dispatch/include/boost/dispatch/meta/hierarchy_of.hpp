@@ -22,14 +22,19 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {
   template<class T, class Origin = T, class Enable = void>
   struct  hierarchy_of
   {
-    typedef meta::unspecified_<Origin> type;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_< is_same< T, stripped >, stripped, Origin>::type origin_;
+    typedef meta::unspecified_<origin_> type;
   };
 }
     
