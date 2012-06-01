@@ -98,7 +98,6 @@ SET( SOURCES
   width.cpp
   zeros.cpp
   cast.cpp
-#  bsyfun.cpp
   bsxfun.cpp
 #  fill_pattern.cpp
 #  repmat.cpp
