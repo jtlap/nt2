@@ -25,13 +25,13 @@
 NT2_TEST_CASE_TPL( none_scalar, NT2_TYPES )
 {
   T x = nt2::none(nt2::True<T>());
-  NT2_TEST_EQUAL( x, (nt2::True<T>()) );
+  NT2_TEST_EQUAL( x, (nt2::False<T>()) );
 
   x = nt2::none(nt2::True<T>(),1);
-  NT2_TEST_EQUAL( x, nt2::True<T>() );
+  NT2_TEST_EQUAL( x, nt2::False<T>() );
 
   x = nt2::none(nt2::True<T>(),2);
-  NT2_TEST_EQUAL( x, (nt2::True<T>()) );
+  NT2_TEST_EQUAL( x, (nt2::False<T>()) );
 }
 
 NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
@@ -69,6 +69,6 @@ NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
 //   disp("sy", sy);
   sy = nt2::none(y(_));
   disp(sy);
-  NT2_TEST(sy(1));
+  NT2_TEST(!sy(1));
 }
 
