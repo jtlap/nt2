@@ -18,6 +18,7 @@
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/cast.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/ten.hpp>
@@ -31,7 +32,7 @@
 
 NT2_TEST_CASE_TPL( nbtrue_scalar, (float)(double))//NT2_TYPES )
 {
-  nt2::int32_t x = nt2::nbtrue(1);
+  T x = nt2::nbtrue(1);
   NT2_TEST_EQUAL( x, 1 );
 
   x = nt2::nbtrue(1,1);
@@ -51,10 +52,10 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_TYPES )
   typedef typename nt2::meta::as_integer<T>::type itype_t;
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> y1;
-  nt2::table<itype_t> sy1, sy, sy2, sy3;
+  nt2::table<T> sy1, sy, sy2, sy3;
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      y(i,j) = i + 5*j;
+      y(i,j) = (i > j) || (j == 2)|| (i == 1);
   disp("y", y);
 
 //   nt2::table<nt2::logical<T> > l;
@@ -66,27 +67,32 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_TYPES )
 //   disp("nb ",  nbtrue(l));
 //   disp("nb ",  nb);
 
-  sy = nt2::nbtrue(y, 1);
+  sy  = nt2::nbtrue(y, 1);
+  sy2 = nt2::sum(y, 1);
   for(int j=1;j<=3;j++)
-     NT2_TEST_EQUAL(nt2::size(y,1) , sy(j));
+    NT2_TEST_EQUAL(sy2(j) , sy(j));
   NT2_DISP(sy);
-  std::cout <<  nt2::size(y,1) << std::endl;
+  NT2_DISP(sy2); 
 
   sy = nt2::nbtrue(y, 2);
+  sy2 =  nt2::sum(y, 2);
   for(int j=1;j<=5;j++)
-    NT2_TEST_EQUAL(nt2::size(y,2) , sy(j));
+    NT2_TEST_EQUAL(sy2(j) , sy(j));
   NT2_DISP(sy);
-  std::cout <<  nt2::size(y,2) << std::endl;
+  NT2_DISP(sy2); 
 
   sy = nt2::nbtrue(y, 3);
+  sy2 =  nt2::sum(y, 3);
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      NT2_TEST_EQUAL(nt2::size(y,3), sy(i, j));
+      NT2_TEST_EQUAL(sy2(i, j), sy(i, j));
   NT2_DISP(sy);
-  std::cout <<  nt2::size(y,3) << std::endl;
+  NT2_DISP(sy2); 
 
   sy = nt2::nbtrue(y(_));
+  sy2 =  nt2::sum(y(_));
   NT2_DISP(sy);
-  NT2_TEST_EQUAL(sy(1), nt2::numel(y));
+  NT2_DISP(sy2); 
+
  }
 

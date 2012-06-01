@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_NBTRUE_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_NBTRUE_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_INBTRUE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_INBTRUE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-#include <boost/simd/toolbox/reduction/functions/nbtrue.hpp>
+#include <boost/simd/toolbox/reduction/functions/inbtrue.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 /////////////////////////////////////////////////////////////////////////////
@@ -17,19 +17,19 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nbtrue_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::inbtrue_, boost::simd::tag::avx_,
                          (A0),
                          ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                         )
   {
-    typedef typename meta::scalar_of<A0>::type  result_type;
+    typedef int32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
       svtype a00 = { _mm256_extractf128_si256(a0, 0)};
       svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      return nbtrue(a00)+nbtrue(a01);
+      return inbtrue(a00)+inbtrue(a01);
     }
   };
 
@@ -38,16 +38,16 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nbtrue_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::inbtrue_, boost::simd::tag::avx_,
                          (A0),
                          ((simd_<double_<A0>,boost::simd::tag::avx_>))
                         )
   {
-    typedef typename meta::scalar_of<A0>::type  result_type;
+    typedef int32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       int32_t  r = _mm256_movemask_pd(is_nez(a0));
-      return   double((r&1)+(r>>1&1)+((r>>2)&1)+(r>>3));
+      return   (r&1)+(r>>1&1)+((r>>2)&1)+(r>>3);
     }
   };
 
@@ -56,17 +56,17 @@ namespace boost { namespace simd { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::nbtrue_, boost::simd::tag::avx_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::inbtrue_, boost::simd::tag::avx_,
                          (A0),
                          ((simd_<single_<A0>,boost::simd::tag::avx_>))
                         )
   {
-    typedef typename meta::scalar_of<A0>::type  result_type;
+    typedef int32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
       int32_t  r = _mm256_movemask_ps(is_nez(a0));
-      return   result_type((r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3&1)+((r>>4)&1)+((r>>5)&1)+(r>>6&1)+(r>>7));
+      return   (r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3&1)+((r>>4)&1)+((r>>5)&1)+(r>>6&1)+(r>>7);
       //      return __builtin_popcount(_mm_movemask_ps(isnez(cast<type>(a0))));
     }
   };

@@ -63,6 +63,7 @@ SET( SOURCES
   maximum.cpp
   mean.cpp
   minimum.cpp
+  inbtrue.cpp
   nbtrue.cpp
   ndims.cpp
   none.cpp
@@ -103,7 +104,6 @@ SET( SOURCES
 #  repmat.cpp
 #  rephorz.cpp
 #  repvert.cpp
-#  freqspace.cpp
 #  nansum.cpp
 #  nanmean.cpp
 #  nanasum2.cpp
