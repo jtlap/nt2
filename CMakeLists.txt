@@ -38,14 +38,15 @@ include(nt2.package)
 ################################################################################
 set(NT2_SOURCE_ROOT ${PROJECT_SOURCE_DIR})
 include(NT2Module)
-nt2_configure_tests()
-nt2_postconfigure_init()
 
 # We need Boost for pretty much everything, we might as well search for it now
 include(nt2.boost)
 if(NOT Boost_FOUND)
   message(FATAL_ERROR "NT2 requires a recent version of Boost but none recent enough was found")
 endif()
+
+nt2_configure_tests()
+nt2_postconfigure_init()
 
 ################################################################################
 # Module inclusion
