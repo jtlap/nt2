@@ -49,16 +49,6 @@ namespace nt2 {  namespace details
     return out;
     #endif
   }
-
-  // INTERNAL ONLY
-  // Stream some indentation on a output stream
-  inline std::ostream& indent(std::ostream& os, size_t depth)
-  {
-    for(size_t i=0; i<depth; ++i)
-      os << ' ';
-
-    return os;
-  }
 } }
 
 #endif

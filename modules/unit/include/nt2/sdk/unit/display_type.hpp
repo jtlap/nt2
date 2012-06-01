@@ -20,6 +20,19 @@
 
 namespace nt2
 {
+  namespace details
+  {
+    // INTERNAL ONLY
+    // Stream some indentation on a output stream
+    inline std::ostream& indent(std::ostream& os, size_t depth)
+    {
+      for(size_t i=0; i<depth; ++i)
+        os << ' ';
+
+      return os;
+    }
+  }
+
   /**
   *
   * @brief Type name streaming function
@@ -39,11 +52,11 @@ namespace nt2
   * char [21]
   * float
   * std::vector<
-  *              long*
-  *              ,std::allocator<
-  *                              long*
-  *                              >
-  *            >
+  *     long*
+  *   , std::allocator<
+  *         long*
+  *     >
+  * >
   * @endcode
   **/
   template<typename T> inline void display_type()
@@ -115,11 +128,11 @@ namespace nt2
   * char [21]
   * float
   * std::vector<
-  *              long*
-  *              ,std::allocator<
-  *                              long*
-  *                              >
-  *            >
+  *     long*
+  *   , std::allocator<
+  *         long*
+  *     >
+  * >
   * @endcode
   **/
   template<typename T> inline void display_type( const T& )
