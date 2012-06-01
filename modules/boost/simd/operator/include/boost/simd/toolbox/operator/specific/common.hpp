@@ -47,11 +47,11 @@ namespace boost { namespace simd { namespace details
 // Register all tag and extension agnostic call for common code sharing
 ////////////////////////////////////////////////////////////////////////////////
 #define M0(z,n,t) (A##n)
-#define M1(z,n,t) (generic_< unspecified_<A##n> >)
+#define M1(z,n,t) ((simd_< unspecified_<A##n>, X >))
 
 #define M2(z,n,t)                                                              \
 BOOST_SIMD_REGISTER_DISPATCH ( elementwise_<Tag> , tag::cpu_                   \
-                             , (Tag)BOOST_PP_REPEAT(n,M0,~)                    \
+                             , (Tag)(X)BOOST_PP_REPEAT(n,M0,~)                 \
                              , BOOST_PP_REPEAT(n,M1,~)                         \
                              )                                                 \
 /**/
@@ -68,12 +68,12 @@ namespace boost { namespace simd { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Generate all the common map calls over Tag using boost::simd::map
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) generic_< unspecified_<A##n> >
+#define M0(z,n,t) simd_< unspecified_<A##n>, X >
 
 #define M1(z,n,t)                                                              \
 namespace boost { namespace simd { namespace ext                               \
 {                                                                              \
-  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>             \
+  template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class X, class Dummy>    \
   struct implement< elementwise_<Tag>( BOOST_PP_ENUM(n,M0,~) )                 \
                   , tag::cpu_, Dummy                                           \
                   >                                                            \
