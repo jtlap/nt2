@@ -13,10 +13,6 @@
 set(Boost_ADDITIONAL_VERSIONS "1.48")
 
 if(NOT Boost_FOUND)
-  # Putting those in the cache is a bad idea, removing them
-  unset(Boost_VERSION CACHE)
-  unset(Boost_LIB_VERSION CACHE)
-
   find_package( Boost 1.48.0 QUIET )
   if(Boost_VERSION LESS 104800)
     message(STATUS "[nt2] Boost version ${Boost_MAJOR_VERSION}.${Boost_MINOR_VERSION}.${Boost_SUBMINOR_VERSION} not recent enough, needs 1.48.0")
