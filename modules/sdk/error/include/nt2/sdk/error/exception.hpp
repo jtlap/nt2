@@ -9,12 +9,10 @@
 #ifndef NT2_SDK_ERROR_EXCEPTION_HPP_INCLUDED
 #define NT2_SDK_ERROR_EXCEPTION_HPP_INCLUDED
 
-#if !defined(BOOST_NO_EXCEPTIONS)
-
-#include <string>
-#include <stdexcept>
-#include <boost/config.hpp>
 #include <boost/exception/exception.hpp>
+#include <boost/config.hpp>
+#include <stdexcept>
+#include <string>
 
 namespace nt2
 {
@@ -32,7 +30,5 @@ namespace nt2
     {}
   };
 }
-
-#endif
 
 #endif
