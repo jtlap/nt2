@@ -7,9 +7,9 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(Boost_ADDITIONAL_VERSIONS "1.48")
-FIND_PACKAGE( Boost 1.48.0 QUIET )
+include(nt2.boost)
 
 SET(NT2_SDK.TIMING_DEPENDENCIES_FOUND ${Boost_FOUND})
 SET(NT2_SDK.TIMING_DEPENDENCIES_INCLUDE_DIR ${Boost_INCLUDE_DIRS})
 SET(NT2_SDK.TIMING_DEPENDENCIES_LIBRARY_DIR ${Boost_LIBRARY_DIRS})
+SET(NT2_SDK.TIMING_LIBRARIES optimized nt2 debug nt2_d)
