@@ -26,28 +26,35 @@ namespace boost { namespace dispatch { namespace details
     typedef T type;
   };
 }
-    
+
 namespace meta
 {
-  template<class T>
-  struct value_of : details::value_of<T> {};
+  /*!
+   * @brief Computes the basic value of a type
+   *
+   * @tparam T
+   *
+   *
+   **/
+  template<class T> struct value_of : details::value_of<T> {};
 
+  /// INTERNAL ONLY
   template<class T>
-  struct value_of<T&>
-   : add_reference<typename value_of<T>::type>
-  {
-  };
-  
+  struct  value_of<T&>
+        : add_reference<typename value_of<T>::type>
+  {};
+
+  /// INTERNAL ONLY
   template<class T>
-  struct value_of<T const>
-   : add_const<typename value_of<T>::type>
-  {
-  };
+  struct  value_of<T const>
+        : add_const<typename value_of<T>::type>
+  {};
 
 #ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
+  /// INTERNAL ONLY
   template<class T>
-  struct value_of<T & BOOST_DISPATCH_RESTRICT>
-   : value_of<T>
+  struct  value_of<T & BOOST_DISPATCH_RESTRICT>
+        : value_of<T>
   {
   };
 #endif

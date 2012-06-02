@@ -133,12 +133,14 @@ macro(nt2_doc_doxygen file)
   endif()
 
   file(READ ${absolute} DOXYGEN_CONTENT)
-  set(DOXYGEN_CONTENT ${DOXYGEN_CONTENT}
-      "QUIET                  = NO\n"
-      "GENERATE_LATEX         = NO\n"
-      "GENERATE_HTML          = NO\n"
-      "GENERATE_XML           = YES\n"
-      "XML_OUTPUT             = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n"
+  # Add proper BOOST path to this Doxygen for PP purpose
+  set(DXY_PP     "SEARCH_INCLUDES=YES\nENABLE_PREPROCESSING=YES\nMACRO_EXPANSION=YES\n")
+  set(DXY_PDEF   "PREDEFINED=NT2_DOXYGEN_ONLY\n")
+  set(DXY_PATH   "INCLUDE_PATH += ${Boost_INCLUDE_DIR}\n")
+  set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=NO\nGENERATE_XML=YES\n")
+  set(DXY_XML    "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n")
+  set(DOXYGEN_CONTENT
+      "${DOXYGEN_CONTENT}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_TARGET}${DXY_XML}"
      )
 
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile ${DOXYGEN_CONTENT})

@@ -1,10 +1,10 @@
-[library NT2.Unit
+[library Unit Test Framework
   [quickbook 1.5]
 ]
 
-[def __NT2__    *NT2* ]
+[def __NT2__ *NT2* ]
 
-[section Introduction]
+[section Overview]
 This module provides macros, classes and functions to setup run NT2 unit
 tests and benchmarks in a sane and reproductible fashion.
 [endsect]

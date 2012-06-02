@@ -1,0 +1,11 @@
+[part What's NT2
+  [quickbook 1.5]
+]
+
+[/ ==========                      Some Macros                      ========== ]
+[def __NT2__    *NT2*  ]
+[def __MATLAB__ Matlab ]
+
+[include news/context.qbk]
+[include news/release.qbk]
+[include news/changelog.qbk]

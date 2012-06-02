@@ -13,6 +13,18 @@
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/is_same.hpp>
 
+#if defined(NT2_DOXYGEN_ONLY)
+namespace boost { namespace dispatch { namespace meta
+{
+  /**
+   * @brief scalar_of metafunction
+   *
+   * scalar_of computes ....
+  **/
+  template<class T> struct scalar_of
+  {};
+} } }
+#else
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T>
@@ -62,5 +74,7 @@ namespace meta
   {
   };
 } } }
+
+#endif
 
 #endif

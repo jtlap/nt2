@@ -35,6 +35,7 @@
 
 namespace boost { namespace dispatch { namespace tag
 {
+  /// INTERNAL ONLY
   struct ast_ {};
 }
 namespace meta

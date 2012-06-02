@@ -1,0 +1,41 @@
+[section __NT2__ binary package]
+
+[section Downloading __NT2__]
+The pre-built binary package is the easiest way to retrieve __NT2__. You can
+download them from [@https://github.com/MetaScale/nt2/downloads our Downloads page].
+
+Once downloaded, just decompress the files to location path of you choice. We
+will refer to this location as the *download directory* in the following sections.
+[endsect]
+
+[section Package Structure]
+The binary distribution, on top of providing the libraries in a built binary
+form, also contains files that are automatically generated when the build system
+is configured, and has all module-specific files flattened into a module-less
+tree. The __NT2__ download directory should then look like:
+
+``
+nt2/
+|-- cmake/
+|-- doc/
+|-- include/
+|-- lib/
+|-- modules/
+|-- tools/
+``
+
+Those folders contain:
+
+* =nt2/cmake=: __CMAKE__ modules for __NT2__ usage, directory suitable to add
+  to your `CMAKE_MODULE_PATH`
+* =nt2/doc=: __NT2__ HTML documentation
+* =nt2/include=: __NT2__ headers, directory suitable to add to your include path
+* =nt2/lib=: __NT2__ library binaries, directory suitable to add to your linker path
+* =nt2/modules=: Files used by __NT2__ to identity installed modules and their associated
+* =nt2/tools=: Programs that are used to manage a __NT2__ setup
+
+Once extracted, you just have to copy the whole =nt2= folder to a location of
+your choice.
+[endsect]
+
+[endsect]

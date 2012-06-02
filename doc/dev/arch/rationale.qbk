@@ -1,0 +1,9 @@
+[section Rationale]
+
+[heading Problem Statement]
+We need dispatching over some special capability of hardware target
+
+[heading The Site Hierarchy]
+Solution of the problem, make the architecture a part of the overload
+
+[endsect]

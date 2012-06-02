@@ -1,0 +1,66 @@
+[chapter Setting Up NT2
+  [quickbook 1.5]
+]
+
+[def __NT2__ *NT2* ]
+[def __CMAKE__ [@http://www.cmake.org CMake] ]
+
+[section Overview]
+This chapter will guide you through the necessary step to download, configure
+and install __NT2__ on your system. We take for granted that you have the basic
+knowledge in C++ and usual system related operations.
+[endsect]
+
+[heading Software Requirements]
+
+* [@http://www.boost.org *Boost*]: __NT2__ depends on the
+  [@http://www.boost.org Boost Library] for its internal implementation.
+  Version 1.49 or superior is required. Consult the
+  [@http://www.boost.org/doc/libs/1_49_0/more/getting_started/index.html Boost Getting Started page]
+  for information on how to set up and use [@http://www.boost.org Boost].
+
+* [@http://git-scm.com *Git*]: If you wish to grab latest __NT2__ updates from our
+  [@https://github.com/MetaScale/nt2 Github repository], you will need a copy
+  of [@http://git-scm.com Git] installed. Consult the
+  [@http://progit.org/book Pro Git book] for information on how to set up and
+  use [@http://git-scm.com Git].
+
+* *__CMAKE__*: __NT2__ is built through the meta-build
+  system __CMAKE__. Version 2.8.8 or superior is required and
+  can be [@http://www.cmake.org/cmake/resources/software.html downloaded here].
+  See the [@http://www.cmake.org/Wiki/CMake CMake Wiki] for information on how
+  to set up and use __CMAKE__.
+
+* If you intent to build this documentation locally, you'll need a copy of
+  [@http://www.stack.nl/~dimitri/doxygen/ Doxygen], the
+  [@http://www.boost.org/doc/libs/1_49_0/doc/html/boostbook.html Boostbook toolchain]
+  and [@http://www.boost.org/doc/libs/1_49_0/doc/html/quickbook.html Quickbook].
+
+Some other modules may have other external dependencies. Those are listed in
+said module documentation and are only required if you plan to use such a module.
+
+[heading Supported Architectures and Compilers]
+__NT2__ currently is supported by the following compilers:
+
+* [@http://gcc.gnu.org/ GCC] version 4.2.1 or superior on any systems.
+* *Microsoft Visual Studio* version 10 or superior. Profesionnal version is
+  required to access [@http://openmp.org/wp/ OpenMP] support.
+* [@http://clang.llvm.org/ Clang] version 2.9 or superior.
+* [@http://software.intel.com/en-us/articles/intel-compilers/ Intel C/C++ Compiler]
+  version 9.0 or superior.
+
+Other compilers may support __NT2__ code base. Reports and experiment are welcome
+but keep in mind __NT2__ push the compiler really hard.
+
+Supported architecture include:
+
+* [@http://en.wikipedia.org/wiki/SIMD#Hardware SIMD Extensions]:
+ * SSE2, SSE3, SSSE3, SSE4 and AVX on x86 and AMD processors.
+ * Altivec on PowerPC processors.
+* Multicore processors through [@http://openmp.org/wp/ OpenMP] 2.0 compliant
+  compilers.
+
+[include setup/binary.qbk]
+[include setup/github.qbk]
+[include setup/testing.qbk]
+[include setup/troubleshooting.qbk]

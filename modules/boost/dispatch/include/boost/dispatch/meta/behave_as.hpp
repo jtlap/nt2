@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,8 +10,8 @@
 #define BOOST_DISPATCH_META_BEHAVE_AS_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Defines the \ref boost::dispatch::meta::behave_as \metafunction
+ * @file
+ * @brief Defines the @ref boost::dispatch::meta::behave_as @metafunction
  */
 
 #include <boost/mpl/apply.hpp>
@@ -20,46 +20,39 @@
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
   /*!
-   * \ingroup metafunctions
-   * Forward the application of a given \metalambda \c Lambda onto the primitive
-   * type of a given Hierarchizable.
+   * @brief @metalambda forwarding on Hierarchizable types
    *
-   * \tparam Lambda \metalambda to apply.
-   * \tparam Hierarchizable Type to introspect.
+   * Forward the application of a given @metalambda @c Lambda onto a
+   * fundamental type.
    *
-   * \semantic
+   * @tparam Lambda @metalambda to apply.
+   * @tparam T      Fundamental type to transform
    *
-   * For any Hierarchizable type \c T and any Lambda \c L:
+   * @semantic
    *
-   * \code
-   * typedef boost::dispatch::meta::behave_as<L,T>::type r;
-   * \endcode
+   * For any type @c T and any @metalambda @c Lambda:
+   *
+   * @code
+   * typedef boost::dispatch::meta::behave_as<Lambda,T>::type r;
+   * @endcode
    *
    * is equivalent to:
    *
-   * \code
-   * typedef apply1 < L
-   *                , boost::dispatch::meta::primitive_of< boost::dispatch::meta::strip< T >::type >::type
+   * @code
+   * typedef apply1 < Lambda
+   *                , boost::dispatch::meta::primitive_of<T>::type
    *                >::type     r;
-   * \endcode
+   * @endcode
    *
-   * For any other types, a \c BOOST_DISPATCH_BEHAVIOR_OF_NON_FUNDAMENTAL_PRIMITIVE_IS_UNDEFINED
-   * static assertion is raised.
+   * @par Usage
    *
-   * \usage
-   *
-   * \include behave_as.cpp
+   * @include behave_as.cpp
    */
-  //============================================================================
-  template<class Lambda,class Hierarchizable>
+  template<class Lambda,class T>
   struct  behave_as
         : boost::mpl::
-          apply1< Lambda
-                , typename primitive_of < Hierarchizable
-                                        >::type
-                >::type
+          apply1< Lambda, typename primitive_of<T>::type >::type
   {};
 } } }
 

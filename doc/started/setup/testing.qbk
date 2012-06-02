@@ -1,0 +1,24 @@
+[section Testing __NT2__]
+
+__NT2__ provides a large array of Unit Tests covering all its functionalities.
+Those tests can be run locally by using CTest either globally or by using
+CTest finer-grain test selection using regular expressions to select a module or
+a single function to test.
+
+[heading Type of Tests]
+__NT2__ provides three types of tests:
+
+* Regular Unit Tests that assert the correctness of both compilation and execution
+of __NT2__ under a given set of platform, architecture and compiler.
+* Cover Tests that provide a random sampling tests of precision for numerical
+algortihms. Those cover help __NT2__ developepr to maintain a high level of
+numerical precision.
+* Exhaustive Tests that performs an exhaustive exploration of a function value
+space to assess numerical precision. Those cover usually are only provided for
+single precision reals for time constraints. There output is an histogram
+
+[heading Tests Configuration]
+
+[heading __NT2__ CDash Support]
+
+[endsect]

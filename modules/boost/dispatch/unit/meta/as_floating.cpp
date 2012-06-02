@@ -10,23 +10,68 @@
 
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/placeholders.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test that as_floating is correct w/r to original sign
-////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(as_floating)
 {
+  using boost::mpl::_;
   using boost::dispatch::meta::as_floating;
-  using boost::is_same;
 
-  NT2_TEST( (is_same<as_floating<double       >::type,double  >::value ));
-  NT2_TEST( (is_same<as_floating<float        >::type,float   >::value ));
-  NT2_TEST( (is_same<as_floating<boost::simd::int64_t >::type,double  >::value ));
-  NT2_TEST( (is_same<as_floating<boost::simd::int32_t >::type,float   >::value ));
-  NT2_TEST( (is_same<as_floating<boost::simd::uint64_t>::type,double  >::value ));
-  NT2_TEST( (is_same<as_floating<boost::simd::uint32_t>::type,float   >::value ));
+  NT2_TEST_TYPE_IS( as_floating<double>::type                ,double);
+  NT2_TEST_TYPE_IS( as_floating<float>::type                 ,float );
+  NT2_TEST_TYPE_IS( as_floating<boost::simd::int64_t>::type  ,double);
+  NT2_TEST_TYPE_IS( as_floating<boost::simd::int32_t >::type ,float );
+  NT2_TEST_TYPE_IS( as_floating<boost::simd::uint64_t>::type ,double);
+  NT2_TEST_TYPE_IS( as_floating<boost::simd::uint32_t>::type ,float );
+}
+
+NT2_TEST_CASE(as_floating_2_args)
+{
+  using boost::mpl::_;
+  using boost::dispatch::meta::as_floating;
+
+  NT2_TEST_TYPE_IS( (as_floating<double,double>::type               ), double);
+  NT2_TEST_TYPE_IS( (as_floating<double,float>::type                ), double);
+  NT2_TEST_TYPE_IS( (as_floating<double,boost::simd::int64_t>::type ), double);
+  NT2_TEST_TYPE_IS( (as_floating<double,boost::simd::int32_t>::type ), double);
+  NT2_TEST_TYPE_IS( (as_floating<double,boost::simd::uint64_t>::type), double);
+  NT2_TEST_TYPE_IS( (as_floating<double,boost::simd::uint32_t>::type), double);
+  NT2_TEST_TYPE_IS( (as_floating<float,double>::type                ), double);
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int64_t,double>::type ), double);
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int32_t,double>::type ), double);
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint64_t,double>::type), double);
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint32_t,double>::type), double);
+
+  NT2_TEST_TYPE_IS( (as_floating<float,float>::type)                , float );
+  NT2_TEST_TYPE_IS( (as_floating<float,boost::simd::int64_t>::type) , double);
+  NT2_TEST_TYPE_IS( (as_floating<float,boost::simd::int32_t>::type) , float );
+  NT2_TEST_TYPE_IS( (as_floating<float,boost::simd::uint64_t>::type), double);
+  NT2_TEST_TYPE_IS( (as_floating<float,boost::simd::uint32_t>::type), float );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int64_t,float>::type) , double);
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int32_t,float>::type) , float );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint64_t,float>::type), double);
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint32_t,float>::type), float );
+
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int64_t,boost::simd::int64_t>::type), double );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int64_t,boost::simd::int32_t>::type) , double );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int64_t,boost::simd::uint64_t>::type), double);
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int64_t,boost::simd::uint32_t>::type), double );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int32_t,boost::simd::int64_t>::type) , double );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint64_t,boost::simd::int64_t>::type), double);
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint32_t,boost::simd::int64_t>::type), double );
+
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint64_t,boost::simd::uint64_t>::type), double );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint64_t,boost::simd::int32_t>::type) , double );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint64_t,boost::simd::uint32_t>::type), double );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int32_t,boost::simd::uint64_t>::type) , double );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint32_t,boost::simd::uint64_t>::type), double );
+
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int32_t,boost::simd::int32_t>::type) , float  );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int32_t,boost::simd::uint32_t>::type), float  );
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::int32_t,boost::simd::uint64_t>::type), double );
+
+  NT2_TEST_TYPE_IS( (as_floating<boost::simd::uint32_t,boost::simd::int32_t>::type), float );
 }

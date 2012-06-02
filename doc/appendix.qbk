@@ -1,0 +1,9 @@
+[part Appendix
+  [quickbook 1.5]
+]
+
+[#appendix]
+[xinclude appendix/licence.xml]
+[xinclude appendix/bibliography.xml]
+[xinclude appendix/acknowledgement.xml]
+

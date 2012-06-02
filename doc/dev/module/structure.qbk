@@ -1,0 +1,30 @@
+[section Structure of a Module]
+
+`TODO REFURBISH PROPERLY WITH NEW CONTENTS`
+
+* Miss cmake, doc, src, unit, examples etc...
+* Give a short description of the minimalist module to be able to make new ones
+* Special CMake consideration when your module has sources, must copy files etc...
+
+Under the hood, any given Module is layed out as follows:
+
+[table Module layout
+    [[Path]  [Description]]
+    [[[^nt2/toolbox/[~toolbox-name]`/functions`/[~function-name].hpp]]
+    [Defines function [~function-name] as a template forwarding to future Boost.Dispatch specializations.]]
+    [[[^nt2/toolbox/[~toolbox-name]`/functions`/[~some-path]/[~function-name].hpp]]
+    [Defines a specialization for the function [~function-name]. [~some-path] may not contain
+    the directories =details=, =detail= or =impl=, and should reflect the kind of specialization
+    involved.]]
+    [[[^nt2/toolbox/[~toolbox-name]`/constant`/[~constant-name].hpp]]
+    [Defines constant [~constant-name] as a template forwarding to future Boost.Dispatch specializations.]]
+    [[[^nt2/toolbox/[~toolbox-name]`/constant`/[~some-path]/[~function-name].hpp]]
+    [Defines a specialization for the constant [~constant-name]. [~some-path] may not contain
+    the directories =details=, =detail= or =impl=, and should reflect the kind of specialization
+    involved.]]
+]
+
+The gathering of include files happens *after* all modules have been loaded, which means specializations from other
+modules still get included.
+
+[endsect]

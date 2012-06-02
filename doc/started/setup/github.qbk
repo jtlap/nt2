@@ -1,0 +1,198 @@
+[section __NT2__ Github clone]
+
+[section Downloading __NT2__]
+Retrieving __NT2__ from Github is the easiest way to keep your __NT2__ installation
+up to date. Depending on your level of confidence, you can:
+
+* Retrieve the =release= branch from __NT2__. The =release= branch contains the
+latest stable version of __NT2__ so you can expect it to build without problem.
+* Retrieve the =master= branch from __NT2__. The =master= branch contains the
+most recent development on __NT2__. We try to keep =master= free of bugs but some
+errors may slip through.
+* Retrieve some other branch. This is more geared toward contributors that may
+want to participate to some on-going effort that take place in long lived branches.
+
+For now on, we will consider we retrieve __NT2__ =master=. If you happen to
+retrieve any other branch, the procedure stay the same, just change the branch
+name. To proceed, clone current __NT2__ from Github by typing the following command
+in a terminal (on Linux/Mac OS X) or in GIT-Bash (on Windows):
+``
+git clone https://github.com/MetaScale/nt2.git -b master
+``
+This will create a =nt2= folder containing the current __NT2__ source tree which
+should looks like:
+``
+  nt2/
+  |-- cmake/
+  |-- CMakeLists.txt
+  |-- CTestConfig.cmake
+  |-- doc/
+  |-- LICENSE
+  |-- modules/
+  |-- README.rst
+  |-- sandbox/
+  |-- script/
+  |-- tools/
+  |-- valgrind.supp
+``
+
+As you can see, the layout of the __NT2__ distribution is vastly different depending
+on whether you're looking at the source distribution or the binary distribution.
+The essential difference is that the source distribution is divided into a collection
+of =modules=, which can each add headers to the include path, library sources to be
+built, tests, etc.
+
+[endsect]
+
+[section Building __NT2__]
+__NT2__ uses __CMAKE__ as its build system. __CMAKE__ is a meta-build system, in
+the sense that it generates files for another build system (Make, NMake, Visual
+Studio projects, etc.). When you run __CMAKE__ with a particular generator, it
+will configure the __NT2__ project before generating the build files for the
+chosen generator. You may then edit the base configuration to change compiler
+settings, where to find the external libraries, or the __NT2__ options below,
+then re-generate.
+
+__CMAKE__ supports /out-of-source/ build, i.e builds where the actual build system
+is generated outside the source folder. This type of build is *heavily recommended*.
+It allows you to keep several build configurations against the same source and
+to keep the source clean of any generated files.
+
+[tip When developing software on remote machines with a relatively fast network,
+it can be interesting to put the source on a remote network directory shared
+across all machines, with the build directories on your local disk. You may also
+want to encode the name of the various configurations in the names of your build
+directories.]
+
+[heading Default configuration]
+The default configuration of __NT2__ super-project will generate a version of
+__NT2__ using all available modules and will try to detect the best architecture
+support to enable (See ... for more informations). Additionnaly, the install
+path will default to [^/usr/local] on Linux and [^C:\Program Files] on Windows.
+
+We start by creating a =build= directory next to our =nt2= directory and move
+inside it.
+[teletype]
+``
+mkdir build && cd build
+``
+Once there, we simply call =cmake= with the location of our =nt2= directory
+[teletype]
+``
+cmake ../nt2
+``
+If you pass no other option, __CMAKE__ will use the default generator for your
+paltform: =make= for Linux, Visual Studio for Windows. You can change this by
+using the =-g= option of __CMAKE__. Once called, the __NT2__ __CMAKE__ script
+will check for some prerequisites, load all available module, generate stub
+include files and finally generate the =Makefile= or =.sln= you want. An abridged
+output of such a successful scritp call should look like:
+[teletype]
+``
+-- The C compiler identification is GNU 4.6.3
+-- The CXX compiler identification is GNU 4.6.3
+-- Check for working C compiler: /usr/bin/gcc
+-- Check for working C compiler: /usr/bin/gcc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Check for working CXX compiler: /usr/bin/c++
+-- Check for working CXX compiler: /usr/bin/c++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Performing Test HAS_GCC_NO_DELETE_NON_VIRTUAL_DTOR
+-- Performing Test HAS_GCC_NO_DELETE_NON_VIRTUAL_DTOR - Success
+-- [nt2] Global flags:  -Wall -Wno-unused -Wno-sign-compare -Wno-delete-non-virtual-dtor
+-- [nt2] Debug flags: -g
+-- [nt2] Release flags: -O3 -DNDEBUG
+-- [nt2] Test flags: -DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ASSERTS_AS_EXCEPTIONS -O2 -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING
+-- [nt2] Bench flags: -DNDEBUG -O3 -fomit-frame-pointer -fno-exceptions -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING
+-- [nt2] Boost version: 1.50.0
+-- [nt2] building tool is_supported
+
+... more lines ...
+
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /home/user/build/
+``
+
+Once done, one can now call =make install= to build __NT2__ and copy its files
+to the desired locations.
+
+[caution If you pull new commits from Git, you may have to re-configure before
+you can build again. This is due to __NT2__ generating some files at the end of
+the configuration step. Re-configuring, however, unfortunately invalidates all
+targets, so a better solution will eventually be implemented.]
+
+[endsect]
+
+[section Advanced configuration]
+The __NT2__ __CMAKE__ script can be further customized before generating any
+build files. This section will presents the most common flags you may need to
+use. Additional flags could be used on a per OS, per compiler or per architecture
+basis and will be detailed in the corresponding documentation.
+
+[tip All the options presented here can either be added on a configuration file
+basis or registered as envirnoment variable so all __NT2__ configuration on a
+given system are using the same set of options.]
+
+[heading Changing install path prefix]
+The install path prefix can be changed using the =CMAKE_INSTALL_PREFIX= option
+as shown here:
+[teletype]
+``
+cmake ../nt2 -DCMAKE_INSTALL_PREFIX=my/local/path
+``
+Calling =make install= after this command completes will install all __NT2__
+files into [^my/local/path/].
+
+[heading Using a specific Boost version]
+The Boost detection inside __NT2__ super-project is normally enough to find
+classical Boost installation. However, if your Boost installation don't live in
+a default location, you may want to pass a custom =BOOST_ROOT= value to locate
+it. This is for example useful to build __NT2__ using trunk of Boost.
+[teletype]
+``
+cmake ../nt2 -DBOOST_ROOT=my/path/to/boost
+``
+
+[tip Setting =BOOST_ROOT= as an environment variable is the best way for
+to setup your Boost library location for __NT2__ and the rest of your system.]
+
+[heading Building shared libraries]
+By default, __NT2__ builds as a static library. Whether to build shared libraries
+instead of static ones is controlled by the =BUILD_SHARED_LIBS= __CMAKE__ options.
+You may also control this in a per-module fashion by appropriately defining
+[^NT2_[~MODULE]_USE_STATIC_LIBS]
+
+[teletype]
+``
+cmake ../nt2 -DBUILD_SHARED_LIBS=ON
+``
+
+[heading Activate or Deactivate __NT2__ modules]
+__NT2__ is composed of independant modules that can be activated or deactivated
+at will. This is controlled by two __CMAKE__ opitons:
+
+* =NT2_MODULES= which awaits a comma-separated list of __NT2__ modules to load.
+  By default, all modules are loaded.
+* =NT2_MODULES_BLACKLIST= which awaits a comma-separated list of modules that
+  should not be used in current build.
+
+[heading Download optionnal __NT2__ modules]
+Additional __NT2__ modules may be available on other Github repository like the
+main [@https://github.com/MetaScale/nt2-modules __NT2__ Optionnal Modules repository].
+Th followign options specify chich additional modules you may want to use and a
+set of Github repositories to look for them. If such modules are found, they'll
+be automatically cloned into the current source folder and configured.
+
+For example, the following command grab the =signal= module from the
+[@https://github.com/MetaScale/nt2-modules __NT2__ Optionnal Modules repository].
+[teletype]
+``
+cmake ../nt2 -DNT2_FIND_REPOSITORIES=git://github.com/MetaScale/nt2-modules.git -DNT2_MODULES_EXTRA=signal
+``
+
+[endsect]
+
+[endsect]

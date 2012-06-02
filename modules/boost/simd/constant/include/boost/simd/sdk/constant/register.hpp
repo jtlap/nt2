@@ -29,6 +29,14 @@
  * \param DOUBLE Double value of the constant
  */
 //==============================================================================
+#if defined(NT2_DOXYGEN_ONLY)
+#define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE) \
+struct TAG  : ext::constant_<TAG>                               \
+{                                                               \
+  typedef TYPE default_type;                                    \
+};                                                              \
+/**/
+#else
 #define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)             \
 struct TAG : ext::constant_<TAG>                                            \
 {                                                                           \
@@ -43,5 +51,6 @@ template<class T, class D>                                                  \
 struct  TAG::apply<boost::dispatch::meta::double_<T>,D>                     \
       : boost::simd::meta::double_<DOUBLE> {};                              \
 /**/
+#endif
 
 #endif
