@@ -16,7 +16,7 @@
 #include <boost/simd/toolbox/reduction/include/functions/prod.hpp>
 #include <boost/simd/toolbox/reduction/include/functions/posmin.hpp>
 #include <boost/simd/toolbox/reduction/include/functions/posmax.hpp>
-#include <boost/simd/toolbox/reduction/include/functions/nbtrue.hpp>
+#include <boost/simd/toolbox/reduction/include/functions/inbtrue.hpp>
 #include <boost/simd/toolbox/reduction/include/functions/minimum.hpp>
 #include <boost/simd/toolbox/reduction/include/functions/maximum.hpp>
 #include <boost/simd/toolbox/reduction/include/functions/first.hpp>

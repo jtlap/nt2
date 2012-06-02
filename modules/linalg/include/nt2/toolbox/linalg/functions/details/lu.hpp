@@ -258,7 +258,7 @@ namespace nt2 { namespace details
           if(nt2::abs(lu_(i, i)) > thresh) ++r;
         }
       return r;
-      //      nt2::nbtrue(nt2::abs(diag_of(lu_)) > nt2::max(n_, m_)*epsi*nt2::max(abs(diag_of(lu_()))) );
+      //      nt2::inbtrue(nt2::abs(diag_of(lu_)) > nt2::max(n_, m_)*epsi*nt2::max(abs(diag_of(lu_()))) );
     }
 
     base_t absdet()

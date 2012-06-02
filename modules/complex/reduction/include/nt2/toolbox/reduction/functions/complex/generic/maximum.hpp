@@ -11,7 +11,7 @@
 #include <nt2/toolbox/reduction/functions/maximum.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
+#include <nt2/include/functions/inbtrue.hpp>
 #include <nt2/include/functions/posmax.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
       rtype absa0 = nt2::abs(a0); 
       nt2::int32_t tmp = posmax(absa0);
       ltype test = eq(absa0, absa0[tmp]); 
-      if (nbtrue(test) > 1)
+      if (inbtrue(test) > 1)
         {
           rtype z = if_else(test, arg(a0), Minf<rtype>);
           return a0[posmax(z)];

@@ -24,7 +24,7 @@
 #include <nt2/include/functions/simd/log1p.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -93,7 +93,7 @@ namespace nt2 { namespace ext
       A0 x2 = nt2::sqr(x);
       A0 z = Zero<A0>();
       uint32_t nb;
-      if( ( nb = nbtrue(lthalf)) > 0)
+      if( ( nb = inbtrue(lthalf)) > 0)
         {
           z = madd(single_constant<A0,(0x3ca4d6e6) >(),  x2, single_constant<A0,(0xbd2ee581)>());
           z = madd(x2, z,  single_constant<A0,(0x3d9949b1)>());
