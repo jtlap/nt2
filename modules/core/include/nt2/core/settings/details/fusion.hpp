@@ -9,7 +9,6 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 
-#include <nt2/sdk/meta/safe_at.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/iterator_range.hpp>
 #include <boost/fusion/include/next.hpp>
@@ -20,7 +19,6 @@
 #include <boost/fusion/include/begin.hpp>
 #include <boost/fusion/include/end.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/next_prior.hpp>
 
 namespace nt2 { namespace details
@@ -158,16 +156,10 @@ namespace nt2 { namespace details
     return true;
   }
 
-  template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<1> const&)
-  {
-    return (meta::safe_at_c<0>(a1) == meta::safe_at_c<0>(a2) );
-  }
-
   template<typename A1, typename A2, std::size_t N> BOOST_FORCEINLINE
   bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<N> const&)
   {
-    return (meta::safe_at_c<N-1>(a1) == meta::safe_at_c<N-1>(a2) )
+    return (boost::fusion::at_c<N-1>(a1) == boost::fusion::at_c<N-1>(a2) )
         &&  compare_equal(a1,a2,boost::mpl::size_t<N-1>());
   }
 
@@ -177,16 +169,10 @@ namespace nt2 { namespace details
     return false;
   }
 
-  template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<1> const&)
-  {
-    return (meta::safe_at_c<0>(a1) != meta::safe_at_c<0>(a2) );
-  }
-
   template<typename A1, typename A2, std::size_t N> BOOST_FORCEINLINE
   bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<N> const&)
   {
-    return (meta::safe_at_c<N-1>(a1) != meta::safe_at_c<N-1>(a2) )
+    return (boost::fusion::at_c<N-1>(a1) != boost::fusion::at_c<N-1>(a2) )
         ||  compare_not_equal(a1,a2,boost::mpl::size_t<N-1>());
   }
 } }
