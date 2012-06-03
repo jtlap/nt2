@@ -8,13 +8,6 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/sqr_abs.hpp>
-#include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <nt2/sdk/memory/container.hpp>
-#include <nt2/core/container/dsl/details/reduction.hpp>
-#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup core

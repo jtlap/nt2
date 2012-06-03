@@ -61,9 +61,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct bsxfun_ : tag::formal_ 
+    struct bsxfun_ : ext::elementwise_<bsxfun_>
     { 
-      typedef tag::formal_ parent; 
+      typedef ext::elementwise_<bsxfun_> parent; 
     };
   }
 

@@ -44,8 +44,8 @@ namespace nt2 { namespace ext
                                              A1 const& a1,
                                              A2 const& a2) const
     {
-      of_size_max s1 = size(a1);
-      of_size_max s2 = size(a2);
+      of_size_max s1 = nt2::extent(a1);
+      of_size_max s2 = nt2::extent(a2);
       of_size_max sizee ;
       for(int i = 0; i < sizee.size(); ++i)
         {

@@ -24,13 +24,12 @@ NT2_TEST_CASE( bsxfun_size )
 {
   nt2::table<float> a = nt2::rif(nt2::of_size(3, 1), nt2::meta::as_<float>()),
                     b = nt2::cif(nt2::of_size(1, 3), nt2::meta::as_<float>()),
-                    c, d;
+                    c;
   NT2_DISP(a); 
   NT2_DISP(b);
-  nt2::functor<nt2::tag::plus_> f;
-  d = f(a, a);
-  NT2_DISP(d);   
-  c = bsxfun(f, a, b);
+  nt2::functor<nt2::tag::plus_> f; 
+  c = bsxfun(f,  a, b);
   NT2_DISP(c); 
-  
+  c = bsxfun(nt2::functor<nt2::tag::plus_>(),  a, b);
+
 }

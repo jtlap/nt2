@@ -99,6 +99,7 @@ SET( SOURCES
   zeros.cpp
   cast.cpp
   bsxfun.cpp
+  wmean.cpp
 #  fill_pattern.cpp
 #  repmat.cpp
 #  rephorz.cpp

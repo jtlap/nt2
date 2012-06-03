@@ -6,27 +6,27 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_WMEAM_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_WMEAM_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/sqr_abs.hpp>
-#include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <nt2/sdk/memory/container.hpp>
-#include <nt2/core/container/dsl/details/reduction.hpp>
-#include <nt2/include/functor.hpp>
+#ifndef NT2_CORE_FUNCTIONS_WMEAN_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_WMEAN_HPP_INCLUDED
+// #include <boost/simd/include/simd.hpp>
+// #include <boost/dispatch/include/functor.hpp>
+// #include <nt2/include/functions/sqr_abs.hpp>
+// #include <boost/simd/toolbox/constant/constants/zero.hpp>
+// #include <nt2/sdk/memory/container.hpp>
+// #include <nt2/core/container/dsl/details/reduction.hpp>
+// #include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup core
- * \defgroup core wmeam
+ * \defgroup core wmean
  *
  * \par Description
- * Returns the wmeam of the elements of the SIMD vector
+ * Returns the wmean of the elements of the SIMD vector
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/wmeam.hpp>
+ * #include <nt2/include/functions/wmean.hpp>
  * \endcode
  * 
  * 
@@ -36,12 +36,12 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::wmeam_(A0)>::type
- *     wmeam(const A0 & a0);
+ *     meta::call<tag::wmean_(A0, A1)>::type
+ *     wmean(const A0 & a0, const A1 & w);
  * }
  * \endcode
  *
- * \param a0 the unique parameter of wmeam
+ * \param a0 the unique parameter of wmean
  * 
  * \return always a scalar value
  *  
@@ -63,7 +63,7 @@ namespace nt2
 {
   namespace tag
   {
-    struct wmeam_ : tag::formal_ 
+    struct wmean_ : tag::formal_ 
     { 
       typedef tag::formal_ parent; 
     };
@@ -76,8 +76,8 @@ namespace nt2
    * \param xpr  table 
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::wmeam_       , wmeam, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::wmeam_       , wmeam, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::wmean_       , wmean, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::wmean_       , wmean, 3)
 }
 
 
