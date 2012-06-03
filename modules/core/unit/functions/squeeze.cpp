@@ -27,19 +27,19 @@ NT2_TEST_CASE( squeeze_2D )
   for(std::size_t i=1;i<=5;++i) x(i) = i;
   sx = nt2::squeeze(x);
 
-  NT2_TEST( sx.extent() == x.extent() );
+  NT2_TEST_EQUAL( sx.extent(), x.extent( ) );
   for(std::size_t i=1;i<=5;++i) NT2_TEST_EQUAL( x(i) , sx(i) );
 
   for(std::size_t i=1;i<=5;++i) y(i) = i;
   sy = nt2::squeeze(y);
 
-  NT2_TEST( sy.extent() == y.extent() );
+  NT2_TEST_EQUAL( sy.extent(), y.extent( ) );
   for(std::size_t i=1;i<=5;++i) NT2_TEST_EQUAL( y(i) , sy(i) );
 
   z(1) = 1;
   sz = nt2::squeeze(z);
 
-  NT2_TEST( sz.extent() == z.extent() );
+  NT2_TEST_EQUAL( sz.extent(), z.extent( ) );
   NT2_TEST_EQUAL( z(1) , sy(1) );
 }
 
@@ -50,7 +50,7 @@ template<class S, class Z> void test_squeeze(S const& old_s, Z const& new_s)
 
   nt2::table<double, S> sx = nt2::squeeze(x);
 
-  NT2_TEST( sx.extent() == new_s );
+  NT2_TEST_EQUAL( sx.extent(), new_s );
 
   for(std::size_t i=1;i<=nt2::numel(old_s);++i)
     NT2_TEST_EQUAL( x(i), sx(i) );

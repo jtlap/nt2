@@ -68,11 +68,11 @@ NT2_TEST_CASE_TPL( resize_ofsize, (float) )
   std::cout << std::endl;
   std::cout << std::endl;
 
-  NT2_TEST( nt2::extent(nt2::resize(y,2,2)) == nt2::of_size(2,2));
-  NT2_TEST( nt2::extent(nt2::resize(y,5,5)) == nt2::of_size(5,5));
-  NT2_TEST( nt2::extent(nt2::resize(y,6,5)) == nt2::of_size(6,5));
-  NT2_TEST( nt2::extent(nt2::resize(y,nt2::of_size(2,2))) == nt2::of_size(2,2));
-  NT2_TEST( nt2::extent(nt2::resize(y,nt2::of_size(5,5))) == nt2::of_size(5,5));
-  NT2_TEST( nt2::extent(nt2::resize(y,nt2::of_size(6,5))) == nt2::of_size(6,5));
+  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,2,2)), nt2::of_size(2,2 ));
+  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,5,5)), nt2::of_size(5,5 ));
+  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,6,5)), nt2::of_size(6,5 ));
+  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,nt2::of_size(2,2))), nt2::of_size(2,2 ));
+  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,nt2::of_size(5,5))), nt2::of_size(5,5 ));
+  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,nt2::of_size(6,5))), nt2::of_size(6,5 ));
 
 }

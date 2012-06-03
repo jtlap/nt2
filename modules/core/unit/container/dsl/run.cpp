@@ -68,14 +68,14 @@ NT2_TEST_CASE( scalar_size )
   typedef double T;
 
   table<T> a0 = T(42);
-  NT2_TEST( a0.extent() == of_size(1) );
+  NT2_TEST_EQUAL( a0.extent(), of_size(1 ) );
   NT2_TEST_EQUAL( T(a0(1)), T(42) );
 
   table<T> a1;
-  NT2_TEST( a1.extent() == of_size(0) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(0 ) );
 
   a1 = T(42);
-  NT2_TEST( a1.extent() == of_size(1) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(1 ) );
   NT2_TEST_EQUAL( T(a0(1)), T(42) );
 }
 
@@ -130,29 +130,29 @@ NT2_TEST_CASE( reduction_size )
 
 
   a1 = sum(a2_4,4);
-  NT2_TEST( (a1.extent() == of_size(M,N,O)) );
-  NT2_TEST( (a2_4.extent() == of_size(M,N,O,P)) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(M,N,O) );
+  NT2_TEST_EQUAL( a2_4.extent(), of_size(M,N,O,P) );
 
   a1 = sum(a2_4,3);
-  NT2_TEST( (a1.extent() == of_size(M,N,1,P)) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(M,N,1,P) );
 
   a1 = sum(a2_3,2);
-  NT2_TEST( (a1.extent() == of_size(M,1,O)) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(M,1,O) );
 
   a1 = sum(a2_4,2);
-  NT2_TEST( (a1.extent() == of_size(M,1,O,P)) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(M,1,O,P) );
 
   a1 = sum(a2_4,1);
-  NT2_TEST( (a1.extent() == of_size(1,N,O,P)) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(1,N,O,P) );
   a1 = sum(a2_3,1);
-  NT2_TEST( (a1.extent() == of_size(1,N,O)) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(1,N,O) );
   a1 = sum(a2_2,1);
-  NT2_TEST( (a1.extent() == of_size(1,N)) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(1,N) );
 
   a1 = sum(a00);
-  NT2_TEST( (a1.extent() == of_size(1)) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(1) );
   a1 = sum(a01);
-  NT2_TEST( (a1.extent() == of_size(1)) );
+  NT2_TEST_EQUAL( a1.extent(), of_size(1) );
 
 }
 

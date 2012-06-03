@@ -21,10 +21,10 @@ NT2_TEST_CASE( resize_bigger )
   using nt2::of_size;
 
   table<float> x( of_size(1,2) );
-  NT2_TEST( nt2::extent(x) == of_size(1,2) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(1,2 ) );
 
   x.resize( of_size(4,4) );
-  NT2_TEST( nt2::extent(x) == of_size(4,4) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(4,4 ) );
 
   float u = 0;
   for(int j=1;j<=4;++j)
@@ -43,11 +43,11 @@ NT2_TEST_CASE( resize_smaller )
   using nt2::of_size;
 
   table<float> x( of_size(3,3) );
-  NT2_TEST( nt2::extent(x) == of_size(3,3) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(3,3 ) );
 
   x.resize( of_size(1,2) );
 
-  NT2_TEST( nt2::extent(x) == of_size(1,2) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(1,2 ) );
 
   float u = 0;
   for(int j=1;j<=2;++j)
@@ -66,10 +66,10 @@ NT2_TEST_CASE( resize_more_dims )
   using nt2::of_size;
 
   table<float> x( of_size(3,3) );
-  NT2_TEST( nt2::extent(x) == of_size(3,3) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(3,3 ) );
 
   x.resize( of_size(2,2,2) );
-  NT2_TEST( nt2::extent(x) == of_size(2,2,2) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(2,2,2 ) );
 
   float u = 0;
   for(int k=1;k<=2;++k)
@@ -90,10 +90,10 @@ NT2_TEST_CASE( resize_less_dims )
   using nt2::of_size;
 
   table<float> x( of_size(3,3,3) );
-  NT2_TEST( nt2::extent(x) == of_size(3,3,3) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(3,3,3 ) );
 
   x.resize( of_size(9) );
-  NT2_TEST( nt2::extent(x) == of_size(9) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(9 ) );
 
   float u = 0;
   for(int i=1;i<=9;++i) x(i) = u++;

@@ -18,6 +18,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
@@ -264,7 +265,7 @@ NT2_TEST_CASE( extent_type )
                     , _3D const&
                     );
 
-  NT2_TEST( a0.extent() == of_size(0) );
+  NT2_TEST_EQUAL( a0.extent(), of_size(0 ) );
 
   NT2_TEST_EXPR_TYPE( a0 + a0
                     , extent_type<_>
@@ -283,7 +284,7 @@ NT2_TEST_CASE( extent_type )
 
   NT2_TEST_THROW( a0 + a2, nt2::assert_exception );
 
-  NT2_TEST((a2 + a2).extent() == of_size(1, 2));
+  NT2_TEST_EQUAL( (a2 + a2).extent(), of_size(1, 2) );
 
   NT2_TEST_EXPR_TYPE( nt2::assign(a0, a1)
                     , extent_type<_>
