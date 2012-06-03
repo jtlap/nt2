@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& w) const
     {
       value_type f =  rec(nt2::sum(w(_))); 
-      return nt2::multiplies(f, nt2::sum(nt2::bsxfun(tag::multiplies_(), a0, w)));
+      return nt2::multiplies(f, nt2::sum(nt2::bsxfun(nt2::functor<tag::multiplies_>(), a0, w)));
     }
   };
   
@@ -46,13 +46,13 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type value_type;
     typedef typename meta::call < tag::bsxfun_(nt2::functor<tag::multiplies_>, const A0&, const A1&)>::type T1;
-    typedef typename meta::call < tag::sum_(T1 const&, A1 const&)>::type T2;
+    typedef typename meta::call < tag::sum_(T1 const&, A2 const&)>::type T2;
     typedef typename meta::call < tag::multiplies_(value_type, T2)>::type result_type; 
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w, const A2& dim) const
     {
       value_type f =  nt2::rec(nt2::sum(w(_))); 
-      return nt2::multiplies(f, nt2::sum(nt2::bsxfun(tag::multiplies_(), a0, w), dim));
+      return nt2::multiplies(f, nt2::sum(nt2::bsxfun(nt2::functor<tag::multiplies_>(), a0, w), dim));
     }
   };
 } }

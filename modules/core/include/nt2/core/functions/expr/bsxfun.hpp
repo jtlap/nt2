@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
           if (s1[i] == 1) sizee[i] = s2[i];
           if (s2[i] == 1) sizee[i] = s1[i];
           BOOST_ASSERT_MSG((s1[i] == s2[i])||(s1[i] == 1)||(s2[i] == 1),
-                           "operands dimensions are not compatible in bsxfun"); 
+                           "operands dimensions are not compatible in bsxfun:\n where dimensions differ one must be equal to one"); 
         }
       return boost::proto::make_expr<nt2::tag::bsxfun_, container::domain>
         (boost::cref(a1),boost::cref(a2),boxify(a0),boxify(sizee));
