@@ -44,14 +44,23 @@ namespace nt2 { namespace ext
                                              A1 const& a1,
                                              A2 const& a2) const
     {
-      of_size_max s1 = nt2::extent(a1);
-      of_size_max s2 = nt2::extent(a2);
-      of_size_max sizee ;
+    typedef typename A1::extent_type     ext1t_t;
+    typedef typename A2::extent_type     ext2t_t;
+    typedef typename meta::strip<ext1t_t>::type  ext1_t;
+    typedef typename meta::strip<ext2t_t>::type  ext2_t; 
+    typedef typename  make_size<(ext1_t::static_size > ext2_t::static_size)
+                 ? ext1_t::static_size
+                 : ext2_t::static_size>::type                     ext_t;
+      ext_t s1 = nt2::extent(a1);
+      ext_t s2 = nt2::extent(a2);
+      ext_t sizee ;
       for(int i = 0; i < sizee.size(); ++i)
         {
-          sizee[i] = 1; 
+          sizee[i] = s1[i]; 
           if (s1[i] == 1) sizee[i] = s2[i];
           if (s2[i] == 1) sizee[i] = s1[i];
+          BOOST_ASSERT_MSG((s1[i] == s2[i])||(s1[i] == 1)||(s2[i] == 1),
+                           "operands dimensions are not compatible in bsxfun"); 
         }
       return boost::proto::make_expr<nt2::tag::bsxfun_, container::domain>
         (boost::cref(a1),boost::cref(a2),boxify(a0),boxify(sizee));
