@@ -10,18 +10,30 @@
 #define NT2_DSL_FUNCTIONS_CONTAINER_TERMINAL_HPP_INCLUDED
 
 #include <nt2/dsl/functions/terminal.hpp>
-#include <nt2/sdk/simd/category.hpp>
-#include <boost/fusion/include/size.hpp>
-#include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/unaligned_load.hpp>
 #include <nt2/include/functions/unaligned_store.hpp>
+#include <nt2/include/functions/simd/max.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
 #include <nt2/core/container/category.hpp>
+#include <nt2/sdk/simd/category.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
+  template<class T, class A0>
+  std::size_t maxpos(A0 const& a0)
+  {
+    return a0 + meta::cardinal_of<T>::value - 1;
+  }
+
+  template<class T, class A0, class X>
+  std::size_t maxpos(boost::simd::native<A0, X> const& a0)
+  {
+    return nt2::max(a0);
+  }
+
   //============================================================================
   // table terminal with a position in scalar read mode
   //============================================================================
@@ -96,6 +108,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
+      BOOST_ASSERT_MSG( maxpos<result_type>(state) < nt2::terminal(a0).size(), "Out of range SIMD read" );
       return unaligned_load<result_type>(nt2::terminal(a0).raw(), state);
     }
   };
@@ -119,6 +132,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const& state, Data const& data) const
     {
+      BOOST_ASSERT_MSG( maxpos<Data>(state) < nt2::terminal(a0).size(), "Out of range SIMD write" );
       return unaligned_store<result_type>(data, nt2::terminal(a0).raw(), state);
     }
   };

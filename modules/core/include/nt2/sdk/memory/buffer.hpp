@@ -9,14 +9,15 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_MEMORY_BUFFER_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/swap.hpp>
 #include <nt2/sdk/memory/copy.hpp>
-#include <boost/detail/iterator.hpp>
 #include <nt2/sdk/memory/destruct.hpp>
 #include <nt2/sdk/memory/local_ptr.hpp>
 #include <nt2/sdk/memory/construct.hpp>
 #include <nt2/sdk/memory/adapted/buffer.hpp>
+#include <boost/detail/iterator.hpp>
+#include <boost/assert.hpp>
+#include <boost/swap.hpp>
+#include <cstddef>
 
 namespace nt2 { namespace memory
 {
@@ -201,8 +202,17 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Random access
     //==========================================================================
-    inline reference       operator[](size_type i)       { return begin_[i]; }
-    inline const_reference operator[](size_type i) const { return begin_[i]; }
+    inline reference       operator[](size_type i)
+    {
+      BOOST_ASSERT_MSG( i < size(), "Out of range acces on buffer" );
+      return begin_[i];
+    }
+
+    inline const_reference operator[](size_type i) const
+    {
+      BOOST_ASSERT_MSG( i < size(), "Out of range acces on buffer" );
+      return begin_[i];
+    }
 
     private:
     pointer begin_, end_, capacity_;

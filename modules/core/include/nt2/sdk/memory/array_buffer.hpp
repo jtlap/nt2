@@ -9,15 +9,15 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_ARRAY_BUFFER_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_MEMORY_ARRAY_BUFFER_HPP_INCLUDED
 
-#include <cstddef>
-#include <algorithm>
+#include <nt2/sdk/memory/adapted/array_buffer.hpp>
+#include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/swap.hpp>
 #include <boost/config.hpp>
 #include <boost/assert.hpp>
 #include <boost/detail/iterator.hpp>
 #include <boost/detail/workaround.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <nt2/sdk/memory/adapted/array_buffer.hpp>
+#include <cstddef>
+#include <algorithm>
 
 //==============================================================================
 // Remove some MSVC warning on some nitpick in array_buffer implementation
