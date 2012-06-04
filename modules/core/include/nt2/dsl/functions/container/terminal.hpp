@@ -13,7 +13,7 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/unaligned_load.hpp>
 #include <nt2/include/functions/unaligned_store.hpp>
-#include <nt2/include/functions/simd/max.hpp>
+#include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
 #include <nt2/core/container/category.hpp>
 #include <nt2/sdk/simd/category.hpp>
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   template<class T, class A0, class X>
   std::size_t maxpos(boost::simd::native<A0, X> const& a0)
   {
-    return nt2::max(a0);
+    return nt2::maximum(a0);
   }
 
   //============================================================================
