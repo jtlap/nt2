@@ -135,7 +135,7 @@ NT2_TEST_CASE_TPL( brent_option, (double)(float) )
 
   output<T,T> res = brent<T>( f1, 0, 0.5, 2
                             , options [ nt2::iterations_ = 10
-                                      , nt2::tolerance::absolute_ = 1e-3
+                                      , nt2::tolerance::absolute_ = T(1e-3)
                                       ]
                             );
 
