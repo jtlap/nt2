@@ -57,16 +57,16 @@ NT2_TEST_CASE_TPL ( is_gez_real__1_0,  NT2_SIMD_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(is_gez(-nt2::Zero<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Half<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Inf<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Minf<vT>())[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Mone<vT>())[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Nan<vT>())[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::One<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Quarter<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Two<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Zero<vT>())[0]!=0, nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(-nt2::Zero<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Half<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Inf<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Minf<vT>())[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Mone<vT>())[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Nan<vT>())[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::One<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Quarter<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Two<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Zero<vT>())[0], nt2::True<sr_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( is_gez_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -90,10 +90,10 @@ NT2_TEST_CASE_TPL ( is_gez_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(is_gez(nt2::Mone<vT>())[0]!=0, nt2::False<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::One<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Two<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Zero<vT>())[0]!=0, nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Mone<vT>())[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::One<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Two<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Zero<vT>())[0], nt2::True<sr_t>());
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( is_gez_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
@@ -117,7 +117,7 @@ NT2_TEST_CASE_TPL ( is_gez_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(is_gez(nt2::One<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Two<vT>())[0]!=0, nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_gez(nt2::Zero<vT>())[0]!=0, nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::One<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Two<vT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(is_gez(nt2::Zero<vT>())[0], nt2::True<sr_t>());
 } // end of test for unsigned_int_
