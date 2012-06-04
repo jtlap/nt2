@@ -100,6 +100,8 @@ SET( SOURCES
   cast.cpp
   bsxfun.cpp
   wmean.cpp
+  var.cpp
+  center.cpp
 #  fill_pattern.cpp
 #  repmat.cpp
 #  rephorz.cpp

@@ -20,6 +20,7 @@
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/min.hpp>
 
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -65,15 +66,20 @@ namespace nt2 { namespace ext
   BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
+      //      std::cout << ext1_t::static_size << "   " << ext2_t::static_size << std::endl; 
       func_t f =   boost::proto::value(boost::proto::child_c<2>(a0));
-      ext1_t ex0 = boost::proto::child_c<0>(a0).extent();
-      ext2_t ex1 = boost::proto::child_c<1>(a0).extent();
+      ext_t ex0 = boost::proto::child_c<0>(a0).extent();
+      ext_t ex1 = boost::proto::child_c<1>(a0).extent();
       sub_t pos0 = ind2sub(a0.extent(),p);
       sub_t pos1 = pos0; 
       for(int i = 0; i != ext_t::size(); ++i)
         {
+          //std::cout << "avant pos0[" << i << "] "<< pos0[i] << "   " << "ex0[" << i << "] "<< ex0[i] << std::endl; 
           pos0[i] = nt2::min(ex0[i], size_t(pos0[i]));
+          //std::cout << "apres pos0[" << i << "] "<< pos0[i] << "   " << "ex0[" << i << "] "<< ex0[i] << std::endl; 
+          //std::cout << "avant pos1[" << i << "] "<< pos1[i] << "   " << "ex0[" << i << "] "<< ex1[i] << std::endl; 
           pos1[i] = nt2::min(ex1[i], size_t(pos1[i]));
+          //std::cout << "apres pos1[" << i << "] "<< pos1[i] << "   " << "ex0[" << i << "] "<< ex1[i] << std::endl; 
         }
       State p0 = sub2ind(ex0, pos0);
       State p1 = sub2ind(ex1, pos1);
