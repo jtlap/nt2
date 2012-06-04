@@ -8,6 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory boost::array adaptation as a Buffer"
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4996) // unsafe std::transform
+#endif
+
 #include <nt2/sdk/memory/array_buffer.hpp>
 
 #include <string>
@@ -123,10 +127,6 @@ NT2_TEST_CASE(array_buffer_swap)
 //==============================================================================
 // array_buffer Range interface
 //==============================================================================
-#ifdef BOOST_MSVC
-#pragma warning(disable: 4996) // unsafe std::transform
-#endif
-
 struct f_
 {
   template<class T> std::string operator()(T const& e) const

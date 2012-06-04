@@ -8,6 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory buffer of non-pod types"
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4996) // unsafe std::transform
+#endif
+
 #include <nt2/sdk/memory/buffer.hpp>
 
 #include <algorithm>
@@ -194,10 +198,6 @@ NT2_TEST_CASE( buffer_swap )
 //==============================================================================
 // buffer Range interface
 //==============================================================================
-#ifdef BOOST_MSVC
-#pragma warning(disable: 4996) // unsafe std::transform
-#endif
-
 struct f_
 {
   template<class T> std::string operator()(T const& e) const
