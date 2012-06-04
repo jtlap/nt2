@@ -71,15 +71,18 @@ NT2_TEST_CASE_TPL( wmean, (float)(double))//NT2_TYPES )
     for(int i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
 
-  std::cout << "dim3" << std::endl; 
-  w = nt2::repnum(nt2::rec(T(12)),1, 1);                   
-  sy = nt2::sum(y, 3)/T(nt2::size(y, 3));
-  sy2 = nt2::wmean(y, w, 3);
-  disp("sy", sy);
-  disp("sy2", sy2);
-  for(int j=1;j<=size(sy, 2);j++)
-    for(int i=1;i<=size(sy, 1);i++)
-      NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
-  
+//   std::cout << "dim3" << std::endl; 
+//   w = nt2::repnum(nt2::rec(T(12)),1, 1);                   
+//   sy = nt2::sum(y, 3)/T(nt2::size(y, 3));
+//   sy2 = nt2::wmean(y, w, 3);
+//   disp("sy", sy);
+//   disp("sy2", sy2);
+//   for(int j=1;j<=size(sy, 2);j++)
+//     for(int i=1;i<=size(sy, 1);i++)
+//       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
+
+//   w = nt2::repnum(nt2::rec(T(12)),numel(y), 1);                   
+
+//   std::cout <<  nt2::wmean(y(nt2::_), w); 
 }
 
