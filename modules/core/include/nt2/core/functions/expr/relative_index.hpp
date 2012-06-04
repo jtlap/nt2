@@ -10,9 +10,10 @@
 #define NT2_CORE_FUNCTIONS_EXPR_RELATIVE_INDEX_HPP_INCLUDED
 
 #include <nt2/core/functions/relative_index.hpp>
-#include <nt2/core/functions/colon.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/core/functions/colon.hpp>
 #include <nt2/core/container/category.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -53,7 +54,7 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<A4> >)
                             )
   {
-    typedef std::size_t result_type;
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& idx, const A1&, const A2&, const A3&, const A4&) const
@@ -78,7 +79,7 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<A4> >)
                             )
   {
-    typedef std::size_t result_type;
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& idx, const A1& bi, const A2& sz, const A3&, const A4&) const
@@ -103,7 +104,7 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<A4> >)
                             )
   {
-    typedef std::size_t result_type;
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0&, const A1&, const A2&, const A3& p, const A4&) const
@@ -125,7 +126,7 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<A4> >)
                             )
   {
-    typedef std::size_t result_type;
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& idx, const A1& bi, const A2&, const A3& p, const A4&) const
@@ -150,7 +151,7 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<A4> >)
                             )
   {
-    typedef std::size_t result_type;
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& i, const A1& b, const A2& s, const A3& p, const A4&) const
@@ -180,7 +181,7 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<A4> >)
                             )
   {
-    typedef std::size_t result_type;
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& i, const A1& b, const A2& s, const A3& p, const A4&) const

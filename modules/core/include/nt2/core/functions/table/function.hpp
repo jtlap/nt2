@@ -10,16 +10,17 @@
 #define NT2_CORE_FUNCTIONS_TABLE_FUNCTION_HPP_INCLUDED
 
 #include <nt2/core/functions/function.hpp>
-#include <nt2/dsl/functions/run.hpp>
-#include <nt2/core/utility/of_size.hpp>
+#include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
-#include <boost/fusion/include/zip_view.hpp>
-#include <boost/fusion/include/transform_view.hpp>
 #include <nt2/core/functions/table/details/reindex.hpp>
 #include <nt2/core/functions/table/details/function_size.hpp>
 #include <nt2/core/functions/table/details/function_value_type.hpp>
+#include <nt2/core/utility/of_size.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/fusion/include/zip_view.hpp>
+#include <boost/fusion/include/transform_view.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -54,14 +55,15 @@ namespace nt2 { namespace ext
     typedef dims_t                                     source_subscript_t;
 
     // Once set, we build a type with evaluation targets
-    typedef boost::array< std::size_t
+    typedef typename details::as_integer_target<Data>::type   target_inner;
+    typedef boost::array< boost::dispatch::meta::as_<typename meta::scalar_of<target_inner>::type>
                         , arity_t::value-1
                         >                                     target_base;
 
     typedef typename boost::fusion::result_of::
             as_vector< typename boost::fusion::result_of::
                        push_front< target_base
-                                 , typename details::as_integer_target<Data>::type
+                                 , target_inner
                                  >::type
                      >::type                                  target_type;
 
