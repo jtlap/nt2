@@ -47,17 +47,17 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::
                      child_c<Expr&, 1>::value_type            childN;
 
-    // ... and computes its number of index_t
-    typedef typename boost::fusion::result_of::size<childN>::type arity_t;
+    // ... and computes its number of indexes
+    static const long arity = childN::proto_arity_c;
 
     // Compute a type able to hold the position we look for
-    typedef typename nt2::make_size<arity_t::value>::type dims_t;
-    typedef dims_t                                     source_subscript_t;
+    typedef typename nt2::make_size<arity>::type              size_type;
+    typedef size_type                                         pos_type;
 
     // Once set, we build a type with evaluation targets
     typedef typename details::as_integer_target<Data>::type   target_inner;
     typedef boost::array< boost::dispatch::meta::as_<typename meta::scalar_of<target_inner>::type>
-                        , arity_t::value-1
+                        , arity-1
                         >                                     target_base;
 
     typedef typename boost::fusion::result_of::
@@ -70,30 +70,29 @@ namespace nt2 { namespace ext
     // We use a zip_view for passign all those informations to relative_index
     typedef boost::fusion::vector< childN const&
                                  , index_type const&
-                                 , dims_t const&
-                                 , source_subscript_t const&
+                                 , size_type const&
+                                 , pos_type const&
                                  , target_type const&
                                  >                            seq;
 
     typedef boost::fusion::zip_view<seq>                      zipped;
     typedef boost::fusion::
-            transform_view<zipped const, details::reindex>  transformed;
+            transform_view<zipped const, details::reindex>    transformed;
 
     // Compute the result type for index computation
     typedef typename meta::
-            call<tag::sub2ind_
-                  ( typename meta::call<tag::extent_(child0)>::type
-                  , transformed const&
-                  , index_type const&
-                  )
+            call< tag::sub2ind_( typename meta::call<tag::extent_(child0)>::type
+                               , transformed&
+                               , index_type&
+                               )
                 >::type                                       idx;
 
     // Finally, we compute the actual return type after indexing
-    typedef typename meta::call < tag::run_ ( child0
-                                            , idx const&
-                                            , Data const&
-                                            )
-                                >::type                       result_type;
+    typedef typename meta::call< tag::run_( child0
+                                          , idx
+                                          , Data const&
+                                          )
+                               >::type                        result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(Expr& expr, State const& state, Data const& data) const
@@ -103,7 +102,7 @@ namespace nt2 { namespace ext
       target_type targets;
 
       // Grab the destination subscript
-      source_subscript_t pos = ind2sub(expr.extent(), state, indexes);
+      pos_type pos = ind2sub(expr.extent(), state, indexes);
 
       // Apply index_t to each subscript value
       transformed trs = boost::fusion::
@@ -119,13 +118,13 @@ namespace nt2 { namespace ext
                                  );
 
       // Get the linear position from the transformed subscript and evaluate
-      return nt2::run ( boost::proto::child_c<0>(expr)
-                      , sub2ind ( boost::proto::child_c<0>(expr).extent()
-                                , trs
-                                , indexes
-                                )
-                      , data
-                      );
+      return nt2::run( boost::proto::child_c<0>(expr)
+                     , sub2ind( boost::proto::child_c<0>(expr).extent()
+                              , trs
+                              , indexes
+                              )
+                     , data
+                     );
     }
   };
 } }
