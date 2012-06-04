@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
    : boost::dispatch::meta::
      strip< typename boost::mpl::
             eval_if_c< boost::fusion::result_of::size<Seq>::type::value == 0
-                     , boost::mpl::identity<std::ptrdiff_t>
+                     , boost::mpl::identity<std::size_t>
                      , boost::fusion::result_of::value_at_c<Seq, 0>
                      >::type
           >

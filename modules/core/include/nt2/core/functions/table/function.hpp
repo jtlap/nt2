@@ -44,23 +44,17 @@ namespace nt2 { namespace ext
 
     // Get the indexing expression pack
     typedef typename boost::proto::result_of::
-                     child_c<Expr&, 1>::type                  childN;
+                     child_c<Expr&, 1>::value_type            childN;
 
     // ... and computes its number of index_t
-    typedef typename meta::strip<childN>::type                      index_t;
-    typedef typename boost::fusion::result_of::size<index_t>::type arity_t;
+    typedef typename boost::fusion::result_of::size<childN>::type arity_t;
 
     // Compute a type able to hold the position we look for
     typedef typename nt2::make_size<arity_t::value>::type dims_t;
     typedef dims_t                                     source_subscript_t;
 
     // Once set, we build a type with evaluation targets
-    typedef boost::array< boost::dispatch::meta::
-                          as_< typename boost::dispatch::meta::
-                               as_integer< typename boost::dispatch::meta::
-                                           scalar_of<Data>::type
-                                         >::type
-                             >
+    typedef boost::array< std::size_t
                         , arity_t::value-1
                         >                                     target_base;
 
@@ -104,21 +98,21 @@ namespace nt2 { namespace ext
     {
       // Compute base index of the source expression
       index_type indexes;
+      target_type targets;
 
       // Grab the destination subscript
       source_subscript_t pos = ind2sub(expr.extent(), state, indexes);
 
       // Apply index_t to each subscript value
       transformed trs = boost::fusion::
-                        transform(  zipped
-                                    ( seq ( boost::proto::child_c<1>(expr)
-                                          , indexes
-                                          , boost::proto::value
-                                            (boost::proto::child_c<2>(expr))
-                                          , pos
-                                          , target_type()
-                                          )
-                                    )
+                        transform( zipped
+                                   ( seq( boost::proto::child_c<1>(expr)
+                                        , indexes
+                                        , boost::proto::value(boost::proto::child_c<2>(expr))
+                                        , pos
+                                        , targets
+                                        )
+                                   )
                                  , details::reindex()
                                  );
 

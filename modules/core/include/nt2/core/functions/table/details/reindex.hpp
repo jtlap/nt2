@@ -63,10 +63,18 @@ namespace nt2 { namespace details
   };
 
   /// INTERNAL ONLY
-  /// Remove any potential logical<> and turn targets into integers
-  template<class T> struct as_integer_target
+  /// Turn SIMD values into integer SIMD targets, use std::size_t for scalars
+  template<class T>
+  struct as_integer_target
   {
-    typedef typename boost::simd::meta::as_arithmetic<T>::type        arith_t;
+    typedef boost::dispatch::meta::as_<std::size_t> type;
+  };
+
+  template<class T, class X>
+  struct as_integer_target< boost::simd::native<T, X> >
+  {
+    typedef typename boost::simd::meta::
+            as_arithmetic< boost::simd::native<T, X> >::type          arith_t;
     typedef typename boost::dispatch::meta::as_integer<arith_t>::type base_t;
     typedef boost::dispatch::meta::as_<base_t>                        type;
   };
