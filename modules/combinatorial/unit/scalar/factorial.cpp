@@ -16,6 +16,7 @@
 #include <nt2/toolbox/combinatorial/include/functions/factorial.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/min.hpp>
+#include <nt2/include/functions/saturate.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -90,16 +91,16 @@ NT2_TEST_CASE_TPL ( factorial_integer__1_0,  NT2_INTEGRAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<T>()), nt2::min((40320ull    ),(unsigned long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Eleven<T>()), nt2::min((39916800ull ),(unsigned long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Five<T>()), T(120), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Four<T>()), T(24), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Nine<T>()), nt2::min((362880ull   ),(unsigned long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Eight<T>()), T(nt2::saturate<T>(40320ull    )), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Eleven<T>()), T(nt2::saturate<T>(39916800ull)), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Five<T>()), T(nt2::saturate<T>(120)), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Four<T>()), T(nt2::saturate<T>(24)), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Nine<T>()), T(nt2::saturate<T>(362880ull   )), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::One<T>()), nt2::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Seven<T>()), nt2::min((5040ull     ),(unsigned long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Six<T>()), nt2::min((720ull      ),(unsigned long long)nt2::Valmax<T>()), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Ten<T>()), nt2::min((3628800ull  ),(unsigned long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Seven<T>()), T(nt2::saturate<T>(5040ull     )), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Six<T>()), T(nt2::saturate<T>(720ull      )), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Ten<T>()), T(nt2::saturate<T>(3628800ull  )), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Three<T>()), nt2::Six<T>(), 0);
-  NT2_TEST_ULP_EQUAL(factorial(nt2::Twelve<T>()), nt2::min((479001600ull),(unsigned long long)nt2::Valmax<T>()), 0);
+  NT2_TEST_ULP_EQUAL(factorial(nt2::Twelve<T>()), T(nt2::saturate<T>(479001600ull)), 0);
   NT2_TEST_ULP_EQUAL(factorial(nt2::Zero<T>()), nt2::One<T>(), 0);
 } // end of test for integer_
