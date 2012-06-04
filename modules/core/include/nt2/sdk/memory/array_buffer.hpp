@@ -59,7 +59,7 @@ namespace nt2 {  namespace memory
     typedef std::size_t                           size_type;
     typedef std::ptrdiff_t                        difference_type;
 
-    enum { static_size = Size::value };
+    static const std::size_t static_size = Size::value;
 
     array_buffer() {}
     array_buffer( allocator_type const& ) {}

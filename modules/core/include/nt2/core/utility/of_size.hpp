@@ -61,30 +61,29 @@ namespace nt2
     : BOOST_PP_CAT(D, BOOST_PP_DEC(BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n))) != 1  \
     ? BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n)
 
-    // this is an 'enum' to workaround some compiler bugs
-    enum {
+    static const std::size_t
       static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0
-    };
+    ;
     #undef M0
 
     //==========================================================================
     // Check if size is entirely known at compile-time
     //==========================================================================
     #define M0(z,n,t) && (BOOST_PP_CAT(D,n) >= 0)
-    enum {
+    static const std::size_t
       static_status = (D0 >= 0)
                       BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~)
-    };
+    ;
     #undef M0
 
     //==========================================================================
     // Compute its potential compile-time numel
     //==========================================================================
     #define M0(z,n,t) * (BOOST_PP_CAT(D,n) >= 0 ? BOOST_PP_CAT(D,n) : 1)
-    enum {
+    static const std::size_t
       static_numel = (D0 >= 0 ? D0 : 1)
                       BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~)
-    };
+    ;
     #undef M0
 
     //==========================================================================
@@ -128,8 +127,8 @@ namespace nt2
                         <boost::fusion::traits::is_sequence<Sz> >::type* = 0
             )
     {
-      enum{ osz = boost::fusion::result_of::size<Sz>::type::value,
-            msz = (osz < static_size) ? osz : static_size};
+      static const std::size_t osz = boost::fusion::result_of::size<Sz>::type::value;
+      static const std::size_t msz = (osz < static_size) ? osz : static_size};
 
       details::copy(details::pop_back_c<osz - msz>(other),&data_[0]);
 
