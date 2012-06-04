@@ -59,7 +59,7 @@ NT2_TEST_CASE( container_static_default_ctor)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), of_size_<3,7>() );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(  type::difference_type j=0;j<7;++j)
@@ -73,7 +73,7 @@ NT2_TEST_CASE( container_static_default_ctor)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL(b.extent(), of_size_<1,5>());
+    NT2_TEST_EQUAL(b.extent(), (of_size_<1,5>()));
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(  type::difference_type j=0;j<5;++j)
@@ -98,7 +98,7 @@ NT2_TEST_CASE( container_automatic_static_default_ctor)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), of_size_<3,7>() );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(  type::difference_type j=0;j<7;++j)
@@ -112,7 +112,7 @@ NT2_TEST_CASE( container_automatic_static_default_ctor)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size()             , b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), of_size_<1,7>() );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<1,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(  type::difference_type j=0;j<7;++j)
@@ -137,7 +137,7 @@ NT2_TEST_CASE( container_size_ctor)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), of_size_<3,7>() );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(  type::difference_type j=0;j<7;++j)
@@ -151,8 +151,8 @@ NT2_TEST_CASE( container_size_ctor)
     type b( of_size(1,7) );
 
     NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size()             , b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), of_size_<1,7>() );
+    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<1,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(  type::difference_type j=0;j<7;++j)
