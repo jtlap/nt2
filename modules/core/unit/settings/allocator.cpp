@@ -51,8 +51,13 @@ NT2_TEST_CASE( single_allocator_default )
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some allocator_ as settings
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings alloc_int(nt2::allocator_<std::allocator<float> >
-                        ,nt2::allocator_<std::allocator<int> > );
+nt2::settings alloc_int (nt2::allocator_<std::allocator<float> >
+                        , nt2::allocator_<std::allocator<int> >
+                        )
+{
+  return nt2::settings();
+}
+
 NT2_TEST_CASE( single_allocator_settings )
 {
   using std::allocator;

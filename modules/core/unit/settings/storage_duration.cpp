@@ -65,8 +65,16 @@ NT2_TEST_CASE( storage_duration_default )
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some storage_duration_ as a setting
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings dyn   (nt2::automatic_, nt2::dynamic_);
-nt2::settings autom (nt2::dynamic_  , nt2::automatic_);
+nt2::settings dyn   (nt2::automatic_, nt2::dynamic_)
+{
+  return nt2::settings();
+}
+
+nt2::settings autom (nt2::dynamic_  , nt2::automatic_)
+{
+  return nt2::settings();
+}
+
 NT2_TEST_CASE( setting_storage_duration_ )
 {
   using nt2::dynamic_;

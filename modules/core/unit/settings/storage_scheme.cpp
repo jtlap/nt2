@@ -61,8 +61,16 @@ NT2_TEST_CASE( storage_scheme_default )
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some storage_scheme_ as a setting and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings conv (nt2::packed_      , nt2::conventional_);
-nt2::settings pack (nt2::conventional_, nt2::packed_      );
+nt2::settings conv (nt2::packed_      , nt2::conventional_)
+{
+  return nt2::settings();
+}
+
+nt2::settings pack (nt2::conventional_, nt2::packed_ )
+{
+  return nt2::settings();
+}
+
 NT2_TEST_CASE( setting_storage_scheme_ )
 {
   using nt2::conventional_;
