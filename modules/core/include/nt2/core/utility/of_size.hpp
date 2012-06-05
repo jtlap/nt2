@@ -128,7 +128,7 @@ namespace nt2
             )
     {
       static const std::size_t osz = boost::fusion::result_of::size<Sz>::type::value;
-      static const std::size_t msz = (osz < static_size) ? osz : static_size};
+      static const std::size_t msz = (osz < static_size) ? osz : static_size;
 
       details::copy(details::pop_back_c<osz - msz>(other),&data_[0]);
 
