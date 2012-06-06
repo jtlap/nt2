@@ -13,7 +13,7 @@
 * @file
 * @brief Defines types to string conversion utility functions
 **/
-#include <nt2/sdk/unit/details/demangle.hpp>
+#include <nt2/sdk/unit/type_id.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
