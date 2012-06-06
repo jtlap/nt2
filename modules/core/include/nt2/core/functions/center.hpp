@@ -75,6 +75,7 @@ namespace nt2
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::center_       , center, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::center_       , center, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::center_       , center, 3)
 }
 
 

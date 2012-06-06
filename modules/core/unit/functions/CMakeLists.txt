@@ -104,8 +104,8 @@ SET( SOURCES
   center.cpp
 #  fill_pattern.cpp
 #  repmat.cpp
-#  rephorz.cpp
-#  repvert.cpp
+  rephorz.cpp
+  repvert.cpp
 #  nansum.cpp
 #  nanmean.cpp
 #  nanasum2.cpp

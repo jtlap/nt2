@@ -54,15 +54,21 @@ NT2_TEST_CASE_TPL( center, (float)(double))//NT2_TYPES )
     for(int i=1;i<=size(y, 1);i++)
       y(i,j) = i - j;
 
-  sy = nt2::center(y);
+  sy = nt2::center(y, 2);
   NT2_DISP(y); 
   NT2_DISP(sy);
 
-  m =  mean(y);
+  m =  mean(y, 2);
   NT2_DISP(m);
+  std::cout << " ================= " << std::endl;
+  sy = nt2::center(y, 1);
+  NT2_DISP(y); 
+  NT2_DISP(sy);
 
-  z =  nt2::bsxfun(nt2::functor<nt2::tag::minus_>(), y, m);
-  NT2_DISP(z);
+  m =  mean(y, 1);
+  NT2_DISP(m);
+//   z =  nt2::bsxfun(nt2::functor<nt2::tag::minus_>(), y, m);
+//   NT2_DISP(z);
   
 
   
