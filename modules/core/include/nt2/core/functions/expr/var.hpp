@@ -48,8 +48,8 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename A0::value_type value_type;
-    typedef typename meta::call < tag::center_(A0 const&)>::type T2;
-    typedef typename meta::call < tag::asum2_(T2 const&)>::type T3;
+    typedef typename meta::call < tag::center_(A0 const&, const A1&)>::type T2;
+    typedef typename meta::call < tag::asum2_(T2 const&, const A1&)>::type T3;
     typedef typename meta::call < tag::multiplies_(value_type, T3)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
