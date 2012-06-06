@@ -43,16 +43,29 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
+      // Get the subscript
       of_size_max ex0 = boost::proto::child_c<0>(a0).extent();
       sub_t pos0 = ind2sub(a0.extent(),p);
+
+      // replicate by modulo on the leading dimension
       pos0[0] = (pos0[0]-1)%ex0[0]+1;
+
+      // We need a gather there cause we may wrap up before cardinal
       i_t p0 = nt2::enumerate<i_t>(pos0[0]);
-      i_t h0 = nt2::splat<i_t>(ex0[0]); 
-      i_t p1 = nt2::oneplus(nt2::rem(minusone(p0), h0));
-      return nt2::run(boost::proto::child_c<0>(a0),p1,t); 
+
+      // This shifts us along other dimensions
+      i_t shift = nt2::splat<i_t> ( boost::proto::child_c<0>(a0).leading_size()
+                                  * (pos0[1]-1) // FIXME for size>2D
+                                  );
+
+      // We compute a SIMD index by wrapping around and moving aside
+      i_t h0 = nt2::splat<i_t>(ex0[0]);
+      i_t p1 = nt2::rem(minusone(p0), h0) + shift;
+
+      // Evaluates
+      return nt2::run(boost::proto::child_c<0>(a0),p1,t);
     }
   };
-
 } }
 
 #endif
