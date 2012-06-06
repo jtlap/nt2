@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag split_ of functor split 
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct split_ : ext::unspecified_<split_> { typedef ext::unspecified_<split_> parent; };
+    struct split_ : ext::elementwise_<split_> { typedef ext::elementwise_<split_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::split_, split, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::split_, split, (A0 const &)(A1&)(A1&), 2)
