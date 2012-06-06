@@ -65,7 +65,7 @@ namespace nt2
   {
     struct var_ : tag::formal_ 
     { 
-      typedef tag::formal_ parent; 
+       typedef tag::formal_ parent; 
     };
   }
 
