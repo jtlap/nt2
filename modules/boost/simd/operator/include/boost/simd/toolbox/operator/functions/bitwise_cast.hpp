@@ -69,13 +69,25 @@ namespace boost { namespace simd
     struct bitwise_cast_ : ext::elementwise_<bitwise_cast_> { typedef ext::elementwise_<bitwise_cast_> parent; };
   }
 
+  /* Specializable implementation to avoid going through the
+   * dispatching system for vector types */
+  template<class A0, class T>
+  struct bitwise_cast_impl
+  {
+    typedef typename dispatch::meta::call<tag::bitwise_cast_(A0 const&, dispatch::meta::as_<T>)>::type type;
+    static BOOST_FORCEINLINE type
+    call(A0 const& a0)
+    {
+      return typename dispatch::make_functor<tag::bitwise_cast_, A0>::type()(a0, dispatch::meta::as_<T>());
+    }
+  };
+
   template<class T, class A0>
   BOOST_FORCEINLINE
-  typename dispatch::meta::call<tag::bitwise_cast_(A0, dispatch::meta::as_<T>)>::type
-  bitwise_cast(const A0& a0)
+  typename bitwise_cast_impl<A0, T>::type
+  bitwise_cast(A0 const& a0)
   {
-    return typename dispatch::
-           make_functor<tag::bitwise_cast_, A0>::type()(a0, dispatch::meta::as_<T>());
+    return bitwise_cast_impl<A0, T>::call(a0);
   }
 } }
 
