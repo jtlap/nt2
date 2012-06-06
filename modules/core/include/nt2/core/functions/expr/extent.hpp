@@ -18,7 +18,7 @@ namespace nt2 { namespace ext
                             , (ast_<A0>)
                             )
   {
-    typedef typename A0::extent_type result_type;
+    typedef typename A0::extent_type const& result_type;
 
     BOOST_FORCEINLINE result_type operator()(const A0& a0) const
     {
