@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( dist_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(dist(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>(), 0);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( dist_real__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL ( dist_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::dist;
   using boost::simd::tag::dist_;
@@ -79,4 +79,4 @@ NT2_TEST_CASE_TPL ( dist_real__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_ULP_EQUAL(dist(boost::simd::Three<vT>(), boost::simd::Two<vT>())[0], boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(boost::simd::Two<vT>(), boost::simd::Three<vT>())[0], boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::Zero<T>(), 0);
-} // end of test for floating_
+} // end of test for integer_
