@@ -48,15 +48,14 @@ namespace nt2 { namespace ext
       sub_t pos0 = ind2sub(a0.extent(),p);
 
       // replicate by modulo on the leading dimension
-      pos0[0] = (pos0[0]-1)%ex0[0]+1;
+      typename sub_t::value_type i0 = (pos0[0]-1)%ex0[0]+1;
+      pos0[0] = 1;
 
       // We need a gather there cause we may wrap up before cardinal
-      i_t p0 = nt2::enumerate<i_t>(pos0[0]);
+      i_t p0 = nt2::enumerate<i_t>(i0);
 
       // This shifts us along other dimensions
-      i_t shift = nt2::splat<i_t> ( boost::proto::child_c<0>(a0).leading_size()
-                                  * (pos0[1]-1) // FIXME for size>2D
-                                  );
+      i_t shift = nt2::splat<i_t>( sub2ind(ex0,pos0) );
 
       // We compute a SIMD index by wrapping around and moving aside
       i_t h0 = nt2::splat<i_t>(ex0[0]);

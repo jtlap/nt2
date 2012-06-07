@@ -22,7 +22,8 @@
 
 NT2_TEST_CASE( repvert_size )
 {
-  nt2::table<float> a = nt2::rif(nt2::of_size(7, 1), nt2::meta::as_<float>()), b;
+  nt2::table<float> a = nt2::rif(nt2::of_size(7,1,2), nt2::meta::as_<float>()), b;
+  a(3,1,2) = 99;
   NT2_DISP(a);
   b = repvert(a,  2);
   NT2_DISP(b);
