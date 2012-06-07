@@ -184,7 +184,7 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::call<tag::split_(Expr&)>::type as_split;
     typedef cast_upgrade<as_split const, typename as_split::value_type, To> rec;
-    typedef typename rec::result_type result_type;
+    typedef typename boost::remove_reference<typename rec::result_type>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
@@ -208,7 +208,7 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::call<tag::group_(Expr&)>::type as_group;
     typedef cast_downgrade<as_group const, typename as_group::value_type, To> rec;
-    typedef typename rec::result_type result_type;
+    typedef typename boost::remove_reference<typename rec::result_type>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
@@ -303,7 +303,7 @@ namespace nt2 { namespace ext
     typedef typename as_arg<typename sign::result_type>::type signed_;
 
     typedef cast_downgrade<signed_, typename signed_::value_type, to> downgrade;
-    typedef typename downgrade::result_type result_type;
+    typedef typename boost::remove_reference<typename downgrade::result_type>::type result_type;
 
     result_type operator()(A0& a0, To const&) const
     {
