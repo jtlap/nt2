@@ -15,9 +15,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct cast_ : ext::elementwise_<cast_>
+    struct cast_ : boost::dispatch::tag::formal_
     {
-      typedef ext::elementwise_<cast_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
