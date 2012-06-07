@@ -16,38 +16,54 @@
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                        (scalar_< arithmetic_<A0> >)
-                            )
+                                     , (A0)
+                                     , (scalar_< arithmetic_<A0> >)
+                                     (scalar_< arithmetic_<A0> >)
+                                     )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return (a1) ? static_cast<A0>(round2even(static_cast<double>(a0)/static_cast<double>(a1)))
-                : ((a0 > 0) ? Valmax<A0>()
-                          : ((a1) ? Valmin<A0>()
-                              : Zero<A0>()
-                         )
-                 );
-    }
+      {
+        return (a1) ? static_cast<A0>(round2even(static_cast<double>(a0)/static_cast<double>(a1)))
+          : ((a0 > 0) ? Valmax<A0>()
+             : ((a0 < 0) ? Valmin<A0>()
+                : Zero<A0>()
+                )
+             );
+      }
   };
-
+  
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
-                            , (A0)
-                            , (scalar_< floating_<A0> >)
-                        (scalar_< floating_<A0> >)
-                            )
+                                     , (A0)
+                                     , (scalar_< unsigned_<A0> >)
+                                     (scalar_< unsigned_<A0> >)
+                                     )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return boost::simd::round2even(a0/a1);
-    }
+      {
+        return (a1) ? static_cast<A0>(round2even(static_cast<double>(a0)/static_cast<double>(a1)))
+          : ((a0 > 0) ? Valmax<A0>() : Zero<A0>()
+             );
+      }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divround_, tag::cpu_
+                                     , (A0)
+                                     , (scalar_< floating_<A0> >)
+                                     (scalar_< floating_<A0> >)
+                                     )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+      {
+        return boost::simd::round2even(a0/a1);
+      }
   };
 } } }
 
