@@ -24,7 +24,7 @@ namespace boost { namespace simd
     BOOST_MPL_ASSERT_MSG
     ( (sizeof(A0) == sizeof(Target))
     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
-    , (A0, Target)
+    , (A0&, Target&)
     );
 
     typedef Target const& type;
