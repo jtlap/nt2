@@ -243,6 +243,12 @@ struct extent_type
   typedef typename T::extent_type type;
 };
 
+template<class T>
+struct sizes_type
+{
+  typedef typename T::sizes_t type;
+};
+
 NT2_TEST_CASE( extent_type )
 {
   using nt2::table;
@@ -262,6 +268,10 @@ NT2_TEST_CASE( extent_type )
 
   NT2_TEST_EXPR_TYPE( a0
                     , extent_type<_>
+                    , _3D
+                    );
+  NT2_TEST_EXPR_TYPE( a0
+                    , sizes_type<_>
                     , _3D const&
                     );
 
@@ -269,6 +279,10 @@ NT2_TEST_CASE( extent_type )
 
   NT2_TEST_EXPR_TYPE( a0 + a0
                     , extent_type<_>
+                    , _3D
+                    );
+  NT2_TEST_EXPR_TYPE( a0 + a0
+                    , sizes_type<_>
                     , _3D
                     );
 
@@ -288,6 +302,10 @@ NT2_TEST_CASE( extent_type )
 
   NT2_TEST_EXPR_TYPE( nt2::assign(a0, a1)
                     , extent_type<_>
+                    , _2D
+                    );
+  NT2_TEST_EXPR_TYPE( nt2::assign(a0, a1)
+                    , sizes_type<_>
                     , _2D
                     );
 
