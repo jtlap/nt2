@@ -106,7 +106,7 @@ SET( SOURCES
 #  repmat.cpp
   rephorz.cpp
   repvert.cpp
-#  diff.cpp
+  diff.cpp
   adjfun.cpp
 #  nansum.cpp
 #  nanmean.cpp
