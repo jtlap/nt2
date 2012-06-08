@@ -265,7 +265,7 @@ namespace nt2 { namespace container
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<Expr>::value == 0)
                           , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
-                          , (Expr)
+                          , (Expr&)
                           );
 
       return nt2::terminal(*this).raw();
@@ -281,7 +281,7 @@ namespace nt2 { namespace container
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<Expr>::value == 0)
                           , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
-                          , (Expr)
+                          , (Expr&)
                           );
 
       return nt2::terminal(*this).raw();
@@ -365,7 +365,7 @@ namespace nt2 { namespace container
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (sizeof(Xpr) == 0)
                           , NT2_EXPRESSION_GRAMMAR_MISMATCH
-                          , (Xpr)
+                          , (Xpr&)
                           );
     }
 
