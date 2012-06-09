@@ -109,6 +109,8 @@ SET( SOURCES
   diff.cpp
   cdiff.cpp
   adjfun.cpp
+  line.cpp
+  putalong.cpp
 #  nansum.cpp
 #  nanmean.cpp
 #  nanasum2.cpp
