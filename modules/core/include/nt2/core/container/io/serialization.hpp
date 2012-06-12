@@ -9,38 +9,50 @@
 #ifndef NT2_CORE_CONTAINER_IO_SERIALIZATION_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_IO_SERIALIZATION_HPP_INCLUDED
 
-#include <boost/archive/text_oarchive.hpp>
-#include <boost/archive/text_iarchive.hpp>
 #include <boost/serialization/split_free.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/mpl/equal_to.hpp>
+#include <boost/mpl/not_equal_to.hpp>
+#include <boost/mpl/int.hpp>
+#include <boost/mpl/assert.hpp>
+#include <boost/proto/traits.hpp>
+#include <boost/proto/fusion.hpp>
+#include <boost/fusion/include/for_each.hpp>
+
 #include <nt2/table.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <nt2/sdk/parameters.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/core/utility/of_size.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <boost/proto/traits.hpp>
-#include <boost/mpl/assert.hpp>
+
 
 namespace boost { namespace serialization 
 { 
   //==========================================================================
   // First entry point of the serialization in table<T,S>
   //==========================================================================
-  template<class Archive, class T, class S, class D, class E, class R>
-  void save(Archive & ar, const nt2::table<T,S,D>& t, unsigned int version)
+  template<class Archive, class T, class S, class D>
+  void save( Archive & ar, const nt2::table<T,S,D>& t
+           , unsigned int const& version
+           )
   {
-    ar << boost::serialization::base_object< const nt2::container::expression<E,R> >(t);
+    typedef typename nt2::table<T,S,D>::parent expression_type;
+    ar << boost::serialization::base_object< const expression_type >(t);
   }
 
-  template<class Archive, class T, class S, class D, class E, class R>
-  void load(Archive & ar, nt2::table<T,S,D>& t, unsigned int version)
+  template<class Archive, class T, class S, class D>
+  void load( Archive & ar, nt2::table<T,S,D>& t
+           , unsigned int const& version)
   {
-    ar >> boost::serialization::base_object< nt2::container::expression<E,R> >(t);
+    typedef typename nt2::table<T,S,D>::parent expression_type;
+    ar >> boost::serialization::base_object< expression_type >(t);
   }
 
   template<class Archive, class T, class S, class D>
   inline void serialize( Archive & ar, nt2::table<T,S,D>& t
-                       , const unsigned int file_version)
+                       , unsigned int const& file_version)
   {
     split_free(ar, t, file_version); 
   }
@@ -50,7 +62,12 @@ namespace boost { namespace serialization
   //==========================================================================
   template<class Archive, class E, class R, class D>
   void save( Archive& ar, const nt2::container::expression<E,R,D>& e
-           , const unsigned int& version)
+           , unsigned int const& version
+           , typename boost::enable_if< typename boost::mpl::equal_to<
+               typename boost::proto::arity_of<E>
+             , boost::mpl::int_<0> >
+             >::type* dummy = 0
+           )
   {
     BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<E>::value == 0)
                         , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
@@ -65,7 +82,12 @@ namespace boost { namespace serialization
 
   template<class Archive, class E, class R, class D>
   void load( Archive& ar, nt2::container::expression<E,R,D>& e
-           , const unsigned int& version)
+           , unsigned int const& version
+           , typename boost::enable_if< typename boost::mpl::equal_to<
+                 typename boost::proto::arity_of<E>
+               , boost::mpl::int_<0> >
+             >::type* dummy = 0
+           )
   {
     BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<E>::value == 0)
                         , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
@@ -82,7 +104,12 @@ namespace boost { namespace serialization
   template<class Archive, class E, class R, class D>
   inline void serialize( Archive& ar
                        , nt2::container::expression<E,R,D>& e
-                       , const unsigned int file_version)
+                       , unsigned int const& file_version
+                       , typename boost::enable_if< typename boost::mpl::equal_to<
+                         typename boost::proto::arity_of<E>
+                         , boost::mpl::int_<0> >
+                         >::type* dummy = 0
+                       )
   {
     split_free(ar, e, file_version); 
   }
@@ -93,7 +120,7 @@ namespace boost { namespace serialization
   template<class Archive, BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
   void save( Archive& ar
            , const nt2::of_size_< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D) >& of
-           , const unsigned int& version)
+           , unsigned int const& version)
   {
     ar << of.data_;
   }
@@ -101,7 +128,7 @@ namespace boost { namespace serialization
   template<class Archive, BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
   void load( Archive& ar
            , nt2::of_size_< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D) >& of
-           , const unsigned int& version)
+           , unsigned int const& version)
   {
     ar >> of.data_;
   }
@@ -109,11 +136,89 @@ namespace boost { namespace serialization
   template<class Archive, BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
   inline void serialize( Archive& ar
                        , nt2::of_size_< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D) >& of
-                       , const unsigned int file_version)
+                       , unsigned int const& file_version)
   {
     split_free(ar, of, file_version);
   }
 
+  //==========================================================================
+  // Serialization of proto expression:
+  //==========================================================================
+  template<class Archive>
+  struct saver_
+  {
+    typedef Archive archive_type;
+    explicit saver_(archive_type& a) : ar(a) {}
+    template<class Terminal>
+    void operator()(Terminal const& t)
+    { ar << t; }
+    archive_type& ar;
+  };
+
+  struct loader_
+  {
+    template<class Archive, class Terminal>
+    void operator()(Archive& ar, Terminal& t)
+    { ar >> t; }
+  };
+
+  template<class Archive, class E, class R, class D>
+  void save( Archive& ar, const nt2::container::expression<E,R,D>& e
+           , unsigned int const& version
+           , typename boost::enable_if< typename boost::mpl::not_equal_to<
+               typename boost::proto::arity_of<E>
+             , boost::mpl::int_<0> >
+             >::type* dummy = 0
+           )
+  {
+    BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<E>::value != 0)
+                        ,  NT2_INVALID_ACCESS_TO_EXPRESSION_NODES_ON_NON_EXPRESSION
+                        , (E)
+                        );
+
+    typedef typename proto::result_of::
+    flatten< const nt2::container::expression<E,R,D> >::type sequence_type;
+    saver_<Archive> s_(ar);
+    sequence_type terminals = boost::proto::flatten(e);
+    boost::fusion::for_each(terminals,s_);
+  }
+
+  template<class Archive, class E, class R, class D>
+  void load( Archive& ar, nt2::container::expression<E,R,D>& e
+           , unsigned int const& version
+           , typename boost::enable_if< typename boost::mpl::not_equal_to<
+                 typename boost::proto::arity_of<E>
+               , boost::mpl::int_<0> >
+             >::type* dummy = 0
+           )
+  {
+    BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<E>::value != 0)
+                        , NT2_INVALID_ACCESS_TO_EXPRESSION_NODES_ON_NON_EXPRESSION
+                        , (E)
+                        );
+    // typedef typename nt2::container::expression<E,R,D>::extent_type e_t;
+    // typedef typename nt2::meta::strip<e_t>::type size_type;
+    // size_type size_;
+    // ar >> size_;
+    // e.resize(size_);
+    // ar >> make_array(e.raw(), nt2::numel(e));
+  }
+
+  template<class Archive, class E, class R, class D>
+  inline void serialize( Archive& ar
+                       , nt2::container::expression<E,R,D>& e
+                       , unsigned int const& file_version
+                       , typename boost::enable_if< typename boost::mpl::not_equal_to<
+                         typename boost::proto::arity_of<E>
+                         , boost::mpl::int_<0> >
+                         >::type* dummy = 0
+                       )
+  {
+    split_free(ar, e, file_version); 
+  }
+
 } }
+
+
 
 #endif
