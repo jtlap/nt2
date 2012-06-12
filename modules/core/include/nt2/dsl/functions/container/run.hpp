@@ -96,10 +96,12 @@ namespace nt2 { namespace ext
       std::size_t dim = nt2::ndims(ext);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
+#if 0
       if((red - 1 < ext.size() && ext[red-1] == 1) || ext.size() < red)
         return nt2::run_assign(a0, input);
+#endif
 
-      if(dim == 1 || ext.size() == 1)
+      if(dim == 1 && red == 1)
       {
         nt2::run( a0, 0u
                 , nt2::fold( input
@@ -119,6 +121,7 @@ namespace nt2 { namespace ext
                        , typename nt2::make_functor<T1, A0>::type()
                        );
       }
+#if 0
       else if(red == ext.size())
       {
         nt2::outer_fold( a0
@@ -128,22 +131,25 @@ namespace nt2 { namespace ext
                        , typename nt2::make_functor<T1, A0>::type()
                        );
       }
+#endif
       else
       {
+        std::size_t inner = red-1 < ext.size() ? ext[red-1] : 1;
+
         std::size_t lo = std::accumulate( ext.begin()
-                                        , ext.begin()+red-1
+                                        , ext.begin()+std::min(red-1, dim)
                                         , std::size_t(1)
                                         , std::multiplies<std::size_t>()
                                         );
 
-        std::size_t hi = std::accumulate( ext.begin()+red
+        std::size_t hi = std::accumulate( ext.begin()+std::min(red, dim)
                                         , ext.begin()+dim
                                         , std::size_t(1)
                                         , std::multiplies<std::size_t>()
                                         );
 
-        nt2::partial_fold( reshape(a0, of_size(lo,hi))
-                         , reshape(input, of_size(lo, ext[red-1], hi))
+        nt2::partial_fold( reshape(a0, of_size(lo, hi))
+                         , reshape(input, of_size(lo, inner, hi))
                          , typename nt2::make_functor<Neutral1, A0>::type()
                          , typename nt2::make_functor<O1, A0>::type()
                          , typename nt2::make_functor<T1, A0>::type()
