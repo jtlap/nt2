@@ -42,6 +42,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
+      // This is not a pessimization, some code patterns rely on this
+      if(&a0 == &a1)
+        return a0;
+
       a0.resize(a1.extent());
       nt2::transform(a0, a1);
       return a0;
