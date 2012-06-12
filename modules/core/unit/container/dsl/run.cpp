@@ -19,11 +19,39 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-template <class T>
+template<class T>
 struct extent_
 {
   typedef typename T::extent_type type;
 };
+
+struct run_type
+{
+  template<class X>
+  struct apply
+       : nt2::meta::call<nt2::tag::run_(X&)>
+  {
+  };
+};
+
+NT2_TEST_CASE( run_type )
+{
+  using nt2::table;
+  typedef double T;
+  typedef nt2::settings S(nt2::_4D);
+
+  table<T, S> a0;
+
+  NT2_TEST_EXPR_TYPE( a0
+                    , run_type
+                    , (table<T, S>&)
+                    );
+
+  NT2_TEST_EXPR_TYPE( a0 + a0
+                    , run_type
+                    , (table<T, S>)
+                    );
+}
 
 NT2_TEST_CASE( value_at )
 {
@@ -90,7 +118,6 @@ NT2_TEST_CASE( element_wise )
   a1 = nt2::toint(a0);
 }
 
-
 NT2_TEST_CASE( reduction_size )
 {
   using nt2::table;
@@ -155,7 +182,6 @@ NT2_TEST_CASE( reduction_size )
   NT2_TEST_EQUAL( a1.extent(), of_size(1) );
 
 }
-
 
 NT2_TEST_CASE( reduction_value )
 {
@@ -301,6 +327,4 @@ NT2_TEST_CASE( reduction_value )
       }
     }
   }
-  
-
 }

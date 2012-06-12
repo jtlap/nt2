@@ -170,6 +170,25 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
+  // Running a table terminal does nothing
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(S0)(T)
+                            , ((expr_< table_< unspecified_<A0>, S0 >
+                                     , T
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
+                            )
+  {
+    typedef A0& result_type;
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
+    {
+      return a0;
+    }
+  };
+
+  //============================================================================
   // Non-assign scalar expressions are evaluated directly
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
