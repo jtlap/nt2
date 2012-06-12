@@ -12,6 +12,36 @@
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <iostream>
 
+namespace nt2
+{
+  namespace container
+  {
+    template<class Expr, class Result, class Dummy>
+    struct expression;
+  }
+
+  namespace details
+  {
+    template<class T>
+    T& eval(T& t)
+    {
+      return t;
+    }
+
+    template<class T>
+    T const& eval(T const& t)
+    {
+      return t;
+    }
+
+    template<class Expr, class Result, class Dummy>
+    Result eval(nt2::container::expression<Expr, Result, Dummy> const& t)
+    {
+      return t;
+    }
+  }
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // Helpers for building implementation fo some predicate based tests
 ////////////////////////////////////////////////////////////////////////////////
@@ -25,7 +55,7 @@
     test_count()++;                                                         \
     T t = through_volatile(t_);                                             \
     T u = through_volatile(u_);                                             \
-    if( t OP u )                                                            \
+    if( nt2::details::eval( t OP u ) )                                      \
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
@@ -56,7 +86,7 @@
     test_count()++;                                                         \
     T t = through_volatile(t_);                                             \
     U u = through_volatile(u_);                                             \
-    if( (t OP u) || ((t != t) && (u != u)) )                                \
+    if( nt2::details::eval( (t OP u) || ((t != t) && (u != u)) ) )          \
     {                                                                       \
       std::cout << " * Test `"                                              \
                 << x1 << " " << #OP << " " << x2                            \
