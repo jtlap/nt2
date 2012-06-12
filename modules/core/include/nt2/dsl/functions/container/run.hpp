@@ -42,8 +42,28 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      // This is not a pessimization, some code patterns rely on this
-      if(&a0 == &a1)
+      a0.resize(a1.extent());
+      nt2::transform(a0, a1);
+      return a0;
+    }
+  };
+
+  //============================================================================
+  // Copies go to transform as well, but we check for self-assignment.
+  // This is not a pessimization, some code patterns rely on this!
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+                            , (A0)(T0)
+                            , ((node_<A0, elementwise_<T0>, boost::mpl::long_<0> >))
+                              ((node_<A0, elementwise_<T0>, boost::mpl::long_<0> >))
+                            )
+  {
+    typedef A0&                                             result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, A0& a1) const
+    {
+      if(&nt2::terminal(a0) == &nt2::terminal(a1))
         return a0;
 
       a0.resize(a1.extent());
