@@ -63,11 +63,9 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A0& a1) const
     {
-      if(&nt2::terminal(a0) == &nt2::terminal(a1))
-        return a0;
-
       a0.resize(a1.extent());
-      nt2::transform(a0, a1);
+      if(a0.raw() != a1.raw())
+        nt2::transform(a0, a1);
       return a0;
     }
   };
