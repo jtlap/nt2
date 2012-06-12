@@ -22,8 +22,8 @@ namespace nt2 { namespace ext
                             )
   {
     typedef table<A0, of_size_<0, 0> > result_type; 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&,
+                                             A1 const&) const
     {
       result_type t; 
       return t; 
@@ -38,9 +38,9 @@ namespace nt2 { namespace ext
                             )
   {
     typedef table<A0, of_size_<0, 0> > result_type; 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const& a1,
-                                             A2 const& a2) const
+    BOOST_FORCEINLINE result_type operator()(A0 const&,
+                                             A1 const&,
+                                             A2 const&) const
     {
       result_type t; 
       return t; 
