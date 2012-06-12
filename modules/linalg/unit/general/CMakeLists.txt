@@ -13,7 +13,8 @@ SET( SOURCES
      orth.cpp
      null.cpp
      rref.cpp
-     rref_result.cpp   
+     rref_result.cpp
+     mtimes.cpp
    )
 
 nt2_module_add_tests(linalg.general.unit ${SOURCES})
