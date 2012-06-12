@@ -25,7 +25,7 @@
 
 NT2_TEST_CASE_TPL( putalong_scalar, (float)(double))//NT2_TYPES )
 {
-  table<T> x = nt2::putalong(T(42), 1);  NT2_DISP( x );
+  nt2::table<T> x = nt2::putalong(T(42), 1);  NT2_DISP( x );
   x = nt2::putalong(T(42),1);  NT2_DISP( x );
   x = nt2::putalong(T(42),2);  NT2_DISP( x );
 
