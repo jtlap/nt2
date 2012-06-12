@@ -26,8 +26,7 @@
 template<class T>
 struct extent_type
 {
-  typedef typename boost::remove_reference<T>::type stripped;
-  typedef typename stripped::extent_type type;
+  typedef typename T::extent_type type;
 };
 
 NT2_TEST_CASE( mtimes_size )
@@ -44,7 +43,7 @@ NT2_TEST_CASE( mtimes_size )
                     , extent_type<_>
                     , (nt2::of_size_<-1, -1>)
                     );
-  NT2_TEST( nt2::mtimes(a0, a1).extent() == nt2::of_size(5, 19) );
+  NT2_TEST_EQUAL( nt2::mtimes(a0, a1).extent(), nt2::of_size(5, 19) );
 
   NT2_TEST_EXPR_TYPE( nt2::mtimes(a2, a3)
                     , extent_type<_>
