@@ -14,7 +14,6 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/semantic.hpp>
 #include <nt2/core/settings/normalize.hpp>
-#include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/specific_data.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
