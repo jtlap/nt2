@@ -8,13 +8,14 @@
 ##############################################################################
 
 SET( SOURCES
-     inv.cpp
-     rot90.cpp
-     orth.cpp
-     null.cpp
-     rref.cpp
-     rref_result.cpp
-     mtimes.cpp
+  inv.cpp
+  mtimes.cpp
+  null.cpp
+  orth.cpp
+  pinv.cpp
+  rot90.cpp
+  rref.cpp
+  rref_result.cpp
    )
 
 nt2_module_add_tests(linalg.general.unit ${SOURCES})
