@@ -44,6 +44,7 @@ NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
       y(i,j) = i + 10*j;
   disp("y", y);
   sy = nt2::none(y);
+  disp("sy", sy);
   for(int j=1;j<=3;j++)
   {
     nt2::logical<T> z = nt2::True<T>();

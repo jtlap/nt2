@@ -24,20 +24,20 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-// NT2_TEST_CASE_TPL( adjfun_scalar, (float)(double))//NT2_TYPES )
+// NT2_TEST_CASE_TPL( adjfun_scalar, NT2_TYPES )
 // {
-//   T x = nt2::adjfun(T(42));
+//   nt2::functor<nt2::tag::plus_> f;
+//   T x = nt2::adjfun(f, T(42));
 //   NT2_TEST_EQUAL( x, T(42) );
 
-//   x = nt2::adjfun(T(42),1);
+//   x = nt2::adjfun(f, T(42),1);
 //   NT2_TEST_EQUAL( x, T(42) );
 
-//   x = nt2::adjfun(T(42),0);
+//   x = nt2::adjfun(f, T(42),2);
 //   NT2_TEST_EQUAL( x, T(42) );
-
 // }
 
-NT2_TEST_CASE_TPL( adjfun, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( adjfun, NT2_TYPES )
 {
   using nt2::_; 
   nt2::table<T> y( nt2::of_size(5,3) );
