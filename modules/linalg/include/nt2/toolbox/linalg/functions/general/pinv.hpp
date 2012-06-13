@@ -28,6 +28,21 @@ namespace nt2{ namespace ext
       return  nt2::details::svd_result<A0>(a0, 'A', 'A').pinv();
     }
   };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pinv_, tag::cpu_
+                              , (A0)(A1)
+                              , (ast_<A0>)
+                              (scalar_<floating_<A1> >)
+                            )
+  {
+    typedef typename A0::value_type       value_type;
+    typedef typename A0::index_type       index_type;
+    typedef table<value_type, index_type> result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      return  nt2::details::svd_result<A0>(a0, 'A', 'A').pinv(a1);
+    }
+  };  
 } }
 
 #endif

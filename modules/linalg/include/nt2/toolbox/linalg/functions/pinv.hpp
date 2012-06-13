@@ -47,6 +47,7 @@ namespace nt2 { namespace tag
   }
   
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pinv_, pinv, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pinv_, pinv, 2)
 
 }
 
