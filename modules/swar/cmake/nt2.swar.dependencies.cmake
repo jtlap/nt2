@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_SWAR_DEPENDENCIES_EXTRA sdk boost.simd.swar)
+SET(NT2_SWAR_DEPENDENCIES_EXTRA sdk.simd boost.simd.swar)

@@ -42,18 +42,18 @@ namespace nt2 { namespace ext
       //      return mul_minus_i(nt2::sinh(mul_i(a0*Pi<rtype>())));
       result_type a00 =  mul_i(a0);
       rtype c, s, ch, sh;
-      sincospi(imag(a00), s, c);
+      sincospi(nt2::imag(a00), s, c);
       a00 = a00*Pi<rtype>();
-      sinhcosh(real(a00), sh, ch);
+      sinhcosh(nt2::real(a00), sh, ch);
       rtype r = c*sh;
       rtype i = s*ch;
       result_type res = result_type(r, i);
       if (nt2::any(is_invalid(a00)))
         {
-          r = if_else(logical_and(is_inf(real(a00)), is_invalid(imag(a00))), real(a00), r);
-          i = if_else(logical_and(is_inf(real(a00)), is_nan(imag(a00))), nt2::Nan<rtype>(), i);
-          r = if_else(is_nan(real(a00)), real(a00), r);
-          i = if_else(is_nan(real(a00)), real(a00), i);
+          r = if_else(logical_and(is_inf(nt2::real(a00)), is_invalid(nt2::imag(a00))), nt2::real(a00), r);
+          i = if_else(logical_and(is_inf(nt2::real(a00)), is_nan(nt2::imag(a00))), nt2::Nan<rtype>(), i);
+          r = if_else(is_nan(nt2::real(a00)), nt2::real(a00), r);
+          i = if_else(is_nan(nt2::real(a00)), nt2::real(a00), i);
           i = if_zero_else(is_real(a00), i);
           r = if_zero_else(is_imag(a00), r);
           res =  result_type(r, i);//this is sinh(mul_i(a0)*Deginrad<rtype>())
@@ -65,8 +65,8 @@ namespace nt2 { namespace ext
 //     {
 //       typedef typename meta::as_real<A0>::type rtype;
 //       rtype c, s, ch, sh;
-//       sincospi(real(a0), s, c);
-//       sinhcosh(imag(a0)*Pi<rtype>(), sh, ch);
+//       sincospi(nt2::real(a0), s, c);
+//       sinhcosh(nt2::imag(a0)*Pi<rtype>(), sh, ch);
 //       rtype r = if_zero_else(is_imag(a0), s*ch);
 //       rtype i = if_zero_else(is_real(a0), c*sh);
 //       return result_type(r, i);
@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_imaginary<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::sinh(imag(a0)*Pi<rtype>()));
+      return bitwise_cast<result_type>(nt2::sinh(nt2::imag(a0)*Pi<rtype>()));
     }
   };
 
@@ -93,7 +93,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::sinpi(real(a0)));
+      return bitwise_cast<result_type>(nt2::sinpi(nt2::real(a0)));
     }
   };
 } }

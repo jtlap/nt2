@@ -132,7 +132,7 @@ NT2_TEST_CASE( const_pointer )
                   );
 
   NT2_TEST_TYPE_IS( const_pointer_< vector<float>& >::type
-                  , float const*
+                  , float*
                   );
 
   NT2_TEST_TYPE_IS( const_pointer_< vector<float> const >::type
@@ -174,7 +174,7 @@ NT2_TEST_CASE( const_reference )
                   );
 
   NT2_TEST_TYPE_IS( const_reference_< vector<float>& >::type
-                  , float const&
+                  , float&
                   );
 
   NT2_TEST_TYPE_IS( const_reference_< vector<float> const >::type
@@ -200,15 +200,15 @@ NT2_TEST_CASE( value_type )
                   );
 
   NT2_TEST_TYPE_IS( value_type_< float& >::type
-                  , float&
+                  , float
                   );
 
   NT2_TEST_TYPE_IS( value_type_< float const >::type
-                  , float const
+                  , float
                   );
 
   NT2_TEST_TYPE_IS( value_type_< float const& >::type
-                  , float const&
+                  , float
                   );
 
   NT2_TEST_TYPE_IS( value_type_< vector<float> >::type

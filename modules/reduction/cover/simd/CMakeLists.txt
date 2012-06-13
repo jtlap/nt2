@@ -16,6 +16,7 @@ SET( SOURCES
   posmin.cpp
   posmax.cpp
   nbtrue.cpp
+  inbtrue.cpp     
   minimum.cpp
   maximum.cpp
   hmsb.cpp

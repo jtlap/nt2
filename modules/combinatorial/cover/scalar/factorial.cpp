@@ -21,6 +21,7 @@
 #include <nt2/toolbox/boost_math/include/functions/factorial.hpp>
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/saturate.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -101,9 +102,11 @@ NT2_TEST_CASE_TPL ( factorial_integer__1_0,  NT2_INTEGRAL_TYPES)
     for(nt2::uint32_t j =0; j < NR; ++j )
       {
         std::cout << "for param "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
+                  << "  a0 = "<< nt2::int64_t(u_t(a0 = tab_a0[j]))
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::factorial(a0),(nt2::min((u_t)nt2::boost_math::factorial<double>(nt2::abs(nt2::toint(a0))),(u_t)nt2::Valmax<r_t>())),1);
+        double z = nt2::min(double(nt2::Valmax<r_t>()), nt2::boost_math::factorial<double>(nt2::abs(nt2::toint(a0))));
+        NT2_TEST_ULP_EQUAL( nt2::factorial(a0),nt2::min((u_t)z,
+                                                         (u_t)nt2::Valmax<r_t>()),1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

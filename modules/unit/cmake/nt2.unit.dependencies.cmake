@@ -7,5 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_UNIT_DEPENDENCIES_EXTRA sdk ieee arithmetic constant operator)
-SET(NT2_UNIT_LIBRARIES optimized nt2 debug nt2_d)
+SET(NT2_UNIT_DEPENDENCIES_EXTRA sdk.simd sdk.timing ieee arithmetic constant operator)

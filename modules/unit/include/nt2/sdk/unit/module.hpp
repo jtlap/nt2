@@ -14,8 +14,9 @@
 * @brief Define macro for building a Unit Test
 **/
 
+#include <nt2/sdk/unit/type_id.hpp>
+#include <nt2/sdk/unit/display_type.hpp>
 #include <boost/preprocessor/cat.hpp>
-#include <nt2/sdk/details/type_id.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>
 #include <boost/preprocessor/stringize.hpp>
@@ -23,13 +24,12 @@
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/throw_exception.hpp>
-#include <nt2/include/error.hpp>
+#include <nt2/sdk/error/exception.hpp>
+#include <nt2/sdk/error/assert_as_exceptions.hpp>
 #include <stdexcept>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-
-#if !defined(DOXYGEN_ONLY)
 
 #ifndef NT2_UNIT_MAIN
 #define NT2_UNIT_MAIN main
@@ -40,8 +40,8 @@
 
 #define NT2_UNIT_PREFIX BOOST_PP_CAT(BOOST_PP_CAT(test_, NT2_UNIT_MAIN), _)
 
-// INTERNAL ONLY
-// Embedded main for testing purpose
+/// INTERNAL ONLY
+/// Embedded main for testing purpose
 #ifndef BOOST_NO_EXCEPTIONS
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
@@ -76,15 +76,15 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
 
 namespace boost
 {
-  // INTERNAL ONLY
-  // Add an uncaught exception handler
-  extern inline BOOST_ATTRIBUTE_NORETURN void throw_exception(std::exception const& e)
+  /// INTERNAL ONLY
+  /// Add an uncaught exception handler
+  extern inline BOOST_ATTRIBUTE_NORETURN
+  void throw_exception(std::exception const& e)
   {
     std::cout << "uncaught exception: " << e.what() << std::endl;
     std::abort();
   }
 }
-#endif
 #endif
 
 /**
@@ -103,14 +103,12 @@ BOOST_PP_CAT(Name,NT2_UNIT_PREFIX) = { BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)       
 void BOOST_PP_CAT(NT2_UNIT_PREFIX,Name)()                                                \
 /**/
 
-#if !defined(DOXYGEN_ONLY)
-// INTERNAL ONLY
-// Helper for template test cases generation
+/// INTERNAL ONLY
+/// Helper for template test cases generation
 #define NT2_PP_TPL_CASES(r,name,type)                                                    \
 printf("With T = [%s]\n",nt2::type_id<BOOST_DISPATCH_PP_STRIP(type)>().c_str());         \
 BOOST_PP_CAT(tpl_, BOOST_PP_CAT(NT2_UNIT_PREFIX,name))<BOOST_DISPATCH_PP_STRIP(type)>(); \
 /**/
-#endif
 
 /**
 * This macro declares a new set of test case functions containing user-defined

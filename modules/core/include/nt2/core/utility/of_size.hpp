@@ -9,19 +9,21 @@
 #ifndef NT2_CORE_UTILITY_OF_SIZE_HPP_INCLUDED
 #define NT2_CORE_UTILITY_OF_SIZE_HPP_INCLUDED
 
-#include <cstddef>
-#include <iterator>
-#include <boost/array.hpp>
-#include <boost/mpl/at.hpp>
-#include <nt2/sdk/parameters.hpp>
-#include <boost/mpl/vector_c.hpp>
-#include <nt2/sdk/memory/copy.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <nt2/core/utility/of_size/fusion.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
 #include <nt2/core/functions/scalar/numel.hpp>
+#include <nt2/sdk/memory/copy.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
+#include <boost/fusion/include/out.hpp>
+#include <boost/array.hpp>
+#include <boost/mpl/at.hpp>
+#include <boost/mpl/vector_c.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_integral.hpp>
+#include <cstddef>
+#include <iterator>
+
+#include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
 #include <boost/preprocessor/arithmetic/sub.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -59,30 +61,29 @@ namespace nt2
     : BOOST_PP_CAT(D, BOOST_PP_DEC(BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n))) != 1  \
     ? BOOST_PP_SUB(NT2_MAX_DIMENSIONS, n)
 
-    // this is an 'enum' to workaround some compiler bugs
-    enum {
+    static const std::size_t
       static_size = 0 ? 0 BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~) : 0
-    };
+    ;
     #undef M0
 
     //==========================================================================
     // Check if size is entirely known at compile-time
     //==========================================================================
     #define M0(z,n,t) && (BOOST_PP_CAT(D,n) >= 0)
-    enum {
+    static const std::size_t
       static_status = (D0 >= 0)
                       BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~)
-    };
+    ;
     #undef M0
 
     //==========================================================================
     // Compute its potential compile-time numel
     //==========================================================================
     #define M0(z,n,t) * (BOOST_PP_CAT(D,n) >= 0 ? BOOST_PP_CAT(D,n) : 1)
-    enum {
+    static const std::size_t
       static_numel = (D0 >= 0 ? D0 : 1)
                       BOOST_PP_REPEAT_FROM_TO(1,NT2_MAX_DIMENSIONS,M0,~)
-    };
+    ;
     #undef M0
 
     //==========================================================================
@@ -108,11 +109,6 @@ namespace nt2
     }
 
     //==========================================================================
-    // Copy constructor
-    //==========================================================================
-    of_size_( of_size_ const& src ) : data_(src.data_) {}
-
-    //==========================================================================
     // Swap
     //==========================================================================
     void swap( of_size_ & src ) { data_.swap(src.data_); }
@@ -126,8 +122,8 @@ namespace nt2
                         <boost::fusion::traits::is_sequence<Sz> >::type* = 0
             )
     {
-      enum{ osz = boost::fusion::result_of::size<Sz>::type::value,
-            msz = (osz < static_size) ? osz : static_size};
+      static const std::size_t osz = boost::fusion::result_of::size<Sz>::type::value;
+      static const std::size_t msz = (osz < static_size) ? osz : static_size;
 
       details::copy(details::pop_back_c<osz - msz>(other),&data_[0]);
 
@@ -211,6 +207,15 @@ namespace nt2
             )
   {
     a.swap(b);
+  }
+
+  //============================================================================
+  // of_size_ display
+  //============================================================================
+  template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D) >
+  std::ostream& operator<<(std::ostream& os, of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,D)> const& seq)
+  {
+    return boost::fusion::out(os, seq);
   }
 }
 

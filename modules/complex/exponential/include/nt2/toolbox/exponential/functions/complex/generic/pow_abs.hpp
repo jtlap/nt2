@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return pow_abs(a0, real(a1)); 
+      return pow_abs(a0, nt2::real(a1)); 
     }
   };
 
@@ -144,7 +144,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::exp(real(a1)*nt2::log(nt2::abs(a0))); 
+        return nt2::exp(nt2::real(a1)*nt2::log(nt2::abs(a0))); 
       }
   };
 

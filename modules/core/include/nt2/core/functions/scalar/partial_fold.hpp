@@ -12,8 +12,6 @@
 #include <nt2/core/functions/partial_fold.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
-#include <nt2/sdk/details/type_id.hpp>
-
 
 namespace nt2 { namespace details
 {
@@ -27,17 +25,14 @@ namespace nt2 { namespace details
 
     std::size_t ibound  = boost::fusion::at_c<0>(ext);
     value_type out = neutral(nt2::meta::as_<value_type>());
-      
+
     for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
     {
         out = bop(out, nt2::run(in, m_+p, meta::as_<value_type>()));
     }
-
-    
     return out;
   }
 } }
-
 
 namespace nt2 { namespace ext
 {
@@ -56,7 +51,10 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type                                            value_type;
     typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    BOOST_FORCEINLINE result_type
+    operator()( A0& out, A1& in , A2 const& neutral
+              , A3 const& bop   , A4 const& uop
+              ) const
     {
       extent_type ext = in.extent();
 
@@ -72,9 +70,7 @@ namespace nt2 { namespace ext
         }
       }
     }
-
   };
-    
-  } }
+} }
 
 #endif

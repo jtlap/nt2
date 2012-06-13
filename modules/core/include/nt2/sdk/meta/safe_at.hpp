@@ -11,6 +11,7 @@
 
 #include <boost/mpl/size_t.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace meta
 {

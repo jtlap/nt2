@@ -16,7 +16,9 @@ namespace nt2
   namespace details
   {
     // Markee for in place option
-    struct in_place_ {};
+    struct in_place_  {};
+    struct meshgrid_  {};
+    struct whole_     {};
   }
 
   // Lower/upper
@@ -24,6 +26,9 @@ namespace nt2
   static const char upper_    = 'U';
 
   meta::as_<details::in_place_> const in_place_ = {};
+  meta::as_<details::whole_>    const whole_    = {};
+  meta::as_<details::meshgrid_> const meshgrid_ = {};
+
 }
 
 #endif

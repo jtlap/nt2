@@ -22,41 +22,30 @@
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
-#include <boost/mpl/less.hpp>
-#include <boost/mpl/greater.hpp>
-
-namespace nt2 { namespace tag { struct cast_impl_ : boost::dispatch::tag::formal_ { typedef boost::dispatch::tag::formal_ parent; }; } }
+#include <nt2/sdk/meta/adapted_traits.hpp>
+#include <boost/mpl/comparison.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, class Expr>
-  struct generator<nt2::tag::cast_, Domain, 2, Expr>
+  struct value_type<nt2::tag::split_, Domain, 1, Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
-    typedef typename boost::dispatch::meta::semantic_of<child0>::type semantic;
-    typedef typename boost::proto::result_of::child_c<Expr&, 1>::type child1;
-    typedef typename boost::proto::result_of::value<child1>::value_type::type T;
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , typename boost::dispatch::meta::factory_of< semantic, typename meta::scalar_of<semantic>::type >::type::template
-                        apply<T>::type
-                      >                                               result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type::value_type stype;
+    typedef typename meta::upgrade<stype>::type type;
   };
 
   template<class Domain, class Expr>
-  struct size_of<nt2::tag::cast_, Domain, 2, Expr>
+  struct value_type<nt2::tag::group_, Domain, 1, Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
-    typedef typename size_transform<Domain>::
-            template result< size_transform<Domain>(child0)
-                           >::type                                    result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return size_transform<Domain>()(boost::proto::child_c<0>(e));
-    }
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type::value_type stype;
+    typedef typename meta::downgrade<stype>::type type;
+  };
+
+  template<class Domain, class Expr>
+  struct value_type<nt2::tag::bitwise_cast_, Domain, 2, Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&, 1>::type child0;
+    typedef typename boost::proto::result_of::value<child0>::value_type::type type;
   };
 } } }
 
@@ -91,181 +80,234 @@ namespace nt2 { namespace ext
     }
   };
 
-  // signedness change
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_, tag::cpu_
-                            , (A0)(To)
-                            , (scalar_< signed_<A0> >)
-                              (target_< scalar_< unsigned_<To> > >)
-                            )
-  {
-    typedef typename To::type result_type;
-    result_type operator()(A0 const& a0, To const&) const
-    {
-      typedef typename meta::as_unsigned<A0>::type uA0;
-      return result_type(uA0(a0));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_, tag::cpu_
-                            , (A0)(To)
-                            , (scalar_< unsigned_<A0> >)
-                              (target_< scalar_< signed_<To> > >)
-                            )
-  {
-    typedef typename To::type result_type;
-    result_type operator()(A0 const& a0, To const&) const
-    {
-      typedef typename meta::as_signed<A0>::type sA0;
-      return result_type(sA0(a0));
-    }
-  };
-
-  // identity / signedness
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::cast_impl_, tag::cpu_
-                            , (A0)/*(T)(N)*/(To)(State)(Data)
-                            , (is_same< typename meta::as_signed<typename A0::value_type>::type, typename meta::as_signed<typename To::type>::type >)
-                            , (ast_<A0>) // ((expr_< generic_< unspecified_<A0> >, T, N>))
-                              (target_< scalar_< unspecified_<To> > >)
+  // bitwise_cast
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(State)(Data)
+                            , ((node_<A0, nt2::tag::bitwise_cast_, boost::mpl::long_<2> >))
                               (generic_< integer_<State> >)
-                              ((unspecified_<Data>))
+                              (target_< unspecified_<Data> >)
                             )
   {
-    typedef typename run_value<To, Data>::type result_type;
-    result_type operator()(A0& a0, To const&, State const& p, Data const& data) const
+    typedef typename run_value<A0, Data>::type result_type;
+
+    result_type operator()(A0& a0, State const& p, Data const& data) const
     {
-      return bitwise_cast<result_type>(nt2::run(a0, p, data));
+      return nt2::bitwise_cast<result_type>(nt2::run(boost::proto::child_c<0>(a0), p, data));
     }
   };
 
-  // scalar
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_impl_, tag::cpu_
-                            , (A0)(T)(N)(To)(State)(Data)
-                            , ((expr_< generic_< unspecified_<A0> >, T, N>))
-                              (target_< scalar_< unspecified_<To> > >)
-                              (generic_< integer_<State> >)
-                              ((target_< scalar_< unspecified_<Data> > >))
-                            )
-  {
-    typedef typename To::type result_type;
-    result_type operator()(A0& a0, To const&, State const& p, Data const& data) const
-    {
-      return cast<result_type>(nt2::run(a0, p, data));
-    }
-  };
-
-  // toint -- convert to int then upgrade/downgrade
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::cast_impl_, tag::cpu_
-                            , (A0)/*(T)(N)*/(To)(State)(Data)(X)
-                            , (mpl::and_< meta::is_floating_point<typename A0::value_type>
-                                        , mpl::equal_to< mpl::sizeof_<typename To::type>
-                                                       , mpl::sizeof_<typename A0::value_type>
-                                                       >
-                                        >)
-                            , (ast_<A0>) //((expr_< generic_< floating_<A0> >, T, N>))
-                              (target_< scalar_< integer_<To> > >)
+  // split
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
+                            , (A0)(State)(Data)(X)
+                            , (mpl::greater< mpl::sizeof_<typename A0::value_type>
+                                           , mpl::sizeof_<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type>
+                                           >
+                              )
+                            , ((node_<A0, nt2::tag::split_, boost::mpl::long_<1> >))
                               (generic_< integer_<State> >)
                               ((target_< simd_< unspecified_<Data>, X > >))
                             )
   {
-    typedef typename meta::call<tag::toint_(A0&)>::type as_int;
-    typedef typename meta::call<tag::cast_impl_(as_int, To const&, State const&, Data const&)>::type result_type;
-
-    result_type operator()(A0& a0, To const& to, State const& p, Data const& data) const
-    {
-      return typename make_functor<tag::cast_impl_, A0>::type()(nt2::toint(a0), to, p, data);
-    }
-  };
-
-  // tofloat -- upgrade/downgrade then convert to float
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::cast_impl_, tag::cpu_
-                            , (A0)/*(T)(N)*/(To)(State)(Data)(X)
-                            , (meta::is_integral<typename A0::value_type>)
-                            , (ast_<A0>) //((expr_< generic_< integer_<A0> >, T, N>))
-                              (target_< scalar_< floating_<To> > >)
-                              (generic_< integer_<State> >)
-                              ((target_< simd_< unspecified_<Data>, X > >))
-                            )
-  {
-    typedef typename meta::as_integer<To>::type int_type;
-    typedef typename meta::call<tag::cast_impl_(A0&, int_type const&, State const&, Data const&)>::type inner;
-    typedef typename meta::call<tag::tofloat_(inner)>::type result_type;
-
-    result_type operator()(A0& a0, To const& to, State const& p, Data const& data) const
-    {
-      return nt2::tofloat(typename make_functor<tag::cast_impl_, A0>::type()(a0, int_type(), p, data));
-    }
-  };
-
-  // upgrade
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::cast_impl_, tag::cpu_
-                            , (A0)(To)(State)(Data)(X)
-                            , (mpl::less< mpl::sizeof_< typename A0::value_type >, mpl::sizeof_< typename To::type > >)
-                            , (ast_<A0>)
-                              (target_< scalar_< arithmetic_<To> > >)
-                              (generic_< integer_<State> >)
-                              ((target_< simd_< unspecified_<Data>, X > >))
-                            )
-  {
-    typedef typename run_value<To, Data>::type rvec;
+    typedef typename run_value<A0, Data>::type rvec;
     typedef typename meta::downgrade<rvec>::type vec;
     typedef rvec result_type;
 
-    result_type operator()(A0& a0, To const& to, State const& p, Data const& data) const
+    result_type operator()(A0& a0, State const& p, Data const& data) const
     {
       rvec r0, r1;
-      nt2::split(typename make_functor<tag::cast_impl_, A0>::type()(a0, meta::as_<typename meta::scalar_of<vec>::type>(), p, data), r1, r0);
+      nt2::split(nt2::run(boost::proto::child_c<0>(a0), p, data), r1, r0);
 
       // FIXME: only works if p is scalar
       return p/a0.leading_size() % meta::cardinal_of<vec>::value ? r0 : r1;
     }
   };
 
-  // downgrade
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::cast_impl_, tag::cpu_
-                            , (A0)(To)(State)(Data)(X)
-                            , (mpl::and_< mpl::greater< mpl::sizeof_< typename A0::value_type >, mpl::sizeof_< typename To::type > >
-                                        , mpl::or_< mpl::not_< meta::is_integral<typename A0::value_type> >
-                                                  , meta::is_integral<typename To::type>
-                                                  >
-                                        >)
-                            , (ast_<A0>)
-                              (target_< scalar_< arithmetic_<To> > >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(State)(Data)
+                            , ((node_<A0, nt2::tag::split_, boost::mpl::long_<1> >))
                               (generic_< integer_<State> >)
-                              ((target_< simd_< fundamental_<Data>, X > >))
+                              (target_< unspecified_<Data> >)
                             )
   {
-    typedef typename run_value<To, Data>::type rvec;
+    typedef typename run_value<A0, Data>::type result_type;
+
+    result_type operator()(A0& a0, State const& p, Data const& data) const
+    {
+      return result_type(nt2::run(boost::proto::child_c<0>(a0), p, data));
+    }
+  };
+
+  // group
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
+                            , (A0)(State)(Data)(X)
+                            , (mpl::less< mpl::sizeof_<typename A0::value_type>
+                                        , mpl::sizeof_<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type>
+                                        >
+                              )
+                            , ((node_<A0, nt2::tag::group_, boost::mpl::long_<1> >))
+                              (generic_< integer_<State> >)
+                              ((target_< simd_< unspecified_<Data>, X > >))
+                            )
+  {
+    typedef typename run_value<A0, Data>::type rvec;
     typedef typename meta::upgrade<rvec>::type vec;
     typedef rvec result_type;
 
-    result_type operator()(A0& a0, To const& to, State const& p, Data const& data) const
+    result_type operator()(A0& a0, State const& p, Data const& data) const
     {
       vec v0, v1;
-      v0 = typename make_functor<tag::cast_impl_, A0>::type()(a0, meta::as_<typename meta::scalar_of<vec>::type>(), p, data);
+      v0 = run(boost::proto::child_c<0>(a0), p, data);
+      v1 = run(boost::proto::child_c<0>(a0), p+meta::cardinal_of<vec>::value, data);
 
-      // FIXME: doesn't work if not enough data
-      v1 = typename make_functor<tag::cast_impl_, A0>::type()(a0, meta::as_<typename meta::scalar_of<vec>::type>(), p+meta::cardinal_of<vec>::value, data);
       return nt2::group(v0, v1);
     }
   };
 
-  // call impl from run
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(N)(State)(Data)
-                            , ((node_<A0, nt2::tag::cast_, N>))
+                            , (A0)(State)(Data)
+                            , ((node_<A0, nt2::tag::group_, boost::mpl::long_<1> >))
                               (generic_< integer_<State> >)
-                              (unspecified_<Data>)
+                              (target_< unspecified_<Data> >)
                             )
   {
-    typedef typename boost::proto::result_of::child_c<A0&, 0>::type child0;
-    typedef typename boost::proto::result_of::child_c<A0&, 1>::type child1;
-    typedef typename boost::proto::result_of::value<child1>::value_type T;
-
-    typedef typename meta::call<tag::cast_impl_(child0, T const&, State const&, Data const&)>::type result_type;
+    typedef typename run_value<A0, Data>::type result_type;
 
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
-      return typename make_functor<tag::cast_impl_, A0>::type()(boost::proto::child_c<0>(a0), boost::proto::value(boost::proto::child_c<1>(a0)), p, data);
+      return result_type(nt2::run(boost::proto::child_c<0>(a0), p, data));
+    }
+  };
+
+  // upgrade -- split recursively
+  template<class Expr, class From, class To, class Enable = void>
+  struct cast_upgrade
+  {
+    typedef typename meta::call<tag::split_(Expr&)>::type as_split;
+    typedef cast_upgrade<as_split const, typename as_split::value_type, To> rec;
+    typedef typename boost::remove_reference<typename rec::result_type>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return rec()(nt2::split(e));
+    }
+  };
+
+  template<class Expr, class From, class To>
+  struct cast_upgrade<Expr, From, To, typename boost::enable_if_c< sizeof(From) >= sizeof(To) >::type>
+  {
+    typedef Expr& result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return e;
+    }
+  };
+
+  // downgrade -- group recursively
+  template<class Expr, class From, class To, class Enable = void>
+  struct cast_downgrade
+  {
+    typedef typename meta::call<tag::group_(Expr&)>::type as_group;
+    typedef cast_downgrade<as_group const, typename as_group::value_type, To> rec;
+    typedef typename boost::remove_reference<typename rec::result_type>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return rec()(nt2::group(e));
+    }
+  };
+
+  template<class Expr, class From, class To>
+  struct cast_downgrade<Expr, From, To, typename boost::enable_if_c< sizeof(From) <= sizeof(To) >::type>
+  {
+    typedef Expr& result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return e;
+    }
+  };
+
+  // intfloat -- call tofloat, toint or nothing depending on case
+  template<class Expr, class From, class To, class Enable = void>
+  struct cast_intfloat
+  {
+    typedef Expr& result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return e;
+    }
+  };
+
+  template<class Expr, class From, class To>
+  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_integral<From>::value && meta::is_floating_point<To>::value >::type>
+  {
+    typedef typename meta::call<tag::tofloat_(Expr&)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return nt2::tofloat(e);
+    }
+  };
+
+  template<class Expr, class From, class To>
+  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_floating_point<From>::value && meta::is_integral<To>::value>::type>
+  {
+    typedef typename meta::call<tag::toint_(Expr&)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return nt2::toint(e);
+    }
+  };
+
+  // sign -- change sign if necessary
+  template<class Expr, class From, class To, class Enable = void>
+  struct cast_sign
+  {
+    typedef Expr& result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return e;
+    }
+  };
+
+  template<class Expr, class From, class To>
+  struct cast_sign<Expr, From, To, typename boost::enable_if_c< meta::is_integral<To>::value && meta::is_signed<From>::value != meta::is_signed<To>::value>::type>
+  {
+    typedef typename boost::dispatch::meta::make_integer<sizeof(From), typename meta::sign_of<To>::type>::type type;
+    typedef typename meta::call<tag::bitwise_cast_(Expr&, meta::as_<type>)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return nt2::bitwise_cast<type>(e);
+    }
+  };
+
+  // cast
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_, tag::cpu_
+                            , (A0)(To)
+                            , (ast_<A0>)
+                              (target_< scalar_< arithmetic_<To> > >)
+                            )
+  {
+    typedef typename To::type       to;
+
+    template<class T>
+    struct as_arg
+         : boost::remove_reference<typename boost::dispatch::meta::as_ref<T>::type>
+    {};
+
+    typedef cast_upgrade<A0, typename A0::value_type, to> upgrade;
+    typedef typename as_arg<typename upgrade::result_type>::type upgraded;
+
+    typedef cast_intfloat<upgraded, typename upgraded::value_type, to> type;
+    typedef typename as_arg<typename type::result_type>::type typed;
+
+    typedef cast_sign<typed, typename typed::value_type, to> sign;
+    typedef typename as_arg<typename sign::result_type>::type signed_;
+
+    typedef cast_downgrade<signed_, typename signed_::value_type, to> downgrade;
+    typedef typename boost::remove_reference<typename downgrade::result_type>::type result_type;
+
+    result_type operator()(A0& a0, To const&) const
+    {
+      return downgrade()(sign()(type()(upgrade()(a0))));
     }
   };
 } }

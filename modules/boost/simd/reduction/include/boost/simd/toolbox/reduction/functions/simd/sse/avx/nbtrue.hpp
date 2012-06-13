@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                         )
   {
-    typedef int32_t result_type;
+    typedef typename meta::scalar_of<A0>::type  result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type sctype;
@@ -43,11 +43,11 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<double_<A0>,boost::simd::tag::avx_>))
                         )
   {
-    typedef int32_t result_type;
+    typedef typename meta::scalar_of<A0>::type  result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       int32_t  r = _mm256_movemask_pd(is_nez(a0));
-      return   (r&1)+(r>>1&1)+((r>>2)&1)+(r>>3);
+      return   double((r&1)+(r>>1&1)+((r>>2)&1)+(r>>3));
     }
   };
 
@@ -61,12 +61,12 @@ namespace boost { namespace simd { namespace ext
                          ((simd_<single_<A0>,boost::simd::tag::avx_>))
                         )
   {
-    typedef int32_t result_type;
+    typedef typename meta::scalar_of<A0>::type  result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type type;
       int32_t  r = _mm256_movemask_ps(is_nez(a0));
-      return   (r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3&1)+((r>>4)&1)+((r>>5)&1)+(r>>6&1)+(r>>7);
+      return   result_type((r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3&1)+((r>>4)&1)+((r>>5)&1)+(r>>6&1)+(r>>7));
       //      return __builtin_popcount(_mm_movemask_ps(isnez(cast<type>(a0))));
     }
   };

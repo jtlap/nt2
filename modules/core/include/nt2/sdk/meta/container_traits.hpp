@@ -69,6 +69,7 @@ namespace nt2 { namespace meta
     typedef T type;
   };
   template<class T> struct value_type_<T&> : value_type_<T> {};
+  template<class T> struct value_type_<T const> : value_type_<T> {};
 
   template<class T>
   struct size_type_ < T
@@ -122,7 +123,9 @@ namespace nt2 { namespace meta
   template<class T>
   struct value_type_< T
                     , typename  boost::dispatch::meta::
-                      enable_if_type< typename T::value_type >::type
+                      enable_if_type< typename T::value_type
+                                    , typename boost::disable_if< boost::is_const<T> >::type
+                                    >::type
                     >
   {
     typedef typename T::value_type type;

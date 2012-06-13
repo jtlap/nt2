@@ -17,10 +17,12 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
 
+#include <boost/proto/debug.hpp>
+
 NT2_TEST_CASE( generator )
 {
   typedef double T;
-  typedef nt2::settings S();
+  typedef nt2::settings S(nt2::_4D);
   nt2::table<T, S> a0;
 
   NT2_TEST_EXPR_TYPE( nt2::cast<float>(a0)
@@ -43,6 +45,7 @@ void assign_test()
   for(std::size_t i=0; i!=N; ++i)
     a0(i+1) = roll<T>();
 
+  boost::proto::display_expr( nt2::cast<U>(a0) );
   nt2::table<U> a1 = nt2::cast<U>(a0);
   for(std::size_t i=0; i!= N; ++i)
   {

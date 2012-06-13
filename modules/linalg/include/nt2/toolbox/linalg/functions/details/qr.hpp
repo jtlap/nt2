@@ -48,7 +48,7 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
+#include <nt2/include/functions/inbtrue.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/triu.hpp>
@@ -197,7 +197,7 @@ namespace nt2 {
           }
 //         table<logical<base_t> > l = nt2::diag_of(aa_()) > thresh;
 //         disp("l", l); 
-//         table<size_t > s = nbtrue(l); 
+//         table<size_t > s = inbtrue(l); 
 //         disp("s", s); 
         return r;
         //nt2::sum(nt2::abs(nt2::diag_of(aa_())) > nt2::max(n, m)*epsi*nt2::max(nt2::abs(aa_)));

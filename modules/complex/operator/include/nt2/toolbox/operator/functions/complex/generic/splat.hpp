@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A1&) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return result_type(splat < rtype>(real(a0)),  splat<rtype>(imag(a0))); 
+      return result_type(splat < rtype>(nt2::real(a0)),  splat<rtype>(nt2::imag(a0))); 
     }
   };
   
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A1&) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return bitwise_cast<result_type>(splat<rtype>(imag(a0))); 
+      return bitwise_cast<result_type>(splat<rtype>(nt2::imag(a0))); 
     }
   };
 
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
     inline result_type operator()(const A0& a0, const A1&) const
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      return bitwise_cast<result_type>(splat<rtype>(real(a0))); 
+      return bitwise_cast<result_type>(splat<rtype>(nt2::real(a0))); 
     }
   };    
 } }

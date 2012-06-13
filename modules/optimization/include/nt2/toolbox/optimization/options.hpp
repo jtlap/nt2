@@ -49,10 +49,13 @@ namespace nt2 { namespace details
   {
     typedef T value_type;
 
+    // required on MSVC for some unknown reason
+    BOOST_FORCEINLINE static T Sqrteps() { return nt2::Sqrteps<T>(); }
+
     optimization_settings ( std::size_t it  = 100
-                          , value_type at   = nt2::Sqrteps<T>()
-                          , value_type rt   = nt2::Sqrteps<T>()
-                          , value_type rst  = nt2::Sqrteps<T>()
+                          , value_type at   = Sqrteps()
+                          , value_type rt   = Sqrteps()
+                          , value_type rst  = Sqrteps()
                           )
                           : maximum_iterations(it), absolute_tolerance(at)
                           , relative_tolerance(rt), residual_tolerance(rst)

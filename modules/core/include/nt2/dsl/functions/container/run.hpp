@@ -49,6 +49,28 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
+  // Copies go to transform as well, but we check for self-assignment.
+  // This is not a pessimization, some code patterns rely on this!
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
+                            , (A0)(T0)
+                            , ((node_<A0, elementwise_<T0>, boost::mpl::long_<0> >))
+                              ((node_<A0, elementwise_<T0>, boost::mpl::long_<0> >))
+                            )
+  {
+    typedef A0&                                             result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, A0& a1) const
+    {
+      a0.resize(a1.extent());
+      if(a0.raw() != a1.raw())
+        nt2::transform(a0, a1);
+      return a0;
+    }
+  };
+
+  //============================================================================
   // Reductions operations go to fold
   // Note that Matlab reduction functions has a f(x,i) and a f(x,[],i) form
   // that we handle by having a relative child_c calls
@@ -74,10 +96,12 @@ namespace nt2 { namespace ext
       std::size_t dim = nt2::ndims(ext);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
+#if 0
       if((red - 1 < ext.size() && ext[red-1] == 1) || ext.size() < red)
         return nt2::run_assign(a0, input);
+#endif
 
-      if(dim == 1 || ext.size() == 1)
+      if(dim == 1 && red == 1)
       {
         nt2::run( a0, 0u
                 , nt2::fold( input
@@ -97,6 +121,7 @@ namespace nt2 { namespace ext
                        , typename nt2::make_functor<T1, A0>::type()
                        );
       }
+#if 0
       else if(red == ext.size())
       {
         nt2::outer_fold( a0
@@ -106,22 +131,25 @@ namespace nt2 { namespace ext
                        , typename nt2::make_functor<T1, A0>::type()
                        );
       }
+#endif
       else
       {
+        std::size_t inner = red-1 < ext.size() ? ext[red-1] : 1;
+
         std::size_t lo = std::accumulate( ext.begin()
-                                        , ext.begin()+red-1
+                                        , ext.begin()+std::min(red-1, dim)
                                         , std::size_t(1)
                                         , std::multiplies<std::size_t>()
                                         );
 
-        std::size_t hi = std::accumulate( ext.begin()+red
+        std::size_t hi = std::accumulate( ext.begin()+std::min(red, dim)
                                         , ext.begin()+dim
                                         , std::size_t(1)
                                         , std::multiplies<std::size_t>()
                                         );
 
-        nt2::partial_fold( reshape(a0, of_size(lo,hi))
-                         , reshape(input, of_size(lo, ext[red-1], hi))
+        nt2::partial_fold( reshape(a0, of_size(lo, hi))
+                         , reshape(input, of_size(lo, inner, hi))
                          , typename nt2::make_functor<Neutral1, A0>::type()
                          , typename nt2::make_functor<O1, A0>::type()
                          , typename nt2::make_functor<T1, A0>::type()
@@ -166,6 +194,25 @@ namespace nt2 { namespace ext
       result_type tmp;
       run_assign(tmp, a0);
       return tmp;
+    }
+  };
+
+  //============================================================================
+  // Running a table terminal does nothing
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(S0)(T)
+                            , ((expr_< table_< unspecified_<A0>, S0 >
+                                     , T
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
+                            )
+  {
+    typedef A0& result_type;
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
+    {
+      return a0;
     }
   };
 

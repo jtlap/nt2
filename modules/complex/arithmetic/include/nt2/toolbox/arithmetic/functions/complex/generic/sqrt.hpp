@@ -56,13 +56,13 @@ namespace nt2 { namespace ext
         //then conjugate if necessary
         typedef typename meta::as_real<A0>::type rtype;
         typedef typename meta::as_logical<rtype>::type ltype;
-        rtype ia0 = imag(a0);
+        rtype ia0 = nt2::imag(a0);
         ltype negimag = is_ltz(ia0);
-        rtype x = nt2::abs(real(a0));
+        rtype x = nt2::abs(nt2::real(a0));
         rtype y = nt2::abs(ia0);
         rtype iaa0 = negif(negimag, ia0); // always >= 0 or -Nan
         ltype gtxy = gt(x, y);
-        ltype gezra0 = is_gez(real(a0)); 
+        ltype gezra0 = is_gez(nt2::real(a0)); 
         rtype r = if_else(gtxy, y/x, x/y);
         rtype rr= nt2::sqrt(oneplus(sqr(r)));
         rtype sqrtx = sqrt(x); 
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
         z = if_else(eq(iaa0, Inf<rtype>()),
                     result_type(Inf<rtype>(), Inf<rtype>()),
                     z);
-        z = if_else(logical_andnot(eq(real(a0), Minf<rtype>()), is_nan(iaa0)),
+        z = if_else(logical_andnot(eq(nt2::real(a0), Minf<rtype>()), is_nan(iaa0)),
                     result_type(if_else_zero(eq(iaa0, Inf<rtype>()), iaa0),
                                 Inf<rtype>()
                                 ),
@@ -97,8 +97,8 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
       {
-        const rtype root = nt2::sqrt(nt2::abs(imag(a0)))*Sqrt_2o_2<rtype>();
-        result_type res = result_type(root, sign(imag(a0))*root); 
+        const rtype root = nt2::sqrt(nt2::abs(nt2::imag(a0)))*Sqrt_2o_2<rtype>();
+        result_type res = result_type(root, sign(nt2::imag(a0))*root); 
         return if_else(is_eqz(a0), Zero<result_type>(), res); 
       }
   };
@@ -111,7 +111,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
       {
-        const rtype root = nt2::sqrt(nt2::abs(real(a0))); 
+        const rtype root = nt2::sqrt(nt2::abs(nt2::real(a0))); 
         return if_else(is_ltz(a0),
                        result_type(Zero<rtype>(), root),
                        result_type(root)); 

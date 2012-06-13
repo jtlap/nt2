@@ -11,7 +11,7 @@
 
 ////////////////////////////////////////////////////////////////////////////////
 // Types injection into boost.simd
-// Injects or define some basic types in boost::simd namespace for consistency sake.
+// Injects or define some basic types in boost::simd for consistency sake.
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/config.hpp>
 #include <boost/cstdint.hpp>

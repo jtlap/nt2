@@ -79,14 +79,14 @@ namespace nt2 { namespace ext
       typedef typename meta::as_real<A0>::type rtype;  
       typedef typename meta::as_logical<rtype>::type ltype; 
       //
-      // Begin by insuring real(a0) >= 0 and imag(a0) >= 0 :
+      // Begin by insuring nt2::real(a0) >= 0 and nt2::imag(a0) >= 0 :
       //
       const rtype a_crossover = splat<rtype>(1.5);
       const rtype b_crossover = splat<rtype>(0.6417);
-      ltype  ltzra0 = is_ltz(real(a0)); 
-      ltype  ltzia0 = is_ltz(imag(a0));
-      rtype x = nt2::abs(real(a0));
-      rtype y = nt2::abs(imag(a0));
+      ltype  ltzra0 = is_ltz(nt2::real(a0)); 
+      ltype  ltzia0 = is_ltz(nt2::imag(a0));
+      rtype x = nt2::abs(nt2::real(a0));
+      rtype y = nt2::abs(nt2::imag(a0));
       rtype proper_real = nt2::asin(x);
       ltype lexone = le(x, One<rtype>()); 
       ltype is_proper_real = logical_and(is_real(a0), lexone);
@@ -220,7 +220,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       //TODO optimize it
-      return nt2::asin(result_type(Zero<rtype>(), imag(a0)));
+      return nt2::asin(result_type(Zero<rtype>(), nt2::imag(a0)));
     }
   };
 
@@ -234,8 +234,8 @@ namespace nt2 { namespace ext
     {
       //TODO optimize it
       if (all(is_real(a0)) && all(le(nt2::abs(a0), One<rtype>())))
-        return result_type(nt2::asin(real(a0))); 
-      return nt2::asin(result_type(real(a0), Zero<rtype>()));
+        return result_type(nt2::asin(nt2::real(a0))); 
+      return nt2::asin(result_type(nt2::real(a0), Zero<rtype>()));
     }
   };
   

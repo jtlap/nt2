@@ -174,21 +174,21 @@ NT2_TEST_CASE( of_size_equality )
   _4D d14(2,1,1,1);
 
   // Test that _0D compares to [1 ... ]
-  NT2_TEST( s0 == of_size(1)      );
-  NT2_TEST( s0 == of_size(1,1)    );
-  NT2_TEST( s0 == of_size(1,1,1)  );
-  NT2_TEST( s0 == of_size(1,1,1,1));
+  NT2_TEST_EQUAL( s0, of_size(1 )      );
+  NT2_TEST_EQUAL( s0, of_size(1,1 )    );
+  NT2_TEST_EQUAL( s0, of_size(1,1,1 )  );
+  NT2_TEST_EQUAL( s0, of_size(1,1,1,1 ));
 
   // Test that static and dynamic of_size compares
-  NT2_TEST( s1 == d1 );
-  NT2_TEST( s2 == d2 );
-  NT2_TEST( s3 == d3 );
-  NT2_TEST( s4 == d4 );
+  NT2_TEST_EQUAL( s1, d1 );
+  NT2_TEST_EQUAL( s2, d2 );
+  NT2_TEST_EQUAL( s3, d3 );
+  NT2_TEST_EQUAL( s4, d4 );
 
   // Test out of dims comparison
-  NT2_TEST( s1 == d12 );
-  NT2_TEST( s1 == d13 );
-  NT2_TEST( s1 == d14 );
+  NT2_TEST_EQUAL( s1, d12 );
+  NT2_TEST_EQUAL( s1, d13 );
+  NT2_TEST_EQUAL( s1, d14 );
 
   // Test that stuff don't compare wrongly
   NT2_TEST( s4 != s1 );

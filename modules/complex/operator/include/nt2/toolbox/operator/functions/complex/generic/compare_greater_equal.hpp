@@ -10,14 +10,13 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_COMPARE_GREATER_EQUAL_HPP_INCLUDED
 
 #include <nt2/toolbox/operator/functions/compare_greater_equal.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/imag.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <nt2/include/functions/compare_less.hpp>
-#include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext

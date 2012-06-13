@@ -18,24 +18,8 @@ namespace nt2 { namespace container { namespace ext
   template<class Domain, class Expr>
   struct size_of<tag::assign_, Domain, 2, Expr>
   {
-    template<class A0, class A1, class Dummy = void> struct select;
-
-    typedef typename boost::proto::result_of::
-    child_c<Expr&, 0>::type                         child0;
-
-    typedef typename boost::proto::result_of::
-    child_c<Expr&, 1>::type                         child1;
-
-    typedef typename size_transform<Domain>::template
-    result<size_transform<Domain>(child0)>::type    size0_t;
-
-    typedef typename size_transform<Domain>::template
-    result<size_transform<Domain>(child1)>::type    size1_t;
-
-    typedef select< typename meta::strip<size0_t>::type
-                  , typename meta::strip<size1_t>::type
-                  >                                       impl;
-    typedef typename impl::type                           result_type;
+    template<class A0, class A1, class Dummy = void>
+    struct select;
 
     template<class A1, class Dummy>
     struct select<_0D, A1, Dummy>
@@ -89,6 +73,20 @@ namespace nt2 { namespace container { namespace ext
         return a1;
       }
     };
+
+    typedef typename boost::proto::result_of::
+    child_c<Expr, 0>::type                          child0;
+
+    typedef typename boost::proto::result_of::
+    child_c<Expr, 1>::type                          child1;
+
+    typedef typename child0::extent_type            size0_t;
+    typedef typename child1::extent_type            size1_t;
+
+    typedef select< typename meta::strip<size0_t>::type
+                  , typename meta::strip<size1_t>::type
+                  >                                       impl;
+    typedef typename impl::type                           result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {

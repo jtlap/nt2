@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_inf(a0)) return a0; 
+      if (is_inf(a0)) return result_type(a0);
       const result_type tmp=nt2::expm1(nt2::abs(a0));
       result_type r = nt2::average(tmp, tmp/(oneplus(tmp)));
       return negif(is_negative(a0), r);

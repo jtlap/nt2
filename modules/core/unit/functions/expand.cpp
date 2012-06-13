@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL( expand, NT2_TYPES )
     {
       out = nt2::expand(in,nt2::of_size(i,j));
 
-      NT2_TEST( nt2::extent(out) == nt2::of_size(i,j));
+      NT2_TEST_EQUAL( nt2::extent(out), nt2::of_size(i,j ));
 
       for(int vj=1;vj<=j;++vj)
         for(int vi=1;vi<=i;++vi)
@@ -94,7 +94,7 @@ NT2_TEST_CASE_TPL( expand1, NT2_TYPES )
     {
       out = nt2::expand(in,nt2::of_size(i,j));
 
-      NT2_TEST( nt2::extent(out) == nt2::of_size(i,j));
+      NT2_TEST_EQUAL( nt2::extent(out), nt2::of_size(i,j ));
 
       for(int vj=1;vj<=j;++vj)
         for(int vi=1;vi<=i;++vi)

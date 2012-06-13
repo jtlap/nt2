@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A0::element_type& result_type;
-    BOOST_FORCEINLINE result_type operator()(A0& a0) const { return *a0.get(); }
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const { return *a0.get(); }
   };
 
   // All terminals other than the actual terminal tag call the tag on the value
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::
             call<T0(typename boost::proto::result_of::value<A0&>::type)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return dispatch::functor<T0>()(boost::proto::value(a0));
     }

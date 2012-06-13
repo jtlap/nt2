@@ -69,13 +69,13 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_SIMD_REAL_TYPES)
     r_t res = comparator(nt2::Inf<vT>(), nt2::Inf<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Inf<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Inf<r_t1>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), false);
   }
   {
     r_t res = comparator(nt2::Minf<vT>(), nt2::Minf<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Minf<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Minf<r_t0>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), false);
   }
   {
     r_t res = comparator(nt2::Mone<vT>(), nt2::Mone<vT>(), 0);
@@ -87,19 +87,19 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_SIMD_REAL_TYPES)
     r_t res = comparator(nt2::Nan<vT>(), nt2::Nan<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Nan<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Nan<r_t0>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), false);
   }
   {
     r_t res = comparator(nt2::One<vT>(), nt2::One<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::One<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::One<r_t0>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), false);
   }
   {
     r_t res = comparator(nt2::Zero<vT>(), nt2::Zero<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t0>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), false);
   }
 } // end of test for floating_
  

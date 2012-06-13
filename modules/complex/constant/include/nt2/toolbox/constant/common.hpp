@@ -10,13 +10,13 @@
 #define NT2_TOOLBOX_CONSTANT_COMMON_HPP_INCLUDED
 
 #include <boost/simd/sdk/constant/common.hpp>
-#include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/imag.hpp>
+#include <nt2/include/simd.hpp> // for constant_ and functor
 #include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {

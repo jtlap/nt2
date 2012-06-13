@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
       svtype a011 = { _mm256_extractf128_si256(a0, 1)};
       svtype a00 =  reverse(a000);
       svtype a01 =  reverse(a011);
-      A0 that = simd::bitwise_cast<A0>(_mm256_insertf128_si256(that,a01, 0));
+      A0 that = simd::bitwise_cast<A0>(_mm256_castsi128_si256(a01));
       that =  simd::bitwise_cast<A0>(_mm256_insertf128_si256(that, a00, 1));
       return that;
     }
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
       svtype a011 = { _mm256_extractf128_pd(a0, 1)};
       svtype a00 =  reverse(a000);
       svtype a01 =  reverse(a011);
-      A0 that = simd::bitwise_cast<A0>(_mm256_insertf128_pd(that,a01, 0));
+      A0 that = simd::bitwise_cast<A0>(_mm256_castpd128_pd256(a01));
       that =  simd::bitwise_cast<A0>(_mm256_insertf128_pd(that, a00, 1));
       return that;
     }
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
       svtype a011 = { _mm256_extractf128_ps(a0, 1)};
       svtype a00 =  reverse(a000);
       svtype a01 =  reverse(a011);
-      A0 that = simd::bitwise_cast<A0>(_mm256_insertf128_ps(that,a01, 0));
+      A0 that = simd::bitwise_cast<A0>(_mm256_castps128_ps256(a01));
       that =  simd::bitwise_cast<A0>(_mm256_insertf128_ps(that, a00, 1));
       return that;
     }

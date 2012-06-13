@@ -30,7 +30,7 @@
 #include <nt2/include/functions/simd/bitwise_ornot.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_allbits.hpp>
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
       A1 r =  Nan<A1>();
       bA1 test1 = le(a1, One<A1>());
       uint32_t nb = 0;
-      if ((nb = nbtrue(test1)) > 0)
+      if ((nb = inbtrue(test1)) > 0)
       {
         A1 xx = sel(test1, x, One<A1>());
         A1 y1 = case_1(xx, sn, n);

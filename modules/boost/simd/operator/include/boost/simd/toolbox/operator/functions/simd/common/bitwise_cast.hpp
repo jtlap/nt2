@@ -12,26 +12,27 @@
 #include <boost/simd/toolbox/operator/functions/bitwise_cast.hpp>
 #include <boost/mpl/assert.hpp>
 
-namespace boost { namespace simd { namespace ext
+namespace boost { namespace simd
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_cast_, tag::cpu_, (A0)(A1)(X)
-                            , (unspecified_<A0>)
-                              ((target_<simd_<unspecified_<A1>, X> >))
-                            )
+  /* We avoid going through the dispatching system becauses it may
+   * causes ICEs when A0 is a vector type */
+  template<class A0, class T, class X>
+  struct bitwise_cast_impl<A0, simd::native<T, X> >
   {
-    typedef typename A1::type const& result_type;
-   
+    typedef simd::native<T, X> Target;
+
     BOOST_MPL_ASSERT_MSG
-    ( (sizeof(A0) == sizeof(typename A1::type))
+    ( (sizeof(A0) == sizeof(Target))
     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
-    , (A0&,typename A1::type&)
+    , (A0&, Target&)
     );
-      
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
+
+    typedef Target const& type;
+    static BOOST_FORCEINLINE type call(A0 const& a0)
     {
-      return reinterpret_cast<result_type>(a0);
+      return reinterpret_cast<type>(a0);
     }
   };
-} } }
+} }
 
 #endif

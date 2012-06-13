@@ -30,6 +30,9 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4146) // unary minus operator applied to unsigned type
+#endif
 
 NT2_TEST_CASE_TPL ( shift_left_integer__2_0,  NT2_INTEGRAL_TYPES)
 {

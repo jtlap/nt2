@@ -20,7 +20,7 @@
 #include <nt2/include/functions/simd/polevl.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
 #include <nt2/include/functions/simd/any.hpp>
-#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/toolbox/euler/constants/fastgammalargelim.hpp>
 #include <nt2/include/functions/simd/sinpi.hpp>
@@ -60,13 +60,13 @@ namespace nt2 { namespace ext
         A0 x = a0;
         bA0 test0 = gt(q, Fastgammalargelim<A0>());
         uint32_t nb = 0;
-        if ((nb = (nbtrue(test0) > 0)))
+        if ((nb = (inbtrue(test0) > 0)))
           {
             bA0 negative = is_ltz(a0);
             A0 s =  stirling(q);
             uint32_t nb1 = 0;
             A0 r1 = {{}};
-            if ((nb1 = (nbtrue(negative) > 0)))
+            if ((nb1 = (inbtrue(negative) > 0)))
               {
                 A0 p = floor(q);
                 //              A0 test1 = is_equal(p, q); //must return Nan<A0>();

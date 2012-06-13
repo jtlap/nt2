@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       typedef typename meta::as_real<A0>::type rtype;
-      return result_type(Zero<rtype>(), imag(a0));
+      return result_type(Zero<rtype>(), nt2::imag(a0));
     }
   };
   
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rtype>::type const &result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return result_type(real(a0));
+      return result_type(nt2::real(a0));
     }
   };
 
@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type const &result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return result_type(a0, imag(a1));
+      return result_type(a0, nt2::imag(a1));
     }
   };
   
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type const &result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return result_type(a1, imag(a0));
+      return result_type(a1, nt2::imag(a0));
     }
   };
 
@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type const &result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return result_type(real(a1), imag(a0));
+      return result_type(nt2::real(a1), nt2::imag(a0));
     }
   };
 
@@ -120,7 +120,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type const &result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return result_type(real(a0), imag(a1));
+      return result_type(nt2::real(a0), nt2::imag(a1));
     }
   };
   

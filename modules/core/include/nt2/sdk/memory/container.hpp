@@ -82,13 +82,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     // size_type is the type used to store the container dimensions set
     //==========================================================================
-    typedef typename meta::option<settings_type, tag::of_size_>::type sizes_type;
-
-    //==========================================================================
-    // extent_type is the type used to store the container dimensions set in
-    // a proto terminal.
-    //==========================================================================
-    typedef sizes_type const&                                        extent_type;
+    typedef typename meta::option<settings_type, tag::of_size_>::type extent_type;
 
     //==========================================================================
     // index_type is the type used to store the container base index
@@ -106,14 +100,14 @@ namespace nt2 { namespace memory
     typedef typename
             meta::option<settings_type,tag::storage_duration_>::type duration_t;
     typedef boost::mpl::
-            bool_ <   sizes_type::static_status
+            bool_ <   extent_type::static_status
                   &&  !boost::is_same<duration_t,automatic_>::value
                   >                                         require_static_init;
     //==========================================================================
     // has_static_size detects if container size is known at compile time
     //==========================================================================
     typedef boost::mpl::
-            bool_ <   sizes_type::static_status
+            bool_ <   extent_type::static_status
                   ||  boost::is_same<duration_t,automatic_>::value
                   >                                         has_static_size;
 
@@ -182,7 +176,7 @@ namespace nt2 { namespace memory
       BOOST_MPL_ASSERT_MSG
       ( !has_static_size::value
       , INVALID_CONSTRUCTOR_FOR_STATICALLY_SIZED_CONTAINER
-      , (sizes_type,Size)
+      , (extent_type,Size)
       );
 
       init(sizes_);
@@ -209,7 +203,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     template<class Size> void resize( Size const& szs )
     {
-      resize(szs,boost::mpl::bool_<!sizes_type::static_status>());
+      resize(szs,boost::mpl::bool_<!extent_type::static_status>());
     }
 
     //==========================================================================
@@ -219,7 +213,7 @@ namespace nt2 { namespace memory
      * the size of the container over each of its dimensions.
      **/
     //==========================================================================
-    BOOST_FORCEINLINE extent_type extent() const { return sizes_;  }
+    BOOST_FORCEINLINE extent_type const& extent() const { return sizes_;  }
 
     //==========================================================================
     /*!
@@ -243,7 +237,7 @@ namespace nt2 { namespace memory
     {
       typedef typename boost::mpl
                             ::apply < order_type
-                                    , boost::mpl::size_t<sizes_type::static_size>
+                                    , boost::mpl::size_t<extent_type::static_size>
                                     , boost::mpl::size_t<0U>
                                     >::type                     dim_t;
       return sizes_[dim_t::value];
@@ -339,7 +333,7 @@ namespace nt2 { namespace memory
     {
       if( szs != sizes_ )
       {
-        sizes_ = sizes_type(szs);
+        sizes_ = extent_type(szs);
         init(sizes_);
       }
     }
@@ -354,7 +348,7 @@ namespace nt2 { namespace memory
       //     ****STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY****
       //========================================================================
       BOOST_MPL_ASSERT_MSG
-      ( (boost::is_same<Size,sizes_type>::value)
+      ( (boost::is_same<Size,extent_type>::value)
       , STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY
       , (Size)
       );
@@ -362,7 +356,7 @@ namespace nt2 { namespace memory
 
     private:
     buffer_t                    data_;
-    sizes_type                  sizes_;
+    extent_type                 sizes_;
     mutable specific_data_type  specific_;
   };
 

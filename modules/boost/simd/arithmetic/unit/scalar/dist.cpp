@@ -101,4 +101,6 @@ NT2_TEST_CASE_TPL ( dist_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(dist(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Zero<T>(), 0);
   NT2_TEST_ULP_EQUAL(dist(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(dist(boost::simd::One<T>(), boost::simd::Two<T>()), boost::simd::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(dist(boost::simd::Two<T>(), boost::simd::One<T>()), boost::simd::One<T>(), 0);
 } // end of test for unsigned_int_

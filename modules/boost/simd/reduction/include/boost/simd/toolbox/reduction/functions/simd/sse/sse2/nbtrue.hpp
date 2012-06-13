@@ -27,15 +27,15 @@ namespace boost { namespace simd { namespace ext
                                     , ((simd_<arithmetic_<A0>,boost::simd::tag::sse_>))
                                     )
   {
-    typedef std::size_t                                                 result_type;
-    typedef typename meta::make_dependent<boost::simd::int8_t,A0>::type base;
+    typedef typename meta::scalar_of<A0>::type                     result_type;
+    typedef typename meta::make_dependent<boost::simd::int8_t,A0>::type   base;
     typedef simd::native<base,boost::simd::tag::sse_>                   i8type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       i8type tmp = {genmask(a0)};
-      return  boost::simd::popcnt(_mm_movemask_epi8(tmp))
-            * boost::simd::meta::cardinal_of<A0>::value >> 4;
+      return  result_type(boost::simd::popcnt(_mm_movemask_epi8(tmp))
+                          * boost::simd::meta::cardinal_of<A0>::value >> 4);
     }
   };
 
@@ -45,15 +45,15 @@ namespace boost { namespace simd { namespace ext
                                     , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
                                     )
   {
-    typedef std::size_t                                                 result_type;
-    typedef typename meta::make_dependent<boost::simd::int8_t,A0>::type base;
+    typedef typename meta::scalar_of<A0>::type                     result_type;
+    typedef typename meta::make_dependent<boost::simd::int8_t,A0>::type   base;
     typedef simd::native<base,boost::simd::tag::sse_>                   i8type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       i8type tmp = bitwise_cast<i8type>(genmask(a0));
-      return  boost::simd::popcnt(_mm_movemask_epi8(tmp))
-            * boost::simd::meta::cardinal_of<A0>::value >> 4;
+      return  result_type(boost::simd::popcnt(_mm_movemask_epi8(tmp))
+                          * boost::simd::meta::cardinal_of<A0>::value >> 4);
     }
   };
 
@@ -66,11 +66,11 @@ namespace boost { namespace simd { namespace ext
                                     , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                                     )
   {
-    typedef std::size_t result_type;
+    typedef double result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       int32_t  r = _mm_movemask_pd(genmask(a0));
-      return   (r&1)+(r>>1);
+      return   double((r&1)+(r>>1));
     }
   };
 
@@ -83,13 +83,13 @@ namespace boost { namespace simd { namespace ext
                                     , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                                     )
   {
-    typedef std::size_t                                     result_type;
+    typedef float                                    result_type;
     typedef typename meta::make_dependent<int32_t,A0>::type type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       type r = _mm_movemask_ps(genmask(a0));
-      return  (r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3);
+      return  float((r&1)+((r>>1)&1)+((r>>2)&1)+(r>>3));
     }
   };
 } } }

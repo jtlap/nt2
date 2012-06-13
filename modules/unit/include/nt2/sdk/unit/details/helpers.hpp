@@ -9,26 +9,9 @@
 #ifndef NT2_SDK_UNIT_DETAILS_HELPERS_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_HELPERS_HPP_INCLUDED
 
-#include <string>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
-#include <nt2/sdk/details/type_id.hpp>
-#include <boost/algorithm/string/replace.hpp>
-
-////////////////////////////////////////////////////////////////////////////////
-// strip function name cruft
-////////////////////////////////////////////////////////////////////////////////
-template<class T> inline std::string function_name()
-{
-  std::string that(nt2::type_id<T>().c_str());
-  boost::replace_all(that,"nt2::functors::","");
-  boost::replace_all(that,"nt2::simd::","");
-  boost::replace_all(that,", void","");
-  boost::replace_all(that,"boost::proto::tag::","");
-  boost::replace_all(that,"()","");
-  return that;
-}
 
 ////////////////////////////////////////////////////////////////////////////////
 // roll a random number (will be nt2::rand afterward)

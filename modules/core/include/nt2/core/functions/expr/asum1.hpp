@@ -11,7 +11,6 @@
 
 #include <nt2/core/functions/asum1.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/asum1.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sum.hpp>
 

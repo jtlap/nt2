@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 
-#include <nt2/sdk/details/type_id.hpp>
+#include <nt2/sdk/unit/type_id.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/identity.hpp>
@@ -17,27 +17,25 @@
 
 namespace nt2 { namespace details
 {
+  template<class Lambda, class T>
+  boost::mpl::identity<typename boost::mpl::apply<Lambda, T>::type>
+  expr_type(T const&)
+  {
+    return boost::mpl::identity<typename boost::mpl::apply<Lambda, T>::type>();
+  }
 
-template<class Lambda, class T>
-boost::mpl::identity<typename boost::mpl::apply<Lambda, T>::type>
-expr_type(T const&)
-{
-  return boost::mpl::identity<typename boost::mpl::apply<Lambda, T>::type>();
-}
+  template<class T, class U>
+  typename boost::is_same<T, typename U::type>::type
+  is_same_as(U const&)
+  {
+    return typename boost::is_same<T, typename U::type>::type();
+  }
 
-template<class T, class U>
-typename boost::is_same<T, typename U::type>::type
-is_same_as(U const&)
-{
-  return typename boost::is_same<T, typename U::type>::type();
-}
-
-template<class T>
-std::string type_id_identity(T const&)
-{
-  return nt2::type_id<typename T::type>();
-}
-
+  template<class T>
+  std::string type_id_identity(T const&)
+  {
+    return nt2::type_id<typename T::type>();
+  }
 } }
 
 #define NT2_PP_STRINGIZE__(...) #__VA_ARGS__

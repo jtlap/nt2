@@ -450,39 +450,40 @@ namespace nt2 { namespace ext
    */
 #ifdef __LITTLE_ENDIAN
 #define LOW_WORD_IDX 0
-#define HIGH_WORD_IDX 1
+#define HIGH_WORD_IDX sizeof(nt2::uint32_t)
 #else
-#define LOW_WORD_IDX 1
+#define LOW_WORD_IDX sizeof(nt2::uint32_t)
 #define HIGH_WORD_IDX 0
 #endif
 
-#define GET_HIGH_WORD(i,d)                        \
-  do {                                    \
-    A0 f = (d);                                \
-    std::memcpy(&(i), reinterpret_cast<nt2::uint32_t*>(&f) + HIGH_WORD_IDX, sizeof(nt2::uint32_t));        \
+#define GET_HIGH_WORD(i,d)                                                                         \
+  do {                                                                                             \
+    A0 f = (d);                                                                                    \
+    std::memcpy(&(i), reinterpret_cast<char*>(&f) + HIGH_WORD_IDX, sizeof(nt2::uint32_t));         \
   } while (0)
 
-#define GET_LOW_WORD(i,d)                          \
-  do {                                      \
-    A0 f = (d);                                  \
-    std::memcpy(&(i), reinterpret_cast<nt2::uint32_t*>(&f) + LOW_WORD_IDX, sizeof(nt2::uint32_t));        \
+#define GET_LOW_WORD(i,d)                                                                          \
+  do {                                                                                             \
+    A0 f = (d);                                                                                    \
+    std::memcpy(&(i), reinterpret_cast<char*>(&f) + LOW_WORD_IDX, sizeof(nt2::uint32_t));          \
   } while (0)
 
-#define SET_HIGH_WORD(d,v)                        \
-  do {                                    \
-    A0 f = (d);                                \
-    nt2::uint32_t value = (v);        \
-    std::memcpy(reinterpret_cast<nt2::uint32_t*>(&f) + HIGH_WORD_IDX, &value, sizeof(nt2::uint32_t));        \
-    (d) = f;                                \
+#define SET_HIGH_WORD(d,v)                                                                         \
+  do {                                                                                             \
+    A0 f = (d);                                                                                    \
+    nt2::uint32_t value = (v);                                                                     \
+    std::memcpy(reinterpret_cast<char*>(&f) + HIGH_WORD_IDX, &value, sizeof(nt2::uint32_t));       \
+    (d) = f;                                                                                       \
   } while (0)
 
-#define SET_LOW_WORD(d,v)                        \
-  do {                                    \
-    A0 f = (d);                                \
-    nt2::uint32_t value = (v);        \
-    std::memcpy(reinterpret_cast<nt2::uint32_t*>(&f) + LOW_WORD_IDX, &value, sizeof(nt2::uint32_t));        \
-    (d) = f;                                \
+#define SET_LOW_WORD(d,v)                                                                          \
+  do {                                                                                             \
+    A0 f = (d);                                                                                    \
+    nt2::uint32_t value = (v);                                                                     \
+    std::memcpy(reinterpret_cast<char*>(&f) + LOW_WORD_IDX, &value, sizeof(nt2::uint32_t));        \
+    (d) = f;                                                                                       \
   } while (0)
+
   static nt2::int32_t __ieee754_rem_pio2(A0 x, A0 *y)
     {    
       static const nt2::int32_t two_over_pi[] = {

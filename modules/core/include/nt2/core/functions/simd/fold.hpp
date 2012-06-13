@@ -39,30 +39,17 @@ namespace nt2 { namespace ext
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t aligned_bound = (boost::fusion::at_c<0>(ext)/N) * N;
 
-
       result_type out = neutral(nt2::meta::as_<result_type>());
       target_type vec_out = neutral(nt2::meta::as_<target_type>());
 
+      for(std::size_t i =0; i < aligned_bound; i+=N)
+        vec_out = bop(vec_out, nt2::run(in, i, meta::as_<target_type>()));
+      out = uop(vec_out);
 
-      if( N <= (aligned_bound)){
+      for(std::size_t i = aligned_bound; i < bound; ++i)
+        out = bop(out, nt2::run(in, i, meta::as_<result_type>()));
 
-        for(std::size_t i =0; i < aligned_bound; i+=N)
-          vec_out = bop(vec_out, nt2::run(in, i, meta::as_<target_type>()));
-
-        out = uop(vec_out);
-
-        for(std::size_t i = aligned_bound; i < bound; ++i)
-          out = bop(out, nt2::run(in, i, meta::as_<result_type>()));
-
-      }
-      else{
-        //Use scalar version
-        for(std::size_t i = 0 ; i < bound; ++i){
-          out = bop(out, nt2::run(in, i, meta::as_<result_type>()));
-        }
-      }
-      return out;     
-
+      return out;
     }
   };
 

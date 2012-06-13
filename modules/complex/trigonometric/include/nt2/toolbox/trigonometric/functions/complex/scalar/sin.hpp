@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
 //     typedef typename meta::as_complex<rA0>::type result_type; 
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return result_type(nt2::sinh(imag(a0))); 
+//       return result_type(nt2::sinh(nt2::imag(a0))); 
 //     }
 //   };
   

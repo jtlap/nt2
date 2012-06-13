@@ -20,7 +20,7 @@ namespace boost { namespace simd { namespace ext
                                    , (scalar_< fundamental_<A0> >)
                                    )
   {
-    typedef std::size_t result_type;
+    typedef A0 result_type;
     inline result_type operator()(A0 const & a0) const
     {
       return a0 ? One<result_type>() : Zero<result_type>();
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
                                      (scalar_< integer_<A1> > )
                                    )
   {
-    typedef std::size_t result_type;
+    typedef A0 result_type;
     inline result_type operator()(A0 const & a0, A1 const &) const
     {
       return a0 ? One<result_type>() : Zero<result_type>();

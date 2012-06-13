@@ -40,8 +40,8 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype; 
       rtype c, s, ch, sh;
-      s = sincospi(real(a0), c);
-      sinhcosh(imag(a0)*Pi<rtype>(), sh, ch);
+      s = sincospi(nt2::real(a0), c);
+      sinhcosh(nt2::imag(a0)*Pi<rtype>(), sh, ch);
       rtype r = c*ch;
       rtype i = if_zero_else(logical_or(is_imag(a0),is_real(a0)),-s*sh); 
       return result_type(r, i);     
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::cosh(imag(a0)*Pi<rtype>())); 
+      return bitwise_cast<result_type>(nt2::cosh(nt2::imag(a0)*Pi<rtype>())); 
     }
   };
   
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::cospi(real(a0))); 
+      return bitwise_cast<result_type>(nt2::cospi(nt2::real(a0))); 
     }
   };
 } }

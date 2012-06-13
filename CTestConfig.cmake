@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 set(CTEST_PROJECT_NAME "NT2")
-set(CTEST_NIGHTLY_START_TIME "00:00:00 CET")
+set(CTEST_NIGHTLY_START_TIME "00:00:00 CEST")
 
 set(CTEST_DROP_METHOD "http")
 set(CTEST_DROP_SITE "cdash.lri.fr")
@@ -58,8 +58,13 @@ if(CMAKE_PROJECT_NAME STREQUAL NT2 AND UNIX AND NOT CMAKE_CROSSCOMPILING)
     execute_process(COMMAND ${GIT_EXECUTABLE} symbolic-ref HEAD
                     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
                     OUTPUT_VARIABLE BRANCH OUTPUT_STRIP_TRAILING_WHITESPACE
+                    RESULT_VARIABLE BRANCH_RESULT ERROR_QUIET
                    )
-    string(REGEX REPLACE "^.+/([^/]+)$" "\\1" BRANCH ${BRANCH})
+    if(NOT BRANCH_RESULT)
+     string(REGEX REPLACE "^.+/([^/]+)$" "\\1" BRANCH ${BRANCH})
+    else()
+      set(BRANCH "dirty")
+    endif()
 
     if(NOT BRANCH STREQUAL "master")
       set(BUILDNAME "${BUILDNAME}-${BRANCH}")

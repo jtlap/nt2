@@ -66,7 +66,7 @@
  *        rec
  *        rsqrt
  *        sqr 
- *        sqr_abs  : square modulus sqr(real(a0))+sqr(imag(a0))
+ *        sqr_abs  : square modulus sqr(nt2::real(a0))+sqr(nt2::imag(a0))
  *        sqrt
  *
  * exponential
