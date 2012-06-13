@@ -38,6 +38,7 @@ NT2_TEST_CASE( semantic_of )
 
   table<T, S> a0, a1;
 
+#if 0
   NT2_TEST_EXPR_TYPE( a0
                     , semantic_of<_>
                     , (container<T,S>)
@@ -60,12 +61,14 @@ NT2_TEST_CASE( semantic_of )
                                 >
                       )
                     );
+#endif
 
   NT2_TEST_EXPR_TYPE( a0(boost::proto::as_expr(1))
                     , semantic_of<_>
                     , T&
                     );
 
+#if 0
   NT2_TEST_EXPR_TYPE( ((a0 + a1)(boost::proto::as_expr(1)))
                     , semantic_of<_>
                     , T
@@ -75,7 +78,10 @@ NT2_TEST_CASE( semantic_of )
                     , semantic_of<_>
                     , (container<T,S>)
                     );
+#endif
 }
+
+#if 0
 
 template<class Expr>
 struct is_nt2_basic_expr
@@ -134,7 +140,7 @@ void expr_lifetime_2_t(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
-                  , (nt2::memory::container<T, S>&)
+                  , (nt2::memory::container_ref<T, S>)
                   );
 }
 
@@ -314,3 +320,5 @@ NT2_TEST_CASE( extent_type )
                     , (of_size_<1, 2>)
                     );
 }
+
+#endif
