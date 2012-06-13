@@ -38,11 +38,8 @@ namespace nt2 { namespace memory
 
     typedef typename base_t::allocator_type      allocator_type;
     typedef typename base_t::value_type          value_type;
-    typedef typename base_t::const_iterator      const_iterator;
-    typedef typename base_t::const_reference     const_reference;
     typedef typename base_t::size_type           size_type;
     typedef typename base_t::difference_type     difference_type;
-    typedef typename base_t::const_pointer       const_pointer;
     typedef typename boost::mpl::
             if_< boost::is_const<T>
                , typename base_t::const_reference
@@ -58,6 +55,9 @@ namespace nt2 { namespace memory
                , typename base_t::const_iterator
                , typename base_t::iterator
                >::type                           iterator;
+    typedef iterator                             const_iterator;
+    typedef reference                            const_reference;
+    typedef pointer                              const_pointer;
 
     typedef typename base_t::extent_type         extent_type;
     typedef typename base_t::index_type          index_type;
@@ -154,34 +154,26 @@ namespace nt2 { namespace memory
      * Return the begin of the raw memory
      */
     //==========================================================================
-    BOOST_FORCEINLINE pointer       raw()       { return ptr; }
-    BOOST_FORCEINLINE const_pointer raw() const { return ptr; }
+    BOOST_FORCEINLINE pointer       raw() const { return ptr; }
 
     //==========================================================================
     /*!
      * Return the begin of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       begin()       { return base->begin(); }
-    BOOST_FORCEINLINE const_iterator begin() const { return base->begin(); }
+    BOOST_FORCEINLINE iterator       begin() const { return base->begin(); }
 
     //==========================================================================
     /*!
      * Return the end of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       end()       { return base->end(); }
-    BOOST_FORCEINLINE const_iterator end() const { return base->end(); }
+    BOOST_FORCEINLINE iterator       end() const   { return base->end(); }
 
     //==========================================================================
     // Linear Random Access
     //==========================================================================
-    BOOST_FORCEINLINE reference operator[](size_type i)
-    {
-      return (*base)[i];
-    }
-
-    BOOST_FORCEINLINE const_reference operator[](size_type i) const
+    BOOST_FORCEINLINE reference operator[](size_type i) const
     {
       return (*base)[i];
     }
@@ -196,14 +188,11 @@ namespace nt2 { namespace memory
      * @return A reference to the specific data of the container.
      **/
     //==========================================================================
-    BOOST_FORCEINLINE
-    specific_data_type&  specifics()       { return base->specifics(); }
-    BOOST_FORCEINLINE
     specific_data_type&  specifics() const { return base->specifics(); }
 
   private:
     base_t*                     base;
-    pointer                     ptr;
+    mutable pointer             ptr;
   };
 
   //============================================================================
@@ -229,10 +218,31 @@ namespace nt2 { namespace meta
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
-  // value_of specialization
+  // value_of specializations
   //============================================================================
   template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S> > : boost::remove_const<T> {};
+  struct value_of< nt2::memory::container_ref<T, S> >
+  {
+    typedef typename boost::remove_const<T>::type type;
+  };
+
+  template<class T, class S>
+  struct value_of< nt2::memory::container_ref<T, S> const >
+  {
+    typedef typename boost::remove_const<T>::type type;
+  };
+
+  template<class T, class S>
+  struct value_of< nt2::memory::container_ref<T, S>& >
+  {
+    typedef T& type;
+  };
+
+  template<class T, class S>
+  struct value_of< nt2::memory::container_ref<T, S> const& >
+  {
+    typedef T& type;
+  };
 
   //============================================================================
   // model_of specialization
