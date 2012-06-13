@@ -15,7 +15,7 @@
 #include <boost/iterator/iterator_adaptor.hpp>
 #include <boost/pointee.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 
 namespace boost { namespace simd
 {
@@ -160,7 +160,6 @@ namespace boost { namespace simd
     typename output_iterator::reference dereference() const
     {
       return *this;
-      //return proxy<T,C>(reinterpret_cast<T*>(this->base()));
     }
   };
 
