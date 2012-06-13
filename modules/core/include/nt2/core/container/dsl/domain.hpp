@@ -11,7 +11,7 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/sdk/meta/is_container.hpp>
+#include <nt2/sdk/memory/container_ref.hpp>
 #include <boost/proto/domain.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
@@ -20,6 +20,39 @@
 
 namespace nt2 { namespace container
 {
+  template<class T>
+  struct as_container_ref
+  {
+    typedef T type;
+    static BOOST_FORCEINLINE typename boost::add_reference<T>::type
+    call(typename boost::add_reference<T>::type t)
+    {
+      return t;
+    }
+  };
+
+  template<class T, class S>
+  struct as_container_ref< memory::container<T, S> >
+  {
+    typedef memory::container_ref<T, S> const type;
+    static BOOST_FORCEINLINE type
+    call(memory::container<T, S>& t)
+    {
+      return type(t);
+    }
+  };
+
+  template<class T, class S>
+  struct as_container_ref< memory::container<T, S> const >
+  {
+    typedef memory::container_ref<T const, S> const type;
+    static BOOST_FORCEINLINE type
+    call(memory::container<T, S> const& t)
+    {
+      return type(t);
+    }
+  };
+
   struct  domain
         : boost::proto::domain< container::generator_transform<domain>
                               , container::grammar
@@ -53,14 +86,14 @@ namespace nt2 { namespace container
     {
       typedef typename boost::proto::result_of::value<T&>::value_type value_type;
       typedef typename boost::mpl::if_< boost::is_const<T>, typename boost::add_const<value_type>::type, value_type >::type type;
-      typedef typename boost::mpl::if_< meta::is_container<type>, typename boost::add_reference<type>::type, type>::type term;
+      typedef typename as_container_ref<type>::type term;
 
       typedef as_child<term> impl;
       typedef typename impl::result_type result_type;
 
       BOOST_FORCEINLINE result_type operator()(T& t) const
       {
-        return impl()(boost::proto::value(t));
+        return impl()(as_container_ref<type>::call(boost::proto::value(t)));
       }
     };
 

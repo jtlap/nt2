@@ -134,7 +134,7 @@ void expr_lifetime_2_t(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
-                  , (nt2::memory::container<T, S>&)
+                  , (nt2::memory::container_ref<T, S>)
                   );
 }
 
