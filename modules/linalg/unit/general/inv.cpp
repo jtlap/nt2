@@ -31,6 +31,6 @@ NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
   NT2_DISP(invn); 
   for(int i=0; i < 100; i++)
     {
-      NT2_TEST_ULP_EQUAL(invn(i),n(i), 0.5);
+      NT2_TEST_ULP_EQUAL(invn(i),n(i), 20);
     }
  }
