@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
 #pragma omp parallel 
           {
 #pragma omp for schedule(static) private(id)
-            for(std::size_t o = 0; o < obound; ++o)
+            for(std::ptrdiff_t o = 0; o < obound; ++o)
               {
                 std::size_t o_ = o*ibound;
 #ifndef BOOST_NO_EXCEPTIONS
@@ -194,17 +194,18 @@ namespace nt2 { namespace ext
       // - static schedule is set on using cache line sized chunks to limit
       // effects of false sharing.
       #pragma omp parallel for schedule(static,chunk)
-      for(std::size_t o = 0; o < obound; ++o){
+      for(std::ptrdiff_t o = 0; o < obound; ++o)
+      {
         std::size_t o_ = o*ibound;
 #ifndef BOOST_NO_EXCEPTIONS
         try
         {
 #endif
-
-        for(std::size_t i = 0; i < ibound; ++i){
-          id = i+o_;
-          nt2::run(out, id, details::partial_fold_step(in,id,mbound,neutral,bop,uop));
-        }
+          for(std::size_t i = 0; i < ibound; ++i)
+          {
+            id = i+o_;
+            nt2::run(out, id, details::partial_fold_step(in,id,mbound,neutral,bop,uop));
+          }
 #ifndef BOOST_NO_EXCEPTIONS
         }
         catch(...)
@@ -212,15 +213,12 @@ namespace nt2 { namespace ext
           exception = boost::current_exception();
         }
 #endif
-
       }
 #ifndef BOOST_NO_EXCEPTIONS
       if(exception)
         boost::rethrow_exception(exception);
 #endif
-
     }
-
   };
     
   } }

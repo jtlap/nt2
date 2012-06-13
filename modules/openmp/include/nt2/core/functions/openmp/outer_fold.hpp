@@ -14,7 +14,6 @@
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/sdk/config/cache.hpp>
 #include <nt2/sdk/openmp/openmp.hpp>
-#include <iostream>
 
 #ifndef BOOST_NO_EXCEPTIONS
 #include <boost/exception_ptr.hpp>
@@ -74,23 +73,27 @@ namespace nt2 { namespace ext
       #pragma omp parallel 
       {
         #pragma omp for schedule(static)
-        for(std::size_t j = 0; j < bound; j+=cache_bound){
+        for(std::ptrdiff_t j = 0; j < bound; j+=cache_bound)
+        {
           //Initialise 
-          for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N){              
+          for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N)
             nt2::run(out, id, neutral(nt2::meta::as_<target_type>()));
-          }
 
 #ifndef BOOST_NO_EXCEPTIONS
           try
           {
 #endif
-          for(std::size_t i = 0, l = 0; i < ibound; ++i, l+=obound ){
-            for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N){
-              nt2::run(out, id,
-                       bop(nt2::run(out, id, meta::as_<target_type>())
-                           ,nt2::run(in, id+l, meta::as_<target_type>())));
+            for(std::size_t i = 0, l = 0; i < ibound; ++i, l+=obound )
+            {
+              for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N)
+              {
+                nt2::run(out, id,
+                         bop( nt2::run(out, id, meta::as_<target_type>())
+                            , nt2::run(in, id+l, meta::as_<target_type>())
+                            )
+                        );
+              }
             }
-          }
 #ifndef BOOST_NO_EXCEPTIONS
           }
           catch(...)
@@ -109,18 +112,22 @@ namespace nt2 { namespace ext
 #endif
  
         // scalar part
-        for(std::size_t j = bound; j < obound; ++j){ 
+        for(std::size_t j = bound; j < obound; ++j)
+        {
           nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
-          for(std::size_t i = 0, k = 0; i < ibound; ++i, k+=obound){
-            nt2::run(out, j,
-                     bop(  nt2::run(out, j, meta::as_<value_type>())
-                           , nt2::run(in, j+k, meta::as_<value_type>())));
+          for(std::size_t i = 0, k = 0; i < ibound; ++i, k+=obound)
+          {
+            nt2::run( out, j,
+                      bop( nt2::run(out, j, meta::as_<value_type>())
+                         , nt2::run(in, j+k, meta::as_<value_type>())
+                         )
+                    );
           }
         }
       }
       
       else {
-        for(std::size_t j = 0; j < obound; ++j){ 
+        for(std::size_t j = 0; j < obound; ++j){
           nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
           for(std::size_t i = 0, k = 0; i < ibound; ++i, k+=obound){
             nt2::run(out, j,
@@ -181,7 +188,7 @@ namespace nt2 { namespace ext
       // - static schedule is set on using cache line sized chunks to limit
       // effects of false sharing.
 #pragma omp parallel for schedule(static,chunk)
-      for(std::size_t j = 0; j < obound; ++j)
+      for(std::ptrdiff_t j = 0; j < obound; ++j)
       {
 #ifndef BOOST_NO_EXCEPTIONS
         try

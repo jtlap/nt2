@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
 #endif
       // - loop nest is 2D so we can walk over the scalar epilogue of each row.
       #pragma omp parallel for schedule(static)
-      for(std::size_t j=0; j<outer_sz; ++j)
+      for(std::ptrdiff_t j=0; j<outer_sz; ++j)
       {
         std::size_t it = j*in_sz;
 #ifndef BOOST_NO_EXCEPTIONS
@@ -135,7 +135,7 @@ namespace nt2 { namespace ext
 #endif
       // - 1D loop nest stops just before the scalar epilogue
       #pragma omp parallel for schedule(static)
-      for(std::size_t i=0; i<aligned_bound; i+=N)
+      for(std::ptrdiff_t i=0; i<aligned_bound; i+=N)
       {
 #ifndef BOOST_NO_EXCEPTIONS
         try
@@ -197,7 +197,7 @@ namespace nt2 { namespace ext
       // - static schedule is set on using cache line sized chunks to limit
       // effects of false sharing.
       #pragma omp parallel for schedule(static,chunk)
-      for(std::size_t i=0; i<bound; ++i)
+      for(std::ptrdiff_t i=0; i<bound; ++i)
       {
 #ifndef BOOST_NO_EXCEPTIONS
         try

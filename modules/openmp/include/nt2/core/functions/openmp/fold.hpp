@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
         target_type vec_out = neutral(nt2::meta::as_<target_type>());
 
         #pragma omp for schedule(static)
-        for(std::size_t i =0; i < aligned_bound; i+=N)
+        for(std::ptrdiff_t i =0; i < aligned_bound; i+=N)
         {
 
 #ifndef BOOST_NO_EXCEPTIONS
@@ -141,7 +141,7 @@ namespace nt2 { namespace ext
         result_type out = neutral(nt2::meta::as_<result_type>());
 
         #pragma omp for schedule(static,chunk)
-        for(std::size_t i = 0; i < bound; ++i){
+        for(std::ptrdiff_t i = 0; i < bound; ++i){
 #ifndef BOOST_NO_EXCEPTIONS
           try
           {
@@ -163,13 +163,13 @@ namespace nt2 { namespace ext
       }
 
 #ifndef BOOST_NO_EXCEPTIONS
-        if(exception)
-          boost::rethrow_exception(exception);
+      if(exception)
+        boost::rethrow_exception(exception);
 #endif
-        return gout;
-        
-      }
-    
+      return gout;
+
+    }
+
   };
 
 } }
