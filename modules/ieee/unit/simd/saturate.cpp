@@ -36,21 +36,21 @@
 
 NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
-  using nt2::saturate;
-  using nt2::tag::saturate_;
-  using nt2::load; 
-  using boost::simd::native;
-  using nt2::meta::cardinal_of;
-  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename nt2::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<saturate_<uint16_t>(vT)>::type r_t;
-  typedef typename nt2::meta::call<saturate_<uint16_t>(T)>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+//   using nt2::saturate;
+//   using nt2::tag::saturate_;
+//   using nt2::load; 
+//   using boost::simd::native;
+//   using nt2::meta::cardinal_of;
+//   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+//   typedef typename nt2::meta::upgrade<T>::type   u_t;
+//   typedef native<T,ext_t>                        n_t;
+//   typedef n_t                                     vT;
+//   typedef typename nt2::meta::as_integer<T>::type iT;
+//   typedef native<iT,ext_t>                       ivT;
+//   typedef typename nt2::meta::call<saturate_<uint16_t>(vT)>::type r_t;
+//   typedef typename nt2::meta::call<saturate_<uint16_t>(T)>::type sr_t;
+//   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+//   double ulpd;
+//   ulpd=0.0;
 
 } // end of test for unsigned_int_
