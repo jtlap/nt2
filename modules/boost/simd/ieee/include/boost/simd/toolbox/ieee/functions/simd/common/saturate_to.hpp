@@ -53,6 +53,19 @@ namespace boost { namespace simd { namespace ext
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_to_, tag::cpu_,
                                     (A0)(To)(X),
+                                    ((simd_<uint_<A0>,X>))
+                                    ((target_<simd_<uint_<To>,X> >  ))               
+                                    )
+  {
+    typedef typename To::type result_type;
+    result_type operator()(A0 const& a0, To const&) const
+    {
+      return a0; 
+    }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_to_, tag::cpu_,
+                                    (A0)(To)(X),
                                     ((simd_<int_<A0>,X>))
                                     ((target_<simd_<int_<To>,X> >  ))               
                                     )

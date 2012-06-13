@@ -41,7 +41,9 @@ if(CMAKE_PROJECT_NAME STREQUAL NT2 AND UNIX AND NOT CMAKE_CROSSCOMPILING)
 
   if(NOT DEFINED NT2_SIMD_EXT)
     set(OLD_MODULE_PATH ${CMAKE_MODULE_PATH})
-    set(CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules/boost/simd/sdk/cmake)
+    set ( CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules/boost/simd/sdk/cmake
+                            ${PROJECT_SOURCE_DIR}/cmake
+        )
     include(nt2.simd)
     set(CMAKE_MODULE_PATH ${OLD_MODULE_PATH})
   endif()
