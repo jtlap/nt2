@@ -23,7 +23,7 @@
 
 NT2_TEST_CASE_TPL( any_scalar, NT2_TYPES )
 {
-  T x = nt2::any(nt2::True<T>());
+  nt2::logical<T> x = nt2::any(nt2::True<T>());
   NT2_TEST_EQUAL( x, (nt2::True<T>()) );
 
   x = nt2::any(nt2::True<T>(),1);
