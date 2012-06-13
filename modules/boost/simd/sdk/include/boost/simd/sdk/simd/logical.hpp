@@ -9,14 +9,15 @@
 #ifndef BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 
-#include <climits>
-#include <boost/assert.hpp>
-#include <boost/dispatch/attributes.hpp>
+#include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <boost/assert.hpp>
+#include <climits>
 #include <ostream>
 #include <ios>
 
@@ -30,7 +31,7 @@ namespace boost { namespace simd
    * for any given extension
    */
   //============================================================================
-  template<typename T> struct logical
+  template<typename T> struct BOOST_SIMD_MAY_ALIAS logical
   {
     typedef T                                             value_type;
     typedef typename dispatch::meta::as_integer<T>::type  bits;

@@ -11,7 +11,7 @@
 #include <nt2/toolbox/reduction/functions/at_i.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
+#include <nt2/include/functions/inbtrue.hpp>
 #include <nt2/include/functions/posmax.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<stype>::type result_type; 
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(real(a0)[a1], imag(a0)[a1]); 
+        return result_type(nt2::real(a0)[a1], nt2::imag(a0)[a1]); 
       }
   };
   
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<stype>::type result_type; 
     NT2_FUNCTOR_CALL(2)
       {
-        return result_type(real(a0)[a1]);
+        return result_type(nt2::real(a0)[a1]);
       }
   };
 

@@ -15,16 +15,20 @@
 extern "C"
 {
   void NT2_F77NAME(ctrtrs)(const char* uplo, const char* trans, const char* diag,
-                           const nt2_la_int* n, const nt2_la_int* nrhs, const nt2_la_complex* a, const nt2_la_int* lda,
+                           const nt2_la_int* n, const nt2_la_int* nrhs,
+                           const nt2_la_complex* a, const nt2_la_int* lda,
                            nt2_la_complex* b, const nt2_la_int* ldb, nt2_la_int* info);
   void NT2_F77NAME(dtrtrs)(const char* uplo, const char* trans, const char* diag,
-                           const nt2_la_int* n, const nt2_la_int* nrhs, const double* a, const nt2_la_int* lda,
+                           const nt2_la_int* n, const nt2_la_int* nrhs,
+                           const double* a, const nt2_la_int* lda,
                            double* b, const nt2_la_int* ldb, nt2_la_int* info);
   void NT2_F77NAME(strtrs)(const char* uplo, const char* trans, const char* diag,
-                           const nt2_la_int* n, const nt2_la_int* nrhs, const float* a, const nt2_la_int* lda,
+                           const nt2_la_int* n, const nt2_la_int* nrhs,
+                           const float* a, const nt2_la_int* lda,
                            float* b, const nt2_la_int* ldb, nt2_la_int* info);
   void NT2_F77NAME(ztrtrs)(const char* uplo, const char* trans, const char* diag,
-                           const nt2_la_int* n, const nt2_la_int* nrhs, const nt2_la_complex* a, const nt2_la_int* lda,
+                           const nt2_la_int* n, const nt2_la_int* nrhs,
+                           const nt2_la_complex* a, const nt2_la_int* lda,
                            nt2_la_complex* b, const nt2_la_int* ldb, nt2_la_int* info);
 }
 

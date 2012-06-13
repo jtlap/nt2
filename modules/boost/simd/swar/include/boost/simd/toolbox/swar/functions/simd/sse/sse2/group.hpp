@@ -11,6 +11,7 @@
 
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/swar/functions/group.hpp>
+#include <boost/simd/include/functions/simd/saturate.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -51,8 +52,8 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::group_
                                     , boost::simd::tag::sse2_
                                     , (A0)
-                                    , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
-                                      ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
+                                    , ((simd_<int32_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<int32_<A0>,boost::simd::tag::sse_>))
                                     )
   {
       typedef typename meta::scalar_of<A0>::type              stype;
@@ -138,9 +139,7 @@ namespace boost { namespace simd { namespace ext
                                       ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                                     )
   {
-    typedef typename meta::scalar_of<A0>::type              stype;
-    typedef typename dispatch::meta::downgrade<stype>::type utype;
-    typedef simd::native<utype,boost::simd::tag::sse_>      result_type;
+    typedef typename dispatch::meta::downgrade<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
@@ -148,7 +147,7 @@ namespace boost { namespace simd { namespace ext
       result_type b = {_mm_slli_si128(simd::bitwise_cast<result_type>(a1),4)};
                   b = b_or(b, a0);
 
-      return simd::bitwise_cast<result_type>(_mm_shuffle_epi32(b, _MM_SHUFFLE(3, 2, 1, 0)) );
+      return simd::bitwise_cast<result_type>(_mm_shuffle_epi32(b, _MM_SHUFFLE(3, 1, 2, 0)) );
     }
   };
 } } }

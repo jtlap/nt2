@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, DIMS)
   NT2_TEST(b.empty());
   NT2_TEST_EQUAL(b.size()             , 0u );
   NT2_TEST_EQUAL(b.leading_size()     , 0u );
-  NT2_TEST(b.extent() == of_size_<0>());
+  NT2_TEST_EQUAL(b.extent(), of_size_<0>());
   NT2_TEST_EQUAL(b.raw(), (double*)(0));
 }
 
@@ -96,7 +96,7 @@ NT2_TEST_CASE_TPL( container_static_default_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST( (b.extent() == of_size_<3,7>()) );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(typename type::difference_type j=0;j<7;++j)
@@ -113,8 +113,8 @@ NT2_TEST_CASE_TPL( container_static_default_ctor, NT2_TYPES)
     type b;
 
     NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size()             , b.extent()[0] );
-    NT2_TEST( (b.extent() == of_size_<1,5>()) );
+    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<1,5>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(typename type::difference_type j=0;j<5;++j)
@@ -143,7 +143,7 @@ NT2_TEST_CASE_TPL( container_automatic_static_default_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST( (b.extent() == of_size_<3,7>()) );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(typename type::difference_type j=0;j<7;++j)
@@ -161,7 +161,7 @@ NT2_TEST_CASE_TPL( container_automatic_static_default_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size()             , b.extent()[0] );
-    NT2_TEST( (b.extent() == of_size_<1,7>()) );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<1,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(typename type::difference_type j=0;j<7;++j)
@@ -190,7 +190,7 @@ NT2_TEST_CASE_TPL( container_size_ctor, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST( (b.extent() == of_size_<3,7>()) );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(typename type::difference_type j=0;j<7;++j)
@@ -208,8 +208,8 @@ NT2_TEST_CASE_TPL( container_size_ctor, NT2_TYPES)
     type b( of_size(1,7) );
 
     NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size()             , b.extent()[0] );
-    NT2_TEST( (b.extent() == of_size_<1,7>()) );
+    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+    NT2_TEST_EQUAL( b.extent(), (of_size_<1,7>()) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(typename type::difference_type j=0;j<7;++j)
@@ -243,7 +243,7 @@ NT2_TEST_CASE_TPL( container_copy_ctor, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), b.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(5,3) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
@@ -264,7 +264,7 @@ NT2_TEST_CASE_TPL( container_copy_ctor, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(1,3)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(1,3) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
@@ -297,7 +297,7 @@ NT2_TEST_CASE_TPL( automatic_container_copy_ctor, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), b.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(3,7)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(3,7) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
@@ -318,7 +318,7 @@ NT2_TEST_CASE_TPL( automatic_container_copy_ctor, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(1,7)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(1,7) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
@@ -351,7 +351,7 @@ NT2_TEST_CASE_TPL( container_assignment, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(5,3) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
@@ -374,7 +374,7 @@ NT2_TEST_CASE_TPL( container_assignment, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(1,3)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(1,3) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
@@ -408,7 +408,7 @@ NT2_TEST_CASE_TPL( automatic_container_assignment, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(5,3) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
@@ -431,7 +431,7 @@ NT2_TEST_CASE_TPL( automatic_container_assignment, NT2_TYPES)
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(1,3)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(1,3) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
@@ -469,12 +469,12 @@ NT2_TEST_CASE_TPL( container_swap, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST( (b.extent() == of_size(7,2)) );
+    NT2_TEST_EQUAL( b.extent(), of_size(7,2) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(5,3)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(5,3) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
 
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
@@ -506,12 +506,12 @@ NT2_TEST_CASE_TPL( container_swap, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST( (b.extent() == of_size(1,2)) );
+    NT2_TEST_EQUAL( b.extent(), of_size(1,2) );
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     NT2_TEST(!x.empty());
     NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST( (x.extent() == of_size(1,3)) );
+    NT2_TEST_EQUAL( x.extent(), of_size(1,3) );
     NT2_TEST_EQUAL(x.raw(), &x[0]);
 
     NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
@@ -543,14 +543,14 @@ NT2_TEST_CASE_TPL( container_resize, NT2_TYPES)
     NT2_TEST(b.empty());
     NT2_TEST_EQUAL(b.size(),  0 );
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST(b.extent() == of_size_<0>());
+    NT2_TEST_EQUAL(b.extent(), of_size_<0>());
     NT2_TEST_EQUAL(b.raw(), (T*)(0));
 
     b.resize( of_size(3,2) );
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST(b.extent() == of_size(3,2));
+    NT2_TEST_EQUAL(b.extent(), of_size(3,2));
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(typename type::difference_type j=0;j<2;++j)
@@ -565,7 +565,7 @@ NT2_TEST_CASE_TPL( container_resize, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST(b.extent() == of_size(1,11));
+    NT2_TEST_EQUAL(b.extent(), of_size(1,11));
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(typename type::difference_type j=0;j<11;++j)
@@ -578,7 +578,7 @@ NT2_TEST_CASE_TPL( container_resize, NT2_TYPES)
 
     NT2_TEST(!b.empty());
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST(b.extent() == of_size(2,7));
+    NT2_TEST_EQUAL(b.extent(), of_size(2,7));
     NT2_TEST_EQUAL(b.raw(), &b[0]);
 
     for(typename type::difference_type j=0;j<7;++j)

@@ -7,7 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_OPTIMIZATION_DEPENDENCIES_EXTRA arithmetic bitwise boolean
+SET(NT2_OPTIMIZATION_DEPENDENCIES_EXTRA sdk.option
+                                        arithmetic bitwise boolean
                                         constant ieee operator predicates reduction
                                         polynomials exponential trigonometric
    )

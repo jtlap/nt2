@@ -36,7 +36,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 #ifdef NT2_LOG_COPIES
-#include <nt2/sdk/details/type_id.hpp>
+#include <nt2/sdk/unit/display_type.hpp>
 #endif
 
 namespace nt2 { namespace container
@@ -100,7 +100,9 @@ namespace nt2 { namespace container
     // Compute storage type for size
     //==========================================================================
     typedef typename size_transform<domain>::
-            template result<size_transform<domain>(Expr)>::type extent_type;
+            template result<size_transform<domain>(Expr&)>::type sizes_t;
+
+    typedef typename meta::strip<sizes_t>::type                 extent_type;
 
     typedef typename index_type::type                           indexes_type;
 
@@ -230,7 +232,7 @@ namespace nt2 { namespace container
     //==========================================================================
     // Return current expression extent
     //==========================================================================
-    BOOST_FORCEINLINE extent_type extent() const { return size_; }
+    BOOST_FORCEINLINE extent_type const& extent() const { return size_; }
 
     //==========================================================================
     // Return current expression base indexes
@@ -242,10 +244,9 @@ namespace nt2 { namespace container
     //==========================================================================
     BOOST_FORCEINLINE size_type leading_size() const
     {
-      typedef typename meta::strip<extent_type>::type sizes_t;
       typedef typename boost::mpl
                             ::apply < storage_order_type
-                                    , boost::mpl::size_t<sizes_t::static_size>
+                                    , boost::mpl::size_t<extent_type::static_size>
                                     , boost::mpl::size_t<0U>
                                     >::type                     dim_t;
       return size_[dim_t::value];
@@ -264,7 +265,7 @@ namespace nt2 { namespace container
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<Expr>::value == 0)
                           , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
-                          , (Expr)
+                          , (Expr&)
                           );
 
       return nt2::terminal(*this).raw();
@@ -280,7 +281,7 @@ namespace nt2 { namespace container
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<Expr>::value == 0)
                           , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
-                          , (Expr)
+                          , (Expr&)
                           );
 
       return nt2::terminal(*this).raw();
@@ -364,12 +365,12 @@ namespace nt2 { namespace container
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (sizeof(Xpr) == 0)
                           , NT2_EXPRESSION_GRAMMAR_MISMATCH
-                          , (Xpr)
+                          , (Xpr&)
                           );
     }
 
     private:
-    extent_type size_;
+    sizes_t size_;
   };
 } }
 

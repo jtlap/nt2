@@ -18,7 +18,7 @@
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <nt2/sdk/details/type_id.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
@@ -49,24 +49,24 @@ namespace nt2 { namespace ext
       i_t p0 = nt2::enumerate<i_t>(pos0[0]);
       if (along == 0)
         { //this is vertcat
-          sub_t pos1 = pos0;  pos1[0] -= ex0[0]; 
+          sub_t pos1 = pos0;  pos1[0] -= ex0[0];
           i_t h0 = nt2::splat    <i_t>(ex0[0]);
           return if_else(le(p0, h0), // are we in the upper or lower part (a0 or a1)
                          nt2::run(boost::proto::child_c<0>(a0),sub2ind(ex0, pos0),t),
                          nt2::run(boost::proto::child_c<1>(a0),sub2ind(ex1, pos1),t)
-                         );            
+                         );
         }
       else
         { //these are the other cases
           if(pos0[along] <= ex0[along]) // this is in the a0 part
             {
-              State pp = sub2ind(ex0, pos0); 
-              return nt2::run(boost::proto::child_c<0>(a0),pp,t); 
+              State pp = sub2ind(ex0, pos0);
+              return nt2::run(boost::proto::child_c<0>(a0),pp,t);
             }
           else // this is in the a1 part
             {
-              pos0[along] -= ex0[along]; 
-              State pp = sub2ind(ex1, pos0); 
+              pos0[along] -= ex0[along];
+              State pp = sub2ind(ex1, pos0);
               return nt2::run(boost::proto::child_c<1>(a0),pp,t);
             }
         }

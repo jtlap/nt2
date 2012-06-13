@@ -16,7 +16,7 @@
 
 //  full_qr_solve solve linear system a*x=b.
 //     x = full_qr_solve(a,b) solves the linear system a*x=b using
-//     lu factorization with partial pivoting. a must be square,
+//     qr factorization.
 
 namespace nt2
 {
@@ -79,7 +79,8 @@ namespace nt2
      **/
     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::full_qr_solve_, full_qr_solve, 2)
     NT2_FUNCTION_IMPLEMENTATION(tag::solvers::full_qr_solve_, full_qr_solve, 3)
-    NT2_FUNCTION_IMPLEMENTATION_SELF(tag::solvers::full_qr_solve_, full_qr_solve, 3)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_qr_solve_, full_qr_solve,(A0&)(const A1&)(const A2&), 3)
+    NT2_FUNCTION_IMPLEMENTATION_TPL(tag::solvers::full_qr_solve_, full_qr_solve,(A0&)(const A1&)(const A2&)(const A3&), 4)
   }
 }
 

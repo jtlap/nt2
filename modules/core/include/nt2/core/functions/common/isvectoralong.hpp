@@ -13,7 +13,6 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/sdk/meta/safe_at.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -27,26 +26,28 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0, const A1& dim) const
     {
-      int d = dim-1; 
-      typedef typename meta::call<tag::extent_(A0 const&)>::type extent_t; 
+      int d = dim-1;
+      typedef typename meta::call<tag::extent_(A0 const&)>::type extent_t;
       extent_t ex = nt2::extent(a0);
       std::size_t nz = nt2::numel(ex);
       if (nz)
         return ex[d] == nz;
       else
+      {
+        for(int i=0; i < d; ++i)
         {
-          for(int i=0; i < d; ++i)
-            {
-              if (ex[i] !=  1) return false;
-            }
-           for(int i=dim; i < ex.size(); ++i)
-            {
-              if (ex[i] !=  1) return false;
-            }
+          if (ex[i] !=  1) return false;
         }
-      return true; 
+
+        for(int i=dim; i < ex.size(); ++i)
+        {
+          if (ex[i] !=  1) return false;
+        }
+      }
+      return true;
     }
   };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isvectoralong_, tag::cpu_
                             , (A0)(A1)
                             , (scalar_<fundamental_<A0> >)
@@ -57,9 +58,9 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0&, const A1& ) const
     {
-      return true; 
+      return true;
     }
-  };   
+  };
 } }
-  
+
 #endif

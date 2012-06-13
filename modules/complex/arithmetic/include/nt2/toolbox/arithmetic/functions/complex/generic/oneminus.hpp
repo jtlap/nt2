@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(oneminus(real(a0)),-imag(a0)); 
+      return result_type(oneminus(nt2::real(a0)),-nt2::imag(a0)); 
     }
   };
 
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(One<rA0>(), -imag(a0)); 
+      return result_type(One<rA0>(), -nt2::imag(a0)); 
     }
   };
   
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(oneminus(real(a0))); 
+      return bitwise_cast<result_type>(oneminus(nt2::real(a0))); 
     }
   };
   

@@ -9,9 +9,7 @@
 
 SET( SOURCES
   assert_exception.cpp
-  cycle_timer.cpp
   display_type.cpp
-  second_timer.cpp
   type_id.cpp
   )
 

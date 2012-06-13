@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SCHUR_HPP_INCLUDED
 
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
-//#include <nt2/toolbox/linalg/details/utility/lower.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/of_size.hpp>

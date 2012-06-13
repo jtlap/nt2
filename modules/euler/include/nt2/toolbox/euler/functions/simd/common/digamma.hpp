@@ -24,7 +24,7 @@
 #include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/is_lez.hpp>
 #include <nt2/include/functions/simd/is_nez.hpp>
-#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/floor.hpp>
 #include <nt2/include/functions/simd/bitwise_ornot.hpp>
 #include <nt2/include/functions/simd/bitwise_andnot.hpp>
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
       A0 x = a0;
       bA0 test = is_lez(a0);
       uint32_t nb;
-      if( (nb = nbtrue(test)) > 0)
+      if( (nb = inbtrue(test)) > 0)
         {
           x = sel(test, oneminus(a0), a0);
           A0 remainder = x - floor(x);
@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
         }
       A0 r1 = Zero<A0>(), r2= Zero<A0>();
       test = gt(x, Digammalargelim<A0>());
-      if((nb = nbtrue(test)))
+      if((nb = inbtrue(test)))
         { // If we're above the lower-limit for the asymptotic expansion then use it:
           r1 = if_else_zero(test, digamma_imp_large(x, sA0()))+result;//b_and(digamma_imp_large(x, sA0()), test)+result;
           if (nb >= (uint32_t)meta::cardinal_of<A0>::value) return r1;

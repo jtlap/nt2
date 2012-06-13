@@ -108,5 +108,5 @@ NT2_TEST_CASE_TPL ( hypot_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   NT2_TEST_ULP_EQUAL(hypot(nt2::Mone<T>(), nt2::Mone<T>()), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(hypot(nt2::One<T>(), nt2::One<T>()), nt2::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(hypot(nt2::Three<T>(),nt2::Four <T>()), nt2::Five <r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(hypot(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(hypot(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0);
 } // end of test for signed_int_

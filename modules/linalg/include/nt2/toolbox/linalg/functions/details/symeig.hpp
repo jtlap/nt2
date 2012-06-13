@@ -19,6 +19,7 @@
 #include <nt2/include/functions/issymetric.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/sdk/error/warning.hpp>
 #include <nt2/table.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -73,7 +74,9 @@ namespace nt2 { namespace details
       , lda_( aa_.leading_size() )
       , info_(0)
     {
-      //      BOOST_ASSERT_MSG(nt2::issymetric(a_), "input must be a symetric matrix");
+      NT2_WARNING(nt2::issymetric(a_)||(uplo == 'L'), "in symeig input is not symetric: only the upper matrix part will be used");
+      NT2_WARNING(nt2::issymetric(a_)||(uplo == 'U'), "in symeig input is not symetric: only the lower matrix part will be used");
+
       nt2::details::hsev(&jobz_, &uplo_, &n_,
                          aa_.raw(), &lda_, w_.raw(),
                          &info_, wrk_);

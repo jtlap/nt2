@@ -6,13 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - lu_result solvers"
+#define NT2_UNIT_MODULE "nt2 linalg toolbox - qr_ solvers"
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/full_qr_solver.hpp>
+#include <nt2/include/functions/full_qr_solve.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
@@ -22,7 +22,7 @@
 NT2_TEST_CASE_TPL(full_qr_solver_result, NT2_REAL_TYPES)
 {
   using nt2::_; 
-  using nt2::tag::solvers::full_qr_solver_;
+  using nt2::tag::solvers::full_qr_solve_;
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t; 
   typedef nt2::table<T> t_t;
   typedef nt2::table<itype_t> it_t; 
@@ -31,7 +31,8 @@ NT2_TEST_CASE_TPL(full_qr_solver_result, NT2_REAL_TYPES)
   t_t b = nt2::ones(4, 1, nt2::meta::as_<T>()); 
   nt2::disp("a     ", a); 
   nt2::disp("b     ", b); 
-  nt2::details::full_qr_solver_result<t_t> f(a, b, 'N');
+  typedef typename nt2::meta::call<full_qr_solve_(t_t const&, t_t const&, char)>::type result_type;
+  result_type f = nt2::solvers::full_qr_solve(a, b, 'N');
 
   nt2::disp("values", f.x());
 //   t_t p = f.p();

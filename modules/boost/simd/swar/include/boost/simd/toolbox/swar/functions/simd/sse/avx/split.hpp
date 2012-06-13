@@ -91,12 +91,12 @@ namespace boost { namespace simd { namespace ext
 
       A1_sse_ ha000, ha001;
       split(a00, ha000, ha001);
-      a1 = _mm256_insertf128_si256(a1, ha000, 0);
+      a1 = _mm256_castsi128_si256(ha000);
       a1 = _mm256_insertf128_si256(a1, ha001, 1);
 
       A1_sse_ ha010, ha011;
       split(a01, ha010, ha011);
-      a2 = _mm256_insertf128_si256(a2, ha010, 0);
+      a2 = _mm256_castsi128_si256(ha010);
       a2 = _mm256_insertf128_si256(a2, ha011, 1);
     }
   };

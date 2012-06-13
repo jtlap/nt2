@@ -20,19 +20,19 @@
 
 NT2_TEST_CASE( ric_size )
 {
-  NT2_TEST( nt2::extent( nt2::ric(4) ) == nt2::of_size(4,4 ));
+  NT2_TEST_EQUAL( nt2::extent( nt2::ric(4) ), nt2::of_size(4,4 ));
   NT2_TEST_EQUAL( nt2::size( nt2::ric(4), 1 ), 4 );
   NT2_TEST_EQUAL( nt2::size( nt2::ric(4), 2 ), 4 );
-  NT2_TEST( nt2::extent( nt2::ric(4, 5) ) == nt2::of_size(4,5 ));
+  NT2_TEST_EQUAL( nt2::extent( nt2::ric(4, 5) ), nt2::of_size(4,5 ));
   NT2_TEST_EQUAL( nt2::size( nt2::ric(4, 5), 1 ), 4 );
   NT2_TEST_EQUAL( nt2::size( nt2::ric(4, 5), 2 ), 5 );
-  NT2_TEST( nt2::extent( nt2::ric(nt2::of_size(4,5)) ) == nt2::of_size(4,5) );
+  NT2_TEST_EQUAL( nt2::extent( nt2::ric(nt2::of_size(4,5)) ), nt2::of_size(4,5 ) );
   NT2_TEST_EQUAL( nt2::size( nt2::ric(nt2::of_size(4,5)), 1 ), 4 );
   NT2_TEST_EQUAL( nt2::size( nt2::ric(nt2::of_size(4,5)), 2 ), 5 );
-  NT2_TEST( nt2::extent( nt2::ric(nt2::of_size(4,1)) ) == nt2::of_size(4,1) );
+  NT2_TEST_EQUAL( nt2::extent( nt2::ric(nt2::of_size(4,1)) ), nt2::of_size(4,1 ) );
   NT2_TEST_EQUAL( nt2::size( nt2::ric(nt2::of_size(4,1)), 1 ), 4 );
   NT2_TEST_EQUAL( nt2::size( nt2::ric(nt2::of_size(4,1)), 2 ), 1 );
-  NT2_TEST( nt2::extent( nt2::ric(nt2::of_size(1,4)) ) == nt2::of_size(1,4) );
+  NT2_TEST_EQUAL( nt2::extent( nt2::ric(nt2::of_size(1,4)) ), nt2::of_size(1,4 ) );
   NT2_TEST_EQUAL( nt2::size( nt2::ric(nt2::of_size(1,4)), 1 ), 1 );
   NT2_TEST_EQUAL( nt2::size( nt2::ric(nt2::of_size(1,4)), 2 ), 4 );
 }

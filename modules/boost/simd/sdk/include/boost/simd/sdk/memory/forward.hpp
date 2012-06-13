@@ -9,41 +9,47 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_FORWARD_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_FORWARD_HPP_INCLUDED
 
-#include <cstddef>
 #include <boost/simd/sdk/memory/config.hpp>
 #include <boost/simd/sdk/memory/parameters.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
+#include <cstddef>
 
 namespace boost { namespace simd {  namespace memory
 {
-  inline byte* 
+  byte*
   allocate ( std::size_t nbytes
-           , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
+           , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
            );
            
-  template<class Allocator> inline byte*
+  template<class Allocator>
+  typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer, byte* >::type
   allocate( Allocator& alloc
           , std::size_t nbytes
           , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
           );
 
-  inline void deallocate( byte* ptr
-                        , std::size_t nbytes = 0
-                        , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
-                        );
-
-  template<class Allocator> inline void
-  deallocate( Allocator& alloc, byte* ptr
+  void
+  deallocate( byte* ptr
             , std::size_t nbytes = 0
-            , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
+            , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
             );
 
-  inline byte* reallocate ( byte* ptr
-                          , std::size_t nbytes
-                          , std::size_t obytes
-                          , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
-                          );
+  template<class Allocator>
+  typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer >::type
+  deallocate( Allocator& alloc, byte* ptr
+            , std::size_t nbytes = 0
+            , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
+            );
+
+  byte*
+  reallocate( byte* ptr
+            , std::size_t nbytes
+            , std::size_t obytes
+            , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
+            );
                           
-  template<class Allocator> inline byte*
+  template<class Allocator>
+  typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer, byte* >::type
   reallocate( Allocator& a
             ,  byte* ptr
             , std::size_t nbytes

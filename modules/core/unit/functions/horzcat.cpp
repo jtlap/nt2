@@ -20,6 +20,17 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
+NT2_TEST_CASE( horzcat_scalar )
+{
+  nt2::table<int> c = nt2::horzcat(1, 2.5); 
+  NT2_DISP(c); 
+  nt2::table<float> d = nt2::horzcat(1.3f, 3); 
+  NT2_DISP(d); 
+  nt2::table<double> e = nt2::horzcat(1.5); 
+  NT2_DISP(e);
+  double f = nt2::horzcat(1.5);
+  std::cout << f << std::endl; 
+}
 NT2_TEST_CASE( horzcat_size )
 {
   nt2::table<float> a = nt2::rif(nt2::of_size(3, 2), nt2::meta::as_<float>());
@@ -30,6 +41,8 @@ NT2_TEST_CASE( horzcat_size )
   NT2_DISP(c); 
   nt2::table<float> d = horzcat(a, b); 
   NT2_DISP(d); 
+  nt2::table<float> e = horzcat(a, a); 
+  NT2_DISP(e); 
 }
 NT2_TEST_CASE( horzcat_size2 )
 {
@@ -40,6 +53,17 @@ NT2_TEST_CASE( horzcat_size2 )
   nt2::table<float> c = horzcat(a); 
   NT2_DISP(c); 
   nt2::table<float> d = horzcat(a, b); 
+  NT2_DISP(d); 
+}
+NT2_TEST_CASE( horzcat_size3 )
+{
+  nt2::table<float> a = nt2::rif(nt2::of_size(1, 3), nt2::meta::as_<float>());
+  nt2::table<float> b = nt2::cif(nt2::of_size(3, 1), nt2::meta::as_<float>());
+  NT2_DISP(a); 
+  NT2_DISP(b); 
+  nt2::table<float> c = horzcat(a, a); 
+  NT2_DISP(c); 
+  nt2::table<float> d = horzcat(b, b); 
   NT2_DISP(d); 
 }
  

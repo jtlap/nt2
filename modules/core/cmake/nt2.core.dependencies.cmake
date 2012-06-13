@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_CORE_DEPENDENCIES_EXTRA sdk)
+SET(NT2_CORE_DEPENDENCIES_EXTRA sdk.simd sdk.config)

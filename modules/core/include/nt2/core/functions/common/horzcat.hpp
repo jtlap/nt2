@@ -44,7 +44,6 @@ namespace nt2 { namespace ext
     {
       of_size_max ex0 = boost::proto::child_c<0>(a0).extent();
       sub_t pos = ind2sub(a0.extent(),p);
-      i_t p0 = nt2::enumerate<i_t>(pos[0]); 
       if(pos[1] <= ex0[1]) // this is in the a0 part
         {
           State pp = sub2ind(ex0, pos); 

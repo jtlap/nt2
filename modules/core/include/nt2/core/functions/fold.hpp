@@ -24,8 +24,9 @@ namespace nt2
    * Folds elements of \c a1, possibly in parallel, and returns the result.
    *
    * \param a0 Expression to reduce
-   * \param a1 Functor to initialize with
-   * \param a2 Function to apply for reduction (binary + unary if SIMD is used)
+   * \param a1 Functor to initialize the accumulator with
+   * \param a2 Function to apply for binary reduction, first argument is accumulator
+   * \param a3 Function to apply for unary reduction (for SIMD usage)
    * \return nothing
    */
   //============================================================================

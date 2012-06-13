@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
         }
 
         // Ensure non-empty size
-        sizee[0] = sizee[0] ? sizee[0] : 1;
+        sizee[0] = sizee[0] ? sizee[0] : 1; //
       }
 
       return  boost::proto::

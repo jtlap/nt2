@@ -16,7 +16,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<fundamental_<A0>,X>))
                             )
   {
-    typedef boost::simd::int32_t result_type;
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type z = a0[0] != 0;
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
                                      (scalar_< integer_<A1> > )
                                      )
   {
-    typedef boost::simd::int32_t result_type;
+    typedef A0 result_type;
     inline result_type operator()(A0 const & a0, A1 const &) const
     {
       result_type z = a0[0] != 0;

@@ -60,23 +60,17 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    struct logical_notand_;
-    struct True;
-
     /*!
      * \brief Define the tag none_ of functor none
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct none_ : ext::reduction_<none_, tag::logical_notand_, tag::True>
+    struct none_ : dispatch::tag::formal_
     {
-      typedef ext::reduction_<none_, tag::logical_notand_, tag::True> parent;
+      typedef dispatch::tag::formal_ parent;
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 2)
 } }
 
-
 #endif
-
-// modified by jt the 25/12/2010

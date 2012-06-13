@@ -58,10 +58,10 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename boost::proto::result_of::child_c<A0&, 0>::type child0;
     typedef typename boost::proto::result_of::child_c<A0&, 1>::type child1;
-    typedef typename dispatch::meta::call<tag::schedule_assign_(child0, child1, F&)>::type result_type;
+    typedef typename dispatch::meta::call<tag::schedule_assign_(child0, child1, F const&)>::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, F& f) const
+    operator()(A0& a0, F const& f) const
     {
       return schedule_assign(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a0), f);
     }
@@ -77,14 +77,14 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename unpack_schedule<A0, F>::result_type                       child0;
-    typedef typename unpack_schedule<A1, F>::result_type                       child1;
+    typedef typename unpack_schedule<A0, F const>::result_type                       child0;
+    typedef typename unpack_schedule<A1, F const>::result_type                       child1;
     typedef typename dispatch::meta::call<tag::assign_(child0, child1)>::type  result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1& a1, F& f) const
+    operator()(A0& a0, A1& a1, F const& f) const
     {
-      return boost::simd::assign(unpack_schedule<A0, F>()(a0, f), unpack_schedule<A1, F>()(a1, f));
+      return boost::simd::assign(unpack_schedule<A0, F const>()(a0, f), unpack_schedule<A1, F const>()(a1, f));
     }
   };
 
@@ -94,12 +94,12 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename unpack_schedule<A0, F>::result_type result_type;
+    typedef typename unpack_schedule<A0, F const>::result_type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, F& f) const
+    operator()(A0& a0, F const& f) const
     {
-      return unpack_schedule<A0, F>()(a0, f);
+      return unpack_schedule<A0, F const>()(a0, f);
     }
   };
 
@@ -113,15 +113,15 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename unpack_schedule<A0, F>::result_type                       child0;
-    typedef typename unpack_schedule<A1, F>::result_type                       child1;
+    typedef typename unpack_schedule<A0, F const>::result_type                       child0;
+    typedef typename unpack_schedule<A1, F const>::result_type                       child1;
     typedef typename dispatch::meta::call<tag::assign_(child0, child1)>::type  assigned;
-    typedef typename dispatch::meta::result_of<F(assigned)>::type              result_type;
+    typedef typename dispatch::meta::result_of<F const(assigned)>::type              result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1& a1, F& f) const
+    operator()(A0& a0, A1& a1, F const& f) const
     {
-      return f(boost::simd::assign(unpack_schedule<A0, F>()(a0, f), unpack_schedule<A1, F>()(a1, f)));
+      return f(boost::simd::assign(unpack_schedule<A0, F const>()(a0, f), unpack_schedule<A1, F const>()(a1, f)));
     }
   };
 
@@ -139,21 +139,21 @@ namespace boost { namespace simd { namespace ext
             nullary_expr<boost::proto::tag::dereference, ptr>::type node;
     typedef typename A0::proto_generator::template
             result<typename A0::proto_generator(node const)>::type child0;
-    typedef typename unpack_schedule<A0, F>::result_type           child1;
+    typedef typename unpack_schedule<A0, F const>::result_type           child1;
     typedef typename proto::result_of::
             make_expr<proto::tag::assign, child0, child1>::type    assigned;
-    typedef typename dispatch::meta::result_of<F(assigned)>::type  result;
+    typedef typename dispatch::meta::result_of<F const(assigned)>::type  result;
     typedef typename dispatch::meta::strip<result>::type           result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, F& f) const
+    operator()(A0& a0, F const& f) const
     {
       typedef typename mpl::if_< is_reference<child1>
                                , reference_wrapper<typename remove_reference<child1>::type>
                                , child1 const&
                                >::type ref;
       return f(proto::make_expr<proto::tag::assign>( typename A0::proto_generator()(node::make(boost::make_shared<semantic>()))
-                                                   , ref(unpack_schedule<A0, F>()(a0, f))
+                                                   , ref(unpack_schedule<A0, F const>()(a0, f))
                                                    )
               );
     }

@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_LU_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_LU_HPP_INCLUDED
 
+#include <nt2/sdk/error/warning.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/tri1l.hpp>
 #include <nt2/include/functions/height.hpp>
@@ -257,7 +258,7 @@ namespace nt2 { namespace details
           if(nt2::abs(lu_(i, i)) > thresh) ++r;
         }
       return r;
-      //      nt2::nbtrue(nt2::abs(diag_of(lu_)) > nt2::max(n_, m_)*epsi*nt2::max(abs(diag_of(lu_()))) );
+      //      nt2::inbtrue(nt2::abs(diag_of(lu_)) > nt2::max(n_, m_)*epsi*nt2::max(abs(diag_of(lu_()))) );
     }
 
     base_t absdet()
@@ -345,28 +346,30 @@ namespace nt2 { namespace details
     //==========================================================================
     // inverse matrix: DO NOT USE THAT TO SOLVE A SYSTEM
     //==========================================================================
-    tab_t inv(bool warn =  true)
+    tab_t inv()
     {
+      rc_ = rcond();
       tab_t i = lu_;
-      if (warn && (rc_ = rcond()) < nt2::Eps<base_t>())
-        {
-          std::cerr << " Warning : Na::Matrix is close to singular or badly scaled." << std::endl;
-          std::cerr << "           Results may be inaccurate. RCOND = " << rc_ << "." << std::endl;
-        }
+
+      NT2_WARNING ( (rc_ >= nt2::Eps<base_t>())
+                  , "Matrix is close to singular or badly scaled."
+                    " Results may be inaccurate."
+                  );
+
       nt2::details::getri(&n_, i.raw(), &ldlu_, ipiv_.raw(), &info_, w_);
       return i;
     }
 
     template<class Xpr> void inplace_solve(Xpr& b )
     {
-      BOOST_ASSERT_MSG(issquare(a_), "matrix must be square to use the lu solver"); 
+      BOOST_ASSERT_MSG(issquare(a_), "matrix must be square to use the lu solver");
       nt2_la_int nrhs = nt2::size(b, 2);
       nt2_la_int ldb  = b.leading_size();
       tab_t x(b);
       nt2_la_int ldx  = x.leading_size();
       btab_t ferr(of_size(nrhs, 1)), berr(of_size(nrhs, 1));
       btab_t r_(of_size(n_, 1)), c_(of_size(n_, 1));
-      char equed = 'N'; 
+      char equed = 'N';
       nt2::details::gesvx(nt2::details::lapack_option('F'),
                           nt2::details::lapack_option('N'),
                           &n_, &nrhs,
@@ -383,9 +386,9 @@ namespace nt2 { namespace details
                           berr.raw(),
                           &info_,
                           w_);
-      b = x; 
+      b = x;
     }
-    
+
   private:
     data_t                            a_;
     tab_t                            lu_;
@@ -395,6 +398,16 @@ namespace nt2 { namespace details
     base_t                   rc_;
     nt2_la_int             info_;
     workspace_t               w_;
+    //    template < class T, class XPR1, class XPR2 > XPR2 cast(const XPR1& a)
+    //     {
+    //       typedef typename XPR1::index_type index_t; 
+    //       table<T, index_t> b;
+    //       for(int i=nt2::first_index<0>(a); i < nt2::first_index<0>(a)+numel(a); ++i)
+    //         {
+    //           b(i) = a(i); 
+    //         }
+    //       return b; 
+    //     }
   };
 } }
 

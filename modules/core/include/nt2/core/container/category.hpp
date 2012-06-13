@@ -11,5 +11,6 @@
 
 #include <nt2/core/container/table/category.hpp>
 #include <nt2/core/container/colon/category.hpp>
+#include <nt2/core/container/extremum/category.hpp>
 
 #endif

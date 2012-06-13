@@ -50,62 +50,51 @@ namespace nt2 { namespace ext
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t aligned_bound = (boost::fusion::at_c<0>(ext)/N) * N;
 
-
       result_type out = neutral(nt2::meta::as_<result_type>());
       target_type gvec_out = neutral(nt2::meta::as_<target_type>());
-
-      if( N <= (aligned_bound)){
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
-        #pragma omp parallel 
+      #pragma omp parallel
+      {
+        target_type vec_out = neutral(nt2::meta::as_<target_type>());
+
+        #pragma omp for schedule(static)
+        for(std::ptrdiff_t i =0; i < aligned_bound; i+=N)
         {
-          target_type vec_out = neutral(nt2::meta::as_<target_type>());
 
-          #pragma omp for schedule(static)
-          for(std::size_t i =0; i < aligned_bound; i+=N)
+#ifndef BOOST_NO_EXCEPTIONS
+          try
           {
+#endif
+            vec_out = bop(vec_out, nt2::run(in, i, meta::as_<target_type>()));
 
 #ifndef BOOST_NO_EXCEPTIONS
-            try
-            {
+          }
+          catch(...)
+          {
+            // Store exception for late rethrow
+            exception = boost::current_exception();
+          }
 #endif
-
-              vec_out = bop(vec_out, nt2::run(in, i, meta::as_<target_type>()));
-
-#ifndef BOOST_NO_EXCEPTIONS
-            }
-            catch(...)
-            {
-              // Store exception for late rethrow
-              exception = boost::current_exception();
-            }
-#endif
-           }
-
-           #pragma omp critical
-          gvec_out = bop(gvec_out, vec_out);
         }
+
+        #pragma omp critical
+        gvec_out = bop(gvec_out, vec_out);
+      }
 
 #ifndef BOOST_NO_EXCEPTIONS
       if(exception)
         boost::rethrow_exception(exception);
 #endif
 
-        out = uop(gvec_out);
+      out = uop(gvec_out);
 
-        // Process the scalar epilogue
-        for(std::size_t i = aligned_bound; i < bound; ++i)
-          out = bop(out, nt2::run(in, i, meta::as_<result_type>()));
+      // Process the scalar epilogue
+      for(std::size_t i = aligned_bound; i < bound; ++i)
+        out = bop(out, nt2::run(in, i, meta::as_<result_type>()));
 
-      }
-      else{
-        //Use scalar version
-        for(std::size_t i = 0 ; i < bound; ++i){
-          out = bop(out, nt2::run(in, i, meta::as_<result_type>()));
-        }
-      }
       return out;     
 
     }
@@ -147,12 +136,12 @@ namespace nt2 { namespace ext
       // - 1D loop nest as no epilogue or special cases occur
       // - static schedule is set on using cache line sized chunks to limit
       // effects of false sharing.
-      #pragma omp parallel 
+      #pragma omp parallel
       {
         result_type out = neutral(nt2::meta::as_<result_type>());
 
         #pragma omp for schedule(static,chunk)
-        for(std::size_t i = 0; i < bound; ++i){
+        for(std::ptrdiff_t i = 0; i < bound; ++i){
 #ifndef BOOST_NO_EXCEPTIONS
           try
           {
@@ -174,13 +163,13 @@ namespace nt2 { namespace ext
       }
 
 #ifndef BOOST_NO_EXCEPTIONS
-        if(exception)
-          boost::rethrow_exception(exception);
+      if(exception)
+        boost::rethrow_exception(exception);
 #endif
-        return gout;
-        
-      }
-    
+      return gout;
+
+    }
+
   };
 
 } }

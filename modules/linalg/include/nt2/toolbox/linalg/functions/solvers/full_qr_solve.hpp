@@ -13,6 +13,7 @@
 #include <nt2/options.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/issquare.hpp>
+#include <nt2/include/functions/ofsameheight.hpp>
 #include <nt2/toolbox/linalg/functions/details/full_qr_solve.hpp>
 
 namespace nt2 { namespace ext
@@ -28,32 +29,30 @@ namespace nt2 { namespace ext
     typedef typename base_t::value_type                                value_t;
     typedef typename base_t::settings_type                          settings_t;
     typedef details::full_qr_solve_result< table<value_t,settings_t> > result_type;
-
     BOOST_FORCEINLINE result_type operator()(A0 const& a,
                                              A1 const& b,
                                              char const & trans) const
     {
-      BOOST_ASSERT_MSG(height(a) == height(b),
+      BOOST_ASSERT_MSG(ofsameheight(a, b),
                        "a and b have different heights");
       result_type that(a, b, trans);
       return that;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::solvers::full_qr_solve_, tag::cpu_
                               , (A0)(A1)(A2)(IP)
                               , (ast_<A0>)
-                              (ast_<A1>)
-                              (scalar_<type8_< A2> >)
-                              (unspecified_< IP >)
+                                (ast_<A1>)
+                                (scalar_<type8_< A2> >)
+                                (unspecified_< IP >)
                               )
   {
-    typedef details::full_qr_solve_result<A0&, A1&> result_type;
-    
+    typedef details::full_qr_solve_result<A0&> result_type;
     BOOST_FORCEINLINE result_type
-      operator()(A0& a, A1& b, char const & trans, IP const&) 
+    operator()(A0& a, A1& b, A2 const & trans, IP const&)
     {
-      BOOST_ASSERT_MSG(height(a) == height(b),
+      BOOST_ASSERT_MSG(ofsameheight(a, b),
                        "a and b have different heights");
       result_type that(a, b, trans);
       return that;

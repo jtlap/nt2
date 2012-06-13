@@ -70,7 +70,8 @@ namespace boost { namespace simd {  namespace memory
    *
    **/ 
   //============================================================================
-  template<class Allocator> inline void
+  template<class Allocator>
+  typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer >::type
   deallocate( Allocator& alloc, byte* ptr
             , std::size_t nbytes
             , std::size_t align 

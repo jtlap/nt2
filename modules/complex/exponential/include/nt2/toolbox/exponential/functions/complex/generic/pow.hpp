@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return pow(a0, real(a1)); 
+      return pow(a0, nt2::real(a1)); 
     }
   };
 

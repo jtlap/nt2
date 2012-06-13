@@ -13,7 +13,7 @@
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/is_lez.hpp>
-#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/log.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
@@ -83,13 +83,13 @@ namespace nt2 { namespace ext
       A0 y = a0;
       int32_t nb1, nb2;
       bA0 lezy =  is_lez(y);
-      if (nbtrue(lezy) > 0)
+      if (inbtrue(lezy) > 0)
         {
           y =  sel(lezy, oneminus(y), y); 
           fact =  sel(lezy, Pi<A0>()/sinpi(y), One<A0>());
         }
       bA0 lteps = lt(y, Eps<A0>());
-      if ((nb1 = nbtrue(lteps)) > 0)
+      if ((nb1 = inbtrue(lteps)) > 0)
         {
           A0 r1 =  if_nan_else(lteps, rec(y));
           res &=  r1;
@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
           y = if_nan_else(lteps, y); 
         }
       bA0 lt12 = lt(y, splat<A0>(12));   
-      if ((nb2 = nbtrue(lt12)) > 0)
+      if ((nb2 = inbtrue(lt12)) > 0)
         {
           bA0 islt1 = lt(y, One<A0>());
           A0 y1 = y; 

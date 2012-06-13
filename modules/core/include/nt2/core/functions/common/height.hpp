@@ -12,6 +12,7 @@
 #include <nt2/core/functions/height.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/extent.hpp>
+#include <nt2/include/functions/size.hpp>
 
 namespace nt2 { namespace ext
 {

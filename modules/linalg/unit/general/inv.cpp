@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL(inv, NT2_REAL_TYPES)
   nt2::table<T> invn = nt2::inv(n);
   NT2_DISP(n); 
   NT2_DISP(invn); 
-  for(int i=0; i < 100; i++)
+  for(int i=1; i <= 100; i++)
     {
       NT2_TEST_ULP_EQUAL(invn(i),n(i), 0.5);
     }

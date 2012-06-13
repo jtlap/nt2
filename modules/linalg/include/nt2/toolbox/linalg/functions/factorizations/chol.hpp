@@ -28,7 +28,8 @@ namespace nt2 { namespace ext
     typedef typename base_t::settings_type                        settings_t;
     typedef details::cholesky_result< table<value_t,settings_t> > result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& uplo) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
+                                             A1 const& uplo) const
     {
       BOOST_ASSERT_MSG( nt2::issquare(a0)
                       , "??? Error using 'chol' : Matrix must be square."
@@ -49,7 +50,9 @@ namespace nt2 { namespace ext
     typedef details::cholesky_result<A0&> result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1 const& uplo, IP const&) const
+    operator()(A0& a0,
+               A1 const& uplo,
+               IP const&) const
     {
       BOOST_ASSERT_MSG( nt2::issquare(a0)
                       , "??? Error using 'chol' : Matrix must be square."

@@ -25,7 +25,10 @@ namespace boost { namespace dispatch { namespace tag
    * most abstract one and correspond to high-level code trasnformation function
    */
   //============================================================================
-  struct formal_ : meta::unspecified_<formal_> {};
+  struct formal_ : meta::unspecified_<formal_>
+  {
+    typedef meta::unspecified_<formal_> parent;
+  };
 
   //============================================================================
   /*!
@@ -36,7 +39,10 @@ namespace boost { namespace dispatch { namespace tag
    * used as common, architecture independant implementation.
    */
   //============================================================================
-  struct cpu_ : formal_ {};
+  struct cpu_ : formal_
+  {
+    typedef formal_ parent;
+  };
 
   //============================================================================
   /*!
@@ -46,7 +52,10 @@ namespace boost { namespace dispatch { namespace tag
    */
   //============================================================================
   template<class T>
-  struct id_ : T {};
+  struct id_ : T
+  {
+    typedef T parent;
+  };
 } } }
 
 #endif

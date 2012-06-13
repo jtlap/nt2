@@ -102,5 +102,5 @@ NT2_TEST_CASE_TPL ( fast_hypot_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPE
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Sqrt_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::Sqrt_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>(), 0);
 } // end of test for signed_int_

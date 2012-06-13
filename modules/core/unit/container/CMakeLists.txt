@@ -8,5 +8,4 @@
 ##############################################################################
 
 ADD_SUBDIRECTORY(dsl)
-ADD_SUBDIRECTORY(functions)
 ADD_SUBDIRECTORY(table)

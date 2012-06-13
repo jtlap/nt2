@@ -27,6 +27,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 //#include <nt2/include/functions/trans.hpp> //TODO
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
@@ -300,15 +301,16 @@ namespace nt2 { namespace details
 
       tab_t pinv(base_t epsi = -1 )const
       {
-        epsi = epsi < 0 ? nt2::eps(w(1)) : epsi;
-        tab_t w1(w.extent());
-        for(int i=1; i <= numel(w1) ; ++i)
-        {
-          w1(i) = w_(i) > length(a_)*epsi ? nt2::rec(w) : Zero<base_t>();
-        }
-        //        w1 = if_else( (w1 > length(a)*epsi), rec(w1), Zero<base_t>());
-        // return (nt2::trans(vt_)*(nt2::diag(w1)*nt2::trans(u_)));
-        return prodtMM(vt_, prodMtM(diag_from(w1), u_));
+        epsi = epsi < 0 ? nt2::eps(w_(1)) : epsi;
+//        tab_t w1(w_.extent());
+//         for(int i=1; i <= numel(w1) ; ++i)
+//         {
+//           w1(i) = w_(i) > length(a_)*epsi ? nt2::rec(w_(i)) : Zero<base_t>();
+//         }
+        tab_t w1 = nt2::if_else( gt(w_, length(a_)*epsi), nt2::rec(w_), Zero<base_t>());
+        //  return (nt2::trans(vt_)*(nt2::diag(w1)*nt2::trans(u_)));
+        //  return prodtMM(vt_, prodMtM(diag_from(w1), u_));
+        return mtimes(trans(vt_), mtimes(from_diag(w1), trans(u_))); 
       }
 
   private:

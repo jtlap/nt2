@@ -66,7 +66,7 @@ namespace nt2 { namespace details
       BOOST_ASSERT_MSG(ismatrix(a_), "input to rref must be matrix");
       if (tol < Zero<type_t>()) tol = nt2::max(m_,n_)*nt2::Eps<base_t>()*nt2::norm(a_,'I');
       itype_t i = 1, j = 1; 
-      itype_t k;
+      itype_t k = 0;
       type_t p; 
       itype_t cnt = 1; 
       while(i <= m_ && j <= n_)

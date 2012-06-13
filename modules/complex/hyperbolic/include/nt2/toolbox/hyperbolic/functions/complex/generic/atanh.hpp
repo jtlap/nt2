@@ -66,15 +66,15 @@ namespace nt2 { namespace ext
       // at : http://jove.prohosting.com/~skripty/toc.htm
       //
       const rtype alpha_crossover = nt2::splat<rtype>(0.3);
-      ltype  ltzra0 = is_ltz(real(a0));
-      ltype  ltzia0 = is_ltz(imag(a0)); 
+      ltype  ltzra0 = is_ltz(nt2::real(a0));
+      ltype  ltzia0 = is_ltz(nt2::imag(a0)); 
       rtype s_max = safe_max(Two<rtype>());
       rtype s_min = safe_min(Two<rtype>());
       rtype two =  Two<rtype>();
       rtype one =  One<rtype>();
       rtype inf =  Inf<rtype>();    
-      rtype x = nt2::abs(real(a0));
-      rtype y = nt2::abs(imag(a0));
+      rtype x = nt2::abs(nt2::real(a0));
+      rtype y = nt2::abs(nt2::imag(a0));
      
       rtype r = Zero<rtype>();
       rtype i = Zero<rtype>(); 
@@ -154,14 +154,14 @@ namespace nt2 { namespace ext
       //compute for safe zone
       // The real part is given by:
       // 
-      // real(atanh(z)) == log((1 + x^2 + y^2 + 2x) / (1 + x^2 + y^2 - 2x))
+      // nt2::real(atanh(z)) == log((1 + x^2 + y^2 + 2x) / (1 + x^2 + y^2 - 2x))
       // 
       // However, when x is either large (x > 1/E) or very small
       // (x < E) then this effectively simplifies
       // to log(1), leading to wildly inaccurate results.  
       // By dividing the above (top and bottom) by (1 + x^2 + y^2) we get:
       //
-      // real(atanh(z)) == log((1 + (2x / (1 + x^2 + y^2))) / (1 - (-2x / (1 + x^2 + y^2))))
+      // nt2::real(atanh(z)) == log((1 + (2x / (1 + x^2 + y^2))) / (1 - (-2x / (1 + x^2 + y^2))))
       //
       // which is much more sensitive to the value of x, when x is not near 1
       // (remember we can compute log(1+x) for small x very accurately).
@@ -199,7 +199,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
       {
-        rtype y = oneplus(sqr(imag(a0)));
+        rtype y = oneplus(sqr(nt2::imag(a0)));
         A0 res = nt2::log(A0(nt2::sqrt(y))+a0);
         return res;     
       }
@@ -214,8 +214,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
       {
       if (nt2::all(is_real(a0)) && nt2::all(le(nt2::abs(a0), One<rtype>())))
-        return result_type(nt2::atanh(real(a0))); 
-      return nt2::atanh(result_type(real(a0), Zero<rtype>()));
+        return result_type(nt2::atanh(nt2::real(a0))); 
+      return nt2::atanh(result_type(nt2::real(a0), Zero<rtype>()));
       }
   };
   

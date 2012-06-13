@@ -25,5 +25,7 @@ SET( SOURCES
   sum.cpp
 # List of test files for toolbox core.settings
    )
-set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
+if(CMAKE_COMPILER_IS_GNUCXX)
+  set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
+endif()
 nt2_module_add_tests(openmp.functions.unit ${SOURCES})

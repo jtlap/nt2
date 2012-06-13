@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2::max(ulpdist(real(a0), real(a1)),ulpdist(imag(a0), imag(a1))); 
+      return nt2::max(ulpdist(nt2::real(a0), nt2::real(a1)),ulpdist(nt2::imag(a0), nt2::imag(a1))); 
     }
   };
 
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return ulpdist(real(a0), real(a1)); 
+      return ulpdist(nt2::real(a0), nt2::real(a1)); 
     }
   };
 
@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return nt2::ulpdist(imag(a0), imag(a1)); 
+      return nt2::ulpdist(nt2::imag(a0), nt2::imag(a1)); 
     }
   };
   

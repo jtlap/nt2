@@ -37,8 +37,8 @@ NT2_TEST_CASE_TPL( freqspace2, (double)(float) )
 
     nt2::table<T> yd1 = nt2::colon(ln, hn, T(1)-T(2)/n);
     nt2::table<T> yd2 = nt2::colon(lm, hm, T(1)-T(1)/m);
-    NT2_TEST( xd1.extent() == nt2::of_size(1,n) );
-    NT2_TEST( xd2.extent() == nt2::of_size(1,m) );
+    NT2_TEST_EQUAL( xd1.extent(), nt2::of_size(1,n ) );
+    NT2_TEST_EQUAL( xd2.extent(), nt2::of_size(1,m ) );
     
      for(int i=1;i<=n;++i)
        NT2_TEST_ULP_EQUAL( xd1(i), yd1(i), 1.0 );
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL( freqspace2, (double)(float) )
 //     nt2::table<T> xd = nt2::freqspace2(n, nt2::whole_, nt2::meta::as_<T>()); 
 //     nt2::table<T> yd = nt2::colon(T(0),T(2)/n, T(2)*(n-1)/n);
 
-//      NT2_TEST( xd.extent() == nt2::of_size(1,n) );
+//      NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,n ) );
     
 //      for(int i=1;i<=n;++i)
 //        NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL( freqspace2, (double)(float) )
 //       {
 //         nt2::table<T> xd = nt2::freqspace2(n);
 //         nt2::table<T> yd = nt2::colon(T(0),T(2)/n, T(1));
-//         NT2_TEST( xd.extent() == nt2::of_size(1,n/2+1) );
+//         NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,n/2+1 ) );
         
 //         for(int i=1;i<=n/2+1;++i)
 //           NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
@@ -83,7 +83,7 @@ NT2_TEST_CASE_TPL( freqspace2, (double)(float) )
 //         nt2::table<T> xd = nt2::freqspace2(n, nt2::whole_); 
 //         nt2::table<T> yd = nt2::colon(T(0),T(2)/n, T(2)*(n-1)/n);
         
-//         NT2_TEST( xd.extent() == nt2::of_size(1,n) );
+//         NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,n ) );
         
 //         for(int i=1;i<=n;++i)
 //           NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );

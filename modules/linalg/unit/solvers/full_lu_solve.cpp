@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL(full_lu_solve_result, NT2_REAL_TYPES)
   typedef typename nt2::meta::call<full_lu_solve_(t_t const&,t_t const&, char)>::type result_type;
   result_type f = nt2::solvers::full_lu_solve(a, b, 'N');
 
-  nt2::disp("values", f.x());
+   nt2::disp("values", f.x());
 //   t_t p = f.p();
 //   t_t l = f.l();
 //   t_t u = f.u();

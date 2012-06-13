@@ -18,6 +18,7 @@
 #include <nt2/toolbox/operator/operator.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/colon/colon.hpp>
+#include <nt2/core/container/extremum/extremum.hpp>
 #include <nt2/include/functions/function.hpp>
 #include <nt2/core/container/io.hpp>
 

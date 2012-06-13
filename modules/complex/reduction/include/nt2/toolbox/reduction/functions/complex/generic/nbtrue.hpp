@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
     typedef nt2::int32_t result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::nbtrue(is_nez(real(a0))); 
+      return nt2::nbtrue(is_nez(nt2::real(a0))); 
     }
   };
 

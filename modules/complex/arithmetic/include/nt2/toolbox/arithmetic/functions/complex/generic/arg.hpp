@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::atan2(imag(a0),real(a0));
+      return nt2::atan2(nt2::imag(a0),nt2::real(a0));
     }
   };
 
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return if_nan_else(is_nan(a0), Pio_2<result_type>()*sign(imag(a0))); 
+      return if_nan_else(is_nan(a0), Pio_2<result_type>()*sign(nt2::imag(a0))); 
     }
   };
   
@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::arg(real(a0)); 
+      return nt2::arg(nt2::real(a0)); 
     }
   };  
 } }

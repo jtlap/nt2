@@ -14,7 +14,8 @@
 // Documentation: http://nt2.lri.fr/sdk/unit/benchmark.html
 ////////////////////////////////////////////////////////////////////////////////
 #define NT2_TEST_SILENT
-#include <nt2/include/timing.hpp>
+#include <nt2/sdk/timing/tic.hpp>
+#include <nt2/sdk/timing/ctic.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

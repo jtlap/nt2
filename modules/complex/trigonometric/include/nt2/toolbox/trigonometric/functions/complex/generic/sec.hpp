@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 //     typedef typename meta::as_dry<rA0>::type result_type; 
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return bitwise_cast<result_type>(rec(nt2::cosh(imag(a0)))); 
+//       return bitwise_cast<result_type>(rec(nt2::cosh(nt2::imag(a0)))); 
 //     }
 //   };
 
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
 //     typedef A0 result_type; 
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return bitwise_cast<result_type>(rec(nt2::cos(real(a0)))); 
+//       return bitwise_cast<result_type>(rec(nt2::cos(nt2::real(a0)))); 
 //     }
 //   };
   

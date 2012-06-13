@@ -8,6 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory boost::array adaptation as a Buffer"
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4996) // unsafe std::transform
+#endif
+
 #include <nt2/sdk/memory/array_buffer.hpp>
 
 #include <string>
@@ -23,33 +27,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-struct object
-{
-  object()              : s("default")  {}
-  object(object const&) : s("copied")   {}
-
-  object& operator=(object const&)
-  {
-    s = "assigned";
-    return *this;
-  }
-
-  object& operator=(std::string const& src)
-  {
-    s = src;
-    return *this;
-  }
-
-  ~object() {}
-
-  std::string s;
-};
-
-void swap(object& l, object& r)
-{
-  l.s = "left swapped";
-  r.s = "right swapped";
-}
+#include "object.hpp"
 
 //==============================================================================
 // Test for default array_buffer ctor
@@ -58,7 +36,7 @@ NT2_TEST_CASE( array_buffer_default_ctor )
 {
   using nt2::memory::array_buffer;
 
-  array_buffer<object, boost::mpl::size_t<2> > b;
+  array_buffer<nt2::object, boost::mpl::size_t<2> > b;
 
   NT2_TEST_EQUAL(b.size(), 2 );
   NT2_TEST_EQUAL(b.raw(),&b[0]);
@@ -76,12 +54,12 @@ NT2_TEST_CASE( array_buffer_data_ctor )
 {
   using nt2::memory::array_buffer;
 
-  array_buffer<object, boost::mpl::size_t<5> > b;
+  array_buffer<nt2::object, boost::mpl::size_t<5> > b;
 
   for(std::size_t i=0;i<b.size();++i)
     NT2_TEST_EQUAL(b[i].s, std::string("default") );
 
-  array_buffer<object, boost::mpl::size_t<5> > x(b);
+  array_buffer<nt2::object, boost::mpl::size_t<5> > x(b);
   NT2_TEST_EQUAL(x.size() , 5     );
   NT2_TEST_EQUAL(x.raw()  , &x[0] );
 
@@ -96,11 +74,11 @@ NT2_TEST_CASE(array_buffer_assignment )
 {
   using nt2::memory::array_buffer;
 
-  array_buffer<object, boost::mpl::size_t<5> > b;
+  array_buffer<nt2::object, boost::mpl::size_t<5> > b;
   for(std::size_t i=0;i<b.size();++i)
     NT2_TEST_EQUAL(b[i].s, std::string("default") );
 
-  array_buffer<object, boost::mpl::size_t<5> > x;
+  array_buffer<nt2::object, boost::mpl::size_t<5> > x;
   x = b;
 
   NT2_TEST_EQUAL(x.size() , 5     );
@@ -117,7 +95,7 @@ NT2_TEST_CASE(array_buffer_swap)
 {
   using nt2::memory::array_buffer;
 
-  array_buffer<object, boost::mpl::size_t<5> > b,x;
+  array_buffer<nt2::object, boost::mpl::size_t<5> > b,x;
   for(std::size_t i=0;i<b.size();++i)
   {
     NT2_TEST_EQUAL(b[i].s, std::string("default") );
@@ -161,14 +139,14 @@ NT2_TEST_CASE(array_buffer_iterator)
 {
   using nt2::memory::array_buffer;
 
-  array_buffer<object, boost::mpl::size_t<5> > x;
+  array_buffer<nt2::object, boost::mpl::size_t<5> > x;
   for(std::size_t i=0;i<x.size();++i)
     NT2_TEST_EQUAL(x[i].s, std::string("default") );
 
   f_ f;
 
-  array_buffer<object, boost::mpl::size_t<5> >::iterator b = x.begin();
-  array_buffer<object, boost::mpl::size_t<5> >::iterator e = x.end();
+  array_buffer<nt2::object, boost::mpl::size_t<5> >::iterator b = x.begin();
+  array_buffer<nt2::object, boost::mpl::size_t<5> >::iterator e = x.end();
 
   std::transform(b,e,b,f);
 

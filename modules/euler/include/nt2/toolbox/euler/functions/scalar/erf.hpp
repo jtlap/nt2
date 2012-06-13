@@ -10,24 +10,17 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_ERF_HPP_INCLUDED
 
 #include <nt2/toolbox/euler/functions/erf.hpp>
-
-// #include <nt2/include/constants/pi.hpp>
-// #include <nt2/include/constants/three.hpp>
-// #include <nt2/include/constants/four.hpp>
-// #include <nt2/include/constants/eight.hpp>
-// #include <nt2/include/functions/scalar/sqr.hpp>
-// #include <nt2/include/functions/scalar/sqrt.hpp>
-// #include <nt2/include/functions/scalar/exp.hpp>
-// #include <nt2/include/functions/scalar/oneplus.hpp>
-// #include <nt2/include/functions/scalar/oneminus.hpp>
-
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/scalar/plevl.hpp>
 #include <nt2/include/functions/scalar/polevl.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/negif.hpp>
 #include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
 #include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

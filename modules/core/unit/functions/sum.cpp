@@ -13,11 +13,18 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/sum.hpp>
 
+#include <nt2/include/functions/sb2b.hpp>
+#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/zero.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+
+
 
 NT2_TEST_CASE( sum_1D )
 {
@@ -364,4 +371,23 @@ NT2_TEST_CASE_TPL( asum1, NT2_TYPES )
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy;
   sy = sum(y); 
+}
+
+NT2_TEST_CASE( sum_sum )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::sum;
+  typedef double T;
+  using nt2::_;
+  
+  table<T> a = nt2::Two<T>()*nt2::ones(5, 3, nt2::meta::as_<T>());
+  a(2, 3) = nt2::Zero<T>();
+  NT2_DISP(a);
+  NT2_DISP(nt2::toint(nt2::sb2b(a))); 
+  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)))); 
+  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 1));
+  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 2));
+  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 3));       
+
 }

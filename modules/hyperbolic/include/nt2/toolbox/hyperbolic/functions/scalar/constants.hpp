@@ -9,14 +9,32 @@
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_CONSTANTS_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_CONSTANTS_HPP_INCLUDED
 
-#include <nt2/toolbox/hyperbolic/constants.hpp>
-#include <nt2/sdk/constant/constant.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/sdk/constant/register.hpp>
 
 namespace nt2
 {
-  NT2_MAKE_STD_CONSTANT(Oneo_6  , 0x3fc5555555555555ll, 0x3e2aaaab, 0)
-  NT2_MAKE_STD_CONSTANT(Moneo_6 , 0xbfc5555555555555ll, 0xbe2aaaab, 0)
-  NT2_MAKE_STD_CONSTANT(Oneo_120, 0x3f81111111111111ll, 0x3c088889, 0)
+  namespace tag
+  {
+    BOOST_SIMD_CONSTANT_REGISTER( Oneo_120, double
+                                , 0, 0x3c088889
+                                , 0x3f81111111111111ll
+                                );
+
+    BOOST_SIMD_CONSTANT_REGISTER( Moneo_6, double
+                                , 0, 0xbe2aaaab
+                                , 0xbfc5555555555555ll
+                                );
+
+    BOOST_SIMD_CONSTANT_REGISTER( Oneo_6, double
+                                , 0, 0x3e2aaaab
+                                , 0x3fc5555555555555ll
+                                );
+  }
+
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Oneo_120, Oneo_120);
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Moneo_6, Moneo_6);
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Oneo_6, Oneo_6);
 }
+
 #endif

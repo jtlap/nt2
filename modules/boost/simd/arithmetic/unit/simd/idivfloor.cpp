@@ -51,9 +51,9 @@ NT2_TEST_CASE_TPL ( idivfloor_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3))[0], T(1), 0);
-  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<T>(), 0);
-  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<T>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<iT>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<iT>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::One<iT>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<iT>(), 0);
+  NT2_TEST_ULP_EQUAL(idivfloor(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<iT>(), 0);
 } // end of test for floating_

@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_NORM_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_NORM_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_SCALAR_NORM_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_SCALAR_NORM_HPP_INCLUDED
 #include <nt2/toolbox/linalg/functions/norm.hpp>
 #include <nt2/include/functions/scalar/norm.hpp>
 #include <nt2/include/functions/scalar/isvector.hpp>
@@ -21,7 +21,6 @@
 #include <nt2/include/functions/scalar/svd.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/toolbox/linalg/details/lapack/lange.hpp>
-#include <nt2/table.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <string>
 
@@ -44,24 +43,22 @@
 namespace nt2 { namespace ext 
 {
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::norm_, tag::cpu_,
-                                (A0)(A1)(Tag), 
-                                ((node_<A0, Tag, boost::mpl::long_<0> >))
+                                (A0)(A1)(Arity), 
+                                ((node_<A0, boost::simd::tag::terminal_, Arity > ))//Tag, boost::mpl::long_<0u> >))
                                 (scalar_<arithmetic_<A1> > )
                                 )
   {
-    typedef typename A0::value_type type_t;
+    typedef typename meta::strip<typename A0::value_type>::type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t; 
     typedef typename meta::as_floating<rtype_t>::type result_type; 
     NT2_FUNCTOR_CALL(2)
     {
-      typedef table<result_type> btab_t; 
       if (isvector(a0))
         {
           return vecnorm(a0, a1); 
         }
       else if (is_matrix(a0))
         {
-          std::cout << "icitte" << std::endl; 
           nt2_la_int m = height(a0), n = width(a0);
           nt2_la_int lda0 = a0.leading_size(); 
           if (isempty(a0)){
@@ -96,7 +93,7 @@ namespace nt2 { namespace ext
                                        (scalar_<arithmetic_<A1> > )
                                        )
   {
-    typedef typename A0::value_type type_t;
+    typedef typename meta::strip<typename A0::value_type>::type type_t;
     typedef typename meta::as_real<type_t>::type rtype_t; 
     typedef typename meta::as_floating<rtype_t>::type result_type; 
     NT2_FUNCTOR_CALL(2)
@@ -108,7 +105,6 @@ namespace nt2 { namespace ext
         }
       else if (is_matrix(a0))
         {
-          std::cout << "latte" << std::endl; 
           if (isempty(a0)){
             return Zero<result_type>();
           } else if (a1 == 'I'|| a1 == 'i'|| a1 == Inf<A1>()){ 
@@ -148,7 +144,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<rtype_t>::type result_type; 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0& a0, const char * a1) const
     {
-      if (strcmp(std::string(a1).c_str(), "fro") == 0)
+      if (strcmp(a1, "fro") == 0)
         {
           return norm(a0, 'F');
         }

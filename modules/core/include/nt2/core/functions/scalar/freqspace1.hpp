@@ -30,10 +30,10 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace1_, tag::cpu_
                               , (A0)(T)
                               , (scalar_< integer_<A0> >)
-                              ((target_<scalar_< floating_<T> > > ))   
+                                ((target_<scalar_< floating_<T> > > ))
                               )
   {
-    typedef typename T::type value_type; 
+    typedef typename T::type value_type;
     typedef typename  boost::proto::
       result_of::make_expr< nt2::tag::freqspace1_
       , container::domain
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::colon<value_type> >
       , T
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n, T const&) const
     {
       return  boost::proto::
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
             );
     }
   };
-  
+
   //============================================================================
   // Generates freqspace1 from n to double
   //============================================================================
@@ -67,9 +67,9 @@ namespace nt2 { namespace ext
       , container::domain
       , box<_2D>
       , box< nt2::details::colon<double> >
-      , meta::as_<double > 
+      , meta::as_<double >
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n) const
     {
       return  boost::proto::
@@ -81,8 +81,8 @@ namespace nt2 { namespace ext
             );
     }
   };
-  
-  
+
+
   //============================================================================
   // Generates freqspace1 from to a given type as 'whole'
   //============================================================================
@@ -90,10 +90,10 @@ namespace nt2 { namespace ext
                               , (A0)(A1)(T)
                               , (scalar_< integer_<A0> >)
                               ((target_<unspecified_<A1> >))
-                              ((target_<scalar_< floating_<T> > > ))   
+                              ((target_<scalar_< floating_<T> > > ))
                               )
   {
-    typedef typename T::type value_type; 
+    typedef typename T::type value_type;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::freqspace1_
                                           , container::domain
@@ -131,7 +131,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::colon<double> >
       , meta::as_<double>
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type
       operator()(A0 const& n, A1 const&) const
     {
@@ -144,9 +144,7 @@ namespace nt2 { namespace ext
             );
     }
   };
-  
+
 } }
 
-
 #endif
- 

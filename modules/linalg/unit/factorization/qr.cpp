@@ -34,7 +34,10 @@ NT2_TEST_CASE_TPL(qr_factorization, NT2_REAL_TYPES)
    NT2_DISP(res.q());
    NT2_DISP(res.r());     
   NT2_TEST_EQUAL(res.status(), 0u);
-
+  t_t c =  nt2::ones (4, 1, nt2::meta::as_<T>()); 
+  NT2_DISP(c); 
+  res.inplace_solve(c);
+  NT2_DISP(c); 
 
 //   b = nt2::zeros(4, 4, nt2::meta::as_<T>());
 //   b(1,1) = 1;

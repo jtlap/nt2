@@ -17,7 +17,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/scalar/tofloat.hpp>
-#include <nt2/include/functions/scalar/nbtrue.hpp>
+#include <nt2/include/functions/scalar/inbtrue.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>

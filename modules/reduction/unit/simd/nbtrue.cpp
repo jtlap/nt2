@@ -56,10 +56,10 @@ NT2_TEST_CASE_TPL ( nbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nbtrue(nt2::Inf<vT>()), cardinal_of<vT>::value, 0);
-  NT2_TEST_ULP_EQUAL(nbtrue(nt2::Minf<vT>()), cardinal_of<vT>::value, 0);
-  NT2_TEST_ULP_EQUAL(nbtrue(nt2::Mone<vT>()), cardinal_of<vT>::value, 0);
-  NT2_TEST_ULP_EQUAL(nbtrue(nt2::Nan<vT>()), cardinal_of<vT>::value, 0);
-  NT2_TEST_ULP_EQUAL(nbtrue(nt2::One<vT>()), cardinal_of<vT>::value, 0);
+  NT2_TEST_ULP_EQUAL(nbtrue(nt2::Inf<vT>()), T(cardinal_of<vT>::value), 0);
+  NT2_TEST_ULP_EQUAL(nbtrue(nt2::Minf<vT>()), T(cardinal_of<vT>::value), 0);
+  NT2_TEST_ULP_EQUAL(nbtrue(nt2::Mone<vT>()), T(cardinal_of<vT>::value), 0);
+  NT2_TEST_ULP_EQUAL(nbtrue(nt2::Nan<vT>()), T(cardinal_of<vT>::value), 0);
+  NT2_TEST_ULP_EQUAL(nbtrue(nt2::One<vT>()), T(cardinal_of<vT>::value), 0);
   NT2_TEST_ULP_EQUAL(nbtrue(nt2::Zero<vT>()), nt2::Zero<sr_t>(), 0);
 } // end of test for floating_

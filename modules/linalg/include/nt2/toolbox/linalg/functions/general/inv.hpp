@@ -8,30 +8,28 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_INV_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_INV_HPP_INCLUDED
+
 #include <nt2/toolbox/linalg/functions/inv.hpp>
-#include <nt2/include/functions/inv.hpp>
-#include <nt2/include/functions/lu.hpp>
 #include <nt2/include/functions/issquare.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
+#include <nt2/include/functions/lu.hpp>
 
-namespace nt2{ namespace ext 
+namespace nt2{ namespace ext
 {
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inv_, tag::cpu_,
-                                       (A0)
-                                       ,((ast_<A0>))
-                                   )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inv_, tag::cpu_
+                            , (A0)
+                            , (ast_<A0>)
+                            )
   {
-    typedef typename A0::value_type value_type;
-    typedef typename A0::index_type index_type; 
-    typedef table<value_type, index_type> result_type; 
+    typedef typename A0::value_type       value_type;
+    typedef typename A0::index_type       index_type;
+    typedef table<value_type, index_type> result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-        BOOST_ASSERT_MSG(issquare(a0), "inverse of non square matrix requested"); 
-        return  nt2::details::lu_result<A0>(a0).inv(false);        
-      }
+    {
+      BOOST_ASSERT_MSG(issquare(a0), "inverse of non square matrix requested");
+      return  nt2::details::lu_result<A0>(a0).inv();
+    }
   };
-
 } }
-
 
 #endif

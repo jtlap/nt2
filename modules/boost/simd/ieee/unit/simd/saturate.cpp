@@ -26,23 +26,44 @@
 #include <boost/simd/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( saturate_unsigned_int64,  (uint64_t))
 {
   using boost::simd::saturate;
   using boost::simd::tag::saturate_;
-  using boost::simd::load; 
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
+  using boost::simd::splat; 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<saturate_<uint16_t>(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  typedef native<uint64_t,ext_t>           vuint64_t;
+  typedef native< int64_t,ext_t>            vint64_t;
+  vuint64_t v = splat<vuint64_t>(1ull        ); 
+  saturate<vT>(v);
+  saturate<T>(1ull        ); 
+  //  NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(1ull        ))[0], saturate<T>(1ull        ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(2ull        ))[0], saturate<T>(2ull        ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(6ull        ))[0], saturate<T>(6ull        ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(24ull       ))[0], saturate<T>(24ull       ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(120ull      ))[0], saturate<T>(120ull      ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(720ull      ))[0], saturate<T>(720ull      ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(5040ull     ))[0], saturate<T>(5040ull     ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(40320ull    ))[0], saturate<T>(40320ull    ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(362880ull   ))[0], saturate<T>(362880ull   ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(3628800ull  ))[0], saturate<T>(3628800ull  ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(39916800ull ))[0], saturate<T>(39916800ull ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vuint64_t>(479001600ull))[0], saturate<T>(479001600ull));
+
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(1ll        ))[0], saturate<T>(1ll        ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(2ll        ))[0], saturate<T>(2ll        ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(6ll        ))[0], saturate<T>(6ll        ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(24ll       ))[0], saturate<T>(24ll       ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(120ll      ))[0], saturate<T>(120ll      ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(720ll      ))[0], saturate<T>(720ll      ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(5040ll     ))[0], saturate<T>(5040ll     ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(40320ll    ))[0], saturate<T>(40320ll    ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(362880ll   ))[0], saturate<T>(362880ll   ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(3628800ll  ))[0], saturate<T>(3628800ll  ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(39916800ll ))[0], saturate<T>(39916800ll ));
+//   NT2_TEST_EQUAL(saturate<vT>(splat<vint64_t>(479001600ll))[0], saturate<T>(479001600ll));
 
 } // end of test for unsigned_int_

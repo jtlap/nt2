@@ -44,8 +44,8 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      const rtype root = rsqrt(nt2::abs(imag(a0)));
-      return nt2::multiplies(result_type(One<rtype>(), -sign(imag(a0))), root*Sqrt_2o_2<rtype>());
+      const rtype root = rsqrt(nt2::abs(nt2::imag(a0)));
+      return nt2::multiplies(result_type(One<rtype>(), -sign(nt2::imag(a0))), root*Sqrt_2o_2<rtype>());
     }
   };
 
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       const rA0 root = rsqrt(nt2::abs(a0));
-      return if_else(is_nltz(real(a0)), result_type(root), result_type(Zero<rA0>(), -root));
+      return if_else(is_nltz(nt2::real(a0)), result_type(root), result_type(Zero<rA0>(), -root));
     }
   };
 

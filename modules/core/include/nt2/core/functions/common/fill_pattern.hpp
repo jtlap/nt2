@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      nt2::size_t nl = numel(a0);
+      std::size_t nl = numel(a0);
       State p1 = p%nl; 
       return if_else( nt2::lt (nt2::enumerate<i_t>( p1 ),
                                nt2::splat<i_t>(nl)), 

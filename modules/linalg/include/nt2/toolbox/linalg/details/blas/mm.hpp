@@ -18,12 +18,12 @@ namespace nt2 { namespace details
 {
 #define NT2_MM(T, PX)                                                       \
 inline void gemm( const char *ta, const char *tb                            \
-                , const long int *m, const long int *n, const long int *k   \
+                , const nt2_la_int *m, const nt2_la_int *n, const nt2_la_int *k \
                 , const T *al                                               \
-                , const T *a, const long int *lda                           \
-                , const T *b, const long int *ldb                           \
+                , const T *a, const nt2_la_int *lda                         \
+                , const T *b, const nt2_la_int *ldb                         \
                 , const T *be                                               \
-                , T *c      , const long int *ldc                           \
+                , T *c      , const nt2_la_int *ldc                         \
                 )                                                           \
 {                                                                           \
   NT2_F77NAME(BOOST_PP_CAT(PX,gemm))(ta,tb,m,n,k,al,a,lda,b,ldb,be,c,ldc);  \
@@ -41,12 +41,12 @@ inline void gemm( const char *ta, const char *tb                            \
 
 #define NT2_MM(T, PX)                                                         \
 inline void symm( const char *side, const char *uplo                          \
-                , const long int *m, const long int *n                        \
+                , const nt2_la_int *m, const nt2_la_int *n                    \
                 , const T *al                                                 \
-                , const T *a, const long int *lda                             \
-                , const T *b, const long int *ldb                             \
+                , const T *a, const nt2_la_int *lda                           \
+                , const T *b, const nt2_la_int *ldb                           \
                 , const T *be                                                 \
-                , T *c      , const long int *ldc                             \
+                , T *c      , const nt2_la_int *ldc                           \
                 )                                                             \
 {                                                                             \
   NT2_F77NAME(BOOST_PP_CAT(PX,symm))(side,uplo,m,n,al,a,lda,b,ldb,be,c,ldc);  \
@@ -65,12 +65,12 @@ inline void symm( const char *side, const char *uplo                          \
 
 #define NT2_MM(T, PX)                                                         \
 inline void hemm( const char *side, const char *uplo                          \
-                , const long int *m, const long int *n                        \
+                , const nt2_la_int *m, const nt2_la_int *n                    \
                 , const T *al                                                 \
-                , const T *a, const long int *lda                             \
-                , const T *b, const long int *ldb                             \
+                , const T *a, const nt2_la_int *lda                           \
+                , const T *b, const nt2_la_int *ldb                           \
                 , const T *be                                                 \
-                , T *c      , const long int *ldc                             \
+                , T *c      , const nt2_la_int *ldc                           \
                 )                                                             \
 {                                                                             \
   NT2_F77NAME(BOOST_PP_CAT(PX,hemm))(side,uplo,m,n,al,a,lda,b,ldb,be,c,ldc);  \

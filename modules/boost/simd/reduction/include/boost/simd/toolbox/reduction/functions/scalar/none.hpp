@@ -40,11 +40,11 @@ namespace boost { namespace simd { namespace ext
                      (A0)(A1),
                      (scalar_<logical_<A0> >)
                      (scalar_<integer_<A1> >)                 
-                                    )
+                    )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(A0 const & a0, A1 const &) const
-      { return a0; };
+      { return is_eqz(a0); };
   };    
 } } }
 #endif

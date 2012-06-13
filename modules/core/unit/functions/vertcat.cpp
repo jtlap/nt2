@@ -20,6 +20,17 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
+NT2_TEST_CASE( vertcat_scalar )
+{
+  nt2::table<int> c = nt2::vertcat(1, 2.5); 
+  NT2_DISP(c); 
+  nt2::table<float> d = nt2::vertcat(1.3f, 3); 
+  NT2_DISP(d); 
+  nt2::table<double> e = nt2::vertcat(1.5); 
+  NT2_DISP(e);
+  double f = nt2::vertcat(1.5);
+  std::cout << f << std::endl; 
+}
 NT2_TEST_CASE( vertcat_size )
 {
   typedef short int T; 

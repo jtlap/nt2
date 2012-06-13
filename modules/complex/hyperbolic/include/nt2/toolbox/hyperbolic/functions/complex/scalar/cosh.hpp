@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
 //     typedef typename meta::as_real<A0>::type result_type; 
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return nt2::cos(imag(a0)); 
+//       return nt2::cos(nt2::imag(a0)); 
 //     }
 //   };
   

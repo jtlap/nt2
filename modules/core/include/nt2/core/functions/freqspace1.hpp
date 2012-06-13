@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_FREQSPACE1_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_FREQSPACE1_HPP_INCLUDED
 
+#include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 #include <nt2/core/container/dsl/details/generative.hpp>
@@ -20,16 +21,16 @@
  * Frequency spacing for frequency response. 1D case
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/freqspace1.hpp>
  * \endcode
- * 
+ *
  *   f =  freqspace1(n, whole_, as<T>())
  *   f =  freqspace1(n, as<T>())
  *
  *   f = freqspace1(n, as<T>()) returns the 1-d frequency vector f assuming n
- *                              equally spaced points around the unit circle.  
+ *                              equally spaced points around the unit circle.
  *                              f = _(0, 2/n, 1).
  *   f = freqspace1(n, whole_, as<T>()) returns all n equally spaced points.
  *                                 In this case, f = _(0, 2/n, 2*(n-1)/n).
@@ -37,11 +38,18 @@
  * T can be any floating type
 **/
 
+/* 'whole'
+  [f]       = freqspace(n)
+  [f]       = freqspace(n, whole_, as<T>())
+  [f]       = freqspace(n,         as<T>())
+  [f1, f2]  = freqspace(n)
+  [f1, f2]  = freqspace([m, n])
+  [f1, f2]  = freqspace([m, n], meshgrid_)
+  [f1, f2]  = freqspace([m, n], as<T>())
+  [f1, f2]  = freqspace([m, n], meshgrid_,  as<T>())
+ */
 namespace nt2
 {
-  struct whole_t {};
-  const meta::as_<whole_t> whole_ = {};
-
   namespace tag
   {
     struct freqspace1_ : ext::generative_<freqspace1_>
@@ -70,4 +78,3 @@ namespace nt2 { namespace container { namespace ext
 } } }
 
 #endif
-

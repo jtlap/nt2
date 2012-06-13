@@ -8,6 +8,10 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2::memory buffer of non-pod types"
 
+#ifdef _MSC_VER
+#pragma warning(disable: 4996) // unsafe std::transform
+#endif
+
 #include <nt2/sdk/memory/buffer.hpp>
 
 #include <algorithm>
@@ -22,33 +26,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-struct object
-{
-  object()              : s("default")  {}
-  object(object const&) : s("copied")   {}
-
-  object& operator=(object const&)
-  {
-    s = "assigned";
-    return *this;
-  }
-
-  object& operator=(std::string const& src)
-  {
-    s = src;
-    return *this;
-  }
-
-  ~object() {}
-
-  std::string s;
-};
-
-void swap(object& l, object& r)
-{
-  l.s = "left swapped";
-  r.s = "right swapped";
-}
+#include "object.hpp"
 
 //==============================================================================
 // Test for default buffer ctor
@@ -57,13 +35,13 @@ NT2_TEST_CASE( buffer_default_ctor )
 {
   using nt2::memory::buffer;
 
-  buffer<object> b;
+  buffer<nt2::object> b;
 
   NT2_TEST(b.empty());
   NT2_TEST_EQUAL(b.size()     , 0u      );
   NT2_TEST_EQUAL(b.capacity() , 0u      );
   NT2_TEST_EQUAL(b.begin()    , b.end() );
-  NT2_TEST_EQUAL(b.raw()      , (object*)(0) );
+  NT2_TEST_EQUAL(b.raw()      , (nt2::object*)(0) );
 }
 
 //==============================================================================
@@ -73,7 +51,7 @@ NT2_TEST_CASE( buffer_size_ctor )
 {
   using nt2::memory::buffer;
 
-  buffer<object> b(5);
+  buffer<nt2::object> b(5);
 
   NT2_TEST(!b.empty());
   NT2_TEST_EQUAL(b.size()     , 5u    );
@@ -91,8 +69,8 @@ NT2_TEST_CASE( buffer_copy_ctor )
 {
   using nt2::memory::buffer;
 
-  buffer<object>  b(5);
-  buffer<object>       x(b);
+  buffer<nt2::object>  b(5);
+  buffer<nt2::object>       x(b);
 
   NT2_TEST(!x.empty());
   NT2_TEST_EQUAL(x.size()     , 5u    );
@@ -110,7 +88,7 @@ NT2_TEST_CASE( buffer_resize )
 {
   using nt2::memory::buffer;
 
-  buffer<object> b(5);
+  buffer<nt2::object> b(5);
 
   b.resize(9);
   NT2_TEST(!b.empty());
@@ -156,8 +134,8 @@ NT2_TEST_CASE( buffer_assignment )
 {
   using nt2::memory::buffer;
 
-  buffer<object> b(5);
-  buffer<object> x;
+  buffer<nt2::object> b(5);
+  buffer<nt2::object> x;
 
   x = b;
 
@@ -177,8 +155,8 @@ NT2_TEST_CASE( buffer_swap )
 {
   using nt2::memory::buffer;
 
-  buffer<object> b(5);
-  buffer<object> x(7);
+  buffer<nt2::object> b(5);
+  buffer<nt2::object> x(7);
 
   swap(x,b);
 
@@ -232,12 +210,12 @@ NT2_TEST_CASE( buffer_iterator )
 {
   using nt2::memory::buffer;
 
-  buffer<object> x(5);
+  buffer<nt2::object> x(5);
 
   f_ f;
 
-  buffer<object>::iterator b = x.begin();
-  buffer<object>::iterator e = x.end();
+  buffer<nt2::object>::iterator b = x.begin();
+  buffer<nt2::object>::iterator e = x.end();
 
   std::transform(b,e,b,f);
 

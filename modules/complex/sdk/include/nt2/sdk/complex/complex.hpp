@@ -11,7 +11,5 @@
 
 #include <nt2/sdk/complex/details/complex/meta.hpp>
 #include <boost/simd/sdk/simd/native_tuple.hpp>
-#include <nt2/sdk/complex/details/complex/logical.hpp>
-#include <nt2/sdk/complex/io.hpp>
 
 #endif

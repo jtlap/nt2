@@ -24,6 +24,11 @@ namespace nt2
     {
       typedef ext::generative_<colon_> parent;
     };
+
+    struct relative_colon_ : ext::elementwise_<relative_colon_>
+    {
+      typedef ext::elementwise_<relative_colon_> parent;
+    };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::colon_, colon, 2)
@@ -42,6 +47,39 @@ namespace nt2 { namespace container { namespace ext
   template<class Domain, class Expr, int N>
   struct size_of<tag::colon_,Domain,N,Expr>     : generative_size_of<Expr>
   {};
+
+  template<class Domain, class Expr, int N>
+  struct generator<tag::relative_colon_,Domain,N,Expr>
+  {
+    typedef expression< typename boost::remove_const<Expr>::type
+                      , int
+                      >                                   result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
+
+  template<class Domain, class Expr>
+  struct size_of<tag::relative_colon_,Domain,1,Expr>
+  {
+    typedef _0D result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type();
+    }
+  };
+
+  template<class Domain, class Expr>
+  struct size_of<tag::relative_colon_,Domain,2,Expr>
+  {
+    typedef _0D result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type();
+    }
+  };
 } } }
 
 #endif

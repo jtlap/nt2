@@ -54,5 +54,5 @@ NT2_TEST_CASE_TPL ( fast_hypot_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::Sqrt_2<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::Sqrt_2<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(fast_hypot(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
 } // end of test for floating_

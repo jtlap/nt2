@@ -25,7 +25,7 @@ NT2_TEST_CASE( default_ctor )
 
   table<float> x;
 
-  NT2_TEST( nt2::extent(x) == of_size(0) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(0 ) );
 }
 
 NT2_TEST_CASE_TPL( scalar_ctor, NT2_TYPES )
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL( scalar_ctor, NT2_TYPES )
 
   table<T> x = T(42);
 
-  NT2_TEST( nt2::extent(x) == of_size(1,1) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(1,1 ) );
   NT2_TEST_EQUAL( T(x(1)), T(42) );
 }
 
@@ -47,38 +47,38 @@ NT2_TEST_CASE( of_size_ctor )
 
   {
     table<float> x( of_size(2,3) );
-    NT2_TEST( nt2::extent(x) == of_size(2,3) );
+    NT2_TEST_EQUAL( nt2::extent(x), of_size(2,3 ) );
 
     table<float, of_size_<5, 1>  > b;
-    NT2_TEST( nt2::extent(b) == of_size(5, 1) );
+    NT2_TEST_EQUAL( nt2::extent(b), of_size(5, 1 ) );
 
     table<float, of_size_<5>  > c;
-    NT2_TEST( nt2::extent(c) == of_size(5) );
+    NT2_TEST_EQUAL( nt2::extent(c), of_size(5 ) );
   }
 
   {
     table<float> x( of_size(2,3,4) );
-    NT2_TEST( nt2::extent(x) == of_size(2,3,4) );
+    NT2_TEST_EQUAL( nt2::extent(x), of_size(2,3,4 ) );
   }
 
   {
     table<float> x( of_size(2,3,4,5) );
-    NT2_TEST( nt2::extent(x) == of_size(2,3,4,5) );
+    NT2_TEST_EQUAL( nt2::extent(x), of_size(2,3,4,5 ) );
   }
 
   {
     table<float, of_size_<2,3> > x;
-    NT2_TEST( nt2::extent(x) == of_size(2,3) );
+    NT2_TEST_EQUAL( nt2::extent(x), of_size(2,3 ) );
   }
 
   {
     table<float, of_size_<2,3,4> > x;
-    NT2_TEST( nt2::extent(x) == of_size(2,3,4) );
+    NT2_TEST_EQUAL( nt2::extent(x), of_size(2,3,4 ) );
   }
 
   {
     table<float, of_size_<2,3,4,5> > x;
-    NT2_TEST( nt2::extent(x) == of_size(2,3,4,5) );
+    NT2_TEST_EQUAL( nt2::extent(x), of_size(2,3,4,5 ) );
   }
 }
 
@@ -92,7 +92,7 @@ NT2_TEST_CASE( range_ctor )
   float data[] =  { 1,2,3, 4,5,6 };
 
   table<float> x( of_size(3,2), &data[0], &data[0] + 6 );
-  NT2_TEST( nt2::extent(x) == of_size(3,2) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(3,2 ) );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
     for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
@@ -113,7 +113,7 @@ NT2_TEST_CASE( shared_ctor_boost_array )
 
   table<float, settings(shared_)> x(of_size(3,2), share(data));
 
-  NT2_TEST( nt2::extent(x) == of_size(3,2) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(3,2 ) );
   NT2_TEST_EQUAL( x.raw(), &data[0] );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
@@ -135,7 +135,7 @@ NT2_TEST_CASE( shared_ctor_c_array )
 
   table<float, settings(shared_)> x(of_size(3,2), share(data));
 
-  NT2_TEST( nt2::extent(x) == of_size(3,2) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(3,2 ) );
   NT2_TEST_EQUAL( x.raw(), &data[0] );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
@@ -157,7 +157,7 @@ NT2_TEST_CASE( shared_ctor_pointer )
 
   table<float, settings(shared_)> x(of_size(3,2), share(&data[0], &data[0] + 6));
 
-  NT2_TEST( nt2::extent(x) == of_size(3,2) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(3,2 ) );
   NT2_TEST_EQUAL( x.raw(), &data[0] );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
@@ -177,7 +177,7 @@ NT2_TEST_CASE( shared_ctor_scalar )
 
   table<float,settings(shared_)> x(nt2::extent(f), share(&f, &f + 1));
 
-  NT2_TEST( nt2::extent(x) == of_size(1) );
+  NT2_TEST_EQUAL( nt2::extent(x), of_size(1 ) );
   NT2_TEST_EQUAL( x.raw(), &f );
 
   NT2_TEST_EQUAL( float(x(1,1)), 1.f );

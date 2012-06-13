@@ -16,7 +16,7 @@
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
-#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/polevl.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
         bA0 test1 = lt(x, lim1);
         A0 r1 = {{}};
         uint32_t nb = 0;
-        if ((nb = (nbtrue(test1) > 0)))
+        if ((nb = (inbtrue(test1) > 0)))
           {
             r1 = oneminus(a0*polevl( xx, erf0_P4)/polevl( xx, erf0_Q4 ));
             if (nb >= meta::cardinal_of<A0>::value)
@@ -129,7 +129,7 @@ namespace nt2 { namespace ext
         bA0 test3 = logical_andnot(test2, test1);
         uint32_t nb1 = 0;
         A0 ex = nt2::exp(-xx);
-        if ((nb1 = (nbtrue(test3) > 0)))
+        if ((nb1 = (inbtrue(test3) > 0)))
           {
             A0 z = ex*polevl(x, erfc1_P5)/polevl( x, erfc1_Q5);
             r1 = select(test1, r1, z);

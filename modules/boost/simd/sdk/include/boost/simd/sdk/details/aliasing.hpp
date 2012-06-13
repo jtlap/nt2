@@ -10,6 +10,8 @@
 #define BOOST_SIMD_SDK_DETAILS_ALIASING_HPP_INCLUDED
 
 #include <boost/config.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_class.hpp>
 
 #ifndef BOOST_SIMD_NO_STRICT_ALIASING
 
@@ -26,5 +28,20 @@
 #ifndef BOOST_SIMD_MAY_ALIAS
 #define BOOST_SIMD_MAY_ALIAS
 #endif
+
+namespace boost { namespace simd { namespace meta
+{
+  template<class T, class Enable = void>
+  struct may_alias
+  {
+    typedef T BOOST_SIMD_MAY_ALIAS type;
+  };
+
+  template<class T>
+  struct may_alias<T, typename boost::enable_if< boost::is_class<T> >::type>
+  {
+    typedef T type;
+  };
+} } }
 
 #endif

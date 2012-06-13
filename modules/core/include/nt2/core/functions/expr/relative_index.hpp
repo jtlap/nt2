@@ -11,8 +11,9 @@
 
 #include <nt2/core/functions/relative_index.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
+#include <nt2/core/functions/colon.hpp>
+#include <nt2/core/container/category.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -53,12 +54,37 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<A4> >)
                             )
   {
-    typedef typename A0::value_type result_type;
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& idx, const A1&, const A2&, const A3&, const A4&) const
     {
-      return nt2::run(idx,0u,meta::as_<result_type>());
+      return nt2::run(idx,0u,meta::as_<typename A0::value_type>());
+    }
+  };
+
+  //============================================================================
+  // When indexing begin_/end_ +/- i, evaluate to proper extremum
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+                            , (A0)(Arity)(A1)(A2)(A3)(A4)
+                            , ((expr_ < extremum_< A0 >
+                                      , nt2::tag::terminal_
+                                      , Arity
+                                      >
+                              ))
+                              (scalar_< unspecified_<A1> >)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
+                              (target_< unspecified_<A4> >)
+                            )
+  {
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(const A0& idx, const A1& bi, const A2& sz, const A3&, const A4&) const
+    {
+      return boost::proto::value(idx).index(bi,sz);
     }
   };
 
@@ -78,8 +104,7 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<A4> >)
                             )
   {
-    typedef typename boost::dispatch::meta::
-            scalar_of<typename A4::type>::type  result_type;
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0&, const A1&, const A2&, const A3& p, const A4&) const
@@ -89,7 +114,8 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // When indexing on _(a, b), return the consecutive positions
+  // When indexing on _(a, b), return the initial offset a
+  // TODO: This doesn't discriminate a shit between _(a,b) and _(a,s,b)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)
@@ -100,13 +126,73 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<A4> >)
                             )
   {
-    typedef typename boost::dispatch::meta::
-            scalar_of<typename A4::type>::type  result_type;
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& idx, const A1& bi, const A2&, const A3& p, const A4&) const
     {
       return nt2::run(idx,p-bi,meta::as_<result_type>());
+    }
+  };
+
+  //============================================================================
+  // When indexing on _(a, b) with an extremum, return the current offset
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)(A4)
+                            , ((node_ < A0
+                                      , nt2::tag::relative_colon_
+                                      , boost::mpl::long_<1>
+                                      >
+                              ))
+                              (scalar_< unspecified_<A1> >)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
+                              (target_< unspecified_<A4> >)
+                            )
+  {
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(const A0& i, const A1& b, const A2& s, const A3& p, const A4&) const
+    {
+      return  details::
+              unity_colon_value ( boost::proto::
+                                  value(boost::proto::child_c<0>(i)).lower(b,s)
+                                , p-b
+                                , meta::as_<result_type>()
+                                );
+    }
+  };
+
+  //============================================================================
+  // When indexing on _(a, s, b) with an extremum, return the current offset
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
+                            , (A0)(A1)(A2)(A3)(A4)
+                            , ((node_ < A0
+                                      , nt2::tag::relative_colon_
+                                      , boost::mpl::long_<2>
+                                      >
+                              ))
+                              (scalar_< unspecified_<A1> >)
+                              (scalar_< unspecified_<A2> >)
+                              (scalar_< unspecified_<A3> >)
+                              (target_< unspecified_<A4> >)
+                            )
+  {
+    typedef typename meta::scalar_of<typename A4::type>::type result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    operator()(const A0& i, const A1& b, const A2& s, const A3& p, const A4&) const
+    {
+      return  details::
+              colon_value ( boost::proto::
+                            value(boost::proto::child_c<0>(i)).lower(b,s)
+                          , boost::proto::value(boost::proto::child_c<1>(i))
+                          , p-b
+                          , meta::as_<result_type>()
+                          );
     }
   };
 } }

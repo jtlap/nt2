@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
       svtype a00 = { _mm256_extractf128_si256(a0, 0)};
       svtype a10 = { _mm256_extractf128_si256(a1, 0)};
       svtype  r0 = adds(a00,a10);
-      result_type that  = {_mm256_insertf128_si256(that, r0, 0)};
+      result_type that  = {_mm256_castsi128_si256(r0)};
       svtype a01 = { _mm256_extractf128_si256(a0, 1)};
       svtype a11 = { _mm256_extractf128_si256(a1, 1)};
       svtype r1 = adds(a01,a11);
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
       svtype a00 = { _mm256_extractf128_si256(a0, 0)};
       svtype a10 = { _mm256_extractf128_si256(a1, 0)};
       svtype  r0 = adds(a00,a10);
-      result_type that  = {_mm256_insertf128_si256(that, r0, 0)};
+      result_type that  = {_mm256_castsi128_si256(r0)};
       svtype a01 = { _mm256_extractf128_si256(a0, 1)};
       svtype a11 = { _mm256_extractf128_si256(a1, 1)};
       svtype r1 = adds(a01,a11);

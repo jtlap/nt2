@@ -26,8 +26,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type( real(a0) + real(a1)
-                        , imag(a0) + imag(a1)
+      return result_type( nt2::real(a0) + nt2::real(a1)
+                        , nt2::imag(a0) + nt2::imag(a1)
                         );
     }
   };
@@ -41,8 +41,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type( real(a0) + real(a1)
-                        , imag(a1)
+      return result_type( nt2::real(a0) + nt2::real(a1)
+                        , nt2::imag(a1)
                         );
     }
   };
@@ -55,8 +55,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type( real(a0) + real(a1)
-                        , imag(a0)
+      return result_type( nt2::real(a0) + nt2::real(a1)
+                        , nt2::imag(a0)
                         );
     }
   };
@@ -70,8 +70,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type( real(a1)
-                        , imag(a0) + imag(a1)
+      return result_type( nt2::real(a1)
+                        , nt2::imag(a0) + nt2::imag(a1)
                         );
     }
   };
@@ -85,8 +85,8 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type( real(a0)
-                        , imag(a0) + imag(a1)
+      return result_type( nt2::real(a0)
+                        , nt2::imag(a0) + nt2::imag(a1)
                         );
     }
   };
@@ -100,8 +100,8 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type( real(a0)
-                        , imag(a1)
+      return result_type( nt2::real(a0)
+                        , nt2::imag(a1)
                         );
     }
   };
@@ -114,8 +114,8 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type( real(a1)
-                        , imag(a0)
+      return result_type( nt2::real(a1)
+                        , nt2::imag(a0)
                         );
     }
   };
@@ -129,7 +129,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return bitwise_cast<result_type>(imag(a0) + imag(a1));
+      return bitwise_cast<result_type>(nt2::imag(a0) + nt2::imag(a1));
     }
   };
   
@@ -143,7 +143,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(real(a1)+real(a0), imag(a1));
+      return result_type(nt2::real(a1)+nt2::real(a0), nt2::imag(a1));
     }
   };
   
@@ -157,7 +157,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(real(a0)+real(a1), imag(a0));
+      return result_type(nt2::real(a0)+nt2::real(a1), nt2::imag(a0));
     }
   };
 
@@ -171,7 +171,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(real(a0), imag(a1));
+      return result_type(nt2::real(a0), nt2::imag(a1));
     }
   };
   
@@ -185,7 +185,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A1>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(real(a1), imag(a0));
+      return result_type(nt2::real(a1), nt2::imag(a0));
     }
   };
   
@@ -198,7 +198,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(real(a0)+a1);
+      return result_type(nt2::real(a0)+a1);
     }
   };
   
@@ -212,7 +212,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return bitwise_cast<result_type>(real(a1)+a0);
+      return bitwise_cast<result_type>(nt2::real(a1)+a0);
     }
   };
   
@@ -226,7 +226,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return bitwise_cast<result_type>(real(a0)+real(a1));
+      return bitwise_cast<result_type>(nt2::real(a0)+nt2::real(a1));
     }
   };  
   

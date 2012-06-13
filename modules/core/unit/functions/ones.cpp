@@ -78,16 +78,16 @@ NT2_TEST_CASE_TPL( ones_value_type, NT2_TYPES )
 
 NT2_TEST_CASE( ones_size )
 {
-  NT2_TEST( nt2::extent( nt2::ones(nt2::of_size(4,5)) ) == nt2::of_size(4,5) );
+  NT2_TEST_EQUAL( nt2::extent( nt2::ones(nt2::of_size(4,5)) ), nt2::of_size(4,5 ) );
   NT2_TEST_EQUAL( nt2::size( nt2::ones(nt2::of_size(4,5)), 1 ), 4 );
   NT2_TEST_EQUAL( nt2::size( nt2::ones(nt2::of_size(4,5)), 2 ), 5 );
 
-  NT2_TEST( nt2::extent( nt2::ones(nt2::of_size(4,5,6)) ) == nt2::of_size(4,5,6) );
+  NT2_TEST_EQUAL( nt2::extent( nt2::ones(nt2::of_size(4,5,6)) ), nt2::of_size(4,5,6 ) );
   NT2_TEST_EQUAL( nt2::size( nt2::ones(nt2::of_size(4,5,6)), 1 ), 4 );
   NT2_TEST_EQUAL( nt2::size( nt2::ones(nt2::of_size(4,5,6)), 2 ), 5 );
   NT2_TEST_EQUAL( nt2::size( nt2::ones(nt2::of_size(4,5,6)), 3 ), 6 );
 
-  NT2_TEST( nt2::extent( nt2::ones(nt2::of_size(4,5,6,7)) ) == nt2::of_size(4,5,6,7) );
+  NT2_TEST_EQUAL( nt2::extent( nt2::ones(nt2::of_size(4,5,6,7)) ), nt2::of_size(4,5,6,7 ) );
   NT2_TEST_EQUAL( nt2::size( nt2::ones(nt2::of_size(4,5,6,7)), 1 ), 4 );
   NT2_TEST_EQUAL( nt2::size( nt2::ones(nt2::of_size(4,5,6,7)), 2 ), 5 );
   NT2_TEST_EQUAL( nt2::size( nt2::ones(nt2::of_size(4,5,6,7)), 3 ), 6 );

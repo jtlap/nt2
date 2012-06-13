@@ -13,7 +13,7 @@
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/is_less_equal.hpp>
-#include <nt2/include/functions/simd/nbtrue.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_allbits.hpp>
@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
      A0 r = Nan<A0>();
      uint32_t nb = 0;
      bA0 test = le(x,  Eight<A0>());
-     if( (nb = nbtrue(test)) > 0)
+     if( (nb = inbtrue(test)) > 0)
        {
          A0 y = x*Half<A0>() - Two<A0>();
          r = if_else_nan(test,exp(x) * tchebeval( y, A));
@@ -207,7 +207,7 @@ namespace nt2 { namespace ext
       A0 r = Nan<A0>();
       uint32_t nb = 0;
       bA0 test = le(x, Eight<A0>());
-      if( (nb = nbtrue(test)) > 0)
+      if( (nb = inbtrue(test)) > 0)
       {
         A0 y = x*Half<A0>() - Two<A0>();
         r = if_else_nan(test,exp(x) * tchebeval( y, A));
