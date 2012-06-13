@@ -150,16 +150,20 @@ namespace boost { namespace serialization
     typedef Archive archive_type;
     explicit saver_(archive_type& a) : ar(a) {}
     template<class Terminal>
-    void operator()(Terminal const& t)
+    void operator()(Terminal const& t) const
     { ar << t; }
     archive_type& ar;
   };
 
+  template<class Archive>
   struct loader_
   {
-    template<class Archive, class Terminal>
-    void operator()(Archive& ar, Terminal& t)
-    { ar >> t; }
+    typedef Archive archive_type;
+    explicit loader_(archive_type& a) : ar(a) {}
+    template<class Terminal>
+    void operator()(Terminal const& t) const
+    { ar << t; }
+    archive_type& ar;
   };
 
   template<class Archive, class E, class R, class D>
@@ -178,17 +182,17 @@ namespace boost { namespace serialization
 
     typedef typename proto::result_of::
     flatten< const nt2::container::expression<E,R,D> >::type sequence_type;
-    saver_<Archive> s_(ar);
+    saver_<Archive> save_terminals_(ar);
     sequence_type terminals = boost::proto::flatten(e);
-    boost::fusion::for_each(terminals,s_);
+    boost::fusion::for_each(terminals,save_terminals_);
   }
 
   template<class Archive, class E, class R, class D>
   void load( Archive& ar, nt2::container::expression<E,R,D>& e
            , unsigned int const& version
            , typename boost::enable_if< typename boost::mpl::not_equal_to<
-                 typename boost::proto::arity_of<E>
-               , boost::mpl::int_<0> >
+               typename boost::proto::arity_of<E>
+             , boost::mpl::int_<0> >
              >::type* dummy = 0
            )
   {
@@ -196,12 +200,14 @@ namespace boost { namespace serialization
                         , NT2_INVALID_ACCESS_TO_EXPRESSION_NODES_ON_NON_EXPRESSION
                         , (E)
                         );
-    // typedef typename nt2::container::expression<E,R,D>::extent_type e_t;
-    // typedef typename nt2::meta::strip<e_t>::type size_type;
-    // size_type size_;
-    // ar >> size_;
-    // e.resize(size_);
-    // ar >> make_array(e.raw(), nt2::numel(e));
+    
+    typedef typename nt2::container::expression<E,R,D> expression_type;
+    typedef typename proto::result_of::
+    flatten< expression_type >::type sequence_type;
+    loader_<Archive> load_terminals_(ar);
+    sequence_type terminals;
+    boost::fusion::for_each(terminals,load_terminals_);
+    e = boost::proto::unpack_expr(terminals);
   }
 
   template<class Archive, class E, class R, class D>
