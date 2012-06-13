@@ -21,6 +21,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 #include <nt2/include/functions/size.hpp>
+#include <nt2/include/functions/minusone.hpp>
  
 
 namespace nt2 { namespace ext
@@ -37,7 +38,8 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      value_type f =  nt2::rec(nt2::size(a0, nt2::firstnonsingleton(a0))-1u); 
+      value_type n = nt2::size(a0, nt2::firstnonsingleton(a0));
+      value_type f =  (n <= One<value_type>()) ? One<value_type>() : rec(minusone(n)); 
       return nt2::multiplies(f, asum2(center(a0))); 
     }
   };
@@ -53,7 +55,8 @@ namespace nt2 { namespace ext
     typedef typename meta::call < tag::multiplies_(value_type, T3)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-      value_type f =  nt2::rec(nt2::size(a0, nt2::firstnonsingleton(a0))-size_t(a1==0)); 
+      value_type n = nt2::size(a0, nt2::firstnonsingleton(a0));
+      value_type f = (n <= One<value_type>())? One<value_type>() :  nt2::rec(n- size_t(a1==0)); 
       return nt2::multiplies(f, asum2(center(a0, a1), a1)); 
     }
   };
@@ -71,9 +74,10 @@ namespace nt2 { namespace ext
     typedef typename meta::call < tag::multiplies_(value_type, T3)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1, const A2& a2) const
     {
-      BOOST_ASSERT_MSG(a1 == 0 || a1 == 1, "integer value a1 must be 0 or 1"); 
-      value_type f =  nt2::rec(nt2::size(a0, a2)-size_t(a1==0)); 
-      return nt2::multiplies(f, asum2_((center(a0, a2)), a2)); 
+      BOOST_ASSERT_MSG(a1 == 0 || a1 == 1, "integer value a1 must be 0 or 1");
+      value_type n = nt2::size(a0, a2); 
+      value_type f = (n <= One<value_type>())? One<value_type>() :  nt2::rec(n- size_t(a1==0)); 
+      return nt2::multiplies(f, asum2(center(a0, a2), a2)); 
     }
   };
 
