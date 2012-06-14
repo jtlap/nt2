@@ -21,7 +21,7 @@ NT2_TEST_CASE( semantic_of )
   using nt2::table;
   using nt2::settings;
   using boost::mpl::_;
-  using nt2::memory::container_ref;
+  using nt2::memory::container;
   using boost::fusion::vector1;
   using boost::fusion::vector2;
   using boost::fusion::vector3;
@@ -35,32 +35,32 @@ NT2_TEST_CASE( semantic_of )
 
   NT2_TEST_EXPR_TYPE( nt2::tie(d)
                     , semantic_of<_>
-                    , (vector1< container_ref<double,settings()> >)
+                    , (vector1< container<double,settings()>& >)
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::tie(f,d)
                     , semantic_of<_>
-                    , (vector2< container_ref<float,settings()>
-                              , container_ref<double,settings()>
+                    , (vector2< container<float,settings()>&
+                              , container<double,settings()>&
                               >
                       )
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::tie(f,d,s)
                     , semantic_of<_>
-                    , (vector3< container_ref<float,settings()>
-                              , container_ref<double,settings()>
-                              , container_ref<short,settings()>
+                    , (vector3< container<float,settings()>&
+                              , container<double,settings()>&
+                              , container<short,settings()>&
                               >
                       )
                     );
 
   NT2_TEST_EXPR_TYPE( nt2::tie(c,f,d,s)
                     , semantic_of<_>
-                    , (vector4< container_ref<char,settings()>
-                              , container_ref<float,settings()>
-                              , container_ref<double,settings()>
-                              , container_ref<short,settings()>
+                    , (vector4< container<char,settings()>&
+                              , container<float,settings()>&
+                              , container<double,settings()>&
+                              , container<short,settings()>&
                               >
                       )
                     );
