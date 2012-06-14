@@ -9,14 +9,9 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_TRACE_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_TRACE_HPP_INCLUDED
 #include <nt2/toolbox/linalg/functions/trace.hpp>
-#include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
-#include <nt2/include/constants/zero.hpp>
-
-// #include <nt2/include/functions/scalar/sum.hpp>
-// #include <nt2/include/functions/scalar/diag_of.hpp>
+#include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/diag_of.hpp>
 
 //sum of diagonal elements even if a is not square
 
@@ -31,13 +26,7 @@ namespace nt2{ namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(ismatrix(a0), "a0 is not a matrix or vector in trace call");
-      int n = nt2::min(height(a0), width(a0));
-      result_type r = Zero<result_type>();
-      for(int i=first_index<1>(a0); i < first_index<1>(a0)+n; ++i)
-        {
-          r+= a0(i, i);
-        }
-      //      result_type r = sum(diag_of(a0)); //TODO
+      result_type r = nt2::sum(nt2::diag_of(a0)(nt2::_)); //TODO
       return r;
     }
   };

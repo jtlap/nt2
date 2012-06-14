@@ -58,6 +58,7 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/diag_of.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/isempty.hpp>
@@ -190,18 +191,9 @@ namespace nt2 {
       size_t     rank(base_t epsi = nt2::Eps<base_t>())const
       {
         base_t thresh = nt2::max(n_, m_)*epsi*nt2::max(nt2::abs(diag_of(aa_)(_)));
-        size_t r = 0; 
-        for(int i=1; i <= min(n_, m_); ++i)
-          {
-            if (nt2::abs(aa_(i, i)) > thresh) ++r; 
-          }
-//         table<logical<base_t> > l = nt2::diag_of(aa_()) > thresh;
-//         disp("l", l); 
-//         table<size_t > s = inbtrue(l); 
-//         disp("s", s); 
-        return r;
-        //nt2::sum(nt2::abs(nt2::diag_of(aa_())) > nt2::max(n, m)*epsi*nt2::max(nt2::abs(aa_)));
+        return  size_t(sum(if_one_else_zero(gt(nt2::abs(nt2::diag_of(aa_)), thresh))(_)));
       }
+
       base_t absdet()const{
         BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
         return nt2::prod(nt2::abs(diag_of(aa_)(_)));

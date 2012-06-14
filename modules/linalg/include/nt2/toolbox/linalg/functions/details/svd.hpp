@@ -21,6 +21,7 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/eps.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -240,16 +241,16 @@ namespace nt2 { namespace details
      size_t      rank(base_t epsi = -1) const
     {
       epsi =  (epsi < 0) ?  nt2::max(n_, m_)*nt2::eps(w_(1)): epsi;
-      size_t r = 0; 
-      for(int i=1; i <= numel(w_); ++i)
-        {
-          if (w_(i) > epsi)
-            ++r;
-          else
-            return r; 
-        }
-      return r; 
-       //     return sum(sb2b(gt(w_, epsi))); //TO DO
+//       size_t r = 0; 
+//       for(int i=1; i <= numel(w_); ++i)
+//         {
+//           if (w_(i) > epsi)
+//             ++r;
+//           else
+//             return r; 
+//         }
+//       return r; 
+      return  size_t(sum(if_one_else_zero(gt(w_, epsi))(_))); 
     }
 
     //==========================================================================
@@ -260,17 +261,12 @@ namespace nt2 { namespace details
     {
       b = solve(b);
     }
+
     template<class XPR> result_type solve(const XPR & b,
                                           base_t epsi = Mone<base_t>() )const{
       epsi =  epsi < 0 ? nt2::eps(w_(1)) : epsi;
-      //      tab_t w1 = if_else( (w > epsi), nt2::rec(w), Zero<base_t>()); //TODO
-      tab_t w1(w.extent());
-      for(int i=1; i <= numel(w1) ; ++i)
-        {
-          w1(i) = w(i) > epsi ? nt2::rec(w) : Zero<base_t>();
-        }
-      //      return (nt2::trans(vt)*(nt2::from_diag(w1)*nt2::trans(u)))*b; //TODO
-      return prodMM(prodtMM(vt_, prodMtM(from_diag(w1), u_)), b);
+      tab_t w1 = nt2::if_else( gt(w_, length(a_)*epsi), nt2::rec(w_), Zero<base_t>());
+      return mtimes(trans(vt_), mtimes(from_diag(w1), mtimes(trans(u_), b)));
       }
 
     //==========================================================================
@@ -302,14 +298,7 @@ namespace nt2 { namespace details
       tab_t pinv(base_t epsi = -1 )const
       {
         epsi = epsi < 0 ? nt2::eps(w_(1)) : epsi;
-//        tab_t w1(w_.extent());
-//         for(int i=1; i <= numel(w1) ; ++i)
-//         {
-//           w1(i) = w_(i) > length(a_)*epsi ? nt2::rec(w_(i)) : Zero<base_t>();
-//         }
         tab_t w1 = nt2::if_else( gt(w_, length(a_)*epsi), nt2::rec(w_), Zero<base_t>());
-        //  return (nt2::trans(vt_)*(nt2::diag(w1)*nt2::trans(u_)));
-        //  return prodtMM(vt_, prodMtM(diag_from(w1), u_));
         return mtimes(trans(vt_), mtimes(from_diag(w1), trans(u_))); 
       }
 

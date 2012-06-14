@@ -125,7 +125,6 @@ namespace nt2 { namespace details
     //==========================================================================
     itab_t ipiv() const
     {
-      //return nt2::reshape(nt2::posmax(t_, 2), 1, n_);
       itab_t ipi(of_size(1, n_)); 
       for(int i=1; i <= n_; ++i)
         {
