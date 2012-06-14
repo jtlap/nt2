@@ -63,8 +63,15 @@ NT2_TEST_CASE( sharing_default )
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some sharing_ as a setting
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings own   (nt2::shared_, nt2::owned_);
-nt2::settings share (nt2::owned_ , nt2::shared_);
+nt2::settings own   (nt2::shared_, nt2::owned_)
+{
+  return nt2::settings();
+}
+
+nt2::settings share (nt2::owned_ , nt2::shared_)
+{
+  return nt2::settings();
+}
 
 NT2_TEST_CASE( setting_sharing_ )
 {

@@ -26,6 +26,31 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 
+namespace nt2 { namespace memory
+{
+  template<class T, class S>
+  struct container;
+
+  template<class T, class S>
+  struct container_ref;
+} }
+
+namespace nt2 { namespace details
+{
+  template<class T>
+  struct as_container_value
+  {
+    typedef typename boost::dispatch::meta::print<T>::type _;
+    typedef T type;
+  };
+
+  template<class T, class S>
+  struct as_container_value< nt2::memory::container_ref<T, S> >
+  {
+    typedef nt2::memory::container<typename boost::remove_const<T>::type, S> type;
+  };
+} }
+
 namespace boost { namespace simd { namespace ext
 {
   template<class Expr, class State>
@@ -131,9 +156,11 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename dispatch::meta::
-            strip< typename dispatch::meta::semantic_of<A0&>::type
-                 >::type                                           semantic;
+    typedef typename nt2::details::
+            as_container_value< typename dispatch::meta::
+                                strip< typename dispatch::meta::semantic_of<A0&>::type
+                                     >::type
+                              >::type                              semantic;
     typedef boost::shared_ptr<semantic>                            ptr;
     typedef typename boost::proto::
             nullary_expr<boost::proto::tag::dereference, ptr>::type node;

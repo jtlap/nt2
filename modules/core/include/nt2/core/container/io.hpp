@@ -9,16 +9,16 @@
 #ifndef NT2_CORE_CONTAINER_IO_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_IO_HPP_INCLUDED
 
-#include <string>
-#include <iostream>
 #include <nt2/core/container/dsl/expression.hpp>
-#include <boost/preprocessor/stringize.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/schedule.hpp>
+#include <boost/preprocessor/stringize.hpp>
+#include <iostream>
+#include <cstddef>
 
 namespace nt2
 {
@@ -28,8 +28,8 @@ namespace nt2
     // Display a 2D page from an expression
     template<class Xpr, class Pos> inline
     void print_expr ( std::ostream& os
-                    , std::string const& name , Xpr const& xpr
-                    , Pos& p                  , boost::mpl::int_<2> const&
+                    , const char* name , Xpr const& xpr
+                    , Pos& p           , boost::mpl::int_<2> const&
                     )
     {
       typedef typename Xpr::value_type          value_type;
@@ -48,14 +48,14 @@ namespace nt2
       const std::ptrdiff_t b = boost::mpl::at_c<index_type,0>::type::value;
 
       // Display the name
-      if(!name.empty())
+      if(name)
       {
         os << name;
         if(Pos::static_size > 2)
         {
           // .. and the potential (:,:,...) indicator
           os << "(:,:";
-          for(int i=2;i<Pos::static_size;++i) os << "," << p[i];
+          for(std::size_t i=2;i<Pos::static_size;++i) os << "," << p[i];
           os << ")";
         }
         os << " = \n\n";
@@ -67,7 +67,7 @@ namespace nt2
           ++p[0]
           )
       {
-        if(!name.empty())
+        if(name)
           os  << "     ";
 
         for ( p[1]  = nt2::first_index<2>(xpr);
@@ -87,8 +87,8 @@ namespace nt2
     // Display a nD page from an expression by recursively calls itself
     template<class Xpr, class Pos, int N> inline
     void print_expr ( std::ostream& os
-                    , std::string const& name , Xpr const& xpr
-                    , Pos& p                  , boost::mpl::int_<N> const&
+                    , const char* name , Xpr const& xpr
+                    , Pos& p           , boost::mpl::int_<N> const&
                     )
     {
       typedef typename Xpr::value_type          value_type;
@@ -115,7 +115,7 @@ namespace nt2
     // INTERNAL ONLY
     // Perform the needed checks for expression stream insertion
     template<class Xpr,class R> inline
-    void disp ( std::string const& name, std::ostream& os
+    void disp ( const char* name, std::ostream& os
               , nt2::container::expression<Xpr,R> const& xpr
               )
     {
@@ -149,7 +149,7 @@ case n: boost::array<std::ptrdiff_t,n> p##n;              \
       else
       {
         // Display the lonely empty matrix
-        if(!name.empty()) os << name << " = \n     ";
+        if(name) os << name << " = \n     ";
 
         // "[]" is used for 0x0 or 0x1 table
         if( (nt2::ndims(xpr) < 3) && ( !nt2::size(xpr,2) ) )
@@ -159,7 +159,7 @@ case n: boost::array<std::ptrdiff_t,n> p##n;              \
         else
         {
           os  << "     Empty array: " << nt2::size(xpr,1);
-          for(int i=2;i<=nt2::ndims(xpr);++i)
+          for(std::size_t i=2;i<=nt2::ndims(xpr);++i)
             os << "-by-" << nt2::size(xpr,i);
           os << "\n";
         }
@@ -172,7 +172,7 @@ case n: boost::array<std::ptrdiff_t,n> p##n;              \
   // Note that disp(name,xpr) is an addendum with respect to matlab
   //============================================================================
   template<class Xpr,class R> inline
-  void disp( std::string const& name, nt2::container::expression<Xpr,R> const& xpr )
+  void disp( const char* name, nt2::container::expression<Xpr,R> const& xpr )
   {
     details::disp(name,std::cout,xpr);
   }
@@ -195,7 +195,7 @@ case n: boost::array<std::ptrdiff_t,n> p##n;              \
   template<class Xpr,class R> std::ostream&
   operator<<(std::ostream& os, nt2::container::expression<Xpr,R> const& xpr)
   {
-    details::disp("", os, xpr);
+    details::disp(0, os, xpr);
     return os;
   }
 }

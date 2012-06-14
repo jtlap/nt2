@@ -33,23 +33,4 @@ NT2_TEST_CASE_TPL(full_lu_solve_result, NT2_REAL_TYPES)
   nt2::details::full_lu_solve_result<t_t> f(a, b, 'N');
 
   nt2::disp("values", f.x());
-//   t_t p = f.p();
-//   t_t l = f.l();
-//   t_t u = f.u();
-//   t_t pl= f.pl();
-//   it_t ip= f.ip();
-//   nt2::disp("p    ", p);
-//   nt2::disp("l    ", l);
-//   nt2::disp("u    ", u);
-//   nt2::disp("pl   ", pl);
-//   nt2::disp("ip   ", ip); 
-//   itype_t e; 
-//   T m =  f.absdet(e); 
-//   std::cout << "asbdet order " << e << std::endl;
-//   std::cout << "asbdet mant  " << m << std::endl;
-//   std::cout << "asbdet       " << nt2::ldexp(m, e) << std::endl;
-//   std::cout << "asbdet       " << f.absdet()<< std::endl;
-//   std::cout << "rank         " << f.rank()  << std::endl;
-//   std::cout << "signdet      " << f.signdet()<< std::endl;
-//   std::cout << "det          " << f.det()<< std::endl;
  }

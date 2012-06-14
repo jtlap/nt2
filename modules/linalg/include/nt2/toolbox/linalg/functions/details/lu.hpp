@@ -27,6 +27,7 @@
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/issquare.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -253,11 +254,13 @@ namespace nt2 { namespace details
     {
       int32_t r = 0;
       base_t thresh = nt2::max(n_, m_)*epsi*nt2::max(nt2::abs(nt2::diag_of(lu_)(_)));
-      for(int i=1; i <= nt2::min(n_, m_); ++i)
-        {
-          if(nt2::abs(lu_(i, i)) > thresh) ++r;
-        }
-      return r;
+      return  size_t(sum(if_one_else_zero(gt(nt2::diag_of(lu_), thresh))(_)));
+
+      //       for(int i=1; i <= nt2::min(n_, m_); ++i)
+      //         {
+      //           if(nt2::abs(lu_(i, i)) > thresh) ++r;
+      //         }
+      //       return r;
       //      nt2::inbtrue(nt2::abs(diag_of(lu_)) > nt2::max(n_, m_)*epsi*nt2::max(abs(diag_of(lu_()))) );
     }
 

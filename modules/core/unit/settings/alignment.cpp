@@ -62,8 +62,16 @@ NT2_TEST_CASE( alignment_default )
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some alignment_ as a setting and check everything go out properly
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings align  (nt2::unaligned_, nt2::aligned_);
-nt2::settings unalign(nt2::aligned_  , nt2::unaligned_);
+nt2::settings align  (nt2::unaligned_, nt2::aligned_)
+{
+  return nt2::settings();
+}
+
+nt2::settings unalign(nt2::aligned_  , nt2::unaligned_)
+{
+  return nt2::settings();
+}
+
 NT2_TEST_CASE( setting_alignment_ )
 {
   using nt2::aligned_;

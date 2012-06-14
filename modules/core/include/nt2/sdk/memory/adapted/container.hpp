@@ -49,11 +49,10 @@ namespace boost { namespace dispatch { namespace meta
   {
     struct type
     {
-      template<class X> struct apply
+      template<class X>
+      struct apply
       {
-        typedef typename model_of<T>::type                              model;
-        typedef nt2::memory::
-                container<typename boost::mpl::apply<model,X>::type,S>  type;
+        typedef nt2::memory::container<X, S> type;
       };
     };
   };

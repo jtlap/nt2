@@ -62,8 +62,15 @@ NT2_TEST_CASE( buffer_default )
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some buffer_ as a setting
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings s_no_buffer(nt2::buffer_<>);
-nt2::settings s_int_buffer(nt2::buffer_< nt2::memory::buffer<int> >);
+nt2::settings s_no_buffer(nt2::buffer_<>)
+{
+  return nt2::settings();
+}
+
+nt2::settings s_int_buffer(nt2::buffer_< nt2::memory::buffer<int> >)
+{
+  return nt2::settings();
+}
 
 NT2_TEST_CASE( setting_buffer_ )
 {

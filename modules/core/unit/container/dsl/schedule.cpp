@@ -408,6 +408,7 @@ NT2_TEST_CASE( terminal )
   using boost::mpl::_;
   using nt2::table;
   using nt2::memory::container;
+  using nt2::memory::container_ref;
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
 
@@ -424,7 +425,7 @@ NT2_TEST_CASE( terminal )
   NT2_TEST_EXPR_TYPE( nt2::schedule(nt2::assign(a0, a1), f)
                     , child0
                     , (nt2::container::expression< boost::proto::basic_expr< boost::proto::tag::terminal
-                                                                           , boost::proto::term< container<T, S>& >
+                                                                           , boost::proto::term< container_ref<T, S> >
                                                                            , 0
                                                                            >
                                                  ,  container<T, S>&
