@@ -40,7 +40,6 @@ namespace nt2 { namespace details
   template<class T>
   struct as_container_value
   {
-    typedef typename boost::dispatch::meta::print<T>::type _;
     typedef T type;
   };
 
