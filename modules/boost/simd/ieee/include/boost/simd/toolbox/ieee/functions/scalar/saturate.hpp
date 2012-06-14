@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SATURATE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/ieee/functions/saturate.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/properties.hpp>
+#include <boost/simd/include/constants/valmin.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,14 +22,14 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      if (a0 > Valmax<T>())
-        return Valmax<T>();
-      else if (a0 < Valmin<T>())
-        return Valmin<T>();
-      else
-        return a0;
-    }
+      {
+        if (a0 > Valmax<T>())
+          return Valmax<T>();
+        else if (a0 < Valmin<T>())
+          return Valmin<T>();
+        else
+          return a0;
+      }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::saturate_<T> , tag::cpu_,
