@@ -26,30 +26,6 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 
-namespace nt2 { namespace memory
-{
-  template<class T, class S>
-  struct container;
-
-  template<class T, class S>
-  struct container_ref;
-} }
-
-namespace nt2 { namespace details
-{
-  template<class T>
-  struct as_container_value
-  {
-    typedef T type;
-  };
-
-  template<class T, class S>
-  struct as_container_value< nt2::memory::container_ref<T, S> >
-  {
-    typedef nt2::memory::container<typename boost::remove_const<T>::type, S> type;
-  };
-} }
-
 namespace boost { namespace simd { namespace ext
 {
   template<class Expr, class State>
@@ -155,17 +131,15 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename nt2::details::
-            as_container_value< typename dispatch::meta::
-                                strip< typename dispatch::meta::semantic_of<A0&>::type
-                                     >::type
-                              >::type                              semantic;
+    typedef typename dispatch::meta::
+            strip< typename dispatch::meta::semantic_of<A0&>::type
+                 >::type                                           semantic;
     typedef boost::shared_ptr<semantic>                            ptr;
     typedef typename boost::proto::
             nullary_expr<boost::proto::tag::dereference, ptr>::type node;
     typedef typename A0::proto_generator::template
             result<typename A0::proto_generator(node const)>::type child0;
-    typedef typename unpack_schedule<A0, F const>::result_type           child1;
+    typedef typename unpack_schedule<A0, F const>::result_type     child1;
     typedef typename proto::result_of::
             make_expr<proto::tag::assign, child0, child1>::type    assigned;
     typedef typename dispatch::meta::result_of<F const(assigned)>::type  result;
