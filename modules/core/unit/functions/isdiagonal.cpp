@@ -68,13 +68,13 @@ NT2_TEST_CASE( container_isalmostdiagonal )
   a = nt2::ones(4,11,1)+0.5*nt2::Eps<double>(); 
   NT2_TEST( !nt2::isdiagonal(a, nt2::Eps<double>()));
 
-//   NT2_TEST( nt2::isdiagonal( nt2::eye(4))       );
-//   NT2_TEST( nt2::isdiagonal( nt2::eye(4,1))     );
-//   NT2_TEST( nt2::isdiagonal( nt2::eye(4,3))     );
+  NT2_TEST( nt2::isdiagonal( nt2::eye(4))       );
+  NT2_TEST( nt2::isdiagonal( nt2::eye(4,1))     );
+  NT2_TEST( nt2::isdiagonal( nt2::eye(4,3))     );
 
-//   NT2_TEST( !nt2::isdiagonal( nt2::ones(4))       );
-//   NT2_TEST( !nt2::isdiagonal( nt2::ones(4,1))     );
-//   NT2_TEST( !nt2::isdiagonal( nt2::ones(4,1,1))   );
-//   NT2_TEST( !nt2::isdiagonal( nt2::ones(4,1,1,1)) );
+  NT2_TEST( !nt2::isdiagonal( nt2::ones(4))       );
+  NT2_TEST( !nt2::isdiagonal( nt2::ones(4,1))     );
+  NT2_TEST( !nt2::isdiagonal( nt2::ones(4,1,1))   );
+  NT2_TEST( !nt2::isdiagonal( nt2::ones(4,1,1,1)) );
 
 }
