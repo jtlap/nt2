@@ -15,8 +15,12 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/from_diag.hpp>
+#include <nt2/include/functions/isdiagonal.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/conj.hpp>  
@@ -35,28 +39,36 @@ namespace nt2{ namespace ext
     {
       typedef nt2::table<value_type > tab_t; 
       size_t n = length(a0);
-      tie(q, t) = schur(a,'complex'); // t is complex schur form.
-      if (nt2::isdiagonal(a0))
+      tab_t q, t, r;
+      //      tie(q, t) = schur(a0,'N'/*"complex"*/); // t is complex schur form.
+      //FOR KNOW UNTILL COMPLEX WORKS AND FOR TESTING
+      q =  nt2::eye(2, meta::as_<value_type>());
+      t = a0;
+      //FOR KNOW UNTILL COMPLEX WORKS AND FOR TESTING end
+      
+      std::cout << "1" << std::endl; 
+      if (nt2::isdiagonal(t))
         {
           return nt2::from_diag(sqrt(nt2::diag_of(a0))); 
         }
       else
         {
           // Compute upper triangular square root R of T, a column at a time.
-          
-          tab_t r = nt2::zeros(n);  
+          r = nt2::zeros(n, n, meta::as_<value_type>());  
           for (size_t j=1; j <= n; ++j)
             {
               r(j,j) = nt2::sqrt(t(j,j));
-              for (size_t i=j-1; j >= 1; --j)
+              for (size_t i=j-1; i >= 1; --i)
                 {
-                  itab_ k = _(i+1, j-1);
-                  s = nt2::mtimes(r(i,_(i+1, j-1)), r(_(i+1, j-1),j));
+                  //itab_ k = _(i+1, j-1);
+                  //                 value_type s = nt2::sum(nt2::multiplies(r(i,_(i+1, j-1))(_), r(_(i+1, j-1),j)));
+                  value_type s = nt2::mtimes(r(i,_(i+1, j-1)), r(_(i+1, j-1),j));
                   r(i,j) = (t(i,j) - s)/(r(i,i) + r(j,j));
                 }
             }
         } 
-      x = nt2::mtimes( nt2::mtimes(q, r), nt2::trans(nt2::conj(q)));
+      tab_t x = nt2::mtimes( nt2::mtimes(q, r), nt2::trans(nt2::conj(q)));
+      return x; 
       //bool nzeig = any(diag_of(T)(_))(1);
       
       // if nzeig 
@@ -70,7 +82,7 @@ namespace nt2{ namespace ext
                             , (scalar_<fundamental_<A0> >)
                             )
   {
-    typedef typename nt2::meta::as_floating<A0>::type return_type; 
+    typedef typename nt2::meta::as_floating<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::sqrt(nt2::tofloat(a0)); 

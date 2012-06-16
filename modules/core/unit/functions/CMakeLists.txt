@@ -63,6 +63,7 @@ SET( SOURCES
     istriangular.cpp
     istril.cpp
     istriu.cpp
+    isulpequal.cpp
     isvector.cpp
     isvectoralong.cpp
     length.cpp

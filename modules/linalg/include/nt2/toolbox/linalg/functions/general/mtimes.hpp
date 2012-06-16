@@ -17,6 +17,7 @@
 #include <nt2/core/container/table/category.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
+#include <nt2/core/settings/forward/size.hpp>
 
 namespace nt2 { namespace tag
 {

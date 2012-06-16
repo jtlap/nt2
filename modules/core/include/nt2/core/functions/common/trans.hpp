@@ -25,14 +25,14 @@ namespace nt2 { namespace ext
     typedef typename source_t::value_type                     type_t;
     typedef typename source_t::index_type                    index_t;
     typedef nt2::table < type_t, index_t>                result_type;
-    typedef nt2::table < type_t>                                tab_; 
+    typedef nt2::table < type_t>                               tab_t; 
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
       tab_t ta = zeros(width(a), height(a), meta::as_<type_t>());
       for (int i = first_index<1>(a); i <= last_index<1>(a); ++i)
         for (int j = first_index<2>(a); j <= last_index<2>(a); ++j)
-          ta(j, i) = a0(i, j);
+          ta(j, i) = a(i, j);
       return ta;
     }
   };

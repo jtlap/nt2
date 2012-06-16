@@ -15,15 +15,15 @@
 
 /*!
  * \ingroup algebra
- * \defgroup algebra_sqrt sqrt
+ * \defgroup algebra_sqrtm sqrtm
  *
  * \par Description
- * Elementary Least square
+ * suqre root of a matrix
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/sqrt.hpp>
+ * #include <nt2/include/functions/sqrtm.hpp>
  * \endcode
  * 
  * 
@@ -31,7 +31,7 @@
  *
  * \param a the matrix or vector expression a 
  *
- * \param type of sqrt required
+ * \param type of sqrtm required
  * 
  * \par Notes
  *   Call the dedicated lapack routines available on the target.
@@ -42,13 +42,13 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag sqrt_ of functor sqrt
+     * \brief Define the tag sqrtm_ of functor sqrt
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct sqrt_ :  tag::formal_ { typedef tag::formal_ parent; };
+    struct sqrtm_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
   
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqrt_, sqrt, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqrtm_, sqrtm, 1)
 
 }
 

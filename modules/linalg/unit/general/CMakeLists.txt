@@ -16,6 +16,8 @@ SET( SOURCES
   rot90.cpp
   rref.cpp
   rref_result.cpp
+  sqrtm.cpp
+  impower.cpp
    )
 
 nt2_module_add_tests(linalg.general.unit ${SOURCES})
