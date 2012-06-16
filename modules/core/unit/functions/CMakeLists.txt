@@ -47,6 +47,7 @@ SET( SOURCES
     inbtrue.cpp
     ind2sub.cpp
     iscolumn.cpp
+    isdiagonal.cpp
     isempty.cpp
     isequal.cpp
     isequaln.cpp
