@@ -46,7 +46,6 @@ namespace nt2{ namespace ext
       t = a0;
       //FOR KNOW UNTILL COMPLEX WORKS AND FOR TESTING end
       
-      std::cout << "1" << std::endl; 
       if (nt2::isdiagonal(t))
         {
           return nt2::from_diag(sqrt(nt2::diag_of(a0))); 
@@ -61,8 +60,8 @@ namespace nt2{ namespace ext
               for (size_t i=j-1; i >= 1; --i)
                 {
                   //itab_ k = _(i+1, j-1);
-                  //                 value_type s = nt2::sum(nt2::multiplies(r(i,_(i+1, j-1))(_), r(_(i+1, j-1),j)));
-                  value_type s = nt2::mtimes(r(i,_(i+1, j-1)), r(_(i+1, j-1),j));
+                  value_type s = nt2::sum(nt2::multiplies(r(i,_(i+1, j-1))(_), r(_(i+1, j-1),j)(_)));
+                  //                  value_type s = nt2::mtimes(r(i,_(i+1, j-1)), r(_(i+1, j-1),j));
                   r(i,j) = (t(i,j) - s)/(r(i,i) + r(j,j));
                 }
             }

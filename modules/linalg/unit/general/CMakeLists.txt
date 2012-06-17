@@ -18,6 +18,8 @@ SET( SOURCES
   rref_result.cpp
   sqrtm.cpp
   impower.cpp
+  mpower.cpp
+  expm.cpp
    )
 
 nt2_module_add_tests(linalg.general.unit ${SOURCES})
