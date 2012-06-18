@@ -35,39 +35,39 @@ NT2_TEST_CASE_TPL( var_scalar, (float)(double))//NT2_TYPES )
 NT2_TEST_CASE_TPL( var, (float)(double))//NT2_TYPES )
 {
   nt2::table<T> y( nt2::of_size(5,3) );
-  nt2::table<T> cy, cy2, sy; 
+  nt2::table<T> cy, cy2, sy;
   nt2::table<T> sy2;
-  
-  
+
+
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
-  disp("y", y);
+  display("y", y);
   cy =  center(y, 2);
   sy =  asum2(cy, 2)/T(nt2::size(y, 2)-1);
   sy2 = nt2::var(y, 0, 2);
-  disp("sy2", sy2);
-  
+  display("sy2", sy2);
+
   for(int j=1;j<=size(sy, 2);j++)
     for(int i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
-  
+
   cy =  center(y, 1);
   sy =  asum2(cy, 1)/T(nt2::size(y, 1)-1);
 
   sy2 = nt2::var(y, 0, 1);
-  disp("sy2", sy2);
+  display("sy2", sy2);
   for(int j=1;j<=size(sy, 2);j++)
     for(int i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
-  
-  
+
+
   sy2 = nt2::var(y, 0, 3);
-  disp("sy2", sy2);
+  display("sy2", sy2);
   for(int j=1;j<=size(sy, 2);j++)
     for(int i=1;i<=size(sy, 1);i++)
-      NT2_TEST_EQUAL(0, sy2(i, j)); 
-  
-  
+      NT2_TEST_EQUAL(0, sy2(i, j));
+
+
 }
 

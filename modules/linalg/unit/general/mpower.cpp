@@ -23,18 +23,18 @@
 
 NT2_TEST_CASE_TPL(mpower, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
-  using nt2::mpower; 
+  typedef T r_t;
+  using nt2::mpower;
   using nt2::tag::mpower_;
 
   nt2::table<T> n(nt2::of_size(2, 2)), npi;
   n(1, 1) = n(1, 2) = n(2, 2) = 1;
   n(2, 1) = T(0);
   npi = n;
-  npi(1, 2) = nt2::Pi<T>(); 
-  NT2_DISP(n);
-  NT2_DISP(npi);
+  npi(1, 2) = nt2::Pi<T>();
+  NT2_DISPLAY(n);
+  NT2_DISPLAY(npi);
   nt2::table<T> mpowernpi = nt2::mpower(n, nt2::Pi<T>());
-  NT2_DISP(mpowernpi);
-  NT2_TEST(nt2::isulpequal(mpowernpi, npi, 0.5)); 
+  NT2_DISPLAY(mpowernpi);
+  NT2_TEST(nt2::isulpequal(mpowernpi, npi, 0.5));
  }

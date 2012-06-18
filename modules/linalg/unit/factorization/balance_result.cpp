@@ -24,41 +24,41 @@
 
 NT2_TEST_CASE_TPL(balance_result, (double))// NT2_REAL_TYPES)
 {
-  using nt2::_; 
+  using nt2::_;
   using nt2::tag::factorization::balance_;
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t; 
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t; 
+  typedef nt2::table<itype_t> it_t;
   T bc[25] =  {
     1.0, 2.0, 0., 0., 0.,
-    0. , 2.0, 0., 0., 0., 
-    1.,  100.,  10000., 4., 0.2, 
+    0. , 2.0, 0., 0., 0.,
+    1.,  100.,  10000., 4., 0.2,
     .01,  1.,  100., 0.2, 0.1,
     .0001,  .01,  1., 0., 0.000
   };
-  
+
   int k = 0;
-  t_t b(nt2::of_size(5, 5)); 
+  t_t b(nt2::of_size(5, 5));
   for(int i=1; i <= 5; i++)
     {
       for(int j=1; j <= 5; j++)
         {
-          b(i, j) = bc[k++]; 
+          b(i, j) = bc[k++];
         }
-      
+
     }
   nt2::details::balance_result<t_t> f(b, 'b');
-  nt2::disp("b     ", b); 
-  nt2::disp("values", f.values());
+  nt2::display("b     ", b);
+  nt2::display("values", f.values());
   t_t s  = f.scale();
-  nt2::disp("s    ", s);
+  nt2::display("s    ", s);
   std::cout << "ilo " << f.ilo() << std::endl;
   std::cout << "ihi " << f.ihi() << std::endl;
   t_t t  = f.t();
-  nt2::disp("t    ", t);
+  nt2::display("t    ", t);
   it_t ipiv  = f.ipiv();
-  nt2::disp("ipiv    ", ipiv);
+  nt2::display("ipiv    ", ipiv);
   t_t invt  = f.invt();
-  nt2::disp("invt    ", invt);
-  
+  nt2::display("invt    ", invt);
+
 }

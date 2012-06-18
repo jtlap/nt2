@@ -22,15 +22,15 @@
 
 NT2_TEST_CASE_TPL(sqrtm, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
-  using nt2::sqrtm; 
+  typedef T r_t;
+  using nt2::sqrtm;
   using nt2::tag::sqrtm_;
 
   nt2::table<T> n(nt2::of_size(2, 2));
   n(1, 1) = n(1, 2) = n(2, 2) = 1;
-  n(2, 1) = T(0); 
+  n(2, 1) = T(0);
   nt2::table<T> sqrtmn = nt2::sqrtm(n);
-  NT2_DISP(n); 
-  NT2_DISP(sqrtmn);
-  NT2_TEST(nt2::isulpequal(mtimes(sqrtmn, sqrtmn), n, 0.5)); 
+  NT2_DISPLAY(n);
+  NT2_DISPLAY(sqrtmn);
+  NT2_TEST(nt2::isulpequal(mtimes(sqrtmn, sqrtmn), n, 0.5));
  }

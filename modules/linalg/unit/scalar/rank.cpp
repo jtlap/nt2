@@ -22,21 +22,21 @@
 
 NT2_TEST_CASE_TPL(rank, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
-  using nt2::rank; 
+  typedef T r_t;
+  using nt2::rank;
   using nt2::tag::rank_;
-  double ulpd =  0.0; 
-  nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>()); 
-  disp("n", n); 
+  double ulpd =  0.0;
+  nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
+  display("n", n);
   NT2_TEST_ULP_EQUAL(nt2::rank(n), 10u, 0);
   NT2_TEST_ULP_EQUAL(nt2::rank(n+n), 10u, 0);
-  n(10, 10) = T(0); 
-  disp("n", n); 
+  n(10, 10) = T(0);
+  display("n", n);
   NT2_TEST_ULP_EQUAL(nt2::rank(n), 9u, 0);
   NT2_TEST_ULP_EQUAL(nt2::rank(n+n), 9u, 0);
-  
+
   n = nt2::eye(2, 10, nt2::meta::as_<T>());
-  disp("n", n); 
+  display("n", n);
   NT2_TEST_ULP_EQUAL(nt2::rank(n), 2u, 0);
   NT2_TEST_ULP_EQUAL(nt2::rank(n+n), 2u, 0);
  }

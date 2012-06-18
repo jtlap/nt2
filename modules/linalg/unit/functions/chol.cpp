@@ -26,23 +26,23 @@ NT2_TEST_CASE_TPL ( chol_upper, NT2_REAL_TYPES)
                 + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
 
   a = nt2::chol(b);
-  NT2_DISP(chol(b));
-  NT2_DISP(a);
+  NT2_DISPLAY(chol(b));
+  NT2_DISPLAY(a);
 
   table_t u = nt2::ones(4, 9, nt2::meta::as_<T>());
-  NT2_DISP(u);
+  NT2_DISPLAY(u);
 
   u(nt2::_(1,4),nt2::_(1,4)) = chol(b);
-  NT2_DISP(u);
+  NT2_DISPLAY(u);
 
   table_t x;
   x = chol(b) + b;
-  NT2_DISP(x);
+  NT2_DISPLAY(x);
 
   b = nt2::zeros(4, 4, nt2::meta::as_<T>());
   b(1,1) = 1;
   a = nt2::chol(b);
-  NT2_DISP(a);
+  NT2_DISPLAY(a);
 }
 
 NT2_TEST_CASE_TPL ( chol_lower, NT2_REAL_TYPES)
@@ -52,21 +52,21 @@ NT2_TEST_CASE_TPL ( chol_lower, NT2_REAL_TYPES)
                 + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
 
   a = nt2::chol(b, nt2::lower_);
-  NT2_DISP(chol(b, nt2::lower_));
-  NT2_DISP(a);
+  NT2_DISPLAY(chol(b, nt2::lower_));
+  NT2_DISPLAY(a);
 
   table_t u = nt2::ones(4, 9, nt2::meta::as_<T>());
-  NT2_DISP(u);
+  NT2_DISPLAY(u);
 
   u(nt2::_(1,4),nt2::_(1,4)) = chol(b, nt2::lower_);
-  NT2_DISP(u);
+  NT2_DISPLAY(u);
 
   table_t x;
   x = chol(b, nt2::lower_) + b;
-  NT2_DISP(x);
+  NT2_DISPLAY(x);
 
   b = nt2::zeros(4, 4, nt2::meta::as_<T>());
   b(1,1) = 1;
   a = nt2::chol(b, nt2::lower_);
-  NT2_DISP(a);
+  NT2_DISPLAY(a);
 }

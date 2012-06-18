@@ -33,20 +33,20 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
 
   nt2::details::svd_result<t_t> f(b,'A','A');
 
-//   nt2::disp("b     ", b);
-  nt2::disp("values", f.values());
+//   nt2::display("b     ", b);
+  nt2::display("values", f.values());
   t_t u  = f.u();
-  nt2::disp("u    ", u);
+  nt2::display("u    ", u);
   t_t vt = f.vt();
-  nt2::disp("vt    ", vt);
+  nt2::display("vt    ", vt);
   t_t w  = f.w();
-  nt2::disp("w    ", w);
+  nt2::display("w    ", w);
   t_t sg = f.singular();
-  nt2::disp("sg   ", sg);
+  nt2::display("sg   ", sg);
   t_t nul = f.null();
-  nt2::disp("null   ", nul);
+  nt2::display("null   ", nul);
   t_t zer = f.zerosolve();
-  nt2::disp("zer    ", zer);
+  nt2::display("zer    ", zer);
   T condition =  f.cond();
   std::cout << "cond " << condition << std::endl;
   T norm =  f.norm();
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
   std::cout << "norminv " << norminv << std::endl;
   std::cout << "rank         " << f.rank()  << std::endl;
   t_t ort = f.orth();
-  nt2::disp("orth ", ort);
+  nt2::display("orth ", ort);
   std::cout << nt2::details::svd_result<t_t>(b,'N','N').norm() << std::endl;
   // the solvers still don't work because of matricial product lack
 

@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_DISPLAY_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_DISPLAY_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_DISP_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_DISP_HPP_INCLUDED
 
 /*!
  * \file
- * \brief Defines and implements the nt2::display function
+ * \brief Defines and implements the nt2::disp function
  */
 
 #include <nt2/include/functor.hpp>
@@ -20,20 +20,13 @@ namespace nt2
 {
   namespace tag
   {
-    struct display_ : tag::formal_
+    struct disp_ : tag::formal_
     {
       typedef tag::formal_ parent;
     };
   }
 
-  NT2_FUNCTION_IMPLEMENTATION(tag::display_,display,1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::display_,display,2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::disp_,disp,1)
 }
-
-
-//============================================================================
-// All-in-one NT2_DISP macro
-//============================================================================
-#define NT2_DISPLAY(x) ::nt2::display(BOOST_PP_STRINGIZE(x),x)
 
 #endif

@@ -17,7 +17,7 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
   {
     std::cout << nt2::_() << "\n";
 
-    NT2_DISP(nt2::_());
+    NT2_DISPLAY(nt2::_());
     std::cout << "\n===================================================\n";
   }
 
@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
     nt2::table<T> x00( nt2::of_size(0,0));
     std::cout << x00 << "\n";
 
-    NT2_DISP(x00);
+    NT2_DISPLAY(x00);
     std::cout << "\n===================================================\n";
   }
 
@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
     nt2::table<T> x01( nt2::of_size(0,1));
     std::cout << x01 << "\n";
 
-    NT2_DISP(x01);
+    NT2_DISPLAY(x01);
     std::cout << "\n===================================================\n";
   }
 
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
     nt2::table<T> x010( nt2::of_size(0,1,0));
     std::cout << x010 << "\n";
 
-    NT2_DISP(x010);
+    NT2_DISPLAY(x010);
     std::cout << "\n===================================================\n";
   }
 
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
 
     std::cout << (x+x*T(3)) << std::endl;
 
-    NT2_DISP(x+x*T(3));
+    NT2_DISPLAY(x+x*T(3));
     std::cout << "\n===================================================\n";
   }
 
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
 
     std::cout << x << std::endl;
 
-    nt2::disp("x", x);
+    nt2::display("x", x);
     std::cout << "\n===================================================\n";
   }
 
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
 
     std::cout << x << std::endl;
 
-    nt2::disp("x", x);
+    nt2::display("x", x);
     std::cout << "\n===================================================\n";
   }
 }

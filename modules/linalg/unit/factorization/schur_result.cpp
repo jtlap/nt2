@@ -34,10 +34,10 @@ NT2_TEST_CASE_TPL(schur_result, NT2_REAL_TYPES)
 
   nt2::details::schur_result<t_t> f(b,'V','N','N');
 
-  nt2::disp("b     ", b);
-  nt2::disp("values", f.values());
+  nt2::display("b     ", b);
+  nt2::display("values", f.values());
   t_t z  = f.z();
-  nt2::disp("z    ", z);
+  nt2::display("z    ", z);
   t_t t = f.t();
-  nt2::disp("t    ", t);
+  nt2::display("t    ", t);
 }

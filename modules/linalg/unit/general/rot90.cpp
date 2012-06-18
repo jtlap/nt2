@@ -22,17 +22,17 @@
 
 NT2_TEST_CASE_TPL(rot90, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
-  using nt2::rot90; 
+  typedef T r_t;
+  using nt2::rot90;
   using nt2::tag::rot90_;
-  double ulpd =  0.0; 
+  double ulpd =  0.0;
   nt2::table<T> n = nt2::cif(3, 3, nt2::meta::as_<T>())+T(10)*nt2::rif(3, 3, nt2::meta::as_<T>());
-  NT2_DISP(n); 
+  NT2_DISPLAY(n);
   for(int i=1; i <= 4; ++i)
    {
      nt2::table<T> rot90n = nt2::rot90(n, i);
-     std::cout << "i = " << i << std::endl; 
-     NT2_DISP(rot90n); 
+     std::cout << "i = " << i << std::endl;
+     NT2_DISPLAY(rot90n);
    }
 }
 

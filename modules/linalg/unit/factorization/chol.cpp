@@ -30,16 +30,16 @@ NT2_TEST_CASE_TPL(chol_factorization, NT2_REAL_TYPES)
 
   result_type res = nt2::factorization::chol(b,'U');
 
-  NT2_DISP(res.result());
-  NT2_DISP(res.upper_result());
+  NT2_DISPLAY(res.result());
+  NT2_DISPLAY(res.upper_result());
   NT2_TEST_EQUAL(res.status(), 0u);
 
   b = nt2::zeros(4, 4, nt2::meta::as_<T>());
   b(1,1) = 1;
   res = nt2::factorization::chol(b,'U');
 
-  NT2_DISP(res.result());
-  NT2_DISP(res.upper_result());
+  NT2_DISPLAY(res.result());
+  NT2_DISPLAY(res.upper_result());
   NT2_TEST_EQUAL(res.status(), 2u);
 
   NT2_TEST_ASSERT( nt2::factorization::chol(nt2::ones(4, 2),'U') );
@@ -59,16 +59,16 @@ NT2_TEST_CASE_TPL ( chol_factorization_inplace, NT2_REAL_TYPES)
 
   ip_t ires = nt2::factorization::chol(b,'L',nt2::in_place_);
 
-  NT2_DISP(ires.result());
-  NT2_DISP(ires.lower_result());
+  NT2_DISPLAY(ires.result());
+  NT2_DISPLAY(ires.lower_result());
   NT2_TEST_EQUAL(ires.status(), 0u);
 
   b = nt2::zeros(4, 4, nt2::meta::as_<T>());
   b(1,1) = 1;
   ires = nt2::factorization::chol(b,'U',nt2::in_place_);
 
-  NT2_DISP(ires.result());
-  NT2_DISP(ires.upper_result());
+  NT2_DISPLAY(ires.result());
+  NT2_DISPLAY(ires.upper_result());
   NT2_TEST_EQUAL(ires.status(), 2u);
 
   b = nt2::ones(4, 2, nt2::meta::as_<T>());

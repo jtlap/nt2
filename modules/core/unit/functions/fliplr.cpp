@@ -27,20 +27,20 @@ NT2_TEST_CASE_TPL( fliplr, NT2_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = T(i + 10*j);
-  disp("y", y);
+  display("y", y);
 
   x = nt2::fliplr(y);
-  disp("x", x);
+  display("x", x);
 
- std::cout << "y" << std::endl; 
+ std::cout << "y" << std::endl;
   for(int i=1;i<=5;i++)
     {
       for(int j=1;j<=3;j++)
         std::cout << T(y(i,j)) << "\t";
-      std::cout << std::endl; 
+      std::cout << std::endl;
     }
-  std::cout << std::endl; 
-  
+  std::cout << std::endl;
+
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       NT2_TEST_EQUAL( T(x(i,j)),T(y(i,4-j)) );

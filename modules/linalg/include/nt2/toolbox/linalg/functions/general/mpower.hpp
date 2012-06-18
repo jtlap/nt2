@@ -54,11 +54,10 @@ namespace nt2{ namespace ext
     typedef table<value_type, index_type> result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return expm(nt2::log(a0), a1); 
+      return expm(nt2::log(a0), a1);
     }
-  };    
+  };
 
-  
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
                               , (A0)(A1)
                             , (ast_<A0>)
@@ -72,7 +71,7 @@ namespace nt2{ namespace ext
     {
       BOOST_ASSERT_MSG(is_square(a0),"mpower requires the first input to be a square matrix");
       if(is_ltz(a1))
-        return nt2::inv(nt2::mpower(a0, -a1)); 
+        return nt2::inv(nt2::mpower(a0, -a1));
       else {
         value_type m = nt2::trunc(a1);
         value_type f = a1-m;
@@ -93,14 +92,14 @@ namespace nt2{ namespace ext
                 result_type a01;  // a01 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
                 while (true)
                   {
-                    if (m < nt2::One<A1>()) break; 
+                    if (m < nt2::One<A1>()) break;
                     if (nt2::is_odd(m))
                       {
                         result_type r1 = nt2::mtimes(a00, rm);// r1 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
-                        rm =  r1; 
+                        rm =  r1;
                       }
                     a01 =  nt2::mtimes(a00, a00);
-                    a00 =  a01; 
+                    a00 =  a01;
                     m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
                   }
               }
@@ -109,35 +108,35 @@ namespace nt2{ namespace ext
             else
               {
                 result_type a00 = nt2::sqrtm(a0);
-                value_type thresh = nt2::Half<value_type>(); 
+                value_type thresh = nt2::Half<value_type>();
                 while (true)
                   {
-                    if (!f) break; 
+                    if (!f) break;
                     if (f >= thresh)
                       {
                         result_type r1 = nt2::mtimes(rf, a00);// r1 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
                         rf =  r1;
                         f -= thresh;
                       }
-                    thresh *= nt2::Half<value_type>(); 
+                    thresh *= nt2::Half<value_type>();
                     a00 =  nt2::sqrtm(a00);
-                    //                    NT2_DISP(a00); 
-                    //                    std::cout << nt2::norm(a00-eye(height(a0), meta::as_<value_type>(), 1)) << std::endl; 
-                  }             
+                    //                    NT2_DISP(a00);
+                    //                    std::cout << nt2::norm(a00-eye(height(a0), meta::as_<value_type>(), 1)) << std::endl;
+                  }
               }
             return nt2::mtimes(rm, rf);
           }
       }
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
                               , (A0)(A1)
                               , (scalar_<ast_<A0> >)
-                              (scalar_<ast_<A1> >) 
+                              (scalar_<ast_<A1> >)
                             )
   {
-    typedef typename nt2::meta::as_floating<A0>::type result_type; 
+    typedef typename nt2::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       BOOST_ASSERT_MSG(is_square(a0),"mpower requires the first input to be a square matrix or a scalar");
@@ -149,23 +148,23 @@ namespace nt2{ namespace ext
         return  mpower(a0(begin_), a1(begin_));
       else if (isscalar(a0))
         return mpower(a0(begin_), a1);
-      else 
-        return mpower(a0, a1(begin_)); 
+      else
+        return mpower(a0, a1(begin_));
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
                               , (A0)(A1)
                               , (scalar_<fundamental_<A0> >)
-                              (scalar_<fundamental_<A1> >) 
+                              (scalar_<fundamental_<A1> >)
                             )
   {
-    typedef typename nt2::meta::as_floating<A0>::type result_type; 
+    typedef typename nt2::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::pow(a0, a1); 
+      return nt2::pow(a0, a1);
     }
-  };  
+  };
 } }
 
 #endif

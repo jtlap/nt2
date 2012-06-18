@@ -17,7 +17,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 
 NT2_TEST_CASE_TPL( diag_of, NT2_TYPES )
-{ 
+{
   nt2::table<T> x,y( nt2::of_size(4,5) );
 
   for(int j=1;j<=5;j++)
@@ -45,10 +45,10 @@ NT2_TEST_CASE_TPL( diag_of_expr, (float))//NT2_TYPES )
     for(int i=1;i<=7;i++)
       y(i,j) = i + 10*j;
 
-  disp("y", y);
-  
+  display("y", y);
+
   x = nt2::diag_of(y, 1);
-  disp("diag_of(y, 1)",nt2::diag_of(y, 1));
+  display("diag_of(y, 1)",nt2::diag_of(y, 1));
 
   for(int i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), y(i,i+1) );
@@ -62,10 +62,10 @@ NT2_TEST_CASE_TPL( diag_of_expr1, (float))//NT2_TYPES )
     for(int i=1;i<=10;i++)
       y(i,j) = i + 10*j;
 
-  disp("y", y);
-  
+  display("y", y);
+
   x = nt2::diag_of(y, -1);
-  disp("diag_of(y, 1)",nt2::diag_of(y, -1));
+  display("diag_of(y, 1)",nt2::diag_of(y, -1));
 
   for(int i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), y(i+1,i) );
