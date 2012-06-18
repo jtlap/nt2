@@ -181,7 +181,7 @@ namespace nt2{ namespace ext {
       tab_t a = a0; 
       base_t norma0 = nt2::norm(a0, 1);
       tab_t f; 
-      if(norma0 <=  value_type(theta(end_)))
+      if(norma0 <=  value_type(theta(end_)))// WHY value_type() is necessary ?
         {
           // no scaling and squaring is required.
           for(size_t i = 1;  i <= nt2::numel(m_vals); ++i)

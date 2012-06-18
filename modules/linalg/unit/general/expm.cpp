@@ -13,6 +13,7 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
+#include <nt2/include/constants/exp_1.hpp>
 
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
@@ -28,9 +29,10 @@ NT2_TEST_CASE_TPL(expm, NT2_REAL_TYPES)
 
   nt2::table<T> n(nt2::of_size(2, 2));
   n(1, 1) = n(1, 2) = n(2, 2) = 1;
-  n(2, 1) = T(0); 
+  n(2, 1) = T(0);
+  nt2::table<T> r = n*nt2::Exp_1<T>(); 
   nt2::table<T> expmn = nt2::expm(n);
   NT2_DISP(n); 
   NT2_DISP(expmn);
-  NT2_TEST(nt2::isulpequal(mtimes(expmn, expmn), n, 0.5)); 
+  NT2_TEST(nt2::isulpequal(expmn, r, 0.5)); 
  }
