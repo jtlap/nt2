@@ -12,7 +12,7 @@ Prioririty to : logical with all and any
 // det               Matrix determinant                                            | done also 2 versions of absdet 
 //                                                                                   one with no overflow
 // norm              Vector and matrix norms                                       | done
-// normest           2-norm estimate                                               | almost done
+// normest           2-norm estimate                                               | almost done tie version waiting
 // null              Null space                                                    | done
 // orth              Range space of matrix                                         | done
 // rank              Rank of matrix                                                | done
@@ -52,16 +52,15 @@ Prioririty to : logical with all and any
 // poly                 Polynomial with specified roots                            |
 // polyeig              Polynomial eigenvalue problemrs                            |
 // f2csf                Convert real Schur form to complex Schur form              |
-// schur                Schur decomposition                                        |
-// sqrtm                Matrix square root                                         |
+// schur                Schur decomposition                                        | complex still waiting
 // ss2tf                Convert state-space filter parameters to transfer func form|
 // svd                  Singular value decomposition                               | done
 // svds                 Find singular values and vectors                           |    SPARSE
 
 // Matrix Logarithms and Exponentials
-// expm                   Matrix exponential                                       | matlab source
+// expm                   Matrix exponential                                       | almost done but wait for sqrtm
 // logm                   Matrix logarithm                                         | matlab source
-// sqrtm                  Matrix square root                                       | matlab source
+// sqrtm                  Matrix square root                                       | done but wait for schur is finished (complex needed)
 
 // Factorization
 // balance                Diagonal scaling to improve eigenvalue accuracy          | done
