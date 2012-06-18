@@ -19,6 +19,8 @@
 #include <boost/proto/traits.hpp>
 #include <boost/proto/fusion.hpp>
 #include <boost/fusion/include/for_each.hpp>
+#include <boost/fusion/include/as_vector.hpp>
+#include <boost/fusion/include/size.hpp>
 
 #include <nt2/table.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
@@ -26,7 +28,7 @@
 #include <nt2/sdk/parameters.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/numel.hpp>
-
+#include <nt2/sdk/unit/display_type.hpp>
 
 namespace boost { namespace serialization 
 { 
@@ -161,8 +163,8 @@ namespace boost { namespace serialization
     typedef Archive archive_type;
     explicit loader_(archive_type& a) : ar(a) {}
     template<class Terminal>
-    void operator()(Terminal const& t) const
-    { ar << t; }
+    void operator()(Terminal& t) const
+    { ar >> t; }
     archive_type& ar;
   };
 
@@ -201,13 +203,13 @@ namespace boost { namespace serialization
                         , (E)
                         );
     
-    typedef typename nt2::container::expression<E,R,D> expression_type;
     typedef typename proto::result_of::
-    flatten< expression_type >::type sequence_type;
+    flatten< nt2::container::expression<E,R,D>& >::type sequence_type;
+    sequence_type terminals = boost::proto::flatten(e);
     loader_<Archive> load_terminals_(ar);
-    sequence_type terminals;
     boost::fusion::for_each(terminals,load_terminals_);
-    e = boost::proto::unpack_expr(terminals);
+    std::cout << boost::fusion::size(terminals) << "/n";
+    e = boost::proto::unpack_expr<typename boost::proto::tag_of<E>::type>(boost::fusion::as_vector(terminals));
   }
 
   template<class Archive, class E, class R, class D>
