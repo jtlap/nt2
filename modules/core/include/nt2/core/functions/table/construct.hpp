@@ -149,7 +149,7 @@ namespace nt2 { namespace ext
       );
 
       boost::proto::value(a0).resize(a1);
-      nt2::memory::copy( a0.raw(), a0.raw()+range_size, a2 );
+      nt2::memory::copy( a2, a3, a0.raw() );
     }
   };
 } }
