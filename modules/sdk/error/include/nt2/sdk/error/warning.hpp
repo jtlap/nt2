@@ -17,27 +17,20 @@
 // If warning are disabled, NT2_WARNING is a no-op
 //==============================================================================
 #if defined(NT2_DISABLE_WARNINGS) || defined(NDEBUG)
-
   #define NT2_WARNING(cond,msg) ((void)0)
 
 //==============================================================================
 // If NT2_WARNINGS_AS_ASSERTS is set, warnings turn into asserts
 //==============================================================================
 #elif defined(NT2_WARNINGS_AS_ASSERTS)
-
-  #ifndef NT2_SDK_ERROR_WARNING_INCLUDED_HPP
-  #define NT2_SDK_ERROR_WARNING_INCLUDED_HPP
   #include <boost/assert.hpp>
-
   #define NT2_WARNING(cond,msg) BOOST_ASSERT_MSG( cond, msg )
-  #endif
 
 //==============================================================================
 // If NT2_ENABLE_WARNING_HANDLER is set, user must provide a function to process
 // NT2_WARNING calls.
 //==============================================================================
 #elif defined(NT2_ENABLE_WARNING_HANDLER)
-
   namespace nt2
   {
     //==========================================================================
@@ -58,6 +51,11 @@
 // Otherwise, warnings is handled as outputs on standard error output
 //==============================================================================
 #else
+  #define NT2_WARNING(cond,msg)                                               \
+  ((cond) ? ((void)0)                                                         \
+          : ::nt2::details::warning_handler( #cond, msg, __FILE__, __LINE__ ) \
+  )                                                                           \
+  /**/
 
   #ifndef NT2_SDK_ERROR_WARNING_INCLUDED_HPP
   #define NT2_SDK_ERROR_WARNING_INCLUDED_HPP
@@ -77,10 +75,5 @@
     }
   } }
 
-  #define NT2_WARNING(cond,msg)                                               \
-  ((cond) ? ((void)0)                                                         \
-          : ::nt2::details::warning_handler( #cond, msg, __FILE__, __LINE__ ) \
-  )                                                                           \
-  /**/
   #endif
 #endif
