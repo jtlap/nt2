@@ -69,8 +69,6 @@ namespace boost { namespace dispatch { namespace details
                         >                                          type;
   };
 
- 
-
   template<class T>
   struct value_of< T
                  , typename T::proto_is_expr_
