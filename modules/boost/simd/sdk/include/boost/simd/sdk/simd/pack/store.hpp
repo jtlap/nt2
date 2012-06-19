@@ -11,7 +11,6 @@
 
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/include/functions/evaluate.hpp>
-#include <boost/simd/sdk/simd/pack/domain.hpp>
 
 // store forces evaluation due to side-effect
 namespace boost { namespace simd { namespace ext
