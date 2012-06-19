@@ -25,23 +25,23 @@ NT2_TEST_CASE_TPL ( svd, NT2_REAL_TYPES)
   table_t z, b = nt2::ones(4, 5, nt2::meta::as_<T>())
                 + T(10)*nt2::eye(4, 5, nt2::meta::as_<T>());
 
-  NT2_DISP(b);
+  NT2_DISPLAY(b);
   z = nt2::svd(b);
-  NT2_DISP(z); // just vector of singular values
+  NT2_DISPLAY(z); // just vector of singular values
 
   table_t u, w, v;
   nt2::tie(u, w, v) = nt2::svd(b, 'N'); //no economy
-  NT2_DISP(u);
-  NT2_DISP(w);
-  NT2_DISP(v);
+  NT2_DISPLAY(u);
+  NT2_DISPLAY(w);
+  NT2_DISPLAY(v);
 
   nt2::tie(u, w, v) = nt2::svd(b, 'R'); //economy 0
-  NT2_DISP(u);
-  NT2_DISP(w);
-  NT2_DISP(v);
+  NT2_DISPLAY(u);
+  NT2_DISPLAY(w);
+  NT2_DISPLAY(v);
 
   nt2::tie(u, w, v) = nt2::svd(b, 'L');//economy 'econ'
-  NT2_DISP(u);
-  NT2_DISP(w);
-  NT2_DISP(v);
+  NT2_DISPLAY(u);
+  NT2_DISPLAY(w);
+  NT2_DISPLAY(v);
 }

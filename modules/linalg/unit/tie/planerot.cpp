@@ -23,27 +23,27 @@
 NT2_TEST_CASE_TPL ( planerot, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_integer<T, signed>::type  itype_t;
-  typedef nt2::table<itype_t> it_t; 
+  typedef nt2::table<itype_t> it_t;
   typedef nt2::table<T> table_t;
-  table_t x = nt2::ones(2, 1, nt2::meta::as_<T>()); 
-  NT2_DISP(x);
-  table_t g, y; 
+  table_t x = nt2::ones(2, 1, nt2::meta::as_<T>());
+  NT2_DISPLAY(x);
+  table_t g, y;
   nt2::tie(g, y) = nt2::planerot(x);
-  NT2_DISP(g);
-  NT2_DISP(y);
+  NT2_DISPLAY(g);
+  NT2_DISPLAY(y);
 }
 
 NT2_TEST_CASE_TPL ( planerot2, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_integer<T, signed>::type  itype_t;
-  typedef nt2::table<itype_t> it_t; 
+  typedef nt2::table<itype_t> it_t;
   typedef nt2::table<T> table_t;
-  table_t x = nt2::rif(2, 1, nt2::meta::as_<T>()); 
-  NT2_DISP(x);
-  table_t g, y; 
+  table_t x = nt2::rif(2, 1, nt2::meta::as_<T>());
+  NT2_DISPLAY(x);
+  table_t g, y;
   nt2::tie(g, y) = nt2::planerot(x);
-  NT2_DISP(g);
-  NT2_DISP(y);
+  NT2_DISPLAY(g);
+  NT2_DISPLAY(y);
 }
 
 

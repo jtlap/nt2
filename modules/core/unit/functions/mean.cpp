@@ -35,44 +35,44 @@ NT2_TEST_CASE_TPL( mean, (float)(double))//NT2_TYPES )
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy;
   nt2::table<T> sy2;
-  
-  
+
+
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
-  disp("y", y); 
+  display("y", y);
   sy = nt2::sum(y)/T(nt2::size(y, nt2::firstnonsingleton(y)));
   sy2 = nt2::mean(y);
-  disp("sy", sy);
-  disp("sy2", sy2);
+  display("sy", sy);
+  display("sy2", sy2);
   for(int j=1;j<=size(sy, 2);j++)
     for(int i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
-  
-  sy = nt2::sum(y, 1)/T(nt2::size(y, 1)); 
+
+  sy = nt2::sum(y, 1)/T(nt2::size(y, 1));
   sy2 = nt2::mean(y, 1);
-  disp("sy", sy);
-  disp("sy2", sy2);
+  display("sy", sy);
+  display("sy2", sy2);
   for(int j=1;j<=size(sy, 2);j++)
     for(int i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
-  
-  sy = nt2::sum(y, 2)/T(nt2::size(y, 2)); 
+
+  sy = nt2::sum(y, 2)/T(nt2::size(y, 2));
   sy2 = nt2::mean(y, 2);
-  disp("sy", sy);
-  disp("sy2", sy2);
+  display("sy", sy);
+  display("sy2", sy2);
   for(int j=1;j<=size(sy, 2);j++)
     for(int i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
-  
-  sy = nt2::sum(y, 3)/T(nt2::size(y, 3)); 
+
+  sy = nt2::sum(y, 3)/T(nt2::size(y, 3));
   sy2 = nt2::mean(y, 3);
-  disp("sy", sy);
-  disp("sy2", sy2);
+  display("sy", sy);
+  display("sy2", sy2);
   for(int j=1;j<=size(sy, 2);j++)
     for(int i=1;i<=size(sy, 1);i++)
-      NT2_TEST_EQUAL(sy(i,j), sy2(i, j)); 
-  
-  
+      NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
+
+
 }
 

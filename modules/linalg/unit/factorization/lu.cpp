@@ -21,23 +21,23 @@
 NT2_TEST_CASE_TPL(lu_factorization, NT2_REAL_TYPES)
 {
   using nt2::tag::factorization::lu_;
-  
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t; 
+
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t; 
+  typedef nt2::table<itype_t> it_t;
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
 
   typedef typename nt2::meta::call<lu_(t_t const&)>::type result_type;
   result_type res = nt2::factorization::lu(b);
-  NT2_DISP(b); 
-  NT2_DISP(res.p());
-  NT2_DISP(res.l());
-  NT2_DISP(res.u());
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(res.p());
+  NT2_DISPLAY(res.l());
+  NT2_DISPLAY(res.u());
   NT2_TEST_EQUAL(res.status(), 0u);
 
-  itype_t e; 
-  T m =  res.absdet(e); 
+  itype_t e;
+  T m =  res.absdet(e);
   std::cout << "asbdet order " << e << std::endl;
   std::cout << "asbdet mant  " << m << std::endl;
   std::cout << "asbdet       " << nt2::ldexp(m, e) << std::endl;
@@ -45,8 +45,8 @@ NT2_TEST_CASE_TPL(lu_factorization, NT2_REAL_TYPES)
   std::cout << "rank         " << res.rank()  << std::endl;
   std::cout << "signdet      " << res.signdet()<< std::endl;
   std::cout << "det          " << res.det()<< std::endl;
-  t_t c =  nt2::ones (4, 1, nt2::meta::as_<T>()); 
-  NT2_DISP(c); 
+  t_t c =  nt2::ones (4, 1, nt2::meta::as_<T>());
+  NT2_DISPLAY(c);
   t_t x = res.solve(c);
-  NT2_DISP(x);
+  NT2_DISPLAY(x);
 }

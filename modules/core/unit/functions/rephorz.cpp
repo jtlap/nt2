@@ -23,15 +23,15 @@
 NT2_TEST_CASE( rephorz_size )
 {
   nt2::table<float> a = nt2::rif(nt2::of_size(7, 1), nt2::meta::as_<float>()), b;
-  NT2_DISP(a); 
+  NT2_DISPLAY(a);
   b = rephorz(a,  2);
-  NT2_DISP(b);
-  a = nt2::cif(nt2::of_size(1, 7), nt2::meta::as_<float>()); 
-  NT2_DISP(a);
-  b = rephorz(a,  2); 
-  NT2_DISP(b);
-  
-  a = nt2::cif(nt2::of_size(7, 7), nt2::meta::as_<float>()); 
-  NT2_DISP(a);
-  b = rephorz(a,  2); 
-  NT2_DISP(b); }
+  NT2_DISPLAY(b);
+  a = nt2::cif(nt2::of_size(1, 7), nt2::meta::as_<float>());
+  NT2_DISPLAY(a);
+  b = rephorz(a,  2);
+  NT2_DISPLAY(b);
+
+  a = nt2::cif(nt2::of_size(7, 7), nt2::meta::as_<float>());
+  NT2_DISPLAY(a);
+  b = rephorz(a,  2);
+  NT2_DISPLAY(b); }

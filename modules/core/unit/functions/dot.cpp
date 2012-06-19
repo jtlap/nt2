@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL( dot_scalar, (float)(double))//NT2_TYPES )
 
 NT2_TEST_CASE_TPL( dot, (float)(double))//NT2_TYPES )
 {
-  using nt2::_; 
+  using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy;
   nt2::table<T> sz;
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL( dot, (float)(double))//NT2_TYPES )
 
   sy = nt2::dot(y(_), y(_));
   sz = nt2::sum(nt2::sqr(y(_)));
-  disp(sy);
+  display(sy);
   NT2_TEST_EQUAL(sy(1), sz(1));
 
 

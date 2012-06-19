@@ -39,26 +39,26 @@
 
 NT2_TEST_CASE_TPL( adjfun, NT2_TYPES )
 {
-  using nt2::_; 
+  using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );
-  nt2::table<T> sy; 
+  nt2::table<T> sy;
   nt2::table<T> sy1, sy2, sy3;
 
 
   for(int j=1;j<=size(y, 2);j++)
     for(int i=1;i<=size(y, 1);i++)
       y(i,j) = nt2::sqr(i + j);
-  nt2::functor<nt2::tag::multiplies_> f; 
-  NT2_DISP(y); 
+  nt2::functor<nt2::tag::multiplies_> f;
+  NT2_DISPLAY(y);
 
    sy = nt2::adjfun(f, y);
-  NT2_DISP(sy); 
+  NT2_DISPLAY(sy);
   sy1 = nt2::adjfun(f, y, 1);
-  NT2_DISP(sy1); 
-  sy2 = nt2::adjfun(f, y, 2); 
-  NT2_DISP(sy2); 
-  sy3 = nt2::adjfun(f, y, 3); 
-  NT2_DISP(sy3); 
+  NT2_DISPLAY(sy1);
+  sy2 = nt2::adjfun(f, y, 2);
+  NT2_DISPLAY(sy2);
+  sy3 = nt2::adjfun(f, y, 3);
+  NT2_DISPLAY(sy3);
 
 
 

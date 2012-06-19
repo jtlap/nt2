@@ -39,9 +39,9 @@
 
 NT2_TEST_CASE_TPL( diff, (float)(double))//NT2_TYPES )
 {
-  using nt2::_; 
+  using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );
-  nt2::table<T> sy; 
+  nt2::table<T> sy;
   nt2::table<T> sy1, sy2;
 
 
@@ -49,14 +49,14 @@ NT2_TEST_CASE_TPL( diff, (float)(double))//NT2_TYPES )
     for(int i=1;i<=size(y, 1);i++)
       y(i,j) = nt2::sqr(i + j);
 
-  NT2_DISP(y); 
+  NT2_DISPLAY(y);
 
    sy = nt2::diff(y);
-  NT2_DISP(sy); 
+  NT2_DISPLAY(sy);
   sy1 = nt2::diff(y, 1u, 2);
-  NT2_DISP(sy1); 
-  sy2 = nt2::diff(y, 1, 3); 
-  NT2_DISP(sy2); 
+  NT2_DISPLAY(sy1);
+  sy2 = nt2::diff(y, 1, 3);
+  NT2_DISPLAY(sy2);
 
 
 

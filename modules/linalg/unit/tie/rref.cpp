@@ -22,33 +22,33 @@
 NT2_TEST_CASE_TPL ( rref, NT2_REAL_TYPES)
 {
   typedef typename nt2::meta::as_integer<T, signed>::type  itype_t;
-  typedef nt2::table<itype_t> it_t; 
+  typedef nt2::table<itype_t> it_t;
   typedef nt2::table<T> table_t;
-  T A[16] = { 
-   16,    2,    3,   13, 
-    5,   11,   10,    8, 
-    9,    7,    6,   12, 
-   4,   14,   15,    1}; 
+  T A[16] = {
+   16,    2,    3,   13,
+    5,   11,   10,    8,
+    9,    7,    6,   12,
+   4,   14,   15,    1};
   table_t b = nt2::ones(4, 4, nt2::meta::as_<T>())
                 + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
-  table_t rref, l, u, p; 
+  table_t rref, l, u, p;
   table_t a(nt2::of_size(4, 4));
-  int k = 0; 
+  int k = 0;
   for(int i=1; i <= 4; ++i)
     {
       for(int j=1; j <= 4; ++j)
         {
-          a(i, j) = A[k++]; 
+          a(i, j) = A[k++];
         }
     }
 
   nt2::tie(rref) = nt2::rref(b);
-  NT2_DISP(rref);
+  NT2_DISPLAY(rref);
   it_t jb;
-  
+
   nt2::tie(rref, jb) = nt2::rref(b);
-  NT2_DISP(rref);
-  NT2_DISP(jb);
+  NT2_DISPLAY(rref);
+  NT2_DISPLAY(jb);
 
 }
 

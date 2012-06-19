@@ -23,16 +23,16 @@
 
 NT2_TEST_CASE_TPL(expm, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
-  using nt2::expm; 
+  typedef T r_t;
+  using nt2::expm;
   using nt2::tag::expm_;
 
   nt2::table<T> n(nt2::of_size(2, 2));
   n(1, 1) = n(1, 2) = n(2, 2) = 1;
   n(2, 1) = T(0);
-  nt2::table<T> r = n*nt2::Exp_1<T>(); 
+  nt2::table<T> r = n*nt2::Exp_1<T>();
   nt2::table<T> expmn = nt2::expm(n);
-  NT2_DISP(n); 
-  NT2_DISP(expmn);
-  NT2_TEST(nt2::isulpequal(expmn, r, 0.5)); 
+  NT2_DISPLAY(n);
+  NT2_DISPLAY(expmn);
+  NT2_TEST(nt2::isulpequal(expmn, r, 0.5));
  }

@@ -30,6 +30,7 @@ SET( SOURCES
     colvect.cpp
     diag_of.cpp
     diff.cpp
+    disp.cpp
     dot.cpp
     expand.cpp
     eye.cpp

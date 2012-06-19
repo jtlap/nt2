@@ -21,44 +21,44 @@
 
 NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t; 
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t; 
+  typedef nt2::table<itype_t> it_t;
 
   T bc[25] =  {
     1.0, 2.0, 0., 0., 0.,
-    0. , 2.0, 0., 0., 0., 
-    1.,  100.,  10000., 4., 0.2, 
+    0. , 2.0, 0., 0., 0.,
+    1.,  100.,  10000., 4., 0.2,
     .01,  1.,  100., 0.2, 0.1,
     .0001,  .01,  1., 0., 0.000
   };
-  
+
   int k = 0;
-  t_t a(nt2::of_size(5, 5)); 
+  t_t a(nt2::of_size(5, 5));
   for(int i=1; i <= 5; i++)
     {
       for(int j=1; j <= 5; j++)
         {
-          a(i, j) = bc[k++]; 
+          a(i, j) = bc[k++];
         }
-      
+
     }
-  NT2_DISP(a);
+  NT2_DISPLAY(a);
   t_t t, s, b;
-  it_t ip; 
+  it_t ip;
   nt2::tie(b) = nt2::balance(a);
-  NT2_DISP(b);
+  NT2_DISPLAY(b);
   nt2::tie(s, ip, b) = nt2::balance(a);
-  NT2_DISP(b);
-  NT2_DISP(s);
-  NT2_DISP(ip);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(s);
+  NT2_DISPLAY(ip);
   nt2::tie(t, b) = nt2::balance(a);
-  NT2_DISP(b);
-  NT2_DISP(t);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
 
   nt2::tie(t, b) = nt2::balance(a, 'S');
   //  nt2::tie(t, b) = nt2::balance(a, "noperm"); //TODO is it an easy way without duplicating to much code ?
-  NT2_DISP(b);
-  NT2_DISP(t);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(t);
 
 }

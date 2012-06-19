@@ -9,16 +9,16 @@
 #ifndef NT2_CORE_CONTAINER_IO_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_IO_HPP_INCLUDED
 
-#include <nt2/core/container/dsl/expression.hpp>
+#include <cstddef>
+#include <iostream>
+#include <boost/preprocessor/stringize.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
+#include <nt2/include/functions/schedule.hpp>
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
-#include <nt2/include/functions/schedule.hpp>
-#include <boost/preprocessor/stringize.hpp>
-#include <iostream>
-#include <cstddef>
+#include <nt2/core/container/dsl/expression.hpp>
 
 namespace nt2
 {
@@ -166,27 +166,6 @@ case n: boost::array<std::ptrdiff_t,n> p##n;              \
       }
     }
   }
-
-  //============================================================================
-  // disp function for nt2 expressions with name or without
-  // Note that disp(name,xpr) is an addendum with respect to matlab
-  //============================================================================
-  template<class Xpr,class R> inline
-  void disp( const char* name, nt2::container::expression<Xpr,R> const& xpr )
-  {
-    details::disp(name,std::cout,xpr);
-  }
-
-  template<class Xpr,class R> inline
-  void disp( nt2::container::expression<Xpr,R> const& xpr )
-  {
-    details::disp("ans",std::cout,xpr);
-  }
-
-  //============================================================================
-  // All-in-one NT2_DISP macro
-  //============================================================================
-#define NT2_DISP(x) nt2::disp(BOOST_PP_STRINGIZE(x),x)
 
   //============================================================================
   // Stream insertion operator for nt2 expressions

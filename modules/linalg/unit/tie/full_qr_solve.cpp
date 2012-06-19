@@ -11,7 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/eye.hpp> 
+#include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/full_qr_solve.hpp>
 #include <nt2/include/functions/tie.hpp>
 
@@ -21,34 +21,34 @@
 
 NT2_TEST_CASE_TPL ( full_qr_solve_expr, NT2_REAL_TYPES)
 {
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t; 
+  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t; 
+  typedef nt2::table<itype_t> it_t;
 
   T bc[25] =  {
     1.0, 2.0, 0., 0., 0.,
-    0. , 2.0, 0., 0., 0., 
-    1.,  100.,  10000., 4., 0.2, 
+    0. , 2.0, 0., 0., 0.,
+    1.,  100.,  10000., 4., 0.2,
     .01,  1.,  100., 0.2, 0.1,
     .0001,  .01,  1., 0., 0.000
   };
-  
+
   int k = 0;
-  t_t a(nt2::of_size(5, 5)); 
+  t_t a(nt2::of_size(5, 5));
   for(int i=1; i <= 5; i++)
     {
       for(int j=1; j <= 5; j++)
         {
-          a(i, j) = bc[k++]; 
+          a(i, j) = bc[k++];
         }
-      
+
     }
-  NT2_DISP(a);
+  NT2_DISPLAY(a);
   t_t x, b =  nt2::ones(5, 1, nt2::meta::as_<T>());
-  NT2_DISP(b);
-  int32_t r; 
+  NT2_DISPLAY(b);
+  int32_t r;
   nt2::tie(x, r) = nt2::full_qr_solve(a, b);
-  NT2_DISP(x);
-  std::cout << r << std::endl; 
+  NT2_DISPLAY(x);
+  std::cout << r << std::endl;
 
 }

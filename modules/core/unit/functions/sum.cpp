@@ -149,7 +149,7 @@ NT2_TEST_CASE( sum_3D )
       }
     }
   }
- 
+
   r1 = sum(a,1);
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
@@ -231,7 +231,7 @@ NT2_TEST_CASE( sum_4D )
       }
     }
   }
- 
+
   r1 = sum(a,1);
   for(std::size_t l = 1; l <= P; ++l)
     for(std::size_t k = 1; k <= O; ++k)
@@ -250,7 +250,7 @@ NT2_TEST_CASE( sum_4D )
     for(std::size_t k = 1; k <= O; ++k)
       for(std::size_t j = 1; j <= N; ++j)
         NT2_TEST_EQUAL(r(1,j,k,l), r1(1,j,k,l)) ;
- 
+
 
   r = sum(a+b,1);
   for(std::size_t l = 1; l <= P; ++l)
@@ -262,7 +262,7 @@ NT2_TEST_CASE( sum_4D )
   r = sum(a(nt2::_));
   NT2_TEST_EQUAL(r(1),nt2::numel(a)) ;
 
- 
+
   r = sum(a,4);
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
@@ -295,7 +295,7 @@ NT2_TEST_CASE( sum_4D )
       }
     }
   }
- 
+
 }
 
 NT2_TEST_CASE( sum )
@@ -345,7 +345,7 @@ NT2_TEST_CASE( sum )
   for(std::size_t l = 1; l <= P; ++l)
     NT2_TEST_EQUAL(r(1,1,1,l),N*M*O) ;
 
- 
+
   r = sum(sum(sum(sum(a))));
   NT2_TEST_EQUAL(r(1,1,1,1),N*M*O*P) ;
 
@@ -381,12 +381,12 @@ NT2_TEST_CASE( sum_sum )
 
   table<T> a = nt2::Two<T>()*nt2::ones(5, 3, nt2::meta::as_<T>());
   a(2, 3) = nt2::Zero<T>();
-  NT2_DISP(a);
-  NT2_DISP(nt2::toint(nt2::sb2b(a)));
-  NT2_DISP(sum(nt2::toint(nt2::sb2b(a))));
-  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 1));
-  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 2));
-  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 3));
+  NT2_DISPLAY(a);
+  NT2_DISPLAY(nt2::toint(nt2::sb2b(a)));
+  NT2_DISPLAY(sum(nt2::toint(nt2::sb2b(a))));
+  NT2_DISPLAY(sum(nt2::toint(nt2::sb2b(a)), 1));
+  NT2_DISPLAY(sum(nt2::toint(nt2::sb2b(a)), 2));
+  NT2_DISPLAY(sum(nt2::toint(nt2::sb2b(a)), 3));
 }
 
 NT2_TEST_CASE( pipo )
