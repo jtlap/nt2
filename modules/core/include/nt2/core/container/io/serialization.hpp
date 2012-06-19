@@ -19,8 +19,6 @@
 #include <boost/proto/traits.hpp>
 #include <boost/proto/fusion.hpp>
 #include <boost/fusion/include/for_each.hpp>
-#include <boost/fusion/include/as_vector.hpp>
-#include <boost/fusion/include/size.hpp>
 
 #include <nt2/table.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
@@ -107,13 +105,76 @@ namespace boost { namespace serialization
   inline void serialize( Archive& ar
                        , nt2::container::expression<E,R,D>& e
                        , unsigned int const& file_version
-                       , typename boost::enable_if< typename boost::mpl::equal_to<
-                         typename boost::proto::arity_of<E>
-                         , boost::mpl::int_<0> >
-                         >::type* dummy = 0
                        )
   {
     split_free(ar, e, file_version); 
+  }
+
+  //==========================================================================
+  // Serialization of proto expression:
+  //==========================================================================
+  template<class Archive>
+  struct saver_
+  {
+    typedef Archive archive_type;
+    explicit saver_(archive_type& a) : ar(a) {}
+    template<class Terminal>
+    void operator()(Terminal const& t) const
+    { ar << t; }
+    archive_type& ar;
+  };
+
+  template<class Archive, class E, class R, class D>
+  void save( Archive& ar, const nt2::container::expression<E,R,D>& e
+           , unsigned int const& version
+           , typename boost::enable_if< typename boost::mpl::not_equal_to<
+               typename boost::proto::arity_of<E>
+             , boost::mpl::int_<0> >
+             >::type* dummy = 0
+           )
+  {
+   BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<E>::value != 0)
+                        ,  NT2_INVALID_ACCESS_TO_EXPRESSION_NODES_ON_NON_EXPRESSION
+                        , (E)
+                        );
+
+    typedef typename proto::result_of::
+    flatten< const nt2::container::expression<E,R,D> >::type sequence_type;
+    saver_<Archive> save_terminals_(ar);
+    sequence_type terminals = boost::proto::flatten(e);
+    boost::fusion::for_each(terminals,save_terminals_);
+  }
+
+  template<class Archive>
+  struct loader_
+  {
+    typedef Archive archive_type;
+    explicit loader_(archive_type& a) : ar(a) {}
+    template<class Terminal>
+    void operator()(Terminal& t) const  
+    { ar >> t; }
+    archive_type& ar;
+  };
+
+  template<class Archive, class E, class R, class D>
+  void load( Archive& ar, nt2::container::expression<E,R,D>& e
+           , unsigned int const& version
+           , typename boost::enable_if< typename boost::mpl::not_equal_to<
+               typename boost::proto::arity_of<E>
+             , boost::mpl::int_<0> >
+             >::type* dummy = 0
+           )
+  {
+    BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<E>::value != 0)
+                        , NT2_INVALID_ACCESS_TO_EXPRESSION_NODES_ON_NON_EXPRESSION
+                        , (E)
+                        );
+     
+    typedef typename proto::result_of::
+    flatten< nt2::container::expression<E,R,D>& >::type sequence_type;
+    sequence_type terminals = boost::proto::flatten(e);
+    loader_<Archive> load_terminals_(ar);
+    boost::fusion::for_each(terminals,load_terminals_);
   }
 
   //==========================================================================
@@ -141,88 +202,6 @@ namespace boost { namespace serialization
                        , unsigned int const& file_version)
   {
     split_free(ar, of, file_version);
-  }
-
-  //==========================================================================
-  // Serialization of proto expression:
-  //==========================================================================
-  template<class Archive>
-  struct saver_
-  {
-    typedef Archive archive_type;
-    explicit saver_(archive_type& a) : ar(a) {}
-    template<class Terminal>
-    void operator()(Terminal const& t) const
-    { ar << t; }
-    archive_type& ar;
-  };
-
-  template<class Archive>
-  struct loader_
-  {
-    typedef Archive archive_type;
-    explicit loader_(archive_type& a) : ar(a) {}
-    template<class Terminal>
-    void operator()(Terminal& t) const
-    { ar >> t; }
-    archive_type& ar;
-  };
-
-  template<class Archive, class E, class R, class D>
-  void save( Archive& ar, const nt2::container::expression<E,R,D>& e
-           , unsigned int const& version
-           , typename boost::enable_if< typename boost::mpl::not_equal_to<
-               typename boost::proto::arity_of<E>
-             , boost::mpl::int_<0> >
-             >::type* dummy = 0
-           )
-  {
-    BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<E>::value != 0)
-                        ,  NT2_INVALID_ACCESS_TO_EXPRESSION_NODES_ON_NON_EXPRESSION
-                        , (E)
-                        );
-
-    typedef typename proto::result_of::
-    flatten< const nt2::container::expression<E,R,D> >::type sequence_type;
-    saver_<Archive> save_terminals_(ar);
-    sequence_type terminals = boost::proto::flatten(e);
-    boost::fusion::for_each(terminals,save_terminals_);
-  }
-
-  template<class Archive, class E, class R, class D>
-  void load( Archive& ar, nt2::container::expression<E,R,D>& e
-           , unsigned int const& version
-           , typename boost::enable_if< typename boost::mpl::not_equal_to<
-               typename boost::proto::arity_of<E>
-             , boost::mpl::int_<0> >
-             >::type* dummy = 0
-           )
-  {
-    BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<E>::value != 0)
-                        , NT2_INVALID_ACCESS_TO_EXPRESSION_NODES_ON_NON_EXPRESSION
-                        , (E)
-                        );
-    
-    typedef typename proto::result_of::
-    flatten< nt2::container::expression<E,R,D>& >::type sequence_type;
-    sequence_type terminals = boost::proto::flatten(e);
-    loader_<Archive> load_terminals_(ar);
-    boost::fusion::for_each(terminals,load_terminals_);
-    std::cout << boost::fusion::size(terminals) << "/n";
-    e = boost::proto::unpack_expr<typename boost::proto::tag_of<E>::type>(boost::fusion::as_vector(terminals));
-  }
-
-  template<class Archive, class E, class R, class D>
-  inline void serialize( Archive& ar
-                       , nt2::container::expression<E,R,D>& e
-                       , unsigned int const& file_version
-                       , typename boost::enable_if< typename boost::mpl::not_equal_to<
-                         typename boost::proto::arity_of<E>
-                         , boost::mpl::int_<0> >
-                         >::type* dummy = 0
-                       )
-  {
-    split_free(ar, e, file_version); 
   }
 
 } }
