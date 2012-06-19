@@ -47,6 +47,7 @@ SET( SOURCES
     inbtrue.cpp
     ind2sub.cpp
     iscolumn.cpp
+    isdiagonal.cpp
     isempty.cpp
     isequal.cpp
     isequaln.cpp
@@ -62,6 +63,7 @@ SET( SOURCES
     istriangular.cpp
     istril.cpp
     istriu.cpp
+    isulpequal.cpp
     isvector.cpp
     isvectoralong.cpp
     length.cpp

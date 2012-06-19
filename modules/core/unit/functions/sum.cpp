@@ -12,6 +12,9 @@
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
+#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/max.hpp>
 
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -24,8 +27,6 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-
-
 NT2_TEST_CASE( sum_1D )
 {
   using nt2::table;
@@ -33,7 +34,7 @@ NT2_TEST_CASE( sum_1D )
   using nt2::sum;
   typedef double T;
   using nt2::_;
-  
+
   std::size_t M = 5;
 
   table<T> r, r1;
@@ -49,7 +50,7 @@ NT2_TEST_CASE( sum_1D )
 
   r1 = sum(a,1);
   NT2_TEST_EQUAL(r(1), r1(1)) ;
-  
+
   for(int j = 2; j <= NT2_MAX_DIMENSIONS; ++j){
     r = sum(a,j);
     for(std::size_t i = 1; i <= M; ++i)
@@ -73,7 +74,7 @@ NT2_TEST_CASE( sum_2D )
   using nt2::sum;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -96,7 +97,7 @@ NT2_TEST_CASE( sum_2D )
   r = sum(a);
   for(std::size_t j = 1; j <= N; ++j)
     NT2_TEST_EQUAL(r(1,j), M) ;
-      
+
 
   for(std::size_t j = 1; j <= N; ++j)
     NT2_TEST_EQUAL(r(1,j), r1(1,j)) ;
@@ -105,7 +106,7 @@ NT2_TEST_CASE( sum_2D )
 
   for(std::size_t i = 1; i <= M; ++i)
     NT2_TEST_EQUAL(r1(i,1),N) ;
-  
+
 
   for(int j = 3; j <= NT2_MAX_DIMENSIONS; ++j){
     r = sum(a,j);
@@ -130,7 +131,7 @@ NT2_TEST_CASE( sum_3D )
   using nt2::sum;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -148,7 +149,7 @@ NT2_TEST_CASE( sum_3D )
       }
     }
   }
-  
+ 
   r1 = sum(a,1);
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
@@ -158,7 +159,7 @@ NT2_TEST_CASE( sum_3D )
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
       NT2_TEST_EQUAL(r(1,j,k),M) ;
-      
+
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
       NT2_TEST_EQUAL(r(1,j,k), r1(1,j,k)) ;
@@ -202,7 +203,7 @@ NT2_TEST_CASE( sum_4D )
   using nt2::sum;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -230,7 +231,7 @@ NT2_TEST_CASE( sum_4D )
       }
     }
   }
-  
+ 
   r1 = sum(a,1);
   for(std::size_t l = 1; l <= P; ++l)
     for(std::size_t k = 1; k <= O; ++k)
@@ -249,7 +250,7 @@ NT2_TEST_CASE( sum_4D )
     for(std::size_t k = 1; k <= O; ++k)
       for(std::size_t j = 1; j <= N; ++j)
         NT2_TEST_EQUAL(r(1,j,k,l), r1(1,j,k,l)) ;
-  
+ 
 
   r = sum(a+b,1);
   for(std::size_t l = 1; l <= P; ++l)
@@ -261,7 +262,7 @@ NT2_TEST_CASE( sum_4D )
   r = sum(a(nt2::_));
   NT2_TEST_EQUAL(r(1),nt2::numel(a)) ;
 
-  
+ 
   r = sum(a,4);
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
@@ -294,9 +295,7 @@ NT2_TEST_CASE( sum_4D )
       }
     }
   }
-
-
-  
+ 
 }
 
 NT2_TEST_CASE( sum )
@@ -307,7 +306,7 @@ NT2_TEST_CASE( sum )
   using nt2::sum;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -340,16 +339,15 @@ NT2_TEST_CASE( sum )
   for(std::size_t l = 1; l <= P; ++l)
     for(std::size_t k = 1; k <= O; ++k)
       NT2_TEST_EQUAL(r(1,1,k,l),N*M) ;
-  
-  
+
+
   r = sum(sum(sum(a)));
   for(std::size_t l = 1; l <= P; ++l)
     NT2_TEST_EQUAL(r(1,1,1,l),N*M*O) ;
 
-  
+ 
   r = sum(sum(sum(sum(a))));
   NT2_TEST_EQUAL(r(1,1,1,1),N*M*O*P) ;
-
 
 
   r = sum(c2);
@@ -363,14 +361,14 @@ NT2_TEST_CASE( sum )
 
   r = sum(c4);
   NT2_TEST_EQUAL(r(1,1,1,1),P) ;
-
 }
+
 NT2_TEST_CASE_TPL( asum1, NT2_TYPES )
 {
-  using nt2::_; 
+  using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy;
-  sy = sum(y); 
+  sy = sum(y);
 }
 
 NT2_TEST_CASE( sum_sum )
@@ -380,14 +378,29 @@ NT2_TEST_CASE( sum_sum )
   using nt2::sum;
   typedef double T;
   using nt2::_;
-  
+
   table<T> a = nt2::Two<T>()*nt2::ones(5, 3, nt2::meta::as_<T>());
   a(2, 3) = nt2::Zero<T>();
   NT2_DISP(a);
-  NT2_DISP(nt2::toint(nt2::sb2b(a))); 
-  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)))); 
+  NT2_DISP(nt2::toint(nt2::sb2b(a)));
+  NT2_DISP(sum(nt2::toint(nt2::sb2b(a))));
   NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 1));
   NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 2));
-  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 3));       
+  NT2_DISP(sum(nt2::toint(nt2::sb2b(a)), 3));
+}
 
+NT2_TEST_CASE( pipo )
+{
+  nt2::table<float> a = nt2::colon(1.0f, 10.0f), b;
+  std::cout << a << std::endl;
+  std::cout << sum(a, 2) << std::endl;
+  std::cout << sum(a) << std::endl;
+  std::cout << nt2::if_one_else_zero(nt2::gt(a, 5.0f))           << std::endl;
+  std::cout << nt2::sum(nt2::if_one_else_zero(nt2::gt(a, 5.0f)), 2)<< std::endl;
+  b = nt2::if_one_else_zero(nt2::gt(a, 5.0f));
+  std::cout << b << std::endl;
+  std::cout << nt2::sum(b(nt2::_))<< std::endl;
+  std::cout << nt2::sum(nt2::if_one_else_zero(nt2::gt(a, 5.0f))(nt2::_)   )<< std::endl;
+  std::cout << nt2::max(b)<< std::endl;
+  std::cout << nt2::sum(nt2::if_one_else_zero(nt2::gt(a, 5.0f))   )<< std::endl;
 }

@@ -53,6 +53,19 @@ namespace nt2 { namespace container
     }
   };
 
+  template<class T>
+  struct as_container_noref
+  {
+    typedef T type;
+  };
+
+  template<class T, class S>
+  struct as_container_noref< nt2::memory::container_ref<T, S> >
+  {
+    typedef nt2::memory::container<typename boost::remove_const<T>::type, S> type0;
+    typedef typename boost::mpl::if_< boost::is_const<T>, type0 const&, type0&>::type type;
+  };
+
   struct  domain
         : boost::proto::domain< container::generator_transform<domain>
                               , container::grammar
@@ -63,7 +76,7 @@ namespace nt2 { namespace container
     {
       typedef typename boost::remove_const<T>::type term_t;
       typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term_t> > expr_t;
-      typedef expression<expr_t, term_t> result_type;
+      typedef expression<expr_t, typename as_container_noref<term_t>::type> result_type;
       BOOST_FORCEINLINE result_type operator()(typename boost::add_reference<T>::type t) const
       {
         return result_type(expr_t::make(t));

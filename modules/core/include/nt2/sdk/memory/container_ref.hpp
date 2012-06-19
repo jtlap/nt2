@@ -270,6 +270,12 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename nt2::memory::container_ref<T, S>::base_t::semantic_t     semantic_t;
     typedef typename semantic_t::template apply<T,S,Origin>::type type;
   };
+
+  template<class T, class S>
+  struct terminal_of< nt2::memory::container_ref<T,S> >
+  {
+    typedef nt2::container::table<typename boost::remove_const<T>::type, S> type;
+  };
 } } }
 
 #endif

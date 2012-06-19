@@ -90,13 +90,14 @@ NT2_TEST_CASE( range_ctor )
   using nt2::last_index;
 
   float data[] =  { 1,2,3, 4,5,6 };
+  float ref[]  =  { 1,2,3, 4,5,6 };
 
   table<float> x( of_size(3,2), &data[0], &data[0] + 6 );
   NT2_TEST_EQUAL( nt2::extent(x), of_size(3,2 ) );
 
   for(int j=first_index<2>(x);j<=last_index<2>(x);++j)
     for(int i=first_index<1>(x);i<=last_index<1>(x);++i)
-      NT2_TEST_EQUAL( float(x(i,j)), data[(i-1) + (j-1)*3]) ;
+      NT2_TEST_EQUAL( float(x(i,j)), ref[(i-1) + (j-1)*3]) ;
 }
 
 NT2_TEST_CASE( shared_ctor_boost_array )

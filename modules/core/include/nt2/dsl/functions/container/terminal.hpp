@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const&) const
     {
-       return nt2::terminal(a0)[state];
+      return nt2::terminal(a0)[state];
     }
   };
 
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const& data) const
     {
-       return nt2::terminal(a0)[state] = data;
+      return nt2::terminal(a0)[state] = data;
     }
   };
 
