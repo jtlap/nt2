@@ -63,8 +63,14 @@ namespace nt2
     reverse_iterator        rend()         { return reverse_iterator(0);        }
     const_reverse_iterator  rend()   const { return const_reverse_iterator(0);  }
 
+    //==========================================================================
+    // Default constructor
+    //==========================================================================
     of_size_() {}
 
+    //==========================================================================
+    // Constructor from Fusion Sequence - Everything should be 1
+    //==========================================================================
     template<class S>
     of_size_( S const& other
             , typename boost::enable_if
@@ -72,6 +78,57 @@ namespace nt2
             )
     {
       details::check_all_equal(other, 1);
+    }
+
+    //==========================================================================
+    // Constructor from Range - Everything should be 1
+    //==========================================================================
+    template<class Iterator>
+    of_size_( Iterator b, Iterator e
+            , typename  boost::disable_if
+                        < boost::is_integral<Iterator> >::type*   = 0
+            )
+    {
+      BOOST_ASSERT_MSG( full_of_one(b,e)
+                      , "Size mismatch at of_size construction"
+                      );
+    }
+
+    //==========================================================================
+    // Constructor from a list of values - Everything should be 1
+    //==========================================================================
+    #define M1(z,n,t)                                       \
+    BOOST_ASSERT_MSG( (d##n==1)                             \
+                    , "_0D constructor parameter "          \
+                      BOOST_PP_STRINGIZE(BOOST_PP_INC(n))   \
+                      " invalid with respect to of_size_ "  \
+                      "numbers of dimensions."              \
+                    );                                      \
+    /**/
+
+    #define M0(z,n,t)                                                           \
+    template<BOOST_PP_ENUM_PARAMS(n, class I)>                                  \
+    of_size_( BOOST_PP_ENUM_BINARY_PARAMS(n,I, const& d)                        \
+            , typename  boost::disable_if                                       \
+                        < boost::fusion::traits::is_sequence<I0> >::type* = 0)  \
+    {                                                                           \
+      BOOST_PP_REPEAT(n,M1,~)                                                   \
+    }                                                                           \
+    /**/
+
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
+
+    #undef M0
+    #undef M1
+    #undef M2
+    #undef M3
+
+    private:
+    template<class Iterator>
+    static inline bool full_of_one(Iterator b, Iterator e)
+    {
+      while(b != e) { if(*b != 1) return false; b++; }
+      return true;
     }
   };
 }

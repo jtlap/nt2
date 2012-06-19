@@ -80,6 +80,7 @@ SET( SOURCES
     normp.cpp
     numel.cpp
     ones.cpp
+    of_size.cpp
     pispace.cpp
     prod.cpp
     putalong.cpp
