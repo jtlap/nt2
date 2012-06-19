@@ -56,7 +56,7 @@ namespace nt2{ namespace ext
     {
       return expm(nt2::log(a0), a1); 
     }
-  }    
+  };    
 
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
