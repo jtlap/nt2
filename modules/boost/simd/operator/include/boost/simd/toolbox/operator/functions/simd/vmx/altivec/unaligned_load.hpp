@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A2::type result_type;
     typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
-    inline result_type operator()(const A0& a0, const A1&)const
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A0>::value_type);
       static std::size_t card = meta::cardinal_of<result_type>::value;
