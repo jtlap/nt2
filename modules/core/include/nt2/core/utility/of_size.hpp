@@ -196,7 +196,7 @@ namespace nt2
     {                                                                           \
       BOOST_PP_REPEAT(n,M2,~)                                                   \
       BOOST_PP_REPEAT(n,M1,~)                                                   \
-      BOOST_PP_REPEAT_FROM_TO(n,NT2_MAX_DIMENSIONS,M3,~)                                                   \
+      BOOST_PP_REPEAT_FROM_TO(n,NT2_MAX_DIMENSIONS,M3,~)                        \
     }                                                                           \
     /**/
 
@@ -228,8 +228,8 @@ namespace nt2
     static std::size_t size() { return static_size; }
     static bool empty()       { return false; }
 
-    reference       operator[](std::size_t i)       { return data_[i]; }
-    const_reference operator[](std::size_t i) const { return data_[i]; }
+    reference       operator[](std::size_t i)       { static std::size_t one = 1; if(i < static_size) return data_[i]; return one; }
+    const_reference operator[](std::size_t i) const { static std::size_t one = 1; if(i < static_size) return data_[i]; return one; }
 
     std::size_t*        data()       { return &data_[0]; }
     std::size_t const*  data() const { return &data_[0]; }
