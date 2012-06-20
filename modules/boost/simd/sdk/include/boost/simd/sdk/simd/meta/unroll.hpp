@@ -50,8 +50,8 @@ namespace boost{ namespace simd{ namespace meta{
     apply( SimdInputIterator& in, SimdInputIterator const& end
          , SimdOutputIterator& out, UnOp f)
     {
-      std::size_t distance = end - in;
-      std::size_t n = (distance + 1) / 2;
+      typename SimdInputIterator::difference_type distance = end - in;
+      typename SimdInputIterator::difference_type n = (distance + 1) / 2;
       
       switch(distance % 2)
       {
@@ -67,8 +67,8 @@ namespace boost{ namespace simd{ namespace meta{
     apply( SimdInputIterator& in1, SimdInputIterator& in2
          , SimdInputIterator const& end, SimdOutputIterator& out, BinOp f)
     {
-      std::size_t distance = end - in1;
-      std::size_t n = (distance + 1) / 2;
+      typename SimdInputIterator::difference_type distance = end - in1;
+      typename SimdInputIterator::difference_type n = (distance + 1) / 2;
       
       switch(distance % 2)
       {
