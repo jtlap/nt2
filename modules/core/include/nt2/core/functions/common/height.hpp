@@ -10,8 +10,6 @@
 #define NT2_CORE_FUNCTIONS_COMMON_HEIGHT_HPP_INCLUDED
 
 #include <nt2/core/functions/height.hpp>
-#include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/size.hpp>
 
 namespace nt2 { namespace ext
