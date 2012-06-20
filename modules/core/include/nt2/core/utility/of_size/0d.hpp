@@ -85,8 +85,8 @@ namespace nt2
     //==========================================================================
     template<class Iterator>
     of_size_( Iterator b, Iterator e
-            , typename  boost::disable_if
-                        < boost::is_integral<Iterator> >::type*   = 0
+            , typename  boost::enable_if
+                        < meta::is_iterator<Iterator> >::type*   = 0
             )
     {
       BOOST_ASSERT_MSG( full_of_one(b,e)

@@ -13,13 +13,13 @@
 #include <nt2/core/settings/details/fusion.hpp>
 #include <nt2/core/functions/scalar/numel.hpp>
 #include <nt2/sdk/memory/copy.hpp>
+#include <nt2/sdk/meta/is_iterator.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 #include <boost/fusion/include/out.hpp>
 #include <boost/array.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/vector_c.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_integral.hpp>
 #include <cstddef>
 #include <iterator>
 
@@ -140,8 +140,8 @@ namespace nt2
     //==========================================================================
     template<class Iterator>
     of_size_( Iterator b, Iterator e
-            , typename  boost::disable_if
-                        < boost::is_integral<Iterator> >::type*   = 0
+            , typename  boost::enable_if
+                        < meta::is_iterator<Iterator> >::type*   = 0
             )
     {
       BOOST_ASSERT_MSG( !static_status
