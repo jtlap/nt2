@@ -63,6 +63,8 @@ namespace nt2 { namespace ext
         // This prevent the may_alias ICE
         stype a = a0[i], r = txr[i], c = txc[i];
         tmp[i] =  nt2::rem_pio2(a, r, c);
+        txr[i] = r;
+        txc[i] = c;
       }
 
       xr = load<A0>(&txr[0], 0);
