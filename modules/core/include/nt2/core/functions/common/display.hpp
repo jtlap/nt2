@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0 const& a0) const
     {
-      std::cout << "ans = \n" << a0 << std::endl;
+      std::cout << "ans = \n     " << a0 << std::endl;
     }
   };
 
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      std::cout << a0 << " = \n" << a1 << std::endl;
+      std::cout << a0 << " = \n     " << a1 << std::endl;
     }
   };
 } }
