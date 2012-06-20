@@ -169,6 +169,25 @@ namespace nt2 { namespace ext
     }
   };
 
+  // TODO: move this function to a better place
+  template<class T>
+  T* raw(T& t)
+  {
+    return &t;
+  }
+
+  template<class T, class S>
+  typename memory::container_ref<T, S>::pointer raw(memory::container_ref<T, S> const& c)
+  {
+    return c.raw();
+  }
+
+  template<class T, class S>
+  typename memory::container<T, S>::pointer raw(memory::container<T, S>& c)
+  {
+    return c.raw();
+  }
+
   // run_assign
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)
@@ -197,10 +216,10 @@ namespace nt2 { namespace ext
       gemm( "N", "N"
           , &m, &n, &k
           , &alpha
-          , nt2::terminal(child0).raw(), &lda
-          , nt2::terminal(child1).raw(), &ldb
+          , child0.raw(), &lda
+          , child1.raw(), &ldb
           , &beta
-          , nt2::terminal(a0).raw(), &ldc
+          , raw(nt2::terminal(a0)), &ldc
           );
 
       return a0;
