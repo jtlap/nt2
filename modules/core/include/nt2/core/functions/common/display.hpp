@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_COMMON_DISPLAY_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_COMMON_DISPLAY_HPP_INCLUDED
 
+#include <nt2/sdk/unit/type_id.hpp>
 #include <iostream>
 
 namespace nt2 { namespace ext
@@ -23,6 +24,22 @@ namespace nt2 { namespace ext
     result_type operator()(A0 const& a0) const
     {
       std::cout << "ans = \n     " << a0 << std::endl;
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::display_, tag::cpu_
+                            , (Tag)(Site)
+                            , ((unspecified_< nt2::functor<Tag, Site> >))
+                            )
+  {
+    typedef void result_type;
+
+    result_type operator()(nt2::functor<Tag, Site> const& a0) const
+    {
+      std::string tag = type_id<Tag>();
+      std::size_t pos = tag.find_last_of(':')+1;
+      std::size_t sz = tag.size()-pos-1;
+      std::cout << "ans = \n     @" << tag.substr(pos, sz) << std::endl;
     }
   };
 
