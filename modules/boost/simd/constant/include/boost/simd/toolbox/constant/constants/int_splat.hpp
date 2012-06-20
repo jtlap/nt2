@@ -26,12 +26,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/int_splat.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,12 +43,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Int_splat
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -56,14 +56,16 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Int_splat of functor Int_splat 
+     * \brief Define the tag Int_splat of functor Int_splat
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     template<boost::simd::int64_t I>
     struct Intpattern : ext::constant_< Intpattern<I> >
-    { 
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target, Target(I)> {};  
+    {
+      template<class Target, class Dummy=void>
+      struct apply : meta::int_c< typename Target::type
+                                , typename Target::type(I)
+                                > {};
     };
   }
 

@@ -31,8 +31,9 @@ namespace meta
   //============================================================================
   template<class T> struct unknown_
   {
-    typedef unknown_  parent;
-    typedef details::hierarchy_tag hierarchy_tag;
+    typedef T                       type;
+    typedef unknown_                parent;
+    typedef details::hierarchy_tag  hierarchy_tag;
   };
 
   //============================================================================

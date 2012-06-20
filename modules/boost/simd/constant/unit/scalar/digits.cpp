@@ -45,9 +45,45 @@ NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_TYPES )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Test for raw 'char' type
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( char_digit_value )
+{
+  NT2_TEST_EQUAL( boost::simd::Mten<char>()   , static_cast<char>( -10) );
+  NT2_TEST_EQUAL( boost::simd::Mnine<char>()  , static_cast<char>(  -9) );
+  NT2_TEST_EQUAL( boost::simd::Meight<char>() , static_cast<char>(  -8) );
+  NT2_TEST_EQUAL( boost::simd::Mseven<char>() , static_cast<char>(  -7) );
+  NT2_TEST_EQUAL( boost::simd::Msix<char>()   , static_cast<char>(  -6) );
+  NT2_TEST_EQUAL( boost::simd::Mfive<char>()  , static_cast<char>(  -5) );
+  NT2_TEST_EQUAL( boost::simd::Mfour<char>()  , static_cast<char>(  -4) );
+  NT2_TEST_EQUAL( boost::simd::Mthree<char>() , static_cast<char>(  -3) );
+  NT2_TEST_EQUAL( boost::simd::Mtwo<char>()   , static_cast<char>(  -2) );
+  NT2_TEST_EQUAL( boost::simd::Mone<char>()   , static_cast<char>(  -1) );
+  NT2_TEST_EQUAL( boost::simd::Zero<char>()   , static_cast<char>(   0) );
+  NT2_TEST_EQUAL( boost::simd::One<char>()    , static_cast<char>(   1) );
+  NT2_TEST_EQUAL( boost::simd::Two<char>()    , static_cast<char>(   2) );
+  NT2_TEST_EQUAL( boost::simd::Three<char>()  , static_cast<char>(   3) );
+  NT2_TEST_EQUAL( boost::simd::Four<char>()   , static_cast<char>(   4) );
+  NT2_TEST_EQUAL( boost::simd::Five<char>()   , static_cast<char>(   5) );
+  NT2_TEST_EQUAL( boost::simd::Six<char>()    , static_cast<char>(   6) );
+  NT2_TEST_EQUAL( boost::simd::Seven<char>()  , static_cast<char>(   7) );
+  NT2_TEST_EQUAL( boost::simd::Eight<char>()  , static_cast<char>(   8) );
+  NT2_TEST_EQUAL( boost::simd::Nine<char>()   , static_cast<char>(   9) );
+  NT2_TEST_EQUAL( boost::simd::Ten<char>()    , static_cast<char>(  10) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Test integral_constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( integral_constant,BOOST_SIMD_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_INTEGRAL_TYPES )
 {
   NT2_TEST_EQUAL( (boost::simd::integral_constant<T,42>()), static_cast<T>(42) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test integral_constant for raw 'char'
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( char_integral_constant )
+{
+  NT2_TEST_EQUAL( (boost::simd::integral_constant<char,65>()), 'A' );
 }

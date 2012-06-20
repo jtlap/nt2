@@ -32,12 +32,12 @@
  * types it does not represent the same mathematical number.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ldexpmask.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -49,12 +49,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Ldexpmask
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -62,21 +62,21 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Ldexpmask of functor Ldexpmask 
+     * \brief Define the tag Ldexpmask of functor Ldexpmask
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     struct Ldexpmask : ext::constant_<Ldexpmask>
-    { 
-      template<class Target, class Dummy=void> 
-      struct  apply : meta::int_c<Target,0> {};  
+    {
+      template<class Target, class Dummy=void>
+      struct  apply : meta::int_c<typename Target::type,0> {};
     };
 
-    template<class Dummy>
-    struct  Ldexpmask::apply<float,Dummy> 
+    template<class T, class Dummy>
+    struct  Ldexpmask::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::int_c<boost::simd::int32_t,0x7F800000> {};
 
-    template<class Dummy>
-    struct  Ldexpmask::apply<double,Dummy> 
+    template<class T, class Dummy>
+    struct  Ldexpmask::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::int_c<boost::simd::int64_t,0x7FF0000000000000ULL> {};
   }
 

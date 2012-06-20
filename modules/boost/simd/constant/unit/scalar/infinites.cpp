@@ -32,3 +32,12 @@ NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_INTEGRAL_TYPES )
   NT2_TEST_EQUAL( boost::simd::Inf<T>() , boost::simd::Valmax<T>()  );
   NT2_TEST_EQUAL( boost::simd::Minf<T>(), boost::simd::Valmin<T>()  );
 }
+
+////////////////////////////////////////////////////////////////////////////////
+// Test value of infinites for raw char type
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( char_inf)
+{
+  NT2_TEST_EQUAL( boost::simd::Inf<char>() , boost::simd::Valmax<char>()  );
+  NT2_TEST_EQUAL( boost::simd::Minf<char>(), boost::simd::Valmin<char>()  );
+}
