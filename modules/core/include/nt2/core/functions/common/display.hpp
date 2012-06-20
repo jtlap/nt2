@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
       std::string tag = type_id<Tag>();
       std::size_t pos = tag.find_last_of(':')+1;
       std::size_t sz = tag.size()-pos-1;
-      std::cout << "ans = \n     @" << tag.substr(pos, sz) << std::endl;
+      std::cout << "ans = \n    @" << tag.substr(pos, sz) << std::endl;
     }
   };
 
