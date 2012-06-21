@@ -25,8 +25,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = _mm_mullo_epi32(a0, a1);
-      return that;
+      return _mm_mullo_epi32(a0, a1);
     }
   };
 } } }

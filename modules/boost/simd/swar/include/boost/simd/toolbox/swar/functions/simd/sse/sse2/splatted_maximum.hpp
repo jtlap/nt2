@@ -91,8 +91,7 @@ namespace boost { namespace simd { namespace ext
 	A0 tmp = _mm_shuffle_ps(a0, a0, _MM_SHUFFLE(1, 0, 3, 2)); 
 	A0 max1 = boost::simd::max(a0,tmp);
 	A0 tmp1 = _mm_shuffle_ps(max1, max1, _MM_SHUFFLE(2, 3, 0, 1)); 
-	A0 that = boost::simd::max(max1,tmp1);
-	return that;
+	return boost::simd::max(max1,tmp1);
       }
   };
   

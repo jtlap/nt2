@@ -20,8 +20,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 that = vec_nor(a0(), a0());
-      return that;
+      return vec_nor(a0(), a0());
     }
   };
 } } }

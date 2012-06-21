@@ -35,8 +35,7 @@ namespace boost { namespace simd { namespace ext
     {
       if(a1)
       {
-        A0 that = _mm_unpackhi_pd(a0,a0);
-        return that;
+        return _mm_unpackhi_pd(a0,a0);
       }
       return a0;
     }
@@ -91,12 +90,11 @@ namespace boost { namespace simd { namespace ext
     {
       if(a1)
       {
-        A0 that = simd::bitwise_cast<A0>
+        return simd::bitwise_cast<A0>
                               ( _mm_unpackhi_pd ( simd::bitwise_cast<rtype>(a0)
                                                 , simd::bitwise_cast<rtype>(a0)
                                                 )
                               );
-        return that;
       }
 
       return a0;
