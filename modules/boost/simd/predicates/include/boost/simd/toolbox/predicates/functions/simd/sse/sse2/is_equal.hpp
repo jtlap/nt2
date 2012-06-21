@@ -10,12 +10,12 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/predicates/functions/is_equal.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/downgrade.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -104,11 +104,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
-      type tmp      = { a0 - a1 };
-      tmp           = boost::simd::eq(tmp,Zero<type>());
+      type tmp      = bitwise_cast<type>(a0 - a1);
+      tmp           = bitwise_cast<type>(boost::simd::eq(tmp,Zero<type>()));
       type shuffled = _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1));
-      result_type that     = { tmp & shuffled };
-      return that;
+      return bitwise_cast<result_type>(tmp & shuffled);
     }
   };
 } } }
