@@ -24,8 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = vec_cmpge(a0(),a1());
-      return that;
+      return vec_cmpge(a0(),a1());
     }
   };
 

@@ -35,8 +35,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A2::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      result_type that = _mm256_loadu_pd(a0+a1);
-      return that;
+      return _mm256_loadu_pd(a0+a1);
     }
   };
 } } }
@@ -52,8 +51,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&)const
     {
-      result_type that = _mm256_loadu_pd(a0);
-      return that;
+      return _mm256_loadu_pd(a0);
     }
   };
 } } }
@@ -73,8 +71,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A2::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      result_type that = _mm256_loadu_ps(a0+a1);
-      return that;
+      return _mm256_loadu_ps(a0+a1);
     }
   };
 } } }
@@ -90,8 +87,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&)const
     {
-      result_type that = _mm256_loadu_ps(a0);
-      return that;
+      return _mm256_loadu_ps(a0);
     }
   };
 } } }
@@ -111,8 +107,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A2::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      result_type that = _mm256_loadu_si256(reinterpret_cast<__m256i const*>(a0+a1));
-      return that;
+      return _mm256_loadu_si256(reinterpret_cast<__m256i const*>(a0+a1));
     }
   };
 } } }
@@ -128,8 +123,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&)const
     {
-      result_type that = _mm256_loadu_si256(reinterpret_cast<__m256i const*>(a0));
-      return that;
+      return _mm256_loadu_si256(reinterpret_cast<__m256i const*>(a0));
     }
   };
 } } }

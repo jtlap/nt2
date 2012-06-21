@@ -28,8 +28,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      result_type that = store(evaluate(a0),a1,a2);
-      return that;
+      return store(evaluate(a0),a1,a2);
     }
   };
 } } }

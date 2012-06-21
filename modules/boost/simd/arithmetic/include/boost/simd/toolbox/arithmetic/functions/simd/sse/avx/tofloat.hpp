@@ -30,8 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_floating<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = _mm256_cvtepi32_ps(a0);
-      return that;
+      return _mm256_cvtepi32_ps(a0);
     }
   };
   

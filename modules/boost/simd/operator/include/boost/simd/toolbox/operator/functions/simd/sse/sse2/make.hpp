@@ -24,8 +24,7 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(2)
     {
-      result_type that = _mm_setr_pd(a0, a1);
-      return that;
+      return _mm_setr_pd(a0, a1);
     }
   };
 } } }
@@ -66,8 +65,7 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(4)
     {
-      result_type that = _mm_setr_ps(a0, a1, a2, a3);
-      return that;
+      return _mm_setr_ps(a0, a1, a2, a3);
     }
   };
 } } }
@@ -83,8 +81,7 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(4)
     {
-      result_type that = _mm_setr_epi32(a0, a1, a2, a3);
-      return that;
+      return _mm_setr_epi32(a0, a1, a2, a3);
     }
   };
 } } }
@@ -100,8 +97,7 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(8)
     {
-      result_type that = _mm_setr_epi16(a0, a1, a2, a3 , a4, a5, a6, a7 );
-      return that;
+      return _mm_setr_epi16(a0, a1, a2, a3 , a4, a5, a6, a7 );
     }
   };
 } } }
@@ -117,10 +113,8 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(16)
     {
-      result_type
-      that = _mm_setr_epi8 ( a0, a1 , a2,  a3 ,  a4,  a5,  a6,  a7
+      return _mm_setr_epi8 ( a0, a1 , a2,  a3 ,  a4,  a5,  a6,  a7
                               , a8, a9, a10, a11 , a12, a13, a14, a15 );
-      return that;
     }
   };
 } } }

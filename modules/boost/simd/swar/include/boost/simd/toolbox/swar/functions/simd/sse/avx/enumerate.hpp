@@ -119,8 +119,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
-      result_type that = _mm256_set_pd(a0+3*a1,a0+2*a1,a0+a1,a0);
-      return that;
+      return _mm256_set_pd(a0+3*a1,a0+2*a1,a0+a1,a0);
     }
   };
 

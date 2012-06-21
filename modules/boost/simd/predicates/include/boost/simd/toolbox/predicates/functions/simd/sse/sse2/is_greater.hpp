@@ -89,8 +89,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = _mm_cmpgt_epi16(a0,a1);
-      return that;
+      return _mm_cmpgt_epi16(a0,a1);
     }
   };
 
@@ -104,8 +103,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = _mm_cmpgt_epi32(a0,a1);
-      return that;
+      return _mm_cmpgt_epi32(a0,a1);
     }
   };
 

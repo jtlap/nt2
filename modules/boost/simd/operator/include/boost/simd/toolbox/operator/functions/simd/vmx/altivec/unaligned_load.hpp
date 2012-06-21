@@ -32,8 +32,7 @@ namespace boost { namespace simd { namespace ext
       result_type MSQ  = vec_ld(a1*sz  ,a0);
       result_type LSQ  = vec_ld((a1*sz)+card*sz-1 ,a0);
       n_t         mask = vec_lvsl(a1*sz,a0);
-      result_type that = vec_perm(MSQ(), LSQ(), mask());
-      return that;
+      return vec_perm(MSQ(), LSQ(), mask());
     }
   };
 
@@ -52,8 +51,7 @@ namespace boost { namespace simd { namespace ext
       result_type MSQ  = vec_ld(0  ,a0);
       result_type LSQ  = vec_ld(card*sz-1 ,a0);
       n_t         mask = vec_lvsl(0,a0);
-      result_type that = vec_perm(MSQ(), LSQ(), mask());
-      return that;
+      return vec_perm(MSQ(), LSQ(), mask());
     }
   };
 } } }

@@ -28,8 +28,7 @@ namespace boost { namespace simd { namespace ext
                                     , erb()
                                     , erb()
                                     );
-      result_type that  = vec_madd(a0(),rec_b(),Zero<result_type>()());
-      return that;
+      return vec_madd(a0(),rec_b(),Zero<result_type>()());
     }
   };
 } } }

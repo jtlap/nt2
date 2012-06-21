@@ -39,8 +39,7 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = _mm_cvttps_epi32(a0);
-      return that;
+      return _mm_cvttps_epi32(a0);
     }
   };
 } } }
