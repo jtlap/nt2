@@ -30,11 +30,11 @@ namespace boost { namespace simd { namespace ext
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A1>::value_type);
       static std::size_t card = meta::cardinal_of<A0>::value;
-      result_type   MSQ = {vec_ld(a2*sz, a1)};
-      result_type   LSQ = {vec_ld((a2*sz)+card*sz-1, a1)};
-      n_t     edgeAlign = {vec_lvsl(a2*sz, a1)};
-      result_type edges = {vec_perm(LSQ(), MSQ(), edgeAlign())};
-      n_t         align = {vec_lvsr(a2*sz, a1)};
+      result_type   MSQ = vec_ld(a2*sz, a1);
+      result_type   LSQ = vec_ld((a2*sz)+card*sz-1, a1);
+      n_t     edgeAlign = vec_lvsl(a2*sz, a1);
+      result_type edges = vec_perm(LSQ(), MSQ(), edgeAlign());
+      n_t         align = vec_lvsr(a2*sz, a1);
       MSQ = vec_perm(edges(), a0(), align());
       LSQ = vec_perm(a0(), edges(), align());
       vec_st(LSQ(), (a2*sz)+card*sz-1, a1);
@@ -56,11 +56,11 @@ namespace boost { namespace simd { namespace ext
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A1>::value_type);
       static std::size_t card = meta::cardinal_of<A0>::value;
-      result_type   MSQ = {vec_ld(0        , a1)};
-      result_type   LSQ = {vec_ld(card*sz-1, a1)};
-      n_t     edgeAlign = {vec_lvsl(0      , a1)};
-      result_type edges = {vec_perm(LSQ(), MSQ(), edgeAlign())};
-      n_t         align = {vec_lvsr(0, a1)};
+      result_type   MSQ = vec_ld(0        , a1);
+      result_type   LSQ = vec_ld(card*sz-1, a1);
+      n_t     edgeAlign = vec_lvsl(0      , a1);
+      result_type edges = vec_perm(LSQ(), MSQ(), edgeAlign());
+      n_t         align = vec_lvsr(0, a1);
       MSQ = vec_perm(edges(), a0(), align());
       LSQ = vec_perm(a0(), edges(), align());
       vec_st(LSQ(), card*sz-1, a1);

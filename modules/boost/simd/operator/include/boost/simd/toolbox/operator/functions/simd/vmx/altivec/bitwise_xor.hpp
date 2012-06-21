@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 other = simd::bitwise_cast<A0>( a1 );
-      A0 that = { vec_xor(a0(),other()) };
+      A0 that = vec_xor(a0(),other());
       return that;
     }
   };

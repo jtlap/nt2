@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      i8type tmp = {genmask(a0)};
+      i8type tmp = bitwise_cast<i8type>(genmask(a0));
       return  result_type(boost::simd::popcnt(_mm_movemask_epi8(tmp))
                           * boost::simd::meta::cardinal_of<A0>::value >> 4);
     }

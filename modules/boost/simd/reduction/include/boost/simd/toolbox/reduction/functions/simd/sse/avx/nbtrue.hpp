@@ -27,8 +27,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
+      svtype a00 = _mm256_extractf128_si256(a0, 0);
+      svtype a01 = _mm256_extractf128_si256(a0, 1);
       return nbtrue(a00)+nbtrue(a01);
     }
   };

@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = {_mm_andnot_pd(a0, a1)};
+      A0 that = _mm_andnot_pd(a0, a1);
       return that;
     }
   };
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = {_mm_andnot_ps(a0, a1)};
+      A0 that = _mm_andnot_ps(a0, a1);
       return that;
     }
   };

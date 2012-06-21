@@ -29,8 +29,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_mul_pd(a0,a1) };
-      return that;
+      return _mm_mul_pd(a0,a1);
     }
   };
 
@@ -44,8 +43,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_mul_ps(a0,a1) };
-      return that;
+      return _mm_mul_ps(a0,a1);
     }
   };
 
@@ -62,15 +60,14 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::upgrade<A0,signed>::type  type;
 
       type mask1 = integral_constant<type,0x00FF>();
-      type a0_16 = {a0()};
-      type a1_16 = {a1()};
-      type al    = {_mm_srli_epi16(a0_16, 8)};
-      type bl    = {_mm_srli_epi16(a1_16, 8)};
-      type abh   = {_mm_and_si128(mask1, _mm_mullo_epi16(a0,a1))};
-      type ab    = {_mm_mullo_epi16(al,bl)};
-      type abl   = {_mm_slli_epi16(_mm_and_si128(mask1, ab), 8)};
-      A0 that    = { abh | abl };
-      return that;
+      type a0_16 = a0();
+      type a1_16 = a1();
+      type al    = _mm_srli_epi16(a0_16, 8);
+      type bl    = _mm_srli_epi16(a1_16, 8);
+      type abh   = _mm_and_si128(mask1, _mm_mullo_epi16(a0,a1));
+      type ab    = _mm_mullo_epi16(al,bl);
+      type abl   = _mm_slli_epi16(_mm_and_si128(mask1, ab), 8);
+      return bitwise_cast<result_type>(abh | abl);
     }
   };
 
@@ -84,8 +81,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_mullo_epi16(a0, a1) };
-      return that;
+      return _mm_mullo_epi16(a0, a1);
     }
   };
 
@@ -99,22 +95,21 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_or_si128(
-                    _mm_and_si128 (
+      return _mm_or_si128(
+                    _mm_and_si128(
                        _mm_mul_epu32(a0,a1),
                        _mm_setr_epi32(0xffffffff,0,0xffffffff,0)
-                                  )
+                    )
                   , _mm_slli_si128(
-                        _mm_and_si128 (
-                            _mm_mul_epu32 ( _mm_srli_si128(a0,4)
-                                          , _mm_srli_si128(a1,4)
-                                          )
+                        _mm_and_si128(
+                            _mm_mul_epu32( _mm_srli_si128(a0,4)
+                                         , _mm_srli_si128(a1,4)
+                                         )
                           , _mm_setr_epi32(0xffffffff,0,0xffffffff,0)
-                                      )
-                        , 4       )
-                              )
-                };
-      return that;
+                        )
+                      , 4
+                    )
+             );
     }
   };
 } } }

@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm256_cmp_pd(a0,a1, _CMP_GE_OQ) };
+      result_type that = _mm256_cmp_pd(a0,a1, _CMP_GE_OQ);
       return that;
     }
   };
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm256_cmp_ps(a0,a1, _CMP_GE_OQ) };
+      result_type that = _mm256_cmp_ps(a0,a1, _CMP_GE_OQ);
       return that;
     }
   };
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmp_pd(a0,a1, _CMP_GE_OQ) };
+      result_type that = _mm_cmp_pd(a0,a1, _CMP_GE_OQ);
       return that;
     }
   };
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmp_ps(a0,a1, _CMP_GE_OQ) };
+      result_type that = _mm_cmp_ps(a0,a1, _CMP_GE_OQ);
       return that;
     }
   };

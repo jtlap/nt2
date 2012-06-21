@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(4)
     {
-      result_type that = { _mm256_setr_pd(a0, a1, a2, a3) };
+      result_type that = _mm256_setr_pd(a0, a1, a2, a3);
       return that;
     }
   };
@@ -42,9 +42,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAKE_BODY(4)
     {
 #ifndef BOOST_MSVC
-      result_type that =  { _mm256_setr_epi64x(a0, a1, a2, a3) };
+      result_type that = _mm256_setr_epi64x(a0, a1, a2, a3);
 #else
-      result_type that =  { _mm256_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
+      result_type that = _mm256_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
                                              , (uint64_t(a0) & 0xFFFFFFFF00000000ULL) >> 32
                                              , (uint64_t(a1) & 0x00000000FFFFFFFFULL)
                                              , (uint64_t(a1) & 0xFFFFFFFF00000000ULL) >> 32
@@ -52,8 +52,7 @@ namespace boost { namespace simd { namespace ext
                                              , (uint64_t(a2) & 0xFFFFFFFF00000000ULL) >> 32
                                              , (uint64_t(a3) & 0x00000000FFFFFFFFULL)
                                              , (uint64_t(a3) & 0xFFFFFFFF00000000ULL) >> 32
-                                             )
-                          };
+                                             );
 #endif
       return that;
     }
@@ -71,7 +70,7 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(8)
     {
-      result_type that = { _mm256_setr_ps(a0, a1, a2, a3, a4, a5, a6, a7) };
+      result_type that = _mm256_setr_ps(a0, a1, a2, a3, a4, a5, a6, a7);
       return that;
     }
   };
@@ -88,7 +87,7 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(8)
     {
-      result_type that = { _mm256_setr_epi32(a0, a1, a2, a3, a4, a5, a6, a7) };
+      result_type that = _mm256_setr_epi32(a0, a1, a2, a3, a4, a5, a6, a7);
       return that;
     }
   };
@@ -105,9 +104,8 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(16)
     {
-      result_type that = { _mm256_setr_epi16( a0, a1,  a2,  a3,  a4,  a5,  a6,  a7
-                                            , a8, a9, a10, a11, a12, a13, a14, a15 )
-                         };
+      result_type that = _mm256_setr_epi16( a0, a1,  a2,  a3,  a4,  a5,  a6,  a7
+                                            , a8, a9, a10, a11, a12, a13, a14, a15 );
       return that;
     }
   };
@@ -124,11 +122,10 @@ namespace boost { namespace simd { namespace ext
   {
     BOOST_SIMD_MAKE_BODY(32)
     {
-      result_type that = { _mm256_setr_epi8(  a0,  a1,  a2,  a3,  a4,  a5,  a6,  a7
+      result_type that = _mm256_setr_epi8(  a0,  a1,  a2,  a3,  a4,  a5,  a6,  a7
                                            ,  a8,  a9, a10, a11, a12, a13, a14, a15
                                            , a16, a17, a18, a19, a20, a21, a22, a23
-                                           , a24, a25, a26, a27, a28, a29, a30, a31 )
-                         };
+                                           , a24, a25, a26, a27, a28, a29, a30, a31 );
       return that;
     }
   };

@@ -30,9 +30,9 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      A0 tmp =  {_mm_hadd_epi16(a0, a0)};
-      A0 tmp1 = {_mm_hadd_epi16(tmp, tmp)};
-      A0 tmp2 = {_mm_hadd_epi16(tmp1, tmp1)};
+      A0 tmp = _mm_hadd_epi16(a0, a0);
+      A0 tmp1 = _mm_hadd_epi16(tmp, tmp);
+      A0 tmp2 = _mm_hadd_epi16(tmp1, tmp1);
       return  first(tmp2); 
     }
   };
@@ -87,7 +87,7 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 tmp = {_mm_hadd_ps(a0, Zero<A0>())};
+      A0 tmp = _mm_hadd_ps(a0, Zero<A0>());
       return  first(simd::bitwise_cast<A0>(_mm_hadd_ps(tmp, Zero<A0>())));
     }
   };
@@ -106,8 +106,8 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      A0 tmp = {_mm_hadd_epi32(a0, a0)};
-      A0 tmp1= {_mm_hadd_epi32(tmp, tmp)};
+      A0 tmp = _mm_hadd_epi32(a0, a0);
+      A0 tmp1= _mm_hadd_epi32(tmp, tmp);
       return first(tmp1);              
     }
   };

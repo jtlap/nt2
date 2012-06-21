@@ -86,8 +86,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(const A0 & a0,  A1& a1, A1& a2)const
     {
-      A0_sse_ a00 = {_mm256_extractf128_si256(a0, 0)};
-      A0_sse_ a01 = {_mm256_extractf128_si256(a0, 1)};
+      A0_sse_ a00 = _mm256_extractf128_si256(a0, 0);
+      A0_sse_ a01 = _mm256_extractf128_si256(a0, 1);
 
       A1_sse_ ha000, ha001;
       split(a00, ha000, ha001);

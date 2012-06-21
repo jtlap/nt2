@@ -23,9 +23,9 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type             sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      A0 that= { _mm256_insertf128_si256(that,boost::simd::shrai( a00, a1), 0)};
+      svtype a00 = _mm256_extractf128_si256(a0, 0);
+      svtype a01 = _mm256_extractf128_si256(a0, 1);
+      A0 that= _mm256_insertf128_si256(that,boost::simd::shrai( a00, a1), 0);
          that =  _mm256_insertf128_si256(that, boost::simd::shrai(a01, a1), 1);
       return that;
      }
@@ -42,9 +42,9 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type             sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      A0 that= { _mm256_insertf128_si256(that,boost::simd::shrai( a00, a1), 0)};
+      svtype a00 = _mm256_extractf128_si256(a0, 0);
+      svtype a01 = _mm256_extractf128_si256(a0, 1);
+      A0 that= _mm256_insertf128_si256(that,boost::simd::shrai( a00, a1), 0);
          that =  _mm256_insertf128_si256(that, boost::simd::shrai(a01, a1), 1);
       return that;
      }

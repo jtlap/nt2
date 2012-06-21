@@ -68,7 +68,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type type;
       typedef typename meta::scalar_of<type>::type stype;
 
-      stype tmp = {_mm_cvtsi128_si32(simd::bitwise_cast<type>(a0))}; 
+      stype tmp = _mm_cvtsi128_si32(simd::bitwise_cast<type>(a0)); 
       return boost::simd::bitwise_cast<result_type>(tmp); 
     }
   };

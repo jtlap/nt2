@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::downgrade<A0>::type          base; 
       typedef typename dispatch::meta::downgrade<base>::type        type;
       const base tmp1 = boost::simd::bitwise_cast<base>(is_eqz(boost::simd::bitwise_cast<base>(a0)));
-      const base tmp2 = {_mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1))};
+      const base tmp2 = _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1));
       return boost::simd::bitwise_cast<result_type>(b_and(tmp1, tmp2));
     }
   };

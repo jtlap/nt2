@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { vec_madd(a0(),a1(),Zero<A0>()()) };
+      A0 that = vec_madd(a0(),a1(),Zero<A0>()());
       return that;
     }
   };
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { vec_mladd(a0(),a1(),Zero<A0>()()) };
+      A0 that = vec_mladd(a0(),a1(),Zero<A0>()());
       return that;
     }
   };
@@ -54,9 +54,9 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::upgrade<A0>::type uptype;
-      uptype l = { vec_mule(a0(),a1()) };
-      uptype r = { vec_mulo(a0(),a1()) };
-      A0 that  = { vec_mergel(vec_pack(l(),l()),vec_pack(r(),r())) };
+      uptype l = vec_mule(a0(),a1());
+      uptype r = vec_mulo(a0(),a1());
+      A0 that  = vec_mergel(vec_pack(l(),l()),vec_pack(r(),r()));
       return that;
     }
   };

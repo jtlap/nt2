@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0,signed>::type sint;
-      sint const that = {_mm_srai_epi32(bitwise_cast<sint>(a0), a1)};
+      sint const that = _mm_srai_epi32(bitwise_cast<sint>(a0), a1);
       return bitwise_cast<A0>(that);
     }
   };
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename dispatch::meta::as_integer<A0,signed>::type sint;
-      sint const that =  {_mm_srai_epi16(bitwise_cast<sint>(a0), a1)};
+      sint const that = _mm_srai_epi16(bitwise_cast<sint>(a0), a1);
       return bitwise_cast<A0>(that);
     }
   };

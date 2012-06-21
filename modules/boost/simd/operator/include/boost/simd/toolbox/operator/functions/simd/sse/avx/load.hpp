@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
 
-      result_type that = { _mm256_load_pd(a0+a1) };
+      result_type that = _mm256_load_pd(a0+a1);
       return that;
     }
   };
@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
 
-      result_type that = {_mm256_load_ps(a0+a1)}; 
+      result_type that = _mm256_load_ps(a0+a1); 
       return that;
     }
   };
@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
 
-      result_type that = { _mm256_load_si256(reinterpret_cast<__m256i const*>(a0+a1)) };
+      result_type that = _mm256_load_si256(reinterpret_cast<__m256i const*>(a0+a1));
       return that;
     }
   };

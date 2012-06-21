@@ -36,7 +36,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = {_mm_cmpunord_pd(a0,a1)};
+      result_type that = _mm_cmpunord_pd(a0,a1);
       return that;
     }
   };
@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = {_mm_cmpunord_ps(a0,a1)};
+      result_type that = _mm_cmpunord_ps(a0,a1);
       return that;
     }
   };

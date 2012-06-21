@@ -28,8 +28,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a000 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a011 = { _mm256_extractf128_si256(a0, 1)};
+      svtype a000 = _mm256_extractf128_si256(a0, 0);
+      svtype a011 = _mm256_extractf128_si256(a0, 1);
       svtype a00 =  reverse(a000);
       svtype a01 =  reverse(a011);
       A0 that = simd::bitwise_cast<A0>(_mm256_castsi128_si256(a01));
@@ -47,8 +47,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a000 = { _mm256_extractf128_pd(a0, 0)};
-      svtype a011 = { _mm256_extractf128_pd(a0, 1)};
+      svtype a000 = _mm256_extractf128_pd(a0, 0);
+      svtype a011 = _mm256_extractf128_pd(a0, 1);
       svtype a00 =  reverse(a000);
       svtype a01 =  reverse(a011);
       A0 that = simd::bitwise_cast<A0>(_mm256_castpd128_pd256(a01));
@@ -66,8 +66,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a000 = { _mm256_extractf128_ps(a0, 0)};
-      svtype a011 = { _mm256_extractf128_ps(a0, 1)};
+      svtype a000 = _mm256_extractf128_ps(a0, 0);
+      svtype a011 = _mm256_extractf128_ps(a0, 1);
       svtype a00 =  reverse(a000);
       svtype a01 =  reverse(a011);
       A0 that = simd::bitwise_cast<A0>(_mm256_castps128_ps256(a01));

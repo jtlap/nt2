@@ -28,8 +28,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a000 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a011 = { _mm256_extractf128_si256(a0, 1)};
+      svtype a000 = _mm256_extractf128_si256(a0, 0);
+      svtype a011 = _mm256_extractf128_si256(a0, 1);
       svtype a00 =  cumsum(a000);
       svtype a01 =  cumsum(a011);
       svtype z = splat<svtype>(a00[meta::cardinal_of<svtype>::value-1]);
@@ -54,8 +54,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a000 = { _mm256_extractf128_pd(a0, 0)};
-      svtype a011 = { _mm256_extractf128_pd(a0, 1)};
+      svtype a000 = _mm256_extractf128_pd(a0, 0);
+      svtype a011 = _mm256_extractf128_pd(a0, 1);
       svtype a00 =  cumsum(a000);
       svtype a01 =  cumsum(a011);
       svtype z = splat<svtype>(a00[meta::cardinal_of<svtype>::value-1]);
@@ -87,7 +87,7 @@ namespace boost { namespace simd { namespace ext
       svtype a00 =  cumsum(a000);
       svtype a01 =  cumsum(a011);
       svtype z = splat<svtype>(a00[meta::cardinal_of<svtype>::value-1]);
-      A0 that = {_mm256_castps128_ps256(a00)};
+      A0 that = _mm256_castps128_ps256(a00);
       that =  _mm256_insertf128_ps(that, a01+z, 1);
       return that;
     }

@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = { _mm_cvtepi32_ps(a0)};
+      result_type that = _mm_cvtepi32_ps(a0);
       return that;
     }
   };
@@ -94,7 +94,7 @@ namespace boost { namespace simd { namespace ext
                                               , static_cast<sftype>(a0[1])
                                               );
       }
-      result_type v = { _mm_cvtepi32_pd(_mm_shuffle_epi32(a0,_MM_SHUFFLE(3,1,2,0)))};
+      result_type v = _mm_cvtepi32_pd(_mm_shuffle_epi32(a0,_MM_SHUFFLE(3,1,2,0)));
       return v;
     }
   };

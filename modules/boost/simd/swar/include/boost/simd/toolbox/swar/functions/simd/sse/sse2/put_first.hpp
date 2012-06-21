@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
     {
       if(a1)
       {
-        A0 that = { _mm_unpackhi_pd(a0,a0)};
+        A0 that = _mm_unpackhi_pd(a0,a0);
         return that;
       }
       return a0;
@@ -61,7 +61,7 @@ namespace boost { namespace simd { namespace ext
     {
       if(a1 > 7)
       {
-        A0 t = { _mm_srli_si128(simd::bitwise_cast<type64>(a0), 8 )};
+        A0 t = _mm_srli_si128(simd::bitwise_cast<type64>(a0), 8 );
         return simd::bitwise_cast<A0> ( shri( simd::bitwise_cast<type64>(t)
                                             , (a1-8) << 3
                                             )
@@ -122,7 +122,7 @@ namespace boost { namespace simd { namespace ext
     {
       if(a1 > 3)
       {
-        A0 t = { _mm_srli_si128(simd::bitwise_cast<type64>(a0), 8 )};
+        A0 t = _mm_srli_si128(simd::bitwise_cast<type64>(a0), 8 );
         return simd::bitwise_cast<A0> ( shri( simd::bitwise_cast<type64>(t)
                                             , (a1-4) << 4
                                             )
@@ -155,7 +155,7 @@ namespace boost { namespace simd { namespace ext
     {
       if(a1 > 1)
       {
-        type64  z = { _mm_srli_si128(simd::bitwise_cast<type64>(a0), 8 ) };
+        type64  z = _mm_srli_si128(simd::bitwise_cast<type64>(a0), 8 );
         return simd::bitwise_cast<A0>( shri( z, (a1-2) << 5 ) );
       }
 

@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
 
       result_type a      = load<result_type>(a0,a1+offset);
       result_type b      = load<result_type>(a0,a1+offset+card);
-      result_type that   = { vec_sld(a(),b(),shift) };
+      result_type that   = vec_sld(a(),b(),shift);
       return that;
     }
 
@@ -102,7 +102,7 @@ namespace boost { namespace simd { namespace ext
 
       result_type a     = load<result_type>(a0,a1-offset);
       result_type b     = load<result_type>(a0,a1-offset-card);
-      result_type that  = { vec_sld(b(),a(),shift) };
+      result_type that  = vec_sld(b(),a(),shift);
       return that;
     }
   };

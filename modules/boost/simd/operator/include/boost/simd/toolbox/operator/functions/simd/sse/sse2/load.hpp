@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
       );
       
       result_type
-      that = { _mm_load_pd(a0+a1) };
+      that = _mm_load_pd(a0+a1);
       return that;
     }
   };
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
       );
       
       result_type
-      that = { _mm_load_ps(a0+a1) };
+      that = _mm_load_ps(a0+a1);
       return that;
     }
   };
@@ -86,7 +86,7 @@ namespace boost { namespace simd { namespace ext
       );
       
       result_type
-      that = { _mm_load_si128(reinterpret_cast<__m128i const*>(a0 + a1)) };
+      that = _mm_load_si128(reinterpret_cast<__m128i const*>(a0 + a1));
       return that;
     }
   };

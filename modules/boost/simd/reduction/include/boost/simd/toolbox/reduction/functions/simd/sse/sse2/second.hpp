@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type type;
       typedef typename dispatch::meta::as_floating<A0>::type rtype;
       const type tmp = bitwise_cast<type>(a0);
-      const type tmp1= {_mm_srli_si128(tmp, 8)}; 
+      const type tmp1= _mm_srli_si128(tmp, 8); 
       const rtype z = bitwise_cast<rtype>(tmp1); 
       return _mm_cvtsd_f64(z);
     }

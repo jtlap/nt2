@@ -54,6 +54,9 @@ namespace boost { namespace simd
     enum { static_size = sizeof(native_type)/sizeof(value_type)
                        ? sizeof(native_type)/sizeof(value_type) : 1};
 
+    BOOST_FORCEINLINE native() {}
+    BOOST_FORCEINLINE native(native_type const& data) : data_(data) {}
+
     ////////////////////////////////////////////////////////////////////////////
     // Assignment operator from same type (generates better code than default-generated one)
     ////////////////////////////////////////////////////////////////////////////

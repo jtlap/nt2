@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<int_type>::type             sint_type;
 
       // clear exponent in x
-      result_type const x = {b_andnot(a0, Ldexpmask<A0>())};
+      result_type const x = b_andnot(a0, Ldexpmask<A0>());
 
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<A0>(), a0);
@@ -81,8 +81,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename dispatch::meta::as_integer<A0>::type iA0; 
-      return ldexp(a0, boost::simd::splat<iA0>(a1)); 
+      typedef typename dispatch::meta::as_integer<A0>::type iA0;
+      return ldexp(a0, boost::simd::splat<iA0>(a1));
     }
   };
 } } }

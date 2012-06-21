@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       const A0 aa0 = if_zero_else(is_nan(a0), a0);
-      result_type that =  {_mm256_cvttps_epi32(aa0)};
+      result_type that = _mm256_cvttps_epi32(aa0);
       return  select(eq(aa0, Inf<A0>()), Inf<result_type>(), that);
     }
   };

@@ -29,10 +29,10 @@ namespace boost { namespace simd { namespace ext
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A0>::value_type);
       static std::size_t card = meta::cardinal_of<result_type>::value;
-      result_type MSQ  = {vec_ld(a1*sz  ,a0)};
-      result_type LSQ  = {vec_ld((a1*sz)+card*sz-1 ,a0)};
-      n_t         mask = {vec_lvsl(a1*sz,a0)};
-      result_type that = {vec_perm(MSQ(), LSQ(), mask())};
+      result_type MSQ  = vec_ld(a1*sz  ,a0);
+      result_type LSQ  = vec_ld((a1*sz)+card*sz-1 ,a0);
+      n_t         mask = vec_lvsl(a1*sz,a0);
+      result_type that = vec_perm(MSQ(), LSQ(), mask());
       return that;
     }
   };
@@ -49,10 +49,10 @@ namespace boost { namespace simd { namespace ext
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A0>::value_type);
       static std::size_t card = meta::cardinal_of<result_type>::value;
-      result_type MSQ  = {vec_ld(0  ,a0)};
-      result_type LSQ  = {vec_ld(card*sz-1 ,a0)};
-      n_t         mask = {vec_lvsl(0,a0)};
-      result_type that = {vec_perm(MSQ(), LSQ(), mask())};
+      result_type MSQ  = vec_ld(0  ,a0);
+      result_type LSQ  = vec_ld(card*sz-1 ,a0);
+      n_t         mask = vec_lvsl(0,a0);
+      result_type that = vec_perm(MSQ(), LSQ(), mask());
       return that;
     }
   };

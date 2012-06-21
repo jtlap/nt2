@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmpeq_pd(a0,a1) };
+      result_type that = _mm_cmpeq_pd(a0,a1);
       return that;
     }
   };
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmpeq_ps(a0,a1) };
+      result_type that = _mm_cmpeq_ps(a0,a1);
       return that;
     }
   };
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmpeq_epi8(a0,a1) };
+      result_type that = _mm_cmpeq_epi8(a0,a1);
       return that;
     }
   };
@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmpeq_epi16(a0,a1) };
+      result_type that = _mm_cmpeq_epi16(a0,a1);
       return that;
     }
   };
@@ -88,7 +88,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmpeq_epi32(a0,a1) };
+      result_type that = _mm_cmpeq_epi32(a0,a1);
       return that;
     }
   };
@@ -106,7 +106,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
       type tmp      = { a0 - a1 };
       tmp           = boost::simd::eq(tmp,Zero<type>());
-      type shuffled = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
+      type shuffled = _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1));
       result_type that     = { tmp & shuffled };
       return that;
     }
