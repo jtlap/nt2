@@ -14,8 +14,8 @@
 * @brief Define macro for building a Unit Test
 **/
 
-#include <nt2/sdk/unit/type_id.hpp>
-#include <nt2/sdk/unit/display_type.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
+#include <nt2/sdk/meta/display_type.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
 #include <nt2/sdk/unit/details/stats.hpp>

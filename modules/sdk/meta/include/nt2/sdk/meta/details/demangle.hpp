@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_UNIT_DETAILS_DEMANGLE_HPP_INCLUDED
-#define NT2_UNIT_DETAILS_DEMANGLE_HPP_INCLUDED
+#ifndef NT2_SDK_META_DETAILS_DEMANGLE_HPP_INCLUDED
+#define NT2_SDK_META_DETAILS_DEMANGLE_HPP_INCLUDED
 
 
 #if (__GNUC__ && __cplusplus && __GNUC__ >= 3)

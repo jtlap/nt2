@@ -6,14 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_UNIT_DISPLAY_TYPE_HPP_INCLUDED
-#define NT2_UNIT_DISPLAY_TYPE_HPP_INCLUDED
+#ifndef NT2_SDK_META_DISPLAY_TYPE_HPP_INCLUDED
+#define NT2_SDK_META_DISPLAY_TYPE_HPP_INCLUDED
 
 /**
 * @file
 * @brief Defines types to string conversion utility functions
 **/
-#include <nt2/sdk/unit/type_id.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>

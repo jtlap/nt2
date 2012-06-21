@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 #define NT2_SDK_UNIT_TESTS_TYPE_EXPR_HPP_INCLUDED
 
-#include <nt2/sdk/unit/type_id.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/identity.hpp>

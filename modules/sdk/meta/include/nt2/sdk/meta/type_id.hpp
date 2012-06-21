@@ -6,14 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_UNIT_TYPE_ID_HPP_INCLUDED
-#define NT2_UNIT_TYPE_ID_HPP_INCLUDED
+#ifndef NT2_SDK_META_TYPE_ID_HPP_INCLUDED
+#define NT2_SDK_META_TYPE_ID_HPP_INCLUDED
 
 /**
 * @file
 * @brief Defines types to string conversion utility functions
 **/
-#include <nt2/sdk/unit/details/demangle.hpp>
+#include <nt2/sdk/meta/details/demangle.hpp>
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
