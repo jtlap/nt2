@@ -67,3 +67,12 @@ NT2_TEST_CASE( horzcat_size3 )
   NT2_DISPLAY(d);
 }
 
+NT2_TEST_CASE( horzcat_4 )
+{
+  nt2::table<float> a = nt2::rif(nt2::of_size(2, 3), nt2::meta::as_<float>());
+  nt2::table<float> b = nt2::cif(nt2::of_size(2, 3), nt2::meta::as_<float>());
+  NT2_DISPLAY(a);
+  NT2_DISPLAY(b);
+  nt2::table<float> c = horzcat(a(nt2::_), b(nt2::_));
+  NT2_DISPLAY(c);
+}
