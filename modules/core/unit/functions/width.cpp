@@ -68,13 +68,13 @@ NT2_TEST_CASE( size_expression )
 
   table<float, nt2::settings(nt2::_3D)> x( nt2::of_size(4,5,6) );
 
-  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(1)), height(x));
-  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(2)), width(x)); 
-  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(3)), depth(x)); 
+  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(1)), height(x+x/3.f));
+  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(2)), width(x+x/3.f)); 
+  NT2_TEST_EQUAL( std::size_t(nt2::size( x+x/3.f )(3)), depth(x+x/3.f)); 
 
-  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 1), height(x));
-  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 2), width(x)); 
-  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 3), depth(x)); 
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 1), height(x+x/3.f));
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 2), width(x+x/3.f)); 
+  NT2_TEST_EQUAL( nt2::size( x+x/3.f , 3), depth(x+x/3.f)); 
 }
 
 ////////////////////////////////////////////////////////////////////////////////

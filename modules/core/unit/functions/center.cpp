@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL( center_scalar, (float)(double))//NT2_TYPES )
 
   x = nt2::center(T(42),0);
   NT2_TEST_EQUAL( x, T(0) );
-  
+
   x = nt2::center(nt2::Nan<T>(),1);
   NT2_TEST_EQUAL( x, nt2::Nan<T>() );
 
@@ -46,45 +46,45 @@ NT2_TEST_CASE_TPL( center_scalar, (float)(double))//NT2_TYPES )
 
 NT2_TEST_CASE_TPL( center, (float)(double))//NT2_TYPES )
 {
-  using nt2::_; 
+  using nt2::_;
   nt2::table<T> y( nt2::of_size(8, 4) );
-  nt2::table<T> sy, m, z; 
+  nt2::table<T> sy, m, z;
 
   for(int j=1;j<=size(y, 2);j++)
     for(int i=1;i<=size(y, 1);i++)
       y(i,j) = i - j;
 
   sy = nt2::center(y, 2);
-  NT2_DISP(y); 
-  NT2_DISP(sy);
+  NT2_DISPLAY(y);
+  NT2_DISPLAY(sy);
 
   m =  mean(y, 2);
-  NT2_DISP(m);
+  NT2_DISPLAY(m);
   std::cout << " ================= " << std::endl;
   sy = nt2::center(y, 1);
-  NT2_DISP(y); 
-  NT2_DISP(sy);
+  NT2_DISPLAY(y);
+  NT2_DISPLAY(sy);
 
   m =  mean(y, 1);
-  NT2_DISP(m);
+  NT2_DISPLAY(m);
 //   z =  nt2::bsxfun(nt2::functor<nt2::tag::minus_>(), y, m);
-//   NT2_DISP(z);
-  
+//   NT2_DISPLAY(z);
 
-  
-//   sz = nt2::sum(nt2::abs(y)); 
+
+
+//   sz = nt2::sum(nt2::abs(y));
 //   for(int j=1;j<=size(y, 2);j++)
 //       NT2_TEST_EQUAL(sz(j), sy(j));
 //   sy = nt2::center(y, 1);
-//   sz = nt2::sum(nt2::abs(y), 1); 
+//   sz = nt2::sum(nt2::abs(y), 1);
 //   for(int j=1;j<=size(y, 2);j++)
 //       NT2_TEST_EQUAL(sz(j), sy(j));
 //   sy = nt2::center(y, 2);
-//   sz = nt2::sum(nt2::abs(y), 2); 
+//   sz = nt2::sum(nt2::abs(y), 2);
 //     for(int i=1;i<=size(y, 1);i++)
 //       NT2_TEST_EQUAL(sz(i), sy(i));
 //   sy = nt2::center(y, 3);
-//   sz = nt2::sum(nt2::abs(y), 3); 
+//   sz = nt2::sum(nt2::abs(y), 3);
 //   for(int j=1;j<=size(y, 2);j++)
 //     for(int i=1;i<=size(y, 1);i++)
 //       NT2_TEST_EQUAL(sz(i, j), sy(i, j));

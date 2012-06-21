@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL( minimum_expr, NT2_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
-  disp("y", y);
+  display("y", y);
   sy = nt2::minimum(y);
   // sy = nt2::min(y);
   sy = nt2::min(y, _(), 1);
@@ -48,23 +48,23 @@ NT2_TEST_CASE_TPL( minimum_expr, NT2_TYPES )
     for(int i=1;i<=5;i++)
       NT2_TEST_GREATER_EQUAL(y(i, j), sy(j));
 
-  disp("sy", sy);
+  display("sy", sy);
   sy = nt2::minimum(y, 1);
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       NT2_TEST_GREATER_EQUAL(y(i, j), sy(j));
-  disp("sy", sy);
+  display("sy", sy);
   sy = nt2::minimum(y, 2);
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       NT2_TEST_GREATER_EQUAL(y(i, j), sy(i));
-  disp("sy", sy);
+  display("sy", sy);
   sy = nt2::minimum(y, 3);
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       NT2_TEST_GREATER_EQUAL(y(i, j), sy(i, j));
   sy = minimum(y(_));
-  disp("sy", sy);
+  display("sy", sy);
   NT2_TEST_EQUAL(sy(1), 11);
 }
 

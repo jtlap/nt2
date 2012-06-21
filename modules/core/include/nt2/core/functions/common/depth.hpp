@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_COMMON_DEPTH_HPP_INCLUDED
 
 #include <nt2/core/functions/depth.hpp>
-#include <nt2/include/functions/depth.hpp>
 #include <nt2/include/functions/size.hpp>
 
 namespace nt2 { namespace ext

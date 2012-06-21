@@ -57,10 +57,10 @@ NT2_TEST_CASE_TPL( from_diag_offset, NT2_TYPES )
   nt2::table<T> y( nt2::of_size(1,5) ), x;
 
   for(int i=1;i<=nt2::length(y);i++) y(i) = i;
-  NT2_DISP(y);
+  NT2_DISPLAY(y);
 
   x = nt2::from_diag(y, -2);
-  NT2_DISP(x);
+  NT2_DISPLAY(x);
 
   NT2_TEST_EQUAL( nt2::ndims(x) , 2             );
   NT2_TEST_EQUAL( nt2::size(x,1), nt2::length(y)+2);

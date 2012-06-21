@@ -40,16 +40,17 @@ NT2_TEST_CASE( ind2sub_1D )
   }
 }
 
-NT2_TEST_CASE( ind2sub_1D_simd )
+NT2_TEST_CASE_TPL( ind2sub_1D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t) )
 {
   using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
-  boost::array<idx_t, 1> a = nt2::ind2sub( make_vector(16), nt2::enumerate<idx_t>(0) );
+  boost::array<sidx_t, 1> a = nt2::ind2sub( make_vector(16), nt2::enumerate<idx_t>(0) );
 
   std::cout << boost::fusion::as_vector(a) << "\n";
 
@@ -75,16 +76,17 @@ NT2_TEST_CASE( ind2sub_1D_base )
   }
 }
 
-NT2_TEST_CASE( ind2sub_1D_simd_base )
+NT2_TEST_CASE_TPL( ind2sub_1D_simd_base, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t) )
 {
   using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
-  boost::array<idx_t, 1>
+  boost::array<sidx_t, 1>
   a = nt2::ind2sub( make_vector(16), nt2::enumerate<idx_t>(0), make_vector(-1) );
 
   std::cout << boost::fusion::as_vector(a) << "\n";
@@ -113,18 +115,19 @@ NT2_TEST_CASE( ind2sub_2D )
   }
 }
 
-NT2_TEST_CASE( ind2sub_2D_simd )
+NT2_TEST_CASE_TPL( ind2sub_2D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t) )
 {
   using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int j=0;j<2;++j)
   {
-    boost::array<idx_t, 2>
+    boost::array<sidx_t, 2>
     a = nt2::ind2sub( make_vector(sz,2), nt2::arith<idx_t>(j*sz,1) );
 
     std::cout << boost::fusion::as_vector(a);
@@ -157,18 +160,19 @@ NT2_TEST_CASE( ind2sub_2D_base )
   }
 }
 
-NT2_TEST_CASE( ind2sub_2D_simd_base )
+NT2_TEST_CASE_TPL( ind2sub_2D_simd_base, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t) )
 {
   using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(std::ptrdiff_t j=0;j<5;++j)
   {
-    boost::array<idx_t, 2>
+    boost::array<sidx_t, 2>
     a = nt2::ind2sub(make_vector(sz,5),nt2::arith<idx_t>(j*sz,1),make_vector(-1,-2));
 
     std::cout << boost::fusion::as_vector(a) << "\n";
@@ -203,20 +207,21 @@ NT2_TEST_CASE( ind2sub_3D )
   }
 }
 
-NT2_TEST_CASE( ind2sub_3D_simd )
+NT2_TEST_CASE_TPL( ind2sub_3D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t) )
 {
   using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int k=0;k<5;++k)
   {
     for(int j=0;j<2;++j)
     {
-      boost::array<idx_t, 3>
+      boost::array<sidx_t, 3>
       a = nt2::ind2sub( make_vector(sz,2,5), nt2::arith<idx_t>(sz*(j+2*k),1) );
 
       std::cout << boost::fusion::as_vector(a) << "\n";
@@ -256,20 +261,21 @@ NT2_TEST_CASE( ind2sub_3D_base )
   }
 }
 
-NT2_TEST_CASE( ind2sub_3D_simd_base )
+NT2_TEST_CASE_TPL( ind2sub_3D_simd_base, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t) )
 {
   using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int k=0;k<5;++k)
   {
     for(int j=0;j<2;++j)
     {
-      boost::array<idx_t, 3>
+      boost::array<sidx_t, 3>
       a = nt2::ind2sub( make_vector(sz,2,5), nt2::arith<idx_t>(sz*(j+2*k),1), make_vector(-1,-1,-2) );
 
       std::cout << boost::fusion::as_vector(a) << "\n";
@@ -312,13 +318,14 @@ NT2_TEST_CASE( ind2sub_4D )
   }
 }
 
-NT2_TEST_CASE( ind2sub_4D_simd )
+NT2_TEST_CASE_TPL( ind2sub_4D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t) )
 {
   using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int l=0;l<3;++l)
@@ -327,7 +334,7 @@ NT2_TEST_CASE( ind2sub_4D_simd )
     {
       for(int j=0;j<2;++j)
       {
-        boost::array<idx_t, 4>
+        boost::array<sidx_t, 4>
         a = nt2::ind2sub( make_vector(sz,2,5,3), nt2::arith<idx_t>(sz*(j+2*(k+5*l)),1) );
 
         std::cout << boost::fusion::as_vector(a) << "\n";
@@ -367,13 +374,14 @@ NT2_TEST_CASE( ind2sub_4D_base )
   }
 }
 
-NT2_TEST_CASE( ind2sub_4D_simd_base )
+NT2_TEST_CASE_TPL( ind2sub_4D_simd_base, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t) )
 {
   using boost::simd::native;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<int, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int l=0;l<3;++l)
@@ -382,7 +390,7 @@ NT2_TEST_CASE( ind2sub_4D_simd_base )
     {
       for(int j=0;j<2;++j)
       {
-        boost::array<idx_t, 4>
+        boost::array<sidx_t, 4>
         a = nt2::ind2sub( make_vector(sz,2,5,3)
                         , nt2::arith<idx_t>(sz*(j+2*(k+5*l)),1)
                         , make_vector(-1,1,-2,2)

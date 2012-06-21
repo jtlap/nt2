@@ -56,43 +56,43 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = (i > j) || (j == 2)|| (i == 1);
-  disp("y", y);
+  display("y", y);
 
 //   nt2::table<nt2::logical<T> > l;
 //   l = gt(y, T(13));
-//   disp("l ",  l);
+//   display("l ",  l);
 //   nt2::table<itype_t > nb;
 //   nb = nt2::nbtrue(l);
 //   //  std::cout << nt2::type_id(nbtrue(l)) << std::endl;
-//   disp("nb ",  nbtrue(l));
-//   disp("nb ",  nb);
+//   display("nb ",  nbtrue(l));
+//   display("nb ",  nb);
 
   sy  = nt2::nbtrue(y, 1);
   sy2 = nt2::sum(y, 1);
   for(int j=1;j<=3;j++)
     NT2_TEST_EQUAL(sy2(j) , sy(j));
-  NT2_DISP(sy);
-  NT2_DISP(sy2); 
+  NT2_DISPLAY(sy);
+  NT2_DISPLAY(sy2);
 
   sy = nt2::nbtrue(y, 2);
   sy2 =  nt2::sum(y, 2);
   for(int j=1;j<=5;j++)
     NT2_TEST_EQUAL(sy2(j) , sy(j));
-  NT2_DISP(sy);
-  NT2_DISP(sy2); 
+  NT2_DISPLAY(sy);
+  NT2_DISPLAY(sy2);
 
   sy = nt2::nbtrue(y, 3);
   sy2 =  nt2::sum(y, 3);
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       NT2_TEST_EQUAL(sy2(i, j), sy(i, j));
-  NT2_DISP(sy);
-  NT2_DISP(sy2); 
+  NT2_DISPLAY(sy);
+  NT2_DISPLAY(sy2);
 
   sy = nt2::nbtrue(y(_));
   sy2 =  nt2::sum(y(_));
-  NT2_DISP(sy);
-  NT2_DISP(sy2); 
+  NT2_DISPLAY(sy);
+  NT2_DISPLAY(sy2);
 
  }
 

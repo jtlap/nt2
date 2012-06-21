@@ -24,15 +24,15 @@ NT2_TEST_CASE( repvert_size )
 {
   nt2::table<float> a = nt2::rif(nt2::of_size(7,1,2), nt2::meta::as_<float>()), b;
   a(3,1,2) = 99;
-  NT2_DISP(a);
+  NT2_DISPLAY(a);
   b = repvert(a,  2);
-  NT2_DISP(b);
+  NT2_DISPLAY(b);
   a = nt2::cif(nt2::of_size(1, 7), nt2::meta::as_<float>());
-  NT2_DISP(a);
+  NT2_DISPLAY(a);
   b = repvert(a,  2);
-  NT2_DISP(b);
+  NT2_DISPLAY(b);
   a = nt2::cif(nt2::of_size(7, 7), nt2::meta::as_<float>());
-  NT2_DISP(a);
+  NT2_DISPLAY(a);
   b = repvert(a,  2);
-  NT2_DISP(b);
+  NT2_DISPLAY(b);
 }

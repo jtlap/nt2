@@ -15,6 +15,7 @@
  */
 
 #include <nt2/sdk/unit/details/stats.hpp>
+#include <boost/dispatch/preprocessor/strip.hpp>
 #include <boost/dispatch/details/ignore_unused.hpp>
 
 //==============================================================================
@@ -26,19 +27,20 @@
  * \param E Exception expected to be caught
  */
 //==============================================================================
-#define NT2_TEST_THROW(X,E)                                             \
-  do {                                                                  \
-    ::nt2::details::test_count()++;                                     \
-    bool caught = false;                                                \
-    try             { X; }                                              \
-    catch( E& ex )  {                                                   \
-      ::boost::dispatch::ignore_unused(ex);                             \
-      ::nt2::details::pass(#X " throws " #E);                           \
-      caught = true;                                                    \
-    }                                                                   \
-    catch(...)      {}                                                  \
-    if(!caught) ::nt2::details::fail(#X " throws " #E, __LINE__, BOOST_CURRENT_FUNCTION); \
-  } while(0)                                                            \
+#define NT2_TEST_THROW(X,E)                                               \
+  do {                                                                    \
+    ::nt2::details::test_count()++;                                       \
+    bool caught = false;                                                  \
+    try             { BOOST_DISPATCH_PP_STRIP(X); }                       \
+    catch( E& ex )  {                                                     \
+      ::boost::dispatch::ignore_unused(ex);                               \
+      ::nt2::details::pass(#X " throws " #E);                             \
+      caught = true;                                                      \
+    }                                                                     \
+    catch(...)      {}                                                    \
+    if(!caught) ::nt2::details::fail( #X " throws " #E                    \
+                                    , __LINE__, BOOST_CURRENT_FUNCTION);  \
+  } while(0)                                                              \
 /**/
 
 //==============================================================================
@@ -63,10 +65,11 @@
 do {                                                            \
   bool nt2_test_no_throw = true;                                \
   ::nt2::details::test_count()++;                               \
-  try { X; }                                                    \
+  try { BOOST_DISPATCH_PP_STRIP(X); }                           \
   catch(...)                                                    \
   {                                                             \
-    ::nt2::details::fail(#X " does not throw", __LINE__, BOOST_CURRENT_FUNCTION); \
+    ::nt2::details::fail( #X " does not throw"                  \
+                        , __LINE__, BOOST_CURRENT_FUNCTION);    \
     nt2_test_no_throw = false;                                  \
   }                                                             \
   if(nt2_test_no_throw)                                         \
@@ -87,10 +90,11 @@ do {                                                            \
 do {                                                            \
   bool nt2_test_no_throw = true;                                \
   ::nt2::details::test_count()++;                               \
-  try { X; }                                                    \
+  try { BOOST_DISPATCH_PP_STRIP(X); }                           \
   catch(E& e)                                                   \
   {                                                             \
-    ::nt2::details::fail(#X " does not throw " #E, __LINE__, BOOST_CURRENT_FUNCTION); \
+    ::nt2::details::fail( #X " does not throw " #E              \
+                        , __LINE__, BOOST_CURRENT_FUNCTION);    \
     nt2_test_no_throw = false;                                  \
   }                                                             \
   catch(...) {}                                                 \

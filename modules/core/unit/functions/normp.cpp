@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL( normp_scalar, (float)(double))//NT2_TYPES )
 }
 NT2_TEST_CASE_TPL( normp, (float)(double))//NT2_TYPES )
 {
-  using nt2::_; 
+  using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy( nt2::of_size(1,3) );
   nt2::table<T> sz( nt2::of_size(1,3) );
@@ -41,22 +41,22 @@ NT2_TEST_CASE_TPL( normp, (float)(double))//NT2_TYPES )
     for(int i=1;i<=size(y, 1);i++)
       y(i,j) = i + 10*j;
   sy = nt2::normp(y, nt2::Three<T>());
-  sz = nt2::pow(nt2::asum(nt2::pow_abs(y, nt2::Three<T>())), nt2::rec(nt2::Three<T>())); 
+  sz = nt2::pow(nt2::asum(nt2::pow_abs(y, nt2::Three<T>())), nt2::rec(nt2::Three<T>()));
   for(int j=1;j<=size(sy,2);j++)
     for(int i=1;i<=size(sy,1);i++)
       NT2_TEST_EQUAL(sz(i, j), sy(i, j));
   sy = nt2::normp(y, nt2::Three<T>(), 1);
-  sz = nt2::pow(nt2::asum(nt2::pow_abs(y, nt2::Three<T>()), 1), nt2::rec(nt2::Three<T>())); 
+  sz = nt2::pow(nt2::asum(nt2::pow_abs(y, nt2::Three<T>()), 1), nt2::rec(nt2::Three<T>()));
    for(int j=1;j<=size(sy,2);j++)
      for(int i=1;i<=size(sy,1);i++)
        NT2_TEST_EQUAL(sz(i, j), sy(j));
   sy = nt2::normp(y, nt2::Three<T>(), 2);
-  sz = nt2::pow(nt2::asum(nt2::pow_abs(y, nt2::Three<T>()), 2), nt2::rec(nt2::Three<T>())); 
+  sz = nt2::pow(nt2::asum(nt2::pow_abs(y, nt2::Three<T>()), 2), nt2::rec(nt2::Three<T>()));
   for(int j=1;j<=size(sy,2);j++)
     for(int i=1;i<=size(sy,1);i++)
       NT2_TEST_EQUAL(sz(i, j), sy(i));
   sy = nt2::normp(y, nt2::Three<T>(), size(y,2));
-  sz = nt2::pow(nt2::asum(nt2::pow_abs(y, nt2::Three<T>()), 3), nt2::rec(nt2::Three<T>())); 
+  sz = nt2::pow(nt2::asum(nt2::pow_abs(y, nt2::Three<T>()), 3), nt2::rec(nt2::Three<T>()));
   for(int j=1;j<=size(sy,2);j++)
     for(int i=1;i<=size(sy,1);i++)
       NT2_TEST_EQUAL(sz(i, j), sy(i, j));
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL( normp, (float)(double))//NT2_TYPES )
 
   sy = nt2::normp(y(_), nt2::Three<T>());
   sz = nt2::pow(nt2::sum(nt2::pow_abs(y(_), nt2::Three<T>())),nt2::rec(nt2::Three<T>() ));
-  disp(sy);
+  display(sy);
   NT2_TEST_EQUAL(sy(1), sz(1));
 
 }

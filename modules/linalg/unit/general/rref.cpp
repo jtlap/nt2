@@ -23,50 +23,50 @@
 
 NT2_TEST_CASE_TPL(rref, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
+  typedef T r_t;
   typedef typename nt2::meta::as_integer<T, signed>::type  itype_t;
-  typedef nt2::table<itype_t> it_t; 
+  typedef nt2::table<itype_t> it_t;
   using nt2::tag::factorization::rref_;
-  double ulpd =  0.0; 
-  T A[16] = { 
-   16,    2,    3,   13, 
-    5,   11,   10,    8, 
-    9,    7,    6,   12, 
-   4,   14,   15,    1}; 
+  double ulpd =  0.0;
+  T A[16] = {
+   16,    2,    3,   13,
+    5,   11,   10,    8,
+    9,    7,    6,   12,
+   4,   14,   15,    1};
 
   T R[16] = {
-    1,    0,    0,    1, 
-    0,    1,    0,    3, 
-    0,    0,    1,   -3, 
+    1,    0,    0,    1,
+    0,    1,    0,    3,
+    0,    0,    1,   -3,
     0,    0,    0,    0};
-  
-  typedef nt2::table<T> t_t; 
+
+  typedef nt2::table<T> t_t;
   typedef typename nt2::meta::call<rref_(t_t const&,T)>::type result_type;
-  
-  
+
+
   t_t a(nt2::of_size(4, 4));
-  int k = 0; 
+  int k = 0;
   for(int i=1; i <= 4; ++i)
     {
       for(int j=1; j <= 4; ++j)
         {
-          a(i, j) = A[k++]; 
+          a(i, j) = A[k++];
         }
     }
   result_type f = nt2::factorization::rref(a, T(-1));
- 
-  NT2_DISP(a);
-  t_t r = f.rref(); 
-  NT2_DISP(r);
-  k = 0; 
+
+  NT2_DISPLAY(a);
+  t_t r = f.rref();
+  NT2_DISPLAY(r);
+  k = 0;
   for(int i=1; i <= 4; ++i)
     {
       for(int j=1; j <= 4; ++j)
         {
           NT2_TEST_ULP_EQUAL(r(i, j),R[k], 1.0);
-          ++k; 
+          ++k;
         }
     }
-  it_t jb = f.jb(); 
-  NT2_DISP(jb); 
+  it_t jb = f.jb();
+  NT2_DISPLAY(jb);
 }

@@ -45,49 +45,49 @@ NT2_TEST_CASE_TPL( all_expr, NT2_TYPES )
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
   y(2, 2) = 0;
-  
-  disp("y", y);
-  
+
+  display("y", y);
+
   sy = nt2::all(y);
-  disp("sy", sy); 
+  display("sy", sy);
   for(int j=1;j<=3;j++)
     {
-      nt2::logical<T> z = nt2::True<T>();  
-      for(int i=1;i<=5;i++) z= nt2::logical_and(z, y(i, j)); 
+      nt2::logical<T> z = nt2::True<T>();
+      for(int i=1;i<=5;i++) z= nt2::logical_and(z, y(i, j));
       NT2_TEST_EQUAL(z, sy(j));
     }
   sy = nt2::all(y, 1);
-  disp("sy", sy); 
+  display("sy", sy);
   for(int j=1;j<=3;j++)
     {
-      nt2::logical<T> z = nt2::True<T>();  
-      for(int i=1;i<=5;i++) z= nt2::logical_and(z, y(i, j)); 
+      nt2::logical<T> z = nt2::True<T>();
+      for(int i=1;i<=5;i++) z= nt2::logical_and(z, y(i, j));
       NT2_TEST_EQUAL(z, sy(j));
     }
 
   sy = nt2::all(y, 2);
-  disp("sy", sy); 
+  display("sy", sy);
   for(int j=1;j<=5;j++)
     {
-      nt2::logical<T> z = nt2::True<T>();  
-      for(int i=1;i<=3;i++) z= nt2::logical_and(z, y(j, i)); 
+      nt2::logical<T> z = nt2::True<T>();
+      for(int i=1;i<=3;i++) z= nt2::logical_and(z, y(j, i));
       NT2_TEST_EQUAL(z, sy(j));
     }
 
   sy = nt2::all(y, 3);
-  disp("sy", sy); 
+  display("sy", sy);
   for(int j=1;j<=3;j++)
     {
-      nt2::logical<T> z; 
+      nt2::logical<T> z;
       for(int i=1;i<=5;i++)
         {
-          z= nt2::is_nez(y(i, j)); 
+          z= nt2::is_nez(y(i, j));
           NT2_TEST_EQUAL(z, sy(i, j));
         }
     }
 //   sy = nt2::all(y(_));
-//   disp("sy", sy); 
+//   display("sy", sy);
 //   NT2_TEST_EQUAL(nt2::False<T>(), sy(1));
-  
+
 }
 

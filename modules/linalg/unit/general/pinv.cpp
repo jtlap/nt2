@@ -27,22 +27,22 @@
 
 NT2_TEST_CASE_TPL(pinv, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
-  using nt2::pinv; 
+  typedef T r_t;
+  using nt2::pinv;
   using nt2::tag::pinv_;
-  using nt2::mtimes; 
+  using nt2::mtimes;
   {
     nt2::table<T> n = nt2::eye(3, 3, nt2::meta::as_<T>()), n1, p;
-    n1 = n; 
-    n1(nt2::_, 1) = T(0.5); 
+    n1 = n;
+    n1(nt2::_, 1) = T(0.5);
     nt2::table<T> pinvn1 = nt2::pinv(n1, nt2::Eps<T>());
-    NT2_DISP(n1); 
-    NT2_DISP(pinvn1);
-    p = mtimes(n1, pinvn1); 
-    NT2_DISP(p);
+    NT2_DISPLAY(n1);
+    NT2_DISPLAY(pinvn1);
+    p = mtimes(n1, pinvn1);
+    NT2_DISPLAY(p);
     std::cout << nt2::log2(nt2::cond(n1)) << std::endl;
-    std::cout << nt2::max(nt2::ulpdist(p, n)(nt2::_)) << std::endl; 
-    NT2_TEST(nt2::isulpequal(p, n, 2.5)); 
+    std::cout << nt2::max(nt2::ulpdist(p, n)(nt2::_)) << std::endl;
+    NT2_TEST(nt2::isulpequal(p, n, 2.5));
 //     for(int i=1; i <= 3; i++)
 //       {
 //         NT2_TEST_ULP_EQUAL(p(i),n(i), 0.5);
@@ -50,16 +50,16 @@ NT2_TEST_CASE_TPL(pinv, NT2_REAL_TYPES)
   }
   {
     nt2::table<T> n = nt2::eye(3, 3, nt2::meta::as_<T>()), n1, p;
-    n1 = n; 
-    n1(nt2::_, 1) = T(0.5); 
+    n1 = n;
+    n1(nt2::_, 1) = T(0.5);
     nt2::table<T> pinvn1 = nt2::pinv(n1);
-    NT2_DISP(n1); 
-    NT2_DISP(pinvn1);
-    p = mtimes(n1, pinvn1); 
-    NT2_DISP(p); 
+    NT2_DISPLAY(n1);
+    NT2_DISPLAY(pinvn1);
+    p = mtimes(n1, pinvn1);
+    NT2_DISPLAY(p);
     std::cout << nt2::log2(nt2::cond(n1)) << std::endl;
-    std::cout << nt2::max(nt2::ulpdist(p, n)(nt2::_)) << std::endl; 
-    NT2_TEST(nt2::isulpequal(p, n, 2.5)); 
+    std::cout << nt2::max(nt2::ulpdist(p, n)(nt2::_)) << std::endl;
+    NT2_TEST(nt2::isulpequal(p, n, 2.5));
 //     for(int i=1; i <= 3; i++)
 //       {
 //         NT2_TEST_ULP_EQUAL(p(i),n(i), 0.5);

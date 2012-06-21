@@ -21,18 +21,18 @@
 
 NT2_TEST_CASE_TPL(null, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
-  using nt2::null; 
+  typedef T r_t;
+  using nt2::null;
   using nt2::tag::null_;
-  double ulpd =  0.0; 
+  double ulpd =  0.0;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>());
   n(3, 5) = T(2);
   n(4, 4) = T(0);
-  n(1, 1) = 5*nt2::Eps<T>(); 
+  n(1, 1) = 5*nt2::Eps<T>();
   nt2::table<T> nulln = nt2::null(n);
-  NT2_DISP(n); 
-  NT2_DISP(nulln); 
+  NT2_DISPLAY(n);
+  NT2_DISPLAY(nulln);
   nt2::table<T> nulln1 = nt2::null(n,  100*nt2::Eps<T>());
-  NT2_DISP(nulln1); 
+  NT2_DISPLAY(nulln1);
 
  }

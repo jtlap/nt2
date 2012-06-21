@@ -25,30 +25,30 @@
 
 NT2_TEST_CASE_TPL( putalong_scalar, (float)(double))//NT2_TYPES )
 {
-  nt2::table<T> x = nt2::putalong(T(42), 1);  NT2_DISP( x );
-  x = nt2::putalong(T(42),1);  NT2_DISP( x );
-  x = nt2::putalong(T(42),2);  NT2_DISP( x );
+  nt2::table<T> x = nt2::putalong(T(42), 1);  NT2_DISPLAY( x );
+  x = nt2::putalong(T(42),1);  NT2_DISPLAY( x );
+  x = nt2::putalong(T(42),2);  NT2_DISPLAY( x );
 
 }
 
 NT2_TEST_CASE_TPL( putalong, (float)(double))//NT2_TYPES )
 {
-  using nt2::_; 
+  using nt2::_;
   nt2::table<T> y( nt2::of_size(2,3) );
   nt2::table<T> sy;
 
-  int k = 0; 
+  int k = 0;
   for(int j=1;j<=size(y, 2);j++)
     for(int i=1;i<=size(y, 1);i++)
       y(i,j) = k++;
 
 
   sy = nt2::putalong(y, 1);
-  disp(sy);
+  display(sy);
   sy = nt2::putalong(y, 2);
-  disp(sy);
+  display(sy);
   sy = nt2::putalong(y, 3);
-  disp(sy);
+  display(sy);
 
 
 

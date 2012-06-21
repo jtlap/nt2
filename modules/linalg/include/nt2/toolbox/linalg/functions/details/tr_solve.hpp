@@ -27,16 +27,16 @@ namespace nt2 {namespace details
     typedef typename meta::strip<A>::type             strip_t;
     typedef typename strip_t::value_type               type_t;
     typedef typename strip_t::index_type              index_t;
-    typedef typename meta::as_real<type_t>::type      btype_t; 
+    typedef typename meta::as_real<type_t>::type      btype_t;
     typedef nt2::table<type_t,nt2::matlab_index_>      ftab_t;
     typedef nt2::table<btype_t,nt2::matlab_index_>    fbtab_t;
     typedef nt2::table<nt2_la_int,nt2::matlab_index_> fitab_t;
     typedef nt2::table<type_t,index_t>                  tab_t;
     typedef nt2::table<btype_t,index_t>                btab_t;
     typedef nt2::table<nt2_la_int,index_t>             itab_t;
-    typedef A                                         data1_t; 
-    typedef B                                         data2_t; 
-    
+    typedef A                                         data1_t;
+    typedef B                                         data2_t;
+
     ////////////////////////////////////////////////////////////////////////////
     //  Solve triangular systems
     //  A is            N x N
@@ -52,7 +52,7 @@ namespace nt2 {namespace details
     tr_solve_result(Input1& a,
                     Input2& bx,
                     const char& uplo  /*= 'l'*/,
-                    const char& trans /*= 'n'*/,      
+                    const char& trans /*= 'n'*/,
                     const char& diag  /*= 'n'*/ )
       : a_(a),
         bx_(bx)
@@ -67,17 +67,16 @@ namespace nt2 {namespace details
       const nt2_la_int ldx = bx_.leading_size();
       nt2::details::trtrs(&uplo, &trans, &diag, &m, &k,
                           a_.raw(), &lda, bx_.raw(), &ldx, &info_);
-      NT2_DISP(bx_); 
     }
     ~tr_solve_result(){}
     ftab_t x()             const { return bx_;   }
     ftab_t values()        const { return a_;    }
     nt2_la_int status()    const { return info_; }
   private:
-    data1_t        a_; 
-    data2_t       bx_;  
-    nt2_la_int  info_; 
-    
+    data1_t        a_;
+    data2_t       bx_;
+    nt2_la_int  info_;
+
   };
 } }
 #endif

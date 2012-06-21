@@ -20,7 +20,8 @@
 #include <nt2/core/container/colon/colon.hpp>
 #include <nt2/core/container/extremum/extremum.hpp>
 #include <nt2/include/functions/function.hpp>
-#include <nt2/core/container/io.hpp>
+#include <nt2/include/functions/display.hpp>
+#include <nt2/include/functions/disp.hpp>
 
 namespace nt2
 {

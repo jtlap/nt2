@@ -42,9 +42,9 @@ NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
-  disp("y", y);
+  display("y", y);
   sy = nt2::none(y);
-  disp("sy", sy);
+  display("sy", sy);
   for(int j=1;j<=3;j++)
   {
     nt2::logical<T> z = nt2::True<T>();
@@ -52,24 +52,24 @@ NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
     NT2_TEST_EQUAL( nt2::is_nez(z), sy(j) );
   }
 
-//   disp("sy", sy);
+//   display("sy", sy);
 //   sy = nt2::none(y, 1);
 //   for(int j=1;j<=3;j++)
 //     for(int i=1;i<=5;i++)
 //       NT2_TEST_LESSER_EQUAL(y(i, j), sy(j));
-//   disp("sy", sy);
+//   display("sy", sy);
 //   sy = nt2::none(y, 2);
 //   for(int j=1;j<=3;j++)
 //     for(int i=1;i<=5;i++)
 //       NT2_TEST_LESSER_EQUAL(y(i, j), sy(i));
-//   disp("sy", sy);
+//   display("sy", sy);
 //   sy = nt2::none(y, 3);
 //   for(int j=1;j<=3;j++)
 //     for(int i=1;i<=5;i++)
 //       NT2_TEST_LESSER_EQUAL(y(i, j), sy(i, j));
-//   disp("sy", sy);
+//   display("sy", sy);
   sy = nt2::none(y(_));
-  disp(sy);
+  display(sy);
   NT2_TEST(!sy(1));
 }
 

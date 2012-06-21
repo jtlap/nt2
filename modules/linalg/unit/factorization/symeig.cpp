@@ -30,20 +30,20 @@ NT2_TEST_CASE_TPL(symeig_factorization, NT2_REAL_TYPES)
 
   result_type res = nt2::factorization::symeig(b, 'V', 'U');
 
-  NT2_DISP(b);
-  NT2_DISP(res.w());
-  NT2_DISP(res.v());
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(res.w());
+  NT2_DISPLAY(res.v());
   std::cout << "res.cond() "<< res.cond() << std::endl;
   std::cout << "res.rank() "<< res.rank() << std::endl;
 
   b = nt2::zeros(4, 4, nt2::meta::as_<T>());
   b(1,1) = 1;
-  NT2_DISP(b);
+  NT2_DISPLAY(b);
   res = nt2::factorization::symeig(b,'V', 'U');
-  NT2_DISP(b);
+  NT2_DISPLAY(b);
 
-  NT2_DISP(res.w());
-  NT2_DISP(res.v());
+  NT2_DISPLAY(res.w());
+  NT2_DISPLAY(res.v());
   std::cout << "res.cond() "<< res.cond() << std::endl;
   std::cout << "res.rank() "<< res.rank() << std::endl;
 
@@ -58,27 +58,27 @@ NT2_TEST_CASE_TPL ( symeig_factorization_inplace, NT2_REAL_TYPES)
   typedef nt2::table<T> t_t;
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-  NT2_DISP(b);
+  NT2_DISPLAY(b);
 
   typedef typename nt2::meta::call
           <symeig_(t_t&, char, char, as_<nt2::details::in_place_> const&)>::type ip_t;
 
   ip_t ires = nt2::factorization::symeig(b,'V','L',nt2::in_place_);
 
-  NT2_DISP(b);
-  NT2_DISP(ires.w());
-  NT2_DISP(ires.v());
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(ires.w());
+  NT2_DISPLAY(ires.v());
   std::cout << "ires.cond() "<< ires.cond() << std::endl;
   std::cout << "ires.rank() "<< ires.rank() << std::endl;
 
   b = nt2::zeros(4, 4, nt2::meta::as_<T>());
   b(1,1) = 1;
-  NT2_DISP(b);
+  NT2_DISPLAY(b);
   ires = nt2::factorization::symeig(b,'V', 'U',nt2::in_place_);
 
-  NT2_DISP(b);
-  NT2_DISP(ires.w());
-  NT2_DISP(ires.v());
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(ires.w());
+  NT2_DISPLAY(ires.v());
   std::cout << "ires.cond() "<< ires.cond() << std::endl;
   std::cout << "ires.rank() "<< ires.rank() << std::endl;
 
