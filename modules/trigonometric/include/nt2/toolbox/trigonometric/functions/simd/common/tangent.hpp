@@ -51,8 +51,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = impl::trig_base<A0,radian_tag,tag::simd_type,mode>::tana(a0);
-      return that;
+      return impl::trig_base<A0,radian_tag,tag::simd_type,mode>::tana(a0);
     }
   };
 } }
