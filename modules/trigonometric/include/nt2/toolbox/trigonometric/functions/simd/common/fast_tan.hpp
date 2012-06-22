@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::tana(a0)}; 
+      A0 that = impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::tana(a0); 
       return that;
     }
   };

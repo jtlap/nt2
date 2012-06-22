@@ -34,7 +34,7 @@ namespace nt2
         typedef typename A0::native_type              A0_n; 
         static inline A0_n asin(const A0_n a0_n)
         {
-          const A0 a0 = { a0_n };
+          const A0 a0 = a0_n;
           A0 sign, x;
           x = nt2::abs(a0);
           sign = bitofsign(a0);
@@ -61,13 +61,13 @@ namespace nt2
         
         static inline A0_n acos(const A0_n a0_n)
         {
-          const A0 a0 = { a0_n };
+          const A0 a0 = a0_n;
           A0 x = nt2::abs(a0);
-          A0 z2 = {asin(a0)};
+          A0 z2 = asin(a0);
           bA0 isgtxh = gt(x, Half<A0>());
           if (nt2::any(isgtxh))
             {
-              const A0 as = {asin(sqrt(oneminus(x)*Half<A0>()))};
+              const A0 as = asin(sqrt(oneminus(x)*Half<A0>()));
               const A0 z1 = as*Two<A0>(); 
               z2 = select(isgtxh, z1, z2);
             }
@@ -77,14 +77,14 @@ namespace nt2
         
         static inline A0_n atan(const A0_n a0_n)
         {
-          const A0 a0 = {a0_n};
-          A0 x  = {kernel_atan(a0)}; 
+          const A0 a0 = a0_n;
+          A0 x  = kernel_atan(a0); 
           return b_xor(x, bitofsign(a0));
         }
 
         static inline A0_n kernel_atan(const A0_n a0_n)
         {
-          const A0 a0 = {a0_n};
+          const A0 a0 = a0_n;
           const A0 x = nt2::abs(a0);
 
           //here x is positive

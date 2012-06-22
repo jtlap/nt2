@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {impl::trig_base<result_type,radian_tag,  tag::simd_type, big>::cota(tofloat(a0))}; 
+      A0 that = impl::trig_base<result_type,radian_tag,  tag::simd_type, big>::cota(tofloat(a0)); 
       return that;
     }
   };

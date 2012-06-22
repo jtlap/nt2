@@ -71,8 +71,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
-      result_type that = { plus(a0,a1)() };
-      return that;
+      return plus(a0,a1);
     }
   };
 } } }

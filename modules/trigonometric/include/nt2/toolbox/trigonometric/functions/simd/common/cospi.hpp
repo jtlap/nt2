@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {impl::trig_base<A0,pi_tag,tag::simd_type>::cosa(a0)}; 
+      A0 that = impl::trig_base<A0,pi_tag,tag::simd_type>::cosa(a0); 
       return that;
     }
   };

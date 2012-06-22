@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      const A0 r = {impl::invtrig_base<A0,radian_tag, tag::simd_type>::asin(a0)};
+      const A0 r = impl::invtrig_base<A0,radian_tag, tag::simd_type>::asin(a0);
       return r; 
     }
   };

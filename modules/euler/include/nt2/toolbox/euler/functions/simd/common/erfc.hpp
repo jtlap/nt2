@@ -28,6 +28,7 @@
 #include <nt2/include/functions/simd/logical_andnot.hpp>
 #include <nt2/include/functions/simd/exp.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 
@@ -117,7 +118,7 @@ namespace nt2 { namespace ext
         A0 lim2 = splat<A0>(2.2);
         bA0 test0 = is_ltz(a0);
         bA0 test1 = lt(x, lim1);
-        A0 r1 = {{}};
+        A0 r1 = Zero<A0>();
         uint32_t nb = 0;
         if ((nb = (inbtrue(test1) > 0)))
           {

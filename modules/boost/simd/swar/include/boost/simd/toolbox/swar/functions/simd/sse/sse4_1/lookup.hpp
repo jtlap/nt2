@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
@@ -102,7 +102,7 @@
 // //       typedef typename dispatch::meta::as_floating<A0>::type real_type;
 // //       const int32_t N = meta::cardinal_of<A0>::value;
 // //       int32_t mask = _mm_movemask_ps(is_lt(a1, N));
-// //       real_type tmp = {simd::bitwise_cast<real_type>(a0)}; 
+// //       real_type tmp = simd::bitwise_cast<real_type>(a0);
 // //       return simd::bitwise_cast<A0>(_mm_blend_ps(tmp, mask));
 //     }
 //   };
