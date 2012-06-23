@@ -31,11 +31,14 @@ namespace boost { namespace dispatch { namespace meta
     typedef mpl_integral_< typename T::parent > parent;
   };
 
+  //We can not take directly T::value_type because we can not
+  //know that T is always an mpl integral. So we force it to int.
+  // TODO : Fix later
   template<class T>
   struct  mpl_integral_< unspecified_<T> >
-        : meta::hierarchy_of<typename T::value_type>::type
+    : meta::hierarchy_of< typename T::value_type >::type
   {
-    typedef typename meta::hierarchy_of<typename T::value_type>::type parent;
+    typedef typename meta::hierarchy_of< typename T::value_type >::type parent;
   };
 }
 

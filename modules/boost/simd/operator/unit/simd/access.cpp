@@ -220,7 +220,7 @@ NT2_TEST_CASE_TPL(unaligned_store, BOOST_SIMD_SIMD_TYPES )
 
    std::cout << ((nt2::int64_t)(&data[0]))%32 << std::endl;
 
-   n_t v = unaligned_load<n_t>(&data[0],0);
+   n_t v = unaligned_load<n_t>(&data[0]);
    unaligned_store(v,&data[0],card);
 
    for(std::size_t j=0;j<card;++j)

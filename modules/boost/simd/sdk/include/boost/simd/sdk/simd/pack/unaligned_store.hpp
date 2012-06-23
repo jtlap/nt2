@@ -6,16 +6,19 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_PACK_STORE_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_PACK_STORE_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_PACK_UNALIGNED_STORE_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_PACK_UNALIGNED_STORE_HPP_INCLUDED
 
-#include <boost/simd/include/functions/store.hpp>
+////////////////////////////////////////////////////////////////////////////////
+// unaligned store for SIMD packs
+////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/sdk/simd/category.hpp>
+#include <boost/simd/include/functions/unaligned_store.hpp>
 #include <boost/simd/include/functions/evaluate.hpp>
 
-// store forces evaluation due to side-effect
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_ , tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_ , tag::cpu_
                             , (A0)(A1)(A2)
                             , (ast_<A0>)
                               (iterator_< scalar_< fundamental_<A1> > >)
@@ -28,11 +31,10 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      result_type that = store(evaluate(a0),a1,a2);
+      result_type that = unaligned_store(evaluate(a0),a1,a2);
       return that;
     }
   };
-
 } } }
 
 #endif

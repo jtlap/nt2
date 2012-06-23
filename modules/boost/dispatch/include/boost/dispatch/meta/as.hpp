@@ -32,7 +32,7 @@ namespace boost { namespace dispatch { namespace meta
    * @tparam T Wrapped type hierarchy
    */
   //============================================================================
-  template<class T> struct target_ {};
+  template<class T> struct target_{};
 } } }
 #else
 BOOST_DISPATCH_REGISTER_HIERARCHY(target_)
