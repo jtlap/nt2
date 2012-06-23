@@ -51,10 +51,6 @@ NT2_TEST_CASE( init_of_size )
 
   nt2::_0D     spec0;
   NT2_TEST_EQUAL( spec0.size(), 0u );
-  NT2_TEST_EQUAL( spec0[0], 1u );
-  NT2_TEST_EQUAL( spec0[1], 1u );
-  NT2_TEST_EQUAL( spec0[2], 1u );
-  NT2_TEST_EQUAL( spec0[2], 1u );
 }
 
 ////////////////////////////////////////////////////////////////////////
@@ -171,31 +167,14 @@ NT2_TEST_CASE( of_size_range )
   // 0D: Any range size
   _0D s01(&ones[0],&ones[0]+1);
   NT2_TEST_EQUAL( s01.size(), 0u );
-  NT2_TEST_EQUAL( s01[0], 1u );
-  NT2_TEST_EQUAL( s01[1], 1u );
-  NT2_TEST_EQUAL( s01[2], 1u );
-  NT2_TEST_EQUAL( s01[3], 1u );
 
   _0D s02(&ones[0],&ones[0]+2);
-  NT2_TEST_EQUAL( s02.size(), 0u );
-  NT2_TEST_EQUAL( s02[0], 1u );
-  NT2_TEST_EQUAL( s02[1], 1u );
-  NT2_TEST_EQUAL( s02[2], 1u );
-  NT2_TEST_EQUAL( s02[3], 1u );
 
   _0D s03(&ones[0],&ones[0]+3);
   NT2_TEST_EQUAL( s03.size(), 0u );
-  NT2_TEST_EQUAL( s03[0], 1u );
-  NT2_TEST_EQUAL( s03[1], 1u );
-  NT2_TEST_EQUAL( s03[2], 1u );
-  NT2_TEST_EQUAL( s03[3], 1u );
 
   _0D s04(&ones[0],&ones[0]+4);
   NT2_TEST_EQUAL( s04.size(), 0u );
-  NT2_TEST_EQUAL( s04[0], 1u );
-  NT2_TEST_EQUAL( s04[1], 1u );
-  NT2_TEST_EQUAL( s04[2], 1u );
-  NT2_TEST_EQUAL( s04[3], 1u );
 
   NT2_TEST_ASSERT( (_0D ss(&range[0],&range[0]+1)) );
   NT2_TEST_ASSERT( (_0D ss(&range[0],&range[0]+2)) );
@@ -303,28 +282,12 @@ NT2_TEST_CASE( of_size_extra_constructor )
 
   _0D s01(1);
   NT2_TEST_EQUAL( s01.size(), 0u );
-  NT2_TEST_EQUAL( s01[0], 1u );
-  NT2_TEST_EQUAL( s01[1], 1u );
-  NT2_TEST_EQUAL( s01[2], 1u );
-  NT2_TEST_EQUAL( s01[3], 1u );
   _0D s02(1,1);
   NT2_TEST_EQUAL( s02.size(), 0u );
-  NT2_TEST_EQUAL( s02[0], 1u );
-  NT2_TEST_EQUAL( s02[1], 1u );
-  NT2_TEST_EQUAL( s02[2], 1u );
-  NT2_TEST_EQUAL( s02[3], 1u );
   _0D s03(1,boost::mpl::int_<1>(),1);
   NT2_TEST_EQUAL( s03.size(), 0u );
-  NT2_TEST_EQUAL( s03[0], 1u );
-  NT2_TEST_EQUAL( s03[1], 1u );
-  NT2_TEST_EQUAL( s03[2], 1u );
-  NT2_TEST_EQUAL( s03[3], 1u );
   _0D s04(1,1,1,boost::mpl::int_<1>());
   NT2_TEST_EQUAL( s04.size(), 0u );
-  NT2_TEST_EQUAL( s04[0], 1u );
-  NT2_TEST_EQUAL( s04[1], 1u );
-  NT2_TEST_EQUAL( s04[2], 1u );
-  NT2_TEST_EQUAL( s04[3], 1u );
 
   NT2_TEST_ASSERT( (_0D ss(3)      ) );
   NT2_TEST_ASSERT( (_0D ss(2,2)    ) );
