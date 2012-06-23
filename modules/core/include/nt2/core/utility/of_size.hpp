@@ -228,8 +228,8 @@ namespace nt2
     static std::size_t size() { return static_size; }
     static bool empty()       { return false; }
 
-    reference       operator[](std::size_t i)       { static std::size_t one = 1; if(i < static_size) return data_[i]; return one; }
-    const_reference operator[](std::size_t i) const { static std::size_t one = 1; if(i < static_size) return data_[i]; return one; }
+    reference       operator[](std::size_t i)       { return data_[i]; }
+    const_reference operator[](std::size_t i) const { return data_[i]; }
 
     std::size_t*        data()       { return &data_[0]; }
     std::size_t const*  data() const { return &data_[0]; }
