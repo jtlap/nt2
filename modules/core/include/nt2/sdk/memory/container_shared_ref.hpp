@@ -6,10 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_MEMORY_CONTAINER_REF_HPP_INCLUDED
-#define NT2_SDK_MEMORY_CONTAINER_REF_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_CONTAINER_SHARED_REF_HPP_INCLUDED
+#define NT2_SDK_MEMORY_CONTAINER_SHARED_REF_HPP_INCLUDED
 
 #include <nt2/sdk/memory/container.hpp>
+#include <boost/shared_ptr.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/is_const.hpp>
@@ -28,7 +29,7 @@ namespace nt2 { namespace memory
    **/
   //============================================================================
   template<class T, class S>
-  struct container_ref
+  struct container_shared_ref
   {
     typedef typename boost::mpl::
             if_< boost::is_const<T>
@@ -65,11 +66,11 @@ namespace nt2 { namespace memory
 
     typedef typename base_t::specific_data_type  specific_data_type;
 
-    container_ref() : base(0), ptr(0)
+    container_shared_ref() : base(0), ptr(0)
     {
     }
 
-    container_ref(base_t& b) : base(&b), ptr(b.raw())
+    container_shared_ref(boost::shared_ptr<base_t> const& b) : base(b), ptr(b->raw())
     {
     }
 
@@ -80,7 +81,7 @@ namespace nt2 { namespace memory
      * \param y Second \c container to swap
      **/
     //==========================================================================
-    BOOST_FORCEINLINE void swap(container_ref<T,S>& y)
+    BOOST_FORCEINLINE void swap(container_shared_ref<T,S>& y)
     {
       boost::swap(*this, y);
     }
@@ -191,7 +192,7 @@ namespace nt2 { namespace memory
     specific_data_type&  specifics() const { return base->specifics(); }
 
   private:
-    base_t*                     base;
+    boost::shared_ptr<base_t>   base;
     mutable pointer             ptr;
   };
 
@@ -203,7 +204,7 @@ namespace nt2 { namespace memory
    **/
   //============================================================================
   template<class T, class S> inline
-  void swap(container_ref<T,S>& x, container_ref<T,S>& y)  { x.swap(y); }
+  void swap(container_shared_ref<T,S>& x, container_shared_ref<T,S>& y)  { x.swap(y); }
 } }
 
 namespace nt2 { namespace meta
@@ -212,7 +213,7 @@ namespace nt2 { namespace meta
   // Register container as a proper container
   //============================================================================
   template<class T, class S>
-  struct is_container< memory::container_ref<T, S> > : boost::mpl::true_ {};
+  struct is_container< memory::container_shared_ref<T, S> > : boost::mpl::true_ {};
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -221,25 +222,25 @@ namespace boost { namespace dispatch { namespace meta
   // value_of specializations
   //============================================================================
   template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S> >
+  struct value_of< nt2::memory::container_shared_ref<T, S> >
   {
     typedef typename boost::remove_const<T>::type type;
   };
 
   template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S> const >
+  struct value_of< nt2::memory::container_shared_ref<T, S> const >
   {
     typedef typename boost::remove_const<T>::type type;
   };
 
   template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S>& >
+  struct value_of< nt2::memory::container_shared_ref<T, S>& >
   {
     typedef T& type;
   };
 
   template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S> const& >
+  struct value_of< nt2::memory::container_shared_ref<T, S> const& >
   {
     typedef T& type;
   };
@@ -248,7 +249,7 @@ namespace boost { namespace dispatch { namespace meta
   // model_of specialization
   //============================================================================
   template<class T, class S>
-  struct model_of< nt2::memory::container_ref<T, S> >
+  struct model_of< nt2::memory::container_shared_ref<T, S> >
   {
     struct type
     {
@@ -256,7 +257,7 @@ namespace boost { namespace dispatch { namespace meta
       struct apply
       {
         typedef typename boost::mpl::if_< boost::is_const<T>, X const, X>::type Xc;
-        typedef nt2::memory::container_ref<Xc, S> type;
+        typedef nt2::memory::container_shared_ref<Xc, S> type;
       };
     };
   };
@@ -265,9 +266,9 @@ namespace boost { namespace dispatch { namespace meta
   // container hierarchy
   //============================================================================
   template<class T, class S, class Origin>
-  struct hierarchy_of< nt2::memory::container_ref<T, S>, Origin >
+  struct hierarchy_of< nt2::memory::container_shared_ref<T, S>, Origin >
   {
-    typedef typename nt2::memory::container_ref<T, S>::base_t::semantic_t     semantic_t;
+    typedef typename nt2::memory::container_shared_ref<T, S>::base_t::semantic_t     semantic_t;
     typedef typename semantic_t::template apply<T,S,Origin>::type type;
   };
 } } }

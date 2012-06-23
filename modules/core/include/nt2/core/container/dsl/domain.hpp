@@ -12,6 +12,7 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/sdk/memory/container_ref.hpp>
+#include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <boost/proto/domain.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/add_reference.hpp>
@@ -53,6 +54,28 @@ namespace nt2 { namespace container
     }
   };
 
+  template<class T, class S>
+  struct as_container_ref< boost::shared_ptr<memory::container<T, S> > >
+  {
+    typedef memory::container_shared_ref<T, S> const type;
+    static BOOST_FORCEINLINE type
+    call(boost::shared_ptr<memory::container<T, S> >& t)
+    {
+      return type(t);
+    }
+  };
+
+  template<class T, class S>
+  struct as_container_ref< boost::shared_ptr<memory::container<T, S> > const >
+  {
+    typedef memory::container_shared_ref<T const, S> const type;
+    static BOOST_FORCEINLINE type
+    call(boost::shared_ptr<memory::container<T, S> > const& t)
+    {
+      return type(t);
+    }
+  };
+
   template<class T>
   struct as_container_noref
   {
@@ -61,6 +84,13 @@ namespace nt2 { namespace container
 
   template<class T, class S>
   struct as_container_noref< nt2::memory::container_ref<T, S> >
+  {
+    typedef nt2::memory::container<typename boost::remove_const<T>::type, S> type0;
+    typedef typename boost::mpl::if_< boost::is_const<T>, type0 const&, type0&>::type type;
+  };
+
+  template<class T, class S>
+  struct as_container_noref< nt2::memory::container_shared_ref<T, S> >
   {
     typedef nt2::memory::container<typename boost::remove_const<T>::type, S> type0;
     typedef typename boost::mpl::if_< boost::is_const<T>, type0 const&, type0&>::type type;
