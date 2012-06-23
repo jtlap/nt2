@@ -155,7 +155,7 @@ namespace nt2 { namespace memory
      *
      * Passing a dimension set to a nt2::memory::container with automatic
      * storage or set up to use a static dimension set will result in a
-     * static assert being raised.
+     * assert being raised.
      *
      * \c nt2::memory::container is aware of stateful allocator and will handle
      * them properly.
@@ -167,16 +167,12 @@ namespace nt2 { namespace memory
     {
       //========================================================================
       //       ****INVALID_CONSTRUCTOR_FOR_STATICALLY_SIZED_CONTAINER****
-      // If you trigger this static assert, you tried to initialize a container
+      // If you trigger this assert, you tried to initialize a container
       // with a static size or an automatic storage scheme from a runtime set of
       // dimensions. Fix your code to remove such constructor call.
       //       ****INVALID_CONSTRUCTOR_FOR_STATICALLY_SIZED_CONTAINER****
       //========================================================================
-      BOOST_MPL_ASSERT_MSG
-      ( !has_static_size::value
-      , INVALID_CONSTRUCTOR_FOR_STATICALLY_SIZED_CONTAINER
-      , (extent_type,Size)
-      );
+      BOOST_ASSERT_MSG( !has_static_size::value || sz == extent_type(), "Invalid constructor for statically sized container" );
 
       init(sizes_);
     }
@@ -341,16 +337,12 @@ namespace nt2 { namespace memory
     {
       //========================================================================
       //     ****STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY****
-      // If you trigger this static assert, you tried to resize a container
-      // with a static size to a different runtime or compile dimension set.
+      // If you trigger this assert, you tried to resize a container
+      // with a static size to a different runtime dimension set.
       // Fix your code to remove such resize call.
       //     ****STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY****
       //========================================================================
-      BOOST_MPL_ASSERT_MSG
-      ( (boost::is_same<Size,extent_type>::value)
-      , STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY
-      , (Size)
-      );
+      BOOST_ASSERT_MSG( szs == extent_type(), "Statically sized container can't be resized dynamically" );
     }
 
     private:
