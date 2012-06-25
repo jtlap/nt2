@@ -76,15 +76,15 @@ namespace nt2{ namespace ext {
         //  getpadecoefficients coefficients of numerator p of pade approximant
         //     c = getpadecoefficients returns coefficients of numerator
         //     of [m/m] pade approximant, where m = 3,5,7,9,13.
-        const T m3[] = {120, 60, 12, 1};
-        const T m5[] = {30240, 15120, 3360, 420, 30, 1};
-        const T m7[] = {17297280, 8648640, 1995840, 277200, 25200, 1512, 56, 1};
-        const T m9[] = {17643225600, 8821612800, 2075673600, 302702400, 30270240, 
-                        2162160, 110880, 3960, 90, 1};
-        const T m13[] = {64764752532480000, 32382376266240000, 7771770303897600, 
-                         1187353796428800,  129060195264000,   10559470521600,
-                         670442572800,      33522128640,       1323241920, 
-                         40840800,          960960,            16380,  182,  1}; 
+        const T m3[] = {T(120), T(60), T(12), T(1)};
+        const T m5[] = {T(30240), T(15120), T(3360), T(420), T(30), T(1)};
+        const T m7[] = {T(17297280), T(8648640), T(1995840), T(277200), T(25200), T(1512), T(56), T(1)};
+        const T m9[] = {T(17643225600), T(8821612800), T(2075673600), T(302702400), T(30270240), 
+                        T(2162160), T(110880), T(3960), T(90), T(1)};
+        const T m13[] = {T(64764752532480000), T(32382376266240000), T(7771770303897600), 
+                         T(1187353796428800),  T(129060195264000),   T(10559470521600),
+                         T(670442572800),      T(33522128640),       T(1323241920), 
+                         T(40840800),          T(960960),            T(16380), T(182),  T(1)}; 
         static tab_t v;
 
         switch (m)
@@ -173,7 +173,7 @@ namespace nt2{ namespace ext {
       typedef typename meta::as_integer<base_t>::type ibase_t; 
       typedef nt2::table<base_t >                      btab_t;
 
-      size_t n = length(a0);
+      //size_t n = length(a0);
       typedef details::expm_helper<base_t>                h_t; 
       typedef typename h_t::itab_t                     itab_t;
       const btab_t theta = h_t::theta(value_type());

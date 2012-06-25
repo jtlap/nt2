@@ -25,7 +25,6 @@ NT2_TEST_CASE_TPL(trace, NT2_REAL_TYPES)
   typedef T r_t;
   using nt2::trace;
   using nt2::tag::trace_;
-  double ulpd =  0.0;
   nt2::table<T> n = nt2::rif(10, 10, nt2::meta::as_<T>());
   display("n", n);
   NT2_TEST_ULP_EQUAL(trace(n), T(55), 0);

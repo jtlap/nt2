@@ -28,7 +28,6 @@ NT2_TEST_CASE_TPL(rref, NT2_REAL_TYPES)
   typedef nt2::table<itype_t> it_t;
   using nt2::rref;
   using nt2::tag::rref_;
-  double ulpd =  0.0;
   T A[16] = {
    16,    2,    3,   13,
     5,   11,   10,    8,
