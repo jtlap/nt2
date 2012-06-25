@@ -22,8 +22,8 @@ namespace boost { namespace simd { namespace meta
     template<class Expr, class State, class Data>
     struct impl : proto::transform_impl<Expr, State, Data>
     {
-        typedef typename mpl::apply1<Lambda, typename impl::expr>::type result_type;
-        
+        typedef typename mpl::apply1<Lambda, typename boost::remove_const<typename impl::expr>::type>::type result_type;
+
         BOOST_DISPATCH_FORCE_INLINE
         result_type
         operator()( typename impl::expr_param e
@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace meta
         }
     };
   };
-    
+
   template<class Lambda>
   struct lambda_pod_generator
     : proto::transform< lambda_pod_generator<Lambda> >
@@ -43,13 +43,13 @@ namespace boost { namespace simd { namespace meta
     template<class Expr, class State, class Data>
     struct impl : proto::transform_impl<Expr, State, Data>
     {
-        typedef typename mpl::apply1<Lambda, typename impl::expr>::type result_type;
-        
+        typedef typename mpl::apply1<Lambda, typename boost::remove_const<typename impl::expr>::type>::type result_type;
+
         BOOST_DISPATCH_FORCE_INLINE
         result_type
         operator()( typename impl::expr_param e
-                  , typename impl::state_param 
-                  , typename impl::data_param 
+                  , typename impl::state_param
+                  , typename impl::data_param
                   ) const
         {
           result_type const that = {e};

@@ -22,13 +22,13 @@ namespace boost { namespace simd { namespace meta
   {
     template<class Expr, int N>
     struct apply_impl;
-      
+
     template<class Expr>
     struct apply
       : apply_impl<Expr, proto::arity_of<Expr>::value>
     {
     };
-    
+
     #define M0(z, n, t)                                                        \
     template<class Expr>                                                       \
     struct apply_impl<Expr, n>                                                 \
@@ -45,19 +45,19 @@ namespace boost { namespace simd { namespace meta
     {                                                                          \
     };                                                                         \
     /**/
-    
+
     #define M1(z, n, t)                                                        \
     typename dispatch::meta::                                                  \
     semantic_of< typename proto::result_of::                                   \
                  child_c<Expr, n>::type                                        \
                >::type                                                         \
     /**/
-    
+
     BOOST_PP_REPEAT_FROM_TO(1, BOOST_DISPATCH_MAX_ARITY, M0, ~)
-    
+
     #undef M1
     #undef M0
-    
+
     // terminal case
     template<class Expr>
     struct apply_impl<Expr, 0>
@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace meta
                   , Expr
                   , typename dispatch::meta::
                     call< typename proto::
-                          tag_of<Expr>::type(Expr)
+                          tag_of<Expr>::type(Expr&)
                         >::type
                   >
     {
