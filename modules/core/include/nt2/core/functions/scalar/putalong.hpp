@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
     typedef table<A0>                tab_t; 
     typedef tab_t              result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       ext_t ext; 
       for(int i=0; i < ext.size(); ++i) ext[i] = 1;

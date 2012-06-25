@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
     {
       ext_t ex0 = boost::proto::child_c<0>(a0).extent();
       size_t along = boost::proto::child_c<1>(a0);
-      size_t order = boost::proto::child_c<2>(a0);  
+      //      size_t order = boost::proto::child_c<2>(a0);  
       sub_t pos0 = ind2sub(a0.extent(),p);
       sub_t pos1 = pos0; ++pos1[along]; 
       State p0 = sub2ind(ex0, pos0);

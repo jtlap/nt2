@@ -250,7 +250,7 @@ namespace nt2
     }
 
     template<class T, class N>
-    inline void fill(T value, N const&, boost::mpl::false_ const&) {}
+    inline void fill(T, N const&, boost::mpl::false_ const&) {}
 
     template<std::size_t N>
     inline void default_(boost::mpl::size_t<N> const&)

@@ -306,7 +306,7 @@ namespace nt2 { namespace memory
     // Initialization of inner data_ and sizes_
     // Note that the number of non-zero (nnz) is delegated to the storage scheme
     //==========================================================================
-    template<class Size> BOOST_FORCEINLINE void init( Size const& sz )
+    template<class Size> BOOST_FORCEINLINE void init( Size const& )
     {
       data_.resize( scheme_type::nnz( sizes_ ) );
     }

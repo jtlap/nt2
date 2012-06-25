@@ -200,7 +200,7 @@ NT2_TEST_CASE( buffer_swap )
 //==============================================================================
 struct f_
 {
-  template<class T> std::string operator()(T const& e) const
+  template<class T> std::string operator()(T const&) const
   {
     return "transformed";
   }

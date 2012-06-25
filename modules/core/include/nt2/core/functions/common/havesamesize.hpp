@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     typedef bool result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0, const A1& a1) const
+    result_type operator()(const A0& , const A1& ) const
     {
       return true;
     }

@@ -93,7 +93,7 @@ namespace nt2 { namespace container { namespace ext
   struct  size_of<nt2::tag::tie_,Domain,1,Expr>
   {
     typedef of_size_<1> result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }
@@ -103,7 +103,7 @@ namespace nt2 { namespace container { namespace ext
   struct  size_of<nt2::tag::tie_,Domain,N,Expr>
   {
     typedef of_size_<1> result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }

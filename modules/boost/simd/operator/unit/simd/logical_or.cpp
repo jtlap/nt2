@@ -26,15 +26,15 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
-static void pb(unsigned short a,  int n = 16)
-{
-  unsigned short j = 1; 
-  for(int i =  0;  i < n;  i++){
-    std::cout << ((a&j)!= 0);
-    j <<= 1;
-  }
-  std::cout << std::endl;
-}
+// static void pb(unsigned short a,  int n = 16)
+// {
+//   unsigned short j = 1; 
+//   for(int i =  0;  i < n;  i++){
+//     std::cout << ((a&j)!= 0);
+//     j <<= 1;
+//   }
+//   std::cout << std::endl;
+// }
 
 NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {

@@ -55,14 +55,14 @@ namespace nt2 { namespace ext
 
     private:
     BOOST_FORCEINLINE
-    void compute(A1 & a1, int m, int n, bool whole, bool meshgrid, boost::mpl::long_<1> const&) const
+      void compute(A1 & a1, int m, int, bool whole, bool /*meshgrid*/, boost::mpl::long_<1> const&) const
     {
       if (whole)
         boost::proto::child_c<0>(a1) = freqspace1(m, nt2::whole_, meta::as_<value_t>());
       else
         boost::proto::child_c<0>(a1) = freqspace1(m, meta::as_<value_t>());
     }
-    void compute(A1 & a1, int m, int n, bool whole, bool meshgrid, boost::mpl::long_<2> const&) const
+    void compute(A1 & a1, int m, int n, bool/* whole*/, bool meshgrid, boost::mpl::long_<2> const&) const
     {
       if (meshgrid)
         boost::fusion::tie(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1))
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
       n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1, choice_t());
     }
 
-    template < class T > static int getval(const T & a0, int i,
+    template < class T > static int getval(const T & a0, int,
                                            const boost::mpl::bool_<true> &)
       { return a0; }
     

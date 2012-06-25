@@ -19,7 +19,6 @@
 NT2_TEST_CASE_TPL( linspace, (double)(float) )
 {
   typedef T r_t;
-  double ulpd;
   {
     nt2::table<T> xd = nt2::linspace(T(0),T(1), 1);
     
@@ -45,7 +44,6 @@ NT2_TEST_CASE_TPL( linspace, (double)(float) )
 NT2_TEST_CASE_TPL( linspace_with_size, (double)(float) )
 {
   typedef T r_t;
-  double ulpd;
 
   nt2::table<T> xd = nt2::linspace(T(0),T(1),7);
 
@@ -76,7 +74,6 @@ NT2_TEST_CASE_TPL( simd_linspace, (double)(float) )
   typedef native<T,ext_t>               n_t;
   typedef as_<n_t>                      target_type;
   typedef T r_t;
-  double ulpd;
 
   nt2::details::linspace<T> callee(0,1,3*n_t::static_size);
 

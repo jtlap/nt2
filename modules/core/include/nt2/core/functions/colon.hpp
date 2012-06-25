@@ -65,7 +65,7 @@ namespace nt2 { namespace container { namespace ext
   struct size_of<tag::relative_colon_,Domain,1,Expr>
   {
     typedef _0D result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }
@@ -75,7 +75,7 @@ namespace nt2 { namespace container { namespace ext
   struct size_of<tag::relative_colon_,Domain,2,Expr>
   {
     typedef _0D result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }
