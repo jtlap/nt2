@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL(simd_input_iterator, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::input_iterator<T> it_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  static const std::size_t at_ = card - 1;
+  //  static const std::size_t at_ = card - 1;
   BOOST_SIMD_ALIGNED_TYPE(T) data[3*card];
 
   for(int i=0; i<3*card; ++i) data[i] = i;
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL(simd_vector_input_iterator, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::input_iterator<T> it_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  static const std::size_t at_ = card - 1;
+  //  static const std::size_t at_ = card - 1;
   std::vector<T, boost::simd::memory::allocator<T> > data(3*card);
 
   for(int i=0; i<3*card; ++i) data[i] = i;
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL(simd_output_iterator, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::input_iterator<T>  iit_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  static const std::size_t at_ = card - 1;
+  //  static const std::size_t at_ = card - 1;
   BOOST_SIMD_ALIGNED_TYPE(T) idata[3*card];
   BOOST_SIMD_ALIGNED_TYPE(T) odata[3*card];
 
@@ -103,7 +103,7 @@ NT2_TEST_CASE_TPL(simd_vector_output_iterator, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::input_iterator<T>  iit_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
-  static const std::size_t at_ = card - 1;
+  //  static const std::size_t at_ = card - 1;
 
   std::vector<T, boost::simd::memory::allocator<T> > idata(3*card);
   std::vector<T, boost::simd::memory::allocator<T> > odata(3*card);

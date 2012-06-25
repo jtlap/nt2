@@ -42,7 +42,8 @@
   template<class T>\
   pack(BOOST_PP_ENUM_PARAMS(arg, T const& a), typename enable_if< is_arithmetic<T> >::type* dummy = 0)\
   {\
-    proto::value(*this) = make<data_type>(BOOST_PP_ENUM_PARAMS(arg, a));\
+    boost::dispatch::ignore_unused(dummy);                               \
+    proto::value(*this) = make<data_type>(BOOST_PP_ENUM_PARAMS(arg, a)); \
   }\
 /**/
 
@@ -105,7 +106,7 @@ namespace boost { namespace simd
         , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* dummy = 0)
     {
       typedef typename boost::pointee<ScalarIterator>::type value_type;
-
+      boost::dispatch::ignore_unused(dummy); 
       BOOST_STATIC_ASSERT_MSG
       ( (boost::is_same<Type,value_type>::value)
       , "The constructor of pack<T,C> has been called on a iterator"
@@ -135,6 +136,7 @@ namespace boost { namespace simd
       , "The constructor of pack<T,C> has been called on a iterator"
         "which alignment is not compatible with current SIMD extension."
       );
+      boost::dispatch::ignore_unused(dummy); 
       for(int i=0;b!=e;++b,++i) (*this)[i] = *b;
     }
     //template<class Expr> pack(Expr const& expr) : parent(expr) {}
@@ -145,6 +147,7 @@ namespace boost { namespace simd
     template<class T>
     pack(T const& t, typename enable_if< is_arithmetic<T> >::type* dummy = 0)
     {
+      boost::dispatch::ignore_unused(dummy); 
       proto::value(*this) = simd::splat<data_type>(t);
     }
 
