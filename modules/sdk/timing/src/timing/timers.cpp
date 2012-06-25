@@ -14,12 +14,12 @@
 
 namespace nt2 { namespace details
 {
-  NT2_UNIT_DECL void cycle_based_timer::Print(const cycles_t& val)
+  NT2_SDK_TIMING_DECL void cycle_based_timer::Print(const cycles_t& val)
   {
     std::cout << "Elapsed time is " << val << " CPU cycle(s).\n";
   }
 
-  NT2_UNIT_DECL void second_based_timer::Print(const double& val)
+  NT2_SDK_TIMING_DECL void second_based_timer::Print(const double& val)
   {
     std::cout << "Elapsed time is " << val << " s.\n";
   }

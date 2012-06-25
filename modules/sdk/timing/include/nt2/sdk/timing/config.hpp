@@ -11,14 +11,14 @@
 
 #include <boost/config.hpp>
 
-#ifdef NT2_UNIT_DYN_LINK
-#  ifdef NT2_UNIT_SOURCE
-#    define NT2_UNIT_DECL BOOST_SYMBOL_EXPORT
+#ifdef NT2_SDK_TIMING_DYN_LINK
+#  ifdef NT2_SDK_TIMING_SOURCE
+#    define NT2_SDK_TIMING_DECL BOOST_SYMBOL_EXPORT
 #  else
-#    define NT2_UNIT_DECL BOOST_SYMBOL_IMPORT
+#    define NT2_SDK_TIMING_DECL BOOST_SYMBOL_IMPORT
 #  endif
 #else
-#  define NT2_UNIT_DECL
+#  define NT2_SDK_TIMING_DECL
 #endif
 
 #endif

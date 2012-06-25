@@ -18,7 +18,7 @@
 
 namespace nt2 { namespace details
 {
-  NT2_UNIT_DECL double now()
+  NT2_SDK_TIMING_DECL double now()
   {
     struct timeval tp;
     gettimeofday(&tp,NULL);
@@ -34,7 +34,7 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace details
 {
-  NT2_UNIT_DECL double now()
+  NT2_SDK_TIMING_DECL double now()
   {
     union pli { LARGE_INTEGER li; double d; };
     pli freq,t;
@@ -52,7 +52,7 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace details
 {
-  NT2_UNIT_DECL double now() { return std::clock()/double(CLOCKS_PER_SEC); }
+  NT2_SDK_TIMING_DECL double now() { return std::clock()/double(CLOCKS_PER_SEC); }
 } }
 
 #endif

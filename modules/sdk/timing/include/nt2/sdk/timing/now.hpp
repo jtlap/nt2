@@ -14,9 +14,9 @@
 
 namespace nt2 { namespace details
 {
-  typedef nt2::uint64_t   cycles_t;
-  NT2_UNIT_DECL double    now();
-  inline cycles_t         read_cycles();
+  typedef nt2::uint64_t      cycles_t;
+  NT2_SDK_TIMING_DECL double now();
+  inline cycles_t            read_cycles();
 } }
 
 #include <nt2/sdk/timing/details/cycles.hpp>
