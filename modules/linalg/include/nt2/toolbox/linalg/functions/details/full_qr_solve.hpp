@@ -40,7 +40,7 @@ namespace nt2 { namespace details
     //  B is            N x nrhs
     ////////////////////////////////////////////////////////////////////////////
     template < class Input, class B > 
-    full_qr_solve_result(Input& a, const B& b, const char &trans)
+    full_qr_solve_result(Input& a, const B& b, const char &/*trans*/)
       : a_(a)
       , lda_(a_.leading_size())
       , ldb_(b.leading_size())

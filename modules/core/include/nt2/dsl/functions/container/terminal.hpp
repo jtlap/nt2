@@ -229,7 +229,7 @@ namespace nt2 { namespace ext
     typedef Data const&      result_type;
 
     BOOST_FORCEINLINE
-    result_type operator()(A0& a0, State const&, Data const& data) const
+    result_type operator()(A0&, State const&, Data const& data) const
     {
       BOOST_ASSERT_MSG(0, "Writing SIMD value to scalar not allowed");
       return data;

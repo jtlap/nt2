@@ -109,7 +109,7 @@ namespace nt2
                     T* v,                       \
                     const nt2_la_int* ldv,      \
                     nt2_la_int* info,           \
-                    workspace<T> & w)           \
+                    workspace<T> &)             \
   {                                             \
     NT2_F77NAME( NAME )(job, side, n,           \
                     ilo, ihi, scale,            \
@@ -151,7 +151,7 @@ namespace nt2
                     T* v,                       \
                     const nt2_la_int* ldv,      \
                     nt2_la_int* info,           \
-                    workspace<T> & w)           \
+                    workspace<T> &)             \
   {                                             \
     NT2_F77NAME( NAME )(job, side, n,           \
                     ilo, ihi, scale,            \
