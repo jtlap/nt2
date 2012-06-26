@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-     chol.cpp
+     cauchy.cpp
    )
 
 nt2_module_add_tests(linalg.functions.unit ${SOURCES})
