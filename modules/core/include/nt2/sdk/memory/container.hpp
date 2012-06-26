@@ -18,6 +18,7 @@
 #include <nt2/core/settings/specific_data.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
+#include <boost/mpl/at.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -99,7 +100,7 @@ namespace nt2 { namespace memory
     typedef typename
             meta::option<settings_type,tag::storage_duration_>::type duration_t;
     typedef boost::mpl::
-            bool_ <   extent_type::static_status
+            bool_ <   !( boost::mpl::at_c<typename extent_type::values_type, 0>::type::value <= 0 )
                   &&  !boost::is_same<duration_t,automatic_>::value
                   >                                         require_static_init;
     //==========================================================================
