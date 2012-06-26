@@ -200,30 +200,50 @@ namespace nt2 { namespace ext
     result_type operator()(A0& a0, A1& a1) const
     {
       using boost::fusion::at_c;
-
+      typedef typename A1::value_type value_type; 
       typename meta::call<tag::run_(typename boost::proto::result_of::child_c<A1&, 0>::type)>::type child0 = nt2::run(boost::proto::child_c<0>(a1));
       typename meta::call<tag::run_(typename boost::proto::result_of::child_c<A1&, 1>::type)>::type child1 = nt2::run(boost::proto::child_c<1>(a1));
 
-      a0.resize(a1.extent());
 
-      typename A1::value_type alpha = One<typename A1::value_type>();
-      typename A1::value_type beta = Zero<typename A1::value_type>();
+      value_type alpha = One<value_type>();
+      value_type beta = Zero<value_type>();
       nt2_la_int m = at_c<0>(child0.extent());
       nt2_la_int n = at_c<1>(child1.extent());
       nt2_la_int k = at_c<1>(child0.extent());
       nt2_la_int lda = at_c<0>(child0.extent());
       nt2_la_int ldb = at_c<0>(child1.extent());
-      nt2_la_int ldc = at_c<0>(a0.extent());
-      nt2::details::
-      gemm( "N", "N"
-          , &m, &n, &k
-          , &alpha
-          , child0.raw(), &lda
-          , child1.raw(), &ldb
-          , &beta
-          , raw(nt2::terminal(a0)), &ldc
-          );
-
+      nt2_la_int ldc = at_c<0>(a1.extent());
+      //    if((raw(nt2::terminal(a0)) !=  child0.raw()) && (raw(nt2::terminal(a0)) !=  child1.raw()))
+      if(    ( raw(nt2::terminal(a0)) >= child0.raw()+numel(child0) || raw(nt2::terminal(a0))+numel(a0) <  child0.raw())&&
+             ( raw(nt2::terminal(a0)) >= child1.raw()+numel(child0) || raw(nt2::terminal(a0))+numel(a0) <  child1.raw()))
+        {
+          a0.resize(a1.extent());
+          nt2::details::
+            gemm( "N", "N"
+                  , &m, &n, &k
+                  , &alpha
+                  , child0.raw(), &lda
+                  , child1.raw(), &ldb
+                  , &beta
+                  , raw(nt2::terminal(a0)), &ldc
+                  );
+        }
+      else
+        // overlapping of input and output data is possible
+        // so we provide space for result and put back in a0
+        {
+          nt2::table<value_type> tmp(a1.extent());
+          nt2::details::
+            gemm( "N", "N"
+                  , &m, &n, &k
+                  , &alpha
+                  , child0.raw(), &lda
+                  , child1.raw(), &ldb
+                  , &beta
+                  , tmp.raw(), &ldc
+                  );
+          a0 = tmp; 
+        }
       return a0;
     }
   };

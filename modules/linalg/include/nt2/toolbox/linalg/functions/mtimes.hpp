@@ -31,7 +31,7 @@
  * \param a1 a matrix, vector or scalar
  *
  * \par Notes
- *   Call the dedicated BLAS routines available on the target (DOT, GEMV, GEMM)
+ *   Call the dedicated BLAS/LAPACK routines available on the target (DOT, GEMV, GEMM)
  * \par
  *
 **/

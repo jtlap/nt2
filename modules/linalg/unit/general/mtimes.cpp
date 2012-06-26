@@ -16,7 +16,9 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/size.hpp>
-
+#include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/cif.hpp>
+#include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -160,4 +162,52 @@ NT2_TEST_CASE( mtimes_vector_vector )
   for(std::size_t j=0; j!=7; ++j)
     for(std::size_t i=0; i!=7; ++i)
       NT2_TEST_EQUAL( r(i+1, j+1), r1[j*7+i] );
+}
+NT2_TEST_CASE( mtimes_aliasing )
+{
+  typedef double T;
+  using nt2::_;
+
+  nt2::table<T> a0 = nt2::rif(3, 3), a1, b;
+  display("a0", a0); 
+  a1 = a0;
+  b =  nt2::mtimes(a0, a1);
+  a0=  nt2::mtimes(a0, a1);
+  
+  NT2_TEST(isequal(a0, b));
+
+  a0 = a1; 
+  a0 =  nt2::mtimes(a0, a0); 
+  NT2_TEST(isequal(a0, b));
+  display("a0", a0); 
+}
+NT2_TEST_CASE( mtimes_aliasing_2 )
+{
+  typedef double T;
+  using nt2::_;
+
+  nt2::table<T> a0 = nt2::rif(3, 3), a1 = nt2::rif(3, 2), b;
+  display("a0", a0); 
+  display("a1", a1); 
+  b =  nt2::mtimes(a0, a1);
+  a0=  nt2::mtimes(a0, a1);
+  
+  NT2_TEST(isequal(a0, b));
+
+  display("a0", a0); 
+}
+NT2_TEST_CASE( mtimes_aliasing_3 )
+{
+  typedef double T;
+  using nt2::_;
+
+  nt2::table<T> a0 = nt2::rif(3, 1), a1 = nt2::cif(1, 3), b;
+  display("a0", a0); 
+  display("a1", a1); 
+  b =  nt2::mtimes(a0, a1);
+  a0=  nt2::mtimes(a0, a1);
+  
+  NT2_TEST(isequal(a0, b));
+
+  display("a0", a0); 
 }
