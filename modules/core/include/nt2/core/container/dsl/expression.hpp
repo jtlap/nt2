@@ -152,6 +152,16 @@ namespace nt2 { namespace container
       return *this;
     }
 
+    template<class Xpr> BOOST_FORCEINLINE
+    typename boost::disable_if< boost::is_base_of<expression, Xpr>
+                              , expression const&
+                              >::type
+    operator=(Xpr const& xpr) const
+    {
+      process( xpr );
+      return *this;
+    }
+
     BOOST_FORCEINLINE expression& operator=(expression const& xpr)
     {
       proto_base() = xpr.proto_base();
