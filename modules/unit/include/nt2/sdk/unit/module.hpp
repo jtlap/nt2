@@ -91,7 +91,7 @@ NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int, char**)
 {
   nt2::details::main_suite.process();
-  return nt2::details::error_count() ? -1: 0;
+  return nt2::unit::error_count() ? -1: 0;
 }
 
 namespace boost
