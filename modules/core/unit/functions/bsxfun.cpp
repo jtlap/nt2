@@ -24,7 +24,7 @@ NT2_TEST_CASE( bsxfun_size )
 {
   nt2::table<float> a = nt2::rif(nt2::of_size(3, 1), nt2::meta::as_<float>()),
                     b = nt2::cif(nt2::of_size(1, 3), nt2::meta::as_<float>()),
-                    c, d;
+                    c, d, e;
   NT2_DISPLAY(a);
   NT2_DISPLAY(b);
   nt2::functor<nt2::tag::plus_> f;
@@ -32,5 +32,6 @@ NT2_TEST_CASE( bsxfun_size )
   NT2_DISPLAY(c);
   d = bsxfun(nt2::functor<nt2::tag::plus_>(),  a, c);
   NT2_DISPLAY(d);
-
+  e = bsxfun(nt2::functor<nt2::tag::plus_>(),  nt2::rif(nt2::of_size(3, 1), nt2::meta::as_<float>()),  nt2::cif(nt2::of_size(1, 3), nt2::meta::as_<float>()));
+ NT2_DISPLAY(e);  
 }
