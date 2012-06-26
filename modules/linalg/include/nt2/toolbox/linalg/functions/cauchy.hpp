@@ -62,9 +62,9 @@ namespace nt2 { namespace tag
     struct cauchy_ : ext::unspecified_<cauchy_> { typedef ext::unspecified_<cauchy_> parent; };
   }
   
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 1)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 3)
 
 }
 

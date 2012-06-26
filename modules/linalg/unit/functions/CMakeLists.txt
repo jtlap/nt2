@@ -9,6 +9,7 @@
 
 SET( SOURCES
      cauchy.cpp
+     vandermonde.cpp
    )
 
 nt2_module_add_tests(linalg.functions.unit ${SOURCES})
