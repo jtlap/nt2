@@ -56,6 +56,9 @@ namespace boost { namespace simd
 
     BOOST_FORCEINLINE native() {}
     BOOST_FORCEINLINE native(native_type const& data) : data_(data) {}
+#ifdef BOOST_MSVC
+    BOOST_FORCEINLINE native(native const& other) : data_(other.data_) {}
+#endif
 
     ////////////////////////////////////////////////////////////////////////////
     // Assignment operator from same type (generates better code than default-generated one)
