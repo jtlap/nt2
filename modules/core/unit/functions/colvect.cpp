@@ -13,9 +13,11 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/ndims.hpp>
+#include <nt2/include/functions/isequal.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE_TPL( colvect_ofsize, (float) )
@@ -58,6 +60,8 @@ NT2_TEST_CASE_TPL( colvect_size, (float) )
   NT2_TEST_EQUAL( nt2::size(r,1) , numel(y) );
   NT2_TEST_EQUAL( nt2::size(r,2) , 1 );
   NT2_TEST_EQUAL( nt2::size(r,3) , 1 );
+
+  NT2_TEST(nt2::isequal(r, y(nt2::_))); 
 
 }
 
