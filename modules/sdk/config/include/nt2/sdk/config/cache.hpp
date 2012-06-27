@@ -18,7 +18,7 @@
 
 namespace nt2{ namespace config
 {
-  enum { L1Code=0, L1Data=1, L1=1, L2=2, L3=3 };
+  enum Li_enum { L1Code=0, L1Data=1, L1=1, L2=2, L3=3 };
 
   inline int cache_size(int level)
   {
