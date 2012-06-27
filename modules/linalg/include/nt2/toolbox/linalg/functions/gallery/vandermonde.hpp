@@ -12,7 +12,10 @@
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/pow.hpp>
 #include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/bsxfun.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/table.hpp>
 
 
@@ -30,9 +33,9 @@ namespace nt2 {namespace ext
     typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::pow_>, T0, T1) >::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        size_t nl = numel(a0);
-        value_type w = (a1 ==  size_t(-1)) ? nl : size_t(a1)-One<value_type>(); 
-        return nt2::bsxfun(nt2::functor<tag::pow_>(), colvect(a0), colon(w, -1, 0)); 
+        return nt2::bsxfun(nt2::functor<tag::pow_>(),
+                           colvect(a0),
+                           colon(nt2::minusone(value_type(a1)), Mone<value_type>(), Zero<value_type>())); 
       }
   };
 
@@ -47,8 +50,9 @@ namespace nt2 {namespace ext
     typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::pow_>, T0, T1) >::type result_type;
     NT2_FUNCTOR_CALL(1)
       {
-        value_type nl = numel(a0)-1;
-        return nt2::bsxfun(nt2::functor<tag::pow_>(), colvect(a0), colon(nl, -1, 0)); 
+        return nt2::bsxfun(nt2::functor<tag::pow_>(),
+                           colvect(a0),
+                           colon(nt2::minusone(value_type( numel(a0))), Mone<value_type>(), Zero<value_type>())); 
 
       }
   };  

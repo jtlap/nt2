@@ -16,7 +16,9 @@
 
 NT2_TEST_CASE_TPL ( vandermonde_ints, NT2_REAL_TYPES)
 {
-  nt2::table<T> a0 = nt2::_(T(1), 4); 
+  nt2::table<T> a0 = nt2::_(T(1), 3);
+  nt2::table<T> v  =  nt2::vandermonde(a0); 
+  nt2::display("vandermonde(a0)", v);
   nt2::display("vandermonde(a0)", nt2::vandermonde(a0)); 
 }
 
