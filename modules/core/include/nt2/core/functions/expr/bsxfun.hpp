@@ -31,26 +31,27 @@ namespace nt2 { namespace ext
                               (ast_<A2>)
                             )
   {
+    typedef typename A1::extent_type     ext1t_t;
+    typedef typename A2::extent_type     ext2t_t;
+    typedef typename meta::strip<ext1t_t>::type  ext1_t;
+    typedef typename meta::strip<ext2t_t>::type  ext2_t; 
+    typedef typename  make_size<(ext1_t::static_size > ext2_t::static_size)
+      ? ext1_t::static_size
+      : ext2_t::static_size>::type                     ext_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::bsxfun_
                                           , container::domain
                                           , A1 const&
                                           , A2 const&
                                           , box<A0>      
-                                          , box<of_size_max>
+                                          , box<ext_t>
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
                                              A1 const& a1,
                                              A2 const& a2) const
     {
-    typedef typename A1::extent_type     ext1t_t;
-    typedef typename A2::extent_type     ext2t_t;
-    typedef typename meta::strip<ext1t_t>::type  ext1_t;
-    typedef typename meta::strip<ext2t_t>::type  ext2_t; 
-    typedef typename  make_size<(ext1_t::static_size > ext2_t::static_size)
-                 ? ext1_t::static_size
-                 : ext2_t::static_size>::type                     ext_t;
+
       ext_t s1 = nt2::extent(a1);
       ext_t s2 = nt2::extent(a2);
       ext_t sizee ;
