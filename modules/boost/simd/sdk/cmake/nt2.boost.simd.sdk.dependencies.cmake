@@ -11,6 +11,7 @@ include(nt2.simd)
 
 MESSAGE( STATUS "[boost.simd.sdk] target system: ${NT2_OS} (${CMAKE_SYSTEM_NAME} ${CMAKE_SYSTEM_VERSION})" )
 MESSAGE( STATUS "[boost.simd.sdk] target processor: ${NT2_ARCH} (${CMAKE_SYSTEM_PROCESSOR})" )
+MESSAGE( STATUS "[boost.simd.sdk] compiler: ${NT2_COMPILER} (${CMAKE_CXX_COMPILER_ID})" )
 
 # Disable useless qualifier flag because of const-return trick used by Proto
 set(FLAGS ${NT2_SIMD_FLAGS})
