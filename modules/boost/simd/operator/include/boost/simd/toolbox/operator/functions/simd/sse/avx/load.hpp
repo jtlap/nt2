@@ -61,8 +61,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
 
-      result_type that = _mm256_load_ps(a0+a1); 
-      return that;
+      return _mm256_load_ps(a0+a1);
     }
   };
 

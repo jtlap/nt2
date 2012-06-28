@@ -41,19 +41,18 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAKE_BODY(4)
     {
 #ifndef BOOST_MSVC
-      result_type that = _mm256_setr_epi64x(a0, a1, a2, a3);
+      return _mm256_setr_epi64x(a0, a1, a2, a3);
 #else
-      result_type that = _mm256_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
-                                             , (uint64_t(a0) & 0xFFFFFFFF00000000ULL) >> 32
-                                             , (uint64_t(a1) & 0x00000000FFFFFFFFULL)
-                                             , (uint64_t(a1) & 0xFFFFFFFF00000000ULL) >> 32
-                                             , (uint64_t(a2) & 0x00000000FFFFFFFFULL)
-                                             , (uint64_t(a2) & 0xFFFFFFFF00000000ULL) >> 32
-                                             , (uint64_t(a3) & 0x00000000FFFFFFFFULL)
-                                             , (uint64_t(a3) & 0xFFFFFFFF00000000ULL) >> 32
-                                             );
+      return _mm256_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
+                              , (uint64_t(a0) & 0xFFFFFFFF00000000ULL) >> 32
+                              , (uint64_t(a1) & 0x00000000FFFFFFFFULL)
+                              , (uint64_t(a1) & 0xFFFFFFFF00000000ULL) >> 32
+                              , (uint64_t(a2) & 0x00000000FFFFFFFFULL)
+                              , (uint64_t(a2) & 0xFFFFFFFF00000000ULL) >> 32
+                              , (uint64_t(a3) & 0x00000000FFFFFFFFULL)
+                              , (uint64_t(a3) & 0xFFFFFFFF00000000ULL) >> 32
+                              );
 #endif
-      return that;
     }
   };
 } } }

@@ -41,15 +41,14 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_MAKE_BODY(2)
     {
 #ifdef BOOST_SIMD_ARCH_X86_64
-      result_type that = _mm_set_epi64x(a1, a0);
+      return _mm_set_epi64x(a1, a0);
 #else
-      result_type that = _mm_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
-                                          , (uint64_t(a0) & 0xFFFFFFFF00000000ULL) >> 32
-                                          , (uint64_t(a1) & 0x00000000FFFFFFFFULL)
-                                          , (uint64_t(a1) & 0xFFFFFFFF00000000ULL) >> 32
-                                          );
+      return _mm_setr_epi32( (uint64_t(a0) & 0x00000000FFFFFFFFULL)
+                           , (uint64_t(a0) & 0xFFFFFFFF00000000ULL) >> 32
+                           , (uint64_t(a1) & 0x00000000FFFFFFFFULL)
+                           , (uint64_t(a1) & 0xFFFFFFFF00000000ULL) >> 32
+                           );
 #endif
-      return that;
     }
   };
 } } }

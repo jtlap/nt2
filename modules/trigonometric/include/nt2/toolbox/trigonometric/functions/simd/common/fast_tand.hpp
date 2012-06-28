@@ -30,8 +30,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      result_type that = impl::trig_base<result_type,degree_tag,  tag::simd_type, clipped_pio4>::tana(tofloat(a0)); 
-      return that;
+      return impl::trig_base<result_type,degree_tag,  tag::simd_type, clipped_pio4>::tana(tofloat(a0));
     }
   };
 } }
