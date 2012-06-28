@@ -12,7 +12,12 @@ set(NT2_DIR ${CMAKE_SOURCE_DIR}/../../cmake)
 find_package(NT2 REQUIRED COMPONENTS boost.simd.detect)
 include(${NT2_USE_FILE})
 
-add_executable(is_supported is_supported.cpp)
-set_target_properties(is_supported
+include(nt2.info)
+if(NOT NT2_ARCH_X86)
+  return()
+endif()
+
+add_executable(x86_model x86_model.cpp)
+set_target_properties(x86_model
                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}
                      )
