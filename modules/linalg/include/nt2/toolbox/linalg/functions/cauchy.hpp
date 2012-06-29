@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_CAUCHY_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*! 
+/*!
  * \ingroup algebra
  * \defgroup algebra_cauchy cauchy
  *
@@ -24,7 +24,7 @@
  *   det(c) is nonzero if x and y both have distinct elements.
  *   c is totally positive if 0 < x(1) < ... < x(n) and
  *                            0 < y(1) < ... < y(n).
-      
+
  *   references:
  *   [1] d. e. knuth, the art of computer programming, volume 1,
  *       fundamental algorithms, third edition, addison-wesley, reading,
@@ -37,36 +37,34 @@
  *
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cauchy.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \param n order of the matrix output
- * 
- *  
+ *
+ *
 **/
 //==============================================================================
 // cauchy actual class forward declaration
 //==============================================================================
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag cauchy_ of functor cauchy
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct cauchy_ : ext::unspecified_<cauchy_> { typedef ext::unspecified_<cauchy_> parent; };
+    struct cauchy_ : tag::formal_ { typedef tag::formal_ parent; };
   }
-  
+
   NT2_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::cauchy_, cauchy, 3)
-
 }
 
 #endif
-

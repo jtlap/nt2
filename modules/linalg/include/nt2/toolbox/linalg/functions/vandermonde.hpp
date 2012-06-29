@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_VANDERMONDE_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*! 
+/*!
  * \ingroup algebra
  * \defgroup algebra_vandermonde vandermonde
  *
@@ -18,36 +18,35 @@
  * vandermonde matrix
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/vandermonde.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \param x the fundamental column of the matrix,
  *        x is always treated as a big column vector
  *
  * \param n (optinnal) the number of column of the matrix (default is numel(x(_))
- *  
+ *
 **/
 //==============================================================================
 // vandermonde actual class forward declaration
 //==============================================================================
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag vandermonde_ of functor vandermonde
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct vandermonde_ : ext::unspecified_<vandermonde_> { typedef ext::unspecified_<vandermonde_> parent; };
+    struct vandermonde_ : tag::formal_ { typedef tag::formal_ parent; };
   }
-  
+
   NT2_FUNCTION_IMPLEMENTATION(tag::vandermonde_, vandermonde, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::vandermonde_, vandermonde, 1)
-
 }
 
 #endif
