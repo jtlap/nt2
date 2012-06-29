@@ -128,8 +128,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      A0 min1 = {min(a0,simd::bitwise_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))))};
-      A0 that = {min(min1, simd::bitwise_cast<A0>(_mm_shuffle_epi32(min1, _MM_SHUFFLE(2, 3, 0, 1))))};
+      A0 min1 = min(a0,simd::bitwise_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))));
+      A0 that = min(min1, simd::bitwise_cast<A0>(_mm_shuffle_epi32(min1, _MM_SHUFFLE(2, 3, 0, 1))));
       return that[0];
     }
   };
