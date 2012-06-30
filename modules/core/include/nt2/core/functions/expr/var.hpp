@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type value_type;
     typedef typename meta::call < tag::center_(A0 const &)>::type T2;
-    typedef typename meta::call < tag::asum2_(T2 const&)>::type T3;
+    typedef typename meta::call < tag::asum2_(T2)>::type T3;
     typedef typename meta::call < tag::multiplies_(value_type, T3)>::type result_type; 
 
 
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type value_type;
     typedef typename meta::call < tag::center_(A0 const&, const A1&)>::type T2;
-    typedef typename meta::call < tag::asum2_(T2 const&, const A1&)>::type T3;
+    typedef typename meta::call < tag::asum2_(T2, const A1&)>::type T3;
     typedef typename meta::call < tag::multiplies_(value_type, T3)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type value_type;
     typedef typename meta::call < tag::center_(A0 const&, A2 const&)>::type T2;
-    typedef typename meta::call < tag::asum2_(T2 const&, A2 const &)>::type T3;
+    typedef typename meta::call < tag::asum2_(T2, A2 const &)>::type T3;
     typedef typename meta::call < tag::multiplies_(value_type, T3)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1, const A2& a2) const
     {
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type value_type;
     typedef typename meta::call < tag::center_(A0 const&, A1 const &)>::type T2; 
-    typedef typename meta::call < tag::sqr_abs_(T2 const&)>::type T3;
+    typedef typename meta::call < tag::sqr_abs_(T2)>::type T3;
     typedef typename meta::call < tag::wmean_(T3)>::type result_type;
     typedef typename A0::extent_type     ext_t;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w) const
@@ -116,7 +116,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type value_type;
     typedef typename meta::call < tag::center_(A0 const&, A1 const &, A2 const&)>::type T2;
-    typedef typename meta::call < tag::sqr_abs_(T2 const&)>::type T3;
+    typedef typename meta::call < tag::sqr_abs_(T2)>::type T3;
     typedef typename meta::call < tag::wmean_(T3, const A1&, const A2&)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w, const A2& a2) const
     {
