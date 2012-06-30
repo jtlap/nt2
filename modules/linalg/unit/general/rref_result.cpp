@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL(rref, NT2_REAL_TYPES)
     {
       for(int j=1; j <= 4; ++j)
         {
-          NT2_TEST_ULP_EQUAL(r(i, j),R[k], 1.0);
+          NT2_TEST_ULP_EQUAL(r(i, j),R[k], 2.0);
           ++k;
         }
     }

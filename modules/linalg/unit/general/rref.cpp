@@ -15,11 +15,24 @@
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
 
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+
+
+template <class T, class S> nt2::table<T> make_matrix( const S * ptr, int nl, int nc)
+{
+  nt2::table<T> a(nt2::of_size(nl, nc));
+  const S* p = ptr; ;
+  for(int i = 1; i <= nl; ++i)
+    for(int j = 1; j <= nc; ++j)
+      a(i, j) = *p++;
+  return a; 
+}
 
 NT2_TEST_CASE_TPL(rref, NT2_REAL_TYPES)
 {
@@ -42,30 +55,33 @@ NT2_TEST_CASE_TPL(rref, NT2_REAL_TYPES)
   typedef nt2::table<T> t_t;
   typedef typename nt2::meta::call<rref_(t_t const&,T)>::type result_type;
 
-
-  t_t a(nt2::of_size(4, 4));
-  int k = 0;
-  for(int i=1; i <= 4; ++i)
-    {
-      for(int j=1; j <= 4; ++j)
-        {
-          a(i, j) = A[k++];
-        }
-    }
+  t_t a =  make_matrix<T>(&A[0], 4, 4);
+  t_t res =  make_matrix<T>(&R[0], 4, 4);
+  //   t_t a(nt2::of_size(4, 4));
+  //   int k = 0;
+  //   for(int i=1; i <= 4; ++i)
+  //     {
+  //       for(int j=1; j <= 4; ++j)
+  //         {
+  //           a(i, j) = A[k++];
+  //         }
+  //     }
   result_type f = nt2::factorization::rref(a, T(-1));
-
+  
   NT2_DISPLAY(a);
+  NT2_DISPLAY(res);  
   t_t r = f.rref();
   NT2_DISPLAY(r);
-  k = 0;
-  for(int i=1; i <= 4; ++i)
-    {
-      for(int j=1; j <= 4; ++j)
-        {
-          NT2_TEST_ULP_EQUAL(r(i, j),R[k], 1.0);
-          ++k;
-        }
-    }
+  NT2_TEST(isulpequal(r, res, 2.0)); 
+  //   k = 0;
+  //   for(int i=1; i <= 4; ++i)
+  //     {
+  //       for(int j=1; j <= 4; ++j)
+  //         {
+  //           NT2_TEST_ULP_EQUAL(r(i, j),R[k], 2.0);
+  //           ++k;
+  //         }
+  //     }
   it_t jb = f.jb();
   NT2_DISPLAY(jb);
 }
