@@ -169,6 +169,12 @@ namespace nt2 { namespace container
       return *this;
     }
 
+    BOOST_FORCEINLINE expression const& operator=(expression const& xpr) const
+    {
+      process( xpr );
+      return *this;
+    }
+
     //==========================================================================
     // Op-Assignment operators generate proper tree then evaluate
     //==========================================================================
@@ -275,7 +281,7 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return nt2::terminal(*this).raw();
+      return boost::proto::value(*this).raw();
     }
 
     const_pointer raw() const
@@ -291,7 +297,7 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return nt2::terminal(*this).raw();
+      return boost::proto::value(*this).raw();
     }
 
     //==========================================================================

@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const&) const
     {
-      return nt2::terminal(a0)[state];
+      return boost::proto::value(a0)[state];
     }
   };
 
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const& data) const
     {
-      return nt2::terminal(a0)[state] = data;
+      return boost::proto::value(a0)[state] = data;
     }
   };
 
@@ -109,8 +109,8 @@ namespace nt2 { namespace ext
     result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
       // FIXME: do conditional reads
-      //BOOST_ASSERT_MSG( maxpos<result_type>(state) < nt2::terminal(a0).size(), "Out of range SIMD read" );
-      return unaligned_load<result_type>(nt2::terminal(a0).raw(), state);
+      //BOOST_ASSERT_MSG( maxpos<result_type>(state) < boost::proto::value(a0).size(), "Out of range SIMD read" );
+      return unaligned_load<result_type>(a0.raw(), state);
     }
   };
 
@@ -133,8 +133,8 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const& state, Data const& data) const
     {
-      BOOST_ASSERT_MSG( maxpos<Data>(state) < nt2::terminal(a0).size(), "Out of range SIMD write" );
-      return unaligned_store<result_type>(data, nt2::terminal(a0).raw(), state);
+      BOOST_ASSERT_MSG( maxpos<Data>(state) < boost::proto::value(a0).size(), "Out of range SIMD write" );
+      return unaligned_store<result_type>(data, a0.raw(), state);
     }
   };
 
@@ -157,7 +157,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const&, Data const&) const
     {
-      return nt2::terminal(a0);
+      return boost::proto::value(a0);
     }
   };
 
@@ -180,7 +180,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const&, Data const& data) const
     {
-      return nt2::terminal(a0) = data;
+      return boost::proto::value(a0) = data;
     }
   };
 
@@ -208,7 +208,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const&, Data const&) const
     {
-      return nt2::splat<result_type>(nt2::terminal(a0));
+      return nt2::splat<result_type>(boost::proto::value(a0));
     }
   };
 

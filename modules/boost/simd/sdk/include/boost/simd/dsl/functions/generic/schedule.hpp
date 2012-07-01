@@ -15,16 +15,12 @@
 #include <boost/simd/sdk/functor/hierarchy.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 #include <boost/dispatch/dsl/unpack.hpp>
+#include <boost/dispatch/meta/terminal_of_shared.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
 #include <boost/proto/make_expr.hpp>
-#include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/remove_reference.hpp>
-#include <boost/mpl/if.hpp>
 #include <boost/ref.hpp>
-
-#include <boost/shared_ptr.hpp>
-#include <boost/make_shared.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -131,30 +127,27 @@ namespace boost { namespace simd { namespace ext
                                      (unspecified_<F>)
                                    )
   {
-    typedef typename dispatch::meta::
-            strip< typename dispatch::meta::semantic_of<A0&>::type
-                 >::type                                           semantic;
-    typedef boost::shared_ptr<semantic>                            ptr;
-    typedef typename boost::proto::
-            nullary_expr<boost::proto::tag::dereference, ptr>::type node;
-    typedef typename A0::proto_generator::template
-            result<typename A0::proto_generator(node const)>::type child0;
-    typedef typename unpack_schedule<A0, F const>::result_type     child1;
-    typedef typename proto::result_of::
-            make_expr<proto::tag::assign, child0, child1>::type    assigned;
-    typedef typename dispatch::meta::result_of<F const(assigned)>::type  result;
-    typedef typename dispatch::meta::strip<result>::type           result_type;
+    typedef typename dispatch::meta::semantic_of<A0&>::type             semantic;
+    typedef typename dispatch::meta::terminal_of_shared<semantic>::type terminal;
+    typedef typename boost::proto::result_of::as_child<terminal>::type& child0;
+    typedef typename unpack_schedule<A0, F const>::result_type          unpck;
+    typedef typename dispatch::meta::as_ref<unpck>::type                child1;
+    typedef typename boost::proto::result_of::
+            make_expr< boost::proto::tag::assign
+                     , child0, child1
+                     >::type                                            assigned;
+    typedef typename dispatch::meta::result_of<F const(assigned)>::type result;
+    typedef typename dispatch::meta::strip<result>::type                result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, F const& f) const
     {
-      typedef typename mpl::if_< is_reference<child1>
-                               , reference_wrapper<typename remove_reference<child1>::type>
-                               , child1 const&
-                               >::type ref;
-      return f(proto::make_expr<proto::tag::assign>( typename A0::proto_generator()(node::make(boost::make_shared<semantic>()))
-                                                   , ref(unpack_schedule<A0, F const>()(a0, f))
-                                                   )
+      typedef boost::reference_wrapper<typename boost::remove_reference<child1>::type> ref;
+
+      terminal term = dispatch::meta::terminal_of_shared<semantic>::make();
+      return f(boost::proto::make_expr<boost::proto::tag::assign>( boost::ref(boost::proto::as_child(term))
+                                                                 , ref(unpack_schedule<A0, F const>()(a0, f))
+                                                                 )
               );
     }
   };

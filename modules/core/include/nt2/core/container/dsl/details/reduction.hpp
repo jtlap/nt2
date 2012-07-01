@@ -66,7 +66,7 @@ namespace nt2 { namespace container { namespace ext
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type res = boost::proto::child_c<0>(e).extent();
-      std::size_t red_dim = nt2::terminal(boost::proto::child_c<1>(e)) - 1;
+      std::size_t red_dim = boost::proto::value(boost::proto::child_c<1>(e)) - 1;
 
       // If we reduce over the number of dimensions, do nothing
       if(red_dim < result_type::static_size) res[red_dim] = 1;

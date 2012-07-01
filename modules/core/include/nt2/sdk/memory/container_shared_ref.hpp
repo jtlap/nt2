@@ -10,7 +10,10 @@
 #define NT2_SDK_MEMORY_CONTAINER_SHARED_REF_HPP_INCLUDED
 
 #include <nt2/sdk/memory/container.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
+#include <boost/dispatch/meta/terminal_of_shared.hpp>
 #include <boost/shared_ptr.hpp>
+#include <boost/make_shared.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/remove_const.hpp>
 #include <boost/type_traits/is_const.hpp>
@@ -270,6 +273,16 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef typename nt2::memory::container_shared_ref<T, S>::base_t::semantic_t     semantic_t;
     typedef typename semantic_t::template apply<T,S,Origin>::type type;
+  };
+
+  template<class T, class S>
+  struct terminal_of_shared< nt2::memory::container<T, S> >
+  {
+    typedef nt2::memory::container<T, S> container;
+    typedef nt2::memory::container_shared_ref<T, S> container_ref;
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0> basic_expr;
+    typedef nt2::container::expression< basic_expr, container&, boost::proto::is_proto_expr > type;
+    static type make() { return type(basic_expr::make(container_ref(boost::make_shared<container>()))); }
   };
 } } }
 
