@@ -9,7 +9,10 @@
 //==============================================================================
 #ifndef NT2_SIGNAL_TWIDDLE_FACTORS_HPP_INCLUDED
 #define NT2_SIGNAL_TWIDDLE_FACTORS_HPP_INCLUDED
-#pragma once
+#ifdef _MSC_VER
+    #pragma once
+    #define _USE_MATH_DEFINES
+#endif
 
 #include <nt2/signal/static_sincos.hpp>
 
@@ -23,11 +26,7 @@
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
-#ifdef _MSC_VER
-    #define _USE_MATH_DEFINES
-#endif // _MSC_VER
 #include <math.h>
-//------------------------------------------------------------------------------
 
 #ifdef BOOST_SIMD_DETECTED
 /// \note Quick-fixed tofloat() nop specialization that does not cause MSVC10 to

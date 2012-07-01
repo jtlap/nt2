@@ -9,9 +9,8 @@
 //==============================================================================
 #ifndef NT2_SIGNAL_STATIC_FFT_HPP_INCLUDED
 #define NT2_SIGNAL_STATIC_FFT_HPP_INCLUDED
-#pragma once
-
 #ifdef _MSC_VER
+    #pragma once
     #pragma inline_recursion( on )
 #endif // _MSC_VER
 
@@ -544,11 +543,12 @@ namespace detail
         typedef split_radix_twiddles<vector_t> twiddles;
     };
 
-
+#ifdef _MSC_VER
     #pragma warning( push )
     #pragma warning( disable : 4510 ) // Default constructor could not be generated.
     #pragma warning( disable : 4512 ) // Assignment operator could not be generated.
     #pragma warning( disable : 4610 ) // Class can never be instantiated - user-defined constructor required.
+#endif
 
     ////////////////////////////////////////////////////////////////////////////
     // \struct inplace_separated_context_t
@@ -664,7 +664,9 @@ namespace detail
         unsigned int const log2_N4_bytes_; ///< log2( N/4 ) * sizeof( scalar_t )
     }; // inplace_separated_context_t
 
+#ifdef _MSC_VER
     #pragma warning( pop )
+#endif
 } // namespace detail
 
 template<class T>
@@ -683,10 +685,12 @@ struct assert_no_default_case
 ///
 ////////////////////////////////////////////////////////////////////////////////
 
+#ifdef _MSC_VER
 #pragma warning( push )
 #pragma warning( disable : 4510 ) // Default constructor could not be generated.
 #pragma warning( disable : 4512 ) // Assignment operator could not be generated.
 #pragma warning( disable : 4610 ) // Class can never be instantiated - user-defined constructor required.
+#endif
 
 template <unsigned short MinimumSize, unsigned short MaximumSize, typename T>
 class static_fft
@@ -704,8 +708,10 @@ private:
             boost::static_log2<MaximumSize>::value + 1
         > fft_sizes_t;
 
+#ifdef _MSC_VER
     #pragma warning( push )
     #pragma warning( disable : 4127 ) // Conditional expression is constant.
+#endif
 
     template <class Context>
     struct transformer_t
@@ -752,7 +758,9 @@ private:
         typename context_t::parameter1_t const context_parameter1_;
     }; // transformer_t
 
+#ifdef _MSC_VER
     #pragma warning( pop )
+#endif
 
     template <class Context>
     struct forward_real_transformer_t : transformer_t<Context>
@@ -894,8 +902,9 @@ private:
     }
 }; // class static_fft
 
+#ifdef _MSC_VER
 #pragma warning( push )
-
+#endif
 
 template <typename T>
 T complex_fft_normalization_factor( std::size_t const size )
