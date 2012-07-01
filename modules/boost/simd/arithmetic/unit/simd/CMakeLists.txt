@@ -30,6 +30,7 @@ SET( SOURCES
   iround2even.cpp
   remainder.cpp
   rem.cpp
+  meanof.cpp
   mod.cpp
   remquo.cpp
   minmod.cpp
