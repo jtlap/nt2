@@ -728,8 +728,8 @@ private:
         template <typename FFTSizeExponent>
         result_type operator()( FFTSizeExponent ) const
         {
-            std::size_t const P( FFTSizeExponent::value );
-            std::size_t const N( 1 << P                 );
+            static std::size_t const P( FFTSizeExponent::value );
+            static std::size_t const N( 1 << P                 );
 
             using namespace detail;
 
@@ -770,8 +770,8 @@ private:
         template <typename FFTSizeExponent>
         void operator()( FFTSizeExponent ) const
         {
-            std::size_t const P( FFTSizeExponent::value );
-            std::size_t const N( 1 << P                 );
+            static std::size_t const P( FFTSizeExponent::value );
+            static std::size_t const N( 1 << P                 );
 
             transformer_t<Context>::operator()( typename Context::template complex_P<P>() );
 
@@ -798,8 +798,8 @@ private:
         template <typename FFTSizeExponent>
         void operator()( FFTSizeExponent ) const
         {
-            std::size_t const P( FFTSizeExponent::value );
-            std::size_t const N( 1 << P                 );
+            static std::size_t const P( FFTSizeExponent::value );
+            static std::size_t const N( 1 << P                 );
 
             /// \note The "switch real and imaginary parts" trick does not work
             /// with the separate() procedure so we must "swap back" the data
