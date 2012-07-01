@@ -35,6 +35,7 @@ NT2_TEST_CASE( test )
   aligned_vector real_time_data2(N);
   FFT::real_inverse_transform(&real_frequency_data[0], &imag_frequency_data[0], &real_time_data2[0], N);
 
+  T norm = nt2::real_fft_normalization_factor<T>(N);
   for(std::size_t i=0; i!=N; ++i)
-    NT2_TEST_ULP_EQUAL( real_time_data[i], real_time_data2[i], 1000 );
+    NT2_TEST_ULP_EQUAL( real_time_data[i], real_time_data2[i] * norm, 1000 );
 }
