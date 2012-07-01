@@ -20,6 +20,7 @@
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/vector_c.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/assert.hpp>
 #include <cstddef>
 #include <iterator>
 
@@ -28,10 +29,64 @@
 #include <boost/preprocessor/arithmetic/sub.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 namespace nt2
 {
+#ifdef NT2_OF_SIZE_USE_PROXY
+  template<class Sz>
+  struct of_size_proxy
+  {
+    of_size_proxy(Sz& sz_, std::size_t i_)
+     : value(sz_.data()+i_), i(i_)
+    {
+      BOOST_ASSERT_MSG( i < Sz::static_size, "Out of range access in size" );
+    }
+
+    operator std::size_t const&() const
+    {
+      return *value;
+    }
+
+    of_size_proxy& operator=(std::size_t value_)
+    {
+      BOOST_ASSERT_MSG( static_value(i) == -1 || static_value(i) == value_, "Dimension in size different from static value" );
+      *value = value_;
+      return *this;
+    }
+
+    of_size_proxy& operator=(of_size_proxy const& other)
+    {
+      return *this = static_cast<std::size_t>(other);
+    }
+
+  private:
+    #define M1(z, n, t) case n: return boost::mpl::at_c<typename Sz::values_type, n>::type::value;
+    #define M0(z, n, t)                                                        \
+    static std::ptrdiff_t static_value(std::size_t i, boost::mpl::long_<n>)    \
+    {                                                                          \
+      switch(i)                                                                \
+      {                                                                        \
+        BOOST_PP_REPEAT(n, M1, ~)                                              \
+      }                                                                        \
+      return 0;                                                                \
+    }                                                                          \
+    /**/
+    BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
+    #undef M1
+    #undef M0
+
+    static std::ptrdiff_t static_value(std::size_t i)
+    {
+      return static_value(i, boost::mpl::long_<Sz::static_size>());
+    }
+
+    std::size_t* value;
+    std::size_t i;
+  };
+#endif
+
   namespace tag { struct of_size_; }
 
   //============================================================================
@@ -47,7 +102,11 @@ namespace nt2
     typedef boost::fusion::fusion_sequence_tag  tag;
 
     typedef std::size_t                           value_type;
+#ifdef NT2_OF_SIZE_USE_PROXY
+    typedef of_size_proxy<of_size_>               reference;
+#else
     typedef std::size_t&                          reference;
+#endif
     typedef std::size_t const&                    const_reference;
     typedef std::size_t*                          iterator;
     typedef std::size_t const*                    const_iterator;
@@ -228,8 +287,12 @@ namespace nt2
     static std::size_t size() { return static_size; }
     static bool empty()       { return false; }
 
-    reference       operator[](std::size_t i)       { return data_[i]; }
-    const_reference operator[](std::size_t i) const { return data_[i]; }
+#ifdef NT2_OF_SIZE_USE_PROXY
+    reference       operator[](std::size_t i)       { return reference(*this, i); }
+#else
+    reference       operator[](std::size_t i)       { return data_[i];            }
+#endif
+    const_reference operator[](std::size_t i) const { return data_[i];            }
 
     std::size_t*        data()       { return &data_[0]; }
     std::size_t const*  data() const { return &data_[0]; }

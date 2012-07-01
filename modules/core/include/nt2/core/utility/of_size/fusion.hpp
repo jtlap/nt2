@@ -89,7 +89,7 @@ namespace boost { namespace fusion { namespace extension
                                 , std::size_t&
                                 >::type               type;
 
-      static type call(Seq& seq) { return seq[Index::value]; }
+      static type call(Seq& seq) { return seq.data()[Index::value]; }
     };
 
     template<class Seq, class Index, std::ptrdiff_t N>
