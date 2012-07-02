@@ -404,7 +404,7 @@ namespace detail
         unsigned int const result_bits
         (
             reinterpret_cast<unsigned int const &>( value )
-                ^ 
+                ^
             reinterpret_cast<unsigned int const &>( flipper[ 0 ] )
         );
         return reinterpret_cast<float const &>( result_bits );
@@ -493,8 +493,8 @@ namespace detail
         template <typename Vector>
         static void __fastcall danielson_lanczos_8_in_place
         (
-            Vector & real0, 
-            Vector & imag0, 
+            Vector & real0,
+            Vector & imag0,
             Vector & real1,
             Vector & imag1
         );
@@ -728,8 +728,8 @@ private:
         template <typename FFTSizeExponent>
         result_type operator()( FFTSizeExponent ) const
         {
-            static std::size_t const P( FFTSizeExponent::value );
-            static std::size_t const N( 1 << P                 );
+            static std::size_t const P = FFTSizeExponent::value;
+            static std::size_t const N = 1 << P;
 
             using namespace detail;
 
@@ -770,8 +770,8 @@ private:
         template <typename FFTSizeExponent>
         void operator()( FFTSizeExponent ) const
         {
-            static std::size_t const P( FFTSizeExponent::value );
-            static std::size_t const N( 1 << P                 );
+            static std::size_t const P = FFTSizeExponent::value;
+            static std::size_t const N = 1 << P;
 
             transformer_t<Context>::operator()( typename Context::template complex_P<P>() );
 
@@ -798,8 +798,8 @@ private:
         template <typename FFTSizeExponent>
         void operator()( FFTSizeExponent ) const
         {
-            static std::size_t const P( FFTSizeExponent::value );
-            static std::size_t const N( 1 << P                 );
+            static std::size_t const P = FFTSizeExponent::value;
+            static std::size_t const N = 1 << P;
 
             /// \note The "switch real and imaginary parts" trick does not work
             /// with the separate() procedure so we must "swap back" the data
@@ -1137,7 +1137,7 @@ namespace detail
         reim_pair_t * BOOST_DISPATCH_RESTRICT const p_reim_pairs( reinterpret_cast<reim_pair_t *>( data ) );
 
         unsigned int const N     ( 1 << valid_bits );
-        unsigned int const halfn ( N / 2 );            // frequently used 'constants'    
+        unsigned int const halfn ( N / 2 );            // frequently used 'constants'
         unsigned int const quartn( N / 4 );
         unsigned int const nmin1 ( N - 1 );
 
@@ -1245,7 +1245,7 @@ namespace detail
             /// constant by reordering the operations (and in the end simply
             /// flipping the real instead of the imaginary part of the twiddle
             /// factor). Scaling by 0.5 (the half constant) is also
-            /// skipped/eliminated because it is/can be merged into the 
+            /// skipped/eliminated because it is/can be merged into the
             /// normalization factor.
             ///                               (27.06.2012.) (Domagoj Saric)
 
@@ -2090,12 +2090,12 @@ namespace detail
 // Sorensen in-place split-radix FFT for real values
 // data: array of doubles:
 // re(0),re(1),re(2),...,re(size-1)
-// 
+//
 // output:
 // re(0),re(1),re(2),...,re(size/2),im(size/2-1),...,im(1)
 // normalized by array length
 //
-// Source: 
+// Source:
 // Sorensen et al: Real-Valued Fast Fourier Transform Algorithms,
 // IEEE Trans. ASSP, ASSP-35, No. 6, June 1987
 
@@ -2128,7 +2128,7 @@ void realfft_split( float * BOOST_DISPATCH_RESTRICT data, unsigned const n )
     i0=0;
     id=4;
     do{
-        for (; i0<n4; i0+=id){ 
+        for (; i0<n4; i0+=id){
             i1=i0+1;
             t1=data[i0];
             data[i0]=t1+data[i1];
@@ -2149,7 +2149,7 @@ void realfft_split( float * BOOST_DISPATCH_RESTRICT data, unsigned const n )
         n8=n2>>3;
         i1=0;
         id=n2<<1;
-        do{ 
+        do{
             for (; i1<n; i1+=id){
                 i2=i1+n4;
                 i3=i2+n4;
@@ -2178,7 +2178,7 @@ void realfft_split( float * BOOST_DISPATCH_RESTRICT data, unsigned const n )
         float const e( static_cast<float>( 2 * M_PI / static_cast<int>( n2 ) ) );
         float       a( e );
         for ( unsigned j=2; j<=n8; j++ )
-        {  
+        {
             float cc1, cc3;
             float const ss1( sinecosine<small>( a  , cc1 ) );
             float const ss3( sinecosine<small>( 3*a, cc3 ) );
@@ -2186,7 +2186,7 @@ void realfft_split( float * BOOST_DISPATCH_RESTRICT data, unsigned const n )
             unsigned i=0;
             id=n2<<1;
             do{
-                for (; i<n; i+=id){  
+                for (; i<n; i+=id){
                     i1=i+j-1;
                     i2=i1+n4;
                     i3=i2+n4;
@@ -2237,14 +2237,14 @@ void irealfft_split(float *data,long n){
 
     n1=n-1;
     n2=n<<1;
-    for(k=n;k>2;k>>=1){  
+    for(k=n;k>2;k>>=1){
         id=n2;
         n2>>=1;
         n4=n2>>2;
         n8=n2>>3;
         e = (float)(2*M_PI/(n2));
         i1=0;
-        do{ 
+        do{
             for (; i1<n; i1+=id){
                 i2=i1+n4;
                 i3=i2+n4;
@@ -2272,7 +2272,7 @@ void irealfft_split(float *data,long n){
             id<<=1;
         } while ( i1<n1 );
         a=e;
-        for (j=2; j<=n8; j++){  
+        for (j=2; j<=n8; j++){
             float cc1, cc3;
             float const ss1( sinecosine<small>( a  , cc1 ) );
             float const ss3( sinecosine<small>( 3*a, cc3 ) );
@@ -2280,7 +2280,7 @@ void irealfft_split(float *data,long n){
             i=0;
             id=n2<<1;
             do{
-                for (; i<n; i+=id){  
+                for (; i<n; i+=id){
                     i1=i+j-1;
                     i2=i1+n4;
                     i3=i2+n4;
@@ -2317,7 +2317,7 @@ void irealfft_split(float *data,long n){
     i0=0;
     id=4;
     do{
-        for (; i0<n1; i0+=id){ 
+        for (; i0<n1; i0+=id){
             i1=i0+1;
             t1=data[i0];
             data[i0]=t1+data[i1];
