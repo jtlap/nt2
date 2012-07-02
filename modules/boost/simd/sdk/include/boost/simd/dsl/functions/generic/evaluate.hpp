@@ -24,6 +24,7 @@ namespace boost { namespace simd { namespace ext
                             , (ast_<A0>)
                             )
   {
+    #if 1
     typedef typename dispatch::meta::call<tag::optimize_(A0&)>::type                 optimized;
     typedef typename dispatch::make_functor<tag::run_, A0>::type                     F;
     typedef typename dispatch::meta::call<tag::schedule_(optimized, F&)>::type       scheduled;
@@ -35,6 +36,22 @@ namespace boost { namespace simd { namespace ext
       F f;
       return f(schedule(optimize(a0), f));
     }
+    #elif 1
+    typedef typename dispatch::meta::call<tag::optimize_(A0&)>::type                 optimized;
+    typedef typename dispatch::meta::call<tag::run_(optimized)>::type                result_type;
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0) const
+    {
+      return run(optimize(a0));
+    }
+    #else
+    typedef typename dispatch::meta::call<tag::run_(A0&)>::type                      result_type;
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0) const
+    {
+      return run(a0);
+    }
+    #endif
   };
 } } }
 

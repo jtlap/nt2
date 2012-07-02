@@ -121,6 +121,6 @@ SET( SOURCES
 # List of test files for toolbox core.settings
    )
 if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
+#  set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
 endif()
 nt2_module_add_tests(core.functions.unit ${SOURCES})
