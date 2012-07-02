@@ -9,6 +9,8 @@
 #ifndef BOOST_DISPATCH_FUNCTOR_DETAILS_CALL_HPP_INCLUDED
 #define BOOST_DISPATCH_FUNCTOR_DETAILS_CALL_HPP_INCLUDED
 
+#include <boost/mpl/assert.hpp>
+
 // Forward declare the unknown_ tag
 namespace boost { namespace dispatch { namespace tag { struct unknown_;    } } }
 
@@ -30,6 +32,7 @@ namespace boost { namespace dispatch { namespace meta
   struct implement<tag::unknown_, Site, Dummy>
   {
     //typedef BOOST_DISPATCH_UNSUPPORTED_FUNCTION_CALL<Dummy, Site> result_type;
+    //BOOST_MPL_ASSERT_MSG(0, BOOST_DISPATCH_UNSUPPORTED_FUNCTION_CALL, (Dummy, Site));
   };
 } } }
 
