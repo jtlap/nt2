@@ -37,8 +37,7 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::proto::result_of::value<T>::value_type value;
     typedef typename boost::mpl::if_< boost::is_reference<value>, typename boost::remove_const<T>::type, T&>::type type;
-    typedef typename boost::dispatch::meta::as_ref<type>::type type0;
-    static type0 call(T& t)
+    static T& call(T& t)
     {
       return t;
     }
