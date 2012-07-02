@@ -56,7 +56,6 @@ NT2_TEST_CASE( semantic_of )
                               >
                       )
                     );
-  nt2::display_type( nt2::tie(f,d2) );
   NT2_TEST_EXPR_TYPE( nt2::tie(f,d2)
                     , semantic_of<_>
                     , (vector2< container<float,settings()>&
