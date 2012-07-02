@@ -17,6 +17,10 @@
 #  undef BOOST_SIMD_HAS_SSE2_SUPPORT
 #endif
 
+#if defined(BOOST_SIMD_HAS_SSE2_SUPPORT) && !defined(BOOST_SIMD_HAS_SSE_SUPPORT)
+#  define BOOST_SIMD_HAS_SSE_SUPPORT
+#endif
+
 #if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_SSE2_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
