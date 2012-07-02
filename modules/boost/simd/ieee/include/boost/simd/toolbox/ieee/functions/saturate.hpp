@@ -23,12 +23,12 @@
  * but the value returned is of type A0
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/saturate.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,15 +41,15 @@
  * \endcode
  *
  * \param a0 the unique parameter of saturate
- * 
+ *
  * \param T template parameter of saturate
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -57,14 +57,30 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag saturate_ of functor saturate 
+     * \brief Define the tag saturate_ of functor saturate
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
-    template <class T>
-    struct saturate_ : ext::elementwise_<saturate_<T> > { typedef ext::elementwise_<saturate_<T> > parent; };
+    struct saturate_ : ext::elementwise_<saturate_>
+    {
+      typedef ext::elementwise_<saturate_> parent;
+    };
   }
 
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::saturate_<A0>, saturate, (A1 const&), 2)
+  // Explicit version : saturate(x, class_)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::saturate_, saturate, 2)
+
+  // Implicit version : saturate<T>(x)
+  template<class T,class A0> BOOST_FORCEINLINE
+  typename boost::dispatch::meta::
+                  call< tag::saturate_( A0 const&
+                                      , boost::dispatch::meta::as_<T>
+                                      )
+                      >::type
+  saturate(A0 const& a0)
+  {
+    typename boost::dispatch::make_functor<tag::saturate_, A0>::type callee;
+    return callee(a0,boost::dispatch::meta::as_<T>());
+  }
 } }
 
 #endif

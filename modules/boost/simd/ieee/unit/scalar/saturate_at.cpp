@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/03/2011
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/saturate_at.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -22,10 +22,8 @@
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 
-
 NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
   using boost::simd::saturate_at;
   using boost::simd::tag::saturate_at_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -36,9 +34,9 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -54,7 +52,7 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( saturate_at_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::saturate_at;
   using boost::simd::tag::saturate_at_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -65,9 +63,9 @@ NT2_TEST_CASE_TPL ( saturate_at_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYP
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

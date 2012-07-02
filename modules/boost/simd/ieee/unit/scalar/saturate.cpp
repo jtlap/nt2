@@ -1,198 +1,68 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 boost.simd.ieee toolbox - saturate/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 20/03/2011
-/// 
-#include <boost/simd/toolbox/ieee/include/functions/saturate.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/scalar/saturate.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/include/constants/valmin.hpp> 
+#include <boost/simd/include/constants/valmin.hpp>
 
-
-NT2_TEST_CASE_TPL ( saturate_unsigned_int16,  (int16_t))
+NT2_TEST_CASE_TPL ( saturate_small
+                  , (boost::int8_t)(boost::int16_t)(boost::int32_t)
+                    (boost::uint8_t)(boost::uint16_t)(boost::uint32_t)
+                  )
 {
-  
-   using boost::simd::saturate;
-   using boost::simd::tag::saturate_;
-   using boost::simd::Valmax;
-   using boost::simd::Valmin;
-  NT2_TEST_ULP_EQUAL(1,           saturate<T>(1ull        ), 0);
-  NT2_TEST_ULP_EQUAL(2,           saturate<T>(2ull        ), 0);
-  NT2_TEST_ULP_EQUAL(6,           saturate<T>(6ull        ), 0);
-  NT2_TEST_ULP_EQUAL(24,          saturate<T>(24ull       ), 0);
-  NT2_TEST_ULP_EQUAL(120,         saturate<T>(120ull      ), 0); 
-  NT2_TEST_ULP_EQUAL(720,         saturate<T>(720ull      ), 0);
-  NT2_TEST_ULP_EQUAL(5040,        saturate<T>(5040ull     ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(40320ull    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(362880ull   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(3628800ull  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(39916800ull ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(479001600ull), 0);
+  using boost::simd::Zero;
+  using boost::simd::Valmax;
+  using boost::simd::Valmin;
+  using boost::simd::saturate;
 
-  NT2_TEST_ULP_EQUAL(1,           saturate<T>(1ll        ), 0);
-  NT2_TEST_ULP_EQUAL(2,           saturate<T>(2ll        ), 0);
-  NT2_TEST_ULP_EQUAL(6,           saturate<T>(6ll        ), 0);
-  NT2_TEST_ULP_EQUAL(24,          saturate<T>(24ll       ), 0);
-  NT2_TEST_ULP_EQUAL(120,         saturate<T>(120ll      ), 0); 
-  NT2_TEST_ULP_EQUAL(720,         saturate<T>(720ll      ), 0);
-  NT2_TEST_ULP_EQUAL(5040,        saturate<T>(5040ll     ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(40320ll    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(362880ll   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(3628800ll  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(39916800ll ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(479001600ll), 0);
+  typedef typename boost::dispatch::meta::upgrade<T,signed>::type   signed_t;
+  typedef typename boost::dispatch::meta::upgrade<T,unsigned>::type usigned_t;
 
-  NT2_TEST_ULP_EQUAL(-1,           saturate<T>(-1ll        ), 0);
-  NT2_TEST_ULP_EQUAL(-2,           saturate<T>(-2ll        ), 0);
-  NT2_TEST_ULP_EQUAL(-6,           saturate<T>(-6ll        ), 0);
-  NT2_TEST_ULP_EQUAL(-24,          saturate<T>(-24ll       ), 0);
-  NT2_TEST_ULP_EQUAL(-120,         saturate<T>(-120ll      ), 0); 
-  NT2_TEST_ULP_EQUAL(-720,         saturate<T>(-720ll      ), 0);
-  NT2_TEST_ULP_EQUAL(-5040,        saturate<T>(-5040ll     ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-40320ll    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-362880ll   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-3628800ll  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-39916800ll ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-479001600ll), 0);
-} // end of test for unsigned_int_
+  NT2_TEST_EQUAL( saturate<T>( signed_t(Valmin<T>())-1 )  , signed_t(Valmin<T>()) );
+  NT2_TEST_EQUAL( saturate<T>( signed_t(Valmin<T>()) )    , signed_t(Valmin<T>()) );
+  NT2_TEST_EQUAL( saturate<T>( Zero<signed_t>() )         , Zero<signed_t>()      );
+  NT2_TEST_EQUAL( saturate<T>( signed_t(Valmax<T>()) )    , signed_t(Valmax<T>()) );
+  NT2_TEST_EQUAL( saturate<T>( signed_t(Valmax<T>()) + 1) , signed_t(Valmax<T>()) );
 
-NT2_TEST_CASE_TPL ( saturate_unsigned_uint16,  (uint16_t))
+  NT2_TEST_EQUAL( saturate<T>( Zero<usigned_t>() )         , Zero<usigned_t>()        );
+  NT2_TEST_EQUAL( saturate<T>( usigned_t(Valmax<T>()) )    , usigned_t(Valmax<T>())   );
+  NT2_TEST_EQUAL( saturate<T>( usigned_t(Valmax<T>()) + 1) , usigned_t(Valmax<T>())   );
+}
+
+NT2_TEST_CASE_TPL ( saturate_large
+                  , (boost::int8_t)(boost::int16_t)(boost::int32_t)
+                    (boost::uint8_t)(boost::uint16_t)(boost::uint32_t)
+                  )
 {
-  
-   using boost::simd::saturate;
-   using boost::simd::tag::saturate_;
-   using boost::simd::Valmax; 
-  NT2_TEST_ULP_EQUAL(1,           saturate<T>(1ull        ), 0);
-  NT2_TEST_ULP_EQUAL(2,           saturate<T>(2ull        ), 0);
-  NT2_TEST_ULP_EQUAL(6,           saturate<T>(6ull        ), 0);
-  NT2_TEST_ULP_EQUAL(24,          saturate<T>(24ull       ), 0);
-  NT2_TEST_ULP_EQUAL(120,         saturate<T>(120ull      ), 0); 
-  NT2_TEST_ULP_EQUAL(720,         saturate<T>(720ull      ), 0);
-  NT2_TEST_ULP_EQUAL(5040,        saturate<T>(5040ull     ), 0);
-  NT2_TEST_ULP_EQUAL(40320,       saturate<T>(40320ull    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(362880ull   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(3628800ull  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(39916800ull ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(479001600ull), 0);
+  using boost::simd::Zero;
+  using boost::simd::Valmax;
+  using boost::simd::Valmin;
+  using boost::simd::saturate;
+  typedef boost::uint64_t u_t;
+  typedef boost::int64_t  s_t;
 
-  NT2_TEST_ULP_EQUAL(1,           saturate<T>(1ll        ), 0);
-  NT2_TEST_ULP_EQUAL(2,           saturate<T>(2ll        ), 0);
-  NT2_TEST_ULP_EQUAL(6,           saturate<T>(6ll        ), 0);
-  NT2_TEST_ULP_EQUAL(24,          saturate<T>(24ll       ), 0);
-  NT2_TEST_ULP_EQUAL(120,         saturate<T>(120ll      ), 0); 
-  NT2_TEST_ULP_EQUAL(720,         saturate<T>(720ll      ), 0);
-  NT2_TEST_ULP_EQUAL(5040,        saturate<T>(5040ll     ), 0);
-  NT2_TEST_ULP_EQUAL(40320,       saturate<T>(40320ll    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(362880ll   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(3628800ll  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(39916800ll ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(479001600ll), 0);
+  NT2_TEST_EQUAL( saturate<s_t>( Valmin<T>()) , Valmin<T>() );
+  NT2_TEST_EQUAL( saturate<s_t>( Zero<T>()  ) , Zero<T>()   );
+  NT2_TEST_EQUAL( saturate<s_t>( Valmax<T>()) , Valmax<T>() );
+  NT2_TEST_EQUAL( saturate<u_t>( Valmin<T>()) , Valmin<T>() );
+  NT2_TEST_EQUAL( saturate<u_t>( Zero<T>()  ) , Zero<T>()   );
+  NT2_TEST_EQUAL( saturate<u_t>( Valmax<T>()) , Valmax<T>() );
 
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( saturate_unsigned_int8,  (int8_t))
-{
-  
-   using boost::simd::saturate;
-   using boost::simd::tag::saturate_;
-   using boost::simd::Valmax;
-   using boost::simd::Valmin;
-  NT2_TEST_ULP_EQUAL(1,           saturate<T>(1ull        ), 0);
-  NT2_TEST_ULP_EQUAL(2,           saturate<T>(2ull        ), 0);
-  NT2_TEST_ULP_EQUAL(6,           saturate<T>(6ull        ), 0);
-  NT2_TEST_ULP_EQUAL(24,          saturate<T>(24ull       ), 0);
-  NT2_TEST_ULP_EQUAL(120,         saturate<T>(120ull      ), 0); 
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(720ull      ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(5040ull     ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(40320ull    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(362880ull   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(3628800ull  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(39916800ull ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(479001600ull), 0);
-
-  NT2_TEST_ULP_EQUAL(1,           saturate<T>(1ll        ), 0);
-  NT2_TEST_ULP_EQUAL(2,           saturate<T>(2ll        ), 0);
-  NT2_TEST_ULP_EQUAL(6,           saturate<T>(6ll        ), 0);
-  NT2_TEST_ULP_EQUAL(24,          saturate<T>(24ll       ), 0);
-  NT2_TEST_ULP_EQUAL(120,         saturate<T>(120ll      ), 0); 
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(720ll      ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(5040ll     ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(40320ll    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(362880ll   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(3628800ll  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(39916800ll ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(479001600ll), 0);
-
-  NT2_TEST_ULP_EQUAL(-1,           saturate<T>(-1ll        ), 0);
-  NT2_TEST_ULP_EQUAL(-2,           saturate<T>(-2ll        ), 0);
-  NT2_TEST_ULP_EQUAL(-6,           saturate<T>(-6ll        ), 0);
-  NT2_TEST_ULP_EQUAL(-24,          saturate<T>(-24ll       ), 0);
-  NT2_TEST_ULP_EQUAL(-120,         saturate<T>(-120ll      ), 0); 
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-720ll      ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-5040ll     ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-40320ll    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-362880ll   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-3628800ll  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-39916800ll ), 0);
-  NT2_TEST_ULP_EQUAL(Valmin<T>(),  saturate<T>(-479001600ll), 0);
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( saturate_unsigned_uint8,  (uint8_t))
-{
-  
-   using boost::simd::saturate;
-   using boost::simd::tag::saturate_;
-   using boost::simd::Valmax; 
-  NT2_TEST_ULP_EQUAL(1,           saturate<T>(1ull        ), 0);
-  NT2_TEST_ULP_EQUAL(2,           saturate<T>(2ull        ), 0);
-  NT2_TEST_ULP_EQUAL(6,           saturate<T>(6ull        ), 0);
-  NT2_TEST_ULP_EQUAL(24,          saturate<T>(24ull       ), 0);
-  NT2_TEST_ULP_EQUAL(120,         saturate<T>(120ull      ), 0); 
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(720ull      ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(5040ull     ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(40320ull    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(362880ull   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(3628800ull  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(39916800ull ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(479001600ull), 0);
-
-  NT2_TEST_ULP_EQUAL(1,           saturate<T>(1ll        ), 0);
-  NT2_TEST_ULP_EQUAL(2,           saturate<T>(2ll        ), 0);
-  NT2_TEST_ULP_EQUAL(6,           saturate<T>(6ll        ), 0);
-  NT2_TEST_ULP_EQUAL(24,          saturate<T>(24ll       ), 0);
-  NT2_TEST_ULP_EQUAL(120,         saturate<T>(120ll      ), 0); 
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(720ll      ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(5040ll     ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(40320ll    ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(362880ll   ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(3628800ll  ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(39916800ll ), 0);
-  NT2_TEST_ULP_EQUAL(Valmax<T>(), saturate<T>(479001600ll), 0);
-
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-1ll        ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-2ll        ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-6ll        ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-24ll       ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-120ll      ), 0); 
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-720ll      ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-5040ll     ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-40320ll    ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-362880ll   ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-3628800ll  ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-39916800ll ), 0);
-  NT2_TEST_ULP_EQUAL(0, saturate<T>(-479001600ll), 0);
-} // end of test for unsigned_int_
+  NT2_TEST_EQUAL( saturate<s_t>( Zero<T>()  ) , Zero<T>()   );
+  NT2_TEST_EQUAL( saturate<s_t>( Valmax<T>()) , Valmax<T>() );
+  NT2_TEST_EQUAL( saturate<u_t>( Zero<T>()  ) , Zero<T>()   );
+  NT2_TEST_EQUAL( saturate<u_t>( Valmax<T>()) , Valmax<T>() );
+}
