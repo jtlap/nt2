@@ -11,6 +11,9 @@
 
 #include <nt2/core/functions/tie.hpp>
 #include <nt2/core/container/dsl/domain.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_reference.hpp>
+#include <boost/type_traits/add_reference.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -19,37 +22,86 @@
 
 namespace nt2 { namespace ext
 {
+  template<class T, long Arity = T::proto_arity_c>
+  struct as_child_ref_expr
+  {
+    typedef T type;
+    static type& call(T& t)
+    {
+      return t;
+    }
+  };
 
-#define M0(z,n,t) boost::ref(boost::proto::as_child(a##n))
+  template<class T>
+  struct as_child_ref_expr<T, 0l>
+  {
+    typedef typename boost::proto::result_of::value<T>::value_type value;
+    typedef typename boost::mpl::if_< boost::is_reference<value>, T, T&>::type type0;
+    typedef typename boost::add_reference<type0>::type type;
+    static type call(T& t)
+    {
+      return t;
+    }
+  };
+
+  template<class T, class Enable = void>
+  struct as_child_ref
+  {
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<T&> > expr;
+    typedef nt2::container::expression<expr, T&, boost::proto::is_proto_expr> type;
+    static type call(T& t)
+    {
+      return type(expr::make(t));
+    }
+  };
+
+  template<class T>
+  struct as_child_ref<T, typename T::proto_is_expr_>
+       : as_child_ref_expr<T>
+  {
+  };
+
 #define M1(z,n,t) (A##n)
-#define M2(z,n,t) (unspecified_<A##n>) // FIXME: ambiguous with generic_ / common
-#define M3(z,n,t) typename boost::proto::result_of::as_child<A##n>::type&
+#define M2(z,n,t) (unspecified_<A##n>)
+#define M2b(z,n,t) (generic_< unspecified_<A##n> >)
+#define M3(z,n,t) typename ext::as_child_ref<A##n>::type
+#define M4(z,n,t) ext::as_child_ref<A##n>::call(a##n)
 
-#define M4(z,n,t)                                                                 \
-NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tie_, tag::cpu_                             \
-                          , BOOST_PP_REPEAT(n,M1,~)                               \
-                          , BOOST_PP_REPEAT(n,M2,~)                               \
-                          )                                                       \
-{                                                                                 \
-  typedef typename  boost::proto::result_of::make_expr                            \
-                    < nt2::tag::tie_, container::domain                           \
-                    , BOOST_PP_ENUM(n,M3,~)                                       \
-                    >::type                       result_type;                    \
-                                                                                  \
-  BOOST_FORCEINLINE result_type                                                   \
-  operator()(BOOST_PP_ENUM_BINARY_PARAMS(n,A,& a)) const                          \
-  {                                                                               \
-    return  boost::proto::                                                        \
-            make_expr<nt2::tag::tie_, container::domain>(BOOST_PP_ENUM(n,M0,~));  \
-  }                                                                               \
-};                                                                                \
+#define M0(z,n,t)                                                              \
+NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tie_, BOOST_PP_TUPLE_ELEM(2,0,t)         \
+                          , BOOST_PP_REPEAT(n,M1,~)                            \
+                          , BOOST_PP_REPEAT(n,BOOST_PP_TUPLE_ELEM(2,1,t),~)    \
+                          )                                                    \
+{                                                                              \
+  typedef boost::proto::                                                       \
+          basic_expr< nt2::tag::tie_                                           \
+                    , boost::proto::list##n<BOOST_PP_ENUM(n, M3, ~)>           \
+                    , n                                                        \
+                    > expr;                                                    \
+  typedef nt2::container::ext::                                                \
+          generator< nt2::tag::tie_                                            \
+                   , nt2::container::domain                                    \
+                   , n                                                         \
+                   , expr const                                                \
+                   > generator;                                                \
+  typedef typename generator::result_type result_type;                         \
+                                                                               \
+  BOOST_FORCEINLINE result_type                                                \
+  operator()(BOOST_PP_ENUM_BINARY_PARAMS(n,A,& a)) const                       \
+  {                                                                            \
+    expr e = { BOOST_PP_ENUM(n, M4, ~) };                                      \
+    return result_type(e);                                                     \
+  }                                                                            \
+};                                                                             \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M4,~)
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PROTO_MAX_ARITY,M0,(tag::formal_, M2))
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PROTO_MAX_ARITY,M0,(tag::cpu_, M2b))
 
 #undef M0
 #undef M1
 #undef M2
+#undef M2b
 #undef M3
 #undef M4
 } }

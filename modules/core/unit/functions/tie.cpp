@@ -28,8 +28,8 @@ NT2_TEST_CASE( semantic_of )
   using boost::fusion::vector4;
   using boost::dispatch::meta::semantic_of;
 
-  table<double> d;
-  table<float>  f;
+  table<double> d; double d2;
+  table<float>  f; float f2;
   table<short>  s;
   table<char>   c;
 
@@ -37,10 +37,36 @@ NT2_TEST_CASE( semantic_of )
                     , semantic_of<_>
                     , (vector1< container<double,settings()>& >)
                     );
+  NT2_TEST_EXPR_TYPE( nt2::tie(d2)
+                    , semantic_of<_>
+                    , (vector1< double& >)
+                    );
 
   NT2_TEST_EXPR_TYPE( nt2::tie(f,d)
                     , semantic_of<_>
                     , (vector2< container<float,settings()>&
+                              , container<double,settings()>&
+                              >
+                      )
+                    );
+  NT2_TEST_EXPR_TYPE( nt2::tie(f2,d2)
+                    , semantic_of<_>
+                    , (vector2< float&
+                              , double&
+                              >
+                      )
+                    );
+  nt2::display_type( nt2::tie(f,d2) );
+  NT2_TEST_EXPR_TYPE( nt2::tie(f,d2)
+                    , semantic_of<_>
+                    , (vector2< container<float,settings()>&
+                              , double&
+                              >
+                      )
+                    );
+  NT2_TEST_EXPR_TYPE( nt2::tie(f2,d)
+                    , semantic_of<_>
+                    , (vector2< float&
                               , container<double,settings()>&
                               >
                       )
