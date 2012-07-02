@@ -28,16 +28,14 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void                                                     result_type;
-    typedef typename boost::proto::result_of::child_c<A1&,0>::type  child0;
-    typedef typename boost::dispatch::meta::
-             terminal_of< typename boost::dispatch::meta::
-                         semantic_of<child0>::type
-                       >::type                                          dest0_t;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type   child0;
+    typedef typename meta::call<tag::run_(child0)>::type             result_t;
+    typedef typename boost::add_reference<result_t>::type            result;
     
-      typedef typename meta::
-            call< nt2::tag::
-                  factorization::chol_(child0,char,nt2::details::in_place_)
-                >::type                                                  fact_t;
+    typedef typename meta::
+            call< nt2::tag::factorization::
+                  chol_(result, char, nt2::details::in_place_)
+                >::type                                              fact_t;
  
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
@@ -46,14 +44,16 @@ namespace nt2 { namespace ext
       char ul = uplo(a0, N0() );
 
       // Copy data in output first
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
+      result_t result = nt2::run(boost::proto::child_c<0>(a1));
+      result = boost::proto::child_c<0>(a0);
 
       // Factorize in place
-      fact_t f = factorization::chol(boost::proto::child_c<0>(a1),ul,in_place_);
+      fact_t f = factorization::chol(result,ul,in_place_);
 
       // Retrieve correct version with minimum amount of (re)allocation
-      if(ul == 'U') boost::proto::child_c<0>(a1) = f.upper_result();
-      else          boost::proto::child_c<0>(a1) = f.lower_result();
+      if(ul == 'U') result = f.upper_result();
+      else          result = f.lower_result();
+      boost::proto::child_c<0>(a1) = result;
 
       // Retrieve status
       status(a1, N1(), f.status());
