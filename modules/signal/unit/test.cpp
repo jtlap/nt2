@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2012          Domagoj Saric, Little Endian Ltd.
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -17,7 +18,14 @@
 #include <boost/simd/sdk/memory/allocator.hpp>
 
 #include <boost/array.hpp>
+#include <boost/assert.hpp>
 #include <boost/foreach.hpp>
+
+#ifdef __APPLE__
+    // FIXME: this requires "-framework Accelerate" to be added to linker flags
+    #include "Accelerate/Accelerate.h" //vDSP.h
+#endif // __APPLE__
+
 
 NT2_TEST_CASE( test )
 {
@@ -49,6 +57,31 @@ NT2_TEST_CASE( test )
             NT2_TEST_ULP_EQUAL( real_data[ i ], original_real_data[ i ], 1000 );
             NT2_TEST_ULP_EQUAL( imag_data[ i ], original_imag_data[ i ], 1000 );
         }
+
+
+    #ifdef __APPLE__
+        { // Accelerate framework FFT
+            real_data = original_real_data;
+            imag_data = original_imag_data;
+
+            FFTSetup const fft_instance( vDSP_create_fftsetup( boost::static_log2<N>::value, kFFTRadix2 ) );
+            BOOST_ASSERT( fft_instance );
+            DSPSplitComplex complex_data = { &real_data[ 0 ], &imag_data[ 0 ] };
+            vDSP_fft_zip( fft_instance, &complex_data, 1, boost::static_log2<N>::value, FFT_FORWARD );
+            vDSP_fft_zip( fft_instance, &complex_data, 1, boost::static_log2<N>::value, FFT_INVERSE );
+            vDSP_destroy_fftsetup( fft_instance );
+
+            T const norm( static_cast<T>( 1 ) / N );
+            BOOST_FOREACH( T & scalar, real_data ) { scalar *= norm; }
+            BOOST_FOREACH( T & scalar, imag_data ) { scalar *= norm; }
+
+            for ( std::size_t i( 0 ); i != N; ++i )
+            {
+                NT2_TEST_ULP_EQUAL( real_data[ i ], original_real_data[ i ], 1000 );
+                NT2_TEST_ULP_EQUAL( imag_data[ i ], original_imag_data[ i ], 1000 );
+            }
+        }
+    #endif // __APPLE__
     }
 
     // Test real transform(s):
@@ -63,10 +96,35 @@ NT2_TEST_CASE( test )
         aligned_array real_time_data2;
         FFT::real_inverse_transform( &real_frequency_data[ 0 ], &imag_frequency_data[ 0 ], &real_time_data2[ 0 ], N );
 
-        T const norm( nt2::real_fft_normalization_factor<T>(N) );
+        T const norm( nt2::real_fft_normalization_factor<T>( N ) );
         BOOST_FOREACH( T & scalar, real_time_data2 ) { scalar *= norm; }
 
         for ( std::size_t i( 0 ); i != N; ++i )
             NT2_TEST_ULP_EQUAL( real_time_data[ i ], real_time_data2[ i ], 1000 );
+
+
+    #ifdef __APPLE__
+        { // Accelerate framework FFT
+            FFTSetup const fft_instance( vDSP_create_fftsetup( boost::static_log2<N>::value, kFFTRadix2 ) );
+            BOOST_ASSERT( fft_instance );
+            aligned_array split_real_data_storage;
+            DSPSplitComplex split_real_data =
+            {
+                &split_real_data_storage[ 0     ],
+                &split_real_data_storage[ N / 2 ]
+            };
+            vDSP_ctoz    ( reinterpret_cast<DSPComplex const *>( &real_time_data[ 0 ] ), 2, &split_real_data, 1, N / 2 );
+            vDSP_fft_zrip( fft_instance, &split_real_data, 1, boost::static_log2<N>::value, FFT_FORWARD );
+            vDSP_fft_zrip( fft_instance, &split_real_data, 1, boost::static_log2<N>::value, FFT_INVERSE );
+            vDSP_ztoc    ( &split_real_data, 1, reinterpret_cast<DSPComplex *>( &real_time_data2[ 0 ] ), 2, N / 2 );
+            vDSP_destroy_fftsetup( fft_instance );
+
+            T const norm( static_cast<T>( 1 ) / ( 2 * N ) );
+            BOOST_FOREACH( T & scalar, real_time_data2 ) { scalar *= norm; }
+
+            for ( std::size_t i( 0 ); i != N; ++i )
+                NT2_TEST_ULP_EQUAL( real_time_data[ i ], real_time_data2[ i ], 1000 );
+        }
+    #endif // __APPLE__
     }
 }
