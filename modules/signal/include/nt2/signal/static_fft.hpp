@@ -21,11 +21,21 @@
     #define __fastcall
 #endif
 
-#include <nt2/signal/twiddle_factors.hpp>
-
 #include <boost/control/switch.hpp>
 #include <boost/control/case.hpp>
 #include <boost/detail/endian.hpp>
+
+// FIXME: make the code work without those assumptions
+#include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/simd/sdk/memory/parameters.hpp>
+#undef BOOST_SIMD_CONFIG_ALIGNMENT
+#undef BOOST_SIMD_ARCH_ALIGNMENT
+#undef BOOST_SIMD_DEFAULT_EXTENSION
+#define BOOST_SIMD_CONFIG_ALIGNMENT 16
+#define BOOST_SIMD_ARCH_ALIGNMENT 16
+#define BOOST_SIMD_DEFAULT_EXTENSION boost::simd::tag::sse_
+
+#include <nt2/signal/twiddle_factors.hpp>
 
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
@@ -35,15 +45,6 @@
 
 #include <nt2/include/functions/scalar/log2.hpp>
 #include <nt2/include/functions/scalar/ffs.hpp>
-
-// FIXME: make the code work without those assumptions
-#include <boost/simd/sdk/simd/extensions.hpp>
-#undef BOOST_SIMD_CONFIG_ALIGNMENT
-#undef BOOST_SIMD_ARCH_ALIGNMENT
-#undef BOOST_SIMD_DEFAULT_EXTENSION
-#define BOOST_SIMD_CONFIG_ALIGNMENT 16
-#define BOOST_SIMD_ARCH_ALIGNMENT 16
-#define BOOST_SIMD_DEFAULT_EXTENSION boost::simd::tag::sse_
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/toolbox/constant/constants/half.hpp>
