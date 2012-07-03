@@ -1729,8 +1729,6 @@ namespace detail
             lower_r[ 1 ] = r1; lower_i[ 1 ] = i1;
             lower_r[ 2 ] = r2; lower_i[ 2 ] = i2;
             lower_r[ 3 ] = r3; lower_i[ 3 ] = i3;
-            vector_t & lower_r_out( (vector_t &)data.p_reals[ 0 ] );
-            vector_t & lower_i_out( (vector_t &)data.p_imags[ 0 ] );
             dif::danielson_lanczos_4<vector_t>
             (
                 lower_r,
