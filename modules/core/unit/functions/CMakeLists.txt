@@ -118,6 +118,7 @@ SET( SOURCES
     nansum.cpp
     nanmean.cpp
     nanasum2.cpp
+    sort.cpp
 # List of test files for toolbox core.settings
    )
 if(CMAKE_COMPILER_IS_GNUCXX)
