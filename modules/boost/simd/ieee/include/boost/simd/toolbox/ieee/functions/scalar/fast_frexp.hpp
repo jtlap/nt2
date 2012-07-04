@@ -21,19 +21,50 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< double_<A0> >)
                               (scalar_< double_<A0> >)
+                              (scalar_< int64_<A2> >)
+                            )
+  { 
+    typedef int result_type;
+    inline result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
+    {
+      int32_t tmp; 
+      a1 = ::frexp(a0, &tmp);
+      a2 = tmp; 
+      return 0; 
+    }
+  };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
+                            , (scalar_< single_<A0> >)
+                              (scalar_< single_<A0> >)
                               (scalar_< int32_<A2> >)
                             )
   { 
     typedef int result_type;
     inline result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
     {
-      a1 = ::frexp(a0, &a2);
+      int32_t tmp; 
+      a1 = ::frexpf(a0, &a2);
       return 0; 
     }
   };
-  
+   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< double_<A0> >)
+                              (scalar_< int64_<A2> >)
+                            )
+  {
+    typedef A0 result_type;    
+    inline result_type operator()(A0 const& a0,A2 & a2) const
+    {
+      typedef typename dispatch::meta::as_integer<A0, signed>::type      int_type;
+      A0 a1; 
+      boost::simd::fast_frexp(a0, a1, a2);
+      return a1; 
+    }
+  };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A2)
+                            , (scalar_< single_<A0> >)
                               (scalar_< int32_<A2> >)
                             )
   {
