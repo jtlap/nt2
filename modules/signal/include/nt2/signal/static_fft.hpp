@@ -14,11 +14,32 @@
     #pragma inline_recursion( on )
 #endif // _MSC_VER
 
-#define LE_NOTHROWNOALIAS
-#define LE_ASSUME(x)
 
-#ifndef _MSC_VER
-    #define __fastcall
+#if defined( _MSC_VER )
+
+    #define BOOST_NOTHROW_NOALIAS __declspec( nothrow noalias )
+    #define BOOST_FASTCALL __fastcall
+    #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken." ); __assume( condition )
+
+#elif defined( __GNUC__ )
+
+    #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow, pure  ))
+    #define BOOST_FASTCALL __attribute__(( regparm( 3 ), sseregparm ))
+
+    // http://en.chys.info/2010/07/counterpart-of-assume-in-gcc
+    // http://nondot.org/sabre/LLVMNotes/BuiltinUnreachable.txt
+    #if ( __clang_major__ >= 2 ) || ( ( ( __GNUC__ * 10 ) + __GNUC_MINOR__ ) >= 45 )
+        #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken." ); do { if ( !( condition ) ) __builtin_unreachable(); } while ( 0 )
+    #else
+        #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken." );
+    #endif
+
+#else
+
+    #define BOOST_NOTHROW_NOALIAS
+    #define BOOST_FASTCALL
+    #define BOOST_ASSUME(x)
+
 #endif
 
 #include <boost/control/switch.hpp>
@@ -160,6 +181,7 @@ namespace nt2
 //   http://www.engineeringproductivitytools.com/stuff/T0001/PT10.HTM
 //   http://www.fftguru.com/fftguru.com.tutorial2.pdf
 //   http://www.katjaas.nl/realFFT/realFFT.html
+//   http://www.dspguide.com/ch12/1.htm
 //   http://www.ti.com/lit/an/spra291/spra291.pdf
 // - pure real
 //   http://scholarship.rice.edu/handle/1911/16187
@@ -249,6 +271,7 @@ namespace nt2
 //   http://www.eurasip.org/Proceedings/Eusipco/Eusipco2004/defevent/papers/cr1502.pdf
 
 // Code:
+// https://bitbucket.org/jpommier/pffft
 // http://www.jjj.de/fxt/#fxt
 // http://star-www.rl.ac.uk/star/docs/sun194.htx/node8.html
 // http://cr.yp.to/djbfft.html
@@ -383,7 +406,7 @@ namespace detail
     }
 
     BOOST_FORCEINLINE
-    float __fastcall flip_sign( float const value, flipper_t const flipper )
+    float BOOST_FASTCALL flip_sign( float const value, flipper_t const flipper )
     {
         // We expect the compiler to use SSE scalar math...
         __m128 const vector_result( _mm_xor_ps( _mm_set_ss( value ), flipper ) );
@@ -392,7 +415,7 @@ namespace detail
         return result;
     }
 
-    __m128 __fastcall flip_sign( __m128 const value, flipper_t const flipper )
+    __m128 BOOST_FASTCALL flip_sign( __m128 const value, flipper_t const flipper )
     {
         return _mm_xor_ps( value, flipper );
     }
@@ -400,7 +423,7 @@ namespace detail
     typedef boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> const & flipper_t;
 
     BOOST_FORCEINLINE
-    float __fastcall flip_sign( float const value, flipper_t const flipper )
+    float BOOST_FASTCALL flip_sign( float const value, flipper_t const flipper )
     {
         unsigned int const result_bits
         (
@@ -447,7 +470,7 @@ namespace detail
         typedef step_butterfly  second_step;
 
         template <class Vector>
-        static void __fastcall butterfly
+        static void BOOST_FASTCALL butterfly
         (
             Vector & r0, Vector & i0,
             Vector & r1, Vector & i1,
@@ -457,7 +480,7 @@ namespace detail
         );
 
         template <typename Vector>
-        static void __fastcall danielson_lanczos_4
+        static void BOOST_FASTCALL danielson_lanczos_4
         (
             Vector const & real_in ,
             Vector const & imag_in ,
@@ -473,7 +496,7 @@ namespace detail
         typedef step_decimation second_step;
 
         template <class Vector>
-        static void __fastcall butterfly
+        static void BOOST_FASTCALL butterfly
         (
             Vector & r0, Vector & i0,
             Vector & r1, Vector & i1,
@@ -483,7 +506,7 @@ namespace detail
         );
 
         template <typename Vector>
-        static void __fastcall danielson_lanczos_4
+        static void BOOST_FASTCALL danielson_lanczos_4
         (
             Vector const & real_in ,
             Vector const & imag_in ,
@@ -492,7 +515,7 @@ namespace detail
         );
 
         template <typename Vector>
-        static void __fastcall danielson_lanczos_8_in_place
+        static void BOOST_FASTCALL danielson_lanczos_8_in_place
         (
             Vector & real0,
             Vector & imag0,
@@ -618,7 +641,7 @@ namespace detail
 
     public: // data setup interface
         template <unsigned int valid_bits>
-        static void __fastcall scramble( vector_t * BOOST_DISPATCH_RESTRICT p_reals, vector_t * BOOST_DISPATCH_RESTRICT p_imags )
+        static void BOOST_FASTCALL scramble( vector_t * BOOST_DISPATCH_RESTRICT p_reals, vector_t * BOOST_DISPATCH_RESTRICT p_imags )
         {
             scramble<valid_bits>( p_reals->data(), p_imags->data() );
         }
@@ -631,15 +654,15 @@ namespace detail
 
     private:
         template <unsigned int valid_bits>
-        static void __fastcall scramble( scalar_t * BOOST_DISPATCH_RESTRICT p_reals, scalar_t * BOOST_DISPATCH_RESTRICT p_imags );
+        static void BOOST_FASTCALL scramble( scalar_t * BOOST_DISPATCH_RESTRICT p_reals, scalar_t * BOOST_DISPATCH_RESTRICT p_imags );
 
-        static void __fastcall separate
+        static void BOOST_FASTCALL separate
         (
             vector_t           * BOOST_DISPATCH_RESTRICT p_reals,
             vector_t           * BOOST_DISPATCH_RESTRICT p_imags,
             twiddles     const * BOOST_DISPATCH_RESTRICT p_twiddle_factors,
-            native_t                         twiddle_sign_flipper,
-            unsigned int                     N
+            native_t                                     twiddle_sign_flipper,
+            unsigned int                                 N
         );
 
         vector_t * BOOST_DISPATCH_RESTRICT reals() const { return reinterpret_cast<vector_t * BOOST_DISPATCH_RESTRICT>( p_reals_ ); }
@@ -648,7 +671,7 @@ namespace detail
         vector_t * BOOST_DISPATCH_RESTRICT element( char * BOOST_DISPATCH_RESTRICT const p_data, unsigned int const part ) const
         {
             char * BOOST_DISPATCH_RESTRICT const p_element( &p_data[ part << log2_N4_bytes_ ] );
-            LE_ASSUME( p_element );
+            BOOST_ASSUME( p_element );
             return reinterpret_cast<vector_t * BOOST_DISPATCH_RESTRICT>( p_element );
         }
 
@@ -840,7 +863,7 @@ public:
     {
         // Separate ("deinterleave") into even and odd parts ("emulated"
         // complex data):
-        vector_t const *             const p_time_data_end( detail::as_vector( const_cast<T *>( real_time_data + size ) ) );
+        vector_t const *                         const p_time_data_end( detail::as_vector( const_cast<T *>( real_time_data + size ) ) );
         vector_t const * BOOST_DISPATCH_RESTRICT       p_time_data    ( detail::as_vector( const_cast<T *>( real_time_data        ) ) );
         vector_t       * BOOST_DISPATCH_RESTRICT       p_reals        ( detail::as_vector(                  real_frequency_data     ) );
         vector_t       * BOOST_DISPATCH_RESTRICT       p_imags        ( detail::as_vector(                  imag_frequency_data     ) );
@@ -868,7 +891,7 @@ public:
         typedef detail::inplace_separated_context_t<T> context_t;
         do_transform( backward_real_transformer_t<context_t>( detail::as_vector( real_frequency_data ), detail::as_vector( imag_frequency_data ) ), size );
 
-        vector_t const *             const p_time_data_end( detail::as_vector( real_time_data + size ) );
+        vector_t const *                         const p_time_data_end( detail::as_vector( real_time_data + size ) );
         vector_t       * BOOST_DISPATCH_RESTRICT       p_time_data    ( detail::as_vector( real_time_data        ) );
         vector_t const * BOOST_DISPATCH_RESTRICT       p_reals        ( detail::as_vector( real_frequency_data   ) );
         vector_t const * BOOST_DISPATCH_RESTRICT       p_imags        ( detail::as_vector( imag_frequency_data   ) );
@@ -943,7 +966,7 @@ namespace detail
     };
 
     template <unsigned int valid_bits>
-    unsigned int __fastcall reverse_bits( unsigned int const value, boost::mpl::int_<1> /*number of bytes*/ )
+    unsigned int BOOST_FASTCALL reverse_bits( unsigned int const value, boost::mpl::int_<1> /*number of bytes*/ )
     {
         unsigned int const shift_correction( 8 - valid_bits );
         unsigned int const bit_reversed_value( bit_reverse_table[ value ] >> shift_correction );
@@ -951,7 +974,7 @@ namespace detail
     }
 
     template <unsigned int valid_bits>
-    unsigned int __fastcall reverse_bits( unsigned int const value, boost::mpl::int_<2> /*number of bytes*/ )
+    unsigned int BOOST_FASTCALL reverse_bits( unsigned int const value, boost::mpl::int_<2> /*number of bytes*/ )
     {
         unsigned int const shift_correction_lower(       16 - valid_bits   );
         unsigned int const shift_correction_upper( 8 - ( 16 - valid_bits ) );
@@ -965,10 +988,10 @@ namespace detail
     }
 
     BOOST_FORCEINLINE
-    unsigned int __fastcall reverse_bits( unsigned int const value, unsigned int const valid_bits )
+    unsigned int BOOST_FASTCALL reverse_bits( unsigned int const value, unsigned int const valid_bits )
     {
         // Only 16 bit numbers supported (for efficiency):
-        LE_ASSUME( valid_bits <= 16 );
+        BOOST_ASSUME( valid_bits <= 16 );
 
         typedef unsigned char bytes[ sizeof( value ) ];
         bytes const & input_bytes( reinterpret_cast<bytes const &>( value ) );
@@ -1001,41 +1024,6 @@ namespace detail
         return corrected_bit_reversed_value;
     }
 
-
-    ////////////////////////////////////////////////////////////////////////////
-    ///
-    /// context implementations
-    ///
-    ////////////////////////////////////////////////////////////////////////////
-
-    /// \todo
-    ///  - better algorithm (conjugate-pair split radix, pure real...)
-    ///  - use FMA, SSE3 complex math and AVX gather/scatter constructs
-    ///    http://www.masm32.com/board/index.php?topic=15955.0
-    ///  - vectorized scrambling if possible
-    ///  - merge separate, scramble and (de/re)interleave functions/passes
-    ///  - in-place complete (de)interleave algorithm
-    ///    http://stackoverflow.com/questions/7780279/de-interleave-an-array-in-place
-    ///    http://groups.google.com/group/comp.programming/browse_thread/thread/b335648ee7e3d065/4820cf6cd9ef6b2c?#4820cf6cd9ef6b2c
-    ///    http://www.dsprelated.com/groups/audiodsp/show/700.php
-    ///    http://arxiv.org/abs/0805.1598
-    ///    http://stackoverflow.com/questions/1777901/array-interleaving-problem
-    ///  - out-of-place scrambless algorithm
-    ///  - in-place scrambless algorithm
-    ///  - zero-padded FFT
-    ///  - sliding FFT
-    ///  - FFT with integrated/optimized-for WOLA (avoiding redundant recalculations)
-    ///  - zero phase FFT (integrate Matlab's fftshift())
-    ///  - polar FFT
-    ///    http://www.cs.technion.ac.il/~elad/publications/journals/2004/30_PolarFFT_ACHA.pdf
-    ///    http://www-user.tu-chemnitz.de/~potts/paper/polarfft.pdf
-    ///    http://www.cs.tau.ac.il/~amir1/PS/Polar_Paper_New.pdf
-    ///                                       (15.02.2012.) (Domagoj Saric)
-
-
-    ////////////////////////////////////////////////////////////////////////////
-    // inplace_separated_context_t
-    ////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////////////////////////////////////////
     //
@@ -1073,8 +1061,8 @@ namespace detail
     (
         float        * BOOST_DISPATCH_RESTRICT const p_reals,
         float        * BOOST_DISPATCH_RESTRICT const p_imags,
-        unsigned int               const index,
-        unsigned int               const mirror_index
+        unsigned int                           const index,
+        unsigned int                           const mirror_index
     )
     {
         float * BOOST_DISPATCH_RESTRICT const p_left_real ( &p_reals[ index        ] );
@@ -1191,6 +1179,43 @@ namespace detail
     }
 
 
+    ////////////////////////////////////////////////////////////////////////////
+    ///
+    /// context implementations
+    ///
+    ////////////////////////////////////////////////////////////////////////////
+
+    /// \todo
+    ///  - better algorithm (conjugate-pair split radix, pure real...)
+    ///  - out-of-place scrambless algorithm
+    ///  - in-place scrambless algorithm
+    ///  - use FMA, SSE3 complex math and AVX gather/scatter constructs
+    ///    http://www.masm32.com/board/index.php?topic=15955.0
+    ///  - vectorized scrambling if possible
+    ///  - merge separate, scramble and (de/re)interleave functions/passes
+    ///  - in-place complete (de)interleave algorithm
+    ///    http://stackoverflow.com/questions/7780279/de-interleave-an-array-in-place
+    ///    http://groups.google.com/group/comp.programming/browse_thread/thread/b335648ee7e3d065/4820cf6cd9ef6b2c?#4820cf6cd9ef6b2c
+    ///    http://www.dsprelated.com/groups/audiodsp/show/700.php
+    ///    http://arxiv.org/abs/0805.1598
+    ///    http://stackoverflow.com/questions/1777901/array-interleaving-problem
+    ///  - zero-padded FFT
+    ///  - sliding FFT
+    ///  - FFT with integrated/optimized-for WOLA (avoiding redundant recalculations)
+    ///  - zero phase FFT (integrate Matlab's fftshift())
+    ///  - polar FFT
+    ///    http://www.cs.technion.ac.il/~elad/publications/journals/2004/30_PolarFFT_ACHA.pdf
+    ///    http://www-user.tu-chemnitz.de/~potts/paper/polarfft.pdf
+    ///    http://www.cs.tau.ac.il/~amir1/PS/Polar_Paper_New.pdf
+    ///  - backend support (related Eigen discussion:
+    ///    http://listengine.tuxfamily.org/lists.tuxfamily.org/eigen/2012/04/msg00011.html)
+    ///                                       (04.07.2012.) (Domagoj Saric)
+
+
+    ////////////////////////////////////////////////////////////////////////////
+    // inplace_separated_context_t
+    ////////////////////////////////////////////////////////////////////////////
+
     template <typename T>
     template <unsigned valid_bits>
     void inplace_separated_context_t<T>::scramble( scalar_t * BOOST_DISPATCH_RESTRICT const p_reals, scalar_t * BOOST_DISPATCH_RESTRICT const p_imags )
@@ -1201,13 +1226,13 @@ namespace detail
 
     template <typename T>
     BOOST_DISPATCH_NOINLINE
-    void __fastcall inplace_separated_context_t<T>::separate
+    void BOOST_FASTCALL inplace_separated_context_t<T>::separate
     (
         vector_t           * BOOST_DISPATCH_RESTRICT const p_reals          , // N/2 + 1 scalars
         vector_t           * BOOST_DISPATCH_RESTRICT const p_imags          , // N/2 + 1 scalars
         twiddles     const * BOOST_DISPATCH_RESTRICT       p_twiddle_factors, // requires N/4 twiddle factors
-        native_t                         const twiddle_flipper  ,
-        unsigned int                     const N                  // power-of-two
+        native_t                                     const twiddle_flipper  ,
+        unsigned int                                 const N                  // power-of-two
     )
     {
         prefetch_temporary( p_twiddle_factors );
@@ -1301,12 +1326,12 @@ namespace detail
 
     template <class Decimation, class Context>
     BOOST_DISPATCH_NOINLINE
-    void __fastcall butterfly_loop
+    void BOOST_FASTCALL butterfly_loop
     (
-        typename Context::parameter0_t                     const param0,
-        typename Context::parameter1_t                     const param1,
+        typename Context::parameter0_t                                 const param0,
+        typename Context::parameter1_t                                 const param1,
         typename Context::twiddles     const * BOOST_DISPATCH_RESTRICT       p_w,
-        unsigned int                                       const N
+        unsigned int                                                   const N
     )
     {
         prefetch_temporary( p_w );
@@ -1333,7 +1358,7 @@ namespace detail
 
     template <class Vector>
     BOOST_FORCEINLINE
-    void __fastcall dit::butterfly
+    void BOOST_FASTCALL dit::butterfly
     (
         Vector & r0_, Vector & i0_,
         Vector & r1_, Vector & i1_,
@@ -1381,7 +1406,7 @@ namespace detail
 
     template <class Vector>
     BOOST_FORCEINLINE
-    void __fastcall dif::butterfly
+    void BOOST_FASTCALL dif::butterfly
     (
         Vector & r0_, Vector & i0_,
         Vector & r1_, Vector & i1_,
@@ -1430,7 +1455,7 @@ namespace detail
 
     template <typename Vector>
     BOOST_FORCEINLINE
-    void __fastcall dit::danielson_lanczos_4
+    void BOOST_FASTCALL dit::danielson_lanczos_4
     (
         Vector const & real_in ,
         Vector const & imag_in ,
@@ -1593,7 +1618,7 @@ namespace detail
 
     template <typename Vector>
     BOOST_FORCEINLINE
-    void __fastcall dif::danielson_lanczos_4
+    void BOOST_FASTCALL dif::danielson_lanczos_4
     (
         Vector const & real_in ,
         Vector const & imag_in ,
@@ -1661,7 +1686,7 @@ namespace detail
 
     template <typename Vector>
     BOOST_FORCEINLINE
-    void __fastcall dif::danielson_lanczos_8_in_place
+    void BOOST_FASTCALL dif::danielson_lanczos_8_in_place
     (
         Vector & lower_real,
         Vector & lower_imag,
@@ -1851,16 +1876,16 @@ namespace detail
         typedef typename Context::parameter0_t parameter0_t;
         typedef typename Context::parameter1_t parameter1_t;
 
-        LE_NOTHROWNOALIAS
-        static void __fastcall apply( parameter0_t const param0, parameter1_t const param1 )
+        BOOST_NOTHROW_NOALIAS
+        static void BOOST_FASTCALL apply( parameter0_t const param0, parameter1_t const param1 )
         {
             apply( param0, param1, typename Decimation::first_step () );
             apply( param0, param1, typename Decimation::second_step() );
         }
 
     private:
-        LE_NOTHROWNOALIAS BOOST_FORCEINLINE
-        static void __fastcall apply( parameter0_t const param0, parameter1_t const param1, step_decimation const & )
+        BOOST_NOTHROW_NOALIAS BOOST_FORCEINLINE
+        static void BOOST_FASTCALL apply( parameter0_t const param0, parameter1_t const param1, step_decimation const & )
         {
             Context const context( param0, param1, N );
             typedef danielson_lanczos<N/2, Decimation, Context, T, count_of_T> lower;
@@ -1870,8 +1895,8 @@ namespace detail
             upper::apply( context.upper_second_parameter0(), context.upper_second_parameter1() );
         }
 
-        LE_NOTHROWNOALIAS BOOST_FORCEINLINE
-        static void __fastcall apply( typename Context::parameter0_t const param0, typename Context::parameter1_t const param1, step_butterfly const & )
+        BOOST_NOTHROW_NOALIAS BOOST_FORCEINLINE
+        static void BOOST_FASTCALL apply( typename Context::parameter0_t const param0, typename Context::parameter1_t const param1, step_butterfly const & )
         {
             butterfly_loop<Decimation, Context>
             (
@@ -1895,8 +1920,8 @@ namespace detail
     public:
         static unsigned const N = 8;
 
-        LE_NOTHROWNOALIAS
-        static void __fastcall apply( typename Context::proxy const data )
+        BOOST_NOTHROW_NOALIAS
+        static void BOOST_FASTCALL apply( typename Context::proxy const data )
         {
             typedef typename Context::vector_t vector_t;
 
@@ -1940,8 +1965,8 @@ namespace detail
     public:
         static unsigned const N = 8;
 
-        LE_NOTHROWNOALIAS
-        static void __fastcall apply( typename Context::parameter0_t const param0, typename Context::parameter1_t const param1 )
+        BOOST_NOTHROW_NOALIAS
+        static void BOOST_FASTCALL apply( typename Context::parameter0_t const param0, typename Context::parameter1_t const param1 )
         {
             typedef typename Context::vector_t vector_t;
 
@@ -1968,8 +1993,8 @@ namespace detail
 
         typedef dif Decimation;
 
-        LE_NOTHROWNOALIAS
-        static void __fastcall apply( typename Context::parameter0_t const p_reals, typename Context::parameter1_t const p_imags )
+        BOOST_NOTHROW_NOALIAS
+        static void BOOST_FASTCALL apply( typename Context::parameter0_t const p_reals, typename Context::parameter1_t const p_imags )
         {
             typedef typename Context::vector_t vector_t;
 
