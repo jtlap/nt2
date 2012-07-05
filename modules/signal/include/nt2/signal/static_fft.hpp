@@ -19,26 +19,38 @@
 
     #define BOOST_NOTHROW_NOALIAS __declspec( nothrow noalias )
     #define BOOST_FASTCALL __fastcall
-    #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken." ); __assume( condition )
+    #define BOOST_UNREACHABLE_CODE()  BOOST_ASSERT_MSG( false    , "This code should not be reached." ); __assume( false     )
+    #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken."               ); __assume( condition )
 
 #elif defined( __GNUC__ )
 
     #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow, pure  ))
-    #define BOOST_FASTCALL __attribute__(( regparm( 3 ), sseregparm ))
+    #ifdef __i386__
+        #ifdef __clang__
+            #define BOOST_FASTCALL __attribute__(( regparm( 3 ) ))
+        #else
+            #define BOOST_FASTCALL __attribute__(( regparm( 3 ), sseregparm, hot ))
+        #endif // __clang__
+    #else
+        #define BOOST_FASTCALL
+    #endif // __i386__
 
     // http://en.chys.info/2010/07/counterpart-of-assume-in-gcc
     // http://nondot.org/sabre/LLVMNotes/BuiltinUnreachable.txt
     #if ( __clang_major__ >= 2 ) || ( ( ( __GNUC__ * 10 ) + __GNUC_MINOR__ ) >= 45 )
-        #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken." ); do { if ( !( condition ) ) __builtin_unreachable(); } while ( 0 )
+        #define BOOST_UNREACHABLE_CODE()  BOOST_ASSERT_MSG( false    , "This code should not be reached." ); __builtin_unreachable()
+        #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken."               ); do { if ( !( condition ) ) __builtin_unreachable(); } while ( 0 )
     #else
-        #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken." );
+        #define BOOST_UNREACHABLE_CODE()  BOOST_ASSERT_MSG( false    , "This code should not be reached." )
+        #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken."               )
     #endif
 
 #else
 
     #define BOOST_NOTHROW_NOALIAS
     #define BOOST_FASTCALL
-    #define BOOST_ASSUME(x)
+    #define BOOST_UNREACHABLE_CODE()  BOOST_ASSERT_MSG( false    , "This code should not be reached." )
+    #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken."               )
 
 #endif
 
@@ -691,17 +703,19 @@ namespace detail
 #ifdef _MSC_VER
     #pragma warning( pop )
 #endif
+
+    template <class T>
+    struct assert_no_default_case
+    {
+        typedef T result_type;
+        result_type operator()( int ) const
+        {
+            BOOST_ASSERT_MSG( false, "unexpected default case in switch" );
+            BOOST_UNREACHABLE_CODE();
+        }
+    };
 } // namespace detail
 
-template<class T>
-struct assert_no_default_case
-{
-  typedef T result_type;
-  result_type operator()(int) const
-  {
-    BOOST_ASSERT_MSG(0, "unexpected default case in switch");
-  }
-};
 
 ////////////////////////////////////////////////////////////////////////////////
 ///
@@ -921,7 +935,7 @@ private:
         (
             (std::size_t)nt2::log2( size ),
             boost::control::case_<fft_sizes_t>(transformer),
-            assert_no_default_case<typename Trasformer::result_type>()
+            detail::assert_no_default_case<typename Trasformer::result_type>()
         );
     }
 }; // class static_fft
