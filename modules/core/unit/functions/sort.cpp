@@ -17,6 +17,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <string>
 
 // NT2_TEST_CASE_TPL( sort_scalar, (float)(double))//NT2_TYPES )
 // {
@@ -38,8 +39,21 @@ NT2_TEST_CASE_TPL( sort, (float)(double))//NT2_TYPES )
   nt2::table<T> sy = sort(y);
   NT2_DISPLAY(y);
   NT2_DISPLAY(sy);
-  NT2_TEST(isequal(sy, nt2::flipud(y))); 
-  nt2::table<T> sy1 = sort(sy, 1, "descend");
-//   NT2_TEST(isequal(y, sy1)); 
+  NT2_TEST(isequal(sy, nt2::flipud(y)));
+  nt2::table<T> sy1 = sort(sy, 1, 'd');
+  NT2_DISPLAY(sy1);
+  NT2_TEST(isequal(y, sy1)); 
+  nt2::table<T> sy2 = sort(sy,'d');
+  NT2_DISPLAY(sy2);
+  NT2_TEST(isequal(y, sy2));
+  //  {
+  // Doesnot work erreur: function returning an array
+  //     nt2::table<T> sy1 = sort(sy, 1, "d");
+  //     NT2_DISPLAY(sy1);
+  //     NT2_TEST(isequal(y, sy1)); 
+  //     nt2::table<T> sy2 = sort(sy,"d");
+  //     NT2_DISPLAY(sy2);
+  //     NT2_TEST(isequal(y, sy2));
+  //   }
 }
 
