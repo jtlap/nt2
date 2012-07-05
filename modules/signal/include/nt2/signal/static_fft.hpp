@@ -43,7 +43,7 @@
 #include <nt2/include/functions/simd/unaligned_load.hpp>
 #include <nt2/include/functions/simd/unaligned_store.hpp>
 
-#include <nt2/include/functions/scalar/log2.hpp>
+#include <nt2/include/functions/scalar/ilog2.hpp>
 #include <nt2/include/functions/scalar/ffs.hpp>
 
 #include <boost/simd/sdk/simd/native.hpp>
@@ -584,7 +584,7 @@ namespace detail
             :
             p_reals_      ( reinterpret_cast<char * BOOST_DISPATCH_RESTRICT>( p_reals ) ),
             p_imags_      ( reinterpret_cast<char * BOOST_DISPATCH_RESTRICT>( p_imags ) ),
-            log2_N4_bytes_( (std::size_t)nt2::log2( N ) - boost::static_log2<4>::value + boost::static_log2<sizeof( scalar_t )>::value )
+            log2_N4_bytes_( nt2::ilog2( N ) - boost::static_log2<4>::value + boost::static_log2<sizeof( scalar_t )>::value )
         {
             BOOST_ASSERT( boost::simd::memory::is_aligned( p_reals ) );
             BOOST_ASSERT( boost::simd::memory::is_aligned( p_imags ) );
@@ -896,7 +896,7 @@ private:
     {
         boost::control::switch_<void>
         (
-            (std::size_t)nt2::log2( size ),
+            nt2::ilog2( size ),
             boost::control::case_<fft_sizes_t>(transformer),
             assert_no_default_case<typename Trasformer::result_type>()
         );
