@@ -381,15 +381,10 @@ namespace detail
 
     ////////////////////////////////////////////////////////////////////////////
     //
-    // flip_sign()
-    // -----------
+    // sign_flipper()
+    // --------------
     //
     ////////////////////////////////////////////////////////////////////////////
-    //...zzz...hardcoded for floats...
-#ifdef BOOST_SIMD_HAS_SSE_SUPPORT
-    typedef boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> flipper_vector_t;
-    typedef flipper_vector_t::native_type const                      flipper_t;
-
     /// \note sign_flipper() returns a restricted pointer (instead of a
     /// reference or simply by value) in order to make it easier for the
     /// compiler to (re)use the constant directly from its static location
@@ -397,6 +392,10 @@ namespace detail
     /// stack. This becomes important in tight register allocation situations
     /// (e.g. inlined DFT16 and DFT8 routines in 32bit x86 builds).
     ///                                       (06.06.2012.) (Domagoj Saric)
+    ////////////////////////////////////////////////////////////////////////////
+
+    typedef boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> flipper_vector_t;
+
     template <bool e0, bool e1, bool e2, bool e3>
     BOOST_FORCEINLINE
     flipper_vector_t const * BOOST_DISPATCH_RESTRICT sign_flipper()
@@ -416,42 +415,6 @@ namespace detail
         static boost::int32_t const BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) flipper[ flipper_vector_t::static_size ] = { e0 * mzero, e1 * mzero, e2 * mzero, e3 * mzero };
         return reinterpret_cast<flipper_vector_t const * BOOST_DISPATCH_RESTRICT>( &flipper );
     }
-
-    BOOST_FORCEINLINE
-    float BOOST_FASTCALL flip_sign( float const value, flipper_t const flipper )
-    {
-        // We expect the compiler to use SSE scalar math...
-        __m128 const vector_result( _mm_xor_ps( _mm_set_ss( value ), flipper ) );
-        float result;
-        _mm_store_ss( &result, vector_result );
-        return result;
-    }
-
-    __m128 BOOST_FASTCALL flip_sign( __m128 const value, flipper_t const flipper )
-    {
-        return _mm_xor_ps( value, flipper );
-    }
-#else // BOOST_SIMD_HAS_SSE_SUPPORT
-    typedef boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> const & flipper_t;
-
-    BOOST_FORCEINLINE
-    float BOOST_FASTCALL flip_sign( float const value, flipper_t const flipper )
-    {
-        unsigned int const result_bits
-        (
-            reinterpret_cast<unsigned int const &>( value )
-                ^
-            reinterpret_cast<unsigned int const &>( flipper[ 0 ] )
-        );
-        return reinterpret_cast<float const &>( result_bits );
-    }
-
-    boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> BOOST_FORCEINLINE
-    flip_sign( flipper_t const value, flipper_t const flipper )
-    {
-        return value ^ flipper;
-    }
-#endif // BOOST_SIMD_HAS_SSE_SUPPORT
 
 
     ////////////////////////////////////////////////////////////////////////////
@@ -1221,7 +1184,7 @@ namespace detail
     ///    http://www.cs.technion.ac.il/~elad/publications/journals/2004/30_PolarFFT_ACHA.pdf
     ///    http://www-user.tu-chemnitz.de/~potts/paper/polarfft.pdf
     ///    http://www.cs.tau.ac.il/~amir1/PS/Polar_Paper_New.pdf
-    ///  - backend support (related Eigen discussion:
+    ///  - backend support (ACML, MKL, FFTW, KissFFT...related Eigen discussion:
     ///    http://listengine.tuxfamily.org/lists.tuxfamily.org/eigen/2012/04/msg00011.html)
     ///                                       (04.07.2012.) (Domagoj Saric)
 
