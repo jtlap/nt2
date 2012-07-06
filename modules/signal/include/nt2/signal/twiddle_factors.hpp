@@ -101,7 +101,7 @@ namespace detail
     void calculate_twiddles
     (
         split_radix_twiddles<Vector> * BOOST_DISPATCH_RESTRICT const p_twiddles,
-        unsigned int                               const N_int
+        unsigned int                                           const N_int
     )
     {
         typedef Vector vector_t;
