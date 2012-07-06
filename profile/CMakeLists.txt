@@ -6,17 +6,21 @@
 #                 See accompanying file LICENSE.txt or copy at
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
+cmake_minimum_required(VERSION 2.6)
 
-################################################################################
-# Load the Template Profiler if Perl and Boost.Regex are found
-################################################################################
+set(NT2_DIR ${CMAKE_SOURCE_DIR}/../cmake)
+set(NT2_MODULES_BLACKLIST cuda matlab openmp)
+find_package(NT2 REQUIRED)
+include(${NT2_USE_FILE})
+include(nt2.template.profiler)
 
-find_package(Perl)
-find_package(Boost 1.49.0 COMPONENTS regex)
+set( SOURCES
+     scalar_functor.cpp
+   )
 
-if(PERL_FOUND AND Boost_FOUND)
-  message( STATUS "[nt2] Template profiling available." )
-  include(profiler/profiler)
-else()
-  message( STATUS "[nt2] Template profiling unavailable." )
-endif()
+foreach(src ${SOURCES})
+  string(REGEX REPLACE "\\.cpp$" "" exe ${src})
+  string(REGEX REPLACE "\\.cpp$" ".run" run ${src})
+  template_profile(${exe} ${src})
+  add_executable(${run} ${src})
+endforeach()
