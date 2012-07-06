@@ -47,6 +47,7 @@ SET( SOURCES
     horzcat.cpp
     inbtrue.cpp
     ind2sub.cpp
+    indices.cpp
     iscolumn.cpp
     isdiagonal.cpp
     isempty.cpp
