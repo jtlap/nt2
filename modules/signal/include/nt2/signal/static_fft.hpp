@@ -9,6 +9,7 @@
 //==============================================================================
 #ifndef NT2_SIGNAL_STATIC_FFT_HPP_INCLUDED
 #define NT2_SIGNAL_STATIC_FFT_HPP_INCLUDED
+
 #ifdef _MSC_VER
     #pragma once
     #pragma inline_recursion( on )
@@ -24,8 +25,10 @@
 
 #elif defined( __GNUC__ )
 
+    #include <boost/simd/sdk/config/arch.hpp>
+
     #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow, pure  ))
-    #ifdef __i386__
+    #ifdef BOOST_SIMD_ARCH_X86
         #ifdef __clang__
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ) ))
         #else
@@ -33,7 +36,7 @@
         #endif // __clang__
     #else
         #define BOOST_FASTCALL
-    #endif // __i386__
+    #endif // BOOST_SIMD_ARCH_X86
 
     // http://en.chys.info/2010/07/counterpart-of-assume-in-gcc
     // http://nondot.org/sabre/LLVMNotes/BuiltinUnreachable.txt
@@ -1184,7 +1187,8 @@ namespace detail
     ///    http://www.cs.technion.ac.il/~elad/publications/journals/2004/30_PolarFFT_ACHA.pdf
     ///    http://www-user.tu-chemnitz.de/~potts/paper/polarfft.pdf
     ///    http://www.cs.tau.ac.il/~amir1/PS/Polar_Paper_New.pdf
-    ///  - backend support (ACML, MKL, FFTW, KissFFT...related Eigen discussion:
+    ///  - backend support (ACML, vDSP, MKL, FFTW, KissFFT...related Eigen
+    ///    discussion:
     ///    http://listengine.tuxfamily.org/lists.tuxfamily.org/eigen/2012/04/msg00011.html)
     ///                                       (04.07.2012.) (Domagoj Saric)
 
