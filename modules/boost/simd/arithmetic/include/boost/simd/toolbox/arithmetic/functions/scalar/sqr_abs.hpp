@@ -28,7 +28,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::upgrade<A0>::type uptype;
       uptype tmp = sqr(static_cast<uptype>(a0)); 
-      return (tmp > Valmax<result_type>()) ? Valmax<result_type>() : tmp;  
+      return (tmp > Valmax<result_type>()) ? Valmax<result_type>() 
+                                           : static_cast<result_type>(tmp);  
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqr_abs_, tag::cpu_
