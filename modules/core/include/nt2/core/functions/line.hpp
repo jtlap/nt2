@@ -87,8 +87,8 @@ namespace nt2
 namespace nt2 { namespace container { namespace ext
 {
   template<class Domain, class Expr>
-  struct  size_of<nt2::tag::line_,Domain,4,Expr>
-        : boxed_size_of<Expr,3>
+  struct  size_of<nt2::tag::line_,Domain,6,Expr>
+        : boxed_size_of<Expr,5>
   {};
 
   template<class Domain, int N, class Expr>
@@ -99,7 +99,7 @@ namespace nt2 { namespace container { namespace ext
     typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
 
     // .. except we have a special size
-    typedef typename boxed_size_of<Expr, 3>::result_type               sizes_t;
+    typedef typename boxed_size_of<Expr, 5>::result_type               sizes_t;
 
     // Rebuild proper expression type with semantic using the new size
     // and revoking any shape settings

@@ -11,6 +11,7 @@
 
 #include <nt2/core/functions/line.hpp>
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/include/functions/linesstride.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -35,7 +36,7 @@ namespace nt2 { namespace ext
     {
       size_t along = nt2::firstnonsingleton(a0)-1; 
       ext_t sizee;      
-      for(int i=0; i < ext_t::size() ; ++i) sizee[i] = 1; 
+      for(size_t i=0; i < ext_t::size() ; ++i) sizee[i] = 1; 
       sizee[along] =  nt2::extent(a0)[along];  
       return boost::proto::make_expr<nt2::tag::line_, container::domain>
         (boost::cref(a0),along, size_t(ind), boxify(sizee));
@@ -56,18 +57,27 @@ namespace nt2 { namespace ext
                                           , container::domain
                                           , A0 const&
                                           , size_t
-                                          , size_t 
+                                          , size_t
+                                          , size_t
+                                          , size_t
                                           , box<ext_t>
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& ind, A2 const& dim) const
     {
+      typedef typename meta::call<nt2::tag::ind2sub_(ext_t,size_t)>::type  sub_t;
       size_t along = dim-1; 
       ext_t sizee;     
-      for(int i=0; i < ext_t::size() ; ++i) sizee[i] = 1; 
-      sizee[along] = nt2::extent(a0)[along]; 
+      for(size_t i=0; i < ext_t::size() ; ++i) sizee[i] = 1; 
+      sizee[along] = nt2::extent(a0)[along];
+
+      ext_t ex1 = a0.extent();
+      ex1[along] = 1; 
+      sub_t pos = ind2sub(ex1, ind);
+      size_t start = sub2ind(a0.extent(), pos);
+      size_t stride = nt2::linesstride(a0, dim); 
       return boost::proto::make_expr<nt2::tag::line_, container::domain>
-        (boost::cref(a0),along, size_t(ind), boxify(sizee));
+        (boost::cref(a0),along, size_t(ind), start, stride, boxify(sizee));
     }
   };
 
