@@ -11,6 +11,8 @@
 
 #include <boost/simd/toolbox/bitwise/functions/clz.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/include/functions/scalar/hi.hpp>
+#include <boost/simd/include/functions/scalar/ffs.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 
 
@@ -46,7 +48,7 @@ namespace boost { namespace simd { namespace ext
           }
         if(!t1)
           return 0;
-        _BitScanReverse(&index, nt2::hi(t1));
+        _BitScanReverse(&index, boost::simd::hi(t1));
         return 32+index+1;
       #else
         if(!t1)
@@ -76,7 +78,7 @@ namespace boost { namespace simd { namespace ext
     #else
       if(!t1)
         return 0;
-      return nt2::ffs(reversebits(t1)-1); 
+      return boost::simd::ffs(reversebits(t1)-1); 
      #endif
     }
   };
