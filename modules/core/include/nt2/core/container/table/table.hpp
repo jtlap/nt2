@@ -17,6 +17,11 @@
 #include <nt2/core/container/table/semantic.hpp>
 #include <nt2/core/container/table/adapted/table.hpp>
 
+#if defined(BOOST_MSVC)
+#pragma warning( push )
+#pragma warning( disable : 4522 )
+#endif
+
 namespace nt2 { namespace container
 {
   template<class T, class S, class Dummy>
@@ -86,5 +91,9 @@ namespace nt2 { namespace container
     using parent::operator=;
   };
 } }
+
+#if defined(BOOST_MSVC)
+#pragma warning( pop )
+#endif
 
 #endif

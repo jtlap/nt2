@@ -41,6 +41,11 @@
 #include <nt2/sdk/unit/display_type.hpp>
 #endif
 
+#if defined(BOOST_MSVC)
+#pragma warning( push )
+#pragma warning( disable : 4522 )
+#endif
+
 namespace nt2 { namespace container
 {
   //==========================================================================
@@ -386,5 +391,9 @@ namespace nt2 { namespace container
     sizes_t size_;
   };
 } }
+
+#if defined(BOOST_MSVC)
+#pragma warning( pop )
+#endif
 
 #endif
