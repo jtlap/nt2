@@ -7,6 +7,12 @@ then
     exit 65
 fi
 
+if ! ([ $NT2_SOURCE_ROOT ] && [ $NT2_BINARY_ROOT ] && [ $BOOST_ROOT ])
+then
+  echo "NT2_SOURCE_ROOT, NT2_BINARY_ROOT and BOOST_ROOT must be defined"
+  exit 65
+fi
+
 if echo $1 | grep -E "^-j[0-9]" > /dev/null
 then
   args=${@:2}
