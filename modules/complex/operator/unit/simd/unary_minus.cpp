@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   // specific values tests
   {
     typedef vcT r_t; 
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vcT>(cT(-1.1, -1.6)))[0], cT(T(1.1),T(1.6)), 0);
+    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vcT>(cT(T(1.1),T(1.6))))[0], cT(T(1.1),T(1.6)), 0);
   }
   {
     typedef vdT r_t; 
@@ -77,8 +77,8 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   }  
   {
     typedef vciT r_t; 
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(-1.1)))[0], ciT(1.1),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(1.1)))[0],  ciT(-1.1),0);   
+    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(T(-1.1))))[0], ciT(T(1.1)),0);
+    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vciT>(ciT(T(1.1))))[0],  ciT(T(-1.1)),0);   
     NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Inf<vciT>())[0], nt2::Minf<ciT>(),0);
     NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Minf<vciT>())[0],nt2::Inf<ciT>(),0);
     NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Mone<vciT>())[0],nt2::One<ciT>(),0);
@@ -88,8 +88,8 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   }
   {
     typedef vdT r_t; 
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vdT>(dT(-1.1)))[0], dT(1.1),0);
-    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vdT>(dT(1.1)))[0],  dT(-1.1),0); 
+    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vdT>(dT(T(-1.1))))[0], dT(T(1.1)),0);
+    NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::splat<vdT>(dT(T(1.1))))[0],  dT(T(-1.1)),0); 
     NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Inf<vdT>())[0], nt2::Minf<dT>(),0);
     NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Minf<vdT>())[0], nt2::Inf<dT>(),0);
     NT2_TEST_ULP_EQUAL(nt2::unary_minus(nt2::Mone<vdT>())[0], nt2::One<dT>(),0);
