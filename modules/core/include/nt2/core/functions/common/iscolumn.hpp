@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
         return meta::safe_at_c<0>(ex) == nz;
       else
         {
-          for(int i=1; i < ex.size(); ++i)
+          for(size_t i=1; i < ex.size(); ++i)
             {
               if (ex[i] !=  1) return false;
             }

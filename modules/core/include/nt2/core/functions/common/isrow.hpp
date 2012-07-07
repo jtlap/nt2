@@ -34,9 +34,9 @@ namespace nt2 { namespace ext
       else
         {
           if (meta::safe_at_c<0>(ex) !=  1) return false;
-          for(int i=2; i < ex.size(); ++i)
+          for(size_t i=2; i < ex.size(); ++i)
             {
-              if (ex[i] !=  1) return false;
+              if (ex[i] !=  1u) return false;
             }
         }
       return true;

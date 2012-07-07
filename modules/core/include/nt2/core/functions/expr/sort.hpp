@@ -19,6 +19,7 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/indices.hpp>
+#include <nt2/include/functions/linesstride.hpp>
 #include <string>
 
 namespace nt2 { namespace ext
@@ -179,11 +180,7 @@ namespace nt2 { namespace ext
 //         }
 //       else
 //         {
-          size_t stride = 1;
-          for(int i=1; i < dim; ++i)
-            {
-              stride *= size(res, i); 
-            }
+          size_t stride = linesstride(res, dim);
           size_t decal =  stride*(size(res, dim)-1); 
           size_t p = 0;
           value_type* beg = res.raw(); 
@@ -212,13 +209,8 @@ namespace nt2 { namespace ext
       size_t h = nt2::size(res, dim);
       if (h <= 1) return; 
       size_t nbslice =  numel(res)/h;
-      
-      size_t stride = 1;
-      for(int i=1; i < dim; ++i)
-        {
-          stride *= size(res, i); 
-        }
-      size_t decal =  stride*(size(res, dim)-1); 
+      size_t stride = linesstride(res, dim);
+      size_t decal = stride*(size(res, dim)-1); 
       size_t p = 0;
       value_type* beg = res.raw();
       i_type* bep = idx.raw(); 
@@ -229,7 +221,6 @@ namespace nt2 { namespace ext
             {
               p+= decal;
             }
-          //              std::cout << "p " << p << std::endl; 
           indtri(beg+p, bep+p, stride, h, up?&sort_up:&sort_dn);
           ++p;
         }

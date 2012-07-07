@@ -70,6 +70,7 @@ SET( SOURCES
     isvectoralong.cpp
     length.cpp
     line.cpp
+    linesstride.cpp
     linspace.cpp
     logspace.cpp
     maximum.cpp
