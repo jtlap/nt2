@@ -60,37 +60,37 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     r_t res = comparator(boost::simd::Inf<vT>(), boost::simd::Inf<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Inf<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Inf<r_t1>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), r_t2(0) );
   }
   {
     r_t res = comparator(boost::simd::Minf<vT>(), boost::simd::Minf<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Minf<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Minf<r_t0>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), r_t2(0) );
   }
   {
     r_t res = comparator(boost::simd::Mone<vT>(), boost::simd::Mone<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Mone<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Mone<r_t0>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), r_t2(0) );
   }
   {
     r_t res = comparator(boost::simd::Nan<vT>(), boost::simd::Nan<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Nan<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Nan<r_t0>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), r_t2(0) );
   }
   {
     r_t res = comparator(boost::simd::One<vT>(), boost::simd::One<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::One<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::One<r_t0>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), r_t2(0) );
   }
   {
     r_t res = comparator(boost::simd::Zero<vT>(), boost::simd::Zero<vT>(), 0);
     NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::Zero<r_t0>());
     NT2_TEST_EQUAL( boost::fusion::get<1>(res), boost::simd::Zero<r_t0>());
-    NT2_TEST_EQUAL( boost::fusion::get<2>(res), 0);
+    NT2_TEST_EQUAL( boost::fusion::get<2>(res), r_t2(0) );
   }
 } // end of test for floating_
  

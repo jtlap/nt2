@@ -23,14 +23,14 @@ template<class Type>
 struct op_
 {
   op_(){}
-  Type operator()(Type data){ return data; }
+  Type operator()(Type const& data){ return data; }
 };
 
 template<class Type> 
 struct sum_
 {
   sum_(){}
-  Type operator()(Type data1, Type data2)
+  Type operator()(Type const& data1, Type const& data2)
   {
     Type res; 
     res = data1 + data2; 
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized, BOOST_SIMD_SIMD_TYPES )
   it_ dend    = boost::simd::input_end(&data[0]+32*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
   
-  for(int i=0; i<32*card; ++i) data[i] = i;
+  for(int i=0; i<32*card; ++i) data[i] = T(i);
   
   boost::simd::transform(dbegin, dend, rbegin, op_<p_t>());
   
@@ -82,7 +82,7 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized_unroll4, BOOST_SIMD_SIMD_TYPES
   it_ dend    = boost::simd::input_end(&data[0]+32*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
   
-  for(int i=0; i<32*card; ++i) data[i] = i;
+  for(int i=0; i<32*card; ++i) data[i] = T(i);
   
   boost::simd::transform( dbegin, dend, rbegin, op_<p_t>()
                         , boost::simd::meta::unroll<4>());
@@ -113,7 +113,7 @@ NT2_TEST_CASE_TPL(transform_unary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
   it_ dend    = boost::simd::input_end(&data[0]+19*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
   
-  for(int i=0; i<19*card; ++i) data[i] = i;
+  for(int i=0; i<19*card; ++i) data[i] = T(i);
   
   boost::simd::transform( dbegin, dend, rbegin, op_<p_t>()
                         , boost::simd::meta::unroll<4>());
@@ -141,7 +141,7 @@ NT2_TEST_CASE_TPL(transform_binary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
   it_ dend    = boost::simd::input_end(&data[0]+19*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
   
-  for(int i=0; i<19*card; ++i) { data[i] = i%card; data_[i] = i%card; }
+  for(int i=0; i<19*card; ++i) { data[i] = T(i%card); data_[i] = T(i%card); }
   
   boost::simd::transform( dbegin, dend, dbegin_, rbegin, sum_<p_t>()
                         , boost::simd::meta::unroll<4>());
