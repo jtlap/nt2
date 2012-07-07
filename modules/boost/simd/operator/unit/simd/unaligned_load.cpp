@@ -64,7 +64,8 @@ NT2_TEST_CASE_TPL( unaligned_load_offset,  BOOST_SIMD_TYPES)
   for(int i=0;i<cardinal_of<vT>::value*3;++i) data[i] = 1+i;
 
   {
-    r_t v = boost::simd::unaligned_load<vT>(&data[cardinal_of<vT>::value],-cardinal_of<vT>::value);
+    int offset = -int(cardinal_of<vT>::value);
+    r_t v = boost::simd::unaligned_load<vT>(&data[cardinal_of<vT>::value],offset);
     for(int j=0;j<cardinal_of<vT>::value;++j)
       NT2_TEST_EQUAL(v[j] , data[j]);
   }
