@@ -39,9 +39,6 @@ NT2_TEST_CASE_TPL ( ilog2_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(ilog2(boost::simd::Two<T>()), 1);
@@ -67,9 +64,6 @@ NT2_TEST_CASE_TPL ( ilog2_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(ilog2(boost::simd::One<T>()), 0);
@@ -92,15 +86,12 @@ NT2_TEST_CASE_TPL ( ilog2_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
   
   // specific values tests
-  NT2_TEST_EQUAL(ilog2(boost::simd::One<T>()), 0);
-  NT2_TEST_EQUAL(ilog2(boost::simd::Two<T>()),1);
+  NT2_TEST_EQUAL(ilog2(boost::simd::One<T>()), 0u);
+  NT2_TEST_EQUAL(ilog2(boost::simd::Two<T>()),1u);
 
-  int j = 1; 
+  T j = 1; 
   for(T i=2; i < boost::simd::Valmax<T>()/2; i*= 2)
     {
       std::cout << "i = " << i << " j = " <<  j << std::endl; 

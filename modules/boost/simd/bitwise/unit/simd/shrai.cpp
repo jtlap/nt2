@@ -45,9 +45,6 @@ NT2_TEST_CASE_TPL ( shrai_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<shrai_(vT,iT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(shrai(boost::simd::splat<vT>(2),(1))[0], boost::simd::One<T>());
@@ -74,9 +71,6 @@ NT2_TEST_CASE_TPL ( shrai_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPE
   typedef typename boost::dispatch::meta::call<shrai_(vT,iT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(shrai(-boost::simd::Four<vT>(),1)[0], -boost::simd::Two<sr_t>());

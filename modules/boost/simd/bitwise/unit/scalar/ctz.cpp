@@ -43,9 +43,6 @@ NT2_TEST_CASE_TPL ( ctz_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-//   double ulpd;
-//   ulpd=0.0;
-//   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(ctz(boost::simd::Inf<T>()), boost::simd::Nbmantissabits<T>());
@@ -71,9 +68,6 @@ NT2_TEST_CASE_TPL ( ctz_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-//   double ulpd;
-//   ulpd=0.0;
-//   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(ctz(boost::simd::One<T>()), boost::simd::Zero<r_t>());
@@ -97,9 +91,6 @@ NT2_TEST_CASE_TPL ( ctz_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  //   double ulpd;
-  //   ulpd=0.0;
-  //   boost::dispatch::ignore_unused(ulpd);
   
   // specific values tests
   //   std::cout << int(ctz(boost::simd::One<T>())) << std::endl; 

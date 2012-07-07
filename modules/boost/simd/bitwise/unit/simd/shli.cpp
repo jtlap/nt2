@@ -44,9 +44,6 @@ NT2_TEST_CASE_TPL ( shli_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<shli_(vT,iT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(shli(boost::simd::splat<vT>(2),2)[0], boost::simd::Eight<sr_t>());
