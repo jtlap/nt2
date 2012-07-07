@@ -9,6 +9,11 @@
 #ifndef NT2_CORE_FUNCTIONS_ADJFUN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ADJFUN_HPP_INCLUDED
 
+#include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
+
 /*!
  * \ingroup core
  * \defgroup core adjfun
@@ -21,12 +26,12 @@
  * \alias norm1,  asum
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/adjfun.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -39,9 +44,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of adjfun
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -52,7 +57,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
@@ -60,9 +65,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct adjfun_ : ext::elementwise_<adjfun_> 
-    { 
-      typedef  ext::elementwise_<adjfun_> parent; 
+    struct adjfun_ : ext::elementwise_<adjfun_>
+    {
+      typedef  ext::elementwise_<adjfun_> parent;
     };
   }
 
@@ -70,11 +75,11 @@ namespace nt2
   /*!
    * adjfun of adjacent elements
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::adjfun_       , adjfun, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::adjfun_       , adjfun, 3) 
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::adjfun_       , adjfun, 3)
 }
 
 namespace nt2 { namespace container { namespace ext

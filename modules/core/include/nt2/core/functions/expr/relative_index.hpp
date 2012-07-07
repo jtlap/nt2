@@ -12,6 +12,7 @@
 #include <nt2/core/functions/relative_index.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/core/functions/colon.hpp>
+#include <nt2/core/functions/details/colon.hpp>
 #include <nt2/core/container/category.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 

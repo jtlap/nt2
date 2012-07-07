@@ -9,17 +9,13 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_COLS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_COLS_HPP_INCLUDED
 
-#include <boost/fusion/include/at.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
 
 namespace nt2 { namespace details
 {
   //============================================================================
-  // cols actual functor 
+  // cols actual functor
   //============================================================================
   template < class T>
   struct cols
@@ -37,7 +33,7 @@ namespace nt2 { namespace details
       return nt2::splat<type>(pos[1]-1+start_);
     }
   private :
-    T start_; 
+    T start_;
   };
 
   template < class T, class T1>
@@ -50,7 +46,7 @@ namespace nt2 { namespace details
     {
       typedef typename Target::type                                     type;
       typedef typename meta::call<nt2::tag::ind2sub_(Size,Pos)>::type  sub_t;
-      
+
       sub_t const pos = ind2sub(sz,p);
       return nt2::splat<type>(h_*(pos[1]-1)+start_);
     }

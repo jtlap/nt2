@@ -9,17 +9,13 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_CIF_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_CIF_HPP_INCLUDED
 
-#include <boost/fusion/include/at.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
 
 namespace nt2 { namespace details
 {
   //============================================================================
-  // cif actual functor 
+  // cif actual functor
   //============================================================================
   struct cif
   {

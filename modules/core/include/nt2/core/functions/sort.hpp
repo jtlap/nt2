@@ -8,7 +8,9 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_SORT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SORT_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
 /*!
@@ -19,15 +21,15 @@
  * sorting sort(a0, n))
  * by default n is the first non-singleton dimension of a0
  *
- * 
+ *
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sort.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +42,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of sort
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,14 +55,14 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
 namespace nt2
 {
   namespace tag
-  {  
+  {
     struct sort_ :  ext::tieable_<sort_>
     {
       typedef ext::tieable_<sort_>  parent;
@@ -70,7 +72,7 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sort_       , sort, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sort_       , sort, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sort_       , sort, 3)
-    
+
 }
 
 namespace nt2 { namespace container { namespace ext

@@ -9,9 +9,11 @@
 #ifndef NT2_CORE_CONTAINER_DSL_DETAILS_RELATIVE_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_DETAILS_RELATIVE_HPP_INCLUDED
 
-#include <boost/proto/core.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/proto/traits.hpp>
-#include <boost/proto/transform.hpp>
+#include <boost/type_traits/remove_const.hpp>
 
 namespace nt2 { namespace container { namespace ext
 {

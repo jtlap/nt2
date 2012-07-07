@@ -9,6 +9,11 @@
 #ifndef NT2_CORE_FUNCTIONS_DIFF_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DIFF_HPP_INCLUDED
 
+#include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
+
 /*!
  * \ingroup core
  * \defgroup core diff
@@ -21,12 +26,12 @@
  * \alias norm1,  asum
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/diff.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -39,9 +44,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of diff
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -52,7 +57,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
@@ -60,9 +65,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct diff_ : ext::elementwise_<diff_> 
-    { 
-      typedef  ext::elementwise_<diff_> parent; 
+    struct diff_ : ext::elementwise_<diff_>
+    {
+      typedef  ext::elementwise_<diff_> parent;
     };
   }
 
@@ -70,12 +75,12 @@ namespace nt2
   /*!
    * diff of adjacent elements
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diff_       , diff, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diff_       , diff, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diff_       , diff, 3) 
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::diff_       , diff, 3)
 }
 
 namespace nt2 { namespace container { namespace ext

@@ -8,11 +8,13 @@
  ******************************************************************************/
 #ifndef NT2_CORE_FUNCTIONS_CIC_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_CIC_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
-#include <nt2/core/functions/details/cic.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/generative.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <nt2/sdk/meta/generative_hierarchy.hpp>
+
+#include <nt2/core/functions/details/cic.hpp>
 
 namespace nt2
 {

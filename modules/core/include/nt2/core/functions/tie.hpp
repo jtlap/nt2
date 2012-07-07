@@ -15,11 +15,16 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+
 #include <nt2/core/utility/of_size.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
-#include <boost/dispatch/details/parameters.hpp>
 #include <boost/fusion/include/as_vector.hpp>
 #include <boost/mpl/transform.hpp>
+
+#include <boost/dispatch/details/parameters.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 
 namespace nt2
 {

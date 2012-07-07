@@ -8,12 +8,7 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_ASUM2_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ASUM2_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/sqr_abs.hpp>
-#include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <nt2/sdk/memory/container.hpp>
-#include <nt2/core/container/dsl/details/reduction.hpp>
+
 #include <nt2/include/functor.hpp>
 
 /*!
@@ -24,12 +19,12 @@
  * Returns the asum2 of the elements of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/asum2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,9 +37,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of asum2
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -55,7 +50,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
@@ -63,9 +58,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct asum2_ : tag::formal_ 
-    { 
-      typedef tag::formal_ parent; 
+    struct asum2_ : tag::formal_
+    {
+      typedef tag::formal_ parent;
     };
   }
 
@@ -73,7 +68,7 @@ namespace nt2
   /*!
    * sum of absolute squares of a table
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum2_       , asum2, 1)

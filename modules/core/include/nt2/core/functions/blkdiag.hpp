@@ -9,10 +9,10 @@
 #ifndef NT2_CORE_FUNCTIONS_BLKDIAG_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_BLKDIAG_HPP_INCLUDED
 
-#include <nt2/sdk/parameters.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/reshaping_hierarchy.hpp>
-
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
 
 namespace nt2
 {
@@ -22,8 +22,8 @@ namespace nt2
           : ext::elementwise_<blkdiag_> { typedef ext::elementwise_<blkdiag_> parent; };
   }
 
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::blkdiag_, blkdiag, 1) 
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::blkdiag_, blkdiag, 2) 
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::blkdiag_, blkdiag, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::blkdiag_, blkdiag, 2)
 }
 
 namespace nt2 { namespace container { namespace ext

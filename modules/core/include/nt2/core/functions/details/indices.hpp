@@ -9,17 +9,14 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_INDICES_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_INDICES_HPP_INCLUDED
 
-#include <boost/fusion/include/at.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
 
 namespace nt2 { namespace details
 {
   //============================================================================
-  // indices actual functor 
+  // indices actual functor
   //============================================================================
   struct indices
   {
@@ -38,15 +35,15 @@ namespace nt2 { namespace details
 
       sub_t const pos = ind2sub(sz,p);
       if (dim_ >= pos.size())
-        return nt2::splat<type>(base_); 
+        return nt2::splat<type>(base_);
       else if (dim_)
         return nt2::splat<type>(pos[dim_]+base_-1);
       else
-        return nt2::enumerate<type>(pos[dim_]+base_-1);    
+        return nt2::enumerate<type>(pos[dim_]+base_-1);
     }
   private:
     size_t dim_;
-    int32_t base_; 
+    int32_t base_;
   };
 
 } }

@@ -10,8 +10,10 @@
 #define NT2_CORE_FUNCTIONS_LOGSPACE_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/sdk/meta/generative_hierarchy.hpp>
+
 /*!
  * \ingroup core
  * \defgroup core_logspace logspace
@@ -32,7 +34,7 @@
  *    T can be any floating type
  *
  * \par header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/logspace.hpp>
  * \endcode

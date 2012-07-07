@@ -9,9 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_DSL_DETAILS_GENERATIVE_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_DETAILS_GENERATIVE_HPP_INCLUDED
 
-#include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
-#include <boost/proto/transform.hpp>
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/core/container/dsl/details/generate_as.hpp>
 

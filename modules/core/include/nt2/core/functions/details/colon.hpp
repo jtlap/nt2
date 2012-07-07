@@ -9,10 +9,11 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_COLON_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_COLON_HPP_INCLUDED
 
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/core/container/extremum/extremum.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace details
 {

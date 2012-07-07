@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_BSXFUN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_BSXFUN_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/sdk/memory/container.hpp>
+
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
 
 /*!
  * \ingroup core
