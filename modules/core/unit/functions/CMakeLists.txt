@@ -75,6 +75,7 @@ SET( SOURCES
     maximum.cpp
     mean.cpp
     minimum.cpp
+    nblines.cpp
     nbtrue.cpp
     ndims.cpp
     none.cpp
