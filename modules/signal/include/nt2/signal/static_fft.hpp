@@ -27,7 +27,7 @@
 
 #elif defined( __GNUC__ )
 
-    #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow, pure  ))
+    #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow ))
     #if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64)
         #if defined(__clang__)
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ) ))
