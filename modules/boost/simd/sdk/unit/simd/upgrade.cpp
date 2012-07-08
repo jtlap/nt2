@@ -30,15 +30,23 @@ NT2_TEST_CASE_TPL(upgrade_native, BOOST_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>             native_t;
   typedef typename upgrade<T>::type   base_t;
+  typedef typename upgrade<T,unsigned>::type   ubase_t;
 
   typedef typename
   boost::mpl::if_ < boost::simd::meta::is_vectorizable<base_t,ext_t>
-                  , native<base_t,ext_t> 
+                  , native<base_t,ext_t>
                   , native_t
                   >::type upgraded_t;
 
-  native_t a0; 
-  NT2_TEST_EXPR_TYPE( a0, upgrade<_>, upgraded_t );
+
+  typedef typename
+  boost::mpl::if_ < boost::simd::meta::is_vectorizable<ubase_t,ext_t>
+                  , native<ubase_t,ext_t>
+                  , native_t
+                  >::type uupgraded_t;
+
+  native_t a0;
+  NT2_TEST_EXPR_TYPE( a0, (upgrade<_,unsigned>), uupgraded_t );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,16 +62,24 @@ NT2_TEST_CASE_TPL(upgrade_logical_native, BOOST_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<logical<T>,ext_t>      native_t;
   typedef typename upgrade<T>::type     base_t;
+  typedef typename upgrade<T,unsigned>::type   ubase_t;
 
   typedef typename
   boost::mpl::if_ < boost::simd::meta::is_vectorizable<base_t,ext_t>
-                  , native<logical<base_t>,ext_t> 
+                  , native<logical<base_t>,ext_t>
                   , native_t
                   >::type upgraded_t;
 
-  native_t a0; 
+  typedef typename
+  boost::mpl::if_ < boost::simd::meta::is_vectorizable<ubase_t,ext_t>
+                  , native<logical<ubase_t>,ext_t>
+                  , native_t
+                  >::type uupgraded_t;
+
+  native_t a0;
 
   NT2_TEST_EXPR_TYPE( a0, upgrade<_>, upgraded_t );
+  NT2_TEST_EXPR_TYPE( a0, (upgrade<_,unsigned>), uupgraded_t );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -84,8 +100,8 @@ NT2_TEST_CASE_TPL(upgrade_pack, BOOST_SIMD_TYPES)
                   , pack<base_t>
                   , pack_t
                   >::type upgraded_t;
-                  
-  pack_t a0; 
+
+  pack_t a0;
 
   NT2_TEST_EXPR_TYPE( a0, upgrade<_>, upgraded_t );
 }
@@ -106,11 +122,11 @@ NT2_TEST_CASE_TPL(upgrade_logical_pack, BOOST_SIMD_TYPES)
 
   typedef typename
   boost::mpl::if_ < boost::simd::meta::is_vectorizable<base_t,ext_t>
-                  , pack< logical<base_t> > 
+                  , pack< logical<base_t> >
                   , native_t
                   >::type upgraded_t;
 
-  native_t a0; 
+  native_t a0;
 
   NT2_TEST_EXPR_TYPE( a0, upgrade<_>, upgraded_t );
 }
