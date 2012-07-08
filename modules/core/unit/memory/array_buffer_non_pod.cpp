@@ -104,8 +104,8 @@ NT2_TEST_CASE(array_buffer_swap)
 
   swap(x,b);
 
-  NT2_TEST_EQUAL(x.size() , 5 u    );
-  NT2_TEST_EQUAL(b.size() , 5u     );
+  NT2_TEST_EQUAL(x.size() , 5u    );
+  NT2_TEST_EQUAL(b.size() , 5u    );
   NT2_TEST_EQUAL(x.raw()  , &x[0] );
   NT2_TEST_EQUAL(b.raw()  , &b[0] );
 

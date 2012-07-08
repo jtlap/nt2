@@ -121,14 +121,14 @@ NT2_TEST_CASE_TPL( ric_typed_expr, NT2_TYPES )
   nt2::table<T> x1 = nt2::ric( t, nt2::meta::as_<T>() );
   for(int i=1;i<=3;++i)
     for(int j=1;j<=4;++j)
-      NT2_TEST_EQUAL( i-1, x1(i, j) );
+      NT2_TEST_EQUAL( T(i-1), x1(i, j) );
 
   nt2::table<int> a( nt2::of_size(4,5) );
   nt2::table<T> x2 = nt2::ric( nt2::size(a), nt2::meta::as_<T>() );
 
   for(int i=1;i<=4;++i)
     for(int j=1;j<=5;++j)
-      NT2_TEST_EQUAL( i-1, x2(i, j) );
+      NT2_TEST_EQUAL(T(i-1), x2(i, j) );
 
   NT2_TEST_ASSERT( x1 = nt2::ric(a, nt2::meta::as_<T>() ) );
 }
