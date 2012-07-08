@@ -15,6 +15,8 @@
     #pragma inline_recursion( on )
 #endif // _MSC_VER
 
+#include <boost/simd/sdk/config/arch.hpp>
+#include <boost/simd/sdk/simd/extensions.hpp>
 
 #if defined( _MSC_VER )
 
@@ -25,13 +27,11 @@
 
 #elif defined( __GNUC__ )
 
-    #include <boost/simd/sdk/config/arch.hpp>
-
     #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow, pure  ))
-    #ifdef BOOST_SIMD_ARCH_X86
-        #ifdef __clang__
+    #if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64)
+        #if defined(__clang__)
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ) ))
-        #else
+        #elif defined(BOOST_SIMD_HAS_SSE_SUPPORT)
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ), sseregparm, hot ))
         #endif // __clang__
     #else
@@ -62,7 +62,6 @@
 #include <boost/detail/endian.hpp>
 
 // FIXME: make the code work without those assumptions
-#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/memory/parameters.hpp>
 #undef BOOST_SIMD_CONFIG_ALIGNMENT
 #undef BOOST_SIMD_ARCH_ALIGNMENT
