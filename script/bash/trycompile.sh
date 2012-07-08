@@ -4,6 +4,7 @@ if [ $# -lt 1 ]
 then
     echo "Usage: `basename $0` [-j<N>] <file>..."
     echo "NT2_SOURCE_ROOT, NT2_BINARY_ROOT and BOOST_ROOT must be defined"
+    echo "Compiler can be defined with CXX"
     exit 65
 fi
 
@@ -11,6 +12,11 @@ if ! ([ $NT2_SOURCE_ROOT ] && [ $NT2_BINARY_ROOT ] && [ $BOOST_ROOT ])
 then
   echo "NT2_SOURCE_ROOT, NT2_BINARY_ROOT and BOOST_ROOT must be defined"
   exit 65
+fi
+
+if ! [ $CXX ]
+then
+  CXX=c++
 fi
 
 if echo $1 | grep -E "^-j[0-9]" > /dev/null
@@ -33,7 +39,7 @@ done
 
 function wait_jobs()
 {
-  while [ $(ps ax | grep $1 | grep -v grep | wc -l) -ge $2 ]
+  while [ $(ps ax | grep $CXX | grep -v grep | wc -l) -ge $1 ]
   do
     sleep 1
   done
@@ -41,12 +47,12 @@ function wait_jobs()
 
 for i in $args
 do
-  command="g++ -x c++ -Wfatal-errors -fsyntax-only $include_string $i"
+  command="$CXX -x c++ -Wfatal-errors -fsyntax-only $include_string $i"
   if [ $VERBOSE ]
   then
     echo $command
   fi
-  wait_jobs cc1plus $jobs
+  wait_jobs $jobs
   $command |& grep -v -F Wfatal-errors &
 done
-wait_jobs g++ 1
+wait_jobs 1
