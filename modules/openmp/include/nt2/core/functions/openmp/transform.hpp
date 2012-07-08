@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
 #endif
       // - loop nest is 2D so we can walk over the scalar epilogue of each row.
       #pragma omp parallel for schedule(static)
-      for(std::ptrdiff_t j=0; j<outer_sz; ++j)
+      for(std::size_t j=0; j<outer_sz; ++j)
       {
         std::size_t it = j*in_sz;
 #ifndef BOOST_NO_EXCEPTIONS
