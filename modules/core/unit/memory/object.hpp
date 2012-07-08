@@ -9,6 +9,9 @@
 #ifndef NT2_UNIT_SDK_MEMORY_OBJECT_HPP_INCLUDED
 #define NT2_UNIT_SDK_MEMORY_OBJECT_HPP_INCLUDED
 
+#include <string>
+
+
 namespace nt2
 {
   struct object
