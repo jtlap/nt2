@@ -67,7 +67,7 @@ directories.]
 [heading Default configuration]
 The default configuration of __NT2__ super-project will generate a version of
 __NT2__ using all available modules and will try to detect the best architecture
-support to enable (See ... for more informations). Additionnaly, the install
+support to enable (See ... for more informations). Additionally, the install
 path will default to [^/usr/local] on Linux and [^C:\Program Files] on Windows.
 
 We start by creating a =build= directory next to our =nt2= directory and move
@@ -82,11 +82,11 @@ Once there, we simply call =cmake= with the location of our =nt2= directory
 cmake ../nt2
 ``
 If you pass no other option, __CMAKE__ will use the default generator for your
-paltform: =make= for Linux, Visual Studio for Windows. You can change this by
+platform: =make= for Linux, Visual Studio for Windows. You can change this by
 using the =-g= option of __CMAKE__. Once called, the __NT2__ __CMAKE__ script
 will check for some prerequisites, load all available module, generate stub
 include files and finally generate the =Makefile= or =.sln= you want. An abridged
-output of such a successful scritp call should look like:
+output of such a successful script call should look like:
 [teletype]
 ``
 -- The C compiler identification is GNU 4.6.3
@@ -133,7 +133,7 @@ use. Additional flags could be used on a per OS, per compiler or per architectur
 basis and will be detailed in the corresponding documentation.
 
 [tip All the options presented here can either be added on a configuration file
-basis or registered as envirnoment variable so all __NT2__ configuration on a
+basis or registered as environment variable so all __NT2__ configuration on a
 given system are using the same set of options.]
 
 [heading Changing install path prefix]
@@ -171,23 +171,23 @@ cmake ../nt2 -DBUILD_SHARED_LIBS=ON
 ``
 
 [heading Activate or Deactivate __NT2__ modules]
-__NT2__ is composed of independant modules that can be activated or deactivated
-at will. This is controlled by two __CMAKE__ opitons:
+__NT2__ is composed of independent modules that can be activated or deactivated
+at will. This is controlled by two __CMAKE__ options:
 
 * =NT2_MODULES= which awaits a comma-separated list of __NT2__ modules to load.
   By default, all modules are loaded.
 * =NT2_MODULES_BLACKLIST= which awaits a comma-separated list of modules that
   should not be used in current build.
 
-[heading Download optionnal __NT2__ modules]
+[heading Download optional __NT2__ modules]
 Additional __NT2__ modules may be available on other Github repository like the
-main [@https://github.com/MetaScale/nt2-modules __NT2__ Optionnal Modules repository].
-Th followign options specify chich additional modules you may want to use and a
+main [@https://github.com/MetaScale/nt2-modules __NT2__ Optional Modules repository].
+Th following options specify which additional modules you may want to use and a
 set of Github repositories to look for them. If such modules are found, they'll
 be automatically cloned into the current source folder and configured.
 
 For example, the following command grab the =signal= module from the
-[@https://github.com/MetaScale/nt2-modules __NT2__ Optionnal Modules repository].
+[@https://github.com/MetaScale/nt2-modules __NT2__ Optional Modules repository].
 [teletype]
 ``
 cmake ../nt2 -DNT2_FIND_REPOSITORIES=git://github.com/MetaScale/nt2-modules.git -DNT2_MODULES_EXTRA=signal

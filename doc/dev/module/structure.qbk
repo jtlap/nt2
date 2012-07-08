@@ -6,7 +6,7 @@
 * Give a short description of the minimalist module to be able to make new ones
 * Special CMake consideration when your module has sources, must copy files etc...
 
-Under the hood, any given Module is layed out as follows:
+Under the hood, any given Module is laid out as follows:
 
 [table Module layout
     [[Path]  [Description]]

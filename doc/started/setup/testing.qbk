@@ -11,7 +11,7 @@ __NT2__ provides three types of tests:
 * Regular Unit Tests that assert the correctness of both compilation and execution
 of __NT2__ under a given set of platform, architecture and compiler.
 * Cover Tests that provide a random sampling tests of precision for numerical
-algortihms. Those cover help __NT2__ developepr to maintain a high level of
+algorithms. Those cover help __NT2__ developer to maintain a high level of
 numerical precision.
 * Exhaustive Tests that performs an exhaustive exploration of a function value
 space to assess numerical precision. Those cover usually are only provided for

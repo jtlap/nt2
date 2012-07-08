@@ -43,7 +43,7 @@ said module documentation and are only required if you plan to use such a module
 __NT2__ currently is supported by the following compilers:
 
 * [@http://gcc.gnu.org/ GCC] version 4.2.1 or superior on any systems.
-* *Microsoft Visual Studio* version 10 or superior. Profesionnal version is
+* *Microsoft Visual Studio* version 10 or superior. Professional version is
   required to access [@http://openmp.org/wp/ OpenMP] support.
 * [@http://clang.llvm.org/ Clang] version 2.9 or superior.
 * [@http://software.intel.com/en-us/articles/intel-compilers/ Intel C/C++ Compiler]
@@ -57,7 +57,7 @@ Supported architecture include:
 * [@http://en.wikipedia.org/wiki/SIMD#Hardware SIMD Extensions]:
  * SSE2, SSE3, SSSE3, SSE4 and AVX on x86 and AMD processors.
  * Altivec on PowerPC processors.
-* Multicore processors through [@http://openmp.org/wp/ OpenMP] 2.0 compliant
+* Multi-core processors through [@http://openmp.org/wp/ OpenMP] 2.0 compliant
   compilers.
 
 [include setup/binary.qbk]

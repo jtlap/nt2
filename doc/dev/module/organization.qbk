@@ -1,4 +1,4 @@
-[section General Organisation]
+[section General Organization]
 
 `TODO REFURBISH PROPERLY WITH NEW CONTENTS`
 
@@ -7,7 +7,7 @@ on whether you're looking at the source distribution or the binary distribution.
 
 The essential difference is that the source distribution is divided into a
 collection of modules, which can each add headers to the include path, library
-sources to be built, tests, etc. as shwon in the following table.
+sources to be built, tests, etc. as shown in the following table.
 
 [table Source layout
     [[Path]          [Description]]
@@ -41,7 +41,7 @@ specializations for that function.
 
 [warning There is not a 1-to-1 mapping between toolboxes and modules. A module may define several toolboxes,
 and a toolbox may be spread across several modules. Modules are a mechanism to group together source code,
-which can be used, among others scenarios, to group together functionality (like toolboxes), hardware backends
+which can be used, among others scenarios, to group together functionality (like toolboxes), hardware back-ends
 or self-contained extensions.]
 
 [endsect]
