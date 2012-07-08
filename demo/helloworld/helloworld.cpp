@@ -11,7 +11,7 @@ int main()
   table<double> x;
   table<double> y = ones(4,4);
 
-  x = 10.0 * y + 4.0;
+  x = 40.0 * y + 2.0;
 
   std::cout << x << "\n";
 }
