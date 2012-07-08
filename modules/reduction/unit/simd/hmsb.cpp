@@ -12,7 +12,7 @@
 // unit test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/hmsb.hpp>
 #include <nt2/include/functions/bits.hpp>
 #include <nt2/include/functions/shri.hpp>
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::hmsb;
   using boost::simd::tag::hmsb_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -54,9 +54,9 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(hmsb(boost::simd::Allbits<vT>()), sr_t((1ull << boost::simd::meta::cardinal_of<vT>::value) - 1));
   NT2_TEST_EQUAL(hmsb(boost::simd::Inf<vT>()), boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(hmsb(boost::simd::Minf<vT>()), boost::simd::shri(boost::simd::Mone<boost::simd::int32_t>(),int(32-boost::simd::meta::cardinal_of<vT>::value)));
-  NT2_TEST_EQUAL(hmsb(boost::simd::Mone<vT>()), boost::simd::shri(boost::simd::Mone<boost::simd::int32_t>(),int(32-boost::simd::meta::cardinal_of<vT>::value)));
-  NT2_TEST_EQUAL(hmsb(boost::simd::Nan<vT>()), boost::simd::shri(boost::simd::Mone<boost::simd::int32_t>(),int(32-boost::simd::meta::cardinal_of<vT>::value)));
+  NT2_TEST_EQUAL(hmsb(boost::simd::Minf<vT>()), boost::simd::shri(boost::simd::Mone<sr_t>(),sr_t(32-boost::simd::meta::cardinal_of<vT>::value)));
+  NT2_TEST_EQUAL(hmsb(boost::simd::Mone<vT>()), boost::simd::shri(boost::simd::Mone<sr_t>(),sr_t(32-boost::simd::meta::cardinal_of<vT>::value)));
+  NT2_TEST_EQUAL(hmsb(boost::simd::Nan<vT>()), boost::simd::shri(boost::simd::Mone<sr_t>(),sr_t(32-boost::simd::meta::cardinal_of<vT>::value)));
   NT2_TEST_EQUAL(hmsb(boost::simd::One<vT>()), boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(hmsb(boost::simd::Signmask<vT>()), sr_t((1ull << boost::simd::meta::cardinal_of<vT>::value) - 1));
   NT2_TEST_EQUAL(hmsb(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES
 {
   using boost::simd::hmsb;
   using boost::simd::tag::hmsb_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -93,7 +93,7 @@ NT2_TEST_CASE_TPL ( hmsb_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::hmsb;
   using boost::simd::tag::hmsb_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
