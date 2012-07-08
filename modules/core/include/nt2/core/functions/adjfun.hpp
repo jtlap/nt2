@@ -13,6 +13,7 @@
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/generate_as.hpp>
 #include <nt2/sdk/meta/add_settings.hpp>
+#include <nt2/core/settings/shape.hpp>
 
 /*!
  * \ingroup core

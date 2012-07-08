@@ -12,6 +12,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/sdk/meta/add_settings.hpp>
+#include <nt2/core/settings/shape.hpp>
 
 namespace nt2
 {
