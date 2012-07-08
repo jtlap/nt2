@@ -15,7 +15,7 @@ want to participate to some on-going effort that take place in long lived branch
 For now on, we will consider we retrieve __NT2__ =master=. If you happen to
 retrieve any other branch, the procedure stay the same, just change the branch
 name. To proceed, clone current __NT2__ from Github by typing the following command
-in a terminal (on Linux/Mac OS X) or in GIT-Bash (on Windows):
+in a terminal (on Linux or Mac OS X) or in GIT-Bash (on Windows):
 ``
 git clone https://github.com/MetaScale/nt2.git -b master
 ``
