@@ -9,30 +9,22 @@
 #ifndef NT2_CORE_FUNCTIONS_LINE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_LINE_HPP_INCLUDED
 
-#include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/generate_as.hpp>
-#include <nt2/sdk/meta/add_settings.hpp>
-#include <nt2/core/settings/shape.hpp>
-
 /*!
  * \ingroup core
  * \defgroup core line
  *
  * \par Description
- * Returns the sum of absolute values of the elements matrix along the selected direction,
+ * Returns the line of index i along the selected direction,
  * i.e. the 1-norm line(a0, n))
  * by default n is the first non-singleton dimension of a0
  *
- * \alias norm1,  asum
- *
  * \par Header file
- *
+ * 
  * \code
  * #include <nt2/include/functions/line.hpp>
  * \endcode
- *
- *
+ * 
+ * 
  * \synopsis
  *
  * \code
@@ -45,20 +37,10 @@
  * \endcode
  *
  * \param a0 the unique parameter of line
- *
+ * 
  * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has not real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
+ *  
+ *  
 **/
 
 
@@ -76,7 +58,7 @@ namespace nt2
   /*!
    * sum of absolute squares of a table
    *
-   * \param xpr  table
+   * \param xpr  table 
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::line_       , line, 1)
