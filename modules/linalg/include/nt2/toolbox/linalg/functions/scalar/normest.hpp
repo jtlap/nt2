@@ -64,8 +64,8 @@ namespace nt2 { namespace ext
     static S trans(const S& a)
     {
       S ta = zeros(width(a), height(a), meta::as_<value_type>());
-      for (int i = 1; i <= height(a); ++i)
-        for (int j = 1; j <= width(a); ++j)
+      for (size_t i = 1; i <= height(a); ++i)
+        for (size_t j = 1; j <= width(a); ++j)
           ta(j, i) = a(i, j);
       return ta;
     }
