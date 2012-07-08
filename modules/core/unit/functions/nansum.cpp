@@ -51,32 +51,32 @@ NT2_TEST_CASE_TPL( nansum, (float)(double))//NT2_TYPES )
   sy2 = nt2::nansum(y);
   display("sy", sy);
   display("sy2", sy2);
-  for(int j=1;j<=size(sy, 2);j++)
-    for(int i=1;i<=size(sy, 1);i++)
+  for(size_t j=1;j<=size(sy, 2);j++)
+    for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
 
   sy = nt2::sum(nt2::if_zero_else(nt2::is_nan(y), y), 1);
   sy2 = nt2::nansum(y, 1);
   display("sy", sy);
   display("sy2", sy2);
-  for(int j=1;j<=size(sy, 2);j++)
-    for(int i=1;i<=size(sy, 1);i++)
+  for(size_t j=1;j<=size(sy, 2);j++)
+    for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
 
   sy = nt2::sum(nt2::if_zero_else(nt2::is_nan(y), y), 2);
   sy2 = nt2::nansum(y, 2);
   display("sy", sy);
   display("sy2", sy2);
-  for(int j=1;j<=size(sy, 2);j++)
-    for(int i=1;i<=size(sy, 1);i++)
+  for(size_t j=1;j<=size(sy, 2);j++)
+    for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
 
   sy = nt2::sum(nt2::if_zero_else(nt2::is_nan(y), y), 3);
   sy2 = nt2::nansum(y, 3);
   display("sy", sy);
   display("sy2", sy2);
-  for(int j=1;j<=size(sy, 2);j++)
-    for(int i=1;i<=size(sy, 1);i++)
+  for(size_t j=1;j<=size(sy, 2);j++)
+    for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
 
 

@@ -60,10 +60,10 @@ NT2_TEST_CASE_TPL( expand, NT2_TYPES )
 {
   nt2::table<T> in( nt2::of_size(3,3) ), out;
 
-  for(int j=1;j<=9;j++) in(j) = j;
+  for(int j=1;j<=9;j++) in(j) = T(j);
 
   out = nt2::expand(in,nt2::of_size(0,0));
-  NT2_TEST_EQUAL( nt2::numel(out), 0);
+  NT2_TEST_EQUAL( nt2::numel(out), 0u);
 
   for(int j=1;j<10;++j)
   {
@@ -86,7 +86,7 @@ NT2_TEST_CASE_TPL( expand1, NT2_TYPES )
   for(int j=1;j<=6;j++) in(j) = j;
 
   out = nt2::expand(in,nt2::of_size(0,0));
-  NT2_TEST_EQUAL( nt2::numel(out), 0);
+  NT2_TEST_EQUAL( nt2::numel(out), 0u);
 
   for(int j=1;j<10;++j)
   {
@@ -98,7 +98,7 @@ NT2_TEST_CASE_TPL( expand1, NT2_TYPES )
 
       for(int vj=1;vj<=j;++vj)
         for(int vi=1;vi<=i;++vi)
-          NT2_TEST_EQUAL( out(vi,vj), (vi<=3 && vj<=2) ? in(vi,vj) : 0);
+          NT2_TEST_EQUAL( out(vi,vj), (vi<=3 && vj<=2) ? in(vi,vj) : T(0));
     }
   }
 }

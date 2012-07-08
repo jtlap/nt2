@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL( array_buffer_default_ctor, NT2_TYPES)
 
   array_buffer<T, boost::mpl::size_t<2> > b;
 
-  NT2_TEST_EQUAL(b.size()       , 2 );
+  NT2_TEST_EQUAL(b.size()       , 2u );
   NT2_TEST_EQUAL(b.raw(),&b[0]);
 }
 

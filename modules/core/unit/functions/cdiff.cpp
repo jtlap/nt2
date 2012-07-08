@@ -45,8 +45,8 @@ NT2_TEST_CASE_TPL( cdiff, (float)(double))//NT2_TYPES )
   nt2::table<T> sy1, sy2;
 
 
-  for(int j=1;j<=size(y, 2);j++)
-    for(int i=1;i<=size(y, 1);i++)
+  for(size_t j=1;j<=size(y, 2);j++)
+    for(size_t i=1;i<=size(y, 1);i++)
       y(i,j) = nt2::sqr(i + j);
 
   NT2_DISPLAY(y);

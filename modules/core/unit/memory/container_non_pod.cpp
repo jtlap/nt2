@@ -422,7 +422,7 @@ NT2_TEST_CASE( container_resize)
     type b;
 
     NT2_TEST(b.empty());
-    NT2_TEST_EQUAL(b.size(),  0 );
+    NT2_TEST_EQUAL(b.size(),  0u );
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
     NT2_TEST_EQUAL(b.extent(), of_size_<0>());
     NT2_TEST_EQUAL(b.raw(), (nt2::object*)(0));

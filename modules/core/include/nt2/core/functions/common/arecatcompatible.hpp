@@ -32,18 +32,18 @@ namespace nt2 { namespace ext
       typedef typename meta::call<tag::extent_(A1 const&)>::type ext2_t;
       ext2_t ex2 = nt2::extent(a1);
       if (isempty(a0) || isempty(a1)) return true; 
-      int sz =  nt2::min(ex1.size(), ex2.size());
+      size_t sz =  nt2::min(ex1.size(), ex2.size());
       size_t d = dim-1;
-      for(int i=0; i < sz; ++i)
+      for(size_t i=0; i < sz; ++i)
         {
           //      std::cout << "i " << i << " d " << d << " ex1[i] "<< ex1[i] << " ex2[i] " << ex2[i] << std::endl; 
           if ((i != d) && (ex1.data()[i]!= ex2.data()[i])) return false;
         }
-      for(int i=sz; i < ex1.size(); ++i)
+      for(size_t i=sz; i < ex1.size(); ++i)
         {
           if (ex1[i]!= 1) return false; 
         }
-      for(int i=sz; i < ex2.size(); ++i)
+      for(size_t i=sz; i < ex2.size(); ++i)
         {
           if (ex2[i]!= 1) return false; 
         }

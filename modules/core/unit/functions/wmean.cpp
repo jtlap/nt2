@@ -48,8 +48,8 @@ NT2_TEST_CASE_TPL( wmean, (float)(double))//NT2_TYPES )
   sy2 = nt2::wmean(y, w);
   display("sy", sy);
   display("sy2", sy2);
-  for(int j=1;j<=size(sy, 2);j++)
-    for(int i=1;i<=size(sy, 1);i++)
+  for(size_t j=1;j<=size(sy, 2);j++)
+    for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
 
   std::cout << "dim1" << std::endl;
@@ -57,8 +57,8 @@ NT2_TEST_CASE_TPL( wmean, (float)(double))//NT2_TYPES )
   sy2 = nt2::wmean(y, w, 1);
   display("sy", sy);
   display("sy2", sy2);
-  for(int j=1;j<=size(sy, 2);j++)
-    for(int i=1;i<=size(sy, 1);i++)
+  for(size_t j=1;j<=size(sy, 2);j++)
+    for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
 
   std::cout << "dim2" << std::endl;
@@ -67,8 +67,8 @@ NT2_TEST_CASE_TPL( wmean, (float)(double))//NT2_TYPES )
   sy2 = nt2::wmean(y, w, 2);
   display("sy", sy);
   display("sy2", sy2);
-  for(int j=1;j<=size(sy, 2);j++)
-    for(int i=1;i<=size(sy, 1);i++)
+  for(size_t j=1;j<=size(sy, 2);j++)
+    for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
 
 //   std::cout << "dim3" << std::endl;

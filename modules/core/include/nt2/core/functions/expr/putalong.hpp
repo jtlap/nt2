@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       ext_t ext;
-      for(int i=0; i < ext.size(); ++i) ext[i] = 1;
+      for(size_t i=0; i < ext.size(); ++i) ext[i] = 1;
       ext[a1-1] = nt2::numel(a0);
       return nt2::reshape(a0, ext); 
     }

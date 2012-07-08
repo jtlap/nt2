@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL( diag_of, NT2_TYPES )
 
   x = nt2::diag_of(y);
 
-  for(int i=1;i<=nt2::length(x);i++)
+  for(size_t i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), y(i,i) );
 }
 
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL( diag_of_expr, (float))//NT2_TYPES )
   x = nt2::diag_of(y, 1);
   display("diag_of(y, 1)",nt2::diag_of(y, 1));
 
-  for(int i=1;i<=nt2::length(x);i++)
+  for(size_t i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), y(i,i+1) );
 }
 
@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL( diag_of_expr1, (float))//NT2_TYPES )
   x = nt2::diag_of(y, -1);
   display("diag_of(y, 1)",nt2::diag_of(y, -1));
 
-  for(int i=1;i<=nt2::length(x);i++)
+  for(size_t i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), y(i+1,i) );
 }
 
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL( diag_of_1, NT2_TYPES )
 
   x = nt2::diag_of(y+y-T(1));
 
-  for(int i=1;i<=nt2::length(x);i++)
+  for(size_t i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), (y+y-T(1))(i,i) );
 }
 

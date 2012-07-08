@@ -35,10 +35,10 @@ NT2_TEST_CASE_TPL( colvect_ofsize, (float) )
   for(int j=1;j<=4;j++)
     for(int i=1;i<=4;i++, k++)
       NT2_TEST_EQUAL( T(r(k)) , T(y(i, j)) );
-  NT2_TEST_EQUAL( nt2::ndims(r)  , 2 );
+  NT2_TEST_EQUAL( nt2::ndims(r)  , 2u );
   NT2_TEST_EQUAL( nt2::size(r,1) , numel(y) );
-  NT2_TEST_EQUAL( nt2::size(r,2) , 1 );
-  NT2_TEST_EQUAL( nt2::size(r,3) , 1 );
+  NT2_TEST_EQUAL( nt2::size(r,2) , 1u );
+  NT2_TEST_EQUAL( nt2::size(r,3) , 1u );
 
 }
 
@@ -56,10 +56,10 @@ NT2_TEST_CASE_TPL( colvect_size, (float) )
   for(int j=1;j<=4;j++)
     for(int i=1;i<=4;i++, k++)
       NT2_TEST_EQUAL( T(r(k)) , T(y(i, j)) );
-  NT2_TEST_EQUAL( nt2::ndims(r)  , 2 );
+  NT2_TEST_EQUAL( nt2::ndims(r)  , 2u );
   NT2_TEST_EQUAL( nt2::size(r,1) , numel(y) );
-  NT2_TEST_EQUAL( nt2::size(r,2) , 1 );
-  NT2_TEST_EQUAL( nt2::size(r,3) , 1 );
+  NT2_TEST_EQUAL( nt2::size(r,2) , 1u );
+  NT2_TEST_EQUAL( nt2::size(r,3) , 1u );
 
   NT2_TEST(nt2::isequal(r, y(nt2::_))); 
 
