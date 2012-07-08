@@ -29,8 +29,9 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0,const A1& dim) const
     {
-      if (isempty(a0)) return 1; 
-      size_t d =  nt2::min(size_t(dim), a0.extent().size()); 
+      if (isempty(a0)) return 1;
+      size_t d =  size_t(dim); 
+      if(d > a0.extent().size()) return numel(a0); 
       size_t stride = 1;
       for(size_t i=1; i < d; ++i)
         {
