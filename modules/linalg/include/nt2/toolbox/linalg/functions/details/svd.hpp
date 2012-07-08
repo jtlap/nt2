@@ -323,8 +323,8 @@ namespace nt2 { namespace details
     static tab_t trans(const S& a)
     {
       tab_t ta = zeros(width(a), height(a), meta::as_<type_t>());
-      for (int i = 1; i <= height(a); ++i)
-        for (int j = 1; j <= width(a); ++j)
+      for (size_t i = 1; i <= height(a); ++i)
+        for (size_t j = 1; j <= width(a); ++j)
           ta(j, i) = a(i, j);
       return ta;
     }

@@ -45,11 +45,11 @@ NT2_TEST_CASE_TPL ( ctz_real__1_0,  BOOST_SIMD_REAL_TYPES)
   std::cout << std::endl; 
 
   // specific values tests
-  NT2_TEST_EQUAL(ctz(boost::simd::Inf<T>()), boost::simd::Nbmantissabits<T>());
-  NT2_TEST_EQUAL(ctz(boost::simd::Minf<T>()), boost::simd::Nbmantissabits<T>());
-  NT2_TEST_EQUAL(ctz(boost::simd::Nan<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(ctz(boost::simd::Signmask<T>()), sizeof(T)*8-1);
-  NT2_TEST_EQUAL(ctz(boost::simd::Zero<T>()), sizeof(T)*8);
+  NT2_TEST_EQUAL(ctz(boost::simd::Inf<T>()), sr_t(boost::simd::Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(ctz(boost::simd::Minf<T>()), sr_t(boost::simd::Nbmantissabits<T>()));
+  NT2_TEST_EQUAL(ctz(boost::simd::Nan<T>()), sr_t(boost::simd::Zero<r_t>()));
+  NT2_TEST_EQUAL(ctz(boost::simd::Signmask<T>()), sr_t(sizeof(T)*8-1));
+  NT2_TEST_EQUAL(ctz(boost::simd::Zero<T>()), sr_t(sizeof(T)*8));
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( ctz_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -70,9 +70,9 @@ NT2_TEST_CASE_TPL ( ctz_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   std::cout << std::endl; 
 
   // specific values tests
-  NT2_TEST_EQUAL(ctz(boost::simd::One<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(ctz(boost::simd::Signmask<T>()), sizeof(T)*8-1);
-  NT2_TEST_EQUAL(ctz(boost::simd::Zero<T>()), sizeof(T)*8);
+  NT2_TEST_EQUAL(ctz(boost::simd::One<T>()), sr_t(boost::simd::Zero<r_t>()));
+  NT2_TEST_EQUAL(ctz(boost::simd::Signmask<T>()), sr_t(sizeof(T)*8-1));
+  NT2_TEST_EQUAL(ctz(boost::simd::Zero<T>()), sr_t(sizeof(T)*8));
 } // end of test for signed_int_
 
  NT2_TEST_CASE_TPL ( ctz_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -102,15 +102,7 @@ NT2_TEST_CASE_TPL ( ctz_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   for(T i=2; i< boost::simd::Valmax<T>()/2; i*= 2)
     {
       NT2_TEST_EQUAL(ctz(i), j);
-      NT2_TEST_EQUAL(ctz(i+1), 0);
-      
-      //       std::cout << i << "   "
-      //                 << int(boost::simd::ctz(T(i))) << "           "
-      //                 << boost::simd::ffs(T(i)) << "           "
-      //                 << boost::simd::clz(T(i)) << "           "
-      //                 << boost::simd::ffs(boost::simd::reversebits(T(i))) << "           "
-      //                 << boost::simd::ilog2(T(i)) << "           "
-      //                 << sizeof(T)*8-boost::simd::ffs(boost::simd::reversebits(T(i))) << std::endl; 
+      NT2_TEST_EQUAL(ctz(i+1), T(0));
       ++j; 
     }
  } // end of test for unsigned_int_

@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
       ext_t s1 = nt2::extent(a1);
       ext_t s2 = nt2::extent(a2);
       ext_t sizee ;
-      for(int i = 0; i < sizee.size(); ++i)
+      for(size_t i = 0; i < sizee.size(); ++i)
         {
           sizee[i] = s1[i]; 
           if (s1[i] == 1) sizee[i] = s2[i];

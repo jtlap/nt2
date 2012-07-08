@@ -27,14 +27,14 @@ NT2_TEST_CASE_TPL(simd_input_iterator, BOOST_SIMD_SIMD_TYPES )
   //  static const std::size_t at_ = card - 1;
   BOOST_SIMD_ALIGNED_TYPE(T) data[3*card];
 
-  for(int i=0; i<3*card; ++i) data[i] = T(i);
+  for(size_t i=0; i<3*card; ++i) data[i] = i;
 
   it_ begin = boost::simd::input_begin(&data[0]);
   it_ end   = boost::simd::input_end(&data[0]+3*card);
 
-  for(int c = 0; begin != end; ++begin, c++)
+  for(size_t c = 0; begin != end; ++begin, c++)
   {
-    for(int i=0;i<card;++i)
+    for(size_t i=0;i<card;++i)
      NT2_TEST_EQUAL( (*begin)[i], data[i + c*card]);
   }
 }
@@ -47,16 +47,17 @@ NT2_TEST_CASE_TPL(simd_vector_input_iterator, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::input_iterator<T> it_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
+  //  static const std::size_t at_ = card - 1;
   std::vector<T, boost::simd::memory::allocator<T> > data(3*card);
 
-  for(int i=0; i<3*card; ++i) data[i] = T(i);
+  for(size_t i=0; i<3*card; ++i) data[i] = i;
 
   it_ begin = boost::simd::input_begin(data.begin());
   it_ end = boost::simd::input_end(data.end());
 
-  for(int c = 0; begin != end; ++begin, c++)
+  for(size_t c = 0; begin != end; ++begin, c++)
   {
-    for(int i=0;i<card;++i)
+    for(size_t i=0;i<card;++i)
      NT2_TEST_EQUAL( (*begin)[i], data[i + c*card]);
   }
 }
@@ -70,10 +71,11 @@ NT2_TEST_CASE_TPL(simd_output_iterator, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::input_iterator<T>  iit_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
+  //  static const std::size_t at_ = card - 1;
   BOOST_SIMD_ALIGNED_TYPE(T) idata[3*card];
   BOOST_SIMD_ALIGNED_TYPE(T) odata[3*card];
 
-  for(int i=0; i<3*card; ++i) idata[i] = T(i);
+  for(size_t i=0; i<3*card; ++i) idata[i] = i;
 
   oit_ obegin = boost::simd::output_begin(&odata[0]);
   oit_ oend   = boost::simd::output_end(&odata[0]+3*card);
@@ -85,9 +87,9 @@ NT2_TEST_CASE_TPL(simd_output_iterator, BOOST_SIMD_SIMD_TYPES )
   iit_ rbegin = boost::simd::input_begin(&odata[0]);
   iit_ rend   = boost::simd::input_end(&odata[0]+3*card);  
 
-  for(int c = 0; rbegin != rend; ++rbegin, c++)
+  for(size_t c = 0; rbegin != rend; ++rbegin, c++)
   {
-    for(int i=0;i<card;++i)
+    for(size_t i=0;i<card;++i)
      NT2_TEST_EQUAL( (*rbegin)[i], idata[i + c*card]);
   }
 }
@@ -101,11 +103,12 @@ NT2_TEST_CASE_TPL(simd_vector_output_iterator, BOOST_SIMD_SIMD_TYPES )
   typedef typename boost::simd::input_iterator<T>  iit_;
   typedef typename boost::simd::pack<T> p_t;
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
+  //  static const std::size_t at_ = card - 1;
 
   std::vector<T, boost::simd::memory::allocator<T> > idata(3*card);
   std::vector<T, boost::simd::memory::allocator<T> > odata(3*card);
 
-  for(int i=0; i<3*card; ++i) idata[i] = T(i);
+  for(size_t i=0; i<3*card; ++i) idata[i] = i;
 
   oit_ obegin = boost::simd::output_begin(odata.begin());
   oit_ oend   = boost::simd::output_end(odata.end());
@@ -117,9 +120,9 @@ NT2_TEST_CASE_TPL(simd_vector_output_iterator, BOOST_SIMD_SIMD_TYPES )
   iit_ rbegin = boost::simd::input_begin(&odata[0]);
   iit_ rend   = boost::simd::input_end(&odata[0]+3*card);  
 
-  for(int c = 0; rbegin != rend; ++rbegin, c++)
+  for(size_t c = 0; rbegin != rend; ++rbegin, c++)
   {
-    for(int i=0;i<card;++i)
+    for(size_t i=0;i<card;++i)
      NT2_TEST_EQUAL( (*rbegin)[i], idata[i + c*card]);
   }
 }

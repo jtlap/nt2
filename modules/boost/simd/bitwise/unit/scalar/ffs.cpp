@@ -41,11 +41,11 @@ NT2_TEST_CASE_TPL ( ffs_real__1_0,  BOOST_SIMD_REAL_TYPES)
   std::cout << std::endl; 
 
   // specific values tests
-  NT2_TEST_EQUAL(ffs(boost::simd::Inf<T>()), boost::simd::Nbmantissabits<T>()+1);
-  NT2_TEST_EQUAL(ffs(boost::simd::Minf<T>()), boost::simd::Nbmantissabits<T>()+1);
-  NT2_TEST_EQUAL(ffs(boost::simd::Nan<T>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(ffs(boost::simd::Signmask<T>()), sizeof(T)*8);
-  NT2_TEST_EQUAL(ffs(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(ffs(boost::simd::Inf<T>()), sr_t(boost::simd::Nbmantissabits<T>()+1));
+  NT2_TEST_EQUAL(ffs(boost::simd::Minf<T>()), sr_t(boost::simd::Nbmantissabits<T>()+1));
+  NT2_TEST_EQUAL(ffs(boost::simd::Nan<T>()), sr_t(boost::simd::One<r_t>()));
+  NT2_TEST_EQUAL(ffs(boost::simd::Signmask<T>()), sr_t(sizeof(T)*8));
+  NT2_TEST_EQUAL(ffs(boost::simd::Zero<T>()), sr_t(boost::simd::Zero<r_t>()));
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)

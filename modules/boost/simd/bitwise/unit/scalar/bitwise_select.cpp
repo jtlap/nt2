@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( bitwise_select_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   std::cout << std::endl; 
 
   // specific values tests
-  NT2_TEST_EQUAL(bitwise_select(T(-1),T(1),T(2)), 1);
-  NT2_TEST_EQUAL(bitwise_select(T(0),T(1),T(2)), 2);
+  NT2_TEST_EQUAL(bitwise_select(T(-1),T(1),T(2)), sr_t(1));
+  NT2_TEST_EQUAL(bitwise_select(T(0),T(1),T(2)), sr_t(2));
   NT2_TEST_EQUAL(bitwise_select(boost::simd::Zero<T>(), boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for integer_

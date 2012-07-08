@@ -50,13 +50,13 @@ NT2_TEST_CASE( float_eps_value )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( real_value, BOOST_SIMD_INTEGRAL_TYPES )
 {
-  NT2_TEST_EQUAL( boost::simd::Eps<T>()             , 1 );
-  NT2_TEST_EQUAL( boost::simd::Halfeps<T>()         , 1 );
-  NT2_TEST_EQUAL( boost::simd::Threeeps<T>()        , 3 );
-  NT2_TEST_EQUAL( boost::simd::Sqrteps<T>()         , 1 );
-  NT2_TEST_EQUAL( boost::simd::Fourthrooteps<T>()   , 1 );
-  NT2_TEST_EQUAL( boost::simd::Thirdrooteps<T>()    , 1 );
-  NT2_TEST_EQUAL( boost::simd::Mlogeps2<T>()        , 0 );
-  NT2_TEST_EQUAL( boost::simd::Mindenormal<T>()     , 1 );
-  NT2_TEST_EQUAL( boost::simd::Smallestposval<T>()  , 1 );
+  NT2_TEST_EQUAL( boost::simd::Eps<T>()             , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Halfeps<T>()         , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Threeeps<T>()        , T(3) );
+  NT2_TEST_EQUAL( boost::simd::Sqrteps<T>()         , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Fourthrooteps<T>()   , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Thirdrooteps<T>()    , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Mlogeps2<T>()        , T(0) );
+  NT2_TEST_EQUAL( boost::simd::Mindenormal<T>()     , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Smallestposval<T>()  , T(1) );
 }

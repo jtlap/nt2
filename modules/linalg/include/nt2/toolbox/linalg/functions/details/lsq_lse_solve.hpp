@@ -60,10 +60,10 @@ namespace nt2 {namespace details
     {
       nt2_la_int lda = a_.leading_size();
       nt2_la_int ldb = b_.leading_size();
-      BOOST_ASSERT_MSG( (n_ == nt2::width(b_)),"In lse calls the number of columns of a must match the number of columns of b");
+      BOOST_ASSERT_MSG( (size_t(n_) == nt2::width(b_)),"In lse calls the number of columns of a must match the number of columns of b");
       BOOST_ASSERT_MSG( (n_ >= p_),"In lse calls the number of columns of a must be greater or equal to the number of rows of b");
       BOOST_ASSERT_MSG( (n_ <= m_+p_),"In lse calls n <= m+p");
-      BOOST_ASSERT_MSG( (p_ == nt2::numel(d_)),"In lse calls the number of rows of b must match the number of elements of d");
+      BOOST_ASSERT_MSG( (size_t(p_) == nt2::numel(d_)),"In lse calls the number of rows of b must match the number of elements of d");
       nt2::details::gglse(&m_, &n_, &p_, a_.raw(), &lda, b_.raw(), &ldb, c_.raw(), d_.raw(), x_.raw(), &info_);
     }
     ~lsq_lse_solve_result(){}

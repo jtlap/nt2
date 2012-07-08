@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( nbtrue_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   ulpd=0.0;
 
   // specific values tests
-  NT2_TEST_EQUAL(nbtrue(boost::simd::Mone<vT>()), cardinal_of<vT>::value);
-  NT2_TEST_EQUAL(nbtrue(boost::simd::One<vT>()) , cardinal_of<vT>::value);
+  NT2_TEST_EQUAL(nbtrue(boost::simd::Mone<vT>()), sr_t(cardinal_of<vT>::value));
+  NT2_TEST_EQUAL(nbtrue(boost::simd::One<vT>()) , sr_t(cardinal_of<vT>::value));
   NT2_TEST_EQUAL(nbtrue(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
 }
