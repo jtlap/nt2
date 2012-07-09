@@ -41,9 +41,6 @@ NT2_TEST_CASE_TPL ( is_ngez_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_ngez(-boost::simd::Zero<T>()), r_t(false));
@@ -74,9 +71,6 @@ NT2_TEST_CASE_TPL ( is_ngez_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_ngez(boost::simd::Mone<T>()), r_t(true));
@@ -101,9 +95,6 @@ NT2_TEST_CASE_TPL ( is_ngez_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_ngez(boost::simd::One<T>()), r_t(false));

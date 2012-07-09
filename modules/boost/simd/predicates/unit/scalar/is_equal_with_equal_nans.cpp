@@ -41,9 +41,6 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_real__2_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_equal_with_equal_nans(-boost::simd::Zero<T>(), -boost::simd::Zero<T>()), r_t(true));
@@ -74,9 +71,6 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_signed_int__2_0,  BOOST_SIMD_INTEGR
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::Mone<T>(), boost::simd::Mone<T>()), r_t(true));
@@ -101,9 +95,6 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_unsigned_int__2_0,  BOOST_SIMD_UNSI
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_equal_with_equal_nans(boost::simd::One<T>(), boost::simd::One<T>()), r_t(true));
