@@ -44,8 +44,6 @@ NT2_TEST_CASE_TPL ( make_real__2_0,  BOOST_SIMD_REAL_TYPES)
 //   typedef typename boost::dispatch::meta::call<make_(vT,vT)>::type r_t;
 //   typedef typename boost::dispatch::meta::call<make_(T,T)>::type sr_t;
 //   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
-//   double ulpd;
-//   ulpd=0.0;
 
 
 //   // specific values tests
