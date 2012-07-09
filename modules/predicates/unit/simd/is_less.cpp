@@ -79,10 +79,6 @@ NT2_TEST_CASE_TPL ( is_less_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<is_less_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<is_less_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
-
   // specific values tests
   NT2_TEST_EQUAL(is_less(nt2::Inf<vT>(), nt2::Inf<vT>())[0], ssr_t(false));
   NT2_TEST_EQUAL(is_less(nt2::Minf<vT>(), nt2::Minf<vT>())[0], ssr_t(false));

@@ -85,9 +85,6 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIG
   typedef typename nt2::meta::call<is_not_greater_equal_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<is_not_greater_equal_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_greater_equal(nt2::Mone<vT>(), nt2::Mone<vT>())[0], nt2::False<sr_t>());
