@@ -42,9 +42,6 @@ NT2_TEST_CASE_TPL ( group_groupable__2_0,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   typedef typename boost::dispatch::meta::call<group_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(group(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<sr_t>());

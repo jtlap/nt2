@@ -48,8 +48,6 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<comparator_(vT,vT,int)>::type r_t;
   typedef typename boost::dispatch::meta::call<comparator_(T,T,int)>::type sr_t;
   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0; 
 
 
 //   // specific values tests
