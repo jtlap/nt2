@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
         target_type vec_out = neutral(nt2::meta::as_<target_type>());
 
         #pragma omp for schedule(static)
-        for(std::ptrdiff_t i =0; i < aligned_bound; i+=N)
+        for(std::size_t i =0; i < aligned_bound; i+=N)
         {
 
 #ifndef BOOST_NO_EXCEPTIONS
