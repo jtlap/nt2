@@ -1,6 +1,6 @@
-/*							jvf.c
+/*                                                      jvf.c
  *
- *	Bessel function of noninteger order
+ *      Bessel function of noninteger order
  *
  *
  *
@@ -91,169 +91,169 @@ int i, nint;
 
 n = nn;
 x = xx;
-nint = 0;	/* Flag for integer n */
-sign = 1.0f;	/* Flag for sign inversion */
+nint = 0;       /* Flag for integer n */
+sign = 1.0f;    /* Flag for sign inversion */
 an = fabsf( n );
 y = cephes_floorf( an );
 if( y == an )
-	{
-	nint = 1;
-	i = an - 16384.0f * cephes_floorf( an/16384.0f );
-	if( n < 0.0f )
-		{
-		if( i & 1 )
-			sign = -sign;
-		n = an;
-		}
-	if( x < 0.0f )
-		{
-		if( i & 1 )
-			sign = -sign;
-		x = -x;
-		}
-	if( n == 0.0f )
-		return( cephes_j0f(x) );
-	if( n == 1.0f )
-		return( sign * cephes_j1f(x) );
-	}
+        {
+        nint = 1;
+        i = an - 16384.0f * cephes_floorf( an/16384.0f );
+        if( n < 0.0f )
+                {
+                if( i & 1 )
+                        sign = -sign;
+                n = an;
+                }
+        if( x < 0.0f )
+                {
+                if( i & 1 )
+                        sign = -sign;
+                x = -x;
+                }
+        if( n == 0.0f )
+                return( cephes_j0f(x) );
+        if( n == 1.0f )
+                return( sign * cephes_j1f(x) );
+        }
 
 if( (x < 0.0f) && (y != an) )
-	{
-	cephes_mtherr( "jvf", DOMAIN );
-	y = 0.0f;
-	goto done;
-	}
+        {
+        cephes_mtherr( "jvf", DOMAIN );
+        y = 0.0f;
+        goto done;
+        }
 
 y = fabsf(x);
 
 if( y < MACHEPF )
-	goto underf;
+        goto underf;
 
 /* Easy cases - x small compared to n */
 t = 3.6f * cephes_sqrtf(an);
 if( y < t )
-	return( sign * jvsf(n,x) );
+        return( sign * jvsf(n,x) );
 
 /* x large compared to n */
 k = 3.6f * cephes_sqrtf(y);
 if( (an < k) && (y > 6.0f) )
-	return( sign * hankelf(n,x) );
+        return( sign * hankelf(n,x) );
 
 if( (n > -100) && (n < 14.0f) )
-	{
+        {
 /* Note: if x is too large, the continued
  * fraction will fail; but then the
  * Hankel expansion can be used.
  */
-	if( nint != 0 )
-		{
-		k = 0.0f;
-		q = recurf( &n, x, &k );
-		if( k == 0.0f )
-			{
-			y = cephes_j0f(x)/q;
-			goto done;
-			}
-		if( k == 1.0f )
-			{
-			y = cephes_j1f(x)/q;
-			goto done;
-			}
-		}
+        if( nint != 0 )
+                {
+                k = 0.0f;
+                q = recurf( &n, x, &k );
+                if( k == 0.0f )
+                        {
+                        y = cephes_j0f(x)/q;
+                        goto done;
+                        }
+                if( k == 1.0f )
+                        {
+                        y = cephes_j1f(x)/q;
+                        goto done;
+                        }
+                }
 
-	if( n >= 0.0f )
-		{
+        if( n >= 0.0f )
+                {
 /* Recur backwards from a larger value of n
  */
-		if( y > 1.3f * an )
-			goto recurdwn;
-		if( an > 1.3f * y )
-			goto recurdwn;
-		k = n;
-		y = 2.0f*(y+an+1.0f);
-		if( (y - n) > 33.0f )
-			y = n + 33.0f;
-		y = n + cephes_floorf(y-n);
-		q = recurf( &y, x, &k );
-		y = jvsf(y,x) * q;
-		goto done;
-		}
+                if( y > 1.3f * an )
+                        goto recurdwn;
+                if( an > 1.3f * y )
+                        goto recurdwn;
+                k = n;
+                y = 2.0f*(y+an+1.0f);
+                if( (y - n) > 33.0f )
+                        y = n + 33.0f;
+                y = n + cephes_floorf(y-n);
+                q = recurf( &y, x, &k );
+                y = jvsf(y,x) * q;
+                goto done;
+                }
 recurdwn:
-	if( an > (k + 3.0f) )
-		{
+        if( an > (k + 3.0f) )
+                {
 /* Recur backwards from n to k
  */
-		if( n < 0.0f )
-			k = -k;
-		q = n - cephes_floorf(n);
-		k = cephes_floorf(k) + q;
-		if( n > 0.0f )
-			q = recurf( &n, x, &k );
-		else
-			{
-			t = k;
-			k = n;
-			q = recurf( &t, x, &k );
-			k = t;
-			}
-		if( q == 0.0f )
-			{
+                if( n < 0.0f )
+                        k = -k;
+                q = n - cephes_floorf(n);
+                k = cephes_floorf(k) + q;
+                if( n > 0.0f )
+                        q = recurf( &n, x, &k );
+                else
+                        {
+                        t = k;
+                        k = n;
+                        q = recurf( &t, x, &k );
+                        k = t;
+                        }
+                if( q == 0.0f )
+                        {
 underf:
-			y = 0.0f;
-			goto done;
-			}
-		}
-	else
-		{
-		k = n;
-		q = 1.0f;
-		}
+                        y = 0.0f;
+                        goto done;
+                        }
+                }
+        else
+                {
+                k = n;
+                q = 1.0f;
+                }
 
 /* boundary between convergence of
  * power series and Hankel expansion
  */
- 	t = fabsf(k);
-	if( t < 26.0f )
-		t = (0.0083f*t + 0.09f)*t + 12.9f;
-	else
-		t = 0.9f * t;
+        t = fabsf(k);
+        if( t < 26.0f )
+                t = (0.0083f*t + 0.09f)*t + 12.9f;
+        else
+                t = 0.9f * t;
 
-	if( y > t ) /* y = |x| */
-		y = hankelf(k,x);
-	else
-		y = jvsf(k,x);
+        if( y > t ) /* y = |x| */
+                y = hankelf(k,x);
+        else
+                y = jvsf(k,x);
 #if DEBUG
 printf( "y = %.16e, q = %.16e\n", y, q );
 #endif
-	if( n > 0.0f )
-		y /= q;
-	else
-		y *= q;
-	}
+        if( n > 0.0f )
+                y /= q;
+        else
+                y *= q;
+        }
 
 else
-	{
+        {
 /* For large positive n, use the uniform expansion
  * or the transitional expansion.
  * But if x is of the order of n**2,
  * these may blow up, whereas the
  * Hankel expansion will then work.
  */
-	if( n < 0.0f )
-		{
-		cephes_mtherr( "jvf", TLOSS );
-		y = 0.0f;
-		goto done;
-		}
-	t = y/an;
-	t /= an;
-	if( t > 0.3f )
-		y = hankelf(n,x);
-	else
-		y = jnxf(n,x);
-	}
+        if( n < 0.0f )
+                {
+                cephes_mtherr( "jvf", TLOSS );
+                y = 0.0f;
+                goto done;
+                }
+        t = y/an;
+        t /= an;
+        if( t > 0.3f )
+                y = hankelf(n,x);
+        else
+                y = jnxf(n,x);
+        }
 
-done:	return( sign * y);
+done:   return( sign * y);
 }
 
 /* Reduce the order by backward recurrence.
@@ -269,17 +269,21 @@ double xx;
 float *newn;
 #endif
 {
-float x, pkm2, pkm1, pk, pkp1, qkm2, qkm1;
+#if 0
+  float pkp1;
+#endif
+
+  float x, pkm2, pkm1, pk, qkm2, qkm1;
 float k, ans, qk, xk, yk, r, t, kf, xinv;
 static float big = BIG;
-int nflag, ctr;
+int nflag/*, ctr*/;
 
 x = xx;
 /* continued fraction for Jn(x)/Jn-1(x)  */
 if( *n < 0.0f )
-	nflag = 1;
+        nflag = 1;
 else
-	nflag = 0;
+        nflag = 0;
 
 fstart:
 
@@ -294,39 +298,39 @@ qkm1 = *n + *n;
 xk = -x * x;
 yk = qkm1;
 ans = 1.0f;
-ctr = 0;
+/*ctr = 0;*/
 do
-	{
-	yk += 2.0f;
-	pk = pkm1 * yk +  pkm2 * xk;
-	qk = qkm1 * yk +  qkm2 * xk;
-	pkm2 = pkm1;
-	pkm1 = pk;
-	qkm2 = qkm1;
-	qkm1 = qk;
-	if( qk != 0 )
-		r = pk/qk;
-	else
-		r = 0.0f;
-	if( r != 0 )
-		{
-		t = fabsf( (ans - r)/r );
-		ans = r;
-		}
-	else
-		t = 1.0f;
+        {
+        yk += 2.0f;
+        pk = pkm1 * yk +  pkm2 * xk;
+        qk = qkm1 * yk +  qkm2 * xk;
+        pkm2 = pkm1;
+        pkm1 = pk;
+        qkm2 = qkm1;
+        qkm1 = qk;
+        if( qk != 0 )
+                r = pk/qk;
+        else
+                r = 0.0f;
+        if( r != 0 )
+                {
+                t = fabsf( (ans - r)/r );
+                ans = r;
+                }
+        else
+                t = 1.0f;
 
-	if( t < MACHEPF )
-		goto done;
+        if( t < MACHEPF )
+                goto done;
 
-	if( fabsf(pk) > big )
-		{
-		pkm2 *= MACHEPF;
-		pkm1 *= MACHEPF;
-		qkm2 *= MACHEPF;
-		qkm1 *= MACHEPF;
-		}
-	}
+        if( fabsf(pk) > big )
+                {
+                pkm2 *= MACHEPF;
+                pkm1 *= MACHEPF;
+                qkm2 *= MACHEPF;
+                qkm1 *= MACHEPF;
+                }
+        }
 while( t > MACHEPF );
 
 done:
@@ -338,14 +342,14 @@ printf( "%.6e\n", ans );
 /* Change n to n-1 if n < 0 and the continued fraction is small
  */
 if( nflag > 0 )
-	{
-	if( fabsf(ans) < 0.125f )
-		{
-		nflag = -1;
-		*n = *n - 1.0f;
-		goto fstart;
-		}
-	}
+        {
+        if( fabsf(ans) < 0.125f )
+                {
+                nflag = -1;
+                *n = *n - 1.0f;
+                goto fstart;
+                }
+        }
 
 
 kf = *newn;
@@ -362,27 +366,29 @@ k = *n - 1.0f;
 r = 2 * k;
 xinv = 1.0f/x;
 do
-	{
-	pkm2 = (pkm1 * r  -  pk * x) * xinv;
-	pkp1 = pk;
-	pk = pkm1;
-	pkm1 = pkm2;
-	r -= 2.0f;
+        {
+        pkm2 = (pkm1 * r  -  pk * x) * xinv;
 #if 0
-	t = fabsf(pkp1) + fabsf(pk);
-	if( (k > (kf + 2.5)) && (fabsf(pkm1) < 0.25*t) )
-		{
-		k -= 1.0f;
-		t = x*x;
-		pkm2 = ( (r*(r+2.0f)-t)*pk - r*x*pkp1 )/t;
-		pkp1 = pk;
-		pk = pkm1;
-		pkm1 = pkm2;
-		r -= 2.0f;
-		}
+        pkp1 = pk;
 #endif
-	k -= 1.0f;
-	}
+        pk = pkm1;
+        pkm1 = pkm2;
+        r -= 2.0f;
+#if 0
+        t = fabsf(pkp1) + fabsf(pk);
+        if( (k > (kf + 2.5)) && (fabsf(pkm1) < 0.25*t) )
+                {
+                k -= 1.0f;
+                t = x*x;
+                pkm2 = ( (r*(r+2.0f)-t)*pk - r*x*pkp1 )/t;
+                pkp1 = pk;
+                pk = pkm1;
+                pkm1 = pkm2;
+                r -= 2.0f;
+                }
+#endif
+        k -= 1.0f;
+        }
 while( k > (kf + 0.5f) );
 
 #if 0
@@ -390,10 +396,10 @@ while( k > (kf + 0.5f) );
  * on the theory that it may have less cancellation error.
  */
 if( (kf >= 0.0f) && (fabsf(pk) > fabsf(pkm1)) )
-	{
-	k += 1.0f;
-	pkm2 = pk;
-	}
+        {
+        k += 1.0f;
+        pkm2 = pk;
+        }
 #endif
 
 *newn = k;
@@ -430,42 +436,42 @@ k = 1.0f;
 t = 1.0f;
 
 while( t > MACHEPF )
-	{
-	u *= z / (k * (n+k));
-	y += u;
-	k += 1.0f;
-	t = fabsf(u);
-	if( (ay = fabsf(y)) > 1.0f )
-		t /= ay;
-	}
+        {
+        u *= z / (k * (n+k));
+        y += u;
+        k += 1.0f;
+        t = fabsf(u);
+        if( (ay = fabsf(y)) > 1.0f )
+                t /= ay;
+        }
 
 if( x < 0.0f )
-	{
-	y = y * cephes_powf( 0.5f * x, n ) / cephes_gammaf( n + 1.0f );
-	}
+        {
+        y = y * cephes_powf( 0.5f * x, n ) / cephes_gammaf( n + 1.0f );
+        }
 else
-	{
-	t = n * cephes_logf(0.5f*x) - cephes_lgamf(n + 1.0f);
-	if( t < -MAXLOGF )
-		{
-		return( 0.0f );
-		}
-	if( t > MAXLOGF )
-		{
-		t = cephes_logf(y) + t;
-		if( t > MAXLOGF )
-			{
-			cephes_mtherr( "jvf", OVERFLOW );
-			return( MAXNUMF );
-			}
-		else
-			{
-			y = sgngamf * cephes_expf(t);
-			return(y);
-			}
-		}
-	y = sgngamf * y * cephes_expf( t );
-	}
+        {
+        t = n * cephes_logf(0.5f*x) - cephes_lgamf(n + 1.0f);
+        if( t < -MAXLOGF )
+                {
+                return( 0.0f );
+                }
+        if( t > MAXLOGF )
+                {
+                t = cephes_logf(y) + t;
+                if( t > MAXLOGF )
+                        {
+                        cephes_mtherr( "jvf", OVERFLOW );
+                        return( MAXNUMF );
+                        }
+                else
+                        {
+                        y = sgngamf * cephes_expf(t);
+                        return(y);
+                        }
+                }
+        y = sgngamf * y * cephes_expf( t );
+        }
 #if DEBUG
 printf( "y = %.8e\n", y );
 #endif
@@ -507,33 +513,33 @@ pp = 1.0e38;
 qq = 1.0e38;
 
 while( t > MACHEPF )
-	{
-	k += 2.0f;
-	j += 1.0f;
-	sign = -sign;
-	u *= (m - k * k)/(j * z);
-	p += sign * u;
-	k += 2.0f;
-	j += 1.0f;
-	u *= (m - k * k)/(j * z);
-	q += sign * u;
-	t = fabsf(u/p);
-	if( t < conv )
-		{
-		conv = t;
-		qq = q;
-		pp = p;
-		flag = 1;
-		}
+        {
+        k += 2.0f;
+        j += 1.0f;
+        sign = -sign;
+        u *= (m - k * k)/(j * z);
+        p += sign * u;
+        k += 2.0f;
+        j += 1.0f;
+        u *= (m - k * k)/(j * z);
+        q += sign * u;
+        t = fabsf(u/p);
+        if( t < conv )
+                {
+                conv = t;
+                qq = q;
+                pp = p;
+                flag = 1;
+                }
 /* stop if the terms start getting larger */
-	if( (flag != 0) && (t > conv) )
-		{
+        if( (flag != 0) && (t > conv) )
+                {
 #if DEBUG
-		printf( "Hankel: convergence to %.4E\n", conv );
+                printf( "Hankel: convergence to %.4E\n", conv );
 #endif
-		goto hank1;
-		}
-	}	
+                goto hank1;
+                }
+        }       
 
 hank1:
 u = x - (0.5f*n + 0.25f) * PIF;
@@ -646,26 +652,26 @@ x = xx;
 cbn = cephes_cbrtf(n);
 z = (x - n)/cbn;
 if( (fabsf(z) <= 0.7f) || (n < 0.0f) )
-	return( jntf(n,x) );
+        return( jntf(n,x) );
 z = x/n;
 zz = 1.0f - z*z;
 if( zz == 0.0f )
-	return(0.0f);
+        return(0.0f);
 
 if( zz > 0.0f )
-	{
-	sz = cephes_sqrtf( zz );
-	t = 1.5f * (cephes_logf( (1.0f+sz)/z ) - sz );	/* zeta ** 3/2		*/
-	zeta = cephes_cbrtf( t * t );
-	nflg = 1;
-	}
+        {
+        sz = cephes_sqrtf( zz );
+        t = 1.5f * (cephes_logf( (1.0f+sz)/z ) - sz );  /* zeta ** 3/2          */
+        zeta = cephes_cbrtf( t * t );
+        nflg = 1;
+        }
 else
-	{
-	sz = cephes_sqrtf(-zz);
-	t = 1.5f * (sz - cephes_acosf(1.0f/z));
-	zeta = -cephes_cbrtf( t * t );
-	nflg = -1;
-	}
+        {
+        sz = cephes_sqrtf(-zz);
+        t = 1.5f * (sz - cephes_acosf(1.0f/z));
+        zeta = -cephes_cbrtf( t * t );
+        nflg = -1;
+        }
 z32i = fabsf(1.0f/t);
 sqz = cephes_cbrtf(t);
 
@@ -693,7 +699,7 @@ u[7] = cephes_polevlf( zzi, P7, 7 )/(pp*sz);
 
 #if DEBUG
 for( k=0; k<=7; k++ )
-	printf( "u[%d] = %.5E\n", k, u[k] );
+        printf( "u[%d] = %.5E\n", k, u[k] );
 #endif
 
 pp = 0.0f;
@@ -706,70 +712,70 @@ akl = MAXNUMF;
 bkl = MAXNUMF;
 
 for( k=0; k<=3; k++ )
-	{
-	tk = 2 * k;
-	tkp1 = tk + 1;
-	zp = 1.0f;
-	ak = 0.0f;
-	bk = 0.0f;
-	for( s=0; s<=tk; s++ )
-		{
-		if( doa )
-			{
-			if( (s & 3) > 1 )
-				sign = nflg;
-			else
-				sign = 1;
-			ak += sign * mu[s] * zp * u[tk-s];
-			}
+        {
+        tk = 2 * k;
+        tkp1 = tk + 1;
+        zp = 1.0f;
+        ak = 0.0f;
+        bk = 0.0f;
+        for( s=0; s<=tk; s++ )
+                {
+                if( doa )
+                        {
+                        if( (s & 3) > 1 )
+                                sign = nflg;
+                        else
+                                sign = 1;
+                        ak += sign * mu[s] * zp * u[tk-s];
+                        }
 
-		if( dob )
-			{
-			m = tkp1 - s;
-			if( ((m+1) & 3) > 1 )
-				sign = nflg;
-			else
-				sign = 1;
-			bk += sign * lambda[s] * zp * u[m];
-			}
-		zp *= z32i;
-		}
+                if( dob )
+                        {
+                        m = tkp1 - s;
+                        if( ((m+1) & 3) > 1 )
+                                sign = nflg;
+                        else
+                                sign = 1;
+                        bk += sign * lambda[s] * zp * u[m];
+                        }
+                zp *= z32i;
+                }
 
-	if( doa )
-		{
-		ak *= np;
-		t = fabsf(ak);
-		if( t < akl )
-			{
-			akl = t;
-			pp += ak;
-			}
-		else
-			doa = 0;
-		}
+        if( doa )
+                {
+                ak *= np;
+                t = fabsf(ak);
+                if( t < akl )
+                        {
+                        akl = t;
+                        pp += ak;
+                        }
+                else
+                        doa = 0;
+                }
 
-	if( dob )
-		{
-		bk += lambda[tkp1] * zp * u[0];
-		bk *= -np/sqz;
-		t = fabsf(bk);
-		if( t < bkl )
-			{
-			bkl = t;
-			qq += bk;
-			}
-		else
-			dob = 0;
-		}
+        if( dob )
+                {
+                bk += lambda[tkp1] * zp * u[0];
+                bk *= -np/sqz;
+                t = fabsf(bk);
+                if( t < bkl )
+                        {
+                        bkl = t;
+                        qq += bk;
+                        }
+                else
+                        dob = 0;
+                }
 #if DEBUG
-	printf("a[%d] %.5E, b[%d] %.5E\n", k, ak, k, bk );
+        printf("a[%d] %.5E, b[%d] %.5E\n", k, ak, k, bk );
 #endif
-	if( np < MACHEPF )
-		break;
-	np /= n*n;
-	}
+        if( np < MACHEPF )
+                break;
+        np /= n*n;
+        }
 
-/* normalizing factor ( 4*zeta/(1 - z**2) )**1/4	*/
+/* normalizing factor ( 4*zeta/(1 - z**2) )**1/4        */
 t = 4.0f * zeta/zz;
 t = cephes_sqrtf( cephes_sqrtf(t) );
 
@@ -822,7 +828,7 @@ double nn, xx;
 {
 float n, x, z, zz, z3;
 float cbn, n23, cbtwo;
-float ai, aip, bi, bip;	/* Airy functions */
+float ai, aip, bi, bip; /* Airy functions */
 float nk, fk, gk, pp, qq;
 float F[5], G[4];
 int k;
@@ -851,9 +857,9 @@ G[2] = cephes_polevlf( z3, PG2, 2 ) * z;
 G[3] = cephes_polevlf( z3, PG3, 2 ) * zz;
 #if DEBUG
 for( k=0; k<=4; k++ )
-	printf( "F[%d] = %.5E\n", k, F[k] );
+        printf( "F[%d] = %.5E\n", k, F[k] );
 for( k=0; k<=3; k++ )
-	printf( "G[%d] = %.5E\n", k, G[k] );
+        printf( "G[%d] = %.5E\n", k, G[k] );
 #endif
 pp = 0.0f;
 qq = 0.0f;
@@ -861,19 +867,19 @@ nk = 1.0f;
 n23 = cephes_cbrtf( n * n );
 
 for( k=0; k<=4; k++ )
-	{
-	fk = F[k]*nk;
-	pp += fk;
-	if( k != 4 )
-		{
-		gk = G[k]*nk;
-		qq += gk;
-		}
+        {
+        fk = F[k]*nk;
+        pp += fk;
+        if( k != 4 )
+                {
+                gk = G[k]*nk;
+                qq += gk;
+                }
 #if DEBUG
-	printf("fk[%d] %.5E, gk[%d] %.5E\n", k, fk, k, gk );
+        printf("fk[%d] %.5E, gk[%d] %.5E\n", k, fk, k, gk );
 #endif
-	nk /= n23;
-	}
+        nk /= n23;
+        }
 
 fk = cbtwo * ai * pp/cbn  +  cephes_cbrtf(4.0f) * aip * qq/n;
 return(fk);
