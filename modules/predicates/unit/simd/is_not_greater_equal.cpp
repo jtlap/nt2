@@ -52,9 +52,6 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<is_not_greater_equal_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<is_not_greater_equal_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_greater_equal(-nt2::Zero<vT>(), -nt2::Zero<vT>())[0], nt2::False<sr_t>());
@@ -109,9 +106,6 @@ NT2_TEST_CASE_TPL ( is_not_greater_equal_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_T
   typedef typename nt2::meta::call<is_not_greater_equal_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<is_not_greater_equal_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_greater_equal(nt2::One<vT>(), nt2::One<vT>())[0], nt2::False<sr_t>());

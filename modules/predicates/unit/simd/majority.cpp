@@ -52,9 +52,6 @@ NT2_TEST_CASE_TPL ( majority_real__3_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<majority_(vT,vT,vT)>::type r_t;
   typedef typename nt2::meta::call<majority_(T,T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(majority(nt2::Mzero<vT>(), -nt2::Zero<vT>(), nt2::Mzero<vT>())[0], nt2::False<sr_t>());
