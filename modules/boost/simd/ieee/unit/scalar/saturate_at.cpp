@@ -37,9 +37,6 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::Inf<T>()), boost::simd::Pi<r_t>(), 0);
@@ -66,9 +63,6 @@ NT2_TEST_CASE_TPL ( saturate_at_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYP
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(saturate_at<boost::simd::tag::Pi>(boost::simd::Mone<T>()), boost::simd::Mone<r_t>(), 0);

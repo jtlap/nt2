@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     typedef int result_type;
     inline result_type operator()(A0 const& a0,A0 & a1,A2 & a2) const
     {
-      int32_t tmp; 
+      //      int32_t tmp; 
       a1 = ::frexpf(a0, &a2);
       return 0; 
     }
