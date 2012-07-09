@@ -53,9 +53,6 @@ NT2_TEST_CASE_TPL ( tanpi_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<tanpi_(vT)>::type r_t;
   typedef typename nt2::meta::call<tanpi_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(tanpi(-nt2::Quarter<vT>())[0], nt2::Mone<sr_t>(), 1.0);
@@ -86,9 +83,6 @@ NT2_TEST_CASE_TPL ( tanpi_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
   typedef typename nt2::meta::call<tanpi_(vT)>::type r_t;
   typedef typename nt2::meta::call<tanpi_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(tanpi(nt2::One<vT>())[0], nt2::Zero<sr_t>(), 0.5);
@@ -111,9 +105,6 @@ NT2_TEST_CASE_TPL ( tanpi_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
   typedef typename nt2::meta::call<tanpi_(vT)>::type r_t;
   typedef typename nt2::meta::call<tanpi_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(tanpi(nt2::One<vT>())[0], nt2::Zero<sr_t>(), 0.5);

@@ -54,9 +54,6 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<rem_pio2_medium_(vT)>::type r_t;
   typedef typename nt2::meta::call<rem_pio2_medium_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;

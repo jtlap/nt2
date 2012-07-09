@@ -49,8 +49,6 @@ NT2_TEST_CASE_TPL ( cosine_real__1_0,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
 
 
   // specific values tests
@@ -81,9 +79,6 @@ NT2_TEST_CASE_TPL ( cosine_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(cosine<nt2::medium>(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
@@ -104,9 +99,6 @@ NT2_TEST_CASE_TPL ( cosine_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(cosine<nt2::medium>(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
