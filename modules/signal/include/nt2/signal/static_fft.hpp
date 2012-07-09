@@ -27,12 +27,18 @@
 
 #elif defined( __GNUC__ )
 
+    /// \note The 'pure' (and especially 'const') attribute(s) seem to be too
+    /// strict to mimic the MSVC 'noalias' attribute (which allows first level
+    /// indirections).
+    ///                                       (09.07.2012.) (Domagoj Saric)
     #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow ))
     #if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64)
         #if defined(__clang__)
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ) ))
         #elif defined(BOOST_SIMD_HAS_SSE_SUPPORT)
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ), sseregparm, hot ))
+        #else
+            #define BOOST_FASTCALL __attribute__(( regparm( 3 ), hot ))
         #endif // __clang__
     #else
         #define BOOST_FASTCALL
