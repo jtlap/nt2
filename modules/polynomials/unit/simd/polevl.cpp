@@ -42,8 +42,6 @@ NT2_TEST_CASE_TPL ( polevl_real__2_0,  NT2_REAL_TYPES)
 //   typedef typename nt2::meta::call<polevl_(vT,vT)>::type r_t;
 //   typedef typename nt2::meta::call<polevl_(T,T)>::type sr_t;
 //   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-//   double ulpd;
-//   ulpd=0.0;
 
 
   // specific values tests
