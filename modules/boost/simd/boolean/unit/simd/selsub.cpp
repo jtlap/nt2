@@ -47,9 +47,6 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<selsub_(vlT,vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(selsub(boost::simd::False<vT>(),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(1));
@@ -79,9 +76,6 @@ NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYP
   typedef typename boost::dispatch::meta::call<selsub_(vlT,vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(2));
@@ -107,9 +101,6 @@ NT2_TEST_CASE_TPL ( selsub_unsigned_int__3_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<selsub_(vlT,vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(2));
