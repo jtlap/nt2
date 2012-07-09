@@ -42,9 +42,6 @@ NT2_TEST_CASE_TPL ( nbtrue_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<nbtrue_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(nbtrue(boost::simd::Inf<vT>()) , cardinal_of<vT>::value);
@@ -72,8 +69,6 @@ NT2_TEST_CASE_TPL ( nbtrue_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<nbtrue_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   // specific values tests
   NT2_TEST_EQUAL(nbtrue(boost::simd::Mone<vT>()), sr_t(cardinal_of<vT>::value));

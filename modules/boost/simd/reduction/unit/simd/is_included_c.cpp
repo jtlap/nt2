@@ -44,9 +44,6 @@ NT2_TEST_CASE_TPL ( is_included_c_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<is_included_c_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_included_c(boost::simd::Mone<vT>(),boost::simd::Zero<vT>()), boost::simd::True<sr_t>());
