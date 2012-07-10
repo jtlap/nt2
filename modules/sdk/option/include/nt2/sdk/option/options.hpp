@@ -41,7 +41,7 @@ namespace nt2
 struct NAME ## _ {};                                                \
 nt2::details::option_expr<                                          \
     boost::proto::terminal<nt2::details::option<NAME ## _> >::type  \
-> const NAME = {}                                                   \
+> const NAME = {{{}}}                                               \
 /**/
 
 #endif
