@@ -372,13 +372,13 @@ namespace detail
     }
 
 
-    #ifdef _MSC_VER
+    #if defined(_MSC_VER) || defined(_ICC)
         #define NT2_CONST_VECTOR( variable_name, ... ) vector_t variable_name; variable_name = __VA_ARGS__;
         #define NT2_VECTOR(       variable_name, ... ) vector_t variable_name; variable_name = __VA_ARGS__;
     #else
         #define NT2_CONST_VECTOR( variable_name, ... ) vector_t const variable_name = { __VA_ARGS__ };
         #define NT2_VECTOR(       variable_name, ... ) vector_t       variable_name = { __VA_ARGS__ };
-    #endif // _MSC_VER
+    #endif // defined(_MSC_VER) || defined(_ICC)
 
 
     ////////////////////////////////////////////////////////////////////////////
