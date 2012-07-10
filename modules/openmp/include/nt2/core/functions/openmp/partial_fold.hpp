@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
 #pragma omp parallel 
           {
 #pragma omp for schedule(static) private(id)
-            for(std::ptrdiff_t o = 0; o < obound; ++o)
+            for(std::size_t o = 0; o < obound; ++o)
               {
                 std::size_t o_ = o*ibound;
 #ifndef BOOST_NO_EXCEPTIONS
@@ -194,7 +194,7 @@ namespace nt2 { namespace ext
       // - static schedule is set on using cache line sized chunks to limit
       // effects of false sharing.
       #pragma omp parallel for schedule(static,chunk)
-      for(std::ptrdiff_t o = 0; o < obound; ++o)
+      for(std::size_t o = 0; o < obound; ++o)
       {
         std::size_t o_ = o*ibound;
 #ifndef BOOST_NO_EXCEPTIONS
