@@ -415,7 +415,7 @@ namespace detail
         ///                                   (12.06.2012.) (Domagoj Saric)
 
         static boost::int32_t const BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) flipper[ flipper_vector_t::static_size ] = { e0 * mzero, e1 * mzero, e2 * mzero, e3 * mzero };
-        return reinterpret_cast<flipper_vector_t const * BOOST_DISPATCH_RESTRICT>( &flipper );
+        return reinterpret_cast<flipper_vector_t const *>( &flipper );
     }
 
 
@@ -582,8 +582,8 @@ namespace detail
             unsigned int const N
         )
             :
-            p_reals_      ( reinterpret_cast<char * BOOST_DISPATCH_RESTRICT>( p_reals ) ),
-            p_imags_      ( reinterpret_cast<char * BOOST_DISPATCH_RESTRICT>( p_imags ) ),
+            p_reals_      ( reinterpret_cast<char *>( p_reals ) ),
+            p_imags_      ( reinterpret_cast<char *>( p_imags ) ),
             log2_N4_bytes_( nt2::ilog2( N ) - boost::static_log2<4>::value + boost::static_log2<sizeof( scalar_t )>::value )
         {
             BOOST_ASSERT( boost::simd::memory::is_aligned( p_reals ) );
@@ -642,14 +642,14 @@ namespace detail
             unsigned int                                 N
         );
 
-        vector_t * BOOST_DISPATCH_RESTRICT reals() const { return reinterpret_cast<vector_t * BOOST_DISPATCH_RESTRICT>( p_reals_ ); }
-        vector_t * BOOST_DISPATCH_RESTRICT imags() const { return reinterpret_cast<vector_t * BOOST_DISPATCH_RESTRICT>( p_imags_ ); }
+        vector_t * BOOST_DISPATCH_RESTRICT reals() const { return reinterpret_cast<vector_t *>( p_reals_ ); }
+        vector_t * BOOST_DISPATCH_RESTRICT imags() const { return reinterpret_cast<vector_t *>( p_imags_ ); }
 
         vector_t * BOOST_DISPATCH_RESTRICT element( char * BOOST_DISPATCH_RESTRICT const p_data, unsigned int const part ) const
         {
             char * BOOST_DISPATCH_RESTRICT const p_element( &p_data[ part << log2_N4_bytes_ ] );
             BOOST_ASSUME( p_element );
-            return reinterpret_cast<vector_t * BOOST_DISPATCH_RESTRICT>( p_element );
+            return reinterpret_cast<vector_t *>( p_element );
         }
 
         vector_t * BOOST_DISPATCH_RESTRICT prefetched_element( char * BOOST_DISPATCH_RESTRICT const p_data, unsigned int const part ) const
