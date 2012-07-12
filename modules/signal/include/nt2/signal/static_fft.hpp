@@ -234,7 +234,7 @@ namespace nt2
 //   http://www.ece.cmu.edu/~franzf/papers/ieee-si.pdf
 // - multi-dimension
 //   https://www.cs.drexel.edu/files/ts467/DU-CS-05-01.pdf
-// - accuracy
+// - accuracy/precision
 //   http://www.dsprelated.com/showmessage/91562/1.php
 //   http://www.fftw.org/accuracy/method.html
 //   http://en.wikipedia.org/wiki/Fast_Fourier_transform#Accuracy_and_approximations
@@ -467,6 +467,13 @@ namespace detail
             Vector const & real_in , Vector const & imag_in ,
             Vector       & real_out, Vector       & imag_out
         );
+
+        template <typename Vector>
+        static void BOOST_FASTCALL dft_8_in_place
+        (
+            Vector & real0, Vector & imag0,
+            Vector & real1, Vector & imag1
+        );
     };
 
 
@@ -568,7 +575,7 @@ namespace detail
         typedef vector_t * BOOST_DISPATCH_RESTRICT parameter1_t;
 
         typedef dif decimation_t;
-      //typedef dit decimation_t; //...zzz...not yet fully tested with the new split-radix algorithm...
+      //typedef dit decimation_t; //...zzz...not yet fully ported to the split-radix algorithm...
 
         template <unsigned RealP>
         struct complex_P : boost::mpl::integral_c<unsigned int, RealP - 1> {};
@@ -1552,8 +1559,8 @@ namespace detail
 
     #else // BOOST_SIMD_DETECTED
 
-        NT2_CONST_VECTOR( odd_negate     , sign_flipper<false, true , false, true>() );
-        NT2_CONST_VECTOR( negate_last_two, sign_flipper<false, false, true , true>() );
+        NT2_CONST_VECTOR( odd_negate     , *sign_flipper<false, true , false, true>() );
+        NT2_CONST_VECTOR( negate_last_two, *sign_flipper<false, false, true , true>() );
 
         // Real:
         NT2_CONST_VECTOR( real, real_in );
@@ -1826,6 +1833,44 @@ namespace detail
     #endif // BOOST_SIMD_DETECTED
     }
 
+    template <typename Vector>
+    BOOST_FORCEINLINE
+    void BOOST_FASTCALL dit::dft_8_in_place
+    (
+        Vector & lower_r, Vector & lower_i,
+        Vector & upper_r, Vector & upper_i
+    )
+    {
+        //...zzz...still radix-2...
+
+        typedef          Vector             vector_t;
+        typedef typename Vector::value_type scalar_t;
+
+        dit::dft_4
+        (
+            upper_r, upper_i,
+            upper_r, upper_i
+        );
+
+        dit::dft_4
+        (
+            lower_r, lower_i,
+            lower_r, lower_i
+        );
+
+        scalar_t const sqrt2( 0.70710678118654752440084436210485f );
+        NT2_CONST_VECTOR( wr, _mm_setr_ps( 1, +sqrt2, +0, -sqrt2 ) );
+        NT2_CONST_VECTOR( wi, _mm_setr_ps( 0, -sqrt2, -1, -sqrt2 ) );
+
+        NT2_CONST_VECTOR( temp_r, ( wr * upper_r ) - ( wi * upper_i ) );
+        NT2_CONST_VECTOR( temp_i, ( wi * upper_r ) + ( wr * upper_i ) );
+
+        upper_r = lower_r - temp_r;
+        upper_i = lower_i - temp_i;
+        lower_r = lower_r + temp_r;
+        lower_i = lower_i + temp_i;
+    }
+
 
     ////////////////////////////////////////////////////////////////////////////
     /// danielson_lanczos shared implementation and specializations
@@ -1875,54 +1920,9 @@ namespace detail
     /// danielson_lanczos specializations that unroll the butterfly loop body
     ///  (for size 8 there is only one pass and for size 16 there are two).
     ////////////////////////////////////////////////////////////////////////////
-    //...zzz...still radix-2...
-    template <class Context, typename T>
-    struct danielson_lanczos<8, dit, Context, T, 4>
-    {
-    public:
-        static unsigned const N = 8;
 
-        BOOST_NOTHROW_NOALIAS
-        static void BOOST_FASTCALL apply( typename Context::proxy const data )
-        {
-            typedef typename Context::vector_t vector_t;
-
-            vector_t upper_r;
-            vector_t upper_i;
-            dit::dft_4
-            (
-                (vector_t const &)data.p_reals[ 4 ],
-                (vector_t const &)data.p_imags[ 4 ],
-                upper_r,
-                upper_i
-            );
-
-            vector_t lower_r;
-            vector_t lower_i;
-            dit::dft_4
-            (
-                (vector_t const &)data.p_reals[ 0 ],
-                (vector_t const &)data.p_imags[ 0 ],
-                lower_r,
-                lower_i
-            );
-
-            NT2_CONST_VECTOR( wr, Context:: template twiddles0<N>()->wr );
-            NT2_CONST_VECTOR( wi, Context:: template twiddles0<N>()->wi );
-
-            NT2_CONST_VECTOR( temp_r, ( wr * upper_r ) - ( wi * upper_i ) );
-            NT2_CONST_VECTOR( temp_i, ( wi * upper_r ) + ( wr * upper_i ) );
-
-            (vector_t &)data.p_reals[ 4 ] = lower_r - temp_r;
-            (vector_t &)data.p_imags[ 4 ] = lower_i - temp_i;
-            (vector_t &)data.p_reals[ 0 ] = lower_r + temp_r;
-            (vector_t &)data.p_imags[ 0 ] = lower_i + temp_i;
-        }
-    };
-
-
-    template <class Context, typename T>
-    struct danielson_lanczos<8, dif, Context, T, 4>
+    template <class Decimation, class Context, typename T>
+    struct danielson_lanczos<8, Decimation, Context, T, 4>
     {
     public:
         static unsigned const N = 8;
@@ -1942,7 +1942,7 @@ namespace detail
             vector_t * BOOST_DISPATCH_RESTRICT const p_lower_i( &p_imags[ 0 ] );
             vector_t * BOOST_DISPATCH_RESTRICT const p_upper_r( &p_reals[ 1 ] );
             vector_t * BOOST_DISPATCH_RESTRICT const p_upper_i( &p_imags[ 1 ] );
-            dif::dft_8_in_place( *p_lower_r, *p_lower_i, *p_upper_r, *p_upper_i );
+            Decimation::dft_8_in_place( *p_lower_r, *p_lower_i, *p_upper_r, *p_upper_i );
         }
     };
 
@@ -2027,6 +2027,44 @@ namespace detail
     };
 
 
+    template <class Context, typename T>
+    struct danielson_lanczos<16, dit, Context, T, 4>
+    {
+    public:
+        static unsigned const N = 16;
+
+        typedef dit Decimation;
+
+        BOOST_NOTHROW_NOALIAS
+        static void BOOST_FASTCALL apply( typename Context::parameter0_t const p_reals, typename Context::parameter1_t const p_imags )
+        {
+            typedef typename Context::vector_t vector_t;
+
+            //...zzz...uses internal knowledge about the parameter0 and
+            //...zzz...parameter1 of the used Context...
+
+            vector_t * BOOST_DISPATCH_RESTRICT const p_r0( &p_reals[ 0 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i0( &p_imags[ 0 ] );
+            vector_t * BOOST_DISPATCH_RESTRICT const p_r1( &p_reals[ 1 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i1( &p_imags[ 1 ] );
+            vector_t * BOOST_DISPATCH_RESTRICT const p_r2( &p_reals[ 2 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i2( &p_imags[ 2 ] );
+            vector_t * BOOST_DISPATCH_RESTRICT const p_r3( &p_reals[ 3 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i3( &p_imags[ 3 ] );
+
+            //...zzz...still radix-2...
+
+            Decimation::dft_8_in_place( *p_r0, *p_i0, *p_r1, *p_i1  );
+            Decimation::dft_4         ( *p_r2, *p_i2, *p_r2, *p_i2  );
+            Decimation::dft_4         ( *p_r3, *p_i3, *p_r3, *p_i3  );
+
+            butterfly_loop<Decimation, Context>
+            (
+                p_reals,
+                p_imags,
+                Context:: template twiddle_factors<N>(),
+                N
+            );
+        }
+    };
+
+
     ////////////////////////////////////////////////////////////////////////////
     /// twiddle-free danielson_lanczos specializations.
     ////////////////////////////////////////////////////////////////////////////
@@ -2058,11 +2096,11 @@ namespace detail
     template <class Decimation, class Context, typename T, unsigned count_of_T>
     struct danielson_lanczos<1, Decimation, Context, T, count_of_T>
     {
-        static void apply( typename Context::proxy )
+        static void apply( typename Context::parameter0_t, typename Context::parameter1_t )
         {
             // Clang (and probably GCC) is of course overeager to instantiate this...
             #ifndef __GNUC__
-                BOOST_STATIC_ASSERT_MSG( false, "Recoursion should have been terminated before." );
+                BOOST_STATIC_ASSERT_MSG( false, "Recursion should have been terminated before." );
             #endif // __GNUC__
         }
     };
