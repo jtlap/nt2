@@ -15,6 +15,9 @@
 #include <nt2/include/functions/flipud.hpp>
 #include <nt2/include/functions/fliplr.hpp>
 #include <nt2/include/functions/isequal.hpp>
+#include <nt2/include/functions/vertcat.hpp>
+#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -113,5 +116,16 @@ NT2_TEST_CASE_TPL( indsort, (float)(double))//NT2_TYPES )
   NT2_DISPLAY(y1);
   NT2_DISPLAY(sy1);
   NT2_DISPLAY(idx1);
+
+}
+NT2_TEST_CASE_TPL( sortnan, (float)(double))//NT2_TYPES )
+{
+  nt2::table<T> y;
+  y =  nt2::vertcat(nt2::ones(1, 4, nt2::meta::as_<T>()), nt2::Nan<T>()*nt2::ones(1, 4, nt2::meta::as_<T>()))(nt2::_);
+  
+  nt2::table<T> sy; 
+  sy =  sort(y); 
+  NT2_DISPLAY(y);
+  NT2_DISPLAY(sy);
 
 }
