@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II       
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI       
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #define NT2_UNIT_MODULE "boost::simd::transform"
 
@@ -19,21 +19,21 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <vector>
 
-template<class Type> 
+template<class Type>
 struct op_
 {
   op_(){}
-  Type operator()(Type data){ return data; }
+  Type operator()(Type const& data){ return data; }
 };
 
-template<class Type> 
+template<class Type>
 struct sum_
 {
   sum_(){}
-  Type operator()(Type data1, Type data2)
+  Type operator()(Type const& data1, Type const& data2)
   {
-    Type res; 
-    res = data1 + data2; 
+    Type res;
+    res = data1 + data2;
     return res;
   }
 };
@@ -52,14 +52,14 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized, BOOST_SIMD_SIMD_TYPES )
   it_ dbegin  = boost::simd::input_begin(&data[0]);
   it_ dend    = boost::simd::input_end(&data[0]+32*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
-  
-  for(size_t i=0; i<32*card; ++i) data[i] = i;
-  
+
+  for(size_t i=0; i<32*card; ++i) data[i] = T(i);
+
   boost::simd::transform(dbegin, dend, rbegin, op_<p_t>());
-  
+
   typename std::vector<T, boost::simd::memory::allocator<T> >::iterator i = result.begin();
   typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j = data.begin();
-  
+
   for(i = result.begin(); i != result.end(); ++i, ++j)
   {
     NT2_TEST_EQUAL( *i, *j);
@@ -81,15 +81,15 @@ NT2_TEST_CASE_TPL(transform_unary_correctly_sized_unroll4, BOOST_SIMD_SIMD_TYPES
   it_ dbegin  = boost::simd::input_begin(&data[0]);
   it_ dend    = boost::simd::input_end(&data[0]+32*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
-  
-  for(size_t i=0; i<32*card; ++i) data[i] = i;
-  
+
+  for(size_t i=0; i<32*card; ++i) data[i] = T(i);
+
   boost::simd::transform( dbegin, dend, rbegin, op_<p_t>()
                         , boost::simd::meta::unroll<4>());
-  
+
   typename std::vector<T, boost::simd::memory::allocator<T> >::iterator i = result.begin();
   typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j = data.begin();
-  
+
   for(i = result.begin(); i != result.end(); ++i, ++j)
   {
     NT2_TEST_EQUAL( *i, *j);
@@ -112,15 +112,15 @@ NT2_TEST_CASE_TPL(transform_unary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
   it_ dbegin  = boost::simd::input_begin(&data[0]);
   it_ dend    = boost::simd::input_end(&data[0]+19*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
-  
-  for(size_t i=0; i<19*card; ++i) data[i] = i;
-  
+
+  for(size_t i=0; i<19*card; ++i) data[i] = T(i);
+
   boost::simd::transform( dbegin, dend, rbegin, op_<p_t>()
                         , boost::simd::meta::unroll<4>());
-  
+
   typename std::vector<T, boost::simd::memory::allocator<T> >::iterator i = result.begin();
   typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j = data.begin();
-  
+
   for(i = result.begin(); i != result.end(); ++i, ++j)
   {
     NT2_TEST_EQUAL( *i, *j);
@@ -140,16 +140,16 @@ NT2_TEST_CASE_TPL(transform_binary_bad_sized_unroll4, BOOST_SIMD_SIMD_TYPES )
   it_ dbegin_ = boost::simd::input_begin(&data_[0]);
   it_ dend    = boost::simd::input_end(&data[0]+19*card);
   out_ rbegin = boost::simd::output_begin(&result[0]);
-  
-  for(size_t i=0; i<19*card; ++i) { data[i] = i%card; data_[i] = i%card; }
-  
+
+  for(size_t i=0; i<19*card; ++i) { data[i] = T(i%card); data_[i] = T(i%card); }
+
   boost::simd::transform( dbegin, dend, dbegin_, rbegin, sum_<p_t>()
                         , boost::simd::meta::unroll<4>());
-  
+
   typename std::vector<T, boost::simd::memory::allocator<T> >::iterator i = result.begin();
   typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j = data.begin();
   typename std::vector<T, boost::simd::memory::allocator<T> >::iterator j_ = data_.begin();
-  
+
   for(i = result.begin(); i != result.end(); ++i, ++j, ++j_)
   {
     NT2_TEST_EQUAL( *i, (*j+*j_));
