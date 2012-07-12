@@ -1254,10 +1254,10 @@ namespace detail
             /// normalization factor.
             ///                               (27.06.2012.) (Domagoj Saric)
 
-            NT2_CONST_VECTOR( upper_r, reverse                 ( *p_upper_reals ) /**= half*/ );
-            NT2_CONST_VECTOR( upper_i, reverse                 ( *p_upper_imags ) /**= half*/ );
-            NT2_CONST_VECTOR( lower_r, unaligned_load<vector_t>(  p_lower_reals ) /**= half*/ );
-            NT2_CONST_VECTOR( lower_i, unaligned_load<vector_t>(  p_lower_imags ) /**= half*/ );
+            NT2_CONST_VECTOR( upper_r, reverse                 ( *p_upper_reals ) /* * half */ );
+            NT2_CONST_VECTOR( upper_i, reverse                 ( *p_upper_imags ) /* * half */ );
+            NT2_CONST_VECTOR( lower_r, unaligned_load<vector_t>(  p_lower_reals ) /* * half */ );
+            NT2_CONST_VECTOR( lower_i, unaligned_load<vector_t>(  p_lower_imags ) /* * half */ );
 
             NT2_CONST_VECTOR( wr, p_twiddle_factors->w0.wr ^ twiddle_sign_flipper );
             NT2_CONST_VECTOR( wi, p_twiddle_factors->w0.wi                        );
