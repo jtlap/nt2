@@ -13,6 +13,7 @@
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/flipud.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 #include <nt2/table.hpp>
 #include <algorithm>
 #include <nt2/include/functions/assign.hpp>
