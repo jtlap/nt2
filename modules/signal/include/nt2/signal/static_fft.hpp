@@ -32,10 +32,10 @@
     /// indirections).
     ///                                       (09.07.2012.) (Domagoj Saric)
     #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow ))
-    #if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64)
-        #if defined(__clang__)
+    #if defined( BOOST_SIMD_ARCH_X86 ) && !defined( BOOST_SIMD_ARCH_X86_64 )
+        #if defined( __clang__ )
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ) ))
-        #elif defined(BOOST_SIMD_HAS_SSE_SUPPORT)
+        #elif defined( BOOST_SIMD_HAS_SSE_SUPPORT )
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ), sseregparm, hot ))
         #else
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ), hot ))
@@ -186,7 +186,6 @@ namespace nt2
 //   http://www.ces.clemson.edu/~janoski/reu/2008/FFT-book.pdf
 //   http://cr.yp.to/f2mult/mateer-thesis.pdf
 //   http://www.datasheetarchive.com/indexdl/Datasheet-078/DSAE0074796.pdf (Intel AP-808)
-//   http://wwwdim.uqac.ca/~daudet/Cours/Architecture-bac/DOCUMENTS/repertoire435/MMX-et-SSE-par-Michel-Langlais/exemples-d-Intel/split%20radix%20fft
 //   http://www.cmlab.csie.ntu.edu.tw/cml/dsp/training/coding/transform/fft.html
 //   http://front.cc.nctu.edu.tw/Richfiles/5477-03071119230013828.pdf
 //   http://infoscience.epfl.ch/record/34236/files/VetterliD88.pdf
@@ -372,7 +371,7 @@ namespace detail
     {
     #ifdef __GNUC__
         __builtin_prefetch( location, 0, 0 );
-    #elif defined(BOOST_SIMD_HAS_SSE_SUPPORT)
+    #elif defined( BOOST_SIMD_HAS_SSE_SUPPORT )
         _mm_prefetch( static_cast<char const *>( location ), _MM_HINT_NTA );
     #endif
     }
@@ -465,10 +464,8 @@ namespace detail
         template <typename Vector>
         static void BOOST_FASTCALL danielson_lanczos_4
         (
-            Vector const & real_in ,
-            Vector const & imag_in ,
-            Vector       & real_out,
-            Vector       & imag_out
+            Vector const & real_in , Vector const & imag_in ,
+            Vector       & real_out, Vector       & imag_out
         );
     };
 
@@ -491,19 +488,15 @@ namespace detail
         template <typename Vector>
         static void BOOST_FASTCALL danielson_lanczos_4
         (
-            Vector const & real_in ,
-            Vector const & imag_in ,
-            Vector       & real_out,
-            Vector       & imag_out
+            Vector const & real_in , Vector const & imag_in ,
+            Vector       & real_out, Vector       & imag_out
         );
 
         template <typename Vector>
         static void BOOST_FASTCALL danielson_lanczos_8_in_place
         (
-            Vector & real0,
-            Vector & imag0,
-            Vector & real1,
-            Vector & imag1
+            Vector & real0, Vector & imag0,
+            Vector & real1, Vector & imag1
         );
     };
 
@@ -1443,10 +1436,8 @@ namespace detail
     BOOST_FORCEINLINE
     void BOOST_FASTCALL dit::danielson_lanczos_4
     (
-        Vector const & real_in ,
-        Vector const & imag_in ,
-        Vector       & real_out,
-        Vector       & imag_out
+        Vector const & real_in , Vector const & imag_in ,
+        Vector       & real_out, Vector       & imag_out
     )
     {
         //...zzz...still radix-2...:
@@ -1606,10 +1597,8 @@ namespace detail
     BOOST_FORCEINLINE
     void BOOST_FASTCALL dif::danielson_lanczos_4
     (
-        Vector const & real_in ,
-        Vector const & imag_in ,
-        Vector       & real_out,
-        Vector       & imag_out
+        Vector const & real_in , Vector const & imag_in ,
+        Vector       & real_out, Vector       & imag_out
     )
     {
         typedef          Vector             vector_t;
@@ -1674,10 +1663,8 @@ namespace detail
     BOOST_FORCEINLINE
     void BOOST_FASTCALL dif::danielson_lanczos_8_in_place
     (
-        Vector & lower_real,
-        Vector & lower_imag,
-        Vector & upper_real,
-        Vector & upper_imag
+        Vector & lower_real, Vector & lower_imag,
+        Vector & upper_real, Vector & upper_imag
     )
     {
         typedef          Vector             vector_t;
@@ -1751,25 +1738,16 @@ namespace detail
         }
 
         {
-            scalar_t const r4_( r4 );
-            scalar_t const i4_( i4 );
-            scalar_t const r5_( r5 );
-            scalar_t const i5_( i5 );
-            r4 = r4_ + r5_;
-            i4 = i4_ + i5_;
-            r5 = r4_ - r5_;
-            i5 = i4_ - i5_;
+            scalar_t const r4_( r4 ); scalar_t const i4_( i4 );
+            scalar_t const r5_( r5 ); scalar_t const i5_( i5 );
+            r4 = r4_ + r5_          ; i4 = i4_ + i5_          ;
+            r5 = r4_ - r5_          ; i5 = i4_ - i5_          ;
         }
-
         {
-            scalar_t const r6_( r6 );
-            scalar_t const i6_( i6 );
-            scalar_t const r7_( r7 );
-            scalar_t const i7_( i7 );
-            r6 = r6_ + r7_;
-            i6 = i6_ + i7_;
-            r7 = r6_ - r7_;
-            i7 = i6_ - i7_;
+            scalar_t const r6_( r6 ); scalar_t const i6_( i6 );
+            scalar_t const r7_( r7 ); scalar_t const i7_( i7 );
+            r6 = r6_ + r7_          ; i6 = i6_ + i7_          ;
+            r7 = r6_ - r7_          ; i7 = i6_ - i7_          ;
         }
 
         upper_real[ 0 ] = r4; upper_imag[ 0 ] = i4;
@@ -1791,7 +1769,7 @@ namespace detail
             NT2_CONST_VECTOR( lower_p_upper_r, lower_r_in + upper_r_in ); NT2_CONST_VECTOR( lower_p_upper_i,  lower_i_in + upper_i_in );
             NT2_VECTOR(       lower_m_upper_r, lower_r_in - upper_r_in ); NT2_VECTOR(       lower_m_upper_i,  lower_i_in - upper_i_in );
 
-            // we can already calculate the lower DFT4 so we do it free up
+            // we can already calculate the lower DFT4 so we do it to free up
             // registers:
             vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper( sign_flipper<false, false, true, true>() );
             {
