@@ -462,7 +462,7 @@ namespace detail
         );
 
         template <typename Vector>
-        static void BOOST_FASTCALL danielson_lanczos_4
+        static void BOOST_FASTCALL dft_4
         (
             Vector const & real_in , Vector const & imag_in ,
             Vector       & real_out, Vector       & imag_out
@@ -486,14 +486,14 @@ namespace detail
         );
 
         template <typename Vector>
-        static void BOOST_FASTCALL danielson_lanczos_4
+        static void BOOST_FASTCALL dft_4
         (
             Vector const & real_in , Vector const & imag_in ,
             Vector       & real_out, Vector       & imag_out
         );
 
         template <typename Vector>
-        static void BOOST_FASTCALL danielson_lanczos_8_in_place
+        static void BOOST_FASTCALL dft_8_in_place
         (
             Vector & real0, Vector & imag0,
             Vector & real1, Vector & imag1
@@ -1434,7 +1434,7 @@ namespace detail
 
     template <typename Vector>
     BOOST_FORCEINLINE
-    void BOOST_FASTCALL dit::danielson_lanczos_4
+    void BOOST_FASTCALL dit::dft_4
     (
         Vector const & real_in , Vector const & imag_in ,
         Vector       & real_out, Vector       & imag_out
@@ -1595,7 +1595,7 @@ namespace detail
 
     template <typename Vector>
     BOOST_FORCEINLINE
-    void BOOST_FASTCALL dif::danielson_lanczos_4
+    void BOOST_FASTCALL dif::dft_4
     (
         Vector const & real_in , Vector const & imag_in ,
         Vector       & real_out, Vector       & imag_out
@@ -1663,7 +1663,7 @@ namespace detail
 
     template <typename Vector>
     BOOST_FORCEINLINE
-    void BOOST_FASTCALL dif::danielson_lanczos_8_in_place
+    void BOOST_FASTCALL dif::dft_8_in_place
     (
         Vector & lower_real, Vector & lower_imag,
         Vector & upper_real, Vector & upper_imag
@@ -1699,7 +1699,7 @@ namespace detail
             lower_r[ 1 ] = r1pr5; lower_i[ 1 ] = i1pi5;
             lower_r[ 2 ] = r2pr6; lower_i[ 2 ] = i2pi6;
             lower_r[ 3 ] = r3pr7; lower_i[ 3 ] = i3pi7;
-            dif::danielson_lanczos_4<vector_t>
+            dif::dft_4<vector_t>
             (
                 lower_r   , lower_i   ,
                 lower_real, lower_imag
@@ -1772,7 +1772,7 @@ namespace detail
             vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper( sign_flipper<false, false, true, true>() );
             {
                 //...zzz...manually inlined for testing ("in search of optimal register allocation")...
-                //dif::danielson_lanczos_4<vector_t>
+                //dif::dft_4<vector_t>
                 //(
                 //    lower_p_upper_r,
                 //    lower_p_upper_i,
@@ -1889,7 +1889,7 @@ namespace detail
 
             vector_t upper_r;
             vector_t upper_i;
-            dit::danielson_lanczos_4
+            dit::dft_4
             (
                 (vector_t const &)data.p_reals[ 4 ],
                 (vector_t const &)data.p_imags[ 4 ],
@@ -1899,7 +1899,7 @@ namespace detail
 
             vector_t lower_r;
             vector_t lower_i;
-            dit::danielson_lanczos_4
+            dit::dft_4
             (
                 (vector_t const &)data.p_reals[ 0 ],
                 (vector_t const &)data.p_imags[ 0 ],
@@ -1942,7 +1942,7 @@ namespace detail
             vector_t * BOOST_DISPATCH_RESTRICT const p_lower_i( &p_imags[ 0 ] );
             vector_t * BOOST_DISPATCH_RESTRICT const p_upper_r( &p_reals[ 1 ] );
             vector_t * BOOST_DISPATCH_RESTRICT const p_upper_i( &p_imags[ 1 ] );
-            dif::danielson_lanczos_8_in_place( *p_lower_r, *p_lower_i, *p_upper_r, *p_upper_i );
+            dif::dft_8_in_place( *p_lower_r, *p_lower_i, *p_upper_r, *p_upper_i );
         }
     };
 
@@ -2000,7 +2000,7 @@ namespace detail
             NT2_CONST_VECTOR( tmj_r, t0m2_r - t1m3_i );
             NT2_CONST_VECTOR( tmj_i, t0m2_i + t1m3_r );
 
-            Decimation::danielson_lanczos_8_in_place
+            Decimation::dft_8_in_place
             (
                 *p_r0, *p_i0,
                 *p_r1, *p_i1
@@ -2012,13 +2012,13 @@ namespace detail
             *p_r3 = ( p_w->w3.wr * tmj_r ) - ( p_w->w3.wi * tmj_i );
             *p_i3 = ( p_w->w3.wi * tmj_r ) + ( p_w->w3.wr * tmj_i );
 
-            Decimation::danielson_lanczos_4
+            Decimation::dft_4
             (
                 *p_r2, *p_i2,
                 *p_r2, *p_i2
             );
 
-            Decimation::danielson_lanczos_4
+            Decimation::dft_4
             (
                 *p_r3, *p_i3,
                 *p_r3, *p_i3
