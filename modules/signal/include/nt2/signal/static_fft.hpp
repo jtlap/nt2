@@ -1671,46 +1671,57 @@ namespace detail
         typedef typename Vector::value_type scalar_t;
 
     #if !defined( BOOST_SIMD_HAS_SSE_SUPPORT )
-        scalar_t r0( lower_real[ 0 ] ); scalar_t i0( lower_imag[ 0 ] );
-        scalar_t r1( lower_real[ 1 ] ); scalar_t i1( lower_imag[ 1 ] );
-        scalar_t r2( lower_real[ 2 ] ); scalar_t i2( lower_imag[ 2 ] );
-        scalar_t r3( lower_real[ 3 ] ); scalar_t i3( lower_imag[ 3 ] );
-        scalar_t r4( upper_real[ 0 ] ); scalar_t i4( upper_imag[ 0 ] );
-        scalar_t r5( upper_real[ 1 ] ); scalar_t i5( upper_imag[ 1 ] );
-        scalar_t r6( upper_real[ 2 ] ); scalar_t i6( upper_imag[ 2 ] );
-        scalar_t r7( upper_real[ 3 ] ); scalar_t i7( upper_imag[ 3 ] );
 
+        scalar_t const r0( lower_real[ 0 ] ); scalar_t const i0( lower_imag[ 0 ] );
+        scalar_t const r1( lower_real[ 1 ] ); scalar_t const i1( lower_imag[ 1 ] );
+        scalar_t const r2( lower_real[ 2 ] ); scalar_t const i2( lower_imag[ 2 ] );
+        scalar_t const r3( lower_real[ 3 ] ); scalar_t const i3( lower_imag[ 3 ] );
+        scalar_t       r4( upper_real[ 0 ] ); scalar_t       i4( upper_imag[ 0 ] );
+        scalar_t       r5( upper_real[ 1 ] ); scalar_t       i5( upper_imag[ 1 ] );
+        scalar_t       r6( upper_real[ 2 ] ); scalar_t       i6( upper_imag[ 2 ] );
+        scalar_t       r7( upper_real[ 3 ] ); scalar_t       i7( upper_imag[ 3 ] );
+
+        // Butterflys:
+
+        // First (0, 1) and second (2, 3) quarters:
         scalar_t const r0pr4( r0 + r4 ); scalar_t const i0pi4( i0 + i4 );
         scalar_t const r1pr5( r1 + r5 ); scalar_t const i1pi5( i1 + i5 );
         scalar_t const r2pr6( r2 + r6 ); scalar_t const i2pi6( i2 + i6 );
         scalar_t const r3pr7( r3 + r7 ); scalar_t const i3pi7( i3 + i7 );
 
-        r0 = r0pr4; i0 = i0pi4;
-        r1 = r1pr5; i1 = i1pi5;
-        r2 = r2pr6; i2 = i2pi6;
-        r3 = r3pr7; i3 = i3pi7;
+        // we can already calculate the lower DFT4 so we do it to free up
+        // registers:
+        {
+            vector_t lower_r;     vector_t lower_i;
+            lower_r[ 0 ] = r0pr4; lower_i[ 0 ] = i0pi4;
+            lower_r[ 1 ] = r1pr5; lower_i[ 1 ] = i1pi5;
+            lower_r[ 2 ] = r2pr6; lower_i[ 2 ] = i2pi6;
+            lower_r[ 3 ] = r3pr7; lower_i[ 3 ] = i3pi7;
+            dif::danielson_lanczos_4<vector_t>
+            (
+                lower_r   , lower_i   ,
+                lower_real, lower_imag
+            );
+        }
 
-        scalar_t const r0m4( r0 - r4 ); scalar_t const i0m4( i0 - i4 );
+        // Third (4, 5) and fourth (6 ,7) quarters:
+      //scalar_t const r0m4( r0 - r4 ); scalar_t const i0m4( i0 - i4 );
         scalar_t const r1m5( r1 - r5 ); scalar_t const i1m5( i1 - i5 );
-
-        scalar_t const r2m6( i6 - i2 ); scalar_t const i2m6( r2 - r6 );
+        // "merged" the "reversedness" of the fourth quarter:
+      //scalar_t const r2m6( i6 - i2 ); scalar_t const i2m6( r2 - r6 );
         scalar_t const r3m7( i7 - i3 ); scalar_t const i3m7( r3 - r7 );
 
-        scalar_t const r4_( r0m4 - r2m6 ); scalar_t const i4_( i0m4 - i2m6 );
+      //scalar_t const r4_( r0m4 - r2m6 ); scalar_t const i4_( i0m4 - i2m6 );
         scalar_t const r5_( r1m5 - r3m7 ); scalar_t const i5_( i1m5 - i3m7 );
 
-        scalar_t const r6_( r0m4 + r2m6 ); scalar_t const i6_( i0m4 + i2m6 );
+      //scalar_t const r6_( r0m4 + r2m6 ); scalar_t const i6_( i0m4 + i2m6 );
         scalar_t const r7_( r1m5 + r3m7 ); scalar_t const i7_( i1m5 + i3m7 );
 
         float const sqrt2( 0.70710678118654752440084436210485f );
-      //float const w0r0( 1 );
-      //float const w0i0( 0 );
-      //float const w3r0( 1 );
-      //float const w3i0( 0 );
-      //float const w0r1( +sqrt2 );
-      //float const w0i1( -sqrt2 );
-      //float const w3r1( -sqrt2 );
-      //float const w3i1( -sqrt2 );
+      //float const w0r0(      1 ); float const w0i0(      0 );
+      //float const w3r0(      1 ); float const w3i0(      0 );
+      //float const w0r1( +sqrt2 ); float const w0i1( -sqrt2 );
+      //float const w3r1( -sqrt2 ); float const w3i1( -sqrt2 );
 
       //r4 = r4_ * w0r0 - i4_ * w0i0; i4 = r4_ * w0i0 + i4_ * w0r0;
       //r5 = r5_ * w0r1 - i5_ * w0i1; i5 = r5_ * w0i1 + i5_ * w0r1;
@@ -1721,22 +1732,7 @@ namespace detail
         r5 = ( r5_ + i5_ ) * +sqrt2; i5 = ( r5_ - i5_ ) * -sqrt2;
         r7 = ( r7_ - i7_ ) * -sqrt2; i7 = ( r7_ + i7_ ) * -sqrt2;
 
-        {
-            vector_t lower_r;
-            vector_t lower_i;
-            lower_r[ 0 ] = r0; lower_i[ 0 ] = i0;
-            lower_r[ 1 ] = r1; lower_i[ 1 ] = i1;
-            lower_r[ 2 ] = r2; lower_i[ 2 ] = i2;
-            lower_r[ 3 ] = r3; lower_i[ 3 ] = i3;
-            dif::danielson_lanczos_4<vector_t>
-            (
-                lower_r,
-                lower_i,
-                lower_real,
-                lower_imag
-            );
-        }
-
+        // Decimation (lower DFT4 already calculated, the remaining two DFT2):
         {
             scalar_t const r4_( r4 ); scalar_t const i4_( i4 );
             scalar_t const r5_( r5 ); scalar_t const i5_( i5 );
