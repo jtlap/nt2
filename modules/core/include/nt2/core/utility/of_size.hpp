@@ -225,15 +225,15 @@ namespace nt2
     // - larger constructions are valid as long as said values don't violate
     //   static properties. No compression occurs
     //==========================================================================
-    #define M2(z,n,t)                                                       \
-    BOOST_ASSERT_MSG( ((D##n != -1) ? (std::size_t(d##n)==std::size_t(D##n)) \
-                                    : (static_size<=std::size_t(n)          \
-                                    ? (std::size_t(d##n)==1u) : true))      \
-                    , "of_size_ constructor parameter "                     \
-                      BOOST_PP_STRINGIZE(BOOST_PP_INC(n))                   \
-                      " invalid with respect to of_size_ "                  \
-                      "numbers of dimensions."                              \
-                    );                                                      \
+    #define M2(z,n,t)                                                          \
+    BOOST_ASSERT_MSG( ((D##n != -1) ? (std::size_t(d##n)==std::size_t(D##n))   \
+                                    : (static_size<=std::size_t(n)             \
+                                    ? (std::size_t(d##n)==1u) : true))         \
+                    , "of_size_ constructor parameter "                        \
+                      BOOST_PP_STRINGIZE(BOOST_PP_INC(n))                      \
+                      " invalid with respect to of_size_ "                     \
+                      "numbers of dimensions."                                 \
+                    );                                                         \
     /**/
 
     #define M1(z,n,t) fill( (D##n == -1) ? d##n : D##n            \
@@ -248,16 +248,16 @@ namespace nt2
                           );                                      \
     /**/
 
-    #define M0(z,n,t)                                                           \
-    template<BOOST_PP_ENUM_PARAMS(n, class I)>                                  \
-    of_size_( BOOST_PP_ENUM_BINARY_PARAMS(n,I, const& d)                        \
-            , typename  boost::disable_if                                       \
-                        < boost::fusion::traits::is_sequence<I0> >::type* = 0)  \
-    {                                                                           \
-      BOOST_PP_REPEAT(n,M2,~)                                                   \
-      BOOST_PP_REPEAT(n,M1,~)                                                   \
-      BOOST_PP_REPEAT_FROM_TO(n,NT2_MAX_DIMENSIONS,M3,~)                        \
-    }                                                                           \
+    #define M0(z,n,t)                                                          \
+    template<BOOST_PP_ENUM_PARAMS(n, class I)>                                 \
+    of_size_( BOOST_PP_ENUM_BINARY_PARAMS(n,I, const& d)                       \
+            , typename  boost::disable_if                                      \
+                        < boost::fusion::traits::is_sequence<I0> >::type* = 0) \
+    {                                                                          \
+      BOOST_PP_REPEAT(n,M2,~)                                                  \
+      BOOST_PP_REPEAT(n,M1,~)                                                  \
+      BOOST_PP_REPEAT_FROM_TO(n,NT2_MAX_DIMENSIONS,M3,~)                       \
+    }                                                                          \
     /**/
 
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
