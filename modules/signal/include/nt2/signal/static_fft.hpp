@@ -1518,7 +1518,7 @@ namespace detail
     unsigned int const idx2( 2 );
     unsigned int const idx3( 3 );
 
-    #if !defined( BOOST_SIMD_HAS_SSE_SUPPORT )
+    #if !defined( BOOST_SIMD_DETECTED )
 
         scalar_t const r2( real_in[ idx2 ] );
         scalar_t const r3( real_in[ idx3 ] );
@@ -1550,7 +1550,7 @@ namespace detail
         imag_out[ idx2 ] = i0pi1 - i2pi3;
         imag_out[ idx3 ] = i0mi1 - r3mr2;
 
-    #else // BOOST_SIMD_HAS_SSE_SUPPORT
+    #else // BOOST_SIMD_DETECTED
 
         NT2_CONST_VECTOR( odd_negate     , sign_flipper<false, true , false, true>() );
         NT2_CONST_VECTOR( negate_last_two, sign_flipper<false, false, true , true>() );
@@ -1590,7 +1590,7 @@ namespace detail
         real_out = r_left + ( r_right ^ negate_last_two );
         imag_out = i_left + ( i_right ^ negate_last_two );
 
-    #endif // BOOST_SIMD_HAS_SSE_SUPPORT
+    #endif // BOOST_SIMD_DETECTED
     }
 
     template <typename Vector>
@@ -1610,7 +1610,7 @@ namespace detail
         unsigned int const idx2( 2 );
         unsigned int const idx3( 3 );
 
-    #if !defined( BOOST_SIMD_HAS_SSE_SUPPORT )
+    #if !defined( BOOST_SIMD_DETECTED )
 
         scalar_t r0( real_in[ idx0 ] ); scalar_t i0( imag_in[ idx0 ] );
         scalar_t r1( real_in[ idx1 ] ); scalar_t i1( imag_in[ idx1 ] );
@@ -1642,7 +1642,8 @@ namespace detail
         real_out[ idx2 ] = r2; imag_out[ idx2 ] = i2;
         real_out[ idx3 ] = r3; imag_out[ idx3 ] = i3;
 
-    #else // BOOST_SIMD_HAS_SSE_SUPPORT
+    #else // BOOST_SIMD_DETECTED
+
         NT2_CONST_VECTOR( real, real_in ); NT2_CONST_VECTOR( imag, imag_in );
         NT2_CONST_VECTOR( r0101, repeat_lower_half( real ) ); NT2_CONST_VECTOR( i0101, repeat_lower_half( imag ) );
         NT2_CONST_VECTOR( r2323, repeat_upper_half( real ) ); NT2_CONST_VECTOR( i2323, repeat_upper_half( imag ) );
@@ -1655,7 +1656,8 @@ namespace detail
 
         real_out = r_left + ( r_right ^ *sign_flipper<false, true, false, true >()/*negate_13*/ );
         imag_out = i_left + ( i_right ^ *sign_flipper<false, true, true , false>()/*negate_12*/ );
-    #endif // BOOST_SIMD_HAS_SSE_SUPPORT
+
+    #endif // BOOST_SIMD_DETECTED
     }
 
 
@@ -1670,7 +1672,7 @@ namespace detail
         typedef          Vector             vector_t;
         typedef typename Vector::value_type scalar_t;
 
-    #if !defined( BOOST_SIMD_HAS_SSE_SUPPORT )
+    #if !defined( BOOST_SIMD_DETECTED )
 
         scalar_t const r0( lower_real[ 0 ] ); scalar_t const i0( lower_imag[ 0 ] );
         scalar_t const r1( lower_real[ 1 ] ); scalar_t const i1( lower_imag[ 1 ] );
@@ -1751,7 +1753,7 @@ namespace detail
         upper_real[ 2 ] = r6; upper_imag[ 2 ] = i6;
         upper_real[ 3 ] = r7; upper_imag[ 3 ] = i7;
 
-    #else // BOOST_SIMD_HAS_SSE_SUPPORT
+    #else // BOOST_SIMD_DETECTED
 
         NT2_CONST_VECTOR( lower_r_in, lower_real );
         NT2_CONST_VECTOR( lower_i_in, lower_imag );
@@ -1821,7 +1823,7 @@ namespace detail
             upper_imag = i4466 + ( i5577 ^ odd_negate );
         }
 
-    #endif // BOOST_SIMD_HAS_SSE_SUPPORT
+    #endif // BOOST_SIMD_DETECTED
     }
 
 
