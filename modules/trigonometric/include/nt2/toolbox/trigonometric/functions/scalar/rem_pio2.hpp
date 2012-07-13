@@ -13,6 +13,9 @@
 #include <nt2/include/functions/scalar/bitwise_cast.hpp>
 #include <nt2/include/functions/scalar/ldexp.hpp>
 #include <nt2/include/functions/scalar/floor.hpp>
+#include <nt2/include/functions/rem_pio2_cephes.hpp>
+#include <nt2/include/functions/rem_pio2_straight.hpp>
+#include <nt2/include/functions/rem_pio2_medium.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/zero.hpp>
@@ -20,6 +23,8 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
+#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation when float
@@ -909,8 +914,63 @@ namespace nt2 { namespace ext
 #undef INSERT_WORDS
 #undef SET_HIGH_WORD
 #undef SET_LOW_WORD
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
+                             (A0)(A1),
+                             (scalar_ <floating_<A0> > )
+                             (scalar_ <floating_<A0> > )
+                             (scalar_ <floating_<A0> > )
+                             (target_ <unspecified_<A1> >)                          
+                 )
+  {
+    typedef nt2::int32_t result_type;    
+    inline result_type operator()(A0 const& a0, A0 & xr, A0& xc, A1 const&) const
+    {
+      typedef typename A1::type selector;
+      return rempio2<selector, void>::rem(a0, xr, xc); 
+    }
+  private:
+    template < class T, class dummy = void> struct rempio2
+    {
+      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        BOOST_ASSERT_MSG(false, "wrong target for rem_pio2"); 
+        return Zero<result_type>();
+      }
+    };
+    template < class dummy> struct rempio2 < big, dummy>
+    {
+      static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        //        std::cout << "big" << std::endl; 
+        return nt2::rem_pio2(x, xr, xc);
+      }
+    }; 
+    template < class dummy> struct rempio2 < verysmall, dummy >
+    {
+      static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        //        std::cout << "verysmall" << std::endl; 
+        return nt2::rem_pio2_straight(x, xr, xc);
+      }
+    }; 
+    template < class dummy> struct rempio2 < small, dummy >
+    {
+      static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        //        std::cout << "small" << std::endl; 
+        return nt2::rem_pio2_cephes(x, xr, xc);
+      }
+    }; 
+    template < class dummy> struct rempio2 < medium, dummy >
+    {
+      static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        //        std::cout << "medium" << std::endl; 
+        return nt2::rem_pio2_medium(x, xr, xc);
+      }
+    }; 
   }; 
-  
-  
 } }
 #endif

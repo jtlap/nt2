@@ -77,3 +77,25 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL( boost::fusion::get<2>(res)[0], nt2::Zero<r_t2>()[0], 0.5);
   }
 } // end of test for floating_
+
+NT2_TEST_CASE_TPL ( rem_pio2_targeted,  NT2_SIMD_REAL_TYPES)
+{
+
+  using nt2::rem_pio2;
+  using nt2::tag::rem_pio2_;
+  using nt2::load;
+  using boost::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+ 
+  ivT n;
+  vT x = nt2::Zero<vT>(), xr, xc;
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::big>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::medium>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::small>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::verysmall>());
+}  
