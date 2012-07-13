@@ -54,14 +54,14 @@ namespace nt2 { namespace ext
       static const std::size_t N  = target_type::static_size;
       const std::size_t in_sz     = boost::fusion::at_c<0>(a0.extent());
       const std::size_t in_sz_bnd = (in_sz/N)*N;
-      const std::size_t outer_sz  = nt2::numel(boost::fusion::pop_front(a0.extent()));
+      const std::ptrdiff_t outer_sz = nt2::numel(boost::fusion::pop_front(a0.extent()));
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
       // - loop nest is 2D so we can walk over the scalar epilogue of each row.
       #pragma omp parallel for schedule(static)
-      for(std::size_t j=0; j<outer_sz; ++j)
+      for(std::ptrdiff_t j=0; j<outer_sz; ++j)
       {
         std::size_t it = j*in_sz;
 #ifndef BOOST_NO_EXCEPTIONS
@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
     {
       static const std::size_t N = target_type::static_size;
       std::size_t bound = boost::fusion::at_c<0>(a0.extent());
-      std::size_t aligned_bound  = (bound/N)*N;
+      std::ptrdiff_t aligned_bound = (bound/N)*N;
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
@@ -187,7 +187,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
-      std::size_t bound       = boost::fusion::at_c<0>(a0.extent());
+      std::ptrdiff_t bound = boost::fusion::at_c<0>(a0.extent());
       const std::size_t chunk = config::shared_cache_line_size()/sizeof(target_type);
 
 #ifndef BOOST_NO_EXCEPTIONS

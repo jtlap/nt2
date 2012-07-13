@@ -50,10 +50,10 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-      std::size_t ibound = ext[ext.size()-1]; 
+      std::size_t ibound = ext[ext.size()-1];
 
       //std::size_t numel  = nt2::numel(boost::fusion::pop_back(ext));
-      
+
       // Workaround to have nt2::numel(boost::fusion::pop_back(ext));
       std::size_t numel  = 1;
       for(std::size_t m = 0; m!= ext.size()-1 ; ++m)
@@ -64,18 +64,18 @@ namespace nt2 { namespace ext
       std::size_t cache_line_size = nt2::config::cache_line_size(2); // in byte
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
-      std::size_t bound  =  ((numel)/cache_bound) * cache_bound;
+      std::ptrdiff_t bound = ((numel)/cache_bound) * cache_bound;
 
       if(numel >= cache_bound){
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
-      #pragma omp parallel 
+      #pragma omp parallel
       {
         #pragma omp for schedule(static)
         for(std::ptrdiff_t j = 0; j < bound; j+=cache_bound)
         {
-          //Initialise 
+          //Initialise
           for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N)
             nt2::run(out, id, neutral(nt2::meta::as_<target_type>()));
 
@@ -110,7 +110,7 @@ namespace nt2 { namespace ext
       if(exception)
         boost::rethrow_exception(exception);
 #endif
- 
+
         // scalar part
         for(std::size_t j = bound; j < obound; ++j)
         {
@@ -125,7 +125,7 @@ namespace nt2 { namespace ext
           }
         }
       }
-      
+
       else {
         for(std::size_t j = 0; j < obound; ++j){
           nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
@@ -179,7 +179,7 @@ namespace nt2 { namespace ext
       for(std::size_t m = 0; m!= ext.size()-1 ; ++m)
         numel*=ext[m];
 
-      std::size_t obound = numel;//nt2::numel(boost::fusion::pop_back(ext));
+      std::ptrdiff_t obound = numel;//nt2::numel(boost::fusion::pop_back(ext));
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
