@@ -59,6 +59,7 @@ NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sin(nt2::Pi<T>()/T(2)), nt2::One<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(sin(nt2::Pi<T>()/T(4)), nt2::Sqrt_2o_2<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(sin(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( sin_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
@@ -100,4 +101,22 @@ NT2_TEST_CASE_TPL ( sin_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(sin(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+} // end of test for signed_int_
+
+
+NT2_TEST_CASE ( sin_special)
+{
+  
+  using nt2::sin;
+  using nt2::tag::sin_;
+
+  NT2_TEST_ULP_EQUAL(sin(1.0e22), -0.852200849767188801772705893753, 0.5);
+  NT2_TEST_ULP_EQUAL(sin(10000000000000000000000.0), -0.852200849767188801772705893753, 0.5);
+  NT2_TEST_ULP_EQUAL(sin(1.0e22f),-0.734081535296101525955768907693f, 0.5);
+  NT2_TEST_ULP_EQUAL(sin(9999999778196308361216.0f),-0.734081535296101525955768907693f, 0.5);
+  std::cout << "Note that these results are due to the fact that 1.0e22f is 9999999778196308361216," << std::endl; 
+  std::cout << " not 10000000000000000000000, alas!" << std::endl;
+  std::cout << " The next result is the kahan worst case for which one need ~128 bits of 2/pi"<< std::endl; 
+  NT2_TEST_ULP_EQUAL(sin(5.31937264832654141671e+255), 0.999999999999999999999999999999999999890152377992531312498043, 0.5);
+  
 } // end of test for signed_int_

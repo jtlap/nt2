@@ -34,6 +34,12 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
+template < class T, class N>
+inline T correct(const T& a, N n)
+{
+  T z = a+n*nt2::Pio_2<T>();
+  return  (z > nt2::Pi<T>()) ? z-2*nt2::Pi<T>() :z; 
+}
 
 NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_REAL_TYPES)
 {
@@ -71,5 +77,42 @@ NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_REAL_TYPES)
     NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 0.5);
     NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t1>(), 0.5);
     NT2_TEST_ULP_EQUAL( boost::fusion::get<2>(res), nt2::Zero<r_t2>(), 0.5);
+  }
+  // specific values tests
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
+  typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
+  {
+    r_t res = rem_pio2_cephes(nt2::Pi<T>());
+    std::cout << nt2::Pi<T>() << std::endl;
+    std::cout << correct(boost::fusion::get<0>(res), boost::fusion::get<2>(res)) << std::endl;
+    std::cout << boost::fusion::get<0>(res) << std::endl;
+    std::cout << boost::fusion::get<1>(res) << std::endl;
+    std::cout << boost::fusion::get<2>(res) << std::endl;
+    res = rem_pio2_cephes(-nt2::Pi<T>());
+    res = rem_pio2_cephes(3*nt2::Pi<T>()/4);
+    std::cout << 3*nt2::Pi<T>()/4 << std::endl;
+    std::cout << correct(boost::fusion::get<0>(res), boost::fusion::get<2>(res))<< std::endl;
+    std::cout << boost::fusion::get<0>(res) << std::endl;
+    std::cout << boost::fusion::get<1>(res) << std::endl;
+    std::cout << boost::fusion::get<2>(res) << std::endl;        
+    res = rem_pio2_cephes(-3*nt2::Pi<T>()/4);
+    std::cout << -3*nt2::Pi<T>()/4 << std::endl;
+    std::cout << correct(boost::fusion::get<0>(res), boost::fusion::get<2>(res))<< std::endl;
+    std::cout << boost::fusion::get<0>(res) << std::endl;
+    std::cout << boost::fusion::get<1>(res) << std::endl;
+    std::cout << boost::fusion::get<2>(res) << std::endl;        
+    res = rem_pio2_cephes(nt2::Pi<T>()/2);
+    std::cout << correct(boost::fusion::get<0>(res), boost::fusion::get<2>(res))<< std::endl;
+    std::cout << nt2::Pi<T>()/2 << std::endl;
+    std::cout << boost::fusion::get<0>(res) << std::endl;
+    std::cout << boost::fusion::get<1>(res) << std::endl;
+    std::cout << boost::fusion::get<2>(res) << std::endl;
+    res = rem_pio2_cephes(-nt2::Pi<T>()/2);
+    std::cout << correct(boost::fusion::get<0>(res), boost::fusion::get<2>(res))<< std::endl;
+    std::cout << -nt2::Pi<T>()/2 << std::endl;
+    std::cout << boost::fusion::get<0>(res) << std::endl;
+    std::cout << boost::fusion::get<1>(res) << std::endl;
+    std::cout << boost::fusion::get<2>(res) << std::endl;        
   }
 } // end of test for floating_
