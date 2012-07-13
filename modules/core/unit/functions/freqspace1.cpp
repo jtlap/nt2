@@ -10,6 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/size.hpp>
+#include <nt2/options.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/freqspace1.hpp>
 #include <nt2/include/functions/log10.hpp>

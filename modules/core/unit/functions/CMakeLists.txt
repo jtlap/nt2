@@ -45,9 +45,11 @@ SET( SOURCES
     from_diag.cpp
     havesamesize.cpp
     horzcat.cpp
+    hyper.cpp
     inbtrue.cpp
     ind2sub.cpp
     indices.cpp
+    infs.cpp
     iscolumn.cpp
     isdiagonal.cpp
     isempty.cpp
@@ -74,8 +76,11 @@ SET( SOURCES
     linspace.cpp
     logspace.cpp
     maximum.cpp
+    median.cpp
     mean.cpp
+    meanad.cpp
     minimum.cpp
+    nans.cpp
     nblines.cpp
     nbtrue.cpp
     ndims.cpp
