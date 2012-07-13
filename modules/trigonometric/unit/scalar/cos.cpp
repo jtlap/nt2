@@ -116,7 +116,7 @@ NT2_TEST_CASE ( cos_special)
   NT2_TEST_ULP_EQUAL(cos(9999999778196308361216.0f),0.679061337095050972195448991733f, 0.5);
   std::cout << "Note that these results are due to the fact that 1.0e22f is 9999999778196308361216," << std::endl; 
   std::cout << " not 10000000000000000000000, alas!" << std::endl;
-  std::cout << " The next result is the kahan worst case for which one need128 bits of2/pi"
+  std::cout << " The next result is the kahan worst case for which one need128 bits of2/pi"; 
   NT2_TEST_ULP_EQUAL(cos(5.31937264832654141671e+255), -0.000000000000000000468716592425462761112258280196, 0.5);
   
 } // end of test for signed_int_
