@@ -8,7 +8,11 @@
 ##############################################################################
 
 SET( SOURCES
+  cov.cpp
+  expm.cpp
+  impower.cpp
   inv.cpp
+  mpower.cpp
   mtimes.cpp
   null.cpp
   orth.cpp
@@ -17,9 +21,6 @@ SET( SOURCES
   rref.cpp
   rref_result.cpp
   sqrtm.cpp
-  impower.cpp
-  mpower.cpp
-  expm.cpp
    )
 
 nt2_module_add_tests(linalg.general.unit ${SOURCES})
