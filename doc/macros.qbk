@@ -1,4 +1,4 @@
-[def __NT2__  ['NT2]]
+[def __NT2__  NT²]
 [def __GIT__ [@http://git-scm.com Git]]
 [def __CMAKE__ [@http://www.cmake.org CMake]]
 [def __NINJA__ [@https://github.com/martine/ninja Ninja]]

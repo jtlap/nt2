@@ -1,5 +1,7 @@
 [section Building __NT2__ Documentation]
 
+Note the latest documentation is always available on the [@http://nt2.metascale.org/doc/html __NT2__ MetaScale website].
+
 For its documentation, __NT2__ uses __BOOSTBOOK__ and the associated toolchain.
 You need all the following to be able to build the __NT2__ documentation:
 
