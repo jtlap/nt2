@@ -226,9 +226,13 @@ namespace nt2
     //   static properties. No compression occurs
     //==========================================================================
     #define M2(z,n,t)                                                          \
-    BOOST_ASSERT_MSG( ((D##n != -1) ? (std::size_t(d##n)==std::size_t(D##n))   \
-                                    : (static_size<=std::size_t(n)             \
-                                    ? (std::size_t(d##n)==1u) : true))         \
+    BOOST_ASSERT_MSG( ( (D##n != -1)                                           \
+                      ? (std::size_t(d##n)==std::size_t(D##n))                 \
+                      : ( static_size<=std::size_t(n)                          \
+                        ? (std::size_t(d##n)==1u)                              \
+                        : true                                                 \
+                        )                                                      \
+                      )                                                        \
                     , "of_size_ constructor parameter "                        \
                       BOOST_PP_STRINGIZE(BOOST_PP_INC(n))                      \
                       " invalid with respect to of_size_ "                     \
@@ -236,16 +240,20 @@ namespace nt2
                     );                                                         \
     /**/
 
-    #define M1(z,n,t) fill( (D##n == -1) ? d##n : D##n            \
-                          , boost::mpl::size_t<n>()               \
-                          , boost::mpl::bool_<(n<static_size)>()  \
-                          );                                      \
+    #define M1(z,n,t) fill(   (D##n == -1)                                     \
+                            ? std::size_t(d##n)                                \
+                            : std::size_t(D##n)                                \
+                          , boost::mpl::size_t<std::size_t(n)>()               \
+                          , boost::mpl::bool_<(std::size_t(n)<static_size)>()  \
+                          );                                                   \
     /**/
 
-    #define M3(z,n,t) fill( (D##n == -1) ? 1u : D##n              \
-                          , boost::mpl::size_t<n>()               \
-                          , boost::mpl::bool_<(n<static_size)>()  \
-                          );                                      \
+    #define M3(z,n,t) fill(   (D##n == -1)                                     \
+                            ? std::size_t(1u)                                  \
+                            : std::size_t(D##n)                                \
+                          , boost::mpl::size_t<std::size_t(n)>()               \
+                          , boost::mpl::bool_<(std::size_t(n)<static_size)>()  \
+                          );                                                   \
     /**/
 
     #define M0(z,n,t)                                                          \
