@@ -1,24 +1,105 @@
 [section Testing __NT2__]
 
-__NT2__ provides a large array of Unit Tests covering all its functionalities.
-Those tests can be run locally by using CTest either globally or by using
+__NT2__ provides a large array of tests covering all its functionalities.
+Once built, those tests can be run locally by using CTest either globally or by using
 CTest finer-grain test selection using regular expressions to select a module or
 a single function to test.
 
-[heading Type of Tests]
+[heading Test Types]
 __NT2__ provides three types of tests:
 
-* Regular Unit Tests that assert the correctness of both compilation and execution
-of __NT2__ under a given set of platform, architecture and compiler.
-* Cover Tests that provide a random sampling tests of precision for numerical
-algorithms. Those cover help __NT2__ developer to maintain a high level of
-numerical precision.
-* Exhaustive Tests that performs an exhaustive exploration of a function value
-space to assess numerical precision. Those cover usually are only provided for
-single precision reals for time constraints. There output is an histogram
+* Unit Tests: assert the correctness of both compilation and execution
+of __NT2__ features.
+* Cover Tests: tests precision on a random sampling for numerical
+algorithms. Those tests help maintaining a high level of numerical precision.
+* Exhaustive Tests: perform an exhaustive exploration of the whole value space to assess numerical correctness.
+Those tests are only provided for single precision floating-point due to time constraints. Their output is an histogram of precision by input range.
 
-[heading Tests Configuration]
+[heading Configuration]
 
-[heading __NT2__ CDash Support]
+Due to __NT2__ having many tests, and thefore many targets, the behaviour of how targets are added to the build system is
+configurable when configuring the __CMAKE__ project.
+
+* =NT2_WITH_TESTS_FULL=: one target per test, but causes problems with generators that do not scale well. Default for __NINJA__.
+* =NT2_WITH_TESTS=: one target per test suite. Default for Makefile generators (GNU Make, NMake).
+* None of the above: no test targets at all. Default for IDEs such as MSVC.
+
+Additionally, the following configuration variables are available:
+
+* =NT2_WITH_TESTS_COVER=: enables cover tests. Not enabled by default.
+* =NT2_WITh_TESTS_EXHAUSTIVE=: enables exhaustive tests. Not enabled by default.
+* =NT2_WITH_TESTS_BENCH=: makes benchmarks behave the same as tests. Not enabled by default. Benchmarks are otherwise always enabled whenever unit tests are.
+
+When configuring __NT2__ with __CMAKE__, it is also possible to specify which set of flags to use when compiling the
+tests. The __CMAKE__ variable =CMAKE_CXX_FLAGS_NT2TEST= may be redefined in the cache to override the default.
+
+The default is to compile with moderate a optimization level, with a fairly exhaustive list of warnings and
+with assertions enabled and set to trigger exceptions. The =NT2_EXTRA_WARNINGS= option can be used to enable even more warnings.
+Due to bugs in GCC, strict aliasing support is explicitly disabled for that compiler.
+
+[heading Building]
+
+Test naming is done with the following layout:
+
+``
+[^module].[^sub-module].[^test-suite].[^sub-test-suite].[^test-type]
+``
+
+for example, assuming =NT2_WITH_TESTS_FULL= is defined, the =compare_less= unit test in the =scalar= test suite in the =boost.simd.operator= module is named
+
+``
+boost.simd.operator.scalar.compare_less.unit
+``
+
+The whole =scalar= test suite (which only requires =NT2_WITH_TESTS=) can be built with
+
+``
+boost.simd.operator.scalar.unit
+``
+
+and it's also possible to compile many tests at the same time by going up this scheme (=boost.simd.operator.unit=, =boost.simd.unit=, =boost.unit=, =unit=).
+
+[heading Performance Concerns]
+
+__NT2__ uses C++ programming techniques which can require significant resources to compile tests. Compiling a test may require up to 4GB of RAM,
+in particular for the tests of the =core= module, though most tests run well below 2GB. This can limit parallelization opportunities depending on how much RAM is available.
+
+Compiling the full set of unit and cover tests takes 2 hours on bi-xeon quadcore server using 4 threads.
+
+
+[heading Reporting]
+
+The results of __NT2__ tests may be uploaded to [@http://cdash.lri.fr/index.php?project=NT2 a remote CDash server] for easy monitoring and tracking.
+
+The easiest way to achieve this is to run `ctest -D Experimental` after having built all tests with `make unit`.
+This approach however only reports the results of the tests at runtime, and not updating, configuring, or building errors.
+
+Another approach is to use a CTest script to do all steps and report them to CDash:
+
+``
+set(CTEST_SOURCE_DIRECTORY "path/to/the/source")
+set(CTEST_BINARY_DIRECTORY "path/to/build/directory")
+
+#set(CTEST_SITE "my_computer_name") # optional
+#set(CTEST_BUILD_NAME "my_configuration_name") # optional
+
+set(CTEST_CMAKE_GENERATOR "Unix Makefiles") # or Ninja, or NMake Makefiles, etc.
+set(CTEST_BUILD_COMMAND "make -k -j4 unit") # adapt accordingly
+
+#######################################################################
+
+find_program(CTEST_GIT_COMMAND NAMES git)
+set(CTEST_UPDATE_COMMAND ${CTEST_GIT_COMMAND})
+
+ctest_start("Experimental")
+ctest_update()
+ctest_configure()
+ctest_build()
+ctest_test()
+ctest_submit()
+``
+
+The following script may then be invoked with `ctest -S name_of_file.cmake`. If you intend to run such a script on a regular basis (such as through a cron job
+or Windows scheduled task), you may change ="Experimental"= to ="Nightly"=.
 
 [endsect]

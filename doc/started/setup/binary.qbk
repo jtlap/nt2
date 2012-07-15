@@ -31,7 +31,7 @@ Those folders contain:
 * =nt2/doc=: __NT2__ HTML documentation
 * =nt2/include=: __NT2__ headers, directory suitable to add to your include path
 * =nt2/lib=: __NT2__ library binaries, directory suitable to add to your linker path
-* =nt2/modules=: Files used by __NT2__ to identity installed modules and their associated
+* =nt2/modules=: Files used by __NT2__ to identity installed modules
 * =nt2/tools=: Programs that are used to manage a __NT2__ setup
 
 Once extracted, you just have to copy the whole =nt2= folder to a location of

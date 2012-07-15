@@ -13,9 +13,9 @@ errors may slip through.
 want to participate to some on-going effort that take place in long lived branches.
 
 For now on, we will consider we retrieve __NT2__ =master=. If you happen to
-retrieve any other branch, the procedure stay the same, just change the branch
+retrieve any other branch, the procedure stays the same, just change the branch
 name. To proceed, clone current __NT2__ from Github by typing the following command
-in a terminal (on Linux or Mac OS X) or in GIT-Bash (on Windows):
+in a terminal (on Linux or Mac OS X) or in Git-Bash (on Windows):
 ``
 git clone https://github.com/MetaScale/nt2.git -b master
 ``
@@ -24,19 +24,19 @@ should looks like:
 ``
   nt2/
   |-- cmake/
-  |-- CMakeLists.txt
-  |-- CTestConfig.cmake
   |-- doc/
-  |-- LICENSE
   |-- modules/
-  |-- README.rst
   |-- sandbox/
   |-- script/
   |-- tools/
+  |-- CMakeLists.txt
+  |-- CTestConfig.cmake
+  |-- LICENSE
+  |-- README.rst
   |-- valgrind.supp
 ``
 
-As you can see, the layout of the __NT2__ distribution is vastly different depending
+As you can see, the layout of the __NT2__ distribution is quite different depending
 on whether you're looking at the source distribution or the binary distribution.
 The essential difference is that the source distribution is divided into a collection
 of =modules=, which can each add headers to the include path, library sources to be
@@ -46,9 +46,9 @@ built, tests, etc.
 
 [section Building __NT2__]
 __NT2__ uses __CMAKE__ as its build system. __CMAKE__ is a meta-build system, in
-the sense that it generates files for another build system (Make, NMake, Visual
-Studio projects, etc.). When you run __CMAKE__ with a particular generator, it
-will configure the __NT2__ project before generating the build files for the
+the sense that it generates files for another build system (GNU Make, NMake, Visual
+Studio projects, XCode, __NINJA__, etc.). When you run __CMAKE__ with a particular generator,
+it will configure the __NT2__ project before generating the build files for the
 chosen generator. You may then edit the base configuration to change compiler
 settings, where to find the external libraries, or the __NT2__ options below,
 then re-generate.
@@ -66,24 +66,24 @@ directories.]
 
 [heading Default configuration]
 The default configuration of __NT2__ super-project will generate a version of
-__NT2__ using all available modules and will try to detect the best architecture
-support to enable (See ... for more informations). Additionally, the install
-path will default to [^/usr/local] on Linux and [^C:\Program Files] on Windows.
+__NT2__ using all available modules and will optimize for whatever is detected on
+the host architecture (See ... for more informations). Additionally, the install
+path prefix will default to [^/usr/local] on Linux and [^C:\Program Files] on Windows.
 
-We start by creating a =build= directory next to our =nt2= directory and move
+We start by creating a =nt2-build= directory next to our =nt2= directory and move
 inside it.
 [teletype]
 ``
-mkdir build && cd build
+mkdir nt2-build && cd nt2-build
 ``
 Once there, we simply call =cmake= with the location of our =nt2= directory
 [teletype]
 ``
-cmake ../nt2
+cmake ../nt2-build
 ``
 If you pass no other option, __CMAKE__ will use the default generator for your
 platform: =make= for Linux, Visual Studio for Windows. You can change this by
-using the =-g= option of __CMAKE__. Once called, the __NT2__ __CMAKE__ script
+using the =-G= option of __CMAKE__. Once called, the __NT2__ __CMAKE__ script
 will check for some prerequisites, load all available module, generate stub
 include files and finally generate the =Makefile= or =.sln= you want. An abridged
 output of such a successful script call should look like:
@@ -101,28 +101,31 @@ output of such a successful script call should look like:
 -- Detecting CXX compiler ABI info - done
 -- Performing Test HAS_GCC_NO_DELETE_NON_VIRTUAL_DTOR
 -- Performing Test HAS_GCC_NO_DELETE_NON_VIRTUAL_DTOR - Success
--- [nt2] Global flags:  -Wall -Wno-unused -Wno-sign-compare -Wno-delete-non-virtual-dtor
+-- [nt2] Global flags:  -Wall -Wno-unused -Wno-delete-non-virtual-dtor
 -- [nt2] Debug flags: -g
 -- [nt2] Release flags: -O3 -DNDEBUG
 -- [nt2] Test flags: -DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ASSERTS_AS_EXCEPTIONS -O2 -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING
 -- [nt2] Bench flags: -DNDEBUG -O3 -fomit-frame-pointer -fno-exceptions -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING
 -- [nt2] Boost version: 1.50.0
 -- [nt2] building tool is_supported
+-- [boost.simd.sdk] SIMD flag: -msse4.2 -mfpmath=sse
+-- [boost.simd.sdk] target system: POSIX (Linux 3.2.0-24-generic)
+-- [boost.simd.sdk] target processor: x86 (i686)
+-- [boost.simd.sdk] compiler: GCC (GNU)
 
 ... more lines ...
 
 -- Configuring done
 -- Generating done
--- Build files have been written to: /home/user/build/
+-- Build files have been written to: /home/user/nt2-build/
 ``
 
-Once done, one can now call =make install= to build __NT2__ and copy its files
-to the desired locations.
+Once done, one can now call =make= and then =sudo make install= to build __NT2__
+and copy files to install to the desired location if using the Unix Makefile generator.
 
 [caution If you pull new commits from Git, you may have to re-configure before
 you can build again. This is due to __NT2__ generating some files at the end of
-the configuration step. Re-configuring, however, unfortunately invalidates all
-targets, so a better solution will eventually be implemented.]
+the configuration step.]
 
 [endsect]
 
@@ -132,9 +135,9 @@ build files. This section will presents the most common flags you may need to
 use. Additional flags could be used on a per OS, per compiler or per architecture
 basis and will be detailed in the corresponding documentation.
 
-[tip All the options presented here can either be added on a configuration file
-basis or registered as environment variable so all __NT2__ configuration on a
-given system are using the same set of options.]
+[tip The options presented below can either be defined when invoking CMake or editing
+its cache or defined through environment variables. The latter is useful when multiple
+__NT2__ configurations on a given system should use the same set of options.]
 
 [heading Changing install path prefix]
 The install path prefix can be changed using the =CMAKE_INSTALL_PREFIX= option
@@ -147,10 +150,10 @@ Calling =make install= after this command completes will install all __NT2__
 files into [^my/local/path/].
 
 [heading Using a specific Boost version]
-The Boost detection inside __NT2__ super-project is normally enough to find
-classical Boost installation. However, if your Boost installation don't live in
+The __BOOST__ detection inside __NT2__ super-project is normally enough to find a
+normal Boost installation. However, if your Boost installation desn't live in
 a default location, you may want to pass a custom =BOOST_ROOT= value to locate
-it. This is for example useful to build __NT2__ using trunk of Boost.
+it. This is for example useful to build __NT2__ using trunk or specific versions of Boost.
 [teletype]
 ``
 cmake ../nt2 -DBOOST_ROOT=my/path/to/boost
