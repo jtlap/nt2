@@ -42,6 +42,7 @@ endforeach()
 configure_file(${NT2_SOURCE_ROOT}/cmake/boostbook/catalog.xml.in
                ${NT2_BINARY_DIR}/doc/catalog.xml
               )
+set(NT2_DOC_QBK_MACRO_FILE ${NT2_SOURCE_ROOT}/doc/macros.qbk)
 
 # Search for file in current source or binary directory (source preferred)
 macro(nt2_absolute var file)
@@ -106,8 +107,10 @@ macro(nt2_doc_qbk file)
   set(target_name target_${relative})
   string(REPLACE "/" "_" target_name ${target_name})
   add_custom_target(${target_name}
-                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                            ${absolute} ${CMAKE_BINARY_DIR}/${relative}
+                    COMMAND ${CMAKE_COMMAND}
+                            -DINPUT=${absolute} -DOUTPUT=${CMAKE_BINARY_DIR}/${relative}
+                            -DMACRO_FILE=${NT2_DOC_QBK_MACRO_FILE}
+                            -P ${NT2_SOURCE_ROOT}/cmake/nt2.quickbook-insert-macros.cmake
                     COMMAND ${QUICKBOOK_EXECUTABLE}
                             --input-file ${file}.qbk
                             --include-path ${CMAKE_CURRENT_SOURCE_DIR}/${path}
