@@ -23,6 +23,7 @@
 #include <boost/assert.hpp>
 #include <cstddef>
 #include <iterator>
+#include <functional>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/arithmetic/dec.hpp>
@@ -227,7 +228,7 @@ namespace nt2
     //==========================================================================
     #define M2(z,n,t)                                                          \
     BOOST_ASSERT_MSG( ( (D##n != -1)                                           \
-                      ? (std::size_t(d##n)==std::size_t(D##n))                 \
+                      ? std::equal_to<std::size_t>()(d##n, D##n)               \
                       : ( static_size<=std::size_t(n)                          \
                         ? (std::size_t(d##n)==1u)                              \
                         : true                                                 \
