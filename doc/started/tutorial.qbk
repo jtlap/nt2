@@ -2,9 +2,6 @@
   [quickbook 1.5]
 ]
 
-[def __NT2__ *NT2* ]
-[def __CMAKE__ [@http://cmake.org CMake] ]
-
 [section Objective]
 This chapter will give you a short overview of how to use __NT2__ through a
 short example covering __NT2__ Containers, sample operations and how to

@@ -3,7 +3,6 @@
 ]
 
 [#dev_manual]
-[def __NT2__    *NT2* ]
 [xinclude boost.dispatch.xml]
 [xinclude dev/module.xml]
 [xinclude dev/expression.xml]

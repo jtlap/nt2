@@ -2,9 +2,6 @@
   [quickbook 1.5]
 ]
 
-[def __NT2__ *NT2* ]
-[def __CMAKE__ [@http://www.cmake.org CMake] ]
-
 [section Overview]
 This chapter will guide you through the necessary step to download, configure
 and install __NT2__ on your system. We take for granted that you have the basic

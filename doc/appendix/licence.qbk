@@ -2,8 +2,6 @@
   [quickbook 1.5]
 ]
 
-[def __NT2__ *NT2* ]
-
 __NT2__ is distributed under the [@http://www.boost.org/LICENSE_1_0.txt
 Boost Software Licence Version 1.0] which text is reproduced here:
 
