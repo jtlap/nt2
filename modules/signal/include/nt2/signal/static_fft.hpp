@@ -27,12 +27,18 @@
 
 #elif defined( __GNUC__ )
 
+    /// \note The 'pure' (and especially 'const') attribute(s) seem to be too
+    /// strict to mimic the MSVC 'noalias' attribute (which allows first level
+    /// indirections).
+    ///                                       (09.07.2012.) (Domagoj Saric)
     #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow ))
-    #if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_ARCH_X86_64)
-        #if defined(__clang__)
+    #if defined( BOOST_SIMD_ARCH_X86 ) && !defined( BOOST_SIMD_ARCH_X86_64 )
+        #if defined( __clang__ )
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ) ))
-        #elif defined(BOOST_SIMD_HAS_SSE_SUPPORT)
+        #elif defined( BOOST_SIMD_HAS_SSE_SUPPORT )
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ), sseregparm, hot ))
+        #else
+            #define BOOST_FASTCALL __attribute__(( regparm( 3 ), hot ))
         #endif // __clang__
     #else
         #define BOOST_FASTCALL
@@ -180,7 +186,6 @@ namespace nt2
 //   http://www.ces.clemson.edu/~janoski/reu/2008/FFT-book.pdf
 //   http://cr.yp.to/f2mult/mateer-thesis.pdf
 //   http://www.datasheetarchive.com/indexdl/Datasheet-078/DSAE0074796.pdf (Intel AP-808)
-//   http://wwwdim.uqac.ca/~daudet/Cours/Architecture-bac/DOCUMENTS/repertoire435/MMX-et-SSE-par-Michel-Langlais/exemples-d-Intel/split%20radix%20fft
 //   http://www.cmlab.csie.ntu.edu.tw/cml/dsp/training/coding/transform/fft.html
 //   http://front.cc.nctu.edu.tw/Richfiles/5477-03071119230013828.pdf
 //   http://infoscience.epfl.ch/record/34236/files/VetterliD88.pdf
@@ -229,7 +234,7 @@ namespace nt2
 //   http://www.ece.cmu.edu/~franzf/papers/ieee-si.pdf
 // - multi-dimension
 //   https://www.cs.drexel.edu/files/ts467/DU-CS-05-01.pdf
-// - accuracy
+// - accuracy/precision
 //   http://www.dsprelated.com/showmessage/91562/1.php
 //   http://www.fftw.org/accuracy/method.html
 //   http://en.wikipedia.org/wiki/Fast_Fourier_transform#Accuracy_and_approximations
@@ -366,7 +371,7 @@ namespace detail
     {
     #ifdef __GNUC__
         __builtin_prefetch( location, 0, 0 );
-    #elif defined(BOOST_SIMD_HAS_SSE_SUPPORT)
+    #elif defined( BOOST_SIMD_HAS_SSE_SUPPORT )
         _mm_prefetch( static_cast<char const *>( location ), _MM_HINT_NTA );
     #endif
     }
@@ -457,12 +462,17 @@ namespace detail
         );
 
         template <typename Vector>
-        static void BOOST_FASTCALL danielson_lanczos_4
+        static void BOOST_FASTCALL dft_4
         (
-            Vector const & real_in ,
-            Vector const & imag_in ,
-            Vector       & real_out,
-            Vector       & imag_out
+            Vector const & real_in , Vector const & imag_in ,
+            Vector       & real_out, Vector       & imag_out
+        );
+
+        template <typename Vector>
+        static void BOOST_FASTCALL dft_8_in_place
+        (
+            Vector & real0, Vector & imag0,
+            Vector & real1, Vector & imag1
         );
     };
 
@@ -483,21 +493,17 @@ namespace detail
         );
 
         template <typename Vector>
-        static void BOOST_FASTCALL danielson_lanczos_4
+        static void BOOST_FASTCALL dft_4
         (
-            Vector const & real_in ,
-            Vector const & imag_in ,
-            Vector       & real_out,
-            Vector       & imag_out
+            Vector const & real_in , Vector const & imag_in ,
+            Vector       & real_out, Vector       & imag_out
         );
 
         template <typename Vector>
-        static void BOOST_FASTCALL danielson_lanczos_8_in_place
+        static void BOOST_FASTCALL dft_8_in_place
         (
-            Vector & real0,
-            Vector & imag0,
-            Vector & real1,
-            Vector & imag1
+            Vector & real0, Vector & imag0,
+            Vector & real1, Vector & imag1
         );
     };
 
@@ -569,7 +575,7 @@ namespace detail
         typedef vector_t * BOOST_DISPATCH_RESTRICT parameter1_t;
 
         typedef dif decimation_t;
-      //typedef dit decimation_t; //...zzz...not yet fully tested with the new split-radix algorithm...
+      //typedef dit decimation_t; //...zzz...not yet fully ported to the split-radix algorithm...
 
         template <unsigned RealP>
         struct complex_P : boost::mpl::integral_c<unsigned int, RealP - 1> {};
@@ -1255,10 +1261,10 @@ namespace detail
             /// normalization factor.
             ///                               (27.06.2012.) (Domagoj Saric)
 
-            NT2_CONST_VECTOR( upper_r, reverse                 ( *p_upper_reals ) /**= half*/ );
-            NT2_CONST_VECTOR( upper_i, reverse                 ( *p_upper_imags ) /**= half*/ );
-            NT2_CONST_VECTOR( lower_r, unaligned_load<vector_t>(  p_lower_reals ) /**= half*/ );
-            NT2_CONST_VECTOR( lower_i, unaligned_load<vector_t>(  p_lower_imags ) /**= half*/ );
+            NT2_CONST_VECTOR( upper_r, reverse                 ( *p_upper_reals ) /* * half */ );
+            NT2_CONST_VECTOR( upper_i, reverse                 ( *p_upper_imags ) /* * half */ );
+            NT2_CONST_VECTOR( lower_r, unaligned_load<vector_t>(  p_lower_reals ) /* * half */ );
+            NT2_CONST_VECTOR( lower_i, unaligned_load<vector_t>(  p_lower_imags ) /* * half */ );
 
             NT2_CONST_VECTOR( wr, p_twiddle_factors->w0.wr ^ twiddle_sign_flipper );
             NT2_CONST_VECTOR( wi, p_twiddle_factors->w0.wi                        );
@@ -1435,12 +1441,10 @@ namespace detail
 
     template <typename Vector>
     BOOST_FORCEINLINE
-    void BOOST_FASTCALL dit::danielson_lanczos_4
+    void BOOST_FASTCALL dit::dft_4
     (
-        Vector const & real_in ,
-        Vector const & imag_in ,
-        Vector       & real_out,
-        Vector       & imag_out
+        Vector const & real_in , Vector const & imag_in ,
+        Vector       & real_out, Vector       & imag_out
     )
     {
         //...zzz...still radix-2...:
@@ -1521,7 +1525,7 @@ namespace detail
     unsigned int const idx2( 2 );
     unsigned int const idx3( 3 );
 
-    #if !defined( BOOST_SIMD_HAS_SSE_SUPPORT )
+    #if !defined( BOOST_SIMD_DETECTED )
 
         scalar_t const r2( real_in[ idx2 ] );
         scalar_t const r3( real_in[ idx3 ] );
@@ -1553,10 +1557,10 @@ namespace detail
         imag_out[ idx2 ] = i0pi1 - i2pi3;
         imag_out[ idx3 ] = i0mi1 - r3mr2;
 
-    #else // BOOST_SIMD_HAS_SSE_SUPPORT
+    #else // BOOST_SIMD_DETECTED
 
-        NT2_CONST_VECTOR( odd_negate     , sign_flipper<false, true , false, true>() );
-        NT2_CONST_VECTOR( negate_last_two, sign_flipper<false, false, true , true>() );
+        NT2_CONST_VECTOR( odd_negate     , *sign_flipper<false, true , false, true>() );
+        NT2_CONST_VECTOR( negate_last_two, *sign_flipper<false, false, true , true>() );
 
         // Real:
         NT2_CONST_VECTOR( real, real_in );
@@ -1593,17 +1597,15 @@ namespace detail
         real_out = r_left + ( r_right ^ negate_last_two );
         imag_out = i_left + ( i_right ^ negate_last_two );
 
-    #endif // BOOST_SIMD_HAS_SSE_SUPPORT
+    #endif // BOOST_SIMD_DETECTED
     }
 
     template <typename Vector>
     BOOST_FORCEINLINE
-    void BOOST_FASTCALL dif::danielson_lanczos_4
+    void BOOST_FASTCALL dif::dft_4
     (
-        Vector const & real_in ,
-        Vector const & imag_in ,
-        Vector       & real_out,
-        Vector       & imag_out
+        Vector const & real_in , Vector const & imag_in ,
+        Vector       & real_out, Vector       & imag_out
     )
     {
         typedef          Vector             vector_t;
@@ -1615,7 +1617,7 @@ namespace detail
         unsigned int const idx2( 2 );
         unsigned int const idx3( 3 );
 
-    #if !defined( BOOST_SIMD_HAS_SSE_SUPPORT )
+    #if !defined( BOOST_SIMD_DETECTED )
 
         scalar_t r0( real_in[ idx0 ] ); scalar_t i0( imag_in[ idx0 ] );
         scalar_t r1( real_in[ idx1 ] ); scalar_t i1( imag_in[ idx1 ] );
@@ -1647,7 +1649,8 @@ namespace detail
         real_out[ idx2 ] = r2; imag_out[ idx2 ] = i2;
         real_out[ idx3 ] = r3; imag_out[ idx3 ] = i3;
 
-    #else // BOOST_SIMD_HAS_SSE_SUPPORT
+    #else // BOOST_SIMD_DETECTED
+
         NT2_CONST_VECTOR( real, real_in ); NT2_CONST_VECTOR( imag, imag_in );
         NT2_CONST_VECTOR( r0101, repeat_lower_half( real ) ); NT2_CONST_VECTOR( i0101, repeat_lower_half( imag ) );
         NT2_CONST_VECTOR( r2323, repeat_upper_half( real ) ); NT2_CONST_VECTOR( i2323, repeat_upper_half( imag ) );
@@ -1660,64 +1663,74 @@ namespace detail
 
         real_out = r_left + ( r_right ^ *sign_flipper<false, true, false, true >()/*negate_13*/ );
         imag_out = i_left + ( i_right ^ *sign_flipper<false, true, true , false>()/*negate_12*/ );
-    #endif // BOOST_SIMD_HAS_SSE_SUPPORT
+
+    #endif // BOOST_SIMD_DETECTED
     }
 
 
     template <typename Vector>
     BOOST_FORCEINLINE
-    void BOOST_FASTCALL dif::danielson_lanczos_8_in_place
+    void BOOST_FASTCALL dif::dft_8_in_place
     (
-        Vector & lower_real,
-        Vector & lower_imag,
-        Vector & upper_real,
-        Vector & upper_imag
+        Vector & lower_real, Vector & lower_imag,
+        Vector & upper_real, Vector & upper_imag
     )
     {
         typedef          Vector             vector_t;
         typedef typename Vector::value_type scalar_t;
 
-    #if !defined( BOOST_SIMD_HAS_SSE_SUPPORT )
-        scalar_t r0( lower_real[ 0 ] ); scalar_t i0( lower_imag[ 0 ] );
-        scalar_t r1( lower_real[ 1 ] ); scalar_t i1( lower_imag[ 1 ] );
-        scalar_t r2( lower_real[ 2 ] ); scalar_t i2( lower_imag[ 2 ] );
-        scalar_t r3( lower_real[ 3 ] ); scalar_t i3( lower_imag[ 3 ] );
-        scalar_t r4( upper_real[ 0 ] ); scalar_t i4( upper_imag[ 0 ] );
-        scalar_t r5( upper_real[ 1 ] ); scalar_t i5( upper_imag[ 1 ] );
-        scalar_t r6( upper_real[ 2 ] ); scalar_t i6( upper_imag[ 2 ] );
-        scalar_t r7( upper_real[ 3 ] ); scalar_t i7( upper_imag[ 3 ] );
+    #if !defined( BOOST_SIMD_DETECTED )
 
+        scalar_t const r0( lower_real[ 0 ] ); scalar_t const i0( lower_imag[ 0 ] );
+        scalar_t const r1( lower_real[ 1 ] ); scalar_t const i1( lower_imag[ 1 ] );
+        scalar_t const r2( lower_real[ 2 ] ); scalar_t const i2( lower_imag[ 2 ] );
+        scalar_t const r3( lower_real[ 3 ] ); scalar_t const i3( lower_imag[ 3 ] );
+        scalar_t       r4( upper_real[ 0 ] ); scalar_t       i4( upper_imag[ 0 ] );
+        scalar_t       r5( upper_real[ 1 ] ); scalar_t       i5( upper_imag[ 1 ] );
+        scalar_t       r6( upper_real[ 2 ] ); scalar_t       i6( upper_imag[ 2 ] );
+        scalar_t       r7( upper_real[ 3 ] ); scalar_t       i7( upper_imag[ 3 ] );
+
+        // Butterflys:
+
+        // First (0, 1) and second (2, 3) quarters:
         scalar_t const r0pr4( r0 + r4 ); scalar_t const i0pi4( i0 + i4 );
         scalar_t const r1pr5( r1 + r5 ); scalar_t const i1pi5( i1 + i5 );
         scalar_t const r2pr6( r2 + r6 ); scalar_t const i2pi6( i2 + i6 );
         scalar_t const r3pr7( r3 + r7 ); scalar_t const i3pi7( i3 + i7 );
 
-        r0 = r0pr4; i0 = i0pi4;
-        r1 = r1pr5; i1 = i1pi5;
-        r2 = r2pr6; i2 = i2pi6;
-        r3 = r3pr7; i3 = i3pi7;
+        // we can already calculate the lower DFT4 so we do it to free up
+        // registers:
+        {
+            vector_t lower_r;     vector_t lower_i;
+            lower_r[ 0 ] = r0pr4; lower_i[ 0 ] = i0pi4;
+            lower_r[ 1 ] = r1pr5; lower_i[ 1 ] = i1pi5;
+            lower_r[ 2 ] = r2pr6; lower_i[ 2 ] = i2pi6;
+            lower_r[ 3 ] = r3pr7; lower_i[ 3 ] = i3pi7;
+            dif::dft_4<vector_t>
+            (
+                lower_r   , lower_i   ,
+                lower_real, lower_imag
+            );
+        }
 
-        scalar_t const r0m4( r0 - r4 ); scalar_t const i0m4( i0 - i4 );
+        // Third (4, 5) and fourth (6 ,7) quarters:
+      //scalar_t const r0m4( r0 - r4 ); scalar_t const i0m4( i0 - i4 );
         scalar_t const r1m5( r1 - r5 ); scalar_t const i1m5( i1 - i5 );
-
-        scalar_t const r2m6( i6 - i2 ); scalar_t const i2m6( r2 - r6 );
+        // "merged" the "reversedness" of the fourth quarter:
+      //scalar_t const r2m6( i6 - i2 ); scalar_t const i2m6( r2 - r6 );
         scalar_t const r3m7( i7 - i3 ); scalar_t const i3m7( r3 - r7 );
 
-        scalar_t const r4_( r0m4 - r2m6 ); scalar_t const i4_( i0m4 - i2m6 );
+      //scalar_t const r4_( r0m4 - r2m6 ); scalar_t const i4_( i0m4 - i2m6 );
         scalar_t const r5_( r1m5 - r3m7 ); scalar_t const i5_( i1m5 - i3m7 );
 
-        scalar_t const r6_( r0m4 + r2m6 ); scalar_t const i6_( i0m4 + i2m6 );
+      //scalar_t const r6_( r0m4 + r2m6 ); scalar_t const i6_( i0m4 + i2m6 );
         scalar_t const r7_( r1m5 + r3m7 ); scalar_t const i7_( i1m5 + i3m7 );
 
         float const sqrt2( 0.70710678118654752440084436210485f );
-      //float const w0r0( 1 );
-      //float const w0i0( 0 );
-      //float const w3r0( 1 );
-      //float const w3i0( 0 );
-      //float const w0r1( +sqrt2 );
-      //float const w0i1( -sqrt2 );
-      //float const w3r1( -sqrt2 );
-      //float const w3i1( -sqrt2 );
+      //float const w0r0(      1 ); float const w0i0(      0 );
+      //float const w3r0(      1 ); float const w3i0(      0 );
+      //float const w0r1( +sqrt2 ); float const w0i1( -sqrt2 );
+      //float const w3r1( -sqrt2 ); float const w3i1( -sqrt2 );
 
       //r4 = r4_ * w0r0 - i4_ * w0i0; i4 = r4_ * w0i0 + i4_ * w0r0;
       //r5 = r5_ * w0r1 - i5_ * w0i1; i5 = r5_ * w0i1 + i5_ * w0r1;
@@ -1728,42 +1741,18 @@ namespace detail
         r5 = ( r5_ + i5_ ) * +sqrt2; i5 = ( r5_ - i5_ ) * -sqrt2;
         r7 = ( r7_ - i7_ ) * -sqrt2; i7 = ( r7_ + i7_ ) * -sqrt2;
 
+        // Decimation (lower DFT4 already calculated, the remaining two DFT2):
         {
-            vector_t lower_r;
-            vector_t lower_i;
-            lower_r[ 0 ] = r0; lower_i[ 0 ] = i0;
-            lower_r[ 1 ] = r1; lower_i[ 1 ] = i1;
-            lower_r[ 2 ] = r2; lower_i[ 2 ] = i2;
-            lower_r[ 3 ] = r3; lower_i[ 3 ] = i3;
-            dif::danielson_lanczos_4<vector_t>
-            (
-                lower_r,
-                lower_i,
-                lower_real,
-                lower_imag
-            );
+            scalar_t const r4_( r4 ); scalar_t const i4_( i4 );
+            scalar_t const r5_( r5 ); scalar_t const i5_( i5 );
+            r4 = r4_ + r5_          ; i4 = i4_ + i5_          ;
+            r5 = r4_ - r5_          ; i5 = i4_ - i5_          ;
         }
-
         {
-            scalar_t const r4_( r4 );
-            scalar_t const i4_( i4 );
-            scalar_t const r5_( r5 );
-            scalar_t const i5_( i5 );
-            r4 = r4_ + r5_;
-            i4 = i4_ + i5_;
-            r5 = r4_ - r5_;
-            i5 = i4_ - i5_;
-        }
-
-        {
-            scalar_t const r6_( r6 );
-            scalar_t const i6_( i6 );
-            scalar_t const r7_( r7 );
-            scalar_t const i7_( i7 );
-            r6 = r6_ + r7_;
-            i6 = i6_ + i7_;
-            r7 = r6_ - r7_;
-            i7 = i6_ - i7_;
+            scalar_t const r6_( r6 ); scalar_t const i6_( i6 );
+            scalar_t const r7_( r7 ); scalar_t const i7_( i7 );
+            r6 = r6_ + r7_          ; i6 = i6_ + i7_          ;
+            r7 = r6_ - r7_          ; i7 = i6_ - i7_          ;
         }
 
         upper_real[ 0 ] = r4; upper_imag[ 0 ] = i4;
@@ -1771,7 +1760,7 @@ namespace detail
         upper_real[ 2 ] = r6; upper_imag[ 2 ] = i6;
         upper_real[ 3 ] = r7; upper_imag[ 3 ] = i7;
 
-    #else // BOOST_SIMD_HAS_SSE_SUPPORT
+    #else // BOOST_SIMD_DETECTED
 
         NT2_CONST_VECTOR( lower_r_in, lower_real );
         NT2_CONST_VECTOR( lower_i_in, lower_imag );
@@ -1785,12 +1774,12 @@ namespace detail
             NT2_CONST_VECTOR( lower_p_upper_r, lower_r_in + upper_r_in ); NT2_CONST_VECTOR( lower_p_upper_i,  lower_i_in + upper_i_in );
             NT2_VECTOR(       lower_m_upper_r, lower_r_in - upper_r_in ); NT2_VECTOR(       lower_m_upper_i,  lower_i_in - upper_i_in );
 
-            // we can already calculate the lower DFT4 so we do it free up
+            // we can already calculate the lower DFT4 so we do it to free up
             // registers:
             vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper( sign_flipper<false, false, true, true>() );
             {
                 //...zzz...manually inlined for testing ("in search of optimal register allocation")...
-                //dif::danielson_lanczos_4<vector_t>
+                //dif::dft_4<vector_t>
                 //(
                 //    lower_p_upper_r,
                 //    lower_p_upper_i,
@@ -1841,7 +1830,45 @@ namespace detail
             upper_imag = i4466 + ( i5577 ^ odd_negate );
         }
 
-    #endif // BOOST_SIMD_HAS_SSE_SUPPORT
+    #endif // BOOST_SIMD_DETECTED
+    }
+
+    template <typename Vector>
+    BOOST_FORCEINLINE
+    void BOOST_FASTCALL dit::dft_8_in_place
+    (
+        Vector & lower_r, Vector & lower_i,
+        Vector & upper_r, Vector & upper_i
+    )
+    {
+        //...zzz...still radix-2...
+
+        typedef          Vector             vector_t;
+        typedef typename Vector::value_type scalar_t;
+
+        dit::dft_4
+        (
+            upper_r, upper_i,
+            upper_r, upper_i
+        );
+
+        dit::dft_4
+        (
+            lower_r, lower_i,
+            lower_r, lower_i
+        );
+
+        scalar_t const sqrt2( 0.70710678118654752440084436210485f );
+        NT2_CONST_VECTOR( wr, _mm_setr_ps( 1, +sqrt2, +0, -sqrt2 ) );
+        NT2_CONST_VECTOR( wi, _mm_setr_ps( 0, -sqrt2, -1, -sqrt2 ) );
+
+        NT2_CONST_VECTOR( temp_r, ( wr * upper_r ) - ( wi * upper_i ) );
+        NT2_CONST_VECTOR( temp_i, ( wi * upper_r ) + ( wr * upper_i ) );
+
+        upper_r = lower_r - temp_r;
+        upper_i = lower_i - temp_i;
+        lower_r = lower_r + temp_r;
+        lower_i = lower_i + temp_i;
     }
 
 
@@ -1893,54 +1920,9 @@ namespace detail
     /// danielson_lanczos specializations that unroll the butterfly loop body
     ///  (for size 8 there is only one pass and for size 16 there are two).
     ////////////////////////////////////////////////////////////////////////////
-    //...zzz...still radix-2...
-    template <class Context, typename T>
-    struct danielson_lanczos<8, dit, Context, T, 4>
-    {
-    public:
-        static unsigned const N = 8;
 
-        BOOST_NOTHROW_NOALIAS
-        static void BOOST_FASTCALL apply( typename Context::proxy const data )
-        {
-            typedef typename Context::vector_t vector_t;
-
-            vector_t upper_r;
-            vector_t upper_i;
-            dit::danielson_lanczos_4
-            (
-                (vector_t const &)data.p_reals[ 4 ],
-                (vector_t const &)data.p_imags[ 4 ],
-                upper_r,
-                upper_i
-            );
-
-            vector_t lower_r;
-            vector_t lower_i;
-            dit::danielson_lanczos_4
-            (
-                (vector_t const &)data.p_reals[ 0 ],
-                (vector_t const &)data.p_imags[ 0 ],
-                lower_r,
-                lower_i
-            );
-
-            NT2_CONST_VECTOR( wr, Context:: template twiddles0<N>()->wr );
-            NT2_CONST_VECTOR( wi, Context:: template twiddles0<N>()->wi );
-
-            NT2_CONST_VECTOR( temp_r, ( wr * upper_r ) - ( wi * upper_i ) );
-            NT2_CONST_VECTOR( temp_i, ( wi * upper_r ) + ( wr * upper_i ) );
-
-            (vector_t &)data.p_reals[ 4 ] = lower_r - temp_r;
-            (vector_t &)data.p_imags[ 4 ] = lower_i - temp_i;
-            (vector_t &)data.p_reals[ 0 ] = lower_r + temp_r;
-            (vector_t &)data.p_imags[ 0 ] = lower_i + temp_i;
-        }
-    };
-
-
-    template <class Context, typename T>
-    struct danielson_lanczos<8, dif, Context, T, 4>
+    template <class Decimation, class Context, typename T>
+    struct danielson_lanczos<8, Decimation, Context, T, 4>
     {
     public:
         static unsigned const N = 8;
@@ -1960,7 +1942,7 @@ namespace detail
             vector_t * BOOST_DISPATCH_RESTRICT const p_lower_i( &p_imags[ 0 ] );
             vector_t * BOOST_DISPATCH_RESTRICT const p_upper_r( &p_reals[ 1 ] );
             vector_t * BOOST_DISPATCH_RESTRICT const p_upper_i( &p_imags[ 1 ] );
-            dif::danielson_lanczos_8_in_place( *p_lower_r, *p_lower_i, *p_upper_r, *p_upper_i );
+            Decimation::dft_8_in_place( *p_lower_r, *p_lower_i, *p_upper_r, *p_upper_i );
         }
     };
 
@@ -2018,7 +2000,7 @@ namespace detail
             NT2_CONST_VECTOR( tmj_r, t0m2_r - t1m3_i );
             NT2_CONST_VECTOR( tmj_i, t0m2_i + t1m3_r );
 
-            Decimation::danielson_lanczos_8_in_place
+            Decimation::dft_8_in_place
             (
                 *p_r0, *p_i0,
                 *p_r1, *p_i1
@@ -2030,16 +2012,54 @@ namespace detail
             *p_r3 = ( p_w->w3.wr * tmj_r ) - ( p_w->w3.wi * tmj_i );
             *p_i3 = ( p_w->w3.wi * tmj_r ) + ( p_w->w3.wr * tmj_i );
 
-            Decimation::danielson_lanczos_4
+            Decimation::dft_4
             (
                 *p_r2, *p_i2,
                 *p_r2, *p_i2
             );
 
-            Decimation::danielson_lanczos_4
+            Decimation::dft_4
             (
                 *p_r3, *p_i3,
                 *p_r3, *p_i3
+            );
+        }
+    };
+
+
+    template <class Context, typename T>
+    struct danielson_lanczos<16, dit, Context, T, 4>
+    {
+    public:
+        static unsigned const N = 16;
+
+        typedef dit Decimation;
+
+        BOOST_NOTHROW_NOALIAS
+        static void BOOST_FASTCALL apply( typename Context::parameter0_t const p_reals, typename Context::parameter1_t const p_imags )
+        {
+            typedef typename Context::vector_t vector_t;
+
+            //...zzz...uses internal knowledge about the parameter0 and
+            //...zzz...parameter1 of the used Context...
+
+            vector_t * BOOST_DISPATCH_RESTRICT const p_r0( &p_reals[ 0 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i0( &p_imags[ 0 ] );
+            vector_t * BOOST_DISPATCH_RESTRICT const p_r1( &p_reals[ 1 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i1( &p_imags[ 1 ] );
+            vector_t * BOOST_DISPATCH_RESTRICT const p_r2( &p_reals[ 2 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i2( &p_imags[ 2 ] );
+            vector_t * BOOST_DISPATCH_RESTRICT const p_r3( &p_reals[ 3 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i3( &p_imags[ 3 ] );
+
+            //...zzz...still radix-2...
+
+            Decimation::dft_8_in_place( *p_r0, *p_i0, *p_r1, *p_i1  );
+            Decimation::dft_4         ( *p_r2, *p_i2, *p_r2, *p_i2  );
+            Decimation::dft_4         ( *p_r3, *p_i3, *p_r3, *p_i3  );
+
+            butterfly_loop<Decimation, Context>
+            (
+                p_reals,
+                p_imags,
+                Context:: template twiddle_factors<N>(),
+                N
             );
         }
     };
@@ -2076,11 +2096,11 @@ namespace detail
     template <class Decimation, class Context, typename T, unsigned count_of_T>
     struct danielson_lanczos<1, Decimation, Context, T, count_of_T>
     {
-        static void apply( typename Context::proxy )
+        static void apply( typename Context::parameter0_t, typename Context::parameter1_t )
         {
             // Clang (and probably GCC) is of course overeager to instantiate this...
             #ifndef __GNUC__
-                BOOST_STATIC_ASSERT_MSG( false, "Recoursion should have been terminated before." );
+                BOOST_STATIC_ASSERT_MSG( false, "Recursion should have been terminated before." );
             #endif // __GNUC__
         }
     };

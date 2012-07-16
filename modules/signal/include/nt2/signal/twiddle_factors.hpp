@@ -85,11 +85,32 @@ struct twiddles_interleaved;
 //  + compile-time lightweight
 //  - does not get placed in the read-only text section
 //  - creates dynamic initialisers for each N
-//  - forces (scalar) sin/cos functions to be present in the binary
+//  - forces sinecosine<small> function to be present in the binary
+//  - requires effort to achieve maximum possible precision
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace detail
 {
+    template <typename Vector>
+    void calculate_single_twiddle_pair( twiddle_pair<Vector> & twiddles, int const index, long double const omega, int const omega_scale )
+    {
+        typedef          Vector               vector_t;
+        typedef typename vector_t::value_type scalar_t;
+
+        vector_t * BOOST_DISPATCH_RESTRICT const p_cosine( &twiddles.wr );
+        vector_t * BOOST_DISPATCH_RESTRICT const p_sine  ( &twiddles.wi );
+
+        long double const start_value( index * omega );
+        long double const increment  (         omega );
+
+        vector_t const input( boost::simd::arith<vector_t>( static_cast<scalar_t>( start_value ), static_cast<scalar_t>( increment ) ) );
+
+        *p_sine = sinecosine<small>( input, *p_cosine ) ^ Mzero<vector_t>();
+
+        BOOST_ASSERT( input[ vector_t::static_size - 1 ] <= omega_scale * 2 * M_PI / 4 );
+        boost::ignore_unused_variable_warning( omega_scale );
+    }
+
     /// \note Regardless of the input data layout we always use twiddles
     /// interleaved on vector boundaries in order to improve memory locality and
     /// reduce the number of pointers that must be tracked to help architectures
@@ -104,12 +125,7 @@ namespace detail
         unsigned int                                           const N_int
     )
     {
-        typedef Vector vector_t;
-        typedef typename vector_t::value_type scalar_t;
-
         split_radix_twiddles<Vector> * BOOST_DISPATCH_RESTRICT p_w( p_twiddles );
-
-        long double const N( static_cast<int>( N_int ) );
 
         /// \todo Since cos( a ) = sin( a + Pi/2 ) = -sin( a + 3*Pi/2 ) separate
         /// cos/wr and sin/wi twiddle values could be avoided. The elements of
@@ -122,37 +138,20 @@ namespace detail
         /// \note N/4 values are required for split-radix.
         ///                                   (21.05.2012.) (Domagoj Saric)
 
+        long double const N    ( static_cast<int>( N_int ) );
+        long double const omega( 2 * M_PI / N              );
+
         int i( 0 );
         while ( unsigned( i ) < ( N_int / 4 ) )
         {
-            long double const w           ( 2 * M_PI / N );
-            long double const start_value0( i * 1 * w    );
-            long double const start_value3( i * 3 * w    );
-            vector_t const input0( boost::simd::arith<vector_t>( static_cast<scalar_t>( start_value0 ), static_cast<scalar_t>( 1 * w ) ) );
-            vector_t const input3( boost::simd::arith<vector_t>( static_cast<scalar_t>( start_value3 ), static_cast<scalar_t>( 3 * w ) ) );
+            calculate_single_twiddle_pair( p_w->w0, i, 1 * omega, 1 );
+            calculate_single_twiddle_pair( p_w->w3, i, 3 * omega, 3 );
 
-            BOOST_ASSERT( input0[ vector_t::static_size - 1 ] <= 1 * 2 * M_PI / 4 );
-            BOOST_ASSERT( input3[ vector_t::static_size - 1 ] <= 3 * 2 * M_PI / 4 );
-
-            {
-                vector_t & cosine( p_w->w0.wr );
-                vector_t & sine  ( p_w->w0.wi );
-                sinecosine<small>( input0, sine, cosine );
-                sine ^= Mzero<vector_t>();
-            }
-            {
-                vector_t & cosine( p_w->w3.wr );
-                vector_t & sine  ( p_w->w3.wi );
-                sinecosine<small>( input3, sine, cosine );
-                sine ^= Mzero<vector_t>();
-            }
-
-            i += vector_t::static_size;
-
+            i += Vector::static_size;
             ++p_w;
         }
 
-        BOOST_ASSERT( p_w == &p_twiddles[ N_int / 4 / vector_t::static_size ] );
+        BOOST_ASSERT( p_w == &p_twiddles[ N_int / 4 / Vector::static_size ] );
     }
 
     template <typename Vector, unsigned N>
