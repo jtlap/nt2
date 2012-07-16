@@ -446,7 +446,7 @@ namespace detail
     struct step_decimation {};
     struct step_butterfly  {};
 
-    struct dit //...zzz...not yet fully tested with the new split-radix algorithm...
+    struct dit //...zzz...not yet fully ported to the new split-radix algorithm...
     {
         typedef step_decimation first_step ;
         typedef step_butterfly  second_step;
