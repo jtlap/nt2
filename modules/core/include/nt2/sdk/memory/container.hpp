@@ -17,6 +17,7 @@
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/specific_data.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
+#include <nt2/core/container/table/semantic.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <boost/mpl/at.hpp>
 
