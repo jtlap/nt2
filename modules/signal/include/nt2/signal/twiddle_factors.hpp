@@ -21,6 +21,7 @@
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/include/functions/simd/arith.hpp>
 
+#include <boost/concept_check.hpp>
 #include <boost/preprocessor/arithmetic/add.hpp>
 #include <boost/preprocessor/arithmetic/mul.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
