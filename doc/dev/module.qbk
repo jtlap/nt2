@@ -3,7 +3,28 @@
 ]
 
 [section Overview]
+
+A module is a component of __NT2__, which can be built standalone or as part of a bigger __NT2__ setup.
+It must provide a standardized =CMakeLists.txt= file at its root which contains the module name.
+
+A module may then do one or several of the following things:
+
+* Add files to the include path in =/include=
+* Define dependencies on other modules, external libraries, or compiler flags through a __CMAKE__ script [^/cmake/nt2.[~module].dependencies.cmake]
+* Add custom configuration or build steps through =/src/CMakeLists.txt=
+* Add module-specific documentation in =/doc/CMakeLists.txt=
+* Add unit, cover or exhaustive tests, benchmarks or examples in =/unit/CMakeLists.txt=, =/cover/CMakeLists.txt=,
+  =/exhaustive/CMakeLists.txt=, =/bench/CMakeLists.txt= and =/examples/CMakeLists.txt= respectively.
+
+None of these steps are required and all have suitable defaults.
+
+A variety of functions of the family `nt2_module_*` are provided in `NT2Module` to ease the development of __CMAKE__ scripts for __NT2__ modules.
+
 [endsect]
+
+[include module/root.qbk]
+[include module/dependencies.qbk]
+[include module/src.qbk]
 
 [include module/organization.qbk]
 [include module/structure.qbk]
