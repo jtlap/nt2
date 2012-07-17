@@ -267,6 +267,7 @@ namespace nt2
 //   http://cache.freescale.com/files/32bit/doc/app_note/AN2115.pdf (AltiVec)
 //   https://sites.google.com/a/istec.net/prodrig/Home/pubs (near the bottom: SIMD-FFT)
 //   http://www.ams.org/journals/mcom/1993-60-201/S0025-5718-1993-1159169-0/home.html (FMA)
+//   http://ipdps.cc.gatech.edu/1997/s8/310.pdf (check out the reference to FFT in section 2.1)
 //   http://users.ece.cmu.edu/~franzf/papers/msc-franchetti.pdf
 //   http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.49.7995
 //   http://citeseerx.ist.psu.edu/viewdoc/summary?doi=10.1.1.184.5514
