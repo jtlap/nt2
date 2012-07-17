@@ -65,10 +65,10 @@ namespace
 
     struct failed_value_t
     {
-        double       value        ;
-        double       desired_value;
-        double       ulp_error    ;
-        unsigned int index        ;
+        double      value        ;
+        double      desired_value;
+        double      ulp_error    ;
+        std::size_t index        ;
     };
 
     std::vector<failed_value_t> failed_values;
