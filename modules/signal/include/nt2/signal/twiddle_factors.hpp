@@ -119,16 +119,14 @@ namespace detail
     {
         static long double full_circle() { return 2 * 180; }
         template <typename Vector>
-        static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { Vector sine; sincosd( input, sine, cosine ); return sine; }
-        //...zzz...fails to compile...static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sincosd( input, cosine ); }
+        static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sincosd( input, cosine ); }
     };
 
     struct pies
     {
         static long double full_circle() { return 2 * 1; }
         template <typename Vector>
-        static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { Vector sine; sincospi( input, sine, cosine ); return sine; }
-        //...zzz...fails to compile...static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sincospi( input, cosine ); }
+        static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sincospi( input, cosine ); }
     };
 
 
