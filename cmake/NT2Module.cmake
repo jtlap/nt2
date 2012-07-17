@@ -70,7 +70,7 @@ macro(nt2_module_source_setup module)
       if(NOT EXISTS ${NT2_BINARY_DIR}/modules/dummy.cpp)
         file(WRITE ${NT2_BINARY_DIR}/modules/dummy.cpp)
       endif()
-      add_executable(${module}.sources EXCLUDE_FROM_ALL ${NT2_BINARY_DIR}/modules/dummy.cpp ${files_full})
+      add_library(${module}.sources EXCLUDE_FROM_ALL ${NT2_BINARY_DIR}/modules/dummy.cpp ${files_full})
       set_property(TARGET ${module}.sources PROPERTY FOLDER sources)
     endif()
 
