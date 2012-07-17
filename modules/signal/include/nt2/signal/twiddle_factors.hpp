@@ -278,8 +278,8 @@ typename imag_twiddles<N, Stride, T>::factors_t const imag_twiddles<N, Stride, T
 #define NT2_AUX_REAL_TWIDDLE( z, i, context )   static_cosine<BOOST_PP_TUPLE_ELEM( 3, 0, context ), i * BOOST_PP_TUPLE_ELEM( 3, 2, context )>::value,
 #define NT2_AUX_IMAG_TWIDDLE( z, i, context ) - static_sine  <BOOST_PP_TUPLE_ELEM( 3, 0, context ), i * BOOST_PP_TUPLE_ELEM( 3, 2, context )>::value,
 
-#define NT2_AUX_TWIDDLE( z, i, context )                                                                                                      0\
-{                                                                                                                                                      \
+#define NT2_AUX_TWIDDLE( z, i, context )                                                                                                                                                             \
+{                                                                                                                                                                                                    \
     { BOOST_PP_REPEAT_FROM_TO( BOOST_PP_MUL( i, BOOST_PP_TUPLE_ELEM( 3, 1, context ) ), BOOST_PP_MUL( BOOST_PP_INC( i ), BOOST_PP_TUPLE_ELEM( 3, 1, context ) ), NT2_AUX_REAL_TWIDDLE, context ) },  \
     { BOOST_PP_REPEAT_FROM_TO( BOOST_PP_MUL( i, BOOST_PP_TUPLE_ELEM( 3, 1, context ) ), BOOST_PP_MUL( BOOST_PP_INC( i ), BOOST_PP_TUPLE_ELEM( 3, 1, context ) ), NT2_AUX_IMAG_TWIDDLE, context ) },  \
 },
