@@ -160,7 +160,6 @@ namespace nt2
 //   http://www.proofwiki.org/wiki/ProofWiki:Books/H.J._Nussbaumer/Fast_Fourier_Transform_and_Convolution_Algorithms
 //   http://www.cse.yorku.ca/~aboelaze/publication/FFT06.pdf
 //   http://home.comcast.net/~kmbtib
-//   http://www.freeinfosociety.com/media/pdf/2804.pdf
 //   http://jsat.ewi.tudelft.nl/content/volume7/JSAT7_13_Haynal.pdf
 //   http://www.scribd.com/doc/53503260/%E2%80%9CTwiddle-factor-based-FFT
 //   http://front.cc.nctu.edu.tw/Richfiles/5477-03071119230013828.pdf
@@ -262,6 +261,7 @@ namespace nt2
 //   http://www.cse.yorku.ca/~aboelaze/publication/FFT06.pdf
 //   https://wiki.engr.illinois.edu/display/transformation/Patterns+for+Efficient+Data+Access
 //   http://developer.amd.com/documentation/articles/pages/PerformanceOptimizationofWindowsApplicationsonAMDProcessors2.aspx
+//   http://vgrads.rice.edu/publications/pdfs/Dissertation_Ayaz.pdf
 //   http://books.google.hr/books?id=dQpi46dLJ8gC&pg=PA135&lpg=PA135&dq=fft+fast+data+access+pattern&source=bl&ots=Cmr0aZNiRb&sig=4s1rYTNq-ysXgUAIcNfyPeA1p04&hl=hr&sa=X&ei=q8XpT4yDOM6L4gSfn5DrDQ&sqi=2&ved=0CEYQ6AEwAA#v=onepage&q=fft%20fast%20data%20access%20pattern&f=false
 // - FFT specific
 //   http://cache.freescale.com/files/32bit/doc/app_note/AN2115.pdf (AltiVec)
@@ -281,6 +281,7 @@ namespace nt2
 //   http://www.engr.colostate.edu/~hj/journals/24.pdf
 //   http://www.ece.cmu.edu/~franzf/papers/europar03.pdf
 //   http://www.ece.cmu.edu/~franzf/papers/cc04.pdf
+//   http://users.ece.cmu.edu/~franzf/papers/icassp07.pdf
 //   http://domino.watson.ibm.com/comm/research_people.nsf/pages/pengwu.publications.html/$FILE/fp011-ren.pdf
 //   http://software.intel.com/en-us/articles/using-intel-advanced-vector-extensions-to-implement-an-inverse-discrete-cosine-transform/?wapkw=AP-922
 //   http://www.iseclab.org/people/pw/papers/vecpar04
@@ -289,6 +290,8 @@ namespace nt2
 //   http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.38.1560&rep=rep1&type=pdf
 //   http://www.ll.mit.edu/HPEC/agendas/proc07/Day2/08_Agarwal_Pres.pdf (CELL)
 //   http://www.eurasip.org/Proceedings/Eusipco/Eusipco2004/defevent/papers/cr1502.pdf
+//   http://www.kangli.org/doc/papers/thesis-bs.pdf
+//   http://dl.acm.org/citation.cfm?id=1775222&bnc=1
 
 // Code:
 // https://bitbucket.org/jpommier/pffft
@@ -320,8 +323,8 @@ namespace nt2
 /// get even near that performance even with SSE. Even the article author's own
 /// http://gfft.sourceforge.net library did not give me the stated level of
 /// performance. The current split-radix SSE2 real version of this code is now
-/// about as fast as the real FFT in ACML 3.6 for small transforms (128-512)
-/// and about 5% to 10% slower for larger ones (up to 8192).
+/// slightly faster or about as fast as the real FFT in ACML 3.6 for small
+/// transforms (128-512) and about 5-10% slower for larger ones (up to 8192).
 ///   Todd Veldhuizen's implementation turned out even worse because it is too
 /// much compile-time based so it instantiates an enormous amount of inlined
 /// code which simply thrashes the instruction cache (the author admits this
@@ -1196,6 +1199,10 @@ namespace detail
     ///  - backend support (ACML, vDSP, MKL, FFTW, KissFFT...related Eigen
     ///    discussion:
     ///    http://listengine.tuxfamily.org/lists.tuxfamily.org/eigen/2012/04/msg00011.html)
+    ///  - option to use a single set/array of twiddles (required for the
+    ///    largest transform) for all transform sizes - this would require the
+    ///    additional twiddle stride parameter to be passed around so it would
+    ///    slow things down but it would reduce storage requirements
     ///                                       (04.07.2012.) (Domagoj Saric)
 
 
@@ -1727,7 +1734,7 @@ namespace detail
       //scalar_t const r6_( r0m4 + r2m6 ); scalar_t const i6_( i0m4 + i2m6 );
         scalar_t const r7_( r1m5 + r3m7 ); scalar_t const i7_( i1m5 + i3m7 );
 
-        float const sqrt2( 0.70710678118654752440084436210485f );
+        float const sqrt2( 0.70710678118654752440084436210485L );
       //float const w0r0(      1 ); float const w0i0(      0 );
       //float const w3r0(      1 ); float const w3i0(      0 );
       //float const w0r1( +sqrt2 ); float const w0i1( -sqrt2 );
