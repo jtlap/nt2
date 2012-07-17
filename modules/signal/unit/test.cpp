@@ -41,6 +41,11 @@ namespace
         static int const test_data_range_minimum = -1;
         static int const test_data_range_maximum = +1;
 
+        /// \todo The maximum error values should be made dependent on the value
+        /// type and the size of the transform (see the "accuracy/precision"
+        /// links in static_fft.hpp).
+        ///                                   (17.07.2012.) (Domagoj Saric)
+
         static unsigned int const maximum_allowed_complex_nt2_ulpd   =    5000;
         static unsigned int const maximum_allowed_real_nt2_ulpd      = 1000000;
 
