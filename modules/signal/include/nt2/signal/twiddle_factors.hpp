@@ -181,7 +181,7 @@ namespace detail
 
         *p_sine = Impl::sincos( input, *p_cosine ) ^ Mzero<vector_t>();
 
-        BOOST_ASSERT( input[ vector_t::static_size - 1 ] <= omega_scale * 2 * M_PI / 4 );
+        BOOST_ASSERT( input[ vector_t::static_size - 1 ] <= omega_scale * Impl::full_circle() / 4 );
         boost::ignore_unused_variable_warning( omega_scale );
 
     #endif // 32 bit x86 MSVC
