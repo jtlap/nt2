@@ -26,21 +26,134 @@
     #include "Accelerate/Accelerate.h" //vDSP.h
 #endif // __APPLE__
 
+#include <fstream>
+#include <vector>
+
+
+namespace
+{
+    namespace constants
+    {
+        static std::size_t const minimum_dft_size = 128 ;
+        static std::size_t const maximum_dft_size = 8192;
+        static std::size_t const test_dft_size    = 4096;
+
+        static int const test_data_range_minimum = -1;
+        static int const test_data_range_maximum = +1;
+
+        static unsigned int const maximum_allowed_complex_nt2_ulpd   =    5000;
+        static unsigned int const maximum_allowed_real_nt2_ulpd      = 1000000;
+
+        static unsigned int const maximum_allowed_complex_apple_ulpd = 5000;
+        static unsigned int const maximum_allowed_real_apple_ulpd    = 5000;
+    } // namespace constants
+
+    static std::size_t const N = constants::test_dft_size;
+    typedef float T;
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N> aligned_array;
+    typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;
+
+    void randomize( aligned_array & data )
+    {
+        BOOST_FOREACH( T & scalar, data ) { scalar = roll<T>( constants::test_data_range_minimum, constants::test_data_range_maximum ); }
+    }
+
+    void scale( aligned_array & data, T const scale_factor )
+    {
+        BOOST_FOREACH( T & scalar, data ) { scalar *= scale_factor; }
+    }
+
+    struct failed_value_t
+    {
+        double       value        ;
+        double       desired_value;
+        double       ulp_error    ;
+        unsigned int index        ;
+    };
+
+    std::vector<failed_value_t> failed_values;
+
+    //#define NT2_PSIHA_AUX_TESTING
+#ifdef NT2_PSIHA_AUX_TESTING
+    std::ofstream outputfile_aux( "nt_fft_test.log", std::ios_base::out | std::ios_base::trunc );
+    std::ostream & debug_output( outputfile_aux );
+#else
+    std::ostream & debug_output( std::cout );
+#endif // NT2_PSIHA_AUX_TESTING
+
+    void analyze_values
+    (
+        aligned_array const &       results           ,
+        aligned_array const &       desired_results   ,
+        double                const max_ulp_distance  ,
+        char          const * const result_description,
+        char          const * const calling_function  ,
+        unsigned int          const source_file_line
+    )
+    {
+        failed_values.clear();
+
+        double average_ulpd( 0 );
+
+        for ( std::size_t i( 0 ); i != N; ++i )
+        {
+            T      const value_a( results        [ i ] );
+            T      const value_b( desired_results[ i ] );
+            double const ulpd( nt2::ulpdist( nt2::details::smallest_a( value_a, value_b ), nt2::details::smallest_b( value_a, value_b ) ) );
+            average_ulpd += ulpd;
+            if ( ulpd > max_ulp_distance )
+            {
+                failed_value_t const failed_value = { value_a, value_b, ulpd, i };
+                failed_values.push_back( failed_value );
+            }
+        }
+
+        if ( failed_values.empty() )
+        {
+            ::nt2::unit::pass( result_description );
+            debug_output << "Average ulpd: " << average_ulpd / N << std::endl;
+        }
+        else
+        {
+            ::nt2::unit::fail( result_description, source_file_line, calling_function );
+
+            debug_output << std::setprecision( 20 )
+                         << std::endl
+                         << "because the ulp distance for the following "
+                         << failed_values.size()
+                         << " " << result_description
+                         << " values was too large:"
+                         << std::endl;
+
+            BOOST_FOREACH( failed_value_t const & failed_value, failed_values )
+            {
+                debug_output << "value: "           << failed_value.value
+                             << ", desired value: " << failed_value.desired_value
+                             << ", ULP distance: "  << failed_value.ulp_error
+                             << ", value index: "   << failed_value.index
+                             << std::endl;
+            }
+
+            debug_output << std::endl << "Average ulpd: " << average_ulpd / N << std::endl;
+        }
+    } // analyze_values
+
+    #define NT2_FFT_ANALYZE_VALUES( results, desired_results, max_ulp_distance, result_description ) \
+        analyze_values( results, desired_results, max_ulp_distance, result_description, BOOST_CURRENT_FUNCTION, __LINE__ )
+
+} // anonymous namespace
 
 NT2_TEST_CASE( test )
 {
-    static const std::size_t N = 4096;
-    typedef float T;
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N> aligned_array;
-    typedef nt2::static_fft<128, 8192, T> FFT;
+    std::srand( std::time( NULL ) );
 
     // Test complex transform(s):
     {
         aligned_array real_data;
         aligned_array imag_data;
 
-        BOOST_FOREACH( T & scalar, real_data ) { scalar = roll<T>( -1, 1 ); }
-        BOOST_FOREACH( T & scalar, imag_data ) { scalar = roll<T>( -1, 1 ); }
+        randomize( real_data );
+        randomize( imag_data );
 
         aligned_array const original_real_data( real_data );
         aligned_array const original_imag_data( imag_data );
@@ -49,14 +162,11 @@ NT2_TEST_CASE( test )
         FFT::inverse_transform( &real_data[ 0 ], &imag_data[ 0 ], N );
 
         T const norm( nt2::complex_fft_normalization_factor<T>( N ) );
-        BOOST_FOREACH( T & scalar, real_data ) { scalar *= norm; }
-        BOOST_FOREACH( T & scalar, imag_data ) { scalar *= norm; }
+        scale( real_data, norm );
+        scale( imag_data, norm );
 
-        for ( std::size_t i( 0 ); i != N; ++i )
-        {
-            NT2_TEST_ULP_EQUAL( real_data[ i ], original_real_data[ i ], 1000 );
-            NT2_TEST_ULP_EQUAL( imag_data[ i ], original_imag_data[ i ], 1000 );
-        }
+        NT2_FFT_ANALYZE_VALUES( real_data, original_real_data, constants::maximum_allowed_complex_nt2_ulpd, "complex real data"      );
+        NT2_FFT_ANALYZE_VALUES( imag_data, original_imag_data, constants::maximum_allowed_complex_nt2_ulpd, "complex imaginary data" );
 
 
     #ifdef __APPLE__
@@ -72,14 +182,11 @@ NT2_TEST_CASE( test )
             vDSP_destroy_fftsetup( fft_instance );
 
             T const norm( static_cast<T>( 1 ) / N );
-            BOOST_FOREACH( T & scalar, real_data ) { scalar *= norm; }
-            BOOST_FOREACH( T & scalar, imag_data ) { scalar *= norm; }
+            scale( real_data, norm );
+            scale( imag_data, norm );
 
-            for ( std::size_t i( 0 ); i != N; ++i )
-            {
-                NT2_TEST_ULP_EQUAL( real_data[ i ], original_real_data[ i ], 1000 );
-                NT2_TEST_ULP_EQUAL( imag_data[ i ], original_imag_data[ i ], 1000 );
-            }
+            NT2_FFT_ANALYZE_VALUES( real_data, original_real_data, constants::maximum_allowed_complex_apple_ulpd, "apple complex real data"      );
+            NT2_FFT_ANALYZE_VALUES( imag_data, original_imag_data, constants::maximum_allowed_complex_apple_ulpd, "apple complex imaginary data" );
         }
     #endif // __APPLE__
     }
@@ -87,7 +194,7 @@ NT2_TEST_CASE( test )
     // Test real transform(s):
     {
         aligned_array real_time_data;
-        BOOST_FOREACH( T & scalar, real_time_data ) { scalar = roll<T>( -1, 1 ); }
+        randomize( real_time_data );
 
         aligned_array real_frequency_data;
         aligned_array imag_frequency_data;
@@ -97,11 +204,9 @@ NT2_TEST_CASE( test )
         FFT::real_inverse_transform( &real_frequency_data[ 0 ], &imag_frequency_data[ 0 ], &real_time_data2[ 0 ], N );
 
         T const norm( nt2::real_fft_normalization_factor<T>( N ) );
-        BOOST_FOREACH( T & scalar, real_time_data2 ) { scalar *= norm; }
+        scale( real_time_data2, norm );
 
-        for ( std::size_t i( 0 ); i != N; ++i )
-            NT2_TEST_ULP_EQUAL( real_time_data[ i ], real_time_data2[ i ], 1000 );
-
+        NT2_FFT_ANALYZE_VALUES( real_time_data, real_time_data2, constants::maximum_allowed_real_nt2_ulpd, "real data" );
 
     #ifdef __APPLE__
         { // Accelerate framework FFT
@@ -120,10 +225,9 @@ NT2_TEST_CASE( test )
             vDSP_destroy_fftsetup( fft_instance );
 
             T const norm( static_cast<T>( 1 ) / ( 2 * N ) );
-            BOOST_FOREACH( T & scalar, real_time_data2 ) { scalar *= norm; }
+            scale( real_time_data2, norm );
 
-            for ( std::size_t i( 0 ); i != N; ++i )
-                NT2_TEST_ULP_EQUAL( real_time_data[ i ], real_time_data2[ i ], 1000 );
+            NT2_FFT_ANALYZE_VALUES( real_time_data, real_time_data2, constants::maximum_allowed_real_apple_ulpd, "apple real data" );
         }
     #endif // __APPLE__
     }
