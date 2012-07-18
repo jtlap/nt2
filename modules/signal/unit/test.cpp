@@ -45,9 +45,14 @@ namespace
         /// type and the size of the transform (see the "accuracy/precision"
         /// links in static_fft.hpp).
         ///                                   (17.07.2012.) (Domagoj Saric)
+        /// \todo Add tests for forward complex transform of real data (result
+        /// must be conjugated symmetric) and inverse complex transform of
+        /// conjugated symmetric data (result must be pure real).
+        /// Add a http://en.wikipedia.org/wiki/Parseval's_theorem test.
+        ///                                   (18.07.2012.) (Domagoj Saric)
 
-        static unsigned int const maximum_allowed_complex_nt2_ulpd   =    5000;
-        static unsigned int const maximum_allowed_real_nt2_ulpd      = 1000000;
+        static unsigned int const maximum_allowed_complex_nt2_ulpd   = 3500;
+        static unsigned int const maximum_allowed_real_nt2_ulpd      = 4200;
 
         static unsigned int const maximum_allowed_complex_apple_ulpd = 5000;
         static unsigned int const maximum_allowed_real_apple_ulpd    = 5000;
@@ -55,7 +60,8 @@ namespace
 
     static std::size_t const N = constants::test_dft_size;
     typedef float T;
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N> aligned_array;
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N      > aligned_array;
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N/2 + 1> aligned_half_complex_array;
     typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;
 
     void randomize( aligned_array & data )
@@ -150,7 +156,8 @@ namespace
 
 NT2_TEST_CASE( test )
 {
-    std::srand( std::time( NULL ) );
+    // FIXME: should tests initialise the RNG (it makes them unreproducible)?
+    //std::srand( std::time( NULL ) );
 
     // Test complex transform(s):
     {
@@ -201,8 +208,8 @@ NT2_TEST_CASE( test )
         aligned_array real_time_data;
         randomize( real_time_data );
 
-        aligned_array real_frequency_data;
-        aligned_array imag_frequency_data;
+        aligned_half_complex_array real_frequency_data;
+        aligned_half_complex_array imag_frequency_data;
         FFT::real_forward_transform( &real_time_data[ 0 ], &real_frequency_data[ 0 ], &imag_frequency_data[ 0 ], N );
 
         aligned_array real_time_data2;
