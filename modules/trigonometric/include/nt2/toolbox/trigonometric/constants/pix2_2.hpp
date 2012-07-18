@@ -19,7 +19,7 @@ namespace nt2
     // 12.56637061
     BOOST_SIMD_CONSTANT_REGISTER( Pix2_2, double
                                 , 1, 0x38daa000
-				  , 0x3df0b4611a600000//3da68c234c4c6629
+                                  , 0x3df0b4611a600000
                                 );
   }
 
