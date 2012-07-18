@@ -1,0 +1,168 @@
+//==============================================================================
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_2PI_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_2PI_HPP_INCLUDED
+
+#include <nt2/toolbox/trigonometric/functions/rem_2pi.hpp>
+#include <nt2/include/functions/scalar/bitwise_cast.hpp>
+#include <nt2/include/functions/scalar/ldexp.hpp>
+#include <nt2/include/functions/scalar/floor.hpp>
+#include <nt2/include/functions/rem_pio2.hpp>
+#include <nt2/toolbox/trigonometric/constants.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/twopi.hpp>
+#include <nt2/include/constants/pio_2.hpp>
+#include <nt2/include/constants/inv2pi.hpp>
+#include <nt2/include/constants/pix2_1.hpp>
+#include <nt2/include/constants/pix2_2.hpp>
+#include <nt2/include/constants/pix2_3.hpp> 
+#include <boost/fusion/tuple.hpp>
+#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
+#include <iostream>
+
+/////////////////////////////////////////////////////////////////////////////
+// reference based Implementation when float
+/////////////////////////////////////////////////////////////////////////////
+namespace nt2 { namespace ext
+{
+
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_2pi_, tag::cpu_,
+                 (A0),
+                 (scalar_ < floating_<A0> > )
+                 )
+  {
+    typedef boost::fusion::tuple<A0,A0>           result_type;
+    
+    NT2_FUNCTOR_CALL(1)
+      {
+        result_type res;
+        nt2::rem_2pi(a0,
+                     boost::fusion::at_c<0>(res),
+                     boost::fusion::at_c<1>(res)
+                     ); 
+        return res; 
+      }
+  }; 
+  
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_2pi_, tag::cpu_,
+                 (A0),
+                 (scalar_ < single_<A0> > )
+                 (scalar_ < single_<A0> > )
+                 (scalar_ < single_<A0> > )
+                 )
+  {
+    typedef void result_type;    
+    inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
+    {
+      nt2::int32_t n = rem_pio2(a0, xr, xc); 
+      xr = xr+n*Pio_2<A0>(); 
+      xr = (xr > Pi<A0>()) ? xr-Twopi<A0>():xr; 
+    }
+
+  };
+
+  /////////////////////////////////////////////////////////////////////////////
+  // reference based Implementation when double
+  /////////////////////////////////////////////////////////////////////////////
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_2pi_, tag::cpu_,
+                 (A0),
+                 (scalar_ < double_<A0> > )
+                 (scalar_ < double_<A0> > )
+                 (scalar_ < double_<A0> > )
+                 )
+  {
+    typedef void result_type;    
+    inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
+    {
+      if (a0 ==  Inf<A0>())
+        {
+          xc = Zero<A0>();
+          xr = Nan<A0>(); 
+          return; 
+        }
+      nt2::int32_t n = rem_pio2(a0, xr, xc);
+      std::cout << " a0 " << a0 <<" n  "<< n << " xr " << xr << std::endl; 
+      xr = xr+n*Pio_2<A0>(); 
+      xr = (xr > Pi<A0>()) ? xr-Twopi<A0>():xr;
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_2pi_, tag::cpu_,
+                             (A0)(A1),
+                             (scalar_ <floating_<A0> > )
+                             (scalar_ <floating_<A0> > )
+                             (scalar_ <floating_<A0> > )
+                             (target_ <unspecified_<A1> >)                          
+                 )
+  {
+    typedef void result_type;    
+    inline result_type operator()(A0 const& a0, A0 & xr, A0& xc, A1 const&) const
+    {
+      typedef typename A1::type selector;
+      rem2pi<selector, void>::rem(a0, xr, xc); 
+    }
+  private:
+    template < class T, class dummy = void> struct rem2pi
+    {
+      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        BOOST_ASSERT_MSG(false, "wrong target for rem_2pi"); 
+      }
+    };
+    template < class dummy> struct rem2pi < big, dummy>
+    {
+      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        std::cout << "big" << std::endl; 
+        nt2::rem_2pi(x, xr, xc);
+      }
+    }; 
+    template < class dummy> struct rem2pi < verysmall, dummy > // |a0| <2*pi
+    {
+      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        std::cout << "verysmall" << std::endl; 
+        xr = x > Pi<A0>() ? x-Twopi<A0>() : (x < -Pi<A0>()) ? x+Twopi<A0>() : x; 
+        xc = Zero<A0>();
+        std::cout << " a0 " <<  x  <<  " xr " << xr << std::endl; 
+      }
+    }; 
+    template < class dummy> struct rem2pi < small, dummy >// |a0| <= 20*pi
+    {
+      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        std::cout << "small" << std::endl;
+        A0 xi =  nt2::round2even(x*Inv2pi<A0>()); 
+        xr = x-xi*Pix2_1<A0>();
+        xr -= xi*Pix2_2<A0>();
+        xr -= xi*Pix2_3<A0>();
+        xc = Zero<A0>();
+        std::cout << " a0 " <<  x  << " n " << xi << " xr " << xr << std::endl; 
+       }
+    };
+    
+    template < class dummy> struct rem2pi < medium, dummy >
+    {
+      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        std::cout << "medium" << std::endl; 
+        nt2::int32_t n = rem_pio2_medium(x, xr, xc); 
+        std::cout << " a0 " <<  x  << " n  " << n << " xr " << xr << std::endl; 
+        xr = xr+n*Pio_2<A0>(); 
+        xr = (xr > Pi<A0>()) ? xr-Twopi<A0>():xr;
+      }
+    }; 
+  }; 
+} }
+#endif
