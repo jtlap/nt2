@@ -239,13 +239,6 @@ namespace detail
     };
 
 
-    template <typename Impl, typename Vector>
-    void calculate_single_twiddle_pair( twiddle_pair<Vector> & twiddles, int const index, long double const N, long double const omega_scale )
-    {
-        twiddles.wi = Impl::sincos( Impl::generate_input<Vector>( index, omega_scale, N ), twiddles.wr ) ^ Mzero<Vector>();
-    } // calculate_single_twiddle_pair()
-
-
 #ifdef _MSC_VER
     #pragma warning( push )
     #pragma warning( disable : 4996 ) // '_controlfp': This function or variable may be unsafe.
@@ -300,7 +293,7 @@ namespace detail
         {
             typedef pies impl;
 
-            calculate_single_twiddle_pair<impl>( *p_w, i, N, omega_scale );
+            p_w->wi = Impl::sincos( Impl::generate_input<Vector>( i, omega_scale, N ), p_w->wr ) ^ Mzero<Vector>();
 
             i   += Vector::static_size;
             p_w += stride;
