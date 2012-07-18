@@ -551,7 +551,8 @@ namespace detail
         typedef boost::simd::native<scalar_t, BOOST_SIMD_DEFAULT_EXTENSION> vector_t;
         typedef typename vector_t::native_type                              native_t;
 
-        typedef split_radix_twiddles<vector_t> twiddles;
+        typedef split_radix_twiddles<vector_t> twiddles             ;
+        typedef twiddle_pair        <vector_t> real2complex_twiddles;
     };
 
 #ifdef _MSC_VER
@@ -573,7 +574,8 @@ namespace detail
         typedef typename types<T>::vector_t vector_t;
         typedef typename types<T>::native_t native_t;
 
-        typedef typename types<T>::twiddles twiddles;
+        typedef typename types<T>::twiddles              twiddles             ;
+        typedef typename types<T>::real2complex_twiddles real2complex_twiddles;
 
         typedef vector_t * BOOST_DISPATCH_RESTRICT parameter0_t;
         typedef vector_t * BOOST_DISPATCH_RESTRICT parameter1_t;
@@ -636,20 +638,47 @@ namespace detail
         template <unsigned N>
         static void separate( vector_t * BOOST_DISPATCH_RESTRICT const p_reals, vector_t * BOOST_DISPATCH_RESTRICT const p_imags, native_t const twiddle_sign_flipper )
         {
-            separate( p_reals, p_imags, twiddle_factors<N>(), twiddle_sign_flipper, N );
+            /// \note
+            /// - separate_a() starts from index 0:
+            ///   + it can reuse the twiddles used by the complex transform
+            ///   - the reversing and unaligned loading have to be both
+            ///     performed on the same (upper) data (this makes it more
+            ///     difficult for the compiler and CPU to interleave other
+            ///     operations into the pipeline while these expensive (and
+            ///     sequential) operations are taking place
+            ///   - has to do an extra calculation for the "half Nyquist"/N/4
+            ///     element that is skipped by the loop
+            /// - separate_b() starts from index 1:
+            ///   + simpler code
+            ///   + reversing and unaligned loading are separated to different
+            ///     data sources (lower and upper)
+            ///   - requires a special twiddle factor array (where the twiddles
+            ///     also start from index 1)
+            ///                               (18.07.2012.) (Domagoj Saric)
+            separate_a( p_reals, p_imags, twiddle_factors         <N          >         (), twiddle_sign_flipper, N );
+          //separate_b( p_reals, p_imags, real_separation_twiddles<N, vector_t>::factors(), twiddle_sign_flipper, N );
         }
 
     private:
         template <unsigned int valid_bits>
         static void BOOST_FASTCALL scramble( scalar_t * BOOST_DISPATCH_RESTRICT p_reals, scalar_t * BOOST_DISPATCH_RESTRICT p_imags );
 
-        static void BOOST_FASTCALL separate
+        static void BOOST_FASTCALL separate_a
         (
             vector_t           * BOOST_DISPATCH_RESTRICT p_reals,
             vector_t           * BOOST_DISPATCH_RESTRICT p_imags,
             twiddles     const * BOOST_DISPATCH_RESTRICT p_twiddle_factors,
             native_t                                     twiddle_sign_flipper,
             unsigned int                                 N
+        );
+
+        static void BOOST_FASTCALL separate_b
+        (
+            vector_t                    * BOOST_DISPATCH_RESTRICT p_reals,
+            vector_t                    * BOOST_DISPATCH_RESTRICT p_imags,
+            real2complex_twiddles const * BOOST_DISPATCH_RESTRICT p_twiddle_factors,
+            native_t                                              twiddle_sign_flipper,
+            unsigned int                                          N
         );
 
         vector_t * BOOST_DISPATCH_RESTRICT reals() const { return reinterpret_cast<vector_t *>( p_reals_ ); }
@@ -1220,29 +1249,39 @@ namespace detail
 
     template <typename T>
     BOOST_DISPATCH_NOINLINE
-    void BOOST_FASTCALL inplace_separated_context_t<T>::separate
+    void BOOST_FASTCALL inplace_separated_context_t<T>::separate_a
     (
-        vector_t           * BOOST_DISPATCH_RESTRICT const p_reals          , // N/2 + 1 scalars
-        vector_t           * BOOST_DISPATCH_RESTRICT const p_imags          , // N/2 + 1 scalars
-        twiddles     const * BOOST_DISPATCH_RESTRICT       p_twiddle_factors, // requires N/4 twiddle factors
+        vector_t           * BOOST_DISPATCH_RESTRICT const p_reals          , // N/2 ( + 1 ) scalars
+        vector_t           * BOOST_DISPATCH_RESTRICT const p_imags          , // N/2 ( + 1 ) scalars
+        twiddles     const * BOOST_DISPATCH_RESTRICT const p_twiddle_factors, // requires N/4 twiddle factors
         native_t                                     const twiddle_flipper  ,
         unsigned int                                 const N                  // power-of-two
     )
     {
-        prefetch_temporary( p_twiddle_factors );
+        twiddles const * BOOST_DISPATCH_RESTRICT p_twiddles( p_twiddle_factors );
+        prefetch_temporary( p_twiddles );
 
-        scalar_t * BOOST_DISPATCH_RESTRICT p_lower_reals( &p_reals->data()[ 1 ] );
-        scalar_t * BOOST_DISPATCH_RESTRICT p_lower_imags( &p_imags->data()[ 1 ] );
-        vector_t * BOOST_DISPATCH_RESTRICT p_upper_reals( &p_reals[ N / vector_t::static_size / 2 - 1 ] );
-        vector_t * BOOST_DISPATCH_RESTRICT p_upper_imags( &p_imags[ N / vector_t::static_size / 2 - 1 ] );
+        vector_t * BOOST_DISPATCH_RESTRICT p_lower_reals(  p_reals );
+        vector_t * BOOST_DISPATCH_RESTRICT p_lower_imags(  p_imags );
+        scalar_t * BOOST_DISPATCH_RESTRICT p_upper_reals( &p_reals->data()[ N / 2 - ( vector_t::static_size - 1 ) ] );
+        scalar_t * BOOST_DISPATCH_RESTRICT p_upper_imags( &p_imags->data()[ N / 2 - ( vector_t::static_size - 1 ) ] );
+
+        //...zzz...ugh...clean this up...
+        bool const forward_transform( ( reinterpret_cast<unsigned int const &>( twiddle_flipper ) == 0 ) );
+        scalar_t const dc_re_input     (                     p_reals->data()[ 0 ]                            );
+        scalar_t const nyquist_re_input( forward_transform ? p_imags->data()[ 0 ] : p_reals->data()[ N / 2 ] );
+
+    #ifndef NDEBUG
+        scalar_t const half_nyquist_re_check( p_reals->data()[ N / 4 ] );
+        scalar_t const half_nyquist_im_check( p_imags->data()[ N / 4 ] );
+    #endif // NDEBUG
+
 
         NT2_CONST_VECTOR( twiddle_sign_flipper, twiddle_flipper );
 
-        while ( p_lower_reals < p_upper_reals->data() )
+        while ( p_lower_reals->data() < p_upper_reals )
         {
         /* "straight" implementation:
-            ...zzz...old version where lower_* data was loaded aligned and
-            ...zzz...upper_* data was loaded unaligned...
             // the following two constants go outside the loop:
             NT2_CONST_VECTOR(              half, Half<vector_t>()      );
             NT2_CONST_VECTOR( signed_half, half ^ twiddle_sign_flipper );
@@ -1268,15 +1307,15 @@ namespace detail
             /// skipped/eliminated because it is/can be merged into the
             /// normalization factor.
             ///                               (27.06.2012.) (Domagoj Saric)
+            
+            NT2_CONST_VECTOR( upper_r, reverse( unaligned_load<vector_t>( p_upper_reals ) ) );
+            NT2_CONST_VECTOR( upper_i, reverse( unaligned_load<vector_t>( p_upper_imags ) ) );
+            NT2_CONST_VECTOR( lower_r,                                   *p_lower_reals     );
+            NT2_CONST_VECTOR( lower_i,                                   *p_lower_imags     );
 
-            NT2_CONST_VECTOR( upper_r, reverse                 ( *p_upper_reals ) /* * half */ );
-            NT2_CONST_VECTOR( upper_i, reverse                 ( *p_upper_imags ) /* * half */ );
-            NT2_CONST_VECTOR( lower_r, unaligned_load<vector_t>(  p_lower_reals ) /* * half */ );
-            NT2_CONST_VECTOR( lower_i, unaligned_load<vector_t>(  p_lower_imags ) /* * half */ );
-
-            NT2_CONST_VECTOR( wr, p_twiddle_factors->w0.wr ^ twiddle_sign_flipper );
-            NT2_CONST_VECTOR( wi, p_twiddle_factors->w0.wi                        );
-            prefetch_temporary( ++p_twiddle_factors );
+            NT2_CONST_VECTOR( wr, p_twiddles->w0.wr ^ twiddle_sign_flipper );
+            NT2_CONST_VECTOR( wi, p_twiddles->w0.wi                        );
+            p_twiddles++;
 
             NT2_CONST_VECTOR( h1r, lower_r + upper_r );
             NT2_CONST_VECTOR( h1i, lower_i - upper_i );
@@ -1286,10 +1325,111 @@ namespace detail
             NT2_CONST_VECTOR( h_temp_r, ( wr * h2r ) - ( wi * h2i ) );
             NT2_CONST_VECTOR( h_temp_i, ( wr * h2i ) + ( wi * h2r ) );
 
-            NT2_CONST_VECTOR( result_upper_r, reverse( h1r      - h_temp_r ) );
+            NT2_VECTOR(       result_upper_r, reverse( h1r      - h_temp_r ) );
             NT2_CONST_VECTOR( result_lower_r,          h1r      + h_temp_r   );
-            NT2_CONST_VECTOR( result_upper_i, reverse( h_temp_i - h1i      ) );
+            NT2_VECTOR(       result_upper_i, reverse( h_temp_i - h1i      ) );
             NT2_CONST_VECTOR( result_lower_i,          h1i      + h_temp_i   );
+
+            unaligned_store( result_upper_r, p_upper_reals );
+            unaligned_store( result_upper_i, p_upper_imags );
+            p_upper_reals -= vector_t::static_size;
+            p_upper_imags -= vector_t::static_size;
+
+            *p_lower_reals++ = result_lower_r;
+            *p_lower_imags++ = result_lower_i;
+        }
+
+        BOOST_ASSERT( p_twiddles == &p_twiddle_factors[ N / 4 / vector_t::static_size ] );
+
+        /// \note Separately calculate the middle ("half Nyquist") element
+        /// skipped by the above loop.
+        ///                                   (29.02.2012.) (Domagoj Saric)
+        {
+            scalar_t * BOOST_DISPATCH_RESTRICT const p_half_nyquist_re( &p_reals->data()[ N / 4 ] );
+            scalar_t * BOOST_DISPATCH_RESTRICT const p_half_nyquist_im( &p_imags->data()[ N / 4 ] );
+            BOOST_ASSERT( p_lower_reals->data() == p_half_nyquist_re );
+            BOOST_ASSERT( p_lower_imags->data() == p_half_nyquist_im );
+            BOOST_ASSERT( *p_half_nyquist_re == half_nyquist_re_check );
+            BOOST_ASSERT( *p_half_nyquist_im == half_nyquist_im_check );
+
+            *p_half_nyquist_re *= +2;
+            *p_half_nyquist_im *= -2;
+        }
+
+        /// \note Calculate the two purely real components (the first and last,
+        /// DC offset and Nyquist, bins).
+        ///                                   (15.02.2012.) (Domagoj Saric)
+        scalar_t & dc_re     ( p_reals->data()[ 0     ] );
+        scalar_t & dc_im     ( p_imags->data()[ 0     ] );
+        scalar_t & nyquist_re( p_reals->data()[ N / 2 ] );
+        scalar_t & nyquist_im( p_imags->data()[ N / 2 ] );
+        //...zzz...ugh...reinvestigate this...
+        scalar_t const multiplier( forward_transform ? 2.0f : 1.0f );
+        dc_re      = multiplier * ( dc_re_input + nyquist_re_input ); dc_im      = 0;
+        nyquist_re = multiplier * ( dc_re_input - nyquist_re_input ); nyquist_im = 0;
+        /// \note It is crucial that the real Nyquist component be packed into
+        /// the (always zero) imaginary DC component for the inverse
+        /// (complex2real) transform to produce correct results. Reinvestigate
+        /// this...
+        ///                                   (18.07.2012.) (Domagoj Saric)
+        if ( !forward_transform )
+            dc_im = nyquist_re;
+    } // inplace_separated_context_t<T>::separate()
+
+    template <typename T>
+    BOOST_DISPATCH_NOINLINE
+    void BOOST_FASTCALL inplace_separated_context_t<T>::separate_b
+    (
+        vector_t                    * BOOST_DISPATCH_RESTRICT const p_reals          , // N/2 ( + 1 ) scalars
+        vector_t                    * BOOST_DISPATCH_RESTRICT const p_imags          , // N/2 ( + 1 ) scalars
+        real2complex_twiddles const * BOOST_DISPATCH_RESTRICT const p_twiddle_factors, // requires N/4 twiddle factors
+        native_t                                              const twiddle_flipper  ,
+        unsigned int                                          const N                  // power-of-two
+    )
+    {
+        real2complex_twiddles const * BOOST_DISPATCH_RESTRICT p_twiddles( p_twiddle_factors );
+        prefetch_temporary( p_twiddles );
+
+        scalar_t * BOOST_DISPATCH_RESTRICT p_lower_reals( &p_reals->data()[ 1 ] );
+        scalar_t * BOOST_DISPATCH_RESTRICT p_lower_imags( &p_imags->data()[ 1 ] );
+        vector_t * BOOST_DISPATCH_RESTRICT p_upper_reals( &p_reals[ N / vector_t::static_size / 2 - 1 ] );
+        vector_t * BOOST_DISPATCH_RESTRICT p_upper_imags( &p_imags[ N / vector_t::static_size / 2 - 1 ] );
+
+    #ifndef NDEBUG
+        scalar_t const half_nyquist_re_check( p_reals->data()[ N / 4 ] );
+        scalar_t const half_nyquist_im_check( p_imags->data()[ N / 4 ] );
+    #endif // NDEBUG
+
+        NT2_CONST_VECTOR( twiddle_sign_flipper, twiddle_flipper );
+
+        BOOST_ASSERT( &p_lower_reals        [ 0 ] == &p_reals->data()[ 1 ] );
+        BOOST_ASSERT( &p_lower_imags        [ 0 ] == &p_imags->data()[ 1 ] );
+        BOOST_ASSERT( &p_upper_reals->data()[ 3 ] == &p_reals->data()[ N / 2 - 1 ] );
+        BOOST_ASSERT( &p_upper_imags->data()[ 3 ] == &p_imags->data()[ N / 2 - 1 ] );
+
+        while ( p_lower_reals < p_upper_reals->data() )
+        {
+            NT2_CONST_VECTOR( upper_r, reverse                 ( *p_upper_reals ) );
+            NT2_CONST_VECTOR( upper_i, reverse                 ( *p_upper_imags ) );
+            NT2_CONST_VECTOR( lower_r, unaligned_load<vector_t>(  p_lower_reals ) );
+            NT2_CONST_VECTOR( lower_i, unaligned_load<vector_t>(  p_lower_imags ) );
+
+            NT2_CONST_VECTOR( wr, p_twiddles->wr ^ twiddle_sign_flipper );
+            NT2_CONST_VECTOR( wi, p_twiddles->wi                        );
+            prefetch_temporary( ++p_twiddles );
+
+            NT2_CONST_VECTOR( h1r, lower_r + upper_r );
+            NT2_CONST_VECTOR( h1i, lower_i - upper_i );
+            NT2_CONST_VECTOR( h2r, lower_i + upper_i );
+            NT2_CONST_VECTOR( h2i, upper_r - lower_r );
+
+            NT2_CONST_VECTOR( h_temp_r, ( wr * h2r ) - ( wi * h2i ) );
+            NT2_CONST_VECTOR( h_temp_i, ( wr * h2i ) + ( wi * h2r ) );
+
+            NT2_CONST_VECTOR( result_lower_r,          h1r      + h_temp_r   );
+            NT2_CONST_VECTOR( result_upper_r, reverse( h1r      - h_temp_r ) );
+            NT2_CONST_VECTOR( result_lower_i,          h1i      + h_temp_i   );
+            NT2_CONST_VECTOR( result_upper_i, reverse( h_temp_i - h1i      ) );
 
             unaligned_store( result_lower_r, p_lower_reals );
             unaligned_store( result_lower_i, p_lower_imags );
@@ -1300,6 +1440,16 @@ namespace detail
             *p_upper_imags-- = result_upper_i;
         }
 
+        BOOST_ASSERT( p_twiddles == &p_twiddle_factors[ N / 4 / vector_t::static_size ] );
+
+        BOOST_ASSERT( half_nyquist_re_check * 2 ==   p_reals->data()[ N / 4 ] );
+        BOOST_ASSERT( half_nyquist_im_check * 2 == - p_imags->data()[ N / 4 ] );
+
+        BOOST_ASSERT( &p_lower_reals        [ 0 ] == &p_reals->data()[ N / 4 + 1 ] );
+        BOOST_ASSERT( &p_lower_imags        [ 0 ] == &p_imags->data()[ N / 4 + 1 ] );
+        BOOST_ASSERT( &p_upper_reals->data()[ 3 ] == &p_reals->data()[ N / 4 - 1 ] );
+        BOOST_ASSERT( &p_upper_imags->data()[ 3 ] == &p_imags->data()[ N / 4 - 1 ] );
+
         /// \note Calculate the two purely real components (the first and last,
         /// DC offset and Nyquist, bins).
         ///                                   (15.02.2012.) (Domagoj Saric)
@@ -1307,11 +1457,16 @@ namespace detail
         scalar_t & dc_im     ( p_imags->data()[ 0     ] );
         scalar_t & nyquist_re( p_reals->data()[ N / 2 ] );
         scalar_t & nyquist_im( p_imags->data()[ N / 2 ] );
-        scalar_t const real0( dc_re );
-        scalar_t const imag0( dc_im );
-        dc_re      = ( real0 + imag0 ) * 2; dc_im      = 0;
-        nyquist_re = ( real0 - imag0 ) * 2; nyquist_im = 0;
-    }
+        //...zzz...ugh...clean this up...
+        bool const forward_transform( ( reinterpret_cast<unsigned int const &>( twiddle_sign_flipper ) == 0 ) );
+        scalar_t const dc_re_input     (                     dc_re              );
+        scalar_t const nyquist_re_input( forward_transform ? dc_im : nyquist_re );
+        scalar_t const multiplier      ( forward_transform ? 2.0f : 1.0f        );
+        dc_re      = multiplier * ( dc_re_input + nyquist_re_input ); dc_im      = 0;
+        nyquist_re = multiplier * ( dc_re_input - nyquist_re_input ); nyquist_im = 0;
+        if ( !forward_transform )
+            dc_im = nyquist_re;
+    } // inplace_separated_context_t<T>::separate()
 
 
     ////////////////////////////////////////////////////////////////////////////
