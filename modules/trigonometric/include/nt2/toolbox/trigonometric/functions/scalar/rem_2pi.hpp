@@ -10,14 +10,11 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_2PI_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/rem_2pi.hpp>
-#include <nt2/include/functions/scalar/bitwise_cast.hpp>
-#include <nt2/include/functions/scalar/ldexp.hpp>
-#include <nt2/include/functions/scalar/floor.hpp>
-#include <nt2/include/functions/rem_pio2.hpp>
+#include <nt2/include/functions/scalar/rem_pio2.hpp>
+#include <nt2/include/functions/scalar/rem_pio2_medium.hpp>
+#include <nt2/include/functions/scalar/round2even.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/pi.hpp>
@@ -27,6 +24,7 @@
 #include <nt2/include/constants/pix2_1.hpp>
 #include <nt2/include/constants/pix2_2.hpp>
 #include <nt2/include/constants/pix2_3.hpp> 
+
 #include <boost/fusion/tuple.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 #include <iostream>
