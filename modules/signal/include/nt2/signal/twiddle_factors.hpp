@@ -185,7 +185,13 @@ namespace detail
         boost::ignore_unused_variable_warning( omega_scale );
 
     #endif // 32 bit x86 MSVC
-    }
+    } // calculate_single_twiddle_pair()
+
+
+#ifdef _MSC_VER
+    #pragma warning( push )
+    #pragma warning( disable : 4996 ) // '_controlfp': This function or variable may be unsafe.
+#endif // _MSC_VER
 
     /// \note Regardless of the input data layout we always use twiddles
     /// interleaved on vector boundaries in order to improve memory locality and
@@ -195,17 +201,26 @@ namespace detail
     ///                                       (05.06.2012.) (Domagoj Saric)
     template <typename Vector>
     BOOST_DISPATCH_NOINLINE
-    void calculate_twiddles
+    void BOOST_FASTCALL calculate_twiddles
     (
-        split_radix_twiddles<Vector> * BOOST_DISPATCH_RESTRICT const p_twiddles,
-        unsigned int                                           const N_int
+        /// \note Packing these parameters into static const structs (as they
+        /// are all known at compile time) proved fruitless because MSVC10 would
+        /// either create dynamic initialisers or initialise the objects in
+        /// wrong order (since, per the standard, static initialisation order is
+        /// completely undefined for templates).
+        ///                                   (18.07.2012.) (Domagoj Saric)
+        twiddle_pair<Vector> * BOOST_DISPATCH_RESTRICT const p_twiddles,
+        unsigned int                                   const N_int,
+        unsigned int                                   const stride,
+        unsigned int                                   const omega_scale_int,
+        unsigned int                                   const start_index
     )
     {
     #if defined( _MSC_VER ) && ( defined( _M_IX86 ) || defined( _M_AMD64 ) || defined( _M_IA64 ) )
         unsigned int const current_precision( ::_controlfp( _PC_64, _MCW_PC ) );
     #endif // _MSC_VER
 
-        split_radix_twiddles<Vector> * BOOST_DISPATCH_RESTRICT p_w( p_twiddles );
+        twiddle_pair<Vector> * BOOST_DISPATCH_RESTRICT p_w( p_twiddles );
 
         /// \todo Since cos( a ) = sin( a + Pi/2 ) = -sin( a + 3*Pi/2 ) separate
         /// cos/wr and sin/wi twiddle values could be avoided. The elements of
@@ -218,37 +233,42 @@ namespace detail
         /// \note N/4 values are required for split-radix.
         ///                                   (21.05.2012.) (Domagoj Saric)
 
-        long double const N( static_cast<int>( N_int ) );
+        long double const N          ( static_cast<int>( N_int           ) );
+        long double const omega_scale( static_cast<int>( omega_scale_int ) );
 
-        int i( 0 );
-        while ( unsigned( i ) < ( N_int / 4 ) )
+        unsigned       i        ( start_index             );
+        unsigned const end_index( N_int / 4 + start_index );
+        while ( i < end_index )
         {
             typedef pies impl;
 
-            calculate_single_twiddle_pair<impl>( p_w->w0, i, N, 1 );
-            calculate_single_twiddle_pair<impl>( p_w->w3, i, N, 3 );
+            calculate_single_twiddle_pair<impl>( *p_w, i, N, omega_scale );
 
-            i += Vector::static_size;
-            ++p_w;
+            i   += Vector::static_size;
+            p_w += stride;
         }
 
-        BOOST_ASSERT( p_w == &p_twiddles[ N_int / 4 / Vector::static_size ] );
+        BOOST_ASSERT( p_w == &p_twiddles[ N_int / 4 / Vector::static_size * stride ] );
 
     #if defined( _MSC_VER ) && ( defined( _M_IX86 ) || defined( _M_AMD64 ) || defined( _M_IA64 ) )
         ::_controlfp( current_precision, _MCW_PC );
     #endif // _MSC_VER
     }
 
+#ifdef _MSC_VER
+    #pragma warning( pop )
+#endif // _MSC_VER
+
     template <typename Vector, unsigned N>
-    struct interleaved_twiddle_holder
+    struct twiddle_holder
     {
-        interleaved_twiddle_holder()
+        twiddle_holder()
         {
-            calculate_twiddles<Vector>( factors.begin(), N );
+            calculate_twiddles<Vector>( &factors.front().w0, N, 2, 1, 0 );
+            calculate_twiddles<Vector>( &factors.front().w3, N, 2, 3, 0 );
         }
 
         typedef
-            BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT )
             boost::array
             <
                 split_radix_twiddles<Vector> /*const*/,
@@ -257,7 +277,26 @@ namespace detail
             factors_t;
 
         factors_t /*const*/ factors;
-    };
+    }; // struct twiddle_holder
+
+    template <typename Vector, unsigned N>
+    struct real_separation_twiddles_holder
+    {
+        real_separation_twiddles_holder()
+        {
+            calculate_twiddles<Vector>( &factors.front(), N, 1, 1, 1 );
+        }
+
+        typedef
+            boost::array
+            <
+                twiddle_pair<Vector> /*const*/,
+                N / 4 / Vector::static_size
+            >
+            factors_t;
+
+        factors_t /*const*/ factors;
+    }; // struct real_separation_twiddles_holder
 } // namespace detail
 
 template <unsigned N, typename Vector>
@@ -267,12 +306,27 @@ public:
     static split_radix_twiddles<Vector> const * BOOST_DISPATCH_RESTRICT factors() { return twiddles_.factors.begin(); }
 
 private:
-    typedef detail::interleaved_twiddle_holder<Vector, N> twiddle_holder;
+    typedef detail::twiddle_holder<Vector, N> twiddle_holder;
     static twiddle_holder const twiddles_;
 };
 
 template <unsigned N, typename Vector>
 typename twiddles_interleaved<N, Vector>::twiddle_holder const twiddles_interleaved<N, Vector>::twiddles_;
+
+
+template <unsigned N, typename Vector>
+struct real_separation_twiddles
+{
+public:
+    static twiddle_pair<Vector> const * BOOST_DISPATCH_RESTRICT factors() { return twiddles_.factors.begin(); }
+
+private:
+    typedef detail::real_separation_twiddles_holder<Vector, N> twiddle_holder;
+    static twiddle_holder const twiddles_;
+};
+
+template <unsigned N, typename Vector>
+typename real_separation_twiddles<N, Vector>::twiddle_holder const real_separation_twiddles<N, Vector>::twiddles_;
 
 
 //...zzz...the below approaches are still radix-2 specific and use old/ancient
