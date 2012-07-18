@@ -211,7 +211,7 @@ NT2_TEST_CASE( test )
         T const norm( nt2::real_fft_normalization_factor<T>( N ) );
         scale( real_time_data2, norm );
 
-        NT2_FFT_ANALYZE_VALUES( real_time_data, real_time_data2, constants::maximum_allowed_real_nt2_ulpd, "real data" );
+        NT2_FFT_ANALYZE_VALUES( real_time_data2, real_time_data, constants::maximum_allowed_real_nt2_ulpd, "real data" );
 
     #ifdef __APPLE__
         { // Accelerate framework FFT
