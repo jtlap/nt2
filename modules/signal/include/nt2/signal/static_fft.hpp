@@ -560,7 +560,7 @@ namespace detail
     #pragma warning( disable : 4510 ) // Default constructor could not be generated.
     #pragma warning( disable : 4512 ) // Assignment operator could not be generated.
     #pragma warning( disable : 4610 ) // Class can never be instantiated - user-defined constructor required.
-#endif
+#endif // _MSC_VER
 
     ////////////////////////////////////////////////////////////////////////////
     // \struct inplace_separated_context_t
@@ -753,6 +753,9 @@ private:
 #ifdef _MSC_VER
     #pragma warning( push )
     #pragma warning( disable : 4127 ) // Conditional expression is constant.
+    #pragma warning( disable : 4510 ) // Default constructor could not be generated.
+    #pragma warning( disable : 4512 ) // Assignment operator could not be generated.
+    #pragma warning( disable : 4610 ) // Class can never be instantiated - user-defined constructor required.
 #endif
 
     template <class Context>
@@ -945,7 +948,7 @@ private:
 }; // class static_fft
 
 #ifdef _MSC_VER
-#pragma warning( push )
+#pragma warning( pop )
 #endif
 
 template <typename T>
