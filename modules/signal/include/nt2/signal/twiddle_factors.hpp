@@ -105,86 +105,144 @@ namespace detail
     ///                                       (17.07.2012.) (Domagoj Saric)
     //////////////////////////////////////////////////////////////////////////// 
 
-    //...zzz...for testing...
-    //#define NT2_FFT_USE_x87_TWIDDLES
+    template <typename Impl>
+    struct twiddle_calculator_same_type
+    {
+        template <typename Vector>
+        static BOOST_FORCEINLINE Vector generate_input( int const index, long double const omega_scale, long double const N )
+        {
+            long double const omega( omega_scale * Impl::full_circle() / N );
 
-    struct radians
+            long double const start_value( index * omega );
+            long double const increment  (         omega );
+
+            typedef typename Vector::value_type scalar_t;
+            Vector const result ( boost::simd::arith<Vector>( static_cast<scalar_t>( start_value ), static_cast<scalar_t>( increment ) ) );
+            BOOST_ASSERT( result[ Vector::static_size - 1 ] <= omega_scale * Impl::full_circle() / 4 );
+            return result;
+        }
+    };
+
+    struct radians : twiddle_calculator_same_type<radians>
     {
         static long double full_circle() { return 2 * 3.1415926535897932384626433832795028841971693993751058209749445923078164062L; }
         template <typename Vector>
         static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sinecosine<small>( input, cosine ); }
     };
 
-    struct degrees
+    struct degrees : twiddle_calculator_same_type<degrees>
     {
         static long double full_circle() { return 2 * 180; }
         template <typename Vector>
         static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sincosd( input, cosine ); }
     };
 
-    struct pies
+    struct pies : twiddle_calculator_same_type<pies>
     {
         static long double full_circle() { return 2 * 1; }
         template <typename Vector>
         static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sincospi( input, cosine ); }
     };
 
+    struct hardware_or_crt
+    {
+    #ifdef _MSC_VER
+        #pragma warning( push )
+        #pragma warning( disable : 4510 ) // Default constructor could not be generated.
+        #pragma warning( disable : 4512 ) // Assignment operator could not be generated.
+        #pragma warning( disable : 4610 ) // Class can never be instantiated - user-defined constructor required.
+    #endif
+        struct input_t
+        {
+            long double const omega_scale;
+            long double const N          ;
+            int         const index      ;
+        };
+    #ifdef _MSC_VER
+        #pragma warning( pop )
+    #endif
+
+        template <typename Vector>
+        static BOOST_FORCEINLINE input_t generate_input( int const index, long double const omega_scale, long double const N )
+        {
+            input_t const input = { omega_scale, N, index };
+            return input;
+        }
+
+        static long double full_circle() { return 2 * 3.1415926535897932384626433832795028841971693993751058209749445923078164062L; }
+
+        template <typename Vector>
+        static BOOST_FORCEINLINE Vector sincos( input_t const & input, Vector & cosine )
+        {
+            Vector sine;
+
+        #if defined( _MSC_VER ) && defined( _M_IX86 )
+            Vector::value_type * const p_sine  ( sine  .data() );
+            Vector::value_type * const p_cosine( cosine.data() );
+
+            // http://software.intel.com/en-us/forums/showthread.php?t=74354
+            // http://www.devmaster.net/forums/showthread.php?t=5784
+
+            unsigned int const vector_size( Vector::static_size );
+            long double  const omega_scale( input.omega_scale   );
+            long double  const N          ( input.N             );
+            unsigned int       local_index( input.index         );
+	        __asm
+	        {
+		        mov ecx, vector_size
+		        mov edx, p_sine
+		        mov edi, p_cosine
+            sincos_loop:
+		        fldpi
+                fldpi
+                fadd
+                //...zzz...direct version seems to work the same?
+                //fld [omega_scale]
+                //fmul
+                //fild [local_index]
+                //fmul
+                //fld [N]
+                //fdiv
+                fmul  [omega_scale]
+                fimul [local_index]
+                fdiv  [N]
+		        fsincos
+		        fstp [edi]
+		        add edi, 4
+                fchs
+		        fstp [edx]
+		        add edx, 4
+
+                inc [local_index]
+		        dec ecx
+		        jnz sincos_loop
+	        }
+
+        #else // 32 bit x86 MSVC
+
+            long double const omega_scale( input.omega_scale );
+            long double const N          ( input.N           );
+            int         const index      ( input.index       );
+
+            for ( unsigned i( 0 ); i < Vector::static_size; ++i )
+            {
+                long double const omega( ( index + i ) * omega_scale * full_circle() / N );
+
+                cosine[ i ] =   std::cos( omega );
+                sine  [ i ] = - std::sin( omega );
+            }
+
+        #endif // 32 bit x86 MSVC
+
+            return sine;
+        }
+    };
+
 
     template <typename Impl, typename Vector>
     void calculate_single_twiddle_pair( twiddle_pair<Vector> & twiddles, int const index, long double const N, long double const omega_scale )
     {
-        typedef          Vector               vector_t;
-        typedef typename vector_t::value_type scalar_t;
-
-        vector_t * BOOST_DISPATCH_RESTRICT const p_cosine( &twiddles.wr );
-        vector_t * BOOST_DISPATCH_RESTRICT const p_sine  ( &twiddles.wi );
-
-    #if defined( NT2_FFT_USE_x87_TWIDDLES ) && defined( _MSC_VER ) && defined( _M_IX86 )
-
-        // http://software.intel.com/en-us/forums/showthread.php?t=74354
-        // http://www.devmaster.net/forums/showthread.php?t=5784
-
-        unsigned int const vector_size( vector_t::static_size );
-        unsigned int       local_index( index                 );
-	    __asm
-	    {
-		    mov ecx, vector_size
-		    mov edx, p_sine
-		    mov edi, p_cosine
-        sincos_loop:
-		    fldpi
-            fldpi
-            fadd
-            fmul [omega_scale]
-            fimul [local_index]
-            fdiv [N]
-		    fsincos
-		    fstp [edi]
-		    add edi, 4
-            fchs
-		    fstp [edx]
-		    add edx, 4
-
-            inc [local_index]
-		    dec ecx
-		    jnz sincos_loop
-	    }
-
-    #else // 32 bit x86 MSVC
-
-        long double const omega( omega_scale * Impl::full_circle() / N );
-
-        long double const start_value( index * omega );
-        long double const increment  (         omega );
-
-        vector_t const input( boost::simd::arith<vector_t>( static_cast<scalar_t>( start_value ), static_cast<scalar_t>( increment ) ) );
-
-        *p_sine = Impl::sincos( input, *p_cosine ) ^ Mzero<vector_t>();
-
-        BOOST_ASSERT( input[ vector_t::static_size - 1 ] <= omega_scale * Impl::full_circle() / 4 );
-        boost::ignore_unused_variable_warning( omega_scale );
-
-    #endif // 32 bit x86 MSVC
+        twiddles.wi = Impl::sincos( Impl::generate_input<Vector>( index, omega_scale, N ), twiddles.wr ) ^ Mzero<Vector>();
     } // calculate_single_twiddle_pair()
 
 
