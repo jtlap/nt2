@@ -293,7 +293,7 @@ namespace detail
         {
             typedef pies impl;
 
-            p_w->wi = Impl::sincos( Impl::generate_input<Vector>( i, omega_scale, N ), p_w->wr ) ^ Mzero<Vector>();
+            p_w->wi = impl::sincos( impl::generate_input<Vector>( i, omega_scale, N ), p_w->wr ) ^ Mzero<Vector>();
 
             i   += Vector::static_size;
             p_w += stride;
