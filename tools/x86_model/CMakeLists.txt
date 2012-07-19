@@ -20,4 +20,5 @@ endif()
 add_executable(x86_model x86_model.cpp)
 set_target_properties(x86_model
                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}
+                                 RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}
                      )

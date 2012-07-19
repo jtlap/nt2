@@ -18,4 +18,5 @@ link_libraries(${NT2_LIBRARIES})
 add_executable(is_multicore is_multicore.cpp)
 set_target_properties(is_multicore
                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}
+                                 RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}
                      )

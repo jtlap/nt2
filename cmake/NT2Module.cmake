@@ -616,9 +616,18 @@ macro(nt2_module_tool_setup tool)
     message(STATUS "[nt2] building tool ${tool}")
     file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool})
 
+    if(NOT DEFINED NT2_TOOL_DEBUG)
+      set(NT2_TOOL_DEBUG $ENV{NT2_TOOL_DEBUG})
+    endif()
+    if(NT2_TOOL_DEBUG)
+      set(NT2_TOOL_CONFIG Debug)
+    else()
+      set(NT2_TOOL_CONFIG Release)
+    endif()
+
     set(BUILD_OPTION)
     if(NOT CMAKE_CONFIGURATION_TYPES)
-      set(BUILD_OPTION -DCMAKE_BUILD_TYPE=Release)
+      set(BUILD_OPTION -DCMAKE_BUILD_TYPE=${NT2_TOOL_CONFIG})
     endif()
     if(Boost_INCLUDE_DIR)
       list(APPEND BUILD_OPTION -DBoost_INCLUDE_DIR=${Boost_INCLUDE_DIR})
@@ -638,7 +647,7 @@ macro(nt2_module_tool_setup tool)
       message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
     endif()
 
-    execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
+    execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${NT2_TOOL_CONFIG}
                     WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_build_out
                     RESULT_VARIABLE tool_build

@@ -15,4 +15,5 @@ include(${NT2_USE_FILE})
 add_executable(is_supported is_supported.cpp)
 set_target_properties(is_supported
                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}
+                                 RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}
                      )
