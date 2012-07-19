@@ -45,6 +45,11 @@ namespace
         /// type and the size of the transform (see the "accuracy/precision"
         /// links in static_fft.hpp).
         ///                                   (17.07.2012.) (Domagoj Saric)
+        /// \todo Add/consider maximum allowed average ULPD thresholds.
+        ///                                   (19.07.2012.) (Domagoj Saric)
+        /// \todo Add fixed/predefined test vectors to get portably reproducible
+        /// tests.
+        ///                                   (19.07.2012.) (Domagoj Saric)
         /// \todo Add tests for forward complex transform of real data (result
         /// must be conjugated symmetric) and inverse complex transform of
         /// conjugated symmetric data (result must be pure real).
@@ -54,7 +59,7 @@ namespace
         static unsigned int const maximum_allowed_complex_nt2_ulpd   = 3500;
         static unsigned int const maximum_allowed_real_nt2_ulpd      = 4200;
 
-        static unsigned int const maximum_allowed_complex_apple_ulpd = 5000;
+        static unsigned int const maximum_allowed_complex_apple_ulpd = 6400;
         static unsigned int const maximum_allowed_real_apple_ulpd    = 5000;
     } // namespace constants
 
@@ -110,7 +115,7 @@ namespace
         {
             T      const value_a( results        [ i ] );
             T      const value_b( desired_results[ i ] );
-            double const ulpd( nt2::ulpdist( nt2::details::smallest_a( value_a, value_b ), nt2::details::smallest_b( value_a, value_b ) ) );
+            double const ulpd   ( nt2::ulpdist( nt2::details::smallest_a( value_a, value_b ), nt2::details::smallest_b( value_a, value_b ) ) );
             average_ulpd += ulpd;
             if ( ulpd > max_ulp_distance )
             {
@@ -121,12 +126,12 @@ namespace
 
         if ( failed_values.empty() )
         {
-            ::nt2::unit::pass( result_description );
+            nt2::unit::pass( result_description );
             debug_output << "Average ulpd: " << average_ulpd / N << std::endl;
         }
         else
         {
-            ::nt2::unit::fail( result_description, source_file_line, calling_function );
+            nt2::unit::fail( result_description, source_file_line, calling_function );
 
             debug_output << std::setprecision( 20 )
                          << std::endl
