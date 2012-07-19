@@ -14,7 +14,7 @@
  * \brief Defines the \c boost::dispatch::meta::terminal_of \metafunction
  */
 
- #include <boost/config.hpp>
+#include <boost/config.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {

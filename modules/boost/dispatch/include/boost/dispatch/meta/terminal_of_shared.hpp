@@ -14,7 +14,8 @@
  * \brief Defines the \c boost::dispatch::meta::terminal_of_shared \metafunction
  */
 
- #include <boost/config.hpp>
+#include <boost/config.hpp>
+#include <boost/dispatch/meta/terminal_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -28,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
    */
   template<class T> struct terminal_of_shared
   {
-    typedef T type;
+    typedef typename meta::terminal_of<T>::type type;
     static type make() { return type(); }
   };
 
