@@ -56,8 +56,6 @@ macro(nt2_module_source_setup module)
 
       file(GLOB_RECURSE files RELATIVE ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}
            ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include/*.hpp ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include/*.h
-           *.hpp *.h
-           *.cpp *.c
           )
       set(files_full)
       foreach(file ${files})
