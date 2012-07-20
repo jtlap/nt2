@@ -89,11 +89,11 @@ template<class T> void do_test()
   std::cout << "Size\ttable (c/e)\ttable (s)\tvector (c/e)\tvector (s)";
   std::cout << "\tOvec (c/e)\tvOvec (s) \tG(c/e)\tG(s)\tOG(c/e)\tOG(s)\n";
 
-  for(int N=1;N<=4096;N*=2)
+  for(int N=4;N<=4096;N*=4)
   {
     std::cout.precision(3);
-    std::cout << N << "\t";
-    table_test<T> tt(N,N,-.28319, .28319);
+    std::cout << N*N << "*1" << "\t";
+    table_test<T> tt(N*N,1,-.28319, .28319);
     nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
     nt2::unit::perform_benchmark( tt, 1., dv);
     nt2::unit::benchmark_result<double> tv;
@@ -101,7 +101,7 @@ template<class T> void do_test()
     std::cout << std::scientific << dv.median/(double)(N*N) << "\t";
     std::cout << std::scientific << tv.median << "\t";
 
-    vector_test<T> vv(N,N,-.28319, .28319);
+    vector_test<T> vv(N*N,1,-.28319, .28319);
     nt2::unit::benchmark_result<nt2::details::cycles_t> dw;
     nt2::unit::perform_benchmark( vv, 1., dw);
     nt2::unit::benchmark_result<double> tw;
@@ -109,7 +109,7 @@ template<class T> void do_test()
     std::cout << std::scientific << dw.median/(double)(N*N) << "\t";
     std::cout << std::scientific << tw.median << "\t";
 
-    vector_omp_test<T> vo(N,N,-.28319, .28319);
+    vector_omp_test<T> vo(N*N,1,-.28319, .28319);
     nt2::unit::benchmark_result<nt2::details::cycles_t> dow;
     nt2::unit::perform_benchmark( vo, 1., dow);
     nt2::unit::benchmark_result<double> tow;
@@ -120,10 +120,40 @@ template<class T> void do_test()
     std::cout << std::fixed << (double)tw.median/tv.median << "\t";
     std::cout << std::fixed << (double)dow.median/dv.median << "\t";
     std::cout << std::fixed << (double)tow.median/tv.median << "\n";
+
+    std::cout.precision(3);
+    std::cout << N << "*" << N << "\t";
+    table_test<T> stt(N,N,-.28319, .28319);
+    nt2::unit::benchmark_result<nt2::details::cycles_t> sdv;
+    nt2::unit::perform_benchmark( stt, 1., sdv);
+    nt2::unit::benchmark_result<double> stv;
+    nt2::unit::perform_benchmark( stt, 1., stv);
+    std::cout << std::scientific << sdv.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << stv.median << "\t";
+
+    vector_test<T> svv(N,N,-.28319, .28319);
+    nt2::unit::benchmark_result<nt2::details::cycles_t> sdw;
+    nt2::unit::perform_benchmark( vv, 1., sdw);
+    nt2::unit::benchmark_result<double> stw;
+    nt2::unit::perform_benchmark( vv, 1., stw);
+    std::cout << std::scientific << sdw.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << stw.median << "\t";
+
+    vector_omp_test<T> svo(N,N,-.28319, .28319);
+    nt2::unit::benchmark_result<nt2::details::cycles_t> sdow;
+    nt2::unit::perform_benchmark( svo, 1., sdow);
+    nt2::unit::benchmark_result<double> stow;
+    nt2::unit::perform_benchmark( svo, 1., stow);
+    std::cout << std::scientific << sdow.median/(double)(N*N) << "\t";
+    std::cout << std::scientific << stow.median << "\t";
+    std::cout << std::fixed << (double)sdw.median/sdv.median << "\t";
+    std::cout << std::fixed << (double)stw.median/stv.median << "\t";
+    std::cout << std::fixed << (double)sdow.median/sdv.median << "\t";
+    std::cout << std::fixed << (double)stow.median/stv.median << "\n";
   }
 }
 
-NT2_TEST_CASE_TPL( small_table, (double)(float) )
+NT2_TEST_CASE_TPL( asymmetric_table, (double)(float) )
 {
   do_test<T>();
 }

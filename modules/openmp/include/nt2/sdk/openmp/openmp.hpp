@@ -13,8 +13,7 @@
 
 namespace nt2 { namespace tag
 {
-  template<class T>
-  struct openmp_ : T
+  template<class T> struct openmp_ : T
   {
     typedef T parent;
   };

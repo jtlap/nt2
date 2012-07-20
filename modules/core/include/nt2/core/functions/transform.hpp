@@ -30,13 +30,21 @@ namespace nt2
    *
    * \param a0 Expression to store result in
    * \param a1 Expression to evaluate
+   * \param a2 Optional linear offset
+   * \param a3 Optional number of element to process on the inner dimension
+   * \param a4 Optional number of element to process on the outer dimension
    * \return nothing
    */
   //============================================================================
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0 const&)(A1 const&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::transform_, transform, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1 const&), 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0 const&)(A1&), 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1&), 2)
+
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::transform_, transform, 5)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1 const&)(A2 const&)(A3 const&)(A4 const&), 5)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0 const&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
 }
 
 #endif

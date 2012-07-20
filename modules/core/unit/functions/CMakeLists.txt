@@ -114,6 +114,7 @@ SET( SOURCES
     sum.cpp
     cumsum.cpp
     tie.cpp
+    transform.cpp
     tri1l.cpp
     tri1u.cpp
     tril.cpp
@@ -131,7 +132,5 @@ SET( SOURCES
     sort.cpp
 # List of test files for toolbox core.settings
    )
-if(CMAKE_COMPILER_IS_GNUCXX)
-#  set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
-endif()
+
 nt2_module_add_tests(core.functions.unit ${SOURCES})
