@@ -16,6 +16,7 @@
 
 #include <nt2/signal/static_sincos.hpp>
 
+#include <nt2/include/functions/scalar/sincospi.hpp>
 #include <nt2/include/functions/simd/sinecosine.hpp>
 #include <nt2/include/functions/simd/sincosd.hpp>
 #include <nt2/include/functions/simd/sincospi.hpp>
@@ -105,6 +106,32 @@ namespace detail
     ///                                       (17.07.2012.) (Domagoj Saric)
     //////////////////////////////////////////////////////////////////////////// 
 
+    struct twiddle_calculator_scalar
+    {
+    #ifdef _MSC_VER
+        #pragma warning( push )
+        #pragma warning( disable : 4510 ) // Default constructor could not be generated.
+        #pragma warning( disable : 4512 ) // Assignment operator could not be generated.
+        #pragma warning( disable : 4610 ) // Class can never be instantiated - user-defined constructor required.
+    #endif
+        struct input_t
+        {
+            long double const omega_scale;
+            long double const N          ;
+            int         const index      ;
+        };
+    #ifdef _MSC_VER
+        #pragma warning( pop )
+    #endif
+
+        template <typename Vector>
+        static BOOST_FORCEINLINE input_t generate_input( int const index, long double const omega_scale, long double const N )
+        {
+            input_t const input = { omega_scale, N, index };
+            return input;
+        }
+    }; // struct twiddle_calculator_scalar
+
     template <typename Impl>
     struct twiddle_calculator_same_type
     {
@@ -144,31 +171,40 @@ namespace detail
         static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sincospi( input, cosine ); }
     };
 
-    struct hardware_or_crt
+    struct pies_scalar_upgraded_type : twiddle_calculator_scalar
     {
-    #ifdef _MSC_VER
-        #pragma warning( push )
-        #pragma warning( disable : 4510 ) // Default constructor could not be generated.
-        #pragma warning( disable : 4512 ) // Assignment operator could not be generated.
-        #pragma warning( disable : 4610 ) // Class can never be instantiated - user-defined constructor required.
-    #endif
-        struct input_t
-        {
-            long double const omega_scale;
-            long double const N          ;
-            int         const index      ;
-        };
-    #ifdef _MSC_VER
-        #pragma warning( pop )
-    #endif
+        static long double full_circle() { return 2 * 1; }
 
         template <typename Vector>
-        static BOOST_FORCEINLINE input_t generate_input( int const index, long double const omega_scale, long double const N )
+        static BOOST_FORCEINLINE Vector sincos( input_t const & input, Vector & cosine )
         {
-            input_t const input = { omega_scale, N, index };
-            return input;
-        }
+            typedef typename Vector::value_type scalar_t;
 
+            long double const omega_scale( input.omega_scale );
+            long double const N          ( input.N           );
+            int         const index      ( input.index       );
+
+            Vector sine;
+
+            for ( int i( 0 ); i < Vector::static_size; ++i )
+            {
+                //...zzz...should only 'upgrade' float to double and double to long double...
+                //...zzz...nt2 doesn't seem to support the long double data type...
+                /*long*/ double const omega( ( index + i ) * omega_scale * full_circle() / N );
+                /*long*/ double precise_sin;
+                /*long*/ double precise_cos;
+                nt2::sincospi( omega, precise_sin, precise_cos );
+
+                sine  [ i ] = static_cast<scalar_t>( precise_sin );
+                cosine[ i ] = static_cast<scalar_t>( precise_cos );
+            }
+
+            return sine;
+        }
+    };
+
+    struct hardware_or_crt : twiddle_calculator_scalar
+    {
         static long double full_circle() { return 2 * 3.1415926535897932384626433832795028841971693993751058209749445923078164062L; }
 
         template <typename Vector>
@@ -209,7 +245,6 @@ namespace detail
 		        fsincos
 		        fstp [edi]
 		        add edi, 4
-                fchs
 		        fstp [edx]
 		        add edx, 4
 
@@ -228,15 +263,15 @@ namespace detail
             {
                 long double const omega( ( index + i ) * omega_scale * full_circle() / N );
 
-                cosine[ i ] =   std::cos( omega );
-                sine  [ i ] = - std::sin( omega );
+                sine  [ i ] = std::sin( omega );
+                cosine[ i ] = std::cos( omega );
             }
 
         #endif // 32 bit x86 MSVC
 
             return sine;
         }
-    };
+    }; // struct hardware_or_crt
 
 
 #ifdef _MSC_VER
@@ -291,6 +326,14 @@ namespace detail
         unsigned const end_index( N_int / 4 + start_index );
         while ( i < end_index )
         {
+            /// \note The various calculator implementations approximately rank
+            /// in this order (from least to most precise):
+            /// radians
+            /// degrees
+            /// hardware_or_crt
+            /// pies_scalar_upgraded_type (this requires further investigation)
+            /// pies.
+            ///                               (20.07.2012.) (Domagoj Saric)
             typedef pies impl;
 
             p_w->wi = impl::sincos( impl::generate_input<Vector>( i, omega_scale, N ), p_w->wr ) ^ Mzero<Vector>();
