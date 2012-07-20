@@ -20,6 +20,8 @@
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
+#include <boost/random/mersenne_twister.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
 
 #ifdef __APPLE__
     // FIXME: this requires "-framework Accelerate" to be added to linker flags
@@ -56,11 +58,11 @@ namespace
         /// Add a http://en.wikipedia.org/wiki/Parseval's_theorem test.
         ///                                   (18.07.2012.) (Domagoj Saric)
 
-        static unsigned int const maximum_allowed_complex_nt2_ulpd   = 3500;
-        static unsigned int const maximum_allowed_real_nt2_ulpd      = 4200;
+        static unsigned int const maximum_allowed_complex_nt2_ulpd   = 1030;
+        static unsigned int const maximum_allowed_real_nt2_ulpd      =  580;
 
-        static unsigned int const maximum_allowed_complex_apple_ulpd = 6400;
-        static unsigned int const maximum_allowed_real_apple_ulpd    = 5000;
+        static unsigned int const maximum_allowed_complex_apple_ulpd = 1290;
+        static unsigned int const maximum_allowed_real_apple_ulpd    =  770;
     } // namespace constants
 
     static std::size_t const N = constants::test_dft_size;
@@ -71,7 +73,10 @@ namespace
 
     void randomize( aligned_array & data )
     {
-        BOOST_FOREACH( T & scalar, data ) { scalar = roll<T>( constants::test_data_range_minimum, constants::test_data_range_maximum ); }
+        boost::random::mt19937                            prng        ( 42                                                                     );
+        boost::random::uniform_real_distribution<T> const distribution( constants::test_data_range_minimum, constants::test_data_range_maximum );
+        BOOST_FOREACH( T & scalar, data )
+            scalar = distribution( prng );
     }
 
     void scale( aligned_array & data, T const scale_factor )
@@ -110,6 +115,7 @@ namespace
         failed_values.clear();
 
         double average_ulpd( 0 );
+        double max_ulpd    ( 0 );
 
         for ( std::size_t i( 0 ); i != N; ++i )
         {
@@ -117,6 +123,7 @@ namespace
             T      const value_b( desired_results[ i ] );
             double const ulpd   ( nt2::ulpdist( nt2::details::smallest_a( value_a, value_b ), nt2::details::smallest_b( value_a, value_b ) ) );
             average_ulpd += ulpd;
+            max_ulpd      = std::max( max_ulpd, ulpd );
             if ( ulpd > max_ulp_distance )
             {
                 failed_value_t const failed_value = { value_a, value_b, ulpd, i };
@@ -127,7 +134,9 @@ namespace
         if ( failed_values.empty() )
         {
             nt2::unit::pass( result_description );
-            debug_output << "Average ulpd: " << average_ulpd / N << std::endl;
+            debug_output
+                << "Average ULPD: " << average_ulpd / N << std::endl
+                << "Max ULPD: "     << max_ulpd         << std::endl;
         }
         else
         {
@@ -135,7 +144,7 @@ namespace
 
             debug_output << std::setprecision( 20 )
                          << std::endl
-                         << "because the ulp distance for the following "
+                         << "because the ULP distance for the following "
                          << failed_values.size()
                          << " " << result_description
                          << " values was too large:"
@@ -150,7 +159,9 @@ namespace
                              << std::endl;
             }
 
-            debug_output << std::endl << "Average ulpd: " << average_ulpd / N << std::endl;
+            debug_output
+                << "Average ULPD: " << average_ulpd / N << std::endl
+                << "Max ULPD: "     << max_ulpd         << std::endl;
         }
     } // analyze_values
 
