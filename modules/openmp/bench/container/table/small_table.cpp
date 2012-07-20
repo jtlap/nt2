@@ -29,8 +29,8 @@ template<class T> struct table_test
       : a0(nt2::of_size(n,m)), a1(nt2::of_size(n,m)), a2(nt2::of_size(n,m))
       , N(n), M(m)
   {
-    for(std::size_t j=1; j<=M; ++j)
-      for(std::size_t i=1; i<=N; ++i)
+    for(int j=1; j<=M; ++j)
+      for(int i=1; i<=N; ++i)
         a1(i, j) = a2(i, j) = a0(i, j) = roll<T>(min,max);
   }
 
@@ -49,13 +49,13 @@ template<class T> struct vector_test
       : a0(n*m), a1(n*m), a2(n*m)
       , N(n), M(m)
   {
-    for(std::size_t i=0; i<M*N; ++i)
+    for(int i=0; i<M*N; ++i)
       a2[i] = a1[i] = a0[i] = roll<T>(min,max);
   }
 
   void operator()()
   {
-    for(std::size_t i=0; i<M*N; ++i)
+    for(int i=0; i<M*N; ++i)
       a1[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a2[i]*a2[i]/a1[i]);
   }
 
@@ -69,14 +69,14 @@ template<class T> struct vector_omp_test
       : a0(n*m), a1(n*m), a2(n*m)
       , N(n), M(m)
   {
-    for(std::size_t i=0; i<M*N; ++i)
+    for(int i=0; i<M*N; ++i)
       a2[i] = a1[i] = a0[i] = roll<T>(min,max);
   }
 
   void operator()()
   {
     #pragma omp parallel for
-    for(std::size_t i=0; i<M*N; ++i)
+    for(int i=0; i<M*N; ++i)
       a1[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a2[i]*a2[i]/a1[i]);
   }
 

@@ -41,22 +41,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
     {
       typename A0::extent_type e = a0.extent();
-      static const std::size_t N = boost::simd::meta
-                                        ::cardinal_of<target_type>::value;
+      std::size_t inner = boost::fusion::at_c<0>(e);
+      std::size_t outer = nt2::numel(boost::fusion::pop_front(e));
 
-      std::size_t in_sz     = boost::fusion::at_c<0>(e);
-      std::size_t in_sz_bnd = in_sz & ~(N-1);
-      std::size_t outer_sz  = nt2::numel(boost::fusion::pop_front(e));
-
-      std::size_t it = 0;
-      for(std::size_t j=0; j != outer_sz; ++j)
-      {
-        for(std::size_t m=it+in_sz_bnd; it != m; it+=N)
-          nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()) );
-
-        for(std::size_t m=it+in_sz-in_sz_bnd; it != m; ++it)
-          nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()) );
-      }
+      nt2::transform(a0,a1,0,inner,outer);
     }
   };
 
