@@ -13,6 +13,8 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_CUMSUM_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <boost/simd/toolbox/operator/functions/plus.hpp>
+#include <boost/simd/toolbox/constant/constants/zero.hpp>
 
 /*!
  * \ingroup boost_simd_swar
@@ -22,12 +24,12 @@
  * compute the cumulate sum of the vector elements
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cumsum.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +42,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of cumsum
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -54,18 +56,22 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cumsum_ of functor cumsum 
+     * \brief Define the tag cumsum_ of functor cumsum
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct cumsum_ : ext::unspecified_<cumsum_> { typedef ext::unspecified_<cumsum_> parent; };
+    struct cumsum_ : ext::cumulative_<cumsum_, tag::plus_, tag::Zero>
+    {
+      typedef ext::cumulative_<cumsum_, tag::plus_, tag::Zero> parent;
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumsum_, cumsum, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cumsum_, cumsum, 2)
 } }
 
 #endif

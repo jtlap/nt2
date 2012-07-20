@@ -112,6 +112,7 @@ SET( SOURCES
     sub2sub.cpp
     subscript.cpp
     sum.cpp
+    cumsum.cpp
     tie.cpp
     tri1l.cpp
     tri1u.cpp
