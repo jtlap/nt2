@@ -18,7 +18,13 @@
 
 namespace nt2
 {
-  namespace tag { struct partial_fold_ : ext::unspecified_<partial_fold_> { typedef ext::unspecified_<partial_fold_> parent; }; }
+  namespace tag
+  {
+    struct partial_fold_ : ext::unspecified_<partial_fold_>
+    {
+      typedef ext::unspecified_<partial_fold_> parent;
+    };
+  }
 
   //============================================================================
   /*!
@@ -38,7 +44,5 @@ namespace nt2
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::partial_fold_, partial_fold, (A0 const&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::partial_fold_, partial_fold, (A0&)(A1&)(A2 const&)(A3 const&)(A4 const&), 5)
 }
-
-
 
 #endif

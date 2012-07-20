@@ -6,23 +6,33 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_NULLARY_FUNCTION_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_DETAILS_NULLARY_FUNCTION_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_GENERATOR_NULLARY_FUNCTION_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DSL_DETAILS_GENERATOR_NULLARY_FUNCTION_HPP_INCLUDED
 
 #include <boost/proto/traits.hpp>
 #include <nt2/core/functions/function.hpp>
-#include <nt2/core/container/dsl/details/generate_as.hpp>
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace details
 {
   //==========================================================================
   // Generator nullary function call case - handle expr()
   //==========================================================================
   template<class Domain, class Expr>
   struct  generator<tag::function_, Domain, 1, Expr>
-        : generate_as<Expr,0>
-  {};
-} } }
+  {
+    typedef typename boost::proto::result_of::child_c<Expr,0>::type   expr_t;
+    typedef typename boost::dispatch::meta::semantic_of<expr_t>::type sema_t;
+
+    typedef container::expression < typename boost::remove_const<Expr>::type
+                                  , sema_t
+                                  >                               result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
+} }
 
 #endif
 

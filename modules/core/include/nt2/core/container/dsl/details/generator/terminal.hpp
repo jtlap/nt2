@@ -6,25 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_TERMINAL_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_DETAILS_TERMINAL_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_GENERATOR_TERMINAL_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DSL_DETAILS_GENERATOR_TERMINAL_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/type_traits/remove_const.hpp>
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace details
 {
-  //==========================================================================
+  //============================================================================
   // Generator case for terminals
-  //==========================================================================
+  //============================================================================
   template<class Domain, class Expr>
   struct generator<nt2::tag::terminal_, Domain, 0, Expr>
   {
     typedef typename boost::remove_const<Expr>::type expr;
 
-    typedef expression< expr
+    typedef container::expression< expr
                       , typename boost::proto::result_of::value<expr>::type
                       > result_type;
 
@@ -34,20 +34,26 @@ namespace nt2 { namespace container { namespace ext
     }
   };
 
+  //============================================================================
+  // Generator case for nullary expressions
+  //============================================================================
   template<class Tag, class Domain, class Expr>
   struct generator<Tag, Domain, 0, Expr>
   {
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , typename meta::call<Tag(typename boost::proto::result_of::value<Expr>::type)>::type
-                      > result_type;
+    typedef container::expression
+            < typename boost::remove_const<Expr>::type
+            , typename meta::call < Tag ( typename boost::proto::result_of
+                                                      ::value<Expr>::type
+                                        )
+                                  >::type
+            > result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       return result_type(e);
     }
   };
-
-} } }
+} }
 
 #endif
 

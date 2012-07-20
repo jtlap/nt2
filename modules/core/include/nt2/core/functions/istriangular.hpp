@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,53 +10,36 @@
 #ifndef NT2_CORE_FUNCTIONS_ISTRIANGULAR_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ISTRIANGULAR_HPP_INCLUDED
 
-#include <nt2/include/functor.hpp>
-
 /*!
- * \ingroup core
- * \defgroup core_istriangular istriangular
- *
- * \par Description
- * Returns true or false according a0 is a triangular matrix
- * (lower or upper) or not.
- *
- * \par Header file
- * 
- * \code
- * #include <nt2/include/functions/istriangular.hpp>
- * \endcode
- * 
- * \par Alias 
- * \arg is_triangular
- * 
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     bool istriangular(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the first parameter of istriangular
- * 
- * \return a bool value
- *  
+  @file
+  @brief Defines the istriangular function
 **/
+
+#include <nt2/include/functor.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct istriangular_ : ext::unspecified_<istriangular_>
+    /*!
+      @brief Tag for istriangular functor
+    **/
+    struct istriangular_ : boost::dispatch::tag::formal_
     {
-      typedef ext::unspecified_<istriangular_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
+  /*!
+    @brief Is an expression triangular ?
+
+    Checks if an expression is a triangular matrix.
+
+    @param a0 Expression to inspect
+
+    @return Boolean value evaluating to the result of the test
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istriangular_, istriangular, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istriangular_, is_triangular, 1)
 }
 
 #endif

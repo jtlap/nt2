@@ -8,13 +8,10 @@
 //==============================================================================
 #ifndef NT2_LINALG_FUNCTIONS_COV_HPP_INCLUDED
 #define NT2_LINALG_FUNCTIONS_COV_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
+
+#include <nt2/include/functor.hpp>
 #include <nt2/include/functions/sqr_abs.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <nt2/sdk/memory/container.hpp>
-#include <nt2/core/container/dsl/details/reduction.hpp>
-#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup core
@@ -24,12 +21,12 @@
  * Returns the cov of the elements of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cov.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,9 +39,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of cov
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -55,7 +52,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
@@ -63,9 +60,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct cov_ : tag::formal_ 
-    { 
-       typedef tag::formal_ parent; 
+    struct cov_ : tag::formal_
+    {
+       typedef tag::formal_ parent;
     };
   }
 
@@ -73,13 +70,12 @@ namespace nt2
   /*!
    * cov of a table
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cov_       , cov, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cov_       , cov, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cov_       , cov, 3)
 }
-
 
 #endif

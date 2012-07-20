@@ -9,31 +9,10 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_NBTRUE_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_NBTRUE_HPP_INCLUDED
 
-// #include <nt2/toolbox/reduction/functions/nbtrue.hpp>
-// #include <nt2/core/container/dsl/details/reduction.hpp>
-// #include <nt2/core/container/dsl/size.hpp>
-
-// namespace nt2 { namespace container { namespace ext
-// {
-//   template<class Domain, class Expr>
-//   struct size_of<boost::simd::tag::nbtrue_,Domain,1,Expr>
-//     : reduction_size_of<boost::simd::tag::nbtrue_, 1, Expr>{};
-
-//   template<class Domain, class Expr>
-//   struct size_of<boost::simd::tag::nbtrue_,Domain,2,Expr>
-//     : reduction_size_of<boost::simd::tag::nbtrue_, 2, Expr>{};
-
-//   template<class Domain, int N, class Expr>
-//   struct generator<boost::simd::tag::nbtrue_,Domain,N,Expr>
-//     : reduction_generator<boost::simd::tag::nbtrue_,N,Expr> {};
-// } } }
-
 #include <nt2/toolbox/reduction/functions/nbtrue.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/sum.hpp>
-
-#include <nt2/core/container/io.hpp>
+#include <nt2/core/container/dsl.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -63,7 +42,6 @@ namespace nt2 { namespace ext
       return  nt2::sum(nt2::if_one_else_zero(a0), a1);
     }
   };
-
 } }
 
 #endif

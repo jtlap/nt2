@@ -10,8 +10,7 @@
 #define NT2_CORE_FUNCTIONS_REPNUM_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 #include <nt2/sdk/parameters.hpp>
@@ -22,8 +21,10 @@ namespace nt2
 {
   namespace tag
   {
-    struct  repnum_
-          : ext::generative_<repnum_> { typedef ext::generative_<repnum_> parent; };
+    struct  repnum_ : ext::generative_<repnum_>
+    {
+      typedef ext::generative_<repnum_> parent;
+    };
   }
 
   #define M0(z,n,t)                                         \
@@ -35,18 +36,17 @@ namespace nt2
   #undef M0
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Register repnum_ as a generative expression
-  //============================================================================
   template<class Domain, class Expr, int N>
-  struct generator<tag::repnum_,Domain,N,Expr>   : generative_generator<Expr>
+  struct  value_type<tag::repnum_,Domain,N,Expr>
+        : meta::generative_value<Expr>
   {};
 
   template<class Domain, class Expr, int N>
-  struct size_of<tag::repnum_,Domain,N,Expr>     : generative_size_of<Expr>
+  struct  size_of<tag::repnum_,Domain,N,Expr>
+        : meta::generative_size<Expr>
   {};
-} } }
+} }
 
 #endif

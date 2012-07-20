@@ -11,11 +11,14 @@
 **/
 #ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_EXPFIT_HPP_INCLUDED
 #define NT2_TOOLBOX_STATISTICS_FUNCTIONS_EXPFIT_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
+
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
 /*!
  * \ingroup statistics
@@ -47,16 +50,16 @@
  *   non-negative values.
  *
  *   pass in nt2::_ for alpha, censoring, or freq to use their default values.
- * 
+ *
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/expfit.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -70,9 +73,9 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag expfit_ of functor expfit 
+     * \brief Define the tag expfit_ of functor expfit
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct expfit_ : ext::tieable_<expfit_> { typedef ext::tieable_<expfit_> parent; };
@@ -84,60 +87,44 @@ namespace nt2 { namespace tag
   NT2_FUNCTION_IMPLEMENTATION(tag::expfit_, expfit, 4)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::expfit_,Domain,N,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term0;
-    typedef typename meta::strip<seq_term0>::type::extent_type          ext0_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,1>::type seq_term1;
-    typedef typename meta::strip<seq_term1>::type::extent_type          ext1_t;
+    typedef typename  boost::proto::result_of::child_c<Expr&,0>
+                      ::value_type seq_term0::extent_type           ext0_t;
+    typedef typename  boost::proto::result_of::child_c<Expr&,1>
+                      ::value_type::extent_type                     ext1_t;
+
     typedef typename make_size< (ext0_t::static_size > ext1_t::static_size)
                                 ? ext0_t::static_size
                                 : ext1_t::static_size
                                >::type                             result_type;
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type sizee = nt2::extent(boost::proto::child_c<0>(e));
-      result_type sizee1 = nt2::extent(boost::proto::child_c<1>(e)); 
+      result_type sizee1 = nt2::extent(boost::proto::child_c<1>(e));
+
       for(size_t i = 0; i < sizee.size(); ++i)
-        {
-          if (sizee[i] < sizee1[i]) sizee[i] = sizee1[i];
-        }
+      {
+        if (sizee[i] < sizee1[i]) sizee[i] = sizee1[i];
+      }
+
       return sizee;
     }
   };
+
   template<class Domain, class Expr>
   struct  size_of<tag::expfit_,Domain,1,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
+        : meta::size_as<Expr,0>
+  {};
+
   template<class Domain, int N, class Expr>
-  struct  generator<tag::expfit_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
-
-    // Rebuild proper expression type with semantic
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , sema_t
-                      >                                     result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
-} } }
+  struct  value_as<tag::expfit_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
+} }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of expfit.hpp
-// /////////////////////////////////////////////////////////////////////////////

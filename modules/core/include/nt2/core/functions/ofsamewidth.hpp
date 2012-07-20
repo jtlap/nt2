@@ -19,14 +19,14 @@
  * Returns true or false according a0 and a1 have same width.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ofsamewidth.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg eq
- * 
+ *
  * \synopsis
  *
  * \code
@@ -38,24 +38,22 @@
  * \endcode
  *
  * \param a0 the first parameter of ofsamewidth
- * 
+ *
  * \return a bool value
- *  
+ *
 **/
 
 namespace nt2
 {
   namespace tag
   {
-    struct ofsamewidth_ : ext::unspecified_<ofsamewidth_>
+    struct ofsamewidth_ : boost::dispatch::tag::formal_
     {
-      typedef ext::unspecified_<ofsamewidth_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ofsamewidth_, ofsamewidth, 2)
-
 }
 
 #endif
-

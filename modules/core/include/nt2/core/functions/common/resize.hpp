@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      i_t nl  = splat<i_t>(numel(boost::proto::child_c<0>(a0)));
+      i_t nl = splat<i_t>(numel(boost::proto::child_c<0>(a0)));
       i_t pos = nt2::enumerate<i_t>( p );
 
       // Return 0 if out of bounds value in a0 instead
@@ -54,7 +54,6 @@ namespace nt2 { namespace ext
             );
     }
   };
-
 } }
 
 #endif

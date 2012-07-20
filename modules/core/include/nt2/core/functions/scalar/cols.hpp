@@ -10,17 +10,14 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_COLS_HPP_INCLUDED
 
 #include <nt2/core/functions/cols.hpp>
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/cols.hpp>
-#include <nt2/core/functions/details/cols.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
+#include <nt2/core/utility/box.hpp>
+#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/functions/details/cols.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Generates cols from a pair of integers
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cols_, tag::cpu_
                             , (A0)(T)
                             , (scalar_< integer_<A0> >)
@@ -28,54 +25,55 @@ namespace nt2 { namespace ext
                               (scalar_< arithmetic_<T> >)
                             )
   {
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::cols_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::cols<T> >
-      ,  meta::as_<T>
-      >::type             result_type;
-    
-    BOOST_FORCEINLINE result_type operator()(A0 const& n, A0 const& m, T const& start) const
+    typedef meta::constant_<nt2::tag::cols_,T> constant_t;
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::cols_
+                                , container::domain
+                                , box<_2D>
+                                , box<constant_t>
+                                ,  meta::as_<T>
+                                >::type             result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& n, A0 const& m, T const& start) const
     {
       return boost::proto::make_expr< nt2::tag::cols_
-        , container::domain
-        > ( boxify(of_size(n,m))
-            , boxify(nt2::details::cols<T>(start))
-            ,   meta::as_<T>()
-            );
+                                    , container::domain
+                                    > ( boxify(of_size(n,m))
+                                      , boxify(constant_t(start))
+                                      , meta::as_<T>()
+                                      );
     }
   };
-  
-  //============================================================================
-  // Generates cols from fusion sequence + types (support of_size calls)
-  //============================================================================
+
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cols_, tag::cpu_
                             , (Seq)(T)
                             , (fusion_sequence_<Seq>)
                               (scalar_< arithmetic_<T> >)
                             )
   {
+    typedef meta::constant_<nt2::tag::cols_,T> constant_t;
     typedef typename meta::strip<Seq>::type seq_t;
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::cols_
-      , container::domain
-      , box<seq_t>
-      , box<nt2::details::cols<T> >
-      , meta::as_<T>
-      >::type             result_type;
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::cols_
+                                , container::domain
+                                , box<seq_t>
+                                , box<constant_t>
+                                , meta::as_<T>
+                                >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(Seq const& seq, T const& start) const
     {
       return  boost::proto::
-              make_expr<  nt2::tag::cols_
+              make_expr < nt2::tag::cols_
                         , container::domain
                         > ( boxify(seq)
-                          , boxify(nt2::details::cols<T>(start))
-                            ,  meta::as_<T>()
+                          , boxify(constant_t(start))
+                          , meta::as_<T>()
                           );
     }
-  };  
+  };
 } }
 
 #endif

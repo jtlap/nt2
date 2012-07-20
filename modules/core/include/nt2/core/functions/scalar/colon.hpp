@@ -19,29 +19,23 @@
 #include <nt2/include/functions/scalar/fuzzy_equal.hpp>
 #include <nt2/include/functions/scalar/tolerant_floor.hpp>
 
-namespace nt2 { namespace details
-{
-  template<class T> struct colon;
-  template<class T> struct unity_colon;
-} }
-
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Generates colon from a pair of [low,up]
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Generates colon from a pair of [low,up]
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
                               , (A0)(A1)
                               , (scalar_< arithmetic_<A0> >)
                                 (scalar_< arithmetic_<A1> >)
                             )
   {
-    typedef typename boost::common_type<A0,A1>::type base_t;
+    typedef typename boost::common_type<A0,A1>::type          base_t;
+    typedef meta::constant_<nt2::tag::unity_colon_,base_t> constant_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
                                           , box< of_size_<1, -1> >
-                                          , box< nt2::details::unity_colon<base_t> >
+                                          , box< constant_t >
                                           , meta::as_<base_t>
                                           >::type             result_type;
 
@@ -50,30 +44,34 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::colon_
                         , container::domain
-                        > ( boxify(of_size_<1, -1>(1,details::unity_colon_size(l,u)))
-                          , boxify(details::unity_colon<base_t>(l))
+                        > ( boxify( of_size_<1, -1>
+                                    (1,details::unity_colon_size(l,u))
+                                  )
+                          , boxify(constant_t(l))
                           , meta::as_<base_t>()
                           );
     }
   };
 
-  //============================================================================
-  // Generates colon from a pair of [low,up] (static)
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Generates colon from a pair of [low,up] (static)
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
                               , (A0)(A1)
                               , (mpl_integral_< scalar_< arithmetic_<A0> > >)
                                 (mpl_integral_< scalar_< arithmetic_<A1> > >)
                             )
   {
-    static const std::size_t sz = (A1::value>=A0::value) ? std::size_t(A1::value-A0::value+1) : 0u;
+    static const std::size_t sz = (A1::value>=A0::value)
+                                ? std::size_t(A1::value-A0::value+1) : 0u;
 
     typedef typename boost::common_type<A0,A1>::type base_t;
+    typedef meta::constant_<nt2::tag::unity_colon_,base_t> constant_t;
+
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
                                           , box< of_size_<1, sz> >
-                                          , box< nt2::details::unity_colon<base_t> >
+                                          , box< constant_t >
                                           , meta::as_<base_t>
                                           >::type             result_type;
 
@@ -83,16 +81,15 @@ namespace nt2 { namespace ext
               make_expr < nt2::tag::colon_
                         , container::domain
                         > ( boxify(of_size_<1, sz>())
-                          , boxify(details::unity_colon<base_t>(l))
+                          , boxify(constant_t(l))
                           , meta::as_<base_t>()
                           );
     }
   };
 
-  //============================================================================
-  // Generates colon from a pair of [low,up] and a step
-  // Easy case : everything is signed integral
-  //============================================================================
+  /// INTERNAL ONLY
+  ///  Generates colon from a pair of [low,up] and a step
+  /// Easy case : everything is signed integral
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
                             , (A0)
                             , (scalar_< int_<A0> >)
@@ -100,11 +97,12 @@ namespace nt2 { namespace ext
                               (scalar_< int_<A0> >)
                             )
   {
+    typedef meta::constant_<nt2::tag::colon_,A0> constant_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
                                           , box< of_size_<1, -1> >
-                                          , box< nt2::details::colon<A0> >
+                                          , box< constant_t >
                                           , meta::as_<A0>
                                           >::type             result_type;
 
@@ -114,17 +112,16 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::colon_
                         , container::domain
-                        > ( boxify(of_size_<1, -1>(1,details::colon_size(l,s,u)))
-                          , boxify(nt2::details::colon<A0>(l,s))
+                        > ( boxify(of_size_<1,-1>(1,details::colon_size(l,s,u)))
+                          , boxify(constant_t(l,s))
                           , meta::as_<A0>()
                           );
     }
   };
 
-  //============================================================================
-  // Generates colon from a pair of [low,up] and a step
-  // Easy case : everything is unsigned integral
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Generates colon from a pair of [low,up] and a step
+  /// Easy case : everything is unsigned integral
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
                             , (A0)
                             , (scalar_< uint_<A0> >)
@@ -132,11 +129,12 @@ namespace nt2 { namespace ext
                               (scalar_< uint_<A0> >)
                             )
   {
+    typedef meta::constant_<nt2::tag::colon_,A0> constant_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
                                           , box< of_size_<1, -1> >
-                                          , box< nt2::details::colon<A0> >
+                                          , box< constant_t >
                                           , meta::as_<A0>
                                           >::type             result_type;
 
@@ -147,7 +145,7 @@ namespace nt2 { namespace ext
               make_expr < nt2::tag::colon_
                         , container::domain
                         > ( boxify(of_size_<1, -1>(1,details::colon_size(l,s,u)))
-                          , boxify(nt2::details::colon<A0>(l,s))
+                          , boxify(constant_t(l,s))
                           , meta::as_<A0>()
                           );
     }
@@ -165,12 +163,12 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::as_floating<A0,A1,A2>::type base_t;
-
+    typedef meta::constant_<nt2::tag::colon_,base_t>                constant_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
                                           , box< of_size_<1, -1> >
-                                          , box< nt2::details::colon<base_t> >
+                                          , box< constant_t >
                                           , meta::as_<base_t>
                                           >::type             result_type;
 
@@ -183,7 +181,7 @@ namespace nt2 { namespace ext
       return boost::proto::make_expr< nt2::tag::colon_
                                     , container::domain
                                     > ( boxify(of_size_<1, -1>(1,n))
-                                      , boxify(nt2::details::colon<A0>(l,s))
+                                      , boxify(constant_t(l,s))
                                       , meta::as_<A0>()
                                       );
     }
@@ -201,45 +199,6 @@ namespace nt2 { namespace ext
       }
       return nelt;
     }
-  };
-} }
-
-namespace nt2 { namespace details
-{
-  //============================================================================
-  // colon actual functor : precompute step and just iterate over
-  //============================================================================
-  template<class T> struct colon
-  {
-    colon() {}
-    colon( T const& l, T const& s) : lower_(l), step_(s) {}
-
-    template<class Pos, class Size, class Target>
-    BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& p, Size const&, Target const& t) const
-    {
-      return details::colon_value(lower_,step_,p,t);
-    }
-
-    T lower_, step_;
-  };
-
-  //============================================================================
-  // unity_colon actual functor : just forward form lower bound
-  //============================================================================
-  template<class T> struct unity_colon
-  {
-    unity_colon() {}
-    unity_colon( T const& l ) : lower_(l) {}
-
-    template<class Pos, class Size, class Target>
-    BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& p, Size const&, Target const& t) const
-    {
-      return details::unity_colon_value(lower_,p,t);
-    }
-
-    T lower_;
   };
 } }
 

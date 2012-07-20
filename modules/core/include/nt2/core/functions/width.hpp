@@ -16,16 +16,22 @@
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 
-{ 
-  namespace tag { struct width_ : ext::unspecified_<width_> { typedef ext::unspecified_<width_> parent; }; }
+namespace nt2
+{
+  namespace tag
+  {
+    struct width_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
+    };
+  }
 
   //============================================================================
   /*!
-   * Compute the number of element stored in a given entity.
+   * Compute the width of a given entity in number of elements
    *
-   * \param xpr Expression to compute the size in number of elements
-   * \return The number of elements stored in \c xpr
+   * \param xpr Expression to inspect
+   * \return The width of \c xpr
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::width_, width, 1)

@@ -69,7 +69,7 @@ namespace nt2{ namespace ext
     typedef table<value_type, index_type> result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      BOOST_ASSERT_MSG(is_square(a0),"mpower requires the first input to be a square matrix");
+      BOOST_ASSERT_MSG(issquare(a0),"mpower requires the first input to be a square matrix");
       if(is_ltz(a1))
         return nt2::inv(nt2::mpower(a0, -a1));
       else {
@@ -139,8 +139,8 @@ namespace nt2{ namespace ext
     typedef typename nt2::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      BOOST_ASSERT_MSG(is_square(a0),"mpower requires the first input to be a square matrix or a scalar");
-      BOOST_ASSERT_MSG(is_square(a0),"mpower requires the first input to be a square matrix or a scalar");
+      BOOST_ASSERT_MSG(issquare(a0),"mpower requires the first input to be a square matrix or a scalar");
+      BOOST_ASSERT_MSG(issquare(a0),"mpower requires the first input to be a square matrix or a scalar");
       bool scala0 = isscalar(a0);
       bool scala1 = isscalar(a1);
       BOOST_ASSERT_MSG(scala1||scala0, "mpower requires one of the inputs is a scalar");

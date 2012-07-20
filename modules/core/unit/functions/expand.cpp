@@ -20,43 +20,6 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL( semantic, NT2_TYPES )
-{
-  using boost::mpl::_;
-  using nt2::settings;
-  using nt2::memory::container;
-  using boost::dispatch::meta::semantic_of;
-
-  nt2::table<T> in;
-
-  NT2_TEST_EXPR_TYPE( (nt2::expand(in,nt2::of_size(3,2)))
-                    , (semantic_of<_>)
-                    , ( container<T, settings ( settings(nt2::rectangular_, nt2::_2D)
-                                              , settings()
-                                              )
-                                  >
-                      )
-                    );
-
-  NT2_TEST_EXPR_TYPE( (nt2::expand(in,nt2::of_size(3,1,2)))
-                    , (semantic_of<_>)
-                    , ( container<T, settings ( settings(nt2::rectangular_, nt2::_3D)
-                                              , settings()
-                                              )
-                                  >
-                      )
-                    );
-
-  NT2_TEST_EXPR_TYPE( (nt2::expand(in,nt2::of_size(3,1,2,2)))
-                    , (semantic_of<_>)
-                    , ( container<T, settings ( settings(nt2::rectangular_, nt2::_4D)
-                                              , settings()
-                                              )
-                                  >
-                      )
-                    );
-}
-
 NT2_TEST_CASE_TPL( expand, NT2_TYPES )
 {
   nt2::table<T> in( nt2::of_size(3,3) ), ref, out;

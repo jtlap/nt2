@@ -10,10 +10,11 @@
 #define NT2_CORE_FUNCTIONS_TABLE_DETAILS_FUNCTION_SIZE_HPP_INCLUDED
 
 #include <nt2/core/functions/function.hpp>
-#include <boost/dispatch/meta/strip.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
 #include <nt2/core/functions/table/details/make_size.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   //============================================================================
   // Size of a function call node is depends of the indexers
@@ -56,7 +57,8 @@ namespace nt2 { namespace container { namespace ext
   // Size_of nullary function call case - handle expr()
   //==========================================================================
   template<class Expr, class Domain>
-  struct size_of<tag::function_, Domain, 1, Expr> : size_as<Expr,0> {};
-} } }
+  struct  size_of<tag::function_, Domain, 1, Expr>
+        : meta::size_as<Expr,0> {};
+} }
 
 #endif

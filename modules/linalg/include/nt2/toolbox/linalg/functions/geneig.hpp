@@ -11,8 +11,13 @@
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/toolbox/linalg/functions/details/geneig.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Construct the class choosing the computation model :
 // float,  double or complex < float >  or complex < double > and a matrix or
@@ -61,7 +66,7 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(tag::geneig_, geneig, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::geneig_, geneig, 2)
 
- 
+
   namespace factorization
   {
     /**
@@ -85,23 +90,18 @@ namespace nt2
     NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::geneig_, geneig, 5)
   }
 }
-namespace nt2 { namespace container { namespace ext
+
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct  generator<tag::geneig_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
+  struct  size_of<tag::geneig_,Domain,N,Expr>
+        : meta::size_as<Expr,0>
+  {};
 
-    // Rebuidl proper expression type with semantic
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , sema_t
-                      >                                     result_type;
+  template<class Domain, int N, class Expr>
+  struct  value_type<tag::geneig_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
+} }
 
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
-} } }
 #endif

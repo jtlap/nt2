@@ -12,7 +12,7 @@
 #include <nt2/toolbox/operator/functions/assign.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   // size is that of left-hand side
   template<class Domain, class Expr>
@@ -95,6 +95,6 @@ namespace nt2 { namespace container { namespace ext
                     );
     }
   };
-} } }
+} }
 
 #endif

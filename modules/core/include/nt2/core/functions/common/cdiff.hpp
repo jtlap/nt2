@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -22,10 +23,10 @@ namespace nt2 { namespace ext
                             , (A0)(State)(Data)(N)
                             , ((node_<A0, nt2::tag::cdiff_, N>))
                               (generic_< integer_<State> >)
-                              ((unspecified_<Data>))
+                              (target_< unspecified_<Data> >)
                             )
   {
-    typedef typename Data::type                                     result_type; 
+    typedef typename Data::type                                     result_type;
     typedef typename A0::extent_type                                      ext_t;
     typedef typename meta::as_index<result_type>::type                    i_t;
     typedef typename meta::
@@ -35,15 +36,15 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      size_t along = boost::proto::child_c<1>(a0);
-      ext_t ex0    = boost::proto::child_c<0>(a0).extent();
-      
-      sub_t pos0 = ind2sub(a0.extent(),enumerate<i_t>(p));    
-      sub_t pos1 = pos0; 
-      pos1[along] += 2; 
+      std::size_t along = boost::proto::child_c<1>(a0);
+      ext_t ex0         = boost::proto::child_c<0>(a0).extent();
 
-      return nt2::run(boost::proto::child_c<0>(a0),sub2ind(ex0, pos1),t) 
-           - nt2::run(boost::proto::child_c<0>(a0),sub2ind(ex0, pos0),t); 
+      sub_t pos0 = ind2sub(a0.extent(),enumerate<i_t>(p));
+      sub_t pos1 = pos0;
+      pos1[along] += 2;
+
+      return nt2::run(boost::proto::child_c<0>(a0),sub2ind(ex0, pos1),t)
+           - nt2::run(boost::proto::child_c<0>(a0),sub2ind(ex0, pos0),t);
     }
   };
 } }

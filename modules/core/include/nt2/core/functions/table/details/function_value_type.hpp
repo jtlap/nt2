@@ -14,7 +14,7 @@
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   //============================================================================
   // Extension of value_type to handle function call nodes
@@ -30,6 +30,6 @@ namespace nt2 { namespace container { namespace ext
                         semantic_of<child0>::type
                       >::type                                           type;
   };
-} } }
+} }
 
 #endif

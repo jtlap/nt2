@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,53 +10,34 @@
 #ifndef NT2_CORE_FUNCTIONS_ISROW_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ISROW_HPP_INCLUDED
 
-#include <nt2/include/functor.hpp>
-
 /*!
- * \ingroup core
- * \defgroup core_isrow isrow
- *
- * \par Description
- * Returns true or false according a0 is an "row" container
- * (1Xn) or not.
- *
- * \par Header file
- * 
- * \code
- * #include <nt2/include/functions/isrow.hpp>
- * \endcode
- * 
- * \par Alias 
- * \arg is_row
- * 
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     bool isrow(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the first parameter of isrow
- * 
- * \return a bool value
- *  
+  @file
+  @brief Defines the isrow function
 **/
+
+#include <nt2/include/functor.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct isrow_ : ext::unspecified_<isrow_>
+    /*!
+      @brief Tag for isrow functor
+    **/
+    struct isrow_ : boost::dispatch::tag::formal_
     {
-      typedef ext::unspecified_<isrow_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
+  /*!
+    @brief Is an expression
+
+    @param
+
+    @return
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isrow_, isrow, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isrow_, is_row, 1)
 }
 
 #endif

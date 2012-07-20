@@ -12,6 +12,7 @@
 #include <nt2/core/functions/tie.hpp>
 #include <nt2/core/container/dsl/domain.hpp>
 #include <boost/dispatch/meta/as_ref.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/add_reference.hpp>
 
@@ -81,7 +82,7 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tie_, BOOST_PP_TUPLE_ELEM(2,0,t)         \
                     , boost::proto::list##n<BOOST_PP_ENUM(n, M3, ~)>           \
                     , n                                                        \
                     > expr;                                                    \
-  typedef nt2::container::ext::                                                \
+  typedef nt2::details::                                                       \
           generator< nt2::tag::tie_                                            \
                    , nt2::container::domain                                    \
                    , n                                                         \

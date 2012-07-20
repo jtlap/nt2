@@ -45,25 +45,11 @@ NT2_TEST_CASE( cic_untyped_square )
     for(int j=1;j<= 3;++j)
       NT2_TEST_EQUAL( double(j-1), double(x0(i, j)) );
 
-  for(int i=1;i<= 3;++i)
-  {
-    for(int j=1;j<= 3;++j)
-      std::cout << double(x0(i, j)) << " ";
-    std::cout << std::endl;
-  }
-
   nt2::table<double, nt2::C_index_> x1 = nt2::cic(3);
 
   for(int i=0;i< 3;++i)
     for(int j=0;j< 3;++j)
       NT2_TEST_EQUAL( double(j), double(x1(i, j)) );
-
-  for(int i=0;i<3;++i)
-  {
-    for(int j=0;j<3;++j)
-      std::cout << double(x1(i, j)) << " ";
-    std::cout << std::endl;
-  }
 }
 
 NT2_TEST_CASE( cic_nd_untyped )

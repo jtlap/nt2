@@ -11,13 +11,11 @@
 **/
 #ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_CAURND_HPP_INCLUDED
 #define NT2_TOOLBOX_STATISTICS_FUNCTIONS_CAURND_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/details/generative.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/sdk/meta/constant_adaptor.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -72,20 +70,17 @@ namespace nt2 { namespace tag
  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::caurnd_, caurnd, 6)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, class Expr, int N>
-  struct value_type<tag::caurnd_,Domain,N,Expr>
-  {
-    typedef typename  boost::proto::result_of
-                    ::child_c<Expr&,0>::value_type    child_t;
-    typedef typename meta::scalar_of<child_t>::type   base_t;
-    typedef typename meta::strip<base_t>::type        type;
-  };
+  struct  value_type<tag::caurnd_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
 
   template<class Domain, class Expr, int N>
-  struct size_of<tag::caurnd_,Domain,N,Expr> : boxed_size_of<Expr,2>
+  struct  size_of<tag::caurnd_,Domain,N,Expr>
+        : meta::boxed_size<Expr,2>
   {};
-} } }
+} }
 
 #endif

@@ -15,9 +15,10 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/relative.hpp>
-#include <nt2/core/settings/shape.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
@@ -26,13 +27,11 @@ namespace nt2
     struct tri1u_ : ext::elementwise_<tri1u_>
     {
       typedef ext::elementwise_<tri1u_> parent;
-      typedef upper_triangular_       shape_type;
     };
 
     struct offset_tri1u_ : ext::elementwise_<offset_tri1u_>
     {
       typedef ext::elementwise_<offset_tri1u_>  parent;
-      typedef rectangular_                    shape_type;
     };
   }
 
@@ -48,27 +47,27 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_tri1u_, tri1u, 2)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
-  struct  generator<nt2::tag::tri1u_,Domain,1,Expr>
-        : relative_generator<Expr>
+  struct  value_type<nt2::tag::tri1u_,Domain,1,Expr>
+        : meta::value_as<Expr,0>
   {};
 
   template<class Domain, class Expr>
-  struct  generator<nt2::tag::offset_tri1u_,Domain,2,Expr>
-        : relative_generator<Expr>
+  struct  value_type<nt2::tag::offset_tri1u_,Domain,2,Expr>
+        : meta::value_as<Expr,0>
   {};
 
   template<class Domain, class Expr>
   struct  size_of<nt2::tag::tri1u_,Domain,1,Expr>
-        : relative_size_of<Expr>
+        : meta::size_as<Expr,0>
   {};
 
   template<class Domain, class Expr>
   struct  size_of<nt2::tag::offset_tri1u_,Domain,2,Expr>
-        : relative_size_of<Expr>
+        : meta::size_as<Expr,0>
   {};
-} } }
+} }
 
 #endif

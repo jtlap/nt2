@@ -15,17 +15,18 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/reshaping.hpp>
-#include <nt2/sdk/meta/reshaping_hierarchy.hpp>
+#include <nt2/sdk/meta/boxed_size.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct resize_ : ext::reshaping_<resize_>
+    struct resize_ : ext::elementwise_<resize_>
     {
-      typedef ext::reshaping_<resize_> parent;
+      typedef ext::elementwise_<resize_> parent;
     };
   }
 
@@ -37,7 +38,7 @@ namespace nt2
    * \param size  New size of the expression
    */
   //============================================================================
-  #define M0(z,n,t)                                       \
+  #define M0(z,n,t)                                         \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::resize_, resize, n) \
   /**/
 
@@ -46,16 +47,17 @@ namespace nt2
   #undef M0
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
-  template<class Domain, class Expr>
-  struct  generator<nt2::tag::resize_,Domain,2,Expr>
-        : reshaping_generator<Expr>
+  template<class Domain, class Expr, int N>
+  struct  value_type<nt2::tag::resize_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
   {};
 
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::resize_,Domain,2,Expr>
-        : reshaping_size_of<Expr>
+  template<class Domain, class Expr,int N>
+  struct  size_of<nt2::tag::resize_,Domain,N,Expr>
+        : meta::boxed_size<Expr,1>
   {};
-} } }
+} }
+
 #endif

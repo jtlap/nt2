@@ -18,7 +18,13 @@
 
 namespace nt2
 {
-  namespace tag { struct outer_scan_ : ext::unspecified_<outer_scan_> { typedef ext::unspecified_<outer_scan_> parent; }; }
+  namespace tag
+  {
+    struct outer_scan_ : ext::unspecified_<outer_scan_>
+    {
+      typedef ext::unspecified_<outer_scan_> parent;
+    };
+  }
 
   //============================================================================
   /*!

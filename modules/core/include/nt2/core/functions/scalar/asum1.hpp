@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,18 +12,18 @@
 
 #include <nt2/core/functions/asum1.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
-//TODO include complex cases
+/// TODO: include complex cases
 namespace nt2 { namespace ext
 {
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asum1_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asum1_, tag::cpu_
+                            , (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
-    typedef typename  meta::as_floating<A0>::type  f_type;
+    typedef typename  meta::as_floating<A0>::type f_type;
     typedef typename  meta::as_real<f_type>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
@@ -30,12 +31,13 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asum1_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::asum1_, tag::cpu_
+                            , (A0)(A1)
                             , (scalar_< floating_<A0> >)
                               (scalar_< integer_<A1> > )
                             )
   {
-    typedef typename  meta::as_floating<A0>::type  f_type;
+    typedef typename  meta::as_floating<A0>::type f_type;
     typedef typename  meta::as_real<f_type>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &) const
     {

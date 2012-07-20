@@ -26,43 +26,18 @@ namespace nt2 { namespace ext
                             , (ast_<A0>)
                             )
   {
-    typedef typename boost::remove_const<A0>::type::extent_type extent_type;
-    typedef typename meta::strip<extent_type>::type             sizes_t;
-
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::squeeze_
                                           , container::domain
-                                          , A0 const&
-                                          , box<sizes_t>
+                                          , A0&
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      sizes_t sizee;
-      extent_type e = a0.extent();
-
-      // Squeeze don't affect 2D array
-      if(sizes_t::static_size <= 2)
-      {
-        sizee = e;
-      }
-      else
-      {
-        // Copy non singleton dimensions
-        std::size_t u = 0;
-        for(std::size_t i=0;i<sizes_t::static_size;++i)
-        {
-          if(e[i] != 1) { sizee[u] = e[i]; ++u; }
-        }
-
-        // Ensure non-empty size
-        sizee[0] = sizee[0] ? sizee[0] : 1; //
-      }
-
       return  boost::proto::
               make_expr < nt2::tag::squeeze_
                         , container::domain
-                        > ( boost::cref(a0), boxify(sizee) );
+                        > ( boost::ref(a0) );
     }
   };
 } }

@@ -11,13 +11,18 @@
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/toolbox/linalg/functions/details/symeig.hpp>
+
 ////////////////////////////////////////////////////////////////////////////////
 // Construct the class choosing the computation model :
 // float,  double or complex < float >  or complex < double > and a matrix or
 // matrix expression as:
-//                     symeig_result<table <double> >s(1.0/(cif(5)+rif(5)-1)); 
+//                     symeig_result<table <double> >s(1.0/(cif(5)+rif(5)-1));
 // or
 //                     matrix < double >  a(1.0/(cif(5)+rif(5)-1));
 //                     symeig<table < double > >s(a)
@@ -95,23 +100,18 @@ namespace nt2
     NT2_FUNCTION_IMPLEMENTATION_SELF(tag::factorization::symeig_, symeig, 4)
   }
 }
-namespace nt2 { namespace container { namespace ext
+
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct  generator<tag::symeig_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
+  struct  size_of<tag::symeig_,Domain,N,Expr>
+        : meta::size_as<Expr,0>
+  {};
 
-    // Rebuidl proper expression type with semantic
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , sema_t
-                      >                                     result_type;
+  template<class Domain, int N, class Expr>
+  struct  value_type<tag::symeig_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
+} }
 
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
-} } }
 #endif

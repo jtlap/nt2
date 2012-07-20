@@ -38,7 +38,6 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename A1::type result_type;
-
     result_type operator()(A0 const& a0, A1 const& ) const
     {
       return splat<result_type>(a0);

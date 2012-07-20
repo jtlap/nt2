@@ -16,8 +16,6 @@
 
 namespace nt2 { namespace ext
 {
-
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::linesstride_, tag::cpu_
                             , (A0)(A1)
                             , (ast_<A0>)
@@ -30,17 +28,16 @@ namespace nt2 { namespace ext
     result_type operator()(const A0& a0,const A1& dim) const
     {
       if (isempty(a0)) return 1;
-      size_t d =  size_t(dim); 
-      if(d > a0.extent().size()) return numel(a0); 
+      size_t d =  size_t(dim);
+      if(d > a0.extent().size()) return numel(a0);
       size_t stride = 1;
       for(size_t i=1; i < d; ++i)
         {
-          stride *= size(a0, i); 
+          stride *= size(a0, i);
         }
-      return stride; 
+      return stride;
     }
   };
 } }
 
 #endif
-

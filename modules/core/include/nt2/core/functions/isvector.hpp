@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,48 +10,36 @@
 #ifndef NT2_CORE_FUNCTIONS_ISVECTOR_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ISVECTOR_HPP_INCLUDED
 
-#include <nt2/include/functor.hpp>
-
 /*!
- * \ingroup core
- * \defgroup core_isvector isvector
- *
- * \par Description
- * Returns true or false according a0 is an "vector" container
- * (1Xn or nX1) or not.
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/isvector.hpp>
- * \endcode
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     bool isvector(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the first parameter of isvector
- *
- * \return a bool value
- *
+  @file
+  @brief Defines the isvector function
 **/
+
+#include <nt2/include/functor.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct isvector_ : ext::unspecified_<isvector_>
+    /*!
+      @brief Tag for isvector functor
+    **/
+    struct isvector_ : boost::dispatch::tag::formal_
     {
-      typedef ext::unspecified_<isvector_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
+  /*!
+    @brief Is an expression vector shaped ?
+
+    Checks if an expression has a size of the shape [N ... 1]  or [1 N ... 1].
+
+    @param a0 Expression to inspect
+
+    @return Boolean value evaluating to the result of the test
+
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isvector_, isvector, 1)
 }
 

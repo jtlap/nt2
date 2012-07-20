@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,38 +10,51 @@
 #ifndef NT2_CORE_FUNCTIONS_EYE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EYE_HPP_INCLUDED
 
+/*!
+  @file
+  @brief Define and implements the eye function
+**/
+
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the eye functor
+    **/
     struct eye_ : ext::generative_<eye_>
     {
       typedef ext::generative_<eye_> parent;
     };
   }
 
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::eye_, eye, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::eye_, eye, 2)
+  /*!
+    @brief Generate an identity matrix
+
+    @param
+    @param
+    @param
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::eye_, eye, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::eye_, eye, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::eye_, eye, 1)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Register eye as a generative expression
-  //============================================================================
   template<class Domain, class Expr, int N>
-  struct generator<tag::eye_,Domain,N,Expr>   : generative_generator<Expr>
+  struct  value_type<tag::eye_,Domain,N,Expr>
+        : meta::generative_value<Expr>
   {};
 
   template<class Domain, class Expr, int N>
-  struct size_of<tag::eye_,Domain,N,Expr>     : generative_size_of<Expr>
+  struct  size_of<tag::eye_,Domain,N,Expr>
+        : meta::generative_size<Expr>
   {};
-} } }
+} }
 
 #endif

@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,8 +11,7 @@
 #define NT2_CORE_FUNCTIONS_LOGSPACE_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 /*!
@@ -44,6 +44,7 @@ namespace nt2
 {
   struct regular_t {};
   const meta::as_<regular_t> regular_ = {};
+
   namespace tag
   {
     struct logspace_ : ext::generative_<logspace_>
@@ -57,19 +58,20 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::logspace_, logspace, 4)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Register colon as a generative expression
-  //============================================================================
+  /// INTERNAL ONLY
   template<class Domain, class Expr, int N>
-  struct generator<tag::logspace_,Domain,N,Expr> : generative_generator<Expr>
+  struct  value_type<tag::logspace_,Domain,N,Expr>
+        : meta::generative_value<Expr>
   {};
 
+  /// INTERNAL ONLY
   template<class Domain, class Expr, int N>
-  struct size_of<tag::logspace_,Domain,N,Expr>   : generative_size_of<Expr>
+  struct  size_of<tag::logspace_,Domain,N,Expr>
+        : meta::generative_size<Expr>
   {};
-} } }
+} }
 
 #endif
 

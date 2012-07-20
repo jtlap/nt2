@@ -10,8 +10,7 @@
 #define NT2_CORE_FUNCTIONS_PISPACE_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 namespace nt2
@@ -28,19 +27,17 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::pispace_, pispace, 2)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Register colon as a generative expression
-  //============================================================================
   template<class Domain, class Expr, int N>
-  struct generator<tag::pispace_,Domain,N,Expr> : generative_generator<Expr>
+  struct  value_type<tag::pispace_,Domain,N,Expr>
+        : meta::generative_value<Expr>
   {};
 
   template<class Domain, class Expr, int N>
-  struct size_of<tag::pispace_,Domain,N,Expr>   : generative_size_of<Expr>
+  struct  size_of<tag::pispace_,Domain,N,Expr>
+        : meta::generative_size<Expr>
   {};
-} } }
+} }
 
 #endif
-

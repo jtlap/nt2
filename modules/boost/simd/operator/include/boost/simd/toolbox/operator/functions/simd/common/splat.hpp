@@ -48,11 +48,16 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
-                            , (A0)(A1)(X)(Y)
-                            , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>, boost::simd::meta::cardinal_of<typename A1::type> >)
-                            , ((simd_< unspecified_<A0>, X >))
-                              ((target_< simd_< unspecified_<A1>, Y > >))
-                            )
+                                      , (A0)(A1)(X)(Y)
+                                      , (mpl::equal_to
+                                        < boost::simd::meta::cardinal_of<A0>
+                                        , boost::simd::meta
+                                          ::cardinal_of<typename A1::type>
+                                        >
+                                        )
+                                      , ((simd_< unspecified_<A0>, X >))
+                                        ((target_< simd_< unspecified_<A1>, Y > >))
+                                      )
   {
     typedef typename A1::type result_type;
 
@@ -74,11 +79,16 @@ namespace boost { namespace simd { namespace ext
   // Splatting a SIMD value to another can use bitwise_cast, toint or tofloat (optimizations)
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
-                                    , (A0)(A1)(X)
-                                    , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>, boost::simd::meta::cardinal_of<typename A1::type> >)
-                                    , ((simd_< arithmetic_<A0>, X >))
-                                      ((target_< simd_< arithmetic_<A1>, X > >))
-                                    )
+                                      , (A0)(A1)(X)
+                                      , (mpl::equal_to
+                                          < boost::simd::meta::cardinal_of<A0>
+                                          , boost::simd::meta
+                                            ::cardinal_of<typename A1::type>
+                                          >
+                                        )
+                                      , ((simd_< arithmetic_<A0>, X >))
+                                        ((target_< simd_< arithmetic_<A1>,X> >))
+                                      )
   {
     typedef typename A1::type result_type;
 
@@ -89,10 +99,15 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
-                                    , (A0)(A1)(X)
-                                    , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>, boost::simd::meta::cardinal_of<typename A1::type> >)
-                                    , ((simd_< integer_<A0>, X >))
-                                      ((target_< simd_< floating_<A1>, X > >))
+                                      , (A0)(A1)(X)
+                                      , (mpl::equal_to
+                                          < boost::simd::meta::cardinal_of<A0>
+                                          , boost::simd::meta
+                                            ::cardinal_of<typename A1::type>
+                                          >
+                                        )
+                                      , ((simd_< integer_<A0>, X >))
+                                        ((target_< simd_< floating_<A1>, X > >))
                                     )
   {
     typedef typename A1::type result_type;
@@ -104,11 +119,16 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
-                                    , (A0)(A1)(X)
-                                    , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>, boost::simd::meta::cardinal_of<typename A1::type> >)
-                                    , ((simd_< floating_<A0>, X >))
-                                      ((target_< simd_< integer_<A1>, X > >))
-                                    )
+                                      , (A0)(A1)(X)
+                                      , (mpl::equal_to
+                                          < boost::simd::meta::cardinal_of<A0>
+                                          , boost::simd::meta
+                                            ::cardinal_of<typename A1::type>
+                                          >
+                                        )
+                                      , ((simd_< floating_<A0>, X >))
+                                        ((target_< simd_< integer_<A1>, X > >))
+                                      )
   {
     typedef typename A1::type result_type;
 
@@ -117,7 +137,6 @@ namespace boost { namespace simd { namespace ext
       return bitwise_cast<result_type>(simd::toint(a0));
     }
   };
-
 } } }
 
 #endif

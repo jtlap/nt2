@@ -27,6 +27,7 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
+<<<<<<< HEAD
     typedef typename boost::dispatch::meta::
             call<nt2::tag::run_ ( typename  boost::proto::result_of::
                                             child_c<A0&, 0>::type
@@ -36,19 +37,27 @@ namespace nt2 { namespace ext
 
     typedef typename meta::strip<base_type>::type              result_type;
     typedef typename meta::as_index<result_type>::type              i_t;
+=======
+    typedef typename Data::type                                   result_type;
+    typedef typename meta::as_integer<result_type,unsigned>::type i_t;
+    typedef typename  boost::proto::result_of
+                    ::child_c<A0&,0>::value_type::extent_type           ext_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(ext_t,State)>::type  sub_t;
+>>>>>>> Fix for Issue #163 and #178
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      std::size_t nl = numel(a0);
-      State p1 = p%nl; 
-      return if_else( nt2::lt (nt2::enumerate<i_t>( p1 ),
-                               nt2::splat<i_t>(nl)), 
-                      nt2::run(boost::proto::child_c<0>(a0),p1,t),
-                      nt2::run(boost::proto::child_c<0>(a0),p1-nl,t));     
+      i_t nl  = nt2::splat<i_t>(numel(a0));
+      i_t p1  = nt2::enumerate<i_t>(p) % nl;
+      i_t spl = selsub( nt2::lt(pl,nl), pl, nl );
+
+      return if_else( nt2::lt(pl,nl)
+                    , nt2::run(boost::proto::child_c<0>(a0),p1 ,t)
+                    , nt2::run(boost::proto::child_c<0>(a0),sp1,t)
+                    );
     }
   };
-
 } }
 
 #endif
