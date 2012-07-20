@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  proper_tanpi.cpp
   rem_pio2_straight.cpp
   rem_pio2_medium.cpp
   rem_pio2_cephes.cpp
