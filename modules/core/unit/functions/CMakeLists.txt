@@ -93,6 +93,7 @@ SET( SOURCES
     pispace.cpp
     prod.cpp
     putalong.cpp
+    rand.cpp
     relative_index.cpp
     relative_size.cpp
     rephorz.cpp
