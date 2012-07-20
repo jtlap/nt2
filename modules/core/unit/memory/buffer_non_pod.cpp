@@ -222,3 +222,33 @@ NT2_TEST_CASE( buffer_iterator )
   for ( std::size_t i = 0; i < 5; ++i )
     NT2_TEST_EQUAL( x[i].s, std::string("transformed") );
 }
+
+NT2_TEST_CASE(buffer_push_back )
+{
+  using nt2::memory::buffer;
+
+  buffer<nt2::object> x(5);
+  for ( std::ptrdiff_t i = 0; i < 5; ++i ) x[i] = nt2::object("foo");
+  for ( std::ptrdiff_t i = 0; i < 7; ++i ) x.push_back("bar");
+
+  NT2_TEST_EQUAL( x.size(), (std::size_t)5+7 );
+  std::ptrdiff_t i = 0;
+  for ( ; i < 5; ++i ) NT2_TEST_EQUAL( x[i].s, std::string("copied") );
+  for ( ; i < 5+7; ++i ) NT2_TEST_EQUAL( x[i].s, std::string("copied") );
+
+  std::cout << "capacity = " << x.capacity() << std::endl;
+}
+
+NT2_TEST_CASE(buffer_push_back_def )
+{
+  using nt2::memory::buffer;
+
+  buffer<nt2::object> x;
+  for ( std::ptrdiff_t i = 0; i < 7; ++i ) x.push_back("bar");
+
+  NT2_TEST_EQUAL( x.size(), (std::size_t)7 );
+  std::ptrdiff_t i = 0;
+  for ( ; i < 7; ++i ) NT2_TEST_EQUAL( x[i].s, std::string("copied") );
+
+  std::cout << "capacity = " << x.capacity() << std::endl;
+}

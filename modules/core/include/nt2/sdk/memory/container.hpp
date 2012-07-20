@@ -18,6 +18,7 @@
 #include <nt2/core/settings/specific_data.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/core/container/table/semantic.hpp>
+#include <nt2/include/functions/scalar/numel.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <boost/mpl/at.hpp>
 
@@ -202,6 +203,17 @@ namespace nt2 { namespace memory
     {
       resize(szs,boost::mpl::bool_<!extent_type::static_status>());
     }
+
+    //==========================================================================
+    /*!
+     * @brief Add element at end of container, reshape to 1D
+     */
+    //==========================================================================
+    void push_back( T const& t)
+    {
+      data_.push_back(t);
+      sizes_ = extent_type(numel(sizes_) + 1);
+    };
 
     //==========================================================================
     /*!

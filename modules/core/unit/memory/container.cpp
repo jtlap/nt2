@@ -590,3 +590,21 @@ NT2_TEST_CASE_TPL( container_resize, NT2_TYPES)
         NT2_TEST_EQUAL(b[i+2*j], T((1+j) + 10*(1+i)) );
   }
 }
+
+//==============================================================================
+// Test for container push_back
+//==============================================================================
+NT2_TEST_CASE_TPL( container_push_back, NT2_TYPES)
+{
+  nt2::memory::container<T, nt2::settings()> a(nt2::of_size(2, 3));
+  for(std::ptrdiff_t i=0; i<2*3; ++i)
+    a[i] = T(0);
+  for(std::ptrdiff_t i=0; i<7; ++i)
+    a.push_back(T(i));
+
+  NT2_TEST_EQUAL( a.extent(), nt2::of_size(2*3+7) );
+  for(std::ptrdiff_t i=0; i<2*3; ++i)
+    NT2_TEST_EQUAL( a[i], T(0) );
+  for(std::ptrdiff_t i=0; i<7; ++i)
+    NT2_TEST_EQUAL( a[2*3+i], T(i) );
+}

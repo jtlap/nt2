@@ -16,6 +16,7 @@ namespace nt2
 {
   struct object
   {
+    object(const char* s_) : s(s_) {}
     object()              : s("default")  {}
     object(object const&) : s("copied")   {}
 
