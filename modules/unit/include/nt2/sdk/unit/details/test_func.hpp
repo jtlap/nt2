@@ -53,8 +53,8 @@ inline void NAME( char const* x1, char const* x2                          \
                 )                                                         \
 {                                                                         \
   nt2::unit::test_count()++;                                              \
-  T t = through_volatile(t_);                                             \
-  T u = through_volatile(u_);                                             \
+  typename noref<T>::type t = through_volatile(t_);                       \
+  typename noref<U>::type u = through_volatile(u_);                       \
   if( nt2::details::eval( t OP u ) )                                      \
   {                                                                       \
     std::cout << " * Test `"                                              \
@@ -95,8 +95,8 @@ namespace nt2 { namespace details
                       )
   {
     nt2::unit::test_count()++;
-    T t = through_volatile(t_);
-    U u = through_volatile(u_);
+    typename noref<T>::type t = through_volatile(t_);
+    typename noref<U>::type u = through_volatile(u_);
     if( nt2::details::eval( (t == u) || ((t != t) && (u != u)) ) )
     {
       std::cout << " * Test `" << x1 << " == " << x2

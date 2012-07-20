@@ -12,8 +12,22 @@
 namespace nt2 { namespace details
 {
   /// INTERNAL ONLY
+  /// Remove reference unless it's an array
+  template<class T>
+  struct noref
+  {
+    typedef T type;
+  };
+
+  template<class T, std::size_t N>
+  struct noref< T[N] >
+  {
+    typedef T const (&type)[N];
+  };
+
+  /// INTERNAL ONLY
   /// Pass some value through volatile state to prevent eager optimizations
-  template<class T> T through_volatile(T const& t)
+  template<class T> typename noref<T>::type through_volatile(T const& t)
   {
     return const_cast<T const&>(const_cast<T const volatile&>(t));
   }
