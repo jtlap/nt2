@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_CUMSUM_HPP_INCLUDED
-#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_CUMSUM_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_CONTAINER_CUMSUM_HPP_INCLUDED
+#define NT2_TOOLBOX_SWAR_FUNCTIONS_CONTAINER_CUMSUM_HPP_INCLUDED
 
 #include <nt2/toolbox/swar/functions/cumsum.hpp>
 #include <boost/simd/toolbox/swar/functions/cumsum.hpp>
