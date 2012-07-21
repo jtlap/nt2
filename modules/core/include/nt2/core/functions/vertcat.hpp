@@ -38,7 +38,8 @@ namespace nt2 { namespace container { namespace ext
   {
     // We behave as our child
     typedef typename boost::proto::result_of::child_c<Expr&,0>::type    c_sema_t;
-    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
+    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type semad_t;
+    typedef typename meta::strip<semad_t>::type sema_t;
 
     // .. except we have a special size
     typedef typename boxed_size_of<Expr, 2>::result_type               sizes_t;
