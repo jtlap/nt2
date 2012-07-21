@@ -89,7 +89,6 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE  void
     check(const size_t  mode, bool& up, size_t & dim) const
     {
-      std::cout << "check size_t " << mode << std::endl;
       if (mode < 65)
         { up = true; dim = mode; }
       else 
@@ -204,7 +203,7 @@ namespace nt2 { namespace ext
       typedef typename boost::mpl::at_c< typename T::index_type::type, 0>::type  ind_type;
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
-      const int32_t base = ind_type::value-1;
+      const i_type base = ind_type::value-1;
       idx =  nt2::indices(size(res), dim, meta::as_<i_type>())+base; 
 
       size_t h = nt2::size(res, dim);
