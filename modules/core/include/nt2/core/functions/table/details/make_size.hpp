@@ -14,7 +14,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/relative_size.hpp>
-
+#include <nt2/include/functions/ndims.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
