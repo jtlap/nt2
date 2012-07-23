@@ -114,6 +114,7 @@ SET( SOURCES
     subscript.cpp
     sum.cpp
     cumsum.cpp
+    find.cpp
     tie.cpp
     transform.cpp
     tri1l.cpp
