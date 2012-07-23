@@ -167,3 +167,9 @@ NT2_TEST_CASE_TPL( ones_typed_expr, NT2_TYPES )
 
   NT2_TEST_ASSERT( x1 = nt2::ones(a, nt2::meta::as_<T>()) );
 }
+
+NT2_TEST_CASE_TPL( ones_target, NT2_TYPES )
+{
+  T value = nt2::ones(nt2::meta::as_<T>());
+  NT2_TEST_EQUAL( value, T(1) );
+}

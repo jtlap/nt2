@@ -236,7 +236,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
 /**/
 
 //============================================================================
-// Construct a 2D generative node form a single scalar
+// Construct a 2D generative node from a single scalar
 //============================================================================
 #define NT2_PP_GENERATIVE_MAKE_FROM_SINGLE(Tag)                               \
 NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
@@ -296,6 +296,38 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
 }                                                                             \
 /**/
 
+//============================================================================
+// Construct a 0D generative node from target argument
+//============================================================================
+#define NT2_PP_GENERATIVE_MAKE_FROM_TARGET(Tag)                               \
+NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
+                          , (T)                                               \
+                          , (target_< scalar_< unspecified_<T> > >)           \
+                          )                                                   \
+{                                                                             \
+  typedef typename meta::call<BOOST_PP_TUPLE_ELEM(2,1,Tag)(T)>::type res_t;   \
+  typedef typename  boost::proto::result_of::                                 \
+          make_expr < BOOST_PP_TUPLE_ELEM(2,0,Tag)                            \
+                    , container::domain                                       \
+                    , box<_0D>                                                \
+                    , box< meta::constant_<BOOST_PP_TUPLE_ELEM(2,1,Tag)> >    \
+                    , meta::as_<res_t>                                        \
+                    >::type             result_type;                          \
+                                                                              \
+  BOOST_FORCEINLINE result_type operator()(T const&) const                    \
+  {                                                                           \
+    return  boost::proto::                                                    \
+            make_expr<  BOOST_PP_TUPLE_ELEM(2,0,Tag)                          \
+                      , container::domain                                     \
+                      >                                                       \
+            ( boxify(of_size())                                               \
+            , boxify(meta::constant_<BOOST_PP_TUPLE_ELEM(2,1,Tag)>())         \
+            , meta::as_<res_t>()                                              \
+            );                                                                \
+  }                                                                           \
+}                                                                             \
+/**/
+
 //==============================================================================
 // Build all variants of a constant generator expression
 //==============================================================================
@@ -303,6 +335,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
 NT2_PP_GENERATIVE_MAKE_FROM_AST(Name,Tag);                  \
 NT2_PP_GENERATIVE_MAKE_FROM_FUSION(Tag);                    \
 NT2_PP_GENERATIVE_MAKE_FROM_SINGLE(Tag);                    \
+NT2_PP_GENERATIVE_MAKE_FROM_TARGET(Tag);                    \
 BOOST_PP_REPEAT_FROM_TO ( 2                                 \
                         , BOOST_PP_INC(NT2_MAX_DIMENSIONS)  \
                         , NT2_PP_GENERATIVE_MAKE_FROM_SIZE  \
