@@ -6,17 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 euler toolbox - erf/simd Mode"
+#define NT2_UNIT_MODULE "nt2 euler toolbox - erfinv/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of euler components in scalar mode
+// cover test behavior of euler components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-///
-#include <nt2/toolbox/euler/include/functions/erf.hpp>
+/// 
+#include <nt2/toolbox/euler/include/functions/erfinv.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-extern "C" {long double cephes_erfl(long double);}
-
+#include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -31,11 +30,17 @@ extern "C" {long double cephes_erfl(long double);}
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/load.hpp>
+#include <nt2/toolbox/constant/constant.hpp>
 
-NT2_TEST_CASE_TPL ( erf_real__1_0,  NT2_SIMD_REAL_TYPES)
+
+NT2_TEST_CASE_TPL ( erfinv_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::erf;
-  using nt2::tag::erf_;
+  using nt2::erfinv;
+  using nt2::tag::erfinv_;
+  using nt2::load; 
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -44,17 +49,30 @@ NT2_TEST_CASE_TPL ( erf_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<erf_(vT)>::type r_t;
-  typedef typename nt2::meta::call<erf_(T)>::type sr_t;
+  typedef typename nt2::meta::call<erfinv_(vT)>::type r_t;
+  typedef typename nt2::meta::call<erfinv_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  double ulpd;
+  ulpd=0.0;
 
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(erf(nt2::Inf<vT>())[0], nt2::One<sr_t>(), 10);
-  NT2_TEST_ULP_EQUAL(erf(nt2::Mzero<vT>())[0], nt2::Zero<sr_t>(), 10);
-  NT2_TEST_ULP_EQUAL(erf(nt2::Nan<vT>()[0]), nt2::Nan<sr_t>(), 10);
-  NT2_TEST_ULP_EQUAL(erf(nt2::One<vT>())[0], T(0.842700792949715), 10);
-  NT2_TEST_ULP_EQUAL(erf(nt2::Half<vT>())[0], T( 0.520499877813047), 10);
-  NT2_TEST_ULP_EQUAL(erf(nt2::Two<vT>())[0], T(0.995322265018953), 10);
-  NT2_TEST_ULP_EQUAL(erf(nt2::Ten<vT>())[0],  nt2::One <sr_t>(), 10);
-  NT2_TEST_ULP_EQUAL(erf(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 10);
+  // random verifications
+  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
+  {
+    NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(1));
+    double ulp0, ulpd ; ulpd=ulp0=0.0;
+    for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
+      {
+        vT a0 = load<vT>(&tab_a0[0],j);
+        r_t v = erfinv(a0);
+        std::cout << "a0 " << a0<< std::endl;
+        std::cout << "v  " << v << std::endl; 
+        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
+        {
+          
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::erfinv (a0[i])), 0.0);
+          ulp0 = nt2::max(ulpd,ulp0);
+        }
+      }
+    std::cout << "max ulp found is: " << ulp0 << std::endl;
+  }
 } // end of test for floating_

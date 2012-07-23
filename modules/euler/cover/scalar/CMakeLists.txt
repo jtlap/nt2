@@ -21,6 +21,7 @@ SET( SOURCES
   beta.cpp
   erf.cpp
   erfc.cpp
+  erfinv.cpp
 # List of scalar test files for toolbox euler
    )
 
