@@ -34,6 +34,7 @@ SET( SOURCES
     dot.cpp
     expand.cpp
     eye.cpp
+    falses.cpp
     first_last_index.cpp
     firstnonsingleton.cpp
     flipdim.cpp
@@ -119,6 +120,7 @@ SET( SOURCES
     tri1u.cpp
     tril.cpp
     triu.cpp
+    trues.cpp
     var.cpp
     vertcat.cpp
     width.cpp
