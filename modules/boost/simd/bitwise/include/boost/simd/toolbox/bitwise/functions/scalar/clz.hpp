@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/scalar/hi.hpp>
 #include <boost/simd/include/functions/scalar/ffs.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <iostream>
 
 
 #ifdef BOOST_MSVC
@@ -36,7 +37,7 @@ namespace boost { namespace simd { namespace ext
         unsigned long index;
         if(_BitScanReverse64(&index, uint64_t(a0)))
           return index+1;
-        return 0;
+        return 64;
       #elif defined BOOST_MSVC
         unsigned lo = (unsigned)t1;
         //      return lo ? _BitScanReverse(lo) : _BitScanReverse(unsigned(t1)>>32)) + 32;
@@ -52,7 +53,7 @@ namespace boost { namespace simd { namespace ext
         return 32+index+1;
       #else
         if(!t1)
-          return 0;
+          return 64;
         return boost::simd::ffs(reversebits(t1))-1; 
       #endif
       }
@@ -69,16 +70,16 @@ namespace boost { namespace simd { namespace ext
     {
       result_type t1 = bitwise_cast<result_type>(a0);
       
-    #ifdef __GNUC__
+    #ifdef __GNUC__ 
       return __builtin_clz(t1);
     #elif defined(BOOST_MSVC)
       unsigned long index;
       if(_BitScanReverse(&index, t1)) return index+1;
-      return 0;
+      return 32;
     #else
       if(!t1)
-        return 0;
-      return boost::simd::ffs(reversebits(t1)-1); 
+        return 32;
+      return boost::simd::ffs(reversebits(t1))-1; 
      #endif
     }
   };

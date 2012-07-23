@@ -38,20 +38,19 @@ namespace boost { namespace simd { namespace ext
         return 0;
       #elif defined BOOST_MSVC
         unsigned lo = (unsigned)t1;
-        //      return lo ? _BitScanReverse(lo) : _BitScanReverse(unsigned(t1)>>32)) + 32;
-         unsigned long index;
+        unsigned long index;
         if (lo)
           {
             _BitScanReverse(&index, lo); 
             return index+1;
           }
         if(!t1)
-          return 0;
+          return 64;
         _BitScanReverse(&index, boost::simd::hi(t1));
         return 32+index+1;
       #else
         if(!t1)
-          return 0;
+          return 64;
         return boost::simd::ffs(t1)-1; 
       #endif
       }
@@ -73,10 +72,10 @@ namespace boost { namespace simd { namespace ext
     #elif defined(BOOST_MSVC)
       unsigned long index;
       if(_BitScanReverse(&index, t1)) return index+1;
-      return 0;
+      return 32;
     #else
       if(!t1)
-        return 0;
+        return 32;
       return boost::simd::ffs(t1)-1; 
      #endif
     }
