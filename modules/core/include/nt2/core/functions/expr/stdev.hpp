@@ -11,7 +11,6 @@
 
 #include <nt2/core/functions/stdev.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/stdev.hpp>
 #include <nt2/include/functions/var.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/size.hpp>
