@@ -27,8 +27,8 @@ namespace nt2 { namespace ext
   template<class A0, class T, class Dummy = void>
   struct function_find
   {
-    typedef T type;
-    static T& call(A0&, T& t)
+    typedef T const& type;
+    static type call(A0&, T const& t)
     {
       return t;
     }
@@ -39,8 +39,8 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type stype;
     typedef typename meta::as_integer<stype>::type itype;
-    typedef typename meta::call<tag::find_(T&, meta::as_<itype>)>::type type;
-    static type call(A0&, T& t)
+    typedef typename meta::call<tag::find_(T const&, meta::as_<itype>)>::type type;
+    static type call(A0&, T const& t)
     {
       return nt2::find(t, meta::as_<itype>());
     }
