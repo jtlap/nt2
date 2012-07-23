@@ -14,8 +14,6 @@
 #include <boost/simd/include/functions/scalar/hi.hpp>
 #include <boost/simd/include/functions/scalar/ffs.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
-#include <iostream>
-
 
 #ifdef BOOST_MSVC
 #include <intrin.h>
