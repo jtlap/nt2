@@ -9,12 +9,12 @@
 #ifndef NT2_CORE_FUNCTIONS_ZEROS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ZEROS_HPP_INCLUDED
 
-#include <nt2/core/container/dsl/details/generative.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/sdk/meta/constant_adaptor.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/functions/details/generative_preprocessor.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -28,6 +28,9 @@ namespace nt2
           : ext::generative_<zeros_> { typedef ext::generative_<zeros_> parent; };
   }
 
+  //============================================================================
+  // Setup zeros overloads
+  //============================================================================
   #define M0(z,n,t)                                       \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::zeros_, zeros, n) \
   /**/
@@ -37,18 +40,26 @@ namespace nt2
   #undef M0
 }
 
+//==============================================================================
+// Setup zeros generator traits
+//==============================================================================
 namespace nt2 { namespace container { namespace ext
 {
-  //============================================================================
-  // Register zeros_ as a generative expression
-  //============================================================================
   template<class Domain, class Expr, int N>
-  struct generator<tag::zeros_,Domain,N,Expr>   : generative_generator<Expr>
+  struct value_type<tag::zeros_,Domain,N,Expr>  : generative_value_type<Expr>
   {};
 
   template<class Domain, class Expr, int N>
   struct size_of<tag::zeros_,Domain,N,Expr>     : generative_size_of<Expr>
   {};
 } } }
+
+//==============================================================================
+// Setup zeros specialization
+//==============================================================================
+namespace nt2 { namespace ext
+{
+  NT2_PP_MAKE_GENERATIVE( zeros, (nt2::tag::zeros_,nt2::tag::Zero) )
+} }
 
 #endif

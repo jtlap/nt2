@@ -9,12 +9,12 @@
 #ifndef NT2_CORE_FUNCTIONS_NANS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_NANS_HPP_INCLUDED
 
-#include <nt2/core/container/dsl/details/generative.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/sdk/meta/constant_adaptor.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/functions/details/generative_preprocessor.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -38,18 +38,26 @@ namespace nt2
   #undef M0
 }
 
+//==============================================================================
+// Setup nans generator traits
+//==============================================================================
 namespace nt2 { namespace container { namespace ext
 {
-  //============================================================================
-  // Register nans_ as a generative expression
-  //============================================================================
   template<class Domain, class Expr, int N>
-  struct generator<tag::nans_,Domain,N,Expr>   : generative_generator<Expr>
+  struct value_type<tag::nans_,Domain,N,Expr>  : generative_value_type<Expr>
   {};
 
   template<class Domain, class Expr, int N>
   struct size_of<tag::nans_,Domain,N,Expr>     : generative_size_of<Expr>
   {};
 } } }
+
+//==============================================================================
+// Setup nans specialization
+//==============================================================================
+namespace nt2 { namespace ext
+{
+  NT2_PP_MAKE_GENERATIVE( nans, (nt2::tag::nans_,nt2::tag::Nan) )
+} }
 
 #endif

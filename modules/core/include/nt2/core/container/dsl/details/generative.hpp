@@ -15,9 +15,30 @@
 
 namespace nt2 { namespace container { namespace ext
 {
+
+  //============================================================================
+  // This is the factorized value_type for all generative function.
+  // For any given generative function tag GEN, the specialization of their
+  // value_type is :
+  //
+  // namespace nt2 { namespace container { namespace ext
+  // {
+  //  template<class Domain, class Expr, int N>
+  //  struct value_type<GEN,Domain,N,Expr> : value_type<Expr>
+  //  {};
+  // } } }
+  //
+  //============================================================================
+  template<class Expr> struct generative_value_type
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,2>::type  child_t;
+    typedef typename boost::proto::result_of::value<child_t>::type    target_t;
+    typedef typename meta::strip<target_t>::type::type                type;
+  };
+
   //============================================================================
   // This is the factorized size_of for all generative function.
-  // For any given generative function tag GEN, the registration of their
+  // For any given generative function tag GEN, the specialization of their
   // size_of is simply :
   //
   // namespace nt2 { namespace container { namespace ext

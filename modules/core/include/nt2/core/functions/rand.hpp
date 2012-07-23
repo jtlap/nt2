@@ -9,11 +9,10 @@
 #ifndef NT2_CORE_FUNCTIONS_RAND_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_RAND_HPP_INCLUDED
 
-#include <nt2/core/container/dsl/details/generative.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/sdk/meta/constant_adaptor.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/functions/details/generative_preprocessor.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -41,18 +40,27 @@ namespace nt2
   #undef M0
 }
 
+
+//==============================================================================
+// Even if not being a generative_, rand_ behaves as one
+//==============================================================================
 namespace nt2 { namespace container { namespace ext
 {
-  //============================================================================
-  // Register rand_ as a generative expression (even if a bit special)
-  //============================================================================
   template<class Domain, class Expr, int N>
-  struct generator<tag::rand_,Domain,N,Expr>   : generative_generator<Expr>
+  struct value_type<tag::rand_,Domain,N,Expr>  : generative_value_type<Expr>
   {};
 
   template<class Domain, class Expr, int N>
   struct size_of<tag::rand_,Domain,N,Expr>     : generative_size_of<Expr>
   {};
 } } }
+
+//==============================================================================
+// Setup rand specialization - computes type like NaN
+//==============================================================================
+namespace nt2 { namespace ext
+{
+  NT2_PP_MAKE_GENERATIVE( rand, (nt2::tag::rand_,nt2::tag::Nan) )
+} }
 
 #endif
