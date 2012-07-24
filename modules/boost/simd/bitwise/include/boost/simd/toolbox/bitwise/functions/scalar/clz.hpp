@@ -33,25 +33,20 @@ namespace boost { namespace simd { namespace ext
         return __builtin_clzll(t1);
       #elif defined BOOST_MSVC && defined _WIN64
         unsigned long index;
-        if(_BitScanReverse64(&index, uint64_t(a0)))
-          return index+1;
-        return 64;
+        _BitScanReverse64(&index, uint64_t(a0)); 
+        return sizeof(A0)*8-index-1;
       #elif defined BOOST_MSVC
         unsigned lo = (unsigned)t1;
-        //      return lo ? _BitScanReverse(lo) : _BitScanReverse(unsigned(t1)>>32)) + 32;
-         unsigned long index;
+        unsigned long index;
         if (lo)
           {
             _BitScanReverse(&index, lo); 
-            return index+1;
+            return sizeof(A0)*8-index-1;
           }
-        if(!t1)
-          return 0;
         _BitScanReverse(&index, boost::simd::hi(t1));
-        return 32+index+1;
+        return 32+sizeof(A0)*8-index-1;
       #else
-        if(!t1)
-          return 64;
+        if(!t1) return 64;
         return boost::simd::ffs(reversebits(t1))-1; 
       #endif
       }
