@@ -49,14 +49,14 @@ namespace
         ///                                   (17.07.2012.) (Domagoj Saric)
         /// \todo Add/consider maximum allowed average ULPD thresholds.
         ///                                   (19.07.2012.) (Domagoj Saric)
-        /// \todo Add fixed/predefined test vectors to get portably reproducible
-        /// tests.
-        ///                                   (19.07.2012.) (Domagoj Saric)
         /// \todo Add tests for forward complex transform of real data (result
         /// must be conjugated symmetric) and inverse complex transform of
         /// conjugated symmetric data (result must be pure real).
         /// Add a http://en.wikipedia.org/wiki/Parseval's_theorem test.
         ///                                   (18.07.2012.) (Domagoj Saric)
+        /// \todo Add more fixed/predefined test vectors which have
+        /// known/expected results/transforms (like sawtooth, pulse, sines...).
+        ///                                   (19.07.2012.) (Domagoj Saric)
 
         static unsigned int const maximum_allowed_complex_nt2_ulpd   = 1030;
         static unsigned int const maximum_allowed_real_nt2_ulpd      =  580;
@@ -73,6 +73,8 @@ namespace
 
     void randomize( aligned_array & data )
     {
+        /// \note Portably reproducible pseudo "random" values.
+        ///                                   (24.07.2012.) (Domagoj Saric)
         boost::random::mt19937                            prng        ( 42                                                                     );
         boost::random::uniform_real_distribution<T> const distribution( constants::test_data_range_minimum, constants::test_data_range_maximum );
         BOOST_FOREACH( T & scalar, data )
@@ -172,9 +174,6 @@ namespace
 
 NT2_TEST_CASE( test )
 {
-    // FIXME: should tests initialise the RNG (it makes them unreproducible)?
-    //std::srand( std::time( NULL ) );
-
     // Test complex transform(s):
     {
         aligned_array real_data;
