@@ -292,6 +292,8 @@ namespace nt2
 //   http://www.eurasip.org/Proceedings/Eusipco/Eusipco2004/defevent/papers/cr1502.pdf
 //   http://www.kangli.org/doc/papers/thesis-bs.pdf
 //   http://dl.acm.org/citation.cfm?id=1775222&bnc=1
+//   Tzou, K.-H.; Morgan, N.P.; , "A fast pipelined DFT processor and its programming consideration," Electronic Circuits and Systems, IEE Proceedings G , vol.132, no.6, pp.273-276, December 1985
+//   H. L. Gorginsky and G. A. Works, "A pipeline fast Fourier transform," IEEE Trans. Comput., vol. C-19, pp. 1015-1019, Nov. 1970.
 
 // Code:
 // https://bitbucket.org/jpommier/pffft
