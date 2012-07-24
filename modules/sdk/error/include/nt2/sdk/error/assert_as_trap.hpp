@@ -32,7 +32,7 @@ namespace boost
                         , char const* fn, char const* f, long l
                         )
   {
-    fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n",f,l,fn,expr);
+    fprintf(stderr,"%s:%ld: %s: Assertion %s failed.\n",f,l,fn,expr);
     ::nt2::trap();
   }
 
@@ -43,7 +43,7 @@ namespace boost
                             , char const* fn, char const* f, long l
                             )
   {
-    fprintf(stderr,"%s:%d: %s: Assertion %s failed.\n\t%s",f,l,fn,expr,msg);
+    fprintf(stderr,"%s:%ld: %s: Assertion %s failed.\n\t%s",f,l,fn,expr,msg);
     ::nt2::trap();
   }
 }
