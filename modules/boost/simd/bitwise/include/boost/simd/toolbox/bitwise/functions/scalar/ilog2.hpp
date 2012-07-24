@@ -35,7 +35,13 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+    #if defined(BOOST_MSVC)
+      unsigned long index(0);
+      ::_BitScanReverse(&index, a0);
+      return index;
+    #else
       return sizeof(A0)*8-boost::simd::clz(a0)-1;
+    #endif
     }
   };
 
