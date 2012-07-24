@@ -89,14 +89,15 @@ struct twiddles_interleaved;
 //  + compile-time lightweight
 //  - does not get placed in the read-only text section
 //  - creates dynamic initialisers for each N
-//  - forces sinecosine<small> function to be present in the binary
+//  - forces one of the sincos functions (depending on the used twiddle
+//    calculator) to be present in the binary
 //  - requires effort to achieve maximum possible precision
 ////////////////////////////////////////////////////////////////////////////////
 
 namespace detail
 {
     ////////////////////////////////////////////////////////////////////////////
-    // Twiddle calculation implementations.
+    // Twiddle calculator implementations.
     ////////////////////////////////////////////////////////////////////////////
     /// \note Simple radians based sinecosine calculation of twiddles does not
     /// give maximally accurate values because rational values of Pi (a
@@ -331,8 +332,8 @@ namespace detail
             /// radians
             /// degrees
             /// hardware_or_crt
-            /// pies_scalar_upgraded_type (this requires further investigation)
-            /// pies.
+            /// pies
+            /// pies_scalar_upgraded_type (this requires further investigation).
             ///                               (20.07.2012.) (Domagoj Saric)
             typedef pies impl;
 

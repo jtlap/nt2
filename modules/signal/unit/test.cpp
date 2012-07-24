@@ -43,9 +43,13 @@ namespace
         static int const test_data_range_minimum = -1;
         static int const test_data_range_maximum = +1;
 
-        /// \todo The maximum error values should be made dependent on the value
-        /// type and the size of the transform (see the "accuracy/precision"
-        /// links in static_fft.hpp).
+        /// \todo The maximum error values should be made dependent on the:
+        ///  - value type (float, double, ...)
+        ///  - transform type (complex or real)
+        ///  - size of the transform
+        ///  - used algorithm or more precisely, its arithmetic operation count
+        ///    (currently this is the split-radix algorithm)
+        ///  (see the "accuracy/precision" links in static_fft.hpp).
         ///                                   (17.07.2012.) (Domagoj Saric)
         /// \todo Add/consider maximum allowed average ULPD thresholds.
         ///                                   (19.07.2012.) (Domagoj Saric)
@@ -57,6 +61,10 @@ namespace
         /// \todo Add more fixed/predefined test vectors which have
         /// known/expected results/transforms (like sawtooth, pulse, sines...).
         ///                                   (19.07.2012.) (Domagoj Saric)
+        /// \todo Investigate why testing with NDEBUG defined gives much better
+        /// results (on MSVC10). Without NDEBUG MSVC10, Clang3 and GCC 4.x give
+        /// exactly the same results.
+        ///                                   (24.07.2012.) (Domagoj Saric)
 
         static unsigned int const maximum_allowed_complex_nt2_ulpd   = 1030;
         static unsigned int const maximum_allowed_real_nt2_ulpd      =  580;
