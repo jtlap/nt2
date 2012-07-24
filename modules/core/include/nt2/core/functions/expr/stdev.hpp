@@ -52,13 +52,11 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A2> > )
                               )
   {
-    typedef typename meta::call < tag::var_(A0 const&, A1 const&, const & A2)>::type T1;
+    typedef typename meta::call < tag::var_(A0 const&, A1 const&, A2 const &)>::type T1;
     typedef typename meta::call < tag::sqrt_(T1)>::type result_type; 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1, const A2& a2) const
     {
       return nt2::sqrt(var(a0, a1, a2));  
-    }
-
     }
   };
 
@@ -70,9 +68,9 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::call < tag::var_(A0 const&, A1 const&)>::type T1;
     typedef typename meta::call < tag::sqrt_(T1)>::type result_type; 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w, const A2& a2) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w) const
     {
-      return nt2::sqrt(var(a0, a1));  
+      return nt2::sqrt(var(a0, w));  
     }
   };
 
@@ -83,11 +81,11 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A2> > )
                               )
   {
-    typedef typename meta::call < tag::var_(A0 const&, A1 const&, const & A2)>::type T1;
+    typedef typename meta::call < tag::var_(A0 const&, A1 const&, A2 const &)>::type T1;
     typedef typename meta::call < tag::sqrt_(T1)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w, const A2& a2) const
     {
-      return nt2::sqrt(var(a0, a1, a2));  
+      return nt2::sqrt(var(a0, w, a2));  
     }
   };
 
