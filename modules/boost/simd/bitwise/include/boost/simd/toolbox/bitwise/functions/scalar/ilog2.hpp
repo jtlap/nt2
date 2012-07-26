@@ -14,6 +14,8 @@
 #include <boost/simd/include/functions/clz.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
 
+#include <boost/assert.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ilog2_, tag::cpu_, (A0)
@@ -35,9 +37,11 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      BOOST_ASSERT_MSG( a0 > 0, "Logarithm is not defined for zero or negative values." );
     #if defined(BOOST_MSVC)
-      unsigned long index(0);
-      ::_BitScanReverse(&index, a0);
+      __assume( a0 > 0 );
+      unsigned long index;
+      BOOST_VERIFY(::_BitScanReverse(&index, a0));
       return index;
     #else
       return sizeof(A0)*8-boost::simd::clz(a0)-1;
