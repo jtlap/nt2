@@ -13,7 +13,9 @@
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/clz.hpp>
 #include <boost/simd/include/functions/exponent.hpp>
-
+#include <boost/mpl/less_equal.hpp>
+#include <boost/mpl/sizeof.hpp>
+#include <boost/mpl/size_t.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,29 +27,59 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-        return exponent(a0); 
+        return exponent(a0);
       }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ilog2_, tag::cpu_
                             , (A0)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {
-    typedef typename dispatch::meta::as_integer<A0>::type result_type;
+    typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG( a0 > 0, "Logarithm is not defined for zero or negative values." );
-    #if defined(BOOST_MSVC)
+      return sizeof(A0)*8-boost::simd::clz(a0)-1;
+    }
+  };
+
+#if defined(BOOST_MSVC)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::ilog2_, tag::cpu_
+                            , (A0)
+                            , (mpl::less_equal< mpl::sizeof_<A0>, mpl::size_t<4> >)
+                            , (scalar_< integer_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      BOOST_ASSERT_MSG( a0 > 0, "Logarithm is not defined for zero or negative values." );
       __assume( a0 > 0 );
       unsigned long index;
       BOOST_VERIFY(::_BitScanReverse(&index, a0));
       return index;
-    #else
-      return sizeof(A0)*8-boost::simd::clz(a0)-1;
-    #endif
     }
   };
+#endif
+
+#if defined(BOOST_MSVC) && defined(_WIN64)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::ilog2_, tag::cpu_
+                            , (A0)
+                            , (scalar_< ints64_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      BOOST_ASSERT_MSG( a0 > 0, "Logarithm is not defined for zero or negative values." );
+      __assume( a0 > 0 );
+      unsigned long index;
+      BOOST_VERIFY(::_BitScanReverse64(&index, a0));
+      return index;
+    }
+  };
+#endif
 
 } } }
 
