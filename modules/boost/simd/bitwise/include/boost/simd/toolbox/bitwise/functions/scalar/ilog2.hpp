@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG( a0 > 0, "Logarithm is not defined for zero or negative values." );
-      return sizeof(A0)*8-boost::simd::clz(a0)-1;
+      return result_type(sizeof(A0)*8-boost::simd::clz(a0)-1);
     }
   };
 
