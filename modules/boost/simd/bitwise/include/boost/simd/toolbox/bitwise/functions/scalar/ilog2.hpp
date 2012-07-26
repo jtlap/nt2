@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_ILOG2_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/ilog2.hpp>
+#include <boost/simd/include/functions/scalar/clz.hpp>
+#include <boost/simd/include/functions/scalar/exponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/clz.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
 #include <boost/mpl/less_equal.hpp>
 #include <boost/mpl/sizeof.hpp>
 #include <boost/mpl/size_t.hpp>
