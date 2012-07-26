@@ -10,10 +10,10 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_CLZ_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/clz.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/scalar/hi.hpp>
 #include <boost/simd/include/functions/scalar/ffs.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/assert.hpp>
 
 #ifdef BOOST_MSVC
 #include <intrin.h>
@@ -29,29 +29,16 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
         result_type t1 = bitwise_cast<result_type>(a0);
+        BOOST_ASSERT_MSG( t1, "clz not defined for 0" );
+
       #ifdef __GNUC__
         return __builtin_clzll(t1);
-      #elif defined BOOST_MSVC && defined _WIN64
-        unsigned long index;
-        _BitScanReverse64(&index, uint64_t(a0)); 
-        return sizeof(A0)*8-index-1;
-      #elif defined BOOST_MSVC
-        unsigned lo = (unsigned)t1;
-        unsigned long index;
-        if (lo)
-          {
-            _BitScanReverse(&index, lo); 
-            return sizeof(A0)*8-index-1;
-          }
-        _BitScanReverse(&index, boost::simd::hi(t1));
-        return 32+sizeof(A0)*8-index-1;
       #else
-        if(!t1) return 64;
-        return boost::simd::ffs(reversebits(t1))-1; 
+        return boost::simd::ffs(reversebits(t1))-1;
       #endif
       }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::clz_, tag::cpu_
                             , (A0)
                             , (scalar_< type32_<A0> >)
@@ -62,17 +49,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type t1 = bitwise_cast<result_type>(a0);
-      
-    #ifdef __GNUC__ 
+      BOOST_ASSERT_MSG( t1, "clz not defined for 0" );
+
+    #ifdef __GNUC__
       return __builtin_clz(t1);
-    #elif defined(BOOST_MSVC)
-      unsigned long index;
-      if(_BitScanReverse(&index, t1)) return index+1;
-      return 32;
     #else
-      if(!t1)
-        return 32;
-      return boost::simd::ffs(reversebits(t1))-1; 
+      return boost::simd::ffs(reversebits(t1))-1;
      #endif
     }
   };
@@ -91,7 +73,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::clz_, tag::cpu_ , (A0)
                             , (scalar_< type8_<A0> >)
                             )
