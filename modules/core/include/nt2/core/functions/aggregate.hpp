@@ -15,11 +15,16 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/utility/of_size.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
-#include <boost/dispatch/details/parameters.hpp>
 #include <boost/fusion/include/as_vector.hpp>
 #include <boost/mpl/transform.hpp>
+
+#include <boost/dispatch/details/parameters.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/facilities/intercept.hpp>
 
 namespace nt2
 {
@@ -87,7 +92,7 @@ namespace nt2 { namespace container { namespace ext
   struct  size_of<nt2::tag::aggregate_,Domain,1,Expr>
   {
     typedef of_size_<1> result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }
@@ -97,7 +102,7 @@ namespace nt2 { namespace container { namespace ext
   struct  size_of<nt2::tag::aggregate_,Domain,N,Expr>
   {
     typedef of_size_<1> result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }

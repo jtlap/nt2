@@ -10,11 +10,9 @@
 #define NT2_CORE_FUNCTIONS_COLON_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/functions/details/colon.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/generative.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
-#include <nt2/core/container/table/semantic.hpp>
+#include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 namespace nt2
 {
@@ -65,7 +63,7 @@ namespace nt2 { namespace container { namespace ext
   struct size_of<tag::relative_colon_,Domain,1,Expr>
   {
     typedef _0D result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }
@@ -75,7 +73,7 @@ namespace nt2 { namespace container { namespace ext
   struct size_of<tag::relative_colon_,Domain,2,Expr>
   {
     typedef _0D result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }

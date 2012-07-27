@@ -44,9 +44,6 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_real__2_0,  BOOST_SIMD_SIMD_REAL_TY
   typedef typename boost::dispatch::meta::call<is_equal_with_equal_nans_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_equal_with_equal_nans(-boost::simd::Zero<vT>(), -boost::simd::Zero<vT>())[0], boost::simd::True<sr_t>());

@@ -59,15 +59,14 @@ namespace nt2 { namespace container { namespace ext
 
   template<class RED, class Expr> struct reduction_size_of<RED,2,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type    child0;
-    typedef typename meta::strip<child0>::type                          schild0;
-    typedef typename meta::strip<typename schild0::extent_type>::type     ext_t;
-    typedef typename nt2::make_size<ext_t::static_size>::type       result_type;
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
+    typedef typename child0::extent_type                                    ext_t;
+    typedef typename nt2::make_size<ext_t::static_size>::type               result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type res = boost::proto::child_c<0>(e).extent();
-      std::size_t red_dim = nt2::terminal(boost::proto::child_c<1>(e)) - 1;
+      std::size_t red_dim = boost::proto::value(boost::proto::child_c<1>(e)) - 1;
 
       // If we reduce over the number of dimensions, do nothing
       if(red_dim < result_type::static_size) res[red_dim] = 1;
@@ -78,10 +77,9 @@ namespace nt2 { namespace container { namespace ext
 
   template<class RED, class Expr> struct reduction_size_of<RED,1,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
-    typedef typename meta::strip<child0>::type                        schild0;
-    typedef typename meta::strip<typename schild0::extent_type>::type ext_t;
-    typedef typename of_size_reduce<ext_t>::type                      result_type;
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
+    typedef typename child0::extent_type                                    ext_t;
+    typedef typename of_size_reduce<ext_t>::type                            result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
@@ -89,9 +87,9 @@ namespace nt2 { namespace container { namespace ext
       std::size_t d = nt2::firstnonsingleton(sz);
 
       result_type res;
-      for(std::size_t i=0; i!=d; ++i)
+      for(std::size_t i=0; i!=std::min(d, res.size()); ++i)
         res[i] = 1;
-      for(std::size_t i=d; i!=sz.size(); ++i)
+      for(std::size_t i=d; i<res.size(); ++i)
         res[i] = sz[i];
       return res;
     }

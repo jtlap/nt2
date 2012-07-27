@@ -15,7 +15,9 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/relative.hpp>
+#include <nt2/core/settings/shape.hpp>
 
 namespace nt2
 {

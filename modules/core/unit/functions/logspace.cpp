@@ -24,7 +24,6 @@
 NT2_TEST_CASE_TPL( logspace, (double)(float) )
 {
   typedef T r_t;
-  double ulpd;
   {
     nt2::table<T> xd = nt2::logspace(T(2),T(3), 50);
     nt2::table<T> yd = nt2::exp10(nt2::linspace(T(2),T(3), 50));

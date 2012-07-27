@@ -28,7 +28,6 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
-#include <nt2/sdk/unit/type_id.hpp>
 
 NT2_TEST_CASE_TPL( inbtrue_scalar, (float)(double))//NT2_TYPES )
 {

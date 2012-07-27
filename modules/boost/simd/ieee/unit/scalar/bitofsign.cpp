@@ -41,9 +41,6 @@ NT2_TEST_CASE_TPL ( bitofsign_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(bitofsign(-boost::simd::Zero<T>()), -boost::simd::Zero<r_t>());
@@ -69,9 +66,6 @@ NT2_TEST_CASE_TPL ( bitofsign_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(bitofsign(boost::simd::One<T>()), boost::simd::Zero<r_t>());
@@ -93,9 +87,6 @@ NT2_TEST_CASE_TPL ( bitofsign_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(bitofsign(boost::simd::Mone<T>()), T(1ull << (sizeof(T)*8-1)));

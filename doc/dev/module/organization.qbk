@@ -1,0 +1,47 @@
+[section General Organization]
+
+`TODO REFURBISH PROPERLY WITH NEW CONTENTS`
+
+The layout of the __NT2__ distribution can be vastly different depending
+on whether you're looking at the source distribution or the binary distribution.
+
+The essential difference is that the source distribution is divided into a
+collection of modules, which can each add headers to the include path, library
+sources to be built, tests, etc. as shown in the following table.
+
+[table Source layout
+    [[Path]          [Description]]
+    [[=nt2/CMakeLists.txt=] [__NT2__ CMake super-project]]
+    [[=nt2/cmake=]   [Global CMake modules for __NT2__ usage]]
+    [[=nt2/doc=]     [Global documentation source]]
+    [[=nt2/modules=] [Collection of modules]]
+    [[----] [----]]
+    [[[^nt2/modules/[~foo]]] [Module [~foo]]]
+    [[[^nt2/modules/[~foo]/CMakeLists.txt]] [Standalone CMake project for module [~foo]]]
+    [[[^nt2/modules/[~foo]/bench]] [Benchmarks for module [~foo]]]
+    [[[^nt2/modules/[~foo]/cmake]] [CMake modules specific to module [~foo]]]
+    [[[^nt2/modules/[~foo]/cover]] [Cover tests for module [~foo]]]
+    [[[^nt2/modules/[~foo]/exhaustive]] [Exhaustive tests for module [~foo]]]
+    [[[^nt2/modules/[~foo]/include]] [Headers specific to module [~foo], suitable to add to your include path]]
+    [[[^nt2/modules/[~foo]/src]] [Source files specific to module [~foo]]]
+    [[[^nt2/modules/[~foo]/unit]] [Unit tests for module [~foo]]]
+    [[----] [----]]
+    [[[^nt2/modules/[~bar]/[~baz]]] [Module [~bar].[~baz] ([~bar] must not be a module)]]
+    [[=nt2/scripts=] [[@http://www.python.org/ Python] and shell scripts used in the development of __NT2__]]
+    [[=nt2/tools=]   [Source of programs that are used to manage a __NT2__ setup]]
+]
+
+All those headers are actually computer-generated using the =gather_includes=
+program; for each file recursively present in a certain directory,
+a file that includes all files with the same name is generated.
+
+This mechanism is used so that including a file [^[~foo].hpp] will
+include all other files named [^[~foo].hpp], hence including all
+specializations for that function.
+
+[warning There is not a 1-to-1 mapping between toolboxes and modules. A module may define several toolboxes,
+and a toolbox may be spread across several modules. Modules are a mechanism to group together source code,
+which can be used, among others scenarios, to group together functionality (like toolboxes), hardware back-ends
+or self-contained extensions.]
+
+[endsect]

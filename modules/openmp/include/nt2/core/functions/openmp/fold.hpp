@@ -47,8 +47,8 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-      std::size_t bound  = boost::fusion::at_c<0>(ext);
-      std::size_t aligned_bound = (boost::fusion::at_c<0>(ext)/N) * N;
+      std::size_t bound = boost::fusion::at_c<0>(ext);
+      std::ptrdiff_t aligned_bound = (boost::fusion::at_c<0>(ext)/N) * N;
 
       result_type out = neutral(nt2::meta::as_<result_type>());
       target_type gvec_out = neutral(nt2::meta::as_<target_type>());
@@ -95,14 +95,14 @@ namespace nt2 { namespace ext
       for(std::size_t i = aligned_bound; i < bound; ++i)
         out = bop(out, nt2::run(in, i, meta::as_<result_type>()));
 
-      return out;     
+      return out;
 
     }
   };
 
 } }
 
-#else 
+#else
 //==============================================================================
 // openMP + no SIMD
 //==============================================================================
@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
-      std::size_t bound       = boost::fusion::at_c<0>(in.extent());
+      std::ptrdiff_t bound = boost::fusion::at_c<0>(in.extent());
       result_type gout = neutral(nt2::meta::as_<result_type>());
       const std::size_t chunk = config::shared_cache_line_size()/sizeof(result_type);
 

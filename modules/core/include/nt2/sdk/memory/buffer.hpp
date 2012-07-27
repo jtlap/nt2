@@ -104,14 +104,38 @@ namespace nt2 { namespace memory
     }
 
     //==========================================================================
+    // Copy constructor with extra capacity
+    //==========================================================================
+    buffer( buffer const& src, std::size_t capa )
+          : allocator_type(src.get_allocator())
+          , begin_(0), end_(0), capacity_(0)
+    {
+      local_ptr<T,deleter> that ( allocator_type::allocate(capa)
+                                , deleter(capa,get_allocator())
+                                );
+
+      nt2::memory::copy_construct ( src.begin(),src.end()
+                                  , that.get()
+                                  , get_allocator()
+                                  );
+
+      begin_ = that.release();
+      if(begin_)
+      {
+        end_ = begin_ + src.size();
+        capacity_ = begin_ + capa;
+      }
+    }
+
+    //==========================================================================
     // Destructor
     //==========================================================================
     ~buffer()
     {
       if(begin_)
       {
-        nt2::memory::destruct(begin_,capacity_,get_allocator());
-        allocator_type::deallocate(begin_,size());
+        nt2::memory::destruct(begin_,end_,get_allocator());
+        allocator_type::deallocate(begin_,capacity());
       }
     }
 
@@ -139,6 +163,21 @@ namespace nt2 { namespace memory
       {
         end_ = begin_ + sz;
       }
+    }
+
+    //==========================================================================
+    // Resizes and add one element at the end
+    //==========================================================================
+    void push_back( T const& t )
+    {
+      if( end_ >= capacity_ )
+      {
+        buffer that(*this, 2*(end_ - begin_ + 1));
+        swap(that);
+      }
+
+      new(end_) T(t);
+      ++end_;
     }
 
     //==========================================================================

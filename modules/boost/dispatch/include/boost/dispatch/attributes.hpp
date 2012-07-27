@@ -9,9 +9,43 @@
 #ifndef BOOST_DISPATCH_ATTRIBUTES_HPP_INCLUDED
 #define BOOST_DISPATCH_ATTRIBUTES_HPP_INCLUDED
 
+/*!
+ * @file
+ * @brief Defines wrapper for noinline, deprecated and restrict attributes
+ **/
+
 #include <boost/config.hpp>
 #include <boost/preprocessor/facilities/is_empty.hpp>
 
+#if defined(NT2_DOXYGEN_ONLY)
+/*!
+ * @brief Mark a function as candidate for no inlining
+ *
+ * This macro expands to a compiler specific function atttibute hinting the
+ * compiler to not inline it.
+ *
+ **/
+#define BOOST_DISPATCH_NOINLINE
+
+/*!
+ * @brief Mark a function as deprecated
+ *
+ * This macro expands to a compiler specific function atttibute emitting a
+ * warning indicating said function is deprecated.
+ *
+ **/
+ #define BOOST_DISPATCH_DEPRECATED
+
+/*!
+ * @brief Mark a pointer or reference as restricted
+ *
+ * This macro expands to a compiler specific parameters attribute indicating
+ * that said attribute is non-aliasing pointer or reference.
+ *
+ **/
+#define BOOST_DISPATCH_RESTRICT
+
+#else
 #ifndef BOOST_FORCEINLINE
 #  if defined(__GNUC__)
 #    define BOOST_FORCEINLINE inline __attribute__((always_inline))
@@ -21,15 +55,16 @@
 #    define BOOST_FORCEINLINE inline
 #  endif
 #endif
+
 // deprecated name
 #define BOOST_DISPATCH_FORCE_INLINE BOOST_FORCEINLINE
 
 #if defined(__GNUC__)
-#define BOOST_DISPATCH_NO_INLINE __attribute__((noinline))
+#define BOOST_DISPATCH_NOINLINE __attribute__((noinline))
 #elif defined(_MSC_VER)
-#define BOOST_DISPATCH_NO_INLINE __declspec(noinline)
+#define BOOST_DISPATCH_NOINLINE __declspec(noinline)
 #else
-#define BOOST_DISPATCH_NO_INLINE
+#define BOOST_DISPATCH_NOINLINE
 #endif
 
 #if defined(__GNUC__)
@@ -53,6 +88,8 @@
 
 #if defined(BOOST_DISPATCH_NO_RESTRICT) || defined(_MSC_VER)
 #define BOOST_DISPATCH_NO_RESTRICT_REFERENCES
+#endif
+
 #endif
 
 #endif

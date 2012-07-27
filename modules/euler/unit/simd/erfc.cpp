@@ -57,9 +57,9 @@ NT2_TEST_CASE_TPL ( erfc_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(erfc(nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 200);
   NT2_TEST_ULP_EQUAL(erfc(nt2::Mzero<vT>())[0], nt2::One<sr_t>(), 200);
   NT2_TEST_ULP_EQUAL(erfc(nt2::Nan<vT>()[0]), nt2::Nan<sr_t>(), 200);
-  NT2_TEST_ULP_EQUAL(erfc(nt2::One<vT>())[0], T(1-0.842700792949715), 200);
-  NT2_TEST_ULP_EQUAL(erfc(nt2::Half<vT>())[0], T(1- 0.520499877813047), 200);
-  NT2_TEST_ULP_EQUAL(erfc(nt2::Two<vT>())[0], T(1-0.995322265018953), 200);
+  NT2_TEST_ULP_EQUAL(erfc(nt2::One<vT>())[0], T(0.157299207050285), 200);
+  NT2_TEST_ULP_EQUAL(erfc(nt2::Half<vT>())[0], T(0.479500122186953), 200);
+  NT2_TEST_ULP_EQUAL(erfc(nt2::Two<vT>())[0], T(0.004677734981047), 200);
   NT2_TEST_ULP_EQUAL(erfc(nt2::Ten<vT>())[0],  nt2::Zero <sr_t>(), 200);
   NT2_TEST_ULP_EQUAL(erfc(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 200);
 } // end of test for floating_

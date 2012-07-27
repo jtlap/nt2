@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,82 +10,83 @@
 #define BOOST_DISPATCH_META_AS_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Defines and implement the \ref boost::dispatch::meta::as_ generic type wrapper
- */
+ * @file
+ * @brief Define the boost::dispatch::meta::as_ type wrapper.
+ **/
 
-#include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 
-#if defined(DOXYGEN_ONLY)
+#if defined(NT2_DOXYGEN_ONLY)
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
   /*!
-   * \ingroup hierarchy
    * Type wrapper hierarchy.
    *
-   * \tparam T Wrapped type hierarchy
+   * @par Models:
+   *
+   * Hierarchy
+   *
+   * @tparam T Wrapped type hierarchy
    */
   //============================================================================
-  template<class T> struct target_ {};
+  template<class T> struct target_{};
 } } }
-#endif
-
+#else
 BOOST_DISPATCH_REGISTER_HIERARCHY(target_)
+#endif
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
   /*!
-   * \ingroup metafunctions
-   * Lightweight type wrapper. Some implementation details of \nt2 require types
-   * to be wrapped into an empty structure so the type can be passed as an
-   * "ghostly" instance. \ref as_ performs such a wrapping and tag itself as
-   * belonging to the \ref target_ hierarchy.
+   * @brief Lightweight type wrapper.
    *
-   * \par Models:
+   * Some implementation details of NT2 require types to be wrapped into an
+   * empty structure so the type can be passed as a "ghostly" instance.
+   * as_ performs such a wrapping.
    *
-   * - Hierarchizable
-   * - \metafunction
+   * To discriminate as_ from the type @c T it wraps, its hierarcy is defined as
+   * @c target_<hierarchy_of<T>::type>
+   *
+   * @par Models:
+   *
+   * @metafunction
    */
-  //============================================================================
   template<class T> struct as_
   {
-    typedef T                                               type;
+    typedef T type;
   };
 
-  //============================================================================
-  // Requirements for Hierarchizable
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Register as_ hierarchy
   template<class T, class Origin>
   struct hierarchy_of< as_<T>, Origin>
   {
-    typedef typename remove_const<Origin>::type stripped;
-    typedef typename mpl::if_< is_same< stripped, as_<T> >, stripped, Origin >::type origin_;
+    typedef typename remove_const<Origin>::type               stripped;
+    typedef typename mpl::if_ < is_same< stripped, as_<T> >
+                              , stripped
+                              , Origin
+                              >::type                         origin_;
     typedef target_<typename hierarchy_of<T, origin_>::type>  type;
   };
 
-  //============================================================================
-  // Requirements for Buildable
-  //============================================================================
+  /// INTERNAL ONLY
+  /// The value of as_<T> is T
   template<class T>
   struct value_of< as_<T> >
   {
     typedef T type;
   };
 
+  /// INTERNAL ONLY
   template<class T>
   struct model_of< as_<T> >
   {
     struct type
     {
-      template<class X>
-      struct apply
-      {
-        typedef as_<X> type;
-      };
+      template<class X> struct apply { typedef as_<X> type; };
     };
   };
 } } }

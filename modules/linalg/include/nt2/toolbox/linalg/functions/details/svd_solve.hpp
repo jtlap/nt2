@@ -59,7 +59,7 @@ namespace nt2 { namespace details
       const nt2_la_int nl   = size(a_, 2);
       const nt2_la_int nrhs = size(b, 2);
       const nt2_la_int lda  = a_.leading_size();
-      const nt2_la_int ldb  = b.leading_size();
+      //      const nt2_la_int ldb  = b.leading_size();
       rtab_t s(of_size(nt2::min(ml, nl), 1));
 
       // typically is a non-square, so we need to create tmp x because is

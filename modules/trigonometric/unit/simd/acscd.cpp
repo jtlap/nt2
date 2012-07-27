@@ -54,9 +54,6 @@ NT2_TEST_CASE_TPL ( acscd_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<acscd_(vT)>::type r_t;
   typedef typename nt2::meta::call<acscd_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acscd(-nt2::Two<vT>())[0], -30, 0.5);
@@ -85,9 +82,6 @@ NT2_TEST_CASE_TPL ( acscd_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
   typedef typename nt2::meta::call<acscd_(vT)>::type r_t;
   typedef typename nt2::meta::call<acscd_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acscd(nt2::One<vT>())[0], 90, 0.5);
@@ -111,9 +105,6 @@ NT2_TEST_CASE_TPL ( acscd_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
   typedef typename nt2::meta::call<acscd_(vT)>::type r_t;
   typedef typename nt2::meta::call<acscd_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acscd(nt2::One<vT>())[0], 90, 0.5);

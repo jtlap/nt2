@@ -19,6 +19,7 @@ namespace nt2
     struct in_place_  {};
     struct meshgrid_  {};
     struct whole_     {};
+    struct along_     {}; 
   }
 
   // Lower/upper
@@ -28,6 +29,7 @@ namespace nt2
   meta::as_<details::in_place_> const in_place_ = {};
   meta::as_<details::whole_>    const whole_    = {};
   meta::as_<details::meshgrid_> const meshgrid_ = {};
+  meta::as_<details::along_>    const along_    = {};
 
 }
 

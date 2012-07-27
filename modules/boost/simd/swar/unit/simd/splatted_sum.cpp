@@ -44,9 +44,6 @@ NT2_TEST_CASE_TPL ( splatted_sum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<splatted_sum_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(splatted_sum(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());

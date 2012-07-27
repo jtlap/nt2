@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const&) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;

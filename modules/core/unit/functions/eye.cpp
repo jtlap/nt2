@@ -39,20 +39,20 @@ NT2_TEST_CASE_TPL( eye_value_type, NT2_TYPES )
 NT2_TEST_CASE( eye_size )
 {
   NT2_TEST_EQUAL( nt2::extent( nt2::eye(4) ), nt2::of_size(4,4 ));
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(4), 1 ), 4 );
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(4), 2 ), 4 );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(4), 1 ), 4u );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(4), 2 ), 4u );
   NT2_TEST_EQUAL( nt2::extent( nt2::eye(4, 5) ), nt2::of_size(4,5 ));
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(4, 5), 1 ), 4 );
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(4, 5), 2 ), 5 );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(4, 5), 1 ), 4u );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(4, 5), 2 ), 5u );
   NT2_TEST_EQUAL( nt2::extent( nt2::eye(nt2::of_size(4,5)) ), nt2::of_size(4,5 ) );
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(4,5)), 1 ), 4 );
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(4,5)), 2 ), 5 );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(4,5)), 1 ), 4u );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(4,5)), 2 ), 5u );
   NT2_TEST_EQUAL( nt2::extent( nt2::eye(nt2::of_size(4,1)) ), nt2::of_size(4,1 ) );
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(4,1)), 1 ), 4 );
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(4,1)), 2 ), 1 );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(4,1)), 1 ), 4u );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(4,1)), 2 ), 1u );
   NT2_TEST_EQUAL( nt2::extent( nt2::eye(nt2::of_size(1,4)) ), nt2::of_size(1,4 ) );
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(1,4)), 1 ), 1 );
-  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(1,4)), 2 ), 4 );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(1,4)), 1 ), 1u );
+  NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(1,4)), 2 ), 4u );
 }
 
 NT2_TEST_CASE( eye_nd_untyped )

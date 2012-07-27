@@ -42,6 +42,7 @@ endforeach()
 configure_file(${NT2_SOURCE_ROOT}/cmake/boostbook/catalog.xml.in
                ${NT2_BINARY_DIR}/doc/catalog.xml
               )
+set(NT2_DOC_QBK_MACRO_FILE ${NT2_SOURCE_ROOT}/doc/macros.qbk)
 
 # Search for file in current source or binary directory (source preferred)
 macro(nt2_absolute var file)
@@ -106,8 +107,10 @@ macro(nt2_doc_qbk file)
   set(target_name target_${relative})
   string(REPLACE "/" "_" target_name ${target_name})
   add_custom_target(${target_name}
-                    COMMAND ${CMAKE_COMMAND} -E copy_if_different
-                            ${absolute} ${CMAKE_BINARY_DIR}/${relative}
+                    COMMAND ${CMAKE_COMMAND}
+                            -DINPUT=${absolute} -DOUTPUT=${CMAKE_BINARY_DIR}/${relative}
+                            -DMACRO_FILE=${NT2_DOC_QBK_MACRO_FILE}
+                            -P ${NT2_SOURCE_ROOT}/cmake/nt2.quickbook-insert-macros.cmake
                     COMMAND ${QUICKBOOK_EXECUTABLE}
                             --input-file ${file}.qbk
                             --include-path ${CMAKE_CURRENT_SOURCE_DIR}/${path}
@@ -133,12 +136,14 @@ macro(nt2_doc_doxygen file)
   endif()
 
   file(READ ${absolute} DOXYGEN_CONTENT)
-  set(DOXYGEN_CONTENT ${DOXYGEN_CONTENT}
-      "QUIET                  = NO\n"
-      "GENERATE_LATEX         = NO\n"
-      "GENERATE_HTML          = NO\n"
-      "GENERATE_XML           = YES\n"
-      "XML_OUTPUT             = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n"
+  # Add proper BOOST path to this Doxygen for PP purpose
+  set(DXY_PP     "SEARCH_INCLUDES=YES\nENABLE_PREPROCESSING=YES\nMACRO_EXPANSION=YES\n")
+  set(DXY_PDEF   "PREDEFINED=NT2_DOXYGEN_ONLY\n")
+  set(DXY_PATH   "INCLUDE_PATH += ${Boost_INCLUDE_DIR}\n")
+  set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=NO\nGENERATE_XML=YES\n")
+  set(DXY_XML    "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n")
+  set(DOXYGEN_CONTENT
+      "${DOXYGEN_CONTENT}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_TARGET}${DXY_XML}"
      )
 
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile ${DOXYGEN_CONTENT})

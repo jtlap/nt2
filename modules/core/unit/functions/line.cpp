@@ -12,6 +12,8 @@
 #include <nt2/include/functions/line.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/cat.hpp>
+#include <nt2/include/functions/nblines.hpp>
+#include <nt2/include/functions/squeeze.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -32,37 +34,55 @@
 NT2_TEST_CASE_TPL( line, (float)(double))//NT2_TYPES )
 {
   using nt2::_;
-  nt2::table<T> y( nt2::of_size(10,7, 2) );
+  nt2::table<T> y( nt2::of_size(3, 4, 2) );
   nt2::table<T> sy;
 
-  int k = 0;
-  for(int l=1;l<=size(y, 3);l++)
-    for(int j=1;j<=size(y, 2);j++)
-      for(int i=1;i<=size(y, 1);i++)
+  size_t k = 0;
+  for(size_t l=1;l<=size(y, 3);l++)
+    for(size_t j=1;j<=size(y, 2);j++)
+      for(size_t i=1;i<=size(y, 1);i++)
         y(i,j,l) = k++;
 
-  //  y =  nt2::cat(3, y, y);
   NT2_DISPLAY(y);
-  std::cout << "-----------------------" << std::endl;
-  NT2_DISPLAY(nt2::line(y, 1));
-  std::cout << "-----------------------" << std::endl;
-  NT2_DISPLAY(nt2::line(y, 2));
-  std::cout << "-----------------------" << std::endl;
-  NT2_DISPLAY(nt2::line(y, 3));
-  NT2_DISPLAY(nt2::line(y, 3, 1));
-  std::cout << "-----------------------" << std::endl;
-  NT2_DISPLAY(nt2::line(y, 1, 2));
-  std::cout << "-----------------------" << std::endl;
-  NT2_DISPLAY(nt2::line(y, 2, 2));
-  std::cout << "-----------------------" << std::endl;
-  NT2_DISPLAY(nt2::line(y, 3, 2));
-  std::cout << "-----------------------" << std::endl;
-  NT2_DISPLAY(nt2::line(y, 1, 3));
-  std::cout << "-----------------------" << std::endl;
-  NT2_DISPLAY(nt2::line(y, 2, 3));
-  std::cout << "-----------------------" << std::endl;
-  NT2_DISPLAY(nt2::line(y, 3, 3));
+ 
+//   //  y =  nt2::cat(3, y, y);
+//   NT2_DISPLAY(y);
+//   std::cout << "-----------------------" << std::endl;
+//   NT2_DISPLAY(nt2::line(y, 1));
+//   std::cout << "-----------------------" << std::endl;
+//   NT2_DISPLAY(nt2::line(y, 2));
+//   std::cout << "-----------------------" << std::endl;
+//   NT2_DISPLAY(nt2::line(y, 3));
+//   NT2_DISPLAY(nt2::line(y, 3, 1));
+//   std::cout << "-----------------------" << std::endl;
+//   NT2_DISPLAY(nt2::line(y, 1, 2));
+//   std::cout << "-----------------------" << std::endl;
+//   NT2_DISPLAY(nt2::line(y, 2, 2));
+//   std::cout << "-----------------------" << std::endl;
+//   NT2_DISPLAY(nt2::line(y, 3, 2));
+//   std::cout << "-----------------------" << std::endl;
+//   NT2_DISPLAY(nt2::line(y, 1, 3));
+//   std::cout << "-----------------------" << std::endl;
+//   NT2_DISPLAY(nt2::line(y, 2, 3));
+//   std::cout << "-----------------------" << std::endl;
+//   NT2_DISPLAY(nt2::line(y, 3, 3));
 
+  
+  for(size_t k=0;k<nt2::nblines(y, 1);++k)
+    {
+      std::cout << "column " << k << std::endl; 
+      NT2_DISPLAY(nt2::squeeze(nt2::line(y, k, 1)));
+    }
+  for(size_t k=0;k<nt2::nblines(y, 2);++k)
+    {
+      std::cout << "row " << k << std::endl; 
+      NT2_DISPLAY(nt2::squeeze(nt2::line(y, k, 2)));
+    }
+  for(size_t k=0;k<nt2::nblines(y, 3);++k)
+    {
+      std::cout << "depth " << k << std::endl; 
+      NT2_DISPLAY(nt2::squeeze(nt2::line(y, k, 3)));
+    }
 
 }
 

@@ -15,7 +15,9 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/relative.hpp>
+#include <nt2/core/settings/shape.hpp>
 
 namespace nt2
 {
@@ -33,7 +35,7 @@ namespace nt2
    * upside down of a table. Return a table the columns of
    * which are in reverse order of the input
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::flipdim_       , flipdim, 2)

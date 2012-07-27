@@ -31,12 +31,12 @@
  * types it does not represent the same mathematical number.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/signmask.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,12 +48,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Signmask
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -61,38 +61,42 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Signmask of functor Signmask 
+     * \brief Define the tag Signmask of functor Signmask
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     struct Signmask : ext::constant_<Signmask>
-    { 
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,0> {};  
+    {
+      template<class Target, class Dummy=void>
+      struct apply : meta::int_c<typename Target::type,0> {};
     };
 
-    template<class Dummy>
-    struct  Signmask::apply<float,Dummy> 
+    template<class T, class Dummy>
+    struct  Signmask::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<0x80000000UL> {};
 
-    template<class Dummy>
-    struct  Signmask::apply<double,Dummy> 
+    template<class T, class Dummy>
+    struct  Signmask::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0x8000000000000000ULL> {};
 
-    template<class Dummy>
-    struct  Signmask::apply<boost::simd::int8_t,Dummy> 
+    template<class T, class Dummy>
+    struct  Signmask::apply<boost::dispatch::meta::int8_<T>,Dummy>
           : meta::int_c<boost::simd::int8_t,boost::simd::int8_t(0x80U)> {};
 
-    template<class Dummy>
-    struct  Signmask::apply<boost::simd::int16_t,Dummy> 
+    template<class T, class Dummy>
+    struct  Signmask::apply<boost::dispatch::meta::int16_<T>,Dummy>
           : meta::int_c<boost::simd::int16_t,boost::simd::int16_t(0x8000U)> {};
 
-    template<class Dummy>
-    struct  Signmask::apply<boost::simd::int32_t,Dummy> 
-          : meta::int_c<boost::simd::int32_t,boost::simd::int32_t(0x80000000UL)> {};
+    template<class T, class Dummy>
+    struct  Signmask::apply<boost::dispatch::meta::int32_<T>,Dummy>
+          : meta::int_c<boost::simd::int32_t,boost::simd::int32_t(0x80000000UL)>
+    {};
 
-    template<class Dummy>
-    struct  Signmask::apply<boost::simd::int64_t,Dummy> 
-          : meta::int_c<boost::simd::int64_t,boost::simd::int64_t(0x8000000000000000ULL)> {};
+    template<class T, class Dummy>
+    struct  Signmask::apply<boost::dispatch::meta::int64_<T>,Dummy>
+          : meta::int_c < boost::simd::int64_t
+                        , boost::simd::int64_t(0x8000000000000000ULL)
+                        >
+    {};
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Signmask, Signmask)

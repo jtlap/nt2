@@ -39,12 +39,9 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<tofloat_(vT)>::type r_t;
+  typedef typename boost::dispatch::meta::strip<typename boost::dispatch::meta::call<tofloat_(vT)>::type>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(tofloat(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
@@ -69,11 +66,9 @@ NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<tofloat_(vT)>::type r_t;
+  typedef typename boost::dispatch::meta::strip<typename boost::dispatch::meta::call<tofloat_(vT)>::type>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   NT2_TEST_EQUAL(tofloat(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
@@ -96,12 +91,9 @@ NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYP
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<tofloat_(vT)>::type r_t;
+  typedef typename boost::dispatch::meta::strip<typename boost::dispatch::meta::call<tofloat_(vT)>::type>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
   NT2_TEST_EQUAL(tofloat(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Two<vT>())[0], boost::simd::Two<sr_t>());

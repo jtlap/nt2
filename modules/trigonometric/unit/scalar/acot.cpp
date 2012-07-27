@@ -48,9 +48,6 @@ NT2_TEST_CASE_TPL ( acot_real__1_0,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acot(nt2::Half<T>()), 1.107148717794090e+00, 1.5);
@@ -78,9 +75,6 @@ NT2_TEST_CASE_TPL ( acot_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acot(nt2::One<T>()), 7.853981633974483e-01, 1.5);
@@ -102,9 +96,6 @@ NT2_TEST_CASE_TPL ( acot_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acot(nt2::Mone<T>()), -7.853981633974483e-01, 1.5);

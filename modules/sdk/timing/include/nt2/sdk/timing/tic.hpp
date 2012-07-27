@@ -25,8 +25,8 @@ namespace nt2 { namespace details
   // It use now() to retrieves second based timestamps.
   struct second_based_timer
   {
-    NT2_UNIT_DECL static        void    Print(const double& val);
-                  static inline double  Time() { return details::now(); }
+    NT2_SDK_TIMING_DECL static        void    Print(const double& val);
+                        static inline double  Time() { return details::now(); }
   };
 
   // INTERNAL ONLY

@@ -45,9 +45,6 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<negif_(vlT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
 //   NT2_TEST_EQUAL(negif(boost::simd::False<vT>(),boost::simd::splat<vT>(1))[0], 1);
@@ -73,9 +70,6 @@ NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPE
   typedef typename boost::dispatch::meta::call<negif_(vlT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
 //   NT2_TEST_EQUAL(negif(boost::simd::False<vT>(),boost::simd::splat<vT>(1))[0], 1);

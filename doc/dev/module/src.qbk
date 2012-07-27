@@ -1,0 +1,13 @@
+[section Sources]
+
+a =/src/CMakeLists.txt= file, if provided, must always start with the following:
+
+[pre
+include(NT2Module)
+nt2_module_source_setup([~module])
+]
+
+This =CMakeLists.txt= may then proceed to build libraries with `nt2_module_add_library`, or trigger the automatic generation of certain files with
+`nt2_module_configure_file`, `nt2_module_postconfigure` or `nt2_module_configure_toolbox`.
+
+[endsect]

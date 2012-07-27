@@ -10,60 +10,65 @@
 #define NT2_SDK_UNIT_DETAILS_SUITE_HPP_INCLUDED
 
 #include <cstdio>
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/config/type_lists.hpp>
-#include <nt2/sdk/unit/details/stats.hpp>
 #include <nt2/sdk/unit/details/register.hpp>
+
+/// TODO: Make this runtime
+#ifndef NT2_UNIT_MODULE
+#define NT2_UNIT_MODULE "unnamed module"
+#endif
 
 namespace nt2 { namespace details
 {
-  //////////////////////////////////////////////////////////////////////////////
-  // RAII class for reporting error at end of modules
-  //////////////////////////////////////////////////////////////////////////////
+  /// INTERNAL ONLY
+  /// RAII class for reporting error at end of modules
   struct suite
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // Display the count of test/pass/fail
-    ////////////////////////////////////////////////////////////////////////////
+    /// INTERNAL ONLY
+    /// Display the count of test/pass/fail
     void report() const
     {
-      #if !defined(NT2_TEST_SILENT)
-      int t = details::test_count();
-      int e = details::error_count();
+      int t = nt2::unit::test_count();
+      int e = nt2::unit::error_count();
       printf( "Results:\n"
               "----------------------------------------------------------------\n"
               "%d test - %d pass - %d fail.\n"
             , t, (t-e), e
             );
-      #endif
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Run the embedded tests
-    ////////////////////////////////////////////////////////////////////////////
+    /// INTERNAL ONLY
+    /// Run the embedded tests
     void process() const
     {
+      /// TODO: Make this runtime
       #if !defined(NT2_TEST_SILENT)
       printf("[%s]\n",NT2_UNIT_MODULE);
       puts("===============================================================");
       #endif
+
       if(tests) tests->process();
+
+      /// TODO: Make this runtime
+      #if !defined(NT2_TEST_SILENT)
       report();
+      #endif
     }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // Chains tests in the suite
-    ////////////////////////////////////////////////////////////////////////////
-    test const* link(test const* n) const { return tests->link(n); }
+    /// INTERNAL ONLY
+    /// Chains tests in the suite
+    test_registration const* link(test_registration const* n) const
+    {
+      return tests->link(n);
+    }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // List of registere test functions
-    ////////////////////////////////////////////////////////////////////////////
-    mutable test const*  tests;
+    /// INTERNAL ONLY
+    /// List of registered test functions
+    mutable test_registration const*  tests;
   };
 
+  /// INTERNAL ONLY
+  /// Initial seed for a test suite
   suite const main_suite  = { &dummy };
-
 } }
 
 #endif

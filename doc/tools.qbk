@@ -1,0 +1,12 @@
+[part Tools
+  [quickbook 1.5]
+]
+
+[#tools]
+[section Overview]
+[endsect]
+
+[xinclude unit.xml]
+[xinclude tools/cmake.xml]
+[xinclude tools/build.xml]
+

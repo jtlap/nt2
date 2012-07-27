@@ -14,7 +14,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/relative_size.hpp>
-
+#include <nt2/include/functions/ndims.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -115,7 +115,7 @@ namespace nt2 { namespace details
       typedef of_size_< mpl_value<num>::value > result_type;
 
       template<class I, class C, class S, class B> BOOST_FORCEINLINE
-      result_type operator()(I& i, C& c, S const&, B const&) const
+      result_type operator()(I& i, C&, S const&, B const&) const
       {
         return result_type(numel(i));
       }

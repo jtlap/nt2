@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename proto::result_of::value<A0&>::type result_type;
-    
+
     BOOST_FORCEINLINE result_type
     operator()(A0& a0) const
     {
@@ -52,38 +52,6 @@ namespace boost { namespace simd { namespace ext
                             , (generic_< unspecified_<A0> >)
                             , identity
                             )
-
-  // Except dereference, which dereferences
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::dereference_, tag::cpu_, (A0)
-                            , (unspecified_<A0>)
-                            )
-  {
-    typedef typename A0::element_type& result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const { return *a0.get(); }
-  };
-
-  // All terminals other than the actual terminal tag call the tag on the value
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::dereference_, tag::cpu_, (A0)(T0)
-                            , (mpl::not_< is_same<T0, boost::simd::tag::terminal_> >)
-                            , ((expr_< unspecified_<A0>, T0, boost::mpl::long_<0> >))
-                            )
-  {
-    typedef typename dispatch::meta::
-            call<T0(typename boost::proto::result_of::value<A0&>::type)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
-    {
-      return dispatch::functor<T0>()(boost::proto::value(a0));
-    }
-  };
-} } }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  template<class T>
-  struct value_of< boost::shared_ptr<T> >
-  {
-    typedef T type;
-  };
 } } }
 
 #endif

@@ -49,7 +49,7 @@ namespace nt2 { namespace container { namespace ext
     template<class Sz>
     BOOST_FORCEINLINE void operator()(Expr& x, Sz const& sz, boost::mpl::true_)
     {
-      nt2::terminal(x).resize(sz);
+      boost::proto::value(x).resize(sz);
     }
 
     template<class Sz>

@@ -9,10 +9,13 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_COLON_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_COLON_HPP_INCLUDED
 
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/core/container/extremum/extremum.hpp>
+#include <nt2/sdk/meta/as_signed.hpp>
+#include <boost/mpl/bool.hpp>
+#include <iostream>
 
 namespace nt2 { namespace details
 {
@@ -23,7 +26,9 @@ namespace nt2 { namespace details
   BOOST_FORCEINLINE std::size_t
   colon_size(L const& l, S const& s, U const& u)
   {
-    return s ? ( ((u>l)==(s>0)) ? (u-l+s)/s : 0) : u;
+    typedef typename meta::as_signed<L>::type ltype;
+    typedef typename meta::as_signed<U>::type utype;
+    return s ? ( ((u>l)==(s>0)) ? (utype(u)-ltype(l)+s)/s : 0) : u;
   }
 
   //============================================================================

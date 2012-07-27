@@ -236,30 +236,30 @@ NT2_TEST_CASE(align_on_mpl_int_mpl_int_)
   using boost::simd::memory::align_on;
   using boost::mpl::int_;
 
-  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x01>())), 0x00U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x02>())), 0x00U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x04>())), 0x00U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x08>())), 0x00U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x10>())), 0x00U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x20>())), 0x00U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x40>())), 0x00U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x80>())), 0x00U );
+  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x01>())), 0x00 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x02>())), 0x00 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x04>())), 0x00 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x08>())), 0x00 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x10>())), 0x00 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x20>())), 0x00 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x40>())), 0x00 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x00U>(),int_<0x80>())), 0x00 );
 
-  NT2_TEST_EQUAL( int(align_on(int_<0x01U>(),int_<0x02>())), 0x02U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x03U>(),int_<0x04>())), 0x04U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x07U>(),int_<0x08>())), 0x08U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x0FU>(),int_<0x10>())), 0x10U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x1FU>(),int_<0x20>())), 0x20U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x3FU>(),int_<0x40>())), 0x40U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x7FU>(),int_<0x80>())), 0x80U );
+  NT2_TEST_EQUAL( int(align_on(int_<0x01U>(),int_<0x02>())), 0x02 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x03U>(),int_<0x04>())), 0x04 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x07U>(),int_<0x08>())), 0x08 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x0FU>(),int_<0x10>())), 0x10 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x1FU>(),int_<0x20>())), 0x20 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x3FU>(),int_<0x40>())), 0x40 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x7FU>(),int_<0x80>())), 0x80 );
 
-  NT2_TEST_EQUAL( int(align_on(int_<0x02U>(),int_<0x02>())), 0x02U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x04U>(),int_<0x04>())), 0x04U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x08U>(),int_<0x08>())), 0x08U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x10U>(),int_<0x10>())), 0x10U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x20U>(),int_<0x20>())), 0x20U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x40U>(),int_<0x40>())), 0x40U );
-  NT2_TEST_EQUAL( int(align_on(int_<0x80U>(),int_<0x80>())), 0x80U );
+  NT2_TEST_EQUAL( int(align_on(int_<0x02U>(),int_<0x02>())), 0x02 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x04U>(),int_<0x04>())), 0x04 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x08U>(),int_<0x08>())), 0x08 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x10U>(),int_<0x10>())), 0x10 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x20U>(),int_<0x20>())), 0x20 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x40U>(),int_<0x40>())), 0x40 );
+  NT2_TEST_EQUAL( int(align_on(int_<0x80U>(),int_<0x80>())), 0x80 );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -282,21 +282,21 @@ NT2_TEST_CASE(align_on_int_)
   NT2_TEST_EQUAL( int(align_on<0x40>(null_)) , 0 );
   NT2_TEST_EQUAL( int(align_on<0x80>(null_)) , 0 );
 
-  NT2_TEST_EQUAL( int(align_on<0x02>(under_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x04>(under_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x08>(under_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x10>(under_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x20>(under_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x40>(under_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x80>(under_)), 0xABCD8000  );
+  NT2_TEST_EQUAL( int(align_on<0x02>(under_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x04>(under_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x08>(under_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x10>(under_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x20>(under_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x40>(under_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x80>(under_)), int(0xABCD8000)  );
 
-  NT2_TEST_EQUAL( int(align_on<0x02>(exact_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x04>(exact_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x08>(exact_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x10>(exact_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x20>(exact_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x40>(exact_)), 0xABCD8000  );
-  NT2_TEST_EQUAL( int(align_on<0x80>(exact_)), 0xABCD8000  );
+  NT2_TEST_EQUAL( int(align_on<0x02>(exact_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x04>(exact_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x08>(exact_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x10>(exact_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x20>(exact_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x40>(exact_)), int(0xABCD8000)  );
+  NT2_TEST_EQUAL( int(align_on<0x80>(exact_)), int(0xABCD8000)  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

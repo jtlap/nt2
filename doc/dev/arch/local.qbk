@@ -1,0 +1,7 @@
+[section Handling Local Architecture Specific Code]
+
+* ifdef or not ifdef, macro we like to use
+* "Sub-CPU" flavor handling (32/64, presence of specific elements)
+* Good practice for proper efficient code writing for some arch.
+
+[endsect]

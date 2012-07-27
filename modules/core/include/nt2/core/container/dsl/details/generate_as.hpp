@@ -9,6 +9,12 @@
 #ifndef NT2_CORE_CONTAINER_DSL_DETAILS_GENERATE_AS_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_DETAILS_GENERATE_AS_HPP_INCLUDED
 
+#include <nt2/core/container/dsl/forward.hpp>
+#include <boost/dispatch/dsl/semantic_of.hpp>
+#include <boost/proto/traits.hpp>
+#include <boost/mpl/apply.hpp>
+#include <boost/type_traits/remove_const.hpp>
+
 namespace nt2 { namespace container { namespace ext
 {
   //============================================================================

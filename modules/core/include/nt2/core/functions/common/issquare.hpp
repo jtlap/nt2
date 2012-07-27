@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
       typename meta::call<tag::extent_(A0 const&)>::type ex = nt2::extent(a0);
-      std::size_t nz = nt2::numel(ex);
+      //std::size_t nz = nt2::numel(ex);
 
       return  ismatrix(a0)
           &&  (meta::safe_at_c<0>(ex) == meta::safe_at_c<1>(ex));

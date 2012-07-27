@@ -1,0 +1,9 @@
+[library Trigonometric Functions
+  [quickbook 1.5]
+]
+
+[section Overview]
+This module provides implementation of trigonometric functions.
+[endsect]
+
+[xinclude reference.xml]

@@ -44,35 +44,37 @@ set(NT2_BLAS_FOUND FALSE)
                     )
         set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_SEQ})
       else()
-        if(NT2_COMPILER_MSVC)
-          find_library(NT2_MKL_INTEL_THREAD NAMES mkl_intel_thread_dll
-                       PATHS ${NT2_MKL_LIBRARY_DIR}
-                      )
-          set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_ICC_LIB_ROOT}/libiomp5md.lib)
-        elseif(NT2_COMPILER_GCC)
-          find_library(NT2_MKL_GNU_THREAD NAMES mkl_gnu_thread
-                       PATHS ${NT2_MKL_LIBRARY_DIR}
-                      )
-          set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_GNU_THREAD})
-          set(NT2_BLAS_LINK_FLAGS ${NT2_BLAS_LINK_FLAGS} ${NT2_OPENMP_LINK_FLAGS})
-        elseif(NT2_COMPILER_ICC)
+        if(NT2_COMPILER_ICC)
           find_library(NT2_MKL_INTEL_THREAD NAMES mkl_intel_thread mkl_intel_thread_dll
                        PATHS ${NT2_MKL_LIBRARY_DIR}
                       )
           set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_INTEL_THREAD})
           if(UNIX)
-            set(NT2_BLAS_LINK_FLAGS ${NT2_BLAS_LINK_FLAGS} "-openmp")
+            set(NT2_BLAS_LINK_FLAGS "-openmp")
           elseif(WIN32)
-            set(NT2_BLAS_LINK_FLAGS ${NT2_BLAS_LINK_FLAGS} "/Qopenmp")
+            set(NT2_BLAS_LINK_FLAGS "/Qopenmp")
           endif()
           set(NT2_ARCH_MULTICORE TRUE)
+        elseif(NT2_COMPILER_MSVC)
+          find_library(NT2_MKL_INTEL_THREAD NAMES mkl_intel_thread_dll
+                       PATHS ${NT2_MKL_LIBRARY_DIR}
+                      )
+          set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_ICC_LIB_ROOT}/libiomp5md.lib)
+        elseif(NT2_COMPILER_GCC_LIKE)
+          find_library(NT2_MKL_GNU_THREAD NAMES mkl_gnu_thread
+                       PATHS ${NT2_MKL_LIBRARY_DIR}
+                      )
+          set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_GNU_THREAD})
+          find_package(OpenMP QUIET)
+          if(OPENMP_FOUND)
+            set(NT2_BLAS_LINK_FLAGS ${OpenMP_C_FLAGS})
+          endif()
         endif()
       endif()
 
       if(UNIX)
         find_package(Threads)
         set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${CMAKE_THREAD_LIBS_INIT})
-        set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} "-lm")
       endif()
 
       find_library(NT2_MKL_CORE NAMES mkl_core mkl_core_dll

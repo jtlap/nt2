@@ -19,7 +19,10 @@
 #include <boost/type_traits/is_integral.hpp>
 #include <boost/type_traits/make_signed.hpp>
 
-namespace boost { namespace dispatch { namespace meta { template<class T> struct as_signed; } } }
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T> struct as_signed;
+} } }
 
 namespace boost { namespace dispatch { namespace details
 {

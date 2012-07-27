@@ -130,10 +130,10 @@ NT2_TEST_CASE( reduction )
   table<T> a0, a1, a2, a3, a4, a5;
   scheduler f;
 
-  SCHEDULE( red(a0), f, 1u, boost::proto::tag::dereference );
+  SCHEDULE( red(a0), f, 1u, boost::proto::tag::terminal );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , boost::proto::tag::terminal
                                     >
@@ -155,13 +155,13 @@ NT2_TEST_CASE( reduction )
   SCHEDULE( a0 + red(a1), f, 1u
           , ( node2< boost::proto::tag::plus
                    , boost::proto::tag::terminal
-                   , boost::proto::tag::dereference
+                   , boost::proto::tag::terminal
                    >
              )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , boost::proto::tag::terminal
                                     >
@@ -174,14 +174,14 @@ NT2_TEST_CASE( reduction )
                    , boost::proto::tag::terminal
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , boost::proto::tag::dereference
+                          , boost::proto::tag::terminal
                           >
                    >
             )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , boost::proto::tag::terminal
                                     >
@@ -193,7 +193,7 @@ NT2_TEST_CASE( reduction )
           , ( node2< boost::proto::tag::plus
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , boost::proto::tag::dereference
+                          , boost::proto::tag::terminal
                           >
                    , boost::proto::tag::terminal
                    >
@@ -201,7 +201,7 @@ NT2_TEST_CASE( reduction )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , node2< boost::proto::tag::plus
                                            , boost::proto::tag::terminal
@@ -216,7 +216,7 @@ NT2_TEST_CASE( reduction )
           , ( node2< boost::proto::tag::plus
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , boost::proto::tag::dereference
+                          , boost::proto::tag::terminal
                           >
                    , boost::proto::tag::terminal
                    >
@@ -224,7 +224,7 @@ NT2_TEST_CASE( reduction )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , node2< boost::proto::tag::plus
                                            , boost::proto::tag::terminal
@@ -236,12 +236,12 @@ NT2_TEST_CASE( reduction )
                     );
   NT2_TEST_TYPE_INFO( *f.trees.at(1)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , node2< boost::proto::tag::plus
                                            , node2< boost::proto::tag::plus
                                                   , boost::proto::tag::terminal
-                                                  , boost::proto::tag::dereference
+                                                  , boost::proto::tag::terminal
                                                   >
                                            , boost::proto::tag::terminal
                                            >
@@ -296,14 +296,14 @@ NT2_TEST_CASE( subscript )
                           >
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , boost::proto::tag::dereference
+                          , boost::proto::tag::terminal
                           >
                    >
             )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , boost::proto::tag::terminal
                                     >
@@ -315,7 +315,7 @@ NT2_TEST_CASE( subscript )
           , ( node3 < boost::proto::tag::function
                     , boost::proto::tag::terminal
                     , node1 < nt2::tag::aggregate_
-                            , boost::proto::tag::dereference
+                            , boost::proto::tag::terminal
                             >
                     , boost::simd::tag::box_
                     >
@@ -323,7 +323,7 @@ NT2_TEST_CASE( subscript )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , boost::proto::tag::terminal
                                     >
@@ -335,7 +335,7 @@ NT2_TEST_CASE( subscript )
                              , node3< boost::proto::tag::function
                                     , boost::proto::tag::terminal
                                     , node1 < nt2::tag::aggregate_
-                                            , boost::proto::tag::dereference
+                                            , boost::proto::tag::terminal
                                             >
                                     , boost::simd::tag::box_
                                     >
@@ -353,21 +353,21 @@ NT2_TEST_CASE( subscript )
                             , node1 < nt2::tag::aggregate_
                                     , node2 < boost::proto::tag::plus
                                             , boost::proto::tag::terminal
-                                            , boost::proto::tag::dereference
+                                            , boost::proto::tag::terminal
                                             >
                                     >
                             , boost::simd::tag::box_
                             >
                    , node2< boost::proto::tag::plus
                           , boost::proto::tag::terminal
-                          , boost::proto::tag::dereference
+                          , boost::proto::tag::terminal
                           >
                    >
             )
           );
   NT2_TEST_TYPE_INFO( *f.trees.at(0)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , boost::proto::tag::terminal
                                     >
@@ -376,7 +376,7 @@ NT2_TEST_CASE( subscript )
                     );
   NT2_TEST_TYPE_INFO( *f.trees.at(1)
                     , ( node2< boost::proto::tag::assign
-                             , boost::proto::tag::dereference
+                             , boost::proto::tag::terminal
                              , node1< tag::red_
                                     , boost::proto::tag::terminal
                                     >

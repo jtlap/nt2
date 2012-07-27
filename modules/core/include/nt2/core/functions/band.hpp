@@ -15,7 +15,9 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/relative.hpp>
+#include <nt2/core/settings/shape.hpp>
 
 namespace nt2
 {
@@ -48,7 +50,7 @@ namespace nt2
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_,         band, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_,     diagonal, 1) 
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::band_,     diagonal, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_band1_, band, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_band2_, band, 3)
 }
@@ -79,7 +81,7 @@ namespace nt2 { namespace container { namespace ext
   struct  size_of<nt2::tag::offset_band1_,Domain,2,Expr>
         : relative_size_of<Expr>
   {};
-  
+
   template<class Domain, class Expr>
   struct  size_of<nt2::tag::offset_band2_,Domain,3,Expr>
         : relative_size_of<Expr>

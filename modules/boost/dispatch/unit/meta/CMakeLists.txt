@@ -14,6 +14,7 @@ SET( SOURCES
     as.cpp
     as_integer.cpp
     as_floating.cpp
+    as_ref.cpp
     as_signed.cpp
     as_unsigned.cpp
     downgrade.cpp

@@ -15,11 +15,16 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+
 #include <nt2/core/utility/of_size.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
-#include <boost/dispatch/details/parameters.hpp>
 #include <boost/fusion/include/as_vector.hpp>
 #include <boost/mpl/transform.hpp>
+
+#include <boost/dispatch/details/parameters.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 
 namespace nt2
 {
@@ -36,29 +41,19 @@ namespace nt2
    * Tie terminals for multi-return function handling
    */
   //============================================================================
-/* `tie' constructs the node directly to avoid issues with ambiguous specializations;
- * should maybe be fixed in a different manner. */
-#define M0(z,n,t) boost::ref(boost::proto::as_child(a##n))
-#define M1(z,n,t) typename boost::proto::result_of::as_child<A##n>::type&
-
-#define M2(z,n,t)                                                                 \
+#define M0(z,n,t)                                                                 \
 template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE                       \
-typename boost::proto::result_of::make_expr                                       \
-         < nt2::tag::tie_, container::domain                                      \
-         , BOOST_PP_ENUM(n,M1,~)                                                  \
-         >::type                                                                  \
+typename boost::dispatch::meta::                                                  \
+         call<tag::tie_(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & BOOST_PP_INTERCEPT))>::type \
 tie(BOOST_PP_ENUM_BINARY_PARAMS(n,A,& a))                                         \
 {                                                                                 \
-  return boost::proto::                                                           \
-         make_expr<nt2::tag::tie_, container::domain>(BOOST_PP_ENUM(n,M0,~));     \
+  return typename boost::dispatch::make_functor<tag::tie_, A0>::type()            \
+         (BOOST_PP_ENUM_PARAMS(n, a));                                            \
 }                                                                                 \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M2,~)
-
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M0,~)
 #undef M0
-#undef M1
-#undef M2
 }
 
 namespace nt2 { namespace container { namespace ext
@@ -89,21 +84,21 @@ namespace nt2 { namespace container { namespace ext
   // INTERNAL ONLY
   // tie size is just <1>
   //============================================================================
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::tie_,Domain,1,Expr>
+  template<class Domain, int N, class Expr>
+  struct  size_of<nt2::tag::tie_,Domain,N,Expr>
   {
     typedef of_size_<1> result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }
   };
 
-  template<class Domain, int N, class Expr>
-  struct  size_of<nt2::tag::tie_,Domain,N,Expr>
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::tie_,Domain,1,Expr>
   {
     typedef of_size_<1> result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
     {
       return result_type();
     }

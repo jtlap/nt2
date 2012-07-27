@@ -21,6 +21,7 @@
 #include <nt2/include/functions/simd/abs.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/logical_not.hpp>
 
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_logical<A0>::type                 bA0; 
       bA0 allz = l_and(is_eqz(a0), is_eqz(a1));
-      return exp(a1*log(nt2::abs(a0)));
+      return if_else(allz, One<result_type>(), exp(a1*log(nt2::abs(a0))));
 
     }
   };

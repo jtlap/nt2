@@ -41,13 +41,10 @@ NT2_TEST_CASE_TPL ( divfloor_real__2_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divfloor(T(4),T(0)), boost::simd::Inf<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divfloor(T(4),T(3)), 1, 0);
+  NT2_TEST_ULP_EQUAL(divfloor(T(4),T(3)), boost::simd::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfloor(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfloor(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfloor(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::One<r_t>(), 0);
@@ -71,9 +68,6 @@ NT2_TEST_CASE_TPL ( divfloor_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divfloor(T(4),T(0)), boost::simd::Valmax<r_t>(), 0);
@@ -97,9 +91,6 @@ NT2_TEST_CASE_TPL ( divfloor_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divfloor(T(-4),T(0)), boost::simd::Valmin<r_t>(), 0);

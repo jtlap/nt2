@@ -45,15 +45,12 @@ NT2_TEST_CASE_TPL ( sum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<sum_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
-  int c = cardinal_of<n_t>(); 
+  T c = cardinal_of<n_t>(); 
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Inf<vT>()), boost::simd::Inf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Minf<vT>()), boost::simd::Minf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sum(boost::simd::Mone<vT>()), -int(cardinal_of<n_t>()), 0);
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::Mone<vT>()), -c, 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Nan<vT>()), boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), c, 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Two<vT>()), 2*c, 0);
@@ -78,12 +75,9 @@ NT2_TEST_CASE_TPL ( sum_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<sum_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
-  int c = cardinal_of<n_t>(); 
+  T c = cardinal_of<n_t>(); 
   NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), c, 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Two<vT>()), 2*c, 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>(), 0);

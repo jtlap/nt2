@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( splat,  BOOST_SIMD_SIMD_TYPES)
 
   r_t value = splat<r_t>(42);
 
-  for(int i=0;i<cardinal_of<r_t>::value;++i) NT2_TEST_EQUAL(value[i], T(42) );
+  for(size_t i=0;i<cardinal_of<r_t>::value;++i) NT2_TEST_EQUAL(value[i], T(42) );
 }
 
 NT2_TEST_CASE_TPL ( splat_id,  BOOST_SIMD_SIMD_TYPES)
@@ -45,5 +45,5 @@ NT2_TEST_CASE_TPL ( splat_id,  BOOST_SIMD_SIMD_TYPES)
   r_t base = splat<r_t>(42);
   r_t value = splat<r_t>(base);
 
-  for(int i=0;i<cardinal_of<r_t>::value;++i) NT2_TEST_EQUAL(value[i], base[i] );
+  for(size_t i=0;i<cardinal_of<r_t>::value;++i) NT2_TEST_EQUAL(value[i], base[i] );
 }

@@ -44,13 +44,10 @@ NT2_TEST_CASE_TPL ( divfloor_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<divfloor_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divfloor(boost::simd::splat<vT>(4),boost::simd::splat<vT>(0))[0], boost::simd::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(divfloor(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3))[0], 1, 0);
+  NT2_TEST_ULP_EQUAL(divfloor(boost::simd::splat<vT>(4),boost::simd::splat<vT>(3))[0],  boost::simd::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfloor(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfloor(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(divfloor(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::One<sr_t>(), 0);

@@ -9,10 +9,10 @@
 #ifndef NT2_CORE_FUNCTIONS_VERTCAT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_VERTCAT_HPP_INCLUDED
 
-#include <nt2/sdk/parameters.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/reshaping_hierarchy.hpp>
-
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
+#include <nt2/core/settings/shape.hpp>
 
 namespace nt2
 {
@@ -22,8 +22,8 @@ namespace nt2
           : ext::elementwise_<vertcat_> { typedef ext::elementwise_<vertcat_> parent; };
   }
 
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, vertcat, 1) 
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, vertcat, 2) 
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, vertcat, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, vertcat, 2)
 }
 
 namespace nt2 { namespace container { namespace ext
@@ -38,7 +38,8 @@ namespace nt2 { namespace container { namespace ext
   {
     // We behave as our child
     typedef typename boost::proto::result_of::child_c<Expr&,0>::type    c_sema_t;
-    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
+    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type semad_t;
+    typedef typename meta::strip<semad_t>::type sema_t;
 
     // .. except we have a special size
     typedef typename boxed_size_of<Expr, 2>::result_type               sizes_t;

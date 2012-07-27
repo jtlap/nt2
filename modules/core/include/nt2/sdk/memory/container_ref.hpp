@@ -99,6 +99,17 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     /*!
+     * @brief Add element at end of container, reshape to 1D
+     */
+    //==========================================================================
+    void push_back( T const& t )
+    {
+      base->push_back(t);
+      ptr = base->raw();
+    }
+
+    //==========================================================================
+    /*!
      * @brief Return the container dimensions set
      * @return A reference to a constant Fusion RandomAccessSequence containing
      * the size of the container over each of its dimensions.
@@ -269,12 +280,6 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef typename nt2::memory::container_ref<T, S>::base_t::semantic_t     semantic_t;
     typedef typename semantic_t::template apply<T,S,Origin>::type type;
-  };
-
-  template<class T, class S>
-  struct terminal_of< nt2::memory::container_ref<T,S> >
-  {
-    typedef nt2::container::table<typename boost::remove_const<T>::type, S> type;
   };
 } } }
 

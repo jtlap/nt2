@@ -9,10 +9,13 @@
 #ifndef NT2_CORE_FUNCTIONS_COMMON_TRANS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_COMMON_TRANS_HPP_INCLUDED
 
-#include <nt2/table.hpp>
 #include <nt2/core/functions/trans.hpp>
-#include <nt2/core/functions/height.hpp>
-#include <nt2/core/functions/width.hpp>
+#include <nt2/include/functions/height.hpp>
+#include <nt2/include/functions/width.hpp>
+#include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/first_index.hpp>
+#include <nt2/include/functions/last_index.hpp>
+#include <nt2/table.hpp>
 
 
 namespace nt2 { namespace ext
@@ -25,7 +28,7 @@ namespace nt2 { namespace ext
     typedef typename source_t::value_type                     type_t;
     typedef typename source_t::index_type                    index_t;
     typedef nt2::table < type_t, index_t>                result_type;
-    typedef nt2::table < type_t>                               tab_t; 
+    typedef nt2::table < type_t>                               tab_t;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {

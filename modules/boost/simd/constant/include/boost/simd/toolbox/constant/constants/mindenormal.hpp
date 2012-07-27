@@ -31,12 +31,12 @@
  * types it does not represent the same mathematical number.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mindenormal.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,12 +48,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Mindenormal
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -61,20 +61,22 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Mindenormal of functor Mindenormal 
+     * \brief Define the tag Mindenormal of functor Mindenormal
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     struct Mindenormal : ext::constant_<Mindenormal>
-    { 
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target,1> {};  
+    {
+      template<class Target, class Dummy=void>
+      struct apply : meta::int_c<typename Target::type,1> {};
     };
 
-    template<class Dummy>
-    struct Mindenormal::apply<float,Dummy> : meta::single_<1> {};
+    template<class T, class Dummy>
+    struct  Mindenormal::apply<boost::dispatch::meta::single_<T>,Dummy>
+          : meta::single_<1> {};
 
-    template<class Dummy>
-    struct Mindenormal::apply<double,Dummy> : meta::double_<1> {};
+    template<class T, class Dummy>
+    struct  Mindenormal::apply<boost::dispatch::meta::double_<T>,Dummy>
+          : meta::double_<1> {};
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mindenormal, Mindenormal)

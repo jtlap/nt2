@@ -44,9 +44,6 @@ NT2_TEST_CASE_TPL ( if_allbits_else_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<if_allbits_else_(vlT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(if_allbits_else(boost::simd::True<vT>(),boost::simd::splat<vT>(1))[0], boost::simd::Nan<T>());
@@ -73,9 +70,6 @@ NT2_TEST_CASE_TPL ( if_allbits_else_signed_int__2_0, BOOST_SIMD_SIMD_INTEGRAL_SI
   typedef typename boost::dispatch::meta::call<if_allbits_else_(vlT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(if_allbits_else(boost::simd::True<vT>(),boost::simd::splat<vT>(1))[0], -1);

@@ -52,9 +52,6 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<is_equal_with_equal_nans_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<is_equal_with_equal_nans_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_equal_with_equal_nans(-nt2::Zero<vT>(), -nt2::Zero<vT>())[0], nt2::True<sr_t>());

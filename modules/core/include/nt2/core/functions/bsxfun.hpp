@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_BSXFUN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_BSXFUN_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/sdk/memory/container.hpp>
+
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
+#include <nt2/core/settings/shape.hpp>
 
 /*!
  * \ingroup core
@@ -21,12 +23,12 @@
  * Returns the bsxfun of the elements of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/bsxfun.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +42,9 @@
  *
  * \param a0 a two parameters elementwise func...something
  * \param a1 a2 the two parameters on which
-* 
+*
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,7 +55,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
@@ -62,8 +64,8 @@ namespace nt2
   namespace tag
   {
     struct bsxfun_ : ext::elementwise_<bsxfun_>
-    { 
-      typedef ext::elementwise_<bsxfun_> parent; 
+    {
+      typedef ext::elementwise_<bsxfun_> parent;
     };
   }
 
@@ -71,7 +73,7 @@ namespace nt2
   /*!
    * bsxfun
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::bsxfun_       , bsxfun, 3)
@@ -98,7 +100,7 @@ namespace nt2 { namespace container { namespace ext
     // and revoking any shape settings
     typedef expression< typename boost::remove_const<Expr>::type
                       , typename meta::
-                        add_settings< sema_t
+                        add_settings< typename meta::strip<sema_t>::type
                                     , settings(rectangular_,sizes_t)
                                     >::type
                       >                                             result_type;

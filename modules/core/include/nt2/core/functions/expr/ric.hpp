@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::ric_
                                           , container::domain
-                                          , box<_2D>
+                                          , box<of_size_max>
                                           , box<nt2::details::ric>
                                           , meta::as_<double>
                                           >::type             result_type;
@@ -43,8 +43,9 @@ namespace nt2 { namespace ext
       , "Error using ric: Size vector must be a 2D row vector."
       );
 
-      _2D sizee;
-      std::copy(a0.raw(), a0.raw()+2, &sizee[0]);
+      of_size_max sizee;
+      std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
+      nt2::memory::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::ric_
         , container::domain
@@ -67,7 +68,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::ric_
                                           , container::domain
-                                          , box<_2D>
+                                          , box<of_size_max>
                                           , box<nt2::details::ric>
                                           , T
                                           >::type             result_type;
@@ -80,8 +81,9 @@ namespace nt2 { namespace ext
       , "Error using ric: Size vector must be a 2D row vector."
       );
 
-      _2D sizee;
-      std::copy(a0.raw(), a0.raw()+2, &sizee[0]);
+      of_size_max sizee;
+      std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
+      nt2::memory::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::ric_
                                     , container::domain

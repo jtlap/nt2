@@ -12,7 +12,7 @@
 // cover test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/rem_pio2_medium.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -38,7 +38,7 @@
 
 NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::rem_pio2_medium;
   using nt2::tag::rem_pio2_medium_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -48,9 +48,9 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<rem_pio2_medium_(T)>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -71,9 +71,9 @@ NT2_TEST_CASE_TPL ( rem_pio2_medium_real__1_0,  NT2_REAL_TYPES)
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,2>::type>::type r_t2;
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t2 r2 = boost::fusion::get<2>(r);
-        NT2_TEST_TUPLE_ULP_EQUAL( r0, boost::fusion::get<0>(nt2::rem_pio2(a0)), 0.5);
+        NT2_TEST_ULP_EQUAL( r0, boost::fusion::get<0>(nt2::rem_pio2(a0)), 0.5);
         if (ulpd>ulp0) ulp0=ulpd;
-        NT2_TEST_TUPLE_ULP_EQUAL( r2, boost::fusion::get<2>(nt2::rem_pio2(a0)), 0);
+        NT2_TEST_ULP_EQUAL( r2, boost::fusion::get<2>(nt2::rem_pio2(a0)), 0);
         if (ulpd>ulp0) ulp0=ulpd;
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

@@ -13,9 +13,10 @@
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/simd/tags.hpp>
+#include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/dispatch/meta/as.hpp>
+#include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 //==============================================================================
@@ -32,9 +33,10 @@ namespace boost { namespace simd { namespace ext
                                    , ((target_< scalar_< arithmetic_<A0> > >))
                                    )
   {
-    typedef typename A0::type                               base_type;
-    typedef typename boost::mpl::apply<Tag,base_type>::type value_type;
-    typedef typename value_type::value_type                 result_type;
+    typedef typename A0::type                                     base_type;
+    typedef typename dispatch::meta::property_of<base_type>::type disp_type;
+    typedef typename boost::mpl::apply<Tag,disp_type>::type       value_type;
+    typedef typename value_type::value_type                       result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
@@ -54,22 +56,23 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A0::type                                       target_type;
     typedef typename dispatch::meta::scalar_of<target_type>::type   base_type;
-    typedef typename boost::mpl::apply<Tag,base_type>::type         value_type;
+    typedef typename dispatch::meta::property_of<base_type>::type   disp_type;
+    typedef typename boost::mpl::apply<Tag,disp_type>::type         value_type;
     typedef boost::simd::native<typename value_type::value_type,X>  result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
       typedef typename dispatch::meta::
-                       as_integer<typename value_type::value_type>::type 
+                       as_integer<typename value_type::value_type>::type
                                                                     pattern_type;
       typedef boost::simd::native<pattern_type,X>                   tmp_type;
-      
+
       return bitwise_cast<result_type> ( boost::simd::
                                         splat<tmp_type>( pattern_type(value_type::value) )
                                       );
     }
   };
-  
+
 } } }
 
 #endif

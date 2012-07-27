@@ -12,7 +12,7 @@
 // cover test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/rem_pio2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -36,7 +36,7 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::rem_pio2;
   using nt2::tag::rem_pio2_;
-  using nt2::load; 
+  using nt2::load;
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -54,26 +54,26 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
   vT a0 = nt2::Zero<vT>(), a1, a2;
   ivT n = nt2::rem_pio2(a0, a1, a2);
   std::cout << "a0 " << a0 << std::endl;
-  std::cout << "n  " << n  << std::endl;   
-  std::cout << "a1 " << a1 << std::endl;    
+  std::cout << "n  " << n  << std::endl;
+  std::cout << "a1 " << a1 << std::endl;
   std::cout << "a2 " << a2 << std::endl;
-  a0 =  nt2::Pi<vT>(); 
+  a0 =  nt2::Pi<vT>();
   n = nt2::rem_pio2(a0, a1, a2);
   std::cout << "a0 " << a0 << std::endl;
-  std::cout << "n  " << n  << std::endl;   
-  std::cout << "a1 " << a1 << std::endl;    
+  std::cout << "n  " << n  << std::endl;
+  std::cout << "a1 " << a1 << std::endl;
   std::cout << "a2 " << a2 << std::endl;
-  a0 =  nt2::Pi<vT>()/nt2::Four<vT>(); 
+  a0 =  nt2::Pi<vT>()/nt2::Four<vT>();
   n = nt2::rem_pio2(a0, a1, a2);
   std::cout << "a0 " << a0 << std::endl;
-  std::cout << "n  " << n  << std::endl;   
-  std::cout << "a1 " << a1 << std::endl;    
+  std::cout << "n  " << n  << std::endl;
+  std::cout << "a1 " << a1 << std::endl;
   std::cout << "a2 " << a2 << std::endl;
-  a0 =  nt2::Pi<vT>()*nt2::Ten<vT>()+nt2::Half<vT >(); 
+  a0 =  nt2::Pi<vT>()*nt2::Ten<vT>()+nt2::Half<vT >();
   n = nt2::rem_pio2(a0, a1, a2);
   std::cout << "a0 " << a0 << std::endl;
-  std::cout << "n  " << n  << std::endl;   
-  std::cout << "a1 " << a1 << std::endl;    
+  std::cout << "n  " << n  << std::endl;
+  std::cout << "a1 " << a1 << std::endl;
   std::cout << "a2 " << a2 << std::endl;
 
 //   // random verifications
@@ -90,10 +90,10 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_SIMD_REAL_TYPES)
 //         {
 //           int k = i+j*cardinal_of<n_t>::value;
 //           sr_t sr =  nt2::rem_pio2(a0[i]);
-//           NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<0>(r)[i],
+//           NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(r)[i],
 //                                     boost::fusion::get<0>(sr), 1.5);
 //           ulp0 = nt2::max(ulpd,ulp0);
-//           NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<1>(r)[i],
+//           NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(r)[i],
 //                                     boost::fusion::get<1>(sr), 1.5);
 //           ulp0 = nt2::max(ulpd,ulp0);
 //         }

@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 euler toolbox - erf/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 euler toolbox - erf/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of euler components in scalar mode
@@ -47,8 +47,6 @@ NT2_TEST_CASE_TPL ( erf_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<erf_(vT)>::type r_t;
   typedef typename nt2::meta::call<erf_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(erf(nt2::Inf<vT>())[0], nt2::One<sr_t>(), 10);

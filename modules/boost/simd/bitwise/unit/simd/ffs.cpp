@@ -44,15 +44,12 @@ NT2_TEST_CASE_TPL ( ffs_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<ffs_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(ffs(boost::simd::Inf<vT>())[0], boost::simd::Nbmantissabits<T>()+1);
-  NT2_TEST_EQUAL(ffs(boost::simd::Minf<vT>())[0], boost::simd::Nbmantissabits<T>()+1);
+  NT2_TEST_EQUAL(ffs(boost::simd::Inf<vT>())[0], sr_t(boost::simd::Nbmantissabits<T>()+1u));
+  NT2_TEST_EQUAL(ffs(boost::simd::Minf<vT>())[0], sr_t(boost::simd::Nbmantissabits<T>()+1u));
   NT2_TEST_EQUAL(ffs(boost::simd::Nan<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(ffs(boost::simd::Signmask<vT>())[0], sizeof(T)*8);
+  NT2_TEST_EQUAL(ffs(boost::simd::Signmask<vT>())[0], sr_t(sizeof(T)*8));
   NT2_TEST_EQUAL(ffs(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for real_
 
@@ -72,13 +69,10 @@ NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<ffs_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(ffs(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(ffs(boost::simd::Signmask<vT>())[0], sizeof(T)*8);
+  NT2_TEST_EQUAL(ffs(boost::simd::Signmask<vT>())[0], sr_t(sizeof(T)*8));
   NT2_TEST_EQUAL(ffs(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for signed_int_
 
@@ -98,9 +92,6 @@ NT2_TEST_CASE_TPL ( ffs_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<ffs_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(ffs(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());

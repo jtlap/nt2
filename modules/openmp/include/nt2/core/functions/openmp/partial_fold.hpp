@@ -45,29 +45,29 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type                                           value_type;
     typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
-    
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+
+    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const&) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
       std::size_t ibound  = boost::fusion::at_c<0>(ext);
       std::size_t mbound =  boost::fusion::at_c<1>(ext);
-      std::size_t obound =  boost::fusion::at_c<2>(ext);
+      std::ptrdiff_t obound = boost::fusion::at_c<2>(ext);
       std::size_t id;
-      
+
       std::size_t cache_line_size = nt2::config::cache_line_size(2); // in byte
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
-      std::size_t bound  =  ((ibound)/cache_bound) * cache_bound;
-      
+      std::size_t bound = ((ibound)/cache_bound) * cache_bound;
+
       if(ibound >= cache_bound)
         {
-          
+
 #ifndef BOOST_NO_EXCEPTIONS
           boost::exception_ptr exception;
 #endif
-          
-#pragma omp parallel 
+
+#pragma omp parallel
           {
 #pragma omp for schedule(static) private(id)
             for(std::ptrdiff_t o = 0; o < obound; ++o)
@@ -80,10 +80,10 @@ namespace nt2 { namespace ext
                     for(std::size_t i = 0; i < bound; i+=cache_bound)
                       {
                         id = i+o_;
-                        
+
                         for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
                           nt2::run(out, k_, neutral(nt2::meta::as_<target_type>()));
-                        
+
                         for(std::size_t m = 0; m < mbound; ++m)
                           {
                             std::size_t m_ = m*ibound;
@@ -108,12 +108,12 @@ namespace nt2 { namespace ext
             if(exception)
               boost::rethrow_exception(exception);
 #endif
-            
+
           }
-          
-          
+
+
           //scalar part
-          for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound)
+          for(std::ptrdiff_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound)
             {
               for(std::size_t i = bound; i < ibound; ++i)
                 {
@@ -129,11 +129,11 @@ namespace nt2 { namespace ext
                 }
             }
         }
-      
+
       else
         {
-          
-          for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
+
+          for(std::ptrdiff_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
             for(std::size_t i = 0; i < ibound; ++i){
               id = i+o_;
               nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
@@ -148,7 +148,7 @@ namespace nt2 { namespace ext
         }
     }
   };
-  
+
 } }
 #else
 namespace nt2 { namespace details
@@ -181,9 +181,9 @@ namespace nt2 { namespace ext
     {
       extent_type ext = in.extent();
 
-      std::size_t ibound  = boost::fusion::at_c<0>(ext);
-      std::size_t mbound =  boost::fusion::at_c<1>(ext);
-      std::size_t obound =  boost::fusion::at_c<2>(ext);
+      std::size_t ibound = boost::fusion::at_c<0>(ext);
+      std::size_t mbound = boost::fusion::at_c<1>(ext);
+      std::ptrdiff_t obound = boost::fusion::at_c<2>(ext);
       std::size_t id;
       const std::size_t chunk = config::shared_cache_line_size()/sizeof(value_type);
 
@@ -220,7 +220,7 @@ namespace nt2 { namespace ext
 #endif
     }
   };
-    
+
   } }
 
 #endif

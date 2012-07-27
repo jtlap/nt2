@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
       char nop = (N1::value < 3) ? 'N':  'P'; ; 
       // Factorize in place
       fact_t f = factorization::qr(boost::proto::child_c<0>(a1),nop, in_place_);
-      char ch =  choice(a0, N0()); 
+      //      char ch =  choice(a0, N0()); 
       decomp(f, a1, N1());
     }
 

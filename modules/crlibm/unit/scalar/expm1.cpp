@@ -40,8 +40,6 @@ NT2_TEST_CASE_TPL ( expm1_double_1_0,  (double))
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
 
 } // end of test for double
 
@@ -59,7 +57,5 @@ NT2_TEST_CASE_TPL ( expm1_float_1_0,  (float))
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
 
 } // end of test for float

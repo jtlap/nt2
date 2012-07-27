@@ -16,7 +16,9 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/size.hpp>
-
+#include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/cif.hpp>
+#include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -38,6 +40,8 @@ NT2_TEST_CASE( mtimes_size )
   nt2::table<T, nt2::_4D> a1(nt2::of_size(7, 19));
   nt2::table<T, nt2::of_size_<5, 7> > a2;
   nt2::table<T, nt2::of_size_<7, 19> > a3;
+  nt2::table<T, nt2::of_size_<1, 19> > a4;
+  nt2::table<T, nt2::of_size_<19> > a5;
 
   NT2_TEST_EXPR_TYPE( nt2::mtimes(a0, a1)
                     , extent_type<_>
@@ -50,15 +54,25 @@ NT2_TEST_CASE( mtimes_size )
                     , (nt2::of_size_<5, 19>)
                     );
 
+  NT2_TEST_EXPR_TYPE( nt2::mtimes(a3, a5)
+                    , extent_type<_>
+                    , nt2::of_size_<7>
+                    );
+
+  NT2_TEST_EXPR_TYPE( nt2::mtimes(a4, a5)
+                    , extent_type<_>
+                    , nt2::of_size_<1>
+                    );
+
 #ifdef NT2_ASSERTS_AS_EXCEPTIONS
   NT2_TEST_THROW( nt2::mtimes(a1, a0), nt2::assert_exception );
 
-  nt2::table<T, nt2::_4D> a4(nt2::of_size(5, 7, 1, 12));
-  NT2_TEST_THROW( nt2::mtimes(a4, a1), nt2::assert_exception );
+  nt2::table<T, nt2::_4D> a6(nt2::of_size(5, 7, 1, 12));
+  NT2_TEST_THROW( nt2::mtimes(a6, a1), nt2::assert_exception );
 #endif
 }
 
-NT2_TEST_CASE( mtimes_reduction )
+NT2_TEST_CASE( mtimes_matrix_matrix )
 {
   typedef double T;
   using nt2::_;
@@ -100,4 +114,100 @@ NT2_TEST_CASE( mtimes_reduction )
   for(std::size_t j=0; j!=19; ++j)
     for(std::size_t i=0; i!=5; ++i)
       NT2_TEST_EQUAL( r(i+1, j+1), r1[j*5+i] / T(10) );
+}
+
+NT2_TEST_CASE( mtimes_matrix_vector )
+{
+  typedef double T;
+  using nt2::_;
+
+  nt2::table<T, nt2::of_size_<5, 7> > a0 = nt2::reshape(_(T(1), 5*7), nt2::of_size(5, 7));
+  nt2::table<T, nt2::of_size_<7> > a1 = _(T(1), 7)(_);
+  nt2::table<T, nt2::of_size_<1, 5> > a2 = _(T(1), 5);
+
+  T r0[] = { 588, 616, 644, 672, 700 };
+
+  nt2::table<T, nt2::of_size_<5> > r = nt2::mtimes(a0, a1);
+  for(std::size_t i=0; i!=5; ++i)
+    NT2_TEST_EQUAL( r(i+1), r0[i] );
+
+  T r1[] = { 55, 130, 205, 280, 355, 430, 505 };
+
+  nt2::table<T, nt2::of_size_<1, 7> > r_ = nt2::mtimes(a2, a0);
+  for(std::size_t i=0; i!=7; ++i)
+    NT2_TEST_EQUAL( r_(i+1), r1[i] );
+}
+
+NT2_TEST_CASE( mtimes_vector_vector )
+{
+  typedef double T;
+  using nt2::_;
+
+  nt2::table<T, nt2::of_size_<1, 7> > a0 = _(T(1), 7);
+  nt2::table<T, nt2::of_size_<7> > a1 = _(T(1), 7)(_);
+
+  T r0 = nt2::mtimes(a0, a1);
+  NT2_TEST_EQUAL(r0, 140);
+  
+  T r1[] = {  1,  2,  3,  4,  5,  6,  7,
+              2,  4,  6,  8, 10, 12, 14, 
+              3,  6,  9, 12, 15, 18, 21,
+              4,  8, 12, 16, 20, 24, 28,
+              5, 10, 15, 20, 25, 30, 35,
+              6, 12, 18, 24, 30, 36, 42,
+              7, 14, 21, 28, 35, 42, 49
+           };
+
+  nt2::table<T, nt2::of_size_<7, 7> > r = nt2::mtimes(a1, a0);
+  for(std::size_t j=0; j!=7; ++j)
+    for(std::size_t i=0; i!=7; ++i)
+      NT2_TEST_EQUAL( r(i+1, j+1), r1[j*7+i] );
+}
+NT2_TEST_CASE( mtimes_aliasing )
+{
+  typedef double T;
+  using nt2::_;
+
+  nt2::table<T> a0 = nt2::rif(3, 3), a1, b;
+  display("a0", a0); 
+  a1 = a0;
+  b =  nt2::mtimes(a0, a1);
+  a0=  nt2::mtimes(a0, a1);
+  
+  NT2_TEST(isequal(a0, b));
+
+  a0 = a1; 
+  a0 =  nt2::mtimes(a0, a0); 
+  NT2_TEST(isequal(a0, b));
+  display("a0", a0); 
+}
+NT2_TEST_CASE( mtimes_aliasing_2 )
+{
+  typedef double T;
+  using nt2::_;
+
+  nt2::table<T> a0 = nt2::rif(3, 3), a1 = nt2::rif(3, 2), b;
+  display("a0", a0); 
+  display("a1", a1); 
+  b =  nt2::mtimes(a0, a1);
+  a0=  nt2::mtimes(a0, a1);
+  
+  NT2_TEST(isequal(a0, b));
+
+  display("a0", a0); 
+}
+NT2_TEST_CASE( mtimes_aliasing_3 )
+{
+  typedef double T;
+  using nt2::_;
+
+  nt2::table<T> a0 = nt2::rif(3, 1), a1 = nt2::cif(1, 3), b;
+  display("a0", a0); 
+  display("a1", a1); 
+  b =  nt2::mtimes(a0, a1);
+  a0=  nt2::mtimes(a0, a1);
+  
+  NT2_TEST(isequal(a0, b));
+
+  display("a0", a0); 
 }

@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
                        "horzcat arguments dimensions are not consistent."); 
       // Expressions must be  matrices
       of_size_max sizee = of_size_max(a0.extent());
-      sizee[1] += a1.extent()[1]; 
+      sizee[1] += boost::fusion::at_c<1>(a1.extent());
       return boost::proto::make_expr<
           nt2::tag::horzcat_
         , container::domain 

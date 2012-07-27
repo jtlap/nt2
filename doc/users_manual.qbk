@@ -1,36 +1,17 @@
-[part User Manual]
-[section Basic types] [endsect]
-[section Containers] [endsect]
-
-[section Functions]
-
-Functions and/or constants are grouped together into *toolboxes*
-according to a single /theme/: arithmetic, trigonometric, linear algebra,
-signal processing...
-
-All toolbox constants and functions use the
-[@http://svn.boost.org/svn/boost/sandbox/SOC/2011/simd/doc/html/dispatch.html Boost.Dispatch]
-system so that it is possible to specialize functions and constants on categories of types.
-
-The layout of toolbox headers is as follows:
-[table Toolbox layout
-    [[Path]  [Description]]
-    [[[^nt2/toolbox/[~toolbox-name].hpp]] [Includes the whole toolbox [~toolbox-name]]]
-    [[[^nt2/toolbox/[~toolbox-name]/[~toolbox-name].hpp]] [Same as above]]
-    [[[^nt2/toolbox/[~toolbox-name]/functions.hpp]] [Includes all functions defined in toolbox [~toolbox-name]]]
-    [[[^nt2/toolbox/[~toolbox-name]/constants.hpp]] [Includes all constants defined in toolbox [~toolbox-name]]]
-    [[[^nt2/toolbox/[~toolbox-name]`/include/functions`/[~function-name].hpp]]
-    [Includes function [~function-name] as well as all its specializations]]
-    [[[^nt2/toolbox/[~toolbox-name]`/include/constants`/[~constant-name].hpp]]
-    [Includes constant [~constant-name] as well as all its specializations]]
-    [[[^nt2`/include/functions`/[~function-name].hpp]]
-    [Includes function [~function-name] as well as all its specializations (sys toolboxes only)]]
-    [[[^nt2`/include/constants`/[~constant-name].hpp]]
-    [Includes constant [~constant-name] as well as all its specializations (sys toolboxes only)]]
+[part User Manual
+  [quickbook 1.5]
 ]
 
-Some toolboxes are referred as being /sys/: all their functions are into the nt2
-namespace. Other toolboxes introduce their own namespace, i.e. all functions they define are in
-a namespace with the same name as the toolbox name (they are referred /usr/:).
+[#user_manual]
+[/ xinclude core.container.xml]
+[/ xinclude core.io.xml]
+[/ xinclude core.sdk.xml]
+[/ xinclude core.indexing.xml]
+[/xinclude arithmetic.xml]
+[/xinclude predicates.xml]
+[xinclude trigonometric.xml]
+[/ xinclude linalg.xml]
+[/ xinclude optimisation.xml]
+[xinclude user/tutorial.xml]
+[xinclude user/faq.xml]
 
-[endsect] [/ Function Toolboxes]

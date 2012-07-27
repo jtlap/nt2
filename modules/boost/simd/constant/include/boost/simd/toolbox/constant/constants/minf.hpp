@@ -31,12 +31,12 @@
  * types it does not represent the same mathematical number.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/minf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,12 +48,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Minf
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -61,22 +61,22 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Minf of functor Minf 
+     * \brief Define the tag Minf of functor Minf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     struct Minf : ext::constant_<Minf>
-    { 
+    {
       typedef double default_type;
-      template<class Target, class Dummy=void> 
-      struct apply : Valmin::apply<Target,Dummy> {};  
+      template<class Target, class Dummy=void>
+      struct apply : Valmin::apply<Target,Dummy> {};
     };
 
-    template<class Dummy>
-    struct  Minf::apply<float,Dummy> 
+    template<class T, class Dummy>
+    struct  Minf::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::single_<0xFF800000> {};
 
-    template<class Dummy>
-    struct  Minf::apply<double,Dummy> 
+    template<class T, class Dummy>
+    struct  Minf::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0xFFF0000000000000ULL> {};
   }
 

@@ -30,7 +30,10 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::as_arithmetic<A0>::type aA0;
       typedef typename dispatch::meta::as_integer<aA0>::type iA0;
-      return result_type(_mm256_testz_si256(bitwise_cast<iA0>(a0), Allbits<iA0>()));
+      return result_type( _mm256_testz_si256( bitwise_cast<iA0>(a0)
+                                            , Allbits<iA0>()
+                                            ) != 0
+                        );
     }
   };
 

@@ -27,12 +27,12 @@ namespace nt2 { namespace ext
     {
       typedef typename A0::extent_type extent_type;
       extent_type sz  = a0.extent();
-      std::size_t i = a0.extent().size();
+      std::size_t i = sz.size();
 
       // If less than 2D, then return 2 directly
       if(i < 2) return 2;
 
-      std::size_t d = nt2::ndims(a0.extent());
+      std::size_t d = nt2::ndims(sz);
 
       // ndims is either 2, |c-e| or, if d is 0, sz.size()
       return d ? ( (d < 2) ? 2 : d) : i;                     

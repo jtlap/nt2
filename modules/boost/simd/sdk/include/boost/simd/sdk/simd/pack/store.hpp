@@ -31,6 +31,7 @@ namespace boost { namespace simd { namespace ext
       return store(evaluate(a0),a1,a2);
     }
   };
+
 } } }
 
 #endif

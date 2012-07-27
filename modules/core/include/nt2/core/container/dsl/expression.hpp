@@ -27,6 +27,8 @@
 #include <boost/proto/traits.hpp>
 #include <boost/proto/extends.hpp>
 #include <boost/mpl/assert.hpp>
+#include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_base_of.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
@@ -37,6 +39,11 @@
 
 #ifdef NT2_LOG_COPIES
 #include <nt2/sdk/unit/display_type.hpp>
+#endif
+
+#if defined(BOOST_MSVC)
+#pragma warning( push )
+#pragma warning( disable : 4522 )
 #endif
 
 namespace nt2 { namespace container
@@ -138,19 +145,23 @@ namespace nt2 { namespace container
     }
 
     //==========================================================================
-    // Assignment operator force evaluation - LHS non-terminal version
+    // Assignment operator forces evaluation
     //==========================================================================
     template<class Xpr> BOOST_FORCEINLINE
-    expression const& operator=(Xpr const& xpr) const
+    typename boost::disable_if< boost::is_base_of<expression, Xpr>
+                              , expression&
+                              >::type
+    operator=(Xpr const& xpr)
     {
       process( xpr );
       return *this;
     }
 
-    //==========================================================================
-    // Assignment operator force evaluation - regular version
-    //==========================================================================
-    template<class Xpr> BOOST_FORCEINLINE expression& operator=(Xpr const& xpr)
+    template<class Xpr> BOOST_FORCEINLINE
+    typename boost::disable_if< boost::is_base_of<expression, Xpr>
+                              , expression const&
+                              >::type
+    operator=(Xpr const& xpr) const
     {
       process( xpr );
       return *this;
@@ -158,12 +169,19 @@ namespace nt2 { namespace container
 
     BOOST_FORCEINLINE expression& operator=(expression const& xpr)
     {
+      proto_base() = xpr.proto_base();
+      const_cast<extent_type&>(size_) = xpr.size_;
+      return *this;
+    }
+
+    BOOST_FORCEINLINE expression const& operator=(expression const& xpr) const
+    {
       process( xpr );
       return *this;
     }
 
     //==========================================================================
-    // Op-Assignment operators generate proper tree then evaluates
+    // Op-Assignment operators generate proper tree then evaluate
     //==========================================================================
     #define NT2_MAKE_ASSIGN_OP(OP)                                            \
     template<class Xpr>                                                       \
@@ -268,7 +286,7 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return nt2::terminal(*this).raw();
+      return boost::proto::value(*this).raw();
     }
 
     const_pointer raw() const
@@ -284,7 +302,7 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return nt2::terminal(*this).raw();
+      return boost::proto::value(*this).raw();
     }
 
     //==========================================================================
@@ -373,5 +391,9 @@ namespace nt2 { namespace container
     sizes_t size_;
   };
 } }
+
+#if defined(BOOST_MSVC)
+#pragma warning( pop )
+#endif
 
 #endif

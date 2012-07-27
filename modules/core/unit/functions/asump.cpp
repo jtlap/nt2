@@ -37,8 +37,8 @@ NT2_TEST_CASE_TPL( asump, (float)(double))//NT2_TYPES )
   nt2::table<T> sy( nt2::of_size(1,3) );
   nt2::table<T> sz( nt2::of_size(1,3) );
 
-  for(int j=1;j<=nt2::size(y, 2);j++)
-    for(int i=1;i<=nt2::size(y, 1);i++)
+  for(size_t j=1;j<=nt2::size(y, 2);j++)
+    for(size_t i=1;i<=nt2::size(y, 1);i++)
       y(i,j) = i + 10*j;
 
 //   sy = nt2::asump(y, nt2::Three<T>());
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL( asump, (float)(double))//NT2_TYPES )
 //   display("sy", sy);
 //   display("sz", sz);
 
-//   for(int j=1;j<=nt2::size(y, 2);j++)
+//   for(size_t j=1;j<=nt2::size(y, 2);j++)
 //       NT2_TEST_EQUAL(sz(j), sy(j));
 //   sy = nt2::asump(y, nt2::Three<T>(), 2);
 //   sz = nt2::asum(nt2::pow_abs(y, nt2::Three<T>()), 2);

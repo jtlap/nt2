@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
             at_c< typename A0::index_type::type, A1::value-1>::type
     result_type;
 
-    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1&) const
+    BOOST_FORCEINLINE result_type operator()(const A0&, const A1&) const
     {
       result_type that;
       return that;

@@ -51,7 +51,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // vector size
     ////////////////////////////////////////////////////////////////////////////
-    enum { static_size = sizeof(native_type)/sizeof(value_type)
+    enum v_size { static_size = sizeof(native_type)/sizeof(value_type)
                        ? sizeof(native_type)/sizeof(value_type) : 1};
 
     BOOST_FORCEINLINE native() {}

@@ -25,8 +25,8 @@ namespace nt2 { namespace details
   // It use read_cycles() to retrieves cycles based timestamps.
   struct cycle_based_timer
   {
-    NT2_UNIT_DECL static void             Print(const cycles_t& val);
-                  static inline cycles_t  Time() { return read_cycles(); }
+    NT2_SDK_TIMING_DECL static void             Print(const cycles_t& val);
+                        static inline cycles_t  Time() { return read_cycles(); }
   };
 
   // INTERNAL ONLY

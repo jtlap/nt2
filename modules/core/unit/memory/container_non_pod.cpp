@@ -422,7 +422,7 @@ NT2_TEST_CASE( container_resize)
     type b;
 
     NT2_TEST(b.empty());
-    NT2_TEST_EQUAL(b.size(),  0 );
+    NT2_TEST_EQUAL(b.size(),  0u );
     NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
     NT2_TEST_EQUAL(b.extent(), of_size_<0>());
     NT2_TEST_EQUAL(b.raw(), (nt2::object*)(0));
@@ -459,4 +459,20 @@ NT2_TEST_CASE( container_resize)
       for(  type::difference_type i=0;i<2;++i)
         NT2_TEST_EQUAL(b[i+2*j].s, std::string("default") );
   }
+}
+
+//==============================================================================
+// Test for container push_back
+//==============================================================================
+NT2_TEST_CASE( container_push_back )
+{
+  nt2::memory::container<nt2::object, nt2::settings()> a(nt2::of_size(2, 3));
+  for(std::ptrdiff_t i=0; i<7; ++i)
+    a.push_back(nt2::object("foo"));
+
+  NT2_TEST_EQUAL( a.extent(), nt2::of_size(2*3+7) );
+  for(std::ptrdiff_t i=0; i<2*3; ++i)
+    NT2_TEST_EQUAL( a[i].s, "copied" );
+  for(std::ptrdiff_t i=0; i<7; ++i)
+    NT2_TEST_EQUAL( a[2*3+i].s, "copied" );
 }

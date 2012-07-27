@@ -39,9 +39,6 @@ NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(logical_or(boost::simd::One<T>(), boost::simd::One<T>()), r_t(true));
@@ -67,9 +64,6 @@ NT2_TEST_CASE_TPL ( logical_or_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
   std::cout << nt2::type_id<r_t> () << std::endl;
   std::cout << nt2::type_id<wished_r_t> () << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(logical_or(boost::simd::Inf<T>(), boost::simd::Inf<T>()), r_t(true));

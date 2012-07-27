@@ -46,9 +46,6 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<seladd_(vlT,vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(seladd(boost::simd::is_nez(boost::simd::Zero<vT>()),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(1));
@@ -79,8 +76,6 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<seladd_(vlT,vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
 
   // specific values tests

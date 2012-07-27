@@ -56,8 +56,6 @@ macro(nt2_module_source_setup module)
 
       file(GLOB_RECURSE files RELATIVE ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}
            ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include/*.hpp ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/include/*.h
-           *.hpp *.h
-           *.cpp *.c
           )
       set(files_full)
       foreach(file ${files})
@@ -70,7 +68,7 @@ macro(nt2_module_source_setup module)
       if(NOT EXISTS ${NT2_BINARY_DIR}/modules/dummy.cpp)
         file(WRITE ${NT2_BINARY_DIR}/modules/dummy.cpp)
       endif()
-      add_executable(${module}.sources EXCLUDE_FROM_ALL ${NT2_BINARY_DIR}/modules/dummy.cpp ${files_full})
+      add_library(${module}.sources EXCLUDE_FROM_ALL ${NT2_BINARY_DIR}/modules/dummy.cpp ${files_full})
       set_property(TARGET ${module}.sources PROPERTY FOLDER sources)
     endif()
 
@@ -155,13 +153,18 @@ macro(nt2_module_dir dir)
 endmacro()
 
 macro(nt2_configure_tests)
+  if(CMAKE_GENERATOR MATCHES "Ninja")
+    set(NT2_WITH_TESTS_FULL_ 1)
+  else()
+    set(NT2_WITH_TESTS_FULL_ 0)
+  endif()
   if(CMAKE_GENERATOR MATCHES "Make|Ninja")
     set(NT2_WITH_TESTS_ 1)
   else()
     set(NT2_WITH_TESTS_ 0)
   endif()
   option(NT2_WITH_TESTS "Enable benchmarks and unit tests" ${NT2_WITH_TESTS_})
-  option(NT2_WITH_TESTS_FULL "Use one executable per test" OFF)
+  option(NT2_WITH_TESTS_FULL "Use one executable per test" ${NT2_WITH_TESTS_FULL_})
   option(NT2_WITH_TESTS_BENCH "Register benchmarks with ctest" OFF)
   option(NT2_WITH_TESTS_COVER "Enable cover tests" OFF)
   set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST} CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
@@ -262,7 +265,7 @@ macro(nt2_module_add_library libname)
   if(${NT2_CURRENT_MODULE} MATCHES "^boost\\.")
     string(REPLACE "." "_" macro_name ${NT2_CURRENT_MODULE_U})
   else()
-    string(REPLACE "." "__" macro_name "NT2_${NT2_CURRENT_MODULE_U}")
+    string(REPLACE "." "_" macro_name "NT2_${NT2_CURRENT_MODULE_U}")
   endif()
   set(FLAGS "-D${macro_name}_SOURCE")
   if(NT2_${NT2_CURRENT_MODULE_U}_DYN_LINK)
@@ -613,9 +616,18 @@ macro(nt2_module_tool_setup tool)
     message(STATUS "[nt2] building tool ${tool}")
     file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool})
 
+    if(NOT DEFINED NT2_TOOL_DEBUG)
+      set(NT2_TOOL_DEBUG $ENV{NT2_TOOL_DEBUG})
+    endif()
+    if(NT2_TOOL_DEBUG)
+      set(NT2_TOOL_CONFIG Debug)
+    else()
+      set(NT2_TOOL_CONFIG Release)
+    endif()
+
     set(BUILD_OPTION)
     if(NOT CMAKE_CONFIGURATION_TYPES)
-      set(BUILD_OPTION -DCMAKE_BUILD_TYPE=Release)
+      set(BUILD_OPTION -DCMAKE_BUILD_TYPE=${NT2_TOOL_CONFIG})
     endif()
     if(Boost_INCLUDE_DIR)
       list(APPEND BUILD_OPTION -DBoost_INCLUDE_DIR=${Boost_INCLUDE_DIR})
@@ -635,7 +647,7 @@ macro(nt2_module_tool_setup tool)
       message(FATAL_ERROR "[nt2] configuring tool ${tool} failed")
     endif()
 
-    execute_process(COMMAND ${CMAKE_COMMAND} --build . --config Release
+    execute_process(COMMAND ${CMAKE_COMMAND} --build . --config ${NT2_TOOL_CONFIG}
                     WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_build_out
                     RESULT_VARIABLE tool_build

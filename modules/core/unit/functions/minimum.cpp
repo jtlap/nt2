@@ -65,6 +65,6 @@ NT2_TEST_CASE_TPL( minimum_expr, NT2_TYPES )
       NT2_TEST_GREATER_EQUAL(y(i, j), sy(i, j));
   sy = minimum(y(_));
   display("sy", sy);
-  NT2_TEST_EQUAL(sy(1), 11);
+  NT2_TEST_EQUAL(sy(1), T(11));
 }
 

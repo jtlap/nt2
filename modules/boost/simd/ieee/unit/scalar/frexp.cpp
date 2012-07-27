@@ -43,7 +43,9 @@ NT2_TEST_CASE_TPL ( frexp_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
 
+  iT e; 
+  T m = frexp(boost::simd::One<T>(), e);
+  NT2_TEST_EQUAL(m, boost::simd::Half<T>());
+  NT2_TEST_EQUAL(e, 1); 
 } // end of test for floating_

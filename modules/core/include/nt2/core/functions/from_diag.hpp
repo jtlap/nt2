@@ -15,6 +15,7 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/generate_as.hpp>
 
 namespace nt2

@@ -1,0 +1,7 @@
+[section Detection and Selection of a Site]
+
+* Use combine etc... to make the DEFAULT_SITE correct
+* Speak about how to add potentially special cmake phase to detect said architecture.
+* This is more of a "good practice"  than a strict stuff.
+
+[endsect]

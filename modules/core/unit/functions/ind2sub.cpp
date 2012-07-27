@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL( ind2sub_1D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(
 
   typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
-  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+  static const int sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   boost::array<sidx_t, 1> a = nt2::ind2sub( make_vector(16), nt2::enumerate<idx_t>(0) );
 
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL( ind2sub_1D_simd_base, (nt2::int32_t)(nt2::uint32_t)(nt2::int6
 
   typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
-  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+  static const int sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   boost::array<sidx_t, 1>
   a = nt2::ind2sub( make_vector(16), nt2::enumerate<idx_t>(0), make_vector(-1) );
@@ -123,7 +123,7 @@ NT2_TEST_CASE_TPL( ind2sub_2D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(
 
   typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
-  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+  static const int sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int j=0;j<2;++j)
   {
@@ -168,7 +168,7 @@ NT2_TEST_CASE_TPL( ind2sub_2D_simd_base, (nt2::int32_t)(nt2::uint32_t)(nt2::int6
 
   typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
-  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+  static const int sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(std::ptrdiff_t j=0;j<5;++j)
   {
@@ -215,7 +215,7 @@ NT2_TEST_CASE_TPL( ind2sub_3D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(
 
   typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
-  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+  static const int sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int k=0;k<5;++k)
   {
@@ -269,7 +269,7 @@ NT2_TEST_CASE_TPL( ind2sub_3D_simd_base, (nt2::int32_t)(nt2::uint32_t)(nt2::int6
 
   typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
-  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+  static const int sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int k=0;k<5;++k)
   {
@@ -326,7 +326,7 @@ NT2_TEST_CASE_TPL( ind2sub_4D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(
 
   typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
-  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+  static const int sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int l=0;l<3;++l)
   {
@@ -382,7 +382,7 @@ NT2_TEST_CASE_TPL( ind2sub_4D_simd_base, (nt2::int32_t)(nt2::uint32_t)(nt2::int6
 
   typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
   typedef typename boost::dispatch::meta::as_signed<idx_t>::type sidx_t;
-  static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
+  static const int sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
   for(int l=0;l<3;++l)
   {

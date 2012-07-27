@@ -26,8 +26,8 @@ namespace nt2 { namespace ext
                               (A0),
                               (ast_<A0>) )
   {
-    typedef typename meta::call < nt2::tag::is_nan_(A0)>::type T2;
-    typedef typename meta::call < nt2::tag::if_zero_else_(T2, A0)>::type T3;
+    typedef typename meta::call < nt2::tag::is_nan_(A0 const &)>::type T2;
+    typedef typename meta::call < nt2::tag::if_zero_else_(T2, A0 const &)>::type T3;
     typedef typename meta::call < nt2::tag::sum_(T3)>::type  result_type;
 
 
@@ -42,9 +42,9 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A1> > )
                               )
   {
-    typedef typename meta::call < nt2::tag::is_nan_(A0)>::type T2;
-    typedef typename meta::call < nt2::tag::if_zero_else_(T2, A0)>::type T3;
-    typedef typename meta::call < nt2::tag::sum_(T3, A1)>::type  result_type;
+    typedef typename meta::call < nt2::tag::is_nan_(A0 const &)>::type T2;
+    typedef typename meta::call < nt2::tag::if_zero_else_(T2, A0 const &)>::type T3;
+    typedef typename meta::call < nt2::tag::sum_(T3, A1 const &)>::type  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {

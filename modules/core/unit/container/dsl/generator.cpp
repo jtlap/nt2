@@ -18,6 +18,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/meta/display_type.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
@@ -192,15 +193,17 @@ void expr_lifetime_tie(Expr const&)
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
 
-  typedef typename boost::proto::result_of::child_c<Expr, 0>::value_type child0;
+  typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0_in;
+  typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
 
   NT2_TEST( is_nt2_basic_expr<Expr>() );
-  NT2_TEST( is_nt2_basic_expr<child0>() );
+  NT2_TEST( is_nt2_basic_expr<typename boost::remove_reference<child0_in>::type>() );
 
-  NT2_TEST( !boost::is_reference<child0>::value );
-  NT2_TEST( !boost::is_const<child0>::value     );
+  typedef typename boost::proto::result_of::value<child0>::value_type value;
+  NT2_TEST( boost::is_reference<child0_in>::value || boost::is_reference<value>::value );
+  NT2_TEST( !boost::is_const<child0_in>::value     );
 
-  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
+  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::type
                   , T&
                   );
 }

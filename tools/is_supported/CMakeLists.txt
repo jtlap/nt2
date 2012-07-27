@@ -8,14 +8,12 @@
 ################################################################################
 cmake_minimum_required(VERSION 2.6)
 
-set(NT2_SOURCE_ROOT ${CMAKE_SOURCE_DIR}/../..)
-set(CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
+set(NT2_DIR ${CMAKE_SOURCE_DIR}/../../cmake)
 find_package(NT2 REQUIRED COMPONENTS boost.simd.detect)
-include_directories(${NT2_INCLUDE_DIR})
-link_directories(${NT2_LIBRARY_DIR})
-link_libraries(${NT2_LIBRARIES})
+include(${NT2_USE_FILE})
 
 add_executable(is_supported is_supported.cpp)
 set_target_properties(is_supported
                       PROPERTIES RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_BINARY_DIR}
+                                 RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_BINARY_DIR}
                      )

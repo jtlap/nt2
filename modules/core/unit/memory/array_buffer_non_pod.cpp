@@ -38,7 +38,7 @@ NT2_TEST_CASE( array_buffer_default_ctor )
 
   array_buffer<nt2::object, boost::mpl::size_t<2> > b;
 
-  NT2_TEST_EQUAL(b.size(), 2 );
+  NT2_TEST_EQUAL(b.size(), 2u );
   NT2_TEST_EQUAL(b.raw(),&b[0]);
 
   for(std::size_t i=0;i<b.size();++i)
@@ -60,7 +60,7 @@ NT2_TEST_CASE( array_buffer_data_ctor )
     NT2_TEST_EQUAL(b[i].s, std::string("default") );
 
   array_buffer<nt2::object, boost::mpl::size_t<5> > x(b);
-  NT2_TEST_EQUAL(x.size() , 5     );
+  NT2_TEST_EQUAL(x.size() , 5u     );
   NT2_TEST_EQUAL(x.raw()  , &x[0] );
 
   for( std::size_t i = 0; i < 5; ++i )
@@ -81,7 +81,7 @@ NT2_TEST_CASE(array_buffer_assignment )
   array_buffer<nt2::object, boost::mpl::size_t<5> > x;
   x = b;
 
-  NT2_TEST_EQUAL(x.size() , 5     );
+  NT2_TEST_EQUAL(x.size() , 5u     );
   NT2_TEST_EQUAL(x.raw()  , &x[0] );
 
   for(std::size_t i=0;i<b.size();++i)
@@ -104,8 +104,8 @@ NT2_TEST_CASE(array_buffer_swap)
 
   swap(x,b);
 
-  NT2_TEST_EQUAL(x.size() , 5     );
-  NT2_TEST_EQUAL(b.size() , 5     );
+  NT2_TEST_EQUAL(x.size() , 5u    );
+  NT2_TEST_EQUAL(b.size() , 5u    );
   NT2_TEST_EQUAL(x.raw()  , &x[0] );
   NT2_TEST_EQUAL(b.raw()  , &b[0] );
 
@@ -129,7 +129,7 @@ NT2_TEST_CASE(array_buffer_swap)
 //==============================================================================
 struct f_
 {
-  template<class T> std::string operator()(T const& e) const
+  template<class T> std::string operator()(T const&) const
   {
     return "transformed";
   }

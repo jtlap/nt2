@@ -201,3 +201,33 @@ NT2_TEST_CASE_TPL(buffer_iterator, NT2_TYPES )
 
   for ( std::ptrdiff_t i = 0; i < 5; ++i )  NT2_TEST_EQUAL( x[i], f(T(3+i)) );
 }
+
+NT2_TEST_CASE_TPL(buffer_push_back, NT2_TYPES )
+{
+  using nt2::memory::buffer;
+
+  buffer<T> x(5);
+  for ( std::ptrdiff_t i = 0; i < 5; ++i ) x[i] = T(3+i);
+  for ( std::ptrdiff_t i = 0; i < 7; ++i ) x.push_back(11+i);
+
+  NT2_TEST_EQUAL( x.size(), (std::size_t)5+7 );
+  std::ptrdiff_t i = 0;
+  for ( ; i < 5; ++i ) NT2_TEST_EQUAL( x[i], T(3+i) );
+  for ( ; i < 5+7; ++i ) NT2_TEST_EQUAL( x[i], T(11+i-5) );
+
+  std::cout << "capacity = " << x.capacity() << std::endl;
+}
+
+NT2_TEST_CASE_TPL(buffer_push_back_def, NT2_TYPES )
+{
+  using nt2::memory::buffer;
+
+  buffer<T> x;
+  for ( std::ptrdiff_t i = 0; i < 7; ++i ) x.push_back(11+i);
+
+  NT2_TEST_EQUAL( x.size(), (std::size_t)7 );
+  std::ptrdiff_t i = 0;
+  for ( ; i < 7; ++i ) NT2_TEST_EQUAL( x[i], T(11+i) );
+
+  std::cout << "capacity = " << x.capacity() << std::endl;
+}

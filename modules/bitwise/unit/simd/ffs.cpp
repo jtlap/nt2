@@ -56,10 +56,10 @@ NT2_TEST_CASE_TPL ( ffs_float_1_0,  NT2_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(ffs(nt2::Inf<vT>())[0], boost::simd::Nbmantissabits<T>()+1);
-  NT2_TEST_EQUAL(ffs(nt2::Minf<vT>())[0], boost::simd::Nbmantissabits<T>()+1);
+  NT2_TEST_EQUAL(ffs(nt2::Inf<vT>())[0], sr_t(boost::simd::Nbmantissabits<T>()+1));
+  NT2_TEST_EQUAL(ffs(nt2::Minf<vT>())[0], sr_t(boost::simd::Nbmantissabits<T>()+1));
   NT2_TEST_EQUAL(ffs(nt2::Nan<vT>())[0], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(ffs(nt2::Signmask<vT>())[0], sizeof(T)*8);
+  NT2_TEST_EQUAL(ffs(nt2::Signmask<vT>())[0], sr_t(sizeof(T)*8));
   NT2_TEST_EQUAL(ffs(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for float
 
@@ -87,7 +87,7 @@ NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(ffs(nt2::One<vT>())[0], nt2::One<sr_t>());
-  NT2_TEST_EQUAL(ffs(nt2::Signmask<vT>())[0], sizeof(T)*8);
+  NT2_TEST_EQUAL(ffs(nt2::Signmask<vT>())[0], sr_t(sizeof(T)*8));
   NT2_TEST_EQUAL(ffs(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for signed_int_
 

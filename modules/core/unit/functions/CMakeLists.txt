@@ -34,6 +34,7 @@ SET( SOURCES
     dot.cpp
     expand.cpp
     eye.cpp
+    falses.cpp
     first_last_index.cpp
     firstnonsingleton.cpp
     flipdim.cpp
@@ -45,8 +46,11 @@ SET( SOURCES
     from_diag.cpp
     havesamesize.cpp
     horzcat.cpp
+    hyper.cpp
     inbtrue.cpp
     ind2sub.cpp
+    indices.cpp
+    infs.cpp
     iscolumn.cpp
     isdiagonal.cpp
     isempty.cpp
@@ -69,11 +73,16 @@ SET( SOURCES
     isvectoralong.cpp
     length.cpp
     line.cpp
+    linesstride.cpp
     linspace.cpp
     logspace.cpp
     maximum.cpp
+    median.cpp
     mean.cpp
+    meanad.cpp
     minimum.cpp
+    nans.cpp
+    nblines.cpp
     nbtrue.cpp
     ndims.cpp
     none.cpp
@@ -81,9 +90,11 @@ SET( SOURCES
     normp.cpp
     numel.cpp
     ones.cpp
+    of_size.cpp
     pispace.cpp
     prod.cpp
     putalong.cpp
+    rand.cpp
     relative_index.cpp
     relative_size.cpp
     rephorz.cpp
@@ -102,11 +113,15 @@ SET( SOURCES
     sub2sub.cpp
     subscript.cpp
     sum.cpp
+    cumsum.cpp
+    find.cpp
     tie.cpp
+    transform.cpp
     tri1l.cpp
     tri1u.cpp
     tril.cpp
     triu.cpp
+    trues.cpp
     var.cpp
     vertcat.cpp
     width.cpp
@@ -114,12 +129,11 @@ SET( SOURCES
     zeros.cpp
 #  fill_pattern.cpp
 #  repmat.cpp
-#  nansum.cpp
-#  nanmean.cpp
-#  nanasum2.cpp
+    nansum.cpp
+    nanmean.cpp
+    nanasum2.cpp
+    sort.cpp
 # List of test files for toolbox core.settings
    )
-if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
-endif()
+
 nt2_module_add_tests(core.functions.unit ${SOURCES})

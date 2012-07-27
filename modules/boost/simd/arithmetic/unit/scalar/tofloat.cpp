@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::tofloat;
   using boost::simd::tag::tofloat_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<tofloat_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::strip<typename boost::dispatch::meta::call<tofloat_(T)>::type>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
@@ -39,9 +39,6 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(tofloat(boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
@@ -58,7 +55,7 @@ NT2_TEST_CASE_TPL ( tofloat_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   using boost::simd::tofloat;
   using boost::simd::tag::tofloat_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<tofloat_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::strip<typename boost::dispatch::meta::call<tofloat_(T)>::type>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
@@ -68,9 +65,6 @@ NT2_TEST_CASE_TPL ( tofloat_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(tofloat(boost::simd::One<T>()), boost::simd::One<r_t>());
@@ -83,7 +77,7 @@ NT2_TEST_CASE_TPL ( tofloat_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   using boost::simd::tofloat;
   using boost::simd::tag::tofloat_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<tofloat_(T)>::type r_t;
+  typedef typename boost::dispatch::meta::strip<typename boost::dispatch::meta::call<tofloat_(T)>::type>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
@@ -93,9 +87,6 @@ NT2_TEST_CASE_TPL ( tofloat_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(tofloat(boost::simd::Mone<T>()), boost::simd::Mone<r_t>());

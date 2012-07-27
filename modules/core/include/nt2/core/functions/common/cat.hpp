@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
         }
       else
         { //these are the other cases
-          if(pos0[along] <= ex0[along]) // this is in the a0 part
+          if(size_t(pos0[along]) <= ex0[along]) // this is in the a0 part
             {
               State pp = sub2ind(ex0, pos0);
               return nt2::run(boost::proto::child_c<0>(a0),pp,t);

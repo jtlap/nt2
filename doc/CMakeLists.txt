@@ -8,25 +8,30 @@
 ################################################################################
 
 set(dependencies)
-set(MODULES_LIST)
-foreach(module ${NT2_MODULES})
-  string(TOUPPER ${module} module_U)
-
-  # Only add module if it's got a documentation
-  if(EXISTS ${NT2_${module_U}_ROOT}/doc/CMakeLists.txt)
-    set(MODULES_LIST "${MODULES_LIST}[xinclude ${module}.xml]\n")
-  endif()
-endforeach()
-
-# Generate qbk file containing the list of all modules
-configure_file(modules.qbk.in modules.qbk)
 
 set(MANUAL_SRC
-    nt2.qbk
-    preface.qbk
-    developers_manual.qbk
+  nt2.qbk
+    news.qbk
     getting_started.qbk
-    modules.qbk
+      started/setup.qbk
+      started/tutorial.qbk
+    users_manual.qbk
+      user/containers.qbk
+      user/tutorial.qbk
+      user/faq.qbk
+    tools.qbk
+      tools/cmake.qbk
+      tools/build.qbk
+    developers_manual.qbk
+      dev/module.qbk
+      dev/expression.qbk
+      dev/architecture.qbk
+      dev/tutorial.qbk
+      dev/faq.qbk
+    appendix.qbk
+      appendix/licence.qbk
+      appendix/bibliography.qbk
+      appendix/acknowledgement.qbk
    )
 
 # Generate the xml for the manuals;

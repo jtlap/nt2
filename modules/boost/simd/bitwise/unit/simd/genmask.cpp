@@ -43,9 +43,6 @@ NT2_TEST_CASE_TPL ( genmask_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<genmask_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
    NT2_TEST_EQUAL(genmask(boost::simd::True<vT>())[0], boost::simd::Mone<sr_t>());
@@ -70,9 +67,6 @@ NT2_TEST_CASE_TPL ( genmask_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<genmask_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
- 
 
   // specific values tests
   NT2_TEST_EQUAL(genmask(boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>());

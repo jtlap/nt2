@@ -8,24 +8,23 @@
 ##############################################################################
 
 SET( SOURCES
-#   colon.cpp
-#   linspace.cpp
-#   ones.cpp
-#   reshape.cpp
-#   zeros.cpp
-#   eye.cpp
-#   triu.cpp
-#   tril.cpp
-#   band.cpp
-#   tri1u.cpp
-#   tri1l.cpp
-#   ric.cpp
-#   rif.cpp
-# #  rows.cpp
+  colon.cpp
+  linspace.cpp
+  ones.cpp
+  reshape.cpp
+  zeros.cpp
+  eye.cpp
+  triu.cpp
+  tril.cpp
+  band.cpp
+  tri1u.cpp
+  tri1l.cpp
+  ric.cpp
+  rif.cpp
+#  rows.cpp
+  transform.cpp
   sum.cpp
 # List of test files for toolbox core.settings
    )
-if(CMAKE_COMPILER_IS_GNUCXX)
-  set(CMAKE_CXX_FLAGS_NT2TEST "${CMAKE_CXX_FLAGS_NT2TEST} -Wfatal-errors")
-endif()
+
 nt2_module_add_tests(openmp.functions.unit ${SOURCES})

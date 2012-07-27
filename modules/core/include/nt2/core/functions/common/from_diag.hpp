@@ -12,6 +12,9 @@
 #include <nt2/core/functions/from_diag.hpp>
 #include <nt2/include/functions/arith.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 
 namespace nt2 { namespace ext
 {

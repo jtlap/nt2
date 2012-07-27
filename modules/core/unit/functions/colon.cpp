@@ -77,7 +77,6 @@ NT2_TEST_CASE_TPL( colon_real_step, NT2_REAL_TYPES )
   using nt2::_;
 
   typedef T r_t;
-  double ulpd;
 
   nt2::table<T> xd = _(T(0),T(0.3),T(1));
 

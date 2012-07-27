@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_REAL_TYPES)
   using nt2::tofloat;
   using nt2::tag::tofloat_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<tofloat_(T)>::type r_t;
+  typedef typename nt2::meta::strip<typename nt2::meta::call<tofloat_(T)>::type>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( tofloat_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   using nt2::tofloat;
   using nt2::tag::tofloat_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<tofloat_(T)>::type r_t;
+  typedef typename nt2::meta::strip<typename nt2::meta::call<tofloat_(T)>::type>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
@@ -89,7 +89,7 @@ NT2_TEST_CASE_TPL ( tofloat_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   using nt2::tofloat;
   using nt2::tag::tofloat_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<tofloat_(T)>::type r_t;
+  typedef typename nt2::meta::strip<typename nt2::meta::call<tofloat_(T)>::type>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;

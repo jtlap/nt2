@@ -9,10 +9,15 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_EYE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_EYE_HPP_INCLUDED
 
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/core/utility/of_size.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 namespace nt2 { namespace details
 {

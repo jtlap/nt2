@@ -10,6 +10,10 @@
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_POLEVL_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
+// polevl(x, p)
+// This compute the valuation of a polynomial p of degree N at x
+// The polynomial is supposed to be given by an array of N+1 elements
+// in decreasing degrees order
 
 namespace nt2 { namespace tag
   {         

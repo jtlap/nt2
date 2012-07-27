@@ -39,8 +39,8 @@ namespace nt2{ namespace ext
       {
         result_type aa  = a; 
         result_type ta(of_size(width(aa), height(aa)));
-        for (int i = 1; i <= height(aa); ++i)
-          for (int j = 1; j <= width(aa); ++j)
+        for (size_t i = 1; i <= height(aa); ++i)
+          for (size_t j = 1; j <= width(aa); ++j)
             ta(j, i) = aa(i, j);
         return ta;
       }
@@ -64,8 +64,8 @@ namespace nt2{ namespace ext
       {
         result_type aa  = a; 
         result_type ta(of_size(width(aa), height(aa)));
-        for (int i = 1; i <= height(aa); ++i)
-          for (int j = 1; j <= width(aa); ++j)
+        for (size_t i = 1; i <= height(aa); ++i)
+          for (size_t j = 1; j <= width(aa); ++j)
             ta(j, i) = aa(i, j);
         return ta;
       }

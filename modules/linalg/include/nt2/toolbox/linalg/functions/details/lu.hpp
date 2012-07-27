@@ -38,6 +38,7 @@
 #include <nt2/toolbox/linalg/details/lapack/getri.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gesvx.hpp>
 #include <nt2/toolbox/linalg/details/lapack/lange.hpp>
+#include <boost/dispatch/details/ignore_unused.hpp>
 
 // TODO:
 // these are the kind of syntaxes to be enforced by nt2::chol
@@ -252,7 +253,7 @@ namespace nt2 { namespace details
     //==========================================================================
     size_t rank(base_t epsi = nt2::Eps<base_t>()) //provisouare
     {
-      int32_t r = 0;
+      //int32_t r = 0;
       base_t thresh = nt2::max(n_, m_)*epsi*nt2::max(nt2::abs(nt2::diag_of(lu_)(_)));
       return  size_t(sum(if_one_else_zero(gt(nt2::diag_of(lu_), thresh))(_)));
 
@@ -272,11 +273,13 @@ namespace nt2 { namespace details
 
     type_t signdet(bool check = true){
       BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
-      // if (check)     BOOST_ASSERT_MSG(is_real<type_t>::value, "determinant sign is not avalaible for complex matrices");
+      boost::dispatch::ignore_unused(check); 
+      //if (check)     BOOST_ASSERT_MSG(is_real<type_t>::value, "determinant sign is not avalaible for complex matrices");
       //count modulo 2 the number of ipiv_ elements such that ipiv_(i) !=  i
       //return nt2::sum(nt2::sb2b(ipiv_ != cif(numel(ipiv_), 1, meta::as_<itype_t>())))&1 ? Mone<type_t>() : One<type_t>();
       type_t s = One<type_t>();
-      for(int i=1; i < numel(ipiv_) ; ++i)
+      const nt2_la_int num = numel(ipiv_); 
+      for(nt2_la_int i=1; i < num ; ++i)
         {
           if (ipiv_(i) !=  i) s = -s;
         }
@@ -301,7 +304,7 @@ namespace nt2 { namespace details
       // that use ten power factor instead
       type_t   m1 = One<type_t>();
       exponent = Zero<itype_t>();
-        for(size_t i = 1;  i <= n_; ++i)
+      for(size_t i = 1;  i <= size_t(n_); ++i)
           {
             itype_t e;
             m1 *=  nt2::abs(nt2::frexp(nt2::abs(lu_(i, i)), e));
@@ -324,7 +327,7 @@ namespace nt2 { namespace details
       // that use ten power factor instead
       type_t   m1 = One<type_t>();
       exponent = Zero<itype_t>();
-        for(size_t i = 1;  i <= n_; ++i)
+      for(size_t i = 1;  i <= size_t(n_); ++i)
           {
             itype_t e;
             m1 *=  nt2::frexp(nt2::abs(lu_(i, i)), e);
@@ -397,10 +400,10 @@ namespace nt2 { namespace details
     tab_t                            lu_;
     nt2_la_int                     m_,n_;
     nt2_la_int                     ldlu_;
-    ibuf_t                 ipiv_;
-    base_t                   rc_;
-    nt2_la_int             info_;
-    workspace_t               w_;
+    ibuf_t                         ipiv_;
+    base_t                           rc_;
+    nt2_la_int                     info_;
+    workspace_t                       w_;
     //    template < class T, class XPR1, class XPR2 > XPR2 cast(const XPR1& a)
     //     {
     //       typedef typename XPR1::index_type index_t; 

@@ -1,0 +1,35 @@
+################################################################################
+#         Copyright 2003 - 2012  LASMEA UMR 6602 CNRS/Univ. Clermont II
+#         Copyright 2009 - 2012  LRI    UMR 8623 CNRS/Univ Paris Sud XI
+#
+#          Distributed under the Boost Software License, Version 1.0.
+#                 See accompanying file LICENSE.txt or copy at
+#                     http://www.boost.org/LICENSE_1_0.txt
+################################################################################
+
+WARN_IF_UNDOCUMENTED = YES
+WARNINGS             = YES
+EXTRACT_ALL          = NO
+EXTRACT_PRIVATE      = NO
+HIDE_UNDOC_MEMBERS   = YES
+HIDE_UNDOC_CLASSES   = YES
+HIDE_SCOPE_NAMES     = YES
+INLINE_INFO          = YES
+INTERNAL_DOCS        = NO
+INPUT                = ../include/boost/dispatch/
+INPUT               += ../include/boost/dispatch/dsl
+INPUT               += ../include/boost/dispatch/functor
+INPUT               += ../include/boost/dispatch/meta
+INPUT               += ../include/boost/dispatch/preprocessor
+INCLUDE_PATH         = ../include/
+EXAMPLE_PATH         = ../examples
+FULL_PATH_NAMES      = NO
+INHERIT_DOCS         = NO
+RECURSIVE            = NO
+ALIASES              = "metafunction=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/metafunction.html\">Metafunction</a>"
+ALIASES             += "metasequence=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/forward-sequence.html\">MPL Sequence</a>"
+ALIASES             += "true_=@c boost::mpl::true_"
+ALIASES             += "false_=@c boost::mpl::false_"
+ALIASES             += "metalambda=<a href=\"http://www.boost.org/doc/libs/1_46_1/libs/mpl/doc/refmanual/lambda-expression.html\">Lambda Expression</a>"
+ALIASES             += "metaint=<a href=\"http://www.boost.org/doc/libs/release/libs/mpl/doc/refmanual/integral-constant.html\">Integral Constant</a>"
+ALIASES             += "dco=<a href=\"http://www.boost.org/doc/libs/release/libs/fusion/doc/html/fusion/functional/concepts/def_callable.html\">Defered Callable Object</a>"

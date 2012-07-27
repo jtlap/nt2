@@ -29,12 +29,12 @@
  * types it does not represent the same mathematical number.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/allbits.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,12 +46,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Allbits
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -59,40 +59,46 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Allbits of functor Allbits 
+     * \brief Define the tag Allbits of functor Allbits
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     struct Allbits : ext::constant_<Allbits>
-    { 
+    {
       typedef double default_type;
-      template<class Target, class Dummy=void> 
-      struct  apply 
-            : meta::int_c<Target, -1>
+      template<class Target, class Dummy=void>
+      struct  apply
+            : meta::int_c<typename Target::type, -1>
       {};
     };
 
-    template<class Dummy>
-    struct  Allbits::apply<float,Dummy>
-          : meta::single_<apply<uint32_t,Dummy>::value> {};
+    template<class T, class Dummy>
+    struct  Allbits::apply<boost::dispatch::meta::single_<T>,Dummy>
+          : meta::single_ < apply < boost::dispatch::meta::uint32_<uint32_t>
+                                  , Dummy
+                                  >::value
+                          > {};
 
-    template<class Dummy>
-    struct  Allbits::apply<double,Dummy>
-          : meta::double_<apply<uint64_t,Dummy>::value> {};
+    template<class T, class Dummy>
+    struct  Allbits::apply<boost::dispatch::meta::double_<T>,Dummy>
+          : meta::double_ < apply < boost::dispatch::meta::uint64_<uint64_t>
+                                  , Dummy
+                                  >::value
+                          > {};
 
-    template<class Dummy>
-    struct  Allbits::apply<boost::simd::uint8_t,Dummy> 
+    template<class T, class Dummy>
+    struct  Allbits::apply<boost::dispatch::meta::uint8_<T>,Dummy>
           : meta::int_c<boost::simd::uint8_t,0xFF> {};
 
-    template<class Dummy>
-    struct  Allbits::apply<boost::simd::uint16_t,Dummy> 
+    template<class T, class Dummy>
+    struct  Allbits::apply<boost::dispatch::meta::uint16_<T>,Dummy>
           : meta::int_c<boost::simd::uint16_t,0xFFFFU> {};
 
-    template<class Dummy>
-    struct  Allbits::apply<boost::simd::uint32_t,Dummy> 
+    template<class T, class Dummy>
+    struct  Allbits::apply<boost::dispatch::meta::uint32_<T>,Dummy>
           : meta::int_c<boost::simd::uint32_t,0xFFFFFFFFUL> {};
 
-    template<class Dummy>
-    struct  Allbits::apply<boost::simd::uint64_t,Dummy> 
+    template<class T, class Dummy>
+    struct  Allbits::apply<boost::dispatch::meta::uint64_<T>,Dummy>
           : meta::int_c<boost::simd::uint64_t,0xFFFFFFFFFFFFFFFFULL> {};
 
   }

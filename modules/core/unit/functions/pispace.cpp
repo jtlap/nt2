@@ -22,7 +22,6 @@
 NT2_TEST_CASE_TPL( pispace, (double)(float) )
 {
   typedef T r_t;
-  double ulpd;
   {
     nt2::table<T> xd = nt2::pispace(T(2), 50);
     nt2::table<T> yd = nt2::exp10(nt2::linspace(T(2), nt2::Log10_pi<T>(), 50));

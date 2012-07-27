@@ -17,7 +17,6 @@
 NT2_TEST_CASE_TPL( table_dimensions ,NT2_TYPES)
 {
   using nt2::table;
-  double ulpd = 0.0;
   typedef T r_t;
   nt2::table<T> a(nt2::of_size(3, 3));
 

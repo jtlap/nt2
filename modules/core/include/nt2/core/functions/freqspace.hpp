@@ -10,8 +10,9 @@
 #define NT2_CORE_FUNCTIONS_FREQSPACE_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/options.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
 
 /*!
  * \ingroup core

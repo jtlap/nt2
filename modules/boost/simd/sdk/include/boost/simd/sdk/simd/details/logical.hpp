@@ -54,7 +54,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // vector size
     ////////////////////////////////////////////////////////////////////////////
-    enum { static_size = meta::cardinal_of<native>::value };
+    enum s_size { static_size = meta::cardinal_of<native>::value };
 
     BOOST_FORCEINLINE native() {}
     BOOST_FORCEINLINE native(native_type const& data) : data_(data) {}

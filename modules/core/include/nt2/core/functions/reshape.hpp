@@ -15,8 +15,9 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/reshaping_hierarchy.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/reshaping.hpp>
+#include <nt2/sdk/meta/reshaping_hierarchy.hpp>
 
 namespace nt2
 {

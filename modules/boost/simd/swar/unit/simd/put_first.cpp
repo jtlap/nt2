@@ -42,9 +42,6 @@ NT2_TEST_CASE_TPL ( put_first_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<put_first_(vT,iT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(put_first(boost::simd::Inf<vT>(),0)[0], boost::simd::Inf<sr_t>());
@@ -71,9 +68,6 @@ NT2_TEST_CASE_TPL ( put_first_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_
   typedef typename boost::dispatch::meta::call<put_first_(vT,iT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(put_first(boost::simd::Mone<vT>(),0)[0], boost::simd::Mone<sr_t>());
@@ -97,9 +91,6 @@ NT2_TEST_CASE_TPL ( put_first_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES
   typedef typename boost::dispatch::meta::call<put_first_(vT,iT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(put_first(boost::simd::One<vT>(),0)[0], boost::simd::One<sr_t>());

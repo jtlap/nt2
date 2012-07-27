@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_DISPATCH_FORCE_INLINE void
-    eval( result_type& sub, const type_t& p, const A0& s
+    eval( result_type& sub, const type_t& p, const A0&
         , const boost::mpl::int_<0>&, const boost::mpl::int_<1>&
         ) const
     {
@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
     }
 
     BOOST_DISPATCH_FORCE_INLINE void
-    eval( result_type& sub, const type_t& p, const A0& s, const A2& b
+    eval( result_type& sub, const type_t& p, const A0&, const A2& b
         , const boost::mpl::int_<0>&, const boost::mpl::int_<1>&
         ) const
     {

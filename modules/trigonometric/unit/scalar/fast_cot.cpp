@@ -49,9 +49,6 @@ NT2_TEST_CASE_TPL ( fast_cot_real__1_0,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(fast_cot(-nt2::Pi<T>()/T(2)), nt2::Nan<r_t>(), 0.5);

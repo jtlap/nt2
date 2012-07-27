@@ -39,8 +39,6 @@ NT2_TEST_CASE_TPL ( store_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 //   // return type conformity test 
 //   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 //   std::cout << std::endl; 
-//   double ulpd;
-//   ulpd=0.0;
 
 
 //   // specific values tests
@@ -63,9 +61,6 @@ NT2_TEST_CASE_TPL ( store_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 //   // return type conformity test 
 //   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 //   std::cout << std::endl; 
-//   double ulpd;
-//   ulpd=0.0;
-
 
 //   // specific values tests
 //   NT2_TEST_EQUAL(store(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());

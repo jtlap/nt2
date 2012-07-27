@@ -9,6 +9,8 @@
 #ifndef NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ASUM1_HPP_INCLUDED
 
+#include <nt2/include/functor.hpp>
+
 /*!
  * \ingroup core
  * \defgroup core asum1
@@ -21,12 +23,12 @@
  * \alias norm1,  asum
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/asum1.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -39,9 +41,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of asum1
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -52,7 +54,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
@@ -60,9 +62,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct asum1_ : tag::formal_ 
-    { 
-      typedef tag::formal_ parent; 
+    struct asum1_ : tag::formal_
+    {
+      typedef tag::formal_ parent;
     };
   }
 
@@ -70,7 +72,7 @@ namespace nt2
   /*!
    * sum of absolute squares of a table
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::asum1_       , asum1, 1)

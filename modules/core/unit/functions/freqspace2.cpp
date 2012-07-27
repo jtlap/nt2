@@ -22,7 +22,6 @@
 NT2_TEST_CASE_TPL( freqspace2, (double)(float) )
 {
   typedef T r_t;
-  double ulpd;
   {
     const int n = 4;
     const int m = 7;
@@ -65,7 +64,6 @@ NT2_TEST_CASE_TPL( freqspace2, (double)(float) )
 // {
 //   typedef double T;
 //   typedef double r_t;
-//   double ulpd;
 //   {
 //     for(int n = 1; n <= 10; ++n)
 //       {

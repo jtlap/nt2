@@ -10,8 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_FFS_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/ffs.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 #ifdef BOOST_MSVC
 #include <intrin.h>
@@ -33,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     #elif defined BOOST_MSVC && defined _WIN64
       unsigned long index;
       if(_BitScanForward64(&index, uint64_t(a0)))
-          return index+1;
+        return index+1;
       return 0;
     #elif defined BOOST_MSVC
       unsigned long index;
@@ -43,12 +44,12 @@ namespace boost { namespace simd { namespace ext
         return index+1;
       }
       if(_BitScanForward(&index, uint32_t(t1 >> 32)))
-        return 32+index+1;
+        return index+1 + 32;
       return 0;
     #else
       if(!t1)
         return 0;
-        
+
       // see http://supertech.csail.mit.edu/papers/debruijn.pdf
       const uint64_t magic = 0x03f79d71b4cb0a89ULL;
       static const unsigned int magictable[64] =
@@ -78,25 +79,26 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type t1 = bitwise_cast<result_type>(a0);
-      
+
     #ifdef __GNUC__
       return __builtin_ffs(t1);
     #elif defined(BOOST_MSVC)
       unsigned long index;
-      if(_BitScanForward(&index, t1)) return index+1;
+      if(_BitScanForward(&index, t1))
+        return index+1;
       return 0;
     #else
       if(!t1)
         return 0;
-    
+
       // see http://supertech.csail.mit.edu/papers/debruijn.pdf
       static const uint32_t magic = 0x077CB531U;
-      static const int magictable[32] = 
+      static const int magictable[32] =
       {
-        0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8, 
+        0, 1, 28, 2, 29, 14, 24, 3, 30, 22, 20, 15, 25, 17, 4, 8,
         31, 27, 13, 23, 21, 19, 16, 7, 26, 12, 18, 6, 11, 5, 10, 9
       };
-    
+
       return magictable[((t1&-t1)*magic) >> 27] + 1;
     #endif
     }
@@ -111,7 +113,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type t1 = bitwise_cast<result_type>(a0);
-      return boost::simd::ffs(uint32_t(t1));
+      typedef typename meta::make_dependent<uint32_t, A0>::type itype;
+      return boost::simd::ffs(itype(t1));
     }
   };
 } } }

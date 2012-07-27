@@ -46,8 +46,6 @@ NT2_TEST_CASE_TPL ( split_lt_64__1_0, BOOST_SIMD_SIMD_SPLITABLE_TYPES)
   typedef typename boost::dispatch::meta::upgrade<vT>::type     vu_t;
   typedef typename boost::dispatch::meta::call<split_(T)>::type sr_t;
   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   vT a = boost::simd::One<vT>(); 
   vu_t a1, a2;

@@ -30,7 +30,7 @@ namespace boost { namespace dispatch { namespace meta
 
 namespace boost { namespace dispatch { namespace ext
 {
-  template<class T, class Enable = void> 
+  template<class T, class Enable = void>
   struct  sign_of
         : sign_of< typename meta::primitive_of<T>::type >
   {};

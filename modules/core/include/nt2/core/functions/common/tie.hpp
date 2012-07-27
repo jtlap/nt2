@@ -15,7 +15,21 @@
 
 namespace nt2 { namespace ext
 {
+  // semantic of assigning a value to a fusion sequence is assumed to always
+  // be valid if assigning the first element is
+  // TODO: make nodes specify their semantic per output arity?
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+                            , (A0)(A1)
+                            , (fusion_sequence_<A0>)
+                              (generic_< unspecified_<A1> >)
+                            )
+  {
+    typedef typename boost::fusion::result_of::at_c<A0, 0>::type first;
+    typedef typename meta::scalar_of<first>::type first_scalar;
+    typedef typename meta::call<tag::assign_(first_scalar, A1 const&)>::type result_type;
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(N0)(A1)
                             , ((node_<A0, nt2::tag::tie_, N0>))
                               ((ast_<A1>))

@@ -9,9 +9,9 @@
 #ifndef NT2_CORE_FUNCTIONS_COMMON_DISP_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_COMMON_DISP_HPP_INCLUDED
 
-#include <iostream>
-#include <nt2/core/container/io.hpp>
 #include <nt2/core/functions/disp.hpp>
+#include <nt2/include/functions/disp.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {

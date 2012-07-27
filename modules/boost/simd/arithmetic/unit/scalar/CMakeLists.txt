@@ -23,6 +23,7 @@ SET( SOURCES
   divceil.cpp
   random.cpp
   logical_xor.cpp
+  meanof.cpp
   ifloor.cpp
   fast_hypot.cpp
   iround.cpp

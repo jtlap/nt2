@@ -30,48 +30,35 @@ namespace nt2 { namespace ext
       >::type                                                     result_type;
     typedef typename A0::extent_type                                   extt_t;
     typedef typename meta::strip<extt_t>::type                          ext_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(ext_t,State)>::type  sub_t;
+    //   typedef typename meta::call<nt2::tag::ind2sub_(ext_t,State)>::type  sub_t;
     typedef typename meta::strip<result_type>::type                 base_type;
     typedef typename meta::as_integer<base_type,unsigned>::type          id_t;
   BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       ext_t ex0 = boost::proto::child_c<0>(a0).extent();
+      size_t dist  =  boost::proto::child_c<4>(a0);
+      size_t start =  boost::proto::child_c<3>(a0);
       size_t ind =  boost::proto::child_c<2>(a0);
       size_t dim =  boost::proto::child_c<1>(a0);
-//       size_t fact = (dim == 0)? ex0[0] : 1u; 
-//       for(int i=2; i < dim; ++i) fact*= ex0[i];
-      size_t fact = factoralong(ex0, dim); 
-      size_t dist = nextalong(ex0, dim);  
-//       std::cout << "dim " << dim <<  std::endl;
-//       std::cout << "dist "<< dist <<  std::endl; 
-//       std::cout << "fact "<< fact <<  std::endl;   
-//       std::cout << "p   " << p   <<  std::endl;
-//       std::cout << "ind " << ind <<  std::endl;  
-//       sub_t pos0;
-//       for(int i=0; i < sub_t::size(); ++i) pos0[i] = 1; //TO DO Have a memcopy do it
-//       pos0[dim] = ind*fact+p-1; 
-//       State p1 = sub2ind(ex0, pos0);
-      State p1 = (ind-1)*fact+p*dist; 
-      return nt2::run(boost::proto::child_c<0>(a0), nt2::arith<id_t>(p1, dist), t);
-    }
-  
-  static size_t nextalong(const ext_t& ex,  const size_t& along)
-    {
-      size_t r = 1u; 
-      if (along == 0) return r;
-      for(int i=1; i <= along; ++i) r*= ex[i-1];
-      return r; 
-    }
-  static size_t factoralong(const ext_t& ex,  const size_t& along)
-    {
-      size_t r =  (along == 0)? ex[0] : 1u;  
-      if (along <= 1) return r; 
-      for(int i=2; i < along; ++i) r*= ex[i];
-      return r; 
-    }
+ //      ext_t ex1 = ex0;
+//       ex1[dim] = 1;
+//       sub_t pos = ind2sub(ex1, ind);
+//       State start = sub2ind(ex0, pos); 
+      
+      
+//      size_t dist = nextalong(ex0, dim);  
 
+      return nt2::run(boost::proto::child_c<0>(a0), nt2::arith<id_t>(start+p*dist, dist), t);
+    }
   
+//   static size_t nextalong(const ext_t& ex,  const size_t& along)
+//     {
+//       size_t r = 1u; 
+//       if (along == 0) return r;
+//       for(size_t i=1; i <= along; ++i) r*= ex[i-1];
+//       return r; 
+//     }
   };
 
 } }

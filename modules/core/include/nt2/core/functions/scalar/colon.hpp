@@ -184,7 +184,7 @@ namespace nt2 { namespace details
 
     template<class Pos, class Size, class Target>
     BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& p, Size const& s, Target const& t) const
+    operator()(Pos const& p, Size const&, Target const& t) const
     {
       return details::colon_value(lower_,step_,p,t);
     }

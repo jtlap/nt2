@@ -232,7 +232,7 @@ namespace nt2 {
       inline tab_t permute(const tab_t& bb) const {
         tab_t res(nt2::of_size(nt2::numel(jpvt_), nt2::size(bb, 2)));
         const size_t m =  nt2::min(size(bb, 1), numel(jpvt_));
-        for(int i=1; i <= m; ++i)
+        for(size_t i=1; i <= m; ++i)
           {
             res(jpvt_(i), _) = bb(i, _); 
           }

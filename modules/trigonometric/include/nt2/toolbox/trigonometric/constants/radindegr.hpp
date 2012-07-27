@@ -18,7 +18,7 @@ namespace nt2
   {
     BOOST_SIMD_CONSTANT_REGISTER( Radindegr, double
                                 , 0, 0xb53387c1
-                                , 0xbce1e7ab456405f8ll
+                                , 0xbce1e7ab456405f8ull
                                 );
   }
 

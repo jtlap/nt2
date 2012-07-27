@@ -43,8 +43,6 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<second_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   // specific values tests
   NT2_TEST_EQUAL(second(boost::simd::Inf<vT>()), boost::simd::Inf<sr_t>());
@@ -72,8 +70,6 @@ NT2_TEST_CASE_TPL ( second_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<second_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
   // specific values tests
   NT2_TEST_EQUAL(second(boost::simd::One<vT>()), boost::simd::One<sr_t>());

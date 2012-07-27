@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
       ext_t ex1 = boost::proto::child_c<1>(a0).extent();
       sub_t pos0 = ind2sub(a0.extent(),p);
       sub_t pos1 = pos0; 
-      for(int i = 0; i != ext_t::size(); ++i)
+      for(size_t i = 0; i != ext_t::size(); ++i)
         {
           //std::cout << "avant pos0[" << i << "] "<< pos0[i] << "   " << "ex0[" << i << "] "<< ex0[i] << std::endl; 
           pos0[i] = nt2::min(ex0[i], size_t(pos0[i]));

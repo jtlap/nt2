@@ -16,6 +16,14 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/details/generate_as.hpp>
+#include <nt2/sdk/meta/add_settings.hpp>
+#include <nt2/core/settings/shape.hpp>
+
+#include <nt2/sdk/parameters.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
 
 namespace nt2
 {

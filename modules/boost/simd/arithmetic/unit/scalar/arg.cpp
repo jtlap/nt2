@@ -39,9 +39,6 @@ NT2_TEST_CASE_TPL ( arg_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(arg(boost::simd::Inf<T>()), boost::simd::Zero<r_t>(), 0);

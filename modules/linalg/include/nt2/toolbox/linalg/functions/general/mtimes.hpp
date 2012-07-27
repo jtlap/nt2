@@ -15,9 +15,9 @@
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/table/category.hpp>
+//#include <nt2/core/settings/forward/size.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
-#include <nt2/core/settings/forward/size.hpp>
 
 namespace nt2 { namespace tag
 {
@@ -169,6 +169,47 @@ namespace nt2 { namespace ext
     }
   };
 
+  // TODO: move this function to a better place
+  template<class T>
+  T* raw(T& t)
+  {
+    return &t;
+  }
+
+  template<class T, class S>
+  typename memory::container_ref<T, S>::pointer raw(memory::container_ref<T, S> const& c)
+  {
+    return c.raw();
+  }
+
+  template<class T, class S>
+  typename memory::container_shared_ref<T, S>::pointer raw(memory::container_shared_ref<T, S> const& c)
+  {
+    return c.raw();
+  }
+
+  template<class T, class S>
+  typename memory::container<T, S>::pointer raw(memory::container<T, S>& c)
+  {
+    return c.raw();
+  }
+
+  template<class T>
+  typename boost::disable_if< boost::proto::is_expr<T>, T&>::type
+  value(T& t)
+  {
+    return t;
+  }
+
+  template<class Expr>
+  typename boost::lazy_enable_if< boost::proto::is_expr<Expr>,
+                                  boost::proto::result_of::value<Expr&>
+                                >::type
+  value(Expr& expr)
+  {
+    return boost::proto::value(expr);
+  }
+
   // run_assign
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)
@@ -180,30 +221,54 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& a0, A1& a1) const
     {
+      using boost::fusion::at_c;
+      typedef typename A1::value_type value_type;
       typename meta::call<tag::run_(typename boost::proto::result_of::child_c<A1&, 0>::type)>::type child0 = nt2::run(boost::proto::child_c<0>(a1));
       typename meta::call<tag::run_(typename boost::proto::result_of::child_c<A1&, 1>::type)>::type child1 = nt2::run(boost::proto::child_c<1>(a1));
+      typename meta::call<tag::run_(A0&)>::type result = nt2::run(a0);
 
-      a0.resize(a1.extent());
+      value_type alpha = One<value_type>();
+      value_type beta = Zero<value_type>();
+      nt2_la_int m = at_c<0>(child0.extent());
+      nt2_la_int n = at_c<1>(child1.extent());
+      nt2_la_int k = at_c<1>(child0.extent());
+      nt2_la_int lda = at_c<0>(child0.extent());
+      nt2_la_int ldb = at_c<0>(child1.extent());
+      nt2_la_int ldc = at_c<0>(a1.extent());
+      //    if((raw(value(result)) !=  child0.raw()) && (raw(value(result)) !=  child1.raw()))
+      if(    ( raw(value(result)) >= child0.raw()+numel(child0) || raw(value(result))+numel(result) <  child0.raw())&&
+             ( raw(value(result)) >= child1.raw()+numel(child0) || raw(value(result))+numel(result) <  child1.raw()))
+      {
+        a0.resize(a1.extent());
+        nt2::details::
+        gemm( "N", "N"
+            , &m, &n, &k
+            , &alpha
+            , child0.raw(), &lda
+            , child1.raw(), &ldb
+            , &beta
+            , raw(value(result)), &ldc
+            );
+      }
+      else
+      {
+        // overlapping of input and output data is possible
+        // so we provide space for result and put back in a0
+        nt2::table<value_type> tmp(a1.extent());
+        //tmp.resize(a1.extent());
+        nt2::details::
+        gemm( "N", "N"
+            , &m, &n, &k
+            , &alpha
+            , child0.raw(), &lda
+            , child1.raw(), &ldb
+            , &beta
+            , tmp.raw(), &ldc
+            );
+        result = tmp;
+      }
 
-      typename A1::value_type alpha = One<typename A1::value_type>();
-      typename A1::value_type beta = Zero<typename A1::value_type>();
-      nt2_la_int m = child0.extent()[0];
-      nt2_la_int n = child1.extent()[1];
-      nt2_la_int k = child0.extent()[1];
-      nt2_la_int lda = child0.extent()[0];
-      nt2_la_int ldb = child1.extent()[0];
-      nt2_la_int ldc = a0.extent()[0];
-      nt2::details::
-      gemm( "N", "N"
-          , &m, &n, &k
-          , &alpha
-          , nt2::terminal(child0).raw(), &lda
-          , nt2::terminal(child1).raw(), &ldb
-          , &beta
-          , nt2::terminal(a0).raw(), &ldc
-          );
-
-      return a0;
+      return a0 = result;
     }
   };
 

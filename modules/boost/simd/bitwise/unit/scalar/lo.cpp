@@ -44,9 +44,6 @@ NT2_TEST_CASE_TPL ( lo_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::Nan<T>()), boost::simd::Mone<dtype>());
@@ -73,9 +70,6 @@ NT2_TEST_CASE_TPL ( lo_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::One<T>()), boost::simd::One<dtype>());
@@ -101,10 +95,6 @@ NT2_TEST_CASE_TPL ( lo_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::One<T>()), boost::simd::One<dtype>());
   NT2_TEST_EQUAL(lo(boost::simd::Zero<T>()), boost::simd::Zero<dtype>());
@@ -129,9 +119,6 @@ NT2_TEST_CASE_TPL ( lo_int16__1_0,  BOOST_SIMD_INT_16_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::One<T>()), boost::simd::One<dtype>());

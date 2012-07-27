@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL(qr_factorization, NT2_REAL_TYPES)
    NT2_DISPLAY(res.p());
    NT2_DISPLAY(res.q());
    NT2_DISPLAY(res.r());
-  NT2_TEST_EQUAL(res.status(), 0u);
+  NT2_TEST_EQUAL(res.status(), 0);
   t_t c =  nt2::ones (4, 1, nt2::meta::as_<T>());
   NT2_DISPLAY(c);
   res.inplace_solve(c);

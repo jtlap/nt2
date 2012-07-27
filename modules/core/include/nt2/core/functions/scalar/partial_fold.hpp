@@ -17,7 +17,7 @@ namespace nt2 { namespace details
 {
   template <class X, class N, class B, class U>
   BOOST_FORCEINLINE typename X::value_type
-  partial_fold_step(X const& in, const std::size_t& p, const std::size_t& mbound, N const& neutral, B const& bop, U const& uop)
+  partial_fold_step(X const& in, const std::size_t& p, const std::size_t& mbound, N const& neutral, B const& bop, U const&)
   {
     typedef typename X::value_type   value_type;
     typedef typename X::extent_type  extent_type;

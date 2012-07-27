@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL ( chol_upper, NT2_REAL_TYPES)
   typedef nt2::table<T> table_t;
   table_t a, z, b = nt2::ones(4, 4, nt2::meta::as_<T>())
                 + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
-  int p = 999;
+  size_t p = 999;
 
   nt2::tie(z) = nt2::chol(b);
   NT2_DISPLAY(z);
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( chol_lower, NT2_REAL_TYPES)
   table_t a,z,b = nt2::ones(4, 4, nt2::meta::as_<T>())
                 + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
 
-  int p = 999;
+  size_t p = 999;
 
   nt2::tie(z) = nt2::chol(b, nt2::lower_);
   NT2_DISPLAY(z);

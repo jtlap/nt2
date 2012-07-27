@@ -14,6 +14,13 @@ set(NT2_FLAGS_TEST "-DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ASSERTS_AS_EXCEPTIONS")
 set(NT2_FLAGS_BENCH "-DNDEBUG")
 # No debug symbols because of excessive time and memory costs at compile time
 if(MSVC)
+  # Remove /EHsc from CMAKE_CXX_FLAGS and re-add per configuration; useful to avoid 'overriding' warnings
+  string(REPLACE " /EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
+  foreach(config Debug Release RelWithDebInfo MinSizeRel)
+    string(TOUPPER ${config} config_U)
+    set(CMAKE_CXX_FLAGS_${config_U} "/EHsc ${CMAKE_CXX_FLAGS_${config_U}}")
+  endforeach()
+
   set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /MDd /MP /D_SECURE_SCL=1 /D_ITERATOR_DEBUG_LEVEL=2 /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHa")
   set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} /MD /MP /D_SECURE_SCL=0 /GL /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHs-c- /wd4530")
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)

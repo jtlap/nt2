@@ -50,13 +50,13 @@ NT2_TEST_CASE( float_eps_value )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( real_value, NT2_INTEGRAL_TYPES )
 {
-  NT2_TEST_EQUAL( nt2::Eps<T>()             , 1 );
-  NT2_TEST_EQUAL( nt2::Halfeps<T>()         , 1 );
-  NT2_TEST_EQUAL( nt2::Threeeps<T>()        , 3 );
-  NT2_TEST_EQUAL( nt2::Sqrteps<T>()         , 1 );
-  NT2_TEST_EQUAL( nt2::Fourthrooteps<T>()   , 1 );
-  NT2_TEST_EQUAL( nt2::Thirdrooteps<T>()    , 1 );
-  NT2_TEST_EQUAL( nt2::Mlogeps2<T>()        , 0 );
-  NT2_TEST_EQUAL( nt2::Mindenormal<T>()     , 1 );
-  NT2_TEST_EQUAL( nt2::Smallestposval<T>()  , 1 );
+  NT2_TEST_EQUAL( nt2::Eps<T>()             , T(1) );
+  NT2_TEST_EQUAL( nt2::Halfeps<T>()         , T(1) );
+  NT2_TEST_EQUAL( nt2::Threeeps<T>()        , T(3) );
+  NT2_TEST_EQUAL( nt2::Sqrteps<T>()         , T(1) );
+  NT2_TEST_EQUAL( nt2::Fourthrooteps<T>()   , T(1) );
+  NT2_TEST_EQUAL( nt2::Thirdrooteps<T>()    , T(1) );
+  NT2_TEST_EQUAL( nt2::Mlogeps2<T>()        , T(0) );
+  NT2_TEST_EQUAL( nt2::Mindenormal<T>()     , T(1) );
+  NT2_TEST_EQUAL( nt2::Smallestposval<T>()  , T(1) );
 }

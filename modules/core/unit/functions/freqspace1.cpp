@@ -10,6 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/size.hpp>
+#include <nt2/options.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/freqspace1.hpp>
 #include <nt2/include/functions/log10.hpp>
@@ -22,7 +23,6 @@
 NT2_TEST_CASE_TPL( freqspace1, (double)(float) )
 {
   typedef T r_t;
-  double ulpd;
   {
     const int n = 4; 
     nt2::table<T> xd = nt2::freqspace1(n,nt2::meta::as_<T>());
@@ -46,7 +46,6 @@ NT2_TEST_CASE_TPL( freqspace1, (double)(float) )
 NT2_TEST_CASE_TPL( freqspace1_no_type, (double) )
 {
   typedef T r_t;
-  double ulpd;
   {
     for(int n = 1; n <= 10; ++n)
       {

@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL(lu_factorization, NT2_REAL_TYPES)
   NT2_DISPLAY(res.p());
   NT2_DISPLAY(res.l());
   NT2_DISPLAY(res.u());
-  NT2_TEST_EQUAL(res.status(), 0u);
+  NT2_TEST_EQUAL(res.status(), 0);
 
   itype_t e;
   T m =  res.absdet(e);

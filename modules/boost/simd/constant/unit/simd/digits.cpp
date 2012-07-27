@@ -52,6 +52,40 @@ NT2_TEST_CASE_TPL( digit_value, BOOST_SIMD_SIMD_TYPES )
 }
 
 ////////////////////////////////////////////////////////////////////////////////
+// Test value of digit constant for raw char type
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( char_digit_value )
+{
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<char,ext_t>             dst_t;
+
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
+  {
+    NT2_TEST_EQUAL( (boost::simd::Mten<dst_t>())[i], static_cast<char>(  -10 ) );
+    NT2_TEST_EQUAL( (boost::simd::Mnine<dst_t>())[i], static_cast<char>( -9 ) );
+    NT2_TEST_EQUAL( (boost::simd::Meight<dst_t>())[i], static_cast<char>( -8 ) );
+    NT2_TEST_EQUAL( (boost::simd::Mseven<dst_t>())[i], static_cast<char>( -7 ) );
+    NT2_TEST_EQUAL( (boost::simd::Msix<dst_t>())[i], static_cast<char>( -6 ) );
+    NT2_TEST_EQUAL( (boost::simd::Mfive<dst_t>())[i], static_cast<char>( -5 ) );
+    NT2_TEST_EQUAL( (boost::simd::Mfour<dst_t>())[i], static_cast<char>( -4 ) );
+    NT2_TEST_EQUAL( (boost::simd::Mthree<dst_t>())[i], static_cast<char>( -3 ) );
+    NT2_TEST_EQUAL( (boost::simd::Mtwo<dst_t>())[i], static_cast<char>( -2 ) );
+    NT2_TEST_EQUAL( (boost::simd::Mone<dst_t>())[i], static_cast<char>( -1 ) );
+    NT2_TEST_EQUAL( (boost::simd::Zero<dst_t>())[i], static_cast<char>(  0 ) );
+    NT2_TEST_EQUAL( (boost::simd::Ten<dst_t>())[i], static_cast<char>(  10 ) );
+    NT2_TEST_EQUAL( (boost::simd::Nine<dst_t>())[i], static_cast<char>( 9 ) );
+    NT2_TEST_EQUAL( (boost::simd::Eight<dst_t>())[i], static_cast<char>( 8 ) );
+    NT2_TEST_EQUAL( (boost::simd::Seven<dst_t>())[i], static_cast<char>( 7 ) );
+    NT2_TEST_EQUAL( (boost::simd::Six<dst_t>())[i], static_cast<char>( 6 ) );
+    NT2_TEST_EQUAL( (boost::simd::Five<dst_t>())[i], static_cast<char>( 5 ) );
+    NT2_TEST_EQUAL( (boost::simd::Four<dst_t>())[i], static_cast<char>( 4 ) );
+    NT2_TEST_EQUAL( (boost::simd::Three<dst_t>())[i], static_cast<char>( 3 ) );
+    NT2_TEST_EQUAL( (boost::simd::Two<dst_t>())[i], static_cast<char>( 2 ) );
+    NT2_TEST_EQUAL( (boost::simd::One<dst_t>())[i], static_cast<char>( 1 ) );
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
 // Test integral_constant for every base types
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
@@ -61,4 +95,16 @@ NT2_TEST_CASE_TPL( integral_constant, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
     NT2_TEST_EQUAL( (boost::simd::integral_constant<dst_t,42>())[i], static_cast<T>(42) );
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test integral_constant for raw 'char' type
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( char_integral_constant )
+{
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<char,ext_t>             dst_t;
+
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<dst_t>::value;++i)
+    NT2_TEST_EQUAL( (boost::simd::integral_constant<dst_t,65>())[i], 'A' );
 }

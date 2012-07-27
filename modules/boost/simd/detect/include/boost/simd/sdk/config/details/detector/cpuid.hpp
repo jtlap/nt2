@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace config{ namespace x86 {
 #if defined(BOOST_SIMD_ARCH_X86)
 
 #if defined(BOOST_SIMD_COMPILER_GCC_LIKE)
-    enum { eax,ebx,ecx,edx };
+    enum e_x_enum { eax,ebx,ecx,edx };
 
 #if !defined(__PIC__) || defined(BOOST_SIMD_ARCH_X86_64)
     __asm__ __volatile__

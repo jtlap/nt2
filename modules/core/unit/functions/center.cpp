@@ -18,6 +18,7 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/isequal.hpp>
 
 #include <nt2/include/functions/bsxfun.hpp>
 #include <nt2/include/functions/mean.hpp>
@@ -27,6 +28,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL( center_scalar, (float)(double))//NT2_TYPES )
 {
@@ -50,8 +52,8 @@ NT2_TEST_CASE_TPL( center, (float)(double))//NT2_TYPES )
   nt2::table<T> y( nt2::of_size(8, 4) );
   nt2::table<T> sy, m, z;
 
-  for(int j=1;j<=size(y, 2);j++)
-    for(int i=1;i<=size(y, 1);i++)
+  for(size_t j=1;j<=size(y, 2);j++)
+    for(size_t i=1;i<=size(y, 1);i++)
       y(i,j) = i - j;
 
   sy = nt2::center(y, 2);
@@ -64,11 +66,11 @@ NT2_TEST_CASE_TPL( center, (float)(double))//NT2_TYPES )
   sy = nt2::center(y, 1);
   NT2_DISPLAY(y);
   NT2_DISPLAY(sy);
-
   m =  mean(y, 1);
   NT2_DISPLAY(m);
-//   z =  nt2::bsxfun(nt2::functor<nt2::tag::minus_>(), y, m);
-//   NT2_DISPLAY(z);
+  z =  nt2::bsxfun(nt2::functor<nt2::tag::minus_>(), y, m);
+  NT2_DISPLAY(z);
+  NT2_TEST(nt2::isequal(z, sy)); 
 
 
 

@@ -42,9 +42,6 @@ NT2_TEST_CASE_TPL ( idivround_real__2_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(idivround(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Zero<r_t>(), 0);
@@ -70,9 +67,6 @@ NT2_TEST_CASE_TPL ( idivround_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(idivround(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>(), 0);
@@ -94,9 +88,6 @@ NT2_TEST_CASE_TPL ( idivround_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(idivround(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::One<r_t>(), 0);

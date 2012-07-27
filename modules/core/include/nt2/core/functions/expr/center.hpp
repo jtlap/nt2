@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
                               (ast_<A0>) )
   {
     typedef typename meta::call<tag::mean_( A0 const &) > ::type T1; 
-    typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::minus_>, A0 const &, T1) >::type
+    typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::minus_>, A0 const &, T1 const &) >::type
       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename meta::call<tag::mean_( A0 const &, A1 const &) > ::type T1; 
-    typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::minus_>, A0 const &, T1) >::type
+    typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::minus_>, A0 const &, T1 const &) >::type
       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
                               (ast_<A0>)(ast_<A1>) )
   {
     typedef typename meta::call<tag::wmean_( A0 const &, A1 const &) > ::type T1; 
-    typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::minus_>, A0 const &, T1) >::type
+    typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::minus_>, A0 const &, T1 const &) >::type
       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename meta::call<tag::wmean_( A0 const &, A1 const &, A2 const &) > ::type T1; 
-    typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::minus_>, A0 const &, T1) >::type
+    typedef typename meta::call<tag::bsxfun_(nt2::functor<tag::minus_>, A0 const &, T1 const &) >::type
       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1, const A2& a2) const

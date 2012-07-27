@@ -38,7 +38,7 @@ namespace nt2
                       const nt2_la_int* lda,    \
                       nt2_la_int* ipiv,         \
                       nt2_la_int* info,         \
-               nt2::details::workspace<T> & w)  \
+               nt2::details::workspace<T> &)  \
     {                                           \
       NT2_F77NAME(NAME)(m,n,a,lda,ipiv,info);   \
     }                                           \
