@@ -22,6 +22,32 @@
 #include <boost/type_traits/remove_reference.hpp>
 #include <boost/ref.hpp>
 
+namespace boost { namespace simd { namespace meta
+{
+  /* Same as boost::proto::as_expr, but doesn't do anything if input
+   * is already an expression */
+  template<class T, class Domain, class Dummy = void>
+  struct as_expr
+  {
+    typedef typename Domain::template as_expr<T>::result_type type;
+    static BOOST_FORCEINLINE type call(T& t)
+    {
+      return typename Domain::template as_expr<T>()(t);
+    }
+  };
+
+  template<class T, class Domain>
+  struct as_expr<T, Domain, typename T::proto_is_expr_>
+  {
+    typedef T type;
+    static BOOST_FORCEINLINE T& call(T& t)
+    {
+      return t;
+    }
+  };
+
+} } }
+
 namespace boost { namespace simd { namespace ext
 {
   template<class Expr, class State>
@@ -129,15 +155,10 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::semantic_of<A0&>::type             semantic;
     typedef typename dispatch::meta::terminal_of_shared<semantic>::type terminal;
-    typedef typename boost::proto::result_of::as_child<terminal>::type& child0;
     typedef typename unpack_schedule<A0, F const>::result_type          unpck;
     typedef typename dispatch::meta::as_ref<unpck>::type                child1;
-    typedef typename boost::proto::result_of::
-            make_expr< boost::proto::tag::assign
-                     , child0, child1
-                     >::type                                            assigned;
-    typedef typename dispatch::meta::result_of<F const(assigned)>::type result;
-    typedef typename dispatch::meta::strip<result>::type                result_type;
+    typedef meta::as_expr<terminal, typename A0::proto_domain>          terminal_expr;
+    typedef typename terminal_expr::type                                result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, F const& f) const
@@ -145,10 +166,11 @@ namespace boost { namespace simd { namespace ext
       typedef boost::reference_wrapper<typename boost::remove_reference<child1>::type> ref;
 
       terminal term = dispatch::meta::terminal_of_shared<semantic>::make();
-      return f(boost::proto::make_expr<boost::proto::tag::assign>( boost::ref(boost::proto::as_child(term))
-                                                                 , ref(unpack_schedule<A0, F const>()(a0, f))
-                                                                 )
-              );
+      f(boost::proto::make_expr<boost::proto::tag::assign>( boost::ref(boost::proto::as_child(term))
+                                                          , ref(unpack_schedule<A0, F const>()(a0, f))
+                                                          )
+       );
+      return terminal_expr::call(term);
     }
   };
 

@@ -42,9 +42,12 @@ NT2_TEST_CASE( run_type )
 
   table<T, S> a0;
 
-  NT2_TEST_EXPR_TYPE( a0
+  typedef nt2::memory::container_ref<T, S> container;
+  typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container> > expr;
+  typedef nt2::container::expression<expr, nt2::memory::container<T, S>&> nt2_expr;
+  NT2_TEST_EXPR_TYPE( boost::proto::child_c<0>(a0 + a0)
                     , run_type
-                    , (table<T, S>&)
+                    , nt2_expr&
                     );
 
   NT2_TEST_EXPR_TYPE( a0 + a0

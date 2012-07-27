@@ -89,3 +89,15 @@ NT2_TEST_CASE_TPL( any_expr, NT2_TYPES )
 //   NT2_TEST_EQUAL(nt2::True<T>(), sy(1));
 
 }
+
+NT2_TEST_CASE( any_table_scalar )
+{
+  typedef double T;
+  using nt2::table;
+  using nt2::_;
+  using boost::simd::logical;
+
+  table<T> a = nt2::zeros(1, 5, nt2::meta::as_<T>()) + T(1);
+  logical<T> l = nt2::any(a);
+  NT2_TEST(l);
+}

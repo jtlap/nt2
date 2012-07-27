@@ -163,6 +163,7 @@ NT2_TEST_CASE( mtimes_vector_vector )
     for(std::size_t i=0; i!=7; ++i)
       NT2_TEST_EQUAL( r(i+1, j+1), r1[j*7+i] );
 }
+
 NT2_TEST_CASE( mtimes_aliasing )
 {
   typedef double T;

@@ -54,6 +54,17 @@ namespace nt2 { namespace container
     }
   };
 
+  template<class T, class S>
+  struct as_container_ref< memory::container_shared_ref<T, S, true> >
+  {
+    typedef memory::container_shared_ref<T, S> const type;
+    static BOOST_FORCEINLINE type
+    call(memory::container_shared_ref<T, S, true>& t)
+    {
+      return type(t.get_base());
+    }
+  };
+
   template<class T>
   struct as_container_noref
   {

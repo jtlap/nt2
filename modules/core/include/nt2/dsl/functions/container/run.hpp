@@ -23,9 +23,11 @@
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/terminal.hpp>
+#include <nt2/include/functions/firstnonsingleton.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
-#include <nt2/include/functions/firstnonsingleton.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_reference.hpp>
 #include <numeric>
 
 namespace nt2 { namespace ext
@@ -278,7 +280,7 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // Running a table terminal does nothing
+  // Running a table terminal does nothing and returns it
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(S0)(T)
@@ -289,7 +291,12 @@ namespace nt2 { namespace ext
                               ))
                             )
   {
-    typedef A0& result_type;
+    typedef typename boost::mpl::
+            if_< boost::is_reference< typename boost::dispatch::meta::semantic_of<A0>::type >
+               , A0&
+               , A0
+               >::type
+    result_type;
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
       return a0;
@@ -310,7 +317,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename boost::dispatch::meta::
-    semantic_of<A0&>::type                                  result_type;
+    semantic_of<A0>::type                                  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
