@@ -2266,10 +2266,7 @@ namespace detail
     {
         static void apply( typename Context::parameter0_t, typename Context::parameter1_t )
         {
-            // Clang (and probably GCC) is of course overeager to instantiate this...
-            #ifndef __GNUC__
-                BOOST_STATIC_ASSERT_MSG( false, "Recursion should have been terminated before." );
-            #endif // __GNUC__
+            BOOST_STATIC_ASSERT_MSG( sizeof(Decimation) && false, "Recursion should have been terminated before." );
         }
     };
 } // namespace detail
