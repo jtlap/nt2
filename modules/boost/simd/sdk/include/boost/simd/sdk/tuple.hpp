@@ -34,6 +34,7 @@
 #include <boost/fusion/include/value_at.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <boost/simd/sdk/details/at_iterator.hpp>
+#include <boost/simd/sdk/meta/zero_initialize.hpp>
 
 namespace boost { namespace simd
 {
@@ -176,7 +177,7 @@ namespace boost { namespace simd
 #define BOOST_SIMD_TUPLE_TYPES(z, n, t) typedef T##n m##n##_type;
 #define BOOST_SIMD_TUPLE_MEMBERS(z, n, t) T##n m##n;
 #define BOOST_SIMD_TUPLE_CTORS(z, n, t) BOOST_FORCEINLINE tuple(BOOST_PP_ENUM_BINARY_PARAMS(n, T, const& a)) : BOOST_PP_ENUM(t, BOOST_SIMD_TUPLE_CTORS_, n) {}
-#define BOOST_SIMD_TUPLE_CTORS_(z, n, t) BOOST_PP_IF(BOOST_PP_LESS(n, t), m##n(a##n), m##n())
+#define BOOST_SIMD_TUPLE_CTORS_(z, n, t) BOOST_PP_IF(BOOST_PP_LESS(n, t), m##n(a##n), m##n(meta::zero_initialize<T##n>::call()))
 
 #define BOOST_SIMD_TUPLE_HEAD <BOOST_PP_ENUM_PARAMS(N, T)>
 #define BOOST_PP_ITERATION_PARAMS_1 (3, ( 1, BOOST_PP_DEC(BOOST_DISPATCH_MAX_ARITY), "boost/simd/sdk/tuple.hpp"))
