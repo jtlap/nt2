@@ -209,13 +209,13 @@ namespace detail
             long double  const omega_scale( input.omega_scale   );
             long double  const N          ( input.N             );
             unsigned int       local_index( input.index         );
-	        __asm
-	        {
-		        mov ecx, vector_size
-		        mov edx, p_sine
-		        mov edi, p_cosine
+            __asm
+            {
+                mov ecx, vector_size
+                mov edx, p_sine
+                mov edi, p_cosine
             sincos_loop:
-		        fldpi
+                fldpi
                 fldpi
                 fadd
                 //...zzz...direct version seems to work the same?
@@ -228,16 +228,16 @@ namespace detail
                 fmul  [omega_scale]
                 fimul [local_index]
                 fdiv  [N]
-		        fsincos
-		        fstp [edi]
-		        add edi, 4
-		        fstp [edx]
-		        add edx, 4
+                fsincos
+                fstp [edi]
+                add edi, 4
+                fstp [edx]
+                add edx, 4
 
                 inc [local_index]
-		        dec ecx
-		        jnz sincos_loop
-	        }
+                dec ecx
+                jnz sincos_loop
+            }
 
         #else // 32 bit x86 MSVC
 
