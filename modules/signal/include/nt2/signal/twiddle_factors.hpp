@@ -32,21 +32,6 @@
 
 #include <math.h>
 
-#ifdef BOOST_SIMD_DETECTED
-/// \note Quick-fixed tofloat() nop specialization that does not cause MSVC10 to
-/// insert brain-dead stack-based native<> copy-construction.
-///                                           (19.06.2012.) (Domagoj Saric)
-namespace boost
-{
-namespace simd
-{
-    template <class Extension, class Enable>
-    BOOST_FORCEINLINE
-    native<float, Extension, Enable> const & tofloat( native<float, Extension, Enable> const & input ) { return input; }
-} // namespace simd
-} // namespace boost
-#endif // BOOST_SIMD_DETECTED
-
 namespace nt2
 {
 //------------------------------------------------------------------------------
