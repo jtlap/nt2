@@ -80,8 +80,13 @@ Another approach is to use a CTest script to do all steps and report them to CDa
 set(CTEST_SOURCE_DIRECTORY "path/to/the/source")
 set(CTEST_BINARY_DIRECTORY "path/to/build/directory")
 
-#set(CTEST_SITE "my_computer_name") # optional
-#set(CTEST_BUILD_NAME "my_configuration_name") # optional
+# Uncomment to override the name used to identify the machine.
+# Defaults to machine hostname.
+#set(CTEST_SITE "my_computer_name")
+
+# Uncomment to override the name used to identify the build.
+# Defaults to auto-detected setup. Can be wrong when building for 32-bit on 64-bit system and vice versa
+#set(CTEST_BUILD_NAME "my_configuration_name")
 
 set(CTEST_CMAKE_GENERATOR "Unix Makefiles") # or Ninja, or NMake Makefiles, etc.
 set(CTEST_BUILD_COMMAND "make -k -j4 unit") # adapt accordingly
