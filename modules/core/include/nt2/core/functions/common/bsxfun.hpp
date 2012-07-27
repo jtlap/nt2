@@ -15,7 +15,6 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
-#include <nt2/include/functions/enumerate.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 
 namespace nt2 { namespace ext
@@ -95,7 +94,7 @@ namespace nt2 { namespace ext
         pos[i] = (sz[i] < size_t(pos[i])) ? sz[i] : size_t(pos[i]);
 
       return  run ( boost::proto::child_c<I>(a0)
-                  , enumerate<i_t>(sub2ind(sz, pos))
+                  , sub2ind(sz, pos)
                   , Data()
                   );
     }

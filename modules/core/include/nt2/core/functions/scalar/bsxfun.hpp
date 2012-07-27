@@ -23,7 +23,8 @@ namespace nt2 { namespace ext
                               (scalar_< unspecified_<A2> >)
                             )
   {
-    typedef float  result_type;
+    typedef typename
+            meta::result_of<A0 const(A1 const&, A2 const&)>::type  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
                                              A1 const& a1,
