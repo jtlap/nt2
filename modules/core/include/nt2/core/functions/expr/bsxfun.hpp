@@ -10,19 +10,14 @@
 #define NT2_CORE_FUNCTIONS_EXPR_BSXFUN_HPP_INCLUDED
 
 #include <nt2/core/functions/bsxfun.hpp>
-#include <nt2/core/functions/common/bsxfun.hpp>
-
-#include <nt2/sdk/memory/copy.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/of_size.hpp>
-//#include <nt2/include/functions/length.hpp>
+#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/functions/extent.hpp>
 
 namespace nt2 { namespace ext
 {
-
   //============================================================================
-  // Generates  from a 2ary thing and 2 expressions
+  // Generates from a 2ary thing and 2 expressions
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::bsxfun_, tag::cpu_,
                               (A0)(A1)(A2),
@@ -34,16 +29,17 @@ namespace nt2 { namespace ext
     typedef typename A1::extent_type     ext1t_t;
     typedef typename A2::extent_type     ext2t_t;
     typedef typename meta::strip<ext1t_t>::type  ext1_t;
-    typedef typename meta::strip<ext2t_t>::type  ext2_t; 
-    typedef typename  make_size<(ext1_t::static_size > ext2_t::static_size)
-      ? ext1_t::static_size
-      : ext2_t::static_size>::type                     ext_t;
+    typedef typename meta::strip<ext2t_t>::type  ext2_t;
+    typedef typename make_size< (ext1_t::static_size > ext2_t::static_size)
+                              ? ext1_t::static_size
+                              : ext2_t::static_size
+                              >::type                     ext_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::bsxfun_
                                           , container::domain
                                           , A1 const&
                                           , A2 const&
-                                          , box<A0>      
+                                          , box<A0>
                                           , box<ext_t>
                                           >::type             result_type;
 
@@ -57,17 +53,92 @@ namespace nt2 { namespace ext
       ext_t sizee ;
       for(size_t i = 0; i < sizee.size(); ++i)
         {
-          sizee[i] = s1[i]; 
+          sizee[i] = s1[i];
           if (s1[i] == 1) sizee[i] = s2[i];
           if (s2[i] == 1) sizee[i] = s1[i];
-          BOOST_ASSERT_MSG((s1[i] == s2[i])||(s1[i] == 1)||(s2[i] == 1),
-                           "operands dimensions are not compatible in bsxfun:\n where dimensions differ one must be equal to one"); 
+          BOOST_ASSERT_MSG
+          ( (s1[i] == s2[i]) || (s1[i] == 1) || (s2[i] == 1)
+          , "Error using bsxfun:\n"
+            "Non-singleton dimensions of the two input arrays "
+            "must match each other."
+          );
         }
-      return boost::proto::make_expr<nt2::tag::bsxfun_, container::domain>
-        (boost::cref(a1),boost::cref(a2),boxify(a0),boxify(sizee));
+      return  boost::proto::
+              make_expr<nt2::tag::bsxfun_, container::domain>
+              ( boost::cref(a1)
+              , boost::cref(a2)
+              , boxify(a0)
+              , boxify(sizee)
+              );
     }
   };
-  
-} } 
+
+  //============================================================================
+  // Generates from a 2ary thing, an expression and a scalar
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::bsxfun_, tag::cpu_,
+                              (A0)(A1)(A2),
+                              (unspecified_<A0>)
+                              (ast_<A1>)
+                              (scalar_< unspecified_<A2> >)
+                            )
+  {
+    typedef typename A1::extent_type     ext1t_t;
+    typedef typename meta::strip<ext1t_t>::type  ext_t;
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::bsxfun_
+                                          , container::domain
+                                          , A1 const&
+                                          , A2 const&
+                                          , box<A0>
+                                          , box<ext_t>
+                                          >::type             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
+                                             A1 const& a1,
+                                             A2 const& a2) const
+    {
+      return  boost::proto::
+              make_expr<nt2::tag::bsxfun_, container::domain>
+              ( boost::cref(a1)
+              , boost::cref(a2)
+              , boxify(a0)
+              , boxify(nt2::extent(a1))
+              );
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::bsxfun_, tag::cpu_,
+                              (A0)(A1)(A2),
+                              (unspecified_<A0>)
+                              (scalar_< unspecified_<A1> >)
+                              (ast_<A2>)
+                            )
+  {
+    typedef typename A2::extent_type     ext1t_t;
+    typedef typename meta::strip<ext1t_t>::type  ext_t;
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::bsxfun_
+                                          , container::domain
+                                          , A1 const&
+                                          , A2 const&
+                                          , box<A0>
+                                          , box<ext_t>
+                                          >::type             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,
+                                             A1 const& a1,
+                                             A2 const& a2) const
+    {
+      return  boost::proto::
+              make_expr<nt2::tag::bsxfun_, container::domain>
+              ( boost::cref(a1)
+              , boost::cref(a2)
+              , boxify(a0)
+              , boxify(nt2::extent(a2))
+              );
+    }
+  };
+} }
 
 #endif
