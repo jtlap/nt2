@@ -38,7 +38,7 @@
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
 #ifdef NT2_LOG_COPIES
-#include <nt2/sdk/unit/display_type.hpp>
+#include <nt2/sdk/meta/display_type.hpp>
 #endif
 
 #if defined(BOOST_MSVC)
