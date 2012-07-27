@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+    issorted.cpp
     adjfun.cpp
     all.cpp
     any.cpp
