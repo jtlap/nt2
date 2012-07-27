@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL( center, (float)(double))//NT2_TYPES )
 
   for(size_t j=1;j<=size(y, 2);j++)
     for(size_t i=1;i<=size(y, 1);i++)
-      y(i,j) = i - j;
+      y(i,j) = T(i) - T(j);
 
   sy = nt2::center(y, 2);
   NT2_DISPLAY(y);
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL( center, (float)(double))//NT2_TYPES )
   NT2_DISPLAY(m);
   z =  nt2::bsxfun(nt2::functor<nt2::tag::minus_>(), y, m);
   NT2_DISPLAY(z);
-  NT2_TEST(nt2::isequal(z, sy)); 
+  NT2_TEST(nt2::isequal(z, sy));
 
 
 
