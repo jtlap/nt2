@@ -32,16 +32,20 @@ namespace boost { namespace simd { namespace ext
     #ifdef __GNUC__
       return __builtin_ffsll(t1);
     #elif defined BOOST_MSVC && defined _WIN64
-      unsigned long index = 0;
-      return _BitScanForward64(&index, uint64_t(a0)) + index;
+      unsigned long index;
+      if(_BitScanForward64(&index, uint64_t(a0)))
+        return index+1;
+      return 0;
     #elif defined BOOST_MSVC
-      unsigned long index = 0;
+      unsigned long index;
       if (b_and(t1, (uint64_t(-1) >> 32)))
       {
         _BitScanForward(&index, uint32_t(t1));
         return index+1;
       }
-      return _BitScanForward(&index, uint32_t(t1 >> 32)) + 32 + index;
+      if(_BitScanForward(&index, uint32_t(t1 >> 32)))
+        return index+1 + 32;
+      return 0;
     #else
       if(!t1)
         return 0;
@@ -79,8 +83,10 @@ namespace boost { namespace simd { namespace ext
     #ifdef __GNUC__
       return __builtin_ffs(t1);
     #elif defined(BOOST_MSVC)
-      unsigned long index = 0;
-      return _BitScanForward(&index, t1) + index;
+      unsigned long index;
+      if(_BitScanForward(&index, t1))
+        return index+1;
+      return 0;
     #else
       if(!t1)
         return 0;
