@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
       __assume( a0 > 0 );
       unsigned long index;
       BOOST_VERIFY(::_BitScanReverse(&index, a0));
-      return index;
+      return result_type(index);
     }
   };
 #endif
