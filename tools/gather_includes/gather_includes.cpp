@@ -51,7 +51,7 @@ struct depth_compare
                 if ( ( a0_current_element_end == a0_end ) || ( a1_current_element_end == a1_end ) )
                 {
                     return
-                        ( a0_position == a1_current_element_end ) &&
+                        ( a0_position == a0_current_element_end ) &&
                         ( a1_position != a1_current_element_end );
                 }
 

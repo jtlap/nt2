@@ -146,9 +146,9 @@ namespace filesystem
 
 #ifdef BOOST_WINDOWS_API
         if(is_directory(file_path))
-            return ::RemoveDirectory(file_path);
+            return ::RemoveDirectory(file_path) ? true : false;
         else
-            return ::DeleteFileA(file_path);
+            return ::DeleteFileA(file_path) ? true : false;
 #else
 
         return ::remove(file_path) == 0;
