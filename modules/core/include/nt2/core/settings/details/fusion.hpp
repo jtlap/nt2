@@ -73,7 +73,7 @@ namespace nt2 { namespace details
                       , boost::mpl::false_ const&
                       )
   {
-    BOOST_ASSERT_MSG(*inb == value, "Incompatible size in of_size conversion");
+    BOOST_ASSERT_MSG(InE(*inb) == value, "Incompatible size in of_size conversion");
     return check_all_equal(boost::fusion::next(inb), inE, value);
   }
 
