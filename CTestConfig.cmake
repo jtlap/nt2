@@ -22,7 +22,7 @@ if(CMAKE_PROJECT_NAME STREQUAL NT2)
   string(REGEX REPLACE "\\.local$" "" HOST ${HOST})
   string(TOLOWER ${HOST} SITE)
 
-  string(TOLOWER ${CMAKE_SYSTEM_NAME} OS)
+  set(OS ${CMAKE_SYSTEM_NAME})
   string(TOLOWER ${CMAKE_SYSTEM_PROCESSOR} ARCH)
 
   string(TOLOWER ${CMAKE_CXX_COMPILER_ID} COMPILER)
@@ -30,11 +30,16 @@ if(CMAKE_PROJECT_NAME STREQUAL NT2)
   string(REGEX REPLACE "([0-9]+)\\.([0-9]+).*" "\\2" VERSION_MINOR "${CMAKE_CXX_COMPILER_VERSION}")
 
   # Compiler version is that of cl.exe, we convert it to MSVC
-  if(MSVC)
+  if(MSVC AND VERSION_MAJOR)
     math(EXPR VERSION_MAJOR "${VERSION_MAJOR} - 6")
   endif()
 
-  set(COMPILER "${COMPILER}${VERSION_MAJOR}.${VERSION_MINOR}")
+  if(VERSION_MINOR)
+    set(VERSION ${VERSION_MAJOR}.${VERSION_MINOR})
+  else()
+    set(VERSION ${VERSION_MAJOR})
+  endif()
+  set(COMPILER "${COMPILER}${VERSION}")
   if(NOT DEFINED NT2_SIMD_EXT)
     set(OLD_MODULE_PATH ${CMAKE_MODULE_PATH})
     set ( CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/modules/boost/simd/sdk/cmake
