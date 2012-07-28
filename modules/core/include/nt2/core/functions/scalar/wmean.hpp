@@ -10,7 +10,8 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_WMEAN_HPP_INCLUDED
 
 #include <nt2/core/functions/wmean.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/sdk/meta/as_floating.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 //TODO include complex cases
 namespace nt2 { namespace ext
