@@ -10,12 +10,14 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/is_not_nan.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
 #include <nt2/include/functions/cast.hpp>
@@ -57,14 +59,14 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_TYPES )
       y(i,j) = (i > j) || (j == 2)|| (i == 1);
   display("y", y);
 
-//   nt2::table<nt2::logical<T> > l;
-//   l = gt(y, T(13));
-//   display("l ",  l);
-//   nt2::table<itype_t > nb;
-//   nb = nt2::nbtrue(l);
-//   //  std::cout << nt2::type_id(nbtrue(l)) << std::endl;
-//   display("nb ",  nbtrue(l));
-//   display("nb ",  nb);
+  nt2::table<nt2::logical<T> > l;
+  l = gt(y, T(13));
+  display("l ",  l);
+  nt2::table<itype_t > nb;
+  nb = nt2::nbtrue(l);
+  //  std::cout << nt2::type_id(nbtrue(l)) << std::endl;
+  display("nb ",  nbtrue(l));
+  display("nb ",  nb);
 
   sy  = nt2::nbtrue(y, 1);
   sy2 = nt2::sum(y, 1);
@@ -95,3 +97,22 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_TYPES )
 
  }
 
+NT2_TEST_CASE_TPL( nbtrue_expr1, NT2_REAL_TYPES )
+{
+  typedef typename nt2::meta::as_logical<T>::type lT;
+  nt2::table<T> y( nt2::of_size(5,3) );
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      y(i,j) = (i > j) || (j == 2)|| (i == 1) ? T(1) : nt2::Nan<T>() ;
+  display("y", y);
+
+  NT2_DISPLAY(nbtrue(y));
+  NT2_DISPLAY(nbtrue(nt2::is_not_nan(y)));
+  NT2_DISPLAY(nt2::is_not_nan(y));
+  NT2_DISPLAY(nt2::if_one_else_zero(nt2::is_not_nan(y)));
+  NT2_DISPLAY(nt2::sum(nt2::if_one_else_zero(nt2::is_not_nan(y))));
+  nt2::table<T> s = nt2::if_one_else_zero(nt2::is_not_nan(y)); 
+  NT2_DISPLAY(s);
+  NT2_DISPLAY(nt2::sum(s));
+  
+}
