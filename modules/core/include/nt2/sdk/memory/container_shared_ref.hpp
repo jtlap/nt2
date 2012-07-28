@@ -228,8 +228,8 @@ namespace nt2 { namespace meta
   //============================================================================
   // Register container as a proper container
   //============================================================================
-  template<class T, class S>
-  struct is_container< memory::container_shared_ref<T, S> > : boost::mpl::true_ {};
+  template<class T, class S, bool Own>
+  struct is_container< memory::container_shared_ref<T, S, Own> > : boost::mpl::true_ {};
 } }
 
 namespace boost { namespace dispatch { namespace meta
