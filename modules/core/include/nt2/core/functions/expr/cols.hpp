@@ -10,13 +10,13 @@
 #define NT2_CORE_FUNCTIONS_EXPR_COLS_HPP_INCLUDED
 
 #include <nt2/core/functions/cols.hpp>
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/cols.hpp>
-#include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/first_index.hpp>
+#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/utility/box.hpp>
+#include <nt2/core/utility/of_size.hpp>
+#include <nt2/sdk/memory/copy.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
       );
 
       _2D sizee;
-      std::copy(a0.raw(), a0.raw()+2, &sizee[0]);
+      nt2::memory::cast_copy(a0.raw(), a0.raw()+2, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::cols_
                                     , container::domain

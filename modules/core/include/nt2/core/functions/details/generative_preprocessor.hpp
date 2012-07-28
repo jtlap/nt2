@@ -57,7 +57,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
                                                                               \
     of_size_max sizee;                                                        \
     std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));           \
-    nt2::memory::copy(a0.raw(), a0.raw()+sz, &sizee[0]);                      \
+    nt2::memory::cast_copy(a0.raw(), a0.raw()+sz, &sizee[0]);                 \
                                                                               \
     return  boost::proto::                                                    \
             make_expr < BOOST_PP_TUPLE_ELEM(2,0,Tag)                          \
@@ -93,7 +93,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
                                                                               \
     of_size_max sizee;                                                        \
     std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));           \
-    nt2::memory::copy(a0.raw(), a0.raw()+sz, &sizee[0]);                      \
+    nt2::memory::cast_copy(a0.raw(), a0.raw()+sz, &sizee[0]);                 \
                                                                               \
     return  boost::proto::                                                    \
             make_expr < BOOST_PP_TUPLE_ELEM(2,0,Tag)                          \

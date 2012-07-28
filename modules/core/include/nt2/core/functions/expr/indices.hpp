@@ -10,12 +10,13 @@
 #define NT2_CORE_FUNCTIONS_EXPR_INDICES_HPP_INCLUDED
 
 #include <nt2/core/functions/indices.hpp>
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/first_index.hpp>
+#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/utility/box.hpp>
+#include <nt2/core/utility/of_size.hpp>
+#include <nt2/sdk/memory/copy.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
 
       of_size_max sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
-      nt2::memory::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+      nt2::memory::cast_copy(a0.raw(), a0.raw()+sz, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::indices_
         , container::domain
@@ -84,7 +85,7 @@ namespace nt2 { namespace ext
 
       of_size_max sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
-      nt2::memory::copy(a0.raw(), a0.raw()+sz, &sizee[0]);
+      nt2::memory::cast_copy(a0.raw(), a0.raw()+sz, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::indices_
                                     , container::domain

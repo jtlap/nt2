@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
       );
 
       _2D sizee;
-      nt2::memory::copy(a0.raw(), a0.raw()+2, &sizee[0]);
+      nt2::memory::cast_copy(a0.raw(), a0.raw()+2, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::eye_
                                     , container::domain
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
       );
 
       _2D sizee;
-      nt2::memory::copy(a0.raw(), a0.raw()+2, &sizee[0]);
+      nt2::memory::cast_copy(a0.raw(), a0.raw()+2, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::eye_
                                     , container::domain

@@ -9,8 +9,9 @@
 #ifndef NT2_SDK_MEMORY_COPY_HPP_INCLUDED
 #define NT2_SDK_MEMORY_COPY_HPP_INCLUDED
 
-#include <algorithm>
 #include <boost/detail/workaround.hpp>
+#include <algorithm>
+#include <iterator>
 
 namespace nt2 { namespace memory
 {
@@ -28,6 +29,18 @@ namespace nt2 { namespace memory
     std::copy(begin,end,dst);
 #endif
   }
+
+  /*!
+   * Same as copy, but performs a cast to avoid warnings
+   *
+   **/
+  template<class In, class Out> inline void cast_copy(In begin, In end, Out dst)
+  {
+    typedef typename std::iterator_traits<Out>::value_type T;
+    for(; begin != end; ++begin)
+      *dst++ = T(*begin);
+  }
+
 } }
 
 #endif
