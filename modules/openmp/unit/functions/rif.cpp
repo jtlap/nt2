@@ -21,20 +21,20 @@
 NT2_TEST_CASE( rif_size )
 {
   NT2_TEST( nt2::extent( nt2::rif(4) ) == nt2::of_size(4,4 ));
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(4), 1 ), 4 );
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(4), 2 ), 4 );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(4), 1 ), 4u );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(4), 2 ), 4u );
   NT2_TEST( nt2::extent( nt2::rif(4, 5) ) == nt2::of_size(4,5 ));
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(4, 5), 1 ), 4 );
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(4, 5), 2 ), 5 );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(4, 5), 1 ), 4u );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(4, 5), 2 ), 5u );
   NT2_TEST( nt2::extent( nt2::rif(nt2::of_size(4,5)) ) == nt2::of_size(4,5) );
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(4,5)), 1 ), 4 );
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(4,5)), 2 ), 5 );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(4,5)), 1 ), 4u );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(4,5)), 2 ), 5u );
   NT2_TEST( nt2::extent( nt2::rif(nt2::of_size(4,1)) ) == nt2::of_size(4,1) );
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(4,1)), 1 ), 4 );
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(4,1)), 2 ), 1 );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(4,1)), 1 ), 4u );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(4,1)), 2 ), 1u );
   NT2_TEST( nt2::extent( nt2::rif(nt2::of_size(1,4)) ) == nt2::of_size(1,4) );
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(1,4)), 1 ), 1 );
-  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(1,4)), 2 ), 4 );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(1,4)), 1 ), 1u );
+  NT2_TEST_EQUAL( nt2::size( nt2::rif(nt2::of_size(1,4)), 2 ), 4u );
 }
 
 NT2_TEST_CASE( rif_untyped_square )
