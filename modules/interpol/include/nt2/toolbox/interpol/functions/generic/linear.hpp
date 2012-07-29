@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
 //        NT2_DISPLAY(dx);
        yi =  fma(oneminus(dx), y(index), dx*y(oneplus(index)));
 //        NT2_DISPLAY(yi);
-       if (!extrap) yi = nt2::if_else(logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))), extrapval, yi);
+       if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))), extrapval, yi);
        return yi;
     } 
   private :

@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
        table<value_type>  dx    =  xi-x(index); 
        table<index_type> indexp1 =  oneplus(index); 
        yi = y(nt2::if_else(lt(nt2::abs(xi-x(index)), nt2::abs(xi-x(indexp1))), index,  indexp1)); 
-       if (!extrap) yi = nt2::if_else(logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))),
+       if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))),
                                       extrapval,
                                       yi);
        return yi;
