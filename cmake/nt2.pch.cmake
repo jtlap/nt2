@@ -14,7 +14,7 @@ macro(nt2_pch name)
     message(FATAL_ERROR "[nt2.pch] precompiled header already set to ${NT2_PCH_TARGET}, cannot change to ${name}")
   endif()
 
-  if(NT2_WITH_PCH)
+  if(0)#NT2_WITH_PCH)
     if((CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX) AND CMAKE_GENERATOR MATCHES "Make")
       string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE_U)
       set(FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_${BUILD_TYPE_U}}")
