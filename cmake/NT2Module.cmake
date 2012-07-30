@@ -311,7 +311,7 @@ function(nt2_module_add_exe name)
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY_${build_type_U} ${NT2_BINARY_DIR}/${suffix})
 
   if(NT2_PCH_TARGET)
-    add_dependencies(${name} ${NT2_PCH_TARGET})
+    add_dependencies(${name} ${NT2_PCH_TARGET}_${build_type}.pch)
   endif()
 
   nt2_module_target_parent(${name})
@@ -330,7 +330,7 @@ macro(nt2_module_add_example name)
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/examples)
 
   if(NT2_PCH_TARGET)
-    add_dependencies(${name} ${NT2_PCH_TARGET})
+    add_dependencies(${name} ${NT2_PCH_TARGET}_${build_type}.pch)
   endif()
 
   string(REGEX REPLACE "[^.]+\\.sample$" "examples" suite ${name})

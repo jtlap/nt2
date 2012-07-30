@@ -14,9 +14,15 @@ macro(nt2_pch name)
     message(FATAL_ERROR "[nt2.pch] precompiled header already set to ${NT2_PCH_TARGET}, cannot change to ${name}")
   endif()
 
-  if(0)#NT2_WITH_PCH)
-    if((CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX) AND CMAKE_GENERATOR MATCHES "Make")
-      string(TOUPPER ${CMAKE_BUILD_TYPE} BUILD_TYPE_U)
+  if((CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX) AND CMAKE_GENERATOR MATCHES "Make")
+
+    get_target_property(pch_exists pch EXCLUDE_FROM_ALL)
+    if(pch_exists MATCHES "NOTFOUND$")
+      add_custom_target(pch ALL)
+    endif()
+
+    foreach(BUILD_TYPE Debug Release NT2Test NT2TestDebug NT2Bench)
+      string(TOUPPER ${BUILD_TYPE} BUILD_TYPE_U)
       set(FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_CXX_FLAGS_${BUILD_TYPE_U}}")
       string(REPLACE " " ";" FLAGS ${FLAGS})
 
@@ -34,26 +40,25 @@ macro(nt2_pch name)
         endif()
       endforeach()
 
+      set(name_ "${name}/${BUILD_TYPE}")
       string(REPLACE "/" "_" pch_base ${name})
+      string(REPLACE "/" "_" pch_base_ ${name_})
       string(REGEX REPLACE "\\.hpp$" "" rule ${pch_base})
-      file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${pch_base} "#include <${name}>\n")
-      add_custom_command(OUTPUT ${pch_base}.gch
-                         COMMAND ${CMAKE_CXX_COMPILER} ${FLAGS} ${INCLUDES} -x c++-header -c ${file} -o ${pch_base}.gch
+      string(REGEX REPLACE "\\.hpp$" "_${BUILD_TYPE}" rule_ ${pch_base})
+      file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${pch_base_} "#include <${name}>\n")
+      add_custom_command(OUTPUT ${pch_base_}.gch
+                         COMMAND ${CMAKE_CXX_COMPILER} ${FLAGS} ${INCLUDES} -x c++-header -c ${file} -o ${pch_base_}.gch
                          IMPLICIT_DEPENDS CXX ${file}
-                         COMMENT "Precompiling header file ${name}..."
+                         COMMENT "Precompiling header file ${name} for configuration ${BUILD_TYPE}..."
                         )
-      add_custom_target(${rule}.pch
-                        DEPENDS ${pch_base}.gch
+      add_custom_target(${rule_}.pch
+                        DEPENDS ${pch_base_}.gch
                        )
-      get_target_property(pch_exists pch EXCLUDE_FROM_ALL)
-      if(pch_exists MATCHES "NOTFOUND$")
-        add_custom_target(pch ALL)
-      endif()
-      add_dependencies(pch ${rule}.pch)
-      set(NT2_PCH_TARGET ${rule}.pch)
+      add_dependencies(pch ${rule_}.pch)
+      set(NT2_PCH_TARGET ${rule})
       # Escape special characters. Unfortunately CMake doesn't already take care of it when using add_definitionss
-      string(REGEX REPLACE "([ \\\\\"&|;#])" "\\\\\\1" path "${CMAKE_CURRENT_BINARY_DIR}/${pch_base}")
-      add_definitions(-include ${path} -Winvalid-pch)
-    endif()
+      string(REGEX REPLACE "([ \\\\\"&|;#])" "\\\\\\1" path "${CMAKE_CURRENT_BINARY_DIR}/${pch_base_}")
+      set(CMAKE_CXX_FLAGS_${BUILD_TYPE_U} "${CMAKE_CXX_FLAGS_${BUILD_TYPE_U}} -include ${path} -Winvalid-pch")
+    endforeach()
   endif()
 endmacro()
