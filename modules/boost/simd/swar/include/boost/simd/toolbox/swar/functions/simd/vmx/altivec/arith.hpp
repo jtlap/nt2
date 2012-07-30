@@ -31,11 +31,9 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(T const& ) const
     {
       // add [a0 ... a0] with [0 1 2 ... 12 15]
-      result_type that =  { vec_add ( splat<result_type>(0)()
+      return vec_add ( splat<result_type>(0)()
                                     , vec_lvsl(0,(char*)(0))
-                                    )
-                          };
-      return that;
+                                    );
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_
@@ -55,11 +53,9 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const& a0, T const& ) const
     {
       // add [a0 ... a0] with [0 1 2 ... 12 15]
-      result_type that =  { vec_add ( splat<result_type>(a0)()
+      return vec_add ( splat<result_type>(a0)()
                                     , vec_lvsl(0,(char*)(0))
-                                    )
-                          };
-      return that;
+                                    );
     }
   };
   // I am not sure as don't know altivec well and have not support available (JTL). Does vec_madd is to be used here ?
@@ -81,13 +77,11 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
       // add [a0 ... a0] with [0 1 2 ... 12 15]*[a1 ... a1]
-      result_type that =  { vec_add ( splat<result_type>(a0)()
+      return vec_add ( splat<result_type>(a0)()
                                       , vec_mul(splat<result_type>(a1)(),
                                                 vec_lvsl(0,(char*)(0))
                                                 )
-                                    )
-                          };
-      return that;
+                                    );
     }
   };  
 } } }

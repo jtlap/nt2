@@ -22,6 +22,7 @@
 #include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/toolbox/euler/constants/fastgammalargelim.hpp>
 #include <nt2/include/functions/simd/sinpi.hpp>
 
@@ -65,7 +66,7 @@ namespace nt2 { namespace ext
             bA0 negative = is_ltz(a0);
             A0 s =  stirling(q);
             uint32_t nb1 = 0;
-            A0 r1 = {{}};
+            A0 r1 = Zero<A0>();
             if ((nb1 = (inbtrue(negative) > 0)))
               {
                 A0 p = floor(q);

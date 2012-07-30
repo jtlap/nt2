@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<A0>::type                 result_type;
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1) {
-      A0 b1 = {_mm_hadd_pd (a0, Zero<A0>())};
+      A0 b1 = _mm_hadd_pd (a0, Zero<A0>());
       double r;
       _mm_store_sd(&r, b1);
       return r;
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      A0 b1 = {_mm_hadd_ps (a0, Zero<A0>())};
+      A0 b1 = _mm_hadd_ps (a0, Zero<A0>());
       b1 = _mm_hadd_ps (b1, Zero<A0>());
       float r;
       _mm_store_ss(&r, b1);

@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-    { A0 that = {_mm_abs_epi32(a0) }; return that; }
+    { return _mm_abs_epi32(a0); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
@@ -40,7 +40,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
-    { A0 that = {_mm_abs_epi8(a0) }; return that; }
+    { return _mm_abs_epi8(a0); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_
@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-    { A0 that = {_mm_abs_epi16(a0) };return that; }
+    { return _mm_abs_epi16(a0); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::abs_, boost::simd::tag::ssse3_

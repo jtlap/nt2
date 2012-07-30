@@ -144,7 +144,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       // works only for int64 that are int32 representable
-      result_type b = {_mm_slli_si128(simd::bitwise_cast<result_type>(a1),4)};
+      result_type b = _mm_slli_si128(simd::bitwise_cast<result_type>(a1),4);
                   b = b_or(b, a0);
 
       return simd::bitwise_cast<result_type>(_mm_shuffle_epi32(b, _MM_SHUFFLE(3, 1, 2, 0)) );

@@ -23,14 +23,12 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type erb   = { vec_re(a1()) };
-      result_type rec_b = { vec_madd( vec_nmsub(erb(), a1(), One<result_type>()())
+      result_type erb   = vec_re(a1());
+      result_type rec_b = vec_madd( vec_nmsub(erb(), a1(), One<result_type>()())
                                     , erb()
                                     , erb()
-                                    )
-                          };
-      result_type that  = { vec_madd(a0(),rec_b(),Zero<result_type>()()) };
-      return that;
+                                    );
+      return vec_madd(a0(),rec_b(),Zero<result_type>()());
     }
   };
 } } }

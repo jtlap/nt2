@@ -24,14 +24,14 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 max1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
+      A0 max1 = _mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2));
          max1 = _mm_shufflelo_epi16(max1, _MM_SHUFFLE(1, 0, 3, 2));
          max1 = max(a0, max1);
-      A0 max2 = {_mm_shuffle_epi32  (max1, _MM_SHUFFLE(1, 0, 3, 2))};
+      A0 max2 = _mm_shuffle_epi32  (max1, _MM_SHUFFLE(1, 0, 3, 2));
          max2 = _mm_shufflelo_epi16(max2, _MM_SHUFFLE(1, 0, 3, 2));
          max2 = max(max1, max2);
-      A0 max3 = {_mm_shuffle_epi32(max2, _MM_SHUFFLE(3, 2, 1, 0))};
-      A0 max4 = {_mm_shufflelo_epi16(max3, _MM_SHUFFLE(0, 1, 2, 3))};
+      A0 max3 = _mm_shuffle_epi32(max2, _MM_SHUFFLE(3, 2, 1, 0));
+      A0 max4 = _mm_shufflelo_epi16(max3, _MM_SHUFFLE(0, 1, 2, 3));
       A0 that = boost::simd::max(max3, max4);
       return that[0];
     }
@@ -46,7 +46,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 that = {_mm_max_sd(a0, _mm_unpackhi_pd(a0,a0))};
+      A0 that = _mm_max_sd(a0, _mm_unpackhi_pd(a0,a0));
       return that[0];
     }
   };
@@ -72,8 +72,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      A0 max  = {_mm_max_ps(a0, _mm_movehl_ps(a0,a0))};
-      A0 that = {_mm_max_ss(max, _mm_shuffle_ps(max,max,0x01))};
+      A0 max  = _mm_max_ps(a0, _mm_movehl_ps(a0,a0));
+      A0 that = _mm_max_ss(max, _mm_shuffle_ps(max,max,0x01));
       return that[0];
     }
   };

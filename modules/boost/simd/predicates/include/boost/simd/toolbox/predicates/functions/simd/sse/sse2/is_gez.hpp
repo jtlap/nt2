@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0, signed>::type itype;
       typedef typename dispatch::meta::downgrade<itype>::type type; 
       const type tmp1 = bitwise_cast<type>(is_gez(bitwise_cast<type>(a0)));
-      const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
+      const type tmp = _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1));
       return bitwise_cast<result_type>(tmp);
     }
   };

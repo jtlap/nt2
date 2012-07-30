@@ -81,8 +81,7 @@ namespace boost { namespace simd { namespace ext
                             :   boost::simd::abs( boost::simd::ldexp(a0, expo)
                                                 - boost::simd::ldexp(a1, expo)
                                                 );
-      A0 that = e/static_cast<A0>(Eps<type>());
-      return that;
+      return e/static_cast<A0>(Eps<type>());
     }
   };
 } } }

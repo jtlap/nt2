@@ -11,6 +11,7 @@
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
+#include <boost/simd/sdk/meta/zero_initialize.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/details/native/meta.hpp>
@@ -54,6 +55,12 @@ namespace boost { namespace simd
     enum v_size { static_size = sizeof(native_type)/sizeof(value_type)
                        ? sizeof(native_type)/sizeof(value_type) : 1};
 
+    BOOST_FORCEINLINE native() {}
+    BOOST_FORCEINLINE native(native_type data) : data_(data) {}
+#ifdef BOOST_MSVC
+    BOOST_FORCEINLINE native(native const& other) : data_(other.data_) {}
+#endif
+
     ////////////////////////////////////////////////////////////////////////////
     // Assignment operator from same type (generates better code than default-generated one)
     ////////////////////////////////////////////////////////////////////////////
@@ -68,7 +75,7 @@ namespace boost { namespace simd
     // Assignment operator from native vector type
     ////////////////////////////////////////////////////////////////////////////
     BOOST_FORCEINLINE
-    native& operator=(native_type const& data)
+    native& operator=(native_type data)
     {
       data_ = data;
       return *this;
@@ -128,5 +135,18 @@ namespace boost { namespace simd
     }
   };
 } }
+
+namespace boost { namespace simd { namespace meta
+{
+  template<class T, class X>
+  struct zero_initialize< native<T, X> >
+  {
+    static BOOST_FORCEINLINE native<T, X> call()
+    {
+      typename native<T, X>::native_type n = {};
+      return native<T, X>(n);
+    }
+  };
+} } }
 
 #endif

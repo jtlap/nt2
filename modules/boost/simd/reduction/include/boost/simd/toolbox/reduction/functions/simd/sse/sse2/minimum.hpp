@@ -28,14 +28,14 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      A0 min1 = {_mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2))};
+      A0 min1 = _mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2));
          min1 = _mm_shufflelo_epi16(min1, _MM_SHUFFLE(1, 0, 3, 2));
          min1 = min(a0, min1);
-      A0 min2 = {_mm_shuffle_epi32  (min1, _MM_SHUFFLE(1, 0, 3, 2))};
+      A0 min2 = _mm_shuffle_epi32  (min1, _MM_SHUFFLE(1, 0, 3, 2));
          min2 = _mm_shufflelo_epi16(min2, _MM_SHUFFLE(1, 0, 3, 2));
          min2 = min(min1, min2);
-      A0 min3 = {_mm_shuffle_epi32(min2, _MM_SHUFFLE(3, 2, 1, 0))};
-      A0 min4 = {_mm_shufflelo_epi16(min3, _MM_SHUFFLE(0, 1, 2, 3))};
+      A0 min3 = _mm_shuffle_epi32(min2, _MM_SHUFFLE(3, 2, 1, 0));
+      A0 min4 = _mm_shufflelo_epi16(min3, _MM_SHUFFLE(0, 1, 2, 3));
       A0 that = boost::simd::min(min3, min4);
       return that[0];
     }
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0> ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      A0 that = {_mm_min_sd(a0, _mm_unpackhi_pd(a0,a0))};
+      A0 that = _mm_min_sd(a0, _mm_unpackhi_pd(a0,a0));
       return that[0];
     }
   };
@@ -86,8 +86,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      A0 min  = {_mm_min_ps(a0, _mm_movehl_ps(a0,a0))};
-      A0 that = {_mm_min_ss(min, _mm_shuffle_ps(min,min,0x01))};
+      A0 min  = _mm_min_ps(a0, _mm_movehl_ps(a0,a0));
+      A0 that = _mm_min_ss(min, _mm_shuffle_ps(min,min,0x01));
       return that[0];
     }
   };
@@ -128,8 +128,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      A0 min1 = {min(a0,simd::bitwise_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))))};
-      A0 that = {min(min1, simd::bitwise_cast<A0>(_mm_shuffle_epi32(min1, _MM_SHUFFLE(2, 3, 0, 1))))};
+      A0 min1 = min(a0,simd::bitwise_cast<A0>(_mm_shuffle_epi32(a0, _MM_SHUFFLE(1, 0, 3, 2))));
+      A0 that = min(min1, simd::bitwise_cast<A0>(_mm_shuffle_epi32(min1, _MM_SHUFFLE(2, 3, 0, 1))));
       return that[0];
     }
   };

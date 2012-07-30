@@ -29,8 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-        A0 that =  {_mm_shuffle_ps(a0, a0, 0x1B)};
-        return that;
+        return _mm_shuffle_ps(a0, a0, 0x1B);
       }
   };
   
@@ -45,8 +44,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-        A0 that =  {_mm_shuffle_pd(a0, a0, 0x1)};
-        return that;
+        return _mm_shuffle_pd(a0, a0, 0x1);
       }
   };
   

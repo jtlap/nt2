@@ -27,8 +27,7 @@ namespace boost { namespace simd { namespace ext
     { 
       typedef typename dispatch::meta::as_unsigned<A1>::type type;
       type shift = simd::bitwise_cast<type>(a1);
-      A0 that  = { vec_sl(a0(), shift()) };
-      return that;
+      return vec_sl(a0(), shift());
     }
   };
 
@@ -44,8 +43,7 @@ namespace boost { namespace simd { namespace ext
      typedef typename dispatch::meta::as_unsigned<A1>::type type;
      type shift = simd::bitwise_cast<type>(a1);
      type value = simd::bitwise_cast<type>(a0);
-     A0 that  = simd::bitwise_cast<A0>( vec_sl(value(), shift()) ); 
-     return that;  
+     return simd::bitwise_cast<A0>( vec_sl(value(), shift()) );  
    }
   };
 } } }

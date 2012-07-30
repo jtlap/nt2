@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const type tmp1 = bitwise_cast<type>(is_ltz(bitwise_cast<type>(a0)));
-      const type tmp = { _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1))};
+      const type tmp = _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1));
       return  bitwise_cast<result_type>(tmp);
     }
   };

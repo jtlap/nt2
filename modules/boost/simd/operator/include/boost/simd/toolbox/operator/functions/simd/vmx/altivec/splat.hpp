@@ -28,8 +28,7 @@ namespace boost { namespace simd { namespace ext
     {
       result_type v;
       v[0] = a0;
-      result_type that = {vec_splat(v(), 0)};
-      return that;
+      return vec_splat(v(), 0);
     }
   };
 } } }

@@ -22,8 +22,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&) const
     {
-      result_type that = static_cast<result_type>(a0);
-      return that;
+      return static_cast<result_type>(a0);
     }
   };
 } } }

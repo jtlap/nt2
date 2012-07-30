@@ -51,8 +51,8 @@ namespace boost { namespace simd { namespace ext
       const type8 dup = make<type8>(0, 0, 0, 0, 4, 4, 4, 4, 8, 8, 8, 8, 12, 12, 12, 12);
 //    const type8 inc = bitwise_cast<type8>(make<type64>(0x302010003020100LL,0x302010003020100LL));
 //    const type8 dup = bitwise_cast<type8>(make<type64>(0x404040400000000LL,0xc0c0c0c08080808LL));
-      type8 i1 = {_mm_shuffle_epi8(shli(a1, 2), dup)};
-      type8  r = {_mm_shuffle_epi8(simd::bitwise_cast<type8>(a0), i1+inc )};
+      type8 i1 = _mm_shuffle_epi8(shli(a1, 2), dup);
+      type8  r = _mm_shuffle_epi8(simd::bitwise_cast<type8>(a0), i1+inc );
       return simd::bitwise_cast<A0>(r);
     }
   };
@@ -76,8 +76,8 @@ namespace boost { namespace simd { namespace ext
       const type8 dup = make<type8>(0, 0, 0, 0, 0, 0, 0, 0, 8, 8, 8, 8, 8, 8, 8, 8);
 //    const type8 inc = bitwise_cast<type8>(make<type64>(506097522914230528ll,506097522914230528ll));
 //    const type8 dup = bitwise_cast<type8>(make<type64>(0ll,578721382704613384ll));
-      const type8 i1 =  {_mm_shuffle_epi8(shli(a1, 3), dup)};
-      const type8 r  =  {_mm_shuffle_epi8(simd::bitwise_cast<type8>(a0), i1+inc)};
+      const type8 i1 = _mm_shuffle_epi8(shli(a1, 3), dup);
+      const type8 r  = _mm_shuffle_epi8(simd::bitwise_cast<type8>(a0), i1+inc);
       return simd::bitwise_cast<A0>(r);
     }
   };
@@ -99,8 +99,8 @@ namespace boost { namespace simd { namespace ext
       typedef simd::native<int8_t, boost::simd::tag::sse_> type8;
       const type8 inc = make<type8>(0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1);
       const type8 dup = make<type8>(0, 0, 2, 2, 4, 4, 6, 6, 8, 8, 10, 10, 12, 12, 14, 14);
-      const type8 i1 = {_mm_shuffle_epi8(shli(a1, 1), dup)};
-      const type8 r =  {_mm_shuffle_epi8(simd::bitwise_cast<type8>(a0), plus(i1, inc))};//add increment
+      const type8 i1 = _mm_shuffle_epi8(shli(a1, 1), dup);
+      const type8 r = _mm_shuffle_epi8(simd::bitwise_cast<type8>(a0), plus(i1, inc));//add increment
       return simd::bitwise_cast<A0>(r);
     }
   };

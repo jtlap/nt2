@@ -30,8 +30,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_add_pd(a0,a1) };
-      return that;
+      return _mm_add_pd(a0,a1);
     }
   };
 } } }
@@ -48,8 +47,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_add_ps(a0,a1) };
-      return that;
+      return _mm_add_ps(a0,a1);
     }
   };
 } } }
@@ -66,8 +64,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_add_epi8(a0,a1) };
-      return that;
+      return _mm_add_epi8(a0,a1);
     }
   };
 } } }
@@ -84,8 +81,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_add_epi16(a0,a1) };
-      return that;
+      return _mm_add_epi16(a0,a1);
     }
   };
 } } }
@@ -102,8 +98,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_add_epi32(a0,a1) };
-      return that;
+      return _mm_add_epi32(a0,a1);
     }
   };
 } } }
@@ -120,8 +115,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { _mm_add_epi64(a0,a1) };
-      return that;
+      return _mm_add_epi64(a0,a1);
     }
   };
 } } }

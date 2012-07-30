@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      const result_type r = { impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(a0) }; 
+      const result_type r = impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(a0); 
       return r;
     }
   };

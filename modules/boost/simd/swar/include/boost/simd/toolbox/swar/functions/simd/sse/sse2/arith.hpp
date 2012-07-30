@@ -28,8 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename T::type result_type;
     result_type operator()(T const& ) const
     {
-      result_type that = { _mm_set_pd(1.0,0.0) };
-      return that;
+      return _mm_set_pd(1.0,0.0);
     }
   };
   
@@ -46,8 +45,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename T::type result_type;
     result_type operator()(T const& ) const
     {
-      result_type that = {_mm_set_ps(3.0f, 2.0f, 1.0f, 0.0f)};
-      return that;
+      return _mm_set_ps(3.0f, 2.0f, 1.0f, 0.0f);
     }
   };
 
@@ -82,8 +80,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(T const& ) const
     {
-      result_type that = {_mm_set_epi32(3,2,1,0)};
-      return that;
+      return _mm_set_epi32(3,2,1,0);
     }
   };
 
@@ -101,8 +98,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(T const& ) const
     {
-      result_type that = {_mm_set_epi16(7,6,5,4,3,2,1,0)};
-      return that;
+      return _mm_set_epi16(7,6,5,4,3,2,1,0);
     }
   };
 
@@ -120,12 +116,10 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(T const& ) const
     {
-      result_type that =  { _mm_set_epi8( 15,14,13,12,11,10
+      return _mm_set_epi8( 15,14,13,12,11,10
                                         , 9, 8, 7, 6, 5, 4
                                         , 3, 2, 1, 0
-                                        )
-                          };
-      return that;
+                                        );
     }
   };
 

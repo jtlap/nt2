@@ -22,8 +22,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      result_type that = { _mm_setzero_ps() };
-      return that;
+      return _mm_setzero_ps();
     }
   };
   
@@ -35,8 +34,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      result_type that = { _mm_setzero_pd() };
-      return that;
+      return _mm_setzero_pd();
     }
   };
 } } }

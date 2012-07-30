@@ -32,8 +32,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      result_type that = {impl::trig_base<result_type,degree_tag,  tag::simd_type, clipped_pio4>::cosa(tofloat(a0))}; 
-      return that;
+      return impl::trig_base<result_type,degree_tag,  tag::simd_type, clipped_pio4>::cosa(tofloat(a0));
     }
   };
 } }

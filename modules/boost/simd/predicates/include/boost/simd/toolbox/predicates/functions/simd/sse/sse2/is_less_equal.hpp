@@ -10,10 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LESS_EQUAL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/predicates/functions/is_less_equal.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/simd/minus.hpp>
-#include <boost/simd/include/functions/simd/complement.hpp>
+#include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -27,8 +26,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmple_pd(a0,a1) };
-      return that;
+      return _mm_cmple_pd(a0,a1);
     }
   };
 
@@ -42,8 +40,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmple_ps(a0,a1) };
-      return that;
+      return _mm_cmple_ps(a0,a1);
     }
   };
 
@@ -57,8 +54,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { boost::simd::complement(boost::simd::gt(a0,a1)) };
-      return that;
+      return boost::simd::logical_not(boost::simd::gt(a0,a1));
     }
   };
 } } }

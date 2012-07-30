@@ -25,8 +25,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that = { vec_sub(a0(),a1()) };
-      return that;
+      return vec_sub(a0(),a1());
     }
   };
 } } }
