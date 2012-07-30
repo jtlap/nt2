@@ -24,7 +24,6 @@
 #include <nt2/include/functions/issorted.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/sdk/meta/type_id.hpp>
 
 namespace nt2 { namespace ext
 {
