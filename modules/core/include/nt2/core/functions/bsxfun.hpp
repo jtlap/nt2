@@ -12,52 +12,6 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/generate_as.hpp>
-#include <nt2/sdk/meta/add_settings.hpp>
-#include <nt2/core/settings/shape.hpp>
-
-/*!
- * \ingroup core
- * \defgroup core bsxfun
- *
- * \par Description
- * Returns the bsxfun of the elements of the SIMD vector
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/bsxfun.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0, class A1, class A2>
- *     meta::call<tag::bsxfun_(A0, A1, A2)>::type
- *     bsxfun(const A0 & a0, const A1 & a1, const A2 & a2);
- * }
- * \endcode
- *
- * \param a0 a two parameters elementwise func...something
- * \param a1 a2 the two parameters on which
-*
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has not real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
 
 namespace nt2
 {
@@ -76,7 +30,7 @@ namespace nt2
    * \param xpr  table
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::bsxfun_       , bsxfun, 3)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::bsxfun_, bsxfun, 3)
 }
 
 namespace nt2 { namespace container { namespace ext
@@ -86,29 +40,25 @@ namespace nt2 { namespace container { namespace ext
         : boxed_size_of<Expr,3>
   {};
 
-  template<class Domain, int N, class Expr>
-  struct  generator<nt2::tag::bsxfun_,Domain,N,Expr>
+  template<class Domain, class Expr>
+  struct  value_type<nt2::tag::bsxfun_,Domain,4,Expr>
   {
-    // We behave as our child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type  c_sema_t;
-    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
-
-    // .. except we have a special size
-    typedef typename boxed_size_of<Expr, 3>::result_type               sizes_t;
-
-    // Rebuild proper expression type with semantic using the new size
-    // and revoking any shape settings
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , typename meta::
-                        add_settings< typename meta::strip<sema_t>::type
-                                    , settings(rectangular_,sizes_t)
+    typedef typename meta::
+            call< nt2::tag::bsxfun_
+                ( typename  boost::proto::result_of
+                          ::value<  typename  boost::proto::result_of
+                                              ::child_c<Expr&,2>::type
+                                  >::type
+                , typename  meta
+                        ::scalar_of < typename  boost::proto::result_of
+                                                ::child_c<Expr&,0>::type
                                     >::type
-                      >                                             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
+                , typename  meta
+                        ::scalar_of < typename  boost::proto::result_of
+                                                ::child_c<Expr&,1>::type
+                                    >::type
+                )
+                >::type                            type;
   };
 } } }
 
