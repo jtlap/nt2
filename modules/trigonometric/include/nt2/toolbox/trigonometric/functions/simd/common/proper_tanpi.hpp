@@ -18,6 +18,7 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_nle.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_allbits_else.hpp>
@@ -65,7 +66,7 @@ namespace nt2 { namespace ext
       A0 a = if_else(test, absa0, Half<A0>()-absa0);  
       A0 that = {impl::trig_base<A0,pi_tag,tag::simd_type, clipped_pio4>::tana(a)};
       that = negif(is_ltz(a0), that); 
-      return if_nan_else(gt(absa0, Half<A0>()), if_else(test, that, rec(that))); 
+      return if_nan_else(boost::simd::is_nle(absa0, Half<A0>()), if_else(test, that, rec(that))); 
     }
   };
 } }

@@ -61,5 +61,6 @@ NT2_TEST_CASE_TPL ( proper_tanpi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(proper_tanpi(nt2::One<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(proper_tanpi(nt2::Quarter<T>()), nt2::One<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(proper_tanpi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(proper_tanpi(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);    
 } // end of test for floating_
 

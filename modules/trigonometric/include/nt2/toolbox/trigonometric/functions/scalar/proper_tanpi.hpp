@@ -17,6 +17,7 @@
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/is_nan.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -53,6 +54,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
+      if (is_nan(a0)) return a0; 
       A0 absa0 = nt2::abs(a0);
       if (absa0 > Half<A0>()) return Nan<A0>();
       bool test = (absa0 <= Quarter<A0>());
