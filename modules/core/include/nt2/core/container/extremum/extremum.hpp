@@ -49,21 +49,21 @@ namespace nt2 { namespace container
   template<class T, bool B>
   BOOST_FORCEINLINE extremum<B> operator-(extremum<B> const& e, T o)
   {
-    extremum<B> that = { e.offset_ - o };
+    extremum<B> that = { e.offset_ - (std::ptrdiff_t)o };
     return that;
   }
 
   template<class T, bool B>
   BOOST_FORCEINLINE extremum<B> operator+(extremum<B> const& e, T o)
   {
-    extremum<B> that = { e.offset_ + o };
+    extremum<B> that = { e.offset_ + (std::ptrdiff_t)o };
     return that;
   }
 
   template<class T>
   BOOST_FORCEINLINE extremum<false> operator+(T o, extremum<false> const& e)
   {
-    extremum<false> that = { e.offset_ + o };
+    extremum<false> that = { e.offset_ + (std::ptrdiff_t)o };
     return that;
   }
 } }
