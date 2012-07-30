@@ -20,11 +20,7 @@
  * \defgroup core diff
  *
  * \par Description
- * Returns the sum of absolute values of the elements matrix along the selected direction,
- * i.e. the 1-norm diff(a0, n))
- * by default n is the first non-singleton dimension of a0
- *
- * \alias norm1,  asum
+ * the difference of consecutive elements of an ast
  *
  * \par Header file
  *

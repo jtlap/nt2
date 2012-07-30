@@ -21,6 +21,7 @@
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/issorted.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
@@ -45,24 +46,16 @@ namespace nt2 { namespace ext
     
     result_type operator()(A0& yi, A1& inputs) const
     {
-//        std::cout << "zut et zut " << nt2::type_id<sale_type>() << std::endl; 
-//        std::cout << nt2::type_id(yi) << std::endl; 
        const child0 & x   =  boost::proto::child_c<0>(inputs);
+       BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'linear' interpolation x values must be sorted in ascending order"); 
        const child1 & y   =  boost::proto::child_c<1>(inputs);
        const child2 & xi  =  boost::proto::child_c<2>(inputs);
        bool extrap = false;
        value_type extrapval = Nan<value_type>();
        choices(inputs, extrap, extrapval, N1());
        table<index_type>   index = bsearch (x, xi);
-//        NT2_DISPLAY(x); 
-//        NT2_DISPLAY(xi); 
-//        NT2_DISPLAY(index);
-//        NT2_DISPLAY(x(index));
-//        std::cout << nt2::type_id<value_type>() << std::endl; 
        table<value_type>  dx    =  xi-x(index); 
-//        NT2_DISPLAY(dx);
        yi =  fma(oneminus(dx), y(index), dx*y(oneplus(index)));
-//        NT2_DISPLAY(yi);
        if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))), extrapval, yi);
        return yi;
     } 

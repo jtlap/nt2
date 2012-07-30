@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+    arereal.cpp
     issorted.cpp
     adjfun.cpp
     all.cpp
