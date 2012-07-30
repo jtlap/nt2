@@ -54,7 +54,6 @@ namespace nt2
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isequal_, isequal, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isequal_, areequal, 2)      
 }
 
 #endif
