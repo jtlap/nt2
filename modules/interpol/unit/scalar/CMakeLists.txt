@@ -12,6 +12,7 @@ SET( SOURCES
   linear.cpp
   nearest.cpp
   interp1.cpp
+  pchip.cpp
   # List of scalar test files for toolbox interpol
    )
 
