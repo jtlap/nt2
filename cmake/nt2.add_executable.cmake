@@ -7,13 +7,13 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-if(NOT DEFINED NT2_ADD_LIBRARY_CMAKE_INCLUDED)
-set(NT2_ADD_LIBRARY_CMAKE_INCLUDED 1)
+if(NOT DEFINED NT2_ADD_EXECUTABLE_CMAKE_INCLUDED)
+set(NT2_ADD_EXECUTABLE_CMAKE_INCLUDED 1)
 
-include(nt2.add_library RESULT_VARIABLE FILE_NAME)
-string(REGEX REPLACE ".cmake$" "" NT2_ADD_LIBRARY_DIR_NAME ${FILE_NAME})
+include(nt2.add_executable RESULT_VARIABLE FILE_NAME)
+string(REGEX REPLACE ".cmake$" "" NT2_ADD_EXECUTABLE_DIR_NAME ${FILE_NAME})
 
-macro(nt2_add_library build_type target)
+macro(nt2_add_executable build_type target)
   set(OLD_BUILD_TYPE ${CMAKE_BUILD_TYPE})
   set(CMAKE_BUILD_TYPE ${build_type})
   set(ARGS ${target})
@@ -24,7 +24,7 @@ macro(nt2_add_library build_type target)
     list(APPEND ARGS ${arg})
   endforeach()
 
-  add_subdirectory(${NT2_ADD_LIBRARY_DIR_NAME} ${CMAKE_CURRENT_BINARY_DIR}/${target}/${build_type})
+  add_subdirectory(${NT2_ADD_EXECUTABLE_DIR_NAME} ${CMAKE_CURRENT_BINARY_DIR}/${target}/${build_type})
   set(CMAKE_BUILD_TYPE OLD_BUILD_TYPE)
 endmacro()
 

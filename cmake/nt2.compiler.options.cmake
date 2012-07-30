@@ -12,7 +12,11 @@ set(NT2_COMPILER_OPTIONS_INCLUDED 1)
 
 set(NT2_FLAGS_TEST "-DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ASSERTS_AS_EXCEPTIONS")
 set(NT2_FLAGS_BENCH "-DNDEBUG")
-# No debug symbols because of excessive time and memory costs at compile time
+
+# No debug symbols in tests because of excessive time and memory costs at compile time;
+# use special debug targets instead
+set(NT2_FLAGS_TESTDEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${NT2_FLAGS_TEST} -DBOOST_FORCEINLINE=inline")
+
 if(MSVC)
   # Remove /EHsc from CMAKE_CXX_FLAGS and re-add per configuration; useful to avoid 'overriding' warnings
   string(REPLACE " /EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
@@ -26,19 +30,23 @@ if(MSVC)
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
   # Strict aliasing disabled due to GCC bug #50800
   # -D_GLIBCXX_DEBUG=1 not used because of incompatibilities with libraries
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -O2 -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
-  set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} -O3 -fomit-frame-pointer -fno-exceptions -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
+  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -O2")
+  set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} -O3 -fomit-frame-pointer -fno-exceptions")
 else()
   set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST}")
   set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} ${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
 set(CMAKE_C_FLAGS_NT2TEST ${NT2_FLAGS_TEST})
+set(CMAKE_C_FLAGS_NT2TESTDEBUG ${NT2_FLAGS_TESTDEBUG})
 set(CMAKE_C_FLAGS_NT2BENCH ${NT2_FLAGS_BENCH})
 set(CMAKE_CXX_FLAGS_NT2TEST ${NT2_FLAGS_TEST})
+set(CMAKE_CXX_FLAGS_NT2TESTDEBUG ${NT2_FLAGS_TESTDEBUG})
 set(CMAKE_CXX_FLAGS_NT2BENCH ${NT2_FLAGS_BENCH})
 set(CMAKE_EXE_LINKER_FLAGS_NT2TEST ${CMAKE_EXE_LINKER_FLAGS_DEBUG})
+set(CMAKE_EXE_LINKER_FLAGS_NT2TESTDEBUG ${CMAKE_EXE_LINKER_FLAGS_DEBUG})
 set(CMAKE_EXE_LINKER_FLAGS_NT2BENCH ${CMAKE_EXE_LINKER_FLAGS_RELEASE})
-set_property(GLOBAL APPEND PROPERTY DEBUG_CONFIGURATIONS NT2Test)
+set_property(GLOBAL APPEND PROPERTY DEBUG_CONFIGURATIONS NT2Test NT2TestDebug)
 
 include(options/nt2.extra.warnings)
 
@@ -50,6 +58,7 @@ message(STATUS "[nt2] Debug flags: ${CMAKE_CXX_FLAGS_DEBUG}")
 message(STATUS "[nt2] Release flags: ${CMAKE_CXX_FLAGS_RELEASE}")
 
 message(STATUS "[nt2] Test flags: ${CMAKE_CXX_FLAGS_NT2TEST}")
+message(STATUS "[nt2] Test debug flags: ${CMAKE_CXX_FLAGS_NT2TESTDEBUG}")
 message(STATUS "[nt2] Bench flags: ${CMAKE_CXX_FLAGS_NT2BENCH}")
 
 endif()

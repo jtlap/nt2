@@ -8,6 +8,7 @@
 ################################################################################
 
 include(nt2.add_library)
+include(nt2.add_executable)
 
 macro(nt2_module_install_setup)
   if(NOT UNIX)
@@ -135,17 +136,7 @@ endmacro()
 
 macro(nt2_module_dir dir)
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${dir}/CMakeLists.txt)
-      if(${dir} STREQUAL bench)
-        set(BUILD_TYPE NT2Bench)
-      else()
-        set(BUILD_TYPE NT2Test)
-      endif()
-
-      nt2_module_set_build_type(${BUILD_TYPE})
-      project(NT2_${NT2_CURRENT_MODULE_U}.${dir}) # would be better in directory
       add_subdirectory(${dir})
-      nt2_module_restore_build_type()
-
       if(NOT ${dir} STREQUAL doc)
         nt2_module_target_parent(${NT2_CURRENT_MODULE}.${dir})
       endif()
@@ -300,30 +291,37 @@ macro(nt2_module_use_modules)
   include(${NT2_USE_FILE})
 endmacro()
 
-macro(nt2_module_add_exe name)
+function(nt2_module_add_exe name)
+  string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\1" basename ${name})
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\2" suffix ${name})
 
-  add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
+  set(build_type)
+  if(suffix STREQUAL unit OR suffix STREQUAL cover OR suffix STREQUAL exhaustive)
+    set(build_type NT2Test)
+  elseif(suffix STREQUAL bench)
+    set(build_type NT2Bench)
+  elseif(suffix STREQUAL debug)
+    set(build_type NT2TestDebug)
+  endif()
+  string(TOUPPER ${build_type} build_type_U)
+
+  nt2_add_executable(${build_type} ${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/${suffix})
+  set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY_${build_type_U} ${NT2_BINARY_DIR}/${suffix})
 
   if(NT2_PCH_TARGET)
     add_dependencies(${name} ${NT2_PCH_TARGET})
   endif()
 
-  set(BUILD_TYPE)
-  if(suffix STREQUAL unit OR suffix STREQUAL cover)
-    set(BUILD_TYPE NT2TEST)
-  elseif(suffix STREQUAL bench)
-    set(BUILD_TYPE NT2BENCH)
-  endif()
-  if(BUILD_TYPE)
-    set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY_${BUILD_TYPE} ${NT2_BINARY_DIR}/${suffix})
-  endif()
-
   nt2_module_target_parent(${name})
 
-endmacro()
+  # if full tests mode, also add debug targets for unit tests
+  if(suffix STREQUAL unit AND NT2_WITH_TESTS_FULL)
+    nt2_module_add_exe(${basename}.debug ${ARGN})
+  endif()
+
+endfunction()
 
 # like add_exe but slightly different suffix management
 macro(nt2_module_add_example name)
