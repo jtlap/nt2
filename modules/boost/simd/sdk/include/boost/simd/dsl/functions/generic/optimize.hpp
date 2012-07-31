@@ -15,6 +15,7 @@
 #include <boost/simd/sdk/functor/preprocessor/dispatch.hpp>
 #include <boost/dispatch/meta/identity.hpp>
 #include <boost/dispatch/dsl/unpack.hpp>
+#include <boost/dispatch/functor/meta/make_functor.hpp>
 
 //==============================================================================
 // Recognition of expressions

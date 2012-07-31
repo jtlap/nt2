@@ -13,16 +13,25 @@
 // Various macro for boilerplating function code writing
 // Documentation: http://nt2.lri.fr/sdk/functor/macros/function.html
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <boost/dispatch/functor/meta/make_functor.hpp>
+#include <boost/dispatch/functor/forward.hpp>
+#include <boost/dispatch/functor/details/dispatch.hpp>
+#include <boost/dispatch/meta/result_of.hpp>
 #include <boost/dispatch/attributes.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
-#include <boost/preprocessor/facilities/intercept.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
 #include <boost/preprocessor/seq/size.hpp>
-#include <boost/preprocessor/seq/enum.hpp>
 #include <boost/preprocessor/cat.hpp>
+
+namespace boost { namespace dispatch
+{
+  template <class T, class U>
+  struct make_dependent
+  {
+    typedef T type;
+  };
+} }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a function prototype from NAME, TAG and Number of parameters
@@ -30,8 +39,15 @@
 #define BOOST_DISPATCH_FUNCTION_INTERFACE(Tag, Name, N)                        \
 template<BOOST_PP_ENUM_PARAMS(N,class A)>                                      \
 BOOST_FORCEINLINE                                                              \
-typename boost::dispatch::meta::                                               \
-call<Tag(BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& BOOST_PP_INTERCEPT))>::type  \
+typename boost::dispatch::meta::result_of< typename boost::dispatch::meta::    \
+  dispatch_call< Tag( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )            \
+               , typename boost::dispatch::                                    \
+                 default_site< typename boost::dispatch::                      \
+                               make_dependent<Tag, A0>::type                   \
+                             >::type                                           \
+              >::type                                                          \
+  ( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                              \
+>::type                                                                        \
 Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                            \
 /**/
 
@@ -39,7 +55,13 @@ Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                            \
 // Generate a function body from TAG and Number of parameters
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_DISPATCH_FUNCTION_BODY(Tag, N)                                   \
-return typename boost::dispatch::make_functor<Tag, A0>::type()                 \
+return typename boost::dispatch::meta::                                        \
+       dispatch_call< Tag( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )       \
+                     , typename boost::dispatch::                              \
+                       default_site< typename boost::dispatch::                \
+                                     make_dependent<Tag, A0>::type             \
+                                   >::type                                     \
+                     >::type()                                                 \
 (BOOST_PP_ENUM_PARAMS(N, a));                                                  \
 /**/
 
@@ -79,11 +101,33 @@ unspecified Name( BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Args                       \
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(Tag, Name, Args, N)         \
 template<BOOST_PP_ENUM_PARAMS(N, class A)>                                     \
 BOOST_FORCEINLINE                                                              \
-typename boost::dispatch::meta::                                               \
-call<Tag(BOOST_PP_SEQ_ENUM(Args))>::type                                       \
+typename boost::dispatch::meta::result_of< typename boost::dispatch::meta::    \
+  dispatch_call< Tag( BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Args)                   \
+                                   , BOOST_DISPATCH_FN_ARGS                    \
+                                   , Args                                      \
+                                   )                                           \
+                    )                                                          \
+               , typename boost::dispatch::                                    \
+                 default_site< typename boost::dispatch::                      \
+                               make_dependent<Tag, A0>::type                   \
+                             >::type                                           \
+               >::type                                                         \
+  ( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )     \
+>::type                                                                        \
 Name( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )   \
 {                                                                              \
-  BOOST_DISPATCH_FUNCTION_BODY(Tag, BOOST_PP_SEQ_SIZE(Args))                   \
+  return typename boost::dispatch::meta::                                      \
+         dispatch_call< Tag( BOOST_PP_ENUM( BOOST_PP_SEQ_SIZE(Args)            \
+                                          , BOOST_DISPATCH_FN_ARGS             \
+                                          , Args                               \
+                                          )                                    \
+                           )                                                   \
+                      , typename boost::dispatch::                             \
+                        default_site< typename boost::dispatch::               \
+                                      make_dependent<Tag, A0>::type            \
+                                    >::type                                    \
+                      >::type()                                                \
+  (BOOST_PP_ENUM_PARAMS(N, a));                                                \
 }                                                                              \
 /**/
 #endif
