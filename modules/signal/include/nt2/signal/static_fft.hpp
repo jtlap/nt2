@@ -383,7 +383,7 @@ namespace detail
     }
 
 
-    #if defined(_MSC_VER) || defined(__ICC)
+    #if 1 || defined(_MSC_VER) || defined(__ICC)
         #define NT2_CONST_VECTOR( variable_name, ... ) vector_t variable_name; variable_name = __VA_ARGS__;
         #define NT2_VECTOR(       variable_name, ... ) vector_t variable_name; variable_name = __VA_ARGS__;
     #else

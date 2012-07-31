@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
       A0 absa0 = nt2::abs(a0);
       bA0 test = le(absa0,  Quarter<A0>()); 
       A0 a = if_else(test, absa0, Half<A0>()-absa0);  
-      A0 that = {impl::trig_base<A0,pi_tag,tag::simd_type, clipped_pio4>::tana(a)};
+      A0 that = impl::trig_base<A0,pi_tag,tag::simd_type, clipped_pio4>::tana(a);
       that = negif(is_ltz(a0), that); 
       return if_nan_else(boost::simd::is_nle(absa0, Half<A0>()), if_else(test, that, rec(that))); 
     }
