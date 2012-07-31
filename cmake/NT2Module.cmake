@@ -305,7 +305,12 @@ function(nt2_module_add_exe name)
   endif()
   string(TOUPPER ${build_type} build_type_U)
 
-  nt2_add_executable(${build_type} ${name} EXCLUDE_FROM_ALL ${ARGN})
+  if(NT2_TESTS_WITH_FULL)
+    nt2_add_executable(${build_type} ${name} EXCLUDE_FROM_ALL ${ARGN})
+  else()
+    add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
+    set_property(TARGET ${name} PROPERTY COMPILE_FLAGS ${CMAKE_CXX_FLAGS_${build_type_U}})
+  endif()
   set_property(TARGET ${name} PROPERTY FOLDER ${suffix})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY ${NT2_BINARY_DIR}/${suffix})
   set_property(TARGET ${name} PROPERTY RUNTIME_OUTPUT_DIRECTORY_${build_type_U} ${NT2_BINARY_DIR}/${suffix})
@@ -317,7 +322,7 @@ function(nt2_module_add_exe name)
   nt2_module_target_parent(${name})
 
   # if full tests mode, also add debug targets for unit tests
-  if(suffix STREQUAL unit AND NT2_WITH_TESTS_FULL)
+  if(suffix STREQUAL unit AND NT2_WITH_TESTS_FULL AND NOT CMAKE_CONFIGURATION_TYPES)
     nt2_module_add_exe(${basename}.debug ${ARGN})
   endif()
 
