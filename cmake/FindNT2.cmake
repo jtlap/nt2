@@ -554,6 +554,7 @@ function(nt2_find)
                    NT2_INCLUDE_DIR NT2_LIBRARY_DIR
                    NT2_LIBRARIES
                    NT2_COMPILE_FLAGS NT2_LINK_FLAGS
+                   NT2_BINARY_DIR
                  )
 
   if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)
