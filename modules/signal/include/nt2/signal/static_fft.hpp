@@ -383,15 +383,6 @@ namespace detail
     }
 
 
-    #if 1 || defined(_MSC_VER) || defined(__ICC)
-        #define NT2_CONST_VECTOR( variable_name, ... ) vector_t variable_name; variable_name = __VA_ARGS__;
-        #define NT2_VECTOR(       variable_name, ... ) vector_t variable_name; variable_name = __VA_ARGS__;
-    #else
-        #define NT2_CONST_VECTOR( variable_name, ... ) vector_t const variable_name = { __VA_ARGS__ };
-        #define NT2_VECTOR(       variable_name, ... ) vector_t       variable_name = { __VA_ARGS__ };
-    #endif // defined(_MSC_VER) || defined(__ICC)
-
-
     ////////////////////////////////////////////////////////////////////////////
     //
     // sign_flipper()
@@ -1281,29 +1272,28 @@ namespace detail
         scalar_t const half_nyquist_im_check( p_imags->data()[ N / 4 ] );
     #endif // NDEBUG
 
-
-        NT2_CONST_VECTOR( twiddle_sign_flipper, twiddle_flipper );
+        vector_t const twiddle_sign_flipper( twiddle_flipper );
 
         while ( p_lower_reals->data() < p_upper_reals )
         {
         /* "straight" implementation:
             // the following two constants go outside the loop:
-            NT2_CONST_VECTOR(              half, Half<vector_t>()      );
-            NT2_CONST_VECTOR( signed_half, half ^ twiddle_sign_flipper );
+            vector_t const        half( Half<vector_t>()            );
+            vector_t const signed_half( half ^ twiddle_sign_flipper );
 
-            NT2_CONST_VECTOR( wr, p_twiddle_factors->wr                           );
-            NT2_CONST_VECTOR( wi, p_twiddle_factors->wi ^ *p_twiddle_sign_flipper );
+            vector_t const wr( p_twiddle_factors->wr                           );
+            vector_t const wi( p_twiddle_factors->wi ^ *p_twiddle_sign_flipper );
             p_twiddle_factors++;
 
-            NT2_CONST_VECTOR( upper_r, reverse( unaligned_load<vector_t>( p_upper_reals ) ) );
-            NT2_CONST_VECTOR( upper_i, reverse( unaligned_load<vector_t>( p_upper_imags ) ) );
-            NT2_CONST_VECTOR( lower_r,                                   *p_lower_reals     );
-            NT2_CONST_VECTOR( lower_i,                                   *p_lower_imags     );
+            vector_t const upper_r( reverse( unaligned_load<vector_t>( p_upper_reals ) ) );
+            vector_t const upper_i( reverse( unaligned_load<vector_t>( p_upper_imags ) ) );
+            vector_t const lower_r(                                   *p_lower_reals     );
+            vector_t const lower_i(                                   *p_lower_imags     );
 
-            NT2_CONST_VECTOR( h1r,        half * ( lower_r + upper_r ) );
-            NT2_CONST_VECTOR( h1i,        half * ( lower_i - upper_i ) );
-            NT2_CONST_VECTOR( h2r, signed_half * ( lower_i + upper_i ) );
-            NT2_CONST_VECTOR( h2i, signed_half * ( upper_r - lower_r ) );
+            vector_t const h1r(        half * ( lower_r + upper_r ) );
+            vector_t const h1i(        half * ( lower_i - upper_i ) );
+            vector_t const h2r( signed_half * ( lower_i + upper_i ) );
+            vector_t const h2i( signed_half * ( upper_r - lower_r ) );
         */
             /// \note Alternate implementation that eliminates the signed_half
             /// constant by reordering the operations (and in the end simply
@@ -1313,27 +1303,27 @@ namespace detail
             /// normalization factor.
             ///                               (27.06.2012.) (Domagoj Saric)
             
-            NT2_CONST_VECTOR( upper_r, reverse( unaligned_load<vector_t>( p_upper_reals ) ) );
-            NT2_CONST_VECTOR( upper_i, reverse( unaligned_load<vector_t>( p_upper_imags ) ) );
-            NT2_CONST_VECTOR( lower_r,                                   *p_lower_reals     );
-            NT2_CONST_VECTOR( lower_i,                                   *p_lower_imags     );
+            vector_t const upper_r( reverse( unaligned_load<vector_t>( p_upper_reals ) ) );
+            vector_t const upper_i( reverse( unaligned_load<vector_t>( p_upper_imags ) ) );
+            vector_t const lower_r(                                   *p_lower_reals     );
+            vector_t const lower_i(                                   *p_lower_imags     );
 
-            NT2_CONST_VECTOR( wr, p_twiddles->w0.wr ^ twiddle_sign_flipper );
-            NT2_CONST_VECTOR( wi, p_twiddles->w0.wi                        );
+            vector_t const wr( p_twiddles->w0.wr ^ twiddle_sign_flipper );
+            vector_t const wi( p_twiddles->w0.wi                        );
             p_twiddles++;
 
-            NT2_CONST_VECTOR( h1r, lower_r + upper_r );
-            NT2_CONST_VECTOR( h1i, lower_i - upper_i );
-            NT2_CONST_VECTOR( h2r, lower_i + upper_i );
-            NT2_CONST_VECTOR( h2i, upper_r - lower_r );
+            vector_t const h1r( lower_r + upper_r );
+            vector_t const h1i( lower_i - upper_i );
+            vector_t const h2r( lower_i + upper_i );
+            vector_t const h2i( upper_r - lower_r );
 
-            NT2_CONST_VECTOR( h_temp_r, ( wr * h2r ) - ( wi * h2i ) );
-            NT2_CONST_VECTOR( h_temp_i, ( wr * h2i ) + ( wi * h2r ) );
+            vector_t const h_temp_r( ( wr * h2r ) - ( wi * h2i ) );
+            vector_t const h_temp_i( ( wr * h2i ) + ( wi * h2r ) );
 
-            NT2_VECTOR(       result_upper_r, reverse( h1r      - h_temp_r ) );
-            NT2_CONST_VECTOR( result_lower_r,          h1r      + h_temp_r   );
-            NT2_VECTOR(       result_upper_i, reverse( h_temp_i - h1i      ) );
-            NT2_CONST_VECTOR( result_lower_i,          h1i      + h_temp_i   );
+            vector_t const result_upper_r( reverse( h1r      - h_temp_r ) );
+            vector_t const result_lower_r(          h1r      + h_temp_r   );
+            vector_t const result_upper_i( reverse( h_temp_i - h1i      ) );
+            vector_t const result_lower_i(          h1i      + h_temp_i   );
 
             unaligned_store( result_upper_r, p_upper_reals );
             unaligned_store( result_upper_i, p_upper_imags );
@@ -1405,7 +1395,7 @@ namespace detail
         scalar_t const half_nyquist_im_check( p_imags->data()[ N / 4 ] );
     #endif // NDEBUG
 
-        NT2_CONST_VECTOR( twiddle_sign_flipper, twiddle_flipper );
+        vector_t const twiddle_sign_flipper( twiddle_flipper );
 
         BOOST_ASSERT( &p_lower_reals        [ 0 ] == &p_reals->data()[ 1 ] );
         BOOST_ASSERT( &p_lower_imags        [ 0 ] == &p_imags->data()[ 1 ] );
@@ -1414,27 +1404,27 @@ namespace detail
 
         while ( p_lower_reals < p_upper_reals->data() )
         {
-            NT2_CONST_VECTOR( upper_r, reverse                 ( *p_upper_reals ) );
-            NT2_CONST_VECTOR( upper_i, reverse                 ( *p_upper_imags ) );
-            NT2_CONST_VECTOR( lower_r, unaligned_load<vector_t>(  p_lower_reals ) );
-            NT2_CONST_VECTOR( lower_i, unaligned_load<vector_t>(  p_lower_imags ) );
+            vector_t const upper_r( reverse                 ( *p_upper_reals ) );
+            vector_t const upper_i( reverse                 ( *p_upper_imags ) );
+            vector_t const lower_r( unaligned_load<vector_t>(  p_lower_reals ) );
+            vector_t const lower_i( unaligned_load<vector_t>(  p_lower_imags ) );
 
-            NT2_CONST_VECTOR( wr, p_twiddles->wr ^ twiddle_sign_flipper );
-            NT2_CONST_VECTOR( wi, p_twiddles->wi                        );
+            vector_t const wr( p_twiddles->wr ^ twiddle_sign_flipper );
+            vector_t const wi( p_twiddles->wi                        );
             prefetch_temporary( ++p_twiddles );
 
-            NT2_CONST_VECTOR( h1r, lower_r + upper_r );
-            NT2_CONST_VECTOR( h1i, lower_i - upper_i );
-            NT2_CONST_VECTOR( h2r, lower_i + upper_i );
-            NT2_CONST_VECTOR( h2i, upper_r - lower_r );
+            vector_t const h1r( lower_r + upper_r );
+            vector_t const h1i( lower_i - upper_i );
+            vector_t const h2r( lower_i + upper_i );
+            vector_t const h2i( upper_r - lower_r );
 
-            NT2_CONST_VECTOR( h_temp_r, ( wr * h2r ) - ( wi * h2i ) );
-            NT2_CONST_VECTOR( h_temp_i, ( wr * h2i ) + ( wi * h2r ) );
+            vector_t const h_temp_r( ( wr * h2r ) - ( wi * h2i ) );
+            vector_t const h_temp_i( ( wr * h2i ) + ( wi * h2r ) );
 
-            NT2_CONST_VECTOR( result_lower_r,          h1r      + h_temp_r   );
-            NT2_CONST_VECTOR( result_upper_r, reverse( h1r      - h_temp_r ) );
-            NT2_CONST_VECTOR( result_lower_i,          h1i      + h_temp_i   );
-            NT2_CONST_VECTOR( result_upper_i, reverse( h_temp_i - h1i      ) );
+            vector_t const result_lower_r(          h1r      + h_temp_r   );
+            vector_t const result_upper_r( reverse( h1r      - h_temp_r ) );
+            vector_t const result_lower_i(          h1i      + h_temp_i   );
+            vector_t const result_upper_i( reverse( h_temp_i - h1i      ) );
 
             unaligned_store( result_lower_r, p_lower_reals );
             unaligned_store( result_lower_i, p_lower_imags );
@@ -1523,35 +1513,35 @@ namespace detail
     {
         typedef Vector vector_t;
 
-        NT2_CONST_VECTOR( w0r, w.w0.wr );
-        NT2_CONST_VECTOR( w0i, w.w0.wi );
-        NT2_CONST_VECTOR( w3r, w.w3.wr );
-        NT2_CONST_VECTOR( w3i, w.w3.wi );
+        vector_t const w0r( w.w0.wr );
+        vector_t const w0i( w.w0.wi );
+        vector_t const w3r( w.w3.wr );
+        vector_t const w3i( w.w3.wi );
 
-        NT2_CONST_VECTOR( r2, r2_ );
-        NT2_CONST_VECTOR( r3, r3_ );
-        NT2_CONST_VECTOR( i2, i2_ );
-        NT2_CONST_VECTOR( i3, i3_ );
+        vector_t const r2( r2_ );
+        vector_t const r3( r3_ );
+        vector_t const i2( i2_ );
+        vector_t const i3( i3_ );
 
-        NT2_CONST_VECTOR( temp_r2, ( w0r * r2 ) - ( w0i * i2 ) );
-        NT2_CONST_VECTOR( temp_i2, ( w0i * r2 ) + ( w0r * i2 ) );
-        NT2_CONST_VECTOR( temp_r3, ( w3r * r3 ) - ( w3i * i3 ) );
-        NT2_CONST_VECTOR( temp_i3, ( w3i * r3 ) + ( w3r * i3 ) );
+        vector_t const temp_r2( ( w0r * r2 ) - ( w0i * i2 ) );
+        vector_t const temp_i2( ( w0i * r2 ) + ( w0r * i2 ) );
+        vector_t const temp_r3( ( w3r * r3 ) - ( w3i * i3 ) );
+        vector_t const temp_i3( ( w3i * r3 ) + ( w3r * i3 ) );
 
-        NT2_CONST_VECTOR( t2p3_r, temp_r2 + temp_r3 );
-        NT2_CONST_VECTOR( t2p3_i, temp_i2 + temp_i3 );
-        NT2_CONST_VECTOR( t2m3_r, temp_i3 - temp_i2 );
-        NT2_CONST_VECTOR( t2m3_i, temp_r2 - temp_r3 );
+        vector_t const t2p3_r( temp_r2 + temp_r3 );
+        vector_t const t2p3_i( temp_i2 + temp_i3 );
+        vector_t const t2m3_r( temp_i3 - temp_i2 );
+        vector_t const t2m3_i( temp_r2 - temp_r3 );
 
-        NT2_CONST_VECTOR( r0, r0_ );
-        NT2_CONST_VECTOR( r1, r1_ );
+        vector_t const r0( r0_ );
+        vector_t const r1( r1_ );
         r0_ = r0 + t2p3_r;
         r2_ = r0 - t2p3_r;
         r1_ = r1 - t2m3_r;
         r3_ = r1 + t2m3_r;
 
-        NT2_CONST_VECTOR( i0, i0_ );
-        NT2_CONST_VECTOR( i1, i1_ );
+        vector_t const i0( i0_ );
+        vector_t const i1( i1_ );
         i0_ = i0 + t2p3_i;
         i2_ = i0 - t2p3_i;
         i1_ = i1 - t2m3_i;
@@ -1571,37 +1561,37 @@ namespace detail
     {
         typedef Vector vector_t;
 
-        NT2_CONST_VECTOR( r0, r0_ );
-        NT2_CONST_VECTOR( r1, r1_ );
-        NT2_CONST_VECTOR( r2, r2_ );
-        NT2_CONST_VECTOR( r3, r3_ );
-        NT2_CONST_VECTOR( i0, i0_ );
-        NT2_CONST_VECTOR( i1, i1_ );
-        NT2_CONST_VECTOR( i2, i2_ );
+        vector_t const r0( r0_ );
+        vector_t const r1( r1_ );
+        vector_t const r2( r2_ );
+        vector_t const r3( r3_ );
+        vector_t const i0( i0_ );
+        vector_t const i1( i1_ );
+        vector_t const i2( i2_ );
 
                             r0_ = r0 + r2;
                             i0_ = i0 + i2;
-        NT2_CONST_VECTOR( t0m2_r, r0 - r2 );
-        NT2_CONST_VECTOR( t0m2_i, i0 - i2 );
+        vector_t const t0m2_r( r0 - r2 );
+        vector_t const t0m2_i( i0 - i2 );
 
-        NT2_CONST_VECTOR( i3, i3_ );
+        vector_t const i3( i3_ );
                             r1_ = r1 + r3;
                             i1_ = i1 + i3;
-        NT2_CONST_VECTOR( t1m3_r, r1 - r3 );
-        NT2_CONST_VECTOR( t1m3_i, i1 - i3 );
+        vector_t const t1m3_r( r1 - r3 );
+        vector_t const t1m3_i( i1 - i3 );
 
-        NT2_CONST_VECTOR( tpj_r, t0m2_r + t1m3_i );
-        NT2_CONST_VECTOR( tpj_i, t0m2_i - t1m3_r );
-        NT2_CONST_VECTOR( tmj_r, t0m2_r - t1m3_i );
-        NT2_CONST_VECTOR( tmj_i, t0m2_i + t1m3_r );
+        vector_t const tpj_r( t0m2_r + t1m3_i );
+        vector_t const tpj_i( t0m2_i - t1m3_r );
+        vector_t const tmj_r( t0m2_r - t1m3_i );
+        vector_t const tmj_i( t0m2_i + t1m3_r );
 
-        NT2_CONST_VECTOR( w0r, w.w0.wr );
-        NT2_CONST_VECTOR( w0i, w.w0.wi );
+        vector_t const w0r( w.w0.wr );
+        vector_t const w0i( w.w0.wi );
         r2_ = ( w0r * tpj_r ) - ( w0i * tpj_i );
         i2_ = ( w0i * tpj_r ) + ( w0r * tpj_i );
 
-        NT2_CONST_VECTOR( w3r, w.w3.wr );
-        NT2_CONST_VECTOR( w3i, w.w3.wi );
+        vector_t const w3r( w.w3.wr );
+        vector_t const w3i( w.w3.wi );
         r3_ = ( w3r * tmj_r ) - ( w3i * tmj_i );
         i3_ = ( w3i * tmj_r ) + ( w3r * tmj_i );
     }
@@ -1727,28 +1717,28 @@ namespace detail
 
     #else // BOOST_SIMD_DETECTED
 
-        NT2_CONST_VECTOR( odd_negate     , *sign_flipper<false, true , false, true>() );
-        NT2_CONST_VECTOR( negate_last_two, *sign_flipper<false, false, true , true>() );
+        vector_t const odd_negate     ( *sign_flipper<false, true , false, true>() );
+        vector_t const negate_last_two( *sign_flipper<false, false, true , true>() );
 
         // Real:
-        NT2_CONST_VECTOR( real, real_in );
+        vector_t const real( real_in );
 
-        NT2_CONST_VECTOR( r0033, shuffle<idx0, idx0, idx3, idx3>( real ) );
-        NT2_CONST_VECTOR( r1122, shuffle<idx1, idx1, idx2, idx2>( real ) );
+        vector_t const r0033( shuffle<idx0, idx0, idx3, idx3>( real ) );
+        vector_t const r1122( shuffle<idx1, idx1, idx2, idx2>( real ) );
 
-        NT2_CONST_VECTOR( r_combined, r0033 + ( r1122 ^ odd_negate ) );
+        vector_t const r_combined( r0033 + ( r1122 ^ odd_negate ) );
 
-        NT2_CONST_VECTOR( r_left, repeat_lower_half( r_combined ) );
+        vector_t const r_left( repeat_lower_half( r_combined ) );
 
         // Imaginary:
-        NT2_CONST_VECTOR( imag, imag_in );
+        vector_t const imag( imag_in );
 
-        NT2_CONST_VECTOR( i0022, shuffle<idx0, idx0, idx2, idx2>( imag ) );
-        NT2_CONST_VECTOR( i1133, shuffle<idx1, idx1, idx3, idx3>( imag ) );
+        vector_t const i0022( shuffle<idx0, idx0, idx2, idx2>( imag ) );
+        vector_t const i1133( shuffle<idx1, idx1, idx3, idx3>( imag ) );
 
-        NT2_CONST_VECTOR( i_combined, i0022 + ( i1133 ^ odd_negate ) );
+        vector_t const i_combined( i0022 + ( i1133 ^ odd_negate ) );
 
-        NT2_CONST_VECTOR( i_left, repeat_lower_half( i_combined ) );
+        vector_t const i_left( repeat_lower_half( i_combined ) );
 
         // Shared (because real right needs i2mi3 and imag right needs r3mr2):
         vector_t right;
@@ -1757,9 +1747,9 @@ namespace detail
         right = shuffle<0, 3, 1, 2>( right );
         // right = [ r3pr2, i2mi3, i2pi3, r3mr2 ]
 
-        NT2_CONST_VECTOR( r_right, repeat_lower_half( right ) );
+        vector_t const r_right( repeat_lower_half( right ) );
         // r_right = [ r3pr2, i2mi3, r3pr2, i2mi3 ]
-        NT2_CONST_VECTOR( i_right, repeat_upper_half( right ) );
+        vector_t const i_right( repeat_upper_half( right ) );
         // i_right = [ i2pi3, r3mr2, i2pi3, r3mr2 ]
 
         real_out = r_left + ( r_right ^ negate_last_two );
@@ -1819,15 +1809,15 @@ namespace detail
 
     #else // BOOST_SIMD_DETECTED
 
-        NT2_CONST_VECTOR( real, real_in ); NT2_CONST_VECTOR( imag, imag_in );
-        NT2_CONST_VECTOR( r0101, repeat_lower_half( real ) ); NT2_CONST_VECTOR( i0101, repeat_lower_half( imag ) );
-        NT2_CONST_VECTOR( r2323, repeat_upper_half( real ) ); NT2_CONST_VECTOR( i2323, repeat_upper_half( imag ) );
+        vector_t const real( real_in ); vector_t const imag( imag_in );
+        vector_t const r0101( repeat_lower_half( real ) ); vector_t const i0101( repeat_lower_half( imag ) );
+        vector_t const r2323( repeat_upper_half( real ) ); vector_t const i2323( repeat_upper_half( imag ) );
 
         vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper( sign_flipper<false, false, true, true>() );
-        NT2_CONST_VECTOR( r_combined, r0101 + ( r2323 ^ *p_negate_upper ) ); NT2_CONST_VECTOR( i_combined, i0101 + ( i2323 ^ *p_negate_upper ) );
+        vector_t const r_combined( r0101 + ( r2323 ^ *p_negate_upper ) ); vector_t const i_combined( i0101 + ( i2323 ^ *p_negate_upper ) );
 
-        NT2_CONST_VECTOR( r_left , shuffle<idx0, idx0, idx2, idx2>( r_combined             ) ); NT2_CONST_VECTOR( i_left , shuffle<idx0, idx0, idx2, idx2>( i_combined             ) );
-        NT2_CONST_VECTOR( r_right, shuffle<idx1, idx1, idx3, idx3>( r_combined, i_combined ) ); NT2_CONST_VECTOR( i_right, shuffle<idx1, idx1, idx3, idx3>( i_combined, r_combined ) );
+        vector_t const r_left ( shuffle<idx0, idx0, idx2, idx2>( r_combined             ) ); vector_t const i_left ( shuffle<idx0, idx0, idx2, idx2>( i_combined             ) );
+        vector_t const r_right( shuffle<idx1, idx1, idx3, idx3>( r_combined, i_combined ) ); vector_t const i_right( shuffle<idx1, idx1, idx3, idx3>( i_combined, r_combined ) );
 
         real_out = r_left + ( r_right ^ *sign_flipper<false, true, false, true >()/*negate_13*/ );
         imag_out = i_left + ( i_right ^ *sign_flipper<false, true, true , false>()/*negate_12*/ );
@@ -1930,17 +1920,17 @@ namespace detail
 
     #else // BOOST_SIMD_DETECTED
 
-        NT2_CONST_VECTOR( lower_r_in, lower_real );
-        NT2_CONST_VECTOR( lower_i_in, lower_imag );
-        NT2_CONST_VECTOR( upper_r_in, upper_real );
-        NT2_CONST_VECTOR( upper_i_in, upper_imag );
+        vector_t const lower_r_in( lower_real );
+        vector_t const lower_i_in( lower_imag );
+        vector_t const upper_r_in( upper_real );
+        vector_t const upper_i_in( upper_imag );
 
         vector_t upper_r; vector_t upper_i;
 
         // butterfly:
         {
-            NT2_CONST_VECTOR( lower_p_upper_r, lower_r_in + upper_r_in ); NT2_CONST_VECTOR( lower_p_upper_i,  lower_i_in + upper_i_in );
-            NT2_VECTOR(       lower_m_upper_r, lower_r_in - upper_r_in ); NT2_VECTOR(       lower_m_upper_i,  lower_i_in - upper_i_in );
+            vector_t const lower_p_upper_r( lower_r_in + upper_r_in ); vector_t const lower_p_upper_i(  lower_i_in + upper_i_in );
+            vector_t       lower_m_upper_r( lower_r_in - upper_r_in ); vector_t       lower_m_upper_i(  lower_i_in - upper_i_in );
 
             // we can already calculate the lower DFT4 so we do it to free up
             // registers:
@@ -1954,13 +1944,13 @@ namespace detail
                 //    lower_real,
                 //    lower_imag
                 //);
-                NT2_CONST_VECTOR( r0101, repeat_lower_half( lower_p_upper_r ) ); NT2_CONST_VECTOR( i0101, repeat_lower_half( lower_p_upper_i ) );
-                NT2_CONST_VECTOR( r2323, repeat_upper_half( lower_p_upper_r ) ); NT2_CONST_VECTOR( i2323, repeat_upper_half( lower_p_upper_i ) );
+                vector_t const r0101( repeat_lower_half( lower_p_upper_r ) ); vector_t const i0101( repeat_lower_half( lower_p_upper_i ) );
+                vector_t const r2323( repeat_upper_half( lower_p_upper_r ) ); vector_t const i2323( repeat_upper_half( lower_p_upper_i ) );
 
-                NT2_CONST_VECTOR( r_combined, r0101 + ( r2323 ^ *p_negate_upper ) ); NT2_CONST_VECTOR( i_combined, i0101 + ( i2323 ^ *p_negate_upper ) );
+                vector_t const r_combined( r0101 + ( r2323 ^ *p_negate_upper ) ); vector_t const i_combined( i0101 + ( i2323 ^ *p_negate_upper ) );
 
-                NT2_CONST_VECTOR( r_left , shuffle<0, 0, 2, 2>( r_combined             ) ); NT2_CONST_VECTOR( i_left , shuffle<0, 0, 2, 2>( i_combined             ) );
-                NT2_CONST_VECTOR( r_right, shuffle<1, 1, 3, 3>( r_combined, i_combined ) ); NT2_CONST_VECTOR( i_right, shuffle<1, 1, 3, 3>( i_combined, r_combined ) );
+                vector_t const r_left ( shuffle<0, 0, 2, 2>( r_combined             ) ); vector_t const i_left ( shuffle<0, 0, 2, 2>( i_combined             ) );
+                vector_t const r_right( shuffle<1, 1, 3, 3>( r_combined, i_combined ) ); vector_t const i_right( shuffle<1, 1, 3, 3>( i_combined, r_combined ) );
 
                 lower_real = r_left + ( r_right ^ *sign_flipper<false, true, false, true >()/*negate_13*/ );
                 lower_imag = i_left + ( i_right ^ *sign_flipper<false, true, true , false>()/*negate_12*/ );
@@ -1968,14 +1958,14 @@ namespace detail
 
             {
                 // multiplication by i:
-                NT2_VECTOR( lower_m_upper_r_copy, lower_m_upper_r );
+                vector_t const lower_m_upper_r_copy( lower_m_upper_r );
                 lower_m_upper_r = shuffle<0, 1, 2 ,3>( lower_m_upper_r, lower_m_upper_i      );
                 lower_m_upper_i = shuffle<0, 1, 2 ,3>( lower_m_upper_i, lower_m_upper_r_copy );
                 lower_m_upper_r ^= *p_negate_upper;
             }
 
-            NT2_CONST_VECTOR( r_left , repeat_lower_half( lower_m_upper_r ) ); NT2_CONST_VECTOR( i_left , repeat_lower_half( lower_m_upper_i ) );
-            NT2_CONST_VECTOR( r_right, repeat_upper_half( lower_m_upper_r ) ); NT2_CONST_VECTOR( i_right, repeat_upper_half( lower_m_upper_i ) );
+            vector_t const r_left ( repeat_lower_half( lower_m_upper_r ) ); vector_t const i_left ( repeat_lower_half( lower_m_upper_i ) );
+            vector_t const r_right( repeat_upper_half( lower_m_upper_r ) ); vector_t const i_right( repeat_upper_half( lower_m_upper_i ) );
 
             upper_r = r_left - ( r_right ^ *p_negate_upper );
             upper_i = i_left - ( i_right ^ *p_negate_upper );
@@ -1986,12 +1976,12 @@ namespace detail
 
         // merged two upper DFT2s:
         {
-            NT2_CONST_VECTOR( r4466, shuffle<0, 0, 2, 2>( upper_r ) ); NT2_CONST_VECTOR( i4466, shuffle<0, 0, 2, 2>( upper_i ) );
-            NT2_VECTOR(       r5577, shuffle<1, 1, 3, 3>( upper_r ) ); NT2_VECTOR(       i5577, shuffle<1, 1, 3, 3>( upper_i ) );
-            NT2_CONST_VECTOR( odd_negate, _mm_setr_ps( 0, -0.0f, 0, -0.0f ) );
-            scalar_t const sqrt2( 0.70710678118654752440084436210485f );
-            NT2_CONST_VECTOR( twiddles, _mm_setr_ps( +sqrt2, -sqrt2, -sqrt2, -sqrt2 ) );
-            NT2_CONST_VECTOR( twiddled_57, ( r5577 + ( i5577 ^ odd_negate ) ) * twiddles );
+            vector_t const r4466( shuffle<0, 0, 2, 2>( upper_r ) ); vector_t const i4466( shuffle<0, 0, 2, 2>( upper_i ) );
+            vector_t       r5577( shuffle<1, 1, 3, 3>( upper_r ) ); vector_t       i5577( shuffle<1, 1, 3, 3>( upper_i ) );
+            vector_t const odd_negate( _mm_setr_ps( 0, -0.0f, 0, -0.0f ) );
+            scalar_t const sqrt2      ( 0.70710678118654752440084436210485f );
+            vector_t const twiddles   ( _mm_setr_ps( +sqrt2, -sqrt2, -sqrt2, -sqrt2 ) );
+            vector_t const twiddled_57( ( r5577 + ( i5577 ^ odd_negate ) ) * twiddles );
             r5577 = shuffle<0, 0, 3, 3>( twiddled_57 );
             i5577 = shuffle<1, 1, 2, 2>( twiddled_57 );
             upper_real = r4466 + ( r5577 ^ odd_negate );
@@ -2027,11 +2017,11 @@ namespace detail
         );
 
         scalar_t const sqrt2( 0.70710678118654752440084436210485f );
-        NT2_CONST_VECTOR( wr, _mm_setr_ps( 1, +sqrt2, +0, -sqrt2 ) );
-        NT2_CONST_VECTOR( wi, _mm_setr_ps( 0, -sqrt2, -1, -sqrt2 ) );
+        vector_t const wr( _mm_setr_ps( 1, +sqrt2, +0, -sqrt2 ) );
+        vector_t const wi( _mm_setr_ps( 0, -sqrt2, -1, -sqrt2 ) );
 
-        NT2_CONST_VECTOR( temp_r, ( wr * upper_r ) - ( wi * upper_i ) );
-        NT2_CONST_VECTOR( temp_i, ( wi * upper_r ) + ( wr * upper_i ) );
+        vector_t const temp_r( ( wr * upper_r ) - ( wi * upper_i ) );
+        vector_t const temp_i( ( wi * upper_r ) + ( wr * upper_i ) );
 
         upper_r = lower_r - temp_r;
         upper_i = lower_i - temp_i;
@@ -2149,24 +2139,24 @@ namespace detail
             //    *p_w
             //);
 
-            NT2_CONST_VECTOR( t0p2_r, *p_r0 + *p_r2 );
-            NT2_CONST_VECTOR( t0m2_r, *p_r0 - *p_r2 );
+            vector_t const t0p2_r( *p_r0 + *p_r2 );
+            vector_t const t0m2_r( *p_r0 - *p_r2 );
             *p_r0 = t0p2_r;
-            NT2_CONST_VECTOR( t0p2_i, *p_i0 + *p_i2 );
-            NT2_CONST_VECTOR( t0m2_i, *p_i0 - *p_i2 );
+            vector_t const t0p2_i( *p_i0 + *p_i2 );
+            vector_t const t0m2_i( *p_i0 - *p_i2 );
             *p_i0 = t0p2_i;
 
-            NT2_CONST_VECTOR( t1p3_r, *p_r1 + *p_r3 );
-            NT2_CONST_VECTOR( t1m3_r, *p_r1 - *p_r3 );
+            vector_t const t1p3_r( *p_r1 + *p_r3 );
+            vector_t const t1m3_r( *p_r1 - *p_r3 );
             *p_r1 = t1p3_r;
-            NT2_CONST_VECTOR( t1p3_i, *p_i1 + *p_i3 );
-            NT2_CONST_VECTOR( t1m3_i, *p_i1 - *p_i3 );
+            vector_t const t1p3_i( *p_i1 + *p_i3 );
+            vector_t const t1m3_i( *p_i1 - *p_i3 );
             *p_i1 = t1p3_i;
 
-            NT2_CONST_VECTOR( tpj_r, t0m2_r + t1m3_i );
-            NT2_CONST_VECTOR( tpj_i, t0m2_i - t1m3_r );
-            NT2_CONST_VECTOR( tmj_r, t0m2_r - t1m3_i );
-            NT2_CONST_VECTOR( tmj_i, t0m2_i + t1m3_r );
+            vector_t const tpj_r( t0m2_r + t1m3_i );
+            vector_t const tpj_i( t0m2_i - t1m3_r );
+            vector_t const tmj_r( t0m2_r - t1m3_i );
+            vector_t const tmj_i( t0m2_i + t1m3_r );
 
             Decimation::dft_8_in_place
             (
