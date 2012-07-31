@@ -22,7 +22,11 @@ namespace nt2
     };
   }
 
+  // repmat(xpr, size)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::repmat_, repmat, 2)
+
+  // repmat(xpr, n, m)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::repmat_, repmat, 3)
 }
 
 namespace nt2 { namespace container { namespace ext
@@ -45,12 +49,12 @@ namespace nt2 { namespace container { namespace ext
                                 : ext2_t::static_size
                                 >::type                         result_type;
 
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(X& e) const
     {
       result_type that(boost::proto::child_c<0>(e).extent());
       reps_t      r(boost::proto::value(boost::proto::child_c<1>(e)));
 
-      for(std:::size_t i=0;i<result_type::static_size;++i)
+      for(std::size_t i=0;i<ext2_t::static_size;++i)
         that[i] *= r[i];
 
       return that;
@@ -58,11 +62,13 @@ namespace nt2 { namespace container { namespace ext
   };
 
   template<class Domain, int N, class Expr>
-  struct  value_type<nt2::tag::repvert_,Domain,N,Expr>
+  struct  value_type<nt2::tag::repmat_,Domain,N,Expr>
   {
-
+    typedef typename meta::scalar_of< typename  boost::proto::result_of::
+                                                child_c<Expr&,0>::type
+                                    >::type                             base_t;
+    typedef typename meta::strip<base_t>::type                          type;
   };
 } } }
-
 
 #endif

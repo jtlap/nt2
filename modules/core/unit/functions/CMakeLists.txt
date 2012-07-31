@@ -100,6 +100,7 @@ SET( SOURCES
     relative_index.cpp
     relative_size.cpp
     rephorz.cpp
+    repmat.cpp
     repnum.cpp
     repvert.cpp
     reshape.cpp
@@ -130,7 +131,6 @@ SET( SOURCES
     wmean.cpp
     zeros.cpp
 #  fill_pattern.cpp
-#  repmat.cpp
     nansum.cpp
     nanmean.cpp
     nanasum2.cpp
