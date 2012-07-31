@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return std::atan2(result_type(a0),result_type(a1));
+      return nt2::atan2(result_type(a0),result_type(a1));
     }
   };
 } }
