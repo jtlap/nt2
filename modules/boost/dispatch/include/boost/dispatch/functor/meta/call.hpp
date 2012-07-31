@@ -15,7 +15,6 @@
  */
 
 #include <boost/config.hpp>
-#include <boost/function_types/result_type.hpp>
 #include <boost/dispatch/functor/forward.hpp>
 #include <boost/dispatch/meta/result_of.hpp>
 #include <boost/mpl/eval_if.hpp>
