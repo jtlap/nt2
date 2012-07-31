@@ -15,11 +15,8 @@
  */
 
 #include <boost/config.hpp>
-#include <boost/dispatch/functor/forward.hpp>
+#include <boost/dispatch/functor/details/dispatch.hpp>
 #include <boost/dispatch/meta/result_of.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/mpl/identity.hpp>
-#include <boost/type_traits/is_same.hpp>
 
 #if (defined(BOOST_NO_VARIADIC_TEMPLATES) && defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)) || defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
 #include <boost/dispatch/details/parameters.hpp>
@@ -61,7 +58,7 @@ namespace boost { namespace dispatch { namespace meta
 #if (!defined(BOOST_NO_VARIADIC_TEMPLATES) && !defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)) || defined(DOXYGEN_ONLY)
   template<class Tag, class... Args, class Site>
   struct call<Tag(Args...),Site>
-        : meta::result_of<functor<Tag,typename mpl::eval_if< is_same<Site, void>, default_site<Tag>, Site>::type>(Args...)>
+        : meta::result_of<typename meta::dispatch_call<Tag(Args...), Site>::type(Args...)>
   {};
 #else
 
@@ -75,7 +72,7 @@ namespace boost { namespace dispatch { namespace meta
 #define M0(z,n,t) \
 template<class Tag, BOOST_PP_ENUM_PARAMS(n,class A), class Site> \
 struct call<Tag(BOOST_PP_ENUM_PARAMS(n,A)),Site> \
-: meta::result_of<functor<Tag, typename mpl::eval_if< is_same<Site, void>, default_site<Tag>, mpl::identity<Site> >::type>(BOOST_PP_ENUM_PARAMS(n,A))> \
+: meta::result_of<typename meta::dispatch_call<Tag(BOOST_PP_ENUM_PARAMS(n,A)), Site>::type((BOOST_PP_ENUM_PARAMS(n,A)))> \
 {}; \
 /**/
 
