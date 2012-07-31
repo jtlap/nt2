@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+  nbd_atan2.cpp
   proper_tanpi.cpp
   more_cosine.cpp
   cosine.cpp

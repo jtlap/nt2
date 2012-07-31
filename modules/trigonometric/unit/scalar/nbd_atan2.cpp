@@ -6,20 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - atan2/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - nbd_atan2/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// cover test behavior of trigonometric components in scalar mode
+// unit test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 /// 
-#include <nt2/toolbox/trigonometric/include/functions/atan2.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/nbd_atan2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-
-#include <nt2/toolbox/libc/include/functions/atan2.hpp>
-extern "C" {extern long double cephes_atanl(long double);}
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -37,13 +33,13 @@ extern "C" {extern long double cephes_atanl(long double);}
 #include <nt2/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( atan2_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( nbd_atan2_real__2_0,  NT2_REAL_TYPES)
 {
   
-  using nt2::atan2;
-  using nt2::tag::atan2_;
+  using nt2::nbd_atan2;
+  using nt2::tag::nbd_atan2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<atan2_(T,T)>::type r_t;
+  typedef typename nt2::meta::call<nbd_atan2_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
@@ -52,37 +48,31 @@ NT2_TEST_CASE_TPL ( atan2_real__2_0,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
 
-  // random verifications
-  static const nt2::uint32_t NR = NT2_NB_RANDOM_TEST;
-  {
-    NT2_CREATE_BUF(tab_a0,T, NR, nt2::Zero<T>(), nt2::One<T>());
-    NT2_CREATE_BUF(tab_a1,T, NR, nt2::Zero<T>(), nt2::One<T>());
-    double ulp0, ulpd ; ulpd=ulp0=0.0;
-    T a0;
-    T a1;
-    for(nt2::uint32_t j =0; j < NR; ++j )
-      {
-        std::cout << "for params "
-                  << "  a0 = "<< u_t(a0 = tab_a0[j])
-                  << ", a1 = "<< u_t(a1 = tab_a1[j])
-                  << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::atan2(a0,a1),nt2::libc::atan2(a0,a1),1);
-        ulp0=nt2::max(ulpd,ulp0);
-     }
-     std::cout << "max ulp found is: " << ulp0 << std::endl;
-   }
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Half<T>(), nt2::Half<T>()), nt2::Pi<r_t>()/4, 0.5);
+  // NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Inf<T>(), nt2::Inf<T>()), nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Inf<T>(),nt2::One<T>()), nt2::Pio_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Mhalf<T>(), nt2::Mhalf<T>()), -3*nt2::Pi<r_t>()/4, 0.5);
+  //NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Minf<T>(), nt2::Minf<T>()), -3*nt2::Pi<r_t>()/4, 0.5);
+  //NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Minf<T>(),nt2::One<T>()), -nt2::Pio_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Mone<T>(), nt2::Mone<T>()), -3*nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Nan<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Nan<T>(), nt2::Zero<T>()), nt2::Nan<r_t>(), 0.5);
+  //NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Zero<T>(), nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);   
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<T>(), nt2::One<T>()), nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<T>(),nt2::Inf<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<T>(),nt2::Minf<T>()), nt2::Pi<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( atan2_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( nbd_atan2_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
   
-  using nt2::atan2;
-  using nt2::tag::atan2_;
+  using nt2::nbd_atan2;
+  using nt2::tag::nbd_atan2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<atan2_(T,T)>::type r_t;
+  typedef typename nt2::meta::call<nbd_atan2_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
@@ -91,18 +81,19 @@ NT2_TEST_CASE_TPL ( atan2_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
 
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<T>(), nt2::One<T>()), nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for unsigned_int_
 
-NT2_TEST_CASE_TPL ( atan2_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( nbd_atan2_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
   
-  using nt2::atan2;
-  using nt2::tag::atan2_;
+  using nt2::nbd_atan2;
+  using nt2::tag::nbd_atan2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<atan2_(T,T)>::type r_t;
+  typedef typename nt2::meta::call<nbd_atan2_(T,T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
@@ -111,7 +102,9 @@ NT2_TEST_CASE_TPL ( atan2_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
 
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Mone<T>(), nt2::Mone<T>()), -3*nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::One<T>(), nt2::One<T>()), nt2::Pi<r_t>()/4, 0.5);
+  NT2_TEST_ULP_EQUAL(nbd_atan2(nt2::Zero<T>(), nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for signed_int_

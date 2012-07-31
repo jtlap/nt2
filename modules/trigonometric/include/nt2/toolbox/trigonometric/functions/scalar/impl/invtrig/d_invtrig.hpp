@@ -102,11 +102,17 @@ namespace nt2
           return( z );
         }
 
-        static inline A0 atan(const  A0& a0)
+        static inline A0 atan(const A0& a0)
+        {
+          A0 x  = kernel_atan(a0); 
+          return b_xor(x, bitofsign(a0));
+        }
+
+        static inline A0 kernel_atan(const  A0& a0)
         {
           //        static const A0 tanpio8 = double_constant<double, 0x3fda827999fcef31ll>();
-          if (is_eqz(a0))  return a0;
-          if (is_inf(a0)) return Pio_2<A0>()*sign(a0);
+          if (is_eqz(a0))  return Zero<A0>();
+          if (is_inf(a0)) return Pio_2<A0>();
           A0 x =  nt2::abs(a0);
           A0 y;
           A0 flag = (x >  double_constant<double,0x4003504f333f9de6ull>());
@@ -144,9 +150,7 @@ namespace nt2
           z = madd(x, z, x);
           static const A0 morebits = double_constant<double,0x3c91a62633145c07ull>();
           z += flag * morebits;
-          y = y + z;
-          if( is_ltz(a0) )  y = -y;
-          return(y);
+          return y + z;
         }
       }; 
     }

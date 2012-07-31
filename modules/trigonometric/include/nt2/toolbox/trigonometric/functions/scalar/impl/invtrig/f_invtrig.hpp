@@ -91,13 +91,18 @@ namespace nt2
           return (Pio_2<A0>()-asin(a0));
         }
 
-        static inline A0 atan(const  A0& a0)
+        static inline A0 atan(const A0& a0)
         {
-          if (is_eqz(a0))  return a0;
-          if (is_inf(a0)) return Pio_2<A0>()*sign(a0);
-          A0 y;
+          A0 x  = kernel_atan(a0); 
+          return b_xor(x, bitofsign(a0));
+        }
+
+        static inline A0 kernel_atan(const  A0& a0)
+        {
+          if (is_eqz(a0))  return Zero<A0>();
+          if (is_inf(a0))  return Pio_2<A0>(); 
           A0 x = nt2::abs(a0);
-          A0 sgn =  bitofsign(a0);
+          A0 y;   
           if( x >single_constant<A0,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
             {
               y = Pio_2<A0>();
@@ -116,7 +121,7 @@ namespace nt2
           A0 z1 = madd(z,  single_constant<A0,0x3da4f0d1>(),single_constant<A0,0xbe0e1b85>());
           A0 z2 = madd(z,  single_constant<A0,0x3e4c925f>(),single_constant<A0,0xbeaaaa2a>());
           z1 = madd(z1, sqr(z), z2);
-          y =  add(y, madd(x, mul( z1, z), x));
+          return  add(y, madd(x, mul( z1, z), x));
 //        y +=
 //          ((( 8.05374449538e-2 * z
 //              - 1.38776856032E-1) * z
@@ -124,7 +129,7 @@ namespace nt2
 //           - 3.33329491539E-1) * z * x
 //          + x;
 
-          return b_xor(sgn, y );
+
 
         }
       }; 
