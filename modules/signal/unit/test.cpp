@@ -96,9 +96,9 @@ namespace
 
     struct failed_value_t
     {
-        double      value        ;
-        double      desired_value;
-        double      ulp_error    ;
+        T           value        ;
+        T           desired_value;
+        T           ulp_error    ;
         std::size_t index        ;
     };
 
@@ -136,25 +136,25 @@ namespace
             max_ulpd      = std::max( max_ulpd, ulpd );
             if ( ulpd > max_ulp_distance )
             {
-                failed_value_t const failed_value = { value_a, value_b, ulpd, i };
+                failed_value_t const failed_value = { value_a, value_b, static_cast<T>( ulpd ), i };
                 failed_values.push_back( failed_value );
             }
         }
+
+        debug_output << std::endl;
 
         if ( failed_values.empty() )
         {
             nt2::unit::pass( result_description );
             debug_output
-                << "Average ULPD: " << average_ulpd / N << std::endl
-                << "Max ULPD: "     << max_ulpd         << std::endl;
+                << "   * average ULPD: " << static_cast<T>( average_ulpd / N ) << std::endl
+                << "   * max     ULPD: " << static_cast<T>( max_ulpd         ) << std::endl;
         }
         else
         {
             nt2::unit::fail( result_description, source_file_line, calling_function );
 
-            debug_output << std::setprecision( 20 )
-                         << std::endl
-                         << "because the ULP distance for the following "
+            debug_output << "   because the ULP distance for the following "
                          << failed_values.size()
                          << " " << result_description
                          << " values was too large:"
@@ -162,7 +162,7 @@ namespace
 
             BOOST_FOREACH( failed_value_t const & failed_value, failed_values )
             {
-                debug_output << "value: "           << failed_value.value
+                debug_output << "\tvalue: "         << failed_value.value
                              << ", desired value: " << failed_value.desired_value
                              << ", ULP distance: "  << failed_value.ulp_error
                              << ", value index: "   << failed_value.index
@@ -170,8 +170,8 @@ namespace
             }
 
             debug_output
-                << "Average ULPD: " << average_ulpd / N << std::endl
-                << "Max ULPD: "     << max_ulpd         << std::endl;
+                << "   * average ULPD: " << static_cast<T>( average_ulpd / N ) << std::endl
+                << "   * max     ULPD: " << static_cast<T>( max_ulpd         ) << std::endl;
         }
     } // analyze_values
 
