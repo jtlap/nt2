@@ -24,15 +24,6 @@
 #include <boost/preprocessor/seq/size.hpp>
 #include <boost/preprocessor/cat.hpp>
 
-namespace boost { namespace dispatch
-{
-  template <class T, class U>
-  struct make_dependent
-  {
-    typedef T type;
-  };
-} }
-
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a function prototype from NAME, TAG and Number of parameters
 ////////////////////////////////////////////////////////////////////////////////
@@ -41,10 +32,6 @@ template<BOOST_PP_ENUM_PARAMS(N,class A)>                                      \
 BOOST_FORCEINLINE                                                              \
 typename boost::dispatch::meta::result_of< typename boost::dispatch::meta::    \
   dispatch_call< Tag( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )            \
-               , typename boost::dispatch::                                    \
-                 default_site< typename boost::dispatch::                      \
-                               make_dependent<Tag, A0>::type                   \
-                             >::type                                           \
               >::type                                                          \
   ( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                              \
 >::type                                                                        \
@@ -57,10 +44,6 @@ Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                            \
 #define BOOST_DISPATCH_FUNCTION_BODY(Tag, N)                                   \
 return typename boost::dispatch::meta::                                        \
        dispatch_call< Tag( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )       \
-                     , typename boost::dispatch::                              \
-                       default_site< typename boost::dispatch::                \
-                                     make_dependent<Tag, A0>::type             \
-                                   >::type                                     \
                      >::type()                                                 \
 (BOOST_PP_ENUM_PARAMS(N, a));                                                  \
 /**/
@@ -107,10 +90,6 @@ typename boost::dispatch::meta::result_of< typename boost::dispatch::meta::    \
                                    , Args                                      \
                                    )                                           \
                     )                                                          \
-               , typename boost::dispatch::                                    \
-                 default_site< typename boost::dispatch::                      \
-                               make_dependent<Tag, A0>::type                   \
-                             >::type                                           \
                >::type                                                         \
   ( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )     \
 >::type                                                                        \
@@ -122,10 +101,6 @@ Name( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )   \
                                           , Args                               \
                                           )                                    \
                            )                                                   \
-                      , typename boost::dispatch::                             \
-                        default_site< typename boost::dispatch::               \
-                                      make_dependent<Tag, A0>::type            \
-                                    >::type                                    \
                       >::type()                                                \
   (BOOST_PP_ENUM_PARAMS(N, a));                                                \
 }                                                                              \
