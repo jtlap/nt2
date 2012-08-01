@@ -91,12 +91,12 @@ NT2_TEST_CASE_TPL( repmat_expr, NT2_TYPES )
     nt2::table<T> a3;
 
     nt2::table<int> sz( nt2::of_size(1,4) );
-    sz(1) = 5; sz(2) = 2; sz(3) = 2; sz(4) = 2;
+    sz(1) = 2; sz(2) = 2; sz(3) = 2; sz(4) = 2;
 
     a3 = nt2::repmat(pattern,sz);
 
     for(std::size_t j = 1; j < 2*8;++j)
-      for(std::size_t i = 1; i < 2*5;++i)
+      for(std::size_t i = 1; i < 2*2;++i)
       {
         NT2_TEST_EQUAL(a3(i,j), (i+j)%2 ? T(0) : T(1) );
       }
