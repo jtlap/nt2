@@ -35,6 +35,8 @@
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/vertcat.hpp>
+#include <nt2/include/functions/multiplies.hpp>
+#include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
@@ -106,11 +108,11 @@ namespace nt2 { namespace ext
         d =  nt2::zeros(1, width(y), nt2::meta::as_<value_type>());
         if (/* nt2::isreal(del)*/ true) //to do proper version for real types
           { // is k 1 based or 0,  I hope 1 here ?
-            k = nt2::find(nt2::is_gtz(multiplies(nt2::sign(del(nt2::_(begin_, begin_+n-3))), nt2::sign(del(nt2::_(begin_+1, begin_+n-2))))), nt2::meta::as_<index_type>());
+            k = nt2::find(nt2::is_gtz(nt2::multiplies(nt2::sign(del(nt2::_(begin_, begin_+n-3))), nt2::sign(del(nt2::_(begin_+1, begin_+n-2))))), nt2::meta::as_<index_type>());
           }
         else
           {
-            k = nt2::find(logical_and(is_eqz(del(nt2::_(begin_, begin_+n-3))), is_eqz(del(nt2::_(begin_+1,begin_+n-2)))), nt2::meta::as_<index_type>());
+            k = nt2::find(nt2::logical_and(is_eqz(del(nt2::_(begin_, begin_+n-3))), is_eqz(del(nt2::_(begin_+1,begin_+n-2)))), nt2::meta::as_<index_type>());
           }
       }
       itab_t kp1 = oneplus(k);
@@ -121,7 +123,7 @@ namespace nt2 { namespace ext
       vtab_t w2 = (hs+h(1, kp1))/(Three<value_type>()*hs);
       vtab_t dmax = nt2::max(nt2::abs(del(1, k)), nt2::abs(del(1, kp1)));
       vtab_t dmin = nt2::min(nt2::abs(del(1, k)), nt2::abs(del(1, kp1))); 
-      d(kp1) = dmin/nt2::conj(nt2::multiplies(w1,(del(1, k)/dmax)) + multiplies(w2, (del(1, kp1)/dmax)));
+      d(kp1) = dmin/nt2::conj(nt2::multiplies(w1,(del(1, k)/dmax)) + nt2::multiplies(w2, (del(1, kp1)/dmax)));
       //   Slopes at end points.
       //   Set d(0) and d(n-1) via non-centered, shape-preserving three-point formulae.
       d(1) = ((2*h(1)+h(2))*del(1) - h(1)*del(2))/(h(1)+h(2));
