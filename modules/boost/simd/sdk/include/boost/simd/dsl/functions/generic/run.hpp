@@ -37,13 +37,13 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0& a0) const
     {
-       return transform()(a0);
+      return transform()(a0);
     }
   };
 
   //============================================================================
   // Run an expression with a state and no data
-  //============================================================================  
+  //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
                                     , (A0)(State)
                                     , (ast_<A0>)
@@ -65,35 +65,10 @@ namespace boost { namespace simd { namespace ext
        return transform()(a0, dispatch::with_state<tag::run_, State const>(state));
     }
   };
-  
-  //============================================================================
-  // Run an expression with a state and no data - Terminal cases
-  // When run on a terminal, we directly jump into the terminal functor
-  //============================================================================  
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(State)
-                                    , ((expr_ < unspecified_<A0>
-                                              , boost::simd::tag::terminal_
-                                              , mpl::long_<0>
-                                              >
-                                      ))
-                                      (unspecified_<State>)
-                                    )
-  {
-    typedef typename dispatch::meta::
-            call<boost::proto::tag::terminal(A0&, State const&)>::type result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State const& state) const
-    {
-      return typename dispatch::make_functor<boost::proto::tag::terminal, A0>::type()
-                      (a0, state);
-    }
-  };
 
   //============================================================================
   // Run an expression with a state and a data
-  //============================================================================  
+  //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
                                     , (A0)(State)(Data)
                                     , (ast_<A0>)
@@ -141,6 +116,31 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  //============================================================================
+  // Run an expression with a state and no data - Terminal cases
+  // When run on a terminal, we directly jump into the terminal functor
+  //============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
+                                    , (A0)(T)(State)
+                                    , ((expr_ < unspecified_<A0>
+                                              , T
+                                              , mpl::long_<0>
+                                              >
+                                      ))
+                                      (unspecified_<State>)
+                                    )
+  {
+    typedef typename dispatch::meta::
+            call<T(A0&, State const&)>::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State const& state) const
+    {
+      return typename dispatch::make_functor<T, A0>::type()
+                      (a0, state);
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
                                     , (A0)(T)(State)(Data)
                                     , ((expr_ < unspecified_<A0>
@@ -161,7 +161,7 @@ namespace boost { namespace simd { namespace ext
       return typename dispatch::make_functor<T, A0>::type()
                       (a0, state, data);
     }
-  }; 
+  };
 } } }
 
 #endif
