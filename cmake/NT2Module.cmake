@@ -308,7 +308,7 @@ function(nt2_module_add_exe name)
   endif()
   string(TOUPPER ${build_type} build_type_U)
 
-  if(NT2_WITH_TESTS_FULL)
+  if(NT2_WITH_TESTS_FULL OR CMAKE_CONFIGURATION_TYPES)
     nt2_add_executable(${build_type} ${name} EXCLUDE_FROM_ALL ${ARGN})
   else()
     add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})

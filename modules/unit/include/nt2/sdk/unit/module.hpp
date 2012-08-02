@@ -100,7 +100,7 @@ namespace boost
   /// This is a custom Boost.Exception handler that catch exceptions that were
   /// not caught by any tests inside the test function. This is usually the sign
   /// of something wrong in the test.
-  extern inline BOOST_ATTRIBUTE_NORETURN
+  extern inline
   void throw_exception(std::exception const& e)
   {
     std::cout << "uncaught exception: " << e.what() << std::endl;

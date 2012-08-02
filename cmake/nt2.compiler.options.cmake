@@ -15,26 +15,32 @@ set(NT2_FLAGS_BENCH "-DNDEBUG")
 
 # No debug symbols in tests because of excessive time and memory costs at compile time;
 # use special debug targets instead
-set(NT2_FLAGS_TESTDEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${NT2_FLAGS_TEST} -DBOOST_FORCEINLINE=inline")
+set(NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TEST} -DBOOST_FORCEINLINE=inline")
 
 if(MSVC)
   # Remove /EHsc from CMAKE_CXX_FLAGS and re-add per configuration; useful to avoid 'overriding' warnings
   string(REPLACE " /EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
-  foreach(config Debug Release RelWithDebInfo MinSizeRel)
+  foreach(config Debug Release)
     string(TOUPPER ${config} config_U)
     set(CMAKE_CXX_FLAGS_${config_U} "/EHsc ${CMAKE_CXX_FLAGS_${config_U}}")
   endforeach()
 
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /MDd /MP /D_SECURE_SCL=1 /D_ITERATOR_DEBUG_LEVEL=2 /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHa")
-  set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} /MD /MP /D_SECURE_SCL=0 /GL /Oxt /GF /Gm- /GS- /fp:precise /fp:except- /EHs-c- /wd4530")
+  # Global MSVC settings: multithreaded + IEEE754 floating-point
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /fp:precise /fp:except- /MP")
+
+  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /MDd /D_SECURE_SCL=1 /D_ITERATOR_DEBUG_LEVEL=2 /Oxt /GF /Gm- /GS- /EHa")
+  set(NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TESTDEBUG} ${CMAKE_CXX_FLAGS_DEBUG} /EHa")
+  set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} /MD /D_SECURE_SCL=0 /GL /Oxt /GF /Gm- /GS- /wd4530")
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX)
   # Strict aliasing disabled due to GCC bug #50800
   # -D_GLIBCXX_DEBUG=1 not used because of incompatibilities with libraries
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
   set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -O2")
+  set(NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TESTDEBUG} -O0 -g")
   set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} -O3 -fomit-frame-pointer -fno-exceptions")
 else()
   set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST}")
+  set(NT2_FLAGS_TESTDEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${NT2_FLAGS_TESTDEBUG}")
   set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} ${CMAKE_CXX_FLAGS_RELEASE}")
 endif()
 set(CMAKE_C_FLAGS_NT2TEST ${NT2_FLAGS_TEST})
