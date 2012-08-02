@@ -28,15 +28,7 @@ namespace nt2 { namespace ext
                               (ast_<A1>)
                             )
   {
-    typedef void                                            result_type;
-
-    typedef typename meta::
-            strip< typename meta::
-                   scalar_of<A0>::type
-                 >::type                                    stype;
-
-    typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION>
-                                                            target_type;
+    typedef void result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
     {
@@ -60,15 +52,10 @@ namespace nt2 { namespace ext
                               (scalar_< integer_<A4> >)
                             )
   {
-    typedef void                                            result_type;
+    typedef void result_type;
 
-    typedef typename meta::
-            strip< typename meta::
-                   scalar_of<A0>::type
-                 >::type                                    stype;
-
-    typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION>
-                                                            target_type;
+    typedef typename A0::value_type stype;
+    typedef boost::simd::native<stype, BOOST_SIMD_DEFAULT_EXTENSION> target_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1, A2 p, A3 in, A4 out) const
@@ -83,10 +70,10 @@ namespace nt2 { namespace ext
       for(std::size_t j=0; j != outer; ++j)
       {
         for(std::size_t m=it+aligned_in; it != m; it+=N)
-          nt2::run(a0, it, nt2::run(a1, it, meta::as_<target_type>()) );
+          nt2::run( a0, it, nt2::run(a1, it, meta::as_<target_type>()) );
 
         for(std::size_t m=it+(in-aligned_in); it != m; ++it)
-          nt2::run(a0, it, nt2::run(a1, it, meta::as_<stype>()) );
+          nt2::run( a0, it, nt2::run(a1, it, meta::as_<stype>()) );
       }
     }
   };
