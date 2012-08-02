@@ -53,12 +53,11 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::as_floating<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
-      const A0 r = impl::invtrig_base<A0,radian_tag, tag::simd_type>::acos(a0); 
-      return r; 
+      return impl::invtrig_base<A0,radian_tag, tag::simd_type>::acos(a0); 
     }
   };
 } }
