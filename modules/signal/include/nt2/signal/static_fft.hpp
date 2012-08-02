@@ -982,7 +982,7 @@ namespace detail
     template <unsigned int valid_bits>
     unsigned int BOOST_FASTCALL reverse_bits( unsigned int const value, boost::mpl::int_<1> /*number of bytes*/ )
     {
-        unsigned int const shift_correction( 8 - valid_bits );
+        unsigned int const shift_correction  ( 8 - valid_bits                                 );
         unsigned int const bit_reversed_value( bit_reverse_table[ value ] >> shift_correction );
         return bit_reversed_value;
     }
@@ -1205,7 +1205,7 @@ namespace detail
     ///  - in-place scrambless algorithm
     ///  - use FMA, SSE3 complex math and AVX gather/scatter constructs
     ///    http://www.masm32.com/board/index.php?topic=15955.0
-    ///  - vectorized scrambling if possible
+    ///  - vectorized scrambling if possible (gather/scatter)
     ///  - merge separate, scramble and (de/re)interleave functions/passes
     ///  - in-place complete (de)interleave algorithm
     ///    http://stackoverflow.com/questions/7780279/de-interleave-an-array-in-place
@@ -1228,6 +1228,9 @@ namespace detail
     ///    largest transform) for all transform sizes - this would require the
     ///    additional twiddle stride parameter to be passed around so it would
     ///    slow things down but it would reduce storage requirements
+    ///  - hybrid dynamic-static implementation for large transforms (twiddles
+    ///    would be statically allocated and calculated up to a certain size
+    ///    above which dynamic allocation and calculation would be used)
     ///                                       (04.07.2012.) (Domagoj Saric)
 
 

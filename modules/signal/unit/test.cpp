@@ -45,22 +45,29 @@ namespace
 
         /// \todo The maximum error values should be made dependent on the:
         ///  - value type (float, double, ...)
-        ///  - transform type (complex or real)
         ///  - size of the transform
+        ///  - transform type (complex, real-through-complex, pure real)
         ///  - used algorithm or more precisely, its arithmetic operation count
         ///    (currently this is the split-radix algorithm)
+        ///  - used complex multiplication implementation (2 multiplies + 4
+        ///    additions or 3 multiplies + 3 additions) and whether FMA is used
         ///  (see the "accuracy/precision" links in static_fft.hpp).
         ///                                   (17.07.2012.) (Domagoj Saric)
-        /// \todo Add/consider maximum allowed average ULPD thresholds.
+
+        /// \todo More extensive testing:
+        ///  - test multiple sizes (requires the above theoretical-limit
+        ///    function)
+        ///  - log/graph our actual error "response" ( f_err( N ) )
+        ///  - consider/investigate maximum allowed average ULPD thresholds
+        ///  - forward complex transform of real data (result must be conjugated
+        ///    symmetric)
+        ///  - inverse complex transform of conjugated symmetric data (result
+        ///    must be pure real
+        ///  - http://en.wikipedia.org/wiki/Parseval's_theorem test
+        ///  - more fixed/predefined test vectors which have known/expected
+        ///    results/transforms (like sawtooth, pulse, sines...)
         ///                                   (19.07.2012.) (Domagoj Saric)
-        /// \todo Add tests for forward complex transform of real data (result
-        /// must be conjugated symmetric) and inverse complex transform of
-        /// conjugated symmetric data (result must be pure real).
-        /// Add a http://en.wikipedia.org/wiki/Parseval's_theorem test.
-        ///                                   (18.07.2012.) (Domagoj Saric)
-        /// \todo Add more fixed/predefined test vectors which have
-        /// known/expected results/transforms (like sawtooth, pulse, sines...).
-        ///                                   (19.07.2012.) (Domagoj Saric)
+
         /// \todo Investigate why testing with NDEBUG defined gives much better
         /// results (on MSVC10). Without NDEBUG MSVC10, Clang3 and GCC 4.x give
         /// exactly the same results.
