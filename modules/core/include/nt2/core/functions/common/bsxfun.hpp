@@ -16,6 +16,8 @@
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
 #include <boost/fusion/include/pop_front.hpp>
+#include <boost/dispatch/meta/model_of.hpp>
+#include <boost/mpl/apply.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -28,17 +30,32 @@ namespace nt2 { namespace ext
   {
     typedef typename  boost::proto::result_of::
                       child_c<A0&,0>::value_type                    child0_t;
+    typedef typename  meta::scalar_of < child0_t >::type            s0_t;
     typedef typename  boost::proto::result_of::
                       child_c<A0&,1>::value_type                    child1_t;
+    typedef typename  meta::scalar_of < child1_t >::type            s1_t;
 
     typedef typename  boost::proto::result_of::
                       value < typename  boost::proto::result_of::
                                         child_c<A0&,2>::value_type
                             >::type                                 func_t;
+
+    typedef typename  boost::dispatch::meta::model_of<Data>::type   data_t;
+
     typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_( child0_t, State&, Data&)>::type    base0_t;
+            call<nt2::tag::run_ ( child0_t const&
+                                , State&
+                                , typename
+                                  boost::mpl::apply<data_t,s0_t>::type const&
+                                )>::type                            base0_t;
+
     typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_( child1_t, State&, Data&)>::type    base1_t;
+            call<nt2::tag::run_ ( child1_t const&
+                                , State&
+                                , typename
+                                  boost::mpl::apply<data_t,s1_t>::type const&
+                                )>::type                            base1_t;
+
     typedef typename boost::dispatch::meta::
             result_of<func_t const( base0_t, base1_t)>::type        result_type;
 
@@ -60,33 +77,35 @@ namespace nt2 { namespace ext
       std::size_t s1  = nt2::numel(boost::fusion::pop_front(ex1));
 
       // Expand or gather values
-      result_type v0  = (ex0[0] == 1 )  ? expand_singleton<0>(a0,p,s0)
-                                        : gather_values<0>(a0,p,ex0);
+      base0_t v0  = (ex0[0] == 1 )  ? expand_singleton<base0_t,0>(a0,p,s0)
+                                    : gather_values<base0_t,0>(a0,p,ex0);
 
-      result_type v1  = (ex1[0] == 1 )  ? expand_singleton<1>(a0,p,s1)
-                                        : gather_values<1>(a0,p,ex1);
+      base1_t v1  = (ex1[0] == 1 )  ? expand_singleton<base1_t,1>(a0,p,s1)
+                                    : gather_values<base1_t,1>(a0,p,ex1);
 
       // Apply the function
       return boost::proto::value(boost::proto::child_c<2>(a0))(v0,v1);
     }
 
     // If dimension is a singleton, we know we just need to splat it all over
-    template<std::size_t I> static BOOST_FORCEINLINE result_type
+    template<class T, std::size_t I>
+    static BOOST_FORCEINLINE T
     expand_singleton(A0 const& a0, State const& p, std::size_t limit)
     {
-      return  splat<result_type>
+      return  splat<T>
               ( nt2::run( boost::proto::child_c<I>(a0)
                         , (p / a0.extent()[0]) % limit
-                        , meta::as_<typename meta::scalar_of<Data>::type>()
+                        , meta::as_<typename meta::scalar_of<T>::type>()
                         )
               );
     }
 
     // If not, we run a circular gather evaluation
-    template<std::size_t I> static BOOST_FORCEINLINE result_type
+    template<class T, std::size_t I>
+    static BOOST_FORCEINLINE T
     gather_values(A0 const& a0, State const& p, ext_t const& sz)
     {
-      typedef typename meta::as_integer<result_type>::type  i_t;
+      typedef typename meta::as_integer<T>::type  i_t;
       typename meta::call<nt2::tag::ind2sub_(ext_t,State)>::type
       pos = ind2sub(a0.extent(),p);
 
@@ -95,7 +114,7 @@ namespace nt2 { namespace ext
 
       return  run ( boost::proto::child_c<I>(a0)
                   , sub2ind(sz, pos)
-                  , Data()
+                  , meta::as_<T>()
                   );
     }
   };
