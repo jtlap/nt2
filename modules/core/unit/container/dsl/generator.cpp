@@ -120,6 +120,7 @@ template<class Expr>
 void expr_lifetime_2_t(Expr const&)
 {
   using nt2::memory::container;
+  using nt2::memory::container_ref;
 
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
@@ -135,7 +136,7 @@ void expr_lifetime_2_t(Expr const&)
   NT2_TEST( !boost::is_const<child1>::value     );
 
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
-                  , (nt2::memory::container_ref<T, S>)
+                  , (container_ref< container<T, S> >)
                   );
 }
 

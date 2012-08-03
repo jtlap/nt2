@@ -42,9 +42,10 @@ NT2_TEST_CASE( run_type )
 
   table<T, S> a0;
 
-  typedef nt2::memory::container_ref<T, S> container;
-  typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container> > expr;
-  typedef nt2::container::expression<expr, nt2::memory::container<T, S>&> nt2_expr;
+  typedef nt2::memory::container<T, S> container;
+  typedef nt2::memory::container_ref<container> container_ref;
+  typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref> > expr;
+  typedef nt2::container::expression<expr, container&> nt2_expr;
   NT2_TEST_EXPR_TYPE( boost::proto::child_c<0>(a0 + a0)
                     , run_type
                     , nt2_expr&
@@ -230,7 +231,7 @@ NT2_TEST_CASE( reduction_value )
       }
     }
   }
-  
+
   a1 = sum(a2_4,1);
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
@@ -272,7 +273,7 @@ NT2_TEST_CASE( reduction_value )
 
   a1 = sum(a01);
   NT2_TEST_EQUAL(T(a1(1)),T(M)) ;
-  
+
   a1 = sum(a2_4,4);
   for(std::size_t k = 1; k <= O; ++k){
     for(std::size_t j = 1; j <= N; ++j){
@@ -322,7 +323,7 @@ NT2_TEST_CASE( reduction_value )
   }
 
   w = sum(x+y,1) + z;
-  
+
   for(std::size_t l = 1; l <= P; ++l){
     for(std::size_t k = 1; k <= O; ++k){
       for(std::size_t j = 1; j <= N; ++j){

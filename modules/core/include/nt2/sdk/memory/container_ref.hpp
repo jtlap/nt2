@@ -10,9 +10,7 @@
 #define NT2_SDK_MEMORY_CONTAINER_REF_HPP_INCLUDED
 
 #include <nt2/sdk/memory/container.hpp>
-#include <boost/mpl/if.hpp>
-#include <boost/type_traits/remove_const.hpp>
-#include <boost/type_traits/is_const.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -27,49 +25,26 @@ namespace nt2 { namespace memory
    * \tparam Setting Options list describing the behavior of the container
    **/
   //============================================================================
-  template<class T, class S>
+  template<class Container>
   struct container_ref
   {
-    typedef typename boost::mpl::
-            if_< boost::is_const<T>
-               , container<typename boost::remove_const<T>::type, S> const
-               , container<T, S>
-               >::type                           base_t;
+    typedef Container                                                         base_t;
+    typedef typename base_t::value_type                                       value_type;
+    typedef typename base_t::size_type                                        size_type;
+    typedef typename base_t::extent_type                                      extent_type;
+    typedef typename base_t::order_type                                       order_type;
 
-    typedef typename base_t::allocator_type      allocator_type;
-    typedef typename base_t::value_type          value_type;
-    typedef typename base_t::size_type           size_type;
-    typedef typename base_t::difference_type     difference_type;
-    typedef typename boost::mpl::
-            if_< boost::is_const<T>
-               , typename base_t::const_reference
-               , typename base_t::reference
-               >::type                           reference;
-    typedef typename boost::mpl::
-            if_< boost::is_const<T>
-               , typename base_t::const_pointer
-               , typename base_t::pointer
-               >::type                           pointer;
-    typedef typename boost::mpl::
-            if_< boost::is_const<T>
-               , typename base_t::const_iterator
-               , typename base_t::iterator
-               >::type                           iterator;
-    typedef iterator                             const_iterator;
-    typedef reference                            const_reference;
-    typedef pointer                              const_pointer;
+    typedef typename boost::dispatch::meta::scalar_of<Container&>::type       reference;
+    typedef typename boost::dispatch::meta::scalar_of<Container const&>::type const_reference;
+    typedef typename boost::dispatch::meta::scalar_of<Container>::type*       pointer;
+    typedef typename boost::dispatch::meta::scalar_of<Container>::type const* const_pointer;
+    typedef pointer                                                           iterator;
 
-    typedef typename base_t::extent_type         extent_type;
-    typedef typename base_t::index_type          index_type;
-    typedef typename base_t::order_type          order_type;
-
-    typedef typename base_t::specific_data_type  specific_data_type;
-
-    container_ref() : base(0), ptr(0)
+    container_ref() : base_(0), ptr(0)
     {
     }
 
-    container_ref(base_t& b) : base(&b), ptr(b.raw())
+    container_ref(Container& b) : base_(&b), ptr(b.raw())
     {
     }
 
@@ -80,7 +55,7 @@ namespace nt2 { namespace memory
      * \param y Second \c container to swap
      **/
     //==========================================================================
-    BOOST_FORCEINLINE void swap(container_ref<T,S>& y)
+    BOOST_FORCEINLINE void swap(container_ref& y)
     {
       boost::swap(*this, y);
     }
@@ -93,8 +68,8 @@ namespace nt2 { namespace memory
     template<class Size>
     void resize( Size const& szs ) const
     {
-      base->resize(szs);
-      ptr = base->raw();
+      base_->resize(szs);
+      ptr = base_->raw();
     }
 
     //==========================================================================
@@ -102,10 +77,10 @@ namespace nt2 { namespace memory
      * @brief Add element at end of container, reshape to 1D
      */
     //==========================================================================
-    void push_back( T const& t )
+    void push_back( value_type const& t )
     {
-      base->push_back(t);
-      ptr = base->raw();
+      base_->push_back(t);
+      ptr = base_->raw();
     }
 
     //==========================================================================
@@ -117,7 +92,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE extent_type const& extent() const
     {
-      return base->extent();
+      return base_->extent();
     }
 
     //==========================================================================
@@ -128,7 +103,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE size_type size() const
     {
-      return base->size();
+      return base_->size();
     }
 
     //==========================================================================
@@ -158,7 +133,7 @@ namespace nt2 { namespace memory
      * value, \c false otherwise.
      */
     //==========================================================================
-    BOOST_FORCEINLINE bool empty() const { return base->empty(); }
+    BOOST_FORCEINLINE bool empty() const { return base_->empty(); }
 
     //==========================================================================
     /*!
@@ -172,21 +147,21 @@ namespace nt2 { namespace memory
      * Return the begin of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       begin() const { return base->begin(); }
+    BOOST_FORCEINLINE iterator       begin() const { return base_->begin(); }
 
     //==========================================================================
     /*!
      * Return the end of the data
      */
     //==========================================================================
-    BOOST_FORCEINLINE iterator       end() const   { return base->end(); }
+    BOOST_FORCEINLINE iterator       end() const   { return base_->end(); }
 
     //==========================================================================
     // Linear Random Access
     //==========================================================================
     BOOST_FORCEINLINE reference operator[](size_type i) const
     {
-      return (*base)[i];
+      return (*base_)[i];
     }
 
     //==========================================================================
@@ -199,10 +174,12 @@ namespace nt2 { namespace memory
      * @return A reference to the specific data of the container.
      **/
     //==========================================================================
-    specific_data_type&  specifics() const { return base->specifics(); }
+    typename Container::specific_data_type&  specifics() const { return base_->specifics(); }
+
+    Container& base() const { return *base_; }
 
   private:
-    base_t*                     base;
+    Container*                  base_;
     mutable pointer             ptr;
   };
 
@@ -213,8 +190,8 @@ namespace nt2 { namespace memory
    * \param y Second \c container to swap
    **/
   //============================================================================
-  template<class T, class S> inline
-  void swap(container_ref<T,S>& x, container_ref<T,S>& y)  { x.swap(y); }
+  template<class Container> inline
+  void swap(container_ref<Container>& x, container_ref<Container>& y)  { x.swap(y); }
 } }
 
 namespace nt2 { namespace meta
@@ -222,8 +199,11 @@ namespace nt2 { namespace meta
   //============================================================================
   // Register container as a proper container
   //============================================================================
-  template<class T, class S>
-  struct is_container< memory::container_ref<T, S> > : boost::mpl::true_ {};
+  template<class Container>
+  struct is_container< memory::container_ref<Container> > : boost::mpl::true_ {};
+
+  template<class Container>
+  struct is_container_ref< memory::container_ref<Container> > : boost::mpl::true_ {};
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -231,43 +211,42 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // value_of specializations
   //============================================================================
-  template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S> >
+  template<class Container>
+  struct value_of< nt2::memory::container_ref<Container> >
+   : value_of<Container>
   {
-    typedef typename boost::remove_const<T>::type type;
   };
 
-  template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S> const >
+  template<class Container>
+  struct value_of< nt2::memory::container_ref<Container> const >
+   : value_of<Container>
   {
-    typedef typename boost::remove_const<T>::type type;
   };
 
-  template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S>& >
+  template<class Container>
+  struct value_of< nt2::memory::container_ref<Container>& >
+   : value_of<Container>
   {
-    typedef T& type;
   };
 
-  template<class T, class S>
-  struct value_of< nt2::memory::container_ref<T, S> const& >
+  template<class Container>
+  struct value_of< nt2::memory::container_ref<Container> const& >
+   : value_of<Container>
   {
-    typedef T& type;
   };
 
   //============================================================================
   // model_of specialization
   //============================================================================
-  template<class T, class S>
-  struct model_of< nt2::memory::container_ref<T, S> >
+  template<class Container>
+  struct model_of< nt2::memory::container_ref<Container> >
   {
     struct type
     {
       template<class X>
       struct apply
       {
-        typedef typename boost::mpl::if_< boost::is_const<T>, X const, X>::type Xc;
-        typedef nt2::memory::container_ref<Xc, S> type;
+        typedef nt2::memory::container_ref<X> type;
       };
     };
   };
@@ -275,11 +254,10 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // container hierarchy
   //============================================================================
-  template<class T, class S, class Origin>
-  struct hierarchy_of< nt2::memory::container_ref<T, S>, Origin >
+  template<class Container, class Origin>
+  struct hierarchy_of< nt2::memory::container_ref<Container>, Origin >
+   : hierarchy_of< Container, Origin >
   {
-    typedef typename nt2::memory::container_ref<T, S>::base_t::semantic_t     semantic_t;
-    typedef typename semantic_t::template apply<T,S,Origin>::type type;
   };
 } } }
 

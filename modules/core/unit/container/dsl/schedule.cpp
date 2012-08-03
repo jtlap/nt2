@@ -425,7 +425,7 @@ NT2_TEST_CASE( terminal )
   NT2_TEST_EXPR_TYPE( nt2::schedule(nt2::assign(a0, a1), f)
                     , child0
                     , (nt2::container::expression< boost::proto::basic_expr< boost::proto::tag::terminal
-                                                                           , boost::proto::term< container_ref<T, S> >
+                                                                           , boost::proto::term< container_ref< container<T, S> > >
                                                                            , 0
                                                                            >
                                                  ,  container<T, S>&

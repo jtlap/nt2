@@ -21,7 +21,7 @@
 
 namespace nt2 { namespace container
 {
-  template<class T>
+  template<class T, class Dummy = void>
   struct as_container_ref
   {
     typedef T type;
@@ -32,56 +32,49 @@ namespace nt2 { namespace container
     }
   };
 
-  template<class T, class S>
-  struct as_container_ref< memory::container<T, S> >
-  {
-    typedef memory::container_ref<T, S> const type;
-    static BOOST_FORCEINLINE type
-    call(memory::container<T, S>& t)
-    {
-      return type(t);
-    }
-  };
-
-  template<class T, class S>
-  struct as_container_ref< memory::container<T, S> const >
-  {
-    typedef memory::container_ref<T const, S> const type;
-    static BOOST_FORCEINLINE type
-    call(memory::container<T, S> const& t)
-    {
-      return type(t);
-    }
-  };
-
-  template<class T, class S>
-  struct as_container_ref< memory::container_shared_ref<T, S, true> >
-  {
-    typedef memory::container_shared_ref<T, S> const type;
-    static BOOST_FORCEINLINE type
-    call(memory::container_shared_ref<T, S, true>& t)
-    {
-      return type(t.get_base());
-    }
-  };
-
   template<class T>
+  struct as_container_ref<T, typename boost::enable_if_c< meta::is_container<T>::value && !meta::is_container_ref<T>::value >::type>
+  {
+    typedef memory::container_ref<T> const type;
+    static BOOST_FORCEINLINE type
+    call(T& t)
+    {
+      return type(t);
+    }
+  };
+
+  template<class Container, bool Own>
+  struct as_container_ref< memory::container_shared_ref<Container, Own> >
+  {
+    typedef memory::container_shared_ref<Container> const type;
+    static BOOST_FORCEINLINE type
+    call(memory::container_shared_ref<Container, Own>& t)
+    {
+      return type(t.base());
+    }
+  };
+
+  template<class Container, bool Own>
+  struct as_container_ref< memory::container_shared_ref<Container, Own> const >
+  {
+    typedef memory::container_shared_ref<Container> const type;
+    static BOOST_FORCEINLINE type
+    call(memory::container_shared_ref<Container, Own> const& t)
+    {
+      return type(t.base());
+    }
+  };
+
+  template<class T, class Dummy = void>
   struct as_container_noref
   {
     typedef T type;
   };
 
-  template<class T, class S>
-  struct as_container_noref< nt2::memory::container_ref<T, S> >
+  template<class T>
+  struct as_container_noref<T, typename boost::enable_if< typename meta::is_container_ref<T>::type >::type>
   {
-    typedef nt2::memory::container<typename boost::remove_const<T>::type, S> type0;
-    typedef typename boost::mpl::if_< boost::is_const<T>, type0 const&, type0&>::type type;
-  };
-
-  template<class T, class S>
-  struct as_container_noref< nt2::memory::container_shared_ref<T, S> >
-  {
-    typedef nt2::memory::container<typename boost::remove_const<T>::type, S> type0;
+    typedef typename T::base_t type0;
     typedef typename boost::mpl::if_< boost::is_const<T>, type0 const&, type0&>::type type;
   };
 
