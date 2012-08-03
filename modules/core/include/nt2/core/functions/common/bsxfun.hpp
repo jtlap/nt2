@@ -30,10 +30,11 @@ namespace nt2 { namespace ext
   {
     typedef typename  boost::proto::result_of::
                       child_c<A0&,0>::value_type                    child0_t;
-    typedef typename  meta::scalar_of < child0_t >::type            s0_t;
+    typedef typename  child0_t::value_type                          s0_t;
+
     typedef typename  boost::proto::result_of::
                       child_c<A0&,1>::value_type                    child1_t;
-    typedef typename  meta::scalar_of < child1_t >::type            s1_t;
+    typedef typename  child1_t::value_type                          s1_t;
 
     typedef typename  boost::proto::result_of::
                       value < typename  boost::proto::result_of::
@@ -59,12 +60,12 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::
             result_of<func_t const( base0_t, base1_t)>::type        result_type;
 
-    typedef typename meta::strip<typename child0_t::extent_type>::type  ext1_t;
-    typedef typename meta::strip<typename child1_t::extent_type>::type  ext2_t;
-    typedef typename  make_size < (ext1_t::static_size > ext2_t::static_size)
-                                ? ext1_t::static_size
-                                : ext2_t::static_size
-                                >::type                                 ext_t;
+    typedef typename child0_t::extent_type    ext1_t;
+    typedef typename child1_t::extent_type    ext2_t;
+    typedef typename make_size< (ext1_t::static_size > ext2_t::static_size)
+                              ? ext1_t::static_size
+                              : ext2_t::static_size
+                               >::type                                 ext_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
