@@ -11,10 +11,11 @@
 
 #include <nt2/core/functions/ind2sub.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/scalar/plus.hpp>
-#include <nt2/include/functions/scalar/splat.hpp>
-#include <nt2/include/functions/scalar/modulo.hpp>
-#include <nt2/include/functions/scalar/divides.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/modulo.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_signed.hpp>
 #include <boost/fusion/adapted/array.hpp>
 #include <boost/fusion/include/size.hpp>
@@ -43,7 +44,7 @@ namespace nt2 { namespace ext
       type_t p;
       result_type sub;
 
-      p = pos;
+      p = bitwise_cast<type_t>(pos);
       eval(sub,p,size,boost::mpl::int_<0>(),boost::mpl::int_<dims_t::value>());
       return sub;
     }
@@ -93,7 +94,7 @@ namespace nt2 { namespace ext
       type_t p;
       result_type sub;
 
-      p = pos;
+      p = bitwise_cast<type_t>(pos);
       eval(sub,p,size,base,boost::mpl::int_<0>(),boost::mpl::int_<dims_t::value>());
 
       return sub;
