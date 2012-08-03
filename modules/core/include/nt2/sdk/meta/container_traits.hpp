@@ -11,6 +11,7 @@
 
 #include <boost/dispatch/meta/enable_if_type.hpp>
 #include <boost/dispatch/meta/strip.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/add_const.hpp>
 #include <boost/type_traits/add_pointer.hpp>
@@ -30,15 +31,22 @@ namespace nt2 { namespace meta
   //==============================================================================
   //==============================================================================
   template<class T, class Enable=void>
-  struct pointer_ : boost::add_pointer<T>
-  {};
+  struct pointer_
+    : boost::add_pointer< typename boost::dispatch::meta::
+                          scalar_of<T>::type
+                        >
+  {
+  };
 
   //==============================================================================
   //==============================================================================
   template<class T, class Enable=void>
   struct  const_pointer_
-        : boost::add_pointer< typename boost::add_const<T>::type >
-  {};
+    : boost::add_pointer< typename boost::dispatch::meta::
+                          scalar_of<T>::type const
+                        >
+  {
+  };
 
   template<class T> struct pointer_<T const> : const_pointer_<T> {};
   template<class T> struct pointer_<T&> : pointer_<T> {};
@@ -47,15 +55,15 @@ namespace nt2 { namespace meta
   //==============================================================================
   //==============================================================================
   template<class T, class Enable=void>
-  struct reference_ : boost::add_reference<T>
+  struct reference_ : boost::dispatch::meta::scalar_of<T&>
   {};
 
   //==============================================================================
   //==============================================================================
   template<class T, class Enable=void>
-  struct  const_reference_
-        : boost::add_reference< typename boost::add_const<T>::type >
-  {};
+  struct  const_reference_ : boost::dispatch::meta::scalar_of<T const&>
+  {
+  };
 
   template<class T> struct reference_<T const> : const_reference_<T> {};
   template<class T> struct reference_<T&> : reference_<T> {};
@@ -65,8 +73,8 @@ namespace nt2 { namespace meta
   //==============================================================================
   template<class T, class Enable=void>
   struct value_type_
+   : boost::dispatch::meta::scalar_of<T>
   {
-    typedef T type;
   };
   template<class T> struct value_type_<T&> : value_type_<T> {};
   template<class T> struct value_type_<T const> : value_type_<T> {};
