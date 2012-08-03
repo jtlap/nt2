@@ -17,6 +17,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL( wmean_scalar, (float)(double))//NT2_TYPES )
 {
@@ -50,7 +51,7 @@ NT2_TEST_CASE_TPL( wmean, (float)(double))//NT2_TYPES )
   display("sy2", sy2);
   for(size_t j=1;j<=size(sy, 2);j++)
     for(size_t i=1;i<=size(sy, 1);i++)
-      NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
+      NT2_TEST_ULP_EQUAL(sy(i,j), sy2(i, j), 0.5);
 
   std::cout << "dim1" << std::endl;
   sy = nt2::sum(y)/T(nt2::size(y, 1));
@@ -59,7 +60,7 @@ NT2_TEST_CASE_TPL( wmean, (float)(double))//NT2_TYPES )
   display("sy2", sy2);
   for(size_t j=1;j<=size(sy, 2);j++)
     for(size_t i=1;i<=size(sy, 1);i++)
-      NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
+      NT2_TEST_ULP_EQUAL(sy(i,j), sy2(i, j), 0.5);
 
   std::cout << "dim2" << std::endl;
   w = nt2::repnum(nt2::rec(T(1)),1, 3);
@@ -69,7 +70,7 @@ NT2_TEST_CASE_TPL( wmean, (float)(double))//NT2_TYPES )
   display("sy2", sy2);
   for(size_t j=1;j<=size(sy, 2);j++)
     for(size_t i=1;i<=size(sy, 1);i++)
-      NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
+      NT2_TEST_ULP_EQUAL(sy(i,j), sy2(i, j), 0.5);
 
 //   std::cout << "dim3" << std::endl;
 //   w = nt2::repnum(nt2::rec(T(12)),1, 1);

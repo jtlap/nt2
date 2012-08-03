@@ -16,6 +16,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 // NT2_TEST_CASE_TPL( asump_scalar, (float)(double))//NT2_TYPES )
 // {
@@ -84,7 +85,7 @@ NT2_TEST_CASE_TPL( asump, (float)(double))//NT2_TYPES )
   std::cout << nt2::size(sz) << std::endl;
   std::cout << sy(1) << std::endl;
   std::cout << sz(1) << std::endl;
-  NT2_TEST_EQUAL(sy(1), sz(1));
+  NT2_TEST_ULP_EQUAL(sy(1), sz(1), 0.5);
   //  nt2::table<T> zut =  y(_);
 //   sy = nt2::asump(zut, nt2::Three<T>());
 //   sz = nt2::sum(nt2::pow_abs(zut, nt2::Three<T>()));
