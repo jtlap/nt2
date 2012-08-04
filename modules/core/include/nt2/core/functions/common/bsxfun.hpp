@@ -47,15 +47,18 @@ namespace nt2 { namespace ext
             call<nt2::tag::run_ ( child0_t const&
                                 , State&
                                 , typename
-                                  boost::mpl::apply<data_t,s0_t>::type const&
-                                )>::type                            base0_t;
+                                  boost::mpl::apply<data_t,s0_t>::type
+                                )>::type                            run0_t;
 
     typedef typename boost::dispatch::meta::
             call<nt2::tag::run_ ( child1_t const&
                                 , State&
                                 , typename
-                                  boost::mpl::apply<data_t,s1_t>::type const&
-                                )>::type                            base1_t;
+                                  boost::mpl::apply<data_t,s1_t>::type
+                                )>::type                            run1_t;
+
+    typedef typename meta::strip<run0_t>::type                      base0_t;
+    typedef typename meta::strip<run1_t>::type                      base1_t;
 
     typedef typename boost::dispatch::meta::
             result_of<func_t const( base0_t, base1_t)>::type        result_type;
@@ -81,7 +84,7 @@ namespace nt2 { namespace ext
       base0_t v0  = (ex0[0] == 1 )  ? expand_singleton<base0_t,0>(a0,p,s0)
                                     : gather_values<base0_t,0>(a0,p,ex0);
 
-      base1_t v1  = (ex1[0] == 1 )  ? expand_singleton<base1_t,1>(a0,p,s1)
+      base0_t v1  = (ex1[0] == 1 )  ? expand_singleton<base1_t,1>(a0,p,s1)
                                     : gather_values<base1_t,1>(a0,p,ex1);
 
       // Apply the function
@@ -115,7 +118,7 @@ namespace nt2 { namespace ext
 
       return  run ( boost::proto::child_c<I>(a0)
                   , sub2ind(sz, pos)
-                  , meta::as_<T>()
+                  , meta::as_<typename meta::strip<T>::type>()
                   );
     }
   };
