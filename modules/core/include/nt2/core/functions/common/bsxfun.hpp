@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
       base0_t v0  = (ex0[0] == 1 )  ? expand_singleton<base0_t,0>(a0,p,s0)
                                     : gather_values<base0_t,0>(a0,p,ex0);
 
-      base0_t v1  = (ex1[0] == 1 )  ? expand_singleton<base1_t,1>(a0,p,s1)
+      base1_t v1  = (ex1[0] == 1 )  ? expand_singleton<base1_t,1>(a0,p,s1)
                                     : gather_values<base1_t,1>(a0,p,ex1);
 
       // Apply the function
