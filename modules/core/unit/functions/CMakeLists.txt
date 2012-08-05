@@ -8,6 +8,11 @@
 ##############################################################################
 
 SET( SOURCES
+    global.cpp
+    globalall.cpp 
+    globalany.cpp 
+    globalsum.cpp
+    globalprod.cpp     
     isreal.cpp
     issorted.cpp
     adjfun.cpp
