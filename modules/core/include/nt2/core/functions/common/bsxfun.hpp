@@ -41,24 +41,19 @@ namespace nt2 { namespace ext
                                         child_c<A0&,2>::value_type
                             >::type                                 func_t;
 
-    typedef typename  boost::dispatch::meta::model_of<Data>::type   data_t;
+    typedef typename Data::type                                     data_t;
+    typedef typename  boost::dispatch::meta::model_of<data_t>::type target_t;
+
+    typedef meta::as_<typename boost::mpl::apply<target_t,s0_t>::type> as0_t;
+    typedef meta::as_<typename boost::mpl::apply<target_t,s1_t>::type> as1_t;
 
     typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_ ( child0_t const&
-                                , State&
-                                , typename
-                                  boost::mpl::apply<data_t,s0_t>::type
-                                )>::type                            run0_t;
-
+            call<nt2::tag::run_(child0_t const&, State&, as0_t)>::type  run0_t;
     typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_ ( child1_t const&
-                                , State&
-                                , typename
-                                  boost::mpl::apply<data_t,s1_t>::type
-                                )>::type                            run1_t;
+            call<nt2::tag::run_(child1_t const&, State&, as1_t)>::type  run1_t;
 
-    typedef typename meta::strip<run0_t>::type                      base0_t;
-    typedef typename meta::strip<run1_t>::type                      base1_t;
+    typedef typename meta::strip<run0_t>::type                          base0_t;
+    typedef typename meta::strip<run1_t>::type                          base1_t;
 
     typedef typename boost::dispatch::meta::
             result_of<func_t const( base0_t, base1_t)>::type        result_type;
@@ -118,7 +113,7 @@ namespace nt2 { namespace ext
 
       return  run ( boost::proto::child_c<I>(a0)
                   , sub2ind(sz, pos)
-                  , meta::as_<typename meta::strip<T>::type>()
+                  , meta::as_<T>()
                   );
     }
   };
