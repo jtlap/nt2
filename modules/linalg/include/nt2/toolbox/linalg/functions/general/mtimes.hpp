@@ -176,14 +176,14 @@ namespace nt2 { namespace ext
     return &t;
   }
 
-  template<class T, class S>
-  typename memory::container_ref<T, S>::pointer raw(memory::container_ref<T, S> const& c)
+  template<class Container>
+  typename memory::container_ref<Container>::pointer raw(memory::container_ref<Container> const& c)
   {
     return c.raw();
   }
 
-  template<class T, class S>
-  typename memory::container_shared_ref<T, S>::pointer raw(memory::container_shared_ref<T, S> const& c)
+  template<class Container, bool Own>
+  typename memory::container_shared_ref<Container, Own>::pointer raw(memory::container_shared_ref<Container, Own> const& c)
   {
     return c.raw();
   }
