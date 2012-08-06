@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_SUB2IND_HPP_INCLUDED
 
 #include <nt2/core/functions/sub2ind.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <boost/fusion/include/at.hpp>
@@ -57,7 +58,7 @@ namespace nt2 { namespace ext
     }
 
     template<class Idx, class Sz>
-    BOOST_DISPATCH_FORCE_INLINE std::ptrdiff_t
+    BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const A0& s, const A1& p, const Idx&, const Sz& sz) const
     {
       return  boost::fusion::at_c<Idx::value>(p) - 1
@@ -78,7 +79,9 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const A0&, const A1& p, const Sz&, const Sz&) const
     {
-      return boost::fusion::at_c<Sz::value>(p)  - One<result_type>();
+      return splat<result_type>(  boost::fusion::at_c<Sz::value>(p)
+                                -  One<result_type>()
+                                );
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
@@ -86,7 +89,9 @@ namespace nt2 { namespace ext
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {
-      return boost::fusion::at_c<0>(p) - One<result_type>();
+      return splat<result_type>(  boost::fusion::at_c<0>(p)
+                                -  One<result_type>()
+                                );
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
@@ -145,7 +150,9 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const A0&, const A1& p, const A2& b, const Sz&, const Sz&) const
     {
-      return boost::fusion::at_c<Sz::value>(p) - boost::fusion::at_c<Sz::value>(b);
+      return splat<result_type>(  boost::fusion::at_c<Sz::value>(p)
+                                -  boost::fusion::at_c<Sz::value>(b)
+                                );
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
@@ -153,7 +160,9 @@ namespace nt2 { namespace ext
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {
-      return boost::fusion::at_c<0>(p) - boost::fusion::at_c<0>(b);
+      return splat<result_type>(  boost::fusion::at_c<0>(p)
+                                -  boost::fusion::at_c<0>(b)
+                                );
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
