@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+    tsxfun.cpp
     global.cpp
     globalall.cpp 
     globalany.cpp 
