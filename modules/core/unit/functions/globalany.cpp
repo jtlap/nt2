@@ -29,6 +29,8 @@ NT2_TEST_CASE_TPL( globalany, NT2_TYPES )
   NT2_TEST_EQUAL( nt2::globalany(a), true);
   NT2_TEST_EQUAL( nt2::globalany(T(0)), false);
   nt2::table<T> b = nt2::zeros(3, 5, nt2::meta::as_<T>()); 
-  NT2_TEST_EQUAL( nt2::globalany(a), false);
+  NT2_TEST_EQUAL( nt2::globalany(a), true);
+  a =  nt2::zeros(3, 4, nt2::meta::as_<T>());
+  NT2_TEST_EQUAL( nt2::globalany(a), false);  
 }
 
