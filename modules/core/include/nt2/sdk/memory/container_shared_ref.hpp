@@ -37,6 +37,7 @@ namespace nt2 { namespace memory
     typedef typename base_t::size_type                                        size_type;
     typedef typename base_t::extent_type                                      extent_type;
     typedef typename base_t::order_type                                       order_type;
+    typedef typename base_t::specific_data_type                               specific_data_type;
 
     typedef typename boost::dispatch::meta::scalar_of<Container&>::type       reference;
     typedef typename boost::dispatch::meta::scalar_of<Container const&>::type const_reference;
@@ -178,7 +179,7 @@ namespace nt2 { namespace memory
      * @return A reference to the specific data of the container.
      **/
     //==========================================================================
-    typename Container::specific_data_type&  specifics() const { return base_->specifics(); }
+    specific_data_type&  specifics() const { return base_->specifics(); }
 
     boost::shared_ptr<Container> base() const { return base_; }
 
