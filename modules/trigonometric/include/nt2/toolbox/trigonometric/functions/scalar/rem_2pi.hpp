@@ -27,7 +27,6 @@
 
 #include <boost/fusion/tuple.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation when float
@@ -90,8 +89,7 @@ namespace nt2 { namespace ext
           return; 
         }
       nt2::int32_t n = rem_pio2(a0, xr, xc);
-      std::cout << " a0 " << a0 <<" n  "<< n << " xr " << xr << std::endl; 
-      xr = xr+n*Pio_2<A0>(); 
+      xr = xr+n*Pio_2<A0>();
       xr = (xr > Pi<A0>()) ? xr-Twopi<A0>():xr;
     }
   };
@@ -122,7 +120,6 @@ namespace nt2 { namespace ext
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        std::cout << "big" << std::endl; 
         nt2::rem_2pi(x, xr, xc);
       }
     }; 
@@ -130,23 +127,19 @@ namespace nt2 { namespace ext
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        std::cout << "verysmall" << std::endl; 
         xr = x > Pi<A0>() ? x-Twopi<A0>() : (x < -Pi<A0>()) ? x+Twopi<A0>() : x; 
         xc = Zero<A0>();
-        std::cout << " a0 " <<  x  <<  " xr " << xr << std::endl; 
       }
     }; 
     template < class dummy> struct rem2pi < small, dummy >// |a0| <= 20*pi
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        std::cout << "small" << std::endl;
         A0 xi =  nt2::round2even(x*Inv2pi<A0>()); 
         xr = x-xi*Pix2_1<A0>();
         xr -= xi*Pix2_2<A0>();
         xr -= xi*Pix2_3<A0>();
         xc = Zero<A0>();
-        std::cout << " a0 " <<  x  << " n " << xi << " xr " << xr << std::endl; 
        }
     };
     
@@ -154,9 +147,7 @@ namespace nt2 { namespace ext
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        std::cout << "medium" << std::endl; 
         nt2::int32_t n = rem_pio2_medium(x, xr, xc); 
-        std::cout << " a0 " <<  x  << " n  " << n << " xr " << xr << std::endl; 
         xr = xr+n*Pio_2<A0>(); 
         xr = (xr > Pi<A0>()) ? xr-Twopi<A0>():xr;
       }
