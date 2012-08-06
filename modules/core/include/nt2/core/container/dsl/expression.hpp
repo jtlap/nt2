@@ -127,7 +127,7 @@ namespace nt2 { namespace container
     BOOST_FORCEINLINE
     expression( expression const& xpr )
               : proto_expr_(xpr.proto_base())
-              , size_(size_transform<domain>()(proto_base()))
+              , size_(xpr.size_)
     {
       #ifdef NT2_LOG_COPIES
       typedef typename boost::mpl::

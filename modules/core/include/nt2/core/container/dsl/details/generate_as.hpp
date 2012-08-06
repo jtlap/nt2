@@ -82,7 +82,7 @@ namespace nt2 { namespace container { namespace ext
   {
     // The size is contained in the first child : box<Size>
     typedef typename boost::proto::result_of::child_c<Expr&,N>::type seq_term;
-    typedef typename boost::proto::result_of::value<seq_term>::type result_type;
+    typedef typename boost::proto::result_of::value<seq_term>::value_type result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
