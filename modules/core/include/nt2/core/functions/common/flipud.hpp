@@ -45,11 +45,16 @@ namespace nt2 { namespace ext
       // Retrieve 2D position from the linear index
       _2D ex = a0.extent();
       sub_t pos = ind2sub(ex,p);
+
+      // Compute the flipped start of the enumeration
       pos[0] = height(a0)-pos[0]+1;
-      return  nt2::run(boost::proto::child_c<0>(a0),nt2::arith<i_t>(sub2ind(ex,pos),-1),t);
+      
+      return  nt2::run( boost::proto::child_c<0>(a0)
+                        , nt2::arith<i_t>(sub2ind(ex,pos),-1)
+                        , t
+                        );
     }
   };
-
 } }
 
 #endif

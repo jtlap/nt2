@@ -75,10 +75,10 @@ namespace nt2 { namespace ext
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE std::ptrdiff_t
+    BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const A0&, const A1& p, const Sz&, const Sz&) const
     {
-      return boost::fusion::at_c<Sz::value>(p) - 1;
+      return boost::fusion::at_c<Sz::value>(p)  - One<result_type>();
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {
-      return boost::fusion::at_c<0>(p) - 1;
+      return boost::fusion::at_c<0>(p) - One<result_type>();
     }
 
     BOOST_DISPATCH_FORCE_INLINE result_type
@@ -121,7 +121,7 @@ namespace nt2 { namespace ext
     }
 
     template<class Idx, class Sz>
-    BOOST_DISPATCH_FORCE_INLINE std::ptrdiff_t
+    BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const A0& s, const A1& p, const A2& b, const Idx&, const Sz& sz) const
     {
       return  boost::fusion::at_c<Idx::value>(p)
@@ -142,7 +142,7 @@ namespace nt2 { namespace ext
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE std::ptrdiff_t
+    BOOST_DISPATCH_FORCE_INLINE result_type
     eval(const A0&, const A1& p, const A2& b, const Sz&, const Sz&) const
     {
       return boost::fusion::at_c<Sz::value>(p) - boost::fusion::at_c<Sz::value>(b);
