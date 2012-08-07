@@ -45,7 +45,7 @@ namespace nt2 { namespace memory
     typedef typename boost::dispatch::meta::scalar_of<Container>::type const* const_pointer;
     typedef pointer                                                           iterator;
 
-    container_shared_ref() : base_(0), ptr(0)
+    container_shared_ref() : base_(), ptr(0)
     {
     }
 
