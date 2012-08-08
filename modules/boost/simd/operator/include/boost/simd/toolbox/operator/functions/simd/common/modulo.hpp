@@ -6,17 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
-#include <boost/simd/toolbox/operator/functions/multiplies.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MODULO_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MODULO_HPP_INCLUDED
+#include <boost/simd/toolbox/operator/functions/modulo.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
 
 //////////////////////////////////////////////////////////////////////////////
-// mixed scalar/simd multiplies
+// mixed scalar/simd modulo
 //////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modulo_, tag::cpu_,
                                     (A0)(A1)(X),
                                     ((simd_<arithmetic_ <A0>,X>))((scalar_<arithmetic_<A1> >))
                                    )
@@ -25,11 +25,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::multiplies(a0, boost::simd::splat<A0>(a1));
+      return boost::simd::modulo(a0, boost::simd::splat<A0>(a1));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_,
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modulo_, tag::cpu_,
                                      (A0)(A1)(X),
                                      ((scalar_<arithmetic_<A0> >))((simd_<arithmetic_<A1>,X>))
                                    )
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::multiplies(boost::simd::splat<A1>(a0), a1);
+      return boost::simd::modulo(boost::simd::splat<A1>(a0), a1);
     }
   };
 } } }
