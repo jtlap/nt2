@@ -44,7 +44,7 @@ NT2_TEST_CASE( cat_size )
     NT2_DISPLAY(a);
     NT2_DISPLAY(b);
     nt2::table<float> e = vertcat(a, b);
-    NT2_DISPLAY(e);
+    NT2_DISPLAY(e); 
     nt2::table<float> d = cat(1, a, b);
     NT2_TEST(isequal(d, e)); 
     NT2_TEST(isequal(a, d(nt2::_(1u, size(a, 1)), nt2::_)));
@@ -61,7 +61,7 @@ NT2_TEST_CASE( cat_size )
     nt2::table<float> d = cat(3, a, b);
     NT2_DISPLAY(d);
     NT2_TEST(isequal(a, d(nt2::_,nt2::_,1 )));
-    NT2_TEST(isequal(b, d(nt2::_,nt2::_,2 ))); 
+    NT2_TEST(isequal(b, d(nt2::_,nt2::_,2 )));  
   }
 }
 
