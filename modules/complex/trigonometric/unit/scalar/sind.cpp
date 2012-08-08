@@ -82,7 +82,7 @@ NT2_TEST_CASE_TPL ( sind_real__1_0,  NT2_REAL_TYPES)
    {
      std::cout <<   "input " << inputs[i] << std::endl; 
      NT2_TEST_ULP_EQUAL(nt2::sind(nt2::unary_minus(inputs[i])), nt2::unary_minus(nt2::sind(inputs[i])), 4);  
-     NT2_TEST_ULP_EQUAL(nt2::sind(inputs[i]), nt2::sin(nt2::Deginrad<T>()*inputs[i]), 3); 
+     NT2_TEST_ULP_EQUAL(nt2::sind(inputs[i]), nt2::sin(nt2::multiplies(nt2::Deginrad<T>(), inputs[i])), 3); 
      std::cout <<   "---------------------------- " << inputs[i] << std::endl; 
    }
 

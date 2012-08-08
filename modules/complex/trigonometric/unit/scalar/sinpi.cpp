@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( sinpi_real__1_0,  NT2_REAL_TYPES)
   for(int i=0; i < N; i++)
    {
      NT2_TEST_ULP_EQUAL(nt2::sinpi(-inputs[i]), -nt2::sinpi(inputs[i]), 4);  
-     NT2_TEST_ULP_EQUAL(nt2::sinpi(inputs[i]), nt2::sin(nt2::Pi<T>()*inputs[i]), 4); 
+     NT2_TEST_ULP_EQUAL(nt2::sinpi(inputs[i]), nt2::sin(nt2::multiplies(nt2::Pi<T>(), inputs[i])), 4); 
    }
 } // end of test for floating_
 

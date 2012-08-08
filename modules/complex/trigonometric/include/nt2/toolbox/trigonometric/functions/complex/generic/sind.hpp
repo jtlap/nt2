@@ -29,6 +29,7 @@
 #include <nt2/include/functions/cosd.hpp>
 #include <nt2/include/functions/mul_minus_i.hpp>
 #include <nt2/include/functions/mul_i.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/constants/deginrad.hpp>
 
 /* csin (x + I * y) = sin (x) * cosh (y)  + I * (cos (x) * sinh (y)) */
@@ -46,7 +47,7 @@ namespace nt2 { namespace ext
       result_type a00 =  mul_i(a0); 
       rtype c, s, ch, sh;
       sincosd(nt2::imag(a00), s, c);
-      a00 = a00*Deginrad<rtype>(); 
+      a00 = nt2::multiplies(a00, Deginrad<rtype>());
       sinhcosh(nt2::real(a00), sh, ch);
       rtype r = c*sh;
       rtype i = s*ch;

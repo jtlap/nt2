@@ -25,6 +25,7 @@
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/multiplies.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/include/constants/pi.hpp>
@@ -43,7 +44,7 @@ namespace nt2 { namespace ext
       result_type a00 =  mul_i(a0);
       rtype c, s, ch, sh;
       sincospi(nt2::imag(a00), s, c);
-      a00 = a00*Pi<rtype>();
+      a00 = nt2::multiplies(a00, Pi<rtype>());
       sinhcosh(nt2::real(a00), sh, ch);
       rtype r = c*sh;
       rtype i = s*ch;

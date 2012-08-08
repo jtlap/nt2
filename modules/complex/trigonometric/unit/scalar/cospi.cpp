@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( cospi_real__1_0,  NT2_REAL_TYPES)
   for(int i=0; i < N; i++)
    {
      NT2_TEST_ULP_EQUAL(nt2::cospi(-inputs[i]), nt2::cospi(inputs[i]), 3);  
-     NT2_TEST_ULP_EQUAL(nt2::cospi(inputs[i]), nt2::cos(nt2::Pi<T>()*inputs[i]), 3); 
+     NT2_TEST_ULP_EQUAL(nt2::cospi(inputs[i]), nt2::cos(nt2::multiplies(nt2::Pi<T>(), inputs[i])), 3); 
    }
 } // end of test for floating_
 
