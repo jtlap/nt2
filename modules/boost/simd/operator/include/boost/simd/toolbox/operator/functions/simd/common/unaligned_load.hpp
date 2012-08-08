@@ -37,21 +37,6 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  // regular load
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
-                            , (A0)(A1)(A2)(X)
-                            , (iterator_<scalar_< arithmetic_<A0> > >)
-                              (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< arithmetic_<A2>, X > >))
-                            )
-  {
-    typedef typename A2::type const& result_type;
-    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
-    {
-      return reinterpret_cast<result_type>(a0[a1]);
-    }
-  };
-
   // logical
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
