@@ -11,10 +11,9 @@
 
 #include <nt2/core/functions/repmat.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
+#include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <boost/fusion/include/pop_front.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -39,24 +38,18 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<result_type>::type            i_t;
       typedef typename  boost::proto::result_of::child_c<A0&,0>::type p_t;
-      typedef typename  boost::proto::result_of
-                      ::child_c<A0&,0>::value_type::extent_type       ex_t;
+      typedef typename meta::call<tag::ind2sub_(_2D, i_t)>::type    sub_t;
 
       // Retrieve pattern and its extent
       p_t   pattern = boost::proto::child_c<0>(a0);
-      ex_t  ex      = pattern.extent();
+      _2D   in_sz   = pattern.extent();
+      _2D   out_sz  = a0.extent();
 
-      // How many vectorizable slices to process
-      std::size_t s0  = nt2::numel(boost::fusion::pop_front(ex));
+      sub_t pos = ind2sub(out_sz, nt2::enumerate<i_t>(p));
+      pos[0] = (pos[0]-1) % in_sz[0] + 1;
+      pos[1] = (pos[1]-1) % in_sz[1] + 1;
 
-      // Enumeration along vectorizabel dimension
-      i_t vp  = nt2::enumerate<i_t>(p) % splat<i_t>(ex[0]);
-
-      // Offset over the slices
-      i_t vo  = splat<i_t>( ((p / a0.extent()[0]) % s0)*ex[1]);
-
-      // Load data from there
-      return nt2::run( pattern, vo+vp, t );
+      return nt2::run( pattern, sub2ind(in_sz, pos), t );
     }
   };
 } }
