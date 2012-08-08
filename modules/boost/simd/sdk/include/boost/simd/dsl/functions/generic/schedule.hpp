@@ -45,13 +45,41 @@ namespace boost { namespace simd { namespace meta
 
 namespace boost { namespace simd { namespace ext
 {
+  template<class Tag, class State>
+  struct with_state
+  {
+    BOOST_FORCEINLINE
+    with_state(State& state_)
+     : state(state_)
+    {
+    }
+
+    template<class Sig>
+    struct result;
+
+    template<class This, class Expr>
+    struct result<This(Expr)>
+     : dispatch::meta::call<Tag(Expr, State&)>
+    {
+    };
+
+    template<class Expr>
+    BOOST_FORCEINLINE typename result<with_state(Expr&)>::type
+    operator()(Expr& expr) const
+    {
+      return typename dispatch::functor<Tag>()(expr, state);
+    }
+
+    State& state;
+  };
+
   template<class Expr, class State>
   struct unpack_schedule
   {
     typedef dispatch::
             unpack< Expr
                   , dispatch::functor< typename proto::tag_of<Expr>::type, tag::formal_ >
-                  , dispatch::with_state<tag::schedule_, State> const
+                  , with_state<tag::schedule_, State> const
                   >
     transform;
 
@@ -60,7 +88,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(Expr& expr, State& state) const
     {
-      return transform()(expr, dispatch::with_state<tag::schedule_, State>(state));
+      return transform()(expr, with_state<tag::schedule_, State>(state));
     }
   };
 

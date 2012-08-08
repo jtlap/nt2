@@ -57,6 +57,26 @@ NT2_TEST_CASE( run_type )
                     );
 }
 
+NT2_TEST_CASE( run_data )
+{
+  using nt2::table;
+  typedef double T;
+  typedef typename nt2::meta::as_integer<T>::type U;
+  typedef nt2::settings S(nt2::_4D);
+
+  table<T> a0( nt2::of_size(5, 3) );
+
+  for(std::size_t j=1; j!=3+1; ++j)
+    for(std::size_t i=1; i!=5+1; ++i)
+      a0(i, j) = T(i+j+0.5);
+
+  table<U> a1 = nt2::toint(a0*T(2));
+
+  for(std::size_t j=1; j!=3+1; ++j)
+    for(std::size_t i=1; i!=5+1; ++i)
+      NT2_TEST_EQUAL( U((i+j+0.5)*2), U(a1(i, j)) );
+}
+
 NT2_TEST_CASE( value_at )
 {
   using nt2::table;

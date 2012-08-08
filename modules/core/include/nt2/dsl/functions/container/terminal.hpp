@@ -96,14 +96,7 @@ namespace nt2 { namespace ext
                               ((target_< simd_<unspecified_<Data>, X> >))
                             )
   {
-    typedef typename boost::dispatch::meta::
-            strip< typename boost::dispatch::meta::
-                   scalar_of< typename boost::dispatch::meta::
-                              semantic_of<A0&>::type
-                            >::type
-                 >::type                            stype;
-
-    typedef boost::simd::native<stype, X>           result_type;
+    typedef typename Data::type result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, State const& state, Data const&) const
@@ -198,12 +191,7 @@ namespace nt2 { namespace ext
                               ((target_< simd_< unspecified_<Data>,X > >))
                             )
   {
-    typedef typename boost::dispatch::meta::
-            strip< typename boost::dispatch::meta::
-                   semantic_of<A0&>::type
-                 >::type                            stype;
-
-    typedef boost::simd::native<stype, X>           result_type;
+    typedef typename Data::type result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const&, Data const&) const
