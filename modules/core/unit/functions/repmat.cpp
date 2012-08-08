@@ -70,12 +70,18 @@ NT2_TEST_CASE_TPL( repmat_expr, NT2_TYPES )
   }
 
   {
-    nt2::table<T> a1;
+    nt2::table<T> a1, a12;
     a1 = nt2::repmat(pattern,5,2);
+    a12 = nt2::repmat(pattern,5,2)(nt2::_);
 
     for(std::size_t j = 1; j < 2*2;++j)
+    {
       for(std::size_t i = 1; i < 2*5;++i)
+      {
         NT2_TEST_EQUAL(a1(i,j), (i+j)%2 ? T(0) : T(1) );
+        NT2_TEST_EQUAL(a12(i+(j-1)*2*5), (i+j)%2 ? T(0) : T(1) );
+      }
+    }
   }
 
   {
