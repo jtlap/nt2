@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::sum1 function"
+#define NT2_UNIT_MODULE "nt2::cdiff function"
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/cdiff.hpp>
@@ -16,6 +16,7 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -23,6 +24,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 // NT2_TEST_CASE_TPL( cdiff_scalar, (float)(double))//NT2_TYPES )
 // {
@@ -40,9 +42,12 @@
 NT2_TEST_CASE_TPL( cdiff, (float)(double))//NT2_TYPES )
 {
   using nt2::_;
+  using nt2::end_; 
+  
   nt2::table<T> y( nt2::of_size(5,3) );
-  nt2::table<T> sy;
+  nt2::table<T> sy, zy;
   nt2::table<T> sy1, sy2;
+  nt2::table<T> zy1, zy2;
 
 
   for(size_t j=1;j<=size(y, 2);j++)
@@ -51,10 +56,18 @@ NT2_TEST_CASE_TPL( cdiff, (float)(double))//NT2_TYPES )
 
   NT2_DISPLAY(y);
 
-   sy = nt2::cdiff(y);
+  sy = nt2::cdiff(y);
+  zy1= y(_(3, end_), _)-y(_(1, end_-2), _); 
+  NT2_TEST(nt2::isequal(sy, zy1));
+  NT2_TEST(nt2::isequal(nt2::cdiff(y), y(_(3, end_), _)-y(_(1, end_-2), _)));
   NT2_DISPLAY(sy);
+  NT2_DISPLAY(zy1); 
   sy1 = nt2::cdiff(y, 2);
+  zy2 =  y(_, _(3, end_))-y(_, _(1, end_-2)); 
+  NT2_TEST(nt2::isequal(sy1, zy2));
+  NT2_TEST(nt2::isequal(nt2::cdiff(y, 2),  y(_, _(3, end_))-y(_, _(1, end_-2))));
   NT2_DISPLAY(sy1);
+  NT2_DISPLAY(zy2);
   sy2 = nt2::cdiff(y, 3);
   NT2_DISPLAY(sy2);
 
