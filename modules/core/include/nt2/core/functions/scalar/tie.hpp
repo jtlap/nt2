@@ -11,8 +11,8 @@
 
 #include <nt2/core/functions/tie.hpp>
 #include <nt2/core/container/dsl/domain.hpp>
+#include <boost/dispatch/meta/as_ref.hpp>
 #include <boost/mpl/if.hpp>
-#include <boost/type_traits/is_reference.hpp>
 #include <boost/type_traits/add_reference.hpp>
 
 #include <nt2/sdk/parameters.hpp>
@@ -22,6 +22,9 @@
 
 namespace nt2 { namespace ext
 {
+  template<class T, class Enable = void>
+  struct as_child_ref;
+
   template<class T, long Arity = T::proto_arity_c>
   struct as_child_ref_expr
   {
@@ -35,20 +38,21 @@ namespace nt2 { namespace ext
   template<class T>
   struct as_child_ref_expr<T, 0l>
   {
-    typedef typename boost::proto::result_of::value<T>::value_type value;
-    typedef typename boost::mpl::if_< boost::is_reference<value>, typename boost::remove_const<T>::type, T&>::type type;
-    static T& call(T& t)
+    typedef as_child_ref< typename boost::proto::result_of::value<T>::value_type > impl;
+    typedef typename impl::type type;
+    static type call(T& t)
     {
-      return t;
+      return impl::call(boost::proto::value(t));
     }
   };
 
-  template<class T, class Enable = void>
+  template<class T, class Enable>
   struct as_child_ref
   {
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<T&> > expr;
-    typedef nt2::container::expression<expr, T&, boost::proto::is_proto_expr> type;
-    static type call(T& t)
+    typedef typename boost::mpl::if_< meta::is_container_ref<T>, T, T&>::type term;
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term> > expr;
+    typedef nt2::container::expression<expr, typename container::as_container_noref<term>::type, boost::proto::is_proto_expr> type;
+    static type call(typename boost::dispatch::meta::as_ref<term>::type t)
     {
       return type(expr::make(t));
     }

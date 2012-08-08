@@ -44,15 +44,17 @@ namespace nt2
 #define M0(z,n,t)                                                                 \
 template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE                       \
 typename boost::dispatch::meta::                                                  \
-         call<tag::tie_(BOOST_PP_ENUM_BINARY_PARAMS(n, A, & BOOST_PP_INTERCEPT))>::type \
-tie(BOOST_PP_ENUM_BINARY_PARAMS(n,A,& a))                                         \
+         call<tag::tie_(BOOST_PP_ENUM_BINARY_PARAMS(n, A, t & BOOST_PP_INTERCEPT))>::type \
+tie(BOOST_PP_ENUM_BINARY_PARAMS(n,A,t & a))                                       \
 {                                                                                 \
   return typename boost::dispatch::make_functor<tag::tie_, A0>::type()            \
          (BOOST_PP_ENUM_PARAMS(n, a));                                            \
 }                                                                                 \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M0,~)
+// FIXME: needs perfect forwarding
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M0,BOOST_PP_EMPTY())
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M0,const)
 #undef M0
 }
 

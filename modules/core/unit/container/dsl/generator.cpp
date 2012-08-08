@@ -104,6 +104,8 @@ struct is_nt2_basic_expr< nt2::table<T, S> > : is_nt2_basic_expr< nt2::container
 template<class Expr>
 void expr_lifetime_0(Expr const&)
 {
+  std::cout << __FUNCTION__ << std::endl;
+
   using nt2::memory::container;
 
   typedef double T;
@@ -119,6 +121,8 @@ void expr_lifetime_0(Expr const&)
 template<class Expr>
 void expr_lifetime_2_t(Expr const&)
 {
+  std::cout << __FUNCTION__ << std::endl;
+
   using nt2::memory::container;
   using nt2::memory::container_ref;
 
@@ -132,9 +136,46 @@ void expr_lifetime_2_t(Expr const&)
   NT2_TEST( is_nt2_basic_expr<child0>() );
   NT2_TEST( is_nt2_basic_expr<child1>() );
 
+  NT2_TEST( !boost::is_reference<child0>::value );
+  NT2_TEST( !boost::is_const<child0>::value     );
   NT2_TEST( !boost::is_reference<child1>::value );
   NT2_TEST( !boost::is_const<child1>::value     );
 
+  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
+                  , (container_ref< container<T, S> >)
+                  );
+  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
+                  , (container_ref< container<T, S> >)
+                  );
+}
+
+template<class Expr>
+void expr_lifetime_2_ts(Expr const&)
+{
+  std::cout << __FUNCTION__ << std::endl;
+
+  using nt2::memory::container;
+  using nt2::memory::container_ref;
+  using nt2::memory::container_shared_ref;
+
+  typedef double T;
+  typedef nt2::settings S(nt2::_4D);
+
+  typedef typename boost::proto::result_of::child_c<Expr, 0>::value_type child0;
+  typedef typename boost::proto::result_of::child_c<Expr, 1>::value_type child1;
+
+  NT2_TEST( is_nt2_basic_expr<Expr>() );
+  NT2_TEST( is_nt2_basic_expr<child0>() );
+  NT2_TEST( is_nt2_basic_expr<child1>() );
+
+  NT2_TEST( !boost::is_reference<child0>::value );
+  NT2_TEST( !boost::is_const<child0>::value     );
+  NT2_TEST( !boost::is_reference<child1>::value );
+  NT2_TEST( !boost::is_const<child1>::value     );
+
+  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
+                  , (container_shared_ref< container<T, S> >)
+                  );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
                   , (container_ref< container<T, S> >)
                   );
@@ -143,7 +184,10 @@ void expr_lifetime_2_t(Expr const&)
 template<class Expr>
 void expr_lifetime_2_i(Expr const&)
 {
+  std::cout << __FUNCTION__ << std::endl;
+
   using nt2::memory::container;
+  using nt2::memory::container_ref;
 
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
@@ -155,9 +199,14 @@ void expr_lifetime_2_i(Expr const&)
   NT2_TEST( is_nt2_basic_expr<child0>() );
   NT2_TEST( is_nt2_basic_expr<child1>() );
 
+  NT2_TEST( !boost::is_reference<child0>::value );
+  NT2_TEST( !boost::is_const<child0>::value     );
   NT2_TEST( !boost::is_reference<child1>::value );
   NT2_TEST( !boost::is_const<child1>::value     );
 
+  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
+                  , (container_ref< container<T, S> >)
+                  );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
                   , T
                   );
@@ -166,7 +215,10 @@ void expr_lifetime_2_i(Expr const&)
 template<class Expr>
 void expr_lifetime_2_ir(Expr const&)
 {
+  std::cout << __FUNCTION__ << std::endl;
+
   using nt2::memory::container;
+  using nt2::memory::container_ref;
 
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
@@ -178,40 +230,98 @@ void expr_lifetime_2_ir(Expr const&)
   NT2_TEST( is_nt2_basic_expr<child0>() );
   NT2_TEST( is_nt2_basic_expr<child1>() );
 
+  NT2_TEST( !boost::is_reference<child0>::value );
+  NT2_TEST( !boost::is_const<child0>::value     );
   NT2_TEST( !boost::is_reference<child1>::value );
   NT2_TEST( !boost::is_const<child1>::value     );
 
+  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
+                  , (container_ref< container<T, S> >)
+                  );
   NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child1>::value_type
                   , T&
                   );
 }
 
 template<class Expr>
-void expr_lifetime_tie(Expr const&)
+void expr_lifetime_tie_i(Expr const&)
 {
+  std::cout << __FUNCTION__ << std::endl;
+
   using nt2::memory::container;
 
   typedef double T;
   typedef nt2::settings S(nt2::_4D);
 
-  typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0_in;
-  typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
+  typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
 
   NT2_TEST( is_nt2_basic_expr<Expr>() );
-  NT2_TEST( is_nt2_basic_expr<typename boost::remove_reference<child0_in>::type>() );
+  NT2_TEST( is_nt2_basic_expr<child0>() );
 
   typedef typename boost::proto::result_of::value<child0>::value_type value;
-  NT2_TEST( boost::is_reference<child0_in>::value || boost::is_reference<value>::value );
-  NT2_TEST( !boost::is_const<child0_in>::value     );
+  NT2_TEST( boost::is_reference<value>::value );
+  NT2_TEST( !boost::is_const<child0>::value     );
 
-  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::type
+  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
                   , T&
+                  );
+}
+
+template<class Expr>
+void expr_lifetime_tie_t(Expr const&)
+{
+  std::cout << __FUNCTION__ << std::endl;
+
+  using nt2::memory::container;
+
+  typedef double T;
+  typedef nt2::settings S(nt2::_4D);
+
+  typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
+
+  NT2_TEST( is_nt2_basic_expr<Expr>() );
+  NT2_TEST( is_nt2_basic_expr<child0>() );
+
+  typedef typename boost::proto::result_of::value<child0>::value_type value;
+  NT2_TEST( boost::is_reference<value>::value );
+  NT2_TEST( !boost::is_const<child0>::value     );
+
+  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
+                  , (container<T, S>&)
+                  );
+}
+
+template<class Expr>
+void expr_lifetime_tie_ts(Expr const&)
+{
+  std::cout << __FUNCTION__ << std::endl;
+
+  using nt2::memory::container;
+  using nt2::memory::container_ref;
+  using nt2::memory::container_shared_ref;
+
+  typedef double T;
+  typedef nt2::settings S(nt2::_4D);
+
+  typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
+
+  NT2_TEST( is_nt2_basic_expr<Expr>() );
+  NT2_TEST( is_nt2_basic_expr<child0>() );
+
+  typedef typename boost::proto::result_of::value<child0>::value_type value;
+  NT2_TEST( !boost::is_reference<value>::value );
+  NT2_TEST( !boost::is_const<child0>::value     );
+
+  NT2_TEST_TYPE_IS( typename boost::proto::result_of::value<child0>::value_type
+                  , (container_shared_ref< container<T, S>, true>)
                   );
 }
 
 template<class Expr>
 void expr_lifetime_assign(Expr&)
 {
+  std::cout << __FUNCTION__ << std::endl;
+
   typedef double T;
   NT2_TEST_TYPE_IS( Expr&, T& );
 }
@@ -225,19 +335,29 @@ NT2_TEST_CASE( expr_lifetime )
   typedef nt2::settings S(nt2::_4D);
   table<T, S> a0, a1;
   T i;
+  typedef boost::dispatch::meta::terminal_of_shared< nt2::memory::container<T, S> > shared;
+  typename shared::type a2 = shared::make(), a3 = shared::make();
 
   expr_lifetime_0(a0);
   expr_lifetime_2_t(a0 + a1);
   expr_lifetime_2_i(a0 + i);
   expr_lifetime_2_ir(a0 + boost::proto::as_child(i));
-  expr_lifetime_tie(nt2::tie(i));
+  expr_lifetime_tie_i(nt2::tie(i));
+  expr_lifetime_tie_t(nt2::tie(a0));
+  expr_lifetime_tie_ts(nt2::tie(a2));
+  expr_lifetime_2_t(boost::proto::child_c<0>(nt2::tie(a0)) + a1);
+  expr_lifetime_2_ts(boost::proto::child_c<0>(nt2::tie(a2)) + a1);
   expr_lifetime_assign(nt2::assign(i, nt2::sum(a0(nt2::_))));
 
   expr_lifetime_0(nt2::optimize(a0));
   expr_lifetime_2_t(nt2::optimize(a0 + a1));
   expr_lifetime_2_i(nt2::optimize(a0 + i));
   expr_lifetime_2_ir(nt2::optimize(a0 + boost::proto::as_child(i)));
-  expr_lifetime_tie(nt2::optimize(nt2::tie(i)));
+  expr_lifetime_tie_i(nt2::optimize(nt2::tie(i)));
+  expr_lifetime_tie_t(nt2::optimize(nt2::tie(a0)));
+  expr_lifetime_tie_ts(nt2::optimize(nt2::tie(a2)));
+  expr_lifetime_2_t(nt2::optimize(boost::proto::child_c<0>(nt2::optimize(nt2::tie(a0))) + a1));
+  expr_lifetime_2_ts(nt2::optimize(boost::proto::child_c<0>(nt2::optimize(nt2::tie(a2))) + a1));
   expr_lifetime_assign(nt2::optimize(nt2::assign(i, nt2::sum(a0(nt2::_)))));
 }
 

@@ -12,11 +12,26 @@
 #include <nt2/core/functions/tie.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/assign.hpp>
-#include <nt2/core/container/table/table.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 
 namespace nt2 { namespace ext
 {
+  //============================================================================
+  // run tie(...) does nothing (doesn't make sense to evaluate it)
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(N0)
+                            , ((node_<A0, nt2::tag::tie_, N0>))
+                            )
+  {
+    typedef A0& result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
+    {
+      return a0;
+    }
+  };
+
   //============================================================================
   // Call function for tie(...) = tieable_func(...)
   //============================================================================
@@ -34,29 +49,6 @@ namespace nt2 { namespace ext
     {
       func_t callee;
       callee(a1, a0);
-
-      return a0;
-    }
-  };
-
-  //============================================================================
-  // Standalone tieable_func(...) -- required because schedule doesn't call assign
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                            , (A0)(T0)(N0)(A1)(T1)(N1)
-                            , ((node_<A0, elementwise_<T0>, N0>))
-                              ((node_<A1, tieable_<T1>, N1>))
-                            )
-  {
-    typedef A0&                                         result_type;
-    typedef typename boost::proto::tag_of<A1>::type     tag_t;
-    typedef typename make_functor<tag_t,A0>::type       func_t;
-
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
-    {
-      // FIXME: schedule doesn't produce terminals usable by reference
-      func_t callee;
-      callee(a1, nt2::tie(a0));
 
       return a0;
     }
