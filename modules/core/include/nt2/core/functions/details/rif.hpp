@@ -9,6 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_RIF_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_RIF_HPP_INCLUDED
 
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 
@@ -22,14 +23,13 @@ namespace nt2 { namespace details
     rif() {}
 
     template<class Pos, class Size, class Target>
-    BOOST_FORCEINLINE typename Target::type
-    operator()(Pos const& p, Size const& sz, Target const&) const
+    typename Target::type
+    operator()(Pos const& p, Size const&sz, Target const&) const
     {
-      typedef typename Target::type                                   type;
-      typedef typename meta::call<nt2::tag::ind2sub_(Size,Pos)>::type  sub_t;
+      typedef typename Target::type                 type;
+      typedef typename meta::as_integer<type>::type i_t;
 
-      sub_t const pos = ind2sub(sz,p);
-      return nt2::enumerate<type>(pos[0]);
+      return splat<type>( ind2sub(sz,enumerate<i_t>(p))[0] );
     }
   };
 } }

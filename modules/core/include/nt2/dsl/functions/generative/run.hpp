@@ -9,13 +9,8 @@
 #ifndef NT2_DSL_FUNCTIONS_GENERATOR_RUN_HPP_INCLUDED
 #define NT2_DSL_FUNCTIONS_GENERATOR_RUN_HPP_INCLUDED
 
-#include <boost/mpl/if.hpp>
-#include <boost/mpl/apply.hpp>
 #include <nt2/dsl/functions/run.hpp>
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/model_of.hpp>
-#include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 namespace nt2 { namespace ext
