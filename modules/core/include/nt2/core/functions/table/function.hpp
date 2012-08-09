@@ -11,9 +11,9 @@
 
 #include <nt2/core/functions/function.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
+#include <nt2/include/functions/enumerate.hpp>
 #include <nt2/core/functions/table/details/reindex.hpp>
 #include <nt2/core/functions/table/details/function_size.hpp>
 #include <nt2/core/functions/table/details/function_value_type.hpp>
@@ -37,11 +37,14 @@ namespace nt2 { namespace ext
   {
     // Get the indexed expression
     typedef typename boost::proto::result_of::
-                     child_c<Expr&, 0>::type                  child0;
+                     child_c<Expr&, 0>::value_type            child0;
+    typedef typename boost::proto::result_of::
+                     child_c<Expr&, 2>::value_type            child2;
 
     // ... and its base index types
-    typedef typename boost::
-            remove_reference<child0>::type::index_type::type  index_type;
+    typedef typename child0::index_type::type                 index_type;
+    typedef typename boost::proto::result_of::
+            value<child2>::value_type                         size_type;
 
     // Get the indexing expression pack
     typedef typename boost::proto::result_of::
@@ -51,21 +54,17 @@ namespace nt2 { namespace ext
     static const long arity = childN::proto_arity_c;
 
     // Compute a type able to hold the position we look for
-    typedef typename nt2::make_size<arity>::type              size_type;
-    typedef size_type                                         pos_type;
+    typedef typename details::as_integer_target<Data>::type   i_t;
+    typedef typename meta::as_signed<i_t>::type               si_t;
+    typedef typename meta::
+            call<tag::ind2sub_( typename Expr::extent_type
+                              , i_t
+                              )>::type                        pos_type;
 
     // Once set, we build a type with evaluation targets
-    typedef typename details::as_integer_target<Data>::type   target_inner;
-    typedef boost::array< boost::dispatch::meta::as_<typename meta::scalar_of<target_inner>::type>
-                        , arity-1
-                        >                                     target_base;
-
-    typedef typename boost::fusion::result_of::
-            as_vector< typename boost::fusion::result_of::
-                       push_front< target_base
-                                 , target_inner
-                                 >::type
-                     >::type                                  target_type;
+    typedef boost::array< boost::dispatch::meta::as_<si_t>
+                        , arity
+                        >                                     target_type;
 
     // We use a zip_view for passign all those informations to relative_index
     typedef boost::fusion::vector< childN const&
@@ -81,7 +80,7 @@ namespace nt2 { namespace ext
 
     // Compute the result type for index computation
     typedef typename meta::
-            call< tag::sub2ind_( typename meta::call<tag::extent_(child0)>::type
+            call< tag::sub2ind_( typename child0::extent_type
                                , transformed&
                                , index_type&
                                )
@@ -102,7 +101,7 @@ namespace nt2 { namespace ext
       target_type targets;
 
       // Grab the destination subscript
-      pos_type pos = ind2sub(expr.extent(), state, indexes);
+      pos_type pos = ind2sub(expr.extent(), nt2::enumerate<i_t>(state), indexes);
 
       // Apply index_t to each subscript value
       transformed trs = boost::fusion::
