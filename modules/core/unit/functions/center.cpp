@@ -71,6 +71,8 @@ NT2_TEST_CASE_TPL( center, (float)(double))//NT2_TYPES )
   z =  nt2::bsxfun(nt2::functor<nt2::tag::minus_>(), y, m);
   NT2_DISPLAY(z);
   NT2_TEST(nt2::isequal(z, sy));
+  NT2_TEST(nt2::isequal(sy = nt2::center(y, 1), z));
+
 
 
 

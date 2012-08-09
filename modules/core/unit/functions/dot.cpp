@@ -14,9 +14,10 @@
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/size.hpp>
-
+#include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL( dot_scalar, (float)(double))//NT2_TYPES )
 {
@@ -46,27 +47,34 @@ NT2_TEST_CASE_TPL( dot, (float)(double))//NT2_TYPES )
   sy = nt2::dot(y, y);
   sz = nt2::sum(nt2::multiplies(y, y));
   for(size_t j=1;j<=size(y, 2);j++)
-      NT2_TEST_EQUAL(sz(j), sy(j));
+    NT2_TEST_EQUAL(sz(j), sy(j));
+  NT2_TEST(nt2::isequal(nt2::dot(y, y), nt2::sum(nt2::multiplies(y, y))));
+  
   sy = nt2::dot(y, y, 1);
   sz = nt2::sum(nt2::multiplies(y, y), 1);
   for(size_t j=1;j<=size(y, 2);j++)
-      NT2_TEST_EQUAL(sz(j), sy(j));
+    NT2_TEST_EQUAL(sz(j), sy(j));
+  NT2_TEST(nt2::isequal(nt2::dot(y, y, 1), nt2::sum(nt2::multiplies(y, y), 1)));
+  
   sy = nt2::dot(y, y, 2);
   sz = nt2::sum(nt2::multiplies(y, y), 2);
-    for(size_t i=1;i<=size(y, 1);i++)
-      NT2_TEST_EQUAL(sz(i), sy(i));
+  for(size_t i=1;i<=size(y, 1);i++)
+    NT2_TEST_EQUAL(sz(i), sy(i));
+  NT2_TEST(nt2::isequal(nt2::dot(y, y, 2), nt2::sum(nt2::multiplies(y, y), 2)));
+  
   sy = nt2::dot(y, y, 3);
   sz = nt2::sum(nt2::multiplies(y, y), 3);
   for(size_t j=1;j<=size(y, 2);j++)
     for(size_t i=1;i<=size(y, 1);i++)
       NT2_TEST_EQUAL(sz(i, j), sy(i, j));
-
-
+  NT2_TEST(nt2::isequal(nt2::dot(y, y, 3), nt2::multiplies(y, y)));
+  
+  
   sy = nt2::dot(y(_), y(_));
   sz = nt2::sum(nt2::sqr(y(_)));
   display(sy);
   NT2_TEST_EQUAL(sy(1), sz(1));
-
+ 
 
 }
 
