@@ -14,6 +14,9 @@
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/modulo.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/minus.hpp>
 
 namespace nt2 { namespace ext
 {
