@@ -67,11 +67,11 @@ namespace boost { namespace simd { namespace ext
                                       ((target_< simd_< arithmetic_<A1>, X > >))
                                     )
   {
-    typedef A0 result_type;
+    typedef typename A1::type result_type;
 
     inline result_type operator()(const A0& a0, const A1&) const
     {
-      return a0;
+      return bitwise_cast<result_type>(a0);
     }
   };
 
