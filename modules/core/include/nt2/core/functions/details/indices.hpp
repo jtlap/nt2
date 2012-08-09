@@ -11,6 +11,7 @@
 
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 
 namespace nt2 { namespace details
@@ -21,27 +22,26 @@ namespace nt2 { namespace details
   struct indices
   {
     indices() {}
-    template <class T>
-    indices(const T & dim) : dim_(dim-1), base_(1){}
-    template <class T>
-    indices(const T & dim, int32_t base) : dim_(dim-1), base_(base){}
+    template <class T> indices(const T & d) : dim_(d-1), base_(1) {}
+    template <class T> indices(const T & d, int32_t b) : dim_(d-1), base_(b)  {}
 
     template<class Pos, class Size, class Target>
     typename Target::type
     operator()(Pos const& p, Size const&sz, Target const&) const
     {
-      typedef typename Target::type                                     type;
-      typedef typename meta::call<nt2::tag::ind2sub_(Size,Pos)>::type  sub_t;
+      typedef typename Target::type                                         type;
+      typedef typename meta::as_integer<type>::type                         i_t;
+      typedef typename meta::
+                       call<nt2::tag::enumerate_(Pos,meta::as_<i_t>)>::type p_t;
+      typedef typename meta::call<nt2::tag::ind2sub_(Size,p_t)>::type       s_t;;
 
-      sub_t const pos = ind2sub(sz,p);
-      if (dim_ >= pos.size())
-        return nt2::splat<type>(base_);
-      else if (dim_)
-        return nt2::splat<type>(pos[dim_]+base_-1);
-      else
-        return nt2::enumerate<type>(pos[dim_]+base_-1);
+      s_t const pos = ind2sub(sz,nt2::enumerate<i_t>(p));
+
+      if (dim_ >= pos.size()) return nt2::splat<type>(base_);
+      else                    return nt2::splat<type>(pos[dim_])+base_-1;
     }
-  private:
+
+    private:
     size_t dim_;
     int32_t base_;
   };
