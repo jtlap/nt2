@@ -64,7 +64,7 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
                                     , (A0)(A1)(X)
-                                    , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>, boost::simd::meta::cardinal_of<A1> >)
+                                    , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>, boost::simd::meta::cardinal_of<typename A1::type> >)
                                     , ((simd_< arithmetic_<A0>, X >))
                                       ((target_< simd_< arithmetic_<A1>, X > >))
                                     )
