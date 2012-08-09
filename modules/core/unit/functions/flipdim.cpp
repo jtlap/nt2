@@ -10,9 +10,10 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/flipdim.hpp>
-
+#include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL( flipdim_scalar, NT2_TYPES )
 {
@@ -100,4 +101,27 @@ NT2_TEST_CASE_TPL( noflip, NT2_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       NT2_TEST_EQUAL( T(x(i,j)),T(y(i,j)) );
+}
+NT2_TEST_CASE_TPL( flipflip, NT2_TYPES )
+{
+  nt2::table<T> x,y( nt2::of_size(5,3) );
+
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      y(i,j) = T(i + 10*j);
+  display("y", y);
+
+
+  x = nt2::flipdim(y, 1);
+  display("x", x);
+
+  NT2_TEST(nt2::isequal( x,  nt2::flipdim(y, 1)));
+  NT2_TEST(nt2::isequal( y,  nt2::flipdim(x, 1)));
+  
+  x = nt2::flipdim(y, 2);
+  display("x", x);
+
+  NT2_TEST( nt2::isequal( x,  nt2::flipdim(y, 2)));
+  NT2_TEST( nt2::isequal( y,  nt2::flipdim(x, 2)));
+  
 }
