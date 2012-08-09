@@ -9,50 +9,54 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_COLS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_COLS_HPP_INCLUDED
 
-#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
+#include <nt2/include/functions/enumerate.hpp>
 
 namespace nt2 { namespace details
 {
   //============================================================================
   // cols actual functor
   //============================================================================
-  template < class T>
+  template<class T>
   struct cols
   {
     cols()                : start_(T())  {}
     cols(const T & start) : start_(start){}
+
     template<class Pos, class Size, class Target>
     typename Target::type
     operator()(Pos const& p, Size const&sz, Target const& ) const
     {
-      typedef typename Target::type                                     type;
-      typedef typename meta::call<nt2::tag::ind2sub_(Size,Pos)>::type  sub_t;
+      typedef typename Target::type                 type;
+      typedef typename meta::as_integer<type>::type i_t;
 
-      sub_t const pos = ind2sub(sz,p);
-      return nt2::splat<type>(pos[1]-1+start_);
+      return splat<type>( ind2sub(sz,enumerate<i_t>(p))[1] - 1) + start_ ;
     }
-  private :
+
+    private :
     T start_;
   };
 
-  template < class T, class T1>
+  template<class T, class T1>
   struct cols_scaled
   {
-    cols_scaled()                         : start_(T()), h_(One<T>()){}
-    cols_scaled(const T & start, const T1 & h) : start_(start), h_(h){}
-    template<class Pos, class Size, class Target>
-    typename Target::type operator()(Pos const& p, Size const&sz, Target const& ) const
-    {
-      typedef typename Target::type                                     type;
-      typedef typename meta::call<nt2::tag::ind2sub_(Size,Pos)>::type  sub_t;
+    cols_scaled() : start_(T()), fact_(One<T1>())  {}
+    cols_scaled(const T & start, const T1 & f)  : start_(start), fact_(f)  {}
 
-      sub_t const pos = ind2sub(sz,p);
-      return nt2::splat<type>(h_*(pos[1]-1)+start_);
+    template<class Pos, class Size, class Target>
+    typename Target::type
+    operator()(Pos const& p, Size const&sz, Target const& ) const
+    {
+      typedef typename Target::type                 type;
+      typedef typename meta::as_integer<type>::type i_t;
+
+      return fact_*splat<type>(ind2sub(sz,enumerate<i_t>(p))[1] - 1) + start_;
     }
-  private :
+
+    private :
     T start_;
-    T h_;
+    T fact_;
   };
 } }
 
