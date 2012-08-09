@@ -92,7 +92,8 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
-      return nt2::bitwise_cast<result_type>(nt2::run(boost::proto::child_c<0>(a0), p, data));
+      typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
+      return nt2::bitwise_cast<result_type>(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)));
     }
   };
 
@@ -114,8 +115,10 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
+      typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
+
       rvec r0, r1;
-      nt2::split(nt2::run(boost::proto::child_c<0>(a0), p, data), r1, r0);
+      nt2::split(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)), r1, r0);
 
       // FIXME: only works if p is scalar
       return p/a0.leading_size() % meta::cardinal_of<vec>::value ? r0 : r1;
@@ -133,7 +136,8 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
-      return result_type(nt2::run(boost::proto::child_c<0>(a0), p, data));
+      typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
+      return result_type(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)));
     }
   };
 
@@ -155,9 +159,11 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
+      typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
+
       vec v0, v1;
-      v0 = run(boost::proto::child_c<0>(a0), p, data);
-      v1 = run(boost::proto::child_c<0>(a0), p+meta::cardinal_of<vec>::value, data);
+      v0 = run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data));
+      v1 = run(boost::proto::child_c<0>(a0), p+meta::cardinal_of<vec>::value, boost::simd::ext::adapt_data<child0, Data>::call(data));
 
       return nt2::group(v0, v1);
     }
@@ -174,7 +180,8 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
-      return result_type(nt2::run(boost::proto::child_c<0>(a0), p, data));
+      typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
+      return result_type(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)));
     }
   };
 

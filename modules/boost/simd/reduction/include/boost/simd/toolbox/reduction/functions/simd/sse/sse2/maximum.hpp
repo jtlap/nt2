@@ -93,13 +93,12 @@ namespace boost { namespace simd { namespace ext
       rtype v0 = simd::bitwise_cast<rtype>(a0);
       A0 pack = simd::bitwise_cast<A0>(_mm_unpackhi_pd(v0,v0));
       A0 max1 = boost::simd::max(a0,pack);
-      A0 max2 = { max ( max1
-                      , simd::bitwise_cast<A0>( _mm_shufflelo_epi16 ( max1
-                                                                    , _MM_SHUFFLE(0, 1, 2, 3)
-                                                                    )
-                                              )
-                      )
-                };
+      A0 max2 = max ( max1
+                    , simd::bitwise_cast<A0>( _mm_shufflelo_epi16 ( max1
+                                                                  , _MM_SHUFFLE(0, 1, 2, 3)
+                                                                  )
+                                            )
+                    );
 
          max2 = max ( max2
                     , simd::bitwise_cast<A0>( _mm_shuffle_epi32 ( max2
