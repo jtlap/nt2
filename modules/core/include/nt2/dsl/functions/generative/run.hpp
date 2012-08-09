@@ -30,22 +30,7 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    // The semantic of A0 gives the type to be generated
-    typedef typename meta::
-            scalar_of < typename  boost::dispatch::meta::
-                                  semantic_of<A0&>::type
-                      >::type                                         value_t;
-
-    // Data selects if the generative target should be SIMD or not
-    typedef typename Data::type                                       target_t;
-    typedef typename boost::dispatch::meta::model_of<target_t>::type  m_t;
-
-    // Compute the proper type
-    // TODO: Make a proper way to transfer 'SIMD'ness to type
-    typedef typename boost::mpl::if_< boost::simd::meta::is_native<target_t>
-                                    , typename boost::mpl::apply<m_t,value_t>::type
-                                    , value_t
-                                    >::type                         result_type;
+    typedef typename Data::type result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const&) const
