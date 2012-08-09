@@ -32,11 +32,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
     {
-      typename A0::extent_type e = a0.extent();
-      std::size_t inner = boost::fusion::at_c<0>(e);
-      std::size_t outer = nt2::numel(boost::fusion::pop_front(e));
-
-      nt2::transform(a0,a1,0,inner,outer);
+      nt2::transform(a0,a1,0,nt2::numel(a0),1);
     }
   };
 
@@ -63,18 +59,13 @@ namespace nt2 { namespace ext
       static const std::size_t N = boost::simd::meta
                                         ::cardinal_of<target_type>::value;
 
-      std::size_t aligned_in  = in & ~(N-1);
-      std::size_t outer       = out;
-      std::size_t it          = p;
-
-      for(std::size_t j=0; j != outer; ++j)
-      {
-        for(std::size_t m=it+aligned_in; it != m; it+=N)
-          nt2::run( a0, it, nt2::run(a1, it, meta::as_<target_type>()) );
-
-        for(std::size_t m=it+(in-aligned_in); it != m; ++it)
-          nt2::run( a0, it, nt2::run(a1, it, meta::as_<stype>()) );
-      }
+      std::size_t bound = p+in*out;
+      std::size_t aligned_bound = bound & ~(N-1);
+      std::size_t i = p;
+      for(; i != aligned_bound; i += N)
+        nt2::run( a0, i, nt2::run(a1, i, meta::as_<target_type>()) );
+      for(; i != bound; ++i)
+        nt2::run( a0, i, nt2::run(a1, i, meta::as_<stype>()) );
     }
   };
 } }

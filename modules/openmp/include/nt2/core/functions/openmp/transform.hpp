@@ -35,11 +35,6 @@ namespace nt2 { namespace ext
   {
     typedef void                                            result_type;
 
-    typedef typename meta::
-            strip< typename meta::
-                   scalar_of<A0>::type
-                 >::type                                    target_type;
-
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1) const
     {
@@ -65,11 +60,6 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void                                            result_type;
-
-    typedef typename meta::
-            strip< typename meta::
-                   scalar_of<A0>::type
-                 >::type                                    target_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, A1& a1, A2 it, A3 in, A4 out) const
