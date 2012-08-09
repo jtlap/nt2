@@ -43,8 +43,8 @@ namespace nt2 { namespace ext
       sub_t const pos = ind2sub(boost::proto::child_c<1>(a0).value(),p);
 
       // Compute which part of the input table to load for selection
-      std::size_t k = ((pos[1]-1)
-                    & ~(boost::simd::meta::cardinal_of<result_type>::value-1));
+      State k = ((pos[1]-1)
+              & ~(boost::simd::meta::cardinal_of<result_type>::value-1));
 
       // Return a diagonal built from boost::proto::child_c<0>(a0)
       return nt2::if_else ( nt2::eq ( nt2::enumerate<id_t>( pos[0] )
@@ -85,9 +85,9 @@ namespace nt2 { namespace ext
 
       // Compute which part of the input table to load for selection
       ////TODO This smells a bit hacky, better be replaced by some inner_shift
-      std::size_t k = ((pos[1]- 1 - offset)
-                    & ~(boost::simd::meta::cardinal_of<result_type>::value-1))
-                    + (offset < 0 ? offset : 0);
+      State k = ((pos[1]- 1 - offset)
+              & ~(boost::simd::meta::cardinal_of<result_type>::value-1))
+              + (offset < 0 ? offset : 0);
 
       // Return a diagonal built from boost::proto::child_c<0>(a0)
       return nt2::if_else ( nt2::eq ( nt2::enumerate<id_t>( pos[0] + offset )
