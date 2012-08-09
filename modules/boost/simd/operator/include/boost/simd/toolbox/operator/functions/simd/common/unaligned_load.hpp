@@ -78,9 +78,9 @@ namespace boost { namespace simd { namespace ext
                                             , boost::simd::meta::cardinal_of<typename A2::type>
                                             >
                               )
-                            , (iterator_< scalar_< arithmetic_<A0> > >)
+                            , (iterator_< scalar_< fundamental_<A0> > >)
                               ((simd_< integer_<A1>, X >))
-                              ((target_< simd_< arithmetic_<A2>, X > >))
+                              ((target_< simd_< fundamental_<A2>, X > >))
                             )
   {
     typedef typename A2::type                           result_type;
