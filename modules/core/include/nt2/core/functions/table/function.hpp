@@ -56,10 +56,7 @@ namespace nt2 { namespace ext
     // Compute a type able to hold the position we look for
     typedef typename details::as_integer_target<Data>::type   i_t;
     typedef typename meta::as_signed<i_t>::type               si_t;
-    typedef typename meta::
-            call<tag::ind2sub_( typename Expr::extent_type
-                              , i_t
-                              )>::type                        pos_type;
+    typedef boost::array<si_t, arity>                         pos_type;
 
     // Once set, we build a type with evaluation targets
     typedef boost::array< boost::dispatch::meta::as_<si_t>
@@ -78,17 +75,9 @@ namespace nt2 { namespace ext
     typedef boost::fusion::
             transform_view<zipped const, details::reindex>    transformed;
 
-    // Compute the result type for index computation
-    typedef typename meta::
-            call< tag::sub2ind_( typename child0::extent_type
-                               , transformed&
-                               , index_type&
-                               )
-                >::type                                       idx;
-
     // Finally, we compute the actual return type after indexing
     typedef typename meta::call< tag::run_( child0
-                                          , idx
+                                          , i_t
                                           , Data const&
                                           )
                                >::type                        result_type;
@@ -101,7 +90,7 @@ namespace nt2 { namespace ext
       target_type targets;
 
       // Grab the destination subscript
-      pos_type pos = ind2sub(expr.extent(), nt2::enumerate<i_t>(state), indexes);
+      pos_type pos = details::one_extend<arity>(ind2sub(expr.extent(), nt2::enumerate<i_t>(state), indexes));
 
       // Apply index_t to each subscript value
       transformed trs = boost::fusion::

@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <nt2/include/functions/relative_index.hpp>
+#include <nt2/include/constants/one.hpp>
 
 namespace nt2 { namespace details
 {
@@ -83,6 +84,18 @@ namespace nt2 { namespace details
   struct  as_integer_target< boost::dispatch::meta::as_<T> >
         : as_integer_target<T>
   {};
+
+  template<long M, class T, std::size_t N>
+  boost::array<T, M> one_extend( boost::array<T, N> const& in )
+  {
+    boost::array<T, M> array;
+    std::size_t i=0;
+    for(; i!=N; ++i)
+      array[i] = in[i];
+    for(; i!=M; ++i)
+      array[i] = One<T>();
+    return array;
+  }
 } }
 
 #endif
