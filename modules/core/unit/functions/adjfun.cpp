@@ -60,10 +60,10 @@ NT2_TEST_CASE_TPL( adjfun, (uint16_t)(int16_t))//NT2_TYPES )
   NT2_DISPLAY(sy);
   ssy1 =  y(_(1, end_-1), _)*y(_(2, end_), _);
   NT2_TEST(nt2::isequal(sy, ssy1)); 
-  //   NT2_TEST(nt2::isequal(sy, y(_(1, end_-1), _)*y(_(2, end_), _))); 
+  NT2_TEST(nt2::isequal(sy, y(_(1, end_-1), _)*y(_(2, end_), _))); 
   sy1 = nt2::adjfun(f, y, 1);
   NT2_DISPLAY(sy1);
-  //  NT2_TEST(nt2::isequal(sy1, y(_(1, end_-1), _)*y(_(2, end_), _))); 
+  NT2_TEST(nt2::isequal(sy1, y(_(1, end_-1), _)*y(_(2, end_), _))); 
   NT2_TEST(nt2::isequal(sy1, ssy1)); 
   sy2 = nt2::adjfun(f, y, 2);
   ssy2 =  y(_, _(1, end_-1))*y(_, _(2, end_)); 

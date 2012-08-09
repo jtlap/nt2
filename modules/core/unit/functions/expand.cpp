@@ -13,7 +13,7 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/ndims.hpp>
-
+#include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -101,4 +101,22 @@ NT2_TEST_CASE_TPL( expand1, NT2_TYPES )
           NT2_TEST_EQUAL( out(vi,vj), (vi<=3 && vj<=2) ? in(vi,vj) : T(0));
     }
   }
+}
+
+NT2_TEST_CASE_TPL( expand2, NT2_TYPES )
+{
+  nt2::table<T> in( nt2::of_size(3, 2) ), out( nt2::of_size(5,3) );
+  nt2::table<T> z( nt2::of_size(5,3) ); 
+  for(int j=1;j<=6;j++) in(j) = j;
+  for(int j=1;j<=2; ++j)
+    for(int i = 1; i <= 3; ++i)
+      z(i, j) = in(i, j); 
+  
+  out = nt2::expand(in,nt2::of_size(5, 3));
+  NT2_DISPLAY(out);
+  NT2_DISPLAY(in);
+  NT2_DISPLAY(z);
+  NT2_TEST(nt2::isequal(z, out));
+  NT2_TEST(nt2::isequal(z, nt2::expand(in,nt2::of_size(5, 3))));
+  NT2_TEST(nt2::isequal(out, nt2::expand(in,nt2::of_size(5, 3))));
 }
