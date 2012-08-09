@@ -37,34 +37,47 @@ namespace nt2 { namespace ext
 
     typedef typename meta::strip<base_type>::type               result_type;
     typedef typename meta::as_integer<result_type>::type                i_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,i_t)>::type  sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
+      // Get size of each children
       _2D ex0 = boost::proto::child_c<0>(a0).extent();
-      sub_t pos = ind2sub(a0.extent(),p);
-      i_t p0 = nt2::enumerate<i_t>(pos[0]);
-      if(size_t(pos[1]) <= ex0[1]) // this is in the a0 stack
-        {
-          State pp = sub2ind(ex0, pos);
-          return nt2::if_else( nt2::le(p0, nt2::splat<i_t>(ex0[0])),
-                               nt2::run(boost::proto::child_c<0>(a0),pp,t),
-                               Zero<result_type>());
-        }
-      else // this is in the a1 stack
-        {
-          _2D ex1 = boost::proto::child_c<1>(a0).extent();
-          pos[0] -= ex0[0];
-          pos[1] -= ex0[1];
-          State pp = sub2ind(ex1, pos);
-          return nt2::if_else( nt2::gt(p0, nt2::splat<i_t>(ex0[0])),
-                               nt2::run(boost::proto::child_c<1>(a0),pp,t),
-                               Zero<result_type>());
-        }
+      _2D ex1 = boost::proto::child_c<1>(a0).extent();
+
+      // Get the current index vector
+      sub_t pos = ind2sub(a0.extent(),nt2::enumerate<i_t>(p));
+
+      // Find the proper quadrant for each position
+      typedef typename meta::as_logical<i_t>::type mask_t;
+      mask_t is_stack0 = nt2::le(pos[1],splat<i_t>(ex0[1]));
+      mask_t is_row0   = nt2::le(pos[0],splat<i_t>(ex0[0]));
+
+      // Result is out of the diagonal
+      result_type z   = Zero<result_type>();
+
+      // Result is in a0
+      result_type s0  = nt2::run( boost::proto::child_c<0>(a0)
+                                , sub2ind(ex0, pos)
+                                , t
+                                );
+
+      // Result is in a1
+      pos[0] -= splat<i_t>(ex0[0]);
+      pos[1] -= splat<i_t>(ex0[1]);
+      result_type s1 = nt2::run ( boost::proto::child_c<1>(a0)
+                                , sub2ind(ex1, pos)
+                                , t
+                                );
+
+      // Select proper values depending on quadrant informations
+      return nt2::if_else ( is_stack0
+                          , nt2::if_else(is_row0, s0, z)
+                          , nt2::if_else(!is_row0, s1, z)
+                          );
     }
   };
-
 } }
 
 #endif
