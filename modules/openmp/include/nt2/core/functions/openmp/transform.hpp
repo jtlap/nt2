@@ -70,7 +70,7 @@ namespace nt2 { namespace ext
         nt2::functor<tag::transform_,Site> transformer;
 
         // Current number of threads
-        std::size_t threads(omp_get_num_threads());
+        std::ptrdiff_t threads(omp_get_num_threads());
 
         // How many inner block to process & dispatch w/r to "thinness"
         std::size_t    local_size     = sz / threads;
