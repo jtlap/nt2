@@ -17,11 +17,13 @@
 
 NT2_TEST_CASE_TPL( from_diag, NT2_TYPES )
 {
-  nt2::table<T> x,y( nt2::of_size(1,31) );
+  nt2::table<T> x,y( nt2::of_size(1,8) );
 
   for(size_t i=1;i<=nt2::length(y);i++) y(i) = i;
 
+  NT2_DISPLAY(y);
   x = nt2::from_diag(y);
+  NT2_DISPLAY(x);
 
   NT2_TEST_EQUAL( nt2::ndims(x) , 2u             );
   NT2_TEST_EQUAL( nt2::size(x,1), nt2::length(y));
@@ -39,7 +41,7 @@ NT2_TEST_CASE_TPL( from_diag_scalar, NT2_TYPES )
 
 NT2_TEST_CASE_TPL( from_diag_expr, NT2_TYPES )
 {
-  nt2::table<T> x,y( nt2::of_size(1,31) );
+  nt2::table<T> x,y( nt2::of_size(1,8) );
 
   for(size_t i=1;i<=nt2::length(y);i++) y(i) = i;
 
@@ -66,5 +68,14 @@ NT2_TEST_CASE_TPL( from_diag_offset, NT2_TYPES )
   NT2_TEST_EQUAL( nt2::size(x,1), nt2::length(y)+2);
   NT2_TEST_EQUAL( nt2::size(x,2), nt2::length(y)+2);
 
-  for(size_t i=3;i<=nt2::length(x);i++) NT2_TEST_EQUAL( x(i,i-2), y(i-2) );
+  for(size_t i=1;i<=nt2::length(y);i++) NT2_TEST_EQUAL( x(i+2,i), y(i) );
+
+  x = nt2::from_diag(y, +2);
+  NT2_DISPLAY(x);
+
+  NT2_TEST_EQUAL( nt2::ndims(x) , 2u             );
+  NT2_TEST_EQUAL( nt2::size(x,1), nt2::length(y)+2);
+  NT2_TEST_EQUAL( nt2::size(x,2), nt2::length(y)+2);
+
+  for(size_t i=1;i<=nt2::length(y);i++) NT2_TEST_EQUAL( x(i,i+2), y(i) );
 }
