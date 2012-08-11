@@ -1,30 +1,27 @@
 [section Motivation]
-Since the late ’90s, processor manufacturers provide specialized processing units called
-multimedia extensions (MMXs) or single instruction, multiple data (SIMD) extensions.
-The introduction of this feature has allowed processors to exploit the latent data parallelism
-available in applications by executing a given instruction simultaneously on multiple data stored
-in a single special register. Built as an independent computation unit in the processor, it comes
-in addition to the regular computation unit complete with a special register file, dispatching
-and pipelining unit.
+Since the late ’90s, processor manufacturers provide specialized processing units
+called multimedia extensions or single instruction, multiple data (SIMD) extensions.
+The introduction of this feature has allowed processors to exploit the latent
+data parallelism available in applications by executing a given instruction s
+imultaneously on multiple data stored in a single special register. Built as an
+independent computation unit in the processor, it comes in addition to the regular
+computation unit complete with a special register file, dispatching and pipelining
+unit.
 
 [section What's a Multimedia Extension ?]
-The term multimedia extension was introduced by Intel in 1996 with the release of the multimedia
-eXtension (mmX) for their x86 processors. These extensions are also known as single instruction, multiple data
-(SIMD) extensions. they can be seen as fully independent processors in addition to the main scalar
-processor. this special computation unit is able to execute the same operation on a set of data at
-the same time, which leads to non-negligible speedups. Intel, Advanced micro Devices (AmD), Arm,
-and PowerPC-based processors are embedded in these extensions, and have several dedicated processors
-for embedded systems, too. Latent data parallelism is present in a wide range of applications
-and SIMD extensions are able to exploit it.
-
-With a constantly increasing need for performance in applications, today’s processor architectures offer
-rich SIMD instruction sets working with larger and larger SIMD registers (see Table 1). For example, the
-Advanced Vector Extensions (AVX) introduced in 2011 enhance the x86 instruction set for the Intel Sandy
-Bridge and Advanced Micro Devices (AMD) Bulldozer microarchitectures by providing a distinct set of sixteen
-256-bit registers. Similarly, the forthcoming Intel Many Integrated Core (MIC) architecture will embed 512-
-bit SIMD registers. Usage of SIMD processing units can also be mandatory for performance on embedded
-systems, as demonstrated by the ARM Neon and Neon2 extensions or the Cell Broadbend End (Cell-BE) processor
-by IBM (which are designed to use SIMD-only systems).
+The term multimedia extension was introduced by Intel in 1996 with the release
+of the MultiMedia eXtension (MMX) for the x86 processor. Intel, Advanced Micro
+Devices (AMD), ARM, and PowerPC-based processors have such extensions. With a
+constantly increasing need for performance in applications, today’s processor
+architectures offer rich SIMD instruction sets working with larger and larger
+SIMD registers (see Table 1). For example, the Advanced Vector Extensions (AVX)
+introduced in 2011 enhance the x86 instruction set for the Intel Sandy Bridge
+and Advanced Micro Devices (AMD) Bulldozer microarchitectures by providing a
+distinct set of sixteen 256-bit registers. Similarly, the forthcoming Intel Many
+Integrated Core (MIC) architecture will embed 512-bit SIMD registers. Usage of
+SIMD processing units can also be mandatory for performance on embedded systems,
+as demonstrated by the ARM Neon and Neon2 extensions or the Cell Broadbend End
+(Cell-BE) processorby IBM (which was designed to use SIMD-only systems).
 [endsect]
 
 [section Challenges and Difficulties]
@@ -36,7 +33,6 @@ for example, ends in such a way that it’s buried in architecture-specific impl
 these efforts must be repeated for every different extension that someone might want to support, due to the use
 of a new API when the architecture changes. Such concerns make the design and maintenance of these applications
 time consuming and error-prone.
-[endsect]
 
 [section Writing a SIMD kernel]
 Here is a simple example. Let's consider a simple addition-multiplication kernel (usually known as AXPY) and
@@ -122,6 +118,7 @@ void axpy(float* bx, float* ex,, float* by, float a)
 
 Reader can infer the kind of rework to do for adapting this code to Altivec.
 [endsect]
+[endsect]
 
 [section Objectives]
 This short abridged example shows only a few of the pitfalls that may arise
@@ -146,7 +143,8 @@ hardware-specific registers, but also enable the use of common programming idiom
 when designing SIMD-aware algorithms. Boost.SIMD solves these problems by
 providing :
 
-TOO LINK TO PROPER SUBPART OF THE DOC
+TODO LINK TO PROPER SUBPART OF THE DOC
+
 * a proper value semantic wrapper for SIMD registers;
 * an Expression Template system to automatically detect and exploit extension
 specific optimization opportunities;
