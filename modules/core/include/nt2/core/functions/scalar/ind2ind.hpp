@@ -25,7 +25,8 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A2>)
                             )
   {
-    typedef typename meta::strip<A1>::type result_type;
+    typedef typename meta::call<tag::ind2sub_(const A0&, const A1&)>::type i_t;
+    typedef typename meta::call<tag::sub2ind_(const A2&, i_t)>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& from, const A1& index, const A2& to) const
