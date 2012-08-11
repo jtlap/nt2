@@ -54,7 +54,7 @@ template<class A0>                                                             \
 BOOST_FORCEINLINE                                                              \
 typename                                                                       \
 enable_if< meta::is_native<A0>                                                 \
-         , A0&                                                                 \
+         , A0                                                                  \
          >::type                                                               \
 operator Op                                                                    \
 (                                                                              \
