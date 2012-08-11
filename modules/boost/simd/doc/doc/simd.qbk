@@ -13,14 +13,14 @@ SIMD extensions without suffering from these problems by providing standard comp
 
 [warning Boost.SIMD is a library in development and is not part of Boost.]
 
-[section Dependencies]
+[h2 Dependencies]
 Boost.SIMD depends on the following header-only Boost libraries:
+
 * Boost.Dispatch
-* Boost.Fusion
-* Boost.MPL
-* Boost.Preprocessor
-* Boost.Proto
-[endsect]
+* [@http://www.boost.org/doc/libs/release/libs/fusion/doc/html/ Boost.Fusion]
+* [@http://www.boost.org/doc/libs/release/libs/mpl/doc/ Boost.MPL]
+* [@http://www.boost.org/doc/libs/release/libs/preprocessor/doc/ Boost.Preprocessor]
+* [@http://www.boost.org/doc/libs/release/doc/html/proto.html Boost.Proto]
 
 [endsect]
 
