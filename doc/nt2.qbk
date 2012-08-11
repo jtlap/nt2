@@ -1,8 +1,9 @@
 [book The Numerical Template Toolbox
   [quickbook 1.5]
   [authors [Falcou, Joel], [Lapresté, Jean-Thierry], [Gaunard, Mathias]]
-      [copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Blaise Pascal]
-      [copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI]
+      [copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Blaise Pascal]
+      [copyright 2009 - 2012 LRI UMR 8623 CNRS/Univ Paris Sud XI]
+      [copyright 2011 - 2012 MetaScale SAS]
   [license Distributed under the Boost Software License, Version 1.0.
       (See accompanying file LICENSE_1_0.txt or copy at
       [@http://www.boost.org/LICENSE_1_0.txt])

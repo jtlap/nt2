@@ -1,0 +1,30 @@
+[library The Boost SIMD Library
+    [quickbook 1.5]
+    [category Math and numerics]
+    [purpose SIMD architecture abstractions]
+]
+
+[section Overview]
+Single instruction, multiple data (SIMD) extensions have been a feature of choice for processor manufacturers
+for a couple of decades. Designed to provide significant accellerations, they require expertise, the use of
+potentially fragile compiler support, or vendor-specific libraries to be correctly and succesfully exploited.
+Boost.SIMD is a C++ template library that aims to give a simple and powerful way to access the benefits of
+SIMD extensions without suffering from these problems by providing standard compliant abstractions.
+
+[warning Boost.SIMD is a library in development and is not part of Boost.]
+
+[section Dependencies]
+Boost.SIMD depends on the following header-only Boost libraries:
+* Boost.Dispatch
+* Boost.Fusion
+* Boost.MPL
+* Boost.Preprocessor
+* Boost.Proto
+[endsect]
+
+[endsect]
+
+
+[include motivation.qbk]
+[include tutorial.qbk]
+[include rationale.qbk]

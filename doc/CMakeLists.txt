@@ -29,6 +29,7 @@ set(MANUAL_SRC
       dev/tutorial.qbk
       dev/faq.qbk
     appendix.qbk
+      appendix/authors.qbk
       appendix/licence.qbk
       appendix/bibliography.qbk
       appendix/acknowledgement.qbk
