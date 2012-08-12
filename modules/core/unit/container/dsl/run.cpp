@@ -61,7 +61,7 @@ NT2_TEST_CASE( run_data )
 {
   using nt2::table;
   typedef double T;
-  typedef typename nt2::meta::as_integer<T>::type U;
+  typedef nt2::meta::as_integer<T>::type U;
   typedef nt2::settings S(nt2::_4D);
 
   table<T> a0( nt2::of_size(5, 3) );
