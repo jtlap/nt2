@@ -34,28 +34,10 @@ namespace nt2 { namespace container { namespace ext
   {};
 
   template<class Domain, int N, class Expr>
-  struct  generator<nt2::tag::cat_,Domain,N,Expr>
+  struct  value_type<nt2::tag::cat_,Domain,N,Expr>
   {
-    // We behave as our child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type    c_sema_t;
-    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
-
-    // .. except we have a special size
-    typedef typename boxed_size_of<Expr, 3>::result_type               sizes_t;
-
-    // Rebuild proper expression type with semantic using the new size
-    // and revoking any shape settings
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , typename meta::
-                        add_settings< sema_t
-                                    , settings(rectangular_,sizes_t)
-                                    >::type
-                      >                                             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c_t;
+    typedef typename c_t::value_type                                        type;
   };
 } } }
 
