@@ -60,3 +60,20 @@ NT2_TEST_CASE_TPL( flipud_2, NT2_TYPES )
   nt2::table<T> z = nt2::flipud(nt2::flipud(nt2::ones(3, 3, nt2::meta::as_<T>())));
   NT2_TEST( isequal(z, nt2::ones(3, 3, nt2::meta::as_<T>())));
 }
+
+NT2_TEST_CASE_TPL( flipud_3, NT2_TYPES )
+{
+  nt2::table<T> x,y( nt2::of_size(5,3) );
+
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      y(i,j) = T(i + 10*j);
+  display("y", y);
+
+  x = nt2::flipud(y);
+  display("x", x);
+
+  NT2_TEST(nt2::isequal(x, nt2::flipud(y)));
+  NT2_TEST(nt2::isequal(nt2::flipud(x), y));          
+           
+}
