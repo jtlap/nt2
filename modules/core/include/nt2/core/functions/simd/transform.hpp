@@ -12,11 +12,13 @@
 
 #include <nt2/core/functions/transform.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 #include <cstdio>
+#include <omp.h>
 
 namespace nt2 { namespace ext
 {
@@ -62,10 +64,10 @@ namespace nt2 { namespace ext
       std::size_t aligned_sz  = sz & ~(N-1);
       std::size_t it          = p;
 
-      for(std::size_t m=it+aligned_sz; it != m; it+=N)
+      for(std::size_t m=p+aligned_sz; it != m; it+=N)
         nt2::run( a0, it, nt2::run(a1, it, meta::as_<target_type>()) );
 
-      for(std::size_t m=it+(sz-aligned_sz); it != m; ++it)
+      for(std::size_t m=p+sz; it != m; ++it)
         nt2::run( a0, it, nt2::run(a1, it, meta::as_<stype>()) );
     }
   };

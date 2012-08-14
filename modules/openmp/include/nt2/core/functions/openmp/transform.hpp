@@ -84,11 +84,11 @@ namespace nt2 { namespace ext
           #pragma omp for schedule(static)
           for(std::ptrdiff_t p=0;p<threads;++p)
           {
-            // Adjust number of elements to process w/r to leftovers
-            local_size += local_leftover ? ((local_leftover > p) ? 1 : 0) : 0;
-
             // Move forward starts of each block
             std::ptrdiff_t offset = local_size*p + std::min(local_leftover,p);
+
+            // Adjust number of elements to process w/r to leftovers
+            local_size += local_leftover ? ((local_leftover > p) ? 1 : 0) : 0;
 
             // Call transform over the sub-architecture in the memory hierachy
             transformer(a0,a1,it+offset,local_size);

@@ -28,29 +28,12 @@ NT2_TEST_CASE_TPL( direct_transform, NT2_TYPES )
     NT2_TEST_EQUAL(out(i), in(i)+in(i));
 }
 
-NT2_TEST_CASE_TPL( partial_transform, NT2_TYPES )
+NT2_TEST_CASE_TPL( partial_transform, (double) )
 {
-  nt2::table<T> out = nt2::zeros( nt2::of_size(5,7), nt2::meta::as_<T>() );
-  nt2::table<T> in = nt2::ones( nt2::of_size(5,7), nt2::meta::as_<T>() );
+  nt2::table<T> out = nt2::zeros( nt2::of_size(21), nt2::meta::as_<T>() );
+  nt2::table<T> in  = nt2::ones( nt2::of_size(21), nt2::meta::as_<T>() );
 
-  nt2::transform(out,in+in,6,5,2);
-
-  for(std::size_t i=1;i<=6;++i)
-    NT2_TEST_EQUAL(out(i), T(0));
-
-  for(std::size_t i=7;i<=16;++i)
-    NT2_TEST_EQUAL(out(i), in(i)+in(i));
-
-  for(std::size_t i=17;i<=nt2::numel(out);++i)
-    NT2_TEST_EQUAL(out(i), T(0));
-}
-
-NT2_TEST_CASE_TPL( partial_transform_1D, (double) )
-{
-  nt2::table<T, nt2::_1D> out = nt2::zeros( nt2::of_size(21), nt2::meta::as_<T>() );
-  nt2::table<T, nt2::_1D> in  = nt2::ones( nt2::of_size(21), nt2::meta::as_<T>() );
-
-  nt2::transform(out,in+in,6,6,1);
+  nt2::transform(out,in+in,6,6);
 
   for(std::size_t i=1;i<=6;++i)
     NT2_TEST_EQUAL(out(i), T(0));
