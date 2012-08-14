@@ -9,49 +9,67 @@
 #define NT2_UNIT_MODULE "nt2::vertcat function"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/vertcat.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
+#include <nt2/include/functions/size.hpp>
+#include <nt2/include/functions/vertcat.hpp>
+#include <nt2/include/functions/isequal.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE( vertcat_scalar )
 {
-  nt2::table<int> c = nt2::vertcat(1, 2.5);
-  NT2_DISPLAY(c);
-  nt2::table<float> d = nt2::vertcat(1.3f, 3);
-  NT2_DISPLAY(d);
-  nt2::table<double> e = nt2::vertcat(1.5);
-  NT2_DISPLAY(e);
-  double f = nt2::vertcat(1.5);
-  std::cout << f << std::endl;
+  NT2_TEST_EQUAL( nt2::vertcat(1.3f, 3.f)(1,1), 1.3f );
+  NT2_TEST_EQUAL( nt2::vertcat(1.3f, 3.f)(2,1), 3.f  );
+  NT2_TEST_EQUAL( nt2::vertcat(1.5), 1.5 );
 }
-NT2_TEST_CASE( vertcat_size )
+
+NT2_TEST_CASE( vertcat_expr_scalar )
 {
-  typedef short int T;
-  nt2::table<T> a = nt2::rif(nt2::of_size(3, 3), nt2::meta::as_<T>());
-  nt2::table<T> b = nt2::cif(nt2::of_size(5, 3), nt2::meta::as_<T>());
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-  nt2::table<T> c = vertcat(a);
-  NT2_DISPLAY(c);
-  nt2::table<T> d = vertcat(a, b);
-  NT2_DISPLAY(d);
+  using nt2::_;
+  nt2::table<float> a = nt2::rif(nt2::of_size(8,1), nt2::meta::as_<float>());
+  NT2_TEST( nt2::isequal( vertcat(a, 3.f)(_(1, size(a, 1)),1), a  ) );
+  NT2_TEST_EQUAL( vertcat(a, 3.f)(size(a, 1)+1,1),3.f);
+
+  NT2_TEST_EQUAL( vertcat(5.f,a)(1, 1), 5.f  );
+  NT2_TEST( nt2::isequal( vertcat(5.f,a)(_(2, nt2::end_),1), a) );
+
+  NT2_TEST_ASSERT ( vertcat ( 5.f
+                            , nt2::rif( nt2::of_size(1, 3)
+                                      , nt2::meta::as_<float>()
+                                      )
+                            )
+                  );
+
+  NT2_TEST_ASSERT ( vertcat ( nt2::rif( nt2::of_size(1, 3)
+                                      , nt2::meta::as_<float>()
+                                      )
+                            , 0.f
+                            )
+                  );
 }
-NT2_TEST_CASE( vertcat_size2 )
+
+NT2_TEST_CASE( vertcat_expr )
 {
-  typedef short int T;
-  nt2::table<T> a = nt2::rif(nt2::of_size(5, 7), nt2::meta::as_<T>());
-  nt2::table<T> b = nt2::cif(nt2::of_size(9, 7), nt2::meta::as_<T>());
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-  nt2::table<T> c = vertcat(a);
-  NT2_DISPLAY(c);
-  nt2::table<T> d = vertcat(a, b);
-  NT2_DISPLAY(d);
+  using nt2::_;
+
+  nt2::table<float> a = nt2::rif(nt2::of_size(2, 3), nt2::meta::as_<float>());
+  nt2::table<float> b = nt2::cif(nt2::of_size(4, 3), nt2::meta::as_<float>());
+
+  NT2_TEST( nt2::isequal( vertcat(a), a)                                  );
+  NT2_TEST( nt2::isequal( vertcat(a, b)(_(1, size(a, 1)),_), a  )         );
+  NT2_TEST( nt2::isequal( vertcat(a, b)(_(size(a, 1)+1, nt2::end_),_),b)  );
+
+  NT2_TEST_ASSERT ( vertcat ( nt2::rif( nt2::of_size(2, 3)
+                                      , nt2::meta::as_<float>()
+                                      )
+                            , nt2::rif( nt2::of_size(2, 4)
+                                      , nt2::meta::as_<float>()
+                                      )
+                            )
+                  );
 }
+
