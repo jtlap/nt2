@@ -29,40 +29,22 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_ ( typename  boost::proto::result_of::
-                                            child_c<A0&, 0>::type
-                                , State&, Data&
-                                )
-                >::type                                        base_type;
-
-    typedef typename meta::strip<base_type>::type                       result_type;
-    typedef typename meta::as_integer<result_type>::type                        i_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(of_size_max,State)>::type  sub_t;
+    typedef typename Data::type                                     result_type;
+    typedef typename meta::as_integer<result_type>::type            i_t;
+    typedef typename  boost::proto::result_of::child_c<A0&,0>::type p_t;
+    typedef typename meta::call<tag::ind2sub_(_2D, i_t)>::type      sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      // Get the subscript
-      of_size_max ex0 = boost::proto::child_c<0>(a0).extent();
-      sub_t pos0 = ind2sub(a0.extent(),p);
+      p_t   pattern = boost::proto::child_c<0>(a0);
+      _2D   ex      = pattern.extent();
+      _2D   in      = a0.extent();
 
-      // replicate by modulo on the leading dimension
-      typename sub_t::value_type i0 = (pos0[0]-1)%ex0[0]+1;
-      pos0[0] = 1;
+      sub_t pos = ind2sub( in, nt2::enumerate<i_t>(p));
+      pos[0] = (pos[0]-1)%ex[0]+1;
 
-      // We need a gather there cause we may wrap up before cardinal
-      i_t p0 = nt2::enumerate<i_t>(i0);
-
-      // This shifts us along other dimensions
-      i_t shift = nt2::splat<i_t>( sub2ind(ex0,pos0) );
-
-      // We compute a SIMD index by wrapping around and moving aside
-      i_t h0 = nt2::splat<i_t>(ex0[0]);
-      i_t p1 = nt2::rem(minusone(p0), h0) + shift;
-
-      // Evaluates
-      return nt2::run(boost::proto::child_c<0>(a0),p1,t);
+      return nt2::run( pattern, sub2ind(ex, pos), t );
     }
   };
 } }
