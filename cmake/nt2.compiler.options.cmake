@@ -66,7 +66,7 @@ if(CMAKE_CXX_FLAGS MATCHES "[^ ]")
 endif()
 
 # Make sure no build type is selected
-set(CMAKE_BUILD_TYPE)
+set(CMAKE_BUILD_TYPE "")
 
 message(STATUS "[nt2] Debug flags: ${CMAKE_CXX_FLAGS_DEBUG}")
 message(STATUS "[nt2] Release flags: ${CMAKE_CXX_FLAGS_RELEASE}")
