@@ -13,6 +13,7 @@
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/isempty.hpp>
+#include <nt2/include/functions/isvectoralong.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -31,23 +32,23 @@ namespace nt2 { namespace ext
       ext1_t ex1 = nt2::extent(a0);
       typedef typename meta::call<tag::extent_(A1 const&)>::type ext2_t;
       ext2_t ex2 = nt2::extent(a1);
-      if (isempty(a0) || isempty(a1)) return true; 
+      if (isempty(a0) || isempty(a1)) return true;
       size_t sz =  nt2::min(ex1.size(), ex2.size());
       size_t d = dim-1;
       for(size_t i=0; i < sz; ++i)
         {
-          //      std::cout << "i " << i << " d " << d << " ex1[i] "<< ex1[i] << " ex2[i] " << ex2[i] << std::endl; 
+          //      std::cout << "i " << i << " d " << d << " ex1[i] "<< ex1[i] << " ex2[i] " << ex2[i] << std::endl;
           if ((i != d) && (ex1.data()[i]!= ex2.data()[i])) return false;
         }
       for(size_t i=sz; i < ex1.size(); ++i)
         {
-          if (ex1[i]!= 1) return false; 
+          if (ex1[i]!= 1) return false;
         }
       for(size_t i=sz; i < ex2.size(); ++i)
         {
-          if (ex2[i]!= 1) return false; 
+          if (ex2[i]!= 1) return false;
         }
-      return true; 
+      return true;
     }
   };
 
@@ -83,7 +84,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::arecatcompatible_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (scalar_<fundamental_<A0> >)(ast_<A1>)
-                              (scalar_<integer_<A2> >)                              
+                              (scalar_<integer_<A2> >)
                             )
   {
     typedef bool result_type;
@@ -92,7 +93,7 @@ namespace nt2 { namespace ext
     {
       return isvectoralong(a1, dim);
     }
-  };    
+  };
 } }
 
 #endif

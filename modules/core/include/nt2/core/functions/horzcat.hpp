@@ -18,8 +18,10 @@ namespace nt2
 {
   namespace tag
   {
-    struct  horzcat_
-          : ext::elementwise_<horzcat_> { typedef ext::elementwise_<horzcat_> parent; };
+    struct  horzcat_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
+    };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::horzcat_, horzcat, 1)
@@ -27,38 +29,5 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::horzcat_, cath, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::horzcat_, cath, 2)
 }
-
-namespace nt2 { namespace container { namespace ext
-{
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::horzcat_,Domain,3,Expr>
-        : boxed_size_of<Expr,2>
-  {};
-
-  template<class Domain, int N, class Expr>
-  struct  generator<nt2::tag::horzcat_,Domain,N,Expr>
-  {
-    // We behave as our child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type    c_sema_t;
-    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
-
-    // .. except we have a special size
-    typedef typename boxed_size_of<Expr, 2>::result_type               sizes_t;
-
-    // Rebuild proper expression type with semantic using the new size
-    // and revoking any shape settings
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , typename meta::
-                        add_settings< sema_t
-                                    , settings(rectangular_,sizes_t)
-                                    >::type
-                      >                                             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
-} } }
 
 #endif

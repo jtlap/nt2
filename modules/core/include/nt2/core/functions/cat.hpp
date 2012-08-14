@@ -10,17 +10,17 @@
 #define NT2_CORE_FUNCTIONS_CAT_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/generate_as.hpp>
-#include <nt2/sdk/meta/add_settings.hpp>
-#include <nt2/core/settings/shape.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct  cat_
-          : ext::elementwise_<cat_> { typedef ext::elementwise_<cat_> parent; };
+    struct cat_ : ext::elementwise_<cat_>
+    {
+      typedef ext::elementwise_<cat_> parent;
+    };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cat_, cat, 3)
@@ -33,11 +33,12 @@ namespace nt2 { namespace container { namespace ext
         : boxed_size_of<Expr,3>
   {};
 
-  template<class Domain, int N, class Expr>
-  struct  value_type<nt2::tag::cat_,Domain,N,Expr>
+  template<class Domain, class Expr>
+  struct  value_type<nt2::tag::cat_,Domain,4,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c_t;
-    typedef typename c_t::value_type                                        type;
+    typedef typename boost::proto::result_of::child_c<Expr&,1>::value_type  c_t;
+    typedef typename meta::scalar_of<c_t>::type                             s_t;
+    typedef typename meta::strip<s_t>::type                                 type;
   };
 } } }
 

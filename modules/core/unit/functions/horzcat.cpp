@@ -9,83 +9,73 @@
 #define NT2_UNIT_MODULE "nt2::horzcat function"
 
 #include <nt2/table.hpp>
-#include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
+#include <nt2/include/functions/size.hpp>
+#include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/isequal.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE( horzcat_scalar )
 {
-  nt2::table<int> c = nt2::horzcat(1, 2.5);
-  NT2_DISPLAY(c);
-  nt2::table<float> d = nt2::horzcat(1.3f, 3);
-  NT2_DISPLAY(d);
-  nt2::table<double> e = nt2::horzcat(1.5);
-  NT2_DISPLAY(e);
+  nt2::table<float> d = nt2::horzcat(1.3f, 3.f);
+  NT2_TEST_EQUAL( d(1,1), 1.3f );
+  NT2_TEST_EQUAL( d(1,2), 3.f  );
+
   double f = nt2::horzcat(1.5);
-  std::cout << f << std::endl;
-}
-NT2_TEST_CASE( horzcat_size )
-{
-  using nt2::_; 
-  nt2::table<float> a = nt2::rif(nt2::of_size(3, 2), nt2::meta::as_<float>());
-  nt2::table<float> b = nt2::cif(nt2::of_size(3, 4), nt2::meta::as_<float>());
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-  nt2::table<float> c = horzcat(a);
-  NT2_DISPLAY(c);
-  nt2::table<float> d = horzcat(a, b);
-  NT2_DISPLAY(d);
-  nt2::table<float> e = horzcat(a, a);
-  NT2_DISPLAY(e);
-  NT2_TEST(nt2::isequal(d(_, _(1, size(a, 2)), a)));
-  NT2_TEST(nt2::isequal(d(_, _(size(a, 2), end_), a)));
-}
-NT2_TEST_CASE( horzcat_size2 )
-{
-  nt2::table<float> a = nt2::rif(nt2::of_size(7, 6), nt2::meta::as_<float>());
-  nt2::table<float> b = nt2::cif(nt2::of_size(7, 9), nt2::meta::as_<float>());
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-  nt2::table<float> c = horzcat(a);
-  NT2_DISPLAY(c);
-  nt2::table<float> d = horzcat(a, b);
-  NT2_DISPLAY(d);
-}
-NT2_TEST_CASE( horzcat_size3 )
-{
-  nt2::table<float> a = nt2::cif(nt2::of_size(1, 3), nt2::meta::as_<float>());
-  nt2::table<float> b = nt2::rif(nt2::of_size(3, 1), nt2::meta::as_<float>());
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-  nt2::table<float> c = horzcat(a, 2.0f*a);
-  NT2_DISPLAY(c);
-  nt2::table<float> d = horzcat(b, 2.0f*b);
-  NT2_DISPLAY(d);
+  NT2_TEST_EQUAL( f, 1.5 );
 }
 
-NT2_TEST_CASE( horzcat_4 )
+NT2_TEST_CASE( horzcat_expr_scalar )
 {
-  nt2::table<float> a = nt2::rif(nt2::of_size(2, 3), nt2::meta::as_<float>());
-  nt2::table<float> b = nt2::cif(nt2::of_size(2, 3), nt2::meta::as_<float>());
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-  nt2::table<float> c = horzcat(a(nt2::_), b(nt2::_));
-  NT2_DISPLAY(c);
+  using nt2::_;
+  nt2::table<float> a = nt2::rif(nt2::of_size(1, 8), nt2::meta::as_<float>());
+  nt2::table<float> d = horzcat(a, 3.f);
+  NT2_TEST( nt2::isequal( d(1, _(1, size(a, 2))), a  )          );
+  NT2_TEST_EQUAL( d(1, size(a, 2)+1),3.f);
+
+  nt2::table<float> e = horzcat(5.f,a);
+  NT2_TEST_EQUAL( e(1, 1), 5.f  );
+  NT2_TEST( nt2::isequal( e(1, _(2, nt2::end_)), a) );
+
+  NT2_TEST_ASSERT ( horzcat ( 5.f
+                            , nt2::rif( nt2::of_size(3, 1)
+                                      , nt2::meta::as_<float>()
+                                      )
+                            )
+                  );
+
+  NT2_TEST_ASSERT ( horzcat ( nt2::rif( nt2::of_size(3, 1)
+                                      , nt2::meta::as_<float>()
+                                      )
+                            , 0.f
+                            )
+                  );
 }
-NT2_TEST_CASE( horzcat_5 )
+
+NT2_TEST_CASE( horzcat_expr )
 {
-  nt2::table<float> a = nt2::rif(nt2::of_size(2, 3), nt2::meta::as_<float>())(nt2::_);
-  nt2::table<float> b = nt2::cif(nt2::of_size(2, 3), nt2::meta::as_<float>())(nt2::_);
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-  nt2::table<float> c = horzcat(a, b);
-  NT2_DISPLAY(c);
+  using nt2::_;
+  nt2::table<float> a = nt2::rif(nt2::of_size(3, 2), nt2::meta::as_<float>());
+  nt2::table<float> b = nt2::cif(nt2::of_size(3, 4), nt2::meta::as_<float>());
+
+  nt2::table<float> c = horzcat(a);
+  NT2_TEST( nt2::isequal(c, a) );
+
+  nt2::table<float> d = horzcat(a, b);
+  NT2_TEST( nt2::isequal( d(_, _(1, size(a, 2))), a  )        );
+  NT2_TEST( nt2::isequal( d(_, _(size(a, 2)+1, nt2::end_)),b) );
+
+  NT2_TEST_ASSERT ( horzcat ( nt2::rif( nt2::of_size(3, 2)
+                                      , nt2::meta::as_<float>()
+                                      )
+                            , nt2::rif( nt2::of_size(4, 2)
+                                      , nt2::meta::as_<float>()
+                                      )
+                            )
+                  );
 }

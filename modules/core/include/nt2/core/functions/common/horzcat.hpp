@@ -1,4 +1,4 @@
-//==============================================================================
+/*//==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -46,14 +46,14 @@ namespace nt2 { namespace ext
       sub_t pos = ind2sub(a0.extent(),p);
       if(size_t(pos[1]) <= ex0[1]) // this is in the a0 part
         {
-          State pp = sub2ind(ex0, pos); 
-          return nt2::run(boost::proto::child_c<0>(a0),pp,t); 
+          State pp = sub2ind(ex0, pos);
+          return nt2::run(boost::proto::child_c<0>(a0),pp,t);
         }
       else // this is in the a1 part
         {
           of_size_max ex1 = boost::proto::child_c<1>(a0).extent();
-          pos[1] -= ex0[1]; 
-          State pp = sub2ind(ex1, pos); 
+          pos[1] -= ex0[1];
+          State pp = sub2ind(ex1, pos);
           return nt2::run(boost::proto::child_c<1>(a0),pp,t);
         }
     }
@@ -62,3 +62,4 @@ namespace nt2 { namespace ext
 } }
 
 #endif
+*/

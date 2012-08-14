@@ -10,20 +10,13 @@
 #define NT2_CORE_FUNCTIONS_EXPR_CAT_HPP_INCLUDED
 
 #include <nt2/core/functions/cat.hpp>
-#include <nt2/core/functions/common/cat.hpp>
-#include <nt2/include/functions/arecatcompatible.hpp>
-
-#include <nt2/sdk/memory/copy.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/of_size.hpp>
-#include <nt2/include/functions/length.hpp>
+#include <nt2/include/functions/arecatcompatible.hpp>
 
 namespace nt2 { namespace ext
 {
-
   //============================================================================
-  // Generates linearize_ from 2 expressions
+  // Generates cat from 2 expressions
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cat_, tag::cpu_,
                               (A0)(A1)(A2),
@@ -37,22 +30,154 @@ namespace nt2 { namespace ext
                                           , container::domain
                                           , A1 const&
                                           , A2 const&
-                                          , std::size_t      
+                                          , std::size_t
                                           , box<of_size_max>
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const& a1,A2 const& a2) const
     {
-       BOOST_ASSERT_MSG(arecatcompatible(a1, a2, a0),
-                        "cat arguments dimensions are not consistent."); 
-      size_t along = a0-1; 
-      of_size_max sizee = of_size_max(a1.extent());
-      sizee[along] += a2.extent()[along];
-      return boost::proto::make_expr<nt2::tag::cat_, container::domain>
-        (boost::cref(a1),boost::cref(a2), along, boxify(sizee));
+       BOOST_ASSERT_MSG ( arecatcompatible(a1, a2, a0)
+                        , "cat arguments dimensions are not consistent."
+                        );
+
+      size_t const along = a0-1;
+
+      of_size_max sizee = of_size_max(extent(a1));
+      sizee[along] += extent(a2)[along];
+
+      return  boost::proto::make_expr < nt2::tag::cat_
+                                      , container::domain
+                                      >
+                                      ( boost::cref(a1)
+                                      , boost::cref(a2)
+                                      , along
+                                      , boxify(sizee)
+                                      );
     }
   };
-  
-} } 
+
+  //============================================================================
+  // Generates cat from scalar/ast
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cat_, tag::cpu_,
+                              (A0)(A1)(A2),
+                              (scalar_<integer_<A0> >)
+                              (scalar_<unspecified_<A1> >)
+                              (ast_<A2>)
+                            )
+  {
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::cat_
+                                          , container::domain
+                                          , A1 const&
+                                          , A2 const&
+                                          , std::size_t
+                                          , box<of_size_max>
+                                          >::type             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const& a1,A2 const& a2) const
+    {
+       BOOST_ASSERT_MSG ( arecatcompatible(a1, a2, a0)
+                        , "cat arguments dimensions are not consistent."
+                        );
+
+      size_t const along = a0-1;
+
+      of_size_max sizee = of_size_max(extent(a2));
+      sizee[along]++;
+
+      return  boost::proto::make_expr < nt2::tag::cat_
+                                      , container::domain
+                                      >
+                                      ( boost::cref(a1)
+                                      , boost::cref(a2)
+                                      , along
+                                      , boxify(sizee)
+                                      );
+    }
+  };
+
+  //============================================================================
+  // Generates cat from ast/scalar
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cat_, tag::cpu_,
+                              (A0)(A1)(A2),
+                              (scalar_<integer_<A0> >)
+                              (ast_<A1>)
+                              (scalar_<unspecified_<A2> >)
+                            )
+  {
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::cat_
+                                          , container::domain
+                                          , A1 const&
+                                          , A2 const&
+                                          , std::size_t
+                                          , box<of_size_max>
+                                          >::type             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const& a1,A2 const& a2) const
+    {
+       BOOST_ASSERT_MSG ( arecatcompatible(a1, a2, a0)
+                        , "cat arguments dimensions are not consistent."
+                        );
+
+      size_t const along = a0-1;
+
+      of_size_max sizee = of_size_max(extent(a1));
+      sizee[along]++;
+
+      return  boost::proto::make_expr < nt2::tag::cat_
+                                      , container::domain
+                                      >
+                                      ( boost::cref(a1)
+                                      , boost::cref(a2)
+                                      , along
+                                      , boxify(sizee)
+                                      );
+    }
+  };
+
+  //============================================================================
+  // Generates cat from 2 scalars
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cat_, tag::cpu_,
+                              (A0)(A1)(A2),
+                              (scalar_<integer_<A0> >)
+                              (scalar_<unspecified_<A1> >)
+                              (scalar_<unspecified_<A2> >)
+                            )
+  {
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::cat_
+                                          , container::domain
+                                          , A1 const&
+                                          , A2 const&
+                                          , std::size_t
+                                          , box<of_size_max>
+                                          >::type             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const& a1,A2 const& a2) const
+    {
+       BOOST_ASSERT_MSG ( arecatcompatible(a1, a2, a0)
+                        , "cat arguments dimensions are not consistent."
+                        );
+
+      size_t const along = a0-1;
+
+      of_size_max sizee = of_size_max(extent(a1));
+      sizee[along]++;
+
+      return  boost::proto::make_expr < nt2::tag::cat_
+                                      , container::domain
+                                      >
+                                      ( boost::cref(a1)
+                                      , boost::cref(a2)
+                                      , along
+                                      , boxify(sizee)
+                                      );
+    }
+  };
+} }
 
 #endif
