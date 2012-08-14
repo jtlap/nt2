@@ -8,7 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-    sx.cpp
     tsxfun.cpp
     global.cpp
     globalall.cpp 
@@ -87,8 +86,10 @@ SET( SOURCES
     logspace.cpp
     maximum.cpp
     median.cpp
+#    medianad.cpp  
+    median.cpp  
     mean.cpp
-#    meanad.cpp
+    meanad.cpp
     minimum.cpp
     nans.cpp
     nblines.cpp
@@ -134,10 +135,10 @@ SET( SOURCES
     trues.cpp
     var.cpp
     vertcat.cpp
-    width.cpp 
+    width.cpp
     wmean.cpp
     zeros.cpp
-#  fill_pattern.cpp
+#    fill_pattern.cpp
     nansum.cpp
     nanmean.cpp
     nanasum2.cpp
