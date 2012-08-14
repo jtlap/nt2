@@ -10,10 +10,10 @@
 SET( SOURCES
     tsxfun.cpp
     global.cpp
-    globalall.cpp 
-    globalany.cpp 
+    globalall.cpp
+    globalany.cpp
     globalsum.cpp
-    globalprod.cpp     
+    globalprod.cpp
     isreal.cpp
     issorted.cpp
     adjfun.cpp
@@ -85,8 +85,8 @@ SET( SOURCES
     linspace.cpp
     logspace.cpp
     maximum.cpp
-#    medianad.cpp  
-    median.cpp  
+#    medianad.cpp
+    median.cpp
     mean.cpp
     meanad.cpp
     minimum.cpp
@@ -126,6 +126,7 @@ SET( SOURCES
     cumsum.cpp
     find.cpp
     tie.cpp
+    trans.cpp
     transform.cpp
     tri1l.cpp
     tri1u.cpp

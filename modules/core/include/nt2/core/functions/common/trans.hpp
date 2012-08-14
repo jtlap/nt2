@@ -10,33 +10,39 @@
 #define NT2_CORE_FUNCTIONS_COMMON_TRANS_HPP_INCLUDED
 
 #include <nt2/core/functions/trans.hpp>
-#include <nt2/include/functions/height.hpp>
-#include <nt2/include/functions/width.hpp>
-#include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/first_index.hpp>
-#include <nt2/include/functions/last_index.hpp>
-#include <nt2/table.hpp>
-
+#include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/sub2ind.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
+#include <nt2/include/functions/enumerate.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trans_, tag::cpu_,
-                              (A0),
-                              (ast_<A0>) )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(State)(Data)(N)
+                            , ((node_<A0, nt2::tag::trans_, N>))
+                              (generic_< integer_<State> >)
+                              ((unspecified_<Data>))
+                            )
   {
-    typedef typename meta::strip<A0>::type                  source_t;
-    typedef typename source_t::value_type                     type_t;
-    typedef typename source_t::index_type                    index_t;
-    typedef nt2::table < type_t, index_t>                result_type;
-    typedef nt2::table < type_t>                               tab_t;
+    typedef typename Data::type                                       result_type;
+    typedef typename meta::as_integer<result_type>::type              i_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,i_t)>::type  sub_t;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      tab_t ta = zeros(width(a), height(a), meta::as_<type_t>());
-      for (int i = first_index<1>(a); i <= last_index<1>(a); ++i)
-        for (int j = first_index<2>(a); j <= last_index<2>(a); ++j)
-          ta(j, i) = a(i, j);
-      return ta;
+      _2D sz(boost::proto::child_c<0>(a0).extent());
+
+      sub_t pos = ind2sub ( a0.extent()
+                          , nt2::enumerate<i_t>(p)
+                          );
+
+      boost::swap(pos[0],pos[1]);
+
+      return nt2::run ( boost::proto::child_c<0>(a0)
+                      , sub2ind(sz, pos)
+                      , t
+                      );
     }
   };
 } }
