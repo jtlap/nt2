@@ -10,9 +10,6 @@
 #define NT2_CORE_FUNCTIONS_HORZCAT_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/sdk/meta/add_settings.hpp>
-#include <nt2/core/settings/shape.hpp>
 
 namespace nt2
 {
