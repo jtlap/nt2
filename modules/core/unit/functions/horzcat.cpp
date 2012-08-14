@@ -34,7 +34,8 @@ NT2_TEST_CASE( horzcat_scalar )
 }
 NT2_TEST_CASE( horzcat_size )
 {
-  using nt2::_; 
+  using nt2::_;
+  using nt2::end_; 
   nt2::table<float> a = nt2::rif(nt2::of_size(3, 2), nt2::meta::as_<float>());
   nt2::table<float> b = nt2::cif(nt2::of_size(3, 4), nt2::meta::as_<float>());
   NT2_DISPLAY(a);
@@ -45,8 +46,8 @@ NT2_TEST_CASE( horzcat_size )
   NT2_DISPLAY(d);
   nt2::table<float> e = horzcat(a, a);
   NT2_DISPLAY(e);
-  NT2_TEST(nt2::isequal(d(_, _(1, size(a, 2)), a)));
-  NT2_TEST(nt2::isequal(d(_, _(size(a, 2), end_), a)));
+  NT2_TEST(nt2::isequal(d(_, _(1, size(a, 2))), a));
+  NT2_TEST(nt2::isequal(d(_, _(size(a, 2), end_)), a));
 }
 NT2_TEST_CASE( horzcat_size2 )
 {

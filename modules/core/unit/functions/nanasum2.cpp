@@ -16,12 +16,14 @@
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/sqr_abs.hpp>
+#include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/constants/nan.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
-NT2_TEST_CASE_TPL( nanasum2_scalar, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( nanasum2_scalar, NT2_REAL_TYPES )
 {
   T x = nt2::nanasum2(T(42));
   NT2_TEST_EQUAL( x, T(1764) );
@@ -36,7 +38,7 @@ NT2_TEST_CASE_TPL( nanasum2_scalar, (float)(double))//NT2_TYPES )
   NT2_TEST_EQUAL( x, nt2::Zero<T>() );
 }
 
-NT2_TEST_CASE_TPL( nanasum2, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( nanasum2, NT2_REAL_TYPES )
 {
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy;
@@ -83,3 +85,25 @@ NT2_TEST_CASE_TPL( nanasum2, (float)(double))//NT2_TYPES )
 
 }
 
+NT2_TEST_CASE_TPL( nanasum2_2, NT2_REAL_TYPES )
+{
+  nt2::table<T> y( nt2::of_size(5,3) );
+  nt2::table<T> sy;
+  nt2::table<T> sy2;
+
+
+  for(int j=1;j<=3;j++)
+    for(int i=1;i<=5;i++)
+      y(i,j) = i + 10*j;
+  y(2, 3) = nt2::Nan<T>();
+  display("y", y);
+  sy2 = nt2::nanasum2(y);
+  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y))); 
+  sy2 = nt2::nanasum2(y, 1);
+  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y, 1))); 
+  sy2 = nt2::nanasum2(y, 2);
+  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y, 2))); 
+  sy2 = nt2::nanasum2(y, 3);
+  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y, 3))); 
+
+}

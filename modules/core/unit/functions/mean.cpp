@@ -105,8 +105,8 @@ NT2_TEST_CASE_TPL( mean_2, NT2_REAL_TYPES )
   
   sy = nt2::sum(y, 3)/T(nt2::size(y, 3));
   sy2 = nt2::mean(y, 3);
-  NT2_TEST(nt2::isequal(sy2,  nt2::mean(y, 3)); 
-
-
-
+  NT2_TEST(nt2::isequal(sy2,  nt2::mean(y, 3))); 
+  
+  
+  
 }
