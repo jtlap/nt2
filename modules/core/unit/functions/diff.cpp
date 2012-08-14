@@ -71,9 +71,9 @@ NT2_TEST_CASE_TPL( diff, (float)(double))//NT2_TYPES )
   NT2_DISPLAY(zy2);
 
   NT2_TEST(nt2::isequal(sy1, zy2));
-  NT2_TEST(nt2::isequal(nt2::diff(y, 1u, 2),  y(_, _(2, end_))-y(_, _(1, end_-1))));
+  NT2_TEST(nt2::isequal(nt2::diff(y, 2),  y(_, _(2, end_))-y(_, _(1, end_-1))));
   NT2_TEST(nt2::isequal(sy1,  y(_, _(2, end_))-y(_, _(1, end_-1))));
-  NT2_TEST(nt2::isequal(nt2::diff(y, 1u, 2),  zy2));
+  NT2_TEST(nt2::isequal(nt2::diff(y, 2),  zy2));
 
   sy2 = nt2::diff(y, 1, 3);
   NT2_DISPLAY(sy2);

@@ -11,11 +11,9 @@
 
 #include <nt2/core/functions/bsxfun.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
-#include <boost/fusion/include/pop_front.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/mpl/apply.hpp>
 
@@ -68,23 +66,19 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      // Size and stride for each children
-      ext_t       ex0 = boost::proto::child_c<0>(a0).extent();
-      std::size_t s0  = nt2::numel(boost::fusion::pop_front(ex0));
+      base0_t v0  = gather_values<base0_t,0>( a0
+                                            , p
+                                            , boost::proto::child_c<0>(a0).extent()
+                                            );
 
-      ext_t       ex1 = boost::proto::child_c<1>(a0).extent();
-      std::size_t s1  = nt2::numel(boost::fusion::pop_front(ex1));
+      base1_t v1  = gather_values<base1_t,1>( a0
+                                            , p
+                                            , boost::proto::child_c<1>(a0).extent()
+                                            );
 
-      // Expand or gather values
-      base0_t v0  = gather_values<base0_t,0>(a0,p,ex0);
-      base1_t v1  = gather_values<base1_t,1>(a0,p,ex1);
-
-      // Apply the function
       return boost::proto::value(boost::proto::child_c<2>(a0))(v0,v1);
     }
 
-    // If not, we run a circular gather evaluation
-    // If not, we run a circular gather evaluation
     template<class T, std::size_t I>
     static BOOST_FORCEINLINE T
     gather_values(A0 const& a0, State const& p, ext_t const& sz)
