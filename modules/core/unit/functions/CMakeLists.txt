@@ -85,7 +85,6 @@ SET( SOURCES
     linspace.cpp
     logspace.cpp
     maximum.cpp
-    median.cpp
 #    medianad.cpp  
     median.cpp  
     mean.cpp
