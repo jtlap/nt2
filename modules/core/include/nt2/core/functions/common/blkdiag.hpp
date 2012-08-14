@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
   {
     typedef typename Data::type                                 result_type;
     typedef typename meta::as_integer<result_type>::type                i_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,i_t)>::type    sub_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,i_t)>::type  sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const

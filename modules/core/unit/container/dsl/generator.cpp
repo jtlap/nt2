@@ -336,7 +336,7 @@ NT2_TEST_CASE( expr_lifetime )
   table<T, S> a0, a1;
   T i;
   typedef boost::dispatch::meta::terminal_of_shared< nt2::memory::container<T, S> > shared;
-  typename shared::type a2 = shared::make(), a3 = shared::make();
+  shared::type a2 = shared::make(), a3 = shared::make();
 
   expr_lifetime_0(a0);
   expr_lifetime_2_t(a0 + a1);

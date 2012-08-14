@@ -1,0 +1,18 @@
+[section Rationale]
+
+[section Dependency on Boost.Dispatch]
+[endsect]
+
+[section Wrapping native SIMD register type]
+[endsect]
+
+[section Integration with the Standard Library]
+[endsect]
+
+[section Expression Templates for Micro-Optimizations]
+[endsect]
+
+[section Speed vs Precision Trade-off]
+[endsect]
+
+[endsect]

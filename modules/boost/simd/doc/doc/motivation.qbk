@@ -1,0 +1,159 @@
+[section Motivation]
+Since the late ’90s, processor manufacturers provide specialized processing units
+called multimedia extensions or single instruction, multiple data (SIMD) extensions.
+The introduction of this feature has allowed processors to exploit the latent
+data parallelism available in applications by executing a given instruction s
+imultaneously on multiple data stored in a single special register. Built as an
+independent computation unit in the processor, it comes in addition to the regular
+computation unit complete with a special register file, dispatching and pipelining
+unit.
+
+[section What's a Multimedia Extension ?]
+The term multimedia extension was introduced by Intel in 1996 with the release
+of the MultiMedia eXtension (MMX) for the x86 processor. Intel, Advanced Micro
+Devices (AMD), ARM, and PowerPC-based processors have such extensions. With a
+constantly increasing need for performance in applications, today’s processor
+architectures offer rich SIMD instruction sets working with larger and larger
+SIMD registers (see Table 1). For example, the Advanced Vector Extensions (AVX)
+introduced in 2011 enhance the x86 instruction set for the Intel Sandy Bridge
+and Advanced Micro Devices (AMD) Bulldozer microarchitectures by providing a
+distinct set of sixteen 256-bit registers. Similarly, the forthcoming Intel Many
+Integrated Core (MIC) architecture will embed 512-bit SIMD registers. Usage of
+SIMD processing units can also be mandatory for performance on embedded systems,
+as demonstrated by the ARM Neon and Neon2 extensions or the Cell Broadbend End
+(Cell-BE) processorby IBM (which was designed to use SIMD-only systems).
+[endsect]
+
+[section Challenges and Difficulties]
+However, programming applications that take advantage of the SIMD extension available on the current
+target remain a complex task. To access the power of such extensions, programmers use low-level intrinsics
+(for example, low-level C functions) in their code. This approach forces programmers to deal with a verbose
+programming style because SIMD instruction sets cover a few common functionalities. The initial algorithm,
+for example, ends in such a way that it’s buried in architecture-specific implementation details. Furthermore,
+these efforts must be repeated for every different extension that someone might want to support, due to the use
+of a new API when the architecture changes. Such concerns make the design and maintenance of these applications
+time consuming and error-prone.
+
+[section Writing a SIMD kernel]
+Here is a simple example. Let's consider a simple addition-multiplication kernel (usually known as AXPY) and
+let's write it using Intel's SSE2 instructions set for both single and double precision real.
+
+``
+#include <emmintrin.h>
+
+__m128 axpy( __m128 x, __m128 y, __m128 a)
+{
+  return _mm_add_ps ( _mm_mul_ps(a, x), y)) ;
+}
+
+__m128d axpy( __m128d x, __m128d y, __m128d a)
+{
+  return _mm_add_pd( _mm_mul_pd(a, x), y) ) ;
+}
+``
+
+So, we first need to include the SSE specific header file `emmintrin.h`. Then we have access to two new types : `__m128`
+and `__m128d` which represents a SIMD vector of `float` and a SIMD vector of `double`. We then computes `a*x+y` using the
+intrinsic function `_mm_add_p?` and `_mm_mul_p?`. Note how these function are using C style overloading based on name
+instead of classic type-based overloading, thus requiring us to write the function twice. At this point, one may consider
+that writing such code, if a bit inelegant, is not that hard. Now, consider you need to port this code over some PowerPC
+architecture featuring the Altivec extension. The cod enow looks like:
+
+``
+#include <altivec.h>
+
+vector float axpy( vector float x, vector float y, vector float a)
+{
+  return vec_madd(a,x,y);
+}
+``
+
+In Altivec, we found a `vec_madd` instruction performing the `a*x+y` operation at once. However, there is no support for
+`double` on all Altivec flavor so we're stuck with the `float` version only. Note how the SIMD register type is defined.
+Contrary to SSE where a new ype iis provided, the SIMD quality of a variable in Altivec is specified through a type qualifier
+like notation.
+
+We could also have a look at ARM NEON way to perform this computation, to find out a new set of types and functions or discover
+that some Intel instructions set has a `vec_madd` like operations but on some types only. The list of disperencies go on and on
+and could easily fill pages.
+[endsect]
+
+[section Processing data]
+Our mission is not complete. We know have to apply this kernel on actual data. The interest of SIMD lies in the
+fact we can apply this large register sized operation to a lot of data. However, most SIMD extensions require
+data in memory to be aligned on an adress which is a multiple of the register size. This means SSE or Altivec
+codes need theirs data aligned on 16 bytes. Now, we need to have a way to allocate and deallocate a block of
+memory with some alignment constraints. In a very similar fashion than for the actual code, we found out that
+aligned memory allocation is, this time, a system specific task. Most POSIX system provide `posix_memalign` function
+that work in a way similar to `malloc` but take an additional parameter specifying the alignment. On Windows,
+the SSE header provide a `_mm_alloc` function. Finally, on PowerPC system, the regular `new` is already providing
+memory aligned over Altivec constraints. Some `#ifdef` later, we now have our `aligned_alloc` function or, for the
+brave one, a `aligned_allocator` class that could be used in standard containers.
+
+We're set ! Well, almost. There is nothing that allow us to iterate over a block of `T` as if it was some `vector T`
+or `__m128?`. We have to use either casts or the extension specific functions to load and store data between memory
+and SIMD registers. Additionally, we need to generate a vector full of `a`. The code then look like :
+
+``
+#include "axpy.h"
+#include "aligned_alloc.h"
+
+void axpy(float* bx, float* ex,, float* by, float a)
+{
+  // Retrieve SIMD compatible pointers
+  __m128* vbx = static_cast<__m128*>(bx);
+  __m128* vex = static_cast<__m128*>(ex);
+  __m128* vby = static_cast<__m128*>(by);
+
+  // Generate a vector full of a
+  __m128 va = _mm_set1_ps(a);
+
+  while(vbx != vex)
+  {
+    *vby = axpy(*vbx,*vby,a);
+    ++bx; ++by;
+  }
+}
+``
+
+Reader can infer the kind of rework to do for adapting this code to Altivec.
+[endsect]
+[endsect]
+
+[section Objectives]
+This short abridged example shows only a few of the pitfalls that may arise
+while writing SIMD code. More can actually happens:
+
+* Additionnal, system-level taks like aligning memory are often required;
+* Most SIMD instructions are asymmetric, providing only so much functions for,
+  sometimes, very few types;
+* Efficient SIMD code writing may require fancy, bit-level algorithms thus
+  making the code intent less clear;
+* Non trivial arithmetic functions are often lacking or give low precision. For
+  example, Altivec square root on 32 bits real value gives only 23 bits of
+  precision. Few SIMD extensions even have basic trigonometric or exponential
+  functions.
+* Optimal code may change from extension to extension. the multiply-add example
+  here is a classic one. Ideally one should be able to write `a*b+c` and have
+  the system decide which variant to use dependign on type or architecture;
+
+The objectives of Boost.SIMD is to provide proper abstractions over the usage of
+SIMD extensions. This abstraction shouldn’t just provide a portable way to use
+hardware-specific registers, but also enable the use of common programming idioms
+when designing SIMD-aware algorithms. Boost.SIMD solves these problems by
+providing :
+
+TODO LINK TO PROPER SUBPART OF THE DOC
+
+* a proper value semantic wrapper for SIMD registers;
+* an Expression Template system to automatically detect and exploit extension
+specific optimization opportunities;
+* standard compliant allocator and allcoator adaptor for aligned memory ;
+* standard compliant iterators to iterate over contiguous range of data in a
+non-intrusive way;
+* standard compliant iterators encapsulating classical SIMD idioms like shifting
+window or deinterleaving of data on the fly.
+
+[endsect]
+
+[endsect]
