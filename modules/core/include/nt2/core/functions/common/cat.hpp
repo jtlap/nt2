@@ -17,6 +17,7 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/selsub.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 
 namespace nt2 { namespace ext
@@ -30,7 +31,7 @@ namespace nt2 { namespace ext
   {
     typedef typename Data::type                                     result_type;
     typedef typename A0::extent_type                                     ext_t;
-    typedef typename meta::as_integer<result_type>::type                    i_t;
+    typedef typename meta::as_integer<result_type>::type                   i_t;
     typedef typename meta::
                      call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
     typedef typename meta::call<nt2::tag::ind2sub_(ext_t,p_t)>::type      sub_t;
@@ -44,11 +45,12 @@ namespace nt2 { namespace ext
       ext_t ex1 = boost::proto::child_c<1>(a0).extent();
 
       sub_t pos0 = ind2sub(a0.extent(),enumerate<i_t>(p));
-
       sub_t pos1 = pos0;
-      pos1[along] -= splat<i_t>(ex0[along]);
 
-      return if_else( le(pos0[along], splat<i_t>(ex0[along]))
+      i_t offset = splat<i_t>(ex0[along]);
+      pos1[along] = selsub( gt(pos1[along],offset), pos1[along], offset);
+
+      return if_else( le(pos0[along], offset)
                     , nt2::run( boost::proto::child_c<0>(a0)
                               , sub2ind(ex0, pos0)
                               , t
