@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_CIF_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_CIF_HPP_INCLUDED
 
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/core/utility/as_value.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 
@@ -29,7 +29,7 @@ namespace nt2 { namespace details
       typedef typename Target::type                 type;
       typedef typename meta::as_integer<type>::type i_t;
 
-      return splat<type>( ind2sub(sz,enumerate<i_t>(p))[1] );
+      return as_value<type>( ind2sub(sz,enumerate<i_t>(p))[1] );
     }
   };
 } }

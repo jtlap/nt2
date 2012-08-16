@@ -12,7 +12,6 @@
 #include <boost/simd/toolbox/operator/functions/splat.hpp>
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/mask2logical.hpp>
-#include <boost/simd/include/functions/simd/tofloat.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
@@ -74,20 +73,6 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1&) const
     {
       return bitwise_cast<result_type>(a0);
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_, tag::cpu_
-                                    , (A0)(A1)(X)
-                                    , ((simd_< integer_<A0>, X >))
-                                      ((target_< simd_< floating_<A1>, X > >))
-                                    )
-  {
-    typedef typename A1::type result_type;
-
-    inline result_type operator()(const A0& a0, const A1&) const
-    {
-      return tofloat(a0);
     }
   };
 

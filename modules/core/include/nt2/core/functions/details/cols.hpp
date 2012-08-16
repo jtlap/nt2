@@ -9,7 +9,7 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_COLS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_COLS_HPP_INCLUDED
 
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/core/utility/as_value.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 
@@ -31,7 +31,7 @@ namespace nt2 { namespace details
       typedef typename Target::type                 type;
       typedef typename meta::as_integer<type>::type i_t;
 
-      return splat<type>( ind2sub(sz,enumerate<i_t>(p))[1] - 1) + start_ ;
+      return as_value<type>( ind2sub(sz,enumerate<i_t>(p))[1] - 1) + start_ ;
     }
 
     private :
@@ -51,7 +51,7 @@ namespace nt2 { namespace details
       typedef typename Target::type                 type;
       typedef typename meta::as_integer<type>::type i_t;
 
-      return fact_*splat<type>(ind2sub(sz,enumerate<i_t>(p))[1] - 1) + start_;
+      return fact_*as_value<type>(ind2sub(sz,enumerate<i_t>(p))[1] - 1) + start_;
     }
 
     private :
