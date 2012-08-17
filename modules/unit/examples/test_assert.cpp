@@ -1,3 +1,8 @@
+// Usually defined on command line
+#define NT2_ASSERTS_AS_EXCEPTIONS
+#define BOOST_ENABLE_ASSERT_HANDLER
+
+#include <boost/assert.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
