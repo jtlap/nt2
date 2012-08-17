@@ -20,15 +20,15 @@ namespace nt2
 {
   namespace tag
   {
-    struct last_index_ : ext::unspecified_<last_index_>
+    struct last_index_ : boost::dispatch::tag::formal_
     {
-      typedef ext::unspecified_<last_index_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
   //============================================================================
   /*!
-   * Return the first valid index of a given expression along a given dimension.
+   * Return the last valid index of a given expression along a given dimension.
    */
   //============================================================================
   template<std::size_t Dims,class A0>
@@ -38,6 +38,15 @@ namespace nt2
   {
     typename boost::dispatch::make_functor<tag::last_index_, A0>::type callee;
     return callee(a0, boost::mpl::size_t<Dims>() );
+  }
+
+  template<class A0, class Dim>
+  typename  boost::dispatch::meta::
+            call<tag::last_index_(A0 const&, Dim const&)>::type
+  last_index(A0 const& a0, Dim const& dim)
+  {
+    typename boost::dispatch::make_functor<tag::last_index_, A0>::type callee;
+    return callee(a0, dim);
   }
 }
 
