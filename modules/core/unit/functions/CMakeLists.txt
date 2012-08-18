@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+    linear_interp.cpp
+    sx.cpp
     tsxfun.cpp
     global.cpp
     globalall.cpp
