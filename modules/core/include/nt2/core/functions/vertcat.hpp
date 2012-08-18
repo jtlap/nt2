@@ -23,8 +23,8 @@ namespace nt2
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, vertcat, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, vertcat, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, cath, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, cath, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, catv, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::vertcat_, catv, 2)
 }
 
 #endif
