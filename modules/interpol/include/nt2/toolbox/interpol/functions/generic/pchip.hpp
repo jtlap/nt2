@@ -38,6 +38,7 @@
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/three.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 namespace nt2 { namespace ext
