@@ -20,9 +20,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct first_index_ : ext::unspecified_<first_index_>
+    struct first_index_ : boost::dispatch::tag::formal_
     {
-      typedef ext::unspecified_<first_index_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
@@ -38,6 +38,15 @@ namespace nt2
   {
     typename boost::dispatch::make_functor<tag::first_index_, A0>::type callee;
     return callee(a0, boost::mpl::size_t<Dims>() );
+  }
+
+  template<class A0, class Dim>
+  typename  boost::dispatch::meta::
+            call<tag::first_index_(A0 const&, Dim const&)>::type
+  first_index(A0 const& a0, Dim const& dim)
+  {
+    typename boost::dispatch::make_functor<tag::first_index_, A0>::type callee;
+    return callee(a0, dim);
   }
 }
 

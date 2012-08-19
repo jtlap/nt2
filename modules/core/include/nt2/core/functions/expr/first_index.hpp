@@ -33,6 +33,35 @@ namespace nt2 { namespace ext
       return that;
     }
   };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::first_index_,tag::cpu_
+                            , (A0)(A1)
+                            , (ast_<A0>)
+                              (scalar_< integer_<A1> >)
+                            )
+  {
+    typedef std::ptrdiff_t result_type;
+
+    BOOST_FORCEINLINE result_type operator()(const A0&, const A1& d) const
+    {
+      typedef typename A0::index_type::type idx_t;
+
+      BOOST_ASSERT_MSG
+      ( (d <= NT2_MAX_DIMENSIONS) && (d > 0)
+      , "Dimension index is out of bound"
+      );
+
+      switch(d)
+      {
+        #define M0(z,n,t)                                                     \
+        case BOOST_PP_INC(n): return boost::mpl::at_c<idx_t,n>::type::value;  \
+        /**/
+        BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M0,~)
+        #undef M0
+        default : return 1;
+      }
+    }
+  };
 } }
 
 #endif

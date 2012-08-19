@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+    along.cpp
     linear_interp.cpp
     sx.cpp
     tsxfun.cpp
