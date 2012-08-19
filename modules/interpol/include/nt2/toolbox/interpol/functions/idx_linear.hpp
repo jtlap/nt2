@@ -57,67 +57,37 @@ namespace nt2 { namespace tag
 
 namespace nt2 { namespace container { namespace ext
 {
+//   template<class Domain, class Expr,  int N>
+//   struct size_of<tag::idx_linear_, Domain, N, Expr> //N = 2, 3
+//   {
+//     typedef typename boost::proto::result_of::child_c<Expr&,0>::type       value_t;
+//     typedef typename boost::proto::result_of::child_c<Expr&,1>::type         idx_t;
+//     typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  child0;
+//     typedef typename child0::extent_type                               result_type; 
+
+//     result_type operator()(Expr& e) const
+//     {
+//       result_type sizee     = boost::proto::child_c<0>(e).extent(); 
+//       sizee[nt2::firstnonsingleton(boost::proto::child_c<1>(e))-1] =
+//         numel(boost::proto::child_c<1>(e));
+//       return sizee;
+//     }
+//   };
+   
   template<class Domain, class Expr,  int N>
   struct size_of<tag::idx_linear_, Domain, N, Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 1>::value_type child1;
-    typedef typename child1::extent_type                               result_type; 
-
-    result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<1>(e).extent();
-    }
-  };
-  
-  template<class Domain, class Expr>
-  struct size_of<tag::idx_linear_, Domain, 2, Expr>
-  {
     typedef typename boost::proto::result_of::child_c<Expr&,0>::type       value_t;
     typedef typename boost::proto::result_of::child_c<Expr&,1>::type         idx_t;
     typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  child0;
-    typedef typename child0::extent_type                               result_type; 
-
-    result_type operator()(Expr& e) const
-    {
-      result_type sizee     = boost::proto::child_c<0>(e).extent(); 
-      sizee[nt2::firstnonsingleton(boost::proto::child_c<1>(e))-1] =
-        numel(boost::proto::child_c<1>(e));
-      return sizee;
-    }
-  };
-  template<class Domain, class Expr>
-  struct size_of<tag::idx_linear_, Domain, 3, Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type       value_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,1>::type         idx_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  child0;
+    typedef typename boost::proto::result_of::child_c<Expr&,N-1>::type    choice_t; 
     typedef typename child0::extent_type                               result_type; 
 
     result_type operator()(Expr& e) const
     {
       const value_t & y     =  boost::proto::child_c<0>(e);
       const idx_t & xi      =  boost::proto::child_c<1>(e);
-      std::size_t dim =nt2::firstnonsingleton(xi); 
-      result_type sizee = y.extent(); 
-      sizee[dim-1] = numel(xi);
-      return sizee;
-    }
-  };
- 
-  template<class Domain, class Expr>
-  struct size_of<tag::idx_linear_, Domain, 4, Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type       value_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,1>::type         idx_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  child0;
-    typedef typename boost::proto::result_of::child_c<Expr&,3>::type      choice_t; 
-    typedef typename child0::extent_type                               result_type; 
-
-    result_type operator()(Expr& e) const
-    {
-      const value_t & y     =  boost::proto::child_c<0>(e);
-      const idx_t & xi      =  boost::proto::child_c<1>(e);
-      const choice_t & v    =  boost::proto::child_c<3>(e);
+      const choice_t & v    =  boost::proto::child_c<N-1>(e);
       typedef typename nt2::meta::is_integral<choice_t>::type c_t; 
       std::size_t dim       =  getdim(xi, v, c_t());
       result_type sizee = y.extent(); 
@@ -130,24 +100,24 @@ namespace nt2 { namespace container { namespace ext
     {return v; }
   
   }; 
-  template<class Domain, class Expr>
-  struct size_of<tag::idx_linear_, Domain, 5, Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type       value_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,1>::type         idx_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  child0;
-    typedef typename child0::extent_type                               result_type; 
+//   template<class Domain, class Expr>
+//   struct size_of<tag::idx_linear_, Domain, 5, Expr>
+//   {
+//     typedef typename boost::proto::result_of::child_c<Expr&,0>::type       value_t;
+//     typedef typename boost::proto::result_of::child_c<Expr&,1>::type         idx_t;
+//     typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  child0;
+//     typedef typename child0::extent_type                               result_type; 
 
-    result_type operator()(Expr& e) const
-    {
-      const value_t & y     =  boost::proto::child_c<0>(e);
-      const idx_t & xi      =  boost::proto::child_c<1>(e);
-      std::size_t dim       =  boost::proto::child_c<4>(e);
-      result_type sizee = y.extent(); 
-      sizee[dim-1] = numel(xi);
-      return sizee;
-    }
-  };
+//     result_type operator()(Expr& e) const
+//     {
+//       const value_t & y     =  boost::proto::child_c<0>(e);
+//       const idx_t & xi      =  boost::proto::child_c<1>(e);
+//       std::size_t dim       =  boost::proto::child_c<4>(e);
+//       result_type sizee = y.extent(); 
+//       sizee[dim-1] = numel(xi);
+//       return sizee;
+//     }
+//   };
 
   template <class Domain, class Expr,  int N>
   struct value_type < tag::idx_linear_, Domain,N,Expr> {

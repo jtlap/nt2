@@ -87,7 +87,7 @@ NT2_TEST_CASE_TPL( idx_linear2, (float))//(double))//NT2_TYPES )
 {
   using nt2::_;
   nt2::table<T> x =  nt2::reshape(nt2::linspace(T(1),  T(16), 16), 4, 4); 
-  nt2::table<T> xi=  nt2::linspace(T(0),  T(4), 11);
+  nt2::table<T> xi=  nt2::linspace(T(0),  T(5), 11);
   NT2_DISPLAY(x);
   NT2_DISPLAY(xi); 
   nt2::table<T> yi; 
