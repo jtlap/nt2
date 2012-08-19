@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES  
+  idx_linear.cpp
+#  idxy_bilinear.cpp
   bsearch.cpp
   linear.cpp
   nearest.cpp
