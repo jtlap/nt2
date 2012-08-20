@@ -9,10 +9,10 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_INDICES_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_INDICES_HPP_INCLUDED
 
+#include <nt2/core/utility/as_value.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
 
 namespace nt2 { namespace details
 {
@@ -36,9 +36,8 @@ namespace nt2 { namespace details
       typedef typename meta::call<nt2::tag::ind2sub_(Size,p_t)>::type       s_t;;
 
       s_t const pos = ind2sub(sz,nt2::enumerate<i_t>(p));
-
-      if (dim_ >= pos.size()) return nt2::splat<type>(base_);
-      else                    return nt2::splat<type>(pos[dim_])+base_-1;
+      return (dim_ >= pos.size()) ? nt2::splat<type>(base_)
+                                  : as_value<type>(pos[dim_]+base_-1);
     }
 
     private:

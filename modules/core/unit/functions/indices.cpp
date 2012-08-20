@@ -23,23 +23,13 @@
 
 NT2_TEST_CASE( indices_size )
 {
-  using nt2::along_; 
+  using nt2::along_;
   NT2_TEST_EQUAL( nt2::extent( nt2::indices(4, along_, 1) ), nt2::of_size(4,4 ));
   NT2_TEST_EQUAL( nt2::size( nt2::indices(4, along_, 1), 1 ), 4u );
   NT2_TEST_EQUAL( nt2::size( nt2::indices(4, along_, 1), 2 ), 4u );
   NT2_TEST_EQUAL( nt2::extent( nt2::indices(4, 5, along_, 1) ), nt2::of_size(4,5 ));
   NT2_TEST_EQUAL( nt2::size( nt2::indices(4, 5, along_, 1), 1 ), 4u );
   NT2_TEST_EQUAL( nt2::size( nt2::indices(4, 5, along_, 1), 2 ), 5u );
-  
-//   NT2_TEST_EQUAL( nt2::extent( nt2::indices(nt2::of_size(4,5, along_, 1)) ), nt2::of_size(4,5 ) );
-//   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(4,5), along_, 1), 1 ), 4 );
-//   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(4,5), along_, 1), 2 ), 5 );
-//   NT2_TEST_EQUAL( nt2::extent( nt2::indices(nt2::of_size(4,1), along_, 1) ), nt2::of_size(4,1 ) );
-//   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(4,1), along_, 1), 1 ), 4 );
-//   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(4,1), along_, 1), 2 ), 1 );
-//   NT2_TEST_EQUAL( nt2::extent( nt2::indices(nt2::of_size(1,4, along_, 1)) ), nt2::of_size(1,4 ) );
-//   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(1,4), along_, 1), 1 ), 1 );
-//   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(1,4), along_, 1), 2 ), 4 );
 
   NT2_TEST_EQUAL( nt2::extent( nt2::indices(nt2::of_size(4,5), 1) ), nt2::of_size(4,5 ) );
   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(4,5), 1), 1 ), 4u );
@@ -55,7 +45,6 @@ NT2_TEST_CASE( indices_size )
   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(4,5,2), 1), 1 ), 4u );
   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(4,5,2), 1), 2 ), 5u );
   NT2_TEST_EQUAL( nt2::size( nt2::indices(nt2::of_size(4,5,2), 1), 3 ), 2u );
-  
 }
 
 NT2_TEST_CASE( indices_untyped_square )
@@ -108,7 +97,7 @@ NT2_TEST_CASE( indices_nd_untyped )
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
       NT2_TEST_EQUAL( i, x2(i, j) );
-  
+
   nt2::table<double> x22 = nt2::indices(8, 4, nt2::along_, 2);
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
@@ -118,7 +107,7 @@ NT2_TEST_CASE( indices_nd_untyped )
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
       NT2_TEST_EQUAL( 1, x23(i, j) );
- 
+
 }
 
 NT2_TEST_CASE_TPL( indices_nd_typed, NT2_TYPES )
@@ -127,7 +116,7 @@ NT2_TEST_CASE_TPL( indices_nd_typed, NT2_TYPES )
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
       NT2_TEST_EQUAL( T(i), x2(i, j) );
-  
+
   nt2::table<T> x22 = nt2::indices(8, 4, nt2::along_, 2, nt2::meta::as_<T>());
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
@@ -136,7 +125,7 @@ NT2_TEST_CASE_TPL( indices_nd_typed, NT2_TYPES )
   nt2::table<T> x23 = nt2::indices(8, 4, nt2::along_, 3, nt2::meta::as_<T>());
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
-      NT2_TEST_EQUAL( T(1), x23(i, j)); 
+      NT2_TEST_EQUAL( T(1), x23(i, j));
 }
 
 NT2_TEST_CASE_TPL( indices_expr, NT2_TYPES)
@@ -149,7 +138,7 @@ NT2_TEST_CASE_TPL( indices_expr, NT2_TYPES)
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
       NT2_TEST_EQUAL( T(i), x2(i, j) );
-  
+
   nt2::table<T> x22 = nt2::indices(t, 2, nt2::meta::as_<T>());
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
@@ -164,19 +153,19 @@ NT2_TEST_CASE_TPL( indices_expr, NT2_TYPES)
     t(1) = 3;
     t(2) = 4;
     t(3) = 2;
-    
+
     nt2::table<T> x2 = nt2::indices(t, 1, nt2::meta::as_<T>());
     for(int i=1;i<=3;++i)
       for(int j=1;j<=4;++j)
         for(int k = 1; k <= 2; ++k)
           NT2_TEST_EQUAL( T(i), x2(i, j, k) );
-    
+
     nt2::table<T> x22 = nt2::indices(t, 2, nt2::meta::as_<T>());
     for(int i=1;i<=3;++i)
       for(int j=1;j<=4;++j)
         for(int k = 1; k <= 2; ++k)
           NT2_TEST_EQUAL( T(j), x22(i, j, k) );
-    
+
     nt2::table<T> x23 = nt2::indices(t, 3, nt2::meta::as_<T>());
     for(int i=1;i<=3;++i)
       for(int j=1;j<=4;++j)
@@ -188,7 +177,7 @@ NT2_TEST_CASE_TPL( indices_expr, NT2_TYPES)
 
 NT2_TEST_CASE( indices_expr1)
 {
-  typedef double T; 
+  typedef double T;
   nt2::table<T> t(nt2::of_size(1, 2) );
   t(1) = 8;
   t(2) = 4;
@@ -197,7 +186,7 @@ NT2_TEST_CASE( indices_expr1)
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
       NT2_TEST_EQUAL( i, x2(i, j) );
-  
+
   nt2::table<T> x22 = nt2::indices(t, 2);
   for(int i=1;i<=8;++i)
     for(int j=1;j<=4;++j)
@@ -212,19 +201,19 @@ NT2_TEST_CASE( indices_expr1)
     t(1) = 3;
     t(2) = 4;
     t(3) = 2;
-    
+
     nt2::table<T> x2 = nt2::indices(t, 1);
     for(int i=1;i<=3;++i)
       for(int j=1;j<=4;++j)
         for(int k = 1; k <= 2; ++k)
           NT2_TEST_EQUAL( i, x2(i, j, k) );
-    
+
     nt2::table<T> x22 = nt2::indices(t, 2);
     for(int i=1;i<=3;++i)
       for(int j=1;j<=4;++j)
         for(int k = 1; k <= 2; ++k)
         NT2_TEST_EQUAL( j, x22(i, j, k) );
-    
+
     nt2::table<T> x23 = nt2::indices(t, 3);
     for(int i=1;i<=3;++i)
       for(int j=1;j<=4;++j)
@@ -236,24 +225,24 @@ NT2_TEST_CASE( indices_expr1)
 
 NT2_TEST_CASE( indices_Nd)
 {
-  typedef float T; 
+  typedef float T;
 
   nt2::table<T> x1 = nt2::indices( nt2::of_size(3, 4, 2), 1, nt2::meta::as_<T>() );
-  NT2_DISPLAY(x1); 
+  NT2_DISPLAY(x1);
   for(int i=1;i<=3;++i)
     for(int j=1;j<=4;++j)
       for(int k=1;k<=2;++k)
       NT2_TEST_EQUAL( T(i), T(x1(i, j, k)));
 
   nt2::table<T> x2 = nt2::indices( nt2::of_size(3, 4, 2), 2, nt2::meta::as_<T>() );
-  NT2_DISPLAY(x1); 
+  NT2_DISPLAY(x1);
   for(int i=1;i<=3;++i)
     for(int j=1;j<=4;++j)
       for(int k=1;k<=2;++k)
       NT2_TEST_EQUAL( T(j), T(x2(i, j, k)));
 
   nt2::table<T> x3 = nt2::indices( nt2::of_size(3, 4, 2), 3, nt2::meta::as_<T>() );
-  NT2_DISPLAY(x1); 
+  NT2_DISPLAY(x1);
   for(int i=1;i<=3;++i)
     for(int j=1;j<=4;++j)
       for(int k=1;k<=2;++k)
