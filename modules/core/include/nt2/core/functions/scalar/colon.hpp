@@ -11,8 +11,8 @@
 
 #include <nt2/core/functions/colon.hpp>
 #include <nt2/core/utility/box.hpp>
+#include <nt2/core/utility/of_size.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/constants/threeeps.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <nt2/core/functions/details/colon.hpp>
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
-                                          , box<_2D>
+                                          , box< of_size_<1, -1> >
                                           , box< nt2::details::unity_colon<base_t> >
                                           , meta::as_<base_t>
                                           >::type             result_type;
@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::colon_
                         , container::domain
-                        > ( boxify(of_size(1,details::unity_colon_size(l,u)))
+                        > ( boxify(of_size_<1, -1>(1,details::unity_colon_size(l,u)))
                           , boxify(details::unity_colon<base_t>(l))
                           , meta::as_<base_t>()
                           );
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
-                                          , box<_2D>
+                                          , box< of_size_<1, -1> >
                                           , box< nt2::details::colon<A0> >
                                           , meta::as_<A0>
                                           >::type             result_type;
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::colon_
                         , container::domain
-                        > ( boxify(of_size(1,details::colon_size(l,s,u)))
+                        > ( boxify(of_size_<1, -1>(1,details::colon_size(l,s,u)))
                           , boxify(nt2::details::colon<A0>(l,s))
                           , meta::as_<A0>()
                           );
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
-                                          , box<_2D>
+                                          , box< of_size_<1, -1> >
                                           , box< nt2::details::colon<A0> >
                                           , meta::as_<A0>
                                           >::type             result_type;
@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
       return  boost::proto::
               make_expr < nt2::tag::colon_
                         , container::domain
-                        > ( boxify(of_size(1,details::colon_size(l,s,u)))
+                        > ( boxify(of_size_<1, -1>(1,details::colon_size(l,s,u)))
                           , boxify(nt2::details::colon<A0>(l,s))
                           , meta::as_<A0>()
                           );
@@ -137,7 +137,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
-                                          , box<_2D>
+                                          , box< of_size_<1, -1> >
                                           , box< nt2::details::colon<base_t> >
                                           , meta::as_<base_t>
                                           >::type             result_type;
@@ -150,7 +150,7 @@ namespace nt2 { namespace ext
 
       return boost::proto::make_expr< nt2::tag::colon_
                                     , container::domain
-                                    > ( boxify(of_size(1,n))
+                                    > ( boxify(of_size_<1, -1>(1,n))
                                       , boxify(nt2::details::colon<A0>(l,s))
                                       , meta::as_<A0>()
                                       );
