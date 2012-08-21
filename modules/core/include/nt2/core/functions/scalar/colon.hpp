@@ -58,6 +58,38 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
+  // Generates colon from a pair of [low,up] (static)
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
+                              , (A0)(A1)
+                              , (mpl_integral_< scalar_< arithmetic_<A0> > >)
+                                (mpl_integral_< scalar_< arithmetic_<A1> > >)
+                            )
+  {
+    static const std::size_t sz = (A1::value>=A0::value) ? std::size_t(A1::value-A0::value+1) : 0u;
+
+    typedef typename boost::common_type<A0,A1>::type base_t;
+    typedef typename  boost::proto::
+                      result_of::make_expr< nt2::tag::colon_
+                                          , container::domain
+                                          , box< of_size_<1, sz> >
+                                          , box< nt2::details::unity_colon<base_t> >
+                                          , meta::as_<base_t>
+                                          >::type             result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& l, A1 const& u) const
+    {
+      return  boost::proto::
+              make_expr < nt2::tag::colon_
+                        , container::domain
+                        > ( boxify(of_size_<1, sz>())
+                          , boxify(details::unity_colon<base_t>(l))
+                          , meta::as_<base_t>()
+                          );
+    }
+  };
+
+  //============================================================================
   // Generates colon from a pair of [low,up] and a step
   // Easy case : everything is signed integral
   //============================================================================
