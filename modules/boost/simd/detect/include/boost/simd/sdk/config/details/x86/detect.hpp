@@ -82,6 +82,20 @@ namespace boost { namespace simd { namespace config { namespace details
     else return false;
   }
 
+  inline bool detect(tag::fma4_ const&)
+  {
+    if(get_vendor() == amd)
+    { BOOST_SIMD_DECLARE_X86_DETECTION_CALL(16,0x00000001,3) }
+    else return false;
+  }
+
+  inline bool detect(tag::xop_ const&)
+  {
+    if(get_vendor() == amd)
+    { BOOST_SIMD_DECLARE_X86_DETECTION_CALL(11,0x00000001,3) }
+    else return false;
+  }
+
 } } } }
 
 #endif
