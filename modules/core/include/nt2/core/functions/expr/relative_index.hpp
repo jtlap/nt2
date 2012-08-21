@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& idx, const A1& bi, const A2& sz, const A3&, const A4&) const
     {
-      return boost::proto::value(idx).index(bi,sz);
+      return nt2::splat<result_type>(boost::proto::value(idx).index(bi,sz));
     }
   };
 
