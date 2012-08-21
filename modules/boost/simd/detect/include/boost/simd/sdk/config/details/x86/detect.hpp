@@ -33,6 +33,13 @@ namespace boost { namespace simd { namespace config { namespace details
     return (value & (1<<bit)) != 0;
   }
 
+  inline bool detect(tag::sse_ const&)
+  {
+    if(get_vendor() == intel || get_vendor() == amd)
+    { BOOST_SIMD_DECLARE_X86_DETECTION_CALL(25,0x00000001,4) }
+    else return false;
+  }
+
   inline bool detect(tag::sse2_ const&)
   {
     if(get_vendor() == intel || get_vendor() == amd)
@@ -85,14 +92,14 @@ namespace boost { namespace simd { namespace config { namespace details
   inline bool detect(tag::fma4_ const&)
   {
     if(get_vendor() == amd)
-    { BOOST_SIMD_DECLARE_X86_DETECTION_CALL(16,0x00000001,3) }
+    { BOOST_SIMD_DECLARE_X86_DETECTION_CALL(16,0x80000001,3) }
     else return false;
   }
 
   inline bool detect(tag::xop_ const&)
   {
     if(get_vendor() == amd)
-    { BOOST_SIMD_DECLARE_X86_DETECTION_CALL(11,0x00000001,3) }
+    { BOOST_SIMD_DECLARE_X86_DETECTION_CALL(11,0x80000001,3) }
     else return false;
   }
 
