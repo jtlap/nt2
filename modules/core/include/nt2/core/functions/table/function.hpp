@@ -75,7 +75,6 @@ namespace nt2 { namespace ext
     typedef boost::fusion::
             transform_view<zipped const, details::reindex>    transformed;
 
-    // Finally, we compute the actual return type after indexing
     typedef typename meta::call< tag::run_( child0
                                           , i_t
                                           , Data const&
@@ -90,7 +89,10 @@ namespace nt2 { namespace ext
       target_type targets;
 
       // Grab the destination subscript
-      pos_type pos = details::one_extend<arity>(ind2sub(expr.extent(), nt2::enumerate<i_t>(state), indexes));
+      pos_type pos = ind2sub( typename make_size<arity>::type(expr.extent())
+                            , nt2::enumerate<i_t>(state)
+                            , indexes
+                            );
 
       // Apply index_t to each subscript value
       transformed trs = boost::fusion::
