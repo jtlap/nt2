@@ -17,11 +17,13 @@ set(CTEST_DROP_SITE_CDASH TRUE)
 set(CTEST_MEMORYCHECK_SUPPRESSIONS_FILE ${CTEST_SOURCE_DIRECTORY}/valgrind.supp)
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "You are using gcc version \".*\"")
 
-if(CMAKE_PROJECT_NAME STREQUAL NT2)
-  execute_process(COMMAND hostname OUTPUT_VARIABLE HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
-  string(REGEX REPLACE "\\.local$" "" HOST ${HOST})
-  string(TOLOWER ${HOST} SITE)
+# SITE is host name
+execute_process(COMMAND hostname OUTPUT_VARIABLE HOST OUTPUT_STRIP_TRAILING_WHITESPACE)
+string(REGEX REPLACE "\\.local$" "" HOST ${HOST})
+string(TOLOWER ${HOST} SITE)
 
+# BUILDNAME is generated from OS, architecture, compiler and SIMD level (in-project only)
+if(CMAKE_PROJECT_NAME STREQUAL NT2)
   set(OS ${CMAKE_SYSTEM_NAME})
   string(TOLOWER ${CMAKE_SYSTEM_PROCESSOR} ARCH)
 
@@ -55,23 +57,33 @@ if(CMAKE_PROJECT_NAME STREQUAL NT2)
   endif()
 
   set(BUILDNAME "${OS}-${ARCH}${EXT}${COMPILER}")
+  file(WRITE ${PROJECT_BINARY_DIR}/CTestConfigData.cmake "set(BUILDNAME ${BUILDNAME})")
 
-  find_package(Git QUIET)
-  if(GIT_EXECUTABLE)
-    execute_process(COMMAND ${GIT_EXECUTABLE} symbolic-ref HEAD
-                    WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
-                    OUTPUT_VARIABLE BRANCH OUTPUT_STRIP_TRAILING_WHITESPACE
-                    RESULT_VARIABLE BRANCH_RESULT ERROR_QUIET
-                   )
-    if(NOT BRANCH_RESULT)
-     string(REGEX REPLACE "^.+/([^/]+)$" "\\1" BRANCH ${BRANCH})
-    else()
-      set(BRANCH "dirty")
-    endif()
+else()
+# outside of project, we load a file
+  set(PROJECT_SOURCE_DIR ${CTEST_SOURCE_DIRECTORY})
+  set(PROJECT_BINARY_DIR ${CTEST_BINARY_DIRECTORY})
+  include(${PROJECT_BINARY_DIR}/CTestConfigData.cmake)
+endif()
 
-    if(NOT BRANCH STREQUAL "master")
-      set(BUILDNAME "${BUILDNAME}-${BRANCH}")
-    endif()
+# We add branch tag if necessary
+find_package(Git QUIET)
+if(GIT_EXECUTABLE)
+  execute_process(COMMAND ${GIT_EXECUTABLE} symbolic-ref HEAD
+                  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
+                  OUTPUT_VARIABLE BRANCH OUTPUT_STRIP_TRAILING_WHITESPACE
+                  RESULT_VARIABLE BRANCH_RESULT ERROR_QUIET
+                 )
+  if(NOT BRANCH_RESULT)
+   string(REGEX REPLACE "^.+/([^/]+)$" "\\1" BRANCH ${BRANCH})
+  else()
+    set(BRANCH "dirty")
   endif()
 
+  if(NOT BRANCH STREQUAL "master")
+    set(BUILDNAME "${BUILDNAME}-${BRANCH}")
+  endif()
 endif()
+
+set(CTEST_SITE ${SITE})
+set(CTEST_BUILD_NAME ${BUILDNAME})
