@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace meta
   template<class T, class N>
   struct extension_of< boost::array<T, N::value>, T, N>
   {
-    typedef tag::simd_emulation_< N * sizeof(T) > type;
+    typedef tag::simd_emulation_< N::value * sizeof(T) > type;
   };
 } } }
 
