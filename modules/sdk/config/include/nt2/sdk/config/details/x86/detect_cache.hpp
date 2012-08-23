@@ -70,15 +70,15 @@ namespace nt2{ namespace config{ namespace details{
     case boost::simd::config::amd :
 
       boost::simd::config::x86::cpuidex(regs,0x80000005,0);
-      cache_line_sizes_[0] = regs[3] & 0x000000FF;
-      cache_sizes_[0]      = regs[3] >> 24;
-      cache_line_sizes_[1] = regs[2] & 0x000000FF;
-      cache_sizes_[1]      = regs[2] >> 24;
+      cache_line_sizes_[0] = regs[2] & 0x000000FF;
+      cache_sizes_[0]      = regs[2] >> 24;
+      cache_line_sizes_[1] = regs[3] & 0x000000FF;
+      cache_sizes_[1]      = regs[3] >> 24;
 
       regs[0] = regs[1] = regs[2] = regs[3] = 0;
       boost::simd::config::x86::cpuidex(regs,0x80000006,0);
 
-      if(get_range(regs[0], 0, 4) != 0)
+      if(get_range(regs[0], 28, 32) != 0)
       {
         cache_line_sizes_[2] = regs[2] & 0x000000FF;
         cache_sizes_[2] = regs[2] >> 16;
