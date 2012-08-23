@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_HIERARCHY_CLASS(neon_, simd_);
 
   // Tag hierarchy for no extension
-  template<class N> struct simd_emulation_
+  template<std::size_t N> struct simd_emulation_
    : boost::dispatch::tag::cpu_
   {
     typedef boost::dispatch::tag::cpu_ parent;
