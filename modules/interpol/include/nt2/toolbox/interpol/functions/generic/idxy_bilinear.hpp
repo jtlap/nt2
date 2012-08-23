@@ -74,14 +74,7 @@ namespace nt2 { namespace ext
       value_type extrapval1y = extrapval1x;
       value_type extrapval2y = extrapval1x;
       choices(inputs, extrap, extrapval1x, extrapval2x, extrapval1y, extrapval2y, dim1, dim2, N1());
-//       ext_t siz;
-//       siz[0] = 1; 
-//       siz[dim1-1] = numel(xi);
-//       siz[dim2-1] = numel(yi);
-      std::cout << inputs.extent() << std::endl; 
       r.resize(inputs.extent());
-      //       std::cout << siz     << std::endl;
-      //       std::cout << size(r) << std::endl; 
       table<sale_type> z = idx_linear(y,xi,true,nt2::_,dim1);
       NT2_DISPLAY(z); 
       r = idx_linear(z,yi,true,nt2::_,dim2);
