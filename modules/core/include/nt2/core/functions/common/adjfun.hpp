@@ -49,17 +49,18 @@ namespace nt2 { namespace ext
       ::value_type::extent_type                                        extt_t;
 
     typedef typename meta::strip<extt_t>::type                          ext_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(ext_t,State)>::type  sub_t;
+    typedef typename meta::as_integer<result_type, unsigned>::type        i_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(ext_t,i_t)>::type    sub_t;
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       func_t f =   boost::proto::value(boost::proto::child_c<2>(a0));
       ext_t ex0 = boost::proto::child_c<0>(a0).extent();
       size_t along = boost::proto::child_c<1>(a0);
-      sub_t pos0 = ind2sub(a0.extent(),p);
+      sub_t pos0 = ind2sub(a0.extent(),enumerate<i_t>(p));
       sub_t pos1 = pos0; ++pos1[along]; 
-      State p0 = sub2ind(ex0, pos0);
-      State p1 = sub2ind(ex0, pos1);
+      i_t p0 = sub2ind(ex0, pos0);
+      i_t p1 = sub2ind(ex0, pos1);
       return f(nt2::run(boost::proto::child_c<0>(a0),p1,t), 
                nt2::run(boost::proto::child_c<0>(a0),p0,t)); 
     }

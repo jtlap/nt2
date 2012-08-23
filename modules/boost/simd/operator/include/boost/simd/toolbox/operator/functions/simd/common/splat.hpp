@@ -15,6 +15,7 @@
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/mpl/equal_to.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -60,17 +61,18 @@ namespace boost { namespace simd { namespace ext
   //============================================================================
   // Splatting a SIMD value is identity in arithmetic and logical cases
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::splat_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::splat_, tag::cpu_
                                     , (A0)(A1)(X)
+                                    , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>, boost::simd::meta::cardinal_of<typename A1::type> >)
                                     , ((simd_< arithmetic_<A0>, X >))
                                       ((target_< simd_< arithmetic_<A1>, X > >))
                                     )
   {
-    typedef A0 result_type;
+    typedef typename A1::type result_type;
 
     inline result_type operator()(const A0& a0, const A1&) const
     {
-      return a0;
+      return bitwise_cast<result_type>(a0);
     }
   };
 

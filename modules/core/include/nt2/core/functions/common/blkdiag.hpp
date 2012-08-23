@@ -28,14 +28,7 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_ ( typename  boost::proto::result_of::
-                                            child_c<A0&, 0>::type
-                                , State&, Data&
-                                )
-                >::type                                        base_type;
-
-    typedef typename meta::strip<base_type>::type               result_type;
+    typedef typename Data::type                                 result_type;
     typedef typename meta::as_integer<result_type>::type                i_t;
     typedef typename meta::call<nt2::tag::ind2sub_(_2D,i_t)>::type  sub_t;
 
@@ -51,25 +44,30 @@ namespace nt2 { namespace ext
 
       // Find the proper quadrant for each position
       typedef typename meta::as_logical<i_t>::type mask_t;
-      mask_t is_stack0 = nt2::le(pos[1],splat<i_t>(ex0[1]));
-      mask_t is_row0   = nt2::le(pos[0],splat<i_t>(ex0[0]));
+      mask_t const is_stack0 = nt2::le(pos[1],splat<i_t>(ex0[1]));
+      mask_t const is_row0   = nt2::le(pos[0],splat<i_t>(ex0[0]));
 
       // Result is out of the diagonal
-      result_type z   = Zero<result_type>();
+      result_type const z   = Zero<result_type>();
 
-      // Result is in a0
-      result_type s0  = nt2::run( boost::proto::child_c<0>(a0)
-                                , sub2ind(ex0, pos)
-                                , t
-                                );
+      // Result is from a0
+      result_type const s0 = nt2::run ( boost::proto::child_c<0>(a0)
+                                      , sub2ind(ex0, pos)
+                                      , t
+                                      );
 
-      // Result is in a1
-      pos[0] -= splat<i_t>(ex0[0]);
-      pos[1] -= splat<i_t>(ex0[1]);
-      result_type s1 = nt2::run ( boost::proto::child_c<1>(a0)
-                                , sub2ind(ex1, pos)
-                                , t
-                                );
+      // Compute offset to find other possible data
+      i_t const offset0 = splat<i_t>(ex0[0]);
+      pos[0] = selsub( gt(pos[0],offset0), pos[0], offset0);
+
+      i_t const offset1 = splat<i_t>(ex0[1]);
+      pos[1] = selsub( gt(pos[1],offset1), pos[1], offset1);
+
+      // Result is from a1
+      result_type const s1 = nt2::run ( boost::proto::child_c<1>(a0)
+                                      , sub2ind(ex1, pos)
+                                      , t
+                                      );
 
       // Select proper values depending on quadrant informations
       return nt2::if_else ( is_stack0

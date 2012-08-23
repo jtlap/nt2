@@ -40,8 +40,8 @@ NT2_TEST_CASE_TPL( var, (float)(double))//NT2_TYPES )
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> cy, cy2, sy;
   nt2::table<T> sy2;
-
-
+  
+  
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
@@ -53,9 +53,7 @@ NT2_TEST_CASE_TPL( var, (float)(double))//NT2_TYPES )
   sy2 = nt2::var(y, 0, 2);
   display("sy2", sy2);
   NT2_TEST(isequal(sy, sy2)); 
-  //   for(int j=1;j<=size(sy, 2);j++)
-  //     for(int i=1;i<=size(sy, 1);i++)
-  //       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
+  NT2_TEST(isequal(sy,  nt2::var(y, 0, 2)));
   
   std::cout << "---------------- nt2::var(y, 0, 1)" << std::endl; 
   cy =  center(y, 1);
@@ -64,19 +62,16 @@ NT2_TEST_CASE_TPL( var, (float)(double))//NT2_TYPES )
   sy2 = nt2::var(y, 0, 1);
   display("sy2", sy2);
   NT2_TEST(isequal(sy, sy2));
-  //   for(int j=1;j<=size(sy, 2);j++)
-  //     for(int i=1;i<=size(sy, 1);i++)
-  //       NT2_TEST_EQUAL(sy(i,j), sy2(i, j));
-
-
+  NT2_TEST(isequal(sy,  nt2::var(y, 0, 1)));
+  
+  
   std::cout << "---------------- nt2::var(y, 0, 3)" << std::endl; 
   sy2 = nt2::var(y, 0, 3);
   display("sy2", sy2);
   NT2_TEST(isequal(zeros(size(sy2), nt2::meta::as_<T>()), sy2));
-  //   for(int j=1;j<=size(sy, 2);j++)
-  //     for(int i=1;i<=size(sy, 1);i++)
-  //       NT2_TEST_EQUAL(0, sy2(i, j));
-
-
+  NT2_TEST(isequal(zeros(size(sy2), nt2::meta::as_<T>()), nt2::var(y, 0, 3)));
+  
+  
 }
-
+    
+    

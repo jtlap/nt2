@@ -25,7 +25,8 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A2>)
                             )
   {
-    typedef boost::array<int, boost::fusion::result_of::size<A2>::value> result_type;
+    typedef typename meta::call<tag::sub2ind_(const A0&, const A1&)>::type s_t;
+    typedef typename meta::call<tag::ind2sub_(const A2&, s_t)>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& sizein, const A1& pos, const A2& sizeout) const

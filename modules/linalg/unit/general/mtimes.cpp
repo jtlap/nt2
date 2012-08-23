@@ -197,12 +197,13 @@ NT2_TEST_CASE( mtimes_aliasing_2 )
 
   display("a0", a0); 
 }
-NT2_TEST_CASE( mtimes_aliasing_3 )
+NT2_TEST_CASE_TPL( mtimes_aliasing_3, NT2_REAL_TYPES)
 {
-  typedef double T;
+  //  typedef double T;
   using nt2::_;
 
-  nt2::table<T> a0 = nt2::rif(3, 1), a1 = nt2::cif(1, 3), b;
+  nt2::table<T> a0 = nt2::rif(3, 1, nt2::meta::as_<T>()),
+                a1 = nt2::cif(1, 3, nt2::meta::as_<T>()), b;
   display("a0", a0); 
   display("a1", a1); 
   b =  nt2::mtimes(a0, a1);
@@ -210,5 +211,6 @@ NT2_TEST_CASE( mtimes_aliasing_3 )
   
   NT2_TEST(isequal(a0, b));
 
+  NT2_DISPLAY(b); 
   display("a0", a0); 
 }

@@ -10,9 +10,14 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_SUB2IND_HPP_INCLUDED
 
 #include <nt2/core/functions/sub2ind.hpp>
-#include <nt2/include/functions/splat.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/sdk/meta/as_unsigned.hpp>
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/value_at.hpp>
 #include <boost/fusion/include/size.hpp>
@@ -45,20 +50,23 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A1>)
                             )
   {
-    typedef typename sequence_value<A1>::type               result_type;
+    typedef typename sequence_value<A1>::type               type;
+    typedef typename meta::as_unsigned<type>::type          result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos) const
     {
       typedef typename boost::fusion::result_of::size<A1>::type dims;
-      return eval ( size, pos
+      return bitwise_cast<result_type>(
+             eval ( size, pos
                   , boost::mpl::int_<0>()
                   , boost::mpl::int_<dims::value-1>()
-                  );
+                  )
+             );
     }
 
     template<class Idx, class Sz>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval(const A0& s, const A1& p, const Idx&, const Sz& sz) const
     {
       return  boost::fusion::at_c<Idx::value>(p) - 1
@@ -67,7 +75,7 @@ namespace nt2 { namespace ext
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval(const A0& s,const A1& p,const boost::mpl::int_<0>&,const Sz& sz) const
     {
       return  boost::fusion::at_c<0>(p) - 1
@@ -76,30 +84,30 @@ namespace nt2 { namespace ext
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval(const A0&, const A1& p, const Sz&, const Sz&) const
     {
-      return splat<result_type>(  boost::fusion::at_c<Sz::value>(p)
-                                -  One<result_type>()
-                                );
+      return splat<type>(  boost::fusion::at_c<Sz::value>(p)
+                         -  One<type>()
+                        );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval( const A0&, const A1& p
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {
-      return splat<result_type>(  boost::fusion::at_c<0>(p)
-                                -  One<result_type>()
-                                );
+      return splat<type>(  boost::fusion::at_c<0>(p)
+                         -  One<type>()
+                        );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval( const A0&, const A1&
         , const boost::mpl::int_<0>&, const boost::mpl::int_<-1>&
         ) const
     {
-      return Zero<result_type>();
+      return Zero<type>();
     }
   };
 
@@ -113,20 +121,23 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A2>)
                             )
   {
-    typedef typename sequence_value<A1>::type               result_type;
+    typedef typename sequence_value<A1>::type               type;
+    typedef typename meta::as_unsigned<type>::type          result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& size, const A1& pos, const A2& base) const
     {
       typedef typename boost::fusion::result_of::size<A1>::type dims;
-      return eval ( size,pos,base
+      return bitwise_cast<result_type>(
+             eval ( size,pos,base
                   , boost::mpl::int_<0>()
                   , boost::mpl::int_<dims::value-1>()
-                  );
+                  )
+             );
     }
 
     template<class Idx, class Sz>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval(const A0& s, const A1& p, const A2& b, const Idx&, const Sz& sz) const
     {
       return  boost::fusion::at_c<Idx::value>(p)
@@ -136,7 +147,7 @@ namespace nt2 { namespace ext
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval( const A0& s, const A1& p, const A2& b
         , const boost::mpl::int_<0>&, const Sz& sz
         ) const
@@ -147,30 +158,30 @@ namespace nt2 { namespace ext
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval(const A0&, const A1& p, const A2& b, const Sz&, const Sz&) const
     {
-      return splat<result_type>(  boost::fusion::at_c<Sz::value>(p)
-                                -  boost::fusion::at_c<Sz::value>(b)
-                                );
+      return splat<type>(  boost::fusion::at_c<Sz::value>(p)
+                         -  boost::fusion::at_c<Sz::value>(b)
+                        );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval( const A0&, const A1& p, const A2& b
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {
-      return splat<result_type>(  boost::fusion::at_c<0>(p)
-                                -  boost::fusion::at_c<0>(b)
-                                );
+      return splat<type>(  boost::fusion::at_c<0>(p)
+                         -  boost::fusion::at_c<0>(b)
+                        );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval( const A0&, const A1&, const A2&
         , const boost::mpl::int_<0>&, const boost::mpl::int_<-1>&
         ) const
     {
-      return Zero<result_type>();
+      return Zero<type>();
     }
   };
 } }

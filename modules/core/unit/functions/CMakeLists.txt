@@ -8,12 +8,15 @@
 ##############################################################################
 
 SET( SOURCES
+    along.cpp
+    linear_interp.cpp
+    sx.cpp
     tsxfun.cpp
     global.cpp
-    globalall.cpp 
-    globalany.cpp 
+    globalall.cpp
+    globalany.cpp
     globalsum.cpp
-    globalprod.cpp     
+    globalprod.cpp
     isreal.cpp
     issorted.cpp
     adjfun.cpp
@@ -85,6 +88,7 @@ SET( SOURCES
     linspace.cpp
     logspace.cpp
     maximum.cpp
+#    medianad.cpp
     median.cpp
     mean.cpp
     meanad.cpp
@@ -125,6 +129,7 @@ SET( SOURCES
     cumsum.cpp
     find.cpp
     tie.cpp
+    trans.cpp
     transform.cpp
     tri1l.cpp
     tri1u.cpp
@@ -136,7 +141,7 @@ SET( SOURCES
     width.cpp
     wmean.cpp
     zeros.cpp
-#  fill_pattern.cpp
+#    fill_pattern.cpp
     nansum.cpp
     nanmean.cpp
     nanasum2.cpp

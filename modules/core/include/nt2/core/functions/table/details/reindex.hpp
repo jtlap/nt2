@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 #include <nt2/include/functions/relative_index.hpp>
+#include <nt2/include/constants/one.hpp>
 
 namespace nt2 { namespace details
 {
@@ -25,7 +26,7 @@ namespace nt2 { namespace details
 
     template<typename T> struct result<reindex(T)>
       : meta::
-        call<nt2::tag::relative_index_
+        call< nt2::tag::relative_index_
             ( typename  boost::fusion::result_of::
                         at_c< typename boost::remove_reference<T>::type const
                             , 0
@@ -45,7 +46,8 @@ namespace nt2 { namespace details
             , typename  boost::fusion::result_of::
                         at_c< typename boost::remove_reference<T>::type const
                             , 4
-                            >::type )
+                            >::type
+            )
             >
     {};
 
@@ -63,11 +65,11 @@ namespace nt2 { namespace details
   };
 
   /// INTERNAL ONLY
-  /// Turn SIMD values into integer SIMD targets, use std::size_t for scalars
+  /// Turn SIMD values or targets into integer SIMD, use std::size_t for scalars
   template<class T>
   struct as_integer_target
   {
-    typedef boost::dispatch::meta::as_<std::size_t> type;
+    typedef std::size_t type;
   };
 
   template<class T, class X>
@@ -75,8 +77,7 @@ namespace nt2 { namespace details
   {
     typedef typename boost::simd::meta::
             as_arithmetic< boost::simd::native<T, X> >::type          arith_t;
-    typedef typename boost::dispatch::meta::as_integer<arith_t>::type base_t;
-    typedef boost::dispatch::meta::as_<base_t>                        type;
+    typedef typename boost::dispatch::meta::as_integer<arith_t>::type type;
   };
 
   template<class T>

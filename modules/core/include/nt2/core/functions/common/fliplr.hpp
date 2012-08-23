@@ -38,15 +38,17 @@ namespace nt2 { namespace ext
 
     typedef typename meta::strip<result_type>::type                   base_type;
     typedef typename meta::as_integer<base_type>::type                i_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
+    typedef typename meta::
+                     call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
+
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& p, Data const& t) const
     {
       _2D ex = a0.extent();
-
-      sub_t pos    = ind2sub(ex,p);
-      pos[1] = width(a0)-pos[1]+1;
+      s_t pos = ind2sub(ex,enumerate<i_t>(p));
+      pos[1]  = width(a0)-pos[1]+1;
 
       return nt2::run(boost::proto::child_c<0>(a0),sub2ind(ex,pos),t);
     }

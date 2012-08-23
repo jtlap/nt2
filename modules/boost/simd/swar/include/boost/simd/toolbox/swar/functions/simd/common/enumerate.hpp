@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_ENUMERATE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/swar/functions/enumerate.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -40,6 +41,20 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const& a0, T const& ) const
     {
       return a0;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+                                    , (A0)(X)(T)
+                                    , ((simd_< integer_<A0>, X >))
+                                      ((target_< simd_< floating_<T>,X> >))
+                                    )
+  {
+    typedef typename T::type result_type;
+
+    result_type operator()(A0 const& a0, T const& ) const
+    {
+      return tofloat(a0);
     }
   };
 

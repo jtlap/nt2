@@ -99,3 +99,5 @@ NT2_TEST_CASE_TPL( colon_real_step, NT2_REAL_TYPES )
   for(int i=1;i<=6;++i)
     NT2_TEST_ULP_EQUAL( zd(i), T(0.5), 0.5 );
 }
+
+

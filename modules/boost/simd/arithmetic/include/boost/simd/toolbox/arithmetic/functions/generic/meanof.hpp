@@ -12,10 +12,12 @@
 #include <boost/simd/include/functions/average.hpp>
 #include <boost/simd/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/functions/is_gez.hpp>
 #include <boost/simd/include/functions/is_finite.hpp>
 #include <boost/simd/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/logical_and.hpp>
 #include <boost/simd/include/functions/shrai.hpp>
+#include <boost/simd/include/functions/shri.hpp>
 #include <boost/simd/include/constants/half.hpp>
 
 
@@ -52,8 +54,8 @@ namespace boost { namespace simd { namespace ext
       return 
         if_else(is_gez(a0*a1), 
                 if_else(ge(a1, a0),
-                        a0 + shr((a1-a0), 1),
-                        a1 + shr((a0-a1), 1)),
+                        a0 + shri((a1-a0), 1),
+                        a1 + shri((a0-a1), 1)),
                 shrai(a0+a1, 1)
                 );
     }

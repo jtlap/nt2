@@ -27,19 +27,20 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_ ( typename  boost::proto::result_of::
-                                            child_c<A0&, 0>::type
-                                , State&, Data&
-                                )
-                >::type                                         base_type;
-
-    typedef typename meta::strip<base_type>::type               result_type;
-    typedef typename meta::as_integer<result_type,signed>::type i_t;
+    typedef typename Data::type                          result_type;
+    typedef typename meta::as_integer<result_type,unsigned>::type i_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
+      // We compute the new position and clamp it to rpevent segfault
+      i_t maxpos = splat<i_t>(numel(boost::proto::child_c<0>(a0))-1);
+      i_t pos = ind2ind ( boost::proto::value(boost::proto::child_c<1>(a0))
+                        , enumerate<i_t>(p)
+                        , boost::proto::child_c<0>(a0).extent()
+                        );
+      pos = if_else( ge(pos,maxpos), maxpos, pos);
+
       // This code select between the actual values and 0 depending on the
       // fact that the current linear index, once turned into a subscript of
       // the destination matrix, is inside the old one.
@@ -52,11 +53,7 @@ namespace nt2 { namespace ext
                 , boost::proto::child_c<0>(a0)
                 )
               , nt2::run( boost::proto::child_c<0>(a0)
-                        , ind2ind
-                          ( boost::proto::value(boost::proto::child_c<1>(a0))
-                          , p
-                          , boost::proto::child_c<0>(a0).extent()
-                          )
+                        , pos
                         , t
                         )
               , Zero<result_type>()

@@ -36,15 +36,18 @@ namespace nt2 { namespace ext
 
     typedef typename meta::strip<base_type>::type              result_type;
     typedef typename meta::as_integer<result_type>::type              i_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
+    typedef typename meta::
+                     call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
+    typedef typename s_t::value_type                                        sp_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      sub_t const pos = ind2sub(_2D(a0.extent()),p);
-      i_t const   is  = nt2::enumerate<i_t>( pos[0] );
-      i_t const   js  = nt2::splat<i_t>( pos[1] );
+      s_t  const pos = ind2sub(_2D(a0.extent()),nt2::enumerate<i_t>(p));
+      sp_t const is  = pos[0];
+      sp_t const js  = pos[1];
 
       // Return the lower triangular section with 1 on the diagonal
       return nt2::if_else ( nt2::eq(is, js)
@@ -76,18 +79,18 @@ namespace nt2 { namespace ext
 
     typedef typename meta::strip<base_type>::type              result_type;
     typedef typename meta::as_integer<result_type>::type              i_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,State)>::type  sub_t;
+    typedef typename meta::
+                     call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
+    typedef typename s_t::value_type                                        sp_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      sub_t const pos = ind2sub(_2D(a0.extent()),p);
-      i_t const   is  = nt2::enumerate<i_t>( pos[0] );
-      i_t const   js  = nt2::splat<i_t>
-                            ( pos[1]
-                            - boost::proto::value(boost::proto::child_c<1>(a0))
-                            );
+      s_t  const pos = ind2sub(_2D(a0.extent()),nt2::enumerate<i_t>(p));
+      sp_t const is  = pos[0];
+      sp_t const js  = pos[1]- boost::proto::value(boost::proto::child_c<1>(a0));
 
       // Return the shifted lower triangular section with 1 on the diagonal
       return nt2::if_else ( nt2::eq(is, js)
