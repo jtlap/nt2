@@ -17,8 +17,6 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/fusion/include/pop_front.hpp>
-#include <cstdio>
-#include <omp.h>
 
 namespace nt2 { namespace ext
 {
