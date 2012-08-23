@@ -53,10 +53,10 @@ if(CMAKE_PROJECT_NAME STREQUAL NT2)
 
   set(EXT)
   if(NT2_SIMD_EXT)
-    set(EXT -${NT2_SIMD_EXT}-)
+    set(EXT -${NT2_SIMD_EXT})
   endif()
 
-  set(BUILDNAME "${OS}-${ARCH}${EXT}${COMPILER}")
+  set(BUILDNAME "${OS}-${ARCH}${EXT}-${COMPILER}")
   file(WRITE ${PROJECT_BINARY_DIR}/CTestConfigData.cmake "set(BUILDNAME ${BUILDNAME})")
 
 else()
