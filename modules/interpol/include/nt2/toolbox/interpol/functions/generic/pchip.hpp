@@ -63,22 +63,23 @@ namespace nt2 { namespace ext
     
     result_type operator()(A0& yi, A1& inputs) const
     {
-       const child0 & x   =  boost::proto::child_c<0>(inputs);
-       BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'pchip' interpolation x values must be sorted in ascending order"); 
-       const child1 & y   =  boost::proto::child_c<1>(inputs);
-       const child2 & xi  =  boost::proto::child_c<2>(inputs);
-       bool extrap = false;
-       value_type extrapval = Nan<value_type>();
-       choices(inputs, extrap, extrapval, N1());
-       vtab_t h  =  nt2::diff(x,1,2);
-       vtab_t del = nt2::diff(y,1,2)/h;
-       pchipslopes(x,y,del, yi);
-       ppval <value_type> pp(x,y,yi,h,del);
-       yi =pp.eval(xi); 
-       if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))),
-                                      extrapval,
-                                      yi);
-       return yi;
+      yi.resize(inputs.extent()); 
+      const child0 & x   =  boost::proto::child_c<0>(inputs);
+      BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'pchip' interpolation x values must be sorted in ascending order"); 
+      const child1 & y   =  boost::proto::child_c<1>(inputs);
+      const child2 & xi  =  boost::proto::child_c<2>(inputs);
+      bool extrap = false;
+      value_type extrapval = Nan<value_type>();
+      choices(inputs, extrap, extrapval, N1());
+      vtab_t h  =  nt2::diff(x,1,2);
+      vtab_t del = nt2::diff(y,1,2)/h;
+      pchipslopes(x,y,del, yi);
+      ppval <value_type> pp(x,y,yi,h,del);
+      yi =pp.eval(xi); 
+      if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))),
+                                     extrapval,
+                                     yi);
+      return yi;
     } 
   private :
     static void choices(const A1&, bool &,  value_type&, boost::mpl::long_<3> const &)

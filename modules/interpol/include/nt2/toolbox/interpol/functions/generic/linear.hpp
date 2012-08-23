@@ -19,6 +19,7 @@
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/repnum.hpp>
+#include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/issorted.hpp>
@@ -45,18 +46,36 @@ namespace nt2 { namespace ext
     
     result_type operator()(A0& yi, A1& inputs) const
     {
-       const child0 & x   =  boost::proto::child_c<0>(inputs);
-       BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'linear' interpolation x values must be sorted in ascending order"); 
-       const child1 & y   =  boost::proto::child_c<1>(inputs);
-       const child2 & xi  =  boost::proto::child_c<2>(inputs);
-       bool extrap = false;
-       value_type extrapval = Nan<value_type>();
-       choices(inputs, extrap, extrapval, N1());
-       table<index_type>   index = bsearch (x, xi);
-       table<value_type>  dx    =  xi-x(index); 
-       yi =  fma(oneminus(dx), y(index), dx*y(oneplus(index)));
-       if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))), extrapval, yi);
-       return yi;
+      NT2_DISPLAY(inputs.extent()); 
+      yi.resize(inputs.extent()); 
+      const child0 & x   =  boost::proto::child_c<0>(inputs);
+      BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'linear' interpolation x values must be sorted in ascending order"); 
+      const child1 & y   =  boost::proto::child_c<1>(inputs);
+      const child2 & xi  =  boost::proto::child_c<2>(inputs);
+      bool extrap = false;
+      value_type extrapval = Nan<value_type>();
+      //      std::cout << "1-------------------------------------------------------" << std::endl; 
+      choices(inputs, extrap, extrapval, N1());
+      //            std::cout << "2-------------------------------------------------------" << std::endl; 
+      table<index_type>   index = bsearch (x, xi);
+      //            std::cout << "2b-------------------------------------------------------" << std::endl; 
+      table<value_type>  dx    =  xi-x(index); 
+      //            std::cout << "3-------------------------------------------------------" << std::endl; 
+      yi =  fma(oneminus(dx), y(index), dx*y(oneplus(index)));
+      std::cout << "4-------------------------------------------------------" << std::endl;
+      //        std::cout << boost::simd::is_nge(xi, x(first_index<1>(x),first_index<2>(x)))<< std::endl; 
+      //        std::cout << boost::simd::is_nge(xi, x(first_index<1>(x),begin_))<< std::endl; 
+      //        std::cout << boost::simd::is_nle(xi, x(first_index<1>(x),last_index<2>(x)))<< std::endl; 
+      //        std::cout << boost::simd::is_nle(xi, x(first_index<1>(x),end_))<< std::endl; 
+      //        std::cout << boost::simd::is_nge(xi, x(first_index<1>(x)))<< std::endl; 
+      //        std::cout << boost::simd::is_nge(xi, x(begin_))<< std::endl; 
+      //        std::cout << boost::simd::is_nle(xi, x(last_index<2>(x)))<< std::endl; 
+      //        std::cout << boost::simd::is_nle(xi, x(end_))<< std::endl; 
+      if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)),
+                                                     boost::simd::is_nle(xi, x(end_))), extrapval, yi);
+      
+      //      std::cout << "5-------------------------------------------------------" << std::endl; 
+      return yi;
     } 
   private :
     static void choices(const A1&, bool &,  value_type&, boost::mpl::long_<3> const &)
@@ -65,7 +84,7 @@ namespace nt2 { namespace ext
       {
         typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
         typedef typename meta::scalar_of<child3>::type                    cref_param_type;
-        typedef typename meta::strip<cref_param_type>::type                    param_type; 
+        typedef typename meta::strip<cref_param_type>::type                    param_type;  
         get(inputs, extrap, extrapval, param_type());         
       }
     static void get(const A1& inputs, bool & extrap,  value_type&,  const bool &)

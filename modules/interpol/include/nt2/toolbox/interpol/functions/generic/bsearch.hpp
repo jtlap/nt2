@@ -65,11 +65,12 @@ namespace nt2 { namespace ext
       typedef typename meta::as_integer<value_type, signed>::type       index_type; 
       typedef typename nt2::meta::as_logical<value_type>::type         bvalue_type; 
       typedef typename nt2::meta::as_logical<index_type>::type         bindex_type; 
-      typedef A0                                                       result_type;
+
       const child0 & xx  =  boost::proto::child_c<0>(inputs);
       const child1 & xi  =  boost::proto::child_c<1>(inputs);
       size_t w =  width(xi); 
-      ilo   = nt2::repnum(index_type(first_index<2>(xx)), 1u, w);
+      ilo.resize(of_size(1u, w)); 
+      ilo = nt2::repnum(index_type(first_index<2>(xx)), 1u, w);
       nt2::table<index_type> ihi   = nt2::repnum(index_type(last_index<2>(xx)),  1u, w);
       nt2::table<index_type>  i(of_size(1, w));
       nt2::table<bindex_type> toiter = nt2::gt(ihi, nt2::oneplus(ilo));
@@ -77,9 +78,9 @@ namespace nt2 { namespace ext
       bindex_type tmp =  nt2::any(toiter)(1);
       while (bool(tmp)){
         i =  nt2::if_else(toiter, nt2::average(ihi, ilo), i); 
-        ok =  nt2::gt(xx(i), xi); 
+        ok =  nt2::gt(xx(first_index<1>(xx), i), xi); 
         ihi = nt2::if_else(ok,i,ihi);
-        ilo = nt2::if_else(ok,ilo,i); 
+        ilo = nt2::if_else(ok,ilo,i);  
         toiter =  nt2::gt(ihi, nt2::oneplus(ilo));
         tmp = nt2::any(toiter)(1);  
       }
