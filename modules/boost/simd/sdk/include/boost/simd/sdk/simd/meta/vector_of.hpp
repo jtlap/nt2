@@ -61,6 +61,13 @@ namespace boost { namespace simd { namespace meta
   {
   };
 
+  // vectors must have at least 2 elements, vectors of 1 elements are scalar values
+  template<class T>
+  struct vector_of<T, 1u>
+  {
+    typedef T type;
+  };
+
 } } }
 
 #endif
