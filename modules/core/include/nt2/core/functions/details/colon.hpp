@@ -12,6 +12,8 @@
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/functions/is_lez.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/core/container/extremum/extremum.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
@@ -53,33 +55,32 @@ namespace nt2 { namespace details
   BOOST_FORCEINLINE std::size_t unity_helper(L const& l, U const& u,
                                                   const boost::integral_constant<bool, true>::type&,  const boost::integral_constant<bool, true>::type&)
   {
-     return (u>=l) ? std::size_t(u-l+1) : 0;
+    return (u>=l) ? static_cast<std::size_t>(u-l+1) : nt2::Zero<std::size_t>();
   }
   template<class L, class U>
   BOOST_FORCEINLINE std::size_t unity_helper(L const& l, U const& u,
                                                  const boost::integral_constant<bool, false>::type&, boost::integral_constant<bool, false>::type&) 
   {
-     return (u>=l) ? std::size_t(u-l+1) : 0;
+     return (u>=l) ? static_cast<std::size_t>(u-l+1) :  nt2::Zero<std::size_t>();
   }
   template<class L, class U>
   BOOST_FORCEINLINE std::size_t unity_helper(L const& l, U const& u,
                                                   const boost::integral_constant<bool, true>::type&,  const boost::integral_constant<bool, false>::type&) 
   {
     
-    return (l <= 0) ? std::size_t(u-l+1) : (u >=std::size_t(l) ? std::size_t(u-l+1) : 0);
+    return (nt2::is_lez(l)) ? static_cast<std::size_t>(u-l+1) : (u >=static_cast<std::size_t>(l) ? static_cast<std::size_t>(u-l+1) :  nt2::Zero<std::size_t>());
   }
   template<class L, class U>
   BOOST_FORCEINLINE std::size_t unity_helper(L const& l, U const& u,
                                                   const boost::integral_constant<bool, false>::type&,  const boost::integral_constant<bool, true>::type&)
   {
-    return (u <= 0) ? 0 : ((std::size_t(u)>=l) ? std::size_t(u-l+1) : 0);
+    return (nt2::is_lez(u)) ?  nt2::Zero<std::size_t>() : ((static_cast<std::size_t>(u)>=l) ? static_cast<std::size_t>(u-l+1) :  nt2::Zero<std::size_t>());
   }
 
   template<class L, class U>
   BOOST_FORCEINLINE std::size_t unity_colon_size(L const& l, U const& u)
   {
     return unity_helper(l, u, typename nt2::meta::is_signed<L>::type(), typename nt2::meta::is_signed<U>::type()); 
-    //    return (u>=l) ? std::size_t(u-l+1) : 0;
   }
 
   
