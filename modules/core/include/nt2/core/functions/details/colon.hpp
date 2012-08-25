@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -12,19 +13,15 @@
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
-#include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/core/container/extremum/extremum.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
 #include <boost/mpl/bool.hpp>
-//#include <iostream>
 
 namespace nt2 { namespace details
 {
-  //============================================================================
-  // Factorized code for colon size evaluation
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Factorized code for colon size evaluation
   template<class L, class S, class U>
   BOOST_FORCEINLINE std::size_t
   colon_size(L const& l, S const& s, U const& u)
@@ -34,9 +31,8 @@ namespace nt2 { namespace details
     return s ? ( ((u>l)==(s>0)) ? (utype(u)-ltype(l)+s)/s : 0) : u;
   }
 
-  //============================================================================
-  // Factorized code for colon evaluation
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Factorized code for colon evaluation
   template<class T, class Pos, class Target>
   BOOST_FORCEINLINE typename Target::type
   colon_value(T const& l, T const& s, Pos const& p, Target const&)
@@ -47,46 +43,58 @@ namespace nt2 { namespace details
                     );
   }
 
-  //============================================================================
-  // Factorized code for unity colon size evaluation
-  //============================================================================
-
-  template<class L, class U>
-  BOOST_FORCEINLINE std::size_t unity_helper(L const& l, U const& u,
-                                                  const boost::integral_constant<bool, true>::type&,  const boost::integral_constant<bool, true>::type&)
+  /// INTERNAL ONLY
+  /// Same sign helper unity_colon_size
+  template<class L, class U, bool B> BOOST_FORCEINLINE std::size_t
+  unity_helper( L const& l, U const& u
+              , boost::mpl::bool_<B> const&
+              , boost::mpl::bool_<B> const&
+              )
   {
-    return (u>=l) ? static_cast<std::size_t>(u-l+1) : nt2::Zero<std::size_t>();
-  }
-  template<class L, class U>
-  BOOST_FORCEINLINE std::size_t unity_helper(L const& l, U const& u,
-                                                 const boost::integral_constant<bool, false>::type&, boost::integral_constant<bool, false>::type&) 
-  {
-     return (u>=l) ? static_cast<std::size_t>(u-l+1) :  nt2::Zero<std::size_t>();
-  }
-  template<class L, class U>
-  BOOST_FORCEINLINE std::size_t unity_helper(L const& l, U const& u,
-                                                  const boost::integral_constant<bool, true>::type&,  const boost::integral_constant<bool, false>::type&) 
-  {
-    
-    return (nt2::is_lez(l)) ? static_cast<std::size_t>(u-l+1) : (u >=static_cast<std::size_t>(l) ? static_cast<std::size_t>(u-l+1) :  nt2::Zero<std::size_t>());
-  }
-  template<class L, class U>
-  BOOST_FORCEINLINE std::size_t unity_helper(L const& l, U const& u,
-                                                  const boost::integral_constant<bool, false>::type&,  const boost::integral_constant<bool, true>::type&)
-  {
-    return (nt2::is_lez(u)) ?  nt2::Zero<std::size_t>() : ((static_cast<std::size_t>(u)>=l) ? static_cast<std::size_t>(u-l+1) :  nt2::Zero<std::size_t>());
+    return (u >= l) ? static_cast<std::size_t>(u-l+1) : 0u;
   }
 
+  /// INTERNAL ONLY
+  /// signed/unsigned helper unity_colon_size
+  template<class L, class U> BOOST_FORCEINLINE std::size_t
+  unity_helper( L const& l, U const& u
+              , const boost::mpl::true_&
+              , const boost::integral_constant<bool, false>&
+              )
+  {
+    return (l <= 0) ? static_cast<std::size_t>(u-l+1)
+                    : ( u >= static_cast<U>(l)  ? static_cast<std::size_t>(u-l+1)
+                                                : 0u
+                      );
+  }
+
+  /// INTERNAL ONLY
+  /// unsigned/signed helper unity_colon_size
+  template<class L, class U> BOOST_FORCEINLINE std::size_t
+  unity_helper( L const& l, U const& u
+              , const boost::integral_constant<bool, false>&
+              , const boost::integral_constant<bool, true>&
+              )
+  {
+    return (u <= 0) ? 0u
+                    : ( static_cast<L>(u) >= l  ? static_cast<std::size_t>(u-l+1)
+                                                : 0u
+                      );
+  }
+
+  /// INTERNAL ONLY
+  /// Factorized code for unity colon size evaluation
   template<class L, class U>
   BOOST_FORCEINLINE std::size_t unity_colon_size(L const& l, U const& u)
   {
-    return unity_helper(l, u, typename nt2::meta::is_signed<L>::type(), typename nt2::meta::is_signed<U>::type()); 
+    return unity_helper ( l , u
+                        , typename nt2::meta::is_signed<L>::type()
+                        , typename nt2::meta::is_signed<U>::type()
+                        );
   }
 
-  
-  //============================================================================
-  // Factorized code for unity colon evaluation
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Factorized code for unity colon evaluation
   template<class T, class Pos, class Target>
   BOOST_FORCEINLINE typename Target::type
   unity_colon_value(T const& l, Pos const& p, Target const&)
@@ -95,9 +103,8 @@ namespace nt2 { namespace details
     return  nt2::enumerate<type>(p+l);
   }
 
-  //============================================================================
-  // Storage for relative colon info
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Storage for relative colon info
   template<class Begin, class End> struct relative_colon
   {
     typedef typename meta::is_extremum<Begin>::type is_begin_t;
