@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0 const& a0) const
     {
-      details::disp("ans",std::cout,a0);
+      nt2::details::disp("ans",std::cout,a0);
     }
   };
 
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      details::disp(a0,std::cout,a1);
+      nt2::details::disp(a0,std::cout,a1);
     }
   };
 } }
