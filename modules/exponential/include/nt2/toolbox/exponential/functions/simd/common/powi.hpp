@@ -25,6 +25,7 @@
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 
 
@@ -63,19 +64,19 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-	typedef result_type r_type;
+        typedef result_type r_type;
         r_type sign_x = bitofsign(a0);
         r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
-	if (is_even(a1)) sign_x = Zero<r_type>(); 
+        if (is_even(a1)) sign_x = Zero<r_type>(); 
         A1 n = nt2::abs(a1);
         r_type ret = One<r_type>();
         for(A1 t = n; t > 0; t >>= 1)
         {
-	  if(is_odd(t)) ret*=x;
-	  x = sqr(x);
+          if(is_odd(t)) ret*=x;
+          x = sqr(x);
         }
         x =  b_xor(ret, sign_x);
-	return is_ltz(a1) ? rec(x) : x; 
+        return is_ltz(a1) ? rec(x) : x; 
     }
   };
 } }

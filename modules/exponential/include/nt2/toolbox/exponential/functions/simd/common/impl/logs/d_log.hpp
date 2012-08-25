@@ -10,8 +10,6 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_D_LOG_HPP_INCLUDED
 #include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/seladd.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
 

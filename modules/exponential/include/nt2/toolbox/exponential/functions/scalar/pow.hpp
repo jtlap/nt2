@@ -13,6 +13,8 @@
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/is_odd.hpp>
 #include <nt2/include/functions/scalar/is_flint.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_

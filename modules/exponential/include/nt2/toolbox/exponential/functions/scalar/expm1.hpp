@@ -9,9 +9,6 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_EXPM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_EXPM1_HPP_INCLUDED
 #include <nt2/toolbox/exponential/functions/expm1.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
 #include <nt2/include/functions/scalar/minusone.hpp>

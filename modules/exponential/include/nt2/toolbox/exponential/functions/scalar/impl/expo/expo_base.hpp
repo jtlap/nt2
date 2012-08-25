@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_EXPO_BASE_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_EXPO_BASE_HPP_INCLUDED
 
-#include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>

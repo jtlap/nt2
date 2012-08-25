@@ -19,7 +19,6 @@
 #include <nt2/include/functions/simd/fma.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else_zero.hpp>
-#include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 
 namespace nt2

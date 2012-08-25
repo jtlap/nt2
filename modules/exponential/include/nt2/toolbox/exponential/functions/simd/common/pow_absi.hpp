@@ -25,6 +25,7 @@
 #include <nt2/include/functions/simd/oneplus.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/constants/one.hpp>
 
 
 

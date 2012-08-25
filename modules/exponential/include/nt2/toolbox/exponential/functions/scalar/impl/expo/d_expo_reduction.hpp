@@ -14,7 +14,6 @@
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/is_greater_equal.hpp>
 #include <nt2/include/functions/simd/is_less_equal.hpp>
-#include <nt2/include/constants/digits.hpp>
 
 namespace nt2
 {

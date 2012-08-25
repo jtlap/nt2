@@ -14,8 +14,6 @@
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/toolbox/exponential/functions/simd/common/impl/expo.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
-#include <nt2/include/constants/digits.hpp>
-
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
