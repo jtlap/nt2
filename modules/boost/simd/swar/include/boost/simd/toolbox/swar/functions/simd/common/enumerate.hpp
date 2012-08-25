@@ -11,6 +11,7 @@
 
 #include <boost/simd/toolbox/swar/functions/enumerate.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -59,6 +60,20 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+                                    , (A0)(X)(T)
+                                    , ((generic_< arithmetic_<A0> >))
+                                      ((target_< simd_< logical_<T>,X> >))
+                                    )
+  {
+    typedef typename meta::as_arithmetic<typename T::type>::type result_type;
+
+    result_type operator()(A0 const& a0, T const& ) const
+    {
+      return enumerate<result_type>(a0);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
                                       , (A0)(A1)(X)(T)
                                     , (scalar_< arithmetic_<A0> >)
                                       (scalar_< arithmetic_<A1> >)
@@ -87,6 +102,21 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
       return plus(a0,a1);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::enumerate_, tag::cpu_
+                                    , (A0)(A1)(X)(T)
+                                    , ((simd_< arithmetic_<A0>, X >))
+                                      (generic_< arithmetic_<A1> >)
+                                      ((target_< simd_< logical_<T>,X> >))
+                                    )
+  {
+    typedef typename meta::as_arithmetic<typename T::type>::type result_type;
+
+    result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
+    {
+      return enumerate<result_type>(a0,a1);
     }
   };
 } } }
