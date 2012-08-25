@@ -20,7 +20,13 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL( colvect_ofsize, (float) )
+NT2_TEST_CASE_TPL( colvect_scalar, NT2_TYPES )
+{
+  NT2_TEST_EQUAL(nt2::colvect(T(1)), T(1)); 
+}
+
+
+NT2_TEST_CASE_TPL( colvect_ofsize,NT2_TYPES )
 {
   nt2::table<T> r;
   nt2::table<T, nt2::_2D> y( nt2::of_size(4,4) );
@@ -42,26 +48,17 @@ NT2_TEST_CASE_TPL( colvect_ofsize, (float) )
 
 }
 
-NT2_TEST_CASE_TPL( colvect_size, (float) )
+NT2_TEST_CASE_TPL( colvect, NT2_TYPES)
 {
   nt2::table<T> r;
   nt2::table<T, nt2::_2D> y( nt2::of_size(4,4) );
-
   for(int j=1;j<=4;j++)
     for(int i=1;i<=4;i++)
       y(i,j) = T(i + 10*j);
-
   r = nt2::colvect(y);
-  int k = 1; 
-  for(int j=1;j<=4;j++)
-    for(int i=1;i<=4;i++, k++)
-      NT2_TEST_EQUAL( T(r(k)) , T(y(i, j)) );
-  NT2_TEST_EQUAL( nt2::ndims(r)  , 2u );
-  NT2_TEST_EQUAL( nt2::size(r,1) , numel(y) );
-  NT2_TEST_EQUAL( nt2::size(r,2) , 1u );
-  NT2_TEST_EQUAL( nt2::size(r,3) , 1u );
 
   NT2_TEST(nt2::isequal(r, y(nt2::_))); 
+  NT2_TEST(nt2::isequal(nt2::colvect(y), y(nt2::_))); 
 
 }
 

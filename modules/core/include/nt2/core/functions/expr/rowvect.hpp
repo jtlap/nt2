@@ -42,7 +42,18 @@ namespace nt2 { namespace ext
                         > ( boost::cref(a0), boxify(sizee) );
     }
   };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rowvect_, tag::cpu_
+                            , (A0)
+                            , (generic_<fundamental_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
 
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    {
+      return  a0; 
+    }
+  };
 } }
 
 #endif
