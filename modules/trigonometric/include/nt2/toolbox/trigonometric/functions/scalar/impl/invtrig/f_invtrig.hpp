@@ -26,7 +26,6 @@
 #include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/sdk/simd/tags.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/half.hpp>

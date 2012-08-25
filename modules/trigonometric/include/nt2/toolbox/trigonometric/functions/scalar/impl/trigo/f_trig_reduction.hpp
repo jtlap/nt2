@@ -33,8 +33,6 @@
 #include <nt2/include/functions/simd/is_flint.hpp>
 #include <nt2/include/functions/simd/rec.hpp>
 #include <nt2/include/functions/simd/all.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/constants/pio_2.hpp>

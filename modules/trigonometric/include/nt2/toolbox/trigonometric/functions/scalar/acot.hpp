@@ -9,9 +9,6 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ACOT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ACOT_HPP_INCLUDED
 #include <nt2/toolbox/trigonometric/functions/acot.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/scalar/atan.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/scalar/bitofsign.hpp>

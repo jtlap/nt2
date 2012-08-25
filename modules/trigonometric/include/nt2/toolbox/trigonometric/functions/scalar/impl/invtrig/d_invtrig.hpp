@@ -18,9 +18,8 @@
 #include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/is_eqz.hpp>
 #include <nt2/include/functions/simd/bitwise_xor.hpp>
-#include <nt2/include/constants/eps_related.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <nt2/include/constants/sqrteps.hpp>
+#include <nt2/include/constants/nan.hpp>
 
 namespace nt2
 {

@@ -21,8 +21,6 @@
 #include <nt2/include/functions/simd/toint.hpp>
 #include <nt2/include/functions/simd/all.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/false.hpp>
 
 namespace nt2
