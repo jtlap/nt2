@@ -46,8 +46,8 @@ namespace nt2 { namespace container { namespace ext
     BOOST_FORCEINLINE result_type operator()(X& e) const
     {
       //BOOST_ASSERT(ndims(boost::proto::child_c<0>(e)) <= 2);
-      return _2D( boost::proto::child_c<0>(e).extent()[1]
-                , boost::proto::child_c<0>(e).extent()[0]
+      return _2D( boost::fusion::at_c<1>(boost::proto::child_c<0>(e).extent())
+                  , boost::fusion::at_c<0>(boost::proto::child_c<0>(e).extent())
                 );
     }
   };
