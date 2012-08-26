@@ -99,21 +99,23 @@ namespace nt2 { namespace details
   {
     linspace() {}
     linspace( T const& l, T const& u, std::size_t n )
-            : lower_(l), step_((u-l)/(n-1)) {}
+      : n_(n-1), lower_(l), step_((u-l)/(n-1)), upper_(u){}
 
     template<class Pos, class Size, class Target>
     typename Target::type
     operator()(Pos const& p, Size const&, Target const&) const
     {
       typedef typename Target::type type;
-
-      return nt2::fma ( nt2::enumerate<type>(p)
-                      , nt2::splat<type>(step_)
-                      , nt2::splat<type>(lower_)
-                      );
+      type en = nt2::enumerate<type>(p);
+      return nt2::if_else(eq(en, nt2::splat<type>(n_)), nt2::splat<type>(upper_), 
+                          nt2::fma ( en
+                                     , nt2::splat<type>(step_)
+                                     , nt2::splat<type>(lower_)
+                                     )
+                          );
     }
-
-    T lower_, step_;
+    std::size_t n_; 
+    T lower_, step_, upper_;
   };
 } }
 

@@ -11,8 +11,10 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/linspace.hpp>
+#include <nt2/include/functions/predecessor.hpp>
+#include <nt2/include/functions/globalall.hpp>
 #include <boost/fusion/include/make_vector.hpp>
-
+#include <nt2/table.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 
@@ -88,4 +90,24 @@ NT2_TEST_CASE_TPL( simd_linspace, (double)(float) )
                       , 0.5
                       );
   }
+}
+
+NT2_TEST_CASE_TPL( simd_linspace_worst, (double)(float) )
+{
+  using boost::simd::native;
+  using nt2::meta::as_;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               n_t;
+  typedef as_<n_t>                      target_type;
+  typedef T r_t;
+
+  for(size_t i = 0; i < 8; ++i)
+    {
+      nt2::table<T> z = nt2::linspace(T(-100), nt2::predecessor(T(0)), 100+i);
+      NT2_TEST(nt2::globalall(z));
+      z(nt2::end_) = T(nt2::predecessor(T(0)));
+      NT2_TEST(nt2::globalall(z));
+      
+    }  
 }
