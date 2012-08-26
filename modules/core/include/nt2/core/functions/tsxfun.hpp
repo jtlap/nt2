@@ -82,27 +82,17 @@ namespace nt2 { namespace container { namespace ext
     typedef typename meta::
             call< nt2::tag::tsxfun_
                 ( typename  boost::proto::result_of
-                          ::value<  typename  boost::proto::result_of
-                                              ::child_c<Expr&,3>::type
-                                  >::type
-                , typename  meta
-                        ::scalar_of < typename  boost::proto::result_of
-                                                ::child_c<Expr&,0>::type
-                                    >::type
-                , typename  meta
-                        ::scalar_of < typename  boost::proto::result_of
-                                                ::child_c<Expr&,1>::type
-                                    >::type
-                , typename  meta
-                        ::scalar_of < typename  boost::proto::result_of
-                                                ::child_c<Expr&,2>::type
-                                    >::type
+                            ::child_c<Expr&,3>::value_type::value_type
+                , typename  boost::proto::result_of
+                            ::child_c<Expr&,0>::value_type::value_type
+                , typename  boost::proto::result_of
+                            ::child_c<Expr&,1>::value_type::value_type
+                , typename  boost::proto::result_of
+                            ::child_c<Expr&,2>::value_type::value_type
                 )
                 >::type                            type;
 
   };
 } } }
-
-
 
 #endif
