@@ -52,4 +52,8 @@ NT2_TEST_CASE( container_isequal )
   NT2_TEST( !nt2::isequal( nt2::ones(2,3)    , nt2::ones(4))          );
   NT2_TEST( !nt2::isequal( nt2::ones(4,1)    , nt2::zeros(4,1))       );
   NT2_TEST( !nt2::isequal( nt2::ones(3,3,1,9), nt2::zeros(3,3,1,9)) );
+  NT2_TEST(  nt2::isequal( nt2::ones(1, 1) , 1.0f));
+  NT2_TEST( !nt2::isequal( nt2::ones(1, 2) , 1.0f));
+  NT2_TEST(  nt2::isequal(1.0f ,  nt2::ones(1, 1)));
+  NT2_TEST( !nt2::isequal(1.0f ,  nt2::ones(1, 2)));
 }

@@ -19,6 +19,9 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/is_less_equal.hpp>
+#include <nt2/include/functions/sx.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -49,10 +52,41 @@ namespace nt2 { namespace ext
     result_type operator()(const A0& a0, const A1& a1) const
     {
       typedef typename A0::value_type value_type; 
-      if(isempty(a0) && isempty(a1))  return true;
       if(!havesamesize(a0, a1))       return false;
 
       return nt2::max(nt2::ulpdist(a0, a1)(_))(1) <=  Half<value_type>();
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<fundamental_<A0> >)
+                              (ast_<A1>)
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0, const A1& a1) const
+    {
+      if(numel(a1)!= 1u)       return false;
+      return isulpequal(a0, a1(nt2::first_index<1>(a1)));
+    }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
+                            , (A0)(A1)
+                            , (ast_<A0>)
+                              (scalar_<fundamental_<A1> >)
+                              
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0, const A1& a1) const
+    {
+      if(numel(a0)!= 1u)       return false;
+      return isulpequal(a0(nt2::first_index<1>(a0)), a1);
     }
   };
 
@@ -74,6 +108,39 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
                             , (A0)(A1)(A2)
+                            , (scalar_<fundamental_<A0> >)
+                              (ast_<A1>)
+                              (scalar_<floating_<A2> >)
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
+    {
+      if(numel(a1)!= 1u)       return false;
+      return isulpequal(a0, a1(nt2::first_index<1>(a1), a2));
+    }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (ast_<A0>)
+                              (scalar_<fundamental_<A1> >)
+                              (scalar_<floating_<A2> >)
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
+    {
+      if(numel(a0)!= 1u)       return false;
+      return isulpequal(a0(nt2::first_index<1>(a0)), a1, a2);
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
+                            , (A0)(A1)(A2)
                             , (ast_<A0>)
                               (ast_<A1>)
                               (scalar_<floating_<A2> >)
@@ -84,11 +151,24 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
-      typedef typename A0::value_type value_type; 
-      if(isempty(a0) && isempty(a1))  return true;
       if(!havesamesize(a0, a1))       return false;
-
       return nt2::max( nt2::ulpdist(a0, a1)(_))(1) <= a2;
+    }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
+                            , (A0)(A1)(A2)
+                            , (ast_<A0>)
+                              (ast_<A1>)
+                              (ast_<A2>)
+                              )
+  {
+    typedef bool result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
+    {
+      if(!havesamesize(a0, a1))       return false;
+      return nt2::globalall( nt2::sx(nt2::tag::is_less_equal_(), nt2::ulpdist(a0, a1), a2));
     }
   };
 
