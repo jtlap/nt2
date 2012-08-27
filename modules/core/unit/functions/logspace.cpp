@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL( logspace, (double)(float) )
     NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,50 ) );
     
     for(int i=1;i<=50;++i)
-      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
+      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 1.0 );
   }
   {
     nt2::table<T> xd = nt2::logspace(T(2),T(3));
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL( logspace, (double)(float) )
     NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,50 ) );
     
     for(int i=1;i<=50;++i)
-      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
+      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 1.0 );
   }
   {
     nt2::table<T> xd = nt2::logspace(T(2),T(3),7);
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL( logspace, (double)(float) )
     NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,7 ) );
     
     for(int i=1;i<=7;++i)
-      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
+      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 1.0 );
   }
   {
     nt2::table<T> xd = nt2::logspace(T(2),nt2::Pi<T>(),7);
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL( logspace, (double)(float) )
     NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,7 ) );
     
     for(int i=1;i<=7;++i)
-      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
+      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 1.0 );
   }
   {
     nt2::table<T> xd = nt2::logspace(T(2),nt2::Pi<T>(),7, nt2::regular_);
@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL( logspace, (double)(float) )
     NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,7 ) );
     
     for(int i=1;i<=7;++i)
-      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 0.5 );
+      NT2_TEST_ULP_EQUAL( xd(i), yd(i), 1.0 );
   }
   {
     nt2::table<T> xd1 = nt2::logspace(T(2),nt2::Pi<T>(),1, nt2::regular_);
@@ -75,8 +75,8 @@ NT2_TEST_CASE_TPL( logspace, (double)(float) )
      NT2_TEST_EQUAL( xd1.extent(), nt2::of_size(1,1 ) );
      NT2_TEST_EQUAL( xd2.extent(), nt2::of_size(1,1 ) );
     
-    NT2_TEST_ULP_EQUAL( xd1(1), nt2::exp10(nt2::Pi<T>()), 0.5 );
-    NT2_TEST_ULP_EQUAL( xd2(1), nt2::Pi<T>(), 0.5); 
+    NT2_TEST_ULP_EQUAL( xd1(1), nt2::exp10(nt2::Pi<T>()), 1.0 );
+    NT2_TEST_ULP_EQUAL( xd2(1), nt2::Pi<T>(), 1.0); 
   }
 }
 
