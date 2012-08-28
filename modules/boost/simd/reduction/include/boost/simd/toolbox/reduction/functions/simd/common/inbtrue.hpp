@@ -9,6 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_INBTRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_INBTRUE_HPP_INCLUDED
 
+#include <boost/simd/toolbox/reduction/functions/inbtrue.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::inbtrue_, tag::cpu_

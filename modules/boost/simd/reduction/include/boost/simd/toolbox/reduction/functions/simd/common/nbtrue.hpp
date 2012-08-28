@@ -9,6 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_NBTRUE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_NBTRUE_HPP_INCLUDED
 
+#include <boost/simd/toolbox/reduction/functions/nbtrue.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
@@ -16,7 +20,7 @@ namespace boost { namespace simd { namespace ext
                             , ((simd_<fundamental_<A0>,X>))
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       result_type z = a0[0] != 0;
@@ -30,10 +34,10 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
                                      , (A0)(A1)(X)
                                      , ((simd_<fundamental_<A0>,X>))
-                                     (scalar_< integer_<A1> > )
+                                       (scalar_< integer_<A1> > )
                                      )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     inline result_type operator()(A0 const & a0, A1 const &) const
     {
       result_type z = a0[0] != 0;
