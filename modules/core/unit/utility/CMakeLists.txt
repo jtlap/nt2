@@ -7,14 +7,9 @@
 ##                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit operator)
+SET( SOURCES
+     as_subscript.cpp
+   )
 
-include(nt2.pch)
-nt2_pch(nt2/table.hpp)
-
-ADD_SUBDIRECTORY(container)
-ADD_SUBDIRECTORY(functions)
-ADD_SUBDIRECTORY(memory)
-ADD_SUBDIRECTORY(meta)
-ADD_SUBDIRECTORY(settings)
-ADD_SUBDIRECTORY(utility)
+include(CheckCXXCompilerFlag)
+nt2_module_add_tests(core.utility.unit ${SOURCES})
