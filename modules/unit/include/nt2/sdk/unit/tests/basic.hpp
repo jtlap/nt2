@@ -45,4 +45,18 @@
 , ::nt2::unit::error(#X, __LINE__, BOOST_CURRENT_FUNCTION)) \
 /**/
 
+
+/*!
+  @brief Signify test suite completion
+
+  Register the test suite as complete.
+
+  @usage
+  @include test_completion.cpp
+**/
+#define NT2_TEST_COMPLETE(X)  \
+( ::nt2::unit::test_count()++ \
+, ::nt2::unit::pass(#X))      \
+/**/
+
 #endif

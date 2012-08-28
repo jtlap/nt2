@@ -28,12 +28,24 @@ namespace nt2 { namespace details
     void report() const
     {
       int t = nt2::unit::test_count();
-      int e = nt2::unit::error_count();
-      printf( "Results:\n"
+
+      if(t)
+      {
+        int e = nt2::unit::error_count();
+        printf( "Results:\n"
               "----------------------------------------------------------------\n"
               "%d test - %d pass - %d fail.\n"
-            , t, (t-e), e
-            );
+              , t, (t-e), e
+              );
+      }
+      else
+      {
+        nt2::unit::error_count() = 1;
+        printf(
+              "----------------------------------------------------------------\n"
+              "NO TEST REGISTERED -- FORCED FAILURE.\n"
+              );
+      }
     }
 
     /// INTERNAL ONLY
