@@ -12,6 +12,7 @@
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/scalar/round2even.hpp>
 #include <nt2/include/functions/scalar/fast_toint.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
 
 namespace nt2 { namespace ext
@@ -24,14 +25,15 @@ namespace nt2 { namespace ext
     typedef boost::fusion::tuple<A0,A0,nt2::int32_t>           result_type;
     
     inline result_type operator()(A0 const& a0) const
-      {
-	result_type res;
-	boost::fusion::at_c<2>(res) =
-	  nt2::rem_pio2_medium(a0,
-			       boost::fusion::at_c<0>(res),
-			       boost::fusion::at_c<1>(res)); 
-	return res; 
-      }
+    {
+      result_type res;
+      boost::fusion::at_c<2>(res) =
+      nt2::rem_pio2_medium(a0,
+                           boost::fusion::at_c<0>(res),
+                           boost::fusion::at_c<1>(res)
+                          );
+      return res;
+    }
   }; 
 
   /////////////////////////////////////////////////////////////////////////////
@@ -44,24 +46,24 @@ namespace nt2 { namespace ext
 			     (scalar_ < floating_<A0> > )
 			     )
   {
-    typedef nt2::int32_t result_type;    
+    typedef typename meta::as_integer<A0>::type result_type;    
     inline result_type operator()(A0 const& t, A0 & xr, A0& xc) const
-      {
-	const A0 fn = nt2::round2even(t*Invpio_2<A0>());
-	A0 r  = t-fn*Pio2_1<A0>(); 
-	A0 w  = fn*Pio2_1t<A0>(); 
-	A0 t2 = r;
-	w  = fn*Pio2_2<A0>();
-	r  = t2-w;
-	w  = fn*Pio2_2t<A0>()-((t2-r)-w);
-	t2 = r;	                        
-	w  = fn*Pio2_3<A0>(); 
-	r  = t2-w;
-	w  = fn*Pio2_3t<A0>()-((t2-r)-w);
-	xr = r-w;
-	xc = (r-xr)-w;
-	return  fast_toint(fn)&3;    
-      }
+    {
+      const A0 fn = nt2::round2even(t*Invpio_2<A0>());
+      A0 r  = t-fn*Pio2_1<A0>();
+      A0 w  = fn*Pio2_1t<A0>();
+      A0 t2 = r;
+      w  = fn*Pio2_2<A0>();
+      r  = t2-w;
+      w  = fn*Pio2_2t<A0>()-((t2-r)-w);
+      t2 = r;           
+      w  = fn*Pio2_3<A0>();
+      r  = t2-w;
+      w  = fn*Pio2_3t<A0>()-((t2-r)-w);
+      xr = r-w;
+      xc = (r-xr)-w;
+      return  fast_toint(fn)&3;
+    }
   }; 
 } }
 #endif

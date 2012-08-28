@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_2pi_, boost::simd::tag::simd_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_2pi_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_ <floating_<A0>,X  > ))
                              ((simd_ <floating_<A0>,X  > ))

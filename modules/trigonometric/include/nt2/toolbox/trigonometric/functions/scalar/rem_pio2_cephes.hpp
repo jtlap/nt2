@@ -13,6 +13,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/scalar/round2even.hpp>
 #include <nt2/include/functions/scalar/fast_toint.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
 
 namespace nt2 { namespace ext
@@ -24,15 +25,15 @@ namespace nt2 { namespace ext
   {
     typedef boost::fusion::tuple<A0,A0,nt2::int32_t>           result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-	result_type res;
-	boost::fusion::at_c<2>(res) =
+    {
+      result_type res;
+      boost::fusion::at_c<2>(res) =
 	  nt2::rem_pio2_cephes(a0,
-			       boost::fusion::at_c<0>(res),
-			       boost::fusion::at_c<1>(res)
-			       ); 
-	return res; 
-      }
+                           boost::fusion::at_c<0>(res),
+                           boost::fusion::at_c<1>(res)
+                          );
+      return res;
+    }
   }; 
 
   /////////////////////////////////////////////////////////////////////////////
@@ -45,16 +46,17 @@ namespace nt2 { namespace ext
 			     (scalar_< floating_<A0> >)
 			     )
   {
-    typedef nt2::int32_t result_type;    
+    typedef typename meta::as_integer<A0>::type result_type;    
     inline result_type operator()(A0 const& x, A0 & xr, A0& xc) const
-      {
-        A0 xi =  nt2::round2even(x*Twoopi<A0>()); 
-	xr = x-xi*Pio2_1<A0>();
-	xr -= xi*Pio2_2<A0>();
-	xr -= xi*Pio2_3<A0>();
-	xc = Zero<A0>();
-	return nt2::fast_toint(xi)&3;
-      }
+    {
+      A0 xi =  nt2::round2even(x*Twoopi<A0>()); 
+      xr = x-xi*Pio2_1<A0>();
+      xr -= xi*Pio2_2<A0>();
+      xr -= xi*Pio2_3<A0>();
+      xc = Zero<A0>();
+      return nt2::fast_toint(xi)&3;
+    }
   }; 
 } }
+
 #endif

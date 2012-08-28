@@ -22,9 +22,9 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation when float
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
                  (scalar_ < single_<A0> > )
                  )
   {
-    typedef nt2::int32_t result_type;    
+    typedef typename meta::as_integer<A0>::type result_type;    
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
     {
       A0 y[2];

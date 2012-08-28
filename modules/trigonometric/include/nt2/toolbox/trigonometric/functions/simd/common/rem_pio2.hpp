@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::rem_pio2_, boost::simd::tag::simd_,(A0)(X)
+  NT2_FUNCTOR_IMPLEMENTATION(  nt2::tag::rem_pio2_, tag::cpu_, (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                               ((simd_<floating_<A0>,X>))
                               ((simd_<floating_<A0>,X>))
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, boost::simd::tag::simd_,
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_ <floating_<A0>,X  > ))
                              ((simd_ <floating_<A0>,X  > ))
