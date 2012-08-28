@@ -52,25 +52,56 @@ namespace boost { namespace simd { namespace ext                               \
       result_of< Func const( BOOST_PP_ENUM(n,M2,~) )                           \
                >::type                                                         \
       rtype;                                                                   \
-      typedef simd::native<rtype, X> type;                                     \
+                                                                               \
+      template<class rtype, class Dummy = void>                                \
+      struct impl                                                              \
+      {                                                                        \
+        typedef simd::native<rtype, X> type;                                   \
+        static type call( Func const& f                                        \
+                        , BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)              \
+                        )                                                      \
+        {                                                                      \
+          type that;                                                           \
+                                                                               \
+          for(size_t i = 0; i != meta::cardinal_of<A0>::value; ++i)            \
+            insert(f(BOOST_PP_ENUM(n, M3, ~)), that, i);                       \
+                                                                               \
+          return that;                                                         \
+        }                                                                      \
+      };                                                                       \
+                                                                               \
+      template<class Dummy>                                                    \
+      struct impl<void, Dummy>                                                 \
+      {                                                                        \
+        typedef void type;                                                     \
+        static type call( Func const& f                                        \
+                        , BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)              \
+                        )                                                      \
+        {                                                                      \
+          for(size_t i = 0; i != meta::cardinal_of<A0>::value; ++i)            \
+            f(BOOST_PP_ENUM(n, M3, ~));                                        \
+        }                                                                      \
+                                                                               \
+      };                                                                       \
+                                                                               \
+      typedef impl<rtype> impl_;                                               \
+      typedef typename impl_::type type;                                       \
     };                                                                         \
                                                                                \
     template<BOOST_PP_ENUM_PARAMS(n, class _A)>                                \
+    BOOST_FORCEINLINE                                                          \
     typename result< implement( Func const&                                    \
                               , BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)        \
                               )                                                \
                    >::type                                                     \
     operator()(Func const& f, BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a))         \
     {                                                                          \
-      typename result< implement( Func const&                                  \
-                                , BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)      \
-                                )                                              \
-                     >::type that;                                             \
+      return result< implement( Func const&                                    \
+                              , BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)        \
+                              )                                                \
+                   >::impl_::call(f, BOOST_PP_ENUM_PARAMS(n, a));              \
                                                                                \
-      for(size_t i = 0; i != boost::simd::meta::cardinal_of<A0>::value; ++i)   \
-        insert(f(BOOST_PP_ENUM(n, M3, ~)), that, i);                           \
                                                                                \
-      return that;                                                             \
     }                                                                          \
   };                                                                           \
 } } }                                                                          \
