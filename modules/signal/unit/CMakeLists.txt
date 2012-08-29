@@ -8,4 +8,9 @@
 ##############################################################################
 
 set(SOURCES test.cpp)
+
+if(APPLE)
+  add_definitions(-framework Accelerate)
+endif()
+
 nt2_module_add_tests(signal.unit ${SOURCES})

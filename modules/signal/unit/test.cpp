@@ -150,6 +150,7 @@ namespace
 
         debug_output << std::endl;
 
+        nt2::unit::test_count()++;
         if ( failed_values.empty() )
         {
             nt2::unit::pass( result_description );
