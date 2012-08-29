@@ -53,8 +53,8 @@ endif()
     if(HAS_GCC_NO_DELETE_NON_VIRTUAL_DTOR)
       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-delete-non-virtual-dtor")
     endif()
-    # array bounds warnings give many false positives in GCC 4.4
-    if(CMAKE_COMPILER_IS_GNUCXX AND "${CMAKE_CXX_COMPILER_VERSION}" MATCHES "^4\\.4\\.")
+    # array bounds warnings give many false positives in GCC 4.4 and 4.5
+    if(CMAKE_COMPILER_IS_GNUCXX AND "${CMAKE_CXX_COMPILER_VERSION}" MATCHES "^4\\.(4|5)\\.")
       set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-array-bounds")
     endif()
   endif()
