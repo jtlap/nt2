@@ -15,8 +15,7 @@ def horzcat(a, b):
 
   c = a;
   for i in range(len(b)):
-    for j in range(len(b[i])):
-      c[i].append(b[i][j])
+      c[i] += b[i]
 
   return c
 
