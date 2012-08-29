@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_STREAM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_STREAM_HPP_INCLUDED
 
+#include <boost/simd/toolbox/operator/functions/stream.hpp>
 #include <boost/simd/include/functions/simd/store.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/mpl/equal_to.hpp>
