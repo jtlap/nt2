@@ -12,6 +12,7 @@
 #include <nt2/sdk/config/cache.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 using namespace nt2::config;
 
@@ -49,5 +50,7 @@ NT2_TEST_CASE(as_cache)
   std::cout << "Cache L1     available : " << std::boolalpha << nt2::config::has_cache(L1) << std::endl;
   std::cout << "Cache L2     available : " << std::boolalpha << nt2::config::has_cache(L2) << std::endl;
   std::cout << "Cache L3     available : " << std::boolalpha << nt2::config::has_cache(L3) << std::endl;
+
+  NT2_TEST_COMPLETE("Cache test complete");
 }
 

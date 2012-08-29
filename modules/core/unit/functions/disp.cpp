@@ -14,6 +14,7 @@
 #include <nt2/include/functions/display.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL( stream, NT2_TYPES )
 {
@@ -83,4 +84,6 @@ NT2_TEST_CASE_TPL( display, NT2_TYPES )
 
   display( "x", x );
   std::cout << "\n";
+
+  NT2_TEST_COMPLETE("disp test complete");
 }
