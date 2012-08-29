@@ -23,6 +23,16 @@ namespace boost { namespace simd { namespace ext
     inline A1 operator()(const A0 & a0,const A1 & a1) const 
       { return a0?Zero<A1>():a1; }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_zero_else_, tag::cpu_, (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              (scalar_< fundamental_<A1> >)
+                            )
+  {
+    typedef A1 result_type;
+    inline A1 operator()(const A0 & a0,const A1 & a1) const 
+      { return a0?Zero<A1>():a1; }
+  };  
 } } }
 
 #endif
