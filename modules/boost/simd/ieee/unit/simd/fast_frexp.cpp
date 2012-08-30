@@ -47,5 +47,8 @@ NT2_TEST_CASE_TPL ( fast_frexp_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<fast_frexp_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-
+  ivT e; 
+  vT m = fast_frexp(boost::simd::One<vT>(), e);
+  NT2_TEST_EQUAL(m, boost::simd::Half<vT>());
+  NT2_TEST_EQUAL(e, boost::simd::One<ivT>()); 
 } // end of test for floating_

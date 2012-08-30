@@ -27,7 +27,7 @@
 #include <boost/simd/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( exponentbits_real__1_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( exponentbits_real__1_0,  (float))
 {
   
   using boost::simd::exponentbits;
@@ -42,6 +42,32 @@ NT2_TEST_CASE_TPL ( exponentbits_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
 
+ 
+ for(int i=1, k = 0; i < 10; i*= 2, ++k)
+   {
+     NT2_TEST_EQUAL(1065353216+k*8388608, exponentbits(T(i))); 
+   }
+} // end of test for floating_
+NT2_TEST_CASE_TPL ( exponentbits_real__1_0d,  (double))
+{
+  
+  using boost::simd::exponentbits;
+  using boost::simd::tag::exponentbits_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<exponentbits_(T)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef typename boost::dispatch::meta::as_integer<T, signed>::type wished_r_t;
+
+
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+
+ 
+ for(int i=1, k = 0; i < 10; i*= 2, ++k)
+   {
+     NT2_TEST_EQUAL(4607182418800017408l+k*4503599627370496l, exponentbits(T(i))); 
+   }
 } // end of test for floating_
