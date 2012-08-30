@@ -61,11 +61,9 @@ namespace boost { namespace simd { namespace ext
                        )
   {
     typedef boost::simd::int32_t result_type;
-    inline result_type operator()(A0 const& a0,const A0 & a1,A0 & a2,A1 & a3) const
+    inline result_type operator()(A0 const& a0,const A0 & a1,A1 & a2,A0 & a3) const
     {
-      a2 = boost::simd::remainder(A1(a0), A1(a1));
-      a3 = boost::simd::idivround(A1(a0), A1(a1));
-      return 0;
+      return remquo(A1(a0), A1(a1), a2, a3);
     }
   };  
 } } }
