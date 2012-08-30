@@ -46,9 +46,12 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 
-  NT2_TEST_LESSER(random(nt2::splat<vT>(2), nt2::splat<vT>(3))[0], T(3));
-  NT2_TEST_GREATER(random(nt2::splat<vT>(2), nt2::splat<vT>(3))[0], T(2));
-
-
+  for(int i=0; i < 10; i++)
+    {
+      NT2_TEST_LESSER(random(T(2), T(3)), T(3));
+      NT2_TEST_GREATER(random(T(2), T(3)), T(2));
+    }
+  
+  
 } // end of test for floating_
 
