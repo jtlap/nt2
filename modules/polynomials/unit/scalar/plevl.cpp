@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
 /// 
-//#include <nt2/toolbox/polynomials/include/functions/plevl.hpp>
+#include <nt2/toolbox/polynomials/include/functions/plevl.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <vector>
 
@@ -24,61 +24,28 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
+#include <boost/array.hpp>
 
-//COMMENTED
+
 NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_REAL_TYPES)
 {
   
-//   using nt2::plevl;
-//   using nt2::tag::plevl_;
-//   typedef std::vector<T> A_t;
-//   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<plevl_(T,A_t)>::type r_t;
-//   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
+  using nt2::plevl;
+  using nt2::tag::plevl_;
+  typedef boost::array<T, 3 > A_t;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef typename nt2::meta::call<plevl_(T,A_t)>::type r_t;
+  typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
+      static const boost::array<T, 3 > A= {{ T(2), T(3), T(4) }};
+      
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 
-//   // return type conformity test 
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
-
-//   // specific values tests
-// } // end of test for floating_
-
-// NT2_TEST_CASE_TPL ( plevl_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
-// {
-  
-//   using nt2::plevl;
-//   using nt2::tag::plevl_;
-//   typedef std::vector<T> A_t;
-//   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<plevl_(T,A_t)>::type r_t;
-//   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-
-//   // return type conformity test 
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
-
-//   // specific values tests
-// } // end of test for unsigned_int_
-
-// NT2_TEST_CASE_TPL ( plevl_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
-// {
-  
-//   using nt2::plevl;
-//   using nt2::tag::plevl_;
-//   typedef std::vector<T> A_t;
-//   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef typename nt2::meta::call<plevl_(T,A_t)>::type r_t;
-//   typedef typename nt2::meta::upgrade<T>::type u_t;
-//   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
-
-
-//   // return type conformity test 
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
-
+  NT2_TEST_EQUAL(plevl( T(1), A), T(10)); //1*1^3 + 2*1^2 + 3*1 +4
+  NT2_TEST_EQUAL(plevl( T(2), A), T(26)); //1*2^3 + 2*2^2 + 3*2 +4
+  NT2_TEST_EQUAL(plevl( T(3), A), T(58)); //1*3^3 + 2*3^2 + 3*3 +4
   // specific values tests
-} // end of test for signed_int_
+} // end of test for floating_
+
+
