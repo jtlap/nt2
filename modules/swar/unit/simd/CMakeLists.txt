@@ -14,7 +14,7 @@ SET( SOURCES
   lookup.cpp
   sort.cpp
   cumsum.cpp
-  split.cpp
+#  split.cpp
   splatted_maximum.cpp
   splatted_minimum.cpp
   splatted_prod.cpp

@@ -9,10 +9,10 @@
 
 SET( SOURCES
   unary_plus.cpp
-  store.cpp
-  map.cpp
-  make.cpp
-  load.cpp
+#  store.cpp
+#  map.cpp
+#  make.cpp
+#  load.cpp
   if_else.cpp
   compare_less_equal.cpp
   compare_less.cpp
@@ -37,7 +37,7 @@ SET( SOURCES
   plus.cpp
   shift_left.cpp
   shift_right.cpp
-  splat.cpp
+#  splat.cpp
   )
 
 nt2_module_add_tests(operator.simd.unit ${SOURCES})
