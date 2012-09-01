@@ -14,10 +14,14 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/lu.hpp>
 #include <nt2/include/functions/tie.hpp>
-
+#include <nt2/include/functions/isequal.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/eye.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL ( lu, NT2_REAL_TYPES)
 {
@@ -25,18 +29,21 @@ NT2_TEST_CASE_TPL ( lu, NT2_REAL_TYPES)
   table_t b = nt2::ones(4, 4, nt2::meta::as_<T>())
                 + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
   table_t lu, l, u, p;
+  //  std::cout << std::setprecision(20); 
   nt2::tie(lu) = nt2::lu(b);
   NT2_DISPLAY(lu);
 
   nt2::tie(l, u) = nt2::lu(b);
   NT2_DISPLAY(l);
   NT2_DISPLAY(u);
-
+  NT2_TEST(nt2::isulpequal(nt2::mtimes(l, u), b)); 
+  
   nt2::tie(l, u, p) = nt2::lu(b);
   NT2_DISPLAY(l);
   NT2_DISPLAY(u);
   NT2_DISPLAY(p);
-
+  NT2_TEST(nt2::isequal(p, nt2::eye(4, nt2::meta::as_<T>()))); 
+  NT2_TEST(nt2::isulpequal(nt2::mtimes(p, nt2::mtimes(l, u)), b)); 
 }
 
 

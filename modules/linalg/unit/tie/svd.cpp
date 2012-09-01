@@ -14,10 +14,15 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/svd.hpp>
 #include <nt2/include/functions/tie.hpp>
-
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL ( svd, NT2_REAL_TYPES)
 {
@@ -34,7 +39,11 @@ NT2_TEST_CASE_TPL ( svd, NT2_REAL_TYPES)
   NT2_DISPLAY(u);
   NT2_DISPLAY(w);
   NT2_DISPLAY(v);
-
+  table_t zz = nt2::mtimes(u, nt2::mtimes(w, nt2::trans(v)));
+  std::cout <<        nt2::globalmax(nt2::ulpdist(b, zz)) << std::endl;
+  
+  NT2_TEST(nt2::isulpequal(nt2::mtimes(u, nt2::mtimes(w, nt2::trans(v))), b, T(6.0)));
+  
   nt2::tie(u, w, v) = nt2::svd(b, 'R'); //economy 0
   NT2_DISPLAY(u);
   NT2_DISPLAY(w);
