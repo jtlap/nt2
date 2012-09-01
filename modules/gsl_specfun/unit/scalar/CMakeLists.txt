@@ -104,7 +104,6 @@ SET( SOURCES
   gsl_sf_bessel_il_scaled.cpp
   gsl_sf_bessel_jnu.cpp
   gsl_sf_psi_1.cpp
-  gsl_sf_choose.cpp
   gsl_sf_gegenpoly_2.cpp
   gsl_sf_legendre_p3.cpp
   gsl_sf_bessel_knu_scaled_.cpp
