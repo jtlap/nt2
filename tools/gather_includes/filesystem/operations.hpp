@@ -24,6 +24,63 @@
     #include <errno.h>
 #endif
 
+#ifdef BOOST_WINDOWS_API
+    //  REPARSE_DATA_BUFFER related definitions are found in ntifs.h, which is part of the 
+    //  Windows Device Driver Kit. Since that's inconvenient, the definitions are provided
+    //  here. See http://msdn.microsoft.com/en-us/library/ms791514.aspx
+
+    #if !defined(REPARSE_DATA_BUFFER_HEADER_SIZE)  // mingw winnt.h does provide the defs
+
+    typedef struct _REPARSE_DATA_BUFFER {
+      ULONG  ReparseTag;
+      USHORT  ReparseDataLength;
+      USHORT  Reserved;
+      union {
+        struct {
+          USHORT  SubstituteNameOffset;
+          USHORT  SubstituteNameLength;
+          USHORT  PrintNameOffset;
+          USHORT  PrintNameLength;
+          ULONG  Flags;
+          WCHAR  PathBuffer[1];
+      /*  Example of distinction between substitute and print names:
+            mklink /d ldrive c:\
+            SubstituteName: c:\\??\
+            PrintName: c:\
+      */
+         } SymbolicLinkReparseBuffer;
+        struct {
+          USHORT  SubstituteNameOffset;
+          USHORT  SubstituteNameLength;
+          USHORT  PrintNameOffset;
+          USHORT  PrintNameLength;
+          WCHAR  PathBuffer[1];
+          } MountPointReparseBuffer;
+        struct {
+          UCHAR  DataBuffer[1];
+        } GenericReparseBuffer;
+      };
+    } REPARSE_DATA_BUFFER, *PREPARSE_DATA_BUFFER;
+
+    #define REPARSE_DATA_BUFFER_HEADER_SIZE \
+      FIELD_OFFSET(REPARSE_DATA_BUFFER, GenericReparseBuffer)
+
+    #endif
+
+    #ifndef MAXIMUM_REPARSE_DATA_BUFFER_SIZE
+    #define MAXIMUM_REPARSE_DATA_BUFFER_SIZE  ( 16 * 1024 )
+    #endif
+
+    # ifndef FSCTL_GET_REPARSE_POINT
+    #   define FSCTL_GET_REPARSE_POINT 0x900a8
+    # endif
+
+    # ifndef IO_REPARSE_TAG_SYMLINK
+    #   define IO_REPARSE_TAG_SYMLINK (0xA000000CL)
+    # endif
+    #endif
+
+#endif
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -37,7 +94,7 @@ namespace filesystem
     {
         inline bool is_reparse_point_a_symlink(const char* p)
         {
-            HANDLE h = CreateFileW(p, FILE_READ_EA,
+            HANDLE h = CreateFileA(p, FILE_READ_EA,
                 FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL, OPEN_EXISTING,
                 FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OPEN_REPARSE_POINT, NULL);
             if (h == INVALID_HANDLE_VALUE)
@@ -77,7 +134,7 @@ namespace filesystem
         if(attr == INVALID_FILE_ATTRIBUTES)
             return false;
 
-        if(attr & FILE_ATTRIBUTES_REPARSE_POINT)
+        if(attr & FILE_ATTRIBUTE_REPARSE_POINT)
             return detail::is_reparse_point_a_symlink(file_path);
         return false;
     #else
