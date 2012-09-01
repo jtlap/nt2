@@ -16,12 +16,15 @@
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/constants/two.hpp>
-
+#include <nt2/include/functions/isequal.hpp>
+#include <nt2/include/functions/reshape.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL( putalong_scalar, (float)(double))//NT2_TYPES )
 {
@@ -45,11 +48,14 @@ NT2_TEST_CASE_TPL( putalong, (float)(double))//NT2_TYPES )
 
   sy = nt2::putalong(y, 1);
   display(sy);
+  NT2_TEST(isequal(sy, reshape(y, nt2::of_size(numel(y), 1)))); 
   sy = nt2::putalong(y, 2);
+  NT2_TEST(isequal(sy, reshape(y, nt2::of_size(1, numel(y))))); 
   display(sy);
   sy = nt2::putalong(y, 3);
+  NT2_TEST(isequal(sy, reshape(y, nt2::of_size(1, 1, numel(y))))); 
   display(sy);
-
+                 
 
 
 }
