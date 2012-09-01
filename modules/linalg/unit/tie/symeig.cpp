@@ -14,10 +14,16 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/symeig.hpp>
 #include <nt2/include/functions/tie.hpp>
-
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/triu.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL ( symeig, NT2_REAL_TYPES)
 {
@@ -37,7 +43,7 @@ NT2_TEST_CASE_TPL ( symeig, NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL ( symeig_m_test, NT2_REAL_TYPES)
 {
   typedef nt2::table<T> table_t;
-  table_t v, d;
+  table_t v, d, z;
 
   T bb[9] = {-149,    -50,   -154,
              537,    180,    546,
@@ -56,6 +62,16 @@ NT2_TEST_CASE_TPL ( symeig_m_test, NT2_REAL_TYPES)
   nt2::tie(v, d) = nt2::symeig(b);
   NT2_DISPLAY(v);
   NT2_DISPLAY(d);
+  z =  mtimes(mtimes(v, d), nt2::trans(v));
+  NT2_DISPLAY(z);
+  std::cout <<        nt2::globalmax(nt2::ulpdist(nt2::triu(b), nt2::triu(z))) << std::endl;
+  table_t zz = nt2::triu(z);
+  table_t bbb= nt2::triu(b);
+  NT2_DISPLAY(zz);
+  NT2_DISPLAY(bbb); 
+  //    NT2_DISPLAY(nt2::triu(z));
+//    NT2_DISPLAY(nt2::triu(b));
+   NT2_TEST(isulpequal(nt2::triu(z), nt2::triu(b), T(16.0))); 
 }
 
 

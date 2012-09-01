@@ -18,6 +18,13 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/inv.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
 {
@@ -44,7 +51,7 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
 
     }
   NT2_DISPLAY(a);
-  t_t t, s, b;
+  t_t t, s, b, zz;
   it_t ip;
   nt2::tie(b) = nt2::balance(a);
   NT2_DISPLAY(b);
@@ -60,5 +67,6 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
   //  nt2::tie(t, b) = nt2::balance(a, "noperm"); //TODO is it an easy way without duplicating to much code ?
   NT2_DISPLAY(b);
   NT2_DISPLAY(t);
-
+  zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
+  NT2_TEST(nt2::isulpequal(zz, b, T(10.0))); 
 }
