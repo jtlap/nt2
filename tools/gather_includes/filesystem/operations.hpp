@@ -14,7 +14,9 @@
 
 #ifdef BOOST_WINDOWS_API
     #include <direct.h>
-    #define PATH_MAX 512 //...zzz...for some reason it does not get picked up from limits.h
+    #ifndef PATH_MAX
+        #define PATH_MAX 512 //...zzz...for some reason it does not get picked up from limits.h
+    #endif
     #define FILESYSTEM_MKDIR_SUFFIX
     #include <errno.h>
 #else // POSIX
@@ -68,16 +70,15 @@
     #endif
 
     #ifndef MAXIMUM_REPARSE_DATA_BUFFER_SIZE
-    #define MAXIMUM_REPARSE_DATA_BUFFER_SIZE  ( 16 * 1024 )
+        #define MAXIMUM_REPARSE_DATA_BUFFER_SIZE  ( 16 * 1024 )
     #endif
 
-    # ifndef FSCTL_GET_REPARSE_POINT
-    #   define FSCTL_GET_REPARSE_POINT 0x900a8
-    # endif
+    #ifndef FSCTL_GET_REPARSE_POINT
+        #define FSCTL_GET_REPARSE_POINT 0x900a8
+    #endif
 
-    # ifndef IO_REPARSE_TAG_SYMLINK
-    #   define IO_REPARSE_TAG_SYMLINK (0xA000000CL)
-    # endif
+    #ifndef IO_REPARSE_TAG_SYMLINK
+        #define IO_REPARSE_TAG_SYMLINK (0xA000000CL)
     #endif
 
 #endif
