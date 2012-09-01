@@ -76,23 +76,23 @@ namespace nt2 { namespace ext
       choices(inputs, extrap, extrapval1x, extrapval2x, extrapval1y, extrapval2y, dim1, dim2, N1());
       r.resize(inputs.extent());
       table<sale_type> z = idx_linear(y,xi,true,nt2::_,dim1);
-      NT2_DISPLAY(z); 
+      //      NT2_DISPLAY(z); 
       r = idx_linear(z,yi,true,nt2::_,dim2);
-      NT2_DISPLAY(r); 
-      if (!extrap) {
-        ext_t sizee; sizee[0] = 1;
-        sizee[dim1-1] = numel(xi);
-        value_type fx = value_type(nt2::first_index(y, dim1));
-        value_type lx = value_type(nt2::minusone(nt2::last_index(y, dim1)));
-        r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nge(xi, value_type(fx)), sizee),extrapval1x, r);
-        r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nle(xi, value_type(lx)), sizee),extrapval2x, r); 
-        sizee[dim1-1] = 1;
-        sizee[dim2-1] = numel(yi);
-        value_type fy = value_type(nt2::first_index(y, dim2));
-        value_type ly = value_type(nt2::minusone(nt2::last_index(y, dim2)));
-        r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nge(yi, value_type(fy)), sizee),extrapval1x, r);
-        r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nle(yi, value_type(ly)), sizee),extrapval2x, r); 
-      } 
+      //      NT2_DISPLAY(r); 
+//       if (!extrap) {
+//         ext_t sizee; sizee[0] = 1;
+//         sizee[dim1-1] = numel(xi);
+//         value_type fx = value_type(nt2::first_index(y, dim1));
+//         value_type lx = value_type(nt2::minusone(nt2::last_index(y, dim1)));
+//         r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nge(xi, value_type(fx)), sizee),extrapval1x, r);
+//         r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nle(xi, value_type(lx)), sizee),extrapval2x, r); 
+//         sizee[dim1-1] = 1;
+//         sizee[dim2-1] = numel(yi);
+//         value_type fy = value_type(nt2::first_index(y, dim2));
+//         value_type ly = value_type(nt2::minusone(nt2::last_index(r, dim2)));
+//         r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nge(yi, value_type(fy)), sizee),extrapval1x, r);
+//         r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nle(yi, value_type(ly)), sizee),extrapval2x, r); 
+//       } 
       return r;
     } 
   private :
