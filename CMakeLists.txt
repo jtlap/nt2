@@ -140,6 +140,7 @@ endforeach()
 ################################################################################
 # Load modules
 ################################################################################
+set(stage_inputs)
 foreach(module ${NT2_MODULES})
   string(REPLACE "." "/" module_path ${module})
   if(NOT IS_DIRECTORY ${PROJECT_SOURCE_DIR}/modules/${module_path})
@@ -147,8 +148,20 @@ foreach(module ${NT2_MODULES})
   else()
     message(STATUS "[nt2] loading module ${module}")
     add_subdirectory(modules/${module_path})
+    list(APPEND stage_inputs ${CMAKE_SOURCE_DIR}/modules/${module_path}/include)
   endif()
 endforeach()
+
+################################################################################
+# Merge include directories in stage target
+################################################################################
+add_custom_target(stage
+                  COMMAND ${CMAKE_COMMAND}
+                          "-DOUTPUT=${CMAKE_BINARY_DIR}/include"
+                          "-DINPUTS=\"${stage_inputs}\""
+                          -P ${CMAKE_SOURCE_DIR}/cmake/nt2.merge_directories.cmake
+                  COMMENT "Merging includes..."
+                 )
 
 ################################################################################
 # Setup documentation after all modules have been downloaded
@@ -164,8 +177,6 @@ file(GLOB NT2_TOOLS RELATIVE ${PROJECT_SOURCE_DIR}/tools ${PROJECT_SOURCE_DIR}/t
 foreach(tool ${NT2_TOOLS})
   nt2_module_tool_setup(${tool})
 endforeach()
-
-set(CMAKE_MODULE_PATH ${NT2_MODULE_PATH})
 
 ################################################################################
 # Post-config phase

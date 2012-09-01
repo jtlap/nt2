@@ -36,22 +36,37 @@ void move_file(std::string const& old, std::string const& new_)
     fs::rename(new_.c_str(), old.c_str());
 }
 
-void delete_files(std::string const& old, std::string const& new_)
+int delete_files(std::string const& old, std::string const& new_)
 {
+    if(fs::is_symlink(old.c_str()))
+    {
+      fs::remove(old.c_str());
+      return 0;
+    }
+
+    int count = 0;
     for ( fs::directory_iterator current_dir(old.c_str()); *current_dir; ++current_dir )
     {
         std::string const entry_name( *current_dir            );
         std::string const      entry( old + '/' + entry_name  );
         std::string const  new_entry( new_ + '/' + entry_name );
-        
-        if(fs::extension(entry_name) == ".hpp" && !fs::exists(new_entry.c_str()))
+
+        if(fs::extension(entry_name) == ".hpp")
         {
-            fs::remove(entry.c_str());
+            if(fs::exists(new_entry.c_str()))
+                count++;
+            else
+                fs::remove(entry.c_str());
         }
             
         if(fs::is_directory(entry))
-            delete_files(entry, new_entry);
+            count += delete_files(entry, new_entry);
     }
+
+    if(!count)
+        fs::remove(old.c_str());
+
+    return count;
 }
 
 void move_files(std::string const& old, std::string const& new_)
