@@ -16,10 +16,16 @@
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/rif.hpp>
-
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/triu.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL(symeig_result, NT2_REAL_TYPES)
 {
@@ -42,10 +48,12 @@ NT2_TEST_CASE_TPL(symeig_result, NT2_REAL_TYPES)
   nt2::display("c    ", c);
   it_t r  = f.rank();
   nt2::display("r    ", r);
- //  std::cout << "asbdet       " << f.absdet()<< std::endl;
-//   std::cout << "rank         " << f.rank()  << std::endl;
-//   t_t bb = nt2::rif(4, 1, nt2::meta::as_<T>());
-//   t_t x = f.solve(bb);
-//   nt2::display("bb    ", bb);
-//   nt2::display("x    ", x);
+  t_t z =  mtimes(mtimes(v, w), nt2::trans(v));
+  NT2_DISPLAY(z);
+  std::cout <<        nt2::globalmax(nt2::ulpdist(nt2::triu(b), nt2::triu(z))) << std::endl;
+  t_t zz = nt2::triu(z);
+  t_t bbb= nt2::triu(b);
+  NT2_DISPLAY(zz);
+  NT2_DISPLAY(bbb); 
+  NT2_TEST(isulpequal(nt2::triu(z), nt2::triu(b), T(16.0))); 
 }
