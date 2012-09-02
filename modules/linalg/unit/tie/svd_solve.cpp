@@ -16,10 +16,18 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/triu.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/rank.hpp>
+
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL ( svd_solve_expr, NT2_REAL_TYPES)
 {
@@ -44,5 +52,11 @@ NT2_TEST_CASE_TPL ( svd_solve_expr, NT2_REAL_TYPES)
   NT2_DISPLAY(x);
   std::cout << "rank    " << rank << std::endl;
   std::cout << "status  " << status << std::endl;
+  t_t z = nt2::mtimes(a, x);
+  NT2_DISPLAY(z);
+  std::cout << nt2::globalmax(nt2::ulpdist(z, b)) << std::endl; 
+  NT2_TEST(nt2::isulpequal(z, b, T(10.0)));
+  NT2_TEST_EQUAL(nt2::rank(a), std::size_t(rank));
+
 
 }

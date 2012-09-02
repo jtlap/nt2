@@ -17,10 +17,17 @@
 #include <nt2/include/functions/tril.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/triu.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL ( tr_solve_expr, NT2_REAL_TYPES)
 {
@@ -48,6 +55,10 @@ NT2_TEST_CASE_TPL ( tr_solve_expr, NT2_REAL_TYPES)
   NT2_DISPLAY(x);
   x = nt2::tr_solve(a, b, 'U', 'N', 'N');
   NT2_DISPLAY(x);
+  t_t z = nt2::mtimes(nt2::triu(a), x);
+  NT2_DISPLAY(z);
+  std::cout << nt2::globalmax(nt2::ulpdist(z, b)) << std::endl; 
+  NT2_TEST(nt2::isulpequal(nt2::mtimes(nt2::triu(a), x), b, T(1.0)));
 
 
 }
