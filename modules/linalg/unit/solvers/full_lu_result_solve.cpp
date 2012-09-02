@@ -13,10 +13,13 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/full_lu_solve.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL(full_lu_solve_result, NT2_REAL_TYPES)
 {
@@ -33,4 +36,5 @@ NT2_TEST_CASE_TPL(full_lu_solve_result, NT2_REAL_TYPES)
   nt2::details::full_lu_solve_result<t_t> f(a, b, 'N');
 
   nt2::display("values", f.x());
+  NT2_TEST(nt2::isulpequal(b, mtimes(a, f.x()))); 
  }

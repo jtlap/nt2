@@ -14,10 +14,15 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/tril.hpp>
 #include <nt2/include/functions/tr_solve.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/globalmax.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL(tr_result, NT2_REAL_TYPES)
 {
@@ -31,4 +36,5 @@ NT2_TEST_CASE_TPL(tr_result, NT2_REAL_TYPES)
 
   nt2::display("x", f.x());
   NT2_DISPLAY(a);
+  NT2_TEST(nt2::isulpequal(b, mtimes(a, f.x()), T(2.0)));     
 }
