@@ -25,6 +25,7 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL(svd_solve_result, NT2_REAL_TYPES)
 {

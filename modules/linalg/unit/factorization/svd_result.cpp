@@ -15,10 +15,14 @@
 #include <nt2/include/functions/svd.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/repnum.hpp>
-
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
 {
@@ -30,7 +34,7 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
   b(_, 1) = b(_, 3);
-
+  t_t bb = b; 
   nt2::details::svd_result<t_t> f(b,'A','A');
 
 //   nt2::display("b     ", b);
@@ -41,6 +45,8 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
   nt2::display("vt    ", vt);
   t_t w  = f.w();
   nt2::display("w    ", w);
+  NT2_TEST(nt2::isulpequal(nt2::mtimes(u, nt2::mtimes(w, vt)), bb, T(10.0)));
+  std::cout << nt2::globalmax(nt2::ulpdist(nt2::mtimes(u, nt2::mtimes(w, vt)), b)) << std::endl; 
   t_t sg = f.singular();
   nt2::display("sg   ", sg);
   t_t nul = f.null();
