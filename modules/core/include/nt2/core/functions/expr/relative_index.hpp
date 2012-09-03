@@ -11,14 +11,17 @@
 
 #include <nt2/core/functions/relative_index.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/core/functions/colon.hpp>
 #include <nt2/core/functions/details/colon.hpp>
 #include <nt2/core/container/category.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // When indexing an expression, return the evaluation of said expression
+  // When indexing an expression, evaluate a type with right cardinal then convert
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_index_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(A4)
@@ -30,11 +33,15 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename A4::type result_type;
+    typedef typename boost::simd::meta::
+            vector_of< typename A0::value_type
+                     , meta::cardinal_of<result_type>::value
+                     >::type value_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(const A0& idx, const A1& bi, const A2&, const A3& p, const A4&) const
     {
-      return nt2::run(idx,p-bi,meta::as_<result_type>());
+      return nt2::splat<result_type>(nt2::run(idx,p-bi,meta::as_<value_type>()));
     }
   };
 
