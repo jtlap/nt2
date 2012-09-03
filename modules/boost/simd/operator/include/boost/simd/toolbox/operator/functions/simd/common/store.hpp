@@ -41,14 +41,14 @@ namespace boost { namespace simd { namespace ext
 
   // scatter
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::store_, tag::cpu_
-                            , (A0)(A1)(A2)(X)
+                            , (A0)(A1)(A2)(X)(Y)
                             , (mpl::equal_to< boost::simd::meta::cardinal_of<A0>
                                             , boost::simd::meta::cardinal_of<A2>
                                             >
                               )
                             , ((simd_< fundamental_<A0>, X >))
                               (iterator_< scalar_< fundamental_<A1> > >)
-                              ((simd_< integer_<A2>, X >))
+                              ((simd_< integer_<A2>, Y >))
                             )
   {
     typedef typename dispatch::meta::

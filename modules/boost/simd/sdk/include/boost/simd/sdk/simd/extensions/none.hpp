@@ -24,49 +24,6 @@
 #include <boost/simd/sdk/simd/extensions/sse/types.hpp>
 #endif
 
-#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
-#include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
-#include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/sdk/simd/meta/extension_of.hpp>
-
-#include <boost/array.hpp>
-#include <boost/type_traits/is_fundamental.hpp>
-#include <boost/utility/enable_if.hpp>
-
-// Forward-declare logical
-namespace boost { namespace simd
-{
-  template<class T>
-  struct logical;
-} }
-
-namespace boost { namespace simd { namespace meta
-{
-  template<std::size_t N, class T>
-  struct as_simd<T, tag::simd_emulation_<N>, typename enable_if< is_fundamental<T> >::type>
-  {
-    typedef boost::array<T, N / sizeof(T)> type;
-  };
-  
-  template<std::size_t N, class T>
-  struct as_simd<logical<T>, tag::simd_emulation_<N> >
-  {
-    typedef boost::array<T, N / sizeof(T)> type;
-  };
-
-  template<class T, std::size_t N>
-  struct is_simd_specific < boost::array<T, N>
-                          , tag::simd_emulation_< N * sizeof(T) >
-                          > : boost::mpl::true_
-  {};
-
-  template<class T, class N>
-  struct extension_of< boost::array<T, N::value>, T, N>
-  {
-    typedef tag::simd_emulation_< N::value * sizeof(T) > type;
-  };
-} } }
-
 #endif
 
 #endif

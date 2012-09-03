@@ -9,25 +9,16 @@
 #ifndef BOOST_SIMD_SDK_META_AS_INDEX_HPP_INCLUDED
 #define BOOST_SIMD_SDK_META_AS_INDEX_HPP_INCLUDED
 
-#include <boost/simd/sdk/simd/native_fwd.hpp>
-#include <boost/simd/sdk/meta/as_arithmetic.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <cstddef>
 
 namespace boost { namespace simd { namespace meta
 {
   template<class T>
   struct as_index
+       : vector_of<std::size_t, meta::cardinal_of<T>::value>
   {
-    typedef std::size_t type;
-  };
-
-  template<class T, class X>
-  struct as_index< boost::simd::native<T, X> >
-  {
-    typedef typename meta::as_arithmetic<T>::type arith;
-    typedef typename dispatch::meta::as_integer<arith, unsigned>::type integer;
-    typedef boost::simd::native<integer, X> type;
   };
 } } }
 
