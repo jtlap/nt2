@@ -13,7 +13,7 @@
 #include <nt2/include/functions/aggregate.hpp>
 #include <nt2/include/functions/find.hpp>
 #include <nt2/core/utility/box.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
 #include <boost/utility/enable_if.hpp>
 
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
   struct function_find<A0, T, typename boost::enable_if< boost::simd::meta::is_logical<typename T::value_type> >::type>
   {
     typedef typename A0::value_type stype;
-    typedef typename meta::as_integer<stype>::type itype;
+    typedef typename meta::as_index<stype>::type itype;
     typedef typename meta::call<tag::find_(T const&, meta::as_<itype>)>::type type;
     static type call(A0&, T const& t)
     {

@@ -12,6 +12,7 @@
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/core/utility/as_value.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace details
 {
@@ -27,7 +28,7 @@ namespace nt2 { namespace details
     operator()(Pos const& p, Size const&sz, Target const&) const
     {
       typedef typename Target::type                 type;
-      typedef typename meta::as_integer<type>::type i_t;
+      typedef typename meta::as_index<type>::type i_t;
 
       return as_value<type>( ind2sub(sz,enumerate<i_t>(p))[1] - 1 );
     }

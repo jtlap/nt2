@@ -11,6 +11,7 @@
 /*
 #include <nt2/core/functions/fill_pattern.hpp>
 #include <nt2/core/functions/common/fill_pattern.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 #include <nt2/sdk/memory/copy.hpp>
 #include <nt2/core/container/dsl.hpp>
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
                                              const& a)) const           \
     {                                                                   \
       typedef typename A0::value_type                   value_type;     \
-      typedef typename meta::as_integer<value_type>::type      i_t;     \
+      typedef typename meta::as_index<value_type>::type      i_t;     \
       std::size_t n = meta::cardinal_of<i_t>::value;                    \
       sizes_t sizee(BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(n),a));   \
       return  boost::proto::                                            \

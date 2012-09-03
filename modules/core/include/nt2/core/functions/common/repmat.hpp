@@ -17,6 +17,7 @@
 #include <nt2/include/functions/modulo.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/minus.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -39,7 +40,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      typedef typename meta::as_integer<result_type>::type            i_t;
+      typedef typename meta::as_index<result_type>::type            i_t;
       typedef typename  boost::proto::result_of::child_c<A0&,0>::type p_t;
       typedef typename meta::call<tag::ind2sub_(_2D, i_t)>::type    sub_t;
 

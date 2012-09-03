@@ -18,6 +18,9 @@
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/enumerate.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
+#include <nt2/core/utility/as_index.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -29,8 +32,8 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename Data::type                                 result_type;
-    typedef typename meta::as_integer<result_type>::type                i_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,i_t)>::type  sub_t;
+    typedef typename meta::as_index<result_type>::type                  i_t;
+    typedef typename details::as_subscript<_2D, i_t>::result_type     sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
@@ -40,7 +43,7 @@ namespace nt2 { namespace ext
       _2D ex1 = boost::proto::child_c<1>(a0).extent();
 
       // Get the current index vector
-      sub_t pos = ind2sub(a0.extent(),nt2::enumerate<i_t>(p));
+      sub_t pos = as_subscript(_2D(a0.extent()),nt2::enumerate<i_t>(p));
 
       // Find the proper quadrant for each position
       typedef typename meta::as_logical<i_t>::type mask_t;
@@ -65,7 +68,7 @@ namespace nt2 { namespace ext
 
       // Result is from a1
       result_type const s1 = nt2::run ( boost::proto::child_c<1>(a0)
-                                      , sub2ind(ex1, pos)
+                                      , as_index(ex1, pos)
                                       , t
                                       );
 

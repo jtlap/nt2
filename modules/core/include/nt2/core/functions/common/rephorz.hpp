@@ -15,6 +15,7 @@
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/enumerate.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -26,7 +27,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename Data::type                                     result_type;
-    typedef typename meta::as_integer<result_type>::type            i_t;
+    typedef typename meta::as_index<result_type>::type            i_t;
     typedef typename  boost::proto::result_of::child_c<A0&,0>::type p_t;
     typedef typename meta::call<tag::ind2sub_(_2D, i_t)>::type      sub_t;
 

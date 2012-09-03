@@ -16,6 +16,7 @@
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/enumerate.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -34,7 +35,7 @@ namespace nt2 { namespace ext
                 >::type                                        base_type;
 
     typedef typename meta::strip<base_type>::type              result_type;
-    typedef typename meta::as_integer<result_type>::type              i_t;
+    typedef typename meta::as_index<result_type>::type              i_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
