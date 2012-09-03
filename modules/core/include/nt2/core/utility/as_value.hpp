@@ -47,6 +47,26 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::as_value_, tag::cpu_
+                            , (A0)(A1)(X)(Y)
+                            , ((simd_< unspecified_<A0>, X >))
+                              ((target_< simd_< unspecified_<A1>, Y > >))
+                            )
+  {
+    typedef typename A1::type result_type;
+
+    inline result_type operator()(const A0& a0, const A1&) const
+    {
+      typedef typename meta::scalar_of<result_type>::type sA1;
+
+      result_type tmp;
+      for(unsigned int i = 0; i != meta::cardinal_of<result_type>::value; ++i)
+        tmp[i] = static_cast<sA1>(a0[i]);
+
+      return tmp;
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::as_value_, tag::cpu_
                             , (V)(T)(X)
                             , ((simd_< integer_<V>, X >))
                               ((target_< simd_< floating_<T>, X > >))
