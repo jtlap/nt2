@@ -25,22 +25,22 @@ namespace nt2 { namespace ext
                             , (ast_<A0>)
                             )
   {
-    typedef typename meta::call<tag::numel_(A0 const&)>::type num;
+    typedef typename meta::call<tag::numel_(A0&)>::type num;
     typedef nt2::of_size_< mpl_value<num>::value > sz;
 
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colvect_
                                           , container::domain
-                                          , A0 const&
+                                          , A0&
                                           , box<sz>
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
       return  boost::proto:: 
               make_expr < nt2::tag::colvect_
                         , container::domain
-                        > ( boost::cref(a0), boxify(sz(numel(a0))) );
+                        > ( boost::ref(a0), boxify(sz(numel(a0))) );
     }
   };
 
