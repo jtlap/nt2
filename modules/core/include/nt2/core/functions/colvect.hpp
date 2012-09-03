@@ -31,9 +31,9 @@ namespace nt2
 
   //============================================================================
   /*!
-   * superior triangular part of a 2D table.
+   * linearizes expression
    *
-   * \param xpr 2D table (must verify is_matrix(a))
+   * \param xpr table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::colvect_       , colvect, 1)
@@ -46,11 +46,11 @@ namespace nt2 { namespace container { namespace ext
         : reshaping_generator<Expr>
   {};
 
-
   template<class Domain, class Expr>
   struct  size_of<nt2::tag::colvect_,Domain,2,Expr>
         : reshaping_size_of<Expr>
-  {};
+  {
+  };
 
 } } }
 

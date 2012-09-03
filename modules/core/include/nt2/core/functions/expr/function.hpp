@@ -12,7 +12,9 @@
 #include <nt2/core/functions/function.hpp>
 #include <nt2/include/functions/aggregate.hpp>
 #include <nt2/include/functions/find.hpp>
+#include <nt2/include/functions/colvect.hpp>
 #include <nt2/core/utility/box.hpp>
+#include <nt2/core/container/colon/category.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -24,6 +26,16 @@
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_
+                            , (A0)(I0)
+                            , (ast_<A0>)(colon_<I0>)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0& a0, I0 const& i0),
+      nt2::colvect(a0)
+    )
+  };
+
   template<class A0, class T, class Dummy = void>
   struct function_find
   {
