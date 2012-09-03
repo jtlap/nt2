@@ -13,10 +13,9 @@
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
-#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/is_greater_equal.hpp>
 #include <nt2/include/functions/selsub.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
@@ -49,9 +48,9 @@ namespace nt2 { namespace ext
       sub_t pos1 = pos0;
 
       i_t offset = splat<i_t>(ex0[along]);
-      pos1[along] = selsub( gt(pos1[along],offset), pos1[along], offset);
+      pos1[along] = selsub( ge(pos1[along],offset), pos1[along], offset);
 
-      return if_else( le(pos0[along], offset)
+      return if_else( lt(pos0[along], offset)
                     , nt2::run( boost::proto::child_c<0>(a0)
                               , as_index(ex0, pos0)
                               , t
