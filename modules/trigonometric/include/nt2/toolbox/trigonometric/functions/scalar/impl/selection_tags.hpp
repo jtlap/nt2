@@ -22,7 +22,7 @@ namespace nt2
   struct trig_tag{};        // nt2 implementation speed choice for trigo obsolete ?
 
   struct verysmall     { typedef regular type; };          //abs less tan pi/2
-  struct small         { typedef regular type; };          //cephes
+  struct small_        { typedef regular type; };          //cephes
   struct medium        { typedef regular type; };          //fdlibm medium
   struct big           { typedef regular type; };          //big complete reduction
   struct direct_small  { typedef regular type; };

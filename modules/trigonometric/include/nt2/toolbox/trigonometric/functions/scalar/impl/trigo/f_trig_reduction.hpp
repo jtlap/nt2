@@ -172,7 +172,7 @@ namespace nt2
             }
         }
         
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const small&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const small_&)
         {
           // x is always positive here
           if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
@@ -218,7 +218,7 @@ namespace nt2
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
         {
           xr = select(issmall(x), x, Nan<A0>());
-          return inner_reduce(xr, xr, xc, small()); 
+          return inner_reduce(xr, xr, xc, small_()); 
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
         {
@@ -253,7 +253,7 @@ namespace nt2
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
         {
           x = select(issmall(nt2::abs(x)), x, Nan<A0>());
-          return inner_reduce(x, xr, xc, small()); 
+          return inner_reduce(x, xr, xc, small_()); 
         }
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
         {

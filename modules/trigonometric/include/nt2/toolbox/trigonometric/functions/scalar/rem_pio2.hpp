@@ -955,7 +955,7 @@ namespace nt2 { namespace ext
         return nt2::rem_pio2_straight(x, xr, xc);
       }
     }; 
-    template < class dummy> struct rempio2 < small, dummy >
+    template < class dummy> struct rempio2 < small_, dummy >
     {
       static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
       {

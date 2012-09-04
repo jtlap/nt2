@@ -46,11 +46,11 @@ namespace nn1 {
 }
 namespace n01 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::small>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(cosine_<nt2::small_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace n1 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::small>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::small_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n011 {
   typedef float T;

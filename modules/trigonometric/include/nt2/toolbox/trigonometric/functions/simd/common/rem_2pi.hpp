@@ -104,7 +104,7 @@ namespace nt2 { namespace ext
         xc = Zero<A0>();
       }
     }; 
-    template < class dummy> struct rem2pi < small, dummy >// |a0| <= 20*pi
+    template < class dummy> struct rem2pi < small_, dummy >// |a0| <= 20*pi
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {

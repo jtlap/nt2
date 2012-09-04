@@ -66,7 +66,7 @@
  * \arg If there is no restrictions ever on your angles and you care for precision
  * use nt2::sine<big> which is equivalent to nt2::cos
  * \arg if you do not care for precision you can use
- * nt2::sine<medium> or nt2::sine<small>
+ * nt2::sine<medium> or nt2::sine<small_>
  * that will be accurate for their proper range and degrade
  * with greater values
  * \par
@@ -190,7 +190,7 @@
     which is equivalent to nt2::sin
 
     if you d'ont care for precision you can use
-                nt2::sine<medium> or sine::nt2<small>
+                nt2::sine<medium> or sine::nt2<small_>
 
     they will be accurate for their proper range and degrade (or not)
     with greater values (even can return nan)

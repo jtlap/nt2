@@ -85,7 +85,7 @@ namespace nt2
             return rem_pio2_medium(x, xr, xc);
         }
         
-        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const small&)
+        static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const small_&)
         {
           const A0 x = x_n;
           // x is always positive here
@@ -130,7 +130,7 @@ namespace nt2
         {
           const A0 x = x_n;
           xr = sel(issmall(nt2::abs(x)), x, Nan<A0>());
-          return inner_reduce(xr, xr, xc, small()); 
+          return inner_reduce(xr, xr, xc, small_()); 
         }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const clipped_medium&)
         {

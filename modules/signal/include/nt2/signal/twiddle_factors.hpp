@@ -140,7 +140,7 @@ namespace detail
     {
         static long double full_circle() { return 2 * 3.1415926535897932384626433832795028841971693993751058209749445923078164062L; }
         template <typename Vector>
-        static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sinecosine<small>( input, cosine ); }
+        static BOOST_FORCEINLINE Vector sincos( Vector const & input, Vector & cosine ) { return sinecosine<small_>( input, cosine ); }
     };
 
     struct degrees : twiddle_calculator_same_type<degrees>

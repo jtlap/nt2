@@ -66,7 +66,7 @@
  * \arg If there is no restrictions ever on your angles and you care for precision
  * use nt2::cosine<big> which is equivalent to nt2::cos
  * \arg if you do not care for precision you can use
- * nt2::cosine<medium> or nt2::cosine<small>
+ * nt2::cosine<medium> or nt2::cosine<small_>
  * that will be accurate for their proper range and degrade
  * with greater values
  * \par
