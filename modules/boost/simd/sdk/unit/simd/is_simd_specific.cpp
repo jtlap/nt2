@@ -9,13 +9,11 @@
 #define NT2_UNIT_MODULE "boost::simd::meta::is_simd_specific SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/meta/is_simd_specific.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-////////////////////////////////////////////////////////////////////////////////
-// Test that as_floating on SIMD
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(as_real_simd, BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE(simd_specific)
 {
   using boost::simd::meta::is_simd_specific;
 
@@ -38,5 +36,5 @@ NT2_TEST_CASE_TPL(as_real_simd, BOOST_SIMD_REAL_TYPES)
   NT2_TEST( (is_simd_specific<__vector __bool char,boost::simd::tag::altivec_>::value) );
   #endif
 
-
+  NT2_TEST( (is_simd_specific< boost::array<int, 2>, boost::simd::tag::simd_emulation_<sizeof(int)*2> >::value) );
 }
