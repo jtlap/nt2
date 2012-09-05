@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::call<tag::bitwise_cast_(A0 const&, dispatch::meta::as_<ltype>)>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      //BOOST_ASSERT_MSG(is_simd_logical(a0), "Argument to mask2logical is not a valid logical mask");
+      BOOST_ASSERT_MSG(is_simd_logical(a0), "Argument to mask2logical is not a valid logical mask");
       return bitwise_cast<ltype>(a0);
     }
   };
