@@ -12,10 +12,10 @@
 #include <nt2/core/functions/resize.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/min.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
@@ -40,11 +40,16 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      i_t nl = splat<i_t>(numel(boost::proto::child_c<0>(a0)));
+      i_t nl  = splat<i_t>(numel(boost::proto::child_c<0>(a0)));
+      i_t pos = nt2::enumerate<i_t>( p );
+
       // Return 0 if out of bounds value in a0 instead
       return nt2::if_else
-            ( nt2::lt ( nt2::enumerate<i_t>( p ), nl )
-            , nt2::run(boost::proto::child_c<0>(a0),p,t)
+            ( nt2::lt ( pos, nl )
+            , nt2::run( boost::proto::child_c<0>(a0)
+                      , nt2::min(pos,nl-1) //
+                      , t
+                      )
             , Zero<result_type>()
             );
     }
