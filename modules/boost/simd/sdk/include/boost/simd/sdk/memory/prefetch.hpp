@@ -30,19 +30,27 @@
 // https://developer.apple.com/hardwaredrivers/ve/instruction_crossref.html#prefetch
 ////////////////////////////////////////////////////////////////////////////////
 
-#ifdef BOOST_SIMD_ARCH_X86
+
 
 namespace boost{ namespace simd{ namespace memory{
   
-  enum{integer_L1, real_L2_L3, not_frequently_reused, not_reused}
+  enum{integer_L1, real_L2_L3, not_frequently_reused, not_reused};
   
-  void prefetch(char* pointer, int const& strategy)
+  void prefetch(void const* pointer, int const& strategy)
   {
-    _mm_prefetch(pointer, strategy);
+#ifdef BOOST_SIMD_ARCH_X86
+    #ifdef __GNUC__
+      __builtin_prefetch(pointer, 0, 0);
+    #elif defined( BOOST_SIMD_HAS_SSE_SUPPORT )
+      _mm_prefetch( static_cast<char const *>(pointer), strategy);
+    #endif
+#endif
+  }
+
+  void prefetch_temporary(void const* pointer)
+  {
+    prefetch(pointer, not_reused);
   }
   
 } } } 
-
-#endif
-
 #endif
