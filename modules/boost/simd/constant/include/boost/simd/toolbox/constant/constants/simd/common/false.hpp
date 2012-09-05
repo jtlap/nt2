@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SIMD_COMMON_FALSE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/constant/constants/false.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

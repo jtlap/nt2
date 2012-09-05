@@ -12,11 +12,12 @@
 #include <boost/simd/toolbox/arithmetic/functions/divceil.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
-#include <boost/simd/include/functions/simd/iceil.hpp>
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
-#include <boost/simd/include/functions/rdivide.hpp>
+#include <boost/simd/include/functions/simd/rdivide.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

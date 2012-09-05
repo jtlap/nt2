@@ -8,21 +8,21 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_MEANOF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_GENERIC_MEANOF_HPP_INCLUDED
-#include <boost/simd/toolbox/arithmetic/functions/meanof.hpp>
-#include <boost/simd/include/functions/average.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/is_gez.hpp>
-#include <boost/simd/include/functions/is_finite.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/logical_and.hpp>
-#include <boost/simd/include/functions/shrai.hpp>
-#include <boost/simd/include/functions/shri.hpp>
-#include <boost/simd/include/constants/half.hpp>
 
+#include <boost/simd/toolbox/arithmetic/functions/meanof.hpp>
+#include <boost/simd/include/functions/simd/average.hpp>
+#include <boost/simd/include/functions/simd/is_greater_equal.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
+#include <boost/simd/include/functions/simd/is_finite.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/shrai.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/constants/simd/half.hpp>
 
 //no overflow average for floating numbers
-
 
 namespace boost { namespace simd { namespace ext
 {

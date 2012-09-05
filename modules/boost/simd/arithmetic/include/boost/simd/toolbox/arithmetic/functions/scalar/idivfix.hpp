@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IDIVFIX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IDIVFIX_HPP_INCLUDED
+
 #include <boost/simd/toolbox/arithmetic/functions/idivfix.hpp>
-#include <boost/simd/include/functions/rdivide.hpp>
+#include <boost/simd/include/functions/scalar/rdivide.hpp>
 #include <boost/simd/include/functions/scalar/toint.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -8,17 +8,16 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IDIVCEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IDIVCEIL_HPP_INCLUDED
+
 #include <boost/simd/toolbox/arithmetic/functions/idivceil.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/include/functions/scalar/sign.hpp>
-#include <boost/simd/include/functions/scalar/abs.hpp>
-#include <boost/simd/include/functions/rdivide.hpp>
-#include <boost/simd/include/functions/scalar/tofloat.hpp>
+#include <boost/simd/include/functions/scalar/rdivide.hpp>
 #include <boost/simd/include/functions/scalar/iceil.hpp>
 #include <boost/simd/include/functions/scalar/ceil.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
