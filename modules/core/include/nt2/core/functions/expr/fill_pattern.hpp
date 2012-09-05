@@ -11,6 +11,7 @@
 
 #include <nt2/core/functions/fill_pattern.hpp>
 #include <nt2/core/functions/common/fill_pattern.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 #include <nt2/sdk/memory/copy.hpp>
 #include <nt2/core/container/dsl.hpp>
@@ -43,7 +44,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      typedef typename meta::as_integer<value_type>::type        i_t;
+      typedef typename meta::as_index<value_type>::type        i_t;
       std::size_t n = meta::cardinal_of<i_t>::value/numel(a0)+
         (numel(a0) != meta::cardinal_of<i_t>::value);
       tab_t p = nt2::repmat(a0,1,n); 
@@ -75,7 +76,8 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1) const
     {
       typedef typename A0::value_type value_type; 
-      typedef typename meta::as_integer < value_type>::type              i_t;
+      typedef typename meta::as_integer<value_type>::type              i_t;
+      // FIXME: cardinal_of<i_t>::value is always 1. This code makes no sense.
       std::size_t n = meta::cardinal_of<i_t>::value/numel(a0)+
         (numel(a0) != meta::cardinal_of<i_t>::value); 
       of_size_max sizee;

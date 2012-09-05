@@ -241,19 +241,19 @@ namespace nt2
    
     extern "C"
     {
-      void NT2_F77NAME(cgeesx)(const char* jobvs, const char* sort, const selectall_t* select, const char* sense,
+      void NT2_F77NAME(cgeesx)(const char* jobvs, const char* sort, selectall_t* select, const char* sense,
                            const nt2_la_int* n, nt2_la_complex* a, const nt2_la_int* lda, nt2_la_int* sdim, nt2_la_complex* w,
                            const nt2_la_complex* vs, const nt2_la_int* ldvs, float* rconde, float* rcondv, nt2_la_complex* work,
                            const nt2_la_int* lwork, float* rwork, nt2_la_int* bwork, nt2_la_int* info);
-      void NT2_F77NAME(sgeesx)(const char* jobvs, const char* sort, const selectall2_t* selectall , const char* sense,
+      void NT2_F77NAME(sgeesx)(const char* jobvs, const char* sort, selectall2_t* selectall , const char* sense,
                            const nt2_la_int* n, float* a, const nt2_la_int* lda, nt2_la_int* sdim, float* wr, float* wi,
                            const float* vs, const nt2_la_int* ldvs, float* rconde, float* rcondv, float* work,
                            const nt2_la_int* lwork, nt2_la_int* iwork, const nt2_la_int* liwork, nt2_la_int* bwork, nt2_la_int* info);
-      void NT2_F77NAME(zgeesx)(const char* jobvs, const char* sort, const selectall_t* select , const char* sense,
+      void NT2_F77NAME(zgeesx)(const char* jobvs, const char* sort, selectall_t* select , const char* sense,
                            const nt2_la_int* n, nt2_la_complex* a, const nt2_la_int* lda, nt2_la_int* sdim, nt2_la_complex* w,
                            const nt2_la_complex* vs, const nt2_la_int* ldvs, double* rconde, double* rcondv, nt2_la_complex* work,
                            const nt2_la_int* lwork, double* rwork, nt2_la_int* bwork, nt2_la_int* info);
-      void NT2_F77NAME(dgeesx)(const char* jobvs, const char* sort, const selectall2_t*select , const char* sense,
+      void NT2_F77NAME(dgeesx)(const char* jobvs, const char* sort, selectall2_t*select , const char* sense,
                            const nt2_la_int* n, double* a, const nt2_la_int* lda, nt2_la_int* sdim, double* wr, double* wi,
                            const double* vs, const nt2_la_int* ldvs, double* rconde, double* rcondv, double* work,
                            const nt2_la_int* lwork, nt2_la_int* iwork, const nt2_la_int* liwork, nt2_la_int* bwork, nt2_la_int* info);
@@ -262,7 +262,7 @@ namespace nt2
 #define NT2_GEESX(NAME, T, TBASE)                                \
     inline void geesx(const char* jobvs,                         \
                       const char* sort,                          \
-                      const selectall_t* select,                 \
+                      selectall_t* select,                 \
                       const char* sense,                         \
                       const nt2_la_int* n,                       \
                       T* a,                                      \
@@ -292,7 +292,7 @@ namespace nt2
     }                                                            \
     inline void geesx(const char* jobvs,                         \
                       const char* sort,                          \
-                      const selectall_t* select,                 \
+                      selectall_t* select,                 \
                       const char* sense,                         \
                       const nt2_la_int* n,                       \
                       T* a,                                      \
@@ -320,7 +320,7 @@ namespace nt2
 #define NT2_GEESX(NAME, T)                                              \
       inline void geesx(const char* jobvs,                              \
                         const char* sort,                               \
-                        const selectall2_t* select,                     \
+                        selectall2_t* select,                     \
                         const char* sense,                              \
                         const nt2_la_int* n,                            \
                         T* a,                                           \
@@ -355,7 +355,7 @@ namespace nt2
       }                                                                 \
       inline void geesx(const char* jobvs,                              \
                         const char* sort,                               \
-                        const selectall2_t* select,                     \
+                        selectall2_t* select,                     \
                         const char* sense,                              \
                         const nt2_la_int* n,                            \
                         T* a,                                           \

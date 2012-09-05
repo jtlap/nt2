@@ -9,13 +9,9 @@
 #ifndef NT2_CORE_UTILITY_AS_INDEX_HPP_INCLUDED
 #define NT2_CORE_UTILITY_AS_INDEX_HPP_INCLUDED
 
-#include <nt2/core/functions/sub2ind.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
-#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/bitwise_cast.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <boost/fusion/include/at.hpp>

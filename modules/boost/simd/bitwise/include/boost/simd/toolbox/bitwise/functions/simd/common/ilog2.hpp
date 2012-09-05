@@ -10,11 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_ILOG2_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/ilog2.hpp>
+#include <boost/simd/include/functions/simd/minusone.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/clz.hpp>
+#include <boost/simd/include/functions/simd/exponent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/minusone.hpp>
-#include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/include/functions/clz.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

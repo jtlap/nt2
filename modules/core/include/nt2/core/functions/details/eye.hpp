@@ -15,7 +15,7 @@
 #include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace details
 {
@@ -29,7 +29,7 @@ namespace nt2 { namespace details
     operator()(Pos const& p, Size const& sz, Target const&) const
     {
       typedef typename Target::type                                         type;
-      typedef typename meta::as_integer<type>::type                         i_t;
+      typedef typename meta::as_index<type>::type                         i_t;
       typedef typename meta::
                        call<nt2::tag::enumerate_(Pos,meta::as_<i_t>)>::type p_t;
       typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type        s_t;

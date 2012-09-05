@@ -101,8 +101,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
-      // FIXME: do conditional reads
-      //BOOST_ASSERT_MSG( maxpos<result_type>(state) < boost::proto::value(a0).size(), "Out of range SIMD read" );
+      BOOST_ASSERT_MSG( maxpos<result_type>(state) < boost::proto::value(a0).size(), "Out of range SIMD read" );
       return unaligned_load<result_type>(a0.raw(), state);
     }
   };

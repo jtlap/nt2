@@ -24,7 +24,7 @@ set(CPACK_PACKAGE_FILE_NAME "nt2-${NT2_VERSION}")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY nt2)
 
 # NSIS-specific
-set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/doc/source\\\\nt2.png")
+set(CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}/doc/html/images\\\\nt2.png")
 set(CPACK_NSIS_DISPLAY_NAME "NT2 - Numerical Template Toolbox")
 set(CPACK_NSIS_HELP_LINK "http:\\\\\\\\nt2.metascale.org")
 set(CPACK_NSIS_URL_INFO_ABOUT "http:\\\\\\\\nt2.metascale.org")

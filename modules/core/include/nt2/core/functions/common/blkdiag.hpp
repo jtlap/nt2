@@ -13,11 +13,13 @@
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
-#include <nt2/include/functions/is_greater.hpp>
+#include <nt2/include/functions/is_less.hpp>
+#include <nt2/include/functions/is_greater_equal.hpp>
 #include <nt2/include/functions/enumerate.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
+#include <nt2/core/utility/as_index.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -29,8 +31,8 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename Data::type                                 result_type;
-    typedef typename meta::as_integer<result_type>::type                i_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,i_t)>::type  sub_t;
+    typedef typename meta::as_index<result_type>::type                  i_t;
+    typedef typename details::as_subscript<_2D, i_t>::result_type     sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
@@ -40,32 +42,32 @@ namespace nt2 { namespace ext
       _2D ex1 = boost::proto::child_c<1>(a0).extent();
 
       // Get the current index vector
-      sub_t pos = ind2sub(a0.extent(),nt2::enumerate<i_t>(p));
+      sub_t pos = as_subscript(_2D(a0.extent()),nt2::enumerate<i_t>(p));
 
       // Find the proper quadrant for each position
       typedef typename meta::as_logical<i_t>::type mask_t;
-      mask_t const is_stack0 = nt2::le(pos[1],splat<i_t>(ex0[1]));
-      mask_t const is_row0   = nt2::le(pos[0],splat<i_t>(ex0[0]));
+      mask_t const is_stack0 = nt2::lt(pos[1],splat<i_t>(ex0[1]));
+      mask_t const is_row0   = nt2::lt(pos[0],splat<i_t>(ex0[0]));
 
       // Result is out of the diagonal
       result_type const z   = Zero<result_type>();
 
       // Result is from a0
       result_type const s0 = nt2::run ( boost::proto::child_c<0>(a0)
-                                      , sub2ind(ex0, pos)
+                                      , as_index(ex0, pos)
                                       , t
                                       );
 
       // Compute offset to find other possible data
       i_t const offset0 = splat<i_t>(ex0[0]);
-      pos[0] = selsub( gt(pos[0],offset0), pos[0], offset0);
+      pos[0] = selsub( ge(pos[0],offset0), pos[0], offset0);
 
       i_t const offset1 = splat<i_t>(ex0[1]);
-      pos[1] = selsub( gt(pos[1],offset1), pos[1], offset1);
+      pos[1] = selsub( ge(pos[1],offset1), pos[1], offset1);
 
       // Result is from a1
       result_type const s1 = nt2::run ( boost::proto::child_c<1>(a0)
-                                      , sub2ind(ex1, pos)
+                                      , as_index(ex1, pos)
                                       , t
                                       );
 

@@ -16,7 +16,7 @@
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/print.hpp>
-#include <boost/simd/include/functions/map.hpp>
+#include <boost/simd/include/functions/simd/map.hpp>
 
 #ifdef BOOST_SIMD_LOG_MAP
 namespace boost { namespace simd { namespace details

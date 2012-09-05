@@ -14,6 +14,7 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -72,7 +73,7 @@ namespace nt2 { namespace ext
     static BOOST_FORCEINLINE typename T::type
     gather_values(A0 const& a0, State const& p, ext_t const& sz, T const& tgt)
     {
-      typedef typename meta::as_integer<result_type>::type              i_t;
+      typedef typename meta::as_index<result_type>::type              i_t;
       typedef typename meta::call < nt2::tag
                                     ::enumerate_(State,meta::as_<i_t>)
                                   >::type                               p_t;

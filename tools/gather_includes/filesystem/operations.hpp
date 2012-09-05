@@ -4,6 +4,7 @@
 #include <boost/system/api_config.hpp>
 #include <boost/throw_exception.hpp>
 #include <boost/assert.hpp>
+#include <boost/scoped_array.hpp>
 #include <filesystem/directory_iterator.hpp>
 #include <stdexcept>
 #include <string>
@@ -13,7 +14,9 @@
 
 #ifdef BOOST_WINDOWS_API
     #include <direct.h>
-    #define PATH_MAX 512 //...zzz...for some reason it does not get picked up from limits.h
+    #ifndef PATH_MAX
+        #define PATH_MAX 512 //...zzz...for some reason it does not get picked up from limits.h
+    #endif
     #define FILESYSTEM_MKDIR_SUFFIX
     #include <errno.h>
 #else // POSIX
@@ -23,6 +26,62 @@
     #include <errno.h>
 #endif
 
+#ifdef BOOST_WINDOWS_API
+    //  REPARSE_DATA_BUFFER related definitions are found in ntifs.h, which is part of the 
+    //  Windows Device Driver Kit. Since that's inconvenient, the definitions are provided
+    //  here. See http://msdn.microsoft.com/en-us/library/ms791514.aspx
+
+    #if !defined(REPARSE_DATA_BUFFER_HEADER_SIZE)  // mingw winnt.h does provide the defs
+
+    typedef struct _REPARSE_DATA_BUFFER {
+      ULONG  ReparseTag;
+      USHORT  ReparseDataLength;
+      USHORT  Reserved;
+      union {
+        struct {
+          USHORT  SubstituteNameOffset;
+          USHORT  SubstituteNameLength;
+          USHORT  PrintNameOffset;
+          USHORT  PrintNameLength;
+          ULONG  Flags;
+          WCHAR  PathBuffer[1];
+      /*  Example of distinction between substitute and print names:
+            mklink /d ldrive c:\
+            SubstituteName: c:\\??\
+            PrintName: c:\
+      */
+         } SymbolicLinkReparseBuffer;
+        struct {
+          USHORT  SubstituteNameOffset;
+          USHORT  SubstituteNameLength;
+          USHORT  PrintNameOffset;
+          USHORT  PrintNameLength;
+          WCHAR  PathBuffer[1];
+          } MountPointReparseBuffer;
+        struct {
+          UCHAR  DataBuffer[1];
+        } GenericReparseBuffer;
+      };
+    } REPARSE_DATA_BUFFER, *PREPARSE_DATA_BUFFER;
+
+    #define REPARSE_DATA_BUFFER_HEADER_SIZE \
+      FIELD_OFFSET(REPARSE_DATA_BUFFER, GenericReparseBuffer)
+
+    #endif
+
+    #ifndef MAXIMUM_REPARSE_DATA_BUFFER_SIZE
+        #define MAXIMUM_REPARSE_DATA_BUFFER_SIZE  ( 16 * 1024 )
+    #endif
+
+    #ifndef FSCTL_GET_REPARSE_POINT
+        #define FSCTL_GET_REPARSE_POINT 0x900a8
+    #endif
+
+    #ifndef IO_REPARSE_TAG_SYMLINK
+        #define IO_REPARSE_TAG_SYMLINK (0xA000000CL)
+    #endif
+
+#endif
 
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -31,6 +90,34 @@
 
 namespace filesystem
 {
+#ifdef BOOST_WINDOWS_API
+    namespace detail
+    {
+        inline bool is_reparse_point_a_symlink(const char* p)
+        {
+            HANDLE h = CreateFileA(p, FILE_READ_EA,
+                FILE_SHARE_READ | FILE_SHARE_WRITE | FILE_SHARE_DELETE, NULL, OPEN_EXISTING,
+                FILE_FLAG_BACKUP_SEMANTICS | FILE_FLAG_OPEN_REPARSE_POINT, NULL);
+            if (h == INVALID_HANDLE_VALUE)
+                return false;
+
+            boost::scoped_array<char> buf(new char [MAXIMUM_REPARSE_DATA_BUFFER_SIZE]);
+
+            // Query the reparse data
+            DWORD dwRetLen;
+            BOOL result = DeviceIoControl(h, FSCTL_GET_REPARSE_POINT, NULL, 0, buf.get(),
+                MAXIMUM_REPARSE_DATA_BUFFER_SIZE, &dwRetLen, NULL);
+            CloseHandle(h);
+
+            if(!result)
+                return false;
+
+            return reinterpret_cast<const REPARSE_DATA_BUFFER*>(buf.get())
+                ->ReparseTag == IO_REPARSE_TAG_SYMLINK;
+        }
+    }
+#endif
+
     inline bool exists( const char* file_path )
     {
     #ifdef BOOST_WINDOWS_API
@@ -38,6 +125,25 @@ namespace filesystem
     #else
         struct stat s;
         return stat(file_path, &s) == 0;
+    #endif
+    }
+
+    inline bool is_symlink( const char* file_path )
+    {
+    #ifdef BOOST_WINDOWS_API
+        DWORD attr = GetFileAttributes(file_path);
+        if(attr == INVALID_FILE_ATTRIBUTES)
+            return false;
+
+        if(attr & FILE_ATTRIBUTE_REPARSE_POINT)
+            return detail::is_reparse_point_a_symlink(file_path);
+        return false;
+    #else
+        struct stat s;
+        if(lstat(file_path, &s))
+            return false;
+
+        return S_ISLNK(s.st_mode) == 1;
     #endif
     }
 
@@ -162,7 +268,7 @@ namespace details
         int count = 0;
         for ( directory_iterator current_dir( "." ); *current_dir; ++current_dir )
         {
-            if(!is_directory(*current_dir))
+            if(is_symlink(*current_dir) || !is_directory(*current_dir))
             {
                 count += remove(*current_dir, ec);
                 continue;
@@ -182,7 +288,7 @@ namespace details
 
     inline int remove_all( const char* file_path, int& ec )
     {
-        if(!is_directory(file_path))
+        if(is_symlink(file_path) || !is_directory(file_path))
             return remove(file_path, ec);
 
         int count;

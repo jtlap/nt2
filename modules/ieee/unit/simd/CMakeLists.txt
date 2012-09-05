@@ -8,8 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
-  saturate_at.cpp
-  saturate.cpp
+#  saturate_at.cpp
+#  saturate.cpp
   negate.cpp
   sign.cpp
   negation.cpp
@@ -23,8 +23,8 @@ SET( SOURCES
   round2even.cpp
   predecessor.cpp
   nextpow2.cpp
-  nextafter.cpp
-  modf.cpp
+#  nextafter.cpp
+#  modf.cpp
   minnummag.cpp
   minnum.cpp
   minmag.cpp
@@ -32,19 +32,19 @@ SET( SOURCES
   maxnum.cpp
   maxmag.cpp
   mantissa.cpp
-  ldexp.cpp
+#  ldexp.cpp
   ilogb.cpp
-  frexp.cpp
+#  frexp.cpp
   frac.cpp
-  fast_ldexp.cpp
-  fast_frexp.cpp
-  exponentbits.cpp
+#  fast_ldexp.cpp
+#  fast_frexp.cpp
+#  exponentbits.cpp
   exponent.cpp
   eps.cpp
   copysign.cpp
   bitofsign.cpp
-  bitinteger.cpp
-  bitfloating.cpp
+#  bitinteger.cpp
+#  bitfloating.cpp
 # List of simd test files for toolbox ieee
    )
 

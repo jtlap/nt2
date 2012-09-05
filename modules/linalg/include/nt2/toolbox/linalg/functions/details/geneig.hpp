@@ -317,6 +317,14 @@ namespace nt2 { namespace details
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return vsr_;
     }
+    result_type s () const
+    {
+      return aa_;
+    }
+    result_type t () const
+    {
+      return bb_;
+    }
 
     //==========================================================================
     // return left generalized eigenvalues

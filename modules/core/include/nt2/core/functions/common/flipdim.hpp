@@ -14,6 +14,7 @@
 #include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/enumerate.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -33,7 +34,7 @@ namespace nt2 { namespace ext
 
     typedef typename meta::call<tag::extent_(A0 const&)>::type          ext_t;
     typedef typename meta::strip<result_type>::type                 base_type;
-    typedef typename meta::as_integer<base_type>::type                    i_t;
+    typedef typename meta::as_index<base_type>::type                    i_t;
     typedef typename meta::call<nt2::tag::ind2sub_(ext_t,i_t)>::type    sub_t;
 
     BOOST_FORCEINLINE result_type

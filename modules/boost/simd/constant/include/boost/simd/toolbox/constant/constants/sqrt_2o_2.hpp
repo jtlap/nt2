@@ -13,7 +13,6 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SQRT_2O_2_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
@@ -66,5 +65,7 @@ namespace boost { namespace simd
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Sqrt_2o_2, Sqrt_2o_2)
 } }
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif

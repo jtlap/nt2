@@ -16,11 +16,16 @@
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/lsq_lse_solve.hpp>
 #include <nt2/include/functions/tie.hpp>
-
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL(svd_solve_result, NT2_REAL_TYPES)
 {
@@ -45,23 +50,8 @@ NT2_TEST_CASE_TPL(svd_solve_result, NT2_REAL_TYPES)
   nt2::display("x", x);
   nt2::display("residuals ", residuals);
   std::cout << status << std::endl;
-//   t_t p = f.p();
-//   t_t l = f.l();
-//   t_t u = f.u();
-//   t_t pl= f.pl();
-//   it_t ip= f.ip();
-//   nt2::display("p    ", p);
-//   nt2::display("l    ", l);
-//   nt2::display("u    ", u);
-//   nt2::display("pl   ", pl);
-//   nt2::display("ip   ", ip);
-//   itype_t e;
-//   T m =  f.absdet(e);
-//   std::cout << "asbdet order " << e << std::endl;
-//   std::cout << "asbdet mant  " << m << std::endl;
-//   std::cout << "asbdet       " << nt2::ldexp(m, e) << std::endl;
-//   std::cout << "asbdet       " << f.absdet()<< std::endl;
-//   std::cout << "rank         " << f.rank()  << std::endl;
-//   std::cout << "signdet      " << f.signdet()<< std::endl;
-//   std::cout << "det          " << f.det()<< std::endl;
+  t_t z = nt2::mtimes(a, x);
+  NT2_DISPLAY(z);
+  NT2_TEST(nt2::isulpequal(z, c, T(1.0)));
+
  }

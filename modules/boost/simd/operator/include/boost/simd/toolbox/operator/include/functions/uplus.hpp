@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_UPLUS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_UPLUS_HPP_INCLUDED
-#include <nt2/toolbox/operator/include/functions/unary_plus.hpp>
+#include <boost/simd/toolbox/operator/include/functions/unary_plus.hpp>
 
 namespace boost { namespace simd { namespace tag
 {

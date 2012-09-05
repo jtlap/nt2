@@ -21,8 +21,14 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/trans.hpp>
 
-NT2_TEST_CASE_TPL(balance_result, (double))// NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL(balance_result,  NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::tag::factorization::balance_;
@@ -60,5 +66,6 @@ NT2_TEST_CASE_TPL(balance_result, (double))// NT2_REAL_TYPES)
   nt2::display("ipiv    ", ipiv);
   t_t invt  = f.invt();
   nt2::display("invt    ", invt);
-
+  t_t zz = nt2::mtimes(nt2::mtimes(nt2::trans(invt), b), t);
+  NT2_TEST(nt2::isulpequal(zz, f.balanced(), T(10.0))); 
 }

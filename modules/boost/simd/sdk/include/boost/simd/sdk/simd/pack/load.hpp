@@ -17,7 +17,7 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/load.hpp>
-#include <nt2/sdk/functor/preprocessor/call.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
 //==============================================================================
 // load pack without offset

@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1& result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1& a1, A2 const& a2) const
     {
-      BOOST_MPL_ASSERT_MSG( fusion::result_of::size<A0>::type::value == fusion::result_of::size<A1>::type::value
+      BOOST_MPL_ASSERT_MSG( fusion::result_of::size<A0>::value == fusion::result_of::size<A1>::value
                           , BOOST_SIMD_INSERT_FUSION_SEQUENCE_SIZE_MISMATCH
                           , (A0, A1)
                           );

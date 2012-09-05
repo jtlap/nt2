@@ -16,10 +16,16 @@
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL(schur_result, NT2_REAL_TYPES)
 {
@@ -40,4 +46,6 @@ NT2_TEST_CASE_TPL(schur_result, NT2_REAL_TYPES)
   nt2::display("z    ", z);
   t_t t = f.t();
   nt2::display("t    ", t);
+  t_t zz =  mtimes(nt2::mtimes(z, t), nt2::trans(z));
+  NT2_TEST(isulpequal(zz, b, T(16.0)));   
 }

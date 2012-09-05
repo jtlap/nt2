@@ -15,10 +15,16 @@
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/lsq_lse_solve.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/mtimes.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL(svd_solve_result, NT2_REAL_TYPES)
 {
@@ -44,4 +50,7 @@ NT2_TEST_CASE_TPL(svd_solve_result, NT2_REAL_TYPES)
   nt2::display("residuals ", f.residuals());
   std::cout << "status " << f.status() << std::endl;
   // nt2::display("status    ", f.status());
+  t_t z = nt2::mtimes(a, f.x());
+  NT2_DISPLAY(z);
+  NT2_TEST(nt2::isulpequal(z, c, T(1.0)));
  }

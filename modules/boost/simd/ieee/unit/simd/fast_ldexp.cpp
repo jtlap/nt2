@@ -43,5 +43,15 @@ NT2_TEST_CASE_TPL ( fast_ldexp_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<fast_ldexp_(vT,ivT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-
+  for(unsigned int i = 0; i < cardinal_of<vT>::value; ++i)
+    {
+      std::cout << i << std::endl; 
+      NT2_TEST_EQUAL( boost::simd::fast_ldexp( boost::simd::One<vT>()
+                                        , boost::simd::Two<ivT>()
+                                        )[i]
+                    , boost::simd::fast_ldexp( boost::simd::One<T>()
+                                        , boost::simd::Two<iT>()
+                                        )
+                    );
+    }
 } // end of test for floating_

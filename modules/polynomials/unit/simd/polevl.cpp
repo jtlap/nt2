@@ -24,29 +24,29 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/functions/load.hpp>
+#include <boost/array.hpp>
 
-//COMMENTED
+
 NT2_TEST_CASE_TPL ( polevl_real__2_0,  NT2_REAL_TYPES)
 {
-//   using nt2::polevl;
-//   using nt2::tag::polevl_;
-//   using nt2::load; 
-//   using nt2::simd::native;
-//   using nt2::meta::cardinal_of;
-//   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename nt2::meta::upgrade<T>::type   u_t;
-//   typedef native<T,ext_t>                        n_t;
-//   typedef n_t                                     vT;
-//   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef native<iT,ext_t>                       ivT;
-//   typedef typename nt2::meta::call<polevl_(vT,vT)>::type r_t;
-//   typedef typename nt2::meta::call<polevl_(T,T)>::type sr_t;
-//   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+  using nt2::polevl;
+  using nt2::tag::polevl_;
+  using nt2::load; 
+  using boost::simd::native;
+  using nt2::meta::cardinal_of;
+  typedef boost::array<T, 4 > A_t;
+  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename nt2::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename nt2::meta::call<polevl_(vT,A_t)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
+  static const boost::array<T, 4 > A= {{ T(1), T(2), T(3), T(4) }};
+      
+  NT2_TEST_EQUAL(polevl( nt2::splat<vT>(1), A)[0], T(10)); //1*1^3 + 2*1^2 + 3*1 +4
+  NT2_TEST_EQUAL(polevl( nt2::splat<vT>(2), A)[0], T(26)); //1*2^3 + 2*2^2 + 3*2 +4
+  NT2_TEST_EQUAL(polevl( nt2::splat<vT>(3), A)[0], T(58)); //1*3^3 + 2*3^2 + 3*3 +4
 
-  // specific values tests
-//   NT2_TEST_ULP_EQUAL(polevl(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Inf<sr_t>(), 0.5);
-//   NT2_TEST_ULP_EQUAL(polevl(nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-//   NT2_TEST_ULP_EQUAL(polevl(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-//   NT2_TEST_ULP_EQUAL(polevl(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0.5);
 } // end of test for floating_

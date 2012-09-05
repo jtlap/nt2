@@ -16,10 +16,16 @@
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL(geneig_result, NT2_REAL_TYPES)
 {
@@ -43,4 +49,11 @@ NT2_TEST_CASE_TPL(geneig_result, NT2_REAL_TYPES)
   nt2::display("vsl    ", vsl);
   t_t vsr = f.vr();
   nt2::display("vsr    ", vsr);
+  t_t s = f.s();
+  nt2::display("s    ", s);
+  t_t t = f.t();
+  nt2::display("vsr    ", vsr);
+  //   (A,B) = ( (VSL)*S*(VSR)**T, (VSL)*T*(VSR)**T )
+  NT2_TEST(nt2::isulpequal(a, nt2::mtimes(vsl, nt2::mtimes(s, nt2::trans(vsr))), T(10.0))); 
+  NT2_TEST(nt2::isulpequal(b, nt2::mtimes(vsl, nt2::mtimes(t, nt2::trans(vsr))), T(10.0))); 
 }

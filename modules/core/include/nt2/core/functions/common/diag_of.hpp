@@ -12,6 +12,7 @@
 #include <nt2/core/functions/diag_of.hpp>
 #include <nt2/include/functions/arith.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -30,7 +31,7 @@ namespace nt2 { namespace ext
                 >::type                                           result_type;
 
     typedef typename meta::strip<result_type>::type               base_type;
-    typedef typename meta::as_integer<base_type,unsigned>::type   id_t;
+    typedef typename meta::as_index<base_type>::type   id_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
                 >::type                                           result_type;
 
     typedef typename meta::strip<result_type>::type               base_type;
-    typedef typename meta::as_integer<base_type,unsigned>::type   id_t;
+    typedef typename meta::as_index<base_type>::type   id_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const

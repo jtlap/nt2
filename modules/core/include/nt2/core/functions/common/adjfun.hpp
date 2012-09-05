@@ -19,8 +19,7 @@
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/min.hpp>
-
-#include <iostream>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -49,7 +48,7 @@ namespace nt2 { namespace ext
       ::value_type::extent_type                                        extt_t;
 
     typedef typename meta::strip<extt_t>::type                          ext_t;
-    typedef typename meta::as_integer<result_type, unsigned>::type        i_t;
+    typedef typename meta::as_index<result_type>::type        i_t;
     typedef typename meta::call<nt2::tag::ind2sub_(ext_t,i_t)>::type    sub_t;
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const

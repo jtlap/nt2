@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SAFE_MAX_HPP_INCLUDED
 
 #include <boost/simd/toolbox/ieee/functions/safe_max.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/constants/sqrtvalmax.hpp>
-#include <boost/simd/include/functions/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

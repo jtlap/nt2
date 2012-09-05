@@ -8,5 +8,5 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_TIMES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_INCLUDE_FUNCTIONS_TIMES_HPP_INCLUDED
-#include <nt2/toolbox/operator/include/functions/multiplies.hpp>
+#include <boost/simd/toolbox/operator/include/functions/multiplies.hpp>
 #endif

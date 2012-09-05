@@ -11,6 +11,7 @@
 
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/core/functions/function.hpp>
+#include <nt2/core/functions/colvect.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
 #include <boost/mpl/assert.hpp>
@@ -66,6 +67,11 @@ namespace nt2 { namespace container { namespace ext
   //============================================================================
   template<class Domain, int N, class Expr>
   struct resize<nt2::tag::function_, Domain, N, Expr>
+  {
+    template<class Sz> BOOST_FORCEINLINE void operator()(Expr&, Sz const&) {}
+  };
+  template<class Domain, int N, class Expr>
+  struct resize<nt2::tag::colvect_, Domain, N, Expr>
   {
     template<class Sz> BOOST_FORCEINLINE void operator()(Expr&, Sz const&) {}
   };

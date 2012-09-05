@@ -14,10 +14,16 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL ( schur, NT2_REAL_TYPES)
 {
@@ -36,7 +42,7 @@ NT2_TEST_CASE_TPL ( schur, NT2_REAL_TYPES)
 NT2_TEST_CASE_TPL ( schur_m_test, NT2_REAL_TYPES)
 {
   typedef nt2::table<T> table_t;
-  table_t z, t;
+  table_t z, t, zz;
 
   T bb[9] = {-149,    -50,   -154,
              537,    180,    546,
@@ -54,6 +60,8 @@ NT2_TEST_CASE_TPL ( schur_m_test, NT2_REAL_TYPES)
   nt2::tie(z, t) = nt2::schur(b, 'r'); //real
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
+  zz =  mtimes(nt2::mtimes(z, t), nt2::trans(z));
+  NT2_TEST(isulpequal(zz, b, T(16.0))); 
 }
 
 

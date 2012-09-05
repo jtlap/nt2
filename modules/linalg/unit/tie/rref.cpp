@@ -14,10 +14,14 @@
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/rref.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/eye.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL ( rref, NT2_REAL_TYPES)
 {
@@ -41,15 +45,16 @@ NT2_TEST_CASE_TPL ( rref, NT2_REAL_TYPES)
           a(i, j) = A[k++];
         }
     }
-
-  nt2::tie(rref) = nt2::rref(b);
+  NT2_DISPLAY(a);
+  nt2::tie(rref) = nt2::rref(a);
   NT2_DISPLAY(rref);
   it_t jb;
-
-  nt2::tie(rref, jb) = nt2::rref(b);
+  
+  nt2::tie(rref, jb) = nt2::rref(a);
   NT2_DISPLAY(rref);
   NT2_DISPLAY(jb);
-
+  NT2_TEST(nt2::isulpequal(rref(nt2::_(1, nt2::numel(jb)), jb), nt2::eye(nt2::numel(jb), nt2::meta::as_<T>()))); 
+  
 }
 
 

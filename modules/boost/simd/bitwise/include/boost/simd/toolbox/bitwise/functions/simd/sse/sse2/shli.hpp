@@ -10,9 +10,12 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_SSE_SSE2_SHLI_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/bitwise/functions/shli.hpp>
-#include <boost/simd/include/constants/digits.hpp>
-#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

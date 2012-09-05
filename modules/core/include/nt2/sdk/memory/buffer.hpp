@@ -243,15 +243,13 @@ namespace nt2 { namespace memory
     //==========================================================================
     inline reference       operator[](size_type i)
     {
-      // FIXME: do conditional reads
-      //BOOST_ASSERT_MSG( i < size(), "Out of range acces on buffer" );
+      BOOST_ASSERT_MSG( i < size(), "Out of range acces on buffer" );
       return begin_[i];
     }
 
     inline const_reference operator[](size_type i) const
     {
-      // FIXME: do conditional reads
-      //BOOST_ASSERT_MSG( i < size(), "Out of range acces on buffer" );
+      BOOST_ASSERT_MSG( i < size(), "Out of range acces on buffer" );
       return begin_[i];
     }
 

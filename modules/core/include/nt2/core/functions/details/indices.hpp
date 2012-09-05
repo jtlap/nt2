@@ -9,10 +9,11 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_INDICES_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_INDICES_HPP_INCLUDED
 
-#include <nt2/core/utility/as_value.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace details
 {
@@ -30,14 +31,14 @@ namespace nt2 { namespace details
     operator()(Pos const& p, Size const&sz, Target const&) const
     {
       typedef typename Target::type                                         type;
-      typedef typename meta::as_integer<type>::type                         i_t;
+      typedef typename meta::as_index<type>::type                         i_t;
       typedef typename meta::
                        call<nt2::tag::enumerate_(Pos,meta::as_<i_t>)>::type p_t;
       typedef typename meta::call<nt2::tag::ind2sub_(Size,p_t)>::type       s_t;;
 
       s_t const pos = ind2sub(sz,nt2::enumerate<i_t>(p));
       return (dim_ >= pos.size()) ? nt2::splat<type>(base_)
-                                  : as_value<type>(pos[dim_]+base_-1);
+                                  : splat<type>(pos[dim_]+base_-1);
     }
 
     private:

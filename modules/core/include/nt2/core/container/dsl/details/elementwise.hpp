@@ -16,6 +16,29 @@
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/assert.hpp>
 
+namespace nt2 { namespace details
+{
+  struct get_extent
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class T>
+    struct result<This(T)>
+    {
+      typedef typename boost::remove_reference<T>::type sT;
+      typedef typename sT::extent_type type;
+    };
+
+    template<class T>
+    BOOST_FORCEINLINE typename T::extent_type
+    operator()(T const& t) const
+    {
+      return t.extent();
+    }
+  };
+} }
+
 namespace nt2 { namespace container { namespace ext
 {
   // element-wise size selection logic
@@ -108,30 +131,8 @@ namespace nt2 { namespace container { namespace ext
   template<class Tag, class Domain, int N, class Expr>
   struct size_of
   {
-    struct get_extent
-    {
-      template<class Sig>
-      struct result;
-
-      template<class This, class T>
-      struct result<This(T&)> : result<This(T)> {};
-
-      template<class This, class T>
-      struct result<This(T)>
-      {
-        typedef typename T::extent_type type;
-      };
-
-      template<class T>
-      BOOST_FORCEINLINE typename T::extent_type
-      operator()(T const& t) const
-      {
-        return t.extent();
-      }
-    };
-
     typedef typename boost::fusion::result_of::
-    transform<Expr const, get_extent>::type sizes;
+    transform<Expr const, details::get_extent>::type sizes;
 
     typedef typename boost::fusion::result_of::
     at_c<sizes, 0>::type init;
@@ -142,7 +143,7 @@ namespace nt2 { namespace container { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
-      sizes sz = boost::fusion::transform(e, get_extent());
+      sizes sz = boost::fusion::transform(e, details::get_extent());
       return boost::fusion::fold(sz, boost::fusion::at_c<0>(sz), size_fold());
     }
   };

@@ -57,7 +57,6 @@ SET( SOURCES
     from_diag.cpp
     havesamesize.cpp
     horzcat.cpp
-    hyper.cpp
     inbtrue.cpp
     ind2sub.cpp
     indices.cpp

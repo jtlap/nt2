@@ -9,7 +9,6 @@
 #ifndef NT2_CORE_UTILITY_AS_SUBSCRIPT_HPP_INCLUDED
 #define NT2_CORE_UTILITY_AS_SUBSCRIPT_HPP_INCLUDED
 
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/modulo.hpp>

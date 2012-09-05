@@ -42,5 +42,11 @@ NT2_TEST_CASE_TPL ( nextafter_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<nextafter_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-
+  NT2_TEST_EQUAL(nextafter(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0]   ,nextafter(boost::simd::Inf<T>(), boost::simd::Inf<T>())   );
+  NT2_TEST_EQUAL(nextafter(boost::simd::Minf<vT>(), boost::simd::One<vT>())[0]  ,nextafter(boost::simd::Minf<T>(), boost::simd::One<T>())  ); 
+  NT2_TEST_EQUAL(nextafter(boost::simd::Mone<vT>(), boost::simd::One<vT>())[0]  ,nextafter(boost::simd::Mone<T>(), boost::simd::One<T>())  ); 
+  NT2_TEST_EQUAL(nextafter(boost::simd::Nan<vT>(), boost::simd::One<vT>())[0]   ,nextafter(boost::simd::Nan<T>(), boost::simd::One<T>())   );
+  NT2_TEST_EQUAL(nextafter(boost::simd::One<vT>(), boost::simd::Inf<vT>())[0]   ,nextafter(boost::simd::One<T>(), boost::simd::Inf<T>())   );
+  NT2_TEST_EQUAL(nextafter(boost::simd::Valmax<vT>(), boost::simd::Inf<vT>())[0],nextafter(boost::simd::Valmax<T>(), boost::simd::Inf<T>())); 
+  NT2_TEST_EQUAL(nextafter(boost::simd::Zero<vT>(), boost::simd::One<vT>())[0]  ,nextafter(boost::simd::Zero<T>(), boost::simd::One<T>())  );                            
 } // end of test for floating_

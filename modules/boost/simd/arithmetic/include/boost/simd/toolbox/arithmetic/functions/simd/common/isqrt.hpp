@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ISQRT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/isqrt.hpp>
-#include <boost/simd/include/functions/sqrt.hpp>
-#include <boost/simd/include/functions/itrunc.hpp>
+#include <boost/simd/include/functions/simd/sqrt.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext

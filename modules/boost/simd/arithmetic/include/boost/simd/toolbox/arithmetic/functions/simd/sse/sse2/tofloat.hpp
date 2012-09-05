@@ -83,7 +83,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::as_floating<A0>::type        result_type;
     typedef typename meta::scalar_of<result_type>::type           sftype;
-    typedef typename meta::make_dependent<nt2::int32_t,A0>::type  htype;
+    typedef typename meta::make_dependent<simd::int32_t,A0>::type htype;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {

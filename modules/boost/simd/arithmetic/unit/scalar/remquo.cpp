@@ -29,9 +29,10 @@
 #include <cmath>
 #include <nt2/include/constants/nan.hpp>
 
+#include <boost/simd/toolbox/arithmetic/details/math.hpp>
+
 NT2_TEST_CASE_TPL ( remquo_real__2_0,  (double))
 {
-  
   using boost::simd::remquo;
   using boost::simd::tag::remquo_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -40,39 +41,39 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  (double))
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,typename boost::dispatch::meta::as_integer<T,signed>::type> wished_r_t;
 
-
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   iT n = 0;
   int32_t n1; 
   T r, r1;
-  
+
   remquo(boost::simd::Nan<double>(), T(1), r, n);
   NT2_TEST_EQUAL(r, boost::simd::Nan<double>());
-  NT2_TEST_EQUAL(n, 0);   
+  NT2_TEST_EQUAL(n, 0);
   remquo(T(1), boost::simd::Nan<double>(), r, n);
   NT2_TEST_EQUAL(r, boost::simd::Nan<double>());
-  NT2_TEST_EQUAL(n, 0);   
+  NT2_TEST_EQUAL(n, 0);
+
+#ifdef BOOST_SIMD_TOOLBOX_ARITHMETIC_HAS_REMQUO
   T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   T b[9] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
-  
+
   for(int i=0; i < 10; ++i)
+  {
+    for(int j=0; j < 9; ++j)
     {
-      
-      for(int j=0; j < 9; ++j)
-        {
-          remquo(a[i], b[j], r, n);
-          r1 = ::remquo(a[i], b[j], &n1); 
-          NT2_TEST_EQUAL(r, r1);
-          NT2_TEST_EQUAL(n&3, n1&3); 
-        }
+      remquo(a[i], b[j], r, n);
+      r1 = ::remquo(a[i], b[j], &n1);
+      NT2_TEST_EQUAL(r, r1);
+      NT2_TEST_EQUAL(n&3, n1&3);
     }
+  }
+#endif
 
 }// end of test for double
   
 NT2_TEST_CASE_TPL ( remquo_real__2_0f,  (float))
 {
-  
   using boost::simd::remquo;
   using boost::simd::tag::remquo_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -81,35 +82,36 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0f,  (float))
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,typename boost::dispatch::meta::as_integer<T,signed>::type> wished_r_t;
 
-
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   iT n = 0;
   int32_t n1; 
   T r, r1;
-  
+
   remquo(boost::simd::Nan<float>(), T(1), r, n);
   NT2_TEST_EQUAL(r, boost::simd::Nan<float>());
-  NT2_TEST_EQUAL(n, 0);   
+  NT2_TEST_EQUAL(n, 0);
   remquo(T(1), boost::simd::Nan<float>(), r, n);
   NT2_TEST_EQUAL(r, boost::simd::Nan<float>());
-  NT2_TEST_EQUAL(n, 0);   
-  
+  NT2_TEST_EQUAL(n, 0);
+
+#ifdef BOOST_SIMD_TOOLBOX_ARITHMETIC_HAS_REMQUO
   T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   T b[9] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
-  
+
   for(int i=0; i < 10; ++i)
+  {
+    for(int j=0; j < 9; ++j)
     {
-      for(int j=0; j < 9; ++j)
-        {
-          remquo(a[i], b[j], r, n);
-          r1 = ::remquo(a[i], b[j], &n1);
-          std::cout << "nt2 : a " << a[i] << " --- b " << b[j] << " --> quo = " << n << " rem = " << r << std::endl;
-          std::cout << "C   : a " << a[i] << " --- b " << b[j] << " --> quo = " << n1<< " rem = " << r1<< std::endl;   
-          NT2_TEST_EQUAL(r, r1);
-          NT2_TEST_EQUAL(n&3, n1&3); 
-        }
+      remquo(a[i], b[j], r, n);
+      r1 = ::remquo(a[i], b[j], &n1);
+      std::cout << "nt2 : a " << a[i] << " --- b " << b[j] << " --> quo = " << n << " rem = " << r << std::endl;
+      std::cout << "C   : a " << a[i] << " --- b " << b[j] << " --> quo = " << n1<< " rem = " << r1<< std::endl;
+      NT2_TEST_EQUAL(r, r1);
+      NT2_TEST_EQUAL(n&3, n1&3);
     }
+  }
+#endif
 
 }// end
 

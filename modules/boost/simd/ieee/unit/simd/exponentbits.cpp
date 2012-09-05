@@ -47,4 +47,10 @@ NT2_TEST_CASE_TPL ( exponentbits_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
+  
+ for(int i=1; i < 10; i*= 2)
+   {
+     NT2_TEST_EQUAL(exponentbits(boost::simd::splat<vT>(i))[0],
+                    exponentbits(T(i))); 
+   }
 } // end of test for floating_

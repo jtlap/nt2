@@ -43,8 +43,9 @@ macro(nt2_preprocess target)
     foreach(src ${ARG_UNPARSED_ARGUMENTS})
       math(EXPR n "${prev} + 1")
       add_custom_target(${target}.${n}
-                        COMMAND echo "wave ${src}" && ${WAVE_EXECUTABLE}  --c++0x --timer ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
+                        COMMAND ${WAVE_EXECUTABLE}  --c++0x --timer ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
                         WORKING_DIRECTORY ${NT2_BINARY_DIR}/include
+                        COMMENT "wave ${src}"
                        )
       set_property(TARGET ${target}.${n} PROPERTY FOLDER preprocess)
       add_dependencies(${target} ${target}.${n})

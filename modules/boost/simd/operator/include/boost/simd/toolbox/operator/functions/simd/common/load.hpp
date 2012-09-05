@@ -66,14 +66,14 @@ namespace boost { namespace simd { namespace ext
 
   // gather
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::load_, tag::cpu_
-                            , (A0)(A1)(A2)(X)
+                            , (A0)(A1)(A2)(X)(Y)
                             , (mpl::equal_to< boost::simd::meta::cardinal_of<A1>
                                             , boost::simd::meta::cardinal_of<typename A2::type>
                                             >
                               )
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               ((simd_< integer_<A1>, X >))
-                              ((target_< simd_< fundamental_<A2>, X > >))
+                              ((target_< simd_< fundamental_<A2>, Y > >))
                             )
   {
     typedef typename dispatch::meta::

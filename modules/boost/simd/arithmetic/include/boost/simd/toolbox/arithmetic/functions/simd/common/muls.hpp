@@ -9,13 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MULS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MULS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/arithmetic/functions/muls.hpp>
-#include <boost/simd/include/functions/simd/is_eqz.hpp>
-#include <boost/simd/include/functions/simd/is_ltz.hpp>
-#include <boost/simd/include/functions/simd/abs.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/rdivide.hpp>
-#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+//#include <boost/simd/toolbox/arithmetic/functions/muls.hpp>
+//#include <boost/simd/include/functions/simd/is_eqz.hpp>
+//#include <boost/simd/include/functions/simd/is_ltz.hpp>
+//#include <boost/simd/include/functions/simd/abs.hpp>
+//#include <boost/simd/include/functions/simd/if_else.hpp>
+//#include <boost/simd/include/functions/simd/divs.hpp>
+//#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 //TODO...a common version or delete the file
 
 // /////////////////////////////////////////////////////////////////////////////
