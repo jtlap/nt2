@@ -47,8 +47,8 @@
 #include <x86intrin.h>
 #include <fma4intrin.h>
 
-#include <nt2/sdk/simd/extensions/meta/sse.hpp>
-#include <nt2/sdk/simd/extensions/meta/avx.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
+#include <boost/simd/sdk/simd/extensions/meta/avx.hpp>
 
 #endif
 #endif
