@@ -23,14 +23,13 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::strip<A1>::type                          base_t;
     typedef typename base_t::extent_type                            ext_t;
-    typedef typename base_t::indexes_type                           idx_t;
     typedef typename  meta::call
-                      < nt2::tag::isinside_(A0&,ext_t,idx_t)>::type result_type;
+                      < nt2::tag::isinside_(A0&,ext_t)>::type result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0,const A1& a1) const
     {
-      return isinside(a0,a1.extent(),a1.indexes());
+      return isinside(a0,a1.extent());
     }
   };
 } }

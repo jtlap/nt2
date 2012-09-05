@@ -1,4 +1,4 @@
-//==============================================================================
+  //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
@@ -20,6 +20,42 @@
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isinside_, tag::cpu_
+                            , (A0)(A1)
+                            , (fusion_sequence_<A0>)
+                              (fusion_sequence_<A1>)
+                            )
+  {
+    typedef typename boost::fusion::result_of::at_c<A0,0>::type   at_t;
+    typedef typename meta::strip<at_t>::type                      base_t;
+    typedef typename boost::simd::meta::as_logical<base_t>::type  result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0& a0,const A1& a1) const
+    {
+      typedef typename boost::fusion::result_of::size<A0>::type sz_t;
+      return eval(a0,a1,boost::mpl::int_<sz_t::value-1>());
+    }
+
+    template<class N> BOOST_DISPATCH_FORCE_INLINE result_type
+    eval(const A0& a0,const A1& a1, N const&) const
+    {
+      return l_and( eval(a0,a1, boost::mpl::int_<N::value-1>())
+                  , lt( boost::fusion::at_c<N::value>(a0)
+                      , splat<base_t>(boost::fusion::at_c<N::value>(a1))
+                      )
+                  );
+    }
+
+    BOOST_DISPATCH_FORCE_INLINE result_type
+    eval(const A0& a0,const A1& a1,boost::mpl::int_<0> const&) const
+    {
+      return lt ( boost::fusion::at_c<0>(a0)
+                , splat<base_t>(boost::fusion::at_c<0>(a1))
+                );
+    }
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isinside_, tag::cpu_
                             , (A0)(A1)(A2)
                             , (fusion_sequence_<A0>)
