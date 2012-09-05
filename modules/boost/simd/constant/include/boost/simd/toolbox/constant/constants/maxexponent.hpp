@@ -14,7 +14,6 @@
 
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 /*!
@@ -80,5 +79,7 @@ namespace boost { namespace simd
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Maxexponent, Maxexponent)
 } }
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif

@@ -14,7 +14,6 @@
 
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
@@ -76,5 +75,7 @@ namespace boost { namespace simd
     return callee( dispatch::meta::as_<Target>() );
   }
 } }
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif

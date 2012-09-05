@@ -16,7 +16,6 @@
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 #ifdef BOOST_MSVC
@@ -118,5 +117,7 @@ namespace boost { namespace simd
 #ifdef BOOST_MSVC
 #pragma warning(pop)
 #endif
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif

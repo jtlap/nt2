@@ -13,9 +13,6 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPARE_NOT_EQUAL_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-
-#include <boost/simd/toolbox/operator/specific/common.hpp>
-
 #include <boost/proto/tags.hpp>
 
 /*!
@@ -98,5 +95,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef boost::proto::tag::not_equal_to type;
   };
 } } }
+
+#include <boost/simd/toolbox/operator/specific/common.hpp>
 
 #endif

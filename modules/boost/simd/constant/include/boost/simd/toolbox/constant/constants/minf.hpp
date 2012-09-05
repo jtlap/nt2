@@ -16,9 +16,8 @@
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
-#include <boost/simd/toolbox/constant/include/constants/valmin.hpp>
 
 /*!
  * \ingroup boost_simd_constant
@@ -60,6 +59,8 @@ namespace boost { namespace simd
 {
   namespace tag
   {
+    struct Valmin;
+
     /*!
      * \brief Define the tag Minf of functor Minf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
@@ -68,7 +69,7 @@ namespace boost { namespace simd
     {
       typedef double default_type;
       template<class Target, class Dummy=void>
-      struct apply : Valmin::apply<Target,Dummy> {};
+      struct apply : meta::make_dependent<Valmin, Dummy>::type::template apply<Target,Dummy> {};
     };
 
     template<class T, class Dummy>
@@ -82,5 +83,9 @@ namespace boost { namespace simd
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Minf, Minf)
 } }
+
+#include <boost/simd/toolbox/constant/include/constants/valmin.hpp>
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif
