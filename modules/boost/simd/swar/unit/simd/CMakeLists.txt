@@ -24,6 +24,12 @@ SET( SOURCES
   splatted_sum.cpp
   split.cpp
   reverse.cpp
+  deinterleave_first.cpp
+  deinterleave_second.cpp
+  interleave_first.cpp
+  interleave_second.cpp
+  repeat_lower_half.cpp
+  repeat_upper_half.cpp
 # List of simd test files for toolbox swar
    )
 

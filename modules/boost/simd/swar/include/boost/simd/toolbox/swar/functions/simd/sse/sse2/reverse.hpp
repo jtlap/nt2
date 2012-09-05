@@ -14,7 +14,7 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
-#include <iostream>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-        return _mm_shuffle_ps(a0, a0, 0x1B);
+        return details::shuffle<3,2,1,0>(a0, a0);
       }
   };
   
@@ -44,7 +44,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
-        return _mm_shuffle_pd(a0, a0, 0x1);
+        return details::shuffle<1,0>(a0, a0);
       }
   };
   
