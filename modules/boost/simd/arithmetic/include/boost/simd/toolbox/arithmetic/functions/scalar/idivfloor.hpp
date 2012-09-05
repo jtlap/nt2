@@ -11,7 +11,7 @@
 
 #include <boost/simd/toolbox/arithmetic/functions/idivfloor.hpp>
 #include <boost/simd/include/functions/scalar/idivceil.hpp>
-#include <boost/simd/include/functions/scalar/rdivide.hpp>
+#include <boost/simd/include/functions/scalar/divs.hpp>
 #include <boost/simd/include/functions/scalar/ifloor.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>

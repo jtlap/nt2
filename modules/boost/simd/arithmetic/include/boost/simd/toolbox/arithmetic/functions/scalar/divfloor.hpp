@@ -10,7 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVFLOOR_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/divfloor.hpp>
-#include <boost/simd/include/functions/scalar/rdivide.hpp>
+#include <boost/simd/include/functions/scalar/divs.hpp>
+#include <boost/simd/include/functions/scalar/iceil.hpp>
 #include <boost/simd/include/functions/scalar/floor.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>

@@ -14,7 +14,7 @@
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/ceil.hpp>
 #include <boost/simd/include/functions/simd/tofloat.hpp>
-#include <boost/simd/include/functions/simd/rdivide.hpp>
+#include <boost/simd/include/functions/simd/divs.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/constants/one.hpp>

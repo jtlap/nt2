@@ -11,7 +11,7 @@
 
 #include <boost/simd/toolbox/arithmetic/functions/divfloor.hpp>
 #include <boost/simd/include/functions/simd/divceil.hpp>
-#include <boost/simd/include/functions/simd/rdivide.hpp>
+#include <boost/simd/include/functions/simd/divs.hpp>
 #include <boost/simd/include/functions/simd/floor.hpp>
 #include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/divides.hpp>

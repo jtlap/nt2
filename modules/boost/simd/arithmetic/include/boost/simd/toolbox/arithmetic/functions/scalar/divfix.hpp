@@ -11,7 +11,7 @@
 
 #include <boost/simd/toolbox/arithmetic/functions/divfix.hpp>
 #include <boost/simd/include/functions/scalar/trunc.hpp>
-#include <boost/simd/include/functions/scalar/rdivide.hpp>
+#include <boost/simd/include/functions/scalar/divs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

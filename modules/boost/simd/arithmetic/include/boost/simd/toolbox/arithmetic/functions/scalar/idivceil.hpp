@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_IDIVCEIL_HPP_INCLUDED
 
 #include <boost/simd/toolbox/arithmetic/functions/idivceil.hpp>
-#include <boost/simd/include/functions/scalar/rdivide.hpp>
+#include <boost/simd/include/functions/scalar/divs.hpp>
 #include <boost/simd/include/functions/scalar/iceil.hpp>
 #include <boost/simd/include/functions/scalar/ceil.hpp>
 #include <boost/simd/include/constants/one.hpp>

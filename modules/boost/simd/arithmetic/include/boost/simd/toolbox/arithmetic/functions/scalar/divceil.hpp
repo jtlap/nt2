@@ -12,7 +12,7 @@
 #include <boost/simd/toolbox/arithmetic/functions/divceil.hpp>
 #include <boost/simd/include/functions/scalar/ceil.hpp>
 #include <boost/simd/include/functions/scalar/iceil.hpp>
-#include <boost/simd/include/functions/scalar/rdivide.hpp>
+#include <boost/simd/include/functions/scalar/divs.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
