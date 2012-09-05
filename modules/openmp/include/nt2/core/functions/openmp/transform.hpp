@@ -76,14 +76,14 @@ namespace nt2 { namespace ext
         std::size_t    local_size     = sz / threads;
         std::ptrdiff_t local_leftover = sz % threads;
 
-        #ifndef BOOST_NO_EXCEPTIONS
-        try
+        // Dispatch group of blocks over each threads
+        #pragma omp for schedule(static)
+        for(std::ptrdiff_t p=0;p<threads;++p)
         {
-#endif
-          // Dispatch group of blocks over each threads
-          #pragma omp for schedule(static)
-          for(std::ptrdiff_t p=0;p<threads;++p)
+#ifndef BOOST_NO_EXCEPTIONS
+          try
           {
+#endif
             // Move forward starts of each block
             std::ptrdiff_t offset = local_size*p + std::min(local_leftover,p);
 
@@ -92,14 +92,14 @@ namespace nt2 { namespace ext
 
             // Call transform over the sub-architecture in the memory hierachy
             transformer(a0,a1,it+offset,local_size);
-          }
 #ifndef BOOST_NO_EXCEPTIONS
-        }
-        catch(...)
-        {
-          exception = boost::current_exception();
-        }
+          }
+          catch(...)
+          {
+            exception = boost::current_exception();
+          }
 #endif
+        }
       }
 
 #ifndef BOOST_NO_EXCEPTIONS
