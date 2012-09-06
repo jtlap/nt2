@@ -13,7 +13,7 @@
 #include <boost/fusion/include/deref.hpp>
 #include <boost/fusion/include/begin.hpp>
 #include <iostream>
-#include <nt2/sdk/details/type_id.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 
 int main()
 {
