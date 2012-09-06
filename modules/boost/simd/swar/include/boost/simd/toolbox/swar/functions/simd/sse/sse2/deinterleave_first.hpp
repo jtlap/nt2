@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_DEINTERLEAVE_FIRST_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
+#include <boost/simd/toolbox/swar/functions/deinterleave_first.hpp>
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -23,7 +24,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    result_type operator()(__m128 const a0, __m128 const a1) const
     {
       return details::shuffle<0, 2, 0, 2>(a0,a1);
     }
@@ -38,7 +39,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    result_type operator()(__m128d const a0, __m128d const a1) const
     {
       return details::shuffle<0, 0>(a0,a1);
     }

@@ -6,25 +6,24 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_REPEAT_LOWER_HALF_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_REPEAT_LOWER_HALF_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_DEINTERLEAVE_FIRST_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_DEINTERLEAVE_FIRST_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
-#include <boost/simd/toolbox/swar/functions/repeat_lower_half.hpp>
+#include <boost/simd/toolbox/swar/functions/deinterleave_first.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
-                                   , boost::simd::tag::sse2_
-                                   , (A0)
-                                   , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::deinterleave_first_, tag::cpu_
+                                    , (A0)
+                                    , (scalar_< unspecified_<A0> >)
+                                    )
   {
     typedef A0 result_type;
 
-    result_type operator()(__m128 const a0) const
+    result_type operator()(A0 const& a0) const
     {
-      return _mm_movelh_ps(a0,a0);
+      return a0;
     }
   };
 } } }
