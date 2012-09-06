@@ -15,7 +15,7 @@
 #include <nt2/sdk/option/option_term.hpp>
 #include <nt2/sdk/option/option_pack.hpp>
 
-#include <boost/proto/core.hpp>
+#include <boost/proto/extends.hpp>
 
 namespace nt2 { namespace details
 {

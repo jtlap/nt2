@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
-#include <boost/proto/core.hpp>
+#include <boost/proto/traits.hpp>
 #include <boost/dispatch/dsl/call.hpp>
 #include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/simd/sdk/simd/pack/meta.hpp>
