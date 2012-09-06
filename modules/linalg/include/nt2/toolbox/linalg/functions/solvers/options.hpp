@@ -86,7 +86,7 @@ namespace nt2 { namespace solvers {
     
     template < class t >
     const char& trans(const t & a = 1)const{
-      return *details::lapack_option(transa ? (!is_real(a)? 'c':'t') :'n');
+      return *details::lapack_option(transa_ ? (!is_real(a)? 'c':'t') :'n');
     }
     
     const char& uni()const{return *details::lapack_option(unidiag_?'u':'n'); }
