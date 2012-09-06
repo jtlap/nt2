@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL(interleave_first, (float)(double))
   vT a,b,c;
   for(std::size_t i=1; i<=card; ++i)
   { a[i-1]=T(i); b[i-1]=T(i*10); }
-  c = interleave_first(a,b);
+  c = boost::simd::interleave_first(a,b);
   for(std::size_t i=0; i<card; ++i)
     NT2_TEST_EQUAL(c[i],(i%2==0)?a[i/2]:b[i/2]);
 } 

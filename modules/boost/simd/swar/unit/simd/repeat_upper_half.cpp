@@ -25,7 +25,7 @@ NT2_TEST_CASE_TPL(repeat_upper_half, (float))
   vT a,b,c;
   for(std::size_t i=1; i<=card; ++i)
   { a[i-1]=T(i); b[i-1]=T(i*10); }
-  c = repeat_upper_half(a);
+  c = boost::simd::repeat_upper_half(a);
   for(std::size_t i=0; i<card; ++i)
-    NT2_TEST_EQUAL(c[i],(i<(card/2)?a[i+card/2-1]:a[i]));
+    NT2_TEST_EQUAL(c[i],(i<(card/2)?a[i+card/2]:a[i]));
 } 
