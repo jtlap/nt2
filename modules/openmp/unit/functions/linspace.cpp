@@ -60,29 +60,3 @@ NT2_TEST_CASE_TPL( linspace_with_size, (double)(float) )
   NT2_TEST( xn1.extent() == nt2::of_size(1,1) );
   NT2_TEST_EQUAL( T(xn1(1)), T(9) );
 }
-
-NT2_TEST_CASE_TPL( simd_linspace, (double)(float) )
-{
-  using boost::simd::native;
-  using nt2::meta::as_;
-
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef native<T,ext_t>               n_t;
-  typedef as_<n_t>                      target_type;
-  typedef T r_t;
-  double ulpd;
-
-  nt2::details::linspace<T> callee(0,1,3*n_t::static_size);
-
-  for(int i=0;i<3;++i)
-  {
-    n_t res = callee( n_t::static_size*i, 0, target_type() );
-
-    for(int j=0;j<n_t::static_size;++j)
-    NT2_TEST_ULP_EQUAL( T(res[j])
-                      , T(0)  + ((T(1)-T(0))/(3*n_t::static_size-1))
-                              * (i*n_t::static_size+j)
-                      , 0.5
-                      );
-  }
-}
