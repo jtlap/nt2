@@ -8,15 +8,17 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SQR_ABS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_SQR_ABS_HPP_INCLUDED
+
 #include <boost/simd/toolbox/arithmetic/functions/sqr_abs.hpp>
 #include <boost/simd/include/functions/simd/sqr.hpp>
-#include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
-#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/functions/simd/abss.hpp>
 #include <boost/simd/include/functions/simd/muls.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/is_greater_equal.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
