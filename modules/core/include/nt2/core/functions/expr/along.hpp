@@ -34,7 +34,7 @@ namespace nt2 { namespace container { namespace ext
     {
       result_type sz = boost::proto::child_c<0>(expr).extent();
       std::size_t i = boost::proto::value(boost::proto::child_c<2>(expr));
-      if(i < result_type::static_size)
+      if(i <= result_type::static_size)
         sz[i-1] = numel(boost::proto::child_c<1>(expr));
       return sz;
     }
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
     {
       pos_type p = ind2sub(a0.extent(), nt2::enumerate<i_t>(state));
       std::size_t i = boost::proto::value(boost::proto::child_c<2>(a0));
-      if(i < pos_type::static_size)
+      if(i <= pos_type::static_size)
         p[i-1] = relative_index( boost::proto::child_c<1>(a0)
                                , std::ptrdiff_t(1)
                                , a0.extent()[i-1]
