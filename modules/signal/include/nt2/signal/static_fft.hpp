@@ -313,6 +313,7 @@ namespace nt2
 // http://code.google.com/p/audio-content-analysis/source/browse/trunk/src/rsrfft.cxx?r=9
 // http://kaldi.sourceforge.net/srfft_8cc_source.html
 // http://wwwdim.uqac.ca/~daudet/Cours/Architecture-bac/DOCUMENTS/repertoire435/MMX-et-SSE-par-Michel-Langlais/exemples-d-Intel/split%20radix%20fft (Intel AP-808)
+// http://software.intel.com/en-us/articles/using-intel-advanced-vector-extensions-to-implement-an-inverse-discrete-cosine-transform
 // https://github.com/pkhuong/Napa-FFT3
 // https://github.com/ahefner/bordeaux-fft
 // http://staff.science.nus.edu.sg/~phywjs/CZ5101/fft.c (Cooley-Tukey + Stockham)
@@ -345,8 +346,6 @@ namespace nt2
 
 namespace detail
 {
-    
-
     ////////////////////////////////////////////////////////////////////////////
     //
     // sign_flipper()

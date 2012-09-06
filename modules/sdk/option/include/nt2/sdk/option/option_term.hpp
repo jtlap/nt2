@@ -10,7 +10,7 @@
 #define NT2_SDK_OPTION_OPTION_TERM_HPP_INCLUDED
 
 #include <nt2/sdk/option/option.hpp>
-#include <boost/proto/core.hpp>
+#include <boost/proto/traits.hpp>
 
 namespace nt2 { namespace details
 {

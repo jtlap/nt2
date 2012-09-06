@@ -15,10 +15,10 @@
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/expand.hpp>
+#include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     typedef bool result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
-      return  nt2::ismatrix(a0) && nt2::isequal(a0, nt2::expand(nt2::from_diag(nt2::diag_of(a0)), size(a0))); 
+      return nt2::ismatrix(a0) && nt2::isequal(a0, nt2::expand(nt2::from_diag(nt2::diag_of(a0)), size(a0))); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isdiagonal_, tag::cpu_
@@ -41,13 +41,13 @@ namespace nt2 { namespace ext
     typedef bool result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&) const
     {
-      return  true; 
+      return true;
     }
   };
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isdiagonal_, tag::cpu_
-                              , (A0)(A1)
-                              , (ast_<A0>)
+                            , (A0)(A1)
+                            , (ast_<A0>)
                               (scalar_<floating_<A1> >)
                               )
   {
@@ -56,25 +56,23 @@ namespace nt2 { namespace ext
     {
       if (is_eqz(thresh))
         return isdiagonal(a0);
-      else
-        {
-          A1 r = nt2::max(nt2::abs(a0-nt2::expand(nt2::from_diag(nt2::diag_of(a0)), size(a0)))(_))(begin_);
-          return r <= thresh; 
-        }
+
+      A1 r = nt2::max(nt2::abs(a0-nt2::expand(nt2::from_diag(nt2::diag_of(a0)), size(a0)))(_))(begin_);
+      return r <= thresh; 
     }
   }; 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isdiagonal_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_<fundamental_<A0> >)
+                            , (A0)(A1)
+                            , (scalar_<fundamental_<A0> >)
                               (scalar_<floating_<A1> >)
                               )
   {
     typedef bool result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0&, const A1&) const
     {
-      return  true; 
+      return true;
     }
-  };    
+  };
 } }
 
 #endif

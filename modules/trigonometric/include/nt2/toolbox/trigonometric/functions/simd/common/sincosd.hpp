@@ -48,10 +48,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;    
     inline result_type operator()(A0 const& a0,A1 & a2) const
     {
-      result_type that = { impl::trig_base<A1,degree_tag, tag::simd_type>::
-                           sincosa(tofloat(a0), a2)
-                         };
-      return that;
+      return impl::trig_base< A1, degree_tag, tag::simd_type >::sincosa(tofloat(a0), a2);
     }
   };
 

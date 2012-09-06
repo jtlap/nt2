@@ -13,7 +13,7 @@ set(NT2_MODULES_BLACKLIST cuda)
 find_package(NT2 REQUIRED)
 include(${NT2_USE_FILE})
 
-add_definitions(-g)
+add_definitions(-DBOOST_SIMD_NO_STRICT_ALIASING -fno-strict-aliasing)
 
 set( SOURCES
 #    rec_block.cpp

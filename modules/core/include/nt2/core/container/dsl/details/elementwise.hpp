@@ -11,6 +11,7 @@
 
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/utility/of_size.hpp>
+#include <boost/proto/fusion.hpp>
 #include <boost/fusion/include/transform.hpp>
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/at_c.hpp>

@@ -11,6 +11,7 @@
 #include <nt2/sdk/meta/as.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/include/functions/plus.hpp>
+#include <boost/proto/operators.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

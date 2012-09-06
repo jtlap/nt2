@@ -50,10 +50,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;    
     inline result_type operator()(A0 const& a0,A1 & a2) const
     {
-      A1 const that = { impl::trig_base <A1,radian_tag,
-                                         tag::simd_type>::sincosa(tofloat(a0),a2)
-                      };
-      return that;
+      return impl::trig_base< A1, radian_tag, tag::simd_type >::sincosa(tofloat(a0), a2);
     }
   };
 
@@ -65,8 +62,8 @@ namespace nt2 { namespace ext
                          ((simd_<arithmetic_<A0>,X>))
                         )
   {
-      typedef typename meta::as_floating<A0>::type  rtype;
-      typedef boost::fusion::tuple<rtype, rtype> result_type;
+    typedef typename meta::as_floating<A0>::type  rtype;
+    typedef boost::fusion::tuple<rtype, rtype> result_type;
     
     NT2_FUNCTOR_CALL(1)
     {
