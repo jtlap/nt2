@@ -10,13 +10,12 @@
 #define NT2_CORE_FUNCTIONS_COMMON_FROM_DIAG_HPP_INCLUDED
 
 #include <nt2/core/functions/from_diag.hpp>
-#include <nt2/include/functions/arith.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
+#include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/first.hpp>
 #include <nt2/include/functions/extract.hpp>
-#include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
 namespace nt2 { namespace ext
@@ -29,22 +28,22 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename Data::type                                       result_type;
-    typedef typename meta::as_index<result_type>::type     i_t;
+    typedef typename meta::as_index<result_type>::type                      i_t;
     typedef typename meta::
                      call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
+    typedef typename details::as_subscript<_2D,p_t>::result_type            s_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      s_t const pos = ind2sub ( boost::proto::child_c<1>(a0).value()
-                              , enumerate<i_t>(p)
-                              );
+      s_t const pos = as_subscript( boost::proto::child_c<1>(a0).value()
+                                  , enumerate<i_t>(p)
+                                  );
 
       // Return a diagonal built from boost::proto::child_c<0>(a0)
       return nt2::if_else ( nt2::eq( pos[0], pos[1] )
-                          , nt2::run(boost::proto::child_c<0>(a0), pos[1]-1, t)
+                          , nt2::run(boost::proto::child_c<0>(a0), pos[1], t)
                           , Zero<result_type>()
                           );
     }
@@ -57,29 +56,37 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename Data::type                                       result_type;
-    typedef typename meta::as_integer<result_type,signed>::type       i_t;
+    typedef typename Data::type                                     result_type;
+    typedef typename meta::as_index<result_type>::type                      i_t;
+    typedef typename meta::as_signed<i_t>::type                             si_t;
     typedef typename meta::
                      call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
-    typedef typename s_t::value_type          sp_t;
+    typedef typename details::as_subscript<_2D,p_t>::result_type            s_t;
+    typedef typename s_t::value_type                                       sp_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      s_t const pos = ind2sub ( boost::proto::child_c<2>(a0).value()
-                              , enumerate<i_t>(p)
-                              );
+      s_t const pos = as_subscript( boost::proto::child_c<2>(a0).value()
+                                  , enumerate<i_t>(p)
+                                  );
 
       // Compute the offset and new position
       std::ptrdiff_t o = boost::proto::value(boost::proto::child_c<1>(a0));
-      sp_t op = pos[0]+o;
-      sp_t pp = pos[1]-(1+o) + (o < 0 ? o : 0) ;
+      si_t p0 = bitwise_cast<si_t>(pos[0]) + o;
+      si_t p1 = bitwise_cast<si_t>(pos[1]);
+      si_t pp = p1 - o + (o < 0 ? o : 0);
+      si_t nz = splat<si_t>(numel(boost::proto::child_c<0>(a0))-1);
 
-      // Return a diagonal built from boost::proto::child_c<0>(a0)
-      return nt2::if_else ( nt2::eq( op, pos[1] )
-                          , nt2::run(boost::proto::child_c<0>(a0), pp, t)
+      return nt2::if_else ( nt2::eq( p0, p1 )
+                          , nt2::run( boost::proto::child_c<0>(a0)
+                                    , bitwise_cast<i_t> ( max ( min(pp,nz)
+                                                              , Zero<si_t>()
+                                                              )
+                                                        )
+                                    , t
+                                    )
                           , Zero<result_type>()
                           );
     }
