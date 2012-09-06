@@ -12,6 +12,7 @@
 #include <nt2/sdk/option/option_spec.hpp>
 #include <nt2/sdk/option/option_not_found.hpp>
 
+#include <boost/proto/transform/arg.hpp>
 #include <boost/proto/matches.hpp>
 
 namespace nt2 { namespace details

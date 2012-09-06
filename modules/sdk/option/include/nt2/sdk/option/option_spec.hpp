@@ -10,6 +10,7 @@
 #define NT2_SDK_OPTION_OPTION_SPEC_HPP_INCLUDED
 
 #include <nt2/sdk/option/option_term.hpp>
+#include <boost/proto/transform/arg.hpp>
 #include <boost/proto/matches.hpp>
 
 namespace nt2 { namespace details
