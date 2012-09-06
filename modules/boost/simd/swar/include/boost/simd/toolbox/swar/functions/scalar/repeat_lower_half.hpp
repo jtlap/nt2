@@ -8,7 +8,6 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_REPEAT_LOWER_HALF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_REPEAT_LOWER_HALF_HPP_INCLUDED
-#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/swar/functions/repeat_lower_half.hpp>
 
@@ -28,5 +27,4 @@ namespace boost { namespace simd { namespace ext
   };
 } } }
 
-#endif
 #endif
