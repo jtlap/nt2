@@ -14,7 +14,7 @@ macro(nt2_pch name)
     message(FATAL_ERROR "[nt2.pch] precompiled header already set to ${NT2_PCH_TARGET}, cannot change to ${name}")
   endif()
 
-  if(NT2_WITH_PCH AND (CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX) AND CMAKE_GENERATOR MATCHES "Make|Ninja")
+  if(NT2_WITH_PCH AND (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang") AND CMAKE_GENERATOR MATCHES "Make|Ninja")
 
     get_target_property(pch_exists pch EXCLUDE_FROM_ALL)
     if(pch_exists MATCHES "NOTFOUND$")
