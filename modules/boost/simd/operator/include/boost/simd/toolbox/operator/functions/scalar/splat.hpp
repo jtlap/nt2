@@ -8,21 +8,20 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_SPLAT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_SPLAT_HPP_INCLUDED
-#include <boost/dispatch/meta/as.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
+
+#include <boost/simd/toolbox/operator/functions/splat.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_ , tag::cpu_ , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
-                              (target_< scalar_< fundamental_<A1> > >)
+                            , (scalar_< unspecified_<A0> >)
+                              (target_< scalar_< unspecified_<A1> > >)
                             )
   {
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&) const
     {
-      result_type that = static_cast<result_type>(a0);
-      return that;
+      return static_cast<result_type>(a0);
     }
   };
 } } }

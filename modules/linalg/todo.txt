@@ -1,0 +1,76 @@
+Prioririty to : logical with all and any
+                use of begin and end in indexes
+                indexing with vector of indices 
+                diag_of and from_diag
+                easy ways to construct a table from datas (cons {} or from C array or boost_array)
+                repmat
+
+                                                                            
+// Matrix Analysis
+// cond              Condition number with respect to inversion                    | done
+// condeig           Condition number with respect to eigenvalues                  |
+// det               Matrix determinant                                            | done also 2 versions of absdet 
+//                                                                                   one with no overflow
+// norm              Vector and matrix norms                                       | done
+// normest           2-norm estimate                                               | almost done tie version waiting
+// null              Null space                                                    | done
+// orth              Range space of matrix                                         | done
+// rank              Rank of matrix                                                | done
+// rcond             Matrix reciprocal condition number estimate                   | done
+// rref              Reduced row echelon form                                      | done
+// subspace          Angle between two subspacestraceSum of diagonal elements      | almost done
+                                                                                
+// Linear Equations                                                             
+// chol              Cholesky factorization                                        | done
+// cholinc           Sparse incomplete Cholesky and Cholesky-Infinity              |  SPARSE
+// cond              Condition number with respect to inversion                    | done
+// condest           1-norm condition number estimate                              | almost done 
+// funm              Evaluate general matrix function                              |
+// ichol             Incomplete Cholesky factorization                             |  SPARSE
+// ilu               Sparse incomplete LU factorization                            |  SPARSE
+// inv               Matrix inverse                                                | done
+// ldl               Block LDLt factorization for Hermitian indefinite matrices    |
+// linsolve          Solve linear system of equations                              |
+// lscov             Least-squares solution in presence of known covariance        |
+// lsqnonneg         Solve nonnegative least-squares constraints problem           |
+// lu                LU matrix factorization                                       | done
+// luinc             Sparse incomplete LU factorization                            |   SPARSE
+// pinv              Moore-Penrose pseudoinverse of matrix                         | almost done
+// qr                Orthogonal-triangular decomposition                           | done
+// rcond             Matrix reciprocal condition number estimate                   | done
+
+// Eigenvalues and Singular Values
+// cdf2rdf              Convert complex diagonal form to real block diagonal form  |
+// condeig              Condition number with respect to eigenvalues               |
+// eig                  Eigenvalues and eigenvectors                               | done
+// eigs                 Largest eigenvalues and eigenvectors of matrix             |
+// gsvd                 Generalized singular value decomposition                   | 
+// hess                 Hessenberg form of matrix                                  |
+// ordeig               Eigenvalues of quasitriangular matrices                    |
+// ordqz                Reorder eigenvalues in QZ factorization                    |
+// ordschur             Reorder eigenvalues in Schur factorization                 |
+// poly                 Polynomial with specified roots                            |
+// polyeig              Polynomial eigenvalue problemrs                            |
+// f2csf                Convert real Schur form to complex Schur form              |
+// schur                Schur decomposition                                        | complex still waiting
+// ss2tf                Convert state-space filter parameters to transfer func form|
+// svd                  Singular value decomposition                               | done
+// svds                 Find singular values and vectors                           |    SPARSE
+
+// Matrix Logarithms and Exponentials
+// expm                   Matrix exponential                                       | almost done but wait for sqrtm
+// logm                   Matrix logarithm                                         | matlab source
+// sqrtm                  Matrix square root                                       | done but wait for schur is finished (complex needed)
+
+// Factorization
+// balance                Diagonal scaling to improve eigenvalue accuracy          | done
+// cdf2rdf                Convert complex diagonal form to real block diagonal form|  matlab source
+// cholupdate             Rank 1 update to Cholesky factorization                  | 
+// planerot               Givens plane rotation                                    | done
+// qrdelete               Remove column or row from QR factorization               | source exists in matlab
+// qrinsert               Insert column or row into QR factorization               | source exists in matlab
+// qrupdate               Rank 1 update to QR factorization                        | qrupdate is implemented in 
+                                                                                   | libqrupdate lib which is gpl and in FORTRAN
+// qz                     QZ factorization for generalized eigenvalues             | in lapack not done
+// rsf2csf                Convert real Schur form to complex Schur form            | source exists in matlab 
+

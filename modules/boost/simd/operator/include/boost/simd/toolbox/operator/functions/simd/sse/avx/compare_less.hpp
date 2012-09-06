@@ -13,9 +13,9 @@
 #include <boost/simd/toolbox/operator/functions/compare_less.hpp>
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/include/constants/false.hpp>
-#include <boost/simd/include/functions/is_less.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/reversebits.hpp>
+#include <boost/simd/include/functions/simd/is_less.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/reversebits.hpp>
 #include <boost/simd/toolbox/operator/functions/simd/common/details/compare_less_helper.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
@@ -66,16 +66,16 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::scalar_of<A0>::type      stype;
       typedef native < stype,  boost::simd::tag::sse_>          htype;
-      htype a00 = {_mm256_extractf128_si256(a0, 0)}; 
-      htype a10 = {_mm256_extractf128_si256(a1, 0)};
+      htype a00 = _mm256_extractf128_si256(a0, 0); 
+      htype a10 = _mm256_extractf128_si256(a1, 0);
       if (compare_less(a00, a10))
       {
         return True<result_type>();
       } 
       else if (compare_equal(a00, a10))
       {
-        htype a01 = {_mm256_extractf128_si256(a0, 1)};  
-        htype a11 = {_mm256_extractf128_si256(a1, 1)}; 
+        htype a01 = _mm256_extractf128_si256(a0, 1);  
+        htype a11 = _mm256_extractf128_si256(a1, 1); 
         return  compare_less(a01, a11);
       }
       else

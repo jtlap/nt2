@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<ints64_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_extract_epi64(a0, 0);
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_extract_epi32(a0, 0);
@@ -48,7 +48,7 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<ints16_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_extract_epi16(a0, 0);
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<ints8_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef A0 result_type;
+    typedef typename meta::scalar_of<A0 > ::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_extract_epi8(a0, 0);

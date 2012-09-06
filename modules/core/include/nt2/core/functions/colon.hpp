@@ -10,10 +10,9 @@
 #define NT2_CORE_FUNCTIONS_COLON_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/functions/details/colon.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/generative.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 namespace nt2
 {
@@ -22,6 +21,11 @@ namespace nt2
     struct colon_ : ext::generative_<colon_>
     {
       typedef ext::generative_<colon_> parent;
+    };
+
+    struct relative_colon_ : ext::elementwise_<relative_colon_>
+    {
+      typedef ext::elementwise_<relative_colon_> parent;
     };
   }
 
@@ -41,6 +45,39 @@ namespace nt2 { namespace container { namespace ext
   template<class Domain, class Expr, int N>
   struct size_of<tag::colon_,Domain,N,Expr>     : generative_size_of<Expr>
   {};
+
+  template<class Domain, class Expr, int N>
+  struct generator<tag::relative_colon_,Domain,N,Expr>
+  {
+    typedef expression< typename boost::remove_const<Expr>::type
+                      , int
+                      >                                   result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(e);
+    }
+  };
+
+  template<class Domain, class Expr>
+  struct size_of<tag::relative_colon_,Domain,1,Expr>
+  {
+    typedef _0D result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
+    {
+      return result_type();
+    }
+  };
+
+  template<class Domain, class Expr>
+  struct size_of<tag::relative_colon_,Domain,2,Expr>
+  {
+    typedef _0D result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
+    {
+      return result_type();
+    }
+  };
 } } }
 
 #endif

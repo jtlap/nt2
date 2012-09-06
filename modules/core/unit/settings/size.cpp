@@ -61,6 +61,16 @@ NT2_TEST_CASE( single_of_size_default )
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some of_size_ as a setting and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
+nt2::settings dim_2D(nt2::of_size_<3,4>, nt2::_2D)
+{
+  return nt2::settings();
+}
+
+nt2::settings dim_of_size (nt2::_2D  , nt2::of_size_<3,4>)
+{
+  return nt2::settings();
+}
+
 NT2_TEST_CASE( setting_of_size_ )
 {
   using nt2::_2D;
@@ -68,9 +78,6 @@ NT2_TEST_CASE( setting_of_size_ )
   using nt2::settings;
   using nt2::meta::option;
   using boost::mpl::_;
-
-  nt2::settings dim_2D      (of_size_<3,4>, _2D);
-  nt2::settings dim_of_size (_2D  , of_size_<3,4>);
 
   NT2_TEST_EXPR_TYPE( dim_2D
                       ,(option< void, nt2::tag::of_size_,_>)

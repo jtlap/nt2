@@ -8,8 +8,9 @@
 ################################################################################
 
 SET( SOURCES
-  of_size.cpp
-  position.cpp
+     as_index.cpp
+     as_subscript.cpp
    )
 
+include(CheckCXXCompilerFlag)
 nt2_module_add_tests(core.utility.unit ${SOURCES})

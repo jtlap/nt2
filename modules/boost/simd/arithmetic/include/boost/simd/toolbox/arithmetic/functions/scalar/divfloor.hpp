@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVFLOOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_DIVFLOOR_HPP_INCLUDED
-#include <boost/simd/include/functions/divceil.hpp>
-#include <boost/simd/include/functions/rdivide.hpp>
-#include <boost/simd/include/functions/floor.hpp>
+
+#include <boost/simd/toolbox/arithmetic/functions/divfloor.hpp>
+#include <boost/simd/include/functions/scalar/divs.hpp>
+#include <boost/simd/include/functions/scalar/iceil.hpp>
+#include <boost/simd/include/functions/scalar/floor.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -20,7 +22,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_
                             , (A0)
                             , (scalar_< signed_<A0> >)
-                        (scalar_< signed_<A0> >)
+                              (scalar_< signed_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -38,7 +40,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divfloor_, tag::cpu_
                             , (A0)
                             , (scalar_< unsigned_<A0> >)
-                        (scalar_< unsigned_<A0> >)
+                              (scalar_< unsigned_<A0> >)
                             )
   {
     typedef A0 result_type;

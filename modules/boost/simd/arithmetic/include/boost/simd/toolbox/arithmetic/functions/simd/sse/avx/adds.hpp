@@ -9,10 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ADDS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#include <boost/simd/toolbox/arithmetic/functions/adds.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -28,12 +29,12 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type             sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a10 = { _mm256_extractf128_si256(a1, 0)};
+      svtype a00 = _mm256_extractf128_si256(a0, 0);
+      svtype a10 = _mm256_extractf128_si256(a1, 0);
       svtype  r0 = adds(a00,a10);
-      result_type that  = {_mm256_insertf128_si256(that, r0, 0)};
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      svtype a11 = { _mm256_extractf128_si256(a1, 1)};
+      result_type that  = _mm256_castsi128_si256(r0);
+      svtype a01 = _mm256_extractf128_si256(a0, 1);
+      svtype a11 = _mm256_extractf128_si256(a1, 1);
       svtype r1 = adds(a01,a11);
       that = _mm256_insertf128_si256(that, r1, 1);
       return that; 
@@ -50,12 +51,12 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type             sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
-      svtype a10 = { _mm256_extractf128_si256(a1, 0)};
+      svtype a00 = _mm256_extractf128_si256(a0, 0);
+      svtype a10 = _mm256_extractf128_si256(a1, 0);
       svtype  r0 = adds(a00,a10);
-      result_type that  = {_mm256_insertf128_si256(that, r0, 0)};
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
-      svtype a11 = { _mm256_extractf128_si256(a1, 1)};
+      result_type that  = _mm256_castsi128_si256(r0);
+      svtype a01 = _mm256_extractf128_si256(a0, 1);
+      svtype a11 = _mm256_extractf128_si256(a1, 1);
       svtype r1 = adds(a01,a11);
       that = _mm256_insertf128_si256(that, r1, 1);
       return that; 

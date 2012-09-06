@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/toolbox/predicates/functions/is_greater_equal.hpp>
-#include <boost/simd/include/functions/logical_not.hpp>
+#include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,8 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { vec_cmpge(a0(),a1()) };
-      return that;
+      return vec_cmpge(a0(),a1());
     }
   };
 
@@ -37,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type lt = { vec_cmplt(a0(),a1()) };
+      result_type lt = vec_cmplt(a0(),a1());
       return !lt;
     }
   };

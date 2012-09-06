@@ -24,6 +24,7 @@
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/splat.hpp>
 
 
 NT2_TEST_CASE_TPL ( random_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -42,7 +43,13 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<random_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  NT2_TEST( (boost::is_same < r_t, vT >::value) );
+
+  
+ for(int i=0; i < 10; i++)
+   {
+     NT2_TEST_LESSER(random(boost::simd::splat<vT>(2), boost::simd::splat<vT>(3))[0], T(3));
+     NT2_TEST_GREATER (random(boost::simd::splat<vT>(2), boost::simd::splat<vT>(3))[0], T(2));
+   }
 
 } // end of test for floating_

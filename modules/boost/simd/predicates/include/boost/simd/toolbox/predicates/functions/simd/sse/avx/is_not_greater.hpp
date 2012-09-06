@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_NOT_GREATER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_AVX_IS_NOT_GREATER_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#include <boost/simd/toolbox/predicates/functions/is_not_greater.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/toolbox/predicates/functions/is_not_greater.hpp>
 
@@ -23,8 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm256_cmp_pd(a0,a1, _CMP_NGT_UQ) };
-      return that;
+      return _mm256_cmp_pd(a0,a1, _CMP_NGT_UQ);
     }
   };
 
@@ -37,8 +37,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm256_cmp_ps(a0,a1, _CMP_NGT_UQ) };
-      return that;
+      return _mm256_cmp_ps(a0,a1, _CMP_NGT_UQ);
     }
   };
   
@@ -51,8 +50,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmp_pd(a0,a1, _CMP_NGT_UQ) };
-      return that;
+      return _mm_cmp_pd(a0,a1, _CMP_NGT_UQ);
     }
   };
 
@@ -65,8 +63,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmp_ps(a0,a1, _CMP_NGT_UQ) };
-      return that;
+      return _mm_cmp_ps(a0,a1, _CMP_NGT_UQ);
     }
   };
 } } }

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/logical_or.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -22,11 +22,10 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
-#include <nt2/sdk/details/type_id.hpp>
 
 NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::logical_or;
   using boost::simd::tag::logical_or_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,12 +36,9 @@ NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(logical_or(boost::simd::One<T>(), boost::simd::One<T>()), r_t(true));
@@ -52,7 +48,7 @@ NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 NT2_TEST_CASE_TPL ( logical_or_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::logical_or;
   using boost::simd::tag::logical_or_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -63,14 +59,11 @@ NT2_TEST_CASE_TPL ( logical_or_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  
-  std::cout << nt2::type_id<r_t> () << std::endl;
-  std::cout << nt2::type_id<wished_r_t> () << std::endl;   
-  double ulpd;
-  ulpd=0.0;
 
+  std::cout << nt2::type_id<r_t> () << std::endl;
+  std::cout << nt2::type_id<wished_r_t> () << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(logical_or(boost::simd::Inf<T>(), boost::simd::Inf<T>()), r_t(true));

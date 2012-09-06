@@ -1,19 +1,20 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SORT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/swar/functions/sort.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/simd/include/functions/minimum.hpp>
-#include <boost/simd/include/functions/maximum.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/minimum.hpp>
+#include <boost/simd/include/functions/simd/maximum.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #define BOOST_SIMD_SH(a, b, c, d) (_MM_SHUFFLE(d, c, b, a))
 #define BOOST_SIMD_CAST(T, a)   simd::bitwise_cast<T>(a)()
 /////////////////////////////////////////////////////////////////////////////
@@ -30,14 +31,14 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type flt;
-      A0 a =  {a0()};
-      A0 b =  {BOOST_SIMD_CAST(A0, _mm_movehl_ps(BOOST_SIMD_CAST(flt, a0), BOOST_SIMD_CAST(flt, a0)))};
+      A0 a =  a0();
+      A0 b =  BOOST_SIMD_CAST(A0, _mm_movehl_ps(BOOST_SIMD_CAST(flt, a0), BOOST_SIMD_CAST(flt, a0)));
       comp(a, b);
       a = BOOST_SIMD_CAST(A0, _mm_movelh_ps(BOOST_SIMD_CAST(flt, a), BOOST_SIMD_CAST(flt, b)));
       b = BOOST_SIMD_CAST(A0, _mm_shuffle_ps(BOOST_SIMD_CAST(flt, a), BOOST_SIMD_CAST(flt, b), BOOST_SIMD_SH(1, 3, 1, 3)));
       comp(a, b);
-      A0 c = {BOOST_SIMD_CAST(A0, _mm_movelh_ps(BOOST_SIMD_CAST(flt, b), BOOST_SIMD_CAST(flt, b)))};
-      A0 d = {a()};
+      A0 c = BOOST_SIMD_CAST(A0, _mm_movelh_ps(BOOST_SIMD_CAST(flt, b), BOOST_SIMD_CAST(flt, b)));
+      A0 d = a();
       comp(c, d);
       a = BOOST_SIMD_CAST(A0, _mm_shuffle_ps(BOOST_SIMD_CAST(flt, c), BOOST_SIMD_CAST(flt, a), BOOST_SIMD_SH(3, 2, 0, 0)));
       b = BOOST_SIMD_CAST(A0, _mm_movehl_ps(BOOST_SIMD_CAST(flt, b), BOOST_SIMD_CAST(flt, d)));

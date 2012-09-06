@@ -31,9 +31,9 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype; 
       rtype c, s;
-      sincos(imag(a0)*Log_2<rtype>(), s, c);      
-      rtype rho = exp2(real(a0)); 
-      return if_else(logical_or(is_real(a0), eq(real(a0), Minf<rtype>())),
+      sincos(nt2::imag(a0)*Log_2<rtype>(), s, c);      
+      rtype rho = exp2(nt2::real(a0)); 
+      return if_else(logical_or(is_real(a0), eq(nt2::real(a0), Minf<rtype>())),
                      result_type(rho, Zero<rtype>()),
                      rho*result_type(c, s)); 
     }
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       rtype  c, s;
-      sincos(imag(a0), s, c); 
+      sincos(nt2::imag(a0), s, c); 
       return result_type(c, s); 
     }
   };
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::exp2(real(a0))); 
+      return bitwise_cast<result_type>(nt2::exp2(nt2::real(a0))); 
     }
   };  
 } }

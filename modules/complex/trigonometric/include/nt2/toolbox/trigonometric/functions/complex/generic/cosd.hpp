@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COSD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COSD_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/cosd.hpp>
 #include <nt2/include/functions/sincosd.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/sinh.hpp>
@@ -38,8 +39,8 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype; 
       rtype c, s, ch, sh;
-      sincosd(real(a0), s, c);
-      sinhcosh(imag(a0)*Deginrad<rtype>(), sh, ch);
+      sincosd(nt2::real(a0), s, c);
+      sinhcosh(nt2::imag(a0)*Deginrad<rtype>(), sh, ch);
       return result_type(c*ch, if_zero_else(logical_or(is_imag(a0), is_real(a0)), -s*sh));     
     }
   };
@@ -52,7 +53,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rtype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::cosh(imag(a0)*Deginrad<rtype>())); 
+      return bitwise_cast<result_type>(nt2::cosh(nt2::imag(a0)*Deginrad<rtype>())); 
     }
   };
   
@@ -64,7 +65,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_dry<rA0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::cosd(real(a0))); 
+      return bitwise_cast<result_type>(nt2::cosd(nt2::real(a0))); 
     }
   };
 } }

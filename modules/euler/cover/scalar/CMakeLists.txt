@@ -19,6 +19,9 @@ SET( SOURCES
   digamma.cpp
   dawson.cpp
   beta.cpp
+  erf.cpp
+  erfc.cpp
+  erfinv.cpp
 # List of scalar test files for toolbox euler
    )
 

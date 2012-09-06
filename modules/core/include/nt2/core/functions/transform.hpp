@@ -18,7 +18,10 @@
 
 namespace nt2
 {
-  namespace tag { struct transform_ : ext::unspecified_<transform_> { typedef ext::unspecified_<transform_> parent; }; }
+  namespace tag
+  {
+    struct transform_ : tag::formal_ { typedef tag::formal_ parent; };
+  }
 
   //============================================================================
   /*!
@@ -27,13 +30,20 @@ namespace nt2
    *
    * \param a0 Expression to store result in
    * \param a1 Expression to evaluate
+   * \param a2 Optional linear offset
+   * \param a3 Optional number of element to process
    * \return nothing
    */
   //============================================================================
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0 const&)(A1 const&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::transform_, transform, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1 const&), 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0 const&)(A1&), 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1&), 2)
+
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::transform_, transform, 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1 const&)(A2 const&)(A3 const&), 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0 const&)(A1&)(A2 const&)(A3 const&), 4)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::transform_, transform, (A0&)(A1&)(A2 const&)(A3 const&), 4)
 }
 
 #endif

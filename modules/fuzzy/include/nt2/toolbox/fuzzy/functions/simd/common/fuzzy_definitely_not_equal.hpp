@@ -10,11 +10,11 @@
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_FUZZY_DEFINITELY_NOT_EQUAL_HPP_INCLUDED
 
 #include <nt2/toolbox/fuzzy/functions/fuzzy_definitely_not_equal.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/dist.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/max.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/dist.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

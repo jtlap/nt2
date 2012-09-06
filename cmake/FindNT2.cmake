@@ -31,6 +31,7 @@
 # - NT2_LINK_FLAGS                  flags that must be passed to the linker to use all the requested components
 # - NT2_FOUND_COMPONENTS            list of all NT2 modules that have been found
 # - NT2_MODULE_PATH                 list of directories containing NT2 CMake modules
+# - NT2_USE_FILE                    file to include to use everything that has been found
 #
 # Additionally, the script also adds all the NT2-specific CMake modules to the CMAKE_MODULE_PATH.
 #
@@ -38,7 +39,7 @@
 # - NT2_ROOT                        root of the NT2 installation or "share" directory
 # - NT2_INCLUDE_ROOT                root of the includes of a NT2 installation (defaults to NT2_ROOT/include)
 # - NT2_LIBRARY_ROOT                root of the libraries of a NT2 installation (defaults to NT2_ROOT/lib)
-# - NT2_SOURCE_ROOT                 root of the NT2 source 
+# - NT2_SOURCE_ROOT                 root of the NT2 source
 # - NT2_CURRENT_MODULE              current module being compiled, can be used to avoid self-dependencies
 #                                   when compiling a NT2 module
 #
@@ -131,15 +132,14 @@ endmacro()
 macro(nt2_find_module_dependencies _COMPONENT)
 
   string(TOUPPER ${_COMPONENT} _COMPONENT_U)
-  
-  if(NT2_MODULES_BLACKLIST)
-    list(FIND NT2_MODULES_BLACKLIST ${_COMPONENT} _COMPONENT_INDEX)
-    if(NOT _COMPONENT_INDEX EQUAL -1)
+
+  foreach(bl ${NT2_MODULES_BLACKLIST})
+    if(${_COMPONENT} MATCHES "^${bl}($|\\.)")
       nt2_find_log("${_COMPONENT} is blacklisted, skipping")
       return()
     endif()
-  endif()
-  
+  endforeach()
+
   string(REPLACE "." "/" _COMPONENT_PATH ${_COMPONENT})
   # Search for module source
   if(NOT NT2_${_COMPONENT_U}_ROOT)
@@ -151,36 +151,36 @@ macro(nt2_find_module_dependencies _COMPONENT)
              )
     mark_as_advanced(NT2_${_COMPONENT_U}_ROOT)
   endif()
-  if(NT2_${COMPONENT_U}_ROOT AND NOT EXISTS "${NT2_${COMPONENT_U}_ROOT}/CMakeLists.txt")
-    nt2_find_info("root of module ${COMPONENT} invalid: ${NT2_${COMPONENT_U}_ROOT}")
+  if(NT2_${_COMPONENT_U}_ROOT AND NOT EXISTS "${NT2_${_COMPONENT_U}_ROOT}/CMakeLists.txt")
+    nt2_find_info("root of module ${_COMPONENT} invalid: ${NT2_${_COMPONENT_U}_ROOT}")
   endif()
-    
+
   # Source found
   if(NT2_${_COMPONENT_U}_ROOT)
-  
+
     nt2_find_log("${_COMPONENT} source found, testing dependencies")
     list(FIND NT2_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" NT2_COMPONENT_IN_MODULE_PATH)
     if(NT2_COMPONENT_IN_MODULE_PATH EQUAL -1)
       set(NT2_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" ${NT2_MODULE_PATH} CACHE STRING "List of directories in which to search for NT2 CMake includes" FORCE)
       mark_as_advanced(NT2_MODULE_PATH)
     endif()
-    
+
     set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_BINARY_DIR}/include ${NT2_${_COMPONENT_U}_ROOT}/include)
     set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${NT2_BINARY_DIR}/lib)
-  
+
   # Look for module in install
   elseif(NT2_ROOT)
     if(NOT EXISTS ${NT2_ROOT}/modules/${_COMPONENT}.manifest)
       nt2_find_log("${_COMPONENT} not found in nt2 install")
       return()
     endif()
-    
+
     nt2_find_log("${_COMPONENT} install found, testing dependencies")
-    
+
     set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_INCLUDE_ROOT})
     set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${NT2_LIBRARY_ROOT})
   endif()
-  
+
   # Try to download source if not available
   if(NOT NT2_${_COMPONENT_U}_ROOT AND NOT NT2_ROOT)
     nt2_find_module_path_push()
@@ -189,22 +189,22 @@ macro(nt2_find_module_dependencies _COMPONENT)
     if(NT2_DOWNLOAD_CMAKE AND NOT NT2_${_COMPONENT_U}_ROOT)
       nt2_download_module(${_COMPONENT})
     endif()
-  
+
     # Source download found
     if(NT2_${_COMPONENT_U}_ROOT)
-  
+
       nt2_find_log("${_COMPONENT} source found, testing dependencies")
       list(FIND NT2_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" NT2_COMPONENT_IN_MODULE_PATH)
       if(NT2_COMPONENT_IN_MODULE_PATH EQUAL -1)
         set(NT2_MODULE_PATH "${NT2_${_COMPONENT_U}_ROOT}/cmake" ${NT2_MODULE_PATH} CACHE STRING "List of directories in which to search for NT2 CMake includes" FORCE)
         mark_as_advanced(NT2_MODULE_PATH)
       endif()
-    
+
       set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_BINARY_DIR}/include ${NT2_${_COMPONENT_U}_ROOT}/include)
       set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${NT2_BINARY_DIR}/lib)
     endif()
   endif()
-  
+
   # No source nor install
   if(NOT NT2_${_COMPONENT_U}_ROOT AND NOT NT2_ROOT)
     nt2_find_log("can't find ${_COMPONENT} in source nor install")
@@ -221,11 +221,11 @@ macro(nt2_find_module_dependencies _COMPONENT)
   nt2_find_module_path_push()
   include("nt2.${_COMPONENT}.dependencies" OPTIONAL)
   nt2_find_module_path_pop()
-    
+
   if(NOT DEFINED NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND)
     set(NT2_${_COMPONENT_U}_DEPENDENCIES_FOUND 1)
   endif()
-  
+
 endmacro()
 
 macro(nt2_append_if lst)
@@ -251,7 +251,7 @@ function(nt2_find_module COMPONENT)
     get_property(NT2_${EXTRA_COMPONENT_U}_FOUND GLOBAL PROPERTY NT2_${EXTRA_COMPONENT_U}_FOUND)
     if(NT2_${EXTRA_COMPONENT_U}_FOUND)
       nt2_find_log("${EXTRA_COMPONENT} already found")
-      
+
       nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR)
       nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR)
       if(NOT EXTRA_COMPONENT STREQUAL ${COMPONENT})
@@ -259,71 +259,71 @@ function(nt2_find_module COMPONENT)
       endif()
       set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS}")
       set(NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS}")
-      
+
     else()
       nt2_find_log("loading dependencies of ${EXTRA_COMPONENT}")
       nt2_find_module_dependencies(${EXTRA_COMPONENT})
-    
+
       if(NOT NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_FOUND)
         set(NT2_${COMPONENT_U}_DEPENDENCIES_FOUND 0)
       else()
-      
+
         if(NOT EXTRA_COMPONENT STREQUAL ${COMPONENT})
           nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR NT2_${EXTRA_COMPONENT_U}_INCLUDE_ROOT)
           nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR NT2_${EXTRA_COMPONENT_U}_LIBRARY_ROOT)
         endif()
-      
+
         nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR)
         nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR)
         nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_LIBRARIES)
-        
+
         if(NOT EXTRA_COMPONENT STREQUAL ${COMPONENT})
           nt2_append_if(NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES NT2_${EXTRA_COMPONENT_U}_LIBRARIES)
         endif()
-        
+
         set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS}")
         set(NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_LINK_FLAGS}")
         if(NOT EXTRA_COMPONENT STREQUAL ${COMPONENT})
           set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS}")
           set(NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS}")
         endif()
-        
+
       endif()
     endif()
-    
+
     nt2_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR )
     nt2_lib_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES )
     nt2_str_remove_duplicates( NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS )
-    
+
     nt2_append_if(NT2_${COMPONENT_U}_EXTRA EXTRA_COMPONENT)
     list(REMOVE_DUPLICATES NT2_${COMPONENT_U}_EXTRA)
-    
+
     nt2_append_if(NT2_${COMPONENT_U}_EXTRA_REST NT2_${EXTRA_COMPONENT_U}_DEPENDENCIES_EXTRA)
     list(REMOVE_DUPLICATES NT2_${COMPONENT_U}_EXTRA_REST)
     list(REMOVE_ITEM NT2_${COMPONENT_U}_EXTRA_REST ${NT2_${COMPONENT_U}_EXTRA})
-    
+
   endwhile()
 
   if(NOT NT2_${COMPONENT_U}_DEPENDENCIES_FOUND)
     nt2_find_log("${COMPONENT} dependencies not met")
     return()
   endif()
-  
+
   nt2_find_log("${COMPONENT} dependencies met")
-  
+
   set(NT2_${COMPONENT_U}_INCLUDE_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR} ${NT2_${COMPONENT_U}_INCLUDE_ROOT})
   set(NT2_${COMPONENT_U}_LIBRARY_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARY_DIR} ${NT2_${COMPONENT_U}_LIBRARY_ROOT})
   nt2_append_if(NT2_${COMPONENT_U}_LIBRARIES NT2_${COMPONENT_U}_DEPENDENCIES_LIBRARIES)
   set(NT2_${COMPONENT_U}_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${COMPONENT_U}_COMPILE_FLAGS}")
   set(NT2_${COMPONENT_U}_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${COMPONENT_U}_LINK_FLAGS}")
-  
+
   nt2_remove_duplicates( NT2_${COMPONENT_U}_INCLUDE_DIR NT2_${COMPONENT_U}_LIBRARY_DIR )
   nt2_lib_remove_duplicates( NT2_${COMPONENT_U}_LIBRARIES )
   nt2_str_remove_duplicates( NT2_${COMPONENT_U}_COMPILE_FLAGS NT2_${COMPONENT_U}_LINK_FLAGS )
-  
+
   foreach(EXTRA_COMPONENT ${NT2_${COMPONENT_U}_EXTRA})
     string(TOUPPER ${EXTRA_COMPONENT} EXTRA_COMPONENT_U)
-    
+
     get_property(NT2_${EXTRA_COMPONENT_U}_FOUND GLOBAL PROPERTY NT2_${EXTRA_COMPONENT_U}_FOUND)
     if(NOT NT2_${EXTRA_COMPONENT_U}_FOUND)
 
@@ -340,13 +340,13 @@ function(nt2_find_module COMPONENT)
       set(NT2_${EXTRA_COMPONENT_U}_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} CACHE INTERNAL "Libraries for NT2 module ${EXTRA_COMPONENT}" FORCE)
       set(NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS ${NT2_${COMPONENT_U}_COMPILE_FLAGS} CACHE INTERNAL "Compilation flags for NT2 module ${EXTRA_COMPONENT}" FORCE)
       set(NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS ${NT2_${COMPONENT_U}_LINK_FLAGS} CACHE INTERNAL "Linking flags for NT2 module ${EXTRA_COMPONENT}" FORCE)
-    
+
       mark_as_advanced(NT2_${EXTRA_COMPONENT_U}_FOUND
                        NT2_${EXTRA_COMPONENT_U}_INCLUDE_DIR NT2_${EXTRA_COMPONENT_U}_LIBRARY_DIR
                        NT2_${EXTRA_COMPONENT_U}_LIBRARIES
                        NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS
                       )
-    
+
       # Debug info
       nt2_find_log("${EXTRA_COMPONENT} variables:")
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_FOUND = ${NT2_${EXTRA_COMPONENT_U}_FOUND}")
@@ -355,30 +355,31 @@ function(nt2_find_module COMPONENT)
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_LIBRARIES = ${NT2_${EXTRA_COMPONENT_U}_LIBRARIES}")
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS = ${NT2_${EXTRA_COMPONENT_U}_COMPILE_FLAGS}")
       nt2_find_log(" - NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS = ${NT2_${EXTRA_COMPONENT_U}_LINK_FLAGS}")
-    
+
       # Configure/build if source
       if(NT2_${EXTRA_COMPONENT_U}_ROOT)
         nt2_find_module_path_push()
+        string(REPLACE "." "/" EXTRA_COMPONENT_PATH ${EXTRA_COMPONENT})
         if(IS_DIRECTORY ${NT2_${EXTRA_COMPONENT_U}_ROOT}/src)
-          add_subdirectory(${NT2_${EXTRA_COMPONENT_U}_ROOT}/src ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
+          add_subdirectory(${NT2_${EXTRA_COMPONENT_U}_ROOT}/src ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src)
         else()
-          file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
-          file(WRITE ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src/CMakeLists.txt "include(NT2Module)\nnt2_module_source_setup(${EXTRA_COMPONENT})")
-          add_subdirectory(${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT}/src)
+          file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src)
+          file(WRITE ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src/CMakeLists.txt "include(NT2Module)\nnt2_module_source_setup(${EXTRA_COMPONENT})")
+          add_subdirectory(${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src ${NT2_BINARY_DIR}/modules/${EXTRA_COMPONENT_PATH}/src)
         endif()
         nt2_find_module_path_pop()
       endif()
     endif()
-    
+
     nt2_copy_parent(NT2_${EXTRA_COMPONENT_U}_FOUND)
 
   endforeach()
-  
+
   # Copy over to parent
   nt2_append_if(NT2_FOUND_COMPONENTS NT2_${COMPONENT_U}_EXTRA)
   nt2_remove_duplicates(NT2_FOUND_COMPONENTS)
   set(NT2_FOUND_COMPONENTS ${NT2_FOUND_COMPONENTS} CACHE INTERNAL "")
-    
+
 endfunction()
 
 macro(nt2_prepend_module name)
@@ -396,11 +397,11 @@ function(nt2_find)
   set(NT2_LIBRARIES "")
   set(NT2_COMPILE_FLAGS " ")
   set(NT2_LINK_FLAGS " ")
-  
+
   if(NOT DEFINED NT2_BINARY_DIR)
     set(NT2_BINARY_DIR ${PROJECT_BINARY_DIR}/nt2)
   endif()
-  
+
   if(DEFINED NT2_FIND_RECURSIVE)
     set(NT2_FIND_RECURSIVE_ "${NT2_FIND_RECURSIVE_}  ")
     set(NT2_FIND_RECURSIVE "${NT2_FIND_RECURSIVE_} \\_ ")
@@ -416,7 +417,7 @@ function(nt2_find)
     nt2_find_log("found NT2 source root ${NT2_SOURCE_ROOT}")
     set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
   endif()
-    
+
   # Search for install
   if(NOT NT2_ROOT)
     find_path ( NT2_ROOT modules
@@ -452,7 +453,7 @@ function(nt2_find)
         nt2_find_log("found NT2 include root ${NT2_INCLUDE_ROOT}")
       endif()
     endif()
-    
+
     if(NOT NT2_LIBRARY_ROOT)
       find_file ( NT2_LIBRARY_ROOT ${CMAKE_STATIC_LIBRARY_PREFIX}nt2${CMAKE_STATIC_LIBRARY_SUFFIX}
                   PATHS ${NT2_ROOT}/lib
@@ -468,7 +469,7 @@ function(nt2_find)
         nt2_find_log("found NT2 library root ${NT2_LIBRARY_ROOT}")
       endif()
     endif()
-    
+
   endif()
 
   # Add install and source cmake directories to module path if they're not
@@ -484,7 +485,7 @@ function(nt2_find)
     mark_as_advanced(NT2_MODULE_PATH)
     set(NT2_SOURCE_ROOT_IN_MODULE_PATH 1 CACHE INTERNAL "")
   endif()
-  
+
   # if no component specified, we glob the source or install directories for modules
   if(ARGC EQUAL 0)
     if(NT2_SOURCE_ROOT)
@@ -522,7 +523,7 @@ function(nt2_find)
       set(ARGV ${NT2_COMPONENTS})
     endif()
   endif()
-  
+
   get_property(NT2_POSTCONFIGURE_INITED GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED)
   if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)
     nt2_postconfigure_init()
@@ -535,33 +536,36 @@ function(nt2_find)
     if(NT2_${COMPONENT_U}_FOUND)
       nt2_prepend_module(INCLUDE_DIR)
       nt2_prepend_module(LIBRARY_DIR)
-    
+
       set(NT2_LIBRARIES ${NT2_${COMPONENT_U}_LIBRARIES} ${NT2_LIBRARIES})
       nt2_lib_remove_duplicates(NT2_LIBRARIES)
-    
+
       set(NT2_COMPILE_FLAGS "${NT2_${COMPONENT_U}_COMPILE_FLAGS} ${NT2_COMPILE_FLAGS}")
       set(NT2_LINK_FLAGS "${NT2_${COMPONENT_U}_LINK_FLAGS} ${NT2_LINK_FLAGS}")
       nt2_str_remove_duplicates(NT2_COMPILE_FLAGS NT2_LINK_FLAGS)
     elseif(NT2_FIND_COMPONENTS)
       set(NT2_FOUND 0)
     endif()
-    
+
     nt2_copy_parent(NT2_${COMPONENT_U}_FOUND)
   endforeach()
-  
+
   nt2_copy_parent( NT2_FOUND
                    NT2_INCLUDE_DIR NT2_LIBRARY_DIR
                    NT2_LIBRARIES
                    NT2_COMPILE_FLAGS NT2_LINK_FLAGS
+                   NT2_BINARY_DIR
                  )
-                 
+
   if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)
     nt2_postconfigure_run()
   endif()
-  
+
   if(NT2_FIND_REQUIRED AND NOT NT2_FOUND)
     message(FATAL_ERROR "NT2 was not found")
   endif()
+
+  find_file(NT2_USE_FILE UseNT2.cmake PATHS ${NT2_MODULE_PATH})
 
 endfunction()
 

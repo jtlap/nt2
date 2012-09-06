@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_FIRSTBITUNSET_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/firstbitunset.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 

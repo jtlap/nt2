@@ -21,13 +21,13 @@ NT2_TEST_CASE_TPL( colon, NT2_TYPES )
 
   nt2::table<T> xd = _(T(0),T(9));
 
-  NT2_TEST( xd.extent() == nt2::of_size(1,10) );
+  NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,10 ) );
 
   for(int i=1;i<=10;++i)
-    NT2_TEST_EQUAL( T(xd(i)), T(0) + T(i-1) );
+    NT2_TEST_EQUAL( xd(i), T(0) + T(i-1) );
 
   nt2::table<T> xr = _(T(9),T(0));
-  NT2_TEST( xr.extent() == nt2::of_size(1,0) );
+  NT2_TEST_EQUAL( xr.extent(), nt2::of_size(1,0 ) );
 }
 
 NT2_TEST_CASE_TPL( colon_integers_step, NT2_INTEGRAL_SIGNED_TYPES )
@@ -36,17 +36,17 @@ NT2_TEST_CASE_TPL( colon_integers_step, NT2_INTEGRAL_SIGNED_TYPES )
 
   nt2::table<T> xd = _(T(0),T(2),T(9));
 
-  NT2_TEST( xd.extent() == nt2::of_size(1,5) );
+  NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,5 ) );
 
   for(int i=1;i<=5;++i)
-    NT2_TEST_EQUAL( T(xd(i)), T(0) + T(2)*T(i-1) );
+    NT2_TEST_EQUAL( xd(i), T(0) + T(2)*T(i-1) );
 
   nt2::table<T> yd = _(T(9),T(-2),T(1));
 
-  NT2_TEST( yd.extent() == nt2::of_size(1,5) );
+  NT2_TEST_EQUAL( yd.extent(), nt2::of_size(1,5 ) );
 
   for(int i=1;i<=5;++i)
-    NT2_TEST_EQUAL( T(yd(i)), T(9) + T(-2)*T(i-1) );
+    NT2_TEST_EQUAL( yd(i), T(9) + T(-2)*T(i-1) );
 }
 
 NT2_TEST_CASE_TPL( colon_unsigned_step, NT2_UNSIGNED_TYPES )
@@ -55,22 +55,21 @@ NT2_TEST_CASE_TPL( colon_unsigned_step, NT2_UNSIGNED_TYPES )
 
   nt2::table<T> xd = _(T(0),T(2),T(9));
 
-  NT2_TEST( xd.extent() == nt2::of_size(1,5) );
+  NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,5 ) );
 
   for(int i=1;i<=5;++i)
-    NT2_TEST_EQUAL( T(xd(i)), T(0) + T(2)*T(i-1) );
+    NT2_TEST_EQUAL( xd(i), T(0) + T(2)*T(i-1) );
 
   nt2::table<T> yd = _(T(9),T(2),T(1));
 
-  NT2_TEST( yd.extent() == nt2::of_size(1,0) );
+  NT2_TEST_EQUAL( yd.extent(), nt2::of_size(1,0 ) );
 
   nt2::table<T> zd = _(T(0),T(0),T(9));
 
-  NT2_TEST( zd.extent() == nt2::of_size(1,9) );
+  NT2_TEST_EQUAL( zd.extent(), nt2::of_size(1,9 ) );
 
   for(int i=1;i<=9;++i)
-    NT2_TEST_EQUAL( T(zd(i)), T(0) );
-
+    NT2_TEST_EQUAL( zd(i), T(0) );
 }
 
 NT2_TEST_CASE_TPL( colon_real_step, NT2_REAL_TYPES )
@@ -78,26 +77,27 @@ NT2_TEST_CASE_TPL( colon_real_step, NT2_REAL_TYPES )
   using nt2::_;
 
   typedef T r_t;
-  double ulpd;
 
   nt2::table<T> xd = _(T(0),T(0.3),T(1));
 
-  NT2_TEST( xd.extent() == nt2::of_size(1,4) );
+  NT2_TEST_EQUAL( xd.extent(), nt2::of_size(1,4 ) );
 
   for(int i=1;i<=4;++i)
-    NT2_TEST_ULP_EQUAL( T(xd(i)), T(0) + T(0.3)*T(i-1), 0.5 );
+    NT2_TEST_ULP_EQUAL( xd(i), T(0) + T(0.3)*T(i-1), 0.5 );
 
   nt2::table<T> yd = _(T(1),T(-0.3),T(0));
 
-  NT2_TEST( yd.extent() == nt2::of_size(1,4) );
+  NT2_TEST_EQUAL( yd.extent(), nt2::of_size(1,4 ) );
 
   for(int i=1;i<=4;++i)
-    NT2_TEST_ULP_EQUAL( T(yd(i)), T(1) + T(-0.3)*T(i-1), 0.5 );
+    NT2_TEST_ULP_EQUAL( yd(i), T(1) + T(-0.3)*T(i-1), 0.5 );
 
   nt2::table<T> zd = _(T(0.5),T(0),T(6));
 
-  NT2_TEST( zd.extent() == nt2::of_size(1,6) );
+  NT2_TEST_EQUAL( zd.extent(), nt2::of_size(1,6 ) );
 
   for(int i=1;i<=6;++i)
-    NT2_TEST_ULP_EQUAL( T(zd(i)), T(0.5), 0.5 );
+    NT2_TEST_ULP_EQUAL( zd(i), T(0.5), 0.5 );
 }
+
+

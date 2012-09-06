@@ -1,6 +1,6 @@
-/*							mtherr.c
+/*                                                      mtherr.c
  *
- *	Library common error handling routine
+ *      Library common error handling routine
  *
  *
  *
@@ -69,7 +69,7 @@ Direct inquiries to 30 Frost Street, Cambridge, MA 02140
 "total loss of precision",
 "partial loss of precision"
 };*/
-
+int _spurious_2012;
 
 int cephes_mtherr( name, code )
 char *name;
@@ -87,11 +87,13 @@ int code;
  * by the code argument.
  */
 /* if( (code <= 0) || (code >= 6) ) */
-/* 	code = 0; */
+/*      code = 0; */
 /* printf( "%s error\n", ermsg[code] ); */
 
 /* Return to calling
  * program
  */
-return 0;
+  if(!name) _spurious_2012 =1;
+  if(code)  _spurious_2012 =2;
+  return 0;
 }

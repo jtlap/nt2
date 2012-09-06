@@ -23,22 +23,44 @@ NT2_TEST_CASE( empty_first_last )
   {
     nt2::table<float> x;
     NT2_TEST_EQUAL(first_index<1>(x), 1);
+    NT2_TEST_EQUAL(first_index<2>(x), 1);
+    NT2_TEST_EQUAL(first_index<3>(x), 1);
+    NT2_TEST_EQUAL(first_index<4>(x), 1);
+    NT2_TEST_EQUAL(first_index(x,1) , 1);
+    NT2_TEST_EQUAL(first_index(x,2) , 1);
+    NT2_TEST_EQUAL(first_index(x,3) , 1);
+    NT2_TEST_EQUAL(first_index(x,4) , 1);
     NT2_TEST_EQUAL(last_index<1>(x) , 0);
+    NT2_TEST_EQUAL(last_index<2>(x) , 1);
+    NT2_TEST_EQUAL(last_index<3>(x) , 1);
+    NT2_TEST_EQUAL(last_index<4>(x) , 1);
+    NT2_TEST_EQUAL(last_index(x,1)  , 0);
+    NT2_TEST_EQUAL(last_index(x,2)  , 1);
+    NT2_TEST_EQUAL(last_index(x,3)  , 1);
+    NT2_TEST_EQUAL(last_index(x,4)  , 1);
   }
 
   {
     nt2::table<float, nt2::index_<-2,-1,0,1> > x;
     NT2_TEST_EQUAL(first_index<1>(x), -2);
+    NT2_TEST_EQUAL(first_index(x,1) , -2);
     NT2_TEST_EQUAL(last_index<1>(x) , -3);
+    NT2_TEST_EQUAL(last_index(x,1)  , -3);
 
     NT2_TEST_EQUAL(first_index<2>(x), -1);
+    NT2_TEST_EQUAL(first_index(x,2) , -1);
     NT2_TEST_EQUAL(last_index<2>(x) , -1);
+    NT2_TEST_EQUAL(last_index(x,2)  , -1);
 
     NT2_TEST_EQUAL(first_index<3>(x), 0);
+    NT2_TEST_EQUAL(first_index(x,3) , 0);
     NT2_TEST_EQUAL(last_index<3>(x) , 0);
+    NT2_TEST_EQUAL(last_index(x,3)  , 0);
 
     NT2_TEST_EQUAL(first_index<4>(x), 1);
+    NT2_TEST_EQUAL(first_index(x,4) , 1);
     NT2_TEST_EQUAL(last_index<4>(x) , 1);
+    NT2_TEST_EQUAL(last_index(x,4)  , 1);
   }
 }
 
@@ -51,24 +73,46 @@ NT2_TEST_CASE( non_empty_first_last )
   {
     nt2::table<float> x( of_size(4,5));
     NT2_TEST_EQUAL(first_index<1>(x), 1);
+    NT2_TEST_EQUAL(first_index(x,1) , 1);
     NT2_TEST_EQUAL(last_index<1>(x) , 4);
+    NT2_TEST_EQUAL(last_index(x,1)  , 4);
 
     NT2_TEST_EQUAL(first_index<2>(x), 1);
+    NT2_TEST_EQUAL(first_index(x,2) , 1);
     NT2_TEST_EQUAL(last_index<2>(x) , 5);
+    NT2_TEST_EQUAL(last_index(x,2)  , 5);
+
+    NT2_TEST_EQUAL(first_index<3>(x), 1);
+    NT2_TEST_EQUAL(first_index(x,3) , 1);
+    NT2_TEST_EQUAL(last_index<3>(x) , 1);
+    NT2_TEST_EQUAL(last_index(x,3)  , 1);
+
+    NT2_TEST_EQUAL(first_index<4>(x), 1);
+    NT2_TEST_EQUAL(first_index(x,4) , 1);
+    NT2_TEST_EQUAL(last_index<4>(x) , 1);
+    NT2_TEST_EQUAL(last_index(x,4)  , 1);
   }
 
   {
     nt2::table<float, nt2::index_<-2,-1,0,1> > x( of_size(5,3,3,4) );
     NT2_TEST_EQUAL(first_index<1>(x), -2);
+    NT2_TEST_EQUAL(first_index(x,1) , -2);
     NT2_TEST_EQUAL(last_index<1>(x) ,  2);
+    NT2_TEST_EQUAL(last_index(x,1)  ,  2);
 
     NT2_TEST_EQUAL(first_index<2>(x), -1);
+    NT2_TEST_EQUAL(first_index(x,2) , -1);
     NT2_TEST_EQUAL(last_index<2>(x) ,  1);
+    NT2_TEST_EQUAL(last_index(x,2)  ,  1);
 
     NT2_TEST_EQUAL(first_index<3>(x), 0);
+    NT2_TEST_EQUAL(first_index(x,3) , 0);
     NT2_TEST_EQUAL(last_index<3>(x) , 2);
+    NT2_TEST_EQUAL(last_index(x,3)  , 2);
 
     NT2_TEST_EQUAL(first_index<4>(x), 1);
+    NT2_TEST_EQUAL(first_index(x,4) , 1);
     NT2_TEST_EQUAL(last_index<4>(x) , 4);
+    NT2_TEST_EQUAL(last_index(x,4)  , 4);
   }
 }

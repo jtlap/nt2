@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_EPS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_EPS_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/eps.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mindenormal.hpp>
-#include <boost/simd/include/functions/is_not_finite.hpp>
-#include <boost/simd/include/functions/fast_ldexp.hpp>
-#include <boost/simd/include/functions/exponent.hpp>
-#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/scalar/is_not_finite.hpp>
+#include <boost/simd/include/functions/scalar/fast_ldexp.hpp>
+#include <boost/simd/include/functions/scalar/exponent.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

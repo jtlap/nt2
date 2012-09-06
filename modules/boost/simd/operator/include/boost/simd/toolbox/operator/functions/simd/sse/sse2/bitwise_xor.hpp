@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_XOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_SSE2_BITWISE_XOR_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/operator/functions/bitwise_xor.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -41,8 +42,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      A0 that = { _mm_xor_pd(a0,a1) };
-      return that;
+      return _mm_xor_pd(a0,a1);
     }
   };
 
@@ -56,8 +56,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      A0 that = { _mm_xor_ps(a0,a1) };
-      return that;
+      return _mm_xor_ps(a0,a1);
     }
   };
 } } }

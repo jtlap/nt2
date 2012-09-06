@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_INF_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_INF_HPP_INCLUDED
+#include <nt2/toolbox/predicates/functions/is_inf.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/logical_or.hpp>
@@ -31,7 +32,7 @@ namespace nt2 { namespace ext
     {
       //C99 standard:A complex or imaginary value with at least one infinite part
       //is regarded as an infinity (even if its other part is a NaN).
-      return logical_or(is_inf(imag(a0)),is_inf(real(a0))); 
+      return logical_or(is_inf(nt2::imag(a0)),is_inf(nt2::real(a0))); 
     }
   };
 
@@ -44,7 +45,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_inf(imag(a0)); 
+      return is_inf(nt2::imag(a0)); 
     }
   };
   // dry
@@ -56,7 +57,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_inf(real(a0)); 
+      return is_inf(nt2::real(a0)); 
     }
   };
 

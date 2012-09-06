@@ -1,0 +1,17 @@
+[part User Manual
+  [quickbook 1.5]
+]
+
+[#user_manual]
+[/ xinclude core.container.xml]
+[/ xinclude core.io.xml]
+[/ xinclude core.sdk.xml]
+[/ xinclude core.indexing.xml]
+[/xinclude arithmetic.xml]
+[/xinclude predicates.xml]
+[xinclude trigonometric.xml]
+[/ xinclude linalg.xml]
+[/ xinclude optimisation.xml]
+[xinclude user/tutorial.xml]
+[xinclude user/faq.xml]
+

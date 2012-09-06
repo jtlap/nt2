@@ -47,9 +47,6 @@ NT2_TEST_CASE_TPL ( lo_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<lo_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::Nan<vT>())[0], boost::simd::Mone<dtype>());
@@ -76,9 +73,6 @@ NT2_TEST_CASE_TPL ( lo_sintgt_8__1_0,  BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES)
   typedef typename boost::dispatch::meta::call<lo_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::One<vT>())[0], boost::simd::One<dtype>());

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_GREATER_EQUAL_HPP_INCLUDED
+#include <nt2/toolbox/predicates/functions/is_not_greater_equal.hpp>
 #include <nt2/include/functions/is_not_greater_equal.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/is_real.hpp>
@@ -35,7 +36,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return is_not_greater_equal(real(a0),real(a1)); 
+      return is_not_greater_equal(nt2::real(a0),nt2::real(a1)); 
     }
   };
   // dry/dry
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return is_not_greater_equal(real(a0),real(a1)); 
+      return is_not_greater_equal(nt2::real(a0),nt2::real(a1)); 
     }
   };
   // complex/arithmetic
@@ -61,7 +62,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_not_greater_equal(real(a0), a1); 
+      return is_not_greater_equal(nt2::real(a0), a1); 
     }
   };
   // complex/dry
@@ -74,7 +75,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_not_greater_equal(real(a0), real(a1)); 
+      return is_not_greater_equal(nt2::real(a0), nt2::real(a1)); 
     }
   };
   // arithmetic/complex
@@ -87,7 +88,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_not_greater_equal(real(a1),a0); 
+      return is_not_greater_equal(nt2::real(a1),a0); 
     }
   };
   // dry/complex
@@ -100,7 +101,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_not_greater_equal(real(a1),real(a0)); 
+      return is_not_greater_equal(nt2::real(a1),nt2::real(a0)); 
     }
   };
   // complex/imaginary
@@ -113,7 +114,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_ngez(real(a0)); 
+      return is_ngez(nt2::real(a0)); 
     }
   };
   // imaginary/complex
@@ -126,7 +127,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_nlez(real(a1)); 
+      return is_nlez(nt2::real(a1)); 
     }
   };
   // imaginary/imaginary
@@ -165,7 +166,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_nlez(real(a1)); 
+      return is_nlez(nt2::real(a1)); 
     }
   };
   // arithmetic/imaginary
@@ -191,7 +192,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return  is_ngez(real(a0)); 
+      return  is_ngez(nt2::real(a0)); 
     }
   };
 

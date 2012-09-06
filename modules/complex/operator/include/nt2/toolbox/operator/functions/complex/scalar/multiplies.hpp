@@ -45,19 +45,19 @@
 //         //        return a0*a1; 
 //         typedef typename meta::as_real<A0>::type rA0;
 //         std::cout << "icitte" << std::endl; 
-//         rA0 a0a1r = real(a0) * real(a1);
-//         rA0 a0a1i = imag(a0) * imag(a1);
+//         rA0 a0a1r = nt2::real(a0) * nt2::real(a1);
+//         rA0 a0a1i = nt2::imag(a0) * nt2::imag(a1);
         
 //         rA0 x = a0a1r - a0a1i; 
-//         rA0 y = (real(a0) + imag(a0)) * (real(a1) + imag(a1)) - a0a1r - a0a1i;
+//         rA0 y = (nt2::real(a0) + nt2::imag(a0)) * (nt2::real(a1) + nt2::imag(a1)) - a0a1r - a0a1i;
 //         if (is_invalid(x) || is_invalid(y))
 //           {
 //             if (is_real(a0))
-//               return nt2::multiplies(real(a0), a1);
+//               return nt2::multiplies(nt2::real(a0), a1);
 //             if (is_imag(a0))
 //               return nt2::multiplies(pure(a0), a1);
 //             if (is_real(a1))
-//               return nt2::multiplies(a0, real(a1)); 
+//               return nt2::multiplies(a0, nt2::real(a1)); 
 //             if (is_imag(a1))
 //               return nt2::multiplies(a0, pure(a1));
 //           }
@@ -75,10 +75,10 @@
 //     NT2_FUNCTOR_CALL(2)
 //       {
 //         if(is_eqz(a1))
-//           return result_type(a0*real(a1));
+//           return result_type(a0*nt2::real(a1));
 //         else
-//           return result_type(if_zero_else(is_imag(a1), a0*real(a1)),
-//                              if_zero_else(is_real(a1), a0*imag(a1)));
+//           return result_type(if_zero_else(is_imag(a1), a0*nt2::real(a1)),
+//                              if_zero_else(is_real(a1), a0*nt2::imag(a1)));
 //       }
 //   };
   
@@ -91,10 +91,10 @@
 //     NT2_FUNCTOR_CALL(2)
 //       {
 //         if(is_eqz(a0))
-//           return result_type(a1*real(a0));
+//           return result_type(a1*nt2::real(a0));
 //         else
-//           return result_type(if_zero_else(is_imag(a0), real(a0)*a1),
-//                              if_zero_else(is_real(a0), imag(a0)*a1));
+//           return result_type(if_zero_else(is_imag(a0), nt2::real(a0)*a1),
+//                              if_zero_else(is_real(a0), nt2::imag(a0)*a1));
 //       }
 //   };
   
@@ -108,10 +108,10 @@
 //     NT2_FUNCTOR_CALL(2)
 //       {
 //         if(is_eqz(a1))
-//           return result_type(real(a1), imag(a0)*imag(a1));
+//           return result_type(nt2::real(a1), nt2::imag(a0)*nt2::imag(a1));
 //         else
-//           return result_type(if_zero_else(is_real(a1), -imag(a0)*imag(a1)),
-//                              if_zero_else(is_real(a0),imag(a0)*real(a1))); 
+//           return result_type(if_zero_else(is_real(a1), -nt2::imag(a0)*nt2::imag(a1)),
+//                              if_zero_else(is_real(a0),nt2::imag(a0)*nt2::real(a1))); 
 //       }
 //   };
   
@@ -124,10 +124,10 @@
 //     NT2_FUNCTOR_CALL(2)
 //       {
 //         if(is_eqz(a0))
-//           return result_type(real(a0), imag(a0)*imag(a1));
+//           return result_type(nt2::real(a0), nt2::imag(a0)*nt2::imag(a1));
 //         else
-//         return result_type(if_zero_else(is_real(a0),-imag(a0)*imag(a1)),
-//                            if_zero_else(is_real(a1),real(a0)*imag(a1))); 
+//         return result_type(if_zero_else(is_real(a0),-nt2::imag(a0)*nt2::imag(a1)),
+//                            if_zero_else(is_real(a1),nt2::real(a0)*nt2::imag(a1))); 
 //       }
 //   };
   
@@ -140,7 +140,7 @@
 //     typedef A1 result_type;
 //     NT2_FUNCTOR_CALL(2)
 //       {
-//         return result_type(a0 * imag(a1));
+//         return result_type(a0 * nt2::imag(a1));
 //       }
 //   };
   
@@ -152,7 +152,7 @@
 //     typedef A0 result_type;
 //     NT2_FUNCTOR_CALL(2)
 //       {
-//         return result_type(imag(a0) * a1);
+//         return result_type(nt2::imag(a0) * a1);
 //       }
 //   };
   
@@ -165,7 +165,7 @@
 //     typedef typename meta::as_real<A0>::type result_type;
 //     NT2_FUNCTOR_CALL(2)
 //       {
-//         return -(imag(a0) * imag(a1));
+//         return -(nt2::imag(a0) * nt2::imag(a1));
 //       }
 //   };
   

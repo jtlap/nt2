@@ -9,14 +9,15 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMALN_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMALN_HPP_INCLUDED
 
+#include <nt2/toolbox/euler/functions/gammaln.hpp>
 #include <nt2/toolbox/euler/details/math.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/is_invalid.hpp>
 #include <boost/math/special_functions/gamma.hpp>
 
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/signnz.hpp>
+#include <nt2/include/functions/scalar/signnz.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

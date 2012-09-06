@@ -28,26 +28,24 @@
 NT2_TEST_CASE_TPL ( splat_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
   
-//   using boost::simd::splat;
-//   using boost::simd::tag::splat_;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef typename boost::dispatch::meta::call<splat_(T)>::type r_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-//   typedef T wished_r_t;
+  using boost::simd::splat;
+  using boost::simd::tag::splat_;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef typename boost::dispatch::meta::call<splat_(T,  boost::dispatch::meta::as_<T>)>::type r_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
+  typedef T wished_r_t;
 
 
-//   // return type conformity test 
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
-//   double ulpd;
-//   ulpd=0.0;
+  // return type conformity test 
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  std::cout << std::endl; 
 
-
-//   // specific values tests
-//   NT2_TEST_EQUAL(splat(boost::simd::One<T>()), boost::simd::One<r_t>());
-//   NT2_TEST_EQUAL(splat(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  
+  //   // specific values tests
+  //   NT2_TEST_EQUAL(splat(boost::simd::One<T>()), boost::simd::One<r_t>());
+  //   NT2_TEST_EQUAL(splat(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 //   NT2_TEST_EQUAL(splat(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-// } // end of test for integer_
+} // end of test for integer_
 
 // NT2_TEST_CASE_TPL ( splat_real__1_0,  BOOST_SIMD_REAL_TYPES)
 // {
@@ -63,9 +61,6 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 //   // return type conformity test 
 //   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 //   std::cout << std::endl; 
-//   double ulpd;
-//   ulpd=0.0;
-
 
 //   // specific values tests
 //   NT2_TEST_EQUAL(splat(boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
@@ -73,4 +68,4 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 //   NT2_TEST_EQUAL(splat(boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
 //   NT2_TEST_EQUAL(splat(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 //   NT2_TEST_EQUAL(splat(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for floating_
+//} // end of test for floating_

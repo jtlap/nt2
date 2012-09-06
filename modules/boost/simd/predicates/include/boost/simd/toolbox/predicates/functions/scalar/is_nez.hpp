@@ -25,6 +25,18 @@ namespace boost { namespace simd { namespace ext
       return result_type(a0 != Zero<A0>());
     }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_nez_, tag::cpu_
+                            , (A0)
+                            , (scalar_<logical_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return a0;
+    }
+  };
+   
 } } }
 
 

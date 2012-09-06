@@ -8,16 +8,17 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_DEFINITELY_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_DEFINITELY_LESS_HPP_INCLUDED
+#include <nt2/toolbox/fuzzy/functions/definitely_less.hpp>
 #include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/is_finite.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/predecessor.hpp>
-#include <nt2/include/functions/subs.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/is_finite.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/successor.hpp>
+#include <nt2/include/functions/scalar/predecessor.hpp>
+#include <nt2/include/functions/scalar/subs.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/scalar/logical_and.hpp>
+#include <nt2/include/functions/scalar/logical_or.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/constants/false.hpp>
 

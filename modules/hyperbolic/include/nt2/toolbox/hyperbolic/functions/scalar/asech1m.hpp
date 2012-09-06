@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ASECH1M_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ASECH1M_HPP_INCLUDED
-#include <nt2/include/functions/asech.hpp>
-#include <nt2/include/functions/oneminus.hpp>
+#include <nt2/toolbox/hyperbolic/functions/asech1m.hpp>
+#include <nt2/include/functions/scalar/asech.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_ODD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_ODD_HPP_INCLUDED
+#include <boost/simd/toolbox/predicates/functions/is_odd.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/minusone.hpp>
-#include <boost/simd/include/functions/is_even.hpp>
+#include <boost/simd/include/functions/scalar/minusone.hpp>
+#include <boost/simd/include/functions/scalar/is_even.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

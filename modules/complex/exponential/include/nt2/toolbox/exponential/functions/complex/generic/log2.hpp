@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_LOG2_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_LOG2_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/log2.hpp>
 #include <nt2/include/functions/log2.hpp>
 #include <nt2/include/functions/arg.hpp>
 #include <nt2/include/functions/abs.hpp>

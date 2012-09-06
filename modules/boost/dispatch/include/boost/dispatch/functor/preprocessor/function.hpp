@@ -46,18 +46,38 @@ return typename boost::dispatch::make_functor<Tag, A0>::type()                 \
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a complete function implementation
 ////////////////////////////////////////////////////////////////////////////////
+#ifdef NT2_DOXYGEN_ONLY
+#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(Tag, Name, N)      \
+template<BOOST_PP_ENUM_PARAMS(N,class A)>                         \
+unspecified Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) );  \
+/**/
+#else
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(Tag, Name, N)                   \
-BOOST_DISPATCH_FUNCTION_INTERFACE(Tag, Name, N)                                \
+template<BOOST_PP_ENUM_PARAMS(N,class A)>                                      \
+BOOST_FORCEINLINE                                                              \
+typename boost::dispatch::meta::                                               \
+call<Tag(BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& BOOST_PP_INTERCEPT))>::type  \
+Name( BOOST_PP_ENUM_BINARY_PARAMS(N, A, const& a) )                            \
 {                                                                              \
   BOOST_DISPATCH_FUNCTION_BODY(Tag, N)                                         \
 }                                                                              \
 /**/
+#endif
 
 #define BOOST_DISPATCH_FN_ARGS(z,n,t) BOOST_PP_SEQ_ELEM(n,t) a##n
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a complete function implementation with a specific prototype
 ////////////////////////////////////////////////////////////////////////////////
+#ifdef NT2_DOXYGEN_ONLY
+#define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(Tag, Name, Args, N)  \
+template<BOOST_PP_ENUM_PARAMS(N, class A)>                              \
+unspecified Name( BOOST_PP_ENUM ( BOOST_PP_SEQ_SIZE(Args                \
+                                , BOOST_DISPATCH_FN_ARGS, Args          \
+                                )                                       \
+                );                                                      \
+/**/
+#else
 #define BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(Tag, Name, Args, N)         \
 template<BOOST_PP_ENUM_PARAMS(N, class A)>                                     \
 BOOST_FORCEINLINE                                                              \
@@ -68,6 +88,7 @@ Name( BOOST_PP_ENUM(BOOST_PP_SEQ_SIZE(Args), BOOST_DISPATCH_FN_ARGS, Args) )   \
   BOOST_DISPATCH_FUNCTION_BODY(Tag, BOOST_PP_SEQ_SIZE(Args))                   \
 }                                                                              \
 /**/
+#endif
 
 ////////////////////////////////////////////////////////////////////////////////
 // Generate a complete function implementation for self modifying operator

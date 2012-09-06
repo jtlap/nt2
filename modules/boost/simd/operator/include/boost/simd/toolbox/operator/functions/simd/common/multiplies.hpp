@@ -5,12 +5,12 @@
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
-//============================================================================== 
+//==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_MULTIPLIES_HPP_INCLUDED
 #include <boost/simd/toolbox/operator/functions/multiplies.hpp>
-#include <boost/simd/include/functions/splat.hpp>
-//TODO are these necessary ?
+#include <boost/simd/include/functions/simd/splat.hpp>
+
 //////////////////////////////////////////////////////////////////////////////
 // mixed scalar/simd multiplies
 //////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      return boost::simd::multiplies(boost::simd::splat<A0>(a0), a1);
+      return boost::simd::multiplies(boost::simd::splat<A1>(a0), a1);
     }
   };
 } } }

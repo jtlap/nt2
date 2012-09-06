@@ -8,8 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_GENERIC_IS_NOT_IMAG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_GENERIC_IS_NOT_IMAG_HPP_INCLUDED
+
+#include <boost/simd/toolbox/predicates/functions/is_not_imag.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

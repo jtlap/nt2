@@ -8,25 +8,24 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_INVTRIG_F_INVTRIG_HPP_INCLUDED
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/bitwise_notand.hpp>
-#include <nt2/include/functions/bitwise_xor.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/bitwise_notand.hpp>
+#include <nt2/include/functions/simd/bitwise_xor.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
 #include <nt2/sdk/simd/tags.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/pi.hpp>
 #include <nt2/include/constants/half.hpp>
@@ -84,27 +83,32 @@ namespace nt2
 
         static inline A0 acos(const  A0& a0)
         {
-          if (a0 < Mhalf<float>())
-            return Pi<float>()-asin( nt2::sqrt(oneplus(a0)*Half<float>()))*Two<float>();
-          else if (a0 > Half<float>())
-            return asin( nt2::sqrt(oneminus(a0)*Half<float>()))*Two<float>();
-          return (Pio_2<float>()-asin(a0));
+          if (a0 < Mhalf<A0>())
+            return Pi<A0>()-asin( nt2::sqrt(oneplus(a0)*Half<A0>()))*Two<A0>();
+          else if (a0 > Half<A0>())
+            return asin( nt2::sqrt(oneminus(a0)*Half<A0>()))*Two<A0>();
+          return (Pio_2<A0>()-asin(a0));
         }
 
-        static inline A0 atan(const  A0& a0)
+        static inline A0 atan(const A0& a0)
         {
-          if (is_eqz(a0))  return a0;
-          if (is_inf(a0)) return Pio_2<A0>()*sign(a0);
-          A0 y;
+          A0 x  = kernel_atan(a0); 
+          return b_xor(x, bitofsign(a0));
+        }
+
+        static inline A0 kernel_atan(const  A0& a0)
+        {
+          if (is_eqz(a0))  return Zero<A0>();
+          if (is_inf(a0))  return Pio_2<A0>(); 
           A0 x = nt2::abs(a0);
-          A0 sgn =  bitofsign(a0);
-          if( x >single_constant<float,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
+          A0 y;   
+          if( x >single_constant<A0,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
             {
               y = Pio_2<A0>();
               x = -rec(x);
             }
 
-          else if( x > single_constant<float,0x3ed413cd>()) //0.4142135623730950f ) /* tan pi/8 */
+          else if( x > single_constant<A0,0x3ed413cd>()) //0.4142135623730950f ) /* tan pi/8 */
             {
               y = Pio_4<A0>();
               x = minusone(x)/oneplus(x);
@@ -116,7 +120,7 @@ namespace nt2
           A0 z1 = madd(z,  single_constant<A0,0x3da4f0d1>(),single_constant<A0,0xbe0e1b85>());
           A0 z2 = madd(z,  single_constant<A0,0x3e4c925f>(),single_constant<A0,0xbeaaaa2a>());
           z1 = madd(z1, sqr(z), z2);
-          y =  add(y, madd(x, mul( z1, z), x));
+          return  add(y, madd(x, mul( z1, z), x));
 //        y +=
 //          ((( 8.05374449538e-2 * z
 //              - 1.38776856032E-1) * z
@@ -124,7 +128,7 @@ namespace nt2
 //           - 3.33329491539E-1) * z * x
 //          + x;
 
-          return b_xor(sgn, y );
+
 
         }
       }; 

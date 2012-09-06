@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL ( cosd_real__1_0,  NT2_REAL_TYPES)
   for(int i=0; i < N; i++)
    {
      NT2_TEST_ULP_EQUAL(nt2::cosd(-inputs[i]), nt2::cosd(inputs[i]), 3);  
-     NT2_TEST_ULP_EQUAL(nt2::cosd(inputs[i]), nt2::cos(nt2::Deginrad<T>()*inputs[i]), 3); 
+     NT2_TEST_ULP_EQUAL(nt2::cosd(inputs[i]), nt2::cos(nt2::multiplies(nt2::Deginrad<T>(), inputs[i])), 3); 
    }
 
   

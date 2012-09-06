@@ -9,71 +9,53 @@
 #ifndef NT2_DSL_FUNCTIONS_CONTAINER_TERMINAL_HPP_INCLUDED
 #define NT2_DSL_FUNCTIONS_CONTAINER_TERMINAL_HPP_INCLUDED
 
-#include <nt2/sdk/simd/category.hpp>
-#include <boost/fusion/include/size.hpp>
 #include <nt2/dsl/functions/terminal.hpp>
-#include <boost/dispatch/meta/transfer_qualifiers.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/include/functions/store.hpp>
 #include <nt2/include/functions/splat.hpp>
-#include <nt2/core/container/category.hpp>
-#include <nt2/core/utility/position/position.hpp>
-#include <nt2/core/utility/position/adapted.hpp>
-#include <nt2/core/utility/position/have_compatible_alignments.hpp>
-#include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
-#include <boost/simd/toolbox/operator/functions/unaligned_store.hpp>
+#include <nt2/include/functions/unaligned_load.hpp>
+#include <nt2/include/functions/unaligned_store.hpp>
+#include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
-
-// TODO: storage order is not used.
+#include <nt2/core/container/category.hpp>
+#include <nt2/sdk/simd/category.hpp>
+#include <nt2/sdk/meta/cardinal_of.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // terminal for 0-dimensional access (no-op)
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::terminal_, tag::cpu_
-                               , (A0)(State)(Data)
-                               , (mpl::bool_< fusion::result_of::size<State>::type::value == 0 >)
-                               , (ast_<A0>)
-                                 (fusion_sequence_<State>)
-                                 (unspecified_<Data>)
-                               )
+  template<class T, class A0>
+  std::size_t maxpos(A0 const& a0)
   {
-    typedef typename boost::dispatch::meta::
-    semantic_of<A0&>::type                                  result_type;
+    return a0 + meta::cardinal_of<T>::value - 1;
+  }
 
-    BOOST_FORCEINLINE result_type
-    operator()(A0& a0, State const&, Data const&) const
-    {
-       return boost::proto::value(a0);
-    }
-  };
+  template<class T, class A0, class X>
+  std::size_t maxpos(boost::simd::native<A0, X> const& a0)
+  {
+    return nt2::maximum(a0);
+  }
 
   //============================================================================
   // table terminal with a position in scalar read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(S0)(State)(Data)
+                            , (A0)(T0)(S0)(State)(Data)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
                               (target_<scalar_<unspecified_<Data> > >)
                             )
   {
 
     typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0&>::type
-              >::type                               result_type;
+    scalar_of<A0&>::type                               result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const&) const
     {
-       return boost::proto::value(a0)[state];
+      return boost::proto::value(a0)[state];
     }
   };
 
@@ -81,25 +63,23 @@ namespace nt2 { namespace ext
   // table terminal with a position in scalar write mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(S0)(State)(Data)
+                            , (A0)(T0)(S0)(State)(Data)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
                               (scalar_<unspecified_<Data> >)
                             )
   {
     typedef typename boost::dispatch::meta::
-    scalar_of< typename boost::dispatch::meta::
-               semantic_of<A0&>::type
-             >::type                                result_type;
+    scalar_of<A0&>::type                                result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& state, Data const& data) const
     {
-       return boost::proto::value(a0)[state] = data;
+      return boost::proto::value(a0)[state] = data;
     }
   };
 
@@ -107,46 +87,23 @@ namespace nt2 { namespace ext
   // table terminal with a position in SIMD read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(S0)(Seq)(A)(Data)(X)
+                            , (A0)(T0)(S0)(State)(Data)(X)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
-                              ((position_<Seq, A>))
+                              (generic_< integer_<State> >)
                               ((target_< simd_<unspecified_<Data>, X> >))
                             )
   {
-    typedef typename Data::type                                  result_type;
+    typedef typename Data::type result_type;
 
     BOOST_FORCEINLINE
-    result_type operator()(A0 const& a0, Seq const& state, Data const&) const
+    result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
-      return eval(a0, state, have_compatible_alignments<A0, A>());
-    }
-
-    inline result_type eval ( A0 const& a0, Seq const& state, boost::mpl::true_ const& ) const
-    {
-      return load<result_type>(boost::proto::value(a0).get(
-                                 boost::fusion::at_c<
-                                   boost::fusion::result_of::size<Seq>::type::value-1
-                                 >(state)
-                               ),
-                               nt2::meta::default_at_c<
-                                 boost::fusion::result_of::size<Seq>::type::value-2, 0
-                               >(state));
-    }
-
-    inline result_type eval ( A0 const& a0, Seq const& state, boost::mpl::false_ const& ) const
-    {
-      return boost::simd::unaligned_load<result_type>(boost::proto::value(a0).get(
-                                 boost::fusion::at_c<
-                                   boost::fusion::result_of::size<Seq>::type::value-1
-                                 >(state)
-                               ),
-                               nt2::meta::default_at_c<
-                                 boost::fusion::result_of::size<Seq>::type::value-2, 0
-                               >(state));
+      BOOST_ASSERT_MSG( maxpos<result_type>(state) < boost::proto::value(a0).size(), "Out of range SIMD read" );
+      return unaligned_load<result_type>(a0.raw(), state);
     }
   };
 
@@ -154,95 +111,116 @@ namespace nt2 { namespace ext
   // table terminal with a position in SIMD write mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(S0)(Seq)(A)(Data)(X)
+                            , (A0)(T0)(S0)(State)(Data)(X)
                             , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
-                              ((position_<Seq, A>))
+                              (generic_< integer_<State> >)
                               ((simd_<unspecified_<Data>, X>))
                             )
   {
     typedef Data                                            result_type;
 
     BOOST_FORCEINLINE
-    result_type operator()(A0& a0, Seq const& state, Data const& data) const
+    result_type operator()(A0& a0, State const& state, Data const& data) const
     {
-      return eval(a0, state, data, have_compatible_alignments<A0, A>());
-    }
-
-    BOOST_FORCEINLINE result_type
-    eval(A0& a0, Seq const& state, Data const& data, boost::mpl::true_ const&) const
-    {
-      return store<result_type>(data, boost::proto::value(a0).get(
-                                  boost::fusion::at_c<
-                                    boost::fusion::result_of::size<Seq>::type::value-1
-                                  >(state)
-                                ),
-                                nt2::meta::default_at_c<
-                                  boost::fusion::result_of::size<Seq>::type::value-2, 0
-                                >(state));
-    }
-
-    BOOST_FORCEINLINE result_type
-    eval(A0& a0, Seq const& state, Data const& data, boost::mpl::false_ const&) const
-    {
-      return boost::simd::unaligned_store<result_type>(data, boost::proto::value(a0).get(
-                                  boost::fusion::at_c<
-                                    boost::fusion::result_of::size<Seq>::type::value-1
-                                  >(state)
-                                ),
-                                nt2::meta::default_at_c<
-                                  boost::fusion::result_of::size<Seq>::type::value-2, 0
-                                >(state));
+      BOOST_ASSERT_MSG( maxpos<Data>(state) < boost::proto::value(a0).size(), "Out of range SIMD write" );
+      return unaligned_store<result_type>(data, a0.raw(), state);
     }
   };
 
   //============================================================================
-  // scalar terminal, return value in scalar mode (LHS not allowed)
+  // scalar terminal, return value in read mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(State)(Data)
+                            , (A0)(T0)(State)(Data)
                             , ((expr_< scalar_< unspecified_<A0> >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
                               (target_< scalar_< unspecified_<Data> > >)
                             )
   {
-    typedef typename boost::dispatch::meta::
-    semantic_of<A0&>::type                                  result_type;
+    typedef typename nt2::meta::call<T0(A0&)>::type result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const&, Data const&) const
     {
-       return boost::proto::value(a0);
+      return boost::proto::value(a0);
     }
   };
 
   //============================================================================
-  // scalar terminal, splat value in SIMD read mode (LHS not allowed)
+  // scalar terminal, assign value in write mode
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
-                            , (A0)(State)(Data)(X)
+                            , (A0)(T0)(State)(Data)
                             , ((expr_< scalar_< unspecified_<A0> >
-                                     , nt2::tag::terminal_
+                                     , T0
                                      , boost::mpl::long_<0>
                                      >
                               ))
-                              (fusion_sequence_<State>)
+                              (generic_< integer_<State> >)
+                              (scalar_< unspecified_<Data> >)
+                            )
+  {
+    typedef typename nt2::meta::call<T0(A0&)>::type result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State const&, Data const& data) const
+    {
+      return boost::proto::value(a0) = data;
+    }
+  };
+
+  //============================================================================
+  // scalar terminal, splat value in SIMD read mode
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                            , (A0)(T0)(State)(Data)(X)
+                            , ((expr_< scalar_< unspecified_<A0> >
+                                     , T0
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
+                              (generic_< integer_<State> >)
                               ((target_< simd_< unspecified_<Data>,X > >))
                             )
   {
-    typedef typename Data::type   result_type;
+    typedef typename Data::type result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(A0& a0, State const&, Data const&) const
     {
       return nt2::splat<result_type>(boost::proto::value(a0));
+    }
+  };
+
+  //============================================================================
+  // scalar terminal, error in SIMD write mode
+  //============================================================================
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                            , (A0)(T0)(State)(Data)(X)
+                            , ((expr_< scalar_< unspecified_<A0> >
+                                     , T0
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
+                              (generic_< integer_<State> >)
+                              ((simd_< unspecified_<Data>,X >))
+                            )
+  {
+    typedef Data const&      result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0&, State const&, Data const& data) const
+    {
+      BOOST_ASSERT_MSG(0, "Writing SIMD value to scalar not allowed");
+      return data;
     }
   };
 } }

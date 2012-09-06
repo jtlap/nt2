@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // load for SSE2 SIMD types
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/toolbox/operator/functions/load.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
@@ -38,9 +39,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
       
-      result_type
-      that = { _mm_load_pd(a0+a1) };
-      return that;
+      return _mm_load_pd(a0+a1);
     }
   };
 
@@ -61,9 +60,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
       
-      result_type
-      that = { _mm_load_ps(a0+a1) };
-      return that;
+      return _mm_load_ps(a0+a1);
     }
   };
 
@@ -84,9 +81,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
       
-      result_type
-      that = { _mm_load_si128(reinterpret_cast<__m128i const*>(a0 + a1)) };
-      return that;
+      return _mm_load_si128(reinterpret_cast<__m128i const*>(a0 + a1));
     }
   };
 

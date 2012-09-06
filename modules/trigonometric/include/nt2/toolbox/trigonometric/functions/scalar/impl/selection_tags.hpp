@@ -8,7 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_SELECTION_TAGS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_IMPL_SELECTION_TAGS_HPP_INCLUDED
-#include <nt2/toolbox/common/tags.hpp>
+#include <nt2/sdk/meta/tags.hpp>
 
 namespace nt2
 {
@@ -21,9 +21,10 @@ namespace nt2
 
   struct trig_tag{};        // nt2 implementation speed choice for trigo obsolete ?
 
+  struct verysmall     { typedef regular type; };          //abs less tan pi/2
   struct small         { typedef regular type; };          //cephes
-  struct medium        { typedef regular type; };         //fdlibm medium
-  struct big           { typedef regular type; };            //big complete reduction
+  struct medium        { typedef regular type; };          //fdlibm medium
+  struct big           { typedef regular type; };          //big complete reduction
   struct direct_small  { typedef regular type; };
   struct direct_medium { typedef regular type; };   
   struct direct_big    { typedef regular type; };   

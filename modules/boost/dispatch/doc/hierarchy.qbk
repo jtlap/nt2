@@ -1,0 +1,107 @@
+[section Hierarchy: Definition and Usage]
+
+[section The Hierarchy Concept]
+[heading Synopsis:]
+
+[c++]
+``
+struct H : P
+{
+    typedef P parent;
+};
+``
+
+with `H` and `P` models of `Hierarchy`.
+
+A model `H` of `Hierarchy` is nothing more than an empty type used to identify a
+category of types. It must inherit from one other model of `Hierarchy` `P`;
+multiple inheritance is discouraged as it easily leads to ambiguities.
+
+It must also provide a `parent` typedef in order to allow composite hierarchies
+to be built around it.
+
+All hierarchies must inherit directly or indirectly from `boost::dispatch::meta::unspecified_<T>`,
+with `T` any concrete type (preferably the one being hierarchized).
+
+The choice that Boost.Dispatch makes for its built-in hierarchies is to make
+them templates, with the actual type being hierarchized as the
+template parameter.
+
+[c++]
+``
+template<class T>
+struct H : P<T>
+{
+    typedef P<T> parent;
+};
+``
+This allows to select the parent hierarchy according ot what the type is,
+removing some of the limitations of single inheritance. Embedding the type
+inside the hierarchy also enables to use them directly for declaring template overloads
+in place of the real arguments.
+[endsect]
+
+[section Built-in hierarchies]
+
+[section Scalar hierarchy]
+
+The hierarchy of a built-in fundamental type `T` is the composite `scalar_< typename property_of<T>::type >`. [br]
+Properties are decoupled from `scalar_` so that it is easy to create new hierarchies such as `simd_< integer_<T> >` etc.
+
+If you wish to extend this hierarchy, specialize `boost::dispatch::meta::property_of` or `boost::dispatch::details::property_of` instead
+of the `hierarchy_of` equivalents.
+
+Once `scalar_< unspecified_<T> >` is reached, the hierarchy then goes into `generic_< typename property_of<T> >`.
+
+A list of all properties available and how they relate to each other is listed below:
+
+[$dispatch/tags.png]
+
+[variablelist Properties
+    [[fundamental_] [a fundamental type]]
+    [[bool_] [the `bool` type]]
+    [[arithmetic_] [an arithmetic fundamental type, i.e. any fundamental type but `bool`]]
+    [[integer_] [an integral type]]
+    [[real_] [a real or floating-point type]]
+    [[unsigned_] [an unsigned type]]
+    [[signed_] [a signed type]]
+    [[uint_] [an unsigned integral type]]
+    [[int_] [a signed integral type]]
+    [[type8_] [a type of size 8 bits]]
+    [[type16_] [a type of size 16 bits]]
+    [[real_sized_] [a type of the same size as a real type]]
+    [[type32_] [a type of size 32 bits]]
+    [[type64_] [a type of size 64 bits]]
+    [[ints8_] [an integral type of size 8 bits]]
+    [[ints16_] [an integral type of size 16 bits]]
+    [[ints32_] [an integral type of size 32 bits]]
+    [[ints64_] [an integral type of size 64 bits]]
+    [[int8_] [an integral signed type of size 8 bits]]
+    [[uint8_] [an integral unsigned type of size 8 bits]]
+    [[int16_] [an integral signed type of size 16 bits]]
+    [[uint16_] [an integral unsigned type of size 16 bits]]
+    [[float_] [the `float` type of size 32 bits]]
+    [[int32_] [an integral signed type of size 32 bits]]
+    [[uint32_] [an integral unsigned type of size 32 bits]]
+    [[double_] [the `double` type of size 64 bits]]
+    [[int64_] [an integral signed type of size 64 bits]]
+    [[uint64_] [an integral unsigned type of size 64 bits]]
+]
+
+[endsect] [/Scalar]
+
+[section Target hierarchy]
+[endsect]
+
+[section Array hierarchy]
+[endsect]
+
+[section Fusion hierarchy]
+[endsect]
+
+[section AST hierarchy]
+[endsect]
+
+[endsect] [/Built-in hierarchies]
+
+[endsect]

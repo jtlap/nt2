@@ -22,17 +22,26 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/dispatch/meta/details/hierarchy_base.hpp>
+#include <boost/mpl/if.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace boost { namespace dispatch { namespace details
 {
+  /// INTERNAL ONLY
   template<class T, class Origin = T, class Enable = void>
   struct  hierarchy_of
   {
-    typedef meta::unspecified_<Origin> type;
+    typedef typename remove_const<Origin>::type stripped;
+    typedef typename mpl::if_ < is_same< T, stripped >
+                              , stripped
+                              , Origin
+                              >::type           origin_;
+    typedef meta::unspecified_<origin_>         type;
   };
 }
-    
+
 namespace meta
 {
   //////////////////////////////////////////////////////////////////////////////
@@ -41,16 +50,22 @@ namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class T, class Origin = T>
   struct  hierarchy_of
+#if !defined(NT2_DOXYGEN_ONLY)
         : details::hierarchy_of< T
                                , typename remove_reference<Origin>::type
                                >
+#endif
   {};
 
+  /// INTERNAL ONLY
   template<class T, class Origin>
-  struct  hierarchy_of<T&, Origin> : hierarchy_of<T, typename remove_reference<Origin>::type> {};
-  
+  struct  hierarchy_of<T&, Origin>
+        : hierarchy_of<T, typename remove_reference<Origin>::type> {};
+
+  /// INTERNAL ONLY
   template<class T, class Origin>
-  struct  hierarchy_of<T const, Origin> : hierarchy_of<T, typename remove_reference<Origin>::type> {};
+  struct  hierarchy_of<T const, Origin>
+        : hierarchy_of<T, typename remove_reference<Origin>::type> {};
 } } }
 
 #include <boost/dispatch/meta/details/hierarchy_of.hpp>

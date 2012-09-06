@@ -118,6 +118,27 @@ NT2_TEST_CASE_TPL ( logical_value_of, BOOST_SIMD_TYPES )
   NT2_TEST( (is_same<T const& , typename value_of< logical<T> const&>::type>::value ));
 }
 
+
+NT2_TEST_CASE_TPL ( logical_scalar_of, BOOST_SIMD_TYPES )
+{
+  using boost::is_same;
+  using boost::simd::logical;
+  using boost::dispatch::meta::scalar_of;
+
+  using boost::simd::native;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  NT2_TEST( (is_same< logical<T>        , typename scalar_of< logical<T> >::type>::value       ));
+  NT2_TEST( (is_same< logical<T>&       , typename scalar_of< logical<T>& >::type>::value      ));
+  NT2_TEST( (is_same< logical<T> const  , typename scalar_of< logical<T> const>::type>::value  ));
+  NT2_TEST( (is_same< logical<T> const& , typename scalar_of< logical<T> const&>::type>::value ));
+
+  NT2_TEST( (is_same< logical<T>        , typename scalar_of< native< logical<T>, ext_t >  >::type>::value       ));
+  NT2_TEST( (is_same< logical<T>&       , typename scalar_of< native< logical<T>, ext_t >&  >::type>::value      ));
+  NT2_TEST( (is_same< logical<T> const  , typename scalar_of< native< logical<T>, ext_t > const >::type>::value  ));
+  NT2_TEST( (is_same< logical<T> const& , typename scalar_of< native< logical<T>, ext_t > const& >::type>::value ));
+}
+
 NT2_TEST_CASE_TPL ( logical_model_of, BOOST_SIMD_TYPES )
 {
   using boost::is_same;

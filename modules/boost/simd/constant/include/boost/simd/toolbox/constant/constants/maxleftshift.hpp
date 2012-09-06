@@ -15,7 +15,6 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 /*!
@@ -24,19 +23,19 @@
  *
  * \par Description
  * Constant Maxleftshift
- * It is senseless to shift a value of more bits than the number of bits - 1 
+ * It is senseless to shift a value of more bits than the number of bits - 1
  * of the value type: this is that number.
  * \par
  * The value of this constant is type dependant. This means that for different
  * types it does not represent the same mathematical number.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/maxleftshift.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,12 +47,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Maxleftshift
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -61,21 +60,25 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Maxleftshift of functor Maxleftshift 
+     * \brief Define the tag Maxleftshift of functor Maxleftshift
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     struct Maxleftshift : ext::constant_<Maxleftshift>
-    { 
-      template<class Target, class Dummy=void> 
-      struct  apply 
+    {
+      template<class Target, class Dummy=void>
+      struct  apply
             : meta::int_c < typename dispatch::meta::
-                                     as_integer<Target,signed>::type
-                          , sizeof(Target)*CHAR_BIT-1
-                          > {};  
+                                     as_integer < typename Target::type
+                                                , signed
+                                                >::type
+                          , sizeof(typename Target::type)*CHAR_BIT-1
+                          > {};
     };
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Maxleftshift, Maxleftshift)
 } }
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif

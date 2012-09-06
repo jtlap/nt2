@@ -1,0 +1,68 @@
+[section The C++ __NT2__ 'Hello World']
+Here is our proverbial __NT2__ 'Hello World' application which performs a simple
+AXPY operation.
+
+[import ../../demo/helloworld/helloworld.cpp]
+[hello]
+
+Let's go over each parts of this code.
+
+[c++]
+``
+#include <nt2/table.hpp>
+``
+
+This brings the core __NT2__ elements required for handling tables and
+associated functions.
+
+[c++]
+``
+#include <nt2/include/functions/ones.hpp>
+``
+
+Every __NT2__ functions lives in its own dedicated header file for better
+granularity and compile-time control. Here, we will fill our table with ones
+by using the [funcref nt2::ones ones] generative function.
+
+[c++]
+``
+using namespace nt2;
+``
+
+__NT2__ containers and functions live in the `nt2` namespace. We took the freedom
+to dump its whole content in the global namespace for simplicity even if good
+practice is to use symbol level using directives.
+
+[c++]
+``
+int main()
+{
+  table<double> x;
+  table<double> y = ones(4,4);
+``
+
+These two lines constructs two __NT2__ containers, =x= and =y=.
+=x= is default constructed and is built as an empty table of size =0x1=.
+=y= is initialized as =4x4= table filled of [c++]`1` by using the [funcref nt2::ones ones]
+function.
+
+[c++]
+``
+  x = 40.0 * y + 2.0;
+``
+
+There, we compute =x= to be equal to =y= times 40 plus 2. As we see, all operations
+are naturally applied on [classref nt2::table table]. Most of the time, you will
+want to write such compact expression so __NT2__ code generator can produce proper
+parallel code.
+
+[c++]
+``
+  std::cout << x << "\n";
+}
+``
+
+Finally, we send =x= to the standard output stream. Any __NT2__ containers can
+be streamed to any standard compliant stream like object.
+
+[endsect]

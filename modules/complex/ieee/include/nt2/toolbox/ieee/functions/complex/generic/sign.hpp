@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::sign(imag(a0))); 
+      return result_type(nt2::sign(nt2::imag(a0))); 
     }
   };
   
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::sign(real(a0))); 
+      return result_type(nt2::sign(nt2::real(a0))); 
     }
   };
 

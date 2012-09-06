@@ -8,16 +8,17 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ULPDIST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ULPDIST_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/ulpdist.hpp>
 #include <boost/simd/include/constants/eps.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/ldexp.hpp>
-#include <boost/simd/include/functions/frexp.hpp>
-#include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/dist.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/tofloat.hpp>
+#include <boost/simd/include/functions/scalar/ldexp.hpp>
+#include <boost/simd/include/functions/scalar/frexp.hpp>
+#include <boost/simd/include/functions/scalar/max.hpp>
+#include <boost/simd/include/functions/scalar/dist.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -80,8 +81,7 @@ namespace boost { namespace simd { namespace ext
                             :   boost::simd::abs( boost::simd::ldexp(a0, expo)
                                                 - boost::simd::ldexp(a1, expo)
                                                 );
-      A0 that = e/static_cast<A0>(Eps<type>());
-      return that;
+      return e/static_cast<A0>(Eps<type>());
     }
   };
 } } }

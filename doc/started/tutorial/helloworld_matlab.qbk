@@ -1,0 +1,17 @@
+[section A Matlab to __NT2__ Introduction]
+This section will take a sample Matlab code and turn it into its __NT2__ counterpart.
+Each steps will try to enforce how __NT2__ and Matlab code relate to each other,
+highlighting both similarities and differences.
+
+Here's our Matlab sample
+
+[teletype]
+``
+y = reshape( 1:16, 4, 4 );
+x = sqrt( sin(y).^2 + cos(y).^2 )
+``
+
+Nothing very fancy, we compute a =4x4= matrix full of =1= in maybe the most
+inefficient way.
+
+[endsect]

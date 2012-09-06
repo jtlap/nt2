@@ -13,9 +13,6 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPARE_EQUAL_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-
-#include <boost/simd/toolbox/operator/specific/common.hpp>
-
 #include <boost/proto/tags.hpp>
 
 /*!
@@ -78,7 +75,10 @@ namespace boost { namespace simd
      * \brief Define the tag compare_equal_ of functor compare_equal 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct compare_equal_ : ext::reduction_<compare_equal_> { typedef ext::reduction_<compare_equal_> parent; };
+    struct compare_equal_ : ext::unspecified_<compare_equal_> 
+    { 
+      typedef ext::unspecified_<compare_equal_> parent; 
+    };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_equal_, compare_equal , 2 )
@@ -98,5 +98,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef boost::proto::tag::equal_to type;
   };
 } } }
+
+#include <boost/simd/toolbox/operator/specific/common.hpp>
 
 #endif

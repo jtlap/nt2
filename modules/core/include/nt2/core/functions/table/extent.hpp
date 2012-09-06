@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_TABLE_EXTENT_HPP_INCLUDED
 
 #include <nt2/core/functions/extent.hpp>
+#include <nt2/core/container/table/category.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -17,7 +18,7 @@ namespace nt2 { namespace ext
                             , (A0)(S0), ((table_< unspecified_<A0>, S0>))
                             )
   {
-    typedef typename A0::extent_type result_type;
+    typedef typename A0::extent_type const& result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const { return a0.extent(); }

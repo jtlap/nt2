@@ -8,17 +8,18 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLIK_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLIK_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellik.hpp>
 #include <boost/math/special_functions.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/tan.hpp>
-#include <nt2/include/functions/atan.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/ceil.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/tan.hpp>
+#include <nt2/include/functions/scalar/atan.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
+#include <nt2/include/functions/scalar/ceil.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

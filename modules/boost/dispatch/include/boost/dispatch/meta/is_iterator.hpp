@@ -14,24 +14,24 @@
  * \brief Defines and implements the boost::dispatch::meta::is_iterator \metafunction
  */
 
-#include <boost/mpl/bool.hpp>
 #include <boost/dispatch/meta/strip.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/dispatch/meta/enable_if_type.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
-#include <boost/preprocessor/facilities/is_empty.hpp>
 
 //============================================================================
 // Fix a couple of things for restrict pointers
 // FIXME: integrate upstream
 //============================================================================
-#if defined(_MSC_VER) || defined(__GNUC__) && !BOOST_PP_IS_EMPTY(__restrict)
+#ifndef BOOST_DISPATCH_NO_RESTRICT
 namespace boost
 {
   template<class T>
-  struct is_pointer<T* __restrict>
+  struct is_pointer<T* BOOST_DISPATCH_RESTRICT>
    : mpl::true_
   {
   };
@@ -42,10 +42,13 @@ namespace boost
     struct iterator_traits;
 
     template<class T>
-    struct iterator_traits<T* __restrict>
+    struct iterator_traits<T* BOOST_DISPATCH_RESTRICT>
      : boost::detail::iterator_traits<T*>
     {
-      typedef T* __restrict pointer;
+      typedef T* BOOST_DISPATCH_RESTRICT pointer;
+#ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
+      typedef T& BOOST_DISPATCH_RESTRICT reference;
+#endif
     };
   }
 }

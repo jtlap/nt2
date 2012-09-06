@@ -8,21 +8,22 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_YNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_YNI_HPP_INCLUDED
+
+#include <nt2/toolbox/bessel/functions/yni.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/cos.hpp>
+#include <nt2/include/functions/scalar/cospi.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/y0.hpp>
+#include <nt2/include/functions/scalar/y1.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/cos.hpp>
-#include <nt2/include/functions/cospi.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/y0.hpp>
-#include <nt2/include/functions/y1.hpp>
-
 #include <nt2/toolbox/bessel/details/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -101,7 +102,7 @@ namespace nt2 { namespace ext
       result_type anm2 = nt2::y0(x);
       result_type anm1 = nt2::y1(x);
       int32_t k = 1;
-      result_type r = k << 1;
+      result_type r = result_type(k << 1);
       result_type xinv = rec(x);
       result_type an;
       do

@@ -48,10 +48,6 @@ NT2_TEST_CASE_TPL ( is_not_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
   // specific values tests
   NT2_TEST_EQUAL(is_not_equal(nt2::Mone<T>(), nt2::Mone<T>()), ssr_t(false));
   NT2_TEST_EQUAL(is_not_equal(nt2::One<T>(), nt2::One<T>()), ssr_t(false));
@@ -74,9 +70,6 @@ NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_equal(nt2::Inf<T>(), nt2::Inf<T>()), ssr_t(false));

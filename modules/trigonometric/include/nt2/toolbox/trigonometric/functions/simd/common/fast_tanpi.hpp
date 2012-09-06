@@ -11,8 +11,8 @@
 
 #include <nt2/toolbox/trigonometric/functions/fast_tanpi.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/include/functions/genmask.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/genmask.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
 namespace nt2 { namespace ext
@@ -45,8 +45,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {impl::trig_base<A0,pi_tag,  tag::simd_type, clipped_pio4>::tana(a0)};
-      return that;
+      return impl::trig_base<A0,pi_tag,  tag::simd_type, clipped_pio4>::tana(a0);
     }
   };
 } }

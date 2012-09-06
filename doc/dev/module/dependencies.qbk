@@ -1,0 +1,21 @@
+[section Dependencies]
+
+A __NT2__ module with its name in uppercase as =MODULE_U= may set the following variables in its dependencies file:
+
+[pre
+- NT2_[~MODULE_U]'''_DEPENDENCIES_FOUND'''          whether all dependencies were found (boolean)
+- NT2_[~MODULE_U]'''_DEPENDENCIES_INCLUDE_DIR'''    include directories of all dependencies (list)
+- NT2_[~MODULE_U]'''_DEPENDENCIES_LIBRARY_DIR'''    library directories of all dependencies (list)
+- NT2_[~MODULE_U]'''_DEPENDENCIES_LIBRARIES'''      libraries that the module depends on (list)
+- NT2_[~MODULE_U]'''_DEPENDENCIES_COMPILE_FLAGS'''  compile flags required for the dependencies of the module (string)
+- NT2_[~MODULE_U]'''_DEPENDENCIES_LINK_FLAGS'''     link flags required for the dependencies of the module (string)
+- NT2_[~MODULE_U]'''_DEPENDENCIES_EXTRA'''          extra NT2 modules the module is interdependent with (list)
+- NT2_[~MODULE_U]'''_LIBRARIES'''                   libraries provided by the module, i.e. those that the module builds itself (list)
+- NT2_[~MODULE_U]'''_COMPILE_FLAGS'''               compile flags required to use the module (string)
+- NT2_[~MODULE_U]'''_LINK_FLAGS'''                  link flags required to use the module (string)
+]
+
+It is not necessary to define all of these variables. If [^NT2_[~MODULE_U]_DEPENDENCIES_FOUND] is not defined, it is assumed that all dependencies
+outside of those defined through [^NT2_[~MODULE_U]_DEPENDENCIES_EXTRA] were found.
+
+[endsect]

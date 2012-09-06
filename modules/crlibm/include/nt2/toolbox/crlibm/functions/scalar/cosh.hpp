@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_CRLIBM_FUNCTIONS_SCALAR_COSH_HPP_INCLUDED
 #define NT2_TOOLBOX_CRLIBM_FUNCTIONS_SCALAR_COSH_HPP_INCLUDED
+#include <nt2/toolbox/crlibm/functions/cosh.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
   extern "C"{
     extern double cosh_rn ( double );

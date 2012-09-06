@@ -8,10 +8,13 @@
 ##############################################################################
 
 SET( SOURCES
+  nbd_atan2.cpp
+  proper_tanpi.cpp
   rem_pio2_straight.cpp
   rem_pio2_medium.cpp
   rem_pio2_cephes.cpp
   rem_pio2.cpp
+  rem_2pi.cpp
   sinecosine.cpp
   cosecant.cpp
   secant.cpp

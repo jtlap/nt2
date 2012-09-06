@@ -8,6 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
+  ctz.cpp
+  clz.cpp
+  ilog2.cpp
   genmask.cpp
   twopower.cpp
   shri.cpp

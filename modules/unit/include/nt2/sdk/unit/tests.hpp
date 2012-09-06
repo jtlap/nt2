@@ -17,70 +17,16 @@
 
 #include <iomanip>
 #include <vector>
-#include <nt2/include/functions/random.hpp>
-#include <nt2/include/constants/false.hpp>
-#include <nt2/include/constants/true.hpp>
-#include <nt2/include/constants/allbits.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
-#include <nt2/sdk/unit/details/stats.hpp>
-#include <nt2/sdk/unit/details/tests.hpp>
+#include <nt2/sdk/unit/stats.hpp>
+#include <nt2/include/functions/random.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
 
+#include <nt2/sdk/unit/tests/ulp.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
-#include <nt2/sdk/unit/nb_rand_tests.hpp>
-
-#define NT2_TEST_ULP_EQUAL(A,B,N)          \
-  {                  \
-    typedef typename nt2::meta::scalar_of<r_t>::type sr_t;    \
-    sr_t r1 = A;              \
-    sr_t r2 = B;              \
-    ulpd = double(nt2::ulpdist(r1, r2));  \
-    bool b;                 \
-    b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,    \
-              BOOST_CURRENT_FUNCTION,    \
-              r1, r2, N);       \
-      if (!b)                \
-  {                \
-    std::cout <<  std::setprecision(20) << "   because " << #A << " = " << r1    \
-        << " and " << #B << " = " << r2 <<  std::endl;  \
-    std::cout << "   and ulp distance is "      \
-        << ulpd << std::endl;        \
-  }                \
-  }                  \
-/**/
-
-#define NT2_TEST_TUPLE_ULP_EQUAL(A,B,N)          \
-  {                  \
-    bool b;                 \
-    b = ::nt2::details::test_ulp_eq(#A, #B, #N, __LINE__,    \
-              BOOST_CURRENT_FUNCTION,    \
-              A, B, N);       \
-    ulpd = nt2::ulpdist(A, B);          \
-      if (!b)                \
-  {                \
-    std::cout << "   because " << #A << " = " << A    \
-        << " and " << #B << " = " << B <<  std::endl;  \
-    std::cout << "   and ulp distance is "      \
-        << ulpd << std::endl;      \
-  }                \
-  }                  \
-/**/
-
-////////////////////////////////////////////////////////////////////////////////
-// Show details for comparisons tests
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_COMPARISONS_DETAILS(A, B)          \
-    if (!b)                \
-      {                  \
-  std::cout << "   because " << #A << " = " << r1 << " and " << #B << " = " << r2 <<  std::endl; \
-  std::cout << "   and ulp distance is " << nt2::ulpdist(A, B) << std::endl; \
-      }                  \
-/**/
-#define NT2_SHOW_ARG1(ARG)        \
-  std::cout << "   for a0 = " << ARG << std::endl;  \
-/**/
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 #define NT2_CREATE_BUF(NAME, TYPE, SIZE, MIN, MAX)    \
   std::vector<TYPE,          \
@@ -116,45 +62,6 @@
   for(int k = 0; k < (int)SIZE; ++k){        \
     tab_##NAME[k] = nt2::random(MIN, MAX);      \
   }                \
-/**/
-
-////////////////////////////////////////////////////////////////////////////////
-// Verbose predicate based tests
-////////////////////////////////////////////////////////////////////////////////
-#define NT2_TEST_EQUAL_V1(ARG, A,B)  \
-  NT2_SHOW_ARG1(ARG)      \
-  NT2_COMPARISONS_TEST_DETAILS(A, B)  \
-  NT2_TEST_EQUAL(A,B)      \
-/**/
-
-#define NT2_TEST_NOT_EQUAL_V1(ARG,A,B)  \
-  NT2_SHOW_ARG1(ARG)      \
-  NT2_COMPARISONS_TEST_DETAILS(A, B)  \
-  NT2_TEST_NOT_EQUAL(A,B)    \
-/**/
-
-#define NT2_TEST_LESSER_V1(ARG,A,B)  \
-  NT2_SHOW_ARG1(ARG)      \
-  NT2_COMPARISONS_TEST_DETAILS(A, B)  \
-  NT2_TEST_LESSER(A,B)             \
-/**/
-
-#define NT2_TEST_GREATER_V1(ARG,A,B)  \
-  NT2_SHOW_ARG1(ARG)      \
-  NT2_COMPARISONS_TEST_DETAILS(A, B)  \
-  NT2_TEST_GREATER(A,B)      \
-/**/
-
-#define NT2_TEST_LESSER_EQUAL_V1(ARG,A,B)\
-  NT2_SHOW_ARG1(ARG)      \
-  NT2_COMPARISONS_TEST_DETAILS(A, B)  \
-  NT2_TEST_LESSER_EQUAL(A,B)    \
-/**/
-
-#define NT2_TEST_GREATER_EQUAL_V1(ARG,A,B)\
-  NT2_SHOW_ARG1(ARG)      \
-  NT2_COMPARISONS_TEST_DETAILS(A, B)  \
-  NT2_TEST_GREATER_EQUAL(A,B)    \
 /**/
 
 #endif

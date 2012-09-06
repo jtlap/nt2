@@ -9,9 +9,9 @@
 #ifndef NT2_CORE_CONTAINER_DSL_DETAILS_TRAIT_TRANSFORM_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_DETAILS_TRAIT_TRANSFORM_HPP_INCLUDED
 
-#include <boost/proto/core.hpp>
 #include <boost/proto/traits.hpp>
-#include <boost/proto/transform.hpp>
+#include <boost/proto/transform/impl.hpp>
+#include <boost/dispatch/attributes.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace nt2 { namespace details

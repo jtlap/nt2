@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOSD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOSD_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/sincosd.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -47,8 +48,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;    
     inline result_type operator()(A0 const& a0,A1 & a2) const
     {
-      return impl::trig_base <A1,degree_tag,
-                       tag::simd_type>::sincosa(tofloat(a0),a2); 
+      return impl::trig_base< A1, degree_tag, tag::simd_type >::sincosa(tofloat(a0), a2);
     }
   };
 

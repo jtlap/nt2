@@ -8,13 +8,14 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_FUZZY_DEFINITELY_GREATER_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_FUZZY_DEFINITELY_GREATER_HPP_INCLUDED
+#include <nt2/toolbox/fuzzy/functions/fuzzy_definitely_greater.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/toolbox/fuzzy/functions/fuzzy_definitely_greater.hpp>
-#include <nt2/include/functions/multiplies.hpp>
-#include <nt2/include/functions/plus.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
+#include <nt2/include/functions/simd/plus.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
+#include <nt2/include/functions/simd/max.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_

@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_CEIL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_CEIL_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/ceil.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/round2even.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
+#include <boost/simd/include/functions/simd/round2even.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

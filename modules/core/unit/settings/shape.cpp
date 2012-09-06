@@ -8,13 +8,10 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::settings shape is an option"
 
-#include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/shape.hpp>
-#include <nt2/core/container/table/normalize_settings.hpp>
+#include <nt2/core/settings/settings.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -50,7 +47,11 @@ NT2_TEST_CASE( shape_default )
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some shape_ as a setting and check everythign go out properly
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings rect  (nt2::rectangular_, nt2::rectangular_);
+nt2::settings rect  (nt2::rectangular_, nt2::rectangular_)
+{
+  return nt2::settings();
+}
+
 NT2_TEST_CASE( setting_shape_ )
 {
   using nt2::rectangular_;
@@ -90,8 +91,7 @@ NT2_TEST_CASE( shape_buffer )
   using nt2::settings;
   using nt2::meta::option;
   using nt2::rectangular_;
-  using nt2::meta::normalize_settings;
-  
+
   NT2_TEST_EXPR_TYPE( rectangular_()
                     , (option< settings(long,int), nt2::tag::shape_,_>)
                     , (rectangular_)

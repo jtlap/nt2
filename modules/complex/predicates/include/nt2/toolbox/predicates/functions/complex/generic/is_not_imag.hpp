@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_IMAG_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_IMAG_HPP_INCLUDED
+#include <nt2/toolbox/predicates/functions/is_not_imag.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/complex/complex.hpp>
@@ -27,7 +28,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_nez(real(a0)); 
+      return is_nez(nt2::real(a0)); 
     }
   };
 
@@ -52,7 +53,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_nez(real(a0)); 
+      return is_nez(nt2::real(a0)); 
     }
   };
 

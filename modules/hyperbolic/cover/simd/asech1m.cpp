@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( asech1m_real__1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = asech1m(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+          std::cout << "a0[" << i << "] = " << a0[i] << std::endl; 
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::asech1m (a0[i])), 300);
           ulp0 = nt2::max(ulpd,ulp0);
         }

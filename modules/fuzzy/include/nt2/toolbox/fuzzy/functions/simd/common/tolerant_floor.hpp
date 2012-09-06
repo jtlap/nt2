@@ -8,18 +8,25 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_TOLERANT_FLOOR_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SIMD_COMMON_TOLERANT_FLOOR_HPP_INCLUDED
+
+#include <nt2/toolbox/fuzzy/functions/tolerant_floor.hpp>
+#include <nt2/include/functions/simd/floor.hpp>
+#include <nt2/include/functions/simd/min.hpp>
+#include <nt2/include/functions/simd/max.hpp>
+#include <nt2/include/functions/simd/minusone.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/logical_or.hpp>
+#include <nt2/include/functions/simd/is_lez.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
+#include <nt2/include/functions/simd/multiplies.hpp>
 #include <nt2/include/constants/threeeps.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/include/functions/floor.hpp>
-#include <nt2/include/functions/min.hpp>
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_less_equal.hpp>
 
 namespace nt2 { namespace ext
 {

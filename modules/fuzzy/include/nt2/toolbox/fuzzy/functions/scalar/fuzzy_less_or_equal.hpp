@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_FUZZY_LESS_OR_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_FUZZY_LESS_OR_EQUAL_HPP_INCLUDED
-#include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/toolbox/fuzzy/functions/fuzzy_less_or_equal.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

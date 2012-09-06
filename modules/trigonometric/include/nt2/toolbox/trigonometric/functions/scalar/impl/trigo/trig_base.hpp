@@ -12,16 +12,16 @@
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/selection_tags.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/f_trig_reduction.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/d_trig_reduction.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/shli.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/bitwise_xor.hpp>
-#include <nt2/include/functions/bitwise_or.hpp>
+#include <nt2/include/functions/simd/is_invalid.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/shli.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/bitwise_xor.hpp>
+#include <nt2/include/functions/simd/bitwise_or.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 
 // trigonometric functions are implemented using the classical cephes/fdlibm/libc principles

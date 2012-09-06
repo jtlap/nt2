@@ -10,71 +10,52 @@
 #define NT2_CORE_FUNCTIONS_COMMON_TRANSFORM_HPP_INCLUDED
 
 #include <nt2/core/functions/transform.hpp>
-#include <nt2/include/functor.hpp>
-#include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/core/container/table/table.hpp>
-#include <boost/fusion/include/pop_front.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
+#include <nt2/include/functions/run.hpp>
 
 namespace nt2 { namespace ext
 {
+  //============================================================================
+  // Global version
+  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
-                            , (A0)(A1)(T1)(N1)
+                            , (A0)(A1)
                             , (ast_<A0>)
-                              ((expr_< scalar_< unspecified_<A1> >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
+                              (ast_<A1>)
                             )
   {
     typedef void result_type;
 
-    typedef typename meta::
-            strip< typename meta::
-                   scalar_of<A0>::type
-                 >::type                                    stype;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1) const
     {
-      nt2::run(a0, boost::fusion::vector0<>(), nt2::run(a1, boost::fusion::vector0<>(), meta::as_<stype>()));
+      nt2::transform(a0,a1,0,nt2::numel(a0));
     }
   };
 
+  //============================================================================
+  // Partial version - Process sz elements starting at element p
+  // Note that p should be properly set beforehand
+  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, tag::cpu_
-                            , (A0)(A1)(S1)(T1)(N1)
+                            , (A0)(A1)(A2)(A3)
                             , (ast_<A0>)
-                              ((expr_< table_< unspecified_<A1>, S1 >
-                                     , T1
-                                     , N1
-                                     >
-                              ))
+                              (ast_<A1>)
+                              (scalar_< integer_<A2> >)
+                              (scalar_< integer_<A3> >)
                             )
   {
     typedef void result_type;
 
-    typedef typename meta::
-            strip< typename meta::
-                   scalar_of<A0>::type
-                 >::type                                    stype;
+    typedef typename A0::value_type                stype;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0& a0, A1& a1) const
+    operator()(A0& a0, A1& a1, A2 p, A3 sz) const
     {
-      typename A0::index_type::type bs;
-      std::ptrdiff_t ilow   = boost::fusion::at_c<0>(bs);
-      std::ptrdiff_t olow   = boost::fusion::at_c<1>(bs);
-      std::ptrdiff_t bound  = boost::fusion::at_c<0>(a0.extent()) + ilow;
-      std::ptrdiff_t obound = olow + nt2::numel(boost::fusion::pop_front(a0.extent()));
-
-      for(std::ptrdiff_t j=olow; j!=obound; ++j)
-        for(std::ptrdiff_t i=ilow; i!=bound; ++i)
-          nt2::run(a0, boost::fusion::vector_tie(i, j), nt2::run(a1, boost::fusion::vector_tie(i,j), meta::as_<stype>()));
+      std::size_t bound = p+sz;
+      for(std::size_t i=p; i != bound; ++i)
+        nt2::run(a0, i, nt2::run(a1, i, meta::as_<stype>()));
     }
   };
-
 } }
 
 #endif

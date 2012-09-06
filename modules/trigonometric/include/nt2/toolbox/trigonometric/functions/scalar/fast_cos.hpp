@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_FAST_COS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_FAST_COS_HPP_INCLUDED
 
+#include <nt2/toolbox/trigonometric/functions/fast_cos.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo.hpp>
 //  MIGRATION WARNING you have to provide the file for the previous include from
 //  nt2/core/numeric/functions/details/scalar/impl/trigo.hpp

@@ -12,7 +12,7 @@
 #include <nt2/toolbox/trigonometric/functions/atan.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/invtrig.hpp>
 
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      const result_type r = { impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(a0) }; 
+      const result_type r = impl::invtrig_base<result_type,radian_tag, tag::simd_type>::atan(a0); 
       return r;
     }
   };

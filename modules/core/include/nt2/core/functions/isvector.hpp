@@ -20,14 +20,11 @@
  * (1Xn or nX1) or not.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/isvector.hpp>
  * \endcode
- * 
- * \par Alias 
- * \arg is_vector
- * 
+ *
  * \synopsis
  *
  * \code
@@ -39,9 +36,9 @@
  * \endcode
  *
  * \param a0 the first parameter of isvector
- * 
+ *
  * \return a bool value
- *  
+ *
 **/
 
 namespace nt2
@@ -55,7 +52,6 @@ namespace nt2
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isvector_, isvector, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isvector_, is_vector, 1)
 }
 
 #endif

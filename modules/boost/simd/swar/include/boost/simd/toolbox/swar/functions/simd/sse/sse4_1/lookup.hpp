@@ -1,22 +1,23 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE4_1_LOOKUP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#include <boost/simd/toolbox/swar/functions/lookup.hpp>
 #include <boost/simd/toolbox/swar/functions/simd/sse/ssse3/lookup.hpp>
 // #include <boost/dispatch/meta/as_floating.hpp>
 // #include <boost/simd/sdk/meta/size.hpp>
 // #include <boost/dispatch/meta/strip.hpp>
 // #include <boost/simd/sdk/memory/aligned_type.hpp>
-// // #include <boost/simd/include/functions/at.hpp>
-// // #include <boost/simd/include/functions/load.hpp>
-// // #include <boost/simd/include/functions/store.hpp>
+// // #include <boost/simd/include/functions/simd/at.hpp>
+// // #include <boost/simd/include/functions/simd/load.hpp>
+// // #include <boost/simd/include/functions/simd/store.hpp>
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type A0 is arithmetic_
 // /////////////////////////////////////////////////////////////////////////////
@@ -101,7 +102,7 @@
 // //       typedef typename dispatch::meta::as_floating<A0>::type real_type;
 // //       const int32_t N = meta::cardinal_of<A0>::value;
 // //       int32_t mask = _mm_movemask_ps(is_lt(a1, N));
-// //       real_type tmp = {simd::bitwise_cast<real_type>(a0)}; 
+// //       real_type tmp = simd::bitwise_cast<real_type>(a0);
 // //       return simd::bitwise_cast<A0>(_mm_blend_ps(tmp, mask));
 //     }
 //   };

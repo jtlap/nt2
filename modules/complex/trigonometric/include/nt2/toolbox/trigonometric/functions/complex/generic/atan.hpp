@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ATAN_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ATAN_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/atan.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/oneplus.hpp>
@@ -82,7 +83,7 @@ namespace nt2 { namespace ext
     { 
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::as_dry<rtype>::type dtype; 
-      return mul_minus_i(nt2::atanh(-imag(a0)));
+      return mul_minus_i(nt2::atanh(-nt2::imag(a0)));
     }
   };
 
@@ -93,7 +94,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::atan(real(a0))); 
+      return bitwise_cast<result_type>(nt2::atan(nt2::real(a0))); 
     }
   };
   

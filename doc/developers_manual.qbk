@@ -1,0 +1,14 @@
+[part Developer's Manual
+  [quickbook 1.5]
+]
+
+[#dev_manual]
+[xinclude boost.dispatch.xml]
+[xinclude boost.simd.doc.xml]
+[xinclude dev/module.xml]
+[xinclude dev/expression.xml]
+[xinclude dev/architecture.xml]
+[xinclude dev/tutorial.xml]
+[xinclude dev/faq.xml]
+
+

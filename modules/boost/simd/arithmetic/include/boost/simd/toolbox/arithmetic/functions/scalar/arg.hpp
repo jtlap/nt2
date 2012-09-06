@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ARG_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ARG_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/arg.hpp>
 #include <boost/simd/include/constants/pi.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/is_gez.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/is_gez.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
+#include <boost/simd/include/functions/scalar/is_nan.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -1,0 +1,15 @@
+[chapter Architecture Support
+  [quickbook 1.5]
+]
+
+[section Overview]
+This section describes how architecture and architecture dependant code are
+handled by __NT2__. Topics covered include: the Site hierarchy mechanism, how
+to detect new architectures and insert them in the dispatch system and good
+practices on architecture dependant code writing.
+[endsect]
+
+[include arch/rationale.qbk]
+[include arch/creation.qbk]
+[include arch/detection.qbk]
+[include arch/local.qbk]

@@ -9,13 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REM_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/rem.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/selsub.hpp>
-#include <boost/simd/include/functions/divfix.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/if_allbits_else.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/selsub.hpp>
+#include <boost/simd/include/functions/simd/divfix.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/is_invalid.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

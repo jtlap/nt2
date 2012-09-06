@@ -41,9 +41,6 @@ NT2_TEST_CASE_TPL ( frac_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(frac(boost::simd::Inf<T>()), boost::simd::Nan<r_t>());
@@ -70,9 +67,6 @@ NT2_TEST_CASE_TPL ( frac_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(frac(boost::simd::One<T>()), boost::simd::Zero<r_t>());
@@ -95,9 +89,6 @@ NT2_TEST_CASE_TPL ( frac_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(frac(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());

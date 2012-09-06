@@ -9,9 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_ALL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_ALL_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+
 #include <boost/simd/toolbox/reduction/functions/all.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,9 +27,9 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type             sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >  svtype;
-      svtype a00 = { _mm256_extractf128_si256(a0, 0)};
+      svtype a00 = _mm256_extractf128_si256(a0, 0);
       if  (!all(a00)) return False<sA0>();
-      svtype a01 = { _mm256_extractf128_si256(a0, 1)};
+      svtype a01 = _mm256_extractf128_si256(a0, 1);
       return all(a01);
     }
   };

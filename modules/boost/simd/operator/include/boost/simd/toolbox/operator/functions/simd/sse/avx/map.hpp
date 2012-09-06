@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_SSE_AVX_MAP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
+#include <boost/simd/toolbox/operator/functions/map.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 
@@ -53,7 +54,7 @@ namespace boost { namespace simd { namespace ext                               \
   ( boost::simd::tag::map_, boost::simd::tag::avx_                             \
   , (Func)BOOST_PP_REPEAT(n, M2, ~)                                            \
   , (unspecified_<Func>)                                                       \
-    BOOST_PP_REPEAT(n,M0,BOOST_PP_TUPLE_ELEM(2, 0, t))                         \
+    BOOST_PP_REPEAT(n,M0,BOOST_PP_TUPLE_ELEM(3, 0, t))                         \
   )                                                                            \
   {                                                                            \
     typedef typename dispatch::meta::                                          \
@@ -70,14 +71,14 @@ namespace boost { namespace simd { namespace ext                               \
       base r0,r1;                                                              \
       result_type that;                                                        \
       BOOST_PP_REPEAT(n, M3, ~)                                                \
-      BOOST_PP_REPEAT(n, M4, BOOST_PP_TUPLE_ELEM(2, 1, t))                     \
+      BOOST_PP_REPEAT(n, M4, BOOST_PP_TUPLE_ELEM(3, 1, t))                     \
       r0 = f(BOOST_PP_ENUM_PARAMS(n, a0) );                                    \
       r1 = f(BOOST_PP_ENUM_PARAMS(n, a1) );                                    \
       that                                                                     \
-      = BOOST_PP_CAT(_mm256_insertf128_,BOOST_PP_TUPLE_ELEM(2,1,t))            \
-        (that(),r0(),0);                                                       \
+      = BOOST_PP_CAT(_mm256_cast, BOOST_PP_TUPLE_ELEM(3,2,t))                  \
+        (r0());                                                                \
       that                                                                     \
-      = BOOST_PP_CAT(_mm256_insertf128_,BOOST_PP_TUPLE_ELEM(2,1,t))            \
+      = BOOST_PP_CAT(_mm256_insertf128_, BOOST_PP_TUPLE_ELEM(3,1,t))           \
         (that(),r1(),1);                                                       \
       return that;                                                             \
     }                                                                          \
@@ -85,13 +86,13 @@ namespace boost { namespace simd { namespace ext                               \
 } } }                                                                          \
 /**/
 
-#define BOOST_SIMD_MAP_CALL(T,C)                                               \
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M5, (T,C))    \
+#define BOOST_SIMD_MAP_CALL(T,C,CC)                                            \
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M5,(T,C,CC))  \
 /**/
 
-BOOST_SIMD_MAP_CALL(double_ , pd    )
-BOOST_SIMD_MAP_CALL(single_  , ps    )
-BOOST_SIMD_MAP_CALL(integer_, si256 )
+BOOST_SIMD_MAP_CALL(double_ , pd    , pd128_pd256 )
+BOOST_SIMD_MAP_CALL(single_ , ps    , ps128_ps256 )
+BOOST_SIMD_MAP_CALL(integer_, si256 , si128_si256 )
 
 #undef BOOST_SIMD_MAP_CALL
 #undef M5

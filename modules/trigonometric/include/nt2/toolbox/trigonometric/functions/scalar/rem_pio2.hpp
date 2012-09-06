@@ -10,16 +10,21 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/rem_pio2.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/include/functions/ldexp.hpp>
-#include <nt2/include/functions/floor.hpp>
+#include <nt2/include/functions/scalar/bitwise_cast.hpp>
+#include <nt2/include/functions/scalar/ldexp.hpp>
+#include <nt2/include/functions/scalar/floor.hpp>
+#include <nt2/include/functions/rem_pio2_cephes.hpp>
+#include <nt2/include/functions/rem_pio2_straight.hpp>
+#include <nt2/include/functions/rem_pio2_medium.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation when float
@@ -53,7 +58,7 @@ namespace nt2 { namespace ext
                  (scalar_ < single_<A0> > )
                  )
   {
-    typedef nt2::int32_t result_type;    
+    typedef typename meta::as_integer<A0>::type result_type;    
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
     {
       A0 y[2];
@@ -450,39 +455,40 @@ namespace nt2 { namespace ext
    */
 #ifdef __LITTLE_ENDIAN
 #define LOW_WORD_IDX 0
-#define HIGH_WORD_IDX 1
+#define HIGH_WORD_IDX sizeof(nt2::uint32_t)
 #else
-#define LOW_WORD_IDX 1
+#define LOW_WORD_IDX sizeof(nt2::uint32_t)
 #define HIGH_WORD_IDX 0
 #endif
 
-#define GET_HIGH_WORD(i,d)                        \
-  do {                                    \
-    A0 f = (d);                                \
-    std::memcpy(&(i), reinterpret_cast<nt2::uint32_t*>(&f) + HIGH_WORD_IDX, sizeof(nt2::uint32_t));        \
+#define GET_HIGH_WORD(i,d)                                                                         \
+  do {                                                                                             \
+    A0 f = (d);                                                                                    \
+    std::memcpy(&(i), reinterpret_cast<char*>(&f) + HIGH_WORD_IDX, sizeof(nt2::uint32_t));         \
   } while (0)
 
-#define GET_LOW_WORD(i,d)                          \
-  do {                                      \
-    A0 f = (d);                                  \
-    std::memcpy(&(i), reinterpret_cast<nt2::uint32_t*>(&f) + LOW_WORD_IDX, sizeof(nt2::uint32_t));        \
+#define GET_LOW_WORD(i,d)                                                                          \
+  do {                                                                                             \
+    A0 f = (d);                                                                                    \
+    std::memcpy(&(i), reinterpret_cast<char*>(&f) + LOW_WORD_IDX, sizeof(nt2::uint32_t));          \
   } while (0)
 
-#define SET_HIGH_WORD(d,v)                        \
-  do {                                    \
-    A0 f = (d);                                \
-    nt2::uint32_t value = (v);        \
-    std::memcpy(reinterpret_cast<nt2::uint32_t*>(&f) + HIGH_WORD_IDX, &value, sizeof(nt2::uint32_t));        \
-    (d) = f;                                \
+#define SET_HIGH_WORD(d,v)                                                                         \
+  do {                                                                                             \
+    A0 f = (d);                                                                                    \
+    nt2::uint32_t value = (v);                                                                     \
+    std::memcpy(reinterpret_cast<char*>(&f) + HIGH_WORD_IDX, &value, sizeof(nt2::uint32_t));       \
+    (d) = f;                                                                                       \
   } while (0)
 
-#define SET_LOW_WORD(d,v)                        \
-  do {                                    \
-    A0 f = (d);                                \
-    nt2::uint32_t value = (v);        \
-    std::memcpy(reinterpret_cast<nt2::uint32_t*>(&f) + LOW_WORD_IDX, &value, sizeof(nt2::uint32_t));        \
-    (d) = f;                                \
+#define SET_LOW_WORD(d,v)                                                                          \
+  do {                                                                                             \
+    A0 f = (d);                                                                                    \
+    nt2::uint32_t value = (v);                                                                     \
+    std::memcpy(reinterpret_cast<char*>(&f) + LOW_WORD_IDX, &value, sizeof(nt2::uint32_t));        \
+    (d) = f;                                                                                       \
   } while (0)
+
   static nt2::int32_t __ieee754_rem_pio2(A0 x, A0 *y)
     {    
       static const nt2::int32_t two_over_pi[] = {
@@ -908,8 +914,63 @@ namespace nt2 { namespace ext
 #undef INSERT_WORDS
 #undef SET_HIGH_WORD
 #undef SET_LOW_WORD
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
+                             (A0)(A1),
+                             (scalar_ <floating_<A0> > )
+                             (scalar_ <floating_<A0> > )
+                             (scalar_ <floating_<A0> > )
+                             (target_ <unspecified_<A1> >)                          
+                 )
+  {
+    typedef nt2::int32_t result_type;    
+    inline result_type operator()(A0 const& a0, A0 & xr, A0& xc, A1 const&) const
+    {
+      typedef typename A1::type selector;
+      return rempio2<selector, void>::rem(a0, xr, xc); 
+    }
+  private:
+    template < class T, class dummy = void> struct rempio2
+    {
+      static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        BOOST_ASSERT_MSG(false, "wrong target for rem_pio2"); 
+        return Zero<result_type>();
+      }
+    };
+    template < class dummy> struct rempio2 < big, dummy>
+    {
+      static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        //        std::cout << "big" << std::endl; 
+        return nt2::rem_pio2(x, xr, xc);
+      }
+    }; 
+    template < class dummy> struct rempio2 < verysmall, dummy >
+    {
+      static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        //        std::cout << "verysmall" << std::endl; 
+        return nt2::rem_pio2_straight(x, xr, xc);
+      }
+    }; 
+    template < class dummy> struct rempio2 < small, dummy >
+    {
+      static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        //        std::cout << "small" << std::endl; 
+        return nt2::rem_pio2_cephes(x, xr, xc);
+      }
+    }; 
+    template < class dummy> struct rempio2 < medium, dummy >
+    {
+      static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
+      {
+        //        std::cout << "medium" << std::endl; 
+        return nt2::rem_pio2_medium(x, xr, xc);
+      }
+    }; 
   }; 
-  
-  
 } }
 #endif

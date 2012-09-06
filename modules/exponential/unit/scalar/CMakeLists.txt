@@ -24,6 +24,9 @@ SET( SOURCES
   exp10.cpp
   exp.cpp
   cbrt.cpp
+  pow_absi.cpp
+  pow_abs.cpp
+
 # List of scalar test files for toolbox exponential
    )
 

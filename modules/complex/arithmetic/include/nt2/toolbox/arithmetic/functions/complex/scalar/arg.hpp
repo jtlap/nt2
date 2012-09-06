@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_ABS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_ABS_HPP_INCLUDED
+#include <nt2/toolbox/arithmetic/functions/arg.hpp>
 #include <nt2/toolbox/arithmetic/functions/abs.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
@@ -37,7 +38,7 @@ namespace nt2 { namespace ext
 //     typedef typename meta::as_real<A0>::type result_type;
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return nt2::arg(imag(a0)); 
+//       return nt2::arg(nt2::imag(a0)); 
 //     }
 //   };
   

@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_CUMSUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_CUMSUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/swar/functions/cumsum.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
@@ -28,7 +29,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::bitwise_cast<sint>(a0);
-      sint tmp1 = { _mm_slli_si128(tmp,1)}; 
+      sint tmp1 = _mm_slli_si128(tmp,1); 
       a = a+simd::bitwise_cast<A0>(tmp1);
       tmp1 = _mm_slli_si128(tmp,2); 
       a = a+simd::bitwise_cast<A0>(tmp1);
@@ -77,7 +78,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0>::type sint;
       sint tmp = simd::bitwise_cast<sint>(a0); 
-      sint tmp1 = { _mm_slli_si128(tmp,8)}; 
+      sint tmp1 = _mm_slli_si128(tmp,8); 
       return a0+simd::bitwise_cast<A0>(tmp1);
     }
   };
@@ -98,7 +99,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::bitwise_cast<sint>(a0); 
-      sint tmp1 = { _mm_slli_si128(tmp,2)}; 
+      sint tmp1 = _mm_slli_si128(tmp,2); 
       a = a+simd::bitwise_cast<A0>(tmp1);
       tmp1 = _mm_slli_si128(tmp,4); 
       a = a+simd::bitwise_cast<A0>(tmp1);
@@ -131,7 +132,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::bitwise_cast<sint>(a0);
-      sint tmp1 = {_mm_slli_si128(tmp, 4)}; 
+      sint tmp1 = _mm_slli_si128(tmp, 4); 
       a = a+simd::bitwise_cast<A0>(tmp1);
       tmp1 = _mm_slli_si128(tmp, 8); 
       a = a+simd::bitwise_cast<A0>(tmp1);

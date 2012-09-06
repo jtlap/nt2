@@ -22,7 +22,7 @@
 NT2_TEST_CASE( fundamental_ndims )
 {
   using nt2::ndims;
-  
+
   NT2_TEST_EQUAL( ndims('4'), 2U  );
   NT2_TEST_EQUAL( ndims(4)  , 2U  );
   NT2_TEST_EQUAL( ndims(4.) , 2U  );
@@ -37,10 +37,10 @@ NT2_TEST_CASE( table_ndims )
   using nt2::ndims;
   using nt2::of_size;
   using nt2::table;
-  
+
   table<float> t0;
-  table<float> t10 ( of_size(1)   );
-  table<float> t11 ( of_size(2)   );
+  table<float> t10( of_size(1)   );
+  table<float> t11( of_size(2)   );
   table<float> t20( of_size(1,1)  );
   table<float> t21( of_size(2,1)  );
   table<float> t22( of_size(1,2)  );
@@ -80,10 +80,10 @@ NT2_TEST_CASE( expression_ndims )
   using nt2::ndims;
   using nt2::of_size;
   using nt2::table;
-  
+
   table<float> t0;
-  table<float> t10 ( of_size(1)   );
-  table<float> t11 ( of_size(2)   );
+  table<float> t10( of_size(1)   );
+  table<float> t11( of_size(2)   );
   table<float> t20( of_size(1,1)  );
   table<float> t21( of_size(2,1)  );
   table<float> t22( of_size(1,2)  );

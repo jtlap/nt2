@@ -11,24 +11,26 @@
 
 /*!
  * \file
- * \brief Defines the boost::dispatch::meta::enable_if_type \metafunction
+ * \brief Defines the boost::dispatch::meta::enable_if_type @metafunction.
  */
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
   /*!
    * Provides a SFINAE context to test the existence of a given type.
    *
-   * \tparam T Type to check existence of.
-   * \tparam R Type to return if \c T is defined.
+   * @tparam T Type to check existence of.
+   * @tparam R Type to return if \c T is defined.
    *
-   * \usage
+   * @usage
    *
-   * \include enable_if_type.cpp
-   */
-  //============================================================================
-  template<class T, class R=void>  struct enable_if_type { typedef R type; };
+   * @include enable_if_type.cpp
+   **/
+  template<class T, class R=void>
+  struct enable_if_type
+  {
+    typedef R type;
+  };
 } } }
 
 #endif

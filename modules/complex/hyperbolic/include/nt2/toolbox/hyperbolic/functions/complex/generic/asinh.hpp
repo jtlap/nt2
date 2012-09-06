@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASINH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/asinh.hpp>
 #include <nt2/include/functions/asin.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
@@ -63,7 +64,7 @@ namespace nt2 { namespace ext
     {
       //asinh is bijective on the real axis and its computation
       // involves no proper complex value
-      return bitwise_cast<result_type>(nt2::asinh(real(a0))); 
+      return bitwise_cast<result_type>(nt2::asinh(nt2::real(a0))); 
     }
   };
   

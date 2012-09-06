@@ -19,7 +19,7 @@
 /// n is chosen to be even. The drem() function does precisely the same thing.
 #include <nt2/toolbox/arithmetic/include/functions/remainder.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include<nt2/include/functions/idivround.hpp>
+#include <nt2/include/functions/idivround.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

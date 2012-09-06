@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REM_HPP_INCLUDED
-#include <boost/simd/include/functions/idivfix.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/rem.hpp>
+#include <boost/simd/include/functions/scalar/idivfix.hpp>
 /////////////////////////////////////////////////////////////////////////////
 //  The rem function computes the floating-point remainder of dividing x by y.
 //  The return value is x - n * y, where n is the quotient of x / y, rounded

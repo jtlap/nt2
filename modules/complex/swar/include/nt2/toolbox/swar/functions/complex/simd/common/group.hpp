@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(group(real(a0), group(imag(a0)))); 
+      return result_type(group(nt2::real(a0), group(nt2::imag(a0)))); 
     }
   };
   
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(group(imag(a0), imag(a1))); 
+      return result_type(group(nt2::imag(a0), nt2::imag(a1))); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(group(real(a0), real(a1))); 
+      return result_type(group(nt2::real(a0), nt2::real(a1))); 
     }
   };    
 } }

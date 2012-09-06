@@ -12,6 +12,7 @@
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/dispatch/functor/functor.hpp>
 #include <boost/preprocessor/cat.hpp>
+#include <boost/dispatch/meta/mpl.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/and.hpp>
@@ -47,7 +48,7 @@ operator Op                                                                    \
   A0 & a0                                                                      \
 )                                                                              \
 {                                                                              \
-  return typename dispatch::make_functor<Tag, A0>::type()(a0);                 \
+  return a0 = typename dispatch::make_functor<Tag, A0>::type()(a0, 1);         \
 }                                                                              \
 template<class A0>                                                             \
 BOOST_FORCEINLINE                                                              \
@@ -97,7 +98,9 @@ BOOST_SIMD_OVERLOAD_BINARY_OP_ELWS(Tag, Op)                                    \
 template<class A0, class A1>                                                   \
 BOOST_FORCEINLINE                                                              \
 typename                                                                       \
-enable_if< mpl::and_< meta::is_native<A0>, meta::is_native<A1> >               \
+enable_if< mpl::and_< meta::is_native<A0>                                      \
+                    , mpl::or_< meta::is_native<A1>, is_fundamental<A1> >      \
+                    >                                                          \
          , A0&                                                                 \
          >::type                                                               \
 operator BOOST_PP_CAT(Op, =)                                                   \
@@ -130,13 +133,21 @@ operator Op                                                                    \
 
 namespace boost { namespace simd
 {
+  template<class T>
+  struct is_fundamental
+   : mpl::or_< boost::is_fundamental<T>
+             , boost::dispatch::details::is_mpl_integral<T>
+             >
+  {
+  };
+
   // unary operators
   BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::unary_plus  ,  + )
   BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::negate      ,  - )
   BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::complement  ,  ~ )
   BOOST_SIMD_OVERLOAD_UNARY_OP( boost::proto::tag::logical_not ,  ! )
-  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::pre_inc , ++ )
-  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::pre_dec , -- )
+  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::plus  , ++ )
+  BOOST_SIMD_OVERLOAD_UNARY_OP_INC( boost::proto::tag::minus , -- )
   
   // binary operators
   BOOST_SIMD_OVERLOAD_BINARY_OP_ELWS_ASSIGN( boost::proto::tag::bitwise_and , &  )

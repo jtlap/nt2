@@ -10,11 +10,11 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_TOFLOAT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/plus.hpp>
-#include <boost/simd/include/functions/is_gez.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/simd/include/constants/int_splat.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
@@ -30,8 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_floating<A0>::type  result_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = { _mm256_cvtepi32_ps(a0)};
-      return that;
+      return _mm256_cvtepi32_ps(a0);
     }
   };
   
@@ -48,7 +47,7 @@ namespace boost { namespace simd { namespace ext
       
       htype h1 = make<htype>(a0[0],a0[1],a0[2],a0[3]);
       htype h2 = make<htype>(a0[4],a0[5],a0[6],a0[7]);
-      result_type r = {_mm256_insertf128_ps(r, h1, 0)};
+      result_type r = _mm256_castps128_ps256(h1);
       r =  _mm256_insertf128_ps(r, h2, 1);
       return r; 
     }

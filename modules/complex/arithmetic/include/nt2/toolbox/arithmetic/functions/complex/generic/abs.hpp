@@ -42,9 +42,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
     typedef typename meta::as_integer<result_type>::type itype; 
-      //      return hypot(real(a0),imag(a0));
-      result_type r =  nt2::abs(real(a0));
-      result_type i =  nt2::abs(imag(a0));
+      //      return hypot(nt2::real(a0),nt2::imag(a0));
+      result_type r =  nt2::abs(nt2::real(a0));
+      result_type i =  nt2::abs(nt2::imag(a0));
       ltype test = logical_and(logical_or(is_nan(r),is_nan(i)),
                                logical_or(is_inf(r),is_inf(i)));
       // nan^2 + inf^2 is always inf whatever nan is
@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::abs(imag(a0)); 
+      return nt2::abs(nt2::imag(a0)); 
     }
   };
   
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::abs(real(a0)); 
+      return nt2::abs(nt2::real(a0)); 
     }
   };  
 } }

@@ -44,8 +44,6 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_T
   typedef typename boost::dispatch::meta::call<bitfloating_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
 } // end of test for int_convert_
 
@@ -65,7 +63,9 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT
   typedef typename boost::dispatch::meta::call<bitfloating_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
+  NT2_TEST_EQUAL(bitfloating(boost::simd::Mone<vT>())[0]  ,bitfloating(boost::simd::Mone<T>())  ); 
+  NT2_TEST_EQUAL(bitfloating(boost::simd::One<vT>() )[0]   ,bitfloating(boost::simd::One<T>())   );
+  NT2_TEST_EQUAL(bitfloating(boost::simd::Valmax<vT>())[0],bitfloating(boost::simd::Valmax<T>())); 
+  NT2_TEST_EQUAL(bitfloating(boost::simd::Valmin<vT>())[0],bitfloating(boost::simd::Valmin<T>())); 
+  NT2_TEST_EQUAL(bitfloating(boost::simd::Zero<vT>())[0]  ,bitfloating(boost::simd::Zero<T>())  );  
 } // end of test for uint_convert_

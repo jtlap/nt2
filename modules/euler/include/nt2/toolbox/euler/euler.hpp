@@ -12,7 +12,6 @@
 //<include> please don't modify between these tags
 #include <nt2/toolbox/euler/include/functions/>
 #include <nt2/toolbox/euler/include/functions/>
-#include <nt2/toolbox/euler/include/functions/>
 #include <nt2/toolbox/euler/include/functions/fast_gamma.hpp>
 #include <nt2/toolbox/euler/include/functions/spence.hpp>
 #include <nt2/toolbox/euler/include/functions/stirling.hpp>

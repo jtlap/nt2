@@ -46,9 +46,10 @@ NT2_TEST_CASE_TPL ( stirling_real__1_0,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Inf<T>()),  nt2::Inf<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Minf<T>()), nt2::Nan<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Mone<T>()), nt2::Nan<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Nan<T>()),  nt2::Nan<T>(), 0.5);
 
   // specific values tests
 } // end of test for floating_

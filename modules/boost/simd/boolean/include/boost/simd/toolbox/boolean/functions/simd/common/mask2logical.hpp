@@ -1,17 +1,17 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_MASK2LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_MASK2LOGICAL_HPP_INCLUDED
 
 #include <boost/simd/toolbox/boolean/functions/mask2logical.hpp>
-#include <boost/simd/include/functions/is_simd_logical.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/is_simd_logical.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
@@ -28,6 +28,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::call<tag::bitwise_cast_(A0 const&, dispatch::meta::as_<ltype>)>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      //FIXME: This cause an infinite loop as is_simd_logical use l_or that use
+      //FIXME: mask2logical
       //BOOST_ASSERT_MSG(is_simd_logical(a0), "Argument to mask2logical is not a valid logical mask");
       return bitwise_cast<ltype>(a0);
     }

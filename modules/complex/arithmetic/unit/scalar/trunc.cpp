@@ -48,8 +48,8 @@ NT2_TEST_CASE_TPL ( trunc_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(trunc(cT(-1.1)), cT(-1));
-  NT2_TEST_EQUAL(trunc(cT(1.1)), cT(1));
+  NT2_TEST_EQUAL(trunc(cT(T(-1.1))), cT(-1));
+  NT2_TEST_EQUAL(trunc(cT(T(1.1))), cT(1));
   NT2_TEST_EQUAL(trunc(nt2::Inf<cT>()), nt2::Inf<cT>());
   NT2_TEST_EQUAL(trunc(nt2::Minf<cT>()), nt2::Minf<cT>());
   NT2_TEST_EQUAL(trunc(nt2::Mone<cT>()), nt2::Mone<cT>());

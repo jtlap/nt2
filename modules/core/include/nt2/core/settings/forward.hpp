@@ -14,7 +14,6 @@
 #include <nt2/core/settings/forward/buffer.hpp>
 #include <nt2/core/settings/forward/id.hpp>
 #include <nt2/core/settings/forward/index.hpp>
-#include <nt2/core/settings/forward/padding.hpp>
 #include <nt2/core/settings/forward/settings.hpp>
 #include <nt2/core/settings/forward/shape.hpp>
 #include <nt2/core/settings/forward/sharing.hpp>
@@ -22,7 +21,5 @@
 #include <nt2/core/settings/forward/storage_duration.hpp>
 #include <nt2/core/settings/forward/storage_order.hpp>
 #include <nt2/core/settings/forward/storage_scheme.hpp>
-
-
 
 #endif

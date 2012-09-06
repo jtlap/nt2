@@ -8,25 +8,26 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLIE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLIE_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellie.hpp>
 #include <boost/math/special_functions.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/sin.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/tan.hpp>
-#include <nt2/include/functions/atan.hpp>
-#include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/ellpe.hpp>
-#include <nt2/include/functions/ellpk.hpp>
-#include <nt2/include/functions/ceil.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/sin.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/tan.hpp>
+#include <nt2/include/functions/scalar/atan.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
+#include <nt2/include/functions/scalar/ellpe.hpp>
+#include <nt2/include/functions/scalar/ellpk.hpp>
+#include <nt2/include/functions/scalar/ceil.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

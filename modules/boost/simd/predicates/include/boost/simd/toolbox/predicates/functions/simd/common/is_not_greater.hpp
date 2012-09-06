@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_NOT_GREATER_HPP_INCLUDED
 
 #include <boost/simd/toolbox/predicates/functions/is_not_greater.hpp>
-#include <boost/simd/include/functions/logical_not.hpp>
-#include <boost/simd/include/functions/is_greater.hpp>
-#include <boost/simd/include/functions/is_less_equal.hpp>
+#include <boost/simd/include/functions/simd/logical_not.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
+#include <boost/simd/include/functions/simd/is_less_equal.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -51,19 +51,20 @@ namespace boost { namespace dispatch { namespace meta
   // Requirements for Buildable
   //============================================================================
   template<class T, std::size_t N>
-  struct value_of< boost::array<T,N> > : value_of<T> {};
+  struct value_of< boost::array<T,N> >
+  {
+    typedef T type;
+  };
 
   template<class T, std::size_t N>
-  struct model_of< boost::array<T,N> >
+  struct model_of< boost::array<T, N> >
   {
     struct type
     {
-      template<class X> struct apply
+      template<class X>
+      struct apply
       {
-        // This recursive build is required to properly handle array of array
-        // cases and other similar recursive structure
-        typedef typename mpl::apply<typename model_of<T>::type,X>::type base;
-        typedef boost::array<base,N>                                    type;
+        typedef boost::array<X, N> type;
       };
     };
   };

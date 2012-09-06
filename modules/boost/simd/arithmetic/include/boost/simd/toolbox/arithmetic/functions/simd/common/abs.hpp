@@ -8,13 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ABS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_ABS_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/abs.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/mzero.hpp>
 #include <boost/simd/include/constants/maxleftshift.hpp>
-#include <boost/simd/include/functions/bitwise_notand.hpp>
-#include <boost/simd/include/functions/shri.hpp>
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/unary_minus.hpp>
+#include <boost/simd/include/functions/simd/bitwise_notand.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

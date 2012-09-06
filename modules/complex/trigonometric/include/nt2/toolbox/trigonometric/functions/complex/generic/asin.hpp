@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASIN_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASIN_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/asin.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/oneplus.hpp>
@@ -78,14 +79,14 @@ namespace nt2 { namespace ext
       typedef typename meta::as_real<A0>::type rtype;  
       typedef typename meta::as_logical<rtype>::type ltype; 
       //
-      // Begin by insuring real(a0) >= 0 and imag(a0) >= 0 :
+      // Begin by insuring nt2::real(a0) >= 0 and nt2::imag(a0) >= 0 :
       //
       const rtype a_crossover = splat<rtype>(1.5);
       const rtype b_crossover = splat<rtype>(0.6417);
-      ltype  ltzra0 = is_ltz(real(a0)); 
-      ltype  ltzia0 = is_ltz(imag(a0));
-      rtype x = nt2::abs(real(a0));
-      rtype y = nt2::abs(imag(a0));
+      ltype  ltzra0 = is_ltz(nt2::real(a0)); 
+      ltype  ltzia0 = is_ltz(nt2::imag(a0));
+      rtype x = nt2::abs(nt2::real(a0));
+      rtype y = nt2::abs(nt2::imag(a0));
       rtype proper_real = nt2::asin(x);
       ltype lexone = le(x, One<rtype>()); 
       ltype is_proper_real = logical_and(is_real(a0), lexone);
@@ -123,10 +124,10 @@ namespace nt2 { namespace ext
                    );
       // i is computed
       //compute for exception zone
-      if (any(not_in_safe_zone))
+      if (nt2::any(not_in_safe_zone))
         {
           ltype zone1 =  le(y, nt2::Eps<rtype>()*nt2::abs(xm1));
-          if (any(logical_and(zone1, not_in_safe_zone)))
+          if (nt2::any(logical_and(zone1, not_in_safe_zone)))
             {
               rtype rr = if_else(lexone, nt2::asin(x), Pio_2<rtype>());
               rtype ii = if_else(lexone, y/nt2::sqrt(xp1*xm1),
@@ -140,47 +141,47 @@ namespace nt2 { namespace ext
             }
           ltype zone2 = le(y, s_min);
           ltype not_treated = logical_notand(zone1, not_in_safe_zone); 
-          if (any(logical_and(zone2, not_treated)))
+          if (nt2::any(logical_and(zone2, not_treated)))
             {
               r = if_else(zone2, Pio_2<rtype>() - nt2::sqrt(y), r);
               i = if_else(zone2, nt2::sqrt(y), i);
             }
           ltype zone3 = ge(minusone(Eps<rtype>()*y), x);
           not_treated = logical_notand(zone2, not_treated); 
-          if (any(logical_and(zone3, not_treated)))
+          if (nt2::any(logical_and(zone3, not_treated)))
             {
               r = if_else(zone3,  x/y, r);
               i = if_else(zone3,  Log_2<rtype>() + nt2::log(y), i); 
             }
           ltype zone4 = gt(x, One<rtype>());
               not_treated = logical_notand(zone3, not_treated); 
-          if (any(logical_and(zone4, not_treated)))
+          if (nt2::any(logical_and(zone4, not_treated)))
             {
               r = if_else(zone4, nt2::atan(x/y), r);
               i = if_else(zone4, Log_2<rtype>() + nt2::log(y) + Half<rtype>()*nt2::log1p(sqr(x/y)), i); 
             }
               not_treated = logical_notand(zone4, not_treated); 
-              if (any(not_treated))
+              if (nt2::any(not_treated))
                 {
               rtype a = nt2::sqrt(oneplus(sqr(y)));
               r = if_else(not_treated, x/a, r);
               i = if_else(not_treated, Half<rtype>()*nt2::log1p(Two<rtype>()*y*(y+a)), i);
             }
         }
-      if (any(is_invalid(a0)))
+      if (nt2::any(is_invalid(a0)))
         {
           ltype nanx = is_nan(x);
           ltype nany = is_nan(y);
           ltype infx = eq(x, Inf<rtype>()) ;
           ltype infy = eq(y, Inf<rtype>()) ;
-          if (any(nanx))
+          if (nt2::any(nanx))
             {
               r =  if_else(nanx, x, r);
               r =  if_else(logical_and(nanx, infy), x, r);
               i =  if_else(nanx, x, i);
               i =  if_else(logical_and(nanx, infy), y, i);
             }
-          if (any(nany))
+          if (nt2::any(nany))
             {
               ltype isimag = is_imag(a0); 
               r =  if_zero_else(logical_and(is_imag(a0), nany), r); 
@@ -189,7 +190,7 @@ namespace nt2 { namespace ext
               i =  if_else(logical_and(nany, infx), x, i);
             }
           ltype test = logical_notand(logical_or(nanx, nany), infx);
-          if (any(test))
+          if (nt2::any(test))
             {
               r = if_else(logical_and(infx, test),
                           if_else(infy, nt2::Pi<rtype>()/nt2::Four<rtype>(), nt2::Pio_2<rtype>()),
@@ -219,7 +220,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       //TODO optimize it
-      return nt2::asin(result_type(Zero<rtype>(), imag(a0)));
+      return nt2::asin(result_type(Zero<rtype>(), nt2::imag(a0)));
     }
   };
 
@@ -233,8 +234,8 @@ namespace nt2 { namespace ext
     {
       //TODO optimize it
       if (all(is_real(a0)) && all(le(nt2::abs(a0), One<rtype>())))
-        return result_type(nt2::asin(real(a0))); 
-      return nt2::asin(result_type(real(a0), Zero<rtype>()));
+        return result_type(nt2::asin(nt2::real(a0))); 
+      return nt2::asin(result_type(nt2::real(a0), Zero<rtype>()));
     }
   };
   

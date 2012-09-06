@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SECD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SECD_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/secd.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/secpi.hpp>
+#include <nt2/include/functions/simd/secpi.hpp>
 
 
 

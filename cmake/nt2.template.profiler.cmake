@@ -11,10 +11,8 @@
 # Load the Template Profiler if Perl and Boost.Regex are found
 ################################################################################
 
-find_package(Perl QUIET)
-
-include(nt2.boost)
-find_package(Boost 1.46.0 COMPONENTS regex QUIET)
+find_package(Perl)
+find_package(Boost 1.49.0 COMPONENTS regex)
 
 if(PERL_FOUND AND Boost_FOUND)
   message( STATUS "[nt2] Template profiling available." )

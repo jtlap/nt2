@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_COSPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_COSPI_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/fast_cospi.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/if_else_allbits.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/if_else_allbits.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -45,8 +46,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      A0 that = {impl::trig_base<A0,pi_tag,  tag::simd_type, clipped_pio4>::cosa(a0)}; 
-      return that;
+      return impl::trig_base<A0,pi_tag,  tag::simd_type, clipped_pio4>::cosa(a0);
     }
   };
 } }

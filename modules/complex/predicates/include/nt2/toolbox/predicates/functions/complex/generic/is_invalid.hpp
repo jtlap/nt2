@@ -8,12 +8,15 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_INVALID_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_INVALID_HPP_INCLUDED
-#include <nt2/include/functions/is_invalid.hpp>
+
+#include <nt2/toolbox/predicates/functions/is_invalid.hpp>
 #include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/imag.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/sdk/complex/dry.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
@@ -27,7 +30,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return logical_or(is_invalid(imag(a0)),is_invalid(real(a0))); 
+      return logical_or(is_invalid(nt2::imag(a0)),is_invalid(nt2::real(a0))); 
     }
   };
 
@@ -40,7 +43,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_invalid(imag(a0)); 
+      return is_invalid(nt2::imag(a0)); 
     }
   };
 
@@ -53,7 +56,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_invalid(real(a0)); 
+      return is_invalid(nt2::real(a0)); 
     }
   };  
 } }

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_COT_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/cot.hpp>
 #include <nt2/include/functions/tan.hpp>
 #include <nt2/include/functions/cot.hpp>
 #include <nt2/include/functions/coth.hpp>
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(-nt2::coth(imag(a0))); 
+      return bitwise_cast<result_type>(-nt2::coth(nt2::imag(a0))); 
     }
   };
   

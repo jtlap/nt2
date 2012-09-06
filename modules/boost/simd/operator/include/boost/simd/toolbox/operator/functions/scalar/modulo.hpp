@@ -9,6 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_MODULO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_MODULO_HPP_INCLUDED
 
+#include <boost/simd/toolbox/operator/functions/modulo.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modulo_, tag::cpu_, (A0)

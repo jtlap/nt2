@@ -8,14 +8,16 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_NTHROOT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_NTHROOT_HPP_INCLUDED
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/signnz.hpp>
-#include <nt2/include/functions/pow.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/minusone.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/is_odd.hpp>
+#include <nt2/toolbox/exponential/functions/nthroot.hpp>
+#include <nt2/include/functions/scalar/signnz.hpp>
+#include <nt2/include/functions/scalar/pow.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/minusone.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
+#include <nt2/include/functions/scalar/is_odd.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

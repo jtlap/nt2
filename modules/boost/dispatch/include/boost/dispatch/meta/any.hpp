@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,9 +10,9 @@
 #define BOOST_DISPATCH_META_ANY_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Defines and implements boost::dispatch::meta::any
- */
+ * @file
+ * @brief Define the boost::dispatch::meta::any @metafunction.
+ **/
 
 #include <boost/config.hpp>
 #include <boost/dispatch/meta/details/any.hpp>
@@ -28,61 +28,64 @@ namespace boost { namespace dispatch { namespace meta
   //============================================================================
   // Recursive variadics
   //============================================================================
-  #if defined(BOOST_HAS_VARIADIC_TMPL) || defined(DOXYGEN_ONLY)
-  //============================================================================
+#if defined(BOOST_HAS_VARIADIC_TMPL) || defined(NT2_DOXYGEN_ONLY)
   /*!
-   * \ingroup metafunctions
+   * @brief
    * Evaluates if a given meta-predicate is true for at least one type in a type
-   * sequence. \c any can either work on a \metasequence or a classic enumeration
+   * sequence. @c any can either work on a @metasequence or a classic enumeration
    * of template parameters.
    *
-   * \tparam Pred Boolean \metafunction
-   * \tparam Args List of types to assert
+   * @tparam Pred Boolean @metafunction
+   * @tparam Args List of types to assert
    *
-   * \par Models:
-   * \metafunction
+   * @par Models:
    *
-   * \par Semantic:
+   * @metafunction
    *
-   * For any types \c Pred and \c T0,...,Tn
+   * @par Semantic:
    *
-   * \code
+   * For any types @c Pred and @c T0,...,Tn
+   *
+   * @code
    * typedef any<Pred,T0,...,Tn>::type type;
-   * \endcode
+   * @endcode
    *
    * is equivalent to :
    *
-   * \code
+   * @code
    * typedef not_<is_same< boost::mpl::find_if<T0,Pred>::type
    *                     , boost::mpl::end<T0>::type>
    *             >::type                                           type;
-   * \endcode
+   * @endcode
    *
-   * if \c T0 is a \metasequence. Otherwise, it evaluates to \true_
-   * if it exists a type \c T in \c T0,...,Tn for which \c apply1<Pred,T>::type
-   * evaluates to \true_. Otherwise, it evaluates to \false_.
+   * if @c T0 is a @metasequence. Otherwise, it evaluates to @true_
+   * if it exists a type @c T in @c T0,...,Tn for which @c apply1<Pred,T>::type
+   * evaluates to @true_. Otherwise, it evaluates to @false_.
    *
-   * \par Example Usage:
+   * @par Usage:
    *
-   * \include any.cpp
-   */
-  //============================================================================
+   * @include any.cpp
+   **/
   template< class Pred, class... Args>
-  struct  any : details::any_impl<Pred, Args...> {};
-  #else
+  struct any : details::any_impl<Pred, Args...> {};
+#else
   //============================================================================
   // Recursive macro
   //============================================================================
   template< class Pred
           , BOOST_PP_ENUM_BINARY_PARAMS ( BOOST_DISPATCH_MAX_META_ARITY
                                         , class A
-                                        , = dispatch::meta::na_ BOOST_PP_INTERCEPT
+                                        , = dispatch::meta::na_
+                                            BOOST_PP_INTERCEPT
                                         )
           >
   struct  any
-        : details::any_impl<Pred,BOOST_PP_ENUM_PARAMS(BOOST_DISPATCH_MAX_META_ARITY, A)>
+        : details::any_impl
+                        < Pred
+                        , BOOST_PP_ENUM_PARAMS(BOOST_DISPATCH_MAX_META_ARITY, A)
+                        >
   {};
-  #endif
+#endif
 } } }
 
 #endif

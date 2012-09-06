@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_SPLATTED_FIRST_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_SPLATTED_FIRST_HPP_INCLUDED
+#include <nt2/toolbox/swar/functions/splatted_first.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/first.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
@@ -26,7 +27,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(splatted_first(real(a0)),splatted_first(imag(a0))); 
+      return result_type(splatted_first(nt2::real(a0)),splatted_first(nt2::imag(a0))); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_first_, tag::cpu_,
@@ -37,7 +38,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(splatted_first(imag(a0))); 
+      return result_type(splatted_first(nt2::imag(a0))); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::splatted_first_, tag::cpu_,
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(splatted_first(real(a0))); 
+      return result_type(splatted_first(nt2::real(a0))); 
     }
   };    
 } }

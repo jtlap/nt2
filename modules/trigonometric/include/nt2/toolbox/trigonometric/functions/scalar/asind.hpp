@@ -9,8 +9,9 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ASIND_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ASIND_HPP_INCLUDED
 
-#include <nt2/include/functions/asin.hpp>
-#include <nt2/include/functions/indeg.hpp>
+#include <nt2/toolbox/trigonometric/functions/asind.hpp>
+#include <nt2/include/functions/scalar/asin.hpp>
+#include <nt2/include/functions/scalar/indeg.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

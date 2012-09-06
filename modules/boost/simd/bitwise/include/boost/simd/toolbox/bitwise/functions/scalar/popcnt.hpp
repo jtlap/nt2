@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_POPCNT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_POPCNT_HPP_INCLUDED
+#include <boost/simd/toolbox/bitwise/functions/popcnt.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/lo.hpp>
-#include <boost/simd/include/functions/hi.hpp>
-#include <boost/simd/include/functions/sbits.hpp>
+#include <boost/simd/include/functions/scalar/lo.hpp>
+#include <boost/simd/include/functions/scalar/hi.hpp>
+#include <boost/simd/include/functions/scalar/sbits.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 #ifdef BOOST_MSVC
@@ -21,58 +22,18 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< type32_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-    #ifdef BOOST_MSVC
-      return __popcnt(a0);
-    #else
-      return __builtin_popcount(a0);
-    #endif
+      return boost::simd::popcnt(boost::simd::sbits(a0));
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< double_<A0> >)
-                            )
-  {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      boost::int64_t v = sbits(a0);
-    #if defined BOOST_MSVC && defined _WIN64
-      return __popcnt64(v);
-    #elif defined BOOST_MSVC
-      return  __popcnt( hi(v) ) + __popcnt( lo(v) );
-    #else
-      return  __builtin_popcount( hi(v) )
-        + __builtin_popcount( lo(v));
-    #endif
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< single_<A0> >)
-                            )
-  {
-    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
-
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      #ifdef BOOST_MSVC
-      return __popcnt(sbits(a0));
-    #else
-      return __builtin_popcount(sbits(a0));
-    #endif
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< type8_<A0> >)
+                            , (scalar_< ints8_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
@@ -87,7 +48,7 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< type16_<A0> >)
+                            , (scalar_< ints16_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
@@ -102,13 +63,28 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
-                            , (scalar_< type64_<A0> >)
+                            , (scalar_< ints32_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      #if defined BOOST_MSVC && defined _WIN64
+    #ifdef BOOST_MSVC
+      return __popcnt(a0);
+    #else
+      return __builtin_popcount(a0);
+    #endif
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::popcnt_, tag::cpu_, (A0)
+                            , (scalar_< ints64_<A0> >)
+                            )
+  {
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+    #if defined BOOST_MSVC && defined _WIN64
       return __popcnt64(a0);
     #elif defined BOOST_MSVC
       return  __popcnt( hi(a0) )

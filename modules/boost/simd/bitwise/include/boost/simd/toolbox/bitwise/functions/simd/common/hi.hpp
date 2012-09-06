@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_HI_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_HI_HPP_INCLUDED
+#include <boost/simd/toolbox/bitwise/functions/hi.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/functions/shri.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -24,8 +25,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<result_type>::type int_type;
       BOOST_STATIC_CONSTANT(int_type, shift = sizeof(int_type)*4);
       BOOST_STATIC_CONSTANT(int_type, pattern = int_type(int_type(-1)<<shift));
-      result_type that(shri((boost::simd::integral_constant<result_type,pattern>()&a0),shift));
-      return that;
+      return shri((boost::simd::integral_constant<result_type,pattern>()&a0),shift);
     }
   };
 } } }

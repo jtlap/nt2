@@ -9,9 +9,6 @@
 #ifndef NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 #define NT2_CORE_SETTINGS_DETAILS_FUSION_HPP_INCLUDED
 
-#include <boost/mpl/size_t.hpp>
-#include <boost/next_prior.hpp>
-#include <boost/utility/enable_if.hpp>
 #include <boost/dispatch/attributes.hpp>
 #include <boost/fusion/include/iterator_range.hpp>
 #include <boost/fusion/include/next.hpp>
@@ -21,7 +18,8 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/fusion/include/begin.hpp>
 #include <boost/fusion/include/end.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
+#include <boost/mpl/size_t.hpp>
+#include <boost/next_prior.hpp>
 
 namespace nt2 { namespace details
 {
@@ -75,7 +73,7 @@ namespace nt2 { namespace details
                       , boost::mpl::false_ const&
                       )
   {
-    BOOST_ASSERT_MSG(*inb == value, "Incompatible size in of_size conversion");
+    BOOST_ASSERT_MSG(InE(*inb) == value, "Incompatible size in of_size conversion");
     return check_all_equal(boost::fusion::next(inb), inE, value);
   }
 
@@ -153,41 +151,29 @@ namespace nt2 { namespace details
   }
 
   template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_equal(A1 const&, A2 const&, boost::mpl::long_<-1> const&)
+  bool compare_equal(A1 const&, A2 const&, boost::mpl::size_t<0> const&)
   {
     return true;
   }
 
-  template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<0> const&)
+  template<typename A1, typename A2, std::size_t N> BOOST_FORCEINLINE
+  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<N> const&)
   {
-    return (meta::safe_at_c<0>(a1) == meta::safe_at_c<0>(a2) );
-  }
-
-  template<typename A1, typename A2, long N> BOOST_FORCEINLINE
-  bool compare_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<N> const&)
-  {
-    return (meta::safe_at_c<N>(a1) == meta::safe_at_c<N>(a2) )
-        &&  compare_equal(a1,a2,boost::mpl::long_<N-1>());
+    return (boost::fusion::at_c<N-1>(a1) == boost::fusion::at_c<N-1>(a2) )
+        &&  compare_equal(a1,a2,boost::mpl::size_t<N-1>());
   }
 
   template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_not_equal(A1 const&, A2 const&, boost::mpl::long_<-1> const&)
+  bool compare_not_equal(A1 const&, A2 const&, boost::mpl::size_t<0> const&)
   {
     return false;
   }
 
-  template<typename A1, typename A2> BOOST_FORCEINLINE
-  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<0> const&)
+  template<typename A1, typename A2, std::size_t N> BOOST_FORCEINLINE
+  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::size_t<N> const&)
   {
-    return (meta::safe_at_c<0>(a1) != meta::safe_at_c<0>(a2) );
-  }
-
-  template<typename A1, typename A2, long N> BOOST_FORCEINLINE
-  bool compare_not_equal(A1 const& a1, A2 const& a2, boost::mpl::long_<N> const&)
-  {
-    return (meta::safe_at_c<N>(a1) != meta::safe_at_c<N>(a2) )
-        ||  compare_not_equal(a1,a2,boost::mpl::long_<N-1>());
+    return (boost::fusion::at_c<N-1>(a1) != boost::fusion::at_c<N-1>(a2) )
+        ||  compare_not_equal(a1,a2,boost::mpl::size_t<N-1>());
   }
 } }
 

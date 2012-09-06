@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_IS_INCLUDED_C_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_IS_INCLUDED_C_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+#include <boost/simd/toolbox/reduction/functions/is_included_c.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -23,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     inline result_type operator()(A0 const& a0,A0 const& a1) const
     {
-      return result_type(_mm256_testz_si256(a1, a0));
+      return result_type( _mm256_testz_si256(a1, a0) != 0 );
     }
   };
   

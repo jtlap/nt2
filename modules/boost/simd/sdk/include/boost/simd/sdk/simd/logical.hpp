@@ -9,14 +9,15 @@
 #ifndef BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_LOGICAL_HPP_INCLUDED
 
-#include <climits>
-#include <boost/assert.hpp>
-#include <boost/dispatch/attributes.hpp>
+#include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <boost/assert.hpp>
+#include <climits>
 #include <ostream>
 #include <ios>
 
@@ -30,7 +31,7 @@ namespace boost { namespace simd
    * for any given extension
    */
   //============================================================================
-  template<typename T> struct logical
+  template<typename T> struct BOOST_SIMD_MAY_ALIAS logical
   {
     typedef T                                             value_type;
     typedef typename dispatch::meta::as_integer<T>::type  bits;
@@ -40,8 +41,8 @@ namespace boost { namespace simd
      * Default logical constructor
      **/
     //==========================================================================        
-    BOOST_DISPATCH_FORCE_INLINE logical() {}
-    
+    BOOST_FORCEINLINE logical() {}
+
     //==========================================================================    
     /*!
      * Constructs a logical from a boolean value
@@ -49,21 +50,23 @@ namespace boost { namespace simd
      * \param v Boolean value to convert to logical
      **/
     //==========================================================================    
-    BOOST_DISPATCH_FORCE_INLINE explicit logical(bool v) : value_(v)  {}
-    
-    BOOST_DISPATCH_FORCE_INLINE logical& operator=(bool v) 
-    { 
-      value_ = v; return *this; 
+    template<class U>
+    BOOST_FORCEINLINE explicit logical(U v) : value_(v != 0)  {}
+
+    BOOST_FORCEINLINE logical& operator=(bool v)
+    {
+      value_ = v;
+      return *this;
     }
-    
-    friend BOOST_DISPATCH_FORCE_INLINE
+
+    friend BOOST_FORCEINLINE
     bool operator ==(logical<T> const& a0, logical<T> const& a1) { return a0.value() == a1.value(); }
-    
-    friend BOOST_DISPATCH_FORCE_INLINE
+
+    friend BOOST_FORCEINLINE
     bool operator !=(logical<T> const& a0, logical<T> const& a1) { return a0.value() != a1.value(); }
-    
-    friend BOOST_DISPATCH_FORCE_INLINE logical<T> operator ~(logical<T> const& a0) { return logical<T>(~a0.value()); }
-    friend BOOST_DISPATCH_FORCE_INLINE logical<T> operator !(logical<T> const& a0) { return logical<T>(!a0.value()); }
+
+    friend BOOST_FORCEINLINE logical<T> operator ~(logical<T> const& a0) { return logical<T>(~a0.value()); }
+    friend BOOST_FORCEINLINE logical<T> operator !(logical<T> const& a0) { return logical<T>(!a0.value()); }
 
     //==========================================================================    
     /*!
@@ -72,9 +75,10 @@ namespace boost { namespace simd
      * \return Value of type \c bool containing the state of the logical 
      **/
     //==========================================================================    
-    BOOST_DISPATCH_FORCE_INLINE operator bool() const { return value_; }
+    BOOST_FORCEINLINE operator bool() const { return value_; }
     bool value() const {return value_; }
-    private:
+
+  private:
     bool  value_;
   };
 
@@ -82,7 +86,7 @@ namespace boost { namespace simd
   // Stream insertion for logical<T>
   ////////////////////////////////////////////////////////////////////////////
   template<class T>
-  BOOST_DISPATCH_FORCE_INLINE
+  BOOST_FORCEINLINE
   std::ostream& operator<<(std::ostream& os, logical<T> const& v )
   {
     return os << std::boolalpha << bool(v) << std::noboolalpha;

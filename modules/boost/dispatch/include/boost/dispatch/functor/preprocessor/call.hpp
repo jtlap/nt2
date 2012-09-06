@@ -14,11 +14,15 @@
  * \brief Defines macros for building a \ref boost::dispatch::ext::call specialization
  */
 
+#include <boost/dispatch/details/typeof.hpp>
 #include <boost/dispatch/meta/result_of.hpp>
 #include <boost/dispatch/preprocessor/strip.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
+#include <boost/preprocessor/repetition/repeat.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
+#include <boost/preprocessor/array/elem.hpp>
 
 //==============================================================================
 /*!
@@ -39,6 +43,34 @@
 //==============================================================================
 #define BOOST_DISPATCH_CALL(N)                                                 \
 result_type operator()( BOOST_PP_ENUM_BINARY_PARAMS(N,A,const& a) ) const      \
+/**/
+
+//==============================================================================
+/*!
+ * Generates a \ref boost::dispatch::ext::call specialization \c operator() prototype
+ * along with a result_type typedef.
+ *
+ * \param N Number of parameters for the current \ref boost::dispatch::ext::call
+ * \param Args Arguments to the function, with type and name
+ * \param Body Function body, must be a single expression
+ *
+ * \usage
+ *
+ * \code
+ * BOOST_DISPATCH_RETURNS(3, (A0 const& a0, A1 const& a1, A2 const& a2),
+ *   a0 + a1/a2
+ * )
+ * \endcode
+ */
+//==============================================================================
+#define BOOST_DISPATCH_RETURNS(N, Args, Body)                                  \
+BOOST_PP_REPEAT(N, BOOST_DISPATCH_RETURNS_, (N, Args))                         \
+typedef BOOST_DISPATCH_TYPEOF(Body) result_type;                               \
+BOOST_FORCEINLINE result_type operator()Args const { return Body; }            \
+/**/
+
+#define BOOST_DISPATCH_RETURNS_(z, n, Args)                                    \
+static BOOST_PP_ARRAY_ELEM(n, Args);                                           \
 /**/
 
 //==============================================================================

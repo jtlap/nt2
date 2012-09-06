@@ -8,9 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
-
-
-
+  erfinv.cpp
+  erfcinv.cpp
   fast_gamma.cpp
   spence.cpp
   stirling.cpp
@@ -21,6 +20,8 @@ SET( SOURCES
   gamma.cpp
   beta.cpp
   expni.cpp
+  erf.cpp
+  erfc.cpp
 # List of simd test files for toolbox euler
    )
 

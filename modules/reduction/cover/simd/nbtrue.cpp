@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( nbtrue_real__1_0,  NT2_SIMD_REAL_TYPES)
         {
           z+=a0[i] != 0 ;
         }
-        NT2_TEST_EQUAL( v,ssr_t(z));
+        NT2_TEST_EQUAL( v,z);
       }
     std::cout << "max ulp found is: " << ulp0 << std::endl;
   }

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_EPS_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_EPS_HPP_INCLUDED
+#include <nt2/toolbox/ieee/functions/eps.hpp>
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -35,7 +36,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::eps(imag(a0)); 
+      return nt2::eps(nt2::imag(a0)); 
     }
   };
   
@@ -46,7 +47,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::eps(real(a0)); 
+      return nt2::eps(nt2::real(a0)); 
     }
   };
 

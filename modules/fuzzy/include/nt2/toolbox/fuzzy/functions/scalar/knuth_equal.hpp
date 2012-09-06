@@ -9,10 +9,11 @@
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_KNUTH_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_KNUTH_EQUAL_HPP_INCLUDED
 
-#include <nt2/include/functions/fast_ldexp.hpp>
-#include <nt2/include/functions/exponent.hpp>
-#include <nt2/include/functions/maxnummag.hpp>
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/toolbox/fuzzy/functions/knuth_equal.hpp>
+#include <nt2/include/functions/scalar/fast_ldexp.hpp>
+#include <nt2/include/functions/scalar/exponent.hpp>
+#include <nt2/include/functions/scalar/maxnummag.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 

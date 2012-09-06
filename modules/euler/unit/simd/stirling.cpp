@@ -50,9 +50,13 @@ NT2_TEST_CASE_TPL ( stirling_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<stirling_(vT)>::type r_t;
   typedef typename nt2::meta::call<stirling_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
 
-
+  // specific values tests
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Inf<vT>())[0],  stirling(nt2::Inf<T>() ),  0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Minf<vT>())[0], stirling(nt2::Minf<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Mone<vT>())[0], stirling(nt2::Mone<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Nan<vT>())[0],  stirling(nt2::Nan<T>() ),  0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::One<vT>())[0],  stirling(nt2::One<T>() ),  0.5);
+  NT2_TEST_ULP_EQUAL(stirling(nt2::Zero<vT>())[0], stirling(nt2::Zero<T>()), 0.5);
   // specific values tests
 } // end of test for floating_

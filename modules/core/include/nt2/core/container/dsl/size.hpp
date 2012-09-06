@@ -9,12 +9,10 @@
 #ifndef NT2_CORE_CONTAINER_DSL_SIZE_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_SIZE_HPP_INCLUDED
 
-#include <boost/proto/core.hpp>
-#include <boost/proto/traits.hpp>
-#include <boost/proto/transform.hpp>
-#include <nt2/core/settings/size.hpp>
-#include <nt2/core/functions/extent.hpp>
 #include <nt2/core/container/dsl/details/trait_transform.hpp>
+#include <nt2/include/functions/extent.hpp>
+#include <nt2/dsl/functions/terminal.hpp>
+#include <boost/proto/traits.hpp>
 
 namespace nt2 { namespace container
 {
@@ -41,8 +39,8 @@ namespace nt2 { namespace container
     //==========================================================================
     // Terminal size is stored as a reference to the terminal value size
     //==========================================================================
-    template<class Tag, class Domain, class Expr>
-    struct size_of<Tag,Domain,0,Expr>
+    template<class Domain, class Expr>
+    struct size_of<boost::simd::tag::terminal_,Domain,0,Expr>
     {
       typedef typename boost::proto::result_of::value<Expr&>::type  value_type;
       typedef typename meta::call<tag::extent_(value_type)>::type   result_type;
@@ -50,6 +48,18 @@ namespace nt2 { namespace container
       BOOST_FORCEINLINE result_type operator()(Expr& e) const
       {
         return nt2::extent(boost::proto::value(e));
+      }
+    };
+
+    template<class Tag, class Domain, class Expr>
+    struct size_of<Tag,Domain,0,Expr>
+    {
+      typedef typename meta::call<Tag(typename boost::proto::result_of::value<Expr&>::type)>::type  value_type;
+      typedef typename meta::call<tag::extent_(value_type)>::type   result_type;
+
+      BOOST_FORCEINLINE result_type operator()(Expr& e) const
+      {
+        return nt2::extent(nt2::functor<Tag>()(boost::proto::value(e)));
       }
     };
   }

@@ -9,13 +9,14 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_LINSPACE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_LINSPACE_HPP_INCLUDED
 
+#include <nt2/core/functions/linspace.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/box.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/linspace.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/scalar/splat.hpp>
+#include <nt2/include/functions/scalar/enumerate.hpp>
 
 //==============================================================================
 // linspace actual functor forward declaration
@@ -98,21 +99,23 @@ namespace nt2 { namespace details
   {
     linspace() {}
     linspace( T const& l, T const& u, std::size_t n )
-            : lower_(l), step_((u-l)/(n-1)) {}
+      : n_(n-1), lower_(l), step_((u-l)/(n-1)), upper_(u){}
 
     template<class Pos, class Size, class Target>
     typename Target::type
     operator()(Pos const& p, Size const&, Target const&) const
     {
       typedef typename Target::type type;
-
-      return nt2::fma ( nt2::enumerate<type>(boost::fusion::at_c<1>(p)-1)
-                      , nt2::splat<type>(step_)
-                      , nt2::splat<type>(lower_)
-                      );
+      type en = nt2::enumerate<type>(p);
+      return nt2::if_else(eq(en, nt2::splat<type>(n_)), nt2::splat<type>(upper_), 
+                          nt2::fma ( en
+                                     , nt2::splat<type>(step_)
+                                     , nt2::splat<type>(lower_)
+                                     )
+                          );
     }
-
-    T lower_, step_;
+    std::size_t n_; 
+    T lower_, step_, upper_;
   };
 } }
 

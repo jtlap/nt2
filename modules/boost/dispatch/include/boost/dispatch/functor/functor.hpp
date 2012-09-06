@@ -74,19 +74,21 @@ namespace boost { namespace dispatch
   {
     template<class Sig> struct result;
 
-    #if (   !defined(BOOST_NO_VARIADIC_TEMPLATES)   \
-        &&  !defined(BOOST_NO_RVALUE_REFERENCES)    \
-        &&  !defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES) \
-        )                                           \
-        || defined(DOXYGEN_ONLY)
+    #if (   !defined(BOOST_NO_VARIADIC_TEMPLATES)               \
+        &&  !defined(BOOST_NO_RVALUE_REFERENCES)                \
+        &&  !defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)  \
+        )                                                       \
+        || defined(NT2_DOXYGEN_ONLY)
     template<class This, class... Args>
     struct result<This(Args...)>
+#if !defined(NT2_DOXYGEN_ONLY)
       : meta::
         result_of< typename meta::
                    dispatch_call< Tag(typename meta::as_ref<Args>::type...)
                                 , EvalContext
                                 >::type(typename meta::as_ref<Args>::type...)
                  >
+#endif
     {};
 
     //==========================================================================
@@ -110,7 +112,7 @@ namespace boost { namespace dispatch
              ( static_cast<typename meta::as_ref<Args>::type>(args)... );
     }
     #elif !defined(BOOST_NO_RVALUE_REFERENCES) && !defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES_NO_0X)
-    
+
 #if !defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
 #include <boost/dispatch/functor/preprocessed/functor0x.hpp>
 #else
@@ -154,7 +156,7 @@ namespace boost { namespace dispatch
 #pragma wave option(output: null)
 #endif
 #endif
-    
+
 #else
 
 #if !defined(BOOST_DISPATCH_DONT_USE_PREPROCESSED_FILES)
@@ -170,12 +172,12 @@ namespace boost { namespace dispatch
     /**/
 
     #define arg_type(r,_,i,b) BOOST_PP_COMMA_IF(i) BOOST_PP_CAT(A,i) BOOST_PP_CAT(c,b) &
-               
+
     #define c0
     #define c1 const
     #define bits(z, n, _) ((0)(1))
     #define n_size(seq) BOOST_PP_SEQ_SIZE(seq)
-    
+
     #define M1(z,n,t) typename meta::as_ref<A##n>::type
 
     #define call_operator(r, constness)                                       \
@@ -211,7 +213,7 @@ namespace boost { namespace dispatch
     )                                                                         \
     /**/
 
-    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M0,~)    
+    BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M0,~)
 
     #undef M0
     #undef M1
@@ -222,7 +224,7 @@ namespace boost { namespace dispatch
     #undef param2
     #undef param
     #undef call_operator
-    
+
 #if defined(__WAVE__) && defined(BOOST_DISPATCH_CREATE_PREPROCESSED_FILES)
 #pragma wave option(output: null)
 #endif

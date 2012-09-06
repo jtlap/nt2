@@ -12,6 +12,10 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+#ifdef __ICC
+#pragma warning(disable: 239) // floating point underflow when inputting Mindenormal value
+#endif
+
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of eps constants for every base real types
 ////////////////////////////////////////////////////////////////////////////////
@@ -34,7 +38,7 @@ NT2_TEST_CASE( float_eps_value )
   NT2_TEST_EQUAL( boost::simd::Halfeps<float>()         , 5.960464477539063e-8   );
   NT2_TEST_EQUAL( boost::simd::Threeeps<float>()        , 3.5762786865234375e-7  );
   NT2_TEST_EQUAL( boost::simd::Sqrteps<float>()         , 0.0003452669770922512  );
-  NT2_TEST_EQUAL( boost::simd::Fourthrooteps<float>()    , 0.018581360578536987   );
+  NT2_TEST_EQUAL( boost::simd::Fourthrooteps<float>()   , 0.018581360578536987   );
   NT2_TEST_EQUAL( boost::simd::Thirdrooteps<float>()    , 0.004921566694974899   );
   NT2_TEST_EQUAL( boost::simd::Mlogeps2<float>()        , 7.971192359924316      );
   NT2_TEST_EQUAL( boost::simd::Mindenormal<float>()     , 1.401298464324817e-45  );
@@ -46,13 +50,13 @@ NT2_TEST_CASE( float_eps_value )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( real_value, BOOST_SIMD_INTEGRAL_TYPES )
 {
-  NT2_TEST_EQUAL( boost::simd::Eps<T>()             , 1 );
-  NT2_TEST_EQUAL( boost::simd::Halfeps<T>()         , 1 );
-  NT2_TEST_EQUAL( boost::simd::Threeeps<T>()        , 3 );
-  NT2_TEST_EQUAL( boost::simd::Sqrteps<T>()         , 1 );
-  NT2_TEST_EQUAL( boost::simd::Fourthrooteps<T>()   , 1 );
-  NT2_TEST_EQUAL( boost::simd::Thirdrooteps<T>()    , 1 );
-  NT2_TEST_EQUAL( boost::simd::Mlogeps2<T>()        , 0 );
-  NT2_TEST_EQUAL( boost::simd::Mindenormal<T>()     , 1 );
-  NT2_TEST_EQUAL( boost::simd::Smallestposval<T>()  , 1 );
+  NT2_TEST_EQUAL( boost::simd::Eps<T>()             , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Halfeps<T>()         , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Threeeps<T>()        , T(3) );
+  NT2_TEST_EQUAL( boost::simd::Sqrteps<T>()         , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Fourthrooteps<T>()   , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Thirdrooteps<T>()    , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Mlogeps2<T>()        , T(0) );
+  NT2_TEST_EQUAL( boost::simd::Mindenormal<T>()     , T(1) );
+  NT2_TEST_EQUAL( boost::simd::Smallestposval<T>()  , T(1) );
 }

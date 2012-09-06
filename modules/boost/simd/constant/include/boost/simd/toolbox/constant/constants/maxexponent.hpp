@@ -14,7 +14,6 @@
 
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
 /*!
@@ -29,12 +28,12 @@
  * types it does not represent the same mathematical number.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/maxexponent.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,12 +45,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Maxexponent
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -59,26 +58,28 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Maxexponent of functor Maxexponent 
+     * \brief Define the tag Maxexponent of functor Maxexponent
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     struct Maxexponent : ext::constant_<Maxexponent>
-    { 
-      template<class Target, class Dummy=void> 
-      struct  apply : meta::int_c<Target,0> {};  
+    {
+      template<class Target, class Dummy=void>
+      struct  apply : meta::int_c<typename Target::type,0> {};
     };
 
-    template<class Dummy>
-    struct  Maxexponent::apply<float,Dummy> 
+    template<class T, class Dummy>
+    struct  Maxexponent::apply<boost::dispatch::meta::single_<T>,Dummy>
           : meta::int_c<boost::simd::int32_t,127> {};
 
-    template<class Dummy>
-    struct  Maxexponent::apply<double,Dummy> 
+    template<class T, class Dummy>
+    struct  Maxexponent::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::int_c<boost::simd::int64_t,1023> {};
 
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Maxexponent, Maxexponent)
 } }
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif

@@ -10,11 +10,13 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_COMPARE_LESS_HPP_INCLUDED
 
 #include <nt2/toolbox/operator/functions/compare_less.hpp>
-#include <nt2/sdk/meta/as_logical.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/imag.hpp>
+#include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
+#include <nt2/sdk/meta/scalar_of.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
@@ -29,11 +31,11 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type tmp =  compare_less(real(a0), real(a1)); 
+      result_type tmp =  compare_less(nt2::real(a0), nt2::real(a1)); 
       if (tmp)
         return tmp;
       else
-        return  compare_less(imag(a0), imag(a1)); 
+        return  compare_less(nt2::imag(a0), nt2::imag(a1)); 
     }
   };
 
@@ -47,7 +49,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return  compare_less(imag(a0), imag(a1)); 
+      return  compare_less(nt2::imag(a0), nt2::imag(a1)); 
     }
   };
   
@@ -61,7 +63,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return  compare_less(real(a0), real(a1)); 
+      return  compare_less(nt2::real(a0), nt2::real(a1)); 
     }
   };  
 } }

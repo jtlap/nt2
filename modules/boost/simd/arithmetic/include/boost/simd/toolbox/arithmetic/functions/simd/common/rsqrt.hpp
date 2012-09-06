@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_RSQRT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_RSQRT_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/rsqrt.hpp>
-#include <boost/simd/include/functions/sqrt.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/divides.hpp>
+#include <boost/simd/include/functions/simd/sqrt.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/divides.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 

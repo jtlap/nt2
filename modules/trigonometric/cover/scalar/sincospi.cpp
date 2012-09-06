@@ -12,7 +12,7 @@
 // cover test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/sincospi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -39,7 +39,7 @@
 
 NT2_TEST_CASE_TPL ( sincospi_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::sincospi;
   using nt2::tag::sincospi_;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -50,9 +50,9 @@ NT2_TEST_CASE_TPL ( sincospi_real__1_0,  NT2_REAL_TYPES)
   typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -73,9 +73,9 @@ NT2_TEST_CASE_TPL ( sincospi_real__1_0,  NT2_REAL_TYPES)
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
         r_t0 r0 = boost::fusion::get<0>(r);
         r_t1 r1 = boost::fusion::get<1>(r);
-        NT2_TEST_TUPLE_ULP_EQUAL( r0, nt2::sinpi(a0), 1.0);
+        NT2_TEST_ULP_EQUAL( r0, nt2::sinpi(a0), 1.0);
         if (ulpd>ulp0) ulp0=ulpd;
-        NT2_TEST_TUPLE_ULP_EQUAL( r1, nt2::cospi(a0), 1.0);
+        NT2_TEST_ULP_EQUAL( r1, nt2::cospi(a0), 1.0);
         if (ulpd>ulp0) ulp0=ulpd;
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

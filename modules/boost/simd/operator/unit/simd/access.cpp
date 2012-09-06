@@ -43,10 +43,10 @@ NT2_TEST_CASE_TPL(unaligned_load, BOOST_SIMD_SIMD_TYPES )
 
   for(std::size_t i=0;i<3*card;i+=card)
   {
-    n_t v = unaligned_load<n_t>(&data[0]+i);
+    n_t v = unaligned_load<n_t>(&data[0],i);
     for(std::size_t j=0;j<card;++j)
     {
-      NT2_TEST_EQUAL( v[j], 1+i+j );
+      NT2_TEST_EQUAL( v[j], T(1+i+j) );
     }
   }
 }
@@ -75,7 +75,7 @@ NT2_TEST_CASE_TPL(load, BOOST_SIMD_SIMD_TYPES )
     v = load<n_t>(&data[0],i);
     for(std::size_t j=0;j<cardinal_of<n_t>::value;++j)
     {
-      NT2_TEST_EQUAL( v[j], 1+i+j );
+      NT2_TEST_EQUAL( v[j], T(1+i+j) );
     }
   }
 

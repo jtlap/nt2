@@ -10,10 +10,9 @@
 #define NT2_CORE_FUNCTIONS_EYE_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/functions/details/eye.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/container/dsl/details/generative.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
+#include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 namespace nt2
 {

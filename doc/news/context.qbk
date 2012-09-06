@@ -1,0 +1,59 @@
+[section Context]
+Modern high performance systems lately became both more powerful than ever with
+the rise of multi-cores and accelerator based systems and more ubiquitous than
+ever as a lot of embedded systems now start using more advanced parallel chips.
+Scientist and engineers, which may not be computer science experts, may have
+difficulties exploiting such systems if they try to mitigate their domain related
+concerns with the need of expertise in SIMD instructions, multi-cores, multiprocessors
+, GPGPU and distributed systems.
+
+[heading Our Solution]
+The Numerical Template Toolbox (__NT2__) is an [@http://www.boost.org/LICENSE_1_0.txt open source]
+C++ library aimed at easing the development of high-performance numerical
+computing applications on a wide range of architectures ranging from embedded
+systems to large-scale clusters. It does so with a high-level __MATLAB__-like
+syntax, which facilitates the transition from prototype to finished product without
+having to deal with the specificities of the hardware target.
+
+Thanks to C++ meta-programming techniques, __NT2__ can generate highly optimized
+code for a variety of architectures on par with that of hand-written C code, and
+is able to leverage the different kinds of parallelism found in modern hardware,
+such as SIMD, multi-core and cluster systems. Open and modular, __NT2__ is also
+easy to extend to take care of a specific domain set of functionalities or to
+target new architectures or architecture flavors.
+
+[heading How to use this documentation]
+This documentation is split into four main parts:
+
+* the [link getting_started Getting Started Guide] that contains informations
+about how to install and configure __NT2__.
+* the [link user_manual User Manual] that contains documentations of how to use
+__NT2__ components in your software.
+* the [link tools Tools Manual] that contains documentations of how to use
+__NT2__ related tools like the build system or the unit tests facility.
+* the [link dev_manual Developer Manual] that contains informations about the
+structure of the library, rationales and a general guide for contributors.
+
+An appendix is provided to gather additional informations related to __NT2__
+development as a whole, related publications and licencing informations.
+
+[heading Need Help or Have an idea ?]
+The __NT2__ developers will be glad to answer your questions, solve your bugs
+or discuss your idea. You can:
+
+* Use our [@http://www.github.com/MetaScale/nt2/issues Issues Tracker] to search
+for a bug or submit a new one.
+* [@http://help.github.com/set-up-git-redirect Create a GitHub account], fork
+the [@http://www.github.com/MetaScale/nt2 __NT2__ repository] and propose features,
+bug fix or ideas.
+* Run regression tests and upload them to our
+[@http://cdash.lri.fr/index.php?project=NT2 CDash server].
+* Discuss __NT2__ on our user mailing list,
+[@https://groups.google.com/forum/?fromgroups#!forum/nt2-dev our developer
+mailing list] or on [@irc://irc.freenode.net/nt2our IRC Channel on Freenode] or
+[@http://webchat.freenode.net/?channels=nt2&uio=d4 through the Webchat].
+
+
+If you wish to collaborate to __NT2__
+
+[endsect]

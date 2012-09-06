@@ -13,7 +13,6 @@
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_FACT_5_HPP_INCLUDED
 
 #include <boost/simd/include/simd.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
@@ -63,5 +62,7 @@ namespace boost { namespace simd
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_5, Fact_5)
 } }
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif

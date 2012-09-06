@@ -42,9 +42,6 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<sqrt1pm1_(vT)>::type r_t;
   typedef typename boost::dispatch::meta::call<sqrt1pm1_(T)>::type sr_t;
   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(sqrt1pm1(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);

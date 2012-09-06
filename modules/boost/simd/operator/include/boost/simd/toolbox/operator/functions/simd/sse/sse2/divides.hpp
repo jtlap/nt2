@@ -11,9 +11,9 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/divides.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/logical_and.hpp>
-#include <boost/simd/include/functions/if_allbits_else.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/logical_and.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
 #include <boost/simd/include/constants/nan.hpp>
 #include <boost/simd/sdk/config/compiler.hpp>
 
@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 const that = { _mm_div_pd(a0,a1) };
+      A0 const that = _mm_div_pd(a0,a1);
 #if defined(BOOST_SIMD_COMPILER_GCC) && \
             __GNUC__ <= 4 && \
             ((__GNUC_MINOR__ < 6 || \
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 const that = { _mm_div_ps(a0,a1) };
+      A0 const that = _mm_div_ps(a0,a1);
 #if defined(BOOST_SIMD_COMPILER_GCC) && \
             __GNUC__ <= 4 && \
             ((__GNUC_MINOR__ < 6 || \

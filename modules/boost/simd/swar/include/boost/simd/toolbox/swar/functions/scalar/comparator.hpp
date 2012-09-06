@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_COMPARATOR_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_COMPARATOR_HPP_INCLUDED
+#include <boost/simd/toolbox/swar/functions/comparator.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/max.hpp>
-#include <boost/simd/include/functions/any.hpp>
+#include <boost/simd/include/functions/scalar/min.hpp>
+#include <boost/simd/include/functions/scalar/max.hpp>
+#include <boost/simd/include/functions/scalar/any.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
 /////////////////////////////////////////////////////////////////////////////

@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_TANH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_TANH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/tanh.hpp>
 #include <nt2/include/constants/digits.hpp>
 
-#include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/bitwise_or.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/sign.hpp>
+#include <nt2/include/functions/scalar/expm1.hpp>
+#include <nt2/include/functions/scalar/bitwise_or.hpp>
+#include <nt2/include/functions/scalar/bitofsign.hpp>
+#include <nt2/include/functions/scalar/sign.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

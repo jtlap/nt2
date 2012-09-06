@@ -46,9 +46,6 @@ NT2_TEST_CASE_TPL ( is_gez_real__1_0,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(is_gez(-nt2::Zero<T>()), nt2::True<r_t>());
@@ -78,9 +75,6 @@ NT2_TEST_CASE_TPL ( is_gez_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(is_gez(nt2::Mone<T>()), nt2::False<r_t>());
@@ -104,9 +98,6 @@ NT2_TEST_CASE_TPL ( is_gez_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
   NT2_TEST_EQUAL(is_gez(nt2::One<T>()), nt2::True<r_t>());

@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_FIRSTBITUNSET_HPP_INCLUDED
 
 #include <boost/simd/toolbox/bitwise/functions/firstbitunset.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
-#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 

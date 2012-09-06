@@ -47,17 +47,14 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef boost::simd::logical<T> vsr_t; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(any(boost::simd::Inf<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(any(boost::simd::Minf<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(any(boost::simd::Mone<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(any(boost::simd::Nan<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(any(boost::simd::True<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(any(boost::simd::Zero<vT>()), vsr_t(false));
+  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Inf<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Minf<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Mone<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Nan<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(boost::simd::any(boost::simd::True<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Zero<vT>()), vsr_t(false));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( any_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
@@ -77,11 +74,8 @@ NT2_TEST_CASE_TPL ( any_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef boost::simd::logical<T> vsr_t; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(any(boost::simd::One<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(any(boost::simd::Zero<vT>()), vsr_t(false));
+  NT2_TEST_EQUAL(boost::simd::any(boost::simd::One<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(boost::simd::any(boost::simd::Zero<vT>()), vsr_t(false));
 } // end of test for integer_

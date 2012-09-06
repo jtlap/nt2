@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE4_2_SUPPORT
 
 #include <boost/simd/toolbox/predicates/functions/is_greater_equal.hpp>
-#include <boost/simd/include/functions/logical_not.hpp>
+#include <boost/simd/include/functions/simd/logical_not.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type that = { _mm_cmpgt_epi64(a1,a0) };
+      result_type that = _mm_cmpgt_epi64(a1,a0);
       return logical_not(that);
     }
   };

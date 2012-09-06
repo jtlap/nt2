@@ -11,9 +11,9 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/assert.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -88,16 +88,13 @@ namespace boost { namespace simd { namespace ext
       BOOST_STATIC_CONSTANT( std::size_t, shifta  = bytes*(A3::value%card)                );
       BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-A3::value%card)           );
 
-      typedef typename boost::simd::meta::as_simd< typename meta::scalar_of<result_type>::type
-                                    , boost::simd::tag::sse_
-                                    >::type     raw_type;
+      typedef typename dispatch::meta::as_integer<result_type>::type itype;
 
       result_type a     = boost::simd::load<result_type>(a0,a1+offset);
       result_type b     = boost::simd::load<result_type>(a0,a1+offset+card);
-      __m128i sa        = _mm_srli_si128(boost::simd::bitwise_cast<__m128i>(a.data_),shifta);
-      __m128i sb        = _mm_slli_si128(boost::simd::bitwise_cast<__m128i>(b.data_),shiftb);
-      result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
-      return that;
+      __m128i sa        = _mm_srli_si128(boost::simd::bitwise_cast<itype>(a.data_),shifta);
+      __m128i sb        = _mm_slli_si128(boost::simd::bitwise_cast<itype>(b.data_),shiftb);
+      return boost::simd::bitwise_cast<result_type>(_mm_or_si128(sa,sb));
     }
 
     ////////////////////////////////////////////////////////////////////////////
@@ -113,16 +110,13 @@ namespace boost { namespace simd { namespace ext
       BOOST_STATIC_CONSTANT( std::size_t, shifta  = bytes*(std::size_t(-A3::value)%card)     );
       BOOST_STATIC_CONSTANT( std::size_t, shiftb  = bytes*(card-std::size_t(-A3::value)%card));
 
-      typedef typename boost::simd::meta::as_simd< typename meta::scalar_of<result_type>::type
-                                    , boost::simd::tag::sse_
-                                    >::type     raw_type;
+      typedef typename dispatch::meta::as_integer<result_type>::type itype;
 
       result_type a     = boost::simd::load<result_type>(a0,a1-offset);
       result_type b     = boost::simd::load<result_type>(a0,a1-offset-card);
-      __m128i sa        = _mm_slli_si128(boost::simd::bitwise_cast<__m128i>(a.data_),shifta);
-      __m128i sb        = _mm_srli_si128(boost::simd::bitwise_cast<__m128i>(b.data_),shiftb);
-      result_type that  = { boost::simd::bitwise_cast<raw_type>(_mm_or_si128(sa,sb)) };
-      return that;
+      __m128i sa        = _mm_slli_si128(boost::simd::bitwise_cast<itype>(a),shifta);
+      __m128i sb        = _mm_srli_si128(boost::simd::bitwise_cast<itype>(b),shiftb);
+      return boost::simd::bitwise_cast<result_type>(_mm_or_si128(sa,sb));
     }
   };
 } } }

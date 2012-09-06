@@ -8,14 +8,18 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ATAN2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_ATAN2_HPP_INCLUDED
-#include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/toolbox/constant/include/constants/real.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/copysign.hpp>
+#include <nt2/toolbox/trigonometric/functions/atan2.hpp>
+#include <nt2/toolbox/trigonometric/functions/scalar/impl/invtrig.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/is_nan.hpp>
+#include <nt2/include/functions/scalar/copysign.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <cmath>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/signnz.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/is_gtz.hpp>
+//#include <cmath>
+#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -28,11 +32,18 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0 result_type;
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0 a0, A0 a1) const
     { 
-      if (is_inf(a0) && is_inf(a1)) return atan2(copysign(One<A0>(), a0),copysign(One<A0>(), a1)); 
       if (is_nan(a0) || is_nan(a1)) return Nan<result_type>(); 
-      return std::atan2(a0,a1);
+      if (is_inf(a0) && is_inf(a1))
+        {
+          a0 = copysign(One<A0>(), a0);
+          a1 = copysign(One<A0>(), a1);
+        }
+      A0 z = impl::invtrig_base<result_type,radian_tag, tag::not_simd_type>::kernel_atan(a0/a1);
+      z = nt2::if_else(is_gtz(a1), z, Pi<A0>()-z)*signnz(a0);
+      return nt2::if_else(is_eqz(a0), nt2::if_else(is_ltz(a1), Pi<A0>(), Zero<A0>()), z);
     }
   };
   
@@ -44,7 +55,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return std::atan2(result_type(a0),result_type(a1));
+      return nt2::atan2(result_type(a0),result_type(a1));
     }
   };
 } }

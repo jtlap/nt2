@@ -1,0 +1,41 @@
+[section Benchmarking with __NT2__]
+
+If correctness is paramount to all computing tasks, the speed at which such
+tasks are performed can also be a critical aspect. But the absolute speed of
+any program is usually irrelevant as many factor like architecture or data
+set can influence such a crude measurement. In order to assess a program
+relative performance compared to others, a benchmarking protocol has to be
+developped and applied in a systematic, reproductible way.
+
+Being a HPC oriented library, __NT2__ provides a set of functions and classes
+to simplify the design of proper benchmarks and the exploitation of their results
+by abstracting the system-dependent timers, the choice of the correct metric and
+the structure of the benchmark itself.
+
+[section Rationale]
+
+[endsect]
+
+
+[section Timing functions]
+[heading Cycle-based timing]
+
+[heading Second-based timing]
+[endsect]
+
+[section Scoped Timers]
+[heading Cycle-based timer]
+
+[heading Second-based timer]
+
+[endsect]
+
+[section The Benchmark Driver]
+
+[heading Benchmark setup]
+
+[heading Interpreting results]
+
+[endsect]
+
+[endsect]

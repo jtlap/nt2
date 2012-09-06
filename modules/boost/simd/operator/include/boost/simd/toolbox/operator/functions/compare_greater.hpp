@@ -13,9 +13,6 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_COMPARE_GREATER_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-
-#include <boost/simd/toolbox/operator/specific/common.hpp>
-
 #include <boost/proto/tags.hpp>
 
 /*!
@@ -76,7 +73,7 @@ namespace boost { namespace simd
      * \brief Define the tag compare_greater_ of functor compare_greater 
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
-    struct compare_greater_ : ext::reduction_<compare_greater_> { typedef ext::reduction_<compare_greater_> parent; };
+    struct compare_greater_ : ext::unspecified_<compare_greater_> { typedef ext::unspecified_<compare_greater_> parent; };
   }
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::compare_greater_, compare_greater , 2 )
@@ -96,5 +93,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef boost::proto::tag::greater type;
   };
 } } }
+
+#include <boost/simd/toolbox/operator/specific/common.hpp>
 
 #endif

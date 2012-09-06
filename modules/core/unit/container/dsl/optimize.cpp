@@ -16,46 +16,7 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-template<class T, class N0, class N1>
-struct node2 {};
-
-template<class T, class N0, class N1, class N2>
-struct node3 {};
-
-template<class Tag, class Expr, int N>
-struct as_node_impl;
-
-template<class Expr>
-struct as_node
- : as_node_impl< typename boost::proto::tag_of<Expr>::type
-               , Expr
-               , boost::proto::arity_of<Expr>::type::value
-               >
-{
-};
-
-template<class Tag, class Expr>
-struct as_node_impl<Tag, Expr, 0>
-{
-  typedef Tag type;
-};
-
-template<class Tag, class Expr>
-struct as_node_impl<Tag, Expr, 2>
-{
-  typedef node2<Tag, typename as_node< typename boost::proto::result_of::child_c<Expr, 0>::type >::type
-                   , typename as_node< typename boost::proto::result_of::child_c<Expr, 1>::type >::type
-               > type;
-};
-
-template<class Tag, class Expr>
-struct as_node_impl<Tag, Expr, 3>
-{
-  typedef node3<Tag, typename as_node< typename boost::proto::result_of::child_c<Expr, 0>::type >::type
-                   , typename as_node< typename boost::proto::result_of::child_c<Expr, 1>::type >::type
-                   , typename as_node< typename boost::proto::result_of::child_c<Expr, 2>::type >::type
-               > type;
-};
+#include "as_node.hpp"
 
 NT2_TEST_CASE( function )
 {
@@ -67,10 +28,13 @@ NT2_TEST_CASE( function )
 
   NT2_TEST_EXPR_TYPE( nt2::optimize( a0(a1) )
                     , as_node<_>
-                    , ( node2< boost::proto::tag::function
-                             , boost::proto::tag::terminal
-                             , boost::proto::tag::terminal
-                             >
+                    , ( node3 < boost::proto::tag::function
+                              , boost::proto::tag::terminal
+                              , node1 < nt2::tag::aggregate_
+                                      , boost::proto::tag::terminal
+                                      >
+                              , boost::simd::tag::box_
+                              >
                       )
                     )
 }
@@ -129,7 +93,7 @@ NT2_TEST_CASE( fma )
                              >
                       )
                     );
-                    
+
   NT2_TEST_EXPR_TYPE( nt2::optimize(a0 + a1 * (a2 * a0 + a1))
                     , as_node<_>
                     , ( node3< nt2::tag::fma_
@@ -174,10 +138,5 @@ NT2_TEST_CASE( terminal_ref )
   NT2_TEST_EXPR_TYPE( boost::mpl::identity< nt2::meta::call<nt2::tag::optimize_(table<T>&)>::type >()
                     , type
                     , table<T>&
-                    );
-
-  NT2_TEST_EXPR_TYPE( nt2::optimize(a0(1))
-                    , child0
-                    , table<T>::parent&
                     );
 }

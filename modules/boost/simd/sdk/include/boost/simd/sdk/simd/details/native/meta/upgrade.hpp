@@ -18,18 +18,18 @@
 namespace boost { namespace dispatch { namespace meta
 {
 ////////////////////////////////////////////////////////////////////////////
-// Extension Point for upgrade on native<T,Ext>. 
-// Prevent from upgrading native<float,altivec_> to native<double,altivec_> 
+// Extension Point for upgrade on native<T,Ext>.
+// Prevent from upgrading native<float,altivec_> to native<double,altivec_>
 // which is not supported.
 ////////////////////////////////////////////////////////////////////////////
 
   template<class T, class Ext, class Sign>
   struct upgrade< typename boost::simd::native<T, Ext>, Sign >
   {
-    typedef typename dispatch::meta::upgrade<T>::type uT;
-    typedef typename 
-    boost::mpl::if_< typename 
-                     simd::meta::is_vectorizable<uT,Ext>::type 
+    typedef typename dispatch::meta::upgrade<T,Sign>::type uT;
+    typedef typename
+    boost::mpl::if_< typename
+                     simd::meta::is_vectorizable<uT,Ext>::type
                    , typename simd::native<uT,Ext>
                    , typename simd::native< T,Ext>
                    >::type type;

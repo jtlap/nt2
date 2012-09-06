@@ -9,6 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_ADDS_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/arithmetic/functions/adds.hpp>
 #include <boost/simd/toolbox/arithmetic/functions/simd/common/adds.hpp>
 
 namespace boost { namespace simd { namespace ext

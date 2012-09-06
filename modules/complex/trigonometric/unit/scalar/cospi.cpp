@@ -55,15 +55,15 @@ NT2_TEST_CASE_TPL ( cospi_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.431, 0.431)),std::cos(nt2::Pi<T>()*cT(0.431, 0.431)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.431, 0.628)),std::cos(nt2::Pi<T>()*cT(0.431, 0.628)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.628, 0.431)),std::cos(nt2::Pi<T>()*cT(0.628, 0.431)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.628, 0.628)),std::cos(nt2::Pi<T>()*cT(0.628, 0.628)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0, 0.431)),std::cos(nt2::Pi<T>()*cT(0.0, 0.431)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0, 0.628)),std::cos(nt2::Pi<T>()*cT(0.0, 0.628)), 2);
-  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(0.628, 0)),std::cos(nt2::Pi<T>()*cT(0.628, 0.0)), 2);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(nt2::Inf<T>())), cT(nt2::Nan<T>()), 3);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(nt2::Minf<T>())), cT(nt2::Nan<T>()), 3);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(T(0.431), T(0.431))),std::cos(nt2::Pi<T>()*cT(T(0.431), T(0.431))), 3);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(T(0.431), T(0.628))),std::cos(nt2::Pi<T>()*cT(T(0.431), T(0.628))), 3);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(T(0.628), T(0.431))),std::cos(nt2::Pi<T>()*cT(T(0.628), T(0.431))), 3);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(T(0.628), T(0.628))),std::cos(nt2::Pi<T>()*cT(T(0.628), T(0.628))), 3);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(T(0), T(0.431))),std::cos(nt2::Pi<T>()*cT(T(0.0), T(0.431))), 3);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(T(0), T(0.628))),std::cos(nt2::Pi<T>()*cT(T(0.0), T(0.628))), 3);
+  NT2_TEST_ULP_EQUAL(nt2::cospi(cT(T(0.628), T(0))),std::cos(nt2::Pi<T>()*cT(T(0.628), T(0.0))), 3);
 
   const int N = 20; 
   cT inputs[N] =
@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( cospi_real__1_0,  NT2_REAL_TYPES)
   for(int i=0; i < N; i++)
    {
      NT2_TEST_ULP_EQUAL(nt2::cospi(-inputs[i]), nt2::cospi(inputs[i]), 3);  
-     NT2_TEST_ULP_EQUAL(nt2::cospi(inputs[i]), nt2::cos(nt2::Pi<T>()*inputs[i]), 3); 
+     NT2_TEST_ULP_EQUAL(nt2::cospi(inputs[i]), nt2::cos(nt2::multiplies(nt2::Pi<T>(), inputs[i])), 3); 
    }
 } // end of test for floating_
 

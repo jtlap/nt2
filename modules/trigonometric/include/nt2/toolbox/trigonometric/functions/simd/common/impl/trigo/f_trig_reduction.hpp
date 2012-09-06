@@ -9,27 +9,25 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_TRIGO_F_TRIG_REDUCTION_HPP_INCLUDED
 
-#include <nt2/include/functions/rem_pio2_medium.hpp>
-#include <nt2/include/functions/rem_pio2_cephes.hpp>
-#include <nt2/include/functions/rem_pio2_straight.hpp>
-#include <nt2/include/functions/rem_pio2.hpp>
-#include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/inrad.hpp>
-#include <nt2/include/functions/round2even.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/is_not_less.hpp>
-#include <nt2/include/functions/is_not_greater.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/bitwise_andnot.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/is_invalid.hpp>
-#include <nt2/include/functions/is_flint.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/all.hpp>
-#include <nt2/include/functions/split.hpp>
-#include <nt2/include/functions/group.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
+#include <nt2/include/functions/simd/rem_pio2_medium.hpp>
+#include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
+#include <nt2/include/functions/simd/rem_pio2_straight.hpp>
+#include <nt2/include/functions/simd/rem_pio2.hpp>
+#include <nt2/include/functions/simd/toint.hpp>
+#include <nt2/include/functions/simd/inrad.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/simd/is_not_less.hpp>
+#include <nt2/include/functions/simd/is_not_greater.hpp>
+#include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/bitwise_andnot.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/is_invalid.hpp>
+#include <nt2/include/functions/simd/is_flint.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/simd/split.hpp>
+#include <nt2/include/functions/simd/group.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -73,7 +71,7 @@ namespace nt2
       private:
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const big& b)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
@@ -121,7 +119,7 @@ namespace nt2
 
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const medium&)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
@@ -138,7 +136,7 @@ namespace nt2
         }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const small&)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           // x is always positive here
           if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
@@ -153,35 +151,35 @@ namespace nt2
          }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const direct_small&)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           return rem_pio2_cephes(x, xr, xc);
         }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const direct_medium&)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           return rem_pio2_medium(x, xr, xc);
         }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const direct_big& b)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           inner_reduce_big(x, xr, xc, b);
         }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const clipped_pio4&)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           xr = sel(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
           xc = Zero<A0>();
           return Zero<int_type>(); 
         }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const clipped_small&)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           xr = sel(issmall(nt2::abs(x)), x, Nan<A0>());
           return inner_reduce(xr, xr, xc, small()); 
         }
         static inline int_type inner_reduce(const typename A0::native_type x_n, A0& xr, A0& xc, const clipped_medium&)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           xr = sel(ismedium(nt2::abs(x)), x, Nan<A0>());
           return inner_reduce(xr, xr, xc, medium()); 
         }
@@ -200,7 +198,7 @@ namespace nt2
 
         static inline int_type reduce(const typename A0::native_type x_n, A0& xr, A0& xc)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           A0 xi = round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
           A0 x2 = x - xi * _90<A0>();//90.0f    
           xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
@@ -221,7 +219,7 @@ namespace nt2
 
         static inline int_type reduce(const typename A0::native_type x_n,  A0& xr, A0&xc)
         {
-          const A0 x = { x_n };
+          const A0 x = x_n;
           A0 xi = round2even(x*Two<A0>());
           A0 x2 = x - xi * Half<A0>();
           xr = x2*Pi<A0>();

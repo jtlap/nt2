@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,102 +10,77 @@
 #define BOOST_DISPATCH_META_ADAPTED_TRAITS_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Provides adaptation of some boost type traits for Boost.Dispatch types
- */
+ * @file
+ * @brief Define the boost::dispatch::meta::is_floating_point and
+ * boost::dispatch::meta::is_integral traits.
+ **/
 
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/behave_as.hpp>
-#include <boost/mpl/placeholders.hpp>
-#include <boost/type_traits/is_integral.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
+#include <boost/dispatch/meta/details/adapted_traits.hpp>
 
-namespace boost { namespace dispatch { namespace details
+namespace boost { namespace dispatch { namespace meta
 {
-  struct is_floating_point_impl
-  {
-    template<class T>
-    struct apply
-     : boost::is_floating_point<T>
-    {
-    };
-  };
-  
-  struct is_integral_impl
-  {
-    template<class T>
-    struct apply
-     : boost::is_integral<T>
-    {
-    };
-  };
-}
-    
-namespace meta
-{
-  //============================================================================
   /*!
-   * \ingroup metafunctions
-   * For any type \c T, checks if its primitive type is a floating-point type.
+   * @brief Check primitive type for floating point behavior
    *
-   * \tparam T Any type
+   * For any type @c T, checks if its primitive type is a floating-point type.
    *
-   * \par Models:
-   * \metafunction
+   * @tparam T Any type
    *
-   * \semantic
-   * For any type \c T,
+   * @par Models:
    *
-   * \code
+   * @metafunction
+   *
+   * @par Semantic:
+   * For any type @c T,
+   *
+   * @code
    * typedef is_floating<T>::type type;
-   * \endcode
+   * @endcode
    *
    * is equivalent to
    *
-   * \code
-   * typedef behave_as<boost::is_floating_point<boost::mpl::_>
-   *                  , strip<T>::type
-   *                  > type;
-   * \endcode
-   */
-  //============================================================================
+   * @code
+   * typedef behave_as< boost::is_floating_point<boost::mpl::_>, T > type;
+   * @endcode
+   **/
   template<class T>
   struct  is_floating_point
         : behave_as  < details::is_floating_point_impl
                      , T
-                     > {};
+                     >
+  {};
 
-  //============================================================================
   /*!
-   * \ingroup metafunctions
-   * For any type \c T, checks if its primitive type is a integral type.
+   * @brief Check primitive type for integer behavior
    *
-   * \tparam T Any type
+   * For any type @c T, checks if its primitive type is an integral type.
    *
-   * \par Models:
-   * \metafunction
+   * @tparam T Any type
    *
-   * \par Semantic:
-   * For any type \c T,
+   * @par Models:
    *
-   * \code
+   * @metafunction
+   *
+   * @par Semantic:
+   * For any type @c T,
+   *
+   * @code
    * typedef is_integral<T>::type type;
-   * \endcode
+   * @endcode
    *
    * is equivalent to
    *
-   * \code
-   * typedef behave_as<boost::is_integral<boost::mpl::_>
-   *                  , strip<T>::type
-   *                  > type;
-   * \endcode
-   */
-  //============================================================================
+   * @code
+   * typedef behave_as< boost::is_integral<boost::mpl::_>, T > type;
+   * @endcode
+   **/
   template<class T>
   struct  is_integral
         : behave_as  < details::is_integral_impl
                      , T
-                     > {};
+                     >
+  {};
 } } }
 
 #endif

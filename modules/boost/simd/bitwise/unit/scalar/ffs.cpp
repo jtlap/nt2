@@ -39,16 +39,13 @@ NT2_TEST_CASE_TPL ( ffs_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(ffs(boost::simd::Inf<T>()), boost::simd::Nbmantissabits<T>()+1);
-  NT2_TEST_EQUAL(ffs(boost::simd::Minf<T>()), boost::simd::Nbmantissabits<T>()+1);
-  NT2_TEST_EQUAL(ffs(boost::simd::Nan<T>()), boost::simd::One<r_t>());
-  NT2_TEST_EQUAL(ffs(boost::simd::Signmask<T>()), sizeof(T)*8);
-  NT2_TEST_EQUAL(ffs(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(ffs(boost::simd::Inf<T>()), sr_t(boost::simd::Nbmantissabits<T>()+1));
+  NT2_TEST_EQUAL(ffs(boost::simd::Minf<T>()), sr_t(boost::simd::Nbmantissabits<T>()+1));
+  NT2_TEST_EQUAL(ffs(boost::simd::Nan<T>()), sr_t(boost::simd::One<r_t>()));
+  NT2_TEST_EQUAL(ffs(boost::simd::Signmask<T>()), sr_t(sizeof(T)*8));
+  NT2_TEST_EQUAL(ffs(boost::simd::Zero<T>()), sr_t(boost::simd::Zero<r_t>()));
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -67,9 +64,7 @@ NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
+
 
   // specific values tests
   NT2_TEST_EQUAL(ffs(boost::simd::One<T>()), boost::simd::One<r_t>());
@@ -88,16 +83,17 @@ NT2_TEST_CASE_TPL ( ffs_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
-
-
+  
+  
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-  boost::dispatch::ignore_unused(ulpd);
-
+  
   // specific values tests
   NT2_TEST_EQUAL(ffs(boost::simd::One<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(ffs(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  for(int i=1; i < boost::simd::Valmax<char>(); i*= 2)
+    {
+      std::cout << boost::simd::ffs(T(i)) << std::endl; 
+    }
 } // end of test for unsigned_int_

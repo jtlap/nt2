@@ -39,7 +39,7 @@ namespace boost { namespace simd { namespace details
   template<class T,std::size_t Card, class Enable=void>
   struct vector_of
   {
-    typedef simd::native<T, tag::simd_emulation_<mpl::size_t<sizeof(T)*Card> > > type;
+    typedef simd::native<T, tag::simd_emulation_< sizeof(T)*Card > > type;
   };
   
   #ifdef BOOST_SIMD_DETECTED
@@ -59,6 +59,13 @@ namespace boost { namespace simd { namespace meta
   struct vector_of
    : details::vector_of<T, Card>
   {
+  };
+
+  // vectors must have at least 2 elements, vectors of 1 elements are scalar values
+  template<class T>
+  struct vector_of<T, 1u>
+  {
+    typedef T type;
   };
 
 } } }

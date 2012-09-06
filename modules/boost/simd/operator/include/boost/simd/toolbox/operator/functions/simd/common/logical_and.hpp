@@ -11,9 +11,9 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_LOGICAL_AND_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/logical_and.hpp>
-#include <boost/simd/include/functions/bitwise_and.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/include/functions/mask2logical.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/include/functions/simd/mask2logical.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/assert.hpp>
 
@@ -21,8 +21,8 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A1>,X>))
+                            , ((simd_<fundamental_<A0>,X>))
+                              ((simd_<fundamental_<A1>,X>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
@@ -44,23 +44,6 @@ namespace boost { namespace simd { namespace ext
       return mask2logical(b_and(genmask(a0), genmask(a1)));
     }
   };
-
-  //TODO why the assert is never taken ?
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_and_, tag::cpu_
-                            , (A0)(A1)(X)
-                            , ((simd_<fundamental_<A0>,X>))
-                              ((simd_<fundamental_<A1>,X>))
-                            )
-  {
-    typedef A0 result_type;
-    inline A0 operator()(const A0 &,  const A1&) const
-    {
-       BOOST_ASSERT_MSG( (true),
-                    "you cannot logical_and a standard simd vector and a simd logical vector"
-                        );
-       return Zero<result_type>(); 
-    }
-  };    
 } } }
 
 

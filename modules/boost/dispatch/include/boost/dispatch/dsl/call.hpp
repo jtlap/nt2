@@ -35,6 +35,7 @@
 
 namespace boost { namespace dispatch { namespace tag
 {
+  /// INTERNAL ONLY
   struct ast_ {};
 }
 namespace meta
@@ -43,6 +44,23 @@ namespace meta
   struct proto_tag
   {
     typedef T type;
+  };
+
+  template<class T>
+  struct is_formal : is_formal<typename T::parent>
+  {
+  };
+
+  template<>
+  struct is_formal<tag::formal_>
+   : mpl::true_
+  {
+  };
+
+  template<class T>
+  struct is_formal<unknown_<T> >
+   : mpl::false_
+  {
   };
 } } }
 
@@ -65,7 +83,7 @@ namespace meta
 #define M5(z,n,t)                                                              \
 BOOST_DISPATCH_REGISTER_TO_IF((boost)(dispatch)(meta), Func, tag::formal_      \
                       , (Func)BOOST_PP_REPEAT(n,M2,~)                          \
-                      , (mpl::and_< mpl::not_< is_base_of<tag::formal_, Func> > \
+                      , (mpl::and_< mpl::not_< is_formal<Func> >               \
                                   , any< boost::proto::is_expr<boost::mpl::_>  \
                                        , BOOST_PP_ENUM_PARAMS(n,A)             \
                                        >                                       \

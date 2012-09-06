@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SIMD_COMMON_PROD_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SIMD_COMMON_PROD_HPP_INCLUDED
+#include <nt2/toolbox/reduction/functions/prod.hpp>
 #include <nt2/include/functions/prod.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -47,7 +48,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       const result_type signedness = (meta::cardinal_of<A0>::value <= 2) ? Mone<result_type>() : One<result_type>(); 
-      return nt2::prod(imag(a0))*signedness; 
+      return nt2::prod(nt2::imag(a0))*signedness; 
     }
   };
   

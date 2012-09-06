@@ -62,9 +62,10 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag nbtrue_ of functor nbtrue 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct nbtrue_ : ext::reduction_<nbtrue_> { typedef ext::reduction_<nbtrue_> parent; };
+    struct nbtrue_ : ext::unspecified_<nbtrue_> { typedef ext::unspecified_<nbtrue_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::nbtrue_, nbtrue, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::nbtrue_, nbtrue, 2)
 } }
 
 #endif

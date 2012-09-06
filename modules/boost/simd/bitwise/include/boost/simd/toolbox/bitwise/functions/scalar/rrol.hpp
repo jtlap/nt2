@@ -9,9 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_RROL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_RROL_HPP_INCLUDED
 #include <boost/simd/toolbox/bitwise/functions/rrol.hpp>
-#include <boost/simd/include/functions/unary_minus.hpp>
-#include <boost/simd/include/functions/ror.hpp>
-#include <boost/simd/include/functions/rol.hpp>
+#include <boost/simd/include/functions/scalar/unary_minus.hpp>
+#include <boost/simd/include/functions/scalar/ror.hpp>
+#include <boost/simd/include/functions/scalar/rol.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

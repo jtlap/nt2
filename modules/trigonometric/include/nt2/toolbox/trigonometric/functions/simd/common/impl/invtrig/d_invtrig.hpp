@@ -9,17 +9,17 @@
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_IMPL_INVTRIG_D_INVTRIG_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/include/functions/sign.hpp>
-#include <nt2/include/functions/bitwise_notand.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
+#include <nt2/include/functions/simd/sign.hpp>
+#include <nt2/include/functions/simd/bitwise_notand.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_zero_else.hpp>
 
 namespace nt2
 {
@@ -31,10 +31,10 @@ namespace nt2
       struct invtrig_base<A0,radian_tag,tag::simd_type, double>
       {
         typedef typename meta::as_logical<A0>::type    bA0;
-	typedef typename A0::native_type A0_n; 
+        typedef typename A0::native_type A0_n;
         static inline A0_n asin(const A0_n a0_n)
         {
-          const A0 a0 = { a0_n };
+          const A0 a0 = a0_n;
           typedef typename meta::scalar_of<A0>::type sA0;
           A0 x = nt2::abs(a0);
           const A0 pio4 =  Pio_4<A0>();
@@ -94,18 +94,18 @@ namespace nt2
 
         static inline A0_n acos(const A0_n a0_n)
         {
-          const A0 a0 = { a0_n };
-          const A0 as =  { asin(  sqrt(Half<A0>() - Half<A0>()*a0) )}; 
+          const A0 a0 = a0_n;
+          const A0 as = asin(  sqrt(Half<A0>() - Half<A0>()*a0) );
           A0 z1 = Two<A0>() * as;
-          const A0 as1 = {asin(a0)}; 
+          const A0 as1 = asin(a0);
           A0 z2 = ((Pio_4<A0>() - as1)+double_constant<A0, 0x3c91a62633145c07ll>())+ Pio_4<A0>();
           return if_nan_else( gt(abs(a0),One<A0>()), sel( gt(a0,Half<A0>()), z1, z2));
         }
 
         static inline A0_n atan(const A0_n a0_n)
         {
-          const A0 a0 = {a0_n};
-          const A0 x  = {kernel_atan(a0)}; 
+          const A0 a0 = a0_n;
+          const A0 x  = kernel_atan(a0);
           return b_xor(x, bitofsign(a0));
         }
 
@@ -114,10 +114,10 @@ namespace nt2
           typedef typename meta::scalar_of<A0>::type sA0;
           const A0 tan3pio8  = double_constant<A0, 0x4003504f333f9de6ll>();
           const A0 tanpio8 = double_constant<A0, 0x3fda827999fcef31ll>();
-          const A0 a0 = {a0_n};
+          const A0 a0 = a0_n;
           const A0 x =  nt2::abs(a0);
-          const bA0 flag1 = lt(x,  tan3pio8);             
-          const bA0 flag2 = logical_and(ge(x, tanpio8), flag1); 
+          const bA0 flag1 = lt(x,  tan3pio8);
+          const bA0 flag2 = logical_and(ge(x, tanpio8), flag1);
           A0 yy = if_zero_else(flag1, Pio_2<A0>());
           yy = select(flag2, Pio_4<A0>(), yy);
           A0 xx = select(flag1, x, -rec(x));

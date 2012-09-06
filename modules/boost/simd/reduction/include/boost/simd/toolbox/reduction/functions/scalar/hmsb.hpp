@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_HMSB_HPP_INCLUDED
+#include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
 
 namespace boost { namespace simd { namespace ext

@@ -8,15 +8,18 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_SINH_HPP_INCLUDED
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/is_negative.hpp>
-#include <nt2/include/functions/average.hpp>
 
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/expm1.hpp>
-#include <nt2/include/functions/rec.hpp>
-
+#include <nt2/toolbox/hyperbolic/functions/sinh.hpp>
+#include <nt2/include/functions/scalar/is_negative.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
+#include <nt2/include/functions/scalar/negif.hpp>
+#include <nt2/include/functions/scalar/is_inf.hpp>
+#include <nt2/include/functions/scalar/expm1.hpp>
+#include <nt2/include/functions/scalar/oneplus.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/constants/half.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -31,7 +34,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_inf(a0)) return a0; 
+      if (is_inf(a0)) return result_type(a0);
       const result_type tmp=nt2::expm1(nt2::abs(a0));
       result_type r = nt2::average(tmp, tmp/(oneplus(tmp)));
       return negif(is_negative(a0), r);

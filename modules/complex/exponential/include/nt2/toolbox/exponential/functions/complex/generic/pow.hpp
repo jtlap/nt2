@@ -8,10 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_POW_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_POW_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/pow.hpp>
 #include <nt2/include/functions/pow.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sincos.hpp>
-#include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/seladd.hpp>
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return pow(a0, real(a1)); 
+      return pow(a0, nt2::real(a1)); 
     }
   };
 

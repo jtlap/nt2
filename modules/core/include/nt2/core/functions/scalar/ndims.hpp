@@ -9,8 +9,9 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_NDIMS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_NDIMS_HPP_INCLUDED
 
-#include <boost/mpl/size_t.hpp>
 #include <nt2/core/functions/ndims.hpp>
+#include <boost/mpl/size_t.hpp>
+#include <algorithm>
 
 namespace nt2 { namespace ext
 {
@@ -22,6 +23,25 @@ namespace nt2 { namespace ext
 
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0&) const { return result_type(); }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ndims_, tag::cpu_
+                            , (A0), (fusion_sequence_<A0>)
+                            )
+  {
+    typedef std::size_t result_type;
+
+    static bool local_match(std::size_t i) { return i != 1; }
+
+    result_type operator()(A0& sz) const
+    {
+      // find the first non-1 from the end
+      typename A0::const_reverse_iterator
+      b = sz.rbegin(), e = sz.rend(),c;
+      c = std::find_if(b,e,local_match);
+
+      return std::distance(c,e);
+    }
   };
 } }
 

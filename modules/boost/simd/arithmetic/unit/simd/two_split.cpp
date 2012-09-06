@@ -42,7 +42,10 @@ NT2_TEST_CASE_TPL ( two_split_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<two_split_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  typedef boost::fusion::tuple<vT,vT> wished_r_t;
+
+
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  // two_split is tested by correct_fma
 
 } // end of test for floating_

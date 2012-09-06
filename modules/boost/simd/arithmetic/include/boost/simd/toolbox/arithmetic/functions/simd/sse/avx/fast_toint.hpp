@@ -9,7 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_FAST_TOINT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_FAST_TOINT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/fast_toint.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -34,8 +35,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename dispatch::meta::as_integer<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      result_type that =  {_mm256_cvttps_epi32(a0)};
-      return  that;
+      return _mm256_cvttps_epi32(a0);
     }
   };
 } } }

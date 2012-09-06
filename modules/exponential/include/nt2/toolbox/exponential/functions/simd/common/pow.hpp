@@ -1,27 +1,30 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POW_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/pow.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/seladd.hpp>
-#include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_nez.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
-#include <nt2/include/functions/if_else_zero.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/logical_not.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/seladd.hpp>
+#include <nt2/include/functions/simd/is_eqz.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/abs.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/if_else_zero.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/logical_not.hpp>
+#include <nt2/include/functions/simd/powi.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -55,11 +58,11 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_logical<A0>::type                 bA0; 
+      typedef typename meta::as_logical<A0>::type                 bA0;
       bA0 isltza0 = is_ltz(a0);
       bA0 allz = l_and(is_eqz(a0), is_eqz(a1));
       A0 res =  exp(a1*log(nt2::abs(a0)));
-      res =  select(l_and(is_odd(a1), isltza0), -res, res); 
+      res =  select(l_and(is_odd(a1), isltza0), -res, res);
       //     bA0 invalid =  logical_andnot(isltza0, is_flint(a1));
       bA0 invalid =  l_and(isltza0, logical_not( is_flint(a1)));
       return select(invalid, Nan<result_type>(), select(allz, One<A0>(), res));
@@ -83,7 +86,7 @@ namespace nt2 { namespace ext
     {
         typedef A1                    int_type;
         typedef result_type             r_type;
-        r_type a00 =  tofloat(a0); 
+        r_type a00 =  tofloat(a0);
         r_type sign_x = bitofsign(a00);
         r_type x = b_xor(a00, sign_x);//x = nt2::abs(a0)
         int_type sign_n = signnz( a1 );
@@ -131,6 +134,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-
 
 #endif

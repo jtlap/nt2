@@ -10,12 +10,12 @@
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_ULP_HPP_INCLUDED
 
 #include <boost/simd/toolbox/ieee/functions/ulp.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/prev.hpp>
-#include <boost/simd/include/functions/min.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/is_invalid.hpp>
-#include <boost/simd/include/functions/abs.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/simd/include/functions/scalar/prev.hpp>
+#include <boost/simd/include/functions/scalar/min.hpp>
+#include <boost/simd/include/functions/scalar/is_eqz.hpp>
+#include <boost/simd/include/functions/scalar/is_invalid.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/mindenormal.hpp>
 #include <boost/simd/include/constants/nan.hpp>

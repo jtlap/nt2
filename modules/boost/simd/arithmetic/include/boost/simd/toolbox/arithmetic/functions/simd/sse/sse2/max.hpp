@@ -9,9 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_MAX_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_MAX_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/simd/include/functions/minus.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/compare_less.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/max.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/compare_less.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -35,7 +36,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that =  {_mm_max_pd(a0,a1)}; return that;
+      return _mm_max_pd(a0,a1);
     }
   };
 
@@ -47,7 +48,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that =  {_mm_max_ps(a0,a1)}; return that;
+      return _mm_max_ps(a0,a1);
     }
   };
 
@@ -59,7 +60,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 that =  { _mm_max_epi16(a0,a1)}; return that;
+      return _mm_max_epi16(a0,a1);
     }
   };
 
@@ -71,7 +72,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-         A0 that =  {_mm_max_epu8(a0,a1)}; return that;
+         return _mm_max_epu8(a0,a1);
     }
   };
 } } }

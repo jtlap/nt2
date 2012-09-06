@@ -1,57 +1,157 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 operator toolbox - load/simd Mode"
 
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-/// 
-#include <boost/simd/toolbox/operator/include/functions/load.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
+#include <iostream>
+#include <boost/simd/include/functions/load.hpp>
+
+#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/module.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
 
-//COMMENTED
-NT2_TEST_CASE_TPL ( load_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL( load,  BOOST_SIMD_TYPES)
 {
-//   using boost::simd::load;
-//   using boost::simd::tag::load_;
-//   using boost::simd::load; 
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-//   typedef native<T,ext_t>                        n_t;
-//   typedef n_t                                     vT;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef native<iT,ext_t>                       ivT;
-//   // typedef typename boost::dispatch::meta::call<load_(T,iT, boost::dispatch::meta::as_<vT>)>::type r_t;
-//   typedef typename boost::dispatch::meta::call<load_(T,iT, boost::dispatch::meta::as_<T>)>::type sr_t;
-//   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
-//   double ulpd;
-//   ulpd=0.0;
+  using boost::simd::load;
+  using boost::simd::tag::load_;
+  using boost::simd::load;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
+  typedef native<T,ext_t>                        vT;
+  typedef typename
+          boost::dispatch::
+          meta::call<load_(T*,int,boost::dispatch::meta::as_<vT>)>::type r_t;
 
-  // specific values tests
-//   NT2_TEST_EQUAL(load(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for floating_
+  NT2_TEST( (boost::is_same<vT,r_t>::value) );
+
+  BOOST_SIMD_ALIGNED_TYPE(T) data[ cardinal_of<vT>::value*3 ];
+  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = 1+i;
+
+  for(int i=0;i<3;++i)
+  {
+    r_t v = boost::simd::load<vT>(&data[i*cardinal_of<vT>::value]);
+    for(size_t j=0;j<cardinal_of<vT>::value;++j)
+      NT2_TEST_EQUAL(v[j] , data[j+i*cardinal_of<vT>::value]);
+  }
+}
+
+NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_TYPES)
+{
+  using boost::simd::load;
+  using boost::simd::tag::load_;
+  using boost::simd::load;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  typedef native<T,ext_t>                        vT;
+  typedef typename
+          boost::dispatch::
+          meta::call<load_(T*,int,boost::dispatch::meta::as_<vT>)>::type r_t;
+
+  NT2_TEST( (boost::is_same<vT,r_t>::value) );
+
+  BOOST_SIMD_ALIGNED_TYPE(T) data[ cardinal_of<vT>::value*3 ];
+  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = 1+i;
+
+  {
+    r_t v = boost::simd::load<vT>(&data[cardinal_of<vT>::value],-cardinal_of<vT>::value);
+    for(size_t j=0;j<cardinal_of<vT>::value;++j)
+      NT2_TEST_EQUAL(v[j] , data[j]);
+  }
+
+  {
+    r_t v = boost::simd::load<vT>(&data[cardinal_of<vT>::value], 0);
+    for(size_t j=0;j<cardinal_of<vT>::value;++j)
+      NT2_TEST_EQUAL(v[j] , data[j+cardinal_of<vT>::value]);
+  }
+
+  {
+    r_t v = boost::simd::load<vT>(&data[cardinal_of<vT>::value],+cardinal_of<vT>::value);
+    for(size_t j=0;j<cardinal_of<vT>::value;++j)
+      NT2_TEST_EQUAL(v[j] , data[j+2*cardinal_of<vT>::value]);
+  }
+}
+
+NT2_TEST_CASE_TPL( load_suboffset,  BOOST_SIMD_TYPES)
+{
+  using boost::simd::load;
+  using boost::simd::tag::load_;
+  using boost::simd::load;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  typedef native<T,ext_t>                        vT;
+  typedef typename
+          boost::dispatch::
+          meta::call<load_(T*,int,boost::dispatch::meta::as_<vT>, boost::mpl::int_<1>)>::type r_t;
+
+  NT2_TEST( (boost::is_same<vT,r_t>::value) );
+
+  BOOST_SIMD_ALIGNED_TYPE(T) data[ cardinal_of<vT>::value*3 ];
+  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = 1+i;
+
+  {
+    r_t v = boost::simd::load<vT,1>(&data[0]);
+    for(size_t j=0;j<cardinal_of<vT>::value;++j)
+      NT2_TEST_EQUAL(v[j] , data[j+1]);
+  }
+
+  {
+    r_t v = boost::simd::load<vT,1>(&data[0], cardinal_of<vT>::value);
+    for(size_t j=0;j<cardinal_of<vT>::value;++j)
+      NT2_TEST_EQUAL(v[j] , data[j+cardinal_of<vT>::value+1]);
+  }
+
+  {
+    r_t v = boost::simd::load<vT,-1>(&data[0],2*cardinal_of<vT>::value);
+    for(size_t j=0;j<cardinal_of<vT>::value;++j)
+      NT2_TEST_EQUAL(v[j] , data[j+2*cardinal_of<vT>::value-1]);
+  }
+}
+
+NT2_TEST_CASE_TPL( load_gather, BOOST_SIMD_TYPES)
+{
+  using boost::simd::load;
+  using boost::simd::tag::load_;
+  using boost::simd::load;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  typedef native<T,ext_t>                                       vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type   iT;
+  typedef typename boost::dispatch::meta::as_integer<vT>::type viT;
+  typedef typename
+          boost::dispatch::
+          meta::call<load_(T*,viT,boost::dispatch::meta::as_<vT>)>::type r_t;
+
+  srand(time(NULL));
+
+  NT2_TEST( (boost::is_same<vT,r_t>::value) );
+
+  BOOST_SIMD_ALIGNED_TYPE(T) data[ cardinal_of<vT>::value*3 ];
+  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = 1+i;
+
+  viT index;
+  for(size_t i=0;i<cardinal_of<viT>::value;++i)
+    index[i] = rand() % (cardinal_of<vT>::value*3);
+
+  r_t v = boost::simd::load<vT>(&data[0], index);
+
+  for(size_t j=0;j<cardinal_of<vT>::value;++j)
+  {
+    NT2_TEST_EQUAL(v[j] , data[index[j]]);
+  }
+}

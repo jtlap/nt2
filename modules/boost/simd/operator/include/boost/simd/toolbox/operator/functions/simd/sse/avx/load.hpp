@@ -12,6 +12,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // load for AVX SIMD types
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/toolbox/operator/functions/load.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
@@ -19,7 +20,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/assert.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -40,8 +41,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
 
-      result_type that = { _mm256_load_pd(a0+a1) };
-      return that;
+      return _mm256_load_pd(a0+a1);
     }
   };
 
@@ -61,8 +61,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
 
-      result_type that = {_mm256_load_ps(a0+a1)}; 
-      return that;
+      return _mm256_load_ps(a0+a1);
     }
   };
 
@@ -82,8 +81,7 @@ namespace boost { namespace simd { namespace ext
         "compatible with current SIMD extension."
       );
 
-      result_type that = { _mm256_load_si256(reinterpret_cast<__m256i const*>(a0+a1)) };
-      return that;
+      return _mm256_load_si256(reinterpret_cast<__m256i const*>(a0+a1));
     }
   };
 

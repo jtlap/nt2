@@ -15,27 +15,43 @@
 #include <boost/dispatch/meta/identity.hpp>
 #include <boost/proto/traits.hpp>
 
+#include <boost/shared_ptr.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
+  // Terminal returns ASTs by reference
   BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::terminal_, tag::formal_
                             , (A0)
                             , (ast_<A0>)
                             , identity
                             )
-    
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::terminal_,tag::cpu_
+
+  // When evaluating a terminal, get its value
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::terminal_, tag::cpu_
                             , (A0)
                             , (ast_<A0>)
                             )
   {
     typedef typename proto::result_of::value<A0&>::type result_type;
-    
+
     BOOST_FORCEINLINE result_type
     operator()(A0& a0) const
     {
       return boost::proto::value(a0);
     }
   };
+
+  // Terminal functions on non-ASTs do nothing
+  BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::terminal_, tag::cpu_
+                            , (A0)
+                            , (unspecified_<A0>)
+                            , identity
+                            )
+  BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::terminal_, tag::cpu_
+                            , (A0)
+                            , (generic_< unspecified_<A0> >)
+                            , identity
+                            )
 } } }
 
 #endif

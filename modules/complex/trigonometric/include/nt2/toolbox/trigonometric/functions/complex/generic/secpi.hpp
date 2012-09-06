@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SECPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SECPI_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/secpi.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>

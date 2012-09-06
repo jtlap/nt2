@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_STRAIGHT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_STRAIGHT_HPP_INCLUDED
-#include <nt2/include/functions/abs.hpp>
+#include <nt2/toolbox/trigonometric/functions/rem_pio2_straight.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
 
 namespace nt2 { namespace ext
@@ -24,14 +26,15 @@ namespace nt2 { namespace ext
   {
     typedef boost::fusion::tuple<A0,A0,nt2::int32_t>           result_type;
     inline result_type operator()(A0 const& a0) const
-      {
-	result_type res;
-	boost::fusion::at_c<2>(res) =
-	  nt2::rem_pio2_straight(a0,
-				 boost::fusion::at_c<0>(res),
-				 boost::fusion::at_c<1>(res)); 
-	return res; 
-      }
+    {
+      result_type res;
+      boost::fusion::at_c<2>(res) =
+      nt2::rem_pio2_straight(a0,
+                             boost::fusion::at_c<0>(res),
+                             boost::fusion::at_c<1>(res)
+                            );
+      return res;
+    }
   }; 
 
   /////////////////////////////////////////////////////////////////////////////
@@ -44,15 +47,15 @@ namespace nt2 { namespace ext
 			     (scalar_< floating_<A0> >)
 			     )
   {
-    typedef nt2::int32_t result_type;    
+    typedef typename meta::as_integer<A0>::type result_type;    
     inline result_type operator()(A0 const& x, A0 & xr, A0& xc) const
-      {
-	xr = x-Pio2_1<A0>();
-	xr -= Pio2_2<A0>();
-	xr -= Pio2_3<A0>();
-	xc = nt2::Zero<A0>();
-	return  nt2::One<result_type>();
-      }
+    {
+      xr = x-Pio2_1<A0>();
+      xr -= Pio2_2<A0>();
+      xr -= Pio2_3<A0>();
+      xc = nt2::Zero<A0>();
+      return  nt2::One<result_type>();
+    }
   }; 
 } }
 #endif

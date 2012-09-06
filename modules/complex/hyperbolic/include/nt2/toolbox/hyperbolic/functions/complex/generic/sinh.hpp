@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_SINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_SINH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/sinh.hpp>
 #include <nt2/include/functions/sincos.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/sinh.hpp>
@@ -35,16 +36,16 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype;
       rtype c, s, ch, sh;
-      sincos(imag(a0), s, c);
-      sinhcosh(real(a0), sh, ch);
+      sincos(nt2::imag(a0), s, c);
+      sinhcosh(nt2::real(a0), sh, ch);
       rtype r = c*sh;
       rtype i = s*ch;
 
       if (none(is_invalid(a0))) return result_type(r, i);
-      r = if_else(logical_and(is_inf(real(a0)), is_invalid(imag(a0))), real(a0), r);
-      i = if_else(logical_and(is_inf(real(a0)), is_nan(imag(a0))), nt2::Nan<rtype>(), i);
-      r = if_else(is_nan(real(a0)), real(a0), r);
-      i = if_else(is_nan(real(a0)), real(a0), i);
+      r = if_else(logical_and(is_inf(nt2::real(a0)), is_invalid(nt2::imag(a0))), nt2::real(a0), r);
+      i = if_else(logical_and(is_inf(nt2::real(a0)), is_nan(nt2::imag(a0))), nt2::Nan<rtype>(), i);
+      r = if_else(is_nan(nt2::real(a0)), nt2::real(a0), r);
+      i = if_else(is_nan(nt2::real(a0)), nt2::real(a0), i);
       i = if_zero_else(is_real(a0), i);
       r = if_zero_else(is_imag(a0), r);
       result_type res =  result_type(r, i);
@@ -59,7 +60,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::sin(imag(a0)));
+      return bitwise_cast<result_type>(nt2::sin(nt2::imag(a0)));
     }
   };
 
@@ -70,7 +71,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::sinh(real(a0)));
+      return bitwise_cast<result_type>(nt2::sinh(nt2::real(a0)));
     }
   };
 } }

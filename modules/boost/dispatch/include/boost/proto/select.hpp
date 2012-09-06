@@ -9,9 +9,9 @@
 #ifndef BOOST_PROTO_SELECT_HPP_INCLUDED
 #define BOOST_PROTO_SELECT_HPP_INCLUDED
 
-#include <boost/mpl/apply.hpp>
-#include <boost/proto/core.hpp>
 #include <boost/proto/transform.hpp>
+#include <boost/result_of.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace boost { namespace proto
 {

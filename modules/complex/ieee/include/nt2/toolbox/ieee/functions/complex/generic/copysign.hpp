@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_IEEE_FUNCTIONS_GENERIC_COPYSIGN_HPP_INCLUDED
 #define NT2_TOOLBOX_IEEE_FUNCTIONS_GENERIC_COPYSIGN_HPP_INCLUDED
+#include <nt2/toolbox/ieee/functions/copysign.hpp>
 #include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -26,8 +27,8 @@ namespace nt2 { namespace ext
 //     typedef A0 result_type;
 //     NT2_FUNCTOR_CALL_REPEAT(2)
 //     {
-//       return  result_type(copysign(real(a0), real(a1)),
-//                           copysign(imag(a0), imag(a1)));
+//       return  result_type(copysign(nt2::real(a0), nt2::real(a1)),
+//                           copysign(nt2::imag(a0), nt2::imag(a1)));
 //     }
 //   };
 
@@ -40,7 +41,7 @@ namespace nt2 { namespace ext
 //     typedef A0 result_type;
 //     NT2_FUNCTOR_CALL_REPEAT(2)
 //     {
-//       return  result_type(copysign(imag(a0), imag(a1)));
+//       return  result_type(copysign(nt2::imag(a0), nt2::imag(a1)));
 //     }
 //   };
     
@@ -53,7 +54,7 @@ namespace nt2 { namespace ext
 //     typedef A0 result_type;
 //     NT2_FUNCTOR_CALL_REPEAT(2)
 //     {
-//       return  result_type(copysign(real(a0), real(a1)));
+//       return  result_type(copysign(nt2::real(a0), nt2::real(a1)));
 //     }
 //   };
 

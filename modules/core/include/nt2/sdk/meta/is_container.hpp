@@ -17,6 +17,9 @@ namespace nt2
   {
     template<class T, class Enable = void>
     struct is_container : boost::mpl::false_ {};
+
+    template<class T, class Enable = void>
+    struct is_container_ref : boost::mpl::false_ {};
   }
 
   namespace meta
@@ -34,6 +37,13 @@ namespace nt2
 
     template<class T> struct is_container<T&>       : is_container<T> {};
     template<class T> struct is_container<T const>  : is_container<T> {};
+
+    template<class T>
+    struct  is_container_ref
+          : details::is_container_ref<T> {};
+
+    template<class T> struct is_container_ref<T&>       : is_container_ref<T> {};
+    template<class T> struct is_container_ref<T const>  : is_container_ref<T> {};
   }
 }
 

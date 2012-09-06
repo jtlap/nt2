@@ -14,8 +14,8 @@
 
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
-#include <boost/simd/sdk/constant/common.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 
 /*!
  * \ingroup boost_simd_constant
@@ -25,12 +25,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/int_splat.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,12 +42,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Int_splat
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -55,23 +55,27 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Int_splat of functor Int_splat 
+     * \brief Define the tag Int_splat of functor Int_splat
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     template<boost::simd::int64_t I>
     struct Intpattern : ext::constant_< Intpattern<I> >
-    { 
-      template<class Target, class Dummy=void> 
-      struct apply : meta::int_c<Target, Target(I)> {};  
+    {
+      template<class Target, class Dummy=void>
+      struct apply : meta::int_c< typename Target::type
+                                , typename Target::type(I)
+                                > {};
     };
   }
 
-  template<class Target, boost::simd::int64_t N> 
+  template<class Target, typename boost::dispatch::meta::scalar_of<Target>::type N>
   inline Target integral_constant()
   {
-    typename dispatch::make_functor< tag::Intpattern<N>, Target >::type callee;
+    typename dispatch::make_functor< tag::Intpattern<boost::simd::int64_t(N)>, Target >::type callee;
     return callee( dispatch::meta::as_<Target>() );
   }
 } }
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif

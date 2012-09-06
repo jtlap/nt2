@@ -10,10 +10,35 @@
 #define NT2_CORE_CONTAINER_DSL_DETAILS_ELEMENTWISE_HPP_INCLUDED
 
 #include <nt2/core/container/dsl/generator.hpp>
-#include <boost/assert.hpp>
+#include <nt2/core/utility/of_size.hpp>
+#include <boost/proto/fusion.hpp>
 #include <boost/fusion/include/transform.hpp>
 #include <boost/fusion/include/fold.hpp>
 #include <boost/fusion/include/at_c.hpp>
+#include <boost/assert.hpp>
+
+namespace nt2 { namespace details
+{
+  struct get_extent
+  {
+    template<class Sig>
+    struct result;
+
+    template<class This, class T>
+    struct result<This(T)>
+    {
+      typedef typename boost::remove_reference<T>::type sT;
+      typedef typename sT::extent_type type;
+    };
+
+    template<class T>
+    BOOST_FORCEINLINE typename T::extent_type
+    operator()(T const& t) const
+    {
+      return t.extent();
+    }
+  };
+} }
 
 namespace nt2 { namespace container { namespace ext
 {
@@ -32,7 +57,7 @@ namespace nt2 { namespace container { namespace ext
       typedef typename
       select< typename meta::strip<A0>::type
             , typename meta::strip<A1>::type
-            >::type const& type;
+            >::type type;
     };
 
     template<class A1, class Dummy>
@@ -108,7 +133,7 @@ namespace nt2 { namespace container { namespace ext
   struct size_of
   {
     typedef typename boost::fusion::result_of::
-    transform<Expr const, size_transform<Domain> >::type sizes;
+    transform<Expr const, details::get_extent>::type sizes;
 
     typedef typename boost::fusion::result_of::
     at_c<sizes, 0>::type init;
@@ -119,7 +144,7 @@ namespace nt2 { namespace container { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
-      sizes sz = boost::fusion::transform(e, size_transform<Domain>());
+      sizes sz = boost::fusion::transform(e, details::get_extent());
       return boost::fusion::fold(sz, boost::fusion::at_c<0>(sz), size_fold());
     }
   };
@@ -129,15 +154,14 @@ namespace nt2 { namespace container { namespace ext
   struct size_of<Tag, Domain, 1, Expr>
   {
     typedef typename boost::proto::result_of::
-    child_c<Expr&, 0>::type                         child0;
+    child_c<Expr, 0>::type                child0;
 
-    typedef typename size_transform<Domain>::template
-    result<size_transform<Domain>(child0)>::type    result_type;
+    typedef typename child0::extent_type  result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
-      return size_transform<Domain>()(boost::proto::child_c<0>(e));
+      return boost::proto::child_c<0>(e).extent();
     }
   };
 

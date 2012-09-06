@@ -11,12 +11,12 @@
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 
-{ 
-  namespace tag { struct construct_ : ext::unspecified_<construct_> { typedef ext::unspecified_<construct_> parent; }; }
-  
-  NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::construct_, construct, 2)  
-  NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::construct_, construct, 3)  
+namespace nt2
+{
+  namespace tag { struct construct_ : boost::dispatch::tag::formal_ { typedef boost::dispatch::tag::formal_ parent; }; }
+
+  NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::construct_, construct, 2)
+  NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::construct_, construct, 3)
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::construct_, construct, 4)
 }
 

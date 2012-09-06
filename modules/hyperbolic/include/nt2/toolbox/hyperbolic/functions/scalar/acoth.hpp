@@ -8,13 +8,14 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ACOTH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_SCALAR_ACOTH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/acoth.hpp>
 #include <nt2/include/constants/real.hpp>
 
-// #include <nt2/include/functions/minusone.hpp>
-// #include <nt2/include/functions/oneplus.hpp>
-// #include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/atanh.hpp>
+// #include <nt2/include/functions/scalar/minusone.hpp>
+// #include <nt2/include/functions/scalar/oneplus.hpp>
+// #include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/atanh.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////

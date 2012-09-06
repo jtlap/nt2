@@ -8,13 +8,13 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_GEZ_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_GEZ_HPP_INCLUDED
-#include <nt2/include/functions/is_gez.hpp>
+
+#include <nt2/toolbox/predicates/functions/is_gez.hpp>
+#include <nt2/include/functions/real.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/include/functions/logical_and.hpp>
 #include <nt2/sdk/simd/logical.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_gez(real(a0)); 
+      return is_gez(nt2::real(a0)); 
     }
   };
 
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return is_gez(real(a0)); 
+      return is_gez(nt2::real(a0)); 
     }
   };
 

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_COSH_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_COSH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/cosh.hpp>
 #include <nt2/include/functions/cosh.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
@@ -38,7 +39,7 @@ namespace nt2 { namespace ext
 //     typedef typename meta::as_real<A0>::type result_type; 
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return nt2::cos(imag(a0)); 
+//       return nt2::cos(nt2::imag(a0)); 
 //     }
 //   };
   

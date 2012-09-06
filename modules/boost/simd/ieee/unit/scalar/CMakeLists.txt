@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-    saturate_at.cpp
+  saturate_at.cpp
   saturate.cpp
   negate.cpp
   sign.cpp

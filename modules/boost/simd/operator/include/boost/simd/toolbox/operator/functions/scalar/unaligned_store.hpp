@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_UNALIGNED_STORE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_UNALIGNED_STORE_HPP_INCLUDED
+#include <boost/simd/toolbox/operator/functions/unaligned_store.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>

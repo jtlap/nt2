@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOS_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOS_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/sincos.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/toolbox/trigonometric/functions/simd/common/impl/trigo.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -49,10 +50,7 @@ namespace nt2 { namespace ext
     typedef A1 result_type;    
     inline result_type operator()(A0 const& a0,A1 & a2) const
     {
-      A1 const that = { impl::trig_base <A1,radian_tag,
-                                         tag::simd_type>::sincosa(tofloat(a0),a2)
-                      };
-      return that;
+      return impl::trig_base< A1, radian_tag, tag::simd_type >::sincosa(tofloat(a0), a2);
     }
   };
 
@@ -64,8 +62,8 @@ namespace nt2 { namespace ext
                          ((simd_<arithmetic_<A0>,X>))
                         )
   {
-      typedef typename meta::as_floating<A0>::type  rtype;
-      typedef boost::fusion::tuple<rtype, rtype> result_type;
+    typedef typename meta::as_floating<A0>::type  rtype;
+    typedef boost::fusion::tuple<rtype, rtype> result_type;
     
     NT2_FUNCTOR_CALL(1)
     {

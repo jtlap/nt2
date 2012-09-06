@@ -16,7 +16,7 @@
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/print.hpp>
-#include <boost/simd/include/functions/map.hpp>
+#include <boost/simd/include/functions/simd/map.hpp>
 
 #ifdef BOOST_SIMD_LOG_MAP
 namespace boost { namespace simd { namespace details
@@ -85,11 +85,12 @@ namespace boost { namespace simd { namespace ext                               \
                                                                                \
     template<class This, BOOST_PP_ENUM_PARAMS(n, class _A)>                    \
     struct result<This(BOOST_PP_ENUM_PARAMS(n, _A))>                           \
+     : boost::dispatch::meta::                                                 \
+       call<tag::map_ ( dispatch::functor<Tag>                                 \
+                      , BOOST_PP_ENUM_PARAMS(n, _A)                            \
+                      )                                                        \
+           >                                                                   \
     {                                                                          \
-      typedef typename dispatch::meta::                                        \
-      call<tag::map_ ( dispatch::functor<Tag>                                  \
-                     , BOOST_PP_ENUM_PARAMS(n, _A)                             \
-                     )>::type type;                                            \
     };                                                                         \
                                                                                \
     template<BOOST_PP_ENUM_PARAMS(n, class _A)>                                \

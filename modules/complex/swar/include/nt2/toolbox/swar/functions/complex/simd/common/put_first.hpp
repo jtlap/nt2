@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_PUT_FIRST_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_PUT_FIRST_HPP_INCLUDED
+#include <nt2/toolbox/swar/functions/put_first.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
@@ -29,7 +30,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(put_first(real(a0), a1), put_first(imag(a0), a1)); 
+      return result_type(put_first(nt2::real(a0), a1), put_first(nt2::imag(a0), a1)); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::put_first_, tag::cpu_
@@ -41,7 +42,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(put_first(imag(a0), a1)); 
+      return result_type(put_first(nt2::imag(a0), a1)); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::put_first_, tag::cpu_
@@ -53,7 +54,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(put_first(real(a0), a1)); 
+      return result_type(put_first(nt2::real(a0), a1)); 
     }
   };  
 } }

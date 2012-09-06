@@ -1,0 +1,147 @@
+[section Building a __NT2__ application]
+Now that we have our sample code written down, let's build it. Two ways are
+possible: building manually or using our __CMAKE__ support.
+
+[section Building manually]
+Once installed, __NT2__ is usable as a regular library. Compiling our
+*Hello World* is simply done by using a command similar to:
+
+[teletype]
+``
+g++ helloworld.cpp -O3 -o hello -I/path/to/boost/ -I/path/to/nt2/include/ -L/path/to/nt2/lib/ -lnt2
+``
+
+where `/path/to/boost/`, `/path/to/nt2/include/` and `/path/to/nt2/lib/`
+respectively point to the folders containing your Boost header, the __NT2__
+header and __NT2__ binary library.
+
+[section Building with __CMAKE__]
+__NT2__ provides in =$NT2_ROOT\cmake= a set of cmake file containing macros and
+functions to help finding, configuring and building __NT2__ based applications
+and libraries. This is the recommended choice for large project or if you want
+to use some advanced __NT2__ features. This section will briefly cover the basic
+of __CMAKE__ integration. You can find an extensive documentation about __NT2__
+__CMAKE__ support in the proper tool chapter.
+
+[heading A basic __NT2__ __CMAKE__ project]
+
+Here is our __CMAKE__ script.
+
+[teletype]
+``
+cmake_minimum_required(VERSION 2.8)
+
+set(NT2_DIR /path/to/nt2/cmake)
+
+find_package(NT2 REQUIRED)
+include(${NT2_USE_FILE})
+
+set(CMAKE_BUILD_TYPE Release)
+add_executable(helloworld helloworld.cpp)
+``
+
+Let's go over each of its interesting parts.
+
+[teletype]
+``
+cmake_minimum_required(VERSION 2.8)
+``
+
+__NT2__ __CMAKE__ macros and functions require __CMAKE__ 2.8 or above, so we just
+inform __CMAKE__ about that.
+
+[teletype]
+``
+set(NT2_DIR /path/to/nt2/cmake)
+``
+
+We point __CMAKE__ toward the __NT2__ folder containing the __CMAKE__ script
+required for building the application using __NT2__.
+
+[teletype]
+``
+find_package(NT2 REQUIRED)
+``
+
+We let __CMAKE__ find all the informations related to the current __NT2__
+installation. If this fails, we stop the current __CMAKE__ script.
+
+[teletype]
+``
+include(${NT2_USE_FILE})
+``
+
+If __NT2__ has been detected properly, it provides a `NT2_USE_FILE` script that
+setup all the required paths and libraries to use for compiling a __NT2__
+application. Additionally, this script detect the best set of option for the
+current architecture, thus activating any compiler flags related to SIMD or
+multi-core optimization.
+
+[teletype]
+``
+set(CMAKE_BUILD_TYPE Release)
+``
+
+Normal __CMAKE__ options are still available. Here, we set __CMAKE__ to generate
+a Release build of the application. Other properties like `add_definitions` and
+al. are available and can be used to integrate other libraries or options into
+your __NT2__ application.
+
+[teletype]
+``
+add_executable(helloworld helloworld.cpp)
+``
+
+Finally, we just register our program as a classic __CMAKE__ executable rule.
+
+[heading Building the __NT2__ project]
+Once done with the script, go to your build directory and type
+
+[teletype]
+``
+cmake /path/to/CMakeLists.txt
+``
+
+This will generate the proper build system and commands to build our "Hello World"
+program. Everything should ends up successful. You may know build the project
+by typing:
+
+[teletype]
+``
+make
+``
+
+An output like:
+
+[teletype]
+``
+Scanning dependencies of target helloworld
+[100%] Building CXX object CMakeFiles/helloworld.dir/helloworld.cpp.o
+Linking CXX executable helloworld
+[100%] Built target helloworld
+``
+
+should appear, indicating the project has been built correctly.
+[endsect]
+
+[section Running the code]
+Finally, a simple
+
+[teletype]
+``
+./helloworld
+``
+
+will produce our much anticipated result:
+
+[teletype]
+``
+42 42 42 42
+42 42 42 42
+42 42 42 42
+42 42 42 42
+``
+
+[endsect]
+
+[endsect]

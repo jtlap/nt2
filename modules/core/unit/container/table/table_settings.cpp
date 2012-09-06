@@ -18,28 +18,6 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// table type has some dimensions
-////////////////////////////////////////////////////////////////////////////////
-
-NT2_TEST_CASE_TPL( table_dimensions ,NT2_TYPES)
-{
-  using nt2::table;
-  using nt2::_1D;
-  using nt2::_2D;
-  using nt2::_3D;
-  using nt2::_4D;
-  using nt2::meta::dimensions_of;
-
-  // test default dimension of table
-  NT2_TEST_EQUAL( (dimensions_of<table<T> >::value), 4UL) ;
-
-  NT2_TEST_EQUAL( (dimensions_of<table<T,_1D> >::value), 1UL) ;
-  NT2_TEST_EQUAL( (dimensions_of<table<T,_2D> >::value), 2UL) ;
-  NT2_TEST_EQUAL( (dimensions_of<table<T,_3D> >::value), 3UL) ;
-  NT2_TEST_EQUAL( (dimensions_of<table<T,_4D> >::value), 4UL) ;
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // table type has some value
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( table_values, NT2_TYPES )
@@ -82,9 +60,19 @@ NT2_TEST_CASE_TPL( table_models, NT2_TYPES )
   typedef typename model_of< table<T,_3D> >::type model3d;
   typedef typename model_of< table<T,_4D> >::type model4d;
 
+  NT2_TEST_TYPE_IS( (typename apply<model1d,float>::type)
+                  , (table<float,_1D>)
+                  );
 
-  NT2_TEST((is_same<typename apply<model1d,float>::type, table<float,_1D> >::value ));
-  NT2_TEST((is_same<typename apply<model2d,float>::type, table<float,_2D> >::value ));
-  NT2_TEST((is_same<typename apply<model3d,float>::type, table<float,_3D> >::value ));
-  NT2_TEST((is_same<typename apply<model4d,float>::type, table<float,_4D> >::value ));
+  NT2_TEST_TYPE_IS( (typename apply<model2d,float>::type)
+                  , (table<float,_2D>)
+                  );
+
+  NT2_TEST_TYPE_IS( (typename apply<model3d,float>::type)
+                  , (table<float,_3D>)
+                  );
+
+  NT2_TEST_TYPE_IS( (typename apply<model4d,float>::type)
+                  , (table<float,_4D>)
+                  );
 }

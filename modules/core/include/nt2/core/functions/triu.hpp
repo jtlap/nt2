@@ -15,17 +15,25 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/details/relative.hpp>
+#include <nt2/core/settings/shape.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
   namespace tag
   {
-    /*!
-     * \brief Define the tag triu_ of functor triu
-     *        in namespace nt2::tag for toolbox core
-     **/
-    
-    struct triu_ : ext::unspecified_<triu_> { typedef ext::unspecified_<triu_> parent; };
+    struct triu_ : ext::elementwise_<triu_>
+    {
+      typedef ext::elementwise_<triu_> parent;
+      typedef upper_triangular_        shape_type;
+    };
+
+    struct offset_triu_ : ext::elementwise_<offset_triu_>
+    {
+      typedef ext::elementwise_<offset_triu_>  parent;
+      typedef rectangular_                     shape_type;
+    };
   }
 
   //============================================================================
@@ -33,12 +41,33 @@ namespace nt2
    * superior triangular part of a 2D table.
    *
    * \param xpr 2D table (must verify is_matrix(a))
-   * triu(a)(i, j)      is equal to: (i <= j)    ? a(i, j) : 0
-   * triu(a, k)(i, j)   is equal to: (i <= j+k)  ? a(i, j) : 0
    */
   //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::triu_, triu, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::triu_, triu, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::triu_       , triu, 1)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_triu_, triu, 2)
 }
+
+namespace nt2 { namespace container { namespace ext
+{
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::triu_,Domain,1,Expr>
+        : relative_generator<Expr>
+  {};
+
+  template<class Domain, class Expr>
+  struct  generator<nt2::tag::offset_triu_,Domain,2,Expr>
+        : relative_generator<Expr>
+  {};
+
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::triu_,Domain,1,Expr>
+        : relative_size_of<Expr>
+  {};
+
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::offset_triu_,Domain,2,Expr>
+        : relative_size_of<Expr>
+  {};
+} } }
 
 #endif

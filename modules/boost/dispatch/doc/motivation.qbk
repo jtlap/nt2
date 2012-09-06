@@ -1,0 +1,156 @@
+[section Motivation]
+
+The objective of Boost.Dispatch is to allow a flexible, scalable and easily
+extendable system for writing functions and functors dispatching using a
+generic Tag Dispatching system.
+
+This section will discuss what are the current options and why Boost.Dispatch
+helps making this idiom more generic and usable.
+
+[section Free function dispatching]
+Let us consider a fairly artificial scenario, but representive of things that
+are quite common in generic programming: we want to define a unary function `f`,
+for all built-in arithmetic types, that implements different algorithms depending
+on the actual type of the argument. For example, consider that `f` returns 0 if
+its argument is a floating point value, returns 1 if it is a signed integer or
+return 2 otherwise. You could do this using *SFINAE* and `boost::enable_if` in
+the following way:
+
+[c++]
+``
+template<class T>
+typename enable_if<is_floating_point<T>,int>::type
+f(T)
+{
+  return 0;
+}
+
+template<class T>
+typename enable_if<mpl::and_< is_signed<T>,is_integral<T> >,int>::type
+f(T)
+{
+  return 1;
+}
+
+template<class T>
+typename enable_if<mpl::and_< mpl::not_< is_signed<T> >,is_integral<T> >,int>::type
+f(T)
+{
+  return 2;
+}
+``
+The SFINAE approach clearly doesn't scale in terms of programming, since all
+overloads must be mutually exclusive, but also in terms of compilation times,
+since SFINAE-based overload resolution is linear.
+
+Another solution, which is heralded by the Standard Template Library itself
+is to use a technique known as Tag Dispatching:
+
+[c++]
+``
+struct unknown_tag                              {};
+struct fundamental_tag                          {};
+struct floating_point_tag     : fundamental_tag {};
+struct integral_tag           : fundamental_tag {};
+struct signed_integral_tag    : integral_tag    {};
+struct unsigned_integral_tag  : integral_tag    {};
+
+template<class T> struct category_of                { typedef unknown_tag type;           };
+template<>        struct category_of<float>         { typedef floating_point_tag type;    };
+template<>        struct category_of<double>        { typedef floating_point_tag type;    };
+template<>        struct category_of<int>           { typedef signed_integral_tag type;   };
+template<>        struct category_of<unsigned int>  { typedef unsigned_integral_tag type; };
+
+/* etc. for all other fundamental types... */
+
+template<class T> int f(T t)
+{
+  return f(t, typename category_of<T>::type() );
+}
+
+template<class T> int f(T, floating_point_tag const&)
+{
+  return 0;
+}
+
+template<class T> int f(T, integral_tag const&)
+{
+  return 1;
+}
+
+template<class T> int f(T, unsigned_integral_tag const&)
+{
+  return 2;
+}
+``
+
+By using a hierarchy of types bound by inheritance, it's possible to make use
+of the best-match feature of C++ overloading to introduce specializations
+without requiring them to be mutually exclusive. The `iterator_category`
+system of standard iterators is a good example of that.
+
+Doing this in a clean, concise, reusable and idiomatic manner is however of some
+difficulty, which is why that is only done in an ad-hoc way in practice.
+[endsect]
+
+[section Functor dispatching]
+Additionally, with Boost.Dispatch, all specializations are registered in an
+ADL context. That means that you can introduce specializations after the function
+is used in template contexts and those new specializations will still get used
+when that code is instantiated. This is not the case with regular function
+overloads, which usually perform name lookup eagerly.
+
+The approach also turns all incriminated functions into polymorphic function
+objects, which has a lot of uses in generic and functional programming.
+
+[endsect]
+
+[section Boost.Dispatch in action]
+Boost.Dispatch solves these problems through two related components:
+
+* An extensible hierarchy system that contains ready-made hierarchies and that
+can be easily extended. This provides a powerful and idiomatic way to define
+inheriting category tags embedding arbitrary level of intentionality.
+
+* A dispatching mechanism built on top of the hierarchies and overloading,
+that automates the use of tag dispatching with one or all arguments.
+
+Here is what the free function example looks like when written with Boost.Dispatch:
+
+[c++]
+``
+#include <boost/dispatch/meta/hierarchy_of.hpp>
+using namespace boost::dispatch;
+
+template<class T> int f(T t)
+{
+  return f(t, typename meta::hierarchy_of<T>::type() );
+}
+
+template<class T> int f(T, scalar_< floating_<T> > const&)
+{
+  return 0;
+}
+
+template<class T> int f(T, scalar_< signed_<T> > const&)
+{
+  return 1;
+}
+
+template<class T> int f(T, scalar_< unsigned_<T> > const&)
+{
+  return 2;
+}
+``
+
+Notice how the second specialization applies to any integral type, including
+unsigned ones. However, since there is also a specialization for unsigned types,
+the latter gets preferred, since `unsigned_` is a refinement of `integer_`
+in the built-in hierarchies.
+
+The functor example becomes:
+
+[endsect]
+
+[endsect]
+

@@ -14,6 +14,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
+#include <nt2/sdk/memory/copy.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -140,28 +141,15 @@ namespace nt2 { namespace ext
     operator()(A0& a0, A1 const& a1, A2 const& a2, A3 const& a3) const
     {
       typedef typename boost::proto::result_of::value<A0>::type type;
+      std::size_t range_size = std::distance(a2,a3);
 
-      //========================================================================
-      // Check we don't copy more than expected
-      //========================================================================
       BOOST_ASSERT_MSG
-      ( nt2::numel(a1) >= static_cast<size_t>(std::distance(a2,a3))
+      ( nt2::numel(a1) >= range_size
       , "Source range is larger than destination container."
       );
 
-      //========================================================================
-      // Resize current table
-      //========================================================================
       boost::proto::value(a0).resize(a1);
-
-      //========================================================================
-      // copy elementwisely
-      //========================================================================
-      boost::array<std::size_t,1> pos;
-      pos[0] = boost::mpl::at_c<typename A0::index_type::type,0>::type::value;
-
-      for(A2 beg_ = a2; beg_ != a3; ++pos[0], ++beg_)
-        boost::proto::value(a0)[ pos ] = *beg_;
+      nt2::memory::copy( a2, a3, a0.raw() );
     }
   };
 } }

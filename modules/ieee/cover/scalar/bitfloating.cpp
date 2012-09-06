@@ -74,12 +74,13 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  NT2_UINT_CONVERT_TYPES)
   
   using nt2::bitfloating;
   using nt2::tag::bitfloating_;
+  using nt2::tag::bitinteger_; 
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<bitfloating_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2::meta::as_floating<T>::type wished_r_t;
-
+  typedef typename nt2::meta::call<bitinteger_(wished_r_t)>::type i_t; 
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
@@ -98,7 +99,7 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  NT2_UINT_CONVERT_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),a0);
+        NT2_TEST_EQUAL( nt2::bitinteger(nt2::bitfloating(a0)),i_t(a0));
      }
      
    }

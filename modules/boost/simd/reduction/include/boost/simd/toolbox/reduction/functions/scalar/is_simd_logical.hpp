@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_IS_SIMD_LOGICAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_IS_SIMD_LOGICAL_HPP_INCLUDED
+#include <boost/simd/toolbox/reduction/functions/is_simd_logical.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/include/functions/scalar/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

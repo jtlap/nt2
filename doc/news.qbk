@@ -1,0 +1,7 @@
+[part What's NT2
+  [quickbook 1.5]
+]
+
+[include news/context.qbk]
+[include news/release.qbk]
+[include news/changelog.qbk]

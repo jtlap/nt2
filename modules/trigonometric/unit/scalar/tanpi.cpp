@@ -49,9 +49,6 @@ NT2_TEST_CASE_TPL ( tanpi_real__1_0,  NT2_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(tanpi(-nt2::Quarter<T>()), nt2::Mone<r_t>(), 1.0);
@@ -81,9 +78,6 @@ NT2_TEST_CASE_TPL ( tanpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(tanpi(nt2::One<T>()), nt2::Zero<r_t>(), 0.5);
@@ -105,9 +99,6 @@ NT2_TEST_CASE_TPL ( tanpi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(tanpi(nt2::Mone<T>()), nt2::Zero<r_t>(), 0.5);

@@ -96,7 +96,7 @@ NT2_TEST_CASE_TPL ( signnz_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::signnz(a0),(a0>=0) ? 1 : -1);
+        NT2_TEST_EQUAL( nt2::signnz(a0),1u);
      }
      
    }

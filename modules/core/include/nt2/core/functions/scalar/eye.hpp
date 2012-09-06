@@ -9,11 +9,12 @@
 #ifndef NT2_CORE_FUNCTIONS_SCALAR_EYE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_SCALAR_EYE_HPP_INCLUDED
 
+#include <nt2/core/functions/eye.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/functions/eye.hpp>
-#include <nt2/core/functions/details/eye.hpp>
-#include <nt2/include/functions/box.hpp>
+#include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
+#include <nt2/core/functions/details/eye.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -33,7 +34,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::eye >
       ,  meta::as_<double>
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n, A0 const& m) const
     {
       return boost::proto::make_expr< nt2::tag::eye_
@@ -59,7 +60,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::eye >
       ,  meta::as_<double>
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n) const
     {
      return boost::proto::make_expr< nt2::tag::eye_
@@ -87,7 +88,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::eye >
       , T
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n, A0 const& m, T const& ) const
     {
       return boost::proto::make_expr< nt2::tag::eye_
@@ -114,7 +115,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::eye >
       , T
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n, T const& ) const
     {
      return boost::proto::make_expr< nt2::tag::eye_
@@ -183,7 +184,7 @@ namespace nt2 { namespace ext
                             , T()
                           );
     }
-  };  
+  };
 } }
 
 #endif

@@ -11,6 +11,7 @@
 
 #include <boost/mpl/size_t.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -26,7 +27,7 @@ namespace nt2 { namespace meta
   template<int N, int D, class T> BOOST_FORCEINLINE
   typename boost::disable_if_c
   < (0 <= N && N < boost::fusion::result_of::size<T>::type::value)
-    , boost::mpl::size_t<0>
+    , boost::mpl::size_t<D>
   >::type default_at_c(const T&)
   {
     return boost::mpl::size_t<D>();

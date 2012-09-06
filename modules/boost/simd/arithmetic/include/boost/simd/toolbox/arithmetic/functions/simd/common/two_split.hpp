@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TWO_SPLIT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TWO_SPLIT_HPP_INCLUDED
-#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/two_split.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/constants/splitfactor.hpp>
 #include <boost/simd/toolbox/arithmetic/functions/two_split.hpp>
 #include <boost/fusion/tuple.hpp>

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SEC_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SEC_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/sec.hpp>
 #include <nt2/include/functions/cos.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
@@ -37,7 +38,7 @@ namespace nt2 { namespace ext
 //     typedef typename meta::as_dry<rA0>::type result_type; 
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return bitwise_cast<result_type>(rec(nt2::cosh(imag(a0)))); 
+//       return bitwise_cast<result_type>(rec(nt2::cosh(nt2::imag(a0)))); 
 //     }
 //   };
 
@@ -48,7 +49,7 @@ namespace nt2 { namespace ext
 //     typedef A0 result_type; 
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return bitwise_cast<result_type>(rec(nt2::cos(real(a0)))); 
+//       return bitwise_cast<result_type>(rec(nt2::cos(nt2::real(a0)))); 
 //     }
 //   };
   

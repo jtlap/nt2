@@ -9,15 +9,16 @@
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_STIRLING_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_STIRLING_HPP_INCLUDED
 
+#include <nt2/toolbox/euler/functions/stirling.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 
-#include <nt2/include/functions/pow.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/polevl.hpp>
+#include <nt2/include/functions/scalar/pow.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/polevl.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/euler/constants/stirlinglargelim.hpp>
 #include <nt2/toolbox/euler/constants/stirlingsplitlim.hpp>

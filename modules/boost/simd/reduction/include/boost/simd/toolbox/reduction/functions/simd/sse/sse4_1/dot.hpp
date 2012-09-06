@@ -10,8 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE4_1_DOT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/reduction/functions/dot.hpp>
-#include <boost/simd/include/functions/sum.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/simd/sum.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-        A0 r = {_mm_dp_pd(a0, a1, 0xFF)}; 
+        A0 r = _mm_dp_pd(a0, a1, 0xFF); 
         return r[0]; 
       }
   };
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-        A0 r ={ _mm_dp_ps(a0, a1, 0xFF)}; 
+        A0 r = _mm_dp_ps(a0, a1, 0xFF); 
         return r[0]; 
       }
   };

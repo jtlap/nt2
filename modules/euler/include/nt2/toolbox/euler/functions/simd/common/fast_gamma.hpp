@@ -1,27 +1,30 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_FAST_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_FAST_GAMMA_HPP_INCLUDED
+#include <nt2/toolbox/euler/functions/fast_gamma.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_nan.hpp>
-#include <nt2/include/functions/any.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/is_ltz.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/polevl.hpp>
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/toolbox/euler/constants/fastgammalargelim.hpp>
-#include <nt2/include/functions/sinpi.hpp>
+#include <nt2/include/functions/simd/sinpi.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -39,7 +42,7 @@ namespace nt2 { namespace ext
       return fast_gamma(tofloat(a0));
     }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
@@ -48,23 +51,23 @@ namespace nt2 { namespace ext
                              ((simd_<floating_<A0>,X>))
                             )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-        typedef typename meta::as_logical<A0>::type bA0; 
+        typedef typename meta::as_logical<A0>::type bA0;
         A0 sgngam = One<A0>(); //positive
         A0 r =  Nan<A0>(), r2=  Nan<A0>();
         A0 q =  nt2::abs(a0);
         A0 x = a0;
         bA0 test0 = gt(q, Fastgammalargelim<A0>());
         uint32_t nb = 0;
-        if ((nb = (nbtrue(test0) > 0)))
+        if ((nb = (inbtrue(test0) > 0)))
           {
             bA0 negative = is_ltz(a0);
             A0 s =  stirling(q);
             uint32_t nb1 = 0;
-            A0 r1 = {{}};
-            if ((nb1 = (nbtrue(negative) > 0)))
+            A0 r1 = Zero<A0>();
+            if ((nb1 = (inbtrue(negative) > 0)))
               {
                 A0 p = floor(q);
                 //              A0 test1 = is_equal(p, q); //must return Nan<A0>();
@@ -84,14 +87,14 @@ namespace nt2 { namespace ext
         if (nb >= meta::cardinal_of<A0>::value) return r2;
         A0 y2 =  other(test0, x); // computation result if ~test0
         r = sel(test0, r2, y2);
-        return if_nan_else(is_nan(a0), r); 
-        
-      }    
+        return if_nan_else(is_nan(a0), r);
+
+      }
   private :
     template < class bAA0, class AA0 >
       static inline AA0 other(const bAA0& test, const AA0& xx)
       {
-        typedef typename meta::scalar_of<AA0>::type sA0; 
+        typedef typename meta::scalar_of<AA0>::type sA0;
         static boost::array<sA0, 7> P = {{
             sA0(1.60119522476751861407E-4),
             sA0(1.19135147006586384913E-3),
@@ -133,7 +136,7 @@ namespace nt2 { namespace ext
         x -= Two<A0>();
         AA0 p = polevl(x,P);
         AA0 q = polevl(x,Q);
-        return z*p/q;        
+        return z*p/q;
       }
   };
 } }

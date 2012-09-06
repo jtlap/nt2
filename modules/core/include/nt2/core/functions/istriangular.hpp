@@ -16,8 +16,8 @@
  * \defgroup core_istriangular istriangular
  *
  * \par Description
- * Returns true or false according a0 is an "vector" container
- * (1Xn or nX1) or not.
+ * Returns true or false according a0 is a triangular matrix
+ * (lower or upper) or not.
  *
  * \par Header file
  * 
@@ -26,7 +26,7 @@
  * \endcode
  * 
  * \par Alias 
- * \arg is_vector
+ * \arg is_triangular
  * 
  * \synopsis
  *
@@ -56,7 +56,6 @@ namespace nt2
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istriangular_, istriangular, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::istriangular_, is_triangular, 1)
-
 }
 
 #endif

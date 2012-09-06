@@ -13,6 +13,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // unaligned_load for SSE2 SIMD types
 ////////////////////////////////////////////////////////////////////////////////
+#include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
@@ -31,12 +32,10 @@ namespace boost { namespace simd { namespace ext
                               ((target_< simd_< double_<A2>, boost::simd::tag::sse_ > >))
                             )
   {
-    typedef typename A1::type result_type;
-    inline result_type operator()(const A0& a0, const A1&)const
+    typedef typename A2::type result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      result_type
-      that = { _mm_loadu_pd(a0) };
-      return that;
+      return _mm_loadu_pd(a0+a1);
     }
   };
 } } }
@@ -52,9 +51,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&)const
     {
-      result_type
-      that = { _mm_loadu_pd(a0) };
-      return that;
+      return _mm_loadu_pd(a0);
     }
   };
 } } }
@@ -71,12 +68,10 @@ namespace boost { namespace simd { namespace ext
                               ((target_< simd_< single_<A2>, boost::simd::tag::sse_ > >))
                             )
   {
-    typedef typename A1::type result_type;
-    inline result_type operator()(const A0& a0, const A1&)const
+    typedef typename A2::type result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      result_type
-      that = { _mm_loadu_ps(a0) };
-      return that;
+      return _mm_loadu_ps(a0+a1);
     }
   };
 } } }
@@ -92,9 +87,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&)const
     {
-      result_type
-      that = { _mm_loadu_ps(a0) };
-      return that;
+      return _mm_loadu_ps(a0);
     }
   };
 } } }
@@ -111,12 +104,10 @@ namespace boost { namespace simd { namespace ext
                               ((target_< simd_< integer_<A2>, boost::simd::tag::sse_ > >))
                             )
   {
-    typedef typename A1::type result_type;
-    inline result_type operator()(const A0& a0, const A1&)const
+    typedef typename A2::type result_type;
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
-      result_type
-      that = { _mm_loadu_si128(reinterpret_cast<__m128i const*>(a0)) };
-      return that;
+      return _mm_loadu_si128(reinterpret_cast<__m128i const*>(a0+a1));
     }
   };
 } } }
@@ -132,9 +123,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename A1::type result_type;
     inline result_type operator()(const A0& a0, const A1&)const
     {
-      result_type
-      that = { _mm_loadu_si128(reinterpret_cast<__m128i const*>(a0)) };
-      return that;
+      return _mm_loadu_si128(reinterpret_cast<__m128i const*>(a0));
     }
   };
 } } }

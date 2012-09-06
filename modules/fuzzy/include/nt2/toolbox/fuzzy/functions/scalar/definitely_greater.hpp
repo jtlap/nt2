@@ -8,11 +8,12 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_DEFINITELY_GREATER_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_DEFINITELY_GREATER_HPP_INCLUDED
-#include <nt2/include/functions/is_ord.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/successor.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/toolbox/fuzzy/functions/definitely_greater.hpp>
+#include <nt2/include/functions/scalar/is_ord.hpp>
+#include <nt2/include/functions/scalar/is_greater.hpp>
+#include <nt2/include/functions/scalar/successor.hpp>
+#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/functions/scalar/logical_and.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 

@@ -33,7 +33,7 @@ SET(SOURCES
     modulo.cpp
     shift_left.cpp
     shift_right.cpp
-    splat.cpp
+#    splat.cpp
     )
 
 nt2_module_add_tests(operator.scalar.unit ${SOURCES})

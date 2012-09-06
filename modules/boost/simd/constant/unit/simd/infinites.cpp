@@ -20,8 +20,16 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
 {
-  NT2_TEST_EQUAL( boost::simd::Inf<T>() , std::numeric_limits<T>::infinity()  );
-  NT2_TEST_EQUAL( boost::simd::Minf<T>(), -std::numeric_limits<T>::infinity() );
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t>                vT;
+
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
+    NT2_TEST_EQUAL( (boost::simd::Inf<vT>())[i], std::numeric_limits<T>::infinity() );
+  }
+
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
+    NT2_TEST_EQUAL( (boost::simd::Minf<vT>())[i], -std::numeric_limits<T>::infinity() );
+  }
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -29,6 +37,31 @@ NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_INTEGRAL_TYPES )
 {
-  NT2_TEST_EQUAL( boost::simd::Inf<T>() , boost::simd::Valmax<T>()  );
-  NT2_TEST_EQUAL( boost::simd::Minf<T>(), boost::simd::Valmin<T>()  );
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<T,ext_t>                vT;
+
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
+    NT2_TEST_EQUAL( (boost::simd::Inf<vT>())[i], boost::simd::Valmax<T>() );
+  }
+
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
+    NT2_TEST_EQUAL( (boost::simd::Minf<vT>())[i], boost::simd::Valmin<T>() );
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test value of infinites for raw char type
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE( char_inf )
+{
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef boost::simd::native<char,ext_t>                vT;
+
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
+    NT2_TEST_EQUAL( (boost::simd::Inf<vT>())[i], boost::simd::Valmax<char>() );
+  }
+
+  for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
+    NT2_TEST_EQUAL( (boost::simd::Minf<vT>())[i], boost::simd::Valmin<char>() );
+  }
 }

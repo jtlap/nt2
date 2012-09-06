@@ -8,8 +8,9 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_SQR_ABS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_SQR_ABS_HPP_INCLUDED
-#include <boost/simd/include/functions/sqr.hpp>
-#include <boost/simd/include/functions/abss.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/sqr_abs.hpp>
+#include <boost/simd/include/functions/scalar/sqr.hpp>
+#include <boost/simd/include/functions/scalar/abss.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/zero.hpp>
@@ -27,7 +28,8 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::upgrade<A0>::type uptype;
       uptype tmp = sqr(static_cast<uptype>(a0)); 
-      return (tmp > Valmax<result_type>()) ? Valmax<result_type>() : tmp;  
+      return (tmp > Valmax<result_type>()) ? Valmax<result_type>() 
+                                           : static_cast<result_type>(tmp);  
     }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sqr_abs_, tag::cpu_

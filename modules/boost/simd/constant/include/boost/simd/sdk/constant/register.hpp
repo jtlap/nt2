@@ -13,11 +13,11 @@
  * \file
  * \brief Defines the BOOST_SIMD_CONSTANT_REGISTER_VALUE macro
  */
- 
+
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
- 
+
 //==============================================================================
 /*!
  * Generate a named constant from an integral, float and double value set
@@ -29,17 +29,28 @@
  * \param DOUBLE Double value of the constant
  */
 //==============================================================================
-#define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)           \
-struct TAG : ext::constant_<TAG>                                          \
-{                                                                         \
-  typedef TYPE default_type;                                              \
-  template<class T, class D=void> struct apply                            \
-    : boost::simd::meta::int_c<T,T(INT)> {};                              \
-};                                                                        \
-template<class D> struct TAG::apply<float,D>                              \
-  : boost::simd::meta::single_<FLOAT> {};                                 \
-template<class D> struct TAG::apply<double,D>                             \
-  : boost::simd::meta::double_<DOUBLE> {};                                \
+#if defined(NT2_DOXYGEN_ONLY)
+#define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE) \
+struct TAG  : ext::constant_<TAG>                               \
+{                                                               \
+  typedef TYPE default_type;                                    \
+};                                                              \
 /**/
+#else
+#define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)             \
+struct TAG : ext::constant_<TAG>                                            \
+{                                                                           \
+  typedef TYPE default_type;                                                \
+  template<class T, class D=void> struct apply                              \
+    : boost::simd::meta::int_c<typename T::type,typename T::type(INT)> {};  \
+};                                                                          \
+template<class T, class D>                                                  \
+struct  TAG::apply<boost::dispatch::meta::single_<T>,D>                     \
+      : boost::simd::meta::single_<FLOAT> {};                               \
+template<class T, class D>                                                  \
+struct  TAG::apply<boost::dispatch::meta::double_<T>,D>                     \
+      : boost::simd::meta::double_<DOUBLE> {};                              \
+/**/
+#endif
 
 #endif

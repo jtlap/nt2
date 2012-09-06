@@ -42,9 +42,6 @@ NT2_TEST_CASE_TPL ( hypot_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<hypot_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>(), 0);
@@ -52,5 +49,5 @@ NT2_TEST_CASE_TPL ( hypot_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::Mone<vT>(), boost::simd::Mone<vT>())[0], boost::simd::Sqrt_2<sr_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(hypot(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::Sqrt_2<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(hypot(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(hypot(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>(), 0);
 } // end of test for floating_

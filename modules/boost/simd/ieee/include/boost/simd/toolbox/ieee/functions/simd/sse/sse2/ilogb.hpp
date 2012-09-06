@@ -9,15 +9,16 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_SSE_SSE2_ILOGB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+#include <boost/simd/toolbox/ieee/functions/ilogb.hpp>
 #include <boost/simd/toolbox/ieee/functions/simd/common/ilogb.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/seladd.hpp>
-#include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/predecessor.hpp>
-#include <boost/simd/include/functions/dist.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/predecessor.hpp>
+#include <boost/simd/include/functions/simd/dist.hpp>
 #define MKN(N) simd::bitwise_cast<vtype##N>
 
 namespace boost { namespace simd { namespace ext

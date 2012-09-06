@@ -24,13 +24,13 @@ NT2_TEST_CASE(signmask)
   NT2_TEST_EQUAL( nt2::Signmask<double>(), -0.   );
   NT2_TEST_EQUAL( nt2::Signmask<float>() , -0.f );
 
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint64_t>(), 0 );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint32_t>(), 0 );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint16_t>(), 0 );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint8_t >(), 0 );
+  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint64_t>(), 0u );
+  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint32_t>(), 0u );
+  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint16_t>(), 0u );
+  NT2_TEST_EQUAL( nt2::Signmask<nt2::uint8_t >(), 0u );
 
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::int64_t>(), 0x8000000000000000LL );
-  NT2_TEST_EQUAL( nt2::Signmask<nt2::int32_t>(), 0x80000000            );
+  NT2_TEST_EQUAL( nt2::Signmask<nt2::int64_t>(), nt2::int64_t(0x8000000000000000LL) );
+  NT2_TEST_EQUAL( nt2::Signmask<nt2::int32_t>(), nt2::int32_t(0x80000000 )           );
   NT2_TEST_EQUAL( nt2::Signmask<nt2::int16_t>(), nt2::int16_t(0x8000)  );
   NT2_TEST_EQUAL( nt2::Signmask<nt2::int8_t >(), nt2::int8_t(0x80)    );
 }
@@ -62,15 +62,15 @@ NT2_TEST_CASE(valmin)
   NT2_TEST_EQUAL( nt2::Valmin<double>() , -1.7976931348623157e+308);
   NT2_TEST_EQUAL( nt2::Valmin<float>()  , float(-3.4028235e+38)   );
 
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint64_t>(), 0 );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint32_t>(), 0  );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint16_t>(), 0  );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint8_t >(), 0  );
+  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint64_t>(), 0u );
+  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint32_t>(), 0u  );
+  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint16_t>(), 0u  );
+  NT2_TEST_EQUAL( nt2::Valmin<nt2::uint8_t >(), 0u  );
 
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::int64_t>(), -9223372036854775808ULL );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::int32_t>(), -2147483648UL           );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::int16_t>(), -32768                  );
-  NT2_TEST_EQUAL( nt2::Valmin<nt2::int8_t >(), -128                    );
+  NT2_TEST_EQUAL( nt2::Valmin<nt2::int64_t>(), int64_t(-9223372036854775808ULL) );
+  NT2_TEST_EQUAL( nt2::Valmin<nt2::int32_t>(), int32_t(-2147483648UL)           );
+  NT2_TEST_EQUAL( nt2::Valmin<nt2::int16_t>(), int16_t(-32768)                  );
+  NT2_TEST_EQUAL( nt2::Valmin<nt2::int8_t >(), int8_t (-128)                    );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -51,10 +51,10 @@ NT2_TEST_CASE_TPL ( round_real__1_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(round(T(1.4)), 1, 0);
-  NT2_TEST_ULP_EQUAL(round(T(1.5)), 2, 0);
-  NT2_TEST_ULP_EQUAL(round(T(1.6)), 2, 0);
-  NT2_TEST_ULP_EQUAL(round(T(2.5)), 2, 0);
+  NT2_TEST_ULP_EQUAL(round(T(1.4)), r_t(1), 0);
+  NT2_TEST_ULP_EQUAL(round(T(1.5)), r_t(2), 0);
+  NT2_TEST_ULP_EQUAL(round(T(1.6)), r_t(2), 0);
+  NT2_TEST_ULP_EQUAL(round(T(2.5)), r_t(2), 0);
   NT2_TEST_ULP_EQUAL(round(nt2::Half<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(round(nt2::Mhalf<T>()), nt2::Zero<r_t>(), 0);

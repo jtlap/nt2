@@ -36,9 +36,9 @@ namespace boost { namespace dispatch { namespace meta
   // TODO : Fix later
   template<class T>
   struct  mpl_integral_< unspecified_<T> >
-        : meta::hierarchy_of<int, T>::type
+    : meta::hierarchy_of< typename T::value_type >::type
   {
-    typedef typename meta::hierarchy_of<int,T>::type parent;
+    typedef typename meta::hierarchy_of< typename T::value_type >::type parent;
   };
 }
 

@@ -45,48 +45,13 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_REAL_TYPES)
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
 
+  for(int i=0; i < 10; i++)
+    {
+      NT2_TEST_LESSER(random(T(2), T(3)), T(3));
+      NT2_TEST_GREATER(random(T(2), T(3)), T(2));
+    }
+  
+  
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( random_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
-{
-  
-  using nt2::random;
-  using nt2::tag::random_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<random_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T,T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( random_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
-{
-  
-  using nt2::random;
-  using nt2::tag::random_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<random_(T,T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T,T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-} // end of test for signed_int_

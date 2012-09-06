@@ -7,5 +7,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit sdk trigonometric core)
+nt2_module_use_modules(unit trigonometric core)
 ADD_SUBDIRECTORY(container)
+ADD_SUBDIRECTORY(memory)
+ADD_SUBDIRECTORY(fluid)

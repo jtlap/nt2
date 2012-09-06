@@ -8,17 +8,18 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_LDEXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_LDEXP_HPP_INCLUDED
+#include <boost/simd/toolbox/ieee/functions/ldexp.hpp>
 #include <boost/simd/sdk/meta/size.hpp>
 #include <boost/simd/include/constants/ldexpmask.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/functions/shli.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/is_finite.hpp>
-#include <boost/simd/include/functions/if_else.hpp>
-#include <boost/simd/include/functions/rshl.hpp>
-#include <boost/simd/include/functions/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/shli.hpp>
+#include <boost/simd/include/functions/simd/is_nez.hpp>
+#include <boost/simd/include/functions/simd/is_finite.hpp>
+#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/rshl.hpp>
+#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -61,7 +62,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::scalar_of<int_type>::type             sint_type;
 
       // clear exponent in x
-      result_type const x = {b_andnot(a0, Ldexpmask<A0>())};
+      result_type const x = b_andnot(a0, Ldexpmask<A0>());
 
       // extract exponent and compute the new one
       int_type e    = b_and(Ldexpmask<A0>(), a0);
@@ -80,8 +81,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
-      typedef typename dispatch::meta::as_integer<A0>::type iA0; 
-      return ldexp(a0, boost::simd::splat<iA0>(a1)); 
+      typedef typename dispatch::meta::as_integer<A0>::type iA0;
+      return ldexp(a0, boost::simd::splat<iA0>(a1));
     }
   };
 } } }

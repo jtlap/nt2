@@ -51,7 +51,10 @@ NT2_TEST_CASE_TPL ( two_add_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<two_add_(vT,vT)>::type r_t;
   typedef typename nt2::meta::call<two_add_(T,T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
+  typedef boost::fusion::tuple<vT,vT> wished_r_t;
+
+
+  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+  // two_add is tested by correct_fma
 
 } // end of test for floating_

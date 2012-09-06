@@ -22,12 +22,12 @@
  * returns true if all elements of the input vector are zero.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/none.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of none
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,20 +53,24 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
-namespace boost { namespace simd { namespace tag
-  {         
+namespace boost { namespace simd
+{
+  namespace tag
+  {
     /*!
-     * \brief Define the tag none_ of functor none 
+     * \brief Define the tag none_ of functor none
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct none_ : ext::reduction_<none_> { typedef ext::reduction_<none_> parent; };
+    struct none_ : dispatch::tag::formal_
+    {
+      typedef dispatch::tag::formal_ parent;
+    };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::none_, none, 2)
 } }
 
 #endif
-
-// modified by jt the 25/12/2010

@@ -46,23 +46,23 @@ NT2_TEST_CASE_TPL ( real_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(real(cT(nt2::Inf<T>())), nt2::Inf<T>());
-  NT2_TEST_EQUAL(real(cT(nt2::Minf<T>())),nt2::Minf<T>());
-  NT2_TEST_EQUAL(real(cT(nt2::Nan<T>())), nt2::Nan<T>());   
-  NT2_TEST_EQUAL(real(cT(nt2::One<T>())), nt2::One<T>()); 
-  NT2_TEST_EQUAL(real(cT(nt2::Zero<T>())),nt2::Zero<T>()); 
-  NT2_TEST_EQUAL(real(cT(0, 1)), nt2::Zero<T>());
-  NT2_TEST_EQUAL(real(cT(1, 0)), nt2::One<T>());
-  NT2_TEST_EQUAL(real(cT(2, 3)), nt2::Two<T>());
-  NT2_TEST_EQUAL(real(cT(-2,2)), nt2::Mtwo<T>()); 
-  NT2_TEST_EQUAL(real(ciT(nt2::Inf<T>())), nt2::Zero<T>());
-  NT2_TEST_EQUAL(real(ciT(nt2::Minf<T>())),nt2::Zero<T>());
-  NT2_TEST_EQUAL(real(ciT(nt2::Nan<T>())), nt2::Zero<T>());   
-  NT2_TEST_EQUAL(real(ciT(nt2::One<T>())), nt2::Zero<T>()); 
-  NT2_TEST_EQUAL(real(ciT(nt2::Zero<T>())),nt2::Zero<T>()); 
-  NT2_TEST_EQUAL(real(cdT(nt2::Inf<T>())), nt2::Inf<T>());
-  NT2_TEST_EQUAL(real(cdT(nt2::Minf<T>())),nt2::Minf<T>());
-  NT2_TEST_EQUAL(real(cdT(nt2::Nan<T>())), nt2::Nan<T>());   
-  NT2_TEST_EQUAL(real(cdT(nt2::One<T>())), nt2::One<T>()); 
-  NT2_TEST_EQUAL(real(cdT(nt2::Zero<T>())),nt2::Zero<T>()); 
+  NT2_TEST_EQUAL(nt2::real(cT(nt2::Inf<T>())), nt2::Inf<T>());
+  NT2_TEST_EQUAL(nt2::real(cT(nt2::Minf<T>())),nt2::Minf<T>());
+  NT2_TEST_EQUAL(nt2::real(cT(nt2::Nan<T>())), nt2::Nan<T>());   
+  NT2_TEST_EQUAL(nt2::real(cT(nt2::One<T>())), nt2::One<T>()); 
+  NT2_TEST_EQUAL(nt2::real(cT(nt2::Zero<T>())),nt2::Zero<T>()); 
+  NT2_TEST_EQUAL(nt2::real(cT(0, 1)), nt2::Zero<T>());
+  NT2_TEST_EQUAL(nt2::real(cT(1, 0)), nt2::One<T>());
+  NT2_TEST_EQUAL(nt2::real(cT(2, 3)), nt2::Two<T>());
+  NT2_TEST_EQUAL(nt2::real(cT(-2,2)), nt2::Mtwo<T>()); 
+  NT2_TEST_EQUAL(nt2::real(ciT(nt2::Inf<T>())), nt2::Zero<T>());
+  NT2_TEST_EQUAL(nt2::real(ciT(nt2::Minf<T>())),nt2::Zero<T>());
+  NT2_TEST_EQUAL(nt2::real(ciT(nt2::Nan<T>())), nt2::Zero<T>());   
+  NT2_TEST_EQUAL(nt2::real(ciT(nt2::One<T>())), nt2::Zero<T>()); 
+  NT2_TEST_EQUAL(nt2::real(ciT(nt2::Zero<T>())),nt2::Zero<T>()); 
+  NT2_TEST_EQUAL(nt2::real(cdT(nt2::Inf<T>())), nt2::Inf<T>());
+  NT2_TEST_EQUAL(nt2::real(cdT(nt2::Minf<T>())),nt2::Minf<T>());
+  NT2_TEST_EQUAL(nt2::real(cdT(nt2::Nan<T>())), nt2::Nan<T>());   
+  NT2_TEST_EQUAL(nt2::real(cdT(nt2::One<T>())), nt2::One<T>()); 
+  NT2_TEST_EQUAL(nt2::real(cdT(nt2::Zero<T>())),nt2::Zero<T>()); 
 } // end of test for floating_

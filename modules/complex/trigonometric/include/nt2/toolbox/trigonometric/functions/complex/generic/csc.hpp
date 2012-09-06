@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSC_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSC_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/csc.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
@@ -35,7 +36,7 @@ namespace nt2 { namespace ext
 //     typedef A0 result_type; 
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return bitwise_cast<result_type>(rec(nt2::sinh(-real(a0)))); 
+//       return bitwise_cast<result_type>(rec(nt2::sinh(-nt2::real(a0)))); 
 //     }
 //   };
 

@@ -49,13 +49,13 @@ template< class Tag, class Site                                                 
           BOOST_PP_COMMA_IF(n) BOOST_PP_ENUM_PARAMS(n,class A)>                 \
 BOOST_FORCEINLINE                                                               \
 boost::dispatch::meta::                                                         \
-implement<Tag(tag::unknown_),Site,tag::error_with(BOOST_PP_ENUM(n,M2,~))>       \
+implement<tag::unknown_, Site, Tag(BOOST_PP_ENUM(n,M2,~))>                      \
 dispatching ( meta::unknown_<Tag>, meta::unknown_<Site> BOOST_PP_REPEAT(n,M0,~) \
             , adl_helper = adl_helper()                                         \
             )                                                                   \
 {                                                                               \
-  boost::dispatch::meta::implement< Tag(tag::unknown_),Site                     \
-                      , tag::error_with(BOOST_PP_ENUM(n,M2,~))                  \
+  boost::dispatch::meta::implement<tag::unknown_, Site                          \
+                      , Tag(BOOST_PP_ENUM(n,M2,~))                              \
                       > that;                                                   \
   return that;                                                                  \
 }                                                                               \

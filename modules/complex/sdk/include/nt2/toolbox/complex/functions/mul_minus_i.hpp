@@ -22,7 +22,7 @@
  *
  * \par Description
  * return the complex multiplied by -i (i*i == -1)
- * i.e. (imag(a0), -real(a0))
+ * i.e. (nt2::imag(a0), -nt2::real(a0))
  *
  * \par Header file
  * 

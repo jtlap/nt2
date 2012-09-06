@@ -15,7 +15,7 @@
 #include <boost/mpl/pop_back.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/include/functions/fma.hpp>
+#include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>

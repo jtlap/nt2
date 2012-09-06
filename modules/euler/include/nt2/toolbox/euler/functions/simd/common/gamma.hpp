@@ -8,25 +8,26 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_GAMMA_HPP_INCLUDED
+#include <nt2/toolbox/euler/functions/gamma.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/functions/nbtrue.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/log.hpp>
-#include <nt2/include/functions/exp.hpp>
-#include <nt2/include/functions/trunc.hpp>
-#include <nt2/include/functions/frac.hpp>
-#include <nt2/include/functions/bitwise_ornot.hpp>
-#include <nt2/include/functions/sinpi.hpp>
-#include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/is_lez.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/maximum.hpp>
-#include <nt2/include/functions/if_allbits_else.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/is_lez.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/log.hpp>
+#include <nt2/include/functions/simd/exp.hpp>
+#include <nt2/include/functions/simd/trunc.hpp>
+#include <nt2/include/functions/simd/frac.hpp>
+#include <nt2/include/functions/simd/bitwise_ornot.hpp>
+#include <nt2/include/functions/simd/sinpi.hpp>
+#include <nt2/include/functions/simd/negif.hpp>
+#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/simd/is_lez.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/sqrt.hpp>
+#include <nt2/include/functions/simd/maximum.hpp>
+#include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
@@ -82,13 +83,13 @@ namespace nt2 { namespace ext
       A0 y = a0;
       int32_t nb1, nb2;
       bA0 lezy =  is_lez(y);
-      if (nbtrue(lezy) > 0)
+      if (inbtrue(lezy) > 0)
         {
           y =  sel(lezy, oneminus(y), y); 
           fact =  sel(lezy, Pi<A0>()/sinpi(y), One<A0>());
         }
       bA0 lteps = lt(y, Eps<A0>());
-      if ((nb1 = nbtrue(lteps)) > 0)
+      if ((nb1 = inbtrue(lteps)) > 0)
         {
           A0 r1 =  if_nan_else(lteps, rec(y));
           res &=  r1;
@@ -97,7 +98,7 @@ namespace nt2 { namespace ext
           y = if_nan_else(lteps, y); 
         }
       bA0 lt12 = lt(y, splat<A0>(12));   
-      if ((nb2 = nbtrue(lt12)) > 0)
+      if ((nb2 = inbtrue(lt12)) > 0)
         {
           bA0 islt1 = lt(y, One<A0>());
           A0 y1 = y; 

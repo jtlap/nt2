@@ -1,0 +1,140 @@
+//==============================================================================
+//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
+#ifndef NT2_CORE_FUNCTIONS_COMMON_ISSORTED_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_COMMON_ISSORTED_HPP_INCLUDED
+
+#include <nt2/core/functions/issorted.hpp>
+#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/is_ngtz.hpp>
+#include <nt2/include/functions/is_nltz.hpp> 
+#include <nt2/include/functions/diff.hpp>
+#include <nt2/include/functions/firstnonsingleton.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mone.hpp>
+
+namespace nt2 { namespace ext
+{
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+                              , (A0)
+                            , (scalar_<unspecified_<A0> > )
+                            )
+  {
+    typedef bool result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(const A0&) const
+    {
+      return true; 
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+                              , (A0)(A1)
+                              , (scalar_<unspecified_<A0> > )
+                              (scalar_<integer_ < A1> > )                           
+                              )
+  {
+    typedef bool result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE
+      result_type operator()(const A0&, const A1&) const
+    {
+      return true; 
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+                              , (A0)(A1)(A2)
+                              , (scalar_<unspecified_<A0> > )
+                              (scalar_<integer_ < A1> > )
+                              (scalar_<bool_<A2> >)
+                              )
+  {
+    typedef bool result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE
+      result_type operator()(const A0&, const A1&, const A2&) const
+    {
+      return true; 
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+                              , (A0)
+                              , (ast_<A0>)
+                              )
+  {
+    typedef bool result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE
+      result_type operator()(const A0& a0) const
+    {
+      typedef typename A0::value_type value_type;
+      int32_t dim =  nt2::firstnonsingleton(a0); 
+      bool res =  all(all(is_nltz(diff(a0, dim)))(_))(1);
+      if (res) return true;
+      return  all(all(is_ngtz(diff(a0, dim)))(_))(1);
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+                              , (A0)(A1)
+                              , (ast_<A0>)
+                              (scalar_<integer_ < A1> > )                           
+                              )
+  {
+    typedef bool result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE
+      result_type operator()(const A0& a0, const A1& dim) const
+    {
+      typedef typename A0::value_type value_type;
+      bool res =  all(all(is_nltz(diff(a0, dim)))(_))(1);
+      if (res) return true;
+      return  all(all(is_ngtz(diff(a0, dim)))(_))(1);
+    }
+  };
+  
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+                              , (A0)(A1)
+                              , (ast_<A0>)
+                              (scalar_<bool_<A1> >)
+                              )
+  {
+    typedef bool result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE
+      result_type operator()(const A0& a0, const A1& up) const
+    {
+      typedef typename A0::value_type value_type;
+      int32_t dim =  nt2::firstnonsingleton(a0); 
+      return issorted(a0, dim, up);
+    }
+  };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
+                              , (A0)(A1)(A2)
+                              , (ast_<A0>)
+                              (scalar_<integer_ < A1> > )
+                              (scalar_<bool_<A2> >)
+                              )
+  {
+    typedef bool result_type;
+    
+    BOOST_DISPATCH_FORCE_INLINE
+      result_type operator()(const A0& a0, const A1& dim, const A2& up) const
+    {
+      typedef typename A0::value_type value_type;
+      value_type sgn = up ? One<value_type>() : Mone<value_type>(); 
+      return all(all(is_nltz(diff(a0, dim)*sgn))(_))(1); 
+    }
+  };
+  
+} }
+
+#endif

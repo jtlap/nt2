@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/expm1.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/constants/mtwo.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -46,12 +47,12 @@ namespace nt2 { namespace ext
       typedef typename meta::as_logical<rtype>::type ltype;
       const A0 u =  nt2::exp(a0);
       const A0 w =  minusone(u);
-      const rtype ru =  real(u);
+      const rtype ru =  nt2::real(u);
       const ltype exceptionnal =
         logical_or(is_eqz(ru),
                    logical_or(is_invalid(u),
                               logical_or(is_eqz(a0),
-                                         is_nlt(nt2::abs(imag(a0)), Pio_2<rtype>())
+                                         is_nlt(nt2::abs(nt2::imag(a0)), Pio_2<rtype>())
                                          )
                               )
                    );
@@ -70,9 +71,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype;
-      // cos(t)-1 + i sin(t) with  t =  imag(a0)
-      return result_type( Mtwo<rtype>()*sqr(nt2::sin(imag(a0)*Half<rtype>())
-                        , nt2::sin(imag(a0)))
+      // cos(t)-1 + i sin(t) with  t =  nt2::imag(a0)
+      return result_type( Mtwo<rtype>()*sqr(nt2::sin(nt2::imag(a0)*Half<rtype>())
+                        , nt2::sin(nt2::imag(a0)))
                         );
     }
   };
@@ -85,7 +86,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::expm1(real(a0)));
+      return bitwise_cast<result_type>(nt2::expm1(nt2::real(a0)));
     }
   };
 } }

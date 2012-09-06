@@ -11,8 +11,8 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/reduction/functions/sum.hpp>
-#include <boost/simd/include/functions/sum.hpp>
-#include <boost/simd/include/functions/multiplies.hpp>
+#include <boost/simd/include/functions/simd/sum.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 
 // /////////////////////////////////////////////////////////////////////////////
 // // Implementation when type  is arithmetic_
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type; 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
       {
-        A0 r = {_mm256_dp_ps(a0, One<A0>(), 0xFF)}; 
+        A0 r = _mm256_dp_ps(a0, One<A0>(), 0xFF); 
         return r[0]+r[4];
 // this in another solution for floats,  perhaps speedier ?
 // x3 = _mm256_add_ps(x0, _mm256_movehdup_ps(x0));              

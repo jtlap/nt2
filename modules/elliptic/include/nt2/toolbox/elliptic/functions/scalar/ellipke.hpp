@@ -8,16 +8,17 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLIPKE_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLIPKE_HPP_INCLUDED
+#include <nt2/toolbox/elliptic/functions/ellipke.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/ldexp.hpp>
-#include <nt2/include/functions/sqrt.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/is_ltz.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/ldexp.hpp>
+#include <nt2/include/functions/scalar/sqrt.hpp>
+#include <nt2/include/functions/scalar/sqr.hpp>
+#include <nt2/include/functions/scalar/average.hpp>
+#include <nt2/include/functions/scalar/oneminus.hpp>
+#include <nt2/include/functions/scalar/is_greater.hpp>
+#include <nt2/include/functions/scalar/is_equal.hpp>
+#include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>

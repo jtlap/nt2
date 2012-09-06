@@ -34,19 +34,19 @@
 NT2_TEST_CASE_TPL ( saturate_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
   
-  using nt2::saturate;
-  using nt2::tag::saturate_;
-  typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<saturate_<uint16_t>(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
-  typedef T wished_r_t;
+//   using nt2::saturate;
+//   using nt2::tag::saturate_;
+//   typedef typename nt2::meta::as_integer<T>::type iT;
+//   typedef typename nt2::meta::call<saturate_<uint16_t>(T)>::type r_t;
+//   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
+//   typedef typename nt2::meta::upgrade<T>::type u_t;
+//   typedef T wished_r_t;
 
 
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
+//   // return type conformity test 
+//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
+//   std::cout << std::endl; 
+//   double ulpd;
+//   ulpd=0.0;
 
 } // end of test for unsigned_int_

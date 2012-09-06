@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_MAP_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
+#include <boost/simd/toolbox/operator/functions/map.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>

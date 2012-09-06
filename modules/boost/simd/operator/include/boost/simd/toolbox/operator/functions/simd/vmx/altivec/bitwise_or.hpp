@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/bitwise_or.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,8 +25,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       A0 other = simd::bitwise_cast<A0>( a1 );
-      A0 that = { vec_or(a0(),other()) };
-      return that;
+      return vec_or(a0(),other());
     }
   };
 } } }

@@ -15,8 +15,8 @@
 /// 
 #include <nt2/toolbox/arithmetic/include/functions/divround.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include<nt2/include/functions/iround.hpp>
-#include<nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/iround.hpp>
+#include <nt2/include/functions/tofloat.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_BOOST.SIMD.COMPLEX.ARITHMETIC_DEPENDENCIES_EXTRA boost.simd.arithmetic)
+SET(NT2_COMPLEX.ARITHMETIC_DEPENDENCIES_EXTRA boost.simd.arithmetic)

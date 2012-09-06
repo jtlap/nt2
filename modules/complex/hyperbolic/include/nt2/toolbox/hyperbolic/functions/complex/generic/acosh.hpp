@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ACOSH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ACOSH_HPP_INCLUDED
+#include <nt2/toolbox/hyperbolic/functions/acosh.hpp>
 #include <nt2/include/functions/log.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/minusone.hpp>
@@ -43,12 +44,12 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       // acosh(a0) = +/-i acos(a0)
-      // Choosing the sign of multiplier to give real(acosh(a0)) >= 0
+      // Choosing the sign of multiplier to give nt2::real(acosh(a0)) >= 0
       // we have compatibility with C99.
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::as_logical<rtype>::type ltype;
       result_type res = nt2::acos(a0);
-      res = if_else(logical_notand(is_nan(imag(res)), is_lez(imag(res))),
+      res = if_else(logical_notand(is_nan(nt2::imag(res)), is_lez(nt2::imag(res))),
                     mul_i(res), mul_minus_i(res)); 
       return res;     
     }
@@ -63,7 +64,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       result_type res = nt2::acos(a0);
-      res = if_else(logical_notand(is_nan(imag(res)), is_lez(imag(res))),
+      res = if_else(logical_notand(is_nan(nt2::imag(res)), is_lez(nt2::imag(res))),
                     mul_i(res), mul_minus_i(res)); 
       return res;     
     }
@@ -78,7 +79,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       result_type res = nt2::acos(a0);
-      res = if_else(logical_notand(is_nan(imag(res)), is_lez(imag(res))),
+      res = if_else(logical_notand(is_nan(nt2::imag(res)), is_lez(nt2::imag(res))),
                     mul_i(res),
                     mul_minus_i(res)); 
       return res;     

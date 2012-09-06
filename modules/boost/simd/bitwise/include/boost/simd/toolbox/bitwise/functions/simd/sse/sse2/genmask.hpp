@@ -13,10 +13,10 @@
 #include <boost/simd/toolbox/bitwise/functions/genmask.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
-#include <boost/simd/include/functions/complement.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
-#include <boost/simd/include/functions/minus.hpp>
+#include <boost/simd/include/functions/simd/complement.hpp>
+#include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -29,8 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = { _mm_cmpneq_pd(a0,Zero<A0>()) };
-      return that;
+      return _mm_cmpneq_pd(a0,Zero<A0>());
     }
   };
 
@@ -42,8 +41,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = { _mm_cmpneq_ps(a0,Zero<A0>()) };
-      return that;
+      return _mm_cmpneq_ps(a0,Zero<A0>());
     }
   };
 
@@ -55,7 +53,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = { _mm_cmpeq_epi8(a0,Zero<A0>()) };
+      result_type that = _mm_cmpeq_epi8(a0,Zero<A0>());
       return complement(that);
     }
   };
@@ -68,7 +66,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = { _mm_cmpeq_epi16(a0,Zero<A0>()) };
+      result_type that = _mm_cmpeq_epi16(a0,Zero<A0>());
       return complement(that);
     }
   };
@@ -81,7 +79,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type that = { _mm_cmpeq_epi32(a0,Zero<A0>()) };
+      result_type that = _mm_cmpeq_epi32(a0,Zero<A0>());
       return complement(that);
     }
   };
@@ -97,7 +95,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::downgrade<A0, unsigned>::type  type;
       type tmp      = bitwise_cast<type>(a0-Zero<A0>());
       tmp           = bitwise_cast<type>(genmask(tmp));
-      type tmp2     = { _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1)) };
+      type tmp2     = _mm_shuffle_epi32(tmp, _MM_SHUFFLE(2, 3, 0, 1));
       return bitwise_cast<result_type>(tmp | tmp2);
     }
   };

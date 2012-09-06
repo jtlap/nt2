@@ -8,13 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MULS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MULS_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/muls.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
-#include <boost/simd/include/functions/adds.hpp>
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
-#include <boost/simd/include/functions/bitofsign.hpp>
-#include <boost/simd/include/functions/saturate.hpp>
+#include <boost/simd/include/functions/scalar/genmask.hpp>
+#include <boost/simd/include/functions/scalar/adds.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
+#include <boost/simd/include/functions/scalar/bitofsign.hpp>
+#include <boost/simd/include/functions/scalar/saturate.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>

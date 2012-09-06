@@ -8,22 +8,24 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POWI_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_POWI_HPP_INCLUDED
+#include <nt2/toolbox/exponential/functions/powi.hpp>
 #include <nt2/sdk/meta/size.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/bitofsign.hpp>
-#include <nt2/include/functions/signnz.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/include/functions/is_even.hpp>
-#include <nt2/include/functions/fma.hpp>
-#include <nt2/include/functions/shri.hpp>
-#include <nt2/include/functions/sqr.hpp>
-#include <nt2/include/functions/rec.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/oneminus.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/simd/bitofsign.hpp>
+#include <nt2/include/functions/simd/signnz.hpp>
+#include <nt2/include/functions/simd/is_odd.hpp>
+#include <nt2/include/functions/simd/is_even.hpp>
+#include <nt2/include/functions/simd/fma.hpp>
+#include <nt2/include/functions/simd/shri.hpp>
+#include <nt2/include/functions/simd/sqr.hpp>
+#include <nt2/include/functions/simd/rec.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/oneplus.hpp>
+#include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/any.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 
 
@@ -62,19 +64,19 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-	typedef result_type r_type;
+        typedef result_type r_type;
         r_type sign_x = bitofsign(a0);
         r_type x = b_xor(a0, sign_x);//x = nt2::abs(a0)
-	if (is_even(a1)) sign_x = Zero<r_type>(); 
+        if (is_even(a1)) sign_x = Zero<r_type>(); 
         A1 n = nt2::abs(a1);
         r_type ret = One<r_type>();
         for(A1 t = n; t > 0; t >>= 1)
         {
-	  if(is_odd(t)) ret*=x;
-	  x = sqr(x);
+          if(is_odd(t)) ret*=x;
+          x = sqr(x);
         }
         x =  b_xor(ret, sign_x);
-	return is_ltz(a1) ? rec(x) : x; 
+        return is_ltz(a1) ? rec(x) : x; 
     }
   };
 } }

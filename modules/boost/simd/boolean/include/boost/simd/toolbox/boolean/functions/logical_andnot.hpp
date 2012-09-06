@@ -1,13 +1,3 @@
-/*******************************************************************************
- *         Copyright 2003-2011 LASMEA UMR 6602 CNRS/U.B.P
- *         Copyright 2009-2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
- *
- *          Distributed under the Boost Software License, Version 1.0.
- *                 See accompanying file LICENSE.txt or copy at
- *                     http://www.boost.org/LICENSE_1_0.txt
- ******************************************************************************/
-#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_LOGICAL_ANDNOT_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_LOGICAL_ANDNOT_HPP_INCLUDED
 //==============================================================================
 //         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
@@ -16,14 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_LOGICAL_ANDNOT_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_LOGICAL_ANDNOT_HPP_INCLUDED
 /*!
  * \file
 **/
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
-
-#include <boost/simd/toolbox/operator/specific/common.hpp>
-
 #include <boost/proto/tags.hpp>
 
 /*!
@@ -81,5 +70,7 @@ namespace boost { namespace simd
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_andnot_      , logical_andnot     , 2 )
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::logical_andnot_      , l_andnot           , 2 )
 } }
+
+#include <boost/simd/toolbox/operator/specific/common.hpp>
 
 #endif

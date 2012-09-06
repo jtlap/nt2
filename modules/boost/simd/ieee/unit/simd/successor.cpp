@@ -13,7 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-//#include <boost/simd/toolbox/ieee/include/functions/successor.hpp>
+#include <boost/simd/toolbox/ieee/include/functions/successor.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/next.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
@@ -33,52 +33,27 @@
 
 NT2_TEST_CASE_TPL ( successor_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
-//   using boost::simd::successor;
-//   using boost::simd::tag::successor_;
-//   using boost::simd::load; 
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-//   typedef native<T,ext_t>                        n_t;
-//   typedef n_t                                     vT;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef native<iT,ext_t>                       ivT;
-//   typedef typename boost::dispatch::meta::call<successor_(vT)>::type r_t;
-//   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-//   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-//   double ulpd;
-//   ulpd=0.0;
-
+  using boost::simd::successor;
+  using boost::simd::tag::successor_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<successor_(vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-//   NT2_TEST_EQUAL(successor(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-//   NT2_TEST_EQUAL(successor(boost::simd::Minf<vT>())[0], boost::simd::Valmin<sr_t>());
-//   NT2_TEST_EQUAL(successor(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>()+boost::simd::Eps<sr_t>()/2);
-//   NT2_TEST_EQUAL(successor(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-//   NT2_TEST_EQUAL(successor(boost::simd::One<vT>())[0], boost::simd::One<sr_t>()+boost::simd::Eps<sr_t>());
-//   NT2_TEST_EQUAL(successor(boost::simd::Valmax<vT>())[0], boost::simd::Inf<sr_t>());
-//   NT2_TEST_EQUAL(successor(boost::simd::Zero<vT>())[0], boost::simd::Mindenormal<T>());
-} // end of test for floating_
-
-NT2_TEST_CASE_TPL ( successor_real__2_1,  BOOST_SIMD_SIMD_REAL_TYPES)
-{
-//   using boost::simd::successor;
-//   using boost::simd::tag::successor_;
-//   using boost::simd::load; 
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-//   typedef native<T,ext_t>                        n_t;
-//   typedef n_t                                     vT;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef native<iT,ext_t>                       ivT;
-//   typedef typename boost::dispatch::meta::call<successor_(vT,ivT)>::type r_t;
-//   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-//   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-//   double ulpd;
-//   ulpd=0.0;
-
+  NT2_TEST_EQUAL(successor(boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(successor(boost::simd::Minf<vT>())[0], boost::simd::Valmin<sr_t>());
+  NT2_TEST_EQUAL(successor(boost::simd::Mone<vT>())[0], boost::simd::Mone<sr_t>()+boost::simd::Eps<sr_t>()/2);
+  NT2_TEST_EQUAL(successor(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(successor(boost::simd::One<vT>())[0], boost::simd::One<sr_t>()+boost::simd::Eps<sr_t>());
+  NT2_TEST_EQUAL(successor(boost::simd::Valmax<vT>())[0], boost::simd::Inf<sr_t>());
+  NT2_TEST_EQUAL(successor(boost::simd::Zero<vT>())[0], boost::simd::Mindenormal<T>());
 } // end of test for floating_

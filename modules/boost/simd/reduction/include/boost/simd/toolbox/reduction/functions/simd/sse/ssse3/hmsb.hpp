@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -27,7 +27,7 @@ namespace boost { namespace simd { namespace ext
                                        0x80,0x80,0x80,0x80,0x80,0x80,0x80,0x80
                                      
                                );
-      type8 r = {_mm_shuffle_epi8(bitwise_cast<type8>(a0), mask)};
+      type8 r = _mm_shuffle_epi8(bitwise_cast<type8>(a0), mask);
       return _mm_movemask_epi8(r); 
     }
   };

@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_ORNOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_BITWISE_ORNOT_HPP_INCLUDED
 #include <boost/simd/toolbox/bitwise/functions/bitwise_ornot.hpp>
-#include <boost/simd/include/functions/bitwise_or.hpp>
-#include <boost/simd/include/functions/complement.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/complement.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/mpl/equal_to.hpp>
 

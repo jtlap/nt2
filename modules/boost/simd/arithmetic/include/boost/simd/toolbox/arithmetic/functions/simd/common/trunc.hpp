@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TRUNC_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_TRUNC_HPP_INCLUDED
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/floor.hpp>
-#include <boost/simd/include/functions/bitofsign.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/trunc.hpp>
+#include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/floor.hpp>
+#include <boost/simd/include/functions/simd/bitofsign.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

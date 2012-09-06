@@ -33,6 +33,9 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/load.hpp>
 
+#ifdef BOOST_MSVC
+#pragma warning(disable: 4146) // unary minus operator applied to unsigned type
+#endif
 
 NT2_TEST_CASE_TPL ( shift_left_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {

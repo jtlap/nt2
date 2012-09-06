@@ -8,9 +8,9 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SECANT_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SECANT_HPP_INCLUDED
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/functions/cosine.hpp>
-#include <nt2/include/functions/rec.hpp>
+#include <nt2/toolbox/trigonometric/functions/secant.hpp>
+#include <nt2/include/functions/scalar/cosine.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -18,7 +18,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::secant_<mode>, tag::cpu_
-			      , (A0)(mode)
+                              , (A0)(mode)
                             , (scalar_< arithmetic_<A0> >)
                             )
   {

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_EQUAL_HPP_INCLUDED
+#include <nt2/toolbox/predicates/functions/is_not_equal.hpp>
 #include <nt2/include/functions/is_not_equal.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/logical_or.hpp>
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return logical_or(is_not_equal(real(a0),real(a1)), is_not_equal(imag(a0),imag(a1))); 
+      return logical_or(is_not_equal(nt2::real(a0),nt2::real(a1)), is_not_equal(nt2::imag(a0),nt2::imag(a1))); 
     }
   };
   // dry/dry
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_not_equal(real(a0),real(a1)); 
+      return is_not_equal(nt2::real(a0),nt2::real(a1)); 
     }
   };
   // complex/arithmetic
@@ -58,7 +59,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return logical_or(is_not_equal(real(a0), a1), is_nez(imag(a0))); 
+      return logical_or(is_not_equal(nt2::real(a0), a1), is_nez(nt2::imag(a0))); 
     }
   };
   // complex/dry
@@ -71,7 +72,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return logical_or(is_not_equal(real(a0), real(a1)), is_nez(imag(a0))); 
+      return logical_or(is_not_equal(nt2::real(a0), nt2::real(a1)), is_nez(nt2::imag(a0))); 
     }
   };
   // arithmetic/complex
@@ -84,7 +85,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return logical_or(is_not_equal(real(a1),a0), is_nez(imag(a1))); 
+      return logical_or(is_not_equal(nt2::real(a1),a0), is_nez(nt2::imag(a1))); 
     }
   };
   // dry/complex
@@ -97,7 +98,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return logical_or(is_not_equal(real(a1),real(a0)), is_nez(imag(a1))); 
+      return logical_or(is_not_equal(nt2::real(a1),nt2::real(a0)), is_nez(nt2::imag(a1))); 
     }
   };
   // complex/imaginary
@@ -110,7 +111,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return logical_or(is_not_equal(imag(a0), imag(a1)), is_nez(real(a0))); 
+      return logical_or(is_not_equal(nt2::imag(a0), nt2::imag(a1)), is_nez(nt2::real(a0))); 
     }
   };
   // imaginary/complex
@@ -123,7 +124,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return logical_or(is_not_equal(imag(a1),imag(a0)), is_nez(real(a1))); 
+      return logical_or(is_not_equal(nt2::imag(a1),nt2::imag(a0)), is_nez(nt2::real(a1))); 
     }
   };
   // imaginary/imaginary
@@ -136,7 +137,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<rA0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return is_not_equal(imag(a1),imag(a0)); 
+      return is_not_equal(nt2::imag(a1),nt2::imag(a0)); 
     }
   };
   // imaginary/arithmetic

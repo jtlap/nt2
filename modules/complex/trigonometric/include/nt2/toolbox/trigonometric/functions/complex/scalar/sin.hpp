@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_SIN_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_SCALAR_SIN_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/sin.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -42,7 +43,7 @@ namespace nt2 { namespace ext
 //     typedef typename meta::as_complex<rA0>::type result_type; 
 //     NT2_FUNCTOR_CALL(1)
 //     {
-//       return result_type(nt2::sinh(imag(a0))); 
+//       return result_type(nt2::sinh(nt2::imag(a0))); 
 //     }
 //   };
   

@@ -13,6 +13,7 @@
 #include <boost/preprocessor/cat.hpp>
 
 #ifndef BOOST_DISPATCH_COUNTER_MAX
+/// INTERNAL ONLY
 #define BOOST_DISPATCH_COUNTER_MAX 8
 #endif
 
@@ -30,7 +31,7 @@ namespace boost { namespace dispatch { namespace details
   struct depth_ : depth_<N-1>
   {
   };
-  
+
   template<class T, class U = T>
   struct identity
   {
@@ -40,6 +41,7 @@ namespace boost { namespace dispatch { namespace details
 
 namespace meta
 {
+  /// INTERNAL ONLY
   struct adl_helper_ {};
 }
 } }
@@ -75,7 +77,7 @@ identity< BOOST_DISPATCH_TYPEOF(name                                            
                                )                                                                   \
         >::type::value                                                                             \
 /**/
- 
+
 #define BOOST_DISPATCH_COUNTER_INCREMENT(name)                                                     \
 namespace boost { namespace dispatch { namespace meta                                              \
 {                                                                                                  \

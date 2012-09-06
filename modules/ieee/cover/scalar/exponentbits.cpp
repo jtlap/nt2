@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( exponentbits_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_EQUAL( nt2::exponentbits(a0),nt2::bits(nt2::ldexp(nt2::One<T>(),nt2::exponent(a0))));
+        NT2_TEST_EQUAL( nt2::exponentbits(a0),r_t(nt2::bits(nt2::ldexp(nt2::One<T>(),nt2::exponent(a0)))));
      }
      
    }

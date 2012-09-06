@@ -14,23 +14,87 @@
 
 namespace nt2 { namespace container { namespace ext
 {
-  // size is that of right-hand side
+  // size is that of left-hand side
   template<class Domain, class Expr>
   struct size_of<tag::assign_, Domain, 2, Expr>
   {
-    typedef typename boost::proto::result_of::
-    child_c<Expr&, 1>::type                         child1;
+    template<class A0, class A1, class Dummy = void>
+    struct select;
 
-    typedef typename size_transform<Domain>::template
-    result<size_transform<Domain>(child1)>::type    result_type;
-
-    BOOST_FORCEINLINE
-    result_type operator()(Expr& e) const
+    template<class A1, class Dummy>
+    struct select<_0D, A1, Dummy>
     {
-      return size_transform<Domain>()(boost::proto::child_c<1>(e));
+      typedef A1 type;
+      BOOST_FORCEINLINE type operator()(_0D const&, A1 const& a1) const
+      {
+        return a1;
+      }
+    };
+
+    template<class A0, class Dummy>
+    struct select<A0, _0D, Dummy>
+    {
+      typedef A0 type;
+      BOOST_FORCEINLINE type operator()(A0 const& a0, _0D const&) const
+      {
+        return a0;
+      }
+    };
+
+    template<class Dummy>
+    struct select<_0D, _0D, Dummy>
+    {
+      typedef _0D type;
+      BOOST_FORCEINLINE type operator()(_0D const& a0, _0D const&) const
+      {
+        return a0;
+      }
+    };
+
+    template<class A0, class A1, class Dummy>
+    struct select
+    {
+      typedef typename boost::mpl::if_c< A0::static_status,A0,A1>::type type;
+
+      BOOST_FORCEINLINE type operator()(A0 const& a0, A1 const& a1) const
+      {
+        return selection(a0,a1,boost::mpl::bool_<A0::static_status>());
+      }
+
+      BOOST_FORCEINLINE type
+      selection(A0 const& a0, A1 const&, boost::mpl::true_ const&) const
+      {
+        return a0;
+      }
+
+      BOOST_FORCEINLINE type
+      selection(A0 const& , A1 const& a1, boost::mpl::false_ const&) const
+      {
+        return a1;
+      }
+    };
+
+    typedef typename boost::proto::result_of::
+    child_c<Expr, 0>::type                          child0;
+
+    typedef typename boost::proto::result_of::
+    child_c<Expr, 1>::type                          child1;
+
+    typedef typename child0::extent_type            size0_t;
+    typedef typename child1::extent_type            size1_t;
+
+    typedef select< typename meta::strip<size0_t>::type
+                  , typename meta::strip<size1_t>::type
+                  >                                       impl;
+    typedef typename impl::type                           result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return impl() ( boost::proto::child_c<0>(e).extent()
+                    , boost::proto::child_c<1>(e).extent()
+                    );
     }
   };
-
 } } }
 
 #endif

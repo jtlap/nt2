@@ -11,8 +11,6 @@
 #include <nt2/core/settings/buffer.hpp>
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/sdk/memory/iliffe_buffer.hpp>
-#include <nt2/core/container/table/normalize_settings.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -34,9 +32,9 @@ NT2_TEST_CASE( buffer_ )
                     , (buffer_<>)
                     );
 
-  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int,-2> >() )
+  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int> >() )
                     , (option< _, nt2::tag::buffer_>)
-                    , (buffer_< buffer<int,-2> >)
+                    , (buffer_< buffer<int> >)
                     );
 }
 
@@ -55,17 +53,24 @@ NT2_TEST_CASE( buffer_default )
                     , (buffer_<>)
                     );
 
-  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int,-2> >())
+  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int> >())
                     , (option< void, nt2::tag::buffer_,_>)
-                    , (buffer_< buffer<int,-2> >)
+                    , (buffer_< buffer<int> >)
                     );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Pass some buffer_ as a setting
 ////////////////////////////////////////////////////////////////////////////////
-nt2::settings s_no_buffer(nt2::buffer_<>);
-nt2::settings s_int_buffer(nt2::buffer_< nt2::memory::buffer<int,1> >);
+nt2::settings s_no_buffer(nt2::buffer_<>)
+{
+  return nt2::settings();
+}
+
+nt2::settings s_int_buffer(nt2::buffer_< nt2::memory::buffer<int> >)
+{
+  return nt2::settings();
+}
 
 NT2_TEST_CASE( setting_buffer_ )
 {
@@ -82,95 +87,6 @@ NT2_TEST_CASE( setting_buffer_ )
 
   NT2_TEST_EXPR_TYPE( s_int_buffer
                     , (option<_ , nt2::tag::buffer_>)
-                    , (buffer_< buffer<int,1> >)
-                    );
-}
-
-template<class U, class M, class T, class S>
-struct  apply_
-{
-  typedef typename boost::mpl::apply <U , M, T, S>::type type;
-};
-
-////////////////////////////////////////////////////////////////////////////////
-// Verify buffer generation for buffer_(X)
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE( buffer_forced )
-{
-  using boost::mpl::_;
-  using nt2::settings;
-  using nt2::of_size_;
-  using nt2::shared_;
-  using nt2::buffer_;
-  using nt2::automatic_;
-  using nt2::no_padding_;
-  using nt2::meta::normalize_settings;
-  using nt2::tag::table_;
-  using nt2::memory::buffer;
-
-  NT2_TEST_EXPR_TYPE( (buffer_< buffer<int,1> >())
-                    , (apply_ < _
-                              , void
-                              , int
-                              , normalize_settings
-                                < table_
-                                , int
-                                , settings
-                                  ( of_size_<2,2>
-                                  , no_padding_
-                                  , automatic_
-                                  )
-                                >::type
-                              >
-                      )
-                    , (buffer<int,1>)
-                    );
-}
-
-////////////////////////////////////////////////////////////////////////////////
-// Verify buffer generation for buffer_()
-////////////////////////////////////////////////////////////////////////////////
-struct make_iliffe
-{
-  template<class Dims, class Data, class Index>
-  struct apply
-  {
-    typedef nt2::memory::iliffe_buffer<Data,Index> type;
-  };
-};
-
-NT2_TEST_CASE( buffer_natural )
-{
-  using boost::mpl::_;
-  using nt2::settings;
-  using nt2::of_size_;
-  using nt2::shared_;
-  using nt2::automatic_;
-  using nt2::buffer_;
-  using nt2::no_padding_;
-  using nt2::meta::normalize_settings;
-  using nt2::tag::table_;
-  using nt2::memory::iliffe_buffer;
-  using nt2::memory::array_buffer;
-
-  NT2_TEST_EXPR_TYPE( buffer_<>()
-                    , (apply_ < _
-                              , make_iliffe
-                              , int
-                              , normalize_settings
-                                < table_
-                                , int
-                                , settings
-                                  ( of_size_<2,2>
-                                  , no_padding_
-                                  , automatic_
-                                  )
-                                >::type
-                              >
-                      )
-                    , ( iliffe_buffer < array_buffer<int , 4ul, 1>
-                                      , array_buffer<int*, 2ul, 1>
-                                      >
-                      )
+                    , (buffer_< buffer<int> >)
                     );
 }

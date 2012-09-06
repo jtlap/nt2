@@ -48,8 +48,8 @@ NT2_TEST_CASE_TPL ( toint_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<toint_(vT)>::type r_t;
-  typedef typename nt2::meta::call<toint_(T)>::type sr_t;
+  typedef typename nt2::meta::strip<typename nt2::meta::call<toint_(vT)>::type>::type r_t;
+  typedef typename nt2::meta::strip<typename nt2::meta::call<toint_(T)>::type>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;

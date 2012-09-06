@@ -39,14 +39,19 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::fusion::vector<T,T> wished_r_t;
-
-
+  
+  
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
+   T f, n;
+  T a[6] = {T(0), T(1), T(1.5), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>()};
+  
+  for(int i=0; i < 6; i++)
+    {
+      modf(a[i], n, f); 
+      NT2_TEST_EQUAL(f, boost::simd::frac(a[i]));
+      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));
+    }
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -65,10 +70,15 @@ NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
+  T f, n;
+  T a[6] = {T(0), T(1), T(10), T(-10), boost::simd::Valmin<T>(), boost::simd::Valmax<T>()};
+  
+  for(int i=0; i < 6; i++)
+    {
+      modf(a[i], n, f); 
+      NT2_TEST_EQUAL(f, boost::simd::Zero<T>());
+      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));              
+    }
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -87,8 +97,14 @@ NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
+  T f, n;
+  T a[6] = {T(0), T(1), T(10), boost::simd::Valmin<T>(), boost::simd::Valmax<T>()};
+  
+  for(int i=0; i < 5; i++)
+    {
+      modf(a[i], n, f); 
+      NT2_TEST_EQUAL(f, boost::simd::Zero<T>());
+      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));              
+    }
 
 } // end of test for signed_int_

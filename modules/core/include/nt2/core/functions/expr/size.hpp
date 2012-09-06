@@ -9,10 +9,11 @@
 #ifndef NT2_CORE_FUNCTIONS_EXPR_SIZE_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_EXPR_SIZE_HPP_INCLUDED
 
-#include <nt2/table.hpp>
+#include <nt2/core/functions/size.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/extent.hpp>
 #include <nt2/core/container/category.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -27,18 +28,21 @@ namespace nt2 { namespace ext
     static const std::size_t len = ext_t::static_size;
     static const std::size_t olen = len > 2 ? len : 2;
 
-    typedef table < std::size_t
-                  , settings(automatic_, of_size_<1, olen>)
-                  >                                         result_type;
+    typedef container::table< typename ext_t::value_type
+                            , settings(automatic_, of_size_<1, olen>)
+                            >                           result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
       result_type that;
-      std::size_t i=1;
+      typename ext_t::value_type i=1;
+
       for(; i<len+1; ++i)
         that(i) = nt2::extent(a0)[i-1];
+
       for(; i<olen+1; ++i)
-        that(i) = std::size_t(1);
+        that(i) = typename ext_t::value_type(1);
+
       return that;
     }
   };
@@ -54,8 +58,10 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0,const A1& a1) const
     {
-      std::size_t nb_dims = nt2::extent(a0).size();
-      return std::size_t(a1-1) < nb_dims ? nt2::extent(a0)[a1-1] : 1;
+      std::size_t nb_dims   = nt2::extent(a0).size();
+      return  std::size_t(a1-1) < nb_dims
+            ? std::size_t(nt2::extent(a0)[a1-1])
+            : std::size_t(1);
     }
   };
 } }

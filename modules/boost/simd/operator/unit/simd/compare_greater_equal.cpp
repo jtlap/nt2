@@ -45,9 +45,6 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES
   typedef typename boost::dispatch::meta::call<compare_greater_equal_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(compare_greater_equal(boost::simd::Inf<vT>(), boost::simd::Inf<vT>()), r_t(true));
@@ -73,9 +70,6 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  BOOST_SIMD_SIMD_INTE
   typedef typename boost::dispatch::meta::call<compare_greater_equal_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(compare_greater_equal(boost::simd::Mone<vT>(),boost::simd::Zero<vT>()), r_t(false));
@@ -100,9 +94,6 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_unsigned_int__2_0,  BOOST_SIMD_SIMD_UN
   typedef typename boost::dispatch::meta::call<compare_greater_equal_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(compare_greater_equal(boost::simd::One<vT>(), boost::simd::One<vT>()), r_t(true));

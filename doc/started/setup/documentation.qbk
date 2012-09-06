@@ -1,0 +1,33 @@
+[section Building __NT2__ Documentation]
+
+Note the latest documentation is always available on the [@http://nt2.metascale.org/doc/html __NT2__ MetaScale website].
+
+For its documentation, __NT2__ uses __BOOSTBOOK__ and the associated toolchain.
+You need all the following to be able to build the __NT2__ documentation:
+
+* __DOXYGEN__
+* Graphviz
+* xsltproc
+* Docbook
+* __BOOSTBOOK__
+* __QUICKBOOK__
+
+On a Debian-based system, the easiest way to install the first four is to install
+the following packages:
+
+``
+doxygen graphviz xsltproc docbook-xsl
+``
+
+The build system is currently hardcoded to look for __BOOSTBOOK__ in =BOOST_ROOT=. __BOOSTBOOK__ comes
+with any package of __BOOST__, release or trunk. __QUICKBOOK__, on the other hand, needs to be built manually,
+using for example the following set of commands:
+
+``
+cd $BOOST_ROOT
+./bootstrap.sh
+cd tools/quickbook
+../../b2 -j4
+``
+
+[endsect]

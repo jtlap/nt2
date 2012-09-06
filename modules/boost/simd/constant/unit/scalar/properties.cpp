@@ -24,13 +24,13 @@ NT2_TEST_CASE(signmask)
   NT2_TEST_EQUAL( boost::simd::Signmask<double>(), -0.   );
   NT2_TEST_EQUAL( boost::simd::Signmask<float>() , -0.f );
 
-  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::uint64_t>(), 0 );
-  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::uint32_t>(), 0 );
-  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::uint16_t>(), 0 );
-  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::uint8_t >(), 0 );
+  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::uint64_t>(), 0u );
+  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::uint32_t>(), 0u );
+  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::uint16_t>(), 0u );
+  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::uint8_t >(), 0u );
 
-  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::int64_t>(), 0x8000000000000000LL );
-  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::int32_t>(), 0x80000000            );
+  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::int64_t>(), boost::simd::int64_t(0x8000000000000000LL) );
+  NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::int32_t>(), boost::simd::int32_t(0x80000000)            );
   NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::int16_t>(), boost::simd::int16_t(0x8000)  );
   NT2_TEST_EQUAL( boost::simd::Signmask<boost::simd::int8_t >(), boost::simd::int8_t(0x80)    );
 }
@@ -62,13 +62,13 @@ NT2_TEST_CASE(valmin)
   NT2_TEST_EQUAL( boost::simd::Valmin<double>() , -1.7976931348623157e+308);
   NT2_TEST_EQUAL( boost::simd::Valmin<float>()  , float(-3.4028235e+38)   );
 
-  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::uint64_t>(), 0 );
-  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::uint32_t>(), 0  );
-  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::uint16_t>(), 0  );
-  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::uint8_t >(), 0  );
+  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::uint64_t>(), 0u );
+  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::uint32_t>(), 0u  );
+  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::uint16_t>(), 0u  );
+  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::uint8_t >(), 0u  );
 
-  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::int64_t>(), -9223372036854775808ULL );
-  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::int32_t>(), -2147483648UL           );
+  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::int64_t>()+1, -9223372036854775807LL );
+  NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::int32_t>()+1, -2147483647L           );
   NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::int16_t>(), -32768                  );
   NT2_TEST_EQUAL( boost::simd::Valmin<boost::simd::int8_t >(), -128                    );
 }
@@ -118,10 +118,10 @@ NT2_TEST_CASE(ieee)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(ieee_ints, BOOST_SIMD_INTEGRAL_TYPES)
 {
-  NT2_TEST_EQUAL( boost::simd::Nbmantissabits<T>(), sizeof(T)*CHAR_BIT);
-  NT2_TEST_EQUAL( boost::simd::Nbexponentbits<T>(), 0 );
-  NT2_TEST_EQUAL( boost::simd::Maxexponent<T>()   , 0 );
-  NT2_TEST_EQUAL( boost::simd::Minexponent<T>()   , 0 );
-  NT2_TEST_EQUAL( boost::simd::Ldexpmask<T>()     , 0 );
-  NT2_TEST_EQUAL( boost::simd::Nbdigits<T>()      , 0 );
+  NT2_TEST_EQUAL( boost::simd::Nbmantissabits<T>(), T(sizeof(T)*CHAR_BIT));
+  NT2_TEST_EQUAL( boost::simd::Nbexponentbits<T>(), T(0) );
+  NT2_TEST_EQUAL( boost::simd::Maxexponent<T>()   , T(0) );
+  NT2_TEST_EQUAL( boost::simd::Minexponent<T>()   , T(0) );
+  NT2_TEST_EQUAL( boost::simd::Ldexpmask<T>()     , T(0) );
+  NT2_TEST_EQUAL( boost::simd::Nbdigits<T>()      , T(0) );
 }

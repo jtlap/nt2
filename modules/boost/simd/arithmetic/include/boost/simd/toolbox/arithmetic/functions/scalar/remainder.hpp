@@ -8,10 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REMAINDER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_REMAINDER_HPP_INCLUDED
-#include <boost/simd/include/functions/abs.hpp>
-#include <boost/simd/include/functions/negate.hpp>
-#include <boost/simd/include/functions/idivround.hpp>
-#include <boost/simd/include/functions/divround.hpp>
+#include <boost/simd/toolbox/arithmetic/functions/remainder.hpp>
+#include <boost/simd/include/functions/scalar/abs.hpp>
+#include <boost/simd/include/functions/scalar/negate.hpp>
+#include <boost/simd/include/functions/scalar/idivround.hpp>
+#include <boost/simd/include/functions/scalar/divround.hpp>
 /////////////////////////////////////////////////////////////////////////////
 // The remainder() function computes the remainder of dividing x by y.  The
 // return value is x-n*y, where n is the value x / y, rounded to the nearest

@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_TANPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_TANPI_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/tanpi.hpp>
 #include <nt2/include/functions/sincospi.hpp>
 #include <nt2/include/functions/sinhcosh.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -33,8 +34,8 @@ namespace nt2 { namespace ext
       typedef typename meta::as_real<A0>::type rtype;
       result_type aa0 =  a0+a0; 
       rtype c, s, ch, sh;
-      sincospi(real(aa0), s, c);
-      sinhcosh(imag(aa0)*nt2::Pi<rtype>(), sh, ch);
+      sincospi(nt2::real(aa0), s, c);
+      sinhcosh(nt2::imag(aa0)*nt2::Pi<rtype>(), sh, ch);
       rtype tmp = c+ch; 
       rtype r_part = if_zero_else(is_imag(a0),s/tmp); 
       rtype i_part = if_zero_else(is_real(a0),sh/tmp);
@@ -50,7 +51,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype;
-      return result_type(nt2::tanh(imag(a0)*Pi<rtype>())); 
+      return result_type(nt2::tanh(nt2::imag(a0)*Pi<rtype>())); 
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::tanpi_, tag::cpu_, (A0)
@@ -60,7 +61,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(nt2::tanpi(real(a0))); 
+      return result_type(nt2::tanpi(nt2::real(a0))); 
     }
   };  
 } }

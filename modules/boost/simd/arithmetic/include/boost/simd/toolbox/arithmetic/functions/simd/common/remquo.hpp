@@ -8,14 +8,15 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REMQUO_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_REMQUO_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/remquo.hpp>
 #include <boost/fusion/tuple.hpp>
-#include <boost/simd/include/functions/round2even.hpp>
-#include <boost/simd/include/functions/tofloat.hpp>
-#include <boost/simd/include/functions/toint.hpp>
-#include <boost/simd/include/functions/is_gtz.hpp>
-#include <boost/simd/include/functions/is_eqz.hpp>
-#include <boost/simd/include/functions/if_allbits_else.hpp>
-#include <boost/simd/include/functions/logical_or.hpp>
+#include <boost/simd/include/functions/simd/round2even.hpp>
+#include <boost/simd/include/functions/simd/tofloat.hpp>
+#include <boost/simd/include/functions/simd/toint.hpp>
+#include <boost/simd/include/functions/simd/is_gtz.hpp>
+#include <boost/simd/include/functions/simd/is_eqz.hpp>
+#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
+#include <boost/simd/include/functions/simd/logical_or.hpp>
 #include <boost/mpl/logical.hpp>
 
 namespace boost { namespace simd { namespace ext

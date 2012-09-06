@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RSHL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SIMD_COMMON_RSHL_HPP_INCLUDED
-#include <boost/simd/include/functions/shli.hpp>
-#include <boost/simd/include/functions/shri.hpp>  
-#include <boost/simd/include/functions/is_gtz.hpp>  
+#include <boost/simd/toolbox/bitwise/functions/rshl.hpp>
+#include <boost/simd/include/functions/simd/shli.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>  
+#include <boost/simd/include/functions/simd/is_gtz.hpp>  
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF ( boost::simd::tag::rshl_, tag::cpu_, (A0)(A1)(X)
@@ -23,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                                 )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(2) { return map(dispatch::functor<boost::simd::tag::rshl_>(), a0, a1); }
+    BOOST_SIMD_FUNCTOR_CALL(2) { return map(typename dispatch::make_functor<boost::simd::tag::rshl_, A0>::type(), a0, a1); }
   };
 
 } } }

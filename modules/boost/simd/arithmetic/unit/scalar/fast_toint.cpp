@@ -39,9 +39,6 @@ NT2_TEST_CASE_TPL ( fast_toint_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(fast_toint(boost::simd::Mone<T>()), boost::simd::Mone<r_t>());
@@ -65,9 +62,6 @@ NT2_TEST_CASE_TPL ( fast_toint_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(fast_toint(boost::simd::One<T>()), boost::simd::One<r_t>());
@@ -90,9 +84,6 @@ NT2_TEST_CASE_TPL ( fast_toint_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPE
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(fast_toint(boost::simd::Mone<T>()), boost::simd::Mone<r_t>());

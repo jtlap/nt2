@@ -11,11 +11,12 @@
 
 #include <nt2/sdk/complex/details/dry/meta.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/details/aliasing.hpp>
 
 namespace nt2
 {
   template<class T>
-  struct dry
+  struct BOOST_SIMD_MAY_ALIAS dry
   {
     typedef T type;
     T value;

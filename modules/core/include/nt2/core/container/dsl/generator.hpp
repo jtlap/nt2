@@ -9,19 +9,18 @@
 #ifndef NT2_CORE_CONTAINER_DSL_GENERATOR_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_DSL_GENERATOR_HPP_INCLUDED
 
-#include <boost/mpl/if.hpp>
-#include <boost/proto/core.hpp>
-#include <boost/proto/traits.hpp>
-#include <boost/proto/transform.hpp>
-#include <nt2/core/settings/size.hpp>
-#include <nt2/sdk/meta/container_of.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/core/functions/extent.hpp>
-#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <boost/dispatch/meta/transfer_qualifiers.hpp>
 #include <nt2/core/container/dsl/details/trait_transform.hpp>
+#include <nt2/sdk/meta/container_of.hpp>
+#include <nt2/core/container/table/adapted/table.hpp> // for container_of specialization
+#include <nt2/sdk/meta/strip.hpp>
+#include <boost/dispatch/meta/transfer_qualifiers.hpp>
+#include <boost/proto/traits.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/type_traits/remove_const.hpp>
 
 namespace nt2 { namespace container
 {
@@ -78,15 +77,18 @@ namespace nt2 { namespace container
     };
   }
 
-    //==========================================================================
-    /*!
-     * proto::transform performing the computation of the type and the generation
-     * of a nt2::container::expression
-     **/
-    //==========================================================================
-    template<class Domain>
-    struct  generator_transform
-          : details::trait_transform< ext::generator, Domain > {};
+  //============================================================================
+  /*!
+   * proto::transform performing the computation of the type and the generation
+   * of a nt2::container::expression
+   **/
+  //============================================================================
+  template<class Domain>
+  struct  generator_transform
+        : details::trait_transform< ext::generator, Domain >
+  {
+    typedef void proto_use_basic_expr_;
+  };
 } }
 
 #include <nt2/core/container/dsl/details/terminal.hpp>

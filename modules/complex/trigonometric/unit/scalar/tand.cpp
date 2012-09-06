@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL ( tand_real__1_0,  NT2_REAL_TYPES)
      std::cout << "-------------------" << std::endl; 
      std::cout << "inputs  "<< inputs[i] << std::endl; 
      NT2_TEST_ULP_EQUAL(nt2::tand(-inputs[i]), -nt2::tand(inputs[i]), 3);  
-     NT2_TEST_ULP_EQUAL(nt2::tand(inputs[i]), nt2::mul_minus_i(nt2::tanh(nt2::mul_i(nt2::Deginrad<T>()*inputs[i]))), 3); 
+     NT2_TEST_ULP_EQUAL(nt2::tand(inputs[i]), nt2::mul_minus_i(nt2::tanh(nt2::mul_i(nt2::multiplies(nt2::Deginrad<T>(), inputs[i])))), 3); 
      std::cout << "=================== " << std::endl; 
    }
 

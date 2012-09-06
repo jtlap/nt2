@@ -9,7 +9,9 @@
 #define NT2_UNIT_MODULE "nt2 container box"
 
 #include <nt2/sdk/meta/as.hpp>
-#include <nt2/include/functions/box.hpp>
+#include <nt2/core/utility/box.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <boost/proto/operators.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -75,7 +77,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION
   ( boost::simd::tag::plus_, tag::cpu_, (A0)
-  , (unspecified_< const foo >)(unspecified_<A0>)
+  , (unspecified_< foo >)(unspecified_<A0>)
   )
   {
     typedef A0 result_type;

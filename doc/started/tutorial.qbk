@@ -1,0 +1,19 @@
+[chapter A 5mn Introduction to NT2
+  [quickbook 1.5]
+]
+
+[section Objective]
+This chapter will give you a short overview of how to use __NT2__ through a
+short example covering __NT2__ Containers, sample operations and how to
+build a __NT2__ application either with [@http://cmake.org CMake] or manually.
+Depending on your background, two options are available. If you are a C++ user,
+read up the [link a_5mn_introduction_to_nt2.the_c_____nt2____hello_world_ C++ tutorial].
+If you are a Matlab user, read up the
+[link a_5mn_introduction_to_nt2.a_matlab_to___nt2___introduction Matlab to __NT2__ tutorial]
+In both tutorials, we consider that you have a properly installed version of
+__NT2__ and a C++ compiler.
+[endsect]
+
+[include tutorial/helloworld.qbk]
+[include tutorial/helloworld_matlab.qbk]
+[include tutorial/building.qbk]

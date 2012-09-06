@@ -13,7 +13,7 @@
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/constant/include/constants/zero.hpp>
 #include <nt2/toolbox/constant/include/constants/one.hpp>
-#include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/simd/minus.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
 

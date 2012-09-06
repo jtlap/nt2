@@ -14,6 +14,8 @@
  * \brief Defines the \c boost::dispatch::meta::terminal_of \metafunction
  */
 
+#include <boost/config.hpp>
+
 namespace boost { namespace dispatch { namespace meta
 {
   /*!
@@ -24,10 +26,13 @@ namespace boost { namespace dispatch { namespace meta
    * \tparam Type type to convert into a terminal
    */
   template<class T> struct terminal_of { typedef T type; };
-  
-  template<class T> struct terminal_of<T&> { typedef typename terminal_of<T>::type& type; };
-  template<class T> struct terminal_of<T const> { typedef typename terminal_of<T>::type const type; };
-  
+
+  template<class T> struct terminal_of<T const> : terminal_of<T> {};
+  template<class T> struct terminal_of<T&> : terminal_of<T> {};
+#ifndef BOOST_NO_RVALUE_REFERENCES
+  template<class T> struct terminal_of<T&&> : terminal_of<T> {};
+#endif
+
 } } }
 
 #endif

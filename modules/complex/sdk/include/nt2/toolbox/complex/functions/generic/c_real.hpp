@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_C_REAL_HPP_INCLUDED
 #define NT2_TOOLBOX_COMPLEX_FUNCTIONS_GENERIC_C_REAL_HPP_INCLUDED
 
+#include <nt2/toolbox/complex/functions/c_real.hpp>
 #include <nt2/toolbox/complex/functions/real.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>

@@ -8,9 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_TWOPOWER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_TWOPOWER_HPP_INCLUDED
+#include <boost/simd/toolbox/bitwise/functions/twopower.hpp>
 #include <boost/simd/include/constants/digits.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
-#include <boost/simd/include/functions/is_ltz.hpp>
+#include <boost/simd/include/functions/scalar/is_ltz.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

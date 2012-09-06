@@ -11,7 +11,6 @@
 
 #include <boost/simd/include/functions/store.hpp>
 #include <boost/simd/include/functions/evaluate.hpp>
-#include <boost/simd/sdk/simd/pack/domain.hpp>
 
 // store forces evaluation due to side-effect
 namespace boost { namespace simd { namespace ext
@@ -29,8 +28,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
-      result_type that = store(evaluate(a0),a1,a2);
-      return that;
+      return store(evaluate(a0),a1,a2);
     }
   };
 

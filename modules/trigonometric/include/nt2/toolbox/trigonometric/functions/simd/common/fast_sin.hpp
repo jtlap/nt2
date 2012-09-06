@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_SIN_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_FAST_SIN_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/fast_sin.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
@@ -45,8 +46,7 @@ namespace nt2 { namespace ext
     typedef A0  result_type;
     NT2_FUNCTOR_CALL(1)
       {
-     A0 that = {impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::sina(a0)}; 
-     return that;
+     return impl::trig_base<A0,radian_tag,  tag::simd_type, clipped_pio4>::sina(a0);
       }
   }; 
 } }

@@ -11,7 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/reduction/functions/second.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -51,7 +51,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type type;
       typedef typename dispatch::meta::as_floating<A0>::type rtype;
       const type tmp = bitwise_cast<type>(a0);
-      const type tmp1= {_mm_srli_si128(tmp, 8)}; 
+      const type tmp1= _mm_srli_si128(tmp, 8); 
       const rtype z = bitwise_cast<rtype>(tmp1); 
       return _mm_cvtsd_f64(z);
     }

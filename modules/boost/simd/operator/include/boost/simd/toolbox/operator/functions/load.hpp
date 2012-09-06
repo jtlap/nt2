@@ -24,12 +24,12 @@
  * with or without a re-alignment offset
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/load.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -53,19 +53,19 @@
  *
  * \param T type to load
  * \param Offset offset with aligned memory
- * 
+ *
  * \param a0 base address
  * \param a1 offset to load at
- * 
+ *
  * \return object of type T
- *  
+ *
 **/
 
 namespace boost { namespace simd
 {
   namespace tag {
     /*!
-     * \brief Define the tag load_ of functor load 
+     * \brief Define the tag load_ of functor load
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct load_ : ext::elementwise_<load_> { typedef ext::elementwise_<load_> parent; };
@@ -84,7 +84,7 @@ namespace boost { namespace simd
     typename boost::dispatch::make_functor<tag::load_, A0>::type callee;
     return callee(a0,a1,boost::dispatch::meta::as_<T>());
   }
-  
+
   template<class T,class A0>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, int const&
@@ -108,13 +108,13 @@ namespace boost { namespace simd
                                                 , boost::mpl::int_<Offset>
                                                 )
                             >::type
-  load(A0 const& a0,A1 const& a1 = 0)
+  load(A0 const& a0,A1 const& a1)
   {
     typename boost::dispatch::make_functor<tag::load_, A0>::type callee;
     return callee(a0,a1,boost::dispatch::meta::as_<T>(),boost::mpl::int_<Offset>());
   }
-  
-  template<class T,int Offset, class A0,class A1>
+
+  template<class T,int Offset, class A0>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::load_ ( A0 const&, int const&
                                                 , boost::dispatch::meta::as_<T>

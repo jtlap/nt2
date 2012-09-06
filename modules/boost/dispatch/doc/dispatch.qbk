@@ -1,0 +1,28 @@
+[library The Boost Dispatch Library
+    [quickbook 1.5]
+    [category Generic]
+    [purpose Generic overloading]
+]
+
+[section Overview]
+
+This library aims at providing an idiomatic way to define functions that can
+be extended or specialized, with each specialization being able to be generic.
+
+With transparent tag dispatching, it becomes then possible to select the best
+specialization for the arguments provided, avoiding the limitations inherent
+to unconstrained template function overloads.
+
+[warning Boost.Dispatch is a library in development and is not part of Boost.]
+
+[endsect]
+
+[include motivation.qbk]
+[include rationale.qbk]
+[include hierarchy.qbk]
+[include function.qbk]
+[include functor.qbk]
+[include macros.qbk]
+[include tutorial.qbk]
+
+[xinclude reference.xml]

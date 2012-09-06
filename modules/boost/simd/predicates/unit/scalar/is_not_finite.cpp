@@ -41,10 +41,6 @@ NT2_TEST_CASE_TPL ( is_not_finite_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
   // specific values tests
   NT2_TEST_EQUAL(is_not_finite(-boost::simd::Zero<T>()), r_t(false));
   NT2_TEST_EQUAL(is_not_finite(boost::simd::Half<T>()), r_t(false));
@@ -74,9 +70,6 @@ NT2_TEST_CASE_TPL ( is_not_finite_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_T
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_finite(boost::simd::Mone<T>()), r_t(false));
@@ -101,9 +94,6 @@ NT2_TEST_CASE_TPL ( is_not_finite_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_finite(boost::simd::One<T>()), r_t(false));

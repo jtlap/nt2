@@ -35,6 +35,7 @@ SET( SOURCES
   is_nez.cpp
   is_negative.cpp
   is_nan.cpp
+  is_not_nan.cpp
   is_ltz.cpp
   is_lez.cpp
   is_invalid.cpp

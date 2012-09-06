@@ -10,11 +10,11 @@
 #define NT2_TOOLBOX_COMBINATORIAL_FUNCTIONS_SIMD_COMMON_CNP_HPP_INCLUDED
 
 #include <nt2/toolbox/combinatorial/functions/cnp.hpp>
-#include <nt2/include/functions/bitwise_cast.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/split.hpp>
-#include <nt2/include/functions/group.hpp>
+#include <nt2/include/functions/simd/bitwise_cast.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/toint.hpp>
+#include <nt2/include/functions/simd/split.hpp>
+#include <nt2/include/functions/simd/group.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 
 namespace nt2 { namespace ext

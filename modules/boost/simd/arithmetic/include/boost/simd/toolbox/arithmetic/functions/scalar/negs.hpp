@@ -9,8 +9,8 @@
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_NEGS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_NEGS_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/negs.hpp>
-#include <boost/simd/include/functions/is_equal.hpp>
-#include <boost/simd/include/functions/unary_minus.hpp>
+#include <boost/simd/include/functions/scalar/is_equal.hpp>
+#include <boost/simd/include/functions/scalar/unary_minus.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 

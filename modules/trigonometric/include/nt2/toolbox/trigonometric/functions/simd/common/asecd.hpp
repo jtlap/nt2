@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ASECD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_ASECD_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/asecd.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/include/functions/indeg.hpp>
-#include <nt2/include/functions/asec.hpp>
-#include <nt2/include/functions/tofloat.hpp>
+#include <nt2/include/functions/simd/indeg.hpp>
+#include <nt2/include/functions/simd/asec.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
 
 
 

@@ -63,9 +63,10 @@ namespace boost { namespace simd { namespace tag
      * \brief Define the tag hmsb_ of functor hmsb 
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct hmsb_ : ext::reduction_<hmsb_> { typedef ext::reduction_<hmsb_> parent; };
+
+    struct hmsb_ : ext::unspecified_<hmsb_> { typedef ext::unspecified_<hmsb_> parent;  };
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::hmsb_, hmsb, 1)
+    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::hmsb_, hmsb, 1)
 } }
 
 #endif

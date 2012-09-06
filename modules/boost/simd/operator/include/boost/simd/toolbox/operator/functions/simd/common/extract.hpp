@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_EXTRACT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/extract.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -63,10 +63,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::scalar_of<A0>::type stype;
-    typedef stype BOOST_SIMD_MAY_ALIAS const& result_type;
+    typedef typename meta::may_alias<stype>::type const& result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return reinterpret_cast<stype BOOST_SIMD_MAY_ALIAS const*>(&a0)[a1];
+      return reinterpret_cast<typename meta::may_alias<stype>::type const*>(&a0)[a1];
     }
   };
   
