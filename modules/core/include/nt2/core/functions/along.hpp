@@ -20,12 +20,12 @@
  * by default \c i is the first non-singleton dimension of expr
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/along.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,10 +40,10 @@
  * \param expr the expression to index
  * \param ind the indexer
  * \param i the dimension on which to index
- * 
+ *
  * \return expr(_, ..., ind, ..., _) with \c ind at the \c i-th argument
- *  
- *  
+ *
+ *
 **/
 
 namespace nt2
@@ -61,4 +61,5 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::along_       , along, 3)
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::along_  , along, 3)
 }
+
 #endif

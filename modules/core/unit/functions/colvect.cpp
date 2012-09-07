@@ -22,7 +22,7 @@
 
 NT2_TEST_CASE_TPL( colvect_scalar, NT2_TYPES )
 {
-  NT2_TEST_EQUAL(nt2::colvect(T(1)), T(1)); 
+  NT2_TEST_EQUAL(nt2::colvect(T(1)), T(1));
 }
 
 
@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL( colvect_ofsize,NT2_TYPES )
 
   r = nt2::colvect(y);
 
-  int k = 1; 
+  int k = 1;
   for(int j=1;j<=4;j++)
     for(int i=1;i<=4;i++, k++)
       NT2_TEST_EQUAL( T(r(k)) , T(y(i, j)) );
@@ -57,8 +57,6 @@ NT2_TEST_CASE_TPL( colvect, NT2_TYPES)
       y(i,j) = T(i + 10*j);
   r = nt2::colvect(y);
 
-  NT2_TEST(nt2::isequal(r, y(nt2::_))); 
-  NT2_TEST(nt2::isequal(nt2::colvect(y), y(nt2::_))); 
-
+  NT2_TEST(nt2::isequal(r, y(nt2::_)));
+  NT2_TEST(nt2::isequal(nt2::colvect(y), y(nt2::_)));
 }
-

@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,15 +12,11 @@
 
 #include <nt2/core/functions/band.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/band.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Unary band
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::band_, tag::cpu_, (A0), (ast_<A0>) )
   {
     typedef typename  boost::proto::
@@ -41,9 +38,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  //============================================================================
-  // Binary band 1
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band1_, tag::cpu_
                             , (A0)(A1)
                             , (ast_<A0>)
@@ -57,7 +52,7 @@ namespace nt2 { namespace ext
                                           , A1
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1) const
     {
       // Expression must be a matrix
       BOOST_ASSERT_MSG( nt2::ismatrix(a0)
@@ -70,11 +65,9 @@ namespace nt2 { namespace ext
     }
   };
 
-  //============================================================================
-  // Binary band 2
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band2_, tag::cpu_
-                              , (A0)(A1)(A2)
+                            , (A0)(A1)(A2)
                             , (ast_<A0>)
                               (scalar_< integer_<A1> >)
                               (scalar_< integer_<A2> >)
@@ -88,7 +81,7 @@ namespace nt2 { namespace ext
                                           , A2
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, A2 const& a2) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 a1, A2 a2) const
     {
       // Expression must be a matrix
       BOOST_ASSERT_MSG( nt2::ismatrix(a0)
@@ -99,7 +92,7 @@ namespace nt2 { namespace ext
                                     , container::domain
                                     > ( boost::cref(a0), a1, a2);
     }
-  };  
+  };
 } }
 
 #endif

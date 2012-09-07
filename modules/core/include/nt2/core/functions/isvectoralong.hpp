@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,52 +10,39 @@
 #ifndef NT2_CORE_FUNCTIONS_ISVECTORALONG_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ISVECTORALONG_HPP_INCLUDED
 
-#include <nt2/include/functor.hpp>
-
 /*!
- * \ingroup core
- * \defgroup core_isvectoralong isvectoralong
- *
- * \par Description
- * Returns true or false according a0 is an "vector" container
- * along the chosen dimension.
- * isrow(a0)    ==  isvectoralong(a0, 1)
- * iscolumn(a0) ==  isvectoralong(a0, 2)
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/isvectoralong.hpp>
- * \endcode
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0, class A1>
- *     bool isvectoralong(const A0 & a0, const A1& dim);
- * }
- * \endcode
- *
- * \param a0 the first parameter of isvectoralong
- *
- * \return a bool value
- *
+  @file
+  @brief Defines the isvectoralong function
 **/
+
+#include <nt2/include/functor.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct isvectoralong_ : ext::unspecified_<isvectoralong_>
+    /*!
+      @brief Tag for isvectoralong functor
+    **/
+    struct isvectoralong_ : boost::dispatch::tag::formal_
     {
-      typedef ext::unspecified_<isvectoralong_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
+  // TODO merge as isvector(x,d) ?
+  /*!
+    @brief Is an expression vector shaped along a dimension ?
+
+    Checks if an expression has a size of the shape [1 1 .. N... 1 1] where the
+    only non-singleton dimension is the kth dimension.
+
+    @param a0 Expression to inspect
+    @param a1 Dimension along which to check for vector shape
+
+    @return Boolean value evaluatign to the result of the test
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::isvectoralong_, isvectoralong, 2)
 }
 
 #endif
-

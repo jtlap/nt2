@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -13,9 +14,8 @@
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Generates from a 2ary thing and 2 scalar
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Generates bsxfun_ from a 2ary functor and 2 scalar
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::bsxfun_, tag::cpu_,
                               (A0)(A1)(A2),
                               (unspecified_<A0>)

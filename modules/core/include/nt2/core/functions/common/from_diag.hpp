@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -21,8 +22,11 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(State)(Data)(N)
-                            , ((node_<A0, nt2::tag::from_diag_, N>))
+                            , (A0)(State)(Data)
+                            , ((node_ < A0, nt2::tag::from_diag_
+                                      , boost::mpl::long_<1>
+                                      >
+                              ))
                               (generic_< integer_<State> >)
                               ((unspecified_<Data>))
                             )
@@ -37,7 +41,7 @@ namespace nt2 { namespace ext
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      s_t const pos = as_subscript( boost::proto::child_c<1>(a0).value()
+      s_t const pos = as_subscript( a0.extent()
                                   , enumerate<i_t>(p)
                                   );
 
@@ -50,8 +54,11 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
-                            , (A0)(State)(Data)(N)
-                            , ((node_<A0, nt2::tag::offset_from_diag_, N>))
+                            , (A0)(State)(Data)
+                            , ((node_ < A0, nt2::tag::from_diag_
+                                      , boost::mpl::long_<2>
+                                      >
+                              ))
                               (generic_< integer_<State> >)
                               ((unspecified_<Data>))
                             )
@@ -68,7 +75,7 @@ namespace nt2 { namespace ext
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
       // Retrieve 2D position from the linear index
-      s_t const pos = as_subscript( boost::proto::child_c<2>(a0).value()
+      s_t const pos = as_subscript( a0.extent()
                                   , enumerate<i_t>(p)
                                   );
 

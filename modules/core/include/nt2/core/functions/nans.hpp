@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,11 +10,15 @@
 #ifndef NT2_CORE_FUNCTIONS_NANS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_NANS_HPP_INCLUDED
 
+/*!
+  @file
+  @brief Define and implements the nans function
+**/
+
 #include <nt2/include/functor.hpp>
 #include <nt2/include/constants/nan.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/core/functions/details/generative_preprocessor.hpp>
 
 #include <nt2/sdk/parameters.hpp>
@@ -24,12 +29,17 @@ namespace nt2
 {
   namespace tag
   {
-    struct  nans_
-          : ext::generative_<nans_> { typedef ext::generative_<nans_> parent; };
+    /*!
+      @brief Tag for the nans functor
+    **/
+    struct nans_ : ext::generative_<nans_>
+    {
+      typedef ext::generative_<nans_> parent;
+    };
   }
 
-  #define M0(z,n,t)                                       \
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::nans_, nan, n) \
+  #define M0(z,n,t)                                     \
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::nans_, nan, n)  \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::nans_, nans, n) \
   /**/
 
@@ -38,23 +48,21 @@ namespace nt2
   #undef M0
 }
 
-//==============================================================================
-// Setup nans generator traits
-//==============================================================================
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, class Expr, int N>
-  struct value_type<tag::nans_,Domain,N,Expr>  : generative_value_type<Expr>
+  struct  value_type<tag::nans_,Domain,N,Expr>
+        : meta::generative_value<Expr>
   {};
 
+  /// INTERNAL ONLY
   template<class Domain, class Expr, int N>
-  struct size_of<tag::nans_,Domain,N,Expr>     : generative_size_of<Expr>
+  struct  size_of<tag::nans_,Domain,N,Expr>
+        : meta::generative_size<Expr>
   {};
-} } }
+} }
 
-//==============================================================================
-// Setup nans specialization
-//==============================================================================
 namespace nt2 { namespace ext
 {
   NT2_PP_MAKE_GENERATIVE( nans, (nt2::tag::nans_,nt2::tag::Nan) )

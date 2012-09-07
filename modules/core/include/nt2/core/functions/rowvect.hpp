@@ -15,8 +15,7 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/reshaping.hpp>
+#include <nt2/core/container/dsl/reshaping.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
 
 namespace nt2
@@ -39,19 +38,27 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::rowvect_       , rowvect, 1)
 }
 
-namespace nt2 { namespace container { namespace ext
+//==============================================================================
+// Setup rowvect generator traits
+//==============================================================================
+namespace nt2 { namespace ext
 {
-  template<class Domain, class Expr>
-  struct  generator<nt2::tag::rowvect_,Domain,2,Expr>
-        : reshaping_generator<Expr>
+  template<class Domain, int N, class Expr>
+  struct size_of<nt2::tag::rowvect_,Domain,N,Expr>
+  {
+    //TODO: Handle static size
+    typedef _2D result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return result_type(1,nt2::numel(boost::proto::child_c<0>(e)));
+    }
+  };
+
+  template<class Domain, int N, class Expr>
+  struct  value_type<nt2::tag::rowvect_,Domain,N,Expr>
+        : meta::reshaping_value<Expr>
   {};
-
-
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::rowvect_,Domain,2,Expr>
-        : reshaping_size_of<Expr>
-  {};
-
-} } }
+} }
 
 #endif

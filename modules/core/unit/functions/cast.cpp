@@ -50,7 +50,7 @@ void assign_test()
   for(std::size_t i=0; i!= N; ++i)
   {
     std::cout << a0(i+1) << "\n";
-    NT2_TEST_EQUAL( a1(i+1), nt2::cast<U>(a0(i+1)) );
+    NT2_TEST_EQUAL( a1(i+1), nt2::cast(a0(i+1), nt2::meta::as_<U>()) );
   }
 };
 

@@ -6,10 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_ELEMENTWISE_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_DSL_DETAILS_ELEMENTWISE_HPP_INCLUDED
+#ifndef NT2_CORE_CONTAINER_DSL_DETAILS_SIZE_ELEMENTWISE_HPP_INCLUDED
+#define NT2_CORE_CONTAINER_DSL_DETAILS_SIZE_ELEMENTWISE_HPP_INCLUDED
 
-#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/utility/of_size.hpp>
 #include <boost/proto/fusion.hpp>
 #include <boost/fusion/include/transform.hpp>
@@ -40,7 +39,7 @@ namespace nt2 { namespace details
   };
 } }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   // element-wise size selection logic
   struct size_fold
@@ -144,27 +143,23 @@ namespace nt2 { namespace container { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
+      return eval(e,boost::mpl::int_<N>());
+    }
+
+    template<int I>
+    BOOST_FORCEINLINE result_type
+    eval(Expr& e, boost::mpl::int_<I> const&) const
+    {
       sizes sz = boost::fusion::transform(e, details::get_extent());
       return boost::fusion::fold(sz, boost::fusion::at_c<0>(sz), size_fold());
     }
-  };
 
-  // element-wise size unary
-  template<class Tag, class Domain, class Expr>
-  struct size_of<Tag, Domain, 1, Expr>
-  {
-    typedef typename boost::proto::result_of::
-    child_c<Expr, 0>::type                child0;
-
-    typedef typename child0::extent_type  result_type;
-
-    BOOST_FORCEINLINE
-    result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type
+    eval(Expr& e, boost::mpl::int_<1> const&) const
     {
       return boost::proto::child_c<0>(e).extent();
     }
   };
-
-} } }
+} }
 
 #endif

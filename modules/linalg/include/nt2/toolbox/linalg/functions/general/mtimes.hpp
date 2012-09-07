@@ -15,7 +15,6 @@
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/table/category.hpp>
-//#include <nt2/core/settings/forward/size.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/assert.hpp>
 
@@ -24,10 +23,10 @@ namespace nt2 { namespace tag
   struct ctranspose_;
 } }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
-  template<class Domain, class Expr>
-  struct size_of<tag::mtimes_, Domain, 2, Expr>
+  template<class Domain, int N,class Expr>
+  struct size_of<tag::mtimes_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
     typedef typename boost::proto::result_of::child_c<Expr&, 1>::value_type child1;
@@ -57,7 +56,7 @@ namespace nt2 { namespace container { namespace ext
                         );
     }
   };
-} } }
+} }
 
 namespace nt2 { namespace ext
 {
@@ -239,7 +238,7 @@ namespace nt2 { namespace ext
       if(    ( raw(value(result)) >= child0.raw()+numel(child0) || raw(value(result))+numel(result) <  child0.raw())&&
              ( raw(value(result)) >= child1.raw()+numel(child0) || raw(value(result))+numel(result) <  child1.raw()))
       {
-        //      std::cout << "icitte" << std::endl; 
+        //      std::cout << "icitte" << std::endl;
         a0.resize(a1.extent());
         nt2::details::
         gemm( "N", "N"
@@ -250,15 +249,15 @@ namespace nt2 { namespace ext
             , &beta
             , raw(value(result)), &ldc
             );
-        a0 = result; 
+        a0 = result;
       }
       else
       {
-        //      std::cout << "latte" << std::endl; 
+        //      std::cout << "latte" << std::endl;
         // overlapping of input and output data is possible
         // so we provide space for result and put back in a0
         nt2::table<value_type> tmp(a1.extent());
-        //std::cout << size(tmp) << std::endl; 
+        //std::cout << size(tmp) << std::endl;
         //tmp.resize(a1.extent());
         nt2::details::
         gemm( "N", "N"
@@ -269,12 +268,12 @@ namespace nt2 { namespace ext
             , &beta
             , tmp.raw(), &ldc
             );
-        //        NT2_DISPLAY(tmp); 
+        //        NT2_DISPLAY(tmp);
         a0 = tmp;
-        //        NT2_DISPLAY(result); 
+        //        NT2_DISPLAY(result);
       }
-      //     NT2_DISPLAY(a0); 
-      return a0; 
+      //     NT2_DISPLAY(a0);
+      return a0;
     }
   };
 

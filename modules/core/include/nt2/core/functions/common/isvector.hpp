@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -12,7 +13,7 @@
 #include <nt2/core/functions/isvector.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
+#include <boost/fusion/include/at.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -30,8 +31,8 @@ namespace nt2 { namespace ext
       std::size_t nz = nt2::numel(ex);
 
       return    (nz > 0)
-            &&  (   ( meta::safe_at_c<0>(ex) == nz )
-                ||  ( meta::safe_at_c<1>(ex) == nz )
+            &&  (   ( boost::fusion::at_c<0>(ex) == nz )
+                ||  ( boost::fusion::at_c<1>(ex) == nz )
                 ) ;
     }
   };

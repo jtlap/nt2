@@ -10,7 +10,8 @@
 #define NT2_CORE_FUNCTIONS_REPMAT_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/details/generate_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
@@ -29,7 +30,7 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::repmat_, repmat, 3)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class X>
   struct  size_of<nt2::tag::repmat_,Domain,N,X>
@@ -64,11 +65,9 @@ namespace nt2 { namespace container { namespace ext
   template<class Domain, int N, class Expr>
   struct  value_type<nt2::tag::repmat_,Domain,N,Expr>
   {
-    typedef typename meta::scalar_of< typename  boost::proto::result_of::
-                                                child_c<Expr&,0>::type
-                                    >::type                             base_t;
-    typedef typename meta::strip<base_t>::type                          type;
+    typedef typename  boost::proto::result_of::
+                      child_c<Expr&,0>::value_type::value_type  type;
   };
-} } }
+} }
 
 #endif

@@ -19,7 +19,7 @@
  *
  * \par Description
  * sx sx<Tag>(a0, a1)      is equivalent to bsxfun(functor<Tag>(), a0, a1) if Tag is a binary functor
- *    sx<Tag>(a0, a1, a2)  is equivalent to tsxfun(functor<Tag>(), a0, a1, a2) if Tag is a ternary functor 
+ *    sx<Tag>(a0, a1, a2)  is equivalent to tsxfun(functor<Tag>(), a0, a1, a2) if Tag is a ternary functor
  *
  * \par Header file
  *
@@ -41,7 +41,6 @@
  *
 **/
 
-
 namespace nt2
 {
   namespace tag
@@ -54,8 +53,6 @@ namespace nt2
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sx_       , sx, 3)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sx_       , sx, 4)
-
 }
-
 
 #endif

@@ -8,12 +8,7 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_VAR_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_VAR_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/sqr_abs.hpp>
-#include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <nt2/sdk/memory/container.hpp>
-#include <nt2/core/container/dsl/details/reduction.hpp>
+
 #include <nt2/include/functor.hpp>
 
 /*!
@@ -24,12 +19,12 @@
  * Returns the var of the elements of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/var.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,9 +37,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of var
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -55,7 +50,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
@@ -63,9 +58,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct var_ : tag::formal_ 
-    { 
-       typedef tag::formal_ parent; 
+    struct var_ : boost::dispatch::tag::formal_
+    {
+       typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
@@ -73,7 +68,7 @@ namespace nt2
   /*!
    * var of a table
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::var_       , var, 1)

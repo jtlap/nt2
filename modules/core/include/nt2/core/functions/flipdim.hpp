@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,49 +11,57 @@
 #define NT2_CORE_FUNCTIONS_FLIPDIM_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Defines and implements the nt2::flipdim function
- */
+  @file
+  @brief Defines and implements the flipdim function
+**/
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/relative.hpp>
-#include <nt2/core/settings/shape.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for flipdim functor
+    **/
     struct flipdim_ : ext::elementwise_<flipdim_>
     {
       typedef ext::elementwise_<flipdim_> parent;
-      typedef rectangular_           shape_type;
     };
   }
 
-  //============================================================================
-  /*!
-   * upside down of a table. Return a table the columns of
-   * which are in reverse order of the input
-   *
-   * \param xpr  table
-   */
-  //============================================================================
+    /*!
+    @brief Flip an expression around an arbitrary dimension axis
+
+    Return an expression which values along a given dimension are in reverse
+    order of the input.
+
+    @param  a0 Expression to flip
+    @param  a1 Dimension to flip around
+    @return the flipped expression
+  **/
+
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::flipdim_       , flipdim, 2)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
-  struct  generator<nt2::tag::flipdim_,Domain,N,Expr>
-        : relative_generator<Expr>
+  struct  value_type<nt2::tag::flipdim_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
   {};
 
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::flipdim_,Domain,3,Expr>
-        : relative_size_of<Expr>
+  /// INTERNAL ONLY
+  template<class Domain, int N, class Expr>
+  struct  size_of<nt2::tag::flipdim_,Domain,N,Expr>
+        : meta::size_as<Expr,0>
   {};
-
-} } }
+} }
 
 #endif

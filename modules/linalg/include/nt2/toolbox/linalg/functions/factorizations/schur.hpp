@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
                  A3 const & sense,
                  IP const&)
     {
-      BOOST_ASSERT_MSG(is_square(a0), "Error using schur. Matrix must be square.");
+      BOOST_ASSERT_MSG(issquare(a0), "Error using schur. Matrix must be square.");
       result_type that(a0, jobvs, sort, sense);
       return that;
     }

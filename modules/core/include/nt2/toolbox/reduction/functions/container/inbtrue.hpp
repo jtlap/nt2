@@ -9,33 +9,11 @@
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_INBTRUE_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_INBTRUE_HPP_INCLUDED
 
-// #include <nt2/toolbox/reduction/functions/inbtrue.hpp>
-// #include <nt2/core/container/dsl/details/reduction.hpp>
-// #include <nt2/core/container/dsl/size.hpp>
-
-// namespace nt2 { namespace container { namespace ext
-// {
-//   template<class Domain, class Expr>
-//   struct size_of<boost::simd::tag::inbtrue_,Domain,1,Expr>
-//     : reduction_size_of<boost::simd::tag::inbtrue_, 1, Expr>{};
-
-//   template<class Domain, class Expr>
-//   struct size_of<boost::simd::tag::inbtrue_,Domain,2,Expr>
-//     : reduction_size_of<boost::simd::tag::inbtrue_, 2, Expr>{};
-
-//   template<class Domain, int N, class Expr>
-//   struct generator<boost::simd::tag::inbtrue_,Domain,N,Expr>
-//     : reduction_generator<boost::simd::tag::inbtrue_,N,Expr> {};
-// } } }
-
 #include <nt2/toolbox/reduction/functions/inbtrue.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/toint.hpp>
-#include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
-
-#include <nt2/core/container/io.hpp>
+#include <nt2/core/container/dsl.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -64,14 +42,6 @@ namespace nt2 { namespace ext
     typedef typename meta::call <tag::sum_   (T2, A1) >::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-//        std::cout << "---------------icitte" << std::endl;
-//        NT2_DISP(a0);
-//        NT2_DISP(nt2::sb2b(a0));
-//        NT2_DISP(nt2::toint(nt2::sb2b(a0)));
-//        NT2_DISP(  nt2::sum(nt2::toint(nt2::sb2b(a0)), a1));
-//        //       NT2_DISP(  nt2::sum(nt2::tofloat(nt2::sb2b(a0)), a1));
-//        std::cout << "---------------fin icitte" << std::endl;
-
       return  nt2::sum(nt2::toint(nt2::sb2b(a0)), a1);
     }
   };

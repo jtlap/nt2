@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,49 +11,40 @@
 #define NT2_CORE_FUNCTIONS_COLVECT_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Defines and implements the nt2::colvect function
- */
+  @file
+  @brief Defines and implements the colvect function
+**/
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/reshaping.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/reshaping.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for colvect functor
+    **/
     struct colvect_ : ext::reshaping_<colvect_>
     {
       typedef ext::reshaping_<colvect_> parent;
     };
   }
 
-  //============================================================================
   /*!
-   * linearizes expression
-   *
-   * \param xpr table
-   */
-  //============================================================================
+    @brief Column reshaping
+
+    Reshape an expression into a column shaped table.
+
+    @param a0 Expression to reshape
+
+    @return The reshaped expression
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::colvect_       , colvect, 1)
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::colvect_  , colvect, 1)
 }
-
-namespace nt2 { namespace container { namespace ext
-{
-  template<class Domain, class Expr>
-  struct  generator<nt2::tag::colvect_,Domain,2,Expr>
-        : reshaping_generator<Expr>
-  {};
-
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::colvect_,Domain,2,Expr>
-        : reshaping_size_of<Expr>
-  {
-  };
-
-} } }
 
 #endif

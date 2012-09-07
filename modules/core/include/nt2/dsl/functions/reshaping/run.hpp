@@ -10,8 +10,6 @@
 #define NT2_DSL_FUNCTIONS_RESHAPING_RUN_HPP_INCLUDED
 
 #include <nt2/dsl/functions/run.hpp>
-#include <nt2/sdk/simd/category.hpp>
-#include <nt2/dsl/functions/run.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
 
 namespace nt2 { namespace ext
@@ -26,13 +24,13 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename  boost::proto::result_of::child_c<A0&,0>::type base;
-    typedef typename  meta::
-                      call<nt2::tag::run_ ( base
-                                          , State const&
-                                          , Data const&
-                                          )
-                          >::type                                   result_type;
+    typedef typename
+            meta::call< nt2::tag::run_
+                      ( typename  boost::proto::result_of::child_c<A0&,0>::type
+                      , State const&
+                      , Data const&
+                      )
+                      >::type                                   result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0, State const& p, Data const& t) const

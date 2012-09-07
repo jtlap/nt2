@@ -25,39 +25,38 @@
  *                 a'*x = b  if tran = 't',
  *            where a = kron(eye,r) + kron(transpose(r),eye).
  *            default: tran = ''.
- * 
+ *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/tksolve.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
- * \param a the matrix or vector expression a 
+ * \param a the matrix or vector expression a
  *
  * \param type of tksolve required
- * 
+ *
  * \par Notes
  *   Call the dedicated lapack routines available on the target.
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag tksolve_ of functor tksolve
      *        in namespace nt2::tag for toolbox algebra
     **/
     struct tksolve_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tksolve_, tksolve, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::tksolve_, tksolve, 3)
 
 }
 
 #endif
-

@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -8,12 +9,7 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_NORM2_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_NORM2_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/sqr_abs.hpp>
-#include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <nt2/sdk/memory/container.hpp>
-#include <nt2/core/container/dsl/details/reduction.hpp>
+
 #include <nt2/include/functor.hpp>
 
 /*!
@@ -27,12 +23,12 @@
  *
  * \alias norm_eucl
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/norm2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +41,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of norm2
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -58,7 +54,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
@@ -66,9 +62,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct norm2_ : tag::formal_ 
-    { 
-      typedef tag::formal_ parent; 
+    struct norm2_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
@@ -76,7 +72,7 @@ namespace nt2
   /*!
    * sum of absolute squares of a table
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm2, 1)
@@ -84,6 +80,5 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm_eucl, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::norm2_       , norm_eucl, 2)
 }
-
 
 #endif

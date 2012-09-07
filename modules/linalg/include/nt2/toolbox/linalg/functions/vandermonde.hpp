@@ -8,6 +8,7 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_VANDERMONDE_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_VANDERMONDE_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
 
 /*!
@@ -42,7 +43,10 @@ namespace nt2 { namespace tag
      * \brief Define the tag vandermonde_ of functor vandermonde
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct vandermonde_ : tag::formal_ { typedef tag::formal_ parent; };
+    struct vandermonde_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
+    };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::vandermonde_, vandermonde, 2)
@@ -50,4 +54,3 @@ namespace nt2 { namespace tag
 }
 
 #endif
-

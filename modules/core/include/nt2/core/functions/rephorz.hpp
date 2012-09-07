@@ -10,29 +10,48 @@
 #define NT2_CORE_FUNCTIONS_REPHORZ_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/generate_as.hpp>
-#include <nt2/sdk/meta/reshaping_hierarchy.hpp>
-
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct  rephorz_
-          : ext::reshaping_<rephorz_> { typedef ext::reshaping_<rephorz_> parent; };
+    struct rephorz_ : ext::elementwise_<rephorz_>
+    {
+      typedef ext::elementwise_<rephorz_> parent;
+    };
   }
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::rephorz_, rephorz, 2) \
+
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::rephorz_, rephorz, 2)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct generator<nt2::tag::rephorz_,Domain,N,Expr> : generate_as<Expr,0> {};
+  struct  value_type<nt2::tag::rephorz_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
 
   template<class Domain, int N, class Expr>
-  struct  size_of<nt2::tag::rephorz_,Domain,N,Expr> : boxed_size_of<Expr,1> {};
-} } }
+  struct  size_of<nt2::tag::rephorz_,Domain,N,Expr>
+  {
+    typedef typename  boost::proto::result_of
+                ::child_c<Expr&,0>::value_type::extent_type base_t;
 
+    typedef typename make_size< base_t::static_size==1
+                              ? 2
+                              : base_t::static_size
+                              >::type                       result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      result_type sizee = boost::proto::child_c<0>(e).extent();
+      sizee[1] *= boost::proto::child_c<1>(e);
+      return sizee;
+    }
+  };
+} }
 
 #endif

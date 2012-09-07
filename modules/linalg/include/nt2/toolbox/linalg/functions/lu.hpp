@@ -11,7 +11,11 @@
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/toolbox/linalg/functions/details/lu.hpp>
 
 namespace nt2
@@ -75,24 +79,17 @@ namespace nt2
    }
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct  generator<tag::lu_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
+  struct  size_of<tag::lu_,Domain,N,Expr>
+        : meta::size_as<Expr,0>
+  {};
 
-    // Rebuidl proper expression type with semantic
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , sema_t
-                      >                                     result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
-} } }
+  template<class Domain, int N, class Expr>
+  struct  value_type<tag::lu_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
+} }
 
 #endif

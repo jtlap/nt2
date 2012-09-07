@@ -49,7 +49,6 @@ namespace nt2 { namespace ext
       bool whole =  false;
       bool meshgrid = false;
       getmn(a0, m, n, whole, meshgrid, N0(), N1() );
-      std::cout << "m " << m << " n " << n << " whole " << whole << " meshgrid " << meshgrid << std::endl;
       compute(a1, m, n, whole, meshgrid, N1());
     }
 
@@ -135,9 +134,6 @@ namespace nt2 { namespace ext
       typedef typename boost::proto::result_of::child_c<A0&,1>::type child1;
       typedef typename boost::proto::result_of::value<child1>::type  type_t;
       typedef typename meta::is_scalar<type_t>::type               choice_t;
-      //      std::cout << nt2::type_id<choice_t > () << std::endl;
-      //      std::cout << type_id <child1 > () << std::endl;
-      //      std::cout << type_id(boost::proto::value(boost::proto::child_c<1>(a0))) << std::endl;
        m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0, choice_t());
        n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1, choice_t());
     }
@@ -152,9 +148,6 @@ namespace nt2 { namespace ext
       typedef typename boost::proto::result_of::child_c<A0&,1>::type child1;
       typedef typename boost::proto::result_of::value<child1>::type  type_t;
       typedef typename meta::is_scalar<type_t>::type               choice_t;
-      //      std::cout << nt2::type_id<choice_t > () << std::endl;
-      //      std::cout << type_id <child1 > () << std::endl;
-      //      std::cout << type_id(boost::proto::value(boost::proto::child_c<1>(a0))) << std::endl;
        m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0, choice_t());
        n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1, choice_t());
        meshgrid = true;

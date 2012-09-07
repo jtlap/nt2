@@ -62,9 +62,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct putalong_ : tag::formal_
+    struct putalong_ : boost::dispatch::tag::formal_
     {
-      typedef tag::formal_ parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 

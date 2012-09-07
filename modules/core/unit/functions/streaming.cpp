@@ -10,7 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 
 NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
 {
@@ -84,4 +84,6 @@ NT2_TEST_CASE_TPL( output_stream, (double)(unsigned char) )
     nt2::display("x", x);
     std::cout << "\n===================================================\n";
   }
+
+  NT2_TEST_COMPLETE(streaming test);
 }

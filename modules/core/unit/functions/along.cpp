@@ -18,7 +18,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 
-NT2_TEST_CASE_TPL( along_scalar, NT2_TYPES )
+NT2_TEST_CASE_TPL( along_scalar, NT2_REAL_TYPES )
 {
   using nt2::_;
   nt2::table<T> y( nt2::of_size(3, 4, 2, 3) );
@@ -57,12 +57,13 @@ NT2_TEST_CASE_TPL( along_scalar, NT2_TYPES )
     NT2_TEST_EQUAL(y(_, _, _, k).extent(), nt2::along(y, k, 4).extent());
     NT2_TEST(isequal(y(_, _, _, k), nt2::along(y, k, 4)));
   }
-
 }
+
 NT2_TEST_CASE_TPL( along_vect, NT2_REAL_TYPES )
 {
   using nt2::_;
   typedef typename nt2::meta::as_integer<T>::type iT;
+
   nt2::table<T> y( nt2::of_size(3, 4, 2, 3) );
   nt2::table<T> sy;
 
@@ -72,7 +73,7 @@ NT2_TEST_CASE_TPL( along_vect, NT2_REAL_TYPES )
       for(size_t j=1;j<=size(y, 2);j++)
         for(size_t i=1;i<=size(y, 1);i++)
           y(i,j, l, m) = k++;
-  
+
   nt2::table<iT> kk = _(iT(1), iT(2));
   NT2_TEST(isequal(y(kk, _, _, _), nt2::along(y, kk, 1)));
   NT2_TEST(isequal(y(_, kk, _, _), nt2::along(y, kk, 2)));

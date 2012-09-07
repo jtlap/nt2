@@ -26,20 +26,9 @@
 #include <boost/fusion/include/vector.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 
-//         tab_t f1 = ((_(0, minusone(s2))-nt2::floor(s2*Half<value_type>()))*(Two<value_type>()/s2));
-//         tab_t f2 = ((_(0, minusone(s1))-nt2::floor(s1*Half<value_type>()))*(Two<value_type>()/s1));
-
-// f1 = ((0:n(2)-1)-floor(n(2)/2))*(2/(n(2)));
-
-// ou
-//    n odd,  f1 = (-1+1/n:2/n:1-1/n).
-//    n even  f1 = (-1    :2/n:1-2/n).
-// %
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Generates freqspace2 from m and n to a given floating type
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace2_, tag::cpu_
                               , (A0)(A1)(T)
                               , (scalar_< integer_<A0> >)
@@ -47,127 +36,132 @@ namespace nt2 { namespace ext
                                 ((target_<scalar_< floating_<T> > > ))
                               )
   {
-    typedef typename T::type value_type;
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::freqspace2_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::colon<value_type> >
-      , T
-      >::type             type;
-    typedef boost::fusion::vector< type,type>  result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n, T const&) const
+    typedef typename T::type value_t;
+    typedef meta::constant_<nt2::tag::colon_,value_t> constant_t;
+
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::freqspace2_
+                                , container::domain
+                                , box<_2D>
+                                , box<constant_t>
+                                , T
+                                >::type             type;
+    typedef boost::fusion::vector<type,type>  result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& m, A1 const& n, T const& tgt) const
     {
-      value_type hvm = m*Half<value_type>();
-      value_type hm = nt2::rec(hvm);
-      value_type lm = -nt2::floor(hvm)*hm;
-      value_type hvn = n*Half<value_type>();
-      value_type hn = nt2::rec(hvn);
-      value_type ln = -nt2::floor(hvn)*hn;
-        return boost::fusion::make_vector(
-                  boost::proto::
-                  make_expr < nt2::tag::freqspace2_
+      value_t hvm = m*Half<value_t>();
+      value_t hm  = nt2::rec(hvm);
+      value_t lm  = -nt2::floor(hvm)*hm;
+      value_t hvn = n*Half<value_t>();
+      value_t hn  = nt2::rec(hvn);
+      value_t ln  = -nt2::floor(hvn)*hn;
+
+      return boost::fusion::make_vector
+      (
+        boost::proto::
+        make_expr < nt2::tag::freqspace2_
                   , container::domain
                   > ( boxify(of_size(1, n))
-                      , boxify(nt2::details::colon<value_type>(ln,hn))
-                      , T()
-                      ),
-                    boost::proto::
-                  make_expr < nt2::tag::freqspace2_
+                    , boxify(constant_t(ln,hn))
+                    , tgt
+                    )
+      , boost::proto::
+        make_expr < nt2::tag::freqspace2_
                   , container::domain
                   > ( boxify(of_size(1, m))
-                      , boxify(nt2::details::colon<value_type>(lm,hm))
-                      , T()
-                      )
-                );
+                    , boxify(constant_t(lm,hm))
+                    , tgt
+                    )
+      );
     }
   };
 
-  //============================================================================
-  // Generates freqspace2 from n to a given floating type
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace2_, tag::cpu_
                               , (A0)(T)
                               , (scalar_< integer_<A0> >)
                                 ((target_<scalar_< floating_<T> > > ))
                               )
   {
-    typedef typename T::type value_type;
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::freqspace2_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::colon<value_type> >
-      , T
-      >::type             type;
+    typedef typename T::type value_t;
+    typedef meta::constant_<nt2::tag::colon_,value_t> constant_t;
+
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::freqspace2_
+                                , container::domain
+                                , box<_2D>
+                                , box<constant_t>
+                                , T
+                                >::type             type;
     typedef boost::fusion::vector< type,type>  result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& n, T const&) const
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& n, T const& tgt) const
     {
-      value_type hv = n*Half<value_type>();
-      value_type h =nt2::rec(hv);
-      value_type l = -nt2::floor(hv)*h;
-        return boost::fusion::make_vector(
-                  boost::proto::
-                  make_expr < nt2::tag::freqspace2_
+      value_t hv  = n*Half<value_t>();
+      value_t h   = nt2::rec(hv);
+      value_t l   = -nt2::floor(hv)*h;
+
+      return  boost::fusion::make_vector
+      ( boost::proto::
+        make_expr < nt2::tag::freqspace2_
                   , container::domain
                   > ( boxify(of_size(1, n))
-                      , boxify(nt2::details::colon<value_type>(l,h))
-                      , T()
-                      ),
-                  boost::proto::
-                  make_expr < nt2::tag::freqspace2_
+                    , boxify(constant_t(l,h))
+                    , tgt
+                    )
+      , boost::proto::
+        make_expr < nt2::tag::freqspace2_
                   , container::domain
                   > ( boxify(of_size(1, n))
-                      , boxify(nt2::details::colon<value_type>(l,h))
-                      , T()
-                      )
-                  );
+                    , boxify(constant_t(l,h))
+                    , tgt
+                    )
+      );
     }
   };
 
-  //============================================================================
-  // Generates freqspace2 from m and n to double
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace2_, tag::cpu_
                               , (A0)(A1)
                               , (scalar_< integer_<A0> >)
                                 (scalar_< integer_<A1> >)
                               )
   {
-    typedef double value_type;
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::freqspace2_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::colon<double> >
-      , meta::as_<double >
-      >::type             type;
+    typedef meta::constant_<nt2::tag::colon_,double> constant_t;
+
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::freqspace2_
+                                , container::domain
+                                , box<_2D>
+                                , box< constant_t >
+                                , meta::as_<double >
+                                >::type             type;
     typedef boost::fusion::vector<type,type>  result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& n) const
     {
-      return freqspace2(n, m, nt2::meta::as_<double>());
+      return freqspace2(n,m,nt2::meta::as_<double>());
     }
   };
 
-
-  //============================================================================
-  // Generates freqspace2 from n to double
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace2_, tag::cpu_
                               , (A0)
                               , (scalar_< integer_<A0> >)
                               )
   {
-    typedef double value_type;
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::freqspace2_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::colon<double> >
-      , meta::as_<double >
-      >::type             type;
-    typedef boost::fusion::vector< type,type>  result_type;
+    typedef meta::constant_<nt2::tag::colon_,double> constant_t;
+
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::freqspace2_
+                                , container::domain
+                                , box<_2D>
+                                , box< constant_t >
+                                , meta::as_<double >
+                                >::type             type;
+    typedef boost::fusion::vector< type,type>       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& n) const
     {

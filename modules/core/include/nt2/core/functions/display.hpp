@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 & onward LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 & onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,7 +12,7 @@
 
 /*!
  * \file
- * \brief Defines and implements the nt2::display function
+ * \brief Defines and implements the display function
  */
 
 #include <nt2/include/functor.hpp>
@@ -20,20 +21,44 @@ namespace nt2
 {
   namespace tag
   {
-    struct display_ : tag::formal_
+    /*!
+      @brief Tag for the display functor
+    **/
+    struct display_ : boost::dispatch::tag::formal_
     {
-      typedef tag::formal_ parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
+  /*!
+    @brief Display a value as unnamed
+
+    @c disp(a0) displays the content of @c a0 in a way similar to MATLAB and
+    prefixed by the 'ans=' delimiter.
+
+    @param a0 Value to display
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::display_,display,1)
+
+
+  /*!
+    @brief Display a value as unnamed
+
+    @c disp(a0) displays the content of @c a0 in a way similar to MATLAB and
+    prefixed by an arbitrary string.
+
+    @param a0 Value to display
+    @param a1 Name of the value to display
+  **/
   NT2_FUNCTION_IMPLEMENTATION(tag::display_,display,2)
 }
 
+/*!
+  @brief Display a named value
 
-//============================================================================
-// All-in-one NT2_DISP macro
-//============================================================================
-#define NT2_DISPLAY(x) ::nt2::display(BOOST_PP_STRINGIZE(x),x)
+  For any given @c X, display the contents of @c X prefixed by the name of @c X
+  or its declaration in case of anonymous data.
+**/
+#define NT2_DISPLAY(X) ::nt2::display(BOOST_PP_STRINGIZE(X),X)
 
 #endif

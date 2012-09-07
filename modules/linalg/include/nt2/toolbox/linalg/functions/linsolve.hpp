@@ -11,45 +11,48 @@
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
-
+#include <nt2/core/container/dsl/value_type.hpp>
 
 //  linsolve solve linear system a*x=b.
 //     x = linsolve(a,b) solves the linear system a*x=b using
 //     lu factorization with partial pivoting when a is square,
-//     and qr factorization with column pivoting otherwise. 
-//     warning is given if a is ill conditioned for square matrices 
+//     and qr factorization with column pivoting otherwise.
+//     warning is given if a is ill conditioned for square matrices
 //     and rank deficient for rectangular matrices.
- 
+
 //     [x, r] = linsolve(a,b) suppresses these warnings and returns r
 //     the reciprocal of the condition number of a for square matrices,
-//     and the rank of a if a is rectangular. 
-    
-//     x = linsolve(a,b,opts) solves the linear system a*x=b, 
-//     with an appropriate solver determined by the properties of 
-//     the matrix a as described by the structure opts. the fields of opts 
+//     and the rank of a if a is rectangular.
+
+//     x = linsolve(a,b,opts) solves the linear system a*x=b,
+//     with an appropriate solver determined by the properties of
+//     the matrix a as described by the structure opts. the fields of opts
 //     must contain logicals. all field values are defaulted to false.
 //     no test is performed to verify whether a possesses such properties.
- 
+
 //     [x, r] = linsolve(a,b,opts) suppresses these warnings and returns r,
 //     the reciprocal of the condition number of a, or the rank of a (depending
 //     on opts). see table below for more information.
- 
-//     below is the list of all possible field names and 
+
+//     below is the list of all possible field names and
 //     their corresponding matrix properties.
- 
+
 //     field name : matrix property
 //     ------------------------------------------------
-//     lt         : lower triangular 
+//     lt         : lower triangular
 //     ut         : upper triangular
 //     uhess      : upper hessenberg
 //     sym        : real symmetric or complex hermitian
 //     posdef     : positive definite
 //     rect       : general rectangular
 //     transa     : (conjugate) transpose of a
-    
-//     here is a table containing all possible combinations of options: 
- 
+
+//     here is a table containing all possible combinations of options:
+
 //     lt  ut  uhess  sym  posdef  rect  transa   output r
 //     -----------------------------------------  ----------------
 //     t   f   f      f    f       t/f   t/f      condition number
@@ -57,10 +60,10 @@
 //     f   f   t      f    f       f     t/f      condition number
 //     f   f   f      t    t/f     f     t/f      condition number
 //     f   f   f      f    f       t/f   t/f      rank
- 
-//     example: 
+
+//     example:
 //     a = triu(rand(5,3)); x = [1 1 1 0 0]'; b = a'*x;
-//     y1 = (a')\b         
+//     y1 = (a')\b
 //     opts.ut = true; opts.transa = true;
 //     y2 = linsolve(a,b,opts)
 namespace nt2
@@ -124,50 +127,17 @@ namespace nt2
   }
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::linsolve_,Domain,N,Expr>
-  {
-    // The size is contained in the first child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
-
-  template<class Domain, class Expr>
-  struct  size_of<tag::linsolve_,Domain,1,Expr>
-  {
-    // The size is contained in the first child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
+        : meta::size_as<Expr,0>
+  {};
 
   template<class Domain, int N, class Expr>
-  struct  generator<tag::linsolve_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
-
-    // Rebuild proper expression type with semantic
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , sema_t
-                      >                                     result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
-} } }
+  struct  value_type<tag::linsolve_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
+} }
 
 #endif

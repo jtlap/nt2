@@ -21,36 +21,34 @@
  * suqre root of a matrix
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sqrtm.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
- * \param a the matrix or vector expression a 
+ * \param a the matrix or vector expression a
  *
  * \param type of sqrtm required
- * 
+ *
  * \par Notes
  *   Call the dedicated lapack routines available on the target.
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag sqrtm_ of functor sqrt
      *        in namespace nt2::tag for toolbox algebra
     **/
     struct sqrtm_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
-  
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqrtm_, sqrtm, 1)
 
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sqrtm_, sqrtm, 1)
 }
 
 #endif
-

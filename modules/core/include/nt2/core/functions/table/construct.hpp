@@ -1,11 +1,12 @@
-//==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
-//
-//          Distributed under the Boost Software License, Version 1.0.
-//                 See accompanying file LICENSE.txt or copy at
-//                     http://www.boost.org/LICENSE_1_0.txt
-//==============================================================================
+///==============================================================================
+///         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+///         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+///         Copyright 2011 - 2012   MetaScale SAS
+///
+///          Distributed under the Boost Software License, Version 1.0.
+///                 See accompanying file LICENSE.txt or copy at
+///                     http:///www.boost.org/LICENSE_1_0.txt
+///==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_TABLE_CONSTRUCT_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TABLE_CONSTRUCT_HPP_INCLUDED
 
@@ -20,10 +21,9 @@ namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::iterator_;
 
-  //============================================================================
-  // Construct a terminal from a size
-  //  * Perform a resize on the table's container
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Construct a terminal from a size
+  ///  * Perform a resize on the table's container
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)
                             , ((node_ < A0,nt2::tag::terminal_
@@ -44,13 +44,13 @@ namespace nt2 { namespace ext
     }
   };
 
-  //============================================================================
-  // Construct a terminal from a size and some unspecified allocator
-  //  * Construct a proper container from size and allocator
-  //  * Swap with the table's container
-  // This is done even if swap sounds bad with automatic storage table. Good
-  // news are that automatic_ storage table usually don't require allocators ;)
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Construct a terminal from a size and some unspecified allocator
+  ///  * Construct a proper container from size and allocator
+  ///  * Swap with the table's container
+  ///
+  /// This is done even if swap sounds bad with automatic storage table.
+  /// Good news are that automatic_  table usually don't require allocators ;)
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((node_ < A0,nt2::tag::terminal_
@@ -74,11 +74,10 @@ namespace nt2 { namespace ext
     }
   };
 
-  //============================================================================
-  // Construct a terminal from another expression
-  // Non trivial assignment is passed to the parent expression type that will
-  // select hwo to perform the expression evaluation.
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Construct a terminal from another expression
+  /// Non trivial assignment is passed to the parent expression type that will
+  /// select how to perform the expression evaluation.
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)
                             , ((node_ < A0,nt2::tag::terminal_
@@ -97,11 +96,11 @@ namespace nt2 { namespace ext
       static_cast<parent&>(a0) = a1;
     }
   };
-  //============================================================================
-  // Construct a terminal from a scalar:
-  //  * Resize table to [1 1]
-  //  * Copy the scalar to the table memory (*raw() is the easiest way)
-  //============================================================================
+
+  /// INTERNAL ONLY
+  /// Construct a terminal from a scalar:
+  ///  * Resize table to [1 1]
+  ///  * Copy the scalar to the table memory (*raw() is the easiest way)
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)
                             , ((node_ < A0,nt2::tag::terminal_
@@ -121,9 +120,8 @@ namespace nt2 { namespace ext
     }
   };
 
-  //============================================================================
-  // Construct a terminal from a size and a Iterator pair
-  //============================================================================
+  /// INTERNAL ONLY
+  /// Construct a terminal from a size and a Iterator pair
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::construct_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
                             , ((node_ < A0,nt2::tag::terminal_

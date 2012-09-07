@@ -10,19 +10,11 @@
 #define NT2_CORE_FUNCTIONS_EXPR_REPVERT_HPP_INCLUDED
 
 #include <nt2/core/functions/repvert.hpp>
-#include <nt2/core/functions/common/repvert.hpp>
-#include <nt2/include/functions/arecatcompatible.hpp>
-
-#include <nt2/sdk/memory/copy.hpp>
-#include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/of_size.hpp>
-#include <nt2/include/functions/length.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Generates repvert from 1 expression 
+  // Generates repvert from 1 expression
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repvert_, tag::cpu_,
                               (A0),
@@ -32,7 +24,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return a0; 
+      return a0;
     }
   };
 
@@ -48,22 +40,16 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::repvert_
                                           , container::domain
                                           , A0 const&
-                                          , box<of_size_max>
+                                          , A1
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const& n) const
     {
-
-      // Expressions must be  matrices
-      of_size_max sizee = of_size_max(a0.extent());
-      sizee[0] *= n; 
-      return boost::proto::make_expr<
-          nt2::tag::repvert_
-        , container::domain 
-        > (boost::cref(a0), boxify(sizee));
+      return boost::proto::make_expr< nt2::tag::repvert_
+                                    , container::domain
+                                    > (boost::cref(a0),n);
     }
   };
-  
 } }
 
 #endif

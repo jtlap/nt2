@@ -19,14 +19,14 @@
  * Returns true or false according a0 and a1 have same height.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ofsameheight.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg eq
- * 
+ *
  * \synopsis
  *
  * \code
@@ -38,24 +38,22 @@
  * \endcode
  *
  * \param a0 the first parameter of ofsameheight
- * 
+ *
  * \return a bool value
- *  
+ *
 **/
 
 namespace nt2
 {
   namespace tag
   {
-    struct ofsameheight_ : ext::unspecified_<ofsameheight_>
+    struct ofsameheight_ : boost::dispatch::tag::formal_
     {
-      typedef ext::unspecified_<ofsameheight_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::ofsameheight_, ofsameheight, 2)
-
 }
 
 #endif
-

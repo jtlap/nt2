@@ -96,34 +96,40 @@ namespace nt2 { namespace container
     typedef typename meta::size_type_<Result>::type         size_type;
 
     typedef typename meta::settings_of<Result>::type        settings_type;
+
     typedef typename meta::
             option<settings_type,tag::index_>::type         index_type;
     typedef typename meta::
             option<settings_type,tag::storage_order_>::type storage_order_type;
-    typedef typename meta::
-            option<settings_type,tag::alignment_>::type     alignment_type;
 
     //==========================================================================
     // Compute storage type for size
     //==========================================================================
     typedef typename size_transform<domain>::
             template result<size_transform<domain>(Expr&)>::type sizes_t;
-
-    typedef typename meta::strip<sizes_t>::type                 extent_type;
+    typedef typename meta::strip<sizes_t>::type                  extent_type;
 
     typedef typename index_type::type                           indexes_type;
 
     //==========================================================================
-    // Expression initialization called from generator
+    // Default constructor required by table
     //==========================================================================
     BOOST_FORCEINLINE
     expression() : size_(size_transform<domain>()(proto_base())) {}
 
+    //==========================================================================
+    // Build an expression from a naked proto tree
+    //==========================================================================
     BOOST_FORCEINLINE
     explicit  expression(Expr const& x)
-            : proto_expr_(x), size_(size_transform<domain>()(proto_base()))
+            : proto_expr_(x)
+            , size_(size_transform<domain>()(proto_base()))
     {}
 
+    //==========================================================================
+    // Copy construct from another expression
+    // TODO: Do a smart "copy" of size_ that doesn't involve recomputing it
+    //==========================================================================
     BOOST_FORCEINLINE
     expression( expression const& xpr )
               : proto_expr_(xpr.proto_base())

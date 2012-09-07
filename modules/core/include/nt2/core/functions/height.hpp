@@ -10,24 +10,33 @@
 #define NT2_CORE_FUNCTIONS_HEIGHT_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Defines and implements the nt2::height function
- */
+  @file
+  @brief Defines and implements the height function
+**/
 
 #include <nt2/include/functor.hpp>
 
-namespace nt2 
-{ 
-  namespace tag { struct height_ : ext::unspecified_<height_> { typedef ext::unspecified_<height_> parent; }; }
+namespace nt2
+{
+  namespace tag
+  {
+    /*!
+      @brief Tag for the height functor
+    **/
+    struct height_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
+    };
+  }
 
-  //============================================================================
   /*!
-   * Compute the number of element stored in a given entity.
-   *
-   * \param xpr Expression to compute the size in number of elements
-   * \return The number of elements stored in \c xpr
-   */
-  //============================================================================
+    @brief Height of an expression
+
+    Return the number of element stored alogn the height of an expression.
+
+    @param  a0 Expression to compute the size in number of elements
+    @return The number of elements stored along the height of a0
+  **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::height_, height, 1)
 }
 
