@@ -88,10 +88,18 @@ namespace nt2 { namespace container { namespace ext
     typedef typename meta::strip<seq_term0>::type::extent_type          ext0_t;
     typedef typename boost::proto::result_of::child_c<Expr&,1>::type seq_term1;
     typedef typename meta::strip<seq_term1>::type::extent_type          ext1_t;
+    typedef typename boost::proto::result_of::child_c<Expr&,2>::type seq_term2;
+    typedef typename meta::strip<seq_term2>::type::extent_type          ext2_t;
     typedef typename make_size< (ext0_t::static_size > ext1_t::static_size)
                                 ? ext0_t::static_size
                                 : ext1_t::static_size
+                               >::type                                  ext3_t;
+    typedef typename make_size< (ext3_t::static_size > ext2_t::static_size)
+                                ? ext3_t::static_size
+                                : ext2_t::static_size
                                >::type                             result_type;
+
+  
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type sizee = nt2::extent(boost::proto::child_c<0>(e));

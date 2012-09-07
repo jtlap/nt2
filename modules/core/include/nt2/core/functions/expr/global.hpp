@@ -10,8 +10,9 @@
 #define NT2_CORE_FUNCTIONS_EXPR_GLOBAL_HPP_INCLUDED
 
 #include <nt2/core/functions/global.hpp>
+#include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/colvect.hpp>
-#include <nt2/sdk/meta/result_of.hpp>
+#include <nt2/include/functions/all.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -19,13 +20,13 @@ namespace nt2 { namespace ext
                               (A0)(A1),
                               (unspecified_<A0>)
                               (ast_<A1>)
-                            )
+                              )
   {
     typedef typename A1::value_type                               value_type; 
     typedef typename meta::result_of<A0 const(const value_type&)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return a0(nt2::colvect(a1));
+      return a0(nt2::colvect(a1))(1);
     }
   };
 
@@ -33,7 +34,7 @@ namespace nt2 { namespace ext
                               (A0)(A1),
                               (unspecified_<A0>)
                               (generic_<fundamental_<A1> > )
-                            )
+                              )
   {
     typedef typename meta::result_of<A0 const(const A1&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
