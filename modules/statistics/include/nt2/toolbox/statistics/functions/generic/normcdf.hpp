@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_GENERIC_NORMCDF_HPP_INCLUDED
 #define NT2_TOOLBOX_STATISTICS_FUNCTIONS_GENERIC_NORMCDF_HPP_INCLUDED
 #include <nt2/toolbox/statistics/functions/normcdf.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/norminv.hpp>
 #include <nt2/include/functions/atanpi.hpp>

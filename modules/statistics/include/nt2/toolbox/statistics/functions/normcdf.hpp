@@ -72,13 +72,13 @@ namespace nt2 { namespace tag
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct normcdf_ : ext::tieable_<normcdf_> { typedef ext::tieable_<normcdf_> parent; };
-    struct normcdf0_ : ext::elementwise_<normcdf_> { typedef ext::elementwise_<normcdf_> parent; };
+    struct normcdf0_ : ext::elementwise_<normcdf0_> { typedef ext::elementwise_<normcdf0_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 3)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_, normcdf, 4)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_, normcdf, 5)
+  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_,  normcdf, 4)
+  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_,  normcdf, 5)
 
 }
 
@@ -91,15 +91,17 @@ namespace nt2 { namespace ext
                       ::value_type::extent_type                     ext0_t;
     typedef typename  boost::proto::result_of::child_c<Expr&,1>
                       ::value_type::extent_type                     ext1_t;
+    typedef typename  boost::proto::result_of::child_c<Expr&,2>
+                      ::value_type::extent_type                     ext2_t;
 
     typedef typename make_size< (ext0_t::static_size > ext1_t::static_size)
                                 ? ext0_t::static_size
                                 : ext1_t::static_size
-                               >::type                                  ext3_t;
+                               >::type                              ext3_t;
     typedef typename make_size< (ext3_t::static_size > ext2_t::static_size)
                                 ? ext3_t::static_size
                                 : ext2_t::static_size
-                               >::type                             result_type;
+                               >::type                         result_type;
 
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
