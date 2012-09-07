@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_PROPER_TANPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_PROPER_TANPI_HPP_INCLUDED
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
   {
 
     typedef typename meta::as_floating<A0>::type result_type;
-    inline result_type operator()(A0 const&)const 
+    inline result_type operator()(A0 const&)const
     {
       return Zero<result_type>();
     }
@@ -62,11 +62,11 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_logical<A0>::type bA0;
       A0 absa0 = nt2::abs(a0);
-      bA0 test = le(absa0,  Quarter<A0>()); 
-      A0 a = if_else(test, absa0, Half<A0>()-absa0);  
-      A0 that = impl::trig_base<A0,pi_tag,tag::simd_type, clipped_pio4>::tana(a);
-      that = negif(is_ltz(a0), that); 
-      return if_nan_else(boost::simd::is_nle(absa0, Half<A0>()), if_else(test, that, rec(that))); 
+      bA0 test = le(absa0,  Quarter<A0>());
+      A0 a = if_else(test, absa0, Half<A0>()-absa0);
+      A0 that = impl::trig_base<A0,pi_tag,tag::simd_type, clipped_pio4_>::tana(a);
+      that = negif(is_ltz(a0), that);
+      return if_nan_else(boost::simd::is_nle(absa0, Half<A0>()), if_else(test, that, rec(that)));
     }
   };
 } }

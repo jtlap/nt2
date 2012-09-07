@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_REM_PIO2_HPP_INCLUDED
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
                  )
   {
     typedef boost::fusion::tuple<A0,A0,nt2::int32_t>           result_type;
-    
+
     NT2_FUNCTOR_CALL(1)
       {
     result_type res;
@@ -46,11 +46,11 @@ namespace nt2 { namespace ext
       nt2::rem_pio2(a0,
             boost::fusion::at_c<0>(res),
             boost::fusion::at_c<1>(res)
-            ); 
-    return res; 
+            );
+    return res;
       }
-  }; 
-  
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
                  (A0),
                  (scalar_ < single_<A0> > )
@@ -58,14 +58,14 @@ namespace nt2 { namespace ext
                  (scalar_ < single_<A0> > )
                  )
   {
-    typedef typename meta::as_integer<A0>::type result_type;    
+    typedef typename meta::as_integer<A0>::type result_type;
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
     {
       A0 y[2];
       nt2::int32_t n = __ieee754_rem_pio2f(a0, y);
       xr = y[0];
       xc = y[1];
-      return n&3; 
+      return n&3;
     }
   private :
   /*
@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
       (i) = boost::simd::bitwise_cast<nt2::uint32_t>(f);    \
     } while (0)                    \
       /**/
-  
+
   /* Set a float from a 32 bit int.  */
 #define SET_A0_WORD(d,i)        \
   do {                    \
@@ -122,7 +122,7 @@ namespace nt2 { namespace ext
       0x4D, 0x73, 0x27, 0x31, 0x06, 0x06, 0x15, 0x56, 0xCA,
       0x73, 0xA8, 0xC9, 0x60, 0xE2, 0x7B, 0xC0, 0x8C, 0x6B,
     };
-    
+
     /* This array is like the one in e_rem_pio2.c, but the numbers are
        single precision and the last 8 bits are forced to 0.  */
     static const nt2::int32_t npio2_hw[] = {
@@ -133,7 +133,7 @@ namespace nt2 { namespace ext
       0x421d1400, 0x42235c00, 0x4229a500, 0x422fed00, 0x42363600, 0x423c7e00,
       0x4242c700, 0x42490f00
     };
-    
+
     /*
      * invpio2:  24 bits of 2/pi
      * pio2_1:   first  17 bit of pi/2
@@ -143,7 +143,7 @@ namespace nt2 { namespace ext
      * pio2_3:   third  17 bit of pi/2
      * pio2_3t:  pi/2 - (pio2_1+pio2_2+pio2_3)
      */
-    
+
     static const A0
       two8 =  2.5600000000e+02f, /* 0x43800000 */
       invpio2 =  6.3661980629e-01f, /* 0x3f22f984 */
@@ -153,11 +153,11 @@ namespace nt2 { namespace ext
       pio2_2t =  6.0770999344e-11f, /* 0x2e85a308 */
       pio2_3  =  6.0770943833e-11f, /* 0x2e85a300 */
       pio2_3t =  6.1232342629e-17f;  /* 0x248d3132 */
-    
+
     A0 z,w,t,r,fn;
     A0 tx[3];
     nt2::int32_t e0,i,j,nx,n,ix,hx;
-    
+
     GET_A0_WORD(hx,x);
     ix = hx&0x7fffffff;
     if(ix<=0x3f490fd8)   /* |x| ~<= pi/4 , no need for reduction */
@@ -187,7 +187,7 @@ namespace nt2 { namespace ext
         return -1;
       }
     }
-    if(ix<=0x43490f80) { /* |x| ~<= 2^7*(pi/2), medium size */
+    if(ix<=0x43490f80) { /* |x| ~<= 2^7*(pi/2), medium_ size */
       t  = fabsf(x);
       n  = (nt2::int32_t) (t*invpio2+Half<A0>());
       fn = (A0)n;
@@ -242,12 +242,12 @@ namespace nt2 { namespace ext
     if(hx<0) {y[0] = -y[0]; y[1] = -y[1]; return -n;}
     return n;
       }
-    
-    
-    static int __kernel_rem_pio2f(A0 *x, A0 *y, int e0, int nx, int prec, const nt2::int32_t *ipio2) 
+
+
+    static int __kernel_rem_pio2f(A0 *x, A0 *y, int e0, int nx, int prec, const nt2::int32_t *ipio2)
       {
     static const int init_jk[] = {4,7,9}; /* initial value for jk */
-    
+
     static const A0 PIo2[] = {
       1.5703125000e+00f, /* 0x3fc90000 */
       4.5776367188e-04f, /* 0x39f00000 */
@@ -261,31 +261,31 @@ namespace nt2 { namespace ext
       3.2756352257e-22f, /* 0x1bc60000 */
       6.3331015649e-25f, /* 0x17440000 */
     };
-    
+
     static const A0
       two8 =  2.5600000000e+02f, /* 0x43800000 */
       twon8  =  3.9062500000e-03f; /* 0x3b800000 */
     nt2::int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
     A0 z,fw,f[20],fq[20],q[20];
-    
+
     /* initialize jk*/
     jk = init_jk[prec];
     jp = jk;
-    
+
     /* determine jx,jv,q0, note that 3>q0 */
     jx =  nx-1;
     jv = (e0-3)/8; if(jv<0) jv=0;
     q0 =  e0-8*(jv+1);
-    
+
     /* set up f[0] to f[jx+jk] where f[jx+jk] = ipio2[jv+jk] */
     j = jv-jx; m = jx+jk;
     for(i=0;i<=m;i++,j++) f[i] = (j<0)? Zero<A0>() : (A0) ipio2[j];
-    
+
     /* compute q[0],q[1],...q[jk] */
     for (i=0;i<=jk;i++) {
       for(j=0,fw=0.0f;j<=jx;j++) fw += x[j]*f[jx+i-j]; q[i] = fw;
     }
-    
+
     jz = jk;
       recompute:
     /* distill q[] into iq[] reversingly */
@@ -294,7 +294,7 @@ namespace nt2 { namespace ext
       iq[i] =  (nt2::int32_t)(z-two8*fw);
       z     =  q[j-1]+fw;
     }
-    
+
     /* compute n */
     z  = nt2::ldexp(z,q0);        /* actual value of z */
     z -= (A0)8.0f*nt2::floor(z*(A0)0.125f);    /* trim off integer >= 8 */
@@ -305,10 +305,10 @@ namespace nt2 { namespace ext
       i  = (iq[jz-1]>>(8-q0)); n += i;
       iq[jz-1] -= i<<(8-q0);
       ih = iq[jz-1]>>(7-q0);
-    } 
+    }
     else if(q0==0) ih = iq[jz-1]>>8;
     else if(z>=(A0)0.5f) ih=2;
-    
+
     if(ih>0) {    /* q > 0.5f */
       n += 1; carry = 0;
       for(i=0;i<jz ;i++) {    /* compute 1-q */
@@ -332,14 +332,14 @@ namespace nt2 { namespace ext
         if(carry!=0) z -= nt2::ldexp(One<A0>(),q0);
       }
     }
-    
+
     /* check if recomputation is needed */
     if(z==Zero<A0>()) {
       j = 0;
       for (i=jz-1;i>=jk;i--) j |= iq[i];
       if(j==0) { /* need recomputation */
         for(k=1;iq[jk-k]==0;k++);   /* k = no. of terms needed */
-        
+
         for(i=jz+1;i<=jz+k;i++) {   /* add q[jz+1] to q[jz+k] */
           f[jx+i] = (A0) ipio2[jv+i];
           for(j=0,fw=0.0f;j<=jx;j++) fw += x[j]*f[jx+i-j];
@@ -349,61 +349,61 @@ namespace nt2 { namespace ext
         goto recompute;
       }
     }
-    
+
     /* chop off zero terms */
     if(z==(A0)0.0f) {
       jz -= 1; q0 -= 8;
       while(iq[jz]==0) { jz--; q0-=8;}
     } else { /* break z into 8-bit if necessary */
       z = nt2::ldexp(z,-q0);
-      if(z>=two8) { 
+      if(z>=two8) {
         fw = (A0)((nt2::int32_t)(twon8*z));
         iq[jz] = (nt2::int32_t)(z-two8*fw);
         jz += 1; q0 += 8;
         iq[jz] = (nt2::int32_t) fw;
       } else iq[jz] = (nt2::int32_t) z ;
     }
-    
+
     /* convert integer "bit" chunk to floating-point value */
     fw = nt2::ldexp(One<A0>(),q0);
     for(i=jz;i>=0;i--) {
       q[i] = fw*(A0)iq[i]; fw*=twon8;
     }
-    
+
     /* compute PIo2[0,...,jp]*q[jz,...,0] */
     for(i=jz;i>=0;i--) {
       for(fw=0.0f,k=0;k<=jp&&k<=jz-i;k++) fw += PIo2[k]*q[i+k];
       fq[jz-i] = fw;
     }
-    
+
     /* compress fq[] into y[] */
     switch(prec) {
     case 0:
       fw = 0.0f;
       for (i=jz;i>=0;i--) fw += fq[i];
-      y[0] = (ih==0)? fw: -fw; 
+      y[0] = (ih==0)? fw: -fw;
       break;
     case 1:
     case 2:
       fw = 0.0f;
-      for (i=jz;i>=0;i--) fw += fq[i]; 
-      y[0] = (ih==0)? fw: -fw; 
+      for (i=jz;i>=0;i--) fw += fq[i];
+      y[0] = (ih==0)? fw: -fw;
       fw = fq[0]-fw;
       for (i=1;i<=jz;i++) fw += fq[i];
-      y[1] = (ih==0)? fw: -fw; 
+      y[1] = (ih==0)? fw: -fw;
       break;
     case 3:    /* painful */
       for (i=jz;i>0;i--) {
-        fw      = fq[i-1]+fq[i]; 
+        fw      = fq[i-1]+fq[i];
         fq[i]  += fq[i-1]-fw;
         fq[i-1] = fw;
       }
       for (i=jz;i>1;i--) {
-        fw      = fq[i-1]+fq[i]; 
+        fw      = fq[i-1]+fq[i];
         fq[i]  += fq[i-1]-fw;
         fq[i-1] = fw;
       }
-      for (fw=0.0f,i=jz;i>=2;i--) fw += fq[i]; 
+      for (fw=0.0f,i=jz;i>=2;i--) fw += fq[i];
       if(ih==0) {
         y[0] =  fq[0]; y[1] =  fq[1]; y[2] =  fw;
       } else {
@@ -426,21 +426,21 @@ namespace nt2 { namespace ext
                  (scalar_ < double_<A0> > )
                  )
   {
-    typedef nt2::int32_t result_type;    
+    typedef nt2::int32_t result_type;
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
     {
       if (a0 ==  Inf<A0>())
         {
           xc = Zero<A0>();
-          xr = Nan<A0>(); 
-          return 0; 
+          xr = Nan<A0>();
+          return 0;
         }
 
       A0 y[2];
       nt2::int32_t n = __ieee754_rem_pio2(a0, y);
       xr = y[0];
       xc = y[1];
-      return n&3; 
+      return n&3;
     }
   private :
   /*
@@ -490,21 +490,21 @@ namespace nt2 { namespace ext
   } while (0)
 
   static nt2::int32_t __ieee754_rem_pio2(A0 x, A0 *y)
-    {    
+    {
       static const nt2::int32_t two_over_pi[] = {
-        0xA2F983, 0x6E4E44, 0x1529FC, 0x2757D1, 0xF534DD, 0xC0DB62, 
-        0x95993C, 0x439041, 0xFE5163, 0xABDEBB, 0xC561B7, 0x246E3A, 
-        0x424DD2, 0xE00649, 0x2EEA09, 0xD1921C, 0xFE1DEB, 0x1CB129, 
-        0xA73EE8, 0x8235F5, 0x2EBB44, 0x84E99C, 0x7026B4, 0x5F7E41, 
-        0x3991D6, 0x398353, 0x39F49C, 0x845F8B, 0xBDF928, 0x3B1FF8, 
-        0x97FFDE, 0x05980F, 0xEF2F11, 0x8B5A0A, 0x6D1F6D, 0x367ECF, 
-        0x27CB09, 0xB74F46, 0x3F669E, 0x5FEA2D, 0x7527BA, 0xC7EBE5, 
-        0xF17B3D, 0x0739F7, 0x8A5292, 0xEA6BFB, 0x5FB11F, 0x8D5D08, 
-        0x560330, 0x46FC7B, 0x6BABF0, 0xCFBC20, 0x9AF436, 0x1DA9E3, 
-        0x91615E, 0xE61B08, 0x659985, 0x5F14A0, 0x68408D, 0xFFD880, 
-        0x4D7327, 0x310606, 0x1556CA, 0x73A8C9, 0x60E27B, 0xC08C6B, 
+        0xA2F983, 0x6E4E44, 0x1529FC, 0x2757D1, 0xF534DD, 0xC0DB62,
+        0x95993C, 0x439041, 0xFE5163, 0xABDEBB, 0xC561B7, 0x246E3A,
+        0x424DD2, 0xE00649, 0x2EEA09, 0xD1921C, 0xFE1DEB, 0x1CB129,
+        0xA73EE8, 0x8235F5, 0x2EBB44, 0x84E99C, 0x7026B4, 0x5F7E41,
+        0x3991D6, 0x398353, 0x39F49C, 0x845F8B, 0xBDF928, 0x3B1FF8,
+        0x97FFDE, 0x05980F, 0xEF2F11, 0x8B5A0A, 0x6D1F6D, 0x367ECF,
+        0x27CB09, 0xB74F46, 0x3F669E, 0x5FEA2D, 0x7527BA, 0xC7EBE5,
+        0xF17B3D, 0x0739F7, 0x8A5292, 0xEA6BFB, 0x5FB11F, 0x8D5D08,
+        0x560330, 0x46FC7B, 0x6BABF0, 0xCFBC20, 0x9AF436, 0x1DA9E3,
+        0x91615E, 0xE61B08, 0x659985, 0x5F14A0, 0x68408D, 0xFFD880,
+        0x4D7327, 0x310606, 0x1556CA, 0x73A8C9, 0x60E27B, 0xC08C6B,
       };
-      
+
       static const nt2::int32_t npio2_hw[] = {
         0x3FF921FB, 0x400921FB, 0x4012D97C, 0x401921FB, 0x401F6A7A, 0x4022D97C,
         0x4025FDBB, 0x402921FB, 0x402C463A, 0x402F6A7A, 0x4031475C, 0x4032D97C,
@@ -513,7 +513,7 @@ namespace nt2 { namespace ext
         0x4043A28C, 0x40446B9C, 0x404534AC, 0x4045FDBB, 0x4046C6CB, 0x40478FDB,
         0x404858EB, 0x404921FB,
       };
-      
+
       /*
        * invpio2:  53 bits of 2/pi
        * pio2_1:   first  33 bit of pi/2
@@ -523,8 +523,8 @@ namespace nt2 { namespace ext
        * pio2_3:   third  33 bit of pi/2
        * pio2_3t:  pi/2 - (pio2_1+pio2_2+pio2_3)
        */
-      
-      static const A0 
+
+      static const A0
         zero =  0.00000000000000000000e+00, /* 0x00000000, 0x00000000 */
         half =  5.00000000000000000000e-01, /* 0x3FE00000, 0x00000000 */
         two24 =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
@@ -535,18 +535,18 @@ namespace nt2 { namespace ext
         pio2_2t =  2.02226624879595063154e-21, /* 0x3BA3198A, 0x2E037073 */
         pio2_3  =  2.02226624871116645580e-21, /* 0x3BA3198A, 0x2E000000 */
         pio2_3t =  8.47842766036889956997e-32; /* 0x397B839A, 0x252049C1 */
-      
+
       A0 z = Zero<A0>(),w,t,r,fn;
       A0 tx[3];
       nt2::int32_t e0,i,j,nx,n,ix,hx;
       nt2::uint32_t low;
-      
+
       GET_HIGH_WORD(hx,x);        /* high word of x */
       ix = hx&0x7fffffff;
       if(ix<=0x3fe921fb)   /* |x| ~<= pi/4 , no need for reduction */
         {y[0] = x; y[1] = 0; return 0;}
       if(ix<0x4002d97c) {  /* |x| < 3pi/4, special case with n=+-1 */
-        if(hx>0) { 
+        if(hx>0) {
           z = x - pio2_1;
           if(ix!=0x3ff921fb) {     /* 33+53 bit pi is good enough */
         y[0] = z - pio2_1t;
@@ -571,33 +571,33 @@ namespace nt2 { namespace ext
           return -1;
         }
       }
-      if(ix<=0x413921fb) { /* |x| ~<= 2^19*(pi/2), medium size */
+      if(ix<=0x413921fb) { /* |x| ~<= 2^19*(pi/2), medium_ size */
         t  = fabs(x);
         n  = (nt2::int32_t) (t*invpio2+half);
         fn = (A0)n;
         r  = t-fn*pio2_1;
         w  = fn*pio2_1t;    /* 1st round good to 85 bit */
-        if((n<32)&&(n>0)&&(ix!=npio2_hw[n-1])) {    
+        if((n<32)&&(n>0)&&(ix!=npio2_hw[n-1])) {
           y[0] = r-w;    /* quick check no cancellation */
         } else {
           nt2::uint32_t high;
           j  = ix>>20;
-          y[0] = r-w; 
+          y[0] = r-w;
           GET_HIGH_WORD(high,y[0]);
           i = j-((high>>20)&0x7ff);
           if(i>16) {  /* 2nd iteration needed, good to 118 */
         t  = r;
-        w  = fn*pio2_2;    
+        w  = fn*pio2_2;
         r  = t-w;
-        w  = fn*pio2_2t-((t-r)-w);    
+        w  = fn*pio2_2t-((t-r)-w);
         y[0] = r-w;
         GET_HIGH_WORD(high,y[0]);
         i = j-((high>>20)&0x7ff);
         if(i>49)  {    /* 3rd iteration need, 151 bits acc */
           t  = r;    /* will cover all possible cases */
-          w  = fn*pio2_3;    
+          w  = fn*pio2_3;
           r  = t-w;
-          w  = fn*pio2_3t-((t-r)-w);    
+          w  = fn*pio2_3t-((t-r)-w);
           y[0] = r-w;
         }
           }
@@ -606,7 +606,7 @@ namespace nt2 { namespace ext
         if(hx<0)     {y[0] = -y[0]; y[1] = -y[1]; return -n;}
         else     return n;
       }
-      /* 
+      /*
        * all other (large) arguments
        */
       if(ix>=0x7ff00000) {        /* x is inf or NaN */
@@ -735,15 +735,15 @@ namespace nt2 { namespace ext
      *        it also indicates the *sign* of the result.
      *
      */
-    
-    
-    
-    
-    
+
+
+
+
+
     static int __kernel_rem_pio2(A0 *x, A0 *y, int e0, int nx, int prec, const nt2::int32_t *ipio2)
     {
       static const int init_jk[] = {2,3,4,6}; /* initial value for jk */
-      
+
       static const A0 PIo2[] = {
         1.57079625129699707031e+00, /* 0x3FF921FB, 0x40000000 */
         7.54978941586159635335e-08, /* 0x3E74442D, 0x00000000 */
@@ -754,34 +754,34 @@ namespace nt2 { namespace ext
         2.73370053816464559624e-44, /* 0x36E38222, 0x80000000 */
         2.16741683877804819444e-51, /* 0x3569F31D, 0x00000000 */
       };
-      
+
       static const A0
         zero   = 0.0,
         one    = 1.0,
         two24   =  1.67772160000000000000e+07, /* 0x41700000, 0x00000000 */
         twon24  =  5.96046447753906250000e-08; /* 0x3E700000, 0x00000000 */
-      
+
      nt2::int32_t jz,jx,jv,jp,jk,carry,n,iq[20],i,j,k,m,q0,ih;
       A0 z,fw,f[20],fq[20],q[20];
-      
+
       /* initialize jk*/
       jk = init_jk[prec];
       jp = jk;
-      
+
       /* determine jx,jv,q0, note that 3>q0 */
       jx =  nx-1;
       jv = (e0-3)/24; if(jv<0) jv=0;
       q0 =  e0-24*(jv+1);
-      
+
       /* set up f[0] to f[jx+jk] where f[jx+jk] = ipio2[jv+jk] */
       j = jv-jx; m = jx+jk;
       for(i=0;i<=m;i++,j++) f[i] = (j<0)? zero : (A0) ipio2[j];
-      
+
       /* compute q[0],q[1],...q[jk] */
       for (i=0;i<=jk;i++) {
         for(j=0,fw=0.0;j<=jx;j++) fw += x[j]*f[jx+i-j]; q[i] = fw;
       }
-      
+
       jz = jk;
     recompute:
       /* distill q[] into iq[] reversingly */
@@ -790,7 +790,7 @@ namespace nt2 { namespace ext
         iq[i] =  (nt2::int32_t)(z-two24*fw);
         z     =  q[j-1]+fw;
       }
-      
+
       /* compute n */
       z  = nt2::ldexp(z,q0);        /* actual value of z */
       z -= 8.0*nt2::floor(z*0.125);        /* trim off integer >= 8 */
@@ -804,7 +804,7 @@ namespace nt2 { namespace ext
       }
       else if(q0==0) ih = iq[jz-1]>>23;
       else if(z>=0.5) ih=2;
-      
+
       if(ih>0) {    /* q > 0.5 */
         n += 1; carry = 0;
         for(i=0;i<jz ;i++) {    /* compute 1-q */
@@ -828,14 +828,14 @@ namespace nt2 { namespace ext
           if(carry!=0) z -= nt2::ldexp(one,q0);
         }
       }
-      
+
       /* check if recomputation is needed */
       if(z==zero) {
         j = 0;
         for (i=jz-1;i>=jk;i--) j |= iq[i];
         if(j==0) { /* need recomputation */
           for(k=1;iq[jk-k]==0;k++);   /* k = no. of terms needed */
-          
+
           for(i=jz+1;i<=jz+k;i++) {   /* add q[jz+1] to q[jz+k] */
         f[jx+i] = (A0) ipio2[jv+i];
         for(j=0,fw=0.0;j<=jx;j++) fw += x[j]*f[jx+i-j];
@@ -845,7 +845,7 @@ namespace nt2 { namespace ext
           goto recompute;
         }
       }
-      
+
       /* chop off zero terms */
       if(z==0.0) {
         jz -= 1; q0 -= 24;
@@ -859,19 +859,19 @@ namespace nt2 { namespace ext
           iq[jz] = (nt2::int32_t) fw;
         } else iq[jz] = (nt2::int32_t) z ;
       }
-      
+
       /* convert integer "bit" chunk to floating-point value */
       fw = nt2::ldexp(one,q0);
       for(i=jz;i>=0;i--) {
         q[i] = fw*(A0)iq[i]; fw*=twon24;
       }
-      
+
       /* compute PIo2[0,...,jp]*q[jz,...,0] */
       for(i=jz;i>=0;i--) {
         for(fw=0.0,k=0;k<=jp&&k<=jz-i;k++) fw += PIo2[k]*q[i+k];
         fq[jz-i] = fw;
       }
-      
+
       /* compress fq[] into y[] */
       switch(prec) {
       case 0:
@@ -915,62 +915,58 @@ namespace nt2 { namespace ext
 #undef SET_HIGH_WORD
 #undef SET_LOW_WORD
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
                              (A0)(A1),
                              (scalar_ <floating_<A0> > )
                              (scalar_ <floating_<A0> > )
                              (scalar_ <floating_<A0> > )
-                             (target_ <unspecified_<A1> >)                          
+                             (target_ <unspecified_<A1> >)
                  )
   {
-    typedef nt2::int32_t result_type;    
+    typedef nt2::int32_t result_type;
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc, A1 const&) const
     {
       typedef typename A1::type selector;
-      return rempio2<selector, void>::rem(a0, xr, xc); 
+      return rempio2<selector, void>::rem(a0, xr, xc);
     }
   private:
     template < class T, class dummy = void> struct rempio2
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        BOOST_ASSERT_MSG(false, "wrong target for rem_pio2"); 
+        BOOST_ASSERT_MSG(false, "wrong target for rem_pio2");
         return Zero<result_type>();
       }
     };
-    template < class dummy> struct rempio2 < big, dummy>
+    template < class dummy> struct rempio2 < big_, dummy>
     {
       static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
       {
-        //        std::cout << "big" << std::endl; 
         return nt2::rem_pio2(x, xr, xc);
       }
-    }; 
-    template < class dummy> struct rempio2 < verysmall, dummy >
+    };
+    template < class dummy> struct rempio2 < very_small_, dummy >
     {
       static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
       {
-        //        std::cout << "verysmall" << std::endl; 
         return nt2::rem_pio2_straight(x, xr, xc);
       }
-    }; 
+    };
     template < class dummy> struct rempio2 < small_, dummy >
     {
       static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
       {
-        //        std::cout << "small" << std::endl; 
         return nt2::rem_pio2_cephes(x, xr, xc);
       }
-    }; 
-    template < class dummy> struct rempio2 < medium, dummy >
+    };
+    template < class dummy> struct rempio2 < medium_, dummy >
     {
       static inline nt2::int32_t rem(A0 const& x, A0 & xr, A0& xc)
       {
-        //        std::cout << "medium" << std::endl; 
         return nt2::rem_pio2_medium(x, xr, xc);
       }
-    }; 
-  }; 
+    };
+  };
 } }
 #endif

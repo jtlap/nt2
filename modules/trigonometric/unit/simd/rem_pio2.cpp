@@ -91,11 +91,11 @@ NT2_TEST_CASE_TPL ( rem_pio2_targeted,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
- 
+
   ivT n;
   vT x = nt2::Zero<vT>(), xr, xc;
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::big>());
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::medium>());
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::small>());
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::verysmall>());
-}  
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::big_>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::medium_>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::small_>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::very_small_>());
+}

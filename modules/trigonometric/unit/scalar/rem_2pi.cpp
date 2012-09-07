@@ -18,7 +18,7 @@
 #include <boost/fusion/tuple.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/pi.hpp>
-#include <nt2/include/constants/twopi.hpp> 
+#include <nt2/include/constants/twopi.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -48,44 +48,44 @@ NT2_TEST_CASE_TPL ( rem_2pi_targeted, NT2_REAL_TYPES)
 
   nt2::uint32_t n;
   T x = nt2::Pi<T>(), xr, xc;
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big_>());
   NT2_TEST_ULP_EQUAL(xr, nt2::Pi<T>(), 0.5);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::medium>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::medium_>());
   NT2_TEST_ULP_EQUAL(xr, nt2::Pi<T>(), 0.5);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small_>());
   NT2_TEST_ULP_EQUAL(xr, nt2::Pi<T>(), 0.5);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::verysmall>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::very_small_>());
   NT2_TEST_ULP_EQUAL(xr, nt2::Pi<T>(), 0.5);
-  std::cout << " ==================== " << std::endl; 
+  std::cout << " ==================== " << std::endl;
   x =  5*nt2::Pi<T>()/4;
   T r = -3*nt2::Pi<T>()/4;
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big_>());
   NT2_TEST_ULP_EQUAL(xr, r, 0.5);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::medium>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::medium_>());
   NT2_TEST_ULP_EQUAL(xr,r, 0.5);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small_>());
   NT2_TEST_ULP_EQUAL(xr,r, 0.5);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::verysmall>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::very_small_>());
   NT2_TEST_ULP_EQUAL(xr,r, 0.5);
-  std::cout << " ==================== " << std::endl; 
+  std::cout << " ==================== " << std::endl;
   x =  nt2::Pi<T>()/4;
   r = nt2::Pi<T>()/4;
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big_>());
   NT2_TEST_ULP_EQUAL(xr, r, 0.5);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::medium>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::medium_>());
   NT2_TEST_ULP_EQUAL(xr,r, 0.5);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small_>());
   NT2_TEST_ULP_EQUAL(xr,r, 0.5);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::verysmall>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::very_small_>());
   NT2_TEST_ULP_EQUAL(xr,r, 0.5);
-  std::cout << " ==================== " << std::endl; 
+  std::cout << " ==================== " << std::endl;
   x =  nt2::Pi<T>()*10.25;
   r = nt2::Pi<T>()*0.25;
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big_>());
   NT2_TEST_ULP_EQUAL(xr, r, 20);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::medium>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::medium_>());
   NT2_TEST_ULP_EQUAL(xr,r, 20);
-  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small>());
+  rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small_>());
   NT2_TEST_ULP_EQUAL(xr,r, 20);
-  
-}  
+
+}

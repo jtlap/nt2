@@ -12,7 +12,7 @@
 // cover test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/secant.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -37,19 +37,19 @@ extern "C" {extern long double cephes_cosl(long double);}
 
 NT2_TEST_CASE_TPL ( secant_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::secant;
   using nt2::tag::secant_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(T)>::type r_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( secant_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        NT2_TEST_ULP_EQUAL( nt2::secant<nt2::medium>(a0),nt2::rec(::cos(a0)),1.0);
+        NT2_TEST_ULP_EQUAL( nt2::secant<nt2::medium_>(a0),nt2::rec(::cos(a0)),1.0);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;
@@ -73,19 +73,19 @@ NT2_TEST_CASE_TPL ( secant_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( secant_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::secant;
   using nt2::tag::secant_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(T)>::type r_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -93,19 +93,19 @@ NT2_TEST_CASE_TPL ( secant_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( secant_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::secant;
   using nt2::tag::secant_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(T)>::type r_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

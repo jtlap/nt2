@@ -32,13 +32,13 @@ namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n1 {
   typedef float T;
@@ -56,13 +56,13 @@ namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
   typedef boost::simd::native<T,ext_t> vT;
-  NT2_TIMING(cosine_<nt2::medium>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::medium_>,(RS(vT,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n1 {
   typedef float T;

@@ -47,42 +47,42 @@ namespace nt2
         static inline bool tan_invalid(const A0& ) { return false; }
         static inline int_type reduce(const A0& x, A0& xr, A0& xc){ return inner_reduce(x, xr, xc, mode()); }
       private:
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const nt2::big&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const nt2::big_&)
         {
           // x is always positive here
           if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
             {
               xr = x;
               xc = Zero<A0>();
-              return Zero<int_type>(); 
+              return Zero<int_type>();
             }
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             return rem_pio2_straight(x, xr, xc);
           else if (issmall(x)) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             return rem_pio2_cephes(x, xr, xc);
-          else if (ismedium(x)) // all of x are is in [0, 2^18*pi],  fdlibm medium way
+          else if (ismedium(x)) // all of x are is in [0, 2^18*pi],  fdlibm medium_ way
             return rem_pio2_medium(x, xr, xc);
-          else  // all of x are in [0, inf],  standard big way
+          else  // all of x are in [0, inf],  standard big_ way
             return rem_pio2(x, xr, xc);
         }
 
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const nt2::medium&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const nt2::medium_&)
         {
           // x is always positive here
           if (isalreadyreduced(x)) // all of x are in [0, pi/4], no reduction
             {
               xr = x;
               xc = Zero<A0>();
-              return Zero<int_type>(); 
+              return Zero<int_type>();
             }
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             return rem_pio2_straight(x, xr, xc);
           else if (issmall(x)) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             return rem_pio2_cephes(x, xr, xc);
-          else  // correct only if all of x are is in [0, 2^18*pi],  fdlibm medium way
+          else  // correct only if all of x are is in [0, 2^18*pi],  fdlibm medium_ way
             return rem_pio2_medium(x, xr, xc);
         }
-      
+
         static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const nt2::small_&)
         {
           // x is always positive here
@@ -90,46 +90,46 @@ namespace nt2
             {
               xr = x;
               xc = Zero<A0>();
-              return Zero<int_type>(); 
+              return Zero<int_type>();
             }
           else if (islessthanpi_2(x)) // all of x are in [0, pi/2],  straight algorithm is sufficient for 1 ulp
             return rem_pio2_straight(x, xr, xc);
           else  // correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
             return rem_pio2_cephes(x, xr, xc);
         }
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_small&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_small_&)
         {
           return rem_pio2_cephes(x, xr, xc);
         }
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_medium&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_medium_&)
         {
           return rem_pio2_medium(x, xr, xc);
         }
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const direct_big_&)
         {
           return rem_pio2(x, xr, xc);
         }
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_pio4_&)
         {
           xr = select(isalreadyreduced(nt2::abs(x)), x, Nan<A0>());
           xc = Zero<A0>();
-          return Zero<int_type>(); 
+          return Zero<int_type>();
         }
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_small_&)
         {
           xr = select(issmall(nt2::abs(x)), x, Nan<A0>());
-          return inner_reduce(xr, xr, xc, small_()); 
+          return inner_reduce(xr, xr, xc, small_());
         }
-        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium&)
+        static inline int_type inner_reduce(const A0& x, A0& xr, A0& xc, const clipped_medium_&)
         {
           xr = select(ismedium(nt2::abs(x)), x, Nan<A0>());
-          return inner_reduce(xr, xr, xc, medium()); 
+          return inner_reduce(xr, xr, xc, medium_());
         }
       };
 
 
       template < class A0>
-      struct trig_reduction < A0, degree_tag,  tag::not_simd_type, big, double >
+      struct trig_reduction < A0, degree_tag,  tag::not_simd_type, big_, double >
       {
         typedef typename meta::as_integer<A0, signed>::type  int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;
@@ -145,9 +145,9 @@ namespace nt2
           return toint(xi);
         }
       };
-      
+
       template < class A0>
-      struct trig_reduction < A0, pi_tag,  tag::not_simd_type, big, double>
+      struct trig_reduction < A0, pi_tag,  tag::not_simd_type, big_, double>
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<int_type>::type    sint_type;

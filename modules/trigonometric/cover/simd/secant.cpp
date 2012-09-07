@@ -12,7 +12,7 @@
 // cover test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/secant.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( secant_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::secant;
   using nt2::tag::secant_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -52,8 +52,8 @@ NT2_TEST_CASE_TPL ( secant_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(vT)>::type r_t;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(T)>::type sr_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(vT)>::type r_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
@@ -66,11 +66,11 @@ NT2_TEST_CASE_TPL ( secant_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = secant<nt2::medium>(a0);
+        r_t v = secant<nt2::medium_>(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::secant<nt2::medium> (a0[i])), 1.0);
+
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::secant<nt2::medium_> (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
@@ -82,7 +82,7 @@ NT2_TEST_CASE_TPL ( secant_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::secant;
   using nt2::tag::secant_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -91,8 +91,8 @@ NT2_TEST_CASE_TPL ( secant_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(vT)>::type r_t;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(T)>::type sr_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(vT)>::type r_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
@@ -105,11 +105,11 @@ NT2_TEST_CASE_TPL ( secant_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = secant<nt2::medium>(a0);
+        r_t v = secant<nt2::medium_>(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::secant<nt2::medium> (a0[i])), 1.0);
+
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::secant<nt2::medium_> (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }
@@ -121,7 +121,7 @@ NT2_TEST_CASE_TPL ( secant_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::secant;
   using nt2::tag::secant_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -130,8 +130,8 @@ NT2_TEST_CASE_TPL ( secant_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(vT)>::type r_t;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(T)>::type sr_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(vT)>::type r_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
@@ -144,11 +144,11 @@ NT2_TEST_CASE_TPL ( secant_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = secant<nt2::medium>(a0);
+        r_t v = secant<nt2::medium_>(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
-          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::secant<nt2::medium> (a0[i])), 1.0);
+
+          NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::secant<nt2::medium_> (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }
       }

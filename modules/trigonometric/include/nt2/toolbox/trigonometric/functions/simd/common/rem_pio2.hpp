@@ -74,63 +74,63 @@ namespace nt2 { namespace ext
       return load<result_type>(&tmp[0], 0);
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_pio2_, tag::cpu_,
                              (A0)(A1)(X),
                              ((simd_ <floating_<A0>,X  > ))
                              ((simd_ <floating_<A0>,X  > ))
                              ((simd_ <floating_<A0>,X  > ))
-                             ((target_ <unspecified_<A1> >))                          
+                             ((target_ <unspecified_<A1> >))
                  )
   {
     typedef typename meta::as_integer<A0>::type result_type;
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc, A1 const&) const
     {
       typedef typename A1::type selector;
-      return rempio2<selector, void>::rem(a0, xr, xc); 
+      return rempio2<selector, void>::rem(a0, xr, xc);
     }
   private:
     template < class T, class dummy = void> struct rempio2
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        BOOST_ASSERT_MSG(false, "wrong target for rem_pio2"); 
+        BOOST_ASSERT_MSG(false, "wrong target for rem_pio2");
         return Zero<result_type>();
       }
     };
-    template < class dummy> struct rempio2 < big, dummy>
+
+    template < class dummy> struct rempio2 < big_, dummy>
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        //        std::cout << "big" << std::endl; 
         return nt2::rem_pio2(x, xr, xc);
       }
-    }; 
-    template < class dummy> struct rempio2 < verysmall, dummy >
+    };
+
+    template < class dummy> struct rempio2 < very_small_, dummy >
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        //        std::cout << "verysmall" << std::endl; 
         return nt2::rem_pio2_straight(x, xr, xc);
       }
-    }; 
+    };
+
     template < class dummy> struct rempio2 < small_, dummy >
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        //        std::cout << "small" << std::endl; 
         return nt2::rem_pio2_cephes(x, xr, xc);
       }
-    }; 
-    template < class dummy> struct rempio2 < medium, dummy >
+    };
+
+    template < class dummy> struct rempio2 < medium_, dummy >
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        //        std::cout << "medium" << std::endl; 
         return nt2::rem_pio2_medium(x, xr, xc);
       }
-    }; 
-  }; 
-  
+    };
+  };
+
 } }
 #endif
