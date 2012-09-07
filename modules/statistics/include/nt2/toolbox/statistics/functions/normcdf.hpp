@@ -82,7 +82,7 @@ namespace nt2 { namespace tag
 
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::normcdf_,Domain,N,Expr>
