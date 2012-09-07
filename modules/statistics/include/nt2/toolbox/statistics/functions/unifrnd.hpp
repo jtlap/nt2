@@ -11,10 +11,9 @@
 **/
 #ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_UNIFRND_HPP_INCLUDED
 #define NT2_TOOLBOX_STATISTICS_FUNCTIONS_UNIFRND_HPP_INCLUDED
+
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/details/generative.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 #include <nt2/include/functor.hpp>
@@ -32,12 +31,12 @@
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/unifrnd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -51,9 +50,9 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag unifrnd_ of functor unifrnd 
+     * \brief Define the tag unifrnd_ of functor unifrnd
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct unifrnd_ : ext::unspecified_<unifrnd_> { typedef ext::unspecified_<unifrnd_> parent; };
