@@ -96,11 +96,17 @@ namespace nt2 { namespace container
     typedef typename meta::size_type_<Result>::type         size_type;
 
     typedef typename meta::settings_of<Result>::type        settings_type;
+    typedef typename meta::option< settings_type
+                                 , nt2::tag::index_
+                                 >::type                    index_type;
+    typedef typename meta::option< settings_type
+                                , nt2::tag::storage_order_
+                                >::type                     storage_order_type;
 
-    typedef typename meta::
-            option<settings_type,tag::index_>::type         index_type;
-    typedef typename meta::
-            option<settings_type,tag::storage_order_>::type storage_order_type;
+    //==========================================================================
+    // Make the expression MPL-compatible
+    //==========================================================================
+    typedef boost::fusion::fusion_sequence_tag tag;
 
     //==========================================================================
     // Compute storage type for size

@@ -54,7 +54,20 @@ namespace boost { namespace dispatch { namespace meta
    *
    * @metafunction
    */
-  template<class T> struct as_
+  template<class T>
+  struct as_
+  {
+    typedef T type;
+  };
+
+  template<class T>
+  struct target_value
+  {
+    typedef T type;
+  };
+
+  template<class T>
+  struct target_value< as_<T> >
   {
     typedef T type;
   };
