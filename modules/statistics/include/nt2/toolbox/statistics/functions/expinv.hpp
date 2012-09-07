@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
   struct  size_of<tag::expinv_,Domain,N,Expr>
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,0>
-                      ::value_type seq_term0::extent_type           ext0_t;
+                      ::value_type::extent_type                     ext0_t;
     typedef typename  boost::proto::result_of::child_c<Expr&,1>
                       ::value_type::extent_type                     ext1_t;
 
