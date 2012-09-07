@@ -18,6 +18,7 @@
 #include <boost/fusion/include/as_vector.hpp>
 #include <boost/mpl/push_back.hpp>
 #include <boost/mpl/placeholders.hpp>
+#include <boost/mpl/and.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/bool.hpp>
 
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
                   >
               >
             , nt2::box<
-                  nt2::details::unity_colon<T>
+                  nt2::meta::constant_<nt2::tag::unity_colon_, T>
               >
             , nt2::container::expression<
                   boost::proto::basic_expr<
@@ -62,12 +63,14 @@ namespace nt2 { namespace ext
       >
     , nt2::memory::container<
           T
-        , nt2::of_size_<
-              1l
-            , N
-            , 1l
-            , 1l
-          >
+        , nt2::settings(
+            nt2::of_size_<
+                1l
+              , N
+              , 1l
+              , 1l
+            >
+          )
       >
     >
   , Cardinal
