@@ -34,22 +34,23 @@
 
 namespace boost{ namespace simd{ namespace memory{
   
-  enum{integer_L1, real_L2_L3, not_frequently_reused, not_reused};
+  enum{integer_L1 = 3, real_L2_L3 = 2, not_frequently_reused = 1, not_reused = 0};
   
-  void prefetch(void const* pointer, int const& strategy)
+  template<int Strategy>
+  void prefetch(void const* pointer)
   {
 #ifdef BOOST_SIMD_ARCH_X86
     #ifdef __GNUC__
       __builtin_prefetch(pointer, 0, 0);
     #elif defined( BOOST_SIMD_HAS_SSE_SUPPORT )
-      _mm_prefetch( static_cast<char const *>(pointer), strategy);
+      _mm_prefetch( static_cast<char const *>(pointer), Strategy);
     #endif
 #endif
   }
 
   void prefetch_temporary(void const* pointer)
   {
-    prefetch(pointer, not_reused);
+    prefetch<not_reused>(pointer);
   }
   
 } } } 

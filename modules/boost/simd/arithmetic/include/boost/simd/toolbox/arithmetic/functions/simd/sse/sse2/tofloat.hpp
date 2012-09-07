@@ -10,18 +10,12 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/simd/sdk/meta/size.hpp>
-#include <boost/simd/sdk/meta/make_dependent.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
-#include <boost/simd/include/constants/properties.hpp>
-#include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/maximum.hpp>
-#include <boost/simd/include/functions/simd/is_gez.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
-#include <boost/simd/toolbox/arithmetic/functions/simd/common/tofloat.hpp>
+#include <boost/simd/include/constants/valmax.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

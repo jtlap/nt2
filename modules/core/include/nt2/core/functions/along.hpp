@@ -9,14 +9,15 @@
 #ifndef NT2_CORE_FUNCTIONS_ALONG_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_ALONG_HPP_INCLUDED
 
+#include <nt2/include/functor.hpp>
+
 /*!
  * \ingroup core
  * \defgroup core along
  *
  * \par Description
- * Returns the alongplane of index ind  along the selected direction,
- * i.e. the 1-norm along(a0, n))
- * by default n is the first non-singleton dimension of a0
+ * Applies an index \c ind on \c expr along the \c i-th dimension
+ * by default \c i is the first non-singleton dimension of expr
  *
  * \par Header file
  * 
@@ -31,18 +32,19 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::along_(A0)>::type
- *     along(const A0 & a0);
+ *   typename meta::call<tag::along_(A0)>::type
+ *   along(A0& expr, A1 const& ind, A2 const& i);
  * }
  * \endcode
  *
- * \param a0 the unique parameter of along
+ * \param expr the expression to index
+ * \param ind the indexer
+ * \param i the dimension on which to index
  * 
- * \return always a scalar value
+ * \return expr(_, ..., ind, ..., _) with \c ind at the \c i-th argument
  *  
  *  
 **/
-
 
 namespace nt2
 {
@@ -53,60 +55,10 @@ namespace nt2
       typedef ext::elementwise_<along_> parent;
     };
   }
+
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::along_       , along, 2)
+  NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::along_  , along, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::along_       , along, 3)
+  NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::along_  , along, 3)
 }
-
-// namespace nt2 { namespace container { namespace ext
-// {
-//   template<class Domain, class Expr,  int N>
-//   struct size_of<tag::along_, Domain, N, Expr>
-//   {
-//     typedef typename boost::proto::result_of::child_c<Expr&, 1>::value_type child1;
-//     typedef typename child1::extent_type                               result_type; 
-
-//     result_type operator()(Expr& e) const
-//     {
-//       return boost::proto::child_c<1>(e).extent();
-//     }
-//   };
-
-//  template <class Domain, class Expr,  int N>
-//  struct value_type < tag::along_, Domain,N,Expr> {
-//    typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type  child1;
-//    typedef typename nt2::meta::scalar_of<child1>::type                    elt_type;
-//    typedef typename nt2::meta::strip<elt_type>::type                          type;
-//  };
-
-  namespace nt2 { namespace container { namespace ext
-{
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::along_,Domain,6,Expr>
-        : boxed_size_of<Expr,5>
-  {};
-
-  template<class Domain, int N, class Expr>
-  struct  generator<nt2::tag::along_,Domain,N,Expr>
-  {
-    // We behave as our child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type  c_sema_t;
-    typedef typename boost::dispatch::meta::semantic_of<c_sema_t>::type sema_t;
-
-    // .. except we have a special size
-    typedef typename boxed_size_of<Expr, 5>::result_type               sizes_t;
-
-    // Rebuild proper expression type with semantic using the new size
-    // and revoking any shape settings
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , typename meta::
-                        add_settings< sema_t
-                                    , settings(rectangular_,sizes_t)
-                                    >::type
-                      >                                             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
-} } }
 #endif

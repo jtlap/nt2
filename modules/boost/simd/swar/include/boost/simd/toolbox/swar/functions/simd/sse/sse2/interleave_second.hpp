@@ -10,6 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_INTERLEAVE_SECOND_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
+#include <boost/simd/toolbox/swar/functions/interleave_second.hpp>
+
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
@@ -21,7 +23,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    result_type operator()(__m128 const a0, __m128 const a1) const
     {
       return _mm_unpackhi_ps(a0,a1);
     }
@@ -36,7 +38,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const& a0, A1 const& a1) const
+    result_type operator()(__m128d const a0, __m128d const a1) const
     {
       return _mm_unpackhi_pd(a0,a1);
     }

@@ -32,13 +32,18 @@ macro(nt2_pch name)
       file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${pch_base_} "#include <${name}>\n")
       set_source_files_properties(${CMAKE_CURRENT_BINARY_DIR}/${pch_base_} PROPERTIES LANGUAGE CXX)
 
+      set(object_suffix .o)
+      if(WIN32)
+        set(object_suffix .obj)
+      endif()
+
       add_library(${rule_}.pch STATIC ${CMAKE_CURRENT_BINARY_DIR}/${pch_base_})
       set_target_properties(${rule_}.pch PROPERTIES COMPILE_FLAGS "${CMAKE_CXX_FLAGS_${BUILD_TYPE_U}} -x c++-header")
       add_custom_command(TARGET ${rule_}.pch POST_BUILD
-                         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${rule_}.pch.dir/${pch_base_}.o
+                         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${rule_}.pch.dir/${pch_base_}${object_suffix}
                                                           ${CMAKE_CURRENT_BINARY_DIR}/${pch_base_}.gch
-                         COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${rule_}.pch.dir/${pch_base_}.o
-                         COMMAND ${CMAKE_COMMAND} -E touch  ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${rule_}.pch.dir/${pch_base_}.o
+                         COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${rule_}.pch.dir/${pch_base_}${object_suffix}
+                         COMMAND ${CMAKE_COMMAND} -E touch  ${CMAKE_CURRENT_BINARY_DIR}/CMakeFiles/${rule_}.pch.dir/${pch_base_}${object_suffix}
                          COMMAND ${CMAKE_COMMAND} -E remove ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}${rule_}.pch${CMAKE_STATIC_LIBRARY_SUFFIX}
                          COMMAND ${CMAKE_COMMAND} -E touch  ${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}${rule_}.pch${CMAKE_STATIC_LIBRARY_SUFFIX}
                         )
