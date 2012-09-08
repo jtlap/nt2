@@ -10,6 +10,7 @@
 SET( SOURCES
      as_index.cpp
      as_subscript.cpp
+     of_size_max.cpp
    )
 
 include(CheckCXXCompilerFlag)
