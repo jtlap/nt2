@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
   using nt2::tag::sinecosine_;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<sinecosine_<nt2::medium>(T)>::type r_t;
+  typedef typename nt2::meta::call<sinecosine_<nt2::medium_>(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<ftype,ftype> wished_r_t;
@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_REAL_TYPES)
         std::cout << "for param "
                   << "  a0 = "<< u_t(a0 = tab_a0[j])
                   << std::endl;
-        r_t r = nt2::sinecosine<nt2::medium>(a0);
+        r_t r = nt2::sinecosine<nt2::medium_>(a0);
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
         typedef typename nt2::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
         r_t0 r0 = boost::fusion::get<0>(r);

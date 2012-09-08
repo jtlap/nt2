@@ -55,8 +55,8 @@ NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<sinecosine_<nt2::medium>(vT)>::type r_t;
-  typedef typename nt2::meta::call<sinecosine_<nt2::medium>(T)>::type sr_t;
+  typedef typename nt2::meta::call<sinecosine_<nt2::medium_>(vT)>::type r_t;
+  typedef typename nt2::meta::call<sinecosine_<nt2::medium_>(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
@@ -70,11 +70,11 @@ NT2_TEST_CASE_TPL ( sinecosine_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t r = nt2::sinecosine<nt2::medium>(a0);
+        r_t r = nt2::sinecosine<nt2::medium_>(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
 
-          sr_t sr =  nt2::sinecosine<nt2::medium>(a0[i]);
+          sr_t sr =  nt2::sinecosine<nt2::medium_>(a0[i]);
           NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(r)[i],
                                     boost::fusion::get<0>(sr), 1.5);
           ulp0 = nt2::max(ulpd,ulp0);

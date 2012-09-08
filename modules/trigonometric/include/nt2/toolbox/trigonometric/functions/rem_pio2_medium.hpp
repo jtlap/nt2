@@ -22,7 +22,7 @@
  * compute the remainder modulo \f$\pi/2\f$ with cephes algorthm.
  * \par
  * This function is mainly for internal reduction purposes
- * This is a medium version version accurate if the input is in:
+ * This is a medium_ version version accurate if the input is in:
  * \arg \f$[-2^6\pi,2^6\pi\f$ for float,
  * \arg \f$[-2^18\pi,2^18\pi\f$ for double.
  * \par
@@ -31,15 +31,15 @@
  * The accurate algorithm is over costly and implies the knowledge
  * of a few hundred \f$pi\f$ decimals
  * some simpler algorithms as this one
- * can be used, but the precision is only insured on small intervals.
+ * can be used, but the precision is only insured on small_ intervals.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rem_pio2_medium.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -52,19 +52,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of rem_pio2_medium
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rem_pio2_medium_ of functor rem_pio2_medium 
+     * \brief Define the tag rem_pio2_medium_ of functor rem_pio2_medium
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct rem_pio2_medium_ : ext::elementwise_<rem_pio2_medium_> { typedef ext::elementwise_<rem_pio2_medium_> parent; };

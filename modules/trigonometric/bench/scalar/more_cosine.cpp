@@ -38,59 +38,59 @@ namespace nnn1 {
 }
 namespace nnn01 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::clipped_pio4>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(cosine_<nt2::clipped_pio4_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nnn1 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::clipped_pio4>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::clipped_pio4_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nn01 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::clipped_small>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(cosine_<nt2::clipped_small_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nn1 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::clipped_small>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::clipped_small_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n01 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::small>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(cosine_<nt2::small_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace n1 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::small>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::small_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n011 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::direct_small>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(cosine_<nt2::direct_small_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace n11 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::direct_small>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::direct_small_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nn011 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::medium>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(cosine_<nt2::medium_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nn11 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::medium>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::medium_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nn0 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::direct_medium>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(cosine_<nt2::direct_medium_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nn1 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::direct_medium>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::direct_medium_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace nn0111 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::clipped_medium>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(cosine_<nt2::clipped_medium_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace nn111 {
   typedef float T;
-  NT2_TIMING(cosine_<nt2::clipped_medium>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosine_<nt2::clipped_medium_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 
 

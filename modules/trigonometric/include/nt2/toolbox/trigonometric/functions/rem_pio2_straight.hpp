@@ -29,15 +29,15 @@
  * The accurate algorithm is over costly and implies the knowledge
  * of a few hundred \f$pi\f$ decimals
  * some simpler algorithms as this one
- * can be used, but the precision is only insured on small intervals.
+ * can be used, but the precision is only insured on small_ intervals.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rem_pio2_straight.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -50,19 +50,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of rem_pio2_straight
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rem_pio2_straight_ of functor rem_pio2_straight 
+     * \brief Define the tag rem_pio2_straight_ of functor rem_pio2_straight
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct rem_pio2_straight_ : ext::elementwise_<rem_pio2_straight_> { typedef ext::elementwise_<rem_pio2_straight_> parent; };
