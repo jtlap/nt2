@@ -6,24 +6,24 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMAINC_HPP_INCLUDED
-#define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMAINC_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMAINCINV_HPP_INCLUDED
+#define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMAINCINV_HPP_INCLUDED
 
-#include <nt2/toolbox/euler/functions/gammainc.hpp>
-#include <nt2/toolbox/boost_math/functions/gamma_p.hpp>
+#include <nt2/toolbox/euler/functions/gammaincinv.hpp>
+#include <nt2/toolbox/boost_math/functions/gamma_p_inv.hpp>
 #include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/scalar/is_ngtz.hpp>
-#include <nt2/include/functions/scalar/is_ngez.hpp>
-#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/functions/scalar/is_equal.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/one.hpp>
 
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type is arithmetic_ gammainc(x, a)
+// Implementation when type is arithmetic_
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gammainc_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gammaincinv_, tag::cpu_
                               , (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< arithmetic_<A1> >)
@@ -34,12 +34,12 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::gammainc(nt2::tofloat(a0), nt2::tofloat(a1));
+      return nt2::gammaincinv(nt2::tofloat(a0), nt2::tofloat(a1));
     }
   };
 
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gammainc_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gammaincinv_, tag::cpu_
                               , (A0)(A1)
                             , (scalar_< floating_<A0> >)
                               (scalar_< floating_<A1> >)
@@ -50,8 +50,8 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(const A0& x, const A1& a) const
     {
-      //     if(is_ngtz(x)||is_ngez(a)) return Nan<result_type>(); 
-      return boost_math::gamma_p(a, x); 
+      if(eq(x, One<A0>())) return Inf<A0>(); 
+      return boost_math::gamma_p_inv(a, x); 
     }
   };
 } }

@@ -20,6 +20,7 @@ SET( SOURCES
   gamma.cpp
   gammainc.cpp
   dgammainc.cpp 
+  gammaincinv.cpp
   beta.cpp
   expni.cpp
   erf.cpp

@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 euler toolbox - gammainc/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 euler toolbox - gammaincinv/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
 /// 
-#include <nt2/toolbox/euler/include/functions/gammainc.hpp>
+#include <nt2/toolbox/euler/include/functions/gammaincinv.hpp>
 #include <nt2/include/functions/ulpdist.hpp> 
 #include <nt2/include/functions/exp.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -32,13 +32,13 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/include/constants/invexp_1.hpp>
 
-NT2_TEST_CASE_TPL ( gammainc_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( gammaincinv_real__1_0,  NT2_REAL_TYPES)
 {
   
-  using nt2::gammainc;
-  using nt2::tag::gammainc_;
+  using nt2::gammaincinv;
+  using nt2::tag::gammaincinv_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<gammainc_(T, T)>::type r_t;
+  typedef typename nt2::meta::call<gammaincinv_(T, T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
@@ -49,9 +49,9 @@ NT2_TEST_CASE_TPL ( gammainc_real__1_0,  NT2_REAL_TYPES)
   std::cout << std::endl; 
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(gammainc(nt2::Inf<T>()  ,  nt2::One<T>()), nt2::One<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(gammainc(nt2::Mzero<T>(),  nt2::One<T>()), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(gammainc(nt2::Nan<T>()  ,  nt2::One<T>()), nt2::Nan<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(gammainc(nt2::One<T>()  ,  nt2::One<T>()), nt2::One<r_t>()-nt2::Invexp_1<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(gammainc(nt2::Zero<T>() ,  nt2::One<T>()), nt2::Zero<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(gammaincinv(nt2::One<r_t>()                     ,  nt2::One<T>()), nt2::Inf<T>()  , 0);
+  NT2_TEST_ULP_EQUAL(gammaincinv(nt2::Zero<r_t>()                    ,  nt2::One<T>()), nt2::Mzero<T>(), 0);
+  NT2_TEST_ULP_EQUAL(gammaincinv(nt2::Nan<r_t>()                     ,  nt2::One<T>()), nt2::Nan<T>()  , 0);
+  NT2_TEST_ULP_EQUAL(gammaincinv(nt2::One<r_t>()-nt2::Invexp_1<r_t>(),  nt2::One<T>()), nt2::One<T>()  , 0);
+  NT2_TEST_ULP_EQUAL(gammaincinv(nt2::Zero<r_t>()                    ,  nt2::One<T>()), nt2::Zero<T>() , 0);
 } // end of test for floating_

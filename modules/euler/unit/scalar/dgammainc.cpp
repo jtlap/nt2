@@ -50,8 +50,8 @@ NT2_TEST_CASE_TPL ( dgammainc_real__1_0,  NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(dgammainc( nt2::One<T>(), nt2::Inf<T>()  ), nt2::Zero<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(dgammainc( nt2::One<T>(), nt2::Mzero<T>()), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(dgammainc( nt2::One<T>(), nt2::Mzero<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(dgammainc( nt2::One<T>(), nt2::Nan<T>()  ), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(dgammainc( nt2::One<T>(), nt2::One<T>()  ), nt2::Invexp_1<r_t>(), 0);
-  NT2_TEST_ULP_EQUAL(dgammainc( nt2::One<T>(), nt2::Zero<T>() ), nt2::One<r_t>(), 0);
+  NT2_TEST_ULP_EQUAL(dgammainc( nt2::One<T>(), nt2::Zero<T>() ), nt2::Nan<r_t>(), 0);
 } // end of test for floating_
