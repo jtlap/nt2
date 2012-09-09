@@ -1,37 +1,35 @@
-
-################################################################################
+##############################################################################
 ###   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
 ###   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
 ###
 ###          Distributed under the Boost Software License, Version 1.0
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
-################################################################################
+##############################################################################
 
 SET( SOURCES
-  tanh.cpp
-  tan.cpp
-  sqrt.cpp
-  sinh.cpp
   sin.cpp
-  pow.cpp
+  acos.cpp
   log10.cpp
-  log.cpp
+  cosh.cpp
+  tan.cpp
+  exp.cpp
+  sinh.cpp
+  abs.cpp
+  atan2.cpp
   frexp.cpp
+  ceil.cpp
+  sqrt.cpp
   fmod.cpp
+  tanh.cpp
+  pow.cpp
+  atan.cpp
   floor.cpp
   fabs.cpp
-  exp.cpp
-  cosh.cpp
+  log.cpp
   cos.cpp
-  ceil.cpp
-  atan2.cpp
-  atan.cpp
   asin.cpp
-  acos.cpp
-  abs.cpp
-# List of scalar test files for toolbox libc
+# List of simd test files for toolbox libc
    )
 
-nt2_module_add_tests(libc.scalar.cover ${SOURCES})
-
+nt2_module_add_tests(extern.libc.simd.bench ${SOURCES})

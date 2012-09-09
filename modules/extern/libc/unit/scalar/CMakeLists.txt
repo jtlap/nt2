@@ -32,4 +32,4 @@ SET( SOURCES
 # List of scalar test files for toolbox libc
    )
 
-nt2_module_add_tests(libc.scalar.bench ${SOURCES})
+nt2_module_add_tests(extern.libc.scalar.unit ${SOURCES})

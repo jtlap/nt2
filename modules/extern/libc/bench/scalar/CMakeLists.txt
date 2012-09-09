@@ -29,7 +29,7 @@ SET( SOURCES
   log.cpp
   cos.cpp
   asin.cpp
-# List of simd test files for toolbox libc
+# List of scalar test files for toolbox libc
    )
 
-nt2_module_add_tests(libc.simd.bench ${SOURCES})
+nt2_module_add_tests(extern.libc.scalar.bench ${SOURCES})

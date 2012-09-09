@@ -8,5 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(libc)
+nt2_module_source_setup(extern.libc)
 nt2_module_configure_toolbox(libc 0)
