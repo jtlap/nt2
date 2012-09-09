@@ -16,9 +16,11 @@
 #include <nt2/core/settings/normalize.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/specific_data.hpp>
+#include <nt2/sdk/memory/composite_buffer.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/core/container/table/semantic.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <boost/mpl/at.hpp>
 
@@ -57,7 +59,15 @@ namespace nt2 { namespace memory
                                   , tag::storage_scheme_
                                   >::type                       scheme_t;
     typedef typename scheme_t::template apply<T,settings_type>  scheme_type;
-    typedef typename scheme_type::type                          buffer_t;
+    typedef typename scheme_type::type                          base_buffer_t;
+
+    //========================================================================
+    // If T is a composite, adapt our buffer accordingly
+    //========================================================================
+    typedef typename boost::mpl::if_< boost::fusion::traits::is_sequence<T>
+                                    , composite_buffer<base_buffer_t>
+                                    , base_buffer_t
+                                    >::type                           buffer_t;
 
     //==========================================================================
     // Container interface
