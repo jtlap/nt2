@@ -321,6 +321,7 @@ function(nt2_module_add_exe name)
 
   if(NT2_PCH_TARGET)
     add_dependencies(${name} ${NT2_PCH_TARGET}_${build_type}.pch)
+    add_dependencies(${name} ${NT2_PCH_FILE}})
   endif()
 
   nt2_module_target_parent(${name})
@@ -340,6 +341,7 @@ macro(nt2_module_add_example name)
 
   if(NT2_PCH_TARGET)
     add_dependencies(${name} ${NT2_PCH_TARGET}_${build_type}.pch)
+    add_dependencies(${name} ${NT2_PCH_FILE}})
   endif()
 
   string(REGEX REPLACE "[^.]+\\.sample$" "examples" suite ${name})
