@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_EXTERN.BOOST_MATH_DEPENDENCIES_EXTRA operator)
+SET( NT2_EXTERN.BOOST_MATH_DEPENDENCIES_EXTRA operator )
