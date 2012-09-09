@@ -8,5 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(standard)
+nt2_module_source_setup(extent.standard)
 nt2_module_configure_toolbox(standard 0)

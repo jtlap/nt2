@@ -8,7 +8,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit predicates standard)
+nt2_module_use_modules(unit predicates extern.standard)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

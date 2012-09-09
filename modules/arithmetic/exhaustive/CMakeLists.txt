@@ -17,6 +17,6 @@ ADD_DEPENDENCIES(arithmetic.exhaustive arithmetic.scalar.exhaustive arithmetic.s
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
-nt2_module_use_modules(unit standard extern.libc crlibm)
+nt2_module_use_modules(unit extern.standard extern.libc crlibm)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

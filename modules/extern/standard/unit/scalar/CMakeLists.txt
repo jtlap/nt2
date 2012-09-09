@@ -32,4 +32,4 @@ SET( SOURCES
 # List of scalar test files for toolbox standard
    )
 
-nt2_module_add_tests(standard.scalar.bench ${SOURCES})
+nt2_module_add_tests(extern.standard.scalar.unit ${SOURCES})

@@ -8,7 +8,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit predicates arithmetic cephes extern.libc crlibm standard)
+nt2_module_use_modules(unit predicates arithmetic cephes extern.libc crlibm extern.standard)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 
