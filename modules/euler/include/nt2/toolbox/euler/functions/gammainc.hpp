@@ -56,6 +56,8 @@ namespace nt2 { namespace tag
     struct gammainc_ : ext::elementwise_<gammainc_> { typedef ext::elementwise_<gammainc_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::gammainc_, gammainc, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::gammainc_, gammainc, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::gammainc_, gammainc, 4)
 }
 
 #endif

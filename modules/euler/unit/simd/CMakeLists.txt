@@ -18,6 +18,7 @@ SET( SOURCES
   signgam.cpp
   gammaln.cpp
   gamma.cpp
+  gammainc.cpp
   beta.cpp
   expni.cpp
   erf.cpp

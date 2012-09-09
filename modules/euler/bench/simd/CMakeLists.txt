@@ -19,6 +19,7 @@ SET( SOURCES
   signgam.cpp
   gammaln.cpp
   gamma.cpp
+  gammainc.cpp      
   beta.cpp
   expni.cpp
 # List of simd test files for toolbox euler
