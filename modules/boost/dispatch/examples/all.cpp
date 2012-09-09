@@ -8,7 +8,7 @@ using namespace boost::mpl;
 
 int main()
 {
-  BOOST_MPL_ASSERT    (( boost::dispatch::meta::all<is_same<_,bool>, vector<bool,bool>  > ));
+  BOOST_MPL_ASSERT    (( boost::dispatch::meta::all_seq<is_same<_,bool>, vector<bool,bool>  > ));
   BOOST_MPL_ASSERT    (( boost::dispatch::meta::all<is_same<_,bool>, bool,bool          > ));
   BOOST_MPL_ASSERT_NOT(( boost::dispatch::meta::all<is_same<_,bool>, vector<int,bool>   > ));
   BOOST_MPL_ASSERT_NOT(( boost::dispatch::meta::all<is_same<_,bool>, bool,float         > ));
