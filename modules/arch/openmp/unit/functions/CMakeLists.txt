@@ -27,4 +27,4 @@ SET( SOURCES
 # List of test files for toolbox core.settings
    )
 
-nt2_module_add_tests(openmp.functions.unit ${SOURCES})
+nt2_module_add_tests(arch.openmp.functions.unit ${SOURCES})
