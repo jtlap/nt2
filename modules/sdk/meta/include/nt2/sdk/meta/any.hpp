@@ -14,6 +14,7 @@
 namespace nt2 { namespace meta
 {
   using boost::dispatch::meta::any;
+  using boost::dispatch::meta::any_seq;
 } }
 
 #endif
