@@ -11,17 +11,13 @@
 
 #include <nt2/core/functions/isulpequal.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/havesamesize.hpp>
-#include <nt2/include/functions/all.hpp>
-#include <nt2/include/functions/is_equal.hpp>
-#include <nt2/include/functions/logical_and.hpp>
-#include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/globalall.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/sx.hpp>
+#include <nt2/include/functions/first_index.hpp>
 
 namespace nt2 { namespace ext
 {
