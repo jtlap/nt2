@@ -7,12 +7,12 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_CEPHES_DEPENDENCIES_EXTRA constant predicates)
+SET(NT2_EXTERN.CEPHES_DEPENDENCIES_EXTRA constant predicates)
 
-SET ( NT2_CEPHES_LIBRARIES  optimized nt2_cephesf
-                            debug nt2_cephesf_d
-                            optimized nt2_cephesd
-                            debug nt2_cephesd_d
-                            optimized nt2_cephesl
-                            debug nt2_cephesl_d
+SET ( NT2_EXTERN.CEPHES_LIBRARIES  optimized nt2_cephesf
+                                   debug nt2_cephesf_d
+                                   optimized nt2_cephesd
+                                   debug nt2_cephesd_d
+                                   optimized nt2_cephesl
+                                   debug nt2_cephesl_d
     )
