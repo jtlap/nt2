@@ -14,7 +14,9 @@
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/scalar/is_ngtz.hpp>
 #include <nt2/include/functions/scalar/is_ngez.hpp>
-#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/constants/one.hpp>
+
 
 
 
@@ -50,7 +52,8 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(const A0& x, const A1& a) const
     {
-      //     if(is_ngtz(x)||is_ngez(a)) return Nan<result_type>(); 
+      //     if(is_ngtz(x)||is_ngez(a)) return Nan<result_type>();
+      if (nt2::is_eqz(a)) return One<result_type>(); 
       return boost_math::gamma_p(a, x); 
     }
   };
