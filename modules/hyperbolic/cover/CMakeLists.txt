@@ -8,7 +8,10 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit predicates arithmetic exponential cephes extern.libc extern.boost_math)
+nt2_module_use_modules( unit predicates arithmetic exponential
+                        extern.cephes extern.libc extern.boost_math
+                      )
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 
