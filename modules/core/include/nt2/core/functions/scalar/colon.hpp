@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
     static const std::size_t sz = (A1::value>=A0::value)
                                 ? std::size_t(A1::value-A0::value+1) : 0u;
 
-    typedef typename boost::common_type<A0,A1>::type base_t;
+    typedef typename boost::common_type<typename A0::value_type, typename A1::value_type>::type base_t;
     typedef meta::constant_<nt2::tag::unity_colon_,base_t> constant_t;
 
     typedef typename  boost::proto::
