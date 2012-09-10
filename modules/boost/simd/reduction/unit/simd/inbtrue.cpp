@@ -15,6 +15,7 @@
 ///
 #include <boost/simd/toolbox/reduction/include/functions/inbtrue.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/enumerate.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -74,4 +75,5 @@ NT2_TEST_CASE_TPL ( inbtrue_integer,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(inbtrue(boost::simd::Mone<vT>()), cardinal_of<vT>::value);
   NT2_TEST_EQUAL(inbtrue(boost::simd::One<vT>()) , cardinal_of<vT>::value);
   NT2_TEST_EQUAL(inbtrue(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(inbtrue(boost::simd::enumerate<vT>(0)), cardinal_of<vT>::value-1);
 }
