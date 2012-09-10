@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(unary_sequence)
 {
-  using nt2::meta::all;
+  using nt2::meta::all_seq;
   using boost::is_same;
   using boost::mpl::_1;
   using boost::mpl::vector;
