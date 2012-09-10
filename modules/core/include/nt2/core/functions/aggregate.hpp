@@ -76,12 +76,15 @@ namespace nt2
 
 namespace nt2 { namespace ext
 {
+  // INTERNAL ONLY
+  struct aggregate_value_ {};
+
   /// INTERNAL ONLY
-  /// Aggregate value type is irrellevant, we just use a placeholder type.
+  /// Aggregate value type is irrelevant, we just use a placeholder type.
   template<class Domain, int N, class Expr>
   struct value_type<nt2::tag::aggregate_,Domain,N,Expr>
   {
-    typedef struct aggregate_value_ {} type;
+    typedef aggregate_value_ type;
   };
 
   /// INTERNAL ONLY
