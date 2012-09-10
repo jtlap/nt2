@@ -12,7 +12,6 @@
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/tofloat.hpp>
 #include <nt2/include/functions/simd/is_greater.hpp>
-#include <nt2/include/functions/simd/repif.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/sqrt.hpp>
 #include <nt2/include/functions/simd/fma.hpp>
