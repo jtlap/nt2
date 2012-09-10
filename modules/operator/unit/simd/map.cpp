@@ -6,50 +6,62 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - map/simd Mode"
+#define NT2_UNIT_MODULE "nt2 operator toolbox - map/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in simd mode
+// unit test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/operator/include/functions/map.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/unary_plus.hpp>
+#include <nt2/include/functions/plus.hpp>
+#include <nt2/include/functions/if_else.hpp>
 
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/functions/load.hpp>
-//COMMENTED
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
 
-NT2_TEST_CASE_TPL ( map_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( map_integer__2_0,  BOOST_SIMD_SIMD_TYPES)
 {
-//   using nt2::map;
-//   using nt2::tag::map_;
-//   using nt2::load; 
-//   using boost::simd::native;
-//   using nt2::meta::cardinal_of;
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename nt2::meta::upgrade<T>::type   u_t;
-//   typedef native<T,ext_t>                        n_t;
-//   typedef n_t                                     vT;
-//   typedef typename nt2::meta::as_integer<T>::type iT;
-//   typedef native<iT,ext_t>                       ivT;
-//   typedef typename nt2::meta::call<map_(vT,vT)>::type r_t;
-//   typedef typename nt2::meta::call<map_(T,T)>::type sr_t;
-//   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-//   double ulpd;
-//   ulpd=0.0;
+  using nt2::map;
+  using boost::simd::native;
+  using nt2::tag::map_;
+  using nt2::tag::unary_plus_;
+  using nt2::tag::plus_;
+  using nt2::tag::if_else_;
+  typedef boost::dispatch::functor<unary_plus_> uni_f;
+  typedef boost::dispatch::functor<plus_> bin_f;
+  typedef boost::dispatch::functor<if_else_> tri_f;
 
+  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> nT;
 
-//   // specific values tests
-//   NT2_TEST_EQUAL(map(nt2::Inf<vT>(), nt2::Inf<vT>())[0], nt2::Inf<sr_t>());
-//   NT2_TEST_EQUAL(map(nt2::Minf<vT>(), nt2::Minf<vT>())[0], nt2::Minf<sr_t>());
-//   NT2_TEST_EQUAL(map(nt2::Nan<vT>(), nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
-//   NT2_TEST_EQUAL(map(nt2::One<vT>(),nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
-//   NT2_TEST_EQUAL(map(nt2::Zero<vT>(), nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
- } // end of test for floating_
+  typedef typename boost::dispatch::meta::call<map_(uni_f,nT)>::type ur_t;
+  typedef typename boost::dispatch::meta::call<map_(bin_f,nT,nT)>::type br_t;
+  typedef typename boost::dispatch::meta::call<map_(tri_f,nT,nT,nT)>::type tr_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(ur_t, nT);
+  NT2_TEST_TYPE_IS(br_t, nT);
+  NT2_TEST_TYPE_IS(tr_t, nT);
+
+  // specific values tests
+  NT2_TEST_EQUAL(map(uni_f(),nt2::One<nT>()), nt2::One<ur_t>());
+  NT2_TEST_EQUAL(map(uni_f(),nt2::One<nT>()), nt2::One<ur_t>());
+  NT2_TEST_EQUAL(map(uni_f(),nt2::One<nT>()), nt2::One<ur_t>());
+
+  NT2_TEST_EQUAL(map(bin_f(),nt2::One<nT>(), nt2::One<nT>()), nt2::Two<br_t>());
+  NT2_TEST_EQUAL(map(bin_f(),nt2::One<nT>(), nt2::One<nT>()), nt2::Two<br_t>());
+  NT2_TEST_EQUAL(map(bin_f(),nt2::One<nT>(), nt2::One<nT>()), nt2::Two<br_t>());
+
+  NT2_TEST_EQUAL(map(tri_f(),nt2::Zero<nT>(),nt2::One<nT>(), nt2::Two<nT>()), nt2::Two<br_t>());
+  NT2_TEST_EQUAL(map(tri_f(),nt2::One<nT>(),nt2::One<nT>(), nt2::Two<nT>()), nt2::One<br_t>());
+}
