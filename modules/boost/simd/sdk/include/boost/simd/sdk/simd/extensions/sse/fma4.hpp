@@ -44,8 +44,12 @@
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::avx_
 
 // FMA4 header not standardized
+#ifdef _MSC_VER
+#include <intrin.h>
+#else
 #include <x86intrin.h>
 #include <fma4intrin.h>
+#endif
 
 #include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
 #include <boost/simd/sdk/simd/extensions/meta/avx.hpp>
