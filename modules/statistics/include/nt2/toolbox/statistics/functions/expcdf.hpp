@@ -87,7 +87,7 @@ namespace nt2 { namespace tag
 namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct  size_of<tag::expcdf_,Domain,N,Expr>
+  struct  size_of<tag::expcdf_,Domain,N,Expr> // N =  3 or 4
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,0>
                       ::value_type::extent_type                     ext0_t;

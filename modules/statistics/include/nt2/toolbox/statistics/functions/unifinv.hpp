@@ -19,12 +19,12 @@
  * \defgroup statistics_unif unifinv
  *
  * \par Description
- * uniform cumulative distribution
+ * uniform inverse cumulative distribution
  *
  * All inv (inverse distribution functions  can be called with the syntax
  * r = xxxinv(values, param_1, ...,  param_n)
  * the type of values elements determines the type of the output expression elements.
- * normal has 2 parameters that are the finite bounds (a < b) of the
+ * uniform distribution has 2 parameters that are the finite bounds (a < b) of the
  * underlying distibution interval [a, b].
  * default is a = 0,  b = 1.
  *

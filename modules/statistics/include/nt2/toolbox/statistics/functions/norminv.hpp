@@ -80,16 +80,22 @@ namespace nt2 { namespace tag
 namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct  size_of<tag::norminv_,Domain,N,Expr>
+  struct  size_of<tag::norminv_,Domain,N,Expr> // N =  4 or 5
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,0>
                       ::value_type::extent_type                     ext0_t;
     typedef typename  boost::proto::result_of::child_c<Expr&,1>
                       ::value_type::extent_type                     ext1_t;
+    typedef typename  boost::proto::result_of::child_c<Expr&,1>
+                      ::value_type::extent_type                     ext2_t;
     typedef typename make_size< (ext0_t::static_size > ext1_t::static_size)
                                 ? ext0_t::static_size
                                 : ext1_t::static_size
-                               >::type                             result_type;
+                               >::type                              ext3_t;
+    typedef typename make_size< (ext3_t::static_size > ext2_t::static_size)
+                                ? ext3_t::static_size
+                                : ext2_t::static_size
+                               >::type                         result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {

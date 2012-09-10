@@ -9,8 +9,8 @@
 /*!
  * \file
 **/
-#ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_NORMCDF_HPP_INCLUDED
-#define NT2_TOOLBOX_STATISTICS_FUNCTIONS_NORMCDF_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_GAMINV_HPP_INCLUDED
+#define NT2_TOOLBOX_STATISTICS_FUNCTIONS_GAMINV_HPP_INCLUDED
 
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
@@ -19,36 +19,34 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
-
 /*!
  * \ingroup statistics
- * \defgroup statistics_norm normcdf
+ * \defgroup statistics_gam gaminv
  *
- * All cdf (cumulative distribution functions  can be called with the syntax
- * r = xxxcdf(values, param_1, ...,  param_n)
+ * \par Description
+ * gamal cumulative distribution
+ *
+ * All inv (inverse distribution functions  can be called with the syntax
+ * r = xxxinv(values, param_1, ...,  param_n)
  * the type of values elements determines the type of the output expression elements.
- * normal has 2 parameter: mean value and standard deviation
+ * gamal has 2 parameter: mean value and standard deviation
  * default are 0 and 1 respectively
  *
- * normcdf can also be called using the following syntax:
+ * invcdf can also be called using the following syntax:
  *
- *  nt2::tie(x,xlo,xup) = normcdf(p,mu,sigma, pcov, alpha)
+ *  nt2::tie(x,xlo,xup) = invcdf(p,mu,sigma, pcov, alpha)
  *
  * to produce confidence bounds for p when the input parameters mu and sigma are estimates.
  * pcov is a  2-by-2 matrix containing the covariance matrix of the estimated parameters.
  * alpha has a default value of 0.05, and specifies 100*(1-alpha)% confidence
  * bounds.  xlo and xup are arrays of the same size as x containing the lower
  * and upper confidence bounds.
- *
- * *
- * \par Description
- * normal cumulative distribution
  * \par
  *
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/normcdf.hpp>
+ * #include <nt2/include/functions/gaminv.hpp>
  * \endcode
  *
  *
@@ -58,42 +56,38 @@
  * namespace nt2
  * {
  *   template <class A0>
- *     meta::call<tag::normcdf_(A0)>::type
- *     normcdf(const A0 & a0, const A1 & m = 0, const A2 & sigma = 1);
+ *     meta::call<tag::gaminv_(A0)>::type
+ *     gaminv(const A0 & a0, const A1 & m = 0, const A2 & sig = 1);
  * }
  * \endcode
- *
 **/
 
 namespace nt2 { namespace tag
   {
     /*!
-     * \brief Define the tag normcdf_ of functor normcdf
+     * \brief Define the tag gaminv_ of functor gaminv
      *        in namespace nt2::tag for toolbox statistics
     **/
-    struct normcdf_ : ext::tieable_<normcdf_> { typedef ext::tieable_<normcdf_> parent; };
-    struct normcdf0_ : ext::elementwise_<normcdf0_> { typedef ext::elementwise_<normcdf0_> parent; };
+    struct gaminv_ : ext::tieable_<gaminv_> { typedef ext::tieable_<gaminv_> parent; };
+    struct gaminv0_ : ext::elementwise_<gaminv0_> { typedef ext::elementwise_<gaminv_> parent; };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 3)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_,  normcdf, 4)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_,  normcdf, 5)
-
+  NT2_FUNCTION_IMPLEMENTATION(tag::gaminv0_, gaminv, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::gaminv0_, gaminv, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::gaminv0_, gaminv, 3)
+  NT2_FUNCTION_IMPLEMENTATION(tag::gaminv_,  gaminv, 4)
+  NT2_FUNCTION_IMPLEMENTATION(tag::gaminv_,  gaminv, 5)
 }
-
 namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct  size_of<tag::normcdf_,Domain,N,Expr> // N =  4 or 5
+  struct  size_of<tag::gaminv_,Domain,N,Expr>
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,0>
                       ::value_type::extent_type                     ext0_t;
     typedef typename  boost::proto::result_of::child_c<Expr&,1>
                       ::value_type::extent_type                     ext1_t;
-    typedef typename  boost::proto::result_of::child_c<Expr&,2>
+    typedef typename  boost::proto::result_of::child_c<Expr&,1>
                       ::value_type::extent_type                     ext2_t;
-
     typedef typename make_size< (ext0_t::static_size > ext1_t::static_size)
                                 ? ext0_t::static_size
                                 : ext1_t::static_size
@@ -103,28 +97,29 @@ namespace nt2 { namespace ext
                                 : ext2_t::static_size
                                >::type                         result_type;
 
-
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      result_type sizee = nt2::extent(boost::proto::child_c<0>(e));
+      result_type sizee  = nt2::extent(boost::proto::child_c<0>(e));
       result_type sizee1 = nt2::extent(boost::proto::child_c<1>(e));
       result_type sizee2 = nt2::extent(boost::proto::child_c<2>(e));
+
       for(size_t i = 0; i < sizee.size(); ++i)
-        {
-          if (sizee[i] < sizee1[i]) sizee[i] = sizee1[i];
-          if (sizee[i] < sizee2[i]) sizee[i] = sizee2[i];
-        }
+      {
+        if (sizee[i] < sizee1[i]) sizee[i] = sizee1[i];
+        if (sizee[i] < sizee2[i]) sizee[i] = sizee2[i];
+      }
+
       return sizee;
     }
   };
 
   template<class Domain, class Expr>
-  struct  size_of<tag::normcdf_,Domain,1,Expr>
+  struct  size_of<tag::gaminv_,Domain,1,Expr>
         : meta::size_as<Expr,0>
   {};
 
   template<class Domain, int N, class Expr>
-  struct  value_type<tag::normcdf_,Domain,N,Expr>
+  struct  value_type<tag::gaminv_,Domain,N,Expr>
         : meta::value_as<Expr,0>
   {};
 } }

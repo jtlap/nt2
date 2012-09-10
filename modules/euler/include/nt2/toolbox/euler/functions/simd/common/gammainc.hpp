@@ -27,6 +27,7 @@
 #include <nt2/include/functions/simd/eps.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
+#include <nt2/include/functions/simd/inbtrue.hpp>
 #include <nt2/include/constants/third.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/hundred.hpp>

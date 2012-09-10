@@ -9,29 +9,32 @@
 /*!
  * \file
 **/
-#ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_NORMPDF_HPP_INCLUDED
-#define NT2_TOOLBOX_STATISTICS_FUNCTIONS_NORMPDF_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_GAMPDF_HPP_INCLUDED
+#define NT2_TOOLBOX_STATISTICS_FUNCTIONS_GAMPDF_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup statistics
- * \defgroup statistics_norm normpdf
+ * \defgroup statistics_norm gampdf
  *
  * \par Description
- * normal  distribution
+ * gamma distribution
  *
  * All pdf ( distribution functions  can be called with the syntax
  * r = xxxpdf(values, param_1, ...,  param_n)
  * the type of values elements determines the type of the output expression elements.
- * cauchy has 2 parameters: mean value and standard deviation
- * defaults are 0 and 1 respectively
+ * gamma has 2 parameters: shape (a) and scale (b)
+ *
+ * Some references refer to the gamma distribution with a single
+ * parameter.  This corresponds to the default of b = 1.
+ * a has no default.
  * \par
  *
  * \par Header file
  * 
  * \code
- * #include <nt2/include/functions/normpdf.hpp>
+ * #include <nt2/include/functions/gampdf.hpp>
  * \endcode
  * 
  * 
@@ -41,8 +44,8 @@
  * namespace nt2
  * {
  *   template <class A0>
- *     meta::call<tag::normpdf_(A0)>::type
- *     normpdf(const A0 & a0, const A1 & m = 0, const A2 & sigma = 1);
+ *     meta::call<tag::gampdf_(A0)>::type
+ *     gampdf(const A0 & a0, const A1 & a, const A2 & b = 1);
  * }
  * \endcode
  **/
@@ -50,18 +53,17 @@
 namespace nt2 { namespace tag
   {         
     /*!
-     * \brief Define the tag normpdf_ of functor normpdf 
+     * \brief Define the tag gampdf_ of functor gampdf 
      *        in namespace nt2::tag for toolbox statistics
     **/
-    struct normpdf_ : ext::elementwise_<normpdf_> { typedef ext::elementwise_<normpdf_> parent; };
+    struct gampdf_ : ext::elementwise_<gampdf_> { typedef ext::elementwise_<gampdf_> parent; };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::normpdf_, normpdf, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normpdf_, normpdf, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normpdf_, normpdf, 3)  
+  NT2_FUNCTION_IMPLEMENTATION(tag::gampdf_, gampdf, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::gampdf_, gampdf, 3)  
 }
 
 #endif
 
 // /////////////////////////////////////////////////////////////////////////////
-// End of normpdf.hpp
+// End of gampdf.hpp
 // /////////////////////////////////////////////////////////////////////////////
