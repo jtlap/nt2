@@ -9,7 +9,7 @@
 ################################################################################
 
 nt2_module_use_modules( unit predicates arithmetic
-                        extern.cephes extern.libc crlibm extern.standard
+                        extern.cephes extern.libc extern.crlibm extern.standard
                       )
 
 ADD_SUBDIRECTORY(scalar)
