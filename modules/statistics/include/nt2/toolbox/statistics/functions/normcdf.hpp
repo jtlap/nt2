@@ -11,11 +11,15 @@
 **/
 #ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_NORMCDF_HPP_INCLUDED
 #define NT2_TOOLBOX_STATISTICS_FUNCTIONS_NORMCDF_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
+
 #include <nt2/options.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/utility/max_extent.hpp>
 
 /*!
  * \ingroup statistics
@@ -43,12 +47,12 @@
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/normcdf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -59,90 +63,56 @@
  *     normcdf(const A0 & a0, const A1 & m = 0, const A2 & sigma = 1);
  * }
  * \endcode
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag normcdf_ of functor normcdf 
+     * \brief Define the tag normcdf_ of functor normcdf
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct normcdf_ : ext::tieable_<normcdf_> { typedef ext::tieable_<normcdf_> parent; };
-    struct normcdf0_ : ext::elementwise_<normcdf_> { typedef ext::elementwise_<normcdf_> parent; };
+    struct normcdf0_ : ext::elementwise_<normcdf0_> { typedef ext::elementwise_<normcdf0_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::normcdf0_, normcdf, 3)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_, normcdf, 4)
-  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_, normcdf, 5)
+  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_,  normcdf, 4)
+  NT2_FUNCTION_IMPLEMENTATION(tag::normcdf_,  normcdf, 5)
 
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct  size_of<tag::normcdf_,Domain,N,Expr>
+  struct  size_of<tag::normcdf_,Domain,N,Expr> // N =  4 or 5
   {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term0;
-    typedef typename meta::strip<seq_term0>::type::extent_type          ext0_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,1>::type seq_term1;
-    typedef typename meta::strip<seq_term1>::type::extent_type          ext1_t;
-    typedef typename boost::proto::result_of::child_c<Expr&,2>::type seq_term2;
-    typedef typename meta::strip<seq_term2>::type::extent_type          ext2_t;
-    typedef typename make_size< (ext0_t::static_size > ext1_t::static_size)
-                                ? ext0_t::static_size
-                                : ext1_t::static_size
-                               >::type                                  ext3_t;
-    typedef typename make_size< (ext3_t::static_size > ext2_t::static_size)
-                                ? ext3_t::static_size
-                                : ext2_t::static_size
-                               >::type                             result_type;
+    typedef typename  boost::proto::result_of::child_c<Expr&,0>
+                      ::value_type::extent_type                     ext0_t;
+    typedef typename  boost::proto::result_of::child_c<Expr&,1>
+                      ::value_type::extent_type                     ext1_t;
+    typedef typename  boost::proto::result_of::child_c<Expr&,2>
+                      ::value_type::extent_type                     ext2_t;
 
-  
+   typedef typename details::max_extent<ext2_t, ext1_t, ext0_t>::type     result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      result_type sizee = nt2::extent(boost::proto::child_c<0>(e));
-      result_type sizee1 = nt2::extent(boost::proto::child_c<1>(e));
-      result_type sizee2 = nt2::extent(boost::proto::child_c<2>(e));
-      for(size_t i = 0; i < sizee.size(); ++i)
-        {
-          if (sizee[i] < sizee1[i]) sizee[i] = sizee1[i];
-          if (sizee[i] < sizee2[i]) sizee[i] = sizee2[i];
-        }
-      return sizee;
+     return max_extent(nt2::extent(boost::proto::child_c<0>(e)),
+                       nt2::extent(boost::proto::child_c<1>(e)), 
+                       nt2::extent(boost::proto::child_c<2>(e)));
     }
   };
+
   template<class Domain, class Expr>
   struct  size_of<tag::normcdf_,Domain,1,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
+        : meta::size_as<Expr,0>
+  {};
+
   template<class Domain, int N, class Expr>
-  struct  generator<tag::normcdf_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
-
-    // Rebuild proper expression type with semantic
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , sema_t
-                      >                                     result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  };
-} } }
+  struct  value_type<tag::normcdf_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
+} }
 
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of normcdf.hpp
-// /////////////////////////////////////////////////////////////////////////////

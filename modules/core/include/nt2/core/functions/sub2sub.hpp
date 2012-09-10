@@ -18,7 +18,13 @@
 
 namespace nt2
 {
-  namespace tag { struct sub2sub_ : ext::unspecified_<sub2sub_> { typedef ext::unspecified_<sub2sub_> parent; }; }
+  namespace tag
+  {
+    struct sub2sub_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
+    };
+  }
 
   //============================================================================
   /*!

@@ -11,75 +11,72 @@
 
 #include <nt2/core/functions/indices.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/indices.hpp>
 #include <nt2/core/functions/details/indices.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 
 namespace nt2 {  namespace ext
 {
-  //============================================================================
-  // Generates indices from a pair of integers
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , (scalar_< integer_<A0> >)
+                            , (A0)(A1)(A2)
+                            , (scalar_< integer_<A0> >)
                               (scalar_< integer_<A0> >)
                               (target_< unspecified_<A1> >)
                               (scalar_< integer_<A2> >)
-                              )
+                            )
   {
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::indices_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::indices >
-      ,  meta::as_<double>
-      >::type             result_type;
-    
-    BOOST_FORCEINLINE result_type operator()(A0 const& n, A0 const& m, const A1 &, const A2& dim) const
+    typedef meta::constant_<nt2::tag::indices_,double> constant_t;
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::indices_
+                                , container::domain
+                                , box<_2D>
+                                , box<constant_t>
+                                , meta::as_<double>
+                                >::type             result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& n, A0 const& m, const A1 &, const A2& dim) const
     {
       return boost::proto::make_expr< nt2::tag::indices_
                                     , container::domain
                                     > ( boxify(of_size(n,m))
-                                        , boxify(nt2::details::indices(dim))
-                                        , meta::as_<double>()
-                                        );
+                                      , boxify(constant_t(dim))
+                                      , meta::as_<double>()
+                                      );
     }
   };
-  
-  //============================================================================
-  // Generates indices from one integer return doubles
-  //============================================================================
+
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                              , (A0)(A1)(A2)
-                              , (scalar_< integer_<A0> >)
+                            , (A0)(A1)(A2)
+                            , (scalar_< integer_<A0> >)
                               (target_< unspecified_<A1> >)
                               (scalar_< integer_<A2> >)
-                              )
+                            )
   {
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::indices_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::indices >
-      ,  meta::as_<double>
-      >::type             result_type;
-    
-    BOOST_FORCEINLINE result_type operator()(A0 const& n, const A1 &, const A2& dim) const
+    typedef meta::constant_<nt2::tag::indices_,double> constant_t;
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::indices_
+                                , container::domain
+                                , box<_2D>
+                                , box<constant_t>
+                                , meta::as_<double>
+                                >::type               result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(A0 const& n, const A1 &, const A2& dim) const
     {
       return boost::proto::make_expr< nt2::tag::indices_
                                     , container::domain
                                     > ( boxify(of_size(n,n))
-                                        , boxify(nt2::details::indices(dim))
-                                        , meta::as_<double>()
-                                        );
+                                      , boxify(constant_t(dim))
+                                      , meta::as_<double>()
+                                      );
     }
   };
-  
-  //============================================================================
-  // Generates indices from a pair of integers
-  //============================================================================
+
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                             , (A0)(A1)(A2)(T)
                             , (scalar_< integer_<A0> >)
@@ -89,72 +86,76 @@ namespace nt2 {  namespace ext
                               (target_< scalar_< unspecified_<T> > >)
                             )
   {
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::indices_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::indices >
-      , T
-      >::type             result_type;
-    
-    BOOST_FORCEINLINE result_type operator()(A0 const& n, A0 const& m, const A1 &, const A2& dim, T const& ) const
+    typedef typename T::type                                    value_t;
+    typedef meta::constant_<nt2::tag::indices_,value_t>  constant_t;
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::indices_
+                                , container::domain
+                                , box<_2D>
+                                , box<constant_t>
+                                , T
+                                >::type             result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& n, A0 const& m, const A1&, const A2& d, T const& tgt) const
     {
       return boost::proto::make_expr< nt2::tag::indices_
                                     , container::domain
                                     > ( boxify(of_size(n,m))
-                                        , boxify(nt2::details::indices(dim))
-                                        , T()
-                                        );
+                                      , boxify(constant_t(d))
+                                      , tgt
+                                      );
     }
   };
-                              
-  //============================================================================
-  // Generates indices from one integer
-  //============================================================================
+
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                               , (A0)(A1)(A2)(T)
                               , (scalar_< integer_<A0> >)
-                              (target_< unspecified_<A1> >)
-                              (scalar_< integer_<A2> >)
-                              (target_< scalar_< unspecified_<T> > >)
+                                (target_< unspecified_<A1> >)
+                                (scalar_< integer_<A2> >)
+                                (target_< scalar_< unspecified_<T> > >)
                               )
   {
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::indices_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::indices >
-      , T
-      >::type             result_type;
-    
-    BOOST_FORCEINLINE result_type operator()(A0 const& n, const A1 &, const A2& dim, T const& ) const
+    typedef typename T::type                                    value_t;
+    typedef meta::constant_<nt2::tag::indices_,value_t>  constant_t;
+
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::indices_
+                                , container::domain
+                                , box<_2D>
+                                , box<constant_t>
+                                , T
+                                >::type             result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& n, const A1 &, const A2& dim, T const& tgt) const
     {
      return boost::proto::make_expr< nt2::tag::indices_
                                     , container::domain
                                     > ( boxify(of_size(n,n))
-                                        , boxify(nt2::details::indices(dim))
-                                        ,T()
-                                        );
+                                      , boxify(constant_t(dim))
+                                      , tgt
+                                      );
     }
   };
 
-  //============================================================================
-  // Generates indices from fusion sequence (support of_size calls)
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                               , (Seq)(A2)
                               , (fusion_sequence_<Seq>)
-                              (scalar_< integer_<A2> >)
+                                (scalar_< integer_<A2> >)
                             )
   {
     typedef typename meta::strip<Seq>::type seq_t;
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::indices_
-                                          , container::domain
-                                          , box<seq_t>
-                                          , box<nt2::details::indices>
-                                          , meta::as_<double>
-                                          >::type             result_type;
+    typedef meta::constant_<nt2::tag::indices_,double>  constant_t;
+    typedef typename  boost::proto::result_of::
+                      make_expr < nt2::tag::indices_
+                                , container::domain
+                                , box<seq_t>
+                                , box<constant_t>
+                                , meta::as_<double>
+                                >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(Seq const& seq, const A2& dim) const
     {
@@ -162,8 +163,8 @@ namespace nt2 {  namespace ext
               make_expr < nt2::tag::indices_
                         , container::domain
                         > ( boxify(seq)
-                            , boxify(nt2::details::indices(dim))
-                            , meta::as_<double>()
+                          , boxify(constant_t(dim))
+                          , meta::as_<double>()
                           );
     }
   };
@@ -172,33 +173,36 @@ namespace nt2 {  namespace ext
   // Generates indices from fusion sequence + types (support of_size calls)
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                              , (Seq)(A1)(T)
+                            , (Seq)(A1)(T)
                             , (fusion_sequence_<Seq>)
                               (scalar_<integer_<A1> >)
                               (target_< scalar_< unspecified_<T> > >)
                             )
   {
     typedef typename meta::strip<Seq>::type seq_t;
+    typedef typename T::type                                    value_t;
+    typedef meta::constant_<nt2::tag::indices_,value_t>  constant_t;
+
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::indices_
                                           , container::domain
                                           , box<seq_t>
-                                          , box<nt2::details::indices>
+                                          , box<constant_t>
                                           , T
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(Seq const& seq, const A1& dim, T const& ) const
+    BOOST_FORCEINLINE result_type
+    operator()(Seq const& seq, const A1& dim, T const& tgt) const
     {
       return  boost::proto::
               make_expr<  nt2::tag::indices_
                         , container::domain
                         > ( boxify(seq)
-                          , boxify(nt2::details::indices(dim))
-                            , T()
+                          , boxify(constant_t(dim))
+                          , tgt
                           );
     }
   };
-                              
 } }
 
 #endif

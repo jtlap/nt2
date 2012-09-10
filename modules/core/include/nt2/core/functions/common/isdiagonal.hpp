@@ -1,11 +1,13 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+
 #ifndef NT2_CORE_FUNCTIONS_COMMON_ISDIAGONAL_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_COMMON_ISDIAGONAL_HPP_INCLUDED
 
@@ -30,7 +32,7 @@ namespace nt2 { namespace ext
     typedef bool result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
-      return nt2::ismatrix(a0) && nt2::isequal(a0, nt2::expand(nt2::from_diag(nt2::diag_of(a0)), size(a0))); 
+      return nt2::ismatrix(a0) && nt2::isequal(a0, nt2::expand(nt2::from_diag(nt2::diag_of(a0)), size(a0)));
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isdiagonal_, tag::cpu_
@@ -44,7 +46,7 @@ namespace nt2 { namespace ext
       return true;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isdiagonal_, tag::cpu_
                             , (A0)(A1)
                             , (ast_<A0>)
@@ -58,13 +60,13 @@ namespace nt2 { namespace ext
         return isdiagonal(a0);
 
       A1 r = nt2::max(nt2::abs(a0-nt2::expand(nt2::from_diag(nt2::diag_of(a0)), size(a0)))(_))(begin_);
-      return r <= thresh; 
+      return r <= thresh;
     }
-  }; 
+  };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isdiagonal_, tag::cpu_
-                            , (A0)(A1)
-                            , (scalar_<fundamental_<A0> >)
-                              (scalar_<floating_<A1> >)
+                              , (A0)(A1)
+                              , (scalar_<fundamental_<A0> >)
+                                (scalar_<floating_<A1> >)
                               )
   {
     typedef bool result_type;

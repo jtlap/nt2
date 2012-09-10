@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/secant.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( secant_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::secant;
   using nt2::tag::secant_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -50,26 +50,26 @@ NT2_TEST_CASE_TPL ( secant_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(vT)>::type r_t;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(T)>::type sr_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(vT)>::type r_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(-nt2::Pi<vT>())[0], nt2::Mone<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(-nt2::Pi<vT>()/nt2::splat<vT>(4))[0], nt2::Sqrt_2<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(nt2::Inf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(nt2::Pi<vT>())[0], nt2::Mone<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(nt2::Pi<vT>()/nt2::splat<vT>(4))[0], nt2::Sqrt_2<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(-nt2::Pi<vT>())[0], nt2::Mone<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(-nt2::Pi<vT>()/nt2::splat<vT>(4))[0], nt2::Sqrt_2<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(nt2::Inf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(nt2::Minf<vT>())[0], nt2::Nan<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(nt2::Pi<vT>())[0], nt2::Mone<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(nt2::Pi<vT>()/nt2::splat<vT>(4))[0], nt2::Sqrt_2<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( secant_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::secant;
   using nt2::tag::secant_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -78,19 +78,19 @@ NT2_TEST_CASE_TPL ( secant_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(vT)>::type r_t;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(T)>::type sr_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(vT)>::type r_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
 } // end of test for int_convert_
 
 NT2_TEST_CASE_TPL ( secant_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::secant;
   using nt2::tag::secant_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -99,10 +99,10 @@ NT2_TEST_CASE_TPL ( secant_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(vT)>::type r_t;
-  typedef typename nt2::meta::call<secant_<nt2::medium>(T)>::type sr_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(vT)>::type r_t;
+  typedef typename nt2::meta::call<secant_<nt2::medium_>(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(secant<nt2::medium>(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(secant<nt2::medium_>(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
 } // end of test for uint_convert_

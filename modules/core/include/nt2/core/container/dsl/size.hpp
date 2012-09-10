@@ -14,56 +14,29 @@
 #include <nt2/dsl/functions/terminal.hpp>
 #include <boost/proto/traits.hpp>
 
+namespace nt2 { namespace ext
+{
+  //==========================================================================
+  /*!
+   * This extension point specify the way a given expression stores its size.
+   * If most expression uses a reference to the proper size of their children,
+   * some may require to store a computed of_size_ by value. This meta-function
+   * enables a fine grain specification of this scheme.
+   *
+   * \tparam Tag    Top most tag of the expression
+   * \tparam Domain Domain of the expression
+   * \tparam Arity  Number of children of the expression
+   * \tparam Expr   The expression itself
+   *
+   * \return the type usable by an nt2::container::expression to store its size
+   *
+  **/
+  //==========================================================================
+  template<class Tag, class Domain, int Arity, class Expr> struct size_of;
+} }
+
 namespace nt2 { namespace container
 {
-  namespace ext
-  {
-    //==========================================================================
-    /*!
-     * This extension point specify the way a given expression stores its size.
-     * If most expression uses a reference to the proper size of their children,
-     * some may require to store a computed of_size_ by value. This meta-function
-     * enables a fine grain specification of this scheme.
-     *
-     * \tparam Tag    Top most tag of the expression
-     * \tparam Domain Domain of the expression
-     * \tparam Arity  Number of children of the expression
-     * \tparam Expr   The expression itself
-     *
-     * \return the type usable by an nt2::container::expression to store its size
-     *
-    **/
-    //==========================================================================
-    template<class Tag, class Domain, int Arity, class Expr> struct size_of;
-
-    //==========================================================================
-    // Terminal size is stored as a reference to the terminal value size
-    //==========================================================================
-    template<class Domain, class Expr>
-    struct size_of<boost::simd::tag::terminal_,Domain,0,Expr>
-    {
-      typedef typename boost::proto::result_of::value<Expr&>::type  value_type;
-      typedef typename meta::call<tag::extent_(value_type)>::type   result_type;
-
-      BOOST_FORCEINLINE result_type operator()(Expr& e) const
-      {
-        return nt2::extent(boost::proto::value(e));
-      }
-    };
-
-    template<class Tag, class Domain, class Expr>
-    struct size_of<Tag,Domain,0,Expr>
-    {
-      typedef typename meta::call<Tag(typename boost::proto::result_of::value<Expr&>::type)>::type  value_type;
-      typedef typename meta::call<tag::extent_(value_type)>::type   result_type;
-
-      BOOST_FORCEINLINE result_type operator()(Expr& e) const
-      {
-        return nt2::extent(nt2::functor<Tag>()(boost::proto::value(e)));
-      }
-    };
-  }
-
   //============================================================================
   /*!
    * proto::transfrom performing the computation of the type able to store
@@ -75,7 +48,8 @@ namespace nt2 { namespace container
   {};
 } }
 
-#include <nt2/core/container/dsl/details/elementwise.hpp>
+#include <nt2/core/container/dsl/details/size/terminal.hpp>
+#include <nt2/core/container/dsl/details/size/elementwise.hpp>
 
 #endif
 

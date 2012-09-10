@@ -10,8 +10,7 @@
 #define NT2_CORE_FUNCTIONS_ROWS_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/generative.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 
 namespace nt2
@@ -29,18 +28,17 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::rows_, rows, 3)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Register rows as a generative expression
-  //============================================================================
   template<class Domain, class Expr, int N>
-  struct generator<tag::rows_,Domain,N,Expr>   : generative_generator<Expr>
+  struct  value_type<tag::rows_,Domain,N,Expr>
+        : meta::generative_value<Expr>
   {};
 
   template<class Domain, class Expr, int N>
-  struct size_of<tag::rows_,Domain,N,Expr>     : generative_size_of<Expr>
+  struct  size_of<tag::rows_,Domain,N,Expr>
+        : meta::generative_size<Expr>
   {};
-} } }
+} }
 
 #endif

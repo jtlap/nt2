@@ -22,13 +22,15 @@
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <boost/array.hpp>
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
   struct size_of<nt2::tag::along_, Domain, 3 ,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type child0;
-    typedef typename nt2::make_size<child0::extent_type::static_size>::type result_type;
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type c0_t;
+    typedef typename nt2::make_size < c0_t::extent_type
+                                      ::static_size
+                                    >::type result_type;
 
     result_type operator()(Expr& expr) const
     {
@@ -43,10 +45,10 @@ namespace nt2 { namespace container { namespace ext
   template<class Domain, class Expr>
   struct value_type<nt2::tag::along_, Domain, 3, Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type child0;
-    typedef typename meta::scalar_of<child0>::type type;
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type c0_t;
+    typedef typename meta::scalar_of<c0_t>::type type;
   };
-} } }
+} }
 
 namespace nt2 { namespace ext
 {
@@ -92,9 +94,12 @@ namespace nt2 { namespace ext
                                , p[i-1]
                                , boost::dispatch::meta::as_<si_t>()
                                );
-      return nt2::run(boost::proto::child_c<0>(a0), sub2ind(boost::proto::child_c<0>(a0).extent(), p), data);
+      return nt2::run ( boost::proto::child_c<0>(a0)
+                      , sub2ind(boost::proto::child_c<0>(a0).extent(), p)
+                      , data
+                      );
     }
-  }; 
+  };
 
 } }
 

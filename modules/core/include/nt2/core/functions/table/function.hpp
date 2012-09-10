@@ -17,10 +17,11 @@
 #include <nt2/core/functions/table/details/reindex.hpp>
 #include <nt2/core/functions/table/details/function_size.hpp>
 #include <nt2/core/functions/table/details/function_value_type.hpp>
+#include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
 #include <nt2/core/utility/of_size.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
 #include <boost/fusion/include/zip_view.hpp>
 #include <boost/fusion/include/transform_view.hpp>
+#include <boost/mpl/if.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -54,7 +55,11 @@ namespace nt2 { namespace ext
     static const long arity = childN::proto_arity_c;
 
     // Compute a type able to hold the position we look for
-    typedef typename details::as_integer_target<Data>::type   i_t;
+    typedef typename boost::mpl::
+            if_< typename is_vectorizable_indexers<childN, Data>::type
+               , State
+               , typename details::as_integer_target<Data>::type
+               >::type                                        i_t;
     typedef typename meta::as_signed<i_t>::type               si_t;
     typedef boost::array<si_t, arity>                         pos_type;
 

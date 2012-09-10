@@ -15,9 +15,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct size_ : ext::unspecified_<size_>
+    struct size_ : boost::dispatch::tag::formal_
     {
-      typedef ext::unspecified_<size_> parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 

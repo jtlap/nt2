@@ -15,12 +15,13 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-
 #include <nt2/core/utility/of_size.hpp>
+#include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/expression.hpp>
+
+#include <boost/mpl/transform.hpp>
 #include <boost/dispatch/dsl/semantic_of.hpp>
 #include <boost/fusion/include/as_vector.hpp>
-#include <boost/mpl/transform.hpp>
 
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -58,7 +59,24 @@ BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_META_ARITY,M0,const)
 #undef M0
 }
 
-namespace nt2 { namespace container { namespace ext
+//==============================================================================
+// Specify tie node generation processs
+//==============================================================================
+namespace nt2 { namespace ext
+{
+  /// INTERNAL ONLY
+  template<class Domain, int N, class Expr>
+  struct  size_of<nt2::tag::tie_,Domain,N,Expr>
+  {
+    typedef of_size_<1> result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr&) const
+    {
+      return result_type();
+    }
+  };
+} }
+
+namespace nt2 { namespace details
 {
   //============================================================================
   // INTERNAL ONLY
@@ -74,37 +92,13 @@ namespace nt2 { namespace container { namespace ext
                                                  ::semantic_of<boost::mpl::_>
                                           >::type                   semantic_t;
 
-    typedef expression<base_t, semantic_t>                          result_type;
+    typedef container::expression<base_t, semantic_t>               result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       return result_type(e);
     }
   };
-
-  //============================================================================
-  // INTERNAL ONLY
-  // tie size is just <1>
-  //============================================================================
-  template<class Domain, int N, class Expr>
-  struct  size_of<nt2::tag::tie_,Domain,N,Expr>
-  {
-    typedef of_size_<1> result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr&) const
-    {
-      return result_type();
-    }
-  };
-
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::tie_,Domain,1,Expr>
-  {
-    typedef of_size_<1> result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr&) const
-    {
-      return result_type();
-    }
-  };
-} } }
+} }
 
 #endif

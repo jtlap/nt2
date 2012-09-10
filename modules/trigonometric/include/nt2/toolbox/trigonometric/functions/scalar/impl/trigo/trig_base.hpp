@@ -28,10 +28,10 @@
 // however the formal reduce/eval/return is properly divided to allow choices versus
 // speed, accuracy and  SIMD vectorisation
 //
-// On small ranges performance can be obtained with almost full accuracy (1 ulp) at 1.5
+// On small_ ranges performance can be obtained with almost full accuracy (1 ulp) at 1.5
 // cycles per element for a cosine computation using SIMD. But if one require full accuracy
 // on the full float or double range, the prize can grow up to few hundreds of cycle for
-// some big values of input.
+// some big_ values of input.
 // See the NT2 technical documentation for more insights
 
 
@@ -49,25 +49,25 @@ namespace nt2
 
     namespace internal
     {
-      template < class A0, class unit_tag> struct trig_ranges; 
+      template < class A0, class unit_tag> struct trig_ranges;
 //       {
 //      //      static inline A0    max_range() {return Zero<A0>(); }
-//       }; 
+//       };
       template < class A0>  struct trig_ranges<A0, radian_tag>
       {
         static inline A0    max_range() {return Pio_4<A0>(); }
         static inline A0    scale()     {return One<A0>(); }
-      }; 
+      };
       template < class A0>  struct trig_ranges<A0, pi_tag>
       {
         static inline A0    max_range() {return Quarter<A0>(); }
         static inline A0    scale()     {return Pi<A0>(); }
-      }; 
+      };
       template < class A0>  struct trig_ranges<A0, degree_tag>
       {
         static inline A0    max_range() {return _45<A0>(); }
         static inline A0    scale()     {return Pio_180<A0>(); }
-      }; 
+      };
 
 
       // This class expose the public static members:
@@ -95,7 +95,7 @@ namespace nt2
       template < class A0,
                  class unit_tag,
                  class style,
-                 class mode =  big> 
+                 class mode =  big_>
       struct trig_base{};
 
       template < class A0,
@@ -192,7 +192,7 @@ namespace nt2
 
         static inline A0 sincosa(const A0& a0,  A0& c, const regular&)
         {
-          A0 s; 
+          A0 s;
           if (is_invalid(a0)) { c = Nan<A0>(); return c; }
           const A0 x =  nt2::abs(a0);
           static const sint_type de = static_cast<sint_type>(sizeof(sint_type)*8-1);
@@ -202,7 +202,7 @@ namespace nt2
           const A0 z = sqr(xr);
           const int_type cos_sign_bit = shli(b_xor(swap_bit, (n&Two<int_type>())>>1), de);
           const A0 sin_sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1));
-          
+
           if (is_nez(swap_bit))
             {
               c = eval_t::sin_eval(z, xr, xc);
@@ -219,17 +219,17 @@ namespace nt2
 
         static inline A0 cosa(const A0& a0, const fast &)
         {
-          A0 x =  scale(a0); 
+          A0 x =  scale(a0);
           if(not_in_range(a0))
             return Nan<A0>();
           else
             return eval_t::cos_eval(sqr(x), x, Zero<A0>());
         }
 
-        
+
         static inline A0 sina(const A0& a0, const fast&)
         {
-          A0 x =  scale(a0); 
+          A0 x =  scale(a0);
           if(not_in_range(a0))
             return Nan<A0>();
           else
@@ -238,15 +238,15 @@ namespace nt2
 
         static inline A0 tana(const A0& a0, const fast&)
         {
-          A0 x =  scale(a0); 
+          A0 x =  scale(a0);
           if(not_in_range(a0))
             return Nan<A0>();
           else
             return eval_t::base_tan_eval(x);
-        }         
+        }
         static inline A0 cota(const  A0& a0, const fast&)
         {
-          A0 x =  scale(a0); 
+          A0 x =  scale(a0);
           if(not_in_range(a0))
             return Nan<A0>();
           else
@@ -258,11 +258,11 @@ namespace nt2
         {
           if(not_in_range(a0)){c = Nan<A0>(); return c; }
           A0 x =  scale(a0);
-          A0 z =  sqr(x); 
+          A0 z =  sqr(x);
           c = eval_t::cos_eval(z, x, Zero<A0>());
-          return eval_t::sin_eval(z, x, Zero<A0>());  
+          return eval_t::sin_eval(z, x, Zero<A0>());
         }
-        
+
         static inline bool not_in_range(const A0& a0)
         {
           return nt2::abs(a0) > trig_ranges<A0,unit_tag>::max_range();
@@ -271,7 +271,7 @@ namespace nt2
         {
           return a0*trig_ranges<A0,unit_tag>::scale();
         }
-        
+
       };
     }
   }

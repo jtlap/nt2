@@ -31,12 +31,12 @@ using nt2::tag::sine_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sine_<nt2::medium>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(sine_<nt2::medium_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(sine_<nt2::medium>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
+  NT2_TIMING(sine_<nt2::medium_>,(RS(T,-nt2::Pi<T>()/4,nt2::Pi<T>()/4)))
 }
 
 #undef RS

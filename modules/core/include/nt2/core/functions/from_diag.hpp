@@ -1,6 +1,7 @@
 //==============================================================================
 //         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
 //         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,80 +11,69 @@
 #define NT2_CORE_FUNCTIONS_FROM_DIAG_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Defines and implements the nt2::from_diag function
- */
+  @file
+  @brief Define and implements the from_diag function
+**/
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/generate_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/length.hpp>
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief Tag for the from_diag functor
+    **/
     struct from_diag_ : ext::elementwise_<from_diag_>
     {
       typedef ext::elementwise_<from_diag_> parent;
     };
-    struct offset_from_diag_ : ext::elementwise_<offset_from_diag_>
-    {
-      typedef ext::elementwise_<offset_from_diag_> parent;
-    };
   }
 
-  //============================================================================
-  /*!
-   * Builds a matrix from a vector suign it as the matrix's diagonal
-   *
-   * \param xpr A vector
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::from_diag_, from_diag, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_from_diag_, from_diag, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::from_diag_ , from_diag, 2)
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::from_diag_ , from_diag, 1)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
+  /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
-  struct generator<nt2::tag::from_diag_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr,0>::type expr_t;
-    typedef typename meta::strip<expr_t>::type::value_type          value_type;
+  struct  value_type<nt2::tag::from_diag_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
 
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , memory::container<value_type,_2D>
-                      >                                          result_type;
+  /// INTERNAL ONLY
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::from_diag_,Domain,1,Expr>
+  {
+    typedef _2D result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return result_type(e);
+      std::size_t n = nt2::length(boost::proto::child_c<0>(e));
+      return result_type(n,n);
     }
   };
 
-  template<class Domain, int N, class Expr>
-  struct size_of<nt2::tag::from_diag_,Domain,N,Expr> : boxed_size_of<Expr,1> {};
-
-
-  template<class Domain, int N, class Expr>
-  struct generator<nt2::tag::offset_from_diag_,Domain,N,Expr>
-
+  /// INTERNAL ONLY
+  template<class Domain, class Expr>
+  struct  size_of<nt2::tag::from_diag_,Domain,2,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr,0>::type expr_t;
-    typedef typename meta::strip<expr_t>::type::value_type          value_type;
-
-    typedef expression< typename boost::remove_const<Expr>::type
-                        , memory::container<value_type,_2D>
-                      >                                          result_type;
+    typedef _2D result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return result_type(e);
+      std::size_t n = nt2::length(boost::proto::child_c<0>(e))
+                    + nt2::abs(boost::proto::value(boost::proto::child_c<1>(e)));
+
+      return result_type(n,n);
     }
   };
-
-  template<class Domain, int N, class Expr>
-  struct size_of<nt2::tag::offset_from_diag_,Domain,N,Expr> : boxed_size_of<Expr,2> {};
-} } }
+} }
 
 #endif

@@ -49,6 +49,7 @@ macro(nt2_pch name)
                         )
       add_dependencies(pch ${rule_}.pch)
       set(NT2_PCH_TARGET ${rule})
+      set(NT2_PCH_FILE ${CMAKE_CURRENT_BINARY_DIR}/${pch_base_})
       # Escape special characters
       string(REGEX REPLACE "([ \\\\\"&|;#])" "\\\\\\1" path "${CMAKE_CURRENT_BINARY_DIR}/${pch_base_}")
       set(CMAKE_CXX_FLAGS_${BUILD_TYPE_U} "${CMAKE_CXX_FLAGS_${BUILD_TYPE_U}} -include ${path} -Winvalid-pch")

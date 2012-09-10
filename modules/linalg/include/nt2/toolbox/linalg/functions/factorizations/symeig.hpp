@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
                                              A1 const & jobz,
                                              A2 const & uplo) const
     {
-      BOOST_ASSERT_MSG(is_square(a0), "Error using symeig. Matrix must be square.");
+      BOOST_ASSERT_MSG(issquare(a0), "Error using symeig. Matrix must be square.");
       result_type that(a0, jobz, uplo);
       return that;
     }
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
                  A2 const & uplo,
                  IP const&)
     {
-      BOOST_ASSERT_MSG(is_square(a0), "Error using symeig. Matrix must be square.");
+      BOOST_ASSERT_MSG(issquare(a0), "Error using symeig. Matrix must be square.");
       result_type that(a0, jobz, uplo);
       return that;
     }

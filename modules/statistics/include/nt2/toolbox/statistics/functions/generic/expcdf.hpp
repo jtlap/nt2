@@ -12,6 +12,7 @@
 #include <nt2/include/functions/oneminus.hpp>
 #include <nt2/include/functions/norminv.hpp>
 #include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/sqr.hpp>
 #include <nt2/include/functions/expm1.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
@@ -20,7 +21,6 @@
 #include <nt2/include/functions/havesamesize.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <nt2/include/functions/sx.hpp>
 #include <nt2/core/container/table/table.hpp>
 namespace nt2 { namespace ext
 {
@@ -93,25 +93,31 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
                                        boost::mpl::long_<3> const &, boost::mpl::long_<3> const & )
     {
-      conf_bounds(a0, a1, value_type(0.05));
+      BOOST_ASSERT_MSG(boost::proto::child_c<2>(a0)>= Zero<value_type>(), "Variance pcov must be non-negative");
+      value_type normz = -nt2::norminv(static_cast<value_type>(0.025));
+      conf_bounds(a0, a1, normz);
     }
     BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
                                        boost::mpl::long_<4> const &, boost::mpl::long_<3> const & )
     {
-      conf_bounds(a0, a1, boost::proto::child_c<3>(a0));
-    }
-    BOOST_FORCEINLINE static void conf_bounds(const A0& a0, A1& a1,
-                                              const value_type& alpha )
-    {
-      typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1; 
       value_type pcov =  boost::proto::child_c<2>(a0); 
       BOOST_ASSERT_MSG(pcov >= Zero<value_type>(), "Variance pcov must be non-negative");
+      value_type normz = -nt2::norminv(boost::proto::child_c<3>(a0)*nt2::Half<value_type>());
+      conf_bounds(a0, a1, pcov, normz);
+    }
+    BOOST_FORCEINLINE static void conf_bounds(const A0& a0, A1& a1,
+                                              const value_type& pcov, 
+                                              const value_type& normz )
+    {
+      typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1; 
+      //      value_type pcov =  boost::proto::child_c<2>(a0); 
+      //      BOOST_ASSERT_MSG(pcov >= Zero<value_type>(), "Variance pcov must be non-negative");
       const In0& x  = boost::proto::child_c<0>(a0);
       const In1& mu = boost::proto::child_c<1>(a0);
       BOOST_ASSERT_MSG(nt2::globalall(is_gtz(mu)), "mu parameter must be positive"); 
       BOOST_AUTO_TPL(z, (x/mu));
       //      BOOST_AUTO_TPL(logz, nt2::log(x/mu));
-      value_type normz = -nt2::norminv(alpha*nt2::Half<value_type>());
+      //      value_type normz = -nt2::norminv(alpha*nt2::Half<value_type>());
       BOOST_AUTO_TPL(halfwidth, normz * nt2::sqrt(pcov/nt2::sqr(mu)));
       BOOST_AUTO_TPL(exp_halfwidth, exp(halfwidth));
 

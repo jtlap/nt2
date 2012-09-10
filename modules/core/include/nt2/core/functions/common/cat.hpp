@@ -41,11 +41,11 @@ namespace nt2 { namespace ext
     operator()(A0 const& a0, State const& p, Target const& t) const
     {
       // Gather dimension to concatenate
-      std::size_t along = boost::proto::child_c<2>(a0);
+      std::size_t along = boost::proto::child_c<0>(a0);
 
       // Gather size of a0 and a1
-      ext_t ex0 = boost::proto::child_c<0>(a0).extent();
-      ext_t ex1 = boost::proto::child_c<1>(a0).extent();
+      ext_t ex0 = boost::proto::child_c<1>(a0).extent();
+      ext_t ex1 = boost::proto::child_c<2>(a0).extent();
 
       // Gather indexing treshold
       i_t offset = splat<i_t>(ex0[along]);
@@ -57,11 +57,11 @@ namespace nt2 { namespace ext
       pos1[along] = selsub( ge(pos1[along],offset), pos1[along], offset);
 
       return if_else( lt(pos[along], offset)
-                    , nt2::run( boost::proto::child_c<0>(a0)
+                    , nt2::run( boost::proto::child_c<1>(a0)
                               , as_index(ex0, pos0)
                               , t
                               )
-                    , nt2::run( boost::proto::child_c<1>(a0)
+                    , nt2::run( boost::proto::child_c<2>(a0)
                               , as_index(ex1, pos1)
                               , t
                               )

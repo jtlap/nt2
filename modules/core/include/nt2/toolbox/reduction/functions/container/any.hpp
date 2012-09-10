@@ -11,7 +11,7 @@
 
 #include <nt2/toolbox/reduction/functions/any.hpp>
 #include <boost/simd/toolbox/reduction/functions/any.hpp>
-#include <nt2/core/container/dsl/details/reduction.hpp>
+#include <nt2/core/container/dsl/reduction.hpp>
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 
@@ -50,19 +50,22 @@ namespace nt2 { namespace ext
   };
 } }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
-  struct size_of<boost::simd::tag::any_,Domain,1,Expr>
-    : reduction_size_of<boost::simd::tag::any_, 1, Expr>{};
+  struct  size_of<boost::simd::tag::any_,Domain,1,Expr>
+        : meta::reduction_size<Expr,1>
+  {};
 
   template<class Domain, class Expr>
-  struct size_of<boost::simd::tag::any_,Domain,2,Expr>
-    : reduction_size_of<boost::simd::tag::any_, 2, Expr>{};
+  struct  size_of<boost::simd::tag::any_,Domain,2,Expr>
+        : meta::reduction_size<Expr,2>
+  {};
 
   template<class Domain, int N, class Expr>
-  struct generator<boost::simd::tag::any_,Domain,N,Expr>
-    : reduction_generator<boost::simd::tag::any_,N,Expr> {};
-} } }
+  struct  value_type<boost::simd::tag::any_,Domain,N,Expr>
+        : meta::reduction_value<boost::simd::tag::any_,Expr>
+  {};
+} }
 
 #endif

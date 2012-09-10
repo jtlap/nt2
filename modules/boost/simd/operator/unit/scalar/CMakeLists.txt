@@ -35,6 +35,10 @@ SET(SOURCES
     shift_right.cpp
     splat.cpp
     stream.cpp
+    load.cpp
+    store.cpp
+    unaligned_load.cpp
+    unaligned_store.cpp
     )
 
 nt2_module_add_tests(boost.simd.operator.scalar.unit ${SOURCES})

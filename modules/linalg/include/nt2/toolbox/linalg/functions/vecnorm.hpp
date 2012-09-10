@@ -8,10 +8,8 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_VECNORM_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_VECNORM_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/sdk/memory/container.hpp>
 
 /*!
  * \ingroup algebra
@@ -27,40 +25,41 @@
  * by convention, nan is returned if x or v contains nans.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/vecnorm.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \param v the expresion vector, even if matricial it is always considered as a
- *          big column vector     
+ *          big column vector
  *
  * \param the type of norm required
- * 
+ *
  *
 
  * \par Notes
  *   Call norm to obtain the Matlab behaviour on matrices.
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag vecnorm_ of functor vecnorm
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct vecnorm_ : tag::formal_ { typedef tag::formal_ parent; };
+    struct vecnorm_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
+    };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(nt2::tag::vecnorm_, vecnorm, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(nt2::tag::vecnorm_, vecnorm, 2)
-
 }
 
 #endif
-

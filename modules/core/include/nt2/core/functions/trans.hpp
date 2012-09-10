@@ -15,6 +15,9 @@
  */
 
 #include <nt2/include/functor.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
@@ -36,29 +39,26 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::trans_, trans, 1)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
-  template<class Domain, class X>
-  struct  size_of<nt2::tag::trans_,Domain,1,X>
+  template<class Domain, int N, class Expr>
+  struct size_of<tag::trans_,Domain,N,Expr>
   {
     typedef _2D result_type;
 
-    BOOST_FORCEINLINE result_type operator()(X& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       //BOOST_ASSERT(ndims(boost::proto::child_c<0>(e)) <= 2);
       return _2D( boost::fusion::at_c<1>(boost::proto::child_c<0>(e).extent())
-                  , boost::fusion::at_c<0>(boost::proto::child_c<0>(e).extent())
+                , boost::fusion::at_c<0>(boost::proto::child_c<0>(e).extent())
                 );
     }
   };
 
   template<class Domain, int N, class Expr>
   struct  value_type<nt2::tag::trans_,Domain,N,Expr>
-  {
-    typedef typename meta::scalar_of< typename  boost::proto::result_of::
-                                                child_c<Expr&,0>::type
-                                    >::type                             base_t;
-    typedef typename meta::strip<base_t>::type                          type;
-  };
-} } }
+        : meta::value_as<Expr,0>
+  {};
+} }
+
 #endif

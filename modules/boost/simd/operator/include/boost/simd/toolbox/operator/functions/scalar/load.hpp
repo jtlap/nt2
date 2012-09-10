@@ -8,7 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_LOAD_HPP_INCLUDED
+
 #include <boost/simd/toolbox/operator/functions/load.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/common/details/details_load_store.hpp>
+#include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
@@ -55,6 +58,31 @@ namespace boost { namespace simd { namespace ext
       return *that;
     }
   };
+
+  // fusion sequence
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
+                                   , (A0)(A1)(A2)
+                                   , (fusion_sequence_<A0>)
+                                     (generic_< integer_<A1> >)
+                                     ((target_< fusion_sequence_<A2> >))
+                                   )
+  {
+    typedef typename A2::type result_type;
+
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
+    { 
+      static const int N = fusion::result_of::size<A0>::type::value;
+      result_type that;
+      meta::iterate<N>( details::loader< boost::simd::tag::load_
+                                       , A0
+                                       , A1
+                                       , result_type
+                                       >(a0, a1, that)
+                      );
+      return that;
+    }
+  };
+
 } } }
 
 #endif

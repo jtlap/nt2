@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,72 +11,69 @@
 #define NT2_CORE_FUNCTIONS_EXPR_ADJFUN_HPP_INCLUDED
 
 #include <nt2/core/functions/adjfun.hpp>
-#include <nt2/core/functions/common/adjfun.hpp>
-
-#include <nt2/sdk/memory/copy.hpp>
-#include <nt2/core/container/dsl.hpp>
 #include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/of_size.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_,
-                              (A0)(A1),
-                              (unspecified_<A0>)
-                              (ast_<A1>)
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_
+                            , (Functor)(A0)
+                            , (unspecified_<Functor>)
+                              (ast_<A0>)
                             )
   {
-    typedef typename A1::extent_type                extt_t;
-    typedef typename meta::strip<extt_t>::type       ext_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::adjfun_
                                           , container::domain
-                                          , A1 const&
-                                          , size_t
-                                          , box<A0>
-                                          , box<ext_t>
+                                          , A0 const&
+                                          , std::size_t
+                                          , box<Functor>
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& f, A1 const& a1) const
+    BOOST_FORCEINLINE
+    result_type operator()(Functor const& f, A0 const& a0) const
     {
-      size_t along = nt2::firstnonsingleton(a1)-1; 
-      ext_t sizee = nt2::extent(a1);
-      if (sizee[along]) sizee[along]--;
-      return boost::proto::make_expr<nt2::tag::adjfun_, container::domain>
-        (boost::cref(a1),along, boxify(f), boxify(sizee));
+      std::size_t along = nt2::firstnonsingleton(a0) - 1u;
+      return boost::proto::make_expr< nt2::tag::adjfun_
+                                    , container::domain
+                                    >
+                                    ( boost::cref(a0)
+                                    , along
+                                    , boxify(f)
+                                    );
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_,
-                              (A0)(A1)(A2),
-                              (unspecified_<A0>)(ast_<A1>)
-                              (scalar_<integer_<A2> >)
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_
+                            , (Functor)(A0)(Along)
+                            , (unspecified_<Functor>)
+                              (ast_<A0>)
+                              (scalar_<integer_<Along> >)
                             )
   {
-    typedef typename A1::extent_type                   extt_t;
-    typedef typename meta::strip<extt_t>::type          ext_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::adjfun_
                                           , container::domain
-                                          , A1 const&
-                                          , size_t
-                                          , box<A0>
-                                          , box<ext_t>
+                                          , A0 const&
+                                          , std::size_t
+                                          , box<Functor>
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& f,
-                                             A1 const& a1,
-                                             A2 const& alon) const
+    BOOST_FORCEINLINE
+    result_type operator()(Functor const& f, A0 const& a0, Along const& d) const
     {
-      size_t along = alon-1;
-      ext_t sizee = nt2::extent(a1);
-      if (sizee[along]) sizee[along]--;
-      return boost::proto::make_expr<nt2::tag::adjfun_, container::domain>
-        (boost::cref(a1),along,boxify(f),boxify(sizee));
+      std::size_t along = d - 1u;
+      return boost::proto::make_expr< nt2::tag::adjfun_
+                                    , container::domain
+                                    >
+                                    ( boost::cref(a0)
+                                    , along
+                                    , boxify(f)
+                                    );
     }
   };
-
-} } 
+} }
 
 #endif

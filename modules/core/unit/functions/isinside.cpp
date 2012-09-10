@@ -28,26 +28,16 @@ NT2_TEST_CASE( isinside_scalar )
 
   table<double> x( of_size(4,7) );
 
-  for(std::size_t j=1;j<=7;++j)
-    for(std::size_t i=1;i<=4;++i)
+  for(std::size_t j=0;j<7;++j)
+    for(std::size_t i=0;i<4;++i)
       NT2_TEST( nt2::isinside(vector_tie(i,j),x) );
-
-  std::cout << "\n";
 
   for(std::size_t j=8;j<=10;++j)
     for(std::size_t i=1;i<=4;++i)
       NT2_TEST( !nt2::isinside(vector_tie(i,j),x) );
 
-  std::cout << "\n";
-
   for(std::size_t j=1;j<=7;++j)
     for(std::size_t i=5;i<=9;++i)
-      NT2_TEST( !nt2::isinside(vector_tie(i,j),x) );
-
-  std::cout << "\n";
-
-  for(std::size_t j=0;j<1;++j)
-    for(std::size_t i=0;i<1;++i)
       NT2_TEST( !nt2::isinside(vector_tie(i,j),x) );
 }
 
@@ -62,8 +52,8 @@ NT2_TEST_CASE( isinside_simd )
   typedef boost::simd::native<std::size_t,BOOST_SIMD_DEFAULT_EXTENSION> n_t;
   std::size_t step = boost::simd::meta::cardinal_of<n_t>::value;
 
-  for(std::size_t j=1;j<=7;++j)
-    for(std::size_t i=1;i<=8;i+=step)
+  for(std::size_t j=0;j<7;++j)
+    for(std::size_t i=0;i<8;i+=step)
       NT2_TEST( nt2::all(nt2::isinside(make_vector(nt2::enumerate<n_t>(i),nt2::splat<n_t>(j)),x)) );
 
   std::cout << "\n";
@@ -79,8 +69,4 @@ NT2_TEST_CASE( isinside_simd )
       NT2_TEST( !nt2::all(nt2::isinside(make_vector(nt2::enumerate<n_t>(i),nt2::splat<n_t>(j)),x)) );
 
   std::cout << "\n";
-
-  for(std::size_t j=0;j<1;++j)
-    for(std::size_t i=0;i<1;i+=step)
-      NT2_TEST( !nt2::all(nt2::isinside(make_vector(nt2::enumerate<n_t>(i),nt2::splat<n_t>(j)),x)) );
 }

@@ -87,10 +87,10 @@ NT2_TEST_CASE_TPL ( rem_pio2_targeted,  NT2_REAL_TYPES)
 
   nt2::uint32_t n;
   T x = nt2::Zero<T>(), xr, xc;
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::big>());
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::medium>());
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::small>());
-  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::verysmall>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::big_>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::medium_>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::small_>());
+  n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::very_small_>());
 }
 
 

@@ -19,42 +19,61 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
+NT2_TEST_CASE_TPL( cat_scalar, (float)(double) )
+{
+  {
+    nt2::table<T> d = nt2::cat(1, T(3), T(5));
+    NT2_TEST_EQUAL(d(1,1),T(3));
+    NT2_TEST_EQUAL(d(2,1),T(5));
+  }
+  {
+    nt2::table<T> d = nt2::cat(2, T(3), T(5));
+    NT2_TEST_EQUAL(d(1,1),T(3));
+    NT2_TEST_EQUAL(d(1,2),T(5));
+  }
+  {
+    nt2::table<T> d = nt2::cat(3, T(3), T(5));
+    NT2_TEST_EQUAL(d(1,1,1),T(3));
+    NT2_TEST_EQUAL(d(1,1,2),T(5));
+  }
+  {
+    nt2::table<T> d = nt2::cat(4, T(3), T(5));
+    NT2_TEST_EQUAL(d(1,1,1,1),T(3));
+    NT2_TEST_EQUAL(d(1,1,1,2),T(5));
+  }
+}
+
 NT2_TEST_CASE_TPL( cat, (float)(double) )
 {
   {
-    nt2::table<T> a = nt2::rif(nt2::of_size(3, 2), nt2::meta::as_<T>());
-    nt2::table<T> b = nt2::cif(nt2::of_size(3, 4), nt2::meta::as_<T>());
-    NT2_DISPLAY(a);
-    NT2_DISPLAY(b);
-
-    nt2::table<T> d = cat(2, a, b);
-    NT2_DISPLAY(d);
-    NT2_TEST(isequal(a, d(nt2::_, nt2::_(1u, size(a, 2)))));
-    NT2_TEST(isequal(b, d(nt2::_, nt2::_(size(a, 2)+1, nt2::end_))));
-  }
-
-  {
-    nt2::table<T> a = nt2::rif(nt2::of_size(2, 3), nt2::meta::as_<T>());
-    nt2::table<T> b = nt2::cif(nt2::of_size(4, 3), nt2::meta::as_<T>());
-    NT2_DISPLAY(a);
-    NT2_DISPLAY(b);
-
-    nt2::table<T> d = cat(1, a, b);
-    NT2_DISPLAY(d);
+    nt2::table<T,nt2::_2D> a = nt2::rif(nt2::of_size(2, 3), nt2::meta::as_<T>());
+    nt2::table<T,nt2::_2D> b = nt2::cif(nt2::of_size(4, 3), nt2::meta::as_<T>());
+    nt2::table<T,nt2::_2D> d = cat(1, a, b);
     NT2_TEST(isequal(a, d(nt2::_(1u, size(a, 1)),nt2::_ )));
     NT2_TEST(isequal(b, d(nt2::_(size(a, 1)+1, nt2::end_),nt2::_)));
   }
 
   {
+    nt2::table<T> a = nt2::rif(nt2::of_size(3, 2), nt2::meta::as_<T>());
+    nt2::table<T> b = nt2::cif(nt2::of_size(3, 4), nt2::meta::as_<T>());
+    nt2::table<T> d = cat(2, a, b);
+    NT2_TEST(isequal(a, d(nt2::_, nt2::_(1u, size(a, 2)))));
+    NT2_TEST(isequal(b, d(nt2::_, nt2::_(size(a, 2)+1, nt2::end_))));
+  }
+
+  {
     nt2::table<T> a = nt2::rif(nt2::of_size(4, 3), nt2::meta::as_<T>());
     nt2::table<T> b = nt2::cif(nt2::of_size(4, 3), nt2::meta::as_<T>());
-    NT2_DISPLAY(a);
-    NT2_DISPLAY(b);
-
     nt2::table<T> d = cat(3, a, b);
-    NT2_DISPLAY(d);
     NT2_TEST(isequal(a, d(nt2::_,nt2::_,1)));
     NT2_TEST(isequal(b, d(nt2::_,nt2::_,2)));
   }
-}
 
+  {
+    nt2::table<T> a = nt2::rif(nt2::of_size(4, 3), nt2::meta::as_<T>());
+    nt2::table<T> b = nt2::cif(nt2::of_size(4, 3), nt2::meta::as_<T>());
+    nt2::table<T> d = cat(4, a, b);
+    NT2_TEST(isequal(a, d(nt2::_,nt2::_,nt2::_,1)));
+    NT2_TEST(isequal(b, d(nt2::_,nt2::_,nt2::_,2)));
+  }
+}

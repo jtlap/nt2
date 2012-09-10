@@ -1,70 +1,108 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 operator toolbox - load/scalar Mode"
 
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in scalar mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-/// 
-#include <boost/simd/toolbox/operator/include/functions/load.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/config/type_lists.hpp>
+#include <boost/fusion/include/at_c.hpp>
+#include <boost/fusion/include/make_vector.hpp>
+#include <boost/fusion/include/vector.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
-//COMMENTED
-NT2_TEST_CASE_TPL ( load_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
+NT2_TEST_CASE_TPL(load, BOOST_SIMD_TYPES)
 {
-  
-//   using boost::simd::load;
-//   using boost::simd::tag::load_;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef typename boost::dispatch::meta::call<load_(T,T)>::type r_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-//   typedef T wished_r_t;
+  using boost::simd::load;
 
+  T data[5] = {0,1,2,3,4};
 
-//   // return type conformity test 
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
+  NT2_TEST_EQUAL( (load<T,-4>(&data[0],4)), T(0) );
+  NT2_TEST_EQUAL( (load<T,-4>(&data[0],5)), T(1) );
+  NT2_TEST_EQUAL( (load<T,-4>(&data[0],6)), T(2) );
+  NT2_TEST_EQUAL( (load<T,-4>(&data[0],7)), T(3) );
+  NT2_TEST_EQUAL( (load<T,-4>(&data[0],8)), T(4) );
 
-//   // specific values tests
-//   NT2_TEST_EQUAL(load(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-// } // end of test for integer_
+  NT2_TEST_EQUAL( (load<T,-3>(&data[0],3)), T(0) );
+  NT2_TEST_EQUAL( (load<T,-3>(&data[0],4)), T(1) );
+  NT2_TEST_EQUAL( (load<T,-3>(&data[0],5)), T(2) );
+  NT2_TEST_EQUAL( (load<T,-3>(&data[0],6)), T(3) );
+  NT2_TEST_EQUAL( (load<T,-3>(&data[0],7)), T(4) );
 
-// NT2_TEST_CASE_TPL ( load_real__2_0,  BOOST_SIMD_REAL_TYPES)
-// {
-  
-//   using boost::simd::load;
-//   using boost::simd::tag::load_;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef typename boost::dispatch::meta::call<load_(T,T)>::type r_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-//   typedef T wished_r_t;
+  NT2_TEST_EQUAL( (load<T,-2>(&data[0],2)), T(0) );
+  NT2_TEST_EQUAL( (load<T,-2>(&data[0],3)), T(1) );
+  NT2_TEST_EQUAL( (load<T,-2>(&data[0],4)), T(2) );
+  NT2_TEST_EQUAL( (load<T,-2>(&data[0],5)), T(3) );
+  NT2_TEST_EQUAL( (load<T,-2>(&data[0],6)), T(4) );
 
+  NT2_TEST_EQUAL( (load<T,-1>(&data[0],1)), T(0) );
+  NT2_TEST_EQUAL( (load<T,-1>(&data[0],2)), T(1) );
+  NT2_TEST_EQUAL( (load<T,-1>(&data[0],3)), T(2) );
+  NT2_TEST_EQUAL( (load<T,-1>(&data[0],4)), T(3) );
+  NT2_TEST_EQUAL( (load<T,-1>(&data[0],5)), T(4) );
 
-//   // return type conformity test 
-//   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
+  NT2_TEST_EQUAL( load<T>(&data[0],0), T(0) );
+  NT2_TEST_EQUAL( load<T>(&data[0],1), T(1) );
+  NT2_TEST_EQUAL( load<T>(&data[0],2), T(2) );
+  NT2_TEST_EQUAL( load<T>(&data[0],3), T(3) );
+  NT2_TEST_EQUAL( load<T>(&data[0],4), T(4) );
 
-//   // specific values tests
-//   NT2_TEST_EQUAL(load(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::Minf<T>(), boost::simd::Minf<T>()), boost::simd::Minf<r_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-//   NT2_TEST_EQUAL(load(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
-} // end of test for floating_
+  NT2_TEST_EQUAL( (load<T,0>(&data[0],0)), T(0) );
+  NT2_TEST_EQUAL( (load<T,0>(&data[0],1)), T(1) );
+  NT2_TEST_EQUAL( (load<T,0>(&data[0],2)), T(2) );
+  NT2_TEST_EQUAL( (load<T,0>(&data[0],3)), T(3) );
+  NT2_TEST_EQUAL( (load<T,0>(&data[0],4)), T(4) );
+
+  NT2_TEST_EQUAL( (load<T,1>(&data[0],-1)), T(0) );
+  NT2_TEST_EQUAL( (load<T,1>(&data[0],0)) , T(1) );
+  NT2_TEST_EQUAL( (load<T,1>(&data[0],1)) , T(2) );
+  NT2_TEST_EQUAL( (load<T,1>(&data[0],2)) , T(3) );
+  NT2_TEST_EQUAL( (load<T,1>(&data[0],3)) , T(4) );
+
+  NT2_TEST_EQUAL( (load<T,2>(&data[0],-2)), T(0) );
+  NT2_TEST_EQUAL( (load<T,2>(&data[0],-1)), T(1) );
+  NT2_TEST_EQUAL( (load<T,2>(&data[0],0)) , T(2) );
+  NT2_TEST_EQUAL( (load<T,2>(&data[0],1)) , T(3) );
+  NT2_TEST_EQUAL( (load<T,2>(&data[0],2)) , T(4) );
+
+  NT2_TEST_EQUAL( (load<T,3>(&data[0],-3)), T(0) );
+  NT2_TEST_EQUAL( (load<T,3>(&data[0],-2)), T(1) );
+  NT2_TEST_EQUAL( (load<T,3>(&data[0],-1)), T(2) );
+  NT2_TEST_EQUAL( (load<T,3>(&data[0],0)) , T(3) );
+  NT2_TEST_EQUAL( (load<T,3>(&data[0],1)) , T(4) );
+
+  NT2_TEST_EQUAL( (load<T,4>(&data[0],-4)), T(0) );
+  NT2_TEST_EQUAL( (load<T,4>(&data[0],-3)), T(1) );
+  NT2_TEST_EQUAL( (load<T,4>(&data[0],-2)), T(2) );
+  NT2_TEST_EQUAL( (load<T,4>(&data[0],-1)), T(3) );
+  NT2_TEST_EQUAL( (load<T,4>(&data[0],0)) , T(4) );
+}
+
+struct foo { double d; float f; char c; };
+BOOST_FUSION_ADAPT_STRUCT(foo,(double,d)(float,f)(char,c))
+
+NT2_TEST_CASE( load_sequence )
+{
+  using boost::simd::load;
+  using boost::simd::tag::load_;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  double d = 3.4;
+  float  f = 1.8;
+  char   c = 'a';
+
+  boost::fusion::vector<double,float,char> v;
+
+  v = load< boost::fusion::vector<double,float,char> >(boost::fusion::make_vector(&d, &f, &c), 0);
+
+  NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , d);
+  NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , f);
+  NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , c);
+}

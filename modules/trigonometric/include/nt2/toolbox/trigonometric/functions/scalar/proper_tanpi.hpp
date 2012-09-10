@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_PROPER_TANPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_PROPER_TANPI_HPP_INCLUDED
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   {
 
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
-    inline result_type operator()(A0 const&)const 
+    inline result_type operator()(A0 const&)const
     {
       return Zero<result_type>();
     }
@@ -54,14 +54,14 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if (is_nan(a0)) return a0; 
+      if (is_nan(a0)) return a0;
       A0 absa0 = nt2::abs(a0);
       if (absa0 > Half<A0>()) return Nan<A0>();
       bool test = (absa0 <= Quarter<A0>());
-      absa0 = test ? absa0 : Half<A0>()-absa0; 
-      A0 that = impl::trig_base<A0,pi_tag,tag::not_simd_type, clipped_pio4>::tana(absa0);
-      that = nt2::negif(nt2::is_ltz(a0), that); 
-      return test ? that : rec(that); 
+      absa0 = test ? absa0 : Half<A0>()-absa0;
+      A0 that = impl::trig_base<A0,pi_tag,tag::not_simd_type, clipped_pio4_>::tana(absa0);
+      that = nt2::negif(nt2::is_ltz(a0), that);
+      return test ? that : rec(that);
     }
   };
 } }

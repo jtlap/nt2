@@ -8,11 +8,13 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_RREF_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_RREF_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/sdk/memory/container.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 /*!
  * \ingroup algebra
@@ -22,16 +24,16 @@
  * reduced echelon
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rref.hpp>
  * \endcode
- * 
- * 
+ *
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag rref_ of functor rref
      *        in namespace nt2::tag for toolbox algebra
@@ -49,7 +51,7 @@ namespace nt2 { namespace tag
       typedef ext::tieable_<rref_>  parent;
     };
   }
-  
+
   NT2_FUNCTION_IMPLEMENTATION(tag::rref_, rref, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::rref_, rref, 2)
   namespace factorization
@@ -78,52 +80,17 @@ namespace nt2 { namespace tag
 
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::rref_,Domain,N,Expr>
-  {
-    // The size is contained in the first child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
-
-  template<class Domain, class Expr>
-  struct  size_of<tag::rref_,Domain,1,Expr>
-  {
-    // The size is contained in the first child
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename meta::strip<seq_term>::type::extent_type        result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return boost::proto::child_c<0>(e).extent();
-    }
-  };
+        : meta::size_as<Expr,0>
+  {};
 
   template<class Domain, int N, class Expr>
-  struct  generator<tag::rref_,Domain,N,Expr>
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type seq_term;
-    typedef typename boost::dispatch::meta::semantic_of<seq_term>::type sema_t;
-
-    // Rebuild proper expression type with semantic
-    typedef expression< typename boost::remove_const<Expr>::type
-                      , sema_t
-                      >                                     result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Expr& e) const
-    {
-      return result_type(e);
-    }
-  }; 
-}}}
-
+  struct  value_type<tag::rref_,Domain,N,Expr>
+        : meta::value_as<Expr,0>
+  {};
+} }
 
 #endif
-

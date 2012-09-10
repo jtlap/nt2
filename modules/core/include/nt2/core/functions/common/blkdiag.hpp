@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -11,12 +12,12 @@
 
 #include <nt2/core/functions/blkdiag.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_less.hpp>
-#include <nt2/include/functions/is_greater_equal.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/simd/min.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_less.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/include/functions/simd/is_greater_equal.hpp>
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
@@ -27,7 +28,7 @@ namespace nt2 { namespace ext
                             , (A0)(State)(Data)(N)
                             , ((node_<A0, nt2::tag::blkdiag_, N>))
                               (generic_< integer_<State> >)
-                              ((unspecified_<Data>))
+                              (target_< unspecified_<Data> >)
                             )
   {
     typedef typename Data::type                                 result_type;
@@ -49,12 +50,19 @@ namespace nt2 { namespace ext
       mask_t const is_stack0 = nt2::lt(pos[1],splat<i_t>(ex0[1]));
       mask_t const is_row0   = nt2::lt(pos[0],splat<i_t>(ex0[0]));
 
+      // Boundaries for indexes
+      i_t bound0 = splat<i_t>(numel(boost::proto::child_c<0>(a0))-1);
+      i_t bound1 = splat<i_t>(numel(boost::proto::child_c<1>(a0))-1);
+
       // Result is out of the diagonal
       result_type const z   = Zero<result_type>();
 
+
       // Result is from a0
       result_type const s0 = nt2::run ( boost::proto::child_c<0>(a0)
-                                      , as_index(ex0, pos)
+                                      , min ( as_index(ex0, pos)
+                                            , bound0
+                                            )
                                       , t
                                       );
 
@@ -67,7 +75,9 @@ namespace nt2 { namespace ext
 
       // Result is from a1
       result_type const s1 = nt2::run ( boost::proto::child_c<1>(a0)
-                                      , as_index(ex1, pos)
+                                      , min ( as_index(ex1, pos)
+                                            , bound1
+                                            )
                                       , t
                                       );
 

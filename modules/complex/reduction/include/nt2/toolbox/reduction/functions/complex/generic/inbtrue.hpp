@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef nt2::int32_t result_type; 
+    typedef std::size_t result_type; 
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::inbtrue(is_nez(a0));  
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                             )
   {
-    typedef nt2::int32_t result_type; 
+    typedef std::size_t result_type; 
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::inbtrue(is_nez(a0)); 
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef nt2::int32_t result_type; 
+    typedef std::size_t result_type; 
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::inbtrue(is_nez(nt2::real(a0))); 

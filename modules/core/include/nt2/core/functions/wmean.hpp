@@ -58,9 +58,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct wmean_ : tag::formal_
+    struct wmean_ : boost::dispatch::tag::formal_
     {
-      typedef tag::formal_ parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
@@ -74,6 +74,5 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::wmean_       , wmean, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::wmean_       , wmean, 3)
 }
-
 
 #endif

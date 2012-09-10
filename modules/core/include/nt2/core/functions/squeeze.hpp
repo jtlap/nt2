@@ -15,8 +15,7 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/reshaping.hpp>
+#include <nt2/core/container/dsl/reshaping.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
 
 namespace nt2
@@ -39,16 +38,47 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::squeeze_, squeeze, 1)
 }
 
-namespace nt2 { namespace container { namespace ext
+//==============================================================================
+// Setup squeeze generator traits
+//==============================================================================
+namespace nt2 { namespace ext
 {
-  template<class Domain, class Expr>
-  struct  generator<nt2::tag::squeeze_,Domain,2,Expr>
-        : reshaping_generator<Expr>
-  {};
+  template<class Domain, int N, class Expr>
+  struct size_of<nt2::tag::squeeze_,Domain,N,Expr>
+  {
+    typedef typename  boost::proto::result_of
+                      ::child_c<Expr&,0>::value_type::extent_type result_type;
 
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::squeeze_,Domain,2,Expr>
-        : reshaping_size_of<Expr>
-  {};
-} } }
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      result_type sizee;
+      result_type ex = boost::proto::child_c<0>(e).extent();
+
+      // Squeeze don't affect 2D array
+      if(result_type::static_size <= 2)
+      {
+        sizee = ex;
+      }
+      else
+      {
+        // Copy non singleton dimensions
+        std::size_t u = 0;
+        for(std::size_t i=0;i<result_type::static_size;++i)
+        {
+          if(ex[i] != 1) { sizee[u] = ex[i]; ++u; }
+        }
+
+        // Ensure non-empty size
+        sizee[0] = sizee[0] ? sizee[0] : 1;
+      }
+
+      return sizee;
+    }
+  };
+
+  template<class Domain, int N, class Expr>
+  struct  value_type<nt2::tag::squeeze_,Domain,N,Expr>
+        : meta::reshaping_value<Expr> {};
+} }
+
 #endif

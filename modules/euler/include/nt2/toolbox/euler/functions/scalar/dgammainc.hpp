@@ -11,18 +11,18 @@
 
 #include <nt2/toolbox/euler/functions/dgammainc.hpp>
 #include <nt2/toolbox/euler/details/math.hpp>
-//#include <nt2/toolbox/boost_math/functions/gamma_p_derivative.hpp>
-
-#include <nt2/include/constants/infinites.hpp>
-#include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/toolbox/boost_math/functions/gamma_p_derivative.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/scalar/tofloat.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
-#include <nt2/include/functions/scalar/gamma.hpp>
-#include <nt2/include/functions/scalar/pow.hpp>
-
+#include <nt2/include/functions/scalar/gammaln.hpp>
+#include <nt2/include/functions/scalar/log.hpp>
+#include <nt2/include/functions/scalar/exp.hpp>
+#include <nt2/include/functions/scalar/is_equal.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <iostream>
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type is arithmetic_
+// Implementation when type is arithmetic_  dgammainc(x, a)/dx
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
@@ -51,10 +51,19 @@ namespace nt2 { namespace ext
 
     typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE result_type operator()(const A0& x, const A1& a) const
     {
-      return nt2::pow(a1, nt2::minusone(a0))*nt2::exp(-a1)/nt2::gamma(a0);
-      //boost_math::gamma_p_derivative(a0, a1); 
+      //return nt2::pow(a1, nt2::minusone(a0))*nt2::exp(-a1)/nt2::gamma(a0);
+      //boost_math::gamma_p_derivative(a1, a0);
+      result_type tmp =  if_zero_else(is_equal(x, One<A0>()), nt2::minusone(a)*nt2::log(x));
+      tmp =  if_allbits_else(is_eqz(a), tmp); 
+//       std::cout << "tmp " << tmp << std::endl;
+//       std::cout << "x   " << x  << " a " << a << std::endl;
+//       std::cout << "gln " << nt2::gammaln(a)<< std::endl;
+//       std::cout <<(tmp-x-nt2::gammaln(a))<< std::endl;
+//       std::cout << nt2::exp(tmp-x-nt2::gammaln(a)) << std::endl;
+//       std::cout << boost_math::gamma_p_derivative(a, x) << std::endl;
+      return nt2::exp(tmp-x-nt2::gammaln(a)); 
     }
   };
 } }

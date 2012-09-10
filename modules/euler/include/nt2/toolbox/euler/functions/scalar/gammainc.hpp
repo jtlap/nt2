@@ -13,12 +13,15 @@
 #include <nt2/toolbox/boost_math/functions/gamma_p.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/scalar/is_ngtz.hpp>
-#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/functions/scalar/is_ngez.hpp>
+#include <nt2/include/functions/scalar/is_eqz.hpp>
+#include <nt2/include/constants/one.hpp>
+
 
 
 
 /////////////////////////////////////////////////////////////////////////////
-// Implementation when type is arithmetic_
+// Implementation when type is arithmetic_ gammainc(x, a)
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
@@ -47,10 +50,11 @@ namespace nt2 { namespace ext
 
     typedef A0 result_type;
 
-    NT2_FUNCTOR_CALL(2)
+    BOOST_FORCEINLINE result_type operator()(const A0& x, const A1& a) const
     {
-      if(is_ngtz(a1)||is_ngtz(a0)) return Nan<result_type>(); 
-      return boost_math::gamma_p(a0, a1); 
+      //     if(is_ngtz(x)||is_ngez(a)) return Nan<result_type>();
+      if (nt2::is_eqz(a)) return One<result_type>(); 
+      return boost_math::gamma_p(a, x); 
     }
   };
 } }

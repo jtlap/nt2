@@ -8,12 +8,7 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_STDEV_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_STDEV_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/include/functor.hpp>
-#include <nt2/include/functions/sqr_abs.hpp>
-#include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <nt2/sdk/memory/container.hpp>
-#include <nt2/core/container/dsl/details/reduction.hpp>
+
 #include <nt2/include/functor.hpp>
 
 /*!
@@ -25,12 +20,12 @@
  * i.e. the square root of the variance
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/stdev.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,9 +38,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of stdev
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -56,7 +51,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 
@@ -64,9 +59,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct stdev_ : tag::formal_ 
-    { 
-       typedef tag::formal_ parent; 
+    struct stdev_ : boost::dispatch::tag::formal_
+    {
+       typedef boost::dispatch::tag::formal_ parent;
     };
   }
 
@@ -74,13 +69,12 @@ namespace nt2
   /*!
    * stdev of a table
    *
-   * \param xpr  table 
+   * \param xpr  table
    */
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::stdev_       , stdev, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::stdev_       , stdev, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::stdev_       , stdev, 3)
 }
-
 
 #endif

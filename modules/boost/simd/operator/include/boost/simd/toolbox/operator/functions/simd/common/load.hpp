@@ -11,7 +11,9 @@
 
 #include <boost/simd/toolbox/operator/functions/load.hpp>
 #include <boost/simd/include/functions/simd/unaligned_load.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/common/details/details_load_store.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/assert.hpp>
@@ -98,13 +100,37 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
       BOOST_ASSERT_MSG
       ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         "is not aligned on the simd vector size.");
       return unaligned_load<typename A2::type>(a0, a1);
+    }
+  };
+
+  // fusion sequence
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
+                                   , (A0)(A1)(A2)(X)
+                                   , (fusion_sequence_<A0>)
+                                     (generic_< integer_<A1> >)
+                                     ((target_< simd_< fusion_sequence_<A2>, X > >))
+                                   )
+  {
+    typedef typename A2::type result_type;
+
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
+    { 
+      static const int N = fusion::result_of::size<A0>::type::value;
+      result_type that;
+      meta::iterate<N>( details::loader< boost::simd::tag::load_
+                                       , A0
+                                       , A1
+                                       , result_type
+                                       >(a0, a1, that)
+                      );
+      return that;
     }
   };
 

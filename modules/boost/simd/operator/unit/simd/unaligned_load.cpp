@@ -21,7 +21,6 @@ NT2_TEST_CASE_TPL( unaligned_load,  BOOST_SIMD_TYPES)
 {
   using boost::simd::unaligned_load;
   using boost::simd::tag::unaligned_load_;
-  using boost::simd::unaligned_load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -48,7 +47,6 @@ NT2_TEST_CASE_TPL( unaligned_load_offset,  BOOST_SIMD_TYPES)
 {
   using boost::simd::unaligned_load;
   using boost::simd::tag::unaligned_load_;
-  using boost::simd::unaligned_load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -86,7 +84,6 @@ NT2_TEST_CASE_TPL( unaligned_load_suboffset,  BOOST_SIMD_TYPES)
 {
   using boost::simd::unaligned_load;
   using boost::simd::tag::unaligned_load_;
-  using boost::simd::unaligned_load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -124,7 +121,6 @@ NT2_TEST_CASE_TPL( unaligned_load_gather, BOOST_SIMD_TYPES)
 {
   using boost::simd::unaligned_load;
   using boost::simd::tag::unaligned_load_;
-  using boost::simd::unaligned_load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -153,4 +149,39 @@ NT2_TEST_CASE_TPL( unaligned_load_gather, BOOST_SIMD_TYPES)
   {
     NT2_TEST_EQUAL(v[j] , data[index[j]]);
   }
+}
+
+struct foo { double d; float f; char c; };
+BOOST_FUSION_ADAPT_STRUCT(foo,(double,d)(float,f)(char,c))
+
+NT2_TEST_CASE( unaligned_load_sequence )
+{
+  using boost::simd::unaligned_load;
+  using boost::simd::tag::unaligned_load_;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  srand(time(NULL));
+
+  BOOST_SIMD_ALIGNED_TYPE(char)   cdata[ cardinal_of< native<char  ,ext_t> >::value ];
+  BOOST_SIMD_ALIGNED_TYPE(float)  fdata[ cardinal_of< native<float ,ext_t> >::value ];
+  BOOST_SIMD_ALIGNED_TYPE(double) ddata[ cardinal_of< native<double,ext_t> >::value ];
+  for(size_t i=0;i<cardinal_of< native<char  ,ext_t> >::value;++i) 
+  { cdata[i] = char(1+i); }
+  for(size_t i=0;i<cardinal_of< native<float ,ext_t> >::value;++i) 
+  { fdata[i] = float(1+i); }
+  for(size_t i=0;i<cardinal_of< native<double ,ext_t> >::value;++i) 
+  { ddata[i] = double(1+i); }
+
+  typedef native<foo, ext_t> seq_t;
+
+  seq_t v = unaligned_load<seq_t>(boost::fusion::make_vector(&ddata[0], &fdata[0], &cdata[0]), 0);
+
+  for(size_t j=0;j<cardinal_of< native<double,ext_t> >::value;++j)  
+    NT2_TEST_EQUAL(boost::fusion::at_c<0>(v)[j] , ddata[j]);
+  for(size_t j=0;j<cardinal_of< native<float,ext_t> >::value;++j)    
+    NT2_TEST_EQUAL(boost::fusion::at_c<1>(v)[j] , fdata[j]);
+  for(size_t j=0;j<cardinal_of< native<char,ext_t> >::value;++j)  
+    NT2_TEST_EQUAL(boost::fusion::at_c<2>(v)[j] , cdata[j]);
 }

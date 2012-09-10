@@ -20,9 +20,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct relative_size_ : tag::formal_
+    struct relative_size_ : boost::dispatch::tag::formal_
     {
-      typedef tag::formal_ parent;
+      typedef boost::dispatch::tag::formal_ parent;
     };
   }
 

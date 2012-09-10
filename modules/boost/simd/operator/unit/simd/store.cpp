@@ -1,54 +1,83 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012 LASMEA UMR 6602 CNRS/Univ. Clermont II         
+//         Copyright 2009 - 2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
+//                                                                              
+//          Distributed under the Boost Software License, Version 1.0.          
+//                 See accompanying file LICENSE.txt or copy at                 
+//                     http://www.boost.org/LICENSE_1_0.txt                     
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 operator toolbox - store/simd Mode"
 
-//////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in simd mode
-//////////////////////////////////////////////////////////////////////////////
-/// created  by jt the 18/02/2011
-/// 
-#include <boost/simd/toolbox/operator/include/functions/store.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/simd/include/functions/store.hpp>
+#include <boost/simd/include/functions/load.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/memory/buffer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
 
-//COMMENTED
-NT2_TEST_CASE_TPL ( store_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL(store, BOOST_SIMD_SIMD_TYPES )
 {
-//   using boost::simd::store;
-//   using boost::simd::tag::store_;
-//   using boost::simd::load; 
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-//   typedef native<T,ext_t>                        n_t;
-//   typedef n_t                                     vT;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef native<iT,ext_t>                       ivT;
-//   typedef typename boost::dispatch::meta::call<store_(vT,vT)>::type r_t;
-//   typedef typename boost::dispatch::meta::call<store_(T,T)>::type sr_t;
-//   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  using boost::simd::store;
+  using boost::simd::load;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
 
-//   // specific values tests
-//   NT2_TEST_EQUAL(store(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-//   NT2_TEST_EQUAL(store(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-//   NT2_TEST_EQUAL(store(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-//   NT2_TEST_EQUAL(store(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-//   NT2_TEST_EQUAL(store(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-} // end of test for floating_
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>             n_t;
+  static const std::size_t card = cardinal_of<n_t>::value;
+  
+  BOOST_SIMD_ALIGNED_TYPE(T) data[3*card];
+  for(std::size_t i=0;i<card;++i)
+    data[i] = T(1+i);
+  std::cout << ((nt2::int64_t)(&data[0]))%32 << std::endl; 
+  n_t v = load<n_t>(&data[0],0);
+  store(v,&data[0],card);
+
+  for(std::size_t j=0;j<card;++j)
+  {
+    NT2_TEST_EQUAL( data[j], data[j+card] );
+  }
+
+#ifdef NT2_ASSERTS_AS_EXCEPTIONS
+  NT2_TEST_NO_THROW( v = store<n_t>(v,&data[0],card) );
+  NT2_TEST_THROW( v = store<n_t>(v,&data[0]+1,card), nt2::assert_exception);
+#endif
+}
+
+struct foo { double d; float f; char c; };
+BOOST_FUSION_ADAPT_STRUCT(foo,(double,d)(float,f)(char,c))
+
+NT2_TEST_CASE( store_sequence )
+{
+  using boost::simd::store;
+  using boost::simd::load;
+  using boost::simd::tag::store_;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  BOOST_SIMD_ALIGNED_TYPE(char)   cdata[ cardinal_of< native<char  ,ext_t> >::value ];
+  BOOST_SIMD_ALIGNED_TYPE(float)  fdata[ cardinal_of< native<float ,ext_t> >::value ];
+  BOOST_SIMD_ALIGNED_TYPE(double) ddata[ cardinal_of< native<double,ext_t> >::value ];
+  BOOST_SIMD_ALIGNED_TYPE(char)   scdata[ cardinal_of< native<char  ,ext_t> >::value ];
+  BOOST_SIMD_ALIGNED_TYPE(float)  sfdata[ cardinal_of< native<float ,ext_t> >::value ];
+  BOOST_SIMD_ALIGNED_TYPE(double) sddata[ cardinal_of< native<double,ext_t> >::value ];
+  for(size_t i=0;i<cardinal_of< native<char  ,ext_t> >::value;++i) 
+  { cdata[i] = char(1+i); }
+  for(size_t i=0;i<cardinal_of< native<float ,ext_t> >::value;++i) 
+  { fdata[i] = float(1+i); }
+  for(size_t i=0;i<cardinal_of< native<double ,ext_t> >::value;++i) 
+  { ddata[i] = double(1+i); }
+
+  typedef native<foo, ext_t> seq_t;
+
+  seq_t v = load<seq_t>(boost::fusion::make_vector(&ddata[0], &fdata[0], &cdata[0]), 0);
+  store(v, boost::fusion::make_vector(&sddata[0], &sfdata[0], &scdata[0]), 0);
+
+  for(size_t j=0;j<cardinal_of< native<double,ext_t> >::value;++j)  
+    NT2_TEST_EQUAL(boost::fusion::at_c<0>(v)[j] , sddata[j]);
+  for(size_t j=0;j<cardinal_of< native<float,ext_t> >::value;++j)    
+    NT2_TEST_EQUAL(boost::fusion::at_c<1>(v)[j] , sfdata[j]);
+  for(size_t j=0;j<cardinal_of< native<char,ext_t> >::value;++j)  
+    NT2_TEST_EQUAL(boost::fusion::at_c<2>(v)[j] , scdata[j]);
+}

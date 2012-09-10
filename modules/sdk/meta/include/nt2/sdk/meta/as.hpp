@@ -22,6 +22,7 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace meta
 {
   using boost::dispatch::meta::as_;
+  using boost::dispatch::meta::target_value;
 } }
 
 #endif

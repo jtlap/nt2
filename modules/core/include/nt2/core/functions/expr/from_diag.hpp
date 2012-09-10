@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,71 +11,59 @@
 #define NT2_CORE_FUNCTIONS_EXPR_FROM_DIAG_HPP_INCLUDED
 
 #include <nt2/core/functions/from_diag.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/isvector.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // from_diag constrruct a of a 2D  diagonal matrix from a vector
-  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::from_diag_, tag::cpu_, (A0), (ast_<A0>) )
   {
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::from_diag_
                                           , container::domain
                                           , A0 const&
-                                          , box<_2D>
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       // Expression must be a matrix
       BOOST_ASSERT_MSG( nt2::isvector(a0)
-                      , "??? Error using ==> from_diag"
+                      , "??? Error using ==> from_diag "
                         "First input must be a vector"
                       );
 
-      std::size_t n = nt2::length(a0);
-
       return boost::proto::make_expr< nt2::tag::from_diag_
                                     , container::domain
-                                    > ( boost::cref(a0)
-                                      , boxify(_2D(n,n))
-                                      );
+                                    > ( boost::cref(a0) );
     }
   };
 
-  //============================================================================
-  // from_diag construct a of a 2D  ith diagonal matrix from a vector
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_from_diag_, tag::cpu_, (A0)(A1), (ast_<A0>)(scalar_< integer_<A1> >) )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::from_diag_, tag::cpu_
+                            , (A0)(A1)
+                            , (ast_<A0>)
+                              (scalar_< integer_<A1> >)
+                            )
   {
     typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::offset_from_diag_
+                      result_of::make_expr< nt2::tag::from_diag_
                                           , container::domain
                                           , A0 const&
                                           , A1
-                                          , box<_2D>
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       // Expression must be a matrix
       BOOST_ASSERT_MSG( nt2::isvector(a0)
-                      , "??? Error using ==> from_diag"
+                      , "??? Error using ==> from_diag "
                         "First input must be a vector"
                       );
 
-      std::size_t n = nt2::length(a0) + nt2::abs(a1);
-      return boost::proto::make_expr< nt2::tag::offset_from_diag_
+      return boost::proto::make_expr< nt2::tag::from_diag_
                                     , container::domain
                                     > ( boost::cref(a0)
-                                        , a1
-                                        , boxify(_2D(n,n))
-                                        );
+                                      , a1
+                                      );
     }
   };
 } }

@@ -19,7 +19,12 @@ namespace nt2
     struct in_place_  {};
     struct meshgrid_  {};
     struct whole_     {};
-    struct along_     {}; 
+    struct along_     {};
+    struct case0_     {};
+    struct case1_     {};
+    struct case2_     {};
+    struct case3_     {};
+    
   }
 
   // Lower/upper
@@ -30,6 +35,10 @@ namespace nt2
   meta::as_<details::whole_>    const whole_    = {};
   meta::as_<details::meshgrid_> const meshgrid_ = {};
   meta::as_<details::along_>    const along_    = {};
+  meta::as_<details::case0_>    const case0_    = {};
+  meta::as_<details::case1_>    const case1_    = {};
+  meta::as_<details::case2_>    const case2_    = {};
+  meta::as_<details::case3_>    const case3_    = {};
 
 }
 

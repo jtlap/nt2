@@ -25,7 +25,7 @@
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <boost/mpl/comparison.hpp>
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
   struct value_type<nt2::tag::split_, Domain, 1, Expr>
@@ -47,7 +47,7 @@ namespace nt2 { namespace container { namespace ext
     typedef typename boost::proto::result_of::child_c<Expr&, 1>::type child0;
     typedef typename boost::proto::result_of::value<child0>::value_type::type type;
   };
-} } }
+} }
 
 namespace nt2 { namespace ext
 {

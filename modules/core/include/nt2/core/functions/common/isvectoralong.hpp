@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -12,7 +13,6 @@
 #include <nt2/core/functions/isvectoralong.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -23,27 +23,23 @@ namespace nt2 { namespace ext
                             )
   {
     typedef bool result_type;
+
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0, const A1& dim) const
     {
-      //      NT2_ASSERT_MSG(dim > Zero<A1>(), "dim must be strictly greater than 0"); 
-      size_t d = dim-1;
-      typedef typename meta::call<tag::extent_(A0 const&)>::type extent_t;
-      extent_t ex = nt2::extent(a0);
-      std::size_t nz = nt2::numel(ex);
-      if (nz)
-        return ex[d] == nz;
+      typename A0::extent_type  ex  = nt2::extent(a0);
+      std::size_t               nz  = nt2::numel(ex);
+      size_t                    d   = dim-1;
+
+      if(nz) return ex[d] == nz;
       else
       {
+        // TODO: Fix for dim > ex.size()
         for(size_t i=0; i < d; ++i)
-        {
           if (ex[i] !=  1u) return false;
-        }
 
         for(size_t i=dim; i < ex.size(); ++i)
-        {
           if (ex[i] !=  1u) return false;
-        }
       }
       return true;
     }

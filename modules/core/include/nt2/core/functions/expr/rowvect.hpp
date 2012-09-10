@@ -10,11 +10,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_ROWVECT_HPP_INCLUDED
 
 #include <nt2/core/functions/rowvect.hpp>
-
-#include <nt2/sdk/memory/copy.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
-#include <nt2/include/functions/length.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -29,17 +25,15 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::rowvect_
                                           , container::domain
-                                          , A0 const&
-                                          , box<_2D>
+                                          , A0&
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      _2D sizee(1, numel(a0));
       return  boost::proto::
               make_expr < nt2::tag::rowvect_
                         , container::domain
-                        > ( boost::cref(a0), boxify(sizee) );
+                        > ( boost::ref(a0) );
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rowvect_, tag::cpu_
@@ -51,7 +45,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return  a0; 
+      return  a0;
     }
   };
 } }

@@ -2325,8 +2325,8 @@ void realfft_split( float * BOOST_DISPATCH_RESTRICT data, unsigned const n )
         for ( unsigned j=2; j<=n8; j++ )
         {
             float cc1, cc3;
-            float const ss1( sinecosine<small>( a  , cc1 ) );
-            float const ss3( sinecosine<small>( 3*a, cc3 ) );
+            float const ss1( sinecosine<small_>( a  , cc1 ) );
+            float const ss3( sinecosine<small_>( 3*a, cc3 ) );
             a = static_cast<int>( j ) * e;
             unsigned i=0;
             id=n2<<1;
@@ -2419,8 +2419,8 @@ void irealfft_split(float *data,long n){
         a=e;
         for (j=2; j<=n8; j++){
             float cc1, cc3;
-            float const ss1( sinecosine<small>( a  , cc1 ) );
-            float const ss3( sinecosine<small>( 3*a, cc3 ) );
+            float const ss1( sinecosine<small_>( a  , cc1 ) );
+            float const ss3( sinecosine<small_>( 3*a, cc3 ) );
             a=j*e;
             i=0;
             id=n2<<1;

@@ -13,6 +13,7 @@
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/first_index.hpp>
+#include <nt2/core/functions/details/indices.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/utility/of_size.hpp>
@@ -20,20 +21,19 @@
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Generates indices from expression (support size(a) + dim type calls)
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                              , (A0)(A1)
+                            , (A0)(A1)
                             , (ast_<A0>)
                               (scalar_<integer_<A1> >)
                             )
   {
+    typedef meta::constant_<nt2::tag::indices_,double> constant_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::indices_
                                           , container::domain
                                           , box<of_size_max>
-                                          , box<nt2::details::indices>
+                                          , box<constant_t>
                                           , meta::as_<double>
                                           >::type             result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const & dim) const
@@ -49,17 +49,15 @@ namespace nt2 { namespace ext
       nt2::memory::cast_copy(a0.raw(), a0.raw()+sz, &sizee[0]);
 
       return boost::proto::make_expr< nt2::tag::indices_
-        , container::domain
-        > ( boxify(sizee)
-            , boxify(nt2::details::indices(dim))
-            , meta::as_<double>()
-            );
+                                    , container::domain
+                                    > ( boxify(sizee)
+                                      , boxify(constant_t(dim))
+                                      , meta::as_<double>()
+                                      );
     }
   };
 
-  //============================================================================
-  // Generates indices from expression (support size(a) + dim type calls)
-  //============================================================================
+  ///INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
                             , (A0)(A1)(T)
                             , (ast_<A0>)
@@ -67,15 +65,18 @@ namespace nt2 { namespace ext
                               (target_< scalar_< unspecified_<T> > >)
                             )
   {
+    typedef typename T::type                                    value_t;
+    typedef meta::constant_<nt2::tag::indices_,value_t>  constant_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::indices_
                                           , container::domain
                                           , box<of_size_max>
-                                          , box<nt2::details::indices>
+                                          , box<constant_t>
                                           , T
                                           >::type             result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const & dim, T const& tgt) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A1 const & dim, T const& tgt) const
     {
       // Expression must be a row vector
       BOOST_ASSERT_MSG
@@ -90,7 +91,7 @@ namespace nt2 { namespace ext
       return boost::proto::make_expr< nt2::tag::indices_
                                     , container::domain
                                     > ( boxify(sizee)
-                                      , boxify(nt2::details::indices(dim))
+                                      , boxify(constant_t(dim))
                                       , tgt
                                       );
     }

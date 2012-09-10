@@ -10,43 +10,43 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_ADJFUN_HPP_INCLUDED
 
 #include <nt2/core/functions/adjfun.hpp>
-#include <nt2/core/functions/common/adjfun.hpp>
-#include <nt2/table.hpp>
 #include <nt2/core/functions/of_size.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_,
-                              (A0)(A1),
-                              (unspecified_<A0>)(scalar_<integer_<A1> >)
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_
+                            , (Functor)(A0)
+                            , (unspecified_<Functor>)
+                              (scalar_<unspecified_<A0> >)
                             )
   {
-    typedef table<A0, of_size_<0, 0> > result_type; 
-    BOOST_FORCEINLINE result_type operator()(A0 const&,
-                                             A1 const&) const
+    typedef table<A0,of_size_<0> > result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(Functor const&, A0 const&) const
     {
-      result_type t; 
-      return t; 
-    }
-  };
-  
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_,
-                              (A0)(A1)(A2),
-                              (unspecified_<A0>)
-                              (scalar_<integer_<A1> >)
-                              (scalar_<integer_<A2> >)
-                            )
-  {
-    typedef table<A0, of_size_<0, 0> > result_type; 
-    BOOST_FORCEINLINE result_type operator()(A0 const&,
-                                             A1 const&,
-                                             A2 const&) const
-    {
-      result_type t; 
-      return t; 
+      return result_type();
     }
   };
 
-} } 
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_
+                            , (Functor)(A0)(Along)
+                            , (unspecified_<Functor>)
+                              (scalar_<unspecified_<A0> >)
+                              (scalar_<integer_<Along> >)
+                            )
+  {
+    typedef table<A0, of_size_<0> > result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(Functor const&, A0 const&, Along const&) const
+    {
+      return result_type();
+    }
+  };
+} }
 
 #endif

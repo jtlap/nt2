@@ -27,27 +27,27 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::extent_type                extt_t;
     typedef typename A0::value_type             value_type;
-    typedef typename A0::index_type             index_type; 
+    typedef typename A0::index_type             index_type;
     typedef typename meta::strip<extt_t>::type       ext_t;
-    typedef table <value_type, index_type> result_type; 
+    typedef table <value_type, index_type> result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& ind, A2 const& dim) const
      {
-      size_t along = dim-1; 
-      ext_t sizee = a0.extent();     
+      size_t along = dim-1;
+      ext_t sizee = a0.extent();
       sizee[along] = 1;
        switch(dim)
          {
          case 1 : return nt2::reshape(a0(ind, nt2::_), sizee);
          case 2 : return nt2::reshape(a0(nt2::_, ind, nt2::_), sizee);
-         case 3 : return nt2::reshape(a0(nt2::_, nt2::_, ind, nt2::_), sizee);        
-//          case 4 : return nt2::reshape(a0(nt2::_, nt2::_, nt2::_, ind, nt2::_), sizee);        
+         case 3 : return nt2::reshape(a0(nt2::_, nt2::_, ind, nt2::_), sizee);
+//          case 4 : return nt2::reshape(a0(nt2::_, nt2::_, nt2::_, ind, nt2::_), sizee);
 //          case 5 : return nt2::reshape(a0(nt2::_, nt2::_, nt2::_, nt2::_, ind), sizee);
-         default : return a0;  
-         }; 
+         default : return a0;
+         };
      }
-  }; 
+  };
 
-  
+
 //   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::hyper_, tag::cpu_,
 //                               (A0)(A1)(A2),
 //                               (ast_<A0>)
@@ -70,20 +70,20 @@ namespace nt2 { namespace ext
 
 //     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& ind, A2 const& dim) const
 //     {
-//       BOOST_ASSERT_MSG(size_t(ind) < size(a0, dim), "index of hyoerplane must be less than size(a0, dim)"); 
+//       BOOST_ASSERT_MSG(size_t(ind) < size(a0, dim), "index of hyoerplane must be less than size(a0, dim)");
 //       typedef typename meta::call<nt2::tag::ind2sub_(ext_t,size_t)>::type  sub_t;
-//       size_t along = dim-1; 
-//       ext_t sizee = a0.extent();     
+//       size_t along = dim-1;
+//       ext_t sizee = a0.extent();
 //       sizee[along] = 1;
 
-//       ext_t ex1;     
-//       for(size_t i=0; i < ext_t::size() ; ++i) ex1[i] = 1; 
+//       ext_t ex1;
+//       for(size_t i=0; i < ext_t::size() ; ++i) ex1[i] = 1;
 //       ex1[along] = nt2::extent(a0)[along];
 //       sub_t pos = ind2sub(ex1, ind);
-// //       for(size_t i = 0; i < ext_t::size(); ++i) std::co-b½ut << nt2::extent(a0)[i] << "  ";  std::cout << std::endl;-A
+// //       for(size_t i = 0; i < ext_t::size(); ++i) std::cout << nt2::extent(a0)[i] << "  ";  std::cout << std::endl;
 // //       for(size_t i = 0; i < ext_t::size(); ++i) std::cout << pos [i] << "  ";  std::cout << std::endl;
 //       size_t start = sub2ind(a0.extent(), pos);
-//       size_t stride = nt2::hypersstride(a0, dim); 
+//       size_t stride = nt2::hypersstride(a0, dim);
 //       std::cout << " stride   " << stride
 //                 << " start  " << start
 //                 << " ind    " << ind

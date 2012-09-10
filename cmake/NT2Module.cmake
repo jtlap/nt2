@@ -158,7 +158,8 @@ macro(nt2_configure_tests)
   option(NT2_WITH_TESTS_FULL "Use one executable per test" ${NT2_WITH_TESTS_FULL_})
   option(NT2_WITH_TESTS_BENCH "Register benchmarks with ctest" OFF)
   option(NT2_WITH_TESTS_COVER "Enable cover tests" OFF)
-  set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST} CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
+  set(CMAKE_CROSSCOMPILING_CMD $ENV{CMAKE_CROSSCOMPILING_CMD})# CACHE STRING "Command to use to run test sin a cross-compiling setup")
+  set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST})# CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
 
   if(NT2_WITH_TESTS_FULL)
     set(NT2_WITH_TESTS ON CACHE BOOL "Enable benchmarks and unit tests" FORCE)
@@ -321,6 +322,7 @@ function(nt2_module_add_exe name)
 
   if(NT2_PCH_TARGET)
     add_dependencies(${name} ${NT2_PCH_TARGET}_${build_type}.pch)
+    add_dependencies(${name} ${NT2_PCH_FILE}})
   endif()
 
   nt2_module_target_parent(${name})
@@ -340,6 +342,7 @@ macro(nt2_module_add_example name)
 
   if(NT2_PCH_TARGET)
     add_dependencies(${name} ${NT2_PCH_TARGET}_${build_type}.pch)
+    add_dependencies(${name} ${NT2_PCH_FILE}})
   endif()
 
   string(REGEX REPLACE "[^.]+\\.sample$" "examples" suite ${name})
@@ -383,6 +386,8 @@ macro(nt2_module_add_tests name)
           add_test(${prefix}.${basename}-${suffix} /bin/sh -c
                    "scp \"${NT2_BINARY_DIR}/${suffix}/${exe}\" ${CMAKE_CROSSCOMPILING_HOST}:/tmp && ssh ${CMAKE_CROSSCOMPILING_HOST} /tmp/${exe} ${arg} && ssh ${CMAKE_CROSSCOMPILING_HOST} rm /tmp/${exe}"
                   )
+        elseif(CMAKE_CROSSCOMPILING AND CMAKE_CROSSCOMPILING_CMD)
+          add_test(${prefix}.${basename}-${suffix} ${CMAKE_CROSSCOMPILING_CMD} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})
         else()
           add_test(${prefix}.${basename}-${suffix} ${NT2_BINARY_DIR}/${suffix}/${exe} ${arg})
         endif()

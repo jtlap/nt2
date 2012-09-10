@@ -16,7 +16,14 @@
 #include <nt2/core/container/extremum/extremum.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/is_signed.hpp>
+#include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <boost/mpl/bool.hpp>
+
+namespace nt2 { namespace tag
+{
+  struct colon_;
+  struct unity_colon_;
+} }
 
 namespace nt2 { namespace details
 {
@@ -151,6 +158,49 @@ namespace nt2 { namespace details
     {
       return end_.index(b,s);
     }
+  };
+} }
+
+namespace nt2 { namespace meta
+{
+  /// INTERNAL ONLY
+  /// colon actual functor : precompute step and just iterate over
+  template<class Base> struct constant_<nt2::tag::colon_, Base>
+  {
+    typedef Base                                          result_type;
+
+    constant_() {}
+    constant_( Base const& l, Base const& s) : lower_(l), step_(s) {}
+
+    template<class Pos, class Size,class Target>
+    BOOST_FORCEINLINE typename Target::type
+    operator()(Pos const& p, Size const&sz, Target const& t) const
+    {
+      return details::colon_value(lower_,step_,p,t);
+    }
+
+    private:
+    Base lower_, step_;
+  };
+
+  /// INTERNAL ONLY
+  /// unity_colon actual functor : just forward form lower bound
+  template<class Base> struct constant_<nt2::tag::unity_colon_, Base>
+  {
+    typedef Base                                          result_type;
+
+    constant_() {}
+    constant_( Base const& l ) : lower_(l) {}
+
+    template<class Pos, class Size,class Target>
+    BOOST_FORCEINLINE typename Target::type
+    operator()(Pos const& p, Size const&sz, Target const& t) const
+    {
+      return details::unity_colon_value(lower_,p,t);
+    }
+
+    private:
+    Base lower_;
   };
 } }
 

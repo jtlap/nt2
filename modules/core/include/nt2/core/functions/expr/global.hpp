@@ -22,14 +22,13 @@ namespace nt2 { namespace ext
                               (ast_<A1>)
                               )
   {
-    typedef typename A1::value_type                               value_type; 
-    typedef typename meta::result_of<A0 const(const value_type&)>::type result_type; 
+    typedef typename A1::value_type                               value_type;
+    typedef typename meta::result_of<A0 const(const value_type&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
       return a0(nt2::colvect(a1))(1);
     }
   };
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::global_, tag::cpu_,
                               (A0)(A1),
                               (unspecified_<A0>)

@@ -15,9 +15,10 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generator.hpp>
-#include <nt2/core/container/dsl/details/relative.hpp>
-#include <nt2/core/settings/shape.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
@@ -26,19 +27,17 @@ namespace nt2
     struct triu_ : ext::elementwise_<triu_>
     {
       typedef ext::elementwise_<triu_> parent;
-      typedef upper_triangular_        shape_type;
     };
 
     struct offset_triu_ : ext::elementwise_<offset_triu_>
     {
       typedef ext::elementwise_<offset_triu_>  parent;
-      typedef rectangular_                     shape_type;
     };
   }
 
   //============================================================================
   /*!
-   * superior triangular part of a 2D table.
+   * Upper triangular part of a 2D table.
    *
    * \param xpr 2D table (must verify is_matrix(a))
    */
@@ -47,27 +46,27 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_triu_, triu, 2)
 }
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
-  struct  generator<nt2::tag::triu_,Domain,1,Expr>
-        : relative_generator<Expr>
+  struct  value_type<nt2::tag::triu_,Domain,1,Expr>
+        : meta::value_as<Expr,0>
   {};
 
   template<class Domain, class Expr>
-  struct  generator<nt2::tag::offset_triu_,Domain,2,Expr>
-        : relative_generator<Expr>
+  struct  value_type<nt2::tag::offset_triu_,Domain,2,Expr>
+        : meta::value_as<Expr,0>
   {};
 
   template<class Domain, class Expr>
   struct  size_of<nt2::tag::triu_,Domain,1,Expr>
-        : relative_size_of<Expr>
+        : meta::size_as<Expr,0>
   {};
 
   template<class Domain, class Expr>
   struct  size_of<nt2::tag::offset_triu_,Domain,2,Expr>
-        : relative_size_of<Expr>
+        : meta::size_as<Expr,0>
   {};
-} } }
+} }
 
 #endif

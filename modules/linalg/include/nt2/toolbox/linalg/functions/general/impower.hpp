@@ -33,7 +33,6 @@
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <iostream>
 
 namespace nt2{ namespace ext
 {
@@ -48,10 +47,10 @@ namespace nt2{ namespace ext
     typedef table<value_type, index_type> result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      BOOST_ASSERT_MSG(is_flint(a1), "impower requires the second argument to be int or flint"); 
-      BOOST_ASSERT_MSG(is_square(a0),"impower requires the first input to be a square matrix");
+      BOOST_ASSERT_MSG(is_flint(a1), "impower requires the second argument to be int or flint");
+      BOOST_ASSERT_MSG(issquare(a0),"impower requires the first input to be a square matrix");
       if(is_ltz(a1))
-        return nt2::inv(nt2::impower(a0, -a1)); 
+        return nt2::inv(nt2::impower(a0, -a1));
       else {
         value_type m = nt2::round(a1); //MAYBE UNECESSARY
         result_type q, t;
@@ -64,44 +63,44 @@ namespace nt2{ namespace ext
         else
           { //use iterative method
             result_type r = nt2::eye(nt2::size(a0), meta::as_<value_type>());
-            //            NT2_DISP(a0); 
+            //            NT2_DISP(a0);
             result_type a00 = a0;
             result_type a01;  // a01 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
-            //            NT2_DISP(a00); 
+            //            NT2_DISP(a00);
             while (true)
               {
                 // old m "<< m << std::endl;
-                //                NT2_DISP(r); 
-                if (m < nt2::One<A1>()) return r; 
+                //                NT2_DISP(r);
+                if (m < nt2::One<A1>()) return r;
                 if (nt2::is_odd(m))
                   {
                     result_type r1 = nt2::mtimes(a00, r);// r1 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
-                    r =  r1; 
+                    r =  r1;
                   }
                 a01 =  nt2::mtimes(a00, a00);
-                a00 =  a01; 
+                a00 =  a01;
                 m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
-//                 NT2_DISP(a00); 
-//                 std::cout <<" m "<< m << std::endl; 
+//                 NT2_DISP(a00);
+//                 std::cout <<" m "<< m << std::endl;
               }
             return r;
           }
       }
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::impower_, tag::cpu_
                               , (A0)(A1)
                               , (scalar_<fundamental_<A0> >)
-                              (scalar_<fundamental_<A1> >) 
+                              (scalar_<fundamental_<A1> >)
                             )
   {
-    typedef typename nt2::meta::as_floating<A0>::type result_type; 
+    typedef typename nt2::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::pow(a0, a1); 
+      return nt2::pow(a0, a1);
     }
-  };  
+  };
 } }
 
 #endif

@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -10,15 +11,24 @@
 #define NT2_CORE_FUNCTIONS_IND2SUB_HPP_INCLUDED
 
 /*!
- * \file
- * \brief Defines and implements the nt2::ind2sub function
- */
+  @file
+  @brief Define and implements the ind2sub function
+**/
 
 #include <nt2/include/functor.hpp>
 
 namespace nt2
 {
-  namespace tag { struct ind2sub_ : ext::unspecified_<ind2sub_> { typedef ext::unspecified_<ind2sub_> parent; }; }
+  namespace tag
+  {
+    /*!
+      @brief Tag for the ind2sub functor
+    **/
+    struct ind2sub_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
+    };
+  }
 
   //============================================================================
   /*!

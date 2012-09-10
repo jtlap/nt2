@@ -12,7 +12,6 @@
 #include <nt2/core/functions/cols.hpp>
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/ndims.hpp>
-#include <nt2/include/functions/first_index.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/utility/of_size.hpp>
@@ -29,13 +28,14 @@ namespace nt2 { namespace ext
                               (scalar_< arithmetic_<T> >)
                             )
   {
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::cols_
-      , container::domain
-      , box<_2D>
-      , box<nt2::details::cols<T> >
-      , meta::as_<T>
-      >::type             result_type;
+    typedef meta::constant_<nt2::tag::cols_,T> constant_t;
+    typedef typename  boost::proto::result_of
+                    ::make_expr < nt2::tag::cols_
+                                , container::domain
+                                , box<_2D>
+                                , box<constant_t>
+                                , meta::as_<T>
+                                >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& start) const
     {
@@ -51,8 +51,8 @@ namespace nt2 { namespace ext
       return boost::proto::make_expr< nt2::tag::cols_
                                     , container::domain
                                     > ( boxify(sizee)
-                                      , boxify(nt2::details::cols<T>(start))
-                                        , meta::as_<T>()
+                                      , boxify(constant_t(start))
+                                      , meta::as_<T>()
                                       );
     }
   };

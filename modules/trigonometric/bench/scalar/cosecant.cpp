@@ -31,52 +31,52 @@ using nt2::tag::cosecant_;
 namespace n1 {
   typedef float T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n2 {
   typedef double T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,-20*nt2::Pi<T>(),20*nt2::Pi<T>())))
 }
 namespace n3 {
   typedef nt2::uint8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,T(0),T(40))))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,T(0),T(40))))
 }
 namespace n4 {
   typedef nt2::uint16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,T(0),T(40))))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,T(0),T(40))))
 }
 namespace n5 {
   typedef nt2::uint32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,T(0),T(40))))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,T(0),T(40))))
 }
 namespace n6 {
   typedef nt2::uint64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,T(0),T(40))))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,T(0),T(40))))
 }
 namespace n7 {
   typedef nt2::int8_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,T(-40),T(40))))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,T(-40),T(40))))
 }
 namespace n8 {
   typedef nt2::int16_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,T(-40),T(40))))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,T(-40),T(40))))
 }
 namespace n9 {
   typedef nt2::int32_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,T(-40),T(40))))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,T(-40),T(40))))
 }
 namespace n10 {
   typedef nt2::int64_t T;
   typedef boost::dispatch::meta::as_integer<T>::type iT;
-  NT2_TIMING(cosecant_<nt2::medium>,(RS(T,T(-40),T(40))))
+  NT2_TIMING(cosecant_<nt2::medium_>,(RS(T,T(-40),T(40))))
 }
 
 #undef RS

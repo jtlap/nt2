@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/sine.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -36,27 +36,27 @@ extern "C" {extern long double cephes_sinl(long double);}
 
 NT2_TEST_CASE_TPL ( sine_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::sine;
   using nt2::tag::sine_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<sine_<nt2::medium>(T)>::type r_t;
+  typedef typename nt2::meta::call<sine_<nt2::medium_>(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(sine<nt2::medium>(-nt2::Pi<T>()/T(2)), nt2::Mone<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sine<nt2::medium>(-nt2::Pi<T>()/T(4)), -nt2::Sqrt_2o_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sine<nt2::medium>(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sine<nt2::medium>(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sine<nt2::medium>(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sine<nt2::medium>(nt2::Pi<T>()/T(2)), nt2::One<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sine<nt2::medium>(nt2::Pi<T>()/T(4)), nt2::Sqrt_2o_2<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sine<nt2::medium>(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sine<nt2::medium_>(-nt2::Pi<T>()/T(2)), nt2::Mone<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sine<nt2::medium_>(-nt2::Pi<T>()/T(4)), -nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sine<nt2::medium_>(nt2::Inf<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sine<nt2::medium_>(nt2::Minf<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sine<nt2::medium_>(nt2::Nan<T>()), nt2::Nan<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sine<nt2::medium_>(nt2::Pi<T>()/T(2)), nt2::One<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sine<nt2::medium_>(nt2::Pi<T>()/T(4)), nt2::Sqrt_2o_2<r_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sine<nt2::medium_>(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
 } // end of test for floating_

@@ -17,7 +17,7 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/assert.hpp>
 
-namespace nt2 { namespace container { namespace ext
+namespace nt2 { namespace ext
 {
   //============================================================================
   // resize expression internal extension points
@@ -75,6 +75,6 @@ namespace nt2 { namespace container { namespace ext
   {
     template<class Sz> BOOST_FORCEINLINE void operator()(Expr&, Sz const&) {}
   };
-} } }
+} }
 
 #endif

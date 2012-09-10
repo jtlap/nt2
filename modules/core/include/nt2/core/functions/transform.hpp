@@ -20,7 +20,10 @@ namespace nt2
 {
   namespace tag
   {
-    struct transform_ : tag::formal_ { typedef tag::formal_ parent; };
+    struct transform_ : boost::dispatch::tag::formal_
+    {
+      typedef boost::dispatch::tag::formal_ parent;
+    };
   }
 
   //============================================================================
