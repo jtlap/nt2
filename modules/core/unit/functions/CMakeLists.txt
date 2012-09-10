@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+    expand_to.cpp
     along.cpp
     linear_interp.cpp
     sx.cpp
