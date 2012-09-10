@@ -21,12 +21,28 @@
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/mpl/size_t.hpp>
+#include <boost/mpl/back.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace nt2 { namespace ext
 {
+  template<class Id, class Cardinal, class Enable = void>
+  struct is_vectorizable_indexer_impl
+       : boost::mpl::false_
+  {
+  };
+
   template<class Id, class Cardinal>
   struct is_vectorizable_indexer
-       : boost::mpl::false_
+       : is_vectorizable_indexer_impl<Id, Cardinal>
+  {
+  };
+
+  // scalar
+  template<class Id>
+  struct is_vectorizable_indexer_impl< Id, boost::mpl::size_t<1u>, typename boost::enable_if_c< Id::extent_type::static_size == 0u >::type >
+       : boost::mpl::true_
   {
   };
 
@@ -75,7 +91,7 @@ namespace nt2 { namespace ext
     >
   , Cardinal
   >
-    : boost::mpl::bool_< N!=-1 && !(N % Cardinal::value) >
+    : boost::mpl::bool_< Cardinal::value == 1 || (N != -1 && !(N % Cardinal::value)) >
   {
   };
 
@@ -98,12 +114,15 @@ namespace nt2 { namespace ext
   template<class Children, class Data>
   struct is_vectorizable_indexers
        : boost::mpl::
-         fold < typename boost::mpl::pop_back< typename boost::fusion::result_of::as_vector<Children>::type >::type
-              , boost::mpl::true_
-              , boost::mpl::and_< boost::mpl::_1
-                                , is_vectorizable_indexer< boost::mpl::_2, typename meta::cardinal_of<typename meta::target_value<Data>::type>::type >
-                                >
-              >
+         and_< boost::mpl::
+               fold < typename boost::mpl::pop_back< typename boost::fusion::result_of::as_vector<Children>::type >::type
+                    , boost::mpl::true_
+                    , boost::mpl::and_< boost::mpl::_1
+                                      , is_vectorizable_indexer< boost::mpl::_2, typename meta::cardinal_of<typename meta::target_value<Data>::type>::type >
+                                      >
+                    >
+             , is_vectorizable_indexer< typename boost::mpl::back<Children>::type, boost::mpl::size_t<1u> >
+             >
   {
   };
 } }
