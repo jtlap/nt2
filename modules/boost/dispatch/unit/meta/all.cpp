@@ -30,7 +30,7 @@ NT2_TEST_CASE(unary_sequence)
   NT2_TEST( !(all_seq< is_same<_1,double>, vector<int,double,bool> >::value)    );
   NT2_TEST( !(all_seq< is_same<_1,double>, vector<bool,double,double> >::value) );
   NT2_TEST( !(all_seq< is_same<_1,double>, vector<double,double,bool> >::value) );
-  NT2_TEST( !(all_seq< is_same<_1,double>, vector<double,int,double> >::value)s);
+  NT2_TEST( !(all_seq< is_same<_1,double>, vector<double,int,double> >::value)  );
 }
 
 ////////////////////////////////////////////////////////////////////////////////

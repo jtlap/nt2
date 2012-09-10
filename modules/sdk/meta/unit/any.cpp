@@ -26,8 +26,8 @@ NT2_TEST_CASE(unary_sequence)
   using boost::mpl::_1;
   using boost::mpl::vector;
 
-  NT2_TEST(  (any< is_same<_1,bool  >, vector<int,float,bool> >::value) );
-  NT2_TEST( !(any< is_same<_1,double>, vector<int,float,bool> >::value) );
+  NT2_TEST(  (any_seq< is_same<_1,bool  >, vector<int,float,bool> >::value) );
+  NT2_TEST( !(any_seq< is_same<_1,double>, vector<int,float,bool> >::value) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
