@@ -8,14 +8,20 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNALIGNED_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_UNALIGNED_LOAD_HPP_INCLUDED
+
 #include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/common/details/details_load_store.hpp>
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/mpl/equal_to.hpp>
+#include <boost/fusion/include/at_c.hpp>
+#include <boost/fusion/include/make_vector.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,7 +34,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
       result_type that;
       for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
@@ -46,7 +52,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-    inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
       return is_nez(unaligned_load<typename result_type::type>(a0, a1));
     }
@@ -98,6 +104,30 @@ namespace boost { namespace simd { namespace ext
       }
 
       return unaligned_load<result_type>(&that[0]);
+    }
+  };
+
+  // fusion sequence
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_, tag::cpu_
+                                   , (A0)(A1)(A2)(X)
+                                   , (fusion_sequence_<A0>)
+                                     (generic_< integer_<A1> >)
+                                     ((target_< simd_< fusion_sequence_<A2>, X > >))
+                                   )
+  {
+    typedef typename A2::type result_type;
+
+    inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
+    { 
+      static const int N = fusion::result_of::size<A0>::type::value;
+      result_type that;
+      meta::iterate<N>( details::loader< boost::simd::tag::unaligned_load_
+                                       , A0
+                                       , A1
+                                       , result_type
+                                       >(a0, a1, that)
+                      );
+      return that;
     }
   };
 
