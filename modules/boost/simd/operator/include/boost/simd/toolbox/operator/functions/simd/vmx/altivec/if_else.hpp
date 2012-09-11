@@ -17,17 +17,16 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_, boost::simd::tag::altivec_
-				     , (A0)(A1)(X)
-				     , ((simd_< logical_<A0>, X >))
-				     ((simd_< arithmetic_<A1>, X >))
-				     ((simd_< arithmetic_<A1>, X >))
+             , (A0)(A1)(X)
+             , ((simd_< logical_<A0>, X >))
+               ((simd_< arithmetic_<A1>, X >))
+               ((simd_< arithmetic_<A1>, X >))
 				     )
   {
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
     {
-      result_type that = { vec_sel(a1(), a2(),complement(genmask(a0))()) };
-      return that;
+      return vec_sel(a1(), a2(),complement(genmask(a0))());
     }
   };
 

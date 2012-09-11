@@ -22,8 +22,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(3)
     {
-	  result_type that = { vec_madd(a0(),a1(),a2()) };
-      return that;
+      return vec_madd(a0(),a1(),a2());
     }
   };
 } } }

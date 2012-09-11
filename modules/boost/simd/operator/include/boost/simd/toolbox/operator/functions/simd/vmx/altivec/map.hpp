@@ -46,7 +46,8 @@ namespace boost { namespace simd { namespace ext                              \
                                                                               \
     BOOST_SIMD_FUNCTOR_CALL(BOOST_PP_INC(n))                                  \
     {                                                                         \
-      result_type that = {{BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n)}};  \
+      typename result_type::native_type that =                                \
+        {BOOST_PP_ENUM(BOOST_PP_TUPLE_ELEM(2,1,t),M3,n)};                     \
       return that;                                                            \
     }                                                                         \
   };                                                                          \
