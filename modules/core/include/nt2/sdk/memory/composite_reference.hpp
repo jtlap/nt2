@@ -12,6 +12,7 @@
 #include <boost/fusion/include/for_each.hpp>
 #include <boost/fusion/include/comparison.hpp>
 #include <boost/fusion/include/transform_view.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
 
 //==============================================================================
 /**
@@ -44,28 +45,37 @@ namespace nt2 { namespace memory
                                         >
                       >::type                 parent;
 
-    composite_reference(T& src) : parent( src ) {}
+    composite_reference(T& src) : parent( src )     {}
+    composite_reference(parent& src) : parent(src)  {}
 
-    ////composite_reference(parent& src) : parent(src) {}
+    composite_reference& operator=(T& src)
+    {
+      static_cast<parent&>(*this) = static_cast<parent&>(src);
+      return *this;
+    }
 
-    ////composite_reference& operator=(T& src)
-    ////{
-      ////static_cast<parent&>(*this) = static_cast<parent&>(src);
-      ////return *this;
-    ////}
-
-    ////composite_reference& operator=(parent const& src)
-    ////{
-      ////return *this;
-    ////}
+    composite_reference& operator=(parent const& src)
+    {
+      return *this;
+    }
   };
 
-  ////template<class T>
-  ////std::ostream& operator<<(std::ostream& os,composite_reference<T> const& i)
-  ////{
-    //////i.display(os);
-    ////return os;
-  ////}
+  template<class T>
+  std::ostream& operator<<(std::ostream& os,composite_reference<T> const& cr)
+  {
+    return boost::fusion::out(os, cr);
+  }
 } }
+
+namespace boost { namespace dispatch { namespace meta
+{
+  //============================================================================
+  // container hierarchy is given by its semantic_
+  //============================================================================
+  template<class T, class Origin>
+  struct  hierarchy_of< nt2::memory::composite_reference<T>, Origin >
+        : hierarchy_of< T, Origin>
+  {};
+} } }
 
 #endif
