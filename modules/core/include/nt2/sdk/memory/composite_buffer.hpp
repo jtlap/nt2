@@ -30,6 +30,7 @@
 #include <boost/fusion/include/zip_view.hpp>
 #include <boost/fusion/include/as_vector.hpp>
 #include <nt2/sdk/memory/composite_iterator.hpp>
+#include <nt2/sdk/memory/composite_reference.hpp>
 #include <boost/fusion/include/transform_view.hpp>
 #include <nt2/sdk/memory/adapted/composite_buffer.hpp>
 
@@ -78,15 +79,8 @@ namespace nt2 { namespace memory
                       , meta::const_pointer_<boost::mpl::_>
                       >::type                           const_pointer;
 
-    typedef typename boost::mpl::
-            transform < data_t
-                      , meta::reference_<boost::mpl::_>
-                      >::type                           reference;
-
-    typedef typename boost::mpl::
-            transform < data_t
-                      , meta::const_reference_<boost::mpl::_>
-                      >::type                           const_reference;
+    typedef composite_reference<value_type>             reference;
+    typedef composite_reference<value_type const>       const_reference;
 
     typedef composite_iterator< pointer
                               , value_type
