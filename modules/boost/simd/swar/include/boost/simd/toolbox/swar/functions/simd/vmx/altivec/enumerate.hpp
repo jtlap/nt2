@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     {
       // add [a0 ... a0] with [0 1 2 ... 12 15]
       return vec_add ( splat<result_type>(a0)()
-                                    , vec_lvsl(0,(char*)(0))
+                                    , vec_lvsl(0,(unsigned char*)(0))
                                     );
     }
   };
