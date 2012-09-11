@@ -10,9 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_IF_ELSE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
-#include <boost/simd/include/functions/bitwise_select.hpp>
-#include <boost/simd/include/functions/is_nez.hpp>
-#include <boost/simd/include/functions/genmask.hpp>
+#include <boost/simd/toolbox/operator/functions/if_else.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,7 +19,7 @@ namespace boost { namespace simd { namespace ext
              , ((simd_< logical_<A0>, X >))
                ((simd_< arithmetic_<A1>, X >))
                ((simd_< arithmetic_<A1>, X >))
-				     )
+             )
   {
     typedef A1 result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A1&a2) const
