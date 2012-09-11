@@ -15,6 +15,7 @@
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/dispatch/meta/as_ref.hpp>
 
 #if !defined(BOOST_SIMD_DONT_USE_PREPROCESSED_FILES)
 #include <boost/simd/toolbox/operator/functions/simd/common/preprocessed/map.hpp>
@@ -31,17 +32,18 @@
 #undef BOOST_FORCEINLINE
 #endif
 
-#define M0(z,n,t) (generic_< unspecified_<A##n> >)
+#define M1(z,n,t) (generic_< unspecified_<A##n> >)
 #define M2(z,n,t) typename meta::scalar_of<_A##n>::type
 #define M3(z,n,t) extract(a##n, i)
 #define M4(z,n,t) (A##n)
+#define M5(z,n,t) typename dispatch::meta::as_ref<_A##n>::type a##n
 
-#define M5(z,n,t)                                                              \
+#define M0(z,n,t)                                                              \
 namespace boost { namespace simd { namespace ext                               \
 {                                                                              \
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::map_, tag::cpu_         \
                             , (Func)BOOST_PP_REPEAT(n, M4, ~)                  \
-                            , (unspecified_<Func>)BOOST_PP_REPEAT(n,M0,~)      \
+                            , (unspecified_<Func>)BOOST_PP_REPEAT(n,M1,~)      \
                             )                                                  \
   {                                                                            \
     template<class Sig>                                                        \
@@ -58,9 +60,10 @@ namespace boost { namespace simd { namespace ext                               \
       template<class rtype, class Dummy = void>                                \
       struct impl                                                              \
       {                                                                        \
-        typedef typename meta::vector_of<rtype, meta::cardinal_of<A0>::value>::type type; \
+        typedef typename meta::                                                \
+                vector_of< rtype, meta::cardinal_of<A0>::value >::type type;   \
         static type call( Func const& f                                        \
-                        , BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)              \
+                        , BOOST_PP_ENUM(n, M5, ~)                              \
                         )                                                      \
         {                                                                      \
           type that;                                                           \
@@ -77,7 +80,7 @@ namespace boost { namespace simd { namespace ext                               \
       {                                                                        \
         typedef void type;                                                     \
         static type call( Func const& f                                        \
-                        , BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)              \
+                        , BOOST_PP_ENUM(n, M5, ~)                              \
                         )                                                      \
         {                                                                      \
           for(size_t i = 0; i != meta::cardinal_of<A0>::value; ++i)            \
@@ -109,7 +112,7 @@ namespace boost { namespace simd { namespace ext                               \
 } } }                                                                          \
 /**/
 
-BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M5,~)
+BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),M0,~)
 
 #undef M5
 #undef M4

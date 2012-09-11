@@ -64,6 +64,14 @@ namespace boost { namespace simd
   {
     return typename boost::dispatch::make_functor<tag::extract_, A0>::type()(a0,a1);
   }
+
+  template<class A0,class A1>
+  BOOST_FORCEINLINE
+  typename boost::dispatch::meta::call<tag::extract_(A0&, A1 const&)>::type
+  extract(A0& a0,A1 const& a1)
+  {
+    return typename boost::dispatch::make_functor<tag::extract_, A0>::type()(a0,a1);
+  }
 } }
 
 #endif
