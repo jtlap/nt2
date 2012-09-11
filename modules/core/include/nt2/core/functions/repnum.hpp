@@ -27,13 +27,15 @@ namespace nt2
     };
   }
 
-  #define M0(z,n,t)                                         \
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::repnum_, repnum, n) \
+  #define M0(z,n,t)                                                       \
+    NT2_FUNCTION_IMPLEMENTATION(nt2::tag::repnum_, repnum, n)             \
+
   /**/
 
   BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
 
   #undef M0
+
 }
 
 namespace nt2 { namespace ext
