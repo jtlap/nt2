@@ -9,11 +9,11 @@
 #ifndef NT2_SDK_CONFIG_DETAILS_CACHE_POWERPC_DETECT_CACHE_HPP_INCLUDED
 #define NT2_SDK_CONFIG_DETAILS_CACHE_POWERPC_DETECT_CACHE_HPP_INCLUDED
 
-#include <nt2/sdk/config/arch.hpp>
+#include <boost/simd/sdk/config/arch.hpp>
 
-#ifdef NT2_ARCH_POWERPC
+#ifdef BOOST_SIMD_ARCH_POWERPC
 #include <boost/simd/sdk/config/details/get_vendor.hpp>
-#include <nt2/sdk/error/assert.hpp>
+#include <boost/assert.hpp>
 
 namespace nt2{ namespace config{ namespace details{
 
