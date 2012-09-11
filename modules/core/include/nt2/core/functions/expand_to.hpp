@@ -20,6 +20,7 @@
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <boost/assert.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/include/functions/repnum.hpp>
 
 namespace nt2
 {

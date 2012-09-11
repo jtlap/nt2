@@ -39,11 +39,18 @@ macro(nt2_preprocess target)
     add_custom_target(${target})
     set_property(TARGET ${target} PROPERTY FOLDER preprocess)
     
+    set(limits -D__CHAR_BIT__=8 -D__SCHAR_MAX__=127 -D__SHRT_MAX__=32767 -D__INT_MAX__=2147483647 -D__LONG_LONG_MAX__=9223372036854775807LL)
+    if(CMAKE_SIZEOF_VOID_P EQUAL 4)
+      list(APPEND limits -D__LONG_MAX__=2147483647L)
+    else()
+      list(APPEND limits -D__LONG_MAX__=9223372036854775807L)
+    endif()
+
     set(prev 0)
     foreach(src ${ARG_UNPARSED_ARGUMENTS})
       math(EXPR n "${prev} + 1")
       add_custom_target(${target}.${n}
-                        COMMAND ${WAVE_EXECUTABLE}  --c++0x --timer ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
+                        COMMAND ${WAVE_EXECUTABLE}  --c++0x --timer ${limits} ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
                         WORKING_DIRECTORY ${NT2_BINARY_DIR}/include
                         COMMENT "wave ${src}"
                        )

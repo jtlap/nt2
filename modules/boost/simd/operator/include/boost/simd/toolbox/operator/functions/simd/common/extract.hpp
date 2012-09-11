@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -61,11 +62,22 @@ namespace boost { namespace simd { namespace ext
                               (scalar_< integer_<A1> >)
                             )
   {
-    typedef typename meta::scalar_of<A0>::type stype;
-    typedef typename meta::may_alias<stype>::type const& result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class A1_>
+    struct result<This(A0_, A1_)>
     {
-      return reinterpret_cast<typename meta::may_alias<stype>::type const*>(&a0)[a1];
+      typedef typename meta::scalar_of<typename remove_reference<A0_>::type>::type stype;
+      typedef typename meta::may_alias<stype>::type& type;
+    };
+
+    template<class A0_>
+    BOOST_FORCEINLINE typename result<implement(A0_&, A1 const&)>::type
+    operator()(A0_& a0, A1 const& a1) const
+    {
+      typedef typename meta::scalar_of<A0_>::type stype;
+      return reinterpret_cast<typename meta::may_alias<stype>::type*>(&a0)[a1];
     }
   };
   
