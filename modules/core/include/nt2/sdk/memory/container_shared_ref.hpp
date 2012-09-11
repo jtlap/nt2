@@ -32,18 +32,19 @@ namespace nt2 { namespace memory
   template<class Container, bool Own = false>
   struct container_shared_ref
   {
-    typedef Container                                                         base_t;
-    typedef typename base_t::value_type                                       value_type;
-    typedef typename base_t::size_type                                        size_type;
-    typedef typename base_t::extent_type                                      extent_type;
-    typedef typename base_t::order_type                                       order_type;
-    typedef typename base_t::specific_data_type                               specific_data_type;
+    typedef Container                           base_t;
+    typedef typename base_t::value_type         value_type;
+    typedef typename base_t::size_type          size_type;
+    typedef typename base_t::extent_type        extent_type;
+    typedef typename base_t::order_type         order_type;
+    typedef typename base_t::specific_data_type specific_data_type;
 
-    typedef typename boost::dispatch::meta::scalar_of<Container&>::type       reference;
-    typedef typename boost::dispatch::meta::scalar_of<Container const&>::type const_reference;
-    typedef typename boost::dispatch::meta::scalar_of<Container>::type*       pointer;
-    typedef typename boost::dispatch::meta::scalar_of<Container>::type const* const_pointer;
-    typedef pointer                                                           iterator;
+    typedef typename base_t::reference          reference;
+    typedef typename base_t::const_reference    const_reference;
+    typedef typename base_t::pointer            pointer;
+    typedef typename base_t::const_pointer      const_pointer;
+    typedef typename base_t::iterator           iterator;
+    typedef typename base_t::const_iterator     const_iterator;
 
     container_shared_ref() : base_(), ptr(0)
     {

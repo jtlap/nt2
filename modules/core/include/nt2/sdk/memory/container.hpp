@@ -366,7 +366,9 @@ namespace nt2 { namespace memory
       // Fix your code to remove such resize call.
       //     ****STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY****
       //========================================================================
-      BOOST_ASSERT_MSG( szs == extent_type(), "Statically sized container can't be resized dynamically" );
+      BOOST_ASSERT_MSG( szs == extent_type()
+                      , "Statically sized container can't be resized dynamically"
+                      );
     }
 
     private:
