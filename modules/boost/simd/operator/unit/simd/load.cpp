@@ -19,13 +19,12 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/make_vector.hpp>
-#include <nt2/sdk/meta/adapt_composite.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
 
 NT2_TEST_CASE_TPL( load,  BOOST_SIMD_TYPES)
 {
   using boost::simd::load;
   using boost::simd::tag::load_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -52,7 +51,6 @@ NT2_TEST_CASE_TPL( load_offset,  BOOST_SIMD_TYPES)
 {
   using boost::simd::load;
   using boost::simd::tag::load_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -90,7 +88,6 @@ NT2_TEST_CASE_TPL( load_suboffset,  BOOST_SIMD_TYPES)
 {
   using boost::simd::load;
   using boost::simd::tag::load_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -128,7 +125,6 @@ NT2_TEST_CASE_TPL( load_gather, BOOST_SIMD_TYPES)
 {
   using boost::simd::load;
   using boost::simd::tag::load_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -160,13 +156,12 @@ NT2_TEST_CASE_TPL( load_gather, BOOST_SIMD_TYPES)
 }
 
 struct foo { double d; float f; char c; };
-NT2_ADAPT_COMPOSITE(foo,(double,d)(float,f)(char,c))
+BOOST_FUSION_ADAPT_STRUCT(foo,(double,d)(float,f)(char,c))
 
 NT2_TEST_CASE( load_sequence )
 {
   using boost::simd::load;
   using boost::simd::tag::load_;
-  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

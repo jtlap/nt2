@@ -11,6 +11,8 @@
 
 #include <boost/simd/toolbox/operator/functions/store.hpp>
 #include <boost/simd/include/functions/simd/unaligned_store.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/common/details/details_load_store.hpp>
+#include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/assert.hpp>
@@ -63,6 +65,30 @@ namespace boost { namespace simd { namespace ext
       return unaligned_store(a0, a1, a2);
     }
   };
+
+  // fusion sequence
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::store_, tag::cpu_
+                                   , (A0)(A1)(A2)(X)
+                                   , ((simd_< fusion_sequence_<A0>, X >))
+                                     (fusion_sequence_<A1>)
+                                     (scalar_< integer_<A2> >)
+                                   )
+  {
+    typedef A0 result_type;
+
+    inline result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
+    { 
+      static const int N = fusion::result_of::size<A1>::type::value;
+      meta::iterate<N>( details::storer< boost::simd::tag::store_
+                                       , A0
+                                       , A1
+                                       , A2
+                                       >(a0, a1, a2)
+                      );
+      return a0;
+    }
+  };
+
 } } }
 
 #endif

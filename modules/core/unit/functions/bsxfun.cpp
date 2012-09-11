@@ -67,3 +67,13 @@ NT2_TEST_CASE_TPL( bsxfun_3, NT2_REAL_TYPES)
    d = a-m(1);
    NT2_TEST(isequal(c, d));
 }
+NT2_TEST_CASE_TPL( bsxfun_aliasing, NT2_REAL_TYPES)
+{
+  nt2::table<T> a = nt2::rif(nt2::of_size(8, 1), nt2::meta::as_<T>()),
+                     m, c, d;
+   m =  nt2::mean(a, 1);
+   nt2::functor<nt2::tag::minus_> f;
+   c = bsxfun(f,  a, m);
+   a = bsxfun(f,  a, m);
+   NT2_TEST(isequal(a, c));
+}

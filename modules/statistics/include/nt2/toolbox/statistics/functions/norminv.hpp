@@ -19,6 +19,8 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/utility/max_extent.hpp>
+
 /*!
  * \ingroup statistics
  * \defgroup statistics_norm norminv
@@ -80,30 +82,20 @@ namespace nt2 { namespace tag
 namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
-  struct  size_of<tag::norminv_,Domain,N,Expr>
+  struct  size_of<tag::norminv_,Domain,N,Expr> // N =  4 or 5
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,0>
                       ::value_type::extent_type                     ext0_t;
     typedef typename  boost::proto::result_of::child_c<Expr&,1>
                       ::value_type::extent_type                     ext1_t;
-    typedef typename make_size< (ext0_t::static_size > ext1_t::static_size)
-                                ? ext0_t::static_size
-                                : ext1_t::static_size
-                               >::type                             result_type;
-
+    typedef typename  boost::proto::result_of::child_c<Expr&,1>
+                      ::value_type::extent_type                     ext2_t;
+    typedef typename details::max_extent<ext2_t, ext1_t, ext0_t>::type     result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      result_type sizee  = nt2::extent(boost::proto::child_c<0>(e));
-      result_type sizee1 = nt2::extent(boost::proto::child_c<1>(e));
-      result_type sizee2 = nt2::extent(boost::proto::child_c<2>(e));
-
-      for(size_t i = 0; i < sizee.size(); ++i)
-      {
-        if (sizee[i] < sizee1[i]) sizee[i] = sizee1[i];
-        if (sizee[i] < sizee2[i]) sizee[i] = sizee2[i];
-      }
-
-      return sizee;
+     return max_extent(nt2::extent(boost::proto::child_c<0>(e)),
+                       nt2::extent(boost::proto::child_c<1>(e)), 
+                       nt2::extent(boost::proto::child_c<2>(e)));
     }
   };
 

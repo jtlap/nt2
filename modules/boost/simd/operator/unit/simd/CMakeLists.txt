@@ -14,6 +14,7 @@ SET( SOURCES
   make.cpp
   load.cpp
   unaligned_load.cpp
+  unaligned_store.cpp
   if_else.cpp
   compare_less_equal.cpp
   compare_less.cpp
