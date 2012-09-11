@@ -6,49 +6,62 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 operator toolbox - map/simd Mode"
+#define NT2_UNIT_MODULE "nt2 operator toolbox - map/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of operator components in simd mode
+// unit test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/map.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/unary_plus.hpp>
+#include <boost/simd/include/functions/plus.hpp>
+#include <boost/simd/include/functions/if_else.hpp>
 
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
-#include <boost/simd/include/constants/real.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
-//COMMENTED
+#include <nt2/sdk/unit/tests/type_expr.hpp>
+#include <boost/simd/include/constants/true.hpp>
+#include <boost/simd/include/constants/false.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/two.hpp>
 
-NT2_TEST_CASE_TPL ( map_real__2_0,  BOOST_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( map_integer__2_0,  BOOST_SIMD_SIMD_TYPES)
 {
-//   using boost::simd::map;
-//   using boost::simd::tag::map_;
-//   using boost::simd::load; 
-//   using boost::simd::native;
-//   using boost::simd::meta::cardinal_of;
-//   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-//   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-//   typedef native<T,ext_t>                        n_t;
-//   typedef n_t                                     vT;
-//   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-//   typedef native<iT,ext_t>                       ivT;
-//   typedef typename boost::dispatch::meta::call<map_(vT,vT)>::type r_t;
-//   typedef typename boost::dispatch::meta::call<map_(T,T)>::type sr_t;
-//   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
+  using boost::simd::map;
+  using boost::simd::native;
+  using boost::simd::tag::map_;
+  using boost::simd::tag::unary_plus_;
+  using boost::simd::tag::plus_;
+  using boost::simd::tag::if_else_;
+  typedef boost::dispatch::functor<unary_plus_> uni_f;
+  typedef boost::dispatch::functor<plus_> bin_f;
+  typedef boost::dispatch::functor<if_else_> tri_f;
 
-//   // specific values tests
-//   NT2_TEST_EQUAL(map(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Inf<sr_t>());
-//   NT2_TEST_EQUAL(map(boost::simd::Minf<vT>(), boost::simd::Minf<vT>())[0], boost::simd::Minf<sr_t>());
-//   NT2_TEST_EQUAL(map(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-//   NT2_TEST_EQUAL(map(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-//   NT2_TEST_EQUAL(map(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
- } // end of test for floating_
+  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> nT;
+
+  typedef typename boost::dispatch::meta::call<map_(uni_f,nT)>::type ur_t;
+  typedef typename boost::dispatch::meta::call<map_(bin_f,nT,nT)>::type br_t;
+  typedef typename boost::dispatch::meta::call<map_(tri_f,nT,nT,nT)>::type tr_t;
+
+  // return type conformity test
+  NT2_TEST_TYPE_IS(ur_t, nT);
+  NT2_TEST_TYPE_IS(br_t, nT);
+  NT2_TEST_TYPE_IS(tr_t, nT);
+
+  // specific values tests
+  NT2_TEST_EQUAL(map(uni_f(),boost::simd::One<nT>()), boost::simd::One<ur_t>());
+  NT2_TEST_EQUAL(map(uni_f(),boost::simd::One<nT>()), boost::simd::One<ur_t>());
+  NT2_TEST_EQUAL(map(uni_f(),boost::simd::One<nT>()), boost::simd::One<ur_t>());
+
+  NT2_TEST_EQUAL(map(bin_f(),boost::simd::One<nT>(), boost::simd::One<nT>()), boost::simd::Two<br_t>());
+  NT2_TEST_EQUAL(map(bin_f(),boost::simd::One<nT>(), boost::simd::One<nT>()), boost::simd::Two<br_t>());
+  NT2_TEST_EQUAL(map(bin_f(),boost::simd::One<nT>(), boost::simd::One<nT>()), boost::simd::Two<br_t>());
+
+  NT2_TEST_EQUAL(map(tri_f(),boost::simd::False<nT>(),boost::simd::One<nT>(), boost::simd::Two<nT>()), boost::simd::Two<br_t>());
+  NT2_TEST_EQUAL(map(tri_f(),boost::simd::True<nT>(),boost::simd::One<nT>(), boost::simd::Two<nT>()), boost::simd::One<br_t>());
+  NT2_TEST_EQUAL(map(tri_f(),boost::simd::True<nT>(),boost::simd::One<nT>(), boost::simd::Two<nT>()), boost::simd::One<br_t>());
+}

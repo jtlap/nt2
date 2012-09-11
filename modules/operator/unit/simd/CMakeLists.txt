@@ -10,7 +10,7 @@
 SET( SOURCES
   unary_plus.cpp
 #  store.cpp
-#  map.cpp
+  map.cpp
 #  make.cpp
 #  load.cpp
   if_else.cpp

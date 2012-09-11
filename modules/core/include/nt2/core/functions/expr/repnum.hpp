@@ -58,50 +58,6 @@ namespace nt2 { namespace ext
                                       );
     }
   };
-
-//   //============================================================================
-//   // Generates repnum from expression (support size(a) + type calls)
-//   //============================================================================
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_
-//                             , (A0)(T)
-//                             , (ast_<A0>)
-//                               (target_< scalar_< unspecified_<T> > >)
-//                             )
-//   {
-//     typedef typename  boost::proto::
-//                       result_of::make_expr< nt2::tag::repnum_
-//                                           , container::domain
-//                                           , box<of_size_max>
-//                                           , box< meta::constant_<nt2::tag::One> >
-//                                           , T
-//                                           >::type             result_type;
-
-//     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& tgt) const
-//     {
-//       // Expression must be a row vector
-//       BOOST_ASSERT_MSG
-//       ( nt2::isrow(a0)
-//       , "Error using repnum: Size vector must be a row vector."
-//       );
-
-//       of_size_max sizee;
-//       std::size_t sz = std::min(of_size_max::size(),nt2::length(a0));
-// #if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
-//       stdext::unchecked_copy(a0.raw(), a0.raw()+sz, &sizee[0]);
-// #elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
-//       nt2::memory::cast_copy(a0.raw(), a0.raw()+sz, stdext::make_unchecked_array_iterator(&sizee[0]));
-// #else
-//       nt2::memory::cast_copy(a0.raw(), a0.raw()+sz, &sizee[0]);
-// #endif
-
-//       return boost::proto::make_expr< nt2::tag::repnum_
-//                                     , container::domain
-//                                     > ( boxify(sizee)
-//                                       , boxify(meta::constant_<nt2::tag::One>())
-//                                       , tgt
-//                                       );
-//     }
-//   };
 } }
 
 #endif

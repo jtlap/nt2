@@ -16,6 +16,7 @@
 #include <nt2/include/functions/scalar/numel.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/fusion/include/pop_front.hpp>
 
 namespace nt2 { namespace ext
@@ -40,13 +41,14 @@ namespace nt2 { namespace ext
   //============================================================================
   // Partial nD element-wise transform with offset/size
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, boost::simd::tag::simd_
-                            , (A0)(A1)(A2)(A3)
-                            , (ast_<A0>)
-                              (ast_<A1>)
-                              (scalar_< integer_<A2> >)
-                              (scalar_< integer_<A3> >)
-                            )
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::transform_, boost::simd::tag::simd_
+                               , (A0)(A1)(A2)(A3)
+                               , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
+                               , (ast_<A0>)
+                                 (ast_<A1>)
+                                 (scalar_< integer_<A2> >)
+                                 (scalar_< integer_<A3> >)
+                               )
   {
     typedef void result_type;
 
