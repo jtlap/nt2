@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SIMD_PARTIAL_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/partial_fold.hpp>
+#include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/fusion/include/pop_back.hpp>
 #include <nt2/sdk/config/cache.hpp>
 
@@ -19,17 +20,18 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates partial_fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::partial_fold_, boost::simd::tag::simd_, (A0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)
-                            , ((expr_< table_< unspecified_<A0>, S0 >
-                                     , T0
-                                     , N0
-                                     >
-                              ))
-                              (ast_< A1>)
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
-                              (unspecified_<A4>)
-                            )
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::partial_fold_, boost::simd::tag::simd_, (A0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)
+                               , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
+                               , ((expr_< table_< unspecified_<A0>, S0 >
+                                        , T0
+                                        , N0
+                                        >
+                                 ))
+                                 (ast_< A1>)
+                                 (unspecified_<A2>)
+                                 (unspecified_<A3>)
+                                 (unspecified_<A4>)
+                               )
   {
     typedef void                                                              result_type;
     typedef typename A0::value_type                                           value_type;
