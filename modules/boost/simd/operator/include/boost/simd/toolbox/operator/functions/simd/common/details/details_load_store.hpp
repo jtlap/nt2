@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace details
 {
   template<class Tag, class A0, class A1, class A2>
   struct loader
-  { 
+  {
     loader(A0 const& a0_, A1 const& a1_, A2& a2_)
     : a0(a0_), a1(a1_), a2(a2_)
     {}
@@ -34,7 +34,6 @@ namespace boost { namespace simd { namespace details
       make_functor< Tag
                   , typename fusion::result_of::value_at_c<A0,I>::type
                   >::type callee;
-      typename fusion::result_of::value_at_c<A2,I>::type target;
       fusion::at_c<I>(a2) = callee( fusion::at_c<I>(a0)
                                   , a1
                                   , dispatch::meta::as_<typename fusion::result_of::value_at_c<A2,I>::type>());
@@ -47,7 +46,7 @@ namespace boost { namespace simd { namespace details
 
   template<class Tag, class A0, class A1, class A2>
   struct storer
-  { 
+  {
     storer(A0 const& a0_, A1 const& a1_, A2 const& a2_)
     : a0(a0_), a1(a1_), a2(a2_)
     {}
