@@ -12,6 +12,7 @@
 
 #include <nt2/core/functions/fold.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/config/cache.hpp>
@@ -30,13 +31,14 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates fold
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fold_, nt2::tag::openmp_<Site>
-                            , (A1)(A2)(A3)(A4)(Site)
-                            , ((ast_< A1>))
-                              (unspecified_<A2>)
-                              (unspecified_<A3>)
-                              (unspecified_<A4>)
-                            )
+  NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::fold_, nt2::tag::openmp_<Site>
+                               , (A1)(A2)(A3)(A4)(Site)
+                               , (boost::simd::meta::is_vectorizable<typename A1::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
+                               , ((ast_< A1>))
+                                 (unspecified_<A2>)
+                                 (unspecified_<A3>)
+                                 (unspecified_<A4>)
+                               )
   {
     typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
     typedef typename boost::remove_reference<A1>::type::value_type             stype;
