@@ -60,6 +60,7 @@ namespace boost { namespace dispatch { namespace meta
         : scalar_of<Container const&>
   {
   };
+
   //============================================================================
   // value_of specializations
   //============================================================================

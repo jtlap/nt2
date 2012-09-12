@@ -17,33 +17,28 @@
 #include <complex>
 #include <nt2/sdk/complex/complex.hpp>
 
+#define M0(z,n,t) ::parent
+#define UP(T,N) T BOOST_PP_REPEAT(N,M0,~)
+
 //==============================================================================
 // Test for composite_reference hierarchy
 //==============================================================================
 NT2_TEST_CASE( composite_hierarchy )
 {
-  using boost::dispatch::meta::hierarchy_of;
-  using nt2::memory::composite_reference;
+  using scalar_;
+  using complex_;
+  using double_;
+  using hierarchy_of;
+  using composite_reference;
 
-  NT2_TEST_TYPE_IS( hierarchy_of< composite_reference< std::complex<double> > >::type
-                  , boost::dispatch::meta::scalar_
-                    < boost::dispatch::meta::complex_
-                      < boost::dispatch::meta::double_
-                        < nt2::memory::composite_reference<std::complex<double> >
-                        >
-                      >
-                    >
-                  );
+  typedef hierarchy_of< composite_reference< std::complex<double> > >::type base;
 
-  NT2_TEST_TYPE_IS( hierarchy_of< composite_reference< std::complex<double> const > >::type
-                  , boost::dispatch::meta::scalar_
-                    < boost::dispatch::meta::complex_
-                      < boost::dispatch::meta::double_
-                        < nt2::memory::composite_reference<std::complex<double> const >
-                        >
-                      >
-                    >
-                  );
+  NT2_TEST_TYPE_IS( scalar_<complex_<double_<composite_reference<std::complex<double> > > > > , base );
+  NT2_TEST_TYPE_IS( scalar_<type64_<double_<composite_reference<std::complex<double> > > > > , UP(base,1) );
+  NT2_TEST_TYPE_IS( scalar_<floating_sized_<double_<composite_reference<std::complex<double> > > > > , UP(base,2) );
+  NT2_TEST_TYPE_IS( scalar_<floating_<double_<composite_reference<std::complex<double> > > > > , UP(base,3) );
+  NT2_TEST_TYPE_IS( scalar_<signed_<double_<composite_reference<std::complex<double> > > > > , UP(base,4) );
+
 }
 
 //==============================================================================
@@ -52,7 +47,7 @@ NT2_TEST_CASE( composite_hierarchy )
 NT2_TEST_CASE( composite_const_reference )
 {
   std::complex<float> f(4,7.3f);
-  nt2::memory::composite_reference<std::complex<float> const> cref_f(f);
+  composite_reference<std::complex<float> const> cref_f(f);
 
   NT2_TEST_EQUAL( boost::fusion::at_c<0>(cref_f), f.real());
   NT2_TEST_EQUAL( boost::fusion::at_c<1>(cref_f), f.imag());
@@ -74,7 +69,7 @@ NT2_TEST_CASE( composite_const_reference )
 NT2_TEST_CASE( composite_reference )
 {
   std::complex<float> f(4,7.3f);
-  nt2::memory::composite_reference< std::complex<float> > ref_f(f);
+  composite_reference< std::complex<float> > ref_f(f);
 
   NT2_TEST_EQUAL( boost::fusion::at_c<0>(ref_f), f.real());
   NT2_TEST_EQUAL( boost::fusion::at_c<1>(ref_f), f.imag());
