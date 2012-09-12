@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_DIVIDES_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_DIVIDES_HPP_INCLUDED
@@ -43,22 +43,22 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename meta::as_real<result_type>::type rtype; 
-      typedef typename meta::as_integer<rtype>::type itype; 
+      typedef typename meta::as_real<result_type>::type rtype;
+      typedef typename meta::as_integer<rtype>::type itype;
       rtype rr =  nt2::abs(nt2::real(a1));
       rtype ii =  nt2::abs(nt2::imag(a1));
       itype e =  -if_else(lt(rr, ii), exponent(ii), exponent(rr));
-      A0 aa1 =  nt2::ldexp(a1, e); 
+      A0 aa1 =  nt2::ldexp(a1, e);
       rtype denom =  sqr_abs(aa1);
       A0 num = nt2::multiplies(a0, conj(aa1));
-      A0 r =  ldexp(num/denom, e);
-      if (all(is_finite(r))) return r; 
+      A0 r =  ldexp(nt2::divides(num, denom), e);
+      if (all(is_finite(r))) return r;
       r = if_else(is_eqz(denom), nt2::multiplies(a0, copysign(Inf<rtype>(), nt2::real(a1))), r);
       r = if_else(is_inf(a1),    nt2::multiplies(a0, rec(copysign(denom, nt2::real(a1)))), r);
-      return r; 
+      return r;
     }
   };
-  
+
   // complex/real
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
@@ -68,8 +68,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      A0 tmp = a0/sqr_abs(a1); 
-      return if_else(is_inf(a1), result_type(tmp), tmp*conj(a1)); 
+      A0 tmp = a0/sqr_abs(a1);
+      return if_else(is_inf(a1), result_type(tmp), tmp*conj(a1));
     }
   };
 
@@ -81,10 +81,10 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return a0*rec(a1);
+      return nt2::multiplies(a0, rec(a1));
     }
   };
-  
+
   // complex/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
@@ -94,8 +94,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      A0 tmp = a0/sqr_abs(a1); 
-      return if_else(is_inf(a1), result_type(tmp), tmp*conj(a1)); 
+      A0 tmp = nt2::divides(a0, sqr_abs(a1));
+      return if_else(is_inf(a1), result_type(tmp), nt2::multiplies(tmp, conj(a1)));
     }
   };
 
@@ -110,7 +110,7 @@ namespace nt2 { namespace ext
       return result_type(nt2::imag(a0)/nt2::imag(a1), -nt2::real(a0)/nt2::imag(a1));
     }
   };
-  
+
   // imaginary/real
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
@@ -123,7 +123,7 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(-a0/nt2::imag(a1));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                               (generic_< arithmetic_<A1> >)
@@ -135,7 +135,7 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(nt2::imag(a0)/a1);
     }
   };
-  
+
   // imaginary/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
@@ -162,7 +162,7 @@ namespace nt2 { namespace ext
       return nt2::divides(nt2::real(a0), a1);
     }
   };
-  
+
   // complex/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > > )
@@ -189,7 +189,7 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(-nt2::real(a0)/nt2::imag(a1));
     }
   };
-  
+
   // imaginary/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > > )
@@ -202,7 +202,7 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(nt2::imag(a0)/nt2::real(a1));
     }
   };
-  
+
   // dry/arithmetic
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_< arithmetic_<A0> > >)
@@ -215,12 +215,12 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(nt2::real(a0)/a1);
     }
   };
-  
+
   // arithmetic/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< dry_< arithmetic_<A1> > >)
-                              
+
                             )
   {
     typedef A1 result_type;
@@ -228,13 +228,13 @@ namespace nt2 { namespace ext
     {
       return bitwise_cast<result_type>(a0/nt2::real(a1));
     }
-  };  
-    
+  };
+
   // dry/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::divides_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                               (generic_< dry_< arithmetic_<A0> > >)
-                              
+
                             )
   {
     typedef A0 result_type;
@@ -242,7 +242,7 @@ namespace nt2 { namespace ext
     {
       return bitwise_cast<result_type>(nt2::real(a0)/nt2::real(a1));
     }
-  };  
+  };
 
 } }
 
