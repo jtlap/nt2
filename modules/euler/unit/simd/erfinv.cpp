@@ -12,7 +12,7 @@
 // unit test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/erfinv.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/splat.hpp>
@@ -38,9 +38,9 @@ extern "C" {long double cephes_erfinvl(long double);}
 #include <nt2/include/constants/eight.hpp>
 
 
-NT2_TEST_CASE_TPL ( erfinv_real__1_0, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( erfinv_real__1_0, NT2_SIMD_REAL_TYPES)
 {
- 
+
   using nt2::erfinv;
   using nt2::tag::erfinv_;
   using boost::simd::native;
