@@ -9,8 +9,7 @@
 #ifndef NT2_SDK_MEMORY_CONTAINER_REF_HPP_INCLUDED
 #define NT2_SDK_MEMORY_CONTAINER_REF_HPP_INCLUDED
 
-#include <nt2/sdk/memory/container.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
+#include <nt2/sdk/memory/adapted/container_ref.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -195,72 +194,5 @@ namespace nt2 { namespace memory
   template<class Container> inline
   void swap(container_ref<Container>& x, container_ref<Container>& y)  { x.swap(y); }
 } }
-
-namespace nt2 { namespace meta
-{
-  //============================================================================
-  // Register container as a proper container
-  //============================================================================
-  template<class Container>
-  struct is_container< memory::container_ref<Container> > : boost::mpl::true_ {};
-
-  template<class Container>
-  struct is_container_ref< memory::container_ref<Container> > : boost::mpl::true_ {};
-} }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  //============================================================================
-  // value_of specializations
-  //============================================================================
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container> >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container> const >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container>& >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container> const& >
-   : value_of<Container>
-  {
-  };
-
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<class Container>
-  struct model_of< nt2::memory::container_ref<Container> >
-  {
-    struct type
-    {
-      template<class X>
-      struct apply
-      {
-        typedef nt2::memory::container_ref<X> type;
-      };
-    };
-  };
-
-  //============================================================================
-  // container hierarchy
-  //============================================================================
-  template<class Container, class Origin>
-  struct hierarchy_of< nt2::memory::container_ref<Container>, Origin >
-   : hierarchy_of< Container, Origin >
-  {
-  };
-} } }
 
 #endif

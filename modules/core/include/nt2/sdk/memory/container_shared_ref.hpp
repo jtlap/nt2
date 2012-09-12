@@ -13,6 +13,7 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <boost/dispatch/meta/terminal_of_shared.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
+#include <nt2/sdk/memory/adapted/container_shared_ref.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/make_shared.hpp>
 
@@ -29,7 +30,7 @@ namespace nt2 { namespace memory
    * \tparam Setting Options list describing the behavior of the container
    **/
   //============================================================================
-  template<class Container, bool Own = false>
+  template<class Container, bool Own>
   struct container_shared_ref
   {
     typedef Container                           base_t;
@@ -184,7 +185,7 @@ namespace nt2 { namespace memory
 
     boost::shared_ptr<Container> base() const { return base_; }
 
-  private:
+    private:
     boost::shared_ptr<Container>   base_;
     mutable pointer                ptr;
   };
@@ -197,85 +198,12 @@ namespace nt2 { namespace memory
    **/
   //============================================================================
   template<class Container, bool Own> inline
-  void swap(container_shared_ref<Container, Own>& x, container_shared_ref<Container, Own>& y)  { x.swap(y); }
+  void swap ( container_shared_ref<Container, Own>& x
+            , container_shared_ref<Container, Own>& y
+            )
+  {
+    x.swap(y);
+  }
 } }
-
-namespace nt2 { namespace meta
-{
-  //============================================================================
-  // Register container as a proper container
-  //============================================================================
-  template<class Container, bool Own>
-  struct is_container< memory::container_shared_ref<Container, Own> > : boost::mpl::true_ {};
-
-  template<class Container, bool Own>
-  struct is_container_ref< memory::container_shared_ref<Container, Own> > : boost::mpl::true_ {};
-
-} }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  //============================================================================
-  // value_of specializations
-  //============================================================================
-  template<class Container, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<Container, Own> >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<Container, Own> const >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<Container, Own>& >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container, bool Own>
-  struct value_of< nt2::memory::container_shared_ref<Container, Own> const& >
-   : value_of<Container>
-  {
-  };
-
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<class Container, bool Own>
-  struct model_of< nt2::memory::container_shared_ref<Container, Own> >
-  {
-    struct type
-    {
-      template<class X>
-      struct apply
-      {
-        typedef nt2::memory::container_shared_ref<X, Own> type;
-      };
-    };
-  };
-
-  //============================================================================
-  // container hierarchy
-  //============================================================================
-  template<class Container, bool Own, class Origin>
-  struct hierarchy_of< nt2::memory::container_shared_ref<Container, Own>, Origin >
-   : hierarchy_of< Container, Origin >
-  {
-  };
-
-  template<class T, class S>
-  struct terminal_of_shared< nt2::memory::container<T, S> >
-  {
-    typedef nt2::memory::container<T, S> container;
-    typedef nt2::memory::container_shared_ref<container, true> container_ref;
-    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0> basic_expr;
-    typedef nt2::container::expression< basic_expr, container, boost::proto::is_proto_expr > type;
-    static type make() { return type(basic_expr::make(container_ref(boost::make_shared<container>()))); }
-  };
-} } }
 
 #endif
