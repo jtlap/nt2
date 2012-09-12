@@ -9,9 +9,7 @@
 #ifndef NT2_CORE_CONTAINER_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
 
-#include <boost/fusion/include/for_each.hpp>
-#include <boost/fusion/include/comparison.hpp>
-#include <boost/fusion/include/transform_view.hpp>
+#include <boost/fusion/include/copy.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 //==============================================================================
@@ -48,14 +46,22 @@ namespace nt2 { namespace memory
     composite_reference(T& src) : parent( src )     {}
     composite_reference(parent& src) : parent(src)  {}
 
+    template<class U>
+    composite_reference ( U& src
+                        , typename boost
+                          ::enable_if< boost::is_convertible<U,parent> >::type* = 0
+                        ) : parent( src )
+    {}
+
     composite_reference& operator=(T& src)
     {
-      static_cast<parent&>(*this) = static_cast<parent&>(src);
+      boost::fusion::copy(src,*this);
       return *this;
     }
 
     composite_reference& operator=(parent const& src)
     {
+      boost::fusion::copy(src,*this);
       return *this;
     }
   };
