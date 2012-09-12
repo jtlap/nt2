@@ -42,11 +42,11 @@ NT2_TEST_CASE_TPL ( as_index_1D_simd
                   )
 {
   using nt2::as_index;
-  using boost::simd::native;
+  using boost::simd::meta::vector_of;
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type idx_t;
   typedef typename boost::dispatch::meta::as_unsigned<idx_t>::type sidx_t;
   static const std::size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 

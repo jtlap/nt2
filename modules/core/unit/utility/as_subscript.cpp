@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( as_subscript_1D_simd
   using boost::fusion::make_vector;
   using boost::mpl::int_;
 
-  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> idx_t;
+  typedef typename vector_of<T, BOOST_SIMD_BYTES/sizeof(T)>::type idx_t;
   typedef typename boost::dispatch::meta::as_unsigned<idx_t>::type sidx_t;
   static const size_t sz = boost::simd::meta::cardinal_of<idx_t>::value;
 
