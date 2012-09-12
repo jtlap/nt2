@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_FIRST_HPP_INCLUDED
@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<type8_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef typename meta::scalar_of<A0 > ::type result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type type;
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
                         ((simd_<double_<A0>,boost::simd::tag::sse_>))
                        )
   {
-    typedef typename meta::scalar_of<A0 > ::type result_type;
+    typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       return _mm_cvtsd_f64(a0);
@@ -66,10 +66,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type type;
-      typedef typename meta::scalar_of<type>::type stype;
-
-      stype tmp = _mm_cvtsi128_si32(simd::bitwise_cast<type>(a0)); 
-      return boost::simd::bitwise_cast<result_type>(tmp); 
+      return boost::simd::bitwise_cast<result_type>(_mm_cvtsi128_si32(simd::bitwise_cast<type>(a0)));
     }
   };
 
@@ -86,9 +83,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      //      return a0[0]; 
-      typedef typename dispatch::meta::as_integer<A0>::type type;
-      return boost::simd::bitwise_cast<result_type,float >(_mm_cvtsi128_si32(simd::bitwise_cast<type>(a0)));
+      return _mm_cvtsi128_si32(a0);
     }
   };
 
@@ -105,10 +100,8 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      //      return a0[0];
-      typedef typename dispatch::meta::as_integer<A0>::type type;
       typedef typename dispatch::meta::as_floating<A0>::type rtype;
-      return boost::simd::bitwise_cast<result_type, double >(_mm_cvtsd_f64(simd::bitwise_cast<rtype>(a0))); 
+      return boost::simd::bitwise_cast<result_type>(_mm_cvtsd_f64(simd::bitwise_cast<rtype>(a0)));
     }
   };
 
