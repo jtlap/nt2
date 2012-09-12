@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL( linspace, (double)(float) )
   NT2_TEST_EQUAL( xr.extent(), nt2::of_size(1,100 ) );
 
   for(int i=1;i<=100;++i)
-    NT2_TEST_ULP_EQUAL( xr(i), T(1) + ((T(0)-T(1))/99)*(i-1),0.5 );
+    NT2_TEST_ULP_EQUAL( xr(i), T(1) + ((T(0)-T(1))/99)*(i-1), 1 );
 }
 
 NT2_TEST_CASE_TPL( linspace_with_size, (double)(float) )
