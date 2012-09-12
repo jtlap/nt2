@@ -46,7 +46,7 @@ namespace boost { namespace dispatch { namespace meta
   template<class T,class S>
   struct  scalar_of< nt2::memory::container<T,S> const >
   {
-    typedef typename nt2::memory::container<T,S>::value_type type;
+    typedef typename nt2::memory::container<T,S>::value_type const type;
   };
 
   template<class T,class S>

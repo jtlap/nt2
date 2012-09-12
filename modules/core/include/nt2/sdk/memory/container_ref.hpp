@@ -34,12 +34,11 @@ namespace nt2 { namespace memory
     typedef typename base_t::order_type         order_type;
     typedef typename base_t::specific_data_type specific_data_type;
 
-    typedef typename base_t::reference          reference;
-    typedef typename base_t::const_reference    const_reference;
-    typedef typename base_t::pointer            pointer;
-    typedef typename base_t::const_pointer      const_pointer;
-    typedef typename base_t::iterator           iterator;
-    typedef typename base_t::const_iterator     const_iterator;
+    typedef typename boost::dispatch::meta::scalar_of<Container&>::type       reference;
+    typedef typename boost::dispatch::meta::scalar_of<Container const&>::type const_reference;
+    typedef typename boost::dispatch::meta::scalar_of<Container>::type*       pointer;
+    typedef typename boost::dispatch::meta::scalar_of<Container>::type const* const_pointer;
+    typedef pointer                                                           iterator;
 
     container_ref() : base_(0), ptr(0)
     {
@@ -179,7 +178,7 @@ namespace nt2 { namespace memory
 
     Container& base() const { return *base_; }
 
-  private:
+    private:
     Container*                  base_;
     mutable pointer             ptr;
   };
