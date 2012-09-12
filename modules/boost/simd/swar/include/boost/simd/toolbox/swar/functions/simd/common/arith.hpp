@@ -11,7 +11,7 @@
 
 #include <boost/simd/toolbox/swar/functions/arith.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/fma.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename T::type result_type;
-    
+
     result_type operator()(T const& ) const
     {
       result_type that;
@@ -36,11 +36,11 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef typename T::type result_type;
-    
+
     result_type operator()(A0 const& a0, T const& ) const
     {
-      const result_type tmp =  boost::simd::arith<result_type>(); 
-      return plus(tmp, a0); 
+      const result_type tmp =  boost::simd::arith<result_type>();
+      return plus(tmp, a0);
     }
   };
 
@@ -51,13 +51,13 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef typename T::type result_type;
-    
+
     result_type operator()(A0 const& a0, T const& ) const
     {
       return bitwise_cast<result_type>(a0);
     }
   };
-    
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
                                       , (A0)(A1)(X)(T)
                                       , (scalar_< arithmetic_<A0> >)
@@ -66,14 +66,14 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef typename T::type result_type;
-    
+
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
-      const result_type tmp = boost::simd::arith<result_type>(); 
-      return plus(multiplies(tmp, a1), a0); 
+      const result_type tmp = boost::simd::arith<result_type>();
+      return fma(tmp, a1, a0);
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_, tag::cpu_
                                       , (A0)(A1)(X)(T)
                                       , ((simd_< arithmetic_<A0>, X >))
@@ -82,12 +82,12 @@ namespace boost { namespace simd { namespace ext
                                       )
   {
     typedef typename T::type result_type;
-    
+
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
       return bitwise_cast<result_type>(a0);
     }
-  };  
+  };
 } } }
 
 #endif
