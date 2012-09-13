@@ -18,7 +18,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of infinites for every base real types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
+NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_SIMD_REAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>                vT;
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL( real_inf, BOOST_SIMD_REAL )
 ////////////////////////////////////////////////////////////////////////////////
 // Test value of infinites for every base integral types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_INTEGRAL_TYPES )
+NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>                vT;
@@ -54,8 +54,7 @@ NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_INTEGRAL_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( char_inf )
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<char,ext_t>                vT;
+  typedef typename boost::simd::meta::vector_of<char, BOOST_SIMD_BYTES>::type vT;
 
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
     NT2_TEST_EQUAL( (boost::simd::Inf<vT>())[i], boost::simd::Valmax<char>() );
