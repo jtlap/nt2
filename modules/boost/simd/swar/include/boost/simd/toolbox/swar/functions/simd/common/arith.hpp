@@ -11,7 +11,7 @@
 
 #include <boost/simd/toolbox/swar/functions/arith.hpp>
 #include <boost/simd/include/functions/simd/plus.hpp>
-#include <boost/simd/include/functions/simd/fma.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -70,7 +70,7 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const& a0, A1 const& a1, T const& ) const
     {
       const result_type tmp = boost::simd::arith<result_type>();
-      return fma(tmp, a1, a0);
+      return plus(multiplies(tmp, a1), a0);
     }
   };
 
