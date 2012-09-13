@@ -67,12 +67,14 @@ NT2_TEST_CASE_TPL( line, (float)(double))//NT2_TYPES )
 //   std::cout << "-----------------------" << std::endl;
 //   NT2_DISPLAY(nt2::line(y, 3, 3));
 
+  std::cout << "size(y)" << size(y) << std::endl; 
   
+  std::cout << "nbline(y, 1)" << nt2::nblines(y, 1) << std::endl; 
   for(size_t k=0;k<nt2::nblines(y, 1);++k)
     {
       std::cout << "column " << k << std::endl; 
       NT2_DISPLAY(nt2::squeeze(nt2::line(y, k, 1)));
-      NT2_DISPLAY(y(_, k)(_));
+      NT2_DISPLAY(y(_, k+1)(_));
       NT2_DISPLAY(nt2::line(y, k, 1)(_)); 
       NT2_TEST(isequal(nt2::line(y, k, 1)(_), y(_, k+1)(_))); 
     }
