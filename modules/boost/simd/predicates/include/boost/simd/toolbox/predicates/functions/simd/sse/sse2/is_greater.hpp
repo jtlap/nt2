@@ -118,12 +118,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::downgrade<A0, signed>::type type;
-      type sa0 = a0();
-      type sa1 = a1();
-      type al  = _mm_shuffle_epi32(sa0, _MM_SHUFFLE(2, 2, 0, 0));
-      type bl  = _mm_shuffle_epi32(sa1, _MM_SHUFFLE(2, 2, 0, 0));
-      type ah  = _mm_shuffle_epi32(sa0, _MM_SHUFFLE(3, 3, 1, 1));
-      type bh  = _mm_shuffle_epi32(sa1, _MM_SHUFFLE(3, 3, 1, 1));
+      typedef typename dispatch::meta::downgrade<A0, unsigned>::type utype;
+      utype al = _mm_shuffle_epi32(a0(), _MM_SHUFFLE(2, 2, 0, 0));
+      utype bl = _mm_shuffle_epi32(a1(), _MM_SHUFFLE(2, 2, 0, 0));
+      type ah  = _mm_shuffle_epi32(a0(), _MM_SHUFFLE(3, 3, 1, 1));
+      type bh  = _mm_shuffle_epi32(a1(), _MM_SHUFFLE(3, 3, 1, 1));
+
       return bitwise_cast<result_type>( l_or(boost::simd::gt(ah,bh), l_and(boost::simd::eq(ah,bh), boost::simd::gt(al,bl))) );
     }
   };
