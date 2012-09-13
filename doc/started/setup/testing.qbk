@@ -42,7 +42,7 @@ Due to bugs in GCC, strict aliasing support is explicitly disabled for that comp
 Test naming is done with the following layout:
 
 [pre
-[^module].[^sub-module].[^test-suite].[^sub-test-suite].[^test-type]
+[~module].[~sub-module].[~test-suite].[~sub-test-suite].[~test-type]
 ]
 
 for example, assuming =NT2_WITH_TESTS_FULL= is defined, the =compare_less= unit test in the =scalar= test suite in the =boost.simd.operator= module is named
