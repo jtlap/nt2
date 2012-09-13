@@ -7,4 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_UNIT_DEPENDENCIES_EXTRA sdk.simd sdk.meta sdk.timing ieee arithmetic constant operator)
+SET ( NT2_UNIT_DEPENDENCIES_EXTRA sdk.simd sdk.meta sdk.timing
+                                  ieee arithmetic constant
+                                  core.operator
+    )

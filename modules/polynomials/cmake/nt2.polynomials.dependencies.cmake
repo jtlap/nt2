@@ -7,4 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_POLYNOMIALS_DEPENDENCIES_EXTRA arithmetic boolean constant operator)
+SET(NT2_POLYNOMIALS_DEPENDENCIES_EXTRA arithmetic boolean constant core.operator)

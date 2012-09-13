@@ -16,7 +16,7 @@ set( SOURCES
   oneplus.cpp
   minusone.cpp
   sqr_abs.cpp
-  abs.cpp    
+  abs.cpp
   arg.cpp
   dist.cpp
   sqrt.cpp
@@ -27,4 +27,4 @@ set( SOURCES
   rec.cpp
    )
 
-nt2_module_add_tests(complex.arithmetic.scalar.unit ${SOURCES})
+nt2_module_add_tests(type.complex.arithmetic.scalar.unit ${SOURCES})

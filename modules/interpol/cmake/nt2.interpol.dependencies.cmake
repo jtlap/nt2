@@ -7,8 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_INTERPOL_DEPENDENCIES_EXTRA arithmetic bitwise boolean constant ieee 
-                                      operator predicates reduction
+SET(NT2_INTERPOL_DEPENDENCIES_EXTRA arithmetic bitwise boolean constant ieee
+                                      core.operator predicates reduction
                                       polynomials
                                       exponential trigonometric
    )

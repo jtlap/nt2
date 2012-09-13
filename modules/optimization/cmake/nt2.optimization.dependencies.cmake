@@ -9,6 +9,6 @@
 
 SET(NT2_OPTIMIZATION_DEPENDENCIES_EXTRA sdk.option
                                         arithmetic bitwise boolean
-                                        constant ieee operator predicates reduction
+                                        constant ieee core.operator predicates reduction
                                         polynomials exponential trigonometric
    )

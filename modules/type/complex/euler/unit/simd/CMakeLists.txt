@@ -10,4 +10,4 @@
 set( SOURCES
    )
 
-nt2_module_add_tests(complex.euler.simd.unit ${SOURCES})
+nt2_module_add_tests(type.complex.euler.simd.unit ${SOURCES})

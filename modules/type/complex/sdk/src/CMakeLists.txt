@@ -9,4 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(type.complex.sdk)
-nt2_module_configure_toolbox(sdk 1)
+nt2_module_configure_toolbox(complex 1)
