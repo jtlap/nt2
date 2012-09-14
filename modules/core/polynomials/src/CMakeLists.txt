@@ -8,5 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(polynomials)
+nt2_module_source_setup(core.polynomials)
 nt2_module_configure_toolbox(polynomials 1)

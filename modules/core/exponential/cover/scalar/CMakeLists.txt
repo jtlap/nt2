@@ -26,5 +26,5 @@ SET( SOURCES
 # List of scalar test files for toolbox exponential
    )
 
-nt2_module_add_tests(exponential.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.exponential.scalar.cover ${SOURCES})
 

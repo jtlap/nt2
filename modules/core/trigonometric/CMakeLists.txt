@@ -23,4 +23,4 @@ if(DEFINED NT2_ROOT)
 endif()
 
 include(NT2Module)
-nt2_module_main(trigonometric)
+nt2_module_main(core.trigonometric)

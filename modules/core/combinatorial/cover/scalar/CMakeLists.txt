@@ -17,5 +17,5 @@ SET( SOURCES
 # List of scalar test files for toolbox combinatorial
    )
 
-nt2_module_add_tests(combinatorial.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.combinatorial.scalar.cover ${SOURCES})
 

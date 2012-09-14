@@ -18,4 +18,4 @@ SET( SOURCES
 # List of simd test files for toolbox bessel
    )
 
-nt2_module_add_tests(bessel.simd.bench ${SOURCES})
+nt2_module_add_tests(core.bessel.simd.bench ${SOURCES})

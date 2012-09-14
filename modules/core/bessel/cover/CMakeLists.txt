@@ -8,8 +8,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules( unit predicates arithmetic trigonometric exponential
-                        extern.cephes
+nt2_module_use_modules( unit                extern.cephes
+                        core.predicates     core.arithmetic
+                        core.trigonometric  core.exponential
                       )
 
 ADD_SUBDIRECTORY(scalar)

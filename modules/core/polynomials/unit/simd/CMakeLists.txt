@@ -17,4 +17,4 @@ SET( SOURCES
 # List of simd test files for toolbox polynomials
    )
 
-nt2_module_add_tests(polynomials.simd.unit ${SOURCES})
+nt2_module_add_tests(core.polynomials.simd.unit ${SOURCES})

@@ -8,5 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(constant)
+nt2_module_source_setup(core.constant)
 nt2_module_simd_toolbox(constant)

@@ -18,5 +18,5 @@ SET( SOURCES
 # List of scalar test files for toolbox polynomials
    )
 
-nt2_module_add_tests(polynomials.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.polynomials.scalar.cover ${SOURCES})
 

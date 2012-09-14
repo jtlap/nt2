@@ -8,6 +8,6 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(optimization)
-nt2_module_simd_toolbox(optimization)
+nt2_module_source_setup(core.optimization)
+nt2_module_configure_toolbox(optimization 1)
 

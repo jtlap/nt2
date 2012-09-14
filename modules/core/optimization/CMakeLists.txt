@@ -23,4 +23,4 @@ if(DEFINED NT2_ROOT)
 endif()
 
 include(NT2Module)
-nt2_module_main(optimization)
+nt2_module_main(core.optimization)

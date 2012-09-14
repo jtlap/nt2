@@ -46,4 +46,4 @@ SET( SOURCES
 # List of scalar test files for toolbox ieee
    )
 
-nt2_module_add_tests(ieee.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.ieee.scalar.bench ${SOURCES})

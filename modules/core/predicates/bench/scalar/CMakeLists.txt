@@ -23,7 +23,8 @@ SET( SOURCES
   is_not_infinite.cpp
   majority.cpp
   sb2b.cpp
-  is_unord.cpp  is_positive.cpp
+  is_unord.cpp
+  is_positive.cpp
   is_ord.cpp
   is_odd.cpp
   is_not_finite.cpp
@@ -41,9 +42,10 @@ SET( SOURCES
   is_gtz.cpp
   is_gez.cpp
   is_flint.cpp
-  is_finite.cpp  is_even.cpp
+  is_finite.cpp
+  is_even.cpp
   is_eqz.cpp
 # List of scalar test files for toolbox predicates
    )
 
-nt2_module_add_tests(predicates.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.predicates.scalar.bench ${SOURCES})

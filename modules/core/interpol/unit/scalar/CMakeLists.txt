@@ -7,7 +7,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET( SOURCES  
+SET( SOURCES
   idx_linear.cpp
   idxy_bilinear.cpp
   bsearch.cpp
@@ -18,4 +18,4 @@ SET( SOURCES
   # List of scalar test files for toolbox interpol
    )
 
-nt2_module_add_tests(interpol.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.interpol.scalar.unit ${SOURCES})

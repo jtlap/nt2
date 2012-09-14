@@ -8,7 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(reduction)
-#nt2_module_configure_toolbox(reduction 1)
-
+nt2_module_source_setup(core.reduction)
 nt2_module_simd_toolbox(reduction)

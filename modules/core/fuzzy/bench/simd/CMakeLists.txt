@@ -24,4 +24,4 @@ SET( SOURCES
 # List of simd test files for toolbox fuzzy
    )
 
-nt2_module_add_tests(fuzzy.simd.bench ${SOURCES})
+nt2_module_add_tests(core.fuzzy.simd.bench ${SOURCES})

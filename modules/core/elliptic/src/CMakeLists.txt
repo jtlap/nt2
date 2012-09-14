@@ -8,5 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(elliptic)
+nt2_module_source_setup(core.elliptic)
 nt2_module_configure_toolbox(elliptic 1)

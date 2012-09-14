@@ -13,4 +13,4 @@ SET( SOURCES
 # List of scalar test files for toolbox optimize
    )
 
-nt2_module_add_tests(optimization.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.optimization.scalar.unit ${SOURCES})

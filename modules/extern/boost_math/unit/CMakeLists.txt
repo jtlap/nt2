@@ -11,5 +11,8 @@
 ##*     Toolbox boost_math unit tests
 ##****************************************************************************
 
-nt2_module_use_modules(unit ieee arithmetic euler exponential hyperbolic elliptic)
+nt2_module_use_modules( unit        core.ieee         core.arithmetic
+                        core.euler  core.exponential  core.hyperbolic
+                        core.elliptic
+                      )
 ADD_SUBDIRECTORY(scalar)

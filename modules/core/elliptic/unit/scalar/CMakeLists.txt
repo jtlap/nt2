@@ -18,4 +18,4 @@ SET( SOURCES
 # List of scalar test files for toolbox elliptic
    )
 
-nt2_module_add_tests(elliptic.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.elliptic.scalar.unit ${SOURCES})

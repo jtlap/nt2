@@ -16,7 +16,7 @@ SET( SOURCES
   posmin.cpp
   posmax.cpp
   nbtrue.cpp
-  inbtrue.cpp     
+  inbtrue.cpp
   minimum.cpp
   maximum.cpp
   hmsb.cpp
@@ -28,5 +28,5 @@ SET( SOURCES
 # List of simd test files for toolbox reduction
    )
 
-nt2_module_add_tests(reduction.simd.cover ${SOURCES})
+nt2_module_add_tests(core.reduction.simd.cover ${SOURCES})
 

@@ -8,7 +8,12 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit predicates arithmetic reduction euler extern.boost_math)
+nt2_module_use_modules( unit
+                        core.predicates core.arithmetic
+                        core.reduction  core.euler
+                        extern.boost_math
+                      )
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

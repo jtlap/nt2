@@ -27,4 +27,4 @@ SET( SOURCES
 # List of simd test files for toolbox exponential
    )
 
-nt2_module_add_tests(exponential.simd.unit ${SOURCES})
+nt2_module_add_tests(core.exponential.simd.unit ${SOURCES})

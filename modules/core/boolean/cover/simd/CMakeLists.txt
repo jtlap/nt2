@@ -15,5 +15,5 @@ SET( SOURCES
   selsub.cpp
    )
 
-#nt2_module_add_tests(boolean.simd.cover ${SOURCES})
+#nt2_module_add_tests(core.boolean.simd.cover ${SOURCES})
 

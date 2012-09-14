@@ -16,4 +16,4 @@ SET( SOURCES
 # List of simd test files for toolbox combinatorial
    )
 
-nt2_module_add_tests(combinatorial.simd.unit ${SOURCES})
+nt2_module_add_tests(core.combinatorial.simd.unit ${SOURCES})

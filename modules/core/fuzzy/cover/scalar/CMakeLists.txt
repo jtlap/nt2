@@ -25,5 +25,5 @@ SET( SOURCES
 # List of scalar test files for toolbox fuzzy
    )
 
-nt2_module_add_tests(fuzzy.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.fuzzy.scalar.cover ${SOURCES})
 

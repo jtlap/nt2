@@ -19,5 +19,5 @@ SET( SOURCES
 # List of simd test files for toolbox elliptic
    )
 
-nt2_module_add_tests(elliptic.simd.cover ${SOURCES})
+nt2_module_add_tests(core.elliptic.simd.cover ${SOURCES})
 

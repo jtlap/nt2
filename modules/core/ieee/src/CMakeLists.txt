@@ -8,7 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(ieee)
-#nt2_module_configure_toolbox(ieee 1)
-
+nt2_module_source_setup(core.ieee)
 nt2_module_simd_toolbox(ieee)

@@ -12,5 +12,5 @@ SET( SOURCES
 # List of scalar test files for toolbox statistics
    )
 
-nt2_module_add_tests(statistics.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.statistics.scalar.cover ${SOURCES})
 

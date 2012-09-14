@@ -11,4 +11,4 @@ SET( SOURCES
 # List of simd test files for toolbox interpol
    )
 
-nt2_module_add_tests(interpol.generic.bench ${SOURCES})
+nt2_module_add_tests(core.interpol.generic.bench ${SOURCES})

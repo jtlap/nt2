@@ -8,5 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(trigonometric)
+nt2_module_source_setup(core.trigonometric)
 nt2_module_configure_toolbox(trigonometric 1)

@@ -18,4 +18,4 @@ SET( SOURCES
 # List of scalar test files for toolbox bessel
    )
 
-nt2_module_add_tests(bessel.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.bessel.scalar.bench ${SOURCES})

@@ -26,4 +26,4 @@ SET( SOURCES
 # List of simd test files for toolbox euler
    )
 
-nt2_module_add_tests(euler.simd.unit ${SOURCES})
+nt2_module_add_tests(core.euler.simd.unit ${SOURCES})

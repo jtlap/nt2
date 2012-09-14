@@ -25,4 +25,4 @@ SET( SOURCES
 # List of simd test files for toolbox euler
    )
 
-nt2_module_add_tests(euler.simd.bench ${SOURCES})
+nt2_module_add_tests(core.euler.simd.bench ${SOURCES})

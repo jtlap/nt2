@@ -25,5 +25,5 @@ SET( SOURCES
 # List of scalar test files for toolbox euler
    )
 
-nt2_module_add_tests(euler.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.euler.scalar.cover ${SOURCES})
 

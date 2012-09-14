@@ -8,7 +8,8 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules( unit predicates arithmetic exponential
+nt2_module_use_modules( unit
+                        core.predicates core.arithmetic core.exponential
                         extern.cephes extern.libc extern.boost_math
                       )
 

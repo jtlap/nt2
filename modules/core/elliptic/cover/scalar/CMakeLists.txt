@@ -19,5 +19,5 @@ SET( SOURCES
 # List of scalar test files for toolbox elliptic
    )
 
-nt2_module_add_tests(elliptic.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.elliptic.scalar.cover ${SOURCES})
 

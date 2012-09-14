@@ -8,6 +8,6 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(statistics)
+nt2_module_source_setup(core.statistics)
 nt2_module_configure_toolbox(statistics 1)
 

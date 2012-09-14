@@ -24,4 +24,4 @@ SET( SOURCES
 # List of scalar test files for toolbox fuzzy
    )
 
-nt2_module_add_tests(fuzzy.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.fuzzy.scalar.bench ${SOURCES})

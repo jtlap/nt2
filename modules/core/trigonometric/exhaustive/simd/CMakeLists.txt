@@ -12,4 +12,4 @@ SET( SOURCES
 # List of simd test files for toolbox arithmetic
    )
 
-nt2_module_add_tests(trigonometric.simd.exhaustive ${SOURCES})
+nt2_module_add_tests(core.trigonometric.simd.exhaustive ${SOURCES})

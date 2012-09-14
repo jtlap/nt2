@@ -19,5 +19,5 @@ SET( SOURCES
 # List of simd test files for toolbox bessel
    )
 
-nt2_module_add_tests(bessel.simd.cover ${SOURCES})
+nt2_module_add_tests(core.bessel.simd.cover ${SOURCES})
 

@@ -80,4 +80,4 @@ SET( SOURCES
 # List of scalar test files for toolbox trigonometric
    )
 
-nt2_module_add_tests(trigonometric.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.trigonometric.scalar.unit ${SOURCES})

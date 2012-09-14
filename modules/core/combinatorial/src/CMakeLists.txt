@@ -8,5 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(combinatorial)
+nt2_module_source_setup(core.combinatorial)
 nt2_module_configure_toolbox(combinatorial 1)

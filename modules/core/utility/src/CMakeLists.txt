@@ -9,20 +9,4 @@
 
 include(NT2Module)
 nt2_module_source_setup(core.utility)
-nt2_module_configure_toolbox(utility 1)
-
-#nt2_module_postconfigure( gather_includes ---ignore details --ignore preprocessed
-                          #nt2/core/functions
-                        #--out nt2/core/include/functions
-                          #nt2/core/include/functions
-                        #--out nt2/core/functions.hpp
-                        #--out nt2/include/functions
-                        #)
-
-#nt2_module_postconfigure( gather_includes ---ignore details --ignore preprocessed
-                       #--max 1 nt2/core/functions
-                          #nt2/core/functions/generic nt2/core/functions/scalar
-                        #--out nt2/core/include/functions/scalar
-                          #nt2/core/include/functions/scalar
-                        #--out nt2/include/functions/scalar
-                        #)
+nt2_module_configure_toolbox(core 1)

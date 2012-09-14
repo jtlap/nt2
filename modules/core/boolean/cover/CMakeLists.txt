@@ -11,7 +11,7 @@
 ##############################################################################
 # Toolbox boolean cover tests
 ##############################################################################
-nt2_module_use_modules(unit predicates arithmetic)
+nt2_module_use_modules(unit core.predicates core.arithmetic)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
 

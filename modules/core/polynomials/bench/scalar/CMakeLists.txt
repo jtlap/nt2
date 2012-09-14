@@ -17,4 +17,4 @@ SET( SOURCES
 # List of scalar test files for toolbox polynomials
    )
 
-nt2_module_add_tests(polynomials.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.polynomials.scalar.bench ${SOURCES})

@@ -16,4 +16,4 @@ SET(SOURCES
     true_false.cpp
     )
 
-nt2_module_add_tests(constant.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.constant.scalar.unit ${SOURCES})

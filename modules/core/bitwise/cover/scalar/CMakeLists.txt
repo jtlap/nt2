@@ -36,5 +36,5 @@ SET( SOURCES
 # List of scalar test files for toolbox bitwise
    )
 
-nt2_module_add_tests(bitwise.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.bitwise.scalar.cover ${SOURCES})
 

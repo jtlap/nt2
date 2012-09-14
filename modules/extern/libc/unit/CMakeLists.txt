@@ -11,5 +11,9 @@
 ##*     Toolbox libc unit tests
 ##****************************************************************************
 
-nt2_module_use_modules(unit arithmetic trigonometric hyperbolic exponential)
+nt2_module_use_modules( unit
+                        core.arithmetic core.trigonometric
+                        core.hyperbolic core.exponential
+                      )
+
 ADD_SUBDIRECTORY(scalar)

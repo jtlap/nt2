@@ -24,4 +24,4 @@ SET( SOURCES
 # List of scalar test files for toolbox reduction
    )
 
-nt2_module_add_tests(reduction.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.reduction.scalar.bench ${SOURCES})

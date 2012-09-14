@@ -62,4 +62,4 @@ SET( SOURCES
 # List of simd test files for toolbox arithmetic
    )
 
-nt2_module_add_tests(arithmetic.simd.bench ${SOURCES})
+nt2_module_add_tests(core.arithmetic.simd.bench ${SOURCES})

@@ -13,4 +13,4 @@ SET( SOURCES
       norm.cpp
    )
 
-nt2_module_add_tests(linalg.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.linalg.scalar.bench ${SOURCES})

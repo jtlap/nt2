@@ -26,5 +26,5 @@ SET( SOURCES
 # List of simd test files for toolbox exponential
    )
 
-nt2_module_add_tests(exponential.simd.cover ${SOURCES})
+nt2_module_add_tests(core.exponential.simd.cover ${SOURCES})
 

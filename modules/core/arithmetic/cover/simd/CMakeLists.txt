@@ -65,5 +65,5 @@ SET( SOURCES
 # List of simd test files for toolbox arithmetic
    )
 
-nt2_module_add_tests(arithmetic.simd.cover ${SOURCES})
+nt2_module_add_tests(core.arithmetic.simd.cover ${SOURCES})
 

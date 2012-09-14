@@ -8,6 +8,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit predicates extern.cephes)
+nt2_module_use_modules(unit core.predicates extern.cephes)
 ADD_SUBDIRECTORY(scalar)
 

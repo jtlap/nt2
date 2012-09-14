@@ -10,7 +10,7 @@
 SET( SOURCES
   nbd_atan2.cpp
   proper_tanpi.cpp
-  more_cosine.cpp  
+  more_cosine.cpp
   cosine.cpp
   atanpi.cpp
   asinpi.cpp
@@ -69,4 +69,4 @@ SET( SOURCES
 # List of scalar test files for toolbox trigonometric
    )
 
-nt2_module_add_tests(trigonometric.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.trigonometric.scalar.bench ${SOURCES})

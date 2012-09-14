@@ -14,8 +14,8 @@ SET( SOURCES
   ellint_1.cpp
   ellik.cpp
   ellie.cpp
-  ellipke.cpp 
+  ellipke.cpp
 # List of simd test files for toolbox elliptic
    )
 
-nt2_module_add_tests(elliptic.simd.unit ${SOURCES})
+nt2_module_add_tests(core.elliptic.simd.unit ${SOURCES})

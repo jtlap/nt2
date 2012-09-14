@@ -19,11 +19,11 @@ SET( SOURCES
      planerot.cpp
      linsolve.cpp
      full_qr_solve.cpp
-     full_lu_solve.cpp  
+     full_lu_solve.cpp
      svd_solve.cpp
      tr_solve.cpp
      lsq_lse_solve.cpp
    )
 
-nt2_module_add_tests(linalg.tie.unit ${SOURCES})
+nt2_module_add_tests(core.linalg.tie.unit ${SOURCES})
 

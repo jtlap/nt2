@@ -12,4 +12,4 @@ SET( SOURCES
      vandermonde.cpp
    )
 
-nt2_module_add_tests(linalg.functions.unit ${SOURCES})
+nt2_module_add_tests(core.linalg.functions.unit ${SOURCES})

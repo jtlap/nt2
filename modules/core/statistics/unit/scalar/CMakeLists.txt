@@ -10,13 +10,13 @@
 SET( SOURCES
   caucdf.cpp
   caupdf.cpp
-  cauinv.cpp 
+  cauinv.cpp
 #  caurnd.cpp
   normcdf.cpp
   normpdf.cpp
   norminv.cpp
   unifpdf.cpp
-  unifcdf.cpp 
+  unifcdf.cpp
   unifrnd.cpp
   unifinv.cpp
   expcdf.cpp
@@ -26,4 +26,4 @@ SET( SOURCES
 # List of scalar test files for toolbox statistics
    )
 
-nt2_module_add_tests(statistics.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.statistics.scalar.unit ${SOURCES})

@@ -26,4 +26,4 @@ SET( SOURCES
 # List of simd test files for toolbox hyperbolic
    )
 
-nt2_module_add_tests(hyperbolic.simd.unit ${SOURCES})
+nt2_module_add_tests(core.hyperbolic.simd.unit ${SOURCES})

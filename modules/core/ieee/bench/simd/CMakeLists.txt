@@ -46,4 +46,4 @@ SET( SOURCES
 # List of simd test files for toolbox ieee
    )
 
-nt2_module_add_tests(ieee.simd.bench ${SOURCES})
+nt2_module_add_tests(core.ieee.simd.bench ${SOURCES})

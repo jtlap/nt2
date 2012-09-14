@@ -23,4 +23,4 @@ SET( SOURCES
   sqrtm.cpp
    )
 
-nt2_module_add_tests(linalg.general.unit ${SOURCES})
+nt2_module_add_tests(core.linalg.general.unit ${SOURCES})

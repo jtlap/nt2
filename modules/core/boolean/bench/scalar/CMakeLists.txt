@@ -11,4 +11,4 @@ SET( SOURCES
 # List of scalar test files for toolbox boolean
    )
 
-nt2_module_add_tests(boolean.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.boolean.scalar.bench ${SOURCES})

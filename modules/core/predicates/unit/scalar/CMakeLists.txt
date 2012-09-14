@@ -46,4 +46,4 @@ SET( SOURCES
 # List of scalar test files for toolbox predicates
    )
 
-nt2_module_add_tests(predicates.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.predicates.scalar.unit ${SOURCES})

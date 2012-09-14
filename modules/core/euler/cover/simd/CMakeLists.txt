@@ -20,10 +20,10 @@ SET( SOURCES
   dawson.cpp
   beta.cpp
   erf.cpp
-  erfc.cpp 
+  erfc.cpp
   erfinv.cpp
 # List of simd test files for toolbox euler
    )
 
-nt2_module_add_tests(euler.simd.cover ${SOURCES})
+nt2_module_add_tests(core.euler.simd.cover ${SOURCES})
 

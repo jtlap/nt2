@@ -8,7 +8,7 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(bessel)
+nt2_module_source_setup(core.bessel)
 nt2_module_configure_toolbox(bessel 1)
 
 ################################################################################

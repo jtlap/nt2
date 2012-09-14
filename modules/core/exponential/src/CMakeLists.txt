@@ -8,7 +8,7 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(exponential)
+nt2_module_source_setup(core.exponential)
 nt2_module_configure_toolbox(exponential 1)
 
 ################################################################################

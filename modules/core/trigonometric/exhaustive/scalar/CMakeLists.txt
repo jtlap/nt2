@@ -11,4 +11,4 @@ SET( SOURCES
 # List of simd test files for toolbox arithmetic
    )
 
-nt2_module_add_tests(trigonometric.scalar.exhaustive ${SOURCES})
+nt2_module_add_tests(core.trigonometric.scalar.exhaustive ${SOURCES})

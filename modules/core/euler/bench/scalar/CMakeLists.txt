@@ -25,4 +25,4 @@ SET( SOURCES
 # List of scalar test files for toolbox euler
    )
 
-nt2_module_add_tests(euler.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.euler.scalar.bench ${SOURCES})

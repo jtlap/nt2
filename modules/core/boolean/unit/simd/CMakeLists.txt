@@ -12,4 +12,4 @@ SET( SOURCES
 # List of simd test files for toolbox boolean
    )
 
-nt2_module_add_tests(boolean.simd.unit ${SOURCES})
+nt2_module_add_tests(core.boolean.simd.unit ${SOURCES})

@@ -9,7 +9,7 @@
 
 SET( SOURCES
   erfinv.cpp
-  erfcinv.cpp   
+  erfcinv.cpp
   fast_gamma.cpp
   spence.cpp
   stirling.cpp
@@ -19,7 +19,7 @@ SET( SOURCES
   gammaln.cpp
   gamma.cpp
   gammainc.cpp
-  dgammainc.cpp 
+  dgammainc.cpp
   gammaincinv.cpp
   beta.cpp
   expni.cpp
@@ -28,4 +28,4 @@ SET( SOURCES
 # List of scalar test files for toolbox euler
    )
 
-nt2_module_add_tests(euler.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.euler.scalar.unit ${SOURCES})

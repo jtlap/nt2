@@ -26,4 +26,4 @@ SET( SOURCES
 # List of simd test files for toolbox reduction
    )
 
-nt2_module_add_tests(reduction.simd.unit ${SOURCES})
+nt2_module_add_tests(core.reduction.simd.unit ${SOURCES})

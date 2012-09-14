@@ -49,5 +49,5 @@ SET( SOURCES
 # List of simd test files for toolbox predicates
    )
 
-nt2_module_add_tests(predicates.simd.cover ${SOURCES})
+nt2_module_add_tests(core.predicates.simd.cover ${SOURCES})
 

@@ -8,6 +8,6 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(bitwise)
+nt2_module_source_setup(core.bitwise)
 nt2_module_simd_toolbox(bitwise)
 

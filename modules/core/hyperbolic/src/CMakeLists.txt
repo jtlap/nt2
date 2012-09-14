@@ -8,5 +8,5 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(hyperbolic)
+nt2_module_source_setup(core.hyperbolic)
 nt2_module_configure_toolbox(hyperbolic 1)

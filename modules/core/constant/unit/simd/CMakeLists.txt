@@ -16,4 +16,4 @@ SET(SOURCES
     true_false.cpp
     )
 
-nt2_module_add_tests(constant.simd.unit ${SOURCES})
+nt2_module_add_tests(core.constant.simd.unit ${SOURCES})

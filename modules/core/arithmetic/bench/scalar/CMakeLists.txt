@@ -62,4 +62,4 @@ SET( SOURCES
 # List of scalar test files for toolbox arithmetic
    )
 
-nt2_module_add_tests(arithmetic.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.arithmetic.scalar.bench ${SOURCES})

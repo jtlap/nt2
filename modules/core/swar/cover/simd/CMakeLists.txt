@@ -25,5 +25,5 @@ SET( SOURCES
 # List of simd test files for toolbox swar
    )
 
-nt2_module_add_tests(swar.simd.cover ${SOURCES})
+nt2_module_add_tests(core.swar.simd.cover ${SOURCES})
 

@@ -26,5 +26,5 @@ SET( SOURCES
 # List of scalar test files for toolbox hyperbolic
    )
 
-nt2_module_add_tests(hyperbolic.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.hyperbolic.scalar.cover ${SOURCES})
 

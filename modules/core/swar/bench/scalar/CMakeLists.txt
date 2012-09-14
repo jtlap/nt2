@@ -22,4 +22,4 @@ SET( SOURCES
 # List of scalar test files for toolbox swar
    )
 
-nt2_module_add_tests(swar.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.swar.scalar.bench ${SOURCES})

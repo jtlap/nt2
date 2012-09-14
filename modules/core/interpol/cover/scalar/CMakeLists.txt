@@ -12,5 +12,5 @@ SET( SOURCES
 # List of scalar test files for toolbox interpol
    )
 
-nt2_module_add_tests(interpol.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.interpol.scalar.cover ${SOURCES})
 

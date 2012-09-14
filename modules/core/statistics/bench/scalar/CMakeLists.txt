@@ -11,4 +11,4 @@ SET( SOURCES
  # List of scalar test files for toolbox statistics
    )
 
-nt2_module_add_tests(statistics.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.statistics.scalar.bench ${SOURCES})

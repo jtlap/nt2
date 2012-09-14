@@ -8,7 +8,7 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(euler)
+nt2_module_source_setup(core.euler)
 nt2_module_configure_toolbox(euler 1)
 
 ################################################################################

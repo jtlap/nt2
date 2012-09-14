@@ -12,5 +12,5 @@ SET( SOURCES
 # List of simd test files for toolbox statistics
    )
 
-nt2_module_add_tests(statistics.simd.cover ${SOURCES})
+nt2_module_add_tests(core.statistics.simd.cover ${SOURCES})
 

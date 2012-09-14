@@ -30,4 +30,4 @@ SET( SOURCES
 # List of scalar test files for toolbox exponential
    )
 
-nt2_module_add_tests(exponential.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.exponential.scalar.unit ${SOURCES})

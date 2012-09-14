@@ -8,6 +8,6 @@
 ################################################################################
 
 include(NT2Module)
-nt2_module_source_setup(interpol)
+nt2_module_source_setup(core.interpol)
 nt2_module_configure_toolbox(interpol 1)
 

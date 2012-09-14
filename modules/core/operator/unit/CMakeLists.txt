@@ -10,6 +10,6 @@
 ################################################################################
 # Add global unit driver rules
 ################################################################################
-nt2_module_use_modules(unit bitwise)
+nt2_module_use_modules(unit core.bitwise)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

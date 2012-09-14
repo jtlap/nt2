@@ -19,7 +19,7 @@ SET( SOURCES
   is_equal_with_equal_nans.cpp
   sb2b.cpp
   majority.cpp
-  is_unord.cpp  
+  is_unord.cpp
   is_positive.cpp
   is_ord.cpp
   is_odd.cpp
@@ -43,11 +43,11 @@ SET( SOURCES
   is_gtz.cpp
   is_gez.cpp
   is_flint.cpp
-  is_finite.cpp  
+  is_finite.cpp
   is_even.cpp
   is_eqz.cpp
 # List of scalar test files for toolbox predicates
    )
 
-nt2_module_add_tests(predicates.scalar.cover ${SOURCES})
+nt2_module_add_tests(core.predicates.scalar.cover ${SOURCES})
 

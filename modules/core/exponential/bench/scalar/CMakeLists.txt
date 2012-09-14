@@ -24,4 +24,4 @@ SET( SOURCES
 # List of scalar test files for toolbox exponential
    )
 
-nt2_module_add_tests(exponential.scalar.bench ${SOURCES})
+nt2_module_add_tests(core.exponential.scalar.bench ${SOURCES})

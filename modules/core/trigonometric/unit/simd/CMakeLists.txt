@@ -79,4 +79,4 @@ SET( SOURCES
 # List of simd test files for toolbox trigonometric
    )
 
-nt2_module_add_tests(trigonometric.simd.unit ${SOURCES})
+nt2_module_add_tests(core.trigonometric.simd.unit ${SOURCES})
