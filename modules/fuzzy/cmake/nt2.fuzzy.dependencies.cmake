@@ -7,4 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_FUZZY_DEPENDENCIES_EXTRA arithmetic boolean constant ieee core.operator predicates)
+SET ( NT2_CORE.FUZZY_DEPENDENCIES_EXTRA core.arithmetic core.boolean
+                                        core.constant   core.ieee
+                                        core.operator   core.predicates
+    )

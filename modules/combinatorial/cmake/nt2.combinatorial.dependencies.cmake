@@ -7,7 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_COMBINATORIAL_DEPENDENCIES_EXTRA  arithmetic bitwise boolean constant ieee
-                                          core.operator predicates reduction swar
-                                         euler exponential
-   )
+SET ( NT2_CORE.COMBINATORIAL_DEPENDENCIES_EXTRA core.arithmetic core.bitwise
+                                                core.boolean    core.constant
+                                                core.ieee       core.operator
+                                                core.predicates core.reduction
+                                                core.swar       core.euler
+                                                core.exponential
+    )

@@ -7,4 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TYPE.COMPLEX.TRIGONOMETRIC_DEPENDENCIES_EXTRA exponential trigonometric hyperbolic)
+SET ( NT2_TYPE.COMPLEX.TRIGONOMETRIC_DEPENDENCIES_EXTRA core.exponential
+                                                        core.trigonometric
+                                                        core.hyperbolic
+    )

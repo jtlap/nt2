@@ -7,7 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TRIGONOMETRIC_DEPENDENCIES_EXTRA arithmetic bitwise boolean constant ieee core.operator predicates reduction swar
-                                        polynomials
-                                         exponential
-   )
+SET ( NT2_CORE.TRIGONOMETRIC_DEPENDENCIES_EXTRA core.arithmetic core.bitwise
+                                                core.boolean    core.constant
+                                                core.ieee       core.operator
+                                                core.predicates core.reduction
+                                                core.swar       core.polynomials
+                                                core.exponential
+    )

@@ -7,4 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_SIGNAL_DEPENDENCIES_EXTRA sdk.simd core.operator constant arithmetic bitwise trigonometric exponential)
+SET ( NT2_CORE.SIGNAL_DEPENDENCIES_EXTRA  sdk.simd
+                                          core.operator       core.constant
+                                          core.arithmetic     core.bitwise
+                                          core.trigonometric  core.exponential
+    )

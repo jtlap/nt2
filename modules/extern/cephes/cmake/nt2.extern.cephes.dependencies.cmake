@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_EXTERN.CEPHES_DEPENDENCIES_EXTRA constant predicates)
+SET ( NT2_EXTERN.CEPHES_DEPENDENCIES_EXTRA  core.constant core.predicates )
 
 SET ( NT2_EXTERN.CEPHES_LIBRARIES  optimized nt2_cephesf
                                    debug nt2_cephesf_d
