@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_UTILITY_AS_INDEX_HPP_INCLUDED
-#define NT2_CORE_UTILITY_AS_INDEX_HPP_INCLUDED
+#ifndef NT2_CORE_UTILITY_MAX_EXTENT_HPP_INCLUDED
+#define NT2_CORE_UTILITY_MAX_EXTENT_HPP_INCLUDED
 
 #include <nt2/core/utility/of_size.hpp>
 #include <nt2/include/functions/extent.hpp>
