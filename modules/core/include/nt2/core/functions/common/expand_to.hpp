@@ -17,6 +17,7 @@
 #include <nt2/include/functions/simd/min.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
+#include <nt2/include/functions/isexpandable_to.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -45,10 +46,12 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-      // Grab position and size
+     // Grab position and size
       s_t pos0  = ind2sub(a0.extent(),enumerate<i_t>(p));
       ext_t sz0 = extent(boost::proto::child_c<0>(a0));
-
+      BOOST_ASSERT_MSG(nt2::isexpandable_to(a0, a0.extent()),
+                       "the expression and size are not compatible for singleton expansion"); 
+ 
       // If you're a singleton, you're always the smallest
       for(std::size_t i = 0; i != ext_t::size(); ++i)
       {
