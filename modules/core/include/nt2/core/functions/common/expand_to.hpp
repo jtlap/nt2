@@ -49,8 +49,8 @@ namespace nt2 { namespace ext
      // Grab position and size
       s_t pos0  = ind2sub(a0.extent(),enumerate<i_t>(p));
       ext_t sz0 = extent(boost::proto::child_c<0>(a0));
-      BOOST_ASSERT_MSG(nt2::isexpandable_to(a0, a0.extent()),
-                       "the expression and size are not compatible for singleton expansion"); 
+//       BOOST_ASSERT_MSG(nt2::isexpandable_to(a0, a0.extent()),
+//                        "the expression and size are not compatible for singleton expansion"); 
  
       // If you're a singleton, you're always the smallest
       for(std::size_t i = 0; i != ext_t::size(); ++i)

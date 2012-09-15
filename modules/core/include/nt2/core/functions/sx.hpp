@@ -45,10 +45,14 @@ namespace nt2
 {
   namespace tag
   {
-    struct sx_ : tag::formal_
+    struct sx_ : ext::elementwise_<sx_>
     {
-      typedef tag::formal_ parent;
+      typedef ext::elementwise_<sx_> parent;
     };
+//     struct sx_ : tag::formal_
+//     {
+//       typedef tag::formal_ parent;
+//     };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sx_       , sx, 3)
