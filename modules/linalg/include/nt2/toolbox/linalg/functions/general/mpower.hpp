@@ -37,134 +37,122 @@
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <iostream>
 
 namespace nt2{ namespace ext
 {
-
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_<arithmetic_<A0> >)
-                              (ast_<A1>)
-                              )
-  {
-    typedef typename A0::value_type       value_type;
-    typedef typename A0::index_type       index_type;
-    typedef table<value_type, index_type> result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return expm(nt2::log(a0), a1);
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
-                              , (A0)(A1)
-                            , (ast_<A0>)
-                              (scalar_<arithmetic_<A1> >)
+                              , (A0)(N0)(A1)(N1)
+                              , ((node_<A0, nt2::tag::mpower_, N0>))
+                                ((node_<A1, nt2::tag::tie_ , N1>))
                             )
   {
-    typedef typename A0::value_type       value_type;
-    typedef typename A0::index_type       index_type;
-    typedef table<value_type, index_type> result_type;
-    NT2_FUNCTOR_CALL(2)
+    typedef void                                                    result_type;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
+    typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
+    typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
+    typedef typename A0::value_type                                  value_type;     
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, A1& a1 ) const
     {
-      BOOST_ASSERT_MSG(issquare(a0),"mpower requires the first input to be a square matrix");
-      if(is_ltz(a1))
-        return nt2::inv(nt2::mpower(a0, -a1));
+      const In0& a  = boost::proto::child_c<0>(a0);
+      const In1& b  = boost::proto::child_c<1>(a0);
+      const Out0& r  = boost::proto::child_c<0>(a1);
+      bool s0 =  nt2::isscalar(a);
+      bool s1 =  nt2::isscalar(b);
+      if (s0 && s1)
+        {
+          nt2::table<value_type> aa = a,  bb = b; 
+          doit0(aa(1), bb(1), r); 
+          
+        }
+      else if(s0)
+        {
+          nt2::table<value_type> aa = a; 
+            doit1(aa(1), b, r); 
+        }
+      else if(s1)
+        {
+          nt2::table<value_type> bb = b; 
+          doit2(a, bb(1), r); 
+        }
+    }   
+  private:
+    BOOST_FORCEINLINE static void doit0(const value_type& a, value_type& b, Out0& r)
+    {
+      r =  nt2::pow(a, b); 
+    }
+    template < class T > 
+    BOOST_FORCEINLINE static void doit1(const value_type& a, T& b, Out0& r)
+    {
+      r.resize(extent(b));
+      r =  nt2::expm(nt2::log(a)*b);
+    }
+    template < class T > 
+    BOOST_FORCEINLINE static void doit2(const T& a, value_type& b, Out0& r)
+    {
+      r.resize(extent(a));
+      typedef typename A0::index_type       index_type;
+      typedef table<value_type, index_type> result_type;
+      if(is_ltz(b))
+        {
+          r = nt2::inv(nt2::mpower(a, -b));
+          return;
+        }
       else {
-        value_type m = nt2::trunc(a1);
-        value_type f = a1-m;
+        value_type m = nt2::trunc(b);
+        value_type f = b-m;
         result_type q, t;
-        // tie(q, t) = schur(a0,'N'/*"complex"*/); // t is complex schur form.        result_type e, v;
+        // tie(q, t) = schur(a,'N'/*"complex"*/); // t is complex schur form.        result_type e, v;
         if (false && isdiagonal(t))
           {
             t = nt2::from_diag(nt2::pow(diag_of(t), m));
-            return nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
+            r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
+            return; 
           }
         else
           { //use iterative method
-            result_type rm = nt2::eye(nt2::size(a0), meta::as_<value_type>());
-            result_type rf = rm;
+            r = nt2::eye(nt2::size(a), meta::as_<value_type>());
+            result_type rf = r;
             if (m)
               {
-                result_type a00 = a0;
-                result_type a01;  // a01 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
-                while (true)
+                result_type a00 = a;
+                while (m >= nt2::One<value_type>())
                   {
-                    if (m < nt2::One<A1>()) break;
                     if (nt2::is_odd(m))
                       {
-                        result_type r1 = nt2::mtimes(a00, rm);// r1 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
-                        rm =  r1;
+                        r =  nt2::mtimes(a00, r); 
                       }
-                    a01 =  nt2::mtimes(a00, a00);
-                    a00 =  a01;
+                    a00 =  nt2::mtimes(a00, a00);
                     m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
                   }
               }
             if(!f)
-               return rm;
+              {
+                return;
+              }
             else
               {
-                result_type a00 = nt2::sqrtm(a0);
+                result_type a00 = nt2::sqrtm(a);
                 value_type thresh = nt2::Half<value_type>();
-                while (true)
+                while (f > Zero<value_type>())
                   {
-                    if (!f) break;
                     if (f >= thresh)
                       {
-                        result_type r1 = nt2::mtimes(rf, a00);// r1 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
-                        rf =  r1;
+                        rf = nt2::mtimes(rf, a00);
                         f -= thresh;
                       }
                     thresh *= nt2::Half<value_type>();
                     a00 =  nt2::sqrtm(a00);
-                    //                    NT2_DISP(a00);
-                    //                    std::cout << nt2::norm(a00-eye(height(a0), meta::as_<value_type>(), 1)) << std::endl;
                   }
               }
-            return nt2::mtimes(rm, rf);
+            r= nt2::mtimes(r, rf);
           }
       }
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_<ast_<A0> >)
-                              (scalar_<ast_<A1> >)
-                            )
-  {
-    typedef typename nt2::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      BOOST_ASSERT_MSG(issquare(a0),"mpower requires the first input to be a square matrix or a scalar");
-      BOOST_ASSERT_MSG(issquare(a0),"mpower requires the first input to be a square matrix or a scalar");
-      bool scala0 = isscalar(a0);
-      bool scala1 = isscalar(a1);
-      BOOST_ASSERT_MSG(scala1||scala0, "mpower requires one of the inputs is a scalar");
-      if (isscalar(a0)&& isscalar(a1))
-        return  mpower(a0(begin_), a1(begin_));
-      else if (isscalar(a0))
-        return mpower(a0(begin_), a1);
-      else
-        return mpower(a0, a1(begin_));
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mpower_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_<fundamental_<A0> >)
-                              (scalar_<fundamental_<A1> >)
-                            )
-  {
-    typedef typename nt2::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::pow(a0, a1);
-    }
-  };
 } }
 
 #endif
