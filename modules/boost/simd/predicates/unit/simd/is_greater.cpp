@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/predicates/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::is_greater;
   using boost::simd::tag::is_greater_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -50,11 +50,22 @@ NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(is_greater(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], ssr_t(false));
 } // end of test for integer_
 
+NT2_TEST_CASE_TPL ( is_greater_signed_integer,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
+{
+  typedef boost::simd::native<T, BOOST_SIMD_DEFAULT_EXTENSION> vT;
+  using boost::simd::splat;
+  using boost::simd::is_greater;
+  using boost::simd::logical;
+
+  T hvalmin = T(1) << (sizeof(T)*CHAR_BIT/2-1);
+  NT2_TEST_EQUAL( is_greater(splat<vT>(hvalmin), splat<vT>(hvalmin-1))[0], logical<T>(true) );
+}
+
 NT2_TEST_CASE_TPL ( is_greater_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_greater;
   using boost::simd::tag::is_greater_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
