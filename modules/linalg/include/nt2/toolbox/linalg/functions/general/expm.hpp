@@ -30,9 +30,11 @@
 #include <nt2/include/functions/frexp.hpp>
 #include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/isscalar.hpp>
 #include <vector>
 
 namespace nt2{ namespace ext {
+
   namespace details
   {
     template < class T > struct expm_helper
@@ -159,28 +161,51 @@ namespace nt2{ namespace ext {
   }
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm_, tag::cpu_
-                            , (A0)
-                            , (ast_<A0>)
+                              , (A0)(N0)(A1)(N1)
+                              , ((node_<A0, nt2::tag::expm_, N0>))
+                                ((node_<A1, nt2::tag::tie_ , N1>))
                             )
   {
-    typedef typename A0::value_type       value_type;
-    typedef typename A0::index_type       index_type;
-    typedef table<value_type, index_type> result_type;
-    NT2_FUNCTOR_CALL(1)
+    typedef void                                                    result_type;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
+    typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
+    typedef typename A0::value_type                                    elt_type;
+    typedef typename nt2::meta::as_floating<elt_type>::type          value_type;
+    BOOST_FORCEINLINE result_type operator()(const A0& a0, const A1& a1) const
     {
+      const In0& a  = boost::proto::child_c<0>(a0);
+      const Out0& r  = boost::proto::child_c<0>(a1);
+      if(nt2::isscalar(a))
+        {
+          nt2::table<value_type> aa = a; 
+          doit1(aa(1), r); 
+        }
+      else
+        {
+          doit2(a, r); 
+        }
+    }   
+  private:
+    template < class T > 
+    BOOST_FORCEINLINE static void doit1(const T& a0, Out0& r)
+    {
+      r =  nt2::exp(static_cast<value_type>(a0)); 
+    }
+    template < class T > 
+    BOOST_FORCEINLINE static void doit2(const T& a0, Out0& f)
+    {
+      f.resize(extent(a0));
       typedef nt2::table<value_type >                   tab_t;
       typedef typename meta::as_real<value_type>::type base_t;
       typedef typename meta::as_integer<base_t>::type ibase_t; 
       typedef nt2::table<base_t >                      btab_t;
 
-      //size_t n = length(a0);
-      typedef details::expm_helper<base_t>                h_t; 
+      typedef details::expm_helper<base_t>               h_t; 
       typedef typename h_t::itab_t                     itab_t;
       const btab_t theta = h_t::theta(value_type());
       const itab_t m_vals = h_t::m_vals(value_type());
       tab_t a = a0; 
       base_t norma0 = nt2::norm(a0, 1);
-      tab_t f; 
       if(norma0 <=  value_type(theta(end_)))// WHY value_type() is necessary ?
         {
           // no scaling and squaring is required.
@@ -195,34 +220,20 @@ namespace nt2{ namespace ext {
         }
       else
         {
-          norma0/= value_type(theta(end_));
+          norma0 /= value_type(theta(end_));
           ibase_t s; 
           base_t t = nt2::frexp(norma0, s);
-          //       ptrdiff_t s = logb( norma0);
           s -= (t == 0.5); // adjust s if norma0/theta(end) is a power of 2.
           a =  nt2::ldexp(a, -s); 
           f = details::padeapproximantofdegree(a, value_type(m_vals(end_)));
           for(ibase_t i=1; i <= s; ++i)
             {
-              tab_t f1 =  mtimes(f, f); // squaring //f1 must be suppressed
-              f =  f1; 
+              f =  mtimes(f, f); // squaring
             }
         }
-      return f; 
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm_, tag::cpu_
-                            , (A0)
-                            , (scalar_<fundamental_<A0> >)
-                            )
-  {
-    typedef typename nt2::meta::as_floating<A0>::type result_type; 
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::exp(nt2::tofloat(a0)); 
-    }
-  };  
 } }
 
 #endif
