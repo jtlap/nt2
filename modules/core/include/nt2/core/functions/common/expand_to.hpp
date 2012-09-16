@@ -11,13 +11,12 @@
 
 #include <nt2/core/functions/expand_to.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/constants/zero.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
-#include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/min.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/core/utility/as_index.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
-#include <nt2/include/functions/isexpandable_to.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -30,36 +29,28 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::proto::result_of::
                      child_c<A0&,0>::value_type                        child0_t;
-    typedef typename boost::simd::ext::adapt_data<child0_t,Data>::type    ad0_t;
-
     typedef typename A0::extent_type                                      ext_t;
     typedef typename Data::type                                     result_type;
 
     typedef typename meta::as_index<result_type>::type                      i_t;
-    typedef typename meta::call < nt2::tag
-                                  ::enumerate_(State,meta::as_<i_t>)
-                                >::type                                     p_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(ext_t,p_t)>::type        s_t;
-    typedef typename s_t::value_type                                        w_t;
-    
+    typedef typename details::as_subscript<ext_t,i_t>::result_type          s_t;
+
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
     {
-     // Grab position and size
-      s_t pos0  = ind2sub(a0.extent(),enumerate<i_t>(p));
-      ext_t sz0 = extent(boost::proto::child_c<0>(a0));
-//       BOOST_ASSERT_MSG(nt2::isexpandable_to(a0, a0.extent()),
-//                        "the expression and size are not compatible for singleton expansion"); 
- 
+      // Grab position and size
+      s_t pos0  = as_subscript(a0.extent(), enumerate<i_t>(p));
+      ext_t sz0 = boost::proto::child_c<0>(a0).extent();
+
       // If you're a singleton, you're always the smallest
       for(std::size_t i = 0; i != ext_t::size(); ++i)
       {
-        pos0[i] = nt2::min(splat<w_t>(sz0[i]),pos0[i]);
+        pos0[i] = nt2::min(splat<i_t>(sz0[i]-1u), pos0[i]);
       }
 
-      // rturn each value potentially repeated
-      return  run(boost::proto::child_c<0>(a0), sub2ind(sz0, pos0), ad0_t()); 
+      // return each value potentially repeated
+      return run(boost::proto::child_c<0>(a0), as_index(sz0, pos0), t);
     }
   };
 } }

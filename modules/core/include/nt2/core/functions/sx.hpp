@@ -10,8 +10,6 @@
 #define NT2_CORE_FUNCTIONS_SX_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functions/bsxfun.hpp>
-#include <nt2/include/functions/tsxfun.hpp>
 
 /*!
  * \ingroup core
@@ -45,14 +43,10 @@ namespace nt2
 {
   namespace tag
   {
-    struct sx_ : ext::elementwise_<sx_>
-    {
-      typedef ext::elementwise_<sx_> parent;
-    };
-//     struct sx_ : tag::formal_
-//     {
-//       typedef tag::formal_ parent;
-//     };
+     struct sx_ : tag::formal_
+     {
+       typedef tag::formal_ parent;
+     };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::sx_       , sx, 3)

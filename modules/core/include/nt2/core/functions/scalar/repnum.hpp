@@ -11,7 +11,6 @@
 
 #include <nt2/core/functions/repnum.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/repnum.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/functions/of_size.hpp>
 #include <nt2/core/functions/details/generative_preprocessor.hpp>
@@ -20,7 +19,7 @@
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Generates linearize_ from expression + N size value
+  // Generates repnum from scalar + N size value
   //============================================================================
   #define M2(z,n,t) (BOOST_PP_CAT(A,n))
   #define M1(z,n,t) (scalar_< integer_<BOOST_PP_CAT(A,n)> >)
@@ -29,7 +28,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_                    \
                             , (A0)                                            \
                               BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M2,~) \
-                            , (scalar_<unspecified_<A0> > )                                      \
+                            , (scalar_<unspecified_<A0> > )                   \
                               BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M1,~) \
                             )                                                 \
   {                                                                           \
@@ -61,24 +60,24 @@ namespace nt2 { namespace ext
   #undef M2
   #undef M1
   #undef M0
-    
+
   //============================================================================
   // Generates repnum from the value and one integer
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_, 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_,
                               (A0)(A1),
                               (scalar_<unspecified_<A0> >)
                               (scalar_<integer_<A1> >)
                             )
   {
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::repnum_, 
-      container::domain, 
+      result_of::make_expr< nt2::tag::repnum_,
+      container::domain,
       box<_2D>,
-      box<nt2::details::repnum<A0> >, 
+      box<nt2::details::repnum<A0> >,
       meta::as_<A0>
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 const& a1) const
     {
       return  boost::proto::
@@ -86,7 +85,7 @@ namespace nt2 { namespace ext
         , container::domain
         > (
            boxify(_2D(a1, a1)),
-           boxify(nt2::details::repnum<A0>(a0)), 
+           boxify(nt2::details::repnum<A0>(a0)),
            meta::as_<A0>()
            );
     }
@@ -95,7 +94,7 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates repnum from fusion sequence (support of_size calls)
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_, 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_,
                               (A0)(Seq),
                               (scalar_<unspecified_<A0> >)
                               (fusion_sequence_<Seq>)
@@ -103,13 +102,13 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::strip<Seq>::type seq_t;
     typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::repnum_, 
-      container::domain, 
+      result_of::make_expr< nt2::tag::repnum_,
+      container::domain,
       box<seq_t>,
-      box<nt2::details::repnum<A0> >, 
+      box<nt2::details::repnum<A0> >,
       meta::as_<A0>
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(const A0& a0, Seq const& seq) const
     {
       return  boost::proto::
@@ -117,7 +116,7 @@ namespace nt2 { namespace ext
         , container::domain
         > (
            boxify(seq),
-           boxify(nt2::details::repnum<A0>(a0)), 
+           boxify(nt2::details::repnum<A0>(a0)),
            meta::as_<A0>()
            );
     }

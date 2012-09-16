@@ -10,12 +10,10 @@
 #define NT2_CORE_FUNCTIONS_EXPR_SX_HPP_INCLUDED
 
 #include <nt2/core/functions/sx.hpp>
-#include <nt2/core/container/dsl.hpp>
 //#include <nt2/include/functions/expand_to.hpp>
-//#include <nt2/include/functions/isexpandable_to.hpp>
 #include <nt2/include/functions/bsxfun.hpp>
 #include <nt2/include/functions/tsxfun.hpp>
-#include <nt2/core/utility/max_extent.hpp>
+//#include <nt2/core/utility/max_extent.hpp>
 
 
 namespace nt2 { namespace ext
@@ -25,21 +23,18 @@ namespace nt2 { namespace ext
                               (unspecified_<A0>)
                               (unspecified_<A1>)
                               (unspecified_<A2>)
-                              )
+                            )
   {
 //     typedef typename details::max_extent<A1, A2>::type ext_t;
 //     typedef typename meta::call<tag::expand_to_(const A1&,ext_t)>::type t1_t;
 //     typedef typename meta::call<tag::expand_to_(const A2&,ext_t)>::type t2_t;
 //     typedef typename meta::call<A0(t1_t, t2_t)>::type result_type;
-    typedef typename meta::call<nt2::tag::bsxfun_(nt2::functor<A0>, const A1&, const A2&)>::type result_type; 
+    typedef typename meta::call<nt2::tag::bsxfun_(nt2::functor<A0>, const A1&, const A2&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const& a1, A2 const& a2) const
     {
-//      ext_t s = nt2::max_extent(a1, a2); 
-//      BOOST_ASSERT_MSG(nt2::isexpandable_to(a1, s) &&
-//                       nt2::isexpandable_to(a2, s),
-//                       "the 2 parameters are not compatible for singleton expansion"); 
+//      ext_t s = nt2::max_extent(a1, a2);
 //     return nt2::functor<A0>()(nt2::expand_to(a1, s), nt2::expand_to(a2, s));
-     return nt2::bsxfun(nt2::functor<A0>(), a1, a2); 
+     return nt2::bsxfun(nt2::functor<A0>(), a1, a2);
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sx_, tag::cpu_,
@@ -48,24 +43,20 @@ namespace nt2 { namespace ext
                               (unspecified_<A1>)
                               (unspecified_<A2>)
                               (unspecified_<A3>)
-                              )
+                            )
   {
 //     typedef typename details::max_extent<A1, A2, A3>::type ext_t;
 //     typedef typename meta::call<tag::expand_to_(const A1&,ext_t)>::type t1_t;
 //     typedef typename meta::call<tag::expand_to_(const A2&,ext_t)>::type t2_t;
 //     typedef typename meta::call<tag::expand_to_(const A3&,ext_t)>::type t3_t;
 //     typedef typename meta::call<A0(t1_t, t2_t, t3_t)>::type result_type;
-    typedef typename meta::call<nt2::tag::tsxfun_(nt2::functor<A0>, const A1&, const A2&, const A3&)>::type result_type; 
+    typedef typename meta::call<nt2::tag::tsxfun_(nt2::functor<A0>, const A1&, const A2&, const A3&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const& a1,
                                              A2 const& a2, A3 const& a3) const
     {
 //      ext_t s = nt2::max_extent(a1, a2, a3);
-//      BOOST_ASSERT_MSG(nt2::isexpandable_to(a1, s) &&
-//                       nt2::isexpandable_to(a2, s) &&
-//                       nt2::isexpandable_to(a3, s),
-//                        "the 3 parameters are not compatible for singleton expansion"); 
 //      return nt2::functor<A0>()(nt2::expand_to(a1, s), nt2::expand_to(a2, s), nt2::expand_to(a3, s));
-     return nt2::tsxfun(nt2::functor<A0>(), a1, a2, a3); 
+     return nt2::tsxfun(nt2::functor<A0>(), a1, a2, a3);
     }
   };
 } }
