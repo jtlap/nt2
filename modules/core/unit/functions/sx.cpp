@@ -17,6 +17,7 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/is_lez.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
