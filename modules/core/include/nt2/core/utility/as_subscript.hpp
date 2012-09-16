@@ -20,7 +20,7 @@
 #include <boost/fusion/include/at.hpp>
 #include <boost/mpl/int.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace result_of
 {
   //============================================================================
   // Case for no base index
@@ -31,12 +31,12 @@ namespace nt2 { namespace details
     typedef typename meta::strip<Position>::type                      base_t;
     typedef typename boost::dispatch::meta::as_unsigned<base_t>::type type_t;
     typedef boost::fusion::result_of::size<Size>                      dims_t;
-    typedef boost::array<type_t,dims_t::value>                        result_type;
+    typedef boost::array<type_t,dims_t::value>                        type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     operator()(const Size& size, const Position& pos) const
     {
-      result_type sub;
+      type sub;
       type_t p = bitwise_cast<type_t>(pos);
 
       eval( sub, p, size
@@ -51,7 +51,7 @@ namespace nt2 { namespace details
     // Normal case
     template<class N, class M>
     BOOST_DISPATCH_FORCE_INLINE void
-    eval( result_type& sub, const type_t& p
+    eval( type& sub, const type_t& p
         , Size const& s, N const&, M const& m
         , boost::mpl::false_ const&
         ) const
@@ -67,7 +67,7 @@ namespace nt2 { namespace details
 
     template<class N, class M>
     BOOST_DISPATCH_FORCE_INLINE void
-    eval( result_type& sub, type_t const& p
+    eval( type& sub, type_t const& p
         , Size const& s, N const&, M const& m
         , boost::mpl::true_ const&
         ) const
@@ -79,7 +79,7 @@ namespace nt2 { namespace details
     }
 
     BOOST_DISPATCH_FORCE_INLINE void
-    eval( result_type& sub, const type_t& p, Size const&
+    eval( type& sub, const type_t& p, Size const&
         , boost::mpl::int_<0> const &, boost::mpl::int_<1> const &
         , boost::mpl::false_ const&
         ) const
@@ -92,10 +92,10 @@ namespace nt2 { namespace details
 namespace nt2
 {
   template<class Size,class Position>
-  typename details::as_subscript<Size,Position>::result_type
+  typename result_of::as_subscript<Size,Position>::type
   as_subscript(Size const& sz, Position const& p)
   {
-    return details::as_subscript<Size,Position>()(sz,p);
+    return result_of::as_subscript<Size,Position>()(sz,p);
   }
 }
 #endif

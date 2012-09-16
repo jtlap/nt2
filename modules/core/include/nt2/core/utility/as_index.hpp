@@ -23,7 +23,7 @@
 #include <boost/mpl/eval_if.hpp>
 #include <cstddef>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace result_of
 {
   template<class Seq>
   struct sequence_value
@@ -40,10 +40,10 @@ namespace nt2 { namespace details
   template<class Size, class Position>
   struct as_index
   {
-    typedef typename sequence_value<Position>::type               type;
-    typedef typename meta::as_unsigned<type>::type          result_type;
+    typedef typename sequence_value<Position>::type               typeS;
+    typedef typename meta::as_unsigned<typeS>::type               type;
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     operator()(const Size& size, const Position& pos) const
     {
       typedef typename boost::fusion::result_of::size<Position>::type dims;
@@ -54,44 +54,44 @@ namespace nt2 { namespace details
     }
 
     template<class Idx, class Sz>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval(const Size& s, const Position& p, const Idx&, const Sz& sz) const
     {
-      return  splat<result_type>( boost::fusion::at_c<Idx::value>(p) )
-            + splat<result_type>( boost::fusion::at_c<Idx::value>(s) )
+      return  splat<type>( boost::fusion::at_c<Idx::value>(p) )
+            + splat<type>( boost::fusion::at_c<Idx::value>(s) )
             * eval(s,p,boost::mpl::int_<Idx::value+1>(),sz);
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval(const Size& s,const Position& p,const boost::mpl::int_<0>&,const Sz& sz) const
     {
-      return  splat<result_type>( boost::fusion::at_c<0>(p) )
-            + splat<result_type>( boost::fusion::at_c<0>(s) )
+      return  splat<type>( boost::fusion::at_c<0>(p) )
+            + splat<type>( boost::fusion::at_c<0>(s) )
             * eval(s,p,boost::mpl::int_<1>(),sz);
     }
 
     template<class Sz>
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval(const Size&, const Position& p, const Sz&, const Sz&) const
     {
       return splat<type>( boost::fusion::at_c<Sz::value>(p) );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval( const Size&, const Position& p
         , const boost::mpl::int_<0>&, const boost::mpl::int_<0>&
         ) const
     {
-      return splat<result_type>( boost::fusion::at_c<0>(p) );
+      return splat<type>( boost::fusion::at_c<0>(p) );
     }
 
-    BOOST_DISPATCH_FORCE_INLINE result_type
+    BOOST_DISPATCH_FORCE_INLINE type
     eval( const Size&, const Position&
         , const boost::mpl::int_<0>&, const boost::mpl::int_<-1>&
         ) const
     {
-      return Zero<result_type>();
+      return Zero<type>();
     }
   };
 } }
@@ -99,10 +99,10 @@ namespace nt2 { namespace details
 namespace nt2
 {
   template<class Size,class Position>
-  typename details::as_index<Size,Position>::result_type
+  typename result_of::as_index<Size,Position>::type
   as_index(Size const& sz, Position const& p)
   {
-    return details::as_index<Size,Position>()(sz,p);
+    return result_of::as_index<Size,Position>()(sz,p);
   }
 }
 

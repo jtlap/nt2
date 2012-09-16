@@ -41,7 +41,7 @@ namespace nt2 { namespace meta
       typedef typename meta::as_index<type>::type                         i_t;
       typedef typename meta::
                        call<nt2::tag::enumerate_(Pos,meta::as_<i_t>)>::type p_t;
-      typedef typename details::as_subscript<Size,p_t>::result_type         s_t;
+      typedef typename result_of::as_subscript<Size,p_t>::type              s_t;
 
       s_t const pos = as_subscript(sz,nt2::enumerate<i_t>(p));
       return (dim_ >= pos.size()) ? nt2::splat<type>(base_)
