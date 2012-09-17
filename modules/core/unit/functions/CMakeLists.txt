@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+    ifvectvert.cpp
     expand_to.cpp
     along.cpp
     linear_interp.cpp
