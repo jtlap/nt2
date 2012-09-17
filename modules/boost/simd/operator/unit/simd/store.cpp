@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(store, BOOST_SIMD_SIMD_TYPES )
 }
 
 struct foo { boost::simd::int16_t d; float f; char c; };
-BOOST_FUSION_ADAPT_STRUCT(foo,(oost::simd::int16_t,d)(float,f)(char,c))
+BOOST_FUSION_ADAPT_STRUCT(foo,(boost::simd::int16_t,d)(float,f)(char,c))
 
 NT2_TEST_CASE( store_sequence )
 {
