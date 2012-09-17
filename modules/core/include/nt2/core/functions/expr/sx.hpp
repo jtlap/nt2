@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
                               (unspecified_<A2>)
                             )
   {
-//     typedef typename details::max_extent<A1, A2>::type ext_t;
+//     typedef typename result_of::max_extent<A1, A2>::type ext_t;
 //     typedef typename meta::call<tag::expand_to_(const A1&,ext_t)>::type t1_t;
 //     typedef typename meta::call<tag::expand_to_(const A2&,ext_t)>::type t2_t;
 //     typedef typename meta::call<A0(t1_t, t2_t)>::type result_type;
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
                               (unspecified_<A3>)
                             )
   {
-//     typedef typename details::max_extent<A1, A2, A3>::type ext_t;
+//     typedef typename result_of::max_extent<A1, A2, A3>::type ext_t;
 //     typedef typename meta::call<tag::expand_to_(const A1&,ext_t)>::type t1_t;
 //     typedef typename meta::call<tag::expand_to_(const A2&,ext_t)>::type t2_t;
 //     typedef typename meta::call<tag::expand_to_(const A3&,ext_t)>::type t3_t;
