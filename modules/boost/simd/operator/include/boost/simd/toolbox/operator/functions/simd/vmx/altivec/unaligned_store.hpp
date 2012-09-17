@@ -1,16 +1,17 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_UNALIGNED_STORE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_UNALIGNED_STORE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/unaligned_store.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/details/char_helper.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <iterator>
 
@@ -30,15 +31,15 @@ namespace boost { namespace simd { namespace ext
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A1>::value_type);
       static std::size_t card = meta::cardinal_of<A0>::value;
-      result_type   MSQ = vec_ld(a2*sz, a1);
-      result_type   LSQ = vec_ld((a2*sz)+card*sz-1, a1);
-      n_t     edgeAlign = vec_lvsl(a2*sz, a1);
+      result_type   MSQ = vec_ld(a2*sz, char_helper(a1));
+      result_type   LSQ = vec_ld((a2*sz)+card*sz-1, char_helper(a1));
+      n_t     edgeAlign = vec_lvsl(a2*sz, char_helper(a1));
       result_type edges = vec_perm(LSQ(), MSQ(), edgeAlign());
-      n_t         align = vec_lvsr(a2*sz, a1);
+      n_t         align = vec_lvsr(a2*sz, char_helper(a1));
       MSQ = vec_perm(edges(), a0(), align());
       LSQ = vec_perm(a0(), edges(), align());
-      vec_st(LSQ(), (a2*sz)+card*sz-1, a1);
-      vec_st(MSQ(), (a2*sz)          , a1);
+      vec_st(LSQ(), (a2*sz)+card*sz-1, char_helper(a1));
+      vec_st(MSQ(), (a2*sz)          , char_helper(a1));
       return a0;
     }
   };
@@ -56,15 +57,15 @@ namespace boost { namespace simd { namespace ext
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A1>::value_type);
       static std::size_t card = meta::cardinal_of<A0>::value;
-      result_type   MSQ = vec_ld(0        , a1);
-      result_type   LSQ = vec_ld(card*sz-1, a1);
-      n_t     edgeAlign = vec_lvsl(0      , a1);
+      result_type   MSQ = vec_ld(0        , char_helper(a1));
+      result_type   LSQ = vec_ld(card*sz-1, char_helper(a1));
+      n_t     edgeAlign = vec_lvsl(0      , char_helper(a1));
       result_type edges = vec_perm(LSQ(), MSQ(), edgeAlign());
-      n_t         align = vec_lvsr(0, a1);
+      n_t         align = vec_lvsr(0, char_helper(a1));
       MSQ = vec_perm(edges(), a0(), align());
       LSQ = vec_perm(a0(), edges(), align());
-      vec_st(LSQ(), card*sz-1, a1);
-      vec_st(MSQ(),         0, a1);
+      vec_st(LSQ(), card*sz-1, char_helper(a1));
+      vec_st(MSQ(),         0, char_helper(a1));
       return a0;
     }
   };
@@ -72,4 +73,3 @@ namespace boost { namespace simd { namespace ext
 
 #endif
 #endif /* BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_UNALIGNED_STORE_HPP_INCLUDED */
-

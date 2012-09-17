@@ -1,16 +1,17 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_UNALIGNED_LOAD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_UNALIGNED_LOAD_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/details/char_helper.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <iterator>
 
@@ -29,9 +30,9 @@ namespace boost { namespace simd { namespace ext
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A0>::value_type);
       static std::size_t card = meta::cardinal_of<result_type>::value;
-      result_type MSQ  = vec_ld(a1*sz  ,a0);
-      result_type LSQ  = vec_ld((a1*sz)+card*sz-1 ,a0);
-      n_t         mask = vec_lvsl(a1*sz,a0);
+      result_type MSQ  = vec_ld(a1*sz, char_helper(a0));
+      result_type LSQ  = vec_ld((a1*sz)+card*sz-1, char_helper(a0));
+      n_t         mask = vec_lvsl(a1*sz, char_helper(a0));
       return vec_perm(MSQ(), LSQ(), mask());
     }
   };
@@ -48,9 +49,9 @@ namespace boost { namespace simd { namespace ext
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A0>::value_type);
       static std::size_t card = meta::cardinal_of<result_type>::value;
-      result_type MSQ  = vec_ld(0  ,a0);
-      result_type LSQ  = vec_ld(card*sz-1 ,a0);
-      n_t         mask = vec_lvsl(0,a0);
+      result_type MSQ  = vec_ld(0, char_helper(a0));
+      result_type LSQ  = vec_ld(card*sz-1, char_helper(a0));
+      n_t         mask = vec_lvsl(0, char_helper(a0));
       return vec_perm(MSQ(), LSQ(), mask());
     }
   };
