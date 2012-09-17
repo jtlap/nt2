@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL( int_inf, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE( char_inf )
 {
-  typedef typename boost::simd::meta::vector_of<char, BOOST_SIMD_BYTES>::type vT;
+  typedef boost::simd::meta::vector_of<char, BOOST_SIMD_BYTES>::type vT;
 
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
     NT2_TEST_EQUAL( (boost::simd::Inf<vT>())[i], boost::simd::Valmax<char>() );
