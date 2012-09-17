@@ -20,44 +20,70 @@
 
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <boost/detail/endian.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test bitwise_cast
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(bitwise_cast, BOOST_SIMD_SIMD_TYPES )
+NT2_TEST_CASE_TPL(floating, BOOST_SIMD_SIMD_REAL_TYPES )
 {
   using boost::simd::native;
   using boost::simd::bitwise_cast;
   typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>   vT;
-  typedef typename boost::simd::meta::as_logical<T>::type  slT;
+  typedef typename boost::simd::meta::as_logical<T>::type  lT;
   typedef typename boost::simd::meta::as_logical<vT>::type  lvT;
-  //  typedef boost::simd::int32_t T1;
-  typedef T T1; 
-  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION>   vT1;
-  typedef typename boost::simd::meta::as_logical<T1>::type  slT1;
-  typedef typename boost::simd::meta::as_logical<vT1>::type  lvT1; 
+  typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type T1;
+  typedef native<T1,BOOST_SIMD_DEFAULT_EXTENSION>   vT1;
+  typedef typename boost::simd::meta::as_logical<T1>::type  lT1;
+  typedef typename boost::simd::meta::as_logical<vT1>::type  lvT1;
   {
     vT  x = boost::simd::One<vT>();
-    vT1 y;
-    y = bitwise_cast<vT1 >(x);
-    std::cout << x << " -> " << y << std::endl; 
+    vT1 y = bitwise_cast<vT1>(x);
+    for(std::size_t i=0; i!=vT::static_size; ++i)
+      if(boost::is_same<T, float>::value)
+        NT2_TEST_EQUAL(y[i], 0x3f800000u);
+      else
+        NT2_TEST_EQUAL(y[i], 0x3ff0000000000000ull);
   }
-//   {
-//     vT  x = boost::simd::One<vT>();
-//     lvT1 y;
-//     y = bitwise_cast<lvT1>(x);
-//     std::cout << x << " -> " << y << std::endl; 
-//   }
-   {
-    lvT  x= boost::simd::True<vT>();
-    lvT1 y;
-    y = bitwise_cast<lvT1>(x);
-    std::cout << x << " -> " << y << std::endl; 
+  {
+    T  x = boost::simd::One<T>();
+    T1 y = bitwise_cast<T1>(x);
+    if(boost::is_same<T, float>::value)
+      NT2_TEST_EQUAL(y, 0x3f800000u);
+    else
+      NT2_TEST_EQUAL(y, 0x3ff0000000000000ull);
   }
-//   {
-//     lvT  x= boost::simd::True<vT>();
-//     vT1 y;
-//     y = bitwise_cast<vT1>(x);
-//     std::cout << x << " -> " << y << std::endl; 
-//   }
+  {
+    lvT x = boost::simd::True<vT>();
+    lvT1 y = bitwise_cast<lvT1>(x);
+    for(std::size_t i=0; i!=vT::static_size; ++i)
+      NT2_TEST_EQUAL(y[i], boost::simd::logical<T1>(true));
+  }
+  {
+    lT x = boost::simd::True<T>();
+    lT1 y = bitwise_cast<lT1>(x);
+    NT2_TEST_EQUAL(y, boost::simd::logical<T1>(true));
+  }
+}
+
+NT2_TEST_CASE_TPL(integer, BOOST_SIMD_SIMD_INTEGRAL_TYPES )
+{
+  using boost::simd::native;
+  using boost::simd::bitwise_cast;
+  typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> vT;
+  typedef native<uint8_t,BOOST_SIMD_DEFAULT_EXTENSION> v8T;
+  vT  x = boost::simd::One<vT>();
+  v8T y = bitwise_cast<v8T>(x);
+  for(std::size_t i=0; i!=v8T::static_size; ++i)
+  {
+#ifdef BOOST_LITTLE_ENDIAN
+    std::size_t j = i;
+#else
+    std::size_t j = v8T::static_size-i-1;
+#endif
+    if(i % sizeof(T))
+      NT2_TEST_EQUAL(y[j], 0u);
+    else
+      NT2_TEST_EQUAL(y[j], 1u);
+  }
 }

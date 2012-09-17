@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
           a =  if_else(test,  amax, a);
         }; 
         A0 res = Nan<A0>();
-        size_t nbt = 0u; 
+        std::size_t nbt = 0u; 
         test = lt(x, oneplus(a));
         if ((nb = boost::simd::inbtrue(test)))
           {

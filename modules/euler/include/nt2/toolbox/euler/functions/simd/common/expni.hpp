@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
       }
       A1 r =  Nan<A1>();
       bA1 test1 = le(a1, One<A1>());
-      uint32_t nb = 0;
+      std::size_t nb = 0;
       if ((nb = inbtrue(test1)) > 0)
       {
         A1 xx = sel(test1, x, One<A1>());

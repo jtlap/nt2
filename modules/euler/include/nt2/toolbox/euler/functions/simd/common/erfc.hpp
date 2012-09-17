@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
         bA0 test0 = is_ltz(a0);
         bA0 test1 = lt(x, lim1);
         A0 r1 = Zero<A0>();
-        uint32_t nb = 0;
+        std::size_t nb = 0;
         if ((nb = (inbtrue(test1) > 0)))
           {
             r1 = oneminus(a0*polevl( xx, erf0_P4)/polevl( xx, erf0_Q4 ));
@@ -128,7 +128,7 @@ namespace nt2 { namespace ext
           }
         bA0 test2 = lt(x, lim2);
         bA0 test3 = logical_andnot(test2, test1);
-        uint32_t nb1 = 0;
+        std::size_t nb1 = 0;
         A0 ex = nt2::exp(-xx);
         if ((nb1 = (inbtrue(test3) > 0)))
           {

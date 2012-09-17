@@ -73,7 +73,7 @@ namespace nt2 { namespace ext
       A0 result = Zero<A0>();
       A0 x = a0;
       bA0 test = is_lez(a0);
-      uint32_t nb;
+      std::size_t nb;
       if( (nb = inbtrue(test)) > 0)
         {
           x = sel(test, oneminus(a0), a0);

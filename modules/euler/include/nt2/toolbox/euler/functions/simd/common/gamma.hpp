@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_GAMMA_HPP_INCLUDED
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
       return map(functor<tag::gamma_>(), tofloat(a0));
     }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type  is floating_
   /////////////////////////////////////////////////////////////////////////////
@@ -56,10 +56,10 @@ namespace nt2 { namespace ext
                        ((simd_<floating_<A0>,X>))
                        )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-      typedef typename meta::as_logical<A0>::type bA0; 
+      typedef typename meta::as_logical<A0>::type bA0;
       const double g_p[] = { -1.71618513886549492533811,
                          24.7656508055759199108314,-379.804256470945635097577,
                          629.331155312818442661052,866.966202790413211295064,
@@ -76,16 +76,16 @@ namespace nt2 { namespace ext
                          .0057083835261 };
       //     const  double g_xbig = 171.624;
       //return map(functor<tag::gamma_>(), tofloat(a0));
-      const int32_t Card = meta::cardinal_of<A0>::value;
-      const A0 LOGSQRT2PI =  nt2::log(nt2::sqrt(Two<A0>()*Pi<A0>())); 
+      const std::size_t Card = meta::cardinal_of<A0>::value;
+      const A0 LOGSQRT2PI =  nt2::log(nt2::sqrt(Two<A0>()*Pi<A0>()));
       A0 res =  Nan<A0>();
       A0 fact =  One<A0>();
       A0 y = a0;
-      int32_t nb1, nb2;
+      std::size_t nb1, nb2;
       bA0 lezy =  is_lez(y);
       if (inbtrue(lezy) > 0)
         {
-          y =  sel(lezy, oneminus(y), y); 
+          y =  sel(lezy, oneminus(y), y);
           fact =  sel(lezy, Pi<A0>()/sinpi(y), One<A0>());
         }
       bA0 lteps = lt(y, Eps<A0>());
@@ -95,22 +95,22 @@ namespace nt2 { namespace ext
           res &=  r1;
           if(nb1 > Card)
             return finalize(a0, res, fact, lezy);
-          y = if_nan_else(lteps, y); 
+          y = if_nan_else(lteps, y);
         }
-      bA0 lt12 = lt(y, splat<A0>(12));   
+      bA0 lt12 = lt(y, splat<A0>(12));
       if ((nb2 = inbtrue(lt12)) > 0)
         {
           bA0 islt1 = lt(y, One<A0>());
-          A0 y1 = y; 
+          A0 y1 = y;
           A0 n =  minusone(trunc(y));
-          A0 z = frac(y); 
+          A0 z = frac(y);
           y =  oneplus(z);
           A0 xnum =  Zero<A0>();
           A0 xden =  One<A0>();
           for (int32_t i = 0; i < 8; ++i)
             {
             xnum = (xnum + splat<A0>(g_p[i])) * z;
-            xden = xden * z +splat<A0>( g_q[i]);            
+            xden = xden * z +splat<A0>( g_q[i]);
             }
           A0 r = oneplus(xnum/xden);
           r =  sel(lt(y1, y), r/y1, r);
@@ -122,10 +122,10 @@ namespace nt2 { namespace ext
             r *= sel(t, y, One<A0>());
             y = seladd(t, y, One<A0>()) ;
             }
-          r =  sel(gt(y1, y), r1, r); 
+          r =  sel(gt(y1, y), r1, r);
           res =  res & r;
           if(nb1+nb2 > Card) return finalize(a0, res, fact, lezy);
-          y = if_nan_else(lteps, y); 
+          y = if_nan_else(lteps, y);
         }
       A0 ysq = sqr(y);
       A0 sum =  splat<A0>(g_c[6]);
@@ -133,18 +133,18 @@ namespace nt2 { namespace ext
       sum = (sum/y) - y + LOGSQRT2PI;
       sum += (y - Half<A0>())*log(y);
       res = sel(eq(a0, Inf<A0>()), a0, sel(lt12, res, exp(sum)));
-      return finalize(a0, res, fact, lezy);      
+      return finalize(a0, res, fact, lezy);
       }
   private :
     template < class AA0, class bAA0 >
       static inline AA0 finalize(const AA0& a0, const AA0& res,
                          const AA0& fact, const bAA0& lezy)
       {
-      bAA0 eqza0 = is_eqz(a0); 
+      bAA0 eqza0 = is_eqz(a0);
       bAA0 integer =  l_and(is_flint(a0), logical_not(eqza0));
       return sel(eqza0, rec(a0), sel(lezy, if_nan_else(integer, fact/res), res));
       }
-    
+
   };
 } }
 #endif

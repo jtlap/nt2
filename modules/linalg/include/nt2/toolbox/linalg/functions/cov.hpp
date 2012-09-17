@@ -13,66 +13,43 @@
 #include <nt2/include/functions/sqr_abs.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core cov
- *
- * \par Description
- * Returns the cov of the elements of the SIMD vector
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/cov.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::cov_(A0)>::type
- *     cov(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of cov
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has not real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
 
-
-namespace nt2
-{
-  namespace tag
+namespace nt2 {  namespace tag
   {
+    /*!
+     * \brief Define the tag expm_ of functor expm
+     *        in namespace nt2::tag for toolbox algebra
+    **/
     struct cov_ : tag::formal_
     {
        typedef tag::formal_ parent;
     };
   }
-
-  //============================================================================
-  /*!
-   * cov of a table
+  /**
+   * @brief compute covariance matrix expression
    *
-   * \param xpr  table
-   */
-  //============================================================================
+   * If x is a vector,  cov(x) returns the variance
+   * For matrices, where each row is an observation, and each column a variable,
+   * cov(x) is the covariance matrix.  diag(cov(x)) is a vector of
+   * variances for each column, and sqrt(diag(cov(x))) is a vector
+   * of standard deviations.
+   * cov(x,y), where x and y are matrices with the same number of elements,
+   * is equivalent to cov(horzcat(x(_) y(_))). 
+   * 
+   * cov(x) or cov(x,y) normalizes by (n-1) if n>1, where n is the number of
+   * observations.  this makes cov(x) the best unbiased estimate of the
+   * covariance matrix if the observations are from a normal distribution.
+   * for n=1, cov normalizes by n.
+   *
+   *  cov(x,1) or cov(x,y,1) normalizes by n and produces the second
+   * moment matrix of the observations about their mean.  cov(x,y,0) is
+   * the same as cov(x,y) and cov(x,0) is the same as cov(x).
+   *
+   * the mean is removed from each column before calculating the
+   * result.
+   *
+  **/
+
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cov_       , cov, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cov_       , cov, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::cov_       , cov, 3)

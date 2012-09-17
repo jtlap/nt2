@@ -7,28 +7,33 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_EXPR_COLVECT_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_COLVECT_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_EXPR_IFVECTVERT_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_EXPR_IFVECTVERT_HPP_INCLUDED
 
-#include <nt2/core/functions/colvect.hpp>
-#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/functions/ifvectvert.hpp>
 #include <nt2/include/functions/numel.hpp>
-#include <nt2/core/utility/of_size/mpl_value.hpp>
+#include <nt2/include/functions/isvector.hpp>
+#include <nt2/core/container/dsl.hpp>
+#include <nt2/core/utility/of_size/predef.hpp>
 
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
-  struct size_of<nt2::tag::colvect_,Domain,N,Expr>
+  struct size_of<nt2::tag::ifvectvert_,Domain,N,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type::extent_type ext_t;
-    typedef typename meta::call<tag::numel_(ext_t const&)>::type num;
-
-    typedef of_size_< mpl_value<num>::value > result_type;
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c0_t;
+    // TODO: static size
+    typedef typename nt2::make_size<c0_t::extent_type::static_size>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return result_type(nt2::numel(boost::proto::child_c<0>(e)));
+      result_type siz;
+      siz[0] = nt2::numel(boost::proto::child_c<0>(e));
+      if(nt2::isvector(boost::proto::child_c<0>(e)))
+        return siz;
+      else
+        return extent(boost::proto::child_c<0>(e));
     }
   };
 } }
@@ -36,7 +41,7 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colvect_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::ifvectvert_, tag::cpu_
                             , (A0)
                             , (scalar_<fundamental_<A0> >)
                             )

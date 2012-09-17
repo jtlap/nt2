@@ -17,6 +17,7 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/is_lez.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -41,12 +42,12 @@ NT2_TEST_CASE_TPL( sx_0, NT2_TYPES )
           );
 }
 
-// NT2_TEST_CASE_TPL( sx_1, NT2_TYPES )
-// {
-//   nt2::table<T> a = nt2::reshape(nt2::_(T(0), T(8)), 3, 3);
-//   NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::fma_(), a, a, a), a*a+a));
-//   NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::fma_(), a, a, a),  nt2::tsxfun(nt2::functor<nt2::tag::fma_>(), a, a, a)));
-// }
+NT2_TEST_CASE_TPL( sx_1, NT2_TYPES )
+{
+  nt2::table<T> a = nt2::reshape(nt2::_(T(0), T(8)), 3, 3);
+  NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::fma_(), a, T(1), a), a+a));
+  NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::fma_(), a, a, T(1)),  nt2::tsxfun(nt2::functor<nt2::tag::fma_>(), a, a, T(1))));
+}
 
 NT2_TEST_CASE_TPL( sx_2, NT2_TYPES )
 {
@@ -54,3 +55,18 @@ NT2_TEST_CASE_TPL( sx_2, NT2_TYPES )
   NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::if_else_(), nt2::is_lez(a), a, a), a));
   NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::if_else_(), nt2::is_lez(a), a, a),  nt2::tsxfun(nt2::functor<nt2::tag::if_else_>(), nt2::is_lez(a), a, a)));
 }
+NT2_TEST_CASE_TPL( sx_3, NT2_TYPES )
+{
+  nt2::table<T> a = nt2::reshape(nt2::_(T(0), T(8)), 3, 3);
+  nt2::table<T> b = nt2::repnum(T(1), 3, 1); 
+  NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::fma_(), a, b, a), a+a));
+  NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::fma_(), a, a, b),  nt2::tsxfun(nt2::functor<nt2::tag::fma_>(), a, a, T(1))));
+}
+NT2_TEST_CASE_TPL( sx_4, NT2_TYPES )
+{
+  nt2::table<T> a = nt2::reshape(nt2::_(T(0), T(8)), 3, 3);
+  nt2::table<T> b = nt2::repnum(T(1), 1, 3); 
+  NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::fma_(), a, b, a), a+a));
+  NT2_TEST( nt2::isequal(nt2::sx(nt2::tag::fma_(), a, a, b),  nt2::tsxfun(nt2::functor<nt2::tag::fma_>(), a, a, T(1))));
+}
+

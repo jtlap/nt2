@@ -12,6 +12,8 @@
 
 #include <boost/simd/toolbox/swar/functions/deinterleave_first.hpp>
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -44,6 +46,39 @@ namespace boost { namespace simd { namespace ext
       return details::shuffle<0, 0>(a0,a1);
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_first_
+                                   , boost::simd::tag::sse2_
+                                   , (A0)(A1)
+                                   , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<type32_<A1>,boost::simd::tag::sse_>))
+                                   )
+  {
+    typedef A0 result_type;
+
+    result_type operator()(__m128i const a0, __m128i const a1) const
+    {
+      typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
+      return  bitwise_cast<result_type>(deinterleave_first(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_first_
+                                   , boost::simd::tag::sse2_
+                                   , (A0)(A1)
+                                   , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<type64_<A1>,boost::simd::tag::sse_>))
+                                   )
+  {
+    typedef A0 result_type;
+
+    result_type operator()(A0 const a0, A1 const a1) const
+    {
+      typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
+      return bitwise_cast<result_type>(deinterleave_first(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+    }
+  };
+  
 } } }
 
 #endif

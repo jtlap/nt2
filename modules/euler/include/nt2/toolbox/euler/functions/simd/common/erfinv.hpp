@@ -71,32 +71,31 @@ namespace nt2 { namespace ext
             sA0(-2.13505380615258078),
             sA0(1)
           }};
-        
+
         static const boost::array<sA0, 4 > c = {{
-            sA0(1.82365845766309853),         
-            sA0(3.60874665878559364), 
-            sA0(  -1.87267416351196),  
-            sA0( -1.994216456587148) 
+            sA0(1.82365845766309853),
+            sA0(3.60874665878559364),
+            sA0(  -1.87267416351196),
+            sA0( -1.994216456587148)
           }};
         static const boost::array<sA0, 3 >d = {{
             sA0(1.81848952562894617),
             sA0(3.74146294065960872),
             sA0(1)
-          }}; 
+          }};
       typedef typename meta::as_logical<A0>::type bA0;
 
       A0 x =  nt2::abs(a0);
       A0 lim = splat<A0>(0.7);
-      A0 sign = if_else(nt2::is_ltz(a0), Mone<A0>(), One<A0>()); 
+      A0 sign = if_else(nt2::is_ltz(a0), Mone<A0>(), One<A0>());
       bA0 test =  lt(x, lim);
-      uint32_t nb = 0;
       A0 xx =  sqr(x);
       A0 res =  a0*polevl(xx, a)/polevl(xx, b);
       A0 z = nt2::sqrt(-nt2::log(nt2::oneminus(x)*Half<A0>()));
-      res =  if_else(test, res, sign*polevl(z, c)/polevl(z, d)); 
+      res =  if_else(test, res, sign*polevl(z, c)/polevl(z, d));
       res -= (nt2::erf(res)-a0)*Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
       res -= (nt2::erf(res)-a0)*Sqrtpio_2<A0>()/nt2::exp(-nt2::sqr(res));
-      return if_else(eq(x, One<A0>()), a0*Inf<A0>(), res);     
+      return if_else(eq(x, One<A0>()), a0*Inf<A0>(), res);
    }
   };
 

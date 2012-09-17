@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_index<result_type>::type                      i_t;
     typedef typename meta::
                      call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
-    typedef typename details::as_subscript<_2D,p_t>::result_type            s_t;
+    typedef typename result_of::as_subscript<_2D,p_t>::type                 s_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_signed<i_t>::type                             si_t;
     typedef typename meta::
                      call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
-    typedef typename details::as_subscript<_2D,p_t>::result_type            s_t;
+    typedef typename result_of::as_subscript<_2D,p_t>::type                 s_t;
     typedef typename s_t::value_type                                       sp_t;
 
     BOOST_FORCEINLINE result_type
