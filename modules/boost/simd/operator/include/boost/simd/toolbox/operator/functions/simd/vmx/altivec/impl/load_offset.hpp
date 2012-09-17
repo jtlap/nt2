@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
       BOOST_STATIC_CONSTANT
       ( std::size_t, o = A3::value );
 
-      return boost::simd::load<result_type>(a0, char_helper(a1+o));
+      return boost::simd::load<result_type>(char_helper(a0), a1+o);
     }
 
     ////////////////////////////////////////////////////////////////////////////
