@@ -32,75 +32,67 @@
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/conj.hpp>
 #include <nt2/include/functions/size.hpp>
+#include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/constants/one.hpp>
 
 namespace nt2{ namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::impower_, tag::cpu_
-                              , (A0)(A1)
-                            , (ast_<A0>)
-                              (scalar_<arithmetic_<A1> >)
+                              , (A0)(N0)(A1)(N1)
+                              , ((node_<A0, nt2::tag::impower_, N0>))
+                                ((node_<A1, nt2::tag::tie_ , N1>))
                             )
   {
-    typedef typename A0::value_type       value_type;
-    typedef typename A0::index_type       index_type;
-    typedef table<value_type, index_type> result_type;
-    NT2_FUNCTOR_CALL(2)
+    typedef void                                                    result_type;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
+    typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
+    typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
+    typedef typename A0::value_type                                  value_type;     
+    BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1 ) const
     {
-      BOOST_ASSERT_MSG(is_flint(a1), "impower requires the second argument to be int or flint");
-      BOOST_ASSERT_MSG(issquare(a0),"impower requires the first input to be a square matrix");
-      if(is_ltz(a1))
-        return nt2::inv(nt2::impower(a0, -a1));
-      else {
-        value_type m = nt2::round(a1); //MAYBE UNECESSARY
-        result_type q, t;
-        // tie(q, t) = schur(a0,'N'/*"complex"*/); // t is complex schur form.        result_type e, v;
-        if (false && isdiagonal(t))
-          {
-            t = nt2::from_diag(nt2::pow(diag_of(t), m));
-            return nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
-          }
-        else
-          { //use iterative method
-            result_type r = nt2::eye(nt2::size(a0), meta::as_<value_type>());
-            //            NT2_DISP(a0);
-            result_type a00 = a0;
-            result_type a01;  // a01 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
-            //            NT2_DISP(a00);
-            while (true)
-              {
-                // old m "<< m << std::endl;
-                //                NT2_DISP(r);
-                if (m < nt2::One<A1>()) return r;
-                if (nt2::is_odd(m))
-                  {
-                    result_type r1 = nt2::mtimes(a00, r);// r1 MUST DISAPPEAR IF ALIASING PB ARE SOLVED
-                    r =  r1;
-                  }
-                a01 =  nt2::mtimes(a00, a00);
-                a00 =  a01;
-                m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
-//                 NT2_DISP(a00);
-//                 std::cout <<" m "<< m << std::endl;
-              }
-            return r;
-          }
-      }
+      const In0& a  = boost::proto::child_c<0>(a0);
+      const In1& n  = boost::proto::child_c<1>(a0);
+      const Out0& r  = boost::proto::child_c<0>(a1);
+      //      typedef typename A0::index_type       index_type;
+      typedef nt2::table<value_type>     r_type;
+      BOOST_ASSERT_MSG(is_flint(value_type(n)), "impower requires the second argument to be int or flint");
+      if(nt2::isscalar(a))
+        {
+          r = nt2::pow(a, value_type(n));
+          return; 
+        }
+      if(is_ltz(value_type(n)))
+        {
+          r = nt2::inv(nt2::impower(a, -value_type(n)));
+        }
+      else
+        {
+          value_type m = nt2::round(n); //MAYBE UNECESSARY
+          r_type q, t;
+          // nt2::tie(q, t) = schur(a0,'N'/*"complex"*/); // t is complex schur form.       
+          if (false && nt2::isdiagonal(t))
+            {
+              t = nt2::from_diag(nt2::pow(diag_of(t), m));
+              r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
+            }
+          else
+            { //use iterative method
+              r = nt2::eye(nt2::size(a0), meta::as_<value_type>());
+              r_type a00 = a;
+              while (m >=  nt2::One<value_type>())
+                {
+                  if (nt2::is_odd(m))
+                    {
+                      r = nt2::mtimes(a00, r);
+                    }
+                  a00 =  nt2::mtimes(a00, a00);
+                  m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
+                }
+            }
+        }
     }
   };
-
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::impower_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_<fundamental_<A0> >)
-                              (scalar_<fundamental_<A1> >)
-                            )
-  {
-    typedef typename nt2::meta::as_floating<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::pow(a0, a1);
-    }
-  };
+  
 } }
 
 #endif
