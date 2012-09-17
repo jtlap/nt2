@@ -23,22 +23,22 @@ namespace nt2 { namespace result_of
     typedef typename meta::call<tag::extent_(A1 const&)>::type  rext1_t;
     typedef typename meta::strip<rext0_t>::type                 ext0_t;
     typedef typename meta::strip<rext1_t>::type                 ext1_t;
-    typedef typename result_of::max<ext0_t,ext1_t>::result_type type;
+    typedef typename result_of::max<ext0_t,ext1_t>::type        type;
   };
 
   template<class A0, class A1,class A2> struct max_extent<A0,A1,A2>
   {
-    typedef typename result_of::max_extent<A0,A1>::type           ext01_t;
+    typedef typename result_of::max_extent<A0,A1>::type         ext01_t;
     typedef typename meta::call<tag::extent_(A2 const&)>::type  rext2_t;
     typedef typename meta::strip<rext2_t>::type                 ext2_t;
-    typedef typename result_of::max<ext01_t,ext2_t>::result_type  type;
+    typedef typename result_of::max<ext01_t,ext2_t>::type       type;
   };
 
   template<class A0, class A1,class A2,class A3> struct max_extent
   {
     typedef typename result_of::max_extent<A0,A1>::type           ext01_t;
     typedef typename result_of::max_extent<A2,A3>::type           ext23_t;
-    typedef typename result_of::max<ext01_t,ext23_t>::result_type type;
+    typedef typename result_of::max<ext01_t,ext23_t>::type        type;
   };
 } }
 
