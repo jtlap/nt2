@@ -76,9 +76,13 @@ namespace nt2 { namespace ext
       pchipslopes(x,y,del, yi);
       ppval <value_type> pp(x,y,yi,h,del);
       yi =pp.eval(xi); 
-      if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))),
-                                     extrapval,
-                                     yi);
+      if (!extrap)
+        {
+          value_type  b =  value_type(x(begin_));
+          value_type  e =  value_type(x(end_)); 
+          yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
+                                            boost::simd::is_nle(xi, e)), extrapval, yi);
+        }
       return yi;
     } 
   private :
