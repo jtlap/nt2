@@ -9,5 +9,6 @@
 
 nt2_module_use_modules(unit sdk.meta sdk.error)
 
+ADD_SUBDIRECTORY(dsl)
 ADD_SUBDIRECTORY(memory)
 ADD_SUBDIRECTORY(meta)

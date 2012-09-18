@@ -8,15 +8,11 @@
 ##############################################################################
 
 SET( SOURCES
-   allocation.cpp
-   array_buffer.cpp
-   buffer.cpp
-   container_index.cpp
-   container_subscript.cpp
-   container_subscript_2D.cpp
-   container_subscript_3D.cpp
-   container_subscript_4D.cpp
-# List of scalar test files for toolbox fuzzy
+     box.cpp
+     generator.cpp
+     run.cpp
+     optimize.cpp
+     schedule.cpp
    )
 
-nt2_module_add_tests(core.memory.bench ${SOURCES})
+nt2_module_add_tests(core.dsl.unit ${SOURCES})
