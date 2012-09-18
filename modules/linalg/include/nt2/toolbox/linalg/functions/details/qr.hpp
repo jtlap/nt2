@@ -142,13 +142,9 @@ namespace nt2 {
       result_type q () const
       {
         nt2_la_int info;
-        static tab_t q_(of_size(0, 1));
-        if(isempty(q_))
-          {
-            nt2_la_int nn = (nop_ == 'N')? k_ : m_;
-            q_ = nt2::expand(aa_, nn, nn);
-            nt2::details::gqr(&m_, &nn, &k_, q_.raw(), &lda_, tau_.raw(), &info);
-          }
+        nt2_la_int nn = (nop_ == 'N')? k_ : m_;
+        tab_t q_ = nt2::expand(aa_, nn, nn);
+        nt2::details::gqr(&m_, &nn, &k_, q_.raw(), &lda_, tau_.raw(), &info);
         return q_;
       }
       result_type r()const
@@ -157,18 +153,14 @@ namespace nt2 {
       }
       result_type p() const
       {
-        static tab_t p_(of_size(0, 1));
-        if(isempty(p_))
+        if (nop_ == 'N')
           {
-            if (nop_ == 'N')
-              {
-                p_ = nt2::eye(n_, n_, meta::as_<type_t>());
-                return p_;
-              }
-            p_ = nt2::zeros(nt2::numel(jpvt_), nt2::meta::as_<type_t>());
-            for(unsigned int i=1; i <= nt2::size(p_, 1) ; ++i){
-              p_(jpvt_(i), i) = One<type_t>();
-            }
+            return nt2::eye(n_, n_, meta::as_<type_t>());
+          }
+        tab_t p_ = nt2::zeros(nt2::numel(jpvt_), nt2::meta::as_<type_t>());
+        for(unsigned int i=1; i <= nt2::size(p_, 1) ; ++i)
+          {
+            p_(jpvt_(i), i) = One<type_t>();
           }
         return p_;
       }
