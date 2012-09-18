@@ -8,24 +8,15 @@
 ##############################################################################
 
 SET( SOURCES
-#    arecatcompatible.cpp
-#    class.cpp
-#    disp.cpp
-#    extent.cpp
-#    first_last_index.cpp
-#    firstnonsingleton.cpp
-#    havesamesize.cpp
-#    height.cpp
-#    length.cpp
-#    linesstride.cpp
-#    nblines.cpp
-#    ndims.cpp
-#    numel.cpp
-#    of_size.cpp
-#    streaming.cpp
-#    width.cpp
-#    max_extent.cpp
-# List of test files for toolbox core.utility
+  array_buffer.cpp
+  array_buffer_non_pod.cpp
+  buffer.cpp
+  buffer_non_pod.cpp
+  composite_buffer.cpp
+  container.cpp
+  container_non_pod.cpp
+  fixed_allocator.cpp
+## List of scalar test files for toolbox core.memory
    )
 
-nt2_module_add_tests(core.utility.functions.unit ${SOURCES})
+nt2_module_add_tests(core.sdk.memory.unit ${SOURCES})

@@ -8,24 +8,10 @@
 ##############################################################################
 
 SET( SOURCES
-#    arecatcompatible.cpp
-#    class.cpp
-#    disp.cpp
-#    extent.cpp
-#    first_last_index.cpp
-#    firstnonsingleton.cpp
-#    havesamesize.cpp
-#    height.cpp
-#    length.cpp
-#    linesstride.cpp
-#    nblines.cpp
-#    ndims.cpp
-#    numel.cpp
-#    of_size.cpp
-#    streaming.cpp
-#    width.cpp
-#    max_extent.cpp
-# List of test files for toolbox core.utility
+ container_traits.cpp
+ is_container.cpp
+ settings_of.cpp
+# List of scalar test files for toolbox core.settings
    )
 
-nt2_module_add_tests(core.utility.functions.unit ${SOURCES})
+nt2_module_add_tests(core.sdk.meta.unit ${SOURCES})

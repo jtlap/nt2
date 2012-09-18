@@ -7,7 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.OPERATOR_DEPENDENCIES_EXTRA  sdk.simd
-                                            boost.simd.operator
-                                            core.constant
-    )
+#nt2_module_doc( core.doc
+#                intro.qbk
+#              )
+
+if(NOT IS_DIRECTORY ${NT2_BINARY_DIR}/doc/html/core)
+  file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/core)
+endif()

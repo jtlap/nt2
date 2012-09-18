@@ -7,11 +7,7 @@
 ##                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET( SOURCES
-     as_index.cpp
-     as_subscript.cpp
-     of_size_max.cpp
-   )
+nt2_module_use_modules(unit sdk.meta sdk.error)
 
-include(CheckCXXCompilerFlag)
-nt2_module_add_tests(core.utility.class.unit ${SOURCES})
+ADD_SUBDIRECTORY(memory)
+ADD_SUBDIRECTORY(meta)

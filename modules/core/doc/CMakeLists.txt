@@ -7,25 +7,20 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-SET( SOURCES
-#    arecatcompatible.cpp
-#    class.cpp
-#    disp.cpp
-#    extent.cpp
-#    first_last_index.cpp
-#    firstnonsingleton.cpp
-#    havesamesize.cpp
-#    height.cpp
-#    length.cpp
-#    linesstride.cpp
-#    nblines.cpp
-#    ndims.cpp
-#    numel.cpp
-#    of_size.cpp
-#    streaming.cpp
-#    width.cpp
-#    max_extent.cpp
-# List of test files for toolbox core.utility
-   )
+cmake_minimum_required(VERSION 2.6)
 
-nt2_module_add_tests(core.utility.functions.unit ${SOURCES})
+if(NOT DEFINED NT2_SOURCE_ROOT AND DEFINED ENV{NT2_SOURCE_ROOT})
+  set(NT2_SOURCE_ROOT $ENV{NT2_SOURCE_ROOT})
+endif()
+if(NOT DEFINED NT2_ROOT AND DEFINED ENV{NT2_ROOT})
+  set(NT2_ROOT $ENV{NT2_ROOT})
+endif()
+if(DEFINED NT2_SOURCE_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_SOURCE_ROOT}/cmake)
+endif()
+if(DEFINED NT2_ROOT)
+  list(APPEND CMAKE_MODULE_PATH ${NT2_ROOT}/cmake)
+endif()
+
+include(NT2Module)
+nt2_module_main(core.doc)
