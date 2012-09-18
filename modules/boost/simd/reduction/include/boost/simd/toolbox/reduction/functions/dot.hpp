@@ -22,12 +22,12 @@
  * returns the dot product of the two SIMD vector arguments
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/dot.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,9 +41,9 @@
  *
  * \param a0 the first parameter of dot
  * \param a1 the second parameter of dot
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -54,18 +54,19 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag dot_ of functor dot 
+     * \brief Define the tag dot_ of functor dot
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct dot_ : ext::unspecified_<dot_> { typedef ext::unspecified_<dot_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::dot_, dot, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::dot_, dot, 3)
 } }
 
 #endif
