@@ -71,26 +71,10 @@ namespace nt2 { namespace ext
 
     result_type operator()(Expr& e) const
     {
-      std::size_t dim =  getdim ( boost::proto::child_c<1>(e)
-                                , boost::proto::child_c<N-1>(e)
-                                , c_t()
-                                );
+      std::size_t dim = nt2::firstnonsingleton(boost::proto::child_c<1>(e)); 
       result_type sizee = boost::proto::child_c<0>(e).extent();
-
       sizee[dim-1] = numel(boost::proto::child_c<1>(e));
       return sizee;
-    }
-
-    template<class X, class C> static
-    std::size_t getdim(const X & xi, const C &, const boost::mpl::false_& )
-    {
-      return nt2::firstnonsingleton(xi);
-    }
-
-    template<class X, class C> static
-    std::size_t getdim(const X &, const C &v, const boost::mpl::true_& )
-    {
-      return v;
     }
   };
 
