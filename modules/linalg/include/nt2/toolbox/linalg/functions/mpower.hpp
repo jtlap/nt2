@@ -21,7 +21,7 @@
 namespace nt2
 {
   namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag mpower_ of functor mpower
      *        in namespace nt2::tag for toolbox algebra
@@ -41,9 +41,9 @@ namespace nt2
    *
    * @return a matrix containing a0^a1
    **/
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mpower_, mpower, 2)
-    
+
 }
 
 namespace nt2 { namespace ext
@@ -55,14 +55,14 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<Expr&,1>::value_type  c1_t;
     typedef typename c0_t::extent_type                                     ex0_t;
     typedef typename c1_t::extent_type                                     ex1_t;
-    typedef typename details::max_extent<ex0_t, ex1_t>::type         result_type; 
+    typedef typename result_of::max_extent<ex0_t, ex1_t>::type         result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       BOOST_ASSERT_MSG((isscalar( boost::proto::child_c<0>(e))&&issquare(boost::proto::child_c<1>(e)))||
                        (isscalar( boost::proto::child_c<1>(e))&&issquare(boost::proto::child_c<0>(e))),
-                       "mpower needs a square matrix expression and a scalar or a scalar and a square matrix expression"); 
+                       "mpower needs a square matrix expression and a scalar or a scalar and a square matrix expression");
 
-      return nt2::max_extent(nt2::extent(boost::proto::child_c<0>(e)),  nt2::extent(boost::proto::child_c<1>(e))); 
+      return nt2::max_extent(nt2::extent(boost::proto::child_c<0>(e)),  nt2::extent(boost::proto::child_c<1>(e)));
     }
   };
 
