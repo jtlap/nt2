@@ -11,7 +11,6 @@
 
 #include <nt2/core/functions/numel.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/container/category.hpp>
 #include <nt2/include/functions/extent.hpp>
 
 namespace nt2 { namespace ext

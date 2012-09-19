@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/function.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
-#include <nt2/core/functions/table/details/make_size.hpp>
+#include <nt2/toolbox/operator/functions/table/details/make_size.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 
 namespace nt2 { namespace ext

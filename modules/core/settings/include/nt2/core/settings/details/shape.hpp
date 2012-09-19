@@ -11,6 +11,7 @@
 
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/buffer.hpp>
+#include <nt2/core/functions/scalar/numel.hpp>
 
 namespace nt2
 {
@@ -27,6 +28,12 @@ namespace nt2
       typedef typename meta::option<S,tag::buffer_>::type   buffer_t;
       typedef typename buffer_t::template apply<T,S>::type  type;
     };
+
+    template<class Size> static
+    BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
+    {
+      return numel(sz);
+    }
   };
 }
 

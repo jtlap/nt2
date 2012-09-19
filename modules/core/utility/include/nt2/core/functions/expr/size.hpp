@@ -12,7 +12,6 @@
 #include <nt2/core/functions/size.hpp>
 #include <nt2/core/settings/size.hpp>
 #include <nt2/core/functions/extent.hpp>
-#include <nt2/core/container/category.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext

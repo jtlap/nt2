@@ -28,12 +28,6 @@ namespace nt2
       {
         return rectangular_::nnz(sz);
       }
-
-      template<class Position, class Size> static
-      BOOST_FORCEINLINE std::size_t linearize(Position const& p,Size const& s)
-      {
-        return rectangular_::linearize(p,s);
-      }
     };
   };
 
@@ -51,12 +45,6 @@ namespace nt2
       BOOST_FORCEINLINE std::size_t nnz(Size const& sz)
       {
         return shape_t::nnz(sz);
-      }
-
-      template<class Position, class Size> static
-      BOOST_FORCEINLINE std::size_t linearize(Position const& p,Size const& s)
-      {
-        return shape_t::linearize(p,s);
       }
     };
   };

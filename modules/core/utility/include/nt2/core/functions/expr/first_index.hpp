@@ -13,7 +13,6 @@
 #include <nt2/core/functions/first_index.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
-#include <nt2/core/container/category.hpp>
 
 namespace nt2 { namespace ext
 {

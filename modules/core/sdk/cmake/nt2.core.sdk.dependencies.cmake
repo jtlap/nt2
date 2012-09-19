@@ -9,4 +9,5 @@
 
 SET ( NT2_CORE.UTILITY_DEPENDENCIES_EXTRA sdk.meta sdk.functor sdk.error
                                           core.container.table
+                                          core.operator
     )

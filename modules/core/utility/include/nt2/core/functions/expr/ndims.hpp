@@ -11,7 +11,6 @@
 
 #include <nt2/core/functions/ndims.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/core/container/category.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -21,7 +20,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef std::size_t result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
     {
@@ -35,7 +34,7 @@ namespace nt2 { namespace ext
       std::size_t d = nt2::ndims(sz);
 
       // ndims is either 2, |c-e| or, if d is 0, sz.size()
-      return d ? ( (d < 2) ? 2 : d) : i;                     
+      return d ? ( (d < 2) ? 2 : d) : i;
     }
   };
 } }

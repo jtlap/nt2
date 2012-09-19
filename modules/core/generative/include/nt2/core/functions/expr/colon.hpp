@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/colon.hpp>
 #include <nt2/core/utility/box.hpp>
-#include <nt2/core/container/category.hpp>
+#include <nt2/core/container/extremum/category.hpp>
 #include <nt2/core/functions/details/colon.hpp>
 
 namespace nt2 { namespace ext

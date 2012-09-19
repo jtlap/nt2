@@ -8,23 +8,26 @@
 ##############################################################################
 
 SET( SOURCES
-#    arecatcompatible.cpp
-#    class.cpp
-#    disp.cpp
+    arecatcompatible.cpp
+    class.cpp
+    disp.cpp
 #    extent.cpp
-#    first_last_index.cpp
-#    firstnonsingleton.cpp
-#    havesamesize.cpp
+    first_last_index.cpp
+    firstnonsingleton.cpp
+    havesamesize.cpp
 #    height.cpp
-#    length.cpp
-#    linesstride.cpp
-#    nblines.cpp
-#    ndims.cpp
-#    numel.cpp
-#    of_size.cpp
+    length.cpp
+    linesstride.cpp
+    nblines.cpp
+    ndims.cpp
+    numel.cpp
+    of_size.cpp
 #    streaming.cpp
-#    width.cpp
-#    max_extent.cpp
+    width.cpp
+    as_index.cpp
+    as_subscript.cpp
+    of_size_max.cpp
+    max_extent.cpp
 # List of test files for toolbox core.utility
    )
 

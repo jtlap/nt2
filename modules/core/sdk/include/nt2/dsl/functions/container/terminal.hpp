@@ -15,7 +15,7 @@
 #include <nt2/include/functions/unaligned_store.hpp>
 #include <nt2/include/functions/simd/maximum.hpp>
 #include <nt2/core/settings/details/fusion.hpp>
-#include <nt2/core/container/category.hpp>
+#include <nt2/core/container/table/category.hpp>
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/assert.hpp>

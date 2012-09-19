@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_EXPR_FIRSTNONSINGLETON_HPP_INCLUDED
 
 #include <nt2/core/functions/firstnonsingleton.hpp>
-#include <nt2/core/container/category.hpp>
 #include <nt2/include/functions/extent.hpp>
 
 namespace nt2 { namespace ext

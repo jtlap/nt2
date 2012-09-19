@@ -7,5 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.ELLIPTIC_DEPENDENCIES_EXTRA  core.sdk core.utility
+SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA core.sdk
+                                                  core.utility
+                                                  core.operator
     )
