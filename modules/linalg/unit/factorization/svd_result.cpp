@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
   nt2::display("vt    ", vt);
   t_t w  = f.w();
   nt2::display("w    ", w);
-  NT2_TEST(nt2::isulpequal(nt2::mtimes(u, nt2::mtimes(w, vt)), bb, T(10.0)));
+  NT2_TEST(nt2::isulpequal(nt2::mtimes(u, nt2::mtimes(w, vt)), bb, T(16.0)));
   std::cout << nt2::globalmax(nt2::ulpdist(nt2::mtimes(u, nt2::mtimes(w, vt)), b)) << std::endl; 
   t_t sg = f.singular();
   nt2::display("sg   ", sg);
@@ -63,6 +63,4 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
   t_t ort = f.orth();
   nt2::display("orth ", ort);
   std::cout << nt2::details::svd_result<t_t>(b,'N','N').norm() << std::endl;
-  // the solvers still don't work because of matricial product lack
-
 }
