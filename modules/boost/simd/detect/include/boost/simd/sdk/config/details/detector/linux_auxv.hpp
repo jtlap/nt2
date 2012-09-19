@@ -13,6 +13,7 @@
 #include <linux/auxvec.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <boost/cstdint.hpp>
 
 namespace boost { namespace simd { namespace config { namespace linux_
 {
@@ -24,7 +25,7 @@ namespace boost { namespace simd { namespace config { namespace linux_
     fd = open("/proc/self/auxv", O_RDONLY);
     if (fd >= 0)
     {
-      while(read(fd, &auxv, sizeof(auxv) == sizeof(auxv))
+      while(read(fd, &auxv, sizeof(auxv)) == sizeof(auxv))
       {
         if (auxv[0] == type)
         {
