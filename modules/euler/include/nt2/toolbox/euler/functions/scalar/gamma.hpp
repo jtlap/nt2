@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMA_HPP_INCLUDED
@@ -15,9 +15,7 @@
 
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/scalar/tofloat.hpp>
-#include <nt2/include/functions/scalar/inbtrue.hpp>
 #include <nt2/include/functions/scalar/sqr.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
@@ -27,7 +25,7 @@
 #include <nt2/include/functions/scalar/sinpi.hpp>
 #include <nt2/include/functions/scalar/negif.hpp>
 #include <nt2/include/functions/scalar/is_flint.hpp>
-#include <nt2/include/functions/scalar/is_ltz.hpp> 
+#include <nt2/include/functions/scalar/is_ltz.hpp>
 #include <nt2/include/functions/scalar/if_else.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/constants/eps_related.hpp>
@@ -66,7 +64,7 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
@@ -88,12 +86,12 @@ namespace nt2 { namespace ext
                             )
   {
 
-    typedef typename meta::strip<A0>::type result_type;
+    typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
     {
       if (a0 == Inf<A0>()) return a0;
-      if(is_eqz(a0)) return rec(a0); 
+      if(is_eqz(a0)) return rec(a0);
       if (is_invalid(a0) || (is_ltz(a0) && is_flint(a0))) return Nan<A0>();
     #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
        return ::tgamma(a0);
@@ -115,17 +113,17 @@ namespace nt2 { namespace ext
 // 			     -.002777777777777681622553,.08333333333333333331554247,
 // 			     .0057083835261 };
 //       const double g_xbig = 171.624;
-//       const A0 LOGSQRT2PI =  nt2::log(sqrt(Two<A0>()*Pi<A0>())); 
+//       const A0 LOGSQRT2PI =  nt2::log(sqrt(Two<A0>()*Pi<A0>()));
 
 //       double fact=1.0, xden, xnum;
 //       int i, n=0;
 //       double y=a0, z, y1;
 //       bool neg=false;
 //       double res, sum, ysq;
-//       if (is_eqz(a0)) return rec(a0); 
+//       if (is_eqz(a0)) return rec(a0);
 //       if (y < 0.0)
 // 	{
-// 	  if (is_flint(y)) return Nan<A0>(); 
+// 	  if (is_flint(y)) return Nan<A0>();
 // 	  neg =  true;
 // 	  y =  1-y;
 // 	  fact = Pi<A0>()/sinpi(y);
@@ -216,5 +214,5 @@ namespace nt2 { namespace ext
     }
   };
 } }
-       
+
 #endif

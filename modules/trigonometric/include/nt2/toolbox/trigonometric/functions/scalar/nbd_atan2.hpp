@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     { 
-      A0 z = impl::invtrig_base<result_type,radian_tag, tag::not_simd_type>::atan(a0/a1);
+      A0 z = impl::invtrig_base<result_type,radian_tag, tag::not_simd_type>::kernel_atan(a0/a1);
       z = nt2::if_else(is_gtz(a1), z, Pi<A0>()-z)*signnz(a0);
       return nt2::if_else(is_eqz(a0), nt2::if_else(is_ltz(a1), Pi<A0>(), Zero<A0>()), z); 
     }

@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     typedef typename meta::
                      call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
     typedef typename A0::extent_type                                      ext_t;
-    typedef typename details::as_subscript<ext_t,p_t>::result_type        sub_t;
+    typedef typename result_of::as_subscript<ext_t,p_t>::type             sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Data const& t) const

@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     typedef typename Target::type                                   result_type;
     typedef typename A0::extent_type                                ext_t;
     typedef typename meta::as_index<result_type>::type              i_t;
-    typedef typename details::as_subscript<ext_t,i_t>::result_type  sub_t;
+    typedef typename result_of::as_subscript<ext_t,i_t>::type       sub_t;
 
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, State const& p, Target const& t) const

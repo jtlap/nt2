@@ -6,13 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_UTILITY_AS_INDEX_HPP_INCLUDED
-#define NT2_CORE_UTILITY_AS_INDEX_HPP_INCLUDED
+#ifndef NT2_CORE_UTILITY_MAX_EXTENT_HPP_INCLUDED
+#define NT2_CORE_UTILITY_MAX_EXTENT_HPP_INCLUDED
 
 #include <nt2/core/utility/of_size.hpp>
 #include <nt2/include/functions/extent.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace result_of
 {
   template<class A0, class A1, class A2=void, class A3=void>
   struct max_extent;
@@ -23,42 +23,42 @@ namespace nt2 { namespace details
     typedef typename meta::call<tag::extent_(A1 const&)>::type  rext1_t;
     typedef typename meta::strip<rext0_t>::type                 ext0_t;
     typedef typename meta::strip<rext1_t>::type                 ext1_t;
-    typedef typename details::max<ext0_t,ext1_t>::result_type type;
+    typedef typename result_of::max<ext0_t,ext1_t>::type        type;
   };
 
   template<class A0, class A1,class A2> struct max_extent<A0,A1,A2>
   {
-    typedef typename details::max_extent<A0,A1>::type           ext01_t;
+    typedef typename result_of::max_extent<A0,A1>::type         ext01_t;
     typedef typename meta::call<tag::extent_(A2 const&)>::type  rext2_t;
     typedef typename meta::strip<rext2_t>::type                 ext2_t;
-    typedef typename details::max<ext01_t,ext2_t>::result_type  type;
+    typedef typename result_of::max<ext01_t,ext2_t>::type       type;
   };
 
   template<class A0, class A1,class A2,class A3> struct max_extent
   {
-    typedef typename details::max_extent<A0,A1>::type           ext01_t;
-    typedef typename details::max_extent<A2,A3>::type           ext23_t;
-    typedef typename details::max<ext01_t,ext23_t>::result_type type;
+    typedef typename result_of::max_extent<A0,A1>::type           ext01_t;
+    typedef typename result_of::max_extent<A2,A3>::type           ext23_t;
+    typedef typename result_of::max<ext01_t,ext23_t>::type        type;
   };
 } }
 
 namespace nt2
 {
   template<class A, class B>
-  typename details::max_extent<A,B>::type max_extent(A const& a, B const& b)
+  typename result_of::max_extent<A,B>::type max_extent(A const& a, B const& b)
   {
     return nt2::max(nt2::extent(a),nt2::extent(b));
   }
 
   template<class A, class B, class C>
-  typename details::max_extent<A,B,C>::type
+  typename result_of::max_extent<A,B,C>::type
   max_extent(A const& a, B const& b, C const& c)
   {
     return nt2::max(nt2::max_extent(a,b),nt2::extent(c));
   }
 
   template<class A, class B, class C,class D>
-  typename details::max_extent<A,B,C,D>::type
+  typename result_of::max_extent<A,B,C,D>::type
   max_extent(A const& a, B const& b, C const& c, D const& d)
   {
     return nt2::max(nt2::max_extent(a,b),nt2::max_extent(c,d));

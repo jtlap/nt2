@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL( linspace, (double)(float) )
   NT2_TEST_EQUAL( xr.extent(), nt2::of_size(1,100 ) );
 
   for(int i=1;i<=100;++i)
-    NT2_TEST_ULP_EQUAL( xr(i), T(1) + ((T(0)-T(1))/99)*(i-1),0.5 );
+    NT2_TEST_ULP_EQUAL( xr(i), T(1) + ((T(0)-T(1))/99)*(i-1), 1 );
 }
 
 NT2_TEST_CASE_TPL( linspace_with_size, (double)(float) )
@@ -83,5 +83,21 @@ NT2_TEST_CASE_TPL( linspace_worst, (double)(float) )
       NT2_TEST(nt2::globalall(z));
       z(nt2::end_) = T(nt2::predecessor(T(0)));
       NT2_TEST(nt2::globalall(z));
+    }
+}
+NT2_TEST_CASE_TPL( linspace_best, (double)(float) )
+{
+  using boost::simd::native;
+  using nt2::meta::as_;
+
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<T,ext_t>               n_t;
+  typedef as_<n_t>                      target_type;
+  typedef T r_t;
+  nt2::table<T> z = nt2::linspace(T(-1), T(1), 257);
+  NT2_DISPLAY(z); 
+  for(size_t i = 0; i < 257; ++i)
+    {
+      NT2_TEST_EQUAL(z(i+1), T(-1)+T(i)/128); 
     }
 }

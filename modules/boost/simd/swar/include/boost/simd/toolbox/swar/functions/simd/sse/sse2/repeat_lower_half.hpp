@@ -11,6 +11,9 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/swar/functions/repeat_lower_half.hpp>
+#include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/include/functions/interleave_first.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -27,6 +30,49 @@ namespace boost { namespace simd { namespace ext
       return _mm_movelh_ps(a0,a0);
     }
   };
+  
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
+                                   , boost::simd::tag::sse2_
+                                   , (A0)
+                                   , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
+                                   )
+  {
+    typedef A0 result_type;
+
+    result_type operator()(__m128i const a0) const
+    {
+      typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
+      return bitwise_cast<result_type>(repeat_lower_half(bitwise_cast<ftype>(a0)));
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
+                                   , boost::simd::tag::sse2_
+                                   , (A0)
+                                   , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
+                                   )
+  {
+    typedef A0 result_type;
+
+    result_type operator()(__m128i const a0) const
+    {
+      return  bitwise_cast<result_type>(interleave_first(bitwise_cast<result_type>(a0), bitwise_cast<result_type>(a0))); 
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
+                                   , boost::simd::tag::sse2_
+                                   , (A0)
+                                   , ((simd_<double_<A0>,boost::simd::tag::sse_>))
+                                   )
+  {
+    typedef A0 result_type;
+
+    result_type operator()(__m128d const a0) const
+    {
+      return  bitwise_cast<result_type>(interleave_first(bitwise_cast<result_type>(a0), bitwise_cast<result_type>(a0))); 
+    }
+  };   
 } } }
 
 #endif

@@ -36,7 +36,7 @@
 #define BOOST_SIMD_CARDINALS          (2)(4)(8)(16)(32)
 #define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::avx_)(::boost::simd::tag::sse_)
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::avx_
-#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::avx_
+#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::xop_
 
 // XOP header not standardized
 #ifdef _MSC_VER

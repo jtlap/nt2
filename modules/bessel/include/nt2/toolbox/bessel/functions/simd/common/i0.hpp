@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
          }};
      A0 x =  nt2::abs(a0);
      A0 r = Nan<A0>();
-     uint32_t nb = 0;
+     std::size_t nb = 0;
      bA0 test = le(x,  Eight<A0>());
      if( (nb = inbtrue(test)) > 0)
        {
@@ -205,7 +205,7 @@ namespace nt2 { namespace ext
       }};
       A0 x =  nt2::abs(a0);
       A0 r = Nan<A0>();
-      uint32_t nb = 0;
+      std::size_t nb = 0;
       bA0 test = le(x, Eight<A0>());
       if( (nb = inbtrue(test)) > 0)
       {

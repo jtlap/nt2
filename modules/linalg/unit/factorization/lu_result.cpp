@@ -17,6 +17,8 @@
 #include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -59,5 +61,6 @@ NT2_TEST_CASE_TPL(lu_result, NT2_REAL_TYPES)
   std::cout << "rank         " << f.rank()  << std::endl;
   std::cout << "signdet      " << f.signdet()<< std::endl;
   std::cout << "det          " << f.det()<< std::endl;
-  NT2_TEST(nt2::isulpequal(nt2::mtimes(p, nt2::mtimes(l, u)), b)); 
+  NT2_DISPLAY(nt2::globalmax(nt2::ulpdist(nt2::mtimes(p, nt2::mtimes(l, u)), b))); 
+  NT2_TEST(nt2::isulpequal(nt2::mtimes(p, nt2::mtimes(l, u)), b, T(2))); 
  }

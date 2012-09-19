@@ -32,14 +32,7 @@ keeping a high level of abstraction.
 Documentation
 -------------
 
-User Documentation
-::::::::::::::::::
-
-
-Developer Documentation
-:::::::::::::::::::::::
-
-`This documentation <http://nt2.lri.fr/sdk.html#>`_ clarifies the internals of **NT**:sup:`2` and helps potential contributors to design new features or to fix bugs.
+`The (in progress) documentation is available here <http://nt2.metascale.fr/doc/html/>`_ 
 
 ----------
 References

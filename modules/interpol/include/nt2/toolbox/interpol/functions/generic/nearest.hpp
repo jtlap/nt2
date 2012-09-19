@@ -53,14 +53,15 @@ namespace nt2 { namespace ext
       const child2 & xi  =  boost::proto::child_c<2>(inputs);
       bool extrap = false;
       value_type extrapval = Nan<value_type>();
-      choices(inputs, extrap, extrapval, N1());
+      choices(inputs, extrap, extrapval, N1()); 
       table<index_type>   index = bsearch (x, xi);
       table<value_type>  dx    =  xi-x(index); 
       table<index_type> indexp1 =  oneplus(index); 
       yi = y(nt2::if_else(lt(nt2::abs(xi-x(index)), nt2::abs(xi-x(indexp1))), index,  indexp1)); 
-      if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)), boost::simd::is_nle(xi, x(end_))),
-                                     extrapval,
-                                     yi);
+      value_type  b =  value_type(x(begin_));
+      value_type  e =  value_type(x(end_)); 
+      if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
+                                                      boost::simd::is_nle(xi, e)), extrapval, yi);
       return yi;
     } 
   private :

@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_EXTRACT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/extract.hpp>
+#include <boost/dispatch/meta/as_ref.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -18,8 +19,17 @@ namespace boost { namespace simd { namespace ext
                               (scalar_< integer_<A1> >)
                             )
   {
-    typedef A0 const& result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
+    template<class Sig>
+    struct result;
+
+    template<class This, class A0_, class A1_>
+    struct result<This(A0_, A1_)>
+         : dispatch::meta::as_ref<A0_>
+    {
+    };
+
+    template<class A0_>
+    BOOST_FORCEINLINE A0_& operator()(A0_& a0, A1 const&) const
     {
       return a0;
     }

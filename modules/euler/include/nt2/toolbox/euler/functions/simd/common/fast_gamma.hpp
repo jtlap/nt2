@@ -60,12 +60,12 @@ namespace nt2 { namespace ext
         A0 q =  nt2::abs(a0);
         A0 x = a0;
         bA0 test0 = gt(q, Fastgammalargelim<A0>());
-        uint32_t nb = 0;
+        std::size_t nb = 0;
         if ((nb = (inbtrue(test0) > 0)))
           {
             bA0 negative = is_ltz(a0);
             A0 s =  stirling(q);
-            uint32_t nb1 = 0;
+            std::size_t nb1 = 0;
             A0 r1 = Zero<A0>();
             if ((nb1 = (inbtrue(negative) > 0)))
               {

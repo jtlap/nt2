@@ -8,6 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
+    ifvectvert.cpp
     expand_to.cpp
     along.cpp
     linear_interp.cpp
@@ -24,6 +25,7 @@ SET( SOURCES
     all.cpp
     any.cpp
     arecatcompatible.cpp
+    isexpandable_to.cpp
     asum1.cpp
     asum2.cpp
     asump.cpp

@@ -7,31 +7,16 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SCALAR_DOT_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SCALAR_DOT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_DOT_HPP_INCLUDED
+#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_SCALAR_DOT_HPP_INCLUDED
 
-#include <nt2/core/functions/dot.hpp>
+#include <nt2/toolbox/reduction/functions/dot.hpp>
+#include <nt2/include/functions/scalar/conj.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/include/functions/scalar/conj.hpp>
 
 namespace nt2 { namespace ext
 {
-  /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dot_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)
-                              (scalar_< floating_<A0> >)
-                            )
-  {
-    typedef typename meta::as_floating<A0>::type  f_t;
-    typedef typename meta::as_real<f_t>::type     result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 const& b) const
-    {
-      return a*nt2::conj(b);
-    }
-  };
-
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dot_, tag::cpu_
                             , (A0)(A1)

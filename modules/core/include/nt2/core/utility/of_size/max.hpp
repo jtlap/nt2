@@ -16,7 +16,7 @@
 
 namespace nt2
 {
-  namespace details
+  namespace result_of
   {
     template<class A, class B> struct max;
 
@@ -27,12 +27,12 @@ namespace nt2
               , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)>
               >
     {
-      // COmpute result_type by keeping static informations
+      // Cmpute result type by keeping static informations
       #define M0(z,n,t) ( (D1##n == -1) || (D2##n == -1)          \
                         ? -1 : ((D1##n > D2##n) ? D1##n : D2##n)  \
                         )                                         \
       /**/
-      typedef of_size_<BOOST_PP_ENUM(NT2_MAX_DIMENSIONS, M0, ~)> result_type;
+      typedef of_size_<BOOST_PP_ENUM(NT2_MAX_DIMENSIONS, M0, ~)> type;
       #undef M0
 
       // Perform max computation on a per dimension basis
@@ -44,7 +44,7 @@ namespace nt2
 
         template<int N> void operator()()
         {
-          typedef typename result_type::values_type values_t;
+          typedef typename type::values_type values_t;
           eval<N> ( boost::mpl::bool_
                     <(boost::mpl::at_c<values_t,N>::type::value == -1)>()
                   );
@@ -52,24 +52,24 @@ namespace nt2
 
         template<int N> void eval(boost::mpl::true_ const&)
         {
-          std::ptrdiff_t a = boost::fusion::at_c<N>(a0);
-          std::ptrdiff_t b = boost::fusion::at_c<N>(a1);
+          std::size_t a = boost::fusion::at_c<N>(a0);
+          std::size_t b = boost::fusion::at_c<N>(a1);
           boost::fusion::at_c<N>(that) = std::max(a,b);
         }
 
         template<int N> void eval(boost::mpl::false_ const&) {}
 
-        result_type&                                                that;
+        type& that;
         of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0;
         of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1;
       };
 
       template<class A, class B>
-      BOOST_FORCEINLINE result_type operator()( A const& a0, B const& a1 )
+      BOOST_FORCEINLINE type operator()( A const& a0, B const& a1 )
       {
-        result_type that;
+        type that;
         impl callee(that,a0,a1);
-        boost::simd::meta::iterate<result_type::static_size>(callee);
+        boost::simd::meta::iterate<type::static_size>(callee);
         return that;
       }
     };
@@ -89,17 +89,17 @@ namespace nt2
   template< BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D1)
           , BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, std::ptrdiff_t D2)
           >
-  typename  details
+  typename  result_of
             ::max < of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)>
                   , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)>
-                  >::result_type
+                  >::type
   max ( of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)> const& a0
       , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)> const& a1
       )
   {
-    details::max< of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)>
-                , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)>
-                >   callee;
+    result_of::max< of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D1)>
+                  , of_size_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS, D2)>
+                  > callee;
     return callee(a0,a1);
   }
 }

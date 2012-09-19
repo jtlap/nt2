@@ -122,6 +122,10 @@ NT2_TEST_CASE( dimensions )
                     , nt2::_1D
                     );
   NT2_TEST_EQUAL( a(_).extent(), of_size(120 ) );
+  NT2_TEST_EXPR_TYPE( b(_)
+                    , size_of<mpl::_>
+                    , nt2::of_size_<4>
+                    );
 
   NT2_TEST_EXPR_TYPE( a(1)
                     , size_of<mpl::_>

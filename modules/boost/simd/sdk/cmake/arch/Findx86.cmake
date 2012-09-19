@@ -17,17 +17,19 @@ macro(nt2_simd_set_fpmath ext)
   set(ext_u ${ext})
 
   if(NT2_COMPILER_GCC)
-      
-      if(NOT ext_l STREQUAL avx)
-        set(ext_l sse)
+
+      if(ext_u MATCHES "AVX|FMA4|XOP")
+        set(ext_u AVX)
+      else()
         set(ext_u SSE)
       endif()
+      string(TOLOWER ${ext_u} ext_l)
 
       check_cxx_compiler_flag("-mfpmath=${ext_l}" HAS_GCC_MFPMATH_${ext_u})
       if(HAS_GCC_MFPMATH_${ext_u})
         set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} -mfpmath=${ext_l}")
       endif()
-      
+
       if(ext_l STREQUAL avx)
         check_cxx_compiler_flag("-fabi-version=4" HAS_GCC_FABI_VERSION_4)
         if(HAS_GCC_FABI_VERSION_4)
@@ -36,17 +38,21 @@ macro(nt2_simd_set_fpmath ext)
       endif()
 
   elseif(NT2_COMPILER_MSVC)
-  
-    if(NOT ext_u STREQUAL AVX AND NOT ext_u STREQUAL SSE)
-      set(ext_u SSE2)
-    endif()
-    
+
+      if(ext_u MATCHES "AVX|FMA4|XOP")
+        set(ext_u AVX)
+      elseif(NOT ext_u STREQUAL SSE)
+        set(ext_u SSE2)
+      else()
+        set(ext_u SSE)
+      endif()
+
     check_cxx_compiler_flag("/arch:${ext_u}" HAS_MSVC_ARCH_${ext_u})
     if(HAS_MSVC_ARCH_${ext_u})
       set(NT2_SIMD_FLAGS "${NT2_SIMD_FLAGS} /arch:${ext_u}")
     endif()
   endif()
-  
+
 endmacro()
 
 ################################################################################
@@ -74,7 +80,7 @@ macro(nt2_simd_cpuid_check ext)
       set(NT2_SIMD_FLAGS "-DBOOST_SIMD_HAS_${ext}_SUPPORT")
     endif()
   endif()
-      
+
   if(NT2_HAS_${ext}_SUPPORT)
     message(STATUS "[boost.simd.sdk] ${ext} available")
     set(NT2_SIMD_EXT ${ext_l} PARENT_SCOPE)
@@ -84,7 +90,7 @@ macro(nt2_simd_cpuid_check ext)
   else()
     message(STATUS "[boost.simd.sdk] ${ext} not available")
   endif()
-  
+
 endmacro()
 
 function(nt2_simd_cpuid_find)
@@ -98,9 +104,9 @@ function(nt2_simd_cpuid_find)
   nt2_simd_cpuid_check(SSE3)
   nt2_simd_cpuid_check(SSE2)
   nt2_simd_cpuid_check(SSE)
-  
+
   set(NT2_SIMD_FLAGS " " PARENT_SCOPE)
-  
+
 endfunction()
 
 nt2_simd_cpuid_find()

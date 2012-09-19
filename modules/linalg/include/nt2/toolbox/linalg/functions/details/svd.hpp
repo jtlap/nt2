@@ -29,7 +29,7 @@
 #include <nt2/include/functions/diag_of.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-//#include <nt2/include/functions/trans.hpp> //TODO
+#include <nt2/include/functions/trans.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gesvd.hpp>
@@ -319,15 +319,15 @@ namespace nt2 { namespace details
     nt2_la_int                     info_;
     workspace_t                     wrk_;
 
-    template < class S>
-    static tab_t trans(const S& a)
-    {
-      tab_t ta = zeros(width(a), height(a), meta::as_<type_t>());
-      for (size_t i = 1; i <= height(a); ++i)
-        for (size_t j = 1; j <= width(a); ++j)
-          ta(j, i) = a(i, j);
-      return ta;
-    }
+//     template < class S>
+//     static tab_t trans(const S& a)
+//     {
+//       tab_t ta = zeros(width(a), height(a), meta::as_<type_t>());
+//       for (size_t i = 1; i <= height(a); ++i)
+//         for (size_t j = 1; j <= width(a); ++j)
+//           ta(j, i) = a(i, j);
+//       return ta;
+//     }
 
   };
 } }

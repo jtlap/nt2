@@ -17,6 +17,7 @@
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/utility/of_size.hpp>
 #include <nt2/sdk/memory/copy.hpp>
+#include <boost/assert.hpp>
 #include <iterator>
 
 namespace nt2 { namespace ext
@@ -33,8 +34,8 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::repnum_
                                           , container::domain
-                                          , A0 const&
                                           , box<of_size_max>
+                                          , box<nt2::details::repnum<A0> >
                                           , meta::as_<A0>
                                           >::type             result_type;
 
@@ -52,10 +53,10 @@ namespace nt2 { namespace ext
 
       return boost::proto::make_expr< nt2::tag::repnum_
                                     , container::domain
-                                    > (boost::cref(a0),
-                                       boxify(sizee),
+                                    >( boxify(sizee),
+                                       boxify(nt2::details::repnum<A0>(a0)),
                                        meta::as_<A0>()
-                                      );
+                                     );
     }
   };
 } }
