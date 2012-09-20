@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
   };
 
   // _(a, b)
-  template<class T, long N, class Cardinal>
+  template<class T, std::ptrdiff_t N, class Cardinal>
   struct is_vectorizable_indexer<
     nt2::container::expression<
       boost::proto::basic_expr<
