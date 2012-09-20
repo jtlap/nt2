@@ -8,27 +8,34 @@
 ##############################################################################
 
 SET( SOURCES
-    arecatcompatible.cpp
-    class.cpp
-    disp.cpp
-#    extent.cpp
-    first_last_index.cpp
-    firstnonsingleton.cpp
-    havesamesize.cpp
-#    height.cpp
-    length.cpp
-    linesstride.cpp
-    nblines.cpp
-    ndims.cpp
-    numel.cpp
-    of_size.cpp
-    sort.cpp
-#    streaming.cpp
-    width.cpp
-    as_index.cpp
-    as_subscript.cpp
-    of_size_max.cpp
-    max_extent.cpp
+  arecatcompatible.cpp
+  as_index.cpp
+  as_subscript.cpp
+  bsxfun.cpp
+  class.cpp
+  disp.cpp
+  find.cpp
+  first_last_index.cpp
+  firstnonsingleton.cpp
+  havesamesize.cpp
+  length.cpp
+  linesstride.cpp
+  max_extent.cpp
+  nblines.cpp
+  ndims.cpp
+  numel.cpp
+  ofsameheight.cpp
+  ofsamewidth.cpp
+  of_size.cpp
+  of_size_max.cpp
+  relative_index.cpp
+  relative_size.cpp
+  size.cpp
+  sort.cpp
+  sx.cpp
+  tie.cpp
+  tsxfun.cpp
+  width.cpp
 # List of test files for toolbox core.utility
    )
 

@@ -18,7 +18,6 @@ SET( SOURCES
     asum1.cpp
     asum2.cpp
     asump.cpp
-    center.cpp
     dot.cpp
     maximum.cpp
 #    medianad.cpp
