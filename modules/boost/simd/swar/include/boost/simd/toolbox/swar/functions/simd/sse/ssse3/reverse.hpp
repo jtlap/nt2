@@ -14,7 +14,6 @@
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/simd/split.hpp>
 #include <boost/simd/include/functions/simd/group.hpp>
-#include <iostream>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is float
