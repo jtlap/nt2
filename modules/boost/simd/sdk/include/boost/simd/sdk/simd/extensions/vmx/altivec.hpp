@@ -55,6 +55,7 @@
 #define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::altivec_)
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::altivec_
 #define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::altivec_
+#define BOOST_SIMD_NO_DENORMALS
 
 #include <boost/simd/sdk/simd/extensions/meta/altivec.hpp>
 
