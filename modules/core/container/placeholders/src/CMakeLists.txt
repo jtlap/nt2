@@ -7,4 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_CORE.UTILITY_DEPENDENCIES_EXTRA core.sdk core.generative)
+include(NT2Module)
+nt2_module_source_setup(core.container.placeholders)

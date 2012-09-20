@@ -10,4 +10,7 @@
 SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA core.sdk
                                                   core.utility
                                                   core.operator
+                                                  core.manip
+                                                  core.swar
+                                                  core.container.placeholders
     )

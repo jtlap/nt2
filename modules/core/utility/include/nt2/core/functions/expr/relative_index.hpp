@@ -13,8 +13,8 @@
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/core/functions/colon.hpp>
+#include <nt2/core/container/extremum/category.hpp>
 #include <nt2/core/functions/details/colon.hpp>
-#include <nt2/core/container/category.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 
