@@ -22,6 +22,7 @@ SET( SOURCES
     ndims.cpp
     numel.cpp
     of_size.cpp
+    sort.cpp
 #    streaming.cpp
     width.cpp
     as_index.cpp
