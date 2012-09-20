@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( prev_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(prev(boost::simd::Nan<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(prev(boost::simd::One<T>()), boost::simd::One<r_t>()-boost::simd::Eps<r_t>()/2);
   NT2_TEST_EQUAL(prev(boost::simd::Valmin<T>()), boost::simd::Minf<r_t>());
-  NT2_TEST_EQUAL(prev(boost::simd::Zero<T>()), -boost::simd::Mindenormal<T>());
+  NT2_TEST_EQUAL(prev(boost::simd::Zero<T>()), -boost::simd::Bitincrement<T>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( prev_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
