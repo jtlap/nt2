@@ -44,7 +44,7 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Ext, class Sign>
   struct upgrade< typename boost::simd::native<boost::simd::logical<T>, Ext>, Sign >
   {
-    typedef typename dispatch::meta::upgrade<T>::type uT;
+    typedef typename dispatch::meta::upgrade<T,Sign>::type uT;
     typedef typename 
     boost::mpl::if_< typename 
                      simd::meta::is_vectorizable<uT,Ext>::type 
