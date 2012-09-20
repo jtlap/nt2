@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.UTILITY_DEPENDENCIES_EXTRA sdk.meta sdk.functor sdk.error
-                                          core.container.table
-                                          core.operator
+SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA sdk.meta sdk.functor sdk.error
+                                      core.container.table
+                                      core.operator
     )

@@ -8,6 +8,10 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit predicates ieee arithmetic euler exponential hyperbolic elliptic)
+nt2_module_use_modules( unit
+                        core.predicates core.ieee         core.arithmetic
+                        core.euler      core.exponential  core.hyperbolic
+                        core.elliptic
+                      )
 ADD_SUBDIRECTORY(scalar)
 

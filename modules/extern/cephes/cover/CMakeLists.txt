@@ -8,10 +8,11 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules( unit arithmetic euler
-                        exponential trigonometric
-                        bessel hyperbolic
-                        elliptic
+nt2_module_use_modules( unit
+                        core.arithmetic   core.euler
+                        core.exponential  core.trigonometric
+                        core.bessel       core.hyperbolic
+                        core.elliptic
                       )
 
 ADD_SUBDIRECTORY(scalar)

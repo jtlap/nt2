@@ -15,4 +15,4 @@ SET( SOURCES
      schedule.cpp
    )
 
-nt2_module_add_tests(core.dsl.unit ${SOURCES})
+nt2_module_add_tests(core.sdk.dsl.unit ${SOURCES})

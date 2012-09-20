@@ -8,6 +8,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit  arithmetic ieee trigonometric exponential hyperbolic predicates)
+nt2_module_use_modules( unit
+                        core.arithmetic   core.ieee       core.trigonometric
+                        core.exponential  core.hyperbolic core.predicates
+                      )
 ADD_SUBDIRECTORY(scalar)
 

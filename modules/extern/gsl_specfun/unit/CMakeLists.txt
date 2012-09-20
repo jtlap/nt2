@@ -10,5 +10,5 @@
 ##****************************************************************************
 ##*     Toolbox gsl_specfun unit tests
 ##****************************************************************************
-nt2_module_use_modules(unit predicates)
+nt2_module_use_modules(unit core.predicates)
 ADD_SUBDIRECTORY(scalar)

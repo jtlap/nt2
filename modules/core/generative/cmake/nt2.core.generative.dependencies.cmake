@@ -7,5 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.GENRATIVE_DEPENDENCIES_EXTRA core.sdk
+SET ( NT2_CORE.GENRATIVE_DEPENDENCIES_EXTRA core.sdk core.utility
     )

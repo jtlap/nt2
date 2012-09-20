@@ -10,5 +10,8 @@
 ##****************************************************************************
 ##*     Toolbox crlibm unit tests
 ##****************************************************************************
-nt2_module_use_modules(unit arithmetic ieee trigonometric exponential hyperbolic)
+nt2_module_use_modules( unit
+                        core.arithmetic   core.ieee core.trigonometric
+                        core.exponential  core.hyperbolic
+                      )
 ADD_SUBDIRECTORY(scalar)

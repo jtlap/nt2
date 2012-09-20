@@ -11,5 +11,9 @@
 ##*     Toolbox fdlibm unit tests
 ##****************************************************************************
 
-nt2_module_use_modules(unit arithmetic ieee trigonometric hyperbolic exponential euler bessel)
+nt2_module_use_modules( unit
+                        core.arithmetic core.ieee         core.trigonometric
+                        core.hyperbolic core.exponential  core.euler
+                        core.bessel
+                      )
 ADD_SUBDIRECTORY(scalar)
