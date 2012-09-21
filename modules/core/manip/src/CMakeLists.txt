@@ -7,4 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_CORE.REDUCTION_DEPENDENCIES_EXTRA sdk.simd boost.simd.reduction core.manip core.sdk)
+include(NT2Module)
+nt2_module_source_setup(core.manip)

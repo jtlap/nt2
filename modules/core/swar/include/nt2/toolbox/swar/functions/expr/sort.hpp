@@ -6,15 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_EXPR_SORT_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_SORT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_EXPR_SORT_HPP_INCLUDED
+#define NT2_TOOLBOX_SWAR_FUNCTIONS_EXPR_SORT_HPP_INCLUDED
 
-#include <nt2/core/functions/sort.hpp>
+#include <boost/simd/toolbox/swar/functions/sort.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/flipud.hpp>
 #include <nt2/include/functions/is_nan.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <algorithm>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
@@ -23,11 +23,11 @@
 #include <nt2/include/functions/linesstride.hpp>
 #include <string>
 #include <boost/mpl/bool.hpp>
+
 namespace nt2 { namespace ext
 {
-
-  template < class T > struct is_target : boost::mpl::false_{}; 
-  template < class T > struct is_target < meta::as_<T> > :  boost::mpl::true_{}; 
+  template < class T > struct is_target : boost::mpl::false_{};
+  template < class T > struct is_target < meta::as_<T> > :  boost::mpl::true_{};
   //============================================================================
   // This version of sort is called whenever a tie(...) = sort(...) is captured
   // before assign is resolved. As a tieable function, sort retrieves rhs/lhs
@@ -46,13 +46,13 @@ namespace nt2 { namespace ext
     typedef typename st_child0::index_type                           index_type;
     typedef table<value_type,index_type>                                  res_t;
     typedef typename st_child0::extent_type                               ext_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(ext_t,size_t)>::type   sub_t;   
+    typedef typename meta::call<nt2::tag::ind2sub_(ext_t,size_t)>::type   sub_t;
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       // Copy data in output first
       //      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
       //     std::cout << display_type<ct>() << std::endl;
-      size_t dim = 1; 
+      size_t dim = 1;
       bool up = true;
       //retrieve options
       choice(a0, up, dim, N0());
@@ -64,26 +64,26 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE void
     choice(A0 const &, bool& up, size_t & dim, boost::mpl::long_<1> const &) const
     {
-      up = true;  dim = 1; 
+      up = true;  dim = 1;
     }
 
-    BOOST_FORCEINLINE void 
+    BOOST_FORCEINLINE void
     choice(A0 const & a0, bool& up, size_t & dim, boost::mpl::long_<2> const &) const
     {
-      
-      check(boost::proto::value(boost::proto::child_c<1>(a0)), up, dim); 
+
+      check(boost::proto::value(boost::proto::child_c<1>(a0)), up, dim);
     }
-    
+
     BOOST_FORCEINLINE void
     choice(A0 const & a0, bool& up, size_t & dim, boost::mpl::long_<3> const &) const
     {
-      const char mode = boost::proto::value(boost::proto::child_c<2>(a0)); 
+      const char mode = boost::proto::value(boost::proto::child_c<2>(a0));
 //       BOOST_ASSERT_MSG( std::strcmp("descend", mode) == 0 || std::strcmp("ascend", mode) == 0,
-//                         "sorting direction must be 'ascend' or 'descend'"); 
+//                         "sorting direction must be 'ascend' or 'descend'");
       up = mode == 'a';
-      dim = boost::proto::value(boost::proto::child_c<1>(a0)); 
+      dim = boost::proto::value(boost::proto::child_c<1>(a0));
     }
-    
+
     //==============================================================================================
     // checking ascend or descend or dim
     // according to the type of boost::proto::value(boost::proto::child_c<1>(a0))
@@ -94,31 +94,31 @@ namespace nt2 { namespace ext
     {
       if (mode < 65)
         { up = true; dim = mode; }
-      else 
+      else
         {
           BOOST_ASSERT_MSG( 'd' == mode || 'a' ==  mode,
-                            "sorting direction must be 'a' or 'd'"); 
+                            "sorting direction must be 'a' or 'd'");
 
           up = mode == 'a'; dim = 1;
         }
     }
-    
+
 //     BOOST_FORCEINLINE void
 //     check(const char * mode, bool& up, size_t & dim) const
 //     {
 // //       BOOST_ASSERT_MSG( std::strcmp("descend", mode) == 0 || std::strcmp("ascend", mode) == 0,
-// //                         "sorting direction must be 'ascend' or 'descend'"); 
-//       std::cout << "check char *" << mode << std::endl; 
+// //                         "sorting direction must be 'ascend' or 'descend'");
+//       std::cout << "check char *" << mode << std::endl;
 //       up = mode[0] == 'a';
-//       dim = 1; 
+//       dim = 1;
 //     }
-    
+
 //     BOOST_FORCEINLINE  void
 //     check(const size_t d, bool& up, size_t & dim) const
 //     {
-//       std::cout << "check size_t " << d << std::endl; 
+//       std::cout << "check size_t " << d << std::endl;
 //       up = true;
-//       dim = d; 
+//       dim = d;
 //     }
 
     //==============================================================================================
@@ -127,18 +127,18 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
       void compute(A0 const&a0, A1 & a1, bool, size_t, boost::mpl::long_<1> const&, boost::mpl::long_<1> const&, boost::mpl::false_ const &) const
     {
-      // no options  -> up =  true,  dim = 1; 
+      // no options  -> up =  true,  dim = 1;
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      dosort(boost::proto::child_c<0>(a1)); 
+      dosort(boost::proto::child_c<0>(a1));
     }
-    
+
     BOOST_FORCEINLINE
     void compute(A0 const&a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<2> const&, boost::mpl::long_<1> const&, boost::mpl::false_ const &) const
     {
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
       dosort(boost::proto::child_c<0>(a1), up, dim);
     }
-    
+
     BOOST_FORCEINLINE
     void compute(A0 const& a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<3> const&, boost::mpl::long_<1> const&, boost::mpl::false_ const &) const
     {
@@ -151,16 +151,16 @@ namespace nt2 { namespace ext
     {
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
       // no options  -> up =  true,  dim = 1;
-      doindsort(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1)); 
+      doindsort(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1));
     }
-    
+
     BOOST_FORCEINLINE
     void compute(A0 const& a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<2> const&, boost::mpl::long_<2> const&, boost::mpl::false_ const &) const
     {
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
       doindsort(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1), up, dim);
     }
-    
+
     BOOST_FORCEINLINE
     void compute(A0 const& a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<3> const&, boost::mpl::long_<2> const&, boost::mpl::false_ const &) const
     {
@@ -172,45 +172,45 @@ namespace nt2 { namespace ext
     void compute(A0 const& a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<1> const&, boost::mpl::long_<2> const&, boost::mpl::true_ const &) const
     {
       // no options  -> up =  true,  dim = 1;
-      doindsort2(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1)); 
+      doindsort2(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1));
     }
-    
+
     BOOST_FORCEINLINE
     void compute(A0 const& a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<2> const&, boost::mpl::long_<2> const&, boost::mpl::true_ const &) const
     {
       doindsort2(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1), up, dim);
     }
-    
+
     BOOST_FORCEINLINE
     void compute(A0 const& a0, A1 & a1, bool up, size_t dim, boost::mpl::long_<3> const&, boost::mpl::long_<2> const&, boost::mpl::true_ const &) const
     {
       doindsort2(boost::proto::child_c<0>(a0), boost::proto::child_c<1>(a1), up, dim);
     }
-    
+
     static bool sort_up (value_type i,value_type j) { return (i<j); }
     static bool sort_dn (value_type i,value_type j) { return (i>j); }
     template <class T> BOOST_FORCEINLINE
       void dosort(T & res,  bool up = true, size_t dim = 1) const
     {
       size_t h = nt2::size(res, dim);
-      if (h <= 1) return; 
+      if (h <= 1) return;
       size_t nbslice =  numel(res)/h;
 //       if (dim == 1)
 //         {
-//           value_type* beg = res.raw(); 
-//           value_type* fin = beg+h;                 
+//           value_type* beg = res.raw();
+//           value_type* fin = beg+h;
 //           for(size_t i=0; i < nbslice; ++i)
 //             {
 //               std::sort(beg, fin, up?&sort_up:&sort_dn);
-//               beg = fin; fin+= h; 
+//               beg = fin; fin+= h;
 //             }
 //         }
 //       else
 //         {
           size_t stride = linesstride(res, dim);
-          size_t decal =  stride*(size(res, dim)-1); 
+          size_t decal =  stride*(size(res, dim)-1);
           size_t p = 0;
-          value_type* beg = res.raw(); 
+          value_type* beg = res.raw();
           for(size_t i=0; i < nbslice; ++i)
             {
               sub_t pos = ind2sub(res.extent(), p);
@@ -231,16 +231,16 @@ namespace nt2 { namespace ext
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
       const i_type base = ind_type::value-1;
-      idx =  nt2::indices(size(res), dim, meta::as_<i_type>())+base; 
+      idx =  nt2::indices(size(res), dim, meta::as_<i_type>())+base;
 
       size_t h = nt2::size(res, dim);
-      if (h <= 1) return; 
+      if (h <= 1) return;
       size_t nbslice =  numel(res)/h;
       size_t stride = linesstride(res, dim);
-      size_t decal = stride*(size(res, dim)-1); 
+      size_t decal = stride*(size(res, dim)-1);
       size_t p = 0;
       value_type* beg = res.raw();
-      i_type* bep = idx.raw(); 
+      i_type* bep = idx.raw();
       for(size_t i=0; i < nbslice; ++i)
         {
           sub_t pos = ind2sub(res.extent(), p);
@@ -252,7 +252,7 @@ namespace nt2 { namespace ext
           ++p;
         }
     }
-    
+
     template <class T, class iT> BOOST_FORCEINLINE
       void doindsort2(T & res,  iT & idx, bool up = true, size_t dim = 1) const
     {
@@ -261,16 +261,16 @@ namespace nt2 { namespace ext
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
       idx =  nt2::indices(size(res), dim, meta::as_<i_type>())-One<i_type>();
-      //base 0 here for indexing the raw array 
+      //base 0 here for indexing the raw array
 
       size_t h = nt2::size(res, dim);
       if (h <= 1) { idx = idx+ind_type::value; return; }
       size_t nbslice =  numel(res)/h;
       size_t stride = linesstride(res, dim);
-      size_t decal = stride*(size(res, dim)-1); 
+      size_t decal = stride*(size(res, dim)-1);
       size_t p = 0;
       value_type* beg = res.raw();
-      i_type* bep = idx.raw(); 
+      i_type* bep = idx.raw();
       for(size_t i=0; i < nbslice; ++i)
         {
           sub_t pos = ind2sub(res.extent(), p);
@@ -281,26 +281,26 @@ namespace nt2 { namespace ext
           indtri2(beg+p, bep+p, stride, h, up?&sort_up:&sort_dn);
           ++p;
         }
-      idx = idx+ind_type::value; 
-    }    
+      idx = idx+ind_type::value;
+    }
 
     // This is a classical heap sort with a constant stride between
     // elements to be sorted
-    template < class T, class S> static void 
+    template < class T, class S> static void
       heap(T * data, const size_t stride, const size_t N, size_t k, const S& comp)
       {
         T v = data[k*stride];
         while (k <= N >> 1)
           {
             size_t j = k << 1;
-            if (j < N && comp(data[j*stride], data[(j+1)*stride])) ++j; 
+            if (j < N && comp(data[j*stride], data[(j+1)*stride])) ++j;
             if (!(comp(v, data[j*stride]))) break; /* avoid infinite loop if nan */
             data[k*stride] = data[j*stride];
             k = j;
           }
         data[k*stride] = v;
       }
-    
+
     template < class T, class S > static void
       tri (T * data, const size_t stride, const size_t n, const S& comp)
       {
@@ -309,27 +309,27 @@ namespace nt2 { namespace ext
            '0' Set N to the last element number. */
         size_t N = n - 1;
         size_t k = N >> 1;
-        ++k; //Compensate the first use of 'k--' 
+        ++k; //Compensate the first use of 'k--'
         do
           {
             --k;
             heap(data, stride, N, k, comp);
           } while (k > 0);
-        
+
         while (N > 0)
           {
-            // first swap the elements 
+            // first swap the elements
             std::swap( data[0],data[N*stride]);
 //             T tmp = data[0 * stride];
 //             data[0 * stride] = data[N * stride];
 //             data[N * stride] = tmp;
-            // then process the heap 
+            // then process the heap
             N--;
             heap(data, stride, N, 0, comp);
           }
       }
-    
-    template < class T, class iT, class S> static void 
+
+    template < class T, class iT, class S> static void
       indheap(T * data, iT * idx, const size_t stride, const size_t N, size_t k, const S& comp)
       {
         T v = data[k*stride];
@@ -337,16 +337,16 @@ namespace nt2 { namespace ext
         while (k <= N >> 1)
           {
             size_t j = k << 1;
-            if (j < N && comp(data[j*stride], data[(j+1)*stride])) ++j; 
+            if (j < N && comp(data[j*stride], data[(j+1)*stride])) ++j;
             if (!(comp(v, data[j*stride]))) break; /* avoid infinite loop if nan */
             data[k*stride] = data[j*stride];
-            idx[k*stride] = idx[j*stride]; 
+            idx[k*stride] = idx[j*stride];
             k = j;
           }
         data[k*stride] = v;
-        idx[k*stride] = ind; 
+        idx[k*stride] = ind;
       }
-    
+
     template < class T, class iT, class S > static void
       indtri (T * data, iT* idx, const size_t stride, const size_t n, const S& comp)
       {
@@ -355,13 +355,13 @@ namespace nt2 { namespace ext
            '0' Set N to the last element number. */
         size_t N = n - 1;
         size_t k = N >> 1;
-        ++k; //Compensate the first use of '--k' 
+        ++k; //Compensate the first use of '--k'
         do
           {
             --k;
             indheap(data, idx, stride, N, k, comp);
           } while (k > 0);
-        
+
         while (N > 0)
           {
             // first swap the elements
@@ -373,7 +373,7 @@ namespace nt2 { namespace ext
 //             iT itmp = idx[0 * stride];
 //             idx[0 * stride] = idx[N * stride];
 //             idx[N * stride] = itmp;
-            // then process the heap 
+            // then process the heap
             N--;
             indheap(data, idx, stride, N, 0, comp);
           }
@@ -382,21 +382,21 @@ namespace nt2 { namespace ext
 
     // This is a classical heap indsort with a constant stride between
     // elements to be indsorted
-    template < class T, class iT, class S> static void 
+    template < class T, class iT, class S> static void
       indheap2(const T * data, iT * idx, const size_t stride, const size_t N, size_t k, const S& comp)
       {
         const iT idki = idx[k*stride];
         while (k <= N >> 1)
           {
             size_t j = k << 1;
-            if (j < N && comp(data[idx[j*stride]], data[idx[(j+1)*stride]])) ++j; 
+            if (j < N && comp(data[idx[j*stride]], data[idx[(j+1)*stride]])) ++j;
             if (!(comp(data[idki], data[idx[j*stride]]))) break; /* avoid infinite loop if nan */
-            idx[k*stride] = idx[j*stride]; 
+            idx[k*stride] = idx[j*stride];
             k = j;
           }
-        idx[k*stride] = idki; 
+        idx[k*stride] = idki;
       }
-    
+
     template < class T, class iT, class S > static void
       indtri2 (T * data, iT* idx, const size_t stride, const size_t n, const S& comp)
       {
@@ -405,21 +405,21 @@ namespace nt2 { namespace ext
            '0' Set N to the last element number. */
         size_t N = n - 1;
         size_t k = N >> 1;
-        ++k; //Compensate the first use of '--k' 
+        ++k; //Compensate the first use of '--k'
         do
           {
             --k;
             indheap2(data, idx, stride, N, k, comp);
           } while (k > 0);
-        
+
         while (N > 0)
           {
             // first swap the elements
-            std::swap(idx[0],idx[N*stride]); 
+            std::swap(idx[0],idx[N*stride]);
 //             iT itmp = idx[0 * stride];
 //             idx[0 * stride] = idx[N * stride];
 //             idx[N * stride] = itmp;
-            // then process the heap 
+            // then process the heap
             N--;
             indheap2(data, idx, stride, N, 0, comp);
           }

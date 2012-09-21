@@ -9,23 +9,11 @@
 #ifndef NT2_SDK_META_TIEABLE_HIERARCHY_HPP_INCLUDED
 #define NT2_SDK_META_TIEABLE_HIERARCHY_HPP_INCLUDED
 
-#include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/meta/hierarchy_of.hpp>
-
-namespace boost { namespace dispatch { namespace meta
-{
-    //==========================================================================
-    // Tie-able node hierarchy
-    //==========================================================================
-    template<class Tag> struct tieable_ : unspecified_<Tag>
-    {
-      typedef unspecified_<Tag> parent;
-    };
-} } }
+#include <boost/simd/sdk/functor/hierarchy.hpp>
 
 namespace nt2 { namespace ext
 {
-  using boost::dispatch::meta::tieable_;
+  using boost::simd::ext::tieable_;
 } }
 
 #endif
