@@ -10,7 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_IMPL_DIVIDES_FLOAT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
-#include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/include/functions/rec.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,12 +24,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type erb   = vec_re(a1());
-      result_type rec_b = vec_madd( vec_nmsub(erb(), a1(), One<result_type>()())
-                                    , erb()
-                                    , erb()
-                                    );
-      return vec_madd(a0(),rec_b(),Zero<result_type>()());
+      return vec_madd(a0(),rec(a1)(),Zero<result_type>()());
     }
   };
 } } }
