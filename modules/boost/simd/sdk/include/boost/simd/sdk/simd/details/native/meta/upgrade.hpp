@@ -21,8 +21,8 @@ namespace boost { namespace dispatch { namespace meta
 {
 ////////////////////////////////////////////////////////////////////////////
 // Extension Point for upgrade on native<T,Ext>.
-// Prevent from upgrading native<float,altivec_> to native<double,altivec_>
-// which is not supported.
+// When the upgrading leads to a none supported type, the metafunction 
+// returns an emulated native of the corresponding upgraded type.
 ////////////////////////////////////////////////////////////////////////////
 
   template<class T, class Ext, class Sign>
@@ -35,9 +35,8 @@ namespace boost { namespace dispatch { namespace meta
   };
 
 ////////////////////////////////////////////////////////////////////////////
-// Extension Point for upgrade on native<T,Ext>. 
-// Prevent from upgrading native<logical<float>,altivec_> to native<logical<double>,altivec_> 
-// which is not supported.
+// Extension Point for upgrade on native<logical<T>,Ext>. 
+// 
 ////////////////////////////////////////////////////////////////////////////
 
   template<class T, class Ext, class Sign>

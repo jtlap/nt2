@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/simd/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/simd/meta/extension_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/mpl/and.hpp>
@@ -26,15 +27,23 @@ namespace boost { namespace simd { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is upgradeable
   /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_, tag::cpu_,
-                              (A0)(A1)(X),
-                              (boost::mpl::and_ <
-                                boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::upgrade<A0>::type> >,
-                                boost::is_same<A1, typename dispatch::meta::upgrade<A0>::type>
-                              >),
-                              ((simd_<arithmetic_<A0>,X>))
-                              ((simd_<arithmetic_<A1>,X>))
-                              ((simd_<arithmetic_<A1>,X>))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::split_
+                                      , tag::cpu_
+                                      , (A0)(A1)(X)(Y)
+                                      , ( boost::mpl::and_ <
+                                            boost::mpl::not_< 
+                                              boost::is_same< A0
+                                                            , typename dispatch::meta::upgrade<A0>::type
+                                                            > 
+                                            >
+                                        , boost::is_same< A1
+                                                        , typename dispatch::meta::upgrade<A0>::type
+                                                        >
+                                          >
+                                        )
+                                      , ((simd_<arithmetic_<A0>,X>))
+                                        ((simd_<arithmetic_<A1>,Y>))
+                                        ((simd_<arithmetic_<A1>,Y>))
                             )
   {
     typedef int result_type;    
