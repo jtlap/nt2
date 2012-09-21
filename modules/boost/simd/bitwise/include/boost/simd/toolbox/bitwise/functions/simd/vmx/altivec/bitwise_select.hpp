@@ -17,10 +17,10 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_select_, boost::simd::tag::altivec_
-             , (A0)(A1)(X)
-             , ((simd_< arithmetic_<A0>, X >))
-               ((simd_< arithmetic_<A1>, X >))
-               ((simd_< arithmetic_<A1>, X >))
+             , (A0)(A1)
+             , ((simd_< arithmetic_<A0>, boost::simd::tag::altivec_ >))
+               ((simd_< arithmetic_<A1>, boost::simd::tag::altivec_ >))
+               ((simd_< arithmetic_<A1>, boost::simd::tag::altivec_ >))
              )
   {
     typedef A1 result_type;
