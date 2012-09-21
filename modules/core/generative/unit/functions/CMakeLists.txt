@@ -25,7 +25,10 @@ SET( SOURCES
   ones.cpp
   pispace.cpp
   rand.cpp
+  rephorz.cpp
+  repmat.cpp
   repnum.cpp
+  repvert.cpp
   ric.cpp
   rif.cpp
   rows.cpp
