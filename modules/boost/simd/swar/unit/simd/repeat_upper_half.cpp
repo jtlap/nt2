@@ -28,6 +28,8 @@ NT2_TEST_CASE_TPL(repeat_upper_half, BOOST_SIMD_SIMD_TYPES)
   for(std::size_t i=1; i<=card; ++i)
   { a[i-1]=T(i); }
   c = boost::simd::repeat_upper_half(a);
+  std::cout << "a " << a << std::endl;
+  std::cout << "c " << c << std::endl;
   for(std::size_t i=0; i<card; ++i)
     NT2_TEST_EQUAL(c[i],(i<(card/2)?a[i+card/2]:a[i]));
 } 
