@@ -12,6 +12,8 @@
 #include <boost/mpl/if.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
@@ -26,13 +28,10 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Ext, class Sign>
   struct upgrade< typename boost::simd::native<T, Ext>, Sign >
   {
-    typedef typename dispatch::meta::upgrade<T,Sign>::type uT;
-    typedef typename
-    boost::mpl::if_< typename
-                     simd::meta::is_vectorizable<uT,Ext>::type
-                   , typename simd::native<uT,Ext>
-                   , typename simd::native< T,Ext>
-                   >::type type;
+    typedef typename 
+    simd::meta::vector_of< typename dispatch::meta::upgrade<T,Sign>::type
+                         , simd::meta::cardinal_of< simd::native<T,Ext> >::value/2
+                         >::type type;
   };
 
 ////////////////////////////////////////////////////////////////////////////
@@ -44,13 +43,11 @@ namespace boost { namespace dispatch { namespace meta
   template<class T, class Ext, class Sign>
   struct upgrade< typename boost::simd::native<boost::simd::logical<T>, Ext>, Sign >
   {
-    typedef typename dispatch::meta::upgrade<T,Sign>::type uT;
     typedef typename 
-    boost::mpl::if_< typename 
-                     simd::meta::is_vectorizable<uT,Ext>::type 
-                     , typename simd::native<simd::logical<uT>,Ext>
-                     , typename simd::native<simd::logical< T>,Ext>
-                   >::type type;
+    simd::meta::vector_of< typename dispatch::meta::upgrade<T,Sign>::type
+                         , simd::meta::cardinal_of< simd::native< boost::simd::logical<T>
+                                                                , Ext> >::value/2
+                         >::type type;
   };
 
 } } }
