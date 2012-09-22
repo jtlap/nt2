@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::native;
   using boost::dispatch::meta::downgrade;
@@ -29,15 +29,17 @@ NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>             native_t;
   typedef typename downgrade<T>::type   base_t;
+  typedef typename downgrade<T,unsigned>::type ubase_t;
 
   native_t a0; 
   NT2_TEST_EXPR_TYPE( a0, downgrade<_>, (native<base_t,ext_t>) );
+  NT2_TEST_EXPR_TYPE( a0, (downgrade<_,unsigned>), (native<ubase_t,ext_t>) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD logical types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_logical_native, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade_logical_native, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::logical;
   using boost::simd::native;
@@ -47,15 +49,17 @@ NT2_TEST_CASE_TPL(downgrade_logical_native, BOOST_SIMD_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<logical<T>,ext_t>      native_t;
   typedef typename downgrade<T>::type   base_t;
+  typedef typename downgrade<T,unsigned>::type ubase_t;
 
   native_t a0; 
   NT2_TEST_EXPR_TYPE( a0, downgrade<_>, (native<logical<base_t>,ext_t>) );
+  NT2_TEST_EXPR_TYPE( a0, (downgrade<_,unsigned>), (native<logical<ubase_t>,ext_t>) );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD pack types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_pack, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade_pack, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::pack;
   using boost::dispatch::meta::downgrade;
@@ -64,15 +68,17 @@ NT2_TEST_CASE_TPL(downgrade_pack, BOOST_SIMD_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef pack<T>                           pack_t;
   typedef typename downgrade<T>::type       base_t;
+  typedef typename downgrade<T,unsigned>::type ubase_t;
 
   pack_t a0;
   NT2_TEST_EXPR_TYPE( a0, downgrade<_>, pack<base_t> );
+  NT2_TEST_EXPR_TYPE( a0, (downgrade<_,unsigned>), pack<ubase_t> );
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test that downgrade is correct for SIMD logical pack types
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE_TPL(downgrade_logical_pack, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL(downgrade_logical_pack, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::logical;
   using boost::simd::pack;
@@ -82,7 +88,9 @@ NT2_TEST_CASE_TPL(downgrade_logical_pack, BOOST_SIMD_SIMD_TYPES)
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef pack< logical<T> >                pack_t;
   typedef typename downgrade<T>::type       base_t;
+  typedef typename downgrade<T,unsigned>::type ubase_t;
 
   pack_t a0;
   NT2_TEST_EXPR_TYPE( a0, downgrade<_>, pack< logical<base_t> > );
+  NT2_TEST_EXPR_TYPE( a0, (downgrade<_,unsigned>), pack< logical<ubase_t> > );
 }
