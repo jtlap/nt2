@@ -7,4 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_CORE.REDUCTION_DEPENDENCIES_EXTRA sdk.simd boost.simd.reduction core.manip core.sdk)
+SET ( NT2_CORE.REDUCTION_DEPENDENCIES_EXTRA sdk.simd  boost.simd.reduction
+                                            core.sdk  core.restructuring
+    )
