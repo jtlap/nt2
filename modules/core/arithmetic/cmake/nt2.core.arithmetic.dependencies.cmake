@@ -10,4 +10,5 @@
 SET ( NT2_CORE.ARITHMETIC_DEPENDENCIES_EXTRA  sdk.simd
                                               boost.simd.arithmetic
                                               core.reduction
+                                              core.utility
     )

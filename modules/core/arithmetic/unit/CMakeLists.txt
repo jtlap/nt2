@@ -7,6 +7,11 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit extern.standard extern.libc)
+nt2_module_use_modules( unit
+                        extern.standard extern.libc
+                        core.container.table
+                      )
+
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)
+ADD_SUBDIRECTORY(table)

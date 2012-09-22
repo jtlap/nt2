@@ -8,28 +8,13 @@
 ##############################################################################
 
 SET( SOURCES
-  along.cpp
-  blkdiag.cpp
-  cat.cpp
-  colvect.cpp
-  diag_of.cpp
-  expand.cpp
-  expand_to.cpp
-  flipdim.cpp
-  fliplr.cpp
-  flipud.cpp
-  from_diag.cpp
-  horzcat.cpp
-  hyper.cpp
-  ifvectvert.cpp
-  putalong.cpp
-  reshape.cpp
-  resize.cpp
-  rowvect.cpp
-  squeeze.cpp
-  trans.cpp
-  vertcat.cpp
-# List of simd test files for toolbox generative
+  band.cpp
+  line.cpp
+  triu.cpp
+  tril.cpp
+  tri1u.cpp
+  tri1l.cpp
+# List of simd test files for toolbox extractive
    )
 
-nt2_module_add_tests(core.manip.functions.unit ${SOURCES})
+nt2_module_add_tests(core.extractive.functions.unit ${SOURCES})

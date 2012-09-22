@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  select.cpp
+  negif.cpp
 # List of scalar test files for toolbox boolean
    )
 

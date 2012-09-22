@@ -7,5 +7,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit core.container.placeholders core.container.table)
-ADD_SUBDIRECTORY(scalar)
+SET( SOURCES
+  center.cpp
+# List of simd test files for toolbox arithmetic
+   )
+
+nt2_module_add_tests(core.arithmetic.table.unit ${SOURCES})

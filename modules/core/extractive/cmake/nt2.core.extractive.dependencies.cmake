@@ -7,5 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(NT2Module)
-nt2_module_source_setup(core.manip)
+SET ( NT2_CORE.EXTRACTIVE_DEPENDENCIES_EXTRA core.sdk core.utility
+    )

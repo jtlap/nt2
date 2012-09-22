@@ -7,10 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.INTERPOL_DEPENDENCIES_EXTRA  core.arithmetic     core.bitwise
-                                            core.boolean        core.constant
-                                            core.ieee           core.operator
-                                            core.predicates     core.reduction
-                                            core.polynomials    core.exponential
-                                            core.trigonometric  core.utility
-    )
+include(NT2Module)
+nt2_module_source_setup(core.restructuring)

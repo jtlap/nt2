@@ -8,33 +8,28 @@
 ##############################################################################
 
 SET( SOURCES
-  cic.cpp
-  cif.cpp
-  colon.cpp
-  cols.cpp
-  eye.cpp
-  falses.cpp
-  freqspace.cpp
-  freqspace1.cpp
-  freqspace2.cpp
-  indices.cpp
-  infs.cpp
-  linspace.cpp
-  logspace.cpp
-  nans.cpp
-  ones.cpp
-  pispace.cpp
-  rand.cpp
-  rephorz.cpp
-  repmat.cpp
-  repnum.cpp
-  repvert.cpp
-  ric.cpp
-  rif.cpp
-  rows.cpp
-  trues.cpp
-  zeros.cpp
+  along.cpp
+  blkdiag.cpp
+  cat.cpp
+  colvect.cpp
+  diag_of.cpp
+  expand.cpp
+  expand_to.cpp
+  flipdim.cpp
+  fliplr.cpp
+  flipud.cpp
+  from_diag.cpp
+  horzcat.cpp
+  hyper.cpp
+  ifvectvert.cpp
+  putalong.cpp
+  reshape.cpp
+  resize.cpp
+  rowvect.cpp
+  squeeze.cpp
+  trans.cpp
+  vertcat.cpp
 # List of simd test files for toolbox generative
    )
 
-nt2_module_add_tests(core.generative.functions.unit ${SOURCES})
+nt2_module_add_tests(core.restructuring.table.unit ${SOURCES})

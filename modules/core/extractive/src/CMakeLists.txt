@@ -7,7 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.MANIP_DEPENDENCIES_EXTRA sdk.simd
-                                        core.utility
-                                        core.predicates
-    )
+include(NT2Module)
+nt2_module_source_setup(core.extractive)

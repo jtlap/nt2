@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  select.cpp
+  negif.cpp
 # List of simd test files for toolbox boolean
    )
 
