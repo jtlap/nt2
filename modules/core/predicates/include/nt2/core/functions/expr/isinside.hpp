@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_EXPR_ISINSIDE_HPP_INCLUDED
 
 #include <nt2/core/functions/isinside.hpp>
-#include <nt2/core/container/category.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 
 namespace nt2 { namespace ext

@@ -8,4 +8,5 @@
 ################################################################################
 
 SET ( NT2_CORE.GENRATIVE_DEPENDENCIES_EXTRA core.sdk core.utility
+                                            core.container.placeholders
     )

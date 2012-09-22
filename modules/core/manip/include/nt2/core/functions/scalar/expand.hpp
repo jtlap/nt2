@@ -10,7 +10,6 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_EXPAND_HPP_INCLUDED
 
 #include <nt2/core/functions/expand.hpp>
-#include <nt2/core/container/category.hpp>
 #include <nt2/core/utility/box.hpp>
 
 namespace nt2 { namespace ext

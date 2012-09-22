@@ -9,4 +9,5 @@
 
 SET ( NT2_CORE.MANIP_DEPENDENCIES_EXTRA sdk.simd
                                         core.utility
+                                        core.predicates
     )
