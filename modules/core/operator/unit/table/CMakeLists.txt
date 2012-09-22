@@ -7,10 +7,10 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules( unit core.bitwise
-                        core.container.table core.container.placeholders
-                      )
+SET( SOURCES
+  cast.cpp
+  subscript.cpp
+  )
 
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
-ADD_SUBDIRECTORY(table)
+nt2_module_add_tests(core.operator.table.unit ${SOURCES})
+
