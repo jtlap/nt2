@@ -20,7 +20,7 @@
 #include <boost/proto/fusion.hpp>
 #include <boost/fusion/include/for_each.hpp>
 
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
 #include <nt2/core/utility/of_size.hpp>
 #include <nt2/sdk/parameters.hpp>
@@ -28,8 +28,8 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/sdk/unit/display_type.hpp>
 
-namespace boost { namespace serialization 
-{ 
+namespace boost { namespace serialization
+{
   //==========================================================================
   // First entry point of the serialization in table<T,S>
   //==========================================================================
@@ -54,11 +54,11 @@ namespace boost { namespace serialization
   inline void serialize( Archive & ar, nt2::table<T,S,D>& t
                        , unsigned int const& file_version)
   {
-    split_free(ar, t, file_version); 
+    split_free(ar, t, file_version);
   }
 
   //==========================================================================
-  // Down in expression, serialized its extent member 
+  // Down in expression, serialized its extent member
   //==========================================================================
   template<class Archive, class E, class R, class D>
   void save( Archive& ar, const nt2::container::expression<E,R,D>& e
@@ -75,7 +75,7 @@ namespace boost { namespace serialization
                         );
     typedef typename nt2::container::expression<E,R,D>::extent_type e_t;
     typedef typename nt2::meta::strip<e_t>::type size_type;
-    size_type size_ = e.extent(); 
+    size_type size_ = e.extent();
     ar << size_;
     ar << make_array(e.raw(), nt2::numel(e));
   }
@@ -107,7 +107,7 @@ namespace boost { namespace serialization
                        , unsigned int const& file_version
                        )
   {
-    split_free(ar, e, file_version); 
+    split_free(ar, e, file_version);
   }
 
   //==========================================================================
@@ -151,7 +151,7 @@ namespace boost { namespace serialization
     typedef Archive archive_type;
     explicit loader_(archive_type& a) : ar(a) {}
     template<class Terminal>
-    void operator()(Terminal& t) const  
+    void operator()(Terminal& t) const
     { ar >> t; }
     archive_type& ar;
   };
@@ -169,7 +169,7 @@ namespace boost { namespace serialization
                         , NT2_INVALID_ACCESS_TO_EXPRESSION_NODES_ON_NON_EXPRESSION
                         , (E)
                         );
-     
+
     typedef typename proto::result_of::
     flatten< nt2::container::expression<E,R,D>& >::type sequence_type;
     sequence_type terminals = boost::proto::flatten(e);
@@ -203,9 +203,6 @@ namespace boost { namespace serialization
   {
     split_free(ar, of, file_version);
   }
-
 } }
-
-
 
 #endif

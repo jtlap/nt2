@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<child0>::type                        st_child0;
     typedef typename st_child0::value_type                           value_type;
     typedef typename st_child0::index_type                           index_type;
-    typedef table<value_type,index_type>                                  res_t;
+    typedef container::table<value_type,index_type>                       res_t;
     typedef typename st_child0::extent_type                               ext_t;
     typedef typename meta::call<nt2::tag::ind2sub_(ext_t,size_t)>::type   sub_t;
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const

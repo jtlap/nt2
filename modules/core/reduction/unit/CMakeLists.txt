@@ -9,4 +9,4 @@
 
 nt2_module_use_modules(unit core.bitwise core.container.table)
 ADD_SUBDIRECTORY(simd)
-ADD_SUBDIRECTORY(functions)
+ADD_SUBDIRECTORY(table)

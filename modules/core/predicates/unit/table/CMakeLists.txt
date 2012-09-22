@@ -8,34 +8,30 @@
 ##############################################################################
 
 SET( SOURCES
-    global.cpp
-    globalall.cpp
-    globalany.cpp
-    globalsum.cpp
-    globalprod.cpp
-    all.cpp
-    any.cpp
-    asum1.cpp
-    asum2.cpp
-    asump.cpp
-    dot.cpp
-    maximum.cpp
-#    medianad.cpp
-    median.cpp
-    mean.cpp
-    meanad.cpp
-    minimum.cpp
-    none.cpp
-    norm2.cpp
-    normp.cpp
-    prod.cpp
-    sum.cpp
-    var.cpp
-    wmean.cpp
-    nansum.cpp
-    nanmean.cpp
-    nanasum2.cpp
-# List of test files for toolbox core.settings
+  iscolumn.cpp
+  isdiagonal.cpp
+  isempty.cpp
+  isequal.cpp
+  isequaln.cpp
+  isexpandable_to.cpp
+  isfloating.cpp
+  ishermitian.cpp
+  isinside.cpp
+  isinteger.cpp
+  ismatrix.cpp
+  isreal.cpp
+  isrow.cpp
+  isscalar.cpp
+  issorted.cpp
+  issquare.cpp
+  issymetric.cpp
+  istriangular.cpp
+  istril.cpp
+  istriu.cpp
+  isulpequal.cpp
+  isvectoralong.cpp
+  isvector.cpp
+# List of table test files for toolbox predicates
    )
 
-nt2_module_add_tests(core.reduction.functions.unit ${SOURCES})
+nt2_module_add_tests(core.predicates.table.unit ${SOURCES})

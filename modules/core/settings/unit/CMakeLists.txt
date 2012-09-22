@@ -8,5 +8,4 @@
 ##############################################################################
 
 nt2_module_use_modules(unit core.container.table)
-ADD_SUBDIRECTORY(scalar)
-
+ADD_SUBDIRECTORY(settings)
