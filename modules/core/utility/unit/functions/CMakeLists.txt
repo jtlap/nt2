@@ -31,7 +31,6 @@ SET( SOURCES
   relative_index.cpp
   relative_size.cpp
   size.cpp
-  sort.cpp
   sx.cpp
   tie.cpp
   tsxfun.cpp

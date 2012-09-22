@@ -8,34 +8,9 @@
 ##############################################################################
 
 SET( SOURCES
-    asum1.cpp
-    asum2.cpp
-    asump.cpp
-    all.cpp
-    any.cpp
-    dot.cpp
-    global.cpp
-    globalall.cpp
-    globalany.cpp
-    globalsum.cpp
-    globalprod.cpp
-    maximum.cpp
-#    medianad.cpp
-    median.cpp
-    mean.cpp
-    meanad.cpp
-    minimum.cpp
-    none.cpp
-    norm2.cpp
-    normp.cpp
-    prod.cpp
-    sum.cpp
-    var.cpp
-    wmean.cpp
-    nansum.cpp
-    nanmean.cpp
-    nanasum2.cpp
-# List of test files for toolbox core.reduction
+  cumsum.cpp
+  sort.cpp
+# List of simd test files for toolbox swar
    )
 
-nt2_module_add_tests(core.reduction.table.unit ${SOURCES})
+nt2_module_add_tests(core.swar.table.unit ${SOURCES})
