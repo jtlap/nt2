@@ -13,41 +13,17 @@
 #include <boost/simd/sdk/simd/pack/forward.hpp>
 
 namespace boost { namespace dispatch
-{
-    namespace details { namespace simd
-    {
-        template<typename T, typename U>
-        struct downgrade;
-        
-        template< class Type
-                , std::size_t Cardinal
-                >
-        struct downgrade< boost::simd::pack<Type, Cardinal>, Type >
-        {
-            typedef boost::simd::pack<Type, Cardinal> type;
-        };
-        
-        template< class Type
-                , std::size_t Cardinal
-                , class DownType
-                >
-        struct downgrade< boost::simd::pack<Type, Cardinal>, DownType >
-        {
-            typedef boost::simd::pack<DownType, Cardinal*2> type;
-        };
-    } }
-    
+{   
     namespace meta
     {
         template< class Type
                 , std::size_t Cardinal
+                , class Sign
                 >
-        struct downgrade< boost::simd::pack<Type, Cardinal> >
+        struct downgrade< boost::simd::pack<Type, Cardinal>, Sign >
         {
-            typedef typename boost::dispatch::details::simd::downgrade<
-                boost::simd::pack<Type, Cardinal>
-              , typename downgrade<Type>::type
-            >::type type;
+            typedef typename downgrade<Type, Sign>::type dT;
+            typedef boost::simd::pack<dT, Cardinal*2> type;
         };
     }
 } }

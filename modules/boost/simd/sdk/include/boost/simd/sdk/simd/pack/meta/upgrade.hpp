@@ -11,51 +11,22 @@
 
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/mpl/if.hpp>
 
 
 namespace boost { namespace dispatch
-{
-    namespace details { namespace simd
-    {
-        template<typename T, typename U>
-        struct upgrade;
-        
-        template< class Type
-                , std::size_t Cardinal
-                >
-        struct upgrade< boost::simd::pack<Type, Cardinal>, Type >
-        {
-            typedef boost::simd::pack<Type, Cardinal> type;
-        };
-        
-        template< class Type
-                , std::size_t Cardinal
-                , class UpType
-                >
-        struct upgrade< boost::simd::pack<Type, Cardinal>, UpType >
-        {  
-          typedef boost::simd::pack<UpType, Cardinal/2> type;
-        };
-    } }
-    
+{   
     namespace meta
     {
         template< class Type
                 , std::size_t Cardinal
+                , class Sign
                 >
-        struct upgrade< boost::simd::pack<Type, Cardinal> >
+        struct upgrade< boost::simd::pack<Type, Cardinal>, Sign>
         {
-          typedef typename upgrade<Type>::type uT;
-
-          typedef typename
-          boost::mpl::if_< typename 
-                           simd::meta::is_vectorizable<uT,BOOST_SIMD_DEFAULT_EXTENSION>::type
-                           , typename boost::dispatch::details::simd::upgrade<
-                                          boost::simd::pack<Type, Cardinal>
-                                        , uT>::type
-                           , typename boost::simd::pack<Type, Cardinal>
-                           >::type type;
+          typedef typename upgrade<Type, Sign>::type uT;
+          typedef boost::simd::pack<uT, Cardinal/2> type;
         };
     }
   
