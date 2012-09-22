@@ -39,10 +39,7 @@ namespace nt2 { namespace tag
      *        in namespace nt2::tag for toolbox algebra
     **/
     struct rot90_   :  tag::formal_ { typedef tag::formal_ parent; };
-    struct rot90x0_ :  tag::formal_ { typedef tag::formal_ parent; };
-    struct rot90x1_ :  tag::formal_ { typedef tag::formal_ parent; };
-    struct rot90x2_ :  tag::formal_ { typedef tag::formal_ parent; };
-    struct rot90x3_ :  tag::formal_ { typedef tag::formal_ parent; };
+
   }
   
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rot90_, rot90, 2)
