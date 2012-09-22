@@ -30,13 +30,13 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type                  sctype;
       typedef simd::native<sctype, boost::simd::tag::sse_ >       svtype;
-      typedef simd::native<sctype, boost::simd::tag::avx_ >        vtype;
+
       svtype a00 = _mm256_extractf128_ps(a0, 0);
       svtype a01 = _mm256_extractf128_ps(a0, 1);
       svtype a10 = _mm256_extractf128_ps(a1, 0);
       svtype a11 = _mm256_extractf128_ps(a1, 1);
-      vtype that = _mm256_insertf128_ps(that,boost::simd::deinterleave_second(a00, a01), 0);
-      return  simd::bitwise_cast<A0>(_mm256_insertf128_ps(that,  boost::simd::deinterleave_second(a10, a11), 1));
+      result_type that = _mm256_insertf128_ps(that,boost::simd::deinterleave_second(a00, a01), 0);
+      return _mm256_insertf128_ps(that,  boost::simd::deinterleave_second(a10, a11), 1);
      }
   };
   
@@ -58,42 +58,35 @@ namespace boost { namespace simd { namespace ext
       svtype a01 = _mm256_extractf128_pd(a0, 1);
       svtype a10 = _mm256_extractf128_pd(a1, 0);
       svtype a11 = _mm256_extractf128_pd(a1, 1);
-      vtype that = _mm256_insertf128_pd(that,boost::simd::deinterleave_second(a00, a01), 0);
-      return  simd::bitwise_cast<A0>(_mm256_insertf128_pd(that,  boost::simd::deinterleave_second(a10, a11), 1));
+      result_type that = _mm256_insertf128_pd(that,boost::simd::deinterleave_second(a00, a01), 0);
+      return  _mm256_insertf128_pd(that,  boost::simd::deinterleave_second(a10, a11), 1);
      }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_second_
                                    , boost::simd::tag::avx_
                                    , (A0)
-                                   , ((simd_<type32_<A0>,boost::simd::tag::avx_>))
-                                     ((simd_<type32_<A0>,boost::simd::tag::avx_>))
+                                   , ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
+                                     ((simd_<arithmetic_<A0>,boost::simd::tag::avx_>))
                                    )
   {
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
     {
-      typedef typename dispatch::meta::as_floating<A0>::type  ftype;
-      return  simd::bitwise_cast<A0>(boost::simd::deinterleave_second(bitwise_cast<ftype>(a0),
-                                                                     bitwise_cast<ftype>(a1)));
+      typedef typename meta::scalar_of<A0>::type                  sctype;
+      typedef simd::native<sctype, boost::simd::tag::sse_ >       svtype;
+      typedef simd::native<sctype, boost::simd::tag::avx_ >        vtype;
+
+      svtype a00 = _mm256_extractf128_si256(a0, 0);
+      svtype a01 = _mm256_extractf128_si256(a0, 1);
+      svtype a10 = _mm256_extractf128_si256(a1, 0);
+      svtype a11 = _mm256_extractf128_si256(a1, 1);
+      result_type that = _mm256_insertf128_si256(that,boost::simd::deinterleave_second(a00, a01), 0);
+      return  _mm256_insertf128_si256(that,  boost::simd::deinterleave_second(a10, a11), 1);
+
      }
   };
   
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_second_
-                                   , boost::simd::tag::avx_
-                                   , (A0)
-                                   , ((simd_<type64_<A0>,boost::simd::tag::avx_>))
-                                     ((simd_<type64_<A0>,boost::simd::tag::avx_>))
-                                   )
-  {
-    typedef A0 result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1) const
-    {
-      typedef typename dispatch::meta::as_floating<A0>::type  ftype;
-      return  simd::bitwise_cast<A0>(boost::simd::deinterleave_second(bitwise_cast<ftype>(a0),
-                                                                     bitwise_cast<ftype>(a1)));
-     }
-  };
 
 } } }
 
