@@ -26,7 +26,7 @@
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/divides.hpp>
 
-NT2_TEST_CASE_TPL ( group_groupable__2_0,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
+NT2_TEST_CASE_TPL ( group_groupable__2_0, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
@@ -49,18 +49,18 @@ NT2_TEST_CASE_TPL ( group_groupable__2_0,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   typedef typename boost::dispatch::meta::call<group_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-
+  
   // specific values tests
   NT2_TEST_EQUAL(group(One<vT>(),  One<vT>())[0],  One<sr_t>());
   std::cout << "group(One<vT>(),  One<vT>())" << group(One<vT>(),  One<vT>()) << "-> " << One<sr_t>() << std::endl; 
   NT2_TEST_EQUAL(group(Zero<vT>(), Zero<vT>())[0], Zero<sr_t>());
   std::cout << "group(Zero<vT>(),  Zero<vT>())" << group(Zero<vT>(),  Zero<vT>()) << "-> " << Zero<sr_t>() << std::endl; 
   NT2_TEST_EQUAL(group(Valmax<vT>()/Two<vT>(), Valmax<vT>()/Two<vT>())[0], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>()/Two<vT>(),  Valmax<vT>()/Two<vT>()) << "-> " << Inf<sr_t>() << std::endl; 
+  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>()/Two<vT>(),  Valmax<vT>()/Two<vT>()) << std::endl<< "-> " << Inf<sr_t>() << std::endl; 
   NT2_TEST_EQUAL(group(Valmin<vT>()/Two<vT>(), Valmin<vT>()/Two<vT>())[0], Minf<sr_t>());   
   std::cout << "group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>())" << group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>()) << "-> " << Minf<sr_t>() << std::endl; 
   NT2_TEST_EQUAL(group(Valmax<vT>(), Valmax<vT>())[0], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>(),  Valmax<vT>()) << "-> " << Inf<sr_t>() << std::endl; 
+  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>(),  Valmax<vT>()) << std::endl<< "-> " << Inf<sr_t>() << std::endl; 
   NT2_TEST_EQUAL(group(Valmin<vT>(), Valmin<vT>())[0], Minf<sr_t>());   
   std::cout << "group(Valmin<vT>(),  Valmin<vT>())" << group(Valmin<vT>(),  Valmin<vT>()) << "-> " << Minf<sr_t>() << std::endl; 
 } // end of test for groupable_
