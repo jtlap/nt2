@@ -19,6 +19,7 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/always.hpp>
 #include <boost/mpl/eval_if.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/type_traits/is_void.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
@@ -50,18 +51,19 @@ namespace boost { namespace dispatch { namespace ext
   {
     typedef typename meta::factory_of<T>::type    lambda;
     typedef typename meta::primitive_of<T>::type  base;
+ 
+    BOOST_MPL_ASSERT_MSG( (sizeof(base) < 8)
+                       , TYPE_CAN_NOT_BE_UPGRADED
+                       , (T)
+                       );
 
     typedef typename mpl::eval_if < is_void<Sign>
                                   , meta::sign_of<T>
                                   , mpl::identity<Sign>
                                   >::type         sign;
 
-    BOOST_STATIC_CONSTANT ( std::size_t
-                          , size = (sizeof(base) < 8) ? sizeof(base)*2 : 8    
-                          );
-
     typedef typename 
-            meta::make_integer<size,sign,lambda>::type type;
+            meta::make_integer<sizeof(base)*2,sign,lambda>::type type;
   };
 
   template<typename T, typename Sign>
@@ -72,11 +74,12 @@ namespace boost { namespace dispatch { namespace ext
     typedef typename meta::factory_of<T>::type    lambda;
     typedef typename meta::primitive_of<T>::type  base;
 
-    BOOST_STATIC_CONSTANT ( std::size_t
-                          , size = (sizeof(base) < 8) ? sizeof(base)*2 : 8    
-                          );
+    BOOST_MPL_ASSERT_MSG( (sizeof(base) < 8)
+                       , TYPE_CAN_NOT_BE_UPGRADED
+                       , (T)
+                       );
 
-    typedef typename meta::make_floating<size,lambda>::type  type;
+    typedef typename meta::make_floating<sizeof(base)*2,lambda>::type  type;
   };
 } } }
 

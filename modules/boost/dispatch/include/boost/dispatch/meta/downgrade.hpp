@@ -95,16 +95,17 @@ namespace boost { namespace dispatch { namespace ext
     typedef typename meta::factory_of<T>::type    lambda;
     typedef typename meta::primitive_of<T>::type  base;
 
+    BOOST_MPL_ASSERT_MSG( (sizeof(base) > 1)
+                        , TYPE_CAN_NOT_BE_DOWNGRADED
+                        , (T)
+                       );
+
     typedef typename mpl::eval_if < is_void<Sign>
                                   , meta::sign_of<T>
                                   , mpl::identity<Sign>
                                   >::type         sign;
 
-    BOOST_STATIC_CONSTANT ( std::size_t
-                          , size = (sizeof(base) > 1) ? sizeof(base)/2 : 1
-                          );
-
-    typedef typename meta::make_integer<size,sign,lambda>::type type;
+    typedef typename meta::make_integer<sizeof(base)/2,sign,lambda>::type type;
   };
 
   template<typename T, typename Sign>
@@ -115,11 +116,12 @@ namespace boost { namespace dispatch { namespace ext
     typedef typename meta::factory_of<T>::type    lambda;
     typedef typename meta::primitive_of<T>::type  base;
 
-    BOOST_STATIC_CONSTANT ( std::size_t
-                          , size = (sizeof(base) > 4) ? sizeof(base)/2 : 4
-                          );
+    BOOST_MPL_ASSERT_MSG( (sizeof(base) > 4)
+                        , TYPE_CAN_NOT_BE_DOWNGRADED
+                        , (T)
+                        );
 
-    typedef typename meta::make_floating<size,lambda>::type  type;
+    typedef typename meta::make_floating<sizeof(base)/2,lambda>::type  type;
   };
 } } }
 
