@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.PREDICATES_DEPENDENCIES_EXTRA  sdk.simd
-                                              boost.simd.predicates
-                                              core.adjacent
+SET ( NT2_CORE.ADJACENT_DEPENDENCIES_EXTRA  core.sdk
+                                            core.utility
+                                            core.container.table
     )
