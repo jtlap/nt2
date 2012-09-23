@@ -9,6 +9,7 @@
 
 SET( SOURCES
   center.cpp
+  linear_interp.cpp
 # List of simd test files for toolbox arithmetic
    )
 
