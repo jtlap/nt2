@@ -33,6 +33,8 @@ namespace nt2 { namespace container
   using boost::simd::operator-=;
   using boost::simd::operator*;
   using boost::simd::operator*=;
+  using boost::simd::operator/;
+  using boost::simd::operator/=;
   using boost::simd::operator%;
   using boost::simd::operator%=;
   using boost::simd::operator<<;
