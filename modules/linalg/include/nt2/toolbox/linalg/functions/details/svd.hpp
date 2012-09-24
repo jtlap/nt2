@@ -278,7 +278,7 @@ namespace nt2 { namespace details
         int j = numel(w_);
         for(; (j > 0) && (w_(j)<= epsi); j--);
         j++;
-        return nt2::fliplr(trans(vt()(_(j, last_index<1>(vt_)), _)));//TODO trans
+        return nt2::fliplr(trans(vt()(_(j, last_index<1>(vt_)), _)));
       }
 
     //==========================================================================
@@ -318,16 +318,6 @@ namespace nt2 { namespace details
     nt2_la_int                    vtcol_;
     nt2_la_int                     info_;
     workspace_t                     wrk_;
-
-//     template < class S>
-//     static tab_t trans(const S& a)
-//     {
-//       tab_t ta = zeros(width(a), height(a), meta::as_<type_t>());
-//       for (size_t i = 1; i <= height(a); ++i)
-//         for (size_t j = 1; j <= width(a); ++j)
-//           ta(j, i) = a(i, j);
-//       return ta;
-//     }
 
   };
 } }

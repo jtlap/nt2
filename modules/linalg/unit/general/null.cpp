@@ -42,5 +42,6 @@ NT2_TEST_CASE_TPL(null, NT2_REAL_TYPES)
   nt2::table<T> rn1 = nt2::zeros(10, 2, nt2::meta::as_<T>());
   rn1(4, 1) = T(-1);
   rn1(1, 2) = T(1); 
-  NT2_TEST(isulpequal(rn1, nulln1)); 
+  NT2_TEST(isulpequal(rn1, nulln1));
+  NT2_DISPLAY(nt2::null(nt2::eye(10, 10, nt2::meta::as_<T>())));
  }
