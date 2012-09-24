@@ -15,7 +15,7 @@
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/simd/sdk/simd/details/native/meta.hpp>
-#include <boost/simd/sdk/simd/details/native/operators.hpp>
+#include <boost/simd/sdk/simd/details/operators.hpp>
 #include <boost/simd/sdk/memory/overload.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 
@@ -70,7 +70,7 @@ namespace boost { namespace simd
       data_ = s.data_;
       return *this;
     }
-    
+
     ////////////////////////////////////////////////////////////////////////////
     // Assignment operator from native vector type
     ////////////////////////////////////////////////////////////////////////////
@@ -87,7 +87,7 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     BOOST_FORCEINLINE operator native_type &           ()             { return data_; }
     BOOST_FORCEINLINE          native_type & operator()()             { return data_; }
-    
+
     BOOST_FORCEINLINE operator native_type const&           ()  const { return data_; }
     BOOST_FORCEINLINE          native_type const& operator()()  const { return data_; }
 
@@ -101,13 +101,13 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     BOOST_FORCEINLINE
     iterator       begin()       { return data(); };
-    
+
     BOOST_FORCEINLINE
     iterator       end()         { return data() + static_size; };
-    
+
     BOOST_FORCEINLINE
     const_iterator begin() const { return data(); };
-    
+
     BOOST_FORCEINLINE
     const_iterator end()   const { return data() + static_size; };
 
@@ -119,9 +119,9 @@ namespace boost { namespace simd
 
     reference       operator[](std::size_t i)       { return data()[i]; }
     const_reference operator[](std::size_t i) const { return data()[i]; }
-    
+
     native_type data_;
-    
+
     BOOST_FORCEINLINE
     iterator data()
     {

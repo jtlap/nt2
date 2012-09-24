@@ -77,7 +77,7 @@ namespace nt2 { namespace container
   //============================================================================
   // proto expression wrapper for nt2 containers
   //============================================================================
-  template<class Expr, class Result, class Dummy>
+  template<class Expr, class Result>
   struct expression : expression_scalar<Expr, Result, meta::is_scalar<Result>::value>
   {
     //==========================================================================
@@ -134,7 +134,6 @@ namespace nt2 { namespace container
 
     //==========================================================================
     // Copy construct from another expression
-    // TODO: Do a smart "copy" of size_ that doesn't involve recomputing it
     //==========================================================================
     BOOST_FORCEINLINE
     expression( expression const& xpr )
@@ -165,7 +164,7 @@ namespace nt2 { namespace container
                               >::type
     operator=(Xpr const& xpr)
     {
-      process( xpr );
+      nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
 
@@ -175,7 +174,7 @@ namespace nt2 { namespace container
                               >::type
     operator=(Xpr const& xpr) const
     {
-      process( xpr );
+      nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
 
@@ -188,39 +187,9 @@ namespace nt2 { namespace container
 
     BOOST_FORCEINLINE expression const& operator=(expression const& xpr) const
     {
-      process( xpr );
+      nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
-
-    //==========================================================================
-    // Op-Assignment operators generate proper tree then evaluate
-    //==========================================================================
-    #define NT2_MAKE_ASSIGN_OP(OP)                                            \
-    template<class Xpr>                                                       \
-    BOOST_FORCEINLINE expression& operator BOOST_PP_CAT(OP,=)(Xpr const& xpr) \
-    {                                                                         \
-      return *this = *this OP xpr;                                            \
-    }                                                                         \
-    template<class Xpr>                                                       \
-    BOOST_FORCEINLINE expression const&                                       \
-    operator BOOST_PP_CAT(OP,=)(Xpr const& xpr) const                         \
-    {                                                                         \
-      return *this = *this OP xpr;                                            \
-    }                                                                         \
-    /**/
-
-    NT2_MAKE_ASSIGN_OP(+)
-    NT2_MAKE_ASSIGN_OP(-)
-    NT2_MAKE_ASSIGN_OP(*)
-    NT2_MAKE_ASSIGN_OP(/)
-    NT2_MAKE_ASSIGN_OP(%)
-    NT2_MAKE_ASSIGN_OP(^)
-    NT2_MAKE_ASSIGN_OP(&)
-    NT2_MAKE_ASSIGN_OP(|)
-    NT2_MAKE_ASSIGN_OP(>>)
-    NT2_MAKE_ASSIGN_OP(<<)
-
-    #undef NT2_MAKE_ASSIGN_OP
 
     //==========================================================================
     // Expression indexing
@@ -288,10 +257,10 @@ namespace nt2 { namespace container
     pointer       raw()
     {
       //========================================================================
-      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      //       ****NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL****
       // If this static assert triggers, the raw memory of a non terminal node
       // has been requested.
-      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      //       ****NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL****
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<Expr>::value == 0)
                           , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
@@ -304,10 +273,10 @@ namespace nt2 { namespace container
     const_pointer raw() const
     {
       //========================================================================
-      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      //          ***NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL****
       // If this static assert triggers, the raw memory of a non terminal node
       // has been requested.
-      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
+      //          ****NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL****
       //========================================================================
       BOOST_MPL_ASSERT_MSG( (boost::proto::arity_of<Expr>::value == 0)
                           , NT2_INVALID_ACCESS_TO_RAW_DATA_ON_NON_TERMINAL
@@ -342,64 +311,7 @@ namespace nt2 { namespace container
       ()(*this, sz);
     }
 
-    protected:
-    //==========================================================================
-    // For any given Xpr expression, if Xpr matches the current grammar, then
-    // the assignment is evaluated. Otherwise, a static assertion is triggered
-    // in a separate function to prevent error cascading.
-    // process exists in non-const and const flavors to support the same const
-    // and non-const variants of operator=
-    //==========================================================================
-    template<class Xpr> BOOST_FORCEINLINE void process( Xpr const& xpr )
-    {
-      typedef typename boost::proto::result_of::as_expr<Xpr>::type lhs_type;
-      process ( xpr
-              , typename boost::proto::matches< lhs_type
-                                              , container::grammar>::type()
-              );
-    }
-
-    template<class Xpr> BOOST_FORCEINLINE void process( Xpr const& xpr ) const
-    {
-      typedef typename boost::proto::result_of::as_expr<Xpr>::type lhs_type;
-      process ( xpr
-              , typename boost::proto::matches< lhs_type
-                                              , container::grammar>::type()
-              );
-    }
-
-    //==========================================================================
-    // Specialization for error cascading prevention
-    //==========================================================================
-    template<class Xpr> BOOST_FORCEINLINE
-    void process( Xpr const& xpr, boost::mpl::true_ const& )
-    {
-      nt2::evaluate( nt2::assign(*this, xpr) );
-    }
-
-    template<class Xpr> BOOST_FORCEINLINE
-    void process( Xpr const& xpr, boost::mpl::true_ const& ) const
-    {
-      nt2::evaluate( nt2::assign(*this, xpr) );
-    }
-
-    template<class Xpr> BOOST_FORCEINLINE
-    void process( Xpr const&, boost::mpl::false_ const& ) const
-    {
-      //========================================================================
-      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
-      // If this static assert triggers, an invalid expression was assigned to
-      // a NT2 reference-like expression. Check your code for bad expression
-      // construction.
-      //                 ****NT2_EXPRESSION_GRAMMAR_MISMATCH****
-      //========================================================================
-      BOOST_MPL_ASSERT_MSG( (sizeof(Xpr) == 0)
-                          , NT2_EXPRESSION_GRAMMAR_MISMATCH
-                          , (Xpr&)
-                          );
-    }
-
-    private:
+  private:
     sizes_t size_;
   };
 } }

@@ -24,7 +24,7 @@
 
 namespace nt2 { namespace container
 {
-  template<class T, class S, class Dummy>
+  template<class T, class S>
   struct  table
         : expression< typename boost::proto::
                       terminal< nt2::memory::container<T,S> >::proto_grammar

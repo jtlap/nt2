@@ -22,33 +22,29 @@
 
 namespace nt2{ namespace ext
 {
-    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::null_, tag::cpu_,
-                                (A0)(A1), 
-                                ((ast_<A0>))
-                                (scalar_<floating_<A1> > )
-                                )
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::null_, tag::cpu_,
+                                       (A0)(A1), 
+                                       ((ast_<A0>))
+                                       (scalar_<floating_<A1> > )
+                                       )
   {
-    typedef typename A0::value_type value_type; 
-    typedef nt2::table<value_type> result_type; 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0, const A1 & a1) const
-    {
-      return nt2::factorization::svd<A0>(a0, 'N', 'O').null(a1); 
-    }
+    BOOST_DISPATCH_RETURNS(2, (const A0& a0, const A1 epsi),
+                           (nt2::factorization::svd<A0>(a0, 'N', 'O').null(epsi))
+                           )
+  }; 
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::null_, tag::cpu_,
+                                     (A0), 
+                                     ((ast_<A0>))
+                                     )
+  {
+    typedef typename A0::value_type               value_type; 
+    BOOST_DISPATCH_RETURNS(1, (const A0& a0),
+                           (nt2::factorization::svd<A0>(a0, 'N', 'O').null(Mone<value_type>()))
+                           )
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::null_, tag::cpu_,
-                              (A0),
-                              ((ast_<A0>))
-                              )
-  {
-    typedef typename A0::value_type value_type;
-    typedef nt2::table<value_type> result_type; 
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
-    {
-      return nt2::factorization::svd<A0>(a0, 'N', 'O').null(Mone<value_type>()); 
-    }
-  };
-
 } }
 
 

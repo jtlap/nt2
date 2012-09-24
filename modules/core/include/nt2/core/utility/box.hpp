@@ -55,7 +55,7 @@ namespace nt2
     expression evaluation. Unless if it fit into the former cases, one should not
     use box to store expression size as this is the job of ext::size_of.
   **/
-  template<class T, class Dummy>
+  template<class T>
   struct box  :
             nt2::container::
             expression< typename boost::proto::nullary_expr<tag::box_,T>::type

@@ -9,47 +9,38 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_PACK_HPP_INCLUDED
 
-#include <boost/proto/traits.hpp>
-#include <boost/dispatch/dsl/call.hpp>
+#include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/simd/sdk/simd/pack/expression.hpp>
+
 #include <boost/simd/sdk/details/aliasing.hpp>
 #include <boost/simd/sdk/simd/pack/meta.hpp>
 #include <boost/simd/sdk/simd/pack/fusion_iterator.hpp>
 #include <boost/simd/sdk/simd/pack/fusion.hpp>
+
+#include <boost/dispatch/dsl/call.hpp>
+#include <boost/simd/sdk/simd/details/operators.hpp>
+#include <boost/simd/sdk/simd/pack/call.hpp>
+
 #include <boost/simd/include/functions/evaluate.hpp>
-#include <boost/simd/include/functions/assign.hpp>
-#include <boost/simd/include/functions/load.hpp>
-#include <boost/simd/include/functions/splat.hpp>
-#include <boost/simd/include/functions/make.hpp>
+#include <boost/simd/include/functions/simd/load.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
+
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/dispatch/dsl/call.hpp>
+
 #include <boost/dispatch/meta/is_iterator.hpp>
-#include <boost/simd/sdk/simd/pack/call.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
-#include <boost/proto/extends.hpp>
-#include <boost/proto/operators.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/type_traits/is_arithmetic.hpp>
-#include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/static_assert.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/pointee.hpp>
 
-#define M1(z, n, arg)\
-  template<class T>\
-  pack(BOOST_PP_ENUM_PARAMS(arg, T const& a), typename enable_if< is_arithmetic<T> >::type* dummy = 0)\
-  {\
-    boost::dispatch::ignore_unused(dummy);                               \
-    proto::value(*this) = make<data_type>(BOOST_PP_ENUM_PARAMS(arg, a)); \
-  }\
-/**/
-
-#define BOOST_SIMD_MAKE_PACK_CONSTRUCTORS(Seq)\
-  BOOST_PP_SEQ_FOR_EACH(M1, ~, Seq)\
-/**/
+#include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
 
 namespace boost { namespace simd
 {
@@ -57,7 +48,7 @@ namespace boost { namespace simd
   // pack, implemented in terms of simd::expr via non-inheritance to preserve
   // PODness of pack throughout the whole system.
   ////////////////////////////////////////////////////////////////////////////
-  template<class Type, std::size_t Cardinal, class Dummy>
+  template<class Type, std::size_t Cardinal>
   struct BOOST_SIMD_MAY_ALIAS pack
     : expression< typename
                   proto::terminal< typename
@@ -94,19 +85,29 @@ namespace boost { namespace simd
                                        >::type&
                       > parent;
 
+    //==========================================================================
+    /*
+     * SIMD pack instanciated with non-power of 2 Cardinal or a Cardinal of 1.
+     */
+    //==========================================================================
+    BOOST_MPL_ASSERT_MSG
+    ( (meta::is_power_of_2_c<Cardinal>::value && Cardinal != 1)
+    , INVALID_SIMD_PACK_CARDINAL
+    , (boost::mpl::int_<Cardinal>)
+    );
+
     pack() {}
 
-    pack(pack const& p)
+    pack(data_type const& p)
     {
-      proto::value(*this) = boost::proto::value(p);
+      proto::value(*this) = p;
     }
 
     template<class ScalarIterator>
     pack( ScalarIterator i
-        , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* dummy = 0)
+        , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* = 0)
     {
       typedef typename boost::pointee<ScalarIterator>::type value_type;
-      boost::dispatch::ignore_unused(dummy); 
       BOOST_STATIC_ASSERT_MSG
       ( (boost::is_same<Type,value_type>::value)
       , "The constructor of pack<T,C> has been called on a iterator"
@@ -129,15 +130,16 @@ namespace boost { namespace simd
     //==========================================================================
     template<class ScalarIterator>
     pack( ScalarIterator b, ScalarIterator e
-        , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* dummy = 0)
+        , typename enable_if< dispatch::meta::is_iterator<ScalarIterator> >::type* = 0)
     {
       BOOST_ASSERT_MSG
       ( ((e-b)==Cardinal)
       , "The constructor of pack<T,C> has been called on a iterator"
         "which alignment is not compatible with current SIMD extension."
       );
-      boost::dispatch::ignore_unused(dummy); 
-      for(int i=0;b!=e;++b,++i) (*this)[i] = *b;
+
+      for(int i=0;b!=e;++b,++i)
+        (*this)[i] = *b;
     }
     //template<class Expr> pack(Expr const& expr) : parent(expr) {}
 
@@ -145,76 +147,25 @@ namespace boost { namespace simd
     // Constructor from unique scalar value -> splat the value
     //==========================================================================
     template<class T>
-    pack(T const& t, typename enable_if< is_arithmetic<T> >::type* dummy = 0)
+    pack(T const& t, typename enable_if< is_arithmetic<T> >::type* = 0)
     {
-      boost::dispatch::ignore_unused(dummy); 
       proto::value(*this) = simd::splat<data_type>(t);
     }
 
     //==========================================================================
     // Create constructors for pack according to the extension specification.
     //==========================================================================
-    BOOST_SIMD_MAKE_PACK_CONSTRUCTORS(BOOST_SIMD_CARDINALS)
-
-    //==========================================================================
-    /*
-     * SIMD pack instanciated with non-power of 2 Cardinal or a Cardinal of 1.
-     */    
-    //==========================================================================
-    BOOST_MPL_ASSERT_MSG
-    ( (meta::is_power_of_2_c<Cardinal>::value && Cardinal != 1)
-    , INVALID_SIMD_PACK_CARDINAL
-    , (boost::mpl::int_<Cardinal>)
-    );
-
-    // Assignment operators force evaluation
-    BOOST_DISPATCH_FORCE_INLINE
-    pack& operator=(pack const& xpr)
-    {
-      boost::simd::evaluate(
-        boost::simd::assign(*this, xpr)
-      );
-      return *this;
-    }
-    
-    template<class Xpr>
-    BOOST_DISPATCH_FORCE_INLINE
-    pack& operator=(Xpr const& xpr)
-    {
-      boost::simd::evaluate(
-        boost::simd::assign(*this, xpr)
-      );
-      return *this;
-    }
-
-    #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                               \
-    template<class X>                                                   \
-    BOOST_DISPATCH_FORCE_INLINE                                         \
-    pack& operator BOOST_PP_CAT(OP,=)(X const& xpr)                     \
-    {                                                                   \
-      return *this = *this OP xpr;                                      \
-    }                                                                   \
+    #define M1(z, n, arg)                                                                          \
+    template<class T>                                                                              \
+    pack(BOOST_PP_ENUM_PARAMS(arg, T const& a), typename enable_if< is_arithmetic<T> >::type* = 0) \
+    {                                                                                              \
+      proto::value(*this) = make<data_type>(BOOST_PP_ENUM_PARAMS(arg, a));                         \
+    }                                                                                              \
     /**/
+    BOOST_PP_SEQ_FOR_EACH(M1, ~, BOOST_SIMD_CARDINALS)
+    #undef M1
 
-    BOOST_SIMD_MAKE_ASSIGN_OP(+)
-    BOOST_SIMD_MAKE_ASSIGN_OP(-)
-    BOOST_SIMD_MAKE_ASSIGN_OP(*)
-    BOOST_SIMD_MAKE_ASSIGN_OP(/)
-    BOOST_SIMD_MAKE_ASSIGN_OP(%)
-    BOOST_SIMD_MAKE_ASSIGN_OP(^)
-    BOOST_SIMD_MAKE_ASSIGN_OP(&)
-    BOOST_SIMD_MAKE_ASSIGN_OP(|)
-    BOOST_SIMD_MAKE_ASSIGN_OP(>>)
-    BOOST_SIMD_MAKE_ASSIGN_OP(<<)
-
-    #undef BOOST_SIMD_MAKE_ASSIGN_OP
-
-    // Conversion operator forces evaluation
-    BOOST_DISPATCH_FORCE_INLINE
-    operator data_type() const
-    {
-      return boost::simd::evaluate(*this);
-    }
+    using parent::operator=;
 
     reference        operator[](std::size_t i)
     {
@@ -254,5 +205,4 @@ namespace boost { namespace simd
   };
 } }
 
-#undef M1
 #endif

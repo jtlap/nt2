@@ -13,6 +13,7 @@
 #include <boost/simd/toolbox/swar/functions/group.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
+#include <boost/simd/include/functions/simd/saturate.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,7 +26,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return simd::bitwise_cast<result_type>(_mm_packus_epi32(a0, a1));
+      A0 aa0 = boost::simd::saturate<result_type>(a0);
+      A0 aa1 = boost::simd::saturate<result_type>(a1);
+      return simd::bitwise_cast<result_type>(_mm_packus_epi32(aa0, aa1));
     }
   };
 } } }

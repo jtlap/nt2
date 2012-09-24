@@ -11,6 +11,7 @@
 
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/grammar.hpp>
 #include <nt2/sdk/memory/container_ref.hpp>
 #include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <boost/proto/domain.hpp>

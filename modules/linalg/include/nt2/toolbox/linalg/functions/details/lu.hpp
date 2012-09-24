@@ -352,16 +352,17 @@ namespace nt2 { namespace details
     //==========================================================================
     // inverse matrix: DO NOT USE THAT TO SOLVE A SYSTEM
     //==========================================================================
-    tab_t inv()
+    tab_t inv(bool warn = true)
     {
-      rc_ = rcond();
+      if (warn)
+        {
+          rc_ = rcond();
+          NT2_WARNING ( (rc_ >= nt2::Eps<base_t>())
+                        , "Matrix is close to singular or badly scaled."
+                        " Results may be inaccurate."
+                        );
+        }
       tab_t i = lu_;
-
-      NT2_WARNING ( (rc_ >= nt2::Eps<base_t>())
-                  , "Matrix is close to singular or badly scaled."
-                    " Results may be inaccurate."
-                  );
-
       nt2::details::getri(&n_, i.raw(), &ldlu_, ipiv_.raw(), &info_, w_);
       return i;
     }

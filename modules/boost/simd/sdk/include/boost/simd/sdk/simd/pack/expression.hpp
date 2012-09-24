@@ -20,8 +20,8 @@ namespace boost { namespace simd
   ////////////////////////////////////////////////////////////////////////////
   // Here is the domain-specific expression wrapper
   ////////////////////////////////////////////////////////////////////////////
-  template<class Expr, class ResultType, class Dummy>
-  struct  expression
+  template<class Expr, class ResultType>
+  struct expression
   {
     BOOST_PROTO_BASIC_EXTENDS(Expr, expression, domain)
 
@@ -34,7 +34,7 @@ namespace boost { namespace simd
       );
       return *this;
     }
-    
+
     template<class Xpr>
     BOOST_DISPATCH_FORCE_INLINE
     expression& operator=(Xpr const& xpr)
@@ -44,28 +44,6 @@ namespace boost { namespace simd
       );
       return *this;
     }
-
-    #define BOOST_SIMD_MAKE_ASSIGN_OP(OP)                               \
-    template<class X>                                                   \
-    BOOST_DISPATCH_FORCE_INLINE                                         \
-    expression& operator BOOST_PP_CAT(OP,=)(X const& xpr)               \
-    {                                                                   \
-      return *this = *this OP xpr;                                      \
-    }                                                                   \
-    /**/
-
-    BOOST_SIMD_MAKE_ASSIGN_OP(+)
-    BOOST_SIMD_MAKE_ASSIGN_OP(-)
-    BOOST_SIMD_MAKE_ASSIGN_OP(*)
-    BOOST_SIMD_MAKE_ASSIGN_OP(/)
-    BOOST_SIMD_MAKE_ASSIGN_OP(%)
-    BOOST_SIMD_MAKE_ASSIGN_OP(^)
-    BOOST_SIMD_MAKE_ASSIGN_OP(&)
-    BOOST_SIMD_MAKE_ASSIGN_OP(|)
-    BOOST_SIMD_MAKE_ASSIGN_OP(>>)
-    BOOST_SIMD_MAKE_ASSIGN_OP(<<)
-
-    #undef BOOST_SIMD_MAKE_ASSIGN_OP
 
     // Conversion operator forces evaluation
     BOOST_DISPATCH_FORCE_INLINE

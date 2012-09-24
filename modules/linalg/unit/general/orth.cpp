@@ -20,6 +20,7 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 
 NT2_TEST_CASE_TPL(orth, NT2_REAL_TYPES)
 {
@@ -58,5 +59,7 @@ NT2_TEST_CASE_TPL(orth, NT2_REAL_TYPES)
         }
     }
    NT2_DISPLAY(orthn1-a);
-  NT2_TEST(nt2::isulpequal(a, orthn1, T(1.0)));  
+  NT2_TEST(nt2::isulpequal(a, orthn1, T(1.0)));
+  //  std::cout << nt2::type_id(a(nt2::_, 1)) << std::endl;
+  std::cout << nt2::type_id(  nt2::_)     << std::endl;  
 }

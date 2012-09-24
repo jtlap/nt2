@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(A0 const& a0) const
     {
-      for(std::size_t i = 0; i < A0::static_size; ++i)
+      for(std::size_t i = 0; i < a0.size(); ++i)
         if(a0[i] != 1) return i+1;
 
       return 1;
