@@ -19,7 +19,7 @@
 #include <nt2/include/functions/issquare.hpp>
 
 /*!
- * @brief inv  rotate matrix 90 degrees.
+ * @brief inv  inverse of square matrix.
  * inv(x) is the inverse of the square matrix expression x.
  *
  * Avoid to use this function if you do not have a very good reason
