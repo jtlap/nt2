@@ -11,14 +11,13 @@
 
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
-#include <nt2/sdk/memory/composite_reference.hpp>
 #include <boost/mpl/apply.hpp>
 #include <complex>
 
 namespace nt2
 {
   template<class T> struct imaginary;
-  template<class T> struct dry;
+  template<class T> struct dry; 
 }
 
 namespace nt2 { namespace details
@@ -28,13 +27,13 @@ namespace nt2 { namespace details
    : boost::mpl::apply1<F, std::complex<T> >
   {
   };
-
+  
   template<class T, class F>
   struct as_complex< std::complex<T>, F >
    : boost::mpl::apply1<F, std::complex<T> >
   {
   };
-
+  
   template<class T, class F>
   struct as_complex< imaginary<T>, F >
    : boost::mpl::apply1<F, std::complex<T> >
@@ -44,7 +43,7 @@ namespace nt2 { namespace details
   struct as_complex< dry<T>, F >
    : boost::mpl::apply1<F, std::complex<T> >
   {
-  };
+  };  
 } }
 
 namespace nt2 { namespace meta
@@ -58,17 +57,8 @@ namespace nt2 { namespace meta
                                          scalar_of<T>::type
                                      >::type
                          >
-  {};
-
-  template<class T>
-  struct  as_complex< memory::composite_reference<T> >
-        : as_complex< typename boost::remove_const<T>::type >
-  {};
-
-  template<class T>
-  struct  as_complex< memory::composite_reference<T> const>
-        : as_complex< typename boost::remove_const<T>::type >
-  {};
+  {
+  };
 } }
 
 #endif

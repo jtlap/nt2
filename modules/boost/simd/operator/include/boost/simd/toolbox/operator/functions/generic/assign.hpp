@@ -13,15 +13,15 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::assign_, tag::cpu_, (A0)(A1)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::assign_, tag::cpu_, (A0)
                                     , (generic_<unspecified_<A0> >)
-                                      (generic_<unspecified_<A1> >)
+                                      (generic_<unspecified_<A0> >)
                                     )
   {
-    typedef typename A0::value_type result_type;
+    typedef A0& result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(A0& a0, const A1& a1) const
+    result_type operator()(A0& a0, const A0& a1) const
     {
       return a0 = a1;
     }
