@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
     result_type operator()(A0& yi, A1& inputs) const
     {
       NT2_DISPLAY(inputs.extent()); 
-      yi.resize(inputs.extent()); 
+      yi.resize(inputs.extent());
       const child0 & x   =  boost::proto::child_c<0>(inputs);
       BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'linear' interpolation x values must be sorted in ascending order"); 
       const child1 & y   =  boost::proto::child_c<1>(inputs);
@@ -56,11 +56,13 @@ namespace nt2 { namespace ext
       value_type extrapval = Nan<value_type>();
       choices(inputs, extrap, extrapval, N1());
       table<index_type>   index = bsearch (x, xi);
-      table<value_type>  dx    =  xi-x(index); 
+     table<value_type>  dx    =  xi-x(index); 
       yi =  fma(oneminus(dx), y(index), dx*y(oneplus(index)));
-      if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, x(begin_)),
-                                                     boost::simd::is_nle(xi, x(end_))), extrapval, yi);
-      
+      value_type  b =  value_type(x(begin_));
+      value_type  e =  value_type(x(end_)); 
+      if (!extrap) yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
+                                                      boost::simd::is_nle(xi, e)), extrapval, yi);
+     
       return yi;
     } 
   private :

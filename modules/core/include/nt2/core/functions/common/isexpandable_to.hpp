@@ -28,6 +28,9 @@ namespace nt2 { namespace ext
     {
       typename A0::extent_type ex1 = a0.extent();
 
+      if(nt2::numel(ex1) == 0u && nt2::numel(siz) == 0u)
+        return true;
+
       size_t sz = nt2::min(ex1.size(), siz.size());
       for(size_t i=0; i < sz; ++i)
       {

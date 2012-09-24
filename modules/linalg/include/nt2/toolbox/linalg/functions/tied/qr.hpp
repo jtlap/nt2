@@ -13,6 +13,8 @@
 #include <nt2/toolbox/linalg/functions/factorizations/qr.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/trans.hpp>
 
 namespace nt2 { namespace ext
 {

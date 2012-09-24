@@ -13,7 +13,7 @@
 #  ifndef BOOST_SIMD_HAS_AVX_SUPPORT
 #    define BOOST_SIMD_HAS_AVX_SUPPORT
 #  endif
-#elif defined(BOOST_SIMD_HAS_AVX_SUPPORT) && !defined(_MSC_VER)
+#elif defined(BOOST_SIMD_HAS_AVX_SUPPORT) && !(defined(_MSC_VER) && _MSC_FULL_VER >= 160040219)
 #  undef BOOST_SIMD_HAS_AVX_SUPPORT
 #endif
 

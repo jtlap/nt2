@@ -10,7 +10,12 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/rot90.hpp>
+#include <nt2/include/functions/fliplr.hpp>
+#include <nt2/include/functions/flipud.hpp>
+#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/repmat.hpp>
 #include <nt2/include/functions/cif.hpp>
+#include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
@@ -20,6 +25,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/meta/as.hpp>
 
 NT2_TEST_CASE_TPL(rot90, NT2_REAL_TYPES)
 {
@@ -60,11 +66,45 @@ NT2_TEST_CASE_TPL(rot90, NT2_REAL_TYPES)
             }
         }
       
-      nt2::table<T> rot90n = nt2::rot90(n, l);
+       nt2::table<T> rot90n = nt2::rot90(n, l);
       std::cout << "l = " << l << std::endl;
       NT2_DISPLAY(rot90n);
       NT2_DISPLAY(a); 
       NT2_TEST(nt2::isequal(a, rot90n)); 
     }
 }
+
+NT2_TEST_CASE_TPL(rot90_2, NT2_REAL_TYPES)
+{
+  typedef T r_t;
+  using nt2::rot90;
   
+  nt2::table<T> n = nt2::cif(3, 4, nt2::meta::as_<T>())+T(10)*nt2::rif(3, 4, nt2::meta::as_<T>());
+  NT2_DISPLAY(n); 
+  nt2::table<T> rot90n = nt2::rot90(n);
+  NT2_DISPLAY(rot90n);
+  NT2_DISPLAY(rot90(T(1)));
+  NT2_DISPLAY(rot90(T(1), 2));
+}
+
+   
+NT2_TEST_CASE_TPL( ro90_4, NT2_SIGNED_TYPES )
+{
+  nt2::table<T> n1 = nt2::repmat(nt2::_(T(1), T(4)), 3, 1)+T(10)*nt2::trans(nt2::repmat(nt2::_(T(1), T(3)), 4, 1)); 
+  NT2_DISPLAY(n1);
+  nt2::table<T> n2 = nt2::flipud(n1); 
+  NT2_DISPLAY(n2); 
+  NT2_DISPLAY(nt2::fliplr(n2));
+  NT2_DISPLAY(nt2::fliplr(nt2::flipud(n1)));
+  
+ for(int i=0; i < 4; i++)
+   {
+     nt2::table<T> rot90n2 = nt2::rot90(n1, i);
+     NT2_DISPLAY(rot90n2);
+   }
+//   n1 = nt2::fliplr(nt2::flipud(n1));
+//   NT2_DISPLAY(n1);
+//   n1 = nt2::fliplr(nt2::trans(n1));
+//   NT2_DISPLAY(n1);
+    
+}

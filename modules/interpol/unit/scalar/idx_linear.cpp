@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL( idx_linear2, (float)(double))//NT2_TYPES )
   std::cout << "7 extrap " <<  "-" <<  " extrapval1 " << "33" <<  " extrapval2 " << "42" << std::endl; 
   yi =nt2::idx_linear(x, xi, T(33), T(42), 1); 
   NT2_DISPLAY(yi);
-
+ 
      /*     //   std::cout << "8 extrap " <<  "-" <<  " extrapval1 " << "33" <<  " extrapval2 " << "42" << std::endl;
      //   typedef boost::fusion::vector<T,T>  result_type;
      //   result_type a =  boost::fusion::make_vector(T(-3), T(25));

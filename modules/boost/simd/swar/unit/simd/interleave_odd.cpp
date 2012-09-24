@@ -6,19 +6,18 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - interleave_second"
+#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - interleave_odd"
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/include/functions/interleave_second.hpp>
+#include <boost/simd/include/functions/interleave_odd.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-NT2_TEST_CASE_TPL(interleave_second, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL(interleave_odd, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
-  using boost::simd::interleave_second;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef native<T,ext_t>                      vT;
@@ -28,14 +27,13 @@ NT2_TEST_CASE_TPL(interleave_second, BOOST_SIMD_SIMD_TYPES)
   
   for(std::size_t i=1; i<=card; ++i)
   { a[i-1]=T(i); b[i-1]=T(i*10); }
-  c = boost::simd::interleave_second(a,b);
+  c = boost::simd::interleave_odd(a,b);
   std::cout << "a " << a << std::endl;
   std::cout << "b " << b << std::endl;
   std::cout << "c " << c << std::endl;    
-  std::size_t index = card/2; 
-  for(std::size_t i=0; i<card; ++i)
+ std::size_t index = 0;
+ for(std::size_t i=0; i<card; ++i)
   {
-    NT2_TEST_EQUAL(c[i],(i%2==0)?a[index]:b[index]);
-    if(i%2!=0) index++;
+    NT2_TEST_EQUAL(c[i],(i%2==0)?a[i+1]:b[i]);
   }
 } 

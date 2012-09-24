@@ -33,8 +33,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
     {
       base_t a00 = static_cast<base_t>(a0);
-      if      (a00 > Valmax<target_t>()) return Valmax<target_t>();
-      else if (a00 < Valmin<target_t>()) return Valmin<target_t>();
+      if      (a00 > Valmax<target_t>()) return result_type(Valmax<target_t>());
+      else if (a00 < Valmin<target_t>()) return result_type(Valmin<target_t>());
       else                               return a0;
     }
   };
@@ -53,7 +53,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
     {
-      return (a0 > Valmax<target_t>()) ? Valmax<target_t>() : a0;
+      return (a0 > Valmax<target_t>()) ? result_type(Valmax<target_t>()) : a0;
     }
   };
 

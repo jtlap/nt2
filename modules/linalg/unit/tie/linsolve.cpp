@@ -58,5 +58,5 @@ NT2_TEST_CASE_TPL ( linsolve_expr, NT2_REAL_TYPES)
   t_t z = nt2::mtimes(a, x);
   NT2_DISPLAY(z);
   std::cout << nt2::globalmax(nt2::ulpdist(z, b)) << std::endl; 
-  NT2_TEST(nt2::isulpequal(nt2::mtimes(a, x), b, T(256.0)));
+  NT2_TEST(nt2::isulpequal(nt2::mtimes(a, x), b, T(512.0)));
 }

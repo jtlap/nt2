@@ -29,7 +29,7 @@
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/floor.hpp>
 #include <nt2/include/functions/sx.hpp>
-#include <nt2/include/functions/along.hpp>
+#include <nt2/include/functions/expand_to.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <boost/fusion/include/make_vector.hpp>
@@ -57,15 +57,10 @@ namespace nt2 { namespace ext
     
     result_type operator()(A0& r, A1& inputs) const
     {
-      //      std::cout << N1::value << std::endl; 
       //      BOOST_ASSERT_MSG(are_sx_compatible(xi, y), "Inputs dimensions are not compatible"); 
       const idx_t & xi   =  boost::proto::child_c<1>(inputs);
       const idx_t & yi   =  boost::proto::child_c<2>(inputs);
       const value_t & y     =  boost::proto::child_c<0>(inputs);
-      //       NT2_DISPLAY(y); 
-      //       NT2_DISPLAY(xi);
-      //       NT2_DISPLAY(yi);
-      //       NT2_DISPLAY(inputs.extent());
       bool extrap = false;
       std::size_t dim1 = 2;
       std::size_t dim2 = 1;  
@@ -75,24 +70,23 @@ namespace nt2 { namespace ext
       value_type extrapval2y = extrapval1x;
       choices(inputs, extrap, extrapval1x, extrapval2x, extrapval1y, extrapval2y, dim1, dim2, N1());
       r.resize(inputs.extent());
-      table<sale_type> z = idx_linear(y,xi,true,nt2::_,dim1);
-      //      NT2_DISPLAY(z); 
-      r = idx_linear(z,yi,true,nt2::_,dim2);
-      //      NT2_DISPLAY(r); 
-//       if (!extrap) {
-//         ext_t sizee; sizee[0] = 1;
-//         sizee[dim1-1] = numel(xi);
-//         value_type fx = value_type(nt2::first_index(y, dim1));
-//         value_type lx = value_type(nt2::minusone(nt2::last_index(y, dim1)));
-//         r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nge(xi, value_type(fx)), sizee),extrapval1x, r);
-//         r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nle(xi, value_type(lx)), sizee),extrapval2x, r); 
-//         sizee[dim1-1] = 1;
-//         sizee[dim2-1] = numel(yi);
-//         value_type fy = value_type(nt2::first_index(y, dim2));
-//         value_type ly = value_type(nt2::minusone(nt2::last_index(r, dim2)));
-//         r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nge(yi, value_type(fy)), sizee),extrapval1x, r);
-//         r = nt2::sx(nt2::tag::if_else_(), nt2::reshape(boost::simd::is_nle(yi, value_type(ly)), sizee),extrapval2x, r); 
-//       } 
+      r = idx_linear(idx_linear(y,xi,true,nt2::_,dim1),yi,true,nt2::_,dim2);
+      if (!extrap) {
+         ext_t sizee; sizee[0] = 1;
+         sizee[dim1-1] = numel(xi);
+         value_type fx = value_type(nt2::first_index(y, dim1));
+         value_type lx = value_type(nt2::last_index(y, dim1));
+         BOOST_AUTO_TPL(z1, nt2::expand_to(nt2::reshape(xi, sizee), size(r)));
+         r = nt2::if_else(boost::simd::is_nge(z1, fx), extrapval1x, r);
+         r = nt2::if_else(boost::simd::is_nle(z1, lx), extrapval2x, r);
+         sizee[dim1-1] = 1;
+         sizee[dim2-1] = numel(yi);
+         value_type fy = value_type(nt2::first_index(y, dim2));
+         value_type ly = value_type(nt2::last_index(y, dim2));
+         BOOST_AUTO_TPL(z2, nt2::expand_to(nt2::reshape(yi, sizee), size(r)));
+         r = nt2::if_else(boost::simd::is_nge(z2, fy), extrapval1x, r);
+         r = nt2::if_else(boost::simd::is_nle(z2, ly), extrapval2x, r);
+      } 
       return r;
     } 
   private :

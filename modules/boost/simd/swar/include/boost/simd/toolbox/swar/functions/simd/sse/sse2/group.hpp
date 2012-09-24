@@ -12,10 +12,14 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/swar/functions/group.hpp>
 #include <boost/simd/include/functions/simd/saturate.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -102,9 +106,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      A0 aa0 = boost::simd::saturate<result_type>(a0);
+      A0 aa1 = boost::simd::saturate<result_type>(a1);
       result_type
       r = simd::bitwise_cast<result_type >
-          (_mm_set_epi16(a1[3], a1[2], a1[1], a1[0], a0[3], a0[2], a0[1], a0[0]));
+          (_mm_set_epi16(aa1[3], aa1[2], aa1[1], aa1[0], aa0[3], aa0[2], aa0[1], aa0[0]));
       return r;
     }
   };
@@ -125,7 +131,9 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return simd::bitwise_cast<result_type>(_mm_packus_epi16(a0, a1));
+      A0 aa0 = boost::simd::saturate<result_type>(a0);
+      A0 aa1 = boost::simd::saturate<result_type>(a1);
+      return simd::bitwise_cast<result_type>(_mm_packus_epi16(aa0, aa1));
     }
   };
 
@@ -143,10 +151,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      // works only for int64 that are int32 representable
-      result_type b = _mm_slli_si128(simd::bitwise_cast<result_type>(a1),4);
-                  b = b_or(b, a0);
-
+      A0 mask = boost::simd::splat<A0>(Valmax<uint32_t>()); 
+      A0 that0 =  b_and(boost::simd::saturate<result_type>(a0), mask);
+      A0 that1 =  b_and(boost::simd::saturate<result_type>(a1), mask);
+      result_type b = _mm_slli_si128(simd::bitwise_cast<result_type>(that1),4);
+      b = b_or(b, that0);
       return simd::bitwise_cast<result_type>(_mm_shuffle_epi32(b, _MM_SHUFFLE(3, 1, 2, 0)) );
     }
   };

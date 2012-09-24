@@ -11,26 +11,26 @@
 
 #ifdef BOOST_SIMD_OS_LINUX
 #include <linux/auxvec.h>
-#include <elf.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <boost/cstdint.hpp>
 
 namespace boost { namespace simd { namespace config { namespace linux_
 {
-  inline uintptr_t auxv(int type)
+  inline uintptr_t auxv(uintptr_t type)
   {
     int fd;
-    Elf32_auxv_t auxv;
+    uintptr_t auxv[2];
 
     fd = open("/proc/self/auxv", O_RDONLY);
     if (fd >= 0)
     {
-      while(read(fd, &auxv, sizeof(Elf32_auxv_t)) == sizeof(Elf32_auxv_t))
+      while(read(fd, &auxv, sizeof(auxv)) == sizeof(auxv))
       {
-        if (auxv.a_type == type)
+        if (auxv[0] == type)
         {
           close(fd);
-          return auxv.a_un.a_val;
+          return auxv[1];
         }
       }
       close(fd);

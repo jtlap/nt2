@@ -134,7 +134,6 @@ namespace nt2 { namespace container
 
     //==========================================================================
     // Copy construct from another expression
-    // TODO: Do a smart "copy" of size_ that doesn't involve recomputing it
     //==========================================================================
     BOOST_FORCEINLINE
     expression( expression const& xpr )
