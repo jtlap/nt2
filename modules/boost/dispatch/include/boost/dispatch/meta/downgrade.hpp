@@ -14,16 +14,14 @@
  * \brief Defines and implements the \ref boost::dispatch::meta::downgrade \metafunction
  */
 
-#include <boost/mpl/apply.hpp>
-#include <boost/mpl/always.hpp>
-#include <boost/mpl/eval_if.hpp>
-#include <boost/type_traits/is_void.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/dispatch/meta/sign_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
-#include <boost/dispatch/meta/make_integer.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/dispatch/meta/make_integer.hpp>
 #include <boost/dispatch/meta/make_floating.hpp>
+#include <boost/mpl/apply.hpp>
+#include <boost/mpl/eval_if.hpp>
+#include <boost/type_traits/is_void.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -56,7 +54,7 @@ namespace boost { namespace dispatch { namespace meta
    *                  >::type                                  r;
    * \endcode
    *
-   * if \c primitive_of<T> is of hierarchy \ref boost::dispatch::tag::floating_ 
+   * if \c primitive_of<T> is of hierarchy \ref boost::dispatch::tag::floating_
    * and to:
    *
    * \code
@@ -84,9 +82,9 @@ namespace boost { namespace dispatch { namespace ext
     typedef typename meta::factory_of<Type>::type    lambda;
     typedef typename meta::primitive_of<Type>::type  base;
     typedef typename meta::downgrade<base,Sign>::type  up;
-    typedef typename mpl::apply1<lambda, up>::type   type;   
+    typedef typename mpl::apply1<lambda, up>::type   type;
   };
-  
+
   template<typename T, typename Sign>
   struct downgrade< T, Sign
                   , typename enable_if<typename is_integral<T>::type>::type
@@ -95,17 +93,16 @@ namespace boost { namespace dispatch { namespace ext
     typedef typename meta::factory_of<T>::type    lambda;
     typedef typename meta::primitive_of<T>::type  base;
 
-    BOOST_MPL_ASSERT_MSG( (sizeof(base) > 1)
-                        , TYPE_CAN_NOT_BE_DOWNGRADED
-                        , (T)
-                       );
+    BOOST_STATIC_CONSTANT ( std::size_t
+                          , size = (sizeof(base) > 1) ? sizeof(base)/2 : 1
+                          );
 
     typedef typename mpl::eval_if < is_void<Sign>
                                   , meta::sign_of<T>
                                   , mpl::identity<Sign>
                                   >::type         sign;
 
-    typedef typename meta::make_integer<sizeof(base)/2,sign,lambda>::type type;
+    typedef typename meta::make_integer<size,sign,lambda>::type type;
   };
 
   template<typename T, typename Sign>
@@ -116,12 +113,11 @@ namespace boost { namespace dispatch { namespace ext
     typedef typename meta::factory_of<T>::type    lambda;
     typedef typename meta::primitive_of<T>::type  base;
 
-    BOOST_MPL_ASSERT_MSG( (sizeof(base) > 4)
-                        , TYPE_CAN_NOT_BE_DOWNGRADED
-                        , (T)
-                        );
+    BOOST_STATIC_CONSTANT ( std::size_t
+                          , size = (sizeof(base) > 1) ? sizeof(base)/2 : 1
+                          );
 
-    typedef typename meta::make_floating<sizeof(base)/2,lambda>::type  type;
+    typedef typename meta::make_floating<size,lambda>::type  type;
   };
 } } }
 
@@ -130,10 +126,10 @@ namespace boost { namespace dispatch { namespace meta
   template<class T,class Sign>
   struct  downgrade               : ext::downgrade<T, Sign> {};
 
-  template<class T, class Sign> 
+  template<class T, class Sign>
   struct downgrade<T&,Sign>       : downgrade<T,Sign> {};
 
-  template<class T, class Sign> 
+  template<class T, class Sign>
   struct downgrade<T const,Sign>  : downgrade<T,Sign> {};
 } } }
 

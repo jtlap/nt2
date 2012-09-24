@@ -9,23 +9,22 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_META_DOWNGRADE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_META_DOWNGRADE_HPP_INCLUDED
 
-#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/utility/enable_if.hpp>
 
-namespace boost { namespace dispatch
-{   
-    namespace meta
+namespace boost { namespace dispatch { namespace ext
+{
+    template< class Type
+            , std::size_t Cardinal
+            , class Sign
+            >
+    struct downgrade< boost::simd::pack<Type, Cardinal>, Sign, typename boost::enable_if_c< (sizeof(typename meta::primitive_of<Type>::type) > 1) >::type >
     {
-        template< class Type
-                , std::size_t Cardinal
-                , class Sign
-                >
-        struct downgrade< boost::simd::pack<Type, Cardinal>, Sign >
-        {
-            typedef typename downgrade<Type, Sign>::type dT;
-            typedef boost::simd::pack<dT, Cardinal*2> type;
-        };
-    }
-} }
+        typedef typename downgrade<Type, Sign>::type dT;
+        typedef boost::simd::pack<dT, Cardinal*2> type;
+    };
+} } }
 
 #endif
