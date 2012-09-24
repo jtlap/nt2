@@ -284,9 +284,11 @@ namespace nt2 { namespace details
     //==========================================================================
     // image space basis up to epsi
     //==========================================================================
+//     typedef typename meta::call<tag::colon_(int32_t, int32_t)>::type T1;
+//     typedef typename meta::call<tag::function_(tab_t, container::colon_, T1)>::type T2; 
       tab_t orth(base_t epsi =  -1)const
       {
-        int32_t r = rank(epsi); 
+        int32_t r = rank(epsi);
         return u()(_, _(1, r));
       }
 
