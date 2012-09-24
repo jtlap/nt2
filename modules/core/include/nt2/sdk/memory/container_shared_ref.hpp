@@ -272,7 +272,7 @@ namespace boost { namespace dispatch { namespace meta
     typedef nt2::memory::container<T, S> container;
     typedef nt2::memory::container_shared_ref<container, true> container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref>, 0> basic_expr;
-    typedef nt2::container::expression< basic_expr, container, boost::proto::is_proto_expr > type;
+    typedef nt2::container::expression< basic_expr, container > type;
     static type make() { return type(basic_expr::make(container_ref(boost::make_shared<container>()))); }
   };
 } } }

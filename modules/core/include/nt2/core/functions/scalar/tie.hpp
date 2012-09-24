@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::mpl::if_< meta::is_container_ref<T>, T, T&>::type term;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<term> > expr;
-    typedef nt2::container::expression<expr, typename container::as_container_noref<term>::type, boost::proto::is_proto_expr> type;
+    typedef nt2::container::expression<expr, typename container::as_container_noref<term>::type> type;
     static type call(typename boost::dispatch::meta::as_ref<term>::type t)
     {
       return type(expr::make(t));

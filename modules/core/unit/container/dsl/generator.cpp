@@ -26,6 +26,38 @@
 #include <boost/type_traits/is_const.hpp>
 #include <boost/type_traits/is_reference.hpp>
 
+// plus-like function with perfect forwarding
+namespace nt2
+{
+  namespace tag
+  {
+    struct pplus_ : ext::elementwise_<pplus_>
+    {
+     typedef ext::elementwise_<pplus_> parent;
+    };
+  }
+
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::pplus_, pplus, (A0&)(A1&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::pplus_, pplus, (A0 const&)(A1&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::pplus_, pplus, (A0&)(A1 const&), 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::pplus_, pplus, (A0 const&)(A1 const&), 2)
+
+  namespace ext
+  {
+    NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pplus_, tag::cpu_, (A0)
+                              , (scalar_< unspecified_<A0> >)
+                                (scalar_< unspecified_<A0> >)
+                              )
+    {
+      typedef A0 result_type;
+      result_type operator()(A0 const& a0, A0 const& a1) const
+      {
+        return a0 + a1;
+      }
+    };
+  }
+}
+
 NT2_TEST_CASE( semantic_of )
 {
   using nt2::table;
@@ -339,25 +371,25 @@ NT2_TEST_CASE( expr_lifetime )
   shared::type a2 = shared::make(), a3 = shared::make();
 
   expr_lifetime_0(a0);
-  expr_lifetime_2_t(a0 + a1);
-  expr_lifetime_2_i(a0 + i);
-  expr_lifetime_2_ir(a0 + boost::proto::as_child(i));
+  expr_lifetime_2_t(nt2::pplus(a0, a1));
+  expr_lifetime_2_i(nt2::pplus(a0, i));
+  expr_lifetime_2_ir(nt2::pplus(a0, boost::proto::as_child(i)));
   expr_lifetime_tie_i(nt2::tie(i));
   expr_lifetime_tie_t(nt2::tie(a0));
   expr_lifetime_tie_ts(nt2::tie(a2));
-  expr_lifetime_2_t(boost::proto::child_c<0>(nt2::tie(a0)) + a1);
-  expr_lifetime_2_ts(boost::proto::child_c<0>(nt2::tie(a2)) + a1);
+  expr_lifetime_2_t(nt2::pplus(boost::proto::child_c<0>(nt2::tie(a0)), a1));
+  expr_lifetime_2_ts(nt2::pplus(boost::proto::child_c<0>(nt2::tie(a2)), a1));
   expr_lifetime_assign(nt2::assign(i, nt2::sum(a0(nt2::_))));
 
   expr_lifetime_0(nt2::optimize(a0));
-  expr_lifetime_2_t(nt2::optimize(a0 + a1));
-  expr_lifetime_2_i(nt2::optimize(a0 + i));
-  expr_lifetime_2_ir(nt2::optimize(a0 + boost::proto::as_child(i)));
+  expr_lifetime_2_t(nt2::optimize(nt2::pplus(a0, a1)));
+  expr_lifetime_2_i(nt2::optimize(nt2::pplus(a0, i)));
+  expr_lifetime_2_ir(nt2::optimize(nt2::pplus(a0, boost::proto::as_child(i))));
   expr_lifetime_tie_i(nt2::optimize(nt2::tie(i)));
   expr_lifetime_tie_t(nt2::optimize(nt2::tie(a0)));
   expr_lifetime_tie_ts(nt2::optimize(nt2::tie(a2)));
-  expr_lifetime_2_t(nt2::optimize(boost::proto::child_c<0>(nt2::optimize(nt2::tie(a0))) + a1));
-  expr_lifetime_2_ts(nt2::optimize(boost::proto::child_c<0>(nt2::optimize(nt2::tie(a2))) + a1));
+  expr_lifetime_2_t(nt2::optimize(nt2::pplus(boost::proto::child_c<0>(nt2::optimize(nt2::tie(a0))), a1)));
+  expr_lifetime_2_ts(nt2::optimize(nt2::pplus(boost::proto::child_c<0>(nt2::optimize(nt2::tie(a2))), a1)));
   expr_lifetime_assign(nt2::optimize(nt2::assign(i, nt2::sum(a0(nt2::_)))));
 }
 

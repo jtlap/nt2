@@ -19,7 +19,7 @@ namespace nt2 { namespace tag
 
 namespace nt2
 {
-  template<class T, class Dummy = boost::proto::is_proto_expr>
+  template<class T>
   struct box;
 }
 
@@ -31,13 +31,12 @@ namespace nt2 { namespace container
   template<class Domain>  struct generator_transform;
   template<class Domain>  struct size_transform;
 
-  struct grammar;
   struct domain;
 
-  template<class Expression, class ResultType, class Dummy = boost::proto::is_proto_expr>
+  template<class Expression, class ResultType>
   struct expression;
 
-  template<class Type, class Settings = nt2::settings(), class Dummy = boost::proto::is_proto_expr>
+  template<class Type, class Settings = nt2::settings()>
   struct table;
 } }
 
