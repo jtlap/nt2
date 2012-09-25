@@ -11,14 +11,13 @@
 
 #include <boost/simd/toolbox/swar/functions/group.hpp>
 #include <boost/simd/include/functions/simd/load.hpp>
-#include <boost/simd/include/functions/scalar/saturate.hpp>
+#include <boost/simd/include/functions/simd/saturate.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
-#include <boost/simd/include/functions/simd/saturate.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is downgradable

@@ -8,21 +8,19 @@
 ##############################################################################
 
 SET( SOURCES
-  static_job_svd.cpp
-  sjqr.cpp
-  chol.cpp
-  lu.cpp
-  qr.cpp
-  lu_result.cpp
-  svd_result.cpp 
-  qr_result.cpp
-  schur_result.cpp
-  symeig_result.cpp
-  geneig_result.cpp
-  balance_result.cpp
-  symeig.cpp
-  geneig.cpp
-  balance.cpp
-  )
+     chol.cpp
+     lu.cpp
+     qr.cpp
+     lu_result.cpp
+     svd_result.cpp 
+     qr_result.cpp
+     schur_result.cpp
+     symeig_result.cpp
+     geneig_result.cpp
+     balance_result.cpp
+     symeig.cpp
+     geneig.cpp
+     balance.cpp
+   )
 
 nt2_module_add_tests(linalg.factorization.unit ${SOURCES})
