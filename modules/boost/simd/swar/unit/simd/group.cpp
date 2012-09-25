@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/swar/include/functions/group.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/enumerate.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( group_groupable__2_0, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( group_groupable__2_0, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   using boost::simd::One;
   using boost::simd::Zero;
   using boost::simd::Inf;
-  using boost::simd::Minf; 
+  using boost::simd::Minf;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -50,26 +50,26 @@ NT2_TEST_CASE_TPL ( group_groupable__2_0, BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   typedef typename boost::dispatch::meta::call<group_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  
+
   // specific values tests
   NT2_TEST_EQUAL(group(One<vT>(),  One<vT>())[0],  One<sr_t>());
-  std::cout << "group(One<vT>(),  One<vT>())" << group(One<vT>(),  One<vT>()) << "-> " << One<sr_t>() << std::endl; 
+  std::cout << "group(One<vT>(),  One<vT>())" << group(One<vT>(),  One<vT>()) << "-> " << One<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Zero<vT>(), Zero<vT>())[0], Zero<sr_t>());
-  std::cout << "group(Zero<vT>(),  Zero<vT>())" << group(Zero<vT>(),  Zero<vT>()) << "-> " << Zero<sr_t>() << std::endl; 
+  std::cout << "group(Zero<vT>(),  Zero<vT>())" << group(Zero<vT>(),  Zero<vT>()) << "-> " << Zero<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmax<vT>()/Two<vT>(), Valmax<vT>()/Two<vT>())[0], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>()/Two<vT>(),  Valmax<vT>()/Two<vT>()) << std::endl<< "-> " << Inf<sr_t>() << std::endl; 
-  NT2_TEST_EQUAL(group(Valmin<vT>()/Two<vT>(), Valmin<vT>()/Two<vT>())[0], Minf<sr_t>());   
-  std::cout << "group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>())" << group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>()) << "-> " << Minf<sr_t>() << std::endl; 
+  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>()/Two<vT>(),  Valmax<vT>()/Two<vT>()) << std::endl<< "-> " << Inf<sr_t>() << std::endl;
+  NT2_TEST_EQUAL(group(Valmin<vT>()/Two<vT>(), Valmin<vT>()/Two<vT>())[0], Minf<sr_t>());
+  std::cout << "group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>())" << group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>()) << "-> " << Minf<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmax<vT>(), Valmax<vT>())[0], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>(),  Valmax<vT>()) << std::endl<< "-> " << Inf<sr_t>() << std::endl; 
-  NT2_TEST_EQUAL(group(Valmin<vT>(), Valmin<vT>())[0], Minf<sr_t>());   
-  std::cout << "group(Valmin<vT>(),  Valmin<vT>())" << group(Valmin<vT>(),  Valmin<vT>()) << "-> " << Minf<sr_t>() << std::endl; 
+  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>(),  Valmax<vT>()) << std::endl<< "-> " << Inf<sr_t>() << std::endl;
+  NT2_TEST_EQUAL(group(Valmin<vT>(), Valmin<vT>())[0], Minf<sr_t>());
+  std::cout << "group(Valmin<vT>(),  Valmin<vT>())" << group(Valmin<vT>(),  Valmin<vT>()) << "-> " << Minf<sr_t>() << std::endl;
 } // end of test for groupable_
 NT2_TEST_CASE_TPL ( group_groupable__2_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
@@ -78,7 +78,7 @@ NT2_TEST_CASE_TPL ( group_groupable__2_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   using boost::simd::One;
   using boost::simd::Zero;
   using boost::simd::Inf;
-  using boost::simd::Minf; 
+  using boost::simd::Minf;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -91,23 +91,23 @@ NT2_TEST_CASE_TPL ( group_groupable__2_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(group(One<vT>(),  One<vT>())[1],  One<sr_t>());
-  std::cout << "group(One<vT>(),  One<vT>())" << group(One<vT>(),  One<vT>()) << "-> " << One<sr_t>() << std::endl; 
+  std::cout << "group(One<vT>(),  One<vT>())" << group(One<vT>(),  One<vT>()) << "-> " << One<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Zero<vT>(), Zero<vT>())[1], Zero<sr_t>());
-  std::cout << "group(Zero<vT>(),  Zero<vT>())" << group(Zero<vT>(),  Zero<vT>()) << "-> " << Zero<sr_t>() << std::endl; 
+  std::cout << "group(Zero<vT>(),  Zero<vT>())" << group(Zero<vT>(),  Zero<vT>()) << "-> " << Zero<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmax<vT>()/Two<vT>(), Valmax<vT>()/Two<vT>())[1], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>()/Two<vT>(),  Valmax<vT>()/Two<vT>()) << "-> " << Inf<sr_t>() << std::endl; 
-  NT2_TEST_EQUAL(group(Valmin<vT>()/Two<vT>(), Valmin<vT>()/Two<vT>())[1], Minf<sr_t>());   
-  std::cout << "group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>())" << group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>()) << "-> " << Minf<sr_t>() << std::endl; 
+  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>()/Two<vT>(),  Valmax<vT>()/Two<vT>()) << "-> " << Inf<sr_t>() << std::endl;
+  NT2_TEST_EQUAL(group(Valmin<vT>()/Two<vT>(), Valmin<vT>()/Two<vT>())[1], Minf<sr_t>());
+  std::cout << "group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>())" << group(Valmin<vT>()/Two<vT>(),  Valmin<vT>()/Two<vT>()) << "-> " << Minf<sr_t>() << std::endl;
   NT2_TEST_EQUAL(group(Valmax<vT>(), Valmax<vT>())[1], Inf<sr_t>());
-  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>(),  Valmax<vT>()) << "-> " << Inf<sr_t>() << std::endl; 
-  NT2_TEST_EQUAL(group(Valmin<vT>(), Valmin<vT>())[1], Minf<sr_t>());   
-  std::cout << "group(Valmin<vT>(),  Valmin<vT>())" << group(Valmin<vT>(),  Valmin<vT>()) << "-> " << Minf<sr_t>() << std::endl; 
+  std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>(),  Valmax<vT>()) << "-> " << Inf<sr_t>() << std::endl;
+  NT2_TEST_EQUAL(group(Valmin<vT>(), Valmin<vT>())[1], Minf<sr_t>());
+  std::cout << "group(Valmin<vT>(),  Valmin<vT>())" << group(Valmin<vT>(),  Valmin<vT>()) << "-> " << Minf<sr_t>() << std::endl;
 } // end of test for groupable_
 NT2_TEST_CASE_TPL ( group_groupable__3_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
 {
   using boost::simd::group;
   using boost::simd::tag::group_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   using boost::simd::Two;
@@ -116,41 +116,7 @@ NT2_TEST_CASE_TPL ( group_groupable__3_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   using boost::simd::One;
   using boost::simd::Zero;
   using boost::simd::Inf;
-  using boost::simd::Minf; 
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<group_(vT,vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-
-  // specific values tests
-
-  size_t n = cardinal_of<vT>::value; 
-  std::cout << boost::simd::enumerate<vT>(T(0))<< " " << boost::simd::enumerate<vT>(T(n)) << " -> " << group(boost::simd::enumerate<vT>(T(0)),  boost::simd::enumerate<vT>(T(n))) << std::endl; 
-  for(size_t i=0; i < cardinal_of<vT>::value; i++)
-    {
-      NT2_TEST_EQUAL(group(boost::simd::enumerate<vT>(T(0)),  boost::simd::enumerate<vT>(T(n)))[i],  T(i));
-    }
-
-} // end of test for groupable_
-NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
-{
-  using boost::simd::group;
-  using boost::simd::tag::group_;
-  using boost::simd::load; 
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  using boost::simd::Two;
-  using boost::simd::Valmax;
-  using boost::simd::Valmin;
-  using boost::simd::One;
-  using boost::simd::Zero;
-  using boost::simd::Inf;
-  using boost::simd::Minf; 
+  using boost::simd::Minf;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -164,11 +130,45 @@ NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
   // specific values tests
 
   size_t n = cardinal_of<vT>::value;
-  int32_t s = 32761; 
-  std::cout << boost::simd::enumerate<vT>(T(s))<< " " << boost::simd::enumerate<vT>(T(s+n)) << " -> " << group(boost::simd::enumerate<vT>(T(s)),  boost::simd::enumerate<vT>(T(s+n))) << std::endl; 
+  std::cout << boost::simd::enumerate<vT>(T(0))<< " " << boost::simd::enumerate<vT>(T(n)) << " -> " << group(boost::simd::enumerate<vT>(T(0)),  boost::simd::enumerate<vT>(T(n))) << std::endl;
   for(size_t i=0; i < cardinal_of<vT>::value; i++)
-    {
-      NT2_TEST_EQUAL(group(boost::simd::enumerate<vT>(T(s)),  boost::simd::enumerate<vT>(T(s+n)))[i],  T(s+i));
-    }
+  {
+    NT2_TEST_EQUAL(group(boost::simd::enumerate<vT>(T(0)),  boost::simd::enumerate<vT>(T(n)))[i],  T(i));
+  }
+
+} // end of test for groupable_
+NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
+{
+  using boost::simd::group;
+  using boost::simd::tag::group_;
+  using boost::simd::load;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  using boost::simd::Two;
+  using boost::simd::Valmax;
+  using boost::simd::Valmin;
+  using boost::simd::One;
+  using boost::simd::Zero;
+  using boost::simd::Inf;
+  using boost::simd::Minf;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<group_(vT,vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+
+  // specific values tests
+
+  size_t n = cardinal_of<vT>::value;
+  int32_t s = 32767 - n;
+  std::cout << boost::simd::enumerate<vT>(T(s))<< " " << boost::simd::enumerate<vT>(T(s+n)) << " -> " << group(boost::simd::enumerate<vT>(T(s)),  boost::simd::enumerate<vT>(T(s+n))) << std::endl;
+  for(size_t i=0; i < cardinal_of<vT>::value; i++)
+  {
+    NT2_TEST_EQUAL(group(boost::simd::enumerate<vT>(T(s)),  boost::simd::enumerate<vT>(T(s+n)))[i],  T(s+i));
+  }
 
 } // end of test for groupable_
