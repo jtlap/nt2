@@ -15,6 +15,7 @@
 /// 
 #include <boost/simd/toolbox/swar/include/functions/group.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
+#include <boost/simd/include/functions/enumerate.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -101,4 +102,38 @@ NT2_TEST_CASE_TPL ( group_groupable__2_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
   std::cout << "group(Valmax<vT>(),  Valmax<vT>())" << group(Valmax<vT>(),  Valmax<vT>()) << "-> " << Inf<sr_t>() << std::endl; 
   NT2_TEST_EQUAL(group(Valmin<vT>(), Valmin<vT>())[1], Minf<sr_t>());   
   std::cout << "group(Valmin<vT>(),  Valmin<vT>())" << group(Valmin<vT>(),  Valmin<vT>()) << "-> " << Minf<sr_t>() << std::endl; 
+} // end of test for groupable_
+NT2_TEST_CASE_TPL ( group_groupable__3_1,  BOOST_SIMD_SIMD_GROUPABLE_TYPES)
+{
+  using boost::simd::group;
+  using boost::simd::tag::group_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  using boost::simd::Two;
+  using boost::simd::Valmax;
+  using boost::simd::Valmin;
+  using boost::simd::One;
+  using boost::simd::Zero;
+  using boost::simd::Inf;
+  using boost::simd::Minf; 
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::call<group_(vT,vT)>::type r_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
+  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
+
+  // specific values tests
+
+  size_t n = cardinal_of<vT>::value; 
+  std::cout << boost::simd::enumerate<vT>(T(0))<< " " << boost::simd::enumerate<vT>(T(n)) << " -> " << group(boost::simd::enumerate<vT>(T(0)),  boost::simd::enumerate<vT>(T(n))) << std::endl; 
+  for(size_t i=0; i < cardinal_of<vT>::value; i++)
+    {
+      NT2_TEST_EQUAL(group(boost::simd::enumerate<vT>(T(0)),  boost::simd::enumerate<vT>(T(n)))[i],  T(i));
+    }
+
 } // end of test for groupable_
