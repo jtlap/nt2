@@ -18,6 +18,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <stdexcept>
+#include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/type_id.hpp>
