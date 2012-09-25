@@ -10,22 +10,21 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_REM_2PI_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/rem_2pi.hpp>
+#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
+#include <nt2/include/functions/simd/rem_pio2.hpp>
+#include <nt2/include/functions/simd/rem_pio2_medium.hpp>
+#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/tofloat.hpp>
+#include <nt2/include/functions/simd/if_else.hpp>
+#include <nt2/include/functions/simd/is_greater.hpp>
 #include <nt2/include/constants/inv2pi.hpp>
 #include <nt2/include/constants/pix2_1.hpp>
 #include <nt2/include/constants/pix2_2.hpp>
 #include <nt2/include/constants/pix2_3.hpp>
-#include <nt2/include/functions/rem_pio2.hpp>
-#include <nt2/include/functions/tofloat.hpp>
-#include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/is_greater.hpp>
-#include <boost/fusion/tuple.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/simd/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
-//#include <iostream>
+#include <boost/fusion/tuple.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation

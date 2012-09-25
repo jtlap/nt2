@@ -10,15 +10,16 @@
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_REM_PIO2_HPP_INCLUDED
 
 #include <nt2/toolbox/trigonometric/functions/rem_pio2.hpp>
-
-#include <boost/fusion/tuple.hpp>
+#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
+#include <nt2/include/functions/simd/rem_pio2_straight.hpp>
+#include <nt2/include/functions/simd/rem_pio2_medium.hpp>
+#include <nt2/include/functions/simd/rem_pio2_cephes.hpp>
+#include <nt2/include/functions/simd/load.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
-#include <nt2/include/functions/simd/load.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
-//#include <iostream>
+#include <boost/fusion/tuple.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // reference based Implementation

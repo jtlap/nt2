@@ -67,7 +67,6 @@
 #include <nt2/toolbox/linalg/details/lapack/mqr.hpp>
 #include <nt2/toolbox/linalg/details/lapack/trtrs.hpp>
 #include <nt2/table.hpp>
-//#include <iostream>
 
 namespace nt2 {
   struct no_p {};

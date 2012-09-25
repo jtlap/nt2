@@ -13,7 +13,6 @@
 #include <nt2/toolbox/linalg/functions/factorizations/svd.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
