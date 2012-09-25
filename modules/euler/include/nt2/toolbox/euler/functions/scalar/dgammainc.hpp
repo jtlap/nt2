@@ -19,6 +19,7 @@
 #include <nt2/include/functions/scalar/is_eqz.hpp>
 #include <nt2/include/functions/scalar/if_zero_else.hpp>
 #include <nt2/include/functions/scalar/if_allbits_else.hpp>
+#include <nt2/include/functions/scalar/gammaln.hpp>
 #include <nt2/include/constants/one.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
