@@ -101,7 +101,8 @@ operator BOOST_PP_CAT(Op, =)                                                   \
   A1 const & a1                                                                \
 )                                                                              \
 {                                                                              \
-  return a0 = operator Op(a0, a1);                                             \
+  a0 = operator Op(a0, a1);                                                    \
+  return a0;                                                                   \
 }                                                                              \
 /**/
 
