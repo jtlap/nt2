@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type sizee = boost::proto::child_c<0>(e).extent();
-      sizee[0] *= boost::proto::child_c<1>(e);
+      sizee[0] *= boost::proto::value(boost::proto::child_c<1>(e));
       return sizee;
     }
   };

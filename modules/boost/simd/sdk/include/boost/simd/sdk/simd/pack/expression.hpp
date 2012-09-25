@@ -30,7 +30,7 @@ namespace boost { namespace simd
     expression& operator=(expression const& xpr)
     {
       boost::simd::evaluate(
-        assign(*this, xpr)
+        boost::simd::assign(*this, xpr)
       );
       return *this;
     }
@@ -40,7 +40,7 @@ namespace boost { namespace simd
     expression& operator=(Xpr const& xpr)
     {
       boost::simd::evaluate(
-        assign(*this, xpr)
+        boost::simd::assign(*this, xpr)
       );
       return *this;
     }

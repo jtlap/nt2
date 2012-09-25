@@ -12,7 +12,7 @@
 // unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/swar/include/functions/splatted_sum.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/sum.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( splatted_sum_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::splatted_sum;
   using nt2::tag::splatted_sum_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -59,8 +59,8 @@ NT2_TEST_CASE_TPL ( splatted_sum_real__1_0,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(splatted_sum(nt2::Inf<vT>())[0], nt2::Inf<sr_t>());
   NT2_TEST_EQUAL(splatted_sum(nt2::Minf<vT>())[0], nt2::Minf<sr_t>());
-  NT2_TEST_EQUAL(splatted_sum(nt2::Mone<vT>())[0], -int(cardinal_of<n_t>()));
+  NT2_TEST_EQUAL(splatted_sum(nt2::Mone<vT>())[0], -sr_t(cardinal_of<n_t>()));
   NT2_TEST_EQUAL(splatted_sum(nt2::Nan<vT>())[0], nt2::Nan<sr_t>());
-  NT2_TEST_EQUAL(splatted_sum(nt2::One<vT>())[0], cardinal_of<n_t>());
+  NT2_TEST_EQUAL(splatted_sum(nt2::One<vT>())[0], sr_t(cardinal_of<n_t>()));
   NT2_TEST_EQUAL(splatted_sum(nt2::Zero<vT>())[0], nt2::Zero<sr_t>());
 } // end of test for floating_

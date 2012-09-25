@@ -76,7 +76,7 @@ namespace nt2
         std::size_t red = boost::proto::value(boost::proto::child_c<1>(e)) - 1;
 
         // If we reduce over the number of dimensions, do nothing
-        if(red < result_type::static_size) res[red] = 1;
+        if(red < res.size()) res[red] = 1;
 
         return res;
       }

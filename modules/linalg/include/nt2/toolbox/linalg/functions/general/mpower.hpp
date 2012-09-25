@@ -39,7 +39,6 @@
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <iostream>
 
 namespace nt2{ namespace ext
 {
@@ -53,7 +52,7 @@ namespace nt2{ namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
     typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
-    typedef typename A0::value_type                                  value_type;     
+    typedef typename A0::value_type                                  value_type;
     BOOST_FORCEINLINE result_type operator()(const A0& a0, A1& a1 ) const
     {
       const In0& a  = boost::proto::child_c<0>(a0);
@@ -63,33 +62,33 @@ namespace nt2{ namespace ext
       bool s1 =  nt2::isscalar(b);
       if (s0 && s1)
         {
-          nt2::table<value_type> aa = a,  bb = b; 
-          doit0(aa(1), bb(1), r); 
-          
+          value_type aa = a,  bb = b;
+          doit0(aa, bb, r);
+
         }
       else if(s0)
         {
-          nt2::table<value_type> aa = a; 
-            doit1(aa(1), b, r); 
+          value_type aa = a;
+            doit1(aa, b, r);
         }
       else if(s1)
         {
-          nt2::table<value_type> bb = b; 
-          doit2(a, bb(1), r); 
+          value_type bb = b;
+          doit2(a, bb, r);
         }
-    }   
+    }
   private:
     BOOST_FORCEINLINE static void doit0(const value_type& a, value_type& b, Out0& r)
     {
-      r =  nt2::pow(a, b); 
+      r =  nt2::pow(a, b);
     }
-    template < class T > 
+    template < class T >
     BOOST_FORCEINLINE static void doit1(const value_type& a, T& b, Out0& r)
     {
       r.resize(extent(b));
       r =  nt2::expm(nt2::log(a)*b);
     }
-    template < class T > 
+    template < class T >
     BOOST_FORCEINLINE static void doit2(const T& a, value_type& b, Out0& r)
     {
       r.resize(extent(a));
@@ -109,7 +108,7 @@ namespace nt2{ namespace ext
           {
             t = nt2::from_diag(nt2::pow(diag_of(t), m));
             r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
-            return; 
+            return;
           }
         else
           { //use iterative method
@@ -122,7 +121,7 @@ namespace nt2{ namespace ext
                   {
                     if (nt2::is_odd(m))
                       {
-                        r =  nt2::mtimes(a00, r); 
+                        r =  nt2::mtimes(a00, r);
                       }
                     a00 =  nt2::mtimes(a00, a00);
                     m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1

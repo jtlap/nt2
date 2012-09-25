@@ -10,31 +10,30 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_CHOL_SOLVE_HPP_INCLUDED
 
 #include <nt2/include/functions/chol_solve.hpp>
-#include <nt2/toolbox/linalg/details/lapack/posv.hpp>   
-#include <nt2/table.hpp>
+#include <nt2/toolbox/linalg/details/lapack/posv.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/ofsameheight.hpp>
 #include <nt2/include/functions/issquare.hpp>
-#include <iostream>
+ #include <nt2/table.hpp>
 
 namespace nt2 { namespace details
 {
   //============================================================================
-  // chol_solve actual functor 
+  // chol_solve actual functor
   //============================================================================
   template<class A, class B = A> struct chol_solve_result
   {
     typedef typename A::value_type                      type_t;
-    typedef typename A::index_type                     index_t; 
-    typedef typename meta::as_real<type_t>::type       btype_t; 
+    typedef typename A::index_type                     index_t;
+    typedef typename meta::as_real<type_t>::type       btype_t;
     typedef nt2::table<type_t,nt2::matlab_index_>       ftab_t;
     typedef nt2::table<btype_t,nt2::matlab_index_>     fbtab_t;
     typedef nt2::table<nt2_la_int,nt2::matlab_index_>  fitab_t;
     typedef nt2::table<type_t,index_t>                   tab_t;
     typedef nt2::table<btype_t,index_t>                 btab_t;
     typedef nt2::table<nt2_la_int,index_t>              itab_t;
-    
+
     ////////////////////////////////////////////////////////////////////////////
     // general cholevski solver
     //  a is            n x n
@@ -42,7 +41,7 @@ namespace nt2 { namespace details
     //  b is            n x nrhs
     //  need sentimentally a symetric definite positive. Only the ower
     //  triangular part is used by default (uplo = 'l' : use 'u' to use the
-    //  upper part used) 
+    //  upper part used)
     ////////////////////////////////////////////////////////////////////////////
     chol_solve_result(A& a, B& bx, const char & uplo  /*= 'l'*/)
       : a_(a),
@@ -60,7 +59,7 @@ namespace nt2 { namespace details
     nt2_la_int status()    const { return info_; }
     B& x() {return b_; }
   private:
-    A& a_; 
+    A& a_;
     B& b_;
     nt2_la_int  info_;
   };

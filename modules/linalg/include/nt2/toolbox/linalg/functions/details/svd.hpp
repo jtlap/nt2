@@ -33,30 +33,29 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gesvd.hpp>
-#include <iostream>
 // TODO:
 // these are the kind of syntaxes to be enforced by nt2::chol
 //  svd    Singular value decomposition.
-//     [u,s,v] = svd(x) produces a diagonal matrix s, of the same 
+//     [u,s,v] = svd(x) produces a diagonal matrix s, of the same
 //     dimension as x and with nonnegative diagonal elements in
 //     decreasing order, and unitary matrices u and v so that
 //     x = u*s*v'.
 // -> [u w v ]
 
 //     s = svd(x) returns a vector containing the singular values.
- 
+
 //     [u,s,v] = svd(x,0) produces the "economy size"
 //     decomposition. if x is m-by-n with m > n, then only the
 //     first n columns of u are computed and s is n-by-n.
 //     for m <= n, svd(x,0) is equivalent to svd(x).
 // -> [u w v ] jobu ==  'o', jobvt ==  'a'
- 
+
 //     [u,s,v] = svd(x,'econ') also produces the "economy size"
 //     decomposition. if x is m-by-n with m >= n, then it is
-//     equivalent to svd(x,0). for m < n, only the first m columns 
+//     equivalent to svd(x,0). for m < n, only the first m columns
 //     of v are computed and s is m-by-m.
 // -> [u w v ] jobu ==  'a' jobvt ==  'o'
- 
+
 ////////////////////////////////////////////////////////////////////////////////////////
 // The class provides:
 // constructor from an expression or matrix a
@@ -69,7 +68,7 @@
 // singular returns the vector of the singular values
 // we have u*w*vt = a
 
-/////////////////////////////////////////////////// 
+///////////////////////////////////////////////////
 //
 // the class allow to compute
 //
@@ -122,8 +121,8 @@ namespace nt2 { namespace details
       BOOST_ASSERT_MSG((jobvt_ != 'O' || jobu_ != 'O'),
                         "jobu and jobvt cannot be 'O' simultaneously");
       ldu_  = (jobu_== 'N') ? 1 : m_;
-      ucol_ = (jobu_== 'S'||jobu_== 'O') ? nt2::min(n_, m_) : ((jobu_== 'N') ? 1 : m_); 
-      
+      ucol_ = (jobu_== 'S'||jobu_== 'O') ? nt2::min(n_, m_) : ((jobu_== 'N') ? 1 : m_);
+
       vtcol_  = (jobvt_== 'N') ? 1 : n_;
       ldvt_   = (jobvt_== 'S'||jobvt_== 'O') ? nt2::min(n_, m_) : ((jobvt_== 'N') ? 1 : n_);
       u_.resize(of_size(ldu_, ucol_));
@@ -156,7 +155,7 @@ namespace nt2 { namespace details
       a_(src.a_),aa_(src.aa_),m_(src.m_),n_(src.n_),
       lda_(src.lda_),info_(src.info_),wrk_(src.wrk_)
     {}
-    
+
     //==========================================================================
     // Return raw values
     //==========================================================================
@@ -178,13 +177,13 @@ namespace nt2 { namespace details
     // Return v part
     //==========================================================================
     result_type v() const {
-      result_type z; 
+      result_type z;
       BOOST_ASSERT_MSG(jobvt_ != 'N', "please call svd with jobvt= 'A', 'S' or 'O'");
       if (jobvt_ == 'O')
         z = trans(expand(aa_, min(m_, n_), n_));
       else
         z = trans(vt_);
-      return z; 
+      return z;
     }
 
     //==========================================================================
@@ -222,35 +221,35 @@ namespace nt2 { namespace details
     base_t     cond()       const
     {
       base_t r =  w_(1)/w_(nt2::min(m_, n_));
-      return is_nan(r) ? Inf<base_t>() : r; 
+      return is_nan(r) ? Inf<base_t>() : r;
     }
 
     //==========================================================================
     // Return matrix norm
     //==========================================================================
     base_t     norm()       const { return  w_(1); }
-    
+
     //==========================================================================
     // Return matrix norm
     //==========================================================================
     base_t     norminv()       const { return  nt2::rec(w_(nt2::min(m_, n_))); }
-    
+
     //==========================================================================
     // Return matrix rank up to epsi
     //==========================================================================
      size_t      rank(base_t epsi = -1) const
     {
       epsi =  (epsi < 0) ?  nt2::max(n_, m_)*nt2::eps(w_(1)): epsi;
-//       size_t r = 0; 
+//       size_t r = 0;
 //       for(int i=1; i <= numel(w_); ++i)
 //         {
 //           if (w_(i) > epsi)
 //             ++r;
 //           else
-//             return r; 
+//             return r;
 //         }
-//       return r; 
-      return  size_t(sum(if_one_else_zero(gt(w_, epsi))(_))); 
+//       return r;
+      return  size_t(sum(if_one_else_zero(gt(w_, epsi))(_)));
     }
 
     //==========================================================================
@@ -285,7 +284,7 @@ namespace nt2 { namespace details
     // image space basis up to epsi
     //==========================================================================
 //     typedef typename meta::call<tag::colon_(int32_t, int32_t)>::type T1;
-//     typedef typename meta::call<tag::function_(tab_t, container::colon_, T1)>::type T2; 
+//     typedef typename meta::call<tag::function_(tab_t, container::colon_, T1)>::type T2;
       tab_t orth(base_t epsi =  -1)const
       {
         int32_t r = rank(epsi);
@@ -301,14 +300,14 @@ namespace nt2 { namespace details
       {
         epsi = epsi < 0 ? nt2::eps(w_(1)) : epsi;
         tab_t w1 = nt2::if_else( gt(w_, length(a_)*epsi), nt2::rec(w_), Zero<base_t>());
-        return mtimes(trans(vt_), mtimes(from_diag(w1), trans(u_))); 
+        return mtimes(trans(vt_), mtimes(from_diag(w1), trans(u_)));
       }
 
   private:
     char                           jobu_;
-    char                          jobvt_; 
+    char                          jobvt_;
     data_t                            a_;
-    tab_t                            aa_; 
+    tab_t                            aa_;
     tab_t                             u_;
     tab_t                            vt_;
     tab_t                             w_;
