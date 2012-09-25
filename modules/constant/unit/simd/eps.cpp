@@ -28,7 +28,11 @@ NT2_TEST_CASE( double_eps_value )
   NT2_TEST_EQUAL( nt2::Fourthrooteps<double>()  , 1.2207031250000000e-4   );
   NT2_TEST_EQUAL( nt2::Thirdrooteps<double>()   , 6.0554544523933440e-6   );
   NT2_TEST_EQUAL( nt2::Mlogeps2<double>()       , 18.021826694558580      );
+  #ifdef BOOST_SIMD_NO_DENORMALS
+  NT2_TEST_EQUAL( nt2::Mindenormal<double>()    , 2.2250738585072014e-308 );
+  #else
   NT2_TEST_EQUAL( nt2::Mindenormal<double>()    , 5.0000000000000000e-324 );
+  #endif
   NT2_TEST_EQUAL( nt2::Smallestposval<double>() , 2.2250738585072014e-308 );
 }
 
@@ -41,7 +45,11 @@ NT2_TEST_CASE( float_eps_value )
   NT2_TEST_EQUAL( nt2::Fourthrooteps<float>()   , 0.018581360578536987   );
   NT2_TEST_EQUAL( nt2::Thirdrooteps<float>()    , 0.004921566694974899   );
   NT2_TEST_EQUAL( nt2::Mlogeps2<float>()        , 7.971192359924316      );
+  #ifdef BOOST_SIMD_NO_DENORMALS
+  NT2_TEST_EQUAL( nt2::Mindenormal<float>()     , 1.1754943508222875e-38 );
+  #else
   NT2_TEST_EQUAL( nt2::Mindenormal<float>()     , 1.401298464324817e-45  );
+  #endif
   NT2_TEST_EQUAL( nt2::Smallestposval<float>()  , 1.1754943508222875e-38 );
 }
 
