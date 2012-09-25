@@ -18,6 +18,7 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/simd/include/functions/simd/saturate.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is downgradable
@@ -35,11 +36,13 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+      A0 aa0 =  boost::simd::saturate<result_type>(a0);
+      A0 aa1 =  boost::simd::saturate<result_type>(a1);
       static const size_t size = boost::simd::meta::cardinal_of<A0>::value;
       typedef typename meta::scalar_of<result_type>::type sR;
       BOOST_SIMD_ALIGNED_TYPE(sR) tmp[size*2];
-      for(size_t i = 0; i != size; ++i)  tmp[i]      = static_cast<sR>(saturate<sR>(a0[i]));
-      for(size_t i = 0; i != size; ++i)  tmp[i+size] = static_cast<sR>(saturate<sR>(a1[i]));
+      for(size_t i = 0; i != size; ++i)  tmp[i]      = static_cast<sR>(aa0[i]);
+      for(size_t i = 0; i != size; ++i)  tmp[i+size] = static_cast<sR>(aa1[i]);
       return load<result_type>(&tmp[0], 0);
     }
   };
