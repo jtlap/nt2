@@ -7,7 +7,6 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-#nt2_module_use_modules(unit standard libc)
 nt2_module_use_modules(unit)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

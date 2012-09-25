@@ -13,6 +13,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SORT_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <boost/dispatch/meta/tieable.hpp>
 
 /*!
  * \ingroup boost_simd_swar
@@ -22,12 +23,12 @@
  * returns the sorted a0 vector in ascending order
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sort.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +41,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of sort
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -54,20 +55,24 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
-namespace boost { namespace simd { namespace tag
-  {         
+namespace boost { namespace simd
+{
+  namespace tag
+  {
     /*!
-     * \brief Define the tag sort_ of functor sort 
+     * \brief Define the tag sort_ of functor sort
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct sort_ : ext::unspecified_<sort_> { typedef ext::unspecified_<sort_> parent; };
+    struct sort_ : ext::tieable_<sort_> { typedef ext::tieable_<sort_> parent; };
   }
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sort_, sort, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sort_, sort, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::sort_, sort, 3)
+
 } }
 
 #endif
-
-// modified by jt the 25/12/2010
