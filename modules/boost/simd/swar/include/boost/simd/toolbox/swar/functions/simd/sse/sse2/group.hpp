@@ -19,7 +19,6 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -151,7 +150,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      A0 mask = boost::simd::splat<A0>(Valmax<uint32_t>()); 
+      A0 mask = boost::simd::splat<A0>(Valmax<uint32_t>());
       A0 that0 =  b_and(boost::simd::saturate<result_type>(a0), mask);
       A0 that1 =  b_and(boost::simd::saturate<result_type>(a1), mask);
       result_type b = _mm_slli_si128(simd::bitwise_cast<result_type>(that1),4);

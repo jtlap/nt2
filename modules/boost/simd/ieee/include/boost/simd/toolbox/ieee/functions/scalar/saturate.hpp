@@ -17,6 +17,24 @@
 
 namespace boost { namespace simd { namespace ext
 {
+ //============================================================================
+  // floating/xxx is a cast
+  //============================================================================
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::saturate_, tag::cpu_
+                                    , (A0)(T)
+                                    , (scalar_< arithmetic_<A0> >)
+                                      (target_< generic_<arithmetic_<T> > >)
+                                    )
+  {
+    typedef A0 result_type;
+    typedef typename meta::scalar_of<T>::type target_t;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& ) const
+    {
+      return static_cast<target_t>(a0);
+    }
+  };
+
   //============================================================================
   // Trivial case int/xxx : Just compare over Valmax/Valmin after conversion
   //============================================================================

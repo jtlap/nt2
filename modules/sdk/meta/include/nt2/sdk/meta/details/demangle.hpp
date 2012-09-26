@@ -15,8 +15,6 @@
 
 #include <string>
 #include <cstdlib>
-#include <typeinfo>
-#include <iostream>
 
 namespace nt2 {  namespace details
 {

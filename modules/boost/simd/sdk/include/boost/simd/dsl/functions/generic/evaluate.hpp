@@ -10,7 +10,6 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_GENERIC_EVALUATE_HPP_INCLUDED
 
 #include <boost/simd/dsl/functions/evaluate.hpp>
-#include <boost/simd/include/functions/optimize.hpp>
 #include <boost/simd/include/functions/schedule.hpp>
 #include <boost/simd/include/functions/run.hpp>
 
@@ -25,24 +24,15 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     #if 1
-    typedef typename dispatch::meta::call<tag::optimize_(A0&)>::type                 optimized;
     typedef typename dispatch::make_functor<tag::run_, A0>::type                     F;
-    typedef typename dispatch::meta::call<tag::schedule_(optimized, F&)>::type       scheduled;
+    typedef typename dispatch::meta::call<tag::schedule_(A0&, F&)>::type             scheduled;
     typedef typename dispatch::meta::result_of<F(scheduled)>::type                   result_type;
 
     BOOST_FORCEINLINE result_type
     operator()(A0& a0) const
     {
       F f;
-      return f(schedule(optimize(a0), f));
-    }
-    #elif 1
-    typedef typename dispatch::meta::call<tag::optimize_(A0&)>::type                 optimized;
-    typedef typename dispatch::meta::call<tag::run_(optimized)>::type                result_type;
-    BOOST_FORCEINLINE result_type
-    operator()(A0& a0) const
-    {
-      return run(optimize(a0));
+      return f(schedule(a0, f));
     }
     #else
     typedef typename dispatch::meta::call<tag::run_(A0&)>::type                      result_type;

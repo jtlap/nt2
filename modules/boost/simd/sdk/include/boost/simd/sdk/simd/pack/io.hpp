@@ -27,9 +27,9 @@ namespace boost { namespace simd
   ////////////////////////////////////////////////////////////////////////////
   // Stream insertion for SIMD expression
   ////////////////////////////////////////////////////////////////////////////
-  template<class X,class T,class C>
+  template<class X,class T>
   BOOST_DISPATCH_FORCE_INLINE
-  std::ostream& operator<<(std::ostream& os, expression<X,T,C> const& v )
+  std::ostream& operator<<(std::ostream& os, expression<X,T> const& v )
   {
     return os << evaluate(v);
   }

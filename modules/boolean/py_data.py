@@ -1,3 +1,0 @@
-datas = {
-'style' : 'sys',
-}

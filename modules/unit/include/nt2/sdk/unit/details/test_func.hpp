@@ -17,7 +17,7 @@ namespace nt2
 {
   namespace container
   {
-    template<class Expr, class Result, class Dummy>
+    template<class Expr, class Result>
     struct expression;
   }
 
@@ -35,8 +35,8 @@ namespace nt2
       return t;
     }
 
-    template<class Expr, class Result, class Dummy>
-    Result eval(nt2::container::expression<Expr, Result, Dummy> const& t)
+    template<class Expr, class Result>
+    Result eval(nt2::container::expression<Expr, Result> const& t)
     {
       return t;
     }

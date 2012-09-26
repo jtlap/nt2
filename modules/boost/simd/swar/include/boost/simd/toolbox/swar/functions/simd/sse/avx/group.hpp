@@ -11,12 +11,11 @@
 
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 #include <boost/simd/toolbox/swar/functions/group.hpp>
+#include <boost/simd/include/functions/simd/saturate.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/simd/sdk/simd/meta/retarget.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
-#include <boost/simd/include/functions/simd/saturate.hpp> 
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -168,12 +167,12 @@ namespace boost { namespace simd { namespace ext
     {
       htype a00 = _mm256_extractf128_si256(a0, 0);
       htype a01 = _mm256_extractf128_si256(a0, 1);
-      type v0 = boost::simd::group(a00, a01); 
+      type v0 = boost::simd::group(a00, a01);
       htype a10 = _mm256_extractf128_si256(a1, 0);
       htype a11 = _mm256_extractf128_si256(a1, 1);
-      type v1 = boost::simd::group(a10, a11); 
-      result_type r = _mm256_insertf128_si256(r, v0, 0); 
-      r =   _mm256_insertf128_si256(r, v1, 1); 
+      type v1 = boost::simd::group(a10, a11);
+      result_type r = _mm256_insertf128_si256(r, v0, 0);
+      r =   _mm256_insertf128_si256(r, v1, 1);
       return r;
     }
   };
@@ -198,12 +197,12 @@ namespace boost { namespace simd { namespace ext
     {
       htype a00 = _mm256_extractf128_si256(a0, 0);
       htype a01 = _mm256_extractf128_si256(a0, 1);
-      type v0 = boost::simd::group(a00, a01); 
+      type v0 = boost::simd::group(a00, a01);
       htype a10 = _mm256_extractf128_si256(a1, 0);
       htype a11 = _mm256_extractf128_si256(a1, 1);
-      type v1 = boost::simd::group(a10, a11); 
-      result_type r = _mm256_insertf128_si256(r, v0, 0); 
-      r =   _mm256_insertf128_si256(r, v1, 1); 
+      type v1 = boost::simd::group(a10, a11);
+      result_type r = _mm256_insertf128_si256(r, v0, 0);
+      r =   _mm256_insertf128_si256(r, v1, 1);
       return r;
     }
   };
