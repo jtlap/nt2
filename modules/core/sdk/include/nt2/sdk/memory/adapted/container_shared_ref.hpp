@@ -29,7 +29,6 @@ namespace nt2 { namespace meta
   template<class Container, bool Own>
   struct  is_container_ref< memory::container_shared_ref<Container, Own> >
         : boost::mpl::true_ {};
-
 } }
 
 namespace boost { namespace dispatch { namespace meta
@@ -124,7 +123,6 @@ namespace boost { namespace dispatch { namespace meta
                                     >                           basic_expr;
     typedef nt2::container::expression< basic_expr
                                       , container
-                                      , boost::proto::is_proto_expr
                                       >                         type;
     static type make()
     {
