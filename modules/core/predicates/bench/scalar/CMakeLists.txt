@@ -8,12 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  is_equal.cpp
-  is_not_equal.cpp
-  is_less.cpp
-  is_less_equal.cpp
-  is_greater.cpp
-  is_greater_equal.cpp
   is_not_equal_with_equal_nans.cpp
   is_equal_with_equal_nans.cpp
   is_not_less_equal.cpp

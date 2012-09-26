@@ -8,6 +8,8 @@
 ##############################################################################
 
 set( SOURCES
+  is_equal.cpp
+  is_not_equal.cpp
   plus.cpp
   minus.cpp
   multiplies.cpp

@@ -21,6 +21,12 @@ SET( SOURCES
   dot.cpp
   all.cpp
   any.cpp
+  compare_equal.cpp
+  compare_not_equal.cpp
+  compare_less.cpp
+  compare_less_equal.cpp
+  compare_greater.cpp
+  compare_greater_equal.cpp
 # List of scalar test files for toolbox reduction
    )
 

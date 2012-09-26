@@ -25,6 +25,12 @@ SET( SOURCES
   at_i.cpp
   any.cpp
   all.cpp
+  compare_equal.cpp
+  compare_not_equal.cpp
+  compare_less.cpp
+  compare_less_equal.cpp
+  compare_greater.cpp
+  compare_greater_equal.cpp
 # List of simd test files for toolbox reduction
    )
 

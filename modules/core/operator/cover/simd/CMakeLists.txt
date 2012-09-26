@@ -28,12 +28,12 @@ SET( SOURCES
   if_else.cpp
   divides.cpp
   complement.cpp
-  compare_not_equal.cpp
-  compare_less_equal.cpp
-  compare_less.cpp
-  compare_greater_equal.cpp
-  compare_greater.cpp
-  compare_equal.cpp
+  is_not_equal.cpp
+  is_less_equal.cpp
+  is_less.cpp
+  is_greater_equal.cpp
+  is_greater.cpp
+  is_equal.cpp
   comma.cpp
   bitwise_xor.cpp
   bitwise_or.cpp
