@@ -13,7 +13,9 @@
 #include <boost/fusion/include/io.hpp>
 #include <boost/fusion/include/copy.hpp>
 #include <boost/fusion/include/as_vector.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/proxy.hpp>
+#include <boost/dispatch/meta/value_of.hpp>
+#include <boost/dispatch/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
 
 //==============================================================================
@@ -39,7 +41,7 @@ namespace nt2 { namespace memory
                           >::type
   {
     public:
-    typedef T value_type;
+    typedef typename boost::remove_const<T>::type                   value_type;
     typedef typename  boost::mpl::
             transform < typename boost::fusion::result_of::as_vector<T>::type
                       , boost::mpl::if_ < boost::is_const<T>
@@ -86,29 +88,13 @@ namespace nt2 { namespace memory
 
 namespace boost { namespace dispatch { namespace meta
 {
-  //============================================================================
-  // composite_reference hierarchy is given by its T
-  //============================================================================
-  template<class T, class Origin>
-  struct  hierarchy_of< nt2::memory::composite_reference<T>, Origin >
-        : hierarchy_of< typename boost::remove_const<T>::type , Origin>
-  {};
-
-  //============================================================================
-  // composite_reference value_of is given by its T
-  //============================================================================
-  template<class T>
-  struct  value_of< nt2::memory::composite_reference<T> >
-        : value_of< typename boost::remove_const<T>::type >
-  {};
-
-  //============================================================================
-  // composite_reference scalar_of is given by its T
-  //============================================================================
-  template<class T>
-  struct  scalar_of< nt2::memory::composite_reference<T> >
-        : scalar_of< typename boost::remove_const<T>::type >
-  {};
+  template<class T,class Origin>
+  struct  hierarchy_of< nt2::memory::composite_reference<T>
+                      , Origin
+                      >
+  {
+    typedef meta::proxy_<Origin>       type;
+  };
 } } }
 
 #endif
