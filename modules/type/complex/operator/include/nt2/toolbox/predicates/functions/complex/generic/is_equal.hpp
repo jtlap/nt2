@@ -8,7 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_EQUAL_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_EQUAL_HPP_INCLUDED
-#include <nt2/toolbox/predicates/functions/is_equal.hpp>
+#include <nt2/toolbox/operator/functions/is_equal.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/is_real.hpp>

@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_PREDICATES_FUNCTIONS_IS_LESS_HPP_INCLUDED
-#define NT2_TOOLBOX_PREDICATES_FUNCTIONS_IS_LESS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_IS_LESS_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_IS_LESS_HPP_INCLUDED
 
-#include <boost/simd/toolbox/predicates/functions/is_less.hpp>
+#include <boost/simd/toolbox/operator/functions/is_less.hpp>
 
 namespace nt2
 {

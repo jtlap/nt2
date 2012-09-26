@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_OPTIMIZE_IS_NOT_GREATER_HPP_INCLUDED
 
 #include <boost/simd/toolbox/predicates/functions/is_not_greater.hpp>
-#include <boost/simd/toolbox/predicates/functions/is_greater.hpp>
+#include <boost/simd/toolbox/operator/functions/is_greater.hpp>
 #include <boost/simd/toolbox/operator/functions/logical_not.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
