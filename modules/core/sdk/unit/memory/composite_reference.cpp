@@ -23,7 +23,7 @@
 //==============================================================================
 // Test for composite_reference hierarchy
 //==============================================================================
-NT2_TEST_CASE( composite_hierarchy )
+/*NT2_TEST_CASE( composite_hierarchy )
 {
   using scalar_;
   using complex_;
@@ -39,13 +39,15 @@ NT2_TEST_CASE( composite_hierarchy )
   NT2_TEST_TYPE_IS( scalar_<floating_<double_<composite_reference<std::complex<double> > > > > , UP(base,3) );
   NT2_TEST_TYPE_IS( scalar_<signed_<double_<composite_reference<std::complex<double> > > > > , UP(base,4) );
 
-}
+}*/
 
 //==============================================================================
 // Test for const composite_reference
 //==============================================================================
 NT2_TEST_CASE( composite_const_reference )
 {
+  using nt2::memory::composite_reference;
+
   std::complex<float> f(4,7.3f);
   composite_reference<std::complex<float> const> cref_f(f);
 
@@ -68,6 +70,8 @@ NT2_TEST_CASE( composite_const_reference )
 //==============================================================================
 NT2_TEST_CASE( composite_reference )
 {
+  using nt2::memory::composite_reference;
+
   std::complex<float> f(4,7.3f);
   composite_reference< std::complex<float> > ref_f(f);
 

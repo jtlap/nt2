@@ -8,7 +8,6 @@
 ##############################################################################
 
 SET( SOURCES
-  composite_table.cpp
   table_settings.cpp
   resize.cpp
   constructor.cpp
