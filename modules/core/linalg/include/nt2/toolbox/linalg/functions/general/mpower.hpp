@@ -94,61 +94,59 @@ namespace nt2{ namespace ext
       r.resize(extent(a));
       typedef typename A0::index_type       index_type;
       typedef table<value_type, index_type> result_type;
-      if(is_ltz(b))
+      bool is_ltz_b = is_ltz(b); 
+      if(is_ltz(b)) b = -b; 
+      value_type m = nt2::trunc(b);
+      value_type f = b-m;
+      result_type q, t;
+      // tie(q, t) = schur(a,'N'/*"complex"*/); // t is complex schur form.        result_type e, v;
+      if (false && isdiagonal(t))
         {
-          r = nt2::inv(nt2::mpower(a, -b));
+          t = nt2::from_diag(nt2::pow(diag_of(t), m));
+          if(is_ltz_b) t = nt2::inv(t);        
+          r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
           return;
         }
-      else {
-        value_type m = nt2::trunc(b);
-        value_type f = b-m;
-        result_type q, t;
-        // tie(q, t) = schur(a,'N'/*"complex"*/); // t is complex schur form.        result_type e, v;
-        if (false && isdiagonal(t))
-          {
-            t = nt2::from_diag(nt2::pow(diag_of(t), m));
-            r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
-            return;
-          }
-        else
-          { //use iterative method
-            r = nt2::eye(nt2::size(a), meta::as_<value_type>());
-            result_type rf = r;
-            if (m)
-              {
-                result_type a00 = a;
-                while (m >= nt2::One<value_type>())
-                  {
-                    if (nt2::is_odd(m))
-                      {
-                        r =  nt2::mtimes(a00, r);
-                      }
-                    a00 =  nt2::mtimes(a00, a00);
-                    m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
-                  }
-              }
-            if(!f)
-              {
-                return;
-              }
-            else
-              {
-                result_type a00 = nt2::sqrtm(a);
-                value_type thresh = nt2::Half<value_type>();
-                while (f > Zero<value_type>())
-                  {
-                    if (f >= thresh)
-                      {
-                        rf = nt2::mtimes(rf, a00);
-                        f -= thresh;
-                      }
-                    thresh *= nt2::Half<value_type>();
-                    a00 =  nt2::sqrtm(a00);
-                  }
-              }
-            r= nt2::mtimes(r, rf);
-          }
-      }
+      else
+        { //use iterative method
+          r = nt2::eye(nt2::size(a), meta::as_<value_type>());
+          result_type rf = r;
+          if (m)
+            {
+              result_type a00 = a;
+              while (m >= nt2::One<value_type>())
+                {
+                  if (nt2::is_odd(m))
+                    {
+                      r =  nt2::mtimes(a00, r);
+                    }
+                  a00 =  nt2::mtimes(a00, a00);
+                  m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
+                }
+            }
+          if(!f)
+            {
+              if(is_ltz_b) r = nt2::inv(r); 
+              return;
+            }
+          else
+            {
+              result_type a00 = nt2::sqrtm(a);
+              value_type thresh = nt2::Half<value_type>();
+              while (f > Zero<value_type>())
+                {
+                  if (f >= thresh)
+                    {
+                      rf = nt2::mtimes(rf, a00);
+                      f -= thresh;
+                    }
+                  thresh *= nt2::Half<value_type>();
+                  a00 =  nt2::sqrtm(a00);
+                }
+            }
+          r= nt2::mtimes(r, rf);
+          if(is_ltz_b) r = nt2::inv(r); 
+        }
     }
   };
 
