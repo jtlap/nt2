@@ -58,6 +58,27 @@ namespace nt2 { namespace ext
     }
   };
 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::terminal_, tag::cpu_
+                            , (A0)(T0)(S0)(State)(Data)
+                            , ((expr_< table_< unspecified_<A0>, S0 >
+                                     , T0
+                                     , boost::mpl::long_<0>
+                                     >
+                              ))
+                              (generic_< integer_<State> >)
+                              (target_<proxy_<Data> >)
+                            )
+  {
+    typedef typename boost::dispatch::meta::
+    scalar_of<A0&>::type                               result_type;
+
+    BOOST_FORCEINLINE result_type
+    operator()(A0& a0, State const& state, Data const&) const
+    {
+      return boost::proto::value(a0)[state];
+    }
+  };
+
   //============================================================================
   // table terminal with a position in scalar write mode
   //============================================================================
