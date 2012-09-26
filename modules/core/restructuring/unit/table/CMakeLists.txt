@@ -20,7 +20,6 @@ SET( SOURCES
   flipud.cpp
   from_diag.cpp
   horzcat.cpp
-  hyper.cpp
   ifvectvert.cpp
   putalong.cpp
   reshape.cpp
