@@ -68,13 +68,22 @@
 #include <boost/detail/endian.hpp>
 
 // FIXME: make the code work without those assumptions
+// ...zzz...the actual assumption is vector == 4 scalars, not sizeof( vector ) == 16...
 #include <boost/simd/sdk/memory/parameters.hpp>
-#undef BOOST_SIMD_CONFIG_ALIGNMENT
-#undef BOOST_SIMD_ARCH_ALIGNMENT
-#undef BOOST_SIMD_DEFAULT_EXTENSION
-#define BOOST_SIMD_CONFIG_ALIGNMENT 16
-#define BOOST_SIMD_ARCH_ALIGNMENT 16
-#define BOOST_SIMD_DEFAULT_EXTENSION boost::simd::tag::sse_
+#if BOOST_SIMD_CONFIG_ALIGNMENT > 16
+    #undef BOOST_SIMD_CONFIG_ALIGNMENT
+    #undef BOOST_SIMD_ARCH_ALIGNMENT
+    #undef BOOST_SIMD_DEFAULT_EXTENSION
+    #define BOOST_SIMD_CONFIG_ALIGNMENT 16
+    #define BOOST_SIMD_ARCH_ALIGNMENT 16
+    #if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
+        #undef BOOST_SIMD_HAS_LRB_SUPPORT
+        #undef BOOST_SIMD_HAS_AVX_SUPPORT
+        #define BOOST_SIMD_HAS_SSE4_2_SUPPORT
+        #define BOOST_SIMD_DEFAULT_EXTENSION boost::simd::tag::sse_
+    #endif // BOOST_SIMD_HAS_LRB_SUPPORT
+#endif // BOOST_SIMD_CONFIG_ALIGNMENT > 16
+
 
 #include <nt2/signal/twiddle_factors.hpp>
 
@@ -327,6 +336,9 @@ namespace nt2
 // http://ffmpeg.org/pipermail/ffmpeg-devel/2009-September/080247.html (AltiVec split radix)
 // http://vid.ledina.org/homepage/generic_classes/fft.hpp
 // https://github.com/alexbw/iPhoneFFT
+
+// http://llvm.org/bugs/show_bug.cgi?id=1821 "llvm spills like crazy on fft code"
+// http://llvm.org/bugs/show_bug.cgi?id=13292 "Excessive register spilling with large functions" (with FFT example)
 
 /// \note
 ///   The Dr.Dobbs article seems to claim better performance than Intel MKL 7.0
@@ -1291,8 +1303,15 @@ namespace detail
             vector_t const result_upper_i( reverse( h_temp_i - h1i      ) );
             vector_t const result_lower_i(          h1i      + h_temp_i   );
 
-            unaligned_store( result_upper_r, p_upper_reals );
-            unaligned_store( result_upper_i, p_upper_imags );
+            //...zzz...unaligned_store broken for emulation...
+            #ifndef BOOST_SIMD_DETECTED
+                std::memcpy( p_upper_reals, &result_upper_r, sizeof( result_upper_r ) );
+                std::memcpy( p_upper_imags, &result_upper_i, sizeof( result_upper_i ) );
+            #else
+                unaligned_store( result_upper_r, p_upper_reals );
+                unaligned_store( result_upper_i, p_upper_imags );
+            #endif // __ANDROID__
+
             p_upper_reals -= vector_t::static_size;
             p_upper_imags -= vector_t::static_size;
 
