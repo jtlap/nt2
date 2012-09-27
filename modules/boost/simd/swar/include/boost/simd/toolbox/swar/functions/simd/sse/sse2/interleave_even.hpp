@@ -28,8 +28,8 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m128 const a0, __m128 const a1) const
     {
-      result_type that0 =  details::shuffle<0, 2, 0, 2>(a0,a0);
-      result_type that1 =  details::shuffle<0, 2, 0, 2>(a1,a1);
+      __m128 const that0(details::shuffle<0, 2, 0, 2>(a0,a0));
+      __m128 const that1(details::shuffle<0, 2, 0, 2>(a1,a1));
       return _mm_unpacklo_ps(that0, that1);
     }
   };

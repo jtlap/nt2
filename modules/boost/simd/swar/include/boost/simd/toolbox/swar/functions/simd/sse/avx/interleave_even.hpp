@@ -27,8 +27,8 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m256 const a0, __m256 const a1) const
     {
-      result_type that0 = _mm256_shuffle_ps(a0, a0, 216);
-      result_type that1 = _mm256_shuffle_ps(a1, a1, 216);
+      __m256 const that0(_mm256_shuffle_ps(a0, a0, 216));
+      __m256 const that1(_mm256_shuffle_ps(a1, a1, 216));
       return _mm256_unpacklo_ps(that0,that1);
     }
   };
