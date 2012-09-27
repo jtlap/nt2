@@ -1303,14 +1303,8 @@ namespace detail
             vector_t const result_upper_i( reverse( h_temp_i - h1i      ) );
             vector_t const result_lower_i(          h1i      + h_temp_i   );
 
-            //...zzz...unaligned_store broken for emulation...
-            #ifndef BOOST_SIMD_DETECTED
-                std::memcpy( p_upper_reals, &result_upper_r, sizeof( result_upper_r ) );
-                std::memcpy( p_upper_imags, &result_upper_i, sizeof( result_upper_i ) );
-            #else
-                unaligned_store( result_upper_r, p_upper_reals );
-                unaligned_store( result_upper_i, p_upper_imags );
-            #endif // __ANDROID__
+            unaligned_store( result_upper_r, p_upper_reals );
+            unaligned_store( result_upper_i, p_upper_imags );
 
             p_upper_reals -= vector_t::static_size;
             p_upper_imags -= vector_t::static_size;
