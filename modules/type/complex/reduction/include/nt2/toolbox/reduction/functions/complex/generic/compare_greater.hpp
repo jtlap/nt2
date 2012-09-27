@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at                 
 //                     http://www.boost.org/LICENSE_1_0.txt                     
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_COMPARE_LESS_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_COMPARE_LESS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_COMPARE_GREATER_HPP_INCLUDED
+#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_COMPARE_GREATER_HPP_INCLUDED
 
-#include <nt2/toolbox/operator/functions/compare_less.hpp>
+#include <nt2/toolbox/reduction/functions/compare_greater.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/constants/false.hpp>
@@ -21,9 +21,9 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compare_less_, tag::cpu_, (A0)
-                      , ((generic_ < complex_< arithmetic_ <A0> > > ))
-                        ((generic_ < complex_< arithmetic_ <A0> > > ))     
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compare_greater_, tag::cpu_, (A0), 
+                                     ((generic_ < complex_< arithmetic_ <A0> > > ))
+                                     ((generic_ < complex_< arithmetic_ <A0> > > ))     
                       )
   {
     typedef typename meta::as_real<A0>::type    rA0; 
@@ -31,17 +31,13 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      result_type tmp =  compare_less(nt2::real(a0), nt2::real(a1)); 
-      if (tmp)
-        return tmp;
-      else
-        return  compare_less(nt2::imag(a0), nt2::imag(a1)); 
+      return compare_less(a1, a0); 
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compare_less_, tag::cpu_, (A0)
-                      , ((generic_ < imaginary_< arithmetic_ <A0> > > ))
-                        ((generic_ < imaginary_< arithmetic_ <A0> > > ))     
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compare_greater_, tag::cpu_, (A0), 
+                                     ((generic_ < imaginary_< arithmetic_ <A0> > > ))
+                                     ((generic_ < imaginary_< arithmetic_ <A0> > > ))     
                       )
   {
     typedef typename meta::as_real<A0>::type    rA0; 
@@ -49,13 +45,13 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return  compare_less(nt2::imag(a0), nt2::imag(a1)); 
+      return compare_less(a1, a0); 
     }
   };
-  
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compare_less_, tag::cpu_, (A0)
-                      , ((generic_ < dry_< arithmetic_ <A0> > > ))
-                        ((generic_ < dry_< arithmetic_ <A0> > > ))     
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compare_greater_, tag::cpu_, (A0), 
+                                     ((generic_ < dry_< arithmetic_ <A0> > > ))
+                                     ((generic_ < dry_< arithmetic_ <A0> > > ))     
                       )
   {
     typedef typename meta::as_real<A0>::type    rA0; 
@@ -63,9 +59,9 @@ namespace nt2 { namespace ext
     typedef typename meta::as_logical<sA0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return  compare_less(nt2::real(a0), nt2::real(a1)); 
+      return compare_less(a1, a0); 
     }
-  };  
+  };    
 } }
 
 #endif
