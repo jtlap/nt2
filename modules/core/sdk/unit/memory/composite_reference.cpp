@@ -25,7 +25,7 @@ NT2_TEST_CASE( composite_hierarchy )
   using boost::dispatch::meta::proxy_;
   using boost::dispatch::meta::unspecified_;
   using nt2::meta::hierarchy_of;
-  using nt2::memory::composite_reference;
+  using nt2::container::composite_reference;
 
   NT2_TEST_TYPE_IS
   ( hierarchy_of< composite_reference< std::complex<double> > >::type
@@ -43,7 +43,7 @@ NT2_TEST_CASE( composite_hierarchy )
 //==============================================================================
 NT2_TEST_CASE( composite_const_reference )
 {
-  using nt2::memory::composite_reference;
+  using nt2::container::composite_reference;
 
   std::complex<float> f(4,7.3f);
   composite_reference<std::complex<float> const> cref_f(f);
@@ -67,7 +67,7 @@ NT2_TEST_CASE( composite_const_reference )
 //==============================================================================
 NT2_TEST_CASE( composite_reference )
 {
-  using nt2::memory::composite_reference;
+  using nt2::container::composite_reference;
 
   std::complex<float> f(4,7.3f);
   composite_reference< std::complex<float> > ref_f(f);

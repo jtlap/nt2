@@ -11,6 +11,7 @@
 
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/dispatch/functor/functor.hpp>
+#include <boost/dispatch/meta/proxy.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
@@ -113,6 +114,7 @@ namespace boost { namespace simd
    : mpl::or_< boost::is_fundamental<T>
              , boost::dispatch::details::is_mpl_integral<T>
              , meta::is_native<T>
+             , dispatch::meta::is_proxy<T>
              , proto::is_expr<T>
              >
   {

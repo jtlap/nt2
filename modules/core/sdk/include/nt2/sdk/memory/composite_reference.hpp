@@ -6,14 +6,14 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_CONTAINER_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
-#define NT2_CORE_CONTAINER_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
+#ifndef NT2_CORE_SDK_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
+#define NT2_CORE_SDK_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
 
 #include <boost/mpl/transform.hpp>
 #include <boost/fusion/include/io.hpp>
 #include <boost/fusion/include/copy.hpp>
 #include <boost/fusion/include/as_vector.hpp>
-#include <boost/dispatch/meta/proxy.hpp>
+#include <boost/simd/sdk/functor/proxy.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <nt2/sdk/meta/container_traits.hpp>
@@ -25,7 +25,7 @@
   **/
 //==============================================================================
 
-namespace nt2 { namespace memory
+namespace nt2 { namespace container
 {
   // T = complex<float>
   template<class T>
@@ -77,6 +77,13 @@ namespace nt2 { namespace memory
       boost::fusion::copy(src,*this);
       return *this;
     }
+
+    operator value_type() const
+    {
+      value_type that;
+      boost::fusion::copy(*this,that);
+      return that;
+    }
   };
 
   template<class T>
@@ -89,7 +96,7 @@ namespace nt2 { namespace memory
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T,class Origin>
-  struct  hierarchy_of< nt2::memory::composite_reference<T>
+  struct  hierarchy_of< nt2::container::composite_reference<T>
                       , Origin
                       >
   {

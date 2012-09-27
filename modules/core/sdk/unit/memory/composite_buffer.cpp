@@ -45,7 +45,7 @@ NT2_TEST_CASE( composite_buffer_typing )
   using nt2::meta::pointer_;
   using nt2::meta::const_pointer_;
   using nt2::memory::composite_buffer;
-  using nt2::memory::composite_reference;
+  using nt2::container::composite_reference;
   using nt2::memory::buffer;
 
   NT2_TEST_EXPR_TYPE( (composite_buffer< buffer<foo> >())
@@ -91,7 +91,7 @@ NT2_TEST_CASE( composite_array_buffer_typing )
   using nt2::meta::pointer_;
   using nt2::meta::const_pointer_;
   using nt2::memory::composite_buffer;
-  using nt2::memory::composite_reference;
+  using nt2::container::composite_reference;
   using nt2::memory::array_buffer;
 
   NT2_TEST_EXPR_TYPE( (composite_buffer< array_buffer<foo,boost::mpl::int_<1> > >())
