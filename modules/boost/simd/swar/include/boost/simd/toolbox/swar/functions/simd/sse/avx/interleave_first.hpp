@@ -15,7 +15,6 @@
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 #include <boost/simd/toolbox/swar/functions/details/perm.hpp>
-#include <iostream>
 
 namespace boost { namespace simd { namespace ext
 {

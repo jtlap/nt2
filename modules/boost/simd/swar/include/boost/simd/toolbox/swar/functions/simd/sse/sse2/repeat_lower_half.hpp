@@ -43,8 +43,6 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(__m128i const a0) const
     {
       return  details::shuffle<0, 1, 0, 1>(a0, a0);
-//       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-//       return bitwise_cast<result_type>(repeat_lower_half(bitwise_cast<ftype>(a0)));
     }
   };
 
@@ -59,7 +57,6 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(__m128i const a0) const
     {
       return  details::shuffle<0, 1, 0, 1>(a0, a0);
-      //      return  bitwise_cast<result_type>(interleave_first(bitwise_cast<result_type>(a0), bitwise_cast<result_type>(a0))); 
     }
   };
 
