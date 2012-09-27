@@ -33,23 +33,6 @@ namespace boost { namespace dispatch
                                     , value_<T>
                                     , mpl::identity<T const&>
                                     >::type         type;
-
-      static type call(T const& t)
-      {
-        return call(t,typename is_proxy<T>::type());
-      }
-
-      static type call(T const& t, mpl::false_ const&)
-      {
-        return t;
-      }
-
-      static type call(T const& t, mpl::true_ const&)
-      {
-        typename T::value_type that;
-        boost::fusion::copy(t,that);
-        return that;
-      }
     };
   }
 
@@ -61,9 +44,10 @@ namespace boost { namespace dispatch
 
     @param t Value to unproxify
   **/
-  template<class T> typename meta::unproxy<T>::type unproxy(T const& t)
+  template<class T>
+  BOOST_FORCEINLINE typename meta::unproxy<T>::type unproxy(T const& t)
   {
-    return meta::unproxy<T>::call(t);
+    return t;
   }
 } }
 
