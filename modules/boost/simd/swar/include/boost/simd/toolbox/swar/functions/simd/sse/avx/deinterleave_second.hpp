@@ -35,7 +35,7 @@ namespace boost { namespace simd { namespace ext
       svtype a01 = _mm256_extractf128_ps(a0, 1);
       svtype a10 = _mm256_extractf128_ps(a1, 0);
       svtype a11 = _mm256_extractf128_ps(a1, 1);
-      result_type that = _mm256_insertf128_ps(that,boost::simd::deinterleave_second(a00, a01), 0);
+      __m256 that = _mm256_castps128_ps256(boost::simd::deinterleave_second(a00, a01));
       return _mm256_insertf128_ps(that,  boost::simd::deinterleave_second(a10, a11), 1);
      }
   };
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
       svtype a01 = _mm256_extractf128_pd(a0, 1);
       svtype a10 = _mm256_extractf128_pd(a1, 0);
       svtype a11 = _mm256_extractf128_pd(a1, 1);
-      result_type that = _mm256_insertf128_pd(that,boost::simd::deinterleave_second(a00, a01), 0);
+      __m256d that = _mm256_castpd128_pd256(boost::simd::deinterleave_second(a00, a01));
       return  _mm256_insertf128_pd(that,  boost::simd::deinterleave_second(a10, a11), 1);
      }
   };
@@ -81,7 +81,7 @@ namespace boost { namespace simd { namespace ext
       svtype a01 = _mm256_extractf128_si256(a0, 1);
       svtype a10 = _mm256_extractf128_si256(a1, 0);
       svtype a11 = _mm256_extractf128_si256(a1, 1);
-      result_type that = _mm256_insertf128_si256(that,boost::simd::deinterleave_second(a00, a01), 0);
+      __m256i that = _mm256_castsi128_si256(boost::simd::deinterleave_second(a00, a01));
       return  _mm256_insertf128_si256(that,  boost::simd::deinterleave_second(a10, a11), 1);
 
      }
