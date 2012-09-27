@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/simd/include/functions/interleave_first.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/toolbox/swar/functions/details/perm.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,10 +25,10 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-
+  
     result_type operator()(__m256 const a0) const
     {
-      return _mm256_permute2f128_ps(a0,a0, 17);
+      return details::perm2<1, 1>(a0, a0);// _mm256_permute2f128_ps(a0,a0, 17);
     }
   };
   
@@ -41,7 +42,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m256i const a0) const
     {
-      return _mm256_permute2f128_si256(a0, a0, 17);
+      return  details::perm2<1, 1>(a0, a0);//_mm256_permute2f128_si256(a0, a0, 17);
     }
   };
   
@@ -55,7 +56,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m256d const a0) const
     {
-      return  _mm256_permute2f128_pd(a0, a0, 17);
+      return  details::perm2<1, 1>(a0, a0);// _mm256_permute2f128_pd(a0, a0, 17);
     }
   };
   

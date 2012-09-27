@@ -67,6 +67,16 @@ __m256 shuffle(__m256 const lower, __m256 const upper)
                           , _MM_SHUFFLE(upper_i1, upper_i0, lower_i1, lower_i0)
                           );
 }
+  
+template< unsigned int i0, unsigned int i1
+        , unsigned int i2, unsigned int i3>
+BOOST_FORCEINLINE
+__m256 shuffle_pairs(__m256 const lower, __m256 const upper)
+{
+  return (__m256)_mm256_shuffle_pd( (__m256d)lower,  (__m256d)upper
+                                    , _MM_SHUFFLE(i3, i2, i1, i0)
+                                    );
+}
 
 template< unsigned int lower_i0, unsigned int lower_i1
         , unsigned int upper_i0, unsigned int upper_i1>
@@ -86,13 +96,6 @@ __m256d shuffle(__m256d const input)
   return shuffle<lower_i0, lower_i1, upper_i0, upper_i1>(input, input);
 }
 
-template< unsigned int lower_i0, unsigned int lower_i1
-        , unsigned int upper_i0, unsigned int upper_i1>
-BOOST_FORCEINLINE
-__m128 shuffle(__m256d const input)
-{
-  return shuffle<lower_i0, lower_i1, upper_i0, upper_i1>(input, input);
-}
 #endif
 } } }
 
