@@ -39,6 +39,21 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_, tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_< fundamental_<A0>, X >))
+                              (iterator_<scalar_< fundamental_<A1> > >)
+                            )
+  {
+    typedef A0 const& result_type;
+    inline result_type operator()(const A0& a0, const A1& a1) const
+    {
+      for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
+         a1[i] = a0[i];
+      return a0;
+    }
+  };
+
   // regular store
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_ , tag::cpu_
                             , (A0)(A1)(A2)(X)
@@ -51,6 +66,19 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       return *reinterpret_cast<A0*>(a1+a2) = a0;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_ , tag::cpu_
+                            , (A0)(A1)(X)
+                            , ((simd_< arithmetic_<A0>, X >))
+                              (iterator_< scalar_< arithmetic_<A1> > >)
+                            )
+  {
+    typedef A0 const& result_type;
+    BOOST_SIMD_FUNCTOR_CALL(2)
+    {
+      return *reinterpret_cast<A0*>(a1) = a0;
     }
   };
 
