@@ -98,7 +98,7 @@ namespace nt2 {
         , n_(nt2::width(xpr))
         , k_(nt2::min(m_, n_))
         , lda_(a_.leading_size())
-        , jpvt_(nt2::of_size(n_,1))
+        , jpvt_(nt2::zeros(n_,1, meta::as_<nt2_la_int>()))
         , tau_(nt2::of_size(k_,1))
         , info_(0)
         , nop_(nop)
