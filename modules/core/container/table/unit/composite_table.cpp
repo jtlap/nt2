@@ -10,7 +10,8 @@
 
 #include <nt2/table.hpp>
 #include <nt2/core/functions/of_size.hpp>
-#include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/ones.hpp> // no worky
+#include <nt2/include/functions/cos.hpp>
 
 #include <complex>
 #include <nt2/sdk/complex/complex.hpp>
@@ -27,29 +28,31 @@ NT2_TEST_CASE( composite_table )
   using nt2::of_size;
   using nt2::settings;
 
-  table< std::complex<float> > x( of_size(2,3) );
-
-  // assign in complex is ambiguous/missing for dry
-//  x = nt2::ones(2,3, nt2::meta::as_< std::complex<float> >() );
-  NT2_DISPLAY(x);
-
-  // fusion::vector(T&) <= T const& seems to not be supported
-  x(2) = std::complex<float>(-8.54f,1.f);
-
+  table< std::complex<float> > y,x( of_size(2,3) );
   NT2_DISPLAY(x);
 
   for(std::size_t i=1;i<=6;++i)
   {
-    std::complex<float> y(1.f/i,i-1.f);
-    x(i) = y;
+    x(i) = std::complex<float>(1.f/i,i-1.f);
   }
 
-  NT2_DISPLAY(x);
+  NT2_DISPLAY(x(1)+x(2));
 
-  x = x + x;
+  y = -x;
+  NT2_DISPLAY(y);
 
-// non worky
-//  x = x + x + x;
+  y = cos(x);
+  NT2_DISPLAY(y);
 
-  NT2_DISPLAY(x);
+  y = -(-x);
+  NT2_DISPLAY(y);
+
+  y = x + x;
+  NT2_DISPLAY(y);
+
+  y = x + x + x;
+  NT2_DISPLAY(y);
+
+  y = x * 3.f ;
+  NT2_DISPLAY(y);
 }
