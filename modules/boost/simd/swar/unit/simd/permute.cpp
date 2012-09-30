@@ -28,6 +28,7 @@
 #include <boost/simd/sdk/meta/cardinal_of.hpp> 
 #include <boost/simd/include/functions/make.hpp>
 
+#ifndef BOOST_SIMD_HAS_AVX_SUPPORT
 NT2_TEST_CASE_TPL ( permute_32l__2_0, (float)(int32_t)(uint32_t))
 {
   using boost::simd::permute;
@@ -184,3 +185,35 @@ NT2_TEST_CASE_TPL ( permute_64__2_0, (int64_t)(uint64_t)(double))
 //       NT2_TEST_EQUAL(a2[i], T(0)); 
 //     }
 // } // end of test
+#endif
+
+#ifdef BOOST_SIMD_HAS_AVX_SUPPORT
+NT2_TEST_CASE_TPL ( permute_32l__2_0, (double)(int64_t)(uint64_t))
+{
+  using boost::simd::permute;
+  using boost::simd::tag::permute_;
+  using boost::simd::load; 
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
+  typedef native<T,ext_t>                        n_t;
+  typedef n_t                                     vT;
+  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
+  typedef native<iT,ext_t>                       ivT;
+
+  std::size_t n = vT::static_size-1; 
+  // specific values tests
+  T s =  0;
+  T h = 1;
+  vT a0 =  boost::simd::arith<vT>(s, h); 
+  vT a1 = permute<3, 2, 1, 0>(a0);
+  vT a2 = permute<-3, -2, -1, -1>(a0); 
+  std::cout << a0 << " -> " << a1 << std::endl; 
+  for(std::size_t i=0; i < vT::static_size;++i)
+    {
+      NT2_TEST_EQUAL(a1[i], T(n-i));
+      NT2_TEST_EQUAL(a2[i], T(0)); 
+    }
+} // end of test
+#endif

@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace ext
 {
 //   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::permute_, tag::cpu_
 //                                       , (A0)(I0)(I1)(I2)(I3)(I4)(I5)(I6)(I7)(X)
-//                                       , ((simd_< type16_<A0>, X>))
+//                                       , ((simd_< arithmetic_<A0>, X>))
 //                                       ((unspecified_<I0> ))
 //                                       ((unspecified_<I1>))
 //                                       ((unspecified_<I2>))
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::permute_, tag::cpu_
                                       , (A0)(I0)(I1)(I2)(I3)(X)
-                                      , ((simd_< type32_<A0>, X>))
+                                      , ((simd_< arithmetic_<A0>, X>))
                                       ((unspecified_<I0>))
                                       ((unspecified_<I1>))
                                       ((unspecified_<I2>))
@@ -65,7 +65,7 @@ namespace boost { namespace simd { namespace ext
   
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::permute_, tag::cpu_
                                       , (A0)(I0)(I1)(X)
-                                      , ((simd_< type64_<A0>, X>))
+                                      , ((simd_< arithmetic_<A0>, X>))
                                       ((unspecified_<I0>))
                                       ((unspecified_<I1>))
                                       )

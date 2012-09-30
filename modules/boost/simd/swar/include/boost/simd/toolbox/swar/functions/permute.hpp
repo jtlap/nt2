@@ -74,22 +74,22 @@ namespace boost { namespace simd { namespace tag
   namespace details {
     template < int T> struct zut_ { static const int value = T; }; 
   }
-  template < int i0, int i1, int i2,  int i3,
-             int i4, int i5, int i6,  int i7,  class T>
-  inline T permute(const T & a0)
-  {
-    typedef details::zut_<i0> I0;
-    typedef details::zut_<i1> I1;
-    typedef details::zut_<i2> I2;
-    typedef details::zut_<i3> I3;
-    typedef details::zut_<i0> I4;
-    typedef details::zut_<i1> I5;
-    typedef details::zut_<i2> I6;
-    typedef details::zut_<i3> I7;
-//     std::cout << "--" << nt2::type_id<I0>() << std::endl;
-//     std::cout << "--" << nt2::type_id(I0()) << std::endl; 
-    return permute(a0, I0(), I1(), I2(), I3(), I4(), I5(), I6(), I7()); 
-   }
+//   template < int i0, int i1, int i2,  int i3,
+//              int i4, int i5, int i6,  int i7,  class T>
+//   inline T permute(const T & a0)
+//   {
+//     typedef details::zut_<i0> I0;
+//     typedef details::zut_<i1> I1;
+//     typedef details::zut_<i2> I2;
+//     typedef details::zut_<i3> I3;
+//     typedef details::zut_<i0> I4;
+//     typedef details::zut_<i1> I5;
+//     typedef details::zut_<i2> I6;
+//     typedef details::zut_<i3> I7;
+// //     std::cout << "--" << nt2::type_id<I0>() << std::endl;
+// //     std::cout << "--" << nt2::type_id(I0()) << std::endl; 
+//     return permute(a0, I0(), I1(), I2(), I3(), I4(), I5(), I6(), I7()); 
+//    }
   template < int i0, int i1, int i2,  int i3,  class T>
   inline T permute(const T & a0)
   {
