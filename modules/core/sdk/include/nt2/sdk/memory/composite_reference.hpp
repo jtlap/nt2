@@ -24,10 +24,8 @@
   * \brief Defines and implements the \c nt2::memory::composite_reference class
   **/
 //==============================================================================
-
 namespace nt2 { namespace container
 {
-  // T = complex<float>
   template<class T>
   class composite_reference
       : public  boost::mpl::
@@ -102,6 +100,51 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef meta::proxy_<Origin>       type;
   };
+} } }
+
+namespace boost { namespace fusion { namespace traits
+{
+  template<typename T>
+  struct  enable_equality < nt2::container::composite_reference<T>
+                          , nt2::container::composite_reference<T>
+                          >
+        : mpl::false_
+  {};
+
+  template<typename T>
+  struct  enable_equality < nt2::container::composite_reference<T>
+                          , T
+                          >
+        : mpl::false_
+  {};
+
+  template<typename T>
+  struct  enable_equality < T
+                          , nt2::container::composite_reference<T>
+                          >
+        : mpl::false_
+  {};
+
+  template<typename T>
+  struct  enable_comparison < nt2::container::composite_reference<T>
+                            , nt2::container::composite_reference<T>
+                            >
+        : mpl::false_
+  {};
+
+  template<typename T>
+  struct  enable_comparison < nt2::container::composite_reference<T>
+                            , T
+                            >
+        : mpl::false_
+  {};
+
+  template<typename T>
+  struct  enable_comparison < T
+                            , nt2::container::composite_reference<T>
+                            >
+        : mpl::false_
+  {};
 } } }
 
 #endif
