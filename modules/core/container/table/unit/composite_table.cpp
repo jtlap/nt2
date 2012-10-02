@@ -25,8 +25,9 @@ NT2_TEST_CASE_TPL( composite_table, (float)(double) )
   using nt2::table;
   using nt2::of_size;
   using nt2::settings;
+  using nt2::deinterleaved_;
 
-  table< std::complex<T> > x( of_size(2,3) );
+  table< std::complex<T>,deinterleaved_ > x( of_size(2,3) );
 
   for(std::size_t i=1;i<=2;++i)
     for(std::size_t j=1;j<=3;++j)
@@ -42,6 +43,7 @@ NT2_TEST_CASE_TPL( composite_table_access, (float)(double) )
   using nt2::table;
   using nt2::of_size;
   using nt2::settings;
+  using nt2::deinterleaved_;
 
   table< std::complex<T> > x( of_size(2,3) );
 
@@ -57,6 +59,7 @@ NT2_TEST_CASE_TPL( composite_table_expr, (float)(double) )
   using nt2::table;
   using nt2::of_size;
   using nt2::settings;
+  using nt2::deinterleaved_;
 
   table< std::complex<T> > y,x( of_size(2,3) );
 

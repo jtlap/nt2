@@ -17,6 +17,7 @@
 #include <nt2/core/settings/settings.hpp>
 #include <nt2/core/settings/allocator.hpp>
 #include <nt2/core/settings/alignment.hpp>
+#include <nt2/core/settings/interleaving.hpp>
 #include <nt2/core/settings/normalize.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
@@ -63,6 +64,7 @@ namespace nt2
       typedef typename option<S,tag::storage_order_   , matlab_order_ >::type so;
 
       // Memory Management
+      typedef typename option<S,tag::interleaving_    , interleaved_  >::type il;
       typedef typename option<S,tag::sharing_         , owned_        >::type sg;
       typedef typename option<S,tag::storage_duration_, dynamic_      >::type sd;
       typedef typename option<S,tag::allocator_
@@ -71,7 +73,7 @@ namespace nt2
       typedef typename option<S,tag::buffer_, buffer_<>            >::type    bf;
 
       // Normalized settings
-      typedef settings type(tag::table_,sz,sh,bs,ag,so,sg,sd,ss,al,bf);
+      typedef settings type(tag::table_,sz,sh,bs,ag,so,il,sg,sd,ss,al,bf);
     };
   }
 

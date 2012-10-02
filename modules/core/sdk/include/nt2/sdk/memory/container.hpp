@@ -13,6 +13,7 @@
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/semantic.hpp>
+#include <nt2/core/settings/interleaving.hpp>
 #include <nt2/core/settings/normalize.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/specific_data.hpp>
@@ -64,7 +65,13 @@ namespace nt2 { namespace memory
     //========================================================================
     // If T is a composite, adapt our buffer accordingly
     //========================================================================
-    typedef typename boost::mpl::if_< boost::fusion::traits::is_sequence<T>
+    typedef typename meta::option < settings_type
+                                  , tag::interleaving_
+                                  >::type                       interleaving_t;
+    typedef typename boost::mpl::if_< boost::mpl::and_
+                                      < boost::fusion::traits::is_sequence<T>
+                                      , interleaving_t
+                                      >
                                     , composite_buffer<base_buffer_t>
                                     , base_buffer_t
                                     >::type                           buffer_t;
