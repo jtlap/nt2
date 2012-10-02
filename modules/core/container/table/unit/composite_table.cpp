@@ -10,8 +10,6 @@
 
 #include <nt2/table.hpp>
 #include <nt2/core/functions/of_size.hpp>
-#include <nt2/include/functions/ones.hpp> // no worky
-#include <nt2/include/functions/cos.hpp>
 
 #include <complex>
 #include <nt2/sdk/complex/complex.hpp>
@@ -22,37 +20,53 @@
 //==============================================================================
 // Test for container default ctor
 //==============================================================================
-NT2_TEST_CASE( composite_table )
+NT2_TEST_CASE_TPL( composite_table, (float)(double) )
 {
   using nt2::table;
   using nt2::of_size;
   using nt2::settings;
 
-  table< std::complex<float> > y,x( of_size(2,3) );
-  NT2_DISPLAY(x);
+  table< std::complex<T> > x( of_size(2,3) );
 
-  for(std::size_t i=1;i<=6;++i)
-  {
-    x(i) = std::complex<float>(1.f/i,i-1.f);
-  }
+  for(std::size_t i=1;i<=2;++i)
+    for(std::size_t j=1;j<=3;++j)
+      x(i,j) = std::complex<T>(i,j);
 
-  NT2_DISPLAY(x(1)+x(2));
+  for(std::size_t i=1;i<=2;++i)
+    for(std::size_t j=1;j<=3;++j)
+      NT2_TEST_EQUAL(x(i,j), std::complex<T>(i,j));
+}
 
-  y = -x;
-  NT2_DISPLAY(y);
+NT2_TEST_CASE_TPL( composite_table_access, (float)(double) )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::settings;
 
-  y = cos(x);
-  NT2_DISPLAY(y);
+  table< std::complex<T> > x( of_size(2,3) );
 
-  y = -(-x);
-  NT2_DISPLAY(y);
+  for(std::size_t i=1;i<=2;++i)
+    for(std::size_t j=1;j<=3;++j)
+      x(i,j) = std::complex<T>(i,j);
 
-  y = x + x;
-  NT2_DISPLAY(y);
+  NT2_TEST_EQUAL( x(1)+x(2)+x(3), std::complex<T>(4,4));
+}
 
-  y = x + x + x;
-  NT2_DISPLAY(y);
+NT2_TEST_CASE_TPL( composite_table_expr, (float)(double) )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::settings;
 
-  y = x * 3.f ;
-  NT2_DISPLAY(y);
+  table< std::complex<T> > y,x( of_size(2,3) );
+
+  for(std::size_t i=1;i<=2;++i)
+    for(std::size_t j=1;j<=3;++j)
+      x(i,j) = std::complex<T>(i,j);
+
+  y = -x*x + T(6);
+
+  for(std::size_t i=1;i<=2;++i)
+    for(std::size_t j=1;j<=3;++j)
+      NT2_TEST_EQUAL(y(i,j), -x(i,j) * x(i,j) + T(6));
 }
