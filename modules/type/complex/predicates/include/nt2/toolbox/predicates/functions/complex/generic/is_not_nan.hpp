@@ -10,6 +10,8 @@
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_NOT_NAN_HPP_INCLUDED
 #include <nt2/toolbox/predicates/functions/is_not_nan.hpp>
 #include <nt2/include/functions/is_not_nan.hpp>
+#include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>

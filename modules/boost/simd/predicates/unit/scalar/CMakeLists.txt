@@ -8,6 +8,8 @@
 ##############################################################################
 
 SET( SOURCES
+  is_real.cpp
+  is_imag.cpp
   is_equal.cpp
   is_greater.cpp
   is_greater_equal.cpp

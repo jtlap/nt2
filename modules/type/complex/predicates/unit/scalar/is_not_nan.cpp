@@ -36,6 +36,8 @@ NT2_TEST_CASE_TPL ( is_not_nan_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef nt2::logical<T> wished_r_t;
+  typedef std::complex<T> cT; 
+  typedef nt2::imaginary<T> ciT; 
 
 
   // return type conformity test 
