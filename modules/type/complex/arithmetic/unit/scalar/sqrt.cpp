@@ -101,7 +101,16 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(), -nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Inf<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(), -nt2::One<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));  
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(), -nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));  
-  NT2_TEST_ULP_EQUAL(nt2::sqrt(cT(0, 2)), cT(1, 1), 1); 
+  NT2_TEST_ULP_EQUAL(nt2::sqrt(cT(0, 2)), cT(1, 1), 1);
+  
+  for(T i=-5; i <=  T(5) ; i+= T(0.5))
+    {
+      for(T j =-5; j < T(5); j+= T(0.5))
+        {
+          std::cout << i << "+i*(" << j << ") -> " << nt2::sqrt(cT(i, j)) << std::endl; 
+          NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::sqrt(cT(i, j))), cT(i, j), 10); 
+        }
+    }
 } // end of test for floating_
  
 // csqrt(conj(z)) = conj(csqrt(z)).
