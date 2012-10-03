@@ -8,3 +8,4 @@
 ################################################################################
 
 SET(NT2_CORE.UTILITY_DEPENDENCIES_EXTRA core.sdk core.generative)
+SET(NT2_CORE.UTILITY_LIBRARIES optimized nt2_random debug nt2_random_d)
