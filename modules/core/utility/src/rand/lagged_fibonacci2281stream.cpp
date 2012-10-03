@@ -8,6 +8,7 @@
  ******************************************************************************/
 #include <nt2/core/utility/config.hpp>
 #include <nt2/core/utility/randstream.hpp>
+#include <boost/random/normal_distribution.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
 
 namespace nt2
@@ -15,6 +16,18 @@ namespace nt2
   void lagged_fibonacci2281stream_::seed(std::size_t s)
   {
     generator_.seed(s);
+  }
+
+  void lagged_fibonacci2281stream_::randn(double* data, std::size_t i0, std::size_t i1)
+  {
+    boost::random::normal_distribution<double> dist;
+    for(std::size_t i=i0;i<i1;++i) data[i] = dist(generator_);
+  }
+
+  void lagged_fibonacci2281stream_::randn(float*  data, std::size_t i0, std::size_t i1)
+  {
+    boost::random::normal_distribution<float> dist;
+    for(std::size_t i=i0;i<i1;++i) data[i] = dist(generator_);
   }
 
   void lagged_fibonacci2281stream_::rand(double* data, std::size_t i0, std::size_t i1)

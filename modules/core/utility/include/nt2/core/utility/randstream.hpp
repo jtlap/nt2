@@ -20,6 +20,9 @@ namespace nt2
     public:
     virtual void rand(double* data, std::size_t i0, std::size_t i1) = 0;
     virtual void rand(float*  data, std::size_t i0, std::size_t i1) = 0;
+    virtual void randn(double* data, std::size_t i0, std::size_t i1) = 0;
+    virtual void randn(float*  data, std::size_t i0, std::size_t i1) = 0;
+
     virtual void seed(std::size_t s) = 0;
     virtual ~randstream_();
   };
@@ -30,6 +33,8 @@ namespace nt2
     virtual void seed(std::size_t s);
     virtual void rand(double* data, std::size_t i0, std::size_t i1);
     virtual void rand(float*  data, std::size_t i0, std::size_t i1);
+    virtual void randn(double* data, std::size_t i0, std::size_t i1);
+    virtual void randn(float*  data, std::size_t i0, std::size_t i1);
 
     virtual ~mt19937stream_();
 
@@ -43,6 +48,8 @@ namespace nt2
     virtual void seed(std::size_t s);
     virtual void rand(double* data, std::size_t i0, std::size_t i1);
     virtual void rand(float*  data, std::size_t i0, std::size_t i1);
+    virtual void randn(double* data, std::size_t i0, std::size_t i1);
+    virtual void randn(float*  data, std::size_t i0, std::size_t i1);
 
     virtual ~lagged_fibonacci2281stream_();
 

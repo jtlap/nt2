@@ -8,6 +8,7 @@
  ******************************************************************************/
 #include <nt2/core/utility/config.hpp>
 #include <nt2/core/utility/randstream.hpp>
+#include <boost/random/normal_distribution.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
 
 namespace nt2
@@ -26,6 +27,18 @@ namespace nt2
   void mt19937stream_::rand(float*  data, std::size_t i0, std::size_t i1)
   {
     boost::random::uniform_real_distribution<float> dist;
+    for(std::size_t i=i0;i<i1;++i) data[i] = dist(generator_);
+  }
+
+  void mt19937stream_::randn(double* data, std::size_t i0, std::size_t i1)
+  {
+    boost::random::normal_distribution<double> dist;
+    for(std::size_t i=i0;i<i1;++i) data[i] = dist(generator_);
+  }
+
+  void mt19937stream_::randn(float*  data, std::size_t i0, std::size_t i1)
+  {
+    boost::random::normal_distribution<float> dist;
     for(std::size_t i=i0;i<i1;++i) data[i] = dist(generator_);
   }
 
