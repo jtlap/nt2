@@ -16,7 +16,7 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-
+/*
 //==============================================================================
 // Test for container default ctor
 //==============================================================================
@@ -27,7 +27,7 @@ NT2_TEST_CASE_TPL( composite_table, (float)(double) )
   using nt2::settings;
   using nt2::deinterleaved_;
 
-  table< std::complex<T>,deinterleaved_ > x( of_size(2,3) );
+  table<std::complex<T>,deinterleaved_> x( of_size(2,3) );
 
   for(std::size_t i=1;i<=2;++i)
     for(std::size_t j=1;j<=3;++j)
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL( composite_table_access, (float)(double) )
   using nt2::settings;
   using nt2::deinterleaved_;
 
-  table< std::complex<T> > x( of_size(2,3) );
+  table<std::complex<T>,deinterleaved_> x( of_size(2,3) );
 
   for(std::size_t i=1;i<=2;++i)
     for(std::size_t j=1;j<=3;++j)
@@ -53,23 +53,25 @@ NT2_TEST_CASE_TPL( composite_table_access, (float)(double) )
 
   NT2_TEST_EQUAL( x(1)+x(2)+x(3), std::complex<T>(4,4));
 }
-
-NT2_TEST_CASE_TPL( composite_table_expr, (float)(double) )
+*/
+NT2_TEST_CASE_TPL( composite_table_expr, (float)/*(double)*/ )
 {
   using nt2::table;
   using nt2::of_size;
   using nt2::settings;
   using nt2::deinterleaved_;
 
-  table< std::complex<T> > y,x( of_size(2,3) );
+  table<std::complex<T>,deinterleaved_> y,x( of_size(2,3) );
 
   for(std::size_t i=1;i<=2;++i)
     for(std::size_t j=1;j<=3;++j)
       x(i,j) = std::complex<T>(i,j);
 
-  y = -x*x + T(6);
+  y = x+x;//+ T(6);
 
-  for(std::size_t i=1;i<=2;++i)
+  NT2_DISPLAY(x);
+  NT2_DISPLAY(y);
+/*  for(std::size_t i=1;i<=2;++i)
     for(std::size_t j=1;j<=3;++j)
-      NT2_TEST_EQUAL(y(i,j), -x(i,j) * x(i,j) + T(6));
+      NT2_TEST_EQUAL(y(i,j), -x(i,j) * x(i,j) + T(6));*/
 }
