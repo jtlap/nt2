@@ -87,27 +87,26 @@
 
 #include <nt2/signal/twiddle_factors.hpp>
 
-#include <nt2/include/functions/simd/multiplies.hpp>
-#include <nt2/include/functions/simd/plus.hpp>
-#include <nt2/include/functions/simd/unary_minus.hpp>
-#include <nt2/include/functions/simd/unaligned_load.hpp>
-#include <nt2/include/functions/simd/unaligned_store.hpp>
-
-#include <nt2/include/functions/scalar/ilog2.hpp>
-#include <nt2/include/functions/scalar/ffs.hpp>
-
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/prefetch.hpp>
 #include <boost/simd/toolbox/constant/constants/half.hpp>
 #include <boost/simd/toolbox/constant/constants/mzero.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
-#include <boost/simd/include/functions/reverse.hpp>
 #include <boost/simd/include/functions/deinterleave_first.hpp>
 #include <boost/simd/include/functions/deinterleave_second.hpp>
 #include <boost/simd/include/functions/interleave_first.hpp>
 #include <boost/simd/include/functions/interleave_second.hpp>
 #include <boost/simd/include/functions/repeat_lower_half.hpp>
 #include <boost/simd/include/functions/repeat_upper_half.hpp>
+#include <boost/simd/include/functions/reverse.hpp>
+#include <boost/simd/include/functions/scalar/ffs.hpp>
+#include <boost/simd/include/functions/scalar/ilog2.hpp>
+#include <boost/simd/include/functions/simd/make.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
+#include <boost/simd/include/functions/simd/unaligned_load.hpp>
+#include <boost/simd/include/functions/simd/unaligned_store.hpp>
 
 #include <boost/assert.hpp>
 #include <boost/cstdint.hpp>
@@ -260,6 +259,7 @@ namespace nt2
 
 // Low/hardware level tweaks/optimizations:
 // - general:
+//   http://www.complang.tuwien.ac.at/skral/NXyn/download/smaller_and_faster_intel_sse_code.pdf
 //   http://www.ece.cmu.edu/~franzf/teaching/slides-18-645-simd.pdf
 //   http://altdevblogaday.com/2011/05/25/instruction-level-parallelism/?replytocom=4824
 //   http://www.scribd.com/doc/57793168/88/Shuffling-data
@@ -564,7 +564,7 @@ namespace detail
             :
             p_reals_      ( reinterpret_cast<char *>( p_reals ) ),
             p_imags_      ( reinterpret_cast<char *>( p_imags ) ),
-            log2_N4_bytes_( nt2::ilog2( N ) - boost::static_log2<4>::value + boost::static_log2<sizeof( scalar_t )>::value )
+            log2_N4_bytes_( boost::simd::ilog2( N ) - boost::static_log2<4>::value + boost::static_log2<sizeof( scalar_t )>::value )
         {
             BOOST_ASSERT( boost::simd::memory::is_aligned( p_reals ) );
             BOOST_ASSERT( boost::simd::memory::is_aligned( p_imags ) );
@@ -908,7 +908,7 @@ private:
     {
         boost::control::switch_<void>
         (
-            nt2::ilog2( size ),
+            boost::simd::ilog2( size ),
             boost::control::case_<fft_sizes_t>(transformer),
             detail::assert_no_default_case<typename Trasformer::result_type>()
         );
@@ -1101,9 +1101,9 @@ namespace detail
     }
 
     template<class T>
-    inline T lastSetBit(T t)
+    inline T lastSetBit( T const t )
     {
-      return nt2::ffs(t)-1;
+        return boost::simd::ffs( t ) - 1;
     }
 
     inline
@@ -1254,6 +1254,10 @@ namespace detail
 
         while ( p_lower_reals->data() < p_upper_reals )
         {
+            using boost::simd::reverse        ;
+            using boost::simd::unaligned_load ;
+            using boost::simd::unaligned_store;
+
         /* "straight" implementation:
             // the following two constants go outside the loop:
             vector_t const        half( Half<vector_t>()            );
@@ -1383,6 +1387,10 @@ namespace detail
 
         while ( p_lower_reals < p_upper_reals->data() )
         {
+            using boost::simd::reverse        ;
+            using boost::simd::unaligned_load ;
+            using boost::simd::unaligned_store;
+
             vector_t const upper_r( reverse                 ( *p_upper_reals ) );
             vector_t const upper_i( reverse                 ( *p_upper_imags ) );
             vector_t const lower_r( unaligned_load<vector_t>(  p_lower_reals ) );
@@ -1827,7 +1835,7 @@ namespace detail
         scalar_t       r6( upper_real[ 2 ] ); scalar_t       i6( upper_imag[ 2 ] );
         scalar_t       r7( upper_real[ 3 ] ); scalar_t       i7( upper_imag[ 3 ] );
 
-        // Butterflys:
+        // Butterflies:
 
         // First (0, 1) and second (2, 3) quarters:
         scalar_t const r0pr4( r0 + r4 ); scalar_t const i0pi4( i0 + i4 );
@@ -1863,11 +1871,11 @@ namespace detail
       //scalar_t const r6_( r0m4 + r2m6 ); scalar_t const i6_( i0m4 + i2m6 );
         scalar_t const r7_( r1m5 + r3m7 ); scalar_t const i7_( i1m5 + i3m7 );
 
-        float const sqrt2( 0.70710678118654752440084436210485L );
-      //float const w0r0(      1 ); float const w0i0(      0 );
-      //float const w3r0(      1 ); float const w3i0(      0 );
-      //float const w0r1( +sqrt2 ); float const w0i1( -sqrt2 );
-      //float const w3r1( -sqrt2 ); float const w3i1( -sqrt2 );
+        scalar_t const sqrt2( static_cast<scalar_t>( 0.70710678118654752440084436210485L ) );
+      //scalar_t const w0r0(      1 ); float const w0i0(      0 );
+      //scalar_t const w3r0(      1 ); float const w3i0(      0 );
+      //scalar_t const w0r1( +sqrt2 ); float const w0i1( -sqrt2 );
+      //scalar_t const w3r1( -sqrt2 ); float const w3i1( -sqrt2 );
 
       //r4 = r4_ * w0r0 - i4_ * w0i0; i4 = r4_ * w0i0 + i4_ * w0r0;
       //r5 = r5_ * w0r1 - i5_ * w0i1; i5 = r5_ * w0i1 + i5_ * w0r1;
@@ -1906,6 +1914,11 @@ namespace detail
 
         vector_t upper_r; vector_t upper_i;
 
+        using boost::simd::make;
+        using boost::simd::repeat_lower_half;
+        using boost::simd::repeat_upper_half;
+        using boost::simd::details::shuffle;
+
         // butterfly:
         {
             vector_t const lower_p_upper_r( lower_r_in + upper_r_in ); vector_t const lower_p_upper_i(  lower_i_in + upper_i_in );
@@ -1923,13 +1936,13 @@ namespace detail
                 //    lower_real,
                 //    lower_imag
                 //);
-                vector_t const r0101( boost::simd::repeat_lower_half( lower_p_upper_r ) ); vector_t const i0101( boost::simd::repeat_lower_half( lower_p_upper_i ) );
-                vector_t const r2323( boost::simd::repeat_upper_half( lower_p_upper_r ) ); vector_t const i2323( boost::simd::repeat_upper_half( lower_p_upper_i ) );
+                vector_t const r0101( repeat_lower_half( lower_p_upper_r ) ); vector_t const i0101( repeat_lower_half( lower_p_upper_i ) );
+                vector_t const r2323( repeat_upper_half( lower_p_upper_r ) ); vector_t const i2323( repeat_upper_half( lower_p_upper_i ) );
 
                 vector_t const r_combined( r0101 + ( r2323 ^ *p_negate_upper ) ); vector_t const i_combined( i0101 + ( i2323 ^ *p_negate_upper ) );
 
-                vector_t const r_left ( boost::simd::details::shuffle<0, 0, 2, 2>( r_combined             ) ); vector_t const i_left ( boost::simd::details::shuffle<0, 0, 2, 2>( i_combined             ) );
-                vector_t const r_right( boost::simd::details::shuffle<1, 1, 3, 3>( r_combined, i_combined ) ); vector_t const i_right( boost::simd::details::shuffle<1, 1, 3, 3>( i_combined, r_combined ) );
+                vector_t const r_left ( shuffle<0, 0, 2, 2>( r_combined             ) ); vector_t const i_left ( shuffle<0, 0, 2, 2>( i_combined             ) );
+                vector_t const r_right( shuffle<1, 1, 3, 3>( r_combined, i_combined ) ); vector_t const i_right( shuffle<1, 1, 3, 3>( i_combined, r_combined ) );
 
                 lower_real = r_left + ( r_right ^ *sign_flipper<false, true, false, true >()/*negate_13*/ );
                 lower_imag = i_left + ( i_right ^ *sign_flipper<false, true, true , false>()/*negate_12*/ );
@@ -1938,13 +1951,13 @@ namespace detail
             {
                 // multiplication by i:
                 vector_t const lower_m_upper_r_copy( lower_m_upper_r );
-                lower_m_upper_r = boost::simd::details::shuffle<0, 1, 2 ,3>( lower_m_upper_r, lower_m_upper_i      );
-                lower_m_upper_i = boost::simd::details::shuffle<0, 1, 2 ,3>( lower_m_upper_i, lower_m_upper_r_copy );
+                lower_m_upper_r = shuffle<0, 1, 2 ,3>( lower_m_upper_r, lower_m_upper_i      );
+                lower_m_upper_i = shuffle<0, 1, 2 ,3>( lower_m_upper_i, lower_m_upper_r_copy );
                 lower_m_upper_r ^= *p_negate_upper;
             }
 
-            vector_t const r_left ( boost::simd::repeat_lower_half( lower_m_upper_r ) ); vector_t const i_left ( boost::simd::repeat_lower_half( lower_m_upper_i ) );
-            vector_t const r_right( boost::simd::repeat_upper_half( lower_m_upper_r ) ); vector_t const i_right( boost::simd::repeat_upper_half( lower_m_upper_i ) );
+            vector_t const r_left ( repeat_lower_half( lower_m_upper_r ) ); vector_t const i_left ( repeat_lower_half( lower_m_upper_i ) );
+            vector_t const r_right( repeat_upper_half( lower_m_upper_r ) ); vector_t const i_right( repeat_upper_half( lower_m_upper_i ) );
 
             upper_r = r_left - ( r_right ^ *p_negate_upper );
             upper_i = i_left - ( i_right ^ *p_negate_upper );
@@ -1955,16 +1968,16 @@ namespace detail
 
         // merged two upper DFT2s:
         {
-            vector_t const r4466( boost::simd::details::shuffle<0, 0, 2, 2>( upper_r ) ); vector_t const i4466( boost::simd::details::shuffle<0, 0, 2, 2>( upper_i ) );
-            vector_t       r5577( boost::simd::details::shuffle<1, 1, 3, 3>( upper_r ) ); vector_t       i5577( boost::simd::details::shuffle<1, 1, 3, 3>( upper_i ) );
-            vector_t const odd_negate( _mm_setr_ps( 0, -0.0f, 0, -0.0f ) );
-            scalar_t const sqrt2      ( 0.70710678118654752440084436210485f );
-            vector_t const twiddles   ( _mm_setr_ps( +sqrt2, -sqrt2, -sqrt2, -sqrt2 ) );
-            vector_t const twiddled_57( ( r5577 + ( i5577 ^ odd_negate ) ) * twiddles );
-            r5577 = boost::simd::details::shuffle<0, 0, 3, 3>( twiddled_57 );
-            i5577 = boost::simd::details::shuffle<1, 1, 2, 2>( twiddled_57 );
-            upper_real = r4466 + ( r5577 ^ odd_negate );
-            upper_imag = i4466 + ( i5577 ^ odd_negate );
+            vector_t const r4466( shuffle<0, 0, 2, 2>( upper_r ) ); vector_t const i4466( shuffle<0, 0, 2, 2>( upper_i ) );
+            vector_t       r5577( shuffle<1, 1, 3, 3>( upper_r ) ); vector_t       i5577( shuffle<1, 1, 3, 3>( upper_i ) );
+            vector_t const * BOOST_DISPATCH_RESTRICT const p_odd_negate( sign_flipper<false, true, false, true>() );
+            scalar_t const sqrt2      ( static_cast<scalar_t>( 0.70710678118654752440084436210485L ) );
+            vector_t const twiddles   ( make<vector_t>( +sqrt2, -sqrt2, -sqrt2, -sqrt2 ) );
+            vector_t const twiddled_57( ( r5577 + ( i5577 ^ *p_odd_negate ) ) * twiddles );
+            r5577 = shuffle<0, 0, 3, 3>( twiddled_57 );
+            i5577 = shuffle<1, 1, 2, 2>( twiddled_57 );
+            upper_real = r4466 + ( r5577 ^ *p_odd_negate );
+            upper_imag = i4466 + ( i5577 ^ *p_odd_negate );
         }
 
     #endif // BOOST_SIMD_DETECTED
@@ -1995,9 +2008,9 @@ namespace detail
             lower_r, lower_i
         );
 
-        scalar_t const sqrt2( 0.70710678118654752440084436210485f );
-        vector_t const wr( _mm_setr_ps( 1, +sqrt2, +0, -sqrt2 ) );
-        vector_t const wi( _mm_setr_ps( 0, -sqrt2, -1, -sqrt2 ) );
+        scalar_t const sqrt2( static_cast<scalar_t>( 0.70710678118654752440084436210485L ) );
+        vector_t const wr( boost::simd::make<vector_t>( 1, +sqrt2, +0, -sqrt2 ) );
+        vector_t const wi( boost::simd::make<vector_t>( 0, -sqrt2, -1, -sqrt2 ) );
 
         vector_t const temp_r( ( wr * upper_r ) - ( wi * upper_i ) );
         vector_t const temp_i( ( wi * upper_r ) + ( wr * upper_i ) );
