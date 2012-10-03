@@ -10,6 +10,6 @@
 nt2_module_use_modules(unit core.container.table core.utility)
 
 #include(nt2.pch)
-#nt2_pch(nt2/table.hpp)
+nt2_pch(nt2/table.hpp)
 
 ADD_SUBDIRECTORY(table)
