@@ -9,13 +9,43 @@
 
 set(NT2_WITH_PCH 1 CACHE BOOL "Whether to use precompiled headers on platforms that support it")
 
+macro(nt2_pch_file build_type out in)
+  if(IS_ABSOLUTE ${in})
+    set(arg ${in})
+  elseif(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${in} AND NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${in})
+    set(arg ${CMAKE_CURRENT_BINARY_DIR}/${in})
+  else()
+    set(arg ${CMAKE_CURRENT_SOURCE_DIR}/${in})
+  endif()
+  add_custom_command(OUTPUT ${out}
+                     COMMAND ${CMAKE_COMMAND} -E copy_if_different ${arg} ${out}
+                     DEPENDS ${in}
+                    )
+
+  # Escape special characters
+  string(REGEX REPLACE "([ \\\\\"&|;#])" "\\\\\\1" path "${NT2_PCH_FILE}_${build_type}")
+
+  # Ideally, we should try to copy all properties
+  get_property(defs SOURCE ${in} PROPERTY COMPILE_DEFINITIONS)
+
+  set_source_files_properties(${out}
+                              PROPERTIES OBJECT_DEPENDS "${arg};${NT2_PCH_TARGET}_${build_type}.pch"
+                                         GENERATED ON
+                                         COMPILE_FLAGS "-include ${path} -Winvalid-pch"
+                                         COMPILE_DEFINITIONS "${defs}"
+                             )
+endmacro()
+
 macro(nt2_pch name)
   if(NT2_PCH_TARGET)
     message(FATAL_ERROR "[nt2.pch] precompiled header already set to ${NT2_PCH_TARGET}, cannot change to ${name}")
   endif()
 
-  # disable until order-only dependency problem solved
-  if(0 AND NT2_WITH_PCH AND (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang") AND CMAKE_GENERATOR MATCHES "Make|Ninja")
+  if( NT2_WITH_PCH
+      AND (CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+      AND CMAKE_GENERATOR MATCHES "Make" OR
+         (CMAKE_GENERATOR MATCHES "Ninja" AND CMAKE_VERSION VERSION_EQUAL 2.8.10 OR CMAKE_VERSION VERSION_GREATER 2.8.10) # correct OBJECT_DEPENDS handling requires CMake 2.8.10
+    )
 
     get_target_property(pch_exists pch EXCLUDE_FROM_ALL)
     if(pch_exists MATCHES "NOTFOUND$")
@@ -50,10 +80,7 @@ macro(nt2_pch name)
                         )
       add_dependencies(pch ${rule_}.pch)
       set(NT2_PCH_TARGET ${rule})
-      set(NT2_PCH_FILE ${CMAKE_CURRENT_BINARY_DIR}/${pch_base_})
-      # Escape special characters
-      string(REGEX REPLACE "([ \\\\\"&|;#])" "\\\\\\1" path "${CMAKE_CURRENT_BINARY_DIR}/${pch_base_}")
-      set(CMAKE_CXX_FLAGS_${BUILD_TYPE_U} "${CMAKE_CXX_FLAGS_${BUILD_TYPE_U}} -include ${path} -Winvalid-pch")
+      set(NT2_PCH_FILE ${CMAKE_CURRENT_BINARY_DIR}/${pch_base})
     endforeach()
   endif()
 endmacro()
