@@ -50,6 +50,7 @@ NT2_TEST_CASE_TPL ( floor_real__1_0,  BOOST_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(floor(cT(T(-1.1))), cT(-2));
   NT2_TEST_EQUAL(floor(cT(T(1.1))), cT(1));
+  NT2_TEST_EQUAL(floor(cT(T(-1.1), T(1.1))), cT(-2, 1));
   NT2_TEST_EQUAL(floor(nt2::Inf<cT>()), nt2::Inf<cT>());
   NT2_TEST_EQUAL(floor(nt2::Minf<cT>()), nt2::Minf<cT>());
   NT2_TEST_EQUAL(floor(nt2::Mone<cT>()), nt2::Mone<cT>());

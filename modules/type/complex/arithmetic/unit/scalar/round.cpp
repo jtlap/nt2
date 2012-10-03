@@ -48,6 +48,9 @@ NT2_TEST_CASE_TPL ( round_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
+  NT2_TEST_EQUAL(round(cT(T(-1.1))), cT(-1));
+  NT2_TEST_EQUAL(round(cT(T(1.1))), cT(1));
+  NT2_TEST_EQUAL(round(cT(T(-1.1), T(1.1))), cT(-1, 1));
   NT2_TEST_EQUAL(round(cT(T(1.4))), cT(1));
   NT2_TEST_EQUAL(round(cT(T(1.5))), cT(2));
   NT2_TEST_EQUAL(round(cT(T(1.6))), cT(2));
