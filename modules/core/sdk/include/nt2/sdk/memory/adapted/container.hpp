@@ -12,7 +12,6 @@
 #include <nt2/core/container/dsl/forward.hpp>
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
-#include <nt2/sdk/meta/add_settings.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
@@ -25,12 +24,6 @@ namespace nt2 { namespace meta
   //============================================================================
   template<class T, class S>
   struct is_container< memory::container<T, S> > : boost::mpl::true_ {};
-
-  template<class T, class S, class S2>
-  struct add_settings< memory::container<T, S>, S2 >
-  {
-    typedef memory::container<T, nt2::settings(S2,S) > type;
-  };
 } }
 
 namespace boost { namespace dispatch { namespace meta

@@ -13,7 +13,6 @@
 #include <nt2/sdk/memory/forward/container.hpp>
 #include <nt2/sdk/meta/is_container.hpp>
 #include <nt2/sdk/meta/container_of.hpp>
-#include <nt2/sdk/meta/add_settings.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
@@ -32,15 +31,6 @@ namespace nt2 { namespace meta
         typedef memory::container<T,S> type;
       };
     };
-  };
-
-  //============================================================================
-  // Add settings to a given table
-  //============================================================================
-  template<class T, class S, class S2>
-  struct add_settings< nt2::container::table<T,S>, S2 >
-  {
-    typedef nt2::container::table<T, nt2::settings(S2,S)> type;
   };
 } }
 
