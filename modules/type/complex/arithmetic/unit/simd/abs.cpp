@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,   BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Valmax<vT>(), nt2::Zero<vT>())), nt2::Valmax<vT>());
   NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Valmin<vT>(), nt2::Zero<vT>())), nt2::Valmax<vT>());
   NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Zero<vT>(), nt2::Zero<vT>())), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(nt2::abs(vcT(nt2::One<vT>(), nt2::One<vT>())), nt2::Sqrt_2<vT>());
+  NT2_TEST_ULP_EQUAL(nt2::abs(vcT(nt2::One<vT>(), nt2::One<vT>()))[0], nt2::Sqrt_2<T>(), 1);
   NT2_TEST_EQUAL(nt2::abs(vcT(nt2::Four<vT>(), nt2::Three<vT>())), nt2::Five<vT>());
   
   NT2_TEST_EQUAL(nt2::abs(vciT(nt2::Inf<vciT>())), nt2::Inf<vT>());
