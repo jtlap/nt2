@@ -8,6 +8,7 @@
 ##############################################################################
 
 set( SOURCES
+constants.cpp
    )
 
 nt2_module_add_tests(type.complex.constant.simd.unit ${SOURCES})

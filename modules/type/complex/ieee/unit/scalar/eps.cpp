@@ -6,15 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 complex.ieee toolbox - ulpdist/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 complex.ieee toolbox - eps/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
 /// 
-#include <nt2/toolbox/ieee/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/eps.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -31,24 +30,36 @@
 #include <nt2/toolbox/constant/constant.hpp>
 
 
-NT2_TEST_CASE_TPL ( ulpdist_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( eps_real__2_0,  NT2_REAL_TYPES)
 {
   
-  using nt2::ulpdist;
-  using nt2::tag::ulpdist_;
+  using nt2::eps;
+  using nt2::tag::eps_;
   typedef std::complex<T> cT; 
-  typedef typename nt2::meta::call<ulpdist_(cT, cT)>::type r_t;
+  typedef typename nt2::meta::call<eps_(cT)>::type r_t;
   typedef T wished_r_t;
 
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
+  double ulpd;
+  ulpd=0.0;
+
 
   // specific values tests
-  NT2_TEST_EQUAL(ulpdist(nt2::Inf<cT>(), nt2::Inf<cT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(nt2::Minf<cT>(), nt2::Minf<cT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(nt2::Mone<cT>(), nt2::Mone<cT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(nt2::Nan<cT>(), nt2::Nan<cT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(nt2::One<cT>(), nt2::One<cT>()), nt2::Zero<r_t>());
-  NT2_TEST_EQUAL(ulpdist(nt2::Zero<cT>(), nt2::Zero<cT>()), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(eps(nt2::Inf<cT>() ), eps(nt2::Inf<T>() ));
+  NT2_TEST_EQUAL(eps(nt2::Minf<cT>()), eps(nt2::Minf<T>()));
+  NT2_TEST_EQUAL(eps(nt2::Mone<cT>()), eps(nt2::Mone<T>()));
+  NT2_TEST_EQUAL(eps(nt2::Nan<cT>() ), eps(nt2::Nan<T>() ));
+  NT2_TEST_EQUAL(eps(nt2::One<cT>() ), eps(nt2::One<T>() ));
+  NT2_TEST_EQUAL(eps(nt2::Zero<cT>()), eps(nt2::Zero<T>()));
+  NT2_TEST_EQUAL(eps(cT(nt2::Inf<cT>(), nt2::Inf<cT>() )), eps(nt2::Inf<T>() ));
+  NT2_TEST_EQUAL(eps(cT(nt2::Minf<cT>(),nt2::Minf<cT>())), eps(nt2::Minf<T>()));
+  NT2_TEST_EQUAL(eps(cT(nt2::Mone<cT>(),nt2::Mone<cT>())), eps(nt2::Sqrt_2<T>()));
+  NT2_TEST_EQUAL(eps(cT(nt2::Nan<cT>() ,nt2::Nan<cT>()) ), eps(nt2::Nan<T>() ));
+  NT2_TEST_EQUAL(eps(cT(nt2::One<cT>() ,nt2::One<cT>()) ), eps(nt2::Sqrt_2<T>() ));
+  NT2_TEST_EQUAL(eps(cT(nt2::Zero<cT>(),nt2::Zero<cT>())), eps(nt2::Zero<T>()));
+  
+  
 } // end of test for floating_
+                                                                             

@@ -42,7 +42,7 @@
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
-NT2_TEST_CASE_TPL ( abs_cplx__1_0,  (float))
+NT2_TEST_CASE_TPL ( abs_cplx__1_0,   BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -8,6 +8,7 @@
 ##############################################################################
 
 set( SOURCES
+  is_nan.cpp
    )
 
 nt2_module_add_tests(type.complex.predicates.simd.unit ${SOURCES})
