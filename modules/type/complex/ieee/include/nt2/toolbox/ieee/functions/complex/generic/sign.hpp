@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return if_else(iseqz(a0), a0, a0/nt2::abs(a0)); 
+      return if_else(is_eqz(a0), a0, a0/nt2::abs(a0)); 
     }
   };
 
