@@ -102,6 +102,16 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
+namespace boost { namespace dispatch { namespace meta
+{
+  // So no target of composite_reference are ever made
+  template<typename T>
+  struct strip< nt2::container::composite_reference<T> >
+  {
+    typedef typename nt2::container::composite_reference<T>::value_type type;
+  };
+} } }
+
 namespace boost { namespace fusion { namespace traits
 {
   template<typename T>
