@@ -47,16 +47,18 @@ macro(nt2_pch name)
          (CMAKE_GENERATOR MATCHES "Ninja" AND CMAKE_VERSION VERSION_EQUAL 2.8.10 OR CMAKE_VERSION VERSION_GREATER 2.8.10) # correct OBJECT_DEPENDS handling requires CMake 2.8.10
     )
 
-    get_target_property(pch_exists pch EXCLUDE_FROM_ALL)
+    get_target_property(pch_exists pch TYPE)
     if(pch_exists MATCHES "NOTFOUND$")
       add_custom_target(pch ALL)
     endif()
 
+    file(RELATIVE_PATH dir ${CMAKE_BINARY_DIR} ${CMAKE_CURRENT_BINARY_DIR})
     foreach(BUILD_TYPE Debug Release NT2Test NT2TestDebug NT2Bench)
       string(TOUPPER ${BUILD_TYPE} BUILD_TYPE_U)
-      set(name_ "${name}/${BUILD_TYPE}")
-      string(REPLACE "/" "_" pch_base ${name})
-      string(REPLACE "/" "_" pch_base_ ${name_})
+      set(dirname "${dir}/${name}")
+      set(dirname_ "${dir}/${name}/${BUILD_TYPE}")
+      string(REPLACE "/" "_" pch_base ${dirname})
+      string(REPLACE "/" "_" pch_base_ ${dirname_})
       string(REGEX REPLACE "\\.hpp$" "" rule ${pch_base})
       string(REGEX REPLACE "\\.hpp$" "_${BUILD_TYPE}" rule_ ${pch_base})
 
