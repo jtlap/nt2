@@ -14,6 +14,8 @@
 /// created by jt the 30/11/2010
 /// 
 #include <nt2/toolbox/arithmetic/include/functions/rsqrt.hpp>
+#include <nt2/toolbox/arithmetic/include/functions/sqr.hpp>
+#include <nt2/toolbox/arithmetic/include/functions/rec.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/i.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -55,7 +57,14 @@ NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
    NT2_TEST_EQUAL(rsqrt(cT(nt2::Zero<T>())), cT(nt2::Zero<T>()));
    std::complex < T > a(1, 0);
    NT2_TEST_EQUAL(rsqrt(a), nt2::One<T>());
-   std::complex < T > b(0, i);
+   std::complex < T > b(0, 1);
    NT2_TEST_EQUAL(rsqrt(b), cT(nt2::Sqrt_2o_2<T>(),nt2::Sqrt_2o_2<T>()));
+
+  for(T i=-5; i <=  T(5) ; i+= T(0.5))
+    {
+      for(T j =-5; j < T(5); j+= T(0.5))
+        {
+          NT2_TEST_ULP_EQUAL(nt2::rec(nt2::sqr(nt2::rsqrt(cT(i, j)))), cT(i, j), 10); 
+           
 } // end of test for floating_
 

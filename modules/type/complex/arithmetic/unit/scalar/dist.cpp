@@ -49,6 +49,7 @@ NT2_TEST_CASE_TPL ( dist_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(dist(cT(nt2::One<T>()), cT(nt2::Zero<T>())), nt2::One<T>()); 
   NT2_TEST_EQUAL(dist(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())),nt2::Zero<T>()); 
   NT2_TEST_ULP_EQUAL(dist(cT(0, 1), cT(1, 0)), nt2::Sqrt_2<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(dist(cT(0, nt2::Inf<T>()), cT(nt2::Inf<T>(), 0)), nt2::Inf<T>(), 0.5);
   NT2_TEST_EQUAL(dist(cT(1, 0), cT(1, 0)), nt2::Zero<T>());
   NT2_TEST_EQUAL(dist(cT(2, 1), ciT(1)), nt2::Two<T>());
   NT2_TEST_EQUAL(dist(ciT(1), ciT(0)), nt2::One<T>());

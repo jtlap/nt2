@@ -14,6 +14,7 @@
 /// created by jt the 01/12/2010
 /// 
 #include <boost/simd/toolbox/arithmetic/include/functions/sqr.hpp>
+#include <boost/simd/include/functions/mul.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -50,55 +51,13 @@ NT2_TEST_CASE_TPL ( sqr_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(sqr(boost::simd::Nan<T>()), boost::simd::Nan<T>(), 0);
   NT2_TEST_ULP_EQUAL(sqr(boost::simd::One<T>()), boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(sqr(boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
+  for(T i=-5; i <=  T(5) ; i+= T(0.5))
+    {
+      for(T j =-5; j < T(5); j+= T(0.5))
+        {
+          std::cout << i << "+i*(" << j << ") -> " << nt2::sqrt(cT(i, j)) << std::endl; 
+          NT2_TEST_ULP_EQUAL(nt2::sqr(cT(i, j)), nt2::mul(cT(i, j),cT(i, j)) , 10); 
+        }
+    }
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( sqr_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-  
-  using boost::simd::sqr;
-  using boost::simd::tag::sqr_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<sqr_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T,T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(sqr(boost::simd::One<T>()), boost::simd::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(sqr(boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
-} // end of test for unsigned_int_
-
-NT2_TEST_CASE_TPL ( sqr_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-  
-  using boost::simd::sqr;
-  using boost::simd::tag::sqr_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<sqr_(T)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef typename boost::common_type<T,T>::type wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_ULP_EQUAL(sqr(boost::simd::Mone<T>()), boost::simd::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(sqr(boost::simd::One<T>()), boost::simd::One<T>(), 0);
-  NT2_TEST_ULP_EQUAL(sqr(boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
-} // end of test for signed_int_

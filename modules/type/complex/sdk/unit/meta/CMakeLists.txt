@@ -12,4 +12,4 @@ set( SOURCES
      properties.cpp
    )
 
-nt2_module_add_tests(complex.sdk.meta.unit ${SOURCES})
+nt2_module_add_tests(type.complex.sdk.meta.unit ${SOURCES})

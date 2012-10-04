@@ -69,12 +69,12 @@ namespace nt2 { namespace ext
         rtype w = if_else(gtxy,
                           sqrtx*sqrt(Half<rtype>()*oneplus(rr)),
                           sqrt(y)*sqrt(Half<rtype>()*(r+rr)));
-        A0 z = result_type(w, iaa0*Half<rtype>()/w);
-        z = if_else(is_real(a0),
-                    if_else(gezra0,
-                            result_type(sqrtx,Zero<rtype>()),
-                            result_type(Zero<rtype>(),sqrtx)),
-                    z);  
+        //        A0 z = result_type(w, iaa0*Half<rtype>()/w);
+        A0 z = if_else(is_real(a0),
+                       result_type(sqrtx,Zero<rtype>()),
+                       result_type(w, iaa0*Half<rtype>()/w)
+                       );
+        z = if_else(gezra0, z, result_type(nt2::imag(z), nt2::real(z))); 
         if (all(is_finite(z))) return if_else(negimag, conj(z), z);
         z = if_else(eq(iaa0, Inf<rtype>()),
                     result_type(Inf<rtype>(), Inf<rtype>()),
@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
                                 Inf<rtype>()
                                 ),
                     z);
-        z = if_else(logical_and(is_real(a0), is_nan(a0)), a0, z); 
+        z = if_else(logical_and(is_real(a0), is_nan(a0)), a0, z);
         return if_else(negimag, conj(z), z);    
       }
   };

@@ -48,11 +48,17 @@ NT2_TEST_CASE_TPL ( oneplus_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(oneplus(nt2::Inf<cT>()), nt2::Inf<cT>());
+  NT2_TEST_EQUAL(oneplus(cT(nt2::Inf<T>(), nt2::Inf<T>() ))  , cT(nt2::Inf<cT>(),nt2::Inf<T>()));
+  NT2_TEST_EQUAL(oneplus(cT(nt2::Minf<T>(),nt2::Minf<T>()))  , cT(nt2::Minf<cT>(),nt2::Minf<T>()));
+  NT2_TEST_EQUAL(oneplus(cT(nt2::Mone<T>(),nt2::Mone<T>()))  , cT(nt2::Zero<cT>(),nt2::Mone<T>()));
+  NT2_TEST_EQUAL(oneplus(cT(nt2::Nan<T>() ,nt2::Nan<T>() ))  , cT(nt2::Nan<cT>(),nt2::Nan<T>()));
+  NT2_TEST_EQUAL(oneplus(cT(nt2::One<T>() ,nt2::One<T>() ))  , cT(nt2::Two<cT>(),nt2::One<T>()));
+  NT2_TEST_EQUAL(oneplus(cT(nt2::Zero<T>(),nt2::Zero<T>()))  , cT(nt2::One<cT>(),nt2::Zero<T>()));
+  NT2_TEST_EQUAL(oneplus(nt2::Inf<cT>()),  nt2::Inf<cT>());
   NT2_TEST_EQUAL(oneplus(nt2::Minf<cT>()), nt2::Minf<cT>());
   NT2_TEST_EQUAL(oneplus(nt2::Mone<cT>()), nt2::Zero<cT>());
-  NT2_TEST_EQUAL(oneplus(nt2::Nan<cT>()), nt2::Nan<cT>());
-  NT2_TEST_EQUAL(oneplus(nt2::One<cT>()), nt2::Two<cT>());
+  NT2_TEST_EQUAL(oneplus(nt2::Nan<cT>()),  nt2::Nan<cT>());
+  NT2_TEST_EQUAL(oneplus(nt2::One<cT>()),  nt2::Two<cT>());
   NT2_TEST_EQUAL(oneplus(nt2::Zero<cT>()), nt2::One<cT>());
 } // end of test for floating_
 

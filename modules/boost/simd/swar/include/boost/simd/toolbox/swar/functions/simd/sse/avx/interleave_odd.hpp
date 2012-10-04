@@ -11,6 +11,7 @@
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
 #include <boost/simd/toolbox/swar/functions/interleave_odd.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
@@ -27,8 +28,8 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m256 const a0, __m256 const a1) const
     {
-      result_type that0 = _mm256_shuffle_ps(a0, a0, 216);
-      result_type that1 = _mm256_shuffle_ps(a1, a1, 216);
+      result_type that0 = details::shuffle<0, 2, 1, 3 >(a0, a0);
+      result_type that1 = details::shuffle<0, 2, 1, 3 >(a1, a1); 
       return _mm256_unpackhi_ps(that0,that1);
     }
   };

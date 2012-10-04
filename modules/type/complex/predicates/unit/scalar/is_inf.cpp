@@ -36,6 +36,8 @@ NT2_TEST_CASE_TPL ( is_inf_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef nt2::logical<T> wished_r_t;
+  typedef std::complex<T> cT; 
+  typedef nt2::imaginary<T> ciT; 
 
 
   // return type conformity test 
@@ -46,67 +48,27 @@ NT2_TEST_CASE_TPL ( is_inf_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_inf(-nt2::Zero<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Half<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Inf<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_inf(nt2::Minf<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_inf(nt2::Mone<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Nan<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::One<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Quarter<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Two<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Zero<T>()), r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::Inf<T>())),  r_t(true));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::Minf<T>())), r_t(true));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::Nan<T>())),  r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::One<T>())),  r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::Zero<T>())), r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::Inf<T>(), T(0))),  r_t(true));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::Minf<T>(), T(0))), r_t(true));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::Nan<T>(), T(0))),  r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::One<T>(), T(0))),  r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(nt2::Zero<T>(), T(0))), r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(0, 0)), r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(1, 0))    , r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(0, 2)), r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(0, 1))   , r_t(false)); 
+  NT2_TEST_EQUAL(is_inf(ciT(1))     , r_t(false)); 
+  NT2_TEST_EQUAL(is_inf(ciT(0))     , r_t(false)); 
+  NT2_TEST_EQUAL(is_inf(cT(T(0), nt2::Inf<T>())),  r_t(true));
+  NT2_TEST_EQUAL(is_inf(cT(T(0), nt2::Minf<T>())), r_t(true));
+  NT2_TEST_EQUAL(is_inf(cT(T(0), nt2::Nan<T>())),  r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(T(0), nt2::One<T>())),  r_t(false));
+  NT2_TEST_EQUAL(is_inf(cT(T(0), nt2::Zero<T>())), r_t(false));
+
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( is_inf_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
-{
-  
-  using nt2::is_inf;
-  using nt2::tag::is_inf_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<is_inf_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef nt2::logical<T> wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(is_inf(nt2::Mone<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::One<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Two<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Zero<T>()), r_t(false));
-} // end of test for signed_int_
-
-NT2_TEST_CASE_TPL ( is_inf_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
-{
-  
-  using nt2::is_inf;
-  using nt2::tag::is_inf_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<is_inf_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef nt2::logical<T> wished_r_t;
-
-
-  // return type conformity test 
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  double ulpd;
-  ulpd=0.0;
-
-
-  // specific values tests
-  NT2_TEST_EQUAL(is_inf(nt2::One<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Two<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_inf(nt2::Zero<T>()), r_t(false));
-} // end of test for unsigned_int_
