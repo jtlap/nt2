@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
       ltype test = eq(absa0, absa0[tmp]); 
         if (inbtrue(test) > 1)
           {
-            rtype z = if_else(test, arg(a0), Minf<rtype>);
+            rtype z = if_else(test, arg(a0), Minf<rtype>());
             return posmax(z);
           }
       return tmp; 
