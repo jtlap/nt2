@@ -12,26 +12,34 @@ set(NT2_WITH_PCH 1 CACHE BOOL "Whether to use precompiled headers on platforms t
 macro(nt2_pch_file build_type out in)
   if(IS_ABSOLUTE ${in})
     set(arg ${in})
-  elseif(EXISTS ${CMAKE_CURRENT_BINARY_DIR}/${in} AND NOT EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${in})
-    set(arg ${CMAKE_CURRENT_BINARY_DIR}/${in})
-  else()
+  elseif(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${in})
     set(arg ${CMAKE_CURRENT_SOURCE_DIR}/${in})
+  else()
+    set(arg ${CMAKE_CURRENT_BINARY_DIR}/${in})
   endif()
+
+  # Makefile generators do not support object dependencies outside of current directory
+  if(CMAKE_GENERATOR MATCHES "Make")
+    set(_deps ${NT2_PCH_TARGET}_${build_type}.pch)
+    set(_object_deps ${arg})
+  else()
+    set(_deps)
+    set(_object_deps ${arg} ${NT2_PCH_TARGET}_${build_type}.pch)
+  endif()
+
   add_custom_command(OUTPUT ${out}
                      COMMAND ${CMAKE_COMMAND} -E copy_if_different ${arg} ${out}
-                     DEPENDS ${in}
+                     DEPENDS ${in} ${_deps}
                     )
-
-  # Escape special characters
-  string(REGEX REPLACE "([ \\\\\"&|;#])" "\\\\\\1" path "${NT2_PCH_FILE}_${build_type}")
 
   # Ideally, we should try to copy all properties
   get_property(defs SOURCE ${in} PROPERTY COMPILE_DEFINITIONS)
 
+  set(path "${NT2_PCH_FILE}_${build_type}")
   set_source_files_properties(${out}
-                              PROPERTIES OBJECT_DEPENDS "${arg};${NT2_PCH_TARGET}_${build_type}.pch"
+                              PROPERTIES OBJECT_DEPENDS ${_object_deps}
                                          GENERATED ON
-                                         COMPILE_FLAGS "-include ${path} -Winvalid-pch"
+                                         COMPILE_FLAGS "-include \"${path}\" -Winvalid-pch"
                                          COMPILE_DEFINITIONS "${defs}"
                              )
 endmacro()
