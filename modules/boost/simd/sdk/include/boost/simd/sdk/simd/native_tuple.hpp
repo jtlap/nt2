@@ -10,48 +10,29 @@
 #define BOOST_SIMD_SDK_SIMD_NATIVE_TUPLE_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
-#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/details/soa_proxy.hpp>
+#include <boost/simd/sdk/simd/details/make_soa.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-
 #include <boost/simd/sdk/tuple.hpp>
-#include <boost/fusion/include/is_sequence.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/dispatch/meta/strip.hpp>
-
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 namespace boost { namespace simd
 {
-  namespace details
-  {
-    template<class X>
-    struct vector_of_
-    {
-      template<class Sig>
-      struct result;
-
-      template<class This, class U>
-      struct result<This(U)>
-      {
-        typedef typename dispatch::meta::strip<U>::type sU;
-        typedef simd::native<sU, X> type;
-      };
-    };
-  }
-
   template<class T, class X>
-  struct native<T, X, typename boost::enable_if< boost::fusion::traits::is_sequence<T> >::type>
-   : meta::as_tuple<T, details::vector_of_<X> >::type
+  struct  native< T, X
+                , typename  boost
+                          ::enable_if < boost::fusion::traits::is_sequence<T>
+                                      >::type
+                >
+        : meta::as_tuple<T, details::make_soa<T,X> >::type
   {
-    typedef typename meta::as_tuple<T, details::vector_of_<X> >::type    parent;
+    typedef typename meta::as_tuple<T, details::make_soa<T,X> >::type    parent;
     typedef T value_type;
 
-    native()
-    {
-    }
+    native() {}
 
     #define M0(z, n, t)                                                        \
     template<BOOST_PP_ENUM_PARAMS(n, class A)>                                 \
@@ -88,7 +69,9 @@ namespace boost { namespace simd
     ////////////////////////////////////////////////////////////////////////////
     // Array like interface
     ////////////////////////////////////////////////////////////////////////////
-    static BOOST_FORCEINLINE  std::size_t size() { return meta::cardinal_of< native<value_type, X> >::value; }
+    enum v_size { static_size = details::max_cardinal_<T,X>::type::value };
+
+    static BOOST_FORCEINLINE  std::size_t size() { return static_size; }
     static BOOST_FORCEINLINE        bool empty() { return false; }
 
     reference operator[](std::size_t i)
@@ -98,7 +81,8 @@ namespace boost { namespace simd
 
     const_reference operator[](std::size_t i) const
     {
-      return typename dispatch::make_functor<tag::extract_, value_type>::type()(*this, i);
+      typename dispatch::make_functor<tag::extract_, value_type>::type callee;
+      return callee(*this, i);
     }
   };
 
