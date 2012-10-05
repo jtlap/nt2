@@ -39,10 +39,10 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-  NT2_TEST_EQUAL(ldexp(nt2::Inf<T>(),  2), nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(ldexp(nt2::Minf<T>(), 2), nt2::Minf<r_t>());
-  NT2_TEST_EQUAL(ldexp(nt2::Mone<T>(), 2), -nt2::Four<r_t>());
-  NT2_TEST_EQUAL(ldexp(nt2::Nan<T>(),  2), nt2::Nan<r_t>());
-  NT2_TEST_EQUAL(ldexp(nt2::One<T>(),  2), nt2::Four<r_t>());
-  NT2_TEST_EQUAL(ldexp(nt2::Zero<T>(), 2), nt2::Zero<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Inf<T>(),  2), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Minf<T>(), 2), boost::simd::Minf<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Mone<T>(), 2), -boost::simd::Four<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Nan<T>(),  2), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::One<T>(),  2), boost::simd::Four<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Zero<T>(), 2), boost::simd::Zero<r_t>());
 } // end of test for floating_
