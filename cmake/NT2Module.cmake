@@ -737,6 +737,8 @@ endmacro()
 
 macro(nt2_postconfigure_run)
 
+  message(STATUS "[nt2] running post-configuration commands")
+
   foreach(module ${NT2_FOUND_COMPONENTS})
     string(TOUPPER ${module} module_U)
     if(NT2_${module_U}_ROOT)
