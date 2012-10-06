@@ -29,7 +29,6 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
   using boost::simd::ldexp;
   using boost::simd::tag::ldexp_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<ldexp_(T,iT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
@@ -40,5 +39,10 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_REAL_TYPES)
   // return type conformity test 
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl; 
-
+  NT2_TEST_EQUAL(ldexp(boost::simd::Inf<T>(),  2), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Minf<T>(), 2), boost::simd::Minf<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Mone<T>(), 2), -boost::simd::Four<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Nan<T>(),  2), boost::simd::Nan<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::One<T>(),  2), boost::simd::Four<r_t>());
+  NT2_TEST_EQUAL(ldexp(boost::simd::Zero<T>(), 2), boost::simd::Zero<r_t>());
 } // end of test for floating_

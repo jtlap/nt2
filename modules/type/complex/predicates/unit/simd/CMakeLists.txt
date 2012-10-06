@@ -8,6 +8,16 @@
 ##############################################################################
 
 set( SOURCES
+  is_nan.cpp
+  is_equal.cpp
+  is_eqz.cpp
+  is_imag.cpp
+  is_inf.cpp
+  is_finite.cpp
+  is_invalid.cpp
+  is_not_equal.cpp
+  is_not_finite.cpp
+  is_not_infinite.cpp
    )
 
 nt2_module_add_tests(type.complex.predicates.simd.unit ${SOURCES})

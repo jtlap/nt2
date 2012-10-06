@@ -130,7 +130,7 @@ namespace boost { namespace simd
       struct sel
       {};
 
-      BOOST_FORCEINLINE result_type operator()(__m128 a0,P const&) const
+      BOOST_FORCEINLINE result_type operator()(A0 const& a0,P const&) const
       {
         typedef typename boost::mpl::apply< permutation_t
                                           , boost::mpl::int_<0>

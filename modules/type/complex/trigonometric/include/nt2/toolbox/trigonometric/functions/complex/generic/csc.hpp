@@ -11,10 +11,15 @@
 #include <nt2/toolbox/trigonometric/functions/csc.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/rec.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/bitwise_xor.hpp>
+#include <nt2/include/constants/minf.hpp>  
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
-
+ 
 //csc(x+iy)=rec(sin(x+iy)).
 namespace nt2 { namespace ext
 {
@@ -23,33 +28,36 @@ namespace nt2 { namespace ext
                             )
   {
     typedef A0 result_type;
+    typedef typename meta::as_real<result_type>::type sr_t; 
     NT2_FUNCTOR_CALL(1)
     {
-      return rec(nt2::sin(a0));     
+      return if_else(is_eqz(a0),
+                     Cnan<result_type>(), 
+                     rec(nt2::sin(a0)));     
     }
   };
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csc_, tag::cpu_, (A0)
-//                             , (generic_< imaginary_< arithmetic_<A0> > >)
-//                             )
-//   {
-//     typedef A0 result_type; 
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return bitwise_cast<result_type>(rec(nt2::sinh(-nt2::real(a0)))); 
-//     }
-//   };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csc_, tag::cpu_, (A0)
+                            , (generic_< imaginary_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef A0 result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return bitwise_cast<result_type>(rec(nt2::sinh(-nt2::real(a0)))); 
+    }
+  };
 
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csc_, tag::cpu_, (A0)
-//                             , (generic_< dry_< arithmetic_<A0> > >)
-//                             )
-//   {
-//     typedef A0 result_type; 
-//     NT2_FUNCTOR_CALL(1)
-//     {
-//       return bitwise_cast<result_type>(rec(nt2::sin(a0))); 
-//     }
-//   };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::csc_, tag::cpu_, (A0)
+                            , (generic_< dry_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef A0 result_type; 
+    NT2_FUNCTOR_CALL(1)
+    {
+      return bitwise_cast<result_type>(rec(nt2::sin(a0))); 
+    }
+  };
   
 } }
 

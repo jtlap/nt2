@@ -17,6 +17,7 @@
 #include <nt2/include/functions/arg.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/functions/frompolar.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
@@ -32,8 +33,8 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<stype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      A0 rho = nt2::abs(a0);
-      A0 theta = arg(a0);
+      rtype rho = nt2::abs(a0);
+      rtype theta = arg(a0);
       return frompolar(prod(rho), sum(theta)); 
     }
   };
@@ -44,7 +45,7 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::as_real<A0>::type rtype;
     typedef typename meta::scalar_of<rtype>::type stype;
-    typedef typename meta::as_real<stype>::type result_type; 
+    typedef typename meta::as_dry<stype>::type result_type; 
     NT2_FUNCTOR_CALL(1)
     {
       const result_type signedness = (meta::cardinal_of<A0>::value <= 2) ? Mone<result_type>() : One<result_type>(); 

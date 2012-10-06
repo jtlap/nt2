@@ -10,6 +10,13 @@
 set( SOURCES
   all.cpp
   any.cpp
+  maximum.cpp
+  minimum.cpp
+  posmax.cpp
+  posmin.cpp
+  sum.cpp
+  prod.cpp
+  inbtrue.cpp
    )
 
 nt2_module_add_tests(type.complex.reduction.simd.unit ${SOURCES})

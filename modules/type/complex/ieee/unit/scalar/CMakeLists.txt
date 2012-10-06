@@ -9,6 +9,10 @@
 
 set( SOURCES
   ulpdist.cpp
-   )
+  eps.cpp
+  ldexp.cpp
+  sign.cpp
+  frac.cpp
+  )
 
 nt2_module_add_tests(type.complex.ieee.scalar.unit ${SOURCES})

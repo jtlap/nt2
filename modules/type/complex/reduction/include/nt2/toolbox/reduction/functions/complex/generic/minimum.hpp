@@ -42,10 +42,10 @@ namespace nt2 { namespace ext
       ltype test = eq(absa0, absa0[tmp]); 
       if (inbtrue(test) > 1)
         {
-          rtype z = if_else(test, arg(a0), Inf<rtype>);
-          return a0[posmin(z)];
+          rtype z = if_else(test, arg(a0), Inf<rtype>());
+          return nt2::at_i(a0, posmin(z));
         }
-      return a0[tmp]; 
+      return nt2::at_i(a0, tmp); 
     }
   };
 

@@ -12,8 +12,6 @@
 
 #include <boost/simd/toolbox/swar/functions/interleave_odd.hpp>
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,9 +26,9 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m128 const a0, __m128 const a1) const
     {
-      __m128 that0 =  details::shuffle<1, 3, 1, 3>(a0,a0);
-      __m128 that1 =  details::shuffle<1, 3, 1, 3>(a1,a1);
-      return _mm_unpackhi_ps(that0, that1);
+      return _mm_unpackhi_ps( details::shuffle<1, 3, 1, 3>(a0,a0)
+                            , details::shuffle<1, 3, 1, 3>(a1,a1)
+                            );
     }
   };
 
@@ -60,8 +58,9 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m128i const a0, __m128i const a1) const
     {
-      typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return  bitwise_cast<result_type>(interleave_odd(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return _mm_unpackhi_epi32 ( details::shuffle<1, 3, 1, 3>(a0,a0)
+                                , details::shuffle<1, 3, 1, 3>(a1,a1)
+                                );
     }
   };
 
@@ -76,12 +75,9 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const a0, A1 const a1) const
     {
-      return _mm_unpackhi_epi64(a0,a1); //does this exists with 32bits systems
-//       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-//       return bitwise_cast<result_type>(interleave_odd(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return _mm_unpackhi_epi64(a0,a1);
     }
   };
-    
 } } }
 
 #endif
