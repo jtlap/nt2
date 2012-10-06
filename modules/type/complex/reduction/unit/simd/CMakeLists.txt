@@ -16,6 +16,7 @@ set( SOURCES
   posmin.cpp
   sum.cpp
   prod.cpp
+  inbtrue.cpp
    )
 
 nt2_module_add_tests(type.complex.reduction.simd.unit ${SOURCES})
