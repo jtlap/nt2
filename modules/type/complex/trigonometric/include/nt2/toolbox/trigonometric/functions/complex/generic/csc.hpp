@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return if_else(is_eqz(a0),
-                     result_type(Nan<sr_t>(), Nan<sr_t>()), 
+                     Cnan<result_type>(), 
                      rec(nt2::sin(a0)));     
     }
   };
