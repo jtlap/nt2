@@ -40,11 +40,20 @@ namespace boost { namespace simd { namespace details
   {
     return _mm_shuffle_pd(lower, upper, _MM_SHUFFLE2(upper_i0, lower_i0));
   }
- 
+
   template< unsigned int lower_i0, unsigned int lower_i1
           , unsigned int upper_i0, unsigned int upper_i1>
   BOOST_FORCEINLINE
   __m128 shuffle(__m128 const input)
+  {
+    return shuffle<lower_i0, lower_i1, upper_i0, upper_i1>(input, input);
+  }
+
+
+  template< unsigned int lower_i0, unsigned int lower_i1
+          , unsigned int upper_i0, unsigned int upper_i1>
+  BOOST_FORCEINLINE
+  __m128i shuffle(__m128i const input)
   {
     return shuffle<lower_i0, lower_i1, upper_i0, upper_i1>(input, input);
   }
@@ -55,12 +64,12 @@ namespace boost { namespace simd { namespace details
   {
     return shuffle<lower_i0, upper_i0>(input, input);
   }
-  
+
 #endif
- 
+
 
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-template< unsigned int lower_i0, unsigned int lower_i1 
+template< unsigned int lower_i0, unsigned int lower_i1
         , unsigned int upper_i0, unsigned int upper_i1>
 BOOST_FORCEINLINE
 __m256 shuffle(__m256 const lower, __m256 const upper)
@@ -69,7 +78,7 @@ __m256 shuffle(__m256 const lower, __m256 const upper)
                           , _MM_SHUFFLE(upper_i1, upper_i0, lower_i1, lower_i0)
                           );
 }
-  
+
 template< unsigned int i0, unsigned int i1
         , unsigned int i2, unsigned int i3>
 BOOST_FORCEINLINE
