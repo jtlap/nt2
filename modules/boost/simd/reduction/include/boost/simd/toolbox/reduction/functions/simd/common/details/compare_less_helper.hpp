@@ -9,15 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_DETAILS_COMPARE_LESS_HELPER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_DETAILS_COMPARE_LESS_HELPER_HPP_INCLUDED
 
-#include <boost/simd/include/functions/simd/reversebits.hpp>
-#include <boost/simd/include/functions/scalar/reversebits.hpp>
+#include <boost/simd/toolbox/bitwise/functions/reversebits.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // shared helper
 ////////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace details
 {
-
   template<class T>
   inline bool compare_less_helper(T mask_lt, T mask_gt)
   {
@@ -26,5 +24,7 @@ namespace boost { namespace simd { namespace details
     return (mlt > mgt) && mlt;
   }
 } } }
+
+#include <boost/simd/include/functions/simd/reversebits.hpp>
 
 #endif

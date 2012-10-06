@@ -11,9 +11,15 @@
 
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/through_volatile.hpp>
-#include <nt2/include/functions/logical_or.hpp>
-#include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/isequaln.hpp>
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <iostream>
+
+namespace boost { namespace simd { namespace details
+{
+  template<class T, class X>
+  struct soa_proxy;
+} } }
 
 namespace nt2
 {
@@ -38,7 +44,13 @@ namespace nt2
     }
 
     template<class Expr, class Result>
-    Result eval(nt2::container::expression<Expr, Result> const& t)
+    typename boost::dispatch::meta::terminal_of<Result>::type eval(nt2::container::expression<Expr, Result> const& t)
+    {
+      return t;
+    }
+
+    template<class T, class X>
+    T eval(boost::simd::details::soa_proxy<T, X> const& t)
     {
       return t;
     }
@@ -93,13 +105,11 @@ namespace nt2 { namespace details
   /// nees to check for NaN for both its parameters
   template<class T, class U>
   inline void test_eq ( char const* x1, char const* x2, int line, char const* fn
-                      , T const & t_, U const & u_
+                      , T const & t, U const & u
                       )
   {
     nt2::unit::test_count()++;
-    typename noref<T>::type t = through_volatile(t_);
-    typename noref<U>::type u = through_volatile(u_);
-    if( nt2::details::eval( (t == u) || ((t != t) && (u != u)) ) )
+    if( nt2::isequaln(t, u) )
     {
       std::cout << " * Test `" << x1 << " == " << x2
                 << "` **passed**." << " (" << line << ")" << std::endl;
