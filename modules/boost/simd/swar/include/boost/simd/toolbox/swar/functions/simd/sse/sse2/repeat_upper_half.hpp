@@ -11,9 +11,6 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/swar/functions/repeat_upper_half.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/simd/include/functions/interleave_second.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -42,7 +39,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m128i const a0) const
     {
-      return  details::shuffle<2, 3, 2, 3>(a0, a0); 
+      return  details::shuffle<2, 3, 2, 3>(a0, a0);
     }
   };
 
@@ -56,7 +53,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m128i const a0) const
     {
-      return  details::shuffle<2, 3, 2, 3>(a0, a0);  
+      return  details::shuffle<2, 3, 2, 3>(a0, a0);
     }
   };
 
@@ -72,7 +69,7 @@ namespace boost { namespace simd { namespace ext
     {
       return _mm_unpackhi_pd(a0,a0);
     }
-  };     
+  };
 } } }
 
 #endif

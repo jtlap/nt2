@@ -74,10 +74,13 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const a0, A1 const a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return bitwise_cast<result_type>(deinterleave_second(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return  bitwise_cast<result_type>
+              ( deinterleave_second ( bitwise_cast<ftype>(a0)
+                                    , bitwise_cast<ftype>(a1)
+                                    )
+              );
     }
   };
-    
 } } }
 
 #endif
