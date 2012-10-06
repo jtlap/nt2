@@ -16,6 +16,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/i.hpp>
+#include <nt2/include/constants/cnan.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/splat.hpp>
@@ -82,6 +83,15 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   std::cout << "type_id(nt2::One<dT>()) "<<type_id(nt2::One<dT>()) << std::endl;
   std::cout << "type_id(nt2::One<cT>()) "<<type_id(nt2::One<cT>()) << std::endl;
   std::cout << "type_id(nt2::One<ciT>()) "<<type_id(nt2::One<ciT>()) << std::endl;
+  std::cout << nt2::Cnan<cT>() << std::endl;
+  NT2_TEST(nt2::is_nan(nt2::real(nt2::Cnan<cT>())));
+  NT2_TEST(nt2::is_nan(nt2::imag(nt2::Cnan<cT>())));
+  NT2_TEST(nt2::is_nan(nt2::real(nt2::Cnan<dT>())));
+  NT2_TEST(nt2::is_nan(nt2::imag(nt2::Cnan<dT>())));
+  NT2_TEST(nt2::is_nan(nt2::real(nt2::Cnan<T>())));
+  NT2_TEST(nt2::is_nan(nt2::imag(nt2::Cnan<T>())));
+  NT2_TEST(nt2::is_nan(nt2::real(nt2::Cnan<ciT>())));
+  NT2_TEST(nt2::is_nan(nt2::imag(nt2::Cnan<ciT>())));
 
 } // end of test for floating_
 
