@@ -12,7 +12,7 @@
 // unit test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/posmax.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/arith.hpp>
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( posmax_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::posmax;
   using nt2::tag::posmax_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( posmax_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<posmax_(vT)>::type r_t;
   typedef typename nt2::meta::call<posmax_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef std::complex<T>                         cT; 
+  typedef std::complex<T>                         cT;
   typedef native<cT ,ext_t>                      vcT;
   typedef typename nt2::meta::as_imaginary<vT>::type  viT;
   typedef typename nt2::meta::as_dry<vT>::type        vdT;
@@ -69,8 +69,8 @@ NT2_TEST_CASE_TPL ( posmax_real__1_0,  NT2_SIMD_REAL_TYPES)
   vT i =  nt2::arith<vT>(0, 1);
   vcT z = vcT(r, i);
   std::cout << "z  " << z << std::endl;
-  std::cout << "mz " << posmax(z) << std::endl; 
-  NT2_TEST_EQUAL(posmax(z), cardinal_of<vT>::value-1); 
+  std::cout << "mz " << posmax(z) << std::endl;
+  NT2_TEST_EQUAL(posmax(z), sr_t(cardinal_of<vT>::value-1));
   i =  nt2::arith<vT>(T(cardinal_of<vT>::value-1), T(-1));
   z = vcT(r, i);
   std::cout << "z  " << z << std::endl;
