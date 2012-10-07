@@ -15,7 +15,8 @@
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/bitwise_xor.hpp>
-#include <nt2/include/constants/minf.hpp>  
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/cnan.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
