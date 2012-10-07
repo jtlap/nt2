@@ -7,4 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_CORE.UTILITY_DEPENDENCIES_EXTRA core.sdk )
+SET(NT2_CORE.RANDOM_DEPENDENCIES_EXTRA core.sdk)
+SET(NT2_CORE.RANDOM_LIBRARIES optimized nt2_random debug nt2_random_d)

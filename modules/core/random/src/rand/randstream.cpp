@@ -8,6 +8,8 @@
  ******************************************************************************/
 #include <nt2/core/utility/config.hpp>
 #include <nt2/core/utility/randstream.hpp>
+#include <nt2/core/utility/mt19937stream.hpp>
+#include <nt2/core/utility/lagged_fibonacci2281stream.hpp>
 #include <cstring>
 
 namespace nt2
