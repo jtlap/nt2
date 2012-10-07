@@ -31,7 +31,9 @@ namespace boost { namespace simd
       typedef A0                              result_type;
       typedef typename P::type                permutation_t;
 
-      template<int I0,int I1> struct sel {};
+      template< int I0,int I1
+              , bool NoNull = (I0 != -1) && (I1 !=-1)
+              > struct sel {};
 
       BOOST_FORCEINLINE result_type operator()(A0 const& a0,P const&) const
       {
@@ -70,7 +72,7 @@ namespace boost { namespace simd
       }
 
       template<int I0, int I1>
-      BOOST_FORCEINLINE __m128d eval(__m128d a0, sel<I0,I1> const&) const
+      BOOST_FORCEINLINE __m128d eval(__m128d a0, sel<I0,I1,true> const&) const
       {
         return details::shuffle<I0,I1>(a0);
       }
