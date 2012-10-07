@@ -13,7 +13,7 @@
 #include <nt2/include/functions/sind.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-
+#include <nt2/include/constants/cnan.hpp>
 //cscd(x+iy)=rec(sind(x+iy)).
 namespace nt2 { namespace ext
 {
@@ -24,7 +24,9 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return rec(nt2::sind(a0));
+      return if_else(is_eqz(a0),
+                     Cnan<result_type>(), 
+                     rec(nt2::sind(a0)));     
     }
   };
 

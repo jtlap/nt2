@@ -22,6 +22,11 @@ set( SOURCES
   sinpi.cpp
   tanpi.cpp
   csc.cpp
+  cscd.cpp 
+  cscpi.cpp
+  sec.cpp
+  secd.cpp 
+  secpi.cpp
    )
 
 nt2_module_add_tests(type.complex.trigonometric.scalar.unit ${SOURCES})

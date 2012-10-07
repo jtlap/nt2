@@ -14,8 +14,6 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/if_else.hpp>
-#include <nt2/include/functions/bitwise_xor.hpp>
-#include <nt2/include/constants/minf.hpp>
 #include <nt2/include/constants/cnan.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
@@ -56,7 +54,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type; 
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(rec(nt2::sin(a0))); 
+      return bitwise_cast<result_type>(rec(nt2::sin(nt2::imag(a0)))); 
     }
   };
   
