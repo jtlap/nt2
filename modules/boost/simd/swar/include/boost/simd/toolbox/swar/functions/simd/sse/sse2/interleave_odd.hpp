@@ -11,8 +11,7 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/swar/functions/interleave_odd.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -27,9 +26,9 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m128 const a0, __m128 const a1) const
     {
-      result_type that0 =  _mm_shuffle_ps(a0,a0,216);
-      result_type that1 =  _mm_shuffle_ps(a1,a1,216);
-      return _mm_unpackhi_ps(that0, that1);
+      return _mm_unpackhi_ps( details::shuffle<1, 3, 1, 3>(a0,a0)
+                            , details::shuffle<1, 3, 1, 3>(a1,a1)
+                            );
     }
   };
 
@@ -59,8 +58,9 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m128i const a0, __m128i const a1) const
     {
-      typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return  bitwise_cast<result_type>(interleave_odd(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return _mm_unpackhi_epi32 ( details::shuffle<1, 3, 1, 3>(a0,a0)
+                                , details::shuffle<1, 3, 1, 3>(a1,a1)
+                                );
     }
   };
 
@@ -75,11 +75,9 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const a0, A1 const a1) const
     {
-      typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return bitwise_cast<result_type>(interleave_odd(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return _mm_unpackhi_epi64(a0,a1);
     }
   };
-    
 } } }
 
 #endif

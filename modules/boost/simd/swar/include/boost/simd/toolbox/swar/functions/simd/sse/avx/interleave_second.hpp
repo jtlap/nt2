@@ -12,6 +12,8 @@
 
 #include <boost/simd/toolbox/swar/functions/interleave_second.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
+#include <boost/simd/toolbox/swar/functions/details/perm.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,15 +27,13 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256 const a0, __m256 const a1) const
+    result_type operator()(__m256 const a0, __m256 const a1) const 
     {
-      typedef simd::native<double, boost::simd::tag::avx_ >       dtype;
-      dtype that0 = bitwise_cast<dtype>(_mm256_permute2f128_ps(a0, a0, 17));
-      that0 = _mm256_shuffle_pd(that0, that0, 4); 
-      dtype that1 = bitwise_cast<dtype>(_mm256_permute2f128_ps(a1, a1, 17));
-      that1 = _mm256_shuffle_pd(that1, that1, 4); 
-      return _mm256_unpacklo_ps(bitwise_cast<result_type>(that0),
-                                bitwise_cast<result_type>(that1));
+      result_type that0 = details::perm2<1, 1>(a0, a0);
+      that0 = details::shuffle_pairs<0, 1, 1, 3>(that0, that0); 
+      result_type that1 = details::perm2<1, 1>(a1, a1);
+      that1 = details::shuffle_pairs<0, 1, 1, 3>(that1, that1);
+      return _mm256_unpacklo_ps(that0,that1);
     }
   };
 
@@ -48,10 +48,10 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m256d const a0, __m256d const a1) const
     {
-      result_type that0 = _mm256_permute2f128_pd(a0, a0, 17);
-      that0 = _mm256_shuffle_pd(that0, that0, 4); 
-      result_type that1 = _mm256_permute2f128_pd(a1, a1, 17);
-      that1 = _mm256_shuffle_pd(that1, that1, 4); 
+      result_type that0 = details::perm2<1, 1>(a0, a0); 
+      that0 = details::shuffle<0, 1, 1, 3>(that0, that0);  
+      result_type that1 = details::perm2<1, 1>(a1, a1); 
+      that1 = details::shuffle<0, 1, 1, 3>(that1, that1); 
       return _mm256_unpacklo_pd(that0,that1);
 
     }

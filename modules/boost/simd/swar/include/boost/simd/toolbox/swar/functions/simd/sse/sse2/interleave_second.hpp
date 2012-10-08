@@ -11,8 +11,6 @@
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 
 #include <boost/simd/toolbox/swar/functions/interleave_second.hpp>
-#include <boost/simd/include/functions/bitwise_cast.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -46,6 +44,37 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
+                                   , boost::simd::tag::sse2_
+                                   , (A0)(A1)
+                                   , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<type8_<A1>,boost::simd::tag::sse_>))
+                                   )
+  {
+    typedef A0 result_type;
+
+    result_type operator()(__m128i const a0, __m128i const a1) const
+    {
+      return _mm_unpackhi_epi8(a0,a1);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
+                                   , boost::simd::tag::sse2_
+                                   , (A0)(A1)
+                                   , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
+                                     ((simd_<type16_<A1>,boost::simd::tag::sse_>))
+                                   )
+  {
+    typedef A0 result_type;
+
+    result_type operator()(__m128i const a0, __m128i const a1) const
+    {
+      return _mm_unpackhi_epi16(a0,a1);
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::interleave_second_
                                    , boost::simd::tag::sse2_
                                    , (A0)(A1)
@@ -57,8 +86,7 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m128i const a0, __m128i const a1) const
     {
-      typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return  bitwise_cast<result_type>(interleave_second(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return _mm_unpackhi_epi32(a0,a1);
     }
   };
 
@@ -73,12 +101,9 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const a0, A1 const a1) const
     {
-      typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return bitwise_cast<result_type>(interleave_second(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return _mm_unpackhi_epi64(a0,a1);
     }
   };
-    
-  
 } } }
 
 #endif
