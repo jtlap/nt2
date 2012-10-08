@@ -31,7 +31,7 @@ Test cases can be defined either as:
     std::cout << "nothing special here ..." << std::endl;
   }
   ``
-  [br]
+  
 
 * a familly of functions generated from a template function and a list of types
   passed as a Boost.Preprocessor sequence via the [macroref NT2_TEST_CASE_TPL]
@@ -48,7 +48,7 @@ Test cases can be defined either as:
     std::cout << "nothing special here neither..." << std::endl;
   }
   ``
-  [br]
+  
 
 In both case, the test case name should be unique. Additionnaly, good testing
 practices recommend to have fine grain test case to simplify test management.

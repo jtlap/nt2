@@ -45,7 +45,8 @@ in place of the real arguments.
 
 [section Scalar hierarchy]
 
-The hierarchy of a built-in fundamental type `T` is the composite `scalar_< typename property_of<T>::type >`. [br]
+The hierarchy of a built-in fundamental type `T` is the composite `scalar_< typename property_of<T>::type >`. 
+
 Properties are decoupled from `scalar_` so that it is easy to create new hierarchies such as `simd_< integer_<T> >` etc.
 
 If you wish to extend this hierarchy, specialize `boost::dispatch::meta::property_of` or `boost::dispatch::details::property_of` instead
