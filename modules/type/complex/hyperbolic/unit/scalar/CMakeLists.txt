@@ -13,6 +13,7 @@ set( SOURCES
   atanh.cpp
   cosh.cpp
   sinh.cpp
+  tanh.cpp
    )
 
 nt2_module_add_tests(type.complex.hyperbolic.scalar.unit ${SOURCES})
