@@ -19,10 +19,16 @@ elseif(NT2_COMPILER_MSVC)
   add_definitions(/Oi-)
 endif()
 
-ADD_SUBDIRECTORY(cephes_single)
-ADD_SUBDIRECTORY(cephes_double)
+if(NT2_ARCH_X86)
+  add_definitions(-DIBMPC)
+elseif(NT2_ARCH_POWERPC)
+  add_definitions(-DMIEEE)
+endif()
+
+add_subdirectory(cephes_single)
+add_subdirectory(cephes_double)
 
 # 80-bit long double, x86 only, disabled on Windows
 if(NT2_ARCH_X86 AND NOT NT2_OS_WINDOWS)
-  ADD_SUBDIRECTORY(cephes_ldouble)
+  add_subdirectory(cephes_ldouble)
 ENDIF()
