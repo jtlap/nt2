@@ -15,9 +15,6 @@
     #pragma inline_recursion( on )
 #endif // _MSC_VER
 
-#include <boost/simd/sdk/config/arch.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
-
 #if defined( _MSC_VER )
 
     #define BOOST_NOTHROW_NOALIAS __declspec( nothrow noalias )
@@ -63,32 +60,12 @@
 
 #endif
 
-#include <boost/control/switch.hpp>
-#include <boost/control/case.hpp>
-#include <boost/detail/endian.hpp>
-
-// FIXME: make the code work without those assumptions
-// ...zzz...the actual assumption is vector == 4 scalars, not sizeof( vector ) == 16...
-#include <boost/simd/sdk/memory/parameters.hpp>
-#if BOOST_SIMD_CONFIG_ALIGNMENT > 16
-    #undef BOOST_SIMD_CONFIG_ALIGNMENT
-    #undef BOOST_SIMD_ARCH_ALIGNMENT
-    #undef BOOST_SIMD_DEFAULT_EXTENSION
-    #define BOOST_SIMD_CONFIG_ALIGNMENT 16
-    #define BOOST_SIMD_ARCH_ALIGNMENT 16
-    #if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
-        #undef BOOST_SIMD_HAS_LRB_SUPPORT
-        #undef BOOST_SIMD_HAS_AVX_SUPPORT
-        #define BOOST_SIMD_HAS_SSE4_2_SUPPORT
-        #define BOOST_SIMD_DEFAULT_EXTENSION boost::simd::tag::sse_
-    #endif // BOOST_SIMD_HAS_LRB_SUPPORT
-#endif // BOOST_SIMD_CONFIG_ALIGNMENT > 16
-
-
 #include <nt2/signal/twiddle_factors.hpp>
 
-#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/sdk/memory/prefetch.hpp>
+#include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/toolbox/constant/constants/half.hpp>
 #include <boost/simd/toolbox/constant/constants/mzero.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
@@ -108,8 +85,12 @@
 #include <boost/simd/include/functions/simd/unaligned_load.hpp>
 #include <boost/simd/include/functions/simd/unaligned_store.hpp>
 
+#include <boost/control/case.hpp>
+#include <boost/control/switch.hpp>
+
 #include <boost/assert.hpp>
 #include <boost/cstdint.hpp>
+#include <boost/detail/endian.hpp>
 #include <boost/integer/static_log2.hpp>
 #include <boost/mpl/range_c.hpp>
 
@@ -524,16 +505,6 @@ namespace detail
     ///                                       (06.06.2012.) (Domagoj Saric)
     ////////////////////////////////////////////////////////////////////////////
 
-    template <typename Scalar>
-    boost::simd::native<Scalar, BOOST_SIMD_DEFAULT_EXTENSION> *
-    as_vector( Scalar * const p_data )
-    {
-        typedef boost::simd::native<Scalar, BOOST_SIMD_DEFAULT_EXTENSION> vector_t;
-        BOOST_ASSERT_MSG( reinterpret_cast<std::size_t>( p_data ) % sizeof( vector_t ) == 0, "Data misaligned." );
-        return reinterpret_cast<vector_t *>( p_data );
-    }
-
-
     template <typename T>
     struct types
     {
@@ -543,7 +514,36 @@ namespace detail
 
         typedef split_radix_twiddles<vector_t> twiddles             ;
         typedef twiddle_pair        <vector_t> real2complex_twiddles;
+
+        BOOST_STATIC_ASSERT_MSG( vector_t::static_size == 4, "Temporary NT2.FFT limitation: must be able to use vectors of size 4..." );
     };
+
+    // FIXME: make the code work without the vector == 4 scalars assumption(s)...
+    #if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
+    template <>
+    struct types<float>
+    {
+        typedef float                                                 scalar_t;
+        typedef boost::simd::native<scalar_t, boost::simd::tag::sse_> vector_t;
+        typedef typename vector_t::native_type                        native_t;
+
+        typedef split_radix_twiddles<vector_t> twiddles             ;
+        typedef twiddle_pair        <vector_t> real2complex_twiddles;
+    };
+    #endif // BOOST_SIMD_HAS_(LRB/AVX)_SUPPORT
+
+
+    template <typename Scalar>
+    //...zzz...boost::simd::native<Scalar, BOOST_SIMD_DEFAULT_EXTENSION> *
+    typename types<Scalar>::vector_t *
+    as_vector( Scalar * const p_data )
+    {
+        //..zzz..typedef boost::simd::native<Scalar, BOOST_SIMD_DEFAULT_EXTENSION> vector_t;
+        typedef typename types<Scalar>::vector_t vector_t;
+        BOOST_ASSERT_MSG( reinterpret_cast<std::size_t>( p_data ) % sizeof( vector_t ) == 0, "Data misaligned." );
+        return reinterpret_cast<vector_t *>( p_data );
+    }
+
 
 #ifdef _MSC_VER
     #pragma warning( push )
