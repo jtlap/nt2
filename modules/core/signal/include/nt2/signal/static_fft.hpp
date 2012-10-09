@@ -85,8 +85,12 @@
 #include <boost/simd/include/functions/simd/unaligned_load.hpp>
 #include <boost/simd/include/functions/simd/unaligned_store.hpp>
 
-#include <boost/control/case.hpp>
+/// \note control/switch.hpp needs to be included before control/case.hpp
+/// because case.hpp uses the default_construct struct template (from
+/// switch.hpp) without forward declaring it.
+///                                           (09.10.2012.) (Domagoj Saric)
 #include <boost/control/switch.hpp>
+#include <boost/control/case.hpp>
 
 #include <boost/assert.hpp>
 #include <boost/cstdint.hpp>
