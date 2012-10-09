@@ -373,13 +373,29 @@ namespace detail
     ///                                       (06.06.2012.) (Domagoj Saric)
     ////////////////////////////////////////////////////////////////////////////
 
-    typedef boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> flipper_vector_t;
+    template <typename FloatingPointType> struct integer_placeholder;
+    template <                          > struct integer_placeholder<float > { typedef boost::int32_t type; };
+    template <                          > struct integer_placeholder<double> { typedef boost::int64_t type; };
+#ifdef _MSC_VER
+    template <                          > struct integer_placeholder<long double> : integer_placeholder<double> {};
+#endif // _MSC_VER
 
-    template <bool e0, bool e1, bool e2, bool e3>
+    template <typename T, T e0, T e1, T e2, T e3>
     BOOST_FORCEINLINE
-    flipper_vector_t const * BOOST_DISPATCH_RESTRICT sign_flipper()
+    T const (* BOOST_DISPATCH_RESTRICT sign_flipper_aux())[ 4 ]
     {
-        boost::int32_t const mzero( 0x80000000 );
+        unsigned int const mzero_shift( sizeof( T ) * 8 - 1 );
+        unsigned int const cardinal   ( 4                   );
+
+        static T const BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT )
+            flipper[ cardinal ] = { e0 << mzero_shift, e1 << mzero_shift, e2 << mzero_shift, e3 << mzero_shift };
+        return &flipper;
+    }
+
+    template <typename Vector, bool e0, bool e1, bool e2, bool e3>
+    BOOST_FORCEINLINE
+    Vector const * BOOST_DISPATCH_RESTRICT sign_flipper()
+    {
         /// \note MSVC10 sometimes generates wrong constants (especially when
         /// the reversed set function (_mm_setr_ps) is used.
         ///                                   (08.03.2012.) (Domagoj Saric)
@@ -391,8 +407,14 @@ namespace detail
         /// static flipper_vector_t::native_type const flipper = { _mm_castsi128_ps( _mm_setr_epi32( e0 * mzero, e1 * mzero, e2 * mzero, e3 * mzero ) ) };
         ///                                   (12.06.2012.) (Domagoj Saric)
 
-        static boost::int32_t const BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) flipper[ flipper_vector_t::static_size ] = { e0 * mzero, e1 * mzero, e2 * mzero, e3 * mzero };
-        return reinterpret_cast<flipper_vector_t const *>( &flipper );
+        /// \note Using an auxiliary function to generate less symbols and
+        /// shorter symbol names (it depends on less type information).
+        ///                                   (09.10.2012.) (Domagoj Saric)
+
+        return reinterpret_cast<Vector const * BOOST_DISPATCH_RESTRICT>
+        (
+            sign_flipper_aux<typename integer_placeholder<typename Vector::value_type>::type, e0, e1, e2, e3>()
+        );
     }
 
 
@@ -1046,24 +1068,29 @@ namespace detail
         std::iter_swap( p_left_reim_pair, p_right_reim_pair );
     }
 
+    template <typename Scalar>
     void BOOST_FORCEINLINE swap
     (
-        float        * BOOST_DISPATCH_RESTRICT const p_reals,
-        float        * BOOST_DISPATCH_RESTRICT const p_imags,
+        Scalar       * BOOST_DISPATCH_RESTRICT const p_reals,
+        Scalar       * BOOST_DISPATCH_RESTRICT const p_imags,
         unsigned int                           const index,
         unsigned int                           const mirror_index
     )
     {
-        float * BOOST_DISPATCH_RESTRICT const p_left_real ( &p_reals[ index        ] );
-        float * BOOST_DISPATCH_RESTRICT const p_right_real( &p_reals[ mirror_index ] );
-        float * BOOST_DISPATCH_RESTRICT const p_left_imag ( &p_imags[ index        ] );
-        float * BOOST_DISPATCH_RESTRICT const p_right_imag( &p_imags[ mirror_index ] );
+        Scalar * BOOST_DISPATCH_RESTRICT const p_left_real ( &p_reals[ index        ] );
+        Scalar * BOOST_DISPATCH_RESTRICT const p_right_real( &p_reals[ mirror_index ] );
+        Scalar * BOOST_DISPATCH_RESTRICT const p_left_imag ( &p_imags[ index        ] );
+        Scalar * BOOST_DISPATCH_RESTRICT const p_right_imag( &p_imags[ mirror_index ] );
         std::iter_swap( p_left_real, p_right_real );
         std::iter_swap( p_left_imag, p_right_imag );
     }
 
-    template <unsigned int valid_bits>
-    void scramble1( float * BOOST_DISPATCH_RESTRICT const p_reals, float * BOOST_DISPATCH_RESTRICT const p_imags )
+    template <unsigned int valid_bits, typename Scalar>
+    void scramble1
+    (
+        Scalar * BOOST_DISPATCH_RESTRICT const p_reals,
+        Scalar * BOOST_DISPATCH_RESTRICT const p_imags
+    )
     {
         typedef boost::mpl::int_<( ( valid_bits - 1 ) / 8 ) + 1> number_of_bytes;
 
@@ -1704,8 +1731,8 @@ namespace detail
 
     #else // BOOST_SIMD_DETECTED
 
-        vector_t const odd_negate     ( *sign_flipper<false, true , false, true>() );
-        vector_t const negate_last_two( *sign_flipper<false, false, true , true>() );
+        vector_t const odd_negate     ( *sign_flipper<vector_t, false, true , false, true>() );
+        vector_t const negate_last_two( *sign_flipper<vector_t, false, false, true , true>() );
 
         // Real:
         vector_t const real( real_in );
@@ -1800,14 +1827,14 @@ namespace detail
         vector_t const r0101( boost::simd::repeat_lower_half( real ) ); vector_t const i0101( boost::simd::repeat_lower_half( imag ) );
         vector_t const r2323( boost::simd::repeat_upper_half( real ) ); vector_t const i2323( boost::simd::repeat_upper_half( imag ) );
 
-        vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper( sign_flipper<false, false, true, true>() );
+        vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper( sign_flipper<vector_t, false, false, true, true>() );
         vector_t const r_combined( r0101 + ( r2323 ^ *p_negate_upper ) ); vector_t const i_combined( i0101 + ( i2323 ^ *p_negate_upper ) );
 
         vector_t const r_left ( boost::simd::details::shuffle<idx0, idx0, idx2, idx2>( r_combined             ) ); vector_t const i_left ( boost::simd::details::shuffle<idx0, idx0, idx2, idx2>( i_combined             ) );
         vector_t const r_right( boost::simd::details::shuffle<idx1, idx1, idx3, idx3>( r_combined, i_combined ) ); vector_t const i_right( boost::simd::details::shuffle<idx1, idx1, idx3, idx3>( i_combined, r_combined ) );
 
-        real_out = r_left + ( r_right ^ *sign_flipper<false, true, false, true >()/*negate_13*/ );
-        imag_out = i_left + ( i_right ^ *sign_flipper<false, true, true , false>()/*negate_12*/ );
+        real_out = r_left + ( r_right ^ *sign_flipper<vector_t, false, true, false, true >()/*negate_13*/ );
+        imag_out = i_left + ( i_right ^ *sign_flipper<vector_t, false, true, true , false>()/*negate_12*/ );
 
     #endif // BOOST_SIMD_DETECTED
     }
@@ -1872,10 +1899,10 @@ namespace detail
         scalar_t const r7_( r1m5 + r3m7 ); scalar_t const i7_( i1m5 + i3m7 );
 
         scalar_t const sqrt2( static_cast<scalar_t>( 0.70710678118654752440084436210485L ) );
-      //scalar_t const w0r0(      1 ); float const w0i0(      0 );
-      //scalar_t const w3r0(      1 ); float const w3i0(      0 );
-      //scalar_t const w0r1( +sqrt2 ); float const w0i1( -sqrt2 );
-      //scalar_t const w3r1( -sqrt2 ); float const w3i1( -sqrt2 );
+      //scalar_t const w0r0(      1 ); scalar_t const w0i0(      0 );
+      //scalar_t const w3r0(      1 ); scalar_t const w3i0(      0 );
+      //scalar_t const w0r1( +sqrt2 ); scalar_t const w0i1( -sqrt2 );
+      //scalar_t const w3r1( -sqrt2 ); scalar_t const w3i1( -sqrt2 );
 
       //r4 = r4_ * w0r0 - i4_ * w0i0; i4 = r4_ * w0i0 + i4_ * w0r0;
       //r5 = r5_ * w0r1 - i5_ * w0i1; i5 = r5_ * w0i1 + i5_ * w0r1;
@@ -1926,7 +1953,7 @@ namespace detail
 
             // we can already calculate the lower DFT4 so we do it to free up
             // registers:
-            vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper( sign_flipper<false, false, true, true>() );
+            vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper( sign_flipper<vector_t, false, false, true, true>() );
             {
                 //...zzz...manually inlined for testing ("in search of optimal register allocation")...
                 //dif::dft_4<vector_t>
@@ -1944,8 +1971,8 @@ namespace detail
                 vector_t const r_left ( shuffle<0, 0, 2, 2>( r_combined             ) ); vector_t const i_left ( shuffle<0, 0, 2, 2>( i_combined             ) );
                 vector_t const r_right( shuffle<1, 1, 3, 3>( r_combined, i_combined ) ); vector_t const i_right( shuffle<1, 1, 3, 3>( i_combined, r_combined ) );
 
-                lower_real = r_left + ( r_right ^ *sign_flipper<false, true, false, true >()/*negate_13*/ );
-                lower_imag = i_left + ( i_right ^ *sign_flipper<false, true, true , false>()/*negate_12*/ );
+                lower_real = r_left + ( r_right ^ *sign_flipper<vector_t, false, true, false, true >()/*negate_13*/ );
+                lower_imag = i_left + ( i_right ^ *sign_flipper<vector_t, false, true, true , false>()/*negate_12*/ );
             }
 
             {
@@ -1970,7 +1997,7 @@ namespace detail
         {
             vector_t const r4466( shuffle<0, 0, 2, 2>( upper_r ) ); vector_t const i4466( shuffle<0, 0, 2, 2>( upper_i ) );
             vector_t       r5577( shuffle<1, 1, 3, 3>( upper_r ) ); vector_t       i5577( shuffle<1, 1, 3, 3>( upper_i ) );
-            vector_t const * BOOST_DISPATCH_RESTRICT const p_odd_negate( sign_flipper<false, true, false, true>() );
+            vector_t const * BOOST_DISPATCH_RESTRICT const p_odd_negate( sign_flipper<vector_t, false, true, false, true>() );
             scalar_t const sqrt2      ( static_cast<scalar_t>( 0.70710678118654752440084436210485L ) );
             vector_t const twiddles   ( make<vector_t>( +sqrt2, -sqrt2, -sqrt2, -sqrt2 ) );
             vector_t const twiddled_57( ( r5577 + ( i5577 ^ *p_odd_negate ) ) * twiddles );
