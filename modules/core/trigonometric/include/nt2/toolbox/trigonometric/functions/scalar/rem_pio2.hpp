@@ -453,7 +453,7 @@ namespace nt2 { namespace ext
    * is preserved.
    * ====================================================
    */
-#ifdef __LITTLE_ENDIAN
+#ifdef __ORDER_LITTLE_ENDIAN__ || __LITTLE_ENDIAN
 #define LOW_WORD_IDX 0
 #define HIGH_WORD_IDX sizeof(nt2::uint32_t)
 #else
