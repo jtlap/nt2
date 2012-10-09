@@ -7,7 +7,7 @@
 ##                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit core.container.table core.utility)
+nt2_module_use_modules(unit core.container.table core.random)
 
 include(nt2.pch)
 nt2_pch(nt2/table.hpp)

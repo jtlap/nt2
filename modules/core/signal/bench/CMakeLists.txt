@@ -7,13 +7,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-set( SOURCES
-  acosh.cpp
-  asinh.cpp
-  atanh.cpp
-  cosh.cpp
-  sinh.cpp
-  tanh.cpp
+SET( SOURCES
+    static_fft.cpp
+# List of simd test files for toolbox signal
    )
 
-nt2_module_add_tests(type.complex.hyperbolic.scalar.unit ${SOURCES})
+nt2_module_add_tests(core.signal.simd.bench ${SOURCES})

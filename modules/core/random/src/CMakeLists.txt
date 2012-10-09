@@ -7,4 +7,17 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_CORE.UTILITY_DEPENDENCIES_EXTRA core.sdk )
+include(NT2Module)
+nt2_module_source_setup(core.random)
+
+set(SOURCES
+    rand/randstream.cpp
+    rand/mt19937stream.cpp
+    rand/lagged_fibonacci2281stream.cpp
+   )
+
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  add_definitions(-fvisibility=hidden)
+endif()
+
+nt2_module_add_library(nt2_random ${SOURCES})

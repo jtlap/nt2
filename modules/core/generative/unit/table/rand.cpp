@@ -40,55 +40,55 @@ NT2_TEST_CASE( rand_size )
 NT2_TEST_CASE( rand_nd_untyped )
 {
   nt2::table<double> x1 = nt2::rand(1000);
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 1, x1(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x1(i) >= 0. && x1(i) < 1 );
 
   nt2::table<double> x2 = nt2::rand(8,8);
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 1, x2(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x2(i) >= 0. && x2(i) < 1 );
 
   nt2::table<double> x3 = nt2::rand(8,4,2);
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 1, x3(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x3(i) >= 0. && x3(i) < 1 );
 
   nt2::table<double> x4 = nt2::rand(4,4,2,2);
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 1, x4(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x4(i) >= 0. && x4(i) < 1 );
 }
 
 NT2_TEST_CASE_TPL( rand_nd_typed, NT2_REAL_TYPES )
 {
   nt2::table<T> x1 = nt2::rand(8, nt2::meta::as_<T>() );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( T(1), x1(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x1(i) >= T(0) && x1(i) < T(1) );
 
   nt2::table<T> x2 = nt2::rand(8,8, nt2::meta::as_<T>() );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( T(1), x2(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x2(i) >= T(0) && x2(i) < T(1) );
 
   nt2::table<T> x3 = nt2::rand(8,4,2, nt2::meta::as_<T>() );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( T(1), x3(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x3(i) >= T(0) && x3(i) < T(1) );
 
   nt2::table<T> x4 = nt2::rand(4,4,2,2, nt2::meta::as_<T>() );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( T(1), x4(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x4(i) >= T(0) && x4(i) < T(1) );
 }
 
 NT2_TEST_CASE( rand_of_size )
 {
   nt2::table<double> x2 = nt2::rand(nt2::of_size(8,8) );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 1, x2(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x2(i) >= 0. && x2(i) < 1. );
 
   nt2::table<double> x3 = nt2::rand(nt2::of_size(8,4,2) );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 1, x3(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x3(i) >= 0. && x3(i) < 1. );
 
   nt2::table<double> x4 = nt2::rand(nt2::of_size(4,4,2,2) );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 1, x4(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x4(i) >= 0. && x4(i) < 1. );
 }
 
 NT2_TEST_CASE_TPL( rand_typed_of_size, NT2_REAL_TYPES )
 {
   nt2::table<T> x2 = nt2::rand(nt2::of_size(8,8), nt2::meta::as_<T>() );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( T(1), x2(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x2(i) >= T(0) && x2(i) < T(1) );
 
   nt2::table<T> x3 = nt2::rand(nt2::of_size(8,4,2), nt2::meta::as_<T>() );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( T(1), x3(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x3(i) >= T(0) && x3(i) < T(1) );
 
   nt2::table<T> x4 = nt2::rand(nt2::of_size(4,4,2,2), nt2::meta::as_<T>() );
-  ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( T(1), x4(i) );
+  for(int i=1;i<=64;++i) NT2_TEST( x4(i) >= T(0) && x4(i) < T(1) );
 }
 
 NT2_TEST_CASE( rand_expr )
@@ -96,7 +96,7 @@ NT2_TEST_CASE( rand_expr )
   nt2::table<int> a( nt2::of_size(4,5) );
 
   nt2::table<double> x1 = nt2::rand( nt2::size(a) );
-  ////for(int i=1;i<=20;++i) NT2_TEST_EQUAL( 1, x1(i) );
+  for(int i=1;i<=20;++i) NT2_TEST( x1(i) >= 0. && x1(i) < 1. );
 
   NT2_TEST_ASSERT( x1 = nt2::rand(a) );
 }
@@ -106,7 +106,7 @@ NT2_TEST_CASE_TPL( rand_typed_expr, NT2_REAL_TYPES )
   nt2::table<int> a( nt2::of_size(4,5) );
 
   nt2::table<T> x1 = nt2::rand( nt2::size(a), nt2::meta::as_<T>() );
-  ////for(int i=1;i<=20;++i) NT2_TEST_EQUAL( T(1), x1(i) );
+  for(int i=1;i<=20;++i) NT2_TEST( x1(i) >= 0. && x1(i) < 1. );
 
   NT2_TEST_ASSERT( x1 = nt2::rand(a, nt2::meta::as_<T>()) );
 }
