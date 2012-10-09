@@ -1,0 +1,69 @@
+[section Sizes]
+[h3 Consulting sizes]
+
+Once a matrix declared, it is possible to kow its size.
+[table:id information about the size of a matrix
+    [[NT2 and Matlab] [description]]
+    [[`size(a)`]      [row vector of dimensions]]   
+    [[`size(a,i)`]    [ith dimension (from 1)]]      
+    [[`numel(a)`]     [total number of elements]]      
+    [[`length(a)`]    [`max(size(a))`]]      
+    [[`ndims(a)`]     [`number of dimensions`]]      
+]
+
+In NT2 one can use `height(a)`, `width(a)`, `depth(a)` and `chan(a)`
+as equivalent of `size(a,i)` respectively for `i = 1,2,3,4`
+
+[warning NT2 limits by default the maximum number of dimensions to 4, but this restriction
+can be bypassed by defining NT2_MAX_DIMENSION to the appropriate value. or by using objects like
+`std:vector<M_t>`]
+
+
+[h3 Modifying sizes]
+
+Once initialized, it is possible to change a matrix size in various ways as
+affectation, expansion, resizing 
+
+Affectation `a=b;` replaces the contain of `a` by the contain of `b`
+
+
+
+[table:id expand and resize
+    [[NT2]                      [Matlab]]
+    [[`a = expand(a,3,6); a(3,6)=3;`]                [` a(3,6)=3;`]]              
+    [[`b = resize(a,3,6); b(3,6)=3;`]                [`b=zeros(3,6); b(1:length(a(:)))=a(:);b(3,6)=3;`]]              
+] 
+
+If `a` is the matrix 
+  [c++]
+  ``
+  [ 1 2 3 4
+    5 6 7 8 ]
+  ``
+The lines is the previous table respectively produce:
+  [c++]
+  ``
+  a = [ 1 2 3 4 0 0         
+      5 6 7 8 0 0         
+      0 0 0 0 0 3 ]       
+                  
+  b = [ 1 6 4 0 0 0  
+        5 3 8 0 0 0  
+        2 7 0 0 0 3 ]
+  ``
+
+To be more precise, 
+
+# `resize` respects the matrix contents but put them at the beginning of the matrix
+in major column order.
+# `expand` considers the new matrix as an extension (or a shrink) of the original 
+and respects the positions of the values involved.
+
+
+As NT2 is a C++ library it is not possible to fully identify scalars and matrices of size 1x1
+as Matlab does. However:
+
+# a scalar value can be affected to a table transforming it in a singleton matrix (i.e. 1x1)
+# a singleton matrix, can be affected to a scalar
+
+[endsect]

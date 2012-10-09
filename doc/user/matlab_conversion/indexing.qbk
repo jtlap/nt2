@@ -1,0 +1,105 @@
+[section Indexing]
+
+
+To access to the matrix elements to use or modify their values is as important as
+constructing them. Matlab offers multiple index schemes easing the access.
+
+NT2 mimick all of them and provides index methods with integers, range of integers, 
+vectors of integer and vectors of boolean. 
+
+One can distinguish:
+
+# simple indexing: using integers,
+# multiple indexing : using vectors of integers,
+# logical indexing: using vectors of boolean.
+
+Indexing produces expresions in NT2 the evaluation of wich could produce scalars or matrix values.
+
+[h3 Extraction]
+
+[table:id More matrices indexations
+    [[NT2]                      [Matlab]]
+    [[`a(2)`]             [`a(2)`]]              
+    [[`a(_(2,2,6))`]      [`a(2:2:6)`]]              
+    [[`a(_(1,2,end_)`]    [`a(1:2:end)`]]              
+    [[`a(cons(3,7,2,2))`] [`a([3,7,2,2])`]]              
+    [[`a(_(3,0,6))`]      [`a(repmat(3,1,6))`]]              
+    [[`a(_)`]             [`a(:)`]]              
+    [[`a(cif(2, 3))`]     [`a( [1:3;1:3])`]]              
+    [[`a(a>5.0)`]         [`a(a>5)`]]           
+]
+
+[warning 
+
+#There is a small discrepancy between Matlab `:` and NT2 `_`. When the step is 0 
+Matlab returns always an empty matrix, NT2 has chosen to replicate the first element n 
+times where n is the maximum of the integer part of the last parameter and 0. Of course this returns an 
+empty matrix is this parameter is negative or less than 1
+
+# perhaps you have noticed that the last line (`a(a>5.0)` and `a(a>5)`) is not the same for NT2 and for Matlab.
+This is because in Matlab unless fully precised all elements treated are double precision floating numbers. 
+This is not the case in NT2 and there is no automatic conversion in most cases.
+]
+
+[h3 Begin and end index values]
+
+We have seen at the previous item the use of `end_` inside indexation ranges as `a(_(1,2,end_)`.
+This symbol has the same meaning as Matlab `end_` and can be used as a valid substitute of the last index
+an indexing expression. In that context, end_ == size(a,k) when used as part of the k-th index.
+ 
+
+[note 
+1. As NT2 allows to change the matrices base index (for instance from the default 1 based index
+to the C compatible 0 based index), it also provides a symbol `begin_` than can be used like `end_` and 
+that represent the first index when used in  indexation ranges but that does not exists in Matlab.
+
+2. As in Matlab `a(_)` always produces a colon vector, but not `a(_(1,end_))` or equivalent indexings.]
+
+[h3 Affectation]
+
+Indices as used to extract dats from a matrix expression only if it is located 
+on the right side of an affectation or are function parameters. At the opposite 
+when located at the left of affectation, indexing serves to designates the
+elements of the matrix that will be modified by the affectation.
+
+
+An affectation like `a = b;` modifies if it is necessary the size of `a` 
+by replacing the contents of a by those from `b`: The result getting the size of `b`.
+
+Contrarily the following affectations do not modify at all the size 
+of the matrix located at the left of the affectation. Values selected by the indexes are 
+merely replaced by those arising from the right side.
+
+As in Matlab such affectations are correct if and only if the dimension of the
+selected location matches the dimension of the right side, with two exceptions:
+
+# When the second side is scalar it is repeated all over the selected elements
+ of the first side.
+# When the first side is of the form a(_) (a(:) in Matlab), the second side 
+has not to match dimensions exactly, but only the total number of elements matters.
+
+
+[table:id More matrices indexations
+    [[NT2]                      [Matlab]]
+    [[`a(2)            = 25;                   `] [`a(2)         = 25              `]] 
+    [[`a(_(2,2,6))     = a(_(3,2,7));          `] [`a(2:2:6)     = a(3:2:7)        `]]     
+    [[`a(R(1,2,end))   = 12;                   `] [`a(1:2:end)   = 12              `]]       
+    [[`a(cons(3,7,2,2))= cons(6.0, 19.0, 23.0, 14.0);  `] [`a([3,7,2,2]) = [6, 19, 23, 14] `]]         
+    [[`a(_)            = _(24.0, -1.0, 1.0);   `] [`a(:)         = 24:-1:1         `]]             
+    [[`a(a>5)          = a(a>5.0)*2;           `] [`a(a>5)       = a(a>5)*2        `]] 
+]
+
+[h3 Elements suppression]
+
+In Matlab and NT2 we can suppress elements of a matrix by affecting to them the empty matrix.
+
+[table:id More matrices indexations
+    [[NT2]                      [Matlab]]
+    [[`a(2,:) = [];`] [`a(2,_) = _()`]] 
+]
+
+In this fashion, it is only possible to suppress gridded parts of a matrix where all indices but one is `_`, to leave
+a smaller one which still retains a matricial structure. Using only one index returns a line vector except when the 
+original matix is a column vector. Other situations are erroneous and lead to compilation error in NT2, error in Matlab.
+
+[endsect]

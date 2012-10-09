@@ -51,12 +51,12 @@ You have at least two solutions:
 
 [table:id More matrices declarations
     [[NT2]                      [Matlab]]
-    [[`M_t a = trans(reshape(_(1,8),4,2));`]                [` a = reshape(1:8,4,2)';`]]              
-    [[`M_t b = trans(reshape(cons(1,2,3,4,5,6,7,8),4,2));`]  [` b = reshape([1,2,3,4,5,6,7,8],4,2)';`]]              
+    [[`M_t a = trans(reshape(_(1,8),4,2));`]                [` a = reshape(1:8,4,2)`\'`;`]]              
+    [[`M_t b = trans(reshape(cons(1,2,3,4,5,6,7,8),4,2));`]  [` b = reshape([1,2,3,4,5,6,7,8],4,2)`\'`;`]]              
 ] 
 
 
-Forgiving to type `trans` (respectively `'`) with size 2x4 will produce the matrix:
+Forgiving to type `trans` (respectively \') with size 2x4 will produce the matrix:
   [c++]
   ``
   [ 1 3 5 7
