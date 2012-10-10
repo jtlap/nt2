@@ -10,7 +10,7 @@
 set(SOURCES test.cpp)
 
 if(APPLE)
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -framework Accelerate")
+  set(CMAKE_EXE_LINKER_FLAGS_NT2BENCH "${CMAKE_EXE_LINKER_FLAGS_NT2BENCH} -framework Accelerate")
 endif()
 
 nt2_module_add_tests(core.signal.unit ${SOURCES})
