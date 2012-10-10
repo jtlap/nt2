@@ -34,22 +34,21 @@ namespace nt2 { namespace memory
   struct container_shared_ref
   {
     typedef Container                           base_t;
-    typedef typename boost::remove_const<Container>::type cbase_t;
     typedef typename base_t::value_type         value_type;
     typedef typename base_t::size_type          size_type;
     typedef typename base_t::extent_type        extent_type;
     typedef typename base_t::order_type         order_type;
     typedef typename base_t::specific_data_type specific_data_type;
 
-    typedef typename boost::dispatch::meta::scalar_of<base_t>::type        reference;
+    typedef typename boost::dispatch::meta::scalar_of<base_t&>::type       reference;
     typedef typename boost::dispatch::meta::scalar_of<base_t const&>::type const_reference;
 
     typedef typename boost::mpl::if_< boost::is_const<base_t>
-                                    , typename cbase_t::const_pointer
-                                    , typename cbase_t::pointer
+                                    , typename base_t::const_pointer
+                                    , typename base_t::pointer
                                     >::type                             pointer;
 
-    typedef typename cbase_t::const_pointer                       const_pointer;
+    typedef typename base_t::const_pointer                        const_pointer;
     typedef pointer                                                    iterator;
 
     container_shared_ref() : base_(), ptr(0)
