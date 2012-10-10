@@ -26,7 +26,9 @@ SET( SOURCES
   cbrt.cpp
   pow_absi.cpp
   pow_abs.cpp
-
+  realpow.cpp
+  reallog.cpp
+  realsqrt.cpp
 # List of scalar test files for toolbox exponential
    )
 

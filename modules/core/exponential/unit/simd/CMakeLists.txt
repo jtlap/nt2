@@ -24,6 +24,9 @@ SET( SOURCES
   exp10.cpp
   exp.cpp
   cbrt.cpp
+  realsqrt.cpp
+  reallog.cpp
+  realpow.cpp
 # List of simd test files for toolbox exponential
    )
 
