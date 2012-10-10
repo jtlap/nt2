@@ -21,6 +21,7 @@
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
+#include <boost/noncopyable.hpp>
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
 
@@ -38,7 +39,12 @@ namespace bench
     }
 
     static std::size_t const N = constants::test_dft_size;
-    typedef float T;
+    #if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
+        typedef double T;
+    #else //...zzz...cardinal-must-be-4 limitation...
+        typedef float T;
+    #endif // BOOST_SIMD_HAS_LRB_SUPPORT || BOOST_SIMD_HAS_AVX_SUPPORT
+
     typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N      > aligned_array;
     typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N/2 + 1> aligned_half_complex_array;
     typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;
@@ -53,74 +59,75 @@ namespace bench
             scalar = distribution( prng );
     }
 
-    struct test_fft_forward
+    struct test_fft_forward : boost::noncopyable
     {
-        test_fft_forward()
+        test_fft_forward() { reset(); }
+
+        void operator()() const { FFT::forward_transform( &real_data[ 0 ], &imag_data[ 0 ], N ); }
+
+        void reset()
         {
             randomize( real_data );
             randomize( imag_data );
         }
 
-        void operator()()
-        {
-            FFT::forward_transform( &real_data[ 0 ], &imag_data[ 0 ], N );
-        }
-
-        aligned_array real_data;
-        aligned_array imag_data;
+        mutable aligned_array real_data;
+        mutable aligned_array imag_data;
     };
 
-    struct test_fft_inverse
+    struct test_fft_inverse : boost::noncopyable
     {
-        test_fft_inverse()
+        test_fft_inverse() { reset(); }
+
+        void operator()() const { FFT::inverse_transform( &real_data[ 0 ], &imag_data[ 0 ], N ); }
+
+        void reset()
         {
             randomize( real_data );
             randomize( imag_data );
         }
 
-        void operator()()
-        {
-            FFT::inverse_transform( &real_data[ 0 ], &imag_data[ 0 ], N );
-        }
-
-        aligned_array real_data;
-        aligned_array imag_data;
+        mutable aligned_array real_data;
+        mutable aligned_array imag_data;
     };
 
-    struct test_fft_real_forward
+    struct test_fft_real_forward : boost::noncopyable
     {
-        test_fft_real_forward()
-        {
-            randomize( real_time_data );
-        }
+        test_fft_real_forward() { randomize( real_time_data ); }
 
-        void operator()()
+        void operator()() const
         { 
             FFT::real_forward_transform( &real_time_data[ 0 ], &real_frequency_data[ 0 ], &imag_frequency_data[ 0 ], N );
         }
 
-        aligned_array real_time_data;
-        aligned_half_complex_array real_frequency_data;
-        aligned_half_complex_array imag_frequency_data;
+        static void reset() {}
+
+                aligned_array              real_time_data     ;
+        mutable aligned_half_complex_array real_frequency_data;
+        mutable aligned_half_complex_array imag_frequency_data;
     };
 
-    struct test_fft_real_inverse
+    struct test_fft_real_inverse : boost::noncopyable
     {
-        test_fft_real_inverse()
+        test_fft_real_inverse() { reset(); }
+
+        void operator()() const
         {
-            randomize( real_time_data );
-            FFT::real_forward_transform( &real_time_data[ 0 ], &real_frequency_data[ 0 ], &imag_frequency_data[ 0 ], N );
+            FFT::real_inverse_transform( &real_frequency_data[ 0 ], &imag_frequency_data[ 0 ], &real_time_data[ 0 ], N );
         }
 
-        void operator()()
+        void reset()
         {
-            FFT::real_inverse_transform( &real_frequency_data[ 0 ], &imag_frequency_data[ 0 ], &real_time_data2[ 0 ], N );
+            /// \note FFT::real_inverse_transform destroys input data so it has
+            /// to be regenerated.
+            ///                               (10.10.2012.) (Domagoj Saric)
+            randomize( real_frequency_data );
+            randomize( imag_frequency_data );
         }
 
-        aligned_array real_time_data;
-        aligned_array real_time_data2;
-        aligned_half_complex_array real_frequency_data;
-        aligned_half_complex_array imag_frequency_data;
+        mutable aligned_half_complex_array real_frequency_data;
+        mutable aligned_half_complex_array imag_frequency_data;
+        mutable aligned_array              real_time_data     ;
     };
 
     void do_test()
@@ -168,7 +175,7 @@ namespace bench
         std::cout << std::scientific << tv.median << "\n";
       }
     }
-} 
+}
 
 NT2_TEST_CASE( test_fft )
 {
