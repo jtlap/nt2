@@ -10,10 +10,7 @@
 nt2_module_use_modules(unit core.utility)
 
 if(APPLE)
-  foreach(build_type NT2Test NT2TestDebug)
-    string(TOUPPER ${build_type} build_type_U)
-    set(CMAKE_EXE_LINKER_FLAGS_${build_type_U} "${CMAKE_EXE_LINKER_FLAGS_${build_type_U}} -framework Accelerate")
-  endif()
+  set(CMAKE_EXE_LINKER_FLAGS_NT2BENCH "${CMAKE_EXE_LINKER_FLAGS_NT2BENCH} -framework Accelerate")
 endif()
 
 SET( SOURCES
