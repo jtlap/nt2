@@ -650,10 +650,12 @@ macro(nt2_module_tool_setup tool)
     if(Boost_INCLUDE_DIR)
       list(APPEND BUILD_OPTION -DBoost_INCLUDE_DIR=${Boost_INCLUDE_DIR})
     endif()
+    if(NOT CMAKE_CROSSCOMPILING)
+      list(APPEND BUILD_OPTION -G ${CMAKE_GENERATOR})
+    endif()
 
     execute_process(COMMAND ${CMAKE_COMMAND}
                             ${BUILD_OPTION}
-                            -G ${CMAKE_GENERATOR}
                             ${NT2_SOURCE_ROOT}/tools/${tool}
                     WORKING_DIRECTORY ${NT2_BINARY_DIR}/tools/${tool}
                     OUTPUT_VARIABLE tool_configure_out
