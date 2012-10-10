@@ -39,6 +39,8 @@ template<class T> struct table_test
     a1 = nt2::sqrt(nt2::cos(a0)/nt2::sin(a0) + a2*a2/a1);
   }
 
+  void reset() {}
+
   nt2::container::table<T> a0,a1,a2;
   int N,M;
 };
@@ -58,6 +60,8 @@ template<class T> struct vector_test
     for(int i=0; i<M*N; ++i)
       a1[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a2[i]*a2[i]/a1[i]);
   }
+
+  void reset() {}
 
   std::vector<T> a0,a1,a2;
   int N,M;
@@ -79,6 +83,8 @@ template<class T> struct vector_omp_test
     for(int i=0; i<M*N; ++i)
       a1[i] = std::sqrt(std::cos(a0[i])/std::sin(a0[i]) + a2[i]*a2[i]/a1[i]);
   }
+
+  void reset() {}
 
   std::vector<T> a0,a1,a2;
   int N,M;

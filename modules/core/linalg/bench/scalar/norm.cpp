@@ -28,7 +28,7 @@ template<class T> struct expr_test
         a3(nt2::of_size(n,m))
       , N(n), M(m)
   {
-    
+
   }
 
   void operator()()
@@ -36,9 +36,11 @@ template<class T> struct expr_test
     nn = nt2::norm(a1+a2, 'I');
   }
 
+  void reset() {}
+
   nt2::table<T> a1,a2,a3;
   std::size_t N,M;
-  T nn; 
+  T nn;
 };
 
 template<class T> struct tabl_test
@@ -51,13 +53,15 @@ template<class T> struct tabl_test
 
   void operator()()
   {
-    a3 = a1+a2; 
+    a3 = a1+a2;
     nn = nt2::norm(a3, 'I');
   }
 
+  void reset() {}
+
   nt2::table<T> a1,a2, a3;
   std::size_t N,M;
-  T nn; 
+  T nn;
 };
 
 template<class T> void do_test()

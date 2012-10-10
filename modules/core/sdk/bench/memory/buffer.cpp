@@ -28,6 +28,8 @@ template<class T> struct buffer_test
     for(std::size_t i = 0; i < data.size(); ++i) data[i] = data2[i];
   }
 
+  void reset() {}
+
   nt2::memory::buffer<T> data,data2;
 };
 
@@ -39,6 +41,8 @@ template<class T> struct buffer_std_test
   {
     for(std::size_t i = 0; i < data.size(); ++i) data[i] = data2[i];
   }
+
+  void reset() {}
 
   std::vector<T> data,data2;
 };

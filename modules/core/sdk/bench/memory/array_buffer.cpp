@@ -33,6 +33,8 @@ template<class T> struct array_buffer_test
     for(std::size_t i = 0; i < up; ++i) data[i] = data2[i];
   }
 
+  void reset() {}
+
   T   v;
   std::size_t up;
   static T    pump;
@@ -55,6 +57,8 @@ template<class T> struct array_buffer_std_test
     for(std::size_t i = 0; i < data.size(); ++i) data[i] = data2[i];
   }
 
+  void reset() {}
+
   static T pump;
   buffer_t data,data2;
 };
@@ -72,6 +76,8 @@ template<class T> struct array_buffer_raw_test
   }
 
   ~array_buffer_raw_test() { pump = data[rand() % size_]; }
+
+  void reset() {}
 
   T   data[1024];
   T   data2[1024];

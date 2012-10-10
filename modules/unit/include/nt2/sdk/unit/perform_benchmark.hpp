@@ -43,7 +43,7 @@ namespace nt2 { namespace unit
   }
 
   template<class Test, typename T> inline
-  void perform_benchmark(Test test, double duration, benchmark_result<T>& res )
+  void perform_benchmark(Test& test, double duration, benchmark_result<T>& res )
   {
     std::vector<T> cycles;
     double t(0.),vt(0.);
@@ -60,13 +60,14 @@ namespace nt2 { namespace unit
           vt = nt2::details::now() - vt;
           t += vt;
           cycles.push_back(vc);
+          test.reset();
         } while(t < duration);
       res.data = cycles;
       median(cycles.begin(),cycles.end(), res.median);
   }
 
   template<class Test> inline
-  void perform_benchmark(Test test, double duration, benchmark_result<double>& res )
+  void perform_benchmark(Test & test, double duration, benchmark_result<double>& res )
   {
     std::vector<double> time;
     double t(0.),vt(0.);
@@ -83,6 +84,7 @@ namespace nt2 { namespace unit
           vt = nt2::details::now() - vt;
           t += vt;
           time.push_back(vc);
+          test.reset();
         } while(t < duration);
       res.data = time;
       median(time.begin(),time.end(), res.median);

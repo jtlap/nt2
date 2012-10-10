@@ -35,6 +35,8 @@ template<class T> struct table_test
     a2 = a0 + a1;
   }
 
+  void reset() {}
+
   nt2::container::table<T> a0,a1,a2;
   std::size_t N,M;
 };
@@ -54,6 +56,8 @@ template<class T> struct vector_test
     for(std::size_t i=0; i<M*N; ++i)
       a2[i] = a0[i] + a1[i];
   }
+
+  void reset() {}
 
   std::vector<T> a0,a1,a2;
   std::size_t N,M;
