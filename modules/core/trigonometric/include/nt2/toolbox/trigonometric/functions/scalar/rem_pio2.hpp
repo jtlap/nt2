@@ -24,6 +24,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <boost/fusion/tuple.hpp>
+#include <boost/detail/endian.hpp>
 #include <nt2/toolbox/trigonometric/functions/scalar/impl/trigo/selection_tags.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -453,7 +454,7 @@ namespace nt2 { namespace ext
    * is preserved.
    * ====================================================
    */
-#ifdef __ORDER_LITTLE_ENDIAN__ || __LITTLE_ENDIAN
+#ifdef BOOST_LITTLE_ENDIAN
 #define LOW_WORD_IDX 0
 #define HIGH_WORD_IDX sizeof(nt2::uint32_t)
 #else
