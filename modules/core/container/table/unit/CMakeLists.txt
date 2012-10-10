@@ -13,6 +13,7 @@ SET( SOURCES
   constructor.cpp
   table_returning.cpp
   multind.cpp
+  composite_table.cpp
 # List of scalar test files for toolbox core.settings
    )
 

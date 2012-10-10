@@ -13,10 +13,12 @@ SET( SOURCES
   buffer.cpp
   buffer_non_pod.cpp
   composite_buffer.cpp
+  composite_reference.cpp
   container.cpp
   container_non_pod.cpp
+  composite_container.cpp
   fixed_allocator.cpp
 ## List of scalar test files for toolbox core.memory
    )
 
-nt2_module_add_tests(core.sdk.memory.unit ${SOURCES})
+nt2_module_add_tests(core.memory.unit ${SOURCES})

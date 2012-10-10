@@ -9,8 +9,7 @@
 #ifndef NT2_SDK_MEMORY_CONTAINER_REF_HPP_INCLUDED
 #define NT2_SDK_MEMORY_CONTAINER_REF_HPP_INCLUDED
 
-#include <nt2/sdk/memory/container.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
+#include <nt2/sdk/memory/adapted/container_ref.hpp>
 
 namespace nt2 { namespace memory
 {
@@ -28,18 +27,24 @@ namespace nt2 { namespace memory
   template<class Container>
   struct container_ref
   {
-    typedef Container                                                         base_t;
-    typedef typename base_t::value_type                                       value_type;
-    typedef typename base_t::size_type                                        size_type;
-    typedef typename base_t::extent_type                                      extent_type;
-    typedef typename base_t::order_type                                       order_type;
-    typedef typename base_t::specific_data_type                               specific_data_type;
+    typedef Container                           base_t;
+    typedef typename boost::remove_const<Container>::type cbase_t;
+    typedef typename base_t::value_type         value_type;
+    typedef typename base_t::size_type          size_type;
+    typedef typename base_t::extent_type        extent_type;
+    typedef typename base_t::order_type         order_type;
+    typedef typename base_t::specific_data_type specific_data_type;
 
-    typedef typename boost::dispatch::meta::scalar_of<Container&>::type       reference;
-    typedef typename boost::dispatch::meta::scalar_of<Container const&>::type const_reference;
-    typedef typename boost::dispatch::meta::scalar_of<Container>::type*       pointer;
-    typedef typename boost::dispatch::meta::scalar_of<Container>::type const* const_pointer;
-    typedef pointer                                                           iterator;
+    typedef typename boost::dispatch::meta::scalar_of<base_t&>::type        reference;
+    typedef typename boost::dispatch::meta::scalar_of<base_t const&>::type const_reference;
+
+    typedef typename boost::mpl::if_< boost::is_const<base_t>
+                                    , typename cbase_t::const_pointer
+                                    , typename cbase_t::pointer
+                                    >::type                             pointer;
+
+    typedef typename cbase_t::const_pointer                       const_pointer;
+    typedef pointer                                                    iterator;
 
     container_ref() : base_(0), ptr(0)
     {
@@ -179,7 +184,7 @@ namespace nt2 { namespace memory
 
     Container& base() const { return *base_; }
 
-  private:
+    private:
     Container*                  base_;
     mutable pointer             ptr;
   };
@@ -194,72 +199,5 @@ namespace nt2 { namespace memory
   template<class Container> inline
   void swap(container_ref<Container>& x, container_ref<Container>& y)  { x.swap(y); }
 } }
-
-namespace nt2 { namespace meta
-{
-  //============================================================================
-  // Register container as a proper container
-  //============================================================================
-  template<class Container>
-  struct is_container< memory::container_ref<Container> > : boost::mpl::true_ {};
-
-  template<class Container>
-  struct is_container_ref< memory::container_ref<Container> > : boost::mpl::true_ {};
-} }
-
-namespace boost { namespace dispatch { namespace meta
-{
-  //============================================================================
-  // value_of specializations
-  //============================================================================
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container> >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container> const >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container>& >
-   : value_of<Container>
-  {
-  };
-
-  template<class Container>
-  struct value_of< nt2::memory::container_ref<Container> const& >
-   : value_of<Container>
-  {
-  };
-
-  //============================================================================
-  // model_of specialization
-  //============================================================================
-  template<class Container>
-  struct model_of< nt2::memory::container_ref<Container> >
-  {
-    struct type
-    {
-      template<class X>
-      struct apply
-      {
-        typedef nt2::memory::container_ref<X> type;
-      };
-    };
-  };
-
-  //============================================================================
-  // container hierarchy
-  //============================================================================
-  template<class Container, class Origin>
-  struct hierarchy_of< nt2::memory::container_ref<Container>, Origin >
-   : hierarchy_of< Container, Origin >
-  {
-  };
-} } }
 
 #endif

@@ -9,19 +9,46 @@
 #ifndef BOOST_SIMD_SDK_SIMD_META_IS_VECTORIZABLE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_META_IS_VECTORIZABLE_HPP_INCLUDED
 
-#include <boost/mpl/bool.hpp>
 #include <boost/dispatch/meta/na.hpp>
+#include <boost/dispatch/meta/all.hpp>
 #include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
 #include <boost/type_traits/is_same.hpp>
+#include <boost/mpl/bool.hpp>
+
+namespace boost { namespace simd { namespace details
+{
+  /// INTERNAL ONLY
+  template<class T, class Extension, class Enable = void>
+  struct  is_vectorizable
+        : boost::mpl::bool_ < ! boost::is_same
+                                < typename meta::as_simd<T,Extension>::type
+                                , boost::dispatch::meta::na_
+                                >::value
+                            >
+  {};
+
+  /// INTERNAL ONLY
+  template< class T, class Extension >
+  struct  is_vectorizable < T
+                          , Extension
+                          , typename
+                            boost::enable_if< boost::fusion::traits
+                                                   ::is_sequence<T>
+                                            >::type
+                          >
+        : boost::dispatch::meta
+               ::all_seq< boost::fusion::traits::is_sequence<boost::mpl::_>
+                        , T
+                        >
+  {};
+} } }
 
 namespace boost { namespace simd { namespace meta
 {
   template<class T,class Extension>
   struct is_vectorizable
-       : boost::mpl::bool_<!boost::is_same< typename as_simd<T,Extension>::type
-                                          , boost::dispatch::meta::na_
-                                          >::value
-                          >
+       : details::is_vectorizable<T,Extension>
   {};
 } } }
 

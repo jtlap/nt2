@@ -13,6 +13,7 @@
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/meta/enable_if_type.hpp>
 #include <boost/dispatch/dsl/category.hpp>
+#include <boost/dispatch/meta/proxy.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 namespace nt2
@@ -64,6 +65,8 @@ namespace ext
   using boost::dispatch::meta::ast_;
   using boost::dispatch::meta::node_;
   using boost::dispatch::meta::expr_;
+
+  using boost::dispatch::meta::proxy_;
 } }
 
 #endif

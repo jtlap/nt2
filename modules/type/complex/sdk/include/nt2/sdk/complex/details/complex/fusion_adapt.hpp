@@ -52,44 +52,48 @@ namespace extension
       typedef random_access_traversal_tag type;
     };
   };
-  
+
   template<> struct value_at_impl<std_complex_tag>
   {
     template<class Sequence, int I>
     struct apply_impl;
-    
+
     template<class Sequence, class Index>
     struct apply : apply_impl<Sequence, Index::value>
     {
     };
-    
+
     template<class Sequence>
     struct apply_impl<Sequence, 0>
     {
       typedef typename Sequence::value_type type;
     };
-    
+
     template<class Sequence>
     struct apply_impl<Sequence, 1>
     {
       typedef typename Sequence::value_type type;
     };
   };
-  
+
   template<> struct at_impl<std_complex_tag>
   {
     template<class Sequence, int I>
     struct apply_impl;
-    
+
     template<class Sequence, class Index>
     struct apply : apply_impl<Sequence, Index::value>
     {
     };
-    
+
     template<class Sequence>
     struct apply_impl<Sequence, 0>
     {
-      typedef typename Sequence::value_type type;
+      typedef typename mpl::if_ < is_const<Sequence>
+                                , typename Sequence::value_type const&
+                                , typename Sequence::value_type&
+                                >::type type;
+
       static type call(Sequence& seq)
       {
         return seq.real();
@@ -99,14 +103,18 @@ namespace extension
     template<class Sequence>
     struct apply_impl<Sequence, 1>
     {
-      typedef typename Sequence::value_type type;
+      typedef typename mpl::if_ < is_const<Sequence>
+                                , typename Sequence::value_type const&
+                                , typename Sequence::value_type&
+                                >::type type;
+
       static type call(Sequence& seq)
       {
         return seq.imag();
       }
     };
   };
-  
+
   template<> struct size_impl<std_complex_tag>
   {
     template<class Seq>
@@ -115,7 +123,7 @@ namespace extension
     {
     };
   };
-    
+
   template<> struct begin_impl<std_complex_tag>
   {
     template<class Sequence>
@@ -135,7 +143,6 @@ namespace extension
       static type call(Sequence& seq) { return type(seq); }
     };
   };
-
 } } }
 
 #endif

@@ -16,6 +16,7 @@
 #include <boost/dispatch/meta/tieable.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/dsl/category.hpp>
+#include <boost/dispatch/meta/proxy.hpp>
 
 #include <boost/dispatch/details/ignore_unused.hpp>
 
@@ -31,6 +32,7 @@ namespace boost { namespace simd
 namespace ext
 {
   // Base hierarchies
+  using boost::dispatch::meta::proxy_;
   using boost::dispatch::meta::unknown_;
   using boost::dispatch::meta::unspecified_;
 
