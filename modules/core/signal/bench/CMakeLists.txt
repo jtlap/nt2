@@ -9,6 +9,10 @@
 
 nt2_module_use_modules(unit core.utility)
 
+if(APPLE)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -framework Accelerate")
+endif()
+
 SET( SOURCES
     static_fft.cpp
 # List of simd test files for toolbox signal

@@ -10,7 +10,7 @@
 set(SOURCES test.cpp)
 
 if(APPLE)
-  add_definitions(-framework Accelerate)
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -framework Accelerate")
 endif()
 
 nt2_module_add_tests(core.signal.unit ${SOURCES})
