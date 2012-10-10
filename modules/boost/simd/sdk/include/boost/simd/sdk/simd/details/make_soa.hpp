@@ -9,11 +9,12 @@
 #ifndef BOOST_SIMD_SDK_SIMD_DETAILS_MAKE_SOA_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_DETAILS_MAKE_SOA_HPP_INCLUDED
 
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_as.hpp>
-#include <boost/fusion/include/is_sequence.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/mpl/max.hpp>
 #include <boost/mpl/fold.hpp>
+#include <boost/mpl/size_t.hpp>
 
 namespace boost { namespace simd
 {
