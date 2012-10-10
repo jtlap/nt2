@@ -49,7 +49,8 @@ namespace bench
     typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N/2 + 1> aligned_half_complex_array;
     typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;
 
-    void randomize( aligned_array & data )
+    template <class Range>
+    void randomize( Range & data )
     {
         /// \note Portably reproducible pseudo "random" values.
         ///                                   (24.07.2012.) (Domagoj Saric)
@@ -171,7 +172,7 @@ namespace bench
         test_fft_real_inverse tfri;
         nt2::unit::perform_benchmark( tfri, 0.5, dv);
         nt2::unit::perform_benchmark( tfri, 0.5, tv);
-        std::cout << std::scientific << dv.median/tfri.real_time_data2.size() << "\t";
+        std::cout << std::scientific << dv.median/tfri.real_time_data.size() << "\t";
         std::cout << std::scientific << tv.median << "\n";
       }
     }
