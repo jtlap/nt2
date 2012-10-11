@@ -310,6 +310,16 @@ macro(nt2_module_use_modules)
   include(${NT2_USE_FILE})
 endmacro()
 
+# use some link flags for all targets in directory
+# usage similar to add_definitions
+macro(nt2_module_use_link_flags)
+  string(REPLACE ";" "\" \"" FLAGS "${ARGN}")
+  set(FLAGS "\"${FLAGS}\"")
+  set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} ${FLAGS}")
+  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} ${FLAGS}")
+  set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} ${FLAGS}")
+endmacro()
+
 # similar to add_executable, but only for tests or benchmarks
 # will define targets and use PCH whenever possible
 function(nt2_module_add_exe name)

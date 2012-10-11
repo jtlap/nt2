@@ -10,12 +10,11 @@
 nt2_module_use_modules(unit core.utility)
 
 if(APPLE)
-  set(CMAKE_EXE_LINKER_FLAGS_NT2BENCH "${CMAKE_EXE_LINKER_FLAGS_NT2BENCH} -framework Accelerate")
+  nt2_module_use_link_flags(-framework Accelerate)
 endif()
 
 SET( SOURCES
-    static_fft.cpp
-# List of simd test files for toolbox signal
+     static_fft.cpp
    )
 
 nt2_module_add_tests(core.signal.simd.bench ${SOURCES})
