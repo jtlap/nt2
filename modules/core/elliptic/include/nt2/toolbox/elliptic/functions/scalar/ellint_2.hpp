@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_2_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_2_HPP_INCLUDED
 #include <nt2/toolbox/elliptic/functions/ellint_2.hpp>
-#include <boost/math/special_functions.hpp>
+#include <nt2/toolbox/boost_math/include/functions/ellint_2.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
 
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
       result_type x = nt2::abs(a0);
       if (x>One<A0>())    return Nan<A0>();
       if (x == One<A0>()) return x;
-      return boost::math::ellint_2(a0);
+      return nt2::boost_math::ellint_2(a0);
     }
   };
 } }
