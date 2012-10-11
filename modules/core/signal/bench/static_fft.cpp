@@ -54,25 +54,57 @@ namespace bench
 
     typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;
 
-    template <class Range>
-    void randomize( Range & data )
+    /// \note Portably reproducible pseudo "random" values.
+    ///                                       (24.07.2012.) (Domagoj Saric)
+    /// \note The used PRNG is much slower than FFT code itself, so we avoid
+    /// slowing down the entire benchmark by regenerating the data over and
+    /// over.
+    ///                                       (11.10.2012.) (Domagoj Saric)
+    class reproducible_random_data_provider
     {
-        /// \note Portably reproducible pseudo "random" values.
-        ///                                   (24.07.2012.) (Domagoj Saric)
-        boost::random::mt19937                            prng        ( 42                                                                     );
-        boost::random::uniform_real_distribution<T> const distribution( constants::test_data_range_minimum, constants::test_data_range_maximum );
-        BOOST_FOREACH( T & scalar, data )
-            scalar = distribution( prng );
-    }
+    public:
+        reproducible_random_data_provider()
+            :
+            prng_( 42 )
+        {
+            randomize( real_data_ );
+            randomize( imag_data_ );
+        }
 
+        void fill_with_real_data( dynamic_aligned_array & data )
+        {
+            std::copy( &real_data_[ 0 ], &real_data_[ data.size() ], data.begin() );
+        }
+
+        void fill_with_imag_data( dynamic_aligned_array & data )
+        {
+            std::copy( &imag_data_[ 0 ], &imag_data_[ data.size() ], data.begin() );
+        }
+
+        void fill( dynamic_aligned_array & data ) { fill_with_real_data( data ); }
+
+    private:
+        void randomize( aligned_array & data )
+        {
+            boost::random::uniform_real_distribution<T> const distribution( constants::test_data_range_minimum, constants::test_data_range_maximum );
+            BOOST_FOREACH( T & scalar, data )
+                scalar = distribution( prng_ );
+        }
+
+    private:
+        aligned_array real_data_;
+        aligned_array imag_data_;
+
+        boost::random::mt19937 prng_;
+    } random_data;
 
     class complex_fft_test : boost::noncopyable
     {
     public:
         void reset()
         {
-            randomize( real_data_ );
-            randomize( imag_data_ );
+            random_data.fill_with_real_data( real_data_ );
+            random_data.fill_with_imag_data( imag_data_ );
         }
 
         std::size_t size() const
@@ -149,7 +181,7 @@ namespace bench
     {
         test_fft_real_forward( std::size_t const length ) : real_fft_test( length )
         {
-            randomize( real_time_data_ );
+            random_data.fill_with_real_data( real_time_data_ );
         }
 
         void operator()() const
@@ -175,8 +207,8 @@ namespace bench
             /// \note FFT::real_inverse_transform destroys input data so it has
             /// to be regenerated.
             ///                               (10.10.2012.) (Domagoj Saric)
-            randomize( real_frequency_data_ );
-            randomize( imag_frequency_data_ );
+            random_data.fill_with_real_data( real_frequency_data_ );
+            random_data.fill_with_imag_data( imag_frequency_data_ );
         }
     }; // test_fft_real_inverse
 
@@ -246,7 +278,7 @@ namespace bench
     class apple_real_forward_fft_test : public apple_real_fft_test
     {
     public:
-        apple_real_forward_fft_test( std::size_t const length ) : apple_real_fft_test( length ) { randomize( real_time_data_ ); }
+        apple_real_forward_fft_test( std::size_t const length ) : apple_real_fft_test( length ) { random_data.fill_with_real_data( real_time_data_ ); }
 
         void operator()() const
         {
@@ -275,8 +307,8 @@ namespace bench
     public:
         void reset()
         {
-            randomize( real_frequency_data_ );
-            randomize( imag_frequency_data_ );
+            random_data.fill_with_real_data( real_frequency_data_ );
+            random_data.fill_with_imag_data( imag_frequency_data_ );
         }
     }; // class apple_real_fft_test
 #endif // __APPLE__
@@ -294,8 +326,8 @@ namespace bench
         nt2::unit::benchmark_result<cycles_t > dv;
         nt2::unit::benchmark_result<seconds_t> tv;
         Benchmark benchmark( length );
-        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, tv );
         nt2::unit::perform_benchmark( benchmark, benchmark_run_time, dv );
+        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, tv );
 
         std::printf
         (
