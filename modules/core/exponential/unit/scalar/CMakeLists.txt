@@ -29,6 +29,7 @@ SET( SOURCES
   realpow.cpp
   reallog.cpp
   realsqrt.cpp
+  pow2.cpp
 # List of scalar test files for toolbox exponential
    )
 
