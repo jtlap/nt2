@@ -11,9 +11,7 @@
 
 #include <nt2/signal/static_fft.hpp>
 
-#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/details/helpers.hpp>
 #include <nt2/sdk/unit/perform_benchmark.hpp>
 
 #include <boost/simd/sdk/memory/allocator.hpp>
@@ -27,7 +25,6 @@
 #include <boost/random/uniform_real_distribution.hpp>
 
 #ifdef __APPLE__
-    // FIXME: this requires "-framework Accelerate" to be added to linker flags
     #include "Accelerate/Accelerate.h" //vDSP.h
 #endif // __APPLE__
 
@@ -35,25 +32,23 @@
 
 namespace bench
 {
+#if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
+    typedef double T;
+#else //...zzz...cardinal-must-be-4 limitation...
+    typedef float T;
+#endif // BOOST_SIMD_HAS_LRB_SUPPORT || BOOST_SIMD_HAS_AVX_SUPPORT
+
     namespace constants
     {
-        static std::size_t const minimum_dft_size = 128 ;
-        static std::size_t const maximum_dft_size = 8192;
-        static std::size_t const test_dft_size    = 4096;
+        static std::size_t const minimum_dft_size =    32;
+        static std::size_t const maximum_dft_size = 16384;
 
-        static int const test_data_range_minimum = -1;
-        static int const test_data_range_maximum = +1;
-    }
+        static T const test_data_range_minimum = -1;
+        static T const test_data_range_maximum = +1;
+    } // namespace constants
 
-    static std::size_t const N = constants::test_dft_size;
-    #if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
-        typedef double T;
-    #else //...zzz...cardinal-must-be-4 limitation...
-        typedef float T;
-    #endif // BOOST_SIMD_HAS_LRB_SUPPORT || BOOST_SIMD_HAS_AVX_SUPPORT
-
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N      > aligned_array;
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N/2 + 1> aligned_half_complex_array;
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, constants::maximum_dft_size      > aligned_array;
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, constants::maximum_dft_size/2 + 1> aligned_half_complex_array;
 
     typedef std::vector<T, boost::simd::memory::allocator<T> > dynamic_aligned_array;
 
@@ -85,6 +80,8 @@ namespace bench
             BOOST_ASSERT( real_data_.size() == imag_data_.size() );
             return real_data_.size();
         }
+
+        std::size_t number_of_values() const { return size() * 2; }
 
     protected:
         complex_fft_test( std::size_t const length )
@@ -121,7 +118,8 @@ namespace bench
     class real_fft_test : boost::noncopyable
     {
     public:
-        std::size_t size() const { return real_time_data_.size(); }
+        std::size_t size            () const { return real_time_data_.size(); }
+        std::size_t number_of_values() const { return size()                ; }
 
     protected:
         real_fft_test( std::size_t const length )
@@ -284,40 +282,70 @@ namespace bench
 #endif // __APPLE__
 
     template <class Benchmark>
-    void do_perform_benchmark( char const * const benchmark_name )
+    void do_perform_benchmark( char const * const benchmark_name, std::size_t const length )
     {
-        std::cout << benchmark_name <<"\n";
+        typedef nt2::details::cycles_t cycles_t ;
+        typedef double                 seconds_t;
 
-        nt2::unit::benchmark_result<nt2::details::cycles_t> dv;
-        nt2::unit::benchmark_result<double                > tv;
-        Benchmark benchmark( N );
-        nt2::unit::perform_benchmark( benchmark, 1.0, dv );
-        nt2::unit::perform_benchmark( benchmark, 1.0, tv );
+        double const benchmark_run_time( 0.4 );
 
-        std::cout << std::scientific << dv.median / benchmark.size() << "\t";
-        std::cout << std::scientific << tv.median << "\n";
+        std::printf( "%s (%u):\t\t", benchmark_name, static_cast<unsigned int>( length ) );
+
+        nt2::unit::benchmark_result<cycles_t > dv;
+        nt2::unit::benchmark_result<seconds_t> tv;
+        Benchmark benchmark( length );
+        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, tv );
+        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, dv );
+
+        std::printf
+        (
+            "%.2f cycles/value,\t %.2f microseconds/array\n",
+            static_cast<double>( dv.median ) / benchmark.number_of_values(),
+            tv.median * 1000000
+        );
     }
 
     void do_test()
     {
-        std::cout.precision( 3 );
-        std::cout << "test_dft_size : " << N <<"\n";
+        for
+        (
+            std::size_t length( constants::minimum_dft_size );
+            length <= constants::maximum_dft_size;
+            length *=2
+        )
+        {
+            do_perform_benchmark<test_fft_forward     >( "(nt2) complex forward transform", length );
+            do_perform_benchmark<test_fft_inverse     >( "(nt2) complex inverse transform", length );
+            do_perform_benchmark<test_fft_real_forward>( "(nt2) real forward transform"   , length );
+            do_perform_benchmark<test_fft_real_inverse>( "(nt2) real inverse transform"   , length );
 
-        do_perform_benchmark<test_fft_forward     >( "complex forward transform" );
-        do_perform_benchmark<test_fft_inverse     >( "complex inverse transform" );
-        do_perform_benchmark<test_fft_real_forward>( "real forward transform"    );
-        do_perform_benchmark<test_fft_real_inverse>( "real inverse transform"    );
-
-    #ifdef __APPLE__
-        do_perform_benchmark<apple_complex_fft_test<FFT_FORWARD> >( "(apple) complex forward transform" );
-        do_perform_benchmark<apple_complex_fft_test<FFT_INVERSE> >( "(apple) complex inverse transform" );
-        do_perform_benchmark<apple_real_forward_fft_test         >( "(apple) real forward transform"    );
-        do_perform_benchmark<apple_real_inverse_fft_test         >( "(apple) real inverse transform"    );
-    #endif // __APPLE__
+        #ifdef __APPLE__
+            do_perform_benchmark<apple_complex_fft_test<FFT_FORWARD> >( "(apple) complex forward transform", length );
+            do_perform_benchmark<apple_complex_fft_test<FFT_INVERSE> >( "(apple) complex inverse transform", length );
+            do_perform_benchmark<apple_real_forward_fft_test         >( "(apple) real forward transform"   , length );
+            do_perform_benchmark<apple_real_inverse_fft_test         >( "(apple) real inverse transform"   , length );
+        #endif // __APPLE__
+        }
     }
-}
+} // namespace bench
 
+
+//...zzz...nt2 bechmark framework broken...extern "C" int main( int /*argc*/, char * /*argv*/[] )
 NT2_TEST_CASE( test_fft )
 {
-    bench::do_test();
+    try
+    {
+        bench::do_test();
+        //...zzz...return EXIT_SUCCESS;
+    }
+    catch ( std::exception const & e )
+    {
+        std::puts( e.what() );
+        //...zzz...return EXIT_FAILURE;
+    }
+    catch ( ... )
+    {
+        std::puts( "Unknown failure." );
+        //...zzz...return EXIT_FAILURE;
+    }
 }
