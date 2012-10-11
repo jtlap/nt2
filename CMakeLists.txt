@@ -175,7 +175,9 @@ endif()
 ################################################################################
 file(GLOB NT2_TOOLS RELATIVE ${PROJECT_SOURCE_DIR}/tools ${PROJECT_SOURCE_DIR}/tools/*/)
 foreach(tool ${NT2_TOOLS})
-  nt2_module_tool_setup(${tool})
+  if(NOT ${tool} MATCHES "^\\.")
+    nt2_module_tool_setup(${tool})
+  endif()
 endforeach()
 
 ################################################################################
