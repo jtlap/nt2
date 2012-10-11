@@ -7,7 +7,7 @@
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - deinterleave_first"
-#include <nt2/table.hpp>
+
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/include/functions/deinterleave_first.hpp>
@@ -24,16 +24,14 @@ NT2_TEST_CASE_TPL(deinterleave_first, BOOST_SIMD_SIMD_TYPES)
 
   const std::size_t card = cardinal_of<vT>::value;
   vT a,b,c;
-  
+
   for(std::size_t i=1; i<=card; ++i)
   {
     a[i-1]=T(i);
     b[i-1]=T(i*10);
   }
   c = boost::simd::deinterleave_first(a,b);
-  nt2::display("a", a);
-  nt2::display("b", b);
-  nt2::display("c", c);
+
   for(std::size_t i=0; i<card; ++i)
     NT2_TEST_EQUAL(c[i],(i<(card/2)?a[i*2]:b[(i-card/2)*2]));
-} 
+}
