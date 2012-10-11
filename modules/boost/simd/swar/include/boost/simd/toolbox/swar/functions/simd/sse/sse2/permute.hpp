@@ -89,7 +89,7 @@ namespace boost { namespace simd
 
       BOOST_FORCEINLINE __m128i eval(__m128i a0, sel<1,0> const&) const
       {
-        return _mm_shuffle_epi32(a0, _MM_SHUFFLE(1,0,3,2));
+        return details::shuffle<2,3,0,1>(a0);
       }
 
       BOOST_FORCEINLINE __m128i eval(__m128i a0, sel<0,-1> const&) const

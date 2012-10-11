@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -119,10 +120,10 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::downgrade<A0, signed>::type type;
       typedef typename dispatch::meta::downgrade<A0, unsigned>::type utype;
-      utype al = _mm_shuffle_epi32(a0(), _MM_SHUFFLE(2, 2, 0, 0));
-      utype bl = _mm_shuffle_epi32(a1(), _MM_SHUFFLE(2, 2, 0, 0));
-      type ah  = _mm_shuffle_epi32(a0(), _MM_SHUFFLE(3, 3, 1, 1));
-      type bh  = _mm_shuffle_epi32(a1(), _MM_SHUFFLE(3, 3, 1, 1));
+      utype al = details::shuffle<0,0,2,2>(a0);
+      utype bl = details::shuffle<0,0,2,2>(a1);
+      type ah  = details::shuffle<1,1,3,3>(a0);
+      type bh  = details::shuffle<1,1,3,3>(a1);
 
       return bitwise_cast<result_type>( l_or(boost::simd::gt(ah,bh), l_and(boost::simd::eq(ah,bh), boost::simd::gt(al,bl))) );
     }

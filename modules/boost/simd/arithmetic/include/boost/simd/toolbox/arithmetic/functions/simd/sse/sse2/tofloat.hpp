@@ -57,14 +57,14 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename dispatch::meta::as_floating<A0>::type result_type;
-    typedef typename dispatch::meta::as_integer<A0, signed>::type  si_type; 
+    typedef typename dispatch::meta::as_integer<A0, signed>::type  si_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
       si_type a00 = bitwise_cast<si_type>(a0);
-      si_type a01 = bitwise_notand(Signmask<si_type>(), a0); 
-      result_type inc = if_else_zero(is_ltz(a00), Twoto31<result_type>()); 
-      return tofloat(a01)+inc;  
+      si_type a01 = bitwise_notand(Signmask<si_type>(), a0);
+      result_type inc = if_else_zero(is_ltz(a00), Twoto31<result_type>());
+      return tofloat(a01)+inc;
     }
   };
 

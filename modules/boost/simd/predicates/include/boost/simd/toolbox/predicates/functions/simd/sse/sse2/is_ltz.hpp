@@ -10,9 +10,9 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_SSE_SSE2_IS_LTZ_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/predicates/functions/is_ltz.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/simd/toolbox/predicates/functions/is_ltz.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,9 +28,11 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const type tmp1 = bitwise_cast<type>(is_ltz(bitwise_cast<type>(a0)));
-      const type tmp = _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(3, 3, 1, 1));
-      return  bitwise_cast<result_type>(tmp);
+      return  bitwise_cast<result_type>
+              (
+                details::shuffle<1,1,3,3>
+                ( is_ltz(bitwise_cast<type>(a0))() )
+              );
     }
   };
 } } }

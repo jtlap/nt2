@@ -19,6 +19,7 @@
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -155,7 +156,7 @@ namespace boost { namespace simd { namespace ext
       A0 that1 =  b_and(boost::simd::saturate<result_type>(a1), mask);
       result_type b = _mm_slli_si128(simd::bitwise_cast<result_type>(that1),4);
       b = b_or(b, that0);
-      return simd::bitwise_cast<result_type>(_mm_shuffle_epi32(b, _MM_SHUFFLE(3, 1, 2, 0)) );
+      return simd::bitwise_cast<result_type>(details::shuffle<0,2,1,3>(b) );
     }
   };
 } } }

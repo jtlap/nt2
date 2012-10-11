@@ -11,43 +11,11 @@
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
 #include <boost/simd/toolbox/swar/functions/reverse.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is float
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reverse_, boost::simd::tag::ssse3_
-                                     , (A0)
-                                     , ((simd_<single_<A0>,boost::simd::tag::sse_>))
-                                     )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-      {
-        return _mm_shuffle_ps(a0, a0, 0x1B);
-      }
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is double
-  /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reverse_, boost::simd::tag::ssse3_
-                                     , (A0)
-                                     , ((simd_<double_<A0>,boost::simd::tag::sse_>))
-                                     )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-      {
-        return _mm_shuffle_pd(a0, a0, 0x1);
-      }
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is type8_
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reverse_, boost::simd::tag::ssse3_
                                      , (A0)
                                      , ((simd_<type8_<A0>,boost::simd::tag::sse_>))
@@ -61,25 +29,6 @@ namespace boost { namespace simd { namespace ext
       }
   };
 
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is type64_
-  /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reverse_, boost::simd::tag::ssse3_
-                                     , (A0)
-                                     , ((simd_<type64_<A0>,boost::simd::tag::sse_>))
-                                     )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-      {
-        typedef typename dispatch::meta::as_floating<A0>::type rtype;
-        return  simd::bitwise_cast<A0>(reverse( simd::bitwise_cast<rtype>(a0)));
-      }
-  };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is type16_
-  /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reverse_, boost::simd::tag::ssse3_
                                      , (A0)
                                      , ((simd_<type16_<A0>,boost::simd::tag::sse_>))
@@ -93,24 +42,7 @@ namespace boost { namespace simd { namespace ext
         return simd::bitwise_cast<A0>(_mm_shuffle_epi8(simd::bitwise_cast<type8>(a0), indices));
       }
   };
-
-  /////////////////////////////////////////////////////////////////////////////
-  // Implementation when type A0 is type32_
-  /////////////////////////////////////////////////////////////////////////////
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::reverse_, boost::simd::tag::ssse3_
-                                     , (A0)
-                                     , ((simd_<type32_<A0>,boost::simd::tag::sse_>))
-                                     )
-  {
-    typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-      {
-        typedef typename dispatch::meta::as_floating<A0>::type rtype;
-        return  simd::bitwise_cast<A0>(reverse( simd::bitwise_cast<rtype>(a0)));
-      }
-  };
 } } }
-
 
 #endif
 #endif

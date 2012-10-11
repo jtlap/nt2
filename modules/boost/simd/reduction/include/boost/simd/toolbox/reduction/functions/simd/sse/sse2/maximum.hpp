@@ -12,6 +12,7 @@
 #include <boost/simd/toolbox/reduction/functions/maximum.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

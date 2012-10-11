@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -35,7 +36,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::as_logical<base>::type                lbase;
       typedef typename dispatch::meta::downgrade<result_type>::type type;
       const lbase tmp1 = is_nez(boost::simd::bitwise_cast<base>(a0));
-      const lbase tmp2 = _mm_shuffle_epi32(tmp1, _MM_SHUFFLE(2, 3, 0, 1));
+      const lbase tmp2 = details::shuffle<1,0,3,2>(tmp1);
       return boost::simd::bitwise_cast<result_type>(l_or(tmp1, tmp2));
     }
   };

@@ -8,12 +8,10 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_DETAILS_SHUFFLE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_DETAILS_SHUFFLE_HPP_INCLUDED
-#include <boost/simd/include/functions/make.hpp>
 
 namespace boost { namespace simd { namespace details
 {
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-
   template< unsigned int lower_i0, unsigned int lower_i1
           , unsigned int upper_i0, unsigned int upper_i1>
   BOOST_FORCEINLINE
@@ -43,30 +41,24 @@ namespace boost { namespace simd { namespace details
 
   template< unsigned int lower_i0, unsigned int lower_i1
           , unsigned int upper_i0, unsigned int upper_i1>
-  BOOST_FORCEINLINE
-  __m128 shuffle(__m128 const input)
+  BOOST_FORCEINLINE __m128 shuffle(__m128 const input)
   {
     return shuffle<lower_i0, lower_i1, upper_i0, upper_i1>(input, input);
   }
 
-
   template< unsigned int lower_i0, unsigned int lower_i1
           , unsigned int upper_i0, unsigned int upper_i1>
-  BOOST_FORCEINLINE
-  __m128i shuffle(__m128i const input)
+  BOOST_FORCEINLINE __m128i shuffle(__m128i const input)
   {
     return shuffle<lower_i0, lower_i1, upper_i0, upper_i1>(input, input);
   }
 
   template<unsigned int lower_i0, unsigned int upper_i0>
-  BOOST_FORCEINLINE
-  __m128d shuffle(__m128d const input)
+  BOOST_FORCEINLINE __m128d shuffle(__m128d const input)
   {
     return shuffle<lower_i0, upper_i0>(input, input);
   }
-
 #endif
-
 
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 template< unsigned int lower_i0, unsigned int lower_i1

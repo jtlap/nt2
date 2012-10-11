@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_REVERSE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_REVERSE_HPP_INCLUDED
@@ -27,12 +27,12 @@ namespace boost { namespace simd { namespace ext
                                      )
   {
     typedef A0 result_type;
-    result_type operator()(__m128 const a0) const
-      {
-        return details::shuffle<3,2,1,0>(a0, a0);
-      }
+    BOOST_FORCEINLINE result_type operator()(__m128 const a0) const
+    {
+      return details::shuffle<3,2,1,0>(a0, a0);
+    }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
@@ -42,12 +42,12 @@ namespace boost { namespace simd { namespace ext
                                      )
   {
     typedef A0 result_type;
-    result_type operator()(__m128d const a0) const
-      {
-        return details::shuffle<1,0>(a0, a0);
-      }
+    BOOST_FORCEINLINE result_type operator()(__m128d const a0) const
+    {
+      return details::shuffle<1,0>(a0, a0);
+    }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type8_
   /////////////////////////////////////////////////////////////////////////////
@@ -60,12 +60,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
         typedef typename dispatch::meta::upgrade<A0>::type         r_type;
-        r_type tmp1, tmp2; 
+        r_type tmp1, tmp2;
         boost::simd::split(a0, tmp1, tmp2);
-        return boost::simd::group(reverse(tmp2), reverse(tmp1)); 
+        return boost::simd::group(reverse(tmp2), reverse(tmp1));
       }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type64_
   /////////////////////////////////////////////////////////////////////////////
@@ -78,10 +78,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
         typedef typename dispatch::meta::as_floating<A0>::type rtype;
-        return  simd::bitwise_cast<A0>(reverse( simd::bitwise_cast<rtype>(a0))); 
+        return  simd::bitwise_cast<A0>(reverse( simd::bitwise_cast<rtype>(a0)));
       }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type16_
   /////////////////////////////////////////////////////////////////////////////
@@ -94,12 +94,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
         typedef typename dispatch::meta::upgrade<A0>::type         r_type;
-        r_type tmp1, tmp2; 
+        r_type tmp1, tmp2;
         boost::simd::split(a0, tmp1, tmp2);
-        return boost::simd::group(reverse(tmp2), reverse(tmp1)); 
+        return boost::simd::group(reverse(tmp2), reverse(tmp1));
       }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type32_
   /////////////////////////////////////////////////////////////////////////////
@@ -112,11 +112,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
       {
         typedef typename dispatch::meta::as_floating<A0>::type rtype;
-        return  simd::bitwise_cast<A0>(reverse( simd::bitwise_cast<rtype>(a0))); 
+        return  simd::bitwise_cast<A0>(reverse( simd::bitwise_cast<rtype>(a0)));
       }
   };
 } } }
-
 
 #endif
 #endif
