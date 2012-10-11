@@ -13,6 +13,7 @@
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_LOG2_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
+#include <nt2/include/functions/frexp.hpp>
 
 /*!
  * \ingroup exponential
@@ -58,8 +59,11 @@ namespace nt2 { namespace tag
     struct log2_ : ext::elementwise_<log2_> { typedef ext::elementwise_<log2_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::log2_, log2, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, log2,(A0 const&)(A1&)(A2&),3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, log2,(A0 const&)(A1&),2) 
+    
 }
+
 
 #endif
 
-// modified by jt the 25/12/2010
