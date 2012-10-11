@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_EXTRACT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMMON_EXTRACT_HPP_INCLUDED
@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
+#include <boost/fusion/include/copy.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -31,10 +32,10 @@ namespace boost { namespace simd { namespace ext
         : a1(a1_)
       {
       }
-      
+
       template<class Sig>
       struct result;
-      
+
       template<class This, class T>
       struct result<This(T)>
        : dispatch::meta::strip<typename meta::scalar_of<T>::type>
@@ -53,10 +54,12 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return simd::as_tuple(a0, extract_fusion(a1));
+      result_type that;
+      boost::fusion::copy(simd::as_tuple(a0, extract_fusion(a1)),that);
+      return that;
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_< arithmetic_<A0>, X >))
                               (scalar_< integer_<A1> >)
@@ -80,7 +83,7 @@ namespace boost { namespace simd { namespace ext
       return reinterpret_cast<typename meta::may_alias<stype>::type*>(&a0)[a1];
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::extract_, tag::cpu_, (A0)(A1)(X)
                             , (mpl::equal_to< mpl::sizeof_<A0>, mpl::sizeof_<typename A0::type> >)
                             , ((simd_< logical_<A0>, X >))
@@ -93,7 +96,7 @@ namespace boost { namespace simd { namespace ext
       return result_type(extract(bitwise_cast<typename A0::type>(a0), a1) ? true : false);
     }
   };
-  
+
 } } }
 
 #endif
