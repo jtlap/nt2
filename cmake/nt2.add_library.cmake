@@ -13,6 +13,7 @@ set(NT2_ADD_LIBRARY_CMAKE_INCLUDED 1)
 include(nt2.add_library RESULT_VARIABLE FILE_NAME)
 string(REGEX REPLACE ".cmake$" "" NT2_ADD_LIBRARY_DIR_NAME ${FILE_NAME})
 
+# same as add_library, but will add the library for a particular build type
 macro(nt2_add_library build_type target)
   if(CMAKE_CONFIGURATION_TYPES)
     add_library(${target} ${ARGN})

@@ -10,6 +10,8 @@
 include(nt2.add_library)
 include(nt2.add_executable)
 
+# this function defines variables containing the location
+# where extra files should be installed
 macro(nt2_module_install_setup)
   if(NOT UNIX)
     set( NT2_INSTALL_SHARE_DIR .
@@ -23,6 +25,9 @@ macro(nt2_module_install_setup)
 
 endmacro()
 
+# this function must always be called in the source CMakeLists of a module.
+# it sets up module component, installation, binary locations and puts the
+# dependencies inside the current scope
 macro(nt2_module_source_setup module)
   string(TOUPPER ${module} NT2_CURRENT_MODULE_U)
 
@@ -99,6 +104,8 @@ macro(nt2_module_source_setup module)
 
 endmacro()
 
+# if they don't already exist, create a target and all of its logical parents
+# e.g. foo.bar.baz.thing -> foo.baz.thing -> foo.thing -> thing
 function(nt2_module_target_parent target)
   string(REGEX REPLACE "[^.]+\\.([^.]+)$" "\\1" parent_target ${target})
   string(REGEX REPLACE "^.*\\.([^.]+)$" "\\1" suffix ${parent_target})
@@ -113,9 +120,9 @@ function(nt2_module_target_parent target)
     nt2_module_target_parent(${parent_target})
     add_dependencies(${parent_target} ${target})
   endif()
-
 endfunction()
 
+# sets/restore the variable CMAKE_BUILD_TYPE and its multi-configuration equivalent
 macro(nt2_module_set_build_type BUILD_TYPE)
   if(CMAKE_CONFIGURATION_TYPES)
     set(OLD_CONFIGURATION_TYPES ${CMAKE_CONFIGURATION_TYPES})
@@ -134,6 +141,7 @@ macro(nt2_module_restore_build_type)
   endif()
 endmacro()
 
+# load a module directory and create associated targets
 macro(nt2_module_dir dir)
   if(EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/${dir}/CMakeLists.txt)
       add_subdirectory(${dir})
@@ -143,6 +151,7 @@ macro(nt2_module_dir dir)
     endif()
 endmacro()
 
+# define various variables to select which tests to enable
 macro(nt2_configure_tests)
   if(CMAKE_GENERATOR MATCHES "Ninja")
     set(NT2_WITH_TESTS_FULL_ 1)
@@ -179,6 +188,7 @@ macro(nt2_configure_tests)
   endif()
 endmacro()
 
+# main function to call in a module's root CMakeLists file
 macro(nt2_module_main module)
   string(TOUPPER ${module} NT2_CURRENT_MODULE_U)
   set(NT2_${NT2_CURRENT_MODULE_U}_ROOT ${CMAKE_CURRENT_SOURCE_DIR}
@@ -220,6 +230,9 @@ macro(nt2_module_main module)
   endif()
 endmacro()
 
+# add library to module, with both Release and Debug variants, and add those files for installation.
+# defines -D${module_U}_SOURCE when compiling the source
+# defines -D${module_U}_DYN_LINK when compiling as a shared library
 macro(nt2_module_add_library libname)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
@@ -278,6 +291,8 @@ macro(nt2_module_add_library libname)
 
 endmacro()
 
+# find some NT2 modules and use them in the current scope
+# exits if not all modules were found
 macro(nt2_module_use_modules)
 
   string(REGEX REPLACE "^.*/(.*)$" "\\1" component "${CMAKE_CURRENT_SOURCE_DIR}")
@@ -295,6 +310,8 @@ macro(nt2_module_use_modules)
   include(${NT2_USE_FILE})
 endmacro()
 
+# similar to add_executable, but only for tests or benchmarks
+# will define targets and use PCH whenever possible
 function(nt2_module_add_exe name)
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\1" basename ${name})
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\2" suffix ${name})
@@ -339,7 +356,7 @@ function(nt2_module_add_exe name)
 
 endfunction()
 
-# like add_exe but slightly different suffix management
+# like nt2_module_add_exe but slightly different suffix management for examples
 macro(nt2_module_add_example name)
   add_executable(${name} EXCLUDE_FROM_ALL ${ARGN})
   set_property(TARGET ${name} PROPERTY FOLDER examples)
@@ -355,6 +372,9 @@ macro(nt2_module_add_example name)
   add_dependencies(${suite} ${name})
 endmacro()
 
+# define a suite of tests to build
+# similar to nt2_module_add_exe, but will merge executables into a single one
+# unless NT2_WITH_TESTS_FULL is set
 macro(nt2_module_add_tests name)
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\1" prefix ${name})
   string(REGEX REPLACE "^(.*)\\.([^.]+)$" "\\2" suffix ${name})
@@ -419,6 +439,8 @@ macro(nt2_module_add_tests name)
 
 endmacro()
 
+# mark a header file for installation
+# useful when some header files are generated
 macro(nt2_module_install_file header)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
@@ -431,6 +453,14 @@ macro(nt2_module_install_file header)
   endif()
 endmacro()
 
+# generate files according to the toolbox layout
+# e.g. all files <x>.hpp in nt2/toolbox/<toolbox>/functions/
+#      get aggregated to nt2/toolbox/<toolbox>/include/functions/<x>.hpp
+# will also do the same for constants, and will generate the file nt2/toolbox/<toolbox>/<toolbox>.hpp
+# nt2/toolbox/<toolbox>/include/functions/scalar/<x>.hpp and nt2/toolbox/<toolbox>/include/functions/simd/<x>.hpp
+# are also generated to restrict the amount of includes to only those required in scalar and simd respectively.
+#
+# if is_sys is set to 1, files will also be aggregated in nt2/include/functions
 macro(nt2_module_configure_toolbox toolbox is_sys)
   if(NT2_CURRENT_MODULE MATCHES "^boost[.]")
     set(prefix "boost/simd")
@@ -492,11 +522,16 @@ macro(nt2_module_configure_toolbox toolbox is_sys)
 
 endmacro()
 
+# same as configure_file, but puts it in the right location and marks
+# the generated header for installation
 macro(nt2_module_configure_file cmake_file header)
   configure_file(${cmake_file} ${NT2_BINARY_DIR}/include_tmp/${header})
   nt2_module_install_file(${header})
 endmacro()
 
+# adapt a Boost.SIMD toolbox into a NT2 toolbox
+# for each function in the Boost.SIMD toolbox, an associated header is generated in NT2
+# unless it already exists in the source.
 macro(nt2_module_simd_toolbox name)
   string(TOUPPER ${name} name_U)
   set(INCLUDE_DIRECTORIES)
@@ -616,6 +651,7 @@ macro(nt2_module_simd_toolbox name)
   nt2_module_configure_toolbox(${name} 1 boost/simd/toolbox/${name})
 endmacro()
 
+# build a tool
 macro(nt2_module_tool_setup tool)
 
   if(NOT NT2_SOURCE_ROOT)
@@ -689,6 +725,7 @@ macro(nt2_module_tool_setup tool)
 
 endmacro()
 
+# use a tool, build it if not found
 macro(nt2_module_tool tool)
   string(TOUPPER ${tool} tool_U)
 
@@ -702,6 +739,8 @@ macro(nt2_module_tool tool)
 
 endmacro()
 
+# mark a tool command to execute at the end of the configuration
+# nt2_postconfigure_init must be called before calling this function
 macro(nt2_module_postconfigure)
 
   string(REPLACE ";" " " args "${ARGN}")
@@ -709,6 +748,7 @@ macro(nt2_module_postconfigure)
 
 endmacro()
 
+# initialize the post-configuration system
 macro(nt2_postconfigure_init)
 
   include(nt2.doc)
@@ -737,6 +777,8 @@ macro(nt2_postconfigure_init)
 
 endmacro()
 
+# run the post-configuration step.
+# runs all tool commands registered with nt2_module_postconfigure
 macro(nt2_postconfigure_run)
 
   message(STATUS "[nt2] running post-configuration commands")
