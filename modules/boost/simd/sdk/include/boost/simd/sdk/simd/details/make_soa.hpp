@@ -12,6 +12,7 @@
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <boost/simd/sdk/meta/cardinal_as.hpp>
 #include <boost/dispatch/meta/strip.hpp>
+#include <boost/fusion/include/as_vector.hpp>
 #include <boost/mpl/max.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/size_t.hpp>
