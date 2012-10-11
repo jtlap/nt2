@@ -65,10 +65,11 @@ set(NT2_BLAS_FOUND FALSE)
                        PATHS ${NT2_MKL_LIBRARY_DIR}
                       )
           set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_GNU_THREAD})
-          find_package(OpenMP QUIET)
-          if(OPENMP_FOUND)
-            set(NT2_BLAS_LINK_FLAGS ${OpenMP_C_FLAGS})
+          # avoid re-checking for OpenMP every time
+          if(NOT DEFINED OpenMP_CXX_FLAGS)
+            find_package(OpenMP QUIET)
           endif()
+          set(NT2_BLAS_LINK_FLAGS ${OpenMP_CXX_FLAGS})
         endif()
       endif()
 

@@ -7,9 +7,14 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-FIND_PACKAGE(OpenMP QUIET)
+# avoid re-checking every time
+if(DEFINED OpenMP_CXX_FLAGS AND NOT OpenMP_CXX_FLAGS)
+  set(OPENMP_FOUND 0)
+else()
+  find_package(OpenMP QUIET)
+endif()
 
-SET(NT2_ARCH.OPENMP_DEPENDENCIES_FOUND ${OPENMP_FOUND})
-SET(NT2_ARCH.OPENMP_COMPILE_FLAGS ${OpenMP_C_FLAGS})
-SET(NT2_ARCH.OPENMP_LINK_FLAGS ${OpenMP_C_FLAGS})
-SET(NT2_ARCH.OPENMP_DEPENDENCIES_EXTRA core.utility)
+set(NT2_ARCH.OPENMP_DEPENDENCIES_FOUND ${OPENMP_FOUND})
+set(NT2_ARCH.OPENMP_COMPILE_FLAGS ${OpenMP_CXX_FLAGS})
+set(NT2_ARCH.OPENMP_LINK_FLAGS ${OpenMP_CXX_FLAGS})
+set(NT2_ARCH.OPENMP_DEPENDENCIES_EXTRA core.utility)
