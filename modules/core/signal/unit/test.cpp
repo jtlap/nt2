@@ -24,7 +24,6 @@
 #include <boost/random/uniform_real_distribution.hpp>
 
 #ifdef __APPLE__
-    // FIXME: this requires "-framework Accelerate" to be added to linker flags
     #include "Accelerate/Accelerate.h" //vDSP.h
 #endif // __APPLE__
 
