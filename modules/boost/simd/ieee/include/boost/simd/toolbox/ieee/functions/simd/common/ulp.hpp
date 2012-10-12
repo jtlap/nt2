@@ -9,15 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ULP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_ULP_HPP_INCLUDED
 #include <boost/simd/toolbox/ieee/functions/ulp.hpp>
+
 #include <boost/simd/include/constants/one.hpp> 
-#include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
-#include <boost/simd/include/functions/simd/predecessor.hpp>
-#include <boost/simd/include/functions/simd/successor.hpp>
-#include <boost/simd/include/functions/simd/is_equal.hpp>
-#include <boost/simd/include/functions/simd/min.hpp>
-#include <boost/simd/include/functions/simd/if_allbits_else.hpp>
-#include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/toolbox/ieee/functions/simd/common/details/ulp.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -42,13 +37,10 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       const A0 x = boost::simd::abs(a0);
-      A0 xp = boost::simd::predecessor(x);
-      A0 xs = boost::simd::successor(x); 
-      return if_allbits_else( is_equal(x, Inf<A0>())
-                            , boost::simd::min(x-xp, xs - x)
-                            );
+      return details::ulp(x);
     }
   };
+
 } } }
 
 #endif
