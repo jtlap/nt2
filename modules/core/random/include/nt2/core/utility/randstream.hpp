@@ -27,10 +27,10 @@ namespace nt2
     virtual ~randstream_();
   };
 
-  extern nt2::randstream_* current_randstream;
+  extern NT2_CORE_RANDOM_DECL nt2::randstream_* current_randstream;
 
-  NT2_CORE_UTILITY_DECL void randstream(const char* choice);
-  NT2_CORE_UTILITY_DECL void randstream(const char* choice, int s);
+  NT2_CORE_RANDOM_DECL void randstream(const char* choice);
+  NT2_CORE_RANDOM_DECL void randstream(const char* choice, int s);
 }
 
 #endif
