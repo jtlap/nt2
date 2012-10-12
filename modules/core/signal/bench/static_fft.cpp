@@ -21,13 +21,22 @@
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
 #include <boost/noncopyable.hpp>
+#if !defined( BOOST_NO_EXCEPTIONS ) || defined( _MSC_VER )
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
+#endif // BOOST_NO_EXCEPTIONS
+
 
 #ifdef __APPLE__
     #include "Accelerate/Accelerate.h" //vDSP.h
 #endif // __APPLE__
 
+#ifdef _WIN32
+    #include "windows.h"
+#endif // _WIN32
+
+
+#include <cstdlib>
 #include <vector>
 
 namespace bench
@@ -60,13 +69,22 @@ namespace bench
     /// slowing down the entire benchmark by regenerating the data over and
     /// over.
     ///                                       (11.10.2012.) (Domagoj Saric)
+    /// \note NT2Bench configuration has exceptions disabled and Boost.Random
+    /// fails to compile then because it uses naked throw statements.
+    /// https://svn.boost.org/trac/boost/ticket/7497
+    ///                                       (12.10.2012.) (Domagoj Saric)
     class reproducible_random_data_provider
     {
     public:
         reproducible_random_data_provider()
+        #if !defined( BOOST_NO_EXCEPTIONS ) || defined( _MSC_VER )
             :
             prng_( 42 )
+        #endif // BOOST_NO_EXCEPTIONS
         {
+            #if defined( BOOST_NO_EXCEPTIONS ) && !defined( _MSC_VER )
+                std::srand( 42 );
+            #endif
             randomize( real_data_ );
             randomize( imag_data_ );
         }
@@ -86,9 +104,13 @@ namespace bench
     private:
         void randomize( aligned_array & data )
         {
-            boost::random::uniform_real_distribution<T> const distribution( constants::test_data_range_minimum, constants::test_data_range_maximum );
-            BOOST_FOREACH( T & scalar, data )
-                scalar = distribution( prng_ );
+            #if defined( BOOST_NO_EXCEPTIONS ) && !defined( _MSC_VER )
+                BOOST_FOREACH( T & scalar, data ) { scalar = roll<T>( constants::test_data_range_minimum, constants::test_data_range_maximum ); }
+            #else
+                boost::random::uniform_real_distribution<T> const distribution( constants::test_data_range_minimum, constants::test_data_range_maximum );
+                BOOST_FOREACH( T & scalar, data )
+                    scalar = distribution( prng_ );
+            #endif
         }
 
     private:
@@ -316,24 +338,22 @@ namespace bench
     template <class Benchmark>
     void do_perform_benchmark( char const * const benchmark_name, std::size_t const length )
     {
-        typedef nt2::details::cycles_t cycles_t ;
-        typedef double                 seconds_t;
+        typedef nt2::details::cycles_t           cycles_t          ;
+        typedef nt2::details::seconds_t          seconds_t         ;
+        typedef nt2::unit   ::benchmark_result_t benchmark_result_t;
 
-        double const benchmark_run_time( 0.4 );
+        double const benchmark_run_time( 0.6 );
 
         std::printf( "%s (%u):\t\t", benchmark_name, static_cast<unsigned int>( length ) );
 
-        nt2::unit::benchmark_result<cycles_t > dv;
-        nt2::unit::benchmark_result<seconds_t> tv;
         Benchmark benchmark( length );
-        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, dv );
-        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, tv );
+        benchmark_result_t const benchmark_result( nt2::unit::perform_benchmark( benchmark, benchmark_run_time ) );
 
         std::printf
         (
             "%.2f cycles/value,\t %.2f microseconds/array\n",
-            static_cast<double>( dv.median ) / benchmark.number_of_values(),
-            tv.median * 1000000
+            static_cast<double>( benchmark_result.first ) / benchmark.number_of_values(),
+            benchmark_result.second * 1000000
         );
     }
 
@@ -367,6 +387,12 @@ NT2_TEST_CASE( test_fft )
 {
     try
     {
+    #ifdef _WIN32
+        BOOST_VERIFY( ::SetProcessAffinityMask( ::GetCurrentProcess(),                             1 ) );
+        BOOST_VERIFY( ::SetPriorityClass      ( ::GetCurrentProcess(), REALTIME_PRIORITY_CLASS       ) );
+        BOOST_VERIFY( ::SetThreadPriority     ( ::GetCurrentThread (), THREAD_PRIORITY_TIME_CRITICAL ) );
+    #endif // _WIN32
+
         bench::do_test();
         //...zzz...return EXIT_SUCCESS;
     }
