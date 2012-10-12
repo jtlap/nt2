@@ -207,7 +207,7 @@ namespace bench
         }
 
         void operator()() const
-        { 
+        {
             FFT::real_forward_transform( &real_time_data_[ 0 ], &real_frequency_data_[ 0 ], &imag_frequency_data_[ 0 ], size() );
         }
 
@@ -273,7 +273,7 @@ namespace bench
             DSPSplitComplex complex_data( split_data() );
             ::vDSP_fft_zip( instance(), &complex_data, 1, log2length(), direction );
         }
-        
+
         DSPSplitComplex split_data() const
         {
             DSPSplitComplex complex_data = { &real_data_[ 0 ], &imag_data_[ 0 ] };
