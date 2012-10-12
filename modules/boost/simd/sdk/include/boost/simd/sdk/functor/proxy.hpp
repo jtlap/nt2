@@ -9,12 +9,16 @@
 #ifndef BOOST_SIMD_SDK_FUNCTOR_PROXY_HPP_INCLUDED
 #define BOOST_SIMD_SDK_FUNCTOR_PROXY_HPP_INCLUDED
 
+#include <boost/dispatch/meta/any.hpp>
 #include <boost/dispatch/meta/proxy.hpp>
 #include <boost/dispatch/meta/unproxy.hpp>
 
+#include <boost/dispatch/functor/functor.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/details/parameters.hpp>
-#include <boost/preprocessor/selection/min.hpp>
 #include <boost/dispatch/functor/preprocessor/dispatch.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
+#include <boost/preprocessor/selection/min.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
