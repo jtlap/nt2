@@ -25,16 +25,20 @@ set(NT2_BLAS_FOUND FALSE)
       set(MKLROOT /opt/intel/mkl)
     endif()
 
+    set(NT2_MKL_LIBRARY_DIR ${MKLROOT}/lib)
     if(NT2_ARCH_X86_64)
-      set(NT2_MKL_LIBRARY_DIR ${NT2_BLAS_ROOT} ${MKLROOT}/lib/intel64)
+      set(NT2_MKL_LIBRARY_SUFFIXES intel64)
       find_library(NT2_MKL_LP64 NAMES mkl_intel_lp64 mkl_intel_lp64_dll
                    PATHS ${NT2_MKL_LIBRARY_DIR}
+                   PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                   )
       set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_LP64})
     else()
+      set(NT2_MKL_LIBRARY_SUFFIXES ia32)
       set(NT2_MKL_LIBRARY_DIR ${NT2_BLAS_ROOT} ${MKLROOT}/lib/ia32)
       find_library(NT2_MKL_32 NAMES mkl_intel mkl_intel_c_dll
                    PATHS ${NT2_MKL_LIBRARY_DIR}
+                   PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                   )
       set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_32})
     endif()
@@ -46,12 +50,14 @@ set(NT2_BLAS_FOUND FALSE)
         set(NT2_ARCH_MULTICORE FALSE)
         find_library(NT2_MKL_SEQ NAMES mkl_sequential mkl_sequential_dll
                      PATHS ${NT2_MKL_LIBRARY_DIR}
+                     PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                     )
         set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_SEQ})
       else()
         if(NT2_COMPILER_ICC)
           find_library(NT2_MKL_INTEL_THREAD NAMES mkl_intel_thread mkl_intel_thread_dll
                        PATHS ${NT2_MKL_LIBRARY_DIR}
+                       PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                       )
           set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_INTEL_THREAD})
           if(UNIX)
@@ -63,18 +69,19 @@ set(NT2_BLAS_FOUND FALSE)
         elseif(NT2_COMPILER_MSVC)
           find_library(NT2_MKL_INTEL_THREAD NAMES mkl_intel_thread_dll
                        PATHS ${NT2_MKL_LIBRARY_DIR}
+                       PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                       )
           set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_ICC_LIB_ROOT}/libiomp5md.lib)
         elseif(NT2_COMPILER_GCC_LIKE)
           find_library(NT2_MKL_GNU_THREAD NAMES mkl_gnu_thread
                        PATHS ${NT2_MKL_LIBRARY_DIR}
+                       PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                       )
           set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_GNU_THREAD})
-          # avoid re-checking for OpenMP every time
-          if(NOT DEFINED OpenMP_CXX_FLAGS)
-            find_package(OpenMP QUIET)
+          find_package(OpenMP QUIET)
+          if(OPENMP_FOUND)
+            set(NT2_BLAS_LINK_FLAGS ${OpenMP_C_FLAGS})
           endif()
-          set(NT2_BLAS_LINK_FLAGS ${OpenMP_CXX_FLAGS})
         endif()
       endif()
 
@@ -85,6 +92,7 @@ set(NT2_BLAS_FOUND FALSE)
 
       find_library(NT2_MKL_CORE NAMES mkl_core mkl_core_dll
                    PATHS ${NT2_MKL_LIBRARY_DIR}
+                   PATH_SUFFIXES ${NT2_MKL_LIBRARY_SUFFIXES}
                   )
       set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_CORE})
 
