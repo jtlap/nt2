@@ -20,14 +20,19 @@ set(NT2_BLAS_FOUND FALSE)
       message(STATUS "[nt2.blas] trying Intel...")
     endif()
 
+    set(MKLROOT $ENV{MKLROOT})
+    if(NOT MKLROOT)
+      set(MKLROOT /opt/intel/mkl)
+    endif()
+
     if(NT2_ARCH_X86_64)
-      set(NT2_MKL_LIBRARY_DIR ${NT2_BLAS_ROOT} /opt/intel/mkl/lib/intel64)
+      set(NT2_MKL_LIBRARY_DIR ${NT2_BLAS_ROOT} ${MKLROOT}/lib/intel64)
       find_library(NT2_MKL_LP64 NAMES mkl_intel_lp64 mkl_intel_lp64_dll
                    PATHS ${NT2_MKL_LIBRARY_DIR}
                   )
       set(NT2_BLAS_LIBRARIES ${NT2_BLAS_LIBRARIES} ${NT2_MKL_LP64})
     else()
-      set(NT2_MKL_LIBRARY_DIR ${NT2_BLAS_ROOT} /opt/intel/mkl/lib/ia32)
+      set(NT2_MKL_LIBRARY_DIR ${NT2_BLAS_ROOT} ${MKLROOT}/lib/ia32)
       find_library(NT2_MKL_32 NAMES mkl_intel mkl_intel_c_dll
                    PATHS ${NT2_MKL_LIBRARY_DIR}
                   )
