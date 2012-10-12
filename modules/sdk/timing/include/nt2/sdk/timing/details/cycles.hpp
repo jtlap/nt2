@@ -22,8 +22,10 @@ namespace nt2 { namespace details
   // X86 non-MSVC compiler have to use this asm block
   inline cycles_t read_cycles()
   {
+    /// \todo Use __builtin_readcyclecounter with Clang.
+    ///                                     (24.10.2012.) (Domagoj Saric)
     nt2::uint32_t hi = 0, lo = 0;
-    __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi));
+    __asm__ __volatile__ ("rdtsc" : "=a"(lo), "=d"(hi) : : "memory" );
     cycles_t that =   static_cast<cycles_t>(lo)
                   | ( static_cast<cycles_t>(hi)<<32 );
     return that;
@@ -37,7 +39,24 @@ namespace nt2 { namespace details
   // INTERNAL ONLY
   // Read cycles counter using rdtsc
   // MSVC compiler has a proper intrinsic
-  inline cycles_t read_cycles() { return __rdtsc(); }
+  inline cycles_t read_cycles()
+  {
+      /// \todo Also add http://msdn.microsoft.com/en-us/library/ms684208(VS.85).aspx.
+      ///                                     (18.10.2012.) (Domagoj Saric)
+      // http://www.strchr.com/performance_measurements_with_rdtsc
+      // http://www.ccsl.carleton.ca/~jamuir/rdtscpm1.pdf
+    #if defined( _M_AMD64 )
+        __faststorefence();
+    #elif defined( _M_IX86 )
+        long cpu_barrier; __asm xchg cpu_barrier, eax;
+    #endif // _M_AMD64
+      ::_ReadWriteBarrier();
+      /// \todo Consider the rdtscp instruction/intrinsic.
+      ///                                     (02.11.2012.) (Domagoj Saric)
+      cycles_t const result( ::__rdtsc() );
+      ::_ReadWriteBarrier();
+      return result;
+  }
 } }
 #elif  (defined(__GNUC__)      && defined(BOOST_SIMD_ARCH_POWERPC)) \
     || (defined(__MWERKS__)    && defined(macintosh) )              \
@@ -71,7 +90,7 @@ namespace nt2 { namespace details
   // Read cycles counter using an approximation of the frequency
   inline cycles_t read_cycles()
   {
-    details::now() * sysconf(_SC_CLK_TCK);
+    details::now_in_seconds() * sysconf(_SC_CLK_TCK);
   }
 } }
 
