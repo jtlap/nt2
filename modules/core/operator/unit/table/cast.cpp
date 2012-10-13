@@ -43,7 +43,7 @@ void assign_test()
   static const std::size_t N = 11;
   nt2::table<T> a0(nt2::of_size(N));
   for(std::size_t i=0; i!=N; ++i)
-    a0(i+1) = roll<T>();
+    a0(i+1) = T(roll<U>());
 
   boost::proto::display_expr( nt2::cast<U>(a0) );
   nt2::table<U> a1 = nt2::cast<U>(a0);
