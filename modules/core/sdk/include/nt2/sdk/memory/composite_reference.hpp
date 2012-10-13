@@ -131,48 +131,54 @@ namespace boost
 }
 
 // disable Fusion overloads, use our own
+namespace boost { namespace simd
+{
+  template<class T>
+  struct is_value;
+} }
+
 namespace boost { namespace fusion { namespace traits
 {
   template<typename T>
   struct  enable_equality < nt2::container::composite_reference<T>
                           , nt2::container::composite_reference<T>
                           >
-        : mpl::false_
+        : mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_equality < nt2::container::composite_reference<T>
                           , T
                           >
-        : mpl::false_
+        : mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_equality < T
                           , nt2::container::composite_reference<T>
                           >
-        : mpl::false_
+        : mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_comparison < nt2::container::composite_reference<T>
                             , nt2::container::composite_reference<T>
                             >
-        : mpl::false_
+        : mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_comparison < nt2::container::composite_reference<T>
                             , T
                             >
-        : mpl::false_
+        : mpl::not_< simd::is_value<T> >
   {};
 
   template<typename T>
   struct  enable_comparison < T
                             , nt2::container::composite_reference<T>
                             >
-        : mpl::false_
+        : mpl::not_< simd::is_value<T> >
   {};
 } } }
 
