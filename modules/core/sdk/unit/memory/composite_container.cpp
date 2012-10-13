@@ -312,8 +312,8 @@ NT2_TEST_CASE( container_swap )
   typedef container<foo,settings(deinterleaved_)> type;
   type b( of_size(5,3) );
 
-  for(typename type::difference_type j=0;j<3;++j)
-    for(typename type::difference_type i=0;i<5;++i)
+  for(type::difference_type j=0;j<3;++j)
+    for(type::difference_type i=0;i<5;++i)
     {
       foo f = {2.*i,1.f+j*i,short(j)};
       b[i+5*j] = f;
@@ -321,8 +321,8 @@ NT2_TEST_CASE( container_swap )
 
   type x( of_size(7,2) );
 
-  for(typename type::difference_type j=0;j<2;++j)
-    for(typename type::difference_type i=0;i<7;++i)
+  for(type::difference_type j=0;j<2;++j)
+    for(type::difference_type i=0;i<7;++i)
     {
       foo f = {2.*j,1.f+j-i,short(i)};
       x[i+7*j] = f;
@@ -338,15 +338,15 @@ NT2_TEST_CASE( container_swap )
   NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
   NT2_TEST( (x.extent() == of_size(5,3)) );
 
-  for(typename type::difference_type j=0;j<3;++j)
-    for(typename type::difference_type i=0;i<5;++i)
+  for(type::difference_type j=0;j<3;++j)
+    for(type::difference_type i=0;i<5;++i)
     {
       foo f = {2.*i,1.f+j*i,short(j)};
       NT2_TEST_EQUAL( x[i+5*j], boost::fusion::as_vector(f) );
     }
 
-  for(typename type::difference_type j=0;j<2;++j)
-    for(typename type::difference_type i=0;i<7;++i)
+  for(type::difference_type j=0;j<2;++j)
+    for(type::difference_type i=0;i<7;++i)
     {
       foo f = {2.*j,1.f+j-i,short(i)};
       NT2_TEST_EQUAL( b[i+7*j], boost::fusion::as_vector(f) );
@@ -378,15 +378,15 @@ NT2_TEST_CASE( container_resize )
   NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
   NT2_TEST(b.extent() == of_size(3,2));
 
-  for(typename type::difference_type j=0;j<2;++j)
-    for(typename type::difference_type i=0;i<3;++i)
+  for(type::difference_type j=0;j<2;++j)
+    for(type::difference_type i=0;i<3;++i)
     {
       foo f = {2.*i,1.f+j*i,short(j)};
       b[i+3*j] = f;
     }
 
-  for(typename type::difference_type j=0;j<2;++j)
-    for(typename type::difference_type i=0;i<3;++i)
+  for(type::difference_type j=0;j<2;++j)
+    for(type::difference_type i=0;i<3;++i)
     {
       foo f = {2.*i,1.f+j*i,short(j)};
       NT2_TEST_EQUAL( b[i+3*j], boost::fusion::as_vector(f) );
@@ -398,13 +398,13 @@ NT2_TEST_CASE( container_resize )
   NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
   NT2_TEST(b.extent() == of_size(1,11));
 
-  for(typename type::difference_type i=0;i<11;++i)
+  for(type::difference_type i=0;i<11;++i)
   {
     foo f = {-1./i,1.f+i,short(i)};
     b[i] = f;
   }
 
-  for(typename type::difference_type i=0;i<11;++i)
+  for(type::difference_type i=0;i<11;++i)
   {
     foo f = {-1./i,1.f+i,short(i)};
     NT2_TEST_EQUAL( b[i], boost::fusion::as_vector(f) );
@@ -416,15 +416,15 @@ NT2_TEST_CASE( container_resize )
   NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
   NT2_TEST(b.extent() == of_size(2,7));
 
-  for(typename type::difference_type j=0;j<7;++j)
-    for(typename type::difference_type i=0;i<2;++i)
+  for(type::difference_type j=0;j<7;++j)
+    for(type::difference_type i=0;i<2;++i)
     {
       foo f = {2./j,3.f*i,short(i+j)};
       b[i+2*j] = f;
     }
 
-  for(typename type::difference_type j=0;j<7;++j)
-    for(typename type::difference_type i=0;i<2;++i)
+  for(type::difference_type j=0;j<7;++j)
+    for(type::difference_type i=0;i<2;++i)
     {
       foo f = {2./j,3.f*i,short(i+j)};
       NT2_TEST_EQUAL( b[i+2*j], boost::fusion::as_vector(f) );
