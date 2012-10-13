@@ -9,14 +9,21 @@
 #ifndef NT2_CORE_SDK_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
 #define NT2_CORE_SDK_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
 
-#include <boost/mpl/transform.hpp>
+#include <nt2/sdk/meta/container_traits.hpp>
+#include <boost/simd/sdk/functor/proxy.hpp>
+#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/io.hpp>
 #include <boost/fusion/include/copy.hpp>
 #include <boost/fusion/include/as_vector.hpp>
-#include <boost/simd/sdk/functor/proxy.hpp>
-#include <boost/dispatch/meta/value_of.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <nt2/sdk/meta/container_traits.hpp>
+//#include <boost/fusion/sequence/comparison/enable_comparison.hpp>
+#include <boost/mpl/transform.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/type_traits/remove_const.hpp>
+#include <boost/type_traits/remove_reference.hpp>
+#include <boost/type_traits/is_const.hpp>
+#include <boost/type_traits/is_convertible.hpp>
+#include <boost/utility/enable_if.hpp>
 
 //==============================================================================
 /**
@@ -91,6 +98,7 @@ namespace nt2 { namespace container
   }
 } }
 
+// composite_reference is a proxy type
 namespace boost { namespace dispatch { namespace meta
 {
   template<class T,class Origin>
@@ -102,9 +110,10 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
+// composite_reference is a pseudo-reference type, adapt meta-functions
+// that removes reference qualifiers accordingly
 namespace boost { namespace dispatch { namespace meta
 {
-  // So no target of composite_reference are ever made
   template<typename T>
   struct strip< nt2::container::composite_reference<T> >
   {
@@ -112,6 +121,16 @@ namespace boost { namespace dispatch { namespace meta
   };
 } } }
 
+namespace boost
+{
+  template<class T>
+  struct remove_reference< nt2::container::composite_reference<T> >
+  {
+    typedef T type;
+  };
+}
+
+// disable Fusion overloads, use our own
 namespace boost { namespace fusion { namespace traits
 {
   template<typename T>

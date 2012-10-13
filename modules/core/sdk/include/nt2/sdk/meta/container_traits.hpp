@@ -17,6 +17,8 @@
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <cstddef>
+#include <memory>
 
 namespace nt2 { namespace meta
 {
