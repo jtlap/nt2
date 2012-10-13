@@ -11,6 +11,7 @@
 
 #include <nt2/core/functions/cast.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/touint.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/group.hpp>
 #include <nt2/include/functions/split.hpp>
@@ -248,12 +249,22 @@ namespace nt2 { namespace ext
   };
 
   template<class Expr, class From, class To>
-  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_floating_point<From>::value && meta::is_integral<To>::value>::type>
+  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_floating_point<From>::value && meta::is_integral<To>::value && meta::is_signed<To>::value>::type>
   {
     typedef typename meta::call<tag::toint_(Expr&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       return nt2::toint(e);
+    }
+  };
+
+  template<class Expr, class From, class To>
+  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_floating_point<From>::value && meta::is_integral<To>::value && meta::is_unsigned<To>::value>::type>
+  {
+    typedef typename meta::call<tag::touint_(Expr&)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return nt2::touint(e);
     }
   };
 
