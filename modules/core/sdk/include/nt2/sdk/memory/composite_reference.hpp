@@ -16,7 +16,7 @@
 #include <boost/fusion/include/io.hpp>
 #include <boost/fusion/include/copy.hpp>
 #include <boost/fusion/include/as_vector.hpp>
-//#include <boost/fusion/sequence/comparison/enable_comparison.hpp>
+#include <boost/fusion/sequence/comparison/enable_comparison.hpp>
 #include <boost/mpl/transform.hpp>
 #include <boost/mpl/if.hpp>
 #include <boost/type_traits/remove_const.hpp>
