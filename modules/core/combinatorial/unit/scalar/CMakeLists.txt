@@ -14,6 +14,7 @@ SET( SOURCES
   cnp.cpp
   anp.cpp
   rat.cpp
+  is_prime.cpp
 # List of scalar test files for toolbox combinatorial
    )
 
