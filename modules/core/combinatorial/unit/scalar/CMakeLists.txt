@@ -13,6 +13,7 @@ SET( SOURCES
   gcd.cpp
   cnp.cpp
   anp.cpp
+  rat.cpp
 # List of scalar test files for toolbox combinatorial
    )
 

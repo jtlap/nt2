@@ -256,7 +256,7 @@ namespace nt2 { namespace ext
         //      std::cout << "latte" << std::endl;
         // overlapping of input and output data is possible
         // so we provide space for result and put back in a0
-        nt2::table<value_type> tmp(a1.extent());
+        nt2::container::table<value_type> tmp(a1.extent());
         //std::cout << size(tmp) << std::endl;
         //tmp.resize(a1.extent());
         nt2::details::
