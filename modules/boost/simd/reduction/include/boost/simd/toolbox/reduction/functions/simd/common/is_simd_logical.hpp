@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename boost::dispatch::meta::as_integer<A0, signed>::type iA0;
       iA0 tmp = bitwise_cast<iA0>(a0);
-      return result_type(all(l_or(is_equal(tmp, Mone<iA0>()), is_eqz(tmp))));
+      return result_type(simd::all(l_or(is_equal(tmp, Mone<iA0>()), is_eqz(tmp))));
     }
   };
 

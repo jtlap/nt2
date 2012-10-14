@@ -77,9 +77,9 @@ namespace nt2 { namespace ext
     {
       typedef typename A0::value_type value_type;
       int32_t dim =  nt2::firstnonsingleton(a0); 
-      bool res =  all(all(is_nltz(diff(a0, dim)))(_))(1);
+      bool res =  nt2::all(nt2::all(is_nltz(diff(a0, dim)))(_))(1);
       if (res) return true;
-      return  all(all(is_ngtz(diff(a0, dim)))(_))(1);
+      return  nt2::all(nt2::all(is_ngtz(diff(a0, dim)))(_))(1);
     }
   };
   
@@ -95,9 +95,9 @@ namespace nt2 { namespace ext
       result_type operator()(const A0& a0, const A1& dim) const
     {
       typedef typename A0::value_type value_type;
-      bool res =  all(all(is_nltz(diff(a0, dim)))(_))(1);
+      bool res =  nt2::all(nt2::all(is_nltz(diff(a0, dim)))(_))(1);
       if (res) return true;
-      return  all(all(is_ngtz(diff(a0, dim)))(_))(1);
+      return  nt2::all(nt2::all(is_ngtz(diff(a0, dim)))(_))(1);
     }
   };
   
@@ -131,7 +131,7 @@ namespace nt2 { namespace ext
     {
       typedef typename A0::value_type value_type;
       value_type sgn = up ? One<value_type>() : Mone<value_type>(); 
-      return all(all(is_nltz(diff(a0, dim)*sgn))(_))(1); 
+      return nt2::all(nt2::all(is_nltz(diff(a0, dim)*sgn))(_))(1); 
     }
   };
   

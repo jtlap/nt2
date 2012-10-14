@@ -32,7 +32,7 @@ namespace boost { namespace simd { namespace ext
       result_type t =  bitwise_cast<result_type>(a0);
       typedef typename meta::scalar_of<A0>::type s_type;
 
-      BOOST_ASSERT_MSG( all(t), "ctz not defined for 0" );
+      BOOST_ASSERT_MSG( simd::all(t), "ctz not defined for 0" );
       return minusone(boost::simd::ffs(t));
     }
   };

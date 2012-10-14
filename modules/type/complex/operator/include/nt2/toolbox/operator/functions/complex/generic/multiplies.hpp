@@ -58,34 +58,34 @@ namespace nt2 { namespace ext
       rA0 y = a*d+b*c;
       result_type r = result_type(x, y); //result_type(a*c-b*d, a*d+b*c);
       lA0 test = is_finite(r);
-      if (all(test)) return r;
+      if (nt2::all(test)) return r;
       lA0 cur  = is_real(a0);
       if (nt2::any(cur))
         {
           r = if_else(cur, nt2::multiplies(nt2::real(a0), a1), r);
           test = logical_or(test, cur);
-          if (all(test)) return r;
+          if (nt2::all(test)) return r;
         }
       cur = is_imag(a0);
       if (nt2::any(cur))
         {
           r = if_else(cur, nt2::multiplies(pure(a0), a1), r);
           test = logical_or(test, cur);
-          if (all(test)) return r;
+          if (nt2::all(test)) return r;
         }
       cur = is_real(a1);
       if (nt2::any(cur))
       {
         r = if_else(cur, nt2::multiplies(a0, nt2::real(a1)), r);
         test = logical_or(test, cur);
-        if (all(test)) return r;
+        if (nt2::all(test)) return r;
       }
       cur = is_imag(a1);
       if (nt2::any(cur))
       {
         r = if_else(cur, nt2::multiplies(a0, pure(a1)), r);
         test = logical_or(test, cur);
-        if (all(test)) return r;
+        if (nt2::all(test)) return r;
       }
       return r;
     }

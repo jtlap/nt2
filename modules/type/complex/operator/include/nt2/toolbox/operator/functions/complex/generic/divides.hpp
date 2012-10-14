@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
       rtype denom =  sqr_abs(aa1);
       A0 num = nt2::multiplies(a0, conj(aa1));
       A0 r =  ldexp(nt2::divides(num, denom), e);
-      if (all(is_finite(r))) return r;
+      if (nt2::all(is_finite(r))) return r;
       r = if_else(is_eqz(denom), nt2::multiplies(a0, copysign(Inf<rtype>(), nt2::real(a1))), r);
       r = if_else(is_inf(a1),    nt2::multiplies(a0, rec(copysign(denom, nt2::real(a1)))), r);
       return r;

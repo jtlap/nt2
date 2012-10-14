@@ -233,7 +233,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       //TODO optimize it
-      if (all(is_real(a0)) && all(le(nt2::abs(a0), One<rtype>())))
+      if (nt2::all(is_real(a0)) && nt2::all(le(nt2::abs(a0), One<rtype>())))
         return result_type(nt2::asin(nt2::real(a0))); 
       return nt2::asin(result_type(nt2::real(a0), Zero<rtype>()));
     }

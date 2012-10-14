@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      BOOST_ASSERT_MSG( all(logical_or(is_nltz(a0), is_flint(a1))),"realpow cannot produce complex result." ); 
+      BOOST_ASSERT_MSG( nt2::all(logical_or(is_nltz(a0), is_flint(a1))),"realpow cannot produce complex result." ); 
       return pow(a0, a1); 
     }
   };

@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
                        result_type(w, iaa0*Half<rtype>()/w)
                        );
         z = if_else(gezra0, z, result_type(nt2::imag(z), nt2::real(z))); 
-        if (all(is_finite(z))) return if_else(negimag, conj(z), z);
+        if (nt2::all(is_finite(z))) return if_else(negimag, conj(z), z);
         z = if_else(eq(iaa0, Inf<rtype>()),
                     result_type(Inf<rtype>(), Inf<rtype>()),
                     z);

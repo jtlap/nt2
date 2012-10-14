@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
         typedef typename meta::as_logical<A0>::type bA0; 
      A0 x   =  nt2::abs(a0);
      bA0 lt2 = lt(x, Two < A0>());
-     if (all(lt2))
+     if (nt2::all(lt2))
        return branch1(x);
      else
        return select (lt2, branch1(x), branch2(x));

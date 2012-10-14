@@ -73,17 +73,17 @@ namespace nt2
         {
           const A0 x = x_n;
           // x is always positive here
-          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (nt2::all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
               xr = x;
               xc = Zero<A0>();
               return Zero<int_type>();
             }
-          else if (all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (nt2::all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
               return rem_pio2_straight(x, xr, xc);
-          else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
+          else if (nt2::all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
               return rem_pio2_cephes(x, xr, xc);
-          else if (all(ismedium(x))) // all of x are in [0, 2^7*pi/2],  fdlibm medium_ way
+          else if (nt2::all(ismedium(x))) // all of x are in [0, 2^7*pi/2],  fdlibm medium_ way
               return rem_pio2_medium(x, xr, xc);
           else
               return inner_reduce_big(x, xr, xc, b, conversion_allowed());
@@ -92,7 +92,7 @@ namespace nt2
         template<class m>
         static inline int_type inner_reduce_big(const A0& x, A0& xr, A0& xc, const m&, boost::mpl::true_)
         {
-          //if (all(isnotsobig(x))) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
+          //if (nt2::all(isnotsobig(x))) // all of x are in [0, 2^18*pi],  conversion to double is used to reduce
           typedef typename meta::upgrade<A0>::type uA0;
           typedef typename meta::upgrade<int_type>::type uint_type;
           typedef trig_reduction< uA0, radian_tag,  tag::simd_type, mode, double> aux_reduction;
@@ -121,15 +121,15 @@ namespace nt2
         {
           const A0 x = x_n;
           // x is always positive here
-          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (nt2::all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
               xr = x;
               xc = Zero<A0>();
               return Zero<int_type>();
             }
-          else if (all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (nt2::all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
               return rem_pio2_straight(x, xr, xc);
-          else if (all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
+          else if (nt2::all(issmall(x))) // all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
               return rem_pio2_cephes(x, xr, xc);
           else // correct only if all of x are in [0, 2^7*pi/2],  fdlibm medium_ way
               return rem_pio2_medium(x, xr, xc);
@@ -138,13 +138,13 @@ namespace nt2
         {
           const A0 x = x_n;
           // x is always positive here
-          if (all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
+          if (nt2::all(isalreadyreduced(x))) // all of x are in [0, pi/4], no reduction
             {
               xr = x;
               xc = Zero<A0>();
               return Zero<int_type>();
             }
-          else if (all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
+          else if (nt2::all(islessthanpi_2(x))) // all of x are in [pi/4, pi/2],  straight algorithm is sufficient for 1 ulp
               return rem_pio2_straight(x, xr, xc);
           else //  correct only if all of x are in [0, 20*pi],  cephes algorithm is sufficient for 1 ulp
               return rem_pio2_cephes(x, xr, xc);
