@@ -232,7 +232,7 @@ namespace nt2
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
 
-        static inline bool cot_invalid(const A0& x) { return (is_nez(x)&is_flint(x/_180<A0>())); }
+        static inline bool cot_invalid(const A0& x) { return (is_nez(x)&&is_flint(x/_180<A0>())); }
         static inline bool tan_invalid(const A0& x) { return is_flint((x-_90<A0>())/_180<A0>()); }
 
         static inline int_type reduce(const A0& x, A0& xr, A0& xc)
@@ -267,8 +267,8 @@ namespace nt2
       {
         typedef typename meta::as_integer<A0, signed>::type int_type;
 
-        static inline bool cot_invalid(const A0& x) { return /*is_invalid(x)|*/(is_nez(x)&is_flint(x)); }
-        static inline bool tan_invalid(const A0& x) { return /*is_invalid(x)|*/is_flint(x-Half<A0>()) ; }
+        static inline bool cot_invalid(const A0& x) { return is_nez(x)&&is_flint(x); }
+        static inline bool tan_invalid(const A0& x) { return is_flint(x-Half<A0>()) ; }
 
         static inline int_type reduce(const A0& x,  A0& xr, A0&xc)
         {
