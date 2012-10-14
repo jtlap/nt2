@@ -40,7 +40,7 @@ namespace nt2 { namespace details
     //  B is            N x nrhs
     ////////////////////////////////////////////////////////////////////////////
     template < class Input, class B > 
-    full_qr_solve_result(Input& a, const B& b, const char &/*trans*/)
+    full_qr_solve_result(Input& a, const B& b, const char &/*trans*/, const type_t& rcond = type_t(0))
       : a_(a)
       , lda_(a_.leading_size())
       , ldb_(b.leading_size())
@@ -52,13 +52,13 @@ namespace nt2 { namespace details
     {
       nt2_la_int ldx  = x_.leading_size();
       nt2::details::gelsy (&m_, &n_, &nrhs_, a_.raw(), &lda_,
-                           x_.raw(), &ldx, jpvt_.raw(), &rcond_,
+                           x_.raw(), &ldx, jpvt_.raw(), &rcond,
                            &rank_, &info_);
       //      NT2_WARNING(info_ <= 0, "Warning: Matrix is singular to working precision.");
     }
 
     fitab_t ipiv()      const { return jpvt_; }
-    btype_t rcond()     const { return rcond_;}
+    //    btype_t rcond()     const { return rcond_;}
     nt2::int32_t rank() const { return rank_; }
     nt2_la_int status() const { return info_; }
     tab_t  x()          const { return x_;    }
@@ -72,7 +72,7 @@ namespace nt2 { namespace details
     tab_t                 x_;
     fitab_t            jpvt_;
     nt2_la_int         info_;
-    btype_t           rcond_;
+    //    btype_t           rcond_;
     nt2::int32_t       rank_;
   };
 } }
