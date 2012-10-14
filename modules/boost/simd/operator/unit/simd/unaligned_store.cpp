@@ -58,7 +58,7 @@ NT2_TEST_CASE( unaligned_store_sequence )
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
-  static const int sz = cardinal_of< native<char  ,ext_t> >::value;
+  static const size_t sz = cardinal_of< native<char  ,ext_t> >::value;
   char   cdata[ sz ];
   float  fdata[ sz ];
   double ddata[ sz ];

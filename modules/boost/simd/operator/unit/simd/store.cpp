@@ -56,7 +56,7 @@ NT2_TEST_CASE( store_sequence )
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
-  static const int sz = cardinal_of< native<char  ,ext_t> >::value;
+  static const size_t sz = cardinal_of< native<char  ,ext_t> >::value;
   BOOST_SIMD_ALIGNED_TYPE(char)   cdata[ sz ];
   BOOST_SIMD_ALIGNED_TYPE(float)  fdata[ sz ];
   BOOST_SIMD_ALIGNED_TYPE(double) ddata[ sz ];
