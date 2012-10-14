@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_IBETA_INVB_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_IBETA_INVB_HPP_INCLUDED
 #include <nt2/toolbox/boost_math/functions/ibeta_invb.hpp>
-#include <nt2/toolbox/boost_math/specific/interface.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 
 
@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      return nt2::boost_math::ibeta_invb(result_type(a0), result_type(a1), result_type(a2), nt2_policy());
+      return nt2::boost_math::ibeta_invb(result_type(a0), result_type(a1), result_type(a2));
     }
   };
 } }

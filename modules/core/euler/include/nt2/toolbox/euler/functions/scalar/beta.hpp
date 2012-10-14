@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_BETA_HPP_INCLUDED
 #include <nt2/toolbox/euler/functions/beta.hpp>
 #include <boost/math/special_functions.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 /**
  * \ingroup euler_beta
@@ -32,7 +33,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return boost::math::beta(result_type(a0), result_type(a1));
+      return boost::math::beta(result_type(a0), result_type(a1), nt2_policy());
     }
   };
 } }

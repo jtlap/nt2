@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_DIGAMMA_HPP_INCLUDED
 #include <nt2/toolbox/euler/functions/digamma.hpp>
 #include <boost/math/special_functions.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -43,7 +44,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(boost::math::digamma(a0));
+      return result_type(boost::math::digamma(a0, nt2_policy()));
     }
   };
 } }

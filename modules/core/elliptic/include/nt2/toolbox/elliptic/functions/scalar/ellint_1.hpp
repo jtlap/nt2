@@ -15,7 +15,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/scalar/is_eqz.hpp>
-
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
       if (x > One<result_type>()) return Nan<result_type>();
       if (x == One<result_type>())  return Inf<result_type>();
       if (is_eqz(x))      return Pio_2<result_type>();
-      return boost::math::ellint_1(x);
+      return boost::math::ellint_1(x, nt2_policy());
     }
   };
 } }

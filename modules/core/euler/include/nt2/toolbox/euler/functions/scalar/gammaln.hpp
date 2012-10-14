@@ -18,7 +18,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/functions/scalar/signnz.hpp>
-
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is double_
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
     #ifdef NT2_TOOLBOX_EULER_HAS_LGAMMA
       return ::lgamma(a0);
     #else
-      return boost::math::lgamma(a0);
+      return boost::math::lgamma(a0, nt2_policy());
     #endif
     }
   };

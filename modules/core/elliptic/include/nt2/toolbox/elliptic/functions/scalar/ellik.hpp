@@ -20,7 +20,7 @@
 #include <nt2/include/functions/scalar/log.hpp>
 #include <nt2/include/functions/scalar/average.hpp>
 #include <nt2/include/functions/scalar/ceil.hpp>
-
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
       typedef result_type type;
       if (a1>One<A0>()||(is_ltz(a1))) return Nan<type>();
       if (is_eqz(a1))  return type(a0);
-      return boost::math::ellint_1(nt2::sqrt(a1), a0);
+      return boost::math::ellint_1(nt2::sqrt(a1), a0, nt2_policy());
     }
   };
 } }

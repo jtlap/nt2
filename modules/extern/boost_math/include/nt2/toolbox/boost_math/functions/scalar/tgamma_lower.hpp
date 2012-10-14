@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_TGAMMA_LOWER_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_TGAMMA_LOWER_HPP_INCLUDED
 #include <nt2/toolbox/boost_math/functions/tgamma_lower.hpp>
-#include <nt2/toolbox/boost_math/specific/interface.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::boost_math::tgamma_lower(result_type(a0), result_type(a1), nt2_policy());
+      return nt2::boost_math::tgamma_lower(result_type(a0), result_type(a1));
     }
   };
 } }
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0, A1>::type result_type;
 
     NT2_FUNCTOR_CALL(2)
-    { return boost::math::tgamma_lower(a0, a1); }
+    { return boost::math::tgamma_lower(a0, a1, nt2_policy()); }
   };
 } }
 

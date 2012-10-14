@@ -13,7 +13,7 @@
 #include <nt2/include/constants/real.hpp>
 #include <nt2/include/functions/scalar/is_nan.hpp>
 #include <nt2/include/functions/scalar/is_inf.hpp>
-
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
     {
       if (is_nan(a0)) return Nan<A0>();
       if (is_inf(a0)) return Inf<A0>(); 
-      return A0(boost::math::sinhc_pi(a0));
+      return A0(boost::math::sinhc_pi(a0, nt2_policy()));
     }
   };
 } }

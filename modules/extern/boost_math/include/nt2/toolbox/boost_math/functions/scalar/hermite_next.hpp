@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_HERMITE_NEXT_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_HERMITE_NEXT_HPP_INCLUDED
 #include <nt2/toolbox/boost_math/functions/hermite_next.hpp>
-#include <nt2/toolbox/boost_math/specific/interface.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A1, A2, A3>::type result_type;
 
     NT2_FUNCTOR_CALL(4)
-    { return boost::math::hermite_next(a0, a1, a2, a3); }
+    { return boost::math::hermite_next(a0, a1, a2, a3, nt2_policy()); }
   };
 } }
 

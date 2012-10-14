@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_GAMMA_P_INV_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_GAMMA_P_INV_HPP_INCLUDED
 #include <nt2/toolbox/boost_math/functions/gamma_p_inv.hpp>
-#include <nt2/toolbox/boost_math/specific/interface.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_

@@ -30,6 +30,7 @@
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 #include <nt2/include/functions/scalar/signnz.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is arithmetic_
@@ -96,7 +97,7 @@ namespace nt2 { namespace ext
     #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
        return ::tgamma(a0);
     #else
-       return boost::math::tgamma(a0);
+       return boost::math::tgamma(a0, nt2_policy());
     #endif
 //       const double g_p[] = { -1.71618513886549492533811,
 // 			     24.7656508055759199108314,-379.804256470945635097577,

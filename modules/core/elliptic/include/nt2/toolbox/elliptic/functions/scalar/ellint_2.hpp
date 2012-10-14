@@ -17,7 +17,7 @@
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/oneminus.hpp>
-
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -58,7 +58,7 @@ namespace nt2 { namespace ext
       result_type x = nt2::abs(a0);
       if (x>One<A0>())    return Nan<A0>();
       if (x == One<A0>()) return x;
-      return nt2::boost_math::ellint_2(a0);
+      return boost::math::ellint_2(a0, nt2_policy());
     }
   };
 } }

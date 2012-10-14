@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_TRUNC_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_TRUNC_HPP_INCLUDED
 
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
 
     NT2_FUNCTOR_CALL(1)
-    { return boost::math::trunc(a0); }
+    { return boost::math::trunc(a0, nt2_policy()); }
   };
 } }
 
