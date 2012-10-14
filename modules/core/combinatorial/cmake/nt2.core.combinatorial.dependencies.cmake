@@ -12,5 +12,5 @@ SET ( NT2_CORE.COMBINATORIAL_DEPENDENCIES_EXTRA core.arithmetic core.bitwise
                                                 core.ieee       core.operator
                                                 core.predicates core.reduction
                                                 core.swar       core.euler
-                                                core.exponential
+                                                core.exponential core.linalg
     )
