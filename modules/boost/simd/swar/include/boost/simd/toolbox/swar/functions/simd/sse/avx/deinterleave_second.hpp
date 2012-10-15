@@ -10,11 +10,8 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_DEINTERLEAVE_SECOND_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
 
-#include <boost/simd/include/functions/deinterleave_second.hpp>
-#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
-#include <boost/simd/include/functions/bitwise_select.hpp>
-#include <boost/simd/include/functions/make.hpp>
-#include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/toolbox/swar/functions/deinterleave_second.hpp>
+#include <boost/simd/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -39,7 +36,7 @@ namespace boost { namespace simd { namespace ext
       return _mm256_insertf128_ps(that,  boost::simd::deinterleave_second(a10, a11), 1);
      }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_second_
                                    , boost::simd::tag::avx_
                                    , (A0)
@@ -86,7 +83,7 @@ namespace boost { namespace simd { namespace ext
 
      }
   };
-  
+
 
 } } }
 
