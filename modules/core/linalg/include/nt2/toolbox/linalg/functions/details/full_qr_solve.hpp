@@ -11,6 +11,7 @@
 
 #include <nt2/toolbox/linalg/details/lapack/gelsy.hpp>
 #include <nt2/table.hpp>
+#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/expand.hpp>
@@ -39,7 +40,7 @@ namespace nt2 { namespace details
     //  A is            N x M
     //  B is            N x nrhs
     ////////////////////////////////////////////////////////////////////////////
-    template < class Input, class B > 
+    template < class Input, class B >
     full_qr_solve_result(Input& a, const B& b, const char &/*trans*/, const type_t& rcond = type_t(0))
       : a_(a)
       , lda_(a_.leading_size())
@@ -48,7 +49,7 @@ namespace nt2 { namespace details
       , n_(width(a))
       , nrhs_(width(b))
       , x_(nt2::expand(b, nt2::max(n_, m_), nrhs_))
-      , jpvt_(nt2::of_size(n_, 1))
+      , jpvt_(nt2::zeros(n_, 1, nt2::meta::as_<nt2_la_int>()))
     {
       nt2_la_int ldx  = x_.leading_size();
       nt2::details::gelsy (&m_, &n_, &nrhs_, a_.raw(), &lda_,
@@ -63,7 +64,7 @@ namespace nt2 { namespace details
     nt2_la_int status() const { return info_; }
     tab_t  x()          const { return x_;    }
   private:
-    data_t                a_; 
+    data_t                a_;
     nt2_la_int          lda_;
     nt2_la_int          ldb_;
     nt2_la_int            m_;
