@@ -25,7 +25,7 @@ namespace boost { namespace dispatch { namespace meta
   template<class T>
   struct constant_ : elementwise_<T>
   {
-    typedef unspecified_<T> parent;
+    typedef elementwise_<T> parent;
   };
 } } }
 

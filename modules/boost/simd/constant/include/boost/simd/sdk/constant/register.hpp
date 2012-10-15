@@ -33,6 +33,7 @@
 #define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE) \
 struct TAG  : ext::constant_<TAG>                               \
 {                                                               \
+  typedef ext::constant_<TAG> parent;                           \
   typedef TYPE default_type;                                    \
 };                                                              \
 /**/
@@ -40,6 +41,7 @@ struct TAG  : ext::constant_<TAG>                               \
 #define BOOST_SIMD_CONSTANT_REGISTER(TAG,TYPE,INT,FLOAT,DOUBLE)             \
 struct TAG : ext::constant_<TAG>                                            \
 {                                                                           \
+  typedef ext::constant_<TAG> parent;                                       \
   typedef TYPE default_type;                                                \
   template<class T, class D=void> struct apply                              \
     : boost::simd::meta::int_c<typename T::type,typename T::type(INT)> {};  \
