@@ -13,12 +13,11 @@
 
 namespace nt2
 {
-  using namespace boost::math::policies;
-
-  typedef policy< domain_error<errno_on_error>
-                , pole_error<errno_on_error>
-                , overflow_error<errno_on_error>
-                , evaluation_error<errno_on_error>
+  typedef boost::math::policies::
+          policy< boost::math::policies::domain_error<boost::math::policies::errno_on_error>
+                , boost::math::policies::pole_error<boost::math::policies::errno_on_error>
+                , boost::math::policies::overflow_error<boost::math::policies::errno_on_error>
+                , boost::math::policies::evaluation_error<boost::math::policies::errno_on_error>
                 > nt2_policy;
 }
 
