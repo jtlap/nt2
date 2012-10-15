@@ -48,12 +48,12 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(all(boost::simd::Inf<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::Minf<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::Mone<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::Nan<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::True<vT>()), boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(all(boost::simd::False<vT>()), boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(boost::simd::all(boost::simd::Inf<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(boost::simd::all(boost::simd::Minf<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(boost::simd::all(boost::simd::Mone<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(boost::simd::all(boost::simd::Nan<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(boost::simd::all(boost::simd::True<vT>()), boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(boost::simd::all(boost::simd::False<vT>()), boost::simd::False<sr_t>());
 } // end of test for floating_
 
 // NT2_TEST_CASE_TPL ( all_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
@@ -75,8 +75,8 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
 
 //   // specific values tests
-//   NT2_TEST_EQUAL(all(boost::simd::True<vT>()), boost::simd::True<sr_t>());
-//   NT2_TEST_EQUAL(all(boost::simd::False<vT>()),boost::simd::False<sr_t>());
-//   NT2_TEST_EQUAL(all(boost::simd::One<vT>()),  boost::simd::True<sr_t>());
-//   NT2_TEST_EQUAL(all(boost::simd::Zero<vT>()), boost::simd::False<sr_t>());
+//   NT2_TEST_EQUAL(boost::simd::all(boost::simd::True<vT>()), boost::simd::True<sr_t>());
+//   NT2_TEST_EQUAL(boost::simd::all(boost::simd::False<vT>()),boost::simd::False<sr_t>());
+//   NT2_TEST_EQUAL(boost::simd::all(boost::simd::One<vT>()),  boost::simd::True<sr_t>());
+//   NT2_TEST_EQUAL(boost::simd::all(boost::simd::Zero<vT>()), boost::simd::False<sr_t>());
 // } // end of test for integer_
