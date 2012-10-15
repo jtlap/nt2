@@ -55,5 +55,5 @@ NT2_TEST_CASE_TPL ( successor_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(successor(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(successor(boost::simd::One<vT>())[0], boost::simd::One<sr_t>()+boost::simd::Eps<sr_t>());
   NT2_TEST_EQUAL(successor(boost::simd::Valmax<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(successor(boost::simd::Zero<vT>())[0], boost::simd::Mindenormal<T>());
+  NT2_TEST_EQUAL(successor(boost::simd::Zero<vT>())[0], boost::simd::Bitincrement<T>());
 } // end of test for floating_

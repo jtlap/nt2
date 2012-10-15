@@ -11,10 +11,12 @@
 
 #include <nt2/core/functions/cast.hpp>
 #include <nt2/include/functions/toint.hpp>
+#include <nt2/include/functions/touint.hpp>
 #include <nt2/include/functions/tofloat.hpp>
 #include <nt2/include/functions/group.hpp>
 #include <nt2/include/functions/split.hpp>
 #include <nt2/include/functions/bitwise_cast.hpp>
+#include <nt2/include/functions/splat.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/sdk/meta/upgrade.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -23,7 +25,9 @@
 #include <nt2/sdk/meta/as_unsigned.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
+#include <boost/simd/sdk/simd/meta/is_vectorizable.hpp>
 #include <boost/mpl/comparison.hpp>
+#include <boost/mpl/and.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -51,21 +55,6 @@ namespace nt2 { namespace ext
 
 namespace nt2 { namespace ext
 {
-  template<class Expr, class Data>
-  struct run_value
-   : meta::strip<typename meta::scalar_of<Expr>::type>
-  {
-  };
-
-  template<class Expr, class Target>
-  struct run_value<Expr, meta::as_<Target> > : run_value<Expr, Target> {};
-
-  template<class Expr, class T, class X>
-  struct run_value<Expr, boost::simd::native<T, X> >
-  {
-    typedef boost::simd::native<typename meta::strip<typename meta::scalar_of<Expr>::type>::type, X> type;
-  };
-
   // scalar impl general
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_, tag::cpu_
                             , (A0)(To)
@@ -88,7 +77,7 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<Data> >)
                             )
   {
-    typedef typename run_value<A0, Data>::type result_type;
+    typedef typename Data::type result_type;
 
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
@@ -97,6 +86,8 @@ namespace nt2 { namespace ext
     }
   };
 
+// can't statically know we have enough data for split
+#if 0
   // split
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)(X)
@@ -109,7 +100,7 @@ namespace nt2 { namespace ext
                               ((target_< simd_< unspecified_<Data>, X > >))
                             )
   {
-    typedef typename run_value<A0, Data>::type rvec;
+    typedef typename Data::type rvec;
     typedef typename meta::downgrade<rvec>::type vec;
     typedef rvec result_type;
 
@@ -118,12 +109,13 @@ namespace nt2 { namespace ext
       typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
 
       rvec r0, r1;
-      nt2::split(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)), r1, r0);
+      nt2::split(nt2::run(boost::proto::child_c<0>(a0), p, meta::as_<vec>()), r1, r0);
 
       // FIXME: only works if p is scalar
       return p/a0.leading_size() % meta::cardinal_of<vec>::value ? r0 : r1;
     }
   };
+#endif
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)
@@ -132,28 +124,30 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<Data> >)
                             )
   {
-    typedef typename run_value<A0, Data>::type result_type;
+    typedef typename Data::type result_type;
 
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
       typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
-      return result_type(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)));
+      return nt2::splat<result_type>(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)));
     }
   };
 
   // group
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)(X)
-                            , (mpl::less< mpl::sizeof_<typename A0::value_type>
-                                        , mpl::sizeof_<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type>
-                                        >
-                              )
+                            , (mpl::and_<
+                                mpl::less< mpl::sizeof_<typename A0::value_type>
+                                         , mpl::sizeof_<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type>
+                                         >
+                              , simd::meta::is_vectorizable<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type, X>
+                              >)
                             , ((node_<A0, nt2::tag::group_, boost::mpl::long_<1> >))
                               (generic_< integer_<State> >)
                               ((target_< simd_< unspecified_<Data>, X > >))
                             )
   {
-    typedef typename run_value<A0, Data>::type rvec;
+    typedef typename Data::type rvec;
     typedef typename meta::upgrade<rvec>::type vec;
     typedef rvec result_type;
 
@@ -162,8 +156,8 @@ namespace nt2 { namespace ext
       typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
 
       vec v0, v1;
-      v0 = run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data));
-      v1 = run(boost::proto::child_c<0>(a0), p+meta::cardinal_of<vec>::value, boost::simd::ext::adapt_data<child0, Data>::call(data));
+      v0 = run(boost::proto::child_c<0>(a0), p, meta::as_<vec>());
+      v1 = run(boost::proto::child_c<0>(a0), p+meta::cardinal_of<vec>::value, meta::as_<vec>());
 
       return nt2::group(v0, v1);
     }
@@ -176,12 +170,12 @@ namespace nt2 { namespace ext
                               (target_< unspecified_<Data> >)
                             )
   {
-    typedef typename run_value<A0, Data>::type result_type;
+    typedef typename Data::type result_type;
 
     result_type operator()(A0& a0, State const& p, Data const& data) const
     {
       typedef typename boost::proto::result_of::child_c<A0&, 0>::value_type child0;
-      return result_type(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)));
+      return nt2::splat<result_type>(nt2::run(boost::proto::child_c<0>(a0), p, boost::simd::ext::adapt_data<child0, Data>::call(data)));
     }
   };
 
@@ -255,12 +249,22 @@ namespace nt2 { namespace ext
   };
 
   template<class Expr, class From, class To>
-  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_floating_point<From>::value && meta::is_integral<To>::value>::type>
+  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_floating_point<From>::value && meta::is_integral<To>::value && meta::is_signed<To>::value>::type>
   {
     typedef typename meta::call<tag::toint_(Expr&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       return nt2::toint(e);
+    }
+  };
+
+  template<class Expr, class From, class To>
+  struct cast_intfloat<Expr, From, To, typename boost::enable_if_c< meta::is_floating_point<From>::value && meta::is_integral<To>::value && meta::is_unsigned<To>::value>::type>
+  {
+    typedef typename meta::call<tag::touint_(Expr&)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      return nt2::touint(e);
     }
   };
 

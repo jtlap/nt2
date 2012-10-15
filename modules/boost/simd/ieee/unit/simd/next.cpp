@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(next(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(next(boost::simd::One<vT>())[0], boost::simd::One<sr_t>()+boost::simd::Eps<sr_t>());
   NT2_TEST_EQUAL(next(boost::simd::Valmax<vT>())[0], boost::simd::Inf<sr_t>());
-  NT2_TEST_EQUAL(next(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>()+boost::simd::Mindenormal<T>());
+  NT2_TEST_EQUAL(next(boost::simd::Zero<vT>())[0], boost::simd::Bitincrement<sr_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)

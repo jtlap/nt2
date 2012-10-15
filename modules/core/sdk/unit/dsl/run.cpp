@@ -81,7 +81,7 @@ NT2_TEST_CASE( value_at )
 {
   using nt2::table;
   using nt2::of_size;
-  typedef double T;
+  typedef float T;
 
   table<T> a0(of_size(4, 3));
   table<T> a1(of_size(4, 3));
@@ -117,7 +117,7 @@ NT2_TEST_CASE( scalar_size )
 {
   using nt2::table;
   using nt2::of_size;
-  typedef double T;
+  typedef float T;
 
   table<T> a0 = T(42);
   NT2_TEST_EQUAL( a0.extent(), of_size(1 ) );
@@ -135,7 +135,7 @@ NT2_TEST_CASE( element_wise )
 {
   using nt2::table;
   using nt2::of_size;
-  typedef double T;
+  typedef float T;
 
   table<T> a0;
   table<boost::dispatch::meta::as_integer<T>::type> a1;

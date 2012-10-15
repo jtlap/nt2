@@ -9,6 +9,7 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_LEGENDRE_NEXT_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_LEGENDRE_NEXT_HPP_INCLUDED
 
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A2 is arithmetic_
@@ -45,7 +46,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A2, A3, A4>::type result_type;
 
     NT2_FUNCTOR_CALL(5)
-    { return boost::math::legendre_next(a0, a1, a2, a3, a4); }
+    { return boost::math::legendre_next(a0, a1, a2, a3, a4, nt2_policy()); }
   };
 } }
 

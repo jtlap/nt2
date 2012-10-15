@@ -9,15 +9,14 @@
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_2_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SCALAR_ELLINT_2_HPP_INCLUDED
 #include <nt2/toolbox/elliptic/functions/ellint_2.hpp>
-#include <boost/math/special_functions.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-
+#include <boost/math/special_functions/ellint_2.hpp>
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
 #include <nt2/include/functions/scalar/oneminus.hpp>
-
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -58,7 +57,7 @@ namespace nt2 { namespace ext
       result_type x = nt2::abs(a0);
       if (x>One<A0>())    return Nan<A0>();
       if (x == One<A0>()) return x;
-      return boost::math::ellint_2(a0);
+      return boost::math::ellint_2(a0, nt2_policy());
     }
   };
 } }

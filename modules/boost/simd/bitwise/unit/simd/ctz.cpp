@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( ctz_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   //NT2_TEST_EQUAL(ctz(boost::simd::Zero<vT>())[0], ctz(boost::simd::Zero<T>()));
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( ctz_ints__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ctz_ints__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::ctz;
   using boost::simd::tag::ctz_;

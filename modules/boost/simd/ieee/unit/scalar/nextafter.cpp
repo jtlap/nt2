@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( nextafter_real__2_0,  (float))
   NT2_TEST_EQUAL(nextafter(boost::simd::Nan<T>(), boost::simd::One<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(nextafter(boost::simd::One<T>(), boost::simd::Inf<T>()), boost::simd::One<r_t>()+boost::simd::Eps<r_t>());
   NT2_TEST_EQUAL(nextafter(boost::simd::Valmax<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
-  NT2_TEST_EQUAL(nextafter(boost::simd::Zero<T>(), boost::simd::One<T>()), boost::simd::Mindenormal<T>());
+  NT2_TEST_EQUAL(nextafter(boost::simd::Zero<T>(), boost::simd::One<T>()), boost::simd::Bitincrement<T>());
 } // end of test for floating_
 NT2_TEST_CASE_TPL ( nextafter_real__2_0d,  (double))
 {
@@ -66,6 +66,6 @@ NT2_TEST_CASE_TPL ( nextafter_real__2_0d,  (double))
   NT2_TEST_EQUAL(nextafter(boost::simd::Nan<T>(), boost::simd::One<T>()), boost::simd::Nan<r_t>());
   NT2_TEST_EQUAL(nextafter(boost::simd::One<T>(), boost::simd::Inf<T>()), boost::simd::One<r_t>()+boost::simd::Eps<r_t>());
   NT2_TEST_EQUAL(nextafter(boost::simd::Valmax<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
-  NT2_TEST_EQUAL(nextafter(boost::simd::Zero<T>(), boost::simd::One<T>()), boost::simd::Mindenormal<T>());
+  NT2_TEST_EQUAL(nextafter(boost::simd::Zero<T>(), boost::simd::One<T>()), boost::simd::Bitincrement<T>());
   
 } // end of test for floating_

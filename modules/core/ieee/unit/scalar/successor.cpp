@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( successor_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(successor(nt2::Nan<T>()), nt2::Nan<r_t>());
   NT2_TEST_EQUAL(successor(nt2::One<T>()), nt2::One<r_t>()+nt2::Eps<r_t>());
   NT2_TEST_EQUAL(successor(nt2::Valmax<T>()), nt2::Inf<r_t>());
-  NT2_TEST_EQUAL(successor(nt2::Zero<T>()), nt2::Mindenormal<T>());
+  NT2_TEST_EQUAL(successor(nt2::Zero<T>()), nt2::Bitincrement<T>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( successor_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)

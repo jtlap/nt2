@@ -12,6 +12,7 @@
 
 #include <boost/simd/toolbox/swar/functions/enumerate.hpp>
 #include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,13 +29,14 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename T::type result_type;
+    typedef typename result_type::native_type native_type;
 
     result_type operator()(A0 const& a0, T const& ) const
     {
       // add [a0 ... a0] with [0 1 2 ... 12 15]
       return vec_add ( splat<result_type>(a0)()
-                                    , vec_lvsl(0,(char*)(0))
-                                    );
+                     , bitwise_cast<result_type>(vec_lvsl(0,(unsigned char*)(0)))()
+                     );
     }
   };
 } } }

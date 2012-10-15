@@ -10,7 +10,7 @@
 #define NT2_SDK_CONFIG_DETAILS_CACHE_CACHE_HPP_INCLUDED
 
 #include <boost/array.hpp>
-#include <nt2/sdk/config/details/detect_cache.hpp>
+#include <nt2/sdk/config/details/cache/detect_cache.hpp>
 
 namespace nt2{ namespace config{ namespace details{
 

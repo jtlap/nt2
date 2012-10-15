@@ -19,7 +19,7 @@
 #include <nt2/include/functions/scalar/oneminus.hpp>
 #include <nt2/include/functions/scalar/sqrt.hpp>
 #include <nt2/include/functions/scalar/log.hpp>
-
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
       if (a0>One<A0>()||(is_ltz(a0))) return Nan<type>();
       if (is_eqz(a0))  return One<type>();
       if (a0 == One<A0>()) return Pio_2<type>();
-      return boost::math::ellint_2(sqrt(oneminus(type(a0))));
+      return boost::math::ellint_2(sqrt(oneminus(type(a0))), nt2_policy());
     }
   };
 } }

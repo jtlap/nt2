@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_STORE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_VMX_ALTIVEC_STORE_HPP_INCLUDED
@@ -16,6 +16,7 @@
 // TODO : Make them work properly with ContiguousRandomAccessIterator
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/operator/functions/store.hpp>
+#include <boost/simd/toolbox/operator/functions/simd/details/char_helper.hpp>
 #include <boost/simd/sdk/memory/details/category.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/assert.hpp>
@@ -37,7 +38,7 @@ namespace boost { namespace simd { namespace ext
      && boost::simd::memory::is_aligned(a1+a2,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to store with a pointer that"
         " is not aligned on the simd vector size.");
-      vec_st(a0.data_, a2*sizeof(*a1), a1);
+      vec_st(a0.data_, a2*sizeof(*a1), char_helper(a1));
       return a0;
     }
   };

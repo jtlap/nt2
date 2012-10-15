@@ -17,6 +17,7 @@
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/toolbox/constant/constants/smallestposval.hpp>
 
 /*!
  * \ingroup boost_simd_constant
@@ -63,6 +64,7 @@ namespace boost { namespace simd
      * \brief Define the tag Mindenormal of functor Mindenormal
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
+
     struct Mindenormal : ext::constant_<Mindenormal>
     {
       template<class Target, class Dummy=void>
@@ -78,7 +80,14 @@ namespace boost { namespace simd
           : meta::double_<1> {};
   }
 
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mindenormal, Mindenormal)
+
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(
+#ifdef BOOST_SIMD_NO_DENORMALS
+    boost::simd::tag::Smallestposval
+#else
+    boost::simd::tag::Mindenormal
+#endif
+    , Mindenormal)
 } }
 
 #include <boost/simd/sdk/constant/common.hpp>

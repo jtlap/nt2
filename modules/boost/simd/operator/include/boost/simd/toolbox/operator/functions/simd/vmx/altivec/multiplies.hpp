@@ -14,6 +14,8 @@
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/include/constants/mzero.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,7 +28,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return vec_madd(a0(),a1(),Zero<A0>()());
+      return vec_madd(a0(),a1(), boost::simd::Mzero<A0>()());
     }
   };
 

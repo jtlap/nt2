@@ -13,6 +13,7 @@
 #include <nt2/toolbox/exponential/details/math.hpp>
 #include <boost/math/special_functions/cbrt.hpp>
 #include <nt2/include/functions/scalar/is_invalid.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -54,7 +55,7 @@ namespace nt2 { namespace ext
 #ifdef NT2_TOOLBOX_EXPONENTIAL_HAS_CBRT
       return ::cbrt(a0);
 #else
-      return boost::math::cbrt(a0);
+      return boost::math::cbrt(a0, nt2_policy());
 #endif
     }
   };
@@ -80,7 +81,7 @@ namespace nt2 { namespace ext
 #ifdef NT2_TOOLBOX_EXPONENTIAL_HAS_CBRTF
       return ::cbrtf(a0);
 #else
-      return boost::math::cbrt(a0);
+      return boost::math::cbrt(a0, nt2_policy());
 #endif
     }
   };

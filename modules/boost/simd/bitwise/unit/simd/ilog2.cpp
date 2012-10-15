@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/ilog2.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/ilogb.hpp>
@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL ( ilog2_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::ilog2;
   using boost::simd::tag::ilog2_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -53,11 +53,11 @@ NT2_TEST_CASE_TPL ( ilog2_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(ilog2(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( ilog2_ints__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( ilog2_ints__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::ilog2;
   using boost::simd::tag::ilog2_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -76,6 +76,6 @@ NT2_TEST_CASE_TPL ( ilog2_ints__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   for (T i =  2;  i < boost::simd::Valmax<T>()/2; i*= 2)
     {
       NT2_TEST_EQUAL(ilog2(boost::simd::splat<vT>(i))[0], ilog2(i));
-      NT2_TEST_EQUAL(ilog2(boost::simd::splat<vT>(i+1))[0], ilog2(i));                    
+      NT2_TEST_EQUAL(ilog2(boost::simd::splat<vT>(i+1))[0], ilog2(i));
     }
 } // end of test for floating_

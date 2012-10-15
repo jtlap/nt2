@@ -7,6 +7,12 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+# core.signal only works on x86 for now
+include(nt2.info)
+if(NOT NT2_ARCH_X86)
+  set(NT2_CORE.SIGNAL_DEPENDENCIES_FOUND 0)
+endif()
+
 SET ( NT2_CORE.SIGNAL_DEPENDENCIES_EXTRA  sdk.simd
                                           core.operator       core.constant
                                           core.arithmetic     core.bitwise

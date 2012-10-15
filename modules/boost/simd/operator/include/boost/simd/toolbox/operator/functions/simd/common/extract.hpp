@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/mpl/equal_to.hpp>
 #include <boost/mpl/sizeof.hpp>
+#include <boost/simd/sdk/simd/native_tuple.hpp>
 #include <boost/fusion/include/copy.hpp>
 #include <boost/type_traits/remove_reference.hpp>
 

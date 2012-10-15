@@ -64,7 +64,6 @@ NT2_TEST_CASE_TPL ( ffs_float_1_0,  NT2_SIMD_REAL_TYPES)
 } // end of test for float
 
 
-
 NT2_TEST_CASE_TPL ( ffs_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::ffs;

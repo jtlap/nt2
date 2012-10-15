@@ -28,7 +28,7 @@ template<class T>
 void vectorizable_0(T const&)
 {
   typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
-  typedef boost::simd::native<double, BOOST_SIMD_DEFAULT_EXTENSION> Data;
+  typedef boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> Data;
   typedef typename nt2::meta::cardinal_of<Data>::type Cardinal;
 
   typedef typename boost::proto::result_of::child_c<aggregate, 0>::value_type idx0;
@@ -50,7 +50,7 @@ template<class T>
 void vectorizable_1(T const&)
 {
   typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
-  typedef boost::dispatch::meta::as_< boost::simd::native<double, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
+  typedef boost::dispatch::meta::as_< boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
   typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
 
   typedef typename boost::proto::result_of::child_c<aggregate, 0>::value_type idx0;
@@ -75,10 +75,10 @@ NT2_TEST_CASE( vectorizable )
   namespace mpl = boost::mpl;
   using nt2::of_size_;
   using nt2::of_size;
-  typedef double T;
+  typedef float T;
 
   nt2::table<T> a;
-  vectorizable_0( a(_, _(1, 4), _(mpl::int_<1>(), mpl::int_<4>()), 1) );
+  vectorizable_0( a(_, _(1, 16), _(mpl::int_<1>(), mpl::int_<16>()), 1) );
   vectorizable_1( a(_, _, _, _(mpl::int_<1>(), mpl::int_<7>())) );
 }
 

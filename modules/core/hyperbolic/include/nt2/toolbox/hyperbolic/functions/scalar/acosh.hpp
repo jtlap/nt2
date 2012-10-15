@@ -44,21 +44,22 @@ namespace nt2 { namespace ext
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
-  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::acosh_, tag::cpu_,
-           (A0),
-           (scalar_< floating_<A0> > )
-           )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::acosh_
+                            , tag::cpu_
+			    , (A0)
+			    , (scalar_< floating_<A0> > )
+                            )
   {
     typedef A0 result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
-  if (a0 < One<A0>()) return Nan<A0>();
-  if (a0 == Inf<A0>()) return a0;
-  A0 t = minusone(a0);
-  if (t < 16*Sqrteps<A0>()) return nt2::sqrt(Two<A0>()*t)*(oneplus(t/12+3*sqr(t)/160));
-  return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));
-      }
+    {
+      if (a0 < One<A0>()) return Nan<A0>();
+      if (a0 == Inf<A0>()) return a0;
+      A0 t = minusone(a0);
+      if (t < 16*Sqrteps<A0>()) return nt2::sqrt(Two<A0>()*t)*(oneplus(t/12+3*sqr(t)/160));
+      return nt2::log1p(t+nt2::sqrt((t+t)+sqr(t)));
+    }
   };
 } }
 

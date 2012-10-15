@@ -9,47 +9,25 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_META_UPGRADE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_META_UPGRADE_HPP_INCLUDED
 
-#include <boost/dispatch/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/utility/enable_if.hpp>
 
-namespace boost { namespace dispatch
+
+namespace boost { namespace dispatch { namespace ext
 {
-    namespace details { namespace simd
+    template< class Type
+            , std::size_t Cardinal
+            , class Sign
+            >
+    struct upgrade< boost::simd::pack<Type, Cardinal>, Sign, typename boost::enable_if_c< (sizeof(typename meta::primitive_of<Type>::type) < 8) >::type >
     {
-        template<typename T, typename U>
-        struct upgrade;
-        
-        template< class Type
-                , std::size_t Cardinal
-                >
-        struct upgrade< boost::simd::pack<Type, Cardinal>, Type >
-        {
-            typedef boost::simd::pack<Type, Cardinal> type;
-        };
-        
-        template< class Type
-                , std::size_t Cardinal
-                , class UpType
-                >
-        struct upgrade< boost::simd::pack<Type, Cardinal>, UpType >
-        {
-            typedef boost::simd::pack<UpType, Cardinal/2> type;
-        };
-    } }
-    
-    namespace meta
-    {
-        template< class Type
-                , std::size_t Cardinal
-                >
-        struct upgrade< boost::simd::pack<Type, Cardinal> >
-        {
-            typedef typename boost::dispatch::details::simd::upgrade<
-                boost::simd::pack<Type, Cardinal>
-              , typename upgrade<Type>::type
-            >::type type;
-        };
-    }
-} }
+      typedef typename upgrade<Type, Sign>::type uT;
+      typedef boost::simd::pack<uT, Cardinal/2> type;
+    };
+
+} } }
+
 
 #endif

@@ -12,7 +12,7 @@
 // unit test behavior of polynomials components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// 
+///
 #include <nt2/toolbox/polynomials/include/functions/plevl.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 
@@ -28,11 +28,11 @@
 
 #include <boost/array.hpp>
 
-NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::plevl;
   using nt2::tag::plevl_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef boost::array<T, 3 > A_t;
@@ -45,11 +45,11 @@ NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   static const boost::array<T, 3 > A= {{T(2), T(3), T(4) }};
-      
+
   NT2_TEST_EQUAL(plevl( nt2::splat<vT>(1), A)[0], T(10)); //1*1^3 + 2*1^2 + 3*1 +4
   NT2_TEST_EQUAL(plevl( nt2::splat<vT>(2), A)[0], T(26)); //1*2^3 + 2*2^2 + 3*2 +4
   NT2_TEST_EQUAL(plevl( nt2::splat<vT>(3), A)[0], T(58)); //1*3^3 + 2*3^2 + 3*3 +4
 
   // specific values tests
-  
+
 } // end of test for floating_

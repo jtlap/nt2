@@ -32,7 +32,7 @@
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
 
-NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   
   using boost::simd::native;

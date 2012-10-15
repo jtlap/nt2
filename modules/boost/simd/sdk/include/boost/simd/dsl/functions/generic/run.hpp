@@ -16,6 +16,8 @@
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
 #include <boost/simd/sdk/simd/native_fwd.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/dispatch/meta/as.hpp>
 
@@ -49,7 +51,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::scalar_of<Expr>::type stype;
     typedef typename boost::dispatch::meta::strip<stype>::type sstype;
-    typedef boost::dispatch::meta::as_< boost::simd::native<sstype, X> > type;
+    typedef boost::dispatch::meta::as_< typename boost::simd::meta::vector_of<sstype, boost::simd::meta::cardinal_of< boost::simd::native<T, X> >::value>::type > type;
     BOOST_FORCEINLINE static type call(boost::dispatch::meta::as_< boost::simd::native<T, X> > const&)
     {
       return type();

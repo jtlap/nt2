@@ -9,47 +9,38 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PACK_META_DOWNGRADE_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PACK_META_DOWNGRADE_HPP_INCLUDED
 
-#include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/sdk/simd/pack/forward.hpp>
+#include <boost/dispatch/meta/downgrade.hpp>
+#include <boost/dispatch/meta/primitive_of.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/utility/enable_if.hpp>
 
-namespace boost { namespace dispatch
+namespace boost { namespace dispatch { namespace details
 {
-    namespace details { namespace simd
+    template<class T>
+    struct downgrade_is_smallest
+         : boost::mpl::bool_< sizeof(T) == 1 >
     {
-        template<typename T, typename U>
-        struct downgrade;
-        
-        template< class Type
-                , std::size_t Cardinal
-                >
-        struct downgrade< boost::simd::pack<Type, Cardinal>, Type >
-        {
-            typedef boost::simd::pack<Type, Cardinal> type;
-        };
-        
-        template< class Type
-                , std::size_t Cardinal
-                , class DownType
-                >
-        struct downgrade< boost::simd::pack<Type, Cardinal>, DownType >
-        {
-            typedef boost::simd::pack<DownType, Cardinal*2> type;
-        };
-    } }
-    
-    namespace meta
+    };
+
+    template<>
+    struct downgrade_is_smallest<float>
+         : boost::mpl::true_
     {
-        template< class Type
-                , std::size_t Cardinal
-                >
-        struct downgrade< boost::simd::pack<Type, Cardinal> >
-        {
-            typedef typename boost::dispatch::details::simd::downgrade<
-                boost::simd::pack<Type, Cardinal>
-              , typename downgrade<Type>::type
-            >::type type;
-        };
-    }
-} }
+    };
+} } }
+
+namespace boost { namespace dispatch { namespace ext
+{
+    template< class Type
+            , std::size_t Cardinal
+            , class Sign
+            >
+    struct downgrade< boost::simd::pack<Type, Cardinal>, Sign, typename boost::disable_if< details::downgrade_is_smallest<typename meta::primitive_of<Type>::type> >::type >
+    {
+        typedef typename downgrade<Type, Sign>::type dT;
+        typedef boost::simd::pack<dT, Cardinal*2> type;
+    };
+} } }
 
 #endif

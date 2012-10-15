@@ -283,31 +283,37 @@ NT2_TEST_CASE(hierarchy_of_double)
 NT2_TEST_CASE(hierarchy_of_float)
 {
   using boost::is_same;
-  using namespace boost::simd::meta;
-  using namespace boost::simd;
-  using namespace boost::dispatch::meta;
+  //using boost::simd::meta;
+  //using namespace boost::simd;
+  //using namespace boost::dispatch::meta;
+  using boost::dispatch::meta::target_;
+  using boost::dispatch::meta::simd_;
+  using boost::dispatch::meta::as_;
+  using boost::dispatch::meta::generic_;
+  using boost::dispatch::meta::hierarchy_of;
+  using boost::simd::native;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION                ext_t;
   typedef native<float,ext_t> dst_t;
 
   typedef hierarchy_of< as_<dst_t> >::type base;
 
-  NT2_TEST( (is_same<target_<simd_<single_<as_<dst_t> >,ext_t       > > , base >::value) );
-  NT2_TEST( (is_same<target_<simd_<type32_<as_<dst_t> >,ext_t      > > , UP(base,1) >::value) );
-  NT2_TEST( (is_same<target_<simd_<floating_sized_< as_<dst_t> >,ext_t > > , UP(base,2) >::value) );
-  NT2_TEST( (is_same<target_<simd_<floating_<as_<dst_t> >,ext_t        > > , UP(base,3) >::value) );
-  NT2_TEST( (is_same<target_<simd_<signed_<as_<dst_t> >,ext_t      > > , UP(base,4) >::value) );
-  NT2_TEST( (is_same<target_<simd_<arithmetic_<as_<dst_t> >,ext_t  > > , UP(base,5) >::value) );
-  NT2_TEST( (is_same<target_<simd_<fundamental_<as_<dst_t> >,ext_t > > , UP(base,6) >::value) );
-  NT2_TEST( (is_same<target_<simd_<unspecified_<as_<dst_t> >,ext_t > > , UP(base,7) >::value) );
+  NT2_TEST( (is_same<target_<simd_<boost::dispatch::meta::single_<as_<dst_t> >,ext_t> >, base >::value) );
+  NT2_TEST( (is_same<target_<simd_<boost::dispatch::meta::type32_<as_<dst_t> >,ext_t      > > , UP(base,1) >::value) );
+  NT2_TEST( (is_same<target_<simd_<boost::dispatch::meta::floating_sized_< as_<dst_t> >,ext_t > > , UP(base,2) >::value) );
+  NT2_TEST( (is_same<target_<simd_<boost::dispatch::meta::floating_<as_<dst_t> >,ext_t        > > , UP(base,3) >::value) );
+  NT2_TEST( (is_same<target_<simd_<boost::dispatch::meta::signed_<as_<dst_t> >,ext_t      > > , UP(base,4) >::value) );
+  NT2_TEST( (is_same<target_<simd_<boost::dispatch::meta::arithmetic_<as_<dst_t> >,ext_t  > > , UP(base,5) >::value) );
+  NT2_TEST( (is_same<target_<simd_<boost::dispatch::meta::fundamental_<as_<dst_t> >,ext_t > > , UP(base,6) >::value) );
+  NT2_TEST( (is_same<target_<simd_<boost::dispatch::meta::unspecified_<as_<dst_t> >,ext_t > > , UP(base,7) >::value) );
 
-  NT2_TEST( (is_same<target_<generic_<single_<as_<dst_t> >       > > , UP(base,8) >::value) );
-  NT2_TEST( (is_same<target_<generic_<type32_<as_<dst_t> >      > > , UP(base,9) >::value) );
-  NT2_TEST( (is_same<target_<generic_<floating_sized_<as_<dst_t> >  > > , UP(base,10) >::value) );
-  NT2_TEST( (is_same<target_<generic_<floating_<as_<dst_t> >        > > , UP(base,11) >::value) );
-  NT2_TEST( (is_same<target_<generic_<signed_<as_<dst_t> >      > > , UP(base,12) >::value) );
-  NT2_TEST( (is_same<target_<generic_<arithmetic_<as_<dst_t> >  > > , UP(base,13) >::value) );
-  NT2_TEST( (is_same<target_<generic_<fundamental_<as_<dst_t> > > > , UP(base,14) >::value) );
-  NT2_TEST( (is_same<target_<generic_<unspecified_<as_<dst_t> > > > , UP(base,15) >::value) );
-  NT2_TEST( (is_same<target_<unspecified_<as_<dst_t> > >            , UP(base,16) >::value) );
+  NT2_TEST( (is_same<target_<generic_<boost::dispatch::meta::single_<as_<dst_t> >       > > , UP(base,8) >::value) );
+  NT2_TEST( (is_same<target_<generic_<boost::dispatch::meta::type32_<as_<dst_t> >      > > , UP(base,9) >::value) );
+  NT2_TEST( (is_same<target_<generic_<boost::dispatch::meta::floating_sized_<as_<dst_t> >  > > , UP(base,10) >::value) );
+  NT2_TEST( (is_same<target_<generic_<boost::dispatch::meta::floating_<as_<dst_t> >        > > , UP(base,11) >::value) );
+  NT2_TEST( (is_same<target_<generic_<boost::dispatch::meta::signed_<as_<dst_t> >      > > , UP(base,12) >::value) );
+  NT2_TEST( (is_same<target_<generic_<boost::dispatch::meta::arithmetic_<as_<dst_t> >  > > , UP(base,13) >::value) );
+  NT2_TEST( (is_same<target_<generic_<boost::dispatch::meta::fundamental_<as_<dst_t> > > > , UP(base,14) >::value) );
+  NT2_TEST( (is_same<target_<generic_<boost::dispatch::meta::unspecified_<as_<dst_t> > > > , UP(base,15) >::value) );
+  NT2_TEST( (is_same<target_<boost::dispatch::meta::unspecified_<as_<dst_t> > >            , UP(base,16) >::value) );
 }

@@ -48,6 +48,7 @@ namespace nt2 { namespace ext
                               (target_<scalar_<unspecified_<Data> > >)
                             )
   {
+
     typedef typename boost::dispatch::meta::
     scalar_of<A0&>::type                               result_type;
 

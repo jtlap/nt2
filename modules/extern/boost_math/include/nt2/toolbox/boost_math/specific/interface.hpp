@@ -9,16 +9,6 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_SPECIFIC_INTERFACE_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_SPECIFIC_INTERFACE_HPP_INCLUDED
 
-
-using namespace boost::math::policies;
-typedef policy<
-   domain_error<errno_on_error>,
-   pole_error<errno_on_error>,
-   overflow_error<errno_on_error>,
-   evaluation_error<errno_on_error>
-> nt2_policy;
-
-
 namespace nt2
 {
 

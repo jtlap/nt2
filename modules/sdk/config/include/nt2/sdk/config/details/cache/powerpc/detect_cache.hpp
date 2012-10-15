@@ -6,11 +6,25 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_CONFIG_DETAILS_CACHE_DETECT_CACHE_HPP_INCLUDED
-#define NT2_SDK_CONFIG_DETAILS_CACHE_DETECT_CACHE_HPP_INCLUDED
+#ifndef NT2_SDK_CONFIG_DETAILS_CACHE_POWERPC_DETECT_CACHE_HPP_INCLUDED
+#define NT2_SDK_CONFIG_DETAILS_CACHE_POWERPC_DETECT_CACHE_HPP_INCLUDED
 
-#define NT2_MAX_CACHE_LEVEL 4
+#include <boost/simd/sdk/config/arch.hpp>
 
-#include <nt2/sdk/config/details/x86/detect_cache.hpp>
+#ifdef BOOST_SIMD_ARCH_POWERPC
+#include <boost/simd/sdk/config/details/get_vendor.hpp>
+#include <boost/assert.hpp>
+
+namespace nt2{ namespace config{ namespace details{
+
+  template<class Seq>
+  inline void detect_cache(Seq& cache_sizes_, Seq& cache_line_sizes_)
+  {
+    //Todo: runtime cache detection on ppc
+  }
+
+} } }
+
+#endif
 
 #endif

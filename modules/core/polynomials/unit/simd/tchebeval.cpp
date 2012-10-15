@@ -12,7 +12,7 @@
 // unit test behavior of polynomials components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// 
+///
 #include <nt2/toolbox/polynomials/include/functions/tchebeval.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 
@@ -26,11 +26,11 @@
 #include <nt2/include/functions/load.hpp>
 #include <boost/array.hpp>
 
-NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::tchebeval;
   using nt2::tag::tchebeval_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef boost::array<T, 4 > A_t;
@@ -45,8 +45,8 @@ NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 
   static const boost::array<T, 4 > A= {{ T(1), T(2), T(3), T(4) }};
 
-  NT2_TEST_EQUAL(tchebeval( nt2::splat<vT>(1), A)[0], T(1.5)); 
-  NT2_TEST_EQUAL(tchebeval( nt2::splat<vT>(2), A)[0], T(8.0)); 
-  NT2_TEST_EQUAL(tchebeval( nt2::splat<vT>(3), A)[0], T(22.5)); 
+  NT2_TEST_EQUAL(tchebeval( nt2::splat<vT>(1), A)[0], T(1.5));
+  NT2_TEST_EQUAL(tchebeval( nt2::splat<vT>(2), A)[0], T(8.0));
+  NT2_TEST_EQUAL(tchebeval( nt2::splat<vT>(3), A)[0], T(22.5));
 
 } // end of test for floating_

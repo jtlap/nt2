@@ -28,6 +28,7 @@
 #include <nt2/include/functions/scalar/ellpe.hpp>
 #include <nt2/include/functions/scalar/ellpk.hpp>
 #include <nt2/include/functions/scalar/ceil.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -69,7 +70,7 @@ namespace nt2 { namespace ext
       typedef result_type type;
       if (a1>One<A0>()||(is_ltz(a1))) return Nan<type>();
       if (is_eqz(a1))  return type(a0);
-      return boost::math::ellint_2(nt2::sqrt(type(a1)), type(a0));
+      return boost::math::ellint_2(nt2::sqrt(type(a1)), type(a0), nt2_policy());
     }
   };
 } }

@@ -70,7 +70,7 @@ struct random_
                 ::int_< (Index::value * 3 + 1) % Cardinal::value > {};
 };
 
-NT2_TEST_CASE_TPL ( permute, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL ( permute, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::permute;
   using boost::simd::native;

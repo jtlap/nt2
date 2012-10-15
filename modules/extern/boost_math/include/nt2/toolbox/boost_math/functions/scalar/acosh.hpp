@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_ACOSH_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SCALAR_ACOSH_HPP_INCLUDED
 #include <nt2/toolbox/boost_math/functions/acosh.hpp>
-#include <nt2/toolbox/boost_math/specific/interface.hpp>
+#include <nt2/sdk/error/policies.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::boost_math::acosh(result_type(a0), nt2_policy());
+      return nt2::boost_math::acosh(result_type(a0));
     }
   };
 } }
@@ -43,7 +43,7 @@ namespace nt2 { namespace ext
   {
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
-    { return boost::math::acosh(a0); }
+    { return boost::math::acosh(a0, nt2_policy()); }
   };
 } }
 

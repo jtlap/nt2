@@ -12,7 +12,7 @@
 // unit test behavior of euler components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/erfcinv.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/splat.hpp>
@@ -36,9 +36,9 @@
 #include <nt2/include/constants/eight.hpp>
 
 
-NT2_TEST_CASE_TPL ( erfcinv_real__1_0, NT2_REAL_TYPES)
+NT2_TEST_CASE_TPL ( erfcinv_real__1_0, NT2_SIMD_REAL_TYPES)
 {
- 
+
   using nt2::erfcinv;
   using nt2::tag::erfcinv_;
   using boost::simd::native;
