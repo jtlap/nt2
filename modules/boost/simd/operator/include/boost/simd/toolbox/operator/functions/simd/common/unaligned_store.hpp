@@ -25,8 +25,8 @@ namespace boost { namespace simd { namespace ext
   // scalar emulation
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_, tag::cpu_
                             , (A0)(A1)(A2)(X)
-                            , ((simd_< fundamental_<A0>, X >))
-                              (iterator_<scalar_< fundamental_<A1> > >)
+                            , ((simd_< unspecified_<A0>, X >))
+                              (iterator_< unspecified_<A1> >)
                               (scalar_< integer_<A2> >)
                             )
   {
@@ -41,8 +41,8 @@ namespace boost { namespace simd { namespace ext
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_, tag::cpu_
                             , (A0)(A1)(X)
-                            , ((simd_< fundamental_<A0>, X >))
-                              (iterator_<scalar_< fundamental_<A1> > >)
+                            , ((simd_< unspecified_<A0>, X >))
+                              (iterator_<unspecified_<A1> >)
                             )
   {
     typedef A0 const& result_type;

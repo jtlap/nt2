@@ -23,9 +23,9 @@ namespace boost { namespace simd { namespace ext
   // regular load
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
                             , (A0)(A1)(A2)(X)
-                            , (iterator_<scalar_< fundamental_<A0> > >)
+                            , (iterator_<unspecified_<A0> >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< fundamental_<A2>, X > >))
+                              ((target_< simd_< unspecified_<A2>, X > >))
                             )
   {
     typedef typename dispatch::meta::
@@ -45,9 +45,9 @@ namespace boost { namespace simd { namespace ext
   // shifted load
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::load_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(X)
-                            , (iterator_<scalar_< fundamental_<A0> > >)
+                            , (iterator_<unspecified_<A0> >)
                               (scalar_< fundamental_<A1> >)
-                              ((target_< simd_< fundamental_<A2>, X > >))
+                              ((target_< simd_< unspecified_<A2>, X > >))
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
@@ -73,9 +73,9 @@ namespace boost { namespace simd { namespace ext
                                             , boost::simd::meta::cardinal_of<typename A2::type>
                                             >
                               )
-                            , (iterator_< scalar_< fundamental_<A0> > >)
+                            , (iterator_< unspecified_<A0> >)
                               ((simd_< integer_<A1>, X >))
-                              ((target_< simd_< fundamental_<A2>, Y > >))
+                              ((target_< simd_< unspecified_<A2>, Y > >))
                             )
   {
     typedef typename dispatch::meta::

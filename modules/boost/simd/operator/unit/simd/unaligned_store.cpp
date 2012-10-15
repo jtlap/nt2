@@ -85,3 +85,35 @@ NT2_TEST_CASE( unaligned_store_sequence )
     NT2_TEST_EQUAL(boost::fusion::at_c<2>(v)[j] , scdata[j]);
   }
 }
+
+NT2_TEST_CASE( unaligned_store_pointer_of_sequence )
+{
+  using boost::simd::unaligned_store;
+  using boost::simd::unaligned_load;
+  using boost::simd::tag::unaligned_store_;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  static const size_t sz = cardinal_of< native<foo,ext_t> >::value;
+  foo sdata[sz];
+  foo ddata[sz];
+  for(size_t i=0;i<sz;++i)
+  {
+    sdata[i].d = char(1+i);
+    sdata[i].f = float(2+i);
+    sdata[i].c = double(3+i);
+  }
+
+  typedef native<foo, ext_t> seq_t;
+  foo dest;
+  seq_t v = unaligned_load<seq_t>(&sdata[0], 0);
+  unaligned_store(v, &ddata[0], 0);
+
+  for(size_t j=0;j<sz;++j)
+  {
+    NT2_TEST_EQUAL(ddata[j].d , sdata[j].d);
+    NT2_TEST_EQUAL(ddata[j].f , sdata[j].f);
+    NT2_TEST_EQUAL(ddata[j].c , sdata[j].c);
+  }
+}

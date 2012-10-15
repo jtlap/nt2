@@ -85,9 +85,6 @@ NT2_TEST_CASE_TPL(load, BOOST_SIMD_TYPES)
   NT2_TEST_EQUAL( (load<T,4>(&data[0],0)) , T(4) );
 }
 
-struct foo { double d; float f; char c; };
-BOOST_FUSION_ADAPT_STRUCT(foo,(double,d)(float,f)(char,c))
-
 NT2_TEST_CASE( load_sequence )
 {
   using boost::simd::load;
@@ -101,6 +98,26 @@ NT2_TEST_CASE( load_sequence )
   boost::fusion::vector<double,float,char> v;
 
   v = load< boost::fusion::vector<double,float,char> >(boost::fusion::make_vector(&d, &f, &c), 0);
+
+  NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , d);
+  NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , f);
+  NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , c);
+}
+
+NT2_TEST_CASE( load_pointer_of_sequence )
+{
+  using boost::simd::load;
+  using boost::simd::tag::load_;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  double d = 3.4;
+  float  f = 1.8;
+  char   c = 'a';
+
+  boost::fusion::vector<double,float,char> s(d,f,c);
+  boost::fusion::vector<double,float,char> v;
+
+  v = load< boost::fusion::vector<double,float,char> >(&s, 0);
 
   NT2_TEST_EQUAL(boost::fusion::at_c<0>(v) , d);
   NT2_TEST_EQUAL(boost::fusion::at_c<1>(v) , f);

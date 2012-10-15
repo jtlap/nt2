@@ -32,9 +32,6 @@ NT2_TEST_CASE_TPL(unaligned_store, BOOST_SIMD_TYPES)
   NT2_TEST_EQUAL( data[4], T(4) );
 }
 
-struct foo { double d; float f; char c; };
-BOOST_FUSION_ADAPT_STRUCT(foo,(double,d)(float,f)(char,c))
-
 NT2_TEST_CASE( unaligned_store_sequence )
 {
   using boost::simd::unaligned_store;
@@ -58,3 +55,26 @@ NT2_TEST_CASE( unaligned_store_sequence )
   NT2_TEST_EQUAL(boost::fusion::at_c<2>(v) , sc);
 }
 
+NT2_TEST_CASE( unaligned_store_pointer_of_sequence )
+{
+  using boost::simd::unaligned_store;
+  using boost::simd::unaligned_load;
+  using boost::simd::tag::unaligned_store_;
+
+  double d = 3.4;
+  float  f = 1.8;
+  char   c = 'a';
+  double sd;
+  float  sf;
+  char   sc;
+
+  boost::fusion::vector<double,float,char> v,dest;
+  boost::fusion::vector<double,float,char> s(d,f,c);
+
+  v = unaligned_load< boost::fusion::vector<double,float,char> >(&s, 0);
+  unaligned_store(v,&dest,0);
+
+  NT2_TEST_EQUAL(boost::fusion::at_c<0>(dest) , d);
+  NT2_TEST_EQUAL(boost::fusion::at_c<1>(dest) , f);
+  NT2_TEST_EQUAL(boost::fusion::at_c<2>(dest) , c);
+}
