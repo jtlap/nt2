@@ -19,6 +19,7 @@
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/unary_minus.hpp>
 #include <nt2/include/functions/if_else.hpp>
+#include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_finite.hpp>

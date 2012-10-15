@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_COMMON_INBTRUE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/reduction/functions/inbtrue.hpp>
+#include <boost/simd/include/functions/if_one_else_zero.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -22,11 +23,10 @@ namespace boost { namespace simd { namespace ext
     typedef std::size_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      result_type z = a0[0] != 0;
+      result_type z = if_one_else_zero(a0[0]);
       for(size_t i = 1; i< boost::simd::meta::cardinal_of<A0>::value; ++i)
-      {
-        z += bool(a0[i] != 0);
-      }
+        z += if_one_else_zero(a0[i]);
+
       return z;
     }
   };
@@ -40,15 +40,9 @@ namespace boost { namespace simd { namespace ext
     typedef std::size_t result_type;
     inline result_type operator()(A0 const & a0, A1 const &) const
     {
-      result_type z = a0[0] != 0;
-      for(size_t i = 1; i< boost::simd::meta::cardinal_of<A0>::value; ++i)
-      {
-        z += bool(a0[i] != 0);
-      }
-      return z;
+      return boost::simd::inbtrue(a0);
     }
   };
 } } }
-
 
 #endif
