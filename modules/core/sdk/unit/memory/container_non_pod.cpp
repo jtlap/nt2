@@ -53,33 +53,17 @@ NT2_TEST_CASE( container_static_default_ctor)
   using nt2::settings;
   using nt2::memory::container;
 
-  {
-    typedef container<nt2::object,settings(of_size_<3,7>)> type;
-    type b;
+  typedef container<nt2::object,settings(of_size_<3,7>)> type;
+  type b;
 
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>())  );
+  NT2_TEST_EQUAL(b.raw(), &b[0]);
 
-    for(  type::difference_type j=0;j<7;++j)
-      for(  type::difference_type i=0;i<3;++i)
-        NT2_TEST_EQUAL( b[i+3*j].s , std::string("default") );
-  }
-
-  {
-    typedef container<nt2::object,settings(of_size_<1,5>)> type;
-    type b;
-
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL(b.extent(), (of_size_<1,5>()));
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
-
-    for(  type::difference_type j=0;j<5;++j)
-      for(  type::difference_type i=0;i<1;++i)
-        NT2_TEST_EQUAL( b[i+1*j].s , std::string("default") );
-  }
+  for(  type::difference_type j=0;j<7;++j)
+    for(  type::difference_type i=0;i<3;++i)
+      NT2_TEST_EQUAL( b[i+3*j].s , std::string("default") );
 }
 
 //==============================================================================
@@ -92,33 +76,17 @@ NT2_TEST_CASE( container_automatic_static_default_ctor)
   using nt2::automatic_;
   using nt2::memory::container;
 
-  {
-    typedef container<nt2::object,settings(of_size_<3,7>, automatic_)> type;
-    type b;
+  typedef container<nt2::object,settings(of_size_<3,7>, automatic_)> type;
+  type b;
 
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL(b.extent(), (of_size_<3,7>()) );
+  NT2_TEST_EQUAL(b.raw(), &b[0]);
 
-    for(  type::difference_type j=0;j<7;++j)
-      for(  type::difference_type i=0;i<3;++i)
-        NT2_TEST_EQUAL( b[i+3*j].s , std::string("default") );
-  }
-
-  {
-    typedef container<nt2::object,settings(of_size_<1,7>, automatic_)> type;
-    type b;
-
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size()             , b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), (of_size_<1,7>()) );
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
-
-    for(  type::difference_type j=0;j<7;++j)
-      for(  type::difference_type i=0;i<1;++i)
-        NT2_TEST_EQUAL( b[i+1*j].s , std::string("default") );
-  }
+  for(  type::difference_type j=0;j<7;++j)
+    for(  type::difference_type i=0;i<3;++i)
+      NT2_TEST_EQUAL( b[i+3*j].s , std::string("default") );
 }
 
 //==============================================================================
@@ -131,34 +99,17 @@ NT2_TEST_CASE( container_size_ctor)
   using nt2::settings;
   using nt2::memory::container;
 
-  {
-    typedef container<nt2::object,settings()> type;
-    type b( of_size(3,7) );
+  typedef container<nt2::object,settings()> type;
+  type b( of_size(3,7) );
 
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL( b.extent(), (of_size_<3,7>()) );
+  NT2_TEST_EQUAL(b.raw(), &b[0]);
 
-    for(  type::difference_type j=0;j<7;++j)
-      for(  type::difference_type i=0;i<3;++i)
-        NT2_TEST_EQUAL( b[i+3*j].s , std::string("default") );
-  }
-
-
-  {
-    typedef container<nt2::object,settings()> type;
-    type b( of_size(1,7) );
-
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), (of_size_<1,7>()) );
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
-
-    for(  type::difference_type j=0;j<7;++j)
-      for(  type::difference_type i=0;i<1;++i)
-        NT2_TEST_EQUAL( b[i+1*j].s , std::string("default") );
-  }
+  for(  type::difference_type j=0;j<7;++j)
+    for(  type::difference_type i=0;i<3;++i)
+      NT2_TEST_EQUAL( b[i+3*j].s , std::string("default") );
 }
 
 //==============================================================================
@@ -170,37 +121,19 @@ NT2_TEST_CASE( container_copy_ctor)
   using nt2::settings;
   using nt2::memory::container;
 
-  {
-    typedef container<nt2::object,settings()> type;
-    type b( of_size(5,3) );
-    type x( b );
+  typedef container<nt2::object,settings()> type;
+  type b( of_size(5,3) );
+  type x( b );
 
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(5,3) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
+  NT2_TEST(!x.empty());
+  NT2_TEST_EQUAL(x.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL( x.extent(), (of_size(5,3)) );
+  NT2_TEST_EQUAL(x.raw(), &x[0]);
+  NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
-    for(  type::difference_type j=0;j<3;++j)
-      for(  type::difference_type i=0;i<5;++i)
-        NT2_TEST_EQUAL( x[i+5*j].s , std::string("copied") );
-  }
-
-  {
-    typedef container<nt2::object,settings()> type;
-    type b( of_size(1,3) );
-    type x( b );
-
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(1,3) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
-
-    for(  type::difference_type j=0;j<3;++j)
-      for(  type::difference_type i=0;i<1;++i)
-        NT2_TEST_EQUAL( x[i+1*j].s , std::string("copied") );
-  }
+  for(  type::difference_type j=0;j<3;++j)
+    for(  type::difference_type i=0;i<5;++i)
+      NT2_TEST_EQUAL( x[i+5*j].s , std::string("copied") );
 }
 
 //==============================================================================
@@ -214,37 +147,19 @@ NT2_TEST_CASE( automatic_container_copy_ctor)
   using nt2::settings;
   using nt2::memory::container;
 
-  {
-    typedef container<nt2::object,settings(of_size_<3,7>, automatic_)> type;
-    type b;
-    type x( b );
+  typedef container<nt2::object,settings(of_size_<3,7>, automatic_)> type;
+  type b;
+  type x( b );
 
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(3,7) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
+  NT2_TEST(!x.empty());
+  NT2_TEST_EQUAL(x.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL( x.extent(), (of_size(3,7)) );
+  NT2_TEST_EQUAL(x.raw(), &x[0]);
+  NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
-    for(  type::difference_type j=0;j<7;++j)
-      for(  type::difference_type i=0;i<3;++i)
-        NT2_TEST_EQUAL( x[i+3*j].s , std::string("copied") );
-  }
-
-  {
-    typedef container<nt2::object,settings(of_size_<1,7>, automatic_)> type;
-    type b;
-    type x( b );
-
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(1,7) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
-
-    for(  type::difference_type j=0;j<7;++j)
-      for(  type::difference_type i=0;i<1;++i)
-        NT2_TEST_EQUAL( x[i+1*j].s , std::string("copied") );
-  }
+  for(  type::difference_type j=0;j<7;++j)
+    for(  type::difference_type i=0;i<3;++i)
+      NT2_TEST_EQUAL( x[i+3*j].s , std::string("copied") );
 }
 
 //==============================================================================
@@ -256,41 +171,21 @@ NT2_TEST_CASE( container_assignment)
   using nt2::settings;
   using nt2::memory::container;
 
-  {
-    typedef container<nt2::object,settings()> type;
-    type b( of_size(5,3) );
-    type x;
+  typedef container<nt2::object,settings()> type;
+  type b( of_size(5,3) );
+  type x;
 
-    x = b;
+  x = b;
 
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(5,3) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
+  NT2_TEST(!x.empty());
+  NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
+  NT2_TEST_EQUAL( x.extent(), (of_size(5,3)) );
+  NT2_TEST_EQUAL(x.raw(), &x[0]);
+  NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
-    for(  type::difference_type j=0;j<3;++j)
-      for(  type::difference_type i=0;i<5;++i)
-        NT2_TEST_EQUAL(x[i+5*j].s , std::string("assigned") );
-  }
-
-  {
-    typedef container<nt2::object,settings()> type;
-    type b( of_size(1,3) );
-    type x;
-
-    x = b;
-
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(1,3) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
-
-    for(  type::difference_type j=0;j<3;++j)
-      for(  type::difference_type i=0;i<1;++i)
-        NT2_TEST_EQUAL(x[i+1*j].s , std::string("assigned") );
-  }
+  for(  type::difference_type j=0;j<3;++j)
+    for(  type::difference_type i=0;i<5;++i)
+      NT2_TEST_EQUAL(x[i+5*j].s , std::string("assigned") );
 }
 
 //==============================================================================
@@ -303,41 +198,21 @@ NT2_TEST_CASE( automatic_container_assignment)
   using nt2::settings;
   using nt2::memory::container;
 
-  {
-    typedef container<nt2::object,settings(of_size_<5,3>)> type;
-    type b;
-    type x;
+  typedef container<nt2::object,settings(of_size_<5,3>)> type;
+  type b;
+  type x;
 
-    x = b;
+  x = b;
 
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(5,3) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
+  NT2_TEST(!x.empty());
+  NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
+  NT2_TEST_EQUAL( x.extent(), (of_size(5,3)) );
+  NT2_TEST_EQUAL(x.raw(), &x[0]);
+  NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
-    for(  type::difference_type j=0;j<3;++j)
-      for(  type::difference_type i=0;i<5;++i)
-        NT2_TEST_EQUAL(x[i+5*j].s , std::string("assigned") );
-  }
-
-  {
-    typedef container<nt2::object,settings(of_size_<1,3>)> type;
-    type b;
-    type x;
-
-    x = b;
-
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(1,3) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
-
-    for(  type::difference_type j=0;j<3;++j)
-      for(  type::difference_type i=0;i<1;++i)
-        NT2_TEST_EQUAL(x[i+1*j].s , std::string("assigned") );
-  }
+  for(  type::difference_type j=0;j<3;++j)
+    for(  type::difference_type i=0;i<5;++i)
+      NT2_TEST_EQUAL(x[i+5*j].s , std::string("assigned") );
 }
 
 //==============================================================================
@@ -350,61 +225,31 @@ NT2_TEST_CASE( container_swap)
   using nt2::settings;
   using nt2::memory::container;
 
-  {
-    typedef container<nt2::object,settings()> type;
-    type b( of_size(5,3) );
-    type x( of_size(7,2) );
+  typedef container<nt2::object,settings()> type;
+  type b( of_size(5,3) );
+  type x( of_size(7,2) );
 
-    swap(x,b);
+  swap(x,b);
 
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), of_size(7,2) );
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL( b.extent(), (of_size(7,2)) );
+  NT2_TEST_EQUAL(b.raw(), &b[0]);
 
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(5,3) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
+  NT2_TEST(!x.empty());
+  NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
+  NT2_TEST_EQUAL( x.extent(), (of_size(5,3)) );
+  NT2_TEST_EQUAL(x.raw(), &x[0]);
 
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
+  NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
 
-    for(  type::difference_type j=0;j<3;++j)
-      for(  type::difference_type i=0;i<5;++i)
-        NT2_TEST_EQUAL(x[i+5*j].s , std::string("default") );
+  for(  type::difference_type j=0;j<3;++j)
+    for(  type::difference_type i=0;i<5;++i)
+      NT2_TEST_EQUAL(x[i+5*j].s , std::string("default") );
 
-    for(  type::difference_type j=0;j<2;++j)
-      for(  type::difference_type i=0;i<7;++i)
-        NT2_TEST_EQUAL(b[i+7*j].s , std::string("default") );
-  }
-
-  {
-    typedef container<nt2::object,settings()> type;
-    type b( of_size(1,3) );
-    type x( of_size(1,2) );
-
-    swap(x,b);
-
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL( b.extent(), of_size(1,2) );
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
-
-    NT2_TEST(!x.empty());
-    NT2_TEST_EQUAL(x.leading_size(), x.extent()[0] );
-    NT2_TEST_EQUAL( x.extent(), of_size(1,3) );
-    NT2_TEST_EQUAL(x.raw(), &x[0]);
-
-    NT2_TEST_NOT_EQUAL(x.raw(), b.raw());
-
-    for(  type::difference_type j=0;j<3;++j)
-      for(  type::difference_type i=0;i<1;++i)
-        NT2_TEST_EQUAL(x[i+1*j].s , std::string("default") );
-
-    for(  type::difference_type j=0;j<2;++j)
-      for(  type::difference_type i=0;i<1;++i)
-        NT2_TEST_EQUAL(b[i+1*j].s , std::string("default") );
-  }
+  for(  type::difference_type j=0;j<2;++j)
+    for(  type::difference_type i=0;i<7;++i)
+      NT2_TEST_EQUAL(b[i+7*j].s , std::string("default") );
 }
 
 //==============================================================================
@@ -417,48 +262,46 @@ NT2_TEST_CASE( container_resize)
   using nt2::of_size_;
   using nt2::memory::container;
 
-  {
-    typedef container<nt2::object,settings()> type;
-    type b;
+  typedef container<nt2::object,settings()> type;
+  type b;
 
-    NT2_TEST(b.empty());
-    NT2_TEST_EQUAL(b.size(),  0u );
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL(b.extent(), of_size_<0>());
-    NT2_TEST_EQUAL(b.raw(), (nt2::object*)(0));
+  NT2_TEST(b.empty());
+  NT2_TEST_EQUAL(b.size(),  0u );
+  NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL(b.extent(), of_size_<0>());
+  NT2_TEST_EQUAL(b.raw(), (nt2::object*)(0));
 
-    b.resize( of_size(3,2) );
+  b.resize( of_size(3,2) );
 
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL(b.extent(), of_size(3,2));
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL(b.extent(), (of_size(3,2)) );
+  NT2_TEST_EQUAL(b.raw(), &b[0]);
 
-    for(  type::difference_type j=0;j<2;++j)
-      for(  type::difference_type i=0;i<3;++i)
-        NT2_TEST_EQUAL(b[i+3*j].s, std::string("default") );
+  for(  type::difference_type j=0;j<2;++j)
+    for(  type::difference_type i=0;i<3;++i)
+      NT2_TEST_EQUAL(b[i+3*j].s, std::string("default") );
 
-    b.resize( of_size(1,11) );
+  b.resize( of_size(1,11) );
 
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL(b.extent(), of_size(1,11));
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL(b.extent(), (of_size(1,11)) );
+  NT2_TEST_EQUAL(b.raw(), &b[0]);
 
-    for(  type::difference_type j=0;j<11;++j)
-        NT2_TEST_EQUAL(b[j].s, std::string("default") );
+  for(  type::difference_type j=0;j<11;++j)
+      NT2_TEST_EQUAL(b[j].s, std::string("default") );
 
-    b.resize( of_size(2,7) );
+  b.resize( of_size(2,7) );
 
-    NT2_TEST(!b.empty());
-    NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
-    NT2_TEST_EQUAL(b.extent(), of_size(2,7));
-    NT2_TEST_EQUAL(b.raw(), &b[0]);
+  NT2_TEST(!b.empty());
+  NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
+  NT2_TEST_EQUAL(b.extent(), (of_size(2,7)) );
+  NT2_TEST_EQUAL(b.raw(), &b[0]);
 
-    for(  type::difference_type j=0;j<7;++j)
-      for(  type::difference_type i=0;i<2;++i)
-        NT2_TEST_EQUAL(b[i+2*j].s, std::string("default") );
-  }
+  for(  type::difference_type j=0;j<7;++j)
+    for(  type::difference_type i=0;i<2;++i)
+      NT2_TEST_EQUAL(b[i+2*j].s, std::string("default") );
 }
 
 //==============================================================================

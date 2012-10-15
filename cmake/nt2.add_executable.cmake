@@ -13,6 +13,7 @@ set(NT2_ADD_EXECUTABLE_CMAKE_INCLUDED 1)
 include(nt2.add_executable RESULT_VARIABLE FILE_NAME)
 string(REGEX REPLACE ".cmake$" "" NT2_ADD_EXECUTABLE_DIR_NAME ${FILE_NAME})
 
+# same as add_executable, but will add the library for a particular build type
 macro(nt2_add_executable build_type target)
   if(CMAKE_CONFIGURATION_TYPES)
     add_executable(${target} ${ARGN})

@@ -97,6 +97,8 @@ namespace nt2 {  namespace memory
       return elems[i];
     }
 
+    static void resize( size_type )     {}
+
     static size_type size()     { return static_size; }
     static bool empty()         { return false;       }
     static size_type max_size() { return static_size; }

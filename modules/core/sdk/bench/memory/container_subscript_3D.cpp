@@ -16,15 +16,14 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
 #include <nt2/sdk/unit/perform_benchmark.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
 
 template<class T> struct container_3D_test
 {
   typedef nt2::memory::container<T,nt2::settings()>  buffer_t;
 
   container_3D_test ( std::size_t s0 )
-                    : data(boost::fusion::vector_tie(s0,s0,s0))
-                    , data2(boost::fusion::vector_tie(s0,s0,s0))
+                    : data(nt2::of_size(s0,s0,s0))
+                    , data2(nt2::of_size(s0,s0,s0))
                     , s0_(s0)
   {}
 
@@ -35,6 +34,8 @@ template<class T> struct container_3D_test
         for(std::size_t i = 0; i < s0_; ++i)
           data[i+s0_*(j+s0_*k)] = data2[i+s0_*(j+s0_*k)];
   }
+
+  void reset() {}
 
   buffer_t        data,data2;
   std::size_t  s0_;
@@ -51,6 +52,8 @@ template<class T> struct std_3D_test
         for(std::size_t i = 0; i < s0_; ++i)
           data[i+s0_*(j+s0_*k)] = data2[i+s0_*(j+s0_*k)];
   }
+
+  void reset() {}
 
   std::size_t  s0_;
   std::vector<T,boost::simd::memory::allocator<T> > data,data2;

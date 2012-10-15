@@ -16,6 +16,7 @@
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/isequal.hpp>
+#include <nt2/include/functions/zeros.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -81,4 +82,18 @@ NT2_TEST_CASE( horzcat_expr )
                                       )
                             )
                   );
+}
+NT2_TEST_CASE( horzcat_2 )
+{
+
+  nt2::table<double> c0 = nt2::zeros(1, 0);
+  nt2::table<double> c1 = nt2::zeros(1, 1);
+  nt2::table<double> c2 = nt2::horzcat(c0, c1); 
+
+  typedef double iT;
+  nt2::table<iT> dc1 = nt2::_(iT(2), iT(4));
+  nt2::table<iT> dc2 = nt2::_(iT(2), iT(3));
+  nt2::table<iT> dc3 = nt2::horzcat(dc1, dc2); 
+
+
 }

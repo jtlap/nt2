@@ -1,0 +1,43 @@
+[section Usual operators and functions]
+
+Now that we have scalars and matrices, what is the NT2 equivalent to the great
+ vectorization apparatus of Matlab ?
+
+We, don't have the whole Matlab core but a good part of it.
+
+Almost all standard library function are supported and can be applied in an elementwise way 
+directly on matricial expressions, just as in Matlab.
+
+We support complex arithmetic, but real and complex types are not the same.
+We have 3 template complex types than can be mixed in order to always use (best) complex
+arithmetic, and can also be mixed with a scalar one. 
+
+[h3 Operators]
+
+Operators are functions so useful they got a special staus and an infix notation.
+
+We can distinguish nullary, unary, binary and ternary operators/functions, but as ternary 
+opertors do not exist in Matlab, we will not speak of them in this section see ???.
+
+[h3 Functions]
+
+All the functions we will consider will be able to act on matrices or matrices expressions.
+
+We will distinguish categories of functions by  the way they act on matrices of inputs:
+
+# elementwise functions,
+# constants functions, (these have no parameters, but the type they return...)
+# folding functions,
+# adjacent functions,
+# generative functions,
+# permutative functions,
+# extractive functions,
+# merging functions,
+# other functions.
+
+[endsect]
+
+[include basic_information.qbk]
+[include elementwise.qbk]
+
+

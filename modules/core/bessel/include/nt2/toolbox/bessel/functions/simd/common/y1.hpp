@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
                            ) ) > (z);
          p2 = p2+single_constant<A0, 0x3f22f983>()*(j1(a0)*log(a0)-q);
          p2 = sel(is_eqz(a0), Minf<A0>(), p2);
-         if (all(a0lt2)) return p2;
+         if (nt2::all(a0lt2)) return p2;
           }
      A0 w = sqrt(q);
      A0 p3 = w *

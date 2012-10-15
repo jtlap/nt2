@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SQRT_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_SQRT_HPP_INCLUDED
@@ -32,12 +32,13 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/logical_andnot.hpp>
 #include <nt2/include/functions/copysign.hpp>
+#include <nt2/include/functions/all.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/minf.hpp>
-#include <nt2/include/constants/inf.hpp>   
+#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
@@ -62,10 +63,10 @@ namespace nt2 { namespace ext
         rtype y = nt2::abs(ia0);
         rtype iaa0 = negif(negimag, ia0); // always >= 0 or -Nan
         ltype gtxy = gt(x, y);
-        ltype gezra0 = is_gez(nt2::real(a0)); 
+        ltype gezra0 = is_gez(nt2::real(a0));
         rtype r = if_else(gtxy, y/x, x/y);
         rtype rr= nt2::sqrt(oneplus(sqr(r)));
-        rtype sqrtx = sqrt(x); 
+        rtype sqrtx = sqrt(x);
         rtype w = if_else(gtxy,
                           sqrtx*sqrt(Half<rtype>()*oneplus(rr)),
                           sqrt(y)*sqrt(Half<rtype>()*(r+rr)));
@@ -74,8 +75,8 @@ namespace nt2 { namespace ext
                        result_type(sqrtx,Zero<rtype>()),
                        result_type(w, iaa0*Half<rtype>()/w)
                        );
-        z = if_else(gezra0, z, result_type(nt2::imag(z), nt2::real(z))); 
-        if (all(is_finite(z))) return if_else(negimag, conj(z), z);
+        z = if_else(gezra0, z, result_type(nt2::imag(z), nt2::real(z)));
+        if (nt2::all(is_finite(z))) return if_else(negimag, conj(z), z);
         z = if_else(eq(iaa0, Inf<rtype>()),
                     result_type(Inf<rtype>(), Inf<rtype>()),
                     z);
@@ -85,36 +86,36 @@ namespace nt2 { namespace ext
                                 ),
                     z);
         z = if_else(logical_and(is_real(a0), is_nan(a0)), a0, z);
-        return if_else(negimag, conj(z), z);    
+        return if_else(negimag, conj(z), z);
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
                               , (generic_< imaginary_< arithmetic_<A0> > >)
                               )
   {
     typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_complex<rtype>::type result_type; 
+    typedef typename meta::as_complex<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
       {
         const rtype root = nt2::sqrt(nt2::abs(nt2::imag(a0)))*Sqrt_2o_2<rtype>();
-        result_type res = result_type(root, sign(nt2::imag(a0))*root); 
-        return if_else(is_eqz(a0), Zero<result_type>(), res); 
+        result_type res = result_type(root, sign(nt2::imag(a0))*root);
+        return if_else(is_eqz(a0), Zero<result_type>(), res);
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrt_, tag::cpu_, (A0)
                               , (generic_< dry_< arithmetic_<A0> > >)
                               )
   {
     typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_complex<rtype>::type result_type; 
+    typedef typename meta::as_complex<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
       {
-        const rtype root = nt2::sqrt(nt2::abs(nt2::real(a0))); 
+        const rtype root = nt2::sqrt(nt2::abs(nt2::real(a0)));
         return if_else(is_ltz(a0),
                        result_type(Zero<rtype>(), root),
-                       result_type(root)); 
+                       result_type(root));
       }
   };
 } }

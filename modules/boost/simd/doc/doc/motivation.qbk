@@ -21,7 +21,7 @@ distinct set of sixteen 256-bit registers. Similarly, the forthcoming Intel Many
 Integrated Core (MIC) architecture will embed 512-bit SIMD registers. Usage of
 SIMD processing units can also be mandatory for performance on embedded systems,
 as demonstrated by the ARM Neon and Neon2 extensions or the Cell Broadbend End
-(Cell-BE) processorby IBM (which was designed to use SIMD-only systems).
+(Cell-BE) processor by IBM (which was designed to use SIMD-only systems).
 [endsect]
 
 [section Challenges and Difficulties]
@@ -57,7 +57,7 @@ and `__m128d` which represents a SIMD vector of `float` and a SIMD vector of `do
 intrinsic function `_mm_add_p?` and `_mm_mul_p?`. Note how these function are using C style overloading based on name
 instead of classic type-based overloading, thus requiring us to write the function twice. At this point, one may consider
 that writing such code, if a bit inelegant, is not that hard. Now, consider you need to port this code over some PowerPC
-architecture featuring the Altivec extension. The cod enow looks like:
+architecture featuring the Altivec extension. The code now looks like:
 
 ``
 #include <altivec.h>
@@ -70,7 +70,7 @@ vector float axpy( vector float x, vector float y, vector float a)
 
 In Altivec, we found a `vec_madd` instruction performing the `a*x+y` operation at once. However, there is no support for
 `double` on all Altivec flavor so we're stuck with the `float` version only. Note how the SIMD register type is defined.
-Contrary to SSE where a new ype iis provided, the SIMD quality of a variable in Altivec is specified through a type qualifier
+Contrary to SSE where a new type is provided, the SIMD quality of a variable in Altivec is specified through a type qualifier
 like notation.
 
 We could also have a look at ARM NEON way to perform this computation, to find out a new set of types and functions or discover
@@ -124,7 +124,7 @@ Reader can infer the kind of rework to do for adapting this code to Altivec.
 This short abridged example shows only a few of the pitfalls that may arise
 while writing SIMD code. More can actually happens:
 
-* Additionnal, system-level taks like aligning memory are often required;
+* Additionnal, system-level tasks like aligning memory are often required;
 * Most SIMD instructions are asymmetric, providing only so much functions for,
   sometimes, very few types;
 * Efficient SIMD code writing may require fancy, bit-level algorithms thus
@@ -135,7 +135,7 @@ while writing SIMD code. More can actually happens:
   functions.
 * Optimal code may change from extension to extension. the multiply-add example
   here is a classic one. Ideally one should be able to write `a*b+c` and have
-  the system decide which variant to use dependign on type or architecture;
+  the system decide which variant to use depending on type or architecture;
 
 The objectives of Boost.SIMD is to provide proper abstractions over the usage of
 SIMD extensions. This abstraction shouldn’t just provide a portable way to use
@@ -148,7 +148,7 @@ TODO LINK TO PROPER SUBPART OF THE DOC
 * a proper value semantic wrapper for SIMD registers;
 * an Expression Template system to automatically detect and exploit extension
 specific optimization opportunities;
-* standard compliant allocator and allcoator adaptor for aligned memory ;
+* standard compliant allocator and allocator adaptor for aligned memory ;
 * standard compliant iterators to iterate over contiguous range of data in a
 non-intrusive way;
 * standard compliant iterators encapsulating classical SIMD idioms like shifting

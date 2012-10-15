@@ -8,15 +8,17 @@
  ******************************************************************************/
 #include <nt2/core/utility/config.hpp>
 #include <nt2/core/utility/randstream.hpp>
+#include <nt2/core/utility/mt19937stream.hpp>
+#include <nt2/core/utility/lagged_fibonacci2281stream.hpp>
 #include <cstring>
 
 namespace nt2
 {
   randstream_::~randstream_() {}
 
-  nt2::randstream_* current_randstream = mt19937stream();
+  NT2_CORE_RANDOM_DECL nt2::randstream_* current_randstream = mt19937stream();
 
-  NT2_CORE_UTILITY_DECL void randstream(const char* choice)
+  NT2_CORE_RANDOM_DECL void randstream(const char* choice)
   {
     if(strcmp(choice,"mt19937ar") == 0)
     {
@@ -28,7 +30,7 @@ namespace nt2
     }
   }
 
-  NT2_CORE_UTILITY_DECL void randstream(const char* choice, int s)
+  NT2_CORE_RANDOM_DECL void randstream(const char* choice, int s)
   {
     randstream(choice);
     current_randstream->seed(s);

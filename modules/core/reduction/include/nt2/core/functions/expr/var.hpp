@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w) const
     {
       BOOST_ASSERT_MSG(numel(w) == size(a0, nt2::firstnonsingleton(a0)), "a0 and w have incompatible dimensions");
-      //      BOOST_ASSERT_MSG(all(w > 0), "w must have only strictly positive elements"); 
+      //      BOOST_ASSERT_MSG(nt2::all(w > 0), "w must have only strictly positive elements"); 
 
       // TO BE PUT IN center or center with w param
       //       value_type m = sum(w(_));  

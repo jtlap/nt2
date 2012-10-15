@@ -20,6 +20,28 @@
 /////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
+
+
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log2_, tag::cpu_
+//                               , (A0)(X)
+//                               ,  ((simd_< arithmetic_<A0>, X>))
+//                             )
+//   {
+//     typedef typename  boost::proto::
+//                       result_of::make_expr< nt2::tag::log2_
+//                                           , container::domain
+//                                           , A0 const&
+//                                           >::type             result_type;
+
+//     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
+//     {
+//       return boost::proto::make_expr< nt2::tag::log2_
+//                                     , container::domain
+//                                     > ( boost::cref(a0));
+//     }
+//   };
+
+  
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))

@@ -13,12 +13,15 @@
 #include <nt2/core/settings/index.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/semantic.hpp>
+#include <nt2/core/settings/interleaving.hpp>
 #include <nt2/core/settings/normalize.hpp>
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/core/settings/specific_data.hpp>
+#include <nt2/sdk/memory/composite_buffer.hpp>
 #include <nt2/core/settings/storage_scheme.hpp>
 #include <nt2/core/container/table/semantic.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
+#include <boost/fusion/include/is_sequence.hpp>
 #include <nt2/sdk/memory/adapted/container.hpp>
 #include <boost/mpl/at.hpp>
 
@@ -57,7 +60,21 @@ namespace nt2 { namespace memory
                                   , tag::storage_scheme_
                                   >::type                       scheme_t;
     typedef typename scheme_t::template apply<T,settings_type>  scheme_type;
-    typedef typename scheme_type::type                          buffer_t;
+    typedef typename scheme_type::type                          base_buffer_t;
+
+    //========================================================================
+    // If T is a composite, adapt our buffer accordingly
+    //========================================================================
+    typedef typename meta::option < settings_type
+                                  , tag::interleaving_
+                                  >::type                       interleaving_t;
+    typedef typename boost::mpl::if_< boost::mpl::and_
+                                      < boost::fusion::traits::is_sequence<T>
+                                      , interleaving_t
+                                      >
+                                    , composite_buffer<base_buffer_t>
+                                    , base_buffer_t
+                                    >::type                           buffer_t;
 
     //==========================================================================
     // Container interface
@@ -356,7 +373,9 @@ namespace nt2 { namespace memory
       // Fix your code to remove such resize call.
       //     ****STATICALLY_SIZED_CONTAINER_CANT_BE_RESIZED_DYNAMICALLY****
       //========================================================================
-      BOOST_ASSERT_MSG( szs == extent_type(), "Statically sized container can't be resized dynamically" );
+      BOOST_ASSERT_MSG( szs == extent_type()
+                      , "Statically sized container can't be resized dynamically"
+                      );
     }
 
     private:

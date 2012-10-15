@@ -46,8 +46,8 @@ NT2_TEST_CASE_TPL(unaligned_store, BOOST_SIMD_SIMD_TYPES )
    }
 }
 
-struct foo { boost::simd::int16_t d; float f; char c; };
-BOOST_FUSION_ADAPT_STRUCT(foo,(boost::simd::int16_t,d)(float,f)(char,c))
+struct foo { double d; float f; char c; };
+BOOST_FUSION_ADAPT_STRUCT(foo,(double,d)(float,f)(char,c))
 
 NT2_TEST_CASE( unaligned_store_sequence )
 {
@@ -58,29 +58,62 @@ NT2_TEST_CASE( unaligned_store_sequence )
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
-  char   cdata[ cardinal_of< native<char  ,ext_t> >::value ];
-  float  fdata[ cardinal_of< native<float ,ext_t> >::value ];
-  int16_t ddata[ cardinal_of< native<int16_t,ext_t> >::value ];
-  char   scdata[ cardinal_of< native<char  ,ext_t> >::value ];
-  float  sfdata[ cardinal_of< native<float ,ext_t> >::value ];
-  int16_t sddata[ cardinal_of< native<int16_t,ext_t> >::value ];
+  static const size_t sz = cardinal_of< native<char  ,ext_t> >::value;
+  char   cdata[ sz ];
+  float  fdata[ sz ];
+  double ddata[ sz ];
+  char   scdata[ sz ];
+  float  sfdata[ sz ];
+  double sddata[ sz ];
 
-  for(size_t i=0;i<cardinal_of< native<char  ,ext_t> >::value;++i)
-  { cdata[i] = char(1+i); }
-  for(size_t i=0;i<cardinal_of< native<float ,ext_t> >::value;++i)
-  { fdata[i] = float(1+i); }
-  for(size_t i=0;i<cardinal_of< native<int16_t ,ext_t> >::value;++i)
-  { ddata[i] = int16_t(1+i); }
+  for(size_t i=0;i<sz;++i)
+  {
+    cdata[i] = char(1+i);
+    fdata[i] = float(1+i);
+    ddata[i] = double(1+i);
+  }
 
   typedef native<foo, ext_t> seq_t;
 
   seq_t v = unaligned_load<seq_t>(boost::fusion::make_vector(&ddata[0], &fdata[0], &cdata[0]), 0);
   unaligned_store(v, boost::fusion::make_vector(&sddata[0], &sfdata[0], &scdata[0]), 0);
 
-  for(size_t j=0;j<cardinal_of< native<int16_t,ext_t> >::value;++j)
+  for(size_t j=0;j<sz;++j)
+  {
     NT2_TEST_EQUAL(boost::fusion::at_c<0>(v)[j] , sddata[j]);
-  for(size_t j=0;j<cardinal_of< native<float,ext_t> >::value;++j)
     NT2_TEST_EQUAL(boost::fusion::at_c<1>(v)[j] , sfdata[j]);
-  for(size_t j=0;j<cardinal_of< native<char,ext_t> >::value;++j)
     NT2_TEST_EQUAL(boost::fusion::at_c<2>(v)[j] , scdata[j]);
+  }
+}
+
+NT2_TEST_CASE( unaligned_store_pointer_of_sequence )
+{
+  using boost::simd::unaligned_store;
+  using boost::simd::unaligned_load;
+  using boost::simd::tag::unaligned_store_;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+
+  static const size_t sz = cardinal_of< native<foo,ext_t> >::value;
+  foo sdata[sz];
+  foo ddata[sz];
+  for(size_t i=0;i<sz;++i)
+  {
+    sdata[i].d = char(1+i);
+    sdata[i].f = float(2+i);
+    sdata[i].c = double(3+i);
+  }
+
+  typedef native<foo, ext_t> seq_t;
+  foo dest;
+  seq_t v = unaligned_load<seq_t>(&sdata[0], 0);
+  unaligned_store(v, &ddata[0], 0);
+
+  for(size_t j=0;j<sz;++j)
+  {
+    NT2_TEST_EQUAL(ddata[j].d , sdata[j].d);
+    NT2_TEST_EQUAL(ddata[j].f , sdata[j].f);
+    NT2_TEST_EQUAL(ddata[j].c , sdata[j].c);
+  }
 }

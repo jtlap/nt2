@@ -42,16 +42,16 @@ namespace boost { namespace simd
   {
     struct tuple_ {};
   }
-  
+
   template<BOOST_PP_ENUM_BINARY_PARAMS(BOOST_DISPATCH_MAX_ARITY, class T, = void BOOST_PP_INTERCEPT)>
   struct tuple;
-  
+
   namespace details
   {
     template<class Seq, class F, int N>
     struct as_tuple;
   }
-  
+
   namespace meta
   {
     template<class Seq, class F = boost::dispatch::identity>
@@ -60,19 +60,19 @@ namespace boost { namespace simd
     {
     };
   }
-  
+
   template<class Seq, class F>
   typename meta::as_tuple<Seq const, F const>::type as_tuple(Seq const& seq, F const& f)
   {
     return meta::as_tuple<Seq const, F const>::call(seq, f);
   }
-  
+
   template<class Seq, class F>
   typename meta::as_tuple<Seq const, F>::type as_tuple(Seq const& seq, F& f)
   {
     return meta::as_tuple<Seq const, F>::call(seq, f);
   }
-  
+
 } }
 
 namespace boost { namespace fusion { namespace extension
@@ -94,35 +94,35 @@ namespace boost { namespace fusion { namespace extension
     {
     };
   };
-  
+
   template<>
   struct size_impl<boost::simd::tag::tuple_>
   {
     template<class Seq>
     struct apply
-     : mpl::size_t<Seq::static_size>
+     : mpl::size_t<Seq::static_tuple_size>
     {
     };
   };
-  
+
   template<>
   struct at_impl<boost::simd::tag::tuple_>
   {
     template<class Seq, int N>
     struct apply_c;
-    
+
     template<class Seq, class N>
     struct apply : apply_c<Seq, N::value>
     {
     };
   };
-  
+
   template<>
   struct value_at_impl<boost::simd::tag::tuple_>
   {
     template<class Seq, int N>
     struct apply_c;
-    
+
     template<class Seq, class N>
     struct apply : apply_c<Seq, N::value>
     {
@@ -149,7 +149,7 @@ namespace boost { namespace fusion { namespace extension
     template<class Seq>
     struct apply
     {
-      typedef boost::simd::at_iterator<Seq, Seq::static_size> type;
+      typedef boost::simd::at_iterator<Seq, Seq::static_tuple_size> type;
       BOOST_FORCEINLINE static type call(Seq& seq)
       {
         return type(seq);
@@ -166,7 +166,7 @@ namespace boost { namespace simd
   {
     return fusion::extension::template at_impl<tag::tuple_>::template apply_c<Seq const, N>::call(seq);
   }
-  
+
   template<class Seq, int N>
   BOOST_FORCEINLINE typename fusion::extension::template at_impl<tag::tuple_>::template apply_c<Seq, N>::type at_c(Seq& seq)
   {
@@ -206,9 +206,9 @@ namespace boost { namespace simd
   struct tuple BOOST_SIMD_TUPLE_HEAD
   {
     typedef tag::tuple_ fusion_tag;
-    static const std::size_t static_size = N;
+    static const std::size_t static_tuple_size = N;
     BOOST_PP_REPEAT(N, BOOST_SIMD_TUPLE_TYPES, ~)
-    
+
     tuple() {}
     BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(N), BOOST_SIMD_TUPLE_CTORS, N)
     BOOST_PP_REPEAT(N, BOOST_SIMD_TUPLE_MEMBERS, ~)
@@ -240,7 +240,7 @@ namespace boost { namespace fusion { namespace extension
   {
     typedef typename Seq::BOOST_PP_CAT(BOOST_PP_CAT(m, BOOST_PP_DEC(N)), _type) type;
   };
-  
+
   template<class Seq>
   struct at_impl<boost::simd::tag::tuple_>
   ::apply_c<Seq, BOOST_PP_DEC(N) >
@@ -251,7 +251,7 @@ namespace boost { namespace fusion { namespace extension
       return seq.BOOST_PP_CAT(m, BOOST_PP_DEC(N));
     }
   };
-  
+
   template<class Seq>
   struct at_impl<boost::simd::tag::tuple_>
   ::apply_c<Seq const, BOOST_PP_DEC(N) >

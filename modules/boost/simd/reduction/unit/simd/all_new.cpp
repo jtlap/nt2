@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
   using boost::simd::all;
   using boost::simd::tag::all_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -47,15 +47,15 @@ NT2_TEST_CASE_TPL ( all_real__1_0,  BOOST_SIMD_REAL_TYPES)
     for(uint32_t j = 0; j < NR/cardinal_of<n_t>::value; j++)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
-        r_t v = all(a0);
-	bool z = true; 
+        r_t v = boost::simd::all(a0);
+	bool z = true;
         for(int i = 0; i< cardinal_of<n_t>::value; i++)
-	  { 
-	    z = z && (a0[j]); 
+	  {
+	    z = z && (a0[j]);
 	  }
 	NT2_TEST_EQUAL( v, z);
         }
       }
-    
+
   }
 } // end of test for floating_

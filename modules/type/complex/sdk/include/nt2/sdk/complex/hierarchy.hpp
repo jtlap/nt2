@@ -11,6 +11,7 @@
 
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/property_of.hpp>
+#include <boost/dispatch/meta/fusion.hpp>
 #include <nt2/sdk/complex/meta/real_of.hpp>
 
 namespace boost { namespace dispatch { namespace meta
@@ -22,11 +23,11 @@ namespace boost { namespace dispatch { namespace meta
   };
 
   template<class T>
-  struct complex_< unspecified_<T> > : unspecified_<T>
+  struct complex_< unspecified_<T> > : fusion_sequence_<T>
   {
-    typedef unspecified_<T> parent;
+    typedef fusion_sequence_<T> parent;
   };
-  
+
   template<class T>
   struct imaginary_ : imaginary_<typename T::parent>
   {
@@ -38,7 +39,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef complex_< typename property_of<typename nt2::meta::real_of<T>::type, T>::type > parent;
   };
-  
+
   template<class T>
   struct dry_ : dry_<typename T::parent>
   {
@@ -50,14 +51,14 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef complex_< typename property_of<typename nt2::meta::real_of<T>::type, T>::type > parent;
   };
-    
+
 } } }
 
 namespace nt2 { namespace ext
 {
   using boost::dispatch::meta::complex_;
   using boost::dispatch::meta::imaginary_;
-  using boost::dispatch::meta::dry_; 
+  using boost::dispatch::meta::dry_;
 } }
 
 #endif

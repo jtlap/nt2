@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return result_type(1-(is_odd(a0)<<1));
+      return result_type(1-(bool(is_odd(a0))<<1));
     }
   };
 } }

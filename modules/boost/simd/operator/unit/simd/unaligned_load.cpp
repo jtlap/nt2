@@ -186,3 +186,30 @@ NT2_TEST_CASE( unaligned_load_sequence )
   for(size_t j=0;j<cardinal_of< native<char,ext_t> >::value;++j)
     NT2_TEST_EQUAL(boost::fusion::at_c<2>(v)[j] , cdata[j]);
 }
+
+NT2_TEST_CASE( unaligned_load_pointer_of_sequence )
+{
+  using boost::simd::unaligned_load;
+  using boost::simd::tag::unaligned_load_;
+  using boost::simd::native;
+  using boost::simd::meta::cardinal_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<foo, ext_t> seq_t;
+  BOOST_SIMD_ALIGNED_TYPE(foo) data[cardinal_of< native<foo,ext_t> >::value];
+
+  for(size_t i=0;i<cardinal_of< native<foo,ext_t> >::value;++i) 
+  { 
+    data[i].d = double(1+i); 
+    data[i].f = float(2+i); 
+    data[i].c = char(3+i); 
+  }
+
+  seq_t v = unaligned_load<seq_t>(&data[0], 0);
+  
+  for(size_t j=0;j<cardinal_of< native<foo,ext_t> >::value;++j)  
+  {
+    NT2_TEST_EQUAL(boost::fusion::at_c<0>(v)[j] , data[j].d);
+    NT2_TEST_EQUAL(boost::fusion::at_c<1>(v)[j] , data[j].f);
+    NT2_TEST_EQUAL(boost::fusion::at_c<2>(v)[j] , data[j].c);
+  }
+}

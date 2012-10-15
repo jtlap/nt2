@@ -24,7 +24,6 @@
 #include <boost/random/uniform_real_distribution.hpp>
 
 #ifdef __APPLE__
-    // FIXME: this requires "-framework Accelerate" to be added to linker flags
     #include "Accelerate/Accelerate.h" //vDSP.h
 #endif // __APPLE__
 
@@ -81,7 +80,11 @@ namespace
     } // namespace constants
 
     static std::size_t const N = constants::test_dft_size;
-    typedef float T;
+    #if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
+        typedef double T;
+    #else //...zzz...cardinal-must-be-4 limitation...
+        typedef float T;
+    #endif // BOOST_SIMD_HAS_LRB_SUPPORT || BOOST_SIMD_HAS_AVX_SUPPORT
     typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N      > aligned_array;
     typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N/2 + 1> aligned_half_complex_array;
     typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;

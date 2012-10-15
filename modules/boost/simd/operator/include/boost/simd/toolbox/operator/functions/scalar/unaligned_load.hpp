@@ -23,9 +23,9 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , tag::cpu_
                             , (A0)(A1)(A2)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
+                            , (iterator_< unspecified_<A0> >)
                               (scalar_< fundamental_<A1> >)
-                              (target_< scalar_< fundamental_<A2> > >)
+                              (target_< unspecified_<A2> >)
                             )
   {
     typedef typename A2::type result_type;
@@ -42,9 +42,9 @@ namespace boost { namespace simd { namespace ext
 //==============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(  boost::simd::tag::unaligned_load_ , tag::cpu_
                             , (A0)(A1)(A2)(A3)
-                            , (iterator_< scalar_< fundamental_<A0> > >)
+                            , (iterator_< unspecified_<A0> >)
                               (scalar_< fundamental_<A1> >)
-                              (target_< scalar_< fundamental_<A2> > >)
+                              (target_< unspecified_<A2> >)
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {

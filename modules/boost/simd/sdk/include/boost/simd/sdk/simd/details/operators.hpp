@@ -11,11 +11,15 @@
 
 #include <boost/simd/sdk/simd/meta/is_native.hpp>
 #include <boost/dispatch/functor/functor.hpp>
+#include <boost/dispatch/meta/is_iterator.hpp>
+#include <boost/type_traits/is_fundamental.hpp>
+#include <boost/dispatch/meta/proxy.hpp>
+#include <boost/dispatch/meta/is_scalar.hpp>
 #include <boost/preprocessor/cat.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
-#include <boost/type_traits/is_fundamental.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/mpl/and.hpp>
+#include <boost/mpl/not.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/proto/tags.hpp>
 #include <boost/proto/proto_fwd.hpp>
@@ -110,10 +114,13 @@ namespace boost { namespace simd
 {
   template<class T>
   struct is_value
-   : mpl::or_< boost::is_fundamental<T>
-             , boost::dispatch::details::is_mpl_integral<T>
-             , meta::is_native<T>
-             , proto::is_expr<T>
+   : mpl::and_< mpl::not_< dispatch::meta::is_iterator<T> >
+              , mpl::or_< boost::dispatch::details::is_mpl_integral<T>
+                        , dispatch::meta::is_proxy<T>
+                        , dispatch::meta::is_scalar<T>
+                        , meta::is_native<T>
+                        , proto::is_expr<T>
+                        >
              >
   {
   };

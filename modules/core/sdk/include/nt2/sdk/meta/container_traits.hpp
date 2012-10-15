@@ -17,6 +17,8 @@
 #include <boost/type_traits/add_pointer.hpp>
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/is_const.hpp>
+#include <cstddef>
+#include <memory>
 
 namespace nt2 { namespace meta
 {
@@ -27,6 +29,13 @@ namespace nt2 { namespace meta
     typedef std::size_t type;
   };
   template<class T> struct size_type_<T&> : size_type_<T> {};
+
+   //==============================================================================
+   //==============================================================================
+  template<class T,class Enable=void> struct allocator_type_
+  {
+    typedef std::allocator<T> type;
+  };
 
   //==============================================================================
   //==============================================================================
@@ -78,6 +87,15 @@ namespace nt2 { namespace meta
   };
   template<class T> struct value_type_<T&> : value_type_<T> {};
   template<class T> struct value_type_<T const> : value_type_<T> {};
+
+  template<class T>
+  struct allocator_type_< T
+                        , typename  boost::dispatch::meta::
+                          enable_if_type< typename T::allocator_type >::type
+                        >
+  {
+    typedef typename T::allocator_type type;
+  };
 
   template<class T>
   struct size_type_ < T

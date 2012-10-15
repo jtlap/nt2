@@ -39,6 +39,8 @@ namespace subscript_test {
         }
     }
 
+  void reset() {}
+
     nt2::container::table<T, nt2::_2D> a0, a1;
     std::size_t N, M;
   };
@@ -58,6 +60,8 @@ namespace subscript_test {
         for (std::size_t i = 0; i < N; i++)
           a0[i + j * N] = a1[i + j * N];
     }
+
+  void reset() {}
 
     std::vector<T> a0, a1;
     std::size_t N, M;
@@ -105,7 +109,9 @@ namespace subscript_test {
       for (std::size_t i = 1; i <= N; i++)
         a0(i) = a1(i);
     }
-    
+
+  void reset() {}
+
     nt2::container::table<T, nt2::_1D> a0, a1;
     std::size_t N;
   };
@@ -124,6 +130,8 @@ namespace subscript_test {
       for (std::size_t i = 0; i < N; i++)
         a0[i] = a1[i];
     }
+
+  void reset() {}
 
     std::vector<T> a0, a1;
     std::size_t N;

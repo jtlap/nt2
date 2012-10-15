@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_gez(a0)-is_ltz(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return (a0 >= 0) - (a0 < 0); }//is_gez(a0)-is_ltz(a0); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signnz_, tag::cpu_
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_nan(a0)?a0:is_positive(a0)-is_negative(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1) { return is_nan(a0)?a0: int(is_positive(a0))-int(is_negative(a0)); }
   };
 } } }
 

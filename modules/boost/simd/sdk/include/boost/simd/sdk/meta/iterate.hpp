@@ -18,7 +18,11 @@ namespace boost { namespace simd { namespace details
   {
     BOOST_FORCEINLINE static void call(F& f)
     {
+#ifdef BOOST_MSVC
+      f.operator()<N-1>();
+#else
       f.template operator()<N-1>();
+#endif
       iterate<N-1, F>::call(f);
     }
   };

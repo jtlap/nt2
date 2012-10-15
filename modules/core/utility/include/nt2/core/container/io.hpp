@@ -24,25 +24,42 @@ namespace nt2
 {
   namespace details
   {
-    // INTERNAL ONLY
-    // Display a 2D page from an expression
+
+    /// INTERNAL ONLY
+    /// Dispaly small int as integer
+    template<class T> inline
+    typename  boost
+              ::enable_if_c < (   boost::is_same<T,int8_t>::value
+                              ||  boost::is_same<T,uint8_t>::value
+                              )
+                            , int
+                            >::type
+    display ( T const& v)
+    {
+      return static_cast<int>(v);
+    }
+
+    template<class T> inline
+    typename  boost
+              ::disable_if_c< (   boost::is_same<T,int8_t>::value
+                              ||  boost::is_same<T,uint8_t>::value
+                              )
+                            , T const&
+                            >::type
+    display ( T const& v)
+    {
+      return v;
+    }
+
+    /// INTERNAL ONLY
+    /// Display a 2D page from an expression
     template<class Xpr, class Pos> inline
     void print_expr ( std::ostream& os
                     , const char* name , Xpr const& xpr
                     , Pos& p           , boost::mpl::int_<2> const&
                     )
     {
-      typedef typename Xpr::value_type          value_type;
       typedef typename Xpr::index_type::type    index_type;
-
-      // Display int and not char
-      typedef typename boost::mpl::
-              if_c<(    boost::is_same<value_type,int8_t>::value
-                    ||  boost::is_same<value_type,uint8_t>::value
-                    )
-                  , int
-                  , value_type
-                  >::type                       display_t;
 
       // Base index for making the linear index properly C based
       const std::ptrdiff_t b = boost::mpl::at_c<index_type,0>::type::value;
@@ -75,7 +92,7 @@ namespace nt2
             ++p[1]
             )
         {
-          os  << display_t(xpr(nt2::sub2ind(nt2::extent(xpr),p,index_type())+b))
+          os  << display(xpr(nt2::sub2ind(nt2::extent(xpr),p,index_type())+b))
               << " ";
         }
 
@@ -91,12 +108,6 @@ namespace nt2
                     , Pos& p           , boost::mpl::int_<N> const&
                     )
     {
-      typedef typename Xpr::value_type          value_type;
-      typedef typename boost::mpl::if_c < sizeof(value_type) == 1
-                                        , int
-                                        , value_type
-                                        >::type     display_t;
-
       // Walk through the current dimension
       for ( p[N-1] = nt2::first_index<N>(xpr);
             p[N-1] < nt2::last_index<N>(xpr);

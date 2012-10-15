@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL(deinterleave_first, BOOST_SIMD_SIMD_TYPES)
 
   const std::size_t card = cardinal_of<vT>::value;
   vT a,b,c;
-  
+
   for(std::size_t i=1; i<=card; ++i)
   {
     a[i-1]=T(i);
@@ -34,4 +34,4 @@ NT2_TEST_CASE_TPL(deinterleave_first, BOOST_SIMD_SIMD_TYPES)
 
   for(std::size_t i=0; i<card; ++i)
     NT2_TEST_EQUAL(c[i],(i<(card/2)?a[i*2]:b[(i-card/2)*2]));
-} 
+}

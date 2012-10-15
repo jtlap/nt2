@@ -20,3 +20,6 @@ For each kind we propose
 
 [include matlab_conversion/preliminary.qbk]
 [include matlab_conversion/declarations.qbk]
+[include matlab_conversion/sizes.qbk]
+[include matlab_conversion/indexing.qbk]
+[include matlab_conversion/usual_functions.qbk]

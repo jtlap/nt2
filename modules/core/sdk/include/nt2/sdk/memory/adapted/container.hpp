@@ -29,6 +29,21 @@ namespace nt2 { namespace meta
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
+  // scalar_of specialization
+  //============================================================================
+  template<class T,class S>
+  struct  scalar_of< nt2::memory::container<T,S>& >
+  {
+    typedef typename nt2::memory::container<T,S>::reference type;
+  };
+
+  template<class T,class S>
+  struct  scalar_of< nt2::memory::container<T,S> const&>
+  {
+    typedef typename nt2::memory::container<T,S>::const_reference type;
+  };
+
+  //============================================================================
   // value_of specialization
   //============================================================================
   template<class T, class S>

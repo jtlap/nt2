@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
       sub_t pos0 = pos;
       sub_t pos1 = pos;
       pos0[along] = min( pos0[along], splat<i_t>(ex0[along]-1));
-      pos1[along] = selsub( ge(pos1[along],offset), pos1[along], offset);
+      pos1[along] = min( selsub( ge(pos1[along],offset), pos1[along], offset), splat<i_t>(ex1[along]-1) );
 
       return if_else( lt(pos[along], offset)
                     , nt2::run( boost::proto::child_c<1>(a0)

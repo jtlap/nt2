@@ -35,8 +35,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if ((a0 == Inf<A0>()) | is_eqz(a0) ) return Inf<A0>(); 
-      if ((a0 < Zero<A0>()) | is_invalid(a0)) return Nan<A0>();
+      if ((a0 == Inf<A0>()) || is_eqz(a0) ) return Inf<A0>(); 
+      if ((a0 < Zero<A0>()) || is_invalid(a0)) return Nan<A0>();
     #ifdef NT2_TOOLBOX_EULER_HAS_LGAMMA
       return ::lgamma(a0);
     #else
@@ -63,8 +63,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      if ((a0 == Inf<A0>()) | is_eqz(a0) ) return Inf<A0>(); 
-      if ((a0 < Zero<A0>()) | is_invalid(a0)) return Nan<A0>();
+      if ((a0 == Inf<A0>()) || is_eqz(a0) ) return Inf<A0>(); 
+      if ((a0 < Zero<A0>()) || is_invalid(a0)) return Nan<A0>();
       return ::lgammaf(a0);
     }
   };

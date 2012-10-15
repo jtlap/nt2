@@ -7,10 +7,11 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-set(SOURCES test.cpp)
-
 if(APPLE)
-  add_definitions(-framework Accelerate)
+  nt2_module_use_link_flags(-framework Accelerate)
 endif()
 
+set( SOURCES
+     test.cpp
+   )
 nt2_module_add_tests(core.signal.unit ${SOURCES})

@@ -37,6 +37,8 @@ template<class T> struct outer_4D_test
     a1 = nt2::sum(a0,4);
   }
 
+  void reset() {}
+
   nt2::container::table<T, nt2::settings(nt2::_4D)> a0,a1;
   std::size_t M,N,O,P;
 };
@@ -58,6 +60,8 @@ template<class T> struct inner_4D_test
   {
     a1 = nt2::sum(a0,1);
   }
+
+  void reset() {}
 
   nt2::container::table<T, nt2::settings(nt2::_4D)> a0,a1;
   std::size_t M,N,O,P;
@@ -81,6 +85,8 @@ template<class T> struct partial_4D_test
     a1 = nt2::sum(a0,3);
   }
 
+  void reset() {}
+
   nt2::container::table<T, nt2::settings(nt2::_4D)> a0,a1;
   std::size_t M,N,O,P;
 };
@@ -102,6 +108,8 @@ template<class T> struct total_4D_test
   {
     a1 = nt2::sum(a0(nt2::_));
   }
+
+  void reset() {}
 
   nt2::container::table<T, nt2::settings(nt2::_4D)> a0,a1;
   std::size_t M,N,O,P;

@@ -9,7 +9,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_DEINTERLEAVE_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_DEINTERLEAVE_FIRST_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
-#include <boost/simd/include/functions/deinterleave_first.hpp>
+
+#include <boost/simd/toolbox/swar/functions/deinterleave_first.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -34,7 +36,7 @@ namespace boost { namespace simd { namespace ext
       return _mm256_insertf128_ps(that,  boost::simd::deinterleave_first(a10, a11), 1);
      }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::deinterleave_first_
                                    , boost::simd::tag::avx_
                                    , (A0)

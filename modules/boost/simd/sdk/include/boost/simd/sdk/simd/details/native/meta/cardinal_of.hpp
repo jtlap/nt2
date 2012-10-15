@@ -21,10 +21,7 @@ namespace boost { namespace simd { namespace meta
   ////////////////////////////////////////////////////////////////////////////
   template<class T, class X>
   struct  cardinal_of< native<T,X> >
-        : boost::mpl::size_t< sizeof(typename meta::as_simd<T,X>::type)/sizeof(T)
-                            ? sizeof(typename meta::as_simd<T,X>::type)/sizeof(T) 
-                            : 1
-                            > 
+        : boost::mpl::size_t< native<T,X>::static_size >
   {};
 } } }
 

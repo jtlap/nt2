@@ -36,6 +36,8 @@ template<class T> struct iliffe_buffer_1D_dynamic_test
     for(std::ptrdiff_t i = 1; i <= s0_; ++i) data(i) = data2(i);
   }
 
+  void reset() {}
+
   buffer_t        data,data2;
   std::ptrdiff_t  s0_;
 };
@@ -57,6 +59,8 @@ template<class T> struct iliffe_buffer_1D_static_test
   {
     for(std::ptrdiff_t i = 1; i <= s0_; ++i) data(i) = data2(i);
   }
+
+  void reset() {}
 
   buffer_t        data,data2;
   std::ptrdiff_t  s0_;
@@ -81,6 +85,8 @@ template<class T> struct iliffe_buffer_2D_static_test
       for(std::ptrdiff_t i = 1; i <= s0_; ++i)
         data(i,j) = data2(i,j);
   }
+
+  void reset() {}
 
   buffer_t        data,data2;
   std::ptrdiff_t s0_,s1_;
@@ -109,6 +115,8 @@ template<class T> struct iliffe_buffer_2D_dynamic_test
         data(i,j) = data2(i,j);
   }
 
+  void reset() {}
+
   buffer_t        data,data2;
   std::ptrdiff_t s0_,s1_;
 };
@@ -123,6 +131,8 @@ template<class T> struct std_1D_test
     for(std::size_t i = 0; i < data.size(); ++i)
       data[i] = data2[i];
   }
+
+  void reset() {}
 
   std::vector<T,boost::simd::memory::allocator<T> > data,data2;
 };
@@ -141,6 +151,8 @@ template<class T> struct std_2D_test
       for(std::ptrdiff_t i = 0; i < s; ++i)
         data[i+s*j] = data2[i+s*j];
   }
+
+  void reset() {}
 
   std::ptrdiff_t d,s;
   std::vector<T,boost::simd::memory::allocator<T> > data,data2;

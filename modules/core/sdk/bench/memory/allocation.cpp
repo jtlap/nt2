@@ -27,7 +27,7 @@ template<class T> struct std_allocation_test
   }
 
   void operator()() { a0.push_back(alloc.allocate(N)); }
-
+  void reset() {}
   std::allocator<T> alloc;
   std::vector<T*> a0;
   int N;
@@ -43,7 +43,7 @@ template<class T> struct simd_allocation_test
   }
 
   void operator()() { a0.push_back(alloc.allocate(N)); }
-
+  void reset() {}
   boost::simd::memory::allocator<T> alloc;
   std::vector<T*> a0;
   int N;
@@ -54,7 +54,7 @@ template<class T> struct fixed_allocation_test
   fixed_allocation_test(int n) : data(n), alloc(&data[0],&data[0]+n) {}
 
   void operator()() { a0.push_back(alloc.allocate(data.size())); }
-
+  void reset() {}
   std::vector<T> data;
   nt2::memory::fixed_allocator<T>  alloc;
   std::vector<T*> a0;
