@@ -57,9 +57,11 @@ namespace nt2 { namespace tag
      * \brief Define the tag is_prime_ of functor is_prime 
      *        in namespace nt2::tag for toolbox combinatorial
     **/
-    struct is_prime_ : ext::elementwise_<is_prime_> { typedef ext::elementwise_<is_prime_> parent; };
+    //    struct is_prime_ : ext::elementwise_<is_prime_> { typedef ext::elementwise_<is_prime_> parent; };
+    struct is_prime_ : tag::formal_{ typedef tag::formal_ parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::is_prime_,is_prime, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::is_prime_,is_prime, 2)
 } 
 
 #endif

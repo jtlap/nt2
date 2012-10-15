@@ -6,7 +6,7 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 combinatorial toolbox - is_prime/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 combinatorial toolbox - is_prime/expr Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of combinatorial components in scalar mode
@@ -34,20 +34,18 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/table.hpp>
 
-
-
 NT2_TEST_CASE_TPL ( is_prime_real__1_0,  NT2_REAL_TYPES)
 {
   
   using nt2::is_prime;
   using nt2::tag::is_prime_;
- 
+  typedef typename nt2::meta::as_logical<T>::type bT;
+  nt2::table<T> a = nt2::_(T(1), T(30)); 
+  NT2_DISPLAY( is_prime(a)); 
+  //  nt2::table<bT> p = is_prime(a);
   // specific values tests
-  NT2_TEST(!is_prime(nt2::Eight<T>()));
-  NT2_TEST(is_prime(nt2::Seven<T>()));
-  NT2_TEST(is_prime(nt2::Two<T>()));
-  NT2_TEST(!is_prime(nt2::One<T>()));
-  NT2_TEST_ASSERT(is_prime(nt2::Mone<T>()));
+  //  NT2_TEST(p(2));
+
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_prime_integer__1_0,  NT2_INTEGRAL_TYPES)
@@ -61,27 +59,3 @@ NT2_TEST_CASE_TPL ( is_prime_integer__1_0,  NT2_INTEGRAL_TYPES)
   NT2_TEST(!is_prime(nt2::One<T>()));
  } // end of test for integer_
            
-NT2_TEST_CASE_TPL ( is_prime_integer__2_0,  NT2_INTEGRAL_TYPES)
-{
-  
-  using nt2::is_prime;
-  using nt2::tag::is_prime_;
-  nt2::table<T> p =  nt2::primes(T(8)); 
-  NT2_TEST(!is_prime(nt2::Eight<T>(), p));
-  NT2_TEST(is_prime(nt2::Seven<T>(), p));
-  NT2_TEST(is_prime(nt2::Two<T>(), p)); 
-  NT2_TEST(!is_prime(nt2::One<T>(), p));
- } // end of test for integer_
-
-NT2_TEST_CASE_TPL ( is_prime_real__2_0,  NT2_REAL_TYPES)
-{
-  
-  using nt2::is_prime;
-  using nt2::tag::is_prime_;
-  nt2::table<uint32_t> p =  nt2::primes(uint32_t(8)); 
-  NT2_TEST(!is_prime(nt2::Eight<T>(), p));
-  NT2_TEST(is_prime(nt2::Seven<T>(), p));
-  NT2_TEST(is_prime(nt2::Two<T>(), p)); 
-  NT2_TEST(!is_prime(nt2::One<T>(), p));
-  NT2_TEST_ASSERT(is_prime(nt2::Mone<T>()));
-} // end of test for integer_

@@ -40,6 +40,7 @@ namespace nt2 { namespace ext
       BOOST_ASSERT_MSG(a0 <=  A0(saturate<A0>(Valmax<uint32_t>())), "is_prime input is out of range");
       A0 m = oneplus(nt2::sqrt(a0)); 
       nt2::container::table<A0> p = nt2::primes(m);
+      ///TODO perhaps a while with precox ending
       return result_type(nt2::globalall(nt2::rem(a0, p(nt2::lt(p, a0)))));
     }
 
@@ -58,9 +59,47 @@ namespace nt2 { namespace ext
       BOOST_ASSERT_MSG(a0 <=  Valmax<uint32_t>(), "is_prime input is out of range");
       uint32_t ia0 = a0; 
       nt2::container::table<uint32_t> p = nt2::primes(oneplus(isqrt(ia0)));
-      return result_type(nt2::globalall(nt2::rem(ia0, p(lt(p, ia0)))));
+      ///TODO perhaps a while with precox ending
+       return result_type(nt2::globalall(nt2::rem(ia0, p(lt(p, ia0)))));
     }
 
-  }; 
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::is_prime_, tag::cpu_,
+                             (A0)(A1),
+                             ((scalar_<integer_<A0> >))
+                             (unspecified_<A1>)
+                             )
+  {
+    typedef typename meta::as_logical<A0>::type   result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      BOOST_ASSERT_MSG(a0 >=  0, "is_prime input is out of range (< 0)");
+      if (a0 <= 1) return  False<A0>(); 
+      BOOST_ASSERT_MSG(a0 <=  A0(saturate<A0>(Valmax<uint32_t>())), "is_prime input is out of range");
+      return result_type(nt2::globalall(nt2::rem(a0, a1(nt2::lt(a1, a0)))));
+    }
+
+  };
+ 
+  NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::is_prime_, tag::cpu_,
+                             (A0)(A1),
+                             ((scalar_<floating_<A0> >))
+                             (unspecified_<A1>)
+                             )
+  {
+    typedef typename meta::as_logical<A0>::type     result_type;
+    NT2_FUNCTOR_CALL(2)
+    {
+      BOOST_ASSERT_MSG(a0 >= 0, "is_prime input is out of range (< 0)");
+      BOOST_ASSERT_MSG(is_flint(a0), "is_prime input is not integral"); 
+      if (a0 <= 1) return False<A0>(); 
+      BOOST_ASSERT_MSG(a0 <=  Valmax<uint32_t>(), "is_prime input is out of range");
+      uint32_t ia0 = a0; 
+      return result_type(nt2::globalall(nt2::rem(ia0, a1(nt2::lt(a1, ia0)))));
+    }
+
+  };
+  
 } }
 #endif
