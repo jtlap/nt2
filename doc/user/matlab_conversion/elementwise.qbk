@@ -1,0 +1,14 @@
+[section Elementwise functions]
+
+In fact elementwise functions are the most numerous. We provide around xxx of them.
+They are current functions that are perfectly well defined on scalars and the result of their 
+action on a matrix is the same as the undordered action of the correspoding scalar function 
+on each of its elements
+
+As they are the most numerous we will further split them according their range of application:
+
+[endsect]
+
+[include exponential.qbk]
+[include trigonometric.qbk]
+[include roundings.qbk]
