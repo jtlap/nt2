@@ -11,6 +11,8 @@
 
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/through_volatile.hpp>
+#include <nt2/include/functions/logical_or.hpp>
+#include <nt2/include/functions/logical_and.hpp>
 #include <iostream>
 
 namespace nt2
