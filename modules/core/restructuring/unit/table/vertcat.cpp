@@ -14,6 +14,7 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/vertcat.hpp>
 #include <nt2/include/functions/isequal.hpp>
+#include <nt2/include/functions/zeros.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -73,3 +74,17 @@ NT2_TEST_CASE( vertcat_expr )
                   );
 }
 
+NT2_TEST_CASE( vertcat_2 )
+{
+
+  nt2::table<double> c0 = nt2::zeros(0, 1);
+  nt2::table<double> c1 = nt2::zeros(1, 1);
+  nt2::table<double> c2 = nt2::vertcat(c0, c1); 
+
+  typedef float iT;
+  nt2::table<iT> dc1 = nt2::colvect(nt2::_(iT(2), iT(4)));
+  nt2::table<iT> dc2 = nt2::colvect(nt2::_(iT(2), iT(3)));
+  nt2::table<iT> dc3 = nt2::vertcat(dc1, dc2); 
+
+
+}
