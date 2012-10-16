@@ -10,11 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE2_TOFLOAT_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 #include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
-#include <boost/simd/include/functions/simd/abs.hpp>
-#include <boost/simd/include/functions/simd/maximum.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
-#include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -65,7 +61,6 @@ namespace boost { namespace simd { namespace ext
                                             , static_cast<stype>(a0[2])
                                             , static_cast<stype>(a0[3])
                                             );
-      //TODO proper implementation
     }
   };
 
@@ -77,18 +72,12 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::as_floating<A0>::type        result_type;
     typedef typename meta::scalar_of<result_type>::type           sftype;
-    typedef typename meta::make_dependent<simd::int32_t,A0>::type htype;
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (maximum(abs(a0)) > boost::simd::Valmax<htype>())
-      {
-        return boost::simd::make<result_type> ( static_cast<sftype>(a0[0])
-                                              , static_cast<sftype>(a0[1])
-                                              );
-      }
-      result_type v = _mm_cvtepi32_pd(_mm_shuffle_epi32(a0,_MM_SHUFFLE(3,1,2,0)));
-      return v;
+      return boost::simd::make<result_type> ( static_cast<sftype>(a0[0])
+                                            , static_cast<sftype>(a0[1])
+                                            );
     }
   };
 } } }
