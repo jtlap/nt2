@@ -80,14 +80,12 @@ namespace boost { namespace simd
           : meta::double_<1> {};
   }
 
-
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(
 #ifdef BOOST_SIMD_NO_DENORMALS
-    boost::simd::tag::Smallestposval
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Smallestposval, Mindenormal)
 #else
-    boost::simd::tag::Mindenormal
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Mindenormal, Mindenormal)
 #endif
-    , Mindenormal)
+
 } }
 
 #include <boost/simd/sdk/constant/common.hpp>
