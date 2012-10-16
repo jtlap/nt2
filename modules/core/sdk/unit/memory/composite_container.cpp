@@ -47,12 +47,6 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, DIMS)
   NT2_TEST_EQUAL(b.size()             , 0u );
   NT2_TEST_EQUAL(b.leading_size()     , 0u );
   NT2_TEST(b.extent() == of_size_<0>());
-  NT2_TEST_EQUAL( b.raw()
-                , boost::fusion::make_vector( (double*)(0)
-                                            , (float*)(0)
-                                            , (short*)(0)
-                                            )
-                );
 }
 
 //==============================================================================

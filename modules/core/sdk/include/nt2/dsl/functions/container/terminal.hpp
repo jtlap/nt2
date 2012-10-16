@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
     result_type operator()(A0 const& a0, State const& state, Data const&) const
     {
       BOOST_ASSERT_MSG
-      ( maxpos<result_type>(state) < boost::proto::value(a0).size()
+      ( boost::proto::value(a0).is_safe(maxpos<result_type>(state))
       , "Out of range SIMD read"
       );
 
@@ -131,8 +131,8 @@ namespace nt2 { namespace ext
     result_type operator()(A0& a0, State const& state, Data const& data) const
     {
       BOOST_ASSERT_MSG
-      ( maxpos<Data>(state) < boost::proto::value(a0).size()
-      , "Out of range SIMD write"
+      ( boost::proto::value(a0).is_safe(maxpos<result_type>(state))
+      , "Out of range SIMD read"
       );
 
       return unaligned_store<result_type>(data, a0.raw(), state);

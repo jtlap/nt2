@@ -144,9 +144,6 @@ NT2_TEST_CASE( composite_buffer_default_ctor )
   NT2_TEST_EQUAL(b.size()     , 0u      );
   NT2_TEST_EQUAL(b.capacity() , 0u      );
   NT2_TEST_EQUAL(b.begin()    , b.end() );
-  NT2_TEST_EQUAL( b.raw()
-                , boost::fusion::make_vector((double*)0,(float*)0,(short*)0)
-                );
 }
 
 //==============================================================================
@@ -164,9 +161,6 @@ NT2_TEST_CASE( composite_buffer_allocator_ctor )
   NT2_TEST_EQUAL(b.size()     , 0u      );
   NT2_TEST_EQUAL(b.capacity() , 0u      );
   NT2_TEST_EQUAL(b.begin()    , b.end() );
-  NT2_TEST_EQUAL( b.raw()
-                , boost::fusion::make_vector((double*)0,(float*)0,(short*)0)
-                );
 }
 
 //==============================================================================

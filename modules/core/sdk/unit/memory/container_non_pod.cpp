@@ -40,7 +40,6 @@ NT2_TEST_CASE_TPL( container_dynamic_default_ctor, DIMS)
   NT2_TEST_EQUAL(b.size()             , 0u );
   NT2_TEST_EQUAL(b.leading_size()     , 0u );
   NT2_TEST_EQUAL(b.extent(), of_size_<0>());
-  NT2_TEST_EQUAL(b.raw(), (nt2::object*)(0));
 }
 
 //==============================================================================
@@ -269,7 +268,6 @@ NT2_TEST_CASE( container_resize)
   NT2_TEST_EQUAL(b.size(),  0u );
   NT2_TEST_EQUAL(b.leading_size(), b.extent()[0] );
   NT2_TEST_EQUAL(b.extent(), of_size_<0>());
-  NT2_TEST_EQUAL(b.raw(), (nt2::object*)(0));
 
   b.resize( of_size(3,2) );
 

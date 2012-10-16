@@ -83,17 +83,22 @@ NT2_TEST_CASE( horzcat_expr )
                             )
                   );
 }
+
 NT2_TEST_CASE( horzcat_2 )
 {
+  typedef double iT;
+  using nt2::_;
 
   nt2::table<double> c0 = nt2::zeros(1, 0);
-  nt2::table<double> c1 = nt2::zeros(1, 1);
-  nt2::table<double> c2 = nt2::horzcat(c0, c1); 
+  nt2::table<double> c1 = nt2::_(iT(2), iT(4));
 
-  typedef double iT;
+  NT2_TEST( nt2::isequal( nt2::horzcat(c0, c1), c1 ) );
+  NT2_TEST( nt2::isequal( nt2::horzcat(c1, c0), c1 ) );
+
   nt2::table<iT> dc1 = nt2::_(iT(2), iT(4));
   nt2::table<iT> dc2 = nt2::_(iT(2), iT(3));
-  nt2::table<iT> dc3 = nt2::horzcat(dc1, dc2); 
+  nt2::table<iT> dc3 = nt2::horzcat(dc1, dc2);
 
-
+  NT2_TEST( nt2::isequal( dc3(_, _(1, size(dc1, 2))), dc1  )        );
+  NT2_TEST( nt2::isequal( dc3(_, _(size(dc1, 2)+1, nt2::end_)),dc2) );
 }

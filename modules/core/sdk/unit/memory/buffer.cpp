@@ -39,7 +39,6 @@ NT2_TEST_CASE_TPL( buffer_default_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(b.size()     , 0u      );
   NT2_TEST_EQUAL(b.capacity() , 0u      );
   NT2_TEST_EQUAL(b.begin()    , b.end() );
-  NT2_TEST_EQUAL(b.raw()      , (T*)(0) );
 }
 
 //==============================================================================

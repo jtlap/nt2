@@ -326,6 +326,11 @@ namespace nt2 { namespace memory
       return boost::fusion::at_c<0>(data_).empty();
     }
 
+    BOOST_FORCEINLINE bool is_safe(size_type p) const
+    {
+      return boost::fusion::at_c<0>(data_).is_safe(p);
+    }
+
     //==========================================================================
     // Random access helper
     //==========================================================================

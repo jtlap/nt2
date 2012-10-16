@@ -41,7 +41,6 @@ NT2_TEST_CASE( buffer_default_ctor )
   NT2_TEST_EQUAL(b.size()     , 0u      );
   NT2_TEST_EQUAL(b.capacity() , 0u      );
   NT2_TEST_EQUAL(b.begin()    , b.end() );
-  NT2_TEST_EQUAL(b.raw()      , (nt2::object*)(0) );
 }
 
 //==============================================================================
