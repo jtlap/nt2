@@ -74,6 +74,8 @@ NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES
   NT2_TEST_EQUAL(tofloat(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Two<vT>())[0], boost::simd::Two<sr_t>());
+  NT2_TEST_EQUAL(tofloat(boost::simd::Valmax<vT>())[0], sr_t(boost::simd::Valmax<T>()));
+  NT2_TEST_EQUAL(tofloat(boost::simd::Valmin<vT>())[0], sr_t(boost::simd::Valmin<T>()));
 
   // specific values tests
 } // end of test for int_convert_
@@ -97,6 +99,7 @@ NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYP
   NT2_TEST_EQUAL(tofloat(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(tofloat(boost::simd::Two<vT>())[0], boost::simd::Two<sr_t>());
+  NT2_TEST_EQUAL(tofloat(boost::simd::Valmax<vT>())[0], sr_t(boost::simd::Valmax<T>()));
 
   // specific values tests
 } // end of test for uint_convert_

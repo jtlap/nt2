@@ -12,6 +12,11 @@
 #include <boost/simd/toolbox/arithmetic/functions/tofloat.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/is_ltz.hpp>
+#include <boost/simd/include/functions/simd/bitwise_notand.hpp>
+#include <boost/simd/include/constants/twoto31.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -52,15 +57,14 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef typename dispatch::meta::as_floating<A0>::type result_type;
+    typedef typename dispatch::meta::as_integer<A0, signed>::type  si_type; 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<result_type>::type stype;
-
-      return boost::simd::make<result_type> ( static_cast<stype>(a0[0])
-                                            , static_cast<stype>(a0[1])
-                                            , static_cast<stype>(a0[2])
-                                            , static_cast<stype>(a0[3])
-                                            );
+      si_type a00 = bitwise_cast<si_type>(a0);
+      si_type a01 = bitwise_notand(Signmask<si_type>(), a0); 
+      result_type inc = if_else_zero(is_ltz(a00), Twoto31<result_type>()); 
+      return tofloat(a01)+inc;  
     }
   };
 
