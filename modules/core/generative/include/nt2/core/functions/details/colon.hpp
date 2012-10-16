@@ -35,7 +35,7 @@ namespace nt2 { namespace details
   {
     typedef typename meta::as_signed<L>::type ltype;
     typedef typename meta::as_signed<U>::type utype;
-    return s ? ( ((u>l)==(s>0)) ? (utype(u)-ltype(l)+s)/s : 0) : u;
+    return s ? ( ((u>l)==(s>0)) ? (utype(u)-ltype(l)+s)/s : (u == l)) : u;
   }
 
   /// INTERNAL ONLY
