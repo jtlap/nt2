@@ -16,13 +16,13 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_, (A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_xor_, tag::cpu_, (A0)(A1)(X)
                             , ((simd_<fundamental_<A0>,X>))
-                              ((simd_<fundamental_<A0>,X>))
+                              ((simd_<fundamental_<A1>,X>))
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    BOOST_SIMD_FUNCTOR_CALL(2)
     {
      return mask2logical(b_xor(genmask(a0), genmask(a1)));
     }
