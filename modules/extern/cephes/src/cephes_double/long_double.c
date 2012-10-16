@@ -15,7 +15,7 @@ extern long double cephes_acoshl ( long double xx )
 extern int cephes_airy ( double xx, double *ai, double *aip, double *bi, double *bip );
 extern int cephes_airyl ( long double xx, long double *ai, long double *aip, long double *bi, long double *bip )
 {
-    return cephes_airy(xx, ai, aip, bi, bip);
+    return cephes_airy(xx, (double*)ai, (double*)aip, (double*)bi, (double*)bip);
 }
 
 extern double cephes_asin ( double xx );
@@ -111,7 +111,7 @@ extern long double cephes_cbrtl ( long double xx )
 extern void cephes_cchsh ( double xx, double *c, double *s );
 extern void cephes_cchshl ( long double xx, long double *c, long double *s )
 {
-    cephes_cchsh(xx, c, s);
+    cephes_cchsh(xx, (double*)c, (double*)s);
 }
 
 extern void cephes_ccos ( cmplx *z, cmplx *w );
@@ -147,7 +147,7 @@ extern void cephes_cexpl ( cmplxl *z, cmplxl *w )
 extern double cephes_chbevl ( double x, double *array, int n );
 extern long double cephes_chbevll ( long double x, long double *array, int n )
 {
-    return cephes_chbevl(x, array, n);
+    return cephes_chbevl(x, (double*)array, n);
 }
 
 extern double cephes_chdtrc ( double dff, double xx );
@@ -285,7 +285,7 @@ extern long double cephes_ellpel ( long double xx )
 extern int cephes_ellpj ( double uu, double mm, double *sn, double *cn, double *dn, double *ph );
 extern int cephes_ellpjl ( long double uu, long double mm, long double *sn, long double *cn, long double *dn, long double *ph )
 {
-    return cephes_ellpj(uu, mm, sn, cn, dn, ph);
+    return cephes_ellpj(uu, mm, (double*)sn, (double*)cn, (double*)dn, (double*)ph);
 }
 
 extern double cephes_ellpk ( double xx );
@@ -363,7 +363,7 @@ extern long double cephes_floorl ( long double x )
 extern void cephes_fresnl ( double xxa, double *ssa, double *cca );
 extern void cephes_fresnll ( long double xxa, long double *ssa, long double *cca )
 {
-    cephes_fresnl(xxa, ssa, cca);
+    cephes_fresnl(xxa, (double*)ssa, (double*)cca);
 }
 
 extern double cephes_frexp ( double x, int *pw2 );
@@ -393,7 +393,7 @@ extern long double cephes_gdtrl ( long double aa, long double bb, long double xx
 extern double cephes_hyp2f0 ( double aa, double bb, double xx, int type, double *err );
 extern long double cephes_hyp2f0l ( long double aa, long double bb, long double xx, int type, long double *err )
 {
-    return cephes_hyp2f0(aa, bb, xx, type, err);
+    return cephes_hyp2f0(aa, bb, xx, type, (double*)err);
 }
 
 extern double cephes_hyp2f1 ( double aa, double bb, double cc, double xx );
@@ -591,13 +591,13 @@ extern long double cephes_ndtril ( long double yy0 )
 extern double cephes_onef2 ( double aa, double bb, double cc, double xx, double *err );
 extern long double cephes_onef2l ( long double aa, long double bb, long double cc, long double xx, long double *err )
 {
-    return cephes_onef2(aa, bb, cc, xx, err);
+    return cephes_onef2(aa, bb, cc, xx, (double*)err);
 }
 
 extern double cephes_p1evl ( double xx, double *coef, int N );
 extern long double cephes_p1evll ( long double xx, long double *coef, int N )
 {
-    return cephes_p1evl(xx, coef, N);
+    return cephes_p1evl(xx, (double*)coef, N);
 }
 
 extern double cephes_pdtrc ( int k, double mm );
@@ -621,31 +621,31 @@ extern long double cephes_pdtril ( int k, long double yy )
 extern void cephes_poladd ( double a[], int na, double b[], int nb, double c[] );
 extern void cephes_poladdl ( long double a[], int na, long double b[], int nb, long double c[] )
 {
-    cephes_poladd(a, na, b, nb, c);
+    cephes_poladd((double*)a, na, (double*)b, nb, (double*)c);
 }
 
 extern void cephes_polclr ( double *a, int n );
 extern void cephes_polclrl ( long double *a, int n )
 {
-    cephes_polclr(a, n);
+    cephes_polclr((double*)a, n);
 }
 
 extern int cephes_poldiv ( double a[], int na, double b[], int nb, double c[] );
 extern int cephes_poldivl ( long double a[], int na, long double b[], int nb, long double c[] )
 {
-    return cephes_poldiv(a, na, b, nb, c);
+    return cephes_poldiv((double*)a, na, (double*)b, nb, (double*)c);
 }
 
 extern double cephes_poleva ( double *a, int na, double xx );
 extern long double cephes_poleval ( long double *a, int na, long double xx )
 {
-    return cephes_poleva(a, na, xx);
+    return cephes_poleva((double*)a, na, xx);
 }
 
 extern double cephes_polevl ( double xx, double *coef, int N );
 extern long double cephes_polevll ( long double xx, long double *coef, int N )
 {
-    return cephes_polevl(xx, coef, N);
+    return cephes_polevl(xx, (double*)coef, N);
 }
 
 extern void cephes_polini ( int maxdeg );
@@ -657,31 +657,31 @@ extern void cephes_polinil ( int maxdeg )
 extern void cephes_polmov ( double *a, int na, double *b );
 extern void cephes_polmovl ( long double *a, int na, long double *b )
 {
-    cephes_polmov(a, na, b);
+    cephes_polmov((double*)a, na, (double*)b);
 }
 
 extern void cephes_polmul ( double a[], int na, double b[], int nb, double c[] );
 extern void cephes_polmull ( long double a[], int na, long double b[], int nb, long double c[] )
 {
-    cephes_polmul(a, na, b, nb, c);
+    cephes_polmul((double*)a, na, (double*)b, nb, (double*)c);
 }
 
 extern void cephes_polprt ( double *a, int na, int d );
 extern void cephes_polprtl ( long double *a, int na, int d )
 {
-    cephes_polprt(a, na, d);
+    cephes_polprt((double*)a, na, d);
 }
 
 extern void cephes_polsbt ( double a[], int na, double b[], int nb, double c[] );
 extern void cephes_polsbtl ( long double a[], int na, long double b[], int nb, long double c[] )
 {
-    cephes_polsbt(a, na, b, nb, c);
+    cephes_polsbt((double*)a, na, (double*)b, nb, (double*)c);
 }
 
 extern void cephes_polsub ( double a[], int na, double b[], int nb, double c[] );
 extern void cephes_polsubl ( long double a[], int na, long double b[], int nb, long double c[] )
 {
-    cephes_polsub(a, na, b, nb, c);
+    cephes_polsub((double*)a, na, (double*)b, nb, (double*)c);
 }
 
 extern double cephes_pow ( double x, double y );
@@ -717,13 +717,13 @@ extern long double cephes_rgammal ( long double xx )
 extern int cephes_shichi ( double xx, double *si, double *ci );
 extern int cephes_shichil ( long double xx, long double *si, long double *ci )
 {
-    return cephes_shichi(xx, si, ci);
+    return cephes_shichi(xx, (double*)si, (double*)ci);
 }
 
 extern int cephes_sici ( double xx, double *si, double *ci );
 extern int cephes_sicil ( long double xx, long double *si, long double *ci )
 {
-    return cephes_sici(xx, si, ci);
+    return cephes_sici(xx, (double*)si, (double*)ci);
 }
 
 extern double cephes_sindg ( double xx );
@@ -795,7 +795,7 @@ extern long double cephes_tanhl ( long double xx )
 extern double cephes_threef0 ( double aa, double bb, double cc, double xx, double *err );
 extern long double cephes_threef0l ( long double aa, long double bb, long double cc, long double xx, long double *err )
 {
-    return cephes_threef0(aa, bb, cc, xx, err);
+    return cephes_threef0(aa, bb, cc, xx, (double*)err);
 }
 
 extern double cephes_y0 ( double xx );
