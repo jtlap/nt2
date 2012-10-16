@@ -118,7 +118,7 @@ namespace boost { namespace simd { namespace ext
   // Implementation when type A0 is int32_
   /////////////////////////////////////////////////////////////////////////////
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splatted_maximum_
-                                   , boost::simd::tag::sse2_,
+                                   , boost::simd::tag::sse2_
 				   , (A0)
 				   , ((simd_<ints32_<A0>,boost::simd::tag::sse_>))
                                    )
