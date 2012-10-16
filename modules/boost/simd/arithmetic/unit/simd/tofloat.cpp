@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/arithmetic/include/functions/tofloat.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::tofloat;
   using boost::simd::tag::tofloat_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES
 {
   using boost::simd::tofloat;
   using boost::simd::tag::tofloat_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -82,7 +82,7 @@ NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYP
 {
   using boost::simd::tofloat;
   using boost::simd::tag::tofloat_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -100,3 +100,13 @@ NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYP
 
   // specific values tests
 } // end of test for uint_convert_
+
+NT2_TEST_CASE( tofloat_long_long )
+{
+  using boost::simd::tofloat;
+  using boost::simd::splat;
+  typedef boost::simd::native<long long, boost::simd::tag::sse_> vT;
+
+  long long i = -9223372036854775808ULL;
+  NT2_TEST_EQUAL(tofloat(i), tofloat(splat<vT>(i))[0]);
+}
