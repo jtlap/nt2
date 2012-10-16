@@ -101,6 +101,7 @@ NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYP
   // specific values tests
 } // end of test for uint_convert_
 
+#ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
 NT2_TEST_CASE( tofloat_long_long )
 {
   using boost::simd::tofloat;
@@ -110,3 +111,4 @@ NT2_TEST_CASE( tofloat_long_long )
   long long i = -9223372036854775808ULL;
   NT2_TEST_EQUAL(tofloat(i), tofloat(splat<vT>(i))[0]);
 }
+#endif
