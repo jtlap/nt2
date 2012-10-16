@@ -149,9 +149,11 @@ namespace nt2
 // http://www.mersenneforum.org/showthread.php?t=10610&page=3
 
 // Algorithmic improvements:
+//   http://engr.case.edu/leinweber_lawrence/eecs701/Comparison%20of%20DFT%20Algorithms.pdf
+//   http://cnx.org/content/col11438/latest
 //   http://cr.yp.to/arith/tangentfft-20070919.pdf
 //   http://www.apple.com/acg
-//   http://jsat.ewi.tudelft.nl/content/volume7/JSAT7_13_Haynal.pdf
+//   http://jsat.ewi.tudelft.nl/content/volume7/JSAT7_13_Haynal.pdf (http://www.softerhardware.com/fft/index.html)
 //   http://infoscience.epfl.ch/record/33931/files/VetterliN84.pdf
 //   http://infoscience.epfl.ch/record/33921/files/VetterliD89.pdf
 //   http://math.berkeley.edu/~strain/273.F10/duhamel.vetterli.fft.review.pdf
@@ -298,6 +300,11 @@ namespace nt2
 //   H. L. Gorginsky and G. A. Works, "A pipeline fast Fourier transform," IEEE Trans. Comput., vol. C-19, pp. 1015-1019, Nov. 1970.
 
 // Code:
+// FFTW   http://www.fftw.org
+// UHFFT  http://www2.cs.uh.edu/~ayaz/uhfft http://www.tlc2.uh.edu/Poster/Rschday_posters/Johnsson_group/UHFFT%202.0
+// SPIRAL http://www.spiral.net
+// SFFT   http://cnx.org/content/col11438/latest
+//
 // https://bitbucket.org/jpommier/pffft
 // http://www.jjj.de/fxt/#fxt
 // http://star-www.rl.ac.uk/star/docs/sun194.htx/node8.html
@@ -1009,22 +1016,26 @@ namespace detail
         BOOST_ASSUME( valid_bits <= 16 );
 
         typedef unsigned char bytes[ sizeof( value ) ];
+    #ifdef BOOST_SIMD_NO_STRICT_ALIASING
         bytes const & input_bytes( reinterpret_cast<bytes const &>( value ) );
-        #if defined( BOOST_LITTLE_ENDIAN )
-            unsigned const byte0index( 0 );
-            unsigned const byte1index( 1 );
-            #ifndef NDEBUG
-                unsigned const byte2index( 2 );
-                unsigned const byte3index( 3 );
-            #endif // NDEBUG
-        #elif defined( BOOST_BIG_ENDIAN )
-            unsigned const byte0index( 3 );
-            unsigned const byte1index( 2 );
-            #ifndef NDEBUG
-                unsigned const byte2index( 1 );
-                unsigned const byte3index( 0 );
-            #endif // NDEBUG
-        #endif // BOOST_LITTLE_ENDIAN
+    #else
+        bytes input_bytes; std::memcpy( &input_bytes, &value, sizeof( input_bytes ) );
+    #endif // BOOST_SIMD_NO_STRICT_ALIASING
+    #if defined( BOOST_LITTLE_ENDIAN )
+        unsigned const byte0index( 0 );
+        unsigned const byte1index( 1 );
+        #ifndef NDEBUG
+            unsigned const byte2index( 2 );
+            unsigned const byte3index( 3 );
+        #endif // NDEBUG
+    #elif defined( BOOST_BIG_ENDIAN )
+        unsigned const byte0index( 3 );
+        unsigned const byte1index( 2 );
+        #ifndef NDEBUG
+            unsigned const byte2index( 1 );
+            unsigned const byte3index( 0 );
+        #endif // NDEBUG
+    #endif // BOOST_LITTLE_ENDIAN
         BOOST_ASSERT( value < ( 1 << 16 )            );
         BOOST_ASSERT( input_bytes[ byte2index ] == 0 );
         BOOST_ASSERT( input_bytes[ byte3index ] == 0 );
