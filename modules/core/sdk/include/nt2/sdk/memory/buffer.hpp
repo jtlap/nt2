@@ -50,7 +50,8 @@ namespace nt2 { namespace memory
     // Default constructor
     //==========================================================================
     buffer( allocator_type a = allocator_type())
-          : allocator_type(a), begin_(0), end_(0), capacity_(0)
+          : allocator_type(a)
+          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
     {}
 
     private:
@@ -71,8 +72,11 @@ namespace nt2 { namespace memory
     // Size constructor
     //==========================================================================
     buffer( size_type n, allocator_type a = allocator_type())
-          : allocator_type(a), begin_(0), end_(0), capacity_(0)
+          : allocator_type(a)
+          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
     {
+      if(!n) return;
+
       local_ptr<T,deleter> that ( allocator_type::allocate(n)
                                 , deleter(n,get_allocator())
                                 );
@@ -80,7 +84,7 @@ namespace nt2 { namespace memory
       nt2::memory::default_construct(that.get(),that.get() + n,get_allocator());
 
       begin_ = that.release();
-      if(begin_) end_ = capacity_ = begin_ + n;
+      end_ = capacity_ = begin_ + n;
     }
 
     //==========================================================================
@@ -88,8 +92,10 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( buffer const& src )
           : allocator_type(src.get_allocator())
-          , begin_(0), end_(0), capacity_(0)
+          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
     {
+      if(!src.size()) return;
+
       local_ptr<T,deleter> that ( allocator_type::allocate(src.size())
                                 , deleter(src.size(),get_allocator())
                                 );
@@ -100,7 +106,7 @@ namespace nt2 { namespace memory
                                   );
 
       begin_ = that.release();
-      if(begin_) end_ = capacity_ = begin_ + src.size();
+      end_ = capacity_ = begin_ + src.size();
     }
 
     //==========================================================================
@@ -108,8 +114,10 @@ namespace nt2 { namespace memory
     //==========================================================================
     buffer( buffer const& src, std::size_t capa )
           : allocator_type(src.get_allocator())
-          , begin_(0), end_(0), capacity_(0)
+          , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
     {
+      if(!capa) return;
+
       local_ptr<T,deleter> that ( allocator_type::allocate(capa)
                                 , deleter(capa,get_allocator())
                                 );
@@ -119,12 +127,9 @@ namespace nt2 { namespace memory
                                   , get_allocator()
                                   );
 
-      begin_ = that.release();
-      if(begin_)
-      {
-        end_ = begin_ + src.size();
-        capacity_ = begin_ + capa;
-      }
+      begin_    = that.release();
+      end_      = begin_ + src.size();
+      capacity_ = begin_ + capa;
     }
 
     //==========================================================================
@@ -132,7 +137,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     ~buffer()
     {
-      if(begin_)
+      if(is_initialized() && begin_)
       {
         nt2::memory::destruct(begin_,end_,get_allocator());
         allocator_type::deallocate(begin_,capacity());
@@ -182,12 +187,34 @@ namespace nt2 { namespace memory
 
     //==========================================================================
     // Swap
+    // The is_initailized dance is required so every buffer always points to
+    // its own dummy memory segment if unitialized.
     //==========================================================================
     void swap( buffer& src )
     {
-      boost::swap(begin_          , src.begin_          );
-      boost::swap(end_            , src.end_            );
-      boost::swap(capacity_       , src.capacity_       );
+      if(src.is_initialized() && is_initialized())
+      {
+        boost::swap(begin_          , src.begin_          );
+        boost::swap(end_            , src.end_            );
+        boost::swap(capacity_       , src.capacity_       );
+      }
+      else
+      {
+        pointer tb,te,tc;
+
+        tb = src.is_initialized() ? src.begin_     : &dummy_;
+        te = src.is_initialized() ? src.end_       : &dummy_;
+        tc = src.is_initialized() ? src.capacity_  : &dummy_;
+
+        src.begin_    = is_initialized() ? begin_     : &src.dummy_;
+        src.end_      = is_initialized() ? end_       : &src.dummy_;
+        src.capacity_ = is_initialized() ? capacity_  : &src.dummy_;
+
+        begin_    = tb;
+        end_      = te;
+        capacity_ = tc;
+      }
+
       boost::swap(get_allocator() , src.get_allocator() );
     }
 
@@ -243,18 +270,31 @@ namespace nt2 { namespace memory
     //==========================================================================
     inline reference       operator[](size_type i)
     {
-      BOOST_ASSERT_MSG( i < size(), "Out of range acces on buffer" );
+      BOOST_ASSERT_MSG( is_safe(i)
+                      , "Out of range acces on buffer"
+                      );
       return begin_[i];
     }
 
     inline const_reference operator[](size_type i) const
     {
-      BOOST_ASSERT_MSG( i < size(), "Out of range acces on buffer" );
+      BOOST_ASSERT_MSG(  is_safe(i)
+                      , "Out of range acces on buffer"
+                      );
       return begin_[i];
     }
 
+    BOOST_FORCEINLINE bool is_safe(size_type p) const
+    {
+      return !p || p < size();
+    }
+
     private:
-    pointer begin_, end_, capacity_;
+
+    inline bool is_initialized() const { return begin_ != &dummy_; }
+
+    pointer     begin_, end_, capacity_;
+    value_type  dummy_;
   };
 
   //============================================================================

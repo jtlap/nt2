@@ -176,6 +176,11 @@ namespace nt2 { namespace memory
     }
 
     //==========================================================================
+    // Check if a position is safely R/W in the current container
+    //==========================================================================
+    BOOST_FORCEINLINE bool is_safe(size_type p) const { return base_->is_safe(p); }
+
+    //==========================================================================
     /*!
      * @brief Access to the architecture specific container data
      * As the inner structure of a container may change with the hardware

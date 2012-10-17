@@ -39,7 +39,6 @@ NT2_TEST_CASE_TPL( buffer_default_ctor, NT2_TYPES)
   NT2_TEST_EQUAL(b.size()     , 0u      );
   NT2_TEST_EQUAL(b.capacity() , 0u      );
   NT2_TEST_EQUAL(b.begin()    , b.end() );
-  NT2_TEST_EQUAL(b.raw()      , (T*)(0) );
 }
 
 //==============================================================================
@@ -230,4 +229,27 @@ NT2_TEST_CASE_TPL(buffer_push_back_def, NT2_TYPES )
   for ( ; i < 7; ++i ) NT2_TEST_EQUAL( x[i], T(11+i) );
 
   std::cout << "capacity = " << x.capacity() << std::endl;
+}
+
+NT2_TEST_CASE(buffer_empty)
+{
+  using nt2::memory::buffer;
+  buffer<char> x;
+  buffer<char> y(x);
+  buffer<char> z(x,0);
+  buffer<char> w(x,3);
+
+  NT2_TEST_EQUAL(x.is_safe(0), true);
+  NT2_TEST_EQUAL(y.is_safe(0), true);
+  NT2_TEST_EQUAL(z.is_safe(0), true);
+  NT2_TEST_EQUAL(w.is_safe(0), true);
+
+  buffer<char> u;
+  u = x;
+
+  NT2_TEST_EQUAL(u.is_safe(0), true);
+
+  buffer<char> v(6);
+  v.swap(x);
+  NT2_TEST_EQUAL(v.is_safe(0), true);
 }

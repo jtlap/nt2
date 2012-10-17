@@ -183,6 +183,11 @@ namespace nt2 { namespace memory
 
     Container& base() const { return *base_; }
 
+    //==========================================================================
+    // Check if a position is safely R/W in the current container
+    //==========================================================================
+    BOOST_FORCEINLINE bool is_safe(size_type p) const { return base_->is_safe(p); }
+
     private:
     Container*                  base_;
     mutable pointer             ptr;

@@ -43,7 +43,7 @@ namespace nt2 {  namespace memory
   template<class T, class Size> class array_buffer
   {
     private:
-    BOOST_SIMD_ALIGNED_TYPE(T) elems[Size::value];
+    BOOST_SIMD_ALIGNED_TYPE(T) elems[Size::value ? Size::value : 1u];
 
     public:
     struct allocator_type {};
@@ -87,15 +87,21 @@ namespace nt2 {  namespace memory
     // operator[]
     inline reference operator[](size_type i)
     {
-      BOOST_ASSERT_MSG( i < static_size, "Out of range acces on array_buffer" );
+      BOOST_ASSERT_MSG( is_safe(i), "Out of range acces on array_buffer" );
       return elems[i];
     }
 
     inline const_reference operator[](size_type i) const
     {
-      BOOST_ASSERT_MSG( i < static_size, "Out of range acces on array_buffer" );
+      BOOST_ASSERT_MSG( is_safe(i), "Out of range acces on array_buffer" );
       return elems[i];
     }
+
+    static BOOST_FORCEINLINE bool is_safe(size_type p)
+    {
+      return  (Size::value && p < size()) || !(Size::value || p );
+    }
+
 
     static void resize( size_type )     {}
 
