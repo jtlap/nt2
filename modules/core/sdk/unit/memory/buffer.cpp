@@ -236,7 +236,20 @@ NT2_TEST_CASE(buffer_empty)
   using nt2::memory::buffer;
   buffer<char> x;
   buffer<char> y(x);
+  buffer<char> z(x,0);
+  buffer<char> w(x,3);
 
   NT2_TEST_EQUAL(x.is_safe(0), true);
   NT2_TEST_EQUAL(y.is_safe(0), true);
+  NT2_TEST_EQUAL(z.is_safe(0), true);
+  NT2_TEST_EQUAL(w.is_safe(0), true);
+
+  buffer<char> u;
+  u = x;
+
+  NT2_TEST_EQUAL(u.is_safe(0), true);
+
+  buffer<char> v(6);
+  v.swap(x);
+  NT2_TEST_EQUAL(v.is_safe(0), true);
 }

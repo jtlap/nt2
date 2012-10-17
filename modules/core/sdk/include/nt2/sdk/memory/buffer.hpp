@@ -75,6 +75,8 @@ namespace nt2 { namespace memory
           : allocator_type(a)
           , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
     {
+      if(!n) return;
+
       local_ptr<T,deleter> that ( allocator_type::allocate(n)
                                 , deleter(n,get_allocator())
                                 );
@@ -82,7 +84,7 @@ namespace nt2 { namespace memory
       nt2::memory::default_construct(that.get(),that.get() + n,get_allocator());
 
       begin_ = that.release();
-      if(is_initialized() && begin_) end_ = capacity_ = begin_ + n;
+      end_ = capacity_ = begin_ + n;
     }
 
     //==========================================================================
@@ -92,6 +94,8 @@ namespace nt2 { namespace memory
           : allocator_type(src.get_allocator())
           , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
     {
+      if(!src.size()) return;
+
       local_ptr<T,deleter> that ( allocator_type::allocate(src.size())
                                 , deleter(src.size(),get_allocator())
                                 );
@@ -102,7 +106,7 @@ namespace nt2 { namespace memory
                                   );
 
       begin_ = that.release();
-      if(is_initialized() && begin_) end_ = capacity_ = begin_ + src.size();
+      end_ = capacity_ = begin_ + src.size();
     }
 
     //==========================================================================
@@ -112,6 +116,8 @@ namespace nt2 { namespace memory
           : allocator_type(src.get_allocator())
           , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
     {
+      if(!capa) return;
+
       local_ptr<T,deleter> that ( allocator_type::allocate(capa)
                                 , deleter(capa,get_allocator())
                                 );
@@ -121,12 +127,9 @@ namespace nt2 { namespace memory
                                   , get_allocator()
                                   );
 
-      begin_ = that.release();
-      if(is_initialized() && begin_)
-      {
-        end_ = begin_ + src.size();
-        capacity_ = begin_ + capa;
-      }
+      begin_    = that.release();
+      end_      = begin_ + src.size();
+      capacity_ = begin_ + capa;
     }
 
     //==========================================================================
@@ -283,8 +286,7 @@ namespace nt2 { namespace memory
 
     BOOST_FORCEINLINE bool is_safe(size_type p) const
     {
-      return    (is_initialized() && p < size())
-            ||  (!is_initialized() && !p);
+      return !p || p < size();
     }
 
     private:
