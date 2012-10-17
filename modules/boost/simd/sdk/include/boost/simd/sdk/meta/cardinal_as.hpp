@@ -15,10 +15,8 @@
 namespace boost { namespace simd { namespace meta
 {
   template<class T,class X>
-  struct cardinal_as
-  {
-    typedef typename cardinal_of< native<T,X> >::type type;
-  };
+  struct cardinal_as : cardinal_of< native<T,X> >::type
+  {};
 } } }
 
 #endif

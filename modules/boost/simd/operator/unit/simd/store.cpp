@@ -55,8 +55,9 @@ NT2_TEST_CASE( store_sequence )
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<foo, ext_t> seq_t;
 
-  static const size_t sz = cardinal_of< native<char  ,ext_t> >::value;
+  static const size_t sz = cardinal_of< seq_t >::value;
   BOOST_SIMD_ALIGNED_TYPE(char)   cdata[ sz ];
   BOOST_SIMD_ALIGNED_TYPE(float)  fdata[ sz ];
   BOOST_SIMD_ALIGNED_TYPE(double) ddata[ sz ];
@@ -69,8 +70,6 @@ NT2_TEST_CASE( store_sequence )
     fdata[i] = float(1+i);
     ddata[i] = double(1+i);
   }
-
-  typedef native<foo, ext_t> seq_t;
 
   seq_t v = load<seq_t>(boost::fusion::make_vector(&ddata[0], &fdata[0], &cdata[0]), 0);
   store(v, boost::fusion::make_vector(&sddata[0], &sfdata[0], &scdata[0]), 0);
@@ -91,8 +90,9 @@ NT2_TEST_CASE( store_pointer_of_sequence )
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef native<foo, ext_t> seq_t;
 
-  static const size_t sz = cardinal_of< native<foo,ext_t> >::value;
+  static const size_t sz = cardinal_of< seq_t >::value;
   BOOST_SIMD_ALIGNED_TYPE(foo) sdata[sz];
   BOOST_SIMD_ALIGNED_TYPE(foo) ddata[sz];
   for(size_t i=0;i<sz;++i)
@@ -102,8 +102,6 @@ NT2_TEST_CASE( store_pointer_of_sequence )
     sdata[i].c = double(3+i);
   }
 
-  typedef native<foo, ext_t> seq_t;
-  foo dest;
   seq_t v = load<seq_t>(&sdata[0], 0);
   store(v, &ddata[0], 0);
 

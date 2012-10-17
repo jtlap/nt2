@@ -51,8 +51,8 @@ namespace boost { namespace simd { namespace details
     {
       typedef typename dispatch::meta::strip<T>::type sT;
       typedef typename mpl::apply1<F, sT>::type vT;
-      typedef typename dispatch::meta::strip<T>::type sU;
-      typedef typename mpl::apply1<F, sT>::type vU;
+      typedef typename dispatch::meta::strip<U>::type sU;
+      typedef typename mpl::apply1<F, sU>::type vU;
       typedef typename mpl::if_< mpl::greater<vU, vT>
                                , sU
                                , sT
