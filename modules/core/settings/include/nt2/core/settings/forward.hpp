@@ -21,5 +21,6 @@
 #include <nt2/core/settings/forward/storage_duration.hpp>
 #include <nt2/core/settings/forward/storage_order.hpp>
 #include <nt2/core/settings/forward/storage_scheme.hpp>
+#include <nt2/core/settings/forward/interleaving.hpp>
 
 #endif
