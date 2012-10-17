@@ -230,3 +230,13 @@ NT2_TEST_CASE_TPL(buffer_push_back_def, NT2_TYPES )
 
   std::cout << "capacity = " << x.capacity() << std::endl;
 }
+
+NT2_TEST_CASE(buffer_empty)
+{
+  using nt2::memory::buffer;
+  buffer<char> x;
+  buffer<char> y(x);
+
+  NT2_TEST_EQUAL(x.is_safe(0), true);
+  NT2_TEST_EQUAL(y.is_safe(0), true);
+}
