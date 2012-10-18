@@ -28,8 +28,8 @@ namespace boost { namespace simd { namespace ext
                             )
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::optimize_, tag::formal_
-                          , (A0)
-                          , (ast_<A0>)
+                          , (A0)(D)
+                          , ((ast_<A0, D>))
                           )
   {
     typedef dispatch::

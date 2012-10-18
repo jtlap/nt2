@@ -22,7 +22,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::relative_size_, tag::cpu_
                             , (Idx)(Size)(Base)
-                            , (ast_<Idx>)
+                            , ((ast_<Idx, nt2::container::domain>))
                               (scalar_< unspecified_<Size> >)
                               (scalar_< unspecified_<Base> >)
                             )
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
                             , ((node_ < Idx
                                       , nt2::tag::relative_colon_
                                       , boost::mpl::long_<1>
-                                      >
+                                      ,nt2::container::domain>
                               ))
                               (scalar_< unspecified_<Size> >)
                               (scalar_< unspecified_<Base> >)
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
                             , ((node_ < Idx
                                       , nt2::tag::relative_colon_
                                       , boost::mpl::long_<2>
-                                      >
+                                      ,nt2::container::domain>
                               ))
                               (scalar_< unspecified_<Size> >)
                               (scalar_< unspecified_<Base> >)

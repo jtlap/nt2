@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cauchy_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)(ast_<A1>)
+                            , ((ast_<A0, nt2::container::domain>))((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef typename meta::call<tag::rowvect_(A1)>::type                     T0;
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cauchy_, tag::cpu_
                             , (A0)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef typename meta::call<tag::cauchy_(A0, A0)>::type result_type;
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cauchy_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_<integer_<A0> >)(ast_<A1>)
+                            , (scalar_<integer_<A0> >)((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef typename A1::value_type value_type;
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cauchy_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)
                             )
   {

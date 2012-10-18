@@ -17,7 +17,7 @@
 namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::band_, tag::cpu_, (A0), (ast_<A0>) )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::band_, tag::cpu_, (A0), ((ast_<A0, nt2::container::domain>)) )
   {
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::band_
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band1_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_< integer_<A1> >)
                             )
   {
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::offset_band2_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_< integer_<A1> >)
                               (scalar_< integer_<A2> >)
                             )

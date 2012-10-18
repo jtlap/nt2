@@ -117,8 +117,8 @@ namespace nt2 { namespace ext
   // Recognize ctranspose
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
                             , (A0)(A1)(T1)(N1)
-                            , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> >))
-                              ((node_< A1, T1, N1 >))
+                            , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
+                              ((node_< A1, T1, N1 , nt2::container::domain>))
                             )
   {
     typedef int result_type;
@@ -130,8 +130,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
                             , (A0)(T0)(N0)(A1)
-                            , ((node_< A0, T0, N0 >))
-                              ((node_< A1, nt2::tag::ctranspose_, boost::mpl::long_<1> >))
+                            , ((node_< A0, T0, N0 , nt2::container::domain>))
+                              ((node_< A1, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
                             )
   {
     typedef int result_type;
@@ -143,8 +143,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::mtimes_, tag::cpu_
                             , (A0)(A1)
-                            , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> >))
-                              ((node_< A1, nt2::tag::ctranspose_, boost::mpl::long_<1> >))
+                            , ((node_< A0, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
+                              ((node_< A1, nt2::tag::ctranspose_, boost::mpl::long_<1> , nt2::container::domain>))
                             )
   {
     typedef int result_type;
@@ -158,7 +158,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::multiplies_, tag::cpu_
                             , (A0)(T0)(N0)(A1)
                             , ((expr_< scalar_< unspecified_<A0> >, T0, N0 >))
-                              ((node_< A1, nt2::tag::mtimes_, boost::mpl::long_<2> >))
+                              ((node_< A1, nt2::tag::mtimes_, boost::mpl::long_<2> , nt2::container::domain>))
                             )
   {
     typedef int result_type;
@@ -212,8 +212,8 @@ namespace nt2 { namespace ext
   // run_assign
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
-                              ((node_< A1, nt2::tag::mtimes_, boost::mpl::long_<2> >))
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((node_< A1, nt2::tag::mtimes_, boost::mpl::long_<2> , nt2::container::domain>))
                             )
   {
     typedef A0& result_type;

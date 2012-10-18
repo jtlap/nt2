@@ -164,8 +164,8 @@ namespace nt2{ namespace ext {
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expm_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::expm_, N0>))
-                                ((node_<A1, nt2::tag::tie_ , N1>))
+                              , ((node_<A0, nt2::tag::expm_, N0, nt2::container::domain>))
+                                ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                             )
   {
     typedef void                                                    result_type;

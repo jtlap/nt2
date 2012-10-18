@@ -18,8 +18,8 @@
 // {
 //   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::linsolve_, tag::cpu_
 //                               , (A0)(A1)
-//                               , (ast_<A0>)
-//                               (ast_<A1>)
+//                               , ((ast_<A0, nt2::container::domain>))
+//                               ((ast_<A1, nt2::container::domain>))
 //                             )
 //   {
 //     typedef typename meta::strip<A0>::type                                base_t;
@@ -41,8 +41,8 @@
 //   };
 //   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::linsolve_, tag::cpu_
 //                               , (A0)(A1)(IP)
-//                               , (ast_<A0>)
-//                               (ast_<A1>)
+//                               , ((ast_<A0, nt2::container::domain>))
+//                               ((ast_<A1, nt2::container::domain>))
 //                               (unspecified_<IP>)
 //                             )
 //   {
@@ -65,8 +65,8 @@
 //   };  
 // //   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::linsolve_, tag::cpu_
 // //                               , (A0)(A1)(A2)
-// //                               , (ast_<A0>)
-// //                               (ast_<A1>)
+// //                               , ((ast_<A0, nt2::container::domain>))
+// //                               ((ast_<A1, nt2::container::domain>))
 // //                               (unspecified_<A2>)
 // //                             )
 // //   {
@@ -89,8 +89,8 @@
 // //   };
 // //   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::linsolve_, tag::cpu_
 // //                               , (A0)(A1)(A2)(IP)
-// //                               , (ast_<A0>)
-// //                               (ast_<A1>)
+// //                               , ((ast_<A0, nt2::container::domain>))
+// //                               ((ast_<A1, nt2::container::domain>))
 // //                               (options_<A2>)
 // //                               (unspecified_<IP>)
 // //                             )

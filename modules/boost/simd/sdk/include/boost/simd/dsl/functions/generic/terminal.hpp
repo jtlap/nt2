@@ -21,15 +21,15 @@ namespace boost { namespace simd { namespace ext
 {
   // Terminal returns ASTs by reference
   BOOST_SIMD_REGISTER_DISPATCH_TO( boost::simd::tag::terminal_, tag::formal_
-                            , (A0)
-                            , (ast_<A0>)
+                            , (A0)(D)
+                            , ((ast_<A0, D>))
                             , identity
                             )
 
   // When evaluating a terminal, get its value
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::terminal_, tag::cpu_
-                            , (A0)
-                            , (ast_<A0>)
+                            , (A0)(D)
+                            , ((ast_<A0, D>))
                             )
   {
     typedef typename proto::result_of::value<A0&>::type result_type;

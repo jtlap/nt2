@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nanmean_, tag::cpu_,
                               (A0),
-                              (ast_<A0>) )
+                              ((ast_<A0, nt2::container::domain>)) )
   {
     typedef typename meta::call < nt2::tag::nanmean_(A0 const &, size_t)>::type result_type;
 
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nanmean_, tag::cpu_,
                               (A0)(A1),
-                              (ast_<A0>)
+                              ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> > )
                               )
   {

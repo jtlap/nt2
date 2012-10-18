@@ -28,7 +28,7 @@ namespace boost { namespace simd { namespace ext
                             , (A0)(A1)(A2)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              (target_< ast_<A2> >)
+                              ((target_< ast_<A2, boost::simd::domain> >))
                             )
   {
     typedef typename proto::domain_of<typename A2::type>::type  domain;
@@ -36,11 +36,11 @@ namespace boost { namespace simd { namespace ext
             as_<typename dispatch::meta::
                 semantic_of<typename A2::type>::type
                >  value;
-   
+
     typedef typename proto::result_of::
             make_expr<tag::load_, domain, const A0&, const A1&, const value&>::type
     result_type;
-   
+
     BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, A1 const& a1, A2 const&) const
     {
@@ -60,7 +60,7 @@ namespace boost { namespace simd { namespace ext
                             , (A0)(A1)(A2)(A3)
                             , (iterator_< scalar_< fundamental_<A0> > >)
                               (scalar_< fundamental_<A1> >)
-                              (target_< ast_<A2> >)
+                              ((target_< ast_<A2, boost::simd::domain> >))
                               (mpl_integral_< scalar_< integer_<A3> > >)
                             )
   {
@@ -69,12 +69,12 @@ namespace boost { namespace simd { namespace ext
             as_<typename dispatch::meta::
                 semantic_of<typename A2::type>::type
                >  value;
-   
+
     typedef typename proto::result_of::
             make_expr<tag::load_, domain, const A0&, const A1&, const value&, const A3&>::type
     result_type;
-   
-    BOOST_DISPATCH_FORCE_INLINE result_type
+
+    BOOST_FORCEINLINE result_type
     operator()(A0 const& a0, A1 const& a1, A2 const&, A3 const& a3) const
     {
       return boost::proto::detail::

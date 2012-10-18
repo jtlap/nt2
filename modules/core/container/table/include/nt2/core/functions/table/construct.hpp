@@ -28,6 +28,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>
+                                      , nt2::container::domain
                                       >
                               ))
                               (fusion_sequence_<A1>)
@@ -55,6 +56,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(A2)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>
+                                      , nt2::container::domain
                                       >
                               ))
                               (fusion_sequence_<A1>)
@@ -82,9 +84,10 @@ namespace nt2 { namespace ext
                             , (A0)(A1)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>
+                                      , nt2::container::domain
                                       >
                               ))
-                              (ast_<A1>)
+                              ((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef void result_type;
@@ -105,6 +108,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>
+                                      , nt2::container::domain
                                       >
                               ))
                               (scalar_< unspecified_<A1> >)
@@ -126,6 +130,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)(A2)(A3)
                             , ((node_ < A0,nt2::tag::terminal_
                                       , boost::mpl::long_<0>
+                                      , nt2::container::domain
                                       >
                               ))
                               (fusion_sequence_<A1>)

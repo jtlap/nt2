@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::svd_, tag::cpu_
                               , (A0)(A1)(A2)
-                              , (ast_<A0>)
+                              , ((ast_<A0, nt2::container::domain>))
                               (scalar_< type8_<A1> >)
                               (scalar_< type8_<A2> >)
                               )
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::svd_, tag::cpu_
                             , (A0)(A1)(A2)(IP)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_< type8_<A1> >)
                               (scalar_< type8_<A2> >)
                               (unspecified_< IP >)

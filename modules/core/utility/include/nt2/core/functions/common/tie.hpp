@@ -31,8 +31,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(N0)(A1)
-                            , ((node_<A0, nt2::tag::tie_, N0>))
-                              ((ast_<A1>))
+                            , ((node_<A0, nt2::tag::tie_, N0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef A0& result_type;

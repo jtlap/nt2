@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Target)(N)
-                            , ((node_<A0, nt2::tag::cat_, N>))
+                            , ((node_<A0, nt2::tag::cat_, N, nt2::container::domain>))
                               (generic_< integer_<State> >)
                               ((target_< unspecified_<Target> >))
                             )

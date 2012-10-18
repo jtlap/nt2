@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
                               , (A0)
-                              , (ast_<A0>)
+                              , ((ast_<A0, nt2::container::domain>))
                               )
   {
     typedef bool result_type;
@@ -85,7 +85,7 @@ namespace nt2 { namespace ext
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
                               , (A0)(A1)
-                              , (ast_<A0>)
+                              , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_ < A1> > )                           
                               )
   {
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
                               , (A0)(A1)
-                              , (ast_<A0>)
+                              , ((ast_<A0, nt2::container::domain>))
                               (scalar_<bool_<A1> >)
                               )
   {
@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
                               , (A0)(A1)(A2)
-                              , (ast_<A0>)
+                              , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_ < A1> > )
                               (scalar_<bool_<A2> >)
                               )

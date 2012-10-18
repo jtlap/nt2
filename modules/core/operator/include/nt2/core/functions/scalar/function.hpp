@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
 #define M2(z,n,t)                                                              \
 NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
                           , (A0)BOOST_PP_REPEAT(n,M0,~)                        \
-                          , (ast_<A0>)BOOST_PP_REPEAT(n,M1,~)                  \
+                          , ((ast_<A0, nt2::container::domain>))BOOST_PP_REPEAT(n,M1,~)                  \
                           )                                                    \
 {                                                                              \
   typedef typename make_functor<tag::run_, A0>::type              F;           \

@@ -17,7 +17,7 @@ namespace nt2 { namespace ext
   // Generates fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fold_, tag::cpu_, (A1)(A2)(A3)(A4)
-                            , ((ast_< A1>))
+                            , ((ast_< A1, nt2::container::domain>))
                               (unspecified_<A2>)
                               (unspecified_<A3>)
                               (unspecified_<A4>)
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
       for(std::size_t i = 0; i < ext[0]; ++i){
         out = bop(out, nt2::run(in, i, meta::as_<result_type>()));
       }
-      return out;     
+      return out;
 
     }
   };

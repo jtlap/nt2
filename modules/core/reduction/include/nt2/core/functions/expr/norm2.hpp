@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::norm2_, tag::cpu_,
                               (A0),
-                              (ast_<A0>) )
+                              ((ast_<A0, nt2::container::domain>)) )
   {
     typedef typename meta::call<tag::sqrt_(typename meta::call<tag::asum2_(A0 const&)>::type) >::type
       result_type;
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::norm2_, tag::cpu_,
                               (A0)(A1),
-                              (ast_<A0>)
+                              ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> > )
                               )
   {

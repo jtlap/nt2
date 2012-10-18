@@ -21,8 +21,8 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::wmean_, tag::cpu_,
                               (A0)(A1),
-                              (ast_<A0>)
-                              (ast_<A1>)
+                              ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
                               )
   {
     typedef typename A0::value_type value_type;
@@ -39,8 +39,8 @@ namespace nt2 { namespace ext
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::wmean_, tag::cpu_,
                               (A0)(A1)(A2),
-                              (ast_<A0>)
-                              (ast_<A1>)
+                              ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
                               (scalar_<integer_<A2> > )
                               )
   {

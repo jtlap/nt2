@@ -18,8 +18,8 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
-                                   , tag::formal_, (A0)(Arity)
-                                   , ((node_<A0, boost::simd::tag::is_greater_, Arity>))
+                                   , tag::formal_, (D)(A0)(Arity)
+                                   , ((node_<A0, boost::simd::tag::is_greater_, Arity, D>))
                                    )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
