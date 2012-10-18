@@ -9,8 +9,9 @@
 
 SET( SOURCES
   primes.cpp
-#  factor.cpp
+  factor.cpp
   is_prime.cpp
+#  combs.cpp
 # List of scalar test files for toolbox combinatorial
    )
 

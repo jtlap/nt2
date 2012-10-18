@@ -58,5 +58,7 @@ NT2_TEST_CASE_TPL ( primes_integer__1_0,  (int32_t))//NT2_INTEGRAL_TYPES)
  nt2::table<T> myp1 = primes(T(100000));
  nt2::toc(); 
  NT2_DISPLAY(primes(T(100)));
+ nt2::table<T> myp9 = primes(T(9)); 
+ NT2_DISPLAY(myp9);
 
 } 
