@@ -1,0 +1,35 @@
+[section Operators]
+
+Matlab has two types of operators, elementwise and algebraic ones.
+C++ can overload existing operators but not create new ones, so
+choices wre to be made in Nt2, for instance: "does `*` will be used for matlab `*` or `.*` ?"
+
+
+The choice is the following: using Nt2 all operators are by default treated as elementwise and 
+algebraic operators are replaced by function calls. 
+
+[variablelist Arithmetic and algebraic operators 
+[[ctranspose][ Complex conjugate transpose         -> transconj       ]]
+[[minus     ][ Minus                               -> - or minus      ]]
+[[mpower    ][ Matrix power                        -> mpower          ]]
+[[plus      ][ Plus                                -> + or plus       ]]
+[[times     ][ Array multiply                      -> * or multiplies ]]
+[[transpose ][ Transpose                           -> trans           ]]
+[[uminus    ][ Unary minus                         -> - or unary_minus]]
+[[uplus     ][ Unary plus                          -> + or unary_plus ]]
+[[+         ][ Addition                            -> + or plus       ]]
+[[+         ][ Unary plus                          -> + or unary_plus ]]
+[[-         ][ Subtraction                         -> - or minus      ]]
+[[-         ][ Unary minus                         -> - or unary_minus]]
+[[*         ][ Matrix multiplication               -> mtimes          ]]
+[[^         ][ Matrix power                        -> mpower          ]]
+[[\\         ][ Backslash or left matrix divide     -> mldivides       ]]
+[[\/         ][ Slash or right matrix divide        -> mrdivides       ]]
+[['         ][ Transpose and conjugate             -> transconj       ]]
+[[.'        ][ Nonconjugated transpose             -> trans           ]]
+[[.*        ][ Array multiplication (element-wise) -> * or multiplies ]]
+[[.^        ][ Array power (element-wise)          -> pow             ]]
+[[.\\        ][ Left array divide (element-wise)    -> rdivides        ]]
+[[.\/        ][ Right array divide (element-wise)   -> ldivides or \/   ]]
+]
+[endsect]

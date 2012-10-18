@@ -1,0 +1,86 @@
+[section Basic information]
+
+
+[h3 Display]
+
+Matlab display policy is 3 levels
+
+# use/suppression of `;`: this has clearly no equivalent in NT2
+# disp/display functions these can be used but using C++ style 
+# use C like style `fprintf`
+
+Nt2 has C++ support and some macros to do the job.
+
+[variablelist basic display
+[[disp            ][ Display text or array.  In NT2 use `std::cout <<`        ]]
+[[display         ][ Display text or array.  In NT2 use `NT2_DISPLAY` macro   ]]
+]
+
+
+[h3 Global predicates]
+
+Matlab has two species of predicates routines `isxxx`, some returning a scalar logical
+and stating something about a whole arrays or expressions, the other beeing elementwise
+assertions about the elements of the arrays or expressions and returning logical arrays.
+
+In Nt2 we have chosen to keep Matlab names `isxxx`for the first category, but use `is_xxx`
+in the second case.
+
+[variablelist predicates returning a unique scalar logical value
+[[iscolumn       ][  Determine whether input is column vector                   ]]
+[[isempty        ][  Determine whether array is empty                           ]]
+[[isequal        ][  Test arrays for equality                                   ]]
+[[isequaln       ][  Test arrays for equality, treating NaN values as equal     ]]
+[[isinteger      ][  Determine whether input is integer array                   ]]
+[[islogical      ][  Determine whether input is logical array                   ]]
+[[ismatrix       ][  Determine whether input is matrix                          ]]
+[[isnumeric      ][  Determine whether input is numeric array                   ]]
+[[isrow          ][  Determine whether input is row vector                      ]]
+[[isscalar       ][  Determine whether input is scalar                          ]]
+[[issparse       ][  Determine whether input is sparse                          ]]
+[[isvector       ][  Determine whether input is vector                          ]]
+]                
+                 
+Some run times predicates as `isfloat` have no real meaning in Nt2 because in C++
+types are chosen at compile-time. Also sometimes is it more performing to use
+negative assertions we provide in NT2 than the negation of the direct ones.
+
+Also in mind have that for example than `isinf | isnan` can be replaced by `is_invalid` in NT2,
+and than there are much more predicates available.
+
+[warning with floating expressions, the occurences of `nan` can imply that `logical_not(is_xxx)`
+is not equivalent to `is_not_xxx`. Please think of what you really want if the input is a `nan`
+value]
+
+[h3 Elementwise predicates]
+
+[variablelist elementwise predicates returning expressions arrays of logical
+[[isfinite        ][ Array elements that are finite  -> is_finite and is_not_finite           ]]
+[[isfloat         ][ Determine whether input is floating-point array  -> not defined in Nt2
+
+    However we have a meta-function is_floating_point
+    ]]
+[[isinf           ][ Array elements that are infinite ->   is_inf and is_not_inf              ]]
+[[isnan           ][ Array elements that are NaN  ->   is_nan and is_not_nan                  ]]
+]
+
+[h3 Sizes]
+
+The Matlab functions allowing to know sizes of array expressions all have an Nt2 equivalent.
+
+[variablelist sizing considerations
+[[length         ][  Length of vector or largest array expression dimension     ]]
+[[ndims          ][  Number of array dimensions                                 ]]
+[[numel          ][  Number of elements in array expression                     ]]
+[[size           ][  Array dimensions                                           ]]
+]
+
+
+[h3 Ordering]
+
+[variablelist ordering considerations
+[[max            ][  Largest elements in array                                  ]]
+[[min            ][  Smallest elements in array                                 ]]
+]
+
+[endsect]

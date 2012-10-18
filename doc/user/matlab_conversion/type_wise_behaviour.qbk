@@ -1,0 +1,27 @@
+[section type-wise behaviour]
+
+Nt2 is a little more rigorous on type behaviour:
+
+# Mixing types is sometimes impossible without explicit casting
+# integers types do not have the same default behaviour than matlab ones
+
+[h3 Mixing types]
+In Matlab if you say nothing matrices are full of double precision real (or complex) number.
+
+In Nt2 you have to say something because typing is mandatory, and you cannot do arithmetic
+with objects of different types (scalars being the exception because C++ is here)
+
+However you can mix types using `cast`.
+
+
+[Integer arithmetic]
+
+On integers types (remenber that 1:5 in matlab does not produce an integral always, but ab 
+array of double whose values are integral !) Matlab uses saturated arithmetic, in Nt2 complement 
+2 standard C++ aritmetic. 
+  
+
+But, we provide `adds`, `subs`, `muls`, `divs`, `saturate`, `saturate_at`, etc. that allow
+performing saturated computations.
+
+[endsect]
