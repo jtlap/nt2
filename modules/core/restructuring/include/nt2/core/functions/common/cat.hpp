@@ -12,6 +12,7 @@
 
 #include <nt2/core/functions/cat.hpp>
 #include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/simd/min.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
@@ -53,20 +54,24 @@ namespace nt2 { namespace ext
       sub_t pos  = as_subscript(a0.extent(),enumerate<i_t>(p));
       sub_t pos0 = pos;
       sub_t pos1 = pos;
-      pos0[along] = min ( pos0[along]
+
+      // Fix position while not going outside an empty table
+      pos0[along] = min ( pos[along]
                         , splat<i_t>(ex0[along] ? ex0[along]-1 : ex0[along])
                         );
-      pos1[along] = min ( selsub( ge(pos1[along],offset), pos1[along], offset)
+
+      pos1[along] = min ( selsub( ge(pos[along],offset), pos[along], offset)
                         , splat<i_t>(ex1[along] ? ex1[along]-1 : ex1[along])
                         );
 
+      // Select the proper value
       return if_else( lt(pos[along], offset)
                     , nt2::run( boost::proto::child_c<1>(a0)
-                              , as_index(ex0, pos0)
+                              , numel(ex0) ? as_index(ex0, pos0) : Zero<i_t>()
                               , t
                               )
                     , nt2::run( boost::proto::child_c<2>(a0)
-                              , as_index(ex1, pos1)
+                              , numel(ex1) ? as_index(ex1, pos1) : Zero<i_t>()
                               , t
                               )
                     );

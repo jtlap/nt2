@@ -68,14 +68,29 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator ()(Expr& e) const
     {
-      // Direction of concatenation
-      std::size_t along = boost::proto::child_c<0>(e);
+      // cat with empty matrix return the other matrix
+      if( !numel(boost::proto::child_c<1>(e).extent()) )
+      {
+        return boost::proto::child_c<2>(e).extent();
+      }
+      else if( !numel(boost::proto::child_c<2>(e).extent()) )
+      {
+        return boost::proto::child_c<1>(e).extent();
+      }
+      // otherwise cat the size properly
+      else
+      {
+        // Direction of concatenation
+        std::size_t along = boost::proto::child_c<0>(e);
 
-      // Build return size
-      result_type sizee(boost::proto::child_c<1>(e).extent());
-      sizee[along] += nt2::size(boost::proto::child_c<2>(e),along+1);
+        // Build return size
+        result_type sizee(boost::proto::child_c<1>(e).extent());
+        sizee[along] += nt2::size(boost::proto::child_c<2>(e),along+1);
 
-      return sizee;
+        return sizee;
+      }
+
+
     }
   };
 
