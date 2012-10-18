@@ -29,6 +29,8 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/utility/enable_if.hpp>
 #include <boost/type_traits/is_base_of.hpp>
+#include <boost/type_traits/is_reference.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
@@ -48,6 +50,50 @@
 
 namespace nt2 { namespace container
 {
+  template<class Sizes, class Enable = void>
+  struct expression_size
+  {
+    BOOST_FORCEINLINE expression_size(Sizes const& size)
+      : size_(size)
+    {
+    }
+
+    template<class Base, class Expr>
+    BOOST_FORCEINLINE expression_size(Base const&, Expr const& expr)
+      : size_(expr.size_.size_)
+    {
+    }
+
+    Sizes size_;
+    BOOST_FORCEINLINE Sizes const& data() const
+    {
+      return size_;
+    }
+  };
+
+  template<class Sizes>
+  struct expression_size<Sizes, typename boost::enable_if< boost::is_reference<Sizes> >::type>
+  {
+    typedef typename boost::remove_reference<Sizes>::type Sizes_;
+
+    BOOST_FORCEINLINE expression_size(Sizes size)
+      : size_(&size)
+    {
+    }
+
+    template<class Base, class Expr>
+    BOOST_FORCEINLINE expression_size(Base const& base, Expr const&)
+      : size_(&size_transform<domain>()(base))
+    {
+    }
+
+    Sizes_* size_;
+    BOOST_FORCEINLINE Sizes_& data() const
+    {
+      return *size_;
+    }
+  };
+
   //==========================================================================
   // Conversion operator for integration with scalars:
   // - used for reductions that return scalars;
@@ -114,6 +160,7 @@ namespace nt2 { namespace container
     typedef typename size_transform<domain>::
             template result<size_transform<domain>(Expr&)>::type sizes_t;
     typedef typename meta::strip<sizes_t>::type                  extent_type;
+    friend struct expression_size<sizes_t>;
 
     typedef typename index_type::type                           indexes_type;
 
@@ -138,7 +185,7 @@ namespace nt2 { namespace container
     BOOST_FORCEINLINE
     expression( expression const& xpr )
               : proto_expr_(xpr.proto_base())
-              , size_(xpr.size_)
+              , size_(proto_base(), xpr)
     {
       #ifdef NT2_LOG_COPIES
       typedef typename boost::mpl::
@@ -181,7 +228,7 @@ namespace nt2 { namespace container
     BOOST_FORCEINLINE expression& operator=(expression const& xpr)
     {
       proto_base() = xpr.proto_base();
-      const_cast<extent_type&>(size_) = xpr.size_;
+      size_ = expression_size<sizes_t>(proto_base(), xpr);
       return *this;
     }
 
@@ -231,7 +278,7 @@ namespace nt2 { namespace container
     //==========================================================================
     // Return current expression extent
     //==========================================================================
-    BOOST_FORCEINLINE extent_type const& extent() const { return size_; }
+    BOOST_FORCEINLINE extent_type const& extent() const { return size_.data(); }
 
     //==========================================================================
     // Return current expression base indexes
@@ -248,7 +295,7 @@ namespace nt2 { namespace container
                                     , boost::mpl::size_t<extent_type::static_size>
                                     , boost::mpl::size_t<0U>
                                     >::type                     dim_t;
-      return size_[dim_t::value];
+      return size_.data()[dim_t::value];
     }
 
     //==========================================================================
@@ -312,7 +359,7 @@ namespace nt2 { namespace container
     }
 
   private:
-    sizes_t size_;
+    expression_size<sizes_t> size_;
   };
 } }
 
