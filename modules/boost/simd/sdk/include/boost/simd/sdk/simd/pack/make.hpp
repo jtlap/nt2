@@ -11,6 +11,7 @@
 
 #include <boost/simd/include/functions/make.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/dispatch/preprocessor/repeat.hpp>
 
 // make forces evaluation due to arity limitations
 namespace boost { namespace simd { namespace ext
@@ -33,7 +34,7 @@ namespace boost { namespace simd { namespace ext
       return make<vtype>(BOOST_PP_ENUM_PARAMS(n, a));                          \
     }                                                                          \
     /**/
-    BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
+    BOOST_DISPATCH_PP_REPEAT_POWER_OF_2(M0, ~)
 
     #undef M0
   };
