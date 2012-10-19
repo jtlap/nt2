@@ -64,8 +64,14 @@ namespace nt2 { namespace ext
                   NT2_DISPLAY(size(q)); 
                   NT2_DISPLAY(q);
                   NT2_DISPLAY(p);
-                  NT2_DISPLAY(nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q));
+                  NT2_DISPLAY(k); 
+                  NT2_DISPLAY(v); 
+                  NT2_DISPLAY(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k));
+                  NT2_DISPLAY(size(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k)));
+                  NT2_DISPLAY(size(q)); 
                   NT2_DISPLAY(size(nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q)));
+                    
+                  NT2_DISPLAY(nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q));
                   std::cout << "après " <<  k << " <=  " <<  n-m+1 << std::endl;
                   result_type tmp =  result::make(); tmp = nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q);
                   NT2_DISPLAY(size(tmp)); 

@@ -22,6 +22,8 @@
 #include <nt2/include/functions/cast.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/isequal.hpp>
+
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -50,6 +52,8 @@ NT2_TEST_CASE_TPL ( combs_integer__1_0, NT2_REAL_TYPES)
  
    nt2::table<T, nt2::_2D> a =  combs(nt2::_(T(1), T(5)), 3);
    NT2_DISPLAY(a);
-
+   nt2::table<T, nt2::_2D> b =  combs(nt2::_(T(1), T(5)), 5);
+   NT2_DISPLAY(b);   
+   NT2_TEST(nt2::isequal(b,nt2::_(T(1), T(5)) )); 
 
 } 

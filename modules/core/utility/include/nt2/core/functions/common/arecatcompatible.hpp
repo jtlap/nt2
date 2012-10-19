@@ -14,6 +14,7 @@
 #include <nt2/include/functions/isrow.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/isvectoralong.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -31,11 +32,15 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::call<tag::extent_(A0 const&)>::type ext1_t;
       ext1_t ex1 = nt2::extent(a0);
-
+      std::cout << boost::fusion::as_vector(ex1) << std::endl; 
       typedef typename meta::call<tag::extent_(A1 const&)>::type ext2_t;
       ext2_t ex2 = nt2::extent(a1);
-
-      if (isempty(a0) || isempty(a1)) return true;
+      std::cout << boost::fusion::as_vector(ex2) << std::endl;
+      std::cout << "ex1.size() "<< ex1.size() << std::endl;
+      std::cout << "ex2.size() "<< ex2.size() << std::endl;
+      std::cout << "min        "<<nt2::min(ex1.size(), ex2.size()) << std::endl;
+//       return true; 
+//       if (isempty(a0) || isempty(a1)) return true;
 
       size_t sz =  nt2::min(ex1.size(), ex2.size());
       size_t d = dim-1;
@@ -44,15 +49,15 @@ namespace nt2 { namespace ext
       {
         if ((i != d) && (ex1.data()[i]!= ex2.data()[i])) return false;
       }
-
+      sz =  nt2::max(sz, d+1); 
       for(size_t i=sz; i < ex1.size(); ++i)
       {
-        if (ex1[i]!= 1) return false;
+        if ((ex1[i]!= 1)) return false;
       }
 
       for(size_t i=sz; i < ex2.size(); ++i)
       {
-        if (ex2[i]!= 1) return false;
+        if ((ex2[i]!= 1)) return false;
       }
       return true;
     }
