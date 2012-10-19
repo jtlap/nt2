@@ -29,66 +29,41 @@ namespace nt2 { namespace ext
                              (scalar_ < integer_<A1> > )
                              )
   {
-    typedef typename A0::value_type                   value_type; 
-    //    typedef nt2::container::table<value_type>        result_type; 
-    typedef nt2::memory::container<value_type, nt2::_2D>    term;
-    typedef boost::dispatch::meta::terminal_of_shared<term> result;
-    typedef typename result::type                           result_type;
+    typedef typename A0::value_type                        value_type; 
+    typedef nt2::container::table<value_type, _2D>        result_type; 
     inline result_type operator()(A0 const& v0,  const A1 & m0) const
     {
-      result_type p =  result::make();
+      result_type p;
       size_t m = m0; 
       size_t n = nt2::length(v0);
       if (n == m)
         {
-          p = nt2::rowvect(v0);
-          return p;
+          return nt2::rowvect(v0);
         }
       else if (m == 1u)
         {
-          p = nt2::colvect(v0);
-          return p;
+          return nt2::colvect(v0);
         }
       else
         {
-          result_type v =  result::make();
-          v = nt2::rowvect(v0);
+          result_type v = nt2::rowvect(v0);
           
           p = nt2::zeros(0, 0, meta::as_<value_type>()); 
           if ((m < n) && (m > 1u))
             {
               for (size_t k = 1;  k <= n-m+1;  ++k)
-                { std::cout << "avant" << std::endl; 
-                  result_type q  =  result::make(); q = nt2::combs(v(nt2::_(k+1, n)),m-1);
-                
-                  NT2_DISPLAY(size(q)); 
-                  NT2_DISPLAY(q);
-                  NT2_DISPLAY(p);
-                  NT2_DISPLAY(k); 
-                  NT2_DISPLAY(v); 
-                  NT2_DISPLAY(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k));
-                  NT2_DISPLAY(size(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k)));
-                  NT2_DISPLAY(size(q)); 
-                  NT2_DISPLAY(size(nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q)));
-                    
-                  NT2_DISPLAY(nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q));
-                  std::cout << "après " <<  k << " <=  " <<  n-m+1 << std::endl;
-                  result_type tmp =  result::make(); tmp = nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q);
-                  NT2_DISPLAY(size(tmp)); 
-                  NT2_DISPLAY(tmp); 
+                { 
+                  result_type q = nt2::combs(v(nt2::_(k+1, n)),m-1);
+                  result_type tmp = nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q);
                   if (isempty(p))
                     p =  tmp;
                   else
                     {
-                      result_type tmp1 =  result::make(); tmp1 =  nt2::catv(p,tmp);
+                      result_type tmp1 =  nt2::catv(p,tmp);//ALIASING
                       p =  tmp1; 
                     }
-                  NT2_DISPLAY(p); 
                 }
             }
-          std::cout << "last "<< std::endl;
-          NT2_DISPLAY(p);
-          NT2_DISPLAY(size(p)); 
           return p; 
         } 
     }

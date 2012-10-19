@@ -23,6 +23,7 @@
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/isequal.hpp>
+#include <nt2/include/functions/colvect.hpp>
 
 
 #include <boost/type_traits/is_same.hpp>
@@ -55,5 +56,8 @@ NT2_TEST_CASE_TPL ( combs_integer__1_0, NT2_REAL_TYPES)
    nt2::table<T, nt2::_2D> b =  combs(nt2::_(T(1), T(5)), 5);
    NT2_DISPLAY(b);   
    NT2_TEST(nt2::isequal(b,nt2::_(T(1), T(5)) )); 
+   nt2::table<T, nt2::_2D> c =  combs(nt2::_(T(1), T(5)), 1);
+   NT2_DISPLAY(c);   
+   NT2_TEST(nt2::isequal(c,nt2::colvect(nt2::_(T(1), T(5))))); 
 
 } 
