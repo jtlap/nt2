@@ -54,7 +54,7 @@ NT2_TEST_CASE( find )
                      U(29)
           };
   U bo[] = { 1, 3, 4, 5};
-  U co[] = { 29, 27, 25, 24}; 
+  U co[] = { 24, 25, 27, 29}; 
   table<T, nt2::shared_> in2(of_size(3, 5, 2), nt2::share(&in[0], in + sizeof in/sizeof *in));
   table<U, nt2::shared_> c(of_size(sizeof out/sizeof *out), nt2::share(&out[0], out + sizeof out/sizeof *out));
   table<U, nt2::shared_> bo2(of_size(4, 1), nt2::share(&bo[0], bo + sizeof bo/sizeof *bo));
@@ -67,7 +67,8 @@ NT2_TEST_CASE( find )
   b =  find(a, 4);
   NT2_TEST(isequal(b, bo2)); 
   NT2_DISPLAY(b);
-  b =  find(a, false, 4); 
+
+  b =  find(a, 4, false); 
   NT2_TEST(isequal(b, co2)); 
   NT2_DISPLAY(b);
   
@@ -79,6 +80,6 @@ NT2_TEST_CASE( find )
    NT2_DISPLAY(e); 
    NT2_DISPLAY(f);
    NT2_DISPLAY(v);
-   b =  globalfind(a)+nt2::One<U>();
-   NT2_DISPLAY(b);
+//    b =  globalfind(a)+nt2::One<U>();
+//    NT2_DISPLAY(b);
 }
