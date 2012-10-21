@@ -19,6 +19,11 @@
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/sdk/memory/container_shared_ref.hpp>
+#include <nt2/sdk/meta/size_as.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
@@ -27,9 +32,9 @@ namespace nt2
     /*!
       @brief Tag for the find functor
     **/
-    struct find_ : boost::dispatch::tag::formal_
+    struct find_ : ext::tieable_<find_>
     {
-      typedef boost::dispatch::tag::formal_ parent;
+      typedef ext::tieable_<find_> parent;
     };
   }
 
@@ -47,6 +52,26 @@ namespace nt2
     @param
   **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::find_, find, 2)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::find_, find, 3)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::find_, find, 4)
 }
+
+namespace nt2 { namespace ext
+{
+  template<class Domain, int N, class Expr>
+  struct  size_of<tag::find_,Domain,N,Expr>
+        : meta::size_as<Expr,0>
+  {};
+
+
+  template<class Domain, int N, class Expr>
+  struct  value_type<tag::find_,Domain,N,Expr>
+  {
+    typedef std::ptrdiff_t      type;
+
+  };
+} }
+    
+
 
 #endif

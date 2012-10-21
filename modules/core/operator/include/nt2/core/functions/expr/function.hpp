@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/function.hpp>
 #include <nt2/include/functions/aggregate.hpp>
-#include <nt2/include/functions/find.hpp>
+#include <nt2/include/functions/globalfind.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/container/colon/category.hpp>
@@ -51,10 +51,10 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type stype;
     typedef typename meta::as_index<stype>::type itype;
-    typedef typename meta::call<tag::find_(T const&, meta::as_<itype>)>::type type;
+    typedef typename meta::call<tag::globalfind_(T const&, meta::as_<itype>)>::type type;
     static type call(A0&, T const& t)
     {
-      return nt2::find(t, meta::as_<itype>());
+      return nt2::globalfind(t, meta::as_<itype>());
     }
   };
 

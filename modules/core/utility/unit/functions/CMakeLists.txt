@@ -15,6 +15,9 @@ SET( SOURCES
   class.cpp
   disp.cpp
   find.cpp
+  findi.cpp
+  findj.cpp 
+  globalfind.cpp
   first_last_index.cpp
   firstnonsingleton.cpp
   havesamesize.cpp
