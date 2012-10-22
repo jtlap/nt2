@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)
                             , (ast_<A0>)
-                              ((node_<A1,nt2::tag::randn_,boost::mpl::long_<3> >))
+                              ((node_<A1,nt2::tag::randn_,boost::mpl::long_<3>,nt2::container::domain>))
                             )
   {
     typedef A0& result_type;
