@@ -59,11 +59,23 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator ()(Expr& e) const
     {
-      result_type sizee(boost::proto::child_c<0>(e).extent());
-      sizee[0] += boost::fusion::at_c<0>(boost::proto::child_c<1>(e).extent());
-      sizee[1] += boost::fusion::at_c<1>(boost::proto::child_c<1>(e).extent());
-
-      return sizee;
+      if( !numel(boost::proto::child_c<0>(e).extent()) )
+        {
+          return boost::proto::child_c<1>(e).extent();
+        }
+      else if( !numel(boost::proto::child_c<1>(e).extent()) )
+        {
+          return boost::proto::child_c<0>(e).extent();
+        }
+      // otherwise cat the size properly
+      else
+        {
+          result_type sizee(boost::proto::child_c<0>(e).extent());
+          sizee[0] += boost::fusion::at_c<0>(boost::proto::child_c<1>(e).extent());
+          sizee[1] += boost::fusion::at_c<1>(boost::proto::child_c<1>(e).extent());
+          
+          return sizee;
+        }
     }
   };
 

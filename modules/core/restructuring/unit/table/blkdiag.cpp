@@ -66,4 +66,13 @@ NT2_TEST_CASE( blkdiag_size2 )
   nt2::table<float> d = blkdiag(a);
   NT2_TEST(nt2::isequal(a, d)); 
   NT2_DISPLAY(d);
+
+  nt2::table<float> e(nt2::of_size(0, 1));
+  std::cout << "empty first" << std::endl; 
+  d = blkdiag(e, a); 
+  NT2_DISPLAY(d);
+  std::cout << "empty second" << std::endl; 
+  d = blkdiag(a, e);
+  NT2_DISPLAY(d);
+
 }
