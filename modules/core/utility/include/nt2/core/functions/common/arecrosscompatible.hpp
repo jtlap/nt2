@@ -32,6 +32,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0, const A1& a1, const A2& dim) const
     {
+      if (dim == 0) return false; 
       typedef typename meta::call<tag::extent_(A0 const&)>::type ext1_t;
       ext1_t ex1 = nt2::extent(a0);
       typedef typename meta::call<tag::extent_(A1 const&)>::type ext2_t;

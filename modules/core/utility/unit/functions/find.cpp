@@ -80,6 +80,5 @@ NT2_TEST_CASE( find )
    NT2_DISPLAY(e); 
    NT2_DISPLAY(f);
    NT2_DISPLAY(v);
-//    b =  globalfind(a)+nt2::One<U>();
-//    NT2_DISPLAY(b);
+
 }

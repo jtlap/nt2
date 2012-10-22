@@ -27,9 +27,6 @@
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <ostream>
-#include <nt2/sdk/meta/type_id.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2
 {
@@ -66,11 +63,11 @@ namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::find_,Domain,N,Expr>
-        : meta::size_as<Expr,0>
+    : meta::size_as<Expr,0>
   {
     typedef nt2::_1D result_type;
     typedef typename boost::proto::result_of::child_c<Expr&,0>::type c0_t;
-
+    
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       c0_t a0 = boost::proto::child_c<0>(e);
@@ -79,22 +76,22 @@ namespace nt2 { namespace ext
       ptrdiff_t n =ptrdiff_t(nt2::nbtrue(nt2::colvect(a0))(1));
       return (k > 0)? nt2::min(k, n) : 0; 
     }
-
+    
   };
-
+  
   template<class Domain, class Expr>
   struct  size_of<tag::find_,Domain,1,Expr>
-        : meta::size_as<Expr,0>
+    : meta::size_as<Expr,0>
   {
     typedef nt2::_1D result_type;
     typedef typename boost::proto::result_of::child_c<Expr&,0>::type c0_t;
-
+    
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       c0_t a0 = boost::proto::child_c<0>(e);
       return result_type(ptrdiff_t(nt2::nbtrue(nt2::colvect(a0))(1)));
     }
-
+    
   };
 
   template<class Domain, int N, class Expr>
