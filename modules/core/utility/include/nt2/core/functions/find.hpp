@@ -63,7 +63,6 @@ namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::find_,Domain,N,Expr>
-    : meta::size_as<Expr,0>
   {
     typedef nt2::_1D result_type;
     typedef typename boost::proto::result_of::child_c<Expr&,0>::type c0_t;
