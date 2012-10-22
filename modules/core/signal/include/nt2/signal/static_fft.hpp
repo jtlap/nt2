@@ -69,6 +69,7 @@
 #include <boost/simd/toolbox/constant/constants/half.hpp>
 #include <boost/simd/toolbox/constant/constants/mzero.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>
+#include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 #include <boost/simd/include/functions/scalar/ffs.hpp>
 #include <boost/simd/include/functions/scalar/ilog2.hpp>
 #include <boost/simd/include/functions/simd/deinterleave_first.hpp>
@@ -99,6 +100,57 @@
 #include <boost/mpl/range_c.hpp>
 
 #include <utility>
+//------------------------------------------------------------------------------
+namespace boost
+{
+namespace simd
+{
+namespace details
+{
+    ////////////////////////////////////////////////////////////////////////////
+    //
+    // Missing Boost.SIMD functionality
+    // --------------------------------
+    //
+    ////////////////////////////////////////////////////////////////////////////
+
+#ifdef BOOST_SIMD_HAS_SSE_SUPPORT
+    template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 0, 1>( __m128 const lower, __m128 const upper ) { return _mm_movelh_ps( lower, upper ); }
+    template <> BOOST_FORCEINLINE __m128 shuffle<2, 3, 2, 3>( __m128 const lower, __m128 const upper ) { return _mm_movehl_ps( upper, lower ); }
+    //...zzz...to be continued...
+#else
+    template
+    <
+        unsigned int lower_i0, unsigned int lower_i1,
+        unsigned int upper_i0, unsigned int upper_i1,
+        typename Vector
+    >
+    BOOST_FORCEINLINE
+    Vector shuffle( Vector const & lower, Vector const & upper )
+    {
+        Vector result;
+        result[ 0 ] = lower[ lower_i0 ];
+        result[ 1 ] = lower[ lower_i1 ];
+        result[ 2 ] = lower[ upper_i0 ];
+        result[ 3 ] = lower[ upper_i1 ];
+        return result;
+    }
+
+    template
+    <
+        unsigned int i0, unsigned int i1, unsigned int i2, unsigned int i3,
+        typename Vector
+    >
+    BOOST_FORCEINLINE
+    Vector shuffle( Vector const & vector )
+    {
+        return shuffle<i0, i1, i2, i3>( vector, vector );
+    }
+#endif // BOOST_SIMD_HAS_SSE_SUPPORT
+
+} // namespace details
+} // namespace simd
+} // namespace boost
 //------------------------------------------------------------------------------
 namespace nt2
 {
