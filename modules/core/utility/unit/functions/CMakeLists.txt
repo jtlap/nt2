@@ -9,6 +9,7 @@
 
 SET( SOURCES
   arecatcompatible.cpp
+  arecrosscompatible.cpp
   as_index.cpp
   as_subscript.cpp
   bsxfun.cpp
@@ -20,6 +21,7 @@ SET( SOURCES
   globalfind.cpp
   first_last_index.cpp
   firstnonsingleton.cpp
+  firstoflength.cpp
   havesamesize.cpp
   length.cpp
   linesstride.cpp
