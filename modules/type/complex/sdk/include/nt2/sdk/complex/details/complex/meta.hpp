@@ -15,6 +15,7 @@
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -32,7 +33,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef complex_< typename property_of<T, Origin>::type > type;
   };
-  
+
   template<class T, class Origin>
   struct hierarchy_of< std::complex<T>, Origin >
   {
@@ -40,19 +41,31 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename mpl::if_< is_same< std::complex<T>, stripped >, stripped, Origin >::type origin_;
     typedef scalar_< complex_< typename property_of<T, origin_>::type > > type;
   };
-  
+
   template<class T>
   struct scalar_of< std::complex<T> >
   {
     typedef std::complex<T> type;
   };
-  
+
   template<class T>
   struct value_of< std::complex<T> >
   {
     typedef T type;
   };
-  
+
 } } }
+
+namespace boost { namespace simd
+{
+  template<class T>
+  struct is_value;
+
+  template<class T>
+  struct is_value< std::complex<T> >
+       : boost::mpl::true_
+  {
+  };
+} }
 
 #endif

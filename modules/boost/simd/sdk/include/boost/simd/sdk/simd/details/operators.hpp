@@ -114,13 +114,10 @@ namespace boost { namespace simd
 {
   template<class T>
   struct is_value
-   : mpl::and_< mpl::not_< dispatch::meta::is_iterator<T> >
-              , mpl::or_< boost::dispatch::details::is_mpl_integral<T>
-                        , dispatch::meta::is_proxy<T>
-                        , dispatch::meta::is_scalar<T>
-                        , meta::is_native<T>
-                        , proto::is_expr<T>
-                        >
+   : mpl::or_< boost::dispatch::details::is_mpl_integral<T>
+             , boost::is_fundamental<T>
+             , meta::is_native<T>
+             , proto::is_expr<T>
              >
   {
   };
