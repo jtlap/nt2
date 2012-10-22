@@ -37,7 +37,20 @@ We will distinguish categories of functions by  the way they act on matrices of 
 
 [endsect]
 
-[include basic_information.qbk]
-[include elementwise.qbk]
+
+[section Elementary Mathematics]
+[include elementary_maths/trigonometric.qbk]
+[include elementary_maths/exponential.qbk]
+[include elementary_maths/roundings.qbk]
+[include elementary_maths/discrete.qbk]
+[include elementary_maths/math_constants.qbk]
+[endsect]
+
+
+[section Arrays and arrays expression]
+[include arrays/basic_information.qbk]
+[include arrays/elementary_arrays.qbk]
+[include arrays/operators.qbk]
+[endsect]
 
 

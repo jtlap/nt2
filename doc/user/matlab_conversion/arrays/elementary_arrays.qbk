@@ -5,41 +5,45 @@ Globally the uses and syntaxes are quite identical, functions as `ones`, `eye` o
 by default is double) the syntax are for instance:
 
 # `ones(...,'single')` in Matlab
-# `ones(...,as_<float>())` in Nt2 (note that `as_` is in namespace `nt2::meta`)
+# `ones(...,as_<float>())` in __NT2__ (note that `as_` is in namespace `nt2::meta`)
 
-functions as freqspace can return several results, in Nt2 too... The respective syntaxes are:
+functions as freqspace can return several results, in __NT2__ too... The respective syntaxes are:
 
 # `[a,b] = freqspace(...)` in Matlab
 # `tie(a,b) = freqspace(...)` in Nt2 (note that `tie_` is in namespace `nt2`)
 
 
 [variablelist Elementary Arrays
-[[blkdiag         ][ Construct block diagonal matrix from input arguments        ]]
-[[colon (:)       ][ Create vectors, array subscripting, and for-loop iterators  ]]
-[[diag            ][ Diagonal matrices and diagonals of matrix  
+[[blkdiag         ][ Construct block diagonal matrix from input arguments       -> `blkdiag`                       ]]
+[[colon (:)       ][ Create vectors, array subscripting, and for-loop iterators -> `colon` or `_`
+
+                     There is one difference with matlab colon in Matlab `colon(a,0,b)` provides an empty array.
+                     __NT2__ as chosen to repeat  `a` `b` times in row.
+                                                                                                                   ]]
+[[diag            ][ Diagonal matrices and diagonals of matrix                  -> `diag`
                      
-                     in Nt2 you can also use `fromdiag` and `diagof` if the direction
+                     in __NT2__ you can also use `fromdiag` and `diagof` if the direction
                      is known.
-                  ]]
-[[eye             ][ Identity matrix                                             ]]
-[[freqspace       ][ Frequency spacing for frequency response                    ]]
-[[ind2sub         ][ Subscripts from linear index                                ]]
-[[linspace        ][ Generate linearly spaced vectors                            ]]
-[[logspace        ][ Generate logarithmically spaced vectors    
+                                                                                                                   ]]
+[[eye             ][ Identity matrix                                            -> `eye`                           ]]
+[[freqspace       ][ Frequency spacing for frequency response                   -> `freqspace`                     ]]
+[[ind2sub         ][ Subscripts from linear index                               -> `ind2sub`                       ]]
+[[linspace        ][ Generate linearly spaced vectors                           -> `linspace`                      ]]
+[[logspace        ][ Generate logarithmically spaced vectors                    -> `logspace`  
 
                      `logspace` has quite dictinct behaviours (quite inconsistent with continuity)
-                     if the second parameter is pi or not pi (even at 0.5 ulp). You can use
+                     if the second parameter is pi or not  `pi` (even at `0.5` ulp). You can use
                      `pispace`  if you want to be sure it is...
-                 ]]
-[[ndgrid          ][ Rectangular grid in N-D space  TODO                             ]]
-[[ones            ][ Create array of all ones                                    ]]
-[[rand            ][ Uniformly distributed pseudorandom numbers                  ]]
-[[randi           ][ Uniformly distributed pseudorandom integers                 ]]
-[[randn           ][ Normally distributed pseudorandom numbers                   ]]
-[[RandStream      ][ Random number stream                                        ]]
-[[rng             ][ Control random number generation                            ]]
-[[sub2ind         ][ Convert subscripts to linear indices                        ]]
-[[zeros           ][ Create array of all zeros                                   ]]
+                                                                                                                   ]]
+[[ndgrid          ][ Rectangular grid in N-D space                                  TODO                           ]]
+[[ones            ][ Create array of all ones                                   -> `ones`                          ]]
+[[rand            ][ Uniformly distributed pseudorandom numbers                 -> `rand`                          ]]
+[[randi           ][ Uniformly distributed pseudorandom integers                -> `randi`                         ]]
+[[randn           ][ Normally distributed pseudorandom numbers                  -> `randn`                         ]]
+[[RandStream      ][ Random number stream                                       -> `RandStream`                    ]]
+[[rng             ][ Control random number generation                           -> `rng`                           ]]
+[[sub2ind         ][ Convert subscripts to linear indices                       -> `sub2ind`                       ]]
+[[zeros           ][ Create array of all zeros                                  -> `zeros`                         ]]
 ]                                                                                
                                                                                  
 [endsect]                                                                                
