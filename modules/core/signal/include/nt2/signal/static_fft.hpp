@@ -131,8 +131,8 @@ namespace details
         Vector result;
         result[ 0 ] = lower[ lower_i0 ];
         result[ 1 ] = lower[ lower_i1 ];
-        result[ 2 ] = lower[ upper_i0 ];
-        result[ 3 ] = lower[ upper_i1 ];
+        result[ 2 ] = upper[ upper_i0 ];
+        result[ 3 ] = upper[ upper_i1 ];
         return result;
     }
 
