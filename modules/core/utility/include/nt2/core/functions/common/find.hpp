@@ -24,9 +24,9 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::find_, tag::cpu_
-                              , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::find_, N0>))
-                                ((node_<A1, nt2::tag::tie_ , N1>))
+                            , (A0)(N0)(A1)(N1)
+                            , ((node_<A0, nt2::tag::find_, N0, nt2::container::domain>))
+                              ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                             )
   {
     typedef void                                                    result_type;
@@ -42,27 +42,27 @@ namespace nt2 { namespace ext
       semantic_of<child1>::type
       >::type                                            out_t;
     typedef typename out_t::value_type              index_type;
-    typedef typename boost::dispatch::meta::as_integer<value_type, unsigned>::type  idx_t;      
+    typedef typename boost::dispatch::meta::as_integer<value_type, unsigned>::type  idx_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       bool    first =  true;
       getparams(a0, first, N0());
-      compute(a0, a1, first, N1()); 
+      compute(a0, a1, first, N1());
     }
   private :
 
     BOOST_FORCEINLINE  //    i = find(x, ...)
-      void compute(A0 const &a0, A1 & a1, bool& first, 
+      void compute(A0 const &a0, A1 & a1, bool& first,
                      boost::mpl::long_<1> const &//number of outputs
                      ) const
     {
        child1& idx = boost::proto::child_c<0>(a1);
        child0& a = boost::proto::child_c<0>(a0);
-       idx.resize(extent(a0)); 
-       ptrdiff_t k = numel(idx); 
+       idx.resize(extent(a0));
+       ptrdiff_t k = numel(idx);
        ptrdiff_t m = nt2::numel(a);
-       if(!k) return; 
+       if(!k) return;
        if(first)
          {
            for(std::ptrdiff_t i=0, z = 0; z!= k; ++i)
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
                if(value)
                  {
                    idx(z) = index_type(i+1);
-                   --z; 
+                   --z;
                  }
              }
          }
@@ -90,20 +90,20 @@ namespace nt2 { namespace ext
 
 
     BOOST_FORCEINLINE  //    [i, j]= find(x)
-      void compute(A0 const &a0, A1 & a1, bool& first, 
+      void compute(A0 const &a0, A1 & a1, bool& first,
                      boost::mpl::long_<2> const &//number of outputs
                      ) const
     {
        child1& idx = boost::proto::child_c<0>(a1);
        child1& jdx = boost::proto::child_c<1>(a1);
        child0& a = boost::proto::child_c<0>(a0);
-       idx.resize(extent(a0)); 
-       jdx.resize(extent(a0)); 
+       idx.resize(extent(a0));
+       jdx.resize(extent(a0));
        ptrdiff_t k = numel(idx);
-       if(!k) return; 
+       if(!k) return;
        ptrdiff_t t = nt2::numel(a);
        ptrdiff_t m = nt2::size(a, 1);
-       ptrdiff_t n = t/m; 
+       ptrdiff_t n = t/m;
        if(first)
          {
            for(ptrdiff_t i=0, z = 0; z!=k; ++i)
@@ -113,7 +113,7 @@ namespace nt2 { namespace ext
                  {
                    boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
                    idx(++z) = index_type(a[1]+1);
-                   jdx(  z) = index_type(a[0]+1);   
+                   jdx(  z) = index_type(a[0]+1);
                  }
              }
          }
@@ -127,15 +127,15 @@ namespace nt2 { namespace ext
                    boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
                    idx(z) = index_type(a[1]+1);
                    jdx(z) = index_type(a[0]+1);
-                   --z; 
+                   --z;
                  }
              }
          }
     }
-    
+
 
     BOOST_FORCEINLINE  //    [i, j]= find(x)
-      void compute(A0 const &a0, A1 & a1, bool& first, 
+      void compute(A0 const &a0, A1 & a1, bool& first,
                    boost::mpl::long_<3> const &//number of outputs
                    ) const
     {
@@ -143,16 +143,16 @@ namespace nt2 { namespace ext
       typedef typename boost::proto::result_of::child_c<A1&,2>::type       child3;
       child1& idx = boost::proto::child_c<0>(a1);
       child2& jdx = boost::proto::child_c<1>(a1);
-      child3& v = boost::proto::child_c<2>(a1); 
+      child3& v = boost::proto::child_c<2>(a1);
       child0& a = boost::proto::child_c<0>(a0);
-      idx.resize(extent(a0)); 
+      idx.resize(extent(a0));
       jdx.resize(extent(a0));
       v.resize(extent(a0));
       ptrdiff_t k = numel(idx);
-      if(!k) return; 
+      if(!k) return;
       ptrdiff_t t = nt2::numel(a);
       ptrdiff_t m = nt2::size(a, 1);
-      ptrdiff_t n = t/m; 
+      ptrdiff_t n = t/m;
       if(first)
         {
           for(ptrdiff_t i=0, z = 0; z!=k; ++i)
@@ -163,7 +163,7 @@ namespace nt2 { namespace ext
                       boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
                       idx(++z) = index_type(a[1]+1);
                       jdx(z) = index_type(a[0]+1);
-                      v(z) = value; 
+                      v(z) = value;
                     }
                 }
         }
@@ -178,31 +178,31 @@ namespace nt2 { namespace ext
                   idx(z) = index_type(a[1]+1);
                   jdx(z) = index_type(a[0]+1);
                   v(z) = value;
-                  --z; 
+                  --z;
                 }
             }
         }
     }
-    
+
     BOOST_FORCEINLINE  //    i = find(x)
-      void getparams(A0 const &a0, bool&, 
+      void getparams(A0 const &a0, bool&,
                      boost::mpl::long_<1> const &//number of inputs
                      ) const
     { }
     BOOST_FORCEINLINE  //    i = find(x, k)
-      void getparams(A0 const &a0, bool&, 
+      void getparams(A0 const &a0, bool&,
                      boost::mpl::long_<2> const &//number of inputs
                      ) const
     { }
     BOOST_FORCEINLINE  //    i = find(x, k, 'f') or i = find(x, k, 'l')
-      void getparams(A0 const &a0, bool& first, 
+      void getparams(A0 const &a0, bool& first,
                      boost::mpl::long_<3> const &//number of inputs
                      ) const
     {
       first = boost::proto::value(boost::proto::child_c<2>(a0));
     }
 
-  }; 
+  };
 } }
 
 #endif
