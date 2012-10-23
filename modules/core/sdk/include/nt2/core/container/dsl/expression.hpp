@@ -23,6 +23,7 @@
 #include <nt2/toolbox/operator/functions/assign.hpp>
 #include <nt2/include/functions/evaluate.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
+#include <nt2/core/utility/fix_index.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/proto/traits.hpp>
 #include <boost/proto/extends.hpp>
@@ -241,33 +242,41 @@ namespace nt2 { namespace container
     //==========================================================================
     // Expression indexing
     //==========================================================================
+    #define M2(z,n,t)                                                     \
+    fix_index<BOOST_PP_INC(n),t>( a##n, indexes_type(), this->extent() )  \
+    /**/
+
+    #define M1(z,n,t)                                             \
+    typename result_of::fix_index < A##n,indexes_type,extent_type \
+                                  , BOOST_PP_INC(n),t             \
+                                  >::type                         \
+    /**/
+
     #define M0(z,n,t)                                                 \
     template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE       \
     typename meta::call                                               \
     < nt2::tag::function_                                             \
-      ( expression const&                                             \
-      , BOOST_PP_ENUM_BINARY_PARAMS(n,A, const& BOOST_PP_INTERCEPT)   \
-      )                                                               \
+      ( expression const&, BOOST_PP_ENUM(n,M1,n) )                    \
     >::type                                                           \
     operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A, const& a) ) const    \
     {                                                                 \
-      return nt2::function(*this, BOOST_PP_ENUM_PARAMS(n,a) );        \
+      return nt2::function(*this, BOOST_PP_ENUM(n,M2,n) );            \
     }                                                                 \
     template<BOOST_PP_ENUM_PARAMS(n,class A)> BOOST_FORCEINLINE       \
     typename meta::call                                               \
     < nt2::tag::function_                                             \
-      ( expression&                                                   \
-      , BOOST_PP_ENUM_BINARY_PARAMS(n,A, const& BOOST_PP_INTERCEPT)   \
-      )                                                               \
+      ( expression&, BOOST_PP_ENUM(n,M1,n) )                          \
     >::type                                                           \
     operator()( BOOST_PP_ENUM_BINARY_PARAMS(n,A, const& a) )          \
     {                                                                 \
-      return nt2::function(*this, BOOST_PP_ENUM_PARAMS(n,a) );        \
+      return nt2::function(*this, BOOST_PP_ENUM(n,M2,n) );            \
     }                                                                 \
     /**/
 
     BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
     #undef M0
+    #undef M1
+    #undef M2
 
     //==========================================================================
     // Idempotent operator() indexing
