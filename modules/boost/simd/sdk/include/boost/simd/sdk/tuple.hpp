@@ -48,15 +48,15 @@ namespace boost { namespace simd
 
   namespace details
   {
-    template<class Seq, class F, int N>
+    template<class Seq, class F, class To, int N>
     struct as_tuple;
   }
 
   namespace meta
   {
-    template<class Seq, class F = boost::dispatch::identity>
+    template<class Seq, class F = boost::dispatch::identity, class To = void>
     struct as_tuple
-     : details::as_tuple<Seq, F, fusion::result_of::size<Seq>::type::value>
+     : details::as_tuple<Seq, F, To, fusion::result_of::size<Seq>::type::value>
     {
     };
   }
@@ -67,10 +67,16 @@ namespace boost { namespace simd
     return meta::as_tuple<Seq const, F const>::call(seq, f);
   }
 
-  template<class Seq, class F>
-  typename meta::as_tuple<Seq const, F>::type as_tuple(Seq const& seq, F& f)
+  template<class To, class Seq, class F>
+  typename meta::as_tuple<Seq const, F const, To>::type as_tuple(Seq const& seq, F const& f)
   {
-    return meta::as_tuple<Seq const, F>::call(seq, f);
+    return meta::as_tuple<Seq const, F const, To>::call(seq, f);
+  }
+
+  template<class To, class Seq>
+  typename meta::as_tuple<Seq const, boost::dispatch::identity const, To>::type as_tuple(Seq const& seq)
+  {
+    return meta::as_tuple<Seq const, boost::dispatch::identity const, To>::call(seq, boost::dispatch::identity());
   }
 
 } }
@@ -218,11 +224,23 @@ namespace boost { namespace simd
 namespace boost { namespace simd { namespace details
 {
   template<class Seq, class F>
-  struct as_tuple<Seq, F, N>
+  struct as_tuple<Seq, F, void, N>
   {
     #define M0(z, n, t) typename dispatch::meta::result_of<F(typename fusion::result_of::value_at_c<Seq, n>::type)>::type
     typedef tuple<BOOST_PP_ENUM(N, M0, ~)> type;
     #undef M0
+    BOOST_FORCEINLINE static type call(Seq& seq, F& f)
+    {
+    #define M0(z, n, t) f(fusion::at_c<n>(seq))
+      return type(BOOST_PP_ENUM(N, M0, ~));
+    #undef M0
+    }
+  };
+
+  template<class Seq, class F, class To>
+  struct as_tuple<Seq, F, To, N>
+  {
+    typedef To type;
     BOOST_FORCEINLINE static type call(Seq& seq, F& f)
     {
     #define M0(z, n, t) f(fusion::at_c<n>(seq))

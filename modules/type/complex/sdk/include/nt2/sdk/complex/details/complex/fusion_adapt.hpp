@@ -89,11 +89,7 @@ namespace extension
     template<class Sequence>
     struct apply_impl<Sequence, 0>
     {
-      typedef typename mpl::if_ < is_const<Sequence>
-                                , typename Sequence::value_type const&
-                                , typename Sequence::value_type&
-                                >::type type;
-
+      typedef typename Sequence::value_type type;
       static type call(Sequence& seq)
       {
         return seq.real();
@@ -103,11 +99,7 @@ namespace extension
     template<class Sequence>
     struct apply_impl<Sequence, 1>
     {
-      typedef typename mpl::if_ < is_const<Sequence>
-                                , typename Sequence::value_type const&
-                                , typename Sequence::value_type&
-                                >::type type;
-
+      typedef typename Sequence::value_type type;
       static type call(Sequence& seq)
       {
         return seq.imag();

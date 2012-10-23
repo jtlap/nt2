@@ -55,9 +55,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::scalar_of<A0>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      result_type that;
-      boost::fusion::copy(simd::as_tuple(a0, extract_fusion(a1)),that);
-      return that;
+      return simd::as_tuple<result_type>(a0, extract_fusion(a1));
     }
   };
 

@@ -44,20 +44,22 @@ NT2_TEST_CASE( composite_hierarchy )
 NT2_TEST_CASE( composite_const_reference )
 {
   using nt2::container::composite_reference;
+  typedef std::complex<float> complex;
+  typedef boost::fusion::vector2<float, float> complex_rw;
 
-  std::complex<float> f(4,7.3f);
-  composite_reference<std::complex<float> const> cref_f(f);
+  complex_rw f(4,7.3f);
+  composite_reference<complex const> cref_f(f);
 
-  NT2_TEST_EQUAL( boost::fusion::at_c<0>(cref_f), f.real());
-  NT2_TEST_EQUAL( boost::fusion::at_c<1>(cref_f), f.imag());
+  NT2_TEST_EQUAL( boost::fusion::at_c<0>(cref_f), boost::fusion::at_c<0>(f) );
+  NT2_TEST_EQUAL( boost::fusion::at_c<1>(cref_f), boost::fusion::at_c<1>(f) );
 
   std::cout << cref_f << "\n";
 
-  f.real() = -6.87f;
-  f.imag() = 0.98f;
+  boost::fusion::at_c<0>(f) = -6.87f;
+  boost::fusion::at_c<1>(f) = 0.98f;
 
-  NT2_TEST_EQUAL( -6.87f, f.real());
-  NT2_TEST_EQUAL( 0.98f, f.imag());
+  NT2_TEST_EQUAL( -6.87f, boost::fusion::at_c<0>(f) );
+  NT2_TEST_EQUAL( 0.98f, boost::fusion::at_c<1>(f) );
 
   std::cout << cref_f << "\n";
 }
@@ -68,20 +70,22 @@ NT2_TEST_CASE( composite_const_reference )
 NT2_TEST_CASE( composite_reference )
 {
   using nt2::container::composite_reference;
+  typedef std::complex<float> complex;
+  typedef boost::fusion::vector2<float, float> complex_rw;
 
-  std::complex<float> f(4,7.3f);
-  composite_reference< std::complex<float> > ref_f(f);
+  complex_rw f(4,7.3f);
+  composite_reference<complex> ref_f(f);
 
-  NT2_TEST_EQUAL( boost::fusion::at_c<0>(ref_f), f.real());
-  NT2_TEST_EQUAL( boost::fusion::at_c<1>(ref_f), f.imag());
+  NT2_TEST_EQUAL( boost::fusion::at_c<0>(ref_f), boost::fusion::at_c<0>(f) );
+  NT2_TEST_EQUAL( boost::fusion::at_c<1>(ref_f), boost::fusion::at_c<1>(f) );
 
   std::cout << ref_f << "\n";
 
   boost::fusion::at_c<0>(ref_f) = 9.87f;
   boost::fusion::at_c<1>(ref_f) = 1.234f;
 
-  NT2_TEST_EQUAL( 9.87f, f.real());
-  NT2_TEST_EQUAL( 1.234f, f.imag());
+  NT2_TEST_EQUAL( 9.87f, boost::fusion::at_c<0>(f) );
+  NT2_TEST_EQUAL( 1.234f, boost::fusion::at_c<1>(f) );
 
   std::cout << ref_f << "\n";
 }

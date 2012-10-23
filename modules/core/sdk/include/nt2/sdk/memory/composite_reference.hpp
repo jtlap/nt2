@@ -11,6 +11,7 @@
 
 #include <nt2/sdk/meta/container_traits.hpp>
 #include <boost/simd/sdk/functor/proxy.hpp>
+#include <boost/simd/sdk/tuple.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/fusion/include/io.hpp>
@@ -55,9 +56,6 @@ namespace nt2 { namespace container
                                         >
                       >::type                 parent;
 
-    composite_reference(T& src) : parent( src )     {}
-    composite_reference(parent& src) : parent(src)  {}
-
     template<class U>
     composite_reference ( U& src
                         , typename boost
@@ -65,19 +63,8 @@ namespace nt2 { namespace container
                         ) : parent( src )
     {}
 
-    composite_reference& operator=(T const& src)
-    {
-      boost::fusion::copy(src,*this);
-      return *this;
-    }
-
-    composite_reference& operator=(composite_reference const& src)
-    {
-      boost::fusion::copy(src,*this);
-      return *this;
-    }
-
-    composite_reference& operator=(parent const& src)
+    template<class U>
+    composite_reference& operator=(U const& src)
     {
       boost::fusion::copy(src,*this);
       return *this;
@@ -85,9 +72,7 @@ namespace nt2 { namespace container
 
     operator value_type() const
     {
-      value_type that;
-      boost::fusion::copy(*this,that);
-      return that;
+      return boost::simd::as_tuple<value_type>(*this);
     }
   };
 
