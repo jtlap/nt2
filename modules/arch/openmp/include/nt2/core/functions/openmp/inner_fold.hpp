@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
                                         , boost::mpl::long_<0>
                                         >
                                  ))
-                                 (ast_< A1>)
+                                 ((ast_< A1, nt2::container::domain>))
                                  (unspecified_<A2>)
                                  (unspecified_<A3>)
                                  (unspecified_<A4>)
@@ -124,8 +124,8 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inner_fold_, nt2::tag::openmp_<Site>
                               , (A0)(A1)(A2)(A3)(A4)(Site)
-                            , (ast_< A0>)
-                              (ast_< A1>)
+                            , ((ast_< A0, nt2::container::domain>))
+                              ((ast_< A1, nt2::container::domain>))
                               (unspecified_<A2>)
                               (unspecified_<A3>)
                               (unspecified_<A4>)

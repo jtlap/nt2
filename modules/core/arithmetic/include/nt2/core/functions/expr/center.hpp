@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::center_, tag::cpu_
                             , (A0)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0),
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::center_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> > )
                             )
   {
@@ -44,8 +44,8 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::center_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
-                              (ast_<A1>)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::center_, tag::cpu_,
                               (A0)(A1)(A2),
-                              (ast_<A0>)(ast_<A1>)
+                              ((ast_<A0, nt2::container::domain>))((ast_<A1, nt2::container::domain>))
                               (scalar_<integer_<A2> > )
                               )
   {

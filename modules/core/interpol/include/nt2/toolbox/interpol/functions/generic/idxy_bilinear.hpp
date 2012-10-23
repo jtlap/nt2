@@ -39,8 +39,8 @@ namespace nt2 { namespace ext
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                               , (A0)(A1)(N1)
-                              , (ast_<A0>)
-                              ((node_<A1,nt2::tag::idxy_bilinear_,N1>))
+                              , ((ast_<A0, nt2::container::domain>))
+                              ((node_<A1,nt2::tag::idxy_bilinear_,N1,nt2::container::domain>))
                               )
   {
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       value_t;

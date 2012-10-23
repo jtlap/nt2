@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (fusion_sequence_<A1>)
                             )
   {
@@ -51,8 +51,8 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
-                              (ast_<A1>)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef typename boost::remove_const<A1>::type sizes_t;
@@ -88,7 +88,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_< arithmetic_<A1> >)
                             )
   {
@@ -116,7 +116,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_< arithmetic_<A1> >)
                               (scalar_< arithmetic_<A2> >)
                             )

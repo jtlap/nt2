@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_
                             , (Functor)(A0)
                             , (unspecified_<Functor>)
-                              (ast_<A0>)
+                              ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef typename  boost::proto::
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::adjfun_, tag::cpu_
                             , (Functor)(A0)(Along)
                             , (unspecified_<Functor>)
-                              (ast_<A0>)
+                              ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<Along> >)
                             )
   {

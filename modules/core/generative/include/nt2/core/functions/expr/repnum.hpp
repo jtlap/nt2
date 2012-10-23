@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_,
                               (A0)(A1),
                               (scalar_<unspecified_<A0> > )
-                              (ast_<A1>)
+                              ((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef typename  boost::proto::

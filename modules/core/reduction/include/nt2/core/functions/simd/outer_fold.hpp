@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
                                         , boost::mpl::long_<0>
                                         >
                                  ))
-                                 (ast_< A1>)
+                                 ((ast_< A1, nt2::container::domain>))
                                  (unspecified_<A2>)
                                  (unspecified_<A3>)
                                  (unspecified_<A4>)

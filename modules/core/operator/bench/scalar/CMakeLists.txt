@@ -12,12 +12,12 @@ SET( SOURCES
     bitwise_or.cpp
     bitwise_xor.cpp
     comma.cpp
-    compare_equal.cpp
-    compare_greater.cpp
-    compare_greater_equal.cpp
-    compare_less.cpp
-    compare_less_equal.cpp
-    compare_not_equal.cpp
+    is_equal.cpp
+    is_greater.cpp
+    is_greater_equal.cpp
+    is_less.cpp
+    is_less_equal.cpp
+    is_not_equal.cpp
     complement.cpp
     divides.cpp
     logical_and.cpp

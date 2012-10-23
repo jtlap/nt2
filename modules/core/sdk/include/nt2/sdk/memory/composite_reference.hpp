@@ -120,6 +120,12 @@ namespace boost { namespace simd
 {
   template<class T>
   struct is_value;
+
+  template<class T>
+  struct is_value< nt2::container::composite_reference<T> >
+       : is_value<T>
+  {
+  };
 } }
 
 namespace boost { namespace fusion { namespace traits

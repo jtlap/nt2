@@ -10,7 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_OPTIMIZE_IS_NOT_GREATER_HPP_INCLUDED
 
 #include <boost/simd/toolbox/predicates/functions/is_not_greater.hpp>
-#include <boost/simd/toolbox/predicates/functions/is_greater.hpp>
+#include <boost/simd/toolbox/operator/functions/is_greater.hpp>
 #include <boost/simd/toolbox/operator/functions/logical_not.hpp>
 #include <boost/dispatch/dsl/category.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
@@ -18,8 +18,8 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::logical_not_
-                                   , tag::formal_, (A0)(Arity)
-                                   , ((node_<A0, boost::simd::tag::is_greater_, Arity>))
+                                   , tag::formal_, (D)(A0)(Arity)
+                                   , ((node_<A0, boost::simd::tag::is_greater_, Arity, D>))
                                    )
   {
     BOOST_DISPATCH_RETURNS(1, (A0 const& a0),

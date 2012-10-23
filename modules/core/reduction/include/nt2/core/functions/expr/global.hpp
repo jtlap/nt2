@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::global_, tag::cpu_,
                               (A0)(A1),
                               (unspecified_<A0>)
-                              (ast_<A1>)
+                              ((ast_<A1, nt2::container::domain>))
                               )
   {
     typedef typename A1::value_type                               value_type;

@@ -20,7 +20,7 @@ namespace nt2{ namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cond_, tag::cpu_
                             , (A0)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef typename A0::value_type type_t;
@@ -47,7 +47,7 @@ namespace nt2{ namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cond_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (unspecified_<A1>)
                             )
   {

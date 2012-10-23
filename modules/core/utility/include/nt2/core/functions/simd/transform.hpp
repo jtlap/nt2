@@ -26,8 +26,8 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::transform_, boost::simd::tag::simd_
                             , (A0)(A1)
-                            , (ast_<A0>)
-                              (ast_<A1>)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef void result_type;
@@ -44,8 +44,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::transform_, boost::simd::tag::simd_
                                , (A0)(A1)(A2)(A3)
                                , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
-                               , (ast_<A0>)
-                                 (ast_<A1>)
+                               , ((ast_<A0, nt2::container::domain>))
+                                 ((ast_<A1, nt2::container::domain>))
                                  (scalar_< integer_<A2> >)
                                  (scalar_< integer_<A3> >)
                                )

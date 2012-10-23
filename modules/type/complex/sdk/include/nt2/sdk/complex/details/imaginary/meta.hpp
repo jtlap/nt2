@@ -15,6 +15,7 @@
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2
 {
@@ -47,7 +48,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef imaginary_< typename property_of<T, Origin>::type > type;
   };
-  
+
   template<class T, class Origin>
   struct hierarchy_of< nt2::imaginary<T>, Origin >
   {
@@ -55,19 +56,31 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename mpl::if_< is_same< nt2::imaginary<T>, stripped >, stripped, Origin >::type origin_;
     typedef scalar_< imaginary_< typename property_of<T, origin_>::type > > type;
   };
-  
+
   template<class T>
   struct scalar_of< nt2::imaginary<T> >
   {
     typedef nt2::imaginary<T> type;
   };
-  
+
   template<class T>
   struct value_of< nt2::imaginary<T> >
   {
     typedef T type;
   };
-  
+
 } } }
+
+namespace boost { namespace simd
+{
+  template<class T>
+  struct is_value;
+
+  template<class T>
+  struct is_value< nt2::imaginary<T> >
+       : boost::mpl::true_
+  {
+  };
+} }
 
 #endif

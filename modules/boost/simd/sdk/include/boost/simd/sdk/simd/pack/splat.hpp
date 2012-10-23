@@ -16,7 +16,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::splat_ , tag::cpu_
                             , (A0)(A1)
                             , (scalar_< fundamental_<A0> >)
-                              (target_< ast_<A1> >)
+                              ((target_< ast_<A1, boost::simd::domain> >))
                             )
   {
     typedef typename proto::domain_of<typename A1::type>::type  domain;
@@ -24,11 +24,11 @@ namespace boost { namespace simd { namespace ext
             as_<typename dispatch::meta::
                 semantic_of<typename A1::type>::type
                >  value;
-   
+
     typedef typename proto::result_of::
             make_expr<tag::splat_, domain, const A0&, const value&>::type
     result_type;
-   
+
     BOOST_DISPATCH_FORCE_INLINE result_type
     operator()(A0 const& a0, A1 const&) const
     {

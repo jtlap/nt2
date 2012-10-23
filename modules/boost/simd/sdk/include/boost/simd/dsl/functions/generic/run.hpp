@@ -110,8 +110,8 @@ namespace boost { namespace simd { namespace ext
   // Run an expression without state nor data
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::formal_
-                                    , (A0)
-                                    , (ast_<A0>)
+                                    , (A0)(D)
+                                    , ((ast_<A0, D>))
                                     )
   {
     typedef dispatch::
@@ -134,8 +134,8 @@ namespace boost { namespace simd { namespace ext
   // Run an expression with a state and a data
   //============================================================================
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::run_, tag::cpu_
-                                    , (A0)(State)(Data)
-                                    , (ast_<A0>)
+                                    , (A0)(D)(State)(Data)
+                                    , ((ast_<A0, D>))
                                       (unspecified_<State>)
                                       (unspecified_<Data>)
                                     )

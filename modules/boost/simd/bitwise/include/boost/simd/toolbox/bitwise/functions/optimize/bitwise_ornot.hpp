@@ -18,9 +18,9 @@
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::bitwise_or_, tag::formal_
-                            , (A0)(A1)
+                            , (D)(A0)(A1)
                             , (unspecified_<A0>)
-                              ((node_<A1, boost::simd::tag::complement_, mpl::long_<1> >))
+                              ((node_<A1, boost::simd::tag::complement_, mpl::long_<1> , D>))
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
@@ -29,8 +29,8 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_or_, tag::formal_
-                            , (A0)(A1)
-                            , ((node_<A0, boost::simd::tag::complement_, mpl::long_<1> >))
+                            , (D)(A0)(A1)
+                            , ((node_<A0, boost::simd::tag::complement_, mpl::long_<1> , D>))
                               (unspecified_<A1>)
                             )
   {
@@ -40,9 +40,9 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::bitwise_or_, tag::formal_
-                            , (A0)(A1)
-                            , ((node_<A0, boost::simd::tag::complement_, mpl::long_<1> >))
-                              ((node_<A1, boost::simd::tag::complement_, mpl::long_<1> >))
+                            , (D)(A0)(A1)
+                            , ((node_<A0, boost::simd::tag::complement_, mpl::long_<1> , D>))
+                              ((node_<A1, boost::simd::tag::complement_, mpl::long_<1> , D>))
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),

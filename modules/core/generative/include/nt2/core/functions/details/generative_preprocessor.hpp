@@ -34,7 +34,7 @@
 #define NT2_PP_GENERATIVE_MAKE_FROM_AST(Name,Tag)                             \
 NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
                           , (A0)                                              \
-                          , (ast_<A0>)                                        \
+                          , ((ast_<A0, nt2::container::domain>))                                        \
                           )                                                   \
 {                                                                             \
   typedef meta::constant_<BOOST_PP_TUPLE_ELEM(2,1,Tag),double> constant_t;    \
@@ -69,7 +69,7 @@ NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
 };                                                                            \
 NT2_FUNCTOR_IMPLEMENTATION( BOOST_PP_TUPLE_ELEM(2,0,Tag), tag::cpu_           \
                           , (A0)(T)                                           \
-                          , (ast_<A0>)                                        \
+                          , ((ast_<A0, nt2::container::domain>))                                        \
                             (target_< scalar_< unspecified_<T> > >)           \
                           )                                                   \
 {                                                                             \

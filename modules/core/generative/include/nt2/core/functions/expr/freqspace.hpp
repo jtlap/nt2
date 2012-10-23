@@ -18,7 +18,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
                             , (A0)
-                            , ((ast_<A0>))
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef typename  boost::proto::
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
                             , (A0)(A1)
-                            , ((ast_<A0>))
+                            , ((ast_<A0, nt2::container::domain>))
                               ((unspecified_<A1>))
                             )
   {
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
                             , (A0)(A1)
-                            , ((ast_< A0  >))
+                            , ((ast_< A0  , nt2::container::domain>))
                               ((target_< floating_<A1> >))
                             )
   {
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , ((ast_< A0 >))
+                            , ((ast_< A0 , nt2::container::domain>))
                               ((target_< unspecified_<A1> > ))
                               ((target_< floating_<A2> >))
                             )

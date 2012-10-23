@@ -21,8 +21,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::bsxfun_, tag::cpu_,
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
-                              (ast_<A1>)
-                              (ast_<A2>)
+                              ((ast_<A1, nt2::container::domain>))
+                              ((ast_<A2, nt2::container::domain>))
                             )
   {
     typedef typename  boost::proto::
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::bsxfun_, tag::cpu_,
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
-                              (ast_<A1>)
+                              ((ast_<A1, nt2::container::domain>))
                               (scalar_< unspecified_<A2> >)
                             )
   {
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
                               (scalar_< unspecified_<A1> >)
-                              (ast_<A2>)
+                              ((ast_<A2, nt2::container::domain>))
                             )
   {
     typedef typename  boost::proto::

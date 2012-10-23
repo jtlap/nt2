@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::diff_, tag::cpu_
                             , (A0)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef typename  boost::proto::
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::diff_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)
                               (scalar_<integer_<A2> >)
                             )
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::diff_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)
                             )
   {

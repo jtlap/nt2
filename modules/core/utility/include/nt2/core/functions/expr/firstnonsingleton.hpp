@@ -15,7 +15,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::firstnonsingleton_, tag::cpu_
-                            , (A0), (ast_<A0>)
+                            , (A0), ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef std::size_t result_type;

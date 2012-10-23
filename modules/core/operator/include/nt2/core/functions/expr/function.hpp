@@ -28,7 +28,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_
                             , (A0)(I0)
-                            , (ast_<A0>)(colon_<I0>)
+                            , ((ast_<A0, nt2::container::domain>))(colon_<I0>)
                             )
   {
     BOOST_DISPATCH_RETURNS(2, (A0& a0, I0 const& i0),
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
 #define M0(z,n,t)                                                             \
 NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                    \
                           , (A0)BOOST_PP_REPEAT(n,M1,~)                       \
-                          , (ast_<A0>)BOOST_PP_REPEAT(n,M2,~)                 \
+                          , ((ast_<A0, nt2::container::domain>))BOOST_PP_REPEAT(n,M2,~)                 \
                           )                                                   \
 {                                                                             \
   typedef typename meta::                                                     \

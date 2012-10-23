@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
   // bitwise_cast
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)
-                            , ((node_<A0, nt2::tag::bitwise_cast_, boost::mpl::long_<2> >))
+                            , ((node_<A0, nt2::tag::bitwise_cast_, boost::mpl::long_<2> , nt2::container::domain>))
                               (generic_< integer_<State> >)
                               (target_< unspecified_<Data> >)
                             )
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
                                            , mpl::sizeof_<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type>
                                            >
                               )
-                            , ((node_<A0, nt2::tag::split_, boost::mpl::long_<1> >))
+                            , ((node_<A0, nt2::tag::split_, boost::mpl::long_<1> , nt2::container::domain>))
                               (generic_< integer_<State> >)
                               ((target_< simd_< unspecified_<Data>, X > >))
                             )
@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)
-                            , ((node_<A0, nt2::tag::split_, boost::mpl::long_<1> >))
+                            , ((node_<A0, nt2::tag::split_, boost::mpl::long_<1> , nt2::container::domain>))
                               (generic_< integer_<State> >)
                               (target_< unspecified_<Data> >)
                             )
@@ -142,7 +142,7 @@ namespace nt2 { namespace ext
                                          >
                               , simd::meta::is_vectorizable<typename boost::proto::result_of::child_c<A0&, 0>::value_type::value_type, X>
                               >)
-                            , ((node_<A0, nt2::tag::group_, boost::mpl::long_<1> >))
+                            , ((node_<A0, nt2::tag::group_, boost::mpl::long_<1>, nt2::container::domain>))
                               (generic_< integer_<State> >)
                               ((target_< simd_< unspecified_<Data>, X > >))
                             )
@@ -165,7 +165,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(State)(Data)
-                            , ((node_<A0, nt2::tag::group_, boost::mpl::long_<1> >))
+                            , ((node_<A0, nt2::tag::group_, boost::mpl::long_<1> , nt2::container::domain>))
                               (generic_< integer_<State> >)
                               (target_< unspecified_<Data> >)
                             )
@@ -293,7 +293,7 @@ namespace nt2 { namespace ext
   // cast
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cast_, tag::cpu_
                             , (A0)(To)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (target_< scalar_< arithmetic_<To> > >)
                             )
   {

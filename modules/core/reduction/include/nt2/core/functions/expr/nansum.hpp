@@ -24,7 +24,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nansum_, tag::cpu_,
                               (A0),
-                              (ast_<A0>) )
+                              ((ast_<A0, nt2::container::domain>)) )
   {
     typedef typename meta::call < nt2::tag::is_nan_(A0 const &)>::type T2;
     typedef typename meta::call < nt2::tag::if_zero_else_(T2, A0 const &)>::type T3;
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nansum_, tag::cpu_,
                               (A0)(A1),
-                              (ast_<A0>)
+                              ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> > )
                               )
   {

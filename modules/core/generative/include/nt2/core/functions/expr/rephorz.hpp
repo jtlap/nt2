@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rephorz_, tag::cpu_,
                               (A0),
-                              (ast_<A0>)
+                              ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef A0 result_type;
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rephorz_, tag::cpu_,
                               (A0)(A1),
-                              (ast_<A0>)(scalar_<integer_<A1> >)
+                              ((ast_<A0, nt2::container::domain>))(scalar_<integer_<A1> >)
                             )
   {
     typedef typename  boost::proto::

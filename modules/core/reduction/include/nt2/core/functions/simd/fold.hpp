@@ -23,7 +23,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::fold_, boost::simd::tag::simd_, (A1)(A2)(A3)(A4)
                                , (boost::simd::meta::is_vectorizable<typename A1::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
-                               , ((ast_< A1>))
+                               , ((ast_< A1, nt2::container::domain>))
                                  (unspecified_<A2>)
                                  (unspecified_<A3>)
                                  (unspecified_<A4>)

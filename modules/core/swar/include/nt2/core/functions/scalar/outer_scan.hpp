@@ -19,8 +19,8 @@ namespace nt2 { namespace ext
   // Generates outer_scan
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::outer_scan_, tag::cpu_, (A0)(A1)(A2)(A3)(A4)
-                            , (ast_< A0>)
-                              (ast_< A1>)
+                            , ((ast_< A0, nt2::container::domain>))
+                              ((ast_< A1, nt2::container::domain>))
                               (unspecified_<A2>)
                               (unspecified_<A3>)
                               (unspecified_<A4>)

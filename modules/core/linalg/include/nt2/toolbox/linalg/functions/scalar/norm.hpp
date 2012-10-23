@@ -25,7 +25,7 @@
 #include <string>
 
 
-//((node_<A0, Tag, boost::mpl::long_<0> >))
+//((node_<A0, Tag, boost::mpl::long_<0> , nt2::container::domain>))
 
 // *     DLANGE = ( max(abs(A(i,j))), NORM = 'M' or 'm'
 // *              (
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
 {
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::norm_, tag::cpu_,
                                 (A0)(A1)(Arity),
-                                ((node_<A0, boost::simd::tag::terminal_, Arity > ))//Tag, boost::mpl::long_<0u> >))
+                                ((node_<A0, boost::simd::tag::terminal_, Arity ,nt2::container::domain> ))//Tag, nt2::container::domain>))
                                 (scalar_<arithmetic_<A1> > )
                                 )
   {
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::norm_, tag::cpu_,
                                        (A0)(A1),
-                                       ((ast_<A0>))
+                                       ((ast_<A0, nt2::container::domain>))
                                        (scalar_<arithmetic_<A1> > )
                                        )
   {
@@ -135,7 +135,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::norm_, tag::cpu_,
                                      (A0)(C),
-                                     ((ast_<A0>))
+                                     ((ast_<A0, nt2::container::domain>))
                                      (unspecified_<C> )
                                      )
   {
@@ -163,7 +163,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::norm_, tag::cpu_,
                                      (A0),
-                                     (ast_<A0>)
+                                     ((ast_<A0, nt2::container::domain>))
                                      )
   {
     typedef typename A0::value_type type_t;

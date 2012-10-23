@@ -18,6 +18,21 @@
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
 
+namespace boost { namespace dispatch { namespace details
+{
+  template<class T, class Enable = void>
+  struct expr_of
+       : expr_of<typename meta::value_of<T>::type>
+  {
+  };
+
+  template<class T>
+  struct expr_of<T, typename T::proto_is_expr_>
+  {
+    typedef T type;
+  };
+} } }
+
 namespace boost { namespace dispatch { namespace meta
 {
   /*!
@@ -30,7 +45,7 @@ namespace boost { namespace dispatch { namespace meta
    *
    * @tparam T Hierarchized type
    **/
-  template<class T>
+  template<class T, class D>
   struct ast_ : unspecified_<T>
   {
     typedef unspecified_<T> parent;
@@ -52,17 +67,17 @@ namespace boost { namespace dispatch { namespace meta
    * @tparam Tag  Expresson node tag hierarchy
    * @tparam N    Expression arity
    **/
-  template<class T, class Tag, class N>
-  struct node_ : node_<T, typename Tag::parent, N>
+  template<class T, class Tag, class N, class D>
+  struct node_ : node_<T, typename Tag::parent, N, D>
   {
-    typedef node_<T, typename Tag::parent, N> parent;
+    typedef node_<T, typename Tag::parent, N, D> parent;
   };
 
   /// INTERNAL ONLY
-  template<class T, class Tag, class N>
-  struct node_<T, unspecified_<Tag>, N> : ast_<T>
+  template<class T, class Tag, class N, class D>
+  struct node_<T, unspecified_<Tag>, N, D> : ast_<T, D>
   {
-    typedef ast_<T> parent;
+    typedef ast_<T, D> parent;
   };
 
   /*!
@@ -88,9 +103,9 @@ namespace boost { namespace dispatch { namespace meta
 
   /// INTERNAL ONLY
   template<class T, class Tag, class N>
-  struct expr_< unspecified_<T>, Tag, N> : node_<T, Tag, N>
+  struct expr_< unspecified_<T>, Tag, N> : node_<T, Tag, N, typename details::expr_of<T>::type::proto_domain>
   {
-    typedef node_<T, Tag, N> parent;
+    typedef node_<T, Tag, N, typename details::expr_of<T>::type::proto_domain> parent;
   };
 } } }
 

@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
                             , (A0)(State)(Data)
                             , ((node_ < A0, nt2::tag::from_diag_
                                       , boost::mpl::long_<1>
-                                      >
+                                      ,nt2::container::domain>
                               ))
                               (generic_< integer_<State> >)
                               ((unspecified_<Data>))
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
                             , (A0)(State)(Data)
                             , ((node_ < A0, nt2::tag::from_diag_
                                       , boost::mpl::long_<2>
-                                      >
+                                      ,nt2::container::domain>
                               ))
                               (generic_< integer_<State> >)
                               ((unspecified_<Data>))

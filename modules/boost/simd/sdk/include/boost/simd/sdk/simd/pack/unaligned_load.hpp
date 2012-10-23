@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_load_ , tag::cpu_
                             , (A0)(A1)
                             , (iterator_< scalar_< fundamental_<A0> > >)
-                              (target_< ast_< unspecified_<A1> > >)
+                              ((target_< ast_<A1, boost::simd::domain> >))
                             )
   {
     typedef typename proto::domain_of<typename A1::type>::type  domain;

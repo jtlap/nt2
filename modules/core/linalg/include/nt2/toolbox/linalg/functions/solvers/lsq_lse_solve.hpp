@@ -20,10 +20,10 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::solvers::lsq_lse_solve_, tag::cpu_
                             , (A0)(A1)(A2)(A3)
-                            , (ast_<A0>)
-                              (ast_<A1>)
-                              (ast_<A2>)
-                              (ast_<A3>)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
+                              ((ast_<A2, nt2::container::domain>))
+                              ((ast_<A3, nt2::container::domain>))
                             )
   {
     typedef typename meta::strip<A0>::type                                  base_t;
@@ -48,10 +48,10 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::solvers::lsq_lse_solve_, tag::cpu_
                             , (A0)(A1)(A2)(A3)(IP)
-                            , (ast_<A0>)
-                              (ast_<A1>)
-                              (ast_<A2>)
-                              (ast_<A3>)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
+                              ((ast_<A2, nt2::container::domain>))
+                              ((ast_<A3, nt2::container::domain>))
                               (unspecified_< IP >)
                             )
   {

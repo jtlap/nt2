@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::rref_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_< floating_<A1> >)
                             )
   {
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::rref_, tag::cpu_
                             , (A0)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef typename meta::strip<A0>::type                            base_t;
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::rref_, tag::cpu_
                             , (A0)(A1)(IP)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (scalar_< floating_<A1> >)
                               (unspecified_< IP >)
                             )
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::rref_, tag::cpu_
                             , (A0)(IP)
-                            , (ast_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                               (unspecified_< IP >)
                             )
   {

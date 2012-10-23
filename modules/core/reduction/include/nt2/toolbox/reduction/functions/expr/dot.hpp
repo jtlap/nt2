@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dot_, tag::cpu_
                             , (A0)(A1)
-                            , (ast_<A0>)(ast_<A1>)
+                            , ((ast_<A0, nt2::container::domain>))((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef typename meta::call < tag::conj_(A1 const&)>::type    conj_t;
@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::dot_, tag::cpu_,
                               (A0)(A1)(A2),
-                              (ast_<A0>)(ast_<A1>)
+                              ((ast_<A0, nt2::container::domain>))((ast_<A1, nt2::container::domain>))
                               (scalar_<integer_<A2> > )
                               )
   {

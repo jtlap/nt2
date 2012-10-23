@@ -38,7 +38,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(a0 != a1) && !(boost::simd::is_nan(a0) && boost::simd::is_nan(a1));
+      return result_type(a0 != a1 && !(boost::simd::is_nan(a0) && boost::simd::is_nan(a1)));
     }
   };
 } } }

@@ -17,8 +17,8 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , tag::formal_, (A0)(A1)
-                                   , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> >))(unspecified_<A1>)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , tag::formal_, (D)(A0)(A1)
+                                   , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> , D>))(unspecified_<A1>)
                                    )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
@@ -26,8 +26,8 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , tag::formal_, (A0)(A1)
-                                   , (unspecified_<A0>)((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> >))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , tag::formal_, (D)(A0)(A1)
+                                   , (unspecified_<A0>)((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> , D>))
                                    )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),
@@ -35,8 +35,8 @@ namespace boost { namespace simd { namespace ext
     )
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , tag::formal_, (A0)(A1)
-                                   , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> >))((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> >))
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::plus_ , tag::formal_, (D)(A0)(A1)
+                                   , ((node_<A0, boost::simd::tag::multiplies_, mpl::long_<2> , D>))((node_<A1, boost::simd::tag::multiplies_, mpl::long_<2> , D>))
                                    )
   {
     BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1),

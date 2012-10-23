@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(N0)
-                            , ((node_<A0, nt2::tag::tie_, N0>))
+                            , ((node_<A0, nt2::tag::tie_, N0, nt2::container::domain>))
                             )
   {
     typedef A0& result_type;
@@ -37,8 +37,8 @@ namespace nt2 { namespace ext
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(N0)(A1)(T1)(N1)
-                            , ((node_<A0, nt2::tag::tie_, N0>))
-                              ((node_<A1, tieable_<T1>, N1>))
+                            , ((node_<A0, nt2::tag::tie_, N0, nt2::container::domain>))
+                              ((node_<A1, tieable_<T1>, N1, nt2::container::domain>))
                             )
   {
     typedef A0&                                         result_type;
@@ -61,8 +61,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::assign_, tag::cpu_
                               , (A0)(T0)(N0)(A1)(T1)(N1)
                               , (mpl::not_< is_same<T0, nt2::tag::tie_> >)
-                              , ((node_ <A0, elementwise_<T0>, N0 > ))
-                                ((node_ <A1, tieable_<T1>, N1>))
+                              , ((node_ <A0, elementwise_<T0>, N0 ,nt2::container::domain> ))
+                                ((node_ <A1, tieable_<T1>, N1,nt2::container::domain>))
                               )
   {
     typedef typename meta::call<tag::tie_(A0&)>::type tied;

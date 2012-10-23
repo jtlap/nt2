@@ -15,7 +15,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::firstoflength_, tag::cpu_
-                              , (A0)(A1), (ast_<A0>)(scalar_<integer_<A1> > )
+                            , (A0)(A1), ((ast_<A0, nt2::container::domain>))(scalar_<integer_<A1> > )
                             )
   {
     typedef std::size_t result_type;

@@ -17,7 +17,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isinside_, tag::cpu_
                             , (A0)(A1)
                             , (fusion_sequence_<A0>)
-                              (ast_<A1>)
+                              ((ast_<A1, nt2::container::domain>))
                             )
   {
     typedef typename meta::strip<A1>::type                          base_t;
