@@ -12,7 +12,7 @@ cmake_minimum_required(VERSION 2.6)
 # Project nt2 that loads many modules
 # -- see modules/(<module>/+)CMakeLists.txt to build a single module.
 ################################################################################
-if(CMAKE_CONFIGURATION_TYPES)
+if(NOT CMAKE_GENERATOR MATCHES "Make|Ninja")
   set(CMAKE_CONFIGURATION_TYPES Release Debug NT2Test NT2TestDebug NT2Bench CACHE STRING "" FORCE)
 endif()
 project(NT2)
