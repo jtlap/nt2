@@ -36,7 +36,7 @@ namespace nt2
   /*!
     @brief Build a block diabgonal matrix
 
-    Build a block diabgonal matrix by concatenating two matrix along their
+    Build a block diagonal matrix by concatenating two matrix along their
     diagonal.
 
     @param a0 First matrix to concatenate
@@ -60,22 +60,22 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator ()(Expr& e) const
     {
       if( !numel(boost::proto::child_c<0>(e).extent()) )
-        {
-          return boost::proto::child_c<1>(e).extent();
-        }
+      {
+        return boost::proto::child_c<1>(e).extent();
+      }
       else if( !numel(boost::proto::child_c<1>(e).extent()) )
-        {
-          return boost::proto::child_c<0>(e).extent();
-        }
-      // otherwise cat the size properly
+      {
+        return boost::proto::child_c<0>(e).extent();
+      }
+      // otherwise compute the size properly
       else
-        {
-          result_type sizee(boost::proto::child_c<0>(e).extent());
-          sizee[0] += boost::fusion::at_c<0>(boost::proto::child_c<1>(e).extent());
-          sizee[1] += boost::fusion::at_c<1>(boost::proto::child_c<1>(e).extent());
-          
-          return sizee;
-        }
+      {
+        result_type sizee(boost::proto::child_c<0>(e).extent());
+        sizee[0] += boost::fusion::at_c<0>(boost::proto::child_c<1>(e).extent());
+        sizee[1] += boost::fusion::at_c<1>(boost::proto::child_c<1>(e).extent());
+
+        return sizee;
+      }
     }
   };
 

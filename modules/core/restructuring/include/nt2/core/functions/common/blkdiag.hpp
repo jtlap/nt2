@@ -21,6 +21,7 @@
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -42,42 +43,47 @@ namespace nt2 { namespace ext
       _2D ex0 = boost::proto::child_c<0>(a0).extent();
       _2D ex1 = boost::proto::child_c<1>(a0).extent();
 
+      std::size_t n0 = numel(ex0);
+      std::size_t n1 = numel(ex1);
+
       // Get the current index vector
       sub_t pos = as_subscript(_2D(a0.extent()),nt2::enumerate<i_t>(p));
 
+      i_t const offset0 = splat<i_t>(ex0[0]);
+      i_t const offset1 = splat<i_t>(ex0[1]);
+
       // Find the proper quadrant for each position
       typedef typename meta::as_logical<i_t>::type mask_t;
-      mask_t const is_stack0 = nt2::lt(pos[1],splat<i_t>(ex0[1]));
-      mask_t const is_row0   = nt2::lt(pos[0],splat<i_t>(ex0[0]));
+      mask_t const is_stack0 = nt2::lt(pos[1],offset1) && n0;
+      mask_t const is_row0   = nt2::lt(pos[0],offset0);
 
       // Boundaries for indexes
-      i_t bound0 = splat<i_t>(numel(boost::proto::child_c<0>(a0))-1);
-      i_t bound1 = splat<i_t>(numel(boost::proto::child_c<1>(a0))-1);
+      i_t bound0 = splat<i_t>(n0 ? n0-1 : n0);
+      i_t bound1 = splat<i_t>(n1 ? n1-1 : n1);
 
       // Result is out of the diagonal
       result_type const z   = Zero<result_type>();
-
+      i_t         const zi  = Zero<i_t>();
 
       // Result is from a0
       result_type const s0 = nt2::run ( boost::proto::child_c<0>(a0)
-                                      , min ( as_index(ex0, pos)
-                                            , bound0
-                                            )
+                                      , n0  ? min (  as_index(ex0, pos)
+                                                  , bound0
+                                                  )
+                                            : zi
                                       , t
                                       );
 
       // Compute offset to find other possible data
-      i_t const offset0 = splat<i_t>(ex0[0]);
       pos[0] = selsub( ge(pos[0],offset0), pos[0], offset0);
-
-      i_t const offset1 = splat<i_t>(ex0[1]);
       pos[1] = selsub( ge(pos[1],offset1), pos[1], offset1);
 
       // Result is from a1
       result_type const s1 = nt2::run ( boost::proto::child_c<1>(a0)
-                                      , min ( as_index(ex1, pos)
-                                            , bound1
-                                            )
+                                      , n1  ? min ( as_index(ex1, pos)
+                                                  , bound1
+                                                  )
+                                            : zi
                                       , t
                                       );
 
