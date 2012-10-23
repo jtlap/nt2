@@ -10,18 +10,25 @@
 #define BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 
 #include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/dispatch/preprocessor/repeat.hpp>
+#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
+#include <boost/simd/sdk/memory/parameters.hpp>
 #include <boost/throw_exception.hpp>
+#include <boost/detail/workaround.hpp>
 #include <boost/assert.hpp>
+#include <boost/mpl/assert.hpp>
 #include <boost/swap.hpp>
 #include <stdexcept>
+#include <iterator>
 
-namespace boost{ namespace simd{ namespace memory{
-
+namespace boost{ namespace simd{ namespace memory
+{
   template<class T, std::size_t N, std::size_t Align>
-  struct aligned_array_data
+  struct aligned_array;
   {
-    BOOST_SIMD_ALIGNED_TYPE(T) data[N];
+    BOOST_MPL_ASSERT_MSG( (sizeof(T) == 0)
+                        , NON_SUPPORTED_ALIGNMENT_FOR_ARRAY
+                        , (aligned_array_data)
+                        );
   };
 
   #define M0(z,n,t)                                                            \
@@ -32,10 +39,15 @@ namespace boost{ namespace simd{ namespace memory{
   };                                                                           \
   /**/
 
-  BOOST_DISPATCH_PP_REPEAT_POWER_OF_2(M0,~)
+#if BOOST_WORKAROUND(__GNUC__, == 4) && BOOST_WORKAROUND(__GNUC_MINOR__, < 3)
+  BOOST_SIMD_PP_REPEAT_POWER_OF_2(0,4,M0,~)
+#else
+  BOOST_SIMD_PP_REPEAT_POWER_OF_2(0,6,M0,~)
+#endif
+
   #undef M0
 
-  template<class T, std::size_t N, std::size_t Align>
+  template<class T, std::size_t N, std::size_t Align=BOOST_SIMD_CONFIG_ALIGNMENT>
   struct aligned_array : aligned_array_data<T,N,Align>
   {
     typedef T              value_type;
@@ -54,6 +66,17 @@ namespace boost{ namespace simd{ namespace memory{
     iterator        end()       { return this->data+N; }
     const_iterator  end() const { return this->data+N; }
     const_iterator cend() const { return this->data+N; }
+
+    typedef std::reverse_iterator<iterator> reverse_iterator;
+    typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
+
+    reverse_iterator rbegin() { return reverse_iterator(end()); }
+    const_reverse_iterator rbegin()  const { return const_reverse_iterator(end()); }
+    const_reverse_iterator crbegin() const { return const_reverse_iterator(end()); }
+
+    reverse_iterator       rend()       { return reverse_iterator(begin()); }
+    const_reverse_iterator rend()  const { return const_reverse_iterator(begin()); }
+    const_reverse_iterator crend() const { return const_reverse_iterator(begin()); }
 
     // operator[]
     reference operator[](size_type i) 

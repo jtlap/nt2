@@ -13,7 +13,6 @@
 #include <boost/array.hpp>
 #include <boost/dispatch/meta/na.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
-//#include <boost/simd/sdk/simd/pack.hpp>
 
 namespace boost { namespace simd { namespace meta
 {
@@ -22,12 +21,6 @@ namespace boost { namespace simd { namespace meta
 
   template<class T, class X>
   struct extension_of< boost::simd::native<T,X> > { typedef X type; };
-
-  template<class T, class N>
-  struct extension_of< boost::array<T, N::value>, T, N>
-  {
-    typedef tag::simd_emulation_< N::value * sizeof(T) > type;
-  };
 } } }
 
 

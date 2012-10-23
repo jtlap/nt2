@@ -17,6 +17,7 @@ SET( SOURCES
     overload.cpp
     allocator.cpp
     allocator_adaptor.cpp
+    aligned_array.cpp
   )
 
 nt2_module_add_tests(boost.simd.sdk.memory.unit ${SOURCES})

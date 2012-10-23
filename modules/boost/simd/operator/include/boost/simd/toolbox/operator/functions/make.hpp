@@ -12,7 +12,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_MAKE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_MAKE_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-#include <boost/dispatch/preprocessor/repeat.hpp>
+#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
@@ -92,7 +92,7 @@ namespace boost { namespace dispatch
       return callee(BOOST_PP_ENUM(n, M1, ~));                                              \
     }
 
-    BOOST_DISPATCH_PP_REPEAT_POWER_OF_2(M0, ~)
+    BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
     #undef M0
     #undef M1
   };
@@ -108,7 +108,7 @@ namespace boost { namespace simd
     return callee(BOOST_PP_ENUM_PARAMS(n, a), boost::dispatch::meta::as_<T>());            \
   }
 
-  BOOST_DISPATCH_PP_REPEAT_POWER_OF_2(M0, ~)
+  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
   #undef M0
 } }
 
