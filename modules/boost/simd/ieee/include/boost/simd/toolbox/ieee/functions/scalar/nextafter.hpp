@@ -1,17 +1,17 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXTAFTER_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_NEXTAFTER_HPP_INCLUDED
 #include <boost/simd/toolbox/ieee/functions/nextafter.hpp>
 #include <boost/simd/include/functions/scalar/sign.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/toolbox/ieee/details/math.hpp>
+#include <boost/simd/sdk/math.hpp>
 #include <boost/math/special_functions/next.hpp>
 #include <boost/simd/include/functions/scalar/oneplus.hpp>
 #include <boost/simd/include/functions/scalar/minusone.hpp>
@@ -61,9 +61,9 @@ namespace boost { namespace simd { namespace details
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-    #ifdef BOOST_SIMD_TOOLBOX_IEEE_HAS_NEXTAFTER
+    #ifdef BOOST_SIMD_HAS_NEXTAFTER
       return ::nextafter(a0, a1);
-    #elif defined(BOOST_SIMD_TOOLBOX_IEEE_HAS__NEXTAFTER)
+    #elif defined(BOOST_SIMD_HAS__NEXTAFTER)
       return ::_nextafter(a0, a1);
     #else
       return details::nextafter(a0, a1);
@@ -79,9 +79,9 @@ namespace boost { namespace simd { namespace details
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-    #ifdef BOOST_SIMD_TOOLBOX_IEEE_HAS_NEXTAFTERF
+    #ifdef BOOST_SIMD_HAS_NEXTAFTERF
       return ::nextafterf(a0, a1);
-    #elif defined(BOOST_SIMD_TOOLBOX_IEEE_HAS__NEXTAFTERF)
+    #elif defined(BOOST_SIMD_HAS__NEXTAFTERF)
       return ::_nextafterf(a0, a1);
     #else
       return details::nextafter(a0, a1);

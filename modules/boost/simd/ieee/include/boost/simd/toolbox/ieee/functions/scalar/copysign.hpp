@@ -1,18 +1,18 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_COPYSIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_COPYSIGN_HPP_INCLUDED
+
 #include <boost/simd/toolbox/ieee/functions/copysign.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/functions/scalar/signnz.hpp>
-#include <boost/simd/toolbox/ieee/details/math.hpp>
+#include <boost/simd/sdk/math.hpp>
 #include <boost/math/special_functions/sign.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -37,9 +37,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-    #ifdef BOOST_SIMD_TOOLBOX_IEEE_HAS_COPYSIGN
+    #ifdef BOOST_SIMD_HAS_COPYSIGN
       return ::copysign(a0, a1);
-    #elif defined(BOOST_SIMD_TOOLBOX_IEEE_HAS__COPYSIGN)
+    #elif defined(BOOST_SIMD_HAS__COPYSIGN)
       return ::_copysign(a0, a1);
     #else
       return boost::math::copysign(a0, a1);
@@ -55,9 +55,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-    #ifdef BOOST_SIMD_TOOLBOX_IEEE_HAS_COPYSIGNF
+    #ifdef BOOST_SIMD_HAS_COPYSIGNF
       return ::copysignf(a0, a1);
-    #elif defined(BOOST_SIMD_TOOLBOX_IEEE_HAS__COPYSIGNF)
+    #elif defined(BOOST_SIMD_HAS__COPYSIGNF)
       return ::_copysignf(a0, a1);
     #else
         return boost::math::copysign(a0, a1);

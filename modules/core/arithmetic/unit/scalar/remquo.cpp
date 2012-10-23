@@ -12,7 +12,7 @@
 // unit test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/remquo.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -35,7 +35,7 @@
 #include <cmath>
 #include <nt2/include/constants/nan.hpp>
 
-#include <boost/simd/toolbox/arithmetic/details/math.hpp>
+#include <boost/simd/sdk/math.hpp>
 
 NT2_TEST_CASE_TPL ( remquo_real__2_0,  (double))
 {
@@ -47,12 +47,12 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  (double))
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   iT n = 0;
-  int32_t n1; 
+  int32_t n1;
   T r, r1;
-  
+
   remquo(nt2::Nan<double>(), T(1), r, n);
   NT2_TEST_EQUAL(r, nt2::Nan<double>());
   NT2_TEST_EQUAL(n, 0);
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  (double))
   NT2_TEST_EQUAL(r, nt2::Nan<double>());
   NT2_TEST_EQUAL(n, 0);
 
-#ifdef BOOST_SIMD_TOOLBOX_ARITHMETIC_HAS_REMQUO
+#ifdef BOOST_SIMD_HAS_REMQUO
   T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   T b[9] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
 
@@ -88,20 +88,20 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0f,  (float))
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   iT n = 0;
-  int32_t n1; 
+  int32_t n1;
   T r, r1;
 
   remquo(nt2::Nan<float>(), T(1), r, n);
   NT2_TEST_EQUAL(r, nt2::Nan<float>());
-  NT2_TEST_EQUAL(n, 0);   
+  NT2_TEST_EQUAL(n, 0);
   remquo(T(1), nt2::Nan<float>(), r, n);
   NT2_TEST_EQUAL(r, nt2::Nan<float>());
   NT2_TEST_EQUAL(n, 0);
 
-#ifdef BOOST_SIMD_TOOLBOX_ARITHMETIC_HAS_REMQUO
+#ifdef BOOST_SIMD_HAS_REMQUO
   T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   T b[9] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
 

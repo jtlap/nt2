@@ -10,8 +10,6 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_DGAMMAINC_HPP_INCLUDED
 
 #include <nt2/toolbox/euler/functions/dgammainc.hpp>
-#include <nt2/toolbox/euler/details/math.hpp>
-#include <nt2/toolbox/boost_math/functions/gamma_p_derivative.hpp>
 #include <nt2/include/functions/scalar/tofloat.hpp>
 #include <nt2/include/functions/scalar/exp.hpp>
 #include <nt2/include/functions/scalar/log.hpp>

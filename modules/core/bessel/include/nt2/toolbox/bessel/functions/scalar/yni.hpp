@@ -24,7 +24,7 @@
 #include <nt2/include/functions/scalar/y1.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
-#include <nt2/toolbox/bessel/details/math.hpp>
+#include <boost/simd/sdk/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -60,9 +60,9 @@ namespace nt2 { namespace ext
     {
       if (is_inf(a1)) return Zero<result_type>(); 
       if (is_eqz(a1)) return Minf<result_type>(); 
-    #ifdef NT2_TOOLBOX_BESSEL_HAS__YN
+    #ifdef BOOST_SIMD_HAS__YN
       return ::_yn(a0, a1);
-    #elif defined(NT2_TOOLBOX_BESSEL_HAS_YN)
+    #elif defined(BOOST_SIMD_HAS_YN)
       return ::yn(a0, a1);
     #else
       #error yn not supported

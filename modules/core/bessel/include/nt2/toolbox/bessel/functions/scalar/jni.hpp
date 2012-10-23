@@ -17,7 +17,7 @@
 #include <nt2/include/functions/scalar/is_less.hpp>
 #include <nt2/include/functions/scalar/is_greater.hpp>
 #include <nt2/include/functions/scalar/splat.hpp>
-#include <nt2/toolbox/bessel/details/math.hpp>
+#include <boost/simd/sdk/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A1 is arithmetic_
@@ -56,9 +56,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       if (is_inf(a1)) return Zero<A1>();
-    #if defined(NT2_TOOLBOX_BESSEL_HAS__JN)
+    #if defined(BOOST_SIMD_HAS__JN)
       return ::_jn(a0, a1);
-    #elif defined(NT2_TOOLBOX_BESSEL_HAS_JN)
+    #elif defined(BOOST_SIMD_HAS_JN)
       return ::jn(a0, a1);
     #else
       #error jn not supported

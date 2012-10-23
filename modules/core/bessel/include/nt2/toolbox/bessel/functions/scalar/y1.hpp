@@ -31,7 +31,7 @@
 #include <nt2/include/constants/infinites.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
-#include <nt2/toolbox/bessel/details/math.hpp>
+#include <boost/simd/sdk/math.hpp>
 #include <boost/array.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -175,9 +175,9 @@ namespace nt2 { namespace ext
       if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
       if (is_inf(a0)) return Zero<result_type>(); 
       if (is_eqz(a0)) return Minf<result_type>(); 
-    #ifdef NT2_TOOLBOX_BESSEL_HAS__Y1F
+    #ifdef BOOST_SIMD_HAS__Y1F
       return ::_y1f(a0);
-    #elif defined(NT2_TOOLBOX_BESSEL_HAS_Y1F)
+    #elif defined(BOOST_SIMD_HAS_Y1F)
       return ::y1f(a0);
     #elif 0 // TODO: fix single-precision implementation
        typedef typename meta::scalar_of<A0>::type stype;

@@ -19,7 +19,7 @@
 #include <nt2/include/functions/scalar/cos.hpp>
 #include <nt2/include/functions/scalar/is_inf.hpp>
 
-#include <nt2/toolbox/bessel/details/math.hpp>
+#include <boost/simd/sdk/math.hpp>
 
 
 /////////////////////////////////////////////////////////////////////////////
@@ -57,9 +57,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       if (is_inf(a0)) return Zero<A0>();
-    #if defined(NT2_TOOLBOX_BESSEL_HAS__J0)
+    #if defined(BOOST_SIMD_HAS__J0)
       return ::_j0(a0);
-    #elif defined(NT2_TOOLBOX_BESSEL_HAS_J0)
+    #elif defined(BOOST_SIMD_HAS_J0)
       return ::j0(a0);
     #else
       #error j0 not supported

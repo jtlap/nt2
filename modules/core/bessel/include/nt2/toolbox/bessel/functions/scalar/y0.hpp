@@ -1,13 +1,14 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_Y0_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_Y0_HPP_INCLUDED
+
 #include <nt2/toolbox/bessel/functions/y0.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/include/constants/real.hpp>
@@ -19,8 +20,7 @@
 #include <nt2/include/functions/scalar/j0.hpp>
 #include <nt2/include/functions/scalar/rec.hpp>
 #include <nt2/include/functions/scalar/sin.hpp>
-
-#include <nt2/toolbox/bessel/details/math.hpp>
+#include <boost/simd/sdk/math.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -59,11 +59,11 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
-      if (is_inf(a0)) return Zero<result_type>(); 
-      if (is_eqz(a0)) return Minf<result_type>(); 
-    #if defined(NT2_TOOLBOX_BESSEL_HAS__Y0)
+      if (is_inf(a0)) return Zero<result_type>();
+      if (is_eqz(a0)) return Minf<result_type>();
+    #if defined(BOOST_SIMD_HAS__Y0)
       return ::_y0(a0);
-    #elif defined(NT2_TOOLBOX_BESSEL_HAS_Y0)
+    #elif defined(BOOST_SIMD_HAS_Y0)
       return ::y0(a0);
     #else
       #error y0 not supported
@@ -90,8 +90,8 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::scalar_of<A0>::type stype;
       if (is_ltz(a0)||is_nan(a0)) return Nan<result_type>();
-      if (is_inf(a0)) return Zero<result_type>(); 
-      if (is_eqz(a0)) return Minf<result_type>(); 
+      if (is_inf(a0)) return Zero<result_type>();
+      if (is_eqz(a0)) return Minf<result_type>();
       if (a0 <= Two<A0>())
         {
           A0 z = sqr(a0);

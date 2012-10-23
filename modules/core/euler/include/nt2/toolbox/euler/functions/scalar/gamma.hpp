@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_GAMMA_HPP_INCLUDED
 
 #include <nt2/toolbox/euler/functions/gamma.hpp>
-#include <nt2/toolbox/euler/details/math.hpp>
+#include <boost/simd/sdk/math.hpp>
 #include <boost/math/special_functions/gamma.hpp>
 
 #include <nt2/include/constants/infinites.hpp>
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type is single_
 /////////////////////////////////////////////////////////////////////////////
-#ifdef NT2_TOOLBOX_EULER_HAS_TGAMMAF
+#ifdef BOOST_SIMD_HAS_TGAMMAF
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gamma_, tag::cpu_
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
       if (a0 == Inf<A0>()) return a0;
       if(is_eqz(a0)) return rec(a0);
       if (is_invalid(a0) || (is_ltz(a0) && is_flint(a0))) return Nan<A0>();
-    #ifdef NT2_TOOLBOX_EULER_HAS_TGAMMA
+    #ifdef BOOST_SIMD_HAS_TGAMMA
        return ::tgamma(a0);
     #else
        return boost::math::tgamma(a0, nt2_policy());

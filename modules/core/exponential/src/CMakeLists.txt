@@ -10,23 +10,3 @@
 include(NT2Module)
 nt2_module_source_setup(core.exponential)
 nt2_module_configure_toolbox(exponential 1)
-
-################################################################################
-# Find out which C99/TR1 math functions are available
-################################################################################
-
-include(CheckFunctionExists)
-
-if(UNIX)
-  set(CMAKE_REQUIRED_LIBRARIES m)
-endif()
-
-check_function_exists(cbrt NT2_TOOLBOX_EXPONENTIAL_HAS_CBRT)
-check_function_exists(cbrtf NT2_TOOLBOX_EXPONENTIAL_HAS_CBRTF)
-
-################################################################################
-# Generate math.hpp
-################################################################################
-nt2_module_configure_file(math.hpp.cmake
-                          nt2/toolbox/exponential/details/math.hpp
-                         )
