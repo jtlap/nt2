@@ -9,18 +9,52 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::aligned_array"
 
 #include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/mpl/int.hpp>
+#include <boost/simd/sdk/memory/aligned_array.hpp>
+#include <boost/mpl/size_t.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 
-using boost::mpl::int_;
-
 NT2_TEST_CASE_TPL( aligned_array_alignment
-                 , (int_<1>)(int_<2>)(int_<4>)(int_<8>)
-                   (int_<16>)(int_<32>)(int_<64>)
+                 , (boost::mpl::size_t<1>)(boost::mpl::size_t<2>)
+                   (boost::mpl::size_t<4>)(boost::mpl::size_t<8>)
+                   (boost::mpl::size_t<16>)(boost::mpl::size_t<32>)
+                   (boost::mpl::size_t<64>)
                  )
 {
+  using boost::simd::memory::aligned_array;
+  aligned_array<float,18, T::value> tab;
+}
 
+NT2_TEST_CASE( aligned_array_interface )
+{
+  using boost::simd::memory::aligned_array;
+  aligned_array<float,18> tab, tab_, tab__;
+
+  for(int i=0; i<18; i++)
+  {
+    tab[i]  = float(i);
+    tab_[i] = float(i*i);
+  }
+
+  for(int i=0; i<18; i++) 
+  {
+    NT2_TEST_EQUAL( tab[i]   , float(i));
+    NT2_TEST_EQUAL( tab.at(i), float(i));
+  }
+
+  tab.swap(tab_);
+  tab__ = tab_;
+  for(int i=0; i<18; i++) 
+  {
+    NT2_TEST_EQUAL( tab[i]     , float(i*i));
+    NT2_TEST_EQUAL( tab__.at(i), float(i));
+  }
+
+  NT2_TEST_EQUAL( tab.size(),     18u     );
+  NT2_TEST_EQUAL( *(tab.begin()), tab[0]  );
+  NT2_TEST_EQUAL( *(tab.end()-1), tab[17] );
+  NT2_TEST_EQUAL( tab.empty(),    false   );
+  NT2_TEST_EQUAL( tab.data(),     &tab[0] );
 
 }
