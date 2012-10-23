@@ -69,12 +69,12 @@ namespace nt2 { namespace details
       NT2_WARNING(info_ <=  0, "Warning: Matrix is singular to working precision.");
     }
     ~full_lu_solve_result(){}
-    itab_t ipiv()       const { return ipiv_; }
-    btype_t rcond()     const { return rcond_;}
+    const fitab_t& ipiv()       const { return ipiv_; }
+    const btype_t& rcond()     const { return rcond_;}
     nt2_la_int status() const { return info_; }
-    tab_t  ferr()       const { return ferr_; }
-    tab_t  berr()       const { return berr_; }
-    tab_t  x()          const { return x_;    }
+    const ftab_t&  ferr()       const { return ferr_; }
+    const ftab_t&  berr()       const { return berr_; }
+    const ftab_t&  x()          const { return x_;    }
   private:
     data1_t               a_;
     data2_t               b_;

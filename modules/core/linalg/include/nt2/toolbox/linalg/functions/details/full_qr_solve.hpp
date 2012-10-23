@@ -58,11 +58,10 @@ namespace nt2 { namespace details
       //      NT2_WARNING(info_ <= 0, "Warning: Matrix is singular to working precision.");
     }
 
-    fitab_t ipiv()      const { return jpvt_; }
-    //    btype_t rcond()     const { return rcond_;}
+    const fitab_t& ipiv()      const { return jpvt_; }
     nt2::int32_t rank() const { return rank_; }
     nt2_la_int status() const { return info_; }
-    tab_t  x()          const { return x_;    }
+    const ftab_t&  x()          const { return x_;    }
   private:
     data_t                a_;
     nt2_la_int          lda_;
@@ -73,7 +72,6 @@ namespace nt2 { namespace details
     tab_t                 x_;
     fitab_t            jpvt_;
     nt2_la_int         info_;
-    //    btype_t           rcond_;
     nt2::int32_t       rank_;
   };
 } }
