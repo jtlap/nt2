@@ -27,11 +27,11 @@ namespace nt2 { namespace details
     struct result<This(T)>
     {
       typedef typename boost::remove_reference<T>::type sT;
-      typedef typename sT::extent_type type;
+      typedef typename sT::extent_type const& type;
     };
 
     template<class T>
-    BOOST_FORCEINLINE typename T::extent_type
+    BOOST_FORCEINLINE typename T::extent_type const&
     operator()(T const& t) const
     {
       return t.extent();
@@ -127,9 +127,18 @@ namespace nt2 { namespace ext
     }
   };
 
-  // element-wise size n-ary
+  template<class Tag, class Domain, int N, class Expr>
+  struct size_of_default;
+
   template<class Tag, class Domain, int N, class Expr>
   struct size_of
+       : size_of_default<Tag, Domain, N, Expr>
+  {
+  };
+
+  // element-wise size n-ary
+  template<class Tag, class Domain, int N, class Expr>
+  struct size_of_default
   {
     typedef typename boost::fusion::result_of::
     transform<Expr const, details::get_extent>::type sizes;
@@ -138,24 +147,25 @@ namespace nt2 { namespace ext
     at_c<sizes, 0>::type init;
 
     typedef typename boost::fusion::result_of::
-    fold<sizes, init const, size_fold>::type  result_type;
+    fold<sizes, init, size_fold>::type  result_type;
 
     BOOST_FORCEINLINE
     result_type operator()(Expr& e) const
     {
-      return eval(e,boost::mpl::int_<N>());
-    }
-
-    template<int I>
-    BOOST_FORCEINLINE result_type
-    eval(Expr& e, boost::mpl::int_<I> const&) const
-    {
       sizes sz = boost::fusion::transform(e, details::get_extent());
       return boost::fusion::fold(sz, boost::fusion::at_c<0>(sz), size_fold());
     }
+  };
 
-    BOOST_FORCEINLINE result_type
-    eval(Expr& e, boost::mpl::int_<1> const&) const
+  // element-wise size unary
+  template<class Tag, class Domain, class Expr>
+  struct size_of_default<Tag, Domain, 1, Expr>
+  {
+    typedef typename boost::proto::result_of::child_c<Expr, 0>::value_type child0;
+    typedef typename child0::extent_type result_type;
+
+    BOOST_FORCEINLINE
+    result_type operator()(Expr& e) const
     {
       return boost::proto::child_c<0>(e).extent();
     }
