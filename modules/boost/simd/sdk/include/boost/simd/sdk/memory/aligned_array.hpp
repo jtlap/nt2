@@ -10,6 +10,7 @@
 #define BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 
 #include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/preprocessor/control/if.hpp>
 #include <boost/preprocessor/comparison/less_equal.hpp>
@@ -53,8 +54,8 @@ namespace boost { namespace simd
     #undef M0f
     #undef M0t
 
-    template<class T, std::size_t N, std::size_t Align=BOOST_SIMD_CONFIG_ALIGNMENT>
-    struct aligned_array : aligned_array_data<T,N,Align>
+    template<class T, std::size_t N, std::size_t Align>
+    struct aligned_array : aligned_array_data<T, N, (Align ? Align : BOOST_SIMD_CONFIG_ALIGNMENT)>
     {
       typedef T              value_type;
       typedef T*             iterator;

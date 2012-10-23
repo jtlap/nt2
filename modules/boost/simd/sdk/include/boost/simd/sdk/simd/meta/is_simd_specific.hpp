@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_META_IS_SIMD_SPECIFIC_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
-#include <boost/simd/sdk/memory/aligned_array.hpp>
+#include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace simd { namespace meta

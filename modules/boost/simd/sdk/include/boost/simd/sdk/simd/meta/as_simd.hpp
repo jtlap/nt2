@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_META_AS_SIMD_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
-#include <boost/simd/sdk/memory/aligned_array.hpp>
+#include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
 #include <boost/dispatch/meta/na.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/utility/enable_if.hpp>

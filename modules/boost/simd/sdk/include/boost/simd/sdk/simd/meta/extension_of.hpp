@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_META_EXTENSION_OF_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
-#include <boost/simd/sdk/memory/aligned_array.hpp>
+#include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
 #include <boost/dispatch/meta/na.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 
