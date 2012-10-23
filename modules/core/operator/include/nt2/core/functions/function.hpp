@@ -32,6 +32,8 @@ namespace nt2
   #define M0(z, n, t)                                                 \
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::function_, function, n)       \
   NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::function_, function, n)  \
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::function_, at, n)             \
+  NT2_FUNCTION_IMPLEMENTATION_SELF(nt2::tag::function_, at, n)        \
   /**/
 
   BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)

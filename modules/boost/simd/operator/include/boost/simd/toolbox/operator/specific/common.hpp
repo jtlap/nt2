@@ -47,10 +47,10 @@ namespace boost { namespace simd { namespace details
 // Register all tag and extension agnostic call for common code sharing
 ////////////////////////////////////////////////////////////////////////////////
 #define M0(z,n,t) (A##n)
-#define M1(z,n,t) (generic_< unspecified_<A##n> >)
+#define M1(z,n,t) (unspecified_<A##n>)
 
 #define M2(z,n,t)                                                              \
-BOOST_SIMD_REGISTER_DISPATCH ( elementwise_<Tag> , tag::cpu_                   \
+BOOST_SIMD_REGISTER_DISPATCH ( elementwise_<Tag> , tag::formal_                \
                              , (Tag)BOOST_PP_REPEAT(n,M0,~)                    \
                              , BOOST_PP_REPEAT(n,M1,~)                         \
                              )                                                 \

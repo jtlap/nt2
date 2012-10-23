@@ -24,6 +24,7 @@ namespace nt2 { namespace ext
 {
 #define M0(z,n,t) (I##n)
 #define M1(z,n,t) (scalar_< integer_<I##n> >)
+#define M3(z,n,t) (unspecified_<I##n>)
 
 #define M2(z,n,t)                                                              \
 NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
@@ -55,6 +56,21 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
                    );                                                          \
   }                                                                            \
 };                                                                             \
+NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
+                          , (A0)BOOST_PP_REPEAT(n,M0,~)                        \
+                          , (scalar_<unspecified_<A0> >)                       \
+                            BOOST_PP_REPEAT(n,M3,~)                            \
+                          )                                                    \
+{                                                                              \
+  typedef A0& result_type;                                                     \
+                                                                               \
+  BOOST_FORCEINLINE result_type                                                \
+  operator()( A0& a0                                                           \
+            , BOOST_PP_ENUM_BINARY_PARAMS(n,I,BOOST_PP_INTERCEPT) ) const      \
+  {                                                                            \
+    return a0;                                                                 \
+  }                                                                            \
+};                                                                             \
 /**/
 
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M2,~)
@@ -62,6 +78,7 @@ BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M2,~)
 #undef M0
 #undef M1
 #undef M2
+#undef M3
 } }
 
 #endif
