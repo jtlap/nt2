@@ -17,9 +17,11 @@ namespace boost { namespace simd { namespace details
   BOOST_FORCEINLINE
   __m128i shuffle(__m128i const lower, __m128i const upper)
   {
-    return (__m128i)_mm_shuffle_ps( (__m128)lower, (__m128)upper
-                         , _MM_SHUFFLE(upper_i1, upper_i0, lower_i1, lower_i0)
-                         );
+    return _mm_castps_si128(
+      _mm_shuffle_ps( _mm_castsi128_ps(lower), _mm_castsi128_ps(upper)
+                    , _MM_SHUFFLE(upper_i1, upper_i0, lower_i1, lower_i0)
+                    )
+    );
   }
 
   template< unsigned int lower_i0, unsigned int lower_i1
@@ -76,9 +78,11 @@ template< unsigned int i0, unsigned int i1
 BOOST_FORCEINLINE
 __m256 shuffle_pairs(__m256 const lower, __m256 const upper)
 {
-  return (__m256)_mm256_shuffle_pd( (__m256d)lower,  (__m256d)upper
-                                    , _MM_SHUFFLE(i3, i2, i1, i0)
-                                    );
+  return _mm256_castpd_ps(
+    _mm256_shuffle_pd( _mm256_castps_pd(lower),  _mm256_castps_pd(upper)
+                     , _MM_SHUFFLE(i3, i2, i1, i0)
+                     )
+  );
 }
 
 template< unsigned int lower_i0, unsigned int lower_i1
