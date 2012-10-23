@@ -38,7 +38,7 @@ namespace boost { namespace simd
     template<class T, std::size_t N>                                           \
     struct aligned_array_data<T, N, n>                                         \
     {                                                                          \
-      BOOST_SIMD_ALIGN_ON(n) T data[N];                                        \
+      BOOST_SIMD_ALIGN_ON(n) T data_[N];                                       \
     };                                                                         \
     /**/
     #define M0f(z,n,t)
@@ -65,13 +65,13 @@ namespace boost { namespace simd
       typedef std::ptrdiff_t difference_type;
 
       // iterator support
-      iterator        begin()       { return aligned_array_data<T,N,Align>::data; }
-      const_iterator  begin() const { return aligned_array_data<T,N,Align>::data; }
-      const_iterator cbegin() const { return aligned_array_data<T,N,Align>::data; }
+      iterator        begin()       { return this->data_; }
+      const_iterator  begin() const { return this->data_; }
+      const_iterator cbegin() const { return this->data_; }
 
-      iterator        end()       { return aligned_array_data<T,N,Align>::data+N; }
-      const_iterator  end() const { return aligned_array_data<T,N,Align>::data+N; }
-      const_iterator cend() const { return aligned_array_data<T,N,Align>::data+N; }
+      iterator        end()       { return this->data_+N; }
+      const_iterator  end() const { return this->data_+N; }
+      const_iterator cend() const { return this->data_+N; }
 
       typedef std::reverse_iterator<iterator> reverse_iterator;
       typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -88,24 +88,24 @@ namespace boost { namespace simd
       reference operator[](size_type i)
       {
           BOOST_ASSERT_MSG( i < N, "out of range" );
-          return aligned_array_data<T,N,Align>::data[i];
+          return this->data_[i];
       }
 
       const_reference operator[](size_type i) const
       {
           BOOST_ASSERT_MSG( i < N, "out of range" );
-          return aligned_array_data<T,N,Align>::data[i];
+          return this->data_[i];
       }
 
       // at() with range check
-      reference       at(size_type i)       { rangecheck(i); return aligned_array_data<T,N,Align>::data[i]; }
-      const_reference at(size_type i) const { rangecheck(i); return aligned_array_data<T,N,Align>::data[i]; }
+      reference       at(size_type i)       { rangecheck(i); return this->data_[i]; }
+      const_reference at(size_type i) const { rangecheck(i); return this->data_[i]; }
 
       // front() and back()
-      reference       front()       { return aligned_array_data<T,N,Align>::data[0]; }
-      const_reference front() const { return aligned_array_data<T,N,Align>::data[0]; }
-      reference       back()        { return aligned_array_data<T,N,Align>::data[N-1]; }
-      const_reference back()  const { return aligned_array_data<T,N,Align>::data[N-1]; }
+      reference       front()       { return this->data_[0]; }
+      const_reference front() const { return this->data_[0]; }
+      reference       back()        { return this->data_[N-1]; }
+      const_reference back()  const { return this->data_[N-1]; }
 
       // size is constant
       static size_type size()     { return N;     }
@@ -116,15 +116,15 @@ namespace boost { namespace simd
       // swap (note: linear complexity)
       void swap (aligned_array<T,N,Align>& y)
       {
-        for (size_type i = 0; i < N; ++i) boost::swap(aligned_array_data<T,N,Align>::data[i],y.aligned_array_data<T,N,Align>::data[i]);
+        for (size_type i = 0; i < N; ++i) boost::swap(this->data_[i],y.data_[i]);
       }
 
       // direct access to data (read-only)
-      const T* data() const { return aligned_array_data<T,N,Align>::data; }
-      T*       data()       { return aligned_array_data<T,N,Align>::data; }
+      const T* data() const { return this->data_; }
+      T*       data()       { return this->data_; }
 
       // use array as C array (direct read/write access to data)
-      T* c_array() { return aligned_array_data<T,N,Align>::data; }
+      T* c_array() { return this->data_; }
 
       // assignment with type conversion
       template <typename T2>
