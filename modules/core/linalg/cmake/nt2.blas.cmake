@@ -151,18 +151,26 @@ set(NT2_BLAS_FOUND FALSE)
     endif()
   endif()
 
-  if(NOT NT2_BLAS_FOUND) # TODO : Other support if findBlas failed
+  if(NOT NT2_BLAS_FOUND)
 
     if(NOT DEFINED NT2_BLAS_VENDOR)
       message(STATUS "[nt2.blas] trying built-in...")
     endif()
 
-    find_package(BLAS QUIET)
-    set(NT2_BLAS_FOUND ${BLAS_FOUND})
-    set(NT2_BLAS_LIBRARIES ${BLAS_LIBRARIES})
-    set(NT2_BLAS_LINK_FLAGS ${BLAS_LINKER_FLAGS})
+    find_library(BLAS_LIBRARY blas libblas ${NT2_BLAS_ROOT})
+    if(BLAS_LIBRARY)
+      set(NT2_BLAS_FOUND 1)
+      set(NT2_BLAS_LIBRARIES ${BLAS_LIBRARY})
+    endif()
 
-    if(BLAS_FOUND AND NOT DEFINED NT2_BLAS_VENDOR)
+    if(NOT NT2_BLAS_FOUND)
+      find_package(BLAS QUIET)
+      set(NT2_BLAS_FOUND ${BLAS_FOUND})
+      set(NT2_BLAS_LIBRARIES ${BLAS_LIBRARIES})
+      set(NT2_BLAS_LINK_FLAGS ${BLAS_LINKER_FLAGS})
+    endif()
+
+    if(NT2_BLAS_FOUND AND NOT DEFINED NT2_BLAS_VENDOR)
       set(NT2_BLAS_VENDOR "")
       message(STATUS "[nt2.blas] built-in found")
     endif()
@@ -171,9 +179,18 @@ set(NT2_BLAS_FOUND FALSE)
 
   if(NOT NT2_LAPACK_FOUND) # Find lapack if not MKL
     message(STATUS "[nt2.linalg] looking for LAPACK...")
-    find_package(LAPACK QUIET)
-    set(NT2_LAPACK_FOUND ${LAPACK_FOUND})
-    set(NT2_LAPACK_LIBRARIES ${LAPACK_LIBRARIES})
+
+    find_library(LAPACK_LIBRARY lapack liblapack ${NT2_BLAS_ROOT})
+    if(LAPACK_LIBRARY)
+      set(NT2_LAPACK_FOUND 1)
+      set(NT2_LAPACK_LIBRARIES ${LAPACK_LIBRARY})
+    endif()
+
+    if(NOT NT2_LAPACK_FOUND)
+      find_package(LAPACK QUIET)
+      set(NT2_LAPACK_FOUND ${LAPACK_FOUND})
+      set(NT2_LAPACK_LIBRARIES ${LAPACK_LIBRARIES})
+    endif()
 
     if(NT2_LAPACK_FOUND) # Find lapack if not MKL
       message(STATUS "[nt2.linalg] LAPACK found")
