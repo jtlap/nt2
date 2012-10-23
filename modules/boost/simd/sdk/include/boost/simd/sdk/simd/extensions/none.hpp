@@ -12,13 +12,6 @@
 #if !defined(BOOST_SIMD_DETECTED)
 #define BOOST_SIMD_NO_SIMD
 
-// TODO: Think of removing this bad assumptions about emulated mode.
-// The emulation should be seen as a complete extension capable of interact with
-// others. The defines of cardinals,bits, etc should not make sense in this case.
-// This will also prevent circular includes for the specialization of as_simd
-// for emulation. We can decide to completely emulate an extension when nothing 
-// is detected at the configuration step but in the case of a full extension,
-// the user should be able to emulate whatever he wants. 
 #define BOOST_SIMD_BYTES      16
 #define BOOST_SIMD_BITS       128
 #define BOOST_SIMD_STRING     "simd_emulation"
@@ -32,7 +25,5 @@
 #endif
 
 #endif
-
-#include <boost/simd/sdk/simd/extensions/meta/none.hpp>
 
 #endif

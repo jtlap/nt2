@@ -10,7 +10,7 @@
 #define BOOST_SIMD_SDK_SIMD_META_IS_SIMD_SPECIFIC_HPP_INCLUDED
 
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
-#include <boost/array.hpp>
+#include <boost/simd/sdk/memory/aligned_array.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace boost { namespace simd { namespace meta
@@ -18,8 +18,8 @@ namespace boost { namespace simd { namespace meta
   template<class T,class Extension>
   struct is_simd_specific : boost::mpl::false_ {};
 
-  template<class T, std::size_t N>
-  struct is_simd_specific < boost::array<T, N>
+  template<class T, std::size_t N, std::size_t Align>
+  struct is_simd_specific < boost::simd::memory::aligned_array<T, N, Align>
                           , tag::simd_emulation_< N * sizeof(T) >
                           > : boost::mpl::true_
   {};
