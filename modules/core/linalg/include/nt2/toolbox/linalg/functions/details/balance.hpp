@@ -51,22 +51,24 @@ namespace nt2 { namespace details
     typedef nt2::table<base_t,index_t>                  bresult_type;
     typedef nt2::table<itab_t,index_t>                  iresult_type;
     //must be dry I think
-
+    
     template<class Input>
     balance_result ( Input& xpr, char job/* = 'B'*/)
       : job_(job)
       , a_(xpr)
       , aa_(xpr)
+      , ipi_(of_size(0, 0))
       , n_( nt2::height(a_)  )
       , lda_( a_.leading_size() )
       , t_(of_size(n_, n_))
+      , invt_(of_size(0, 0))      
       , ilo_(0)
       , ihi_(0)
       , scale_(of_size(1, n_))
       , info_(0)
     {
       BOOST_ASSERT_MSG(issquare(aa_),
-                        "matrix to balance must be square");
+                       "matrix to balance must be square");
       nt2::details::gebal(&job_, &n_, aa_.raw(), &lda_,
                           &ilo_, &ihi_, scale_.raw(),
                           &info_);
@@ -77,14 +79,16 @@ namespace nt2 { namespace details
                           &ilo_, &ihi_, scale_.raw(),
                           &n_, t_.raw(), &ldt, &info_); 
     }
-
+    
     balance_result& operator=(balance_result const& src)
     {
       job_    = src.job_;
       a_      = src.a_;
       aa_     = src.aa_;
+      ipi_    = src.ipi_; 
       n_      = src.n_;
       t_      = src.t_;
+      invt_   = src.invt_; 
       lda_    = src.lda_;
       ilo_    = src.ilo_;
       ihi_    = src.ihi_;
@@ -96,9 +100,11 @@ namespace nt2 { namespace details
       : job_(src.job_),
         a_(src.a_),
         aa_(src.aa_),
+        ipi_(src.ipi_),                
         n_(src.n_),
         lda_(src.lda_),
         t_(src.t_),
+        invt_(src.invt_), 
         ilo_(src.ilo_),
         ihi_(src.ihi_),
         scale_(src.scale_),
@@ -109,13 +115,17 @@ namespace nt2 { namespace details
     // Return raw values
     //==========================================================================
     data_t values() const { return a_; }
-    result_type balanced() const { return aa_; }
+    //result_type
+    const tab_t & balanced() const { return aa_; }
     
     //==========================================================================
     // Return scale part as a vector
     // This surely can be done in a more clever way directly from scale_
     //==========================================================================
-    bresult_type scale() const
+    typedef typename meta::call < tag::maximum_(btab_t const&, int32_t)>::type                    scale_T0; 
+    typedef typename meta::call < tag::reshape_(scale_T0 const&, int32_t, nt2_la_int)>::type scale_result;
+    
+    scale_result scale() const
     {
       return nt2::reshape(nt2::max(t_, nt2::_(), 2), 1, n_); 
     }
@@ -123,53 +133,60 @@ namespace nt2 { namespace details
     // Return permute part as a vector of indices
     // This surely can be done in a more clever way directly from scale_
     //==========================================================================
-    itab_t ipiv() const
+    const itab_t& ipiv()
     {
-      itab_t ipi(of_size(1, n_)); 
-      for(int i=1; i <= n_; ++i)
+      if (isempty(ipi_))
+      {
+        ipi_.resize(of_size(1, n_)); 
+        for(int i=1; i <= n_; ++i)
         {
           for(int j=1; j <= n_; ++j)
+          {
+            if(t_(i, j))
             {
-              if(t_(i, j))
-                {
-                  ipi(i) = j;
-                  break;
-                }
+              ipi_(i) = j;
+              break;
             }
+          }
         }
-      return ipi;
+      }
+      return ipi_;
     }
     //==========================================================================
     // Return t transform
     //==========================================================================
-    result_type t() const
+    const tab_t& t() const
     {
       return t_;
     }
-    result_type invt()
+    const tab_t& invt()
     {
-      tab_t invt = nt2::eye(n_, n_, meta::as_<type_t>());
-      nt2_la_int ldt = invt.leading_size();
-      char side =  'L'; 
-      nt2::details::gebak(&job_, &side, &n_,
-                          &ilo_, &ihi_, scale_.raw(),
-                          &n_, invt.raw(), &ldt, &info_);
-      return invt; 
+      if (isempty(invt_))
+      {
+        invt_ = nt2::eye(n_, n_, meta::as_<type_t>());
+        nt2_la_int ldt = invt_.leading_size();
+        char side =  'L'; 
+        nt2::details::gebak(&job_, &side, &n_,
+                              &ilo_, &ihi_, scale_.raw(),
+                            &n_, invt_.raw(), &ldt, &info_);
+      }
+      return invt_; 
     }
-
     //==========================================================================
     // Return lapack status
     //==========================================================================
     nt2_la_int  status()         const { return info_; }
     nt2_la_int  ilo   ()         const { return ilo_;  }
     nt2_la_int  ihi   ()         const { return ihi_;  }
-   private:
+  private:
     char                           job_;
     data_t                           a_;
     tab_t                           aa_;
+    itab_t                         ipi_; 
     nt2_la_int                       n_;
     nt2_la_int                     lda_;
     tab_t                            t_;
+    tab_t                         invt_;
     nt2_la_int               ilo_, ihi_;
     btab_t                       scale_;
     nt2_la_int                    info_;
