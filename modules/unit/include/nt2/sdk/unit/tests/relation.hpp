@@ -41,7 +41,7 @@
   @include test_not_equal.cpp
 **/
 #define NT2_TEST_NOT_EQUAL(A,B)                                               \
-( ::nt2::details::test_neq(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
+( ::nt2::details::test_neq(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, nt2::details::eval(A), nt2::details::eval(B)) ) \
 /**/
 
 /*!
@@ -54,7 +54,7 @@
   @include test_lesser.cpp
 **/
 #define NT2_TEST_LESSER(A,B)                                                  \
-( ::nt2::details::test_lt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
+( ::nt2::details::test_lt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, nt2::details::eval(A), nt2::details::eval(B)) )  \
 /**/
 
 /*!
@@ -67,7 +67,7 @@
   @include test_greater.cpp
 **/
 #define NT2_TEST_GREATER(A,B)                                                 \
-( ::nt2::details::test_gt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
+( ::nt2::details::test_gt(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, nt2::details::eval(A), nt2::details::eval(B)) )  \
 /**/
 
 /*!
@@ -80,7 +80,7 @@
   @include test_lesser_equal.cpp
 **/
 #define NT2_TEST_LESSER_EQUAL(A,B)                                           \
-( ::nt2::details::test_le(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) ) \
+( ::nt2::details::test_le(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, nt2::details::eval(A), nt2::details::eval(B)) ) \
 /**/
 
 
@@ -94,7 +94,7 @@
   @include test_greater_equal.cpp
 **/
 #define NT2_TEST_GREATER_EQUAL(A,B)                                           \
-( ::nt2::details::test_ge(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, A, B) )  \
+( ::nt2::details::test_ge(#A, #B , __LINE__, BOOST_CURRENT_FUNCTION, nt2::details::eval(A), nt2::details::eval(B)) )  \
 /**/
 
 #endif

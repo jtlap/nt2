@@ -63,12 +63,10 @@ namespace nt2
 template<class T, class U>                                                \
 inline void NAME( char const* x1, char const* x2                          \
                 , int line, char const * fn                               \
-                , T const & t_, U const & u_                              \
+                , T const & t, U const & u                                \
                 )                                                         \
 {                                                                         \
   nt2::unit::test_count()++;                                              \
-  typename noref<T>::type t = through_volatile(t_);                       \
-  typename noref<U>::type u = through_volatile(u_);                       \
   if( nt2::details::eval( t OP u ) )                                      \
   {                                                                       \
     std::cout << " * Test `"                                              \
