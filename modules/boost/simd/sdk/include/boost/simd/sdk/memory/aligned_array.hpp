@@ -11,17 +11,18 @@
 
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
-#include <boost/simd/sdk/memory/parameters.hpp>
+#include <boost/preprocessor/control/if.hpp>
+#include <boost/preprocessor/comparison/less_equal.hpp>
+
 #include <boost/throw_exception.hpp>
-#include <boost/detail/workaround.hpp>
 #include <boost/assert.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/swap.hpp>
 #include <stdexcept>
 #include <iterator>
 
-namespace boost{ namespace simd
-{ 
+namespace boost { namespace simd
+{
   namespace memory
   {
     template<class T, std::size_t N, std::size_t Align>
@@ -33,24 +34,24 @@ namespace boost{ namespace simd
                           );
     };
 
-    #define M0(z,n,t)                                                          \
+    #define M0t(z,n,t)                                                         \
     template<class T, std::size_t N>                                           \
     struct aligned_array_data<T, N, n>                                         \
     {                                                                          \
       BOOST_SIMD_ALIGN_ON(n) T data[N];                                        \
     };                                                                         \
     /**/
-
+    #define M0f(z,n,t)
+    #define M0(z,n,t)                                                          \
+    BOOST_PP_IF(                                                               \
+      BOOST_PP_LESS_EQUAL(n, BOOST_SIMD_CONFIG_ALIGNMENT)                      \
+    , M0t, M0f                                                                 \
+    )(z,n,t)                                                                   \
+    /**/
     BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0,~)
-
-  // TODO: Improve macro 
-  // #if BOOST_WORKAROUND(__GNUC__, == 4) && BOOST_WORKAROUND(__GNUC_MINOR__, < 3)
-  //   BOOST_SIMD_PP_REPEAT_POWER_OF_2(0,4,M0,~)
-  // #else
-  //   BOOST_SIMD_PP_REPEAT_POWER_OF_2(0,6,M0,~)
-  // #endif
-
     #undef M0
+    #undef M0f
+    #undef M0t
 
     template<class T, std::size_t N, std::size_t Align=BOOST_SIMD_CONFIG_ALIGNMENT>
     struct aligned_array : aligned_array_data<T,N,Align>
@@ -67,7 +68,7 @@ namespace boost{ namespace simd
       iterator        begin()       { return aligned_array_data<T,N,Align>::data; }
       const_iterator  begin() const { return aligned_array_data<T,N,Align>::data; }
       const_iterator cbegin() const { return aligned_array_data<T,N,Align>::data; }
-      
+
       iterator        end()       { return aligned_array_data<T,N,Align>::data+N; }
       const_iterator  end() const { return aligned_array_data<T,N,Align>::data+N; }
       const_iterator cend() const { return aligned_array_data<T,N,Align>::data+N; }
@@ -84,16 +85,16 @@ namespace boost{ namespace simd
       const_reverse_iterator crend() const { return const_reverse_iterator(begin()); }
 
       // operator[]
-      reference operator[](size_type i) 
-      { 
+      reference operator[](size_type i)
+      {
           BOOST_ASSERT_MSG( i < N, "out of range" );
           return aligned_array_data<T,N,Align>::data[i];
       }
-      
-      const_reference operator[](size_type i) const 
-      {     
+
+      const_reference operator[](size_type i) const
+      {
           BOOST_ASSERT_MSG( i < N, "out of range" );
-          return aligned_array_data<T,N,Align>::data[i]; 
+          return aligned_array_data<T,N,Align>::data[i];
       }
 
       // at() with range check
@@ -113,7 +114,7 @@ namespace boost{ namespace simd
       enum { static_size = N };
 
       // swap (note: linear complexity)
-      void swap (aligned_array<T,N,Align>& y) 
+      void swap (aligned_array<T,N,Align>& y)
       {
         for (size_type i = 0; i < N; ++i) boost::swap(aligned_array_data<T,N,Align>::data[i],y.aligned_array_data<T,N,Align>::data[i]);
       }
@@ -127,7 +128,7 @@ namespace boost{ namespace simd
 
       // assignment with type conversion
       template <typename T2>
-      aligned_array<T,N,Align>& operator= (const aligned_array<T2,N,Align>& rhs) 
+      aligned_array<T,N,Align>& operator= (const aligned_array<T2,N,Align>& rhs)
       {
         std::copy(rhs.begin(),rhs.end(), begin());
         return *this;
@@ -138,16 +139,16 @@ namespace boost{ namespace simd
       void fill   (const T& value) { std::fill_n(begin(),size(),value); }
 
       // check range (may be private because it is static)
-      static void rangecheck (size_type i) 
+      static void rangecheck (size_type i)
       {
-        if (i >= size()) 
+        if (i >= size())
         {
           std::out_of_range e("array<>: index out of range");
           boost::throw_exception(e);
         }
       }
     };
-  } 
+  }
 
   namespace meta
   {
@@ -174,4 +175,4 @@ namespace boost{ namespace simd
 
 } }
 
-#endif 
+#endif
