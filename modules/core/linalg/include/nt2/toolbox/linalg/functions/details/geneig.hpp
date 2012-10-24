@@ -15,6 +15,7 @@
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/issquare.hpp>
+#include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
 #include <nt2/table.hpp>
@@ -56,6 +57,7 @@ namespace nt2 { namespace details
       , n_(height(a_))
       , alpha_(of_size(1, n_))
       , beta_(of_size(1, n_))
+      , eigen_(of_size(0, 1))
       , vsl_(jobvsl_ == 'V'?of_size(n_, n_):of_size(1, 1))
       , ldvsl_(vsl_.leading_size())
       , vsr_(jobvsr_ == 'V'?of_size(n_, n_):of_size(1, 1))
@@ -85,7 +87,8 @@ namespace nt2 { namespace details
       sdim_ = src.sdim_;  
       n_ = src.n_;  
       alpha_ = src.alpha;  
-      beta_ = src.beta_;  
+      beta_ = src.beta_;
+      eigen_ = src.eigen_; 
       vsl_ = src.vsl_;  
       ldvsl_ = src.ldvsl_;  
       vsr_ = src.vsr_;  
@@ -108,7 +111,8 @@ namespace nt2 { namespace details
          sdim_ ( src.sdim_),  
          n_ ( src.n_),  
          alpha_ ( src.alpha),  
-         beta_ ( src.beta_),  
+         beta_ ( src.beta_),
+         eigen_(src.eigen_), 
          vsl_ ( src.vsl_),  
          ldvsl_ ( src.ldvsl_),  
          vsr_ ( src.vsr_),  
@@ -125,7 +129,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // return left eigen vectors
     //==========================================================================
-    tab_t vl () const
+    const tab_t& vl () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors"); 
       return vsl_;
@@ -133,7 +137,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // return right eigen vectors
     //==========================================================================
-    tab_t vr () const
+    const tab_t& vr () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
       return vsr_;
@@ -142,7 +146,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // return left generalized eigenvalues
     //==========================================================================
-    tab_t alpha () const
+    const tab_t& alpha () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors"); 
       return alpha_;
@@ -151,7 +155,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // return right generalized eigenvalues
     //==========================================================================
-    tab_t beta () const
+    const tab_t& beta () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
       return beta_;
@@ -160,19 +164,23 @@ namespace nt2 { namespace details
     //==========================================================================
     // return  eigenvalues
     //==========================================================================
-    tab_t eigen () const
+    const tab_t& eigen () const
     {
-      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
-      return alpha_/beta_;
+      BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
+      if (isempty(eigen_))
+        eigen_ =  alpha_/beta_;
+      return eigen_; 
     }
     
-     //==========================================================================
+    //==========================================================================
     // return  eigenvalues
     //==========================================================================
-    tab_t w () const
+    typedef typename meta::call < tag::from_diag_(tab_t const&)>::type w_result;
+    
+    w_result w() const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
-      return from_diag(alpha_/beta_);
+      return from_diag(eigen());
     }
     
   private:
@@ -187,7 +195,8 @@ namespace nt2 { namespace details
     nt2_la_int       ldb_;
     nt2_la_int      sdim_; 
     nt2_la_int         n_;
-    tab_t   alpha_, beta_; 
+    tab_t   alpha_, beta_;
+    tab_t          eigen_;
     tab_t            vsl_;
     nt2_la_int     ldvsl_;
     tab_t            vsr_;
