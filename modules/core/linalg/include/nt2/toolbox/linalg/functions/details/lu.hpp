@@ -26,6 +26,7 @@
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
+#include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/constants/eps.hpp>
@@ -129,6 +130,10 @@ namespace nt2 { namespace details
       , ipiv_(nt2::of_size(nt2::min(n_, m_), 1))
       , rc_(base_t(-1))
       , info_(0)
+      , p_(of_size(0, 1))
+      , ip_(of_size(0, 1))
+      , pl_(of_size(0, 1))
+      , invt_(of_size(0, 1))
     {
       nt2::details::getrf(&m_, &n_, lu_.raw(), &ldlu_, ipiv_.raw(), &info_, w_);
     }
@@ -138,6 +143,7 @@ namespace nt2 { namespace details
       , ldlu_( src.ldlu_ ) , ipiv_(src.ipiv_)
       , rc_(src.rc_)
       , info_(src.info_) , w_(src.w_)
+      , p_(src.p_), ip_(src.ip_), pl_(src.pl_), invt_(src.invt_)
     {}
 
     lu_result& operator=(lu_result const& src)
@@ -151,82 +157,98 @@ namespace nt2 { namespace details
       rc_     = src.rc_;
       info_   = src.info_;
       w_      = src.w_;
+      p_      = src.p_;
+      ip_     = src.ip_;
+      pl_     = src.pl_;
+      invt_   = src.invt_; 
       return *this;
     }
 
     //==========================================================================
     // Return raw values
     //==========================================================================
-    result_type values() const { return lu_; }
+    const tab_t& values() const { return lu_; }
 
     //==========================================================================
     // Return raw values
     //==========================================================================
-    result_type original() const { return a_; }
+    const tab_t& original() const { return a_; }
 
     //==========================================================================
     // Return u part of the decomposition
     //==========================================================================
-    result_type u() const
+    typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type                       u_T2;
+    typedef typename meta::call < tag::function_(tab_t, u_T2, nt2::container::colon_)>::type u_T0;
+    typedef typename meta::call < tag::triu_(u_T0)>::type                                u_result; 
+    u_result u() const
     {
-      result_type that;
-      that = nt2::triu(lu_(_(1, std::min(n_, m_)),_));
-      return that;
+      int32_t mm =  std::min(n_, m_); 
+      return nt2::triu(lu_(_(1, mm),_));
     }
     //==========================================================================
     // Return l part of the decomposition
     //==========================================================================
-    result_type l() const
+    typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type                        l_T2;
+    typedef typename meta::call < tag::function_(tab_t, nt2::container::colon_, l_T2)>::type  l_T0;
+     typedef typename meta::call < tag::tri1l_(l_T0)>::type                               l_result; 
+    l_result l() const
     {
-      result_type that;
-      that = nt2::tri1l(lu_(_,_(1, std::min(n_, m_))));
-      return that;
+      int32_t mm =  std::min(n_, m_); 
+      return nt2::tri1l(lu_(_,_(1, mm)));
     }
 
     //==========================================================================
     // Return p part of the decomposition as a matrix such that p*a = l*u
     //==========================================================================
-    result_type p() const
+    const tab_t& p()
     {
-      std::size_t mm = nt2::numel(ipiv_);
-      tab_t pp = nt2::eye(mm, mm, meta::as_<type_t>());
-      for(size_t i=1; i <= mm; ++i)
-        // pp({i, ipiv_(i)}, _) =  pp({ipiv_(i),i}, _)
+      if (isempty(p_))
+      {
+       std::size_t mm = nt2::numel(ipiv_);
+        p_ = nt2::eye(mm, mm, meta::as_<type_t>());
+        for(size_t i=1; i <= mm; ++i)
+          // p_({i, ipiv_(i)}, _) =  p_({ipiv_(i),i}, _)
         {
-          tab_t c = pp(i, _);
-          pp(i,_) = pp(ipiv_(i),_);
-          pp(ipiv_(i),_) = c;
+          tab_t c = p_(i, _);
+          p_(i,_) = p_(ipiv_(i),_);
+          p_(ipiv_(i),_) = c;
         }
-      return pp;
+      }
+      return p_;
     }
     //==========================================================================
     // Return p part of the decomposition as a vector
     //==========================================================================
-    itab_t ip() const
+    const itab_t& ip()
     {
-      //      itab_t ip = itab_t(ipiv_.raw(), ipiv_.raw()+numel(ipiv_));
-      itab_t ip(of_size(1, numel(ipiv_)));
-      for(size_t i=1; i <= numel(ipiv_); ++i) ip(i) = ipiv_(i);
-      return ip;
+      if (isempty(ip_))
+      {
+        //      itab_t ip = itab_t(ipiv_.raw(), ipiv_.raw()+numel(ipiv_));
+        ip_.resize(of_size(1, numel(ipiv_)));
+        for(size_t i=1; i <= numel(ipiv_); ++i) ip_(i) = ipiv_(i);
+      }
+      return ip_;
     }
 
     //==========================================================================
     // Return tpl part of the decomposition  a =  tpl*u (pl = tp *l)
     //==========================================================================
-    tab_t pl() const
+    const tab_t& pl()
     {
-      //    return trans(p())*l;
-      std::size_t mm = nt2::numel(ipiv_); //incorrect
-      tab_t ll = l();
-      for(size_t i=1; i <= mm; ++i)
-        // pp({i, ipiv_(i)}, _) =  pp({ipiv_(i),i}, _)
+      if (isempty(pl_))
+      {
+        //    return trans(p())*l;
+        std::size_t mm = nt2::numel(ipiv_); //incorrect
+        pl_ = l();
+        for(size_t i=1; i <= mm; ++i)
+          // pp({i, ipiv_(i)}, _) =  pp({ipiv_(i),i}, _)
         {
-          tab_t c = ll(ipiv_(i), _);
-          ll(ipiv_(i),_) = ll(i,_);
-          ll(i,_) = c;
+          tab_t c = pl_(ipiv_(i), _);
+          pl_(ipiv_(i),_) = pl_(i,_);
+          pl_(i,_) = c;
         }
-      return ll;
-
+      }
+      return pl_;
     }
 
     //==========================================================================
@@ -352,19 +374,22 @@ namespace nt2 { namespace details
     //==========================================================================
     // inverse matrix: DO NOT USE THAT TO SOLVE A SYSTEM
     //==========================================================================
-    tab_t inv(bool warn = true)
+    const tab_t& inv(bool warn = true)
     {
-      if (warn)
+      if(isempty(invt_))
+      {
+        if (warn)
         {
           rc_ = rcond();
           NT2_WARNING ( (rc_ >= nt2::Eps<base_t>())
                         , "Matrix is close to singular or badly scaled."
                         " Results may be inaccurate."
-                        );
+            );
         }
-      tab_t i = lu_;
-      nt2::details::getri(&n_, i.raw(), &ldlu_, ipiv_.raw(), &info_, w_);
-      return i;
+        invt_ = lu_;
+        nt2::details::getri(&n_, invt_.raw(), &ldlu_, ipiv_.raw(), &info_, w_);
+      }
+      return invt_;
     }
 
     template<class Xpr> void inplace_solve(Xpr& b )
@@ -405,16 +430,10 @@ namespace nt2 { namespace details
     base_t                           rc_;
     nt2_la_int                     info_;
     workspace_t                       w_;
-    //    template < class T, class XPR1, class XPR2 > XPR2 cast(const XPR1& a)
-    //     {
-    //       typedef typename XPR1::index_type index_t; 
-    //       table<T, index_t> b;
-    //       for(int i=nt2::first_index<0>(a); i < nt2::first_index<0>(a)+numel(a); ++i)
-    //         {
-    //           b(i) = a(i); 
-    //         }
-    //       return b; 
-    //     }
+    tab_t                             p_;
+    itab_t                           ip_;
+    tab_t                            pl_;
+    tab_t                          invt_; 
   };
 } }
 
