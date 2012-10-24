@@ -16,7 +16,13 @@ m( 4,  4, data)                                                                \
 m( 8,  8, data)                                                                \
 m(16, 16, data)                                                                \
 m(32, 32, data)                                                                \
-m(64, 64, data)                                                                \
+/**/
+
+#define BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(m, data)                           \
+BOOST_SIMD_PP_REPEAT_POWER_OF_2(m, data)                                       \
+m( 64,  64, data)                                                              \
+m(128, 128, data)                                                              \
+m(256, 256, data)                                                              \
 /**/
 
 #endif

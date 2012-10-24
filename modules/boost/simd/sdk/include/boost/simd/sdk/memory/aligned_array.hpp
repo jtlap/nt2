@@ -12,8 +12,6 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
-#include <boost/preprocessor/control/if.hpp>
-#include <boost/preprocessor/comparison/less_equal.hpp>
 
 #include <boost/throw_exception.hpp>
 #include <boost/assert.hpp>
@@ -35,24 +33,15 @@ namespace boost { namespace simd
                           );
     };
 
-    #define M0t(z,n,t)                                                         \
+    #define M0(z,n,t)                                                          \
     template<class T, std::size_t N>                                           \
     struct aligned_array_data<T, N, n>                                         \
     {                                                                          \
       BOOST_SIMD_ALIGN_ON(n) T data_[N];                                       \
     };                                                                         \
     /**/
-    #define M0f(z,n,t)
-    #define M0(z,n,t)                                                          \
-    BOOST_PP_IF(                                                               \
-      BOOST_PP_LESS_EQUAL(n, BOOST_SIMD_CONFIG_ALIGNMENT)                      \
-    , M0t, M0f                                                                 \
-    )(z,n,t)                                                                   \
-    /**/
-    BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0,~)
+    BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(M0,~)
     #undef M0
-    #undef M0f
-    #undef M0t
 
     template<class T, std::size_t N, std::size_t Align>
     struct aligned_array : aligned_array_data<T, N, (Align ? Align : BOOST_SIMD_CONFIG_ALIGNMENT)>
