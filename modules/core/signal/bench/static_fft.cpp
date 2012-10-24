@@ -24,6 +24,8 @@
 #if !defined( BOOST_NO_EXCEPTIONS ) || defined( _MSC_VER )
 #include <boost/random/mersenne_twister.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
+#else
+#include <nt2/sdk/unit/details/helpers.hpp>
 #endif // BOOST_NO_EXCEPTIONS
 
 
@@ -117,7 +119,9 @@ namespace bench
         aligned_array real_data_;
         aligned_array imag_data_;
 
+    #if defined( BOOST_NO_EXCEPTIONS ) && !defined( _MSC_VER )
         boost::random::mt19937 prng_;
+    #endif
     } random_data;
 
     class complex_fft_test : boost::noncopyable
