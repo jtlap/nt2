@@ -14,9 +14,11 @@
 #include <nt2/include/functions/hypot.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/minus.hpp>
+#include <nt2/include/functions/logical_and.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 
+// This file must be rewritten 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::fma_, tag::cpu_, (A0)
@@ -28,8 +30,10 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), fma(nt2::real(a1), nt2::real(a2), nt2::real(a0))),
-                         fma(nt2::real(a1), nt2::imag(a2), fma(nt2::real(a2), nt2::imag(a1), nt2::imag(a0)))); 
+      result_type z = result_type(fma(-nt2::imag(a1), nt2::imag(a2), fma(nt2::real(a1), nt2::real(a2), nt2::real(a0))),
+                         fma(nt2::real(a1), nt2::imag(a2), fma(nt2::real(a2), nt2::imag(a1), nt2::imag(a0))));
+      
+      return if_else(logical_and(logical_and(is_real(a0), is_real(a1)), is_real(a2)), result_type(real(z)), z); 
     }
   };
   
@@ -42,8 +46,9 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), nt2::real(a0)),
+       result_type z = result_type(fma(-nt2::imag(a1), nt2::imag(a2), nt2::real(a0)),
                          fma(nt2::real(a1), nt2::imag(a2), nt2::imag(a0))); 
+      return if_else(logical_and(logical_and(is_real(a0), is_real(a1)), is_real(a2)), result_type(real(z)), z); 
     }
   };
 
@@ -56,8 +61,9 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(fma(nt2::real(a1), nt2::real(a2), nt2::real(a0)),
+      result_type z = result_type(fma(nt2::real(a1), nt2::real(a2), nt2::real(a0)),
                          fma(nt2::real(a2), nt2::imag(a1), nt2::imag(a0))); 
+      return if_else(logical_and(logical_and(is_real(a0), is_real(a1)), is_real(a2)), result_type(real(z)), z); 
     }
   };
 
@@ -70,8 +76,9 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      return result_type(fma(-nt2::imag(a1), nt2::imag(a2), (nt2::real(a1)*nt2::real(a2))),
+      result_type z = result_type(fma(-nt2::imag(a1), nt2::imag(a2), (nt2::real(a1)*nt2::real(a2))),
                          fma(nt2::real(a1), nt2::imag(a2), fma(nt2::real(a2), nt2::imag(a1), nt2::imag(a0))));  
+      return if_else(logical_and(logical_and(is_real(a0), is_real(a1)), is_real(a2)), result_type(real(z)), z); 
     }
   };
   

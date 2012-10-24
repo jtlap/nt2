@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( divides_real__2_0,  BOOST_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(nt2::divides(cT(nt2::Inf<T>()),  cT(nt2::Inf<T>())),  cT(nt2::Nan<T>(), nt2::Zero<T>()), 0);
   NT2_TEST_EQUAL(nt2::divides(cT(nt2::Minf<T>()), cT(nt2::Minf<T>())), cT(nt2::Nan<T>(), nt2::Zero<T>()));
-  NT2_TEST_EQUAL(nt2::divides(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()));   
+  NT2_TEST_EQUAL(nt2::divides(cT(nt2::Nan<T>()),  cT(nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Zero<T>()));   
   NT2_TEST_EQUAL(nt2::divides(cT(nt2::One<T>()),  cT(nt2::Zero<T>())), cT(nt2::Inf<T>(), nt2::Zero<T>())); 
   NT2_TEST_EQUAL(nt2::divides(cT(nt2::Zero<T>()), cT(nt2::Zero<T>())), cT(nt2::Nan<T>(), nt2::Zero<T>())); 
   NT2_TEST_EQUAL(nt2::divides(cT(0, 1), cT(0, 1)), cT(1, 0));

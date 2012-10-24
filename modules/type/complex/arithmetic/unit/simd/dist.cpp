@@ -93,10 +93,10 @@ NT2_TEST_CASE_TPL ( dist_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_EQUAL(nt2::dist(vciT(nt2::One<vciT>()),   vciT(nt2::One<vciT>()))[0],  nt2::Zero<vT>()[0]);
   }
   {
-    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::Inf<vdT>()),   vdT(nt2::Inf<vdT>()))[0],  nt2::Nan<vdT>() [0]);
-    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::One<vdT>()),   vdT(nt2::Zero<vdT>()))[0], nt2::One<vdT>()[0]); 
-    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::Zero<vdT>()),  vdT(nt2::Zero<vdT>()))[0], nt2::Zero<vdT>()[0]); 
-    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::Zero<vdT>()),  vdT(nt2::One<vdT>()))[0],  nt2::One<vdT>()[0]);
-    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::One<vdT>()),   vdT(nt2::One<vdT>()))[0],  nt2::Zero<vdT>() [0]);
+    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::Inf<vdT>()),   vdT(nt2::Inf<vdT>()))[0],  nt2::Nan<vT>() [0]);
+    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::One<vdT>()),   vdT(nt2::Zero<vdT>()))[0], nt2::One<vT>()[0]); 
+    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::Zero<vdT>()),  vdT(nt2::Zero<vdT>()))[0], nt2::Zero<vT>()[0]); 
+    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::Zero<vdT>()),  vdT(nt2::One<vdT>()))[0],  nt2::One<vT>()[0]);
+    NT2_TEST_EQUAL(nt2::dist(vdT(nt2::One<vdT>()),   vdT(nt2::One<vdT>()))[0],  nt2::Zero<vT>() [0]);
   } 
 } // end of test for floating_
