@@ -44,7 +44,13 @@ namespace nt2 { namespace ext
       sinhcosh(nt2::imag(a0)*Pi<rtype>(), sh, ch);
       rtype r = c*ch;
       rtype i = if_zero_else(logical_or(is_imag(a0),is_real(a0)),-s*sh); 
-      return result_type(r, i);     
+      result_type res = result_type(r, i);     
+      if (none(is_invalid(a0))) return res;
+      res = if_else(logical_and(is_inf(nt2::imag(a0)), is_invalid(nt2::real(a0))),
+                    result_type( nt2::Inf<A0>(), nt2::Nan<rtype>()), res);
+      res = if_else(logical_and(is_nan(nt2::imag(a0)), is_inf    (nt2::real(a0))),
+                    result_type( nt2::Nan<A0>(), nt2::Nan<rtype>()), res);
+      return res;
     }
   };
 

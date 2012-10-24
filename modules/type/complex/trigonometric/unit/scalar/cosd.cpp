@@ -69,15 +69,31 @@ NT2_TEST_CASE_TPL ( cosd_real__1_0,  NT2_REAL_TYPES)
 
   const int N = 20; 
   cT inputs[N] =
-    { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
-      cT(nt2::Zero<T>(),nt2::Inf<T>()), cT(nt2::Inf<T>(),nt2::Inf<T>()), cT(nt2::Minf<T>(),nt2::Inf<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
-      cT(nt2::Zero<T>(),nt2::Minf<T>()),cT(nt2::Inf<T>(),nt2::Minf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Minf<T>()),
-      cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Zero<T>(),180), cT(nt2::Inf<T>(),180), cT(nt2::Minf<T>(),180), cT(nt2::Nan<T>(),180),  
+    { cT(nt2::Zero<T>(),nt2::Zero<T>()),//0 
+      cT(nt2::Inf<T>(),nt2::Zero<T>()), //1 
+      cT(nt2::Minf<T>(),nt2::Zero<T>()),//2 
+      cT(nt2::Nan<T>(),nt2::Zero<T>()), //3 
+      cT(nt2::Zero<T>(),nt2::Inf<T>()), //4 
+      cT(nt2::Inf<T>(),nt2::Inf<T>()),  //5 
+      cT(nt2::Minf<T>(),nt2::Inf<T>()), //6 
+      cT(nt2::Nan<T>(),nt2::Inf<T>()),  //7 
+      cT(nt2::Zero<T>(),nt2::Minf<T>()),//8 
+      cT(nt2::Inf<T>(),nt2::Minf<T>()), //9 
+      cT(nt2::Minf<T>(),nt2::Minf<T>()),//10
+      cT(nt2::Nan<T>(),nt2::Minf<T>()), //11
+      cT(nt2::Zero<T>(),nt2::Nan<T>()), //12
+      cT(nt2::Inf<T>(),nt2::Nan<T>()),  //13
+      cT(nt2::Minf<T>(),nt2::Nan<T>()), //14
+      cT(nt2::Nan<T>(),nt2::Nan<T>()),  //15
+      cT(nt2::Zero<T>(),180),           //16
+      cT(nt2::Inf<T>(),180),            //17
+      cT(nt2::Minf<T>(),180),           //18
+      cT(nt2::Nan<T>(),180),            //19
     }; 
   
   for(int i=0; i < N; i++)
    {
+     std::cout << i << std::endl; 
      NT2_TEST_ULP_EQUAL(nt2::cosd(-inputs[i]), nt2::cosd(inputs[i]), 3);  
      NT2_TEST_ULP_EQUAL(nt2::cosd(inputs[i]), nt2::cos(nt2::multiplies(nt2::Deginrad<T>(), inputs[i])), 3); 
    }

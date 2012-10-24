@@ -41,7 +41,13 @@ namespace nt2 { namespace ext
       rtype c, s, ch, sh;
       sincosd(nt2::real(a0), s, c);
       sinhcosh(nt2::imag(a0)*Deginrad<rtype>(), sh, ch);
-      return result_type(c*ch, if_zero_else(logical_or(is_imag(a0), is_real(a0)), -s*sh));     
+      result_type res =  result_type(c*ch, if_zero_else(logical_or(is_imag(a0), is_real(a0)), -s*sh));     
+      if (none(is_invalid(a0))) return res;
+      res = if_else(logical_and(is_inf(nt2::imag(a0)), is_invalid(nt2::real(a0))),
+                    result_type( nt2::Inf<A0>(), nt2::Nan<rtype>()), res);
+      res = if_else(logical_and(is_nan(nt2::imag(a0)), is_inf    (nt2::real(a0))),
+                    result_type( nt2::Nan<A0>(), nt2::Nan<rtype>()), res);
+      return res;
     }
   };
 

@@ -44,24 +44,54 @@ NT2_TEST_CASE_TPL ( cosh_real__1_0,  NT2_REAL_TYPES)
   const int N = 20;
   T Pie =  nt2::Pi <T>()-nt2::Eps<T>(); 
   cT inputs[N] =
-    { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
-      cT(nt2::Zero<T>(),nt2::Inf<T>()), cT(nt2::Inf<T>(),nt2::Inf<T>()), cT(nt2::Minf<T>(),nt2::Inf<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
-      cT(nt2::Zero<T>(),nt2::Minf<T>()),cT(nt2::Inf<T>(),nt2::Minf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Minf<T>()),
-      cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Zero<T>(),Pie), cT(nt2::Inf<T>(),Pie), cT(nt2::Minf<T>(),Pie), cT(nt2::Nan<T>(),Pie),  
+    { cT(nt2::Zero<T>(),nt2::Zero<T>()),//0   cT(nt2::One<T>(), nt2::Zero<T>()),//0 ok
+      cT(nt2::Inf<T>(),nt2::Zero<T>()), //1   cT(nt2::Inf<T>(),nt2::Zero<T>()), //1 ok
+      cT(nt2::Minf<T>(),nt2::Zero<T>()),//2   cT(nt2::Inf<T>(),nt2::Zero<T>()), //2 ok
+      cT(nt2::Nan<T>(),nt2::Zero<T>()), //3   cT(nt2::Nan<T>(),nt2::Zero<T>()), //3 ok
+      cT(nt2::Zero<T>(),nt2::Inf<T>()), //4   cT(nt2::Nan<T>(), nt2::Zero<T>()),//4 ok
+      cT(nt2::Inf<T>(),nt2::Inf<T>()),  //5   cT(nt2::Inf<T>(),nt2::Nan<T>()),  //5 ok 
+      cT(nt2::Minf<T>(),nt2::Inf<T>()), //6   cT(nt2::Inf<T>(),nt2::Nan<T>()),  //6 
+      cT(nt2::Nan<T>(),nt2::Inf<T>()),  //7   cT(nt2::Nan<T>(),nt2::Nan<T>()),  //7 
+      cT(nt2::Zero<T>(),nt2::Minf<T>()),//8   cT(nt2::Nan<T>(), nt2::Zero<T>()),//8 
+      cT(nt2::Inf<T>(),nt2::Minf<T>()), //9   cT(nt2::Inf<T>(),nt2::Nan<T>()),  //9 
+      cT(nt2::Minf<T>(),nt2::Minf<T>()),//10  cT(nt2::Inf<T>(),nt2::Nan<T>()),  //10
+      cT(nt2::Nan<T>(),nt2::Minf<T>()), //11  cT(nt2::Nan<T>(),nt2::Nan<T>()), //11
+      cT(nt2::Zero<T>(),nt2::Nan<T>()), //12  cT(nt2::Zero<T>(),nt2::Nan<T>()), //12
+      cT(nt2::Inf<T>(),nt2::Nan<T>()),  //13  cT(nt2::Inf<T>(),nt2::Nan<T>()),  //13
+      cT(nt2::Minf<T>(),nt2::Nan<T>()), //14  cT(nt2::Inf<T>(),nt2::Nan<T>()), //14
+      cT(nt2::Nan<T>(),nt2::Nan<T>()),  //15  cT(nt2::Nan<T>(),nt2::Nan<T>()),  //15
+      cT(nt2::Zero<T>(),Pie),           //16  cT(nt2::Mone<T>(),nt2::Zero<T>()),//16
+      cT(nt2::Inf<T>(),Pie),            //17  cT(nt2::Minf<T>(),nt2::Inf<T>()), //17
+      cT(nt2::Minf<T>(),Pie),           //18  cT(nt2::Minf<T>(),nt2::Minf<T>()),//18
+      cT(nt2::Nan<T>(),Pie),            //19  cT(nt2::Nan<T>(),nt2::Nan <T>()),  //19
     }; 
 
   cT results[N] = 
-    { cT(nt2::One<T>(), nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
-      cT(nt2::Nan<T>(), nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
-      cT(nt2::Nan<T>(), nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Minf<T>()),
-      cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()),cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Mone<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Inf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Pi <T>()),  
+    { cT(nt2::One<T>(), nt2::Zero<T>()),//0 
+      cT(nt2::Inf<T>(),nt2::Zero<T>()), //1 
+      cT(nt2::Inf<T>(),nt2::Zero<T>()), //2 
+      cT(nt2::Nan<T>(),nt2::Zero<T>()), //3 
+      cT(nt2::Nan<T>(), nt2::Zero<T>()),//4 
+      cT(nt2::Inf<T>(),nt2::Nan<T>()),  //5 
+      cT(nt2::Inf<T>(),nt2::Nan<T>()),  //6 
+      cT(nt2::Nan<T>(),nt2::Nan<T>()),  //7 
+      cT(nt2::Nan<T>(), nt2::Zero<T>()),//8 
+      cT(nt2::Inf<T>(),nt2::Nan<T>()),  //9 
+      cT(nt2::Inf<T>(),nt2::Nan<T>()),  //10
+      cT(nt2::Nan<T>(),nt2::Nan<T>()),  //11
+      cT(nt2::Nan<T>(),nt2::Zero<T>()), //12
+      cT(nt2::Inf<T>(),nt2::Nan<T>()),  //13
+      cT(nt2::Inf<T>(),nt2::Nan<T>()),  //14
+      cT(nt2::Nan<T>(),nt2::Nan<T>()),  //15
+      cT(nt2::Mone<T>(),nt2::Zero<T>()),//16
+      cT(nt2::Minf<T>(),nt2::Inf<T>()), //17
+      cT(nt2::Minf<T>(),nt2::Minf<T>()),//18
+      cT(nt2::Nan<T>(),nt2::Nan <T>()), //19
     }; 
 
   for(int i=0; i < N; i++)
    {
-     std::cout << "input = " << inputs[i] << " -> " << results[i] << std::endl; 
+     std::cout << i << " input = " << inputs[i] << " -> " << results[i] << std::endl; 
      NT2_TEST_EQUAL(nt2::cosh(inputs[i]), results[i]);
      NT2_TEST_EQUAL(nt2::cosh(-inputs[i]), nt2::cosh(inputs[i]));  
      NT2_TEST_EQUAL(nt2::cosh(inputs[i]), std::cos(nt2::mul_i(inputs[i]))); 
