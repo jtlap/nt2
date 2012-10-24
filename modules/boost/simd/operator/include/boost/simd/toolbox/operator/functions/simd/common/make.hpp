@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/sdk/meta/scalar_of.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -12,7 +12,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_MAKE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_MAKE_HPP_INCLUDED
 #include <boost/simd/include/simd.hpp>
-
+#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 
@@ -66,15 +66,6 @@ namespace boost { namespace simd
 
 namespace boost { namespace dispatch
 {
-  #define BOOST_SIMD_PP_REPEAT_POWER_OF_2(m, data)                                         \
-  m( 1,  1, data)                                                                          \
-  m( 2,  2, data)                                                                          \
-  m( 4,  4, data)                                                                          \
-  m( 8,  8, data)                                                                          \
-  m(16, 16, data)                                                                          \
-  m(32, 32, data)                                                                          \
-  m(64, 64, data)
-
   /* We specialize functor directly due to arity limitations, and we only dispatch on the target.
    * We also avoid having to dispatch return type deduction, and we cast all arguments to the scalar
    * matching the target. */

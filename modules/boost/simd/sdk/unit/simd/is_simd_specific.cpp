@@ -36,5 +36,5 @@ NT2_TEST_CASE(simd_specific)
   NT2_TEST( (is_simd_specific<__vector __bool char,boost::simd::tag::altivec_>::value) );
   #endif
 
-  NT2_TEST( (is_simd_specific< boost::array<int, 2>, boost::simd::tag::simd_emulation_<sizeof(int)*2> >::value) );
+  NT2_TEST( (is_simd_specific< boost::simd::memory::aligned_array<int, 2>, boost::simd::tag::simd_emulation_<sizeof(int)*2> >::value) );
 }
