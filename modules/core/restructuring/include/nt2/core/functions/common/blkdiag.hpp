@@ -14,6 +14,8 @@
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/simd/min.hpp>
 #include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/logical_and.hpp>
+#include <nt2/include/functions/simd/is_nez.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_less.hpp>
 #include <nt2/include/functions/simd/enumerate.hpp>
@@ -21,7 +23,6 @@
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/core/utility/as_index.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
-#include <iostream>
 
 namespace nt2 { namespace ext
 {
@@ -54,7 +55,8 @@ namespace nt2 { namespace ext
 
       // Find the proper quadrant for each position
       typedef typename meta::as_logical<i_t>::type mask_t;
-      mask_t const is_stack0 = nt2::lt(pos[1],offset1) && n0;
+      i_t  vn0 = splat<i_t>(n0);
+      mask_t const is_stack0 = l_and(nt2::lt(pos[1],offset1), nt2::is_nez(vn0));
       mask_t const is_row0   = nt2::lt(pos[0],offset0);
 
       // Boundaries for indexes
