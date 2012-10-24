@@ -16,7 +16,7 @@
 #include <nt2/sdk/unit/details/helpers.hpp>
 
 #include <boost/simd/sdk/memory/allocator.hpp>
-
+#include <boost/simd/sdk/memory/aligned_array.hpp>
 #include <boost/array.hpp>
 #include <boost/assert.hpp>
 #include <boost/foreach.hpp>
@@ -85,8 +85,8 @@ namespace
     #else //...zzz...cardinal-must-be-4 limitation...
         typedef float T;
     #endif // BOOST_SIMD_HAS_LRB_SUPPORT || BOOST_SIMD_HAS_AVX_SUPPORT
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N      > aligned_array;
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, N/2 + 1> aligned_half_complex_array;
+    typedef boost::simd::memory::aligned_array<T, N, BOOST_SIMD_ARCH_ALIGNMENT> aligned_array;
+    typedef boost::simd::memory::aligned_array<T, N/2 + 1, BOOST_SIMD_ARCH_ALIGNMENT> aligned_half_complex_array;
     typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;
 
     void randomize( aligned_array & data )
