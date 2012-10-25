@@ -28,7 +28,7 @@ namespace nt2
               >
     {
       // Cmpute result type by keeping static informations
-      #define M0(z,n,t) ( (D1##n == -1) || (D2##n == -1)          \
+      #define M0(z,n,t) ( (D1##n < 0) || (D2##n < 0)              \
                         ? -1 : ((D1##n > D2##n) ? D1##n : D2##n)  \
                         )                                         \
       /**/
@@ -46,7 +46,7 @@ namespace nt2
         {
           typedef typename type::values_type values_t;
           eval<N> ( boost::mpl::bool_
-                    <(boost::mpl::at_c<values_t,N>::type::value == -1)>()
+                    <(boost::mpl::at_c<values_t,N>::type::value < 0)>()
                   );
         }
 

@@ -51,7 +51,7 @@ namespace boost { namespace fusion { namespace extension
   };
 
   //============================================================================
-  // at_c value of of_size_ is given by its static size or dynamic size if -1
+  // at_c value of of_size_ is given by its static size or dynamic size if negative
   // always return 1 if accessed past-the-end
   //============================================================================
   template<> struct at_impl<nt2::tag::of_size_>
@@ -59,7 +59,7 @@ namespace boost { namespace fusion { namespace extension
     template<class Seq, class Index, std::size_t S, bool B = !(Index::value >= S)>
     struct select_apply;
 
-    template<class Seq, class Index, std::ptrdiff_t N>
+    template<class Seq, class Index, std::ptrdiff_t N, bool IsStatic = (N >= 0)>
     struct apply_impl;
 
     template<class Seq, class Index>
@@ -81,8 +81,8 @@ namespace boost { namespace fusion { namespace extension
       static type call(Seq&) { return type(); }
     };
 
-    template<class Seq, class Index>
-    struct apply_impl<Seq, Index, -1>
+    template<class Seq, class Index, std::ptrdiff_t N>
+    struct apply_impl<Seq, Index, N, false>
     {
       typedef typename mpl::if_ < is_const<Seq>
                                 , std::size_t const&
@@ -92,7 +92,7 @@ namespace boost { namespace fusion { namespace extension
       static type call(Seq& seq) { return seq.data()[Index::value]; }
     };
 
-    template<class Seq, class Index, std::ptrdiff_t N>
+    template<class Seq, class Index, std::ptrdiff_t N, bool IsStatic>
     struct apply_impl
     {
       typedef mpl::size_t<N> type;
