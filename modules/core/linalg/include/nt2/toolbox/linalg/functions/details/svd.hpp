@@ -117,6 +117,7 @@ namespace nt2 { namespace details
       , n_( nt2::width(xpr)  )
       , lda_( a_.leading_size() )
       , info_(0)
+      ,  pinv_(of_size(0, 1))
     {
       BOOST_ASSERT_MSG((jobvt_ != 'O' || jobu_ != 'O'),
                         "jobu and jobvt cannot be 'O' simultaneously");
@@ -146,6 +147,7 @@ namespace nt2 { namespace details
       lda_    = src.lda_;
       info_   = src.info_;
       wrk_    = src.wrk_;
+      pinv_   = src.pinv_; 
       return *this;
     }
 
@@ -153,17 +155,19 @@ namespace nt2 { namespace details
     svd_result(svd_result const& src)
      :jobu_(src.jobu_),jobvt_(src.jobvt_),
       a_(src.a_),aa_(src.aa_),m_(src.m_),n_(src.n_),
-      lda_(src.lda_),info_(src.info_),wrk_(src.wrk_)
+      lda_(src.lda_),info_(src.info_),wrk_(src.wrk_), 
+      pinv_(src.pinv_)
     {}
 
     //==========================================================================
     // Return raw values
     //==========================================================================
-    result_type values() const { return aa_; }
+    data_t values() const { return aa_; }
 
     //==========================================================================
     // Return u part
     //==========================================================================
+    // making jobs static will allow improved return type and no spurious copy
     result_type u() const
     {
       BOOST_ASSERT_MSG(jobu_ != 'N', "please call svd with jobu = 'A', 'S' or 'O'");
@@ -176,6 +180,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return v part
     //==========================================================================
+    // making jobs static will allow improved return and no spurious copy
     result_type v() const {
       result_type z;
       BOOST_ASSERT_MSG(jobvt_ != 'N', "please call svd with jobvt= 'A', 'S' or 'O'");
@@ -189,6 +194,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return vt part
     //==========================================================================
+    // making jobs static will allow improved return and no spurious copy
     result_type vt() const {
       BOOST_ASSERT_MSG(jobvt_ != 'N', "please call svd wit jobz = 'A', 'S' or 'O'");
        if (jobvt_ == 'O')
@@ -200,14 +206,18 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return singular values as a vector
     //==========================================================================
-    btab_t      singular()const { return w_; }
+    const btab_t&      singular()const { return w_; }
 
     //==========================================================================
     // Return singular values as a diagonal matrix
     //==========================================================================
-    btab_t      w()              const
+    typedef typename meta::call < tag::from_diag_(tab_t)>::type                                   u_T0;
+    typedef typename meta::call < tag::expand_(u_T0, nt2_la_int, nt2_la_int)>::type            w_result; 
+
+    w_result     w()              const
     {
-      return nt2::expand(from_diag(w_), ucol_, height(vt_));
+      nt2_la_int h = height(vt_); 
+      return nt2::expand(from_diag(w_), ucol_, h);
     }
 
     //==========================================================================
@@ -298,9 +308,13 @@ namespace nt2 { namespace details
 
       tab_t pinv(base_t epsi = -1 )const
       {
-        epsi = epsi < 0 ? nt2::eps(w_(1)) : epsi;
-        tab_t w1 = nt2::if_else( gt(w_, length(a_)*epsi), nt2::rec(w_), Zero<base_t>());
-        return mtimes(trans(vt_), mtimes(from_diag(w1), trans(u_)));
+//         if (isempty(pinv_))
+//         {
+          epsi = epsi < 0 ? nt2::eps(w_(1)) : epsi;
+          tab_t w1 = nt2::if_else( gt(w_, length(a_)*epsi), nt2::rec(w_), Zero<base_t>());
+          tab_t pinv__ =  mtimes(trans(vt_), mtimes(from_diag(w1), trans(u_)));
+//        }
+        return pinv__; 
       }
 
   private:
@@ -319,6 +333,7 @@ namespace nt2 { namespace details
     nt2_la_int                    vtcol_;
     nt2_la_int                     info_;
     workspace_t                     wrk_;
+    tab_t                          pinv_; 
 
   };
 } }
