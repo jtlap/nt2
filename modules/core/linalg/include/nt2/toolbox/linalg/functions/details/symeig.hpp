@@ -105,12 +105,12 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return raw values
     //==========================================================================
-    result_type values() const { return aa_; }
+    data_t values() const { return aa_; }
 
     // /////////////////////////////////////////////////////////////////////////////
     // return eigen vectors
     // /////////////////////////////////////////////////////////////////////////////
-    tab_t v () const
+    const tab_t& v () const
     {
       BOOST_ASSERT_MSG(jobz_ == 'V', "use jobz =  'V' to get eigenvectors");
       return aa_;
@@ -119,12 +119,13 @@ namespace nt2 { namespace details
     // /////////////////////////////////////////////////////////////////////////////
     // return eigen values (as vector of reals)
     // /////////////////////////////////////////////////////////////////////////////
-    btab_t      eigen() const { return w_;      }
+    const btab_t&      eigen() const { return w_;      }
 
     // /////////////////////////////////////////////////////////////////////////////
     // return eigen values (as diagonal matrix of reals)
     // /////////////////////////////////////////////////////////////////////////////
-    btab_t      w ()   const      { return from_diag(w_);}
+    typedef typename meta::call < tag::from_diag_(tab_t)>::type w_result; 
+    w_result     w ()   const      { return from_diag(w_);}
 
     //     // /////////////////////////////////////////////////////////////////////////////
     //     // return eigen values (as vector of dry)

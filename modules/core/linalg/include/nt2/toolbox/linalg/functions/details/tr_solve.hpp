@@ -69,8 +69,8 @@ namespace nt2 {namespace details
                           a_.raw(), &lda, bx_.raw(), &ldx, &info_);
     }
     ~tr_solve_result(){}
-    ftab_t x()             const { return bx_;   }
-    ftab_t values()        const { return a_;    }
+    data2_t x()      const { return bx_;   }
+    data1_t values() const { return a_;    }
     nt2_la_int status()    const { return info_; }
   private:
     data1_t        a_;

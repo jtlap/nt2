@@ -56,13 +56,13 @@ namespace nt2 { namespace ext
     // If nargout is 2, fill the status
     //==========================================================================
     BOOST_FORCEINLINE
-    void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<1> const&) const
+    void decomp(fact_t & f, A1 & a1, boost::mpl::long_<1> const&) const
     {
        boost::proto::child_c<0>(a1) = f.t();
     }
 
     BOOST_FORCEINLINE
-    void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
+    void decomp(fact_t & f, A1 & a1, boost::mpl::long_<2> const&) const
     {
       boost::proto::child_c<0>(a1) = f.z();
       boost::proto::child_c<1>(a1) = f.t();

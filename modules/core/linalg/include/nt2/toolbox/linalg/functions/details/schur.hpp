@@ -54,10 +54,10 @@ namespace nt2 {
     {
       typedef typename meta::strip<T>::type                   source_t;
       typedef typename source_t::value_type                     type_t;
-      typedef typename source_t::index_type                     index_t;
+      typedef typename source_t::index_type                    index_t;
       typedef typename meta::as_real<type_t>::type              base_t;
       typedef typename meta::as_integer<base_t, signed>::type  itype_t;
-      typedef T                                                data_t;
+      typedef T                                                 data_t;
       typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
       typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
       typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
@@ -106,10 +106,11 @@ namespace nt2 {
 
 
 
-      result_type values() const { return aa_; }
-      result_type     w () const { return from_diag(w);}
-      result_type     t () const { return aa_;     }
-      result_type     z () const
+      data_t values() const { return aa_; }
+      typedef typename meta::call < tag::from_diag_(tab_t)>::type w_result; 
+      w_result     w () const { return from_diag(w_);}
+      const tab_t& t () const { return aa_;          }
+      const tab_t& z () const
       {
         BOOST_ASSERT_MSG( (jobvs_ == 'V'), "choose jobvs == 'V' to compute z");
         return vs_;
@@ -185,7 +186,7 @@ namespace nt2 {
                             &rconde_, &rcondv_,
                             &info_, wrk_);
       }
-     schur_result(schur_result const& src)
+      schur_result(schur_result const& src)
         : jobvs_(src.jobvs_)
         , sort_(src.sort_)
         , sense_(src.sense_)
@@ -194,11 +195,11 @@ namespace nt2 {
         , n_(src.n_)
         , lda_(src.lda_)
         , wrk_(src.wrk_)
-    {}
-
-      result_type values() const { return aa_; }
-      result_type     t () const { return aa_;     }
-      result_type     z () const
+      {}
+      
+      data_t values() const { return aa_; }
+      const tab_t&  t() const { return aa_;     }
+      const tab_t& z() const
       {
         BOOST_ASSERT_MSG( (jobvs_ == 'V'), "choose jobvs == 'V' to compute z");
         return vs_;

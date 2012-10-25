@@ -131,12 +131,12 @@ namespace nt2 { namespace details
     // Return raw values
     //==========================================================================
     data_t values() const { return a_; }
-    result_type rref() const { return a_; }
+    data_t rref() const { return a_; }
     
     //==========================================================================
     // Return permutation
     //==========================================================================
-    iresult_type jb() const
+    const itab_t& jb() const
     {
       //typedef typename boost::mpl::at_c<typename index_t::type,0>::type base;
       return jb_; //+ base::value + Mone<itype_t>(); 
