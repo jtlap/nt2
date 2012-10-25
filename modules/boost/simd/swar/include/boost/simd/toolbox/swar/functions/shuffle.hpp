@@ -15,8 +15,15 @@
 
 #include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+#include <boost/simd/toolbox/swar/functions/details/random_permute.hpp>
+#include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/mpl/vector_c.hpp>
 
-namespace boost { namespace simd { namespace tag
+namespace boost { namespace simd 
+{ 
+  namespace tag
   {
     /*!
      * \brief Define the tag shuffle_ of functor shuffle
@@ -34,8 +41,37 @@ namespace boost { namespace simd { namespace tag
     typename boost::dispatch::make_functor<tag::shuffle_, A0>::type callee;
     return callee(a0,boost::dispatch::meta::as_<T>());
   }
+
+#define M0(z,n,arg)                                                            \
+  template<BOOST_PP_ENUM_PARAMS(arg, int I),class A0>                          \
+  BOOST_FORCEINLINE                                                            \
+  typename boost::dispatch::meta                                               \
+  ::call<tag::shuffle_(A0 const&                                               \
+                      ,boost::dispatch::meta::                                 \
+                       as_<details::random_permute                             \
+                           <boost::mpl::                                       \
+                            vector_c<int,BOOST_PP_ENUM_PARAMS(arg, I)>         \
+                           >                                                   \
+                          >                                                    \
+                      )                                                        \
+        >::type                                                                \
+  shuffle(A0 const& a0)                                                        \
+  {                                                                            \
+    typename boost::dispatch::make_functor<tag::shuffle_, A0>::type callee;    \
+    return callee( a0                                                          \
+                 , boost::dispatch::meta::                                     \
+                   as_< details::                                              \
+                        random_permute< boost::mpl::                           \
+                                        vector_c< int                          \
+                                                , BOOST_PP_ENUM_PARAMS(arg, I) \
+                                                >                              \
+                                      >                                        \
+                      >()                                                      \
+                 );                                                            \
+  }                                                                            \
+  /**/
+  BOOST_PP_SEQ_FOR_EACH(M0, ~, BOOST_SIMD_CARDINALS)
+  #undef M0
 } }
 
 #endif
-
-
