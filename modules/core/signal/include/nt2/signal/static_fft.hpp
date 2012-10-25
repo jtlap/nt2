@@ -10,10 +10,13 @@
 #ifndef NT2_SIGNAL_STATIC_FFT_HPP_INCLUDED
 #define NT2_SIGNAL_STATIC_FFT_HPP_INCLUDED
 
-#ifdef _MSC_VER
+#if defined( _MSC_VER )
     #pragma once
     #pragma inline_recursion( on )
-#endif // _MSC_VER
+#elif defined( __GNUC__ )
+    #pragma GCC push_options
+    #pragma GCC optimize ( "fast-math" )
+#endif // compiler
 
 #if defined( _MSC_VER )
 
@@ -2618,4 +2621,9 @@ void irealfft_split(float *data,long n){
 //------------------------------------------------------------------------------
 } // namespace nt2
 //------------------------------------------------------------------------------
+
+#if defined( __GNUC__ )
+    #pragma GCC pop_options
+#endif // compiler
+
 #endif // static_fft_hpp
