@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  permute.cpp
+  shuffle.cpp
   arith.cpp
   comparator.cpp
   cumsum.cpp

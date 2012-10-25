@@ -6,9 +6,9 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - permute/simd Mode"
+#define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - shuffle/simd Mode"
 
-#include <boost/simd/toolbox/swar/include/functions/permute.hpp>
+#include <boost/simd/toolbox/swar/include/functions/shuffle.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -70,46 +70,46 @@ struct random_
                 ::int_< (Index::value * 3 + 1) % Cardinal::value > {};
 };
 
-NT2_TEST_CASE_TPL ( permute, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL ( shuffle, BOOST_SIMD_SIMD_TYPES)
 {
-  using boost::simd::permute;
+  using boost::simd::shuffle;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>               vT;
 
   vT origin, reference;
-  vT id, permuted, hnull, mirrored, bcasted,randed;
+  vT id, shuffled, hnull, mirrored, bcasted,randed;
   for(std::size_t i=1; i < vT::static_size;++i) origin[i] = T(65+i);
   origin[0] = boost::simd::Valmax<T>();
 
-  id = permute<identity_>(origin);
+  id = shuffle<identity_>(origin);
   NT2_TEST_EQUAL(id,origin);
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = origin[vT::static_size - i -1];
-  permuted = permute<reverse_>(origin);
-  NT2_TEST_EQUAL(permuted,reference);
+  shuffled = shuffle<reverse_>(origin);
+  NT2_TEST_EQUAL(shuffled,reference);
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = i%2 ? origin[i/2] : 0;
-  hnull = permute<half_null_>(origin);
+  hnull = shuffle<half_null_>(origin);
   NT2_TEST_EQUAL(hnull,reference);
 
-  NT2_TEST_EQUAL( permute<null_>(origin), nt2::Zero<vT>());
+  NT2_TEST_EQUAL( shuffle<null_>(origin), nt2::Zero<vT>());
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = origin[i<vT::static_size/2 ? i : vT::static_size - i -1];
-  mirrored = permute<mirror_>(origin);
+  mirrored = shuffle<mirror_>(origin);
   NT2_TEST_EQUAL(mirrored,reference);
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = origin[1];
-  bcasted = permute< bcast_<1> >(origin);
+  bcasted = shuffle< bcast_<1> >(origin);
   NT2_TEST_EQUAL(bcasted,reference);
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = origin[(i*3+1) % vT::static_size];
-  randed = permute< random_ >(origin);
+  randed = shuffle< random_ >(origin);
   NT2_TEST_EQUAL(randed,reference);
 }
 
@@ -127,16 +127,16 @@ struct lowshuffled_up0_
                 ::int_< (Index::value < Cardinal::value/2) ? -1 : Index::value > {};
 };
 
-NT2_TEST_CASE_TPL( permute_optim, (float)(int32_t)(uint32_t) )
+NT2_TEST_CASE_TPL( shuffle_optim, (float)(int32_t)(uint32_t) )
 {
-  using boost::simd::permute;
+  using boost::simd::shuffle;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
   {
     typedef native<T,ext_t>           vT;
 
-    vT origin, reference, permuted;
+    vT origin, reference, shuffled;
     for(std::size_t i=1; i < vT::static_size;++i) origin[i] = T(65+i);
     origin[0] = boost::simd::Valmax<T>();
 
@@ -144,14 +144,14 @@ NT2_TEST_CASE_TPL( permute_optim, (float)(int32_t)(uint32_t) )
     for(std::size_t i=0; i < vT::static_size;++i)
       reference[i] = i < vT::static_size/2 ? origin[i] : 0;
 
-    permuted = permute<low0_upshuffled_>(origin);
-    NT2_TEST_EQUAL(permuted,reference);
+    shuffled = shuffle<low0_upshuffled_>(origin);
+    NT2_TEST_EQUAL(shuffled,reference);
 
     // Half shuffle/0
     for(std::size_t i=0; i < vT::static_size;++i)
       reference[i] = i < vT::static_size/2 ? 0 : origin[i];
 
-    permuted = permute<lowshuffled_up0_>(origin);
-    NT2_TEST_EQUAL(permuted,reference);
+    shuffled = shuffle<lowshuffled_up0_>(origin);
+    NT2_TEST_EQUAL(shuffled,reference);
   }
 }

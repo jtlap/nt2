@@ -6,8 +6,8 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_PERMUTE_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_PERMUTE_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SHUFFLE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SHUFFLE_HPP_INCLUDED
 
 /*!
   @file
@@ -19,19 +19,19 @@
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag permute_ of functor permute
+     * \brief Define the tag shuffle_ of functor shuffle
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct permute_ : ext::unspecified_<permute_> { typedef ext::unspecified_<permute_> parent; };
+    struct shuffle_ : ext::unspecified_<shuffle_> { typedef ext::unspecified_<shuffle_> parent; };
   }
 
   template<class T,class A0>
   BOOST_FORCEINLINE
   typename  boost::dispatch::meta
-          ::call<tag::permute_( A0 const&, boost::dispatch::meta::as_<T>)>::type
-  permute(A0 const& a0)
+          ::call<tag::shuffle_( A0 const&, boost::dispatch::meta::as_<T>)>::type
+  shuffle(A0 const& a0)
   {
-    typename boost::dispatch::make_functor<tag::permute_, A0>::type callee;
+    typename boost::dispatch::make_functor<tag::shuffle_, A0>::type callee;
     return callee(a0,boost::dispatch::meta::as_<T>());
   }
 } }

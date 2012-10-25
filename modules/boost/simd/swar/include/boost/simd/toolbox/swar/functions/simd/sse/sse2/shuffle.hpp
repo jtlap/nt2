@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_PERMUTE_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_PERMUTE_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SHUFFLE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SHUFFLE_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
-#include <boost/simd/toolbox/swar/functions/permute.hpp>
+#include <boost/simd/toolbox/swar/functions/shuffle.hpp>
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
@@ -18,7 +18,7 @@ namespace boost { namespace simd
 {
   namespace ext
   {
-    BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::permute_
+    BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
                                       , boost::simd::tag::sse_
                                       , (A0)(P)
                                       , ((simd_ < type64_<A0>
@@ -113,7 +113,7 @@ namespace boost { namespace simd
       }
     };
 
-   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::permute_
+   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
                                       , boost::simd::tag::sse_
                                       , (A0)(P)
                                       , ((simd_ < type32_<A0>

@@ -6,15 +6,15 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_PERMUTE_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_PERMUTE_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SHUFFLE_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_SHUFFLE_HPP_INCLUDED
 
-#include <boost/simd/toolbox/swar/functions/permute.hpp>
+#include <boost/simd/toolbox/swar/functions/shuffle.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::permute_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_, tag::cpu_
                                       , (A0)(X)(P)
                                       , ((simd_< arithmetic_<A0>, X>))
                                         (target_< unspecified_<P> >)
