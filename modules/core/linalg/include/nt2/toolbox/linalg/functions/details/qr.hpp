@@ -102,6 +102,9 @@ namespace nt2 {
         , tau_(nt2::of_size(k_,1))
         , info_(0)
         , nop_(nop)
+        , q_(of_size(0, 1))
+        , p_(of_size(0, 1))
+        , jp_(of_size(0, 1))
       {
         if (nop_ != 'N')
           {
@@ -119,7 +122,8 @@ namespace nt2 {
       : a_(src.a_),aa_(src.aa_),m_(src.m_),n_(src.n_),
         k_(src.k_),lda_(src.lda_),jpvt_(src.jpvt_),
         tau_(src.tau_),info_(src.info_),
-        nop_(src.nop_){}
+        nop_(src.nop_), q_(src.q_), p_(src.p_), jp_(src.jp_)
+      {}
 
       qr_result& operator=(qr_result const& src)
       {
@@ -133,49 +137,67 @@ namespace nt2 {
         tau_    = src.tau_;
         info_   = src.info_;
         nop_    =  src.nop_;
+        q_      =  src.q_;
+        p_      =  src.p_;
+        jp_      =  src.jp_;
         return *this;
       }
       data_t values() const { return a_; }
-      result_type qr() const { return aa_; }
+      const tab_t& qr() const { return aa_; }
 
-      result_type q () const
+      const tab_t& q ()
       {
-        nt2_la_int info;
-        nt2_la_int nn = (nop_ == 'N')? k_ : m_;
-        tab_t q_ = nt2::expand(aa_, nn, nn);
-        nt2::details::gqr(&m_, &nn, &k_, q_.raw(), &lda_, tau_.raw(), &info);
+        if (isempty(q_))
+        {
+          nt2_la_int info;
+          nt2_la_int nn = (nop_ == 'N')? k_ : m_;
+          q_ = nt2::expand(aa_, nn, nn);
+          nt2::details::gqr(&m_, &nn, &k_, q_.raw(), &lda_, tau_.raw(), &info);
+        }
         return q_;
       }
-      result_type r()const
+      typedef typename meta::call < tag::triu_(tab_t)>::type  r_result; 
+      r_result r()const
       {
         return triu(aa_);
       }
-      result_type p() const
+      const tab_t& p()
       {
-        if (nop_ == 'N')
+        if (isempty(p_))
+        {
+          if (nop_ == 'N')
           {
-            return nt2::eye(n_, n_, meta::as_<type_t>());
+            p_ = nt2::eye(n_, n_, meta::as_<type_t>());
           }
-        tab_t p_ = nt2::zeros(nt2::numel(jpvt_), nt2::meta::as_<type_t>());
-        for(unsigned int i=1; i <= nt2::size(p_, 1) ; ++i)
+          else
           {
-            p_(jpvt_(i), i) = One<type_t>();
+            p_ = nt2::zeros(nt2::numel(jpvt_), nt2::meta::as_<type_t>());
+            for(unsigned int i=1; i <= nt2::size(p_, 1) ; ++i)
+            {
+              p_(jpvt_(i), i) = One<type_t>();
+            }
           }
+        }
         return p_;
       }
 
-      iresult_type jp() const
+      const itab_t& jp()
       {
-        itype_t start = first_index<1>(a_); //boost::mpl::at_c<index_t, 0>::type::value;
-        itab_t jip(of_size(1, numel(jpvt_)));
-        if (nop_)
+        if (isempty(jp_))
+        {
+          itype_t start = first_index<1>(a_); //boost::mpl::at_c<index_t, 0>::type::value;
+          if (nop_)
           {
-            return _(start, n_+start-1);
+            jp_ = _(start, n_+start-1);
           }
-        for(size_t i=1; i <= numel(jpvt_); ++i) jip(i) = jpvt_(i)+start-1;
-        return jip;
+          else
+          {
+            jp_.resize(of_size(1, numel(jpvt_)));
+            for(size_t i=1; i <= numel(jpvt_); ++i) jp_(i) = jpvt_(i)+start-1;
+          }
+          return jp_;
+        }
       }
-
       nt2_la_int status() const { return info_; }
 
       size_t     rank(base_t epsi = nt2::Eps<base_t>())const
@@ -239,6 +261,9 @@ namespace nt2 {
       nt2_la_int          info_;
       char                 nop_;
       mutable workspace_t  wrk_;
+      tab_t                  q_;
+      tab_t                  p_;
+      itab_t                jp_;
 
     };
 
