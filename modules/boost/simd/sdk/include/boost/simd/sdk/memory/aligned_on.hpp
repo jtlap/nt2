@@ -6,15 +6,20 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#ifndef BOOST_SIMD_SDK_MEMORY_ALIGNED_TYPE_HPP_INCLUDED
-#define BOOST_SIMD_SDK_MEMORY_ALIGNED_TYPE_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_MEMORY_ALIGNED_ON_HPP_INCLUDED
+#define BOOST_SIMD_SDK_MEMORY_ALIGNED_ON_HPP_INCLUDED
 
-#include <boost/simd/sdk/memory/parameters.hpp>
-#include <boost/simd/sdk/memory/aligned_on.hpp>
+#include <boost/config.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
-// Build an aligned type
+// Intrinsic platform dependant alignment attribute
 ////////////////////////////////////////////////////////////////////////////////
-#define BOOST_SIMD_ALIGNED_TYPE(T) T BOOST_SIMD_ALIGN_ON(BOOST_SIMD_CONFIG_ALIGNMENT)
+#if (defined(BOOST_MSVC))
+#define BOOST_SIMD_ALIGN_ON(x)  __declspec(align(x))
+#elif (defined(__GNUC__)) || (defined(__xlC__))
+#define BOOST_SIMD_ALIGN_ON(x)  __attribute__(( __aligned__((x)) ))
+#elif !(defined(__WAVE__))
+#error boost::simd::aligned - No Supported alignment attribute
+#endif
 
 #endif

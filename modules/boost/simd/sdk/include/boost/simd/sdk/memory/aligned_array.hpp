@@ -9,7 +9,8 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/sdk/memory/aligned_on.hpp>
+#include <boost/simd/sdk/memory/parameters.hpp>
 #include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
