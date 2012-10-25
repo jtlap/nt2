@@ -297,8 +297,9 @@ namespace nt2
 
 
 // Low/hardware level tweaks/optimizations:
-// - general:
+// - general
 //   http://www.complang.tuwien.ac.at/skral/NXyn/download/smaller_and_faster_intel_sse_code.pdf
+//   http://mark.masmcode.com
 //   http://www.ece.cmu.edu/~franzf/teaching/slides-18-645-simd.pdf
 //   http://altdevblogaday.com/2011/05/25/instruction-level-parallelism/?replytocom=4824
 //   http://www.scribd.com/doc/57793168/88/Shuffling-data
@@ -1932,68 +1933,72 @@ namespace detail
         // Butterflies:
 
         // First (0, 1) and second (2, 3) quarters:
-        scalar_t const r0pr4( r0 + r4 ); scalar_t const i0pi4( i0 + i4 );
-        scalar_t const r1pr5( r1 + r5 ); scalar_t const i1pi5( i1 + i5 );
-        scalar_t const r2pr6( r2 + r6 ); scalar_t const i2pi6( i2 + i6 );
-        scalar_t const r3pr7( r3 + r7 ); scalar_t const i3pi7( i3 + i7 );
-
-        // we can already calculate the lower DFT4 so we do it to free up
-        // registers:
         {
-            vector_t lower_r;     vector_t lower_i;
-            lower_r[ 0 ] = r0pr4; lower_i[ 0 ] = i0pi4;
-            lower_r[ 1 ] = r1pr5; lower_i[ 1 ] = i1pi5;
-            lower_r[ 2 ] = r2pr6; lower_i[ 2 ] = i2pi6;
-            lower_r[ 3 ] = r3pr7; lower_i[ 3 ] = i3pi7;
+            scalar_t const r0pr4( r0 + r4 ); scalar_t const i0pi4( i0 + i4 );
+            scalar_t const r1pr5( r1 + r5 ); scalar_t const i1pi5( i1 + i5 );
+            scalar_t const r2pr6( r2 + r6 ); scalar_t const i2pi6( i2 + i6 );
+            scalar_t const r3pr7( r3 + r7 ); scalar_t const i3pi7( i3 + i7 );
+
+            // we can already calculate the lower DFT4 so we do it to free up
+            // registers:
+            vector_t lower_p_upper_r;     vector_t lower_p_upper_i;
+            lower_p_upper_r[ 0 ] = r0pr4; lower_p_upper_i[ 0 ] = i0pi4;
+            lower_p_upper_r[ 1 ] = r1pr5; lower_p_upper_i[ 1 ] = i1pi5;
+            lower_p_upper_r[ 2 ] = r2pr6; lower_p_upper_i[ 2 ] = i2pi6;
+            lower_p_upper_r[ 3 ] = r3pr7; lower_p_upper_i[ 3 ] = i3pi7;
             dif::dft_4<vector_t>
             (
-                lower_r   , lower_i   ,
-                lower_real, lower_imag
+                lower_p_upper_r, lower_p_upper_i,
+                lower_real     , lower_imag
             );
         }
 
         // Third (4, 5) and fourth (6 ,7) quarters:
-      //scalar_t const r0m4( r0 - r4 ); scalar_t const i0m4( i0 - i4 );
-        scalar_t const r1m5( r1 - r5 ); scalar_t const i1m5( i1 - i5 );
-        // "merged" the "reversedness" of the fourth quarter:
-      //scalar_t const r2m6( i6 - i2 ); scalar_t const i2m6( r2 - r6 );
-        scalar_t const r3m7( i7 - i3 ); scalar_t const i3m7( r3 - r7 );
-
-      //scalar_t const r4_( r0m4 - r2m6 ); scalar_t const i4_( i0m4 - i2m6 );
-        scalar_t const r5_( r1m5 - r3m7 ); scalar_t const i5_( i1m5 - i3m7 );
-
-      //scalar_t const r6_( r0m4 + r2m6 ); scalar_t const i6_( i0m4 + i2m6 );
-        scalar_t const r7_( r1m5 + r3m7 ); scalar_t const i7_( i1m5 + i3m7 );
-
-        scalar_t const sqrt2( static_cast<scalar_t>( 0.70710678118654752440084436210485L ) );
-      //scalar_t const w0r0(      1 ); scalar_t const w0i0(      0 );
-      //scalar_t const w3r0(      1 ); scalar_t const w3i0(      0 );
-      //scalar_t const w0r1( +sqrt2 ); scalar_t const w0i1( -sqrt2 );
-      //scalar_t const w3r1( -sqrt2 ); scalar_t const w3i1( -sqrt2 );
-
-      //r4 = r4_ * w0r0 - i4_ * w0i0; i4 = r4_ * w0i0 + i4_ * w0r0;
-      //r5 = r5_ * w0r1 - i5_ * w0i1; i5 = r5_ * w0i1 + i5_ * w0r1;
-
-      //r6 = r6_ * w3r0 - i6_ * w3i0; i6 = r6_ * w3i0 + i6_ * w3r0;
-      //r7 = r7_ * w3r1 - i7_ * w3i1; i7 = r7_ * w3i1 + i7_ * w3r1;
-
-        r5 = ( r5_ + i5_ ) * +sqrt2; i5 = ( r5_ - i5_ ) * -sqrt2;
-        r7 = ( r7_ - i7_ ) * -sqrt2; i7 = ( r7_ + i7_ ) * -sqrt2;
-
-        // Decimation (lower DFT4 already calculated, the remaining two DFT2):
         {
-            scalar_t const r4_( r4 ); scalar_t const i4_( i4 );
-            scalar_t const r5_( r5 ); scalar_t const i5_( i5 );
-            r4 = r4_ + r5_          ; i4 = i4_ + i5_          ;
-            r5 = r4_ - r5_          ; i5 = i4_ - i5_          ;
-        }
-        {
-            scalar_t const r6_( r6 ); scalar_t const i6_( i6 );
-            scalar_t const r7_( r7 ); scalar_t const i7_( i7 );
-            r6 = r6_ + r7_          ; i6 = i6_ + i7_          ;
-            r7 = r6_ - r7_          ; i7 = i6_ - i7_          ;
+            scalar_t const r0m4( r0 - r4 ); scalar_t const i0m4( i0 - i4 );
+            scalar_t const r1m5( r1 - r5 ); scalar_t const i1m5( i1 - i5 );
+            // "merged" the "reversedness" of the fourth quarter:
+            scalar_t const r2m6( i6 - i2 ); scalar_t const i2m6( r2 - r6 );
+            scalar_t const r3m7( i7 - i3 ); scalar_t const i3m7( r3 - r7 );
+
+            scalar_t const r4_( r0m4 - r2m6 ); scalar_t const i4_( i0m4 - i2m6 );
+            scalar_t const r5_( r1m5 - r3m7 ); scalar_t const i5_( i1m5 - i3m7 );
+            scalar_t const r6_( r0m4 + r2m6 ); scalar_t const i6_( i0m4 + i2m6 );
+            scalar_t const r7_( r1m5 + r3m7 ); scalar_t const i7_( i1m5 + i3m7 );
+
+            scalar_t const sqrt2( static_cast<scalar_t>( 0.70710678118654752440084436210485L ) );
+          //scalar_t const w0r0(      1 ); scalar_t const w0i0(      0 );
+          //scalar_t const w3r0(      1 ); scalar_t const w3i0(      0 );
+          //scalar_t const w0r1( +sqrt2 ); scalar_t const w0i1( -sqrt2 );
+          //scalar_t const w3r1( -sqrt2 ); scalar_t const w3i1( -sqrt2 );
+
+          //r4 = r4_ * w0r0 - i4_ * w0i0; i4 = r4_ * w0i0 + i4_ * w0r0;
+          //r5 = r5_ * w0r1 - i5_ * w0i1; i5 = r5_ * w0i1 + i5_ * w0r1;
+
+          //r6 = r6_ * w3r0 - i6_ * w3i0; i6 = r6_ * w3i0 + i6_ * w3r0;
+          //r7 = r7_ * w3r1 - i7_ * w3i1; i7 = r7_ * w3i1 + i7_ * w3r1;
+
+            r4 = r4_                   ; i4 = i4_                   ;
+            r5 = ( r5_ + i5_ ) * +sqrt2; i5 = ( r5_ - i5_ ) * -sqrt2;
+            r6 = r6_                   ; i6 = i6_                   ;
+            r7 = ( r7_ - i7_ ) * -sqrt2; i7 = ( r7_ + i7_ ) * -sqrt2;
+
+            // Decimation (lower DFT4 already calculated, the remaining two DFT2):
+            {
+                scalar_t const r4_( r4 ); scalar_t const i4_( i4 );
+                scalar_t const r5_( r5 ); scalar_t const i5_( i5 );
+                r4 = r4_ + r5_          ; i4 = i4_ + i5_          ;
+                r5 = r4_ - r5_          ; i5 = i4_ - i5_          ;
+            }
+            {
+                scalar_t const r6_( r6 ); scalar_t const i6_( i6 );
+                scalar_t const r7_( r7 ); scalar_t const i7_( i7 );
+                r6 = r6_ + r7_          ; i6 = i6_ + i7_          ;
+                r7 = r6_ - r7_          ; i7 = i6_ - i7_          ;
+            }
         }
 
+        // store the upper results:
         upper_real[ 0 ] = r4; upper_imag[ 0 ] = i4;
         upper_real[ 1 ] = r5; upper_imag[ 1 ] = i5;
         upper_real[ 2 ] = r6; upper_imag[ 2 ] = i6;
@@ -2025,10 +2030,8 @@ namespace detail
                 //...zzz...manually inlined for testing ("in search of optimal register allocation")...
                 //dif::dft_4<vector_t>
                 //(
-                //    lower_p_upper_r,
-                //    lower_p_upper_i,
-                //    lower_real,
-                //    lower_imag
+                //    lower_p_upper_r, lower_p_upper_i,
+                //    lower_real     , lower_imag
                 //);
                 vector_t const r0101( repeat_lower_half( lower_p_upper_r ) ); vector_t const i0101( repeat_lower_half( lower_p_upper_i ) );
                 vector_t const r2323( repeat_upper_half( lower_p_upper_r ) ); vector_t const i2323( repeat_upper_half( lower_p_upper_i ) );
@@ -2064,14 +2067,14 @@ namespace detail
         {
             vector_t const r4466( shuffle<0, 0, 2, 2>( upper_r ) ); vector_t const i4466( shuffle<0, 0, 2, 2>( upper_i ) );
             vector_t       r5577( shuffle<1, 1, 3, 3>( upper_r ) ); vector_t       i5577( shuffle<1, 1, 3, 3>( upper_i ) );
-            vector_t const * BOOST_DISPATCH_RESTRICT const p_odd_negate( sign_flipper<vector_t, false, true, false, true>() );
+            vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_odd( sign_flipper<vector_t, false, true, false, true>() );
             scalar_t const sqrt2      ( static_cast<scalar_t>( 0.70710678118654752440084436210485L ) );
             vector_t const twiddles   ( make<vector_t>( +sqrt2, -sqrt2, -sqrt2, -sqrt2 ) );
-            vector_t const twiddled_57( ( r5577 + ( i5577 ^ *p_odd_negate ) ) * twiddles );
+            vector_t const twiddled_57( ( r5577 + ( i5577 ^ *p_negate_odd ) ) * twiddles );
             r5577 = shuffle<0, 0, 3, 3>( twiddled_57 );
             i5577 = shuffle<1, 1, 2, 2>( twiddled_57 );
-            upper_real = r4466 + ( r5577 ^ *p_odd_negate );
-            upper_imag = i4466 + ( i5577 ^ *p_odd_negate );
+            upper_real = r4466 + ( r5577 ^ *p_negate_odd );
+            upper_imag = i4466 + ( i5577 ^ *p_negate_odd );
         }
 
     #endif // BOOST_SIMD_DETECTED
