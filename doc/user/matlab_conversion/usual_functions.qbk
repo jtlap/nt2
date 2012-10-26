@@ -22,7 +22,7 @@ arithmetic, and can also be mixed with a scalar one (see complex rationale).
 
 
 [include arrays/operators.qbk]
-
+[include elementary_maths/math_constants.qbk]
 
 We can distinguish nullary, unary, binary and ternary operators/functions, but as ternary 
 opertors do not exist in Matlab, we will not speak of them in this section see ???.
@@ -38,7 +38,7 @@ array expression of such, by mapping the usual function on each element.
 [include elementary_maths/exponential.qbk]
 [include elementary_maths/roundings.qbk]
 [include elementary_maths/discrete.qbk]
-[include elementary_maths/math_constants.qbk]
+
 [endsect]
 
 

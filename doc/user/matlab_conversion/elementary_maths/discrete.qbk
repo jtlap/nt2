@@ -1,6 +1,10 @@
 [section Combinatorial]
 
+These functions are not very performing. There are not worse than __MATLAB__ ones and here for
+compatibility.
+
 [table:id  Integer based functions
+[[__MATLAB__    ][ __NT2__      ][ Description                                  ]]
 [[`factor      `][`factor      `][Prime factors                                 ]]
 [[`factorial   `][`factorial   `][Factorial function                            ]]
 [[`gcd         `][`gcd         `][Greatest common divisor                       ]]
@@ -12,13 +16,13 @@
                                  binomial coefficient(s).                       ]]
 [[`perms       `][`perms       `][All possible permutations           TODO      ]]
 [[`primes      `][`primes      `][Generate list of prime numbers                ]]
-[[`rat, rats   `][`rat, rats   `][Rational fraction approximation         
+[[`rat`, `rats `][`rat`, `rats `][Rational fraction approximation         
    
                 In nt2 the string output is not 
                 provided when rat is called.
-                rats is not implemented in Nt2.                                 ]]
+                rats is not implemented in __NT2__.                             ]]
 ]                                                         
                                                           
-                                                          
-[endsect]             
+                                          
+      
                
