@@ -61,7 +61,7 @@ NT2_TEST_CASE( aligned_array_interface )
 
 NT2_TEST_CASE( aligned_array_init )
 {
-  boost::simd::memory::aligned_array<int, 3> tab = {{1, 2, 3}};
+  boost::simd::memory::aligned_array<int, 3> tab = {{{1, 2, 3}}};
   for(int i=0; i<3; ++i)
     NT2_TEST_EQUAL( tab[i], i+1 );
 }
