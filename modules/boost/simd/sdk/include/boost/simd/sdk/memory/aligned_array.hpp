@@ -25,6 +25,13 @@ namespace boost { namespace simd
 {
   namespace memory
   {
+    template<std::size_t N>
+    struct max_alignment
+    {
+      typedef std::size_t type;
+      static type const value = (N < BOOST_SIMD_CONFIG_ALIGNMENT) ? N : BOOST_SIMD_CONFIG_ALIGNMENT;
+    };
+
     template<class T, std::size_t N, std::size_t Align>
     struct aligned_array_data
     {

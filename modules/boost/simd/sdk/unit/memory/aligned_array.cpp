@@ -23,7 +23,8 @@ NT2_TEST_CASE_TPL( aligned_array_alignment
                  )
 {
   using boost::simd::memory::aligned_array;
-  aligned_array<float,18, T::value> tab;
+  using boost::simd::memory::max_alignment;
+  aligned_array<float,18, max_alignment<T::value>::value> tab;
 }
 
 NT2_TEST_CASE( aligned_array_interface )

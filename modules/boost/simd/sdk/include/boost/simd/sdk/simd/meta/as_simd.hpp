@@ -33,13 +33,13 @@ namespace boost { namespace simd { namespace meta
   template<std::size_t N, class T>
   struct as_simd<T, tag::simd_emulation_<N>, typename enable_if< is_fundamental<T> >::type>
   {
-    typedef boost::simd::memory::aligned_array<T, N / sizeof(T), N> type;
+    typedef boost::simd::memory::aligned_array<T, N / sizeof(T), boost::simd::memory::max_alignment<N>::value> type;
   };
 
   template<std::size_t N, class T>
   struct as_simd<logical<T>, tag::simd_emulation_<N> >
   {
-    typedef boost::simd::memory::aligned_array<T, N / sizeof(T), N> type;
+    typedef boost::simd::memory::aligned_array<T, N / sizeof(T), boost::simd::memory::max_alignment<N>::value> type;
   };
 
 } } }
