@@ -43,13 +43,23 @@ namespace boost { namespace simd
     struct tuple_ {};
   }
 
+  template<class Tag> struct fusion_has_ctors : boost::mpl::false_ {};
+  template<> struct fusion_has_ctors<boost::simd::tag::tuple_> : boost::mpl::true_ {};
+  template<> struct fusion_has_ctors<boost::fusion::vector_tag> : boost::mpl::true_ {};
+
   template<BOOST_PP_ENUM_BINARY_PARAMS(BOOST_DISPATCH_MAX_ARITY, class T, = void BOOST_PP_INTERCEPT)>
   struct tuple;
 
   namespace details
   {
+    template<class Seq, class F, class To, int N, bool HasCtors>
+    struct as_tuple_to;
+
     template<class Seq, class F, class To, int N>
-    struct as_tuple;
+    struct as_tuple
+         : as_tuple_to<Seq, F, To, N, boost::simd::fusion_has_ctors<typename boost::fusion::traits::tag_of<To>::type>::value>
+    {
+    };
   }
 
   namespace meta
@@ -238,7 +248,7 @@ namespace boost { namespace simd { namespace details
   };
 
   template<class Seq, class F, class To>
-  struct as_tuple<Seq, F, To, N>
+  struct as_tuple_to<Seq, F, To, N, true>
   {
     typedef To type;
     BOOST_FORCEINLINE static type call(Seq& seq, F& f)
@@ -246,6 +256,20 @@ namespace boost { namespace simd { namespace details
     #define M0(z, n, t) f(fusion::at_c<n>(seq))
       return type(BOOST_PP_ENUM(N, M0, ~));
     #undef M0
+    }
+  };
+
+  template<class Seq, class F, class To>
+  struct as_tuple_to<Seq, F, To, N, false>
+  {
+    typedef To type;
+    BOOST_FORCEINLINE static type call(Seq& seq, F& f)
+    {
+      type tmp;
+    #define M0(z, n, t) fusion::at_c<n>(tmp) = f(fusion::at_c<n>(seq));
+      BOOST_PP_REPEAT(N, M0, ~);
+    #undef M0
+      return tmp;
     }
   };
 } } }

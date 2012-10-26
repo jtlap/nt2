@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/details/at_iterator.hpp>
 #include <boost/fusion/sequence/intrinsic.hpp>
 #include <boost/fusion/support.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace boost { namespace fusion
 {
@@ -136,5 +137,11 @@ namespace extension
     };
   };
 } } }
+
+namespace boost { namespace simd
+{
+  template<class Tag> struct fusion_has_ctors;
+  template<> struct fusion_has_ctors<boost::fusion::std_complex_tag> : boost::mpl::true_ {};
+} }
 
 #endif
