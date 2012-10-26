@@ -1,21 +1,24 @@
 [section Combinatorial]
 
-[variablelist Integer based functions
-[[factor      ][Prime factors   TODO                          ]]
-[[factorial   ][Factorial function                            ]]
-[[gcd         ][Greatest common divisor                       ]]
-[[isprime     ][Array elements that are prime numbers         ]]
-[[lcm         ][Least common multiple                         ]]
-[[nchoosek    ][Binomial coefficient or all combinations TODO  ]]
-[[perms       ][All possible permutations           TODO      ]]
-[[primes      ][Generate list of prime numbers                ]]
-[[rat, rats   ][Rational fraction approximation         
+[table:id  Integer based functions
+[[`factor      `][`factor      `][Prime factors                                 ]]
+[[`factorial   `][`factorial   `][Factorial function                            ]]
+[[`gcd         `][`gcd         `][Greatest common divisor                       ]]
+[[`isprime     `][`isprime     `][Array elements that are prime numbers         ]]
+[[`lcm         `][`lcm         `][Least common multiple                         ]]
+[[`nchoosek    `][`nchoosek    `][Binomial coefficient or all combinations TODO 
+                                
+                                  __NT2__ has also `cnp` that always returns 
+                                 binomial coefficient(s).                       ]]
+[[`perms       `][`perms       `][All possible permutations           TODO      ]]
+[[`primes      `][`primes      `][Generate list of prime numbers                ]]
+[[`rat, rats   `][`rat, rats   `][Rational fraction approximation         
    
-                In nt2 the string output is not provided when rat is called.
-                rats is not implemented in Nt2.
-  ]]
+                In nt2 the string output is not 
+                provided when rat is called.
+                rats is not implemented in Nt2.                                 ]]
 ]                                                         
                                                           
                                                           
-              
-              
+[endsect]             
+               

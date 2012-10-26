@@ -3,18 +3,21 @@
 Matlab has few predefined mathematical constants. __NT2__ a lot more.
 
 We urge to use __NT2__ constants whereever possible, they all begin with an upper case character,
-and need a type and are called as nullary template functions
+and need a type and are called as nullary template functions.
+
+In the following table `T` is the current data type and the __MATLAB__ defult corresponds to `double`.
  
-[variablelist Mathematical constants         
-[[eps      ][Floating-point relative accuracy                   -> Eps<T>()        ]]
-[[i        ][Imaginary unit                                     -> I<T>()          ]]
-[[Inf      ][Infinity                                           -> Inf<T>()        ]]
-[[intmax   ][Largest value of specified integer type            -> Valmax<T>()     ]]
-[[intmin   ][Smallest value of specified integer type           -> Valmin<T>()     ]]
-[[j        ][Imaginary unit                                     -> I<T>()          ]]     
-[[NaN      ][Not-a-Number                                       -> Nan<T>()        ]]
-[[pi       ][Ratio of circle's circumference to its diameter    -> Pi<T>()         ]]
-[[realmax  ][Largest positive floating-point number             -> Valmax<T>()     ]]
-[[realmin  ][Smallest positive normalized floating-point number -> Valmin<T>()     ]]
+[table:id Mathematical constants      
+[[__MATLAB__  ][ __NT2__             ][ Description                         ]]  
+[[`eps      `][ `Eps<T>()        `][Floating-point relative accuracy                   ]]
+[[`i        `][ `I<T>()          `][Imaginary unit                                     ]]
+[[`Inf      `][ `Inf<T>()        `][Infinity                                           ]]
+[[`intmax   `][ `Valmax<T>()     `][Largest value of specified integer type            ]]
+[[`intmin   `][ `Valmin<T>()     `][Smallest value of specified integer type           ]]
+[[`j        `][ `I<T>()          `][Imaginary unit                                     ]]     
+[[`NaN      `][ `Nan<T>()        `][Not-a-Number                                       ]]
+[[`pi       `][ `Pi<T>()         `][Ratio of circle's circumference to its diameter    ]]
+[[`realmax  `][ `Valmax<T>()     `][Largest positive floating-point number             ]]
+[[`realmin  `][ `Valmin<T>()     `][Smallest positive normalized floating-point number ]]
 ]
-[endsect]
+[endsect] 

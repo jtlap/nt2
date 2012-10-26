@@ -1,7 +1,14 @@
 [section Usual operators and functions]
 
-Now that we have scalars and matrices, what is the NT2 equivalent to the great
- vectorization apparatus of Matlab ?
+We will find here a catlogue of main __MATLAB__ mathematical functions and the equivalent in __NT2__
+
+[note The rationale of this documentation is the following:
+
+1) if the __NT2__ and __MATLAB__ functions are identical we will just provide link to the __NT2__ entry in the appropriate section.
+
+2) else we will give hints on how to replace the __MATLAB__ call
+
+] 
 
 We, don't have the whole Matlab core but a good part of it.
 
@@ -9,36 +16,24 @@ Almost all standard library function are supported and can be applied in an elem
 directly on matricial expressions, just as in Matlab.
 
 We support complex arithmetic, but real and complex types are not the same.
-We have 3 template complex types than can be mixed in order to always use (best) complex
-arithmetic, and can also be mixed with a scalar one. 
+We have 3 (template) complex types than can be mixed in order to always use (best) complex
+arithmetic, and can also be mixed with a scalar one (see complex rationale). 
+[endsect]
 
-[h3 Operators]
 
-Operators are functions so useful they got a special staus and an infix notation.
+[include arrays/operators.qbk]
+
 
 We can distinguish nullary, unary, binary and ternary operators/functions, but as ternary 
 opertors do not exist in Matlab, we will not speak of them in this section see ???.
 
-[h3 Functions]
-
-All the functions we will consider will be able to act on matrices or matrices expressions.
-
-We will distinguish categories of functions by  the way they act on matrices of inputs:
-
-# elementwise functions,
-# constants functions, (these have no parameters, but the type they return...)
-# folding functions,
-# adjacent functions,
-# generative functions,
-# permutative functions,
-# extractive functions,
-# merging functions,
-# other functions.
-
-[endsect]
-
 
 [section Elementary Mathematics]
+
+All these functions are "elementwise", they act as well on a scalar a table of scalars on an 
+array expression of such, by mapping the usual function on each element.
+
+
 [include elementary_maths/trigonometric.qbk]
 [include elementary_maths/exponential.qbk]
 [include elementary_maths/roundings.qbk]
@@ -50,7 +45,7 @@ We will distinguish categories of functions by  the way they act on matrices of 
 [section Arrays and arrays expression]
 [include arrays/basic_information.qbk]
 [include arrays/elementary_arrays.qbk]
-[include arrays/operators.qbk]
 [endsect]
 
 
+[endsect]
