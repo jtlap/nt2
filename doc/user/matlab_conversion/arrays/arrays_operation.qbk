@@ -17,8 +17,8 @@
                __NT2__ has individual functions `idivfloor`,
                `idivceil`, `idivfix` and `idivround`                          ]]
 [[kron       ][Kronecker tensor product                      TODO             ]]
-[[prod       ][Product of array elements                    -> `prod`          ]]
-[[sum        ][Sum of array elements                        -> `sum`            ]]
+[[prod       ][Product of array elements                    -> `prod`         ]]
+[[sum        ][Sum of array elements                        -> `sum`          ]]
 [[tril       ][Lower triangular part of matrix              -> `tril`   
 
               see also tri1l                                                  ]]

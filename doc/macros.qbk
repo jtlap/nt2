@@ -8,3 +8,4 @@
 [def __BOOST__ [@http://www.boost.org Boost]]
 [def __BOOSTBOOK__ [@http://www.boost.org/doc/libs/release/doc/html/boostbook.html Boostbook]]
 [def __QUICKBOOK__ [@http://www.boost.org/doc/libs/release/doc/html/quickbook.html Quickbook]]
+[def __Cpp__  C++]

@@ -41,4 +41,4 @@ Here we treat of the translation of __MATLAB__ operators on `table` or `expressi
 [[`.\`\`      ][ `rdivides`          ][ Left array divide (element-wise)    ]]
 [[`./`        ][ `ldivides` or `/`   ][ Right array divide (element-wise)   ]]
 ]
-[endsect]   
+[endsect]
