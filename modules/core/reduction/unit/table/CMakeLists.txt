@@ -18,6 +18,7 @@ SET( SOURCES
     globalall.cpp
     globalany.cpp
     globalmax.cpp
+    globalmin.cpp
     globalsum.cpp
     globalprod.cpp
     maximum.cpp
