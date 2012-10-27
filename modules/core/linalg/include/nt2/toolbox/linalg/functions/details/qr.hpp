@@ -156,7 +156,7 @@ namespace nt2 {
         }
         return q_;
       }
-      typedef typename meta::call < tag::triu_(tab_t)>::type  r_result; 
+      typedef typename meta::call < tag::triu_(tab_t)>::type  r_result;
       r_result r()const
       {
         return triu(aa_);
@@ -195,8 +195,8 @@ namespace nt2 {
             jp_.resize(of_size(1, numel(jpvt_)));
             for(size_t i=1; i <= numel(jpvt_); ++i) jp_(i) = jpvt_(i)+start-1;
           }
-          return jp_;
         }
+        return jp_;
       }
       nt2_la_int status() const { return info_; }
 
