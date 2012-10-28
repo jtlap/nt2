@@ -33,28 +33,27 @@ namespace nt2{ namespace ext
     result_type operator()(A0& out, const A1& in) const
     {
       In0 & a = boost::proto::child_c<0>(in); 
-      BOOST_ASSERT_MSG(isvector(a) || issquare(a), "input must be a vector or a square matrix"); 
+      BOOST_ASSERT_MSG(isvector(a)/* || issquare(a)*/, "input must be a vector or a square matrix"); 
       out.resize(in.extent());
      
-      if (issquare(a))
-      {
-//        compute(out,  geneig(a)); //this will wait geneig working... i.E. complex tables
-      }
-      else
-      {
+//       if (issquare(a))
+//       {
+// //        compute(out,  geneig(a)); //TODO this will wait geneig working... i.e. complex tables
+//       }
+//       else
+//       {
         compute(out, a);  
-      }
+//       }
       return out; 
     }
   private:
     template <class S, class T>
-    void compute(S out, T e) const
+    void compute(S out, const T& e) const
     {
        size_t n = length(e);
        table<value_type> tmp,  tmp1; 
        out = nt2::cath(One<value_type>(), nt2::zeros(1,n,nt2::meta::as_<value_type>()));
        
-//       //     table<value_type> tmp; 
        for(size_t j=1; j <= n; ++j)
        {
          tmp1 = out(_(2u, j+1))- e(j)*out(_(1u, j)); //aliasing !
