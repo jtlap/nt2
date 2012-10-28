@@ -14,7 +14,7 @@ set(CTEST_DROP_SITE "cdash.lri.fr")
 set(CTEST_DROP_LOCATION "/submit.php?project=NT2")
 set(CTEST_DROP_SITE_CDASH TRUE)
 
-set(CTEST_MEMORYCHECK_SUPPRESSIONS_FILE ${CTEST_SOURCE_DIRECTORY}/valgrind.supp)
+get_filename_component(CTEST_MEMORYCHECK_SUPPRESSIONS_FILE ${CTEST_SOURCE_DIRECTORY}/valgrind.supp ABSOLUTE)
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "You are using gcc version \".*\"")
 list(APPEND CTEST_CUSTOM_WARNING_EXCEPTION "[0-9]+ shortened to [0-9]+")
 
