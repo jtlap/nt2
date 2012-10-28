@@ -1,0 +1,24 @@
+[section Matrix Logarithms and Exponentials]
+
+[table:id Matrix Logarithms and Exponentials
+[[__MATLAB__       ][ __NT2__          ][ Description                                               ]]
+[[`expm  `][`expm  `][Matrix exponential]]
+[[`logm  `][`logm  `][Matrix logarithm  ]]
+[[`sqrtm `][`sqrtm `][Matrix square root]]
+]                         
+[endsect]                                                                        
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+             

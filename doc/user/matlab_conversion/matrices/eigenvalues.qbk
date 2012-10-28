@@ -1,0 +1,44 @@
+[section Eigenvalues and Singular Values]
+
+[table:id Eigenvalues and Singular Values
+[[__MATLAB__       ][ __NT2__          ][ Description                                               ]]
+[[`balance   `][`balance   `][Diagonal scaling to improve eigenvalue accuracy                       ]]
+[[`cdf2rdf   `][`cdf2rdf   `][Convert complex diagonal form to real block diagonal form             ]]
+[[`condeig   `][`condeig   `][Condition number with respect to eigenvalues                          ]]
+[[`eig       `][`eig       `][Eigenvalues and eigenvectors                                          ]]
+[[`eigs      `][`eigs      `][Largest eigenvalues and eigenvectors of matrix                        ]]
+[[`gsvd      `][`gsvd      `][Generalized singular value decomposition                              ]]
+[[`hess      `][`hess      `][Hessenberg form of matrix                                             ]]
+[[`ordeig    `][`ordeig    `][Eigenvalues of quasitriangular matrices                               ]]
+[[`ordqz     `][`ordqz     `][Reorder eigenvalues in QZ factorization                               ]]
+[[`ordschur  `][`ordschur  `][Reorder eigenvalues in Schur factorization                            ]]
+[[`poly      `][`poly      `][Polynomial with specified roots                                       ]]
+[[`polyeig   `][`polyeig   `][Polynomial eigenvalue problemrs                                       ]]
+[[`f2csf     `][`f2csf     `][Convert real Schur form to complex Schur form                         ]]
+[[`schur     `][`schur     `][Schur decomposition                                                   ]]
+[[`sqrtm     `][`sqrtm     `][Matrix square roots                                                   ]]
+[[`s2tf      `][`s2tf      `][Convert state-space filter parameters to transfer function form       ]]
+[[`svd       `][`svd       `][Singular value decomposition                                          ]]
+[[`svds      `][`svds      `][Find singular values and vectors                                      ]]
+]                         
+[endsect]                                                                        
+ 
+
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+           
+             

@@ -43,8 +43,16 @@ array expression of such, by mapping the usual function on each element.
 
 
 [section Arrays and arrays expression]
+
 [include arrays/basic_information.qbk]
 [include arrays/elementary_arrays.qbk]
 [endsect]
 
+[section Linear algebra]
 
+[include matrices/matrix_analysis.qbk]
+[include matrices/linear_equations.qbk]
+[include matrices/eigenvalues.qbk]
+[include matrices/matrix_expon.qbk]
+[include matrices/factorizations.qbk]
+[endsect]
