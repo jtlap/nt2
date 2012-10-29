@@ -49,7 +49,7 @@
     std::cout << std::setprecision(20);                                        \
     std::cout << "max ulpdist is " << ulpd << "\n";                            \
     nt2::display(#A, nt2::details::smallest_a(A, B));                          \
-    nt2::display(#B, nt2::details::smallest_a(A, B));                          \
+    nt2::display(#B, nt2::details::smallest_b(A, B));                          \
     std::cout << std::flush;                                                   \
   }                                                                            \
 }                                                                              \
