@@ -8,18 +8,16 @@
 ################################################################################
 
 SET(SOURCES
-    ignore_unused.cpp
-    bitwise_cast.cpp
-
-# preprocessor examples
-    pp_strip.cpp
-    )
+    architecture.cpp
+    compiler.cpp
+    platform.cpp
+   )
 
 ################################################################################
 # For each filename
 ################################################################################
 FOREACH( EXAMPLE ${SOURCES})
   STRING(REGEX REPLACE ".cpp" "" EXAMPLE ${EXAMPLE})
-  nt2_module_add_example(boost.simd.sdk.details.${EXAMPLE}.sample ${EXAMPLE}.cpp)
+  nt2_module_add_example(boost.simd.config.${EXAMPLE}.sample ${EXAMPLE}.cpp)
 ENDFOREACH()
 

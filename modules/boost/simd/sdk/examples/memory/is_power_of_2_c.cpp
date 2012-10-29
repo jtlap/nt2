@@ -1,7 +1,7 @@
 #include <boost/cstdint.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/simd/sdk/aligned/is_power_of_2.hpp>
+#include <boost/simd/sdk/memory/is_power_of_2.hpp>
 
 using boost::simd::meta::is_power_of_2_c;
 

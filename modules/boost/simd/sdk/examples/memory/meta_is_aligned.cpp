@@ -1,6 +1,6 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/assert.hpp>
-#include <boost/simd/sdk/aligned/is_aligned.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
 
 using boost::mpl::int_;
 using boost::simd::meta::is_aligned;

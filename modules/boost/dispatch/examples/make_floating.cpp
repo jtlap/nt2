@@ -6,8 +6,7 @@ using boost::is_same;
 using boost::mpl::_;
 using boost::dispatch::meta::make_floating;
 
-template<typename T>
-struct test {};
+template<typename T> struct test {};
 
 int main()
 {

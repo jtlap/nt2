@@ -12,7 +12,24 @@ SET( SOURCES
   any.cpp
   as_integer.cpp
   as_floating.cpp
+  as_signed.cpp
+  as_unsigned.cpp
+  behave_as.cpp
+  downgrade.cpp
   enable_if_type.cpp
+  factory_of.cpp
+  is_fundamental.cpp
+  is_iterator.cpp
+  is_result_of_supported.cpp
+  is_scalar.cpp
+  is_signed.cpp
+  is_unspecified.cpp
+  make_integer.cpp
+  make_floating.cpp
+  primitive_of.cpp
+  sign_of.cpp
+  strip.cpp
+  upgrade.cpp
   )
 
 FOREACH( EXAMPLE ${SOURCES})
