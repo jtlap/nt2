@@ -130,7 +130,7 @@ namespace nt2 { namespace ext
     {
       std::ptrdiff_t bound = boost::fusion::at_c<0>(in.extent());
       result_type gout = neutral(nt2::meta::as_<result_type>());
-      const std::size_t chunk = config::shared_cache_line_size()/sizeof(result_type);
+      const std::size_t chunk = config::top_cache_line_size()/sizeof(result_type);
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
