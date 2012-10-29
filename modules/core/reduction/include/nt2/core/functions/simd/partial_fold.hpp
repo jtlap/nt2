@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
       std::size_t obound =  boost::fusion::at_c<2>(ext);
       std::size_t id;
 
-      std::size_t cache_line_size = nt2::config::cache_line_size(2); // in byte
+      std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
       std::size_t bound  =  ((ibound)/cache_bound) * cache_bound;

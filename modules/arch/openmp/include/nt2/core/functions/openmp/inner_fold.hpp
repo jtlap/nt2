@@ -140,7 +140,7 @@ namespace nt2 { namespace ext
       extent_type ext = in.extent();
       std::size_t ibound = boost::fusion::at_c<0>(ext);
       std::ptrdiff_t obound = nt2::numel(boost::fusion::pop_front(ext));
-      const std::size_t chunk = config::shared_cache_line_size()/sizeof(value_type);
+      const std::size_t chunk = config::top_cache_line_size()/sizeof(value_type);
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;

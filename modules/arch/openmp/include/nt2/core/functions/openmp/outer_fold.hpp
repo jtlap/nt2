@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
 
       std::size_t obound =  (numel);
 
-      std::size_t cache_line_size = nt2::config::cache_line_size(2); // in byte
+      std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
       std::ptrdiff_t bound = ((numel)/cache_bound) * cache_bound;
@@ -176,7 +176,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
-      const std::size_t chunk = config::shared_cache_line_size()/sizeof(value_type);
+      const std::size_t chunk = config::top_cache_line_size()/sizeof(value_type);
       std::size_t numel  = 1;
       for(std::size_t m = 0; m!= ext.size()-1 ; ++m)
         numel*=ext[m];
