@@ -12,7 +12,6 @@
 #include <boost/simd/include/functions/load.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 
 NT2_TEST_CASE_TPL(store, BOOST_SIMD_SIMD_TYPES )
