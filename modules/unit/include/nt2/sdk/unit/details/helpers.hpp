@@ -36,7 +36,7 @@ namespace nt2
     {
       double r1 = ((double)rand()/RAND_MAX);
       double r2 = ((double)rand()/RAND_MAX);
-      return  (r1 > 0.5) ? r2*nt2::Valmin<T>() : r2*nt2::Valmax<T>();
+      return nt2::splat<T>((r1 > 0.5) ? r2*nt2::Valmin<T>() : r2*nt2::Valmax<T>());
     }
   };
 
@@ -46,7 +46,7 @@ namespace nt2
     static inline T call()
     {
       double r1 = ((double)rand()/RAND_MAX);
-      return r1*nt2::Valmax<T>();
+      return nt2::splat<T>(r1*nt2::Valmax<T>());
     }
   };
 
