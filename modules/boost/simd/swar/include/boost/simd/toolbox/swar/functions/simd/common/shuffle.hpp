@@ -65,7 +65,8 @@ namespace boost { namespace simd { namespace ext
     void eval(A0 const& a0, A1 const& a1, result_type& that, N const&) const
     {
       typedef typename boost::mpl::apply<permutation_t,N,card_t>::type idx_t;
-      that[N::value]=(idx_t::value<0)?0:((idx_t::value<card_t::value)?a0[idx_t::value]:a1[idx_t::value-card_t::value]);
+      static const int card = card_t::value;
+      that[N::value]=(idx_t::value<0)?0:((idx_t::value<card)?a0[idx_t::value]:a1[idx_t::value-card]);
       eval(a0,a1,that,boost::mpl::int_<N::value-1>());
     }
 

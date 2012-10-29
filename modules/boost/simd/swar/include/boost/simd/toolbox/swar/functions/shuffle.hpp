@@ -19,7 +19,9 @@
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
-#include <boost/mpl/vector_c.hpp>
+#include <boost/mpl/vector/vector10_c.hpp>
+#include <boost/mpl/vector/vector20_c.hpp>
+#include <boost/mpl/vector/vector40_c.hpp>
 
 namespace boost { namespace simd 
 { 
@@ -55,14 +57,14 @@ namespace boost { namespace simd
   }
 
 #define M01(z,n,arg)                                                           \
-template<BOOST_PP_ENUM_PARAMS(arg, int I),class A0>                            \
+template<BOOST_PP_ENUM_PARAMS(n, int I),class A0>                              \
 BOOST_FORCEINLINE                                                              \
 typename boost::dispatch::meta                                                 \
 ::call<tag::shuffle_(A0 const&                                                 \
                     ,boost::dispatch::meta::                                   \
                      as_<details::random_permute                               \
                          <boost::mpl::                                         \
-                          vector_c<int,BOOST_PP_ENUM_PARAMS(arg, I)>           \
+                          vector##n##_c<int,BOOST_PP_ENUM_PARAMS(n, I)>        \
                          >                                                     \
                         >                                                      \
                     )                                                          \
@@ -74,8 +76,8 @@ shuffle(A0 const& a0)                                                          \
                , boost::dispatch::meta::                                       \
                  as_< details::                                                \
                       random_permute< boost::mpl::                             \
-                                      vector_c< int                            \
-                                              , BOOST_PP_ENUM_PARAMS(arg, I)   \
+                                      vector##n##_c< int                       \
+                                              , BOOST_PP_ENUM_PARAMS(n, I)     \
                                               >                                \
                                     >                                          \
                     >()                                                        \
@@ -84,7 +86,7 @@ shuffle(A0 const& a0)                                                          \
 /**/
 
 #define M02(z,n,arg)                                                           \
-template<BOOST_PP_ENUM_PARAMS(arg, int I),class A0, class A1>                  \
+template<BOOST_PP_ENUM_PARAMS(n, int I),class A0, class A1>                    \
 BOOST_FORCEINLINE                                                              \
 typename boost::dispatch::meta                                                 \
 ::call<tag::shuffle_( A0 const&                                                \
@@ -92,9 +94,9 @@ typename boost::dispatch::meta                                                 \
                     , boost::dispatch::meta::                                  \
                       as_<details::random_permute                              \
                           <boost::mpl::                                        \
-                           vector_c                                            \
+                           vector##n##_c                                       \
                            <int                                                \
-                           ,BOOST_PP_ENUM_PARAMS(arg, I)                       \
+                           ,BOOST_PP_ENUM_PARAMS(n, I)                         \
                            >                                                   \
                           >                                                    \
                          >                                                     \
@@ -109,8 +111,8 @@ shuffle(A0 const& a0, A1 const& a1)                                            \
                  as_< details::                                                \
                       random_permute                                           \
                       <boost::mpl::                                            \
-                       vector_c<int                                            \
-                               ,BOOST_PP_ENUM_PARAMS(arg, I)                   \
+                       vector##n##_c<int                                       \
+                               ,BOOST_PP_ENUM_PARAMS(n, I)                     \
                                >                                               \
                       >                                                        \
                     >()                                                        \
@@ -118,8 +120,8 @@ shuffle(A0 const& a0, A1 const& a1)                                            \
 }                                                                              \
 /**/
 
-  BOOST_PP_SEQ_FOR_EACH(M01, ~, BOOST_SIMD_CARDINALS)
-  BOOST_PP_SEQ_FOR_EACH(M02, ~, BOOST_SIMD_CARDINALS)
+  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M01,~)
+  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M02,~)
   #undef M01
   #undef M02
 } }

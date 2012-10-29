@@ -305,9 +305,12 @@ NT2_TEST_CASE_TPL( shuffle_index2_2arg, BOOST_SIMD_SIMD_TYPES)
   typedef typename vector_of<T,2>::type    vT;
 
   vT origin1, origin2, reference, res;
-  for(std::size_t i=1; i < vT::static_size;++i)
+  for(std::size_t i=0; i < vT::static_size;++i)
   { origin1[i] = T(65+i); origin2[i] = T(i); }
-  
+  reference[0] = origin1[0]; reference[1] = origin2[1]; 
   res = shuffle<0,3>(origin1, origin2);
-  std::cout << res << std::endl;
+  NT2_TEST_EQUAL(res,reference);
+  reference[0] = 0; reference[1] = origin2[1]; 
+  res = shuffle<-1,3>(origin1, origin2);
+  NT2_TEST_EQUAL(res,reference);
 }
