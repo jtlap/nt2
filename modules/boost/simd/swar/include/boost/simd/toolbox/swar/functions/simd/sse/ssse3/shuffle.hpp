@@ -48,7 +48,8 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_, boost::simd::tag::ssse3_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+                                    , boost::simd::tag::ssse3_
                                     , (A0)(P)
                                     , ((simd_< type32_<A0>,boost::simd::tag::sse_>))
                                       (target_< unspecified_<P> >)
@@ -75,11 +76,12 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_, boost::simd::tag::ssse3_
-                                      , (A0)(P)
-                                      , ((simd_< type16_<A0>,boost::simd::tag::sse_>))
-                                        (target_< unspecified_<P> >)
-                                      )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+                                    , boost::simd::tag::ssse3_
+                                    , (A0)(P)
+                                    , ((simd_< type16_<A0>,boost::simd::tag::sse_>))
+                                      (target_< unspecified_<P> >)
+                                    )
   {
     typedef A0                              result_type;
     typedef typename P::type                permutation_t;
@@ -102,7 +104,8 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_, boost::simd::tag::ssse3_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+                                    , boost::simd::tag::ssse3_
                                     , (A0)(P)
                                     , ((simd_< type8_<A0>,boost::simd::tag::sse_>))
                                       (target_< unspecified_<P> >)

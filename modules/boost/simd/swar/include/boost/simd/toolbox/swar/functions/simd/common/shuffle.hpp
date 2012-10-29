@@ -42,6 +42,36 @@ namespace boost { namespace simd { namespace ext
     void eval(A0 const& a0, result_type& that, boost::mpl::int_<-1> const&) const
     {}
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_, tag::cpu_
+                                    , (A0)(A1)(X)(P)
+                                    , ((simd_< arithmetic_<A0>, X>))
+                                      ((simd_< arithmetic_<A1>, X>))
+                                      (target_< unspecified_<P> >)
+                                    )
+  {
+    typedef A0                              result_type;
+    typedef typename P::type                permutation_t;
+    typedef meta::cardinal_of<result_type>  card_t;
+
+    result_type operator()(A0 const& a0, A1 const& a1, P const&) const
+    {
+      result_type that;
+      eval(a0, a1, that, boost::mpl::int_<card_t::value-1>());
+      return that;
+    }
+
+    template<class N>
+    void eval(A0 const& a0, A1 const& a1, result_type& that, N const&) const
+    {
+      typedef typename boost::mpl::apply<permutation_t,N,card_t>::type idx_t;
+      that[N::value]=(idx_t::value<0)?0:((idx_t::value<card_t::value)?a0[idx_t::value]:a1[idx_t::value-card_t::value]);
+      eval(a0,a1,that,boost::mpl::int_<N::value-1>());
+    }
+
+    void eval(A0 const& a0, A1 const& a1, result_type& that, boost::mpl::int_<-1> const&) const
+    {}
+  };
 } } }
 
 #endif

@@ -15,6 +15,7 @@
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <iostream>
 
 struct identity_
 {
@@ -293,4 +294,20 @@ NT2_TEST_CASE_TPL( shuffle_index16, BOOST_SIMD_SIMD_TYPES)
     reference[i] = origin[1];
   bcasted = shuffle<1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1>(origin);
   NT2_TEST_EQUAL(bcasted,reference);
+}
+
+NT2_TEST_CASE_TPL( shuffle_index2_2arg, BOOST_SIMD_SIMD_TYPES)
+{
+  using boost::simd::shuffle;
+  using boost::simd::native;
+  using boost::simd::meta::vector_of;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
+  typedef typename vector_of<T,2>::type    vT;
+
+  vT origin1, origin2, reference, res;
+  for(std::size_t i=1; i < vT::static_size;++i)
+  { origin1[i] = T(65+i); origin2[i] = T(i); }
+  
+  res = shuffle<0,3>(origin1, origin2);
+  std::cout << res << std::endl;
 }
