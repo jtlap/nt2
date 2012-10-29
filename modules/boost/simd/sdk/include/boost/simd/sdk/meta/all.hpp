@@ -14,6 +14,7 @@
 namespace boost { namespace simd { namespace meta
 {
   using boost::dispatch::meta::all;
+  using boost::dispatch::meta::all_seq;
 } } }
 
 #endif

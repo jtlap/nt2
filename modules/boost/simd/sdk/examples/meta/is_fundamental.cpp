@@ -1,9 +1,9 @@
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/meta/is_fundamental.hpp>
-#include <nt2/sdk/simd/pack.hpp>
+#include <boost/dispatch/meta/is_fundamental.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 
-using nt2::meta::is_fundamental;
-using nt2::simd::pack;
+using boost::dispatch::meta::is_fundamental;
+using boost::simd::pack;
 
 int main()
 {

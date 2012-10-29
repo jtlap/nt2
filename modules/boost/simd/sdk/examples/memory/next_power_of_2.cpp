@@ -2,11 +2,11 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/comparison.hpp>
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/aligned/next_power_of_2.hpp>
+#include <boost/simd/sdk/aligned/next_power_of_2.hpp>
 
 using boost::mpl::int_;
 using boost::mpl::equal_to;
-using nt2::meta::next_power_of_2;
+using boost::simd::meta::next_power_of_2;
 
 int main()
 {

@@ -1,10 +1,10 @@
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/meta/make_floating.hpp>
+#include <boost/dispatch/meta/make_floating.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 using boost::is_same;
 using boost::mpl::_;
-using nt2::meta::make_floating;
+using boost::dispatch::meta::make_floating;
 
 template<typename T>
 struct test {};

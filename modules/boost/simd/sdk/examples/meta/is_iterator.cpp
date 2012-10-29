@@ -1,8 +1,8 @@
 #include <boost/mpl/assert.hpp>
 #include <vector>
-#include <nt2/sdk/meta/is_iterator.hpp>
+#include <boost/dispatch/meta/is_iterator.hpp>
 
-using nt2::meta::is_iterator;
+using boost::dispatch::meta::is_iterator;
 
 int main()
 {

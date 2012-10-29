@@ -1,8 +1,8 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/aligned/is_aligned.hpp>
+#include <boost/simd/sdk/aligned/is_aligned.hpp>
 
-using nt2::meta::is_aligned_c;
+using boost::simd::meta::is_aligned_c;
 
 int main()
 {

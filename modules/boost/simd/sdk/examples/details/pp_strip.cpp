@@ -1,8 +1,9 @@
 #include <iostream>
-#include <nt2/sdk/details/preprocessor.hpp>
+#include <boost/dispatch/preprocessor/strip.hpp>
+#include <boost/preprocessor/stringize.hpp>
 
 int main()
 {
-  std::cout << NT2_PP_DEBUG( NT2_PP_STRIP(no parens) ) << std::endl;
-  std::cout << NT2_PP_DEBUG( NT2_PP_STRIP((with parens)) ) << std::endl;
+  std::cout << BOOST_PP_STRINGIZE( BOOST_DISPATCH_PP_STRIP(no parens) ) << std::endl;
+  std::cout << BOOST_PP_STRINGIZE( BOOST_DISPATCH_PP_STRIP((with parens)) ) << std::endl;
 }

@@ -1,6 +1,6 @@
 #include <vector>
 #include <iostream>
-#include <nt2/sdk/details/decltype.hpp>
+#include <boost/simd/sdk/details/decltype.hpp>
 
 template<class T>
 void test(T)

@@ -1,7 +1,7 @@
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/meta/is_result_of_supported.hpp>
+#include <boost/dispatch/meta/is_result_of_supported.hpp>
 
-using nt2::meta::is_result_of_supported;
+using boost::dispatch::meta::is_result_of_supported;
 
 struct foo { typedef float result_type; };
 

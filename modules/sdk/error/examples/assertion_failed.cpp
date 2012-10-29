@@ -1,13 +1,13 @@
-#define NT2_DEBUG
+#define BOOST_ENABLE_ASSERT_HANDLER
 #define NT2_ASSERTS_AS_EXCEPTIONS
 #include <iostream>
-#include <nt2/sdk/error/assert.hpp>
+#include <nt2/sdk/error/assert_as_exceptions.hpp>
 
 using namespace std;
 
 template<class T> T f(T const& v)
 {
-  NT2_ASSERT( v > 4 );
+  BOOST_ASSERT( v > 4 );
   return v;
 }
 
@@ -19,7 +19,7 @@ int main(int, char** )
   }
   catch( nt2::assert_exception& e )
   {
-    cout << e << endl;
+    cout << e.what() << endl;
   }
 }
 

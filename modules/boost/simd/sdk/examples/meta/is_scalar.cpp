@@ -1,7 +1,7 @@
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/meta/is_scalar.hpp>
+#include <boost/dispatch/meta/is_scalar.hpp>
 
-using nt2::meta::is_scalar;
+using boost::dispatch::meta::is_scalar;
 
 int main()
 {

@@ -1,19 +1,19 @@
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/simd/pack.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
+#include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/type_traits/is_same.hpp>
 
-using nt2::int32_t;
-using nt2::uint32_t;
-using nt2::uint64_t;
+using boost::simd::int32_t;
+using boost::simd::uint32_t;
+using boost::simd::uint64_t;
 using boost::is_same;
-using nt2::simd::pack;
+using boost::simd::pack;
 
 int main()
 {
-  BOOST_MPL_ASSERT(( is_same<float,       nt2::meta::as_floating<int32_t>::type>         ));
-  BOOST_MPL_ASSERT(( is_same<float,       nt2::meta::as_floating<uint32_t>::type>        ));
-  BOOST_MPL_ASSERT(( is_same<double,      nt2::meta::as_floating<uint64_t>::type>        ));
-  BOOST_MPL_ASSERT(( is_same<pack<float>, nt2::meta::as_floating<pack<int32_t> >::type> ));
+  BOOST_MPL_ASSERT(( is_same<float,       boost::dispatch::meta::as_floating<int32_t>::type>         ));
+  BOOST_MPL_ASSERT(( is_same<float,       boost::dispatch::meta::as_floating<uint32_t>::type>        ));
+  BOOST_MPL_ASSERT(( is_same<double,      boost::dispatch::meta::as_floating<uint64_t>::type>        ));
+  BOOST_MPL_ASSERT(( is_same<pack<float>, boost::dispatch::meta::as_floating<pack<int32_t> >::type> ));
 }

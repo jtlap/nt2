@@ -1,16 +1,16 @@
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/config/types.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/simd/pack.hpp>
+#include <boost/simd/sdk/config/types.hpp>
+#include <boost/dispatch/meta/upgrade.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 using boost::is_same;
 using boost::mpl::_;
-using nt2::meta::upgrade;
+using boost::dispatch::meta::upgrade;
 
-using nt2::uint32_t;
-using nt2::uint64_t;
-using nt2::simd::pack;
+using boost::simd::uint32_t;
+using boost::simd::uint64_t;
+using boost::simd::pack;
 
 int main()
 {

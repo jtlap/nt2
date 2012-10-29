@@ -1,12 +1,12 @@
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/meta/sign_of.hpp>
-#include <nt2/sdk/simd/pack.hpp>
+#include <boost/dispatch/meta/sign_of.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 using boost::is_same;
-using nt2::meta::sign_of;
+using boost::dispatch::meta::sign_of;
 
-using nt2::simd::pack;
+using boost::simd::pack;
 
 int main()
 {

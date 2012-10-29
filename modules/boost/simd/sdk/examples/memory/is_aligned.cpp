@@ -1,7 +1,7 @@
 #include <iostream>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 
-using nt2::memory::is_aligned;
+using boost::simd::memory::is_aligned;
 
 int main()
 {

@@ -11,7 +11,6 @@ SET(SOURCES
     all.cpp
     any.cpp
     arithmetic.cpp
-    as_bits.cpp
     as_integer.cpp
     as_floating.cpp
     as_signed.cpp
@@ -20,7 +19,6 @@ SET(SOURCES
     downgrade.cpp
     enable_if_type.cpp
     factory_of.cpp
-    from_bits.cpp
     is_fundamental.cpp
     is_iterator.cpp
     is_result_of_supported.cpp
