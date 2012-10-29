@@ -17,8 +17,9 @@
 #include <iomanip>
 #include <nt2/sdk/unit/stats.hpp>
 #include <nt2/sdk/unit/details/smallest_type.hpp>
-#include <nt2/sdk/unit/details/through_volatile.hpp>
-#include <nt2/include/functions/scalar/ulpdist.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/display.hpp>
 
 /*!
   @brief Check for absolute precsion
@@ -29,33 +30,29 @@
   @usage
   @include test_ulp.cpp
 **/
-#define NT2_TEST_ULP_EQUAL(A, B, N)                           \
-{                                                             \
-  nt2::unit::test_count()++;                                  \
-  double ulpd = nt2::ulpdist( nt2::details::smallest_a(A, B)  \
-                            , nt2::details::smallest_b(A, B)  \
-                            );                                \
-                                                              \
-  std::cout << " * Test `"                                    \
-            << "ulpdist(" << #A << ", " << #B << ")"          \
-            << " <= " << N                                    \
-            << "` ";                                          \
-  if( ulpd <= nt2::details::through_volatile((N)) )           \
-  {                                                           \
-    ::nt2::unit::pass("ulpdist(" #A ", " #B ") <= " #N);      \
-  }                                                           \
-  else                                                        \
-  {                                                           \
-    ::nt2::unit::fail ( "ulpdist(" #A ", " #B ") > " #N       \
-                      , __LINE__, BOOST_CURRENT_FUNCTION      \
-                      );                                      \
-    std::cout << std::setprecision(20)                        \
-              << "because ulpdist("                           \
-              << nt2::details::smallest_a(A, B) << ","        \
-              << nt2::details::smallest_b(A, B) << ") = "     \
-              << ulpd << "." << std::endl;                    \
-  }                                                           \
-}                                                             \
+#define NT2_TEST_ULP_EQUAL(A, B, N)                                            \
+{                                                                              \
+  nt2::unit::test_count()++;                                                   \
+  double ulpd = nt2::globalmax( nt2::ulpdist( nt2::details::smallest_a(A, B)   \
+                                            , nt2::details::smallest_b(A, B)   \
+                                            )                                  \
+                              );                                               \
+  if( ulpd <= N )                                                              \
+  {                                                                            \
+    ::nt2::unit::pass("max(ulpdist(" #A ", " #B ")) <= " #N);                  \
+  }                                                                            \
+  else                                                                         \
+  {                                                                            \
+    ::nt2::unit::fail( "max(ulpdist(" #A ", " #B ")) <= " #N                   \
+                     , __LINE__, BOOST_CURRENT_FUNCTION                        \
+                     );                                                        \
+    std::cout << std::setprecision(20);                                        \
+    std::cout << "max ulpdist is " << ulpd << "\n";                            \
+    nt2::display(#A, nt2::details::smallest_a(A, B));                          \
+    nt2::display(#B, nt2::details::smallest_a(A, B));                          \
+    std::cout << std::flush;                                                   \
+  }                                                                            \
+}                                                                              \
 /**/
 
 #endif
