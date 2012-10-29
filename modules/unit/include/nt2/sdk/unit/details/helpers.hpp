@@ -12,6 +12,8 @@
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/constants/valmin.hpp>
 #include <nt2/include/constants/valmax.hpp>
+#include <boost/dispatch/meta/is_signed.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace nt2
 {
@@ -25,10 +27,25 @@ namespace nt2
     return that;
   }
 
+
+  template<class T> inline T inner_roll(const boost::mpl::true_ &)
+  {
+    double r1 = ((double)rand()/RAND_MAX);
+    double r2 = ((double)rand()/RAND_MAX); 
+    return  (r1 > 0.5) ? r2*nt2::Valmin<T>() : r2*nt2::Valmax<T>();
+  }
+
+  template<class T> inline T inner_roll(const boost::mpl::false_ &)
+  {
+    double r1 = ((double)rand()/RAND_MAX);
+    return r1*nt2::Valmax<T>();
+  }
+
   template<class T> inline T roll()
   {
-    return roll<T>(nt2::Valmin<T>()/2, nt2::Valmax<T>()/2) * 2;
+    return inner_roll(boost::dispatch::meta::is_signed<T>::type());
   }
+
 }
 using nt2::roll;
 
