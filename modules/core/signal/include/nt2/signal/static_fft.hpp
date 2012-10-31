@@ -151,6 +151,74 @@ namespace details
     }
 #endif // BOOST_SIMD_HAS_SSE_SUPPORT
 
+//...zzz...actually BOOST_SIMD_HAS_MMX_SUPPORT
+#if defined( BOOST_SIMD_HAS_SSE_SUPPORT ) && !defined( BOOST_SIMD_ARCH_X86_64 )
+
+    #ifdef _MSC_VER
+        #pragma warning( push )
+        #pragma warning( disable : 4799 ) // Function has no EMMS instruction.
+    #endif // _MSC_VER
+
+    struct extra_integer_register
+    {
+        extra_integer_register() {}
+#ifdef _MSC_VER
+        extra_integer_register( __m64 const builtin ) : register_( builtin ) {}
+        extra_integer_register( extra_integer_register const & other ) : register_( other.register_ ) {}
+#endif // _MSC_VER
+
+        extra_integer_register( unsigned int const value ) : register_( _mm_cvtsi32_si64( value ) ) {}
+
+        extra_integer_register & operator+=( unsigned int const value ) { register_ = _mm_add_pi32( register_, _mm_cvtsi32_si64( value ) ); return *this; }
+        extra_integer_register & operator-=( unsigned int const value ) { register_ = _mm_sub_pi32( register_, _mm_cvtsi32_si64( value ) ); return *this; }
+
+        extra_integer_register & operator++() { return this->operator += ( 1 ); }
+        extra_integer_register & operator--() { return this->operator -= ( 1 ); }
+
+        operator unsigned int () const { return _mm_cvtsi64_si32( register_ ); }
+
+        operator __m64 const & () const { return register_; }
+        __m64 register_;
+    };
+
+    template <typename T>
+    struct extra_pointer_register : extra_integer_register
+    {
+        extra_pointer_register() {}
+        extra_pointer_register( T * BOOST_DISPATCH_RESTRICT const pointer ) : extra_integer_register( reinterpret_cast<unsigned int>( pointer ) ) {}
+
+        extra_pointer_register & operator+=( unsigned int const value ) { return static_cast<extra_pointer_register &>( extra_integer_register::operator+=( value * sizeof( T ) ) ); }
+        extra_pointer_register & operator-=( unsigned int const value ) { return static_cast<extra_pointer_register &>( extra_integer_register::operator-=( value * sizeof( T ) ) ); }
+
+        extra_pointer_register & operator++() { return this->operator += ( 1 ); }
+        extra_pointer_register & operator--() { return this->operator -= ( 1 ); }
+
+        T * BOOST_DISPATCH_RESTRICT const operator++( int )
+        {
+            T * BOOST_DISPATCH_RESTRICT const result( this->operator->() );
+            this->operator++();
+            return result;
+        }
+
+        T &                         operator *  () const { return *static_cast<T * BOOST_DISPATCH_RESTRICT>( *this ); }
+        T * BOOST_DISPATCH_RESTRICT operator -> () const { return  static_cast<T * BOOST_DISPATCH_RESTRICT>( *this ); }
+
+        operator T * BOOST_DISPATCH_RESTRICT () const { return reinterpret_cast<T * BOOST_DISPATCH_RESTRICT>( static_cast<unsigned int>( *this ) ); }
+    };
+
+    template <typename T> struct make_extra_pointer_register { typedef extra_pointer_register<T> type; };
+
+    struct extra_registers_cleanup { ~extra_registers_cleanup() { _mm_empty(); } };
+
+    #ifdef _MSC_VER
+        #pragma warning( pop )
+    #endif // _MSC_VER
+#else // BOOST_SIMD_HAS_MMX_SUPPORT
+    typedef unsigned int extra_integer_register;
+    template <typename T> struct make_extra_pointer_register { typedef T * BOOST_DISPATCH_RESTRICT type; };
+    struct extra_registers_cleanup {};
+#endif // BOOST_SIMD_HAS_MMX_SUPPORT
+
 } // namespace details
 } // namespace simd
 } // namespace boost
@@ -622,9 +690,31 @@ namespace detail
     ////////////////////////////////////////////////////////////////////////////
     // \struct inplace_separated_context_t
     ////////////////////////////////////////////////////////////////////////////
+    
+    /// \note Clang (Xcode 4.5.1) completely brainfarts when MMX is used
+    /// (constantly converts between MMX and GP registers and/or keeps copies of
+    /// pointers in both registers and all of that through the stack of course).
+    ///                                       (31.10.2012.) (Domagoj Saric)
+    /// \note MSVC10 has rather intelligent indexed<->pointer arithmetic
+    /// transformations so even if NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP is defined
+    /// it will partially transform it to pointer arithmetic (but not
+    /// "ideally"). It is also able to use a few MMX "extra" registers without
+    /// shooting itself in the foot so we use pointer arithmetic approach with
+    /// MSVC for all targets.
+    ///                                       (31.10.2012.) (Domagoj Saric)
+    /// \todo Investigate, configure and document for other x86/"poor man's ISA"
+    /// compilers.
+    ///                                       (31.10.2012.) (Domagoj Saric)
+    #if defined( __clang__ ) && defined( BOOST_SIMD_ARCH_X86 ) && !defined( BOOST_SIMD_ARCH_X86_64 )
+        #define NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
+    #endif
 
     template <typename T>
     struct inplace_separated_context_t
+    #ifndef NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
+        :
+        boost::simd::details::extra_registers_cleanup
+    #endif // NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
     {
     public:
         typedef typename types<T>::scalar_t scalar_t;
@@ -638,7 +728,7 @@ namespace detail
         typedef vector_t * BOOST_DISPATCH_RESTRICT parameter1_t;
 
         typedef dif decimation_t;
-      //typedef dit decimation_t; //...zzz...not yet fully ported to the split-radix algorithm...
+        //typedef dit decimation_t; //...zzz...not yet fully ported to the split-radix algorithm...
 
         template <unsigned RealP>
         struct complex_P : boost::mpl::integral_c<unsigned int, RealP - 1> {};
@@ -650,40 +740,74 @@ namespace detail
             parameter1_t const p_imags,
             unsigned int const N
         )
+        #ifdef NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
             :
             p_reals_      ( reinterpret_cast<char *>( p_reals ) ),
             p_imags_      ( reinterpret_cast<char *>( p_imags ) ),
-            log2_N4_bytes_( boost::simd::ilog2( N ) - boost::static_log2<4>::value + boost::static_log2<sizeof( scalar_t )>::value )
+            log2_N4_bytes_( boost::simd::ilog2( N ) - boost::static_log2<4>::value + boost::static_log2<sizeof( scalar_t )>::value ),
+            counter_      ( N / 4 / vector_t::static_size )
+        {}
+        #else
         {
-            BOOST_ASSERT( boost::simd::memory::is_aligned( p_reals ) );
-            BOOST_ASSERT( boost::simd::memory::is_aligned( p_imags ) );
+            unsigned int const n_quarter( N / 4 / vector_t::static_size );
+            // reals:
+            pointer<0 * 4 + 0>() = &p_reals[ n_quarter * 0 ];
+            pointer<0 * 4 + 1>() = &p_reals[ n_quarter * 1 ];
+            pointer<0 * 4 + 2>() = &p_reals[ n_quarter * 2 ];
+            pointer<0 * 4 + 3>() = &p_reals[ n_quarter * 3 ];
+            // imags:
+            pointer<1 * 4 + 0>() = &p_imags[ n_quarter * 0 ];
+            pointer<1 * 4 + 1>() = &p_imags[ n_quarter * 1 ];
+            pointer<1 * 4 + 2>() = &p_imags[ n_quarter * 2 ];
+            pointer<1 * 4 + 3>() = &p_imags[ n_quarter * 3 ];
+            // counter:
+            counter_ = n_quarter * counter_step;
         }
+        #endif // NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
 
     public: // butterfly interface
-        vector_t const & r( unsigned int const part ) const { return *element( p_reals_, part ); }
-        vector_t const & i( unsigned int const part ) const { return *element( p_imags_, part ); }
-        vector_t       & r( unsigned int const part )       { return *element( p_reals_, part ); }
-        vector_t       & i( unsigned int const part )       { return *element( p_imags_, part ); }
+        template <unsigned int part> vector_t const & r() const { return *r_element<part>(); }
+        template <unsigned int part> vector_t const & i() const { return *i_element<part>(); }
+        template <unsigned int part> vector_t       & r()       { return *r_element<part>(); }
+        template <unsigned int part> vector_t       & i()       { return *i_element<part>(); }
 
-        void operator++()
+        void BOOST_FORCEINLINE operator++()
         {
+        #ifdef NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
             p_reals_ += sizeof( vector_t ) / sizeof( *p_reals_ );
             p_imags_ += sizeof( vector_t ) / sizeof( *p_imags_ );
+            --counter_;
+        #else
+            // reals:
+            ++pointer<0 * 4 + 0>();
+            ++pointer<0 * 4 + 1>();
+            ++pointer<0 * 4 + 2>();
+            ++pointer<0 * 4 + 3>();
+            // imags:
+            ++pointer<1 * 4 + 0>();
+            ++pointer<1 * 4 + 1>();
+            ++pointer<1 * 4 + 2>();
+            ++pointer<1 * 4 + 3>();
+            // counter:
+            counter_ -= counter_step;
+        #endif // NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
         }
 
         template <unsigned N>
         static twiddles const * BOOST_DISPATCH_RESTRICT twiddle_factors() { return twiddles_interleaved<N, vector_t>::factors(); }
 
+        unsigned int remaining_iterations() const { return counter_; }
+
     public: // (split radix) decimation interface
         //...zzz...instead of lower/upper, left/right or even/odd names could be used...
-        parameter0_t lower_parameter0       () const { return prefetched_element( p_reals_, 0 ); };
-        parameter1_t lower_parameter1       () const { return prefetched_element( p_imags_, 0 ); };
+        parameter0_t lower_parameter0       () const { return r_prefetched_element<0>(); };
+        parameter1_t lower_parameter1       () const { return i_prefetched_element<0>(); };
 
-        parameter0_t upper_first_parameter0 () const { return prefetched_element( p_reals_, 2 ); };
-        parameter1_t upper_first_parameter1 () const { return prefetched_element( p_imags_, 2 ); };
+        parameter0_t upper_first_parameter0 () const { return r_prefetched_element<2>(); };
+        parameter1_t upper_first_parameter1 () const { return i_prefetched_element<2>(); };
 
-        parameter0_t upper_second_parameter0() const { return prefetched_element( p_reals_, 3 ); };
-        parameter1_t upper_second_parameter1() const { return prefetched_element( p_imags_, 3 ); };
+        parameter0_t upper_second_parameter0() const { return r_prefetched_element<3>(); };
+        parameter1_t upper_second_parameter1() const { return i_prefetched_element<3>(); };
 
     public: // data setup interface
         template <unsigned int valid_bits>
@@ -738,9 +862,8 @@ namespace detail
             unsigned int                                          N
         );
 
-        vector_t * BOOST_DISPATCH_RESTRICT reals() const { return reinterpret_cast<vector_t *>( p_reals_ ); }
-        vector_t * BOOST_DISPATCH_RESTRICT imags() const { return reinterpret_cast<vector_t *>( p_imags_ ); }
-
+#ifdef NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
+    private:
         vector_t * BOOST_DISPATCH_RESTRICT element( char * BOOST_DISPATCH_RESTRICT const p_data, unsigned int const part ) const
         {
             char * BOOST_DISPATCH_RESTRICT const p_element( &p_data[ part << log2_N4_bytes_ ] );
@@ -755,10 +878,75 @@ namespace detail
             return p_element;
         }
 
+        template <unsigned int part> vector_t * BOOST_DISPATCH_RESTRICT r_element           () const { return element           ( p_reals_, part ); }
+        template <unsigned int part> vector_t * BOOST_DISPATCH_RESTRICT i_element           () const { return element           ( p_imags_, part ); }
+        template <unsigned int part> vector_t * BOOST_DISPATCH_RESTRICT r_prefetched_element() const { return prefetched_element( p_reals_, part ); }
+        template <unsigned int part> vector_t * BOOST_DISPATCH_RESTRICT i_prefetched_element() const { return prefetched_element( p_imags_, part ); }
+
     private:
         char * BOOST_DISPATCH_RESTRICT p_reals_;
         char * BOOST_DISPATCH_RESTRICT p_imags_;
+        unsigned int       counter_      ;
         unsigned int const log2_N4_bytes_; ///< log2( N/4 ) * sizeof( scalar_t )
+#else
+    private:
+        static unsigned int const total_pointers      = 8;
+        static unsigned int const total_counters      = 1;
+        static unsigned int const total_registers     = total_pointers + total_counters;
+        static unsigned int const gp_registers_to_use = 6; // <- ...zzz...MSVC10 heuristics...
+        /// \note In case an "extra" register is used for the counter (which
+        /// presumably does not support a decrement instruction) we scale it so
+        /// that the same constant is used to decrement it as it is used to
+        /// increment the data pointers (thus potentially saving a register).
+        ///                                   (31.10.2012.) (Domagoj Saric)
+        static unsigned int const counter_step = ( sizeof( boost::simd::details::extra_integer_register ) == sizeof( unsigned int ) ) ? 1 : sizeof( vector_t );
+
+        typedef typename boost::simd::details::make_extra_pointer_register<vector_t>::type extra_vector_ptr_t;
+
+        template <unsigned int PointerNumber>
+        struct pointer_type
+        {
+            typedef typename boost::mpl::if_c
+            <
+                (PointerNumber >= gp_registers_to_use),
+                extra_vector_ptr_t,
+                vector_t * BOOST_DISPATCH_RESTRICT
+            >::type type;
+        };
+
+    private:
+        template <unsigned int PointerIndex> vector_t           * BOOST_DISPATCH_RESTRICT & pointer_aux( vector_t           * BOOST_DISPATCH_RESTRICT const * ) { BOOST_STATIC_ASSERT( ( PointerIndex                       ) < ( sizeof( gp_pointers_    ) / sizeof( *gp_pointers_    ) ) ); return gp_pointers_   [ PointerIndex                       ]; }
+        template <unsigned int PointerIndex> extra_vector_ptr_t                           & pointer_aux( extra_vector_ptr_t                           const * ) { BOOST_STATIC_ASSERT( ( PointerIndex - gp_registers_to_use ) < ( sizeof( extra_pointers_ ) / sizeof( *extra_pointers_ ) ) ); return extra_pointers_[ PointerIndex - gp_registers_to_use ]; }
+
+        template <unsigned int PointerIndex>
+        typename pointer_type<PointerIndex>::type & pointer()
+        {
+            return pointer_aux<PointerIndex>( static_cast<typename pointer_type<PointerIndex>::type *>( 0 ) );
+        }
+
+        template <unsigned int PointerIndex>
+        typename pointer_type<PointerIndex>::type const & pointer() const { return const_cast<inplace_separated_context_t &>( *this ).pointer<PointerIndex>(); }
+
+        template <unsigned int PointerIndex>
+        typename pointer_type<PointerIndex>::type const & prefetched_element() const
+        {
+            typename pointer_type<PointerIndex>::type const & p_element( pointer<PointerIndex>() );
+            BOOST_ASSUME( p_element != 0 );
+            boost::simd::memory::prefetch_temporary( p_element );
+            return p_element;
+        }
+
+
+        template <unsigned int part> typename pointer_type<0 * 4 + part>::type const & r_element           () const { return pointer           <0 * 4 + part>(); }
+        template <unsigned int part> typename pointer_type<1 * 4 + part>::type const & i_element           () const { return pointer           <1 * 4 + part>(); }
+        template <unsigned int part> typename pointer_type<0 * 4 + part>::type const & r_prefetched_element() const { return prefetched_element<0 * 4 + part>(); }
+        template <unsigned int part> typename pointer_type<1 * 4 + part>::type const & i_prefetched_element() const { return prefetched_element<1 * 4 + part>(); }
+
+    private:
+        vector_t                                               * BOOST_DISPATCH_RESTRICT gp_pointers_   [ gp_registers_to_use                  ];
+        boost::simd::details::extra_pointer_register<vector_t>                           extra_pointers_[ total_pointers - gp_registers_to_use ];
+        boost::simd::details::extra_integer_register                                     counter_;
+#endif // NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
     }; // inplace_separated_context_t
 
 #ifdef _MSC_VER
@@ -1559,29 +1747,33 @@ namespace detail
     (
         typename Context::parameter0_t                                 const param0,
         typename Context::parameter1_t                                 const param1,
-        typename Context::twiddles     const * BOOST_DISPATCH_RESTRICT       p_w,
+        typename Context::twiddles     const * BOOST_DISPATCH_RESTRICT       p_w_param,
         unsigned int                                                   const N
     )
     {
-        boost::simd::memory::prefetch_temporary( p_w );
+        boost::simd::memory::prefetch_temporary( p_w_param );
+
+    #ifdef NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
+         typename Context::twiddles const * BOOST_DISPATCH_RESTRICT                    p_w( p_w_param );
+    #else
+        boost::simd::details::extra_pointer_register<typename Context::twiddles const> p_w( p_w_param );
+    #endif // NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
 
         Context context( param0, param1, N );
 
-        unsigned counter( N / 4 / Context::vector_t::static_size );
-        while ( counter )
+        do
         {
-            Decimation::butterfly
+            Decimation:: template butterfly<typename Context::vector_t>
             (
-                context.r( 0 ), context.i( 0 ),
-                context.r( 1 ), context.i( 1 ),
-                context.r( 2 ), context.i( 2 ),
-                context.r( 3 ), context.i( 3 ),
+                context. template r<0>(), context. template i<0>(),
+                context. template r<1>(), context. template i<1>(),
+                context. template r<2>(), context. template i<2>(),
+                context. template r<3>(), context. template i<3>(),
                 *p_w++
             );
             boost::simd::memory::prefetch_temporary( p_w );
             ++context;
-            --counter;
-        }
+        } while ( context.remaining_iterations() );
     }
 
 
@@ -1923,15 +2115,19 @@ namespace detail
         typedef typename Vector::value_type scalar_t;
 
     #if !defined( BOOST_SIMD_DETECTED )
+        scalar_t * BOOST_DISPATCH_RESTRICT const p_lower_real( lower_real.data() );
+        scalar_t * BOOST_DISPATCH_RESTRICT const p_lower_imag( lower_imag.data() );
+        scalar_t * BOOST_DISPATCH_RESTRICT const p_upper_real( upper_real.data() );
+        scalar_t * BOOST_DISPATCH_RESTRICT const p_upper_imag( upper_imag.data() );
 
-        scalar_t const r0( lower_real[ 0 ] ); scalar_t const i0( lower_imag[ 0 ] );
-        scalar_t const r1( lower_real[ 1 ] ); scalar_t const i1( lower_imag[ 1 ] );
-        scalar_t const r2( lower_real[ 2 ] ); scalar_t const i2( lower_imag[ 2 ] );
-        scalar_t const r3( lower_real[ 3 ] ); scalar_t const i3( lower_imag[ 3 ] );
-        scalar_t       r4( upper_real[ 0 ] ); scalar_t       i4( upper_imag[ 0 ] );
-        scalar_t       r5( upper_real[ 1 ] ); scalar_t       i5( upper_imag[ 1 ] );
-        scalar_t       r6( upper_real[ 2 ] ); scalar_t       i6( upper_imag[ 2 ] );
-        scalar_t       r7( upper_real[ 3 ] ); scalar_t       i7( upper_imag[ 3 ] );
+        scalar_t const r0( p_lower_real[ 0 ] ); scalar_t const i0( p_lower_imag[ 0 ] );
+        scalar_t const r1( p_lower_real[ 1 ] ); scalar_t const i1( p_lower_imag[ 1 ] );
+        scalar_t const r2( p_lower_real[ 2 ] ); scalar_t const i2( p_lower_imag[ 2 ] );
+        scalar_t const r3( p_lower_real[ 3 ] ); scalar_t const i3( p_lower_imag[ 3 ] );
+        scalar_t       r4( p_upper_real[ 0 ] ); scalar_t       i4( p_upper_imag[ 0 ] );
+        scalar_t       r5( p_upper_real[ 1 ] ); scalar_t       i5( p_upper_imag[ 1 ] );
+        scalar_t       r6( p_upper_real[ 2 ] ); scalar_t       i6( p_upper_imag[ 2 ] );
+        scalar_t       r7( p_upper_real[ 3 ] ); scalar_t       i7( p_upper_imag[ 3 ] );
 
         // Butterflies:
 
@@ -2002,10 +2198,10 @@ namespace detail
         }
 
         // store the upper results:
-        upper_real[ 0 ] = r4; upper_imag[ 0 ] = i4;
-        upper_real[ 1 ] = r5; upper_imag[ 1 ] = i5;
-        upper_real[ 2 ] = r6; upper_imag[ 2 ] = i6;
-        upper_real[ 3 ] = r7; upper_imag[ 3 ] = i7;
+        p_upper_real[ 0 ] = r4; p_upper_imag[ 0 ] = i4;
+        p_upper_real[ 1 ] = r5; p_upper_imag[ 1 ] = i5;
+        p_upper_real[ 2 ] = r6; p_upper_imag[ 2 ] = i6;
+        p_upper_real[ 3 ] = r7; p_upper_imag[ 3 ] = i7;
 
     #else // BOOST_SIMD_DETECTED
 
@@ -2221,6 +2417,7 @@ namespace detail
             vector_t * BOOST_DISPATCH_RESTRICT const p_r2( &p_reals[ 2 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i2( &p_imags[ 2 ] );
             vector_t * BOOST_DISPATCH_RESTRICT const p_r3( &p_reals[ 3 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i3( &p_imags[ 3 ] );
 
+        #ifdef BOOST_SIMD_DETECTED
             //...zzz...manually inlined for testing ("in search of optimal register allocation")...
             //Decimation::butterfly
             //(
@@ -2273,6 +2470,34 @@ namespace detail
                 *p_r3, *p_i3,
                 *p_r3, *p_i3
             );
+        #else
+            Decimation::butterfly
+            (
+                *p_r0, *p_i0,
+                *p_r1, *p_i1,
+                *p_r2, *p_i2,
+                *p_r3, *p_i3,
+                *p_w
+            );
+
+            Decimation::dft_8_in_place
+            (
+                *p_r0, *p_i0,
+                *p_r1, *p_i1
+            );
+
+            Decimation::dft_4
+            (
+                *p_r2, *p_i2,
+                *p_r2, *p_i2
+            );
+
+            Decimation::dft_4
+            (
+                *p_r3, *p_i3,
+                *p_r3, *p_i3
+            );
+        #endif // BOOST_SIMD_DETECTED
         }
     };
 
