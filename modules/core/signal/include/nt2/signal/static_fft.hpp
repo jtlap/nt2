@@ -943,9 +943,9 @@ namespace detail
         template <unsigned int part> typename pointer_type<1 * 4 + part>::type const & i_prefetched_element() const { return prefetched_element<1 * 4 + part>(); }
 
     private:
-        vector_t                                               * BOOST_DISPATCH_RESTRICT gp_pointers_   [ gp_registers_to_use                  ];
-        boost::simd::details::extra_pointer_register<vector_t>                           extra_pointers_[ total_pointers - gp_registers_to_use ];
-        boost::simd::details::extra_integer_register                                     counter_;
+        vector_t           * BOOST_DISPATCH_RESTRICT gp_pointers_   [ gp_registers_to_use                  ];
+        extra_vector_ptr_t                           extra_pointers_[ total_pointers - gp_registers_to_use ];
+        boost::simd::details::extra_integer_register counter_;
 #endif // NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
     }; // inplace_separated_context_t
 
