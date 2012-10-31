@@ -120,7 +120,32 @@ namespace details
 #ifdef BOOST_SIMD_HAS_SSE_SUPPORT
     template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 0, 1>( __m128 const lower, __m128 const upper ) { return _mm_movelh_ps( lower, upper ); }
     template <> BOOST_FORCEINLINE __m128 shuffle<2, 3, 2, 3>( __m128 const lower, __m128 const upper ) { return _mm_movehl_ps( upper, lower ); }
+
+    template <> BOOST_FORCEINLINE __m128 shuffle<0, 0, 1, 1>( __m128 const single_vector ) { return _mm_unpacklo_ps( single_vector, single_vector ); }
+    template <> BOOST_FORCEINLINE __m128 shuffle<2, 2, 3, 3>( __m128 const single_vector ) { return _mm_unpackhi_ps( single_vector, single_vector ); }
+    
+    #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+        template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 2, 3>( __m128 const lower, __m128 const upper )
+        {
+            return _mm_castpd_ps( _mm_move_sd( _mm_castps_pd( upper ), _mm_castps_pd( lower ) ) );
+        }
+    #endif // BOOST_SIMD_HAS_SSE2_SUPPORT
+
+    #ifdef BOOST_SIMD_HAS_SSE3_SUPPORT
+        template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 0, 1>( __m128 const single_vector )
+        {
+            return _mm_castpd_ps( _mm_movedup_pd( _mm_castps_pd( single_vector ) ) );
+        }
+
+        template <> BOOST_FORCEINLINE __m128 shuffle<0, 0, 2, 2>( __m128 const single_vector ) { return _mm_moveldup_ps( single_vector ); }
+        template <> BOOST_FORCEINLINE __m128 shuffle<1, 1, 3, 3>( __m128 const single_vector ) { return _mm_movehdup_ps( single_vector ); }
+    #endif // BOOST_SIMD_HAS_SSE3_SUPPORT
+
     //...zzz...to be continued...
+    //_mm_insert_*
+    //_mm_move_ss
+    //_mm_unpackhi_*
+    //_mm_unpacklo_*
 #else
     template
     <
@@ -158,6 +183,8 @@ namespace details
         #pragma warning( push )
         #pragma warning( disable : 4799 ) // Function has no EMMS instruction.
     #endif // _MSC_VER
+
+    #define BOOST_SIMD_HAS_EXTRA_GP_REGISTERS
 
     struct extra_integer_register
     {
@@ -893,7 +920,12 @@ namespace detail
         static unsigned int const total_pointers      = 8;
         static unsigned int const total_counters      = 1;
         static unsigned int const total_registers     = total_pointers + total_counters;
+    #ifdef BOOST_SIMD_HAS_EXTRA_GP_REGISTERS
         static unsigned int const gp_registers_to_use = 6; // <- ...zzz...MSVC10 heuristics...
+    #else
+        static unsigned int const gp_registers_to_use = total_pointers;
+    #endif // BOOST_SIMD_HAS_EXTRA_GP_REGISTERS
+
         /// \note In case an "extra" register is used for the counter (which
         /// presumably does not support a decrement instruction) we scale it so
         /// that the same constant is used to decrement it as it is used to
@@ -916,7 +948,9 @@ namespace detail
 
     private:
         template <unsigned int PointerIndex> vector_t           * BOOST_DISPATCH_RESTRICT & pointer_aux( vector_t           * BOOST_DISPATCH_RESTRICT const * ) { BOOST_STATIC_ASSERT( ( PointerIndex                       ) < ( sizeof( gp_pointers_    ) / sizeof( *gp_pointers_    ) ) ); return gp_pointers_   [ PointerIndex                       ]; }
+    #ifdef BOOST_SIMD_HAS_EXTRA_GP_REGISTERS
         template <unsigned int PointerIndex> extra_vector_ptr_t                           & pointer_aux( extra_vector_ptr_t                           const * ) { BOOST_STATIC_ASSERT( ( PointerIndex - gp_registers_to_use ) < ( sizeof( extra_pointers_ ) / sizeof( *extra_pointers_ ) ) ); return extra_pointers_[ PointerIndex - gp_registers_to_use ]; }
+    #endif // BOOST_SIMD_HAS_EXTRA_GP_REGISTERS
 
         template <unsigned int PointerIndex>
         typename pointer_type<PointerIndex>::type & pointer()
@@ -1754,9 +1788,9 @@ namespace detail
         boost::simd::memory::prefetch_temporary( p_w_param );
 
     #ifdef NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
-         typename Context::twiddles const * BOOST_DISPATCH_RESTRICT                    p_w( p_w_param );
+        typename Context::twiddles const * BOOST_DISPATCH_RESTRICT                                         p_w( p_w_param );
     #else
-        boost::simd::details::extra_pointer_register<typename Context::twiddles const> p_w( p_w_param );
+        typename boost::simd::details::make_extra_pointer_register<typename Context::twiddles const>::type p_w( p_w_param );
     #endif // NT2_FFT_USE_INDEXED_BUTTERFLY_LOOP
 
         Context context( param0, param1, N );
@@ -2072,7 +2106,6 @@ namespace detail
           //r1 = r1pr3; i1 = i1pi3;
             r0 = r0pr2 + r1pr3; i0 = i0pi2 + i1pi3;
             r1 = r0pr2 - r1pr3; i1 = i0pi2 - i1pi3;
-
             r2 = r0mr2 - r1mr3; i2 = i0mi2 - i1mi3;
             r3 = r0mr2 + r1mr3; i3 = i0mi2 + i1mi3;
         }
@@ -2086,18 +2119,25 @@ namespace detail
 
     #else // BOOST_SIMD_DETECTED
 
+        using boost::simd::details::shuffle;
+
         vector_t const real( real_in ); vector_t const imag( imag_in );
-        vector_t const r0101( boost::simd::repeat_lower_half( real ) ); vector_t const i0101( boost::simd::repeat_lower_half( imag ) );
-        vector_t const r2323( boost::simd::repeat_upper_half( real ) ); vector_t const i2323( boost::simd::repeat_upper_half( imag ) );
 
-        vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper( sign_flipper<vector_t, false, false, true, true>() );
-        vector_t const r_combined( r0101 + ( r2323 ^ *p_negate_upper ) ); vector_t const i_combined( i0101 + ( i2323 ^ *p_negate_upper ) );
+        vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_upper ( sign_flipper<vector_t, false, false, true, true >() );
+        vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_middle( sign_flipper<vector_t, false, true , true, false>() );
 
-        vector_t const r_left ( boost::simd::details::shuffle<idx0, idx0, idx2, idx2>( r_combined             ) ); vector_t const i_left ( boost::simd::details::shuffle<idx0, idx0, idx2, idx2>( i_combined             ) );
-        vector_t const r_right( boost::simd::details::shuffle<idx1, idx1, idx3, idx3>( r_combined, i_combined ) ); vector_t const i_right( boost::simd::details::shuffle<idx1, idx1, idx3, idx3>( i_combined, r_combined ) );
+        vector_t const r01i01( shuffle<idx0, idx1, idx0, idx1>( real, imag ) );
+        vector_t const r23i23( shuffle<idx2, idx3, idx2, idx3>( real, imag ) );
 
-        real_out = r_left + ( r_right ^ *sign_flipper<vector_t, false, true, false, true >()/*negate_13*/ );
-        imag_out = i_left + ( i_right ^ *sign_flipper<vector_t, false, true, true , false>()/*negate_12*/ );
+        vector_t const ri_plus ( r01i01 + r23i23 );
+        vector_t const ri_minus( r01i01 - r23i23 );
+
+        vector_t const r_left ( shuffle<idx0, idx0, idx0, idx0>( ri_plus, ri_minus ) ); vector_t const i_left ( shuffle<idx2, idx2, idx2, idx2>( ri_plus, ri_minus ) );
+        vector_t       r_right( shuffle<idx1, idx1, idx3, idx3>( ri_plus, ri_minus ) ); vector_t const i_right( shuffle<idx3, idx3, idx1, idx1>( ri_plus, ri_minus ) );
+        r_right ^= *p_negate_upper;
+
+        real_out = r_left + ( r_right ^ *p_negate_middle );
+        imag_out = i_left + ( i_right ^ *p_negate_middle );
 
     #endif // BOOST_SIMD_DETECTED
     }
@@ -2205,20 +2245,20 @@ namespace detail
 
     #else // BOOST_SIMD_DETECTED
 
-        vector_t const lower_r_in( lower_real );
-        vector_t const lower_i_in( lower_imag );
-        vector_t const upper_r_in( upper_real );
-        vector_t const upper_i_in( upper_imag );
-
-        vector_t upper_r; vector_t upper_i;
-
         using boost::simd::make;
         using boost::simd::repeat_lower_half;
         using boost::simd::repeat_upper_half;
         using boost::simd::details::shuffle;
 
+        vector_t upper_r; vector_t upper_i;
+
         // butterfly:
         {
+            vector_t const lower_r_in( lower_real );
+            vector_t const lower_i_in( lower_imag );
+            vector_t const upper_r_in( upper_real );
+            vector_t const upper_i_in( upper_imag );
+
             vector_t const lower_p_upper_r( lower_r_in + upper_r_in ); vector_t const lower_p_upper_i(  lower_i_in + upper_i_in );
             vector_t       lower_m_upper_r( lower_r_in - upper_r_in ); vector_t       lower_m_upper_i(  lower_i_in - upper_i_in );
 
@@ -2232,23 +2272,27 @@ namespace detail
                 //    lower_p_upper_r, lower_p_upper_i,
                 //    lower_real     , lower_imag
                 //);
-                vector_t const r0101( repeat_lower_half( lower_p_upper_r ) ); vector_t const i0101( repeat_lower_half( lower_p_upper_i ) );
-                vector_t const r2323( repeat_upper_half( lower_p_upper_r ) ); vector_t const i2323( repeat_upper_half( lower_p_upper_i ) );
 
-                vector_t const r_combined( r0101 + ( r2323 ^ *p_negate_upper ) ); vector_t const i_combined( i0101 + ( i2323 ^ *p_negate_upper ) );
+                vector_t const r01i01( shuffle<0, 1, 0, 1>( lower_p_upper_r, lower_p_upper_i ) );
+                vector_t const r23i23( shuffle<2, 3, 2, 3>( lower_p_upper_r, lower_p_upper_i ) );
 
-                vector_t const r_left ( shuffle<0, 0, 2, 2>( r_combined             ) ); vector_t const i_left ( shuffle<0, 0, 2, 2>( i_combined             ) );
-                vector_t const r_right( shuffle<1, 1, 3, 3>( r_combined, i_combined ) ); vector_t const i_right( shuffle<1, 1, 3, 3>( i_combined, r_combined ) );
+                vector_t const ri_plus ( r01i01 + r23i23 );
+                vector_t const ri_minus( r01i01 - r23i23 );
 
-                lower_real = r_left + ( r_right ^ *sign_flipper<vector_t, false, true, false, true >()/*negate_13*/ );
-                lower_imag = i_left + ( i_right ^ *sign_flipper<vector_t, false, true, true , false>()/*negate_12*/ );
+                vector_t const r_left ( shuffle<0, 0, 0, 0>( ri_plus, ri_minus ) ); vector_t const i_left ( shuffle<2, 2, 2, 2>( ri_plus, ri_minus ) );
+                vector_t       r_right( shuffle<1, 1, 3, 3>( ri_plus, ri_minus ) ); vector_t const i_right( shuffle<3, 3, 1, 1>( ri_plus, ri_minus ) );
+                r_right ^= *p_negate_upper;
+
+                vector_t const * BOOST_DISPATCH_RESTRICT const p_negate_middle( sign_flipper<vector_t, false, true, true , false>() );
+                lower_real = r_left + ( r_right ^ *p_negate_middle );
+                lower_imag = i_left + ( i_right ^ *p_negate_middle );
             }
 
             {
                 // multiplication by i:
                 vector_t const lower_m_upper_r_copy( lower_m_upper_r );
-                lower_m_upper_r = shuffle<0, 1, 2 ,3>( lower_m_upper_r, lower_m_upper_i      );
-                lower_m_upper_i = shuffle<0, 1, 2 ,3>( lower_m_upper_i, lower_m_upper_r_copy );
+                lower_m_upper_r = shuffle<0, 1, 2, 3>( lower_m_upper_r, lower_m_upper_i      );
+                lower_m_upper_i = shuffle<0, 1, 2, 3>( lower_m_upper_i, lower_m_upper_r_copy );
                 lower_m_upper_r ^= *p_negate_upper;
             }
 
@@ -2408,6 +2452,10 @@ namespace detail
 
             split_radix_twiddles<vector_t> const * BOOST_DISPATCH_RESTRICT const p_w( Context:: template twiddle_factors<N>() );
             boost::simd::memory::prefetch_temporary( p_w );
+        #ifdef _MSC_VER
+            _ReadWriteBarrier();
+        #endif // _MSC_VER
+
 
             //...zzz...uses internal knowledge about the parameter0 and
             //...zzz...parameter1 of the used Context...
@@ -2417,16 +2465,7 @@ namespace detail
             vector_t * BOOST_DISPATCH_RESTRICT const p_r2( &p_reals[ 2 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i2( &p_imags[ 2 ] );
             vector_t * BOOST_DISPATCH_RESTRICT const p_r3( &p_reals[ 3 ] ); vector_t * BOOST_DISPATCH_RESTRICT const p_i3( &p_imags[ 3 ] );
 
-        #ifdef BOOST_SIMD_DETECTED
-            //...zzz...manually inlined for testing ("in search of optimal register allocation")...
-            //Decimation::butterfly
-            //(
-            //    *p_r0, *p_i0,
-            //    *p_r1, *p_i1,
-            //    *p_r2, *p_i2,
-            //    *p_r3, *p_i3,
-            //    *p_w
-            //);
+        #ifdef BOOST_SIMD_DETECTED //...zzz...manually inlined for testing ("in search of optimal register allocation")...
 
             vector_t const t0p2_r( *p_r0 + *p_r2 );
             vector_t const t0m2_r( *p_r0 - *p_r2 );
@@ -2470,7 +2509,9 @@ namespace detail
                 *p_r3, *p_i3,
                 *p_r3, *p_i3
             );
+
         #else
+
             Decimation::butterfly
             (
                 *p_r0, *p_i0,
@@ -2497,6 +2538,7 @@ namespace detail
                 *p_r3, *p_i3,
                 *p_r3, *p_i3
             );
+
         #endif // BOOST_SIMD_DETECTED
         }
     };
