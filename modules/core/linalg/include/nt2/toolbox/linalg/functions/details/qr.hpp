@@ -66,7 +66,7 @@
 #include <nt2/toolbox/linalg/details/lapack/gqr.hpp>
 #include <nt2/toolbox/linalg/details/lapack/mqr.hpp>
 #include <nt2/toolbox/linalg/details/lapack/trtrs.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 {
   struct no_p {};
@@ -150,16 +150,27 @@ namespace nt2 {
         if (isempty(q_))
         {
           nt2_la_int info;
-          nt2_la_int nn = (nop_ == 'N')? k_ : m_;
-          q_ = nt2::expand(aa_, nn, nn);
-          nt2::details::gqr(&m_, &nn, &k_, q_.raw(), &lda_, tau_.raw(), &info);
+          if (nop_ == 'N')
+          {
+            nt2_la_int nn = nt2::min(k_, n_);
+            q_ = expand(aa_, of_size(m_, nn));
+            nt2::details::gqr(&m_, &nn, &k_, q_.raw(), &lda_, tau_.raw(), &info);
+          }
+          else
+          {
+            q_ = expand(aa_, of_size(m_, m_));
+            nt2::details::gqr(&m_, &m_, &k_, q_.raw(), &lda_, tau_.raw(), &info);           
+          }
         }
         return q_;
       }
-      typedef typename meta::call < tag::triu_(tab_t)>::type  r_result;
+      typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type T0; 
+      typedef typename meta::call < tag::function_(tab_t, T0, nt2::container::colon_)>::type T1; 
+      typedef typename meta::call < tag::triu_(T1)>::type  r_result;
       r_result r()const
       {
-        return triu(aa_);
+        int32_t nn = (nop_ == 'N')? k_ : m_; 
+        return triu(aa_(_(1, nn), nt2::_));
       }
       const tab_t& p()
       {
@@ -221,6 +232,13 @@ namespace nt2 {
         inplace_solve(bb, epsi, transpose);
         return bb;
       }
+      
+      template<class XPR, class OUT> void solve(const XPR & b, OUT& x, base_t epsi = nt2::Eps<base_t>(),
+                                            bool transpose = false)const
+      {
+        x = b;
+        inplace_solve(x, epsi, transpose);
+      }
 
       template < class XPR > void inplace_solve(XPR & b, base_t epsi = nt2::Eps<base_t>(),
                                                 bool transpose = false) const
@@ -235,19 +253,24 @@ namespace nt2 {
         char uplo =  'U', d = 'N';
         char tr1 = (transpose) ?  (!is_real(type_t(1))? 'C':'T') : 'N';
         nt2_la_int rk = rank(epsi);
-         nt2::details::trtrs(&uplo, &tr1, &d, &rk, &nrhs, aa_.raw(), &lda_, b.raw(), &ldb, &info);
-         if (!nop_) b = permute(b);
+        nt2::details::trtrs(&uplo, &tr1, &d, &rk, &nrhs, aa_.raw(), &lda_, b.raw(), &ldb, &info);
+        if (!nop_) b = permute(b);
+        if (N == 1)
+          b.resize(of_size(n_, 1));
+        else if(M != n_)
+          b = expand(b, of_size(n_, N));
       }
 
     private :
 
-      inline tab_t permute(const tab_t& bb) const {
+      inline tab_t permute(const tab_t& bb) const
+      {
         tab_t res(nt2::of_size(nt2::numel(jpvt_), nt2::size(bb, 2)));
         const size_t m =  nt2::min(size(bb, 1), numel(jpvt_));
         for(size_t i=1; i <= m; ++i)
-          {
-            res(jpvt_(i), _) = bb(i, _);
-          }
+        {
+          res(jpvt_(i), _) = bb(i, _);
+        }
         //      res(jpvt_(_(1, m)), _) = bb; //TODO
         return res;
       }
