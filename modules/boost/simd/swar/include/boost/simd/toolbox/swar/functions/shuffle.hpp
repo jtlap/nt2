@@ -83,9 +83,6 @@ shuffle(A0 const& a0)                                                          \
                     >()                                                        \
                );                                                              \
 }                                                                              \
-/**/
-
-#define M02(z,n,arg)                                                           \
 template<BOOST_PP_ENUM_PARAMS(n, int I),class A0, class A1>                    \
 BOOST_FORCEINLINE                                                              \
 typename boost::dispatch::meta                                                 \
@@ -121,9 +118,7 @@ shuffle(A0 const& a0, A1 const& a1)                                            \
 /**/
 
   BOOST_SIMD_PP_REPEAT_POWER_OF_2(M01,~)
-  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M02,~)
   #undef M01
-  #undef M02
 } }
 
 #endif

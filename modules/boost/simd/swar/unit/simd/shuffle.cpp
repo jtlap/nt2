@@ -1,11 +1,11 @@
-//////////////////////////////////////////////////////////////////////////////
-///   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
-///   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
-///
-///          Distributed under the Boost Software License, Version 1.0
-///                 See accompanying file LICENSE.txt or copy at
-///                     http://www.boost.org/LICENSE_1_0.txt
-//////////////////////////////////////////////////////////////////////////////
+//==============================================================================
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
+//==============================================================================
 #define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - shuffle/simd Mode"
 
 #include <boost/simd/toolbox/swar/include/functions/shuffle.hpp>
@@ -15,7 +15,8 @@
 #include <boost/simd/sdk/simd/meta/vector_of.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <iostream>
+
+#include "roll_test.hpp"
 
 struct identity_
 {
@@ -296,21 +297,19 @@ NT2_TEST_CASE_TPL( shuffle_index16, BOOST_SIMD_SIMD_TYPES)
   NT2_TEST_EQUAL(bcasted,reference);
 }
 
-NT2_TEST_CASE_TPL( shuffle_index2_2arg, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL( shuffle_index2_2arg, (double)(boost::simd::int64_t))
 {
-  using boost::simd::shuffle;
   using boost::simd::native;
   using boost::simd::meta::vector_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename vector_of<T,2>::type    vT;
 
-  vT origin1, origin2, reference, res;
+  vT origin1, origin2;
   for(std::size_t i=0; i < vT::static_size;++i)
-  { origin1[i] = T(65+i); origin2[i] = T(i); }
-  reference[0] = origin1[0]; reference[1] = origin2[1]; 
-  res = shuffle<0,3>(origin1, origin2);
-  NT2_TEST_EQUAL(res,reference);
-  reference[0] = 0; reference[1] = origin2[1]; 
-  res = shuffle<-1,3>(origin1, origin2);
-  NT2_TEST_EQUAL(res,reference);
+  { 
+    origin1[i] = T(65+i); 
+    origin2[i] = T(i); 
+  }
+
+  //roll_test_2<vT,-1,-1>::call(origin1,origin2);
 }

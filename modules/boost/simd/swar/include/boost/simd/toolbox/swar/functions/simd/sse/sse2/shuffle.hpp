@@ -13,13 +13,13 @@
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-
+#include <iostream>
 namespace boost { namespace simd
 {
   namespace ext
   {
     BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
-                                      , boost::simd::tag::sse_
+                                      , boost::simd::tag::sse2_
                                       , (A0)(P)
                                       , ((simd_ < type64_<A0>
                                                 , boost::simd::tag::sse_
@@ -114,7 +114,7 @@ namespace boost { namespace simd
     };
 
    BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
-                                      , boost::simd::tag::sse_
+                                      , boost::simd::tag::sse2_
                                       , (A0)(P)
                                       , ((simd_ < type32_<A0>
                                                 , boost::simd::tag::sse_
@@ -152,6 +152,208 @@ namespace boost { namespace simd
                                           >::type               i3_t;
 
         return eval(a0,sel<i0_t::value,i1_t::value,i2_t::value,i3_t::value>());
+      }
+
+      BOOST_FORCEINLINE result_type eval(A0 const& a0, sel<0,1,2,3> const&) const
+      {
+        return a0;
+      }
+
+      BOOST_FORCEINLINE result_type eval(A0 const&, sel<-1,-1,-1,-1> const&) const
+      {
+        return Zero<result_type>();
+      }
+
+      template<int I0,int I1,int I2,int I3> BOOST_FORCEINLINE
+      result_type eval(A0 const& a0, sel<I0,I1,I2,I3,false> const&) const
+      {
+        return details::shuffle<I0&3, I1&3, I2&3, I3&3>(a0);
+      }
+
+      template<int I0,int I1,int I2,int I3> BOOST_FORCEINLINE
+      result_type eval(A0 const& a0, sel<I0,I1,I2,I3,true> const&) const
+      {
+        typedef typename dispatch::meta::as_integer<A0,unsigned>::type i_t;
+
+        // Mask the shuffled equivalent
+        return  simd::bitwise_and
+                ( eval( a0, sel<I0<0?0:I0,I1<0?1:I1,I2<0?2:I2,I3<0?3:I3>() )
+                , simd::make<i_t> ( -int(I0>=0), -int(I1>=0)
+                                  , -int(I2>=0), -int(I3>=0)
+                                  )
+                );
+      }
+
+      template<int I0,int I1> BOOST_FORCEINLINE
+      result_type eval(A0 const& a0, sel<I0,I1,-1,-1,true> const&) const
+      {
+        return details::shuffle<(I0&3), (I1&3),2,3>(a0,Zero<result_type>());
+      }
+
+      template<int I2,int I3> BOOST_FORCEINLINE
+      result_type eval(A0 const& a0, sel<-1,-1,I2,I3,true> const&) const
+      {
+        return details::shuffle<0, 1, (I2&3), (I3&3)>(Zero<result_type>(), a0);
+      }
+    };
+
+    BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+                                      , boost::simd::tag::sse2_
+                                      , (A0)(P)
+                                      , ((simd_ < type64_<A0>
+                                                , boost::simd::tag::sse_
+                                                >
+                                        ))
+                                        ((simd_ < type64_<A0>
+                                                , boost::simd::tag::sse_
+                                                >
+                                        ))
+                                        (target_< unspecified_<P> >)
+                                      )
+    {
+      typedef A0                              result_type;
+      typedef typename P::type                permutation_t;
+
+      template< int  A
+              , int  B
+              , bool InfAB = A<2&&B<2
+              , bool SupAB = (A>=2||A==-1)&&(B>=2||B==-1)
+              > struct sel {};
+
+      BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1, P const&) const
+      {
+        typedef typename boost::mpl::apply< permutation_t
+                                          , boost::mpl::int_<0>
+                                          , boost::mpl::int_<2>
+                                          >::type               i0_t;
+        typedef typename boost::mpl::apply< permutation_t
+                                          , boost::mpl::int_<1>
+                                          , boost::mpl::int_<2>
+                                          >::type               i1_t;
+
+        return eval(a0,a1,sel<i0_t::value,i1_t::value>());
+      }
+
+      BOOST_FORCEINLINE result_type eval( A0 const&, A0 const&
+                                        , sel<-1,-1> const&) const
+      {
+        return Zero<result_type>();
+      }
+
+      template<int A, int B>
+      BOOST_FORCEINLINE result_type eval( A0 const& a, A0 const&
+                                        , sel<A,B,true,false> const&) const
+      {
+        return shuffle<A,B>(a);
+      }
+
+      template<int A, int B>
+      BOOST_FORCEINLINE result_type eval( A0 const&, A0 const& b
+                                        , sel<A,B,false,true> const&) const
+      {
+        return shuffle<(A==-1)?A:(A-2),(B==-1)?B:(B-2)>(b);
+      }
+
+      template<int A, int B>
+      BOOST_FORCEINLINE result_type eval( __m128d const a, __m128d const b
+                                        , sel<A,B,false,false> const&) const
+      {
+        return details::shuffle<(A>B?A-2:A),(A>B?B-2:B)>((A>B?b:a),(A>B?a:b));
+      } 
+
+      BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
+                                        , sel<0,2,false,false> const&) const
+      {
+        return _mm_unpacklo_epi64(a, b);
+      } 
+
+      BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
+                                        , sel<1,2,false,false> const&) const
+      {
+        return details::shuffle<2,3,0,1>(a,b);
+      }      
+
+      BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
+                                        , sel<0,3,false,false> const&) const
+      {
+        return details::shuffle<0,1,2,3>(a,b);
+      } 
+
+      BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
+                                        , sel<1,3,false,false> const&) const
+      {
+        return _mm_unpackhi_epi64(a, b);
+      }      
+
+      BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
+                                        , sel<2,0,false,false> const&) const
+      {
+        return _mm_unpacklo_epi64(b, a);
+      } 
+
+      BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
+                                        , sel<2,1,false,false> const&) const
+      {
+        return details::shuffle<0,1,2,3>(b,a);
+      }      
+
+      BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
+                                        , sel<3,0,false,false> const&) const
+      {
+        return details::shuffle<2,3,0,1>(b,a);
+      } 
+
+      BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
+                                        , sel<3,1,false,false> const&) const
+      {
+        return _mm_unpackhi_epi64(b, a);
+      }
+    };
+
+    BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+                                      , boost::simd::tag::sse2_
+                                      , (A0)(P)
+                                      , ((simd_ < type32_<A0>
+                                                , boost::simd::tag::sse_
+                                                >
+                                        ))
+                                        ((simd_ < type32_<A0>
+                                                , boost::simd::tag::sse_
+                                                >
+                                        ))
+                                        (target_< unspecified_<P> >)
+                                      )
+    {
+      typedef A0                              result_type;
+      typedef typename P::type                permutation_t;
+
+      template< int I0,int I1,int I2,int I3
+              , bool Some0 = (I0==-1) || (I1==-1) || (I2==-1) || (I3==-1)
+              >
+      struct sel
+      {};
+
+      BOOST_FORCEINLINE result_type 
+      operator()(A0 const& a0, A0 const& a1, P const&) const
+      {
+        typedef typename boost::mpl::apply< permutation_t
+                                          , boost::mpl::int_<0>
+                                          , boost::mpl::int_<4>
+                                          >::type               i0_t;
+        typedef typename boost::mpl::apply< permutation_t
+                                          , boost::mpl::int_<1>
+                                          , boost::mpl::int_<4>
+                                          >::type               i1_t;
+        typedef typename boost::mpl::apply< permutation_t
+                                          , boost::mpl::int_<2>
+                                          , boost::mpl::int_<4>
+                                          >::type               i2_t;
+        typedef typename boost::mpl::apply< permutation_t
+                                          , boost::mpl::int_<3>
+                                          , boost::mpl::int_<4>
+                                          >::type               i3_t;
+
+        return eval(a0,a1,sel<i0_t::value,i1_t::value,i2_t::value,i3_t::value>());
       }
 
       BOOST_FORCEINLINE result_type eval(A0 const& a0, sel<0,1,2,3> const&) const
