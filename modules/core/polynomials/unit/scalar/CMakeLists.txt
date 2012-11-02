@@ -10,6 +10,10 @@
 SET( SOURCES
   plevl.cpp
   polevl.cpp
+  polyval.cpp
+  polyfit.cpp
+#  polyder.cpp
+  conv.cpp
   tchebeval.cpp
   legendre.cpp
   hermite.cpp
