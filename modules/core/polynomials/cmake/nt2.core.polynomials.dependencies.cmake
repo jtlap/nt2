@@ -9,5 +9,4 @@
 
 SET ( NT2_CORE.POLYNOMIALS_DEPENDENCIES_EXTRA core.arithmetic core.boolean
                                               core.constant   core.operator
-                                              core.linalg
     )
