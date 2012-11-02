@@ -15,8 +15,11 @@
 #include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/functions/simd/is_negative.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
+#include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/constants/mone.hpp>
 #include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
 #include <boost/simd/include/functions/simd/genmask.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -53,7 +56,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return if_else(is_nan(a0), a0, select(is_negative(a0), Mone<A0>(), One<A0>()));
+      //     return if_else(is_nan(a0), a0, select(is_negative(a0), Mone<A0>(), One<A0>()));
+      return if_else(is_nan(a0), a0, b_or(One<A0>(), b_and(Signmask<A0>(), a0))); 
     }
   };
 } } }
