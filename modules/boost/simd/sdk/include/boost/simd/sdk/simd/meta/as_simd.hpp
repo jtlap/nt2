@@ -11,6 +11,7 @@
 
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 #include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
+#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/dispatch/meta/na.hpp>
 #include <boost/type_traits/is_fundamental.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -33,11 +34,7 @@ namespace boost { namespace simd { namespace meta
   template<std::size_t N, class T>
   struct as_simd<T, tag::simd_emulation_<N>, typename enable_if< is_fundamental<T> >::type>
   {
-  #ifdef __GNUC__
-    typedef T type __attribute__((__vector_size__(N)));
-  #else
     typedef boost::simd::memory::aligned_array<T, N / sizeof(T), boost::simd::memory::max_alignment<N>::value> type;
-  #endif
   };
 
   template<std::size_t N, class T>
@@ -45,6 +42,18 @@ namespace boost { namespace simd { namespace meta
        : as_simd<T, tag::simd_emulation_<N> >
   {
   };
+
+  #define M0(z,n,t)                                                                                \
+  template<class T>                                                                                \
+  struct as_simd<T, tag::simd_emulation_<n>, typename enable_if< is_fundamental<T> >::type>        \
+  {                                                                                                \
+    typedef T type __attribute__((__vector_size__(n)));                                            \
+  };                                                                                               \
+  /**/
+#ifdef __GNUC__
+  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M0, ~)
+#endif
+  #undef M0
 
 } } }
 
