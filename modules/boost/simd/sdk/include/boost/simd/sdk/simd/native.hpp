@@ -17,6 +17,7 @@
 #include <boost/simd/sdk/simd/details/native/meta.hpp>
 #include <boost/simd/sdk/simd/details/operators.hpp>
 #include <boost/simd/sdk/memory/overload.hpp>
+#include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/fusion/adapted/boost_array.hpp>
 
 namespace boost { namespace simd
@@ -120,7 +121,15 @@ namespace boost { namespace simd
     reference       operator[](std::size_t i)       { return data()[i]; }
     const_reference operator[](std::size_t i) const { return data()[i]; }
 
-    native_type data_;
+#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ == 4 && __GNUC_MINOR__ == 6
+    // workaround for GCC bug #55184 affecting GCC 4.6
+    union
+    {
+#endif
+      native_type data_;
+#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ == 4 && __GNUC_MINOR__ == 6
+    };
+#endif
 
     BOOST_FORCEINLINE
     iterator data()
