@@ -18,7 +18,11 @@
 
     #define BOOST_SIMD_COMPILER_GCC_LIKE
     #define BOOST_SIMD_COMPILER BOOST_COMPILER
-    
+    #define BOOST_SIMD_GCC_VERSION ( __GNUC__            * 10000               \
+                                   + __GNUC_MINOR__      * 100                 \
+                                   + __GNUC_PATCHLEVEL__                       \
+                                   )
+
 
   #endif
 #endif

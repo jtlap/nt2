@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 const that = _mm256_div_pd(a0,a1);
-#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ <= 4 && __GNUC_MINOR__ <= 6 && __GNUC_PATCHLEVEL__ < 3
+#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION < 40603
       // workaround for GCC bug #50396 fixed in 4.6.3
       return if_nan_else(logical_and(is_eqz(a0), is_eqz(a1)), that);
 #else
@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       A0 const that = _mm256_div_ps(a0,a1);
-#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ <= 4 && __GNUC_MINOR__ <= 6 && __GNUC_PATCHLEVEL__ < 3
+#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION < 40603
       // workaround for GCC bug #50396 fixed in 4.6.3
       return if_nan_else(logical_and(is_eqz(a0), is_eqz(a1)), that);
 #else
