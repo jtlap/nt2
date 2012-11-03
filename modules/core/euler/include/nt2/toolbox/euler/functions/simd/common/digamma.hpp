@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
       }
   private:
     template <class A>
-      static inline A digamma_imp_1_2(A const& x, float)
+      static inline A digamma_imp_1_2(A const& a0, float)
       {
       //
       // Now the approximation, we use the form:
@@ -144,6 +144,7 @@ namespace nt2 { namespace ext
           sA(0.65341249856146947e0),
           sA(0.63851690523355715e-1)
         }};
+        A x = a0;
         A g = x - root;
         g -= root_minor;
         x-= One<A>();
@@ -153,7 +154,7 @@ namespace nt2 { namespace ext
       }
 
     template <class A>
-      static inline A digamma_imp_large(A const& x, float)
+      static inline A digamma_imp_large(A const& a0, float)
       {
       typedef typename meta::scalar_of<A>::type sA;
       // 9-digit precision for x >= 10:
@@ -162,6 +163,7 @@ namespace nt2 { namespace ext
           sA(-0.0083333333333333333333333333333333333333333333333333L),
           sA(0.003968253968253968253968253968253968253968253968254L)
         }};
+      A x = a0;
       x -= One<A>();
       A result = log(x);
       result += rec(Two<A>()*x);
@@ -170,7 +172,7 @@ namespace nt2 { namespace ext
       return result;
       }
     template <class A>
-      static inline A digamma_imp_1_2(A const& x, double)
+      static inline A digamma_imp_1_2(A const& a0, double)
       {
       //
       // Now the approximation, we use the form:
@@ -208,6 +210,7 @@ namespace nt2 { namespace ext
           sA(0.0021284987017821144L),
           sA(-0.55789841321675513e-6L)
         }};
+        A x = a0;
         A g = x - root1;
         g -= root2;
         g -= root3;
@@ -218,7 +221,7 @@ namespace nt2 { namespace ext
       }
 
     template <class A>
-      static inline A digamma_imp_large(A const& x, double)
+      static inline A digamma_imp_large(A const& a0, double)
       {
       typedef typename meta::scalar_of<A>::type sA;
       // 9-digit precision for x >= 10:
@@ -232,6 +235,7 @@ namespace nt2 { namespace ext
           sA(0.083333333333333333333333333333333333333333333333333L),
           sA(-0.44325980392156862745098039215686274509803921568627L)
         }};
+        A x = a0;
         x -= One<A>();
         A result = log(x);
         result += rec(Two<A>()*x);
