@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
       return nt2::digamma(tofloat(a0));
     }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
@@ -61,10 +61,10 @@ namespace nt2 { namespace ext
                        ((simd_<floating_<A0>,X>))
                        )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-      typedef typename meta::as_logical<A0>::type bA0; 
+      typedef typename meta::as_logical<A0>::type bA0;
       typedef typename meta::scalar_of<A0>::type sA0;
       //
       // This handles reflection of negative arguments, and all our
@@ -80,7 +80,7 @@ namespace nt2 { namespace ext
           A0 remainder = x - floor(x);
             remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
             remainder = if_zero_else(is_eqz(remainder), Pi<A0>()/tanpi(remainder));
-            result = if_else_zero(test, remainder);   
+            result = if_else_zero(test, remainder);
       //          remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
       //          result = b_and(b_andnot(Pi<A0>()/tanpi(remainder),is_eqz(remainder)), test);
           // we are ready to increment result that was
@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
       }
   private:
     template <class A>
-      static inline A digamma_imp_1_2(A x, float)
+      static inline A digamma_imp_1_2(A const& x, float)
       {
       //
       // Now the approximation, we use the form:
@@ -128,11 +128,11 @@ namespace nt2 { namespace ext
       // Maximum Deviation Found:              3.388e-010
       // At float precision, max error found:  2.008725e-008
       //
-      typedef typename meta::scalar_of<A>::type sA; 
+      typedef typename meta::scalar_of<A>::type sA;
       static const A Y = splat<A>(0.99558162689208984);
       static const A root = splat<A>(1532632.0 / 1048576);
       static const A root_minor = splat<A>(double(0.3700660185912626595423257213284682051735604e-6L));
-      static const boost::array<sA, 4> P = {{    
+      static const boost::array<sA, 4> P = {{
           sA(0.25479851023250261e0),
           sA(-0.44981331915268368e0),
           sA(-0.43916936919946835e0),
@@ -143,19 +143,19 @@ namespace nt2 { namespace ext
           sA(0.15890202430554952e1),
           sA(0.65341249856146947e0),
           sA(0.63851690523355715e-1)
-        }}; 
+        }};
         A g = x - root;
         g -= root_minor;
-        x-= One<A>(); 
+        x-= One<A>();
         A r = eval_poly<4>(x, P)/eval_poly<4>(x, Q);
         A result = fma(g, Y, g * r);
         return result;
       }
-    
+
     template <class A>
-      static inline A digamma_imp_large(A x, float)
+      static inline A digamma_imp_large(A const& x, float)
       {
-      typedef typename meta::scalar_of<A>::type sA; 
+      typedef typename meta::scalar_of<A>::type sA;
       // 9-digit precision for x >= 10:
       static const  boost::array<sA, 3> P = {{
           sA(0.083333333333333333333333333333333333333333333333333L),
@@ -170,7 +170,7 @@ namespace nt2 { namespace ext
       return result;
       }
     template <class A>
-      static inline A digamma_imp_1_2(A x, double)
+      static inline A digamma_imp_1_2(A const& x, double)
       {
       //
       // Now the approximation, we use the form:
@@ -184,14 +184,14 @@ namespace nt2 { namespace ext
       // Maximum Deviation Found:              3.388e-010
       // At float precision, max error found:  2.008725e-008
       //
-      typedef typename meta::scalar_of<A>::type sA; 
+      typedef typename meta::scalar_of<A>::type sA;
       static const A Y = splat<A>(0.99558162689208984);
-      
+
       static const A root1 = splat<A>(1569415565.0 / 1073741824uL);
       static const A root2 = splat<A>((381566830.0 / 1073741824uL) / 1073741824uL);
       static const A root3 = splat<A>(double(0.9016312093258695918615325266959189453125e-19L));
-      
-      static const boost::array<sA, 6> P = {{    
+
+      static const boost::array<sA, 6> P = {{
           sA(0.25479851061131551L),
           sA(-0.32555031186804491L),
           sA(-0.65031853770896507L),
@@ -210,17 +210,17 @@ namespace nt2 { namespace ext
         }};
         A g = x - root1;
         g -= root2;
-        g -= root3; 
-        x-= One<A>(); 
+        g -= root3;
+        x-= One<A>();
         A r = eval_poly<6>(x, P)/eval_poly<7>(x, Q);
         A result = fma(g, Y, g * r);
         return result;
       }
-    
+
     template <class A>
-      static inline A digamma_imp_large(A x, double)
+      static inline A digamma_imp_large(A const& x, double)
       {
-      typedef typename meta::scalar_of<A>::type sA; 
+      typedef typename meta::scalar_of<A>::type sA;
       // 9-digit precision for x >= 10:
       static const  boost::array<sA, 8> P = {{
           sA(0.083333333333333333333333333333333333333333333333333L),
