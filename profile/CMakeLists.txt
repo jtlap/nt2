@@ -14,8 +14,9 @@ find_package(NT2 REQUIRED)
 include(${NT2_USE_FILE})
 include(nt2.template.profiler)
 
-set( SOURCES
-     scalar_functor.cpp
+set(  SOURCES
+      scalar_functor.cpp
+      minimal_table.cpp
    )
 
 foreach(src ${SOURCES})
