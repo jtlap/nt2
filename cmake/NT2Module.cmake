@@ -57,7 +57,12 @@ macro(nt2_module_source_setup module)
 
     # make dummy executable target with all sources for Visual Studio
     if(CMAKE_GENERATOR MATCHES "Visual Studio")
-      option(NT2_USE_FOLDERS "Whether to use folders for Visual Studio solution (professional version only)" "${CMAKE_USING_VC_FREE_TOOLS}")
+      if(CMAKE_USING_VC_FREE_TOOLS)
+        set(NT2_USE_FOLDERS_DEFAULT 0)
+      else()
+        set(NT2_USE_FOLDERS_DEFAULT 1)
+      endif()
+      option(NT2_USE_FOLDERS "Whether to use folders for Visual Studio solution (professional version only)" ${NT2_USE_FOLDERS_DEFAULT})
       set_property(GLOBAL PROPERTY USE_FOLDERS ${NT2_USE_FOLDERS})
 
       file(GLOB_RECURSE files RELATIVE ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}
