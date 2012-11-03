@@ -705,6 +705,9 @@ macro(nt2_module_tool_setup tool)
     endif()
     if(NOT CMAKE_CROSSCOMPILING)
       list(APPEND BUILD_OPTION -G ${CMAKE_GENERATOR})
+    else()
+      unset(ENV{${CMAKE_C_COMPILER_ENV_VAR}})
+      unset(ENV{${CMAKE_CXX_COMPILER_ENV_VAR}})
     endif()
 
     execute_process(COMMAND ${CMAKE_COMMAND}
