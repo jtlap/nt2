@@ -16,6 +16,7 @@
 #include <boost/simd/sdk/meta/as_logical.hpp>
 #include <boost/simd/sdk/memory/overload.hpp>
 #include <boost/simd/sdk/simd/details/soa_proxy.hpp>
+#include <boost/simd/sdk/config/compiler.hpp>
 #include <boost/simd/sdk/memory/overload.hpp>
 
 namespace boost { namespace simd { namespace meta
@@ -127,7 +128,15 @@ namespace boost { namespace simd
       return typename dispatch::make_functor<tag::extract_, value_type>::type()(*this, i);
     }
 
-    native_type data_;
+#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ == 4 && __GNUC_MINOR__ == 6
+    // workaround for GCC bug #55184 affecting GCC 4.6
+    union
+    {
+#endif
+      native_type data_;
+#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ == 4 && __GNUC_MINOR__ == 6
+    };
+#endif
   };
 } }
 
