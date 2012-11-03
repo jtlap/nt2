@@ -1,20 +1,19 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGNNZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGNNZ_HPP_INCLUDED
 #include <boost/simd/toolbox/ieee/functions/signnz.hpp>
-#include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/scalar/is_ltz.hpp>
-#include <boost/simd/include/functions/scalar/is_gez.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_and.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
-#include <boost/simd/include/functions/scalar/is_positive.hpp>
-#include <boost/simd/include/functions/scalar/is_negative.hpp>
+#include <boost/simd/include/constants/one.hpp>
+#include <boost/simd/include/constants/signmask.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -24,7 +23,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return (a0 >= 0) - (a0 < 0); }//is_gez(a0)-is_ltz(a0); }
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return (a0 >= 0) - (a0 < 0); //is_gez(a0)-is_ltz(a0);
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signnz_, tag::cpu_
@@ -33,7 +35,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    inline result_type operator()(A0 const &)const { return One<A0>(); }
+    inline result_type operator()(A0 const &) const
+    {
+      return One<A0>();
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::signnz_, tag::cpu_
@@ -42,7 +47,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return is_nan(a0)?a0: int(is_positive(a0))-int(is_negative(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return is_nan(a0) ? a0 : b_or(One<A0>(), b_and(Signmask<A0>(), a0));
+    }
   };
 } } }
 
