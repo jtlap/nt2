@@ -15,7 +15,7 @@
 // TODO : Make them work properly with ContiguousRandomAccessIterator
 //==============================================================================
 #include <boost/simd/toolbox/operator/functions/store.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
+#include <boost/simd/sdk/memory/iterator.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/assert.hpp>
