@@ -12,9 +12,6 @@
 #include <nt2/toolbox/complex/constants/cnan.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -22,61 +19,13 @@ namespace nt2 { namespace ext
                              , ((target_< generic_< complex_< arithmetic_<A0> > > >))
                              )
   {
-    typedef typename meta::as_real<typename A0::type>::type r_type;
-    typedef typename meta::as_complex<r_type>::type result_type;      
+    typedef typename A0::type result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
-      return result_type(Nan<r_type>(),Nan<r_type>());
+      typedef typename meta::as_real<result_type>::type real_t;
+      return result_type(Nan<real_t>(), Nan<real_t>());
     }
   };
-  
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Cnan, tag::cpu_, (A0)
-                             , ((target_< generic_< imaginary_< arithmetic_<A0> > > >))
-                             )
-  {
-    typedef typename meta::as_real<typename A0::type>::type r_type;
-    typedef typename meta::as_complex<r_type>::type result_type;      
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
-    {
-      return Cnan<result_type>();
-    }
-  };
-  
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Cnan, tag::cpu_, (A0)
-                             , ((target_< generic_< dry_< arithmetic_<A0> > > >))
-                             )
-  {
-    typedef typename meta::as_real<typename A0::type>::type r_type;
-    typedef typename meta::as_complex<r_type>::type result_type;      
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
-    {
-      return  Cnan<result_type>();
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Cnan, tag::cpu_, (A0)
-                             , ((target_< scalar_< arithmetic_<A0> > >))
-                             )
-  {
-    typedef typename meta::as_real<typename A0::type>::type r_type;
-    typedef typename meta::as_complex<r_type>::type result_type;      
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
-    {
-      return Cnan<result_type>();
-    }
-  };
-
-  NT2_FUNCTOR_IMPLEMENTATION ( nt2::tag::Cnan, tag::cpu_, (A0)(X)
-                             , ((target_< simd_< arithmetic_<A0>, X> >))
-                             )
-  {
-    typedef typename meta::as_real<typename A0::type>::type r_type;
-    typedef typename meta::as_complex<r_type>::type result_type;      
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
-    {
-      return Cnan<result_type>();
-    }
-  };  
 } }
 
 #endif
