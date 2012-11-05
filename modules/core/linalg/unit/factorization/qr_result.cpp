@@ -56,5 +56,5 @@ NT2_TEST_CASE_TPL(qr_result, NT2_REAL_TYPES)
   t_t x = f.solve(bb);
   nt2::display("bb    ", bb);
   nt2::display("x    ", x);
-  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::trans(p), nt2::mtimes(q, r)), b, T(6.0));
+  NT2_TEST_ULP_EQUAL(nt2::mtimes(nt2::trans(p), nt2::mtimes(q, r)), b, T(10.0));
  }
