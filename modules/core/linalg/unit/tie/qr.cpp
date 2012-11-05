@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( qr, NT2_REAL_TYPES)
   NT2_DISPLAY(r);
   NT2_DISPLAY(p);
   table_t zz = nt2::mtimes(nt2::trans(p), nt2::mtimes(q, r));
-  NT2_TEST_ULP_EQUAL(zz, b, T(6.0));
+  NT2_TEST_ULP_EQUAL(zz, b, T(20.0));
 }
 NT2_TEST_CASE_TPL ( qr2, NT2_REAL_TYPES)
 {
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( qr2, NT2_REAL_TYPES)
   NT2_DISPLAY(r);
   NT2_DISPLAY(p);
   table_t zz = nt2::mtimes(nt2::trans(p), nt2::mtimes(q, r));
-  NT2_TEST_ULP_EQUAL(zz, b, T(6.0));
+  NT2_TEST_ULP_EQUAL(zz, b, T(20.0));
 }
 // NT2_TEST_CASE_TPL ( qr2, NT2_REAL_TYPES)
 // {
