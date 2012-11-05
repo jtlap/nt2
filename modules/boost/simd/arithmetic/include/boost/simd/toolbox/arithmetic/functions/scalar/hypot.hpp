@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_HYPOT_HPP_INCLUDED
@@ -23,6 +23,7 @@
 #include <boost/simd/include/functions/scalar/ldexp.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -30,7 +31,7 @@ namespace boost { namespace simd { namespace ext
   template < class T, class I = typename dispatch::meta::as_integer<T, signed>::type>
   struct hypot_constants;
   //TODO make proper constants
-  
+
   template <class I> struct hypot_constants<float, I>
   {
     typedef I  int_type;
@@ -64,7 +65,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      return internal(result_type(a0), result_type(a1)); 
+      return internal(result_type(a0), result_type(a1));
     }
   private:
 
@@ -72,15 +73,15 @@ namespace boost { namespace simd { namespace ext
       {
       // flibc does that in ::hypotf(a0, a1) in asm with no more speed!
       // proper internal is 30% slower
-        return static_cast<float>(::sqrt(boost::simd::sqr(static_cast<double>(a0))+
-                                         boost::simd::sqr(static_cast<double>(a1))));      
+        return static_cast<float>(::sqrt(boost::simd::sqr(static_cast<typename meta::make_dependent<double, A0>::type>(a0))+
+                                         boost::simd::sqr(static_cast<typename meta::make_dependent<double, A0>::type>(a1))));
       }
-    
+
     template < class AA0>
     static inline AA0  internal(const AA0& a0, const  AA0& a1)
     {
       // in double ::hypot is very slow and is 4 times slower than internal
-      // this routine in float (with float constants) is 30% slower than 
+      // this routine in float (with float constants) is 30% slower than
       // the straightforward preceding overload for floats
       // The float constants are provided in order to modify
       // the algorithm if a architecture gived different speed results
