@@ -10,10 +10,13 @@
 SET( SOURCES
   compan.cpp
   conv.cpp
+  deconv.cpp
   degree.cpp
+  polyadd.cpp    
   polyder.cpp
   polyfit.cpp
   polyint.cpp
+  polysub.cpp
   polyval.cpp
   polyvalm.cpp   
 #  ratfracder.cpp

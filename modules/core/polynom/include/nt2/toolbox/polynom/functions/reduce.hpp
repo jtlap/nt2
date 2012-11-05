@@ -16,6 +16,9 @@
  *   reduce(p) returns the same polynomial as the input insuring
  *   that the first element of the polynomial is non zero (or the
  *   polynomial is empty)
+ *   The second parameter is a relative threshold on what can be considered as zero
+ *   (neglectable) or an overflow threshold _ that consider that iteratively from
+ *   first index p(i) is neglectable if any p(j)/pi() is infinite.
  *
  **/
 namespace nt2 { namespace tag
@@ -23,5 +26,6 @@ namespace nt2 { namespace tag
     struct reduce_: ext::elementwise_<reduce_> { typedef ext::elementwise_<reduce_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::reduce_,reduce, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::reduce_,reduce, 2)  
 }
 #endif

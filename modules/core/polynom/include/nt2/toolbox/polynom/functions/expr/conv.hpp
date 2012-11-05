@@ -44,6 +44,7 @@ namespace nt2{ namespace ext
       BOOST_ASSERT_MSG(nt2::isvector(a)&&nt2::isvector(b), "a0 and a1 must be vectors."); 
       size_t na =  nt2::numel(a);
       size_t nb =  nt2::numel(b);
+      out.resize(extent(in)); 
       if (nt2::isempty(a) || nt2::isempty(b))
         out =  nt2::zeros(extent(in));
       else
