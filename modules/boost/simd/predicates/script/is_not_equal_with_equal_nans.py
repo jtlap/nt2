@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<A0>() if a0 and a1 are not equal else False<A0>().',
+         'description' : ['Returns True<result_type>() if a0 and a1 are not equal else False<result_type>().',
                           'nans are considered equal'],   
          'module' : 'boost',
          'arity' : '2',

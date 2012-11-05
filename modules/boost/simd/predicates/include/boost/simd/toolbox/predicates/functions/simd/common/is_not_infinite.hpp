@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     inline result_type operator()(const A0&)const
     {
-      return boost::simd::True<A0>();
+      return boost::simd::True<result_type>();
     }
   };
 

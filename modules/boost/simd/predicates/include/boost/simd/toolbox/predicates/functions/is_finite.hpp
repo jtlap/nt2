@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_finite is_finite
  *
  * \par Description
- * Returns True<A0>() if a0 is not inf, -inf or nan, else returns False<A0>().
+ * Returns True<result_type>() if a0 is not inf, -inf or nan, else returns False<result_type>().
  *
  * \par Header file
  * 

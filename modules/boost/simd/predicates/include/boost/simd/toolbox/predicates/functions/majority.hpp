@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_majority majority
  *
  * \par Description
- * Returns True<A0>() if at least two inputs are not zero else False<A0>().
+ * Returns True<result_type>() if at least two inputs are not zero else False<result_type>().
  *
  * \par Header file
  * 

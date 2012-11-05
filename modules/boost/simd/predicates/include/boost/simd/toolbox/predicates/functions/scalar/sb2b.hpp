@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return result_type(a0!= boost::simd::False<A0>());
+      return result_type(a0!= boost::simd::False<result_type>());
     }
   };
   

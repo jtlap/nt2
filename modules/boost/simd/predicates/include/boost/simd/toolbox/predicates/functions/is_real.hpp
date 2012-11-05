@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_real is_real
  *
  * \par Description
- * Returns True<A0>() or False<A0>() according a0 is real or not.
+ * Returns True<result_type>() or False<result_type>() according a0 is real or not.
  * For non complex numbers it is always true
  *
  * \par Header file

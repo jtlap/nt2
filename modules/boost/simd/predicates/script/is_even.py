@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<A0>() or False<A0>() according a0 is even or not.',
+         'description' : ['Returns True<result_type>() or False<result_type>() according a0 is even or not.',
                           'A floating number is even if it is a  flint',
                           'and divided by two it is still a flint',
                           '\par',

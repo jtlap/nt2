@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_positive is_positive
  *
  * \par Description
- * Returns True<A0>() if a0 is positive else False<A0>().
+ * Returns True<result_type>() if a0 is positive else False<result_type>().
  * \par
  * This function differs from is_gtz from floating point argument,
  * because Zero<A0>() is positive but not greater than zero,

@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_flint is_flint
  *
  * \par Description
- * Returns True<A0>() or False<A0>() according a0 is a flint or not.
+ * Returns True<result_type>() or False<result_type>() according a0 is a flint or not.
  * \par
  * A flint is a 'floating integer' i.e. a floating number
  * representing an integer value

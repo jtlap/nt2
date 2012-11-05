@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<A0>() if a0 is not greater than a1 else returns False<A0>().','\par',
+         'description' : ['Returns True<result_type>() if a0 is not greater than a1 else returns False<result_type>().','\par',
                           'Due to existence of nan, this is not equivalent to \c not(is_greater(a0,a1))'],   
          'module' : 'boost',
          'arity' : '2',

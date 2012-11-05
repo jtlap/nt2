@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_lez is_lez
  *
  * \par Description
- * Returns True<A0>() or False<A0>() according a0 is less or equal to zero or not.
+ * Returns True<result_type>() or False<result_type>() according a0 is less or equal to zero or not.
  *
  * \par Header file
  * 
