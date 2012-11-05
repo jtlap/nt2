@@ -262,7 +262,7 @@ namespace nt2
 #define NT2_GEESX(NAME, T, TBASE)                                \
     inline void geesx(const char* jobvs,                         \
                       const char* sort,                          \
-                      selectall_t* select,                 \
+                      selectall_t* select,                       \
                       const char* sense,                         \
                       const nt2_la_int* n,                       \
                       T* a,                                      \
@@ -292,7 +292,7 @@ namespace nt2
     }                                                            \
     inline void geesx(const char* jobvs,                         \
                       const char* sort,                          \
-                      selectall_t* select,                 \
+                      selectall_t* select,                       \
                       const char* sense,                         \
                       const nt2_la_int* n,                       \
                       T* a,                                      \
@@ -320,7 +320,7 @@ namespace nt2
 #define NT2_GEESX(NAME, T)                                              \
       inline void geesx(const char* jobvs,                              \
                         const char* sort,                               \
-                        selectall2_t* select,                     \
+                        selectall2_t* select,                           \
                         const char* sense,                              \
                         const nt2_la_int* n,                            \
                         T* a,                                           \
@@ -355,7 +355,7 @@ namespace nt2
       }                                                                 \
       inline void geesx(const char* jobvs,                              \
                         const char* sort,                               \
-                        selectall2_t* select,                     \
+                        selectall2_t* select,                           \
                         const char* sense,                              \
                         const nt2_la_int* n,                            \
                         T* a,                                           \
