@@ -12,7 +12,7 @@
 #include <boost/simd/toolbox/constant/constants/false.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/zero.hpp>
-#include <boost/simd/sdk/meta/logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
