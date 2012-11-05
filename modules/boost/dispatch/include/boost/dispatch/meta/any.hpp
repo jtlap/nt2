@@ -22,6 +22,7 @@
 #include <boost/mpl/or.hpp>
 #include <boost/mpl/end.hpp>
 #include <boost/mpl/apply.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/type_traits/is_same.hpp>
 
 #if !defined(BOOST_HAS_VARIADIC_TMPL)
@@ -74,7 +75,8 @@ namespace boost { namespace dispatch { namespace meta
    //============================================================================
   // Recursive variadic version
   //============================================================================
-  template< class Predicate, class... Args> struct any;
+  template< class Predicate, class... Args>
+  struct any : boost::mpl::false_ {};
 
   template< class Pred, class Head, class... Tails>
   struct  any<Pred,Head,Tails...>
