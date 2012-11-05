@@ -128,13 +128,13 @@ namespace boost { namespace simd
       return typename dispatch::make_functor<tag::extract_, value_type>::type()(*this, i);
     }
 
-#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ == 4 && __GNUC_MINOR__ == 6
-    // workaround for GCC bug #55184 affecting GCC 4.6
+#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
+    // workaround for GCC bug #52407 affecting GCC 4.6
     union
     {
 #endif
       native_type data_;
-#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ == 4 && __GNUC_MINOR__ == 6
+#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
     };
 #endif
   };

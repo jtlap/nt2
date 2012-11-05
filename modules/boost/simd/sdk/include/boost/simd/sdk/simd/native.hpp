@@ -121,13 +121,13 @@ namespace boost { namespace simd
     reference       operator[](std::size_t i)       { return data()[i]; }
     const_reference operator[](std::size_t i) const { return data()[i]; }
 
-#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ == 4 && __GNUC_MINOR__ == 6
-    // workaround for GCC bug #55184 affecting GCC 4.6
+#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
+    // workaround for GCC bug #52407 affecting GCC 4.6.3
     union
     {
 #endif
       native_type data_;
-#if defined(BOOST_SIMD_COMPILER_GCC) && __GNUC__ == 4 && __GNUC_MINOR__ == 6
+#if defined(BOOST_SIMD_COMPILER_GCC) && BOOST_SIMD_GCC_VERSION == 40603
     };
 #endif
 
