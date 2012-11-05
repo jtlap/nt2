@@ -13,6 +13,7 @@
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 #include <nt2/sdk/complex/meta/real_of.hpp>
+#include <complex>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -26,6 +27,13 @@ namespace boost { namespace dispatch { namespace meta
   struct complex_< unspecified_<T> > : fusion_sequence_<T>
   {
     typedef fusion_sequence_<T> parent;
+  };
+
+  // FIXME: find a way to do this so that it works with nested types too
+  template<class T>
+  struct generic_< unspecified_< std::complex<T> > > : fusion_sequence_< std::complex<T> >
+  {
+    typedef fusion_sequence_< std::complex<T> > parent;
   };
 
   template<class T>
