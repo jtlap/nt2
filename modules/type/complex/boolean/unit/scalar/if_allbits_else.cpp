@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.boolean components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/include/functions/if_allbits_else.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/cnan.hpp>
@@ -37,10 +37,10 @@
 
 NT2_TEST_CASE_TPL ( if_allbits_else_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using boost::simd::if_allbits_else;
   using boost::simd::tag::if_allbits_else_;
-  using boost::simd::logical; 
+  using boost::simd::logical;
   typedef std::complex<T> cT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<if_allbits_else_(cT, cT)>::type r_t;
@@ -50,18 +50,18 @@ NT2_TEST_CASE_TPL ( if_allbits_else_real__2_0,  NT2_REAL_TYPES)
 
 
 
-  //  return type conformity test 
+  //  return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
-  NT2_TEST_EQUAL(if_allbits_else(nt2::False<T>(), cT(1)), cT(1));
-  NT2_TEST_EQUAL(if_allbits_else(nt2::True<T>(),cT(1)), nt2::Cnan<cT>());
+  NT2_TEST_EQUAL(if_allbits_else(nt2::False< nt2::logical<T> >(), cT(1)), cT(1));
+  NT2_TEST_EQUAL(if_allbits_else(nt2::True< nt2::logical<T> >(),cT(1)), nt2::Cnan<cT>());
   NT2_TEST_EQUAL(if_allbits_else(nt2::Inf<cT>(), cT(1)), nt2::Cnan<cT>());
   NT2_TEST_EQUAL(if_allbits_else(nt2::Minf<cT>(), cT(1)),  nt2::Cnan<cT>());
   NT2_TEST_EQUAL(if_allbits_else(nt2::Nan<cT>(), cT(1)) ,  nt2::Cnan<cT>());
   NT2_TEST_EQUAL(if_allbits_else(nt2::Allbits<cT>(), cT(1)),  nt2::Cnan<cT>());
 
-  
+
 } // end of test for floating_
 
