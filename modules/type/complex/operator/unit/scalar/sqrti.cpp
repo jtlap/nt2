@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/include/constants/sqrti.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
@@ -25,15 +25,10 @@
 
 NT2_TEST_CASE_TPL ( sqrti_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
-  typedef std::complex<T> cT; 
-  typedef nt2::imaginary<T> ciT;
-  typedef nt2::dry<T> cdT;
+
+  typedef std::complex<T> cT;
 
   // specific values tests
-  NT2_TEST_EQUAL(nt2::Sqrti<ciT>(), cT(nt2::Sqrt_2o_2<T>(),nt2::Sqrt_2o_2<T>()));
   NT2_TEST_EQUAL(nt2::Sqrti<cT>(),  cT(nt2::Sqrt_2o_2<T>(),nt2::Sqrt_2o_2<T>()));
-  NT2_TEST_EQUAL(nt2::Sqrti<cdT>(), cT(nt2::Sqrt_2o_2<T>(),nt2::Sqrt_2o_2<T>()));
-  NT2_TEST_EQUAL(nt2::Sqrti<T>(),   cT(nt2::Sqrt_2o_2<T>(),nt2::Sqrt_2o_2<T>()));
-  
+
 } // end of test for floating_

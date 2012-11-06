@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// 
+///
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/imag.hpp>
@@ -50,26 +50,22 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef std::complex<T>                              cT; 
+  typedef std::complex<T>                              cT;
   typedef native<T ,ext_t>                             vT;
   typedef native<cT ,ext_t>                           vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT; 
+  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
   typedef native<ciT ,ext_t>                         vciT;
-  typedef typename nt2::meta::as_dry<T>::type          dT; 
-  typedef native<dT ,ext_t>                           vdT; 
+  typedef typename nt2::meta::as_dry<T>::type          dT;
+  typedef native<dT ,ext_t>                           vdT;
 
   // specific values tests
   {
     typedef vciT r_t;
     std::cout << nt2::I<vciT>() << std::endl;
     std::cout << nt2::I<vcT >() << std::endl;
-    std::cout << nt2::I<vdT >() << std::endl;
-    std::cout << nt2::I<vT  >() << std::endl;   
     NT2_TEST_EQUAL(nt2::I<vciT>(), nt2::One<vciT>());
     NT2_TEST_EQUAL(nt2::I<vcT>(),  nt2::One<vciT>());
-    NT2_TEST_EQUAL(nt2::I<vdT>(),  nt2::One<vciT>());
-    NT2_TEST_EQUAL(nt2::I<vT>(),   nt2::One<vciT>());
 
-  }  
+  }
 
 } // end of test for floating_

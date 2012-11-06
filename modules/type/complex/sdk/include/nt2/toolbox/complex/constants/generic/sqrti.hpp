@@ -12,6 +12,7 @@
 #include <nt2/toolbox/complex/constants/sqrti.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {

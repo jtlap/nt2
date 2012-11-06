@@ -12,6 +12,7 @@
 #include <nt2/toolbox/complex/constants/cnan.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/complex/complex.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
