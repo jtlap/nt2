@@ -14,6 +14,7 @@
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/zeros.hpp>
+#include <nt2/include/functions/minus.hpp>
 #include <nt2/include/constants/one.hpp>
 //#include <nt2/table.hpp>
 
@@ -25,8 +26,8 @@ namespace nt2{ namespace ext
                                 ((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef typename A0::value_type                                                          value_type; 
-    typedef typename nt2::meta::call<nt2::tag::reduce_(const A0&)>::type                            TA0; 
+    typedef typename A0::value_type                                                          value_type;
+    typedef typename nt2::meta::call<nt2::tag::reduce_(const A0&)>::type                            TA0;
     typedef typename nt2::meta::call<nt2::tag::reduce_(const A1&)>::type                            TA1;
     typedef typename nt2::meta::call<nt2::tag::zeros_(size_t, size_t, meta::as_<value_type>)>::type   S;
     typedef typename nt2::meta::call<nt2::tag::horzcat_(S, TA0)>::type                               T0;
@@ -40,10 +41,10 @@ namespace nt2{ namespace ext
       size_t na =  nt2::numel(aa);
       size_t nb =  nt2::numel(bb);
       size_t n2 =  na > nb ? na-nb : 0;
-      size_t n1 =  nb > na ? nb-na : 0; 
+      size_t n1 =  nb > na ? nb-na : 0;
       BOOST_AUTO_TPL( aaa, cath(zeros(nt2::One<size_t>(), n1, meta::as_<value_type>()), aa));
       BOOST_AUTO_TPL( bbb, cath(zeros(nt2::One<size_t>(), n2, meta::as_<value_type>()), bb));
-      return nt2::reduce(minus(aaa, bbb)); 
+      return nt2::reduce(nt2::minus(aaa, bbb));
     }
   };
 } }
