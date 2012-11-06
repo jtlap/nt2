@@ -123,7 +123,7 @@ namespace details
 
     template <> BOOST_FORCEINLINE __m128 shuffle<0, 0, 1, 1>( __m128 const single_vector ) { return _mm_unpacklo_ps( single_vector, single_vector ); }
     template <> BOOST_FORCEINLINE __m128 shuffle<2, 2, 3, 3>( __m128 const single_vector ) { return _mm_unpackhi_ps( single_vector, single_vector ); }
-    
+
     #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
         template <> BOOST_FORCEINLINE __m128 shuffle<0, 1, 2, 3>( __m128 const lower, __m128 const upper )
         {
@@ -687,7 +687,7 @@ namespace detail
     {
         typedef float                                                 scalar_t;
         typedef boost::simd::native<scalar_t, boost::simd::tag::sse_> vector_t;
-        typedef typename vector_t::native_type                        native_t;
+        typedef vector_t::native_type                                 native_t;
 
         typedef split_radix_twiddles<vector_t> twiddles             ;
         typedef twiddle_pair        <vector_t> real2complex_twiddles;
@@ -717,7 +717,7 @@ namespace detail
     ////////////////////////////////////////////////////////////////////////////
     // \struct inplace_separated_context_t
     ////////////////////////////////////////////////////////////////////////////
-    
+
     /// \note Clang (Xcode 4.5.1) completely brainfarts when MMX is used
     /// (constantly converts between MMX and GP registers and/or keeps copies of
     /// pointers in both registers and all of that through the stack of course).
@@ -1604,7 +1604,7 @@ namespace detail
             /// skipped/eliminated because it is/can be merged into the
             /// normalization factor.
             ///                               (27.06.2012.) (Domagoj Saric)
-            
+
             vector_t const upper_r( reverse( unaligned_load<vector_t>( p_upper_reals ) ) );
             vector_t const upper_i( reverse( unaligned_load<vector_t>( p_upper_imags ) ) );
             vector_t const lower_r(                                   *p_lower_reals     );
