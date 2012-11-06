@@ -166,6 +166,8 @@ namespace nt2 { namespace memory
       }
       else
       {
+        if(begin_ + sz < end_)
+          nt2::memory::destruct(begin_ + sz, end_, get_allocator());
         end_ = begin_ + sz;
       }
     }
