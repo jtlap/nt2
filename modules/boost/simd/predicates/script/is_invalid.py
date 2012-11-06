@@ -56,7 +56,7 @@
                  'default' : ['boost::simd::is_invalid(a0)'],
                 },
              'property_value' : {
-                 'default' : ['boost::simd::False<T>()'],
+                 'default' : ['boost::simd::False< boost::simd::logical<T> >()'],
                 },
              'simd' : {
                 },

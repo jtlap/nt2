@@ -61,7 +61,7 @@
                  'default' : ['boost::simd::is_flint(a0)'],
                 },
              'property_value' : {
-                 'default' : ['boost::simd::True<T>()'],
+                 'default' : ['boost::simd::True< boost::simd::logical<T> >()'],
                  'real_' : ['boost::simd::frac(a0)==boost::simd::Zero<T>()'],
                 },
              'simd' : {

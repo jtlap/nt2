@@ -15,6 +15,7 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 /*!
  * \ingroup boost_simd_constant
@@ -24,12 +25,12 @@
  * Constant False
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/false.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +42,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of False
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,10 +55,14 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag False of functor False 
+     * \brief Define the tag False of functor False
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER(False,int,0,0x0UL,0x0ULL);
+    struct False : ext::constant_<False>
+    {
+      typedef logical<double> default_type;
+      typedef ext::constant_<False> parent;
+    };
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::False, False)

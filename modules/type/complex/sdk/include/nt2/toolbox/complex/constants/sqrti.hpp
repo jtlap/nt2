@@ -14,8 +14,8 @@
 
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <complex>
 
 /*!
  * \ingroup nt2_complex
@@ -63,6 +63,7 @@ namespace nt2
     struct Sqrti : ext::constant_<Sqrti>
     {
       typedef std::complex<double> default_type;
+      typedef ext::constant_<Sqrti> parent;
     };
   }
 

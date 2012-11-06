@@ -16,6 +16,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <complex>
 
 /*!
  * \ingroup nt2_complex
@@ -63,6 +64,7 @@ namespace nt2
     struct Cnan : ext::constant_<Cnan>
     {
       typedef std::complex<double> default_type;
+      typedef ext::constant_<Cnan> parent;
     };
   }
 
