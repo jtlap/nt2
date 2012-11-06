@@ -11,7 +11,7 @@
 
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <boost/mpl/int.hpp>
+#include <boost/mpl/char.hpp>
 
 #define BOOST_SIMD_MM_PERM2(i0, i1) (i0+(i1 << 4))                             \
 /**/
@@ -25,43 +25,51 @@
 
 namespace boost { namespace simd { namespace details
 {
+  // Result of the meta permutation
   template<class P, class Card, int I>
-  struct index_
-  {
-    typedef boost::mpl::apply< P                                        
-                             , boost::mpl::int_<i>                             
-                             , Card                                         
-                             >::type::value value;
-  };
+  struct index_ : boost::mpl::char_< boost::mpl::apply< typename P::type                                        
+                                                      , boost::mpl::int_<I>                             
+                                                      , Card                                         
+                                                      >::type::value>
+  {};
 
-  template<class P, class Card, class Offset, int Idx, int Inc>
-  struct generate_
-  { 
-    static char value = (index_<P,Card,Idx>::value<0?-1:(Offset))
-  };
+  // Generate the the correct mask
+  template<class P, class Card, char Offset, char Idx, char Inc>
+  struct generate_ : boost::mpl::char_<(index_<P,Card,Idx>::value<0?-1:(Offset+Inc))>
+  {};
 
+  // Permute specialization
   template<class P, std::size_t N>
   struct permute {};
 
   template<class P>
   struct permute<P,2>
   {
-    typedef typename P::type permut_t;
+    typedef P permut_t;
     typedef boost::mpl::size_t<2> card_t;
 
-    template<int I>
-    struct offset_
-    {
-      static char idx   = index_<permut_t, card_t, I>::value;
-      static char value = (idx & 1) << 3)>::value;
-    };
+    template<char I>
+    struct offset_ : boost::mpl::char_<((index_<permut_t,card_t,I>::value & 1) << 3)>
+    {};
 
     static __m128i call()
     {
-      return _mm_setr_epi8( H1(0, 0), H1(0, 1) ,H1(0, 2), H1(0, 3)
-                          , H1(0, 4), H1(0, 5) ,H1(0, 6), H1(0, 7)
-                          , H1(1, 0), H1(1, 1) ,H1(1, 2), H1(1, 3)
-                          , H1(1, 4), H1(1, 5) ,H1(1, 6), H1(1, 7)
+      return _mm_setr_epi8( generate_<permut_t,card_t,offset_<0>::value,0,0>::value
+                          , generate_<permut_t,card_t,offset_<0>::value,0,1>::value //H1(0, 1) 
+                          , generate_<permut_t,card_t,offset_<0>::value,0,2>::value //H1(0, 2)
+                          , generate_<permut_t,card_t,offset_<0>::value,0,3>::value //H1(0, 3)
+                          , generate_<permut_t,card_t,offset_<0>::value,0,4>::value //H1(0, 4)
+                          , generate_<permut_t,card_t,offset_<0>::value,0,5>::value //H1(0, 5) 
+                          , generate_<permut_t,card_t,offset_<0>::value,0,6>::value //H1(0, 6)
+                          , generate_<permut_t,card_t,offset_<0>::value,0,7>::value //H1(0, 7)
+                          , generate_<permut_t,card_t,offset_<1>::value,1,0>::value //H1(1, 0)
+                          , generate_<permut_t,card_t,offset_<1>::value,1,1>::value //H1(1, 1) 
+                          , generate_<permut_t,card_t,offset_<1>::value,1,2>::value //H1(1, 2)
+                          , generate_<permut_t,card_t,offset_<1>::value,1,3>::value //H1(1, 3)
+                          , generate_<permut_t,card_t,offset_<1>::value,1,4>::value //H1(1, 4)
+                          , generate_<permut_t,card_t,offset_<1>::value,1,5>::value //H1(1, 5) 
+                          , generate_<permut_t,card_t,offset_<1>::value,1,6>::value //H1(1, 6)
+                          , generate_<permut_t,card_t,offset_<1>::value,1,7>::value //H1(1, 7)
                           );
     }
   };

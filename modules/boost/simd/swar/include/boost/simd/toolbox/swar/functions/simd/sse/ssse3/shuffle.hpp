@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0                              result_type;
-    typedef typename P::type                permutation_t;
+    typedef P                               permutation_t;
     typedef meta::cardinal_of<result_type>  card_t;
 
     result_type operator()(A0 const& a, P const&) const
