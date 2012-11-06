@@ -40,6 +40,7 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<logical_not_(vT)>::type r_t;
@@ -47,8 +48,8 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::False<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::True<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::False<vlT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::True<vlT>())[0], boost::simd::False<sr_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -62,6 +63,7 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<logical_not_(vT)>::type r_t;
@@ -69,6 +71,6 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(boost::simd::False<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(logical_not(boost::simd::True<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::False<vlT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(boost::simd::True<vlT>())[0], boost::simd::False<sr_t>());
 } // end of test for real_

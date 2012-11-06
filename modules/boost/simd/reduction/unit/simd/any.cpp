@@ -40,6 +40,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<any_(vT)>::type r_t;
@@ -52,7 +53,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(boost::simd::any(boost::simd::Minf<vT>()), vsr_t(true));
   NT2_TEST_EQUAL(boost::simd::any(boost::simd::Mone<vT>()), vsr_t(true));
   NT2_TEST_EQUAL(boost::simd::any(boost::simd::Nan<vT>()), vsr_t(true));
-  NT2_TEST_EQUAL(boost::simd::any(boost::simd::True<vT>()), vsr_t(true));
+  NT2_TEST_EQUAL(boost::simd::any(boost::simd::True<vlT>()), vsr_t(true));
   NT2_TEST_EQUAL(boost::simd::any(boost::simd::Zero<vT>()), vsr_t(false));
 } // end of test for floating_
 
@@ -67,6 +68,7 @@ NT2_TEST_CASE_TPL ( any_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<any_(vT)>::type r_t;

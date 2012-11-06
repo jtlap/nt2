@@ -23,13 +23,14 @@ NT2_TEST_CASE_TPL( true_false_value, BOOST_SIMD_SIMD_TYPES )
   using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native<T,ext_t>                vT;
+  typedef boost::simd::native< boost::simd::logical<T>, ext_t> vlT;
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
-    std::cout << "for i =  " << i << std::endl; 
-    NT2_TEST_EQUAL( (boost::simd::False<vT>())[i], boost::simd::logical<T>(false) );
-  }    
+    std::cout << "for i =  " << i << std::endl;
+    NT2_TEST_EQUAL( (boost::simd::False<vlT>())[i], boost::simd::logical<T>(false) );
+  }
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
-    std::cout << "for i =  " << i << std::endl; 
-    NT2_TEST_EQUAL( (boost::simd::True<vT>())[i],  boost::simd::logical<T>(true) );  
+    std::cout << "for i =  " << i << std::endl;
+    NT2_TEST_EQUAL( (boost::simd::True<vlT>())[i],  boost::simd::logical<T>(true) );
   }
 }
 
@@ -38,17 +39,17 @@ NT2_TEST_CASE_TPL( true_false_logical_value, BOOST_SIMD_SIMD_TYPES )
   using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef boost::simd::native< logical<T>,ext_t>                dst_t;
-  typedef typename dst_t::type                vT; 
+  typedef typename dst_t::type                vT;
   typedef typename boost::dispatch::meta::as_unsigned<T>::type  uns_t;
-  std::cout << boost::simd::meta::cardinal_of<vT>::value << std::endl; 
-  std::cout << boost::simd::meta::cardinal_of<dst_t>::value << std::endl; 
+  std::cout << boost::simd::meta::cardinal_of<vT>::value << std::endl;
+  std::cout << boost::simd::meta::cardinal_of<dst_t>::value << std::endl;
 
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
-    std::cout << "for i =  " << i << std::endl; 
+    std::cout << "for i =  " << i << std::endl;
     NT2_TEST_EQUAL( (boost::simd::False<dst_t>())[i], boost::simd::logical<T>(false) );
-  }  
+  }
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<vT>::value;++i){
-    std::cout << "for i =  " << i << std::endl; 
+    std::cout << "for i =  " << i << std::endl;
     NT2_TEST_EQUAL( (boost::simd::True<dst_t>())[i], boost::simd::logical<T>(true) );
-  }     
+  }
 }

@@ -38,6 +38,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<is_not_equal_(vT,vT)>::type r_t;
@@ -62,6 +63,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<is_not_equal_(vT,vT)>::type r_t;
@@ -88,6 +90,7 @@ NT2_TEST_CASE_TPL ( is_not_equall,  BOOST_SIMD_SIMD_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<is_not_equal_(vT,vT)>::type r_t;
@@ -96,8 +99,8 @@ NT2_TEST_CASE_TPL ( is_not_equall,  BOOST_SIMD_SIMD_TYPES)
   typedef typename r_t::value_type vsr_t; 
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_equal(boost::simd::True<vT>(),boost::simd::False<vT>())[0], vsr_t(true));
-  NT2_TEST_EQUAL(is_not_equal(boost::simd::True<vT>(), boost::simd::True<vT>())[0], vsr_t(false));
-  NT2_TEST_EQUAL(is_not_equal(boost::simd::False<vT>(),boost::simd::False<vT>())[0], vsr_t(false));
-  NT2_TEST_EQUAL(is_not_equal(boost::simd::False<vT>(), boost::simd::True<vT>())[0], vsr_t(true));
+  NT2_TEST_EQUAL(is_not_equal(boost::simd::True<vlT>(),boost::simd::False<vlT>())[0], vsr_t(true));
+  NT2_TEST_EQUAL(is_not_equal(boost::simd::True<vlT>(), boost::simd::True<vlT>())[0], vsr_t(false));
+  NT2_TEST_EQUAL(is_not_equal(boost::simd::False<vlT>(),boost::simd::False<vlT>())[0], vsr_t(false));
+  NT2_TEST_EQUAL(is_not_equal(boost::simd::False<vlT>(), boost::simd::True<vlT>())[0], vsr_t(true));
 } // end of test for floating_

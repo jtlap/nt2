@@ -45,10 +45,10 @@ NT2_TEST_CASE_TPL ( if_else_zero_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(if_else_zero(boost::simd::True<vT>(),boost::simd::splat<vT>(1))[0], 1);
-  NT2_TEST_EQUAL(if_else_zero(boost::simd::True<vT>(),boost::simd::Nan<vT>())[0], boost::simd::Nan<T>());
-  NT2_TEST_EQUAL(if_else_zero(boost::simd::False<vT>(),boost::simd::splat<vT>(1))[0], 0);
-  NT2_TEST_EQUAL(if_else_zero(boost::simd::False<vT>(),boost::simd::Nan<vT>())[0], 0);
+  NT2_TEST_EQUAL(if_else_zero(boost::simd::True<vlT>(),boost::simd::splat<vT>(1))[0], 1);
+  NT2_TEST_EQUAL(if_else_zero(boost::simd::True<vlT>(),boost::simd::Nan<vT>())[0], boost::simd::Nan<T>());
+  NT2_TEST_EQUAL(if_else_zero(boost::simd::False<vlT>(),boost::simd::splat<vT>(1))[0], 0);
+  NT2_TEST_EQUAL(if_else_zero(boost::simd::False<vlT>(),boost::simd::Nan<vT>())[0], 0);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( if_else_zero_signed_int__2_0, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -71,6 +71,6 @@ NT2_TEST_CASE_TPL ( if_else_zero_signed_int__2_0, BOOST_SIMD_SIMD_INTEGRAL_SIGNE
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(if_else_zero(boost::simd::True<vT>(),boost::simd::splat<vT>(1))[0], 1);
-  NT2_TEST_EQUAL(if_else_zero(boost::simd::False<vT>(),boost::simd::splat<vT>(1))[0], 0);
+  NT2_TEST_EQUAL(if_else_zero(boost::simd::True<vlT>(),boost::simd::splat<vT>(1))[0], 1);
+  NT2_TEST_EQUAL(if_else_zero(boost::simd::False<vlT>(),boost::simd::splat<vT>(1))[0], 0);
 } // end of test for signed_int_
