@@ -80,7 +80,7 @@ namespace boost { namespace dispatch { namespace meta
 
   template< class Pred, class Head, class... Tails>
   struct  all<Pred,Head,Tails...>
-        : boost::mpl::or_ < boost::mpl::apply1<Pred,Head>
+        : boost::mpl::and_< boost::mpl::apply1<Pred,Head>
                           , all<Pred,Tails...>
                           >
   {};
