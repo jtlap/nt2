@@ -46,6 +46,7 @@ array expression of such, by mapping the usual function on each element.
 
 [include arrays/basic_information.qbk]
 [include arrays/elementary_arrays.qbk]
+[include arrays/polynoms.qbk]
 [endsect]
 
 [section Linear algebra]

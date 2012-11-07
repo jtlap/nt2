@@ -1,0 +1,32 @@
+[section Polynoms]
+
+
+[table:id Polynoms 
+[[__MATLAB__  ][ __NT2__  ][ Description                                                             ]]
+[[`conv      `][`conv    `][ Convolution and polynomial multiplication                               ]]
+[[`deconv    `][`deconv  `][ Deconvolution and polynomial division                                   ]]
+[[`poly      `][`poly    `][ Polynomial with specified roots                                         ]]
+[[`polyder   `][`polyder `][ Polynomial derivative                                                   ]]
+[[`polyeig   `][`polyeig `TODO][ Polynomial eigenvalue problem                                           ]]
+[[`polyfit   `][`polyfit `][ Polynomial curve fitting                                                ]]
+[[`polyint   `][`polyint `][ Integrate polynomial analytically                                       ]]
+[[`polyval   `][`polyval `][ Polynomial evaluation                                                   ]]
+[[`polyvalm  `][`polyvalm`TODO][ Matrix polynomial evaluation                                            ]]
+[[`residue   `][`residue `TODO][ Convert between partial fraction expansion and polynomial coefficients  ]]
+[[`roots     `][`roots   `TODO][ Polynomial roots                                                        ]]
+]
+[endsect]
+
+
+Polynomials
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
