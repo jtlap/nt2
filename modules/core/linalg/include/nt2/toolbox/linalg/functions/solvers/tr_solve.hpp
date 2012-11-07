@@ -18,7 +18,6 @@
 #include <nt2/include/functions/ofsameheight.hpp>
 #include <nt2/toolbox/linalg/functions/details/tr_solve.hpp>
 #include <nt2/sdk/error/warning.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -41,9 +40,6 @@ namespace nt2 { namespace ext
                                              A3 const & trans, 
                                              A4 const & diag) const
     {
-      NT2_DISPLAY(a);
-      NT2_DISPLAY(b);
-      
       BOOST_ASSERT_MSG((ofsameheight(a, b)&&(trans == 'N'))||((size(a, 2) == size(b, 1))&&(trans != 'N')),
                        "a and b have different heights");
       result_type that(a, b, uplo, trans, diag);
@@ -69,8 +65,6 @@ namespace nt2 { namespace ext
                                                A4 const & diag,  
                                                IP const &) const
     {
-      NT2_DISPLAY(a);
-      NT2_DISPLAY(b);
       BOOST_ASSERT_MSG((ofsameheight(a, b)&&(trans == 'N'))||((size(a, 2) == size(b, 1))&&(trans != 'N')),
                        "a and b have different heights");
 //       NT2_WARNING(istril(a)&&(uplo == 'L'),

@@ -50,6 +50,7 @@ namespace nt2 {
   {
     template<class T,
              class CPLX = typename nt2::details::is_complex<typename meta::strip<T>::type::value_type >::type>
+    // complex cases
     struct schur_result
     {
       typedef typename meta::strip<T>::type                   source_t;
@@ -58,11 +59,11 @@ namespace nt2 {
       typedef typename meta::as_real<type_t>::type              base_t;
       typedef typename meta::as_integer<base_t, signed>::type  itype_t;
       typedef T                                                 data_t;
-      typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-      typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-      typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+      typedef nt2::table<type_t,nt2::_2D>                        tab_t;
+      typedef nt2::table<base_t,nt2::_2D>                       btab_t;
+      typedef nt2::table<itype_t,nt2::_2D>                      itab_t;
       typedef nt2::details::workspace<type_t>              workspace_t;
-      typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+      typedef nt2::table<nt2_la_int,nt2::_2D>                   ibuf_t;
       typedef nt2::table<type_t,index_t>                   result_type;
 
 
@@ -82,7 +83,7 @@ namespace nt2 {
         BOOST_ASSERT_MSG(issquare(aa_), "Error using schur. Matrix must be square.");
         jobvs_ = (sense_ == 'E' || sense_ == 'B') ? 'V':jobvs_;
         sort_ = (sense_ == 'E') ? 'S' : sort_;
-        ldvs_ = (jobvs_ == 'N') ? n_ : 1;
+        ldvs_ = (jobvs_ == 'V') ? n_ : 1;
         w_.resize(nt2::of_size(n_, 1));
         vs_.resize(of_size(ldvs_, ldvs_));
         ldvs_ = vs_.leading_size();
@@ -151,11 +152,11 @@ namespace nt2 {
       typedef typename meta::as_real<type_t>::type              base_t;
       typedef typename meta::as_integer<base_t, signed>::type  itype_t;
       typedef T                                                 data_t;
-      typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-      typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-      typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+      typedef nt2::table<type_t,nt2::_2D>              tab_t;
+      typedef nt2::table<base_t,nt2::_2D>             btab_t;
+      typedef nt2::table<itype_t,nt2::_2D>            itab_t;
       typedef nt2::details::workspace<type_t>              workspace_t;
-      typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+      typedef nt2::table<nt2_la_int,nt2::_2D>         ibuf_t;
       typedef nt2::table<type_t,index_t>                   result_type;
 
 

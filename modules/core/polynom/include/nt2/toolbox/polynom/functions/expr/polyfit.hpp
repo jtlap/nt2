@@ -97,7 +97,7 @@ namespace nt2 {
         // Copy data in output first
         x_type & x = boost::proto::child_c<0>(a0);
         y_type & y = boost::proto::child_c<1>(a0);
-        size_t l = lval(a0, N0()); 
+        size_t l = lval(a0, N0());
         polcoefs(a1, x, y, l, N1());
       }
       
@@ -105,7 +105,7 @@ namespace nt2 {
       BOOST_FORCEINLINE
         int32_t lval(A0& a0, boost::mpl::long_<3> const &) const
       {
-        return boost::proto::value(boost::proto::child_c<2>(a0))+1; 
+        return size_t(boost::proto::child_c<2>(a0))+1; 
       }
       template < class T > 
         BOOST_FORCEINLINE
@@ -120,7 +120,7 @@ namespace nt2 {
       {
         p_type & p = boost::proto::child_c<0>(a1);
         BOOST_AUTO_TPL(vnd, nt2::vandermonde(nt2::colvect(x), l));
-        p = nt2::rowvect(nt2::linsolve(vnd, nt2::colvect(y))); 
+        p = nt2::rowvect(nt2::linsolve(vnd, nt2::colvect(y)));
       }
       
       BOOST_FORCEINLINE

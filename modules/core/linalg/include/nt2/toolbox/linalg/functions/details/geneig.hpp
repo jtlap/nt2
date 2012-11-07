@@ -24,6 +24,7 @@ namespace nt2 { namespace details
 {
   template<class T,
            class CPLX = typename nt2::details::is_complex<typename meta::strip<T>::type::value_type >::type>
+  //complex inputs here
   struct geneig_result
   {
     typedef typename meta::strip<T>::type                   source_t;
@@ -32,11 +33,11 @@ namespace nt2 { namespace details
     typedef typename source_t::index_type                    index_t;
     typedef typename meta::as_real<type_t>::type              base_t;
     typedef T                                                 data_t;
-    typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-    typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t; 
+    typedef nt2::table<type_t,nt2::_2D>                        tab_t;
+    typedef nt2::table<base_t,nt2::_2D>                       btab_t;
+    typedef nt2::table<itype_t,nt2::_2D>                      itab_t; 
     typedef nt2::details::workspace<type_t>              workspace_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+    typedef nt2::table<nt2_la_int,nt2::_2D>                   ibuf_t;
     typedef nt2::table<type_t,index_t>                   result_type;
     
     template<class Input1, class Input2>
@@ -110,7 +111,7 @@ namespace nt2 { namespace details
          ldb_ ( src.ldb_),  
          sdim_ ( src.sdim_),  
          n_ ( src.n_),  
-         alpha_ ( src.alpha),  
+         alpha_ ( src.alpha_),  
          beta_ ( src.beta_),
          eigen_(src.eigen_), 
          vsl_ ( src.vsl_),  
@@ -182,7 +183,14 @@ namespace nt2 { namespace details
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors"); 
       return from_diag(eigen());
     }
-    
+    const tab_t& s () const
+    {
+      return aa_;
+    }
+    const tab_t& t () const
+    {
+      return bb_;
+    }    
   private:
     char          jobvsl_;
     char          jobvsr_;
@@ -196,7 +204,7 @@ namespace nt2 { namespace details
     nt2_la_int      sdim_; 
     nt2_la_int         n_;
     tab_t   alpha_, beta_;
-    tab_t          eigen_;
+    mutable tab_t  eigen_;
     tab_t            vsl_;
     nt2_la_int     ldvsl_;
     tab_t            vsr_;
@@ -215,12 +223,12 @@ namespace nt2 { namespace details
     typedef typename source_t::index_type                    index_t;
     typedef typename meta::as_real<type_t>::type              base_t;
     typedef T                                                 data_t;
-    typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-    typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
-    typedef nt2::table<ctype_t,nt2::matlab_index_>            ctab_t;
+    typedef nt2::table<type_t,nt2::_2D>                        tab_t;
+    typedef nt2::table<base_t,nt2::_2D>                       btab_t;
+    typedef nt2::table<itype_t,nt2::_2D>                      itab_t;
+    typedef nt2::table<ctype_t,nt2::_2D>                      ctab_t;
     typedef nt2::details::workspace<type_t>              workspace_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+    typedef nt2::table<nt2_la_int,nt2::_2D>                   ibuf_t;
     typedef nt2::table<type_t,index_t>                   result_type;
     typedef nt2::table<ctype_t,index_t>                 cresult_type;  
     
@@ -228,7 +236,7 @@ namespace nt2 { namespace details
     geneig_result ( Input1& xpr1,Input2 xpr2, 
                     const char & jobvsl  /*= 'V'*/,
                     const char & jobvsr  /*= 'V'*/,
-                    const char & sort  /*= 'S'*/)
+                    const char & sort    /*= 'S'*/)
       : jobvsl_(jobvsl)
       , jobvsr_(jobvsr)
       , sort_ (sort)
@@ -308,12 +316,12 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return raw values
     //==========================================================================
-    result_type values() const { return aa_; }
+    const tab_t& values() const { return aa_; }
     
     //==========================================================================
     // return left eigen vectors
     //==========================================================================
-    result_type vl () const
+    const tab_t& vl () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsl =  'V' to get eigenvectors");
       return vsl_;
@@ -321,16 +329,16 @@ namespace nt2 { namespace details
     //==========================================================================
     // return right eigen vectors
     //==========================================================================
-    result_type vr () const
+    const tab_t& vr () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return vsr_;
     }
-    result_type s () const
+    const tab_t& s () const
     {
       return aa_;
     }
-    result_type t () const
+    const tab_t& t () const
     {
       return bb_;
     }
@@ -338,24 +346,24 @@ namespace nt2 { namespace details
     //==========================================================================
     // return left generalized eigenvalues
     //==========================================================================
-    result_type  alphar () const
+    const tab_t&  alphar () const
     {
       return alphar_;
     }
-    result_type  alphai () const
+    const tab_t&  alphai () const
     {
       return alphai_;
     }
-    cresult_type alpha () const
+    const tab_t& alpha () const
     {
-      ctab_t al(alphar_, alphai_);
+      tab_t al(alphar_, alphai_);
       return al; 
     }
     
     //==========================================================================
     // return right generalized eigenvalues
     //==========================================================================
-    result_type beta () const
+    const tab_t& beta () const
     {
       return beta_;
     }
@@ -363,17 +371,17 @@ namespace nt2 { namespace details
     //==========================================================================
     // return  eigenvalues
     //==========================================================================
-    result_type wr () const
+    tab_t wr () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return alphar_/beta_;
     }
-    result_type wi () const
+    tab_t wi () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return alphai_/beta_;
     }
-    cresult_type w () const
+    tab_t w () const
     {
       BOOST_ASSERT_MSG(jobvsl_ == 'V', "use jobvsr =  'V' to get eigenvectors");
       return alpha()/beta_;

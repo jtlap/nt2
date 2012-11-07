@@ -59,9 +59,13 @@ namespace nt2 { namespace details
     }
 
     const fitab_t& ipiv()      const { return jpvt_; }
-    nt2::int32_t rank() const { return rank_; }
-    nt2_la_int status() const { return info_; }
-    const ftab_t&  x()          const { return x_;    }
+    nt2::int32_t rank()        const { return rank_; }
+    nt2_la_int status()        const { return info_; }
+    typedef typename  meta::call < tag::expand_(tab_t, nt2_la_int, nt2_la_int)>::type  x_result;
+    x_result  x()         const
+    {
+      return nt2::expand(x_, n_, nrhs_);
+    }
   private:
     data_t                a_;
     nt2_la_int          lda_;

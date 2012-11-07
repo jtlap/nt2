@@ -19,11 +19,11 @@
     
     BASE TYPE can mean respectively float, double, float, double
     
-    In some cases only two of these types types are available
+    In some cases only two of these types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
     in the C++ calls, but through the workspace parameter,
-    their use is transparent for the caller (see lapackworkspace.hh)
+    their use is transparent for the caller 
 
     *
     **  purpose
@@ -60,11 +60,11 @@
     **  =========
     **
     **  jobvsl  (input) char
-    **          = 'n':  do not compute the left schur vectors;
+    **          = 'n':  do not compute the left  vectors;
     **          = 'v':  compute the left schur vectors.
     **
     **  jobvsr  (input) char
-    **          = 'n':  do not compute the right schur vectors;
+    **          = 'n':  do not compute the right  vectors;
     **          = 'v':  compute the right schur vectors.
     **
     **  sort    (input) char
@@ -201,7 +201,7 @@ namespace nt2
   inline void gges(const char* jobvsl,          \
                    const char* jobvsr,          \
                    const char* sort,            \
-                   selectall2_t* selctg,  \
+                   selectall2_t* selctg,        \
                    const nt2_la_int* n,         \
                    T* a,                        \
                    const nt2_la_int* lda,       \
@@ -239,7 +239,7 @@ namespace nt2
   inline void gges(const char* jobvsl,          \
                    const char* jobvsr,          \
                    const char* sort,            \
-                   selectall2_t* selctg,  \
+                   selectall2_t* selctg,        \
                    const nt2_la_int* n,         \
                    T* a,                        \
                    const nt2_la_int* lda,       \
@@ -272,7 +272,7 @@ namespace nt2
   inline void gges(const char* jobvsl,          \
                    const char* jobvsr,          \
                    const char* sort,            \
-                   selectall_t* delctg,   \
+                   selectall_t* delctg,         \
                    const nt2_la_int* n,         \
                    T* a,                        \
                    const nt2_la_int* lda,       \
@@ -310,7 +310,7 @@ namespace nt2
   inline void gges(const char* jobvsl,          \
                    const char* jobvsr,          \
                    const char* sort,            \
-                   selectall_t* delctg,    \
+                   selectall_t* delctg,         \
                    const nt2_la_int* n,         \
                    T* a,                        \
                    const nt2_la_int* lda,       \

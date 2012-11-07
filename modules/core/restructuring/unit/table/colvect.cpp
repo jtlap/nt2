@@ -60,3 +60,17 @@ NT2_TEST_CASE_TPL( colvect, NT2_TYPES)
   NT2_TEST(nt2::isequal(r, y(nt2::_)));
   NT2_TEST(nt2::isequal(nt2::colvect(y), y(nt2::_)));
 }
+NT2_TEST_CASE_TPL( colvect2, NT2_TYPES)
+{
+  typedef std::complex<T> cT; 
+  nt2::table<cT> r;
+  nt2::table<cT, nt2::_2D> y( nt2::of_size(4,4) );
+  for(int j=1;j<=4;j++)
+    for(int i=1;i<=4;i++)
+      y(i,j) = cT(i + 10*j, j);
+  r = nt2::colvect(y);
+  NT2_DISPLAY(y);
+  NT2_DISPLAY(r);
+  NT2_TEST(nt2::isequal(r, y(nt2::_)));
+  NT2_TEST(nt2::isequal(nt2::colvect(y), y(nt2::_)));
+}

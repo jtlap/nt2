@@ -79,3 +79,47 @@ NT2_TEST_CASE_TPL( from_diag_offset, NT2_TYPES )
 
   for(size_t i=1;i<=nt2::length(y);i++) NT2_TEST_EQUAL( x(i,i+2), y(i) );
 }
+
+
+NT2_TEST_CASE_TPL( from_diag_exprc, NT2_TYPES )
+{
+  typedef std::complex<T> cT; 
+  nt2::table<cT> x,y( nt2::of_size(1,8) );
+
+  for(size_t i=1;i<=nt2::length(y);i++) y(i) = cT(i);
+
+  x = nt2::from_diag(y+y-cT(1));
+
+  NT2_TEST_EQUAL( nt2::ndims(x) , 2u            );
+  NT2_TEST_EQUAL( nt2::size(x,1), nt2::length(y));
+  NT2_TEST_EQUAL( nt2::size(x,2), nt2::length(y));
+
+  for(size_t i=1;i<=nt2::length(y);i++) NT2_TEST_EQUAL( x(i,i), (y+y-cT(1))(i) );
+}
+
+NT2_TEST_CASE_TPL( from_diag_offsetc, NT2_TYPES )
+{
+  typedef std::complex<T> cT;
+  nt2::table<cT> y( nt2::of_size(1,5) ), x;
+
+  for(size_t i=1;i<=nt2::length(y);i++) y(i) = cT(i);
+  NT2_DISPLAY(y);
+
+  x = nt2::from_diag(y, -2);
+  NT2_DISPLAY(x);
+
+  NT2_TEST_EQUAL( nt2::ndims(x) , 2u             );
+  NT2_TEST_EQUAL( nt2::size(x,1), nt2::length(y)+2);
+  NT2_TEST_EQUAL( nt2::size(x,2), nt2::length(y)+2);
+
+  for(size_t i=1;i<=nt2::length(y);i++) NT2_TEST_EQUAL( x(i+2,i), y(i) );
+
+  x = nt2::from_diag(y, +2);
+  NT2_DISPLAY(x);
+
+  NT2_TEST_EQUAL( nt2::ndims(x) , 2u             );
+  NT2_TEST_EQUAL( nt2::size(x,1), nt2::length(y)+2);
+  NT2_TEST_EQUAL( nt2::size(x,2), nt2::length(y)+2);
+
+  for(size_t i=1;i<=nt2::length(y);i++) NT2_TEST_EQUAL( x(i,i+2), y(i) );
+}

@@ -84,3 +84,19 @@ NT2_TEST_CASE_TPL( diag_of_1, NT2_TYPES )
   for(size_t i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), (y+y-T(1))(i,i) );
 }
+
+
+NT2_TEST_CASE_TPL( diag_of_exprc, NT2_TYPES )
+{
+  typedef std::complex<T> cT; 
+  nt2::table<cT> x,y( nt2::of_size(7,7) );
+
+  for(int j=1;j<=7;j++)
+    for(int i=1;i<=7;i++)
+      y(i,j) = cT(i + 10*j, j);
+
+  x = nt2::diag_of(y, 1);
+
+  for(size_t i=1;i<=nt2::length(x);i++)
+    NT2_TEST_EQUAL( x(i), y(i,i+1) );
+}

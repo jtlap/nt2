@@ -17,7 +17,6 @@
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 
-
 namespace nt2 { namespace tag
   {         
     struct polyfit_ : ext::tieable_<polyfit_> { typedef ext::tieable_<polyfit_> parent; };
@@ -37,7 +36,7 @@ namespace nt2 { namespace tag
     {
       _2D sizee;
       sizee[0] = 1;
-      sizee[1] = size_t(boost::proto::child_c<2>(e));
+      sizee[1] = size_t(boost::proto::child_c<2>(e))+1;
       return sizee; 
     }
   };
@@ -54,7 +53,8 @@ namespace nt2 { namespace tag
       return sizee; 
     }
   };
-
+  
+  
   template<class Domain, int N, class Expr>
   struct  value_type<tag::polyfit_,Domain,N,Expr>
         : meta::value_as<Expr,0>

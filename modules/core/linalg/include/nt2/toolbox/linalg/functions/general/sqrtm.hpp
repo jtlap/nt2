@@ -18,12 +18,16 @@
 #include <nt2/include/functions/isdiagonal.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/sum.hpp>
+#include <nt2/include/functions/globalsum.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/include/functions/trans.hpp>
-#include <nt2/include/functions/conj.hpp>  
+#include <nt2/include/functions/conj.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/colvect.hpp>
+#include <nt2/include/functions/cast.hpp>
+#include <complex>
 
 namespace nt2{ namespace ext
 {
@@ -32,60 +36,86 @@ namespace nt2{ namespace ext
                             , ((ast_<A0, nt2::container::domain>))
                             )
   {
-    typedef typename A0::value_type       value_type;
-    typedef typename A0::index_type       index_type;
-    typedef table<value_type, index_type> result_type;
+    typedef typename A0::value_type            value_type;
+    typedef typename A0::index_type            index_type;
+    typedef table<value_type, index_type>     result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef nt2::table<value_type > tab_t; 
+      return doit(a0, typename meta::is_complex<value_type>::type());
+    }
+  private :
+    
+    result_type doit(const A0 & a0, boost::mpl::false_ const &) const
+    {
+      typedef typename std::complex<value_type>   cmplx_type;
+      typedef nt2::table<value_type, nt2::_2D>        tab_t;
+      typedef nt2::table<cmplx_type, nt2::_2D>       ctab_t;  
       size_t n = length(a0);
-      tab_t q, t, r;
-      //      tie(q, t) = schur(a0,'N'/*"complex"*/); // t is complex schur form.
-      //FOR KNOW UNTILL COMPLEX WORKS AND FOR TESTING
-      q =  nt2::eye(2, meta::as_<value_type>());
-      t = a0;
-      //FOR KNOW UNTILL COMPLEX WORKS AND FOR TESTING end
-      
-      if (nt2::isdiagonal(t))
-        {
-          return nt2::from_diag(sqrt(nt2::diag_of(a0))); 
-        }
-      else
-        {
-          // Compute upper triangular square root R of T, a column at a time.
-          r = nt2::zeros(n, n, meta::as_<value_type>());  
-          for (size_t j=1; j <= n; ++j)
-            {
-              r(j,j) = nt2::sqrt(t(j,j));
-              for (size_t i=j-1; i >= 1; --i)
-                {
-                  //itab_ k = _(i+1, j-1);
-                  value_type s = nt2::sum(nt2::multiplies(r(i,_(i+1, j-1))(_), r(_(i+1, j-1),j)(_)));
-                  //                  value_type s = nt2::mtimes(r(i,_(i+1, j-1)), r(_(i+1, j-1),j));
-                  r(i,j) = (t(i,j) - s)/(r(i,i) + r(j,j));
-                }
-            }
-        } 
-      tab_t x = nt2::mtimes( nt2::mtimes(q, r), nt2::trans(nt2::conj(q)));
-      return x; 
-      //bool nzeig = any(diag_of(T)(_))(1);
+      ctab_t q, t, r;
+      tie(q, t) = schur(a0, meta::as_<cmplx_type>()); // t is complex schur form.
+      compute(n, t, r); 
+      ctab_t x = nt2::mtimes( nt2::mtimes(q, r), nt2::trans(nt2::conj(q)));
+      return nt2::real(x);
+      //bool nzeig = any(diag_of(t)(_))(1);
       
       // if nzeig 
       //     warning(message('sqrtm:SingularMatrix'))
       // end  
     }
+    
+    result_type doit(const A0 & a0, boost::mpl::true_ const &) const
+    {
+      typedef nt2::table<value_type, nt2::_2D>        tab_t;
+      size_t n = length(a0);
+      tab_t q, t, r;
+      tie(q, t) = schur(a0); // t is complex schur form.
+      compute(n, t, r); 
+      return nt2::mtimes( nt2::mtimes(q, r), nt2::trans(nt2::conj(q)));
+      
+      //bool nzeig = any(diag_of(t)(_))(1);
+      
+      // if nzeig 
+      //     warning(message('sqrtm:SingularMatrix'))
+      // end  
+    }
+    template < class S > void compute(const size_t & n, const S& t, S& r) const
+      {
+        typedef typename S::value_type v_type; 
+        if (nt2::isdiagonal(t))
+          {
+            r = nt2::from_diag(nt2::sqrt(nt2::diag_of(t))); 
+          }
+        else
+          {
+            // Compute upper triangular square root R of T, a column at a time.
+            r = nt2::zeros(n, n, meta::as_<v_type>());  
+            for (size_t j=1; j <= n; ++j)
+              {
+                r(j,j) = nt2::sqrt(t(j,j));
+                for (size_t i=j-1; i >= 1; --i)
+                  {
+                    //itab_ k = _(i+1, j-1);
+                    v_type s = nt2::globalsum(nt2::multiplies(colvect(r(i,_(i+1, j-1))),
+                                                                      colvect(r(_(i+1, j-1),j))));
+                    //                  value_type s = nt2::mtimes(r(i,_(i+1, j-1)), r(_(i+1, j-1),j));
+                    r(i,j) = (t(i,j) - s)/(r(i,i) + r(j,j));
+                  }
+              }
+          } 
+      }
+    
   };
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrtm_, tag::cpu_
-                            , (A0)
-                            , (scalar_<fundamental_<A0> >)
-                            )
+                              , (A0)
+                              , (scalar_<fundamental_<A0> >)
+                              )
   {
     typedef typename nt2::meta::as_floating<A0>::type result_type; 
     NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::sqrt(nt2::tofloat(a0)); 
-    }
+      {
+        return nt2::sqrt(nt2::tofloat(a0)); 
+      }
   };  
 } }
 

@@ -14,9 +14,10 @@
 /// created  by jt the 06/03/2011
 /// 
 #include <nt2/include/functions/deconv.hpp>
-#include <nt2/include/functions/conv.hpp>    
+#include <nt2/include/functions/conv.hpp>
+#include <nt2/include/functions/polyadd.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/isequal.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -43,7 +44,8 @@ NT2_TEST_CASE_TPL ( deconv_real__1_0,  NT2_REAL_TYPES)
   
   NT2_DISPLAY(q);
   NT2_DISPLAY(r);
-  NT2_DISPLAY(nt2::conv(b, q)); 
+  NT2_DISPLAY(nt2::conv(b, q));
+  NT2_TEST(isulpequal(polyadd(conv(b, q), r), a, 0.5)); 
 //    NT2_DISPLAY(ab);
 //    NT2_TEST(nt2::isequal(ab,deconv(a, b)));
 //    NT2_DISPLAY(deconv(a, c));

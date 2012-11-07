@@ -12,7 +12,9 @@
 #include <nt2/toolbox/linalg/functions/schur.hpp>
 #include <nt2/toolbox/linalg/functions/factorizations/schur.hpp>
 #include <nt2/include/functions/assign.hpp>
+#include <nt2/include/functions/cast.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <complex> 
 
 namespace nt2 { namespace ext
 {
@@ -28,7 +30,10 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void                                                    result_type;
-    typedef typename boost::proto::result_of::child_c<A1&,0>::type  child0;
+    typedef typename boost::proto::result_of::child_c<A0&,0>::type          in0;
+    typedef typename meta::strip<in0>::type                           strip_in0; 
+    typedef typename strip_in0::value_type                           value_type;    
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type       child0;
     typedef typename meta::
             call< nt2::tag::
                   factorization::schur_(child0,char,char,char,nt2::details::in_place_)
@@ -36,14 +41,14 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
+      typedef typename nt2::details::is_complex<value_type>::type choice_t; 
       // Retrieve the lapack schur relevant options options
       char sort = 'N';
       char jobvs = (N1::value == 1) ? 'N' : 'V'; 
       char sense =  'N'; 
-         
       // Copy data in output first
-      boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-
+      child0 & out = boost::proto::child_c<0>(a1);
+      prepare(a0, a1, out, N0(), choice_t()); 
       // Factorize in place
       fact_t f = factorization::schur(boost::proto::child_c<0>(a1),jobvs,sort,sense,in_place_);
       decomp(f, a1, N1()); 
@@ -51,6 +56,39 @@ namespace nt2 { namespace ext
     }
 
   private:
+    //==========================================================================
+    // INTERNAL ONLY
+    // prepare the output
+    //==========================================================================
+    BOOST_FORCEINLINE
+    void prepare(A0 & a0, A1 & a1,
+                 child0 & out, boost::mpl::long_<1> const&, boost::mpl::true_ const &) const
+    {
+      in0 & in     = boost::proto::child_c<0>(a0);
+      out.resize(extent(in)); 
+      for(size_t i=1; i <= numel(in); ++i)
+      {
+        out(i) = value_type(in(i)); //TODO a cast
+      }
+    }
+    BOOST_FORCEINLINE
+    void prepare(A0 & a0, A1 & a1,
+                 child0 & out, boost::mpl::long_<1> const&, boost::mpl::false_ const &) const
+    {
+      out = boost::proto::child_c<0>(a0); 
+    }
+    
+    template < class S > 
+    BOOST_FORCEINLINE
+    void prepare(A0 & a0, A1 & a1,
+                 child0 & out, boost::mpl::long_<2> const&, S const &) const
+    {
+      typedef typename boost::proto::result_of::child_c<A0&,1>::type         in1_t;
+      typedef typename meta::strip<in1_t>::type                             sin1_t; 
+      typedef typename sin1_t::value_type                                   v_type; 
+      prepare(a0, a1, out, boost::mpl::long_<1>(), boost::mpl::true_()); 
+    }
+
     //==========================================================================
     // INTERNAL ONLY
     // If nargout is 2, fill the status
