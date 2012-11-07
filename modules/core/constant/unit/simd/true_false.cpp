@@ -19,12 +19,12 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL( true_false_integer_value, BOOST_SIMD_SIMD_TYPES )
 {
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef boost::simd::native<T,ext_t>                dst_t;
+  typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
+  typedef boost::simd::native< nt2::logical<T>, ext_t> dst_t;
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::False<dst_t>())[i], nt2::logical<dst_t>(false) );
+    NT2_TEST_EQUAL( (nt2::False<dst_t>())[i], nt2::logical<T>(false) );
 
   for(std::size_t i=0; i< nt2::meta::cardinal_of<dst_t>::value;++i)
-    NT2_TEST_EQUAL( (nt2::True<dst_t>())[i], nt2::logical<dst_t>(true) );
+    NT2_TEST_EQUAL( (nt2::True<dst_t>())[i], nt2::logical<T>(true) );
 }
