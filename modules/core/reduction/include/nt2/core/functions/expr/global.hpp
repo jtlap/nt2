@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::global_, tag::cpu_,
                               (A0)(A1),
                               (unspecified_<A0>)
-                              (generic_<fundamental_<A1> > )
+                              (generic_<unspecified_<A1> > )
                               )
   {
     typedef typename meta::result_of<A0 const(const A1&)>::type result_type;
