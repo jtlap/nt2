@@ -29,7 +29,6 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a, P const&) const
     {
-      std::cout << "arithmetic_";
       return  bitwise_cast<A0>
               ( _mm_shuffle_epi8( bitwise_cast<__m128i>(a)
                                 , details::permute<P,card_t::value>::call()
@@ -51,7 +50,6 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a, P const&) const
     {
-            std::cout << "type64_";
       return  bitwise_cast<A0>
               ( _mm_shuffle_epi8( bitwise_cast<__m128i>(a)
                                 , details::permute<P,card_t::value>::call()
@@ -73,7 +71,6 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(A0 const& a, P const&) const
     {
-            std::cout << "type32_";
       return  bitwise_cast<A0>
               ( _mm_shuffle_epi8( bitwise_cast<__m128i>(a)
                                 , details::permute<P,card_t::value>::call()

@@ -12,15 +12,8 @@
 #include <boost/mpl/apply.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <boost/mpl/char.hpp>
-
+#include <iostream>
 #define BOOST_SIMD_MM_PERM2(i0, i1) (i0+(i1 << 4))                             \
-/**/
-#define V(i) boost::mpl::apply<permut_t                                        \
-                              ,boost::mpl::int_<i>                             \
-                              ,card_t                                          \
-                              >::type::value                                   \
-/**/
-#define H1(i, inc) ((V(i) < 0) ? -1 : (H0(i)+inc))                             \
 /**/
 
 namespace boost { namespace simd { namespace details
@@ -48,81 +41,175 @@ namespace boost { namespace simd { namespace details
     typedef P permut_t;
     typedef boost::mpl::size_t<2> card_t;
 
-    template<char I>
-    struct offset_ : boost::mpl::char_<((index_<permut_t,card_t,I>::value & 1) << 3)>
+    template<char I, char J>
+    struct mask_ 
+    : boost::mpl::char_< generate_< permut_t
+                                  , card_t
+                                  , ((index_<permut_t,card_t,I>::value & 1) << 3)
+                                  , I
+                                  , J
+                                  >::value
+                        >
     {};
 
+#ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
     static __m128i call()
     {
-      return _mm_setr_epi8( generate_<permut_t,card_t,offset_<0>::value,0,0>::value
-                          , generate_<permut_t,card_t,offset_<0>::value,0,1>::value //H1(0, 1) 
-                          , generate_<permut_t,card_t,offset_<0>::value,0,2>::value //H1(0, 2)
-                          , generate_<permut_t,card_t,offset_<0>::value,0,3>::value //H1(0, 3)
-                          , generate_<permut_t,card_t,offset_<0>::value,0,4>::value //H1(0, 4)
-                          , generate_<permut_t,card_t,offset_<0>::value,0,5>::value //H1(0, 5) 
-                          , generate_<permut_t,card_t,offset_<0>::value,0,6>::value //H1(0, 6)
-                          , generate_<permut_t,card_t,offset_<0>::value,0,7>::value //H1(0, 7)
-                          , generate_<permut_t,card_t,offset_<1>::value,1,0>::value //H1(1, 0)
-                          , generate_<permut_t,card_t,offset_<1>::value,1,1>::value //H1(1, 1) 
-                          , generate_<permut_t,card_t,offset_<1>::value,1,2>::value //H1(1, 2)
-                          , generate_<permut_t,card_t,offset_<1>::value,1,3>::value //H1(1, 3)
-                          , generate_<permut_t,card_t,offset_<1>::value,1,4>::value //H1(1, 4)
-                          , generate_<permut_t,card_t,offset_<1>::value,1,5>::value //H1(1, 5) 
-                          , generate_<permut_t,card_t,offset_<1>::value,1,6>::value //H1(1, 6)
-                          , generate_<permut_t,card_t,offset_<1>::value,1,7>::value //H1(1, 7)
+      return _mm_setr_epi8( mask_<0,0>::value, mask_<0,1>::value 
+                          , mask_<0,2>::value, mask_<0,3>::value 
+                          , mask_<0,4>::value, mask_<0,5>::value 
+                          , mask_<0,6>::value, mask_<0,7>::value 
+                          , mask_<1,0>::value, mask_<1,1>::value 
+                          , mask_<1,2>::value, mask_<1,3>::value 
+                          , mask_<1,4>::value, mask_<1,5>::value 
+                          , mask_<1,6>::value, mask_<1,7>::value 
                           );
     }
+#elif defined(BOOST_SIMD_HAS_VMX_SUPPORT)
+    static __vector unsigned char call()
+    {
+      __vector unsigned char that = { mask_<0,0>::value, mask_<0,1>::value 
+                                    , mask_<0,2>::value, mask_<0,3>::value 
+                                    , mask_<0,4>::value, mask_<0,5>::value 
+                                    , mask_<0,6>::value, mask_<0,7>::value 
+                                    , mask_<1,0>::value, mask_<1,1>::value 
+                                    , mask_<1,2>::value, mask_<1,3>::value 
+                                    , mask_<1,4>::value, mask_<1,5>::value 
+                                    , mask_<1,6>::value, mask_<1,7>::value };
+      return that;     
+    } 
+#endif  
   };
 
   template<class P>
   struct permute<P,4>
   {
-    typedef typename P::type permut_t;
+    typedef P permut_t;
     typedef boost::mpl::size_t<4> card_t;  
+
+    template<char I, char J>
+    struct mask_ 
+    : boost::mpl::char_< generate_< permut_t
+                                  , card_t
+                                  , ((index_<permut_t,card_t,I>::value & 3) << 2)
+                                  , I
+                                  , J
+                                  >::value
+                        >
+    {};
+
+#ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
     static __m128i call()
     {
-      #define H0(i) ((V(i) & 3) << 2)
-      return _mm_setr_epi8( H1(0, 0), H1(0, 1) ,H1(0, 2), H1(0, 3)
-                          , H1(1, 0), H1(1, 1) ,H1(1, 2), H1(1, 3)
-                          , H1(2, 0), H1(2, 1) ,H1(2, 2), H1(2, 3)
-                          , H1(3, 0), H1(3, 1) ,H1(3, 2), H1(3, 3)
+      return _mm_setr_epi8( mask_<0, 0>::value, mask_<0, 1>::value 
+                          , mask_<0, 2>::value, mask_<0, 3>::value
+                          , mask_<1, 0>::value, mask_<1, 1>::value 
+                          , mask_<1, 2>::value, mask_<1, 3>::value
+                          , mask_<2, 0>::value, mask_<2, 1>::value 
+                          , mask_<2, 2>::value, mask_<2, 3>::value
+                          , mask_<3, 0>::value, mask_<3, 1>::value 
+                          , mask_<3, 2>::value, mask_<3, 3>::value
                           );
     }
-    #undef H0
+#elif defined(BOOST_SIMD_HAS_VMX_SUPPORT)
+    static __vector unsigned char call()
+    {
+      __vector unsigned char that = { mask_<0, 0>::value, mask_<0, 1>::value 
+                                    , mask_<0, 2>::value, mask_<0, 3>::value
+                                    , mask_<1, 0>::value, mask_<1, 1>::value 
+                                    , mask_<1, 2>::value, mask_<1, 3>::value
+                                    , mask_<2, 0>::value, mask_<2, 1>::value 
+                                    , mask_<2, 2>::value, mask_<2, 3>::value
+                                    , mask_<3, 0>::value, mask_<3, 1>::value 
+                                    , mask_<3, 2>::value, mask_<3, 3>::value };
+      return that;     
+    } 
+#endif  
   };
 
   template<class P>
   struct permute<P,8>
   {
-    typedef typename P::type permut_t;
+    typedef P permut_t;
     typedef boost::mpl::size_t<8> card_t;   
+
+    template<char I, char J>
+    struct mask_ 
+    : boost::mpl::char_< generate_< permut_t
+                                  , card_t
+                                  , ((index_<permut_t,card_t,I>::value & 7) << 1)
+                                  , I
+                                  , J
+                                  >::value
+                        >
+    {};
+
+#ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
     static __m128i call()
     {
-      #define H0(i) ((V(i) & 7) << 1)
-      return _mm_setr_epi8( H1(0, 0), H1(0, 1) ,H1(1, 0), H1(1, 1)
-                          , H1(2, 0), H1(2, 1) ,H1(3, 0), H1(3, 1)
-                          , H1(4, 0), H1(4, 1) ,H1(5, 0), H1(5, 1)
-                          , H1(6, 0), H1(6, 1) ,H1(7, 0), H1(7, 1)
+      return _mm_setr_epi8( mask_<0, 0>::value, mask_<0, 1>::value 
+                          , mask_<1, 0>::value, mask_<1, 1>::value
+                          , mask_<2, 0>::value, mask_<2, 1>::value
+                          , mask_<3, 0>::value, mask_<3, 1>::value
+                          , mask_<4, 0>::value, mask_<4, 1>::value 
+                          , mask_<5, 0>::value, mask_<5, 1>::value
+                          , mask_<6, 0>::value, mask_<6, 1>::value
+                          , mask_<7, 0>::value, mask_<7, 1>::value
                           );
     }
-    #undef H0
+#elif defined(BOOST_SIMD_HAS_VMX_SUPPORT)
+    static __vector unsigned char call()
+    {
+      __vector unsigned char that = { mask_<0, 0>::value, mask_<0, 1>::value 
+                                    , mask_<1, 0>::value, mask_<1, 1>::value
+                                    , mask_<2, 0>::value, mask_<2, 1>::value
+                                    , mask_<3, 0>::value, mask_<3, 1>::value
+                                    , mask_<4, 0>::value, mask_<4, 1>::value 
+                                    , mask_<5, 0>::value, mask_<5, 1>::value
+                                    , mask_<6, 0>::value, mask_<6, 1>::value
+                                    , mask_<7, 0>::value, mask_<7, 1>::value };
+      return that;     
+    } 
+#endif  
   };
-
   template<class P>
   struct permute<P,16>
   {
-    typedef typename P::type permut_t;
+    typedef P permut_t;
     typedef boost::mpl::size_t<16> card_t;  
+
+    template<char I>
+    struct mask_ 
+    : boost::mpl::char_<(index_<P,card_t,I>::value)<0?-1:index_<P,card_t,I>::value>
+    {};
+
+#ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
     static __m128i call()
     {
-      #define H(i) ((V(i) < 0) ? -1 : V(i))
-      return _mm_setr_epi8( H( 0), H( 1), H( 2), H(3)
-                          , H( 4), H( 5), H( 6), H(7)
-                          , H( 8), H( 9), H(10), H(11)
-                          , H(12), H(13), H(14), H(15)
+      return _mm_setr_epi8( mask_< 0>::value, mask_< 1>::value
+                          , mask_< 2>::value, mask_< 3>::value
+                          , mask_< 4>::value, mask_< 5>::value
+                          , mask_< 6>::value, mask_< 7>::value
+                          , mask_< 8>::value, mask_< 9>::value
+                          , mask_<10>::value, mask_<11>::value
+                          , mask_<12>::value, mask_<13>::value
+                          , mask_<14>::value, mask_<15>::value
                           );
     }
-    #undef H
+#elif defined(BOOST_SIMD_HAS_VMX_SUPPORT)
+    static __vector unsigned char call()
+    {
+      __vector unsigned char that = { mask_< 0>::value, mask_< 1>::value
+                                    , mask_< 2>::value, mask_< 3>::value
+                                    , mask_< 4>::value, mask_< 5>::value
+                                    , mask_< 6>::value, mask_< 7>::value
+                                    , mask_< 8>::value, mask_< 9>::value
+                                    , mask_<10>::value, mask_<11>::value
+                                    , mask_<12>::value, mask_<13>::value
+                                    , mask_<14>::value, mask_<15>::value };
+      return that;     
+    } 
+#endif  
   };
 
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
