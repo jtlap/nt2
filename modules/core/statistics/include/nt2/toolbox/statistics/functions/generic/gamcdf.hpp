@@ -26,7 +26,7 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/table.hpp>
+//#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -173,15 +173,15 @@ namespace nt2 { namespace ext
       Out2 & pup = boost::proto::child_c<2>(a1);
       plo.resize(a0.extent());
       pup.resize(a0.extent());
-      std::cout << "1" << std::endl; 
+      //      std::cout << "1" << std::endl; 
       plo = itp*exp_halfwidth;
-      std::cout << "2" << std::endl; 
+      //      std::cout << "2" << std::endl; 
       pup = itp/exp_halfwidth;
-      std::cout << "3" << std::endl; 
+      //      std::cout << "3" << std::endl; 
       plo /= nt2::oneplus(plo);
-      std::cout << "4" << std::endl; 
+      //      std::cout << "4" << std::endl; 
       pup /= nt2::oneplus(pup);   
-      std::cout << "5" << std::endl; 
+      //      std::cout << "5" << std::endl; 
     }
   private :
     template < class T > BOOST_FORCEINLINE static
