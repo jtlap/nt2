@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::complexify_, tag::cpu_
                             , (A0)
-                            , (scalar_< fundamental_<A0> >)
+                            , (generic_< fundamental_<A0> >)
                             )
   {
     typedef typename meta::as_complex<A0>::type result_type;
@@ -29,7 +29,7 @@ namespace nt2 { namespace ext
       return result_type(a0);
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::complexify_, tag::cpu_
                             , (A0)
                             , (generic_< complex_<fundamental_<A0> > > )
@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
     {
       return result_type(real(a0));
     }
-  };  
+  };
 } }
 
 #endif

@@ -29,35 +29,43 @@ NT2_TEST_CASE_TPL( complexify1, BOOST_SIMD_REAL_TYPES )
   NT2_DISPLAY(complexify(a0));
   NT2_DISPLAY(complexify(complexify(a0)));
   NT2_DISPLAY(complexify(nt2::_(T(1), T(3))));
-  typedef typename nt2::meta::as_real<T>::type                          real_type; 
+  typedef typename nt2::meta::as_real<T>::type                          real_type;
 
 
   NT2_DISPLAY(nt2::complexify(nt2::_(real_type( 11)
                                      , real_type(-1)
                                      , real_type(0)
-                                )));  
+                                )));
 }
 NT2_TEST_CASE_TPL( complexify2, BOOST_SIMD_REAL_TYPES )
 {
   typedef typename nt2::meta::as_imaginary<T>::type ciT;
   nt2::table<T>   a00 = nt2::ones(3, 3, nt2::meta::as_<T>());
-  NT2_DISPLAY(a00); 
+  NT2_DISPLAY(a00);
   nt2::table<ciT> a0 = ciT(1)*a00;
-  //  std::cout << a0 << std::endl; 
+  //  std::cout << a0 << std::endl;
   //NT2_DISPLAY(a0);
-  
+
  for(int i=1; i < 9; i++)
    {
-     std::cout << a0(i) << std::endl; 
+     std::cout << a0(i) << std::endl;
    }
   NT2_DISPLAY(complexify(a0));
   NT2_DISPLAY(complexify(complexify(a0)));
 }
 NT2_TEST_CASE_TPL( complexify3, BOOST_SIMD_REAL_TYPES )
 {
-  typedef typename nt2::meta::as_dry<T>::type dT; 
+  typedef typename nt2::meta::as_dry<T>::type dT;
   nt2::table<dT> a0 = nt2::ones(3, 3, nt2::meta::as_<dT>());
-  //  NT2_DISPLAY(a0); 
+  //  NT2_DISPLAY(a0);
   NT2_DISPLAY(complexify(a0));
   NT2_DISPLAY(complexify(complexify(a0)));
+}
+
+NT2_TEST_CASE( complexify4 )
+{
+  typedef double T;
+  typedef std::complex<double> cT;
+  nt2::table<T> a0;
+  nt2::table<cT> zz = nt2::complexify(a0);
 }
