@@ -16,7 +16,7 @@
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/complexify.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/table.hpp>
+
 namespace nt2 {namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::vandermonde_, tag::cpu_,
