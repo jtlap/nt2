@@ -12,7 +12,7 @@
 #include <nt2/core/functions/isulpequal.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/havesamesize.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/globalall.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
@@ -29,11 +29,12 @@ namespace nt2 { namespace ext
                             )
   {
     typedef bool result_type;
-
+    typedef typename meta::as_real<A0>::type r_type; 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0, const A1& a1) const
+      result_type operator()(const A0& a0, const A1& a1) const
     {
-      return nt2::ulpdist(a0, a1) <= Half<A0>();
+      
+      return nt2::ulpdist(a0, a1) <= Half<r_type>();
     }
   };
 
@@ -48,10 +49,11 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
-      typedef typename A0::value_type value_type; 
+      typedef typename A0::value_type value_type;
+      typedef typename meta::as_real<value_type>::type r_type; 
       if(!havesamesize(a0, a1))       return false;
 
-      return nt2::max(nt2::ulpdist(a0, a1)(_))(1) <=  Half<value_type>();
+      return nt2::globalmax(nt2::ulpdist(a0, a1)) <=  Half<r_type>();
     }
   };
 
