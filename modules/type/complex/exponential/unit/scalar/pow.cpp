@@ -15,6 +15,7 @@
 /// 
 #include <nt2/toolbox/exponential/include/functions/pow.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/ones.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -29,7 +30,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
-
+#include <nt2/table.hpp>
 
 
 NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
@@ -143,3 +144,47 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),0), nt2::One<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(pow(nt2::Zero<T>(),3), nt2::Zero<r_t>(), 0);
 } // end of test for floating_
+
+NT2_TEST_CASE_TPL ( pow3,  NT2_REAL_TYPES)
+{
+  
+  using nt2::exp;
+  using nt2::tag::exp_;
+  typedef std::complex<T> cT; 
+  nt2::table<cT> a = nt2::ones(3, 3, nt2::meta::as_<cT>()); 
+  nt2::table<cT> b = nt2::ones(3, 3, nt2::meta::as_<cT>());
+  NT2_DISPLAY(nt2::pow(a, b)); 
+  
+}
+NT2_TEST_CASE_TPL ( pow4,  NT2_REAL_TYPES)
+{
+  
+  typedef std::complex<T> cT; 
+  nt2::table<cT> a = nt2::ones(1, 3, nt2::meta::as_<cT>());
+  
+  for(int i=1; i <= 3; i++) a(i) =  cT(i, i); 
+  NT2_DISPLAY(a);
+  
+  nt2::table<cT> b = nt2::ones(1, 3, nt2::meta::as_<T>());
+  for(int i=1; i <= 3; i++) b(i) = cT(i-1); 
+  NT2_DISPLAY(b);
+  
+  NT2_DISPLAY(nt2::pow(a, b)); 
+  
+}
+NT2_TEST_CASE_TPL ( pow5,  NT2_REAL_TYPES)
+{
+  
+  typedef std::complex<T> cT; 
+  nt2::table<cT> a = nt2::ones(1, 3, nt2::meta::as_<cT>());
+  
+  for(int i=1; i <= 3; i++) a(i) =  cT(i, i); 
+  NT2_DISPLAY(a);
+  
+  nt2::table<T> b = nt2::ones(1, 3, nt2::meta::as_<T>());
+  for(int i=1; i <= 3; i++) b(i) = T(i-1); 
+  NT2_DISPLAY(b);
+  
+  NT2_DISPLAY(nt2::pow(a, b)); 
+  
+}

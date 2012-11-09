@@ -20,7 +20,6 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/arg.hpp>
-#include <nt2/include/functions/pure.hpp>
 #include <nt2/include/functions/logical_not.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
