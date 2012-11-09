@@ -11,9 +11,10 @@
 
 #include <nt2/core/functions/complexify.hpp>
 #include <nt2/include/functions/imag.hpp>
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {
