@@ -27,9 +27,9 @@ namespace nt2 { namespace details
     typedef typename strip_t::value_type                            type_t;
     typedef typename strip_t::index_type                           index_t;
     typedef typename meta::as_real<type_t>::type                   btype_t;
-    typedef nt2::container::table<type_t,nt2::matlab_index_>        ftab_t;
-    typedef nt2::container::table<btype_t,nt2::matlab_index_>      fbtab_t;
-    typedef nt2::container::table<nt2_la_int,nt2::matlab_index_>   fitab_t;
+    typedef nt2::container::table<type_t,nt2::_2D>                  ftab_t;
+    typedef nt2::container::table<btype_t,nt2::_2D>                fbtab_t;
+    typedef nt2::container::table<nt2_la_int,nt2::_2D>             fitab_t;
     typedef nt2::container::table<type_t,index_t>                    tab_t;
     typedef nt2::container::table<btype_t,index_t>                  btab_t;
     typedef nt2::container::table<nt2_la_int,index_t>               itab_t;
@@ -41,7 +41,7 @@ namespace nt2 { namespace details
     //  B is            N x nrhs
     ////////////////////////////////////////////////////////////////////////////
     template < class Input, class B >
-    full_qr_solve_result(Input& a, const B& b, const char &/*trans*/, const type_t& rcond = type_t(0))
+    full_qr_solve_result(Input& a, const B& b, const char &/*trans*/, const btype_t& rcond = btype_t(0))
       : a_(a)
       , lda_(a_.leading_size())
       , ldb_(b.leading_size())

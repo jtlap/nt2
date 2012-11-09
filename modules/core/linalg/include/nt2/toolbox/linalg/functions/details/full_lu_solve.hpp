@@ -26,9 +26,9 @@ namespace nt2 { namespace details
     typedef typename strip_t::value_type                 type_t;
     typedef typename strip_t::index_type                index_t;
     typedef typename meta::as_real<type_t>::type        btype_t; 
-    typedef nt2::table<type_t,nt2::matlab_index_>        ftab_t;
-    typedef nt2::table<btype_t,nt2::matlab_index_>      fbtab_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_>   fitab_t;
+    typedef nt2::table<type_t,nt2::_2D>                  ftab_t;
+    typedef nt2::table<btype_t,nt2::_2D>                fbtab_t;
+    typedef nt2::table<nt2_la_int,nt2::_2D>             fitab_t;
     typedef nt2::table<type_t,index_t>                    tab_t;
     typedef nt2::table<btype_t,index_t>                  btab_t;
     typedef nt2::table<nt2_la_int,index_t>               itab_t;
@@ -86,10 +86,10 @@ namespace nt2 { namespace details
     fitab_t            ipiv_;
     nt2_la_int         info_;
     ftab_t               af_;
-    ftab_t             ferr_;
-    ftab_t             berr_;
-    ftab_t                r_;
-    ftab_t                c_;
+    fbtab_t            ferr_;
+    fbtab_t            berr_;
+    fbtab_t               r_;
+    fbtab_t               c_;
     btype_t           rcond_; 
   };  
 } }
