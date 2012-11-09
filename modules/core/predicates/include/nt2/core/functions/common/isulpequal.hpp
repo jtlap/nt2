@@ -151,7 +151,7 @@ namespace nt2 { namespace ext
     result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
       if(!havesamesize(a0, a1))       return false;
-      return nt2::max( nt2::ulpdist(a0, a1)(_))(1) <= a2;
+      return nt2::globalmax( nt2::ulpdist(a0, a1)) <= a2;
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_

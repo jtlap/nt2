@@ -77,3 +77,16 @@ NT2_TEST_CASE_TPL( bsxfun_aliasing, NT2_REAL_TYPES)
    a = bsxfun(f,  a, m);
    NT2_TEST(isequal(a, c));
 }
+NT2_TEST_CASE_TPL( bsxfunc, NT2_REAL_TYPES)
+{
+  typedef std::complex<T> cT; 
+  nt2::table<cT> a = nt2::rif(nt2::of_size(8, 1), nt2::meta::as_<cT>()),
+                     m, c, d;
+   NT2_DISPLAY(a);
+   m =  nt2::mean(a, 1);
+   nt2::functor<nt2::tag::minus_> f;
+   c = bsxfun(f,  a, m);
+   a = bsxfun(f,  a, m);
+   NT2_TEST(isequal(a, c));
+   NT2_DISPLAY(c);
+}

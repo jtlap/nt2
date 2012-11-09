@@ -140,35 +140,35 @@ namespace nt2 { namespace ext
       typedef typename boost::proto::result_of::child_c<A1&,1>::type         Out1;
       typedef typename boost::proto::result_of::child_c<A1&,2>::type         Out2;
       
-      NT2_DISPLAY(a0.extent());   NT2_DISPLAY(a1.extent()); 
+      //      NT2_DISPLAY(a0.extent());   NT2_DISPLAY(a1.extent()); 
       p.resize(a0.extent()); 
       const In0& x  = boost::proto::child_c<0>(a0);
-      NT2_DISPLAY(x); 
+      //      NT2_DISPLAY(x); 
       const In1& a = boost::proto::child_c<1>(a0);
-      NT2_DISPLAY(a); 
+      //      NT2_DISPLAY(a); 
       const In2& b = boost::proto::child_c<2>(a0);
-      NT2_DISPLAY(b); 
+      //       NT2_DISPLAY(b); 
       BOOST_AUTO_TPL(z, x/b);
-      NT2_DISPLAY(z);
-      NT2_DISPLAY(nt2::gammainc(z, a));
-      NT2_DISPLAY(size(p)); 
+      //       NT2_DISPLAY(z);
+      //       NT2_DISPLAY(nt2::gammainc(z, a));
+      //       NT2_DISPLAY(size(p)); 
       p =  nt2::exp(z); //nt2::gammainc(z, a);
-      NT2_DISPLAY(p);
+      //       NT2_DISPLAY(p);
       //      Out0& p = boost::proto::child_c<0>(a1); 
       //      NT2_DISPLAY(p); 
       BOOST_AUTO_TPL(itp, (p/nt2::oneminus(p)));
-      NT2_DISPLAY(itp); 
+      //       NT2_DISPLAY(itp); 
       BOOST_AUTO_TPL(dp, nt2::rec(p*oneminus(p))); // derivative of logit(p) w.r.t. p
-      NT2_DISPLAY(dp); 
+      //       NT2_DISPLAY(dp); 
       BOOST_AUTO_TPL(da, dgammainc(z,a)*dp);       // dlogitp/da = dp/da * dlogitp/dp
-      NT2_DISPLAY(da); 
+      //       NT2_DISPLAY(da); 
       BOOST_AUTO_TPL(db, -nt2::exp(a*nt2::log(z)-z-nt2::gammaln(a)-nt2::log(b))* dp); // dlogitp/db = dp/db * dlogitp/dp
-      NT2_DISPLAY(db); 
+      //      NT2_DISPLAY(db); 
       BOOST_AUTO_TPL(varLogitp, pcov(1,1)*sqr(da) + (Two<value_type>()*pcov(1,2)*da + pcov(2,2)*db)*db);
-      NT2_DISPLAY(varLogitp); 
-      NT2_DISPLAY(normz); 
+      //       NT2_DISPLAY(varLogitp); 
+      //       NT2_DISPLAY(normz); 
       BOOST_AUTO_TPL(exp_halfwidth, nt2::exp(normz*nt2::sqrt(varLogitp)));
-      NT2_DISPLAY(exp_halfwidth);
+      //       NT2_DISPLAY(exp_halfwidth);
       Out1 & plo = boost::proto::child_c<1>(a1);
       Out2 & pup = boost::proto::child_c<2>(a1);
       plo.resize(a0.extent());

@@ -12,9 +12,11 @@
 #include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/ones.hpp>
-
+#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/isequal.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/details/helpers.hpp>
@@ -25,6 +27,7 @@
 
 NT2_TEST_CASE_TPL( complexify1, BOOST_SIMD_REAL_TYPES )
 {
+  typedef std::complex<T> cT; 
   nt2::table<T> a0 = nt2::_(T(1), T(3));
   NT2_DISPLAY(complexify(a0));
   NT2_DISPLAY(complexify(complexify(a0)));
@@ -36,6 +39,9 @@ NT2_TEST_CASE_TPL( complexify1, BOOST_SIMD_REAL_TYPES )
                                      , real_type(-1)
                                      , real_type(0)
                                 )));
+  a0 = nt2::ones(3, 3, nt2::meta::as_<T>());
+  NT2_TEST(nt2::isequal(a0, nt2::real(complexify(a0))));
+  
 }
 NT2_TEST_CASE_TPL( complexify2, BOOST_SIMD_REAL_TYPES )
 {

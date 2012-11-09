@@ -100,11 +100,11 @@ namespace nt2 { namespace details
     typedef typename source_t::index_type                    index_t;
     typedef typename meta::as_real<type_t>::type              base_t;
     typedef T                                                 data_t;
-    typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-    typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+    typedef nt2::table<type_t,nt2::_2D>                        tab_t;
+    typedef nt2::table<base_t,nt2::_2D>                       btab_t;
+    typedef nt2::table<itype_t,nt2::_2D>                      itab_t;
     typedef nt2::details::workspace<type_t>              workspace_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+    typedef nt2::table<nt2_la_int,nt2::_2D>                   ibuf_t;
     typedef nt2::table<type_t,index_t>                   result_type;
 
     template<class Input>
@@ -211,7 +211,7 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return singular values as a diagonal matrix
     //==========================================================================
-    typedef typename meta::call < tag::from_diag_(tab_t)>::type                                   u_T0;
+    typedef typename meta::call < tag::from_diag_(btab_t)>::type                                   u_T0;
     typedef typename meta::call < tag::expand_(u_T0, nt2_la_int, nt2_la_int)>::type            w_result; 
 
     w_result     w()              const
@@ -324,7 +324,7 @@ namespace nt2 { namespace details
     tab_t                            aa_;
     tab_t                             u_;
     tab_t                            vt_;
-    tab_t                             w_;
+    btab_t                            w_;
     nt2_la_int                     m_,n_;
     nt2_la_int                      lda_;
     nt2_la_int                      ldu_;

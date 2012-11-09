@@ -143,7 +143,7 @@ namespace nt2 { namespace ext
            d(nt2::first_index<2>(d)) = Three<value_type>()*del(1);
          }
       //      index_type end = n;
-     NT2_DISPLAY(h);  
+      //     NT2_DISPLAY(h);  
       d(nt2::last_index<2>(d)) = ((Two<value_type>()*h(n-1)+h(n-2))*del(n-1) - h(n-1)*del(n-2))/(h(n-1)+h(n-2));
       if (/*isreal(d) &&*/ (nt2::sign(d(nt2::last_index<1>(d))) != nt2::sign(del(n-1))))
          {

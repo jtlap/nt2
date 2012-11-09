@@ -144,32 +144,32 @@ namespace nt2 { namespace ext
                                               const value_type& alpha )
     {
       nt2::container::table<value_type> pcov =  boost::proto::child_c<3>(a0);
-       NT2_DISPLAY(pcov);
+      //        NT2_DISPLAY(pcov);
       const In0& p  = boost::proto::child_c<0>(a0);
       const In1& mu = boost::proto::child_c<1>(a0);
       const In2& sigma = boost::proto::child_c<2>(a0);
-      NT2_DISPLAY(p); 
-      NT2_DISPLAY(mu); 
-      NT2_DISPLAY(sigma);
+      //       NT2_DISPLAY(p); 
+      //       NT2_DISPLAY(mu); 
+      //       NT2_DISPLAY(sigma);
       BOOST_AUTO_TPL(x0,  nt2::norminv(p)); 
       boost::proto::child_c<0>(a1) =  nt2::fma(x0, sigma, mu);
       
-      NT2_DISPLAY(boost::proto::child_c<0>(a1)); 
+      //      NT2_DISPLAY(boost::proto::child_c<0>(a1)); 
       BOOST_AUTO_TPL(xvar, pcov(1,1) + (Two<value_type>()*pcov(1,2) + pcov(2,2)*x0)*x0);
-      NT2_DISPLAY(xvar); 
+      //      NT2_DISPLAY(xvar); 
       BOOST_ASSERT_MSG(nt2::globalall(nt2::is_nltz(xvar)), "Covariance matrix must be positive");      
       value_type normz = -nt2::norminv(alpha*nt2::Half<value_type>());
-      NT2_DISPLAY(normz); 
+      //      NT2_DISPLAY(normz); 
       BOOST_AUTO_TPL(halfwidth, normz*nt2::sqrt(xvar));
-      NT2_DISPLAY(halfwidth);
+      //      NT2_DISPLAY(halfwidth);
       boost::proto::child_c<1>(a1) = boost::proto::child_c<0>(a1)-halfwidth;
       boost::proto::child_c<2>(a1) = boost::proto::child_c<0>(a1)+halfwidth;
-      NT2_DISPLAY(boost::proto::child_c<1>(a1));
-      NT2_DISPLAY(boost::proto::child_c<2>(a1));
+      //      NT2_DISPLAY(boost::proto::child_c<1>(a1));
+      //      NT2_DISPLAY(boost::proto::child_c<2>(a1));
     }
     
   }; 
-
+  
 } }
 
 #endif

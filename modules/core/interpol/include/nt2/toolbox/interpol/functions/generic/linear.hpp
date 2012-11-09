@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
     
     result_type operator()(A0& yi, A1& inputs) const
     {
-      NT2_DISPLAY(inputs.extent()); 
+      // NT2_DISPLAY(inputs.extent()); 
       yi.resize(inputs.extent());
       const child0 & x   =  boost::proto::child_c<0>(inputs);
       BOOST_ASSERT_MSG(issorted(x, 'a'), "for 'linear' interpolation x values must be sorted in ascending order"); 
