@@ -42,6 +42,7 @@ NT2_TEST_CASE_TPL ( map_integer__2_0,  BOOST_SIMD_SIMD_TYPES)
   typedef boost::dispatch::functor<if_else_> tri_f;
 
   typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> nT;
+  typedef typename boost::simd::meta::as_logical<nT>::type nlT;
 
   typedef typename boost::dispatch::meta::call<map_(uni_f,nT)>::type ur_t;
   typedef typename boost::dispatch::meta::call<map_(bin_f,nT,nT)>::type br_t;
@@ -61,7 +62,7 @@ NT2_TEST_CASE_TPL ( map_integer__2_0,  BOOST_SIMD_SIMD_TYPES)
   NT2_TEST_EQUAL(map(bin_f(),boost::simd::One<nT>(), boost::simd::One<nT>()), boost::simd::Two<br_t>());
   NT2_TEST_EQUAL(map(bin_f(),boost::simd::One<nT>(), boost::simd::One<nT>()), boost::simd::Two<br_t>());
 
-  NT2_TEST_EQUAL(map(tri_f(),boost::simd::False<nT>(),boost::simd::One<nT>(), boost::simd::Two<nT>()), boost::simd::Two<br_t>());
-  NT2_TEST_EQUAL(map(tri_f(),boost::simd::True<nT>(),boost::simd::One<nT>(), boost::simd::Two<nT>()), boost::simd::One<br_t>());
-  NT2_TEST_EQUAL(map(tri_f(),boost::simd::True<nT>(),boost::simd::One<nT>(), boost::simd::Two<nT>()), boost::simd::One<br_t>());
+  NT2_TEST_EQUAL(map(tri_f(),boost::simd::False<nlT>(),boost::simd::One<nT>(), boost::simd::Two<nT>()), boost::simd::Two<br_t>());
+  NT2_TEST_EQUAL(map(tri_f(),boost::simd::True<nlT>(),boost::simd::One<nT>(), boost::simd::Two<nT>()), boost::simd::One<br_t>());
+  NT2_TEST_EQUAL(map(tri_f(),boost::simd::True<nlT>(),boost::simd::One<nT>(), boost::simd::Two<nT>()), boost::simd::One<br_t>());
 }
