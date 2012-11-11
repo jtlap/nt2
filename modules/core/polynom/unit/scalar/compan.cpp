@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( compan_real__1_0,  NT2_REAL_TYPES)
   
   using nt2::compan;
   using nt2::tag::compan_;
-  nt2::table<T> a =  nt2::_(T(1), T(4));
+  nt2::table<T, nt2::_2D> a =  nt2::_(T(1), T(4));
   T cpc[] = {   -2,     1,     0, 
                 -3,     0,     1, 
                 -4,     0,     0 };
@@ -42,4 +42,32 @@ NT2_TEST_CASE_TPL ( compan_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST(nt2::isequal(cp, compan(a)));
 } // end of test for floating_
   
+NT2_TEST_CASE_TPL ( compan_real__2_0,  NT2_REAL_TYPES)
+{ 
+  
+  using nt2::compan;
+  using nt2::tag::compan_;
+  nt2::table<T, nt2::_2D> a =  nt2::_(T(1), T(3));
+  T cpc[] = {   -2,  1, -3, 0};
+  nt2::table<T> cp(nt2::of_size(2, 2), &cpc[0], &cpc[4]); 
+  NT2_DISPLAY(compan(a));
+  NT2_DISPLAY(cp);
+  NT2_TEST(nt2::isequal(cp, compan(a)));
+} // end of test for floating_
+    
+NT2_TEST_CASE_TPL ( compan_real__3_0,  NT2_REAL_TYPES)
+{ 
+  
+  using nt2::compan;
+  using nt2::tag::compan_; 
+  nt2::table<T, nt2::_2D> a =  nt2::_(T(1), T(2));
+  T cpc[] = {   -2  }; 
+  nt2::table<T> cp(nt2::of_size(1, 1), &cpc[0], &cpc[1]); 
+  NT2_DISPLAY(compan(a));
+  NT2_DISPLAY(cp);
+  NT2_TEST(nt2::isequal(cp, compan(a)));
+} // end of test for floating_
+  
 
+  
+ 

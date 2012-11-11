@@ -10,6 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/globalall.hpp>
+#include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -26,6 +27,7 @@ NT2_TEST_CASE_TPL( globalall, NT2_TYPES )
   NT2_TEST_EQUAL( nt2::globalall(T(1)), true); 
   a(3, 3) = T(0); 
   NT2_TEST_EQUAL( nt2::globalall(a), false);
-  NT2_TEST_EQUAL( nt2::globalall(T(0)), false); 
+  NT2_TEST_EQUAL( nt2::globalall(T(0)), false);
+  NT2_TEST_EQUAL( nt2::globalall(nt2::is_gtz(T(0))), false);
 }
 

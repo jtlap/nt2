@@ -17,6 +17,8 @@
 #include <nt2/include/functions/globalany.hpp>
 #include <nt2/include/functions/globalall.hpp>
 #include <nt2/include/functions/is_finite.hpp>
+#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/is_eqz.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -35,7 +37,7 @@ namespace nt2 { namespace ext
       size_t idx = na0+1;
       for(size_t i=1; i <= na0 ; ++i)
       {
-        if (a0(i)) {idx = i; break;}
+        if (nt2::is_nez(a0(i))) {idx = i; break;}
       }
       return a0(nt2::One<size_t>(), _(idx,na0)); 
     }
@@ -58,7 +60,7 @@ namespace nt2 { namespace ext
       value_type thresh = a1*nt2::globalmax(nt2::abs(a0)); 
       for(size_t i=1; i <= na0 ; ++i)
       {
-        if (nt2::abs(a0(i)) > thresh) {idx = i; break;}
+        if (nt2::gt(nt2::abs(a0(i)), thresh)) {idx = i; break;}
       }
       return a0(nt2::One<size_t>(), _(idx,na0)); 
     }
@@ -79,10 +81,10 @@ namespace nt2 { namespace ext
       size_t idx = na0+1;
       for(size_t i=1; i <= na0 ; ++i)
       {
-        if (!a0(i)) continue;
+        if (nt2::is_eqz(a0(i))) continue;
         if (globalall(nt2::is_finite(a0(nt2::_(i+1, end_))/a0(i)))) {idx = i; break;}
       }
-      return a0(nt2::One<size_t>(), _(idx,na0)); 
+      return a0(nt2::One<size_t>(), nt2::_(idx,na0)); 
     }
   };  
   

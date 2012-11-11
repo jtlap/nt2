@@ -18,7 +18,7 @@
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
-#include <nt2/table.hpp>
+#include <nt2/container/table/table.hpp>
 
 namespace nt2 { namespace details
 {

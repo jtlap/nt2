@@ -11,6 +11,7 @@
 #include <nt2/toolbox/polynom/functions/valuation.hpp>
 #include <nt2/include/functions/reduce.hpp>
 #include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 
 
 namespace nt2 { namespace ext
@@ -27,7 +28,7 @@ namespace nt2 { namespace ext
       ptrdiff_t na0 =  nt2::numel(a0); 
       for(ptrdiff_t i=na0; i!= 0; --i)
       {
-        if (a0(i)) {return na0-i; }
+        if (nt2::is_nez(a0(i))) {return na0-i; }
       }
       return -1; 
     }

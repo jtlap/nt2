@@ -21,6 +21,7 @@ SET( SOURCES
   polyvalm.cpp   
 #  ratfracder.cpp
   reduce.cpp
+  roots.cpp
   valuation.cpp
 # List of scalar test files for toolbox polynomials
    )
