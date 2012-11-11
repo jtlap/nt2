@@ -16,6 +16,7 @@
 #include <nt2/include/functions/expm1.hpp>
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
+#include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/isscalar.hpp>
 #include <nt2/include/functions/globalall.hpp>
 #include <nt2/include/functions/havesamesize.hpp>
@@ -115,14 +116,14 @@ namespace nt2 { namespace ext
       const In0& x  = boost::proto::child_c<0>(a0);
       const In1& mu = boost::proto::child_c<1>(a0);
       BOOST_ASSERT_MSG(nt2::globalall(is_gtz(mu)), "mu parameter must be positive"); 
-      BOOST_AUTO_TPL(z, (x/mu));
+      BOOST_AUTO_TPL(z, nt2::if_zero_else(nt2::is_ltz(x), (x/mu)));
       //      BOOST_AUTO_TPL(logz, nt2::log(x/mu));
       //      value_type normz = -nt2::norminv(alpha*nt2::Half<value_type>());
       BOOST_AUTO_TPL(halfwidth, normz * nt2::sqrt(pcov/nt2::sqr(mu)));
       BOOST_AUTO_TPL(exp_halfwidth, exp(halfwidth));
 
       boost::proto::child_c<0>(a1) = -nt2::expm1(-z); 
-      boost::proto::child_c<1>(a1) = -nt2::expm1(-z*exp_halfwidth);
+      boost::proto::child_c<2>(a1) = -nt2::expm1(-z*exp_halfwidth);
       boost::proto::child_c<1>(a1) = -nt2::expm1(-z/exp_halfwidth);
       
 //       boost::proto::child_c<1>(a1) = if_zero_else(nt2::is_nan(logz), oneminus(nt2::exp(-nt2::exp(logz-halfwidth))));

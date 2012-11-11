@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( expcdf_2,  (float))//NT2_REAL_TYPES)
   NT2_DISPLAY(pup);
   r =  nt2::expcdf(a, nt2::ones(size(a), nt2::meta::as_<T>()), T(0.5), T(0.05));
   NT2_DISPLAY(r);
-  nt2::tie(r, plo, pup) = nt2::expcdf(a, T(1), T(0.5), T(0.05));
+  //nt2::tie(r, plo, pup) = nt2::expcdf(a, T(1), T(0.5), T(0.05));
   NT2_DISPLAY(r);
   NT2_DISPLAY(plo);
   NT2_DISPLAY(pup);
