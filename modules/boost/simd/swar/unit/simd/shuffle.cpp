@@ -130,7 +130,7 @@ struct lowshuffled_up0_
   struct apply  : boost::mpl
                 ::int_< (Index::value < Cardinal::value/2) ? -1 : Index::value > {};
 };
-
+ 
 NT2_TEST_CASE_TPL( shuffle_optim, (float)(int32_t)(uint32_t) )
 {
   using boost::simd::shuffle;
@@ -310,6 +310,5 @@ NT2_TEST_CASE_TPL( shuffle_index2_2arg, (double)(boost::simd::int64_t))
     origin1[i] = T(65+i); 
     origin2[i] = T(i); 
   }
-
-  //roll_test_2<vT,-1,-1>::call(origin1,origin2);
+  roll_binary_test_2<vT,-1,-1>::call(origin1,origin2);
 }
