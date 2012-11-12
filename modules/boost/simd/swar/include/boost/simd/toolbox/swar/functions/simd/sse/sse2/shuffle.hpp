@@ -13,7 +13,7 @@
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
-#include <iostream>
+
 namespace boost { namespace simd
 {
   namespace ext
