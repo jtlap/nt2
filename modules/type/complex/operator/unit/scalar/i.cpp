@@ -30,6 +30,6 @@ NT2_TEST_CASE_TPL ( i_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
   // specific values tests
    NT2_TEST_EQUAL(nt2::I<ciT>(), ciT(1));
-   NT2_TEST_EQUAL(nt2::I<cT>(),  cT(1) );
+   NT2_TEST_EQUAL(nt2::I<cT>(),  cT(0,1) );
 
 } // end of test for floating_
