@@ -469,7 +469,7 @@ macro(nt2_module_install_file header)
 
   if(PROJECT_NAME MATCHES "^NT2")
     string(REGEX REPLACE "^(.*)/[^/]+$" "\\1" ${header}_path ${header})
-    install(FILES ${NT2_BINARY_DIR}/include/${header}
+    install(FILES ${NT2_BINARY_INCLUDE_DIR}/${header}
             DESTINATION include/${${header}_path}
             COMPONENT ${NT2_CURRENT_MODULE}
            )
@@ -548,7 +548,7 @@ endmacro()
 # same as configure_file, but puts it in the right location and marks
 # the generated header for installation
 macro(nt2_module_configure_file cmake_file header)
-  configure_file(${cmake_file} ${NT2_BINARY_DIR}/include_tmp/${header})
+  configure_file(${cmake_file} ${NT2_BINARY_INCLUDE_DIR}_tmp/${header})
   nt2_module_install_file(${header})
 endmacro()
 
@@ -574,7 +574,7 @@ macro(nt2_module_simd_toolbox name)
       if(NOT already_there)
         string(REGEX REPLACE ".hpp" "" file ${file})
         string(TOUPPER ${file} file_U)
-        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/functions/${file}.hpp
+        file(WRITE ${NT2_BINARY_INCLUDE_DIR}_tmp/nt2/toolbox/${name}/functions/${file}.hpp
                    "//==============================================================================\n"
                    "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II\n"
                    "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI\n"
@@ -620,7 +620,7 @@ macro(nt2_module_simd_toolbox name)
         string(SUBSTRING ${file_U} 0 1 file_1)
         string(SUBSTRING ${file} 1 ${len} file_2)
         set(file_c "${file_1}${file_2}")
-        file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/constants/${file}.hpp
+        file(WRITE ${NT2_BINARY_INCLUDE_DIR}_tmp/nt2/toolbox/${name}/constants/${file}.hpp
                    "//==============================================================================\n"
                    "//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II\n"
                    "//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI\n"
@@ -657,7 +657,7 @@ macro(nt2_module_simd_toolbox name)
       string(REPLACE "BOOST_SIMD_" "NT2_" file_content "${file_content}")
       string(REPLACE "namespace boost { namespace simd" "namespace nt2" file_content "${file_content}")
       string(REPLACE "} }" "}" file_content "${file_content}")
-      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/functions/${file} "${file_content}")
+      file(WRITE ${NT2_BINARY_INCLUDE_DIR}_tmp/nt2/toolbox/${name}/include/functions/${file} "${file_content}")
     endforeach()
 
     file(GLOB include_files2 RELATIVE ${dir}/boost/simd/toolbox/${name}/include/constants ${dir}/boost/simd/toolbox/${name}/include/constants/*.hpp)
@@ -667,7 +667,7 @@ macro(nt2_module_simd_toolbox name)
       string(REPLACE "BOOST_SIMD_" "NT2_" file_content "${file_content}")
       string(REPLACE "namespace boost { namespace simd" "namespace nt2" file_content "${file_content}")
       string(REPLACE "} }" "}" file_content "${file_content}")
-      file(WRITE ${NT2_BINARY_DIR}/include_tmp/nt2/toolbox/${name}/include/constants/${file} "${file_content}")
+      file(WRITE ${NT2_BINARY_INCLUDE_DIR}_tmp/nt2/toolbox/${name}/include/constants/${file} "${file_content}")
     endforeach()
   endforeach()
 
@@ -779,11 +779,7 @@ macro(nt2_postconfigure_init)
 
   include(nt2.doc)
 
-  define_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED
-                  BRIEF_DOCS "Whether nt2_postconfigure_init has already been called"
-                  FULL_DOCS "Global flag to avoid running postconfigure multiple times"
-                 )
-  set_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED 1)
+  set(NT2_POSTCONFIGURE_INITED 1)
   set(NT2_FOUND_COMPONENTS "" CACHE INTERNAL "" FORCE)
 
   if(PROJECT_NAME MATCHES "^NT2")
@@ -807,7 +803,7 @@ endmacro()
 # runs all tool commands registered with nt2_module_postconfigure
 macro(nt2_postconfigure_run)
 
-  message(STATUS "[nt2] running post-configuration commands")
+  #message(STATUS "[nt2] running post-configuration commands")
 
   foreach(module ${NT2_FOUND_COMPONENTS})
     string(TOUPPER ${module} module_U)
@@ -815,7 +811,7 @@ macro(nt2_postconfigure_run)
       list(APPEND postconfigure_prefix "-I${NT2_${module_U}_ROOT}/include")
     endif()
   endforeach()
-  list(APPEND postconfigure_prefix "${NT2_BINARY_DIR}/include_tmp")
+  list(APPEND postconfigure_prefix "${NT2_BINARY_INCLUDE_DIR}_tmp")
 
   foreach(module ${NT2_FOUND_COMPONENTS})
     if(EXISTS ${NT2_BINARY_DIR}/modules/${module}.manifest)
@@ -835,8 +831,8 @@ macro(nt2_postconfigure_run)
     endforeach()
   endforeach()
 
-  if(IS_DIRECTORY ${NT2_BINARY_DIR}/include_tmp)
-    nt2_module_tool(move_reuse ${NT2_BINARY_DIR}/include_tmp ${NT2_BINARY_DIR}/include)
+  if(IS_DIRECTORY ${NT2_BINARY_INCLUDE_DIR}_tmp)
+    nt2_module_tool(move_reuse ${NT2_BINARY_INCLUDE_DIR}_tmp ${NT2_BINARY_INCLUDE_DIR})
   endif()
 
   if(PROJECT_NAME MATCHES "^NT2")
@@ -845,12 +841,14 @@ macro(nt2_postconfigure_run)
                         HIDDEN DISABLED
                        )
 
-    install( DIRECTORY ${NT2_BINARY_DIR}/include/
+    install( DIRECTORY ${NT2_BINARY_INCLUDE_DIR}/
              DESTINATION include
              COMPONENT postconfigured
              FILES_MATCHING PATTERN "*.hpp"
            )
 
   endif()
+
+  set(NT2_POSTCONFIGURE_INITED 0)
 
 endmacro()
