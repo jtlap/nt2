@@ -151,6 +151,14 @@ foreach(module ${NT2_MODULES})
 endforeach()
 
 ################################################################################
+# Call postconfigure for all modules in project root
+################################################################################
+if(NT2_MODULES)
+  set(NT2_BINARY_INCLUDE_DIR ${PROJECT_BINARY_DIR}/include)
+  find_package(NT2 REQUIRED)
+endif()
+
+################################################################################
 # Merge include directories in stage target
 ################################################################################
 add_custom_target(stage
