@@ -65,7 +65,7 @@ if(CMAKE_PROJECT_NAME STREQUAL NT2)
   endif()
 
   set(BUILDNAME "${OS}-${ARCH}${EXT}-${COMPILER}")
-  file(WRITE ${PROJECT_BINARY_DIR}/CTestConfigData.cmake "set(BUILDNAME ${BUILDNAME})")
+  file(WRITE ${PROJECT_BINARY_DIR}/CTestConfigData.cmake "set(BUILDNAME ${BUILDNAME})\nset(CTEST_USE_LAUNCHERS ${CTEST_USE_LAUNCHERS})")
 
 else()
 # outside of project, we load a file
