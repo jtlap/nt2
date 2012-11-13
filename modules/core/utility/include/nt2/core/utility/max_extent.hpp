@@ -12,7 +12,7 @@
 #include <nt2/core/utility/of_size.hpp>
 #include <nt2/include/functions/extent.hpp>
 
-namespace nt2 { namespace result_of
+namespace nt2 { namespace utility { namespace result_of
 {
   template<class A0, class A1, class A2=void, class A3=void>
   struct max_extent;
@@ -40,29 +40,29 @@ namespace nt2 { namespace result_of
     typedef typename result_of::max_extent<A2,A3>::type           ext23_t;
     typedef typename result_of::max<ext01_t,ext23_t>::type        type;
   };
-} }
+} } }
 
-namespace nt2
+namespace nt2 { namespace utility
 {
   template<class A, class B>
   typename result_of::max_extent<A,B>::type max_extent(A const& a, B const& b)
   {
-    return nt2::max(nt2::extent(a),nt2::extent(b));
+    return nt2::utility::max(nt2::extent(a),nt2::extent(b));
   }
 
   template<class A, class B, class C>
   typename result_of::max_extent<A,B,C>::type
   max_extent(A const& a, B const& b, C const& c)
   {
-    return nt2::max(nt2::max_extent(a,b),nt2::extent(c));
+    return nt2::utility::max(nt2::utility::max_extent(a,b),nt2::extent(c));
   }
 
   template<class A, class B, class C,class D>
   typename result_of::max_extent<A,B,C,D>::type
   max_extent(A const& a, B const& b, C const& c, D const& d)
   {
-    return nt2::max(nt2::max_extent(a,b),nt2::max_extent(c,d));
+    return nt2::utility::max(nt2::utility::max_extent(a,b),nt2::utility::max_extent(c,d));
   }
-}
+} }
 
 #endif

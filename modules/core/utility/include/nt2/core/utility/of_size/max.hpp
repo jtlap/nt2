@@ -14,7 +14,7 @@
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 
-namespace nt2
+namespace nt2 { namespace utility
 {
   namespace result_of
   {
@@ -102,6 +102,6 @@ namespace nt2
                   > callee;
     return callee(a0,a1);
   }
-}
+} }
 
 #endif
