@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_COMPAN_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_COMPAN_HPP_INCLUDED
 #include <nt2/toolbox/polynom/functions/compan.hpp>
-//#include <nt2/core/container/table/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/isvector.hpp>
 #include <nt2/include/functions/reduce.hpp>
 #include <nt2/include/functions/divides.hpp>
@@ -21,7 +21,7 @@
 #include <nt2/include/functions/vertcat.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/table.hpp>
+
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::compan_, tag::cpu_
@@ -49,16 +49,11 @@ namespace nt2 { namespace ext
       size_t np = nt2::numel(p);
       value_type f = One<value_type>();
       if (np) f = -p(1);
-      std::cout << "np-2 " << np-2 << std::endl;
       int32_t nd = np-2 ? -1 :0; 
       BOOST_AUTO_TPL(d, nt2::from_diag(nt2::ones(size_t(1), np-2, meta::as_<value_type>()), nd));
-//      NT2_DISPLAY(d); NT2_DISPLAY(size(d));
       BOOST_AUTO_TPL(g, p(nt2::_(size_t(2), np ))/f);
       BOOST_AUTO_TPL(h, d(nt2::_(size_t(2), size_t(np-1)), nt2::_));
-//      NT2_DISPLAY(g); NT2_DISPLAY(size(g));
-//      NT2_DISPLAY(h); NT2_DISPLAY(size(h)); 
       BOOST_AUTO_TPL(e, nt2::catv(g, h));
-//      NT2_DISPLAY(size(e)); 
       return e;
     }
   };

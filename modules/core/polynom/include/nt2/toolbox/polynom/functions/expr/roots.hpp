@@ -62,10 +62,7 @@ namespace nt2 { namespace ext
                      nt2::factorization::geneig(cpan,
                                                 nt2::eye(nt2::size(cpan, 1), nt2::size(cpan, 2), meta::as_<value_type>()),
                                                 'V', 'V', 'S').eigen());
-//      NT2_DISPLAY(nt2::geneig(cpan)); 
-//      out = nt2::geneig(cpan);
-        out = eigen; 
-      NT2_DISPLAY(out); 
+      out = eigen; 
       out.resize(in.extent()); 
       return out; 
     }
