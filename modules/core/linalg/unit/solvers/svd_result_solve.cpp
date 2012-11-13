@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL(svd_solve_result2c, NT2_REAL_TYPES)
   ct_t bb = b; 
   nt2::display("a     ", a);
   nt2::display("b     ", b);
-  nt2::details::svd_solve_result<t_t> f(a, b);
+  nt2::details::svd_solve_result<ct_t> f(a, b);
   nt2::display("x", f.x());
   NT2_DISPLAY(a);
   NT2_DISPLAY(b);
