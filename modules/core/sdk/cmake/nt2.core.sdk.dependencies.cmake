@@ -8,6 +8,6 @@
 ################################################################################
 
 SET ( NT2_CORE.SDK_DEPENDENCIES_EXTRA sdk.meta sdk.functor sdk.error
-                                      core.container.table
+                                      core.settings core.container.table sdk.dsl
                                       core.operator
     )

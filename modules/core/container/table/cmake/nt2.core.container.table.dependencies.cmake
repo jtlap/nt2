@@ -7,7 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA core.sdk
+SET ( NT2_CORE.CONTAINER.TABLE_DEPENDENCIES_EXTRA sdk.dsl
+                                                  core.sdk
                                                   core.utility
                                                   core.operator
                                                   core.restructuring
