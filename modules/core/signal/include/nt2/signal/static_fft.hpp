@@ -2872,7 +2872,7 @@ void irealfft_split(float *data,long n){
 } // namespace nt2
 //------------------------------------------------------------------------------
 
-#if defined( __GNUC__ )
+#if defined( __GNUC__ ) && (__GNUC__ > 4 || (__GNUC__ == 4 && __GNUC_MINOR__ >= 4))
     #pragma GCC pop_options
 #endif // compiler
 
