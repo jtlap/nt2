@@ -46,27 +46,3 @@ NT2_TEST_CASE_TPL(svd_solve_result2, NT2_REAL_TYPES)
   std::cout << nt2::globalmax(nt2::ulpdist(bb, mtimes(aa, f.x()))) << std::endl; ; 
   NT2_TEST(nt2::isulpequal(bb, mtimes(aa, f.x()), T(2.0)));    
  }
-NT2_TEST_CASE_TPL(svd_solve_result2c, NT2_REAL_TYPES)
-{
-  using nt2::_;
-  using nt2::tag::solvers::svd_solve_;
-  typedef std::complex<T> cT; 
-  typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
-  typedef nt2::table<T> t_t;
-  typedef nt2::table<cT> ct_t;
-  typedef nt2::table<itype_t> it_t;
-  ct_t a =       nt2::ones (4, 4, nt2::meta::as_<cT>())
-        + T(10)*nt2::eye  (4, 4, nt2::meta::as_<cT>());
-  ct_t b = nt2::ones(4, 1, nt2::meta::as_<cT>());
-  ct_t aa = a;
-  ct_t bb = b; 
-  nt2::display("a     ", a);
-  nt2::display("b     ", b);
-  nt2::details::svd_solve_result<ct_t> f(a, b);
-  nt2::display("x", f.x());
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(b);
-  NT2_DISPLAY(mtimes(aa, f.x()));
-  std::cout << nt2::globalmax(nt2::ulpdist(bb, mtimes(aa, f.x()))) << std::endl; ; 
-  NT2_TEST(nt2::isulpequal(bb, mtimes(aa, f.x()), T(2.0)));    
- }

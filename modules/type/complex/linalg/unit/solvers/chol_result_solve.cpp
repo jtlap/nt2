@@ -23,18 +23,20 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 
-NT2_TEST_CASE_TPL(chol_result, NT2_REAL_TYPES)
+
+NT2_TEST_CASE_TPL(chol_resultc, NT2_REAL_TYPES)
 {
   std::cout << std::setprecision(20); 
-  typedef nt2::table<T> t_t;
-  t_t a =       nt2::ones (4, 4, nt2::meta::as_<T>())
-        + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-  t_t b = nt2::ones(4, 1, nt2::meta::as_<T>());
-  t_t aa = a;
-  t_t bb = b; 
+  typedef std::complex<T> cT;
+  typedef nt2::table<cT> ct_t;
+  ct_t a =       nt2::ones (4, 4, nt2::meta::as_<cT>())
+        + T(10)*nt2::eye  (4, 4, nt2::meta::as_<cT>());
+  ct_t b = nt2::ones(4, 1, nt2::meta::as_<cT>());
+  ct_t aa = a;
+  ct_t bb = b; 
   nt2::display("a     ", a);
   nt2::display("b     ", b);
-  nt2::details::chol_solve_result<t_t> f(a, b, 'L');
+  nt2::details::chol_solve_result<ct_t> f(a, b, 'L');
 
   nt2::display("x", f.x());
   NT2_DISPLAY(a);

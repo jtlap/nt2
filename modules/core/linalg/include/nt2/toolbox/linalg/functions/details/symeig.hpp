@@ -21,7 +21,7 @@
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/strip.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/core/container/table/table.hpp>
 

@@ -15,7 +15,7 @@
 #include <nt2/include/functions/bsxfun.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/complexify.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2 {namespace ext
 {

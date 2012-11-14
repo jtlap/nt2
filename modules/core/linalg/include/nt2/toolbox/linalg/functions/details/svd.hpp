@@ -35,7 +35,7 @@
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/core/container/table/table.hpp>
 // TODO:
 // these are the kind of syntaxes to be enforced by nt2::chol

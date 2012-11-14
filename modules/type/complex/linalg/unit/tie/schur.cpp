@@ -6,40 +6,44 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - chol_result solvers"
+#define NT2_UNIT_MODULE "nt2 linalg toolbox - tied schur function"
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/chol_solve.hpp>
-#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/schur.hpp>
+#include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/globalmax.hpp>
+#include <nt2/include/functions/isulpequal.hpp>
+#include <nt2/include/functions/ulpdist.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 
-NT2_TEST_CASE_TPL(chol_result, NT2_REAL_TYPES)
-{
-  std::cout << std::setprecision(20); 
-  typedef nt2::table<T> t_t;
-  t_t a =       nt2::ones (4, 4, nt2::meta::as_<T>())
-        + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
-  t_t b = nt2::ones(4, 1, nt2::meta::as_<T>());
-  t_t aa = a;
-  t_t bb = b; 
-  nt2::display("a     ", a);
-  nt2::display("b     ", b);
-  nt2::details::chol_solve_result<t_t> f(a, b, 'L');
 
-  nt2::display("x", f.x());
-  NT2_DISPLAY(a);
+NT2_TEST_CASE_TPL ( schurc, NT2_REAL_TYPES)
+{
+  typedef nt2::table<T> table_t;
+  typedef std::complex<T> cT; 
+  typedef nt2::table<T, nt2::_2D> t_t;
+  typedef nt2::table<cT, nt2::_2D> ct_t;
+  ct_t b = nt2::ones(4, 4, nt2::meta::as_<cT>())
+                + T(10)*nt2::eye(4, 4, nt2::meta::as_<cT>());
+  ct_t z, t; 
+ b(1, 1) = 1;
   NT2_DISPLAY(b);
-  NT2_DISPLAY(mtimes(aa, f.x()));
-  std::cout << nt2::globalmax(nt2::ulpdist(bb, mtimes(aa, f.x()))) << std::endl; ; 
-  NT2_TEST(nt2::isulpequal(bb, mtimes(aa, f.x())));   
+ t = nt2::schur(b);
+  NT2_DISPLAY(t); 
+
+  nt2::tie(z, t) = nt2::schur(b);
+  NT2_DISPLAY(z);
+  NT2_DISPLAY(t);
+  ct_t zz =  nt2::mtimes(nt2::mtimes(z, t), nt2::trans(nt2::conj(z)));
+  NT2_TEST_ULP_EQUAL(zz, c, T(16.0)));   
 }
+

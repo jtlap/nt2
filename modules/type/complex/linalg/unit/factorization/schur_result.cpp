@@ -6,14 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 linalg toolbox - tied schur function"
+#define NT2_UNIT_MODULE "nt2 linalg toolbox - schur_result factorization"
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/schur.hpp>
-#include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/ldexp.hpp>
+#include <nt2/include/functions/repnum.hpp>
+#include <nt2/include/functions/rif.hpp>
+#include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/globalmax.hpp>
@@ -25,46 +28,27 @@
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 
-NT2_TEST_CASE_TPL ( schur, NT2_REAL_TYPES)
+
+
+
+NT2_TEST_CASE_TPL(schur_result_2b, NT2_REAL_TYPES)
 {
-  typedef nt2::table<T> table_t;
-  table_t z, t, b = nt2::ones(4, 4, nt2::meta::as_<T>())
-                + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
-  b(1, 1) = 1;
-  NT2_DISPLAY(b);
-  t = nt2::schur(b);
-  NT2_DISPLAY(t); // just quasi diag matrix
+  using nt2::_;
+  using nt2::tag::factorization::schur_;
+  typedef std::complex<T> cT; 
+  typedef nt2::table<cT, nt2::_2D> t_t;
+  t_t c = nt2::ones(2, 2, nt2::meta::as_<cT>());
+  c(3) = -c(3); 
+  nt2::details::schur_result<t_t> f(c,'V','N','N');
+//  t_t zz =  nt2::mtimes(c, c); 
 
-  nt2::tie(z, t) = nt2::schur(b); //real
-  NT2_DISPLAY(z);
-  NT2_DISPLAY(t);
+   nt2::display("c     ", c);
+//   nt2::display("values", f.values());
+   t_t z  = f.z();
+   nt2::display("z    ", z);
+   t_t t = f.t();
+   nt2::display("t    ", t);
+   t_t zz =  nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z));
+   NT2_TEST(isulpequal(zz, c, T(16.0)));   
 }
-
-
-
-NT2_TEST_CASE_TPL ( schur_m_test, NT2_REAL_TYPES)
-{
-  typedef nt2::table<T> table_t;
-  table_t z, t, zz;
-
-  T bb[9] = {-149,    -50,   -154,
-             537,    180,    546,
-             -27,     -9,    -25 };
-  table_t b(nt2::of_size(3, 3));
-  int k = 0;
-  for(int i=1; i <= 3; ++i)
-    {
-      for(int j=1; j <= 3; ++j)
-        {
-          b(i, j) = bb[k++];
-        }
-    }
-  NT2_DISPLAY(b);
-  nt2::tie(z, t) = nt2::schur(b); //real
-  NT2_DISPLAY(z);
-  NT2_DISPLAY(t);
-  zz =  mtimes(nt2::mtimes(z, t), nt2::trans(z));
-  NT2_TEST(isulpequal(zz, b, T(16.0))); 
-}
-
 
