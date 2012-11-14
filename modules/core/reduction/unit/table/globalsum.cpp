@@ -10,11 +10,8 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/globalsum.hpp>
-#include <nt2/include/functions/colvect.hpp>
-#include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/constants/true.hpp>
-#include <nt2/include/constants/false.hpp>
+#include <nt2/include/functions/reshape.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -26,19 +23,8 @@ NT2_TEST_CASE_TPL( globalsum, NT2_TYPES )
 {
   nt2::table<T> a = nt2::reshape(nt2::_(T(1), T(9)), 3, 3);
   NT2_TEST_EQUAL( nt2::globalsum(a), T(45));
-  NT2_TEST_EQUAL( nt2::globalsum(T(1)), T(1)); 
-  a(3, 3) = T(0); 
+  NT2_TEST_EQUAL( nt2::globalsum(T(1)), T(1));
+  a(3, 3) = T(0);
   NT2_TEST_EQUAL( nt2::globalsum(a), T(45-9));
   NT2_TEST_EQUAL( nt2::globalsum(T(0)), T(0));
-}
-
-NT2_TEST_CASE_TPL( globalsumc, NT2_REAL_TYPES )
-{
-  nt2::table<cT> a = nt2::reshape(nt2::_(T(1), T(9)), 3, 3);
-  
-  NT2_TEST_EQUAL( nt2::globalsum(a), cT(45));
-  NT2_TEST_EQUAL( nt2::globalsum(cT(1)), cT(1)); 
-  a(3, 3) = T(0); 
-  NT2_TEST_EQUAL( nt2::globalsum(a), cT(45-9));
-  NT2_TEST_EQUAL( nt2::globalsum(cT(0)), cT(0));
 }
