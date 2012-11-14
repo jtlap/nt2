@@ -7,6 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET ( NT2_CORE.GENERATIVE_DEPENDENCIES_EXTRA core.sdk core.random core.utility core.fuzzy core.exponential
+SET ( NT2_CORE.GENERATIVE_DEPENDENCIES_EXTRA core.sdk core.utility core.fuzzy core.exponential
                                              core.container.placeholders
     )
