@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     {
       //     if(is_ngtz(x)||is_ngez(a)) return Nan<result_type>();
       if (nt2::is_eqz(a)) return One<result_type>();
-      return boost::math::gamma_p(a, x, nt2::policy());
+      return boost::math::gamma_p(a, x, nt2_policy());
     }
   };
 } }
