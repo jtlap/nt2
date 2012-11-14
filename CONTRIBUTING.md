@@ -50,12 +50,12 @@ All files must explicitly include and/or depend on the components that they use,
 
 In particular, any file using a type, function, macro or meta-function must include the file that it is defined in, and must not include any other file that the ones that are strictly necessary.
 
-Module dependencies are specified in nt2.*module*.dependencies.cmake files. Any file included by a file of a module must either be present in the module itself or be in its direct dependencies.
+Module dependencies are specified in nt2. *module* .dependencies.cmake files. Any file included by a file of a module must either be present in the module itself or be in its direct dependencies.
 
 Git usage
 =========
 
-A reasonable attempt to make the master repository always in a stable state should be made;; to achieve this commits should be atomic and do all the required changes affected by the other changes made everywhere.
+A reasonable attempt to make the master repository always in a stable state should be made; to achieve this commits should be atomic and do all the required changes affected by the other changes made everywhere.
 
 Commits must be self-contained but also minimal, use separate commits to modify separate things.
 
