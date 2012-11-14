@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SCHUR_HPP_INCLUDED
 
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
+#include <nt2/toolbox/linalg/details/lapack/geesx.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/of_size.hpp>
@@ -18,10 +19,12 @@
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
-#include <nt2/toolbox/linalg/details/lapack/geesx.hpp>
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/prod.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 //  schur  schur decomposition.
@@ -108,7 +111,7 @@ namespace nt2 {
 
 
       data_t values() const { return aa_; }
-      typedef typename meta::call < tag::from_diag_(tab_t)>::type w_result; 
+      typedef typename meta::call < tag::from_diag_(tab_t)>::type w_result;
       w_result     w () const { return from_diag(w_);}
       const tab_t& t () const { return aa_;          }
       const tab_t& z () const
@@ -197,7 +200,7 @@ namespace nt2 {
         , lda_(src.lda_)
         , wrk_(src.wrk_)
       {}
-      
+
       data_t values() const { return aa_; }
       const tab_t&  t() const { return aa_;     }
       const tab_t& z() const

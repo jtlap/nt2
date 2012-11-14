@@ -9,15 +9,18 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_GENEIG_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_GENEIG_HPP_INCLUDED
 
-#include <nt2/include/functions/abs.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gges.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/issquare.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace details

@@ -9,6 +9,8 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SVD_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SVD_HPP_INCLUDED
 
+#include <nt2/toolbox/linalg/details/utility/workspace.hpp>
+#include <nt2/toolbox/linalg/details/lapack/gesvd.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/last_index.hpp>
@@ -31,8 +33,10 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/toolbox/linalg/details/utility/workspace.hpp>
-#include <nt2/toolbox/linalg/details/lapack/gesvd.hpp>
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/core/container/table/table.hpp>
 // TODO:
 // these are the kind of syntaxes to be enforced by nt2::chol
 //  svd    Singular value decomposition.
@@ -147,7 +151,7 @@ namespace nt2 { namespace details
       lda_    = src.lda_;
       info_   = src.info_;
       wrk_    = src.wrk_;
-      pinv_   = src.pinv_; 
+      pinv_   = src.pinv_;
       return *this;
     }
 
@@ -155,7 +159,7 @@ namespace nt2 { namespace details
     svd_result(svd_result const& src)
      :jobu_(src.jobu_),jobvt_(src.jobvt_),
       a_(src.a_),aa_(src.aa_),m_(src.m_),n_(src.n_),
-      lda_(src.lda_),info_(src.info_),wrk_(src.wrk_), 
+      lda_(src.lda_),info_(src.info_),wrk_(src.wrk_),
       pinv_(src.pinv_)
     {}
 
@@ -212,11 +216,11 @@ namespace nt2 { namespace details
     // Return singular values as a diagonal matrix
     //==========================================================================
     typedef typename meta::call < tag::from_diag_(btab_t)>::type                                   u_T0;
-    typedef typename meta::call < tag::expand_(u_T0, nt2_la_int, nt2_la_int)>::type            w_result; 
+    typedef typename meta::call < tag::expand_(u_T0, nt2_la_int, nt2_la_int)>::type            w_result;
 
     w_result     w()              const
     {
-      nt2_la_int h = height(vt_); 
+      nt2_la_int h = height(vt_);
       return nt2::expand(from_diag(w_), ucol_, h);
     }
 
@@ -314,7 +318,7 @@ namespace nt2 { namespace details
           tab_t w1 = nt2::if_else( gt(w_, length(a_)*epsi), nt2::rec(w_), Zero<base_t>());
           tab_t pinv__ =  mtimes(trans(vt_), mtimes(from_diag(w1), trans(u_)));
 //        }
-        return pinv__; 
+        return pinv__;
       }
 
   private:
@@ -333,7 +337,7 @@ namespace nt2 { namespace details
     nt2_la_int                    vtcol_;
     nt2_la_int                     info_;
     workspace_t                     wrk_;
-    tab_t                          pinv_; 
+    tab_t                          pinv_;
 
   };
 } }

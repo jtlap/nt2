@@ -23,9 +23,10 @@
 #include <nt2/include/constants/valmax.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/simd/logical.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/adapted_traits.hpp>
 #include <nt2/core/container/table/table.hpp>
-
+#include <boost/mpl/if.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -34,24 +35,24 @@ namespace nt2 { namespace ext
                              (unspecified_<A0>)
                              )
   {
-    typedef typename A0::value_type                                                   value_type; 
+    typedef typename A0::value_type                                                   value_type;
     typedef typename meta::as_logical<value_type>::type                              bvalue_type;
     typedef nt2::container::table<bvalue_type>                                       result_type;
     typedef typename nt2::meta::as_integer<value_type>::type                         ivalue_type;
     typedef typename boost::mpl::if_<meta::is_floating_point<value_type>,
-                                     uint32_t, ivalue_type>::type           itype; 
+                                     uint32_t, ivalue_type>::type           itype;
     NT2_FUNCTOR_CALL(1)
       {
-        itype m = nt2::oneplus(nt2::sqrt(nt2::globalmax(a0))); 
+        itype m = nt2::oneplus(nt2::sqrt(nt2::globalmax(a0)));
         nt2::container::table<itype> p = nt2::primes(m);
         result_type r(nt2::of_size(1, nt2::numel(a0)));
-        
+
         for(size_t i=1; i <= numel(a0) ; i++)
           {
-            r(i) = is_prime(a0(i), p); 
+            r(i) = is_prime(a0(i), p);
           }
         return r;
       }
-  }; 
+  };
 } }
 #endif

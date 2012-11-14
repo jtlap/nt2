@@ -7,6 +7,6 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-SET(NT2_TYPE.COMPLEX.BOOLEAN_DEPENDENCIES_EXTRA type.complex.constant type.complex.operator
+SET(NT2_TYPE.COMPLEX.BOOLEAN_DEPENDENCIES_EXTRA core.boolean type.complex.constant type.complex.operator
                                                 type.complex.predicates type.complex.reduction
    )

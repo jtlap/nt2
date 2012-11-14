@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SYMEIG_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SYMEIG_HPP_INCLUDED
 
-#include <nt2/include/functions/abs.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 #include <nt2/toolbox/linalg/details/lapack/hsev.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -19,8 +19,11 @@
 #include <nt2/include/functions/issymetric.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/error/warning.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Construct the class choosing the computation model :
@@ -124,7 +127,7 @@ namespace nt2 { namespace details
     // /////////////////////////////////////////////////////////////////////////////
     // return eigen values (as diagonal matrix of reals)
     // /////////////////////////////////////////////////////////////////////////////
-    typedef typename meta::call < tag::from_diag_(btab_t)>::type w_result; 
+    typedef typename meta::call < tag::from_diag_(btab_t)>::type w_result;
     w_result     w ()   const      { return from_diag(w_);}
 
     //     // /////////////////////////////////////////////////////////////////////////////
