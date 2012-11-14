@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
   {
     typedef void                                                              result_type;
     typedef typename A0::value_type                                           value_type;
-    typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
+    typedef typename A0::extent_type                                          extent_type;
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const&) const
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
             }
           }
         }
-        
+
         //scalar part
         for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
           for(std::size_t i = bound; i < ibound; ++i){
@@ -84,7 +84,7 @@ namespace nt2 { namespace ext
           }
         }
       }
-      
+
       else {
 
         for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){

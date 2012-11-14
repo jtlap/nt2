@@ -35,17 +35,17 @@ namespace nt2 { namespace ext
   {
     typedef void                                                              result_type;
     typedef typename A0::value_type                                           value_type;
-    typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
+    typedef typename A1::extent_type                                          extent_type;
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-      std::size_t ibound = ext[ext.size()-1]; 
+      std::size_t ibound = ext[ext.size()-1];
 
       //std::size_t numel  = nt2::numel(boost::fusion::pop_back(ext));
-      
+
       // Workaround to have nt2::numel(boost::fusion::pop_back(ext));
       std::size_t numel  = 1;
       for(std::size_t m = 0; m!= ext.size()-1 ; ++m)
@@ -60,8 +60,8 @@ namespace nt2 { namespace ext
 
       if(numel >= cache_bound){
         for(std::size_t j = 0; j < bound; j+=cache_bound){
-          //Initialise 
-          for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N){              
+          //Initialise
+          for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N){
             nt2::run(out, id, neutral(nt2::meta::as_<target_type>()));
           }
 
@@ -73,9 +73,9 @@ namespace nt2 { namespace ext
             }
           }
         }
-        
+
         // scalar part
-        for(std::size_t j = bound; j < obound; ++j){ 
+        for(std::size_t j = bound; j < obound; ++j){
           nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
           for(std::size_t i = 0, k = 0; i < ibound; ++i, k+=obound){
             nt2::run(out, j,
@@ -84,9 +84,9 @@ namespace nt2 { namespace ext
           }
         }
       }
-      
+
       else {
-        for(std::size_t j = 0; j < obound; ++j){ 
+        for(std::size_t j = 0; j < obound; ++j){
           nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
           for(std::size_t i = 0, k = 0; i < ibound; ++i, k+=obound){
             nt2::run(out, j,
