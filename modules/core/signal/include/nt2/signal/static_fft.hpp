@@ -671,29 +671,12 @@ namespace detail
     struct types
     {
         typedef T                                                           scalar_t;
-        typedef boost::simd::native<scalar_t, BOOST_SIMD_DEFAULT_EXTENSION> vector_t;
+        typedef typename boost::simd::meta::vector_of<scalar_t, 4>::type    vector_t;
         typedef typename vector_t::native_type                              native_t;
 
         typedef split_radix_twiddles<vector_t> twiddles             ;
         typedef twiddle_pair        <vector_t> real2complex_twiddles;
-
-        BOOST_STATIC_ASSERT_MSG( vector_t::static_size == 4, "Temporary NT2.FFT limitation: must be able to use vectors of size 4..." );
     };
-
-    // FIXME: make the code work without the vector == 4 scalars assumption(s)...
-    #if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
-    template <>
-    struct types<float>
-    {
-        typedef float                                                 scalar_t;
-        typedef boost::simd::native<scalar_t, boost::simd::tag::sse_> vector_t;
-        typedef vector_t::native_type                                 native_t;
-
-        typedef split_radix_twiddles<vector_t> twiddles             ;
-        typedef twiddle_pair        <vector_t> real2complex_twiddles;
-    };
-    #endif // BOOST_SIMD_HAS_(LRB/AVX)_SUPPORT
-
 
     template <typename Scalar>
     //...zzz...boost::simd::native<Scalar, BOOST_SIMD_DEFAULT_EXTENSION> *
