@@ -24,56 +24,17 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL( bsxfun_1, NT2_TYPES)
+
+NT2_TEST_CASE_TPL( bsxfunc, NT2_REAL_TYPES)
 {
-  nt2::table<T> a = nt2::rif(nt2::of_size(3, 1), nt2::meta::as_<T>()),
-                b = nt2::cif(nt2::of_size(1, 3), nt2::meta::as_<T>()),
-                e;
-
-  e = bsxfun(nt2::functor<nt2::tag::multiplies_>(),  a, b);
-
-  for(unsigned int i=1; i <= length(a); i++)
-  {
-    for(unsigned int j=1; j <= length(a); j++)
-    {
-      NT2_TEST_EQUAL(e(i, j), a(i)*b(j));
-    }
-  }
-}
-
-NT2_TEST_CASE_TPL( bsxfun_2, NT2_TYPES)
-{
-  nt2::table<T> a = nt2::ones(nt2::of_size(3, 1,3,1), nt2::meta::as_<T>()),
-                b = nt2::ones(nt2::of_size(1, 3, 1,3), nt2::meta::as_<T>()),
-                e;
-
-  e = bsxfun(nt2::functor<nt2::tag::plus_>(),  a, b);
-
-  NT2_TEST_EQUAL( nt2::extent(e), nt2::of_size(3,3,3,3) );
-
-  for(unsigned int i=1; i <= numel(e); i++)
-  {
-    NT2_TEST_EQUAL(e(i), T(2));
-  }
-}
-
-NT2_TEST_CASE_TPL( bsxfun_3, NT2_REAL_TYPES)
-{
-  nt2::table<T> a = nt2::rif(nt2::of_size(8, 1), nt2::meta::as_<T>()),
+  typedef std::complex<T> cT; 
+  nt2::table<cT> a = nt2::rif(nt2::of_size(8, 1), nt2::meta::as_<cT>()),
                      m, c, d;
-   m =  nt2::mean(a, 1);
-   nt2::functor<nt2::tag::minus_> f;
-   c = bsxfun(f,  a, m);
-   d = a-m(1);
-   NT2_TEST(isequal(c, d));
-}
-NT2_TEST_CASE_TPL( bsxfun_aliasing, NT2_REAL_TYPES)
-{
-  nt2::table<T> a = nt2::rif(nt2::of_size(8, 1), nt2::meta::as_<T>()),
-                     m, c, d;
+   NT2_DISPLAY(a);
    m =  nt2::mean(a, 1);
    nt2::functor<nt2::tag::minus_> f;
    c = bsxfun(f,  a, m);
    a = bsxfun(f,  a, m);
    NT2_TEST(isequal(a, c));
+   NT2_DISPLAY(c);
 }
