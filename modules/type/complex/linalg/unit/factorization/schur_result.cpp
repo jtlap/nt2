@@ -48,7 +48,8 @@ NT2_TEST_CASE_TPL(schur_result_2b, NT2_REAL_TYPES)
    nt2::display("z    ", z);
    t_t t = f.t();
    nt2::display("t    ", t);
-   t_t zz =  nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z));
+   t_t zz =  nt2::mtimes(nt2::mtimes(z, t), nt2::trans(nt2::conj(z)));
+   nt2::display("zz    ", zz);
    NT2_TEST(isulpequal(zz, c, T(16.0)));   
 }
 

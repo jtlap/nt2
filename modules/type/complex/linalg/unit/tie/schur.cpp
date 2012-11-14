@@ -33,17 +33,17 @@ NT2_TEST_CASE_TPL ( schurc, NT2_REAL_TYPES)
   typedef nt2::table<T, nt2::_2D> t_t;
   typedef nt2::table<cT, nt2::_2D> ct_t;
   ct_t b = nt2::ones(4, 4, nt2::meta::as_<cT>())
-                + T(10)*nt2::eye(4, 4, nt2::meta::as_<cT>());
+    + T(10)*nt2::eye(4, 4, nt2::meta::as_<cT>());
   ct_t z, t; 
- b(1, 1) = 1;
+  b(1, 1) = 1;
   NT2_DISPLAY(b);
- t = nt2::schur(b);
+  t = nt2::schur(b);
   NT2_DISPLAY(t); 
-
+  
   nt2::tie(z, t) = nt2::schur(b);
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
   ct_t zz =  nt2::mtimes(nt2::mtimes(z, t), nt2::trans(nt2::conj(z)));
-  NT2_TEST_ULP_EQUAL(zz, c, T(16.0)));   
+  NT2_TEST_ULP_EQUAL(zz, b, T(16.0));   
 }
 
