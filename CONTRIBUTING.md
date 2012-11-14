@@ -34,7 +34,7 @@ typename f< a
           , typename g<b, c>::type
           , typename h< d
                       , e
-                      >
+                      >::type
           , x
           >::type;
 ```
