@@ -52,6 +52,21 @@ namespace boost
     };
   }
 }
+
+#if defined(__GLIBCPP__) || defined(__GLIBCXX__)
+namespace std
+{
+  template<class T>
+  struct iterator_traits<T* BOOST_DISPATCH_RESTRICT>
+   : iterator_traits<T*>
+  {
+    typedef T* BOOST_DISPATCH_RESTRICT pointer;
+#ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
+    typedef T& BOOST_DISPATCH_RESTRICT reference;
+#endif
+  };
+}
+#endif
 #endif
 
 namespace boost { namespace dispatch { namespace meta
