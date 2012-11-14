@@ -11,10 +11,12 @@
 
 #include <boost/dispatch/meta/na.hpp>
 #include <boost/dispatch/meta/all.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/simd/sdk/simd/meta/as_simd.hpp>
 #include <boost/fusion/include/is_sequence.hpp>
-#include <boost/type_traits/is_same.hpp>
+#include <boost/fusion/include/as_vector.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/type_traits/is_same.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace simd { namespace details
 {
@@ -38,8 +40,8 @@ namespace boost { namespace simd { namespace details
                                             >::type
                           >
         : boost::dispatch::meta
-               ::all_seq< boost::fusion::traits::is_sequence<boost::mpl::_>
-                        , T
+               ::all_seq< is_vectorizable<boost::mpl::_, Extension>
+                        , typename boost::fusion::result_of::as_vector<T>::type
                         >
   {};
 } } }
