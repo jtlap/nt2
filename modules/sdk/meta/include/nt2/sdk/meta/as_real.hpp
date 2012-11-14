@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_META_AS_REAL_HPP_INCLUDED
 #define NT2_SDK_META_AS_REAL_HPP_INCLUDED
 
-#include <nt2/sdk/complex/meta/real_of.hpp>
+#include <nt2/sdk/meta/real_of.hpp>
 #include <boost/dispatch/meta/factory_of.hpp>
 #include <boost/mpl/apply.hpp>
 
