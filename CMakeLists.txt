@@ -49,6 +49,7 @@ if(NOT Boost_FOUND)
 endif()
 
 nt2_configure_tests()
+nt2_postconfigure_init()
 
 ################################################################################
 # Module inclusion
@@ -129,11 +130,12 @@ if(NT2_MODULES_EXTRA)
 endif()
 
 ################################################################################
-# Use global modules
+# Set include directories
 ################################################################################
-if(NT2_MODULES_GLOBAL)
-  nt2_use_modules(${NT2_MODULES_GLOBAL})
-endif()
+foreach(module ${NT2_MODULES})
+  string(REPLACE "." "/" module_path ${module})
+  include_directories(${PROJECT_SOURCE_DIR}/modules/${module_path}/include)
+endforeach()
 
 ################################################################################
 # Load modules
@@ -178,4 +180,8 @@ foreach(tool ${NT2_TOOLS})
   endif()
 endforeach()
 
+################################################################################
+# Post-config phase
+################################################################################
+nt2_postconfigure_run()
 include(nt2.directive)

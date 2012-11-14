@@ -170,7 +170,7 @@ function(nt2_find_module_location _COMPONENT)
       mark_as_advanced(NT2_MODULE_PATH)
     endif()
 
-    set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_BINARY_INCLUDE_DIR} ${NT2_${_COMPONENT_U}_ROOT}/include PARENT_SCOPE)
+    set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_BINARY_DIR}/include ${NT2_${_COMPONENT_U}_ROOT}/include PARENT_SCOPE)
     set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${NT2_BINARY_DIR}/lib PARENT_SCOPE)
 
   # Look for module in install
@@ -207,7 +207,7 @@ function(nt2_find_module_location _COMPONENT)
         mark_as_advanced(NT2_MODULE_PATH)
       endif()
 
-      set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_BINARY_INCLUDE_DIR} ${NT2_${_COMPONENT_U}_ROOT}/include PARENT_SCOPE)
+      set(NT2_${_COMPONENT_U}_INCLUDE_ROOT ${NT2_BINARY_DIR}/include ${NT2_${_COMPONENT_U}_ROOT}/include PARENT_SCOPE)
       set(NT2_${_COMPONENT_U}_LIBRARY_ROOT ${NT2_BINARY_DIR}/lib PARENT_SCOPE)
     endif()
   endif()
@@ -450,9 +450,6 @@ function(nt2_find)
   if(NOT DEFINED NT2_BINARY_DIR)
     set(NT2_BINARY_DIR ${PROJECT_BINARY_DIR}/nt2)
   endif()
-  if(NOT DEFINED NT2_BINARY_INCLUDE_DIR)
-    set(NT2_BINARY_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/nt2/include)
-  endif()
 
   if(DEFINED NT2_FIND_RECURSIVE)
     set(NT2_FIND_RECURSIVE_ "${NT2_FIND_RECURSIVE_}  ")
@@ -576,10 +573,9 @@ function(nt2_find)
     endif()
   endif()
 
-  set(NT2_POSTCONFIGURE_TOINIT ${NT2_POSTCONFIGURE_INITED})
-
   # Initialize post-configuration engine if needed
-  if(NOT NT2_POSTCONFIGURE_TOINIT)
+  get_property(NT2_POSTCONFIGURE_INITED GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED)
+  if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)
     nt2_postconfigure_init()
   endif()
 
@@ -593,7 +589,7 @@ function(nt2_find)
                  )
 
   # Run post-configuration commands if needed
-  if(NOT NT2_POSTCONFIGURE_TOINIT)
+  if(NOT NT2_POSTCONFIGURE_INITED AND NT2_SOURCE_ROOT)
     nt2_postconfigure_run()
   endif()
 

@@ -51,7 +51,7 @@ macro(nt2_preprocess target)
       math(EXPR n "${prev} + 1")
       add_custom_target(${target}.${n}
                         COMMAND ${WAVE_EXECUTABLE} --variadics --long_long --timer ${limits} ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
-                        WORKING_DIRECTORY ${NT2_BINARY_INCLUDE_DIR}
+                        WORKING_DIRECTORY ${NT2_BINARY_DIR}/include
                         COMMENT "wave ${src}"
                        )
       set_property(TARGET ${target}.${n} PROPERTY FOLDER preprocess)
