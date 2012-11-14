@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/wmean.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 //TODO include complex cases
 namespace nt2 { namespace ext

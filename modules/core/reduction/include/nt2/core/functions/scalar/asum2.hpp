@@ -12,7 +12,7 @@
 
 #include <nt2/core/functions/asum2.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/include/functions/scalar/sqr_abs.hpp>
 
 /// TODO include complex cases

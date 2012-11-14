@@ -15,9 +15,9 @@
 /// 
 #include <nt2/include/functions/roots.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -36,10 +36,10 @@ NT2_TEST_CASE_TPL ( roots_real__1_0,  NT2_REAL_TYPES)
   typedef std::complex<T> cT; 
   nt2::table<T> p =  nt2::_(T(1), T(3));
   p(2) = T(-3); p(3) = T(2); 
-  nt2::table<T> c = nt2::_(T(2), T(-1), T(1)); 
+  nt2::table<cT> c = nt2::complexify(nt2::_(T(2), T(-1), T(1))); 
   NT2_DISPLAY(roots(p));
   NT2_DISPLAY(c); 
-  NT2_TEST(nt2::isulpequal(nt2::real(roots(p)), c, T(5.0)));
+  NT2_TEST(nt2::isulpequal(roots(p), c, T(5.0)));
 } // end of test for floating_ 
 
  

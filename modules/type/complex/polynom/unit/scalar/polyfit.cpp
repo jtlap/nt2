@@ -6,18 +6,16 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 polynom toolbox - roots/scalar Mode" 
+#define NT2_UNIT_MODULE "nt2 polynom toolbox - polyfit/scalar Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of polynom components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
 /// 
-#include <nt2/include/functions/roots.hpp>
+#include <nt2/include/functions/polyfit.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/real.hpp>
+#include <nt2/include/functions/polyval.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -26,24 +24,30 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/table.hpp>
+#include <nt2/include/functions/tie.hpp>
+
+#include <boost/array.hpp>
 
 
-NT2_TEST_CASE_TPL ( roots_real__1_0,  NT2_REAL_TYPES)
-{ 
+NT2_TEST_CASE_TPL ( plevl_real__4_0,  NT2_REAL_TYPES)
+{
   
-  using nt2::roots;
-  using nt2::tag::roots_;
+  using nt2::polyfit;
+  using nt2::tag::polyfit_;
   typedef std::complex<T> cT; 
-  nt2::table<T> p =  nt2::_(T(1), T(3));
-  p(2) = T(-3); p(3) = T(2); 
-  nt2::table<T> c = nt2::_(T(2), T(-1), T(1)); 
-  NT2_DISPLAY(roots(p));
-  NT2_DISPLAY(c); 
-  NT2_TEST(nt2::isulpequal(nt2::real(roots(p)), c, T(5.0)));
-} // end of test for floating_ 
-
- 
+  cT a [] = {0.0, 1.0, 2.0, 3.0,  4.0,  5.0};
+  cT b [] = {0.0, 0.8, 0.9, 0.1, -0.8, -1.0};
+  nt2::table<cT> x(nt2::of_size(1,6));
+  nt2::table<cT> y(nt2::of_size(1,6));
   
- 
- 
- 
+ for(int i=0; i < 6; ++i)
+   {
+     x(i+1) = cT(a[i]);
+     y(i+1) = cT(b[i]); 
+   }
+  NT2_DISPLAY(x);
+  NT2_DISPLAY(y);
+  nt2::table<cT> z = polyfit(x, y, 3);
+   NT2_DISPLAY(z);  
+} // end of test for floating_
+

@@ -8,7 +8,22 @@
 ##############################################################################
 
 SET( SOURCES
-# List of simd test files for toolbox polynomials
+#  compan.cpp
+#  conv.cpp
+#  deconv.cpp
+#  degree.cpp
+#  polyadd.cpp    
+#  polyder.cpp
+  polyfit.cpp
+#  polyint.cpp
+#  polysub.cpp
+#  polyval.cpp
+#  polyvalm.cpp   
+#  ratfracder.cpp
+#  reduce.cpp
+  roots.cpp
+#  valuation.cpp
+# List of scalar test files for toolbox polynomials
    )
 
-nt2_module_add_tests(core.polynom.simd.unit ${SOURCES})
+nt2_module_add_tests(type.complex.polynom.scalar.unit ${SOURCES})

@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/nanasum2.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/include/functions/if_zero_else.hpp>
 #include <nt2/include/functions/sqr_abs.hpp>
 #include <nt2/include/constants/nan.hpp>

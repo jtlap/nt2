@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/meanad.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
 //TODO include complex cases

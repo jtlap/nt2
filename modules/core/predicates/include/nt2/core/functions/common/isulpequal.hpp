@@ -19,7 +19,7 @@
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/first_index.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
