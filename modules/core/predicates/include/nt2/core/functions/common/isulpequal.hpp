@@ -19,6 +19,7 @@
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/first_index.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -29,11 +30,11 @@ namespace nt2 { namespace ext
                             )
   {
     typedef bool result_type;
-    typedef typename meta::as_real<A0>::type r_type; 
+    typedef typename meta::as_real<A0>::type r_type;
     BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(const A0& a0, const A1& a1) const
     {
-      
+
       return nt2::ulpdist(a0, a1) <= Half<r_type>();
     }
   };
@@ -50,7 +51,7 @@ namespace nt2 { namespace ext
     result_type operator()(const A0& a0, const A1& a1) const
     {
       typedef typename A0::value_type value_type;
-      typedef typename meta::as_real<value_type>::type r_type; 
+      typedef typename meta::as_real<value_type>::type r_type;
       if(!havesamesize(a0, a1))       return false;
 
       return nt2::globalmax(nt2::ulpdist(a0, a1)) <=  Half<r_type>();
@@ -76,7 +77,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_<unspecified_<A1> >)
-                              
+
                             )
   {
     typedef bool result_type;

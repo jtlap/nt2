@@ -13,6 +13,7 @@
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/cat.hpp>
 #include <nt2/include/functions/isequal.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

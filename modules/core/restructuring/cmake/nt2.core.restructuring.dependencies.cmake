@@ -10,4 +10,5 @@
 SET ( NT2_CORE.RESTRUCTURING_DEPENDENCIES_EXTRA sdk.simd
                                                 core.utility
                                                 core.predicates
+                                                core.extractive
     )

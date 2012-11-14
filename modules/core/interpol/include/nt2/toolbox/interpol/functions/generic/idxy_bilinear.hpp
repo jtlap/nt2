@@ -8,8 +8,8 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_INTERPOL_FUNCTIONS_GENERIC_IDXY_BILINEAR_HPP_INCLUDED
 #define NT2_TOOLBOX_INTERPOL_FUNCTIONS_GENERIC_IDXY_BILINEAR_HPP_INCLUDED
-#include <nt2/core/container/table/table.hpp>
 
+#include <nt2/toolbox/interpol/functions/idxy_bilinear.hpp>
 #include <nt2/include/functions/is_nge.hpp>
 #include <nt2/include/functions/is_nle.hpp>
 #include <nt2/include/functions/if_else.hpp>
@@ -31,39 +31,41 @@
 #include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/expand_to.hpp>
 #include <nt2/include/constants/nan.hpp>
+#include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <boost/fusion/include/make_vector.hpp>
+// #include <boost/assert.hpp>
 
 namespace nt2 { namespace ext
 {
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                              , (A0)(A1)(N1)
-                              , ((ast_<A0, nt2::container::domain>))
+                            , (A0)(A1)(N1)
+                            , ((ast_<A0, nt2::container::domain>))
                               ((node_<A1,nt2::tag::idxy_bilinear_,N1,nt2::container::domain>))
-                              )
+                            )
   {
-    typedef typename boost::proto::result_of::child_c<A1&,0>::type       value_t;
-    typedef typename boost::proto::result_of::child_c<A1&,1>::type         idx_t;
-    typedef typename boost::proto::result_of::child_c<A1&,2>::type         idy_t;
-    typedef typename meta::scalar_of<value_t>::type              cref_value_type;
-    typedef typename meta::strip<cref_value_type>::type               value_type; 
-    typedef typename meta::as_integer<value_type>::type               index_type;      
-    typedef typename A0::value_type                                    sale_type; 
+    typedef typename boost::proto::result_of::child_c<A1&,0>::value_type value_t;
+    typedef typename boost::proto::result_of::child_c<A1&,1>::value_type   idx_t;
+    typedef typename boost::proto::result_of::child_c<A1&,2>::value_type   idy_t;
+    typedef typename value_t::value_type                              value_type;
+    typedef typename meta::as_integer<value_type>::type               index_type;
+    typedef typename A0::value_type                                    sale_type;
     typedef A0&                                                      result_type;
     typedef typename A0::extent_type                                       ext_t;
 
-    typedef boost::fusion::vector<value_type, value_type>                 f_type; 
-    
+    typedef boost::fusion::vector<value_type, value_type>                 f_type;
+
     result_type operator()(A0& r, A1& inputs) const
     {
-      //      BOOST_ASSERT_MSG(are_sx_compatible(xi, y), "Inputs dimensions are not compatible"); 
+      //      BOOST_ASSERT_MSG(are_sx_compatible(xi, y), "Inputs dimensions are not compatible");
       const idx_t & xi   =  boost::proto::child_c<1>(inputs);
       const idx_t & yi   =  boost::proto::child_c<2>(inputs);
       const value_t & y     =  boost::proto::child_c<0>(inputs);
       bool extrap = false;
       std::size_t dim1 = 2;
-      std::size_t dim2 = 1;  
+      std::size_t dim2 = 1;
       value_type extrapval1x = Nan<value_type>();
       value_type extrapval2x = extrapval1x;
       value_type extrapval1y = extrapval1x;
@@ -86,16 +88,16 @@ namespace nt2 { namespace ext
          BOOST_AUTO_TPL(z2, nt2::expand_to(nt2::reshape(yi, sizee), size(r)));
          r = nt2::if_else(boost::simd::is_nge(z2, fy), extrapval1x, r);
          r = nt2::if_else(boost::simd::is_nle(z2, ly), extrapval2x, r);
-      } 
+      }
       return r;
-    } 
+    }
   private :
     // three inputs y and xi and yi
     // idxy_bilinear(y, xi, yi)
     static void choices(const A1&, bool &,  value_type&, value_type&, value_type&, value_type&,
-                        std::size_t&, std::size_t&, boost::mpl::long_<3> const &)  //nothing to get  
+                        std::size_t&, std::size_t&, boost::mpl::long_<3> const &)  //nothing to get
       { }
-    // Four inputs y and xi yi and a bool or a floating 
+    // Four inputs y and xi yi and a bool or a floating
     // idxy_bilinear(y, xi, yi, true)
     // idxy_bilinear(y, xi, yi, extrapval)
     static void choices(const A1& inputs,
@@ -108,7 +110,7 @@ namespace nt2 { namespace ext
         typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
         typedef typename meta::scalar_of<child3>::type                    cref_param_type;
         typedef typename meta::strip<cref_param_type>::type                    param_type;
-        get(inputs, extrap, extrapval1x, extrapval2x, extrapval1y, extrapval2y, nt2::meta::as_<param_type>());         
+        get(inputs, extrap, extrapval1x, extrapval2x, extrapval1y, extrapval2y, nt2::meta::as_<param_type>());
       }
     static void get(const A1& inputs, bool & extrap,
                     value_type&, value_type&,
@@ -124,33 +126,33 @@ namespace nt2 { namespace ext
       {
         extrapval1x =  extrapval2x = extrapval1y = extrapval2y = boost::proto::child_c<3>(inputs);
       }
-    
+
     // Five inputs y and xi yi and two floatings
     static void choices(const A1& inputs,
                         bool & extrap,
                         value_type& extrapval1x, value_type& extrapval2x,
                         value_type& extrapval1y, value_type& extrapval2y,
                         std::size_t& dim1, std::size_t& dim2,
-                        boost::mpl::long_<5> const &)                //get extrapval/1x/2x and extrapval/1y/2y commons values 
+                        boost::mpl::long_<5> const &)                //get extrapval/1x/2x and extrapval/1y/2y commons values
       {
         extrapval1x = extrapval1y = boost::proto::child_c<3>(inputs);
-        extrapval2x = extrapval2y = boost::proto::child_c<4>(inputs);    
+        extrapval2x = extrapval2y = boost::proto::child_c<4>(inputs);
       }
-    
+
     // Six inputs y and xi yi,  _ or bool and 2 integers
     static void choices(const A1& inputs,
                         bool & extrap,
                         value_type&, value_type&,
                         value_type&, value_type&,
                         std::size_t& dim1, std::size_t& dim2,
-                        boost::mpl::long_<6> const &)                //get extrapval/1x/2x and extrapval/1y/2y commons values 
+                        boost::mpl::long_<6> const &)                //get extrapval/1x/2x and extrapval/1y/2y commons values
       {
         typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
         typedef typename meta::scalar_of<child3>::type                    cref_param_type;
         typedef typename meta::strip<cref_param_type>::type                    param_type;
-        get(inputs, extrap, nt2::meta::as_<param_type>());  
+        get(inputs, extrap, nt2::meta::as_<param_type>());
         dim1 = boost::proto::child_c<4>(inputs);
-        dim2 = boost::proto::child_c<5>(inputs);    
+        dim2 = boost::proto::child_c<5>(inputs);
       }
     static void get(const A1& inputs, bool & extrap,
                     const nt2::meta::as_<bool> &) //get the bool
@@ -160,10 +162,10 @@ namespace nt2 { namespace ext
     static void get(const A1& inputs, bool & extrap,
                     const nt2::meta::as_<nt2::container::colon_> &) //nothing to get
       { }
-    
-    // Seven inputs y and xi yi and 4 floating 
+
+    // Seven inputs y and xi yi and 4 floating
     // idxy_bilinear(y, xi, yi, extrapval1x, extrapval2x, extrapval1y, extrapval2y)
-    
+
     static void choices(const A1& inputs,
                         bool &,
                         value_type& extrapval1x, value_type& extrapval2x,
@@ -176,7 +178,7 @@ namespace nt2 { namespace ext
         extrapval1y = boost::proto::child_c<5>(inputs);
         extrapval2y = boost::proto::child_c<6>(inputs);
       }
-    
+
     // eight inputs y and xi, yi, 4 floatings,  _, and 2 integer
     static void choices(const A1& inputs,
                         bool &,
@@ -186,11 +188,11 @@ namespace nt2 { namespace ext
                         boost::mpl::long_<8> const &) //get extrapval1 and extrapval2 and dimension
       {
         dim1 =  boost::proto::child_c<7>(inputs);
-        dim2 =  boost::proto::child_c<8>(inputs);  
+        dim2 =  boost::proto::child_c<8>(inputs);
         extrapval1x = extrapval1y = boost::proto::child_c<3>(inputs);
         extrapval2x = extrapval2y = boost::proto::child_c<4>(inputs);
       }
-    
+
     // ten inputs y and xi, yi, two flotings,  _, and 2 integer
     static void choices(const A1& inputs,
                         bool & extrap,
@@ -200,13 +202,13 @@ namespace nt2 { namespace ext
                         boost::mpl::long_<10> const &) //get extrapval1 and extrapval2 and dimension
       {
         dim1 =  boost::proto::child_c<8>(inputs);
-        dim2 =  boost::proto::child_c<9>(inputs);  
+        dim2 =  boost::proto::child_c<9>(inputs);
         extrapval1x = boost::proto::child_c<3>(inputs);
         extrapval2x = boost::proto::child_c<4>(inputs);
         extrapval1y = boost::proto::child_c<5>(inputs);
         extrapval2y = boost::proto::child_c<6>(inputs);
       }
-  }; 
+  };
 } }
 
 
