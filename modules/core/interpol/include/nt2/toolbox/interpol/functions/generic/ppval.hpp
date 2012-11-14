@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_INTERPOL_FUNCTIONS_GENERIC_PPVAL_HPP_INCLUDED
 #define NT2_TOOLBOX_INTERPOL_FUNCTIONS_GENERIC_PPVAL_HPP_INCLUDED
 
-#include <nt2/toolbox/interpol/functions/ppval.hpp>
 #include <nt2/include/functions/bsearch.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/trans.hpp>
