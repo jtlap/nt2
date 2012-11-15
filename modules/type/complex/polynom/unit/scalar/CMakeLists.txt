@@ -17,7 +17,7 @@ SET( SOURCES
   polyfit.cpp
 #  polyint.cpp
 #  polysub.cpp
-#  polyval.cpp
+  polyval.cpp
 #  polyvalm.cpp   
 #  ratfracder.cpp
 #  reduce.cpp

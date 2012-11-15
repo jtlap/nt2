@@ -23,7 +23,7 @@
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/table.hpp>
-
+  
 #include <boost/array.hpp>
 
 
@@ -39,8 +39,11 @@ NT2_TEST_CASE_TPL ( polyval_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(polyval(p, T(2)), T(26));
   
   NT2_DISPLAY(polyval(p, nt2::_(T(1), T(4))));
+  T cv[] = { 10, 26, 58, 112 };
+  nt2::table<T> v(nt2::of_size(1, 4), &cv[0], &cv[4]);
+  NT2_TEST_ULP_EQUAL(v, polyval(p, nt2::_(T(1), T(4))), 0.5); 
 } // end of test for floating_
-
+ 
 
 NT2_TEST_CASE_TPL ( polyval_real__2_0,  NT2_REAL_TYPES)
 { 

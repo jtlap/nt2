@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_POLYVAL_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_POLYVAL_HPP_INCLUDED
 #include <nt2/toolbox/polynom/functions/polyval.hpp>
-#include <nt2/include/functions/scalar/fma.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/repnum.hpp>
@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyval_, tag::cpu_
                             , (A0)(A1)
-                            , (unspecified_<A0>)(scalar_<floating_<A1> > )
+                            , (unspecified_<A0>)(scalar_<unspecified_<A1> > )
                             )
   {
 
@@ -41,10 +41,12 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       if (isempty(a0)) return Zero<A1>(); 
-      A1 ans = a0(1);
+      value_type ans = a0(1);
       for(size_t i = 2; i <= numel(a0); ++i)
       {
-        ans = fma(ans, a1, a0(i));
+//       ans = fma(ans, a1, a0(i));
+        ans *= a1; 
+        ans += a0(i); 
       }
       return ans;
     }
@@ -66,9 +68,7 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       v_type;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       p_type; 
     typedef typename boost::proto::result_of::child_c<A0&,1>::type       x_type; 
-    typedef typename meta::strip<v_type>::type                              v_t;
-    typedef typename v_t::value_type                                 value_type; 
-
+    typedef typename A0::value_type                                  value_type; 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       // Copy data in output first
@@ -78,19 +78,21 @@ namespace nt2 { namespace ext
     }
 
   private:
-    template < class S,  class T > BOOST_FORCEINLINE
-      void compute_val(const S& p, const T& x, v_type & v)const
+    template < class S,  class T, class U> BOOST_FORCEINLINE
+      void compute_val(S p, T x, U v)const
     {
       if (isempty(p))
       {
-        v =  nt2::zeros(size(x));
+        v =  nt2::zeros(extent(x), meta::as_<value_type>());
       }
       else
       {
         v = repnum(p(1), size(x));
         for(size_t i = 2; i <= numel(p); ++i)
         {
-          v = fma(v, x, p(i));
+            //          v = fma(v, x, p(i));
+          v*= x;
+          v+= p(i); 
         }
       }
     }
@@ -101,19 +103,20 @@ namespace nt2 { namespace ext
                          const size_t & nc,
                          table<value_type>& delta)const
     {
-//         NT2_WARNING(df == 0, "zero degree of freedom implies infinite error bounds."); 
-        BOOST_AUTO_TPL(vnd, nt2::vandermonde(x, nc));
-        BOOST_AUTO_TPL(err, nt2::tr_solve(nt2::trans(r), nt2::trans(vnd), 'L', 'N', 'N'));
-        value_type fact =   (normr/nt2::sqrt(value_type(df)));
-        delta(nt2::_) =nt2::sqrt(oneplus(sum(sqr(err),1)))*fact;
+      NT2_WARNING(nt2::is_eqz(value_type(df)), "zero degree of freedom implies infinite error bounds."); 
+      BOOST_AUTO_TPL(vnd, nt2::vandermonde(x, nc));
+      BOOST_AUTO_TPL(err, nt2::tr_solve(nt2::trans(r), nt2::trans(vnd), 'L', 'N', 'N'));
+      value_type fact =   (normr/nt2::sqrt(value_type(df)));
+      delta(nt2::_) =nt2::sqrt(oneplus(sum(sqr(err),1)))*fact;
     }
+    
     template < class T > BOOST_FORCEINLINE
       void val(A0& a0, A1& a1,
                boost::mpl::long_<1> const &, const T&) const
     {
-      p_type & p = boost::proto::child_c<0>(a0);
-      x_type & x = boost::proto::child_c<1>(a0);
-      v_type & v = boost::proto::child_c<0>(a1);
+      BOOST_AUTO_TPL(p,  boost::proto::child_c<0>(a0));
+      BOOST_AUTO_TPL(x,  boost::proto::child_c<1>(a0));
+      BOOST_AUTO_TPL(v,  boost::proto::child_c<0>(a1));
       compute_val(p, x, v); 
     }
 
@@ -121,38 +124,32 @@ namespace nt2 { namespace ext
     void val(A0& a0, A1& a1,
              boost::mpl::long_<1> const &, boost::mpl::long_<3> const &) const
     {
-      typedef typename boost::proto::result_of::child_c<A0&,2>::type       mu_type;
-      p_type & p = boost::proto::child_c<0>(a0);
-      x_type & x = boost::proto::child_c<1>(a0);
-      mu_type & mu= boost::proto::child_c<2>(a0);
-      v_type & v = boost::proto::child_c<0>(a1);
+      BOOST_AUTO_TPL(p,  boost::proto::child_c<0>(a0));
+      BOOST_AUTO_TPL(x,  boost::proto::child_c<1>(a0));
+      BOOST_AUTO_TPL(v,  boost::proto::child_c<0>(a1));
+      BOOST_AUTO_TPL(mu,  boost::proto::child_c<2>(a0));
       compute_val(p, (x-mu(1))/mu(2), v);       
     }    
     BOOST_FORCEINLINE
     void val(A0& a0, A1& a1,
              boost::mpl::long_<1> const &, boost::mpl::long_<6> const &) const
     {
-      typedef typename boost::proto::result_of::child_c<A0&,5>::type       mu_type;
-      p_type & p = boost::proto::child_c<0>(a0);
-      x_type & x = boost::proto::child_c<1>(a0);
-      mu_type & mu= boost::proto::child_c<5>(a0);
-      v_type & v = boost::proto::child_c<0>(a1);
+      BOOST_AUTO_TPL(p,  boost::proto::child_c<0>(a0));
+      BOOST_AUTO_TPL(x,  boost::proto::child_c<1>(a0));
+      BOOST_AUTO_TPL(v,  boost::proto::child_c<0>(a1));
+      BOOST_AUTO_TPL(mu,  boost::proto::child_c<5>(a0));
       compute_val(p, (x-mu(1))/mu(2), v);       
     }
     BOOST_FORCEINLINE
     void val(A0& a0, A1& a1,
              boost::mpl::long_<2> const &, boost::mpl::long_<5> const &) const
     {
-      typedef typename boost::proto::result_of::child_c<A0&,2>::type        r_type;
-      typedef typename boost::proto::result_of::child_c<A0&,3>::type       df_type;
-      typedef typename boost::proto::result_of::child_c<A0&,4>::type       nr_type;
-      typedef typename boost::proto::result_of::child_c<A1&,1>::type    delta_type; 
-      p_type & p = boost::proto::child_c<0>(a0);
-      x_type & x = boost::proto::child_c<1>(a0);
-      r_type & r = boost::proto::child_c<2>(a0);
-      df_type & df= boost::proto::child_c<3>(a0);
-      nr_type & nr= boost::proto::child_c<4>(a0);
-      v_type & v = boost::proto::child_c<0>(a1);
+      BOOST_AUTO_TPL(p,  boost::proto::child_c<0>(a0));
+      BOOST_AUTO_TPL(x,  boost::proto::child_c<1>(a0));
+      BOOST_AUTO_TPL(r,  boost::proto::child_c<2>(a0));
+      BOOST_AUTO_TPL(df, boost::proto::child_c<3>(a0));
+      BOOST_AUTO_TPL(nr, boost::proto::child_c<4>(a0));
+      BOOST_AUTO_TPL(v,  boost::proto::child_c<0>(a1));
       compute_val(p, x, v);       
       table<value_type> delta(extent(x)); 
       compute_delta(x, r, df, nr, nt2::numel(p), delta);
@@ -162,18 +159,13 @@ namespace nt2 { namespace ext
     void val(A0& a0, A1& a1,
              boost::mpl::long_<2> const &, boost::mpl::long_<6> const &) const
     {
-      typedef typename boost::proto::result_of::child_c<A0&,2>::type        r_type;
-      typedef typename boost::proto::result_of::child_c<A0&,3>::type       df_type;
-      typedef typename boost::proto::result_of::child_c<A0&,4>::type       nr_type;
-      typedef typename boost::proto::result_of::child_c<A0&,5>::type       mu_type;
-      typedef typename boost::proto::result_of::child_c<A1&,1>::type    delta_type; 
-      p_type & p = boost::proto::child_c<0>(a0);
-      x_type & x = boost::proto::child_c<1>(a0);
-      r_type & r = boost::proto::child_c<2>(a0);
-      df_type & df= boost::proto::child_c<3>(a0);
-      nr_type & nr= boost::proto::child_c<4>(a0);
-      mu_type & mu= boost::proto::child_c<5>(a0);
-      v_type & v = boost::proto::child_c<0>(a1);
+      BOOST_AUTO_TPL(p,  boost::proto::child_c<0>(a0));
+      BOOST_AUTO_TPL(x,  boost::proto::child_c<1>(a0));
+      BOOST_AUTO_TPL(r,  boost::proto::child_c<2>(a0));
+      BOOST_AUTO_TPL(df, boost::proto::child_c<3>(a0));
+      BOOST_AUTO_TPL(nr, boost::proto::child_c<4>(a0));
+      BOOST_AUTO_TPL(v,  boost::proto::child_c<0>(a1));
+      BOOST_AUTO_TPL(mu,  boost::proto::child_c<5>(a0));
       BOOST_AUTO_TPL(xred, (x-mu(1))/mu(2)); 
       compute_val(p, xred, v);       
       table<value_type> delta(of_size(extent(x)));
