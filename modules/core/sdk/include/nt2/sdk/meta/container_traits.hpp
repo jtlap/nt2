@@ -125,37 +125,6 @@ namespace nt2 { namespace meta
   {
     typedef typename T::const_pointer type;
   };
-
-  template<class T>
-  struct reference_ < T
-                  , typename  boost::dispatch::meta::
-                    enable_if_type< typename T::reference
-                                  , typename boost::disable_if< boost::is_const<T> >::type
-                                  >::type
-                  >
-  {
-    typedef typename T::reference type;
-  };
-
-  template<class T>
-  struct const_reference_ < T
-                  , typename  boost::dispatch::meta::
-                    enable_if_type< typename T::const_reference >::type
-                  >
-  {
-    typedef typename T::const_reference type;
-  };
-
-  template<class T>
-  struct value_type_< T
-                    , typename  boost::dispatch::meta::
-                      enable_if_type< typename T::value_type
-                                    , typename boost::disable_if< boost::is_const<T> >::type
-                                    >::type
-                    >
-  {
-    typedef typename T::value_type type;
-  };
 } }
 
 #endif
