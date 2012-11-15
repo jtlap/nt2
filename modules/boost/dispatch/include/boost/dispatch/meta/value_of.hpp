@@ -18,12 +18,33 @@
 #include <boost/type_traits/add_reference.hpp>
 #include <boost/type_traits/add_const.hpp>
 
-namespace boost { namespace dispatch { namespace details
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T>
+  struct value_of;
+}
+
+namespace details
 {
   template<class T, class Enable = void>
   struct value_of
   {
     typedef T type;
+  };
+
+  template<class T, class Enable = void>
+  struct value_of_cv;
+
+  template<class T, class Enable>
+  struct value_of_cv<T const, Enable>
+       : add_const<typename meta::value_of<T>::type>
+  {
+  };
+
+  template<class T, class Enable>
+  struct value_of_cv<T&, Enable>
+       : add_reference<typename meta::value_of<T>::type>
+  {
   };
 }
 
@@ -36,25 +57,28 @@ namespace meta
    *
    *
    **/
-  template<class T> struct value_of : details::value_of<T> {};
+  template<class T>
+   struct value_of
+        : details::value_of<T>
+  {};
 
   /// INTERNAL ONLY
   template<class T>
   struct  value_of<T&>
-        : add_reference<typename value_of<T>::type>
+        : details::value_of_cv<T&>
   {};
 
   /// INTERNAL ONLY
   template<class T>
   struct  value_of<T const>
-        : add_const<typename value_of<T>::type>
+        : details::value_of_cv<T const>
   {};
 
 #ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
   /// INTERNAL ONLY
   template<class T>
   struct  value_of<T & BOOST_DISPATCH_RESTRICT>
-        : value_of<T>
+        : details::value_of_cv<T&>
   {
   };
 #endif
