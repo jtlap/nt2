@@ -41,7 +41,31 @@ namespace boost { namespace simd { namespace ext
                                     )
   {
     typedef A0                                     result_type;
-    typedef typename meta::scalar_of<A0>::type              scalar_t;
+    typedef typename P::type                       permutation_t;
+
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, P const&) const
+    {
+      return shuffle<permutation_t>(a0,a0);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
+                                    , boost::simd::tag::altivec_
+                                    , (A0)(P)
+                                    , ((simd_< arithmetic_<A0>
+                                             , boost::simd::tag::altivec_
+                                             >
+                                      ))
+                                      ((simd_< arithmetic_<A0>
+                                             , boost::simd::tag::altivec_
+                                             >
+                                      ))
+                                      (target_< unspecified_<P> >)
+                                    )
+  {
+    typedef A0                                     result_type;
+    typedef typename meta::scalar_of<A0>::type     scalar_t;
     typedef P                                      permutation_t;
     typedef meta::cardinal_of<result_type>         card_t;
     typedef mpl::vector<>                          empty_t;
@@ -75,27 +99,31 @@ namespace boost { namespace simd { namespace ext
 
     template<bool B> struct selector {};
 
-    result_type operator()(A0 const& a0, P const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1, P const&) const
     {
-      return eval(a0, selector< dispatch::meta::any_seq< mpl::equal_to< mpl::_1
-                                                                  , mpl::int_<-1>
-                                                                  >
+      return eval( a0
+                 , a1
+                 , selector< dispatch::meta::any_seq< mpl::equal_to< mpl::_1
+                                                                   , mpl::int_<-1>
+                                                                   >
                                                    , result_t
                                                    >::type::value 
                               >()
                  );
     }
 
-    BOOST_FORCEINLINE result_type eval(A0 const& a0, selector<false> const&) const
+    BOOST_FORCEINLINE result_type eval( A0 const& a0, A0 const& a1
+                                      , selector<false> const&) const
     {
       result_type that = vec_perm( a0()
-                                 , a0()
+                                 , a1()
                                  , details::permute<P,card_t::value>::call()
                                  ); 
       return that;
     }
 
-    BOOST_FORCEINLINE result_type eval(A0 const& a0, selector<true> const&) const
+    BOOST_FORCEINLINE result_type eval( A0 const& a0, A0 const& a1
+                                      , selector<true> const&) const
     {
       __vector char mask = { mask_t<0 >::value, mask_t<1 >::value
                            , mask_t<2 >::value, mask_t<3 >::value
@@ -107,38 +135,14 @@ namespace boost { namespace simd { namespace ext
                            , mask_t<14>::value, mask_t<15>::value
                            };
       result_type that = vec_and( vec_perm( a0()
-                                          , a0()
+                                          , a1()
                                           , details::permute< P
                                                             , card_t::value
                                                             >::call()
                                           )
                                 , bitwise_cast<A0>(mask)()
                                 ); 
-      return that;
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
-                                    , boost::simd::tag::altivec_
-                                    , (A0)(P)
-                                    , ((simd_< arithmetic_<A0>
-                                             , boost::simd::tag::altivec_
-                                             >
-                                      ))
-                                      ((simd_< arithmetic_<A0>
-                                             , boost::simd::tag::altivec_
-                                             >
-                                      ))
-                                      (target_< unspecified_<P> >)
-                                    )
-  {
-    typedef A0                              result_type;
-    typedef P                               permutation_t;
-    typedef meta::cardinal_of<result_type>  card_t;
-
-    result_type operator()(A0 const& a0, A0 const& a1, P const&) const
-    {
-      return vec_perm(a0(),a1(),details::permute<P,card_t::value>::call());  
+      return that; 
     }
   };
 } } }
