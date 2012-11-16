@@ -12,3 +12,26 @@
    fun:_dl_start
    obj:/lib*/ld-2.13.so*
 }
+{
+   GNU OpenMP, realloc
+   Memcheck:Leak
+   fun:malloc
+   fun:realloc
+   obj:/usr/lib*/libgomp.so*
+   obj:/usr/lib*/libgomp.so*
+}
+{
+   GNU OpenMP, malloc
+   Memcheck:Leak
+   fun:malloc
+   obj:/usr/lib*/libgomp.so*
+   obj:/usr/lib*/libgomp.so*
+}
+{
+   GNU OpenMP, TLS
+   Memcheck:Leak
+   fun:calloc
+   fun:_dl_allocate_tls
+   fun:pthread_create*
+   obj:/usr/lib*/libgomp.so*
+}
