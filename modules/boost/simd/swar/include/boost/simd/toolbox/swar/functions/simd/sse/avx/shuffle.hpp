@@ -28,7 +28,7 @@ namespace boost { namespace simd
                                         (target_< unspecified_<P> >)
                                       )
     {
-  
+      
     };
 
    BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::shuffle_
