@@ -42,18 +42,18 @@ namespace nt2 { namespace ext
     }
   };
   
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
-                              , (A0)(A1)
-                              , (generic_< complex_<floating_<A0> > >)
-                                (generic_< floating_<A1> >)
-                            )
-  { 
-    typedef typename meta::as_real<A0>::type result_type;
-    NT2_FUNCTOR_CALL(2)
-    {
-      return nt2::pow_abs(nt2::abs(a0), a1); 
-    }
-  };
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
+//                               , (A0)(A1)
+//                               , (generic_< complex_<floating_<A0> > >)
+//                                 (generic_< floating_<A1> >)
+//                             )
+//   { 
+//     typedef typename meta::as_real<A0>::type result_type;
+//     NT2_FUNCTOR_CALL(2)
+//     {
+//       return nt2::pow_abs(nt2::abs(a0), a1); 
+//     }
+//   };
   
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
                               , (A0)(A1)

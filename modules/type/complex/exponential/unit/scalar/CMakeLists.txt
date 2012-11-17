@@ -19,6 +19,7 @@ set( SOURCES
    sqrt1pm1.cpp
    pow2.cpp
    pow.cpp
+   pow_abs.cpp
    )
 
 nt2_module_add_tests(type.complex.exponential.scalar.unit ${SOURCES})
