@@ -24,7 +24,7 @@ SET( SOURCES
      maximum.cpp
 #    medianad.cpp
 #     median.cpp
-###     mean.cpp
+     mean.cpp
 #     meanad.cpp
      minimum.cpp
 #     none.cpp
@@ -32,8 +32,9 @@ SET( SOURCES
      normp.cpp
      prod.cpp
      sum.cpp
-###     var.cpp
-#     wmean.cpp
+     var.cpp
+     wmean.cpp
+     stdev.cpp
 #     nansum.cpp
 #     nanmean.cpp
 #     nanasum2.cpp
