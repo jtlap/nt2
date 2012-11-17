@@ -17,18 +17,17 @@ namespace nt2 { namespace ext
 {
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef typename  meta::as_floating<A0>::type  f_type;
-    typedef typename  meta::as_real<f_type>::type result_type; 
+    typedef A0 result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       return Zero<A0>();
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_, (A0)(A1)
-                            , (scalar_< floating_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                               (scalar_< unspecified_<A1> >)
                             )
   {
@@ -40,13 +39,12 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::var_, tag::cpu_, (A0)(A1)
-                            , (scalar_< floating_<A0> >)
-                              (scalar_< floating_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
+                              (scalar_< unspecified_<A0> >)
                                (scalar_< integer_<A1> > )
                             )
   {
-    typedef typename  meta::as_floating<A0>::type  f_type;
-    typedef typename  meta::as_real<f_type>::type result_type; 
+    typedef A0 result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A0 const &, A1 const &) const
     {
       return Zero<A0>();;
