@@ -31,6 +31,7 @@ namespace nt2 { namespace ext
                               ((ast_<A0, nt2::container::domain>)) )
   {
     typedef typename A0::value_type value_type;
+    typedef typename meta::as_real<value_type>::type real_type; 
     typedef typename meta::call < tag::center_(A0 const &)>::type T2;
     typedef typename meta::call < tag::asum2_(T2)>::type T3;
     typedef typename meta::call < tag::multiplies_(value_type, T3)>::type result_type; 
@@ -38,8 +39,8 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      value_type n = nt2::size(a0, nt2::firstnonsingleton(a0));
-      value_type f =  (n <= One<value_type>()) ? One<value_type>() : rec(minusone(n)); 
+      real_type n = nt2::size(a0, nt2::firstnonsingleton(a0));
+      real_type f =  (n <= One<real_type>()) ? One<real_type>() : rec(minusone(n)); 
       return nt2::multiplies(f, asum2(center(a0))); 
     }
   };
@@ -50,14 +51,15 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename A0::value_type value_type;
+    typedef typename meta::as_real<value_type>::type real_type; 
     typedef typename meta::call < tag::center_(A0 const&, const A1&)>::type T2;
     typedef typename meta::call < tag::asum2_(T2, const A1&)>::type T3;
     typedef typename meta::call < tag::multiplies_(value_type, T3)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-      value_type n = nt2::size(a0, nt2::firstnonsingleton(a0));
-      value_type n1 = n - (a1 ? 0 : 1); 
-      value_type f = (n <= One<value_type>())? One<value_type>() :  nt2::rec(n1); 
+      real_type n = nt2::size(a0, nt2::firstnonsingleton(a0));
+      real_type n1 = n - (a1 ? 0 : 1); 
+      real_type f = (n <= One<real_type>())? One<real_type>() :  nt2::rec(n1); 
       return nt2::multiplies(f, asum2(center(a0, a1), a1)); 
     }
   };

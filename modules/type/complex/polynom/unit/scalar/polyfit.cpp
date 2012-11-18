@@ -38,22 +38,22 @@ NT2_TEST_CASE_TPL ( polyfit_real__1_0,  NT2_REAL_TYPES)
   nt2::table<cT> x =  nt2::complexify(nt2::_(T(1), T(3)));
   nt2::table<cT> p =  nt2::complexify(nt2::_(T(1), T(3)));
   nt2::table<cT> y =  nt2::polyval(p, x);
-//   NT2_DISPLAY(y);
-//   NT2_DISPLAY(x);
-//   NT2_DISPLAY(p);
-//   NT2_DISPLAY(nt2::polyfit(x, y));
-//   nt2::table<cT> p1 =nt2::polyfit(x, y);
-//   NT2_DISPLAY(p1); 
-//   NT2_DISPLAY(nt2::polyval(p1, x));
-//   NT2_DISPLAY(y); 
-//   NT2_TEST(nt2::isulpequal(nt2::polyval(p1, x), y, 0.5));
+  NT2_DISPLAY(y);
+  NT2_DISPLAY(x);
+  NT2_DISPLAY(p);
+  NT2_DISPLAY(nt2::polyfit(x, y));
+  nt2::table<cT> p1 =nt2::polyfit(x, y);
+  NT2_DISPLAY(p1); 
+  NT2_DISPLAY(nt2::polyval(p1, x));
+  NT2_DISPLAY(y); 
+  NT2_TEST(nt2::isulpequal(nt2::polyval(p1, x), y, 0.5));
   
- //  NT2_DISPLAY(polyfit(x, y, 2));
-//   nt2::table<cT> p2 =polyfit(x, y, 2);
-//   NT2_DISPLAY(p2); 
-//   NT2_DISPLAY(nt2::polyval(p2, x));
-//   NT2_DISPLAY(y); 
-//   NT2_TEST(nt2::isulpequal(nt2::polyval(p2, x), y, 0.5));
+  NT2_DISPLAY(polyfit(x, y, 2));
+  nt2::table<cT> p2 =polyfit(x, y, 2);
+  NT2_DISPLAY(p2); 
+  NT2_DISPLAY(nt2::polyval(p2, x));
+  NT2_DISPLAY(y); 
+  NT2_TEST(nt2::isulpequal(nt2::polyval(p2, x), y, 0.5));
   
 //   nt2::table<cT> r;
 //   T df, normr;
