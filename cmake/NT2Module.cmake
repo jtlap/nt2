@@ -178,6 +178,7 @@ macro(nt2_configure_tests)
   option(NT2_WITH_TESTS_FULL "Use one executable per test" ${NT2_WITH_TESTS_FULL_})
   option(NT2_WITH_TESTS_BENCH "Register benchmarks with ctest" OFF)
   option(NT2_WITH_TESTS_COVER "Enable cover tests" OFF)
+  option(NT2_WITH_TESTS_EXHAUSTIVE "Enable exhaustive tests" OFF)
   set(CMAKE_CROSSCOMPILING_CMD $ENV{CMAKE_CROSSCOMPILING_CMD})# CACHE STRING "Command to use to run test sin a cross-compiling setup")
   set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST})# CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
 
@@ -231,6 +232,9 @@ macro(nt2_module_main module)
 
     if(NT2_WITH_TESTS_COVER)
       nt2_module_dir(cover)
+    endif()
+    if(NT2_WITH_TESTS_EXHAUSTIVE)
+      nt2_module_dir(exhaustive)
     endif()
   endif()
 
