@@ -68,14 +68,14 @@ namespace boost { namespace simd { namespace ext
 ////////////////////////////////////////////////////////////////////////////////
 // Generate all the common map calls over Tag using boost::simd::map
 ////////////////////////////////////////////////////////////////////////////////
-#define M0(z,n,t) generic_< unspecified_<A##n> >
+#define M0(z,n,t) unspecified_<A##n>
 
 #define M1(z,n,t)                                                              \
 namespace boost { namespace simd { namespace ext                               \
 {                                                                              \
   template<BOOST_PP_ENUM_PARAMS(n,class A),class Tag, class Dummy>             \
   struct implement< elementwise_<Tag>( BOOST_PP_ENUM(n,M0,~) )                 \
-                  , tag::cpu_, Dummy                                           \
+                  , tag::formal_, Dummy                                        \
                   >                                                            \
   {                                                                            \
     BOOST_SIMD_MAP_LOG(Tag)                                                    \
