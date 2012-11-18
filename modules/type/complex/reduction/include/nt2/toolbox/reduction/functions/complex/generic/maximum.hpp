@@ -19,12 +19,14 @@
 #include <nt2/include/functions/arg.hpp>
 #include <nt2/include/functions/at_i.hpp>
 #include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/valmin.hpp>
+#include <nt2/include/constants/valmax.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_imaginary.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
-
+    
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::maximum_, tag::cpu_, (A0)

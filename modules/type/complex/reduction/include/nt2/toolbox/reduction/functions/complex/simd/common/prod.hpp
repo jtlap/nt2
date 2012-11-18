@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     {
       rtype rho = nt2::abs(a0);
       rtype theta = arg(a0);
-      return frompolar(prod(rho), sum(theta)); 
+      return nt2::frompolar(nt2::prod(rho), nt2::sum(theta)); 
     }
   };
 

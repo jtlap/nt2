@@ -12,6 +12,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/maximum.hpp>
 #include <nt2/include/functions/global.hpp>
+#include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/globalfind.hpp>
 /*!
  * \ingroup core
@@ -79,21 +80,29 @@ namespace nt2
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmax_, tag::cpu_, (A0), (unspecified_<A0>) )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmax_, tag::cpu_,
+                              (A0),
+                              (unspecified_<A0>)
+    )
   {
-    typedef typename meta::call<tag::global_(nt2::functor<tag::maximum_>, const A0&)>::type result_type;
+    typedef typename meta::call<tag::global_(nt2::functor<tag::maximum_>
+                                             , const A0&
+      )>::type                           result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const 
     {
-       return global(nt2::functor<tag::maximum_>(), a0); 
+      return nt2::global(nt2::functor<tag::maximum_>(), a0); 
     }
   };
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmax_, tag::cpu_, (A0)(A1), (unspecified_<A0>)(scalar_<integer_<A1> > ))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmax_, tag::cpu_,
+                              (A0)(A1),
+                              (unspecified_<A0>)(scalar_<integer_<A1> > )
+    )
   {
     typedef typename meta::call<tag::global_(nt2::functor<tag::maximum_>, const A0&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 & a1) const 
     {
        result_type tmp =  global(nt2::functor<tag::maximum_>(), a0);
-       A1 k = nt2::globalfind(a0 == tmp)(1);
+       A1 k = nt2::globalfind(eq(a0, tmp));
        a1 = k;
        return tmp; 
     }

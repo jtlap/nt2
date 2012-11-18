@@ -44,9 +44,10 @@ NT2_TEST_CASE_TPL( maximum_2, (float)(double) )
   nt2::table<cT> sy( nt2::of_size(1,3) );
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
-      y(i,j) = cT(i + 10*j);
+      y(i,j) = cT(i + 10*j, i + 10*j);
   display("y", y);
   sy = nt2::maximum(y);
+  display("sy", sy); 
   NT2_TEST(nt2::isequal(sy,  nt2::maximum(y)));
   sy = nt2::maximum(y, 1);
   NT2_TEST(nt2::isequal(sy,  nt2::maximum(y, 1)));

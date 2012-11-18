@@ -17,10 +17,10 @@ SET( SOURCES
      global.cpp
 #     globalall.cpp
 #     globalany.cpp
-#     globalmax.cpp
-#     globalmin.cpp
+     globalmax.cpp
+     globalmin.cpp
      globalsum.cpp
-#     globalprod.cpp
+     globalprod.cpp
      maximum.cpp
 #    medianad.cpp
 #     median.cpp
