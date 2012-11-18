@@ -97,7 +97,8 @@ namespace boost { namespace simd { namespace ext                               \
     typename result<implement(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a))>::type  \
     operator()(BOOST_PP_ENUM_BINARY_PARAMS(n, _A, & a)) const                  \
     {                                                                          \
-      return map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n, a) );      \
+      return boost::simd::                                                     \
+             map( dispatch::functor<Tag>(), BOOST_PP_ENUM_PARAMS(n, a) );      \
     }                                                                          \
   };                                                                           \
 } } }                                                                          \
