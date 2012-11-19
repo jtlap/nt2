@@ -24,10 +24,10 @@ namespace nt2 { namespace ext
                               ((ast_<A0, nt2::container::domain>))
     )
   {
-    typedef typename meta::call<tag::medianad_(A0 const&, int32_t)>::type result_type; 
+    typedef typename meta::call<tag::medianad_(A0 const&, std::size_t)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      int32_t dim = nt2::firstnonsingleton(a0); 
+      std::size_t dim = nt2::firstnonsingleton(a0);
       return nt2::medianad(a0,dim);
     }
   };
@@ -38,12 +38,12 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A1> > )
                             )
   {
-    typedef typename meta::call<tag::center_(A0 const&, A1 const &)>::type T0; 
+    typedef typename meta::call<tag::center_(A0 const&, A1 const &)>::type T0;
     typedef typename meta::call<tag::abs_(T0)>::type                      T1;
     typedef typename meta::call<tag::median_(T1)>::type          result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& dim) const
     {
-      return nt2::median(nt2::abs(nt2::center(a0, dim)), dim); 
+      return nt2::median(nt2::abs(nt2::center(a0, dim)), dim);
     }
   };
 } }
