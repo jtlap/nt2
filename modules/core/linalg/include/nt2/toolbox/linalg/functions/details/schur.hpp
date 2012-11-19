@@ -52,7 +52,7 @@ namespace nt2 {
   namespace details
   {
     template<class T,
-             class CPLX = typename nt2::details::is_complex<typename meta::strip<T>::type::value_type >::type>
+             class CPLX = typename nt2::meta::is_complex<typename meta::strip<T>::type::value_type >::type>
     // complex cases
     struct schur_result
     {

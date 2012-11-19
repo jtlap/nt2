@@ -159,20 +159,20 @@ namespace nt2 {
           else
           {
             q_ = expand(aa_, of_size(m_, m_));
-            nt2::details::gqr(&m_, &m_, &k_, q_.raw(), &lda_, tau_.raw(), &info);           
+            nt2::details::gqr(&m_, &m_, &k_, q_.raw(), &lda_, tau_.raw(), &info);
           }
         }
         return q_;
       }
-      typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type T0; 
-      typedef typename meta::call < tag::function_(tab_t, T0, nt2::container::colon_)>::type T1; 
+      typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type T0;
+      typedef typename meta::call < tag::function_(tab_t, T0, nt2::container::colon_)>::type T1;
       typedef typename meta::call < tag::triu_(T1)>::type  r_result;
       r_result r()const
       {
-        int32_t nn = (nop_ == 'N')? k_ : m_; 
+        int32_t nn = (nop_ == 'N')? k_ : m_;
         return triu(aa_(nt2::_(1, nn), nt2::_));
       }
-      
+
       const tab_t& p()
       {
         if (isempty(p_))
@@ -233,7 +233,7 @@ namespace nt2 {
         inplace_solve(bb, epsi, transpose);
         return bb;
       }
-      
+
       template<class XPR, class OUT> void solve(const XPR & b, OUT& x, base_t epsi = nt2::Eps<base_t>(),
                                             bool transpose = false)const
       {
@@ -244,7 +244,7 @@ namespace nt2 {
       template < class XPR > void inplace_solve(XPR & b, base_t epsi = nt2::Eps<base_t>(),
                                                 bool transpose = false) const
       {
-        typedef typename details::is_complex<type_t>::type iscplx_t; 
+        typedef typename meta::is_complex<type_t>::type iscplx_t;
         char side = 'L';
         char tr = (!transpose) ?  ((iscplx_t::value)? 'C':'T') : 'N';
         nt2_la_int M = nt2::size(b, 1), N = nt2::size(b, 2);
@@ -272,7 +272,7 @@ namespace nt2 {
 ////        res(jpvt_(nt2::_(1, m)), nt2::_) = bb;
         for(size_t i=1; i <= m; ++i)
         {
-          
+
           for(size_t j=1; j <= nt2::size(bb, 2); ++j)
           {
             res(jpvt_(i), j) = bb(i, j);
