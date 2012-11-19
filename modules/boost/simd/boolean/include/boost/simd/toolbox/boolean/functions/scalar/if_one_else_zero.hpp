@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename A0::value_type result_type;
     inline result_type operator()(const A0 & a0) const 
-      { return nt2::is_nez(a0) ? One<result_type>() : Zero<result_type>(); }
+      { return boost::simd::is_nez(a0) ? One<result_type>() : Zero<result_type>(); }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_one_else_zero_, tag::cpu_, (A0)
@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
     inline result_type operator()(const A0 & a0) const 
-    { return nt2::is_nez(a0) ? One<A0>() : Zero<A0>(); }
+    { return boost::simd::is_nez(a0) ? One<A0>() : Zero<A0>(); }
   };  
 } } }
 

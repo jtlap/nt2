@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     inline result_type operator()(A0 const & a0) const
     {
-      return nt2::is_nez(a0) ? One<result_type>() : Zero<result_type>();
+      return boost::simd::is_nez(a0) ? One<result_type>() : Zero<result_type>();
     }
   };
 
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     inline result_type operator()(A0 const & a0, A1 const &) const
     {
-      return  nt2::is_nez(a0) ? One<result_type>() : Zero<result_type>();
+      return  boost::simd::is_nez(a0) ? One<result_type>() : Zero<result_type>();
     }
   };
 } } }
