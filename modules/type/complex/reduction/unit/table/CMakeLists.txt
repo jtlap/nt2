@@ -22,10 +22,9 @@ SET( SOURCES
      globalsum.cpp
      globalprod.cpp
      maximum.cpp
-#    medianad.cpp
-#     median.cpp
+     medianad.cpp
      mean.cpp
-#     meanad.cpp
+     meanad.cpp
      minimum.cpp
 #     none.cpp
      norm2.cpp

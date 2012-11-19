@@ -6,35 +6,34 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_SCALAR_MEANAD_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_SCALAR_MEANAD_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_SCALAR_MEDIANAD_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_SCALAR_MEDIANAD_HPP_INCLUDED
 
-#include <nt2/core/functions/meanad.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/core/functions/medianad.hpp>
 
 namespace nt2 { namespace ext
 {
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::meanad_, tag::cpu_, (A0)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::medianad_, tag::cpu_, (A0)
                             , (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef typename  meta::call<tag::abs_(A0 const&)>::type result_type;
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
-      return Zero<result_type>();
+      return a;
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::meanad_, tag::cpu_, (A0)(A1)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::medianad_, tag::cpu_, (A0)(A1)
                             , (scalar_< unspecified_<A0> >)
                               (scalar_< integer_<A1> > )
                             )
   {
-    typedef typename  meta::call<tag::abs_(A0 const&)>::type result_type;
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &) const
     {
-      return Zero<result_type>();
+      return a;
     }
   };
 } }

@@ -6,41 +6,44 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_EXPR_MEANAD_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_EXPR_MEANAD_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_EXPR_MEDIANAD_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_EXPR_MEDIANAD_HPP_INCLUDED
 
-#include <nt2/core/functions/meanad.hpp>
+#include <nt2/core/functions/medianad.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/mean.hpp>
 #include <nt2/include/functions/center.hpp>
+#include <nt2/include/functions/median.hpp>
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/firstnonsingleton.hpp>
+
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::meanad_, tag::cpu_,
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::medianad_, tag::cpu_,
                               (A0),
-                              ((ast_<A0, nt2::container::domain>)) )
+                              ((ast_<A0, nt2::container::domain>))
+    )
   {
-    typedef typename meta::call<tag::meanad_(A0 const&, int32_t)>::type result_type; 
+    typedef typename meta::call<tag::medianad_(A0 const&, int32_t)>::type result_type; 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       int32_t dim = nt2::firstnonsingleton(a0); 
-      return nt2::meanad(a0,dim);
+      return nt2::medianad(a0,dim);
     }
   };
-  
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::meanad_, tag::cpu_,
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::medianad_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> > )
-                              )
+                            )
   {
     typedef typename meta::call<tag::center_(A0 const&, A1 const &)>::type T0; 
-    typedef typename meta::call<tag::abs_(T0)>::type                       T1;
-    typedef typename meta::call<tag::mean_(T1, A1 const &)>::type             result_type;
+    typedef typename meta::call<tag::abs_(T0)>::type                      T1;
+    typedef typename meta::call<tag::median_(T1)>::type          result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& dim) const
     {
-      return nt2::mean(nt2::abs(nt2::center(a0, dim)), dim); 
+      return nt2::median(nt2::abs(nt2::center(a0, dim)), dim); 
     }
   };
 } }
