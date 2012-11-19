@@ -26,6 +26,7 @@ SET( SOURCES
      mean.cpp
      meanad.cpp
      minimum.cpp
+     nbtrue.cpp
 #     none.cpp
      norm2.cpp
      normp.cpp
@@ -34,9 +35,9 @@ SET( SOURCES
      var.cpp
      wmean.cpp
      stdev.cpp
-#     nansum.cpp
-#     nanmean.cpp
-#     nanasum2.cpp
+     nansum.cpp
+     nanmean.cpp
+     nanasum2.cpp
 # List of test files for toolbox core.reduction
    )
 
