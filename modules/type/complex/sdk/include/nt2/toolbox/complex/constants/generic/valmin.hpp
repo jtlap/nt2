@@ -9,11 +9,9 @@
 #ifndef NT2_TOOLBOX_COMPLEX_CONSTANTS_GENERIC_VALMIN_HPP_INCLUDED
 #define NT2_TOOLBOX_COMPLEX_CONSTANTS_GENERIC_VALMIN_HPP_INCLUDED
 
+#include <nt2/toolbox/constant/constants/valmin.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/valmin.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
-#include <iostream>
-#include <nt2/table.hpp>
+#include <nt2/sdk/complex/hierarchy.hpp>
 
 namespace nt2 { namespace ext
 {
