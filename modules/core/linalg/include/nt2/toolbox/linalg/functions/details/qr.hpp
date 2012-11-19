@@ -67,7 +67,7 @@
 #include <nt2/toolbox/linalg/details/lapack/mqr.hpp>
 #include <nt2/toolbox/linalg/details/lapack/trtrs.hpp>
 #include <nt2/core/container/table/table.hpp>
-
+#include <nt2/sdk/complex/meta/is_complex.hpp>
 namespace nt2 {
   struct no_p {};
 
@@ -77,15 +77,15 @@ namespace nt2 {
     {
       typedef typename meta::strip<T>::type                   source_t;
       typedef typename source_t::value_type                     type_t;
-      typedef typename meta::as_integer<type_t, signed>::type  itype_t;
       typedef typename source_t::index_type                    index_t;
       typedef typename meta::as_real<type_t>::type              base_t;
+      typedef typename meta::as_integer<base_t, signed>::type  itype_t;
       typedef T                                                 data_t;
-      typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-      typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-      typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+      typedef nt2::table<type_t,nt2::_2D>                        tab_t;
+      typedef nt2::table<base_t,nt2::_2D>                       btab_t;
+      typedef nt2::table<itype_t,nt2::_2D>                      itab_t;
       typedef nt2::details::workspace<type_t>              workspace_t;
-      typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+      typedef nt2::table<nt2_la_int,nt2::_2D>                   ibuf_t;
       typedef nt2::table<type_t,index_t>                   result_type;
       typedef nt2::table<itype_t,index_t>                 iresult_type;
 
@@ -170,8 +170,9 @@ namespace nt2 {
       r_result r()const
       {
         int32_t nn = (nop_ == 'N')? k_ : m_; 
-        return triu(aa_(_(1, nn), nt2::_));
+        return triu(aa_(nt2::_(1, nn), nt2::_));
       }
+      
       const tab_t& p()
       {
         if (isempty(p_))
@@ -243,17 +244,18 @@ namespace nt2 {
       template < class XPR > void inplace_solve(XPR & b, base_t epsi = nt2::Eps<base_t>(),
                                                 bool transpose = false) const
       {
+        typedef typename details::is_complex<type_t>::type iscplx_t; 
         char side = 'L';
-        char tr = (transpose) ? 'N' : !is_real(type_t(1))? 'C':'T';
+        char tr = (!transpose) ?  ((iscplx_t::value)? 'C':'T') : 'N';
         nt2_la_int M = nt2::size(b, 1), N = nt2::size(b, 2);
         nt2_la_int ldb = b.leading_size();
         nt2_la_int info;
         nt2::details::mqr(&side, &tr, &M, &N, &k_, aa_.raw(), &lda_, tau_.raw(), b.raw(), &ldb, &info, wrk_);
-         nt2_la_int nrhs = size(b, 2);
+        nt2_la_int nrhs = size(b, 2);
         char uplo =  'U', d = 'N';
-        char tr1 = (transpose) ?  (!is_real(type_t(1))? 'C':'T') : 'N';
         nt2_la_int rk = rank(epsi);
-        nt2::details::trtrs(&uplo, &tr1, &d, &rk, &nrhs, aa_.raw(), &lda_, b.raw(), &ldb, &info);
+        tr = (transpose) ?  ((iscplx_t::value)? 'C':'T') : 'N';
+        nt2::details::trtrs(&uplo, &tr, &d, &rk, &nrhs, aa_.raw(), &lda_, b.raw(), &ldb, &info);
         if (!nop_) b = permute(b);
         if (N == 1)
           b.resize(of_size(n_, 1));
@@ -267,11 +269,16 @@ namespace nt2 {
       {
         tab_t res(nt2::of_size(nt2::numel(jpvt_), nt2::size(bb, 2)));
         const size_t m =  nt2::min(size(bb, 1), numel(jpvt_));
+////        res(jpvt_(nt2::_(1, m)), nt2::_) = bb;
         for(size_t i=1; i <= m; ++i)
         {
-          res(jpvt_(i), _) = bb(i, _);
+          
+          for(size_t j=1; j <= nt2::size(bb, 2); ++j)
+          {
+            res(jpvt_(i), j) = bb(i, j);
+          }
+////          res(jpvt_(i), _) = bb(i, _);
         }
-        //      res(jpvt_(_(1, m)), _) = bb; //TODO
         return res;
       }
 
