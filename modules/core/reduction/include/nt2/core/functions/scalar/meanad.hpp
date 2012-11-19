@@ -10,7 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_MEANAD_HPP_INCLUDED
 
 #include <nt2/core/functions/meanad.hpp>
-#include <nt2/include/functions/scalar/abs.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {
