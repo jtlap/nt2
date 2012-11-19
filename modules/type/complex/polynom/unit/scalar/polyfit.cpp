@@ -55,17 +55,19 @@ NT2_TEST_CASE_TPL ( polyfit_real__1_0,  NT2_REAL_TYPES)
   NT2_DISPLAY(y); 
   NT2_TEST(nt2::isulpequal(nt2::polyval(p2, x), y, 0.5));
   
-//   nt2::table<cT> r;
-//   T df, normr;
-//   nt2::table<cT> mu; 
-//   nt2::tie(p, r, df, normr, mu) = nt2::polyfit(x, y);
-//   NT2_DISPLAY(p);
-//   NT2_DISPLAY(r);  
-//   NT2_DISPLAY(df);
-//   NT2_DISPLAY(normr);
-//   NT2_DISPLAY(mu);
-//   NT2_DISPLAY(polyval(p, (x-mu(1))/mu(2))); 
-
+  nt2::table<cT> r;
+  T df, normr;
+  nt2::table<cT> mu; 
+  nt2::tie(p, r, df, normr, mu) = nt2::polyfit(x, y);
+  NT2_DISPLAY(p);
+  NT2_DISPLAY(r);  
+  NT2_DISPLAY(df);
+  NT2_DISPLAY(normr);
+  NT2_DISPLAY(mu);
+  NT2_DISPLAY(polyval(p, (x-mu(1))/mu(2))); 
+  NT2_TEST(nt2::isulpequal(nt2::polyval(p, (x-mu(1))/mu(2)), y, 0.5));
+  
+ 
 
   //////////////////////////////////////////////////////
   // TODO This does not work s being a structure defined in polyfit.hpp

@@ -173,24 +173,29 @@ namespace nt2 {
         typedef typename boost::proto::result_of::child_c<A1&,3>::type       nr_type;
         typedef typename boost::proto::result_of::child_c<A1&,4>::type       mu_type;
         mu_type & mu = boost::proto::child_c<4>(a1);
-        mu.resize(nt2::of_size(1, 2)); 
-        mu(1) = nt2::mean(nt2::colvect(x))(1);
-        mu(2) = nt2::stdev(nt2::colvect(x))(1);
-        
-        
+        mu.resize(nt2::of_size(1, 2));
+        NT2_DISPLAY(x);
+        NT2_DISPLAY(nt2::colvect(x)); 
+        BOOST_AUTO_TPL(mm, nt2::mean(nt2::colvect(x))(1));
+        BOOST_AUTO_TPL(ss, nt2::stdev(nt2::colvect(x))(1));
+        NT2_DISPLAY(mm);        
+        NT2_DISPLAY(ss);
+        mu(1) = mm;
+        mu(2) = ss; 
         p_type & p = boost::proto::child_c<0>(a1);
         r_type & r = boost::proto::child_c<1>(a1);
         df_type& df= boost::proto::child_c<2>(a1);
         nr_type& normr= boost::proto::child_c<3>(a1);
-        BOOST_AUTO_TPL(vnd, nt2::vandermonde((nt2::colvect(x)-mu(1))/mu(2), l));
+        BOOST_AUTO_TPL(vnd, nt2::vandermonde((nt2::colvect(x)-mm)/ss, l));
         typedef typename nt2::meta::call<nt2::tag::colvect_(x_type const &)>::type cx_t;
         typedef typename nt2::meta::call<nt2::tag::minus_(cx_t, value_type)>::type tmp1_t;
         typedef typename nt2::meta::call<nt2::tag::divides_(tmp1_t, value_type)>::type tmp2_t;
         typedef typename nt2::meta::call<nt2::tag::vandermonde_(tmp2_t const &, size_t const &)>::type vnd_t;
         typedef typename nt2::meta::call<nt2::tag::factorization::qr_(vnd_t const&, char)>::type qr_type;
+        //       BOOST_AUTO_TPL(res, nt2::factorization::qr(vnd, 'N'));
         qr_type res = nt2::factorization::qr(vnd, 'N');
         r = res.r();
-        res.solve(colvect(y), p);
+//        res.solve(colvect(y), p);
         p.resize(of_size(1u, numel(p))); 
         df = nt2::subs(nt2::numel(y), l);
         normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, nt2::colvect(p)));
