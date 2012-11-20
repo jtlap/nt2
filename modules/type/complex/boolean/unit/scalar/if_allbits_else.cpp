@@ -55,10 +55,11 @@ NT2_TEST_CASE_TPL ( if_allbits_else_real__2_0,  NT2_REAL_TYPES)
   //  return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
-
-  // specific values tests
-//   NT2_TEST_EQUAL(if_allbits_else(nt2::False<cT>(), cT(1)), cT(1));
-//   NT2_TEST_EQUAL(if_allbits_else(nt2::True<cT>(),cT(1)), nt2::Cnan<cT>());
+  BOOST_AUTO_TPL(t, nt2::True<nt2::logical<T> >()); 
+  BOOST_AUTO_TPL(f, nt2::False<nt2::logical<T> >());
+//   // specific values tests
+  NT2_TEST_EQUAL(if_allbits_else(f, cT(1, 1)), cT(1, 1));
+  NT2_TEST_EQUAL(if_allbits_else(t, cT(1)), nt2::Cnan<cT>());
   NT2_TEST_EQUAL(if_allbits_else(nt2::Inf<cT>(), cT(1)), nt2::Cnan<cT>());
   NT2_TEST_EQUAL(if_allbits_else(nt2::Minf<cT>(), cT(1)),  nt2::Cnan<cT>());
   NT2_TEST_EQUAL(if_allbits_else(nt2::Nan<cT>(), cT(1)) ,  nt2::Cnan<cT>());

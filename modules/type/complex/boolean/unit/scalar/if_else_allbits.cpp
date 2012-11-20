@@ -16,6 +16,8 @@
 #include <nt2/include/functions/if_else_allbits.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/cnan.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/false.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -55,14 +57,14 @@ NT2_TEST_CASE_TPL ( if_else_allbits_real__2_0,  NT2_REAL_TYPES)
   std::cout << std::endl;
 
   // specific values tests
-//   NT2_TEST_EQUAL(if_else_allbits(nt2::False<cT>(), cT(1)), nt2::Cnan<cT>());
-//   NT2_TEST_EQUAL(if_else_allbits(nt2::True<cT>(),cT(1)), cT(1));
+  NT2_TEST_EQUAL(if_else_allbits(nt2::False<nt2::logical<T> >(), cT(1)), nt2::Cnan<cT>());
+  NT2_TEST_EQUAL(if_else_allbits(nt2::True<nt2::logical<T> >(),cT(1)), cT(1));
   NT2_TEST_EQUAL(if_else_allbits(nt2::Inf<cT>(), cT(1)), cT(1));
   NT2_TEST_EQUAL(if_else_allbits(nt2::Minf<cT>(), cT(1)),  cT(1));
   NT2_TEST_EQUAL(if_else_allbits(nt2::Nan<cT>(), cT(1)) ,  cT(1));
   NT2_TEST_EQUAL(if_else_allbits(nt2::Zero<cT>(), cT(1)),  nt2::Cnan<cT>());
-//   NT2_TEST_EQUAL(if_else_allbits(nt2::True<cT>(), cT(1)),  cT(1));
-//   NT2_TEST_EQUAL(if_else_allbits(nt2::False<cT>(), cT(1)),  nt2::Cnan<cT>());
+//    NT2_TEST_EQUAL(if_else_allbits(nt2::True<cT>(), cT(1)),  cT(1));
+//    NT2_TEST_EQUAL(if_else_allbits(nt2::False<cT>(), cT(1)),  nt2::Cnan<cT>());
 
 
 } // end of test for floating_

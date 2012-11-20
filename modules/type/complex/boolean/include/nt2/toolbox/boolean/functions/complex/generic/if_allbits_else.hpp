@@ -29,8 +29,8 @@ namespace nt2 { namespace ext
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_allbits_else_, tag::cpu_, (A0)(A1)
-                            , (generic_< complex_<floating_<A0> > >)
-                              (generic_< complex_<floating_<A1> > >)
+                            , (generic_< complex_<floating_<A0> > > )
+                              (generic_< complex_<floating_<A1> > > )
                             )
   {
     typedef A1 result_type;
