@@ -36,7 +36,11 @@ NT2_TEST_CASE_TPL ( plevl_real__1_0,  NT2_REAL_TYPES)
   using nt2::tag::polyfit_;
   nt2::table<T> x =  nt2::_(T(1), T(3));
   nt2::table<T> p =  nt2::_(T(1), T(3));
-  nt2::table<T> y =  nt2::polyval(p, x);
+//  nt2::table<T> y =  nt2::polyval(p, x);
+  nt2::table<T> y(nt2::of_size(1, 3));
+  y(1) = T(6);
+  y(2) = T(11);
+  y(3) = T(18); 
   NT2_DISPLAY(y);
   NT2_DISPLAY(x);
   NT2_DISPLAY(p);

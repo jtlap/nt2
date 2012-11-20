@@ -64,8 +64,9 @@ NT2_TEST_CASE_TPL ( polyfit_real__1_0,  NT2_REAL_TYPES)
   NT2_DISPLAY(df);
   NT2_DISPLAY(normr);
   NT2_DISPLAY(mu);
-  NT2_DISPLAY(polyval(p, (x-mu(1))/mu(2))); 
-  NT2_TEST(nt2::isulpequal(nt2::polyval(p, (x-mu(1))/mu(2)), y, 0.5));
+  NT2_DISPLAY(polyval(p, (x-mu(1))/mu(2)));
+  NT2_DISPLAY(y); 
+  NT2_TEST(nt2::isulpequal(nt2::polyval(p, (x-mu(1))/mu(2)), y, T(5.0)));
   
  
 

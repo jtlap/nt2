@@ -89,8 +89,8 @@ namespace nt2 {
       BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
       {
         // Copy data in output first
-        x_type & x = boost::proto::child_c<0>(a0);
-        y_type & y = boost::proto::child_c<1>(a0);
+        BOOST_AUTO_TPL(x, boost::proto::child_c<0>(a0));
+        BOOST_AUTO_TPL(y, boost::proto::child_c<1>(a0));
         size_t l = lval(a0, N0());
         polcoefs(a1, x, y, l, N1());
       }
@@ -107,12 +107,12 @@ namespace nt2 {
       {
         return nt2::numel(boost::proto::child_c<0>(a0));
       }
-
+      
       BOOST_FORCEINLINE
         void polcoefs(A1& a1, x_type const & x, y_type const &y,
                       const int32_t & l, boost::mpl::long_<1> const &) const
       {
-        p_type & p = boost::proto::child_c<0>(a1);
+        BOOST_AUTO_TPL(p, boost::proto::child_c<0>(a1));
         BOOST_AUTO_TPL(vnd, nt2::vandermonde(nt2::colvect(x), l));
         p = nt2::rowvect(nt2::linsolve(vnd, nt2::colvect(y)));
       }
@@ -121,8 +121,8 @@ namespace nt2 {
         void polcoefs(A1 &a1, x_type const & x, y_type const &y,
                       const size_t & l, boost::mpl::long_<2> const &) const
       {
-        p_type & p = boost::proto::child_c<0>(a1);
-        s_type & s = boost::proto::child_c<1>(a1);
+        BOOST_AUTO_TPL(p, boost::proto::child_c<0>(a1));
+        BOOST_AUTO_TPL(s, boost::proto::child_c<1>(a1));
         BOOST_AUTO_TPL(vnd, nt2::vandermonde(nt2::colvect(x), l));
         typedef typename nt2::meta::call<nt2::tag::colvect_(y_type const &)>::type cy_t;
         typedef typename nt2::meta::call<nt2::tag::vandermonde_(cy_t const &, size_t const &)>::type vnd_t;
@@ -139,13 +139,13 @@ namespace nt2 {
         void polcoefs(A1 &a1, x_type const & x, y_type const &y,
                       const size_t & l, boost::mpl::long_<4> const &) const
       {
-        typedef typename boost::proto::result_of::child_c<A1&,1>::type       r_type;
-        typedef typename boost::proto::result_of::child_c<A1&,2>::type       df_type;
-        typedef typename boost::proto::result_of::child_c<A1&,3>::type       nr_type;
-        p_type & p = boost::proto::child_c<0>(a1);
-        r_type & r = boost::proto::child_c<1>(a1);
-        df_type& df= boost::proto::child_c<2>(a1);
-        nr_type& normr= boost::proto::child_c<3>(a1);
+//         typedef typename boost::proto::result_of::child_c<A1&,1>::type       r_type;
+//         typedef typename boost::proto::result_of::child_c<A1&,2>::type       df_type;
+//         typedef typename boost::proto::result_of::child_c<A1&,3>::type       nr_type;
+        BOOST_AUTO_TPL(p, boost::proto::child_c<0>(a1));
+        BOOST_AUTO_TPL(r, boost::proto::child_c<1>(a1));
+        BOOST_AUTO_TPL(df, boost::proto::child_c<2>(a1));
+        BOOST_AUTO_TPL(normr, boost::proto::child_c<3>(a1));
         BOOST_AUTO_TPL(vnd, nt2::vandermonde(nt2::colvect(x), l));
         typedef typename nt2::meta::call<nt2::tag::colvect_(x_type const &)>::type cx_t;
         typedef typename nt2::meta::call<nt2::tag::vandermonde_(cx_t const &, size_t const &)>::type vnd_t;
@@ -162,21 +162,21 @@ namespace nt2 {
         void polcoefs(A1 &a1, x_type const & x, y_type const &y,
                       const size_t & l, boost::mpl::long_<5> const &) const
       {
-        typedef typename boost::proto::result_of::child_c<A1&,1>::type       r_type;
-        typedef typename boost::proto::result_of::child_c<A1&,2>::type       df_type;
-        typedef typename boost::proto::result_of::child_c<A1&,3>::type       nr_type;
-        typedef typename boost::proto::result_of::child_c<A1&,4>::type       mu_type;
-        mu_type & mu = boost::proto::child_c<4>(a1);
+//         typedef typename boost::proto::result_of::child_c<A1&,1>::type       r_type;
+//         typedef typename boost::proto::result_of::child_c<A1&,2>::type       df_type;
+//         typedef typename boost::proto::result_of::child_c<A1&,3>::type       nr_type;
+//         typedef typename boost::proto::result_of::child_c<A1&,4>::type       mu_type;
+        BOOST_AUTO_TPL(mu, boost::proto::child_c<4>(a1));
         mu.resize(nt2::of_size(1, 2));
-        NT2_DISPLAY(nt2::colvect(x));
+//        NT2_DISPLAY(nt2::colvect(x));
         BOOST_AUTO_TPL(mm, nt2::mean(nt2::colvect(x))(1));
         BOOST_AUTO_TPL(ss, nt2::stdev(nt2::colvect(x))(1));
         mu(1) = mm;
         mu(2) = ss;
-        p_type & p = boost::proto::child_c<0>(a1);
-        r_type & r = boost::proto::child_c<1>(a1);
-        df_type& df= boost::proto::child_c<2>(a1);
-        nr_type& normr= boost::proto::child_c<3>(a1);
+        BOOST_AUTO_TPL(p, boost::proto::child_c<0>(a1));
+        BOOST_AUTO_TPL(r, boost::proto::child_c<1>(a1));
+        BOOST_AUTO_TPL(df, boost::proto::child_c<2>(a1));
+        BOOST_AUTO_TPL(normr, boost::proto::child_c<3>(a1));
         BOOST_AUTO_TPL(vnd, nt2::vandermonde((nt2::colvect(x)-mm)/ss, l));
         typedef typename nt2::meta::call<nt2::tag::colvect_(x_type const &)>::type cx_t;
         typedef typename nt2::meta::call<nt2::tag::minus_(cx_t, value_type)>::type tmp1_t;
@@ -186,7 +186,7 @@ namespace nt2 {
         //       BOOST_AUTO_TPL(res, nt2::factorization::qr(vnd, 'N'));
         qr_type res = nt2::factorization::qr(vnd, 'N');
         r = res.r();
-//        res.solve(colvect(y), p);
+        res.solve(colvect(y), p);
         p.resize(of_size(1u, numel(p)));
         df = nt2::subs(nt2::numel(y), l);
         normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, nt2::colvect(p)));
