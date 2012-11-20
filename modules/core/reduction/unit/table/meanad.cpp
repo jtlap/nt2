@@ -28,13 +28,13 @@
 NT2_TEST_CASE_TPL( meanad_scalar, NT2_REAL_TYPES )
 {
   T x = nt2::meanad(T(42));
-  NT2_TEST_EQUAL( x, T(42) );
+  NT2_TEST_EQUAL( x, T(0) );
 
   x = nt2::meanad(T(42),1);
-  NT2_TEST_EQUAL( x, T(42) );
+  NT2_TEST_EQUAL( x, T(0) );
 
   x = nt2::meanad(T(42),0);
-  NT2_TEST_EQUAL( x, T(42) );
+  NT2_TEST_EQUAL( x, T(0) );
 
 }
 
