@@ -89,8 +89,8 @@ namespace nt2 {
       BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
       {
         // Copy data in output first
-        BOOST_AUTO_TPL(x, boost::proto::child_c<0>(a0));
-        BOOST_AUTO_TPL(y, boost::proto::child_c<1>(a0));
+        x_type const & x = boost::proto::child_c<0>(a0);
+        y_type const & y = boost::proto::child_c<1>(a0);
         size_t l = lval(a0, N0());
         polcoefs(a1, x, y, l, N1());
       }
@@ -107,7 +107,7 @@ namespace nt2 {
       {
         return nt2::numel(boost::proto::child_c<0>(a0));
       }
-      
+
       BOOST_FORCEINLINE
         void polcoefs(A1& a1, x_type const & x, y_type const &y,
                       const int32_t & l, boost::mpl::long_<1> const &) const
