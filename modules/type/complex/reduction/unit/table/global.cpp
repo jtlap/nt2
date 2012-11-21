@@ -27,6 +27,8 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
 #include <nt2/table.hpp>
+// this include must be automatic...
+#include <nt2/include/constants/maxinit.hpp>
 
 NT2_TEST_CASE_TPL( global, NT2_REAL_TYPES )
 {

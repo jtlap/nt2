@@ -21,6 +21,8 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
+// this include must be automatic...
+#include <nt2/include/constants/maxinit.hpp>
 
 NT2_TEST_CASE_TPL( maximum_scalar, (float)(double))//NT2_TYPES )
 {
@@ -34,7 +36,7 @@ NT2_TEST_CASE_TPL( maximum_scalar, (float)(double))//NT2_TYPES )
   x = nt2::maximum(cT(42),2);
   NT2_TEST_EQUAL( x, (cT(42)) );
 
-}
+}  
 
 NT2_TEST_CASE_TPL( maximum_2, (float)(double) )
 {
