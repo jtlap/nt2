@@ -21,4 +21,4 @@ SET( SOURCES
 #  lsq_lse_solve.cpp
    )
 
-nt2_module_add_tests(complex.type.linalg.solvers.unit ${SOURCES})
+nt2_module_add_tests(type.complex.linalg.solvers.unit ${SOURCES})
