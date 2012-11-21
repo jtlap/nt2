@@ -46,16 +46,19 @@ NT2_TEST_CASE_TPL( minimum_2, (float)(double) )
       y(i,j) =  -cT(i + 10*j, i + 10*j);
   display("y", y);
   sy = nt2::minimum(y);
-  display("sy", sy); 
-  NT2_TEST(nt2::isequal(sy,  nt2::minimum(y)));
+  NT2_DISPLAY(sy);    
+  NT2_DISPLAY(y(1, nt2::_)); 
+  NT2_TEST(nt2::isequal(y(1, nt2::_),  nt2::minimum(y)));
   sy = nt2::minimum(y, 1);
-  display("sy", sy); 
-  NT2_TEST(nt2::isequal(sy,  nt2::minimum(y, 1)));
+  NT2_DISPLAY(sy); 
+  NT2_DISPLAY(y(1, nt2::_)); 
+  NT2_TEST(nt2::isequal(y(1, nt2::_),  nt2::minimum(y, 1)));
   sy = nt2::minimum(y, 2);
-  display("sy", sy); 
-  NT2_TEST(nt2::isequal(sy,  nt2::minimum(y, 2)));
-  sy = nt2::minimum(y, 3);
-  display("sy", sy); 
-  NT2_TEST(nt2::isequal(sy,  nt2::minimum(y, 3)));
-  
+  NT2_DISPLAY(sy); 
+  NT2_DISPLAY(y(nt2::_, 1)); 
+  NT2_TEST(nt2::isequal(y(nt2::_, 1),  nt2::minimum(y, 2)));
+  sy = nt2::minimum(y, 1);
+  NT2_DISPLAY(y);   
+  NT2_TEST(nt2::isequal(y,  nt2::minimum(y, 3)));
+ 
 }
