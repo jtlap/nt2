@@ -60,8 +60,8 @@ NT2_TEST_CASE_TPL ( if_else_zero_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(if_else_zero(nt2::Minf<cT>(), cT(1)),  cT(1));
   NT2_TEST_EQUAL(if_else_zero(nt2::Nan<cT>(), cT(1)) ,  cT(1));
   NT2_TEST_EQUAL(if_else_zero(nt2::Zero<cT>(), cT(1)),  cT(0));
-  NT2_TEST_EQUAL(if_else_zero(nt2::False<T>(), cT(1)), cT(0));
-  NT2_TEST_EQUAL(if_else_zero(nt2::True<T>(),cT(1)), cT(1));
+  NT2_TEST_EQUAL(if_else_zero(nt2::False<logical<T> >(), cT(1)), cT(0));
+  NT2_TEST_EQUAL(if_else_zero(nt2::True<logical<T> >(),cT(1)), cT(1));
 
 
 } // end of test for floating_
