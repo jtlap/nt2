@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_COMPLEX_CONSTANTS_GENERIC_MAXINIT_HPP_INCLUDED
-#define NT2_TOOLBOX_COMPLEX_CONSTANTS_GENERIC_MAXINIT_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_MAXINIT_HPP_INCLUDED
+#define NT2_TOOLBOX_CONSTANT_CONSTANTS_GENERIC_MAXINIT_HPP_INCLUDED
 
 #include <nt2/toolbox/constant/constants/maxinit.hpp>
 #include <nt2/include/constants/zero.hpp>
