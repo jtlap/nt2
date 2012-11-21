@@ -47,13 +47,19 @@ NT2_TEST_CASE_TPL( maximum_2, (float)(double) )
       y(i,j) = cT(i + 10*j, i + 10*j);
   display("y", y);
   sy = nt2::maximum(y);
-  display("sy", sy); 
-  NT2_TEST(nt2::isequal(sy,  nt2::maximum(y)));
+  NT2_DISPLAY(sy);    
+  NT2_DISPLAY(y(5, nt2::_)); 
+  NT2_TEST(nt2::isequal(y(5, nt2::_),  nt2::maximum(y)));
   sy = nt2::maximum(y, 1);
-  NT2_TEST(nt2::isequal(sy,  nt2::maximum(y, 1)));
+  NT2_DISPLAY(sy); 
+  NT2_DISPLAY(y(5, nt2::_)); 
+  NT2_TEST(nt2::isequal(y(5, nt2::_),  nt2::maximum(y, 1)));
   sy = nt2::maximum(y, 2);
-  NT2_TEST(nt2::isequal(sy,  nt2::maximum(y, 2)));
+  NT2_DISPLAY(sy); 
+  NT2_DISPLAY(y(nt2::_, 3)); 
+  NT2_TEST(nt2::isequal(y(nt2::_, 3),  nt2::maximum(y, 2)));
   sy = nt2::maximum(y, 3);
-  NT2_TEST(nt2::isequal(sy,  nt2::maximum(y, 3)));
+  NT2_DISPLAY(y);   
+  NT2_TEST(nt2::isequal(y,  nt2::maximum(y, 3)));
   
 }
