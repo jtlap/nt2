@@ -23,6 +23,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/include/constants/four.hpp>
 #include <nt2/table.hpp>
 
 template < class Tabout > 
@@ -84,7 +85,7 @@ NT2_TEST_CASE_TPL( levenberg_functor, NT2_REAL_TYPES )
             << " after " << res.iterations_count <<  " iterations\n";
 
   NT2_TEST(res.successful);
-  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Sqrteps<T>());
+  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Four<T>()*nt2::Sqrteps<T>());
 
 }
 
