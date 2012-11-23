@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_NONE_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_NONE_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_COMMON_COMMON_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_COMMON_COMMON_HPP_INCLUDED
 
 #include <boost/detail/workaround.hpp>
 
@@ -23,7 +23,7 @@
 
 #include <boost/simd/sdk/config/types.hpp>
 #if !defined(BOOST_SIMD_SIMD_TYPES)
-#include <boost/simd/sdk/simd/extensions/sse/types.hpp>
+#include <boost/simd/sdk/simd/extensions/x86/types.hpp>
 #endif
 
 #endif

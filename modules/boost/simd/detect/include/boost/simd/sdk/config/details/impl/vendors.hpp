@@ -6,12 +6,12 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_CONFIG_DETAILS_CACHE_DETECT_CACHE_HPP_INCLUDED
-#define NT2_SDK_CONFIG_DETAILS_CACHE_DETECT_CACHE_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_IMPL_VENDORS_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_DETAILS_IMPL_VENDORS_HPP_INCLUDED
 
-#define NT2_MAX_CACHE_LEVEL 4
-
-#include <nt2/sdk/config/details/cache/x86/detect_cache.hpp>
-#include <nt2/sdk/config/details/cache/powerpc/detect_cache.hpp>
+namespace boost { namespace simd { namespace config
+{
+  enum{intel, amd, ibm, arm};
+} } }
 
 #endif

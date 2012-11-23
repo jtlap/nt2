@@ -9,11 +9,13 @@
 #ifndef NT2_SDK_CONFIG_DETAILS_CACHE_CACHE_HPP_INCLUDED
 #define NT2_SDK_CONFIG_DETAILS_CACHE_CACHE_HPP_INCLUDED
 
-#include <boost/array.hpp>
 #include <nt2/sdk/config/details/cache/detect_cache.hpp>
+#include <boost/array.hpp>
 
-namespace nt2{ namespace config{ namespace details{
+#define NT2_MAX_CACHE_LEVEL 4
 
+namespace nt2 { namespace config { namespace details
+{
   inline
   boost::array< boost::array<int, NT2_MAX_CACHE_LEVEL>
               , 2
@@ -32,7 +34,6 @@ namespace nt2{ namespace config{ namespace details{
     }
     else return cache_infos;
   }
-
 } } }
 
 

@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_VMX_TYPES_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_VMX_TYPES_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_TYPES_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_TYPES_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/type_lists.hpp>
 
@@ -36,7 +36,7 @@
 /**/
 
 #define BOOST_SIMD_SIMD_REAL_CONVERTIBLE_TYPES  (boost::simd::int32_t)(boost::simd::uint32_t)(float) \
-					 /**/
+/**/
 
 #define BOOST_SIMD_SIMD_INT_CONVERT_TYPES  (boost::simd::int32_t) \
 /**/

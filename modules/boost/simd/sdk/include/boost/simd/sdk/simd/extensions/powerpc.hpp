@@ -6,16 +6,17 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_LRB_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_LRB_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_POWERPC_HPP_INCLUDED
 
 ////////////////////////////////////////////////////////////////////////////////
 // No SIMD extensions have been found yet
 ////////////////////////////////////////////////////////////////////////////////
-#include <boost/simd/sdk/simd/extensions/lrb/lrb.hpp>
+#include <boost/simd/sdk/simd/extensions/powerpc/altivec.hpp>
+//#include <boost/simd/sdk/simd/extensions/powerpc/spu.hpp>
 
-#if defined(BOOST_SIMD_LRB_FAMILY)
-#include <boost/simd/sdk/simd/extensions/lrb/types.hpp>
+#if defined(BOOST_SIMD_VMX_FAMILY)
+#include <boost/simd/sdk/simd/extensions/powerpc/types.hpp>
 #endif
 
 #endif

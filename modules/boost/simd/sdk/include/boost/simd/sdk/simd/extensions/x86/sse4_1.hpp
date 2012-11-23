@@ -6,39 +6,39 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSSE3_HPP_INCLUDED
-#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_SSE_SSSE3_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_SIMD_EXTENSIONS_X86_SSE4_1_HPP_INCLUDED
+#define BOOST_SIMD_SDK_SIMD_EXTENSIONS_X86_SSE4_1_HPP_INCLUDED
 
-#if defined(__SSSE3__)
-#  ifndef BOOST_SIMD_HAS_SSSE3_SUPPORT
-#    define BOOST_SIMD_HAS_SSSE3_SUPPORT
+#if defined(__SSE4_1__)
+#  ifndef BOOST_SIMD_HAS_SSE4_1_SUPPORT
+#    define BOOST_SIMD_HAS_SSE4_1_SUPPORT
 #  endif
-#elif defined(BOOST_SIMD_HAS_SSSE3_SUPPORT) && !defined(_MSC_VER)
-#  undef BOOST_SIMD_HAS_SSSE3_SUPPORT
+#elif defined(BOOST_SIMD_HAS_SSE4_1_SUPPORT) && !defined(_MSC_VER)
+#  undef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 #endif
 
-#if defined(BOOST_SIMD_HAS_SSSE3_SUPPORT) && !defined(BOOST_SIMD_HAS_SSE3_SUPPORT)
-#  define BOOST_SIMD_HAS_SSE3_SUPPORT
+#if defined(BOOST_SIMD_HAS_SSE4_1_SUPPORT) && !defined(BOOST_SIMD_HAS_SSSE3_SUPPORT)
+#  define BOOST_SIMD_HAS_SSSE3_SUPPORT
 #endif
 
-#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_SSSE3_SUPPORT)
+#if !defined(BOOST_SIMD_DETECTED) && defined(BOOST_SIMD_HAS_SSE4_1_SUPPORT)
 
 ////////////////////////////////////////////////////////////////////////////////
-// SSSE3 extensions flags
+// SSE4_1 extensions flags
 ////////////////////////////////////////////////////////////////////////////////
 #define BOOST_SIMD_DETECTED
-#define BOOST_SIMD_SSSE3
+#define BOOST_SIMD_SSE4_1
 #define BOOST_SIMD_SSE_FAMILY
-#define BOOST_SIMD_STRING             "SSSE3"
-#define BOOST_SIMD_STRING_LIST        "SSE2 SSE3 SSSE3"
+#define BOOST_SIMD_STRING             "SSE4_1"
+#define BOOST_SIMD_STRING_LIST        "SSE2 SSE3 SSSE3 SSE4_1"
 #define BOOST_SIMD_BYTES              16
 #define BOOST_SIMD_BITS               128
 #define BOOST_SIMD_CARDINALS          (2)(4)(8)(16)
 #define BOOST_SIMD_TAG_SEQ            (::boost::simd::tag::sse_)
 #define BOOST_SIMD_DEFAULT_EXTENSION  ::boost::simd::tag::sse_
-#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::ssse3_
+#define BOOST_SIMD_DEFAULT_SITE       ::boost::simd::tag::sse4_1_
 
-#include <tmmintrin.h>
+#include <smmintrin.h>
 
 #include <boost/simd/sdk/simd/extensions/meta/sse.hpp>
 

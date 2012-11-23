@@ -6,20 +6,17 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
-#define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECT_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_COMMON_DETECT_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_DETAILS_COMMON_DETECT_HPP_INCLUDED
 
-#include <boost/simd/sdk/config/details/x86/detect.hpp>
-#include <boost/simd/sdk/config/details/powerpc/detect.hpp>
-#include <boost/simd/sdk/config/details/arm/detect.hpp>
+#include <boost/dispatch/functor/meta/hierarchy.hpp>
 
-namespace boost{ namespace simd{ namespace config{ namespace details{
-
+namespace boost { namespace simd { namespace config { namespace details
+{
   inline bool detect(dispatch::tag::cpu_ const& )
   {
     return false;
   }
-
 } } } }
 
 #endif
