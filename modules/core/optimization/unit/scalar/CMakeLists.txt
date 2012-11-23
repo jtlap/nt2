@@ -10,6 +10,7 @@
 SET( SOURCES
   brent.cpp
   hjmin.cpp
+  levenberg.cpp
 # List of scalar test files for toolbox optimize
    )
 
