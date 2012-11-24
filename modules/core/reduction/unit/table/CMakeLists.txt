@@ -11,23 +11,34 @@ SET( SOURCES
     asum1.cpp
     asum2.cpp
     asump.cpp
-    all.cpp
-    any.cpp
+#    all.cpp
+#    any.cpp
     dot.cpp
     global.cpp
-    globalall.cpp
-    globalany.cpp
+#    globalall.cpp
+#    globalany.cpp
     globalmax.cpp
     globalmin.cpp
     globalsum.cpp
     globalprod.cpp
+    globalmean.cpp
+    globalmeanad.cpp
+    globalmedian.cpp 
+    globalmedianad.cpp 
+    globalasum1.cpp
+    globalasum2.cpp 
+    globalasump.cpp 
+    globalnorm2.cpp
+    globalnormp.cpp
+    globalvar.cpp
+    globalstdev.cpp
     maximum.cpp
-#    medianad.cpp
+    medianad.cpp
     median.cpp
     mean.cpp
     meanad.cpp
     minimum.cpp
-    none.cpp
+#    none.cpp
     norm2.cpp
     normp.cpp
     prod.cpp

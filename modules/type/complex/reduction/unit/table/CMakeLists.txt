@@ -11,11 +11,11 @@ SET( SOURCES
      asum1.cpp
      asum2.cpp
      asump.cpp
-#     all.cpp
+     all.cpp
 #     any.cpp
      dot.cpp
      global.cpp
-#     globalall.cpp
+     globalall.cpp
 #     globalany.cpp
      globalmax.cpp
      globalmin.cpp

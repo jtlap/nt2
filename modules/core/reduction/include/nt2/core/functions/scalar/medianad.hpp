@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_MEDIANAD_HPP_INCLUDED
 
 #include <nt2/core/functions/medianad.hpp>
+#include <nt2/include/constants/zero.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -21,7 +22,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
-      return a;
+      return Zero<result_type>();
     }
   };
 
@@ -33,7 +34,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &) const
     {
-      return a;
+      return Zero<result_type>();
     }
   };
 } }
