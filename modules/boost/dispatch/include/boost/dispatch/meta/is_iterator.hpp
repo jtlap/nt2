@@ -19,6 +19,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
