@@ -12,33 +12,35 @@ set(NT2_COMPILER_OPTIONS_INCLUDED 1)
 
 include(nt2.info)
 
-set(NT2_FLAGS_TEST "-DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ASSERTS_AS_EXCEPTIONS")
-set(NT2_FLAGS_BENCH "-DNDEBUG")
-
-# No debug symbols in tests because of excessive time and memory costs at compile time;
-# use special debug targets instead
-set(NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TEST} -DBOOST_FORCEINLINE=inline")
-
+# Use lib prefix for static libraries like Boost does
 if(WIN32)
-  # Use lib prefix for static libraries like Boost does
   set(CMAKE_STATIC_LIBRARY_PREFIX lib)
 endif()
 
-if(MSVC)
-  # Remove /EHsc from CMAKE_CXX_FLAGS and re-add per configuration; useful to avoid 'overriding' warnings
+# Remove /EHsc from CMAKE_CXX_FLAGS and re-add per configuration; useful to avoid 'overriding' warnings
+if(CMAKE_CXX_FLAGS MATCHES "/EHsc")
   string(REPLACE " /EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
   foreach(config Debug Release)
     string(TOUPPER ${config} config_U)
     set(CMAKE_CXX_FLAGS_${config_U} "/EHsc ${CMAKE_CXX_FLAGS_${config_U}}")
   endforeach()
+endif()
 
-  # Global MSVC settings: multithreaded + IEEE754 floating-point
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /fp:precise /fp:except- /MP")
+set(NT2_FLAGS_TEST "-DBOOST_ENABLE_ASSERT_HANDLER -DNT2_ASSERTS_AS_EXCEPTIONS")
+set(NT2_FLAGS_BENCH "${CMAKE_CXX_FLAGS_RELEASE}")
 
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /MDd /D_SECURE_SCL=1 /D_ITERATOR_DEBUG_LEVEL=2 /Oxt /GF /Gm- /GS- /EHa")
-  set(NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TESTDEBUG} ${CMAKE_CXX_FLAGS_DEBUG}")
+# No debug symbols in tests because of excessive time and memory costs at compile time;
+# use special debug targets instead
+set(NT2_FLAGS_TESTDEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${NT2_FLAGS_TEST} -DBOOST_FORCEINLINE=inline")
+
+if(MSVC)
+  # Global MSVC settings: IEEE754 floating-point
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /fp:precise")
+
+  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /MDd /Oxt /EHa")
   string(REPLACE "/EHsc" "/EHa" NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TESTDEBUG}")
-  set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} /MD /D_SECURE_SCL=0 /GL /Oxt /GF /Gm- /GS- /wd4530")
+  set(NT2_FLAGS_BENCH "/DNDEBUG /MD /D_SECURE_SCL=0 /GL /Oxt /wd4530")
+
 elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   # Strict aliasing disabled due to GCC bug #50800
   # -D_GLIBCXX_DEBUG=1 not used because of incompatibilities with libraries
@@ -46,16 +48,24 @@ elseif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUXX OR CMAKE_CXX_COMPILER_
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-strict-aliasing -DBOOST_SIMD_NO_STRICT_ALIASING")
   endif()
   set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -O2")
-  set(NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TESTDEBUG} -O0 -g")
   if(NT2_ARCH_X86) # valgrind doesn't support SSE4 or AVX
      set(NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TESTDEBUG} -mno-sse4.1 -mno-sse4.2 -mno-avx")
   endif()
-  set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} -O3 -fomit-frame-pointer -fno-exceptions")
-else()
-  set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST}")
-  set(NT2_FLAGS_TESTDEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${NT2_FLAGS_TESTDEBUG}")
-  set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} ${CMAKE_CXX_FLAGS_RELEASE}")
+  set(NT2_FLAGS_BENCH "-DNDEBUG -O3 -fomit-frame-pointer -fno-exceptions")
+
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "Intel")
+  if(UNIX)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fp-model precise")
+    set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} -O2")
+    set(NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH} -fno-exceptions")
+  else()
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /fp:precise")
+    set(NT2_FLAGS_TEST "${NT2_FLAGS_TEST} /O2 /EHa")
+    string(REPLACE "/EHsc" "" NT2_FLAGS_BENCH "${NT2_FLAGS_BENCH}")
+    string(REPLACE "/EHsc" "/EHa" NT2_FLAGS_TESTDEBUG "${NT2_FLAGS_TESTDEBUG}")
+  endif()
 endif()
+
 set(CMAKE_C_FLAGS_NT2TEST ${NT2_FLAGS_TEST})
 set(CMAKE_C_FLAGS_NT2TESTDEBUG ${NT2_FLAGS_TESTDEBUG})
 set(CMAKE_C_FLAGS_NT2BENCH ${NT2_FLAGS_BENCH})

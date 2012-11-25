@@ -15,11 +15,11 @@ MESSAGE( STATUS "[boost.simd.sdk] compiler: ${NT2_COMPILER} (${CMAKE_CXX_COMPILE
 
 # Disable useless qualifier flag because of const-return trick used by Proto
 set(FLAGS ${NT2_SIMD_FLAGS})
-if(CMAKE_CXX_COMPILER MATCHES "[\\/]icpc[^\\/]*")
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Intel")
   if(UNIX)
-    set(FLAGS "${FLAGS} -fp-model precise -wd411 -wd2536")
+    set(FLAGS "${FLAGS} -wd411 -wd2536")
   else()
-    set(FLAGS "${FLAGS} /fp:precise /wd411 /wd2536")
+    set(FLAGS "${FLAGS} /wd411 /wd2536")
   endif()
 endif()
 
