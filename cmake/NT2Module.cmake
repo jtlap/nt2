@@ -181,6 +181,10 @@ macro(nt2_configure_tests)
   set(CMAKE_CROSSCOMPILING_CMD $ENV{CMAKE_CROSSCOMPILING_CMD})# CACHE STRING "Command to use to run test sin a cross-compiling setup")
   set(CMAKE_CROSSCOMPILING_HOST $ENV{CMAKE_CROSSCOMPILING_HOST})# CACHE STRING "Host name to connect to in order to run tests in a cross-compiling setup")
 
+  if(NT2_WITH_TESTS_BENCH OR NT2_WITH_TESTS_COVER OR NT2_WITH_TESTS_EXHAUSTIVE)
+    set(NT2_WITH_TESTS 1 CACHE BOOL "Enable benchmarks and unit tests" FORCE)
+  endif()
+
   if(NT2_WITH_TESTS_FULL)
     set(NT2_WITH_TESTS ON CACHE BOOL "Enable benchmarks and unit tests" FORCE)
   endif()
