@@ -15,7 +15,7 @@ SET( SOURCES
 #     any.cpp
      dot.cpp
      global.cpp
-     globalall.cpp
+#     globalall.cpp
 #     globalany.cpp
      globalmax.cpp
      globalmin.cpp
