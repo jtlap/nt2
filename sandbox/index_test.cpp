@@ -33,6 +33,8 @@ template<class T> struct Compute_FTLE
 
   }
 
+  void reset() {}
+
   void operator()()
   {
     j1 = (traj_x(nt2::_(2,M-1),nt2::_(3,N)) - traj_x(nt2::_(2,M-1),nt2::_(1,N-2)))/(2*dX);
@@ -64,7 +66,7 @@ template<class T> struct Compute_FTLE
   nt2::table<T> jacob1, jacob2, jacob4;
   nt2::table<T> sqrtdelta;
   nt2::table<T> FTLE;
-  
+
 
 
 
