@@ -21,13 +21,13 @@
 NT2_TEST_CASE_TPL( medianad_scalar, NT2_TYPES )
 {
   T x = nt2::medianad(T(42));
-  NT2_TEST_EQUAL( x, T(42) );
+  NT2_TEST_EQUAL( x, T(0) );
 
   x = nt2::medianad(T(42),1);
-  NT2_TEST_EQUAL( x, T(42) );
+  NT2_TEST_EQUAL( x, T(0) );
 
   x = nt2::medianad(T(42),0);
-  NT2_TEST_EQUAL( x, T(42) );
+  NT2_TEST_EQUAL( x, T(0) );
 
 }
 
@@ -71,15 +71,15 @@ NT2_TEST_CASE_TPL( medianad_2, NT2_TYPES )
       for(int i=1;i<=4;i++)
         y(i,j,l) = ++k;
   sy2 = nt2::medianad(y);
-  NT2_TEST(nt2::isequal(sy2,medianad(y)));
+  NT2_TEST_EQUAL(sy2,medianad(y));
   sy2 = nt2::medianad(y, 1);
-  NT2_TEST(nt2::isequal(sy2,medianad(y, 1)));
+  NT2_TEST_EQUAL(sy2,medianad(y, 1));
   sy2 = nt2::medianad(y, 2);
-  NT2_TEST(nt2::isequal(sy2,medianad(y, 2)));
+  NT2_TEST_EQUAL(sy2,medianad(y, 2));
   sy2 = nt2::medianad(y, 3);
-  NT2_TEST(nt2::isequal(sy2,medianad(y, 3)));
+  NT2_TEST_EQUAL(sy2,medianad(y, 3));
   sy2 = nt2::medianad(y, 4);
-  NT2_TEST(nt2::isequal(sy2,medianad(y, 4)));
+  NT2_TEST_EQUAL(sy2,medianad(y, 4));
 
 
 }
