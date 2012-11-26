@@ -11,13 +11,9 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/maximum.hpp>
-#include <nt2/include/functions/isequal.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
 
 NT2_TEST_CASE_TPL( maximum_scalar, (float)(double))//NT2_TYPES )
 {
@@ -42,21 +38,10 @@ NT2_TEST_CASE_TPL( maximum_2, (float)(double) )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = cT(i + 10*j, i + 10*j);
-  display("y", y);
-  sy = nt2::maximum(y);
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(y(5, nt2::_));
-  NT2_TEST(nt2::isequal(y(5, nt2::_),  nt2::maximum(y)));
-  sy = nt2::maximum(y, 1);
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(y(5, nt2::_));
-  NT2_TEST(nt2::isequal(y(5, nt2::_),  nt2::maximum(y, 1)));
-  sy = nt2::maximum(y, 2);
-  NT2_DISPLAY(sy);
-  NT2_DISPLAY(y(nt2::_, 3));
-  NT2_TEST(nt2::isequal(y(nt2::_, 3),  nt2::maximum(y, 2)));
-  sy = nt2::maximum(y, 3);
-  NT2_DISPLAY(y);
-  NT2_TEST(nt2::isequal(y,  nt2::maximum(y, 3)));
+
+  NT2_TEST_EQUAL(y(5, nt2::_),  nt2::maximum(y));
+  NT2_TEST_EQUAL(y(5, nt2::_),  nt2::maximum(y, 1));
+  NT2_TEST_EQUAL(y(nt2::_, 3),  nt2::maximum(y, 2));
+  NT2_TEST_EQUAL(y,  nt2::maximum(y, 3));
 
 }
