@@ -48,6 +48,7 @@ SET( SOURCES
     nansum.cpp
     nanmean.cpp
     nanasum2.cpp
+    trapz.cpp
 # List of test files for toolbox core.reduction
    )
 
