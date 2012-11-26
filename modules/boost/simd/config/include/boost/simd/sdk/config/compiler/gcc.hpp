@@ -12,7 +12,7 @@
 #if !defined(BOOST_SIMD_COMPILER)
   #if defined(__GNUC__)
 
-    #ifndef __clang__
+    #if !defined(__clang__) && !defined(__INTEL_COMPILER)
       #define BOOST_SIMD_COMPILER_GCC
     #endif
 
