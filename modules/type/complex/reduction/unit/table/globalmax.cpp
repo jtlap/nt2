@@ -10,29 +10,21 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/globalmax.hpp>
-#include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/complexify.hpp>
-#include <nt2/include/constants/true.hpp>
-#include <nt2/include/constants/false.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
-#include <nt2/table.hpp> 
-// this include must be automatic...
-#include <nt2/include/constants/maxinit.hpp>
 
 NT2_TEST_CASE_TPL( globalmax, (float))//NT2_REAL_TYPES )
 {
   typedef std::complex<T> cT;
   nt2::table<cT> a = nt2::reshape(nt2::complexify(nt2::_(T(1), T(9))), 3, 3);
-  NT2_TEST_EQUAL( nt2::globalmax(a), cT(9));
-  NT2_TEST_EQUAL( nt2::globalmax(cT(1)), cT(1)); 
-  a(3, 1) = cT(27); 
-  NT2_TEST_EQUAL( nt2::globalmax(a), cT(27));
-  int32_t i; 
-  NT2_TEST_EQUAL( nt2::globalmax(a, i), cT(27)); 
-  NT2_TEST( i == 3);               
+  NT2_TEST_EQUAL(nt2::globalmax(a), cT(9));
+  NT2_TEST_EQUAL(nt2::globalmax(cT(1)), cT(1));
+  a(3, 1) = cT(27);
+  NT2_TEST_EQUAL(nt2::globalmax(a), cT(27));
+  std::size_t i;
+  NT2_TEST_EQUAL(nt2::globalmax(a, i), cT(27));
+  NT2_TEST_EQUAL(i, 3u);
 }
-
