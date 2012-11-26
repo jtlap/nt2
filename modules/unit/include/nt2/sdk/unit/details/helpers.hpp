@@ -20,12 +20,49 @@ namespace nt2
   ////////////////////////////////////////////////////////////////////////////////
   // roll a random number (will be nt2::rand afterward)
   ////////////////////////////////////////////////////////////////////////////////
+  template<class T, class X,  class Y, bool B>
+  struct typed_inner_roll;
+
+  template<class T, class X,  class Y>
+  struct typed_inner_roll<T, X, Y, true>
+  {
+    static inline T call(X mn, Y mx)
+    {
+      // mn is supposed less than mx
+      double r1 = ((double)rand()/RAND_MAX);
+      if(mx == 0)
+        {
+          return nt2::splat<T>(r1*mn);
+        }
+      else if (mn == 0)
+        {
+          return nt2::splat<T>(r1*mx);
+        }
+      else
+        {
+          double fac =  0.5*nt2::abs(double(mn)/double(mx)); 
+          double r2 = ((double)rand()/RAND_MAX);
+          return nt2::splat<T>((r1 > fac) ? r2*mn : r2*mx);
+        }
+    }
+  };
+
+  template<class T, class X,  class Y>
+  struct typed_inner_roll<T, X, Y, false>
+  {
+    static inline T call(X mn, Y mx)
+    {
+      double r = ((double)rand()/RAND_MAX)*(mx-mn) + mn;
+      return nt2::splat<T>(r);
+    }
+  };
+
   template<class T,class X, class Y> inline T roll(X mn, Y mx)
   {
-    double r = ((double)rand()/RAND_MAX)*(mx-mn) + mn;
-    return nt2::splat<T>(r);
+    return typed_inner_roll<T, X, Y, boost::dispatch::meta::is_signed<T>::value>::call(mn, mx);   
   }
 
+  //================================================================================= 
   template<class T, bool B>
   struct inner_roll;
 
@@ -55,6 +92,9 @@ namespace nt2
     return inner_roll<T, boost::dispatch::meta::is_signed<T>::value>::call();
   }
 
+
+
+  
 }
 using nt2::roll;
 
