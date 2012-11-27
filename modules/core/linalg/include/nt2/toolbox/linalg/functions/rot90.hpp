@@ -31,7 +31,7 @@
  rot90  rotate matrix 90 degrees.
     rot90(a) is the 90 degree counterclockwise rotation of matrix a.
     rot90(a,k) is the k*90 degree rotation of a, k = +-1,+-2,...
- 
+
     example,
         a = [1 2 3      b = rot90(a) = [ 3 6
              4 5 6 ]                     2 5
@@ -42,7 +42,7 @@
 //==============================================================================
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag rot90_ of functor rot90
      *        in namespace nt2::tag for toolbox algebra
@@ -51,9 +51,8 @@ namespace nt2 { namespace tag
     struct rot90_0_ :  tag::formal_              { typedef tag::formal_ parent;              };
 
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rot90_,   rot90, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rot90_0_, rot90, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rot90_0_, rot90, 1)
 
 }
@@ -69,7 +68,7 @@ namespace nt2 { namespace ext
     {
       result_type sizee = boost::proto::child_c<0>(e).extent();
       std::swap(sizee[0], sizee[1]);
-      return sizee; 
+      return sizee;
     }
   };
   template<class Domain, class Expr,  int N>
@@ -80,9 +79,9 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type sizee = boost::proto::child_c<0>(e).extent();
-      int k =  boost::proto::child_c<1>(e); 
+      int k =  boost::proto::child_c<1>(e);
       if(nt2::is_odd(k)) std::swap(sizee[0], sizee[1]);
-      return sizee; 
+      return sizee;
     }
   };
 
