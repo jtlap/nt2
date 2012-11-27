@@ -31,19 +31,19 @@ namespace nt2
       // mn is supposed less than mx
       double r1 = ((double)rand()/RAND_MAX);
       if(mx == 0)
-        {
-          return nt2::splat<T>(r1*mn);
-        }
+      {
+        return nt2::splat<T>(r1*mn);
+      }
       else if (mn == 0)
-        {
-          return nt2::splat<T>(r1*mx);
-        }
+      {
+        return nt2::splat<T>(r1*mx);
+      }
       else
-        {
-          double fac =  0.5*nt2::abs(double(mn)/double(mx)); 
-          double r2 = ((double)rand()/RAND_MAX);
-          return nt2::splat<T>((r1 > fac) ? r2*mn : r2*mx);
-        }
+      {
+        double fac =  0.5*nt2::abs(double(mn)/double(mx));
+        double r2 = ((double)rand()/RAND_MAX);
+        return nt2::splat<T>((r1 > fac) ? r2*mn : r2*mx);
+      }
     }
   };
 
@@ -59,10 +59,10 @@ namespace nt2
 
   template<class T,class X, class Y> inline T roll(X mn, Y mx)
   {
-    return typed_inner_roll<T, X, Y, boost::dispatch::meta::is_signed<T>::value>::call(mn, mx);   
+    return typed_inner_roll<T, X, Y, boost::dispatch::meta::is_signed<T>::value>::call(mn, mx);
   }
 
-  //================================================================================= 
+  //=================================================================================
   template<class T, bool B>
   struct inner_roll;
 
@@ -94,7 +94,7 @@ namespace nt2
 
 
 
-  
+
 }
 using nt2::roll;
 
