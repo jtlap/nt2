@@ -43,10 +43,10 @@ namespace nt2
                  class unit_tag,
                  class style,
                  class base_A0 = typename meta::scalar_of<A0>::type
-                 > 
-       struct invtrig_base{};
+      >
+      struct invtrig_base{};
 
-      template < class A0 > 
+      template < class A0 >
       struct invtrig_base<A0,radian_tag,tag::not_simd_type, float>
       {
         static inline A0 asin(const  A0& a0)
@@ -59,14 +59,14 @@ namespace nt2
           if ((x >  One<A0>())) return Nan<A0>();
           bool bx_larger_05    = (x > Half<A0>());
           if (bx_larger_05)
-            {
-              z = Half<A0>()*oneminus(x);
-              x =  sqrt(z);
-            }
+          {
+            z = Half<A0>()*oneminus(x);
+            x =  sqrt(z);
+          }
           else
-            {
-              z = sqr(x);
-            }
+          {
+            z = sqr(x);
+          }
           A0 z1 = madd(z,  single_constant<A0,0x3d2cb352>(),
                        single_constant<A0,0x3cc617e3>());
           z1 = madd(z1, z, single_constant<A0,0x3d3a3ec7>());
@@ -74,10 +74,10 @@ namespace nt2
           z1 = madd(z1, z, single_constant<A0,0x3e2aaae4>());
           z1 = madd(z1, z*x, x);
           if(bx_larger_05)
-            {
-              z1 = z1+z1;
-              z1 = Pio_2<A0>()-z1;
-            }
+          {
+            z1 = z1+z1;
+            z1 = Pio_2<A0>()-z1;
+          }
           return b_xor(z1, sign);
         }
 
@@ -92,27 +92,27 @@ namespace nt2
 
         static inline A0 atan(const A0& a0)
         {
-          A0 x  = kernel_atan(a0); 
+          A0 x  = kernel_atan(a0);
           return b_xor(x, bitofsign(a0));
         }
 
         static inline A0 kernel_atan(const  A0& a0)
         {
           if (is_eqz(a0))  return Zero<A0>();
-          if (is_inf(a0))  return Pio_2<A0>(); 
+          if (is_inf(a0))  return Pio_2<A0>();
           A0 x = nt2::abs(a0);
-          A0 y;   
+          A0 y;
           if( x >single_constant<A0,0x401a827a>())//2.414213562373095 )  /* tan 3pi/8 */
-            {
-              y = Pio_2<A0>();
-              x = -rec(x);
-            }
+          {
+            y = Pio_2<A0>();
+            x = -rec(x);
+          }
 
           else if( x > single_constant<A0,0x3ed413cd>()) //0.4142135623730950f ) /* tan pi/8 */
-            {
-              y = Pio_4<A0>();
-              x = minusone(x)/oneplus(x);
-            }
+          {
+            y = Pio_4<A0>();
+            x = minusone(x)/oneplus(x);
+          }
           else
             y = 0.0;
 
@@ -131,7 +131,7 @@ namespace nt2
 
 
         }
-      }; 
+      };
     }
   }
 }

@@ -31,7 +31,7 @@ namespace nt2
       struct invtrig_base<A0,radian_tag,tag::simd_type, float>
       {
         typedef typename meta::as_logical<A0>::type    bA0;
-        typedef typename A0::native_type              A0_n; 
+        typedef typename A0::native_type              A0_n;
         static inline A0_n asin(const A0_n a0_n)
         {
           const A0 a0 = a0_n;
@@ -58,7 +58,7 @@ namespace nt2
           z = select(x_larger_05, z1, z);
           return b_xor(z, sign);
         }
-        
+
         static inline A0_n acos(const A0_n a0_n)
         {
           const A0 a0 = a0_n;
@@ -66,19 +66,19 @@ namespace nt2
           A0 z2 = asin(a0);
           bA0 isgtxh = gt(x, Half<A0>());
           if (nt2::any(isgtxh))
-            {
-              const A0 as = asin(sqrt(oneminus(x)*Half<A0>()));
-              const A0 z1 = as*Two<A0>(); 
-              z2 = select(isgtxh, z1, z2);
-            }
+          {
+            const A0 as = asin(sqrt(oneminus(x)*Half<A0>()));
+            const A0 z1 = as*Two<A0>();
+            z2 = select(isgtxh, z1, z2);
+          }
           z2 = select(lt(a0, -Half<A0>()), Pi<A0>()-z2, z2);
           return select(isgtxh, z2, Pio_2<A0>()-z2);
         }
-        
+
         static inline A0_n atan(const A0_n a0_n)
         {
           const A0 a0 = a0_n;
-          A0 x  = kernel_atan(a0); 
+          A0 x  = kernel_atan(a0);
           return b_xor(x, bitofsign(a0));
         }
 
@@ -100,7 +100,7 @@ namespace nt2
           z1 = madd(z1, sqr(z), z2);
           return  add(yy, madd(xx, mul( z1, z), xx));
         }
-      }; 
+      };
     }
   }
 }
