@@ -25,47 +25,47 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::combs_, tag::cpu_,
                              (A0)(A1),
-                             (unspecified_<A0>)       
+                             (unspecified_<A0>)
                              (scalar_ < integer_<A1> > )
-                             )
+    )
   {
-    typedef typename A0::value_type                        value_type; 
-    typedef nt2::container::table<value_type, _2D>        result_type; 
+    typedef typename A0::value_type                        value_type;
+    typedef nt2::container::table<value_type, _2D>        result_type;
     inline result_type operator()(A0 const& v0,  const A1 & m0) const
     {
       result_type p;
-      size_t m = m0; 
+      size_t m = m0;
       size_t n = nt2::length(v0);
       if (n == m)
-        {
-          return nt2::rowvect(v0);
-        }
+      {
+        return nt2::rowvect(v0);
+      }
       else if (m == 1u)
-        {
-          return nt2::colvect(v0);
-        }
+      {
+        return nt2::colvect(v0);
+      }
       else
+      {
+        result_type v = nt2::rowvect(v0);
+
+        p = nt2::zeros(0, 0, meta::as_<value_type>());
+        if ((m < n) && (m > 1u))
         {
-          result_type v = nt2::rowvect(v0);
-          
-          p = nt2::zeros(0, 0, meta::as_<value_type>()); 
-          if ((m < n) && (m > 1u))
+          for (size_t k = 1;  k <= n-m+1;  ++k)
+          {
+            result_type q = nt2::combs(v(nt2::_(k+1, n)),m-1);
+            result_type tmp = nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q);
+            if (isempty(p))
+              p =  tmp;
+            else
             {
-              for (size_t k = 1;  k <= n-m+1;  ++k)
-                { 
-                  result_type q = nt2::combs(v(nt2::_(k+1, n)),m-1);
-                  result_type tmp = nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q);
-                  if (isempty(p))
-                    p =  tmp;
-                  else
-                    {
-                      result_type tmp1 =  nt2::catv(p,tmp);//ALIASING
-                      p =  tmp1; 
-                    }
-                }
+              result_type tmp1 =  nt2::catv(p,tmp);//ALIASING
+              p =  tmp1;
             }
-          return p; 
-        } 
+          }
+        }
+        return p;
+      }
     }
   };
 } }
