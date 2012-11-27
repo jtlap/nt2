@@ -93,14 +93,16 @@ namespace nt2 { namespace ext
     check(const size_t  mode, bool& up, size_t & dim) const
     {
       if (mode < 65)
-        { up = true; dim = mode; }
+      {
+        up = true; dim = mode;
+      }
       else
-        {
-          BOOST_ASSERT_MSG( 'd' == mode || 'a' ==  mode,
-                            "sorting direction must be 'a' or 'd'");
+      {
+        BOOST_ASSERT_MSG( 'd' == mode || 'a' ==  mode,
+                          "sorting direction must be 'a' or 'd'");
 
-          up = mode == 'a'; dim = 1;
-        }
+        up = mode == 'a'; dim = 1;
+      }
     }
 
 //     BOOST_FORCEINLINE void
