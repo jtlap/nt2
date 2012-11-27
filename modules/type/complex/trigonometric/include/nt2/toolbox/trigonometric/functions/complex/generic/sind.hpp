@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SIND_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_SIND_HPP_INCLUDED
@@ -44,49 +44,49 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_real<A0>::type rtype;
       //      return mul_minus_i(nt2::sinh(mul_i(a0*Deginrad<rtype>())));
-      result_type a00 =  mul_i(a0); 
+      result_type a00 =  mul_i(a0);
       rtype c, s, ch, sh;
       sincosd(nt2::imag(a00), s, c);
       a00 = nt2::multiplies(a00, Deginrad<rtype>());
       sinhcosh(nt2::real(a00), sh, ch);
       rtype r = c*sh;
       rtype i = s*ch;
-      result_type res = result_type(r, i); 
+      result_type res = result_type(r, i);
       if (nt2::any(is_invalid(a00)))
-        {
-          r = if_else(logical_and(is_inf(nt2::real(a00)), is_invalid(nt2::imag(a00))), nt2::real(a00), r);
-          i = if_else(logical_and(is_inf(nt2::real(a00)), is_nan(nt2::imag(a00))), nt2::Nan<rtype>(), i);
-          r = if_else(is_nan(nt2::real(a00)), nt2::real(a00), r);
-          i = if_else(is_nan(nt2::real(a00)), nt2::real(a00), i);
-          i = if_zero_else(is_real(a00), i);
-          r = if_zero_else(is_imag(a00), r);
-          res =  result_type(r, i);//this is sinh(mul_i(a0)*Deginrad<rtype>())
-        }
+      {
+        r = if_else(logical_and(is_inf(nt2::real(a00)), is_invalid(nt2::imag(a00))), nt2::real(a00), r);
+        i = if_else(logical_and(is_inf(nt2::real(a00)), is_nan(nt2::imag(a00))), nt2::Nan<rtype>(), i);
+        r = if_else(is_nan(nt2::real(a00)), nt2::real(a00), r);
+        i = if_else(is_nan(nt2::real(a00)), nt2::real(a00), i);
+        i = if_zero_else(is_real(a00), i);
+        r = if_zero_else(is_imag(a00), r);
+        res =  result_type(r, i);//this is sinh(mul_i(a0)*Deginrad<rtype>())
+      }
       return mul_minus_i(res);
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sind_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
+                              , (generic_< imaginary_< arithmetic_<A0> > >)
+    )
   {
     typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_imaginary<rtype>::type result_type; 
+    typedef typename meta::as_imaginary<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::sinh(nt2::imag(a0)*Deginrad<rtype>())); 
+      return bitwise_cast<result_type>(nt2::sinh(nt2::imag(a0)*Deginrad<rtype>()));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sind_, tag::cpu_, (A0)
-                            , (generic_< dry_< arithmetic_<A0> > >)
-                            )
+                              , (generic_< dry_< arithmetic_<A0> > >)
+    )
   {
     typedef typename meta::as_real<A0>::type rA0;
-    typedef typename meta::as_dry<rA0>::type result_type; 
+    typedef typename meta::as_dry<rA0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::sind(nt2::real(a0))); 
+      return bitwise_cast<result_type>(nt2::sind(nt2::real(a0)));
     }
   };
 } }
