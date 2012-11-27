@@ -137,10 +137,16 @@ NT2_TEST_CASE( element_wise )
   using nt2::table;
   using nt2::of_size;
   typedef float T;
+  typedef boost::dispatch::meta::as_integer<T>::type iT;
 
   table<T> a0;
-  table<boost::dispatch::meta::as_integer<T>::type> a1;
+  table<iT> a1;
   a1 = nt2::toint(a0);
+
+  NT2_TEST_EXPR_TYPE( nt2::run(nt2::toint(a0), 0u, nt2::meta::as_<iT>())
+                    , boost::mpl::identity<boost::mpl::_>
+                    , iT
+                    );
 }
 
 NT2_TEST_CASE( reduction_size )
