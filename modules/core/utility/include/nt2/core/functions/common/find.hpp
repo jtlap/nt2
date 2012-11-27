@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   {
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
-    Typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
+    typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
     typedef typename boost::dispatch::meta::
       terminal_of< typename boost::dispatch::meta::
       semantic_of<child0>::type
