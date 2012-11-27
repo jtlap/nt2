@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_SPENCE_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_SPENCE_HPP_INCLUDED
@@ -25,9 +25,9 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::spence_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
+                              , (A0)
+                              , (scalar_< arithmetic_<A0> >)
+    )
   {
     typedef typename boost::dispatch::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
@@ -85,10 +85,10 @@ namespace nt2 { namespace ext
       A0 y = -w * polevl( w, A) / polevl( w, B);
       if( flag & 1 ) y = C -nt2::log(x) * nt2::log(One<A0>()-x) - y;
       if( flag & 2 )
-        {
-          A0 z = nt2::log(x);
-          y = Mhalf<A0>() * sqr(z)  -  y;
-        }
+      {
+        A0 z = nt2::log(x);
+        y = Mhalf<A0>() * sqr(z)  -  y;
+      }
       return y;
     }
   };

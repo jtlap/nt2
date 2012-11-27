@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_FAST_GAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_FAST_GAMMA_HPP_INCLUDED
@@ -79,25 +79,25 @@ namespace nt2 { namespace ext
       if( q > static_cast<A0>(33.0) )
       {
         if( is_ltz(x))
+        {
+          if ((p = floor(q)) == q) return Nan<A0>();
+          int32_t i = (int32_t)p;
+          if( is_even(i) ) sgngam = -1;
+          z = q - p;
+          if( z > Half<A0>() )
           {
-            if ((p = floor(q)) == q) return Nan<A0>();
-            int32_t i = (int32_t)p;
-            if( is_even(i) ) sgngam = -1;
+            p += One<A0>();
             z = q - p;
-            if( z > Half<A0>() )
-            {
-              p += One<A0>();
-              z = q - p;
-            }
-            z = q*sinpi(z);
-            if( is_eqz(z) ) return Nan<A0>()*sgngam;
-            z = nt2::abs(z);
-            z = Pi<A0>()/(z * stirling(q) );
           }
+          z = q*sinpi(z);
+          if( is_eqz(z) ) return Nan<A0>()*sgngam;
+          z = nt2::abs(z);
+          z = Pi<A0>()/(z * stirling(q) );
+        }
         else
-          {
-            z = stirling(x);
-          }
+        {
+          z = stirling(x);
+        }
         return( sgngam * z );
       }
 
@@ -111,9 +111,9 @@ namespace nt2 { namespace ext
       while( is_ltz(x) )
       {
         if( x > static_cast<A0>(-1.E-9) )
-          {
-           return z / ((One<A0>() + Euler<A0>() * x) * x);
-          }
+        {
+          return z / ((One<A0>() + Euler<A0>() * x) * x);
+        }
         z /= x;
         x += One<A0>();
       }
@@ -122,9 +122,9 @@ namespace nt2 { namespace ext
       {
         if( is_eqz(x)) return Nan<A0>();
         if( x < static_cast<A0>(1.e-9) )
-          {
-            return z / ((One<A0>() + Euler<A0>() * x) * x);
-          }
+        {
+          return z / ((One<A0>() + Euler<A0>() * x) * x);
+        }
         z /= x;
         x +=  One<A0>();
       }

@@ -63,7 +63,7 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
-      {
+    {
       typedef typename meta::as_logical<A0>::type bA0;
       typedef typename meta::scalar_of<A0>::type sA0;
       //
@@ -75,47 +75,47 @@ namespace nt2 { namespace ext
       bA0 test = is_lez(a0);
       std::size_t nb;
       if( (nb = inbtrue(test)) > 0)
-        {
-          x = sel(test, oneminus(a0), a0);
-          A0 remainder = x - floor(x);
-            remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
-            remainder = if_zero_else(is_eqz(remainder), Pi<A0>()/tanpi(remainder));
-            result = if_else_zero(test, remainder);
-      //          remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
-      //          result = b_and(b_andnot(Pi<A0>()/tanpi(remainder),is_eqz(remainder)), test);
-          // we are ready to increment result that was
-          // Pi<A0>()/tanpi(remainder) if a0 < 0  and remainder != 0
-          // Nan<A0>                   if a0 < 0  and remainder == 0
-          // 0                         in any other cases
-        }
+      {
+        x = sel(test, oneminus(a0), a0);
+        A0 remainder = x - floor(x);
+        remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
+        remainder = if_zero_else(is_eqz(remainder), Pi<A0>()/tanpi(remainder));
+        result = if_else_zero(test, remainder);
+        //          remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
+        //          result = b_and(b_andnot(Pi<A0>()/tanpi(remainder),is_eqz(remainder)), test);
+        // we are ready to increment result that was
+        // Pi<A0>()/tanpi(remainder) if a0 < 0  and remainder != 0
+        // Nan<A0>                   if a0 < 0  and remainder == 0
+        // 0                         in any other cases
+      }
       A0 r1 = Zero<A0>(), r2= Zero<A0>();
       test = gt(x, Digammalargelim<A0>());
       if((nb = inbtrue(test)))
-        { // If we're above the lower-limit for the asymptotic expansion then use it:
-          r1 = if_else_zero(test, digamma_imp_large(x, sA0()))+result;//b_and(digamma_imp_large(x, sA0()), test)+result;
-          if (nb >= (uint32_t)meta::cardinal_of<A0>::value) return r1;
-        }
+      { // If we're above the lower-limit for the asymptotic expansion then use it:
+        r1 = if_else_zero(test, digamma_imp_large(x, sA0()))+result;//b_and(digamma_imp_large(x, sA0()), test)+result;
+        if (nb >= (uint32_t)meta::cardinal_of<A0>::value) return r1;
+      }
       // If x > 2 reduce to the interval [1,2]:
       bA0 cond;
       while(nt2::any(cond = gt(x, Two<A0>())))
-        {
-          x      -= if_else_zero(cond, One<A0>());
-          result += if_else_zero(cond, rec(x));
-        }
+      {
+        x      -= if_else_zero(cond, One<A0>());
+        result += if_else_zero(cond, rec(x));
+      }
       // If x < 1 use shift to > 1:
       if(nt2::any(cond = lt(x, One<A0>())))
-        {
-          result = sel(cond, -rec(x), result);
-            x      += ifelsezero(cond, One<A0>());
-        }
-        r2 =  if_zero_else(test, digamma_imp_1_2(x, sA0()))+result;//b_andnot(digamma_imp_1_2(x, sA0()), test)+result;
-        if (nb == 0) return r2;
-        return sel(test, r1, r2);
+      {
+        result = sel(cond, -rec(x), result);
+        x      += ifelsezero(cond, One<A0>());
       }
+      r2 =  if_zero_else(test, digamma_imp_1_2(x, sA0()))+result;//b_andnot(digamma_imp_1_2(x, sA0()), test)+result;
+      if (nb == 0) return r2;
+      return sel(test, r1, r2);
+    }
   private:
     template <class A>
       static inline A digamma_imp_1_2(A const& a0, float)
-      {
+    {
       //
       // Now the approximation, we use the form:
       //
@@ -144,18 +144,18 @@ namespace nt2 { namespace ext
           sA(0.65341249856146947e0),
           sA(0.63851690523355715e-1)
         }};
-        A x = a0;
-        A g = x - root;
-        g -= root_minor;
-        x-= One<A>();
-        A r = eval_poly<4>(x, P)/eval_poly<4>(x, Q);
-        A result = fma(g, Y, g * r);
-        return result;
-      }
+      A x = a0;
+      A g = x - root;
+      g -= root_minor;
+      x-= One<A>();
+      A r = eval_poly<4>(x, P)/eval_poly<4>(x, Q);
+      A result = fma(g, Y, g * r);
+      return result;
+    }
 
     template <class A>
       static inline A digamma_imp_large(A const& a0, float)
-      {
+    {
       typedef typename meta::scalar_of<A>::type sA;
       // 9-digit precision for x >= 10:
       static const  boost::array<sA, 3> P = {{
@@ -170,10 +170,10 @@ namespace nt2 { namespace ext
       A z = rec(sqr(x));
       result -= z * nt2::eval_poly<3>(z, P);
       return result;
-      }
+    }
     template <class A>
       static inline A digamma_imp_1_2(A const& a0, double)
-      {
+    {
       //
       // Now the approximation, we use the form:
       //
@@ -210,19 +210,19 @@ namespace nt2 { namespace ext
           sA(0.0021284987017821144L),
           sA(-0.55789841321675513e-6L)
         }};
-        A x = a0;
-        A g = x - root1;
-        g -= root2;
-        g -= root3;
-        x-= One<A>();
-        A r = eval_poly<6>(x, P)/eval_poly<7>(x, Q);
-        A result = fma(g, Y, g * r);
-        return result;
-      }
+      A x = a0;
+      A g = x - root1;
+      g -= root2;
+      g -= root3;
+      x-= One<A>();
+      A r = eval_poly<6>(x, P)/eval_poly<7>(x, Q);
+      A result = fma(g, Y, g * r);
+      return result;
+    }
 
     template <class A>
       static inline A digamma_imp_large(A const& a0, double)
-      {
+    {
       typedef typename meta::scalar_of<A>::type sA;
       // 9-digit precision for x >= 10:
       static const  boost::array<sA, 8> P = {{
@@ -235,14 +235,14 @@ namespace nt2 { namespace ext
           sA(0.083333333333333333333333333333333333333333333333333L),
           sA(-0.44325980392156862745098039215686274509803921568627L)
         }};
-        A x = a0;
-        x -= One<A>();
-        A result = log(x);
-        result += rec(Two<A>()*x);
-        A z = rec(sqr(x));
-        result -= z * nt2::eval_poly<8>(z, P);
-        return result;
-      }
+      A x = a0;
+      x -= One<A>();
+      A result = log(x);
+      result += rec(Two<A>()*x);
+      A z = rec(sqr(x));
+      result -= z * nt2::eval_poly<8>(z, P);
+      return result;
+    }
   };
 } }
 

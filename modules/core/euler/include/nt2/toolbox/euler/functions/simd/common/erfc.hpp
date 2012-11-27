@@ -121,29 +121,29 @@ namespace nt2 { namespace ext
         A0 r1 = Zero<A0>();
         std::size_t nb = 0;
         if ((nb = (inbtrue(test1) > 0)))
-          {
-            r1 = oneminus(a0*polevl( xx, erf0_P4)/polevl( xx, erf0_Q4 ));
-            if (nb >= meta::cardinal_of<A0>::value)
-              return select(test0, Two<A0>()-r1, r1);
-          }
+        {
+          r1 = oneminus(a0*polevl( xx, erf0_P4)/polevl( xx, erf0_Q4 ));
+          if (nb >= meta::cardinal_of<A0>::value)
+            return select(test0, Two<A0>()-r1, r1);
+        }
         bA0 test2 = lt(x, lim2);
         bA0 test3 = logical_andnot(test2, test1);
         std::size_t nb1 = 0;
         A0 ex = nt2::exp(-xx);
         if ((nb1 = (inbtrue(test3) > 0)))
-          {
-            A0 z = ex*polevl(x, erfc1_P5)/polevl( x, erfc1_Q5);
-            r1 = select(test1, r1, z);
-            nb+= nb1;
-            if (nb >= meta::cardinal_of<A0>::value)
-              return select(test0, Two<A0>()-r1, r1);
-          }
+        {
+          A0 z = ex*polevl(x, erfc1_P5)/polevl( x, erfc1_Q5);
+          r1 = select(test1, r1, z);
+          nb+= nb1;
+          if (nb >= meta::cardinal_of<A0>::value)
+            return select(test0, Two<A0>()-r1, r1);
+        }
         A0 z =  ex*polevl(x, erfc2_P5)/polevl( x, erfc2_Q5);
         r1 = select(test2, r1, z);
         return select(nt2::is_inf(a0),
                       if_else_zero(test0, Two<A0>()),
                       select(test0, Two<A0>()-r1, r1)
-                      );
+          );
       }
   };
 } }
