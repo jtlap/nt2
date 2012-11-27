@@ -80,32 +80,32 @@ namespace nt2 { namespace ext
       ppval <value_type> pp(x,y,yi,h,del);
       yi =pp.eval(xi);
       if (!extrap)
-        {
-          value_type  b =  value_type(x(begin_));
-          value_type  e =  value_type(x(end_));
-          yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
-                                            boost::simd::is_nle(xi, e)), extrapval, yi);
-        }
+      {
+        value_type  b =  value_type(x(begin_));
+        value_type  e =  value_type(x(end_));
+        yi = nt2::if_else(nt2::logical_or(boost::simd::is_nge(xi, b),
+                                          boost::simd::is_nle(xi, e)), extrapval, yi);
+      }
       return yi;
     }
   private :
     static void choices(const A1&, bool &,  value_type&, boost::mpl::long_<3> const &)
-      { }
+    { }
     static void choices(const A1& inputs, bool & extrap,  value_type& extrapval, boost::mpl::long_<4> const &)
-      {
-        typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
-        typedef typename meta::scalar_of<child3>::type                    cref_param_type;
-        typedef typename meta::strip<cref_param_type>::type                    param_type;
-        get(inputs, extrap, extrapval, param_type());
-      }
+    {
+      typedef typename boost::proto::result_of::child_c<A1&,3>::type             child3;
+      typedef typename meta::scalar_of<child3>::type                    cref_param_type;
+      typedef typename meta::strip<cref_param_type>::type                    param_type;
+      get(inputs, extrap, extrapval, param_type());
+    }
     static void get(const A1& inputs, bool & extrap,  value_type&,  const bool &)
-      {
-        extrap =  boost::proto::child_c<3>(inputs);
-      }
+    {
+      extrap =  boost::proto::child_c<3>(inputs);
+    }
     static void get(const A1& inputs, bool &,  value_type& extrapval,  const value_type &)
-      {
-        extrapval =  boost::proto::child_c<3>(inputs);
-      }
+    {
+      extrapval =  boost::proto::child_c<3>(inputs);
+    }
 
     static void pchipslopes(const child0 & x, const child1 & y, const vtab_t &del, A0& d)
     {
@@ -116,13 +116,13 @@ namespace nt2 { namespace ext
       } else {
         d =  nt2::zeros(1, width(y), nt2::meta::as_<value_type>());
         if (/* nt2::isreal(del)*/ true) //to do proper version for real types
-          { // is k 1 based or 0,  I hope 1 here ?
-            k = nt2::globalfind(nt2::is_gtz(nt2::multiplies(nt2::sign(del(nt2::_(begin_, begin_+n-3))), nt2::sign(del(nt2::_(begin_+1, begin_+n-2))))), nt2::meta::as_<index_type>());
-          }
+        { // is k 1 based or 0,  I hope 1 here ?
+          k = nt2::globalfind(nt2::is_gtz(nt2::multiplies(nt2::sign(del(nt2::_(begin_, begin_+n-3))), nt2::sign(del(nt2::_(begin_+1, begin_+n-2))))), nt2::meta::as_<index_type>());
+        }
         else
-          {
-            k = nt2::globalfind(nt2::logical_and(is_eqz(del(nt2::_(begin_, begin_+n-3))), is_eqz(del(nt2::_(begin_+1,begin_+n-2)))), nt2::meta::as_<index_type>());
-          }
+        {
+          k = nt2::globalfind(nt2::logical_and(is_eqz(del(nt2::_(begin_, begin_+n-3))), is_eqz(del(nt2::_(begin_+1,begin_+n-2)))), nt2::meta::as_<index_type>());
+        }
       }
       itab_t kp1 = oneplus(k);
       itab_t kp2 = oneplus(kp1);
@@ -137,26 +137,26 @@ namespace nt2 { namespace ext
       //   Set d(0) and d(n-1) via non-centered, shape-preserving three-point formulae.
       d(1) = ((2*h(1)+h(2))*del(1) - h(1)*del(2))/(h(1)+h(2));
       if (/*nt2::isreal(d) && */(nt2::sign(d(nt2::first_index<1>(d))) != nt2::sign(del(1))))
-        {
-          d(nt2::first_index<2>(d)) = Zero<value_type>();
-        }
-       else if ((nt2::sign(del(1)) != nt2::sign(del(1))) &&
-                (nt2::abs(d(nt2::first_index<1>(d))) > nt2::abs(Three<value_type>()*del(1))))
-         {
-           d(nt2::first_index<2>(d)) = Three<value_type>()*del(1);
-         }
+      {
+        d(nt2::first_index<2>(d)) = Zero<value_type>();
+      }
+      else if ((nt2::sign(del(1)) != nt2::sign(del(1))) &&
+               (nt2::abs(d(nt2::first_index<1>(d))) > nt2::abs(Three<value_type>()*del(1))))
+      {
+        d(nt2::first_index<2>(d)) = Three<value_type>()*del(1);
+      }
       //      index_type end = n;
       //     NT2_DISPLAY(h);
       d(nt2::last_index<2>(d)) = ((Two<value_type>()*h(n-1)+h(n-2))*del(n-1) - h(n-1)*del(n-2))/(h(n-1)+h(n-2));
       if (/*isreal(d) &&*/ (nt2::sign(d(nt2::last_index<1>(d))) != nt2::sign(del(n-1))))
-         {
-           d(nt2::last_index<2>(d)) = Zero<value_type>();
-         }
+      {
+        d(nt2::last_index<2>(d)) = Zero<value_type>();
+      }
       else if ((nt2::sign(del(n-1)) != nt2::sign(del(n-2))) &&
                (nt2::abs(d(nt2::last_index<1>(d))) > nt2::abs(Three<value_type>()*del(n-1))))
-         {
-           d(nt2::last_index<2>(d)) = 3*del(n-1);
-         }
+      {
+        d(nt2::last_index<2>(d)) = 3*del(n-1);
+      }
     }
   };
 } }
