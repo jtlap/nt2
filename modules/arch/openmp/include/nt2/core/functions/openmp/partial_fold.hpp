@@ -63,91 +63,91 @@ namespace nt2 { namespace ext
       std::size_t bound = ((ibound)/cache_bound) * cache_bound;
 
       if(ibound >= cache_bound)
-        {
+      {
 
 #ifndef BOOST_NO_EXCEPTIONS
-          boost::exception_ptr exception;
+        boost::exception_ptr exception;
 #endif
 
 #pragma omp parallel
-          {
+        {
 #pragma omp for schedule(static) private(id)
-            for(std::ptrdiff_t o = 0; o < obound; ++o)
-              {
-                std::size_t o_ = o*ibound;
+          for(std::ptrdiff_t o = 0; o < obound; ++o)
+          {
+            std::size_t o_ = o*ibound;
 #ifndef BOOST_NO_EXCEPTIONS
-                try
-                  {
-#endif
-                    for(std::size_t i = 0; i < bound; i+=cache_bound)
-                      {
-                        id = i+o_;
-
-                        for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
-                          nt2::run(out, k_, neutral(nt2::meta::as_<target_type>()));
-
-                        for(std::size_t m = 0; m < mbound; ++m)
-                          {
-                            std::size_t m_ = m*ibound;
-                            for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
-                              nt2::run(out, k_
-                                       , bop(nt2::run(out, k_, meta::as_<target_type>())
-                                             ,nt2::run(in, k_+m_, meta::as_<target_type>()))
-                                       );
-                          }
-                      }
-#ifndef BOOST_NO_EXCEPTIONS
-                  }
-                catch(...)
-                  {
-                    // Store exception for late rethrow
-                    exception = boost::current_exception();
-                  }
-#endif
-              }
-            //          }
-#ifndef BOOST_NO_EXCEPTIONS
-            if(exception)
-              boost::rethrow_exception(exception);
-#endif
-
-          }
-
-
-          //scalar part
-          for(std::ptrdiff_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound)
+            try
             {
-              for(std::size_t i = bound; i < ibound; ++i)
+#endif
+              for(std::size_t i = 0; i < bound; i+=cache_bound)
+              {
+                id = i+o_;
+
+                for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
+                  nt2::run(out, k_, neutral(nt2::meta::as_<target_type>()));
+
+                for(std::size_t m = 0; m < mbound; ++m)
                 {
-                  id = i+o_;
-                  nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
-                  for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
-                    {
-                      nt2::run(out, id
-                               , bop(nt2::run(out, id,meta::as_<value_type>())
-                                     ,nt2::run(in, id+m_,meta::as_<value_type>()))
-                               );
-                    }
+                  std::size_t m_ = m*ibound;
+                  for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
+                    nt2::run(out, k_
+                             , bop(nt2::run(out, k_, meta::as_<target_type>())
+                                   ,nt2::run(in, k_+m_, meta::as_<target_type>()))
+                      );
                 }
+              }
+#ifndef BOOST_NO_EXCEPTIONS
             }
+            catch(...)
+            {
+              // Store exception for late rethrow
+              exception = boost::current_exception();
+            }
+#endif
+          }
+          //          }
+#ifndef BOOST_NO_EXCEPTIONS
+          if(exception)
+            boost::rethrow_exception(exception);
+#endif
+
         }
+
+
+        //scalar part
+        for(std::ptrdiff_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound)
+        {
+          for(std::size_t i = bound; i < ibound; ++i)
+          {
+            id = i+o_;
+            nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
+            for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
+            {
+              nt2::run(out, id
+                       , bop(nt2::run(out, id,meta::as_<value_type>())
+                             ,nt2::run(in, id+m_,meta::as_<value_type>()))
+                );
+            }
+          }
+        }
+      }
 
       else
-        {
+      {
 
-          for(std::ptrdiff_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
-            for(std::size_t i = 0; i < ibound; ++i){
-              id = i+o_;
-              nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
-              for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound){
-                nt2::run(out, id
-                         , bop(nt2::run(out, id,meta::as_<value_type>())
-                               ,nt2::run(in, id+m_,meta::as_<value_type>()))
-                         );
-              }
+        for(std::ptrdiff_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound){
+          for(std::size_t i = 0; i < ibound; ++i){
+            id = i+o_;
+            nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
+            for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound){
+              nt2::run(out, id
+                       , bop(nt2::run(out, id,meta::as_<value_type>())
+                             ,nt2::run(in, id+m_,meta::as_<value_type>()))
+                );
             }
           }
         }
+      }
     }
   };
 
@@ -195,7 +195,7 @@ namespace nt2 { namespace ext
       // - 1D loop nest as no epilogue or special cases occur
       // - static schedule is set on using cache line sized chunks to limit
       // effects of false sharing.
-      #pragma omp parallel for schedule(static,chunk)
+#pragma omp parallel for schedule(static,chunk)
       for(std::ptrdiff_t o = 0; o < obound; ++o)
       {
         std::size_t o_ = o*ibound;
@@ -223,7 +223,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  } }
+} }
 
 #endif
 #endif
