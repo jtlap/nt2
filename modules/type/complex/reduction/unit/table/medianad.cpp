@@ -11,6 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/medianad.hpp>
 #include <nt2/include/functions/median.hpp>
+#include <nt2/include/functions/mean.hpp>
 #include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/size.hpp>
@@ -43,8 +44,9 @@ NT2_TEST_CASE_TPL( medianad_2, NT2_TYPES )
     for(int j=1;j<=3;j++)
       for(int i=1;i<=4;i++)
         y(i,j,l) = ++k;
-  sy2 = nt2::medianad(y);
-  NT2_TEST_EQUAL(sy2,nt2::median(nt2::abs(nt2::sx(nt2::tag::minus_, y, nt2::median(y)))));
+
+  NT2_TEST_EQUAL(nt2::medianad(y), nt2::median(nt2::abs(nt2::sx(nt2::tag::minus_(), y, nt2::mean(y)))));
+
   sy2 = nt2::medianad(y, 1);
   NT2_TEST_EQUAL(sy2,medianad(y, 1));
   sy2 = nt2::medianad(y, 2);
