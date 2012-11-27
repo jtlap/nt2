@@ -31,7 +31,9 @@
 // rot90 actual class forward declaration
 //==============================================================================
 
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
     /*!
      * \brief Define the tag rot90_ of functor rot90
@@ -50,7 +52,7 @@ namespace nt2 { namespace tag
 namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
-  struct  size_of<tag::rot90_, Domain, 1, Expr>
+  struct size_of<tag::rot90_, Domain, 1, Expr>
   {
     typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c0_t;
     typedef typename c0_t::extent_type                               result_type;
@@ -61,8 +63,9 @@ namespace nt2 { namespace ext
       return sizee;
     }
   };
+
   template<class Domain, class Expr,  int N>
-  struct  size_of<tag::rot90_, Domain, N, Expr>
+  struct size_of<tag::rot90_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c0_t;
     typedef typename c0_t::extent_type                               result_type;
@@ -75,10 +78,10 @@ namespace nt2 { namespace ext
     }
   };
 
- template <class Domain, class Expr,  int N>
- struct value_type < tag::rot90_, Domain,N,Expr>
-  : meta::value_as<Expr,0>
- {};
+  template <class Domain, class Expr,  int N>
+  struct value_type<tag::rot90_, Domain, N, Expr>
+       : meta::value_as<Expr,0>
+  {};
 } }
 
 #endif
