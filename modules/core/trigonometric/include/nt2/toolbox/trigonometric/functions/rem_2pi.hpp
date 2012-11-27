@@ -19,12 +19,12 @@
  * \defgroup trigonometric_rem_2pi rem_2pi
  *
  * \par Description
- * compute the remainder modulo \f$pi/2\f$.
+ * compute the remainder modulo \f$2*pi\f$.
  * \par
  * This is the always accurate super costly version.
  * This function is mainly for internal purposes
  * \par
- * The reduction of the argument modulo \f$pi/2\f$ is generally
+ * The reduction of the argument modulo \f$2*pi\f$ is generally
  * the most difficult part of trigonometric evaluations.
  * The accurate algorithm is over costly and implies the knowledge
  * of a few hundred \f$pi\f$ decimals
@@ -32,12 +32,12 @@
  * can be used, but the precision is only insured on smaller intervals.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rem_2pi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -50,19 +50,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of rem_2pi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rem_2pi_ of functor rem_2pi 
+     * \brief Define the tag rem_2pi_ of functor rem_2pi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct rem_2pi_ : ext::elementwise_<rem_2pi_> { typedef ext::elementwise_<rem_2pi_> parent; };
