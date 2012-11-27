@@ -1,5 +1,6 @@
 #!/bin/bash
 
+IFS=$'\n'
 color_option=''
 if grep --help | grep -q -e --color
 then
@@ -58,5 +59,31 @@ with 'git commit --no-verify'
 Incriminated files:
 END
   git diff --cached --name-only
+  exit 1
+fi
+
+no_newline=
+for i in `git diff --cached --name-only`
+do
+  if [ $(tail -n 1 $i | wc --lines) != 1 ]
+  then
+    no_newline=$no_newline$i$'\n'
+  fi
+done
+if [ "$no_newline" != "" ]
+then
+cat<<END;
+error: no newline at end of file, which is against
+the NT2 coding standards.
+
+If you *really* know what you are doing, you can force this commit
+with 'git commit --no-verify'
+
+Incriminated files:
+END
+  for i in $no_newline
+  do
+    echo $i
+  done
   exit 1
 fi
