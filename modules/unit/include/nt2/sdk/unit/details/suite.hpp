@@ -9,8 +9,9 @@
 #ifndef NT2_SDK_UNIT_DETAILS_SUITE_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_SUITE_HPP_INCLUDED
 
-#include <cstdio>
 #include <nt2/sdk/unit/details/register.hpp>
+#include <nt2/sdk/unit/stats.hpp>
+#include <cstdio>
 
 /// TODO: Make this runtime
 #ifndef NT2_UNIT_MODULE
@@ -28,24 +29,13 @@ namespace nt2 { namespace details
     void report() const
     {
       int t = nt2::unit::test_count();
+      int e = nt2::unit::error_count();
 
-      if(t)
-      {
-        int e = nt2::unit::error_count();
-        printf( "Results:\n"
-              "----------------------------------------------------------------\n"
-              "%d test - %d pass - %d fail.\n"
-              , t, (t-e), e
-              );
-      }
-      else
-      {
-        nt2::unit::error_count() = 1;
-        printf(
-              "----------------------------------------------------------------\n"
-              "NO TEST REGISTERED -- FORCED FAILURE.\n"
-              );
-      }
+      printf( "Results:\n"
+            "----------------------------------------------------------------\n"
+            "%d test - %d pass - %d fail.\n"
+            , t, (t-e), e
+            );
     }
 
     /// INTERNAL ONLY
