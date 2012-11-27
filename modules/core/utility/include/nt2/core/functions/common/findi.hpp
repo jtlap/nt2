@@ -54,15 +54,15 @@ namespace nt2 { namespace ext
 
       std::size_t t = nt2::numel(a0);
       std::size_t m = nt2::size(a0, 1);
-      std::size_t n = t/m; 
+      std::size_t n = t/m;
       for(std::size_t i=0; i!=t; ++i)
       {
         stype value = nt2::run(a0, i, meta::as_<stype>());
         if(value)
-          {
-            boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-            boost::proto::value(ret).push_back(index_type(a[1]+1));
-          }
+        {
+          boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
+          boost::proto::value(ret).push_back(index_type(a[1]+1));
+        }
       }
 
       return ret;
