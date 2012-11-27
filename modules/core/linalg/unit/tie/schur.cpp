@@ -32,13 +32,16 @@ NT2_TEST_CASE_TPL ( schur, NT2_REAL_TYPES)
                 + T(10)*nt2::eye(4, 4, nt2::meta::as_<T>());
   b(1, 1) = 1;
   NT2_DISPLAY(b);
-  t = nt2::schur(b, 'r');
+  t = nt2::schur(b);
   NT2_DISPLAY(t); // just quasi diag matrix
 
-  nt2::tie(z, t) = nt2::schur(b, 'r'); //real
+  nt2::tie(z, t) = nt2::schur(b); //real
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
 }
+
+
+
 NT2_TEST_CASE_TPL ( schur_m_test, NT2_REAL_TYPES)
 {
   typedef nt2::table<T> table_t;
@@ -57,7 +60,7 @@ NT2_TEST_CASE_TPL ( schur_m_test, NT2_REAL_TYPES)
         }
     }
   NT2_DISPLAY(b);
-  nt2::tie(z, t) = nt2::schur(b, 'r'); //real
+  nt2::tie(z, t) = nt2::schur(b); //real
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
   zz =  mtimes(nt2::mtimes(z, t), nt2::trans(z));

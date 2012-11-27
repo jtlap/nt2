@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// 
+///
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/imag.hpp>
@@ -36,6 +36,7 @@
 #include <nt2/sdk/unit/module.hpp>
 
 #include <nt2/toolbox/constant/constant.hpp>
+#include <nt2/include/constants/cnan.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
 
@@ -51,27 +52,27 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef std::complex<T>                              cT; 
+  typedef std::complex<T>                              cT;
   typedef native<T ,ext_t>                             vT;
   typedef native<cT ,ext_t>                           vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT; 
+  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
   typedef native<ciT ,ext_t>                         vciT;
-  typedef typename nt2::meta::as_dry<T>::type          dT; 
-  typedef native<dT ,ext_t>                           vdT; 
+  typedef typename nt2::meta::as_dry<T>::type          dT;
+  typedef native<dT ,ext_t>                           vdT;
   double ulpd;
   ulpd=0.0;
 
   {
-    typedef vcT r_t; 
+    typedef vcT r_t;
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Inf<vcT>())[0], cT(nt2::Inf<cT>()),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Minf<vcT>())[0], cT(0, nt2::Inf<T>()),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Mone<vcT>())[0], cT(0, 1),0);
-    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Nan<vcT>())[0], cT(nt2::Nan<cT>()),0);
+    NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Nan<vcT>())[0], cT(nt2::Cnan<cT>()),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::One<vcT>())[0], cT(nt2::One<cT>()),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Zero<vcT>())[0], cT(nt2::Zero<cT>()),0);
-  }  
+  }
   {
-    typedef vcT r_t; 
+    typedef vcT r_t;
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Inf<vciT>())[0],  cT(nt2::Inf<T>(), nt2::Inf<T>()),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Minf<vciT>())[0], cT(nt2::Inf<T>(),nt2::Minf<T>()),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Mone<vciT>())[0], cT(nt2::Sqrt_2o_2<T>(), -nt2::Sqrt_2o_2<T>()) ,0);
@@ -80,7 +81,7 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Zero<vciT>())[0], nt2::Zero<T>(),0);
   }
   {
-    typedef vcT r_t; 
+    typedef vcT r_t;
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Inf<vdT>())[0], nt2::Inf<T>(),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Minf<vdT>())[0], cT(nt2::Zero<T>(), nt2::Inf<T>()),0);
     NT2_TEST_ULP_EQUAL(nt2::sqrt(nt2::Mone<vdT>())[0], cT(nt2::Zero<T>(), nt2::One<T>()),0);

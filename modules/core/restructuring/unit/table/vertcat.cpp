@@ -80,11 +80,35 @@ NT2_TEST_CASE( vertcat_2 )
   nt2::table<double> c0 = nt2::zeros(0, 1);
   nt2::table<double> c1 = nt2::zeros(1, 1);
   nt2::table<double> c2 = nt2::vertcat(c0, c1); 
+  NT2_TEST( nt2::isequal(c2, c1)); 
+  typedef float iT;
+  nt2::table<iT> dc1 = nt2::colvect(nt2::_(iT(2), iT(4)));
+  nt2::table<iT> dc2 = nt2::colvect(nt2::_(iT(2), iT(3)));
+  nt2::table<iT> dc3 = nt2::vertcat(dc1, dc2); 
+
+
+}
+NT2_TEST_CASE_TPL( vertcat_3,NT2_TYPES )
+{
+
+  nt2::table<double> c0 = nt2::zeros(0, 1);
+  nt2::table<double> c1 = nt2::zeros(1, 1);
+  nt2::table<double> c2 = nt2::vertcat(c0, c1);
+  nt2::table<double> c3 = nt2::vertcat(c1, c0);
+  NT2_DISPLAY(c0);
+  NT2_DISPLAY(c1);
+  NT2_DISPLAY(c2);
+  NT2_DISPLAY(c3);
+  NT2_TEST( nt2::isequal(c2, c1)); 
+  NT2_TEST( nt2::isequal(c3, c1)); 
 
   typedef float iT;
   nt2::table<iT> dc1 = nt2::colvect(nt2::_(iT(2), iT(4)));
   nt2::table<iT> dc2 = nt2::colvect(nt2::_(iT(2), iT(3)));
   nt2::table<iT> dc3 = nt2::vertcat(dc1, dc2); 
+  NT2_DISPLAY(dc1);
+  NT2_DISPLAY(dc2);
+  NT2_DISPLAY(dc3);
 
 
 }

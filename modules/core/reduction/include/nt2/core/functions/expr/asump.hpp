@@ -27,7 +27,7 @@ namespace nt2 { namespace ext
     typedef typename  meta
                     ::call<tag::sum_( typename meta
                                         ::call<tag::pow_abs_( A0 const&
-                                                            , value_type
+                                                            , A1 const&
                                                             )
                                               >::type
                                     )
@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
     typedef typename  meta
                     ::call<tag::sum_( typename meta
                                         ::call<tag::pow_abs_( A0 const&
-                                                            , value_type
+                                                            , A1 const&
                                                             )
                                               >::type
                                     , A2

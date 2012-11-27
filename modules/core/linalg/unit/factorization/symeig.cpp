@@ -85,3 +85,4 @@ NT2_TEST_CASE_TPL ( symeig_factorization_inplace, NT2_REAL_TYPES)
   b = nt2::ones(4, 2, nt2::meta::as_<T>());
   NT2_TEST_ASSERT( nt2::factorization::symeig(b,'V', 'U',nt2::in_place_) );
 }
+

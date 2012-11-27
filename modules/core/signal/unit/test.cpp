@@ -159,7 +159,7 @@ namespace
             nt2::unit::pass( result_description );
             debug_output
                 << "   * average ULPD: " << static_cast<T>( average_ulpd / N ) << std::endl
-                << "   * max     ULPD: " << static_cast<T>( max_ulpd         ) << std::endl;
+                << "   * max     ULPD: " << static_cast<T>( max_ulpd         ) << " (allowed: " << max_ulp_distance << ")" << std::endl;
         }
         else
         {
@@ -182,7 +182,7 @@ namespace
 
             debug_output
                 << "   * average ULPD: " << static_cast<T>( average_ulpd / N ) << std::endl
-                << "   * max     ULPD: " << static_cast<T>( max_ulpd         ) << std::endl;
+                << "   * max     ULPD: " << static_cast<T>( max_ulpd         ) << " (allowed: " << max_ulp_distance << ")" << std::endl;
         }
     } // analyze_values
 

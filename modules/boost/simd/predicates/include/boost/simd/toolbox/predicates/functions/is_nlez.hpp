@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_nlez is_nlez
  *
  * \par Description
- * Returns True<A0>() if a0 is not less or equal to zero else returns False<A0>().
+ * Returns True<result_type>() if a0 is not less or equal to zero else returns False<result_type>().
  * \par
  * Due to existence of nan, this is not equivalent to \c not(is_lez(a0))
  *

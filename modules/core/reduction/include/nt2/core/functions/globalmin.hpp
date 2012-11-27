@@ -74,6 +74,8 @@ namespace nt2
   //============================================================================
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmin_       , globalmin, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmin_       , g_min, 1)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::globalmin_, globalmin,(A0 const&)(A1&),2)
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::globalmin_, g_min ,(A0 const&)(A1&),2) 
 }
 
 namespace nt2 { namespace ext
@@ -86,5 +88,17 @@ namespace nt2 { namespace ext
        return global(nt2::functor<tag::minimum_>(), a0); 
     }
   };
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmin_, tag::cpu_, (A0)(A1), (unspecified_<A0>)(scalar_<integer_<A1> > ))
+  {
+    typedef typename meta::call<tag::global_(nt2::functor<tag::minimum_>, const A0&)>::type result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 & a1) const 
+    {
+       result_type tmp =  global(nt2::functor<tag::minimum_>(), a0);
+       A1 k = nt2::globalfind(a0 == tmp)(1);
+       a1 = k;
+       return tmp; 
+    }
+  };
+  
 } }
 #endif

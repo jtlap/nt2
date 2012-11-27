@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_J0_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_J0_HPP_INCLUDED
@@ -57,13 +57,13 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       if (is_inf(a0)) return Zero<A0>();
-    #if defined(BOOST_SIMD_HAS__J0)
+#if defined(BOOST_SIMD_HAS__J0)
       return ::_j0(a0);
-    #elif defined(BOOST_SIMD_HAS_J0)
+#elif defined(BOOST_SIMD_HAS_J0)
       return ::j0(a0);
-    #else
-      #error j0 not supported
-    #endif
+#else
+#error j0 not supported
+#endif
     }
   };
 } }

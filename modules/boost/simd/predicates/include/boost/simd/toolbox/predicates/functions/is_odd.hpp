@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_odd is_odd
  *
  * \par Description
- * Returns True<A0>() or False<A0>() according a0 is odd or not.
+ * Returns True<result_type>() or False<result_type>() according a0 is odd or not.
  * A floating number a0 is odd if a0-one is even
  * \par
  * A flint is a 'floating integer' i.e. a floating number

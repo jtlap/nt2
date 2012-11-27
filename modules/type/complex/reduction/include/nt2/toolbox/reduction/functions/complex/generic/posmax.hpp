@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_POSMAX_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_POSMAX_HPP_INCLUDED
@@ -27,42 +27,42 @@ namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posmax_, tag::cpu_, (A0)
                             , (generic_< complex_< arithmetic_<A0> > >)
-                            )
+    )
   {
-    typedef nt2::int32_t result_type; 
+    typedef nt2::int32_t result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::scalar_of<rtype>::type stype;
       typedef typename meta::as_logical<rtype>::type ltype;
-      rtype absa0 = nt2::abs(a0); 
+      rtype absa0 = nt2::abs(a0);
       nt2::int32_t tmp = posmax(absa0);
-      ltype test = eq(absa0, absa0[tmp]); 
-        if (inbtrue(test) > 1)
-          {
-            rtype z = if_else(test, arg(a0), Minf<rtype>());
-            return posmax(z);
-          }
-      return tmp; 
+      ltype test = eq(absa0, absa0[tmp]);
+      if (inbtrue(test) > 1)
+      {
+        rtype z = if_else(test, arg(a0), Minf<rtype>());
+        return posmax(z);
+      }
+      return tmp;
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posmax_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
-                            )
+                              , (generic_< imaginary_< arithmetic_<A0> > >)
+    )
   {
-    typedef nt2::int32_t result_type; 
+    typedef nt2::int32_t result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return posmax(nt2::abs(a0));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::posmax_, tag::cpu_, (A0)
-                            , (generic_< dry_< arithmetic_<A0> > >)
-                            )
+                              , (generic_< dry_< arithmetic_<A0> > >)
+    )
   {
-    typedef nt2::int32_t result_type; 
+    typedef nt2::int32_t result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return posmax(nt2::abs(a0));

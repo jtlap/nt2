@@ -34,8 +34,8 @@
             },
          'specific_values' : {
              'default' : {
-                 'boost::simd::False<T>(),boost::simd::One<T>(),boost::simd::Two<T>()' : {'result' : 'boost::simd::Two<r_t>()','ulp_thresh' : '0.5',},
-                 'boost::simd::True<T>(),boost::simd::One<T>(),boost::simd::Two<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::False< boost::simd::logical<T> >(),boost::simd::One<T>(),boost::simd::Two<T>()' : {'result' : 'boost::simd::Two<r_t>()','ulp_thresh' : '0.5',},
+                 'boost::simd::True< boost::simd::logical<T> >(),boost::simd::One<T>(),boost::simd::Two<T>()' : {'result' : 'boost::simd::One<r_t>()','ulp_thresh' : '0.5',},
                 }
             },
          'verif_test' : {

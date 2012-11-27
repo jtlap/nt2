@@ -24,14 +24,14 @@
 
 NT2_TEST_CASE_TPL( none_scalar, NT2_TYPES )
 {
-  nt2::logical<T> x = nt2::none(nt2::True<T>());
-  NT2_TEST_EQUAL( x, (nt2::False<T>()) );
+  nt2::logical<T> x = nt2::none(nt2::True< nt2::logical<T> >());
+  NT2_TEST_EQUAL( x, (nt2::False< nt2::logical<T> >()) );
 
-  x = nt2::none(nt2::True<T>(),1);
-  NT2_TEST_EQUAL( x, nt2::False<T>() );
+  x = nt2::none(nt2::True< nt2::logical<T> >(),1);
+  NT2_TEST_EQUAL( x, nt2::False< nt2::logical<T> >() );
 
-  x = nt2::none(nt2::True<T>(),2);
-  NT2_TEST_EQUAL( x, (nt2::False<T>()) );
+  x = nt2::none(nt2::True< nt2::logical<T> >(),2);
+  NT2_TEST_EQUAL( x, (nt2::False< nt2::logical<T> >()) );
 }
 
 NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL( none_expr, NT2_TYPES )
   display("sy", sy);
   for(int j=1;j<=3;j++)
   {
-    nt2::logical<T> z = nt2::True<T>();
+    nt2::logical<T> z = nt2::True< nt2::logical<T> >();
     for(int i=1;i<=5;i++) z= nt2::logical_andnot(z, y(i, j));
     NT2_TEST_EQUAL( nt2::is_nez(z), sy(j) );
   }

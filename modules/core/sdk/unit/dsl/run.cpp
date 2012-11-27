@@ -13,6 +13,7 @@
 #include <nt2/include/functions/toint.hpp>
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/sum.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>

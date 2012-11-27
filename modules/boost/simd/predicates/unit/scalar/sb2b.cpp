@@ -21,7 +21,6 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 
 
@@ -120,6 +119,6 @@ NT2_TEST_CASE_TPL ( sb2bl,  BOOST_SIMD_SIMD_TYPES)
   std::cout << std::endl; 
 
   // specific values tests
-  NT2_TEST_EQUAL(sb2b(boost::simd::True<T>()), r_t(true));
-  NT2_TEST_EQUAL(sb2b(boost::simd::False<T>()), r_t(false));
+  NT2_TEST_EQUAL(sb2b(boost::simd::True< boost::simd::logical<T> >()), r_t(true));
+  NT2_TEST_EQUAL(sb2b(boost::simd::False< boost::simd::logical<T> >()), r_t(false));
 } // end of test for unsigned_int_

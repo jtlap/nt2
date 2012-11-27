@@ -42,22 +42,22 @@ namespace nt2 { namespace ext
     typedef boost::fusion::tuple<A0,A0>           result_type;
 
     NT2_FUNCTOR_CALL(1)
-      {
-        result_type res;
-        nt2::rem_2pi(a0,
-                     boost::fusion::at_c<0>(res),
-                     boost::fusion::at_c<1>(res)
-                     );
-        return res;
-      }
+    {
+      result_type res;
+      nt2::rem_2pi(a0,
+                   boost::fusion::at_c<0>(res),
+                   boost::fusion::at_c<1>(res)
+        );
+      return res;
+    }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_2pi_, tag::cpu_,
-                 (A0),
-                 (scalar_ < single_<A0> > )
-                 (scalar_ < single_<A0> > )
-                 (scalar_ < single_<A0> > )
-                 )
+                             (A0),
+                             (scalar_ < single_<A0> > )
+                             (scalar_ < single_<A0> > )
+                             (scalar_ < single_<A0> > )
+    )
   {
     typedef void result_type;
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
@@ -73,21 +73,21 @@ namespace nt2 { namespace ext
   // reference based Implementation when double
   /////////////////////////////////////////////////////////////////////////////
   NT2_FUNCTOR_IMPLEMENTATION(nt2::tag::rem_2pi_, tag::cpu_,
-                 (A0),
-                 (scalar_ < double_<A0> > )
-                 (scalar_ < double_<A0> > )
-                 (scalar_ < double_<A0> > )
-                 )
+                             (A0),
+                             (scalar_ < double_<A0> > )
+                             (scalar_ < double_<A0> > )
+                             (scalar_ < double_<A0> > )
+    )
   {
     typedef void result_type;
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
     {
       if (a0 ==  Inf<A0>())
-        {
-          xc = Zero<A0>();
-          xr = Nan<A0>();
-          return;
-        }
+      {
+        xc = Zero<A0>();
+        xr = Nan<A0>();
+        return;
+      }
       nt2::int32_t n = rem_pio2(a0, xr, xc);
       xr = xr+n*Pio_2<A0>();
       xr = (xr > Pi<A0>()) ? xr-Twopi<A0>():xr;
@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
                              (scalar_ <floating_<A0> > )
                              (scalar_ <floating_<A0> > )
                              (target_ <unspecified_<A1> >)
-                 )
+    )
   {
     typedef void result_type;
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc, A1 const&) const
@@ -140,7 +140,7 @@ namespace nt2 { namespace ext
         xr -= xi*Pix2_2<A0>();
         xr -= xi*Pix2_3<A0>();
         xc = Zero<A0>();
-       }
+      }
     };
 
     template < class dummy> struct rem2pi < medium_, dummy >
@@ -148,8 +148,8 @@ namespace nt2 { namespace ext
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
         nt2::int32_t n = rem_pio2_medium(x, xr, xc);
-        xr = xr+n*Pio_2<A0>();
-        xr = (xr > Pi<A0>()) ? xr-Twopi<A0>():xr;
+        A0 volatile xr_ = xr+n*Pio_2<A0>();
+        xr = (xr_ > Pi<A0>()) ? xr_-Twopi<A0>():xr_;
       }
     };
   };

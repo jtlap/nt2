@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_VANDERMONDE_HPP_INCLUDED
 #include <nt2/toolbox/linalg/functions/vandermonde.hpp>
 #include <nt2/include/functions/pow.hpp>
+#include <nt2/include/functions/powi.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/bsxfun.hpp>
 #include <nt2/include/functions/colvect.hpp>
@@ -22,11 +23,12 @@ namespace nt2 {namespace ext
                               (scalar_<integer_<A1> >)
                               )
   {
-    typedef typename A0::value_type value_type;
+    typedef typename A0::value_type                              value_type;
+    typedef typename meta::as_real<value_type>::type              real_type; 
     typedef typename meta::call<tag::colvect_(A0)>::type  T0;
-    typedef typename meta::call<tag::colon_ ( value_type
-                                            , value_type
-                                            , value_type
+    typedef typename meta::call<tag::colon_ ( real_type
+                                            , real_type
+                                            , real_type
                                             )>::type      T1;
     typedef typename meta::call<tag::bsxfun_( nt2::functor<tag::pow_>
                                             , T0
@@ -35,11 +37,11 @@ namespace nt2 {namespace ext
     NT2_FUNCTOR_CALL(2)
       {
         return nt2::bsxfun( nt2::functor<tag::pow_>()
-                          , colvect(a0)
-                          , colon ( value_type(a1-1)
-                                  , value_type(-1)
-                                  , value_type(0)
-                                  )
+                            , colvect(a0)
+                            , colon(real_type(a1-1)
+                                    , real_type(-1)
+                                    , real_type(0)
+                                    )
                           );
       }
   };
@@ -49,25 +51,11 @@ namespace nt2 {namespace ext
                             , ((ast_<A0, nt2::container::domain>))
                             )
   {
-    typedef typename A0::value_type value_type;
-    typedef typename meta::call<tag::colvect_(A0)>::type  T0;
-    typedef typename meta::call<tag::colon_ ( value_type
-                                            , value_type
-                                            , value_type
-                                            )>::type      T1;
-    typedef typename meta::call<tag::bsxfun_( nt2::functor<tag::pow_>
-                                            , T0
-                                            , T1)>::type  result_type;
+    typedef typename meta::call<tag::vandermonde_( const A0&, int32_t)>::type result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-        return nt2::bsxfun( nt2::functor<tag::pow_>()
-                          , colvect(a0)
-                          , colon ( value_type( numel(a0) - 1)
-                                  , value_type(-1)
-                                  , value_type(0)
-                                  )
-                          );
-      }
+    {
+      return nt2::vandermonde(a0, int32_t(numel(a0))); 
+    }
   };
 } }
 

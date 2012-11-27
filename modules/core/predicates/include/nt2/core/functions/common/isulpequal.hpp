@@ -12,28 +12,30 @@
 #include <nt2/core/functions/isulpequal.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/havesamesize.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/globalmax.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/globalall.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/first_index.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_<fundamental_<A0> >)
-                              (scalar_<fundamental_<A1> >)
+                            , (scalar_<unspecified_<A0> >)
+                              (scalar_<unspecified_<A1> >)
                             )
   {
     typedef bool result_type;
-
+    typedef typename meta::as_real<A0>::type r_type;
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0, const A1& a1) const
+      result_type operator()(const A0& a0, const A1& a1) const
     {
-      return nt2::ulpdist(a0, a1) <= Half<A0>();
+
+      return nt2::ulpdist(a0, a1) <= Half<r_type>();
     }
   };
 
@@ -48,16 +50,17 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
-      typedef typename A0::value_type value_type; 
+      typedef typename A0::value_type value_type;
+      typedef typename meta::as_real<value_type>::type r_type;
       if(!havesamesize(a0, a1))       return false;
 
-      return nt2::max(nt2::ulpdist(a0, a1)(_))(1) <=  Half<value_type>();
+      return nt2::globalmax(nt2::ulpdist(a0, a1)) <=  Half<r_type>();
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_<fundamental_<A0> >)
+                            , (scalar_<unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
@@ -73,8 +76,8 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
-                              (scalar_<fundamental_<A1> >)
-                              
+                              (scalar_<unspecified_<A1> >)
+
                             )
   {
     typedef bool result_type;
@@ -89,8 +92,8 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (scalar_<fundamental_<A0> >)
-                              (scalar_<fundamental_<A1> >)
+                            , (scalar_<unspecified_<A0> >)
+                              (scalar_<unspecified_<A1> >)
                               (scalar_<floating_<A2> >)
                             )
   {
@@ -105,7 +108,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
                             , (A0)(A1)(A2)
-                            , (scalar_<fundamental_<A0> >)
+                            , (scalar_<unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
                               (scalar_<floating_<A2> >)
                             )
@@ -122,7 +125,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_
                             , (A0)(A1)(A2)
                             , ((ast_<A0, nt2::container::domain>))
-                              (scalar_<fundamental_<A1> >)
+                              (scalar_<unspecified_<A1> >)
                               (scalar_<floating_<A2> >)
                             )
   {
@@ -149,7 +152,7 @@ namespace nt2 { namespace ext
     result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
     {
       if(!havesamesize(a0, a1))       return false;
-      return nt2::max( nt2::ulpdist(a0, a1)(_))(1) <= a2;
+      return nt2::globalmax( nt2::ulpdist(a0, a1)) <= a2;
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isulpequal_, tag::cpu_

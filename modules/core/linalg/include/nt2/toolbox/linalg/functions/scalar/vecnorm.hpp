@@ -24,7 +24,7 @@
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/core/container/colon/colon.hpp>

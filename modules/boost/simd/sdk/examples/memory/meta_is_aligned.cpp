@@ -1,9 +1,9 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/assert.hpp>
-#include <nt2/sdk/aligned/is_aligned.hpp>
+#include <boost/simd/sdk/memory/is_aligned.hpp>
 
 using boost::mpl::int_;
-using nt2::meta::is_aligned;
+using boost::simd::meta::is_aligned;
 
 int main()
 {

@@ -14,7 +14,6 @@
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
-#include <complex>
 
 NT2_TEST_CASE( fundamental_ishermitian )
 {
@@ -22,34 +21,17 @@ NT2_TEST_CASE( fundamental_ishermitian )
   NT2_TEST( nt2::ishermitian(1)   );
   NT2_TEST( nt2::ishermitian(1.)  );
   NT2_TEST( nt2::ishermitian(1.f) );
-  NT2_TEST( nt2::ishermitian(std::complex<float>(1, 0)));
-  NT2_TEST( !nt2::ishermitian(std::complex<float>(1, 1)));
 }
-
-// NT2_TEST_CASE( container_ishermitian )
-// {
-//   NT2_TEST( !nt2::ishermitian( nt2::ones(4))      );
-//   NT2_TEST( nt2::ishermitian( nt2::ones(4,4))     );
-
-//   NT2_TEST( !nt2::ishermitian( nt2::ones(4,1,1))   );
-//   NT2_TEST( !nt2::ishermitian( nt2::ones(4,1,1,1)) );
-
-//   NT2_TEST( !nt2::ishermitian( nt2::ones(2,3))     );
-//   NT2_TEST( !nt2::ishermitian( nt2::ones(3,1,2))   );
-//   NT2_TEST( !nt2::ishermitian( nt2::ones(3,3,1,9)) );
-
-// }
 
 NT2_TEST_CASE( table_ishermitian )
 {
-  //  typedef std::complex<float>  type;
   typedef float type;
   nt2::table<type> a(nt2::of_size(3, 3));
   for(std::ptrdiff_t i=1; i <= 3; i++)
    {
      for(std::ptrdiff_t j=1; j <= 3; j++)
        {
-         a(i, j) = float(i+j); //(i < j) ? type(i, j) : ((i > j) ? type(i, -j) : type(i, 0));
+         a(i, j) = float(i+j); 
        }
    }
   for(std::ptrdiff_t i=1; i <= 3; i++)
@@ -72,11 +54,5 @@ NT2_TEST_CASE( table_ishermitian )
      std::cout << std::endl;
    }
   NT2_TEST( !nt2::ishermitian(a)     );
-
-
-  nt2::table<type> b(nt2::of_size(3, 4));
-//   b =  nt2::ones(3, 4);
-//   NT2_TEST( !nt2::ishermitian(b)     );
-
 
 }

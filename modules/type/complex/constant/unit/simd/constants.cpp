@@ -12,7 +12,7 @@
 // unit test behavior of complex.arithmetic components in simd  mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 13/01/2012
-/// 
+///
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/i.hpp>
@@ -51,13 +51,13 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef std::complex<T>                              cT; 
+  typedef std::complex<T>                              cT;
   typedef native<T ,ext_t>                             vT;
   typedef native<cT ,ext_t>                           vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT; 
+  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
   typedef native<ciT ,ext_t>                         vciT;
-  typedef typename nt2::meta::as_dry<T>::type          dT; 
-  typedef native<dT ,ext_t>                           vdT; 
+  typedef typename nt2::meta::as_dry<T>::type          dT;
+  typedef native<dT ,ext_t>                           vdT;
 
   NT2_TEST_EQUAL(nt2::real(nt2::One<vcT>()), nt2::One<vT>());
   NT2_TEST_EQUAL(nt2::imag(nt2::One<vcT>()), nt2::Zero<vT>());
@@ -77,15 +77,9 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::real(nt2::I<vciT>()), nt2::Zero<vT>());
   NT2_TEST_EQUAL(nt2::imag(nt2::I<vciT>()), nt2::One<vT>());
   std::cout << nt2::I<vcT>() << std::endl;
-  NT2_TEST_EQUAL(nt2::real(nt2::I<vdT>()), nt2::Zero<vT>());
-  NT2_TEST_EQUAL(nt2::imag(nt2::I<vdT>()), nt2::One<vT>());
-  std::cout << nt2::I<vdT>() << std::endl;
-  std::cout << "type_id(nt2::I<vdT>()) "<<type_id(nt2::I<vdT>()) << std::endl;
-  std::cout << "type_id(nt2::I<vcT>()) "<<type_id(nt2::I<vdT>()) << std::endl;
-  std::cout << "type_id(nt2::I<vciT>()) "<<type_id(nt2::I<vdT>()) << std::endl;
-  std::cout << "type_id(nt2::One<vdT>()) "<<type_id(nt2::One<vdT>()) << std::endl;
-  std::cout << "type_id(nt2::One<vcT>()) "<<type_id(nt2::One<vdT>()) << std::endl;
-  std::cout << "type_id(nt2::One<vciT>()) "<<type_id(nt2::One<vdT>()) << std::endl;
+  std::cout << "type_id(nt2::One<vdT>()) "<< nt2::type_id(nt2::One<vdT>()) << std::endl;
+  std::cout << "type_id(nt2::One<vcT>()) "<< nt2::type_id(nt2::One<vdT>()) << std::endl;
+  std::cout << "type_id(nt2::One<vciT>()) "<< nt2::type_id(nt2::One<vdT>()) << std::endl;
 
 } // end of test for floating_
 

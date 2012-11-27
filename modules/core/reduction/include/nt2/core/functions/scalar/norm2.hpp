@@ -17,10 +17,10 @@ namespace nt2 { namespace ext
 {
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::norm2_, tag::cpu_, (A0)
-                            , (scalar_< floating_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef A0 result_type; 
+    typedef typename  meta::call<tag::abs_(A0 const&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a) const
     {
       return nt2::abs(a);
@@ -28,11 +28,11 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::norm2_, tag::cpu_, (A0)(A1)
-                            , (scalar_< floating_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                               (scalar_< integer_<A1> > )
                             )
   {
-    typedef A0 result_type; 
+    typedef typename  meta::call<tag::abs_(A0 const&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const&) const
     {
       return nt2::abs(a);

@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_ord is_ord
  *
  * \par Description
- * Returns True<A0>() if neither a0 and a1 is nan.
+ * Returns True<result_type>() if neither a0 and a1 is nan.
  *
  * \par Header file
  * 

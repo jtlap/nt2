@@ -23,12 +23,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/map.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,24 +42,24 @@
  *
  * \param a0 the first parameter of map
  * \param a1 the second parameter of map
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
 {
   /*!
-   * \brief Define the tag map_ of functor map 
+   * \brief Define the tag map_ of functor map
    *        in namespace boost::simd::tag for toolbox boost.simd.operator
   **/
   namespace tag
   {
-    struct map_ : ext::elementwise_<map_> { typedef ext::elementwise_<map_> parent; };
+    struct map_ : dispatch::tag::formal_ { typedef dispatch::tag::formal_ parent; };
   }
 } }
 

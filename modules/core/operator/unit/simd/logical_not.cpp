@@ -49,6 +49,7 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<logical_not_(vT)>::type r_t;
@@ -59,8 +60,8 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(nt2::False<vT>())[0], nt2::True<sr_t>());
-  NT2_TEST_EQUAL(logical_not(nt2::True<vT>())[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::False<vlT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::True<vlT>())[0], nt2::False<sr_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_SIMD_REAL_TYPES)
@@ -74,6 +75,7 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<logical_not_(vT)>::type r_t;
@@ -84,6 +86,6 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_SIMD_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(nt2::False<vT>())[0], nt2::True<sr_t>());
-  NT2_TEST_EQUAL(logical_not(nt2::True<vT>())[0], nt2::False<sr_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::False<vlT>())[0], nt2::True<sr_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::True<vlT>())[0], nt2::False<sr_t>());
 } // end of test for real_

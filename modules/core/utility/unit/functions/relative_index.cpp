@@ -98,6 +98,47 @@ NT2_TEST_CASE( strided_colon_subscript )
                   );
 }
 
+template<class A0, class I0>
+typename boost::proto::result_of::
+make_expr< nt2::tag::function_
+         , A0&
+         , typename nt2::meta::
+           call< nt2::tag::aggregate_
+                 ( I0 const&
+                 )
+               >::type
+         , nt2::box< typename nt2::make_size<1>::type >
+         >::type
+at_expr(A0& a0, I0 const& i0)
+{
+  return boost::proto::make_expr<nt2::tag::function_>
+         ( boost::ref(a0)
+         , nt2::aggregate(i0)
+         , nt2::boxify(typename nt2::make_size<1>::type(a0.extent()))
+         );
+}
+
+template<class A0, class I0, class I1>
+typename boost::proto::result_of::
+make_expr< nt2::tag::function_
+         , A0&
+         , typename nt2::meta::
+           call< nt2::tag::aggregate_
+                 ( I0 const&
+                 , I1 const&
+                 )
+               >::type
+         , nt2::box< typename nt2::make_size<2>::type >
+         >::type
+at_expr(A0& a0, I0 const& i0, I1 const& i1)
+{
+  return boost::proto::make_expr<nt2::tag::function_>
+         ( boost::ref(a0)
+         , nt2::aggregate(i0, i1)
+         , nt2::boxify(typename nt2::make_size<2>::type(a0.extent()))
+         );
+}
+
 NT2_TEST_CASE( begin_subscript )
 {
   using nt2::begin_;
@@ -110,7 +151,7 @@ NT2_TEST_CASE( begin_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(begin_,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,begin_,1)))
                     , 1, 5, i, tgt
                     )
                   , 1
@@ -119,7 +160,7 @@ NT2_TEST_CASE( begin_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(begin_+3,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,begin_+3,1)))
                     , 1, 5, i, tgt
                     )
                   , 4
@@ -128,7 +169,7 @@ NT2_TEST_CASE( begin_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(2+begin_,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,2+begin_,1)))
                     , 1, 5, i, tgt
                     )
                   , 3
@@ -137,7 +178,7 @@ NT2_TEST_CASE( begin_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(begin_,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,begin_,1)))
                     , 0, 5, i, tgt
                     )
                   , 0
@@ -146,7 +187,7 @@ NT2_TEST_CASE( begin_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(begin_+3,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,begin_+3,1)))
                     , 0, 5, i, tgt
                     )
                   , 3
@@ -155,7 +196,7 @@ NT2_TEST_CASE( begin_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(2+begin_,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,2+begin_,1)))
                     , 0, 5, i, tgt
                     )
                   , 2
@@ -174,7 +215,7 @@ NT2_TEST_CASE( end_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(end_,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,end_,1)))
                     , 1, 5, i, tgt
                     )
                   , 5
@@ -183,7 +224,7 @@ NT2_TEST_CASE( end_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(end_-3,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,end_-3,1)))
                     , 1, 5, i, tgt
                     )
                   , 2
@@ -192,7 +233,7 @@ NT2_TEST_CASE( end_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(end_,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,end_,1)))
                     , 0, 5, i, tgt
                     )
                   , 4
@@ -201,7 +242,7 @@ NT2_TEST_CASE( end_subscript )
   for(int i=1;i<=5;i++)
     NT2_TEST_EQUAL( nt2::relative_index
                     ( boost::proto::
-                      child_c<0>(boost::proto::child_c<1>(a(end_-3,1)))
+                      child_c<0>(boost::proto::child_c<1>(at_expr(a,end_-3,1)))
                     , 0, 5, i, tgt
                     )
                   , 1

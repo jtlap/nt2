@@ -8,37 +8,38 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_INTERPOL_FUNCTIONS_GENERIC_PPVAL_HPP_INCLUDED
 #define NT2_TOOLBOX_INTERPOL_FUNCTIONS_GENERIC_PPVAL_HPP_INCLUDED
-#include <nt2/core/container/table/table.hpp>
+
 #include <nt2/include/functions/bsearch.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/vertcat.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace ext
 {
 
   template < class T > class ppval{
   public:
-    typedef T                                                         value_type; 
-    typedef typename meta::as_integer<value_type>::type               index_type;      
+    typedef T                                                         value_type;
+    typedef typename meta::as_integer<value_type>::type               index_type;
     typedef table<value_type>                                             vtab_t;
     typedef table<index_type>                                             itab_t;
 
-    template < class XPR1,  class XPR2 > 
+    template < class XPR1,  class XPR2 >
     ppval(const XPR1 & breaks_, const XPR2 &coefs_):
       form("pp"){
-      breaks = breaks_; 
-      coefs = coefs_; 
+      breaks = breaks_;
+      coefs = coefs_;
       order = coefs.width();
     }
 
-    template < class A0,  class A1, class A2, class A3, class A4> 
+    template < class A0,  class A1, class A2, class A3, class A4>
     ppval(const A0 & x,
           const A1 & y,
-          const A2 & s, 
+          const A2 & s,
           const A3 & dx,
           const A4 & divdif):
-      form("pp"), 
+      form("pp"),
       breaks(x)
     {
       table<value_type> dzzdx = (divdif-s(nt2::_,nt2::_(begin_, end_-1)))/dx;
@@ -48,16 +49,16 @@ namespace nt2 { namespace ext
                                              s(nt2::_,_(begin_, end_-1))),
                                    y(_, _(begin_, end_-1)))
                          );
-      order = nt2::width(coefs);        
+      order = nt2::width(coefs);
     }
-      
-    
+
+
     const table<value_type>& getbreaks()  const{return breaks; }
     const table<value_type>& getcoefs ()  const{return coefs;  }
     size_t                   getorder()   const{return order;  }
     const std::string &      getform()    const{return form;   }
-    
-    
+
+
     template <class XPR> vtab_t eval(const XPR & xxi){
       vtab_t xi =  rowvect(xxi);
       itab_t index = nt2::bsearch (breaks, xi);
@@ -66,15 +67,15 @@ namespace nt2 { namespace ext
         val = mul(colvect(xi-breaks(index)), val) + coefs(index,i);
       }
       val = nt2::reshape(val, size(xxi));
-      return val; 
+      return val;
     }
-    
+
   private :
-    std::string form; 
+    std::string form;
     nt2::table<value_type> breaks;
     nt2::table<value_type> coefs;
     size_t order;
-    size_t pieces;   
+    size_t pieces;
   };
 
 

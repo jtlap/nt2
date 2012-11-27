@@ -1,21 +1,28 @@
 [section Combinatorial]
 
-[variablelist Integer based functions
-[[factor      ][Prime factors   TODO                          ]]
-[[factorial   ][Factorial function                            ]]
-[[gcd         ][Greatest common divisor                       ]]
-[[isprime     ][Array elements that are prime numbers         ]]
-[[lcm         ][Least common multiple                         ]]
-[[nchoosek    ][Binomial coefficient or all combinations TODO  ]]
-[[perms       ][All possible permutations           TODO      ]]
-[[primes      ][Generate list of prime numbers                ]]
-[[rat, rats   ][Rational fraction approximation         
+These functions are not very performing. There are not worse than __MATLAB__ ones and here for
+compatibility.
+
+[table:id  Integer based functions
+[[__MATLAB__    ][ __NT2__      ][ Description                                  ]]
+[[`factor      `][`factor      `][Prime factors                                 ]]
+[[`factorial   `][`factorial   `][Factorial function                            ]]
+[[`gcd         `][`gcd         `][Greatest common divisor                       ]]
+[[`isprime     `][`isprime     `][Array elements that are prime numbers         ]]
+[[`lcm         `][`lcm         `][Least common multiple                         ]]
+[[`nchoosek    `][`nchoosek    `][Binomial coefficient or all combinations TODO 
+                                
+                                  __NT2__ has also `cnp` that always returns 
+                                 binomial coefficient(s).                       ]]
+[[`perms       `][`perms       `][All possible permutations           TODO      ]]
+[[`primes      `][`primes      `][Generate list of prime numbers                ]]
+[[`rat`, `rats `][`rat`, `rats `][Rational fraction approximation         
    
-                In nt2 the string output is not provided when rat is called.
-                rats is not implemented in Nt2.
-  ]]
+                In nt2 the string output is not 
+                provided when rat is called.
+                rats is not implemented in __NT2__.                             ]]
 ]                                                         
                                                           
-                                                          
-              
-              
+                                          
+      
+               

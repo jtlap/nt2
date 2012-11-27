@@ -1,6 +1,6 @@
 [section Exponential]
 
-NT2  supports the Matlab schemes for exponential functions.
+__NT2__  supports the __MATLAB__ schemes for exponential functions.
 peculiarly  `reallog`, `realpow`, `realsqrt`. 
 
 However there is a diiference between NT2 and Matlab: these functions
@@ -16,42 +16,44 @@ results in NT2 also depend of the types they are fed in.
 
 To resume:
 
-# With `double` or `float` inputs elements, they act as the real prefixed Matlab 
+# With `double` or `float` inputs elements, they act as the real prefixed __MATLAB__ 
 functions, but do not stop execution: for instance `sqrt(-1.0)` returns `Nan<double>()` value.
 # With complex (dry or imaginary) inputs elements, they act as complex field functions.
 For instance `sqrt(dry<double>(-1.0))` returns `I<double>()` value.
 
-[warning In NT2 take care that scalar values and dry values do not lead to the same results for some functions.]
+[warning In __NT2__, take care that scalar values and dry values do not lead to the same results for some functions.]
 
-[variablelist Exponential functions
-[[exp       ][Exponential                                                                     ]]
-[[expm1     ][Compute exp(x)-1 accurately for small values of x                               ]]
-[[log       ][Natural logarithm                                                               ]]
-[[log10     ][Common (base 10) logarithm                                                      ]]
-[[log1p     ][Compute log(1+x) accurately for small values of x                               ]]
-[[log2      ][Base 2 logarithm and dissect floating-point numbers into exponent and mantissa.
-
-              In NT2 you can also use frexp to dissect floating points.  ]]
-[[nextpow2  ][Next higher power of 2                                                          ]]
-[[nthroot   ][Real nth root of real numbers                                                   ]]
-[[pow2      ][Base 2 power and scale floating-point numbers.
-
-              In NT2 you can also use ldexp to scale floating points and exp2 to compute base 2 power.
-
-              ldexp has the advantage to scale both real and imaginary parts when applied to
-              complex values.
-
-               pow2 as in Matlab discard the imaginary part when called with 2 parameters. ]]
-[[power     ][Power                                                                           ]]
-[[reallog   ][Natural logarithm for non negative real arrays which asserts on negative elements. 
-
-              In NT2 you can use log on real inputs providing Nan values on negatives elements.]]
-[[realpow   ][Array power for real-only output. In Nt2 you can use use pow on real inputs, to get nan 
-              value if the result is not real.                ]]
-[[realsqrt  ][Square root for nonnegative real arrays which asserts on negative elements. 
-
-              In Nt2 use sqrt on real inputs providing Nan values on negatives elements.      ]]
-[[sqrt      ][Square root                                                                     ]]
+[table:id Exponential functions
+[[__MATLAB__  ][ __NT2__    ][ Description                                                                    ]]
+[[`exp       `][`exp       `][Exponential                                                                     ]]
+[[`expm1     `][`expm1     `][Compute exp(x)-1 accurately for small values of x                               ]]
+[[`log       `][`log       `][Natural logarithm                                                               ]]
+[[`log10     `][`log10     `][Common (base 10) logarithm                                                      ]]
+[[`log1p     `][`log1p     `][Compute log(1+x) accurately for small values of x                               ]]
+[[`log2      `][`log2      `][Base 2 logarithm and dissect floating-point numbers into exponent and mantissa.
+                             
+                              In __NT2__ you can also use frexp to dissect floating points.                   ]]
+[[`nextpow2  `][`nextpow2  `][Next higher power of 2                                                          ]]
+[[`nthroot   `][`nthroot   `][Real nth root of real numbers                                                   ]]
+[[`pow2      `][`pow2      `][Base 2 power and scale floating-point numbers.
+                             
+                             In __NT2__ you can also use `ldexp` to scale floating points and `exp2`
+                             to compute base 2 power.
+                             
+                             `ldexp` has the advantage to scale both real and imaginary parts when applied to
+                             complex values.
+                             
+                              `pow2` as in Matlab discard the imaginary part when called with 2 parameters.   ]]
+[[`power     `][`power     `][Power                                                                           ]]
+[[`reallog   `][`reallog   `][Natural logarithm for non negative real arrays which asserts on negative elements. 
+                             
+                             In __NT2__ you can use log on real inputs providing Nan values on negatives elements.]]
+[[`realpow   `][`realpow   `][Array power for real-only output. In Nt2 you can use use 
+                              pow on real inputs, to get nan value if the result is not real.                 ]]
+[[`realsqrt  `][`realsqrt  `][Square root for nonnegative real arrays which asserts on negative elements. 
+                             
+                             In Nt2 use `sqrt` on real inputs to provide `Nan` values on negatives elements.  ]]
+[[`sqrt      `][`sqrt      `][Square root                                                                     ]]
 ]
                                                                                        
 [endsect]                                                                                    

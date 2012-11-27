@@ -13,5 +13,6 @@
 #include <nt2/toolbox/polynomials/functions/scalar/impl/horner.hpp>
 #include <nt2/toolbox/exponential/constants.hpp>
 #include <nt2/toolbox/exponential/functions/scalar/impl/expo/expo_base.hpp>
+namespace impl = nt2::details::internal;
 
 #endif

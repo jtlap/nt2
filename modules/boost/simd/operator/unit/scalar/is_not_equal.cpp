@@ -21,7 +21,6 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 
 
@@ -92,8 +91,8 @@ NT2_TEST_CASE_TPL ( is_not_equall,  BOOST_SIMD_SIMD_TYPES)
 
   // specific values tests
 
-  NT2_TEST_EQUAL(is_not_equal(boost::simd::True<T>(), boost::simd::True<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_equal(boost::simd::False<T>(), boost::simd::False<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_equal(boost::simd::True<T>(), boost::simd::False<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_equal(boost::simd::False<T>(), boost::simd::True<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_equal(boost::simd::True< boost::simd::logical<T> >(), boost::simd::True< boost::simd::logical<T> >()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal(boost::simd::False< boost::simd::logical<T> >(), boost::simd::False< boost::simd::logical<T> >()), r_t(false));
+  NT2_TEST_EQUAL(is_not_equal(boost::simd::True< boost::simd::logical<T> >(), boost::simd::False< boost::simd::logical<T> >()), r_t(true));
+  NT2_TEST_EQUAL(is_not_equal(boost::simd::False< boost::simd::logical<T> >(), boost::simd::True< boost::simd::logical<T> >()), r_t(true));
 } 

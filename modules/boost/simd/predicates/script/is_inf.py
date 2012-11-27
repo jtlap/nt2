@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<A0>() if a0 is inf or -inf else returns False<A0>().'],   
+         'description' : ['Returns True<result_type>() if a0 is inf or -inf else returns False<result_type>().'],   
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -56,7 +56,7 @@
                  'default' : ['boost::simd::is_inf(a0)'],
                 },
              'property_value' : {
-                 'default' : ['boost::simd::False<T>()'],
+                 'default' : ['boost::simd::False< boost::simd::logical<T> >()'],
                 },
              'simd' : {
                 },

@@ -20,7 +20,6 @@
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/arg.hpp>
-#include <nt2/include/functions/pure.hpp>
 #include <nt2/include/functions/logical_not.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
@@ -53,9 +52,10 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<result_type>::type rtype;
+      typedef typename meta::as_imaginary< rtype>::type itype; 
       rtype t = nt2::arg(a0);
       rtype a = nt2::abs(a0);
-      return nt2::pow(a, a1)*nt2::exp(pure(t*a1)); 
+      return nt2::pow(a, a1)*nt2::exp(itype(t*a1)); 
     }
   };
   

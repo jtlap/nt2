@@ -57,14 +57,14 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<Expr&,1>::value_type  c1_t;
     typedef typename c0_t::extent_type                                     ex0_t;
     typedef typename c1_t::extent_type                                     ex1_t;
-    typedef typename result_of::max_extent<ex0_t, ex1_t>::type         result_type;
+    typedef typename utility::result_of::max_extent<ex0_t, ex1_t>::type         result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       BOOST_ASSERT_MSG((isscalar( boost::proto::child_c<0>(e))&&issquare(boost::proto::child_c<1>(e)))||
                        (isscalar( boost::proto::child_c<1>(e))&&issquare(boost::proto::child_c<0>(e))),
                        "mpower needs a square matrix expression and a scalar or a scalar and a square matrix expression");
 
-      return nt2::max_extent(nt2::extent(boost::proto::child_c<0>(e)),  nt2::extent(boost::proto::child_c<1>(e)));
+      return nt2::utility::max_extent(nt2::extent(boost::proto::child_c<0>(e)),  nt2::extent(boost::proto::child_c<1>(e)));
     }
   };
 

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// 
+///
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/imag.hpp>
@@ -51,26 +51,19 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef std::complex<T>                              cT; 
+  typedef std::complex<T>                              cT;
   typedef native<T ,ext_t>                             vT;
   typedef native<cT ,ext_t>                           vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT; 
+  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
   typedef native<ciT ,ext_t>                         vciT;
-  typedef typename nt2::meta::as_dry<T>::type          dT; 
-  typedef native<dT ,ext_t>                           vdT; 
+  typedef typename nt2::meta::as_dry<T>::type          dT;
+  typedef native<dT ,ext_t>                           vdT;
 
   // specific values tests
   {
-    typedef vciT r_t;
-    std::cout << nt2::Sqrti<vciT>() << std::endl;
     std::cout << nt2::Sqrti<vcT >() << std::endl;
-    std::cout << nt2::Sqrti<vdT >() << std::endl;
-    std::cout << nt2::Sqrti<vT  >() << std::endl;   
-    NT2_TEST_EQUAL(nt2::Sqrti<vciT>(), vcT(nt2::Sqrt_2o_2<vT>(),nt2::Sqrt_2o_2<vT>()));
     NT2_TEST_EQUAL(nt2::Sqrti<vcT>(),  vcT(nt2::Sqrt_2o_2<vT>(),nt2::Sqrt_2o_2<vT>()));
-    NT2_TEST_EQUAL(nt2::Sqrti<vdT>(),  vcT(nt2::Sqrt_2o_2<vT>(),nt2::Sqrt_2o_2<vT>()));
-    NT2_TEST_EQUAL(nt2::Sqrti<vT>(),   vcT(nt2::Sqrt_2o_2<vT>(),nt2::Sqrt_2o_2<vT>()));
 
-  }  
+  }
 
 } // end of test for floating_

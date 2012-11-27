@@ -21,7 +21,6 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
@@ -49,13 +48,13 @@ NT2_TEST_CASE_TPL ( selsub_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(selsub(boost::simd::False<vT>(),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(1));
-  NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(-1));
-  NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::Inf<vT>(),boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::One<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Minf<sr_t>());
-  NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::Minf<vT>(),boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::Nan<vT>(),boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
-  NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
+  NT2_TEST_EQUAL(selsub(boost::simd::False<vlT>(),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(1));
+  NT2_TEST_EQUAL(selsub(boost::simd::True<vlT>(),boost::simd::splat<vT>(1),boost::simd::splat<vT>(2))[0], T(-1));
+  NT2_TEST_EQUAL(selsub(boost::simd::True<vlT>(),boost::simd::Inf<vT>(),boost::simd::Inf<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(selsub(boost::simd::True<vlT>(),boost::simd::One<vT>(), boost::simd::Inf<vT>())[0], boost::simd::Minf<sr_t>());
+  NT2_TEST_EQUAL(selsub(boost::simd::True<vlT>(),boost::simd::Minf<vT>(),boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(selsub(boost::simd::True<vlT>(),boost::simd::Nan<vT>(),boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(selsub(boost::simd::True<vlT>(),boost::simd::Zero<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
@@ -78,9 +77,9 @@ NT2_TEST_CASE_TPL ( selsub_signed_int__3_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYP
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(2));
-  NT2_TEST_EQUAL(selsub(boost::simd::False<vT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(4));
-  NT2_TEST_EQUAL(selsub(boost::simd::False<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], T(0));
+  NT2_TEST_EQUAL(selsub(boost::simd::True<vlT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(2));
+  NT2_TEST_EQUAL(selsub(boost::simd::False<vlT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(4));
+  NT2_TEST_EQUAL(selsub(boost::simd::False<vlT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], T(0));
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( selsub_unsigned_int__3_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
@@ -103,7 +102,7 @@ NT2_TEST_CASE_TPL ( selsub_unsigned_int__3_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(selsub(boost::simd::True<vT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(2));
-  NT2_TEST_EQUAL(selsub(boost::simd::False<vT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(4));
-  NT2_TEST_EQUAL(selsub(boost::simd::False<vT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], T(0));
+  NT2_TEST_EQUAL(selsub(boost::simd::True<vlT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(2));
+  NT2_TEST_EQUAL(selsub(boost::simd::False<vlT>(),boost::simd::splat<vT>(4),boost::simd::splat<vT>(2))[0], T(4));
+  NT2_TEST_EQUAL(selsub(boost::simd::False<vlT>(), boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], T(0));
 } // end of test for unsigned_int_

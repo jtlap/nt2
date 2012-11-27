@@ -16,6 +16,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <complex>
 
 /*!
  * \ingroup nt2_complex
@@ -25,7 +26,7 @@
  * Constant Cnan : Imaginary mask.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/i.hpp>
  * \endcode
@@ -44,12 +45,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Cnan
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace nt2
@@ -57,12 +58,13 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag Cnan of functor Cnan 
+     * \brief Define the tag Cnan of functor Cnan
      *        in namespace nt2::tag for toolbox complex
     **/
     struct Cnan : ext::constant_<Cnan>
     {
-      typedef imaginary<double> default_type; 
+      typedef std::complex<double> default_type;
+      typedef ext::constant_<Cnan> parent;
     };
   }
 

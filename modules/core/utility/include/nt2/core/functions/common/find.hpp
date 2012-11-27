@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
   {
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
-    typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
+    Typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
     typedef typename boost::dispatch::meta::
       terminal_of< typename boost::dispatch::meta::
       semantic_of<child0>::type
@@ -54,38 +54,38 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE  //    i = find(x, ...)
       void compute(A0 const &a0, A1 & a1, bool& first,
-                     boost::mpl::long_<1> const &//number of outputs
-                     ) const
+                   boost::mpl::long_<1> const &//number of outputs
+                   ) const
     {
-       child1& idx = boost::proto::child_c<0>(a1);
-       child0& a = boost::proto::child_c<0>(a0);
-       idx.resize(extent(a0));
-       ptrdiff_t k = numel(idx);
-       ptrdiff_t m = nt2::numel(a);
-       if(!k) return;
-       if(first)
-         {
-           for(std::ptrdiff_t i=0, z = 0; z!= k; ++i)
-             {
-               value_type value = nt2::run(a, i, meta::as_<value_type>());
-               if(value)
-                 {
-                   idx(++z) = index_type(i+1);
-                 }
-             }
-         }
-       else
-         {
-           for(std::ptrdiff_t i=m-1, z = k; z!=0; --i)
-             {
-               value_type value = nt2::run(a, i, meta::as_<value_type>());
-               if(value)
-                 {
-                   idx(z) = index_type(i+1);
-                   --z;
-                 }
-             }
-         }
+      child1& idx = boost::proto::child_c<0>(a1);
+      child0& a = boost::proto::child_c<0>(a0);
+      idx.resize(extent(a0));
+      ptrdiff_t k = numel(idx);
+      ptrdiff_t m = nt2::numel(a);
+      if(!k) return;
+      if(first)
+      {
+        for(std::ptrdiff_t i=0, z = 0; z!= k; ++i)
+        {
+          value_type value = nt2::run(a, i, meta::as_<value_type>());
+          if(value)
+          {
+            idx(++z) = index_type(i+1);
+          }
+        }
+      }
+      else
+      {
+        for(std::ptrdiff_t i=m-1, z = k; z!=0; --i)
+        {
+          value_type value = nt2::run(a, i, meta::as_<value_type>());
+          if(value)
+          {
+            idx(z) = index_type(i+1);
+            --z;
+          }
+        }
+      }
     }
 
 
@@ -94,50 +94,50 @@ namespace nt2 { namespace ext
                      boost::mpl::long_<2> const &//number of outputs
                      ) const
     {
-       child1& idx = boost::proto::child_c<0>(a1);
-       child1& jdx = boost::proto::child_c<1>(a1);
-       child0& a = boost::proto::child_c<0>(a0);
-       idx.resize(extent(a0));
-       jdx.resize(extent(a0));
-       ptrdiff_t k = numel(idx);
-       if(!k) return;
-       ptrdiff_t t = nt2::numel(a);
-       ptrdiff_t m = nt2::size(a, 1);
-       ptrdiff_t n = t/m;
-       if(first)
-         {
-           for(ptrdiff_t i=0, z = 0; z!=k; ++i)
-             {
-               value_type value = nt2::run(a, i, meta::as_<value_type>());
-               if(value)
-                 {
-                   boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-                   idx(++z) = index_type(a[1]+1);
-                   jdx(  z) = index_type(a[0]+1);
-                 }
-             }
-         }
-       else
-         {
-           for(ptrdiff_t i=t-1, z = k+1; z!=0; --i)
-             {
-               value_type value = nt2::run(a, i, meta::as_<value_type>());
-               if(value)
-                 {
-                   boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-                   idx(z) = index_type(a[1]+1);
-                   jdx(z) = index_type(a[0]+1);
-                   --z;
-                 }
-             }
-         }
+      child1& idx = boost::proto::child_c<0>(a1);
+      child1& jdx = boost::proto::child_c<1>(a1);
+      child0& a = boost::proto::child_c<0>(a0);
+      idx.resize(extent(a0));
+      jdx.resize(extent(a0));
+      ptrdiff_t k = numel(idx);
+      if(!k) return;
+      ptrdiff_t t = nt2::numel(a);
+      ptrdiff_t m = nt2::size(a, 1);
+      ptrdiff_t n = t/m;
+      if(first)
+      {
+        for(ptrdiff_t i=0, z = 0; z!=k; ++i)
+        {
+          value_type value = nt2::run(a, i, meta::as_<value_type>());
+          if(value)
+          {
+            boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
+            idx(++z) = index_type(a[1]+1);
+            jdx(  z) = index_type(a[0]+1);
+          }
+        }
+      }
+      else
+      {
+        for(ptrdiff_t i=t-1, z = k+1; z!=0; --i)
+        {
+          value_type value = nt2::run(a, i, meta::as_<value_type>());
+          if(value)
+          {
+            boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
+            idx(z) = index_type(a[1]+1);
+            jdx(z) = index_type(a[0]+1);
+            --z;
+          }
+        }
+      }
     }
 
 
     BOOST_FORCEINLINE  //    [i, j]= find(x)
       void compute(A0 const &a0, A1 & a1, bool& first,
                    boost::mpl::long_<3> const &//number of outputs
-                   ) const
+        ) const
     {
       typedef typename boost::proto::result_of::child_c<A1&,1>::type       child2;
       typedef typename boost::proto::result_of::child_c<A1&,2>::type       child3;
@@ -154,50 +154,50 @@ namespace nt2 { namespace ext
       ptrdiff_t m = nt2::size(a, 1);
       ptrdiff_t n = t/m;
       if(first)
+      {
+        for(ptrdiff_t i=0, z = 0; z!=k; ++i)
         {
-          for(ptrdiff_t i=0, z = 0; z!=k; ++i)
-                {
-                  value_type value = nt2::run(a, i, meta::as_<value_type>());
-                  if(value)
-                    {
-                      boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-                      idx(++z) = index_type(a[1]+1);
-                      jdx(z) = index_type(a[0]+1);
-                      v(z) = value;
-                    }
-                }
+          value_type value = nt2::run(a, i, meta::as_<value_type>());
+          if(value)
+          {
+            boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
+            idx(++z) = index_type(a[1]+1);
+            jdx(z) = index_type(a[0]+1);
+            v(z) = value;
+          }
         }
+      }
       else
+      {
+        for(ptrdiff_t i=t-1, z = k; z!=0; --i)
         {
-          for(ptrdiff_t i=t-1, z = k; z!=0; --i)
-            {
-              value_type value = nt2::run(a, i, meta::as_<value_type>());
-              if(value)
-                {
-                  boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
-                  idx(z) = index_type(a[1]+1);
-                  jdx(z) = index_type(a[0]+1);
-                  v(z) = value;
-                  --z;
-                }
-            }
+          value_type value = nt2::run(a, i, meta::as_<value_type>());
+          if(value)
+          {
+            boost::array<idx_t, 2> a = nt2::as_subscript(boost::fusion:: make_vector(idx_t(m),idx_t(n)), idx_t(i) );
+            idx(z) = index_type(a[1]+1);
+            jdx(z) = index_type(a[0]+1);
+            v(z) = value;
+            --z;
+          }
         }
+      }
     }
 
     BOOST_FORCEINLINE  //    i = find(x)
       void getparams(A0 const &a0, bool&,
                      boost::mpl::long_<1> const &//number of inputs
-                     ) const
+        ) const
     { }
     BOOST_FORCEINLINE  //    i = find(x, k)
       void getparams(A0 const &a0, bool&,
                      boost::mpl::long_<2> const &//number of inputs
-                     ) const
+        ) const
     { }
     BOOST_FORCEINLINE  //    i = find(x, k, 'f') or i = find(x, k, 'l')
       void getparams(A0 const &a0, bool& first,
                      boost::mpl::long_<3> const &//number of inputs
-                     ) const
+        ) const
     {
       first = boost::proto::value(boost::proto::child_c<2>(a0));
     }

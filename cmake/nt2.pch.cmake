@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-set(NT2_WITH_PCH 1 CACHE BOOL "Whether to use precompiled headers on platforms that support it")
+set(NT2_WITH_PCH 0 CACHE BOOL "Whether to use precompiled headers on platforms that support it")
 
 macro(nt2_pch_file build_type out in)
   if(IS_ABSOLUTE ${in})

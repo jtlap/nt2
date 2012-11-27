@@ -10,7 +10,7 @@
 #define BOOST_SIMD_DSL_FUNCTIONS_GENERIC_EVALUATE_HPP_INCLUDED
 
 #include <boost/simd/dsl/functions/evaluate.hpp>
-#include <boost/simd/include/functions/schedule.hpp>
+//#include <boost/simd/include/functions/schedule.hpp>
 #include <boost/simd/include/functions/run.hpp>
 
 #include <boost/simd/sdk/functor/hierarchy.hpp>
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                             , ((ast_<A0, D>))
                             )
   {
-    #if 1
+    #if 0
     typedef typename dispatch::make_functor<tag::run_, A0>::type                     F;
     typedef typename dispatch::meta::call<tag::schedule_(A0&, F&)>::type             scheduled;
     typedef typename dispatch::meta::result_of<F(scheduled)>::type                   result_type;

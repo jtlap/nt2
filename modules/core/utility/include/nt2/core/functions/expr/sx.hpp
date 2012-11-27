@@ -25,14 +25,14 @@ namespace nt2 { namespace ext
                               (unspecified_<A2>)
                             )
   {
-//     typedef typename result_of::max_extent<A1, A2>::type ext_t;
+//     typedef typename utility::result_of::max_extent<A1, A2>::type ext_t;
 //     typedef typename meta::call<tag::expand_to_(const A1&,ext_t)>::type t1_t;
 //     typedef typename meta::call<tag::expand_to_(const A2&,ext_t)>::type t2_t;
 //     typedef typename meta::call<A0(t1_t, t2_t)>::type result_type;
     typedef typename meta::call<nt2::tag::bsxfun_(nt2::functor<A0>, const A1&, const A2&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const& a1, A2 const& a2) const
     {
-//      ext_t s = nt2::max_extent(a1, a2);
+//      ext_t s = nt2::utility::max_extent(a1, a2);
 //     return nt2::functor<A0>()(nt2::expand_to(a1, s), nt2::expand_to(a2, s));
      return nt2::bsxfun(nt2::functor<A0>(), a1, a2);
     }
@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
                               (unspecified_<A3>)
                             )
   {
-//     typedef typename result_of::max_extent<A1, A2, A3>::type ext_t;
+//     typedef typename utility::result_of::max_extent<A1, A2, A3>::type ext_t;
 //     typedef typename meta::call<tag::expand_to_(const A1&,ext_t)>::type t1_t;
 //     typedef typename meta::call<tag::expand_to_(const A2&,ext_t)>::type t2_t;
 //     typedef typename meta::call<tag::expand_to_(const A3&,ext_t)>::type t3_t;
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const& a1,
                                              A2 const& a2, A3 const& a3) const
     {
-//      ext_t s = nt2::max_extent(a1, a2, a3);
+//      ext_t s = nt2::utility::max_extent(a1, a2, a3);
 //      return nt2::functor<A0>()(nt2::expand_to(a1, s), nt2::expand_to(a2, s), nt2::expand_to(a3, s));
      return nt2::tsxfun(nt2::functor<A0>(), a1, a2, a3);
     }

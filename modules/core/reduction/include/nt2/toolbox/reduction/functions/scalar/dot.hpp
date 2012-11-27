@@ -13,7 +13,7 @@
 #include <nt2/toolbox/reduction/functions/dot.hpp>
 #include <nt2/include/functions/scalar/conj.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 
 namespace nt2 { namespace ext
 {

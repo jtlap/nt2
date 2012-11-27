@@ -19,7 +19,7 @@
  * \defgroup boost_simd_operator_is_less is_less
  *
  * \par Description
- * Returns True<A0>() or False<A0>() according a0 is less than a1 or not.
+ * Returns True<result_type>() or False<result_type>() according a0 is less than a1 or not.
  *
  * \par Header file
  *

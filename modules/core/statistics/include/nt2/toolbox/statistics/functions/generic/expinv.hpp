@@ -116,8 +116,8 @@ namespace nt2 { namespace ext
       BOOST_AUTO_TPL(halfwidth, normz * nt2::sqrt(pcov/nt2::sqr(mu)));
       BOOST_AUTO_TPL(exp_halfwidth, exp(halfwidth));
       boost::proto::child_c<0>(a1) = x;
-      boost::proto::child_c<1>(a1) = x*exp_halfwidth;
-      boost::proto::child_c<2>(a1) = x/exp_halfwidth; 
+      boost::proto::child_c<2>(a1) = x*exp_halfwidth;
+      boost::proto::child_c<1>(a1) = x/exp_halfwidth; 
 //       boost::proto::child_c<1>(a1) = nt2::exp(nt2::exp(nt2::sx(nt2::tag::minus_(), logx, halfwidth)));
 //       boost::proto::child_c<2>(a1) = nt2::exp(nt2::exp(nt2::sx(nt2::tag::plus_() , logx, halfwidth)));
     }

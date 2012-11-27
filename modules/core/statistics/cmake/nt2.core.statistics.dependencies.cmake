@@ -12,6 +12,6 @@ SET ( NT2_CORE.STATISTICS_DEPENDENCIES_EXTRA  core.arithmetic   core.bitwise
                                               core.ieee         core.operator
                                               core.predicates   core.reduction
                                               core.polynomials  core.exponential
-                                              core.trigonometric core.generative
-                                              core.random
+                                              core.trigonometric core.euler
+                                              core.generative core.random
     )

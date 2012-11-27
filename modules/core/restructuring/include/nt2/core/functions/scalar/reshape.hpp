@@ -12,6 +12,7 @@
 #include <nt2/core/functions/reshape.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/core/utility/box.hpp>
+#include <nt2/sdk/meta/make_dependent.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
@@ -32,11 +33,11 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::reshape_, tag::cpu_                   \
                             , (A0)                                            \
                               BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M2,~) \
-                            , ((ast_<A0, nt2::container::domain>))                                      \
+                            , ((ast_<A0, nt2::container::domain>))            \
                               BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M1,~) \
                             )                                                 \
   {                                                                           \
-    typedef _##n##D sizes_t;                                                  \
+    typedef typename meta::make_dependent<_##n##D, A0>::type sizes_t;         \
     typedef typename  boost::proto::                                          \
                       result_of::make_expr< nt2::tag::reshape_                \
                                           , container::domain                 \

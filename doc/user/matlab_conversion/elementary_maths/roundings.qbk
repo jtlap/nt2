@@ -1,19 +1,26 @@
 [section Rounding and Remainder]
 
 
-[variablelist Rounding functions
-[[ceil    ][ Round toward positive infinity         ]]
-[[fix     ][ Round toward zero                      ]]
-[[floor   ][ Round toward negative infinity         ]]
-[[idivide ][ Integer division with rounding option  
-             TODO
+[table:id Rounding functions
+[[__MATLAB__  ][ __NT2__             ][ Description                      ]]
+[[`ceil    `][`ceil    `][ Round toward positive infinity                ]]
+[[`fix     `][`fix     `][ Round toward zero                             ]]
+[[`floor   `][`floor   `][ Round toward negative infinity                ]]
+[[`idivide `][`idivide `][ Integer division with rounding option  
+                           In __NT2__ options are static tags
 
-             NT2 has idivfix, idvfloor,idivceil and idivround
-]]
-[[mod     ][ Modulus after division                 ]]
-[[rem     ][ Remainder after division               ]]
-[[round   ][ Round to nearest integer               ]]
+                           'fix'   -> nt2::tag::trunc_()
+                           'round' -> nt2::tag::round_()
+                           'floor' -> nt2::tag::floor_()
+                           'ceil'  -> nt2::tag::ceil_()
+                         
+                         __NT2__ also has direct call to `(i)divfix`, 
+                         `(i)divfloor`,`(i)divceil` and `(i)divround`
+                                                                         ]]
+[[`mod     `][`mod     `][ Modulus after division                        ]]
+[[`rem     `][`rem     `][ Remainder after division                      ]]
+[[`round   `][`round   `][ Round to nearest integer                      ]]
 
 ]  
 
-[endsect]
+[endsect]  

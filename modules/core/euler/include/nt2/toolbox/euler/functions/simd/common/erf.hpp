@@ -123,26 +123,26 @@ namespace nt2 { namespace ext
       A0 r1 = Zero<A0>();
       std::size_t nb = 0;
       if ((nb = (inbtrue(test1) > 0)))
-        {
-          r1 = a0*polevl( xx, erf0_P4)/polevl( xx, erf0_Q4 );
-          if (nb >= meta::cardinal_of<A0>::value) return r1;
-        }
+      {
+        r1 = a0*polevl( xx, erf0_P4)/polevl( xx, erf0_Q4 );
+        if (nb >= meta::cardinal_of<A0>::value) return r1;
+      }
       bA0 test2 = lt(x, lim2);
       bA0 test3 = logical_andnot(test2, test1);
       std::size_t nb1 = 0;
       A0 ex = nt2::exp(-xx);
       if ((nb1 = (inbtrue(test3) > 0)))
-        {
-          A0 z = oneminus(ex*polevl(x, erfc1_P5)/polevl( x, erfc1_Q5));
-          A0 r2 = negif(is_ltz(a0), z);
-          r1 = select(test1, r1, r2);
-          nb+= nb1;
-          if (nb >= meta::cardinal_of<A0>::value) return r1;
-        }
+      {
+        A0 z = oneminus(ex*polevl(x, erfc1_P5)/polevl( x, erfc1_Q5));
+        A0 r2 = negif(is_ltz(a0), z);
+        r1 = select(test1, r1, r2);
+        nb+= nb1;
+        if (nb >= meta::cardinal_of<A0>::value) return r1;
+      }
       A0 z = negif(is_ltz(a0), oneminus(ex*polevl(x, erfc2_P5)/polevl( x, erfc2_Q5)));
       return select(nt2::is_inf(a0), nt2::sign(a0), select(test2, r1, z));
 
- //       if(x<= A0(0.0000000001))
+      //       if(x<= A0(0.0000000001))
 //          return a0*Two<A0>()/sqrt(Pi<A0>());
 //        else if (x<= A0(0.65))
 //          {
@@ -161,11 +161,11 @@ namespace nt2 { namespace ext
 //        else
 //          return One<A0>();
 
-       //      result_type a = Eight<result_type>()*(Pi<result_type>()-Three<result_type>())/
-       //        (Three<result_type>()*Pi<result_type>()*(Four<result_type>()-Pi<result_type>()));
-       //      result_type ax2 =  a*sqr(a0);
-       //      return nt2::sign(a0)*nt2::sqrt(oneminus(nt2::exp(-sqr(a0)*(Four<result_type>()/Pi<result_type>()+ax2)/(oneplus(ax2)))));
-   }
+      //      result_type a = Eight<result_type>()*(Pi<result_type>()-Three<result_type>())/
+      //        (Three<result_type>()*Pi<result_type>()*(Four<result_type>()-Pi<result_type>()));
+      //      result_type ax2 =  a*sqr(a0);
+      //      return nt2::sign(a0)*nt2::sqrt(oneminus(nt2::exp(-sqr(a0)*(Four<result_type>()/Pi<result_type>()+ax2)/(oneplus(ax2)))));
+    }
   };
 
 

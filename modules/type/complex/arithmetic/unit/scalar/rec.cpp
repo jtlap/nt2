@@ -64,11 +64,11 @@ NT2_TEST_CASE_TPL ( rec_real__1_0,  BOOST_SIMD_REAL_TYPES)
    NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Zero<T>())), cT(nt2::Inf<cT>()));
    NT2_TEST_EQUAL(nt2::rec(cT(nt2::Mzero<T>(), nt2::Zero<T>())), cT(nt2::Minf<cT>()));
 
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::Nan<T>())), cT(nt2::Nan<cT>(), nt2::Nan<cT>()));
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::One<T>())), cT(nt2::Nan<cT>(), nt2::Nan<cT>()));
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::One<T>(), nt2::Nan<T>())), cT(nt2::Nan<cT>(), nt2::Nan<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::Nan<T>())), cT(nt2::Nan<T>(), nt2::Nan<T>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::One<T>())), cT(nt2::Nan<T>(), nt2::Nan<T>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::One<T>(), nt2::Nan<T>())), cT(nt2::Nan<T>(), nt2::Nan<T>()));
    NT2_TEST_EQUAL(nt2::rec(cT(nt2::Nan<T>(), nt2::Zero<T>())), cT(nt2::Nan<cT>()));
-   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Nan<T>())), cT(nt2::Zero<cT>(), nt2::Nan<cT>()));
+   NT2_TEST_EQUAL(nt2::rec(cT(nt2::Zero<T>(), nt2::Nan<T>())), cT(nt2::Zero<T>(), nt2::Nan<T>()));
 
    std::complex < T > a(1, 0);
    NT2_TEST_EQUAL(nt2::rec(a), nt2::One<T>());

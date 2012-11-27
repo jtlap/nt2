@@ -33,32 +33,32 @@ namespace nt2 { namespace ext
     typedef nt2::container::table<A0>  result_type;
     inline result_type operator()(A0 n) const
     {
-      check(n, typename meta::is_signed<A0>::type()); 
-      typedef nt2::container::table<std::ptrdiff_t> itab_t; 
+      check(n, typename meta::is_signed<A0>::type());
+      typedef nt2::container::table<std::ptrdiff_t> itab_t;
       result_type f, f1;
       if (n < 4)
-        {
-          f = n; 
-          return f;
-        }
+      {
+        f = n;
+        return f;
+      }
       else
-        f = nt2::zeros(1, 0, nt2::meta::as_<A0>()); 
+        f = nt2::zeros(1, 0, nt2::meta::as_<A0>());
       result_type p = nt2::primes(nt2::isqrt(n));
       while (n>1)
+      {
+        itab_t d = nt2::find(nt2::is_eqz(nt2::rem(n,p)));
+        if (nt2::isempty(d))
         {
-          itab_t d = nt2::find(nt2::is_eqz(nt2::rem(n,p)));
-         if (nt2::isempty(d))
-            {
-              f1 = nt2::cath(f, n);
-              f =  f1;  //ALIASING !
-              break;
-            }
-          result_type p1 = rowvect(p(d));
-          p = p1;
-          f1 = nt2::cath(f, p);
-          f =  f1; //ALIASING !
-          n = n/nt2::prod(p);
+          f1 = nt2::cath(f, n);
+          f =  f1;  //ALIASING !
+          break;
         }
+        result_type p1 = rowvect(p(d));
+        p = p1;
+        f1 = nt2::cath(f, p);
+        f =  f1; //ALIASING !
+        n = n/nt2::prod(p);
+      }
       return nt2::sort(f, 2);
     }
   private :

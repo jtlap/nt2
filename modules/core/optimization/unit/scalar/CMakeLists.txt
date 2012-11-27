@@ -9,7 +9,9 @@
 
 SET( SOURCES
   brent.cpp
-#  hjmin.cpp
+  hjmin.cpp
+  levenberg.cpp
+  neldermead.cpp
 # List of scalar test files for toolbox optimize
    )
 

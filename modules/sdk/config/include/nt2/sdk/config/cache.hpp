@@ -36,13 +36,28 @@ namespace nt2{ namespace config
     else return true;
   }
 
-  inline int shared_cache_line_size()
+  inline int top_cache_line_size(int level = L3)
   {
-    // Find a better way to select this value
-    return  config::has_cache(L3)
-          ? config::cache_line_size(config::L3)
-          : config::cache_line_size(config::L2);
+    return ( level > config::L1 
+             ? ( config::has_cache(level)
+                 ? config::cache_line_size(level)
+                 : top_cache_line_size(level-1)
+               )
+             : config::cache_line_size(config::L1)
+           );
   }
+
+  inline int top_cache_size(int level = L3)
+  { 
+    return ( level > config::L1 
+             ? ( config::has_cache(level)
+                 ? config::cache_size(level)
+                 : top_cache_size(level-1)
+               )
+             : config::cache_size(config::L1)
+           );
+  }
+
 } }
 
 #endif

@@ -10,3 +10,4 @@
 nt2_module_use_modules(unit)
 add_subdirectory(scalar)
 add_subdirectory(simd)
+add_subdirectory(table)

@@ -131,8 +131,18 @@ namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::linsolve_,Domain,N,Expr>
-        : meta::size_as<Expr,0>
-  {};
+  {
+    typedef _2D result_type;
+    
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
+    {
+      _2D sizee;
+      sizee[0] = size(boost::proto::child_c<0>(e), 2);
+      sizee[1] = size(boost::proto::child_c<1>(e), 2);
+      return sizee; 
+    }
+
+  };
 
   template<class Domain, int N, class Expr>
   struct  value_type<tag::linsolve_,Domain,N,Expr>

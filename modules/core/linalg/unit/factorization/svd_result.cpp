@@ -34,10 +34,15 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
   t_t b =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
   b(_, 1) = b(_, 3);
+  NT2_DISPLAY(b);
+  nt2::display("b bis     ", b);
+  for(size_t i=1; i <= 4; i++) b(i, 1) = b(i, 3); 
+  nt2::display("b ter     ", b);
   t_t bb = b; 
+
   nt2::details::svd_result<t_t> f(b,'A','A');
 
-//   nt2::display("b     ", b);
+  nt2::display("b bis     ", b);
   nt2::display("values", f.values());
   t_t u  = f.u();
   nt2::display("u    ", u);

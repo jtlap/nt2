@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<A0>() if a0 or a1 is nan.'],   
+         'description' : ['Returns True<result_type>() if a0 or a1 is nan.'],   
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

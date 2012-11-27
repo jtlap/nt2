@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<A0>() or False<A0>() according a0 is a flint or not.',
+         'description' : ['Returns True<result_type>() or False<result_type>() according a0 is a flint or not.',
                           '\par',
                           "A flint is a 'floating integer' i.e. a floating number",
                           'representing an integer value',
@@ -61,7 +61,7 @@
                  'default' : ['boost::simd::is_flint(a0)'],
                 },
              'property_value' : {
-                 'default' : ['boost::simd::True<T>()'],
+                 'default' : ['boost::simd::True< boost::simd::logical<T> >()'],
                  'real_' : ['boost::simd::frac(a0)==boost::simd::Zero<T>()'],
                 },
              'simd' : {

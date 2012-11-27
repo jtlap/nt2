@@ -53,8 +53,8 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(select(nt2::False<T>(),nt2::One<T>(),nt2::Two<T>()), nt2::Two<r_t>());
-  NT2_TEST_EQUAL(select(nt2::True<T>(),nt2::One<T>(),nt2::Two<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(select(nt2::False< nt2::logical<T> >(),nt2::One<T>(),nt2::Two<T>()), nt2::Two<r_t>());
+  NT2_TEST_EQUAL(select(nt2::True< nt2::logical<T> >(),nt2::One<T>(),nt2::Two<T>()), nt2::One<r_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_INTEGRAL_TYPES)
@@ -77,6 +77,6 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_INTEGRAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(select(nt2::False<T>(),nt2::One<T>(),nt2::Two<T>()), nt2::Two<r_t>());
-  NT2_TEST_EQUAL(select(nt2::True<T>(),nt2::One<T>(),nt2::Two<T>()), nt2::One<r_t>());
+  NT2_TEST_EQUAL(select(nt2::False< nt2::logical<T> >(),nt2::One<T>(),nt2::Two<T>()), nt2::Two<r_t>());
+  NT2_TEST_EQUAL(select(nt2::True< nt2::logical<T> >(),nt2::One<T>(),nt2::Two<T>()), nt2::One<r_t>());
 } // end of test for integer_

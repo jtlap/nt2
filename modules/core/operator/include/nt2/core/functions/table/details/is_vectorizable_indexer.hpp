@@ -91,7 +91,7 @@ namespace nt2 { namespace ext
     >
   , Cardinal
   >
-    : boost::mpl::bool_< Cardinal::value == 1 || (N != -1 && !(N % Cardinal::value)) >
+    : boost::mpl::bool_< !(std::size_t(N < 0 ? -N : N) % Cardinal::value) >
   {
   };
 

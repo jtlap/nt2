@@ -163,11 +163,15 @@ namespace nt2 { namespace memory
       {
         buffer that(sz,get_allocator());
         swap(that);
+        return;
       }
+
+      if(sz < size())
+        nt2::memory::destruct(begin_ + sz, end_, get_allocator());
       else
-      {
-        end_ = begin_ + sz;
-      }
+        nt2::memory::default_construct(end_, begin_ + sz, get_allocator());
+
+      end_ = begin_ + sz;
     }
 
     //==========================================================================

@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_nez is_nez
  *
  * \par Description
- * Returns True<A0>() if a0 is not equal to zero else returns False<A0>().
+ * Returns True<result_type>() if a0 is not equal to zero else returns False<result_type>().
  *
  * \par Header file
  * 

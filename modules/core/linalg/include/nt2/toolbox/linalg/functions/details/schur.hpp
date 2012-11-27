@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SCHUR_HPP_INCLUDED
 
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
+#include <nt2/toolbox/linalg/details/lapack/geesx.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/functions/schur.hpp>
 #include <nt2/include/functions/of_size.hpp>
@@ -18,10 +19,12 @@
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
-#include <nt2/toolbox/linalg/details/lapack/geesx.hpp>
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/prod.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/complex/meta/is_complex.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 //  schur  schur decomposition.
@@ -49,20 +52,21 @@ namespace nt2 {
   namespace details
   {
     template<class T,
-             class CPLX = typename nt2::details::is_complex<typename meta::strip<T>::type::value_type >::type>
+             class CPLX = typename nt2::meta::is_complex<typename meta::strip<T>::type::value_type >::type>
+    // complex cases
     struct schur_result
     {
       typedef typename meta::strip<T>::type                   source_t;
       typedef typename source_t::value_type                     type_t;
-      typedef typename source_t::index_type                     index_t;
+      typedef typename source_t::index_type                    index_t;
       typedef typename meta::as_real<type_t>::type              base_t;
       typedef typename meta::as_integer<base_t, signed>::type  itype_t;
-      typedef T                                                data_t;
-      typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-      typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-      typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+      typedef T                                                 data_t;
+      typedef nt2::table<type_t,nt2::_2D>                        tab_t;
+      typedef nt2::table<base_t,nt2::_2D>                       btab_t;
+      typedef nt2::table<itype_t,nt2::_2D>                      itab_t;
       typedef nt2::details::workspace<type_t>              workspace_t;
-      typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+      typedef nt2::table<nt2_la_int,nt2::_2D>                   ibuf_t;
       typedef nt2::table<type_t,index_t>                   result_type;
 
 
@@ -82,7 +86,7 @@ namespace nt2 {
         BOOST_ASSERT_MSG(issquare(aa_), "Error using schur. Matrix must be square.");
         jobvs_ = (sense_ == 'E' || sense_ == 'B') ? 'V':jobvs_;
         sort_ = (sense_ == 'E') ? 'S' : sort_;
-        ldvs_ = (jobvs_ == 'N') ? n_ : 1;
+        ldvs_ = (jobvs_ == 'V') ? n_ : 1;
         w_.resize(nt2::of_size(n_, 1));
         vs_.resize(of_size(ldvs_, ldvs_));
         ldvs_ = vs_.leading_size();
@@ -106,10 +110,11 @@ namespace nt2 {
 
 
 
-      result_type values() const { return aa_; }
-      result_type     w () const { return from_diag(w);}
-      result_type     t () const { return aa_;     }
-      result_type     z () const
+      data_t values() const { return aa_; }
+      typedef typename meta::call < tag::from_diag_(tab_t)>::type w_result;
+      w_result     w () const { return from_diag(w_);}
+      const tab_t& t () const { return aa_;          }
+      const tab_t& z () const
       {
         BOOST_ASSERT_MSG( (jobvs_ == 'V'), "choose jobvs == 'V' to compute z");
         return vs_;
@@ -150,11 +155,11 @@ namespace nt2 {
       typedef typename meta::as_real<type_t>::type              base_t;
       typedef typename meta::as_integer<base_t, signed>::type  itype_t;
       typedef T                                                 data_t;
-      typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-      typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-      typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+      typedef nt2::table<type_t,nt2::_2D>              tab_t;
+      typedef nt2::table<base_t,nt2::_2D>             btab_t;
+      typedef nt2::table<itype_t,nt2::_2D>            itab_t;
       typedef nt2::details::workspace<type_t>              workspace_t;
-      typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+      typedef nt2::table<nt2_la_int,nt2::_2D>         ibuf_t;
       typedef nt2::table<type_t,index_t>                   result_type;
 
 
@@ -185,7 +190,7 @@ namespace nt2 {
                             &rconde_, &rcondv_,
                             &info_, wrk_);
       }
-     schur_result(schur_result const& src)
+      schur_result(schur_result const& src)
         : jobvs_(src.jobvs_)
         , sort_(src.sort_)
         , sense_(src.sense_)
@@ -194,11 +199,11 @@ namespace nt2 {
         , n_(src.n_)
         , lda_(src.lda_)
         , wrk_(src.wrk_)
-    {}
+      {}
 
-      result_type values() const { return aa_; }
-      result_type     t () const { return aa_;     }
-      result_type     z () const
+      data_t values() const { return aa_; }
+      const tab_t&  t() const { return aa_;     }
+      const tab_t& z() const
       {
         BOOST_ASSERT_MSG( (jobvs_ == 'V'), "choose jobvs == 'V' to compute z");
         return vs_;

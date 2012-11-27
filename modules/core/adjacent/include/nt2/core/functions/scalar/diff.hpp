@@ -19,7 +19,7 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::diff_, tag::cpu_
                             , (A0)
-                            , (scalar_<fundamental_<A0> >)
+                            , (scalar_<unspecified_<A0> >)
                             )
   {
     typedef table<A0, of_size_<0> > result_type;

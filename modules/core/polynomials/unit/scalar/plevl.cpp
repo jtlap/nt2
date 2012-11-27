@@ -12,10 +12,10 @@
 // unit test behavior of polynomials components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// 
+///
 #include <nt2/toolbox/polynomials/include/functions/plevl.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
-#include <vector>
+#include <nt2/sdk/meta/as_integer.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -29,7 +29,7 @@
 
 NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::plevl;
   using nt2::tag::plevl_;
   typedef boost::array<T, 3 > A_t;
@@ -38,8 +38,8 @@ NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
       static const boost::array<T, 3 > A= {{ T(2), T(3), T(4) }};
-      
-  // return type conformity test 
+
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 
   NT2_TEST_EQUAL(plevl( T(1), A), T(10)); //1*1^3 + 2*1^2 + 3*1 +4

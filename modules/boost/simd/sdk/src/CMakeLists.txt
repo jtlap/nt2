@@ -17,3 +17,7 @@ nt2_module_postconfigure(gather_includes ---ignore details --ignore preprocessed
                                          --out  boost/simd/dsl/functions.hpp
                                          --out  boost/simd/include/functions
                         )
+
+nt2_module_postconfigure(gather_includes --max 1 boost/simd/sdk/simd/extensions
+                                         --out boost/simd/sdk/simd/extensions/extensions.hpp
+                        )

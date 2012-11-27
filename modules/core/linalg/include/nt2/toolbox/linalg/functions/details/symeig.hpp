@@ -9,9 +9,9 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SYMEIG_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_SYMEIG_HPP_INCLUDED
 
-#include <nt2/include/functions/abs.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 #include <nt2/toolbox/linalg/details/lapack/hsev.hpp>
+#include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/zeros.hpp>
@@ -19,8 +19,11 @@
 #include <nt2/include/functions/issymetric.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/constants/eps.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+#include <nt2/sdk/meta/strip.hpp>
+#include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/sdk/error/warning.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Construct the class choosing the computation model :
@@ -52,13 +55,13 @@ namespace nt2 { namespace details
     typedef typename source_t::index_type                    index_t;
     typedef typename meta::as_real<type_t>::type              base_t;
     typedef T                                                 data_t;
-    typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-    typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
+    typedef nt2::table<type_t,nt2::_2D>                        tab_t;
+    typedef nt2::table<base_t,nt2::_2D>                       btab_t;
     //    typedef typename meta::as_dry<type_t>::type                dry_t;
-    //    typedef nt2::table<dry_t, nt2::matlab_index_>             dtab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
+    //    typedef nt2::table<dry_t, nt2::_2D>             dtab_t;
+    typedef nt2::table<itype_t,nt2::_2D>                      itab_t;
     typedef nt2::details::workspace<type_t>              workspace_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+    typedef nt2::table<nt2_la_int,nt2::_2D>                   ibuf_t;
     typedef nt2::table<type_t,index_t>                   result_type;
 
     template<class Input>
@@ -105,12 +108,12 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return raw values
     //==========================================================================
-    result_type values() const { return aa_; }
+    data_t values() const { return aa_; }
 
     // /////////////////////////////////////////////////////////////////////////////
     // return eigen vectors
     // /////////////////////////////////////////////////////////////////////////////
-    tab_t v () const
+    const tab_t& v () const
     {
       BOOST_ASSERT_MSG(jobz_ == 'V', "use jobz =  'V' to get eigenvectors");
       return aa_;
@@ -119,12 +122,13 @@ namespace nt2 { namespace details
     // /////////////////////////////////////////////////////////////////////////////
     // return eigen values (as vector of reals)
     // /////////////////////////////////////////////////////////////////////////////
-    btab_t      eigen() const { return w_;      }
+    const btab_t&      eigen() const { return w_;      }
 
     // /////////////////////////////////////////////////////////////////////////////
     // return eigen values (as diagonal matrix of reals)
     // /////////////////////////////////////////////////////////////////////////////
-    btab_t      w ()   const      { return from_diag(w_);}
+    typedef typename meta::call < tag::from_diag_(btab_t)>::type w_result;
+    w_result     w ()   const      { return from_diag(w_);}
 
     //     // /////////////////////////////////////////////////////////////////////////////
     //     // return eigen values (as vector of dry)

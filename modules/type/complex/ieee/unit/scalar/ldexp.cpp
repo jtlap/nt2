@@ -35,19 +35,19 @@
 
 NT2_TEST_CASE_TPL ( ldexp_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::ldexp;
   using nt2::tag::ldexp_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<ldexp_(cT, iT)>::type r_t;
   typedef typename nt2::meta::as_imaginary<T>::type   ciT;
-  typedef typename nt2::meta::as_dry<T>::type          dT;   
+  typedef typename nt2::meta::as_dry<T>::type          dT;
   typedef cT wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(ldexp(nt2::Inf<cT>(),  iT(2)), nt2::Inf<cT>());
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(ldexp(nt2::Nan<cT>(),  2), nt2::Nan<cT>());
   NT2_TEST_EQUAL(ldexp(nt2::One<cT>(),  2), nt2::Four<cT>());
   NT2_TEST_EQUAL(ldexp(nt2::Zero<cT>(), 2), nt2::Zero<cT>());
-  NT2_TEST_EQUAL(ldexp(cT(nt2::One<T>(),nt2::One<T>()) ,  2), cT(nt2::Four<cT>(),nt2::Four<cT>()) );
+  NT2_TEST_EQUAL(ldexp(cT(nt2::One<T>(),nt2::One<T>()) ,  2), cT(nt2::Four<T>(),nt2::Four<T>()) );
 
   NT2_TEST_EQUAL(ldexp(nt2::Inf<ciT>(),  2), nt2::Inf<ciT>());
   NT2_TEST_EQUAL(ldexp(nt2::Minf<ciT>(), 2), nt2::Minf<ciT>());

@@ -79,3 +79,5 @@ NT2_TEST_CASE_TPL( from_diag_offset, NT2_TYPES )
 
   for(size_t i=1;i<=nt2::length(y);i++) NT2_TEST_EQUAL( x(i,i+2), y(i) );
 }
+
+

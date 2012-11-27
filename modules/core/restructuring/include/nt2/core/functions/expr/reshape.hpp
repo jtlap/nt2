@@ -16,6 +16,7 @@
 #include <nt2/core/utility/box.hpp>
 #include <nt2/include/functions/length.hpp>
 #include <nt2/core/utility/of_size/predef.hpp>
+#include <nt2/sdk/meta/make_dependent.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -68,7 +69,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1) const
     {
-      of_size_max sizee;
+      typename meta::make_dependent<of_size_max, A0>::type sizee;
       std::size_t sz = std::min(of_size_max::size(),nt2::length(a1));
       nt2::memory::copy(a1.raw(), a1.raw()+sz, &sizee[0]);
 

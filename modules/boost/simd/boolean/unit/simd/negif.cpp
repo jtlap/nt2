@@ -19,7 +19,6 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
@@ -44,8 +43,8 @@ NT2_TEST_CASE_TPL ( negif_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-   NT2_TEST_EQUAL(negif(boost::simd::False<vT>(),boost::simd::splat<vT>(1))[0], 1);
-   NT2_TEST_EQUAL(negif(boost::simd::True<vT>(),boost::simd::splat<vT>(1))[0], -1);
+   NT2_TEST_EQUAL(negif(boost::simd::False<vlT>(),boost::simd::splat<vT>(1))[0], 1);
+   NT2_TEST_EQUAL(negif(boost::simd::True<vlT>(),boost::simd::splat<vT>(1))[0], -1);
    NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(T(1))),boost::simd::splat<vT>(1))[0], -1);
 } // end of test for floating_
 
@@ -66,7 +65,7 @@ NT2_TEST_CASE_TPL ( negif_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPE
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(negif(boost::simd::False<vT>(),boost::simd::splat<vT>(1))[0], 1);
-  NT2_TEST_EQUAL(negif(boost::simd::True<vT>(),boost::simd::splat<vT>(1))[0], -1);
+  NT2_TEST_EQUAL(negif(boost::simd::False<vlT>(),boost::simd::splat<vT>(1))[0], 1);
+  NT2_TEST_EQUAL(negif(boost::simd::True<vlT>(),boost::simd::splat<vT>(1))[0], -1);
   NT2_TEST_EQUAL(negif((boost::simd::splat<vlT>(1)),boost::simd::splat<vT>(1))[0], -1);
 } // end of test for signed_int_

@@ -31,8 +31,8 @@ NT2_TEST_CASE_TPL(geneig, NT2_REAL_TYPES)
 {
   using nt2::tag::factorization::geneig_;
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
-  typedef nt2::table<T> t_t;
-  typedef nt2::table<itype_t> it_t;
+  typedef nt2::table<T, nt2::_2D> t_t;
+  typedef nt2::table<itype_t, nt2::_2D> it_t;
   typedef typename nt2::meta::call<geneig_(t_t const&, t_t const&, char, char, char)>::type result_type;
   t_t a =       nt2::ones (4, 4, nt2::meta::as_<T>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
@@ -58,3 +58,4 @@ NT2_TEST_CASE_TPL(geneig, NT2_REAL_TYPES)
   NT2_TEST(nt2::isulpequal(b, nt2::mtimes(vsl, nt2::mtimes(t, nt2::trans(vsr))), T(10.0))); 
 
 }
+

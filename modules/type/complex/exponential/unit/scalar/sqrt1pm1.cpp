@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/sqrt1pm1.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,17 +33,17 @@
 
 NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::sqrt1pm1;
   using nt2::tag::sqrt1pm1_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::call<sqrt1pm1_(cT)>::type r_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -53,10 +53,10 @@ NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  NT2_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::Inf<cT>()),  cT(nt2::Inf<T>()), 0);
     NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::Minf<cT>()),  cT(-1, nt2::Inf<T>()), 0);
     NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::Mone<cT>()),  cT(nt2::Mone<T>()), 0);
-    NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::Nan<cT>()),  cT(nt2::Nan<T>()), 0);
+    NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::Nan<cT>()),  cT(nt2::Nan<T>(), nt2::Nan<T>()), 0);
     NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::One<cT>()),  cT(nt2::Sqrt_2<T>()-nt2::One<T>()), 2);
     NT2_TEST_ULP_EQUAL(sqrt1pm1(cT(nt2::Eps<T>())), cT(nt2::Eps<T>()*nt2::Half<T>()), 2);
-    NT2_TEST_ULP_EQUAL(sqrt1pm1(cT(-1, 2)), cT(0, 1), 2); 
+    NT2_TEST_ULP_EQUAL(sqrt1pm1(cT(-1, 2)), cT(0, 1), 2);
     NT2_TEST_ULP_EQUAL(sqrt1pm1(nt2::Zero<cT>()),  cT(nt2::Zero<T>()), 0);
   } // end of test for floating_
 }

@@ -20,13 +20,13 @@ NT2_TEST_CASE_TPL( true_false_value, BOOST_SIMD_TYPES )
 {
   using boost::simd::logical;
 
-  NT2_TEST_EQUAL( boost::simd::False<T>(), logical<T>(false) );
-  NT2_TEST_EQUAL( boost::simd::True<T>() , logical<T>(true) );
+  NT2_TEST_EQUAL( boost::simd::False< boost::simd::logical<T> >(), logical<T>(false) );
+  NT2_TEST_EQUAL( boost::simd::True< boost::simd::logical<T> >() , logical<T>(true) );
   NT2_TEST_EQUAL( boost::simd::False< logical<T> >(), logical<T>(false) );
   NT2_TEST_EQUAL( boost::simd::True< logical<T> >() , logical<T>(true) );
 
-  NT2_TEST_EQUAL( boost::simd::False<T>(), false );
-  NT2_TEST_EQUAL( boost::simd::True<T>() , true );
+  NT2_TEST_EQUAL( boost::simd::False< boost::simd::logical<T> >(), false );
+  NT2_TEST_EQUAL( boost::simd::True< boost::simd::logical<T> >() , true );
   NT2_TEST_EQUAL( boost::simd::False< logical<T> >(), false );
   NT2_TEST_EQUAL( boost::simd::True< logical<T> >() , true );
 }

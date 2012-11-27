@@ -36,6 +36,7 @@
 .DS_Store
 .project
 .cproject
+*.sublime-workspace
 *.instrumented.obj
 my_*
 ################################################################################

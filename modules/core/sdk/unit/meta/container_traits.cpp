@@ -59,6 +59,15 @@ NT2_TEST_CASE( pointer )
                   );
 }
 
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class T, class Allocator>
+  struct value_of< std::vector<T, Allocator> >
+  {
+    typedef T type;
+  };
+} } }
+
 ////////////////////////////////////////////////////////////////////////////////
 // Check reference_
 ////////////////////////////////////////////////////////////////////////////////

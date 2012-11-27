@@ -18,6 +18,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL  (  true_false_value, BOOST_SIMD_TYPES )
 {
-  NT2_TEST_EQUAL( nt2::False<T>() , nt2::logical<T>(false) );
-  NT2_TEST_EQUAL( nt2::True<T>()  , nt2::logical<T>(true)  );
+  NT2_TEST_EQUAL( nt2::False< nt2::logical<T> >() , nt2::logical<T>(false) );
+  NT2_TEST_EQUAL( nt2::True< nt2::logical<T> >()  , nt2::logical<T>(true)  );
 }

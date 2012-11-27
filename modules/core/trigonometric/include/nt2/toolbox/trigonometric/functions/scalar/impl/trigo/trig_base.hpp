@@ -134,13 +134,13 @@ namespace nt2
           const int_type sign_bit = shli(b_xor(swap_bit, (n&2)>>1), de);
           A0 z = sqr(xr);
           if (swap_bit)
-            {
-              z = eval_t::sin_eval(z, xr, xc);
-            }
+          {
+            z = eval_t::sin_eval(z, xr, xc);
+          }
           else
-            {
-              z = eval_t::cos_eval(z, xr, xc);
-            }
+          {
+            z = eval_t::cos_eval(z, xr, xc);
+          }
           return b_xor(z,sign_bit);
         }
 
@@ -155,13 +155,13 @@ namespace nt2
           const A0 sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1));
           A0 z = sqr(xr);
           if (swap_bit)
-            {
-              z = eval_t::cos_eval(z, xr, xc);
-            }
+          {
+            z = eval_t::cos_eval(z, xr, xc);
+          }
           else
-            {
-              z = eval_t::sin_eval(z, xr, xc);
-            }
+          {
+            z = eval_t::sin_eval(z, xr, xc);
+          }
           return b_xor(z,sign_bit);
         }
 
@@ -204,15 +204,15 @@ namespace nt2
           const A0 sin_sign_bit = b_xor(bitofsign(a0), shli(n&Two<int_type>(), de-1));
 
           if (is_nez(swap_bit))
-            {
-              c = eval_t::sin_eval(z, xr, xc);
-              s = eval_t::cos_eval(z, xr, xc);
-            }
+          {
+            c = eval_t::sin_eval(z, xr, xc);
+            s = eval_t::cos_eval(z, xr, xc);
+          }
           else
-            {
-              c = eval_t::cos_eval(z, xr, xc);
-              s = eval_t::sin_eval(z, xr, xc);
-            }
+          {
+            c = eval_t::cos_eval(z, xr, xc);
+            s = eval_t::sin_eval(z, xr, xc);
+          }
           c = b_xor(c,cos_sign_bit);
           return b_xor(s,sin_sign_bit);
         }

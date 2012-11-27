@@ -37,6 +37,7 @@ namespace nt2
     @param a1 Expression to process
   **/
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::global_, global, 2)
+    NT2_FUNCTION_IMPLEMENTATION(nt2::tag::global_, global, 3)
 }
 
 #endif
