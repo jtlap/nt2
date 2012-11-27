@@ -49,6 +49,40 @@
 #pragma warning( disable : 4522 )
 #endif
 
+namespace nt2
+{
+  // TODO: move this function to a better place
+  template<class T>
+  T* raw(T& t)
+  {
+    return &t;
+  }
+
+  template<class Container>
+  typename memory::container_ref<Container>::pointer raw(memory::container_ref<Container> const& c)
+  {
+    return c.raw();
+  }
+
+  template<class Container, bool Own>
+  typename memory::container_shared_ref<Container, Own>::pointer raw(memory::container_shared_ref<Container, Own> const& c)
+  {
+    return c.raw();
+  }
+
+  template<class T, class S>
+  typename memory::container<T, S>::pointer raw(memory::container<T, S>& c)
+  {
+    return c.raw();
+  }
+
+  template<class T, class Settings>
+  typename memory::container<T, Settings>::const_pointer raw(memory::container<T, Settings> const& c)
+  {
+    return c.raw();
+  }
+}
+
 namespace nt2 { namespace container
 {
   template<class Sizes, class Enable = void>
@@ -323,7 +357,7 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return boost::proto::value(*this).raw();
+      return nt2::raw(boost::proto::value(*this));
     }
 
     const_pointer raw() const
@@ -339,7 +373,7 @@ namespace nt2 { namespace container
                           , (Expr&)
                           );
 
-      return boost::proto::value(*this).raw();
+      return nt2::raw(boost::proto::value(*this));
     }
 
     //==========================================================================
