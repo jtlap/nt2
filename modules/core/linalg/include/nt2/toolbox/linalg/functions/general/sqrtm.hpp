@@ -44,79 +44,79 @@ namespace nt2{ namespace ext
       return doit(a0, typename meta::is_complex<value_type>::type());
     }
   private :
-    
+
     result_type doit(const A0 & a0, boost::mpl::false_ const &) const
     {
       typedef typename std::complex<value_type>   cmplx_type;
       typedef nt2::table<value_type, nt2::_2D>        tab_t;
-      typedef nt2::table<cmplx_type, nt2::_2D>       ctab_t;  
+      typedef nt2::table<cmplx_type, nt2::_2D>       ctab_t;
       size_t n = length(a0);
       ctab_t q, t, r;
       tie(q, t) = schur(a0, meta::as_<cmplx_type>()); // t is complex schur form.
-      compute(n, t, r); 
+      compute(n, t, r);
       ctab_t x = nt2::mtimes( nt2::mtimes(q, r), nt2::trans(nt2::conj(q)));
       return nt2::real(x);
       //bool nzeig = any(diag_of(t)(_))(1);
-      
-      // if nzeig 
+
+      // if nzeig
       //     warning(message('sqrtm:SingularMatrix'))
-      // end  
+      // end
     }
-    
+
     result_type doit(const A0 & a0, boost::mpl::true_ const &) const
     {
       typedef nt2::table<value_type, nt2::_2D>        tab_t;
       size_t n = length(a0);
       tab_t q, t, r;
       tie(q, t) = schur(a0); // t is complex schur form.
-      compute(n, t, r); 
+      compute(n, t, r);
       return nt2::mtimes( nt2::mtimes(q, r), nt2::trans(nt2::conj(q)));
-      
+
       //bool nzeig = any(diag_of(t)(_))(1);
-      
-      // if nzeig 
+
+      // if nzeig
       //     warning(message('sqrtm:SingularMatrix'))
-      // end  
+      // end
     }
     template < class S > void compute(const size_t & n, const S& t, S& r) const
+    {
+      typedef typename S::value_type v_type;
+      if (nt2::isdiagonal(t))
       {
-        typedef typename S::value_type v_type; 
-        if (nt2::isdiagonal(t))
-          {
-            r = nt2::from_diag(nt2::sqrt(nt2::diag_of(t))); 
-          }
-        else
-          {
-            // Compute upper triangular square root R of T, a column at a time.
-            r = nt2::zeros(n, n, meta::as_<v_type>());  
-            for (size_t j=1; j <= n; ++j)
-              {
-                r(j,j) = nt2::sqrt(t(j,j));
-                for (size_t i=j-1; i >= 1; --i)
-                  {
-                    //itab_ k = _(i+1, j-1);
-                    v_type s = nt2::globalsum(nt2::multiplies(colvect(r(i,_(i+1, j-1))),
-                                                                      colvect(r(_(i+1, j-1),j))));
-                    //                  value_type s = nt2::mtimes(r(i,_(i+1, j-1)), r(_(i+1, j-1),j));
-                    r(i,j) = (t(i,j) - s)/(r(i,i) + r(j,j));
-                  }
-              }
-          } 
+        r = nt2::from_diag(nt2::sqrt(nt2::diag_of(t)));
       }
-    
+      else
+      {
+        // Compute upper triangular square root R of T, a column at a time.
+        r = nt2::zeros(n, n, meta::as_<v_type>());
+        for (size_t j=1; j <= n; ++j)
+        {
+          r(j,j) = nt2::sqrt(t(j,j));
+          for (size_t i=j-1; i >= 1; --i)
+          {
+            //itab_ k = _(i+1, j-1);
+            v_type s = nt2::globalsum(nt2::multiplies(colvect(r(i,_(i+1, j-1))),
+                                                      colvect(r(_(i+1, j-1),j))));
+            //                  value_type s = nt2::mtimes(r(i,_(i+1, j-1)), r(_(i+1, j-1),j));
+            r(i,j) = (t(i,j) - s)/(r(i,i) + r(j,j));
+          }
+        }
+      }
+    }
+
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqrtm_, tag::cpu_
                               , (A0)
                               , (scalar_<fundamental_<A0> >)
-                              )
+    )
   {
-    typedef typename nt2::meta::as_floating<A0>::type result_type; 
+    typedef typename nt2::meta::as_floating<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-        return nt2::sqrt(nt2::tofloat(a0)); 
-      }
-  };  
+    {
+      return nt2::sqrt(nt2::tofloat(a0));
+    }
+  };
 } }
 
 #endif
@@ -124,12 +124,12 @@ namespace nt2{ namespace ext
 // function [X, arg2, condest] = sqrtm(A)
 // %SQRTM     Matrix square root.
 // %   X = SQRTM(A) is the principal square root of the matrix A, i.e. X*X = A.
-// %          
+// %
 // %   X is the unique square root for which every eigenvalue has nonnegative
 // %   real part.  If A has any real, negative eigenvalues then a complex
 // %   result is produced.  If A is singular then A may not have a
 // %   square root.  A warning is printed if exact singularity is detected.
-// %          
+// %
 // %   With two output arguments, [X, RESNORM] = SQRTM(A) does not print any
 // %   warning, and returns the residual, norm(A-X^2,'fro')/norm(A,'fro').
 // %
@@ -156,14 +156,14 @@ namespace nt2{ namespace ext
 // [Q, T] = schur(A,'complex');  % T is complex Schur form.
 
 // if isequal(T,diag(diag(T)))      % Check if T is diagonal.
-    
-//     R = diag(sqrt(diag(T)));     % Square root always exists. 
-    
+
+//     R = diag(sqrt(diag(T)));     % Square root always exists.
+
 // else
-    
+
 //     % Compute upper triangular square root R of T, a column at a time.
-    
-//     R = zeros(n);  
+
+//     R = zeros(n);
 //     for j=1:n
 //         R(j,j) = sqrt(T(j,j));
 //         for i=j-1:-1:1
@@ -172,7 +172,7 @@ namespace nt2{ namespace ext
 //             R(i,j) = (T(i,j) - s)/(R(i,i) + R(j,j));
 //         end
 //     end
-    
+
 // end
 
 // X = Q*R*Q';
@@ -188,15 +188,15 @@ namespace nt2{ namespace ext
 // end
 
 // if nargout > 2
-    
+
 //     arg2 = norm(R,'fro')^2 / norm(T,'fro');
-    
+
 //     if nzeig
 //         condest = inf;
 //     else
-        
+
 //         % Power method to get condition number estimate.
-        
+
 //         tol = 1e-2;
 //         x = ones(n^2,1);    % Starting vector.
 //         cnt = 1;
@@ -212,11 +212,11 @@ namespace nt2{ namespace ext
 //             % fprintf('cnt = %2.0f, e = %9.4e\n', cnt, e)
 //             cnt = cnt+1;
 //         end
-        
+
 //         condest = e*norm(A,'fro')/norm(X,'fro');
-        
+
 //     end
-    
+
 // end
 
 // % As in FUNM:

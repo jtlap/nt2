@@ -119,9 +119,9 @@ namespace nt2 { namespace details
 
     template<class Input>
     lu_result ( Input& xpr
-              , typename boost::
+                , typename boost::
                 disable_if_c<boost::is_same<lu_result,Input>::value>::type* = 0
-              )
+      )
       : a_(xpr)
       , lu_(xpr)
       , m_( nt2::height(xpr) )
@@ -160,7 +160,7 @@ namespace nt2 { namespace details
       p_      = src.p_;
       ip_     = src.ip_;
       pl_     = src.pl_;
-      invt_   = src.invt_; 
+      invt_   = src.invt_;
       return *this;
     }
 
@@ -179,10 +179,10 @@ namespace nt2 { namespace details
     //==========================================================================
     typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type                       u_T2;
     typedef typename meta::call < tag::function_(tab_t, u_T2, nt2::container::colon_)>::type u_T0;
-    typedef typename meta::call < tag::triu_(u_T0)>::type                                u_result; 
+    typedef typename meta::call < tag::triu_(u_T0)>::type                                u_result;
     u_result u() const
     {
-      int32_t mm =  std::min(n_, m_); 
+      int32_t mm =  std::min(n_, m_);
       return nt2::triu(lu_(_(1, mm),_));
     }
     //==========================================================================
@@ -190,10 +190,10 @@ namespace nt2 { namespace details
     //==========================================================================
     typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type                        l_T2;
     typedef typename meta::call < tag::function_(tab_t, nt2::container::colon_, l_T2)>::type  l_T0;
-     typedef typename meta::call < tag::tri1l_(l_T0)>::type                               l_result; 
+    typedef typename meta::call < tag::tri1l_(l_T0)>::type                               l_result;
     l_result l() const
     {
-      int32_t mm =  std::min(n_, m_); 
+      int32_t mm =  std::min(n_, m_);
       return nt2::tri1l(lu_(_,_(1, mm)));
     }
 
@@ -204,7 +204,7 @@ namespace nt2 { namespace details
     {
       if (isempty(p_))
       {
-       std::size_t mm = nt2::numel(ipiv_);
+        std::size_t mm = nt2::numel(ipiv_);
         p_ = nt2::eye(mm, mm, meta::as_<type_t>());
         for(size_t i=1; i <= mm; ++i)
           // p_({i, ipiv_(i)}, _) =  p_({ipiv_(i),i}, _)
@@ -262,11 +262,11 @@ namespace nt2 { namespace details
     base_t rcond(char c = '1')
     {
       if (c !=  '1' || rc_ == base_t(-1))
-        {
-          char norm = c;
-          base_t anorm = nt2::details::lange(&norm,  &n_,  &n_, lu_.raw(), &ldlu_);
-          nt2::details::gecon(&norm, &n_,  lu_.raw(), &ldlu_, &anorm, &rc_, &info_);
-       }
+      {
+        char norm = c;
+        base_t anorm = nt2::details::lange(&norm,  &n_,  &n_, lu_.raw(), &ldlu_);
+        nt2::details::gecon(&norm, &n_,  lu_.raw(), &ldlu_, &anorm, &rc_, &info_);
+      }
       return rc_;
     }
 
@@ -295,16 +295,16 @@ namespace nt2 { namespace details
 
     type_t signdet(bool check = true){
       BOOST_ASSERT_MSG(m_ == n_, "non square matrix in determinant computation");
-      boost::dispatch::ignore_unused(check); 
+      boost::dispatch::ignore_unused(check);
       //if (check)     BOOST_ASSERT_MSG(is_real<type_t>::value, "determinant sign is not avalaible for complex matrices");
       //count modulo 2 the number of ipiv_ elements such that ipiv_(i) !=  i
       //return nt2::sum(nt2::sb2b(ipiv_ != cif(numel(ipiv_), 1, meta::as_<itype_t>())))&1 ? Mone<type_t>() : One<type_t>();
       type_t s = One<type_t>();
-      const nt2_la_int num = numel(ipiv_); 
+      const nt2_la_int num = numel(ipiv_);
       for(nt2_la_int i=1; i < num ; ++i)
-        {
-          if (ipiv_(i) !=  i) s = -s;
-        }
+      {
+        if (ipiv_(i) !=  i) s = -s;
+      }
       return s;
     }
 
@@ -327,11 +327,11 @@ namespace nt2 { namespace details
       type_t   m1 = One<type_t>();
       exponent = Zero<itype_t>();
       for(size_t i = 1;  i <= size_t(n_); ++i)
-          {
-            itype_t e;
-            m1 *=  nt2::abs(nt2::frexp(nt2::abs(lu_(i, i)), e));
-            exponent+= e;
-          }
+      {
+        itype_t e;
+        m1 *=  nt2::abs(nt2::frexp(nt2::abs(lu_(i, i)), e));
+        exponent+= e;
+      }
       if (is_eqz(m1)){
         exponent = Zero<itype_t>();
       }
@@ -350,18 +350,18 @@ namespace nt2 { namespace details
       type_t   m1 = One<type_t>();
       exponent = Zero<itype_t>();
       for(size_t i = 1;  i <= size_t(n_); ++i)
-          {
-            itype_t e;
-            m1 *=  nt2::frexp(nt2::abs(lu_(i, i)), e);
-            exponent+= e;
-          }
+      {
+        itype_t e;
+        m1 *=  nt2::frexp(nt2::abs(lu_(i, i)), e);
+        exponent+= e;
+      }
       if (is_eqz(m1)){
         exponent = Zero<itype_t>();
       }
       return m1*signdet(false);
     }
 
-     //==========================================================================
+    //==========================================================================
     // Solver interface
     //==========================================================================
     template<class XPR> result_type solve(const XPR& b )
@@ -433,7 +433,7 @@ namespace nt2 { namespace details
     tab_t                             p_;
     itab_t                           ip_;
     tab_t                            pl_;
-    tab_t                          invt_; 
+    tab_t                          invt_;
   };
 } }
 

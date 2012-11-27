@@ -107,22 +107,22 @@ namespace nt2 {
         , jp_(of_size(0, 1))
       {
         if (nop_ != 'N')
-          {
-            nt2::details::geqp3(&m_, &n_, aa_.raw(), &lda_,
-                                jpvt_.raw(), tau_.raw(), &info_);
-          }
+        {
+          nt2::details::geqp3(&m_, &n_, aa_.raw(), &lda_,
+                              jpvt_.raw(), tau_.raw(), &info_);
+        }
         else
-          {
-            nt2::details::geqrf(&m_, &n_, aa_.raw(), &lda_,
-                                tau_.raw(), &info_, wrk_);
-          }
+        {
+          nt2::details::geqrf(&m_, &n_, aa_.raw(), &lda_,
+                              tau_.raw(), &info_, wrk_);
+        }
       }
 
       qr_result(qr_result const& src)
-      : a_(src.a_),aa_(src.aa_),m_(src.m_),n_(src.n_),
-        k_(src.k_),lda_(src.lda_),jpvt_(src.jpvt_),
-        tau_(src.tau_),info_(src.info_),
-        nop_(src.nop_), q_(src.q_), p_(src.p_), jp_(src.jp_)
+        : a_(src.a_),aa_(src.aa_),m_(src.m_),n_(src.n_),
+          k_(src.k_),lda_(src.lda_),jpvt_(src.jpvt_),
+          tau_(src.tau_),info_(src.info_),
+          nop_(src.nop_), q_(src.q_), p_(src.p_), jp_(src.jp_)
       {}
 
       qr_result& operator=(qr_result const& src)
@@ -235,7 +235,7 @@ namespace nt2 {
       }
 
       template<class XPR, class OUT> void solve(const XPR & b, OUT& x, base_t epsi = nt2::Eps<base_t>(),
-                                            bool transpose = false)const
+                                                bool transpose = false)const
       {
         x = b;
         inplace_solve(x, epsi, transpose);

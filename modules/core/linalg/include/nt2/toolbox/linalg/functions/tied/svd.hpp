@@ -31,8 +31,8 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,0>::type  child0;
     typedef typename meta::
             call< nt2::tag::
-                  factorization::svd_(child0,char,char,nt2::details::in_place_)
-                >::type                                             fact_t;
+      factorization::svd_(child0,char,char,nt2::details::in_place_)
+      >::type                                             fact_t;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
@@ -41,21 +41,21 @@ namespace nt2 { namespace ext
       econ = options(a0, N0());
       // translate to lapack job
       if (N1::value == 1)
-        {
-          jobu = jobvt = 'N';
-        }
+      {
+        jobu = jobvt = 'N';
+      }
       else if ( econ == 'N')
-        {
-          jobu = jobvt = 'A';
-        }
+      {
+        jobu = jobvt = 'A';
+      }
       else if (econ == 'L')
-        {
-          jobu = 'S'; jobvt = 'A';
-        }
+      {
+        jobu = 'S'; jobvt = 'A';
+      }
       else
-        {
-          jobu = 'S'; jobvt = 'S';
-        }
+      {
+        jobu = 'S'; jobvt = 'S';
+      }
       // Copy data in output first
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
 
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
       decomp(f, a1, N1());
     }
 
-    private:
+  private:
     //==========================================================================
     // INTERNAL ONLY
     // Extract a 'U' or a 'L' from lower_/upper_ or mpl::void_
@@ -86,20 +86,20 @@ namespace nt2 { namespace ext
     // fill the args out
     //==========================================================================
     BOOST_FORCEINLINE
-    void decomp(fact_t & f, A1 & a1, boost::mpl::long_<1> const&) const
+      void decomp(fact_t & f, A1 & a1, boost::mpl::long_<1> const&) const
     {
-       boost::proto::child_c<0>(a1) = f.singular();
+      boost::proto::child_c<0>(a1) = f.singular();
     }
 
     BOOST_FORCEINLINE
-    void decomp(fact_t & f, A1 & a1, boost::mpl::long_<2> const&) const
+      void decomp(fact_t & f, A1 & a1, boost::mpl::long_<2> const&) const
     {
       boost::proto::child_c<0>(a1) = f.u();
       boost::proto::child_c<1>(a1) = f.w();
     }
 
     BOOST_FORCEINLINE
-    void decomp(fact_t & f, A1 & a1, boost::mpl::long_<3> const&) const
+      void decomp(fact_t & f, A1 & a1, boost::mpl::long_<3> const&) const
     {
       boost::proto::child_c<0>(a1) = f.u();
       boost::proto::child_c<1>(a1) = f.w();
