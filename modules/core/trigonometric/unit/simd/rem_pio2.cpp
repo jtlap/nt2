@@ -59,9 +59,20 @@ NT2_TEST_CASE_TPL ( rem_pio2_targeted,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::as_integer<vT>::type ivT;
 
   ivT n;
-  vT x = nt2::Zero<vT>(), xr, xc;
+  vT x = nt2::Pio_2<vT>(), xr, xc;
   n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::big_>());
+  NT2_TEST_ULP_EQUAL( xr[0], nt2::Zero<vT>()[0], 0.5);
+  NT2_TEST_ULP_EQUAL( xc[0], nt2::Zero<vT>()[0], 0.5);
+
   n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::medium_>());
+  NT2_TEST_ULP_EQUAL( xr[0], nt2::Zero<vT>()[0], 0.5);
+  NT2_TEST_ULP_EQUAL( xc[0], nt2::Zero<vT>()[0], 0.5);
+
   n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::small_>());
+  NT2_TEST_ULP_EQUAL( xr[0], nt2::Zero<vT>()[0], 0.5);
+  NT2_TEST_ULP_EQUAL( xc[0], nt2::Zero<vT>()[0], 0.5);
+
   n = rem_pio2(x, xr, xc, nt2::meta::as_<nt2::very_small_>());
+  NT2_TEST_ULP_EQUAL( xr[0], nt2::Zero<vT>()[0], 0.5);
+  NT2_TEST_ULP_EQUAL( xc[0], nt2::Zero<vT>()[0], 0.5);
 }

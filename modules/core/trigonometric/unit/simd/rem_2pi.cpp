@@ -54,9 +54,20 @@ NT2_TEST_CASE_TPL ( rem_2pi_targeted,  NT2_SIMD_REAL_TYPES)
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
 
-  vT x = nt2::Zero<vT>(), xr, xc;
+  vT x = 2*nt2::Pi<vT>(), xr, xc;
   rem_2pi(x, xr, xc, nt2::meta::as_<nt2::big_>());
+  NT2_TEST_ULP_EQUAL( xr[0], nt2::Zero<vT>()[0], 1.5);
+  NT2_TEST_ULP_EQUAL( xc[0], nt2::Zero<vT>()[0], 1.5);
+
   rem_2pi(x, xr, xc, nt2::meta::as_<nt2::medium_>());
+  NT2_TEST_ULP_EQUAL( xr[0], nt2::Zero<vT>()[0], 1.5);
+  NT2_TEST_ULP_EQUAL( xc[0], nt2::Zero<vT>()[0], 1.5);
+
   rem_2pi(x, xr, xc, nt2::meta::as_<nt2::small_>());
+  NT2_TEST_ULP_EQUAL( xr[0], nt2::Zero<vT>()[0], 1.5);
+  NT2_TEST_ULP_EQUAL( xc[0], nt2::Zero<vT>()[0], 1.5);
+
   rem_2pi(x, xr, xc, nt2::meta::as_<nt2::very_small_>());
+  NT2_TEST_ULP_EQUAL( xr[0], nt2::Zero<vT>()[0], 1.5);
+  NT2_TEST_ULP_EQUAL( xc[0], nt2::Zero<vT>()[0], 1.5);
 }
