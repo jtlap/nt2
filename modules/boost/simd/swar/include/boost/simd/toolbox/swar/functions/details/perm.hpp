@@ -144,29 +144,7 @@ namespace boost { namespace simd { namespace details
                         >
     {};
 
-#ifdef BOOST_SIMD_HAS_AVX_SUPPORT)
-    static __m256i call()
-    {
-      return _mm256_set_epi8( mask_< 0, 0>::value, mask_<0, 1>::value 
-                            , mask_< 1, 0>::value, mask_<1, 1>::value
-                            , mask_< 2, 0>::value, mask_<2, 1>::value
-                            , mask_< 3, 0>::value, mask_<3, 1>::value
-                            , mask_< 4, 0>::value, mask_<4, 1>::value 
-                            , mask_< 5, 0>::value, mask_<5, 1>::value
-                            , mask_< 6, 0>::value, mask_<6, 1>::value
-                            , mask_< 7, 0>::value, mask_<7, 1>::value
-                            , mask_< 8, 0>::value, mask_<8, 1>::value 
-                            , mask_< 9, 0>::value, mask_<9, 1>::value
-                            , mask_< 9, 0>::value, mask_<10, 1>::value
-                            , mask_<10, 0>::value, mask_<11, 1>::value
-                            , mask_<11, 0>::value, mask_<12, 1>::value 
-                            , mask_<12, 0>::value, mask_<13, 1>::value
-                            , mask_<13, 0>::value, mask_<14, 1>::value
-                            , mask_<14, 0>::value, mask_<15, 1>::value
-                            );
-    }
-#endif
-#elif defined(BOOST_SIMD_HAS_SSSE3_SUPPORT)
+#ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
     static __m128i call()
     {
       return _mm_setr_epi8( mask_<0, 0>::value, mask_<0, 1>::value 
