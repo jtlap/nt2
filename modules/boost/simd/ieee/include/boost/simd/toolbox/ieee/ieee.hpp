@@ -22,7 +22,6 @@
 #include <boost/simd/toolbox/ieee/include/functions/toint.hpp>
 #include <boost/simd/toolbox/ieee/include/functions/tofloat.hpp>
 #include <boost/simd/toolbox/ieee/include/functions/successor.hpp>
-#include <boost/simd/toolbox/ieee/include/functions/round2even.hpp>
 #include <boost/simd/toolbox/ieee/include/functions/predecessor.hpp>
 #include <boost/simd/toolbox/ieee/include/functions/nextpow2.hpp>
 #include <boost/simd/toolbox/ieee/include/functions/nextafter.hpp>

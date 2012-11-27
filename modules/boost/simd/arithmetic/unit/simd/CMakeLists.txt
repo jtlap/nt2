@@ -27,7 +27,6 @@ SET( SOURCES
   fast_hypot.cpp
   iround.cpp
   arg.cpp
-  iround2even.cpp
   remainder.cpp
   rem.cpp
   meanof.cpp

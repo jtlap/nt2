@@ -36,7 +36,6 @@ SET( SOURCES
   min.cpp
   max.cpp
   logical_xor.cpp
-  iround2even.cpp
   iround.cpp
   ifloor.cpp
   idivround.cpp

@@ -22,7 +22,6 @@
 #include <boost/simd/toolbox/arithmetic/include/functions/fast_hypot.hpp>
 #include <boost/simd/toolbox/arithmetic/include/functions/iround.hpp>
 #include <boost/simd/toolbox/arithmetic/include/functions/arg.hpp>
-#include <boost/simd/toolbox/arithmetic/include/functions/iround2even.hpp>
 #include <boost/simd/toolbox/arithmetic/include/functions/sqrt1pm1.hpp>
 #include <boost/simd/toolbox/arithmetic/include/functions/remainder.hpp>
 #include <boost/simd/toolbox/arithmetic/include/functions/rem.hpp>

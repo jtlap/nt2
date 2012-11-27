@@ -1,14 +1,14 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPLOG_F_EXPO_REDUCTION_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPLOG_F_EXPO_REDUCTION_HPP_INCLUDED
-#include <nt2/core/numeric/functions/round2even.hpp>
+#include <nt2/core/numeric/functions/round.hpp>
 #include <nt2/core/numeric/functions/sqr.hpp>
 #include <nt2/core/numeric/functions/madd.hpp>
 
@@ -37,7 +37,7 @@ namespace nt2
 
         static inline A0 approx(const A0& x)
         {
-	  typedef typename meta::scalar_of<A0>::type sA0; 
+          typedef typename meta::scalar_of<A0>::type sA0;
           const A0 t =  sqr(x);
           return  x -
                   t*horner<NT2_HORNER_COEFF_T(sA0, 3,
@@ -47,7 +47,7 @@ namespace nt2
 
         static inline A0 reduce(const A0& a0, A0& hi, A0& lo, A0& x)
         {
-          A0 k = round2even(Invlog_2<A0>()*a0);
+          A0 k = round(Invlog_2<A0>()*a0);
           hi = a0-k*Const<A0,0x3f318000>();
           lo = k*Const<A0,0xb95e8083>();
           x =  hi-lo;
@@ -69,7 +69,7 @@ namespace nt2
 
         static inline A0 approx(const A0& x)
         {
-	  typedef typename meta::scalar_of<A0>::type sA0; 
+          typedef typename meta::scalar_of<A0>::type sA0;
           const A0 t =  sqr(x);
           return  x
                 - t*horner<NT2_HORNER_COEFF_T( sA0, 3,
@@ -79,7 +79,7 @@ namespace nt2
 
         static inline A0 reduce(const A0& a0, A0 , A0 , A0& x)
         {
-          A0 k = round2even(a0);
+          A0 k = round(a0);
           x = (a0 - k)*Log_2<A0>();
           return k;
         }
@@ -99,7 +99,7 @@ namespace nt2
 
         static inline A0 reduce(const A0& a0, A0&, A0&, A0& x)
         {
-          A0 k = round2even(Const<A0,0x40549a78>()*a0);
+          A0 k = round(Const<A0,0x40549a78>()*a0);
           x = a0-k*Const<A0,0x3e9a0000>();
           x -=  k*Const<A0,0x39826a13>();
           return k;

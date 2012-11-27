@@ -6,41 +6,36 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_FLOOR_HPP_INCLUDED
-#include <boost/simd/toolbox/arithmetic/functions/floor.hpp>
-#include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/include/functions/scalar/selsub.hpp>
-#include <boost/simd/include/functions/scalar/round.hpp>
-#include <boost/simd/include/functions/scalar/is_greater.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE4_1_ROUND_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_SSE4_1_ROUND_HPP_INCLUDED
+#ifdef BOOST_SIMD_HAS_SSE4_1_SUPPORT
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, boost::simd::tag::sse4_1_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , ((simd_<double_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0;
+      return _mm_round_pd(a0, 0); //0 means nearest, maybe 4 if we want to signal inexact
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::floor_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, boost::simd::tag::sse4_1_
                             , (A0)
-                            , (scalar_< floating_<A0> >)
+                            , ((simd_<single_<A0>,boost::simd::tag::sse_>))
                             )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      const A0 d0 = boost::simd::round(a0);
-      return selsub(gt(d0,a0),d0,One<A0>());
+      return _mm_round_ps(a0, 0); //0 means nearest, maybe 4 if we want to signal inexact
     }
   };
 } } }
 
-
+#endif
 #endif

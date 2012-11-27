@@ -23,12 +23,12 @@
  * The value returned is the nearest integer to the entry
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/iround.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,24 +41,25 @@
  * \endcode
  *
  * \param a0 the unique parameter of iround
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag iround_ of functor iround 
+     * \brief Define the tag iround_ of functor iround
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct iround_ : ext::elementwise_<iround_> { typedef ext::elementwise_<iround_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::iround_, iround, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::iround_, iround2even, 1)
 } }
 
 #endif

@@ -20,7 +20,6 @@ SET( SOURCES
   ulpdist.cpp
   ulp.cpp
   successor.cpp
-  round2even.cpp
   predecessor.cpp
   nextpow2.cpp
 #  nextafter.cpp

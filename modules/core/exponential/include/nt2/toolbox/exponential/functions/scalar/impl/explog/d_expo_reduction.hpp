@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPLOG_D_EXPO_REDUCTION_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPLOG_D_EXPO_REDUCTION_HPP_INCLUDED
@@ -29,7 +29,7 @@ namespace nt2
 
         static inline A0 reduce(const A0& a0, A0& hi, A0& lo, A0& x)
         {
-          A0 k  = round2even(Invlog_2<A0>()*a0);
+          A0 k  = round(Invlog_2<A0>()*a0);
           hi    = a0 - k * Const<A0,0x3fe62e42fee00000ll>();
           lo    =      k * Const<A0,0x3dea39ef35793c76ll>();
           x     = hi-lo;
@@ -62,7 +62,7 @@ namespace nt2
 
         static inline A0 reduce(const A0& a0, const A0&, const A0&, A0& x)
         {
-          A0 k = round2even(a0);
+          A0 k = round(a0);
           x = (a0 - k)*Log_2<A0>();
           return k;
         }
@@ -95,7 +95,7 @@ namespace nt2
 
         static inline A0 reduce(const A0& a0, A0&, A0&, A0& x)
         {
-          A0 k  = round2even(Const<A0,0x400a934f0979a372ll>()*a0);
+          A0 k  = round(Const<A0,0x400a934f0979a372ll>()*a0);
           x     = a0-k*Const<A0,0x3fd3440000000000ll>();
           x    -=  k*Const<A0,0x3ed3509f79fef312ll>();
           return k;
