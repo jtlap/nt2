@@ -8,24 +8,14 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_ROT90_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_ROT90_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functions/is_odd.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <nt2/sdk/meta/size_as.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/core/container/dsl/size.hpp>
 #include <nt2/include/simd.hpp>
 
-// #include <nt2/core/container/dsl/generator.hpp>
-// #include <nt2/sdk/meta/constant_adaptor.hpp>
-// #include <nt2/sdk/meta/generative_hierarchy.hpp>
-// #include <nt2/include/functor.hpp>
-
-// #include <nt2/sdk/parameters.hpp>
-// #include <boost/preprocessor/repetition/repeat_from_to.hpp>
-// #include <boost/preprocessor/arithmetic/inc.hpp>
-
+#include <nt2/include/functions/is_odd.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 
 /*!
  rot90  rotate matrix 90 degrees.

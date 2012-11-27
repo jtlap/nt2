@@ -8,13 +8,12 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_ROT90_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_GENERAL_ROT90_HPP_INCLUDED
-#include <nt2/include/functions/rot90.hpp>
+
+#include <nt2/toolbox/linalg/functions/rot90.hpp>
+#include <nt2/dsl/functions/run.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/flipud.hpp>
 #include <nt2/include/functions/fliplr.hpp>
-#include <nt2/core/container/table/table.hpp>
-#include <nt2/include/functions/assign.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2{ namespace ext
 {
