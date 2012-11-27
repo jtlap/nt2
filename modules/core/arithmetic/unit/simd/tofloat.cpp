@@ -6,12 +6,11 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 boost.simd.arithmetic toolbox - tofloat/simd Mode"
+#define NT2_UNIT_MODULE "nt2 arithmetic toolbox - tofloat/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of boost.simd.arithmetic components in simd mode
+// unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
 ///
 #include <nt2/toolbox/arithmetic/include/functions/tofloat.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
@@ -25,7 +24,7 @@
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
 
-NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( tofloat_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::tofloat;
   using nt2::tag::tofloat_;
@@ -50,7 +49,7 @@ NT2_TEST_CASE_TPL ( tofloat_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(tofloat(nt2::Two<vT>())[0], nt2::Two<sr_t>());
 } // end of test for floating_
 
-NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::tofloat;
   using nt2::tag::tofloat_;
@@ -76,7 +75,7 @@ NT2_TEST_CASE_TPL ( tofloat_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES
 
 } // end of test for int_convert_
 
-NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( tofloat_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::tofloat;
   using nt2::tag::tofloat_;
