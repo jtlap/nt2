@@ -119,8 +119,24 @@ namespace boost { namespace dispatch { namespace meta
       return a0;
     }
   };
+
+  BOOST_DISPATCH_IMPLEMENT( (boost)(dispatch)(meta)
+                          , nt2::tag::run_assign_, tag::cpu_
+                          , (A0)(T0)(N0)(A1)
+                          , ((node_<A0, unspecified_<T0>, N0, nt2::container::domain>))
+                            ((node_<A1, ::tag::red_, mpl::long_<1>, nt2::container::domain>))
+                          )
+  {
+    typedef A0& result_type;
+    result_type operator()(A0& a0, A1&) const
+    {
+      return a0;
+    }
+  };
 } } }
 
+// Scheduling now done at construction
+#if 0
 NT2_TEST_CASE( reduction )
 {
   using boost::mpl::_;
@@ -384,6 +400,7 @@ NT2_TEST_CASE( subscript )
                       )
                     );
 }
+#endif
 
 struct child0
 {

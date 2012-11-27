@@ -11,6 +11,8 @@
 
 #include <nt2/toolbox/operator/functions/assign.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
+#include <nt2/core/container/dsl/domain.hpp>
+#include <boost/proto/expr.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -93,6 +95,25 @@ namespace nt2 { namespace ext
       return impl() ( boost::proto::child_c<0>(e).extent()
                     , boost::proto::child_c<1>(e).extent()
                     );
+    }
+  };
+
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              ((ast_<A1, nt2::container::domain>))
+                            )
+  {
+    typedef nt2::container::domain::template as_child_expr<A0, typename A0::proto_tag, false> A0c;
+    typedef nt2::container::domain::template as_child_expr<A1, typename A1::proto_tag, false> A1c;
+    typedef boost::proto::basic_expr< boost::proto::tag::assign, boost::proto::list2<typename A0c::result_type, typename A1c::result_type>, 2l > expr;
+    typedef container::generator_transform<nt2::container::domain> transform;
+    typedef typename transform::template result<transform(expr const&)>::type result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0& a0, A1& a1) const
+    {
+      return transform()(expr::make(A0c()(a0), A1c()(a1)));
     }
   };
 } }

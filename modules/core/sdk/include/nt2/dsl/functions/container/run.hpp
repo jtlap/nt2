@@ -321,6 +321,18 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0& a0) const
     {
+      return impl(a0, typename meta::is_elementwise<T>::type());
+    }
+
+    BOOST_FORCEINLINE result_type impl(A0& a0, boost::mpl::false_) const
+    {
+      result_type tmp;
+      return nt2::run(nt2::assign(meta::as_child<result_type, nt2::container::domain>::call(tmp), a0));
+      return tmp;
+    }
+
+    BOOST_FORCEINLINE result_type impl(A0& a0, boost::mpl::true_) const
+    {
       typedef typename meta::strip<result_type>::type stype;
       return nt2::run(a0, 0u, meta::as_<stype>());
     }
