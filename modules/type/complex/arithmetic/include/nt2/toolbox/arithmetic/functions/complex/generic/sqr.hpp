@@ -28,44 +28,44 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
+    {
+      typedef typename meta::as_real<A0>::type rA0;
+      typedef typename meta::as_logical<rA0>::type lA0;
+      rA0 x = sqr(nt2::real(a0)) - sqr(nt2::imag(a0));
+      rA0 y = Two<rA0>()*nt2::real(a0)*nt2::imag(a0);
+      result_type r = result_type(x, y);
+      if (nt2::any(logical_or(is_invalid(x), is_invalid(y))))
       {
-        typedef typename meta::as_real<A0>::type rA0;
-        typedef typename meta::as_logical<rA0>::type lA0;
-        rA0 x = sqr(nt2::real(a0)) - sqr(nt2::imag(a0));
-        rA0 y = Two<rA0>()*nt2::real(a0)*nt2::imag(a0);
-        result_type r = result_type(x, y);
-        if (nt2::any(logical_or(is_invalid(x), is_invalid(y))))
-          {
-            lA0 test = is_real(a0);
-            r = if_else(test, result_type(sqr(nt2::real(a0))), r);
-            test = logical_andnot(is_imag(a0), test);
-            r = if_else(test, result_type(-sqr(nt2::imag(a0))), r);
-          }
-        return r;
+        lA0 test = is_real(a0);
+        r = if_else(test, result_type(sqr(nt2::real(a0))), r);
+        test = logical_andnot(is_imag(a0), test);
+        r = if_else(test, result_type(-sqr(nt2::imag(a0))), r);
       }
+      return r;
+    }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_, tag::cpu_, (A0)
                               , (generic_< imaginary_< arithmetic_<A0> > >)
-                              )
+    )
   {
     typedef typename meta::as_real<A0>::type rtype;
     typedef typename meta::as_dry<rtype>::type result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-        return bitwise_cast<result_type>(-nt2::sqr(nt2::imag(a0)));
-      }
+    {
+      return bitwise_cast<result_type>(-nt2::sqr(nt2::imag(a0)));
+    }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sqr_, tag::cpu_, (A0)
                               , (generic_< dry_< arithmetic_<A0> > >)
-                              )
+    )
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-        return bitwise_cast<result_type>(nt2::sqr(nt2::real(a0)));
-      }
+    {
+      return bitwise_cast<result_type>(nt2::sqr(nt2::real(a0)));
+    }
   };
 } }
 
