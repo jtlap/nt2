@@ -40,9 +40,9 @@ namespace nt2 { namespace details
 
   /// INTERNAL ONLY
   /// Factorized code for colon evaluation
-  template<class T, class Pos, class Target>
+  template<class L, class S, class Pos, class Target>
   BOOST_FORCEINLINE typename Target::type
-  colon_value(T const& l, T const& s, Pos const& p, Target const&)
+  colon_value(L const& l, S const& s, Pos const& p, Target const&)
   {
     typedef typename Target::type type;
     return nt2::fma ( nt2::enumerate<type>(p)
@@ -141,7 +141,7 @@ namespace nt2 { namespace details
     }
 
     template<class B, class S>
-    B upper(B const&, S const&, boost::mpl::false_ const&) const
+    std::ptrdiff_t upper(B const&, S const&, boost::mpl::false_ const&) const
     {
       return end_;
     }

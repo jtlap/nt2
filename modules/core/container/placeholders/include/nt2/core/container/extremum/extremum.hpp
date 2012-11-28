@@ -27,9 +27,8 @@ namespace nt2 { namespace container
     }
 
     private:
-    template<class B, class Sz>
-    BOOST_FORCEINLINE
-    std::ptrdiff_t index(B const& b, Sz const& s, boost::mpl::true_) const
+    BOOST_FORCEINLINE std::ptrdiff_t
+    index(std::ptrdiff_t const& b, std::ptrdiff_t const& s, boost::mpl::true_) const
     {
       BOOST_ASSERT_MSG( (offset_ <= 0)
                       , "end_ is used with a non negative offset"
@@ -37,9 +36,8 @@ namespace nt2 { namespace container
       return s + b - 1 + offset_;
     }
 
-    template<class B, class Sz>
-    BOOST_FORCEINLINE
-    std::ptrdiff_t index(B const& b, Sz const&, boost::mpl::false_) const
+    BOOST_FORCEINLINE std::ptrdiff_t
+    index(std::ptrdiff_t const& b, std::ptrdiff_t const& s, boost::mpl::false_) const
     {
       BOOST_ASSERT_MSG( (offset_ >= 0)
                       , "begin_ is used with a non positive offset"
