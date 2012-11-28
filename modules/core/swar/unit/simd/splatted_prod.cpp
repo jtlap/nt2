@@ -12,7 +12,7 @@
 // unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/swar/include/functions/splatted_prod.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/prod.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( splatted_prod_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::splatted_prod;
   using nt2::tag::splatted_prod_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

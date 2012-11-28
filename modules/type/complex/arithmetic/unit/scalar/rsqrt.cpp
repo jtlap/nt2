@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/rsqrt.hpp>
 #include <nt2/toolbox/arithmetic/include/functions/sqr.hpp>
 #include <nt2/toolbox/arithmetic/include/functions/rec.hpp>
@@ -27,7 +27,7 @@
 
 NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using nt2::rsqrt;
   using nt2::tag::rsqrt_;
   typedef typename std::complex<T> cT;
@@ -39,13 +39,13 @@ NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef cT wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
- ulpd=0.0; 
+ ulpd=0.0;
 
-  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
+  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl;
   // specific values tests
    NT2_TEST_EQUAL(rsqrt(cT(1)), T(1));
    NT2_TEST_EQUAL(rsqrt(cT(nt2::Inf<T>())), cT(nt2::Zero<T>()));
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( rsqrt_real__1_0,  BOOST_SIMD_REAL_TYPES)
     {
       for(T j =-5; j < T(5); j+= T(0.5))
         {
-          NT2_TEST_ULP_EQUAL(nt2::rec(nt2::sqr(nt2::rsqrt(cT(i, j)))), cT(i, j), 10); 
-           
+          NT2_TEST_ULP_EQUAL(nt2::rec(nt2::sqr(nt2::rsqrt(cT(i, j)))), cT(i, j), 10);
+
 } // end of test for floating_
 

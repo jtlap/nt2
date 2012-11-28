@@ -12,7 +12,7 @@
 // cover test behavior of combinatorial components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// 
+///
 #include <nt2/toolbox/combinatorial/include/functions/lcm.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -37,7 +37,7 @@
 
 // NT2_TEST_CASE_TPL ( lcm_real__2_0,  NT2_REAL_TYPES)
 // {
-  
+
 //   using nt2::lcm;
 //   using nt2::tag::lcm_;
 //   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -47,9 +47,9 @@
 //   typedef typename boost::common_type<T>::type wished_r_t;
 
 
-//   // return type conformity test 
+//   // return type conformity test
 //   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
+//   std::cout << std::endl;
 //   double ulpd;
 //   ulpd=0.0;
 
@@ -57,7 +57,7 @@
 
 NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::lcm;
   using nt2::tag::lcm_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -67,9 +67,9 @@ NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::common_type<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::lcm;
   using nt2::tag::lcm_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -87,9 +87,9 @@ NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::common_type<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

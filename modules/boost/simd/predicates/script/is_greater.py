@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<result_type>() or False<result_type>() according a0 is greater than a1 or not.'],   
+         'description' : ['Returns True<result_type>() or False<result_type>() according a0 is greater than a1 or not.'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

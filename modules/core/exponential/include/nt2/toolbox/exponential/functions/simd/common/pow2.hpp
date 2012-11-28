@@ -13,7 +13,7 @@
 #include <nt2/include/functions/simd/toint.hpp>
 #include <nt2/include/functions/simd/twopower.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
-#include <nt2/include/functions/simd/is_inf.hpp>  
+#include <nt2/include/functions/simd/is_inf.hpp>
 #include <nt2/include/functions/simd/if_allbits_else.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/is_inf.hpp>
@@ -83,7 +83,7 @@ namespace nt2 { namespace ext
       return nt2::ldexp(One<A0>(), a0);
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow2_, tag::cpu_
                             , (A0)(X)
                             , ((simd_< floating_<A0>,X >))
@@ -101,8 +101,8 @@ namespace nt2 { namespace ext
                                                )
                                   );
     }
-  };  
-    
+  };
+
 } }
 
 

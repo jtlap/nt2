@@ -11,9 +11,9 @@
 
 /*!
  *\file is_supported.hpp
- * \brief Runtime function returning the SIMD extension supported. 
- * For detecting a new extenion from a new vendor you need to add a 
- * vendor case and provide the right specialization of cpuid_mask.  
+ * \brief Runtime function returning the SIMD extension supported.
+ * For detecting a new extenion from a new vendor you need to add a
+ * vendor case and provide the right specialization of cpuid_mask.
 */
 #include <boost/simd/sdk/config/details/detect.hpp>
 
@@ -26,6 +26,6 @@ namespace boost{ namespace simd{
     return config::details::detect(tag_);
   }
 
-} } 
+} }
 
 #endif

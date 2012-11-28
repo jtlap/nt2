@@ -25,12 +25,12 @@
  * This is always zero for integer inputs.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/frac.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of frac
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag frac_ of functor frac 
+     * \brief Define the tag frac_ of functor frac
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct frac_ : ext::elementwise_<frac_> { typedef ext::elementwise_<frac_> parent; };

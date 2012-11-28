@@ -18,12 +18,12 @@
  * according to the first entry being True or False
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/selsub.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -38,19 +38,19 @@
  * \param a0 the first parameter of selsub
  * \param a1 the second parameter of selsub, must be an integer value
  * \param a2 the third parameter of selsub
- * 
+ *
  * \return a value of the common type of the 2 last parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag selsub_ of functor selsub 
+     * \brief Define the tag selsub_ of functor selsub
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
     struct selsub_ : ext::elementwise_<selsub_> { typedef ext::elementwise_<selsub_> parent; };

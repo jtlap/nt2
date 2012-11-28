@@ -15,7 +15,7 @@
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gebal.hpp>
-#include <nt2/toolbox/linalg/details/lapack/gebak.hpp>  
+#include <nt2/toolbox/linalg/details/lapack/gebak.hpp>
 #include <nt2/table.hpp>
 //     [t,b] = balance(a) finds a similarity transformation t such
 //     that b = t\a*t has, as nearly as possible, approximately equal
@@ -51,7 +51,7 @@ namespace nt2 { namespace details
     typedef nt2::table<base_t,index_t>                  bresult_type;
     typedef nt2::table<itab_t,index_t>                  iresult_type;
     //must be dry I think
-    
+
     template<class Input>
     balance_result ( Input& xpr, char job/* = 'B'*/)
       : job_(job)
@@ -61,7 +61,7 @@ namespace nt2 { namespace details
       , n_( nt2::height(a_)  )
       , lda_( a_.leading_size() )
       , t_(of_size(n_, n_))
-      , invt_(of_size(0, 0))      
+      , invt_(of_size(0, 0))
       , ilo_(0)
       , ihi_(0)
       , scale_(of_size(1, n_))
@@ -74,21 +74,21 @@ namespace nt2 { namespace details
                           &info_);
       t_ = nt2::eye(n_, n_, meta::as_<type_t>());
       nt2_la_int ldt = t_.leading_size();
-      char side =  'R'; 
+      char side =  'R';
       nt2::details::gebak(&job_, &side, &n_,
                           &ilo_, &ihi_, scale_.raw(),
-                          &n_, t_.raw(), &ldt, &info_); 
+                          &n_, t_.raw(), &ldt, &info_);
     }
-    
+
     balance_result& operator=(balance_result const& src)
     {
       job_    = src.job_;
       a_      = src.a_;
       aa_     = src.aa_;
-      ipi_    = src.ipi_; 
+      ipi_    = src.ipi_;
       n_      = src.n_;
       t_      = src.t_;
-      invt_   = src.invt_; 
+      invt_   = src.invt_;
       lda_    = src.lda_;
       ilo_    = src.ilo_;
       ihi_    = src.ihi_;
@@ -100,34 +100,34 @@ namespace nt2 { namespace details
       : job_(src.job_),
         a_(src.a_),
         aa_(src.aa_),
-        ipi_(src.ipi_),                
+        ipi_(src.ipi_),
         n_(src.n_),
         lda_(src.lda_),
         t_(src.t_),
-        invt_(src.invt_), 
+        invt_(src.invt_),
         ilo_(src.ilo_),
         ihi_(src.ihi_),
         scale_(src.scale_),
         info_(src.info_)
     {}
-    
+
     //==========================================================================
     // Return raw values
     //==========================================================================
     data_t values() const { return a_; }
     //result_type
     const tab_t & balanced() const { return aa_; }
-    
+
     //==========================================================================
     // Return scale part as a vector
     // This surely can be done in a more clever way directly from scale_
     //==========================================================================
-    typedef typename meta::call < tag::maximum_(btab_t const&, int32_t)>::type                    scale_T0; 
+    typedef typename meta::call < tag::maximum_(btab_t const&, int32_t)>::type                    scale_T0;
     typedef typename meta::call < tag::reshape_(scale_T0 const&, int32_t, nt2_la_int)>::type scale_result;
-    
+
     scale_result scale() const
     {
-      return nt2::reshape(nt2::max(t_, nt2::_(), 2), 1, n_); 
+      return nt2::reshape(nt2::max(t_, nt2::_(), 2), 1, n_);
     }
     //==========================================================================
     // Return permute part as a vector of indices
@@ -137,7 +137,7 @@ namespace nt2 { namespace details
     {
       if (isempty(ipi_))
       {
-        ipi_.resize(of_size(1, n_)); 
+        ipi_.resize(of_size(1, n_));
         for(int i=1; i <= n_; ++i)
         {
           for(int j=1; j <= n_; ++j)
@@ -165,12 +165,12 @@ namespace nt2 { namespace details
       {
         invt_ = nt2::eye(n_, n_, meta::as_<type_t>());
         nt2_la_int ldt = invt_.leading_size();
-        char side =  'L'; 
+        char side =  'L';
         nt2::details::gebak(&job_, &side, &n_,
                               &ilo_, &ihi_, scale_.raw(),
                             &n_, invt_.raw(), &ldt, &info_);
       }
-      return invt_; 
+      return invt_;
     }
     //==========================================================================
     // Return lapack status
@@ -182,7 +182,7 @@ namespace nt2 { namespace details
     char                           job_;
     data_t                           a_;
     tab_t                           aa_;
-    itab_t                         ipi_; 
+    itab_t                         ipi_;
     nt2_la_int                       n_;
     nt2_la_int                     lda_;
     tab_t                            t_;

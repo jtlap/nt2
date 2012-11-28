@@ -26,12 +26,12 @@
  * rg if a1 is less than a0 this is prev(a0)
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/nextafter.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,19 +45,19 @@
  *
  * \param a0 the first parameter of nextafter
  * \param a1 the second parameter of nextafter
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag nextafter_ of functor nextafter 
+     * \brief Define the tag nextafter_ of functor nextafter
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct nextafter_ : ext::elementwise_<nextafter_> { typedef ext::elementwise_<nextafter_> parent; };

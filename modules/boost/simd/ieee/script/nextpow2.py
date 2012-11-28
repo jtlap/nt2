@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns the least n such that abs(a0) is less or equal to \f$2^n\f$'],   
+         'description' : ['Returns the least n such that abs(a0) is less or equal to \f$2^n\f$'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

@@ -25,12 +25,12 @@
  * a0-divfloor(a0,a1)*a1
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mod.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  *
  * \param a0 the first parameter of mod
  * \param a1 the second parameter of mod
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag mod_ of functor mod 
+     * \brief Define the tag mod_ of functor mod
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct mod_ : ext::elementwise_<mod_> { typedef ext::elementwise_<mod_> parent; };

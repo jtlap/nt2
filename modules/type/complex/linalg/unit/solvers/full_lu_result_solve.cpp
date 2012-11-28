@@ -26,7 +26,7 @@ NT2_TEST_CASE_TPL(full_lu_solve_resultc, NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::tag::solvers::full_lu_solve_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
   typedef nt2::table<cT> ct_t;
   typedef nt2::table<itype_t> it_t;
@@ -38,5 +38,5 @@ NT2_TEST_CASE_TPL(full_lu_solve_resultc, NT2_REAL_TYPES)
   nt2::details::full_lu_solve_result<ct_t> f(a, b, 'N');
 
   nt2::display("values", f.x());
-  NT2_TEST(nt2::isulpequal(b, mtimes(a, f.x()))); 
+  NT2_TEST(nt2::isulpequal(b, mtimes(a, f.x())));
  }

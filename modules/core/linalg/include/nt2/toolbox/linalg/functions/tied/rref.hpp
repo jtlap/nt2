@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       child0;
     typedef typename meta::strip<child0>::type                          dest0_t;
-    typedef typename dest0_t::value_type                             value_type; 
+    typedef typename dest0_t::value_type                             value_type;
     typedef typename meta::
             call< nt2::tag::
                   factorization::rref_(child0, value_type, nt2::details::in_place_)
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
       // Copy data in output first
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
       // Retrieve the tol options
-      value_type tol = choice(a0, N0()); 
+      value_type tol = choice(a0, N0());
 
       // Factorize in place
       fact_t f = factorization::rref(boost::proto::child_c<0>(a1),tol,in_place_);
@@ -57,13 +57,13 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     value_type choice(A0 const &, boost::mpl::long_<1> const &) const
     {
-      return Mone<value_type>(); 
+      return Mone<value_type>();
     }
 
     BOOST_FORCEINLINE
     value_type choice(A0 const & a0, boost::mpl::long_<2> const &) const
     {
-      return boost::proto::value(boost::proto::child_c<1>(a0)); 
+      return boost::proto::value(boost::proto::child_c<1>(a0));
     }
     //==========================================================================
     // INTERNAL ONLY
@@ -81,7 +81,7 @@ namespace nt2 { namespace ext
       boost::proto::child_c<0>(a1) = f.rref();
       boost::proto::child_c<1>(a1) = f.jb();
     }
- 
+
   };
 } }
 

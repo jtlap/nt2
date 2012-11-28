@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
                  A1& a1,
                  A2 const & jobvsl,
                  A3 const & jobvsr,
-                 A4 const & sort, 
+                 A4 const & sort,
                  IP const&) const
     {
       result_type that(a0, a1, jobvsl, jobvsr, sort);

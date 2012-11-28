@@ -12,7 +12,7 @@
 // unit test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/erfcinv.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -37,7 +37,7 @@
 
 NT2_TEST_CASE_TPL ( erfcinv_real__1_0, NT2_REAL_TYPES)
 {
- 
+
   using nt2::erfcinv;
   using nt2::tag::erfcinv_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -47,9 +47,9 @@ NT2_TEST_CASE_TPL ( erfcinv_real__1_0, NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(erfcinv(nt2::Zero<r_t>()      ),  nt2::Inf<T>()   , 10);

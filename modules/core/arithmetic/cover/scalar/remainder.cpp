@@ -12,7 +12,7 @@
 // cover test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 /// The remainder() function computes the remainder of dividing x by y.
 /// The return value is x-n*y, where n is the value x / y,
 /// rounded to the nearest integer.  If the absolute value of x-n*y is 0.5,
@@ -40,7 +40,7 @@
 
 NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::remainder;
   using nt2::tag::remainder_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -50,9 +50,9 @@ NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_REAL_TYPES)
   typedef typename boost::common_type<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( remainder_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::remainder;
   using nt2::tag::remainder_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -89,9 +89,9 @@ NT2_TEST_CASE_TPL ( remainder_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::common_type<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -118,7 +118,7 @@ NT2_TEST_CASE_TPL ( remainder_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( remainder_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::remainder;
   using nt2::tag::remainder_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -128,9 +128,9 @@ NT2_TEST_CASE_TPL ( remainder_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::common_type<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

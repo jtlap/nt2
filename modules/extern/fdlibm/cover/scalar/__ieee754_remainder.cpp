@@ -12,7 +12,7 @@
 // cover test behavior of fdlibm components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 03/03/2011
-/// 
+///
 #include <nt2/toolbox/fdlibm/include/functions/__ieee754_remainder.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -41,7 +41,7 @@
 
 NT2_TEST_CASE_TPL ( __ieee754_remainder_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::fdlibm::__ieee754_remainder;
   using nt2::fdlibm::tag::__ieee754_remainder_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -51,9 +51,9 @@ NT2_TEST_CASE_TPL ( __ieee754_remainder_real__2_0,  NT2_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL ( __ieee754_remainder_real__2_0,  NT2_REAL_TYPES)
                   << std::endl;
         T v1 = nt2::abs(nt2::fdlibm::fmod(a0,a1)+a1*(nt2::idivround(a0, a1))-a0);
         T v2 = nt2::abs(nt2::rem(a0,a1)+a1*(nt2::idivround(a0, a1))-a0);
-        NT2_TEST_LESSER_EQUAL(v2, v1); 
+        NT2_TEST_LESSER_EQUAL(v2, v1);
         ulp0=nt2::max(ulpd,ulp0);
      }
      std::cout << "max ulp found is: " << ulp0 << std::endl;

@@ -30,7 +30,7 @@ NT2_TEST_CASE( fundamental_isequal )
   NT2_TEST( !nt2::isequal(1, 2)   );
   NT2_TEST( !nt2::isequal(1., 2.)  );
   NT2_TEST( !nt2::isequal(1.f, 2.0f) );
-  NT2_TEST( !nt2::isequal(nt2::Nan<float>(), nt2::Nan<float>())); 
+  NT2_TEST( !nt2::isequal(nt2::Nan<float>(), nt2::Nan<float>()));
 }
 
 NT2_TEST_CASE( container_isequal )

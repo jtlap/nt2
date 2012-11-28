@@ -28,12 +28,12 @@
  * of some more machine cycles.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_ldexp.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -47,19 +47,19 @@
  *
  * \param a0 the first parameter of fast_ldexp
  * \param a1 the second parameter of fast_ldexp
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_ldexp_ of functor fast_ldexp 
+     * \brief Define the tag fast_ldexp_ of functor fast_ldexp
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct fast_ldexp_ : ext::elementwise_<fast_ldexp_> { typedef ext::elementwise_<fast_ldexp_> parent; };

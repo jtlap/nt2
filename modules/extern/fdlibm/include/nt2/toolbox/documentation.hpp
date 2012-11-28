@@ -1,5 +1,5 @@
 /**
- * \ingroup toolbox  
+ * \ingroup toolbox
  * \defgroup fdlibm  fdlibm functions access
  * \brief easy access to functions from the fdlibm C library
  *

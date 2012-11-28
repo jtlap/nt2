@@ -23,12 +23,12 @@
  * by the absolute value of second entry.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/shrai.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  *
  * \param a0 the first parameter of shrai
  * \param a1 the second parameter of shrai, must be a scalar integer value
- * 
+ *
  * \return returns a value of the type of the first parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag shrai_ of functor shrai 
+     * \brief Define the tag shrai_ of functor shrai
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct shrai_ : ext::elementwise_<shrai_> { typedef ext::elementwise_<shrai_> parent; };

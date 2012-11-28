@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/sqr_abs.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/i.hpp>
@@ -25,7 +25,7 @@
 
 NT2_TEST_CASE_TPL ( sqr_abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using nt2::sqr_abs;
   using nt2::tag::sqr_abs_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,13 +37,13 @@ NT2_TEST_CASE_TPL ( sqr_abs_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
- ulpd=0.0; 
+ ulpd=0.0;
 
-  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
+  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl;
   // specific values tests
    NT2_TEST_ULP_EQUAL(sqr_abs(cT(1)), T(1), 0);
    NT2_TEST_EQUAL(sqr_abs(cT(nt2::Inf<T>())), nt2::Inf<T>());

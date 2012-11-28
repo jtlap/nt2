@@ -3,7 +3,7 @@
      'functor' : {
          'description' : ['The function returns the second entry or the sum of the second and third entries,',
                           'according to the first entry being True or False'],
-         'param_1' : ['must be an integer value'],   
+         'param_1' : ['must be an integer value'],
            'module' : 'boost',
          'arity' : '3',
          'call_types' : [],

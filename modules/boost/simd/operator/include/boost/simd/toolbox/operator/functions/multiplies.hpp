@@ -24,15 +24,15 @@
  * Infix notation can be used with operator '*'
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/multiplies.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg mul
  * \arg times
- * 
+ *
  * \synopsis
  *
  * \code
@@ -46,13 +46,13 @@
  *
  * \param a0 the first parameter of multiplies
  * \param a1 the second parameter of multiplies
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -60,7 +60,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag multiplies_ of functor multiplies 
+     * \brief Define the tag multiplies_ of functor multiplies
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct multiplies_ : ext::elementwise_<multiplies_> { typedef ext::elementwise_<multiplies_> parent; };

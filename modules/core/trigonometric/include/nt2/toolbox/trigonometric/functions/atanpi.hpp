@@ -22,12 +22,12 @@
  * inverse tangent in \f$\pi\f$ multiples.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/atanpi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,20 +40,20 @@
  * \endcode
  *
  * \param a0 the unique parameter of atanpi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 {
   namespace tag
   {
     /*!
-     * \brief Define the tag atanpi_ of functor atanpi 
+     * \brief Define the tag atanpi_ of functor atanpi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct atanpi_ : ext::elementwise_<atanpi_> { typedef ext::elementwise_<atanpi_> parent; };

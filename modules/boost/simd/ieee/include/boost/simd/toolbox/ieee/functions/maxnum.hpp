@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/maxnum.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of maxnum
  * \param a1 the second parameter of maxnum
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag maxnum_ of functor maxnum 
+     * \brief Define the tag maxnum_ of functor maxnum
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct maxnum_ : ext::elementwise_<maxnum_> { typedef ext::elementwise_<maxnum_> parent; };

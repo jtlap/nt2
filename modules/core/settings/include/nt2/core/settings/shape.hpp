@@ -12,15 +12,15 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/shape.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
   namespace meta
   {
     template<class Default> struct option<rectangular_, tag::shape_, Default>
     {
       typedef rectangular_ type;
     };
-  } 
+  }
 }
 
 #include <nt2/core/settings/details/shape.hpp>

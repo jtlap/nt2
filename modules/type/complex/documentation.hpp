@@ -28,10 +28,10 @@
  * All complex functions can use an mix these 3 types together and with floating,
  * producing the smallest type (determined statically) able to hold the result,
  * but never floating if on of the three other is involved.
- * 
+ *
  * The dry<T> type is not T, it smells like T, it looks like T, but:
- *                      i = nt2::sqrt(dry<float>(-1.0f)) 
- * is of type nt2::imaginary<float> and of value satisfying as expected i*i == -1, 
+ *                      i = nt2::sqrt(dry<float>(-1.0f))
+ * is of type nt2::imaginary<float> and of value satisfying as expected i*i == -1,
  * opposite to nt2::sqrt(-1.0f)) returning Nan<float>() (not a number)
  *
  * So be dry, if you aim complex type results.
@@ -65,7 +65,7 @@
  *        oneplus   : a0+1
  *        rec
  *        rsqrt
- *        sqr 
+ *        sqr
  *        sqr_abs  : square modulus sqr(nt2::real(a0))+sqr(nt2::imag(a0))
  *        sqrt
  *
@@ -110,7 +110,7 @@
  *        ldexp    : multiplies the complex by 2^n n being the second and integral parameter
  *        negate   : the second parameter must be floating and the functor applies  to real and imaginary parts
  *        sign     : complex sign,  i.e. a0/abs(a0) (or 0)
- *        ulpdist  : maximum of the ulpdist applied on real and imaginary parts 
+ *        ulpdist  : maximum of the ulpdist applied on real and imaginary parts
  *
  * operator
  *
@@ -141,7 +141,7 @@
  *        is_greater_equal
  *        is_greater
  *        is_gtz
- *        is_imag       : real part is 0  
+ *        is_imag       : real part is 0
  *        is_inf        : one of the a0 parts is infinite
  *        is_invalid    : one of the a0 parts is not finite
  *        is_less_equal
@@ -158,13 +158,13 @@
  *        is_not_equal_with_equal_nans
  *        is_not_greater_equal
  *        is_not_greater
- *        is_not_imag       : real part is not 0  
+ *        is_not_imag       : real part is not 0
  *        is_not_infinite
  *        is_not_less_equal
  *        is_not_less
  *        is_not_nan        : both a0 parts are not nan
- *        is_not_real       : imaginary part is not 0  
- *        is_real           : imaginary part is 0 
+ *        is_not_real       : imaginary part is not 0
+ *        is_real           : imaginary part is 0
  *
  * reduction
  *
@@ -178,7 +178,7 @@
  *        posmax.hpp
  *        posmin.hpp
  *        sum.hpp
- *         
+ *
  * swar
  *
  *        cumsum.hpp
@@ -192,9 +192,9 @@
  *        splatted_second.hpp
  *        splatted_sum.hpp
  *        split.hpp
- *         
+ *
  * trigonometric
- *        
+ *
  *        acos.hpp
  *        asin.hpp
  *        atan.hpp

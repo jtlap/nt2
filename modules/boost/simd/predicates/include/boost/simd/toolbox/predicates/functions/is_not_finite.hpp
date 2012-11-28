@@ -22,12 +22,12 @@
  * Returns True<result_type>() if a0 is  inf, -inf or nan, else returns False<result_type>().
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_not_finite.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of is_not_finite
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -53,13 +53,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_not_finite_ of functor is_not_finite 
+     * \brief Define the tag is_not_finite_ of functor is_not_finite
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_not_finite_ : ext::elementwise_<is_not_finite_> { typedef ext::elementwise_<is_not_finite_> parent; };

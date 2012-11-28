@@ -23,14 +23,14 @@
  * types for which \c abss(Valmin) is \c Valmax-1
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/abss.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg sturated_abs
- * 
+ *
  * \synopsis
  *
  * \code
@@ -43,20 +43,20 @@
  * \endcode
  *
  * \param a0 the unique parameter of abss
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag abss_ of functor abss 
+     * \brief Define the tag abss_ of functor abss
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct abss_ : ext::elementwise_<abss_> { typedef ext::elementwise_<abss_> parent; };

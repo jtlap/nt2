@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return nt2::sum(nt2::if_zero_else(nt2::is_nan(a0), a0)); 
+      return nt2::sum(nt2::if_zero_else(nt2::is_nan(a0), a0));
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nansum_, tag::cpu_,
@@ -48,7 +48,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-      return nt2::sum(nt2::if_zero_else(nt2::is_nan(a0), a0), a1); 
+      return nt2::sum(nt2::if_zero_else(nt2::is_nan(a0), a0), a1);
     }
   };
 } }

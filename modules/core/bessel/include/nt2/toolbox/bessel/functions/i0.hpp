@@ -22,12 +22,12 @@
  * Modified Bessel function of the first kind of order 0.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/i0.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of i0
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag i0_ of functor i0 
+     * \brief Define the tag i0_ of functor i0
      *        in namespace nt2::tag for toolbox bessel
     **/
     struct i0_ : ext::elementwise_<i0_> { typedef ext::elementwise_<i0_> parent; };

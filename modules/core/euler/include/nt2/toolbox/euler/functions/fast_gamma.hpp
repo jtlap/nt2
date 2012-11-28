@@ -25,12 +25,12 @@
  * function itself and nonguaranted limiting values for the sake of speed.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_gamma.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of fast_gamma
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_gamma_ of functor fast_gamma 
+     * \brief Define the tag fast_gamma_ of functor fast_gamma
      *        in namespace nt2::tag for toolbox euler
     **/
     struct fast_gamma_ : ext::elementwise_<fast_gamma_> { typedef ext::elementwise_<fast_gamma_> parent; };

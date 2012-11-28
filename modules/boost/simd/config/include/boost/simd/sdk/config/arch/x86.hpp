@@ -15,23 +15,23 @@
       ||  defined(DOXYGEN_ONLY)
     #define BOOST_SIMD_ARCH_X86_64
   #endif
-  
+
   #if     defined(BOOST_SIMD_ARCH_X86_64)                        \
       ||  defined(__i386__)       || defined(_M_IX86)     \
       ||  defined(__INTEL__)      || defined(_X86_)       \
       ||  defined(__THW_INTEL__)  || defined(DOXYGEN_ONLY)
     #define BOOST_SIMD_ARCH_X86
   #endif
-  
+
   #if defined(BOOST_SIMD_ARCH_X86_64) ||  defined(DOXYGEN_ONLY)
     #define BOOST_SIMD_ARCH "Intel x86_64"
   #elif defined(BOOST_SIMD_ARCH_X86)
     #define BOOST_SIMD_ARCH "Intel x86"
   #endif
-  
+
   #if defined(BOOST_SIMD_ARCH) || defined(DOXYGEN_ONLY)
     #define BOOST_SIMD_ARCH_ALIGNMENT 16
   #endif
-  
+
 #endif
 #endif

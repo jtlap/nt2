@@ -12,7 +12,7 @@
 // cover test behavior of polynomials components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// 
+///
 #include <nt2/toolbox/polynomials/include/functions/polevl.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( polevl_real__2_0,  NT2_REAL_TYPES)
 {
 //   using nt2::polevl;
 //   using nt2::tag::polevl_;
-//   using nt2::load; 
+//   using nt2::load;
 //   using nt2::simd::native;
 //   using nt2::meta::cardinal_of;
 //   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

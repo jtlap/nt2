@@ -22,12 +22,12 @@
  * shuffles the elements of a1 using indices in a2
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/lookup.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,9 +41,9 @@
  *
  * \param a0 the first parameter of lookup
  * \param a1 the second parameter of lookup
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -55,13 +55,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag lookup_ of functor lookup 
+     * \brief Define the tag lookup_ of functor lookup
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct lookup_ : ext::unspecified_<lookup_> { typedef ext::unspecified_<lookup_> parent; };

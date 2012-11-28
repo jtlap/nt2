@@ -48,7 +48,7 @@ class Specific_values_test_gen(Base_gen) :
         dd = d.get(typ,d.get("default",None))
         r = ["", "  // specific values tests"]
         no_ulp = dl["unit"]["global_header"].get("no_ulp",False)
-        no_ulp = False if no_ulp == 'False' else no_ulp        
+        no_ulp = False if no_ulp == 'False' else no_ulp
         ulp_str = "" if no_ulp else "ULP_"
         thresh_str = "" if no_ulp else ", $specific_thresh$"
         if self.mode == 'simd' :
@@ -58,7 +58,7 @@ class Specific_values_test_gen(Base_gen) :
                 Spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$)[0], $call_param_res$%s);"
         else :
             Spec_values_tpl = "  NT2_TEST_%sEQUAL($fct_name$($call_param_vals$), $call_param_res$%s);"
-#####        print("dd-------- %s"%dd) 
+#####        print("dd-------- %s"%dd)
         for k in sorted(dd.keys()) :
             s = Spec_values_tpl%  (ulp_str,thresh_str)
             s =re.sub("\$fct_name\$",self.bg.get_fct_name(),s)
@@ -84,16 +84,16 @@ class Specific_values_test_gen(Base_gen) :
             s =re.sub("\$call_param_res\$",rep,s)
             s =re.sub("\$specific_thresh\$",thr,s)
             r.append(s)
-        return r    
+        return r
 
     def __create_tuple_values_test(self,dl,typ,ret_arity) :
         no_ulp = dl["unit"]["global_header"].get("no_ulp",False)
-        no_ulp = False if no_ulp == 'False' else no_ulp        
+        no_ulp = False if no_ulp == 'False' else no_ulp
         if no_ulp :
             Call = "    NT2_TEST_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$);"
         else :
             Call = "    NT2_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$, $specific_thresh$);"
-            
+
         Results = "    r_t res = $fct_name$($call_param_vals$);"
         d = dl['unit']["specific_values"]
         dd = d.get(typ,d.get("default",None))
@@ -132,7 +132,7 @@ class Specific_values_test_gen(Base_gen) :
                     s1 =re.sub("T","vT",s1)
                 r.append(s1)
             r.append("  }")
-        return r    
+        return r
 
 if __name__ == "__main__" :
     from pprint        import PrettyPrinter

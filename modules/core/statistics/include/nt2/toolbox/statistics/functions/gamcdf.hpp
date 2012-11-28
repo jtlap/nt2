@@ -42,7 +42,7 @@
  *
  *  nt2::tie(p,plo,pup) = gamcdf(x, a, b, pcov, alpha)
  *
- * to produce confidence bounds for p when the input parameter mu is an estimate. 
+ * to produce confidence bounds for p when the input parameter mu is an estimate.
  *  pcov is 2x2 matrix of the estimated a, b,  alpha has a default value of 0.05, and
  * specifies 100*(1-alpha)% confidence bounds.  plo and pup are arrays of
  * the same size as p containing the lower and upper confidence bounds.
@@ -50,12 +50,12 @@
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/gamcdf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -69,9 +69,9 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gamcdf_ of functor gamcdf 
+     * \brief Define the tag gamcdf_ of functor gamcdf
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct gamcdf_ : ext::tieable_<gamcdf_> { typedef ext::tieable_<gamcdf_> parent; };
@@ -79,7 +79,7 @@ namespace nt2 { namespace tag
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf0_, gamcdf, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf0_, gamcdf, 3)    
+  NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf0_, gamcdf, 3)
   NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf_, gamcdf, 4)
   NT2_FUNCTION_IMPLEMENTATION(tag::gamcdf_, gamcdf, 5)
 }
@@ -100,11 +100,11 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
      return utility::max_extent(nt2::extent(boost::proto::child_c<0>(e)),
-                       nt2::extent(boost::proto::child_c<1>(e)), 
+                       nt2::extent(boost::proto::child_c<1>(e)),
                        nt2::extent(boost::proto::child_c<2>(e)));
     }
   };
-  
+
   template<class Domain, class Expr>
   struct  size_of<tag::gamcdf_,Domain,1,Expr>
         : meta::size_as<Expr,0>
@@ -114,7 +114,7 @@ namespace nt2 { namespace ext
   struct  value_type<tag::gamcdf_,Domain,N,Expr>
         : meta::value_as<Expr,0>
   {};
-} } 
+} }
 
 #endif
 

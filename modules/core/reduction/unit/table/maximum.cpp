@@ -89,5 +89,5 @@ NT2_TEST_CASE_TPL( maximum_2, (float)(double) )
   NT2_TEST(nt2::isequal(sy,  nt2::maximum(y, 2)));
   sy = nt2::maximum(y, 3);
   NT2_TEST(nt2::isequal(sy,  nt2::maximum(y, 3)));
-  
+
 }

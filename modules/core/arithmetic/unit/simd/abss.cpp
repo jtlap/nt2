@@ -12,7 +12,7 @@
 // unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/abss.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( abss_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::abss;
   using nt2::tag::abss_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( abss_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::abss;
   using nt2::tag::abss_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -98,7 +98,7 @@ NT2_TEST_CASE_TPL ( abss_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::abss;
   using nt2::tag::abss_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

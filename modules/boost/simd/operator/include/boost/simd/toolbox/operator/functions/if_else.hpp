@@ -26,14 +26,14 @@
  * as parameter 1
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/if_else.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg where
- * 
+ *
  * \synopsis
  *
  * \code
@@ -48,13 +48,13 @@
  * \param a0 the first parameter of if_else
  * \param a1 the second parameter of if_else
  * \param a2 the third parameter of if_else
- * 
+ *
  * \return a value of the common type of the second and third  parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -62,7 +62,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag if_else_ of functor if_else 
+     * \brief Define the tag if_else_ of functor if_else
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct if_else_ : ext::elementwise_<if_else_> { typedef ext::elementwise_<if_else_> parent; };

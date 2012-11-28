@@ -23,12 +23,12 @@
  * In SIMD not all integer types can be so converted
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/tofloat.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of tofloat
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag tofloat_ of functor tofloat 
+     * \brief Define the tag tofloat_ of functor tofloat
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct tofloat_ : ext::elementwise_<tofloat_> { typedef ext::elementwise_<tofloat_> parent; };

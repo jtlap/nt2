@@ -23,16 +23,16 @@ using spirit::standard::space_type;
 std::string add_scalar(const std::string& arg)
 {
     using namespace qi::labels;
-    
+
     qi::rule<std::string::const_iterator, space_type, std::string()> full_name
         =   (   qi::lit('(') >> full_name >> qi::lit(')')   )
         |   (   qi::lexeme[+(qi::char_ - qi::char_("()"))]  )
     ;
-    
+
     std::string::const_iterator it = arg.begin();
     std::string arg2;
     qi::phrase_parse(it, arg.end(), full_name, space, arg2);
-    
+
     qi::symbols<char> symbols;
     symbols.add
         ("fundamental_")
@@ -51,7 +51,7 @@ std::string add_scalar(const std::string& arg)
         ("ints64_")("int64_")("uint64_")
         ("type8_")("type16_")("type32_")("type64_")
     ;
-    
+
     it = arg2.begin();
     if(!qi::phrase_parse(it, const_cast<const std::string&>(arg2).end(), symbols, space))
         return arg;
@@ -120,10 +120,10 @@ std::ostream& operator<<(std::ostream& os, file_t const& file)
     os << "//                 See accompanying file LICENSE.txt or copy at                 \n";
     os << "//                     http://www.boost.org/LICENSE_1_0.txt                     \n";
     os << "//==============================================================================\n";
-    
+
     BOOST_FOREACH(const call_t& call, file.specializations)
         os << call;
-        
+
     os << file.epilogue;
     os << "#endif\n";
     return os;
@@ -134,7 +134,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
     call_file(bool debug_) : base_type(root), debug(debug_)
     {
         using namespace qi::labels;
-        
+
         specialization
             =   (   qi::no_skip[!space] >> comment
                 >>  register_dispatch
@@ -155,7 +155,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
                     _val = _2
                 ]
         ;
-        
+
         register_dispatch
             =   qi::lit("NT2_REGISTER_DISPATCH")
                 >>  qi::lit('(')
@@ -166,7 +166,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
                 >>  qi::lit(')')
                 >>  -qi::lit(';')
         ;
-        
+
         call
             =   template_declare
                 >>  qi::lit("struct") >> qi::lit("call")
@@ -184,7 +184,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
                     >> operator_
                 >>  qi::lit('}') >> qi::lit(';')
         ;
-        
+
         result
             %=  (   (   qi::lit("typedef") >> full_name >> qi::lit("result_type")   )
                 |   (   template_declare
@@ -208,7 +208,7 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
                 )
                 >> qi::lit(';')
         ;
-        
+
         operator_
             =   qi::lit("NT2_FUNCTOR_CALL(") >> qi::omit[qi::int_] >> qi::lit(')')
                 >> qi::lit('{')
@@ -225,9 +225,9 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
                         ) % ','
                 >> qi::lit('>')
         ;
-        
+
         name = qi::raw[+qi::char_("a-zA-Z0-9_")];
-        
+
         full_name
             =   qi::raw[
                     (   qi::lit('(') >> (full_name % qi::char_(',')) >> qi::lit(')')   )
@@ -239,19 +239,19 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
                         )
                 ]
         ;
-        
+
         code
             =  *(   (   qi::char_('{') >> code >> qi::char_('}')    )
                 |   (   qi::char_ - qi::char_("{}")                 )
                 )
         ;
-        
+
         root
             =   qi::omit[comment]
                 >>  *specialization
                 >>  epilogue
         ;
-        
+
         epilogue
             =   ( qi::no_skip["#endif"] >> qi::omit[comment >> qi::eoi]  )
             |   ( qi::no_skip[qi::char_] >> epilogue )
@@ -269,46 +269,46 @@ struct call_file : qi::grammar<file_iterator, space_type, file_t()>
                 |   (   qi::lit("/*") >> c_comment              )
                 ] ]
         ;
-        
+
         #define DEBUG_NODE(r)                                              \
         r.name(#r);                                                        \
         if(debug)                                                          \
             qi::debug(r);                                                  \
-        
+
         DEBUG_NODE(root)
         DEBUG_NODE(c_comment)
         DEBUG_NODE(comment)
         DEBUG_NODE(epilogue)
-            
+
         DEBUG_NODE(specialization)
         DEBUG_NODE(register_dispatch)
         DEBUG_NODE(call)
         DEBUG_NODE(result)
         DEBUG_NODE(operator_)
-        
+
         DEBUG_NODE(template_declare)
         DEBUG_NODE(name)
         DEBUG_NODE(full_name)
         DEBUG_NODE(code)
     }
 
-    
+
     qi::rule<file_iterator, space_type, file_t()> root;
     qi::rule<file_iterator, space_type, std::string()> epilogue;
     qi::rule<file_iterator, std::string()> c_comment;
     qi::rule<file_iterator, space_type, std::string()> comment;
-    
+
     qi::rule<file_iterator, space_type, call_t()> specialization;
     qi::rule<file_iterator, space_type, dispatch_t()> register_dispatch;
     qi::rule<file_iterator, space_type, boost::fusion::vector2<std::string, std::string>()> call;
     qi::rule<file_iterator, space_type, std::string()> result;
     qi::rule<file_iterator, space_type, std::string()> operator_;
-    
+
     qi::rule<file_iterator, space_type> template_declare;
     qi::rule<file_iterator, space_type, std::string()> name;
     qi::rule<file_iterator, space_type, std::string()> full_name;
     qi::rule<file_iterator, std::string()> code;
-    
+
     bool debug;
 };
 
@@ -332,32 +332,32 @@ int main(int argc, char* argv[])
                 ++pos;
         }
     }
-    
+
     if(pos >= argc)
     {
         std::cerr << "No file argument" << std::endl;
         return 1;
     }
-    
+
     std::fstream f(argv[pos]);
     if(!f)
     {
         std::cerr << "File " << argv[pos] << " could not be opened" << std::endl;
         return 1;
     }
-    
+
     if(display)
         std::cout << argv[pos] << ": parsing..." << std::endl;
-    
+
     std::stringstream ss;
     ss << f.rdbuf();
     std::string buf = ss.str();
-    
+
     std::string::iterator it = buf.begin();
-    
+
     file_t file;
     bool b = qi::phrase_parse(it, buf.end(), call_file(debug), space, file);
-    
+
     if(!b)
     {
         std::cerr << argv[pos] << ": failed to parse" << std::endl;
@@ -370,10 +370,10 @@ int main(int argc, char* argv[])
         std::cerr << "File " << argv[pos] << " could not be opened" << std::endl;
         return 1;
     }
-    
+
     if(display)
         std::cout << argv[pos] << ": parse successful" << std::endl;
-    
+
     f << file;
     return 0;
 }

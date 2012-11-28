@@ -20,7 +20,7 @@
          'type_defs' : [],
          'notes' : [],
          'types' : ['real_', 'unsigned_int_', 'signed_int_'],
-         'simd_types' : ['real_', 'unsigned_int_', 'signed_int_'],     
+         'simd_types' : ['real_', 'unsigned_int_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -46,7 +46,7 @@
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                  'boost::simd::Valmax<T>()' : 'boost::simd::Valmax<T>()',
                  'boost::simd::Valmin<T>()' : 'boost::simd::Valmax<T>()',
-                 'T(1)':'T(1)',   
+                 'T(1)':'T(1)',
                 },
              'signed_int_' : {
                  'boost::simd::Mone<T>()' : 'boost::simd::One<T>()',

@@ -23,12 +23,12 @@
  * by the absolute value of second entry according to its sign.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rshr.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  *
  * \param a0 the first parameter of rshr
  * \param a1 the second parameter of rshr, must be an integer value
- * 
+ *
  * \return returns a value of the type of the first parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rshr_ of functor rshr 
+     * \brief Define the tag rshr_ of functor rshr
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct rshr_ : ext::elementwise_<rshr_> { typedef ext::elementwise_<rshr_> parent; };

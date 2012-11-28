@@ -22,12 +22,12 @@
  * hyperbolic cardinal sine: \f$\frac{\sinh(a_0)}{a_0}\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sinhc.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of sinhc
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sinhc_ of functor sinhc 
+     * \brief Define the tag sinhc_ of functor sinhc
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct sinhc_ : ext::elementwise_<sinhc_> { typedef ext::elementwise_<sinhc_> parent; };

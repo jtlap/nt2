@@ -24,12 +24,12 @@
  * Due to existence of nan, this is not equivalent to \c not(is_lez(a0))
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_nlez.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,9 +42,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of is_nlez
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -55,13 +55,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_nlez_ of functor is_nlez 
+     * \brief Define the tag is_nlez_ of functor is_nlez
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_nlez_ : ext::elementwise_<is_nlez_> { typedef ext::elementwise_<is_nlez_> parent; };

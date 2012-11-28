@@ -3,7 +3,7 @@
      'functor' : {
          'description' : ['The function returns the low part of the entry',
                           'as an integer of the same size as the input.'],
-         'return' : ['always returns an integer value'],   
+         'return' : ['always returns an integer value'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -28,7 +28,7 @@
             },
          'ranges' : {
              'default' : [['T(0)', 'T(10)']],
-             'sintgt_8_' :  [['T(0)', 'T(10)']],  
+             'sintgt_8_' :  [['T(0)', 'T(10)']],
             },
          'specific_values' : {
              'default' : {

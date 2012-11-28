@@ -12,7 +12,7 @@
 // unit test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/expni.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 extern "C" double cephes_expn(int,double);
@@ -35,7 +35,7 @@ extern "C" double cephes_expn(int,double);
 
 NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::expni;
   using nt2::tag::expni_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(expni(1,nt2::Inf<T>()), nt2::Zero<r_t>(), 0);

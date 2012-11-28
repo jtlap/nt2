@@ -24,12 +24,12 @@
  * Constant Fact_4 4! = 24
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fact_4.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Fact_4
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,14 +54,14 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Fact_4 of functor Fact_4 
+     * \brief Define the tag Fact_4 of functor Fact_4
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER(Fact_4,int,24, 0x41c00000, 0x4038000000000000ll)
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_4, Fact_4)
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_4, Twentyfour)  
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Fact_4, Twentyfour)
 } }
 
 #include <boost/simd/sdk/constant/common.hpp>

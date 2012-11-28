@@ -42,8 +42,8 @@
 NT2_TEST_CASE_TPL( cdiff, (float)(double))//NT2_TYPES )
 {
   using nt2::_;
-  using nt2::end_; 
-  
+  using nt2::end_;
+
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy, zy;
   nt2::table<T> sy1, sy2;
@@ -57,15 +57,15 @@ NT2_TEST_CASE_TPL( cdiff, (float)(double))//NT2_TYPES )
   NT2_DISPLAY(y);
 
   sy = nt2::cdiff(y);
-  zy1= y(_(3, end_), _)-y(_(1, end_-2), _); 
+  zy1= y(_(3, end_), _)-y(_(1, end_-2), _);
   NT2_TEST(nt2::isequal(sy, zy1));
   NT2_TEST(nt2::isequal(nt2::cdiff(y), y(_(3, end_), _)-y(_(1, end_-2), _)));
   NT2_TEST(nt2::isequal(sy,  y(_(3, end_), _)-y(_(1, end_-2), _)));
-  NT2_TEST(nt2::isequal(nt2::cdiff(y), zy1)); 
+  NT2_TEST(nt2::isequal(nt2::cdiff(y), zy1));
   NT2_DISPLAY(sy);
-  NT2_DISPLAY(zy1); 
+  NT2_DISPLAY(zy1);
   sy1 = nt2::cdiff(y, 2);
-  zy2 =  y(_, _(3, end_))-y(_, _(1, end_-2)); 
+  zy2 =  y(_, _(3, end_))-y(_, _(1, end_-2));
   NT2_TEST(nt2::isequal(sy1, zy2));
   NT2_TEST(nt2::isequal(nt2::cdiff(y, 2),  y(_, _(3, end_))-y(_, _(1, end_-2))));
   NT2_TEST(nt2::isequal(sy1,  y(_, _(3, end_))-y(_, _(1, end_-2))));

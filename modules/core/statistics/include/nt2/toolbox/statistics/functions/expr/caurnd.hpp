@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
                               ? ext0_t::static_size
                               : ext1_t::static_size
                               >::type                     extent_t;
- 
+
     typedef typename  boost::proto::result_of
                     ::make_expr < tag::caurnd_,container::domain
                                 , A0 const&
@@ -108,7 +108,7 @@ namespace nt2 { namespace ext
 
 //     BOOST_FORCEINLINE result_type operator()(A0 const& m, A1 const& l, A2 const& sz) const
 //     {
-//       table<size_t> sz1 = nt2::max(nt2::max(nt2::extent(m), nt2::extent(l)), sz); 
+//       table<size_t> sz1 = nt2::max(nt2::max(nt2::extent(m), nt2::extent(l)), sz);
 //       return  boost::proto
 //             ::make_expr<nt2::tag::caurnd_,container::domain>
 //             ( boost::cref(m)
@@ -181,7 +181,7 @@ namespace nt2 { namespace ext
 //       return nt2::cauinv(r, m, l);
 //     }
 //   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                               , (A0)(A0b)(A1)
                               , (unspecified_<A0> )
@@ -191,14 +191,14 @@ namespace nt2 { namespace ext
   {
     typedef nt2::of_size_<-1l, -1l, 1l, 1l>                                           T1;
     typedef typename meta::call<tag::caurnd_(A0 const&,A0b const&,T1)>::type result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A0b const& l,
                                              A1 const& a1) const
     {
       return nt2::caurnd(m, l, nt2::of_size(a1, a1));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                               , (A0)(A0b)(A1)(A2)
                               , (unspecified_<A0> )
@@ -209,14 +209,14 @@ namespace nt2 { namespace ext
   {
     typedef nt2::of_size_<-1l, -1l, 1l, 1l>                                           T1;
     typedef typename meta::call<tag::caurnd_(A0 const&,A0b const&,T1)>::type result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A0b const& l,
                                              A1 const& a1, A2 const& a2) const
     {
       return nt2::caurnd(m, l, nt2::of_size(a1, a2));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                               , (A0)(A0b)(A1)(A2)(A3)
                               , (unspecified_<A0> )
@@ -228,7 +228,7 @@ namespace nt2 { namespace ext
   {
     typedef nt2::of_size_<-1l, -1l, -1l, 1l>                                          T1;
     typedef typename meta::call<tag::caurnd_(A0 const&,A0b const&,T1)>::type result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A0b const& l,
                                              A1 const& a1, A2 const& a2,
                                              A3 const& a3) const
@@ -236,7 +236,7 @@ namespace nt2 { namespace ext
       return nt2::caurnd(m, l, nt2::of_size(a1, a2, a3));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caurnd_, tag::cpu_
                               , (A0)(A0b)(A1)(A2)(A3)(A4)
                               , (unspecified_<A0> )
@@ -249,7 +249,7 @@ namespace nt2 { namespace ext
   {
     typedef nt2::of_size_<-1l, -1l, -1l, -1l>                                         T1;
     typedef typename meta::call<tag::caurnd_(T1,A0 const&,A0b const&)>::type result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& m, A0b const& l,
                                              A1 const& a1, A2 const& a2,
                                              A3 const& a3, A4 const& a4) const

@@ -7,7 +7,7 @@ instruction sets in processor that allow to execute an operation on multiple
 data elements simultaneously. Examples of such set of instructions are SSE for
 x86 architectures and Altivec for powerpc.
 Operations supported by the library range from built-in operators to arithmetic
-operations like absolute, including predicates (is even etc...). 
+operations like absolute, including predicates (is even etc...).
 Of course those operations are available both on SIMD registers and scalar types.
 
 
@@ -17,7 +17,7 @@ useful in those cases. SIMD is one possible way to execute arbitrary operations
 simultaneously on data. Alas SIMD coding is a really low level feature and
 isn't really generic, mainly because SIMD instructions vary from one
 architecture to another and even between processor models. Add to this
-alignement issues, and this partially explains why SIMD is not widely used. 
+alignement issues, and this partially explains why SIMD is not widely used.
 Boost.simd eases SIMD development by abstracting those low level details behind
 a domain-specific embedded language and a set of generic functions dispatching to
 the right SIMD intrinsics.

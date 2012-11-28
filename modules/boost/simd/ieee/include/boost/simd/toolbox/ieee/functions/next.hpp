@@ -22,12 +22,12 @@
  * in the type A0 of a0, the least A0 strictly greater than a0
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/next.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of next
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag next_ of functor next 
+     * \brief Define the tag next_ of functor next
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct next_ : ext::elementwise_<next_> { typedef ext::elementwise_<next_> parent; };

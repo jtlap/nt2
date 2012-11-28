@@ -23,16 +23,16 @@
  * is only done on architectures possessing this hard wired capability
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fma.hpp>
  * \endcode
- * 
- * \par Aliases 
+ *
+ * \par Aliases
  * \arg madd
  * \arg fam
  * \arg amul
- * 
+ *
  * \synopsis
  *
  * \code
@@ -47,19 +47,19 @@
  * \param a0 the first parameter of fma
  * \param a1 the second parameter of fma
  * \param a2 the third parameter of fma
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fma_ of functor fma 
+     * \brief Define the tag fma_ of functor fma
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct fma_ : ext::elementwise_<fma_> { typedef ext::elementwise_<fma_> parent; };

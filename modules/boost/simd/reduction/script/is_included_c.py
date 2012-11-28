@@ -10,7 +10,7 @@
          'rturn' : {
              'default' : 'bool',
             },
-         'special' : ['reduction'],  
+         'special' : ['reduction'],
          'type_defs' : [],
          'types' : ['integer_'],
         },
@@ -32,7 +32,7 @@
              'integer_' : {
                  'boost::simd::One<T>(),boost::simd::Three<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'boost::simd::One<T>(),boost::simd::Mone<T>()' : {'result' : 'false','ulp_thresh' : '0',},
-                 'boost::simd::One<T>(),boost::simd::Two<T>()' : {'result' : 'true','ulp_thresh' : '0',},     
+                 'boost::simd::One<T>(),boost::simd::Two<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'boost::simd::Mone<T>(),boost::simd::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},
                  'boost::simd::One<T>()' : {'result' : 'false','ulp_thresh' : '0',},
                  'boost::simd::One<T>(),boost::simd::Zero<T>()' : {'result' : 'true','ulp_thresh' : '0',},

@@ -19,13 +19,13 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef table_<typename T::parent, Layout> parent;
   };
-  
+
   template<class T, class Layout>
   struct  table_< unspecified_<T>, Layout >
         : generic_< typename property_of<T>::type >
   {
     typedef generic_< typename property_of<T>::type > parent;
-  };    
+  };
 } } }
 
 namespace nt2 { namespace ext

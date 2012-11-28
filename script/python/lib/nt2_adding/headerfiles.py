@@ -28,22 +28,22 @@ class Headers(Nt2_base_infos,Banner,Guard) :
     inner list of lines
     banner text
     guard begin and guard end
-    
+
     - path is the path to the file from a selected directory (nt2)
-      as nt2/toolbox/my_funcs/function/ 
+      as nt2/toolbox/my_funcs/function/
     - name is the file name with no extension
     - extension may not include the .
     '.hpp' is the default file name extension
 
     Default usage is h=Headers(path, name)"""
-    
+
     inner_text = [
         "",
         "//<include> please don't modify between these tags",
         "//<\include>",
         ""
         ]
-  
+
     def __init__(self, path, name,
                  ext = '.hpp',
                  inner = None,
@@ -62,16 +62,16 @@ class Headers(Nt2_base_infos,Banner,Guard) :
         self.__inner = Headers.inner_text if (inner is None) else inner
         self.__comment = comment
         self.__fill = comment[0] if fill == None else fill
-        
+
     def __str__(self) :
         return self.txt()
-    
+
     def txt(self) :
         return  '\n'.join(self.get_banner()+
                          self.get_guard_begin()+
                          self.__inner+
                          self.get_guard_end())
-    
+
     def write_header(self,path=None,check=True,flag=None):
 #        print "self.total %s"%self.get_total_path()
 #        print "path %s"%path
@@ -89,7 +89,7 @@ class Headers(Nt2_base_infos,Banner,Guard) :
             raise SystemExit
         if len(self.__fill)==1 :
             l=sub_if_match_list(" @"+self.__comment, "@", self.__fill, l)
-        
+
         print( "header written to:\n %s\n" % path2headerfile)
         write(path2headerfile,l,check)
 
@@ -106,7 +106,7 @@ class Headers(Nt2_base_infos,Banner,Guard) :
         if len(self.__fill)==1 :
             l=sub_if_match_list(" @"+self.__comment, "@", self.__fill, l)
         write(path,l,check)
-    
+
 if __name__ == "__main__":
     name = "zuttique"
     path = "./"
@@ -116,7 +116,7 @@ if __name__ == "__main__":
         ]
     h = Headers(path,name,inner=inner_text,ext='.txt',comment="##")
     print h
-    h.write_header(flag='banner+inner')  
+    h.write_header(flag='banner+inner')
 
 
 

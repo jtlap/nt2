@@ -24,14 +24,14 @@
  * This is the saturated square modulus of the input.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sqr_abs.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg sqr_modulus
- * 
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of sqr_abs
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag sqr_abs_ of functor sqr_abs 
+     * \brief Define the tag sqr_abs_ of functor sqr_abs
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct sqr_abs_ : ext::elementwise_<sqr_abs_> { typedef ext::elementwise_<sqr_abs_> parent; };

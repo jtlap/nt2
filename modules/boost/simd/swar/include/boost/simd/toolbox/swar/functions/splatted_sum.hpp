@@ -22,12 +22,12 @@
  * returns the sum of a0 elements splatted in a vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/splatted_sum.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of splatted_sum
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -54,13 +54,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag splatted_sum_ of functor splatted_sum 
+     * \brief Define the tag splatted_sum_ of functor splatted_sum
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct splatted_sum_ : ext::unspecified_<splatted_sum_> { typedef ext::unspecified_<splatted_sum_> parent; };

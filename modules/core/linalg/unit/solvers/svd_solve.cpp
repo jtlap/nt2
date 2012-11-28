@@ -42,5 +42,5 @@ NT2_TEST_CASE_TPL(svd_solve_result, NT2_REAL_TYPES)
   nt2::display("values", f.x());
 
    std::cout << "rank         " << f.rank()  << std::endl;
-   NT2_TEST(nt2::isulpequal(b, mtimes(a, f.x()), T(2.0)));     
+   NT2_TEST(nt2::isulpequal(b, mtimes(a, f.x()), T(2.0)));
  }

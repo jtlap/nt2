@@ -22,12 +22,12 @@
  * a1 < 0 ? a0 : -a0
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/negation.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of negation
  * \param a1 the second parameter of negation
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag negation_ of functor negation 
+     * \brief Define the tag negation_ of functor negation
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct negation_ : ext::elementwise_<negation_> { typedef ext::elementwise_<negation_> parent; };

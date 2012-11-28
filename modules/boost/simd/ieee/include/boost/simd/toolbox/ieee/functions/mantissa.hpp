@@ -25,12 +25,12 @@
  * \f$a = m\times 2^e\f$, with the absolute value of m between one half and one
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mantissa.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of mantissa
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag mantissa_ of functor mantissa 
+     * \brief Define the tag mantissa_ of functor mantissa
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct mantissa_ : ext::elementwise_<mantissa_> { typedef ext::elementwise_<mantissa_> parent; };

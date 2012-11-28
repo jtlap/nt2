@@ -26,7 +26,7 @@ NT2_TEST_CASE( sum_1D )
   using nt2::sum;
   typedef double T;
   using nt2::_;
-  
+
   std::size_t M = 133;
 
   table<T> r, r1;
@@ -42,7 +42,7 @@ NT2_TEST_CASE( sum_1D )
 
   r1 = sum(a,1);
   NT2_TEST_EQUAL(r(1), r1(1)) ;
-  
+
   for(int j = 2; j <= NT2_MAX_DIMENSIONS; ++j){
     r = sum(a,j);
     for(std::size_t i = 1; i <= M; ++i)
@@ -64,7 +64,7 @@ NT2_TEST_CASE( sum_2D )
   using nt2::sum;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -87,7 +87,7 @@ NT2_TEST_CASE( sum_2D )
   r = sum(a);
   for(std::size_t j = 1; j <= N; ++j)
     NT2_TEST_EQUAL(r(1,j), M) ;
-      
+
 
   for(std::size_t j = 1; j <= N; ++j)
     NT2_TEST_EQUAL(r(1,j), r1(1,j)) ;
@@ -96,7 +96,7 @@ NT2_TEST_CASE( sum_2D )
 
   for(std::size_t i = 1; i <= M; ++i)
     NT2_TEST_EQUAL(r1(i,1),N) ;
-  
+
 
   for(int j = 3; j <= NT2_MAX_DIMENSIONS; ++j){
     r = sum(a,j);
@@ -121,7 +121,7 @@ NT2_TEST_CASE( sum_3D )
   using nt2::sum;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -139,7 +139,7 @@ NT2_TEST_CASE( sum_3D )
       }
     }
   }
-  
+
   r1 = sum(a,1);
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
@@ -149,7 +149,7 @@ NT2_TEST_CASE( sum_3D )
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
       NT2_TEST_EQUAL(r(1,j,k),M) ;
-      
+
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
       NT2_TEST_EQUAL(r(1,j,k), r1(1,j,k)) ;
@@ -193,7 +193,7 @@ NT2_TEST_CASE( sum_4D )
   using nt2::sum;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -222,7 +222,7 @@ NT2_TEST_CASE( sum_4D )
       }
     }
   }
-  
+
  r1 = sum(a,1);
  for(std::size_t l = 1; l <= P; ++l)
    for(std::size_t k = 1; k <= O; ++k)
@@ -287,7 +287,7 @@ NT2_TEST_CASE( sum_4D )
  }
 
 
-  
+
 }
 
 NT2_TEST_CASE( sum )
@@ -298,7 +298,7 @@ NT2_TEST_CASE( sum )
   using nt2::sum;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -331,13 +331,13 @@ NT2_TEST_CASE( sum )
   for(std::size_t l = 1; l <= P; ++l)
     for(std::size_t k = 1; k <= O; ++k)
       NT2_TEST_EQUAL(r(1,1,k,l),N*M) ;
-  
-  
+
+
   r = sum(sum(sum(a)));
   for(std::size_t l = 1; l <= P; ++l)
     NT2_TEST_EQUAL(r(1,1,1,l),N*M*O) ;
 
-  
+
   r = sum(sum(sum(sum(a))));
   NT2_TEST_EQUAL(r(1,1,1,1),N*M*O*P) ;
 

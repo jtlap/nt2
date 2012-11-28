@@ -12,7 +12,7 @@
 // cover test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/ldexp.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -34,7 +34,7 @@
 
 NT2_TEST_CASE_TPL ( ldexp_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::ldexp;
   using nt2::tag::ldexp_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  NT2_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -68,6 +68,6 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  NT2_REAL_TYPES)
                   << std::endl;
         NT2_TEST_EQUAL( nt2::ldexp(a0,a1),(a1>=0) ? a0*(1<<a1) : a0/(1<<(-a1)));
      }
-     
+
    }
 } // end of test for floating_

@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['compute the cumulate sum of the vector elements'],   
+         'description' : ['compute the cumulate sum of the vector elements'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -9,7 +9,7 @@
          'rturn' : {
              'default' : 'vT',
             },
-         'special' : ['swar'],   
+         'special' : ['swar'],
          'simd_types' : ['real_'],
          'type_defs' : [],
          'types' : ['real_'],
@@ -70,10 +70,10 @@
                         "          }",
                         "        }",
                         "        vT zz = load<vT>(&z[0],0);",
-                        "        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)",      
-                        "         {",      
-                        "            NT2_TEST_ULP_EQUAL(v[i],zz[i], 16);",      
-                        "         }",                
+                        "        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)",
+                        "         {",
+                        "            NT2_TEST_ULP_EQUAL(v[i],zz[i], 16);",
+                        "         }",
                             ]
                },
            },

@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FAST_FREXP_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_FAST_FREXP_HPP_INCLUDED
@@ -22,7 +22,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
                             , ( boost::is_same<typename dispatch::meta::as_integer<A0>::type, A1> )
                             , ((simd_< floating_<A0>, X>))
-                              ((simd_< floating_<A0>, X>))    
+                              ((simd_< floating_<A0>, X>))
                               ((simd_< integer_<A1>, X>))
                             )
   {
@@ -43,19 +43,19 @@ namespace boost { namespace simd { namespace ext
       return 0;
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION_IF( boost::simd::tag::fast_frexp_, tag::cpu_, (A0)(A1)(X)
                                  , ( boost::is_same<typename dispatch::meta::as_integer<A0>::type, A1>)
                                  , ((simd_< floating_<A0>, X>))
                                    ((simd_< integer_<A1>, X>))
                             )
   {
-    typedef A0 result_type;    
+    typedef A0 result_type;
     inline A0 operator()(A0 const& a0,A1 & a2) const
     {
-      A0 a1; 
+      A0 a1;
       boost::simd::fast_frexp(a0, a1, a2);
-      return a1; 
+      return a1;
     }
   };
 
@@ -66,7 +66,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename dispatch::meta::as_integer<A0, signed>::type  exponent;
     typedef boost::fusion::vector<A0,exponent>        result_type;
-     
+
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       result_type res;

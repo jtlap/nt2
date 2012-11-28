@@ -38,7 +38,7 @@ template < class T, class N>
 inline T correct(const T& a, N n)
 {
   T z = a+n*nt2::Pio_2<T>();
-  return  (z > nt2::Pi<T>()) ? z-2*nt2::Pi<T>() :z; 
+  return  (z > nt2::Pi<T>()) ? z-2*nt2::Pi<T>() :z;
 }
 
 NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_REAL_TYPES)
@@ -95,13 +95,13 @@ NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_REAL_TYPES)
     std::cout << correct(boost::fusion::get<0>(res), boost::fusion::get<2>(res))<< std::endl;
     std::cout << boost::fusion::get<0>(res) << std::endl;
     std::cout << boost::fusion::get<1>(res) << std::endl;
-    std::cout << boost::fusion::get<2>(res) << std::endl;        
+    std::cout << boost::fusion::get<2>(res) << std::endl;
     res = rem_pio2_cephes(-3*nt2::Pi<T>()/4);
     std::cout << -3*nt2::Pi<T>()/4 << std::endl;
     std::cout << correct(boost::fusion::get<0>(res), boost::fusion::get<2>(res))<< std::endl;
     std::cout << boost::fusion::get<0>(res) << std::endl;
     std::cout << boost::fusion::get<1>(res) << std::endl;
-    std::cout << boost::fusion::get<2>(res) << std::endl;        
+    std::cout << boost::fusion::get<2>(res) << std::endl;
     res = rem_pio2_cephes(nt2::Pi<T>()/2);
     std::cout << correct(boost::fusion::get<0>(res), boost::fusion::get<2>(res))<< std::endl;
     std::cout << nt2::Pi<T>()/2 << std::endl;
@@ -113,6 +113,6 @@ NT2_TEST_CASE_TPL ( rem_pio2_cephes_real__1_0,  NT2_REAL_TYPES)
     std::cout << -nt2::Pi<T>()/2 << std::endl;
     std::cout << boost::fusion::get<0>(res) << std::endl;
     std::cout << boost::fusion::get<1>(res) << std::endl;
-    std::cout << boost::fusion::get<2>(res) << std::endl;        
+    std::cout << boost::fusion::get<2>(res) << std::endl;
   }
 } // end of test for floating_

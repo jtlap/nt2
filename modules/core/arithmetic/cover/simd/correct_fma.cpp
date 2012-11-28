@@ -12,8 +12,8 @@
 // cover test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// 
-/// 
+///
+///
 #include <nt2/toolbox/arithmetic/include/functions/correct_fma.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( correct_fma_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::correct_fma;
   using nt2::tag::correct_fma_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

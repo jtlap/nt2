@@ -12,7 +12,7 @@
 // unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/random.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::random;
   using nt2::tag::random_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<random_(T, T)>::type sr_t;
   NT2_TEST( (boost::is_same < r_t, vT >::value) );
 
-  
+
  for(int i=0; i < 10; i++)
    {
      NT2_TEST_LESSER(random(nt2::splat<vT>(2), nt2::splat<vT>(3))[0], T(3));

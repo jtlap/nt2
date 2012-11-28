@@ -25,15 +25,15 @@
  * This is in fact identity.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/unary_plus.hpp>
  * \endcode
- * 
- * \par Aliases 
+ *
+ * \par Aliases
  * \arg identity
  * \arg id
- * 
+ *
  * \synopsis
  *
  * \code
@@ -46,13 +46,13 @@
  * \endcode
  *
  * \param a0 the unique parameter of unary_plus
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -60,7 +60,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag unary_plus_ of functor unary_plus 
+     * \brief Define the tag unary_plus_ of functor unary_plus
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct unary_plus_ : ext::elementwise_<unary_plus_> { typedef ext::elementwise_<unary_plus_> parent; };

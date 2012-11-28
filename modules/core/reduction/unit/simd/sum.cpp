@@ -12,7 +12,7 @@
 // unit test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/sum.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( sum_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::sum;
   using nt2::tag::sum_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::scalar_of<T>::type sT;

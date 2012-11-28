@@ -27,12 +27,12 @@
  * SIMD vector types
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/group.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  *
  * \param a0 the first parameter of group
  * \param a1 the second parameter of group
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -60,13 +60,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag group_ of functor group 
+     * \brief Define the tag group_ of functor group
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct group_ : ext::elementwise_<group_> { typedef ext::elementwise_<group_> parent; };

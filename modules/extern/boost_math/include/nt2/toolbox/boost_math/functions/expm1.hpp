@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/expm1.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of expm1
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -57,13 +57,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag expm1_ of functor expm1 
+     * \brief Define the tag expm1_ of functor expm1
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct expm1_ : ext::elementwise_<expm1_> { typedef ext::elementwise_<expm1_> parent; };
@@ -72,7 +72,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/expm1.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/expm1.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/expm1.hpp>
 
 #endif
 

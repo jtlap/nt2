@@ -12,7 +12,7 @@
 // cover test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/bitwise/include/functions/shrai.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -36,7 +36,7 @@
 
 NT2_TEST_CASE_TPL ( shrai_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::shrai;
   using nt2::tag::shrai_;
   typedef T r_type;
@@ -47,9 +47,9 @@ NT2_TEST_CASE_TPL ( shrai_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -70,13 +70,13 @@ NT2_TEST_CASE_TPL ( shrai_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
                   << std::endl;
         NT2_TEST_EQUAL( nt2::shrai(a0,a1),a0/nt2::twopower(a1));
      }
-     
+
    }
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( shrai_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::shrai;
   using nt2::tag::shrai_;
   typedef T r_type;
@@ -87,9 +87,9 @@ NT2_TEST_CASE_TPL ( shrai_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

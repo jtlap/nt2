@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/pow_abs.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/sqr.hpp>
@@ -36,45 +36,45 @@
 
 NT2_TEST_CASE_TPL ( pow_abs3,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::pow_abs;
   using nt2::tag::pow_abs_;
-  typedef std::complex<T> cT; 
-  nt2::table<cT> a = nt2::ones(3, 3, nt2::meta::as_<cT>()); 
+  typedef std::complex<T> cT;
+  nt2::table<cT> a = nt2::ones(3, 3, nt2::meta::as_<cT>());
   nt2::table<cT> b = nt2::ones(3, 3, nt2::meta::as_<cT>());
   NT2_DISPLAY(nt2::pow_abs(a, b));
   NT2_TEST_EQUAL(a, nt2::pow_abs(a, b));
-  
+
 }
 NT2_TEST_CASE_TPL ( pow_abs4,  NT2_REAL_TYPES)
 {
-  
-  typedef std::complex<T> cT; 
+
+  typedef std::complex<T> cT;
   nt2::table<cT> a = nt2::ones(1, 3, nt2::meta::as_<cT>());
-  
-  for(int i=1; i <= 3; i++) a(i) =  cT(i, i); 
+
+  for(int i=1; i <= 3; i++) a(i) =  cT(i, i);
   NT2_DISPLAY(a);
-  
+
   nt2::table<T> b = T(2)*nt2::ones(1, 3, nt2::meta::as_<T>());
   NT2_DISPLAY(b);
-  
+
   NT2_DISPLAY(nt2::pow_abs(a, b));
   NT2_TEST_ULP_EQUAL(nt2::pow_abs(a, b), T(2)*nt2::sqr(nt2::real(a)), T(2.0));
 }
 
 NT2_TEST_CASE_TPL ( pow_abs5,  NT2_REAL_TYPES)
 {
-  
-  typedef std::complex<T> cT; 
+
+  typedef std::complex<T> cT;
   nt2::table<cT> a = nt2::ones(1, 3, nt2::meta::as_<cT>());
-  
-  for(int i=1; i <= 3; i++) a(i) =  cT(i, i); 
+
+  for(int i=1; i <= 3; i++) a(i) =  cT(i, i);
   NT2_DISPLAY(a);
-  
+
   nt2::table<T> b = nt2::ones(1, 3, nt2::meta::as_<T>());
-  for(int i=1; i <= 3; i++) b(i) = T(i-1); 
+  for(int i=1; i <= 3; i++) b(i) = T(i-1);
   NT2_DISPLAY(b);
-  
-  NT2_DISPLAY(nt2::pow_abs(a, b)); 
-  
+
+  NT2_DISPLAY(nt2::pow_abs(a, b));
+
 }

@@ -1,6 +1,6 @@
 #error "This file is for documentation purpose only."
 /*!
- * \ingroup toolbox  
+ * \ingroup toolbox
  * \defgroup crlibm crlibm functions access
  * \brief Allows easy access crlibm functions from nt2,
  * i.e functions from the corectly

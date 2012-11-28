@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/cyl_bessel_i.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  *
  * \param a0 the first parameter of cyl_bessel_i
  * \param a1 the second parameter of cyl_bessel_i
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cyl_bessel_i_ of functor cyl_bessel_i 
+     * \brief Define the tag cyl_bessel_i_ of functor cyl_bessel_i
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct cyl_bessel_i_ : ext::elementwise_<cyl_bessel_i_> { typedef ext::elementwise_<cyl_bessel_i_> parent; };
@@ -73,7 +73,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/cyl_bessel_i.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/cyl_bessel_i.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/cyl_bessel_i.hpp>
 
 #endif
 

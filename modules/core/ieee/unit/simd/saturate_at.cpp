@@ -12,7 +12,7 @@
 // unit test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 20/03/2011
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/saturate_at.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::saturate_at;
   using nt2::tag::saturate_at_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

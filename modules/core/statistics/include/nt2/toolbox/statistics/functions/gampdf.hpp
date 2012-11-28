@@ -32,12 +32,12 @@
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/gampdf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -51,15 +51,15 @@
  **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gampdf_ of functor gampdf 
+     * \brief Define the tag gampdf_ of functor gampdf
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct gampdf_ : ext::elementwise_<gampdf_> { typedef ext::elementwise_<gampdf_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::gampdf_, gampdf, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::gampdf_, gampdf, 3)  
+  NT2_FUNCTION_IMPLEMENTATION(tag::gampdf_, gampdf, 3)
 }
 
 #endif

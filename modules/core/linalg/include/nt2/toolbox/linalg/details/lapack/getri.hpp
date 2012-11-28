@@ -31,7 +31,7 @@ namespace nt2
                        const nt2_la_int* ipiv, nt2_la_complex* work, const nt2_la_int* lwork,
                        nt2_la_int* info);
     }
-    
+
 #define NT2_GETRI(NAME, T)                      \
     inline void getri(const nt2_la_int* n,      \
                       T* a,                     \
@@ -64,7 +64,7 @@ namespace nt2
     NT2_GETRI(dgetri, double)
     NT2_GETRI(cgetri, std::complex<float>)
     NT2_GETRI(zgetri, std::complex<double>)
-      
+
 #undef NT2_GETRI
   }
 }

@@ -24,12 +24,12 @@
  * \f[ dgammainc(x)=\int_0^\a t^{x-1}e^{-t}dt\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/dgammainc.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,17 +40,17 @@
  *     dgammainc(const A0 & x, const A0& a);
  * }
  * \endcode
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag dgammainc_ of functor dgammainc 
+     * \brief Define the tag dgammainc_ of functor dgammainc
      *        in namespace nt2::tag for toolbox euler
     **/
     struct dgammainc_ : ext::elementwise_<dgammainc_> { typedef ext::elementwise_<dgammainc_> parent; };

@@ -14,7 +14,7 @@
 // unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/include/functions/is_imag.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( is_imag_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::is_imag;
   using nt2::tag::is_imag_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -52,11 +52,11 @@ NT2_TEST_CASE_TPL ( is_imag_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<is_imag_(vT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef std::complex<T> cT; 
-  typedef nt2::imaginary<T> ciT; 
-  typedef native<std::complex<T>, ext_t> cvT; 
-  typedef native<nt2::imaginary<T>, ext_t > civT; 
-  typedef native<nt2::dry<T>, ext_t > divT; 
+  typedef std::complex<T> cT;
+  typedef nt2::imaginary<T> ciT;
+  typedef native<std::complex<T>, ext_t> cvT;
+  typedef native<nt2::imaginary<T>, ext_t > civT;
+  typedef native<nt2::dry<T>, ext_t > divT;
 
   // specific values tests
   NT2_TEST_EQUAL(is_imag(nt2::Mzero<cvT>())[0], nt2::True<sr_t>());

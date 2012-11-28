@@ -22,12 +22,12 @@
  * Returns the input value which have the greatest absolute value, ignoring nan.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/maxnummag.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of maxnummag
  * \param a1 the second parameter of maxnummag
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag maxnummag_ of functor maxnummag 
+     * \brief Define the tag maxnummag_ of functor maxnummag
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct maxnummag_ : ext::elementwise_<maxnummag_> { typedef ext::elementwise_<maxnummag_> parent; };

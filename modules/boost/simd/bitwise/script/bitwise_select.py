@@ -8,7 +8,7 @@
                           'The operands must share the same bit size and',
                           'the result type is the comon one of the second'
                           'and third operands'],
-         'equalparams' : False,   
+         'equalparams' : False,
          'module' : 'boost',
          'arity' : '3',
          'call_types' : [],

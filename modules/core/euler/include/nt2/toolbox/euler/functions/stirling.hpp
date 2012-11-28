@@ -26,12 +26,12 @@
  * \parThe formula implementation is usable for a0 between 33 and 172, according cephes
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/stirling.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of stirling
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag stirling_ of functor stirling 
+     * \brief Define the tag stirling_ of functor stirling
      *        in namespace nt2::tag for toolbox euler
     **/
     struct stirling_ : ext::elementwise_<stirling_> { typedef ext::elementwise_<stirling_> parent; };

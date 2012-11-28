@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/logical_or.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -27,7 +27,7 @@
 
 // static void pb(unsigned short a,  int n = 16)
 // {
-//   unsigned short j = 1; 
+//   unsigned short j = 1;
 //   for(int i =  0;  i < n;  i++){
 //     std::cout << ((a&j)!= 0);
 //     j <<= 1;
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::logical_or;
   using boost::simd::tag::logical_or_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( logical_or_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::logical_or;
   using boost::simd::tag::logical_or_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

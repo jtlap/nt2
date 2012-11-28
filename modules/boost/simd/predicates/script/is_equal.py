@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<result_type>() or False<result_type>() according a0 and a1 are equal or not.'],   
+         'description' : ['Returns True<result_type>() or False<result_type>() according a0 and a1 are equal or not.'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

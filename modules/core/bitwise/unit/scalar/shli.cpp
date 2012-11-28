@@ -12,7 +12,7 @@
 // unit test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/bitwise/include/functions/shli.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/twopower.hpp>
@@ -35,7 +35,7 @@
 
 NT2_TEST_CASE_TPL ( shli_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
-  
+
   using nt2::shli;
   using nt2::tag::shli_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( shli_integer__2_0,  NT2_INTEGRAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

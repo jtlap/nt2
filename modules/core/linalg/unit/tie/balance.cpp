@@ -68,5 +68,5 @@ NT2_TEST_CASE_TPL ( balance_expr, NT2_REAL_TYPES)
   NT2_DISPLAY(b);
   NT2_DISPLAY(t);
   zz = nt2::mtimes(nt2::mtimes(nt2::inv(t), a), t);
-  NT2_TEST(nt2::isulpequal(zz, b, T(10.0))); 
+  NT2_TEST(nt2::isulpequal(zz, b, T(10.0)));
 }

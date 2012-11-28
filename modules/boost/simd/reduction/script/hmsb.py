@@ -10,7 +10,7 @@
          'rturn' : {
              'default' : 'T',
             },
-         'special' : ['reduction'],  
+         'special' : ['reduction'],
          'type_defs' : [],
          'types' : ['real_', 'signed_int_', 'unsigned_int_']
         },
@@ -18,7 +18,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
-             'included' : [],   
+             'included' : [],
              'simd_included' : ['#include <boost/simd/include/functions/bits.hpp>',
                                 '#include <boost/simd/include/functions/shri.hpp>'],
              'cover_included' : ['#include <boost/simd/include/functions/bits.hpp>'],

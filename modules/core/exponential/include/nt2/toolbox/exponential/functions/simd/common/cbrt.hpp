@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_CBRT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_CBRT_HPP_INCLUDED
@@ -76,7 +76,7 @@ namespace nt2 { namespace ext
       const A0 CBRT4I = double_constant< A0, 0x3fe428a2f98d728bll> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<A0>::type             stype;
-      typedef typename meta::as_logical<int_type>::type  bint_type; 
+      typedef typename meta::as_logical<int_type>::type  bint_type;
       int_type e;
       A0  x;
       frexp(z, x, e);
@@ -126,7 +126,7 @@ namespace nt2 { namespace ext
       const A0 CBRT4I = single_constant< A0, 0x3f214518> ();
       typedef typename meta::as_integer<A0, signed>::type int_type;
       typedef typename meta::scalar_of<A0>::type             stype;
-      typedef typename meta::as_logical<int_type>::type  bint_type; 
+      typedef typename meta::as_logical<int_type>::type  bint_type;
       int_type e;
       A0  x;
       frexp(z, x, e);

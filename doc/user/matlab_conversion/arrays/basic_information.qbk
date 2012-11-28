@@ -6,7 +6,7 @@
 Matlab display policy is 3 levels
 
 # use/suppression of `;`: this has clearly no equivalent in NT2
-# disp/display functions these can be used but using C++ style 
+# disp/display functions these can be used but using C++ style
 # use C like style `fprintf`
 
 __NT2__ has C++ support and some macros to do the job.
@@ -41,8 +41,8 @@ in the second case.
 [[`isscalar       `][`isscalar       `][  Determine whether input is scalar                          ]]
 [[`issparse       `][`issparse       `][  Determine whether input is sparse                          ]]
 [[`isvector       `][`isvector       `][  Determine whether input is vector                          ]]
-]                
-                 
+]
+
 Some run times predicates as `isfloat` have no real meaning in __NT2__ because in C++
 types are chosen at compile-time. Also sometimes, is it more performing to use
 negative assertions (we provide in __NT2__) than the negation of the direct ones.
@@ -59,7 +59,7 @@ value]
 [table:id elementwise predicates returning expressions arrays of logical
 [[__MATLAB__        ][ __NT2__                    ][ Description                               ]]
 [[`isfinite        `][`is_finite`, `is_not_finite`][ Array elements that are finite            ]]
-[[`isfloat         `][(`is_float_point`)          ][ Determine whether input is floating-point array. 
+[[`isfloat         `][(`is_float_point`)          ][ Determine whether input is floating-point array.
                                                      This is not defined  as such in __NT2__.
 
                                                     `is_floating_point` is a meta-function
@@ -92,7 +92,7 @@ The function `max` (and in the same way `min`) has two meanings in __MATLAB__:
 
 __NT2__ support the two acceptions in the same way. Semantic of expressions as `max(a,[],2)` in __MATLAB__
 (meaning maximum values of `a` along lines, not to be confused with `max(a,2)`) can be replaced by either `nt2::max(a,_(),2)`
-or the use of the non-__MATLAB__  `maximum(a,2)` [footnote the other one by `max(a,Two<T>())` 
+or the use of the non-__MATLAB__  `maximum(a,2)` [footnote the other one by `max(a,Two<T>())`
 or `max(a,T(2))`. We insist here on the
 harder types requirements in __NT2__ when using scalars: T is the current scalar element type]).
 
@@ -102,13 +102,13 @@ harder types requirements in __NT2__ when using scalars: T is the current scalar
 [[`min            `][`min`, `minimum`][  Smallest elements in array or minimum of two arrays   ]]
 ]
 
-__NT2__ has another feature (or issue (!)). The preceding functions always return an expression, 
+__NT2__ has another feature (or issue (!)). The preceding functions always return an expression,
 meaning by this [*never a scalar], difference which of course has no meaning using __MATLAB__.
 
 For instance in __MATLAB__ `max(a(:))` is the largest element of the whole `a` array. This can be written in __NT2__
 
-# `max(a(_))` -> this is a 1x1 sized expression  
-# `globalmax(a(_))` -> this is a scalar 
+# `max(a(_))` -> this is a 1x1 sized expression
+# `globalmax(a(_))` -> this is a scalar
 
 
 Finally of course syntaxes like `[m,i]=max(a)` are in __NT2__ equivalent to `tie(m,i)=max(a)`.

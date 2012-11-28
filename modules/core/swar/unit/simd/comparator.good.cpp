@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_REAL_TYPES)
 {
   using nt2::comparator;
   using nt2::tag::comparator_;
-  using nt2::load; 
+  using nt2::load;
   using nt2::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -61,10 +61,10 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  NT2_REAL_TYPES)
         r_t v = comparator(a0,a1,a2);
         vT ma = nt2::max(a0,a1);
         vT mi = nt2::min(a0,a1);
-	std::cout << a2 << "  " << mi << "   " << ma << std::endl; 
+	std::cout << a2 << "  " << mi << "   " << ma << std::endl;
         NT2_TEST(nt2::all(nt2::eq(boost::fusion::get<0>(v),(a2)?ma:mi)));
         NT2_TEST(nt2::all(nt2::eq(boost::fusion::get<1>(v),(a2)?mi:ma)));
       }
-    
+
   }
 } // end of test for floating_

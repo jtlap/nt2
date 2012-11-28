@@ -24,12 +24,12 @@
  * the SIMD architecture compatible to the  other one.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/negif.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,27 +43,27 @@
  *
  * \param a0 the first parameter of negif
  * \param a1 the second parameter of negif
- * 
+ *
  * \return always of the type of the second parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag negif_ of functor negif 
+     * \brief Define the tag negif_ of functor negif
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
      struct negif_ : ext::elementwise_<negif_> { typedef ext::elementwise_<negif_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::negif_, negif, 2)
 } }
- 
+
 #endif
 
 // modified by jt the 25/12/2010

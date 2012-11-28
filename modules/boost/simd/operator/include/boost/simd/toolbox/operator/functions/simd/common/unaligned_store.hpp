@@ -115,11 +115,11 @@ namespace boost { namespace simd { namespace ext
     {
       for(std::size_t i=0; i<meta::cardinal_of<result_type>::value; ++i)
         a1[a2[i]] = a0[i];
-      
+
       return a0;
     }
   };
-  
+
   // fusion sequence
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::unaligned_store_, tag::cpu_
                                    , (A0)(A1)(A2)(X)
@@ -131,7 +131,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
 
     inline result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
-    { 
+    {
       static const int N = fusion::result_of::size<A1>::type::value;
       meta::iterate<N>( details::storer< boost::simd::tag::unaligned_store_
                                        , A0

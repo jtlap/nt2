@@ -25,11 +25,11 @@
  * i.e. (-nt2::imag(a0), nt2::real(a0))
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mul_i.hpp>
  * \endcode
- * 
+ *
  * \synopsis
  *
  * \code
@@ -42,13 +42,13 @@
  * \endcode
  *
  * \param a0 the first parameter of mul_i
- * 
+ *
  * \return a mul_i value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the input vectors' elements
  * \par
- *  
+ *
 **/
 
 namespace nt2
@@ -56,7 +56,7 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag mul_i_ of functor mul_i 
+     * \brief Define the tag mul_i_ of functor mul_i
      *        in namespace nt2::tag for toolbox complex
     **/
     struct mul_i_ : ext::elementwise_<mul_i_> { typedef ext::elementwise_<mul_i_> parent; };

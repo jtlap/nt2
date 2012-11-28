@@ -12,7 +12,7 @@
 // cover test behavior of operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/operator/include/functions/logical_not.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::logical_not;
   using nt2::tag::logical_not_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -67,11 +67,11 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
         r_t v = logical_not(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::logical_not (a0[i])));
         }
       }
-    
+
   }
 } // end of test for integer_
 
@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::logical_not;
   using nt2::tag::logical_not_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -105,10 +105,10 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = logical_not(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::logical_not (a0[i])));
         }
       }
-    
+
   }
 } // end of test for floating_

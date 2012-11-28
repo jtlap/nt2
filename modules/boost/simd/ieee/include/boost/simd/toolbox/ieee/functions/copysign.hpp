@@ -23,12 +23,12 @@
  * which must be of the same type.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/copysign.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  *
  * \param a0 the first parameter of copysign
  * \param a1 the second parameter of copysign
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag copysign_ of functor copysign 
+     * \brief Define the tag copysign_ of functor copysign
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct copysign_ : ext::elementwise_<copysign_> { typedef ext::elementwise_<copysign_> parent; };

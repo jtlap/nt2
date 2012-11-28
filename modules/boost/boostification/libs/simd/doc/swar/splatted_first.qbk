@@ -22,7 +22,7 @@ with the result of the operation.
 
 [*Return type: ] A0.
 
-[*Semantics:   ] Another SIMD register, storing the result of the __first__ operation applied on `a`. 
+[*Semantics:   ] Another SIMD register, storing the result of the __first__ operation applied on `a`.
 
 [h5 Example]
 

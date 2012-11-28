@@ -14,16 +14,16 @@
 
 /*! \file gges_itf.hh
     (excerpt adapted from xgges.f file commentaries)
-    
+
     DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
-    
+
     BASE TYPE can mean respectively float, double, float, double
-    
+
     In some cases only two of these types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
     in the C++ calls, but through the workspace parameter,
-    their use is transparent for the caller 
+    their use is transparent for the caller
 
     *
     **  purpose
@@ -194,9 +194,9 @@ namespace nt2
                           nt2_la_int* sdim, nt2_la_complex* alpha, nt2_la_complex* beta,
                           const nt2_la_complex* vsl, const nt2_la_int* ldvsl, const nt2_la_complex* vsr,
                           const nt2_la_int* ldvsr, nt2_la_complex* work, const nt2_la_int* lwork,
-                          double* rwork, nt2_la_int* bwork, nt2_la_int* info);      
+                          double* rwork, nt2_la_int* bwork, nt2_la_int* info);
     }
-    
+
 #define NT2_GEES(NAME, T)                       \
   inline void gges(const char* jobvsl,          \
                    const char* jobvsr,          \
@@ -263,7 +263,7 @@ namespace nt2
          vsr, ldvsr, info, w);                  \
   }                                             \
         /**/
-    
+
     NT2_GEES(sgges, float)
     NT2_GEES(dgges, double)
 
@@ -333,13 +333,13 @@ namespace nt2
          ldvsr, info, w);                       \
   }                                             \
           /**/
-      
+
     NT2_GEES(cgges, std::complex<float>,  float)
     NT2_GEES(zgges, std::complex<double>, double)
 
 #undef NT2_GEES
 
-  
+
   }
 }
 

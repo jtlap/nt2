@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
       {
         if ((i != d) && (ex1.data()[i]!= ex2.data()[i])) return false;
       }
-      sz =  nt2::max(sz, d+1); 
+      sz =  nt2::max(sz, d+1);
       for(size_t i=sz; i < ex1.size(); ++i)
       {
         if ((ex1[i]!= 1)) return false;

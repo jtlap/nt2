@@ -21,20 +21,20 @@ def rm(file):
     """suppress the file"""
     os.remove(file)
 
-def exist(filename):  
+def exist(filename):
     """does the file exist?"""
     return os.path.exists(filename)
-    
-def read(filename):  
+
+def read(filename):
     "read the file as list of strings"
     source = open(filename,'r')
     s=source.read()
     source.close()
     return s.split('\n')
 
-def  write(filename, s, check=True,verbose=False):  
-    """write a string or a list of string to a file 
-    
+def  write(filename, s, check=True,verbose=False):
+    """write a string or a list of string to a file
+
     if check is true and file exist NOTHING is done
     else the file is overwriten
     """
@@ -44,7 +44,7 @@ def  write(filename, s, check=True,verbose=False):
         s.append('');
     ex = exist(filename)
     if check and ex :
-        if verbose : 
+        if verbose :
             print(
                 '\nfile \n%s \nexists and is not overwriten\n' % filename
                 )

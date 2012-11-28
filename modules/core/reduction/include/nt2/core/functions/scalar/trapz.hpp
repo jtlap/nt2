@@ -20,7 +20,7 @@ namespace nt2 { namespace ext
                             , (scalar_< unspecified_<A0> >)
                             )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
       return Zero<A0>();
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
                               (scalar_< unspecified_<A1> >)
                             )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const &) const
     {
       return Zero<A0>();
@@ -44,12 +44,12 @@ namespace nt2 { namespace ext
                                (scalar_< integer_<A2> > )
                             )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const &, A2 const &) const
     {
       return Zero<A0>();;
     }
-  };  
+  };
 } }
 
 #endif

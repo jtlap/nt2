@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/rising_factorial.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  *
  * \param a0 the first parameter of rising_factorial
  * \param a1 the second parameter of rising_factorial
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rising_factorial_ of functor rising_factorial 
+     * \brief Define the tag rising_factorial_ of functor rising_factorial
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct rising_factorial_ : ext::elementwise_<rising_factorial_> { typedef ext::elementwise_<rising_factorial_> parent; };
@@ -73,7 +73,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/rising_factorial.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/rising_factorial.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/rising_factorial.hpp>
 
 #endif
 

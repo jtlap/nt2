@@ -25,12 +25,12 @@
  * The call is transfered to the standard C++ library function std::frexp
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/standard/include/functions/frexp.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of frexp
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace standard { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag frexp_ of functor frexp 
+     * \brief Define the tag frexp_ of functor frexp
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct frexp_ : ext::elementwise_<frexp_> { typedef ext::elementwise_<frexp_> parent; };
@@ -74,7 +74,7 @@ namespace nt2 { namespace standard { namespace tag
   } }
 
 #include <nt2/toolbox/standard/functions/scalar/frexp.hpp>
-// #include <nt2/toolbox/standard/functions/simd/all/frexp.hpp> 
+// #include <nt2/toolbox/standard/functions/simd/all/frexp.hpp>
 
 #endif
 

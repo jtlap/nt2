@@ -24,12 +24,12 @@
  * see cosine for details
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cotangent.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,21 +42,21 @@
  * \endcode
  *
  * \param a0 the unique parameter of cotangent
- * 
+ *
  * \param T template parameter of cotangent, used to control accuracy and speed
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cotangent_ of functor cotangent 
+     * \brief Define the tag cotangent_ of functor cotangent
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct cotangent_ : ext::elementwise_< cotangent_<T> > { typedef ext::elementwise_< cotangent_<T> > parent; };

@@ -74,8 +74,8 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmax_       , globalmax, 1)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::globalmax_       , g_max, 1)
   NT2_FUNCTION_IMPLEMENTATION_TPL(tag::globalmax_, globalmax,(A0 const&)(A1&),2)
-  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::globalmax_, g_max ,(A0 const&)(A1&),2) 
- 
+  NT2_FUNCTION_IMPLEMENTATION_TPL(tag::globalmax_, g_max ,(A0 const&)(A1&),2)
+
 }
 
 namespace nt2 { namespace ext
@@ -88,9 +88,9 @@ namespace nt2 { namespace ext
     typedef typename meta::call<tag::global_(nt2::functor<tag::maximum_>
                                              , const A0&
       )>::type                           result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const 
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return nt2::global(nt2::functor<tag::maximum_>(), a0); 
+      return nt2::global(nt2::functor<tag::maximum_>(), a0);
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalmax_, tag::cpu_,
@@ -99,15 +99,15 @@ namespace nt2 { namespace ext
     )
   {
     typedef typename meta::call<tag::global_(nt2::functor<tag::maximum_>, const A0&)>::type result_type;
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 & a1) const 
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 & a1) const
     {
        result_type tmp =  global(nt2::functor<tag::maximum_>(), a0);
        A1 k = nt2::globalfind(eq(a0, tmp));
        a1 = k;
-       return tmp; 
+       return tmp;
     }
   };
 
-  
+
 } }
 #endif

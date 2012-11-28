@@ -22,12 +22,12 @@
  * returns the number of non zero elements of the input SIMD vector.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/inbtrue.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of inbtrue
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,13 +53,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag inbtrue_ of functor inbtrue 
+     * \brief Define the tag inbtrue_ of functor inbtrue
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct inbtrue_ : ext::unspecified_<inbtrue_> { typedef ext::unspecified_<inbtrue_> parent; };

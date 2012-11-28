@@ -22,12 +22,12 @@
  * returns true if at least one element of the input vector is non zero.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/any.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of any
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,7 +53,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -64,12 +64,12 @@ namespace boost { namespace simd
     struct False;
 
     /*!
-     * \brief Define the tag any_ of functor any 
+     * \brief Define the tag any_ of functor any
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct any_ : ext::reduction_<any_, tag::logical_or_, tag::False> 
-    { 
-      typedef ext::reduction_<any_, tag::logical_or_, tag::False> parent; 
+    struct any_ : ext::reduction_<any_, tag::logical_or_, tag::False>
+    {
+      typedef ext::reduction_<any_, tag::logical_or_, tag::False> parent;
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::any_, any, 1)

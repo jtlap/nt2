@@ -25,12 +25,12 @@
  * The call is transfered to the standard C++ library function std::fmod
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/standard/include/functions/fmod.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -47,9 +47,9 @@
  *
  * \param a0 the first parameter of fmod
  * \param a1 the second parameter of fmod
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -59,13 +59,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace standard { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fmod_ of functor fmod 
+     * \brief Define the tag fmod_ of functor fmod
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct fmod_ : ext::elementwise_<fmod_> { typedef ext::elementwise_<fmod_> parent; };
@@ -74,7 +74,7 @@ namespace nt2 { namespace standard { namespace tag
   } }
 
 #include <nt2/toolbox/standard/functions/scalar/fmod.hpp>
-// #include <nt2/toolbox/standard/functions/simd/all/fmod.hpp> 
+// #include <nt2/toolbox/standard/functions/simd/all/fmod.hpp>
 
 #endif
 

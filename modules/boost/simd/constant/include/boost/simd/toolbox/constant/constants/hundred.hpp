@@ -24,12 +24,12 @@
  * Constant Hundred= 1000
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/hundred.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Hundred
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Hundred of functor Hundred 
+     * \brief Define the tag Hundred of functor Hundred
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER(Hundred,int,100, 0x42c80000, 0x4059000000000000ll)

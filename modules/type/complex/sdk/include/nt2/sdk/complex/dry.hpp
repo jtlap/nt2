@@ -20,7 +20,7 @@ namespace nt2
   {
     typedef T type;
     T value;
-    
+
     dry() {}
     explicit dry(T const& value_) : value(value_)
     {
@@ -29,7 +29,7 @@ namespace nt2
     operator T&()       {return value; }
     bool operator == (const dry<T>&a) const{return value == a.value; }
     bool operator != (const dry<T>&a) const{return value != a.value; }
-    
+
     T&       operator()()       { return value; }
     T const& operator()() const { return value; }
   };
@@ -53,12 +53,12 @@ namespace boost { namespace simd
   {
     typedef boost::simd::native<std::complex<T>, Ext> cvtype;
     const std::size_t size = meta::cardinal_of<boost::simd::native<T, Ext> >::value;
-    os << "{"; 
+    os << "{";
     for(std::size_t i = 0;  i < size; ++i)
       {
         os << v[i] << ((i+1 == size) ? "}" :", ");
       }
-    return os; 
+    return os;
   }
 } }
 

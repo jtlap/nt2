@@ -12,11 +12,11 @@
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 /*! \file gesv_itf.hh
     (excerpt adapted from xgesv.f file commentaries)
-    
+
     DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
-    
+
     BASE TYPE can mean respectively float, double, float, double
-    
+
     In some cases only two of these types types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
@@ -96,7 +96,7 @@ namespace nt2
 {
   namespace details
   {
-    
+
 #define NT2_GESV(NAME, T)                         \
   inline void gesv(const nt2_la_int* n,           \
                    const nt2_la_int* nrhs,        \
@@ -124,12 +124,12 @@ namespace nt2
                           ipiv, b, ldb, info);    \
     }                                             \
 
-        
+
     NT2_GESV(sgesv, float)
     NT2_GESV(dgesv, double)
     NT2_GESV(cgesv, std::complex<float>)
     NT2_GESV(zgesv, std::complex<double>)
-      
+
 #undef NT2_GESV
   }
 }

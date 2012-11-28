@@ -22,12 +22,12 @@
  * base ten logarithm function.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/log10.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of log10
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag log10_ of functor log10 
+     * \brief Define the tag log10_ of functor log10
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct log10_ : ext::elementwise_<log10_> { typedef ext::elementwise_<log10_> parent; };

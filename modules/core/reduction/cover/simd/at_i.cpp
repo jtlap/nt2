@@ -12,7 +12,7 @@
 // cover test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/at_i.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( at_i_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::at_i;
   using nt2::tag::at_i_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::scalar_of<T>::type sT;
@@ -70,6 +70,6 @@ NT2_TEST_CASE_TPL ( at_i_real__2_0,  NT2_SIMD_REAL_TYPES)
         r_t v = nt2::at_i(a0,a1);
         NT2_TEST_EQUAL( v,a0[a1]);
       }
-    
+
   }
 } // end of test for floating_

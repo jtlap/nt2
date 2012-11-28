@@ -24,12 +24,12 @@
  * As demonstrated in the synopsis this function can be called in various ways.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/modf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -49,26 +49,26 @@
  * \endcode
  *
  * \param a0 the unique parameter of modf
- * 
+ *
  * \return with one parameter the returned result is a fusion sequence of the two results, with two parameters the returned result is the intrger part, with three parameters the returned result is always 0
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag modf_ of functor modf 
+     * \brief Define the tag modf_ of functor modf
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct modf_ : ext::elementwise_<modf_> { typedef ext::elementwise_<modf_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::modf_, modf, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&)(A1&),2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&),2) 
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::modf_, modf,(A0 const&)(A1&),2)
 
 } }
 

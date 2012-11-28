@@ -24,12 +24,12 @@
  * Constant Log10_pi = base ten log of pi used in pispace
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/log10_pi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Log10_Pi
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Log10_Pi of functor Log10_Pi 
+     * \brief Define the tag Log10_Pi of functor Log10_Pi
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Log10_pi, double, 3

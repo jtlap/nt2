@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 ///  created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/expx2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,7 +33,7 @@
 
 NT2_TEST_CASE_TPL ( expx2_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::expx2;
   using nt2::tag::expx2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -43,9 +43,9 @@ NT2_TEST_CASE_TPL ( expx2_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( expx2_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( expx2_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::expx2;
   using nt2::tag::expx2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -71,9 +71,9 @@ NT2_TEST_CASE_TPL ( expx2_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( expx2_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( expx2_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::expx2;
   using nt2::tag::expx2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -95,9 +95,9 @@ NT2_TEST_CASE_TPL ( expx2_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

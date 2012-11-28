@@ -20,7 +20,7 @@
 namespace boost { namespace simd
 {
 ////////////////////////////////////////////////////////////////////////////////
-// simd::input_iterator reference a pack of N elements of type T that can only 
+// simd::input_iterator reference a pack of N elements of type T that can only
 // be read.
 ////////////////////////////////////////////////////////////////////////////////
   template<class T, std::size_t C = meta::cardinal_of< pack<T> >::value >
@@ -66,8 +66,8 @@ namespace boost { namespace simd
   };
 
 ////////////////////////////////////////////////////////////////////////////////
-// simd::input_begin()/simd::input_end() functions wrap scalar begin/end 
-// iterators for input_iterator.    
+// simd::input_begin()/simd::input_end() functions wrap scalar begin/end
+// iterators for input_iterator.
 ////////////////////////////////////////////////////////////////////////////////
   template<class Iterator>
   input_iterator<typename boost::pointee<Iterator>::type>
@@ -106,7 +106,7 @@ namespace boost { namespace simd
   }
 
 ////////////////////////////////////////////////////////////////////////////////
-// simd::output_iterator reference a pack of N elements of type T that can only 
+// simd::output_iterator reference a pack of N elements of type T that can only
 // be write.
 ////////////////////////////////////////////////////////////////////////////////
   template<class T, std::size_t C = meta::cardinal_of< pack<T> >::value >
@@ -121,15 +121,15 @@ namespace boost { namespace simd
   {
   private:
     struct enabler {};
-    
+
   public:
-    
+
     typedef pack<T,C> pack_type;
     typedef typename pack<T,C>::data_type native_;
     typedef typename native_::native_type native_type;
-    
+
     output_iterator() : output_iterator::iterator_adaptor_(0) {}
-    
+
     explicit output_iterator(T* p)
       : output_iterator::iterator_adaptor_(reinterpret_cast<native_*>(p))
     {
@@ -152,10 +152,10 @@ namespace boost { namespace simd
     {
       boost::simd::store(right, reinterpret_cast<T*>(this->base()), 0);
     }
-    
+
   private:
     friend class boost::iterator_core_access;
-    
+
     BOOST_DISPATCH_FORCE_INLINE
     typename output_iterator::reference dereference() const
     {
@@ -164,8 +164,8 @@ namespace boost { namespace simd
   };
 
 ////////////////////////////////////////////////////////////////////////////////
-// simd::output_begin()/simd::output_end() functions wrap scalar begin/end 
-// iterators for output_iterator.    
+// simd::output_begin()/simd::output_end() functions wrap scalar begin/end
+// iterators for output_iterator.
 ////////////////////////////////////////////////////////////////////////////////
   template<class Iterator>
   output_iterator<typename boost::pointee<Iterator>::type>
@@ -175,7 +175,7 @@ namespace boost { namespace simd
     value_type* tmp = &(*p);
     return output_iterator<typename boost::pointee<Iterator>::type>(tmp);
   }
-  
+
   template<class Iterator, std::size_t C>
   output_iterator<typename boost::pointee<Iterator>::type,C>
   output_begin(Iterator p)
@@ -184,7 +184,7 @@ namespace boost { namespace simd
     value_type* tmp = &(*p);
     return output_iterator<typename boost::pointee<Iterator>::type,C>(tmp);
   }
-  
+
   template<class Iterator>
   output_iterator<typename boost::pointee<Iterator>::type>
   output_end(Iterator p)
@@ -193,7 +193,7 @@ namespace boost { namespace simd
     value_type* tmp = &(*(p-1));
     return output_iterator<typename boost::pointee<Iterator>::type>(tmp+1);
   }
-  
+
   template<class Iterator, std::size_t C>
   output_iterator<typename boost::pointee<Iterator>::type,C>
   output_end(Iterator p)
@@ -202,7 +202,7 @@ namespace boost { namespace simd
     value_type* tmp = &(*(p-1));
     return output_iterator<typename boost::pointee<Iterator>::type,C>(tmp+1);
   }
-  
+
 } }
 
 #endif

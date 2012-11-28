@@ -22,12 +22,12 @@
  * The function returns the number of bit sets in each element of the input.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/popcnt.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of popcnt
- * 
+ *
  * \return always returns an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag popcnt_ of functor popcnt 
+     * \brief Define the tag popcnt_ of functor popcnt
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct popcnt_ : ext::elementwise_<popcnt_> { typedef ext::elementwise_<popcnt_> parent; };

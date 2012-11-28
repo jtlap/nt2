@@ -27,7 +27,7 @@
              'stamp' : 'modified by jt the 13/12/2010',
             },
          'ranges' : {
-             'default' : 
+             'default' :
                 [['boost::simd::Valmin<T>()',
                  'boost::simd::Valmax<T>()'],
                  ['boost::simd::Valmin<T>()',

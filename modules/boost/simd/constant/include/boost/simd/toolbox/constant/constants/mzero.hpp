@@ -31,12 +31,12 @@
  * The sign of zero can be accessed through the is_negative and is_positive predicates.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mzero.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,12 +48,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Mzero
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -61,7 +61,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Mzero of functor Mzero 
+     * \brief Define the tag Mzero of functor Mzero
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Mzero, double, 0

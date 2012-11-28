@@ -25,12 +25,12 @@
  * The call is transfered to the standard C++ library function std::cosh
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/standard/include/functions/cosh.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of cosh
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace standard { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cosh_ of functor cosh 
+     * \brief Define the tag cosh_ of functor cosh
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct cosh_ : ext::elementwise_<cosh_> { typedef ext::elementwise_<cosh_> parent; };
@@ -73,7 +73,7 @@ namespace nt2 { namespace standard { namespace tag
   } }
 
 #include <nt2/toolbox/standard/functions/scalar/cosh.hpp>
-// #include <nt2/toolbox/standard/functions/simd/all/cosh.hpp> 
+// #include <nt2/toolbox/standard/functions/simd/all/cosh.hpp>
 
 #endif
 

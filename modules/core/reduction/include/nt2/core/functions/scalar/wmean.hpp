@@ -19,25 +19,25 @@ namespace nt2 { namespace ext
                               (scalar_< floating_<A1> >)
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &) const
     {
       return a;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::wmean_, tag::cpu_, (A0)(A1)(A2)
                               , (scalar_< unspecified_<A0> >)
                               (scalar_< floating_<A1> >)
                               (scalar_< integer_<A2> > )
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a, A1 const &, A2 const &) const
     {
       return a;
     }
-  };  
+  };
 } }
 
 #endif

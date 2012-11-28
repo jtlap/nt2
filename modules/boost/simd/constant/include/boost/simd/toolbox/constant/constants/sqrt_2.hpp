@@ -24,12 +24,12 @@
  * Constant Sqrt_2 = \f$\sqrt2\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sqrt_2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Sqrt_2
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Sqrt_2 of functor Sqrt_2 
+     * \brief Define the tag Sqrt_2 of functor Sqrt_2
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrt_2, double, 1

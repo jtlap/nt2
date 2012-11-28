@@ -26,12 +26,12 @@
  * and the result is equivalent to applying \c prev \c abs(n) times to  \c a0.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/predecessor.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -39,7 +39,7 @@
  * {
  *   template<class A0> inline
  *   A0 predecessor(A0 const& a0);
- *    
+ *
  *   template<class A0,class A1> inline
  *   A0 predecessor(A0 const& a0,const A1& n);
  * }
@@ -47,19 +47,19 @@
  *
  * \param a0 the first parameter of predecessor
  * \param a1 the second parameter of predecessor
- * 
+ *
  * \return a value of type A0
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag predecessor_ of functor predecessor 
+     * \brief Define the tag predecessor_ of functor predecessor
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct predecessor_ : ext::elementwise_<predecessor_> { typedef ext::elementwise_<predecessor_> parent; };

@@ -34,19 +34,19 @@ NT2_TEST_CASE_TPL( linear_interp, (float)(double))//NT2_TYPES )
   nt2::table<T> dx, a, b;
   a = nt2::rif(5, 3, nt2::meta::as_<T>());
   b =  a+nt2::One<T>();
-  dx = nt2::reshape(nt2::linspace(T(0), T(1), 15), 5, 3); 
-  NT2_DISPLAY(a); 
-  NT2_DISPLAY(b); 
-  NT2_DISPLAY(dx); 
+  dx = nt2::reshape(nt2::linspace(T(0), T(1), 15), 5, 3);
+  NT2_DISPLAY(a);
+  NT2_DISPLAY(b);
+  NT2_DISPLAY(dx);
   NT2_TEST(nt2::isequal(nt2::linear_interp(nt2::Half<T>(), a, b), a+nt2::Half<T>()));
   nt2::table<T> z = nt2::linear_interp(dx, a, b);
   NT2_DISPLAY(z);
-  NT2_DISPLAY(a+dx); 
+  NT2_DISPLAY(a+dx);
   NT2_TEST(nt2::isulpequal(nt2::linear_interp(dx, a, b), a+dx));
   NT2_TEST(nt2::isulpequal(z, a+dx));
   nt2::table<T> z1 = a+dx;
-  NT2_TEST(nt2::isequal(z1, a+dx));  
+  NT2_TEST(nt2::isequal(z1, a+dx));
   NT2_DISPLAY(nt2::linear_interp(dx, a, b));
-  NT2_DISPLAY(nt2::linear_interp(dx, a, b)-z); 
+  NT2_DISPLAY(nt2::linear_interp(dx, a, b)-z);
 }
 

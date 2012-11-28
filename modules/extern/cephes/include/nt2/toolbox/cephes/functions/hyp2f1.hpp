@@ -23,12 +23,12 @@
  * library cephes.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/cephes/include/functions/hyp2f1.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -47,9 +47,9 @@
  * \param a1 the second parameter of hyp2f1
  * \param a2 the third parameter of hyp2f1
  * \param a3 the fourth parameter of hyp2f1
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -66,13 +66,13 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
- *  
+ *
 **/
 
 namespace nt2 { namespace cephes { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag hyp2f1_ of functor hyp2f1 
+     * \brief Define the tag hyp2f1_ of functor hyp2f1
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct hyp2f1_ : ext::elementwise_<hyp2f1_> { typedef ext::elementwise_<hyp2f1_> parent; };
@@ -81,7 +81,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
 
 #include <nt2/toolbox/cephes/functions/scalar/hyp2f1.hpp>
-// #include <nt2/toolbox/cephes/functions/simd/all/hyp2f1.hpp> 
+// #include <nt2/toolbox/cephes/functions/simd/all/hyp2f1.hpp>
 
 #endif
 

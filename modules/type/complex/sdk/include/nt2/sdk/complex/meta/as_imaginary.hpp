@@ -30,19 +30,19 @@ namespace nt2 { namespace details
    : boost::mpl::apply1<F, imaginary<T> >
   {
   };
-  
+
   template<class T, class F>
   struct as_imaginary< std::complex<T>, F >
    : boost::mpl::apply1<F, imaginary<T> >
   {
   };
-  
+
   template<class T, class F>
   struct as_imaginary< imaginary<T>, F >
    : boost::mpl::apply1<F, imaginary<T> >
   {
   };
-  
+
   template<class T, class F>
   struct as_imaginary< dry<T>, F >
    : boost::mpl::apply1<F, imaginary<T> >

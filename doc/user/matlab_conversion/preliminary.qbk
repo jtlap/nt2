@@ -1,6 +1,6 @@
 [section Preliminary NT2 settings]
 Matlab needs its pathes set, in order to find the object it will deal with.
- 
+
 Accordingly with NT2 we must work in the proper workspaces and
 include the proper objects to work with.
 
@@ -14,25 +14,25 @@ we will suppose that the directives:
   ``
 have been issued.
 
-[warning We do not advise to do so in production and preferably prefix the functors and type by the proper 
+[warning We do not advise to do so in production and preferably prefix the functors and type by the proper
 namespace to avoid clash problems.]
 
 [h3 Standard matrices]
 Also to have some array types ready to use, we will admit that
   [c++]
   ``
-  #include<nt2/table.hpp> 
+  #include<nt2/table.hpp>
   ``
 is present.
 
 An NT2 type very similar to the standard Matlab arrays of double can now be defined by the following typedef:
   [c++]
   ``
-  typedef table<double>  M_t;  
+  typedef table<double>  M_t;
   ``
 
 This typedef by default suppose that this kind of array can be dynamically resized and has FORTRAN/Matlab like
-indexing and storage, i.e. 
+indexing and storage, i.e.
 
 # indexes start at 1
 # storage is in column major order

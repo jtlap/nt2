@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_NTHROOT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_NTHROOT_HPP_INCLUDED
@@ -60,13 +60,13 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef typename meta::as_logical<A0>::type  bA0; 
-      typedef typename meta::as_logical<A1>::type  bA1; 
+      typedef typename meta::as_logical<A0>::type  bA0;
+      typedef typename meta::as_logical<A1>::type  bA1;
       A0 x =  nt2::abs(a0);
       A0 aa1 = tofloat(a1);
       A0 y =nt2::pow(x,rec(aa1));
       bA1 nul_a1 = is_eqz(a1);
-      A0 a11 = tofloat(a1-select(nul_a1, Mone<A1>(), Zero<A1>())); 
+      A0 a11 = tofloat(a1-select(nul_a1, Mone<A1>(), Zero<A1>()));
       y = seladd( logical_or(is_nez(y), nul_a1)
                 , y
                 , -(pow(y, aa1) - x)/(aa1* pow(y, sub(a11, One<A0>())))
@@ -74,11 +74,11 @@ namespace nt2 { namespace ext
 
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method
-      bA0 invalid = logical_and(is_ltz(a0), is_even(a1)); 
+      bA0 invalid = logical_and(is_ltz(a0), is_even(a1));
       return  select( is_eqz(a0),
-                      Zero<A0>(), 
+                      Zero<A0>(),
                       select( invalid,
-                              Nan<A0>(),   
+                              Nan<A0>(),
                               sel ( is_eqz(aa1)
                                   , One<A0>()
                                   , sel ( l_or(eq(a1, One<A1>()), is_inf(a0))

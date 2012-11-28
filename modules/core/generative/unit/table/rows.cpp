@@ -107,7 +107,7 @@ NT2_TEST_CASE( rows_expr )
 //   nt2::table<int> a( nt2::of_size(4,5) );
 //   nt2::table<T> x2 = nt2::rows( nt2::size(a), nt2::meta::as_<T>() );
 //   for(int i=1;i<=4;++i) for(int j=1;j<=5;++j) NT2_TEST_EQUAL( T(i), T(x2(i, j)));
-  
+
 // }
 
 

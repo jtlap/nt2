@@ -25,12 +25,12 @@
  * x = gammaincinv(a, y)
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/gammaincinv.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,17 +41,17 @@
  *     gammaincinv(const A0 & x, const A0& a);
  * }
  * \endcode
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gammaincinv_ of functor gammaincinv 
+     * \brief Define the tag gammaincinv_ of functor gammaincinv
      *        in namespace nt2::tag for toolbox euler
     **/
     struct gammaincinv_ : ext::elementwise_<gammaincinv_> { typedef ext::elementwise_<gammaincinv_> parent; };

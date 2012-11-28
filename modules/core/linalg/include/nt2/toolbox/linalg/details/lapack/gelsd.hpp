@@ -13,11 +13,11 @@
 
 /*! \file gelsd_itf.hh
     (excerpt adapted from xgelsd.f file commentaries)
-    
+
     DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
-    
+
     BASE TYPE can mean respectively float, double, float, double
-    
+
     In some cases only two of these types types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
@@ -193,7 +193,7 @@ namespace nt2 { namespace details
           s, rcond, rank,                       \
           info, w);                             \
   }                                             \
-    
+
     NT2_GELSD(sgelsd, float)
     NT2_GELSD(dgelsd, double)
 

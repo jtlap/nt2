@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/divides.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( divides_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::divides;
   using boost::simd::tag::divides_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -48,14 +48,14 @@ NT2_TEST_CASE_TPL ( divides_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(divides(boost::simd::Nan<vT>(), boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(divides(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::Inf<sr_t>());
   NT2_TEST_EQUAL(divides(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Nan<sr_t>());
-  std::cout << divides(boost::simd::One<vT>(), boost::simd::Two<vT>()) << std::endl; 
+  std::cout << divides(boost::simd::One<vT>(), boost::simd::Two<vT>()) << std::endl;
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( divides_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::divides;
   using boost::simd::tag::divides_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -72,5 +72,5 @@ NT2_TEST_CASE_TPL ( divides_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(divides(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(divides(boost::simd::One<vT>(),boost::simd::Two<vT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(divides(boost::simd::Zero<vT>(),boost::simd::Two<vT>())[0], boost::simd::Zero<sr_t>());
-  std::cout << divides(boost::simd::One<vT>(), boost::simd::Two<vT>()) << std::endl; 
+  std::cout << divides(boost::simd::One<vT>(), boost::simd::Two<vT>()) << std::endl;
 } // end of test for integer_

@@ -6,7 +6,7 @@
                           '\par',
                           'The sign \\\\f$ \\\\pm \\\\f$, exponent e and mantissa m of a floating point entry a are related by',
                           '\\\\f$a = \\\\pm m\\\\times 2^e\\\\f$, with m between zero and one'],
-         'return' : ['an integer value'],  
+         'return' : ['an integer value'],
           'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -22,7 +22,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
-             'included' : 
+             'included' :
                 ['#include <boost/simd/include/functions/ldexp.hpp>',
                  '#include <boost/simd/include/functions/exponent.hpp>',
                  '#include <boost/simd/include/functions/bits.hpp>'],

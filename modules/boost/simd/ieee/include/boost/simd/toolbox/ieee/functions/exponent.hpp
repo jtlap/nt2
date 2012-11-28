@@ -25,12 +25,12 @@
  * \f$a = \pm m\times 2^e\f$, with m between zero and one
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/exponent.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of exponent
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag exponent_ of functor exponent 
+     * \brief Define the tag exponent_ of functor exponent
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct exponent_ : ext::elementwise_<exponent_> { typedef ext::elementwise_<exponent_> parent; };

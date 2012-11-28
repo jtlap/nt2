@@ -12,7 +12,7 @@
 // cover test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/swar/include/functions/group.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( group_groupable__2_0,  NT2_SIMD_GROUPABLE_TYPES)
 {
   using nt2::group;
   using nt2::tag::group_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -72,6 +72,6 @@ NT2_TEST_CASE_TPL ( group_groupable__2_0,  NT2_SIMD_GROUPABLE_TYPES)
             NT2_TEST_EQUAL(v[i+cardinal_of<n_t>::value],ssr_t(a1[i]));
          }
       }
-    
+
   }
 } // end of test for groupable_

@@ -22,12 +22,12 @@
  * cosine of angle in \f$\pi\f$ multiples: \f$\cos(\pi a_0)\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cospi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cospi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cospi_ of functor cospi 
+     * \brief Define the tag cospi_ of functor cospi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cospi_ : ext::elementwise_<cospi_> { typedef ext::elementwise_<cospi_> parent; };

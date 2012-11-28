@@ -32,22 +32,22 @@ import re
 
 
 ##E_dict = {
-##    'scalar' :{}, 
+##    'scalar' :{},
 ##    'sse' :{
 ##       "fundamental_" : "NT2_TYPES(bool)",
 ##       "arithmetic_"  : "NT2_TYPES",
 ##       "real_"        : "NT2_REAL_TYPES",
 ##       "real_convert_": "NT2_REAL_CONVERTIBLE_TYPES",
-##       "int_convert_" : "NT2_INT_CONVERT_TYPES", 
-##       "uint_convert_": "NT2_UINT_CONVERT_TYPES",  
+##       "int_convert_" : "NT2_INT_CONVERT_TYPES",
+##       "uint_convert_": "NT2_UINT_CONVERT_TYPES",
 ##       "unsigned_"    : "NT2_UNSIGNED_TYPES",
-##       "unsigned_int_": "NT2_UNSIGNED_TYPES", 
-##       "signed_int_"  : "NT2_INTEGRAL_SIGNED_TYPES",  
-##       "integer_"     : "NT2_INTEGRAL_TYPES",  
+##       "unsigned_int_": "NT2_UNSIGNED_TYPES",
+##       "signed_int_"  : "NT2_INTEGRAL_SIGNED_TYPES",
+##       "integer_"     : "NT2_INTEGRAL_TYPES",
 ##       "signed_"      : "NT2_SIGNED_TYPES",
 ##       "int64_"       : "NT2_INT_64_TYPES",
 ##       "int32_"       : "NT2_INT_32_TYPES",
-##       "int16_"       : "NT2_INT_16_TYPES", 
+##       "int16_"       : "NT2_INT_16_TYPES",
 ##       "int8_"        : "NT2_INT_8_TYPES",
 ##       "groupable_"   : "NT2_GROUPABLE_TYPES",
 ##       "splitable_"   : "NT2_SPLITABLE_TYPES",
@@ -59,7 +59,7 @@ import re
 ##       "sintgt_16_"   : "NT2_SIGNED_INT_GT_16_TYPES",
 ##       "uintgt_16_"   : "NT2_UNSIGNED_INT_GT_16_TYPES",
 ##        },
-##    'altivec' : {}, 
+##    'altivec' : {},
 ##        }
 
 def extract(d,key_substitute,default_value,*fromkeys) :
@@ -67,7 +67,7 @@ def extract(d,key_substitute,default_value,*fromkeys) :
     for k in fromkeys :
         if isinstance(d1,dict) :
             d1 = d1.get(k,d1.get(key_substitute,default_value))
-    return d1    
+    return d1
 
 class Specific_values_test_gen(object) :
     def __init__(self, base_gen,d,typ,ret_arity,platform) :
@@ -78,7 +78,7 @@ class Specific_values_test_gen(object) :
         self.ret_arity = ret_arity
         self.platform = platform
         self.__gen_result = self.__create_v_tests(d,typ)
-        
+
     def get_gen_result(self) : return  self.__gen_result
     def get_spec_value_call_tpl(self,d) :
         """ this is the call template to the test of the value
@@ -103,7 +103,7 @@ class Specific_values_test_gen(object) :
     def expand_to_list(self,typ) :
 ##        print("typ ->>> %s"%typ)
         return self.bg.Expansion_dict[self.platform].get(typ,typ)
-    
+
     def __create_v_tests(self,dl,typ) :
         typs = self.expand_to_list(typ)
 ##        print ("=>>> %s"%typs)
@@ -116,17 +116,17 @@ class Specific_values_test_gen(object) :
         if dl["functor"].get("module","")=="boost" :
             r = [ re.sub("nt2::","boost::simd::",rr) for rr in r]
         return r
-    
+
     def __create_v_test(self,dl,typ,orig_type) :
         unit_specific = extract(dl,"","",'unit',"specific_values")
         r = ["", "  // specific values tests"]
         no_ulp = extract(dl,"","False","unit","global_header","no_ulp")
-        no_ulp = False if no_ulp == 'False' else no_ulp      #does we do an ulp-equality test or merely an equality test    
+        no_ulp = False if no_ulp == 'False' else no_ulp      #does we do an ulp-equality test or merely an equality test
 ##        if not isinstance(unit_specific, dict) or not unit_specific.get("manual",False) :
 ##            return False
 
         if isinstance(unit_specific, dict) :
-           p = unit_specific.get("prolog",False) 
+           p = unit_specific.get("prolog",False)
            if p : r = self.__add(p,r)
         if self.ret_arity <= 1 :
             r = self.__create_values_test(dl,typ,orig_type,no_ulp,r)
@@ -134,9 +134,9 @@ class Specific_values_test_gen(object) :
 ##            for rr in r : print(rr)
 ##            raise SystemExit
         else :
-            r = self.__create_tuple_values_test(dl,typ,orig_type,no_ulp,r)            
+            r = self.__create_tuple_values_test(dl,typ,orig_type,no_ulp,r)
         if isinstance(unit_specific, dict) :
-            e = unit_specific.get("epilog",False) 
+            e = unit_specific.get("epilog",False)
             if e : r = self.__add(e,r)
         return r
 
@@ -160,9 +160,9 @@ class Specific_values_test_gen(object) :
             # k is here the string representation of the list of parameters f the functor
             # with only one parameter (and no commas init) it will be repeated
             #   to reach correct arity
-            # else it will be taken as it is  
+            # else it will be taken as it is
             s = spec_values_tpl%  (ulp_str,thresh_str)
-            n = extract(unit_specific,"",self.bg.get_fct_name(),"functor","name")  
+            n = extract(unit_specific,"",self.bg.get_fct_name(),"functor","name")
             s =re.sub("\$fct_name_repl\$",n,s)
             if k.count(',')==0 : ## one for all but no , !
                 g = ', '.join([k]*int(extract(dl,"","1","functor","arity")))
@@ -199,7 +199,7 @@ class Specific_values_test_gen(object) :
             s =re.sub("\$call_param_res\$",rep,s)
             s =re.sub("\$specific_thresh\$",thr,s)
             r.append(s)
-        return r    
+        return r
 
     def __create_tuple_values_test(self,dl,typ,orig_typ,no_ulp,r) :
         d = extract(dl,"","",'unit',"specific_values")
@@ -207,7 +207,7 @@ class Specific_values_test_gen(object) :
             Call = "    "+self._prefix+"_TEST_EQUAL( boost::fusion::get<$i$>(res), $call_param_res$);"
         else :
             Call = "    "+self._prefix+"_TEST_TUPLE_ULP_EQUAL( boost::fusion::get<$i$>(res)$simd$, $call_param_res$$simd$, $specific_thresh$);"
-            
+
         Results = "    r_t res = $fct_name$$tpl_parm$($call_param_vals$);"
         dd = d.get(typ,d.get("default",None))
         if dd is None : dd = d.get(orig_typ,d.get("default",None))
@@ -258,10 +258,10 @@ class Specific_values_test_gen(object) :
                     s1 = re.sub("\$simd\$","[0]",s1)
                 else :
                     s1 = re.sub("\$simd\$","",s1)
-                        
+
                 r.append(s1)
             r.append("  }")
-        return r    
+        return r
 
     def __add(s,r) :
         if isinstance(s, str) :
@@ -269,7 +269,7 @@ class Specific_values_test_gen(object) :
         elif  isinstance(s, list ) :
             return r.extend(s)
         return r
-    
+
 if __name__ == "__main__" :
     from pprint        import PrettyPrinter
     from unit_base_gen import Base_gen

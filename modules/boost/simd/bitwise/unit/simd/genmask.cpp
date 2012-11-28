@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/genmask.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( genmask_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::genmask;
   using boost::simd::tag::genmask_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( genmask_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::genmask;
   using boost::simd::tag::genmask_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -74,6 +74,6 @@ NT2_TEST_CASE_TPL ( genmask_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(genmask(boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(genmask(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(genmask(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(genmask(boost::simd::False<vlT>())[0], boost::simd::Zero<sr_t>()); 
+  NT2_TEST_EQUAL(genmask(boost::simd::False<vlT>())[0], boost::simd::Zero<sr_t>());
   NT2_TEST_EQUAL(genmask(boost::simd::True<vlT>())[0], boost::simd::Nan<sr_t>());
 } // end of test for floating_

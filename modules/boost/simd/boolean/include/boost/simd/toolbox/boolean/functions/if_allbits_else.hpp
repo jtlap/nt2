@@ -26,19 +26,19 @@
  * the result type is the same as the second parameter one.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/if_allbits_else.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg ifallbitselse
  * \arg ifnot_else_allbits
  * \arg ifnotelseallbits
  * \arg ifnanelse
  * \arg ifnot_else_nan
  * \arg ifnotelsenan
- * 
+ *
  * \synopsis
  *
  * \code
@@ -52,21 +52,21 @@
  *
  * \param a0 the first parameter of if_allbits_else
  * \param a1 the second parameter of if_allbits_else
- * 
+ *
  * \return a value of the type of the second parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag if_allbits_else_ of functor if_allbits_else 
+     * \brief Define the tag if_allbits_else_ of functor if_allbits_else
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
      struct if_allbits_else_ : ext::elementwise_<if_allbits_else_> { typedef ext::elementwise_<if_allbits_else_> parent; };
@@ -80,7 +80,7 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_allbits_else_, ifnot_else_nan, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_allbits_else_, ifnotelsenan, 2)
 } }
- 
+
 #endif
 
 

@@ -12,7 +12,7 @@
 // unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/remquo.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::remquo;
   using nt2::tag::remquo_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -60,18 +60,18 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  NT2_SIMD_REAL_TYPES)
   T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   T b[10] = {1, 3, 4, 5, 6, 7, 8, 9, 10};
   vT r;
-  ivT n;     
+  ivT n;
   T sr = 0;
-  iT sn = 0; 
-  
+  iT sn = 0;
+
   for(int i=0; i < 10; ++i)
     {
       for(int j=0; j < 10; ++j)
         {
           remquo(nt2::splat<vT>(a[i]), nt2::splat<vT>(b[j]), r, n);
-          remquo(a[i], b[j], sr, sn); 
+          remquo(a[i], b[j], sr, sn);
           NT2_TEST_EQUAL(r[0], sr);
-          NT2_TEST_EQUAL(n[0], sn); 
+          NT2_TEST_EQUAL(n[0], sn);
        }
    }
 } // end of test for floating_

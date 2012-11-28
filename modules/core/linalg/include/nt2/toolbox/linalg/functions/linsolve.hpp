@@ -133,13 +133,13 @@ namespace nt2 { namespace ext
   struct  size_of<tag::linsolve_,Domain,N,Expr>
   {
     typedef _2D result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       _2D sizee;
       sizee[0] = size(boost::proto::child_c<0>(e), 2);
       sizee[1] = size(boost::proto::child_c<1>(e), 2);
-      return sizee; 
+      return sizee;
     }
 
   };

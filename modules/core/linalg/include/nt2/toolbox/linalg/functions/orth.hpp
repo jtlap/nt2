@@ -16,25 +16,25 @@
 #include <nt2/core/container/dsl/size.hpp>
 
 /*!
- * @brief orth basis of image space 
+ * @brief orth basis of image space
  *    q = orth(a) is an orthonormal basis for the range of a.
- *    that is, transconj(q)*q = i, the columns of q span the same space as 
- *    the columns of a, and the number of columns of q is the 
+ *    that is, transconj(q)*q = i, the columns of q span the same space as
+ *    the columns of a, and the number of columns of q is the
  *    rank of a.
  *    q = orth(a, tol) produces an image space basis of a compatible with the
  *    kernel basis given by null(a, tol)
- * 
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag orth_ of functor orth
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct orth_ :  tag::formal_ { typedef tag::formal_ parent; }; 
+    struct orth_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::orth_, orth, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::orth_, orth, 2)
 

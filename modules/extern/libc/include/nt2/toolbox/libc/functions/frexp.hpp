@@ -23,12 +23,12 @@
  * library libc.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/libc/include/functions/frexp.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,12 +40,12 @@
  *     typename boost::dispatch::meta::call<tag::frexp_(A0 const&)
  *                                         >::type
  *     frexp(A0 const& a0);
- *      
+ *
  *     template<class A0> inline
  *     typename boost::dispatch::meta::call<tag::frexp_(A0 const&,A0&)
  *                                          >::type
  *     frexp(A0 const& a0,A1& a2);
- *      
+ *
  *     template<class A0,class A1> inline
  *     int frexp(A0 const& a0,A0& a2,A1& a3);
  *   }
@@ -55,9 +55,9 @@
  * \param a0 the first parameter of frexp
  * \param a1 the second parameter of frexp
  * \param a2 the third parameter of frexp
- * 
+ *
  * \return depends of the number of arguments: see nt2::frexp for details
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -74,13 +74,13 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
- *  
+ *
 **/
 
 namespace nt2 { namespace libc { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag frexp_ of functor frexp 
+     * \brief Define the tag frexp_ of functor frexp
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct frexp_ : ext::elementwise_<frexp_> { typedef ext::elementwise_<frexp_> parent; };
@@ -90,7 +90,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
 
 #include <nt2/toolbox/libc/functions/scalar/frexp.hpp>
-// #include <nt2/toolbox/libc/functions/simd/all/frexp.hpp> 
+// #include <nt2/toolbox/libc/functions/simd/all/frexp.hpp>
 
 #endif
 

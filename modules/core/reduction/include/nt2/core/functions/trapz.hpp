@@ -26,17 +26,17 @@
  *    z = trapz(y) computes an approximation of the integral of y via
  *    the trapezoidal method (with unit spacing).  to compute the integral
  *    for spacing different from one, multiply z by the spacing increment.
- * 
+ *
  *    for vectors, trapz(y) is the integral of y. for matrices, trapz(y)
  *    is a row vector with the integral over each column. for n-d
  *    arrays, trapz(y) works across the first non-singleton dimension.
- * 
+ *
  *    z = trapz(x,y) computes the integral of y with respect to x using
  *    the trapezoidal method.  x must be a vector and y must a vector of the same
  *    length as the numel of x or an array whose first
  *    non-singleton dimension has  numel(x) elements.  trapz operates along this
  *    dimension.
- * 
+ *
  *    z = trapz(x,y,dim) or trapz(y,dim) integrates across dimension dim
  *    of y. the length of x must be the same as size(y,dim)).
  * \endcode

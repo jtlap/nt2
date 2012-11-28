@@ -24,12 +24,12 @@
  * \f[ \Gamma(a_0)=\int_0^\infty t^{a_0-1}e^{-t}dt\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/gamma.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of gamma
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gamma_ of functor gamma 
+     * \brief Define the tag gamma_ of functor gamma
      *        in namespace nt2::tag for toolbox euler
     **/
     struct gamma_ : ext::elementwise_<gamma_> { typedef ext::elementwise_<gamma_> parent; };

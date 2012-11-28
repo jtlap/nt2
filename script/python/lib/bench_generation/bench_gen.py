@@ -37,7 +37,7 @@ class Bench_gen() :
         self.__simd_type = simd_type
         self.mode = self.bg.get_fct_mode()
         self.__gen_result = self.__create_unit_txt()
-        
+
     def get_gen_result(self) : return  self.__gen_result
 
     def __create_unit_txt(self) :
@@ -88,7 +88,7 @@ class Bench_gen() :
             if d1 :
                 pass
             else :
-                d1 = { "arity"  : int(d["functor"]["arity"]), 
+                d1 = { "arity"  : int(d["functor"]["arity"]),
                        "ranges" : d["unit"].get("ranges",[['0','1']]),
                        "types"  : d["functor"].get('types',['T']),
                        "simd_types"  : d["functor"].get('simd_types',d["functor"].get('types',['T'])),
@@ -119,14 +119,14 @@ class Bench_gen() :
                             'int8_'         : ["nt2::uint8_t","nt2::int8_t"],
                             "groupable_"    : ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","double"],
                             "splitable_"    : ["nt2::int8_t","nt2::uint8_t","nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","float"],
-                            "gt_8_"         : ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","double","float"], 
+                            "gt_8_"         : ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","double","float"],
                             "lt_64_"        : ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int8_t","nt2::uint8_t","float"],
                             "gt_16_"        : ["nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","float","double"],
                             "sintgt_16_"    : ["nt2::int32_t","nt2::int64_t"],
                             "uintgt_16_"    : ["nt2::uint32_t","nt2::uint64_t"],
                             "int_convert_"  : ["nt2::int32_t","nt2::int64_t"],
                             "uint_convert_" : ["nt2::uint32_t","nt2::uint64_t"],
-                            "sintgt_8_"      : ["nt2::int16_t","nt2::int32_t","nt2::int64_t"], 
+                            "sintgt_8_"      : ["nt2::int16_t","nt2::int32_t","nt2::int64_t"],
                              }
                 typs = d1["simd_types"] if mode == 'simd' else d1["types"]
                 if self.__simd_type == 'altivec' and mode ==  'simd' :
@@ -136,7 +136,7 @@ class Bench_gen() :
                      variety[ "gt_16_" ] = ["nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","float","double"]
                      variety[ "groupable_"] = ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t"]
                      variety[ "gt_8_"] = ["nt2::int16_t","nt2::uint16_t","nt2::int32_t","nt2::uint32_t","nt2::int64_t","nt2::uint64_t","double","float"]
-                              
+
                 print ("typs %s" % typs)
                 for typ in typs :
 ##                    print("typ = %s, variety = %s"%(typ,variety[typ]))
@@ -172,7 +172,7 @@ class Bench_gen() :
                         if not isinstance(rges[0][0],list) : rges = [rges]
                         prefix = "v" if mode == 'simd' else ''
                         scalar_ints = d['functor'].get('scalar_ints',False) == 'True'
-                        iprefix = "v" if (mode == 'simd' and (name[-1]!='i') and (not scalar_ints)) else ''    
+                        iprefix = "v" if (mode == 'simd' and (name[-1]!='i') and (not scalar_ints)) else ''
                         calls = d1["call_types"]*d1["arity"] if len( d1["call_types"]) == 1 else d1["call_types"][0:int(d1["arity"])]
                         if isinstance(calls,str) : calls = [calls]
 ##                        print("callls %s"%calls)
@@ -184,10 +184,10 @@ class Bench_gen() :
                                 if calls[j][0]=='i' :
                                     param += tpl%(iprefix+calls[j],rge[0],rge[1])
                                 elif   calls[j][0]=='s' :
-                                   param += tpl%(calls[j][1:],rge[0],rge[1])   
+                                   param += tpl%(calls[j][1:],rge[0],rge[1])
                                 else :
                                     param += tpl%(prefix+calls[j],rge[0],rge[1])
-                            r.append(call%param)    
+                            r.append(call%param)
                         r += ["}"]
 
         txt += r+txtf;
@@ -197,7 +197,7 @@ class Bench_gen() :
         h = Headers(os.path.join(self.bg.get_nt2_rel_tb_path(tb_name),'bench',mode),
                     name,inner=txt,guard_begin=[],guard_end=[]).txt()
         return h.split('\n')
-         
+
 if __name__ == "__main__" :
     print __doc__
     from pprint   import PrettyPrinter

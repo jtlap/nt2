@@ -10,7 +10,7 @@
 ##############################################################################
 
 
-"""Utilities to get nt2 toolboxes 
+"""Utilities to get nt2 toolboxes
 """
 
 __author__    = "Lapreste Jean-thierry (lapreste@univ-bpclermont.fr)"
@@ -51,7 +51,7 @@ class Nt2_modules(Nt2_base_infos) :##(Nt2_base_infos,Nt2_tb_struct) :
 ##                if d1 : return d1.groups()[0]
         filename = os.path.join(dirname,'py_data.py')
         if exist(filename) :
-            s = '\n'.join(read(filename))              
+            s = '\n'.join(read(filename))
             exec(s)
             return datas.get('style','usr')
         return 'usr'
@@ -91,7 +91,7 @@ class Nt2_modules(Nt2_base_infos) :##(Nt2_base_infos,Nt2_tb_struct) :
         else :
             l= [n for n in l if  ('.' in n) and re.match(root,n) ]
         return sorted(list(set(l)))
-    
+
 if __name__ == "__main__" :
     tbi = Nt2_modules()
     print(tbi.get_module_style("arithmetic"))

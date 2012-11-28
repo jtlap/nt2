@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOSPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCOSPI_HPP_INCLUDED
@@ -20,23 +20,23 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincospi_, boost::simd::tag::simd_,(A0)(A1)(X),
-                                (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
+                                (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>,
                                                      nt2::meta::cardinal_of<A1> >),
                              ((simd_ < arithmetic_<A0>,X >))
                              ((simd_ < floating_<A1>,X>))
                              ((simd_ < floating_<A1>,X>))
                              )
   {
-    typedef void result_type;    
+    typedef void result_type;
     inline result_type operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
       a1 = impl::trig_base <A1,pi_tag,
-                       tag::simd_type>::sincosa(tofloat(a0),a2); 
+                       tag::simd_type>::sincosa(tofloat(a0),a2);
     }
   };
-  
+
    NT2_FUNCTOR_IMPLEMENTATION_IF(nt2::tag::sincospi_, boost::simd::tag::simd_,(A0)(A1)(X),
-                                (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>, 
+                                (boost::mpl::equal_to<nt2::meta::cardinal_of<A0>,
                                                  nt2::meta::cardinal_of<A1>
                                         >
                                 ),
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
                                 ((simd_ < floating_<A1>,X > ))
                              )
   {
-    typedef A1 result_type;    
+    typedef A1 result_type;
     inline result_type operator()(A0 const& a0,A1 & a2) const
     {
       return impl::trig_base<A1, pi_tag, tag::simd_type>::sincosa(tofloat(a0), a2);
@@ -61,7 +61,7 @@ namespace nt2 { namespace ext
   {
       typedef typename meta::as_floating<A0>::type  rtype;
       typedef boost::fusion::tuple<rtype, rtype> result_type;
-    
+
     NT2_FUNCTOR_CALL_REPEAT(1)
     {
       typedef result_type rtype;

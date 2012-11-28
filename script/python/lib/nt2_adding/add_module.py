@@ -40,8 +40,8 @@ from nt2_modules                     import Nt2_modules
 ##from pprint                          import PrettyPrinter
 ##from unit_base_gen                   import Base_gen
 ##from unit_global_header_gen          import Global_header_gen
-##from unit_type_header_gen            import Type_header_test_gen 
-##from unit_specific_values_gen        import Specific_values_test_gen 
+##from unit_type_header_gen            import Type_header_test_gen
+##from unit_specific_values_gen        import Specific_values_test_gen
 ##from unit_random_verif_gen           import Random_verif_test_gen
 from nt2_tb_struct                   import Nt2_tb_struct
 from nt2_archis_struct               import Nt2_archis_struct
@@ -260,7 +260,7 @@ d = { "bench/CMakeLists.txt" :
 def dollarize(t) :
    return "\$"+t+"\$"
 
-    
+
 class Add_module_skel(Nt2_base_infos,Nt2_tb_struct) :
     def __init__(self,tb_name,style='sys') :
         Nt2_base_infos.__init__(self)
@@ -270,7 +270,7 @@ class Add_module_skel(Nt2_base_infos,Nt2_tb_struct) :
         self.primary_abs_tb_path = os.path.join(self.get_toolboxes_path(),tb_name)
         self.secundary_abs_tb_path = os.path.join(self.primary_abs_tb_path,'include','nt2','toolbox',tb_name)
         self.part = ""
-        
+
     def value(self,t,f) :
         dico = {
             "part"    : self.part,
@@ -319,11 +319,11 @@ class Add_module_skel(Nt2_base_infos,Nt2_tb_struct) :
                 if len(v.Variants[va]) > 1 :
                    here1 = os.path.join(here1,v.Variants[va][1])
                    cond_mkdir(here1)
-        
+
     def create_dir_files(self) :
         l =self.get_rel_tb_unique_files(self.tb_name)
         keys = [re.sub("\$tb_name\$",self.tb_name,k) for k in d.keys()]
-            
+
         for f in l :
             fsplit = f.split('/')
             self.part = fsplit[0]
@@ -331,7 +331,7 @@ class Add_module_skel(Nt2_base_infos,Nt2_tb_struct) :
                 kf = f
                 if self.tb_name in f :
                     kf = re.sub(tb_name,"$tb_name$",kf)
-                p =  os.path.normpath(os.path.join(self.primary_abs_tb_path, f))   
+                p =  os.path.normpath(os.path.join(self.primary_abs_tb_path, f))
                 self.wr_txt(d,kf,p)
 ##            print(f)
 ##            print(os.path.join(self.primary_abs_tb_path, f))
@@ -345,7 +345,7 @@ class Add_module_skel(Nt2_base_infos,Nt2_tb_struct) :
         print(p)
         print(txt)
         write(p,txt,True)
-        
+
 if __name__ == "__main__" :
 ##    mds = Nt2_modules()
 ##    for tb_name in mds.get_modules_list() :
@@ -353,4 +353,4 @@ if __name__ == "__main__" :
    ams = Add_module_skel(tb_name,'sys')
    ams.create_dirs()
    ams.create_dir_files()
-    
+

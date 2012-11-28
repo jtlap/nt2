@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/sqrt.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/pure.hpp>
@@ -30,7 +30,7 @@
 
 NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using nt2::sqrt;
   using nt2::tag::sqrt_;
   typedef typename std::complex<T> cT;
@@ -43,20 +43,20 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
   typedef cT wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   //  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
-  ulpd=0.0; 
+  ulpd=0.0;
 
-  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl; 
+  // std::cout << nt2::type_id(nt2::I<T>()) << std::endl;
   // specific values tests
    NT2_TEST_ULP_EQUAL(nt2::sqrt(cT(1)), cT(1), 0);
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>())), cT(nt2::Inf<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>())); 
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Nan<T>())),cT(nt2::Nan<T>(),nt2::Nan<T>()));
-   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Zero<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));  
+   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Zero<T>(),nt2::Inf<T>())),cT(nt2::Inf<T>(),nt2::Inf<T>()));
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>())), cT(0, nt2::Inf<T>()));
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Mone<T>())), cT(0, nt2::One<T>()));
    NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>())), cT(nt2::Nan<T>(),nt2::Nan<T>()));
@@ -65,13 +65,13 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
    std::complex < T > a(1, 0);
    NT2_TEST_EQUAL(nt2::sqrt(a), cT(nt2::One<T>()));
    std::complex < T > b(nt2::Zero<T>(), nt2::Inf<T>());
-   
+
    NT2_TEST_EQUAL(nt2::sqrt(nt2::pure(b)), cT(nt2::Inf<T>(), nt2::Inf<T>()));
-   
+
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Zero<T>(),nt2::Zero<T>())), cT(nt2::Zero<T>(),nt2::Zero<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Mzero<T>(),nt2::Zero<T>())),cT(nt2::Zero<T>(),nt2::Zero<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Zero<T>())), cT(nt2::Zero<T>(),nt2::Inf<T>()));
- 
+
 
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(), nt2::Inf<T>())), cT(nt2::Inf<T>(),nt2::Inf<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(), nt2::Inf<T>())), cT(nt2::Inf<T>(),nt2::Inf<T>()));
@@ -84,8 +84,8 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::One<T>())), cT(nt2::Zero<T>(),nt2::Inf<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),nt2::Mone<T>())),cT(nt2::Zero<T>(),nt2::Minf<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(),nt2::Nan<T>())),  cT(nt2::Nan<T>(),nt2::Nan<T>()));
-  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::One<T>())),  cT(nt2::Nan<T>(),nt2::Nan<T>()));  
-  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Nan<T>())),  cT(nt2::Nan<T>(),nt2::Nan<T>()));  
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::One<T>())),  cT(nt2::Nan<T>(),nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(),nt2::Nan<T>())),  cT(nt2::Nan<T>(),nt2::Nan<T>()));
 
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::One<T>(), -nt2::Inf<T>())), cT(nt2::Inf<T>(),-nt2::Inf<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(), -nt2::Inf<T>())), cT(nt2::Inf<T>(),-nt2::Inf<T>()));
@@ -98,20 +98,20 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  (double))//BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),-nt2::One<T>())), cT(nt2::Zero<T>(),-nt2::Inf<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Minf<T>(),-nt2::Mone<T>())),cT(nt2::Zero<T>(),-nt2::Minf<T>()));
   NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Inf<T>(), -nt2::Nan<T>())), cT(nt2::Nan<T>(),nt2::Nan<T>()));
-  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(), -nt2::One<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));  
-  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(), -nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));  
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(), -nt2::One<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));
+  NT2_TEST_EQUAL(nt2::sqrt(cT(nt2::Nan<T>(), -nt2::Nan<T>())), cT(nt2::Nan<T>(),-nt2::Nan<T>()));
   NT2_TEST_ULP_EQUAL(nt2::sqrt(cT(0, 2)), cT(1, 1), 1);
-  
+
   for(T i=-5; i <=  T(5) ; i+= T(0.5))
     {
       for(T j =-5; j < T(5); j+= T(0.5))
         {
-          std::cout << i << "+i*(" << j << ") -> " << nt2::sqrt(cT(i, j)) << std::endl; 
-          NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::sqrt(cT(i, j))), cT(i, j), 10); 
+          std::cout << i << "+i*(" << j << ") -> " << nt2::sqrt(cT(i, j)) << std::endl;
+          NT2_TEST_ULP_EQUAL(nt2::sqr(nt2::sqrt(cT(i, j))), cT(i, j), 10);
         }
     }
 } // end of test for floating_
- 
+
 // csqrt(conj(z)) = conj(csqrt(z)).
 //  csqrt((+/-)0 + i0) returns +0 + i0.
 //  csqrt(x + i inf) returns +inf + i inf, for all x (including NaN).

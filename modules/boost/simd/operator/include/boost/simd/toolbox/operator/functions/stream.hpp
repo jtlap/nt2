@@ -20,15 +20,15 @@
  *
  * \par Description
  * Stream data from a0 to the memory zone given by a1 and offset a2
- * and return a0. 
+ * and return a0.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/stream.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,16 +43,16 @@
  * \param a0 the object to stream
  * \param a1 the base address
  * \param a2 offset to stream at
- * 
+ *
  * \return a0
- *  
+ *
 **/
 
 namespace boost { namespace simd
 {
   namespace tag { struct stream_ : ext::elementwise_<stream_> { typedef ext::elementwise_<stream_> parent; }; }
     /*!
-     * \brief Define the tag stream_ of functor stream 
+     * \brief Define the tag stream_ of functor stream
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
   template<class A0, class A1, class A2>
@@ -62,7 +62,7 @@ namespace boost { namespace simd
   {
     return typename boost::dispatch::make_functor<tag::stream_, A0>::type()(a0, a1, a2);
   }
-  
+
   template<class A0, class A1>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::stream_(A0 const&, A1 const&, int const&)>::type
@@ -70,7 +70,7 @@ namespace boost { namespace simd
   {
     return typename boost::dispatch::make_functor<tag::stream_, A0>::type()(a0, a1, 0);
   }
-  
+
 } }
 
 #endif

@@ -22,12 +22,12 @@
  * return the \c truncation of the operands real divisionin the corresponding integer type
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/idivfix.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of idivfix
  * \param a1 the second parameter of idivfix
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag idivfix_ of functor idivfix 
+     * \brief Define the tag idivfix_ of functor idivfix
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct idivfix_ : ext::elementwise_<idivfix_> { typedef ext::elementwise_<idivfix_> parent; };

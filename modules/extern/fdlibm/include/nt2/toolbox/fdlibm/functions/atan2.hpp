@@ -23,12 +23,12 @@
  * library fdlibm.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/fdlibm/include/functions/atan2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  *
  * \param a0 the first parameter of atan2
  * \param a1 the second parameter of atan2
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -61,13 +61,13 @@
  * fdlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace fdlibm { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag atan2_ of functor atan2 
+     * \brief Define the tag atan2_ of functor atan2
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct atan2_ : ext::elementwise_<atan2_> { typedef ext::elementwise_<atan2_> parent; };
@@ -76,7 +76,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
 
 #include <nt2/toolbox/fdlibm/functions/scalar/atan2.hpp>
-// #include <nt2/toolbox/fdlibm/functions/simd/all/atan2.hpp> 
+// #include <nt2/toolbox/fdlibm/functions/simd/all/atan2.hpp>
 
 #endif
 

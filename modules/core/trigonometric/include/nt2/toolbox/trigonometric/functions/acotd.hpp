@@ -22,12 +22,12 @@
  * inverse cotangent in degree.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/acotd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of acotd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag acotd_ of functor acotd 
+     * \brief Define the tag acotd_ of functor acotd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acotd_ : ext::elementwise_<acotd_> { typedef ext::elementwise_<acotd_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/firstbitset.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( firstbitset_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::firstbitset;
   using boost::simd::tag::firstbitset_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNE
 {
   using boost::simd::firstbitset;
   using boost::simd::tag::firstbitset_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYP
 {
   using boost::simd::firstbitset;
   using boost::simd::tag::firstbitset_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

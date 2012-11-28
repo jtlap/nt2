@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_SELSUB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BOOLEAN_FUNCTIONS_SIMD_COMMON_SELSUB_HPP_INCLUDED
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef A1 result_type;
     inline result_type operator()(A0 const& a0, A1 const& a1, A1 const& a2) const
     {
-     return a1 - if_else_zero(a0, a2); 
+     return a1 - if_else_zero(a0, a2);
     }
   };
 
@@ -50,9 +50,9 @@ namespace boost { namespace simd { namespace ext
       // this is a workaround for a gcc (at least 4.6) over-optimization in case or a1 and a2 are
       // equal (constant?) and invalid (inf -inf or nan) in which case the general impl sometimes
       // return 0 in place of nan in float cases.
-     return a1 + if_else_zero(a0, -a2); 
+     return a1 + if_else_zero(a0, -a2);
     }
-  };  
+  };
 } } }
 
 #endif

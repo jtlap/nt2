@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_CEPHES_FUNCTIONS_SCALAR_NBDTRI_HPP_INCLUDED
 #define NT2_TOOLBOX_CEPHES_FUNCTIONS_SCALAR_NBDTRI_HPP_INCLUDED
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(3)
     {
-      if (is_lez(a0)||is_lez(a1)) return nt2::Nan<A2>(); 
+      if (is_lez(a0)||is_lez(a1)) return nt2::Nan<A2>();
       return cephes_nbdtri(a0, a1, double(a2)); }
   };
 } }

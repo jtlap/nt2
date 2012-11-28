@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_AVX_HMSB_HPP_INCLUDED
@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<type8_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef boost::simd::uint32_t result_type; 
+    typedef boost::simd::uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename meta::scalar_of<A0>::type             sctype;
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
            |(boost::simd::uint32_t(_mm_movemask_epi8(a01)) << 16);
     }
   };
- 
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type32
   /////////////////////////////////////////////////////////////////////////////
@@ -43,14 +43,14 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<type32_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef boost::simd::uint32_t result_type; 
+    typedef boost::simd::uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type vfloat;
       return _mm256_movemask_ps(bitwise_cast<vfloat>(a0));
     }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is type64
   /////////////////////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<type64_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef boost::simd::uint32_t result_type; 
+    typedef boost::simd::uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename dispatch::meta::as_floating<A0>::type vdouble;
@@ -75,7 +75,7 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<type16_<A0>,boost::simd::tag::avx_>))
                             )
   {
-    typedef boost::simd::uint32_t result_type; 
+    typedef boost::simd::uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
       typedef typename meta::scalar_of<A0>::type             sctype;
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
       svtype a01 = _mm256_extractf128_si256(a0, 1);
       return hmsb(a00)|(hmsb(a01)<<8);
     }
-  };  
+  };
 } } }
 
 #endif

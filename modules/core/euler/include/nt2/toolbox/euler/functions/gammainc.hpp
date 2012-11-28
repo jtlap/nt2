@@ -24,12 +24,12 @@
  * \f[ gammainc(x)=\int_0^\a t^{x-1}e^{-t}dt\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/gammainc.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,17 +40,17 @@
  *     gammainc(const A0 & x, const A0& a);
  * }
  * \endcode
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gammainc_ of functor gammainc 
+     * \brief Define the tag gammainc_ of functor gammainc
      *        in namespace nt2::tag for toolbox euler
     **/
     struct gammainc_ : ext::elementwise_<gammainc_> { typedef ext::elementwise_<gammainc_> parent; };

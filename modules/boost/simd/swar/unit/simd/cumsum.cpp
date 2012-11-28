@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/swar/include/functions/cumsum.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/all.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( cumsum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::cumsum;
   using boost::simd::tag::cumsum_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( cumsum_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYP
 {
   using boost::simd::cumsum;
   using boost::simd::tag::cumsum_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL ( cumsum_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::cumsum;
   using boost::simd::tag::cumsum_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

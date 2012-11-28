@@ -27,12 +27,12 @@
  * means rouding to \f$-\infty\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/crlibm/include/functions/asin_rd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,9 +48,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of asin_rd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -64,13 +64,13 @@
  * crlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-     * \brief Define the tag asin_rd_ of functor asin_rd 
+     * \brief Define the tag asin_rd_ of functor asin_rd
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct asin_rd_ : ext::elementwise_<asin_rd_> { typedef ext::elementwise_<asin_rd_> parent; };

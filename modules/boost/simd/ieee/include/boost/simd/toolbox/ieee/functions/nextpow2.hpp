@@ -22,12 +22,12 @@
  * Returns the least n such that abs(a0) is less or equal to \f$2^n\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/nextpow2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of nextpow2
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag nextpow2_ of functor nextpow2 
+     * \brief Define the tag nextpow2_ of functor nextpow2
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct nextpow2_ : ext::elementwise_<nextpow2_> { typedef ext::elementwise_<nextpow2_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/multiplies.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,7 +24,7 @@
 
 NT2_TEST_CASE_TPL ( multiplies_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::multiplies;
   using boost::simd::tag::multiplies_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -35,9 +35,9 @@ NT2_TEST_CASE_TPL ( multiplies_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef r_t wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(multiplies(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( multiplies_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( multiplies_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::multiplies;
   using boost::simd::tag::multiplies_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -61,9 +61,9 @@ NT2_TEST_CASE_TPL ( multiplies_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef r_t wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(multiplies(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());

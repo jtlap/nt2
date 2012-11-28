@@ -12,7 +12,7 @@
 // cover test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/ldexp.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::ldexp;
   using nt2::tag::ldexp_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -69,15 +69,15 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  NT2_SIMD_REAL_TYPES)
         ivT a1 = load<ivT>(&tab_a1[0],j);
         r_t v = ldexp(a0,a1);
         std::cout << "a0 " << a0 << std::endl;
-        std::cout << "a1 " << a1 << std::endl;   
-        std::cout << "v " << v << std::endl; 
+        std::cout << "a1 " << a1 << std::endl;
+        std::cout << "v " << v << std::endl;
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           std::cout << "(a0[i],a1[i]) =  " << "("
-                    << a0[i] << ", " << a1[i] << ")" << std::endl; 
+                    << a0[i] << ", " << a1[i] << ")" << std::endl;
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::ldexp (a0[i],a1[i])));
         }
       }
-    
+
   }
 } // end of test for floating_

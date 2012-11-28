@@ -22,12 +22,12 @@
  * tangent of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_tanpi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of fast_tanpi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_tanpi_ of functor fast_tanpi 
+     * \brief Define the tag fast_tanpi_ of functor fast_tanpi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_tanpi_ : ext::elementwise_<fast_tanpi_> { typedef ext::elementwise_<fast_tanpi_> parent; };

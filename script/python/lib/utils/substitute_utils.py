@@ -10,7 +10,7 @@
 ##############################################################################
 
 
-"""utilities to substitute strings 
+"""utilities to substitute strings
    chains to be substitued are of the form <token>.*<token>
    the .* must correspond to an attribute of the class inheiting from
    substitute
@@ -44,11 +44,11 @@ def stringize(x,sep=', ') :
 class Substitute(object) :
     def __init__(self) :
         pass
-    
+
     def keys_of(self,txt,tokenl='\$',tokenr='\$') :
         m = list(set(re.findall('(%s.*?%s)'%(tokenl,tokenr),txt)))
         z = [ mm.replace('$','\$') for mm in m]
-        return z         
+        return z
 
     def replace(self,txt,keys=None,tokenl='\$',tokenr='\$') :
         if keys is None : keys = self.keys_of(txt,tokenl,tokenr)
@@ -59,8 +59,8 @@ class Substitute(object) :
 ##            print("g -> %s "%getattr(self,k[ll:lr]))
             txt = re.sub(k,getattr(self,k[ll:lr]),txt)
         return txt
-    
+
 
 if __name__ == "__main__" :
     pass
-    
+

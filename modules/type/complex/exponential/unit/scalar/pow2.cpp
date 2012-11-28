@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/include/functions/pow2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,20 +33,20 @@
 
 NT2_TEST_CASE_TPL ( pow2_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::pow2;
   using nt2::tag::pow2_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<pow2_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
-  typedef typename nt2:: meta::as_dry<T>::type dT; 
+  typedef typename nt2:: meta::as_dry<T>::type dT;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -57,5 +57,5 @@ NT2_TEST_CASE_TPL ( pow2_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(pow2(cT(nt2::Nan<T>())), cT(nt2::Nan<T>()));
   NT2_TEST_EQUAL(pow2(cT(nt2::One<T>())), cT(nt2::Two<T>()));
   NT2_TEST_EQUAL(pow2(cT(nt2::Zero<T>())), cT(nt2::One<T>()));
-  NT2_TEST_EQUAL(pow2(cT(nt2::One<T>(), nt2::One<T>()), iT(1)), dT(2)); 
+  NT2_TEST_EQUAL(pow2(cT(nt2::One<T>(), nt2::One<T>()), iT(1)), dT(2));
 } // end of test for floating_

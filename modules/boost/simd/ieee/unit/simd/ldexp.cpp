@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/ldexp.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -28,7 +28,7 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::ldexp;
   using boost::simd::tag::ldexp_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( ldexp_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 
   for(unsigned int i = 0; i < cardinal_of<vT>::value; ++i)
     {
-      std::cout << i << std::endl; 
+      std::cout << i << std::endl;
       NT2_TEST_EQUAL( boost::simd::ldexp( boost::simd::One<vT>()
                                         , boost::simd::Two<ivT>()
                                         )[i]

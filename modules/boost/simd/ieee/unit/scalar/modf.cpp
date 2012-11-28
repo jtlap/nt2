@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/modf.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -28,7 +28,7 @@
 
 NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::modf;
   using boost::simd::tag::modf_;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -38,16 +38,16 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::fusion::vector<T,T> wished_r_t;
-  
-  
-  // return type conformity test 
+
+
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
    T f, n;
   T a[6] = {T(0), T(1), T(1.5), boost::simd::Inf<T>(), boost::simd::Minf<T>(), boost::simd::Nan<T>()};
-  
+
   for(int i=0; i < 6; i++)
     {
-      modf(a[i], n, f); 
+      modf(a[i], n, f);
       NT2_TEST_EQUAL(f, boost::simd::frac(a[i]));
       NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));
     }
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::modf;
   using boost::simd::tag::modf_;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -67,22 +67,22 @@ NT2_TEST_CASE_TPL ( modf_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef boost::fusion::vector<T,T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   T f, n;
   T a[6] = {T(0), T(1), T(10), T(-10), boost::simd::Valmin<T>(), boost::simd::Valmax<T>()};
-  
+
   for(int i=0; i < 6; i++)
     {
-      modf(a[i], n, f); 
+      modf(a[i], n, f);
       NT2_TEST_EQUAL(f, boost::simd::Zero<T>());
-      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));              
+      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));
     }
 } // end of test for unsigned_int_
 
 NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::modf;
   using boost::simd::tag::modf_;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -94,16 +94,16 @@ NT2_TEST_CASE_TPL ( modf_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef boost::fusion::vector<T,T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   T f, n;
   T a[6] = {T(0), T(1), T(10), boost::simd::Valmin<T>(), boost::simd::Valmax<T>()};
-  
+
   for(int i=0; i < 5; i++)
     {
-      modf(a[i], n, f); 
+      modf(a[i], n, f);
       NT2_TEST_EQUAL(f, boost::simd::Zero<T>());
-      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));              
+      NT2_TEST_EQUAL(n, boost::simd::trunc(a[i]));
     }
 
 } // end of test for signed_int_

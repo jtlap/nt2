@@ -22,12 +22,12 @@
  * Returns True<result_type>() or False<result_type>() according a0 is less than zero or not.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_ltz.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of is_ltz
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -53,13 +53,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_ltz_ of functor is_ltz 
+     * \brief Define the tag is_ltz_ of functor is_ltz
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_ltz_ : ext::elementwise_<is_ltz_> { typedef ext::elementwise_<is_ltz_> parent; };

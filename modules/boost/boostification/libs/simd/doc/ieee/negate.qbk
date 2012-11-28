@@ -2,9 +2,9 @@
 
 
 [h5 Description]
-if `a1` is less than Zero result is `-a0` 
+if `a1` is less than Zero result is `-a0`
 if `a1` is Zero           result is `Zero`
-else                    result is  `a0` 
+else                    result is  `a0`
 
 [h5 Synopsis]
     namespace boost { namespace simd

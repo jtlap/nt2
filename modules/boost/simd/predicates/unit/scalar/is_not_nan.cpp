@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <boost/simd/toolbox/predicates/include/functions/is_not_nan.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( is_not_nan_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::is_not_nan;
   using boost::simd::tag::is_not_nan_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( is_not_nan_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_nan(boost::simd::Mzero<T>()), r_t(true));
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( is_not_nan_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( is_not_nan_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::is_not_nan;
   using boost::simd::tag::is_not_nan_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -67,9 +67,9 @@ NT2_TEST_CASE_TPL ( is_not_nan_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPE
   typedef boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_nan(boost::simd::Mone<T>()), r_t(true));
@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL ( is_not_nan_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPE
 
 NT2_TEST_CASE_TPL ( is_not_nan_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::is_not_nan;
   using boost::simd::tag::is_not_nan_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -91,9 +91,9 @@ NT2_TEST_CASE_TPL ( is_not_nan_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_nan(boost::simd::One<T>()), r_t(true));

@@ -23,7 +23,7 @@
  * \defgroup boost_simd_constant_bitincrement Bitincrement
  *
  * \par Description
- * Constant Bitincrement : represents 0x00000001 bitwise casts in the 
+ * Constant Bitincrement : represents 0x00000001 bitwise casts in the
  * the corresponding type.
  * \par
  * The value of this constant is type dependant. This means that for different

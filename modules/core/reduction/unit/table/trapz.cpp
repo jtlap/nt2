@@ -34,26 +34,26 @@ NT2_TEST_CASE_TPL( trapz, NT2_REAL_TYPES )
   using nt2::_;
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> x =  nt2::_(T(1), T(5));
-  nt2::table<T> x1=  nt2::_(T(1), T(3)); 
+  nt2::table<T> x1=  nt2::_(T(1), T(3));
   nt2::table<T> sy, sy1, sy2, sy3, sy4;
-  y =  nt2::reshape(nt2::_(T(1), T(15)), 5, 3); 
-  NT2_DISPLAY(y); 
+  y =  nt2::reshape(nt2::_(T(1), T(15)), 5, 3);
+  NT2_DISPLAY(y);
   sy = nt2::trapz(y(_));
   NT2_DISPLAY(sy);
 
   sy1 = nt2::trapz(y);
-  NT2_DISPLAY(sy1); 
+  NT2_DISPLAY(sy1);
   sy2 = nt2::trapz(x, y, 1);
   NT2_DISPLAY(sy2);
-  
-//  NT2_TEST_EQUAL(sy1, sy2); 
+
+//  NT2_TEST_EQUAL(sy1, sy2);
   sy3 = nt2::trans(nt2::trapz(nt2::trans(y)));
-  NT2_DISPLAY(sy3); 
+  NT2_DISPLAY(sy3);
   sy4 = nt2::trapz(x1, y, 2);
   NT2_DISPLAY(sy4);
-  
+
 //  NT2_TEST_EQUAL(sy3, sy4);
 
-  
+
 }
 

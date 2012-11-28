@@ -9,13 +9,13 @@
 [[nchoosek    ][Binomial coefficient or all combinations TODO  ]]
 [[perms       ][All possible permutations           TODO      ]]
 [[primes      ][Generate list of prime numbers                ]]
-[[rat, rats   ][Rational fraction approximation         
-   
+[[rat, rats   ][Rational fraction approximation
+
                 In nt2 the string output is not provided when rat is called.
                 rats is not implemented in Nt2.
   ]]
-]                                                         
-                                                          
-                                                          
-              
-              
+]
+
+
+
+

@@ -12,7 +12,7 @@
 // unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/idivfloor.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/floor.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( idivfloor_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::idivfloor;
   using nt2::tag::idivfloor_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -80,11 +80,11 @@ class Random_verif_test_gen(Base_gen) :
             r += self.__create_unit_txt(dl,t,orig_typ)
             if self.__grouping_used : break;
         return r
-    
+
     def __create_unit_txt(self,dl,typ,orig_typ) :
         ctyp = typ if self.mode == "scalar" else self.convert(typ,dl)
 ##        print("%s --> %s"%(typ,ctyp))
-##        print("%s       "%orig_typ)  
+##        print("%s       "%orig_typ)
         nb_rand = str(dl['unit'].get("nb_rand","NT2_NB_RANDOM_TEST"))
         du =dl['unit']
         d = du["verif_test"]
@@ -98,7 +98,7 @@ class Random_verif_test_gen(Base_gen) :
         if self.mode == "scalar" :
             durac = d.get("property_call",{})
             ##print("ooooooo durac %s"%durac)
-            if durac is None : durac = {} 
+            if durac is None : durac = {}
             if (len(durac.get(ctyp,durac.get("default",[])))== 0 and
                 len(durac.get(orig_typ,durac.get("default",[])))== 0) : return []
         r = [
@@ -119,7 +119,7 @@ class Random_verif_test_gen(Base_gen) :
     def expand_to_list(self,typ) :
 ##        print("typ ->>> %s"%typ)
         return self.bg.Expansion_dict[self.platform].get(typ,typ)
-    
+
     def loads(self, beg, df, arity) :
         s = []
         for i in xrange(0, arity) :
@@ -134,7 +134,7 @@ class Random_verif_test_gen(Base_gen) :
         s = []
         tpdefs = df.get("type_defs",None)
         if tpdefs is not None :
-            for l in tpdefs : s.append( beg+l) 
+            for l in tpdefs : s.append( beg+l)
         for i in xrange(0, arity) :
             j = min(i,len(actual_range)-1)
             rg0 =  actual_range[j][0]
@@ -154,10 +154,10 @@ class Random_verif_test_gen(Base_gen) :
             else :
                 typ = ct
             for i in range(arity) :
-                c = "%s a%s;"%(typ[i],str(i)) 
+                c = "%s a%s;"%(typ[i],str(i))
                 s.append(beg+c)
         return s
-  
+
     def __prepare(self,s,typ,d,actual_range) :
 #        print("s %s"%s)
         df = d.get("functor",self.Default_df)
@@ -235,13 +235,13 @@ class Random_verif_test_gen(Base_gen) :
                                 thresh = durat.get(typ,durat.get("default",None))
 ##                                print("thresh %s"%thresh)
                                 if thresh is None : thresh = durat.get(self.bg.orig_typ,durat.get("default",["0"]))
-                                index = j if (len(thresh)>1) else 0 
+                                index = j if (len(thresh)>1) else 0
                                 l = re.sub('\$ulp_thresh\$',thresh[index],Call)
                                 l = re.sub("\$property_value\$" ,v[j],l)
                                 l = re.sub("\$i\$" ,str(j),l)
                                 r.append(l)
                                 r.append(beg+"if (ulpd>ulp0) ulp0=ulpd;")
-                    return r    
+                    return r
                 else :
                     r = []
                     dtmp = durac.get(typ,None)
@@ -263,7 +263,7 @@ class Random_verif_test_gen(Base_gen) :
                         value = durav.get(typ,None)
                         if value is None or not len(value) :
                             value =durav.get(self.bg.orig_typ,durav.get("default",None))
-##                        print("  self.bg.orig_typ %s"% self.bg.orig_typ) 
+##                        print("  self.bg.orig_typ %s"% self.bg.orig_typ)
 ##                        print("value   %s"%value)
                         for i in xrange(0, length) :
                             if no_ulp :
@@ -281,7 +281,7 @@ class Random_verif_test_gen(Base_gen) :
                             if call is None or not len(call) :
                                 call = durac.get(self.bg.orig_typ,durac.get("default",None))
                                 self.__grouping_used = True
-                                
+
 ##                            print("ooooooo call %s"%call)
                             s=re.sub("\$property_call\$" ,call[i],s)
                             s=re.sub("\$property_value\$" ,value[i],s)
@@ -303,7 +303,7 @@ class Random_verif_test_gen(Base_gen) :
                     h = ','.join([ "tab_a%d[%s]" % (i,index[i]) for i in xrange(0, arity) ])
                     name = df.get("name",False)
                     if not name : name = self.bg.get_fct_name()
-                    
+
                     ULP = "" if no_ulp else "TUPLE_ULP_"
                     THR = "" if no_ulp else ", "+thresh
                     if not ( df.get("special",[""])[0] in ['swar']) :
@@ -321,7 +321,7 @@ class Random_verif_test_gen(Base_gen) :
                         "          ulp0 = nt2::max(ulpd,ulp0);",
                         "        }",
                         ]
-                    else :   
+                    else :
                         r = ["        r_t v = %s%s(%s);"%(name,istpl,g)]
 ##                        print(dur)
                         r+= dur['scalar_simul'].get(typ,dur['scalar_simul']['default'])
@@ -373,10 +373,10 @@ class Random_verif_test_gen(Base_gen) :
                         if not no_ulp : r.append("          ulp0 = nt2::max(ulpd,ulp0);")
                         r.append("        }")
                     return r
-                      
+
 
         return s
-    
+
     def __get_typ(self,i,d) :
         dd = d.get("call_types",None)
         if dd is None or  not len(dd) :
@@ -396,7 +396,7 @@ class Random_verif_test_gen(Base_gen) :
             r = re.sub('T','vT',dd[i])
         if self.bg.get_fct_name()[-1]=='i' or scalar_ints :
             r = re.sub('ivT','iT',r)
-        return r 
+        return r
 
     def convert(self,types,d) :
         d1 = d.get("unit",None)
@@ -409,7 +409,7 @@ class Random_verif_test_gen(Base_gen) :
         if not (tt is None) :
             return tt
         return types
-    
+
 
 
 if __name__ == "__main__" :

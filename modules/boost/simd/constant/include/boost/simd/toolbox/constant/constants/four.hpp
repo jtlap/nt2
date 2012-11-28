@@ -24,12 +24,12 @@
  * Constant Four = 4
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/four.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Four
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Four of functor Four 
+     * \brief Define the tag Four of functor Four
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER(Four,int,4,0x40800000UL,0x4010000000000000ULL);

@@ -12,7 +12,7 @@
 // cover test behavior of standard components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// 
+///
 #include <nt2/toolbox/standard/include/functions/frexp.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -39,7 +39,7 @@
 
 NT2_TEST_CASE_TPL ( frexp_float_1_0,  (float))
 {
-  
+
   using nt2::standard::frexp;
   using nt2::standard::tag::frexp_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -49,9 +49,9 @@ NT2_TEST_CASE_TPL ( frexp_float_1_0,  (float))
   typedef boost::fusion::vector<T,nt2::int32_t> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -76,13 +76,13 @@ NT2_TEST_CASE_TPL ( frexp_float_1_0,  (float))
         NT2_TEST_EQUAL( boost::fusion::get<1>(r), nt2::exponent(a0)+1);
         if (ulpd>ulp0) ulp0=ulpd;
      }
-     
+
    }
 } // end of test for float
 
 NT2_TEST_CASE_TPL ( frexp_double_1_0,  (double))
 {
-  
+
   using nt2::standard::frexp;
   using nt2::standard::tag::frexp_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -92,9 +92,9 @@ NT2_TEST_CASE_TPL ( frexp_double_1_0,  (double))
   typedef boost::fusion::vector<T,nt2::int32_t> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -119,6 +119,6 @@ NT2_TEST_CASE_TPL ( frexp_double_1_0,  (double))
         NT2_TEST_EQUAL( boost::fusion::get<1>(r), nt2::exponent(a0)+1);
         if (ulpd>ulp0) ulp0=ulpd;
      }
-     
+
    }
 } // end of test for double

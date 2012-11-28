@@ -22,12 +22,12 @@
  * hyperbolic tangent: \f$rac{\sinh(a_0)}{\cosh(a_0)}\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/tanh.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of tanh
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag tanh_ of functor tanh 
+     * \brief Define the tag tanh_ of functor tanh
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct tanh_ : ext::elementwise_<tanh_> { typedef ext::elementwise_<tanh_> parent; };

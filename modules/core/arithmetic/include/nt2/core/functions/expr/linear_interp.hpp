@@ -15,7 +15,7 @@
 // #include <nt2/include/functions/sx_multiplies.hpp>
 // #include <nt2/include/functions/sx_plus.hpp>
 // #include <nt2/include/functions/sx_fma.hpp>
-#include <nt2/include/functions/fma.hpp> 
+#include <nt2/include/functions/fma.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
       return nt2::fma(dx, a, nt2::oneminus(dx)*b);
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::linear_interp_, tag::cpu_,
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
     typedef typename meta::call<tag::oneminus_(const A0&)>::type                       T0;
     typedef typename meta::call<tag::sx_(tag::multiplies_, T0,const A1&)>::type               T1;
     typedef typename meta::call<tag::sx_(tag::fma_, const A0&,const A2&, T1)>::type  result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& dx, A1 const& a, A2 const& b) const
     {
       return nt2::sx(nt2::tag::fma_(), dx, b, nt2::sx(nt2::tag::multiplies_(), nt2::oneminus(dx), a));
@@ -57,18 +57,18 @@ namespace nt2 { namespace ext
                               (unspecified_<A1>)
                               (unspecified_<A2>)
                               )
-  { 
+  {
     typedef typename meta::call<tag::oneminus_(const A0&)>::type                        T0;
     typedef typename meta::call<tag::multiplies_(T0,const A1&)>::type                   T1;
     typedef typename meta::call<tag::multiplies_(const A0&,const A2&)>::type            T2;
     typedef typename meta::call<tag::sx_(tag::plus_,T2,T1)>::type                    result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& dx, A1 const& a, A2 const& b) const
     {
       return nt2::sx(nt2::tag::plus_(), dx*b, nt2::oneminus(dx)*a);
     }
   };
- 
+
 } }
 
 #endif

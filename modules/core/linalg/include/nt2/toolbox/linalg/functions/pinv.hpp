@@ -27,20 +27,20 @@
  * are hermitian. the computation is based on svd(a) and any
  * singular values less than a tolerance are treated as zero.
  * the default tolerance is max(size(a)) * norm(a) * eps<class(a)> .
- * 
+ *
  * pinv(a,tol) uses the tolerance tol instead of the default.
- * 
+ *
  **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag pinv_ of functor pinv
      *        in namespace nt2::tag for toolbox algebra
     **/
     struct pinv_ :  ext::unspecified_<pinv_> { typedef ext::unspecified_<pinv_> parent; };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pinv_, pinv, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::pinv_, pinv, 2)
 
@@ -48,16 +48,16 @@ namespace nt2 { namespace tag
 
 namespace nt2 { namespace ext
 {
-  template<class Domain, class Expr,  int N> 
-  struct  size_of<tag::pinv_, Domain, N, Expr> 
+  template<class Domain, class Expr,  int N>
+  struct  size_of<tag::pinv_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c0_t;
     typedef typename c0_t::extent_type                               result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type sizee = boost::proto::child_c<0>(e).extent();
-      std::swap(sizee[0], sizee[1]); 
-      return sizee; 
+      std::swap(sizee[0], sizee[1]);
+      return sizee;
     }
   };
 

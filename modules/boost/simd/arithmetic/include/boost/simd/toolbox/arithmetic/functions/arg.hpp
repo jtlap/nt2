@@ -24,12 +24,12 @@
  * Always 0 or \f$\pi\f$ according to the input sign
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/arg.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of arg
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag arg_ of functor arg 
+     * \brief Define the tag arg_ of functor arg
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct arg_ : ext::elementwise_<arg_> { typedef ext::elementwise_<arg_> parent; };

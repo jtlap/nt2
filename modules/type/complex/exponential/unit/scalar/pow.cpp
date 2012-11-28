@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/pow.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/ones.hpp>
@@ -35,7 +35,7 @@
 
 NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::pow;
   using nt2::tag::pow_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( pow_real__2_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( pow_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::pow;
   using nt2::tag::pow_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -75,9 +75,9 @@ NT2_TEST_CASE_TPL ( pow_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -90,7 +90,7 @@ NT2_TEST_CASE_TPL ( pow_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( pow_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::pow;
   using nt2::tag::pow_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -100,9 +100,9 @@ NT2_TEST_CASE_TPL ( pow_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -117,7 +117,7 @@ NT2_TEST_CASE_TPL ( pow_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::pow;
   using nt2::tag::pow_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -127,9 +127,9 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -147,44 +147,44 @@ NT2_TEST_CASE_TPL ( pow_real__2_1,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( pow3,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::exp;
   using nt2::tag::exp_;
-  typedef std::complex<T> cT; 
-  nt2::table<cT> a = nt2::ones(3, 3, nt2::meta::as_<cT>()); 
+  typedef std::complex<T> cT;
+  nt2::table<cT> a = nt2::ones(3, 3, nt2::meta::as_<cT>());
   nt2::table<cT> b = nt2::ones(3, 3, nt2::meta::as_<cT>());
-  NT2_DISPLAY(nt2::pow(a, b)); 
-  
+  NT2_DISPLAY(nt2::pow(a, b));
+
 }
 NT2_TEST_CASE_TPL ( pow4,  NT2_REAL_TYPES)
 {
-  
-  typedef std::complex<T> cT; 
+
+  typedef std::complex<T> cT;
   nt2::table<cT> a = nt2::ones(1, 3, nt2::meta::as_<cT>());
-  
-  for(int i=1; i <= 3; i++) a(i) =  cT(i, i); 
+
+  for(int i=1; i <= 3; i++) a(i) =  cT(i, i);
   NT2_DISPLAY(a);
-  
+
   nt2::table<cT> b = nt2::ones(1, 3, nt2::meta::as_<T>());
-  for(int i=1; i <= 3; i++) b(i) = cT(i-1); 
+  for(int i=1; i <= 3; i++) b(i) = cT(i-1);
   NT2_DISPLAY(b);
-  
-  NT2_DISPLAY(nt2::pow(a, b)); 
-  
+
+  NT2_DISPLAY(nt2::pow(a, b));
+
 }
 NT2_TEST_CASE_TPL ( pow5,  NT2_REAL_TYPES)
 {
-  
-  typedef std::complex<T> cT; 
+
+  typedef std::complex<T> cT;
   nt2::table<cT> a = nt2::ones(1, 3, nt2::meta::as_<cT>());
-  
-  for(int i=1; i <= 3; i++) a(i) =  cT(i, i); 
+
+  for(int i=1; i <= 3; i++) a(i) =  cT(i, i);
   NT2_DISPLAY(a);
-  
+
   nt2::table<T> b = nt2::ones(1, 3, nt2::meta::as_<T>());
-  for(int i=1; i <= 3; i++) b(i) = T(i-1); 
+  for(int i=1; i <= 3; i++) b(i) = T(i-1);
   NT2_DISPLAY(b);
-  
-  NT2_DISPLAY(nt2::pow(a, b)); 
-  
+
+  NT2_DISPLAY(nt2::pow(a, b));
+
 }

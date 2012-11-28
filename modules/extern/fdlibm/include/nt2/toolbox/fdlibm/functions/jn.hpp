@@ -23,12 +23,12 @@
  * library fdlibm.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/fdlibm/include/functions/jn.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  *
  * \param a0 the first parameter of jn
  * \param a1 the second parameter of jn
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -61,13 +61,13 @@
  * fdlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace fdlibm { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag jn_ of functor jn 
+     * \brief Define the tag jn_ of functor jn
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct jn_ : ext::elementwise_<jn_> { typedef ext::elementwise_<jn_> parent; };
@@ -76,7 +76,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
 
 #include <nt2/toolbox/fdlibm/functions/scalar/jn.hpp>
-// #include <nt2/toolbox/fdlibm/functions/simd/all/jn.hpp> 
+// #include <nt2/toolbox/fdlibm/functions/simd/all/jn.hpp>
 
 #endif
 

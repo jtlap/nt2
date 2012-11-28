@@ -22,12 +22,12 @@
  * The function return signed integer value which has the same bits of the input
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sbits.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of sbits
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sbits_ of functor sbits 
+     * \brief Define the tag sbits_ of functor sbits
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct sbits_ : ext::elementwise_<sbits_> { typedef ext::elementwise_<sbits_> parent; };

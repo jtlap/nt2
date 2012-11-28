@@ -12,7 +12,7 @@
 // unit test behavior of sinpi  components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/include/functions/sinpi.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
@@ -36,10 +36,10 @@
 
 NT2_TEST_CASE_TPL ( sinpi_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::sinpi;
   using nt2::tag::sinpi_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<sinpi_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -47,9 +47,9 @@ NT2_TEST_CASE_TPL ( sinpi_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -65,19 +65,19 @@ NT2_TEST_CASE_TPL ( sinpi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0, 0.5)),std::sin(nt2::Pi<T>()*cT(0.0, 0.5)), 10);
   NT2_TEST_ULP_EQUAL(nt2::sinpi(cT(0.5, 0)),std::sin(nt2::Pi<T>()*cT(0.5, 0.0)), 10);
 
-  const int N = 20; 
+  const int N = 20;
   cT inputs[N] =
     { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
       cT(nt2::Zero<T>(),nt2::Inf<T>()), cT(nt2::Inf<T>(),nt2::Inf<T>()), cT(nt2::Minf<T>(),nt2::Inf<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
       cT(nt2::Zero<T>(),nt2::Minf<T>()),cT(nt2::Inf<T>(),nt2::Minf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Minf<T>()),
       cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Zero<T>(),nt2::One<T>()), cT(nt2::Inf<T>(),nt2::One<T>()), cT(nt2::Minf<T>(),nt2::One<T>()), cT(nt2::Nan<T>(),nt2::One<T>()),  
-    }; 
-  
+      cT(nt2::Zero<T>(),nt2::One<T>()), cT(nt2::Inf<T>(),nt2::One<T>()), cT(nt2::Minf<T>(),nt2::One<T>()), cT(nt2::Nan<T>(),nt2::One<T>()),
+    };
+
   for(int i=0; i < N; i++)
    {
-     NT2_TEST_ULP_EQUAL(nt2::sinpi(-inputs[i]), -nt2::sinpi(inputs[i]), 4);  
-     NT2_TEST_ULP_EQUAL(nt2::sinpi(inputs[i]), nt2::sin(nt2::multiplies(nt2::Pi<T>(), inputs[i])), 4); 
+     NT2_TEST_ULP_EQUAL(nt2::sinpi(-inputs[i]), -nt2::sinpi(inputs[i]), 4);
+     NT2_TEST_ULP_EQUAL(nt2::sinpi(inputs[i]), nt2::sin(nt2::multiplies(nt2::Pi<T>(), inputs[i])), 4);
    }
 } // end of test for floating_
 

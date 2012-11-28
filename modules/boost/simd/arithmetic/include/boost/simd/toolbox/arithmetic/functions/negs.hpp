@@ -22,14 +22,14 @@
  * returns saturation of $-a_0$ in the input type.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/negs.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg saturated_neg
- * 
+ *
  * \synopsis
  *
  * \code
@@ -42,20 +42,20 @@
  * \endcode
  *
  * \param a0 the unique parameter of negs
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag negs_ of functor negs 
+     * \brief Define the tag negs_ of functor negs
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct negs_ : ext::elementwise_<negs_> { typedef ext::elementwise_<negs_> parent; };

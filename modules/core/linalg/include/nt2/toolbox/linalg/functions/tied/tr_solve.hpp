@@ -41,10 +41,10 @@ namespace nt2 { namespace ext
             terminal_of< typename boost::dispatch::meta::
                          semantic_of<child1>::type
                        >::type                                          dest1_t;
-    
+
     typedef typename meta::
             call< nt2::tag::
-                 solvers::tr_solve_ ( dest0_t&, dest1_t&, char, char, char 
+                 solvers::tr_solve_ ( dest0_t&, dest1_t&, char, char, char
                                        , nt2::details::in_place_
                                        )
                 >::type                                                 solve_t;
@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
       char uplo, trans, udiag;
       // Retrieve the options
       options(a0, N0(), uplo, trans, udiag);
-      
+
       // Copy the matrix somewhere
       dest0_t a = boost::proto::child_c<0>(a0);
       // Copy the rhs somewhere
@@ -103,7 +103,7 @@ namespace nt2 { namespace ext
       trans = boost::proto::value(boost::proto::child_c<3>(in));
       udiag = boost::proto::value(boost::proto::child_c<4>(in));
     }
-    
+
     //==========================================================================
     // INTERNAL ONLY
     // fill the args out

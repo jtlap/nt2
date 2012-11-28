@@ -47,7 +47,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename boost::common_type<A0,typename A1::value_type>::type result_type;
-    inline result_type operator()(A0 const& a0, A1 const&)const 
+    inline result_type operator()(A0 const& a0, A1 const&)const
     {
       return (a0+A1::value-1) & ~(A1::value-1);
     }
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::align_on<A0, A1>::type result_type;
-    
+
     result_type operator()(A0 const&,A1 const&) const { return result_type(); }
   };
 } } }

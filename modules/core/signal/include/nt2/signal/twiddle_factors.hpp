@@ -90,7 +90,7 @@ namespace detail
     /// becomes most adverse for inputs which should produce an exact zero, like
     /// cos( Pi/2 )].
     ///                                       (17.07.2012.) (Domagoj Saric)
-    //////////////////////////////////////////////////////////////////////////// 
+    ////////////////////////////////////////////////////////////////////////////
 
     struct twiddle_calculator_scalar
     {
@@ -537,7 +537,7 @@ typename twiddles<fft_size, stride, T>::factors_t const                         
  *       unsigned stride,
  *       typename T
  *   >
- *   typename twiddles<fft_size, data_vector_size, stride, T>::factors_t const                  
+ *   typename twiddles<fft_size, data_vector_size, stride, T>::factors_t const
  *            twiddles<fft_size, data_vector_size, stride, T>::factors =
  *   {{
  *       {

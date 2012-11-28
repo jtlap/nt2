@@ -22,12 +22,12 @@
  * return a floating point value which is the square root of the entry
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sqrt.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of sqrt
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sqrt_ of functor sqrt 
+     * \brief Define the tag sqrt_ of functor sqrt
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct sqrt_ : ext::elementwise_<sqrt_> { typedef ext::elementwise_<sqrt_> parent; };

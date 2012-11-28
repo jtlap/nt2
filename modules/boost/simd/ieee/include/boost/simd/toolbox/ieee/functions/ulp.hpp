@@ -22,12 +22,12 @@
  * Returns the distance to the nearest (distinct) element of the same type.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ulp.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ulp
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ulp_ of functor ulp 
+     * \brief Define the tag ulp_ of functor ulp
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct ulp_ : ext::elementwise_<ulp_> { typedef ext::elementwise_<ulp_> parent; };

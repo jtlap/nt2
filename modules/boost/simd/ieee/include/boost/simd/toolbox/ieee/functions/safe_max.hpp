@@ -23,12 +23,12 @@
  * value which will not overflow when multiplied by a0.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/safe_max.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of safe_max
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag safe_max_ of functor safe_max 
+     * \brief Define the tag safe_max_ of functor safe_max
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct safe_max_ : ext::elementwise_<safe_max_> { typedef ext::elementwise_<safe_max_> parent; };

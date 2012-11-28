@@ -30,7 +30,7 @@ namespace nt2 { namespace meta
     {
       nt2::run(a0, pos, meta::as_<Scalar>());
     }
-    
+
     template<class Position, class Step>
     BOOST_FORCEINLINE
     typename boost::disable_if_c<Step::value == 1, result_type>::type

@@ -34,12 +34,12 @@
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/unifinv.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -51,20 +51,20 @@
  * }
  * \endcode
  *
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag unifinv_ of functor unifinv 
+     * \brief Define the tag unifinv_ of functor unifinv
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct unifinv_ : ext::elementwise_<unifinv_> { typedef ext::elementwise_<unifinv_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::unifinv_, unifinv, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::unifinv_, unifinv, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::unifinv_, unifinv, 3)  
+  NT2_FUNCTION_IMPLEMENTATION(tag::unifinv_, unifinv, 3)
 }
 
 #endif

@@ -22,12 +22,12 @@
  * returns true if all elements of the input vector are non zero.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/all.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of all
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,7 +53,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -64,12 +64,12 @@ namespace boost { namespace simd
     struct True;
 
     /*!
-     * \brief Define the tag all_ of functor all 
+     * \brief Define the tag all_ of functor all
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct all_ : ext::reduction_<all_, tag::logical_and_, tag::True> 
-    { 
-      typedef ext::reduction_<all_, tag::logical_and_, tag::True> parent;  
+    struct all_ : ext::reduction_<all_, tag::logical_and_, tag::True>
+    {
+      typedef ext::reduction_<all_, tag::logical_and_, tag::True> parent;
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::all_, all, 1)

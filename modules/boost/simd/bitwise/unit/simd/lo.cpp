@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/lo.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( lo_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::lo;
   using boost::simd::tag::lo_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( lo_sintgt_8__1_0,  BOOST_SIMD_SIMD_SIGNED_INT_GT_8_TYPES)
 {
   using boost::simd::lo;
   using boost::simd::tag::lo_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;

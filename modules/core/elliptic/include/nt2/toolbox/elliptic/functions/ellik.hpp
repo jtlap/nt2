@@ -24,12 +24,12 @@
  * \f[F(a_0,a_1) = \displaystyle \int_0^{a0} \frac1{\sqrt{1-a_1\sin^2 t}} dt\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ellik.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  *
  * \param a0 the first parameter of ellik
  * \param a1 the second parameter of ellik
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ellik_ of functor ellik 
+     * \brief Define the tag ellik_ of functor ellik
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellik_ : ext::elementwise_<ellik_> { typedef ext::elementwise_<ellik_> parent; };

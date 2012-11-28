@@ -22,12 +22,12 @@
  * this is $\|a_0-a_1\|$, and is always properly computed
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/dist.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of dist
  * \param a1 the second parameter of dist
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag dist_ of functor dist 
+     * \brief Define the tag dist_ of functor dist
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct dist_ : ext::elementwise_<dist_> { typedef ext::elementwise_<dist_> parent; };

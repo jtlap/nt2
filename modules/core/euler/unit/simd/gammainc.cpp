@@ -12,7 +12,7 @@
 // unit test behavior of euler components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/gammainc.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_gammaincl(long double);}
@@ -33,15 +33,15 @@ extern "C" {long double cephes_gammaincl(long double);}
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/include/functions/splat.hpp>
- 
-#include <nt2/include/functions/load.hpp> 
-#include <nt2/options.hpp> 
+
+#include <nt2/include/functions/load.hpp>
+#include <nt2/options.hpp>
 
 NT2_TEST_CASE_TPL ( gammainc_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::gammainc;
   using nt2::tag::gammainc_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -55,14 +55,14 @@ NT2_TEST_CASE_TPL ( gammainc_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
- 
- 
+
+
   // specific values tests
   NT2_TEST_ULP_EQUAL(gammainc(nt2::Inf<vT>()  ,  nt2::One<vT>())[0], nt2::One<ssr_t>(), 0);
   NT2_TEST_ULP_EQUAL(gammainc(nt2::Mzero<vT>(),  nt2::One<vT>())[0], nt2::Zero<ssr_t>(), 0);
   NT2_TEST_ULP_EQUAL(gammainc(nt2::Nan<vT>()  ,  nt2::One<vT>())[0], nt2::Nan<ssr_t>(), 0);
   NT2_TEST_ULP_EQUAL(gammainc(nt2::One<vT>()  ,  nt2::One<vT>())[0], nt2::One<ssr_t>()-nt2::Invexp_1<ssr_t>(), 1.5);
-  NT2_TEST_ULP_EQUAL(gammainc(nt2::Two<vT>()  ,  nt2::One<vT>())[0], T(0.864664716763387), 1.5); 
+  NT2_TEST_ULP_EQUAL(gammainc(nt2::Two<vT>()  ,  nt2::One<vT>())[0], T(0.864664716763387), 1.5);
   NT2_TEST_ULP_EQUAL(gammainc(nt2::Zero<vT>() ,  nt2::One<vT>())[0], nt2::Zero<ssr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(gammainc(nt2::Zero<vT>() ,  nt2::Zero<vT>())[0], nt2::One<ssr_t>(), 0);    
+  NT2_TEST_ULP_EQUAL(gammainc(nt2::Zero<vT>() ,  nt2::Zero<vT>())[0], nt2::One<ssr_t>(), 0);
 } // end of test for floating_

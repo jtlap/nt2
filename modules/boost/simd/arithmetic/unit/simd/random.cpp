@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <boost/simd/toolbox/arithmetic/include/functions/random.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::random;
   using boost::simd::tag::random_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   NT2_TEST( (boost::is_same < r_t, vT >::value) );
 
-  
+
  for(int i=0; i < 10; i++)
    {
      NT2_TEST_LESSER(random(boost::simd::splat<vT>(2), boost::simd::splat<vT>(3))[0], T(3));

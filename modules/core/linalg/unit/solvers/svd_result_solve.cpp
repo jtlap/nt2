@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL(svd_solve_result2, NT2_REAL_TYPES)
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<T>());
   t_t b = nt2::ones(4, 1, nt2::meta::as_<T>());
   t_t aa = a;
-  t_t bb = b; 
+  t_t bb = b;
   nt2::display("a     ", a);
   nt2::display("b     ", b);
   nt2::details::svd_solve_result<t_t> f(a, b);
@@ -43,6 +43,6 @@ NT2_TEST_CASE_TPL(svd_solve_result2, NT2_REAL_TYPES)
   NT2_DISPLAY(a);
   NT2_DISPLAY(b);
   NT2_DISPLAY(mtimes(aa, f.x()));
-  std::cout << nt2::globalmax(nt2::ulpdist(bb, mtimes(aa, f.x()))) << std::endl; ; 
-  NT2_TEST(nt2::isulpequal(bb, mtimes(aa, f.x()), T(2.0)));    
+  std::cout << nt2::globalmax(nt2::ulpdist(bb, mtimes(aa, f.x()))) << std::endl; ;
+  NT2_TEST(nt2::isulpequal(bb, mtimes(aa, f.x()), T(2.0)));
  }

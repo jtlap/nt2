@@ -12,7 +12,7 @@
 // unit test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/minusone.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,7 +33,7 @@
 
 NT2_TEST_CASE_TPL ( minusone_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::minusone;
   using nt2::tag::minusone_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -43,9 +43,9 @@ NT2_TEST_CASE_TPL ( minusone_real__1_0,  NT2_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( minusone_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( minusone_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::minusone;
   using nt2::tag::minusone_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -71,9 +71,9 @@ NT2_TEST_CASE_TPL ( minusone_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( minusone_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( minusone_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::minusone;
   using nt2::tag::minusone_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -94,9 +94,9 @@ NT2_TEST_CASE_TPL ( minusone_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

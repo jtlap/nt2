@@ -22,12 +22,12 @@
  * hyperbolic secant: \f$rac1{\cosh(a_0)}\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sech.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of sech
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sech_ of functor sech 
+     * \brief Define the tag sech_ of functor sech
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct sech_ : ext::elementwise_<sech_> { typedef ext::elementwise_<sech_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// 
+///
 #include <boost/simd/toolbox/arithmetic/include/functions/subs.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( subs_signed_int__2_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES
 {
   using boost::simd::subs;
   using boost::simd::tag::subs_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( subs_unsigned_int__2_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::subs;
   using boost::simd::tag::subs_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

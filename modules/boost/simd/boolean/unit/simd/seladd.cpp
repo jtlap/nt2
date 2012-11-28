@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.boolean components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/boolean/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
@@ -31,10 +31,10 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::seladd;
   using boost::simd::tag::seladd_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
-  using boost::simd::logical; 
+  using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
@@ -61,10 +61,10 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::seladd;
   using boost::simd::tag::seladd_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
-  using boost::simd::logical; 
+  using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;

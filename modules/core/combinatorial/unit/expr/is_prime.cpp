@@ -12,7 +12,7 @@
 // unit test behavior of combinatorial components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// 
+///
 #include <nt2/toolbox/combinatorial/include/functions/is_prime.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/min.hpp>
@@ -36,12 +36,12 @@
 
 NT2_TEST_CASE_TPL ( is_prime_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::is_prime;
   using nt2::tag::is_prime_;
   typedef typename nt2::meta::as_logical<T>::type bT;
-  nt2::table<T> a = nt2::_(T(1), T(30)); 
-  NT2_DISPLAY( is_prime(a)); 
+  nt2::table<T> a = nt2::_(T(1), T(30));
+  NT2_DISPLAY( is_prime(a));
   //  nt2::table<bT> p = is_prime(a);
   // specific values tests
   //  NT2_TEST(p(2));
@@ -50,12 +50,12 @@ NT2_TEST_CASE_TPL ( is_prime_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( is_prime_integer__1_0,  NT2_INTEGRAL_TYPES)
 {
-  
+
   using nt2::is_prime;
   using nt2::tag::is_prime_;
   NT2_TEST(!is_prime(nt2::Eight<T>()));
   NT2_TEST(is_prime(nt2::Seven<T>()));
-  NT2_TEST(is_prime(nt2::Two<T>())); 
+  NT2_TEST(is_prime(nt2::Two<T>()));
   NT2_TEST(!is_prime(nt2::One<T>()));
  } // end of test for integer_
-           
+

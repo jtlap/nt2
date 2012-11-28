@@ -23,7 +23,7 @@
 NT2_TEST_CASE_TPL( globalasum1, NT2_REAL_TYPES )
 {
   using nt2::_;
-  using nt2::asum1; 
+  using nt2::asum1;
   nt2::table<T> a = nt2::reshape(nt2::_(T(1), T(9)), 3, 3);
   NT2_TEST_EQUAL( nt2::globalasum1(a), asum1(a(_))(1));
 }

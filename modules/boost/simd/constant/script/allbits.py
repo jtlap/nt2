@@ -2,15 +2,15 @@
     {
      'functor' : {
          'description' : [ "Constant $Fct$ : all bits set to 1."],
-         'type_dependant' : True,   
+         'type_dependant' : True,
          'return' : ["type T value"],
-         'template' : True,   
+         'template' : True,
          'module' : 'boost',
-         'special' : ['constant'],   
+         'special' : ['constant'],
          'arity' : '0',
          'call_types' : [],
          'ret_arity' : '0',
-         'tpl' : '<T>',   
+         'tpl' : '<T>',
          'rturn' : {
              'default' : 'T',
             },

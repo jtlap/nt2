@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_SIGNGAM_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_SIGNGAM_HPP_INCLUDED
@@ -36,7 +36,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
-      bool isinfa0 =  is_inf<A0>(a0); 
+      bool isinfa0 =  is_inf<A0>(a0);
       if (is_lez(a0))
 	{
 	  if (is_flint(a0)||isinfa0)
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
 	  else
             return One<type>()-bool(is_odd(floor(a0)))*Two<A0>();
 	}
-      else if (is_nan(a0)) return a0; 
+      else if (is_nan(a0)) return a0;
       return One<type>();
     }
   };

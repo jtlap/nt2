@@ -16,14 +16,14 @@
 // in decreasing degrees order and the leading coef is supposed to be one
 // and not a part of the polynomial
 namespace nt2 { namespace tag
-  {         
+  {
     struct plevl_ : ext::elementwise_<plevl_> { typedef ext::elementwise_<plevl_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::plevl_, plevl, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::plevl_, p1evl, 2)
 }
- 
- 
+
+
 #endif
 
 // modified by jt the 25/12/2010

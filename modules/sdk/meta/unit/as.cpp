@@ -179,7 +179,7 @@ NT2_TEST_CASE(hierarchy_of_uints32)
   using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
-  
+
   typedef hierarchy_of< as_<nt2::uint32_t> >::type base;
 
   NT2_TEST( (is_same<target_<scalar_<uint32_< as_<nt2::uint32_t> >      > > , base >::value) );
@@ -212,7 +212,7 @@ NT2_TEST_CASE(hierarchy_of_ints16)
   using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
-  
+
   typedef hierarchy_of< as_<nt2::int16_t> >::type base;
 
   NT2_TEST( (is_same<target_<scalar_<int16_<as_<nt2::int16_t> >       > > , base >::value) );
@@ -243,7 +243,7 @@ NT2_TEST_CASE(hierarchy_of_uints16)
   using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
-  
+
   typedef hierarchy_of< as_<nt2::uint16_t> >::type base;
 
   NT2_TEST( (is_same<target_<scalar_<uint16_<as_<nt2::uint16_t> >      > > , base >::value) );
@@ -274,7 +274,7 @@ NT2_TEST_CASE(hierarchy_of_ints8)
   using nt2::meta::as_;
   using nt2::meta::hierarchy_of;
   using namespace nt2::ext;
-  
+
   typedef hierarchy_of< as_<nt2::int8_t> >::type base;
 
   NT2_TEST( (is_same<target_<scalar_<int8_<as_<nt2::int8_t> >       > > , base >::value) );

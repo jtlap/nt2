@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/log.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,25 +33,25 @@
 
 NT2_TEST_CASE_TPL ( log_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::log;
   using nt2::tag::log_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::call<log_(cT)>::type r_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), nt2::Mone<T>())), cT(nt2::Inf<T>(), -nt2::Pi<T>()), 0.75);
-  
+
   NT2_TEST_ULP_EQUAL(nt2::log(nt2::Inf<cT>()), cT(nt2::Inf<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::log(nt2::Minf<cT>()), cT(nt2::Inf<T>(), nt2::Pi<T>()), 0.5);
-  NT2_TEST_ULP_EQUAL(nt2::log(nt2::Mone<cT>()), cT(nt2::Zero<T>(), nt2::Pi<T>()), 0.5); 
+  NT2_TEST_ULP_EQUAL(nt2::log(nt2::Mone<cT>()), cT(nt2::Zero<T>(), nt2::Pi<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan<T>(), nt2::Zero<T>())),  cT(nt2::Nan<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan<T>(), nt2::Nan<T>())),  cT(nt2::Nan<T>(), nt2::Nan<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::log(nt2::One<cT>()), cT(nt2::Zero<r_t>()), 0.5);
@@ -66,9 +66,9 @@ NT2_TEST_CASE_TPL ( log_real__1_0,  NT2_REAL_TYPES)
 
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::One  <T>(), nt2::Inf <T>())), cT(nt2::Inf<T>(), nt2::Pio_2<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::One  <T>(), nt2::Nan <T>())), cT(nt2::Nan<T>(), nt2::Nan<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::One <T>())), cT(nt2::Inf<T>(), nt2::Zero<T>()), 0.75);    
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::One <T>())), cT(nt2::Inf<T>(), nt2::Zero<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), nt2::One<T>())),  cT(nt2::Inf<T>(), nt2::Pi<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::One <T>())), cT(nt2::Inf <T>(), nt2::Zero <T>()), 0.75);   
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::One <T>())), cT(nt2::Inf <T>(), nt2::Zero <T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), nt2::Inf<T>())),  cT(nt2::Inf <T>(), 3*nt2::Pi<T>()/4), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), nt2::Inf<T>())),  cT(nt2::Inf <T>(), nt2::Pi<T>()/4), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), nt2::Nan<T>())),  cT(nt2::Inf <T>(), nt2::Nan<T>()), 0.75);
@@ -77,12 +77,12 @@ NT2_TEST_CASE_TPL ( log_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan  <T>(), nt2::Mone<T>())), cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan  <T>(), nt2::Inf<T>())),  cT(nt2::Inf <T>(), nt2::Nan<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Nan  <T>(), nt2::Nan<T>())),  cT(nt2::Nan <T>(), nt2::Nan<T>()), 0.75);
-  
+
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::One  <T>(), -nt2::Inf <T>())), cT(nt2::Inf<T>(), -nt2::Pio_2<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::One  <T>(), -nt2::Nan <T>())), cT(nt2::Nan<T>(), -nt2::Nan<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), -nt2::One <T>())), cT(nt2::Inf<T>(), -nt2::Zero<T>()), 0.75);    
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), -nt2::One <T>())), cT(nt2::Inf<T>(), -nt2::Zero<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), -nt2::One<T>())),  cT(nt2::Inf<T>(), -nt2::Pi<T>()), 0.75);
-  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), -nt2::One <T>())), cT(nt2::Inf <T>(), -nt2::Zero <T>()), 0.75);   
+  NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), -nt2::One <T>())), cT(nt2::Inf <T>(), -nt2::Zero <T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), -nt2::Inf<T>())),  cT(nt2::Inf <T>(), -3*nt2::Pi<T>()/4), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Inf  <T>(), -nt2::Inf<T>())),  cT(nt2::Inf <T>(), -nt2::Pi<T>()/4), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::log(cT(nt2::Minf <T>(), -nt2::Nan<T>())),  cT(nt2::Inf <T>(), -nt2::Nan<T>()), 0.75);

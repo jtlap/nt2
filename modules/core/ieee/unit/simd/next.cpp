@@ -12,7 +12,7 @@
 // unit test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/next.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/constants/eps_related.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::next;
   using nt2::tag::next_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -73,7 +73,7 @@ NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::next;
   using nt2::tag::next_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -99,7 +99,7 @@ NT2_TEST_CASE_TPL ( next_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::next;
   using nt2::tag::next_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

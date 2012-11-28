@@ -26,14 +26,14 @@
 
 NT2_TEST_CASE_TPL(chol_resultc, NT2_REAL_TYPES)
 {
-  std::cout << std::setprecision(20); 
+  std::cout << std::setprecision(20);
   typedef std::complex<T> cT;
   typedef nt2::table<cT> ct_t;
   ct_t a =       nt2::ones (4, 4, nt2::meta::as_<cT>())
         + T(10)*nt2::eye  (4, 4, nt2::meta::as_<cT>());
   ct_t b = nt2::ones(4, 1, nt2::meta::as_<cT>());
   ct_t aa = a;
-  ct_t bb = b; 
+  ct_t bb = b;
   nt2::display("a     ", a);
   nt2::display("b     ", b);
   nt2::details::chol_solve_result<ct_t> f(a, b, 'L');
@@ -42,6 +42,6 @@ NT2_TEST_CASE_TPL(chol_resultc, NT2_REAL_TYPES)
   NT2_DISPLAY(a);
   NT2_DISPLAY(b);
   NT2_DISPLAY(mtimes(aa, f.x()));
-  std::cout << nt2::globalmax(nt2::ulpdist(bb, mtimes(aa, f.x()))) << std::endl; ; 
-  NT2_TEST(nt2::isulpequal(bb, mtimes(aa, f.x())));   
+  std::cout << nt2::globalmax(nt2::ulpdist(bb, mtimes(aa, f.x()))) << std::endl; ;
+  NT2_TEST(nt2::isulpequal(bb, mtimes(aa, f.x())));
 }

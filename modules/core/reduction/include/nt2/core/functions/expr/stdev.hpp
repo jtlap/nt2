@@ -14,7 +14,7 @@
 #include <nt2/include/functions/var.hpp>
 #include <nt2/include/functions/realsqrt.hpp>
 #include <nt2/include/functions/size.hpp>
- 
+
 
 namespace nt2 { namespace ext
 {
@@ -23,12 +23,12 @@ namespace nt2 { namespace ext
                               ((ast_<A0, nt2::container::domain>)) )
   {
     typedef typename meta::call < tag::var_(A0 const&)>::type T1;
-    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type; 
+    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type;
 
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return nt2::realsqrt(nt2::var(a0)); 
+      return nt2::realsqrt(nt2::var(a0));
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stdev_, tag::cpu_,
@@ -38,13 +38,13 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename meta::call < tag::var_(A0 const&, A1 const&)>::type T1;
-    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type; 
+    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-      return nt2::realsqrt(nt2::var(a0, a1));  
+      return nt2::realsqrt(nt2::var(a0, a1));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::stdev_, tag::cpu_,
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain>))
@@ -53,10 +53,10 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename meta::call < tag::var_(A0 const&, A1 const&, A2 const &)>::type T1;
-    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type; 
+    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1, const A2& a2) const
     {
-      return nt2::realsqrt(var(a0, a1, a2));  
+      return nt2::realsqrt(var(a0, a1, a2));
     }
   };
 
@@ -67,10 +67,10 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename meta::call < tag::var_(A0 const&, A1 const&)>::type T1;
-    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type; 
+    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w) const
     {
-      return nt2::realsqrt(var(a0, w));  
+      return nt2::realsqrt(var(a0, w));
     }
   };
 
@@ -82,14 +82,14 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename meta::call < tag::var_(A0 const&, A1 const&, A2 const &)>::type T1;
-    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type; 
+    typedef typename meta::call < tag::realsqrt_(T1)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w, const A2& a2) const
     {
-      return nt2::realsqrt(var(a0, w, a2));  
+      return nt2::realsqrt(var(a0, w, a2));
     }
   };
 
-  
+
 } }
 
 #endif

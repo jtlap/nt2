@@ -24,12 +24,12 @@
  * \f[E(a_0,a_1) = \int_0^{a0} \sqrt{1-a_1\sin^2 t} dt\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ellie.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  *
  * \param a0 the first parameter of ellie
  * \param a1 the second parameter of ellie
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ellie_ of functor ellie 
+     * \brief Define the tag ellie_ of functor ellie
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellie_ : ext::elementwise_<ellie_> { typedef ext::elementwise_<ellie_> parent; };

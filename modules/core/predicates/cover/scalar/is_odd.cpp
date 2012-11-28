@@ -12,7 +12,7 @@
 // cover test behavior of predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/predicates/include/functions/is_odd.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -38,7 +38,7 @@
 
 NT2_TEST_CASE_TPL ( is_odd_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::is_odd;
   using nt2::tag::is_odd_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -48,9 +48,9 @@ NT2_TEST_CASE_TPL ( is_odd_real__1_0,  NT2_REAL_TYPES)
   typedef nt2::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -67,13 +67,13 @@ NT2_TEST_CASE_TPL ( is_odd_real__1_0,  NT2_REAL_TYPES)
                   << std::endl;
         NT2_TEST_EQUAL( nt2::is_odd(a0),r_t(int(nt2::abs(a0)/nt2::Two<T>())*2+nt2::One<T>()==nt2::abs(a0)));
      }
-     
+
    }
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( is_odd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::is_odd;
   using nt2::tag::is_odd_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -83,9 +83,9 @@ NT2_TEST_CASE_TPL ( is_odd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef nt2::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -102,13 +102,13 @@ NT2_TEST_CASE_TPL ( is_odd_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
                   << std::endl;
         NT2_TEST_EQUAL( nt2::is_odd(a0),r_t(int(nt2::abs(a0)/nt2::Two<T>())*2+nt2::One<T>()==nt2::abs(a0)));
      }
-     
+
    }
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( is_odd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::is_odd;
   using nt2::tag::is_odd_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -118,9 +118,9 @@ NT2_TEST_CASE_TPL ( is_odd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef nt2::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -137,6 +137,6 @@ NT2_TEST_CASE_TPL ( is_odd_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
                   << std::endl;
         NT2_TEST_EQUAL( nt2::is_odd(a0),r_t(int(nt2::abs(a0)/2.0)*2+nt2::One<T>()==nt2::abs(a0)));
      }
-     
+
    }
 } // end of test for unsigned_int_

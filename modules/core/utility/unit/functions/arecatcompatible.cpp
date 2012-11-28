@@ -24,20 +24,20 @@ NT2_TEST_CASE( fundamental_arecatcompatible )
 
 NT2_TEST_CASE( container_arecatcompatible )
 {
-  
+
   for(int i=1; i <= 4; ++i)
     {
-      std::cout << "i " << i << std::endl; 
+      std::cout << "i " << i << std::endl;
       NT2_TEST( nt2::arecatcompatible( nt2::ones(0),      nt2::ones(0)       , i ));
       NT2_TEST( nt2::arecatcompatible( nt2::ones(1,0),    nt2::ones(1,0)     , i ));
       NT2_TEST( nt2::arecatcompatible( nt2::ones(2,0,2),  nt2::ones(2,0,2)   , i ));
       NT2_TEST( nt2::arecatcompatible( nt2::ones(3,3,0,1),nt2::ones(3,3,0,1) , i ));
-      
+
       NT2_TEST( nt2::arecatcompatible( nt2::ones(1),      nt2::ones(1)       , i ));
       NT2_TEST( nt2::arecatcompatible( nt2::ones(1,3),    nt2::ones(1,3)     , i ));
       NT2_TEST( nt2::arecatcompatible( nt2::ones(1,3,1),  nt2::ones(1,3,1)   , i ));
       NT2_TEST( nt2::arecatcompatible( nt2::ones(1,3,1,1),nt2::ones(1,3,1,1) , i ));
-      
+
       NT2_TEST( nt2::arecatcompatible( nt2::ones(3),     nt2::ones(3)       , i ));
       NT2_TEST( nt2::arecatcompatible( nt2::ones(2,3),   nt2::ones(2,3)     , i ));
       NT2_TEST( nt2::arecatcompatible( nt2::ones(1,3,2), nt2::ones(1,3,2)   , i ));

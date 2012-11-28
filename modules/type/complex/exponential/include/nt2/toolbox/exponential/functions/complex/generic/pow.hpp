@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_POW_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_POW_HPP_INCLUDED
@@ -38,37 +38,37 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return exp(a1*log(a0)); 
+      return exp(a1*log(a0));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                               , (A0)(A1)
                               , (generic_< complex_<floating_<A0> > >)
                                 (generic_< floating_<A1> >)
                             )
-  { 
+  {
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       typedef typename meta::as_real<result_type>::type rtype;
-      typedef typename meta::as_imaginary< rtype>::type itype; 
+      typedef typename meta::as_imaginary< rtype>::type itype;
       rtype t = nt2::arg(a0);
       rtype a = nt2::abs(a0);
-      return nt2::pow(a, a1)*nt2::exp(itype(t*a1)); 
+      return nt2::pow(a, a1)*nt2::exp(itype(t*a1));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                               , (A0)(A1)
                               , (generic_< complex_<floating_<A0> > >)
                                 (generic_< dry_<floating_<A1> > >)
                             )
-  { 
+  {
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return pow(a0, nt2::real(a1)); 
+      return pow(a0, nt2::real(a1));
     }
   };
 
@@ -81,11 +81,11 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        typedef typename meta::as_dry<A0>::type dtype; 
-        return nt2::exp(a1*nt2::log(dtype(a0))); 
+        typedef typename meta::as_dry<A0>::type dtype;
+        return nt2::exp(a1*nt2::log(dtype(a0)));
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                               , (A0)(A1)
                               , (generic_< dry_ < floating_<A0> > > )
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::exp(a1*nt2::log(a0)); 
+        return nt2::exp(a1*nt2::log(a0));
       }
   };
 
@@ -108,10 +108,10 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::exp(a1*nt2::log(a0)); 
+        return nt2::exp(a1*nt2::log(a0));
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                               , (A0)(A1)
                               , (generic_< imaginary_<floating_<A0> > >)
@@ -121,10 +121,10 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::exp(a1*nt2::log(a0)); 
+        return nt2::exp(a1*nt2::log(a0));
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                               , (A0)(A1)
                               , (generic_< imaginary_<floating_<A0> > >)
@@ -134,10 +134,10 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::exp(a1*nt2::log(a0)); 
+        return nt2::exp(a1*nt2::log(a0));
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_, tag::cpu_
                               , (A0)(A1)
                               , (generic_< imaginary_<floating_<A0> > >)
@@ -147,7 +147,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::exp(a1*nt2::log(a0)); 
+        return nt2::exp(a1*nt2::log(a0));
       }
   };
 
@@ -158,10 +158,10 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename meta::as_complex<A0>::type result_type;
-    typedef typename meta::as_dry<A0>::type dtype; 
+    typedef typename meta::as_dry<A0>::type dtype;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::exp(a1*nt2::log(dtype(a0))); 
+        return nt2::exp(a1*nt2::log(dtype(a0)));
       }
   };
 
@@ -174,7 +174,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::exp(a1*nt2::log(a0)); 
+        return nt2::exp(a1*nt2::log(a0));
       }
   };
 
@@ -187,9 +187,9 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        return nt2::exp(a1*nt2::log(a0)); 
+        return nt2::exp(a1*nt2::log(a0));
       }
-  };     
+  };
 } }
 
 

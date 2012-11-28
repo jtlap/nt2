@@ -34,20 +34,20 @@ namespace nt2 { namespace ext
                               ((ast_<A0, nt2::container::domain>))(scalar_<integer_<A1> > )
                               )
   {
-    typedef typename meta::call<tag::ifvectvert_(A0 const&)>::type T0; 
-    typedef typename meta::call<tag::center_(T0, size_t)>::type T1; 
-    typedef typename meta::call<tag::conj_(T1)>::type T2; 
+    typedef typename meta::call<tag::ifvectvert_(A0 const&)>::type T0;
+    typedef typename meta::call<tag::center_(T0, size_t)>::type T1;
+    typedef typename meta::call<tag::conj_(T1)>::type T2;
     typedef typename meta::call<tag::trans_(T2)>::type T3;
     typedef typename meta::call<tag::mtimes_(T3, T1)>::type T4;
     typedef typename A0::value_type value_type;
-    typedef typename meta::call<tag::multiplies_(T4,value_type)>::type result_type; 
+    typedef typename meta::call<tag::multiplies_(T4,value_type)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const & a1) const
     {
-      T0 a00 = nt2::ifvectvert(a0); 
+      T0 a00 = nt2::ifvectvert(a0);
       T1 a0_c = nt2::center(a00, size_t(1));
       value_type n = nt2::size(a00, 1);
       value_type f = (n <= One<value_type>())? One<value_type>() : nt2::rec(n-(a1?value_type(0):value_type(1)));
-      return  nt2::multiplies(nt2::mtimes(trans(conj(a0_c)), a0_c), f); 
+      return  nt2::multiplies(nt2::mtimes(trans(conj(a0_c)), a0_c), f);
     }
 
   };
@@ -57,23 +57,23 @@ namespace nt2 { namespace ext
                               ((ast_<A0, nt2::container::domain>))
                               )
   {
-    typedef typename meta::call<tag::ifvectvert_(A0 const&)>::type T0; 
-    typedef typename meta::call<tag::center_(T0, size_t)>::type T1; 
-    typedef typename meta::call<tag::conj_(T1)>::type T2; 
+    typedef typename meta::call<tag::ifvectvert_(A0 const&)>::type T0;
+    typedef typename meta::call<tag::center_(T0, size_t)>::type T1;
+    typedef typename meta::call<tag::conj_(T1)>::type T2;
     typedef typename meta::call<tag::trans_(T2)>::type T3;
     typedef typename meta::call<tag::mtimes_(T3, T1)>::type T4;
     typedef typename A0::value_type value_type;
-    typedef typename meta::call<tag::multiplies_(T4, value_type)>::type result_type; 
+    typedef typename meta::call<tag::multiplies_(T4, value_type)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      T0 a00 = nt2::ifvectvert(a0); 
+      T0 a00 = nt2::ifvectvert(a0);
       T1 a0_c = nt2::center(a00, size_t(1));
-      value_type n = nt2::size(a00, 1); 
-      value_type f = (n <= One<value_type>())? One<value_type>() : nt2::rec(n-1); 
-      return  nt2::multiplies(nt2::mtimes(trans(conj(a0_c)), a0_c), f); 
-    }   
+      value_type n = nt2::size(a00, 1);
+      value_type f = (n <= One<value_type>())? One<value_type>() : nt2::rec(n-1);
+      return  nt2::multiplies(nt2::mtimes(trans(conj(a0_c)), a0_c), f);
+    }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))((ast_<A1, nt2::container::domain>))
@@ -99,10 +99,10 @@ namespace nt2 { namespace ext
                               (scalar_<floating_<A0> >)
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&) const
     {
-      return Zero<A0>(); 
+      return Zero<A0>();
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cov_, tag::cpu_,
@@ -111,10 +111,10 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A1> > )
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const &) const
     {
-      return Zero<A0>(); 
+      return Zero<A0>();
     }
   };
 
@@ -139,7 +139,7 @@ namespace nt2 { namespace ext
                            nt2::zeros(2, 2, nt2::meta::as_<A0>())
                            )
   };
-  
+
 } }
 
 #endif

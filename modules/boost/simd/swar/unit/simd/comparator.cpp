@@ -12,7 +12,7 @@
 // unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/swar/include/functions/comparator.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::comparator;
   using boost::simd::tag::comparator_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -90,4 +90,4 @@ NT2_TEST_CASE_TPL ( comparator_real__3_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_EQUAL( boost::fusion::get<2>(res), r_t2(0) );
   }
 } // end of test for floating_
- 
+

@@ -22,12 +22,12 @@
  * cotangent of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_cotd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of fast_cotd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_cotd_ of functor fast_cotd 
+     * \brief Define the tag fast_cotd_ of functor fast_cotd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_cotd_ : ext::elementwise_<fast_cotd_> { typedef ext::elementwise_<fast_cotd_> parent; };

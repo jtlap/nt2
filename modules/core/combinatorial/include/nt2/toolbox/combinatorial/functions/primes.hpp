@@ -22,12 +22,12 @@
  * returns the table of prime numbers less or equal to the input
  * \par
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/primes.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,27 +40,27 @@
  * \endcode
  *
  * \param a0 the unique parameter of primes
- * 
+ *
  * \param T template parameter of primes
- * 
+ *
  * \return a value of the template parameter type T.
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag primes_ of functor primes 
+     * \brief Define the tag primes_ of functor primes
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct primes_ : ext::elementwise_<primes_> { typedef ext::elementwise_<primes_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::primes_,primes, 1)
-} 
+}
 
 #endif
 

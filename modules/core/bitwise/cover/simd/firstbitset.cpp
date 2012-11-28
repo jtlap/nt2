@@ -12,7 +12,7 @@
 // cover test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/bitwise/include/functions/firstbitset.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -67,11 +67,11 @@ NT2_TEST_CASE_TPL ( firstbitset_float_1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = firstbitset(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::firstbitset (a0[i])));
         }
       }
-    
+
   }
 } // end of test for float
 
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES
 {
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -107,11 +107,11 @@ NT2_TEST_CASE_TPL ( firstbitset_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES
         r_t v = firstbitset(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::firstbitset (a0[i])));
         }
       }
-    
+
   }
 } // end of test for signed_int_
 
@@ -119,7 +119,7 @@ NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::firstbitset;
   using nt2::tag::firstbitset_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -145,10 +145,10 @@ NT2_TEST_CASE_TPL ( firstbitset_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
         r_t v = firstbitset(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::firstbitset (a0[i])));
         }
       }
-    
+
   }
 } // end of test for unsigned_int_

@@ -2,7 +2,7 @@
     {
      'functor' : {
          'description' : ['Returns True<result_type>() if a0 is not less or equal to zero else returns False<result_type>().','\par',
-                          'Due to existence of nan, this is not equivalent to \c not(is_lez(a0))'],   
+                          'Due to existence of nan, this is not equivalent to \c not(is_lez(a0))'],
           'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

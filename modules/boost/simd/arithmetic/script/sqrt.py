@@ -36,19 +36,19 @@
                  'boost::simd::Nan<T>()' : 'boost::simd::Nan<r_t>()',
                  'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
-                 'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',   
+                 'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',
                  'boost::simd::Two<T>()' : {'result' : 'boost::simd::Sqrt_2<r_t>()','ulp_thresh' : '0.5',},
                 },
              'signed_int_' : {
                  'boost::simd::Mone<T>()' : 'boost::simd::Nan<r_t>()',
                  'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
-                 'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',   
+                 'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',
                 },
              'unsigned_int_' : {
                  'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
-                 'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',   
+                 'boost::simd::Four<T>()' : 'boost::simd::Two<r_t>()',
                 },
             },
          'verif_test' : {

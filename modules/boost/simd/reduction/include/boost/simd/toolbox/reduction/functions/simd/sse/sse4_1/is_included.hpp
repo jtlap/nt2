@@ -21,25 +21,25 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>, boost::simd::tag::sse_>))
                             )
   {
-    typedef typename meta::scalar_of<A0>::type sA0; 
+    typedef typename meta::scalar_of<A0>::type sA0;
     typedef typename meta::as_logical<sA0>::type result_type;
     inline result_type operator()(A0 const& a0,A0 const& a1) const
     {
       return result_type(_mm_testc_si128(a1, a0));
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_included_, boost::simd::tag::sse4_1_
                             , (A0)
                             , ((simd_<floating_<A0>, boost::simd::tag::sse_>))
                               ((simd_<floating_<A0>, boost::simd::tag::sse_>))
                             )
   {
-    typedef typename meta::scalar_of<A0>::type sA0; 
+    typedef typename meta::scalar_of<A0>::type sA0;
     typedef typename meta::as_logical<sA0>::type result_type;
     inline result_type operator()(A0 const& a0,A0 const& a1) const
     {
-      typedef typename boost::dispatch::meta::as_integer<A0>::type iA0; 
+      typedef typename boost::dispatch::meta::as_integer<A0>::type iA0;
       return is_included(bitwise_cast<iA0>(a0), bitwise_cast<iA0>(a1));
     }
   };

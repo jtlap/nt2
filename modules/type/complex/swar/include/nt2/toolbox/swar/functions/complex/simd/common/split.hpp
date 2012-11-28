@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_SPLIT_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_SPLIT_HPP_INCLUDED
@@ -31,16 +31,16 @@ namespace nt2 { namespace ext
 //                               ((simd_<complex_<arithmetic_<A1> >,X>))
 //                             )
 //   {
-//     typedef int result_type;    
+//     typedef int result_type;
 //     inline result_type operator()(A0 const& a0,A1 & a1, A1 & a2) const
 //     {
-//       typedef typename meta::as_real<A1>::type rA1; 
-//       rA1 ar0, ar1, ai0, ai1; 
-//       split(nt2::real(a0), ar0, ar1); 
+//       typedef typename meta::as_real<A1>::type rA1;
+//       rA1 ar0, ar1, ai0, ai1;
+//       split(nt2::real(a0), ar0, ar1);
 //       split(nt2::imag(a0), ai0, ai1);
 //       a1 = A1(ar0, ai0);
 //       a2 = A1(ar1, ai1);
-//       return 0; 
+//       return 0;
 //     }
 //   };
 
@@ -49,16 +49,16 @@ namespace nt2 { namespace ext
 //                               ((simd_<complex_<arithmetic_<A0> >,X>))
 //                             )
 //   {
-//     typedef typename meta::as_real<A0>::type rA0; 
+//     typedef typename meta::as_real<A0>::type rA0;
 //     typedef typename boost::dispatch::meta::upgrade<rA0>::type rU;
 //     typedef typename meta::as_complex<rU>::type crU;
 //     typedef boost::fusion::tuple<crU, crU> result_type;
-    
+
 //     NT2_FUNCTOR_CALL_REPEAT(1)
 //     {
 //       result_type res;
 //       nt2::split(a0,  boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res));
-//       return res; 
+//       return res;
 //     }
 //   };
 
@@ -69,15 +69,15 @@ namespace nt2 { namespace ext
 //                               ((simd_<imaginary_<arithmetic_<A1> >,X>))
 //                             )
 //   {
-//     typedef int result_type;    
+//     typedef int result_type;
 //     inline result_type operator()(A0 const& a0,A1 & a1, A1 & a2) const
 //     {
-//       typedef typename meta::as_real<A1>::type rA1; 
-//       rA1 ai0, ai1; 
+//       typedef typename meta::as_real<A1>::type rA1;
+//       rA1 ai0, ai1;
 //       split(nt2::imag(a0), ai0, ai1);
 //       a1 = A1(ai0);
 //       a2 = A1(ai1);
-//       return 0; 
+//       return 0;
 //     }
 //   };
 
@@ -86,19 +86,19 @@ namespace nt2 { namespace ext
 //                               ((simd_<imaginary_<arithmetic_<A0> >,X>))
 //                             )
 //   {
-//     typedef typename meta::as_real<A0>::type rA0; 
+//     typedef typename meta::as_real<A0>::type rA0;
 //     typedef typename boost::dispatch::meta::upgrade<rA0>::type rU;
 //     typedef typename meta::as_imaginary<rU>::type crU;
 //     typedef boost::fusion::tuple<crU, crU> result_type;
-    
+
 //     NT2_FUNCTOR_CALL_REPEAT(1)
 //     {
 //       result_type res;
 //       nt2::split(a0,  boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res));
-//       return res; 
+//       return res;
 //     }
 //   };
-  
+
 //   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::split_, tag::cpu_,
 //                               (A0)(A1)(X),
 //                               ((simd_<dry_<arithmetic_<A0> >,X>))
@@ -106,15 +106,15 @@ namespace nt2 { namespace ext
 //                               ((simd_<dry_<arithmetic_<A1> >,X>))
 //                             )
 //   {
-//     typedef int result_type;    
+//     typedef int result_type;
 //     inline result_type operator()(A0 const& a0,A1 & a1, A1 & a2) const
 //     {
-//       typedef typename meta::as_real<A1>::type rA1; 
-//       rA1 ai0, ai1; 
+//       typedef typename meta::as_real<A1>::type rA1;
+//       rA1 ai0, ai1;
 //       split(nt2::imag(a0), ai0, ai1);
 //       a1 = A1(ai0);
 //       a2 = A1(ai1);
-//       return 0; 
+//       return 0;
 //     }
 //   };
 
@@ -123,18 +123,18 @@ namespace nt2 { namespace ext
 //                               ((simd_<dry_<arithmetic_<A0> >,X>))
 //                             )
 //   {
-//     typedef typename meta::as_real<A0>::type rA0; 
+//     typedef typename meta::as_real<A0>::type rA0;
 //     typedef typename boost::dispatch::meta::upgrade<rA0>::type rU;
 //     typedef typename meta::as_dry<rU>::type crU;
 //     typedef boost::fusion::tuple<crU, crU> result_type;
-    
+
 //     NT2_FUNCTOR_CALL_REPEAT(1)
 //     {
 //       result_type res;
 //       nt2::split(a0,  boost::fusion::at_c<0>(res),  boost::fusion::at_c<1>(res));
-//       return res; 
+//       return res;
 //     }
-//   };  
+//   };
 } }
 
 #endif

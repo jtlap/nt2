@@ -2,7 +2,7 @@
 
 All trigonometric function defined in Matlab are supported for real and complex inputs, and some more are defined in NT2 (see ???)
 
-[variablelist Trigonometric and hyperbolic,direct and inverse         
+[variablelist Trigonometric and hyperbolic,direct and inverse
 [[acos   ][Inverse cosine; result in radians       ]]
 [[acosd  ][Inverse cosine; result in degrees       ]]
 [[acosh  ][Inverse hyperbolic cosine               ]]
@@ -41,6 +41,6 @@ All trigonometric function defined in Matlab are supported for real and complex 
 [[tan    ][Tangent of argument in radians          ]]
 [[tand   ][Tangent of argument in degrees          ]]
 [[tanh   ][Hyperbolic tangent                      ]]
-]        
+]
 
 [endsect]

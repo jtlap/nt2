@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/ulp.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/min.hpp>
@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL ( ulp_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::ulp;
   using boost::simd::tag::ulp_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/legendre3_p.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -47,9 +47,9 @@
  * \param a0 the first parameter of legendre3_p
  * \param a1 the second parameter of legendre3_p
  * \param a2 the third parameter of legendre3_p
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -59,13 +59,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag legendre3_p_ of functor legendre3_p 
+     * \brief Define the tag legendre3_p_ of functor legendre3_p
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct legendre3_p_ : ext::elementwise_<legendre3_p_> { typedef ext::elementwise_<legendre3_p_> parent; };
@@ -74,7 +74,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/legendre3_p.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/legendre3_p.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/legendre3_p.hpp>
 
 #endif
 

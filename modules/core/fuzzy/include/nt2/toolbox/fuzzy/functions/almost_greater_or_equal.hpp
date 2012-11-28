@@ -22,12 +22,12 @@
  * \f$a_0 \ge predecessor(a_1,|a_2|)\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/almost_greater_or_equal.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,9 +42,9 @@
  * \param a0 the first parameter of almost_greater_or_equal
  * \param a1 the second parameter of almost_greater_or_equal
  * \param a2 the third parameter of almost_greater_or_equal
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -55,13 +55,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag almost_greater_or_equal_ of functor almost_greater_or_equal 
+     * \brief Define the tag almost_greater_or_equal_ of functor almost_greater_or_equal
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct almost_greater_or_equal_ : ext::elementwise_<almost_greater_or_equal_> { typedef ext::elementwise_<almost_greater_or_equal_> parent; };

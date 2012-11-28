@@ -12,7 +12,7 @@
 // cover test behavior of operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/operator/include/functions/if_else.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::if_else;
   using nt2::tag::if_else_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -76,11 +76,11 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
        for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
           std::cout << i << " -> " << a0[i] << "  " << int(a1[i])
-                    << "  " << int(a2[i]) << "  " << std::endl; 
+                    << "  " << int(a2[i]) << "  " << std::endl;
           NT2_TEST_EQUAL( v[i], nt2::if_else (nt2::extract(a0, i),a1[i],a2[i]));
         }
       }
-    
+
   }
 } // end of test for integer_
 
@@ -88,7 +88,7 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::if_else;
   using nt2::tag::if_else_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

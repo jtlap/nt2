@@ -229,7 +229,7 @@ NT2_TEST_CASE_TPL(pack_expr_category, BOOST_SIMD_SIMD_TYPES)
                              >
                       )
                     );
-  
+
   typedef BOOST_DISPATCH_TYPEOF(x+y) type_t_;
   typedef typename strip<type_t_>::type type_t;
   typedef typename boost::proto::arity_of<type_t>::type arity_t;

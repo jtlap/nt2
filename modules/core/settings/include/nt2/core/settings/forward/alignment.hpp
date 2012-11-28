@@ -11,7 +11,7 @@
 
 #include <boost/mpl/bool.hpp>
 
-namespace nt2 
+namespace nt2
 {
   //============================================================================
   /*! Current container memory is allocated using an aligning allocator.
@@ -20,20 +20,20 @@ namespace nt2
   struct aligned_ : boost::mpl::true_ {};
 
   //============================================================================
-  /*! Current container memory is allocated using an allocator with no 
+  /*! Current container memory is allocated using an allocator with no
    *  alignment garantee.
    **/
   //============================================================================
   struct unaligned_ : boost::mpl::false_  {};
 
-  namespace tag 
-  { 
+  namespace tag
+  {
     //==========================================================================
     /*!
      * Option tag for alignment options
      **/
     //==========================================================================
-    struct alignment_ {}; 
+    struct alignment_ {};
   }
 
 

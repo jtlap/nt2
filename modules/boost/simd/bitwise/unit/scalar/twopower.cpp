@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/twopower.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/shli.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( twopower_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::twopower;
   using boost::simd::tag::twopower_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( twopower_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::common_type<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(twopower(boost::simd::Zero<T>()), boost::simd::One<r_t>());

@@ -22,12 +22,12 @@
  * sine of angle in \f$\pi\f$ multiples: \f$\cos(\pi a_0)\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_sinpi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of fast_sinpi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_sinpi_ of functor fast_sinpi 
+     * \brief Define the tag fast_sinpi_ of functor fast_sinpi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_sinpi_ : ext::elementwise_<fast_sinpi_> { typedef ext::elementwise_<fast_sinpi_> parent; };

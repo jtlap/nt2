@@ -27,10 +27,10 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(__m256 const a0, __m256 const a1) const 
+    result_type operator()(__m256 const a0, __m256 const a1) const
     {
       result_type that0 = details::perm2<1, 1>(a0, a0);
-      that0 = details::shuffle_pairs<0, 1, 1, 3>(that0, that0); 
+      that0 = details::shuffle_pairs<0, 1, 1, 3>(that0, that0);
       result_type that1 = details::perm2<1, 1>(a1, a1);
       that1 = details::shuffle_pairs<0, 1, 1, 3>(that1, that1);
       return _mm256_unpacklo_ps(that0,that1);
@@ -48,10 +48,10 @@ namespace boost { namespace simd { namespace ext
 
     result_type operator()(__m256d const a0, __m256d const a1) const
     {
-      result_type that0 = details::perm2<1, 1>(a0, a0); 
-      that0 = details::shuffle<0, 1, 1, 3>(that0, that0);  
-      result_type that1 = details::perm2<1, 1>(a1, a1); 
-      that1 = details::shuffle<0, 1, 1, 3>(that1, that1); 
+      result_type that0 = details::perm2<1, 1>(a0, a0);
+      that0 = details::shuffle<0, 1, 1, 3>(that0, that0);
+      result_type that1 = details::perm2<1, 1>(a1, a1);
+      that1 = details::shuffle<0, 1, 1, 3>(that1, that1);
       return _mm256_unpacklo_pd(that0,that1);
 
     }
@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(__m256i const a0, __m256i const a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return  bitwise_cast<result_type>(interleave_second(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return  bitwise_cast<result_type>(interleave_second(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1)));
     }
   };
 
@@ -85,10 +85,10 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const a0, A1 const a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return bitwise_cast<result_type>(interleave_second(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return bitwise_cast<result_type>(interleave_second(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1)));
     }
   };
-    
+
 } } }
 
 #endif

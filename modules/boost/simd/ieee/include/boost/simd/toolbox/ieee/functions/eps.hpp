@@ -24,18 +24,18 @@
  * The Machine epsilon gives an upper bound on the relative
  * error due to rounding in floating point arithmetic. Typically $2^{-53}$
  * for floating point doubles and $2^{-24}$ for
- * floats. MATLAB(TM) language defines the value eps 
+ * floats. MATLAB(TM) language defines the value eps
  * as the distance from 1.0 to the next larger double
  * which is two times the machine epsilon...
  * Returns one for integer types.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/eps.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,19 +48,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of eps
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag eps_ of functor eps 
+     * \brief Define the tag eps_ of functor eps
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct eps_ : ext::elementwise_<eps_> { typedef ext::elementwise_<eps_> parent; };

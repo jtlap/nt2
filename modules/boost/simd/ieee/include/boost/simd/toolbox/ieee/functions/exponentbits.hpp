@@ -26,12 +26,12 @@
  * \f$a = \pm m\times 2^e\f$, with m between zero and one
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/exponentbits.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of exponentbits
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag exponentbits_ of functor exponentbits 
+     * \brief Define the tag exponentbits_ of functor exponentbits
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct exponentbits_ : ext::elementwise_<exponentbits_> { typedef ext::elementwise_<exponentbits_> parent; };

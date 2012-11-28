@@ -66,7 +66,7 @@ namespace nt2 { namespace ext
     {
       boost::proto::child_c<0>(a1) = f.l();
       boost::proto::child_c<1>(a1) = f.u();
-      boost::proto::child_c<2>(a1) = f.p(); 
+      boost::proto::child_c<2>(a1) = f.p();
     }
   };
 } }

@@ -23,12 +23,12 @@
  * a0 is less than zero, zero or greater than zero.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sign.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of sign
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sign_ of functor sign 
+     * \brief Define the tag sign_ of functor sign
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct sign_ : ext::elementwise_<sign_> { typedef ext::elementwise_<sign_> parent; };

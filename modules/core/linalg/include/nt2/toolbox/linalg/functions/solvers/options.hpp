@@ -55,21 +55,21 @@ namespace nt2 { namespace solvers {
       rect_ = b;
       if (rect_){
         sym_ = posdef_ = uhess_ = lt_ = ut_ = false;
-        general_ =  true; 
+        general_ =  true;
       }
     }
-    
+
     void posdef(bool b){
-      posdef_ = b; 
+      posdef_ = b;
       if (posdef_){
         general_ = uhess_ = lt_ = ut_ = rect_ = false;
       }
     }
-    
+
     void unidiag(bool b){
       unidiag_ = b;
     }
-    
+
     void transa(bool b){
       transa_ = b;
     }
@@ -81,17 +81,17 @@ namespace nt2 { namespace solvers {
     bool transa()const{return transa_; }
     bool unidiag()const{return unidiag_; }
     bool rect()const{return rect_; }
-    
+
     const char& uplo()const{return *details::lapack_option(ut_?'u':'l'); }
-    
+
     template < class t >
     const char& trans(const t & a = 1)const{
       return *details::lapack_option(transa_ ? (!is_real(a)? 'c':'t') :'n');
     }
-    
+
     const char& uni()const{return *details::lapack_option(unidiag_?'u':'n'); }
-    
-    ~options(){}; 
+
+    ~options(){};
 
   private:
     bool lt_;
@@ -102,8 +102,8 @@ namespace nt2 { namespace solvers {
     bool rect_;
     bool transa_;
     bool unidiag_;
-    bool general_; 
-  }; 
+    bool general_;
+  };
 } }
 
 #endif

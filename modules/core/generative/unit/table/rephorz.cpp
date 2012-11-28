@@ -40,16 +40,16 @@ NT2_TEST_CASE( rephorz_size )
 NT2_TEST_CASE( rephorz_ )
 {
   using nt2::_;
-  using nt2::end_; 
+  using nt2::end_;
   nt2::table<float> a = nt2::rif(nt2::of_size(7, 1), nt2::meta::as_<float>()), b;
   b = rephorz(a,  2);
   NT2_TEST(nt2::isequal(b,  rephorz(a,  2)));
   NT2_TEST(nt2::isequal(b(_, _(1u, size(a, 2))), a));
-  NT2_TEST(nt2::isequal(b(_, _(size(a, 2)+1, end_)), a)); 
+  NT2_TEST(nt2::isequal(b(_, _(size(a, 2)+1, end_)), a));
   a = nt2::cif(nt2::of_size(7, 7), nt2::meta::as_<float>());
   b = rephorz(a,  2);
   NT2_TEST(nt2::isequal(b,  rephorz(a,  2)));
   NT2_TEST(nt2::isequal(b(_, _(1u, size(a, 2))), a));
-  NT2_TEST(nt2::isequal(b(_, _(size(a, 2)+1, end_)), a)); 
+  NT2_TEST(nt2::isequal(b(_, _(size(a, 2)+1, end_)), a));
 
 }

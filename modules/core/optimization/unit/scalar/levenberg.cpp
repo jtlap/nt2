@@ -26,16 +26,16 @@
 #include <nt2/include/constants/four.hpp>
 #include <nt2/table.hpp>
 
-template < class Tabout > 
-struct fpp 
+template < class Tabout >
+struct fpp
 {
   template < class Tabin> inline
   Tabout operator()(const Tabin & x ) const
   {
-    typedef typename Tabin::value_type value_type; 
+    typedef typename Tabin::value_type value_type;
 //    Tabout r = (nt2::sqr(x)-value_type(3))*x+nt2::_(value_type(1), value_type(numel(x)));
     Tabout r = (nt2::sqr((x-nt2::_(value_type(1), value_type(numel(x))))));
-    return r; 
+    return r;
   }
 };
 
@@ -43,7 +43,7 @@ template<class Tabout, class Tabin >  Tabout f1(const Tabin & x )
 {
     typedef typename Tabin::value_type value_type;
     Tabout r = (nt2::sqr(x)-value_type(3))*x;
-    return r; 
+    return r;
 }
 
 // NT2_TEST_CASE_TPL( levenberg_function_ptr, NT2_REAL_TYPES )
@@ -52,17 +52,17 @@ template<class Tabout, class Tabin >  Tabout f1(const Tabin & x )
 //   using nt2::optimization::output;
 //   typedef nt2::table<T> tab_t;
 //   typedef typename nt2::meta::as_logical<T>::type lT;
-//   typedef nt2::table<T> ltab_t;  
+//   typedef nt2::table<T> ltab_t;
 //   tab_t x0 = nt2::zeros(nt2::of_size(1, 3), nt2::meta::as_<T>());
 //   ltab_t h = nt2::is_nez(nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>())*nt2::Half<T>());
-//   tab_t r = nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>()); 
+//   tab_t r = nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>());
 //   output<tab_t,T> res = levenberg(&f1<tab_t, tab_t>, x0, h);
 
 //   std::cout << "Minimum : f(" << res.minimum << ") = " << res.value
 //             << " after " << res.iterations_count <<  " iterations\n";
 
 //   NT2_TEST(res.successful);
-//   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Sqrteps<T>()); 
+//   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Sqrteps<T>());
 // }
 
 NT2_TEST_CASE_TPL( levenberg_functor, NT2_REAL_TYPES )
@@ -72,12 +72,12 @@ NT2_TEST_CASE_TPL( levenberg_functor, NT2_REAL_TYPES )
   using nt2::optimization::output;
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
-  typedef nt2::table<T> ltab_t;  
+  typedef nt2::table<T> ltab_t;
   tab_t x0 = nt2::zeros(nt2::of_size(1, 3), nt2::meta::as_<T>());
   ltab_t h = nt2::is_nez(nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>())*nt2::Half<T>());
-  tab_t r = nt2::_(T(1), T(3)); 
+  tab_t r = nt2::_(T(1), T(3));
   output<tab_t,T> res = levenberg(fpp<tab_t>(), x0, h,
-                                  options [ nt2::iterations_ = 100, 
+                                  options [ nt2::iterations_ = 100,
                                             nt2::tolerance::absolute_ = nt2::Eps<T>()
                                     ]);
 
@@ -194,17 +194,17 @@ NT2_TEST_CASE_TPL( levenberg_functor, NT2_REAL_TYPES )
 // }
 
 // double f1(const matrix < double >& x )       {
-//      return x*x*x-3*x+4; 
+//      return x*x*x-3*x+4;
 // }
-  
+
 // int main(int argc, char* argv[])
 // {
 //   ffp fff;
 //   matrix < double >  b =  0.5*ones(1);
 //   matrix < double >  h =  ones(1);
-//   levenberg < matrix < double > > hjm; 
-//   cout << hjm.optimize(fff, b, h) << endl; ; 
+//   levenberg < matrix < double > > hjm;
+//   cout << hjm.optimize(fff, b, h) << endl; ;
 //   cout << b << endl;
-//   cout << "minimum " << hjm.optimize(fff, b, h) <<  " au point " <<  b << " en " << hjm.getNbIteration() <<  " iterations" << endl; 
+//   cout << "minimum " << hjm.optimize(fff, b, h) <<  " au point " <<  b << " en " << hjm.getNbIteration() <<  " iterations" << endl;
 
 // }

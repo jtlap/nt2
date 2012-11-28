@@ -21,7 +21,7 @@ namespace nt2 { namespace meta
     : boost::mpl::false_
   {
   };
-  
+
   template<class T>
   struct is_colon<T, typename boost::enable_if_c< boost::proto::arity_of<T>::value == 0 >::type>
     : boost::
@@ -34,5 +34,5 @@ namespace nt2 { namespace meta
   {
   };
 } }
-  
+
 #endif

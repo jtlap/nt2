@@ -18,12 +18,12 @@ namespace boost { namespace proto
   //============================================================================
   /** \brief For matching one of a set of alternate grammars, which
    *  are looked up based on the result of a transform applied on the
-   *  Expression type. When used as a transform, \c switch_\<\> applies the 
+   *  Expression type. When used as a transform, \c switch_\<\> applies the
    *  transform associated with the grammar that matches the expression.
-   *  
+   *
    *  An expression type \c E matches <tt>select_\<C,T\></tt> if \c E
    *  matches <tt>C::case_\<result_of<T(E)\></tt>.
-   *  
+   *
    *  When applying <tt>select_\<C,T\></tt> as a transform with an
    *  expression \c e of type \c E, state \c s and data \c d, it is
    *  equivalent to <tt>C::case_\<result_of<T(E)\>()(e, s, d)</tt>.
@@ -32,24 +32,24 @@ namespace boost { namespace proto
   template<typename Cases, typename Transform>
   struct select_ : transform< select_<Cases,Transform> >
   {
-    typedef select_ proto_grammar;    
+    typedef select_ proto_grammar;
     typedef when<_,Transform> applicant;
-    
+
     template<typename Expr, typename State, typename Data>
     struct impl
-      : Cases::template 
+      : Cases::template
         case_ < typename boost::result_of<applicant(Expr)>::type >
                               ::template impl<Expr, State, Data>
     {};
 
     template<typename Expr, typename State, typename Data>
     struct impl<Expr &, State, Data>
-    : Cases::template 
+    : Cases::template
       case_ < typename boost::result_of<applicant(Expr)>::type >
                             ::template impl<Expr&, State, Data>
     {};
-  };  
-  
+  };
+
   //============================================================================
   // Make match aware of select_
   //============================================================================
@@ -59,11 +59,11 @@ namespace boost { namespace proto
             , typename Cases, typename Transform
             >
     struct matches_ < Expr, proto::basic_expr<Tag, Args, Arity>
-                    , select_<Cases,Transform> 
+                    , select_<Cases,Transform>
                     >
       : matches_< Expr
                 , proto::basic_expr<Tag, Args, Arity>
-                , typename  Cases::template 
+                , typename  Cases::template
                   case_<typename boost::
                         result_of< when<_,Transform>(Expr)>::type
                        >::proto_grammar
@@ -74,7 +74,7 @@ namespace boost { namespace proto
       typedef typename Cases::template case_<selected_type> which;
     };
   }
-  
+
   //============================================================================
   // Make select_ callable
   //============================================================================
@@ -82,4 +82,4 @@ namespace boost { namespace proto
   struct is_callable<select_<Cases,Transform> > : mpl::true_ {};
 } }
 
-#endif 
+#endif

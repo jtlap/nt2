@@ -35,21 +35,21 @@ namespace nt2 { namespace ext
                               , (generic_< floating_<A0> >)
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
         return if_else(is_nan(a0), a0,if_else_zero(logical_and(is_gez(a0), le(a0, One<A0>())), One<A0>()));
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifpdf_, tag::cpu_
                               , (A0)(A1)(A2)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
-                              (generic_< floating_<A2> >)  
+                              (generic_< floating_<A2> >)
                               )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
       {
         A0 z = a2-a1;
@@ -57,7 +57,7 @@ namespace nt2 { namespace ext
                                     nt2::if_zero_else(logical_or(lt(a0,a1),gt(a0,a2)),
                                                       nt2::rec(z)
                                                       )
-                                    ); 
+                                    );
       }
   };
 

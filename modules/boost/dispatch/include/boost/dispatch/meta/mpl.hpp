@@ -81,7 +81,7 @@ namespace details
                                >::type
                  >                                                            type;
   };
-  
+
   template<class T>
   struct  value_of< T
                   , typename boost
@@ -90,7 +90,7 @@ namespace details
   {
     typedef typename T::value_type type;
   };
-  
+
 } } }
 
 #endif

@@ -12,7 +12,7 @@
 #include <boost/simd/include/simd.hpp>
 #include <nt2/sdk/simd/tags.hpp>
 #include <nt2/sdk/simd/category.hpp>
-#include <nt2/sdk/simd/logical.hpp> 
+#include <nt2/sdk/simd/logical.hpp>
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 
 #endif

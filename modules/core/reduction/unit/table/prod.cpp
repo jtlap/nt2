@@ -28,7 +28,7 @@ NT2_TEST_CASE( prod_1D )
   using nt2::prod;
   typedef double T;
   using nt2::_;
-  
+
   std::size_t M = 5;
 
   table<T> r, r1;
@@ -44,7 +44,7 @@ NT2_TEST_CASE( prod_1D )
 
   r1 = prod(a,1);
   NT2_TEST_EQUAL(r(1), r1(1)) ;
-  
+
   for(int j = 2; j <= NT2_MAX_DIMENSIONS; ++j){
     r = prod(a,j);
     for(std::size_t i = 1; i <= M; ++i)
@@ -67,7 +67,7 @@ NT2_TEST_CASE( prod_2D )
   using nt2::prod;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -90,7 +90,7 @@ NT2_TEST_CASE( prod_2D )
   r = prod(a);
   for(std::size_t j = 1; j <= N; ++j)
     NT2_TEST_EQUAL(r(1,j), 1<<M) ;
-      
+
 
   for(std::size_t j = 1; j <= N; ++j)
     NT2_TEST_EQUAL(r(1,j), r1(1,j)) ;
@@ -99,7 +99,7 @@ NT2_TEST_CASE( prod_2D )
 
   for(std::size_t i = 1; i <= M; ++i)
     NT2_TEST_EQUAL(r1(i,1),1<<N) ;
-  
+
 
   for(int j = 3; j <= NT2_MAX_DIMENSIONS; ++j){
     r = prod(a,j);
@@ -124,7 +124,7 @@ NT2_TEST_CASE( prod_3D )
   using nt2::prod;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -142,7 +142,7 @@ NT2_TEST_CASE( prod_3D )
       }
     }
   }
-  
+
   r1 = prod(a,1);
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
@@ -152,7 +152,7 @@ NT2_TEST_CASE( prod_3D )
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
       NT2_TEST_EQUAL(r(1,j,k),1<<M) ;
-      
+
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
       NT2_TEST_EQUAL(r(1,j,k), r1(1,j,k)) ;
@@ -196,7 +196,7 @@ NT2_TEST_CASE( prod_4D )
   using nt2::prod;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -224,7 +224,7 @@ NT2_TEST_CASE( prod_4D )
       }
     }
   }
-  
+
   r1 = prod(a,1);
   for(std::size_t l = 1; l <= P; ++l)
     for(std::size_t k = 1; k <= O; ++k)
@@ -243,7 +243,7 @@ NT2_TEST_CASE( prod_4D )
     for(std::size_t k = 1; k <= O; ++k)
       for(std::size_t j = 1; j <= N; ++j)
         NT2_TEST_EQUAL(r(1,j,k,l), r1(1,j,k,l)) ;
-  
+
 
   r = prod(a+b,1);
   for(std::size_t l = 1; l <= P; ++l)
@@ -255,7 +255,7 @@ NT2_TEST_CASE( prod_4D )
   r = prod(a(nt2::_));
   NT2_TEST_EQUAL(r(1),(nt2::exp2(nt2::numel(a)))) ;
 
-  
+
   r = prod(a,4);
   for(std::size_t k = 1; k <= O; ++k)
     for(std::size_t j = 1; j <= N; ++j)
@@ -290,7 +290,7 @@ NT2_TEST_CASE( prod_4D )
   }
 
 
-  
+
 }
 
 NT2_TEST_CASE( prod )
@@ -301,7 +301,7 @@ NT2_TEST_CASE( prod )
   using nt2::prod;
   typedef double T;
   using nt2::_;
- 
+
 
   std::size_t M = 5;
   std::size_t N = 4;
@@ -334,13 +334,13 @@ NT2_TEST_CASE( prod )
   for(std::size_t l = 1; l <= P; ++l)
     for(std::size_t k = 1; k <= O; ++k)
       NT2_TEST_EQUAL(r(1,1,k,l),nt2::exp2(N*M)) ;
-  
-  
+
+
   r = prod(prod(prod(a)));
   for(std::size_t l = 1; l <= P; ++l)
     NT2_TEST_EQUAL(r(1,1,1,l),nt2::exp2(N*M*O)) ;
 
-  
+
   r = prod(prod(prod(prod(a))));
   NT2_TEST_EQUAL(r(1,1,1,1),nt2::exp2(nt2::numel(a))) ;
 

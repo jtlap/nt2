@@ -12,7 +12,7 @@
 // unit test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/dgammainc.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/exp.hpp>
@@ -34,19 +34,19 @@
 
 NT2_TEST_CASE_TPL ( dgammainc_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::dgammainc;
   using nt2::tag::dgammainc_;
   typedef typename nt2::meta::as_integer<T>::type iT;
-  typedef typename nt2::meta::call<dgammainc_(T, T)>::type r_t; 
+  typedef typename nt2::meta::call<dgammainc_(T, T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(dgammainc( nt2::One<T>(), nt2::Inf<T>()  ), nt2::Zero<r_t>(), 0);

@@ -21,9 +21,9 @@ namespace nt2 {  namespace tag
       typedef ext::unspecified_<conv_>  parent;
     };
   }
-  
+
   /**
-   * @brief Perform characteristic conv computation 
+   * @brief Perform characteristic conv computation
    *
    * convolves vectors a and b.  the resulting vector is
    * numel max(cons(numel(a)+numel(b)-1,numel(a),numel(b))). if a and b are
@@ -35,13 +35,13 @@ namespace nt2 {  namespace tag
    *   'f'  - (default) returns the 'full' convolution,
    *   's'  - returns the central part of the convolution
    *             that is the 'same' size as a.
-   *   'v' - returns only those ('valid') parts of the convolution 
-   *             that are computed without the zero-padded edges. 
-   *             numel(c) is max(numel(a)-max(0,numel(b)-1),0). 
+   *   'v' - returns only those ('valid') parts of the convolution
+   *             that are computed without the zero-padded edges.
+   *             numel(c) is max(numel(a)-max(0,numel(b)-1),0).
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::conv_, conv, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::conv_, conv, 3)
-    
+
 }
 
 namespace nt2 { namespace ext
@@ -58,8 +58,8 @@ namespace nt2 { namespace ext
       size_t na = nt2::numel(boost::proto::child_c<0>(e));
       size_t nb = nt2::numel(boost::proto::child_c<1>(e));
       sizee[1] = std::max(std::max(na+nb ? na+nb-1u : 0u,na),nb);
-      return sizee; 
-    }       
+      return sizee;
+    }
   };
 
   template<class Domain, int N, class Expr>

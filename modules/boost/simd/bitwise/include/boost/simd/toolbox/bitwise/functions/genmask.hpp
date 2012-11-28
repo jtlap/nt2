@@ -23,17 +23,17 @@
  * input element is non zero else all zeros
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/genmask.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg typed_mask
  * \arg logical2mask
  * \arg l2m
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,19 +46,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of genmask
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag genmask_ of functor genmask 
+     * \brief Define the tag genmask_ of functor genmask
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct genmask_ : ext::elementwise_<genmask_> { typedef ext::elementwise_<genmask_> parent; };

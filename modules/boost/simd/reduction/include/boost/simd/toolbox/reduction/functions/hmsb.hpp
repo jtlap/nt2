@@ -23,12 +23,12 @@
  * of each vector element
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/hmsb.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,9 +41,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of hmsb
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -54,13 +54,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag hmsb_ of functor hmsb 
+     * \brief Define the tag hmsb_ of functor hmsb
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
 

@@ -24,12 +24,12 @@
  * $0^0$ returns 1
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/pow.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  *
  * \param a0 the first parameter of pow
  * \param a1 the second parameter of pow
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag pow_ of functor pow 
+     * \brief Define the tag pow_ of functor pow
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct pow_ : ext::elementwise_<pow_> { typedef ext::elementwise_<pow_> parent; };

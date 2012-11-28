@@ -22,12 +22,12 @@
  * The function returns greatest power of two less or equal to the input.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/twopower.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of twopower
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag twopower_ of functor twopower 
+     * \brief Define the tag twopower_ of functor twopower
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct twopower_ : ext::elementwise_<twopower_> { typedef ext::elementwise_<twopower_> parent; };

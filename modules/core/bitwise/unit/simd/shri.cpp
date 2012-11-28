@@ -12,7 +12,7 @@
 // unit test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/bitwise/include/functions/shri.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/twopower.hpp>
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( shri_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::shri;
   using nt2::tag::shri_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef T r_type;

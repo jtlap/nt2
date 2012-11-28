@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/gsl_specfun/include/functions/gsl_sf_pochrel.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  *
  * \param a0 the first parameter of gsl_sf_pochrel
  * \param a1 the second parameter of gsl_sf_pochrel
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -61,13 +61,13 @@
  * gsl_specfun library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace gsl_specfun { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gsl_sf_pochrel_ of functor gsl_sf_pochrel 
+     * \brief Define the tag gsl_sf_pochrel_ of functor gsl_sf_pochrel
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
     struct gsl_sf_pochrel_ : ext::elementwise_<gsl_sf_pochrel_> { typedef ext::elementwise_<gsl_sf_pochrel_> parent; };
@@ -76,7 +76,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
   } }
 
 #include <nt2/toolbox/gsl_specfun/functions/scalar/gsl_sf_pochrel.hpp>
-// #include <nt2/toolbox/gsl_specfun/functions/simd/all/gsl_sf_pochrel.hpp> 
+// #include <nt2/toolbox/gsl_specfun/functions/simd/all/gsl_sf_pochrel.hpp>
 
 #endif
 

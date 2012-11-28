@@ -23,12 +23,12 @@
  * library cephes.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/cephes/include/functions/pow.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  *
  * \param a0 the first parameter of pow
  * \param a1 the second parameter of pow
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -64,13 +64,13 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
- *  
+ *
 **/
 
 namespace nt2 { namespace cephes { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag pow_ of functor pow 
+     * \brief Define the tag pow_ of functor pow
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct pow_ : ext::elementwise_<pow_> { typedef ext::elementwise_<pow_> parent; };
@@ -79,7 +79,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
 
 #include <nt2/toolbox/cephes/functions/scalar/pow.hpp>
-// #include <nt2/toolbox/cephes/functions/simd/all/pow.hpp> 
+// #include <nt2/toolbox/cephes/functions/simd/all/pow.hpp>
 
 #endif
 

@@ -29,12 +29,12 @@ NT2_TEST_CASE( container_arecrosscompatible )
   NT2_TEST( !nt2::arecrosscompatible( nt2::ones(2,0,2),  nt2::ones(2,0,2)   , 1 ));
   NT2_TEST( nt2::arecrosscompatible( nt2::ones(3,3,0,1),nt2::ones(3,3,0,1) , 1));
   NT2_TEST( !nt2::arecrosscompatible( nt2::ones(3,3,0,1),nt2::ones(3,3,0,1) , 3));
-  
+
   NT2_TEST( !nt2::arecrosscompatible( nt2::ones(1),      nt2::ones(1)       , 1 ));
   NT2_TEST( nt2::arecrosscompatible( nt2::ones(1,3),    nt2::ones(1,3)     , 2 ));
   NT2_TEST( nt2::arecrosscompatible( nt2::ones(1,3,1),  nt2::ones(1,3,1)   , 2 ));
   NT2_TEST( nt2::arecrosscompatible( nt2::ones(1,3,1,1),nt2::ones(1,3,1,1) , 2 ));
-  
+
   NT2_TEST( nt2::arecrosscompatible( nt2::ones(3),     nt2::ones(3)       , 1 ));
   NT2_TEST( nt2::arecrosscompatible( nt2::ones(2,3),   nt2::ones(2,3)     , 2 ));
   NT2_TEST( nt2::arecrosscompatible( nt2::ones(1,3,2), nt2::ones(1,3,2)   , 2 ));

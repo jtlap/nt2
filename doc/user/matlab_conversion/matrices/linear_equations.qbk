@@ -14,6 +14,6 @@
 [[`pinv           `][`pinv            `][Moore-Penrose pseudoinverse of matrix                      ]]
 [[`qr             `][`qr              `][Orthogonal-triangular decomposition                        ]]
 [[`rcond          `][`rcond           `][Matrix reciprocal condition number estimate                ]]
-]                         
-[endsect]                                                                        
- 
+]
+[endsect]
+

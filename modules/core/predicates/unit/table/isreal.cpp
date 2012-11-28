@@ -26,7 +26,7 @@ NT2_TEST_CASE( fundamental_isreal )
   NT2_TEST( (nt2::isreal(1.))  );
   NT2_TEST( (nt2::isreal(1.f)) );
 
-  NT2_TEST( nt2::isreal(nt2::Nan<float>())); 
+  NT2_TEST( nt2::isreal(nt2::Nan<float>()));
 }
 
 NT2_TEST_CASE( container_isreal )

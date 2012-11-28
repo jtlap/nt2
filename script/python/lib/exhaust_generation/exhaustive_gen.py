@@ -24,13 +24,13 @@ import sys
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_generation"))
 ##from py_doc        import Py_doc
 from unit_base_gen import Base_gen
-from generation    import Gen 
+from generation    import Gen
 sys.path.pop(0)
 
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_basics"))
 from nt2_tb_props                    import Nt2_tb_props
 from nt2_fct_props                   import Nt2_fct_props
-from nt2_modules                     import Nt2_modules 
+from nt2_modules                     import Nt2_modules
 sys.path.pop(0)
 
 from exhaustive_tpls import Exhaustive_data
@@ -49,9 +49,9 @@ class Exhaustive_gen(Gen,Exhaustive_data) :
     def __init__(self, base_gen) :
         Exhaustive_data.__init__(self)
         Gen.__init__(self,base_gen)
-        
+
     def collect_py_doc_global_data(self) :
-        super(Exhaustive_gen, self).collect_py_doc_global_data()       
+        super(Exhaustive_gen, self).collect_py_doc_global_data()
         self.due     = self.du.get("exhaustive",{})
         self.duv     = self.du.get("verif_test",{})
 
@@ -65,8 +65,8 @@ class Exhaustive_gen(Gen,Exhaustive_data) :
             self.repfunc = self.duvp.get("typ",self.duvp.get("default",self.duvp.get("real_","")))
         if isinstance(self.repfunc, list) : self.repfunc=self.repfunc[0]
         self.exhaustive_included = self.replace(self.duet['exhaustive_included'])
-           
- 
+
+
     def get_exhaustive_path(self)  : return os.path.join(self.nfp.get_md_path(),'exhaustive')
 
     def get_fct_exhaustive_main_path(self,mode)  :
@@ -74,7 +74,7 @@ class Exhaustive_gen(Gen,Exhaustive_data) :
 
     def get_fct_exhaustive_include_path(self,mode,typ)  :
         return os.path.join(self.get_exhaustive_path(),mode,self.name+'.'+re.sub('::','_',typ)+'.hpp')
-    
+
     def dgen_main_and_includes(self,types=None) :
         types = self.types if types is None else listify(types)
         dictres={}
@@ -84,13 +84,13 @@ class Exhaustive_gen(Gen,Exhaustive_data) :
             path =  self.get_fct_exhaustive_include_path(self.mode,typ)
             dictres[path] = self.gen_include_file(path,typ)
         return dictres
-    
+
     def create_main_and_includes(self,types=None,wr=False) :
         dictres = self.dgen_main_and_includes(types)
         for path in dictres.keys() :
             print(path)
             self.write_file(path,dictres[path],check=False,backup=True,wr=wr)
-         
+
 if __name__ == "__main__" :
     print __doc__
     from pprint   import PrettyPrinter

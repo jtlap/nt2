@@ -117,7 +117,7 @@ NT2_TEST_CASE_TPL( nans_nd_typed, NT2_REAL_TYPES )
 
   nt2::table<T> x2 = nt2::nans(8,8, nt2::meta::as_<T>() );
   for(int i=1;i<=64;++i) NT2_TEST(nt2::is_nan(x2(i)) );
-  
+
   nt2::table<T> x3 = nt2::nans(8,4,2, nt2::meta::as_<T>() );
   for(int i=1;i<=64;++i) NT2_TEST(nt2::is_nan(x3(i)) );
 

@@ -1,6 +1,6 @@
 #error "This file is for documentation purpose only."
 /**
- * \ingroup toolbox  
+ * \ingroup toolbox
  * \defgroup fuzzy fuzzy functions
  * \brief Defines fuzzy functions
  *

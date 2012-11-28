@@ -12,7 +12,7 @@
 // cover test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/asinpi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( asinpi_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::asinpi;
   using nt2::tag::asinpi_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
 
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( asinpi_real__1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = asinpi(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::asinpi (a0[i])), 1.0);
           ulp0 = nt2::max(ulpd,ulp0);
         }

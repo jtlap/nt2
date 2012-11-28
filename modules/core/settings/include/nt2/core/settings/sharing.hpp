@@ -6,15 +6,15 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED 
-#define NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED 
+#ifndef NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_SHARING_HPP_INCLUDED
 
 #include <boost/cstdint.hpp>
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/sharing.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
 
   namespace meta
   {
@@ -27,7 +27,7 @@ namespace nt2
     {
       typedef owned_ type;
     };
-  } 
+  }
 }
 
 #include <nt2/core/settings/details/sharing.hpp>

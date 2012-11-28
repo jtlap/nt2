@@ -32,12 +32,12 @@
  * \arg nt2::rz i.e. round to zero
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/crlibm/include/functions/asinpi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -53,9 +53,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of asinpi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -69,13 +69,13 @@
  * crlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-     * \brief Define the tag asinpi_ of functor asinpi 
+     * \brief Define the tag asinpi_ of functor asinpi
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     template <class T>

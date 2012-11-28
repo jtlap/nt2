@@ -22,12 +22,12 @@
  * sine of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_sind.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of fast_sind
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_sind_ of functor fast_sind 
+     * \brief Define the tag fast_sind_ of functor fast_sind
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_sind_ : ext::elementwise_<fast_sind_> { typedef ext::elementwise_<fast_sind_> parent; };

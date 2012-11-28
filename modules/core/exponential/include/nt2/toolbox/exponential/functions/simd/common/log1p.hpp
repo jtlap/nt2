@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_LOG1P_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_LOG1P_HPP_INCLUDED
@@ -32,10 +32,10 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<A0 > ::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      log(oneplus(tofloat(a0))); 
+      log(oneplus(tofloat(a0)));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::log1p_, tag::cpu_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
@@ -47,7 +47,7 @@ namespace nt2 { namespace ext
       result_type u = oneplus(a0);
       return if_else(eq(u, Inf<A0>()),
                      u, if_else(lt(nt2::abs(a0), Eps<result_type>()),
-                                a0, 
+                                a0,
                                 seladd(is_nez(u),
                                        log(u),
                                        -((u-One<A0>())-a0)/u)

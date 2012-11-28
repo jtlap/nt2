@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/modf.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -35,7 +35,7 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::modf;
   using boost::simd::tag::modf_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T>::type ftype;
@@ -54,8 +54,8 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   for(int i=0; i < 6; i++)
     {
       modf(a[i], n, f);
-      modf(boost::simd::splat<vT>(a[i]), vn, vf); 
+      modf(boost::simd::splat<vT>(a[i]), vn, vf);
       NT2_TEST_EQUAL(vn[0], n);
       NT2_TEST_EQUAL(vf[0], f);
-    }  
+    }
 } // end of test for floating_

@@ -23,12 +23,12 @@
  * in the range defined by \f$[\min(a_0,a_1),\max(a0,a1)[\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/random.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  *
  * \param a0 the first parameter of random
  * \param a1 the second parameter of random
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag random_ of functor random 
+     * \brief Define the tag random_ of functor random
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct random_ : ext::elementwise_<random_> { typedef ext::elementwise_<random_> parent; };

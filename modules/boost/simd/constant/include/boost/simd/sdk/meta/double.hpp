@@ -14,8 +14,8 @@
 
 namespace boost { namespace simd { namespace meta
 {
- template<boost::simd::uint64_t Value> 
- struct double_ : real_c<boost::simd::uint64_t,Value> {}; 
+ template<boost::simd::uint64_t Value>
+ struct double_ : real_c<boost::simd::uint64_t,Value> {};
 } } }
 
 #endif

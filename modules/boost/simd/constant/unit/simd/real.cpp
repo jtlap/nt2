@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL(type_dependant_const, BOOST_SIMD_SIMD_REAL_TYPES)
 {
   typedef BOOST_SIMD_DEFAULT_EXTENSION      ext_t;
   typedef boost::simd::native<T,ext_t>      v_t;
-  
+
   for(std::size_t i=0; i< boost::simd::meta::cardinal_of<v_t>::value;++i)
   {
     NT2_TEST_EQUAL( (boost::simd::Const<v_t, type_dependant_const_value<T>::value>())[i], T(1.234)   );
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL(real_pattern, BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_EQUAL( (boost::simd::real_constant < vd_t , 0x3FF3BE76C8B43958LL
                                             , 0x3F9DF3B6
                                         >()
-                    )[i], 
+                    )[i],
                     (boost::simd::real_constant < T , 0x3FF3BE76C8B43958LL
                                                             , 0x3F9DF3B6
                                                         >()

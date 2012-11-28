@@ -32,12 +32,12 @@
  * when any a >= b the nt2 routine assert,  matlab returns Nan
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/unifpdf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,20 +48,20 @@
  *     unifpdf(const A0 & a0, const A1 & a = 0, const A2 & b = 1);
  * }
  * \endcode
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag unifpdf_ of functor unifpdf 
+     * \brief Define the tag unifpdf_ of functor unifpdf
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct unifpdf_ : ext::elementwise_<unifpdf_> { typedef ext::elementwise_<unifpdf_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::unifpdf_, unifpdf, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::unifpdf_, unifpdf, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::unifpdf_, unifpdf, 3)  
+  NT2_FUNCTION_IMPLEMENTATION(tag::unifpdf_, unifpdf, 3)
 }
 
 #endif

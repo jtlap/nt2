@@ -1,7 +1,7 @@
 [section fast_ldexp]
 
 [h5 Description]
-This functor acts similarly as the standard `ldexp` function returning the combination 
+This functor acts similarly as the standard `ldexp` function returning the combination
 of the mantissa (first parameter) and the exponent (second parameter) as `m*2^e`
 
 In SIMD case the exponent and mantissa type must be related by as_integer meta function

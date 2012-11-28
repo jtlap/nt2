@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
       return erfinv(oneminus(a0));
     }
   };
-  
-  
+
+
 } }
 #endif

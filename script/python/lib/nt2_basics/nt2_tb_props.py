@@ -10,7 +10,7 @@
 ##############################################################################
 
 
-"""Utilities to get nt2 toolbox properties 
+"""Utilities to get nt2 toolbox properties
 """
 
 __author__    = "Lapreste Jean-thierry (lapreste@univ-bpclermont.fr)"
@@ -43,13 +43,13 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
         self.__tb_style = self.get_module_style(tb_name)
 
     def get_tb_name(self)     : return self.__tb_name
-    def get_md_path(self)     : return self.__md_path 
+    def get_md_path(self)     : return self.__md_path
     def get_tb_path(self)     :
         return os.path.join(self.get_md_path(),'include',self.demangle(self.get_tb_name(),'toolbox'))
     def get_tb_style(self)    : return self.__tb_style
     def get_def_path(self)    : return os.path.join(self.get_tb_path(),'functions')
     def get_const_path(self)    : return os.path.join(self.get_tb_path(),'constants')
-    def get_redef_path(self)  : return os.path.join(self.get_tb_path(),'include','functions') 
+    def get_redef_path(self)  : return os.path.join(self.get_tb_path(),'include','functions')
     def get_bench_path(self)  : return os.path.join(self.get_md_path(),'bench')
     def get_exhaustive_path(self)  : return os.path.join(self.get_md_path(),'exhaustive')
     def get_unit_path(self,part)   : return os.path.join(self.get_md_path(),part)
@@ -76,16 +76,16 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
         for l in ll : r = os.path.join(r,l)
  ##       print('r %s'%r)
         return r
-    
+
     def __str__(self) :
-        r  = "tbi.get_tb_path():     %s" % tbi.get_tb_path    ()    
-        r += "\ntbi.get_tb_name():     %s" % tbi.get_tb_name    ()    
-        r += "\ntbi.get_tb_style():    %s" % tbi.get_tb_style   ()  
-        r += "\ntbi.get_def_path():    %s" % tbi.get_def_path   ()   
-        r += "\ntbi.get_bench_path():  %s" % tbi.get_bench_path () 
+        r  = "tbi.get_tb_path():     %s" % tbi.get_tb_path    ()
+        r += "\ntbi.get_tb_name():     %s" % tbi.get_tb_name    ()
+        r += "\ntbi.get_tb_style():    %s" % tbi.get_tb_style   ()
+        r += "\ntbi.get_def_path():    %s" % tbi.get_def_path   ()
+        r += "\ntbi.get_bench_path():  %s" % tbi.get_bench_path ()
         r += "\ntbi.get_unit_path('cover'):   %s" % tbi.get_unit_path  ('cover')
         r += "\ntbi.get_unit_path('unit') :   %s" % tbi.get_unit_path  ('unit')
-        r += "\ntbi.get_doc_path():    %s" % tbi.get_doc_path   ()   
+        r += "\ntbi.get_doc_path():    %s" % tbi.get_doc_path   ()
         r += "\ntbi.get_fcts_list():  [ \n"
         for f in tbi.get_fcts_list() :  r += " "*5+f+'\n'
         r += " "*5+"]\n"
@@ -106,14 +106,14 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
                 r += os.path.normpath(os.path.join(self.get_tb_from_md_path(),f))
                 if verbose : print("  %s"% os.path.normpath(os.path.join(self.get_tb_from_md_path(),f)))
         return r
-    
+
     @classmethod
     def __print_cond(self,head,mes) :
         if not head :
             print(mes)
             return True
         return head
-    
+
     def who_is_here(self,fct_name,verbose=False) :
         """returns the files already present for a functor in a module"""
         tb_name = self.get_tb_name()
@@ -124,13 +124,13 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
             if re.match("doc|bench|unit",f) :
                 if exist(os.path.join(self.get_md_path(),f)) :
                     r += os.path.abspath(os.path.join(self.get_md_path(),f))
-                    if verbose : 
+                    if verbose :
                         head = self.__print_cond(head,mes)
                         print("  %s"% os.path.abspath(os.path.join(self.get_md_path(),f)))
-            else :    
+            else :
                 if exist(os.path.join(self.get_tb_path(),f)) :
                     r +=  os.path.abspath(os.path.join(self.get_tb_path(),f))
-                    if verbose : 
+                    if verbose :
                         head = self.__print_cond(head,mes)
                         print("  %s"% os.path.abspath(os.path.join(self.get_tb_path(),f)))
         if (not head) and verbose : print("for the '%s' module and functor '%s', no files are defined"% (tb_name,fct_name))
@@ -145,24 +145,24 @@ class Nt2_tb_props(Nt2_modules,Nt2_tb_struct) :
             if re.match("doc|bench|unit",f) :
                 if not exist(os.path.join(self.get_md_path(),f)) :
                     r += os.path.abspath(os.path.join(self.get_md_path(),f))
-                    if verbose : 
+                    if verbose :
                         head = self.__print_cond(head,mes)
                         print("  %s"% os.path.abspath(os.path.join(self.get_md_path(),f)))
-            else :    
+            else :
                 if not exist(os.path.join(self.get_tb_path(),f)) :
                     r +=  os.path.abspath(os.path.join(self.get_tb_path(),f))
-                    if verbose : 
+                    if verbose :
                         head = self.__print_cond(head,mes)
                         print("  %s"% os.path.abspath(os.path.join(self.get_tb_path(),f)))
         if (not head) and verbose : print("for the '%s' module and functor '%s', no files are missing"% (tb_name,fct_name))
 
 
 if __name__ == "__main__" :
-    tbi = Nt2_tb_props("boost.simd.arithmetic")   
+    tbi = Nt2_tb_props("boost.simd.arithmetic")
     print(tbi)
-##    tbi = Nt2_tb_props("cephes")   
+##    tbi = Nt2_tb_props("cephes")
 ##    print(tbi)
-##    tbi = Nt2_tb_props("sdk")   
+##    tbi = Nt2_tb_props("sdk")
 ##    print(tbi)
 ##    tbi.what_are_we_looking_for("abs")
 ##    tbi.who_is_here("abs")

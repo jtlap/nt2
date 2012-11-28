@@ -27,7 +27,7 @@
 
 NT2_TEST_CASE_TPL( complexify1, BOOST_SIMD_REAL_TYPES )
 {
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   nt2::table<T> a0 = nt2::_(T(1), T(3));
   NT2_DISPLAY(complexify(a0));
   NT2_DISPLAY(complexify(complexify(a0)));
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL( complexify1, BOOST_SIMD_REAL_TYPES )
                                 )));
   a0 = nt2::ones(3, 3, nt2::meta::as_<T>());
   NT2_TEST(nt2::isequal(a0, nt2::real(complexify(a0))));
-  
+
 }
 NT2_TEST_CASE_TPL( complexify2, BOOST_SIMD_REAL_TYPES )
 {

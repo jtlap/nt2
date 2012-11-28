@@ -12,7 +12,7 @@
 // cover test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
-/// 
+///
 #include <nt2/toolbox/fuzzy/include/functions/fuzzy_definitely_less.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fuzzy_definitely_less;
   using nt2::tag::fuzzy_definitely_less_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -72,10 +72,10 @@ NT2_TEST_CASE_TPL ( fuzzy_definitely_less_real__3_0,  NT2_SIMD_REAL_TYPES)
         r_t v = fuzzy_definitely_less(a0,a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i]!=0,ssr_t(nt2::fuzzy_definitely_less (a0[i],a1[i],a2[i])));
         }
       }
-    
+
   }
 } // end of test for floating_

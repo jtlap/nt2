@@ -29,7 +29,7 @@ class Add_str(object) :
     def __init__(self,path_to,verbose=False) :
         self.path_to = path_to
         self.verbose = verbose
-        
+
     @classmethod
     def insert_after(cls,token, txt, line2add) :
         """ insertion of a line after a line
@@ -60,15 +60,15 @@ class Add_str(object) :
                 write(self.path_to,new_txt,False)
                 if self.verbose : print("file\n  %s\nis now updated"%self.path_to)
             else :
-                if self.verbose : print("file\n  %s\n does not exist"%self.path_to)         
+                if self.verbose : print("file\n  %s\n does not exist"%self.path_to)
 
 if __name__ == "__main__" :
     rep='/home/jt/DevC++/pipo/nt2/modules/fdlibm/include/nt2/toolbox/fdlibm/function/scalar/'
-    
+
     files = [f for f in os.listdir(rep) if re.match(r'.*\.hpp$', f)]
     for f in files :
         print(f)
         al = Add_str('/home/jt/DevC++/pipo/nt2/modules/fdlibm/include/nt2/toolbox/fdlibm/function/scalar/'+f)
         al.update_file("#define","#include <nt2/sdk/meta/upgrade.hpp>")
 
-    
+

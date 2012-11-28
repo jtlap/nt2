@@ -20,7 +20,7 @@
 #include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/sum.hpp>
-#include <nt2/include/functions/cast.hpp> 
+#include <nt2/include/functions/cast.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/ten.hpp>
@@ -102,8 +102,8 @@ NT2_TEST_CASE_TPL( nbtrue_expr1, NT2_REAL_TYPES )
   NT2_DISPLAY(nt2::is_not_nan(y));
   NT2_DISPLAY(nt2::if_one_else_zero(nt2::is_not_nan(y)));
   NT2_DISPLAY(nt2::sum(nt2::if_one_else_zero(nt2::is_not_nan(y))));
-  nt2::table<T> s = nt2::if_one_else_zero(nt2::is_not_nan(y)); 
+  nt2::table<T> s = nt2::if_one_else_zero(nt2::is_not_nan(y));
   NT2_DISPLAY(s);
   NT2_DISPLAY(nt2::sum(s));
-  
+
 }

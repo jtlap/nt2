@@ -36,20 +36,20 @@ namespace boost { namespace simd
     typedef T                                             value_type;
     typedef typename dispatch::meta::as_integer<T>::type  bits;
 
-    //==========================================================================    
+    //==========================================================================
     /*!
      * Default logical constructor
      **/
-    //==========================================================================        
+    //==========================================================================
     BOOST_FORCEINLINE logical() {}
 
-    //==========================================================================    
+    //==========================================================================
     /*!
      * Constructs a logical from a boolean value
      *
      * \param v Boolean value to convert to logical
      **/
-    //==========================================================================    
+    //==========================================================================
     template<class U>
     BOOST_FORCEINLINE explicit logical(U v) : value_(v != 0)  {}
 
@@ -68,13 +68,13 @@ namespace boost { namespace simd
     friend BOOST_FORCEINLINE logical<T> operator ~(logical<T> const& a0) { return logical<T>(~a0.value()); }
     friend BOOST_FORCEINLINE logical<T> operator !(logical<T> const& a0) { return logical<T>(!a0.value()); }
 
-    //==========================================================================    
+    //==========================================================================
     /*!
      * Convert a logical value to a real boolean
      *
-     * \return Value of type \c bool containing the state of the logical 
+     * \return Value of type \c bool containing the state of the logical
      **/
-    //==========================================================================    
+    //==========================================================================
     BOOST_FORCEINLINE operator bool() const { return value_; }
     bool value() const {return value_; }
 
@@ -106,7 +106,7 @@ namespace boost { namespace simd { namespace ext
 
 //==============================================================================
 // Register logical<T> to various dispatch system
-//============================================================================== 
+//==============================================================================
 namespace boost { namespace dispatch { namespace meta
 {
   using boost::simd::ext::logical_;
@@ -118,19 +118,19 @@ namespace boost { namespace dispatch { namespace meta
     typedef typename mpl::if_< is_same< simd::logical<T>, stripped >, stripped, Origin >::type origin_;
     typedef meta::scalar_< simd::ext::logical_<origin_> >  type;
   };
- 
+
   template<class T, class Origin>
   struct property_of< simd::logical<T>, Origin>
   {
     typedef simd::ext::logical_<Origin> type;
   };
-  
+
   template<class T>
   struct value_of< simd::logical<T> >
   {
     typedef T type;
   };
-  
+
   template<class T>
   struct model_of< simd::logical<T> >
   {
@@ -143,7 +143,7 @@ namespace boost { namespace dispatch { namespace meta
       };
     };
   };
-  
+
   template<class T>
   struct scalar_of< simd::logical<T> >
   {

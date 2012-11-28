@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL( medianad, NT2_TYPES )
   nt2::table<T> sy;
   nt2::table<T> sy2;
 
-  int k = 0; 
+  int k = 0;
   for(int l=1;l<=3;l++)
     for(int j=1;j<=3;j++)
       for(int i=1;i<=4;i++)
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL( medianad, NT2_TYPES )
 
   sy2 = nt2::medianad(y, 3);
   display("sy2", sy2);
-  
+
   sy2 = nt2::medianad(y, 4);
   display("sy2", sy2);
 
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL( medianad_2, NT2_TYPES )
   nt2::table<T> y( nt2::of_size(4,3,3) );
   nt2::table<T> sy2;
 
-  int k = 0; 
+  int k = 0;
   for(int l=1;l<=3;l++)
     for(int j=1;j<=3;j++)
       for(int i=1;i<=4;i++)

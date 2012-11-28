@@ -12,11 +12,11 @@
 // unit test behavior of statistics components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/include/functions/norminv.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/ones.hpp> 
+#include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -26,11 +26,11 @@
 
 NT2_TEST_CASE_TPL ( norminv_1,  (float)(double))//NT2_REAL_TYPES)
 {
-  
+
   using nt2::norminv;
   using nt2::tag::norminv_;
-  using nt2::_; 
-  
+  using nt2::_;
+
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(norminv(nt2::Nan<T>()), nt2::Nan<T>(), 0.5);
@@ -40,17 +40,17 @@ NT2_TEST_CASE_TPL ( norminv_1,  (float)(double))//NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(norminv(nt2::One<T>()), nt2::Inf<T>(), 0.5);
 
   nt2::table<T> a = _(T(0), T(1), T(5))/T(5);
-  NT2_DISPLAY(a); 
-  NT2_DISPLAY(norminv(a)); 
+  NT2_DISPLAY(a);
+  NT2_DISPLAY(norminv(a));
 } // end of test for floating_
- 
+
 NT2_TEST_CASE_TPL ( norminv_2,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::norminv;
   using nt2::tag::norminv_;
-  using nt2::_; 
-  
+  using nt2::_;
+
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(norminv(nt2::Nan<T>(), nt2::One<T>()), nt2::Nan<T>(), 0.5);
@@ -61,18 +61,18 @@ NT2_TEST_CASE_TPL ( norminv_2,  NT2_REAL_TYPES)
 
   nt2::table<T> a = _(T(-1), T(1), T(11))/T(10);
   NT2_DISPLAY(a);
-  NT2_DISPLAY(norminv(a)); 
+  NT2_DISPLAY(norminv(a));
   NT2_DISPLAY(norminv(a, nt2::Zero<T>()));
   NT2_DISPLAY(norminv(a, nt2::Zero<T>(), nt2::One<T>()));
   //  a = nt2::reshape(_(T(1), T(16)), 4, 4);
   //   NT2_DISPLAY(norminv(a, a(_, 1)));
   //   NT2_DISPLAY(norminv(a, a(1, _)));
-  NT2_DISPLAY(norminv(a, a)); 
-  NT2_DISPLAY(norminv(a, a, nt2::abs(a)+nt2::One<T>())); 
-  NT2_DISPLAY(norminv(a, a, T(2))); 
+  NT2_DISPLAY(norminv(a, a));
+  NT2_DISPLAY(norminv(a, a, nt2::abs(a)+nt2::One<T>()));
+  NT2_DISPLAY(norminv(a, a, T(2)));
   //   NT2_DISPLAY(norminv(a, a(_, 1), T(2)));
   nt2::table<T> r, plo, pup;
-  nt2::table<T> cov = nt2::eye(2, nt2::meta::as_<T>()); 
+  nt2::table<T> cov = nt2::eye(2, nt2::meta::as_<T>());
   nt2::tie(r, plo, pup) = nt2::norminv(a, nt2::ones(size(a), nt2::meta::as_<T>()), T(1), cov, T(0.05));
   NT2_DISPLAY(r);
   NT2_DISPLAY(plo);
@@ -83,7 +83,7 @@ NT2_TEST_CASE_TPL ( norminv_2,  NT2_REAL_TYPES)
   NT2_DISPLAY(r);
   NT2_DISPLAY(plo);
   NT2_DISPLAY(pup);
-  
-  
-} // end of test for floating_ 
- 
+
+
+} // end of test for floating_
+

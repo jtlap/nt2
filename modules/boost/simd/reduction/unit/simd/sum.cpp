@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/reduction/include/functions/sum.hpp>
 #include <boost/simd/include/functions/enumerate.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( sum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::sum;
   using boost::simd::tag::sum_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::scalar_of<T>::type sT;
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( sum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  T c = cardinal_of<n_t>(); 
+  T c = cardinal_of<n_t>();
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Inf<vT>()), boost::simd::Inf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Minf<vT>()), boost::simd::Minf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Mone<vT>()), -c, 0);
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( sum_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::sum;
   using boost::simd::tag::sum_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::scalar_of<T>::type sT;
@@ -76,9 +76,9 @@ NT2_TEST_CASE_TPL ( sum_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  T c = cardinal_of<n_t>(); 
+  T c = cardinal_of<n_t>();
   NT2_TEST_ULP_EQUAL(sum(boost::simd::One<vT>()), c, 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Two<vT>()), 2*c, 0);
   NT2_TEST_ULP_EQUAL(sum(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(sum(boost::simd::enumerate<vT>(1)), c*(c+1)/2, 0); 
-} // 
+  NT2_TEST_ULP_EQUAL(sum(boost::simd::enumerate<vT>(1)), c*(c+1)/2, 0);
+} //

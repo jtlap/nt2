@@ -2,14 +2,14 @@
 
 The operator toolbox provides support for operators acting quite the same as usual C++ operators.
 
-The main difference is that except the compare_x...x ones that return boolean (and so scalar) value 
+The main difference is that except the compare_x...x ones that return boolean (and so scalar) value
 the other always return a SIMD vector and have some input restrictions and ouput type differences from C++
 that will be precised in or just after the following table:
 
 
 [#compare_greater_equal]
 
-[table 
+[table
     [[C++ operator] [Function name] [Alias] [SIMD Description]]
     [[`a & b` ]     [bitwise_and  ] [b_and] [Returns a vector of the type of its first parameter.]]
     [[`a | b` ]     [bitwise_or   ] [b_or ] [Returns a vector of the type of its first parameter.]]
@@ -46,27 +46,27 @@ Restrictions in SIMD and rationale
 
    * &, |, ^ only accept two vectors of same elements size and return a result of the type of the first argument
      The rationale for these operator to be non-commutative is that in SIMD programming they are hugely used
-     with the second element being considered as a mask to be applied to the first. 
+     with the second element being considered as a mask to be applied to the first.
    * << and >> need an integer vector as second argument and the two vectors must share the same elements size
      It must be noted that there exists other shift operators (for instance shli and shri for which the second
      parameter is always a scalar integer and that perform the same shift on all elements of the first vector parameter:
      these can have a much better performance peculiarly on Intel processors)
-   * The other binary operators only accept two arguments of the same type and return and argument of this type. 
+   * The other binary operators only accept two arguments of the same type and return and argument of this type.
      For integer vectors there is no promotion of the result.
      Rationale is that contrarily to the scalar case the SIMD basic operations do not provide any automatic promotion
      or casting, this being peculiarly important for vector having different element sizes and consequently different elements
-     number. 
+     number.
      Adding  a vector of 4 float to a vector of 8 short is senseless.
      Adding a vector of 4 float to a vector of 4 int could be thought to carry sense but it would result in possibly
      non efficient operations and is left to the user responsability that can do: a+tofloat(b)
-   * integer vector / has a saturating comportment when one of the denominator is 0 the result is the minimum 
-     or maximum value of the type and 0/0 is zero (do not forget that between scalars integers this is not the C/C++ rule)  
+   * integer vector / has a saturating comportment when one of the denominator is 0 the result is the minimum
+     or maximum value of the type and 0/0 is zero (do not forget that between scalars integers this is not the C/C++ rule)
      Rationale is that division must not fail (with gcc and ints 1/0 raise a floating point exception (!)) because there
      are several scalar division involved.
      As for floating entries (say double) 1.0/0.0 == inf -1.0/0.0 == -inf and 0.0/0.0 == nan, we choose to say that
      dividing by zero will lead the maximum (resp. minimum) value in the element type when dividing a postive (resp. negative)
      integer. The 0/0 case was driven by the fact that in C int(Nan) is 0.
-   * % as in scalar does not work for floating vectors. 
+   * % as in scalar does not work for floating vectors.
 
 
 Note:
@@ -74,11 +74,11 @@ Note:
 Be sure to understand that in using integer SIMD vectors, NO internal promotion is made.
 
 d=(a+b)+c for vectors of char is not treated as in scalar C++ where the computation is done in int then clipped to the result variable type:
-each operation can lead to overflow. 
+each operation can lead to overflow.
 
 For sanity, you are engaged to use the saturated operators/functions provided: adds, subs, muls,divs
 that saturate the result instead of performing modulo computations.
- 
+
 [section load]
 
 [h5 Description]
@@ -154,7 +154,7 @@ Apply a functor on every element of a SIMD register.
 
 [*Return type: ]
 
-[*Semantics:   ] 
+[*Semantics:   ]
 
 [h5 Example]
 
@@ -191,7 +191,7 @@ Initialize a variable with a given value.
 
 [*Return type: ] T
 
-[*Semantics:   ] Return an instance of T initialized with a. 
+[*Semantics:   ] Return an instance of T initialized with a.
 
 [h5 Example]
 

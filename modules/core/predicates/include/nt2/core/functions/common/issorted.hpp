@@ -12,7 +12,7 @@
 #include <nt2/core/functions/issorted.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/is_ngtz.hpp>
-#include <nt2/include/functions/is_nltz.hpp> 
+#include <nt2/include/functions/is_nltz.hpp>
 #include <nt2/include/functions/diff.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -30,22 +30,22 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0&) const
     {
-      return true; 
+      return true;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
                               , (A0)(A1)
                               , (scalar_<unspecified_<A0> > )
-                              (scalar_<integer_ < A1> > )                           
+                              (scalar_<integer_ < A1> > )
                               )
   {
     typedef bool result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(const A0&, const A1&) const
     {
-      return true; 
+      return true;
     }
   };
 
@@ -57,11 +57,11 @@ namespace nt2 { namespace ext
                               )
   {
     typedef bool result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(const A0&, const A1&, const A2&) const
     {
-      return true; 
+      return true;
     }
   };
 
@@ -71,26 +71,26 @@ namespace nt2 { namespace ext
                               )
   {
     typedef bool result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(const A0& a0) const
     {
       typedef typename A0::value_type value_type;
-      int32_t dim =  nt2::firstnonsingleton(a0); 
+      int32_t dim =  nt2::firstnonsingleton(a0);
       bool res =  nt2::all(nt2::all(is_nltz(diff(a0, dim)))(_))(1);
       if (res) return true;
       return  nt2::all(nt2::all(is_ngtz(diff(a0, dim)))(_))(1);
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
                               , (A0)(A1)
                               , ((ast_<A0, nt2::container::domain>))
-                              (scalar_<integer_ < A1> > )                           
+                              (scalar_<integer_ < A1> > )
                               )
   {
     typedef bool result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(const A0& a0, const A1& dim) const
     {
@@ -100,7 +100,7 @@ namespace nt2 { namespace ext
       return  nt2::all(nt2::all(is_ngtz(diff(a0, dim)))(_))(1);
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::issorted_, tag::cpu_
                               , (A0)(A1)
                               , ((ast_<A0, nt2::container::domain>))
@@ -108,12 +108,12 @@ namespace nt2 { namespace ext
                               )
   {
     typedef bool result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(const A0& a0, const A1& up) const
     {
       typedef typename A0::value_type value_type;
-      int32_t dim =  nt2::firstnonsingleton(a0); 
+      int32_t dim =  nt2::firstnonsingleton(a0);
       return issorted(a0, dim, up);
     }
   };
@@ -125,16 +125,16 @@ namespace nt2 { namespace ext
                               )
   {
     typedef bool result_type;
-    
+
     BOOST_DISPATCH_FORCE_INLINE
       result_type operator()(const A0& a0, const A1& dim, const A2& up) const
     {
       typedef typename A0::value_type value_type;
-      value_type sgn = up ? One<value_type>() : Mone<value_type>(); 
-      return nt2::all(nt2::all(is_nltz(diff(a0, dim)*sgn))(_))(1); 
+      value_type sgn = up ? One<value_type>() : Mone<value_type>();
+      return nt2::all(nt2::all(is_nltz(diff(a0, dim)*sgn))(_))(1);
     }
   };
-  
+
 } }
 
 #endif

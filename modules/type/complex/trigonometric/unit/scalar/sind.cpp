@@ -12,9 +12,9 @@
 // unit test behavior of sind  components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/include/functions/sind.hpp>
-#include <nt2/include/functions/sin.hpp>    
+#include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/unary_minus.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -38,10 +38,10 @@
 
 NT2_TEST_CASE_TPL ( sind_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::sind;
   using nt2::tag::sind_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<sind_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -49,9 +49,9 @@ NT2_TEST_CASE_TPL ( sind_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -69,21 +69,21 @@ NT2_TEST_CASE_TPL ( sind_real__1_0,  NT2_REAL_TYPES)
 
 
 
-  const int N = 20; 
+  const int N = 20;
   cT inputs[N] =
     { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
       cT(nt2::Zero<T>(),nt2::Inf<T>()), cT(nt2::Inf<T>(),nt2::Inf<T>()), cT(nt2::Minf<T>(),nt2::Inf<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
       cT(nt2::Zero<T>(),nt2::Minf<T>()),cT(nt2::Inf<T>(),nt2::Minf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Minf<T>()),
       cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Zero<T>(),180), cT(nt2::Inf<T>(),180), cT(nt2::Minf<T>(),180), cT(nt2::Nan<T>(),180),  
-    }; 
-  
+      cT(nt2::Zero<T>(),180), cT(nt2::Inf<T>(),180), cT(nt2::Minf<T>(),180), cT(nt2::Nan<T>(),180),
+    };
+
   for(int i=0; i < N; i++)
    {
-     std::cout <<   "input " << inputs[i] << std::endl; 
-     NT2_TEST_ULP_EQUAL(nt2::sind(nt2::unary_minus(inputs[i])), nt2::unary_minus(nt2::sind(inputs[i])), 4);  
-     NT2_TEST_ULP_EQUAL(nt2::sind(inputs[i]), nt2::sin(nt2::multiplies(nt2::Deginrad<T>(), inputs[i])), 3); 
-     std::cout <<   "---------------------------- " << inputs[i] << std::endl; 
+     std::cout <<   "input " << inputs[i] << std::endl;
+     NT2_TEST_ULP_EQUAL(nt2::sind(nt2::unary_minus(inputs[i])), nt2::unary_minus(nt2::sind(inputs[i])), 4);
+     NT2_TEST_ULP_EQUAL(nt2::sind(inputs[i]), nt2::sin(nt2::multiplies(nt2::Deginrad<T>(), inputs[i])), 3);
+     std::cout <<   "---------------------------- " << inputs[i] << std::endl;
    }
 
 } // end of test for floating_

@@ -87,5 +87,5 @@ NT2_TEST_CASE_TPL( minimum_2, (float)(double) )
   NT2_TEST(nt2::isequal(sy,  nt2::minimum(y, 2)));
   sy = nt2::minimum(y, 3);
   NT2_TEST(nt2::isequal(sy,  nt2::minimum(y, 3)));
-  
+
 }

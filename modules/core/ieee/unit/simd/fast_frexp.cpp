@@ -12,7 +12,7 @@
 // unit test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/fast_frexp.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( fast_frexp_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::fast_frexp;
   using nt2::tag::fast_frexp_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -38,7 +38,7 @@ class Write_file(object) :
         self.check_on_write=check_on_write
         self.backup_on_write=backup_on_write
         self.verbose=True or verbose
-        
+
     def test_immutable(self) :
         s= '\n'.join(read(p),)
         return s.find('//COMMENTED') != -1
@@ -70,10 +70,10 @@ class Write_file(object) :
             if write(tp,self.txt,self.check_on_write) :
                 print "%s is written"%tp
                 return True;
-        elif self.verbose and  isinstance(p,str) : 
+        elif self.verbose and  isinstance(p,str) :
             print("%s directory\n  does not exist " %os.path.split(p)[0])
         else :
             print("no path found")
-            
+
         return False
- 
+

@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::secpi(cT(0, 1)),nt2::rec(nt2::cospi(cT(0.0, 1.0))), 2);
   NT2_TEST_ULP_EQUAL(nt2::secpi(cT(0, 2)),nt2::rec(nt2::cospi(cT(0.0, 2.0))), 2);
   NT2_TEST_ULP_EQUAL(nt2::secpi(cT(2, 0)),nt2::rec(nt2::cospi(cT(2.0, 0.0))), 2);
-  
+
   const int N = 20;
   cT inputs[N] =
     { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
@@ -72,18 +72,18 @@ NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
       cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
       cT(nt2::Zero<T>(),nt2::One <T>()), cT(nt2::Inf<T>(),nt2::One <T>()), cT(nt2::Minf<T>(),nt2::One <T>()), cT(nt2::Nan<T>(),nt2::One <T>()),
     };
-   
+
   for(int i=0; i < N; i++)
     {
-      std::cout << "i = " << i << " -> " << inputs[i] << std::endl; 
+      std::cout << "i = " << i << " -> " << inputs[i] << std::endl;
       NT2_TEST_ULP_EQUAL(nt2::secpi(-inputs[i]), nt2::secpi(inputs[i]), 3.5);
       NT2_TEST_ULP_EQUAL(nt2::secpi(inputs[i]), nt2::rec(nt2::cospi(inputs[i])), 3);
     }
-  std::cout << nt2::secpi(nt2::Inf<ciT>()) << std::endl; 
+  std::cout << nt2::secpi(nt2::Inf<ciT>()) << std::endl;
   NT2_TEST_ULP_EQUAL(nt2::secpi(nt2::Inf<ciT>()), nt2::Zero<dT>(), 2);
   NT2_TEST_ULP_EQUAL(nt2::secpi(dT(nt2::Inf<T>())),   dT(nt2::Nan<T>()), 2);
-  
+
 } // end of test for floating_
 
-  
- 
+
+

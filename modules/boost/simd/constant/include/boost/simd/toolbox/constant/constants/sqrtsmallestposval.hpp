@@ -25,12 +25,12 @@
  * i.e.1.491668146240041e-154 for double and 1.0842022e-19 for float
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/smallestposval.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,12 +42,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Sqrtsmallestposval
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -55,7 +55,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Sqrtsmallestposval of functor Sqrtsmallestposval 
+     * \brief Define the tag Sqrtsmallestposval of functor Sqrtsmallestposval
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrtsmallestposval , double, 1

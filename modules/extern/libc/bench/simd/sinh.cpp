@@ -23,7 +23,7 @@ using nt2::libc::tag::sinh_;
 //////////////////////////////////////////////////////////////////////////////
 // range macro
 //////////////////////////////////////////////////////////////////////////////
-#define RS(T,V1,V2) (T, V1 , V2) 
+#define RS(T,V1,V2) (T, V1 , V2)
 
 NT2_TIMING(nt2::libc::tag::sinh_,(RS(vfloat,-10.0,10.0)))
 NT2_TIMING(nt2::libc::tag::sinh_,(RS(vdouble,-10.0,10.0)))

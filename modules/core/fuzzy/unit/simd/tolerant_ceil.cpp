@@ -12,7 +12,7 @@
 // unit test behavior of fuzzy components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
-/// 
+///
 #include <nt2/toolbox/fuzzy/include/functions/tolerant_ceil.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( tolerant_ceil_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::tolerant_ceil;
   using nt2::tag::tolerant_ceil_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

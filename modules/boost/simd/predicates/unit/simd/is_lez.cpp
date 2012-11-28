@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <boost/simd/toolbox/predicates/include/functions/is_lez.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( is_lez_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_lez;
   using boost::simd::tag::is_lez_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

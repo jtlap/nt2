@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/include/functions/acos.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -35,20 +35,20 @@
 
 NT2_TEST_CASE_TPL ( acos_real__1_0,  (double))//NT2_REAL_TYPES)
 {
-  
+
   using nt2::acos;
   using nt2::tag::acos_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::call<acos_(cT)>::type r_t;
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   //  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
- 
+
 
   // specific values tests
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Zero<T>(),  nt2::Zero<T>())), cT(nt2::Pio_2<T>(), nt2::Zero<T>()), 0.75);
@@ -93,15 +93,15 @@ NT2_TEST_CASE_TPL ( acos_real__1_0,  (double))//NT2_REAL_TYPES)
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::One  <T>(), nt2::Inf <T>())),boost::math::acos(cT(-nt2::One  <T>(), nt2::Inf <T>())),   0.75);
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::Inf  <T>(), nt2::One <T>())),boost::math::acos(cT(-nt2::Inf  <T>(), nt2::One <T>())),   0.75);
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(-nt2::Inf  <T>(), nt2::Inf<T>())), boost::math::acos(cT(-nt2::Inf  <T>(), nt2::Inf<T>())),    0.75);
-   
-   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::One <T>())),   cT(0.904556894302381, -1.061275061905036), 2); 
-   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::Mone <T>())),  cT(0.904556894302381,  1.061275061905036), 2);  
+
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::One <T>())),   cT(0.904556894302381, -1.061275061905036), 2);
+   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::One  <T>(), nt2::Mone <T>())),  cT(0.904556894302381,  1.061275061905036), 2);
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Mone  <T>(), nt2::One <T>())),  cT(2.237035759287412, -1.061275061905036), 2);
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Mone  <T>(), nt2::Mone <T>())), cT(2.237035759287412,  1.061275061905036), 2);
-   
+
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(1, 1)),  boost::math::acos(cT(1, 1)), 0.75);
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(1, 10)),  boost::math::acos(cT(1, 10)), 0.75);
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(10, 10)),  boost::math::acos(cT(10, 10)), 0.75);
    NT2_TEST_ULP_EQUAL(nt2::acos(cT(10, 1)),  boost::math::acos(cT(10, 1)), 0.75);
-  
+
  } // end of test for floating_

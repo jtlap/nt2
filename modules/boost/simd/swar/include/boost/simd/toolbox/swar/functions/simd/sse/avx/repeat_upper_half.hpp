@@ -25,13 +25,13 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef A0 result_type;
-  
+
     result_type operator()(__m256 const a0) const
     {
       return details::perm2<1, 1>(a0, a0);// _mm256_permute2f128_ps(a0,a0, 17);
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_upper_half_
                                    , boost::simd::tag::avx_
                                    , (A0)
@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
       return  details::perm2<1, 1>(a0, a0);//_mm256_permute2f128_si256(a0, a0, 17);
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_upper_half_
                                    , boost::simd::tag::avx_
                                    , (A0)
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
       return  details::perm2<1, 1>(a0, a0);// _mm256_permute2f128_pd(a0, a0, 17);
     }
   };
-  
+
 } } }
 
 #endif

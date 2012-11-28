@@ -23,12 +23,12 @@
  * base two logarithm function.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/log2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,27 +41,27 @@
  * \endcode
  *
  * \param a0 the unique parameter of log2
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag log2_ of functor log2 
+     * \brief Define the tag log2_ of functor log2
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct log2_ : ext::elementwise_<log2_> { typedef ext::elementwise_<log2_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::log2_, log2, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, log2,(A0 const&)(A1&)(A2&),3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, log2,(A0 const&)(A1&),2) 
-    
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::frexp_, log2,(A0 const&)(A1&),2)
+
 }
 
 

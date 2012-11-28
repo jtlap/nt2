@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/negate.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/sign.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( negate_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::negate;
   using boost::simd::tag::negate_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( negate_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(negate(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( negate_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( negate_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::negate;
   using boost::simd::tag::negate_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -63,9 +63,9 @@ NT2_TEST_CASE_TPL ( negate_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(negate(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( negate_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( negate_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::negate;
   using boost::simd::tag::negate_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -85,9 +85,9 @@ NT2_TEST_CASE_TPL ( negate_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(negate(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::One<r_t>());

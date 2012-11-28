@@ -23,12 +23,12 @@
  * library libc.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/libc/include/functions/exp.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of exp
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -63,13 +63,13 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
- *  
+ *
 **/
 
 namespace nt2 { namespace libc { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag exp_ of functor exp 
+     * \brief Define the tag exp_ of functor exp
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct exp_ : ext::elementwise_<exp_> { typedef ext::elementwise_<exp_> parent; };
@@ -78,7 +78,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
 
 #include <nt2/toolbox/libc/functions/scalar/exp.hpp>
-// #include <nt2/toolbox/libc/functions/simd/all/exp.hpp> 
+// #include <nt2/toolbox/libc/functions/simd/all/exp.hpp>
 
 #endif
 

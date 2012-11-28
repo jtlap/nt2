@@ -69,7 +69,7 @@ class Base_gen(Nt2_fct_props) :
         "gt_16_":        ["int32","uint32","int64","uint64","float","double"],
         "sintgt_16_":    ["int32","int64"],
         "uintgt_16_":    ["uint32","uint64"],
-        }, 
+        },
     'sse' :{
         "fundamental_":  ["uint64","int64","double","uint32","int32","float","uint16","int16","uint8","int8","bool"],	
         "arithmetic_":   ["uint64","int64","double","uint32","int32","float","uint16","int16","uint8","int8"],	
@@ -129,7 +129,7 @@ class Base_gen(Nt2_fct_props) :
         "gt_16_":        ["int32","uint32","float"],
         "sintgt_16_":    ["int32"],
         "uintgt_16_":    ["uint32",],
-        }, 
+        },
     }
     def __init__(self, tb_name, fct_name, fct_mode) :
         Nt2_fct_props.__init__(self,tb_name,fct_name)
@@ -141,7 +141,7 @@ class Base_gen(Nt2_fct_props) :
     def set_fct_mode(self, mode) :
         self.__fct_mode = mode
         return self.__fct_mode
-        
+
     def get_fct_unit_path(self,mode = None)  :
         if mode is None : mode =self.get_fct_mode()
         return os.path.join(self.get_abs_path('toolbox'),
@@ -151,7 +151,7 @@ class Base_gen(Nt2_fct_props) :
 
     def recover(self,st,d,default) :
         return d.get(st,default)
-    
+
     def recover_info(self,st,typ,d,extra_def=None) :
         dd = d.get(st, None)
         if dd is None :

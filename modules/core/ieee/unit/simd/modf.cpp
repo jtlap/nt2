@@ -12,7 +12,7 @@
 // unit test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/modf.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( modf_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::modf;
   using nt2::tag::modf_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
 

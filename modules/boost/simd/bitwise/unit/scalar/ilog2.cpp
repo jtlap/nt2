@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/ilog2.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
@@ -24,7 +24,7 @@
 
 NT2_TEST_CASE_TPL ( ilog2_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::ilog2;
   using boost::simd::tag::ilog2_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -35,9 +35,9 @@ NT2_TEST_CASE_TPL ( ilog2_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(ilog2(boost::simd::Two<T>()), 1);
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( ilog2_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( ilog2_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::ilog2;
   using boost::simd::tag::ilog2_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -60,9 +60,9 @@ NT2_TEST_CASE_TPL ( ilog2_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(ilog2(boost::simd::One<T>()), 0);
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( ilog2_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
  NT2_TEST_CASE_TPL ( ilog2_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
  {
-  
+
   using boost::simd::ilog2;
   using boost::simd::tag::ilog2_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -80,22 +80,22 @@ NT2_TEST_CASE_TPL ( ilog2_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
-  
-  
-  // return type conformity test 
+
+
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
-  
+  std::cout << std::endl;
+
   // specific values tests
   NT2_TEST_EQUAL(ilog2(boost::simd::One<T>()), 0u);
   NT2_TEST_EQUAL(ilog2(boost::simd::Two<T>()),1u);
 
-  T j = 1; 
+  T j = 1;
   for(T i=2; i < boost::simd::Valmax<T>()/2; i*= 2)
     {
-      std::cout << "i = " << i << " j = " <<  j << std::endl; 
+      std::cout << "i = " << i << " j = " <<  j << std::endl;
       NT2_TEST_EQUAL(ilog2(T(i)),j);
       NT2_TEST_EQUAL(ilog2(T(i+1)),j);
-      ++j; 
+      ++j;
     }
  } // end of test for unsigned_int_

@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_POLYVALM_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_POLYVALM_HPP_INCLUDED
@@ -30,10 +30,10 @@ namespace nt2 { namespace ext
   {
 
     typedef typename A0::value_type value_type;
-    typedef A1 result_type; 
+    typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      if (isempty(a0)) return Zero<A1>(); 
+      if (isempty(a0)) return Zero<A1>();
       A1 ans = a0(1);
       for(size_t i = 2; i <= numel(a0); ++i)
       {
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
   {
     typedef typename A0::value_type                                  value_type;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       poly_t;
-    typedef typename boost::proto::result_of::child_c<A1&,1>::type       matr_t; 
+    typedef typename boost::proto::result_of::child_c<A1&,1>::type       matr_t;
     typedef A0&                                                     result_type;
     result_type operator()(A0& out, const A1& in) const
     {
@@ -59,17 +59,17 @@ namespace nt2 { namespace ext
       BOOST_ASSERT_MSG(nt2::issquare(in), "input matrix must be square");
       BOOST_AUTO_TPL(p,  nt2::reduce( boost::proto::child_c<0>(in)));
       poly_t & m = boost::proto::child_c<1>(in);
-      size_t n =  size(m, 1); 
-      BOOST_AUTO_TPL(pp,  nt2::expand_to(p, n, numel(p))); 
+      size_t n =  size(m, 1);
+      BOOST_AUTO_TPL(pp,  nt2::expand_to(p, n, numel(p)));
       for(size_t i = 1; i <= nt2::numel(p); ++i)
       {
-        out =  nt2::mtimes(out, m) + nt2::from_diag(pp(nt2::_, i)); 
+        out =  nt2::mtimes(out, m) + nt2::from_diag(pp(nt2::_, i));
       }
-      return out; 
+      return out;
     }
 
   };
- 
+
 } }
 
 

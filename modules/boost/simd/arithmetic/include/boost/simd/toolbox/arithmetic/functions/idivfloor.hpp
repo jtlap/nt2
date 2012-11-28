@@ -22,12 +22,12 @@
  * return the \c floor of the operands real divisionin the corresponding integer type
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/idivfloor.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of idivfloor
  * \param a1 the second parameter of idivfloor
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag idivfloor_ of functor idivfloor 
+     * \brief Define the tag idivfloor_ of functor idivfloor
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct idivfloor_ : ext::elementwise_<idivfloor_> { typedef ext::elementwise_<idivfloor_> parent; };

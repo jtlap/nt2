@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL( nanmean, (float)(double))//NT2_TYPES )
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> sy;
   nt2::table<T> sy2;
-  
+
   for(size_t j=1;j<=3;j++)
     for(size_t i=1;i<=5;i++)
       y(i,j) = i + 10*j;
@@ -55,12 +55,12 @@ NT2_TEST_CASE_TPL( nanmean, (float)(double))//NT2_TYPES )
   sy = nt2::nansum(y)*nt2::rec(nt2::nbtrue(y1));
   sy2 = nt2::nanmean(y);
   NT2_TEST(nt2::isequal(sy, sy2));
-  NT2_TEST(nt2::isequal(sy2, nt2::nanmean(y))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nanmean(y)));
   sy2 = nt2::nanmean(y, 1);
-  NT2_TEST(nt2::isequal(sy2, nt2::nanmean(y, 1))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nanmean(y, 1)));
   sy2 = nt2::nanmean(y, 2);
-  NT2_TEST(nt2::isequal(sy2, nt2::nanmean(y, 2))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nanmean(y, 2)));
   sy2 = nt2::nanmean(y, 3);
-  NT2_TEST(nt2::isequal(sy2, nt2::nanmean(y, 3))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nanmean(y, 3)));
 }
 

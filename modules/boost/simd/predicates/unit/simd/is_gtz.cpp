@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <boost/simd/toolbox/predicates/include/functions/is_gtz.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/shli.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( is_gtz_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_gtz;
   using boost::simd::tag::is_gtz_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( is_gtz_integer__1_0, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using boost::simd::is_gtz;
   using boost::simd::tag::is_gtz_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( is_gtz_integer__1_0, BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::call<is_gtz_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename r_t::value_type vsr_t; 
+  typedef typename r_t::value_type vsr_t;
 
   // specific values tests
   NT2_TEST_EQUAL(is_gtz(boost::simd::One<vT>())[0], vsr_t(true));

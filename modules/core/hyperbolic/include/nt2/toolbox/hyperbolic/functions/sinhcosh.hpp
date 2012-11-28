@@ -25,12 +25,12 @@
  * \arg sinhcosh(a,si,co) returns 0 and and put the hyperbolic sine of a in si and the cosine cosine of a in co.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sinhcosh.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,29 +40,29 @@
  *   typename boost::dispatch::meta::call<tag::sinhcosh(A0 const&,A0 const&)
  *                                       >::type
  *   sinhcosh(A0 const& a);
- *    
+ *
  *   template<class A0> inline
  *   A0 sinhcosh(A0 const& a,A0,A0& si);
- *    
+ *
  *   template<class A0> inline
  *   int sinhcosh(A0 const& a,A0,A0& si,A0& co);
  * }
  * \endcode
  *
  * \param a0 the unique parameter of sinhcosh
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sinhcosh_ of functor sinhcosh 
+     * \brief Define the tag sinhcosh_ of functor sinhcosh
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct sinhcosh_ : ext::elementwise_<sinhcosh_> { typedef ext::elementwise_<sinhcosh_> parent; };

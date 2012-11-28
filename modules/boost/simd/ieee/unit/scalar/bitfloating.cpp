@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/bitfloating.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/bitinteger.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  BOOST_SIMD_INT_CONVERT_TYPES)
 {
-  
+
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,15 +37,15 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  BOOST_SIMD_INT_CONVERT_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
 } // end of test for int_convert_
 
 NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  BOOST_SIMD_UINT_CONVERT_TYPES)
 {
-  
+
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -56,8 +56,8 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  BOOST_SIMD_UINT_CONVERT_TYPE
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
 } // end of test for uint_convert_

@@ -32,12 +32,12 @@
  * can be used, but the precision is only insured on smaller intervals.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rem_pio2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -50,19 +50,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of rem_pio2
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rem_pio2_ of functor rem_pio2 
+     * \brief Define the tag rem_pio2_ of functor rem_pio2
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct rem_pio2_ : ext::elementwise_<rem_pio2_> { typedef ext::elementwise_<rem_pio2_> parent; };

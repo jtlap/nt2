@@ -24,12 +24,12 @@
  * Constant Gold \f$= \frac{1+\sqrt5}{2}\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/gold.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Gold
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Gold of functor Gold 
+     * \brief Define the tag Gold of functor Gold
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Gold,double,1

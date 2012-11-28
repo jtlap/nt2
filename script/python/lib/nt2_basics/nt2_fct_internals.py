@@ -35,7 +35,7 @@ class Nt2_fct_internals() :
         """
         r = []
         for t in txt :
-            m = re.search('\s*struct\s*call\s*<tag::.*\((.*)\)',t) 
+            m = re.search('\s*struct\s*call\s*<tag::.*\((.*)\)',t)
             if m :
                 g = m.group(1)
                 g = re.sub("tag::","",g);
@@ -65,9 +65,9 @@ class Nt2_fct_internals() :
         r = {}
         for c in lc.keys() :
             r[c]=self.get_return(lc[c])
-        return r    
+        return r
 
-        
+
     @classmethod
     def get_return(self,txt) :
         tag_found = False
@@ -84,7 +84,7 @@ class Nt2_fct_internals() :
                 if  re.match("\s*NT2_FUNCTOR_CALL.*",l) : return txt[deb:i]+[""]
         return None
 
-      
+
 
     @classmethod
     def get_fct_priv_part(self,txt) :
@@ -95,14 +95,14 @@ class Nt2_fct_internals() :
                 tag_found = True
             if tag_found :
                 if  re.match(" *} *} *",l) : return txt[deb:i-1]
-        return [ "" ] 
+        return [ "" ]
 
     @classmethod
     def get_header_indices(self,txt) :
         for i,l in enumerate(txt) :
             if re.match("namespace nt2.*",l) : return (0,i)
         return (0,-1)
-    
+
     @classmethod
     def get_header(self,txt) :
         return txt[hi[0],hi[1]]
@@ -111,13 +111,13 @@ class Nt2_fct_internals() :
     def get_head_up_to_first_call(self,txt) :
         for i,l in enumerate(txt) :
             if re.match("\s*struct call<*.",l) : return txt[:i-3]
-        return  [""]            
+        return  [""]
 
     @classmethod
     def get_head_up_to_first_dispatch(self,txt) :
         for i,l in enumerate(txt) :
             if re.match("\s*NT2_REGISTER_DISPATCH\(.*",l) : return txt[:i-3]
-        return  [""]            
+        return  [""]
 
     @classmethod
     def get_footer(self,txt) :
@@ -137,7 +137,7 @@ class Nt2_fct_internals() :
                 return txt[t[1]:t[2]]+[""]
         return []
 
-    
+
     @classmethod
     def extract_parts(cls,tag,ld,rd,s,offset) :
         """tag      : is regexp indicating the txt part beginning
@@ -161,7 +161,7 @@ class Nt2_fct_internals() :
                 print("pb more than 100 calls in one implementation !")
                 raise SystemExit
         return l
-                
+
     @classmethod
     def extract_part(cls,tag,ld,rd,s,offset):
         """

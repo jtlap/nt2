@@ -12,7 +12,7 @@
 // unit test behavior of operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/compare_less.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/all.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::compare_less;
   using nt2::tag::compare_less_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -68,7 +68,7 @@ NT2_TEST_CASE_TPL ( compare_less_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPE
 {
   using nt2::compare_less;
   using nt2::tag::compare_less_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -95,7 +95,7 @@ NT2_TEST_CASE_TPL ( compare_less_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::compare_less;
   using nt2::tag::compare_less_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

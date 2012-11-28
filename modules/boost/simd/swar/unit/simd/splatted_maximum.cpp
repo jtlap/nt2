@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/swar/include/functions/splatted_maximum.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/maximum.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( splatted_maximum_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::splatted_maximum;
   using boost::simd::tag::splatted_maximum_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -32,90 +32,90 @@
 NT2_TEST_CASE_TPL( interp1, (float)(double))//NT2_TYPES )
 {
   using nt2::_;
-  nt2::table<T> x =  nt2::linspace(T(1),  T(4), 4); 
+  nt2::table<T> x =  nt2::linspace(T(1),  T(4), 4);
   nt2::table<T> y =  nt2::linspace(T(2),  T(8), 4);
   nt2::table<T> xi=  nt2::linspace(T(1),  T(4), 4);
   NT2_DISPLAY(x);
   NT2_DISPLAY(y);
-  NT2_DISPLAY(xi); 
-  nt2::table<T> y0 =nt2::interp1(x, y, xi), yi; 
-  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl; 
-  NT2_DISPLAY(y0); 
-  yi =nt2::interp1(x, y, xi, 'l', false); 
+  NT2_DISPLAY(xi);
+  nt2::table<T> y0 =nt2::interp1(x, y, xi), yi;
+  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl;
+  NT2_DISPLAY(y0);
+  yi =nt2::interp1(x, y, xi, 'l', false);
   NT2_TEST(isequal(y0, yi));
-  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl; 
-  NT2_DISPLAY(yi); 
-  std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'l', true); 
+  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl;
+  NT2_DISPLAY(yi);
+  std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'l', true);
   NT2_TEST(isequal(y0, yi));
   NT2_DISPLAY(yi);
-  T z =  33; 
-  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'l', z); 
-  NT2_TEST(isequal(y0, yi));
-  NT2_DISPLAY(yi); 
-  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'l', T(33)); 
-  NT2_DISPLAY(yi);
-  yi =nt2::interp1(x, y, xi, 'n', false); 
-  NT2_TEST(isequal(y0, yi));
-  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl; 
-  NT2_DISPLAY(yi); 
-  std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'n', true); 
+  T z =  33;
+  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'l', z);
   NT2_TEST(isequal(y0, yi));
   NT2_DISPLAY(yi);
-  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'n', z); 
+  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'l', T(33));
+  NT2_DISPLAY(yi);
+  yi =nt2::interp1(x, y, xi, 'n', false);
   NT2_TEST(isequal(y0, yi));
-  NT2_DISPLAY(yi); 
-  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'n', T(33)); 
+  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl;
+  NT2_DISPLAY(yi);
+  std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'n', true);
+  NT2_TEST(isequal(y0, yi));
+  NT2_DISPLAY(yi);
+  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'n', z);
+  NT2_TEST(isequal(y0, yi));
+  NT2_DISPLAY(yi);
+  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'n', T(33));
   NT2_TEST(isequal(y0, yi));
   NT2_DISPLAY(yi);
 
 
-  
+
 }
 
 NT2_TEST_CASE_TPL( interp1_2, (float)(double))//NT2_TYPES )
 {
   using nt2::_;
-  nt2::table<T> x =  nt2::linspace(T(1),  T(4), 4); 
+  nt2::table<T> x =  nt2::linspace(T(1),  T(4), 4);
   nt2::table<T> y =  nt2::linspace(T(2),  T(8), 4);
   nt2::table<T> xi=  nt2::linspace(T(0),  T(5), 11);
   NT2_DISPLAY(x);
   NT2_DISPLAY(y);
-  NT2_DISPLAY(xi); 
-  nt2::table<T> yi =nt2::interp1(x, y, xi); 
-  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl; 
-  NT2_DISPLAY(yi); 
-  yi =nt2::interp1(x, y, xi, 'l', false); 
-  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl; 
-  NT2_DISPLAY(yi); 
-  std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'l', true); 
+  NT2_DISPLAY(xi);
+  nt2::table<T> yi =nt2::interp1(x, y, xi);
+  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl;
   NT2_DISPLAY(yi);
-  T z =  33; 
-  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'l', z); 
-  NT2_DISPLAY(yi); 
-  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'l', T(33)); 
+  yi =nt2::interp1(x, y, xi, 'l', false);
+  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl;
   NT2_DISPLAY(yi);
-  yi =nt2::interp1(x, y, xi, 'n', false); 
-  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl; 
-  NT2_DISPLAY(yi); 
-  std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'n', true); 
+  std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'l', true);
   NT2_DISPLAY(yi);
-  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'n', z); 
-  NT2_DISPLAY(yi); 
-  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl; 
-  yi =nt2::interp1(x, y, xi, 'n', T(33)); 
+  T z =  33;
+  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'l', z);
+  NT2_DISPLAY(yi);
+  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'l', T(33));
+  NT2_DISPLAY(yi);
+  yi =nt2::interp1(x, y, xi, 'n', false);
+  std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl;
+  NT2_DISPLAY(yi);
+  std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'n', true);
+  NT2_DISPLAY(yi);
+  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'n', z);
+  NT2_DISPLAY(yi);
+  std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
+  yi =nt2::interp1(x, y, xi, 'n', T(33));
   NT2_DISPLAY(yi);
 
 
-  
+
 }

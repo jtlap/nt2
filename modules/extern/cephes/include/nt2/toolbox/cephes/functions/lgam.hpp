@@ -23,12 +23,12 @@
  * library cephes.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/cephes/include/functions/lgam.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of lgam
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -63,13 +63,13 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
- *  
+ *
 **/
 
 namespace nt2 { namespace cephes { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag lgam_ of functor lgam 
+     * \brief Define the tag lgam_ of functor lgam
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct lgam_ : ext::elementwise_<lgam_> { typedef ext::elementwise_<lgam_> parent; };
@@ -78,7 +78,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
 
 #include <nt2/toolbox/cephes/functions/scalar/lgam.hpp>
-// #include <nt2/toolbox/cephes/functions/simd/all/lgam.hpp> 
+// #include <nt2/toolbox/cephes/functions/simd/all/lgam.hpp>
 
 #endif
 

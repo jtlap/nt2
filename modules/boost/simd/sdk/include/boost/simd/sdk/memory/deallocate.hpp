@@ -18,18 +18,18 @@
 namespace boost { namespace simd {  namespace memory
 {
   //============================================================================
-  /*! 
+  /*!
    * Deallocate a raw buffer of aligned bytes using the current system aligned
    * memory deallocation procedure.
    *
    * \param ptr     Pointer to the memory to free.
    * \param nbytes  Hint on the number of bytes to deallocate. By default, this
    * parameter is equals to 0.
-   * \param align   Hint on the alignment boundary used at allocation. By 
+   * \param align   Hint on the alignment boundary used at allocation. By
    * default, this parameter is equals to the current system SIMD alignment
    * requirement.
    *
-   **/ 
+   **/
   //============================================================================
   inline void deallocate( byte* ptr
                         , std::size_t nbytes
@@ -37,7 +37,7 @@ namespace boost { namespace simd {  namespace memory
                         )
   {
     boost::dispatch::ignore_unused(nbytes);
-    boost::dispatch::ignore_unused(align); 
+    boost::dispatch::ignore_unused(align);
     #if defined(BOOST_SIMD_CONFIG_SUPPORT_POSIX_MEMALIGN)
     //==========================================================================
     // POSIX systems use free
@@ -57,24 +57,24 @@ namespace boost { namespace simd {  namespace memory
   }
 
   //============================================================================
-  /*! 
+  /*!
    * Deallocate a raw buffer of aligned bytes using an allocator.
    *
    * \param alloc   Allocator performing the deallocation
    * \param ptr     Pointer to the memory to free.
    * \param nbytes  Hint on the number of bytes to deallocate. By default, this
    * parameter is equals to 0.
-   * \param align   Hint on the alignment boundary used at allocation. By 
+   * \param align   Hint on the alignment boundary used at allocation. By
    * default, this parameter is equals to the current system SIMD alignment
    * requirement.
    *
-   **/ 
+   **/
   //============================================================================
   template<class Allocator>
   typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer >::type
   deallocate( Allocator& alloc, byte* ptr
             , std::size_t nbytes
-            , std::size_t align 
+            , std::size_t align
             )
   {
     typedef typename Allocator::value_type value_type;

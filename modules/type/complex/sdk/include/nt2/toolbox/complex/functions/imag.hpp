@@ -24,11 +24,11 @@
  * return the imaginary part of a complex
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/imag.hpp>
  * \endcode
- * 
+ *
  * \synopsis
  *
  * \code
@@ -41,13 +41,13 @@
  * \endcode
  *
  * \param a0 the first parameter of imag
- * 
+ *
  * \return a real value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the input vectors' elements
  * \par
- *  
+ *
 **/
 
 namespace nt2
@@ -55,7 +55,7 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag imag_ of functor imag 
+     * \brief Define the tag imag_ of functor imag
      *        in namespace nt2::tag for toolbox complex
     **/
     struct imag_ : ext::elementwise_<imag_> { typedef ext::elementwise_<imag_> parent; };

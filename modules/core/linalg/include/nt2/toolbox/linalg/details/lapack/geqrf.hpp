@@ -1,6 +1,6 @@
 /*******************************************************************************
  *         Copyright 2003-2012 LASMEA UMR 6602 CNRS/U.B.P
- *         Copyright 2009-2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI 
+ *         Copyright 2009-2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
  *
  *          Distributed under the Boost Software License, Version 1.0.
  *                 See accompanying file LICENSE.txt or copy at
@@ -70,7 +70,7 @@
 // *  where tau is a real scalar, and v is a real vector with
 // *  v(1:i-1) = 0 and v(i) = 1; v(i+1:m) is stored on exit in A(i+1:m,i),
 // *  and tau in TAU(i).
-             
+
 namespace nt2
 {
   namespace details
@@ -90,7 +90,7 @@ namespace nt2
                            nt2_la_complex* a, const nt2_la_int* lda, nt2_la_complex* tau,
                            nt2_la_complex* work, const nt2_la_int* lwork, nt2_la_int* info);
     }
-    
+
 #define NT2_GEQRF(NAME, T)                      \
     inline void geqrf(const nt2_la_int* m,      \
                       const nt2_la_int* n,      \
@@ -125,7 +125,7 @@ namespace nt2
     NT2_GEQRF(zgeqrf, std::complex<double>)
 
 #undef NT2_GEQRF
-    
+
   }
 }
 

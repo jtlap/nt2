@@ -67,7 +67,7 @@ class Oxgen(Py_doc,Substitute) :
         return self.tb_name.replace('.','_')+'_'
     def collect_functor_data(self) :
         self.df      = self.d.get("functor",{})
-        
+
     def get_description(self) :
         desc = self.df.get("description",False)
         if self.special[0] in self.external_toolbox_list :
@@ -104,18 +104,18 @@ class Oxgen(Py_doc,Substitute) :
                          'The value of this constant is type dependant. This means that for different',
                          'types it does not represent the same mathematical number.'
                          ])
-                
-                
+
+
         elif not desc :
             desc = ["TODO Put description here"]
 ##                           "this can be done by editing %s.py"%self.fct,
 ##                           "and adding a description section in the ",
 ##                           "functor part of the python dictionnary"])
         if isinstance(desc,str) : desc = desc.split('\n')
-        desc = [ " * "+l for l in desc]    
+        desc = [ " * "+l for l in desc]
         if isinstance(desc,list) : desc = '\n'.join(desc)
         return desc
-        
+
 class Nt2_oxygenation(Oxgen) :
     def __init__(self, base_gen,strip=True) :
         Oxgen.__init__(self,base_gen)
@@ -123,19 +123,19 @@ class Nt2_oxygenation(Oxgen) :
         if self.is_boost() :
             self.namespace = "boost::simd"
         else :
-            self.namespace = "nt2" 
+            self.namespace = "nt2"
         if self.nfp.get_tb_style() == 'usr' and not self.is_constant :
              self.tagnamespace = "nt2::%s"%self.tb_name
         elif self.is_constant :
              self.tagnamespace = self.namespace
         else :
              self.tagnamespace = self.namespace
-        
+
     def path(self) : return self.p
-    
+
     def is_immutable(self,txt) :
         return txt.find('//COMMENTED') != -1
-    
+
     def doxyfy(self) :
         self.get_file_location()
         if self.p is None :
@@ -157,12 +157,12 @@ class Nt2_oxygenation(Oxgen) :
         self.txt_list = self.make_functor_ox()
         self.txt      = '\n'.join(self.txt_list)
         self.txt_list = self.make_tag_ox()
-        self.txt      = '\n'.join(self.txt_list) 
+        self.txt      = '\n'.join(self.txt_list)
         self.txt_list =self.suppress_double_blank(self.txt_list)
         self.txt_list = self.make_file_ox()
         self.txt      = '\n'.join(self.txt_list)
         return self.txt_list
-    
+
     def is_boost(self) :
         return self.tb_name.find('.') != -1
 
@@ -177,7 +177,7 @@ class Nt2_oxygenation(Oxgen) :
                     if s != self.fct :
                         aliases.append(s)
         return aliases
-     
+
     def get_file_location(self) :
         self.p = self.nfp.get_def_path()
         self.fich = os.path.join(self.p,self.fct+'.hpp')
@@ -194,7 +194,7 @@ class Nt2_oxygenation(Oxgen) :
                     self.p=None
                 else :
                      print("but file: %s exists"%self.fich)
-                   
+
     def make_tag_ox(self) :
         Tag_ox = [
             "/*!",
@@ -230,7 +230,7 @@ class Nt2_oxygenation(Oxgen) :
         for i in range(1,arity) :
             s += tpl % (n*(i,))
         return s
-  
+
     def compose_call(self) :
 ##        special = self.df.get("special",[])
         special_synopsis = self.df.get("special_synopsis",False)
@@ -249,13 +249,13 @@ class Nt2_oxygenation(Oxgen) :
                 tpl_list =  self.strlist('class A%d',sep=',',arity=arity)
                 type_list =  self.strlist('A%d',sep=',',arity=int(arity),n=1)
                 param_list =  self.strlist('const A%d & a%d',sep=',',arity=int(arity),n=2)
-            if self.is_constant : param_list =""    
+            if self.is_constant : param_list =""
             tpl_str  = "template <" + tpl + tpl_list +">"
             result_str = "  meta::call<tag::"+self.fct+'_('+type_list+')>::type'
             param_str  =  "  "+self.Fct+"("+param_list+");"
             res = [ tpl_str,result_str,param_str]
         print(     self.tb_style)
-        if  self.tb_style == 'usr' :   
+        if  self.tb_style == 'usr' :
             res = '\n'.join(self.starize(self.indent(res,4)))
             return ' *   namespace %s\n *   {\n'%self.tb_name+res+ '\n *   }'
         else :
@@ -269,7 +269,7 @@ class Nt2_oxygenation(Oxgen) :
             param_0 =  self.df.get("param_0","")
             param = "\\\\param a0 the unique parameter of %s"%self.fct
             res.append(param)
-        else :    
+        else :
             for i in range(0,arity) :
                 parami =  self.df.get("param_"+str(i),"")
                 param = "\\\\param a%s the %s parameter of %s"%(str(i),self.ordinal(i+1),self.fct)
@@ -287,7 +287,7 @@ class Nt2_oxygenation(Oxgen) :
             res.append("\\\\return "+'\n'.join(ret))
         elif self.fct[0]=='i' :
             res.append("\\\\return an integer value")
-        elif "reduction" in self.special :    
+        elif "reduction" in self.special :
             res.append("\\\\return always a scalar value")
         elif arity == 1 :
             res.append("\\\\return a value of the same type as the parameter")
@@ -305,7 +305,7 @@ class Nt2_oxygenation(Oxgen) :
                    'In SIMD mode, this function acts elementwise on the inputs vectors elements','\par']
         else :
             res = ['\par Notes','\par']
-             
+
         if "predicate" in special or "fuzzy" in special :
             res.extend(["This is a predicate operation. Such operations return bool in scalar mode,",
                         "but not in SIMD mode.","\par",
@@ -344,12 +344,12 @@ class Nt2_oxygenation(Oxgen) :
                         'the correct function according to the inputs types.']
                         )
         if self.special[0] in  ['fdlibm','crlibm','gsl_specfun'] :
-            res.extend(["\par",'%s library defines functions for double entries only.'% self.tb_name, 
+            res.extend(["\par",'%s library defines functions for double entries only.'% self.tb_name,
                         'Nevertheless, they can be called with float entries under nt2 calls',
-                        'to return float outputs.'] 
+                        'to return float outputs.']
                        )
         return '\n'.join(self.starize(res))+'\n'
-        
+
     def make_file_ox(self) :
         File_ox = [
             "/*!",
@@ -361,7 +361,7 @@ class Nt2_oxygenation(Oxgen) :
         r.extend(File_ox)
         r.extend(self.txt_list[j:])
         return r
-    
+
     def make_functor_ox(self) :
         Functor_ox = [
             "/*!",
@@ -397,7 +397,7 @@ class Nt2_oxygenation(Oxgen) :
             ]
         aliases=self.list_aliases()
         plural = "es" if len(aliases) > 1 else ""
-        self.alias = " * \par Alias"+plural+" \n * \\\\arg "+'\n * \\\\arg '.join(aliases) if len(aliases) else "" 
+        self.alias = " * \par Alias"+plural+" \n * \\\\arg "+'\n * \\\\arg '.join(aliases) if len(aliases) else ""
         self.description = self.get_description()
         self.parameters  = self.compose_parameters()
         self.call        = self.compose_call()
@@ -415,8 +415,8 @@ class Nt2_oxygenation(Oxgen) :
         ll = self.txt_list[:j]
         ll.extend(functor_ox)
         ll.extend(self.txt_list[j:])
-        return ll            
-    
+        return ll
+
     def prepare(self,txt) :
         if isinstance(txt, list) :
             txt = '\n'.join(txt)
@@ -427,7 +427,7 @@ class Nt2_oxygenation(Oxgen) :
 
     def starize(self,txt) :
         return [' * '+t for t in txt]
-    
+
     def ordinal(self,i) :
       if i==0   : return "zeroth"
       elif i==1 : return "first"
@@ -436,11 +436,11 @@ class Nt2_oxygenation(Oxgen) :
       elif i==4 : return "fourth"
       elif i==5 : return "fith"
       else :      return str(i)+"th"
-      
+
     def strip_old(self) :
         r = []
         pattern1 = re.compile("\s*/\*[!]")
-        pattern2 = re.compile("\s*\*{1,2}/") 
+        pattern2 = re.compile("\s*\*{1,2}/")
         in_dox = False
         for l in self.txt_list :
             if not in_dox :
@@ -449,11 +449,11 @@ class Nt2_oxygenation(Oxgen) :
                 r.append(l)
             if in_dox :
                 in_dox = not(pattern2.match(l)) ##l[:3]=='**/')
-        return r        
-             
-    def suppress_blank(self,txt_list) :            
+        return r
+
+    def suppress_blank(self,txt_list) :
         return [l for l in txt_list if len(l)]
-    
+
     def suppress_double_blank(self,txt_list) :
         for i,l in enumerate(txt_list) :
             if re.match('\s*$',l) : txt_list[i]=""
@@ -467,14 +467,14 @@ class Nt2_oxygenation(Oxgen) :
                 j+=1
             else :
                 return j
-            
+
     def pass_ifdef(self,j) :
         for ss in self.txt_list[j:] :
             if not len(ss) or (ss[0] in '#') :
                 j+=1
             else :
                 return j
-        
-        
+
+
 if __name__ == "__main__" :
     pass

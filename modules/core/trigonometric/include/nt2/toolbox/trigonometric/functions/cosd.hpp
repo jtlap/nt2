@@ -22,12 +22,12 @@
  * cosine of angle in degree.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cosd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cosd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cosd_ of functor cosd 
+     * \brief Define the tag cosd_ of functor cosd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cosd_ : ext::elementwise_<cosd_> { typedef ext::elementwise_<cosd_> parent; };

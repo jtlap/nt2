@@ -22,12 +22,12 @@
  * inverse cosine in degree.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/acosd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of acosd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag acosd_ of functor acosd 
+     * \brief Define the tag acosd_ of functor acosd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acosd_ : ext::elementwise_<acosd_> { typedef ext::elementwise_<acosd_> parent; };

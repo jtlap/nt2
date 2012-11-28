@@ -21,7 +21,7 @@
              'first_stamp' : 'modified by jt the 28/11/2010',
              'included' : [],
              'notes' : [],
-             'no_ulp' :'True',   
+             'no_ulp' :'True',
              'stamp' : 'modified by jt the 24/3/2010',
             },
          'ranges' : {
@@ -38,9 +38,9 @@
                  'boost::simd::Valmin<T>(),boost::simd::One<T>()' :  'boost::simd::Valmin<T>()',
                  'boost::simd::Valmin<T>(),boost::simd::Mone<T>()' :  'boost::simd::Valmin<T>()+boost::simd::One<T>()',
                  'boost::simd::Mone<T>(), boost::simd::Valmax<T>()' :  'boost::simd::Valmin<T>()',
-                 'boost::simd::Mone<T>(), boost::simd::Valmin<T>()' :  'boost::simd::Valmax<T>()',   
+                 'boost::simd::Mone<T>(), boost::simd::Valmin<T>()' :  'boost::simd::Valmax<T>()',
                  'boost::simd::Zero<T>(), boost::simd::Valmin<T>()' :  'boost::simd::Valmax<T>()',
-                 'T(-2), boost::simd::Valmin<T>()' :  'boost::simd::Valmax<T>()-boost::simd::One<T>()',   
+                 'T(-2), boost::simd::Valmin<T>()' :  'boost::simd::Valmax<T>()-boost::simd::One<T>()',
                 },
              'unsigned_int_' : {
                  'boost::simd::One<T>()' : 'boost::simd::Zero<T>()',

@@ -5,7 +5,7 @@
 [[ceil    ][ Round toward positive infinity         ]]
 [[fix     ][ Round toward zero                      ]]
 [[floor   ][ Round toward negative infinity         ]]
-[[idivide ][ Integer division with rounding option  
+[[idivide ][ Integer division with rounding option
              TODO
 
              NT2 has idivfix, idvfloor,idivceil and idivround
@@ -14,6 +14,6 @@
 [[rem     ][ Remainder after division               ]]
 [[round   ][ Round to nearest integer               ]]
 
-]  
+]
 
 [endsect]

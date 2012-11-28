@@ -24,12 +24,12 @@
  * Constant Quarter = \f$\frac14\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/quarter.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Quarter
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Quarter of functor Quarter 
+     * \brief Define the tag Quarter of functor Quarter
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Quarter, double, 0

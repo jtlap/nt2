@@ -41,9 +41,9 @@ NT2_TEST_CASE( sum_1D )
   table<T> a(of_size(M));
   table<T> b(of_size(M));
   table<T> c;
-  r =  sum(c); 
+  r =  sum(c);
   NT2_TEST_EQUAL(r(1), 0);
-  
+
   for(std::size_t i = 1; i <= M; ++i)
     a(i) = b(i)= 1;
 

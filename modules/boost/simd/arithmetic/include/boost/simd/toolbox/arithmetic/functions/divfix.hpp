@@ -22,12 +22,12 @@
  * return the \c truncation of the operands real divisionin the input type
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/divfix.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,20 +41,20 @@
  *
  * \param a0 the first parameter of divfix
  * \param a1 the second parameter of divfix
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag divfix_ of functor divfix 
+     * \brief Define the tag divfix_ of functor divfix
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct divfix_ : ext::elementwise_<divfix_> { typedef ext::elementwise_<divfix_> parent; };

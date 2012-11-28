@@ -25,13 +25,13 @@ NT2_TEST_CASE( fundamental_issorted )
   NT2_TEST( nt2::issorted(1)   );
   NT2_TEST( nt2::issorted(1.)  );
   NT2_TEST( nt2::issorted(1.f)  );
-  NT2_TEST( nt2::issorted(nt2::Nan<float>())); 
+  NT2_TEST( nt2::issorted(nt2::Nan<float>()));
 }
 
 NT2_TEST_CASE( container_issorted )
 {
   using nt2::_;
-  nt2::table<float> a = nt2::_(1.0f, 10.0f); 
+  nt2::table<float> a = nt2::_(1.0f, 10.0f);
 
 
   NT2_TEST( nt2::issorted( a) );
@@ -48,6 +48,6 @@ NT2_TEST_CASE( container_issorted )
   NT2_TEST( nt2::issorted( a, 2, true));
   NT2_TEST( !nt2::issorted( a, 3, false));
   NT2_TEST( nt2::issorted( a, 3, true));
- 
-            
+
+
 }

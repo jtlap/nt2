@@ -47,7 +47,7 @@ NT2_TEST_CASE(valmax)
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::uint32_t>(), 0xFFFFFFFFUL           );
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::uint16_t>(), 0xFFFF                 );
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::uint8_t >(), 0xFF                   );
- 
+
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::int64_t>(), 9223372036854775807LL);
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::int32_t>(), 2147483647           );
   NT2_TEST_EQUAL( boost::simd::Valmax<boost::simd::int16_t>(), 32767                );

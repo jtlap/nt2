@@ -25,12 +25,12 @@
  * Bits are numbered starting at one (the least significant bit).
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ctz.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ctz
- * 
+ *
  * \return always returns an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ctz_ of functor ctz 
+     * \brief Define the tag ctz_ of functor ctz
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct ctz_ : ext::elementwise_<ctz_> { typedef ext::elementwise_<ctz_> parent; };

@@ -12,7 +12,7 @@
 // cover test behavior of polynomials components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// 
+///
 #include <nt2/toolbox/polynomials/include/functions/hermite.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( hermite_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::hermite;
   using nt2::tag::hermite_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
     typedef typename nt2::meta::as_integer<T>::type iscalar;

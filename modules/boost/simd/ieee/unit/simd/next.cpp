@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/next.hpp>
 #include <boost/simd/include/functions/successor.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::next;
   using boost::simd::tag::next_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::next;
   using boost::simd::tag::next_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( next_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES
 {
   using boost::simd::next;
   using boost::simd::tag::next_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

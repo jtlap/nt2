@@ -11,8 +11,8 @@
 //////////////////////////////////////////////////////////////////////////////
 // cover test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
-/// 
-/// 
+///
+///
 #include <nt2/toolbox/reduction/include/functions/second.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::second;
   using nt2::tag::second_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::scalar_of<T>::type sT;
@@ -68,6 +68,6 @@ NT2_TEST_CASE_TPL ( second_real__1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = nt2::second(a0);
         NT2_TEST_EQUAL( v,a0[1]);
       }
-    
+
   }
 } // end of test for floating_

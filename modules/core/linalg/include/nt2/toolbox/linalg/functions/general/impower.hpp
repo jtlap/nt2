@@ -47,7 +47,7 @@ namespace nt2{ namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,0>::type         Out0;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
     typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
-    typedef typename A0::value_type                                  value_type;     
+    typedef typename A0::value_type                                  value_type;
     BOOST_FORCEINLINE result_type operator()(A0& a0, A1& a1 ) const
     {
       const In0& a  = boost::proto::child_c<0>(a0);
@@ -55,22 +55,22 @@ namespace nt2{ namespace ext
       const Out0& r  = boost::proto::child_c<0>(a1);
       //      typedef typename A0::index_type       index_type;
       typedef nt2::table<value_type>     r_type;
-      value_type n = value_type(nn); 
+      value_type n = value_type(nn);
       BOOST_ASSERT_MSG(is_flint(n), "impower requires the second argument to be int or flint");
       if(nt2::isscalar(a))
         {
           r = nt2::pow(a, n);
-          return; 
+          return;
         }
       bool is_ltz_n = is_ltz(n);
-      if(is_ltz_n) n = -n; 
+      if(is_ltz_n) n = -n;
       value_type m = nt2::round(n); //MAYBE UNECESSARY
       r_type q, t;
-      // nt2::tie(q, t) = schur(a0,'N'/*"complex"*/); // t is complex schur form.       
+      // nt2::tie(q, t) = schur(a0,'N'/*"complex"*/); // t is complex schur form.
       if (false && nt2::isdiagonal(t))
         {
           t = nt2::from_diag(nt2::pow(diag_of(t), m));
-          if(is_ltz_n) t = nt2::inv(t);           
+          if(is_ltz_n) t = nt2::inv(t);
           r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
         }
       else
@@ -86,11 +86,11 @@ namespace nt2{ namespace ext
               a00 =  nt2::mtimes(a00, a00);
               m =  nt2::trunc(m/2); //Half<value_type>(); or >> 1
             }
-          if(is_ltz_n) r = nt2::inv(r);           
+          if(is_ltz_n) r = nt2::inv(r);
         }
     }
   };
-  
+
 } }
 
 #endif

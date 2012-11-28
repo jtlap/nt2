@@ -135,7 +135,7 @@ NT2_TEST_CASE_TPL( cif_typed_expr, NT2_TYPES )
 
 NT2_TEST_CASE( cif_Nd)
 {
-  typedef float T; 
+  typedef float T;
   nt2::table<int> t(nt2::of_size(1, 3) );
   t(1) = 3;
   t(2) = 4;

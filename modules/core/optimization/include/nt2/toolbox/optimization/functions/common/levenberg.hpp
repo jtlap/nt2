@@ -31,25 +31,25 @@ namespace nt2 { namespace ext
                               , (F)(A)(H)(O)
                             , (unspecified_< F >)
                               ((ast_< A, nt2::container::domain>))
-                              ((ast_< H, nt2::container::domain>))   
+                              ((ast_< H, nt2::container::domain>))
                               (unspecified_<O>)
-    ) 
+    )
   {
     typedef typename A::value_type                                  value_type;
     typedef typename meta::as_real<value_type>::type                 real_type;
     typedef typename meta::as_logical<value_type>::type                 l_type;
     typedef nt2::container::table<value_type>                            tab_t;
     typedef nt2::container::table<real_type>                            rtab_t;
-    typedef nt2::container::table<ptrdiff_t>                            ltab_t;  
+    typedef nt2::container::table<ptrdiff_t>                            ltab_t;
     typedef optimization::output<tab_t,real_type>       result_type;
 
     result_type operator()(F crit, A const& init, H const& which, O const& o)
     {
       details::lev_impl<tab_t> lev;
       tab_t a = init;
-      ltab_t w = nt2::ones(a.extent(), meta::as_<ptrdiff_t>()); //which; 
-      lev.optimize(crit, a, w, o); 
-      BOOST_ASSERT_MSG(lev.convok(), "levenberg was not convergent"); 
+      ltab_t w = nt2::ones(a.extent(), meta::as_<ptrdiff_t>()); //which;
+      lev.optimize(crit, a, w, o);
+      BOOST_ASSERT_MSG(lev.convok(), "levenberg was not convergent");
       // We didn't converged -- add message for this
       result_type that = {a,lev.lastchi2(),lev.nbiteration(),lev.convok()};
       return that;
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
                               , (F)(A)(H)(O)
                             , (unspecified_< F >)
                               ((ast_< A, nt2::container::domain>))
-                              (scalar_ < unspecified_ < H > > )   
+                              (scalar_ < unspecified_ < H > > )
                               (unspecified_<O>)
                             )
   {
@@ -72,6 +72,6 @@ namespace nt2 { namespace ext
       typedef typename meta::as_logical<value_type>::type                 l_type;
       return levenberg(f, init, nt2::repnum(True<l_type>(), size_t(1), nt2::numel(init)), o);
     }
-  };  
+  };
 } }
 #endif

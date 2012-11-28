@@ -26,11 +26,11 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0&) const
     {
-      typedef typename A0::value_type value_type; 
-      return isinteger(value_type()); 
+      typedef typename A0::value_type value_type;
+      return isinteger(value_type());
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isinteger_, tag::cpu_
                             , (A0)
                             , (scalar_<unspecified_<A0> > )
@@ -41,10 +41,10 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0&) const
     {
-      return false; 
+      return false;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isinteger_, tag::cpu_
                             , (A0)
                             , (scalar_<integer_<A0> > )
@@ -55,10 +55,10 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0&) const
     {
-      return true; 
+      return true;
     }
   };
-        
+
 } }
 
 #endif

@@ -54,6 +54,6 @@ NT2_TEST_CASE_TPL(geneig_result, NT2_REAL_TYPES)
   t_t t = f.t();
   nt2::display("vsr    ", vsr);
   //   (A,B) = ( (VSL)*S*(VSR)**T, (VSL)*T*(VSR)**T )
-  NT2_TEST(nt2::isulpequal(a, nt2::mtimes(vsl, nt2::mtimes(s, nt2::trans(vsr))), T(10.0))); 
-  NT2_TEST(nt2::isulpequal(b, nt2::mtimes(vsl, nt2::mtimes(t, nt2::trans(vsr))), T(10.0))); 
+  NT2_TEST(nt2::isulpequal(a, nt2::mtimes(vsl, nt2::mtimes(s, nt2::trans(vsr))), T(10.0)));
+  NT2_TEST(nt2::isulpequal(b, nt2::mtimes(vsl, nt2::mtimes(t, nt2::trans(vsr))), T(10.0)));
 }

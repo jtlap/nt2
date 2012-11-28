@@ -30,12 +30,12 @@
  * \f$a1/\sqrt{a_0^2+a_1^2}\f$ and \f$a0/\sqrt{a_0^2+a_1^2}\f$are respectively the sine and the cosine.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/atan2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -49,19 +49,19 @@
  *
  * \param a0 the first parameter of atan2
  * \param a1 the second parameter of atan2
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag atan2_ of functor atan2 
+     * \brief Define the tag atan2_ of functor atan2
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct atan2_ : ext::elementwise_<atan2_> { typedef ext::elementwise_<atan2_> parent; };

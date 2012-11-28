@@ -24,12 +24,12 @@
  * <tt>a1[a2] = a0;</tt>
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/insert.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,16 +44,16 @@
  * \param a0 the object to insert
  * \param a1 the SIMD vector
  * \param a2 offset to insert at
- * 
+ *
  * \return a0
- *  
+ *
 **/
 
 namespace boost { namespace simd
 {
   namespace tag { struct insert_ : ext::unspecified_<insert_> { typedef ext::unspecified_<insert_> parent; }; }
     /*!
-     * \brief Define the tag insert_ of functor insert 
+     * \brief Define the tag insert_ of functor insert
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
   template<class A0, class A1, class A2>
@@ -63,7 +63,7 @@ namespace boost { namespace simd
   {
     return typename boost::dispatch::make_functor<tag::insert_, A0>::type()(a0, a1, a2);
   }
-  
+
 } }
 
 #endif

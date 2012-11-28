@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/arithmetic/include/functions/fast_toint.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( fast_toint_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::fast_toint;
   using boost::simd::tag::fast_toint_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( fast_toint_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPE
 {
   using boost::simd::fast_toint;
   using boost::simd::tag::fast_toint_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( fast_toint_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED
 {
   using boost::simd::fast_toint;
   using boost::simd::tag::fast_toint_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -92,4 +92,4 @@ NT2_TEST_CASE_TPL ( fast_toint_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED
   NT2_TEST_EQUAL(fast_toint(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(fast_toint(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for signed_int_
- 
+

@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['returns the sorted a0 vector in ascending order'],              
+         'description' : ['returns the sorted a0 vector in ascending order'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -9,7 +9,7 @@
          'rturn' : {
              'default' : 'T',
             },
-         'special' : ['swar'],  
+         'special' : ['swar'],
          'simd_types' : ['gt_16_'],
          'type_defs' : [],
          'types' : ['real_'],

@@ -5,7 +5,7 @@
                           'significant bit) in a0, and return the index of that bit.',
                           '\par',
                           'Bits are numbered starting at one (the least significant bit).'],
-         'return' : ['always returns an integer value'],   
+         'return' : ['always returns an integer value'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

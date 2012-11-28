@@ -5,7 +5,7 @@
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
-//============================================================================== 
+//==============================================================================
 /*!
  * \file
 **/
@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/splat.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,13 +40,13 @@
  * \endcode
  *
  * \param a0 the unique parameter of splat
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag splat_ of functor splat 
+     * \brief Define the tag splat_ of functor splat
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct splat_ : ext::elementwise_<splat_> { typedef ext::elementwise_<splat_> parent; };

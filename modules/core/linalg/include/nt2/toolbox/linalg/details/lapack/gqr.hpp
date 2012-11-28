@@ -1,5 +1,5 @@
 /*******************************************************************************
- *         Copyright 2003-2012 LASMEA UMR 6602 CNRS/U.B.P 
+ *         Copyright 2003-2012 LASMEA UMR 6602 CNRS/U.B.P
  *         Copyright 2009-2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
  *
  *          Distributed under the Boost Software License, Version 1.0.
@@ -113,7 +113,7 @@ namespace nt2
       nt2::details::workspace<T> w;                       \
       gqr(m, n, k, a, lda, tau, info, w);                 \
     }                                                     \
-        
+
     NT2_GQR(sorgqr, float)
     NT2_GQR(dorgqr, double)
 
@@ -149,13 +149,13 @@ namespace nt2
         nt2::details::workspace<T> w;                     \
         gqr(m, n, k, a, lda, tau, info, w);               \
       }                                                   \
-          
+
     NT2_GQR(cungqr, std::complex<float>,  float)
     NT2_GQR(zungqr, std::complex<double>, double)
 
 #undef NT2_GQR
 
- 
+
   }
 }
 

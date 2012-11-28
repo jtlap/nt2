@@ -12,7 +12,7 @@
 // unit test behavior of statistics components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/include/functions/gamcdf.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/eye.hpp>
@@ -24,14 +24,14 @@
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/table.hpp>
 
- 
+
 NT2_TEST_CASE_TPL ( gamcdf_2,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::gamcdf;
   using nt2::tag::gamcdf_;
-  using nt2::_; 
-  
+  using nt2::_;
+
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(gamcdf(nt2::Nan<T>(), nt2::One<T>()), nt2::Nan<T>(), 0.5);
@@ -42,13 +42,13 @@ NT2_TEST_CASE_TPL ( gamcdf_2,  NT2_REAL_TYPES)
 
 //   nt2::table<T> a = _(T(1), T(2), T(5));
 //   NT2_DISPLAY(a);
-//   NT2_DISPLAY(gamcdf(a, nt2::One<T>())); 
-//   NT2_DISPLAY(gamcdf(a, nt2::One<T>(), nt2::One<T>())); 
-//   NT2_DISPLAY(gamcdf(a, a)); 
-//   NT2_DISPLAY(gamcdf(a, a, a)); 
-//   NT2_DISPLAY(gamcdf(a, a, T(2))); 
+//   NT2_DISPLAY(gamcdf(a, nt2::One<T>()));
+//   NT2_DISPLAY(gamcdf(a, nt2::One<T>(), nt2::One<T>()));
+//   NT2_DISPLAY(gamcdf(a, a));
+//   NT2_DISPLAY(gamcdf(a, a, a));
+//   NT2_DISPLAY(gamcdf(a, a, T(2)));
 //   nt2::table<T> r, plo, pup;
-//   nt2::table<T> cov = nt2::eye(2, nt2::meta::as_<T>()); 
+//   nt2::table<T> cov = nt2::eye(2, nt2::meta::as_<T>());
 //   nt2::tie(r, plo, pup) = nt2::gamcdf(a, nt2::ones(size(a), nt2::meta::as_<T>()), T(1), cov, T(0.05));
 //   NT2_DISPLAY(r);
 //   NT2_DISPLAY(plo);
@@ -59,8 +59,8 @@ NT2_TEST_CASE_TPL ( gamcdf_2,  NT2_REAL_TYPES)
 //   NT2_DISPLAY(r);
 //   NT2_DISPLAY(plo);
 //   NT2_DISPLAY(pup);
-  
-  
+
+
 } // end of test for floating_
- 
+
 

@@ -17,7 +17,7 @@ namespace nt2
   {
     using boost::simd::tag::Realpattern;
   }
-  
+
   using boost::simd::real_constant;
   using boost::simd::single_constant;
   using boost::simd::double_constant;

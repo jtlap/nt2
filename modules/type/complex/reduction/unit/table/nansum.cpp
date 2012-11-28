@@ -100,16 +100,16 @@ NT2_TEST_CASE_TPL( nansum_2, NT2_REAL_TYPES )
   y(2, 3) = nt2::Nan<T>();
   sy = nt2::sum(nt2::if_zero_else(nt2::is_nan(y), y));
   sy2 = nt2::nansum(y);
-  NT2_TEST(nt2::isequal(sy2, sy)); 
-  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y))); 
+  NT2_TEST(nt2::isequal(sy2, sy));
+  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y)));
   sy2 = nt2::nansum(y, 1);
-  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y, 1))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y, 1)));
   sy2 = nt2::nansum(y, 2);
-  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y, 2))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y, 2)));
   sy2 = nt2::nansum(y, 3);
-  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y, 3))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y, 3)));
   sy2 = nt2::nansum(y, 4);
-  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y, 4))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nansum(y, 4)));
 
 
 }

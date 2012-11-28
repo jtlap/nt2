@@ -12,7 +12,7 @@
 // cover test behavior of predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/predicates/include/functions/is_negative.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::is_negative;
   using nt2::tag::is_negative_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   double ulpd;
   ulpd=0.0;
-  std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;  
+  std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;
   std::cout << "id1  " << nt2::type_id < r_t > () << std::endl;
 
   // random verifications

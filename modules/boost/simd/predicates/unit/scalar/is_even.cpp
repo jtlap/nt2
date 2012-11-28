@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <boost/simd/toolbox/predicates/include/functions/is_even.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( is_even_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::is_even;
   using boost::simd::tag::is_even_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( is_even_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   // specific values tests
   NT2_TEST_EQUAL(is_even(-boost::simd::Zero<T>()), r_t(true));
   NT2_TEST_EQUAL(is_even(boost::simd::Half<T>()), r_t(false));
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( is_even_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( is_even_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::is_even;
   using boost::simd::tag::is_even_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -66,9 +66,9 @@ NT2_TEST_CASE_TPL ( is_even_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_even(boost::simd::Mone<T>()), r_t(false));
@@ -79,7 +79,7 @@ NT2_TEST_CASE_TPL ( is_even_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( is_even_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::is_even;
   using boost::simd::tag::is_even_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -90,9 +90,9 @@ NT2_TEST_CASE_TPL ( is_even_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_even(boost::simd::One<T>()), r_t(false));

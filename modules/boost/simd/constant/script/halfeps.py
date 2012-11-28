@@ -7,14 +7,14 @@
                            "\\\\arg \\\\f$= \\\\2^{-24}\\\\f$ for float"
                            ],
          'return' : ["type T value"],
-         'type_dependant' : True,   
-         'template' : True,   
+         'type_dependant' : True,
+         'template' : True,
          'module' : 'boost',
-         'special' : ['constant'],   
+         'special' : ['constant'],
          'arity' : '0',
          'call_types' : [],
          'ret_arity' : '0',
-         'tpl' : '<T>',   
+         'tpl' : '<T>',
          'rturn' : {
              'default' : 'T',
             },

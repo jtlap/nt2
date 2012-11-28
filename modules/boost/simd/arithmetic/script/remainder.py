@@ -7,7 +7,7 @@
                           "If the absolute value of a0-n*a1 is 0.5, n is chosen to be even.",
                           "\par",
                           "if one prefer: if a1 is zero returns a0, else return",
-                          "a0-divround(a0,a1)*a1"],   
+                          "a0-divround(a0,a1)*a1"],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
@@ -24,7 +24,7 @@
          'global_header' : {
              'first_stamp' : 'modified by jt the 01/12/2010',
              'included' : ['#include <boost/simd/include/functions/idivround.hpp>'],
-             'notes' : 
+             'notes' :
                 ['The remainder() function computes the remainder of dividing x by y.',
                  'The return value is x-n*y, where n is the value x / y,',
                  'rounded to the nearest integer.  If the absolute value of x-n*y is 0.5,',

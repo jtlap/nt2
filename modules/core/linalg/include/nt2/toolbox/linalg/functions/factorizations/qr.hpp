@@ -50,7 +50,7 @@ namespace nt2 { namespace ext
       result_type that(a0, a1);
       return that;
     }
-  };  
+  };
 } }
 
 #endif

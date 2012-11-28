@@ -2,9 +2,9 @@
     {
      'functor' : {
          'description' : ['With one parameter it is equivalent to \c next',
-                          'It is in the type \c A0, the least  \c A0 elementwise strictly greater than  \c a0.','\par',   
+                          'It is in the type \c A0, the least  \c A0 elementwise strictly greater than  \c a0.','\par',
                           'With two parameters, the second is an integer value  \c n',
-                          'and the result is equivalent to applying \c next \c abs(n) times to  \c a0.'],   
+                          'and the result is equivalent to applying \c next \c abs(n) times to  \c a0.'],
           'special_synopsis' : [
                 "template<class A0> inline",
                 "A0 predecessor(A0 const& a0);",
@@ -79,7 +79,7 @@
     {
      'functor' : {
          'description' : ['with two parameters, the second is an integer value n',
-                          'and it is equivalent to applying \c next abs(n) times to a0'],   
+                          'and it is equivalent to applying \c next abs(n) times to a0'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],

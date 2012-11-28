@@ -29,7 +29,7 @@
 namespace nt2 { namespace ext
 {
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normest_, tag::cpu_,
-                                       (A0)(A1), 
+                                       (A0)(A1),
                                        ((ast_<A0, nt2::container::domain>))
                                        (scalar_<floating_<A1> > )
                                        )
@@ -51,13 +51,13 @@ namespace nt2 { namespace ext
           e0 = e;
           vtab_t  sx = nt2::mtimes(s, x);
           //if (nt2::none(nt2::abs(sx(_)))){ sx = nt2::ones/*rand*/(nt2::size(sx)); }
-          x = nt2::mtimes(trans(s), sx); 
+          x = nt2::mtimes(trans(s), sx);
           result_type normx =  nt2::vecnorm(x);
-          e = normx/nt2::vecnorm(sx); 
+          e = normx/nt2::vecnorm(sx);
           x /= normx;
-          if (++cnt > 100) break; 
+          if (++cnt > 100) break;
         }
-      return e;     
+      return e;
     }
   private:
     template < class S>
@@ -69,11 +69,11 @@ namespace nt2 { namespace ext
           ta(j, i) = a(i, j);
       return ta;
     }
-    
+
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normest_, tag::cpu_,
-                              (A0), 
+                              (A0),
                               ((ast_<A0, nt2::container::domain>))
                               )
   {
@@ -81,25 +81,25 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<value_type>::type result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
-      return nt2::normest(a0, Sqrteps<result_type>()); 
+      return nt2::normest(a0, Sqrteps<result_type>());
     }
-  }; 
-  
-  
+  };
+
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normest_, tag::cpu_,
-                              (A0), 
+                              (A0),
                               (scalar_<arithmetic_<A0> > )
                               )
   {
     typedef typename meta::as_real<A0>::type result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0) const
     {
-      return nt2::abs(a0); 
+      return nt2::abs(a0);
     }
-  }; 
-  
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normest_, tag::cpu_,
-                              (A0)(A1), 
+                              (A0)(A1),
                               (scalar_<arithmetic_<A0> > )
                               (scalar_<floating_<A1> >)
                               )
@@ -107,7 +107,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_real<A0>::type result_type;
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(const A0& a0, const A1 &) const
     {
-      return nt2::abs(a0); 
+      return nt2::abs(a0);
     }
   };
 } }

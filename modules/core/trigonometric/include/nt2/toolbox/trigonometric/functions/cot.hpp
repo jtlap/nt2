@@ -22,12 +22,12 @@
  * cotangent.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cot.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cot
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cot_ of functor cot 
+     * \brief Define the tag cot_ of functor cot
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cot_ : ext::elementwise_<cot_> { typedef ext::elementwise_<cot_> parent; };

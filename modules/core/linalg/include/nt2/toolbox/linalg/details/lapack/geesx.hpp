@@ -238,7 +238,7 @@ namespace nt2
 {
   namespace details
   {
-   
+
     extern "C"
     {
       void NT2_F77NAME(cgeesx)(const char* jobvs, const char* sort, selectall_t* select, const char* sense,

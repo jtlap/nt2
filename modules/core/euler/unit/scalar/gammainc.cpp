@@ -12,9 +12,9 @@
 // unit test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/gammainc.hpp>
-#include <nt2/include/functions/ulpdist.hpp> 
+#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -34,7 +34,7 @@
 
 NT2_TEST_CASE_TPL ( gammainc_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::gammainc;
   using nt2::tag::gammainc_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -44,9 +44,9 @@ NT2_TEST_CASE_TPL ( gammainc_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(gammainc(nt2::Inf<T>()  ,  nt2::One<T>()), nt2::One<r_t>(), 0);

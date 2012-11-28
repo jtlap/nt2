@@ -2,7 +2,7 @@
     {
      'functor' : {
          'description' : ['return the \c ceil of the operands real division'
-                          'in the input type'],  
+                          'in the input type'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
@@ -32,7 +32,7 @@
                 },
              'real_' : {
                  'T(4),T(3)' : '2',
-                 'T(4),T(0)' : 'boost::simd::Inf<r_t>()',   
+                 'T(4),T(0)' : 'boost::simd::Inf<r_t>()',
                  'boost::simd::Inf<T>()' : 'boost::simd::Nan<r_t>()',
                  'boost::simd::Minf<T>()' : 'boost::simd::Nan<r_t>()',
                  'boost::simd::Mone<T>()' : 'boost::simd::One<r_t>()',
@@ -45,12 +45,12 @@
              'signed_int_' : {
                  'T(4),T(3)' : '2',
                  'T(4),T(0)' : 'boost::simd::Valmax<r_t>()',
-                 'T(-4),T(0)' : 'boost::simd::Valmin<r_t>()',   
+                 'T(-4),T(0)' : 'boost::simd::Valmin<r_t>()',
                  'boost::simd::Mone<T>()' : 'boost::simd::One<r_t>()',
                  'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                 },
              'unsigned_int_' : {
-                 'T(4),T(0)' : 'boost::simd::Valmax<r_t>()',   
+                 'T(4),T(0)' : 'boost::simd::Valmax<r_t>()',
                  'T(4),T(3)' : '2',
                  'boost::simd::One<T>()' : 'boost::simd::One<r_t>()',
                 },
@@ -61,7 +61,7 @@
                 },
              'property_value' : {
                  'unsigned_int_' : ['r_t(a1 ? boost::simd::ceil((1.0*a0)/a1) : boost::simd::Valmax<r_t>())'],
-                 'signed_int_' : ['r_t(a1 ? boost::simd::ceil((1.0*a0)/a1) : ((a0>0)? boost::simd::Valmax<r_t>(): (a0<0) ? boost::simd::Valmin<r_t>() : 0))'],    
+                 'signed_int_' : ['r_t(a1 ? boost::simd::ceil((1.0*a0)/a1) : ((a0>0)? boost::simd::Valmax<r_t>(): (a0<0) ? boost::simd::Valmin<r_t>() : 0))'],
                  'real_'   : ['r_t(boost::simd::ceil(a0/a1))'],
                 },
              'ulp_thresh' : {

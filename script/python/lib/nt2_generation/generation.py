@@ -36,7 +36,7 @@ sys.path.pop(0)
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_basics"))
 from nt2_tb_props                    import Nt2_tb_props
 from nt2_fct_props                   import Nt2_fct_props
-from nt2_modules                     import Nt2_modules 
+from nt2_modules                     import Nt2_modules
 sys.path.pop(0)
 
 from pprint   import PrettyPrinter
@@ -55,7 +55,7 @@ class Gen(Py_doc,Substitute) :
         self.collect_py_doc_global_data()
 
     def collect_py_doc_global_data(self) :
-        self.du      = self.d.get("unit",{})       
+        self.du      = self.d.get("unit",{})
 
     def gen_global_header(self) :
         r = self.replace(self.txts['global_header_txt'])
@@ -66,14 +66,14 @@ class Gen(Py_doc,Substitute) :
         for self.typ in self.types :
             self.collect_py_doc_typ_data()
             r+=self.replace('\n  //place your test call for $typ$ here')
-        r+='\n'    
+        r+='\n'
         r+=(self.replace(self.txts['main_end_txt']))
         return r
 
     def gen_test_func_forwarding(self) :
         r = self.replace(self.txts['test_func_forwarding_txt'])
         return r
-    
+
     def gen_test_func(self,typ) :
         self.typ = typ
         self.collect_py_doc_typ_data()
@@ -87,9 +87,9 @@ class Gen(Py_doc,Substitute) :
             p = self.reduce_path(path)
             r += '#include <'+p+'>\n'
         return r
-  
+
     def gen_test_func_guard_begin(self,path) :
-        guard = self.make_guard(path) 
+        guard = self.make_guard(path)
         r = '#ifndef '+guard+'\n'+'#define '+guard
         return r
 
@@ -112,7 +112,7 @@ class Gen(Py_doc,Substitute) :
             if part == token :
                 index = i
                 break
-        p1 = p[i:]    
+        p1 = p[i:]
         p1 = '/'.join(p1)
         return p1
 
@@ -164,5 +164,5 @@ class Gen(Py_doc,Substitute) :
         if show :
             print("%s showing text of %s for %s-test"% (just,os.path.split(p)[1],self.mode))
             print("<"+"="*40)
-            PrettyPrinter().pprint(txt)            
+            PrettyPrinter().pprint(txt)
             print("="*40+">")

@@ -25,12 +25,12 @@
  * \arg sincosd(a,si,co) returns 0 and and put the sine of a in si and the cosine cosine of a in co.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sincosd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,29 +40,29 @@
  *   typename boost::dispatch::meta::call<tag::sincosd(A0 const&,A0 const&)
  *                                       >::type
  *   sincosd(A0 const& a);
- *    
+ *
  *   template<class A0> inline
  *   A0 sincosd(A0 const& a,A0,A0& si);
- *    
+ *
  *   template<class A0> inline
  *   int sincosd(A0 const& a,A0,A0& si,A0& co);
  * }
  * \endcode
  *
  * \param a0 the unique parameter of sincosd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sincosd_ of functor sincosd 
+     * \brief Define the tag sincosd_ of functor sincosd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct sincosd_ : ext::elementwise_<sincosd_> { typedef ext::elementwise_<sincosd_> parent; };

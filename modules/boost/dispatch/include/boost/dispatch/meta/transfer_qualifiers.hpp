@@ -19,24 +19,24 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef T type;
   };
-  
+
   template<class T, class U>
   struct transfer_qualifiers<T, U&>
    : add_reference<T>
   {
   };
-  
+
   template<class T, class U>
   struct transfer_qualifiers<T, U const>
    : add_const<T>
   {
   };
-  
+
   template<class T, class U>
   struct transfer_qualifiers<T, U const&>
    : add_reference<typename add_const<T>::type>
   {
   };
-} } } 
+} } }
 
 #endif

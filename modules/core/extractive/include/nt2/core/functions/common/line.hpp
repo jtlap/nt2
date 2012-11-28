@@ -45,20 +45,20 @@ namespace nt2 { namespace ext
  //      ext_t ex1 = ex0;
 //       ex1[dim] = 1;
 //       sub_t pos = ind2sub(ex1, ind);
-//       State start = sub2ind(ex0, pos); 
-      
-      
-//      size_t dist = nextalong(ex0, dim);  
+//       State start = sub2ind(ex0, pos);
+
+
+//      size_t dist = nextalong(ex0, dim);
 
       return nt2::run(boost::proto::child_c<0>(a0), nt2::arith<id_t>(start+p*dist, dist), t);
     }
-  
+
 //   static size_t nextalong(const ext_t& ex,  const size_t& along)
 //     {
-//       size_t r = 1u; 
+//       size_t r = 1u;
 //       if (along == 0) return r;
 //       for(size_t i=1; i <= along; ++i) r*= ex[i-1];
-//       return r; 
+//       return r;
 //     }
   };
 

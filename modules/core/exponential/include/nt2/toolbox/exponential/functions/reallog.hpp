@@ -22,12 +22,12 @@
  * Natural logarithm function which asserts if called with non real positive values.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/reallog.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of reallog
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag reallog_ of functor reallog 
+     * \brief Define the tag reallog_ of functor reallog
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct reallog_ : ext::elementwise_<reallog_> { typedef ext::elementwise_<reallog_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <boost/simd/toolbox/predicates/include/functions/sb2b.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::sb2b;
   using boost::simd::tag::sb2b_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( sb2b_,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::sb2b;
   using boost::simd::tag::sb2b_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( sb2b_,  BOOST_SIMD_SIMD_TYPES)
 
   // specific values tests
   NT2_TEST_EQUAL(sb2b(boost::simd::One<vT>())[0], boost::simd::One<sr_t>());
-  NT2_TEST_EQUAL(sb2b(boost::simd::Two<vT>())[0], boost::simd::One<sr_t>());    
+  NT2_TEST_EQUAL(sb2b(boost::simd::Two<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(sb2b(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for floating_
 
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( sb2bl,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::sb2b;
   using boost::simd::tag::sb2b_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

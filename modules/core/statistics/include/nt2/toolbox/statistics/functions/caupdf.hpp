@@ -29,12 +29,12 @@
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/caupdf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,20 +45,20 @@
  *     caupdf(const A0 & a0, const A1 & median = 0, const A2 & scale = 1);
  * }
  * \endcode
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag caupdf_ of functor caupdf 
+     * \brief Define the tag caupdf_ of functor caupdf
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct caupdf_ : ext::elementwise_<caupdf_> { typedef ext::elementwise_<caupdf_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::caupdf_, caupdf, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::caupdf_, caupdf, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::caupdf_, caupdf, 3)  
+  NT2_FUNCTION_IMPLEMENTATION(tag::caupdf_, caupdf, 3)
 }
 
 #endif

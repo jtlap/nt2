@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/secpi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -36,7 +36,7 @@ extern "C" {extern long double cephes_cosl(long double);}
 
 NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::secpi;
   using nt2::tag::secpi_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -46,9 +46,9 @@ NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(secpi(-nt2::Quarter<T>()), nt2::Sqrt_2<r_t>(), 0.5);
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( secpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::secpi;
   using nt2::tag::secpi_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -74,9 +74,9 @@ NT2_TEST_CASE_TPL ( secpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(secpi(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( secpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( secpi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::secpi;
   using nt2::tag::secpi_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -94,9 +94,9 @@ NT2_TEST_CASE_TPL ( secpi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(secpi(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);

@@ -25,12 +25,12 @@
  * Negative entry leads to zero for integer entry and nan for floating one.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/isqrt.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of isqrt
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag isqrt_ of functor isqrt 
+     * \brief Define the tag isqrt_ of functor isqrt
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct isqrt_ : ext::elementwise_<isqrt_> { typedef ext::elementwise_<isqrt_> parent; };

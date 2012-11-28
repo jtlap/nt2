@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_toint.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,20 +40,20 @@
  * \endcode
  *
  * \param a0 the unique parameter of fast_toint
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag fast_toint_ of functor fast_toint 
+     * \brief Define the tag fast_toint_ of functor fast_toint
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct fast_toint_ : ext::elementwise_<fast_toint_> { typedef ext::elementwise_<fast_toint_> parent; };

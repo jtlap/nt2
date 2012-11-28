@@ -10,19 +10,19 @@ compatibility.
 [[`gcd         `][`gcd         `][Greatest common divisor                       ]]
 [[`isprime     `][`isprime     `][Array elements that are prime numbers         ]]
 [[`lcm         `][`lcm         `][Least common multiple                         ]]
-[[`nchoosek    `][`nchoosek    `][Binomial coefficient or all combinations TODO 
-                                
-                                  __NT2__ has also `cnp` that always returns 
+[[`nchoosek    `][`nchoosek    `][Binomial coefficient or all combinations TODO
+
+                                  __NT2__ has also `cnp` that always returns
                                  binomial coefficient(s).                       ]]
 [[`perms       `][`perms       `][All possible permutations           TODO      ]]
 [[`primes      `][`primes      `][Generate list of prime numbers                ]]
-[[`rat`, `rats `][`rat`, `rats `][Rational fraction approximation         
-   
-                In nt2 the string output is not 
+[[`rat`, `rats `][`rat`, `rats `][Rational fraction approximation
+
+                In nt2 the string output is not
                 provided when rat is called.
                 rats is not implemented in __NT2__.                             ]]
-]                                                         
-                                                          
-                                          
-      
-               
+]
+
+
+
+

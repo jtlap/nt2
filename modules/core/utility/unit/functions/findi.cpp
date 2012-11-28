@@ -67,7 +67,7 @@ NT2_TEST_CASE( findi )
   table<U, nt2::shared_> c(of_size(sizeof out/sizeof *out), nt2::share(&out[0], out + sizeof out/sizeof *out));
   table<T, nt2::shared_> d(of_size(sizeof out2/sizeof *out2), nt2::share(&out2[0], out2 + sizeof out2/sizeof *out2));
 
-  table<T> a = in2;  
+  table<T> a = in2;
   table<U> b = findi(a);
-  NT2_TEST( isequal(b, c) ); 
+  NT2_TEST( isequal(b, c) );
 }

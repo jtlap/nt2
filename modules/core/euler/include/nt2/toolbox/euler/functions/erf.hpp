@@ -24,12 +24,12 @@
  * \f[ erf(x)=\frac{2}{\sqrt\pi}(\int_0^x exp(-t2)}dt\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/erf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of erf
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag erf_ of functor erf 
+     * \brief Define the tag erf_ of functor erf
      *        in namespace nt2::tag for toolbox euler
     **/
     struct erf_ : ext::elementwise_<erf_> { typedef ext::elementwise_<erf_> parent; };

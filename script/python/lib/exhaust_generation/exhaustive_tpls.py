@@ -56,10 +56,10 @@ class Exhaustive_data(object) :
             'test_func_forwarding_txt' : '\n'.join([
                 'template <class T>',
                 'void exhaust_test_$name$(const T& mini,const T& maxi);'
-                ]), 
+                ]),
             'test_func_call_txt' : '\n'.join([
                 '    exhaust_test_$name$($mini$,$maxi$);'
-                ]), 
+                ]),
             'main_beg_txt' : '\n'.join([
                 'int main(){',
                 '{',
@@ -108,7 +108,7 @@ class Exhaustive_data(object) :
                 '        }',
                 '      std::cout << "exhaustive test for " << std::endl;',
                 '      std::cout << " nt2::$name$ versus $repfunc$ " << std::endl;',
-                '      std::cout << " in $mode$ mode and $typ$ type" << std::endl;', 
+                '      std::cout << " in $mode$ mode and $typ$ type" << std::endl;',
                 '      for(nt2::uint32_t i = 0; i < M; i++)',
                 '        std::cout << i/2.0 << " -> " << histo[i] << std::endl;',
                 '      std::cout << k << " values computed" << std::endl;',

@@ -31,36 +31,36 @@ namespace nt2 { namespace ext
                               , (generic_< floating_<A0> >)
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1){ return Half<A0>()*nt2::erfc(-Sqrt_2o_2<A0>()*a0); }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normcdf0_, tag::cpu_
                               , (A0)(A1)
                               , (generic_<floating_<A0> > )
                               (generic_<floating_<A1> >)
                               )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2){ return Half<A0>()*nt2::erfc(Sqrt_2o_2<A0>()*(a1-a0)); }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normcdf0_, tag::cpu_
                               , (A0)(A1)(A2)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
-                              (generic_< floating_<A2> >)  
+                              (generic_< floating_<A2> >)
                               )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
       {
         BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(nt2::colvect(a2))), "sigma(s) must be positive");
-        return Half<A0>()*nt2::erfc(Sqrt_2o_2<A0>()*((a1-a0)/a2)); 
+        return Half<A0>()*nt2::erfc(Sqrt_2o_2<A0>()*((a1-a0)/a2));
       }
   };
 
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normcdf_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
                               , ((node_<A0, nt2::tag::normcdf_, N0, nt2::container::domain>))
@@ -72,10 +72,10 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A0&,0>::type          In0;
     typedef typename boost::proto::result_of::child_c<A0&,1>::type          In1;
     typedef typename boost::proto::result_of::child_c<A0&,2>::type          In2;
-    typedef typename A0::value_type                                  value_type;     
+    typedef typename A0::value_type                                  value_type;
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
-      doit(a0, a1, N0(), N1()); 
+      doit(a0, a1, N0(), N1());
     }
     ////////////////////////////////////////////
     // No enough inputs to computes all ouputs
@@ -83,25 +83,25 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
                                        boost::mpl::long_<1> const &, boost::mpl::long_<3> const & )
     {
-      BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds."); 
+      BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds.");
     }
     BOOST_FORCEINLINE static void doit(const A0& a0,  A1& a1,
                                        boost::mpl::long_<2> const &, boost::mpl::long_<3> const & )
     {
-      BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds."); 
+      BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds.");
       boost::proto::child_c<0>(a1) =  nt2::normcdf(boost::proto::child_c<0>(a0),
                                                    boost::proto::child_c<1>(a0));
     }
     BOOST_FORCEINLINE static void doit(const A0& a0,  A1& a1,
                                        boost::mpl::long_<3> const &, boost::mpl::long_<3> const & )
     {
-      BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds."); 
+      BOOST_ASSERT_MSG(false, "Must provide parameter variance to compute confidence bounds.");
 
     }
     ////////////////////////////////////////////
     // No enough output to computes all ouputs
     ////////////////////////////////////////////
-    template < class T > 
+    template < class T >
     BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
                                        boost::mpl::long_<4> const &, T const & )
     {
@@ -109,7 +109,7 @@ namespace nt2 { namespace ext
                                                    boost::proto::child_c<1>(a0),
                                                    boost::proto::child_c<2>(a0));
     }
-    template < class T > 
+    template < class T >
     BOOST_FORCEINLINE static void doit(const A0& a0, A1& a1,
                                        boost::mpl::long_<5> const &, T const & )
     {
@@ -139,17 +139,17 @@ namespace nt2 { namespace ext
       const In0& x  = boost::proto::child_c<0>(a0);
       const In1& mu = boost::proto::child_c<1>(a0);
       const In2& sigma = boost::proto::child_c<2>(a0);
-      BOOST_AUTO_TPL(z, (x-mu)/sigma);   
+      BOOST_AUTO_TPL(z, (x-mu)/sigma);
       BOOST_AUTO_TPL(zvar, pcov(1,1) + (Two<value_type>()*pcov(1,2) + pcov(2,2)*z)*z);
-      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(zvar)), "Covariance matrix must be positive");      
+      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(zvar)), "Covariance matrix must be positive");
       value_type normz = -nt2::norminv(alpha*nt2::Half<value_type>());
       BOOST_AUTO_TPL(halfwidth, normz*nt2::sqrt(zvar)/sigma);
-      boost::proto::child_c<0>(a1) = Half<value_type>()*nt2::erfc(-Sqrt_2o_2<value_type>()*z); 
+      boost::proto::child_c<0>(a1) = Half<value_type>()*nt2::erfc(-Sqrt_2o_2<value_type>()*z);
       boost::proto::child_c<1>(a1) = Half<value_type>()*nt2::erfc(-Sqrt_2o_2<value_type>()*(z-halfwidth));
       boost::proto::child_c<2>(a1) = Half<value_type>()*nt2::erfc(-Sqrt_2o_2<value_type>()*(z+halfwidth));
     }
-    
-  }; 
+
+  };
 
 } }
 

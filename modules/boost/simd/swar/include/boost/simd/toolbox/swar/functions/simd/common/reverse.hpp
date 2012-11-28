@@ -23,7 +23,7 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const& a0) const
     {
       result_type that;
-      std::size_t n = meta::cardinal_of<A0>::value-1; 
+      std::size_t n = meta::cardinal_of<A0>::value-1;
       for(std::size_t i=0;i<= n;++i) that[i] = a0[n-i];
       return that;
     }

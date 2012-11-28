@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: iso-8859-15  -*-
-"""Init file for nt2 toolbox manipulation 
+"""Init file for nt2 toolbox manipulation
 """
 
 __author__    = "Lapreste Jean-thierry (lapreste@univ-bpclermont.fr)"

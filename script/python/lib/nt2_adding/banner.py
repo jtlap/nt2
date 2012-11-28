@@ -40,7 +40,7 @@ class Banner :
         "//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@",
         ]
     Std_cpght = [
-        "//@   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand",  
+        "//@   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand",
         "//@   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI",
         ]
     def __init__(self,
@@ -51,7 +51,7 @@ class Banner :
                  comment = '//') :
         self.__banner_begin = Banner.Std_begin if (banner_template_begin is None) else banner_template_begin
         self.__banner_end   = Banner.Std_end   if (banner_template_end   is None) else banner_template_end
-        self.__banner_cpght = Banner.Std_cpght if (banner_cpght          is None) else banner_cpght 
+        self.__banner_cpght = Banner.Std_cpght if (banner_cpght          is None) else banner_cpght
         self.__year = year
         self.__comment=comment
         self.set_year()
@@ -72,10 +72,10 @@ class Banner :
         self.__banner_cpght = sub_list('<year>',self.__year,self.__banner_cpght)
         self.__banner_cpght = sub_list('^//',self.__comment,self.__banner_cpght)
         self.__banner_cpght = sub_list('@',self.__comment[0],self.__banner_cpght)
-                  
+
     def __str__(self) :
         return "\n".join(self.__call__())
-    
+
     def set_year(self) :
         if self.__year is None :
             self.__year = time.localtime().tm_year
@@ -129,10 +129,10 @@ if __name__ == "__main__":
     print banner
     banner = Banner('z')
     print banner
-    banner.add_cpght("//*   Copyright 1907-<year> ZORGLUB THE GREAT      ") 
+    banner.add_cpght("//*   Copyright 1907-<year> ZORGLUB THE GREAT      ")
     print banner
     banner = Banner('z',comment='##')
     print banner
-    banner.add_cpght("//*      Copyright 1907-<year> ZORGLUB THE GREAT      ") 
+    banner.add_cpght("//*      Copyright 1907-<year> ZORGLUB THE GREAT      ")
     print banner
 

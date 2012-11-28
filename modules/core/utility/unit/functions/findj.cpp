@@ -71,4 +71,4 @@ NT2_TEST_CASE( findj )
   table<U> b = findj(a);
   NT2_TEST( isequal(b, c) );
 }
- 
+

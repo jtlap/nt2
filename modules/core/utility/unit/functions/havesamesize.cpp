@@ -28,7 +28,7 @@ NT2_TEST_CASE( container_havesamesize )
   NT2_TEST( nt2::havesamesize( nt2::ones(4,1)    ,nt2::ones(4,1)    ));
   NT2_TEST( nt2::havesamesize( nt2::ones(4,1,1)  ,nt2::ones(4,1,1)  ));
   NT2_TEST( nt2::havesamesize( nt2::ones(4,1,4,1),nt2::ones(4,1,4,1)));
-                                                                     
+
   NT2_TEST( !nt2::havesamesize( nt2::ones(2,3)    , nt2::ones(4)    ));
   NT2_TEST( !nt2::havesamesize( nt2::ones(3,1,2)  , nt2::ones(4,1)  ));
   NT2_TEST( !nt2::havesamesize( nt2::ones(3,3,1,9), nt2::ones(4,1,1)));

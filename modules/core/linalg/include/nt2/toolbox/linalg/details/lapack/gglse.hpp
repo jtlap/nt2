@@ -12,11 +12,11 @@
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 /*! \file gglse_itf.hh
     (excerpt adapted from xgglse.f file commentaries)
-    
+
     DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
-    
+
     BASE TYPE can mean respectively float, double, float, double
-    
+
     In some cases only two of these types types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly

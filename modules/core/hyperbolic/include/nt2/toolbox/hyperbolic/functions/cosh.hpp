@@ -22,12 +22,12 @@
  * hyperbolic cosine: \f$\frac{e^{a_0}+e^{-a_0}}2\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cosh.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cosh
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cosh_ of functor cosh 
+     * \brief Define the tag cosh_ of functor cosh
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct cosh_ : ext::elementwise_<cosh_> { typedef ext::elementwise_<cosh_> parent; };

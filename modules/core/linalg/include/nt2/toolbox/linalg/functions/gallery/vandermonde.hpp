@@ -24,7 +24,7 @@ namespace nt2 {namespace ext
                               )
   {
     typedef typename A0::value_type                              value_type;
-    typedef typename meta::as_real<value_type>::type              real_type; 
+    typedef typename meta::as_real<value_type>::type              real_type;
     typedef typename meta::call<tag::colvect_(A0)>::type  T0;
     typedef typename meta::call<tag::colon_ ( real_type
                                             , real_type
@@ -54,7 +54,7 @@ namespace nt2 {namespace ext
     typedef typename meta::call<tag::vandermonde_( const A0&, int32_t)>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::vandermonde(a0, int32_t(numel(a0))); 
+      return nt2::vandermonde(a0, int32_t(numel(a0)));
     }
   };
 } }

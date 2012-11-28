@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPLOG_D_LOG_APPROXIMATION_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPLOG_D_LOG_APPROXIMATION_HPP_INCLUDED
@@ -15,10 +15,10 @@ namespace nt2
   {
     namespace internal
     {
-      template < class A0, class Style> 
+      template < class A0, class Style>
       struct log_approximation< A0, Style, double>
       {
-        typedef typename meta::as_integer<A0, signed>::type int_type;        
+        typedef typename meta::as_integer<A0, signed>::type int_type;
         typedef typename meta::scalar_of<A0>::type            s_type;
 
         static inline void kernel_log(const  A0& a0,
@@ -38,7 +38,7 @@ namespace nt2
           A0 z = sqr(s);
           A0 w = sqr(z);
           A0 t1= w*horner<NT2_HORNER_COEFF_T(A0, 3,
-                                           (0x3fc39a09d078c69fll, 
+                                           (0x3fc39a09d078c69fll,
                                             0x3fcc71c51d8e78afll,
                                             0x3fd999999997fa04ll)
                                            )> (w);
@@ -51,7 +51,7 @@ namespace nt2
            R = t2+t1;
            hfsq = mul(Half<A0>(), sqr(f));
         }
-      }; 
+      };
     }
   }
 }

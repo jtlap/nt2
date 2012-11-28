@@ -23,12 +23,12 @@
  * library fdlibm.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/fdlibm/include/functions/__ieee754_fmod.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  *
  * \param a0 the first parameter of __ieee754_fmod
  * \param a1 the second parameter of __ieee754_fmod
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -61,13 +61,13 @@
  * fdlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace fdlibm { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag __ieee754_fmod_ of functor __ieee754_fmod 
+     * \brief Define the tag __ieee754_fmod_ of functor __ieee754_fmod
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct __ieee754_fmod_ : ext::elementwise_<__ieee754_fmod_> { typedef ext::elementwise_<__ieee754_fmod_> parent; };
@@ -76,7 +76,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
 
 #include <nt2/toolbox/fdlibm/functions/scalar/__ieee754_fmod.hpp>
-// #include <nt2/toolbox/fdlibm/functions/simd/all/__ieee754_fmod.hpp> 
+// #include <nt2/toolbox/fdlibm/functions/simd/all/__ieee754_fmod.hpp>
 
 #endif
 

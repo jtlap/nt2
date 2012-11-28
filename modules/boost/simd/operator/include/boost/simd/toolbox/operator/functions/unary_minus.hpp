@@ -24,14 +24,14 @@
  * Infix notation can be used with operator '-'
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/unary_minus.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg neg
- * 
+ *
  * \synopsis
  *
  * \code
@@ -44,13 +44,13 @@
  * \endcode
  *
  * \param a0 the unique parameter of unary_minus
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -58,7 +58,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag unary_minus_ of functor unary_minus 
+     * \brief Define the tag unary_minus_ of functor unary_minus
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct unary_minus_ : ext::elementwise_<unary_minus_> { typedef ext::elementwise_<unary_minus_> parent; };

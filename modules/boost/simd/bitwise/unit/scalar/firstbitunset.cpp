@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/firstbitunset.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,7 +24,7 @@
 
 NT2_TEST_CASE_TPL ( firstbitunset_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::firstbitunset;
   using boost::simd::tag::firstbitunset_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -35,9 +35,9 @@ NT2_TEST_CASE_TPL ( firstbitunset_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(firstbitunset(boost::simd::Inf<T>()), boost::simd::One<r_t>());
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( firstbitunset_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( firstbitunset_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::firstbitunset;
   using boost::simd::tag::firstbitunset_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -60,9 +60,9 @@ NT2_TEST_CASE_TPL ( firstbitunset_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_T
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(firstbitunset(boost::simd::One<T>()), boost::simd::Two<r_t>());
@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL ( firstbitunset_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_T
 
 NT2_TEST_CASE_TPL ( firstbitunset_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::firstbitunset;
   using boost::simd::tag::firstbitunset_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -83,9 +83,9 @@ NT2_TEST_CASE_TPL ( firstbitunset_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(firstbitunset(boost::simd::One<T>()), boost::simd::Two<r_t>());

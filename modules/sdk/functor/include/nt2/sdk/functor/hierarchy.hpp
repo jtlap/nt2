@@ -34,16 +34,16 @@ namespace nt2
     using boost::dispatch::tag::formal_;
     using boost::dispatch::tag::cpu_;
   }
-  
+
 namespace ext
-{  
+{
   // Function object
   template<class Sig, class Site, class Enable = void>
   struct implement;
-  
+
   // Helpers
   using boost::dispatch::ignore_unused;
-  
+
 } }
 
 #endif

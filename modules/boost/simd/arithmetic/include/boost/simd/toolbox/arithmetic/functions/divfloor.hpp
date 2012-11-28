@@ -22,12 +22,12 @@
  * return the \c floor of the operands real divisionin the input type
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/divfloor.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,20 +41,20 @@
  *
  * \param a0 the first parameter of divfloor
  * \param a1 the second parameter of divfloor
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag divfloor_ of functor divfloor 
+     * \brief Define the tag divfloor_ of functor divfloor
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct divfloor_ : ext::elementwise_<divfloor_> { typedef ext::elementwise_<divfloor_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.reduction components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/reduction/include/functions/is_included_c.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/complement.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( is_included_c_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::is_included_c;
   using boost::simd::tag::is_included_c_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -36,9 +36,9 @@ NT2_TEST_CASE_TPL ( is_included_c_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::simd::logical<T> wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

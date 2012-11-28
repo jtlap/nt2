@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 /// asin(1/a0)*Radindeg
 #include <nt2/toolbox/trigonometric/include/functions/acscd.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( acscd_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::acscd;
   using nt2::tag::acscd_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( acscd_int_convert__1_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::acscd;
   using nt2::tag::acscd_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -93,7 +93,7 @@ NT2_TEST_CASE_TPL ( acscd_uint_convert__1_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::acscd;
   using nt2::tag::acscd_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

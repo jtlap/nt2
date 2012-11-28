@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_POLYINT_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_POLYINT_HPP_INCLUDED
@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     typedef typename nt2::meta::call<nt2::tag::horzcat_(T1, value_type)>::type          result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::cath(a0/nt2::_(value_type(nt2::numel(a0)), Mone<value_type>(), One<value_type>()), value_type(a1)); 
+      return nt2::cath(a0/nt2::_(value_type(nt2::numel(a0)), Mone<value_type>(), One<value_type>()), value_type(a1));
     }
   };
 
@@ -47,8 +47,8 @@ namespace nt2 { namespace ext
     typedef typename nt2::meta::call<nt2::tag::polyint_(const A0 &,  value_type)>::type  result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::polyint(a0, Zero<value_type>()); 
-    } 
+      return nt2::polyint(a0, Zero<value_type>());
+    }
   };
 
 } }

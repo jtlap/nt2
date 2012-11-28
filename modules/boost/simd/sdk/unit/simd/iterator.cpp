@@ -80,12 +80,12 @@ NT2_TEST_CASE_TPL(simd_output_iterator, BOOST_SIMD_SIMD_TYPES )
   oit_ obegin = boost::simd::output_begin(&odata[0]);
   oit_ oend   = boost::simd::output_end(&odata[0]+3*card);
   iit_ ibegin = boost::simd::input_begin(&idata[0]);
-  //  iit_ iend   = boost::simd::input_end(&idata[0]+3*card);  
-  
+  //  iit_ iend   = boost::simd::input_end(&idata[0]+3*card);
+
   for(; obegin != oend; ++obegin) *obegin = *ibegin++;
 
   iit_ rbegin = boost::simd::input_begin(&odata[0]);
-  iit_ rend   = boost::simd::input_end(&odata[0]+3*card);  
+  iit_ rend   = boost::simd::input_end(&odata[0]+3*card);
 
   for(size_t c = 0; rbegin != rend; ++rbegin, c++)
   {
@@ -113,12 +113,12 @@ NT2_TEST_CASE_TPL(simd_vector_output_iterator, BOOST_SIMD_SIMD_TYPES )
   oit_ obegin = boost::simd::output_begin(odata.begin());
   oit_ oend   = boost::simd::output_end(odata.end());
   iit_ ibegin = boost::simd::input_begin(idata.begin());
-  //  iit_ iend   = boost::simd::input_end(idata.end());  
-  
+  //  iit_ iend   = boost::simd::input_end(idata.end());
+
   for(; obegin != oend; ++obegin) *obegin = *ibegin++;
 
   iit_ rbegin = boost::simd::input_begin(&odata[0]);
-  iit_ rend   = boost::simd::input_end(&odata[0]+3*card);  
+  iit_ rend   = boost::simd::input_end(&odata[0]+3*card);
 
   for(size_t c = 0; rbegin != rend; ++rbegin, c++)
   {

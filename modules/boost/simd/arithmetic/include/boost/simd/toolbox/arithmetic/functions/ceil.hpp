@@ -23,12 +23,12 @@
  * which is the smallest integer greater or equal to the entry
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ceil.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ceil
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ceil_ of functor ceil 
+     * \brief Define the tag ceil_ of functor ceil
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct ceil_ : ext::elementwise_<ceil_> { typedef ext::elementwise_<ceil_> parent; };

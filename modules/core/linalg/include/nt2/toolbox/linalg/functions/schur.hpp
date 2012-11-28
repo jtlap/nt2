@@ -90,11 +90,11 @@ namespace nt2 { namespace ext
   template<class Domain, class Expr>
   struct  value_type<tag::schur_,Domain,2,Expr>
   {
-// input 2 must be as_ < std::complex < T > > 
+// input 2 must be as_ < std::complex < T > >
     typedef typename  boost::proto::result_of::child_c<Expr&,1>::type  in1_t;
     typedef typename meta::strip<in1_t>::type   sin1_t;
-    typedef typename sin1_t::value_type          type; 
-  };  
+    typedef typename sin1_t::value_type          type;
+  };
 } }
 
 #endif

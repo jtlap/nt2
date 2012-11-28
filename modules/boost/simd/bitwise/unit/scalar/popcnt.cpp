@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/popcnt.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,7 +24,7 @@
 
 NT2_TEST_CASE_TPL ( popcnt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::popcnt;
   using boost::simd::tag::popcnt_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -35,9 +35,9 @@ NT2_TEST_CASE_TPL ( popcnt_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(popcnt(boost::simd::Nan<T>()), sizeof(T)*8);
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( popcnt_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( popcnt_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::popcnt;
   using boost::simd::tag::popcnt_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -57,9 +57,9 @@ NT2_TEST_CASE_TPL ( popcnt_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T, unsigned>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(popcnt(T(2)), boost::simd::One<r_t>());

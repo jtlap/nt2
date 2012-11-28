@@ -3,26 +3,26 @@
 [table:id Matrix Logarithms and Exponentials
 [[__MATLAB__       ][ __NT2__          ][ Description                                               ]]
 [[`expm  `][`expm  `][Matrix exponential
-                    
+
                       __MATLAB__ version doesnot play well with non diagonalisable matrices.
 ]]
-[[`mpower`][`mpower`][Matrix powerential]] 
+[[`mpower`][`mpower`][Matrix powerential]]
 [[`logm  `][`logm  `][TODO Matrix logarithm  ]]
 [[`sqrtm `][`sqrtm `][Matrix square root]]
-]                         
-[endsect]                                                                        
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-           
-             
+]
+[endsect]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

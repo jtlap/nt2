@@ -38,7 +38,7 @@ namespace nt2{ namespace config
 
   inline int top_cache_line_size(int level = L3)
   {
-    return ( level > config::L1 
+    return ( level > config::L1
              ? ( config::has_cache(level)
                  ? config::cache_line_size(level)
                  : top_cache_line_size(level-1)
@@ -48,8 +48,8 @@ namespace nt2{ namespace config
   }
 
   inline int top_cache_size(int level = L3)
-  { 
-    return ( level > config::L1 
+  {
+    return ( level > config::L1
              ? ( config::has_cache(level)
                  ? config::cache_size(level)
                  : top_cache_size(level-1)

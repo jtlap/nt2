@@ -23,14 +23,14 @@
  * For non complex numbers it is same as to be zero
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_imag.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg is_false
- * 
+ *
  * \synopsis
  *
  * \code
@@ -43,9 +43,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of is_imag
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -56,13 +56,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_imag_ of functor is_imag 
+     * \brief Define the tag is_imag_ of functor is_imag
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_imag_ : ext::elementwise_<is_imag_> { typedef ext::elementwise_<is_imag_> parent; };

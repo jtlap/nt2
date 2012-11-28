@@ -64,8 +64,8 @@ NT2_TEST_CASE_TPL( fliplr_2, NT2_TYPES )
   display("x", x);
 
   NT2_TEST(nt2::isequal(x, nt2::fliplr(y)));
-  NT2_TEST(nt2::isequal(nt2::fliplr(x), y));          
-           
+  NT2_TEST(nt2::isequal(nt2::fliplr(x), y));
+
 }
 NT2_TEST_CASE_TPL( fliplr_3, NT2_TYPES )
 {

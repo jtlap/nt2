@@ -10,7 +10,7 @@
              'default' : 'typename boost::common_type<sT,sT>::type',
             },
          'simd_types' : ['real_'],
-         'special' : ['reduction'],  
+         'special' : ['reduction'],
          'type_defs' : ['typedef typename boost::dispatch::meta::scalar_of<T>::type sT;'],
          'types' : ['real_'],
         },

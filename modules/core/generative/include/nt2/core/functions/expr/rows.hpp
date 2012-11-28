@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
 //                                         , meta::as_<T>()
 //                                       );
 //     }
-//   };  
+//   };
 } }
 
 #endif

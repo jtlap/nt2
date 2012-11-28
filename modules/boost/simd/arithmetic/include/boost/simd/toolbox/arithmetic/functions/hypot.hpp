@@ -22,12 +22,12 @@
  * computes $(a_0^2 + a_1^2)^{1/2}$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/hypot.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of hypot
  * \param a1 the second parameter of hypot
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag hypot_ of functor hypot 
+     * \brief Define the tag hypot_ of functor hypot
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct hypot_ : ext::elementwise_<hypot_> { typedef ext::elementwise_<hypot_> parent; };

@@ -1,7 +1,7 @@
 [section Elementary Arrays]
 
-Globally the uses and syntaxes are quite identical, functions as `ones`, `eye` or 
-`zeros` can have as in Matlab a last parameter precising the ouput type of element (that 
+Globally the uses and syntaxes are quite identical, functions as `ones`, `eye` or
+`zeros` can have as in Matlab a last parameter precising the ouput type of element (that
 by default is double) the syntax are for instance:
 
 # `ones(...,'single')` in Matlab
@@ -16,14 +16,14 @@ functions as freqspace can return several results, in __NT2__ too... The respect
 [table:id Elementary Arrays
 [[__MATLAB__        ][ __NT2__      ][ Description                                                 ]]
 [[`blkdiag         `][`blkdiag`     ][ Construct block diagonal matrix from input arguments        ]]
-[[`colon` (`:`)     ][`colon` (`_`)][ Create vectors, array subscripting, and for-loop iterators 
-                                    
-                                        There is one difference with __MATLAB__ colon in __MATLAB__ 
+[[`colon` (`:`)     ][`colon` (`_`)][ Create vectors, array subscripting, and for-loop iterators
+
+                                        There is one difference with __MATLAB__ colon in __MATLAB__
                                        `colon(a,0,b)` provides an empty array.
                                         __NT2__ as chosen to repeat  `a` `b` times in row.
                                                                                                    ]]
-[[`diag            `][`diag`         ][ Diagonal matrices and diagonals of matrix                 
-                                    
+[[`diag            `][`diag`         ][ Diagonal matrices and diagonals of matrix
+
                                         in __NT2__ you can also use `fromdiag` and `diagof`
                                         if the direction is known.
                                                                                                    ]]
@@ -31,11 +31,11 @@ functions as freqspace can return several results, in __NT2__ too... The respect
 [[`freqspace       `][`freqspace`   ][ Frequency spacing for frequency response                    ]]
 [[`ind2sub         `][`ind2sub`     ][ Subscripts from linear index                                ]]
 [[`linspace        `][`linspace`    ][ Generate linearly spaced vectors                            ]]
-[[`logspace        `][`logspace`    ][ Generate logarithmically spaced vectors                    
-                                    
-                                      `logspace` has quite dictinct behaviours 
+[[`logspace        `][`logspace`    ][ Generate logarithmically spaced vectors
+
+                                      `logspace` has quite dictinct behaviours
                                        (quite inconsistent with continuity)
-                                       if the second parameter is pi or not  `pi` 
+                                       if the second parameter is pi or not  `pi`
                                        (even at `0.5` ulp). You can use
                                        `pispace`  if you want to be sure it is...
                                                                                                    ]]
@@ -46,44 +46,44 @@ functions as freqspace can return several results, in __NT2__ too... The respect
 [[`randn           `][`randn`       ][ Normally distributed pseudorandom numbers                   ]]
 [[`RandStream      `][`RandStream`  ][ Random number stream                                        ]]
 [[`rng             `][`rng`         ][ Control random number generation                            ]]
-[[`sub2ind         `][`sub2ind`     ][ Convert subscripts to linear indices  
+[[`sub2ind         `][`sub2ind`     ][ Convert subscripts to linear indices
 
 
                                        TODO
-                                       As in __MATLAB__ `sub2ind(siz,i1,i2,..in)` returns 
+                                       As in __MATLAB__ `sub2ind(siz,i1,i2,..in)` returns
                                        the linear index equivalent to the
-                                       subscripts in the arrays `i1`, `i2`,..., `in` for an 
-                                       array of size `siz`. But it is also 
+                                       subscripts in the arrays `i1`, `i2`,..., `in` for an
+                                       array of size `siz`. But it is also
                                        possible to use `sub2ind<N>(siz,subs)` where subs is
                                        an integer arrays whose column or rows have exactly `N`
                                        elements.
-   
+
                        ]]
 [[`zeros           `][`zeros`       ][ Create array of all zeros                                   ]]
-]                                                                                
-      
+]
 
-[note TODO 
+
+[note TODO
 
 __NT2__ has chosen to extend the scheme presented by  `ones`, `zeros` to all of its mathematical constants.
 For instance `Sqrt_2<T>` produces the square root of 2 in the type T, and `Sqrt_2s<T>(n,m)`[footnote note the s],
- will produce an array expression of size nXm full of this constant, as well as`Sqrt_2s(n,m, as_<T>())` ]                                                                     
-[endsect]                                                                                
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
-                                                                                 
+ will produce an array expression of size nXm full of this constant, as well as`Sqrt_2s(n,m, as_<T>())` ]
+[endsect]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

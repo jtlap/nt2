@@ -25,12 +25,12 @@
  * nan is returned.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/gcd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  *
  * \param a0 the first parameter of gcd
  * \param a1 the second parameter of gcd
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gcd_ of functor gcd 
+     * \brief Define the tag gcd_ of functor gcd
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct gcd_ : ext::elementwise_<gcd_> { typedef ext::elementwise_<gcd_> parent; };

@@ -50,8 +50,8 @@ namespace nt2 { namespace details
 {
   inline nt2_la_int selectall(void* ) { return true; }
   inline nt2_la_int selectall2( const void*, const  void* ) { return true; }
-  typedef nt2_la_int selectall_t(void*) ; 
-  typedef nt2_la_int selectall2_t(const void*, const void*); 
+  typedef nt2_la_int selectall_t(void*) ;
+  typedef nt2_la_int selectall2_t(const void*, const void*);
 } }
 
 #endif

@@ -27,12 +27,12 @@
  * means rouding to nearest
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/crlibm/include/functions/sinpi_rn.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,9 +48,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of sinpi_rn
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -64,13 +64,13 @@
  * crlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-     * \brief Define the tag sinpi_rn_ of functor sinpi_rn 
+     * \brief Define the tag sinpi_rn_ of functor sinpi_rn
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct sinpi_rn_ : ext::elementwise_<sinpi_rn_> { typedef ext::elementwise_<sinpi_rn_> parent; };

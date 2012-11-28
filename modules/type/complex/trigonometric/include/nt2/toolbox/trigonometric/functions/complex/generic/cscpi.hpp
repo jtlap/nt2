@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSCPI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_COMPLEX_GENERIC_CSCPI_HPP_INCLUDED
@@ -28,9 +28,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return if_else(is_eqz(a0),
-                     Cnan<result_type>(), 
+                     Cnan<result_type>(),
                      rec(nt2::sinpi(a0))
-                     );     
+                     );
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscpi_, tag::cpu_, (A0)
@@ -41,9 +41,9 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return if_else(is_eqz(a0),
-                     Nan<result_type>(), 
+                     Nan<result_type>(),
                      rec(nt2::sinpi(a0))
-                     );     
+                     );
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::cscpi_, tag::cpu_, (A0)
@@ -54,12 +54,12 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return if_else(is_eqz(a0),
-                     Nan<result_type>(), 
+                     Nan<result_type>(),
                      rec(nt2::sinpi(a0))
-                     );     
+                     );
     }
   };
-      
+
 } }
 
 #endif

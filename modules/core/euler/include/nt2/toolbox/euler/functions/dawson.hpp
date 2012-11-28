@@ -24,12 +24,12 @@
  * \f[ D(a_0)=e^{-x^2}\int_0^{a_0} e^{-t^2}}dt
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/dawson.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of dawson
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag dawson_ of functor dawson 
+     * \brief Define the tag dawson_ of functor dawson
      *        in namespace nt2::tag for toolbox euler
     **/
     struct dawson_ : ext::elementwise_<dawson_> { typedef ext::elementwise_<dawson_> parent; };

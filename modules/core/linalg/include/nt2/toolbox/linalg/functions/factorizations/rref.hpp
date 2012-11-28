@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
       return that;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::rref_, tag::cpu_
                             , (A0)
                             , ((ast_<A0, nt2::container::domain>))
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
       result_type that(a0, value_t(-1));
       return that;
     }
-  };  
+  };
 } }
 
 #endif

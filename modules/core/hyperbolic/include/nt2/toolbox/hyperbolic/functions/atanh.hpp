@@ -22,12 +22,12 @@
  * hyperbolic tangent argument \f$\frac12\frac{a_0^2-1}{a_0^2+1}\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/atanh.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of atanh
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag atanh_ of functor atanh 
+     * \brief Define the tag atanh_ of functor atanh
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct atanh_ : ext::elementwise_<atanh_> { typedef ext::elementwise_<atanh_> parent; };

@@ -8,7 +8,7 @@ In NT2 supports three type templates for complex numbers, than can be mixed toge
 
 # complex: full two parts complex numbers
 # imaginary: pure complex number (real part is null and not stored)
-# dry: real number considered as complex (imaginary part is null and not stored)          
+# dry: real number considered as complex (imaginary part is null and not stored)
 
 This allows optimizations in storage and computations.
 
@@ -19,7 +19,7 @@ This allows optimizations in storage and computations.
 
              TODO]]
 [[conj     ][Complex conjugate                                        ]]
-[[cplxpair ][Sort complex numbers into complex conjugate pairs   
+[[cplxpair ][Sort complex numbers into complex conjugate pairs
 
              TODO     ]]
 [[i        ][Imaginary unit                                           ]]
@@ -28,10 +28,10 @@ This allows optimizations in storage and computations.
 [[j        ][Imaginary unit                                           ]]
 [[real     ][Real part of complex number                              ]]
 [[sign     ][Signum function, i.e. `a/abs(a)`                         ]]
-[[unwrap   ][Correct phase angles to produce smoother phase plots 
+[[unwrap   ][Correct phase angles to produce smoother phase plots
 
              TODO    ]]
-                                                                      
-]                                                                      
-                                                                      
+
+]
+
 [endsect]

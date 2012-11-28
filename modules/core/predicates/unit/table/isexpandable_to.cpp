@@ -21,18 +21,18 @@ NT2_TEST_CASE( fundamental_isexpandable_to )
 
 NT2_TEST_CASE( container_isexpandable_to )
 {
-  
+
   for(int i=1; i <= 4; ++i)
     {
-      std::cout << "i " << i << std::endl; 
+      std::cout << "i " << i << std::endl;
       NT2_TEST( nt2::isexpandable_to( nt2::ones(0),      nt2::of_size(0)       ));
       NT2_TEST( nt2::isexpandable_to( nt2::ones(1,0),    nt2::of_size(1,0)  ));
-      
+
       NT2_TEST( nt2::isexpandable_to( nt2::ones(1),      nt2::of_size(1,4)  ));
       NT2_TEST( nt2::isexpandable_to( nt2::ones(1,3),    nt2::of_size(3,3)  ));
       NT2_TEST( nt2::isexpandable_to( nt2::ones(1,3,1),  nt2::of_size(1,3,3)   ));
       NT2_TEST( !nt2::isexpandable_to( nt2::ones(2,3),nt2::of_size(3,3) ));
-      
+
       NT2_TEST( nt2::isexpandable_to( nt2::ones(3, 1),     nt2::of_size(3)        ));
       NT2_TEST( nt2::isexpandable_to( nt2::ones(2,3),   nt2::of_size(2,3)      ));
       NT2_TEST( nt2::isexpandable_to( nt2::ones(1,3,2), nt2::of_size(1,3,2)    ));

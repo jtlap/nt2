@@ -12,7 +12,7 @@
 // cover test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 /// The remainder() function computes the remainder of dividing x by y.
 /// The return value is x-n*y, where n is the value x / y,
 /// rounded to the nearest integer.  If the absolute value of x-n*y is 0.5,
@@ -47,7 +47,7 @@ NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::remainder;
   using nt2::tag::remainder_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -75,7 +75,7 @@ NT2_TEST_CASE_TPL ( remainder_real__2_0,  NT2_SIMD_REAL_TYPES)
         r_t v = remainder(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_ULP_EQUAL( v[i],ssr_t(nt2::remainder (a0[i],a1[i])), 2.5);
           ulp0 = nt2::max(ulpd,ulp0);
         }

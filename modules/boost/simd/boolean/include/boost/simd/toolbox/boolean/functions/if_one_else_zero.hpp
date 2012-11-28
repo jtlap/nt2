@@ -27,16 +27,16 @@
  * the result type is the same as the second parameter one.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/if_one_else_zero.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg ifzeroelse
  * \arg ifnot_else_zero
  * \arg ifnotelsezero
- * 
+ *
  * \synopsis
  *
  * \code
@@ -50,20 +50,20 @@
  *
  * \param a0 the first parameter of if_one_else_zero
  * \param a1 the second parameter of if_one_else_zero
- * 
+ *
  * \return a value of the type of the second parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag if_one_else_zero_ of functor if_one_else_zero 
+     * \brief Define the tag if_one_else_zero_ of functor if_one_else_zero
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
     struct if_one_else_zero_ : ext::elementwise_<if_one_else_zero_> { typedef ext::elementwise_<if_one_else_zero_> parent; };
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_one_else_zero_, if_one_else_zero,    1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::if_one_else_zero_, ifoneelsezero,       1)
 } }
- 
+
 #endif
 
 

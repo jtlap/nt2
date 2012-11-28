@@ -22,20 +22,20 @@
 namespace boost { namespace simd {  namespace memory
 {
   //============================================================================
-  /*! 
+  /*!
    * Reallocated a raw buffer of aligned bytes using the current system aligned
    * memory allocation and deallocation procedure.
    *
    * \param ptr     Pointer to the memory to reallocate.
    * \param nbytes  New number of bytes to allocate
    * \param obytes  Old number of bytes to deallocate
-   * \param align   Hint on the alignment boundary used at allocation. By 
+   * \param align   Hint on the alignment boundary used at allocation. By
    * default, this parameter is equals to the current system SIMD alignment
    * requirement.
    *
    * \return A pointer to a reallocated memory block containing \c nbytes bytes.
    *
-   **/ 
+   **/
   //============================================================================
   inline byte* reallocate ( byte* ptr
                           , std::size_t nbytes
@@ -52,8 +52,8 @@ namespace boost { namespace simd {  namespace memory
       // MSVC systems use _aligned_realloc
       //========================================================================
       if( !(  result
-           =  reinterpret_cast<byte*>(_aligned_realloc(ptr, nbytes, align)) 
-           ) 
+           =  reinterpret_cast<byte*>(_aligned_realloc(ptr, nbytes, align))
+           )
         )
       {
         BOOST_THROW_EXCEPTION( std::bad_alloc() );
@@ -72,22 +72,22 @@ namespace boost { namespace simd {  namespace memory
 
     return result;
   }
-  
+
   //============================================================================
-  /*! 
+  /*!
    * Reallocated a raw buffer of aligned bytes using an Allocator.
    *
    * \param alloc   Allocator performing the (de)allocation
    * \param ptr     Pointer to the memory to reallocate.
    * \param nbytes  New number of bytes to allocate
    * \param obytes  Old number of bytes to deallocate
-   * \param align   Hint on the alignment boundary used at allocation. By 
+   * \param align   Hint on the alignment boundary used at allocation. By
    * default, this parameter is equals to the current system SIMD alignment
    * requirement.
    *
    * \return A pointer to a reallocated memory block containing \c nbytes bytes.
    *
-   **/ 
+   **/
   //============================================================================
   template<class Allocator>
   typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer, byte* >::type

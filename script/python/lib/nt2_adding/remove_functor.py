@@ -36,8 +36,8 @@ from nt2_fct_props                   import Nt2_fct_props
 from pprint                          import PrettyPrinter
 from unit_base_gen                   import Base_gen
 from unit_global_header_gen          import Global_header_gen
-from unit_type_header_gen            import Type_header_test_gen 
-from unit_specific_values_gen        import Specific_values_test_gen 
+from unit_type_header_gen            import Type_header_test_gen
+from unit_specific_values_gen        import Specific_values_test_gen
 from unit_random_verif_gen           import Random_verif_test_gen
 from nt2_tb_struct                   import Nt2_tb_struct
 from nt2_archis_struct               import Nt2_archis_struct
@@ -57,7 +57,7 @@ class Remove_functor_skel(Base_gen,Nt2_tb_struct) :
         self.fct_files = self.get_rel_tb_fcts_files(tb_name,fct_name)
         self.unique_files = self.get_rel_tb_unique_files(tb_name)
 
-    def remove_files(self) :    
+    def remove_files(self) :
         for f in self.fct_files :
             p = os.path.join(self.get_tb_path(),f)
             if exist(p) and p[-2:]!='py' : self.delete(p)
@@ -83,14 +83,14 @@ class Remove_functor_skel(Base_gen,Nt2_tb_struct) :
         txt = [re.sub('\s*'+token,'',t) for t in txt ]
         write(p,txt,check=False)
 
-          
-        
+
+
 if __name__ == "__main__" :
     tb_name = "euler"
     fcts = ["gamma_0_1"]
     for fct_name in fcts :
         print fct_name
         afs = Remove_functor_skel(tb_name,fct_name)
-        afs.remove_files() 
+        afs.remove_files()
 
-    
+

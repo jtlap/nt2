@@ -24,12 +24,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/make.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,13 +43,13 @@
  *
  * \param a0 the first parameter of make
  * \param a1 the second parameter of make
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -57,7 +57,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag make_ of functor make 
+     * \brief Define the tag make_ of functor make
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct make_ : ext::unspecified_<make_> { typedef ext::unspecified_<make_> parent; };

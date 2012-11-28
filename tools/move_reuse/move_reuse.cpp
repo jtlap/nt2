@@ -12,11 +12,11 @@ bool equal_streams(std::istream& s1, std::istream& s2)
     iterator begin1(s1.rdbuf());
     iterator begin2(s2.rdbuf());
     iterator end;
-    
+
     for(; begin1 != end && begin2 != end; ++begin1, ++begin2)
         if(*begin1 != *begin2)
             return false;
-            
+
     return begin1 == end && begin2 == end;
 }
 
@@ -26,7 +26,7 @@ void move_file(std::string const& old, std::string const& new_)
         std::ifstream fp1(new_.c_str());
         if(!fp1)
             throw std::runtime_error( "couldn't open file '" + new_ + "' for reading" );
-    
+
         std::ifstream fp2(old.c_str());
         if(fp2 && equal_streams(fp1, fp2))
             return;
@@ -58,7 +58,7 @@ int delete_files(std::string const& old, std::string const& new_)
             else
                 fs::remove(entry.c_str());
         }
-            
+
         if(fs::is_directory(entry))
             count += delete_files(entry, new_entry);
     }
@@ -76,10 +76,10 @@ void move_files(std::string const& old, std::string const& new_)
         std::string const entry_name( *current_dir            );
         std::string const      entry( old + '/' + entry_name  );
         std::string const  new_entry( new_ + '/' + entry_name );
-        
+
         if(fs::extension(entry_name) == ".hpp")
             move_file(entry, new_entry);
-            
+
         if(fs::is_directory(new_entry))
             move_files(entry, new_entry);
     }

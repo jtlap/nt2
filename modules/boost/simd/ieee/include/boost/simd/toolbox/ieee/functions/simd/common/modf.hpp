@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MODF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SIMD_COMMON_MODF_HPP_INCLUDED
@@ -17,9 +17,9 @@
 
 namespace boost { namespace simd { namespace ext
 {
-    BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X), 
+    BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X),
 				((simd_< arithmetic_<A0>, X>))
-				((simd_< arithmetic_<A0>, X>))    
+				((simd_< arithmetic_<A0>, X>))
 				((simd_< arithmetic_<A0>, X>))
                             )
   {
@@ -28,23 +28,23 @@ namespace boost { namespace simd { namespace ext
       {
 	r1 = boost::simd::trunc(a0);
 	r0 = a0-r1;
-	return 0; 
+	return 0;
       }
   };
-  
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X), 
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X),
 			      ((simd_< arithmetic_<A0>, X>))
-			      ((simd_< arithmetic_<A0>, X>))    
+			      ((simd_< arithmetic_<A0>, X>))
                             )
   {
     typedef A0 result_type;
     inline A0 operator()(A0 const& a0,A0 & r1) const
       {
 	r1 = boost::simd::trunc(a0);
-	return a0-r1;    
+	return a0-r1;
       }
   };
-    
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::modf_, tag::cpu_,
                        (A0)(X),
                        ((simd_<arithmetic_<A0>,X>))

@@ -12,7 +12,7 @@
 // unit test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/operator/include/functions/shift_right.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,7 +33,7 @@
 
 NT2_TEST_CASE_TPL ( shift_right_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::shift_right;
   using nt2::tag::shift_right_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -43,9 +43,9 @@ NT2_TEST_CASE_TPL ( shift_right_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef r_t wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -59,7 +59,7 @@ NT2_TEST_CASE_TPL ( shift_right_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( shift_right_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::shift_right;
   using nt2::tag::shift_right_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -69,9 +69,9 @@ NT2_TEST_CASE_TPL ( shift_right_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef r_t wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( shift_right_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( shift_right_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::shift_right;
   using nt2::tag::shift_right_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -94,9 +94,9 @@ NT2_TEST_CASE_TPL ( shift_right_real__2_0,  NT2_REAL_TYPES)
   typedef r_t wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

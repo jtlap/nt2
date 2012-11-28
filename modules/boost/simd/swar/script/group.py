@@ -12,9 +12,9 @@
          'call_types' : [],
          'ret_arity' : '0',
          'rturn' : {
-             'default' : 'vT', 
+             'default' : 'vT',
             },
-         'special' : ['swar'],   
+         'special' : ['swar'],
          'type_defs' : [],
          'types' : ['groupable_'],
          'simd_types' : ['groupable_'],
@@ -65,11 +65,11 @@
                 },
              'scalar_simul' :{
                     'default' : [
-                        "        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)",      
-                        "         {",      
-                        "            NT2_TEST_EQUAL(v[i],ssr_t(a0[i]));",      
-                        "            NT2_TEST_EQUAL(v[i+cardinal_of<n_t>::value],ssr_t(a1[i]));",      
-                        "         }",                
+                        "        for( uint32_t i = 0; i<cardinal_of<n_t>::value; i++)",
+                        "         {",
+                        "            NT2_TEST_EQUAL(v[i],ssr_t(a0[i]));",
+                        "            NT2_TEST_EQUAL(v[i+cardinal_of<n_t>::value],ssr_t(a1[i]));",
+                        "         }",
                             ]
                },
            },

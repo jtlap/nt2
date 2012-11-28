@@ -25,11 +25,11 @@
  * but as a value of imaginary type
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/pure.hpp>
  * \endcode
- * 
+ *
  * \synopsis
  *
  * \code
@@ -42,13 +42,13 @@
  * \endcode
  *
  * \param a0 the first parameter of pure
- * 
+ *
  * \return an imaginary value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the input vectors' elements
  * \par
- *  
+ *
 **/
 
 namespace nt2
@@ -56,7 +56,7 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag pure_ of functor pure 
+     * \brief Define the tag pure_ of functor pure
      *        in namespace nt2::tag for toolbox complex
     **/
     struct pure_ : ext::elementwise_<pure_> { typedef ext::elementwise_<pure_> parent; };

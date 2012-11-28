@@ -9,7 +9,7 @@
 #ifndef NT2_SDK_ERROR_POLICIES_HPP_INCLUDED
 #define NT2_SDK_ERROR_POLICIES_HPP_INCLUDED
 
-#include <boost/math/policies/policy.hpp> 
+#include <boost/math/policies/policy.hpp>
 
 namespace nt2
 {
@@ -21,4 +21,4 @@ namespace nt2
                 > nt2_policy;
 }
 
-#endif 
+#endif

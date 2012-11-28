@@ -24,11 +24,11 @@
  * return a complex from the modulus and argument
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/frompolar.hpp>
  * \endcode
- * 
+ *
  * \synopsis
  *
  * \code
@@ -41,13 +41,13 @@
  * \endcode
  *
  * \param a0 the first parameter of frompolar
- * 
+ *
  * \return a real value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the input vectors' elements
  * \par
- *  
+ *
 **/
 
 namespace nt2
@@ -55,7 +55,7 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag frompolar_ of functor frompolar 
+     * \brief Define the tag frompolar_ of functor frompolar
      *        in namespace nt2::tag for toolbox complex
     **/
     struct frompolar_ : ext::elementwise_<frompolar_> { typedef ext::elementwise_<frompolar_> parent; };

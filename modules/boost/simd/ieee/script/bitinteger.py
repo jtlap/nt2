@@ -6,7 +6,7 @@
                          'It transforms a floating point value in a pattern of bits',
                          'stored in an integer with different formulas according to',
                          'the floating point sign (it is the converse of bitfloating)'],
-         'return' : ['always an integer value'],   
+         'return' : ['always an integer value'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

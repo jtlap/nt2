@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL( asum2_scalar, (float)(double))//NT2_TYPES )
 NT2_TEST_CASE_TPL( asum2, (float)(double))//NT2_TYPES )
 {
   typedef std::complex<T>  cT;
-  using nt2::_; 
+  using nt2::_;
   nt2::table<cT> y( nt2::of_size(5,3) );
   nt2::table<T> sy( nt2::of_size(1,3) );
   nt2::table<T> sz( nt2::of_size(1,3) );
@@ -43,25 +43,25 @@ NT2_TEST_CASE_TPL( asum2, (float)(double))//NT2_TYPES )
   for(int j=1;j<=3;j++)
     for(int i=1;i<=5;i++)
       y(i,j) = i + 10*j;
- 
+
   for(size_t j=1;j<=size(sy, 2);j++)
     for(size_t i=1;i<=size(sy, 1);i++)
       y(i,j) = i - j;
 
   sy = nt2::asum2(y);
-  sz = nt2::sum(nt2::sqr_abs(y)); 
+  sz = nt2::sum(nt2::sqr_abs(y));
   for(int j=1;j<=3;j++)
       NT2_TEST_EQUAL(sz(j), sy(j));
   sy = nt2::asum2(y, 1);
-  sz = nt2::sum(nt2::sqr_abs(y), 1); 
+  sz = nt2::sum(nt2::sqr_abs(y), 1);
   for(size_t j=1;j<=size(sy, 2);j++)
       NT2_TEST_EQUAL(sz(j), sy(j));
   sy = nt2::asum2(y, 2);
-  sz = nt2::sum(nt2::sqr_abs(y), 2); 
+  sz = nt2::sum(nt2::sqr_abs(y), 2);
     for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sz(i), sy(i));
   sy = nt2::asum2(y, 3);
-  sz = nt2::sum(nt2::sqr_abs(y), 3); 
+  sz = nt2::sum(nt2::sqr_abs(y), 3);
   for(size_t j=1;j<=size(sy, 2);j++)
     for(size_t i=1;i<=size(sy, 1);i++)
       NT2_TEST_EQUAL(sz(i, j), sy(i, j));

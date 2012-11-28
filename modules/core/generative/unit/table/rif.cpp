@@ -135,14 +135,14 @@ NT2_TEST_CASE_TPL( rif_typed_expr, NT2_TYPES )
 
 NT2_TEST_CASE( rif_Nd)
 {
-  typedef float T; 
+  typedef float T;
   nt2::table<int> t(nt2::of_size(1, 3) );
   t(1) = 3;
   t(2) = 4;
   t(3) = 2;
 
   nt2::table<T> x1 = nt2::rif( t, nt2::meta::as_<T>() );
-  NT2_DISPLAY(x1); 
+  NT2_DISPLAY(x1);
   for(int i=1;i<=3;++i)
     for(int j=1;j<=4;++j)
       for(int k=1;k<=2;++k)
@@ -150,7 +150,7 @@ NT2_TEST_CASE( rif_Nd)
 
   nt2::table<int> a( nt2::of_size(4,5,3) );
   nt2::table<T> x2 = nt2::rif( nt2::size(a), nt2::meta::as_<T>() );
-  NT2_DISPLAY(x2); 
+  NT2_DISPLAY(x2);
 
   for(int i=1;i<=4;++i)
     for(int j=1;j<=5;++j)

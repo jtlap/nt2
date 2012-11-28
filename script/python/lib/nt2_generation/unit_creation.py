@@ -31,8 +31,8 @@ from nt2_tb_props                    import Nt2_tb_props
 from nt2_fct_props                   import Nt2_fct_props
 from unit_base_gen                   import Base_gen
 from unit_global_header_gen          import Global_header_gen
-from unit_type_header_gen            import Type_header_test_gen 
-from unit_specific_values_gen        import Specific_values_test_gen 
+from unit_type_header_gen            import Type_header_test_gen
+from unit_specific_values_gen        import Specific_values_test_gen
 from unit_random_verif_gen           import Random_verif_test_gen
 sys.path.pop(0)
 sys.path.pop(0)
@@ -91,17 +91,17 @@ class Create_tests(Nt2_tb_props) :
         r = ghg.get_gen_result()
         dl = bg.get_fct_dict_list()
         for rank,d in enumerate(dl) :
-            
+
             df = d.get('functor',False)
             if not df : df = self.Default_df
             if df.get('no_simd_tests',False) : return []
-            
+
             types = []
             if mode == 'simd':
                 types = bg.recover('simd_types',df,[])
             if len(types) == 0:
                 types = bg.recover('types',df,['real_'])
-            
+
             ret_arity = int(df["ret_arity"])
             d_unit = d.get("unit",{})
             for typ in types :
@@ -114,14 +114,14 @@ class Create_tests(Nt2_tb_props) :
 ##                    print(s)
 ##                    raise SystemExit
 ##                    if not s : return False
-                    r += s    
+                    r += s
                 if ("cover" == part) and d_unit.get("verif_test",None) :
                     vtg = Random_verif_test_gen(bg,d,typ,platform)
                     s = vtg.get_gen_result()
 ##                    print(s)
 ##                    raise SystemExit
 ##                    if not s : return False
-                    r += s    
+                    r += s
                 r+=thg.get_gen_end()
         return r
 
@@ -138,10 +138,10 @@ class Create_tests(Nt2_tb_props) :
                         print('no regeneration possible for %s %s-tests, please do it manually' % (fct,mode))
                     else :
                         just = "just" if show and not self.write_files else ""
-                        if show : 
+                        if show :
                             print("%s showing text of %s.cpp for %s-test: %s"% (just,fct,mode,part))
                             print("<"+"="*40)
-                            PrettyPrinter().pprint(r)            
+                            PrettyPrinter().pprint(r)
                             print("="*40+">")
                         if self.write_files :
                             print("writing text of %s.cpp for %s-test"% (fct,mode))
@@ -156,7 +156,7 @@ class Create_tests(Nt2_tb_props) :
         def test_immutable(p) :
             s= '\n'.join(read(p))
             return s.find('//COMMENTED') != -1
-            
+
         nfp = Nt2_fct_props(self.tb_name,fct_name,mode)
         p = nfp.get_fct_unit_path(mode,part)
         if exist(os.path.split(p)[0]) :
@@ -179,12 +179,12 @@ class Create_tests(Nt2_tb_props) :
             p1 = os.path.join(os.path.split(p)[0],'CMakeLists.txt')
             addline=Add_line(p1,fct_name)
             addline.update_file("SET\( *SOURCES")
-        elif self.verbose : 
+        elif self.verbose :
             print("%s directory\n  does not exist " %os.path.split(p)[0])
 
- 
 
-        
+
+
 if __name__ == "__main__" :
     tb_name = "operator"
     fcts = Nt2_tb_props(tb_name).get_fcts_list()
@@ -197,5 +197,5 @@ if __name__ == "__main__" :
                      write_files=False,
                      check_on_write=True,
                      backup_on_write=True,
-                     verbose=False) 
+                     verbose=False)
     ct.create_units()

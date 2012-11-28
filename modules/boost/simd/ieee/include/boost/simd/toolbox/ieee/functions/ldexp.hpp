@@ -25,12 +25,12 @@
  * Integer version is a shift left
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ldexp.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  *
  * \param a0 the first parameter of ldexp
  * \param a1 the second parameter of ldexp
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ldexp_ of functor ldexp 
+     * \brief Define the tag ldexp_ of functor ldexp
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct ldexp_ : ext::elementwise_<ldexp_> { typedef ext::elementwise_<ldexp_> parent; };

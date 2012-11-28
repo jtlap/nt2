@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MULS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_MULS_HPP_INCLUDED
@@ -37,7 +37,7 @@
 //     struct result<This(A0, A0)> : meta::strip<A0>{};
 //     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
 //     {
-//       typedef typename dispatch::meta::as_integer<A0, unsigned>::type untype; 
+//       typedef typename dispatch::meta::as_integer<A0, unsigned>::type untype;
 //       A0 sign = b_xor(is_ltz(a0), is_ltz(a1));
 //       untype aa0 = simd::bitwise_cast<untype>(boost::simd::abs(a0));
 //       untype aa1 = simd::bitwise_cast<untype>(boost::simd::abs(a1));
@@ -46,7 +46,7 @@
 //       return select( lt(rdivide(simd::bitwise_cast<untype>(Valmax<A0>()), ga), la),
 //                 select(sign, Valmin<A0>(), Valmax<A0>()),
 //                 a0*a1
-//                ); 
+//                );
 //     }
 //   };
 // } } }
@@ -72,7 +72,7 @@
 //       return select( lt(rdivide(Valmax<A0>(), a0), a1),
 //                 Valmax<A0>(),
 //                 a0*a1
-//                ); 
+//                );
 //     }
 //   };
 // } } }

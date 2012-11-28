@@ -25,12 +25,12 @@
  * \arg fast_sincosd(a,si,co) returns 0 and and put the sine of a in si and the cosine cosine of a in co.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_sincosd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,29 +40,29 @@
  *   typename boost::dispatch::meta::call<tag::fast_sincosd(A0 const&,A0 const&)
  *                                       >::type
  *   fast_sincosd(A0 const& a);
- *    
+ *
  *   template<class A0> inline
  *   A0 fast_sincosd(A0 const& a,A0,A0& si);
- *    
+ *
  *   template<class A0> inline
  *   int fast_sincosd(A0 const& a,A0,A0& si,A0& co);
  * }
  * \endcode
  *
  * \param a0 the unique parameter of fast_sincosd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_sincosd_ of functor fast_sincosd 
+     * \brief Define the tag fast_sincosd_ of functor fast_sincosd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_sincosd_ : ext::elementwise_<fast_sincosd_> { typedef ext::elementwise_<fast_sincosd_> parent; };

@@ -21,7 +21,7 @@
                 "template<class A0,class A1> inline",
                 "int frexp(A0 const& a0,A0& a2,A1& a3);",
                  ],
-         'max_arity' : '3',   
+         'max_arity' : '3',
          'param_1' : ['if not present, the function return a boost::fusion sequence'],
          'param_2' : ['if present will contain the mantissa of a0'],
          'param_3' : ['if present will contain the exponent of a0'],
@@ -43,7 +43,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
-             'included' : 
+             'included' :
                 ['#include <boost/simd/include/functions/mantissa.hpp>',
                  '#include <boost/simd/include/functions/exponent.hpp>'],
              'no_ulp' : 'True',

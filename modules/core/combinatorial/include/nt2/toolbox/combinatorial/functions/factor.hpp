@@ -22,12 +22,12 @@
  * returns the table of prime numbers less or equal to the input
  * \par
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/factor.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,27 +40,27 @@
  * \endcode
  *
  * \param a0 the unique parameter of factor
- * 
+ *
  * \param T template parameter of factor
- * 
+ *
  * \return a value of the template parameter type T.
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag factor_ of functor factor 
+     * \brief Define the tag factor_ of functor factor
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct factor_ : ext::elementwise_<factor_> { typedef ext::elementwise_<factor_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::factor_,factor, 1)
-} 
+}
 
 #endif
 

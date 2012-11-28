@@ -1,5 +1,5 @@
 /*******************************************************************************
- *         Copyright 2003-2012 LASMEA UMR 6602 CNRS/U.B.P 
+ *         Copyright 2003-2012 LASMEA UMR 6602 CNRS/U.B.P
  *         Copyright 2009-2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
  *
  *          Distributed under the Boost Software License, Version 1.0.
@@ -103,7 +103,7 @@ namespace nt2
                                nt2_la_int* jpvt, nt2_la_complex* tau, nt2_la_complex* work,
                                const nt2_la_int* lwork, double* rwork, nt2_la_int* info);
     }
-    
+
 
 #define NT2_GEQP3(NAME, T)                            \
     inline void geqp3(const nt2_la_int* m,            \
@@ -134,7 +134,7 @@ namespace nt2
       geqp3(m, n, a, lda, jpvt,                       \
             tau, info, w);                            \
     }                                                 \
-        
+
     NT2_GEQP3(sgeqp3, float)
     NT2_GEQP3(dgeqp3, double)
 
@@ -177,7 +177,7 @@ namespace nt2
 
 #undef NT2_GEQP3
 
-    
+
   }
 }
 

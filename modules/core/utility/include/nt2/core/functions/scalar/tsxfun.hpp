@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
                               (unspecified_<A0>)
                               (scalar_< unspecified_<A1> >)
                               (scalar_< unspecified_<A2> >)
-                              (scalar_< unspecified_<A3> >) 
+                              (scalar_< unspecified_<A3> >)
                             )
   {
     typedef typename

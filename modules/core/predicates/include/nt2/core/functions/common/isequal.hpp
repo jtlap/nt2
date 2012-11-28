@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_<unspecified_<A1> >)
-                              
+
                             )
   {
     typedef bool result_type;

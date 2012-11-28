@@ -1,7 +1,7 @@
 [section dot]
 
 [h5 Description]
-Dot product between two SIMD registers. 
+Dot product between two SIMD registers.
 
 [h5 Synopsis]
     namespace boost { namespace simd

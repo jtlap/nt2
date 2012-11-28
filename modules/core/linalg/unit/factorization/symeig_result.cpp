@@ -54,6 +54,6 @@ NT2_TEST_CASE_TPL(symeig_result, NT2_REAL_TYPES)
   t_t zz = nt2::triu(z);
   t_t bbb= nt2::triu(b);
   NT2_DISPLAY(zz);
-  NT2_DISPLAY(bbb); 
-  NT2_TEST(isulpequal(nt2::triu(z), nt2::triu(b), T(16.0))); 
+  NT2_DISPLAY(bbb);
+  NT2_TEST(isulpequal(nt2::triu(z), nt2::triu(b), T(16.0)));
 }

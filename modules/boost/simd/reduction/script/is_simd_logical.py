@@ -10,7 +10,7 @@
              'default' : 'bool',
             },
          'simd_types' : ['real_'],
-         'special' : ['reduction'],  
+         'special' : ['reduction'],
          'type_defs' : [],
          'types' : ['real_', 'signed_int_','unsigned_int_'],
         },

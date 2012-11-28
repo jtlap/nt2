@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_LOGS_F_LOG_HPP_INCLUDED
@@ -29,18 +29,18 @@ namespace nt2
     namespace internal
     {
       template < class A0,
-                 class Style , 
-                 class base_A0 = typename meta::scalar_of<A0>::type> 
+                 class Style ,
+                 class base_A0 = typename meta::scalar_of<A0>::type>
       struct logarithm{};
-      
+
       //////////////////////////////////////////////////////////////////////////////
       // math log functions
       //////////////////////////////////////////////////////////////////////////////
 
-      template < class A0 > 
+      template < class A0 >
       struct logarithm< A0, tag::not_simd_type, float>
       {
-      
+
         static inline void kernel_log(const A0& a0,
                                       A0& fe,
                                       A0& x,
@@ -48,7 +48,7 @@ namespace nt2
                                       A0& y)
         {
           typedef typename meta::as_integer<A0, signed>::type int_type;
-          typedef typename meta::strip<A0>::type stA0; 
+          typedef typename meta::strip<A0>::type stA0;
           int_type e;
           boost::fusion::vector_tie(x, e) = fast_frexp(a0);
           int_type x_lt_sqrthf = -(single_constant<stA0, 0x3f3504f3>() > x);
@@ -67,10 +67,10 @@ namespace nt2
           y = madd(x,y2,y1)*x*x2;
           fe = tofloat(e);
         }
-        
+
         static inline A0 log(const A0& a0)
         {
-          typedef typename meta::strip<A0>::type stA0; 
+          typedef typename meta::strip<A0>::type stA0;
           if (a0 == Inf<stA0>()) return a0;
           if (is_eqz(a0)) return Minf<stA0>();
           if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<stA0>();
@@ -81,10 +81,10 @@ namespace nt2
           A0 z  = x + y;
           return madd(single_constant<stA0, 0x3f318000>(), fe, z);
         }
-        
+
         static inline A0 log2(const A0& a0)
         {
-          typedef typename meta::strip<A0>::type stA0; 
+          typedef typename meta::strip<A0>::type stA0;
           if (a0 == Inf<stA0>()) return a0;
           if (is_eqz(a0)) return Minf<stA0>();
           if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<stA0>();
@@ -98,10 +98,10 @@ namespace nt2
                        );
           return ((z+y)+x)+fe;
         }
-        
+
         static inline A0 log10(const A0& a0)
         {
-          typedef typename meta::strip<A0>::type stA0; 
+          typedef typename meta::strip<A0>::type stA0;
           if (a0 == Inf<stA0>()) return a0;
           if (is_eqz(a0)) return Minf<stA0>();
           if (nt2::is_nan(a0)||is_ltz(a0)) return Nan<stA0>();
@@ -115,7 +115,7 @@ namespace nt2
           z = amul(z, fe, single_constant<stA0, 0x39826a14>());//3.0078125E-1f              // log10(2)hi
           return amul(z, fe, single_constant<stA0, 0x3e9a0000 >());//2.48745663981195213739E-4f // log10(2)lo
         }
-      }; 
+      };
     }
   }
 }

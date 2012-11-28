@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/unary_minus.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( unary_minus_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::unary_minus;
   using boost::simd::tag::unary_minus_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( unary_minus_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNE
 {
   using boost::simd::unary_minus;
   using boost::simd::tag::unary_minus_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

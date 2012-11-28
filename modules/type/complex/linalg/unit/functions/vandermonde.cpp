@@ -19,19 +19,19 @@
 
 NT2_TEST_CASE_TPL ( vandermonde_2, NT2_REAL_TYPES)
 {
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   nt2::table<cT> a0(nt2::of_size(1, 3));
   for(int i=1; i <= 3; i++)
   {
-    a0(i) = cT(i); 
+    a0(i) = cT(i);
   }
-  NT2_DISPLAY(a0); 
-  nt2::table<cT> v  =  nt2::vandermonde(a0); 
+  NT2_DISPLAY(a0);
+  nt2::table<cT> v  =  nt2::vandermonde(a0);
   nt2::display("vandermonde(a0)", v);
   nt2::display("vandermonde(a0)", nt2::vandermonde(a0));
   T bc[9] =  {
-    1, 1, 1, 
-    4, 2, 1, 
+    1, 1, 1,
+    4, 2, 1,
     9, 3, 1
   };
   int k = 0;
@@ -42,9 +42,9 @@ NT2_TEST_CASE_TPL ( vandermonde_2, NT2_REAL_TYPES)
     {
       a(i, j) = cT(bc[k++]);
     }
-    
+
   }
-  NT2_DISPLAY(a); 
- NT2_TEST(nt2::isulpequal(a, v, 2.0));  
+  NT2_DISPLAY(a);
+ NT2_TEST(nt2::isulpequal(a, v, 2.0));
 }
 

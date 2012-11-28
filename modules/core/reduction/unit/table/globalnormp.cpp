@@ -23,7 +23,7 @@
 NT2_TEST_CASE_TPL( globalnormp, NT2_REAL_TYPES )
 {
   using nt2::_;
-  using nt2::normp; 
+  using nt2::normp;
   nt2::table<T> a = nt2::reshape(nt2::_(T(1), T(9)), 3, 3);
   NT2_TEST_EQUAL( nt2::globalnormp(a,  3), normp(a(_), 3)(1));
 }

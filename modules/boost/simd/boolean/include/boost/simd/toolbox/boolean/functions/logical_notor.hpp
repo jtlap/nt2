@@ -24,14 +24,14 @@
  * the result type is logical type associated to the first parameter
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/logical_notor.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg l_notor
- * 
+ *
  * \synopsis
  *
  * \code
@@ -45,15 +45,15 @@
  *
  * \param a0 the first parameter of logical_notor
  * \param a1 the second parameter of logical_notor
- * 
+ *
  * \return a value of the logical type associated to the first parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
  * This is a logical operation. Such operations return logical types.
  * You are invited to consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -61,7 +61,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag logical_notor_ of functor logical_notor 
+     * \brief Define the tag logical_notor_ of functor logical_notor
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct logical_notor_ : ext::elementwise_<logical_notor_> { typedef ext::elementwise_<logical_notor_> parent; };

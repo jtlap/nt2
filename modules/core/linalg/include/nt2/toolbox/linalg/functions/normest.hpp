@@ -21,29 +21,29 @@
  * norm estimate
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/normest.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
- * \param a the matrix or vector expression a 
+ * \param a the matrix or vector expression a
  *
  * \param type of normest required
- * 
+ *
  **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag normest_ of functor normest
      *        in namespace nt2::tag for toolbox algebra
      **/
     struct normest_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::normest_, normest, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::normest_, normest, 1)
 

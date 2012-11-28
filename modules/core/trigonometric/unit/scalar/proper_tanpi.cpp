@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/proper_tanpi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -36,7 +36,7 @@ extern "C" {extern long double cephes_tanl(long double);}
 
 NT2_TEST_CASE_TPL ( proper_tanpi_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::proper_tanpi;
   using nt2::tag::proper_tanpi_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -46,9 +46,9 @@ NT2_TEST_CASE_TPL ( proper_tanpi_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(proper_tanpi(-nt2::Quarter<T>()), nt2::Mone<r_t>(), 1.0);
@@ -61,6 +61,6 @@ NT2_TEST_CASE_TPL ( proper_tanpi_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(proper_tanpi(nt2::One<T>()), nt2::Nan<r_t>(), 0.5);
   NT2_TEST_ULP_EQUAL(proper_tanpi(nt2::Quarter<T>()), nt2::One<r_t>(), 1.0);
   NT2_TEST_ULP_EQUAL(proper_tanpi(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(proper_tanpi(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);    
+  NT2_TEST_ULP_EQUAL(proper_tanpi(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
 } // end of test for floating_
 

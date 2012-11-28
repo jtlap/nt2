@@ -22,12 +22,12 @@
  * sign of gamma function
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/signgam.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of signgam
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag signgam_ of functor signgam 
+     * \brief Define the tag signgam_ of functor signgam
      *        in namespace nt2::tag for toolbox euler
     **/
     struct signgam_ : ext::elementwise_<signgam_> { typedef ext::elementwise_<signgam_> parent; };

@@ -25,11 +25,11 @@
  * but as a value of imaginary type
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/c_real.hpp>
  * \endcode
- * 
+ *
  * \synopsis
  *
  * \code
@@ -42,13 +42,13 @@
  * \endcode
  *
  * \param a0 the first parameter of c_real
- * 
+ *
  * \return an imaginary value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the input vectors' elements
  * \par
- *  
+ *
 **/
 
 namespace nt2
@@ -56,7 +56,7 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag c_real_ of functor c_real 
+     * \brief Define the tag c_real_ of functor c_real
      *        in namespace nt2::tag for toolbox complex
     **/
     struct c_real_ : ext::elementwise_<c_real_> { typedef ext::elementwise_<c_real_> parent; };

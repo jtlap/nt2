@@ -20,12 +20,12 @@
  * according to the first entry being True or False
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/seladd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \param a0 the first parameter of seladd
  * \param a1 the second parameter of seladd, must be an integer value
  * \param a2 the third parameter of seladd
- * 
+ *
  * \return a value of the common type of the 2 last parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag seladd_ of functor seladd 
+     * \brief Define the tag seladd_ of functor seladd
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
     **/
     struct seladd_ : ext::elementwise_<seladd_> { typedef ext::elementwise_<seladd_> parent; };

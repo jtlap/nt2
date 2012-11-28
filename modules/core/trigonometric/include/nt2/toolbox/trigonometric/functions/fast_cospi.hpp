@@ -22,12 +22,12 @@
  * cosine of the angle in pi multiples, in the interval \f$[-1/4, 1/4]\f$, nan outside.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_cospi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of fast_cospi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_cospi_ of functor fast_cospi 
+     * \brief Define the tag fast_cospi_ of functor fast_cospi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_cospi_ : ext::elementwise_<fast_cospi_> { typedef ext::elementwise_<fast_cospi_> parent; };

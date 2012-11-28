@@ -4,7 +4,7 @@
          'description' : ['The function returns the high part of the entry',
                           'shifted right as an integer of the same size as',
                           'the input.'],
-         'return' : ['always returns an integer value'],   
+         'return' : ['always returns an integer value'],
           'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -29,7 +29,7 @@
             },
          'ranges' : {
              'default' : [['boost::simd::Valmin<T>()/2', 'boost::simd::Valmax<T>()/2']],
-             'sintgt_8_' :  [['boost::simd::Valmin<T>()/2', 'boost::simd::Valmax<T>()/2']],  
+             'sintgt_8_' :  [['boost::simd::Valmin<T>()/2', 'boost::simd::Valmax<T>()/2']],
             },
          'specific_values' : {
              'default' : {

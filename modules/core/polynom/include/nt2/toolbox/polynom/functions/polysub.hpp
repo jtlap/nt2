@@ -21,10 +21,10 @@
 // in decreasing degrees order
 
 namespace nt2 { namespace tag
-  {         
+  {
     struct polysub_ : ext::elementwise_<polysub_> { typedef ext::elementwise_<polysub_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::polysub_, polysub, 2)
 }
- 
+
 #endif

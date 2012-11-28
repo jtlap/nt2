@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/is_equal.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( is_equal_integer__2_0, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::is_equal;
   using boost::simd::tag::is_equal_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( is_equal_integer__2_0, BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<is_equal_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename r_t::value_type vsr_t; 
+  typedef typename r_t::value_type vsr_t;
 
   // specific values tests
    NT2_TEST_EQUAL(is_equal(boost::simd::One<vT>(), boost::simd::One<vT>())[0], vsr_t(true));
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( is_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_equal;
   using boost::simd::tag::is_equal_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -69,7 +69,7 @@ NT2_TEST_CASE_TPL ( is_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<is_equal_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename r_t::value_type vsr_t; 
+  typedef typename r_t::value_type vsr_t;
 
   // specific values tests
   NT2_TEST_EQUAL(is_equal(boost::simd::Inf<vT>(), boost::simd::Inf<vT>())[0], vsr_t(true));
@@ -82,7 +82,7 @@ NT2_TEST_CASE_TPL ( is_equall,  BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::is_equal;
   using boost::simd::tag::is_equal_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -95,7 +95,7 @@ NT2_TEST_CASE_TPL ( is_equall,  BOOST_SIMD_SIMD_TYPES)
   typedef typename boost::dispatch::meta::call<is_equal_(vT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename r_t::value_type vsr_t; 
+  typedef typename r_t::value_type vsr_t;
 
   // specific values tests
   NT2_TEST_EQUAL(is_equal(boost::simd::True<vlT>(),boost::simd::False<vlT>())[0], vsr_t(false));

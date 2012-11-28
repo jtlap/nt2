@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASINH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COMPLEX_GENERIC_ASINH_HPP_INCLUDED
@@ -38,8 +38,8 @@ namespace nt2 { namespace ext
       // Note that C99 defines this the other way around (which is
       // to say asin is specified in terms of asinh), this is consistent
       // with C99 though:
-      result_type res =  mul_i(nt2::asin(mul_minus_i(a0))); 
-      return res;     
+      result_type res =  mul_i(nt2::asin(mul_minus_i(a0)));
+      return res;
     }
   };
 
@@ -48,10 +48,10 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_real<A0>::type rtype;
-    typedef typename meta::as_complex<A0>::type result_type; 
+    typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(mul_i(nt2::asin(mul_minus_i(a0)))); 
+      return bitwise_cast<result_type>(mul_i(nt2::asin(mul_minus_i(a0))));
     }
   };
 
@@ -59,15 +59,15 @@ namespace nt2 { namespace ext
                             , (generic_< dry_< arithmetic_<A0> > >)
                             )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       //asinh is bijective on the real axis and its computation
       // involves no proper complex value
-      return bitwise_cast<result_type>(nt2::asinh(nt2::real(a0))); 
+      return bitwise_cast<result_type>(nt2::asinh(nt2::real(a0)));
     }
   };
-  
+
 } }
 
 #endif

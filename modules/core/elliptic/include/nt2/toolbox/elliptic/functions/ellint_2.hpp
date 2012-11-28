@@ -24,12 +24,12 @@
  * \f[E(a_0) = \int_0^{\pi/2} (1-a_0^2\sin^2 t)^{\frac12} dt\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ellint_2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ellint_2
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ellint_2_ of functor ellint_2 
+     * \brief Define the tag ellint_2_ of functor ellint_2
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellint_2_ : ext::elementwise_<ellint_2_> { typedef ext::elementwise_<ellint_2_> parent; };

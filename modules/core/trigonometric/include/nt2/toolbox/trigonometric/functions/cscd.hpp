@@ -22,12 +22,12 @@
  * cosecante in degree.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cscd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cscd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cscd_ of functor cscd 
+     * \brief Define the tag cscd_ of functor cscd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cscd_ : ext::elementwise_<cscd_> { typedef ext::elementwise_<cscd_> parent; };

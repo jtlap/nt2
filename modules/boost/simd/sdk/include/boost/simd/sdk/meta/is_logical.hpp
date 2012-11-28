@@ -15,7 +15,7 @@ namespace boost { namespace simd
 {
   template<class T>
   struct logical;
-  
+
 namespace meta
 {
   template<class T>

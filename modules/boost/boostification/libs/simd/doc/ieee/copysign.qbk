@@ -1,8 +1,8 @@
 [section copysign]
 
 [h5 Description]
-This functor produce a value with the magnitude of 
-the first parameter and the sign of second. 
+This functor produce a value with the magnitude of
+the first parameter and the sign of second.
 
 If parameter contains  floating point values, cases negative Zero is treated consistently.
 

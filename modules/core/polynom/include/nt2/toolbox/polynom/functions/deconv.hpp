@@ -23,26 +23,26 @@
 // in decreasing degrees order
 
 namespace nt2 { namespace tag
-  {         
+  {
     struct deconv_ : ext::tieable_<deconv_> { typedef ext::tieable_<deconv_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::deconv_, deconv, 2)
 }
- 
+
  namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::deconv_,Domain,N,Expr>
   {
     typedef _2D result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       _2D sizee;
       sizee[0] = 1;
       sizee[1] = nt2::numel(boost::proto::child_c<0>(e)) > nt2::numel(boost::proto::child_c<1>(e)) ?
-        nt2::numel(boost::proto::child_c<0>(e))-nt2::numel(boost::proto::child_c<1>(e))+1 : 0; 
-      return sizee; 
+        nt2::numel(boost::proto::child_c<0>(e))-nt2::numel(boost::proto::child_c<1>(e))+1 : 0;
+      return sizee;
     }
   };
 

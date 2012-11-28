@@ -23,14 +23,14 @@
  * true is only if all bits set in a0 are also set in a1
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_included.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg testz
- * 
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  *
  * \param a0 the first parameter of is_included
  * \param a1 the second parameter of is_included
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -57,13 +57,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_included_ of functor is_included 
+     * \brief Define the tag is_included_ of functor is_included
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct is_included_ : ext::unspecified_<is_included_> { typedef ext::unspecified_<is_included_> parent; };

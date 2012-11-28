@@ -154,7 +154,7 @@ namespace meta
                                                  >
                                  )
                                );
-                          
+
   BOOST_DISPATCH_HIERARCHY_CLASS_TPL(type32_       , floating_sized_<T>  );
   BOOST_DISPATCH_HIERARCHY_CLASS_TPL(type64_       , floating_sized_<T>  );
 

@@ -42,9 +42,9 @@ NT2_TEST_CASE_TPL ( svd, NT2_REAL_TYPES)
   NT2_DISPLAY(v);
   table_t zz = nt2::mtimes(u, nt2::mtimes(w, nt2::trans(v)));
   std::cout <<        nt2::globalmax(nt2::ulpdist(b, zz)) << std::endl;
-  
+
   NT2_TEST(nt2::isulpequal(nt2::mtimes(u, nt2::mtimes(w, nt2::trans(v))), b, T(15.0)));
-  
+
   nt2::tie(u, w, v) = nt2::svd(b, 'R'); //economy 0
   NT2_DISPLAY(u);
   NT2_DISPLAY(w);

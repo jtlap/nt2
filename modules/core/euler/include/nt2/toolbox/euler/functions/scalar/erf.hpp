@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_ERF_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_ERF_HPP_INCLUDED
@@ -52,14 +52,14 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       static const boost::array<A0, 5 > erf0_P4 = {{
-        A0(6.49254556481904E-05), 
+        A0(6.49254556481904E-05),
         A0(1.20339380863079E-03),
         A0(4.03259488531795E-02),
         A0(0.135894887627278   ),
         A0(1.12837916709551    )
       }};
        static const boost::array<A0, 5 > erf0_Q4 = {{
-        A0(3.64915280629351E-04), 
+        A0(3.64915280629351E-04),
         A0(8.49717371168693E-03),
         A0(8.69936222615386E-02),
         A0(0.453767041780003   ),
@@ -67,16 +67,16 @@ namespace nt2 { namespace ext
       }};
 
       static const boost::array<A0, 7 > erfc1_P5 = {{
-        A0(0                   ), 
-        A0(7.06940843763253E-03),  
-        A0(7.14193832506776E-02), 
-        A0(0.331899559578213   ),         
-        A0(0.878115804155882   ),         
-        A0(1.33154163936765    ),         
+        A0(0                   ),
+        A0(7.06940843763253E-03),
+        A0(7.14193832506776E-02),
+        A0(0.331899559578213   ),
+        A0(0.878115804155882   ),
+        A0(1.33154163936765    ),
         A0(0.999999992049799   )
       }};
        static const boost::array<A0, 7 > erfc1_Q5 = {{
-        A0(1.25304936549413E-02), 
+        A0(1.25304936549413E-02),
         A0(0.126579413030178   ),
         A0(0.594651311286482   ),
         A0(1.61876655543871    ),
@@ -84,9 +84,9 @@ namespace nt2 { namespace ext
         A0(2.45992070144246    ),
         A0(1                   )
       }};
-    
+
       static const boost::array<A0, 7 > erfc2_P5 = {{
-        A0(0                   ), 
+        A0(0                   ),
         A0(2.25716982919218E-02),
         A0(0.157289620742839   ),
         A0(0.581528574177741   ),
@@ -95,7 +95,7 @@ namespace nt2 { namespace ext
         A0(0.99992114009714    )
       }};
        static const boost::array<A0, 7 > erfc2_Q5 = {{
-        A0(4.00072964526861E-02), 
+        A0(4.00072964526861E-02),
         A0(0.278788439273629   ),
         A0(1.05074004614827    ),
         A0(2.38574194785344    ),
@@ -103,8 +103,8 @@ namespace nt2 { namespace ext
         A0(2.75143870676376    ),
         A0(1                   )
       }};
-        
-       if(is_nan(a0)) return a0; 
+
+       if(is_nan(a0)) return a0;
        A0 x =  nt2::abs(a0);
        A0 xx =  sqr(x);
        if(x<= A0(0.0000000001))
@@ -116,24 +116,24 @@ namespace nt2 { namespace ext
        else if(x<= A0(2.2))
          {
            A0 z = oneminus(exp(-xx)*polevl(x, erfc1_P5)/polevl( x, erfc1_Q5));
-           return negif(is_ltz(a0), z); 
+           return negif(is_ltz(a0), z);
          }
        else if(x<= A0(6))
          {
            A0 z = oneminus(exp(-xx)*polevl(x, erfc2_P5)/polevl( x, erfc2_Q5));
-           return negif(is_ltz(a0), z); 
+           return negif(is_ltz(a0), z);
          }
        else
-         return One<A0>(); 
-      
+         return One<A0>();
+
 //       result_type a = Eight<result_type>()*(Pi<result_type>()-Three<result_type>())/
 //         (Three<result_type>()*Pi<result_type>()*(Four<result_type>()-Pi<result_type>()));
-//       result_type ax2 =  a*sqr(a0); 
-//       return nt2::sign(a0)*nt2::sqrt(oneminus(nt2::exp(-sqr(a0)*(Four<result_type>()/Pi<result_type>()+ax2)/oneplus(ax2)))); 
+//       result_type ax2 =  a*sqr(a0);
+//       return nt2::sign(a0)*nt2::sqrt(oneminus(nt2::exp(-sqr(a0)*(Four<result_type>()/Pi<result_type>()+ax2)/oneplus(ax2))));
     }
   };
 
 
 } }
-       
+
 #endif

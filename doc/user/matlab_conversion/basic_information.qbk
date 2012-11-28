@@ -6,7 +6,7 @@
 Matlab display policy is 3 levels
 
 # use/suppression of `;`: this has clearly no equivalent in NT2
-# disp/display functions these can be used but using C++ style 
+# disp/display functions these can be used but using C++ style
 # use C like style `fprintf`
 
 Nt2 has C++ support and some macros to do the job.
@@ -39,8 +39,8 @@ in the second case.
 [[isscalar       ][  Determine whether input is scalar                          ]]
 [[issparse       ][  Determine whether input is sparse                          ]]
 [[isvector       ][  Determine whether input is vector                          ]]
-]                
-                 
+]
+
 Some run times predicates as `isfloat` have no real meaning in Nt2 because in C++
 types are chosen at compile-time. Also sometimes is it more performing to use
 negative assertions we provide in NT2 than the negation of the direct ones.

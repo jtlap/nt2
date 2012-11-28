@@ -6,7 +6,7 @@
                           'because Mzero<A0>() is negative but not less than zero.','\par',
                           "Mzero<A0>() is the floating point 'minus zero',",
                           "i.e. all bits are zero but the sign bit.",
-                          'Such a value is treated as zero by ieee standards.'],   
+                          'Such a value is treated as zero by ieee standards.'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

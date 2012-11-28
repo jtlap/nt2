@@ -12,7 +12,7 @@
 // cover test behavior of predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/predicates/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( is_gtz_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::is_gtz;
   using nt2::tag::is_gtz_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -70,18 +70,18 @@ NT2_TEST_CASE_TPL ( is_gtz_real__1_0,  NT2_SIMD_REAL_TYPES)
         r_t v = is_gtz(a0);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::is_gtz (a0[i])));
         }
       }
-    
+
   }
 } // end of test for floating_
 NT2_TEST_CASE_TPL ( is_gtz_int__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::is_gtz;
   using nt2::tag::is_gtz_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -105,13 +105,13 @@ NT2_TEST_CASE_TPL ( is_gtz_int__1_0,  NT2_SIMD_INTEGRAL_TYPES)
       {
         vT a0 = load<vT>(&tab_a0[0],j);
         r_t v = is_gtz(a0);
-      std::cout << a0 << " -> " <<  v << std::endl; 
+      std::cout << a0 << " -> " <<  v << std::endl;
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::is_gtz (a0[i])));
         }
       }
-    
+
   }
 } // end of test for floating_

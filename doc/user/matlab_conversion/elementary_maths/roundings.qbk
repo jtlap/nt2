@@ -6,21 +6,21 @@
 [[`ceil    `][`ceil    `][ Round toward positive infinity                ]]
 [[`fix     `][`fix     `][ Round toward zero                             ]]
 [[`floor   `][`floor   `][ Round toward negative infinity                ]]
-[[`idivide `][`idivide `][ Integer division with rounding option  
+[[`idivide `][`idivide `][ Integer division with rounding option
                            In __NT2__ options are static tags
 
                            'fix'   -> nt2::tag::trunc_()
                            'round' -> nt2::tag::round_()
                            'floor' -> nt2::tag::floor_()
                            'ceil'  -> nt2::tag::ceil_()
-                         
-                         __NT2__ also has direct call to `(i)divfix`, 
+
+                         __NT2__ also has direct call to `(i)divfix`,
                          `(i)divfloor`,`(i)divceil` and `(i)divround`
                                                                          ]]
 [[`mod     `][`mod     `][ Modulus after division                        ]]
 [[`rem     `][`rem     `][ Remainder after division                      ]]
 [[`round   `][`round   `][ Round to nearest integer                      ]]
 
-]  
+]
 
-[endsect]  
+[endsect]

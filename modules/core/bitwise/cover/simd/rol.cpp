@@ -12,7 +12,7 @@
 // cover test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/bitwise/include/functions/rol.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( rol_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::rol;
   using nt2::tag::rol_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -69,10 +69,10 @@ NT2_TEST_CASE_TPL ( rol_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
         r_t v = rol(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::rol (a0[i],a1[i])));
         }
       }
-    
+
   }
 } // end of test for integer_

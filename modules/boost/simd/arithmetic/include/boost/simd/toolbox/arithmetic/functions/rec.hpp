@@ -22,12 +22,12 @@
  * return the inverse of the input as a floating point value.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rec.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of rec
- * 
+ *
  * \return always return floating point values
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rec_ of functor rec 
+     * \brief Define the tag rec_ of functor rec
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct rec_ : ext::elementwise_<rec_> { typedef ext::elementwise_<rec_> parent; };

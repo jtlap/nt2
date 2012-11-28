@@ -30,7 +30,7 @@ class Add_line(object) :
         self.name = name
         self.path_to = path_to
         self.verbose = verbose
-        
+
     @classmethod
     def insert_after(cls,token, txt, line2add) :
         """ insertion of a line after a line
@@ -55,15 +55,15 @@ class Add_line(object) :
         txt = "%s.cpp"%self.name
         done, new_txt = self.insert_after(token,txt_orig,txt)
         if not done :
-            print("Warning : line\n  %s\nis already in CMakelists.txt file"%txt ) 
+            print("Warning : line\n  %s\nis already in CMakelists.txt file"%txt )
         else :
             if exist(self.path_to) :
                 if self.verbose : print("file\n  %s\nwill be updated"%self.path_to)
                 write(self.path_to,new_txt,False)
                 if self.verbose : print("file\n  %s\nis now updated"%self.path_to)
             else :
-                if self.verbose : print("file\n  %s\n does not exist"%self.path_to)         
+                if self.verbose : print("file\n  %s\n does not exist"%self.path_to)
 
 if __name__ == "__main__" :
     pass
-    
+

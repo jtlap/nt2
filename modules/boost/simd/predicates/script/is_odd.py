@@ -8,7 +8,7 @@
                           'representing an integer value',
                           '\par',
                           'Be conscious that all sufficiently great floating points values are even...',
-                          'and are not necesserily exact'],   
+                          'and are not necesserily exact'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

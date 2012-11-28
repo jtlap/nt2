@@ -10,7 +10,7 @@
              'default' : 'typename boost::common_type<scalar,scalar>::type',
             },
          'simd_types' : ['real_'],
-         'special' : ['reduction'],  
+         'special' : ['reduction'],
          'type_defs' : ['typedef T scalar;'],
          'types' : ['real_'],
         },
@@ -19,7 +19,7 @@
          'global_header' : {
              'first_stamp' : 'created  by jt the 24/02/2011',
              'included' : [],
-             'no_ulp'     : 'True',   
+             'no_ulp'     : 'True',
              'notes' : [],
              'stamp' : 'modified by jt the 24/02/2011',
             },

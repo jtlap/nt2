@@ -29,12 +29,12 @@
  * \par
 
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/exppdf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,13 +46,13 @@
  * }
  * \endcode
  *
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag exppdf_ of functor exppdf 
+     * \brief Define the tag exppdf_ of functor exppdf
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct exppdf_ : ext::elementwise_<exppdf_> { typedef ext::elementwise_<exppdf_> parent; };

@@ -12,14 +12,14 @@
 namespace nt2
 {
   //===========================================================================
-  /*! 
+  /*!
    * settings is a seed type that allow contruction of multiple options pack.
    * If a given container needs to have options A and B set, settings(A,B) will
-   * perform such a task. 
+   * perform such a task.
    **/
   //============================================================================
   struct settings {};
 }
- 
+
 
 #endif

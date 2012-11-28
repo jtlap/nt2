@@ -30,7 +30,7 @@ namespace nt2
                        nt2_la_complex* a, const nt2_la_int* lda,
                        nt2_la_int* ipiv, nt2_la_int* info);
     }
-    
+
 #define NT2_GETRF(NAME, T)                      \
     inline void getrf(const nt2_la_int* m,      \
                       const nt2_la_int* n,      \
@@ -57,7 +57,7 @@ namespace nt2
     NT2_GETRF(dgetrf, double)
     NT2_GETRF(cgetrf, std::complex<float>)
     NT2_GETRF(zgetrf, std::complex<double>)
-      
+
 #undef NT2_GETRF
   }
 }

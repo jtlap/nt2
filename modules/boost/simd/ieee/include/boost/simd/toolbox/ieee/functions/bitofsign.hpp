@@ -25,12 +25,12 @@
  * Returns always zero for unsigned types
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/bitofsign.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of bitofsign
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag bitofsign_ of functor bitofsign 
+     * \brief Define the tag bitofsign_ of functor bitofsign
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct bitofsign_ : ext::elementwise_<bitofsign_> { typedef ext::elementwise_<bitofsign_> parent; };

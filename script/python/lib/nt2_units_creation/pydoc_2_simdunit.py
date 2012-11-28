@@ -30,8 +30,8 @@ from nt2_tb_props                    import Nt2_tb_props
 from nt2_fct_props                   import Nt2_fct_props
 from unit_base_gen                   import Base_gen
 from unit_global_header_gen          import Global_header_gen
-from unit_type_header_gen            import Type_header_test_gen 
-from unit_specific_values_gen        import Specific_values_test_gen 
+from unit_type_header_gen            import Type_header_test_gen
+from unit_specific_values_gen        import Specific_values_test_gen
 from unit_random_verif_gen           import Random_verif_test_gen
 sys.path.pop(0)
 sys.path.pop(0)
@@ -71,8 +71,8 @@ def write_unit(tb_name,fct_name,mode,s,check=False) :
     print "write to %s"%p
     show(s)
     write(p,s,check)
- 
-    
+
+
 if __name__ == "__main__" :
     tb_name = "bitwise"
     fcts = Nt2_tb_props(tb_name).get_fcts_list()
@@ -84,7 +84,7 @@ if __name__ == "__main__" :
         if r is None :
             print('error for %s' % fct)
         elif len(r)==0 :
-            print('no regeneration possible for %s simd test, please do it manually' % fct) 
+            print('no regeneration possible for %s simd test, please do it manually' % fct)
         else :
 ##            write_unit(tb_name,fct,'simd',r)
             PrettyPrinter().pprint(r)

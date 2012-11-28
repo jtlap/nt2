@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/logspace_add.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -55,8 +55,8 @@ NT2_TEST_CASE_TPL ( logspace_add_real__2_1,  NT2_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Inf<vT>(),nt2::Inf<vT>())[0], nt2::Inf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Inf<vT>(),nt2::Zero<vT>())[0], nt2::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(logspace_add(nt2::Minf<vT>(),nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);    
-  NT2_TEST_ULP_EQUAL(logspace_add(nt2::Inf<vT>(),nt2::Nan <vT>())[0], nt2::Nan<sr_t>(), 0);    
+  NT2_TEST_ULP_EQUAL(logspace_add(nt2::Minf<vT>(),nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(logspace_add(nt2::Inf<vT>(),nt2::Nan <vT>())[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Minf<vT>(),nt2::Minf<vT>())[0], nt2::Minf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Mone<vT>(),nt2::Mone<vT>())[0], nt2::Mone<sr_t>()+nt2::Log_2<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Nan<vT>(),nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);

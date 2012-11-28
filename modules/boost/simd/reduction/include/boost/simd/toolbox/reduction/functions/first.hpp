@@ -22,12 +22,12 @@
  * returns the first element of the input vector.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/first.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of first
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,13 +53,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag first_ of functor first 
+     * \brief Define the tag first_ of functor first
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct first_ : ext::unspecified_<first_> { typedef ext::unspecified_<first_> parent; };

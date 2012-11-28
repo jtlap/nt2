@@ -24,12 +24,12 @@
  * Constant Pio_2 = \f$\frac\pi{2}\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/pio_2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Pio_2
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Pio_2 of functor Pio_2 
+     * \brief Define the tag Pio_2 of functor Pio_2
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Pio_2, double, 2, 0x3fc90fdb, 0x3ff921fb54442d18ll)

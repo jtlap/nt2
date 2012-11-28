@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOG2_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOG2_HPP_INCLUDED
@@ -63,16 +63,16 @@ namespace nt2 { namespace ext
 //     BOOST_FORCEINLINE
 //     void compute(A0 & a0, A1 & a1, boost::mpl::long_<1> const&) const
 //     {
-//       value_type a = boost::proto::value(boost::proto::child_c<0>(a0)); 
+//       value_type a = boost::proto::value(boost::proto::child_c<0>(a0));
 //       boost::proto::child_c<0>(a1) = nt2::log2b(a);
 //     }
 
 //     BOOST_FORCEINLINE
 //     void compute(A0& a0, A1 & a1, boost::mpl::long_<2> const&) const
 //     {
-//       value_type a = boost::proto::child_c<0>(a0); 
-//       i_type e; 
-//       value_type f = frexp(a, e); 
+//       value_type a = boost::proto::child_c<0>(a0);
+//       i_type e;
+//       value_type f = frexp(a, e);
 //       boost::proto::child_c<0>(a1) = f;
 //       boost::proto::child_c<1>(a1) = e;
 //     }

@@ -37,7 +37,7 @@ namespace boost { namespace dispatch { namespace details
       };
     };
   };
-  
+
   template<class T>
   struct factory_of_impl<T, T>
   {

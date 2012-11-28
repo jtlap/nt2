@@ -30,7 +30,7 @@ namespace nt2
   {
     namespace internal
     {
-      template < class A0, class unit_tag, class mode> 
+      template < class A0, class unit_tag, class mode>
       struct trig_base < A0, unit_tag,  tag::simd_type, mode>
       {
         typedef typename meta::as_logical<A0>::type                  bA0; // logical type associated to A0
@@ -39,9 +39,9 @@ namespace nt2
         typedef typename meta::scalar_of<A0>::type                   sA0; // scalar version of A0
         typedef typename meta::as_integer<A0, signed>::type     int_type; // signed integer type associated to A0
          typedef typename meta::as_logical<int_type>::type      bint_type; // logical type associated to int_type
-        typedef typename meta::scalar_of<int_type>::type       sint_type; // scalar version of the associated type   
+        typedef typename meta::scalar_of<int_type>::type       sint_type; // scalar version of the associated type
         typedef typename mode::type                                style;
-        typedef typename A0::native_type                            A0_n; 
+        typedef typename A0::native_type                            A0_n;
         // for all functions the scalar algorithm is:
         // * range reduction
         // * computation of sign and evaluation selections flags
@@ -53,7 +53,7 @@ namespace nt2
         static inline A0_n tana(const A0& a0){ return tana(a0, style()); }
         static inline A0_n cota(const A0& a0){ return cota(a0, style()); }
         static inline A0_n sincosa(const A0& a0, A0& c){ return sincosa(a0,c,style()); }
-        
+
       private:
         static inline A0_n cosa(const A0_n a0_n, const fast&)
         {
@@ -66,69 +66,69 @@ namespace nt2
           const A0 a0 = a0_n;
           const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
-          const int_type n =  redu_t::reduce(x, xr, xc); 
+          const int_type n =  redu_t::reduce(x, xr, xc);
           const int_type swap_bit = n&One<int_type>();
-          const int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), Maxleftshift<sint_type>()); 
+          const int_type sign_bit = shli(b_xor(swap_bit, shri(n&Two<int_type>(), 1)), Maxleftshift<sint_type>());
           const A0 z = sqr(xr);
           const A0 se = eval_t::sin_eval(z, xr);
-          const A0 ce = eval_t::cos_eval(z); 
-          return  b_xor(sel(is_nez(swap_bit), se, ce), sign_bit); 
+          const A0 ce = eval_t::cos_eval(z);
+          return  b_xor(sel(is_nez(swap_bit), se, ce), sign_bit);
         }
 
         static inline A0_n sina(const A0_n a0_n, const fast&)
         {
           const A0 x =   scale(a0_n);
-          const A0 se = eval_t::sin_eval(sqr(x), x); 
-          return se; 
+          const A0 se = eval_t::sin_eval(sqr(x), x);
+          return se;
         }
 
         static inline A0_n sina(const A0_n a0_n, const regular&)
         {
           const A0 a0 = a0_n;
-          const A0 x = nt2::abs(a0); 
+          const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);
           const int_type swap_bit = n&One<int_type>();
           const A0 sign_bit = b_xor(bitofsign(a0),
-                                    shli(n&Two<int_type>(),Maxleftshift<sint_type>()-1)); 
+                                    shli(n&Two<int_type>(),Maxleftshift<sint_type>()-1));
           const A0 z = sqr(xr);
           const A0 se = eval_t::sin_eval(z, xr);
-          const A0 ce = eval_t::cos_eval(z); 
-          return b_xor(sel(is_eqz(swap_bit),se, ce), sign_bit); 
+          const A0 ce = eval_t::cos_eval(z);
+          return b_xor(sel(is_eqz(swap_bit),se, ce), sign_bit);
         }
 
         static inline A0_n tana(const A0_n a0_n, const fast&)
         {
           const A0 bte = eval_t::base_tancot_eval(scale(a0_n));
-          return bte; 
+          return bte;
         }
 
         static inline A0_n tana(const A0_n a0_n, const regular&)
         {
           const A0 a0 = a0_n;
-          const A0 x =  nt2::abs(a0); 
+          const A0 x =  nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);
           const A0 y = eval_t::tan_eval(xr, oneminus(shli((n&One<int_type>()), 1)));
-          // 1 -- n even  -1 -- n odd 
+          // 1 -- n even  -1 -- n odd
           const bA0 testnan = redu_t::tan_invalid(a0);
-          return if_nan_else(testnan, b_xor(y, bitofsign(a0)));                        
+          return if_nan_else(testnan, b_xor(y, bitofsign(a0)));
         }
 
         static inline A0_n cota(const A0_n a0_n, const fast&)
         {
           const A0 bte = eval_t::base_tancot_eval(scale(a0_n));
-          return rec(bte); 
+          return rec(bte);
         }
         static inline A0_n cota(const A0_n a0_n, const regular&)
         {
 
           const A0 a0 = a0_n;
-          const A0 x = nt2::abs(a0); 
+          const A0 x = nt2::abs(a0);
           A0 xr = Nan<A0>(), xc;
           const int_type n = redu_t::reduce(x, xr, xc);
           const A0 y = eval_t::cot_eval(xr, oneminus(shli((n&One<int_type>()), 1)));
-          // 1 -- n even -1 -- n odd 
+          // 1 -- n even -1 -- n odd
           const bA0 testnan = redu_t::cot_invalid(a0);
           // this if_else is normally not needed but with clang the zero value if eroneous
           // if not there !
@@ -143,7 +143,7 @@ namespace nt2
           c = eval_t::cos_eval(z);
           return eval_t::sin_eval(z, x);
         }
-        
+
         static inline A0_n sincosa(const A0_n a0_n, A0& c, const regular&)
         {
           const A0 a0 = a0_n;
@@ -158,18 +158,18 @@ namespace nt2
           const A0 t2 = eval_t::cos_eval(z);
           const bint_type test = is_nez(swap_bit);
           c = b_xor(sel(test, t1, t2),cos_sign_bit);
-          return b_xor(sel(test, t2, t1),sin_sign_bit); 
+          return b_xor(sel(test, t2, t1),sin_sign_bit);
         }
 
         static inline A0 scale(const A0_n a0_n)
         {
-          const A0 a0 = a0_n; 
+          const A0 a0 = a0_n;
           return if_nan_else(gt(nt2::abs(a0),
                              trig_ranges<A0,unit_tag>::max_range()), a0)
             *trig_ranges<A0,unit_tag>::scale();
         }
 
-      }; 
+      };
     }
   }
 }

@@ -22,12 +22,12 @@
  * Returns the least element of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/minimum.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of minimum
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,7 +53,7 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -64,12 +64,12 @@ namespace boost { namespace simd
     struct Valmax;
 
     /*!
-     * \brief Define the tag minimum_ of functor minimum 
+     * \brief Define the tag minimum_ of functor minimum
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct minimum_ : ext::reduction_<minimum_, tag::min_, tag::Valmax> 
-    { 
-      typedef ext::reduction_<minimum_, tag::min_, tag::Valmax> parent; 
+    struct minimum_ : ext::reduction_<minimum_, tag::min_, tag::Valmax>
+    {
+      typedef ext::reduction_<minimum_, tag::min_, tag::Valmax> parent;
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::minimum_, minimum, 1)

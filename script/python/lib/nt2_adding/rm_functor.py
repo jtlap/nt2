@@ -36,8 +36,8 @@ from nt2_fct_props                   import Nt2_fct_props
 from pprint                          import PrettyPrinter
 from unit_base_gen                   import Base_gen
 from unit_global_header_gen          import Global_header_gen
-from unit_type_header_gen            import Type_header_test_gen 
-from unit_specific_values_gen        import Specific_values_test_gen 
+from unit_type_header_gen            import Type_header_test_gen
+from unit_specific_values_gen        import Specific_values_test_gen
 from unit_random_verif_gen           import Random_verif_test_gen
 from nt2_tb_struct                   import Nt2_tb_struct
 from nt2_archis_struct               import Nt2_archis_struct
@@ -56,12 +56,12 @@ class Rm_functor(Base_gen,Nt2_tb_struct) :
         self.fct_files = self.get_rel_tb_fcts_files(tb_name,fct_name)
         self.unique_files = self.get_rel_tb_unique_files(tb_name)
         self.no_simd = no_simd
-        
+
     def rm_files(self) :
         for fil in self.fct_files :
-            if fil[:6]=='../../': 
+            if fil[:6]=='../../':
                 self.remove_file(fil)
-            else :    
+            else :
                 for pattern in self.Required_tree :
                     if  pattern ==fil[0:len(pattern)] :
                         print("--->%s ## %s"%('remove_file',fil))
@@ -95,7 +95,7 @@ class Rm_functor(Base_gen,Nt2_tb_struct) :
             txt = "  %s.cpp"%fct_name
             done, new_txt = self.remove_line(txt_orig,txt)
             if not done :
-                print("Warning : line\n  %s\nws not found in CMakelist.txt file"%txt ) 
+                print("Warning : line\n  %s\nws not found in CMakelist.txt file"%txt )
             else :
                 self.finalize(path,new_txt,"update")
 
@@ -112,7 +112,7 @@ class Rm_functor(Base_gen,Nt2_tb_struct) :
         txt = "#include <nt2/toolbox/%s/include/%s.hpp>"%(tb_name,fct_name)
         done, new_txt = self.remove_line(txt_orig,txt)
         if not done :
-            print("Warning : line\n  %s\nis not found in include file"%txt ) 
+            print("Warning : line\n  %s\nis not found in include file"%txt )
         else :
             self.finalize(path,new_txt,"update")
 
@@ -124,7 +124,7 @@ class Rm_functor(Base_gen,Nt2_tb_struct) :
         """
         path = os.path.join(self.get_tb_path(),fil)
         self.finalize(path,"",option)
-        
+
 
     def finalize(self,path,new_txt,option) :
         verbose = False
@@ -142,12 +142,12 @@ class Rm_functor(Base_gen,Nt2_tb_struct) :
                 self.regress(path,new_txt)
                 if verbose : print("file\n  %s\nis now regressed"%path)
             else :
-                if verbose : print("file\n  %s\n does not exist"%path)           
+                if verbose : print("file\n  %s\n does not exist"%path)
         else :
             if verbose : print("I do not know what to do with: \n  %s\nplease help me!"%path)
         print("----------------------")
-         
-    
+
+
     def remove(self,path) :
         """ file path  exists on entry
         is removed on exit, but replace by path+'~'
@@ -155,7 +155,7 @@ class Rm_functor(Base_gen,Nt2_tb_struct) :
         print("remove %s"%path)
         shutil.move(path,path+'#')
 
-            
+
     def regress(self,path,txt) :
         """ file path does exist on entry
         is regressed on exit, old version is in path+'~' file
@@ -170,13 +170,13 @@ class Rm_functor(Base_gen,Nt2_tb_struct) :
             return (True,text)
         else :
             return (False,text)
-   
+
 if __name__ == "__main__" :
     tb_name = "arithmetic"
     fcts = ["sadd"]
     for fct_name in fcts :
         print fct_name
         afs = Rm_functor(tb_name,fct_name,no_simd=False)
-        afs.rm_files() 
+        afs.rm_files()
 
-    
+

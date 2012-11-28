@@ -36,10 +36,10 @@ NT2_TEST_CASE( nblines_table )
 
   table<float, nt2::settings(nt2::_3D)> x( nt2::of_size(4,5,6) );
 
-  NT2_TEST_EQUAL( nt2::nblines( x , 1), 30u); 
-  NT2_TEST_EQUAL( nt2::nblines( x , 2), 24u); 
-  NT2_TEST_EQUAL( nt2::nblines( x , 3), 20u); 
-  NT2_TEST_EQUAL( nt2::nblines( x , 4), 120u); 
+  NT2_TEST_EQUAL( nt2::nblines( x , 1), 30u);
+  NT2_TEST_EQUAL( nt2::nblines( x , 2), 24u);
+  NT2_TEST_EQUAL( nt2::nblines( x , 3), 20u);
+  NT2_TEST_EQUAL( nt2::nblines( x , 4), 120u);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -54,7 +54,7 @@ NT2_TEST_CASE( nblines_expression )
   NT2_TEST_EQUAL( nt2::nblines( x+x/3.f, 1),  30u);
   NT2_TEST_EQUAL( nt2::nblines( x+x/3.f, 2),  24u);
   NT2_TEST_EQUAL( nt2::nblines( x+x/3.f, 3),  20u);
-  NT2_TEST_EQUAL( nt2::nblines( x+x/3.f, 4),  120u); 
+  NT2_TEST_EQUAL( nt2::nblines( x+x/3.f, 4),  120u);
 }
 
 

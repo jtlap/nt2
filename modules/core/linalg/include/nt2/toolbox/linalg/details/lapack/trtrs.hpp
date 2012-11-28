@@ -58,7 +58,7 @@ namespace nt2
     NT2_TRTRS(dtrtrs, double)
     NT2_TRTRS(ctrtrs, std::complex<float>)
     NT2_TRTRS(ztrtrs, std::complex<double>)
-      
+
 #undef NT2_TRTRS
   }
 }

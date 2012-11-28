@@ -20,13 +20,13 @@ namespace boost { namespace simd { namespace meta
    BOOST_STATIC_CONSTANT(Type, value = Value);
    typedef real_c                                       type;
    typedef typename dispatch::meta::as_floating<Type>::type value_type;
-   
+
    operator value_type() const
    {
      return bitwise_cast<value_type>(Value);
    }
  };
- 
+
 } } }
 
 #endif

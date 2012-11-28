@@ -32,7 +32,7 @@ namespace nt2 { namespace ext
       if (nt2::isempty(a0))
         return 0;
       else
-        return nt2::numel(a0)/nt2::size(a0, dim); 
+        return nt2::numel(a0)/nt2::size(a0, dim);
     }
   };
 } }

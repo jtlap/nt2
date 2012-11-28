@@ -25,12 +25,12 @@
  * \f[ B(a_0,a_1)=\int_0^1 t^{a_0-1}(1-t)^{a_1-1}dt = \frac{\Gamma(a_0)\Gamma(a_1)}{\Gamma(a_0+a_1)}\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/beta.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,21 +44,21 @@
  *
  * \param a0 the first parameter of beta
  * \param a1 the second parameter of beta
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
-namespace nt2 
-{ 
-  namespace tag 
-  {         
+namespace nt2
+{
+  namespace tag
+  {
     /*!
-     * \brief Define the tag beta_ of functor beta 
+     * \brief Define the tag beta_ of functor beta
      *        in namespace nt2::tag for toolbox euler
     **/
     struct beta_ : ext::elementwise_<beta_> { typedef ext::elementwise_<beta_> parent; };

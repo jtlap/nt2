@@ -24,12 +24,12 @@
  * Constant Cgold \f$= \frac{1-\sqrt5}{2}\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cgold.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Cgold
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Cgold of functor Cgold 
+     * \brief Define the tag Cgold of functor Cgold
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER(Cgold,double,0,0x3EC3910D,0x3FD8722191A02D61ULL);

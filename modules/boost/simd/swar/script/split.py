@@ -15,7 +15,7 @@
          'rturn' : {
              'default' : 'T',
             },
-         'special' : ['swar'],  
+         'special' : ['swar'],
          'simd_types' : ['lt_64_',],
          'type_defs' : [],
          'types' : [],

@@ -22,12 +22,12 @@
  * Returns True<result_type>() if a0 is inf or -inf else returns False<result_type>().
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_inf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of is_inf
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -53,13 +53,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_inf_ of functor is_inf 
+     * \brief Define the tag is_inf_ of functor is_inf
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_inf_ : ext::elementwise_<is_inf_> { typedef ext::elementwise_<is_inf_> parent; };

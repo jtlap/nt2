@@ -37,7 +37,7 @@ namespace nt2
   }
 
   /**
-   * @brief Perform characteristic polynomial computation 
+   * @brief Perform characteristic polynomial computation
    *
    * poly(a), when a is an n by n matrix, is a row vector with
    * n+1 elements which are the coefficients of the
@@ -47,7 +47,7 @@ namespace nt2
    * the coefficients of the polynomial whose roots are the
    * elements of v . for vectors, roots and poly are inverse
    * functions of each other, up to ordering, scaling, and
-   * roundoff error.  
+   * roundoff error.
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::poly_, poly, 1)
 
@@ -63,10 +63,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator ()(Expr& e) const
     {
       _2D sizee;
-      sizee[0] = 1; 
+      sizee[0] = 1;
       sizee[1] = length( boost::proto::child_c<0>(e))+1;
-      return sizee; 
-    }       
+      return sizee;
+    }
   };
 
   template<class Domain, int N, class Expr>

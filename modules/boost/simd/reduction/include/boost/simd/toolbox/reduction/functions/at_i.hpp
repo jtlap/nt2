@@ -25,14 +25,14 @@
  * [0,meta::cardinal_of<A0>::value[
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/at_i.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg at
- * 
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  *
  * \param a0 the first parameter of at_i
  * \param a1 the second parameter of at_i
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -59,14 +59,14 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag at_i_ of functor at_i 
+     * \brief Define the tag at_i_ of functor at_i
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct at_i_ : ext::unspecified_<at_i_> { typedef ext::unspecified_<at_i_> parent; };

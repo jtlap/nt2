@@ -22,12 +22,12 @@
  * inverse sine in \f$\pi\f$ multiples.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/asinpi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,20 +40,20 @@
  * \endcode
  *
  * \param a0 the unique parameter of asinpi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 {
   namespace tag
   {
     /*!
-     * \brief Define the tag asinpi_ of functor asinpi 
+     * \brief Define the tag asinpi_ of functor asinpi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct asinpi_ : ext::elementwise_<asinpi_> { typedef ext::elementwise_<asinpi_> parent; };

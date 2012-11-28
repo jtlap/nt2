@@ -8,7 +8,7 @@
                           "A flint is a 'floating integer' i.e. a floating number",
                           'representing an integer value',
                           '\par',
-                          'Be conscious that all sufficiently great floating points values are even...'],   
+                          'Be conscious that all sufficiently great floating points values are even...'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

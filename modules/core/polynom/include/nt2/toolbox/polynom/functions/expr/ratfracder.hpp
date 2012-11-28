@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_RATFRACDER_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_RATFRACDER_HPP_INCLUDED
@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void                                                    result_type;
-    typedef typename A0::value_type                                  value_type; 
+    typedef typename A0::value_type                                  value_type;
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
@@ -56,17 +56,17 @@ namespace nt2 { namespace ext
       n_type & n = boost::proto::child_c<0>(a1);
       d_type & d = boost::proto::child_c<1>(a1);
       _2D sizee;
-      n.resize(extent(a0)); 
+      n.resize(extent(a0));
       n =  nt2::conv(nt2::polyder(a),b)-nt2::conv(nt2::polyder(b),a);
       sizee[0] = 1;
       sizee[1] = numel(b);
-      sizee[1] = sizee[1] ? 2*sizee[1]-1:0; 
-      d.resize(sizee); 
+      sizee[1] = sizee[1] ? 2*sizee[1]-1:0;
+      d.resize(sizee);
       table<value_type, nt2::_2D> dd = nt2::conv(b, b);
 //       NT2_DISPLAY(nt2::conv(b, b));
       NT2_DISPLAY(dd);
-      d = dd; 
-    }    
+      d = dd;
+    }
     BOOST_FORCEINLINE
     void val(A0& a0, A1& a1,
              boost::mpl::long_<1> const &, boost::mpl::long_<2> const &) const
@@ -78,7 +78,7 @@ namespace nt2 { namespace ext
       b_type & b = boost::proto::child_c<1>(a0);
       n_type & n = boost::proto::child_c<0>(a1);
       n =  nt2::conv(nt2::polyder(a),b)-nt2::conv(nt2::polyder(b),a);
-    }    
+    }
     BOOST_FORCEINLINE
     void val(A0& a0, A1& a1,
              boost::mpl::long_<1> const &, boost::mpl::long_<1> const &) const
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
       n_type & n = boost::proto::child_c<0>(a1);
       n =  polyder(a);
     }
-  };  
+  };
 } }
 
 

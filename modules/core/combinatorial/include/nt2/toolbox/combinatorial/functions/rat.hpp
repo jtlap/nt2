@@ -25,12 +25,12 @@
  * nan is returned.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rat.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  *
  * \param a0 the first parameter of rat
  * \param a1 the second parameter of rat
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rat_ of functor rat 
+     * \brief Define the tag rat_ of functor rat
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct rat_ : ext::elementwise_<rat_> { typedef ext::elementwise_<rat_> parent; };

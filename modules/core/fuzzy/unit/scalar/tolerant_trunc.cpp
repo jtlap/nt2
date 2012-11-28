@@ -12,7 +12,7 @@
 // unit test behavior of fuzzy components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 04/03/2011
-/// 
+///
 #include <nt2/toolbox/fuzzy/include/functions/tolerant_trunc.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/eps.hpp>
@@ -39,7 +39,7 @@
 
 NT2_TEST_CASE_TPL ( tolerant_trunc_real__3_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::tolerant_trunc;
   using nt2::tag::tolerant_trunc_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -49,9 +49,9 @@ NT2_TEST_CASE_TPL ( tolerant_trunc_real__3_0,  NT2_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

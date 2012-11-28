@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <boost/simd/toolbox/predicates/include/functions/is_gez.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( is_gez_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::is_gez;
   using boost::simd::tag::is_gez_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( is_gez_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_gez(-boost::simd::Zero<T>()), boost::simd::True<r_t>());
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( is_gez_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( is_gez_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::is_gez;
   using boost::simd::tag::is_gez_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -67,9 +67,9 @@ NT2_TEST_CASE_TPL ( is_gez_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_gez(boost::simd::Mone<T>()), boost::simd::False<r_t>());
@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL ( is_gez_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( is_gez_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::is_gez;
   using boost::simd::tag::is_gez_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -91,9 +91,9 @@ NT2_TEST_CASE_TPL ( is_gez_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_gez(boost::simd::One<T>()), boost::simd::True<r_t>());
