@@ -14,6 +14,7 @@
 **/
 
 #include <boost/simd/include/simd.hpp>
+#include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/swar/functions/details/random_permute.hpp>
 #include <boost/simd/sdk/simd/extensions.hpp>
@@ -22,6 +23,7 @@
 #include <boost/mpl/vector/vector10_c.hpp>
 #include <boost/mpl/vector/vector20_c.hpp>
 #include <boost/mpl/vector/vector40_c.hpp>
+
 
 namespace boost { namespace simd 
 { 
@@ -117,7 +119,7 @@ shuffle(A0 const& a0, A1 const& a1)                                            \
 }                                                                              \
 /**/
 
-  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M01,~)
+  BOOST_SIMD_PP_REPEAT_POWER_OF_2(M01, ~)
   #undef M01
 } }
 

@@ -16,8 +16,6 @@
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
-#include "roll_test.hpp"
-
 struct identity_
 {
   template<class Index, class Cardinal> struct apply : Index {};
@@ -295,20 +293,4 @@ NT2_TEST_CASE_TPL( shuffle_index16, BOOST_SIMD_SIMD_TYPES)
     reference[i] = origin[1];
   bcasted = shuffle<1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1>(origin);
   NT2_TEST_EQUAL(bcasted,reference);
-}
-
-NT2_TEST_CASE_TPL( shuffle_index2_2arg, (double)(boost::simd::int64_t))
-{
-  using boost::simd::native;
-  using boost::simd::meta::vector_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename vector_of<T,2>::type    vT;
-
-  vT origin1, origin2;
-  for(std::size_t i=0; i < vT::static_size;++i)
-  { 
-    origin1[i] = T(65+i); 
-    origin2[i] = T(i); 
-  }
-  roll_binary_test_2<vT,-1,-1>::call(origin1,origin2);
 }
