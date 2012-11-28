@@ -13,6 +13,8 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/schur.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/mtimes.hpp>
@@ -38,6 +40,8 @@ NT2_TEST_CASE_TPL ( schur, NT2_REAL_TYPES)
   nt2::tie(z, t) = nt2::schur(b); //real
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
+  NT2_DISPLAY(nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z)));
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z)), 20.0);
 }
 
 
@@ -64,7 +68,7 @@ NT2_TEST_CASE_TPL ( schur_m_test, NT2_REAL_TYPES)
   NT2_DISPLAY(z);
   NT2_DISPLAY(t);
   zz =  mtimes(nt2::mtimes(z, t), nt2::trans(z));
-  NT2_TEST(isulpequal(zz, b, T(16.0))); 
+  NT2_TEST(isulpequal(zz, b, T(16.0)));
 }
 
 
