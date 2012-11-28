@@ -362,7 +362,7 @@ namespace boost { namespace simd
         return a0;
       }
 
-      BOOST_FORCEINLINE result_type eval( A0 const&, A0 const&,
+      BOOST_FORCEINLINE result_type eval( A0 const&, A0 const&
                                         , sel<-1,-1,-1,-1> const&) const
       {
         return Zero<result_type>();
