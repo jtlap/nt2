@@ -32,32 +32,32 @@ NT2_TEST_CASE_TPL(rot90, NT2_REAL_TYPES)
   typedef T r_t;
   using nt2::rot90;
   using nt2::tag::rot90_;
-  
+
   nt2::table<T> n = nt2::cif(3, 3, nt2::meta::as_<T>())+T(10)*nt2::rif(3, 3, nt2::meta::as_<T>());
   NT2_DISPLAY(n);
   int k = 0;
   nt2::table<T> r[3*3*4] = {
-    31, 21, 11, 
-    32, 22, 12, 
-    33, 23, 13, 
-    
-    33, 32, 31, 
+    31, 21, 11,
+    32, 22, 12,
+    33, 23, 13,
+
+    33, 32, 31,
     23, 22, 21,
-    13, 12, 11, 
-    
-    31, 21, 11, 
-    32, 22, 12, 
-    33, 23, 13, 
-    
-    11, 12, 13, 
+    13, 12, 11,
+
+    31, 21, 11,
+    32, 22, 12,
+    33, 23, 13,
+
+    11, 12, 13,
     21, 22, 23,
     31, 32, 33
-  }; 
+  };
   nt2::table<T> a(nt2::of_size(3, 3));
   for(int l=1; l <= 4; ++l)
     {
 
-      
+
       for(int i=1; i <= 3; i++)
         {
           for(int j=1; j <= 3; j++)
@@ -65,12 +65,12 @@ NT2_TEST_CASE_TPL(rot90, NT2_REAL_TYPES)
               a(i, j) = r[k++];
             }
         }
-      
+
        nt2::table<T> rot90n = nt2::rot90(n, l);
       std::cout << "l = " << l << std::endl;
       NT2_DISPLAY(rot90n);
-      NT2_DISPLAY(a); 
-      NT2_TEST(nt2::isequal(a, rot90n)); 
+      NT2_DISPLAY(a);
+      NT2_TEST(nt2::isequal(a, rot90n));
     }
 }
 
@@ -78,33 +78,14 @@ NT2_TEST_CASE_TPL(rot90_2, NT2_REAL_TYPES)
 {
   typedef T r_t;
   using nt2::rot90;
-  
+
   nt2::table<T> n = nt2::cif(3, 4, nt2::meta::as_<T>())+T(10)*nt2::rif(3, 4, nt2::meta::as_<T>());
-  NT2_DISPLAY(n); 
+  NT2_DISPLAY(n);
   nt2::table<T> rot90n = nt2::rot90(n);
   NT2_DISPLAY(rot90n);
   NT2_DISPLAY(rot90(T(1)));
   NT2_DISPLAY(rot90(T(1), 2));
+  NT2_TEST_EQUAL(rot90(T(1)), T(1));
 }
 
-   
-NT2_TEST_CASE_TPL( ro90_4, NT2_SIGNED_TYPES )
-{
-  nt2::table<T> n1 = nt2::repmat(nt2::_(T(1), T(4)), 3, 1)+T(10)*nt2::trans(nt2::repmat(nt2::_(T(1), T(3)), 4, 1)); 
-  NT2_DISPLAY(n1);
-  nt2::table<T> n2 = nt2::flipud(n1); 
-  NT2_DISPLAY(n2); 
-  NT2_DISPLAY(nt2::fliplr(n2));
-  NT2_DISPLAY(nt2::fliplr(nt2::flipud(n1)));
-  
- for(int i=0; i < 4; i++)
-   {
-     nt2::table<T> rot90n2 = nt2::rot90(n1, i);
-     NT2_DISPLAY(rot90n2);
-   }
-//   n1 = nt2::fliplr(nt2::flipud(n1));
-//   NT2_DISPLAY(n1);
-//   n1 = nt2::fliplr(nt2::trans(n1));
-//   NT2_DISPLAY(n1);
-    
-}
+
