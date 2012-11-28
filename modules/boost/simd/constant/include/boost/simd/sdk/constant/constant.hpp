@@ -27,11 +27,18 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef elementwise_<T> parent;
   };
+
+  template<class T>
+  struct pure_constant_ : constant_<T>
+  {
+    typedef constant_<T> parent;
+  };
 } } }
 
 namespace boost { namespace simd { namespace ext
 {
   using boost::dispatch::meta::constant_;
+  using boost::dispatch::meta::pure_constant_;
 } } }
 
 //==============================================================================

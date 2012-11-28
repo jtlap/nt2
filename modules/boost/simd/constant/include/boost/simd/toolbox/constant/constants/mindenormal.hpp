@@ -65,7 +65,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
 
-    struct Mindenormal : ext::constant_<Mindenormal>
+    struct Mindenormal : ext::pure_constant_<Mindenormal>
     {
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,1> {};

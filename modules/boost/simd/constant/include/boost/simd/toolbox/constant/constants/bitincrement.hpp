@@ -64,7 +64,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
 
-    struct Bitincrement : ext::constant_<Bitincrement>
+    struct Bitincrement : ext::pure_constant_<Bitincrement>
     {
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,1> {};

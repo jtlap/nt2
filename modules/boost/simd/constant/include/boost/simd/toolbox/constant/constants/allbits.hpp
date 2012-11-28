@@ -62,7 +62,7 @@ namespace boost { namespace simd
      * \brief Define the tag Allbits of functor Allbits
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Allbits : ext::constant_<Allbits>
+    struct Allbits : ext::pure_constant_<Allbits>
     {
       typedef double default_type;
       template<class Target, class Dummy=void>

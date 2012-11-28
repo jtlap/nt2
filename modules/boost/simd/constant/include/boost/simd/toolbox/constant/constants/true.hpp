@@ -64,10 +64,10 @@ namespace boost { namespace simd
      * \brief Define the tag True of functor True
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct True : ext::constant_<True>
+    struct True : ext::pure_constant_<True>
     {
       typedef logical<double> default_type;
-      typedef ext::constant_<True> parent;
+      typedef ext::pure_constant_<True> parent;
     };
   }
 
