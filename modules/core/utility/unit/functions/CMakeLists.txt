@@ -11,13 +11,14 @@ SET( SOURCES
   arecatcompatible.cpp
   arecrosscompatible.cpp
   as_index.cpp
+  as_size.cpp
   as_subscript.cpp
   bsxfun.cpp
   class.cpp
   disp.cpp
   find.cpp
   findi.cpp
-  findj.cpp 
+  findj.cpp
   globalfind.cpp
   first_last_index.cpp
   firstnonsingleton.cpp
