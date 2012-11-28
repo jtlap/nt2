@@ -20,6 +20,7 @@
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/trans.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
@@ -38,6 +39,7 @@ NT2_TEST_CASE_TPL ( symeig, NT2_REAL_TYPES)
   NT2_DISPLAY(v);
   NT2_DISPLAY(d);
   NT2_DISPLAY(b);
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(v, nt2::mtimes(d, nt2::trans(v))), 10.0);
 
 }
 NT2_TEST_CASE_TPL ( symeig_m_test, NT2_REAL_TYPES)
@@ -68,10 +70,10 @@ NT2_TEST_CASE_TPL ( symeig_m_test, NT2_REAL_TYPES)
   table_t zz = nt2::triu(z);
   table_t bbb= nt2::triu(b);
   NT2_DISPLAY(zz);
-  NT2_DISPLAY(bbb); 
+  NT2_DISPLAY(bbb);
   //    NT2_DISPLAY(nt2::triu(z));
 //    NT2_DISPLAY(nt2::triu(b));
-   NT2_TEST(isulpequal(nt2::triu(z), nt2::triu(b), T(16.0))); 
+   NT2_TEST(isulpequal(nt2::triu(z), nt2::triu(b), T(16.0)));
 }
 
 
