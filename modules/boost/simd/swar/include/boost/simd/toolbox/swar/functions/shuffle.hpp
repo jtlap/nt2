@@ -20,6 +20,7 @@
 #include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
+#include <boost/preprocessor/cat.hpp>
 #include <boost/mpl/vector/vector10_c.hpp>
 #include <boost/mpl/vector/vector20_c.hpp>
 #include <boost/mpl/vector/vector40_c.hpp>
@@ -66,7 +67,7 @@ typename boost::dispatch::meta                                                 \
                     ,boost::dispatch::meta::                                   \
                      as_<details::random_permute                               \
                          <boost::mpl::                                         \
-                          vector##n##_c<int,BOOST_PP_ENUM_PARAMS(n, I)>        \
+                          BOOST_PP_CAT(vector, BOOST_PP_CAT(n, _c))<int,BOOST_PP_ENUM_PARAMS(n, I)>        \
                          >                                                     \
                         >                                                      \
                     )                                                          \
@@ -78,7 +79,7 @@ shuffle(A0 const& a0)                                                          \
                , boost::dispatch::meta::                                       \
                  as_< details::                                                \
                       random_permute< boost::mpl::                             \
-                                      vector##n##_c< int                       \
+                                      BOOST_PP_CAT(vector, BOOST_PP_CAT(n, _c))< int                       \
                                               , BOOST_PP_ENUM_PARAMS(n, I)     \
                                               >                                \
                                     >                                          \
@@ -93,7 +94,7 @@ typename boost::dispatch::meta                                                 \
                     , boost::dispatch::meta::                                  \
                       as_<details::random_permute                              \
                           <boost::mpl::                                        \
-                           vector##n##_c                                       \
+                           BOOST_PP_CAT(vector, BOOST_PP_CAT(n, _c))                                       \
                            <int                                                \
                            ,BOOST_PP_ENUM_PARAMS(n, I)                         \
                            >                                                   \
@@ -110,7 +111,7 @@ shuffle(A0 const& a0, A1 const& a1)                                            \
                  as_< details::                                                \
                       random_permute                                           \
                       <boost::mpl::                                            \
-                       vector##n##_c<int                                       \
+                       BOOST_PP_CAT(vector, BOOST_PP_CAT(n, _c))<int                                       \
                                ,BOOST_PP_ENUM_PARAMS(n, I)                     \
                                >                                               \
                       >                                                        \
