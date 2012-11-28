@@ -17,7 +17,7 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/include/functions/mtimes.hpp>
-
+#include <nt2/include/constants/sqrt_2.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/exceptions.hpp>
@@ -34,6 +34,9 @@ NT2_TEST_CASE_TPL ( planerot, NT2_REAL_TYPES)
   nt2::tie(g, y) = nt2::planerot(x);
   NT2_DISPLAY(g);
   NT2_DISPLAY(y);
+  table_t r = nt2::zeros(2, 1, nt2::meta::as_<T>());
+  r(1) = nt2::Sqrt_2<T>();
+  NT2_TEST_ULP_EQUAL(r, y, 0.5);
 }
 
 NT2_TEST_CASE_TPL ( planerot2, NT2_REAL_TYPES)
@@ -47,7 +50,7 @@ NT2_TEST_CASE_TPL ( planerot2, NT2_REAL_TYPES)
   nt2::tie(g, y) = nt2::planerot(x);
   NT2_DISPLAY(g);
   NT2_DISPLAY(y);
-  NT2_TEST(nt2::isulpequal(nt2::mtimes(g, x), y)); 
+  NT2_TEST(nt2::isulpequal(nt2::mtimes(g, x), y));
 }
 
 
