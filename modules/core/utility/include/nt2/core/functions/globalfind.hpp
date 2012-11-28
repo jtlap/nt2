@@ -16,9 +16,6 @@
 **/
 
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/sdk/memory/container_shared_ref.hpp>
 
 namespace nt2
 {
@@ -33,19 +30,7 @@ namespace nt2
     };
   }
 
-  /*!
-    @brief
-
-    @param
-  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::globalfind_, globalfind, 1)
-
-  /*!
-    @brief
-
-    @param
-    @param
-  **/
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::globalfind_, globalfind, 2)
 }
 

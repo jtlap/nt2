@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isequaln_, tag::cpu_
                             , (A0)(A1)
-                            , (scalar_<fundamental_<A0> >)
+                            , (scalar_<unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
@@ -54,7 +54,7 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isequaln_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
-                              (scalar_<fundamental_<A1> >)
+                              (scalar_<unspecified_<A1> >)
 
                             )
   {
@@ -99,30 +99,30 @@ namespace nt2 { namespace ext
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isequaln_, tag::cpu_
-                            , (A0)(X)
+                            , (A0)(A1)(X)
                             , ((simd_< unspecified_<A0>, X>))
-                              ((simd_< unspecified_<A0>, X>))
+                              ((simd_< unspecified_<A1>, X>))
                             )
   {
     typedef bool result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0, const A0& a1) const
+    result_type operator()(const A0& a0, const A1& a1) const
     {
       return nt2::all(is_equal_with_equal_nans(a0, a1));
     }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isequaln_, tag::cpu_
-                            , (A0)(X)(T0)(N0)(T1)(N1)
+                            , (A0)(A1)(X)(T0)(N0)(T1)(N1)
                             , ((expr_< simd_< unspecified_<A0>, X>, T0, N0>))
-                              ((expr_< simd_< unspecified_<A0>, X>, T1, N1>))
+                              ((expr_< simd_< unspecified_<A1>, X>, T1, N1>))
                             )
   {
     typedef bool result_type;
 
     BOOST_DISPATCH_FORCE_INLINE
-    result_type operator()(const A0& a0, const A0& a1) const
+    result_type operator()(const A0& a0, const A1& a1) const
     {
       return nt2::all(is_equal_with_equal_nans(a0, a1))();
     }

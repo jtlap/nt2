@@ -9,6 +9,7 @@
 #ifndef NT2_SDK_UNIT_DETAILS_REGISTER_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_REGISTER_HPP_INCLUDED
 
+#include <nt2/sdk/unit/stats.hpp>
 #include <cstdio>
 
 namespace nt2 { namespace details
@@ -32,7 +33,20 @@ namespace nt2 { namespace details
         puts("---------------------------------------------------------------");
         #endif
       }
-      if(call) call();
+      if(call)
+      {
+        int n = nt2::unit::test_count();
+        call();
+        if(nt2::unit::test_count() == n)
+        {
+          nt2::unit::error_count()++;
+          nt2::unit::test_count()++;
+          printf(
+                "----------------------------------------------------------------\n"
+                "NO TEST REGISTERED -- FORCED FAILURE.\n"
+                );
+        }
+      }
       puts("");
       if(next) next->process();
     }

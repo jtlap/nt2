@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 

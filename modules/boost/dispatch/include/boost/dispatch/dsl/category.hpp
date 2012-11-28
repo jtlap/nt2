@@ -134,6 +134,22 @@ namespace boost { namespace dispatch { namespace details
     : meta::semantic_of<T>
   {
   };
+
+  template<class T>
+  struct value_of_cv< T const
+                    , typename T::proto_is_expr_
+                    >
+    : meta::semantic_of<T const>
+  {
+  };
+
+  template<class T>
+  struct value_of_cv< T&
+                    , typename T::proto_is_expr_
+                    >
+    : meta::semantic_of<T&>
+  {
+  };
 } } }
 
 #endif

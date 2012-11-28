@@ -47,8 +47,8 @@ namespace nt2
     @c disp(a0) displays the content of @c a0 in a way similar to MATLAB and
     prefixed by an arbitrary string.
 
-    @param a0 Value to display
-    @param a1 Name of the value to display
+    @param a0 Name of the value to display
+    @param a1 Value to display
   **/
   NT2_FUNCTION_IMPLEMENTATION(tag::display_,display,2)
 }

@@ -13,39 +13,61 @@ functions as freqspace can return several results, in __NT2__ too... The respect
 # `tie(a,b) = freqspace(...)` in Nt2 (note that `tie_` is in namespace `nt2`)
 
 
-[variablelist Elementary Arrays
-[[blkdiag         ][ Construct block diagonal matrix from input arguments       -> `blkdiag`                       ]]
-[[colon (:)       ][ Create vectors, array subscripting, and for-loop iterators -> `colon` or `_`
+[table:id Elementary Arrays
+[[__MATLAB__        ][ __NT2__      ][ Description                                                 ]]
+[[`blkdiag         `][`blkdiag`     ][ Construct block diagonal matrix from input arguments        ]]
+[[`colon` (`:`)     ][`colon` (`_`)][ Create vectors, array subscripting, and for-loop iterators 
+                                    
+                                        There is one difference with __MATLAB__ colon in __MATLAB__ 
+                                       `colon(a,0,b)` provides an empty array.
+                                        __NT2__ as chosen to repeat  `a` `b` times in row.
+                                                                                                   ]]
+[[`diag            `][`diag`         ][ Diagonal matrices and diagonals of matrix                 
+                                    
+                                        in __NT2__ you can also use `fromdiag` and `diagof`
+                                        if the direction is known.
+                                                                                                   ]]
+[[`eye             `][`eye`         ][ Identity matrix                                             ]]
+[[`freqspace       `][`freqspace`   ][ Frequency spacing for frequency response                    ]]
+[[`ind2sub         `][`ind2sub`     ][ Subscripts from linear index                                ]]
+[[`linspace        `][`linspace`    ][ Generate linearly spaced vectors                            ]]
+[[`logspace        `][`logspace`    ][ Generate logarithmically spaced vectors                    
+                                    
+                                      `logspace` has quite dictinct behaviours 
+                                       (quite inconsistent with continuity)
+                                       if the second parameter is pi or not  `pi` 
+                                       (even at `0.5` ulp). You can use
+                                       `pispace`  if you want to be sure it is...
+                                                                                                   ]]
+[[`ndgrid          `][ TODO         ][ Rectangular grid in N-D space   TODO                            ]]
+[[`ones            `][`ones`        ][ Create array of all ones                                    ]]
+[[`rand            `][`rand`        ][ Uniformly distributed pseudorandom numbers                  ]]
+[[`randi           `][`randi`       ][ Uniformly distributed pseudorandom integers                 ]]
+[[`randn           `][`randn`       ][ Normally distributed pseudorandom numbers                   ]]
+[[`RandStream      `][`RandStream`  ][ Random number stream                                        ]]
+[[`rng             `][`rng`         ][ Control random number generation                            ]]
+[[`sub2ind         `][`sub2ind`     ][ Convert subscripts to linear indices  
 
-                     There is one difference with matlab colon in Matlab `colon(a,0,b)` provides an empty array.
-                     __NT2__ as chosen to repeat  `a` `b` times in row.
-                                                                                                                   ]]
-[[diag            ][ Diagonal matrices and diagonals of matrix                  -> `diag`
-                     
-                     in __NT2__ you can also use `fromdiag` and `diagof` if the direction
-                     is known.
-                                                                                                                   ]]
-[[eye             ][ Identity matrix                                            -> `eye`                           ]]
-[[freqspace       ][ Frequency spacing for frequency response                   -> `freqspace`                     ]]
-[[ind2sub         ][ Subscripts from linear index                               -> `ind2sub`                       ]]
-[[linspace        ][ Generate linearly spaced vectors                           -> `linspace`                      ]]
-[[logspace        ][ Generate logarithmically spaced vectors                    -> `logspace`  
 
-                     `logspace` has quite dictinct behaviours (quite inconsistent with continuity)
-                     if the second parameter is pi or not  `pi` (even at `0.5` ulp). You can use
-                     `pispace`  if you want to be sure it is...
-                                                                                                                   ]]
-[[ndgrid          ][ Rectangular grid in N-D space                                  TODO                           ]]
-[[ones            ][ Create array of all ones                                   -> `ones`                          ]]
-[[rand            ][ Uniformly distributed pseudorandom numbers                 -> `rand`                          ]]
-[[randi           ][ Uniformly distributed pseudorandom integers                -> `randi`                         ]]
-[[randn           ][ Normally distributed pseudorandom numbers                  -> `randn`                         ]]
-[[RandStream      ][ Random number stream                                       -> `RandStream`                    ]]
-[[rng             ][ Control random number generation                           -> `rng`                           ]]
-[[sub2ind         ][ Convert subscripts to linear indices                       -> `sub2ind`                       ]]
-[[zeros           ][ Create array of all zeros                                  -> `zeros`                         ]]
+                                       TODO
+                                       As in __MATLAB__ `sub2ind(siz,i1,i2,..in)` returns 
+                                       the linear index equivalent to the
+                                       subscripts in the arrays `i1`, `i2`,..., `in` for an 
+                                       array of size `siz`. But it is also 
+                                       possible to use `sub2ind<N>(siz,subs)` where subs is
+                                       an integer arrays whose column or rows have exactly `N`
+                                       elements.
+   
+                       ]]
+[[`zeros           `][`zeros`       ][ Create array of all zeros                                   ]]
 ]                                                                                
-                                                                                 
+      
+
+[note TODO 
+
+__NT2__ has chosen to extend the scheme presented by  `ones`, `zeros` to all of its mathematical constants.
+For instance `Sqrt_2<T>` produces the square root of 2 in the type T, and `Sqrt_2s<T>(n,m)`[footnote note the s],
+ will produce an array expression of size nXm full of this constant, as well as`Sqrt_2s(n,m, as_<T>())` ]                                                                     
 [endsect]                                                                                
                                                                                  
                                                                                  

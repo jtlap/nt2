@@ -50,7 +50,7 @@
 #endif
 
 // SUSv3
-#if defined(__XOPEN_VERSION) && _XOPEN_VERSION >= 600
+#if defined(_XOPEN_VERSION) && _XOPEN_VERSION >= 600
 #define BOOST_SIMD_HAS_Y0F
 #define BOOST_SIMD_HAS_Y1F
 #define BOOST_SIMD_HAS_YNF

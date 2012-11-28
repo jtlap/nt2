@@ -53,8 +53,8 @@ NT2_TEST_CASE_TPL ( logical_not_integer__1_0,  NT2_INTEGRAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(nt2::False<T>()), nt2::True<r_t>());
-  NT2_TEST_EQUAL(logical_not(nt2::True<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::False< nt2::logical<T> >()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::True< nt2::logical<T> >()), nt2::False<r_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_REAL_TYPES)
@@ -77,6 +77,6 @@ NT2_TEST_CASE_TPL ( logical_not_real__1_0,  NT2_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_not(nt2::False<T>()), nt2::True<r_t>());
-  NT2_TEST_EQUAL(logical_not(nt2::True<T>()), nt2::False<r_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::False< nt2::logical<T> >()), nt2::True<r_t>());
+  NT2_TEST_EQUAL(logical_not(nt2::True< nt2::logical<T> >()), nt2::False<r_t>());
 } // end of test for real_

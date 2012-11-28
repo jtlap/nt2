@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_not_equal_with_equal_nans is_not_equal_with_equal_nans
  *
  * \par Description
- * Returns True<A0>() if a0 and a1 are not equal else False<A0>().
+ * Returns True<result_type>() if a0 and a1 are not equal else False<result_type>().
  * nans are considered equal
  *
  * \par Header file

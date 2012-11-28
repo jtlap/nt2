@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_J0_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SIMD_COMMON_J0_HPP_INCLUDED
@@ -44,7 +44,7 @@ namespace nt2 { namespace ext
       return nt2::j0(tofloat(a0));
     }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is double
   /////////////////////////////////////////////////////////////////////////////
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
      return map(functor<tag::j0_>(), a0);
       }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is float
   /////////////////////////////////////////////////////////////////////////////
@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-        typedef typename meta::as_logical<A0>::type bA0; 
+        typedef typename meta::as_logical<A0>::type bA0;
         A0 x   =  nt2::abs(a0);
         bA0 lt2 = lt(x, Two<A0>());
         if (nt2::all(lt2))
@@ -82,9 +82,9 @@ namespace nt2 { namespace ext
        // computing only branch2,  this probably due to the double pipeline
       }
   private :
-    template < class AA0 > static inline AA0 branch1(const AA0 x)
+    template < class AA0 > static inline AA0 branch1(const AA0& x)
       {
-       typedef typename meta::scalar_of<AA0>::type stype; 
+       typedef typename meta::scalar_of<AA0>::type stype;
        const AA0 z = sqr(x);
        return (z-single_constant<AA0,0x40b90fdc> ())*
          horner< NT2_HORNER_COEFF_T(stype, 5,
@@ -95,9 +95,9 @@ namespace nt2 { namespace ext
                                   0xbe3110a6
                                   ) ) > (z);
   }
-  template < class AA0 > static inline AA0 branch2(const AA0 x)
+  template < class AA0 > static inline AA0 branch2(const AA0& x)
   {
-    typedef typename meta::scalar_of<AA0>::type stype; 
+    typedef typename meta::scalar_of<AA0>::type stype;
     AA0 q = rec(x);
     AA0 w = sqrt(q);
     AA0 p3 = w *

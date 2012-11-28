@@ -15,10 +15,10 @@
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/sub2ind.hpp>
-#include <nt2/include/functions/schedule.hpp>
 #include <nt2/include/functions/last_index.hpp>
 #include <nt2/include/functions/first_index.hpp>
 #include <nt2/core/container/dsl/expression.hpp>
+#include <nt2/core/container/dsl/domain.hpp>
 
 namespace nt2
 {
@@ -135,9 +135,9 @@ namespace nt2
         // We schedule xpr to be sure everything is evaluated if needed.
         typedef nt2::container::expression<Xpr,R> expr_t;
         typedef typename make_functor<tag::run_, expr_t>::type               run_t;
-        typedef typename meta::call<tag::schedule_(expr_t const&, run_t)>::type scheduled;
+        typedef container::domain::template as_child<expr_t const>           sched;
 
-        scheduled s = schedule(xpr, run_t());
+        typename sched::result_type s = sched()(xpr);
 
         // We print expression based on their runtime ndims so the various
         // ans(:,:,...) are not tainted by useless 1's

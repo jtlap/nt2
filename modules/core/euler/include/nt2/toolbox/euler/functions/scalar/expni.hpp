@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_EXPNI_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SCALAR_EXPNI_HPP_INCLUDED
@@ -32,7 +32,7 @@
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::expni_, tag::cpu_
-			      , (A0)(A1)
+                              , (A0)(A1)
                             , (scalar_< integer_<A0> >)(scalar_< arithmetic_<A1> >)
                             )
   {
@@ -69,7 +69,7 @@ namespace nt2 { namespace ext
       {
         A1 xk = x + n;
         A1 yk = rec(sqr(xk));
-        A1 t = n;
+        A1 t = (A1)n;
         A1 ans = yk*t*(Six<A1>()*sqr(x)-Eight<A1>()*t*x+sqr(t));
         ans = yk*(ans+t*(t-Two<A1>()*x));
         ans = yk*(ans+t);
@@ -81,20 +81,20 @@ namespace nt2 { namespace ext
         /*        Power series expansion        */
         A1 psi = -Euler<A1>() - nt2::log(x);
         for( int32_t i=n-1; i; --i )  psi += rec((A1)i);
-	A1 t;
+        A1 t;
         A1 z = -x;
         A1 xk = Zero<A1>();
         A1 yk = One<A1>();
         A1 pk = One<A1>() - n;
         A1 ans = ( n == 1 ) ? Zero<A1>() : rec(pk);
         do
-          {
-            xk += One<A1>();
-            yk *= z/xk;
-            pk += One<A1>();
-            if(is_nez(pk)) ans += yk/pk;
-            t = is_nez(ans) ? nt2::abs(yk/ans) : One<A1>();
-         }
+        {
+          xk += One<A1>();
+          yk *= z/xk;
+          pk += One<A1>();
+          if(is_nez(pk)) ans += yk/pk;
+          t = is_nez(ans) ? nt2::abs(yk/ans) : One<A1>();
+        }
         while( t > Halfeps<A1>() );
         t = n;
         A1 r = n - 1;
@@ -116,26 +116,26 @@ namespace nt2 { namespace ext
         A1 pk = pkm1 * yk  +  pkm2 * xk;
         A1 qk = qkm1 * yk  +  qkm2 * xk;
         if( is_nez(qk) )
-          {
-            A1 r = pk/qk;
-            t = nt2::abs( (ans - r)/r );
-            ans = r;
-          }
+        {
+          A1 r = pk/qk;
+          t = nt2::abs( (ans - r)/r );
+          ans = r;
+        }
         else
-          {
-            t = One<A1>();
-          }
+        {
+          t = One<A1>();
+        }
         pkm2 = pkm1;
         pkm1 = pk;
         qkm2 = qkm1;
         qkm1 = qk;
         if( nt2::abs(pk) > Expnibig<A1>() )
-          {
-            pkm2 *= Halfeps<A1>();
-            pkm1 *= Halfeps<A1>();
-            qkm2 *= Halfeps<A1>();
-            qkm1 *= Halfeps<A1>();
-          }
+        {
+          pkm2 *= Halfeps<A1>();
+          pkm1 *= Halfeps<A1>();
+          qkm2 *= Halfeps<A1>();
+          qkm1 *= Halfeps<A1>();
+        }
       }
       while( t > Halfeps<A1>() );
       return( ans*exp( -x ) );

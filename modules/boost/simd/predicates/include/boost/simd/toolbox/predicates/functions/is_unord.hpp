@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_unord is_unord
  *
  * \par Description
- * Returns True<A0>() if a0 or a1 is nan.
+ * Returns True<result_type>() if a0 or a1 is nan.
  *
  * \par Header file
  * 

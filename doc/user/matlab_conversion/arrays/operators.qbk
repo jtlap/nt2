@@ -1,35 +1,44 @@
 [section Operators]
+Operators are functions so useful they got a special status and an infix notation.
 
-Matlab has two types of operators, elementwise and algebraic ones.
-C++ can overload existing operators but not create new ones, so
-choices wre to be made in Nt2, for instance: "does `*` will be used for matlab `*` or `.*` ?"
+__MATLAB__ has two types of operators, elementwise and algebraic ones.
+__CPP__ can overload existing operators but not create new ones, so
+choices are to be made in __NT2__, for instance: 
+
+Will `*`  be used for matlab `*` or `.*` ?
 
 
-The choice is the following: using Nt2 all operators are by default treated as elementwise and 
+The choice is the following: using __NT2__ all operators are by default treated as elementwise and 
 algebraic operators are replaced by function calls. 
 
-[variablelist Arithmetic and algebraic operators 
-[[ctranspose][ Complex conjugate transpose         -> transconj       ]]
-[[minus     ][ Minus                               -> - or minus      ]]
-[[mpower    ][ Matrix power                        -> mpower          ]]
-[[plus      ][ Plus                                -> + or plus       ]]
-[[times     ][ Array multiply                      -> * or multiplies ]]
-[[transpose ][ Transpose                           -> trans           ]]
-[[uminus    ][ Unary minus                         -> - or unary_minus]]
-[[uplus     ][ Unary plus                          -> + or unary_plus ]]
-[[+         ][ Addition                            -> + or plus       ]]
-[[+         ][ Unary plus                          -> + or unary_plus ]]
-[[-         ][ Subtraction                         -> - or minus      ]]
-[[-         ][ Unary minus                         -> - or unary_minus]]
-[[*         ][ Matrix multiplication               -> mtimes          ]]
-[[^         ][ Matrix power                        -> mpower          ]]
-[[\\         ][ Backslash or left matrix divide     -> mldivides       ]]
-[[\/         ][ Slash or right matrix divide        -> mrdivides       ]]
-[['         ][ Transpose and conjugate             -> transconj       ]]
-[[.'        ][ Nonconjugated transpose             -> trans           ]]
-[[.*        ][ Array multiplication (element-wise) -> * or multiplies ]]
-[[.^        ][ Array power (element-wise)          -> pow             ]]
-[[.\\        ][ Left array divide (element-wise)    -> rdivides        ]]
-[[.\/        ][ Right array divide (element-wise)   -> ldivides or \/   ]]
+However classes can modify the meaning of an operator an the conditions of appliance, `*`, 
+for instance can have a different semantic with `table`,`matrix` or `polynomials`.
+
+Here we treat of the translation of __MATLAB__ operators on `table` or `expressions`.
+
+[table:id Arithmetic and algebraic operators 
+[[__MATLAB__  ][ __NT2__             ][ Description                         ]]
+[[`ctranspose`][ `transconj`         ][ Complex conjugate transpose         ]]
+[[`minus`     ][ `-` or `minus`      ][ Minus                               ]]
+[[`mpower`    ][ `mpower`            ][ Matrix power                        ]]
+[[`plus`      ][ `+` or `plus`       ][ Plus                                ]]
+[[`times`     ][ `*` or `multiplies` ][ Array multiply                      ]]
+[[`transpos`e ][ `trans`             ][ Transpose                           ]]
+[[`uminus`    ][ `-` or `unary_minus`][ Unary minus                         ]]
+[[`uplus`     ][ `+` or `unary_plus` ][ Unary plus                          ]]
+[[`+`         ][ `+` or `plus`       ][ Addition                            ]]
+[[`+`         ][ `+` or `unary_plus` ][ Unary plus                          ]]
+[[`-`         ][ `-` or `minus`      ][ Subtraction                         ]]
+[[`-`         ][ `-` or `unary_minus`][ Unary minus                         ]]
+[[`*`         ][ `mtimes`            ][ Matrix multiplication               ]]
+[[`^`         ][ `mpower`            ][ Matrix power                        ]]
+[[`\\`        ][ `mldivides`         ][ Backslash or left matrix divide     ]]
+[[`\/`        ][ `mrdivides`         ][ Slash or right matrix divide        ]]
+[[`''`        ][ `transconj`         ][ Transpose and conjugate             ]]
+[[`.''`       ][ `trans`             ][ Nonconjugated transpose             ]]
+[[`.*`        ][ `*` or `multiplies` ][ Array multiplication (element-wise) ]]
+[[`.^`        ][ `pow`               ][ Array power (element-wise)          ]]
+[[`.\`\`      ][ `rdivides`          ][ Left array divide (element-wise)    ]]
+[[`./`        ][ `ldivides` or `/`   ][ Right array divide (element-wise)   ]]
 ]
 [endsect]

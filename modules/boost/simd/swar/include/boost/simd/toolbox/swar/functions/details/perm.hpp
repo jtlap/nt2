@@ -151,7 +151,7 @@ namespace boost { namespace simd { namespace details
                           , mask_<1, 0>::value, mask_<1, 1>::value
                           , mask_<2, 0>::value, mask_<2, 1>::value
                           , mask_<3, 0>::value, mask_<3, 1>::value
-                          , mask_<4, 0>::value, mask_<4, 1>::value 
+                          , mask_<4, 0>::value, mask_<4, 1>::value
                           , mask_<5, 0>::value, mask_<5, 1>::value
                           , mask_<6, 0>::value, mask_<6, 1>::value
                           , mask_<7, 0>::value, mask_<7, 1>::value
@@ -172,6 +172,7 @@ namespace boost { namespace simd { namespace details
     } 
 #endif  
   };
+  
   template<class P>
   struct permute<P,16>
   {

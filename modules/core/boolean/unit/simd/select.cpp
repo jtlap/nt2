@@ -49,6 +49,7 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<select_(vT,vT,vT)>::type r_t;
@@ -59,8 +60,8 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(select(nt2::False<vT>(),nt2::One<vT>(),nt2::Two<vT>())[0], nt2::Two<sr_t>());
-  NT2_TEST_EQUAL(select(nt2::True<vT>(),nt2::One<vT>(),nt2::Two<vT>())[0], nt2::One<sr_t>());
+  NT2_TEST_EQUAL(select(nt2::False<vlT>(),nt2::One<vT>(),nt2::Two<vT>())[0], nt2::Two<sr_t>());
+  NT2_TEST_EQUAL(select(nt2::True<vlT>(),nt2::One<vT>(),nt2::Two<vT>())[0], nt2::One<sr_t>());
 } // end of test for real_
 
 NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
@@ -74,6 +75,7 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename nt2::meta::call<select_(vT,vT,vT)>::type r_t;
@@ -84,6 +86,6 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
   boost::dispatch::ignore_unused(ulpd);
 
   // specific values tests
-  NT2_TEST_EQUAL(select(nt2::False<vT>(),nt2::One<vT>(),nt2::Two<vT>())[0], nt2::Two<sr_t>());
-  NT2_TEST_EQUAL(select(nt2::True<vT>(),nt2::One<vT>(),nt2::Two<vT>())[0], nt2::One<sr_t>());
+  NT2_TEST_EQUAL(select(nt2::False<vlT>(),nt2::One<vT>(),nt2::Two<vT>())[0], nt2::Two<sr_t>());
+  NT2_TEST_EQUAL(select(nt2::True<vlT>(),nt2::One<vT>(),nt2::Two<vT>())[0], nt2::One<sr_t>());
 } // end of test for integer_

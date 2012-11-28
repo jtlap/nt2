@@ -52,7 +52,7 @@ namespace nt2
 
     of_size_proxy& operator=(std::size_t value_)
     {
-      BOOST_ASSERT_MSG( static_value(i) == -1 || static_value(i) == value_, "Dimension in size different from static value" );
+      BOOST_ASSERT_MSG( static_value(i) < 0 || static_value(i) == value_, "Dimension in size different from static value" );
       *value = value_;
       return *this;
     }
@@ -227,7 +227,7 @@ namespace nt2
     //   static properties. No compression occurs
     //==========================================================================
     #define M2(z,n,t)                                                          \
-    BOOST_ASSERT_MSG( ( (D##n != -1)                                           \
+    BOOST_ASSERT_MSG( ( (D##n >= 0)                                            \
                       ? std::equal_to<std::size_t>()(d##n, D##n)               \
                       : ( static_size<=std::size_t(n)                          \
                         ? (std::size_t(d##n)==1u)                              \
@@ -241,7 +241,7 @@ namespace nt2
                     );                                                         \
     /**/
 
-    #define M1(z,n,t) fill(   (D##n == -1)                                     \
+    #define M1(z,n,t) fill(   (D##n < 0)                                       \
                             ? std::size_t(d##n)                                \
                             : std::size_t(D##n)                                \
                           , boost::mpl::size_t<std::size_t(n)>()               \
@@ -249,7 +249,7 @@ namespace nt2
                           );                                                   \
     /**/
 
-    #define M3(z,n,t) fill(   (D##n == -1)                                     \
+    #define M3(z,n,t) fill(   (D##n < 0)                                       \
                             ? std::size_t(1u)                                  \
                             : std::size_t(D##n)                                \
                           , boost::mpl::size_t<std::size_t(n)>()               \

@@ -12,9 +12,11 @@
 // unit test behavior of polynomials components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// 
+///
 #include <nt2/toolbox/polynomials/include/functions/tchebeval.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/sdk/meta/as_integer.hpp>
+
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -27,7 +29,7 @@
 
 NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::tchebeval;
   using nt2::tag::tchebeval_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -37,16 +39,16 @@ NT2_TEST_CASE_TPL ( tchebeval_real__2_0,  NT2_REAL_TYPES)
 
   static const boost::array<T, 4 > A= {{ T(1), T(2), T(3), T(4) }};
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 
-  NT2_TEST_EQUAL(tchebeval( T(1), A), T(1.5)); 
-  NT2_TEST_EQUAL(tchebeval( T(2), A), T(8.0)); 
-  NT2_TEST_EQUAL(tchebeval( T(3), A), T(22.5)); 
+  NT2_TEST_EQUAL(tchebeval( T(1), A), T(1.5));
+  NT2_TEST_EQUAL(tchebeval( T(2), A), T(8.0));
+  NT2_TEST_EQUAL(tchebeval( T(3), A), T(22.5));
 
   // specific values tests
 
-  
+
 } // end of test for floating_
 
 

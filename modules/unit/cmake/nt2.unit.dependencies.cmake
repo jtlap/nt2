@@ -10,4 +10,5 @@
 SET ( NT2_UNIT_DEPENDENCIES_EXTRA sdk.simd      sdk.meta        sdk.timing
                                   core.ieee     core.arithmetic core.constant
                                   core.operator
+                                  type.complex.sdk
     )

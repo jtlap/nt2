@@ -9,7 +9,4 @@
 
 nt2_module_use_modules(boost.simd.predicates)
 
-ADD_SUBDIRECTORY(config)
-ADD_SUBDIRECTORY(details)
-ADD_SUBDIRECTORY(meta)
 ADD_SUBDIRECTORY(memory)

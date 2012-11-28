@@ -16,29 +16,29 @@ macro(nt2_preprocess target)
     set(NT2_PREPROCESS_ENABLED 1)
 
     get_directory_property(INCLUDES INCLUDE_DIRECTORIES)
-  
+
     file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/tmpfile "")
     execute_process(COMMAND ${CMAKE_C_COMPILER} -v -x c++ ${CMAKE_CURRENT_BINARY_DIR}/tmpfile -fsyntax-only
                     ERROR_VARIABLE COMPILER_VERSION_INFO
                    )
     file(REMOVE tmpfile)
-                    
+
     string(REGEX REPLACE "^.*#include <...>[^\n]*((\n [^\n]+)*)\n[^ ].*$" "\\1" INCLUDE_SYSTEM_DIRECTORIES ${COMPILER_VERSION_INFO} )
     string(REGEX REPLACE "^\n " "" INCLUDE_SYSTEM_DIRECTORIES ${INCLUDE_SYSTEM_DIRECTORIES} )
     string(REPLACE "\n " ";" INCLUDE_SYSTEM_DIRECTORIES ${INCLUDE_SYSTEM_DIRECTORIES} )
-    
+
     foreach(INCLUDE ${INCLUDES})
       list(APPEND INCLUDE_DIRECTORIES "-S${INCLUDE}")
     endforeach()
     foreach(INCLUDE ${INCLUDE_SYSTEM_DIRECTORIES})
       list(APPEND INCLUDE_DIRECTORIES "-S${INCLUDE}")
-    endforeach()   
-    
+    endforeach()
+
     cmake_parse_arguments(ARG "" "" "DEPENDS;OPTIONS" ${ARGN})
-    
+
     add_custom_target(${target})
     set_property(TARGET ${target} PROPERTY FOLDER preprocess)
-    
+
     set(limits -D__CHAR_BIT__=8 -D__SCHAR_MAX__=127 -D__SHRT_MAX__=32767 -D__INT_MAX__=2147483647 -D__LONG_LONG_MAX__=9223372036854775807LL)
     if(CMAKE_SIZEOF_VOID_P EQUAL 4)
       list(APPEND limits -D__LONG_MAX__=2147483647L)
@@ -50,7 +50,7 @@ macro(nt2_preprocess target)
     foreach(src ${ARG_UNPARSED_ARGUMENTS})
       math(EXPR n "${prev} + 1")
       add_custom_target(${target}.${n}
-                        COMMAND ${WAVE_EXECUTABLE}  --c++0x --timer ${limits} ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
+                        COMMAND ${WAVE_EXECUTABLE} --variadics --long_long --timer ${limits} ${ARG_OPTIONS} ${INCLUDE_DIRECTORIES} -o - ${src}
                         WORKING_DIRECTORY ${NT2_BINARY_DIR}/include
                         COMMENT "wave ${src}"
                        )
@@ -58,11 +58,11 @@ macro(nt2_preprocess target)
       add_dependencies(${target} ${target}.${n})
       set(prev ${n})
     endforeach()
-    
+
     if(ARG_DEPENDS AND ARG_UNPARSED_ARGUMENTS)
       add_dependencies(${target} ${ARG_DEPENDS})
     endif()
-    
+
     # Create target "preprocess" if it doesn't already exist, and make it depend on target
     get_target_property(preprocess_exists preprocess EXCLUDE_FROM_ALL)
     if(preprocess_exists MATCHES "NOTFOUND$")

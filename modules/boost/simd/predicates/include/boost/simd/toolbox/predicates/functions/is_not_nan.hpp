@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_not_nan is_not_nan
  *
  * \par Description
- * Returns True<A0>() or False<A0>() according a0 is nan or not.
+ * Returns True<result_type>() or False<result_type>() according a0 is nan or not.
  *
  * \par Header file
  * 

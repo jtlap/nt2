@@ -11,7 +11,7 @@
 
 #include <boost/simd/sdk/config/arch/x86.hpp>
 #ifdef BOOST_SIMD_ARCH_X86
-#include <boost/simd/sdk/config/details/get_vendor.hpp>
+#include <boost/simd/sdk/config/details/impl/vendors.hpp>
 #include <boost/simd/sdk/config/details/detector/cpuid.hpp>
 #include <cstring>
 

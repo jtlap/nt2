@@ -19,6 +19,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/iterator/iterator_traits.hpp>
 #include <boost/type_traits/is_function.hpp>
 #include <boost/type_traits/is_pointer.hpp>
 #include <boost/type_traits/remove_pointer.hpp>
@@ -52,6 +53,21 @@ namespace boost
     };
   }
 }
+
+#if defined(__GLIBCPP__) || defined(__GLIBCXX__)
+namespace std
+{
+  template<class T>
+  struct iterator_traits<T* BOOST_DISPATCH_RESTRICT>
+   : iterator_traits<T*>
+  {
+    typedef T* BOOST_DISPATCH_RESTRICT pointer;
+#ifndef BOOST_DISPATCH_NO_RESTRICT_REFERENCES
+    typedef T& BOOST_DISPATCH_RESTRICT reference;
+#endif
+  };
+}
+#endif
 #endif
 
 namespace boost { namespace dispatch { namespace meta

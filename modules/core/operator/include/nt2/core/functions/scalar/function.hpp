@@ -12,9 +12,10 @@
 #include <nt2/core/functions/function.hpp>
 #include <nt2/include/functions/scalar/sub2ind.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/schedule.hpp>
+#include <nt2/core/container/dsl/domain.hpp>
 #include <boost/fusion/include/vector_tie.hpp>
 #include <boost/type_traits/remove_reference.hpp>
+
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -29,30 +30,29 @@ namespace nt2 { namespace ext
 #define M2(z,n,t)                                                              \
 NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
                           , (A0)BOOST_PP_REPEAT(n,M0,~)                        \
-                          , ((ast_<A0, nt2::container::domain>))BOOST_PP_REPEAT(n,M1,~)                  \
+                          , ((ast_<A0, nt2::container::domain>))BOOST_PP_REPEAT(n,M1,~) \
                           )                                                    \
 {                                                                              \
-  typedef typename make_functor<tag::run_, A0>::type              F;           \
-  typedef typename meta::call<tag::schedule_(A0&, F const&)>::type scheduled;  \
-  typedef typename boost::remove_reference<scheduled>::type       stripped;    \
+  typedef container::domain::template as_child<A0>                sched;       \
+  typedef typename sched::result_type                             scheduled;   \
                                                                                \
   typedef typename meta::                                                      \
           scalar_of< typename boost::dispatch::meta::                          \
-                      semantic_of<A0&>::type                                   \
+                     semantic_of<A0&>::type                                    \
                    >::type                                        result_type; \
-  typedef typename stripped::index_type::type                     idx_t;       \
+  typedef typename scheduled::index_type::type                    idx_t;       \
                                                                                \
   BOOST_FORCEINLINE result_type                                                \
   operator()(A0& a0, BOOST_PP_ENUM_BINARY_PARAMS(n,I,i) ) const                \
   {                                                                            \
-    scheduled s = schedule(a0, F());                                           \
+    scheduled s = sched()(a0);                                                 \
     return nt2::run( s                                                         \
                    , nt2::sub2ind( s.extent()                                  \
                                  , boost::fusion::                             \
                                    vector_tie(BOOST_PP_ENUM_PARAMS(n,i))       \
                                  , idx_t()                                     \
                                  )                                             \
-                   , meta::as_<typename stripped::value_type>()                \
+                   , meta::as_<typename scheduled::value_type>()               \
                    );                                                          \
   }                                                                            \
 };                                                                             \

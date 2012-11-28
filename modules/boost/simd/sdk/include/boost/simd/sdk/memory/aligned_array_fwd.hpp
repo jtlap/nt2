@@ -13,6 +13,9 @@ namespace boost { namespace simd { namespace memory
 {
   template<class T, std::size_t N, std::size_t Align = 0>
   struct aligned_array;
+
+  template<std::size_t N>
+  struct max_alignment;
 } } }
 
 #endif

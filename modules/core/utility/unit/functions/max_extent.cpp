@@ -22,7 +22,7 @@ NT2_TEST_CASE( dynamic_extent_max )
   using nt2::_2D;
   using nt2::_3D;
   using nt2::_4D;
-  using nt2::max_extent;
+  using nt2::utility::max_extent;
   using nt2::table;
 
   table<float, _1D> x1(_1D(5))        , y1(_1D(7));
@@ -49,7 +49,7 @@ NT2_TEST_CASE( dynamic_extent_max )
 NT2_TEST_CASE( static_extent_max )
 {
   using nt2::of_size_;
-  using nt2::max_extent;
+  using nt2::utility::max_extent;
   using nt2::table;
 
   table<float, of_size_<5>       > x1;

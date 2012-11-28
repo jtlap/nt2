@@ -13,5 +13,5 @@ SET ( NT2_CORE.OPTIMIZATION_DEPENDENCIES_EXTRA  sdk.option
                                                 core.ieee         core.operator
                                                 core.predicates   core.reduction
                                                 core.polynomials  core.exponential
-                                                core.trigonometric
+                                                core.trigonometric core.linalg
     )

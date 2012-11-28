@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_not_greater_equal is_not_greater_equal
  *
  * \par Description
- * Returns True<A0>() if a0 is not greater or equal to a1 else returns False<A0>().
+ * Returns True<result_type>() if a0 is not greater or equal to a1 else returns False<result_type>().
  * \par
  * Due to existence of nan, this is not equivalent to \c not(is_greater_equal(a0,a1))
  *

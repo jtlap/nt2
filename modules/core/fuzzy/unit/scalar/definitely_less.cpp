@@ -53,9 +53,9 @@ NT2_TEST_CASE_TPL ( definitely_less_real__3_0,  NT2_REAL_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(definitely_less(T(0),T(0),iT(1)), nt2::False<T>());
-  NT2_TEST_EQUAL(definitely_less(T(0),T(1),iT(1)), nt2::True<T>());
-  NT2_TEST_EQUAL(definitely_less(T(0),T(2),iT(1)), nt2::True<T>());
+  NT2_TEST_EQUAL(definitely_less(T(0),T(0),iT(1)), nt2::False< nt2::logical<T> >());
+  NT2_TEST_EQUAL(definitely_less(T(0),T(1),iT(1)), nt2::True< nt2::logical<T> >());
+  NT2_TEST_EQUAL(definitely_less(T(0),T(2),iT(1)), nt2::True< nt2::logical<T> >());
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( definitely_less_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
@@ -78,9 +78,9 @@ NT2_TEST_CASE_TPL ( definitely_less_signed_int__3_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(definitely_less(T(0),T(0),iT(1)), nt2::False<T>());
-  NT2_TEST_EQUAL(definitely_less(T(0),T(1),iT(1)), nt2::False<T>());
-  NT2_TEST_EQUAL(definitely_less(T(0),T(2),iT(1)), nt2::True<T>());
+  NT2_TEST_EQUAL(definitely_less(T(0),T(0),iT(1)), nt2::False< nt2::logical<T> >());
+  NT2_TEST_EQUAL(definitely_less(T(0),T(1),iT(1)), nt2::False< nt2::logical<T> >());
+  NT2_TEST_EQUAL(definitely_less(T(0),T(2),iT(1)), nt2::True< nt2::logical<T> >());
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( definitely_less_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
@@ -102,7 +102,7 @@ NT2_TEST_CASE_TPL ( definitely_less_unsigned_int__3_0,  NT2_UNSIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(definitely_less(T(0),T(0),iT(1)), nt2::False<T>());
-  NT2_TEST_EQUAL(definitely_less(T(0),T(1),iT(1)), nt2::False<T>());
-  NT2_TEST_EQUAL(definitely_less(T(0),T(2),iT(1)), nt2::True<T>());
+  NT2_TEST_EQUAL(definitely_less(T(0),T(0),iT(1)), nt2::False< nt2::logical<T> >());
+  NT2_TEST_EQUAL(definitely_less(T(0),T(1),iT(1)), nt2::False< nt2::logical<T> >());
+  NT2_TEST_EQUAL(definitely_less(T(0),T(2),iT(1)), nt2::True< nt2::logical<T> >());
 } // end of test for unsigned_int_

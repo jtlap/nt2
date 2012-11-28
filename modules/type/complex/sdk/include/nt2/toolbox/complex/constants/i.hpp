@@ -25,7 +25,7 @@
  * Constant I : Imaginary unit.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/i.hpp>
  * \endcode
@@ -44,12 +44,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of I
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace nt2
@@ -57,12 +57,13 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag I of functor I 
+     * \brief Define the tag I of functor I
      *        in namespace nt2::tag for toolbox complex
     **/
     struct I : ext::constant_<I>
     {
-      typedef imaginary<double> default_type; 
+      typedef imaginary<double> default_type;
+      typedef ext::constant_<I> parent;
     };
   }
 

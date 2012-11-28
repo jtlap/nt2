@@ -9,20 +9,44 @@
 #ifndef BOOST_SIMD_SDK_SIMD_PREPROCESSOR_REPEAT_HPP_INCLUDED
 #define BOOST_SIMD_SDK_SIMD_PREPROCESSOR_REPEAT_HPP_INCLUDED
 
-#define BOOST_SIMD_PP_REPEAT_POWER_OF_2(m, data)                               \
-m( 1,  1, data)                                                                \
-m( 2,  2, data)                                                                \
-m( 4,  4, data)                                                                \
-m( 8,  8, data)                                                                \
-m(16, 16, data)                                                                \
-m(32, 32, data)                                                                \
+#include <boost/preprocessor/tuple/elem.hpp>
+#include <boost/preprocessor/repetition/for.hpp>
+#include <boost/preprocessor/arithmetic/add.hpp>
+#include <boost/preprocessor/comparison/less_equal.hpp>
+
+#define BOOST_SIMD_PP_REPEAT_POWER_OF_2_PRED(r, data)                                              \
+BOOST_PP_LESS_EQUAL(BOOST_PP_TUPLE_ELEM(4, 0, data), BOOST_PP_TUPLE_ELEM(4, 1, data))              \
 /**/
 
-#define BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(m, data)                           \
-BOOST_SIMD_PP_REPEAT_POWER_OF_2(m, data)                                       \
-m( 64,  64, data)                                                              \
-m(128, 128, data)                                                              \
-m(256, 256, data)                                                              \
+#define BOOST_SIMD_PP_REPEAT_POWER_OF_2_OP(r, data)                                                \
+( BOOST_PP_ADD( BOOST_PP_TUPLE_ELEM(4, 0, data), BOOST_PP_TUPLE_ELEM(4, 0, data) )                 \
+, BOOST_PP_TUPLE_ELEM(4, 1, data)                                                                  \
+, BOOST_PP_TUPLE_ELEM(4, 2, data)                                                                  \
+, BOOST_PP_TUPLE_ELEM(4, 3, data)                                                                  \
+)                                                                                                  \
+/**/
+
+#define BOOST_SIMD_PP_REPEAT_POWER_OF_2_MACRO(r, data)                                             \
+BOOST_PP_TUPLE_ELEM(4, 2, data)(r, BOOST_PP_TUPLE_ELEM(4, 0, data), BOOST_PP_TUPLE_ELEM(4, 3, data)) \
+/**/
+
+/* Call \c m(z,n,data) with \c n all powers of 2 between \c from and \c to */
+#define BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM_TO(from, to, m, data)                                 \
+BOOST_PP_FOR( (from, to, m, data)                                                                  \
+            , BOOST_SIMD_PP_REPEAT_POWER_OF_2_PRED                                                 \
+            , BOOST_SIMD_PP_REPEAT_POWER_OF_2_OP                                                   \
+            , BOOST_SIMD_PP_REPEAT_POWER_OF_2_MACRO                                                \
+            )                                                                                      \
+/**/
+
+/* Regular variants, go up to 32 */
+#define BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM(from, m, data) BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM_TO(from, 32, m, data)
+#define BOOST_SIMD_PP_REPEAT_POWER_OF_2(m, data) BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM(1, m, data)
+
+/* Big variant, goes up to 256 */
+#define BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(m, data)                                               \
+BOOST_SIMD_PP_REPEAT_POWER_OF_2_FROM_TO(1, 128, m, data)                                           \
+m(7, 256, data)                                                                                    \
 /**/
 
 #endif

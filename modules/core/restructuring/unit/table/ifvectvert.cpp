@@ -11,7 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/ifvectvert.hpp>
 #include <nt2/include/functions/isequal.hpp>
-
+#include <nt2/include/functions/ones.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -26,9 +26,9 @@ NT2_TEST_CASE_TPL( ifvectvert_scalar, (float) )
 NT2_TEST_CASE_TPL( ifvectvert, (float) )
 {
   nt2::table<T> r, r2;
-  nt2::table<T, nt2::_2D> y( nt2::of_size(4,4) );
-  nt2::table<T, nt2::of_size_<4, 4> > y2;
-  nt2::table<T, nt2::of_size_<1, 16> > y3;
+  nt2::table<T, nt2::_2D> y( nt2::ones(4,4, nt2::meta::as_<T>()) );
+  nt2::table<T, nt2::of_size_<4, 4> > y2 = nt2::ones(4, 4, nt2::meta::as_<T>());
+  nt2::table<T, nt2::of_size_<1, 16> > y3= nt2::ones(1, 16, nt2::meta::as_<T>());;
 
   for(int j=1;j<=4;j++)
     for(int i=1;i<=4;i++)

@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_DIGAMMA_HPP_INCLUDED
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
       return nt2::digamma(tofloat(a0));
     }
   };
-  
+
   /////////////////////////////////////////////////////////////////////////////
   // Implementation when type A0 is floating_
   /////////////////////////////////////////////////////////////////////////////
@@ -61,10 +61,10 @@ namespace nt2 { namespace ext
                        ((simd_<floating_<A0>,X>))
                        )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-      typedef typename meta::as_logical<A0>::type bA0; 
+    {
+      typedef typename meta::as_logical<A0>::type bA0;
       typedef typename meta::scalar_of<A0>::type sA0;
       //
       // This handles reflection of negative arguments, and all our
@@ -75,47 +75,47 @@ namespace nt2 { namespace ext
       bA0 test = is_lez(a0);
       std::size_t nb;
       if( (nb = inbtrue(test)) > 0)
-        {
-          x = sel(test, oneminus(a0), a0);
-          A0 remainder = x - floor(x);
-            remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
-            remainder = if_zero_else(is_eqz(remainder), Pi<A0>()/tanpi(remainder));
-            result = if_else_zero(test, remainder);   
-      //          remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
-      //          result = b_and(b_andnot(Pi<A0>()/tanpi(remainder),is_eqz(remainder)), test);
-          // we are ready to increment result that was
-          // Pi<A0>()/tanpi(remainder) if a0 < 0  and remainder != 0
-          // Nan<A0>                   if a0 < 0  and remainder == 0
-          // 0                         in any other cases
-        }
+      {
+        x = sel(test, oneminus(a0), a0);
+        A0 remainder = x - floor(x);
+        remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
+        remainder = if_zero_else(is_eqz(remainder), Pi<A0>()/tanpi(remainder));
+        result = if_else_zero(test, remainder);
+        //          remainder =  selsub(gt(remainder,Half<A0>()),remainder,One<A0>());
+        //          result = b_and(b_andnot(Pi<A0>()/tanpi(remainder),is_eqz(remainder)), test);
+        // we are ready to increment result that was
+        // Pi<A0>()/tanpi(remainder) if a0 < 0  and remainder != 0
+        // Nan<A0>                   if a0 < 0  and remainder == 0
+        // 0                         in any other cases
+      }
       A0 r1 = Zero<A0>(), r2= Zero<A0>();
       test = gt(x, Digammalargelim<A0>());
       if((nb = inbtrue(test)))
-        { // If we're above the lower-limit for the asymptotic expansion then use it:
-          r1 = if_else_zero(test, digamma_imp_large(x, sA0()))+result;//b_and(digamma_imp_large(x, sA0()), test)+result;
-          if (nb >= (uint32_t)meta::cardinal_of<A0>::value) return r1;
-        }
+      { // If we're above the lower-limit for the asymptotic expansion then use it:
+        r1 = if_else_zero(test, digamma_imp_large(x, sA0()))+result;//b_and(digamma_imp_large(x, sA0()), test)+result;
+        if (nb >= (uint32_t)meta::cardinal_of<A0>::value) return r1;
+      }
       // If x > 2 reduce to the interval [1,2]:
       bA0 cond;
       while(nt2::any(cond = gt(x, Two<A0>())))
-        {
-          x      -= if_else_zero(cond, One<A0>());
-          result += if_else_zero(cond, rec(x));
-        }
+      {
+        x      -= if_else_zero(cond, One<A0>());
+        result += if_else_zero(cond, rec(x));
+      }
       // If x < 1 use shift to > 1:
       if(nt2::any(cond = lt(x, One<A0>())))
-        {
-          result = sel(cond, -rec(x), result);
-            x      += ifelsezero(cond, One<A0>());
-        }
-        r2 =  if_zero_else(test, digamma_imp_1_2(x, sA0()))+result;//b_andnot(digamma_imp_1_2(x, sA0()), test)+result;
-        if (nb == 0) return r2;
-        return sel(test, r1, r2);
+      {
+        result = sel(cond, -rec(x), result);
+        x      += ifelsezero(cond, One<A0>());
       }
+      r2 =  if_zero_else(test, digamma_imp_1_2(x, sA0()))+result;//b_andnot(digamma_imp_1_2(x, sA0()), test)+result;
+      if (nb == 0) return r2;
+      return sel(test, r1, r2);
+    }
   private:
     template <class A>
-      static inline A digamma_imp_1_2(A x, float)
-      {
+      static inline A digamma_imp_1_2(A const& a0, float)
+    {
       //
       // Now the approximation, we use the form:
       //
@@ -128,11 +128,11 @@ namespace nt2 { namespace ext
       // Maximum Deviation Found:              3.388e-010
       // At float precision, max error found:  2.008725e-008
       //
-      typedef typename meta::scalar_of<A>::type sA; 
+      typedef typename meta::scalar_of<A>::type sA;
       static const A Y = splat<A>(0.99558162689208984);
       static const A root = splat<A>(1532632.0 / 1048576);
       static const A root_minor = splat<A>(double(0.3700660185912626595423257213284682051735604e-6L));
-      static const boost::array<sA, 4> P = {{    
+      static const boost::array<sA, 4> P = {{
           sA(0.25479851023250261e0),
           sA(-0.44981331915268368e0),
           sA(-0.43916936919946835e0),
@@ -143,35 +143,37 @@ namespace nt2 { namespace ext
           sA(0.15890202430554952e1),
           sA(0.65341249856146947e0),
           sA(0.63851690523355715e-1)
-        }}; 
-        A g = x - root;
-        g -= root_minor;
-        x-= One<A>(); 
-        A r = eval_poly<4>(x, P)/eval_poly<4>(x, Q);
-        A result = fma(g, Y, g * r);
-        return result;
-      }
-    
+        }};
+      A x = a0;
+      A g = x - root;
+      g -= root_minor;
+      x-= One<A>();
+      A r = eval_poly<4>(x, P)/eval_poly<4>(x, Q);
+      A result = fma(g, Y, g * r);
+      return result;
+    }
+
     template <class A>
-      static inline A digamma_imp_large(A x, float)
-      {
-      typedef typename meta::scalar_of<A>::type sA; 
+      static inline A digamma_imp_large(A const& a0, float)
+    {
+      typedef typename meta::scalar_of<A>::type sA;
       // 9-digit precision for x >= 10:
       static const  boost::array<sA, 3> P = {{
           sA(0.083333333333333333333333333333333333333333333333333L),
           sA(-0.0083333333333333333333333333333333333333333333333333L),
           sA(0.003968253968253968253968253968253968253968253968254L)
         }};
+      A x = a0;
       x -= One<A>();
       A result = log(x);
       result += rec(Two<A>()*x);
       A z = rec(sqr(x));
       result -= z * nt2::eval_poly<3>(z, P);
       return result;
-      }
+    }
     template <class A>
-      static inline A digamma_imp_1_2(A x, double)
-      {
+      static inline A digamma_imp_1_2(A const& a0, double)
+    {
       //
       // Now the approximation, we use the form:
       //
@@ -184,14 +186,14 @@ namespace nt2 { namespace ext
       // Maximum Deviation Found:              3.388e-010
       // At float precision, max error found:  2.008725e-008
       //
-      typedef typename meta::scalar_of<A>::type sA; 
+      typedef typename meta::scalar_of<A>::type sA;
       static const A Y = splat<A>(0.99558162689208984);
-      
+
       static const A root1 = splat<A>(1569415565.0 / 1073741824uL);
       static const A root2 = splat<A>((381566830.0 / 1073741824uL) / 1073741824uL);
       static const A root3 = splat<A>(double(0.9016312093258695918615325266959189453125e-19L));
-      
-      static const boost::array<sA, 6> P = {{    
+
+      static const boost::array<sA, 6> P = {{
           sA(0.25479851061131551L),
           sA(-0.32555031186804491L),
           sA(-0.65031853770896507L),
@@ -208,19 +210,20 @@ namespace nt2 { namespace ext
           sA(0.0021284987017821144L),
           sA(-0.55789841321675513e-6L)
         }};
-        A g = x - root1;
-        g -= root2;
-        g -= root3; 
-        x-= One<A>(); 
-        A r = eval_poly<6>(x, P)/eval_poly<7>(x, Q);
-        A result = fma(g, Y, g * r);
-        return result;
-      }
-    
+      A x = a0;
+      A g = x - root1;
+      g -= root2;
+      g -= root3;
+      x-= One<A>();
+      A r = eval_poly<6>(x, P)/eval_poly<7>(x, Q);
+      A result = fma(g, Y, g * r);
+      return result;
+    }
+
     template <class A>
-      static inline A digamma_imp_large(A x, double)
-      {
-      typedef typename meta::scalar_of<A>::type sA; 
+      static inline A digamma_imp_large(A const& a0, double)
+    {
+      typedef typename meta::scalar_of<A>::type sA;
       // 9-digit precision for x >= 10:
       static const  boost::array<sA, 8> P = {{
           sA(0.083333333333333333333333333333333333333333333333333L),
@@ -232,13 +235,14 @@ namespace nt2 { namespace ext
           sA(0.083333333333333333333333333333333333333333333333333L),
           sA(-0.44325980392156862745098039215686274509803921568627L)
         }};
-        x -= One<A>();
-        A result = log(x);
-        result += rec(Two<A>()*x);
-        A z = rec(sqr(x));
-        result -= z * nt2::eval_poly<8>(z, P);
-        return result;
-      }
+      A x = a0;
+      x -= One<A>();
+      A result = log(x);
+      result += rec(Two<A>()*x);
+      A z = rec(sqr(x));
+      result -= z * nt2::eval_poly<8>(z, P);
+      return result;
+    }
   };
 } }
 

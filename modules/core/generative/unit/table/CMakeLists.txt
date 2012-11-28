@@ -24,8 +24,6 @@ SET( SOURCES
   nans.cpp
   ones.cpp
   pispace.cpp
-  rand.cpp
-  randn.cpp
   rephorz.cpp
   repmat.cpp
   repnum.cpp

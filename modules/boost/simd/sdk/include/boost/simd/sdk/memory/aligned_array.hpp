@@ -9,7 +9,8 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/sdk/memory/aligned_on.hpp>
+#include <boost/simd/sdk/memory/parameters.hpp>
 #include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
@@ -24,6 +25,13 @@ namespace boost { namespace simd
 {
   namespace memory
   {
+    template<std::size_t N>
+    struct max_alignment
+    {
+      typedef std::size_t type;
+      static type const value = (N < BOOST_SIMD_CONFIG_ALIGNMENT) ? N : BOOST_SIMD_CONFIG_ALIGNMENT;
+    };
+
     template<class T, std::size_t N, std::size_t Align>
     struct aligned_array_data
     {
@@ -37,15 +45,17 @@ namespace boost { namespace simd
     template<class T, std::size_t N>                                           \
     struct aligned_array_data<T, N, n>                                         \
     {                                                                          \
-      BOOST_SIMD_ALIGN_ON(n) T data_[N];                                       \
+      BOOST_SIMD_ALIGN_ON(n) T data[N];                                        \
     };                                                                         \
     /**/
     BOOST_SIMD_PP_REPEAT_POWER_OF_2_BIG(M0,~)
     #undef M0
 
     template<class T, std::size_t N, std::size_t Align>
-    struct aligned_array : aligned_array_data<T, N, (Align ? Align : BOOST_SIMD_CONFIG_ALIGNMENT)>
+    struct aligned_array
     {
+      aligned_array_data<T, N, (Align ? Align : BOOST_SIMD_CONFIG_ALIGNMENT)> data_;
+
       typedef T              value_type;
       typedef T*             iterator;
       typedef const T*       const_iterator;
@@ -55,13 +65,13 @@ namespace boost { namespace simd
       typedef std::ptrdiff_t difference_type;
 
       // iterator support
-      iterator        begin()       { return this->data_; }
-      const_iterator  begin() const { return this->data_; }
-      const_iterator cbegin() const { return this->data_; }
+      iterator        begin()       { return this->data_.data; }
+      const_iterator  begin() const { return this->data_.data; }
+      const_iterator cbegin() const { return this->data_.data; }
 
-      iterator        end()       { return this->data_+N; }
-      const_iterator  end() const { return this->data_+N; }
-      const_iterator cend() const { return this->data_+N; }
+      iterator        end()       { return this->data_.data+N; }
+      const_iterator  end() const { return this->data_.data+N; }
+      const_iterator cend() const { return this->data_.data+N; }
 
       typedef std::reverse_iterator<iterator> reverse_iterator;
       typedef std::reverse_iterator<const_iterator> const_reverse_iterator;
@@ -78,24 +88,24 @@ namespace boost { namespace simd
       reference operator[](size_type i)
       {
           BOOST_ASSERT_MSG( i < N, "out of range" );
-          return this->data_[i];
+          return this->data_.data[i];
       }
 
       const_reference operator[](size_type i) const
       {
           BOOST_ASSERT_MSG( i < N, "out of range" );
-          return this->data_[i];
+          return this->data_.data[i];
       }
 
       // at() with range check
-      reference       at(size_type i)       { rangecheck(i); return this->data_[i]; }
-      const_reference at(size_type i) const { rangecheck(i); return this->data_[i]; }
+      reference       at(size_type i)       { rangecheck(i); return this->data_.data[i]; }
+      const_reference at(size_type i) const { rangecheck(i); return this->data_.data[i]; }
 
       // front() and back()
-      reference       front()       { return this->data_[0]; }
-      const_reference front() const { return this->data_[0]; }
-      reference       back()        { return this->data_[N-1]; }
-      const_reference back()  const { return this->data_[N-1]; }
+      reference       front()       { return this->data_.data[0]; }
+      const_reference front() const { return this->data_.data[0]; }
+      reference       back()        { return this->data_.data[N-1]; }
+      const_reference back()  const { return this->data_.data[N-1]; }
 
       // size is constant
       static size_type size()     { return N;     }
@@ -106,15 +116,15 @@ namespace boost { namespace simd
       // swap (note: linear complexity)
       void swap (aligned_array<T,N,Align>& y)
       {
-        for (size_type i = 0; i < N; ++i) boost::swap(this->data_[i],y.data_[i]);
+        for (size_type i = 0; i < N; ++i) boost::swap(this->data_.data[i],y.data_.data[i]);
       }
 
       // direct access to data (read-only)
-      const T* data() const { return this->data_; }
-      T*       data()       { return this->data_; }
+      const T* data() const { return this->data_.data; }
+      T*       data()       { return this->data_.data; }
 
       // use array as C array (direct read/write access to data)
-      T* c_array() { return this->data_; }
+      T* c_array() { return this->data_.data; }
 
       // assignment with type conversion
       template <typename T2>

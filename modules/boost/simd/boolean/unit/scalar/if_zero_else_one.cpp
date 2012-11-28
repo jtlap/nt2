@@ -19,7 +19,6 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 
 
@@ -48,8 +47,8 @@ NT2_TEST_CASE_TPL ( if_zero_else_one_real__2_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(if_zero_else_one(boost::simd::Minf<T>()), 0);
   NT2_TEST_EQUAL(if_zero_else_one(boost::simd::Nan<T>()) , 0);
   NT2_TEST_EQUAL(if_zero_else_one(boost::simd::Zero<T>()), 1);
-  NT2_TEST_EQUAL(if_zero_else_one(boost::simd::True<T>()), 0);
-  NT2_TEST_EQUAL(if_zero_else_one(boost::simd::False<T>()), 1);
+  NT2_TEST_EQUAL(if_zero_else_one(boost::simd::True< boost::simd::logical<T> >()), 0);
+  NT2_TEST_EQUAL(if_zero_else_one(boost::simd::False< boost::simd::logical<T> >()), 1);
 
   
 } // end of test for floating_
@@ -75,6 +74,6 @@ NT2_TEST_CASE_TPL ( if_zero_else_one_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNE
   // specific values tests
   NT2_TEST_EQUAL(if_zero_else_one(T(0)), 1);
   NT2_TEST_EQUAL(if_zero_else_one(T(1)), 0);
-  NT2_TEST_EQUAL(if_zero_else_one(boost::simd::True<T>()), 0);
-  NT2_TEST_EQUAL(if_zero_else_one(boost::simd::False<T>()), 1);
+  NT2_TEST_EQUAL(if_zero_else_one(boost::simd::True< boost::simd::logical<T> >()), 0);
+  NT2_TEST_EQUAL(if_zero_else_one(boost::simd::False< boost::simd::logical<T> >()), 1);
 } // end of test for signed_int_

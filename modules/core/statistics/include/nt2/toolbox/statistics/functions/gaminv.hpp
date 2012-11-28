@@ -91,11 +91,11 @@ namespace nt2 { namespace ext
     ::value_type::extent_type                     ext1_t;
     typedef typename  boost::proto::result_of::child_c<Expr&,1>
     ::value_type::extent_type                     ext2_t;
-    typedef typename result_of::max_extent<ext2_t, ext1_t, ext0_t>::type     result_type;
+    typedef typename utility::result_of::max_extent<ext2_t, ext1_t, ext0_t>::type     result_type;
     
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return max_extent(nt2::extent(boost::proto::child_c<0>(e)),
+      return utility::max_extent(nt2::extent(boost::proto::child_c<0>(e)),
                         nt2::extent(boost::proto::child_c<1>(e))
                         nt2::extent(boost::proto::child_c<2>(e)));
     }

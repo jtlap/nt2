@@ -13,7 +13,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minimum_, tag::cpu_
                             , (A0)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -21,7 +21,7 @@ namespace boost { namespace simd { namespace ext
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::minimum_, tag::cpu_
                                      , (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                               (scalar_< integer_<A1> > )        
                             )
   {

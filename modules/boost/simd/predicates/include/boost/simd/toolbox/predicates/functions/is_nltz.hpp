@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_nltz is_nltz
  *
  * \par Description
- * Returns True<A0>() if a0 is not less than zero else returns False<A0>().
+ * Returns True<result_type>() if a0 is not less than zero else returns False<result_type>().
  * \par
  * Due to existence of nan, this is not equivalent to \c not(is_ltz(a0))
  *

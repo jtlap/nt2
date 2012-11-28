@@ -138,7 +138,7 @@ namespace nt2
                           w.main(),&wn,                   \
                           info);                          \
       }                                                   \
-      inline void ungqr(const nt2_la_int* m,              \
+      inline void gqr(const nt2_la_int* m,                \
                         const nt2_la_int* n,              \
                         const nt2_la_int* k,              \
                         T* a,                             \

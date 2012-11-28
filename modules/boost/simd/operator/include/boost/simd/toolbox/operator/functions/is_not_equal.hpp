@@ -19,7 +19,7 @@
  * \defgroup boost_simd_operator_is_not_equal is_not_equal
  *
  * \par Description
- * Returns True<A0>() if a0 and a1 are not equal else False<A0>().
+ * Returns True<result_type>() if a0 and a1 are not equal else False<result_type>().
  *
  * \par Header file
  *

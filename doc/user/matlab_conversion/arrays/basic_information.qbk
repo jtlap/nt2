@@ -9,43 +9,45 @@ Matlab display policy is 3 levels
 # disp/display functions these can be used but using C++ style 
 # use C like style `fprintf`
 
-Nt2 has C++ support and some macros to do the job.
+__NT2__ has C++ support and some macros to do the job.
 
-[variablelist basic display
-[[disp            ][ Display text or array.  In NT2 use `std::cout <<`        ]]
-[[display         ][ Display text or array.  In NT2 use `NT2_DISPLAY` macro   ]]
+[table:id basic display
+[[__MATLAB__        ][ __NT2__                      ][ Description                                      ]]
+[[`disp            `][`std::cout <<...<< std::endl;`][ Display text or array.                           ]]
+[[`display         `][`NT2_DISPLAY`                 ][ Display text or array.  In __NT2__ its a macro   ]]
 ]
 
 
 [h3 Global predicates]
 
-Matlab has two species of predicates routines `isxxx`, some returning a scalar logical
+__MATLAB__ has two species of predicates routines `isxxx`, some returning a scalar logical
 and stating something about a whole arrays or expressions, the other beeing elementwise
 assertions about the elements of the arrays or expressions and returning logical arrays.
 
-In Nt2 we have chosen to keep Matlab names `isxxx`for the first category, but use `is_xxx`
+In __NT2__ we have chosen to keep __MATLAB__ names `isxxx`for the first category, but use `is_xxx`
 in the second case.
 
-[variablelist predicates returning a unique scalar logical value
-[[iscolumn       ][  Determine whether input is column vector                   ]]
-[[isempty        ][  Determine whether array is empty                           ]]
-[[isequal        ][  Test arrays for equality                                   ]]
-[[isequaln       ][  Test arrays for equality, treating NaN values as equal     ]]
-[[isinteger      ][  Determine whether input is integer array                   ]]
-[[islogical      ][  Determine whether input is logical array                   ]]
-[[ismatrix       ][  Determine whether input is matrix                          ]]
-[[isnumeric      ][  Determine whether input is numeric array                   ]]
-[[isrow          ][  Determine whether input is row vector                      ]]
-[[isscalar       ][  Determine whether input is scalar                          ]]
-[[issparse       ][  Determine whether input is sparse                          ]]
-[[isvector       ][  Determine whether input is vector                          ]]
+[table:id predicates returning a unique scalar logical value
+[[__MATLAB__       ][ __NT2__         ][ Description                                                 ]]
+[[`iscolumn       `][`iscolumn       `][  Determine whether input is column vector                   ]]
+[[`isempty        `][`isempty        `][  Determine whether array is empty                           ]]
+[[`isequal        `][`isequal        `][  Test arrays for equality                                   ]]
+[[`isequaln       `][`isequaln       `][  Test arrays for equality, treating NaN values as equal     ]]
+[[`isinteger      `][`isinteger      `][  Determine whether input is integer array                   ]]
+[[`islogical      `][`islogical      `][  Determine whether input is logical array                   ]]
+[[`ismatrix       `][`ismatrix       `][  Determine whether input is matrix                          ]]
+[[`isnumeric      `][`isnumeric      `][  Determine whether input is numeric array                   ]]
+[[`isrow          `][`isrow          `][  Determine whether input is row vector                      ]]
+[[`isscalar       `][`isscalar       `][  Determine whether input is scalar                          ]]
+[[`issparse       `][`issparse       `][  Determine whether input is sparse                          ]]
+[[`isvector       `][`isvector       `][  Determine whether input is vector                          ]]
 ]                
                  
-Some run times predicates as `isfloat` have no real meaning in Nt2 because in C++
-types are chosen at compile-time. Also sometimes is it more performing to use
-negative assertions we provide in NT2 than the negation of the direct ones.
+Some run times predicates as `isfloat` have no real meaning in __NT2__ because in C++
+types are chosen at compile-time. Also sometimes, is it more performing to use
+negative assertions (we provide in __NT2__) than the negation of the direct ones.
 
-Also in mind have that for example than `isinf | isnan` can be replaced by `is_invalid` in NT2,
+Also in mind have that for example than `isinf | isnan` can be replaced by `is_invalid` in __NT2__,
 and than there are much more predicates available.
 
 [warning with floating expressions, the occurences of `nan` can imply that `logical_not(is_xxx)`
@@ -54,33 +56,61 @@ value]
 
 [h3 Elementwise predicates]
 
-[variablelist elementwise predicates returning expressions arrays of logical
-[[isfinite        ][ Array elements that are finite  -> is_finite and is_not_finite           ]]
-[[isfloat         ][ Determine whether input is floating-point array  -> not defined in Nt2
+[table:id elementwise predicates returning expressions arrays of logical
+[[__MATLAB__        ][ __NT2__                    ][ Description                               ]]
+[[`isfinite        `][`is_finite`, `is_not_finite`][ Array elements that are finite            ]]
+[[`isfloat         `][(`is_float_point`)          ][ Determine whether input is floating-point array. 
+                                                     This is not defined  as such in __NT2__.
 
-    However we have a meta-function is_floating_point
-    ]]
-[[isinf           ][ Array elements that are infinite ->   is_inf and is_not_inf              ]]
-[[isnan           ][ Array elements that are NaN  ->   is_nan and is_not_nan                  ]]
+                                                    `is_floating_point` is a meta-function
+                                                                                               ]]
+[[`isinf           `][`is_inf`, `is_not_inf`][ Array elements that are infinite                ]]
+[[`isnan           `][`is_nan`, `is_not_nan`][ Array elements that are NaN                     ]]
 ]
 
 [h3 Sizes]
 
-The Matlab functions allowing to know sizes of array expressions all have an Nt2 equivalent.
+The __MATLAB__ functions allowing to know sizes of array expressions all have an __NT2__ equivalent.
 
-[variablelist sizing considerations
-[[length         ][  Length of vector or largest array expression dimension     ]]
-[[ndims          ][  Number of array dimensions                                 ]]
-[[numel          ][  Number of elements in array expression                     ]]
-[[size           ][  Array dimensions                                           ]]
+[table:id sizing considerations
+[[__MATLAB__       ][ __NT2__         ][ Description                         ]]
+[[`length         `][`length         `][  Length of vector or largest array expression dimension   ]]
+[[`ndims          `][`ndims          `][  Number of array dimensions                               ]]
+[[`numel          `][`numel          `][  Number of elements in array expression                   ]]
+[[`size           `][`size           `][  Array dimensions                                         ]]
 ]
 
+[note If your sizes are defined at compile time and not subjet to variation during execution you have acces
+to static table declarations that may improve performances.]
 
 [h3 Ordering]
 
-[variablelist ordering considerations
-[[max            ][  Largest elements in array                                  ]]
-[[min            ][  Smallest elements in array                                 ]]
+The function `max` (and in the same way `min`) has two meanings in __MATLAB__:
+
+# maximum of an expression,
+# maximum between two expressions.
+
+__NT2__ support the two acceptions in the same way. Semantic of expressions as `max(a,[],2)` in __MATLAB__
+(meaning maximum values of `a` along lines, not to be confused with `max(a,2)`) can be replaced by either `nt2::max(a,_(),2)`
+or the use of the non-__MATLAB__  `maximum(a,2)` [footnote the other one by `max(a,Two<T>())` 
+or `max(a,T(2))`. We insist here on the
+harder types requirements in __NT2__ when using scalars: T is the current scalar element type]).
+
+[table:id ordering considerations
+[[__MATLAB__  ][ __NT2__             ][ Description                                            ]]
+[[`max            `][`max`, `maximum`][  Largest elements in array or maximum of two arrays    ]]
+[[`min            `][`min`, `minimum`][  Smallest elements in array or minimum of two arrays   ]]
 ]
+
+__NT2__ has another feature (or issue (!)). The preceding functions always return an expression, 
+meaning by this [*never a scalar], difference which of course has no meaning using __MATLAB__.
+
+For instance in __MATLAB__ `max(a(:))` is the largest element of the whole `a` array. This can be written in __NT2__
+
+# `max(a(_))` -> this is a 1x1 sized expression  
+# `globalmax(a(_))` -> this is a scalar 
+
+
+Finally of course syntaxes like `[m,i]=max(a)` are in __NT2__ equivalent to `tie(m,i)=max(a)`.
 
 [endsect]

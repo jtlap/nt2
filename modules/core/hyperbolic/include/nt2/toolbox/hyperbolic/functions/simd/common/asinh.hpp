@@ -94,12 +94,12 @@ namespace nt2 { namespace ext
       A0 z = Zero<A0>();
       std::size_t nb;
       if( ( nb = inbtrue(lthalf)) > 0)
-        {
-          z = madd(single_constant<A0,(0x3ca4d6e6) >(),  x2, single_constant<A0,(0xbd2ee581)>());
-          z = madd(x2, z,  single_constant<A0,(0x3d9949b1)>());
-          z = madd(x2, z,  single_constant<A0,(0xbe2aa9ad)>())* x2 * x + x;
-          if(nb >= meta::cardinal_of<A0>::value) return  b_xor(z, bitofsign(a0));
-        }
+      {
+        z = madd(single_constant<A0,(0x3ca4d6e6) >(),  x2, single_constant<A0,(0xbd2ee581)>());
+        z = madd(x2, z,  single_constant<A0,(0x3d9949b1)>());
+        z = madd(x2, z,  single_constant<A0,(0xbe2aa9ad)>())* x2 * x + x;
+        if(nb >= meta::cardinal_of<A0>::value) return  b_xor(z, bitofsign(a0));
+      }
       A0 zz = log(x+sqrt(oneplus(x2)));
       return b_xor(select(lthalf, z, zz), bitofsign(a0));
     }

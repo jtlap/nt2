@@ -19,7 +19,6 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
@@ -38,6 +37,7 @@ NT2_TEST_CASE_TPL ( genmask_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<genmask_(vT)>::type r_t;
@@ -45,8 +45,8 @@ NT2_TEST_CASE_TPL ( genmask_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-   NT2_TEST_EQUAL(genmask(boost::simd::True<vT>())[0], boost::simd::Mone<sr_t>());
-   NT2_TEST_EQUAL(genmask(boost::simd::False<vT>())[0], boost::simd::Zero<sr_t>());
+   NT2_TEST_EQUAL(genmask(boost::simd::True<vlT>())[0], boost::simd::Mone<sr_t>());
+   NT2_TEST_EQUAL(genmask(boost::simd::False<vlT>())[0], boost::simd::Zero<sr_t>());
    NT2_TEST_EQUAL(genmask(boost::simd::One<vT>())[0], boost::simd::Mone<sr_t>());
    NT2_TEST_EQUAL(genmask(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } // end of test for integer_
@@ -62,6 +62,7 @@ NT2_TEST_CASE_TPL ( genmask_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<genmask_(vT)>::type r_t;
@@ -73,6 +74,6 @@ NT2_TEST_CASE_TPL ( genmask_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(genmask(boost::simd::Minf<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(genmask(boost::simd::Nan<vT>())[0], boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(genmask(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(genmask(boost::simd::False<vT>())[0], boost::simd::Zero<sr_t>()); 
-  NT2_TEST_EQUAL(genmask(boost::simd::True<vT>())[0], boost::simd::Nan<sr_t>());
+  NT2_TEST_EQUAL(genmask(boost::simd::False<vlT>())[0], boost::simd::Zero<sr_t>()); 
+  NT2_TEST_EQUAL(genmask(boost::simd::True<vlT>())[0], boost::simd::Nan<sr_t>());
 } // end of test for floating_

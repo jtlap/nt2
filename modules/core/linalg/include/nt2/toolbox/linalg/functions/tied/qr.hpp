@@ -70,20 +70,20 @@ namespace nt2 { namespace ext
     // fill the args out
     //==========================================================================
     BOOST_FORCEINLINE
-    void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<1> const&) const
+    void decomp(fact_t & f, A1 & a1, boost::mpl::long_<1> const&) const
     {
        boost::proto::child_c<0>(a1) = f.qr();
     }
 
     BOOST_FORCEINLINE
-    void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
+    void decomp(fact_t & f, A1 & a1, boost::mpl::long_<2> const&) const
     {
       boost::proto::child_c<0>(a1) = f.q();
       boost::proto::child_c<1>(a1) = f.r();
     }
 
     BOOST_FORCEINLINE
-    void decomp(fact_t const& f, A1 & a1, boost::mpl::long_<3> const&) const
+    void decomp(fact_t & f, A1 & a1, boost::mpl::long_<3> const&) const
     {
       typedef typename boost::proto::result_of::child_c<A1&, 2>::type tab_type;
       typedef typename meta::strip<tab_type>::type type; 
@@ -96,7 +96,7 @@ namespace nt2 { namespace ext
     template <class B1,  class B2, class B3 = typename B2::type_t> struct perm
     {
       BOOST_FORCEINLINE
-      static void get(B1 & a1,  const B2 & f)
+      static void get(B1 & a1,  B2 & f)
       {
         boost::proto::child_c<2>(a1) = f.p();
       }
@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
     template <class B1,  class B2> struct perm < B1, B2, typename B2::itype_t>
     {
       BOOST_FORCEINLINE
-      static void get(B1 & a1,  const B2 & f)
+      static void get(B1 & a1,  B2 & f)
       {
         boost::proto::child_c<2>(a1) = f.jp();
       }

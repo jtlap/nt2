@@ -16,7 +16,7 @@
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/full_lu_solve.hpp>
-#include <nt2/include/functions/full_qr_solve.hpp> 
+#include <nt2/include/functions/full_qr_solve.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -32,27 +32,27 @@ namespace nt2 { namespace ext
                             )
   {
     typedef void                                                    result_type;
-    typedef typename solvers::options                                    opts_t; 
+    typedef typename solvers::options                                    opts_t;
     typedef typename boost::proto::result_of::child_c<A0&,0>::type       child0;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       child1;
     typedef typename boost::dispatch::meta::
-            terminal_of< typename boost::dispatch::meta::
-                         semantic_of<child0>::type
-                       >::type                                          dest0_t;
-    typedef typename dest0_t::value_type                                value_t; 
+      terminal_of< typename boost::dispatch::meta::
+      semantic_of<child0>::type
+      >::type                                          dest0_t;
+    typedef typename dest0_t::value_type                                value_t;
 
     typedef typename meta::
-            call< nt2::tag::
-                  solvers::full_lu_solve_ ( dest0_t&, dest0_t&
-                                          , char, nt2::details::in_place_
-                                          )
-                >::type                                              solve_lu_t;
+      call< nt2::tag::
+      solvers::full_lu_solve_ ( dest0_t&, dest0_t&
+                                , char, nt2::details::in_place_
+        )
+      >::type                                              solve_lu_t;
     typedef typename meta::
-            call< nt2::tag::
-                  solvers::full_qr_solve_ ( dest0_t&, dest0_t&
-                                          , char, nt2::details::in_place_
-                                          )
-                >::type                                              solve_qr_t;
+      call< nt2::tag::
+      solvers::full_qr_solve_ ( dest0_t&, dest0_t&
+                                , char, nt2::details::in_place_
+        )
+      >::type                                              solve_qr_t;
 
 
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
@@ -63,56 +63,56 @@ namespace nt2 { namespace ext
       dest0_t a = boost::proto::child_c<0>(a0);
       dest0_t b = boost::proto::child_c<1>(a0);
       // Retrieve the Linsolve/Scale options
-      opts_t opts = options(a0, N0()); 
+      opts_t opts = options(a0, N0());
 
       // solve in place
       if(nt2::issquare(a))
-        {
-          solve_lu_t f = solvers::full_lu_solve(a, b,'N',in_place_);
-          solve(f, a1, N1());
-        }
+      {
+        solve_lu_t f = solvers::full_lu_solve(a, b,'N',in_place_);
+        solve(f, a1, N1());
+      }
       else
-        {
-          solve_qr_t f = solvers::full_qr_solve(a, b,'N',in_place_);
-          solve(f, a1, N1());
-        }        
+      {
+        solve_qr_t f = solvers::full_qr_solve(a, b,'N',in_place_);
+        solve(f, a1, N1());
+      }
     }
 
-    private:
+  private:
     //==========================================================================
     // INTERNAL ONLY
-    // get 'B',  'S'("noperm") 
+    // get 'B',  'S'("noperm")
     //==========================================================================
     BOOST_FORCEINLINE
-    opts_t options(A0 const &, boost::mpl::long_<2> const &) const
+      opts_t options(A0 const &, boost::mpl::long_<2> const &) const
     {
-      return opts_t(); 
+      return opts_t();
     }
 
     BOOST_FORCEINLINE
-    opts_t options(A0 const & a0, boost::mpl::long_<3> const &) const
+      opts_t options(A0 const & a0, boost::mpl::long_<3> const &) const
     {
-      return boost::proto::value(boost::proto::child_c<2>(a0)); 
+      return boost::proto::value(boost::proto::child_c<2>(a0));
     }
     //==========================================================================
     // INTERNAL ONLY
     // fill the args out
     //==========================================================================
-    template < class S > 
-    BOOST_FORCEINLINE
-    void solve(S const& f, A1 & a1, boost::mpl::long_<1> const&) const
+    template < class S >
+      BOOST_FORCEINLINE
+      void solve(S const& f, A1 & a1, boost::mpl::long_<1> const&) const
     {
-       boost::proto::child_c<0>(a1) = f.x();
+      boost::proto::child_c<0>(a1) = f.x();
     }
 
     BOOST_FORCEINLINE
-    void solve(solve_qr_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
+      void solve(solve_qr_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
     {
       boost::proto::child_c<0>(a1) = f.x();
       boost::proto::child_c<1>(a1) = value_t(f.rank());
     }
     BOOST_FORCEINLINE
-    void solve(solve_lu_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
+      void solve(solve_lu_t const& f, A1 & a1, boost::mpl::long_<2> const&) const
     {
       boost::proto::child_c<0>(a1) = f.x();
       boost::proto::child_c<1>(a1) = f.rcond();

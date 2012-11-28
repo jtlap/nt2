@@ -39,14 +39,14 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
-                            , (A0)
-                            , (scalar_< double_<A0> >)(scalar_< double_<A0> >)
+                              , (A0)(A1)
+                            , (scalar_< unspecified_<A0> >)(scalar_< double_<A1> >)
                             )
   {
 
-    typedef A0 result_type;
+    typedef A1 result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    NT2_FUNCTOR_CALL(2)
     {
       return  ::pow(nt2::abs(a0), a1);
     }
@@ -60,14 +60,14 @@ namespace nt2 { namespace ext
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::pow_abs_, tag::cpu_
-                            , (A0)
-                            , (scalar_< single_<A0> >)(scalar_< single_<A0> >)
+                              , (A0)(A1)
+                            , (scalar_< unspecified_<A0> >)(scalar_< single_<A1> >)
                             )
   {
 
-    typedef A0 result_type;
+    typedef A1 result_type;
 
-    NT2_FUNCTOR_CALL_REPEAT(2)
+    NT2_FUNCTOR_CALL(2)
     {
       return  ::powf(nt2::abs(a0), a1);
     }

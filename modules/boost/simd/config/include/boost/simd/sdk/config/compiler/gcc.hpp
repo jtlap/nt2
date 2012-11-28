@@ -12,13 +12,17 @@
 #if !defined(BOOST_SIMD_COMPILER)
   #if defined(__GNUC__)
 
-    #ifndef __clang__
+    #if !defined(__clang__) && !defined(__INTEL_COMPILER)
       #define BOOST_SIMD_COMPILER_GCC
     #endif
 
     #define BOOST_SIMD_COMPILER_GCC_LIKE
     #define BOOST_SIMD_COMPILER BOOST_COMPILER
-    
+    #define BOOST_SIMD_GCC_VERSION ( __GNUC__            * 10000               \
+                                   + __GNUC_MINOR__      * 100                 \
+                                   + __GNUC_PATCHLEVEL__                       \
+                                   )
+
 
   #endif
 #endif

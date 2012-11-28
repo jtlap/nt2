@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<A0>() if a0 is negative else False<A0>().','\par',
+         'description' : ['Returns True<result_type>() if a0 is negative else False<result_type>().','\par',
                           'This function differs from is_ltz from floating point argument,',
                           'because Mzero<A0>() is negative but not less than zero.','\par',
                           "Mzero<A0>() is the floating point 'minus zero',",

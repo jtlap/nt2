@@ -12,7 +12,7 @@
 // unit test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/include/functions/eps.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
@@ -32,16 +32,16 @@
 
 NT2_TEST_CASE_TPL ( eps_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::eps;
   using nt2::tag::eps_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::call<eps_(cT)>::type r_t;
   typedef T wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -53,13 +53,13 @@ NT2_TEST_CASE_TPL ( eps_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(eps(nt2::Nan<cT>() ), eps(nt2::Nan<T>() ));
   NT2_TEST_EQUAL(eps(nt2::One<cT>() ), eps(nt2::One<T>() ));
   NT2_TEST_EQUAL(eps(nt2::Zero<cT>()), eps(nt2::Zero<T>()));
-  NT2_TEST_EQUAL(eps(cT(nt2::Inf<cT>(), nt2::Inf<cT>() )), eps(nt2::Inf<T>() ));
-  NT2_TEST_EQUAL(eps(cT(nt2::Minf<cT>(),nt2::Minf<cT>())), eps(nt2::Minf<T>()));
-  NT2_TEST_EQUAL(eps(cT(nt2::Mone<cT>(),nt2::Mone<cT>())), eps(nt2::Sqrt_2<T>()));
-  NT2_TEST_EQUAL(eps(cT(nt2::Nan<cT>() ,nt2::Nan<cT>()) ), eps(nt2::Nan<T>() ));
-  NT2_TEST_EQUAL(eps(cT(nt2::One<cT>() ,nt2::One<cT>()) ), eps(nt2::Sqrt_2<T>() ));
-  NT2_TEST_EQUAL(eps(cT(nt2::Zero<cT>(),nt2::Zero<cT>())), eps(nt2::Zero<T>()));
-  
-  
+  NT2_TEST_EQUAL(eps(cT(nt2::Inf<T>(), nt2::Inf<T>() )), eps(nt2::Inf<T>() ));
+  NT2_TEST_EQUAL(eps(cT(nt2::Minf<T>(),nt2::Minf<T>())), eps(nt2::Minf<T>()));
+  NT2_TEST_EQUAL(eps(cT(nt2::Mone<T>(),nt2::Mone<T>())), eps(nt2::Sqrt_2<T>()));
+  NT2_TEST_EQUAL(eps(cT(nt2::Nan<T>() ,nt2::Nan<T>()) ), eps(nt2::Nan<T>() ));
+  NT2_TEST_EQUAL(eps(cT(nt2::One<T>() ,nt2::One<T>()) ), eps(nt2::Sqrt_2<T>() ));
+  NT2_TEST_EQUAL(eps(cT(nt2::Zero<T>(),nt2::Zero<T>())), eps(nt2::Zero<T>()));
+
+
 } // end of test for floating_
-                                                                             
+

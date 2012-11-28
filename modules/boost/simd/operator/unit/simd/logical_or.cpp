@@ -20,7 +20,6 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <boost/simd/sdk/memory/buffer.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
@@ -47,6 +46,7 @@ NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<logical_or_(vT,vT)>::type r_t;
@@ -54,9 +54,9 @@ NT2_TEST_CASE_TPL ( logical_or_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(logical_or(boost::simd::True<vT>(), boost::simd::True<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(logical_or(boost::simd::True<vT>(),boost::simd::False<vT>())[0], boost::simd::True<sr_t>());
-  NT2_TEST_EQUAL(logical_or(boost::simd::False<vT>(), boost::simd::False<vT>())[0], boost::simd::False<sr_t>());
+  NT2_TEST_EQUAL(logical_or(boost::simd::True<vlT>(), boost::simd::True<vlT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_or(boost::simd::True<vlT>(),boost::simd::False<vlT>())[0], boost::simd::True<sr_t>());
+  NT2_TEST_EQUAL(logical_or(boost::simd::False<vlT>(), boost::simd::False<vlT>())[0], boost::simd::False<sr_t>());
 } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( logical_or_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
@@ -70,6 +70,7 @@ NT2_TEST_CASE_TPL ( logical_or_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
+  typedef native< boost::simd::logical<T>, ext_t> vlT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
   typedef typename boost::dispatch::meta::call<logical_or_(vT,vT)>::type r_t;

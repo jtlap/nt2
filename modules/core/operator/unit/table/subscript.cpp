@@ -511,3 +511,35 @@ NT2_TEST_CASE_TPL( colon_values_subscript, (float)(double) )
     for(int i=1;i<=13;i++)
       NT2_TEST_EQUAL( a1(i,j), a0(i+1,j+1,2,1) );
 }
+
+NT2_TEST_CASE_TPL( raw_begin_end_subscript, (float)(double) )
+{
+  using nt2::table;
+  using nt2::of_size;
+  using nt2::begin_;
+  using nt2::end_;
+
+  table<T> a0( of_size(15,4,3,2) );
+
+  for(int l=1;l<=2;l++)
+   for(int k=1;k<=3;k++)
+    for(int j=1;j<=4;j++)
+     for(int i=1;i<=15;i++)
+      a0(i,j,k,l) = i + 10*j + 100*k + 1000*l;
+
+  for(int l=1;l<=2;l++)
+   for(int k=1;k<=3;k++)
+    for(int j=1;j<=4;j++)
+     for(int i=1;i<=15;i++)
+      NT2_TEST_EQUAL( a0(begin_+i-1,begin_+j-1,begin_+k-1,begin_+l-1)
+                    , i + 10*j + 100*k + 1000*l
+                    );
+
+  for(int l=1;l<=2;l++)
+   for(int k=1;k<=3;k++)
+    for(int j=1;j<=4;j++)
+     for(int i=1;i<=15;i++)
+      NT2_TEST_EQUAL( a0(end_-i+1,end_-j+1,end_-k+1,end_-l+1)
+                    , (16-i) + 10*(5-j) + 100*(4-k) + 1000*(3-l)
+                    );
+}

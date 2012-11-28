@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/config/arch/powerpc.hpp>
 
 #ifdef BOOST_SIMD_ARCH_POWERPC
-#include <boost/simd/sdk/config/details/get_vendor.hpp>
+#include <boost/simd/sdk/config/details/impl/vendors.hpp>
 
 namespace boost { namespace simd { namespace config
 {

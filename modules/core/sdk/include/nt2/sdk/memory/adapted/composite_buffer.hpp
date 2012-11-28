@@ -9,9 +9,9 @@
 #ifndef NT2_SDK_META_MEMORY_ADAPTED_COMPOSITE_BUFFER_HPP_INCLUDED
 #define NT2_SDK_META_MEMORY_ADAPTED_COMPOSITE_BUFFER_HPP_INCLUDED
 
-#include <boost/mpl/apply.hpp>
 #include <boost/dispatch/meta/model_of.hpp>
 #include <boost/dispatch/meta/value_of.hpp>
+#include <boost/mpl/apply.hpp>
 
 namespace nt2 {  namespace memory
 {
@@ -24,11 +24,24 @@ namespace nt2 {  namespace memory
 namespace boost { namespace dispatch { namespace meta
 {
   //============================================================================
-  // value_of specialization
+  // value_of specializations
   //============================================================================
   template<typename Buffer>
   struct value_of< nt2::memory::composite_buffer<Buffer> > : value_of<Buffer>
-  {};
+  {
+  };
+
+  template<typename Buffer>
+  struct value_of< nt2::memory::composite_buffer<Buffer>& >
+  {
+    typedef typename nt2::memory::composite_buffer<Buffer>::reference type;
+  };
+
+   template<typename Buffer>
+  struct value_of< nt2::memory::composite_buffer<Buffer> const&>
+  {
+    typedef typename nt2::memory::composite_buffer<Buffer>::const_reference type;
+  };
 
   //============================================================================
   // model_of specialization

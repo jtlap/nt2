@@ -55,7 +55,7 @@
                  'default' : ['boost::simd::is_not_infinite(a0)'],
                 },
              'property_value' : {
-                 'default' : ['boost::simd::True<T>()'],
+                 'default' : ['boost::simd::True< boost::simd::logical<T> >()'],
                 },
              'simd' : {
                 },

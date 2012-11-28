@@ -15,7 +15,7 @@
  */
 
 #include <boost/dispatch/meta/hierarchy_of.hpp>
-#include <boost/type_traits/is_base_of.hpp>
+#include <boost/mpl/bool.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
@@ -45,11 +45,19 @@ namespace boost { namespace dispatch { namespace meta
    */
   //==============================================================================
   template<class T>
-  struct  is_fundamental
-        : boost::is_base_of < meta::scalar_< meta::fundamental_<T> >
-                            , typename meta::hierarchy_of<T>::type
-                            >
-  {};
+  struct is_fundamental
+  {
+    typedef char true_type;
+    struct false_type { char dummy[2]; };
+
+    template<class X>
+    static true_type call( meta::scalar_< meta::fundamental_<X> > );
+
+    static false_type call(...);
+
+    static const bool value = sizeof( call(typename meta::hierarchy_of<T>::type()) ) == sizeof(true_type);
+    typedef boost::mpl::bool_<value> type;
+  };
 } } }
 
 #endif

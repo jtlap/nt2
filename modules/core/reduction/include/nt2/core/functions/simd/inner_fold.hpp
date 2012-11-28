@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
   {
     typedef void                                                              result_type;
     typedef typename A0::value_type                                           value_type;
-    typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
+    typedef typename A1::extent_type                                          extent_type;
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop ) const
@@ -54,14 +54,14 @@ namespace nt2 { namespace ext
 
         for(std::size_t i = 0; i < ibound; i+=N)
           vec_out = bop(vec_out,nt2::run(in, i+k, meta::as_<target_type>()));
-        
+
         nt2::run(out, j, uop(vec_out));
-        
+
         for(std::size_t i = ibound; i < bound; ++i)
           nt2::run(out, j
                    , bop(nt2::run(out, j, meta::as_<value_type>())
                          , nt2::run(in, i+k, meta::as_<value_type>())));
-        
+
       }
     }
 

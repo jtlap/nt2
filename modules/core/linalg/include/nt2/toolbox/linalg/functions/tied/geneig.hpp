@@ -13,9 +13,7 @@
 #include <nt2/toolbox/linalg/functions/factorizations/geneig.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/tie.hpp>
-// TODO
-// this file cannot be used until table of complex are usable
-// TODO
+
 namespace nt2 { namespace ext
 {
   //============================================================================

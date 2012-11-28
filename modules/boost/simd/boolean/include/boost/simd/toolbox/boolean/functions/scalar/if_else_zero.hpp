@@ -16,13 +16,22 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_zero_, tag::cpu_, (A0)(A1)
                             , (scalar_< logical_<A0> >)
-                              (scalar_< fundamental_<A1> >)
+                              (scalar_< unspecified_<A1> >)
                             )
   {
     typedef A1 result_type;
     inline A1 operator()(const A0 & a0,const A1 & a1) const 
-      { return a0 ? a1 :Zero<A1>(); }
+      { return a0 ? a1 :Zero<result_type>(); }
   };
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_zero_, tag::cpu_, (A0)(A1)
+                            , (scalar_< fundamental_<A0> >)
+                              (scalar_< unspecified_<A1> >)
+                            )
+  {
+    typedef A1 result_type;
+    inline A1 operator()(const A0 & a0,const A1 & a1) const 
+      { return a0 ? a1 :Zero<result_type>(); }
+  };  
 } } }
 
 #endif

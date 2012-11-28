@@ -14,8 +14,8 @@
 
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <complex>
 
 /*!
  * \ingroup nt2_complex
@@ -25,7 +25,7 @@
  * Constant Sqrti : Imaginary unit principal square root.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/constants/sqrti.hpp>
  * \endcode
@@ -44,12 +44,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Sqrti
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace nt2
@@ -57,12 +57,13 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag Sqrti of functor Sqrti 
+     * \brief Define the tag Sqrti of functor Sqrti
      *        in namespace nt2::tag for toolbox complex
     **/
     struct Sqrti : ext::constant_<Sqrti>
     {
-      typedef std::complex<double> default_type; 
+      typedef std::complex<double> default_type;
+      typedef ext::constant_<Sqrti> parent;
     };
   }
 

@@ -1,0 +1,22 @@
+[section Matrix Analysis]
+
+[table:id Elementary Arrays
+[[__MATLAB__         ][ __NT2__           ][ Description                                      ]]
+[[`cond             `][`cond             `][ Condition number with respect to inversion       ]]
+[[`condeig          `][`condeig          `][ Condition number with respect to eigenvalues     ]]
+[[`det              `][`det              `][ Matrix determinant                               ]]
+[[`norm             `][`norm             `][ Vector and matrix norms                          ]]
+[[`normest          `][`normest          `][ 2-norm estimate                                  ]]
+[[`null             `][`null             `][ Null space                                       ]]
+[[`orth             `][`orth             `][ Range space of matrix                            ]]
+[[`rank             `][`rank             `][ Rank of matrix                                   ]]
+[[`rcond            `][`rcond            `][ Matrix reciprocal condition number estimate      ]]
+[[`rref             `][`rref             `][ Reduced row echelon form                         ]]
+[[`subspace         `][`subspace         `][ Angle between two subspaces                      ]]
+[[`trace            `][`trace            `][ Sum of diagonal elements                         ]]
+]                                                                       
+[endsect]                                                                        
+                                                                        
+                                                                        
+                                                                        
+                                                                        

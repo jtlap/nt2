@@ -12,34 +12,25 @@
 #include <nt2/toolbox/constant/common.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
-#include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/if_else_zero.hpp>
-#include <nt2/include/functions/is_gtz.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/is_gez.hpp>
 #include <nt2/include/functions/is_equal.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/is_eqz.hpp>
-#include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/is_finite.hpp>
-#include <nt2/include/functions/is_inf.hpp>
-#include <nt2/include/functions/ldexp.hpp>
 #include <nt2/include/functions/oneplus.hpp>
-#include <nt2/include/functions/pure.hpp>
 #include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/shri.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/logical_andnot.hpp>
-#include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/all.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/minf.hpp>
-#include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/nan.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/as_dry.hpp>
@@ -87,7 +78,7 @@ namespace nt2 { namespace ext
                     z);
         z = if_else(logical_and(is_real(a0), is_nan(a0)), a0, z);
         z = if_else(logical_or(is_nan(real(a0)), is_nan(imag(a0))), result_type(Nan<rtype>(), Nan<rtype>()), z);
-        z = if_else(logical_and(is_real(a0), is_gez(real(a0))), result_type(real(z)), z);                      
+        z = if_else(logical_and(is_real(a0), is_gez(real(a0))), result_type(real(z)), z);
         return if_else(negimag, conj(z), z);
       }
   };

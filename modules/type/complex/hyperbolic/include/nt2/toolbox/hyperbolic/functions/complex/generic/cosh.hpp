@@ -48,9 +48,9 @@ namespace nt2 { namespace ext
       result_type res = result_type(r, i);
       if (none(is_invalid(a0))) return res;
       res = if_else(logical_and(is_inf(nt2::real(a0)), is_invalid(nt2::imag(a0))),
-                    result_type( nt2::Inf<A0>(), nt2::Nan<rtype>()), res);
+                    result_type( nt2::Inf<rtype>(), nt2::Nan<rtype>()), res);
       res = if_else(logical_and(is_nan(nt2::real(a0)), is_inf    (nt2::imag(a0))),
-                    result_type( nt2::Nan<A0>(), nt2::Nan<rtype>()), res);
+                    result_type( nt2::Nan<rtype>(), nt2::Nan<rtype>()), res);
       return res;
      }
   };

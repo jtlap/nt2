@@ -54,6 +54,6 @@ NT2_TEST_CASE_TPL ( log10_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::log10(cT(nt2::Nan<T>(), nt2::Nan<T>())),  cT(nt2::Nan<T>(), nt2::Nan<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::log10(nt2::One<cT>()), cT(nt2::Zero<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::log10(nt2::Zero<cT>()), cT(nt2::Minf<T>()), 0.5);
-  NT2_TEST_ULP_EQUAL(nt2::log10(cT(nt2::Mzero<cT>(), nt2::Minf<T>())),cT(nt2::Inf<T>(), -nt2::Pio_2<T>()/nt2::Log_10<T>()), 0.5);
+  NT2_TEST_ULP_EQUAL(nt2::log10(cT(nt2::Mzero<T>(), nt2::Minf<T>())),cT(nt2::Inf<T>(), -nt2::Pio_2<T>()/nt2::Log_10<T>()), 0.5);
   NT2_TEST_ULP_EQUAL(nt2::log10(cT(nt2::Zero<T>(), nt2::One<T>())),cT(nt2::Zero<T>(), nt2::Pio_2<T>()/nt2::Log_10<T>()), 0.5); 
 } // end of test for floating_

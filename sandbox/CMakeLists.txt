@@ -9,7 +9,6 @@
 cmake_minimum_required(VERSION 2.6)
 
 set(NT2_DIR ${CMAKE_SOURCE_DIR}/../cmake)
-set(NT2_MODULES_BLACKLIST cuda)
 find_package(NT2 REQUIRED)
 include(${NT2_USE_FILE})
 

@@ -9,6 +9,8 @@
 #ifndef NT2_CORE_CONTAINER_EXTREMUM_EXTREMUM_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_EXTREMUM_EXTREMUM_HPP_INCLUDED
 
+#include <nt2/core/utility/fix_index.hpp>
+
 namespace nt2 { namespace container
 {
   //==========================================================================
@@ -98,6 +100,43 @@ namespace nt2
    **/
   //============================================================================
   container::extremum<false>  const begin_  = {0};
+
+  //============================================================================
+  // fix_index one extremum
+  //============================================================================
+  namespace result_of
+  {
+    template< bool B, class Base, class Size
+            , std::size_t I, std::size_t N
+            >
+    struct fix_index<container::extremum<B>,Base,Size,I,N>
+    {
+      typedef std::ptrdiff_t type;
+
+      static BOOST_FORCEINLINE type
+      call(container::extremum<B> const& i , Base const&, Size const& s)
+      {
+        return i.index( boost::mpl::at_c<Base,I-1>::type::value
+                      , s[I-1]
+                      );
+      }
+    };
+
+    template< bool B, class Base, class Size, std::size_t N>
+    struct fix_index<container::extremum<B>,Base,Size,N,N>
+    {
+      typedef std::ptrdiff_t              type;
+      typedef typename make_size<N>::type size_type;
+
+      static BOOST_FORCEINLINE type
+      call(container::extremum<B> const& i , Base const&, Size const& s)
+      {
+        return i.index( boost::mpl::at_c<Base,N-1>::type::value
+                      , size_type(s)[N-1]
+                      );
+      }
+    };
+  }
 }
 
 #endif

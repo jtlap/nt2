@@ -35,9 +35,9 @@ namespace nt2 { namespace details
     typedef typename strip_t::value_type               type_t;
     typedef typename strip_t::index_type              index_t;
     typedef typename meta::as_real<type_t>::type      rtype_t;
-    typedef nt2::table<type_t,nt2::matlab_index_>      ftab_t;
-    typedef nt2::table<rtype_t,nt2::matlab_index_>    fbtab_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_> fitab_t;
+    typedef nt2::table<type_t,nt2::_2D>                ftab_t;
+    typedef nt2::table<rtype_t,nt2::_2D>              fbtab_t;
+    typedef nt2::table<nt2_la_int,nt2::_2D>           fitab_t;
     typedef nt2::table<type_t,index_t>                  tab_t;
     typedef nt2::table<rtype_t,index_t>                rtab_t;
     typedef nt2::table<nt2_la_int,index_t>             itab_t;
@@ -67,23 +67,23 @@ namespace nt2 { namespace details
       //  these so that the routine won't corrupt data around x and b
 
       if (ml != nl)
-        {
-          nt2_la_int mm =  std::max(std::max(ml,nl),1);
-          x_ = nt2::expand(b, nt2::of_size(mm, nrhs));
-          nt2_la_int ldx_ =  x_.leading_size();
-          nt2::details::gelsd(&ml, &nl, &nrhs, a_.raw(), &lda, x_.raw(), &ldx_,
-                              s.raw(), &rcond, &rank_, &info_);
-          x_ = x_(_(1, nl), _(1, nrhs));
-          //          BOOST_ASSERT_MSG(info!= 0, "lapack error : gelsd in solve_svd_ip(1)");
-        }
+      {
+        nt2_la_int mm =  std::max(std::max(ml,nl),1);
+        x_ = nt2::expand(b, nt2::of_size(mm, nrhs));
+        nt2_la_int ldx_ =  x_.leading_size();
+        nt2::details::gelsd(&ml, &nl, &nrhs, a_.raw(), &lda, x_.raw(), &ldx_,
+                            s.raw(), &rcond, &rank_, &info_);
+        x_ = x_(_(1, nl), _(1, nrhs));
+        //          BOOST_ASSERT_MSG(info!= 0, "lapack error : gelsd in solve_svd_ip(1)");
+      }
       else
-        {
-          x_ = b;
-          nt2_la_int ldx_ =  x_.leading_size();
-          nt2::details::gelsd(&ml, &nl, &nrhs, a_.raw(), &lda, x_.raw(), &ldx_,
-                              s.raw(), &rcond, &rank_, &info_);
-          //          BOOST_ASSERT_MSG(info == 0, "lapack error : gelsd in solve_svd_ip(2)");
-        }
+      {
+        x_ = b;
+        nt2_la_int ldx_ =  x_.leading_size();
+        nt2::details::gelsd(&ml, &nl, &nrhs, a_.raw(), &lda, x_.raw(), &ldx_,
+                            s.raw(), &rcond, &rank_, &info_);
+        //          BOOST_ASSERT_MSG(info == 0, "lapack error : gelsd in solve_svd_ip(2)");
+      }
     }
     ~svd_solve_result(){}
     tab_t     x()          const { return x_; }

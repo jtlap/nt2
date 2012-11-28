@@ -50,7 +50,23 @@ NT2_TEST_CASE(as_cache)
   std::cout << "Cache L1     available : " << std::boolalpha << nt2::config::has_cache(L1) << std::endl;
   std::cout << "Cache L2     available : " << std::boolalpha << nt2::config::has_cache(L2) << std::endl;
   std::cout << "Cache L3     available : " << std::boolalpha << nt2::config::has_cache(L3) << std::endl;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// Test top_cache_XXX_size and display the result
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(top_cache)
+{
+  std::cout << "==Cache size==\n";
+  std::cout << " Top default : " << nt2::config::top_cache_size() << std::endl;
+  std::cout << " Top L3 : " << nt2::config::top_cache_size(L3) << std::endl;
+  std::cout << " Top L2 : " << nt2::config::top_cache_size(L2) << std::endl;
+  std::cout << " Top L1 : " << nt2::config::top_cache_size(L1) << std::endl;
+  std::cout << "==Line  size==\n";
+  std::cout << " Top default : " << nt2::config::top_cache_line_size() << std::endl;
+  std::cout << " Top L3 : " << nt2::config::top_cache_line_size(L3) << std::endl;
+  std::cout << " Top L2 : " << nt2::config::top_cache_line_size(L2) << std::endl;
+  std::cout << " Top L1 : " << nt2::config::top_cache_line_size(L1) << std::endl;
 
   NT2_TEST_COMPLETE("Cache test complete");
 }
-

@@ -30,11 +30,16 @@ namespace nt2 { namespace ext
       typename meta::call<tag::extent_(A0 const&)>::type ex = nt2::extent(a0);
       std::size_t nz = nt2::numel(ex);
 
-      return    (nz > 0)
-            &&  (   ( boost::fusion::at_c<0>(ex) == nz )
-                ||  ( boost::fusion::at_c<1>(ex) == nz )
-                ) ;
-    }
+      return   ( (nz > 0)
+                 &&  (   ( boost::fusion::at_c<0>(ex) == nz )
+                         ||  ( boost::fusion::at_c<1>(ex) == nz )
+                         )
+                 )
+        ||   ( (nz == 0)
+               && (boost::fusion::at_c<0>(ex) == 1
+                   ||boost::fusion::at_c<1>(ex) == 1)
+               ); 
+        }
   };
 } }
 

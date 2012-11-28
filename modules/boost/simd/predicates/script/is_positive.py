@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns True<A0>() if a0 is positive else False<A0>().','\par',
+         'description' : ['Returns True<result_type>() if a0 is positive else False<result_type>().','\par',
                           'This function differs from is_gtz from floating point argument,',
                           'because Zero<A0>() is positive but not greater than zero,',
                           'and Mzero<A0>() is not positive and not greater than zero,','\par',

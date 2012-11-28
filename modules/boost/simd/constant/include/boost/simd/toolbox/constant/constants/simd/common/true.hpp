@@ -12,7 +12,7 @@
 #include <boost/simd/toolbox/constant/constants/true.hpp>
 #include <boost/simd/include/functions/simd/bitwise_cast.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
-#include <boost/simd/sdk/meta/as_logical.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -26,18 +26,6 @@ namespace boost { namespace simd { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const&) const
     {
       return bitwise_cast<result_type>(Allbits<target_type>());
-    }
-  };
-
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::True, tag::cpu_, (A0)(X)
-                                    , ((target_< simd_< arithmetic_<A0>,X> >))
-                                    )
-  {
-    typedef typename A0::type base_type;
-    typedef typename meta::as_logical<base_type>::type result_type;
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(A0 const& ) const
-    {
-      return True<result_type>();
     }
   };
 } } }

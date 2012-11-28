@@ -1,0 +1,19 @@
+[section Linear Equations]
+
+[table:id Linear Equations
+[[__MATLAB__       ][ __NT2__          ][ Description                                               ]]
+[[`chol           `][`chol            `][Cholesky factorization                                     ]]
+[[`cond           `][`cond            `][Condition number with respect to inversion                 ]]
+[[`condest        `][`condest         `][1-norm condition number estimate                           ]]
+[[`inv            `][`inv             `][Matrix inverse                                             ]]
+[[`ldl            `][`ldl             `][Block ldl factorization for Hermitian indefinite matrices  ]]
+[[`linsolve       `][`linsolve        `][Solve linear system of equations                           ]]
+[[`lscov          `][`lscov           `][Least-squares solution in presence of known covariance     ]]
+[[`lsqnonneg      `][`lsqnonneg       `][Solve nonnegative least-squares constraints problem        ]]
+[[`lu             `][`lu              `][plu matrix factorization                                   ]]
+[[`pinv           `][`pinv            `][Moore-Penrose pseudoinverse of matrix                      ]]
+[[`qr             `][`qr              `][Orthogonal-triangular decomposition                        ]]
+[[`rcond          `][`rcond           `][Matrix reciprocal condition number estimate                ]]
+]                         
+[endsect]                                                                        
+ 

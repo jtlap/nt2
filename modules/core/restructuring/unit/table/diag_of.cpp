@@ -84,3 +84,5 @@ NT2_TEST_CASE_TPL( diag_of_1, NT2_TYPES )
   for(size_t i=1;i<=nt2::length(x);i++)
     NT2_TEST_EQUAL( x(i), (y+y-T(1))(i,i) );
 }
+
+

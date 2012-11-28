@@ -24,15 +24,15 @@
 #include <nt2/table.hpp>
 //  rref   reduced row echelon form.
 //     r = rref(a) produces the reduced row echelon form of a.
- 
+
 //     [r,jb] = rref(a) also returns a vector, jb, so that:
 //         r = length(jb) is this algorithm's idea of the rank of a,
 //         x(jb) are the bound variables in a linear system, ax = b,
 //         a(:,jb) is a basis for the range of a,
 //         r(1:r,jb) is the r-by-r identity matrix.
- 
+
 //     [r,jb] = rref(a,tol) uses the given tolerance in the rank tests.
- 
+
 //     roundoff errors may cause this algorithm to compute a different
 //     value for the rank than rank, orth and null.
 
@@ -54,7 +54,7 @@ namespace nt2 { namespace details
     typedef nt2::table<base_t,index_t>                  bresult_type;
     typedef nt2::table<itype_t,index_t>                 iresult_type;
     //must be dry I think
-    
+
     template<class Input>
     rref_result ( Input& xpr, base_t tol)
       : tol_(tol)
@@ -65,89 +65,89 @@ namespace nt2 { namespace details
     {
       BOOST_ASSERT_MSG(ismatrix(a_), "input to rref must be matrix");
       if (tol < Zero<type_t>()) tol = nt2::max(m_,n_)*nt2::Eps<base_t>()*nt2::norm(a_,'I');
-      itype_t i = 1, j = 1; 
+      itype_t i = 1, j = 1;
       itype_t k = 0;
-      type_t p; 
-      itype_t cnt = 1; 
+      type_t p;
+      itype_t cnt = 1;
       while(i <= m_ && j <= n_)
+      {
+        //          tie(p, k) =  nt2::max(nt2::abs(a_(_(i, m_),j))); //TODO
+        p = nt2::max(nt2::abs(a_(_(i, m_),j)))(1);
+        for(int l = i; l <= m_; ++l) if (nt2::abs(a_(l, j)) == p) { k = l; break; }
+        //k = k+i-1;
+        if (p <= tol)
         {
-          //          tie(p, k) =  nt2::max(nt2::abs(a_(_(i, m_),j))); //TODO
-          p = nt2::max(nt2::abs(a_(_(i, m_),j)))(1);
-          for(int l = i; l <= m_; ++l) if (nt2::abs(a_(l, j)) == p) { k = l; break; }
-          //k = k+i-1;
-          if (p <= tol)
+          // the column is negligible, zero it out.
+          a_(_(i, m_),j) = nt2::zeros(m_-i+1, 1, meta::as_<type_t>());
+          ++j;
+        }
+        else
+        {
+          // remember column index
+          //jb_ = cath(jb_, j); //TODO
+          jb_(cnt) = j; ++cnt;
+          // swap i-th and k-th rows.
+          tab_t tmp = a_(i, _(j, n_));
+          a_(i, _(j, n_)) = a_(k, _(j, n_));
+          a_(k, _(j, n_)) = tmp;
+          //              a_(cath(i, k),_(j, n)) = a_(cath(k, i),_(j, n));
+          // divide the pivot row by the pivot element.
+          type_t tmp1 =  a_(i, j);
+          a_(i,_(j, n_)) = a_(i,_(j, n_))/tmp1;
+          // subtract multiples of the pivot row from all the other rows.
+          for (itype_t kk = 1; kk <= m_; ++kk)//[1:i-1 i+1:m]
+          {
+            if (kk!=i)
             {
-              // the column is negligible, zero it out.
-              a_(_(i, m_),j) = nt2::zeros(m_-i+1, 1, meta::as_<type_t>());
-              ++j;
+              type_t tmp2 = a_(kk,j);
+              a_(kk,_(j, n_)) = a_(kk,_(j, n_))- tmp2*a_(i,_(j, n_));
             }
-          else
-            {
-             // remember column index
-              //jb_ = cath(jb_, j); //TODO
-              jb_(cnt) = j; ++cnt; 
-              // swap i-th and k-th rows.
-              tab_t tmp = a_(i, _(j, n_)); 
-              a_(i, _(j, n_)) = a_(k, _(j, n_));
-              a_(k, _(j, n_)) = tmp;
-              //              a_(cath(i, k),_(j, n)) = a_(cath(k, i),_(j, n));
-              // divide the pivot row by the pivot element.
-              type_t tmp1 =  a_(i, j); 
-              a_(i,_(j, n_)) = a_(i,_(j, n_))/tmp1;
-              // subtract multiples of the pivot row from all the other rows.
-              for (itype_t kk = 1; kk <= m_; ++kk)//[1:i-1 i+1:m]
-                {
-                  if (kk!=i)
-                    {
-                      type_t tmp2 = a_(kk,j); 
-                      a_(kk,_(j, n_)) = a_(kk,_(j, n_))- tmp2*a_(i,_(j, n_));
-                    }
-                }
-              ++i; ++j;
-            }
-        } 
+          }
+          ++i; ++j;
+        }
+      }
       jb_ =  nt2::expand(jb_, 1, --cnt);
     }
-    
+
     rref_result& operator=(rref_result const& src)
     {
       tol_    = src.tol_;
       a_      = src.a_;
       n_      = src.n_;
       m_      = src.m_;
-      jb_     = src.jb_; 
+      jb_     = src.jb_;
       return *this;
     }
-    
+
     rref_result(rref_result const& src)
       : tol_(src.tol_),
         a_(src.a_),
         n_(src.n_),
         m_(src.m_),
-        jb_(src.jb_)    
+        jb_(src.jb_)
     {}
-    
+
     //==========================================================================
     // Return raw values
     //==========================================================================
     data_t values() const { return a_; }
-    result_type rref() const { return a_; }
-    
+    data_t rref() const { return a_; }
+
     //==========================================================================
     // Return permutation
     //==========================================================================
-    iresult_type jb() const
+    const itab_t& jb() const
     {
       //typedef typename boost::mpl::at_c<typename index_t::type,0>::type base;
-      return jb_; //+ base::value + Mone<itype_t>(); 
+      return jb_; //+ base::value + Mone<itype_t>();
     }
 
-   private:
+  private:
     btab_t                         tol_;
     data_t                           a_;
     nt2_la_int                       n_;
     nt2_la_int                       m_;
-    itab_t                          jb_; 
+    itab_t                          jb_;
   };
 } }
 

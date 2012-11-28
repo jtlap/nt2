@@ -15,6 +15,7 @@
 #include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
 
 /*!
  * \ingroup boost_simd_constant
@@ -30,12 +31,12 @@
  * \arg etc.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/true.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -47,12 +48,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of True
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -60,12 +61,14 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag True of functor True 
+     * \brief Define the tag True of functor True
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    BOOST_SIMD_CONSTANT_REGISTER( True, int, 1
-                                , 0x3F800000UL, 0x3FF0000000000000ULL
-                                );
+    struct True : ext::constant_<True>
+    {
+      typedef logical<double> default_type;
+      typedef ext::constant_<True> parent;
+    };
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::True, True)

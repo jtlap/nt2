@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE result_type
     eval(result_type& sub,const type_t& p, const A0& s, const N&, const M& m) const
     {
-      type_t ls     = splat<type_t>(boost::fusion::at_c<N::value>(s));
+      type_t ls     = splat<type_t>(boost::fusion::at_c<N::value>(s)?boost::fusion::at_c<N::value>(s):1);
       sub[N::value] = p % ls + One<type_t>();
       eval( sub, p/ls, s, boost::mpl::int_<N::value+1>(), m );
 
@@ -106,7 +106,8 @@ namespace nt2 { namespace ext
         , const N&, const M& m
         ) const
     {
-      type_t ls     = splat<type_t>(boost::fusion::at_c<N::value>(s));
+      type_t ls     = splat<type_t>(boost::fusion::at_c<N::value>(s)?boost::fusion::at_c<N::value>(s):1);
+      //      type_t ls     = splat<type_t>(boost::fusion::at_c<N::value>(s));
       sub[N::value] = p % ls + splat<type_t>(boost::fusion::at_c<N::value>(b));
       eval( sub, p/ls, s, b, boost::mpl::int_<N::value+1>(), m );
 

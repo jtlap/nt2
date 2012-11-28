@@ -19,7 +19,7 @@
  * \defgroup boost_simd_predicates_is_negative is_negative
  *
  * \par Description
- * Returns True<A0>() if a0 is negative else False<A0>().
+ * Returns True<result_type>() if a0 is negative else False<result_type>().
  * \par
  * This function differs from is_ltz from floating point argument,
  * because Mzero<A0>() is negative but not less than zero.

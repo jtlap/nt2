@@ -1,11 +1,11 @@
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/mpl/comparison.hpp>
-#include <nt2/sdk/aligned/align_on.hpp>
+#include <boost/simd/sdk/memory/align_on.hpp>
 
 using boost::mpl::int_;
 using boost::mpl::equal_to;
-using nt2::meta::align_on_c;
+using boost::simd::meta::align_on_c;
 
 int main()
 {

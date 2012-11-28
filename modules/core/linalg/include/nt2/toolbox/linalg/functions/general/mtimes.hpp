@@ -168,31 +168,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  // TODO: move this function to a better place
-  template<class T>
-  T* raw(T& t)
-  {
-    return &t;
-  }
-
-  template<class Container>
-  typename memory::container_ref<Container>::pointer raw(memory::container_ref<Container> const& c)
-  {
-    return c.raw();
-  }
-
-  template<class Container, bool Own>
-  typename memory::container_shared_ref<Container, Own>::pointer raw(memory::container_shared_ref<Container, Own> const& c)
-  {
-    return c.raw();
-  }
-
-  template<class T, class S>
-  typename memory::container<T, S>::pointer raw(memory::container<T, S>& c)
-  {
-    return c.raw();
-  }
-
   template<class T>
   typename boost::disable_if< boost::proto::is_expr<T>, T&>::type
   value(T& t)

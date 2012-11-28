@@ -54,13 +54,13 @@ NT2_TEST_CASE_TPL(floating, BOOST_SIMD_SIMD_REAL_TYPES )
       NT2_TEST_EQUAL(y, 0x3ff0000000000000ull);
   }
   {
-    lvT x = boost::simd::True<vT>();
+    lvT x = boost::simd::True<lvT>();
     lvT1 y = bitwise_cast<lvT1>(x);
     for(std::size_t i=0; i!=vT::static_size; ++i)
       NT2_TEST_EQUAL(y[i], boost::simd::logical<T1>(true));
   }
   {
-    lT x = boost::simd::True<T>();
+    lT x = boost::simd::True<lT>();
     lT1 y = bitwise_cast<lT1>(x);
     NT2_TEST_EQUAL(y, boost::simd::logical<T1>(true));
   }
