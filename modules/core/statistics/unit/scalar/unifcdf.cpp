@@ -16,6 +16,7 @@
 #include <nt2/include/functions/unifcdf.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/ones.hpp>
+#include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/bsxfun.hpp>
@@ -68,20 +69,13 @@ NT2_TEST_CASE_TPL ( unifcdf_3,  NT2_REAL_TYPES)
   using nt2::_;
   using nt2::meta::as_;
 
-  nt2::table<T> a = _(T(-5), T(1), T(5))/T(3);
+  nt2::table<T> a = _(T(-5), T(1), T(5))/T(10);
   NT2_DISPLAY(a);
-  //  NT2_DISPLAY(unifcdf(a, nt2::zeros(size(a), as_<T>()), nt2::ones(size(a), as_<T>())));
-  NT2_DISPLAY(unifcdf(a, T(0), T(1)));
-  nt2::table<T> z =
-    unifcdf(a+T(0.5), a, a+T(1));
-  NT2_DISPLAY(unifcdf(a+T(0.5), a, a+T(1)));
-//   NT2_DISPLAY(unifcdf(a+T(0.5), a(_, 1), a(_, 1)+T(1)));
-  a = nt2::reshape(_(T(-5), T(1), T(6))/T(10), 3, 4);
-  NT2_DISPLAY(a+T(0.5));
-//   NT2_DISPLAY(a(_, 1));
-//   NT2_DISPLAY(a(1, _)+T(1));
-//   NT2_DISPLAY(unifcdf(a+T(0.5), a(_, 1), a(1, _)+T(1)));
-//   NT2_DISPLAY(  nt2::bsxfun(nt2::functor<nt2::tag::is_less_equal_>(), a, a));
+  nt2::table<T> z =  unifcdf(a+T(0.5), T(0), T(1));
+  NT2_DISPLAY(z);
+  NT2_TEST_ULP_EQUAL(z, nt2::_(T(0),T(0.1), T(1)), 5.0);
+  z =  unifcdf(a+T(0.5), a, a+T(1));
+  NT2_TEST_ULP_EQUAL(z, nt2::repnum(T(0.5), 1, 11), 5.0);
 } // end of test for floating_
 
 
