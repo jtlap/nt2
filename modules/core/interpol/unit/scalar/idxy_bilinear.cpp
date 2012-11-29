@@ -73,4 +73,5 @@ NT2_TEST_CASE_TPL( idxy_bilinear2c, (float))//(double))//NT2_TYPES )
   NT2_DISPLAY(r0);
   r =nt2::idxy_bilinear(x, xi, yi, _, 2, 1);
   NT2_DISPLAY(r);
+  NT2_TEST_COMPLETE("idxy_bilinear2c");
  }

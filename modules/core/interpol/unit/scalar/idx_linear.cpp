@@ -18,36 +18,48 @@
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 
-NT2_TEST_CASE_TPL( idx_linear, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( idx_linear, NT2_REAL_TYPES )
 {
   using nt2::_;
   nt2::table<T> x =  nt2::linspace(T(1),  T(4), 4);
   nt2::table<T> xi=  nt2::linspace(T(0),  T(5), 11);
+  T nan =  nt2::Nan<T> ();
+  nt2::table<T> r0 = nt2::linspace(T(0), T(5), 11);
+  nt2::table<T> r1 = r0; r1(_(1, 2)) = nan; r1(_(10, 11)) = nan;
+  nt2::table<T> r2 = r0; r2(_(1, 2)) = T(33), r2(_(10, 11)) = T(33);
+  nt2::table<T> r3 = r2; r3(_(10, 11)) = T(42);
   NT2_DISPLAY(x);
   NT2_DISPLAY(xi);
   nt2::table<T> yi =nt2::idx_linear(x, xi);
   std::cout << "1 extrap " <<  false <<  " extrapval " << "-" << std::endl;
   NT2_DISPLAY(yi);
+  NT2_TEST_EQUAL(yi, r1);
   yi =nt2::idx_linear(x, xi, false);
   std::cout << "2 extrap " <<  false <<  " extrapval " << "-" << std::endl;
   NT2_DISPLAY(yi);
+  NT2_TEST_EQUAL(yi, r1);
   std::cout << "3 extrap " <<  true <<  " extrapval " << "-" << std::endl;
   yi =nt2::idx_linear(x, xi, true);
   NT2_DISPLAY(yi);
+  NT2_TEST_EQUAL(yi, r0);
   T z =  T(33);
   std::cout << "4 extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
   yi =nt2::idx_linear(x, xi, z);
   NT2_DISPLAY(yi);
+  NT2_TEST_EQUAL(yi, r2);
   std::cout << "5 extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
   yi =nt2::idx_linear(x, xi, T(33));
   NT2_DISPLAY(yi);
+  NT2_TEST_EQUAL(yi, r2);
   std::cout << "6 extrap " <<  "-" <<  " extrapval1 " << "33" <<  " extrapval1 " << "42"<< std::endl;
   yi =nt2::idx_linear(x, xi, T(33), T(42));
   NT2_DISPLAY(yi);
+  NT2_TEST_EQUAL(yi, r3);
+
 }
 
 
-NT2_TEST_CASE_TPL( idx_linear2, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( idx_linear2, NT2_REAL_TYPES )
 {
   using nt2::_;
   nt2::table<T> x =  nt2::reshape(nt2::linspace(T(1),  T(16), 16), 4, 4);
@@ -80,7 +92,7 @@ NT2_TEST_CASE_TPL( idx_linear2, (float)(double))//NT2_TYPES )
   std::cout << "7 extrap " <<  "-" <<  " extrapval1 " << "33" <<  " extrapval2 " << "42" << std::endl;
   yi =nt2::idx_linear(x, xi, T(33), T(42), 1);
   NT2_DISPLAY(yi);
-
+  NT2_TEST_COMPLETE("idx_linear2");
      /*     //   std::cout << "8 extrap " <<  "-" <<  " extrapval1 " << "33" <<  " extrapval2 " << "42" << std::endl;
      //   typedef boost::fusion::vector<T,T>  result_type;
      //   result_type a =  boost::fusion::make_vector(T(-3), T(25));
@@ -97,7 +109,7 @@ NT2_TEST_CASE_TPL( idx_linear2, (float)(double))//NT2_TYPES )
      */
  }
 
-NT2_TEST_CASE_TPL( idx_linear1, (float)(double))//NT2_TYPES )
+NT2_TEST_CASE_TPL( idx_linear1, NT2_REAL_TYPES )
 {
   using nt2::_;
   nt2::table<T> x =  nt2::reshape(nt2::linspace(T(1),  T(16), 16), 4, 4);
@@ -125,4 +137,6 @@ NT2_TEST_CASE_TPL( idx_linear1, (float)(double))//NT2_TYPES )
   yi =nt2::idx_linear(x, xi, T(33));
   NT2_TEST(isequal(y0, yi));
   NT2_DISPLAY(yi);
+  NT2_TEST_COMPLETE("idx_linear1");
+
 }
