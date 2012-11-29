@@ -23,9 +23,10 @@ namespace nt2
 {
   namespace tag
   {
-    struct colon_ : ext::generative_<colon_>
+    struct colon_ : ext::state_constant_<colon_>
     {
-      typedef ext::generative_<colon_> parent;
+      typedef ext::state_constant_<colon_> parent;
+      typedef double                      default_type;
     };
 
     /// INTERNAL ONLY

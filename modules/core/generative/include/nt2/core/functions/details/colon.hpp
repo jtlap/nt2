@@ -122,12 +122,12 @@ namespace nt2 { namespace details
 
     // Computations of lower & upper have to take care of all
     // begin/end or end/begin combinations
-    template<class B, class S> B lower(B const& b, S const& s) const
+    template<class B, class S> std::ptrdiff_t lower(B const& b, S const& s) const
     {
       return lower(b,s,is_begin_t());
     }
 
-    template<class B, class S> B upper(B const& b, S const& s) const
+    template<class B, class S> std::ptrdiff_t upper(B const& b, S const& s) const
     {
       return upper(b,s,is_end_t());
     }
@@ -135,7 +135,7 @@ namespace nt2 { namespace details
     private:
     // lower/upper computations for scalar extremum
     template<class B, class S>
-    B lower(B const&, S const&, boost::mpl::false_ const&) const
+    std::ptrdiff_t lower(B const&, S const&, boost::mpl::false_ const&) const
     {
       return begin_;
     }
@@ -148,13 +148,13 @@ namespace nt2 { namespace details
 
     // lower/upper computations for begin_/end_
     template<class B, class S>
-    B lower(B const& b, S const& s, boost::mpl::true_ const&) const
+    std::ptrdiff_t lower(B const& b, S const& s, boost::mpl::true_ const&) const
     {
       return begin_.index(b,s);
     }
 
     template<class B, class S>
-    B upper(B const& b, S const& s, boost::mpl::true_ const&) const
+    std::ptrdiff_t upper(B const& b, S const& s, boost::mpl::true_ const&) const
     {
       return end_.index(b,s);
     }

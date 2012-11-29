@@ -39,6 +39,15 @@ namespace nt2 { namespace meta
       return splat<type>( as_subscript(sz,enumerate<i_t>(p))[1]) + start_ ;
     }
 
+    template<class Pos,class Target>
+    BOOST_FORCEINLINE typename Target::type
+    operator()(Pos const& p, _0D const&sz, Target const&) const
+    {
+      typedef typename Target::type                 type;
+      typedef typename meta::as_index<type>::type i_t;
+      return splat<type>(start_);
+    }
+
     private :
     Base start_;
   };

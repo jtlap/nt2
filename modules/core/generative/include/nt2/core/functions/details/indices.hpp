@@ -26,12 +26,7 @@ namespace nt2 { namespace meta
     typedef Base                                          result_type;
 
     constant_() {}
-
-    template <class T>
-    constant_(const T & d) : dim_(d-1), base_(1) {}
-
-    template <class T>
-    constant_(const T & d, std::ptrdiff_t b) : dim_(d-1), base_(b)  {}
+    constant_(std::size_t d, std::ptrdiff_t b) : dim_(d-1), base_(b)  {}
 
     template<class Pos, class Size,class Target>
     BOOST_FORCEINLINE typename Target::type
@@ -43,9 +38,8 @@ namespace nt2 { namespace meta
 
       s_t const pos = as_subscript(sz,nt2::enumerate<i_t>(p));
       return (dim_ >= pos.size()) ? nt2::splat<type>(base_)
-                                  : splat<type>(pos[dim_]+base_);
+                                  : splat<type>(pos[dim_])+base_;
     }
-
 
     private:
     std::size_t     dim_;

@@ -8,7 +8,9 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_ROOTS_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_ROOTS_HPP_INCLUDED
+
 #include <nt2/toolbox/polynom/functions/roots.hpp>
+#include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <nt2/include/functions/scalar/fma.hpp>
 #include <nt2/include/functions/isempty.hpp>
 #include <nt2/include/functions/eye.hpp>
@@ -35,13 +37,10 @@ namespace nt2 { namespace ext
                             , (scalar_<unspecified_<A0> > )
                             )
   {
-
-    typedef typename A0::value_type value_type;
-    typedef typename nt2::meta::call<nt2::tag::zeros_(size_t, size_t)>::type  result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return zeros(1, 0, meta::as_<value_type>());
-    }
+    typedef typename meta::strip<A0>::type          base_t;
+    BOOST_DISPATCH_RETURNS(1, (const A0& a0)
+                          , nt2::zeros(1, 0, nt2::meta::as_<base_t>())
+                          );
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
@@ -66,10 +65,7 @@ namespace nt2 { namespace ext
       out.resize(in.extent());
       return out;
     }
-
   };
-
 } }
-
 
 #endif

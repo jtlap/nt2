@@ -11,16 +11,17 @@
 #define NT2_CORE_FUNCTIONS_LINSPACE_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
+#include <nt2/core/functions/common/generative.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct linspace_ : ext::generative_<linspace_>
+    struct linspace_ : ext::state_constant_<linspace_>
     {
-      typedef ext::generative_<linspace_> parent;
+      typedef ext::state_constant_<linspace_> parent;
     };
   }
 
@@ -44,4 +45,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-

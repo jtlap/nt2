@@ -11,21 +11,24 @@
 
 #include <nt2/sdk/simd/category.hpp>
 #include <nt2/sdk/meta/hierarchy_of.hpp>
+#include <boost/simd/sdk/constant/constant.hpp>
 
 namespace boost { namespace dispatch { namespace meta
 {
-    //==========================================================================
-    // Generative node hierarchy
-    //==========================================================================
-    template<class Tag> struct generative_ : elementwise_<Tag>
-    {
-      typedef elementwise_<Tag> parent;
-    };
+  //==========================================================================
+  // Stateful Constant node hierarchy
+  //==========================================================================
+  template<class Tag> struct state_constant_ : constant_<Tag>
+  {
+    typedef constant_<Tag> parent;
+  };
 } } }
 
 namespace nt2 { namespace ext
 {
-  using boost::dispatch::meta::generative_;
+  using boost::dispatch::meta::constant_;
+  using boost::dispatch::meta::pure_constant_;
+  using boost::dispatch::meta::state_constant_;
 } }
 
 #endif

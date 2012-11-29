@@ -233,7 +233,7 @@ namespace nt2 { namespace ext
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
       const i_type base = ind_type::value-1;
-      idx =  nt2::indices(size(res), dim, meta::as_<i_type>())+base;
+      idx =  nt2::indices(size(res), nt2::over(dim), meta::as_<i_type>())+base;
 
       size_t h = nt2::size(res, dim);
       if (h <= 1) return;
@@ -262,7 +262,7 @@ namespace nt2 { namespace ext
       typedef typename boost::mpl::at_c< typename T::index_type::type, 0>::type  ind_type;
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
-      idx =  nt2::indices(size(res), dim, meta::as_<i_type>())-One<i_type>();
+      idx =  nt2::indices(size(res), nt2::over(dim), meta::as_<i_type>())-One<i_type>();
       //base 0 here for indexing the raw array
 
       size_t h = nt2::size(res, dim);

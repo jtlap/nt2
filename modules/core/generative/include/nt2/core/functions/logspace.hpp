@@ -11,45 +11,25 @@
 #define NT2_CORE_FUNCTIONS_LOGSPACE_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
-
-/*!
- * \ingroup core
- * \defgroup core_logspace logspace
- *
- * \par Description
- * logspace logarithmically spaced vector.
- *    logspace(x1, x2) generates a row vector of 50 logarithmically
- *    equally spaced points between decades 10^x1 and 10^x2.  if x2
- *    is pi, then the points are between 10^x1 and pi. and return double values
- *
- *    logspace(x1, x2, as<T>()) return type T values
- *    logspace(x1, x2, n) and logspace(x1, x2, n, as<T>()) return n values instead of 50
- *    logspace(x1, x2, n, nt2::regular_) and logspace(x1, x2, n, as<T>(), nt2::regular_)
- *       make no special treatment for x2 ==  pi
- *
- *    for n = 1, logspace returns 10^x2... which the same pi treatments
- *
- *    T can be any floating type
- *
- * \par header file
- *
- * \code
- * #include <nt2/include/functions/logspace.hpp>
- * \endcode
-**/
+#include <nt2/core/container/dsl/generative.hpp>
+#include <nt2/core/functions/common/generative.hpp>
 
 namespace nt2
 {
+  /// INTERNAL ONLY
   struct regular_t {};
+
+  /*!
+    @brief regularity mark-up
+  **/
   const meta::as_<regular_t> regular_ = {};
 
   namespace tag
   {
-    struct logspace_ : ext::generative_<logspace_>
+    struct logspace_ : ext::state_constant_<logspace_>
     {
-      typedef ext::generative_<logspace_> parent;
+      typedef ext::state_constant_<logspace_> parent;
     };
   }
 
@@ -74,4 +54,3 @@ namespace nt2 { namespace ext
 } }
 
 #endif
-

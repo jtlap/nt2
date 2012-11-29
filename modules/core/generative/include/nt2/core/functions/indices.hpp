@@ -16,26 +16,34 @@
 **/
 
 #include <nt2/include/functor.hpp>
-#include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
-#include <nt2/core/container/dsl/generative.hpp>
+#include <nt2/core/utility/over.hpp>
+#include <nt2/core/functions/details/indices.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
+#include <nt2/core/functions/common/generative.hpp>
+
+#include <nt2/sdk/parameters.hpp>
+#include <boost/preprocessor/arithmetic/add.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 namespace nt2
 {
   namespace tag
   {
-    struct indices_ : ext::generative_<indices_>
+    struct indices_ : ext::state_constant_<indices_>
     {
-      typedef ext::generative_<indices_> parent;
+      typedef ext::state_constant_<indices_>  parent;
+      typedef double                          default_type;
     };
   }
 
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::indices_, indices, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::indices_, indices, 2)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::indices_, indices, 3)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::indices_, indices, 4)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::indices_, indices, 5)
+  #define M0(z,n,t)                                           \
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::indices_, indices, n) \
+  /**/
+
+  BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_ADD(NT2_MAX_DIMENSIONS, 3), M0, ~)
+
+  #undef M0
 }
 
 namespace nt2 { namespace ext
