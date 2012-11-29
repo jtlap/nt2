@@ -16,7 +16,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
                             , (A0)
-                            , (scalar_< arithmetic_<A0> >)
+                            , (scalar_< floating_<A0> >)
                             )
   {
     typedef A0 result_type;
@@ -28,6 +28,18 @@ namespace boost { namespace simd { namespace ext
       volatile result_type d = (d0-t2n);
       d = (v < t2n)?d:v;
       return a0 < 0? -d : d;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::round_, tag::cpu_
+                            , (A0)
+                            , (scalar_< integer_<A0> >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return a0;
     }
   };
 } } }
