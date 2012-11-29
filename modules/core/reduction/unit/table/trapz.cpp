@@ -10,7 +10,7 @@
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/trapz.hpp>
-#include <nt2/include/functions/trans.hpp>
+#include <nt2/include/functions/colvect.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -35,24 +35,29 @@ NT2_TEST_CASE_TPL( trapz, NT2_REAL_TYPES )
   nt2::table<T> y( nt2::of_size(5,3) );
   nt2::table<T> x =  nt2::_(T(1), T(5));
   nt2::table<T> x1=  nt2::_(T(1), T(3));
-  nt2::table<T> sy, sy1, sy2, sy3, sy4;
+  nt2::table<T> sy, sy1, sy2, sy3;
+  nt2::table<T> r1 = nt2::_(T(12), T(20), T(52));
+  nt2::table<T> r2 = nt2::colvect(nt2::_(T(12), T(2), T(20)));
+
   y =  nt2::reshape(nt2::_(T(1), T(15)), 5, 3);
   NT2_DISPLAY(y);
   sy = nt2::trapz(y(_));
   NT2_DISPLAY(sy);
+  NT2_TEST_EQUAL(sy, T(112));
 
   sy1 = nt2::trapz(y);
   NT2_DISPLAY(sy1);
+  NT2_TEST_EQUAL(sy1, r1);
+
   sy2 = nt2::trapz(x, y, 1);
   NT2_DISPLAY(sy2);
+  NT2_TEST_EQUAL(sy1, r1);
 
-//  NT2_TEST_EQUAL(sy1, sy2);
-  sy3 = nt2::trans(nt2::trapz(nt2::trans(y)));
+  sy3 = nt2::trapz(x1, y, 2);
   NT2_DISPLAY(sy3);
-  sy4 = nt2::trapz(x1, y, 2);
-  NT2_DISPLAY(sy4);
+  NT2_TEST_EQUAL(sy3, r2);
 
-//  NT2_TEST_EQUAL(sy3, sy4);
+
 
 
 }
