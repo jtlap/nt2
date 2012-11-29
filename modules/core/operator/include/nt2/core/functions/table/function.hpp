@@ -11,8 +11,8 @@
 
 #include <nt2/core/functions/function.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
-#include <nt2/include/functions/sub2ind.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
+#include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/core/functions/table/details/reindex.hpp>
 #include <nt2/core/functions/table/details/function_size.hpp>
@@ -59,12 +59,11 @@ namespace nt2 { namespace ext
             if_< typename is_vectorizable_indexers<childN, Data>::type
                , State
                , typename details::as_integer_target<Data>::type
-               >::type                                        i_t;
-    typedef typename meta::as_signed<i_t>::type               si_t;
-    typedef boost::array<si_t, arity>                         pos_type;
+               >::type                                         i_t;
+    typedef boost::array<i_t, arity>                         pos_type;
 
     // Once set, we build a type with evaluation targets
-    typedef boost::array< boost::dispatch::meta::as_<si_t>
+    typedef boost::array< boost::dispatch::meta::as_<i_t>
                         , arity
                         >                                     target_type;
 
@@ -94,10 +93,9 @@ namespace nt2 { namespace ext
       target_type targets;
 
       // Grab the destination subscript
-      pos_type pos = ind2sub( typename make_size<arity>::type(expr.extent())
-                            , nt2::enumerate<i_t>(state)
-                            , indexes
-                            );
+      pos_type pos = as_subscript( typename make_size<arity>::type(expr.extent())
+                                 , nt2::enumerate<i_t>(state)
+                                 );
 
       // Apply index_t to each subscript value
       transformed trs = boost::fusion::
@@ -114,10 +112,9 @@ namespace nt2 { namespace ext
 
       // Get the linear position from the transformed subscript and evaluate
       return nt2::run( boost::proto::child_c<0>(expr)
-                     , sub2ind( boost::proto::child_c<0>(expr).extent()
-                              , trs
-                              , indexes
-                              )
+                     , as_index( boost::proto::child_c<0>(expr).extent()
+                               , trs
+                               )
                      , data
                      );
     }

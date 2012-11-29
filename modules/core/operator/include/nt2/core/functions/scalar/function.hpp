@@ -10,11 +10,11 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_FUNCTION_HPP_INCLUDED
 
 #include <nt2/core/functions/function.hpp>
-#include <nt2/include/functions/scalar/sub2ind.hpp>
+#include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/core/container/dsl/domain.hpp>
-#include <boost/fusion/include/vector_tie.hpp>
-#include <boost/type_traits/remove_reference.hpp>
+#include <boost/fusion/include/make_vector.hpp>
+#include <boost/mpl/at.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -26,6 +26,7 @@ namespace nt2 { namespace ext
 #define M0(z,n,t) (I##n)
 #define M1(z,n,t) (scalar_< integer_<I##n> >)
 #define M3(z,n,t) (unspecified_<I##n>)
+#define M4(z,n,t) (i##n - boost::mpl::at_c<idx_t, n>::type::value)
 
 #define M2(z,n,t)                                                              \
 NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
@@ -47,11 +48,10 @@ NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                     \
   {                                                                            \
     scheduled s = sched()(a0);                                                 \
     return nt2::run( s                                                         \
-                   , nt2::sub2ind( s.extent()                                  \
-                                 , boost::fusion::                             \
-                                   vector_tie(BOOST_PP_ENUM_PARAMS(n,i))       \
-                                 , idx_t()                                     \
-                                 )                                             \
+                   , nt2::as_index( s.extent()                                 \
+                                  , boost::fusion::                            \
+                                    make_vector(BOOST_PP_ENUM(n,M4,~))         \
+                                  )                                            \
                    , meta::as_<typename scheduled::value_type>()               \
                    );                                                          \
   }                                                                            \
@@ -79,6 +79,7 @@ BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M2,~)
 #undef M1
 #undef M2
 #undef M3
+#undef M4
 } }
 
 #endif
