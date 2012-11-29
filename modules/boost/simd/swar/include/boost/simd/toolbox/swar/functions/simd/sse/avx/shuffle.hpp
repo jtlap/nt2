@@ -113,31 +113,25 @@ namespace boost { namespace simd
       }
 
       template<int I0, int I1>
-      BOOST_FORCEINLINE __m256d eval(__m256d a0, sel<I0,I1,-1,-1> const&) const
+      BOOST_FORCEINLINE result_type eval(A0 const& a0, sel<I0,I1,-1,-1,false> const&) const
       {
         return details::shuffle<I0,I1,0,1>(a0,Zero<result_type>());
       }
 
       template<int I2, int I3>
-      BOOST_FORCEINLINE __m256d eval(__m256d a0, sel<-1,-1,I2,I3> const&) const
+      BOOST_FORCEINLINE result_type eval(A0 const& a0, sel<-1,-1,I2,I3,false> const&) const
       {
-        return details::shuffle<0,1,I2,I3>(Zero<result_type>(), a0);
+        return details::shuffle<0,1,I2,I3>(Zero<result_type>()(), a0);
       }
 
       template<int I0, int I1, int I2, int I3>
-      BOOST_FORCEINLINE __m256d eval(__m256d a0, sel<I0,I1,I2,I3,true> const&) const
+      BOOST_FORCEINLINE result_type eval(A0 const& a0, sel<I0,I1,I2,I3,true> const&) const
       {
         return details::shuffle<I0,I1,I2,I3>(a0);
       }
 
       template<int I0, int I1, int I2, int I3>
-      BOOST_FORCEINLINE __m256i eval(__m256i a0, sel<I0,I1,I2,I3,true> const&) const
-      {
-        return details::shuffle<I0,I1,I2,I3>(a0,a0);
-      }
-
-      template<int I0, int I1, int I2, int I3>
-      BOOST_FORCEINLINE __m256d eval(__m256d a0, sel<I0,I1,I2,I3,false> const&) const
+      BOOST_FORCEINLINE __m256d eval(__m256d const a0, sel<I0,I1,I2,I3,false> const&) const
       {
         __m256i mask = _mm256_set_epi8(
                          mask_t<0 >::value, mask_t<1 >::value
@@ -162,19 +156,19 @@ namespace boost { namespace simd
       }
 
       template<int I0, int I1, int I2, int I3>
-      BOOST_FORCEINLINE __m256i eval(__m256i a0, sel<I0,I1,I2,I3,false> const&) const
+      BOOST_FORCEINLINE __m256i eval(__m256i const a0, sel<I0,I1,I2,I3,false> const&) const
       {
         return _mm256_castpd_si256(eval(_mm256_castsi256_pd(a0),sel<I0,I1,I2,I3,false>()));
       }
 
-      BOOST_FORCEINLINE __m256d eval(__m256d a0, sel<0,-1, 2,-1> const&) const
+      BOOST_FORCEINLINE __m256d eval(__m256d const a0, sel<0,-1, 2,-1> const&) const
       {
-        return _mm256_unpacklo_pd(a0, Zero<result_type>());
+        return _mm256_unpacklo_pd(a0, _mm256_setzero_pd());
       }
 
-      BOOST_FORCEINLINE __m256d eval(__m256d a0, sel<-1,5,-1,7> const&) const
+      BOOST_FORCEINLINE __m256d eval(__m256d const a0, sel<-1,5,-1,7> const&) const
       {
-        return _mm256_unpackhi_pd(a0, Zero<result_type>());
+        return _mm256_unpackhi_pd(a0, _mm256_setzero_pd());
       }
     };
 
@@ -255,19 +249,15 @@ namespace boost { namespace simd
       }
 
       template<int I0, int I1, int I2, int I3>
-      BOOST_FORCEINLINE __m256d eval(__m256d a0, __m256d a1, sel<I0,I1,I2,I3,true> const&) const
+      BOOST_FORCEINLINE result_type eval( A0 const& a0, A0 const& a1
+                                        , sel<I0,I1,I2,I3,true> const&) const
       {
         return details::shuffle<I0,I1,I2,I3>(a0,a1);
       }
 
       template<int I0, int I1, int I2, int I3>
-      BOOST_FORCEINLINE __m256i eval(__m256i a0, __m256i a1, sel<I0,I1,I2,I3,true> const&) const
-      {
-        return details::shuffle<I0,I1,I2,I3>(a0,a1);
-      }
-
-      template<int I0, int I1, int I2, int I3>
-      BOOST_FORCEINLINE __m256d eval(__m256d a0, __m256d a1, sel<I0,I1,I2,I3,false> const&) const
+      BOOST_FORCEINLINE __m256d eval( __m256d const a0, __m256d const a1
+                                    , sel<I0,I1,I2,I3,false> const&) const
       {
         __m256i mask = _mm256_set_epi8(
                          mask_t<0 >::value, mask_t<1 >::value
@@ -292,11 +282,12 @@ namespace boost { namespace simd
       }
 
       template<int I0, int I1, int I2, int I3>
-      BOOST_FORCEINLINE __m256i eval(__m256i a0, __m256i a1, sel<I0,I1,I2,I3,false> const&) const
+      BOOST_FORCEINLINE __m256i eval( __m256i const a0, __m256i const a1
+                                    , sel<I0,I1,I2,I3,false> const&) const
       {
         return _mm256_castpd_si256(eval( _mm256_castsi256_pd(a0)
                                        , _mm256_castsi256_pd(a1)
-                                       ,sel<I0,I1,I2,I3,false>()
+                                       , sel<I0,I1,I2,I3,false>()
                                        )
                                   );
       }
