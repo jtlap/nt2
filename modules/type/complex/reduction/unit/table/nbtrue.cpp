@@ -15,6 +15,7 @@
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/nbtrue.hpp>
+#include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/functions/sb2b.hpp>
 #include <nt2/include/functions/is_greater.hpp>
 #include <nt2/include/functions/if_one_else_zero.hpp>
@@ -48,7 +49,7 @@ NT2_TEST_CASE_TPL( nbtrue_scalar, (float)(double))//NT2_TYPES )
 
 }
 
-NT2_TEST_CASE_TPL( nbtrue_expr, NT2_TYPES )
+NT2_TEST_CASE_TPL( nbtrue_expr, NT2_REAL_TYPES )
 {
   typedef std::complex<T> cT;
   using nt2::_;
@@ -60,7 +61,6 @@ NT2_TEST_CASE_TPL( nbtrue_expr, NT2_TYPES )
     for(int i=1;i<=5;i++)
       y(i,j) = (i > j) || (j == 2)|| (i == 1);
   display("y", y);
-
   sy  = nt2::nbtrue(y, 1);
   sy2 = nt2::sum(y, 1);
   for(int j=1;j<=3;j++)
@@ -99,9 +99,11 @@ NT2_TEST_CASE_TPL( nbtrue_expr1, NT2_REAL_TYPES )
     for(int i=1;i<=5;i++)
       y(i,j) = (i > j) || (j == 2)|| (i == 1) ? T(1) : nt2::Nan<T>() ;
   display("y", y);
+  nt2::table<cT> r1 = nt2::repnum(T(5), 1, 3);
 
   NT2_DISPLAY(nbtrue(y));
   NT2_DISPLAY(nbtrue(nt2::is_not_nan(y)));
+  NT2_TEST_EQUAL(nbtrue(y), r1);
   NT2_DISPLAY(nt2::is_not_nan(y));
   NT2_DISPLAY(nt2::if_one_else_zero(nt2::is_not_nan(y)));
   NT2_DISPLAY(nt2::sum(nt2::if_one_else_zero(nt2::is_not_nan(y))));
