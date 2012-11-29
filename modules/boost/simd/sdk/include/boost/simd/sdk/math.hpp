@@ -60,7 +60,7 @@
 #endif
 
 // Microsoft
-#ifdef _MSC_VER
+#if defined(_MSC_VER) || defined(__MSVCRT__)
 #define BOOST_SIMD_HAS__Y0
 #define BOOST_SIMD_HAS__Y1
 #define BOOST_SIMD_HAS__YN
