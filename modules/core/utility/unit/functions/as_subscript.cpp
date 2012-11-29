@@ -212,3 +212,38 @@ NT2_TEST_CASE_TPL( as_subscript_4D_simd, (nt2::int32_t)(nt2::uint32_t)(nt2::int6
     }
   }
 }
+
+NT2_TEST_CASE_TPL ( as_subscript_empty
+                  , (nt2::int32_t)(nt2::uint32_t)(nt2::int64_t)(nt2::uint64_t)
+                  )
+{
+  typedef typename boost::dispatch::meta::as_unsigned<T>::type idx_t;
+  using boost::fusion::make_vector;
+  using boost::mpl::int_;
+
+  boost::array<idx_t, 1>
+  a1 = nt2::as_subscript( make_vector(idx_t(0)), idx_t(0) );
+
+  NT2_TEST_EQUAL( a1[0], idx_t(0) );
+
+  boost::array<idx_t, 2>
+  a2 = nt2::as_subscript( make_vector(idx_t(0),idx_t(1)), idx_t(0) );
+
+  NT2_TEST_EQUAL( a2[0], idx_t(0) );
+  NT2_TEST_EQUAL( a2[1], idx_t(0) );
+
+  boost::array<idx_t, 3>
+  a3 = nt2::as_subscript( make_vector(idx_t(0),idx_t(1),idx_t(1)), idx_t(0) );
+
+  NT2_TEST_EQUAL( a3[0], idx_t(0) );
+  NT2_TEST_EQUAL( a3[1], idx_t(0) );
+  NT2_TEST_EQUAL( a3[2], idx_t(0) );
+
+  boost::array<idx_t, 4>
+  a4 = nt2::as_subscript( make_vector(idx_t(0),idx_t(1),idx_t(1),idx_t(1)), idx_t(0) );
+
+  NT2_TEST_EQUAL( a4[0], idx_t(0) );
+  NT2_TEST_EQUAL( a4[1], idx_t(0) );
+  NT2_TEST_EQUAL( a4[2], idx_t(0) );
+  NT2_TEST_EQUAL( a4[3], idx_t(0) );
+}

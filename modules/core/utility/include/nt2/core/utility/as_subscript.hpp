@@ -56,7 +56,9 @@ namespace nt2 { namespace result_of
         , boost::mpl::false_ const&
         ) const
     {
-      type_t ls     = splat<type_t>(boost::fusion::at_c<N::value>(s));
+      BOOST_AUTO_TPL(dim, boost::fusion::at_c<N::value>(s));
+      type_t ls     = splat<type_t>(dim?dim:1);
+
       sub[N::value] = p % ls;
       eval( sub, p/ls, s
           , boost::mpl::int_<N::value+1>()
@@ -73,7 +75,9 @@ namespace nt2 { namespace result_of
         ) const
 
     {
-      type_t ls       = splat<type_t>(boost::fusion::at_c<N::value>(s));
+      BOOST_AUTO_TPL(dim, boost::fusion::at_c<N::value>(s));
+      type_t ls     = splat<type_t>(dim?dim:1);
+
       sub[N::value]   = p % ls;
       sub[N::value+1] = p / ls;
     }
