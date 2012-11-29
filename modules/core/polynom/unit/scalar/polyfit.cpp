@@ -21,6 +21,8 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/table.hpp>
@@ -105,7 +107,7 @@ NT2_TEST_CASE_TPL ( plevl_real__2_0,  NT2_REAL_TYPES)
   NT2_DISPLAY(normr);
   NT2_DISPLAY(mu);
   NT2_DISPLAY(polyval(p, (x-mu(1))/mu(2)));
-
+  NT2_TEST_ULP_EQUAL(polyval(p, (x-mu(1))/mu(2)), y, 10);
 
 } // end of test for floating_
 
@@ -117,13 +119,15 @@ NT2_TEST_CASE_TPL ( plevl_real__3_0,  NT2_REAL_TYPES)
 
   T a [] = {0.0, 1.0, 2.0, 3.0,  4.0,  5.0};
   T b [] = {0.0, 0.8, 0.9, 0.1, -0.8, -1.0};
+  T c [] = {0.087037037037037245923, -0.81349206349206493183, 1.6931216931216956922, -0.039682539682541172199 };
   nt2::table<T> x(nt2::of_size(1,6), a+0, a+6);
   nt2::table<T> y(nt2::of_size(1,6), b+0, b+6);
+  nt2::table<T> zz(nt2::of_size(1,4), c+0, c+4);
   nt2::table<T> z = polyfit(x, y, 3);
-
   std::cout << x << "\n";
   std::cout << y << "\n";
   std::cout << z << "\n";
+  NT2_TEST_ULP_EQUAL(z, zz, 500);
 } // end of test for floating_
 
 
