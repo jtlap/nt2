@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ROUND_HPP_INCLUDED
 #include <boost/simd/toolbox/arithmetic/functions/round.hpp>
 #include <boost/simd/include/constants/twotonmb.hpp>
+#include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -27,7 +28,7 @@ namespace boost { namespace simd { namespace ext
       volatile result_type d0 = (v+t2n);
       volatile result_type d = (d0-t2n);
       d = (v < t2n)?d:v;
-      return a0 < 0? -d : d;
+      return a0 < Zero<A0>() ? -d : d;
     }
   };
 
