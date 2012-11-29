@@ -13,29 +13,19 @@
 #include <nt2/include/functions/linspace.hpp>
 #include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/sqr.hpp>
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
-
-// NT2_TEST_CASE_TPL( pchip_scalar, (float)(double))//NT2_TYPES )
-// {
-//   T x = nt2::pchip(T(42));
-//   NT2_TEST_EQUAL( x, T(42) );
-
-//   x = nt2::pchip(T(42),1);
-//   NT2_TEST_EQUAL( x, T(42) );
-
-//   x = nt2::pchip(T(42),0);
-//   NT2_TEST_EQUAL( x, T(42) );
-
-// }
-
+#include <nt2/sdk/memory/buffer.hpp>
 NT2_TEST_CASE_TPL( pchip, (float))//(double))//NT2_TYPES )
 {
   using nt2::_;
   nt2::table<T> x =  nt2::linspace(T(1),  T(4), 4);
   nt2::table<T> y =  nt2::sqr(nt2::linspace(T(2),  T(8), 4));
   nt2::table<T> xi=  nt2::linspace(T(1),  T(4), 7);
+  T tr0[] = {4.0000,    9.1250,   16.0000,   24.95833333333333333,   36.0000,   48.9166666666666666,   64.0000};
+  nt2::table<T> r0(nt2::of_size(1, 7), &tr0[0], &tr0[7]);
   NT2_DISPLAY(x);
   NT2_DISPLAY(y);
   NT2_DISPLAY(xi);
@@ -43,18 +33,25 @@ NT2_TEST_CASE_TPL( pchip, (float))//(double))//NT2_TYPES )
   std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl;
   NT2_DISPLAY(yi);
   yi =nt2::pchip(x, y, xi, false);
+  NT2_TEST_ULP_EQUAL(yi, r0, 10.0);
   std::cout << "extrap " <<  false <<  " extrapval " << "-" << std::endl;
   NT2_DISPLAY(yi);
+  NT2_TEST_ULP_EQUAL(yi, r0, 10.0);
+
   std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl;
   yi =nt2::pchip(x, y, xi, true);
   NT2_DISPLAY(yi);
   T z =  33;
   std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
   yi =nt2::pchip(x, y, xi, z);
+  NT2_TEST_ULP_EQUAL(yi, r0, 10.0);
+
   NT2_DISPLAY(yi);
   std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
   yi =nt2::pchip(x, y, xi, T(33));
   NT2_DISPLAY(yi);
+  NT2_TEST_ULP_EQUAL(yi, r0, 10.0);
+
 }
 
 NT2_TEST_CASE_TPL( pchip2, (float)(double))//NT2_TYPES )
@@ -74,15 +71,15 @@ NT2_TEST_CASE_TPL( pchip2, (float)(double))//NT2_TYPES )
   NT2_DISPLAY(yi);
   std::cout << "extrap " <<  true <<  " extrapval " << "-" << std::endl;
   yi =nt2::pchip(x, y, xi, true);
-  NT2_TEST(isequal(y0, yi));
+  NT2_TEST_EQUAL(y0, yi);
   NT2_DISPLAY(yi);
   T z =  33;
   std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
   yi =nt2::pchip(x, y, xi, z);
   NT2_DISPLAY(yi);
-  NT2_TEST(isequal(y0, yi));
+  NT2_TEST_EQUAL(y0, yi);
   std::cout << "extrap " <<  "-" <<  " extrapval " << "33" << std::endl;
   yi =nt2::pchip(x, y, xi, T(33));
   NT2_DISPLAY(yi);
-  NT2_TEST(isequal(y0, yi));
+  NT2_TEST_EQUAL(y0, yi);
 }
