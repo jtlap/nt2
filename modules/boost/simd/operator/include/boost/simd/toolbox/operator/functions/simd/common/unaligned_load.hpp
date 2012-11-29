@@ -94,16 +94,10 @@ namespace boost { namespace simd { namespace ext
 
     inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
-      // Filling that directly as a result_type still has aliasing issues
-      // TODO : Investigate further
-      stype that[meta::cardinal_of<result_type>::value];
-
-      for(std::size_t i=0; i<meta::cardinal_of<result_type>::value; ++i)
-      {
+      result_type that;
+      for(std::size_t i=0; i!=meta::cardinal_of<result_type>::value; ++i)
         that[i] = a0[a1[i]];
-      }
-
-      return unaligned_load<result_type>(&that[0]);
+      return that;
     }
   };
 
