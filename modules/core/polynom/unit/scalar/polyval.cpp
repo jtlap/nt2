@@ -20,6 +20,8 @@
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/memory/buffer.hpp>
 #include <nt2/include/constants/real.hpp>
 #include <nt2/table.hpp>
@@ -72,6 +74,9 @@ NT2_TEST_CASE_TPL ( polyval_real__2_0,  NT2_REAL_TYPES)
   nt2::table<T> xx =  nt2::reshape(nt2::_(T(1), T(0.5), T(4.5)), 2, 4);
 //  y = polyval(p, xx, r, df, normr, mu);
   NT2_DISPLAY(y);
+  nt2::table<T> yy(nt2::of_size(2, 2)); yy(1) = T(6); yy(2) = T(11);yy(3) = T(18);yy(4) = T(26);
+  NT2_DISPLAY(yy);
+  NT2_TEST_ULP_EQUAL(y, yy, 1.0)
   tie(y, delta) = polyval(p, xx, r, df, normr);
   NT2_DISPLAY(y);
   NT2_DISPLAY(delta);
