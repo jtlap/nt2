@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( rem_pio2_straight_real__1_0,  NT2_REAL_TYPES)
   }
   {
     r_t res = rem_pio2_straight(nt2::Zero<T>());
-    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res), nt2::Zero<r_t0>(), 0.5);
+    NT2_TEST_ULP_EQUAL( boost::fusion::get<0>(res), -nt2::Pio_2<r_t0>(), 0.5);
     NT2_TEST_ULP_EQUAL( boost::fusion::get<1>(res), nt2::Zero<r_t1>(), 0.5);
     NT2_TEST_ULP_EQUAL( boost::fusion::get<2>(res), nt2::One<r_t2>(), 0.5);
   }
