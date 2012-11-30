@@ -21,7 +21,7 @@
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 //  rref   reduced row echelon form.
 //     r = rref(a) produces the reduced row echelon form of a.
 
@@ -46,13 +46,13 @@ namespace nt2 { namespace details
     typedef typename meta::as_real<type_t>::type              base_t;
     typedef T                                                 data_t;
     typedef typename meta::as_integer<base_t, signed>::type  itype_t;
-    typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-    typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
-    typedef nt2::table<type_t,index_t>                   result_type;
-    typedef nt2::table<base_t,index_t>                  bresult_type;
-    typedef nt2::table<itype_t,index_t>                 iresult_type;
+    typedef nt2::container::table<type_t,nt2::matlab_index_>              tab_t;
+    typedef nt2::container::table<base_t,nt2::matlab_index_>             btab_t;
+    typedef nt2::container::table<itype_t,nt2::matlab_index_>            itab_t;
+    typedef nt2::container::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+    typedef nt2::container::table<type_t,index_t>                   result_type;
+    typedef nt2::container::table<base_t,index_t>                  bresult_type;
+    typedef nt2::container::table<itype_t,index_t>                 iresult_type;
     //must be dry I think
 
     template<class Input>

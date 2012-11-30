@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_FULL_LU_SOLVE_HPP_INCLUDED
 
 #include <nt2/toolbox/linalg/details/lapack/gesvx.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/sdk/error/warning.hpp>
@@ -26,12 +26,12 @@ namespace nt2 { namespace details
     typedef typename strip_t::value_type                 type_t;
     typedef typename strip_t::index_type                index_t;
     typedef typename meta::as_real<type_t>::type        btype_t;
-    typedef nt2::table<type_t,nt2::_2D>                  ftab_t;
-    typedef nt2::table<btype_t,nt2::_2D>                fbtab_t;
-    typedef nt2::table<nt2_la_int,nt2::_2D>             fitab_t;
-    typedef nt2::table<type_t,index_t>                    tab_t;
-    typedef nt2::table<btype_t,index_t>                  btab_t;
-    typedef nt2::table<nt2_la_int,index_t>               itab_t;
+    typedef nt2::container::table<type_t,nt2::_2D>                  ftab_t;
+    typedef nt2::container::table<btype_t,nt2::_2D>                fbtab_t;
+    typedef nt2::container::table<nt2_la_int,nt2::_2D>             fitab_t;
+    typedef nt2::container::table<type_t,index_t>                    tab_t;
+    typedef nt2::container::table<btype_t,index_t>                  btab_t;
+    typedef nt2::container::table<nt2_la_int,index_t>               itab_t;
     typedef A                                           data1_t;
     typedef B                                           data2_t;
     ////////////////////////////////////////////////////////////////////////////

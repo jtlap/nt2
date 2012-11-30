@@ -15,7 +15,7 @@
 #include <nt2/include/functions/width.hpp>
 #include <nt2/include/functions/ofsameheight.hpp>
 #include <nt2/include/functions/issquare.hpp>
- #include <nt2/table.hpp>
+ #include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace details
 {
@@ -27,12 +27,12 @@ namespace nt2 { namespace details
     typedef typename A::value_type                      type_t;
     typedef typename A::index_type                     index_t;
     typedef typename meta::as_real<type_t>::type       btype_t;
-    typedef nt2::table<type_t,nt2::matlab_index_>       ftab_t;
-    typedef nt2::table<btype_t,nt2::matlab_index_>     fbtab_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_>  fitab_t;
-    typedef nt2::table<type_t,index_t>                   tab_t;
-    typedef nt2::table<btype_t,index_t>                 btab_t;
-    typedef nt2::table<nt2_la_int,index_t>              itab_t;
+    typedef nt2::container::table<type_t,nt2::matlab_index_>       ftab_t;
+    typedef nt2::container::table<btype_t,nt2::matlab_index_>     fbtab_t;
+    typedef nt2::container::table<nt2_la_int,nt2::matlab_index_>  fitab_t;
+    typedef nt2::container::table<type_t,index_t>                   tab_t;
+    typedef nt2::container::table<btype_t,index_t>                 btab_t;
+    typedef nt2::container::table<nt2_la_int,index_t>              itab_t;
 
     ////////////////////////////////////////////////////////////////////////////
     // general cholevski solver

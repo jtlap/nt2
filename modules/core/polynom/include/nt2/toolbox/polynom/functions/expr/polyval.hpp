@@ -24,6 +24,7 @@
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/sdk/error/warning.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is arithmetic_
@@ -101,7 +102,7 @@ namespace nt2 { namespace ext
       void compute_delta(const S& x, const T& r,
                          const U& df,  const V& normr,
                          const size_t & nc,
-                         table<value_type>& delta)const
+                         container::table<value_type>& delta)const
     {
       NT2_WARNING(nt2::is_eqz(value_type(df)), "zero degree of freedom implies infinite error bounds.");
       BOOST_AUTO_TPL(vnd, nt2::vandermonde(x, nc));
@@ -151,7 +152,7 @@ namespace nt2 { namespace ext
       BOOST_AUTO_TPL(nr, boost::proto::child_c<4>(a0));
       BOOST_AUTO_TPL(v,  boost::proto::child_c<0>(a1));
       compute_val(p, x, v);
-      table<value_type> delta(extent(x));
+      container::table<value_type> delta(extent(x));
       compute_delta(x, r, df, nr, nt2::numel(p), delta);
       boost::proto::child_c<1>(a1) = delta;
     }
@@ -168,7 +169,7 @@ namespace nt2 { namespace ext
       BOOST_AUTO_TPL(mu,  boost::proto::child_c<5>(a0));
       BOOST_AUTO_TPL(xred, (x-mu(1))/mu(2));
       compute_val(p, xred, v);
-      table<value_type> delta(of_size(extent(x)));
+      container::table<value_type> delta(of_size(extent(x)));
       delta.resize(extent(x));
       compute_delta(xred, r, df, nr, nt2::numel(p), delta);
       boost::proto::child_c<1>(a1) = delta;

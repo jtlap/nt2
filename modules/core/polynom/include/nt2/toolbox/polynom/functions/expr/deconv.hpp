@@ -77,15 +77,15 @@ namespace nt2 { namespace ext
       else
       {
         size_t nq =  na+1-nb;
-        nt2::table<value_type, nt2::_2D> m =   nt2::eye(numel(a),meta::as_<value_type>());
+        nt2::container::table<value_type, nt2::_2D> m =   nt2::eye(numel(a),meta::as_<value_type>());
         for(size_t i=1; i <= nq; ++i)
         {
-          m(nt2::_(i, (i-1)+nb), i) = colvect(b);
+          m(nt2::_(i, (i-1)+nb), i) = nt2::colvect(b);
         }
-        nt2::table<value_type, nt2::_2D> bb; //, aa = colvect(a);
-        bb = nt2::linsolve(m, colvect(a));
-        q = rowvect(bb)(nt2::_(1, nq));
-        r = rowvect(bb)(nt2::_(nq+1, nt2::end_));
+        nt2::container::table<value_type, nt2::_2D> bb; //, aa = colvect(a);
+        bb = nt2::linsolve(m, nt2::colvect(a));
+        q = nt2::rowvect(bb)(nt2::_(1, nq));
+        r = nt2::rowvect(bb)(nt2::_(nq+1, nt2::end_));
       }
     }
   };

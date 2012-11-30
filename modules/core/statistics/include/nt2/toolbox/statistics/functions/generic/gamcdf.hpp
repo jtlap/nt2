@@ -26,7 +26,6 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <nt2/core/container/table/table.hpp>
-//#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {

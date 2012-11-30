@@ -81,13 +81,13 @@ namespace nt2 {
       typedef typename meta::as_real<type_t>::type              base_t;
       typedef typename meta::as_integer<base_t, signed>::type  itype_t;
       typedef T                                                 data_t;
-      typedef nt2::table<type_t,nt2::_2D>                        tab_t;
-      typedef nt2::table<base_t,nt2::_2D>                       btab_t;
-      typedef nt2::table<itype_t,nt2::_2D>                      itab_t;
+      typedef nt2::container::table<type_t,nt2::_2D>                        tab_t;
+      typedef nt2::container::table<base_t,nt2::_2D>                       btab_t;
+      typedef nt2::container::table<itype_t,nt2::_2D>                      itab_t;
       typedef nt2::details::workspace<type_t>              workspace_t;
-      typedef nt2::table<nt2_la_int,nt2::_2D>                   ibuf_t;
-      typedef nt2::table<type_t,index_t>                   result_type;
-      typedef nt2::table<itype_t,index_t>                 iresult_type;
+      typedef nt2::container::table<nt2_la_int,nt2::_2D>                   ibuf_t;
+      typedef nt2::container::table<type_t,index_t>                   result_type;
+      typedef nt2::container::table<itype_t,index_t>                 iresult_type;
 
 
       template<class Input>

@@ -18,7 +18,7 @@
 #include <nt2/include/functions/orth.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/constants/mone.hpp>
-#include <nt2/table.hpp>
+
 
 namespace nt2{ namespace ext
 {

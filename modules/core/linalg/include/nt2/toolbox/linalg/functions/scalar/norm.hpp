@@ -22,6 +22,7 @@
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/toolbox/linalg/details/lapack/lange.hpp>
 #include <nt2/core/container/dsl.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <string>
 
 
@@ -98,7 +99,7 @@ namespace nt2 { namespace ext
     typedef typename meta::as_floating<rtype_t>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      typedef table<result_type> btab_t;
+      typedef container::table<result_type> btab_t;
       if (isvector(a0))
       {
         return vecnorm(a0, a1);

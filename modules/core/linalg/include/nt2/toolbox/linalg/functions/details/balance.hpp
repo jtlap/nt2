@@ -16,7 +16,7 @@
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gebal.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gebak.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 //     [t,b] = balance(a) finds a similarity transformation t such
 //     that b = t\a*t has, as nearly as possible, approximately equal
 //     row and column norms.  t is a permutation of a diagonal matrix
@@ -43,13 +43,13 @@ namespace nt2 { namespace details
     typedef typename source_t::index_type                    index_t;
     typedef typename meta::as_real<type_t>::type              base_t;
     typedef T                                                 data_t;
-    typedef nt2::table<type_t,nt2::matlab_index_>              tab_t;
-    typedef nt2::table<base_t,nt2::matlab_index_>             btab_t;
-    typedef nt2::table<itype_t,nt2::matlab_index_>            itab_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
-    typedef nt2::table<type_t,index_t>                   result_type;
-    typedef nt2::table<base_t,index_t>                  bresult_type;
-    typedef nt2::table<itab_t,index_t>                  iresult_type;
+    typedef nt2::container::table<type_t,nt2::matlab_index_>              tab_t;
+    typedef nt2::container::table<base_t,nt2::matlab_index_>             btab_t;
+    typedef nt2::container::table<itype_t,nt2::matlab_index_>            itab_t;
+    typedef nt2::container::table<nt2_la_int,nt2::matlab_index_>         ibuf_t;
+    typedef nt2::container::table<type_t,index_t>                   result_type;
+    typedef nt2::container::table<base_t,index_t>                  bresult_type;
+    typedef nt2::container::table<itab_t,index_t>                  iresult_type;
     //must be dry I think
 
     template<class Input>

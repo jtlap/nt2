@@ -25,7 +25,6 @@
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
