@@ -10,3 +10,9 @@
 include(NT2Module)
 nt2_module_source_setup(core.operator)
 nt2_module_simd_toolbox(operator)
+
+include(nt2.preprocess)
+nt2_preprocess(core.operator.preprocess ${NT2_CORE.OPERATOR_ROOT}/include/nt2/core/functions/cons.hpp
+               OPTIONS -DNT2_DONT_USE_PREPROCESSED_FILES
+                       -DNT2_CREATE_PREPROCESSED_FILES
+              )
