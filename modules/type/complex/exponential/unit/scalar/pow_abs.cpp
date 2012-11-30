@@ -62,19 +62,4 @@ NT2_TEST_CASE_TPL ( pow_abs4,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::pow_abs(a, b), T(2)*nt2::sqr(nt2::real(a)), T(2.0));
 }
 
-NT2_TEST_CASE_TPL ( pow_abs5,  NT2_REAL_TYPES)
-{
 
-  typedef std::complex<T> cT;
-  nt2::table<cT> a = nt2::ones(1, 3, nt2::meta::as_<cT>());
-
-  for(int i=1; i <= 3; i++) a(i) =  cT(i, i);
-  NT2_DISPLAY(a);
-
-  nt2::table<T> b = nt2::ones(1, 3, nt2::meta::as_<T>());
-  for(int i=1; i <= 3; i++) b(i) = T(i-1);
-  NT2_DISPLAY(b);
-
-  NT2_DISPLAY(nt2::pow_abs(a, b));
-
-}
