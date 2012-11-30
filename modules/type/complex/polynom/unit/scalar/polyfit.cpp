@@ -91,17 +91,25 @@ NT2_TEST_CASE_TPL ( polyfit_real__4_0,  NT2_REAL_TYPES)
   typedef std::complex<T> cT;
   cT a [] = {0.0, 1.0, 2.0, 3.0,  4.0,  5.0};
   cT b [] = {0.0, 0.8, 0.9, 0.1, -0.8, -1.0};
+  cT c [] = {0.087037037037037245923, -0.81349206349206493183, 1.6931216931216956922, -0.039682539682541172199 };
   nt2::table<cT> x(nt2::of_size(1,6));
   nt2::table<cT> y(nt2::of_size(1,6));
+  nt2::table<cT> zz(nt2::of_size(1,4)); //, c+0, c+4); DOESS NOT WORK TODO
 
  for(int i=0; i < 6; ++i)
    {
      x(i+1) = cT(a[i]);
      y(i+1) = cT(b[i]);
    }
+ for(int i=0; i < 4; ++i)
+   {
+     zz(i+1) = cT(c[i]);
+   }
+
   NT2_DISPLAY(x);
   NT2_DISPLAY(y);
   nt2::table<cT> z = polyfit(x, y, 3);
-   NT2_DISPLAY(z);
+  NT2_DISPLAY(z);
+  NT2_TEST_ULP_EQUAL(z, zz, 500);
 } // end of test for floating_
 
