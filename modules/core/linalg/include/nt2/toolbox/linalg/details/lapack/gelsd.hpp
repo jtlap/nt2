@@ -10,6 +10,7 @@
 #define NT2_TOOLBOX_LINALG_DETAILS_LAPACK_GELSD_HPP_INCLUDED
 #include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
+#include <nt2/include/functions/max.hpp>
 
 /*! \file gelsd_itf.hh
     (excerpt adapted from xgelsd.f file commentaries)
@@ -140,12 +141,64 @@ extern "C"
                            double* a, const nt2_la_int* lda, double* b, const nt2_la_int* ldb,
                            const double* s, const double* rcond, nt2_la_int* rank, double* work,
                            const nt2_la_int* lwork, nt2_la_int* iwork, nt2_la_int* info);
+
+  nt2_la_int NT2_F77NAME(ilaenv)(const nt2_la_int *i, const char *n, const char *opts, const nt2_la_int *n1,
+                                 const nt2_la_int *n2, const nt2_la_int *n3, const nt2_la_int *n4,
+                                 nt2_la_int n_len, nt2_la_int opts_len);
+
 }
 
 
 namespace nt2 { namespace details
 {
-#define NT2_GELSD(NAME, T)                      \
+  ////////////////////////////////////////////////////////////////////////////
+  // utility
+  ////////////////////////////////////////////////////////////////////////////
+  inline nt2_la_int EnvBlockSize(nt2_la_int ispec,
+                   const std::string & fname,
+                   const std::string & opts,
+                   nt2_la_int n1 = -1,
+                   nt2_la_int n2 = -1,
+                   nt2_la_int n3 = -1,
+                   nt2_la_int n4 = -1)
+  {
+    nt2_la_int i = ispec;
+    nt2_la_int N1 = n1;
+    nt2_la_int N2 = n2;
+    nt2_la_int N3 = n3;
+    nt2_la_int N4 = n4;
+    return NT2_F77NAME(ilaenv)(&i, fname.c_str(), opts.c_str(), &N1, &N2, &N3, &N4,
+                           fname.size(), opts.size());
+  }
+  struct gelsdUtils
+  {
+    static inline nt2_la_int nlvl(const std::string & name, nt2_la_int minnm, nt2_la_int nrsh)
+    {
+      std::string blank =  " ";
+      minnm = minnm < 1 ? 1 : minnm;
+      nt2_la_int smlsiz = EnvBlockSize(9, name.c_str(), blank,0, 0, 0, 0);
+      return (nt2_la_int)nt2::max( int(std::log(double(minnm))/ double(smlsiz+1))/std::log(2.0)+1,0.0);
+    }
+
+    static inline size_t liwork(const std::string & name, nt2_la_int n,  nt2_la_int m, nt2_la_int nrsh)
+    {
+      nt2_la_int minnm = std::min(n, m);
+      return (3*nlvl(name, minnm, nrsh)+11)*minnm;
+    }
+
+    static inline nt2_la_int lrwork(const std::string & name, nt2_la_int n,  nt2_la_int m, nt2_la_int nrsh)
+    {
+      std::string blank =  " ";
+      nt2_la_int maxnm = std::max(n, m);
+      nt2_la_int minnm = std::min(n, m);
+      nt2_la_int nl = nlvl(name, minnm, nrsh);
+      nt2_la_int smlsiz = EnvBlockSize(9, name.c_str(), blank,0, 0, 0, 0);
+      return 10*maxnm + 2*maxnm*smlsiz + 8*m*nl + 3*smlsiz*nrsh +  (smlsiz+1)*(smlsiz+1);
+    }
+  };
+#if 0
+  /**/
+  #define NT2_GELSD(NAME, T)                    \
   inline void gelsd(const nt2_la_int* m,        \
                     const nt2_la_int* n,        \
                     const nt2_la_int* nrhs,     \
@@ -193,13 +246,69 @@ namespace nt2 { namespace details
           s, rcond, rank,                       \
           info, w);                             \
   }                                             \
+  /**/
+#else
+  /**/
+  #define NT2_GELSD(NAME, T)                    \
+  inline void gelsd(const nt2_la_int* m,        \
+                    const nt2_la_int* n,        \
+                    const nt2_la_int* nrhs,     \
+                    T* a,                       \
+                    const nt2_la_int* lda,      \
+                    T* b,                       \
+                    const nt2_la_int* ldb,      \
+                    const T* s,                 \
+                    const T* rcond,             \
+                    nt2_la_int* rank,           \
+                    nt2_la_int* info,           \
+     nt2::details::workspace<T> & w)            \
+  {                                             \
+    nt2_la_int isize;                           \
+    w.resize_integers(gelsdUtils::liwork(       \
+                        "NAME",                 \
+                         *n, *m, *nrhs));       \
+    NT2_F77NAME( NAME )(m, n, nrhs,             \
+                        a, lda, b, ldb,         \
+                        s, rcond, rank,         \
+                        w.main(), query(),      \
+                        &isize,                 \
+                        info);                  \
+    nt2_la_int wn = w.main_need();              \
+    w.resize_main(wn);                          \
+    NT2_F77NAME( NAME )(m, n, nrhs,             \
+                        a, lda, b, ldb,         \
+                        s, rcond, rank,         \
+                        w.main(), &wn,          \
+                        w.integers(), info);    \
+  }                                             \
+  inline void gelsd(const nt2_la_int* m,        \
+                    const nt2_la_int* n,        \
+                    const nt2_la_int* nrhs,     \
+                    T* a,                       \
+                    const nt2_la_int* lda,      \
+                    T* b,                       \
+                    const nt2_la_int* ldb,      \
+                    const T* s,                 \
+                    const T* rcond,             \
+                    nt2_la_int* rank,           \
+                    nt2_la_int* info)           \
+  {                                             \
+    nt2::details::workspace<T> w;               \
+    gelsd(m, n, nrhs,                           \
+          a, lda, b, ldb,                       \
+          s, rcond, rank,                       \
+          info, w);                             \
+  }                                             \
+/**/
+#endif
 
     NT2_GELSD(sgelsd, float)
     NT2_GELSD(dgelsd, double)
 
 #undef NT2_GELSD
 
-#define NT2_GELSD(NAME, T, TBASE)               \
+#if 0
+  #define NT2_GELSD(NAME, T, TBASE)             \
   inline void gelsd(const nt2_la_int* m,        \
                     const nt2_la_int* n,        \
                     const nt2_la_int* nrhs,     \
@@ -250,6 +359,62 @@ namespace nt2 { namespace details
           s, rcond, rank,                       \
           info, w);                             \
   }                                             \
+  /**/
+#else
+    /**/
+  #define NT2_GELSD(NAME, T, TBASE)             \
+  inline void gelsd(const nt2_la_int* m,        \
+                    const nt2_la_int* n,        \
+                    const nt2_la_int* nrhs,     \
+                    T* a,                       \
+                    const nt2_la_int* lda,      \
+                    T* b,                       \
+                    const nt2_la_int* ldb,      \
+                    const TBASE* s,             \
+                    const TBASE* rcond,         \
+                    nt2_la_int* rank,           \
+                    nt2_la_int* info,           \
+      nt2::details::workspace<T> & w)           \
+  {                                             \
+    w.resize_integers(gelsdUtils::liwork("NAME",\
+                         *n, *m, *nrhs));       \
+    w.resize_reals(gelsdUtils::lrwork("NAME",   \
+                              *n, *m, *nrhs));  \
+    NT2_F77NAME( NAME )(m, n, nrhs,             \
+                        a, lda, b, ldb,         \
+                        s, rcond, rank,         \
+                        w.main(), query(),      \
+                        w.reals(), w.integers(),\
+                        info);                  \
+    nt2_la_int wn = w.main_need();              \
+    w.resize_main(wn);                          \
+    NT2_F77NAME( NAME )(m, n, nrhs,             \
+                        a, lda, b, ldb,         \
+                        s, rcond, rank,         \
+                        w.main(), &wn,          \
+                        w.reals(),              \
+                        w.integers(), info);    \
+  }                                             \
+  inline void gelsd(const nt2_la_int* m,        \
+                    const nt2_la_int* n,        \
+                    const nt2_la_int* nrhs,     \
+                    T* a,                       \
+                    const nt2_la_int* lda,      \
+                    T* b,                       \
+                    const nt2_la_int* ldb,      \
+                    const TBASE* s,             \
+                    const TBASE* rcond,         \
+                    nt2_la_int* rank,           \
+                    nt2_la_int* info)           \
+  {                                             \
+    nt2::details::workspace<T> w;               \
+    gelsd(m, n, nrhs,                           \
+          a, lda, b, ldb,                       \
+          s, rcond, rank,                       \
+          info, w);                             \
+  }                                             \
+    /**/
+#endif
 
     NT2_GELSD(cgelsd, std::complex<float>,  float)
     NT2_GELSD(zgelsd, std::complex<double>, double)
