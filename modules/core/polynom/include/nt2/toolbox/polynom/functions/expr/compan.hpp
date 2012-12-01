@@ -16,6 +16,7 @@
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/vertcat.hpp>
@@ -35,7 +36,7 @@ namespace nt2 { namespace ext
     typedef typename nt2::meta::call<nt2::tag::reduce_(S)>::type                                   T0;
     typedef meta::as_<value_type>                                                                  T1;
     typedef typename nt2::meta::call<nt2::tag::ones_(size_t, size_t, T1)>::type                    T2;
-    typedef typename nt2::meta::call<nt2::tag::from_diag_(T2, int32_t)>::type                      T3;
+    typedef typename nt2::meta::call<nt2::tag::from_diag_(T2, ptrdiff_t)>::type                    T3;
     typedef typename nt2::meta::call<nt2::tag::colon_(size_t, size_t)>::type                       T4;
     typedef typename nt2::meta::call<nt2::tag::function_(T0, T4)>::type                            T5;
     typedef typename nt2::meta::call<nt2::tag::divides_(T5, value_type)>::type                     T6;
@@ -47,12 +48,12 @@ namespace nt2 { namespace ext
       BOOST_ASSERT_MSG(isvector(a0), "Input argument must be a vector.");
       BOOST_AUTO_TPL(p,  nt2::reduce(nt2::rowvect(a0)));
       size_t np = nt2::numel(p);
-      value_type f = One<value_type>();
+      value_type f = nt2::One<value_type>();
       if (np) f = -p(1);
-      int32_t nd = np-2 ? -1 :0;
-      BOOST_AUTO_TPL(d, nt2::from_diag(nt2::ones(size_t(1), np-2, meta::as_<value_type>()), nd));
-      BOOST_AUTO_TPL(g, p(nt2::_(size_t(2), np ))/f);
-      BOOST_AUTO_TPL(h, d(nt2::_(size_t(2), size_t(np-1)), nt2::_));
+      ptrdiff_t nd = np-2 ? -1 :0;
+      BOOST_AUTO_TPL(d, nt2::from_diag(nt2::ones(nt2::One<size_t>(), np-2, meta::as_<value_type>()), nd));
+      BOOST_AUTO_TPL(g, p(nt2::_(nt2::Two<size_t>(), np ))/f);
+      BOOST_AUTO_TPL(h, d(nt2::_(nt2::Two<size_t>(), size_t(np-1)), nt2::_));
       BOOST_AUTO_TPL(e, nt2::catv(g, h));
       return e;
     }

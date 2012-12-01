@@ -81,13 +81,13 @@ namespace nt2 {
       typedef typename meta::as_real<type_t>::type              base_t;
       typedef typename meta::as_integer<base_t, signed>::type  itype_t;
       typedef T                                                 data_t;
-      typedef nt2::container::table<type_t,nt2::_2D>                        tab_t;
-      typedef nt2::container::table<base_t,nt2::_2D>                       btab_t;
-      typedef nt2::container::table<itype_t,nt2::_2D>                      itab_t;
+      typedef nt2::container::table<type_t,nt2::_2D>             tab_t;
+      typedef nt2::container::table<base_t,nt2::_2D>            btab_t;
+      typedef nt2::container::table<itype_t,nt2::_2D>           itab_t;
       typedef nt2::details::workspace<type_t>              workspace_t;
-      typedef nt2::container::table<nt2_la_int,nt2::_2D>                   ibuf_t;
-      typedef nt2::container::table<type_t,index_t>                   result_type;
-      typedef nt2::container::table<itype_t,index_t>                 iresult_type;
+      typedef nt2::container::table<nt2_la_int,nt2::_2D>        ibuf_t;
+      typedef nt2::container::table<type_t,index_t>        result_type;
+      typedef nt2::container::table<itype_t,index_t>      iresult_type;
 
 
       template<class Input>
@@ -164,12 +164,12 @@ namespace nt2 {
         }
         return q_;
       }
-      typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type T0;
+      typedef typename meta::call < tag::colon_(size_t, size_t)>::type T0;
       typedef typename meta::call < tag::function_(tab_t, T0, nt2::container::colon_)>::type T1;
       typedef typename meta::call < tag::triu_(T1)>::type  r_result;
       r_result r()const
       {
-        int32_t nn = (nop_ == 'N')? k_ : m_;
+        size_t nn = (nop_ == 'N')? k_ : m_;
         return triu(aa_(nt2::_(1, nn), nt2::_));
       }
 
