@@ -15,8 +15,8 @@
  */
 
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/boxed_size.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
+#include <nt2/sdk/meta/boxed_size.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 

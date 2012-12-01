@@ -47,13 +47,13 @@ namespace nt2
 
 namespace nt2 { namespace ext
 {
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::expand_,Domain,2,Expr>
+  template<class Domain, class Expr, int N>
+  struct  size_of<nt2::tag::expand_,Domain,N,Expr>
         : meta::boxed_size<Expr,1>
   {};
 
-  template<class Domain, class Expr>
-  struct  value_type<nt2::tag::expand_,Domain,2,Expr>
+  template<class Domain, class Expr, int N>
+  struct  value_type<nt2::tag::expand_,Domain,N,Expr>
         : meta::value_as<Expr,0>
   {};
 } }

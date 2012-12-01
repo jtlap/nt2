@@ -11,16 +11,12 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/expand.hpp>
 #include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/isequal.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL( expand, NT2_TYPES )
+NT2_TEST_CASE_TPL( of_size, NT2_TYPES )
 {
   nt2::table<T> in( nt2::of_size(3,3) ), ref, out;
 
@@ -29,9 +25,9 @@ NT2_TEST_CASE_TPL( expand, NT2_TYPES )
   out = nt2::expand(in,nt2::of_size(0,0));
   NT2_TEST_EQUAL( nt2::numel(out), 0u);
 
-  for(int j=1;j<10;++j)
+  for(int j=1;j<5;++j)
   {
-    for(int i=1;i<10;++i)
+    for(int i=1;i<5;++i)
     {
       ref = nt2::zeros(i,j,nt2::meta::as_<T>());
 
@@ -40,9 +36,57 @@ NT2_TEST_CASE_TPL( expand, NT2_TYPES )
           ref(vi,vj) = in(vi,vj);
 
       out = nt2::expand(in,nt2::of_size(i,j));
+      NT2_TEST_EQUAL( out,ref );
+    }
+  }
+}
 
-      NT2_TEST( nt2::isequal(out,ref) );
-      NT2_TEST_EQUAL( nt2::extent(out), nt2::of_size(i,j ));
+NT2_TEST_CASE_TPL( size, NT2_TYPES )
+{
+  nt2::table<T> in( nt2::of_size(3,3) ), ref, out;
+
+  for(int j=1;j<=9;j++) in(j) = T(j);
+
+  out = nt2::expand(in,nt2::of_size(0,0));
+  NT2_TEST_EQUAL( nt2::numel(out), 0u);
+
+  for(int j=1;j<5;++j)
+  {
+    for(int i=1;i<5;++i)
+    {
+      ref = nt2::zeros(i,j,nt2::meta::as_<T>());
+
+      for(int vj=1;vj<=std::min(j,3);++vj)
+        for(int vi=1;vi<=std::min(i,3);++vi)
+          ref(vi,vj) = in(vi,vj);
+
+      out = nt2::expand(in,nt2::size(ref));
+      NT2_TEST_EQUAL( out,ref );
+    }
+  }
+}
+
+NT2_TEST_CASE_TPL( scalar, NT2_TYPES )
+{
+  nt2::table<T> in( nt2::of_size(3,3) ), ref, out;
+
+  for(int j=1;j<=9;j++) in(j) = T(j);
+
+  out = nt2::expand(in,0,0);
+  NT2_TEST_EQUAL( nt2::numel(out), 0u);
+
+  for(int j=1;j<5;++j)
+  {
+    for(int i=1;i<5;++i)
+    {
+      ref = nt2::zeros(i,j,nt2::meta::as_<T>());
+
+      for(int vj=1;vj<=std::min(j,3);++vj)
+        for(int vi=1;vi<=std::min(i,3);++vi)
+          ref(vi,vj) = in(vi,vj);
+
+      out = nt2::expand(in,i,j);
+      NT2_TEST_EQUAL( out,ref );
     }
   }
 }

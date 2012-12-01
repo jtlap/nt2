@@ -16,24 +16,26 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::putalong_, tag::cpu_,
-                              (A0)(A1),
-                              ((ast_<A0, nt2::container::domain>))(scalar_<integer_<A1> >)
-                              )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::putalong_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              (scalar_<integer_<A1> >)
+                            )
   {
-    typedef typename A0::extent_type            ext_t;
-    typedef typename meta::call<tag::reshape_(const A0&, ext_t) >::type
-      result_type;
+    typedef typename A0::extent_type                      base_t;
+    typedef typename make_size<base_t::static_size>::type ext_t;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
+    static BOOST_FORCEINLINE ext_t local_size(A0 const& a0, A1 const& a1)
     {
-      ext_t ext;
-      for(size_t i=0; i < ext.size(); ++i) ext[i] = 1;
-      ext[a1-1] = nt2::numel(a0);
-      return nt2::reshape(a0, ext);
+      ext_t that(1);
+      that[a1-1] = nt2::numel(a0);
+      return that;
     }
-  };
 
+    BOOST_DISPATCH_RETURNS( 2, (A0 const& a0, A1 const& a1)
+                          , (nt2::reshape(a0, local_size(a0, a1)))
+                          )
+  };
 } }
 
 #endif

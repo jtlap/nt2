@@ -11,6 +11,7 @@
 
 #include <boost/proto/traits.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/sdk/meta/value_as.hpp>
 
 namespace nt2 { namespace meta
 {
@@ -27,11 +28,10 @@ namespace nt2 { namespace meta
   // } }
   //
   //============================================================================
-  template<class Expr> struct reshaping_value
-  {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type c0_t;
-    typedef typename meta::scalar_of<c0_t>::type                           type;
-  };
+  template<class Expr>
+  struct  reshaping_value
+        : meta::value_as<Expr,1>
+  {};
 } }
 
 #endif
