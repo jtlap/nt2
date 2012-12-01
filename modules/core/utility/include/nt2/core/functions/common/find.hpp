@@ -19,7 +19,6 @@
 #include <nt2/include/functions/globalfind.hpp>
 #include <nt2/include/functions/tie.hpp>
 #include <boost/fusion/include/make_vector.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {

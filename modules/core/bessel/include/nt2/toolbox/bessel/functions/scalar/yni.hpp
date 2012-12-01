@@ -92,16 +92,16 @@ namespace nt2 { namespace ext
       if (is_inf(a1)) return Zero<result_type>();
       if (is_eqz(a1)) return Minf<result_type>();
       result_type x = a1;
-      const int32_t n1 = nt2::abs(a0);
+      const size_t n1 = nt2::abs(a0);
       result_type sign = (a0<0)?nt2::cospi(n1):1;
-      if( n1 == 0 ) return( sign * nt2::y0(x) );
-      if( n1 == 1 ) return( sign * nt2::y1(x) );
+      if( n1 == 0u ) return( sign * nt2::y0(x) );
+      if( n1 == 1u ) return( sign * nt2::y1(x) );
       //      result_type an1 = n1;
       /* forward recurrence on n */
 
       result_type anm2 = nt2::y0(x);
       result_type anm1 = nt2::y1(x);
-      int32_t k = 1;
+      size_t k = 1;
       result_type r = result_type(k << 1);
       result_type xinv = rec(x);
       result_type an;
