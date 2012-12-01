@@ -21,40 +21,41 @@ namespace nt2 {namespace ext
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))
                               (scalar_<integer_<A1> >)
-                              )
+    )
   {
     typedef typename A0::value_type                              value_type;
     typedef typename meta::as_real<value_type>::type              real_type;
     typedef typename meta::call<tag::colvect_(A0)>::type  T0;
     typedef typename meta::call<tag::colon_ ( real_type
-                                            , real_type
-                                            , real_type
-                                            )>::type      T1;
+                                              , real_type
+                                              , real_type
+      )>::type      T1;
     typedef typename meta::call<tag::bsxfun_( nt2::functor<tag::pow_>
                                             , T0
                                             , T1
-                                            )>::type      result_type;
+      )>::type      result_type;
     NT2_FUNCTOR_CALL(2)
-      {
-        return nt2::bsxfun( nt2::functor<tag::pow_>()
-                            , colvect(a0)
-                            , colon(real_type(a1-1)
-                                    , real_type(-1)
-                                    , real_type(0)
-                                    )
-                          );
-      }
+    {
+      return nt2::bsxfun( nt2::functor<tag::pow_>()
+                          , colvect(a0)
+                          , colon(real_type(a1-1)
+                                  , real_type(-1)
+                                  , real_type(0)
+                            )
+        );
+    }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::vandermonde_, tag::cpu_
-                            , (A0)
-                            , ((ast_<A0, nt2::container::domain>))
-                            )
+                              , (A0)
+                              , ((ast_<A0, nt2::container::domain>))
+    )
   {
-    typedef typename meta::call<tag::vandermonde_( const A0&, int32_t)>::type result_type;
+    typedef typename meta::call<tag::numel_(const A0&)>::type                     size_type;
+    typedef typename meta::call<tag::vandermonde_( const A0&, size_type)>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::vandermonde(a0, int32_t(numel(a0)));
+      return nt2::vandermonde(a0, numel(a0));
     }
   };
 } }
