@@ -10,6 +10,9 @@
 #define NT2_TOOLBOX_LINALG_DETAILS_LAPACK_GEESX_HPP_INCLUDED
 #include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
+#include <nt2/toolbox/linalg/details/utility/envblocksize.hpp>
+#include <nt2/include/functions/max.hpp>
+
 // geesx
 // >
 // > \verbatim
@@ -259,6 +262,19 @@ namespace nt2
                            const nt2_la_int* lwork, nt2_la_int* iwork, const nt2_la_int* liwork, nt2_la_int* bwork, nt2_la_int* info);
     }
 
+//There is a bug in version 3.2.1 of lapapack
+//bug0016 :: problem in workspace query for CGEESX/DGEESX/SGEESX/ZGEESX
+// CORRECTED - see svn r657
+// bug report sent by Alexander V. Kobotov (Intel) on Mon, 6 Apr 2009 to "lapack@cs.utk.edu".
+//"(c/z)geesx: no lwork=-1 branch at all, info = -15 is returned while doing lquery."
+//The S and D versions were not exiting after WORKSPACE query as well.
+// committed by Julien Langou (SVN revision 657, on Sun May 10 2009)
+//
+// Also using the hint given in the doc of geesx is not sufficient for insuring
+// a correct call yo gehrd.
+
+#if 0
+    /**/
 #define NT2_GEESX(NAME, T, TBASE)                                \
     inline void geesx(const char* jobvs,                         \
                       const char* sort,                          \
@@ -310,13 +326,65 @@ namespace nt2
             a, lda, sdim, ws, vs, ldvs, rconde,                  \
             rcondv, info, w);                                    \
     }                                                            \
-        /**/
+/**/
+#else
+/**/
+#define NT2_GEESX(NAME, T, TBASE)                                \
+    inline void geesx(const char* jobvs,                         \
+                      const char* sort,                          \
+                      selectall_t* select,                       \
+                      const char* sense,                         \
+                      const nt2_la_int* n,                       \
+                      T* a,                                      \
+                      const nt2_la_int* lda,                     \
+                      nt2_la_int* sdim,                          \
+                      T* ws,                                     \
+                      const T* vs,                               \
+                      const nt2_la_int* ldvs,                    \
+                      TBASE* rconde,                             \
+                      TBASE* rcondv,                             \
+                      nt2_la_int* info,                          \
+                      workspace<T> & w)                          \
+    {                                                            \
+      w.resize_reals(*n);                                        \
+      w.resize_logicals((*sort == 'N') ? 1 : *n);                \
+      nt2_la_int wn = nt2::sqr(*n+1);                            \
+      w.resize_main(wn);                                         \
+      NT2_F77NAME( NAME )(jobvs, sort, select, sense, n,         \
+                          a, lda, sdim, ws, vs, ldvs,            \
+                          rconde, rcondv, w.main(),              \
+                          &wn, w.reals(),                        \
+                          w.logicals(), info);                   \
+    }                                                            \
+    inline void geesx(const char* jobvs,                         \
+                      const char* sort,                          \
+                      selectall_t* select,                       \
+                      const char* sense,                         \
+                      const nt2_la_int* n,                       \
+                      T* a,                                      \
+                      const nt2_la_int* lda,                     \
+                      nt2_la_int* sdim,                          \
+                      T* ws,                                     \
+                      const T* vs,                               \
+                      const nt2_la_int* ldvs,                    \
+                      TBASE* rconde,                             \
+                      TBASE* rcondv,                             \
+                      nt2_la_int* info)                          \
+    {                                                            \
+      workspace<T> w;                                            \
+      geesx(jobvs, sort, select, sense, n,                       \
+            a, lda, sdim, ws, vs, ldvs, rconde,                  \
+            rcondv, info, w);                                    \
+    }
+/**/
+#endif
+/**/
     NT2_GEESX(cgeesx, std::complex<float>,  float)
     NT2_GEESX(zgeesx, std::complex<double>, double)
 
 #undef NT2_GEESX
 
-
+#if 0
 #define NT2_GEESX(NAME, T)                                              \
       inline void geesx(const char* jobvs,                              \
                         const char* sort,                               \
@@ -374,7 +442,65 @@ namespace nt2
               n, a, lda, sdim, wr, wi, vs,                              \
               ldvs, rconde, rcondv, info, w);                           \
       }                                                                 \
-          /**/
+/**/
+#else
+/**/
+#define NT2_GEESX(NAME, T)                                              \
+      inline void geesx(const char* jobvs,                              \
+                        const char* sort,                               \
+                        selectall2_t* select,                           \
+                        const char* sense,                              \
+                        const nt2_la_int* n,                            \
+                        T* a,                                           \
+                        const nt2_la_int* lda,                          \
+                        nt2_la_int* sdim,                               \
+                        T* wr,                                          \
+                        T* wi,                                          \
+                        const T* vs,                                    \
+                        const nt2_la_int* ldvs,                         \
+                        T* rconde,                                      \
+                        T* rcondv,                                      \
+                        nt2_la_int* info,                               \
+                        workspace<T> & w)                               \
+      {                                                                 \
+        w.resize_integers((*sort == 'N' || *sort == 'E')? 1 : *n);      \
+        w.resize_logicals((*sort) == 'N'? 1 : *n);                      \
+        nt2_la_int ebs = details::EnvBlockSize(9, "NAME", " "           \
+                                               , 0, 0, 0, 0);           \
+        nt2_la_int wn =  nt2::max(ebs, *n)*(*n+1);                      \
+        w.resize_main(wn);                                              \
+        nt2_la_int wint = wn;                                           \
+        w.resize_integers(wint);                                        \
+        NT2_F77NAME( NAME )(jobvs, sort, select, sense,                 \
+                            n, a, lda, sdim, wr, wi, vs,                \
+                            ldvs, rconde, rcondv, w.main(),             \
+                            &wn, w.integers(), &wint,                   \
+                            w.logicals(), info);                        \
+      }                                                                 \
+      inline void geesx(const char* jobvs,                              \
+                        const char* sort,                               \
+                        selectall2_t* select,                           \
+                        const char* sense,                              \
+                        const nt2_la_int* n,                            \
+                        T* a,                                           \
+                        const nt2_la_int* lda,                          \
+                        nt2_la_int* sdim,                               \
+                        T* wr,                                          \
+                        T* wi,                                          \
+                        const T* vs,                                    \
+                        const nt2_la_int* ldvs,                         \
+                        T* rconde,                                      \
+                        T* rcondv,                                      \
+                        nt2_la_int* info)                               \
+      {                                                                 \
+        workspace<T> w;                                                 \
+        geesx(jobvs, sort, select, sense,                               \
+              n, a, lda, sdim, wr, wi, vs,                              \
+              ldvs, rconde, rcondv, info, w);                           \
+      }
+/**/
+#endif
+/**/
 
     NT2_GEESX(sgeesx, float)
     NT2_GEESX(dgeesx, double)
