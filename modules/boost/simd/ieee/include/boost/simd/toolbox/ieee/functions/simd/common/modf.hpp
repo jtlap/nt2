@@ -18,30 +18,29 @@
 namespace boost { namespace simd { namespace ext
 {
     BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X),
-				((simd_< arithmetic_<A0>, X>))
-				((simd_< arithmetic_<A0>, X>))
-				((simd_< arithmetic_<A0>, X>))
+                                ((simd_< arithmetic_<A0>, X>))
+                                ((simd_< arithmetic_<A0>, X>))
+                                ((simd_< arithmetic_<A0>, X>))
                             )
   {
-    typedef boost::simd::int32_t result_type;
+    typedef void result_type;
     inline result_type operator()(A0 const& a0,A0 & r1,A0 & r0) const
       {
-	r1 = boost::simd::trunc(a0);
-	r0 = a0-r1;
-	return 0;
+        r1 = boost::simd::trunc(a0);
+        r0 = a0-r1;
       }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::modf_, tag::cpu_, (A0)(X),
-			      ((simd_< arithmetic_<A0>, X>))
-			      ((simd_< arithmetic_<A0>, X>))
+                              ((simd_< arithmetic_<A0>, X>))
+                              ((simd_< arithmetic_<A0>, X>))
                             )
   {
     typedef A0 result_type;
     inline A0 operator()(A0 const& a0,A0 & r1) const
       {
-	r1 = boost::simd::trunc(a0);
-	return a0-r1;
+        r1 = boost::simd::trunc(a0);
+        return a0-r1;
       }
   };
 

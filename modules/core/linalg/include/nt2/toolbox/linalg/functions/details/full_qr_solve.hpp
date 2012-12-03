@@ -59,7 +59,7 @@ namespace nt2 { namespace details
     }
 
     const fitab_t& ipiv()      const { return jpvt_; }
-    nt2::int32_t rank()        const { return rank_; }
+    size_t  rank()             const { return rank_; }
     nt2_la_int status()        const { return info_; }
     typedef typename  meta::call < tag::expand_(tab_t, nt2_la_int, nt2_la_int)>::type  x_result;
     x_result  x()         const
@@ -76,7 +76,7 @@ namespace nt2 { namespace details
     tab_t                 x_;
     fitab_t            jpvt_;
     nt2_la_int         info_;
-    nt2::int32_t       rank_;
+    nt2_la_int         rank_;
   };
 } }
 

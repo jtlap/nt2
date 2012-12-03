@@ -122,8 +122,8 @@ namespace nt2 { namespace details
     // Return scale part as a vector
     // This surely can be done in a more clever way directly from scale_
     //==========================================================================
-    typedef typename meta::call < tag::maximum_(btab_t const&, int32_t)>::type                    scale_T0;
-    typedef typename meta::call < tag::reshape_(scale_T0 const&, int32_t, nt2_la_int)>::type scale_result;
+    typedef typename meta::call < tag::maximum_(btab_t const&, ptrdiff_t)>::type                    scale_T0;
+    typedef typename meta::call < tag::reshape_(scale_T0 const&, ptrdiff_t, nt2_la_int)>::type scale_result;
 
     scale_result scale() const
     {
