@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_LINALG_DETAILS_LAPACK_HSEV_HPP_INCLUDED
 #include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
 //    **  purpose
 //     **  =======
 //     **
