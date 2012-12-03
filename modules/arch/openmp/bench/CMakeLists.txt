@@ -7,5 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit core.trigonometric core.utility)
+nt2_module_use_modules(test.unit core.trigonometric core.utility)
 ADD_SUBDIRECTORY(container)

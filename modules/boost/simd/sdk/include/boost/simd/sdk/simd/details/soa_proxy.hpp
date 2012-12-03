@@ -62,7 +62,7 @@ namespace boost { namespace simd { namespace details
   {
     soa_iterator_base(T& data_, std::size_t index_ = 0) : data(data_), index(index_) {}
 
-  protected:
+  //protected:
     friend class iterator_core_access;
 
     void increment()
@@ -120,7 +120,7 @@ namespace boost { namespace simd { namespace details
     soa_const_iterator(native<T, X> const& data_, std::size_t index_ = 0)
      : soa_iterator_base< native<T, X> const >(data_, index_) {}
 
-  private:
+  //private:
     friend class iterator_core_access;
 
     T const dereference() const

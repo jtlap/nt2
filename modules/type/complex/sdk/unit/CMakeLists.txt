@@ -7,5 +7,5 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit)
+nt2_module_use_modules(test.unit)
 add_subdirectory(meta)

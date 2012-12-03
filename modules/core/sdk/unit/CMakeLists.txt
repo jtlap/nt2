@@ -7,7 +7,7 @@
 ##                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-nt2_module_use_modules(unit sdk.meta sdk.error)
+nt2_module_use_modules(test.unit sdk.meta sdk.error)
 
 ADD_SUBDIRECTORY(dsl)
 ADD_SUBDIRECTORY(memory)

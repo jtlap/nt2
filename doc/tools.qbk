@@ -6,7 +6,7 @@
 [section Overview]
 [endsect]
 
-[xinclude unit.xml]
+[xinclude test.unit.xml]
 [xinclude tools/cmake.xml]
 [xinclude tools/build.xml]
 

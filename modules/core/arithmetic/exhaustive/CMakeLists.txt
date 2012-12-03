@@ -10,6 +10,6 @@
 ##############################################################################
 # Toolbox arithmetic unit tests
 ##############################################################################
-nt2_module_use_modules(unit extern.standard extern.libc extern.crlibm)
+nt2_module_use_modules(test.unit extern.standard extern.libc extern.crlibm)
 ADD_SUBDIRECTORY(scalar)
 ADD_SUBDIRECTORY(simd)

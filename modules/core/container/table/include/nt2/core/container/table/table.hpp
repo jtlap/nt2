@@ -37,6 +37,8 @@ namespace nt2 { namespace container
                       >                                           parent;
     typedef typename container_type::pointer                      pointer;
     typedef typename container_type::const_pointer                const_pointer;
+    typedef typename container_type::iterator                     iterator;
+    typedef typename container_type::const_iterator               const_iterator;
     typedef typename container_type::allocator_type               allocator_type;
 
     //==========================================================================
@@ -89,6 +91,12 @@ namespace nt2 { namespace container
     // Enable base expression handling of assignment
     //==========================================================================
     using parent::operator=;
+
+    iterator        begin()       { return parent::raw(); }
+    const_iterator  begin() const { return parent::raw(); }
+
+    iterator        end()       { return begin() + parent::size(); }
+    const_iterator  end() const { return begin() + parent::size(); }
   };
 } }
 

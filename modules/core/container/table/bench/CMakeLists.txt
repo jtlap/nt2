@@ -7,7 +7,7 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit core.utility core.random)
+nt2_module_use_modules(test.unit core.utility core.random)
 
 SET( SOURCES
   c_vs_table.cpp

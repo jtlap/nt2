@@ -11,7 +11,7 @@
 ##*     Toolbox fdlibm unit tests
 ##****************************************************************************
 
-nt2_module_use_modules( unit
+nt2_module_use_modules( test.unit
                         core.arithmetic core.ieee         core.trigonometric
                         core.hyperbolic core.exponential  core.euler
                         core.bessel

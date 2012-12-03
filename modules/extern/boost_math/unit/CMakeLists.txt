@@ -11,7 +11,7 @@
 ##*     Toolbox boost_math unit tests
 ##****************************************************************************
 
-nt2_module_use_modules( unit        core.ieee         core.arithmetic
+nt2_module_use_modules( test.unit        core.ieee         core.arithmetic
                         core.euler  core.exponential  core.hyperbolic
                         core.elliptic
                       )
