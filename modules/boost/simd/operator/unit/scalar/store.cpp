@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 operator toolbox - store/scalar Mode"
 
 #include <boost/simd/toolbox/operator/include/functions/store.hpp>
+#include <boost/simd/include/functions/load.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 #include <boost/fusion/include/vector.hpp>
