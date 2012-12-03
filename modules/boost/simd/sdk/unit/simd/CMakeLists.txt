@@ -28,6 +28,7 @@ SET( SOURCES
     pack.cpp
     logical.cpp
     transform.cpp
+    range.cpp
    )
 
 nt2_module_add_tests(boost.simd.sdk.simd.unit ${SOURCES})
