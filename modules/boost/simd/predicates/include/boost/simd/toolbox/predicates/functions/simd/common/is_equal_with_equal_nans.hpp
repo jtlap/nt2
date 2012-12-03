@@ -31,10 +31,10 @@ namespace boost { namespace simd { namespace ext
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_equal_with_equal_nans_, tag::cpu_,
-			     (A0)(X),
-			     ((simd_<integer_<A0>,X>))
-			     ((simd_<integer_<A0>,X>))
-			     )
+           (A0)(X),
+           ((simd_<fundamental_<A0>,X>))
+           ((simd_<fundamental_<A0>,X>))
+           )
   {
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)

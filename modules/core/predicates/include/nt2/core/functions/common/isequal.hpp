@@ -33,7 +33,7 @@ namespace nt2 { namespace ext
     result_type operator()(const A0& a0, const A1& a1) const
     {
       if(!havesamesize(a0, a1))       return false;
-      return nt2::all( eq(a0, a1)(_) )(1);
+      return nt2::all( (a0 == a1)(_) )(1);
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isequal_, tag::cpu_
@@ -55,7 +55,6 @@ namespace nt2 { namespace ext
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               (scalar_<unspecified_<A1> >)
-
                             )
   {
     typedef bool result_type;

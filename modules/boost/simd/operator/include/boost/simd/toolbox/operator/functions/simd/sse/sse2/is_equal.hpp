@@ -15,12 +15,32 @@
 #include <boost/simd/include/functions/simd/minus.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
 #include <boost/simd/toolbox/swar/functions/details/shuffle.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_equal_
+                                    , boost::simd::tag::sse2_
+                                    , (A0)
+                                    , ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+                                      ((simd_<logical_<A0>,boost::simd::tag::sse_>))
+                                    )
+  {
+    typedef A0                                                result_type;
+    typedef typename meta::as_arithmetic<A0>::type            base_t;
+    typedef typename dispatch::meta::as_integer<base_t>::type cast_t;
+    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
+    {
+      return bitwise_cast<A0> ( eq( bitwise_cast<cast_t>(a0)
+                                  , bitwise_cast<cast_t>(a1)
+                                  )
+                              );
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::sse2_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::sse_>))
