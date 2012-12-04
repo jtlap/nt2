@@ -23,7 +23,7 @@ namespace boost { namespace dispatch
    * \ingroup functors
    * This meta-function gives \c Site from \ref functor type
 
-   * \param \ref functor type 
+   * \param \ref functor type
    *
    * \par Models:
    * \metafunction

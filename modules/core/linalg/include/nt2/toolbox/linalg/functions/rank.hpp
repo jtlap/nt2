@@ -18,36 +18,36 @@
  * Elementary Least square
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rank.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \param a the matrix a on entry, destroyed on exit
  *
  * \param b the second member(s) b on entry, solution on exit
- * 
+ *
  * \par Notes
  *   Call the dedicated lapack routines available on the target.
  * \par
- *  
+ *
 **/
 //==============================================================================
 // rank actual class forward declaration
 //==============================================================================
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag rank_ of functor rank
      *        in namespace nt2::tag for toolbox algebra
     **/
     struct rank_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rank_, rank, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::rank_, rank, 2)
 

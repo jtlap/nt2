@@ -25,12 +25,12 @@
  * on all platforms supported.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ilogb.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ilogb
- * 
+ *
  * \return always an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ilogb_ of functor ilogb 
+     * \brief Define the tag ilogb_ of functor ilogb
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct ilogb_ : ext::elementwise_<ilogb_> { typedef ext::elementwise_<ilogb_> parent; };

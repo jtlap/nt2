@@ -22,14 +22,14 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/trunc.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg fix
- * 
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of trunc
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag trunc_ of functor trunc 
+     * \brief Define the tag trunc_ of functor trunc
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct trunc_ : ext::elementwise_<trunc_> { typedef ext::elementwise_<trunc_> parent; };

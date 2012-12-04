@@ -27,12 +27,12 @@
  * means rouding to \f$\infty\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/crlibm/include/functions/log1p_ru.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,9 +48,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of log1p_ru
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -64,13 +64,13 @@
  * crlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-     * \brief Define the tag log1p_ru_ of functor log1p_ru 
+     * \brief Define the tag log1p_ru_ of functor log1p_ru
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct log1p_ru_ : ext::elementwise_<log1p_ru_> { typedef ext::elementwise_<log1p_ru_> parent; };

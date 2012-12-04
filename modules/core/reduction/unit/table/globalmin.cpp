@@ -24,11 +24,11 @@ NT2_TEST_CASE_TPL( globalmin, NT2_TYPES )
 {
   nt2::table<T> a = nt2::reshape(nt2::_(T(101), T(109)), 3, 3);
   NT2_TEST_EQUAL( nt2::globalmin(a), T(101));
-  NT2_TEST_EQUAL( nt2::globalmin(T(1)), T(1)); 
-  a(3, 1) = T(27); 
+  NT2_TEST_EQUAL( nt2::globalmin(T(1)), T(1));
+  a(3, 1) = T(27);
   NT2_TEST_EQUAL( nt2::globalmin(a), T(27));
-  int32_t i; 
-  NT2_TEST_EQUAL( nt2::globalmin(a, i), T(27)); 
-  NT2_TEST( i == 3);               
+  int32_t i;
+  NT2_TEST_EQUAL( nt2::globalmin(a, i), T(27));
+  NT2_TEST( i == 3);
 }
 

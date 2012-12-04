@@ -23,12 +23,12 @@
  * library cephes.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/cephes/include/functions/i1e.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of i1e
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -63,13 +63,13 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
- *  
+ *
 **/
 
 namespace nt2 { namespace cephes { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag i1e_ of functor i1e 
+     * \brief Define the tag i1e_ of functor i1e
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct i1e_ : ext::elementwise_<i1e_> { typedef ext::elementwise_<i1e_> parent; };
@@ -78,7 +78,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
 
 #include <nt2/toolbox/cephes/functions/scalar/i1e.hpp>
-// #include <nt2/toolbox/cephes/functions/simd/all/i1e.hpp> 
+// #include <nt2/toolbox/cephes/functions/simd/all/i1e.hpp>
 
 #endif
 

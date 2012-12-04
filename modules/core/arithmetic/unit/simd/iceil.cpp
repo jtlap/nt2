@@ -12,7 +12,7 @@
 // unit test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/iceil.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( iceil_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::iceil;
   using nt2::tag::iceil_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

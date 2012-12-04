@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/reduction/include/functions/compare_less.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/all.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( compare_less_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::compare_less;
   using boost::simd::tag::compare_less_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( compare_less_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::compare_less;
   using boost::simd::tag::compare_less_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

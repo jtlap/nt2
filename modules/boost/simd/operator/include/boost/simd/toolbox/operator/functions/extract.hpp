@@ -23,12 +23,12 @@
  * extract scalar from SIMD vector \c a0 at position \c a1
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/extract.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -39,19 +39,19 @@
  *   extract(A0 const& a0, A1 const& a1);
  * }
  * \endcode
- * 
+ *
  * \param a0 SIMD vector
  * \param a1 offset to extract at
- * 
+ *
  * \return scalar
- *  
+ *
 **/
 
 namespace boost { namespace simd
 {
   namespace tag {
     /*!
-     * \brief Define the tag extract_ of functor extract 
+     * \brief Define the tag extract_ of functor extract
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct extract_ : ext::unspecified_<extract_> { typedef ext::unspecified_<extract_> parent; };

@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_SECOND_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSE2_SECOND_HPP_INCLUDED
@@ -51,8 +51,8 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type type;
       typedef typename dispatch::meta::as_floating<A0>::type rtype;
       const type tmp = bitwise_cast<type>(a0);
-      const type tmp1= _mm_srli_si128(tmp, 8); 
-      const rtype z = bitwise_cast<rtype>(tmp1); 
+      const type tmp1= _mm_srli_si128(tmp, 8);
+      const rtype z = bitwise_cast<rtype>(tmp1);
       return _mm_cvtsd_f64(z);
     }
   };
@@ -109,7 +109,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0>::type type;
       typedef typename dispatch::meta::as_floating<A0>::type rtype;
-      return bitwise_cast<result_type, double >(_mm_cvtsd_f64(bitwise_cast<rtype>(_mm_srli_si128(bitwise_cast<type>(a0), 8)))); 
+      return bitwise_cast<result_type, double >(_mm_cvtsd_f64(bitwise_cast<rtype>(_mm_srli_si128(bitwise_cast<type>(a0), 8))));
     }
   };
 

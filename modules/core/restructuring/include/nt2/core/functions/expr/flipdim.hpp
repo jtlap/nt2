@@ -23,12 +23,12 @@ namespace nt2 { namespace ext
                       result_of::make_expr< nt2::tag::flipdim_
                                           , container::domain
                                           , A0 const&
-                                          , std::size_t 
+                                          , std::size_t
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      std::size_t d = a1-1; 
+      std::size_t d = a1-1;
       return boost::proto::make_expr< nt2::tag::flipdim_
                                     , container::domain
                                     > ( boost::cref(a0), d);

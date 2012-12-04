@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
       operator()(A0& a0,
                  A1 const & jobu,
-                 A2 const & jobvt, 
+                 A2 const & jobvt,
                  IP const&) const
     {
       result_type that(a0, jobu, jobvt);

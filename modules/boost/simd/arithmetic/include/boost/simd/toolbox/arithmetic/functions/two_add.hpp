@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/two_add.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of two_add
  * \param a1 the second parameter of two_add
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag two_add_ of functor two_add 
+     * \brief Define the tag two_add_ of functor two_add
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct two_add_ : ext::elementwise_<two_add_> { typedef ext::elementwise_<two_add_> parent; };

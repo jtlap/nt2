@@ -12,7 +12,7 @@
 // cover test behavior of arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/divs.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::divs;
   using nt2::tag::divs_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -69,12 +69,12 @@ NT2_TEST_CASE_TPL ( divs_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
         r_t v = divs(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::divs (a0[i],a1[i])));
-    std::cout << int(a0[i]) << "/" << int(a1[i]) << " -> " << int(v[i]) <<  "    -> " << int(nt2::divs (a0[i],a1[i])) << std::endl; 
+    std::cout << int(a0[i]) << "/" << int(a1[i]) << " -> " << int(v[i]) <<  "    -> " << int(nt2::divs (a0[i],a1[i])) << std::endl;
         }
       }
-    
+
   }
 } // end of test for signed_int_
 
@@ -82,7 +82,7 @@ NT2_TEST_CASE_TPL ( divs_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::divs;
   using nt2::tag::divs_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -110,10 +110,10 @@ NT2_TEST_CASE_TPL ( divs_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
         r_t v = divs(a0,a1);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::divs (a0[i],a1[i])));
         }
       }
-    
+
   }
 } // end of test for unsigned_int_

@@ -22,7 +22,7 @@
 
 NT2_TEST_CASE_TPL( diag_of_exprc, NT2_TYPES )
 {
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   nt2::table<cT> x,y( nt2::of_size(7,7) );
 
   for(int j=1;j<=7;j++)

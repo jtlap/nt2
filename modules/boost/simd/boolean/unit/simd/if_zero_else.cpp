@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.boolean components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/boolean/include/functions/if_zero_else.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,17 +29,17 @@ NT2_TEST_CASE_TPL ( if_zero_else_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::if_zero_else;
   using boost::simd::tag::if_zero_else_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
-  using boost::simd::logical; 
+  using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef native< logical<T>, ext_t>             vlT; 
+  typedef native< logical<T>, ext_t>             vlT;
   typedef typename boost::dispatch::meta::call<if_zero_else_(vlT,vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
@@ -55,14 +55,14 @@ NT2_TEST_CASE_TPL ( if_zero_else_signed_int__2_0, BOOST_SIMD_SIMD_INTEGRAL_SIGNE
 {
   using boost::simd::if_zero_else;
   using boost::simd::tag::if_zero_else_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
-  using boost::simd::logical; 
+  using boost::simd::logical;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
-  typedef native< logical<T>, ext_t>             vlT; 
+  typedef native< logical<T>, ext_t>             vlT;
   typedef n_t                                     vT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;

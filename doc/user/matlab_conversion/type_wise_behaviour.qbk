@@ -16,10 +16,10 @@ However you can mix types using `cast`.
 
 [Integer arithmetic]
 
-On integers types (remenber that 1:5 in matlab does not produce an integral always, but ab 
-array of double whose values are integral !) Matlab uses saturated arithmetic, in Nt2 complement 
-2 standard C++ aritmetic. 
-  
+On integers types (remenber that 1:5 in matlab does not produce an integral always, but ab
+array of double whose values are integral !) Matlab uses saturated arithmetic, in Nt2 complement
+2 standard C++ aritmetic.
+
 
 But, we provide `adds`, `subs`, `muls`, `divs`, `saturate`, `saturate_at`, etc. that allow
 performing saturated computations.

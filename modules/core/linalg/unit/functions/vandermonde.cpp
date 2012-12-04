@@ -19,12 +19,12 @@
 NT2_TEST_CASE_TPL ( vandermonde_ints, NT2_REAL_TYPES)
 {
   nt2::table<T> a0 = nt2::_(T(1), 3);
-  nt2::table<T> v  =  nt2::vandermonde(a0); 
+  nt2::table<T> v  =  nt2::vandermonde(a0);
   nt2::display("vandermonde(a0)", v);
   nt2::display("vandermonde(a0)", nt2::vandermonde(a0));
   T bc[9] =  {
-    1, 1, 1, 
-    4, 2, 1, 
+    1, 1, 1,
+    4, 2, 1,
     9, 3, 1
   };
   int k = 0;
@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL ( vandermonde_ints, NT2_REAL_TYPES)
         }
 
     }
-  NT2_DISPLAY(a); 
-  NT2_TEST(nt2::isulpequal(a, v));  
+  NT2_DISPLAY(a);
+  NT2_TEST(nt2::isulpequal(a, v));
 }
 

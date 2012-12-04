@@ -17,7 +17,7 @@ namespace nt2
   {
     using boost::simd::tag::Intpattern;
   }
-  
+
   using boost::simd::integral_constant;
 }
 

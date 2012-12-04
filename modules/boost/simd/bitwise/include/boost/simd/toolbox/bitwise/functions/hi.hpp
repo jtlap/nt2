@@ -24,12 +24,12 @@
  * the input.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/hi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of hi
- * 
+ *
  * \return always returns an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag hi_ of functor hi 
+     * \brief Define the tag hi_ of functor hi
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct hi_ : ext::elementwise_<hi_> { typedef ext::elementwise_<hi_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/operator/include/functions/arg.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -24,21 +24,21 @@
 
 NT2_TEST_CASE_TPL ( arg_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using nt2::arg;
   using nt2::tag::arg_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<arg_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef nt2::imaginary<T> ciT; 
+  typedef nt2::imaginary<T> ciT;
   typedef T wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -46,11 +46,11 @@ NT2_TEST_CASE_TPL ( arg_real__2_0,  BOOST_SIMD_REAL_TYPES)
   // specific values tests
   NT2_TEST_EQUAL(arg(cT(nt2::Inf<T>())), nt2::Zero<T>());
   NT2_TEST_EQUAL(arg(cT(nt2::Minf<T>())),nt2::Pi<T>());
-  NT2_TEST_EQUAL(arg(cT(nt2::Nan<T>())), nt2::Nan<T>());   
-  NT2_TEST_EQUAL(arg(cT(nt2::One<T>())), nt2::Zero<T>()); 
-  NT2_TEST_EQUAL(arg(cT(nt2::Zero<T>())),nt2::Zero<T>()); 
+  NT2_TEST_EQUAL(arg(cT(nt2::Nan<T>())), nt2::Nan<T>());
+  NT2_TEST_EQUAL(arg(cT(nt2::One<T>())), nt2::Zero<T>());
+  NT2_TEST_EQUAL(arg(cT(nt2::Zero<T>())),nt2::Zero<T>());
   NT2_TEST_EQUAL(arg(cT(0, 1)), nt2::Pio_2<T>());
   NT2_TEST_EQUAL(arg(cT(1, 0)), nt2::Zero<T>());
   NT2_TEST_EQUAL(arg(cT(2, 2)), nt2::Pio_2<T>()/2);
-  NT2_TEST_EQUAL(arg(cT(2,-2)),-nt2::Pio_2<T>()/2); 
+  NT2_TEST_EQUAL(arg(cT(2,-2)),-nt2::Pio_2<T>()/2);
 } // end of test for floating_

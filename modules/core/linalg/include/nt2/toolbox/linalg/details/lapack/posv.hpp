@@ -46,7 +46,7 @@ namespace nt2
       NT2_F77NAME( NAME )(uplo,n,nrhs,          \
                           a,lda,b,ldb,info);    \
     }                                           \
-          
+
     NT2_POSV(sposv, float)
     NT2_POSV(dposv, double)
     NT2_POSV(cposv, std::complex<float>)

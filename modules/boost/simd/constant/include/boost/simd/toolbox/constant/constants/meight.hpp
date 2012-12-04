@@ -24,12 +24,12 @@
  * Constant Meight = -8
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/meight.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Meight
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,12 +54,12 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Meight of functor Meight 
+     * \brief Define the tag Meight of functor Meight
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Meight, int, -8
                                 , 0xc1000000UL,0xc020000000000000ULL
-                                ); 
+                                );
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Meight, Meight)

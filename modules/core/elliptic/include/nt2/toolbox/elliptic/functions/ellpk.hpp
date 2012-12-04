@@ -22,12 +22,12 @@
  * Complete elliptic integral of the first kind
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ellpk.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ellpk
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ellpk_ of functor ellpk 
+     * \brief Define the tag ellpk_ of functor ellpk
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellpk_ : ext::elementwise_<ellpk_> { typedef ext::elementwise_<ellpk_> parent; };

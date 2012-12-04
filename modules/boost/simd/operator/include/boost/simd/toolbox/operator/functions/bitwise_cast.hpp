@@ -22,11 +22,11 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/bitwise_cast.hpp>
  * \endcode
- * 
+ *
  * \synopsis
  *
  * \code
@@ -40,13 +40,13 @@
  *
  * \param T the type to cast to
  * \param a0 the value to cast
- * 
+ *
  * \return a T with the same bitwise layout as \c a0
- *  
+ *
  * \par Notes
  * sizeof(A0) must be equal to sizeof(T)
  * \par
- * 
+ *
  *
  * \par Example Usage:
  *
@@ -55,7 +55,7 @@
  * The expected out put is :
  *
  * \c bf800000
- *  
+ *
 **/
 
 namespace boost { namespace simd

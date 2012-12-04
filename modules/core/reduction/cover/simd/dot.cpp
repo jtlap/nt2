@@ -12,7 +12,7 @@
 // cover test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/dot.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( dot_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::dot;
   using nt2::tag::dot_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef T scalar;
@@ -75,6 +75,6 @@ NT2_TEST_CASE_TPL ( dot_real__2_0,  NT2_SIMD_REAL_TYPES)
         }
         NT2_TEST_ULP_EQUAL( v,z,0.5);
       }
-    
+
   }
 } // end of test for floating_

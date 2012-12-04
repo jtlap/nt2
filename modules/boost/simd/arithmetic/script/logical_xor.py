@@ -2,11 +2,11 @@
     {
      'functor' : {
          'description' : ["returns the logical xor of  a0 and a1, i.e. returns true ",
-                          "if and only if one of the two parameter is zero andthe other non zero."],  
+                          "if and only if one of the two parameter is zero andthe other non zero."],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
-         'ret_arity' : '0', 
+         'ret_arity' : '0',
          'rturn' : {
              'default' : 'bool',
             },

@@ -22,12 +22,12 @@
  * in the type A0 of a0, the greatest A0 strictly less than a0
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/prev.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of prev
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag prev_ of functor prev 
+     * \brief Define the tag prev_ of functor prev
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct prev_ : ext::elementwise_<prev_> { typedef ext::elementwise_<prev_> parent; };

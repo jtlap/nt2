@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['returns true if at least one element of the input vector is non zero.'],   
+         'description' : ['returns true if at least one element of the input vector is non zero.'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -10,7 +10,7 @@
              'default' : 'typename boost::dispatch::meta::as_logical<T>::type',
             },
          'simd_types' : ['real_','integer_'],
-         'special' : ['reduction'],  
+         'special' : ['reduction'],
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
         },

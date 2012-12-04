@@ -13,11 +13,11 @@
 
 /*! \file gebal_itf.hh
     (excerpt adapted from xgebal.f file commentaries)
-    
+
     DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
-    
+
     BASE TYPE can mean respectively float, double, float, double
-    
+
     In some cases only two of these types types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
@@ -130,7 +130,7 @@ namespace nt2
                                nt2_la_int* ilo, nt2_la_int* ihi, double* scale, nt2_la_int* info);
 
     }
-     
+
 #define NT2_GEBAL(NAME, T)                      \
   inline void gebal(const char* job,            \
                     const nt2_la_int* n,        \
@@ -145,7 +145,7 @@ namespace nt2
                         ilo, ihi, scale, info); \
   }                                             \
         /**/
-    
+
     NT2_GEBAL(sgebal, float)
     NT2_GEBAL(dgebal, double)
 
@@ -165,7 +165,7 @@ namespace nt2
                         ilo, ihi, scale, info); \
   }                                             \
           /**/
-          
+
     NT2_GEBAL(cgebal, std::complex<float>, float)
     NT2_GEBAL(zgebal, std::complex<double>, double)
 

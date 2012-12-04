@@ -23,14 +23,14 @@
  * Zero or Allbits to a logical value.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mask2logical.hpp>
  * \endcode
- * 
+ *
 * \par Alias
  * \arg m2l
- * 
+ *
  * \synopsis
  *
  * \code
@@ -43,18 +43,18 @@
  * \endcode
  *
  * \param a0 the first parameter of mask2logical
- * 
+ *
  * \return a value of type \c as_logical<A0>::type
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag mask2logical_ of functor mask2logical
      *        in namespace boost::simd::tag for toolbox boost.simd.boolean
@@ -64,5 +64,5 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mask2logical_, mask2logical, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::mask2logical_, m2l, 1)
 } }
- 
+
 #endif

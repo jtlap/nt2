@@ -6,7 +6,7 @@
                           '\par',
                           'This only differs from standard \c / in division by zero',
                           'cases, and also for the division of Valmin by -1 that',
-                          'produces Valmax'],  
+                          'produces Valmax'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
@@ -24,7 +24,7 @@
              'first_stamp' : 'modified by jt the 28/11/2010',
              'included' : [],
              'notes' : [],
-             'no_ulp' :'True',   
+             'no_ulp' :'True',
              'stamp' : 'modified by jt the 24/3/2010',
             },
          'ranges' : {

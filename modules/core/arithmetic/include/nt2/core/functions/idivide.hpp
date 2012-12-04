@@ -19,11 +19,11 @@
 #include <nt2/include/functions/floor.hpp>
 #include <nt2/include/functions/trunc.hpp>
 #include <nt2/include/functions/ceil.hpp>
-#include <nt2/include/functions/round.hpp>  
+#include <nt2/include/functions/round.hpp>
 #include <nt2/include/functions/divfloor.hpp>
 #include <nt2/include/functions/divfix.hpp>
 #include <nt2/include/functions/divceil.hpp>
-#include <nt2/include/functions/divround.hpp>  
+#include <nt2/include/functions/divround.hpp>
 
 namespace nt2
 {
@@ -40,24 +40,24 @@ namespace nt2
 
 
   **/
-  template < class A0,  class A1> 
+  template < class A0,  class A1>
   typename meta::call<tag::divfloor_(A0 const&, A1 const&)>::type
   idivide(A0 const& a, A1 const& b, const tag::floor_)
   {
     return divfloor(a, b);
   }
-  template < class A0,  class A1> 
+  template < class A0,  class A1>
   typename meta::call<tag::divceil_(A0 const&, A1 const&)>::type
   idivide(A0 const& a, A1 const& b, const tag::ceil_)
   {
     return divceil(a, b);
-  }  template < class A0,  class A1> 
+  }  template < class A0,  class A1>
   typename meta::call<tag::divfix_(A0 const&, A1 const&)>::type
   idivide(A0 const& a, A1 const& b, const tag::trunc_)
   {
     return divfix(a, b);
   }
-  template < class A0,  class A1> 
+  template < class A0,  class A1>
   typename meta::call<tag::divround_(A0 const&, A1 const&)>::type
   idivide(A0 const& a, A1 const& b, const tag::round_)
   {

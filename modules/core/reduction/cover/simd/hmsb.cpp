@@ -12,7 +12,7 @@
 // cover test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/hmsb.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -40,7 +40,7 @@
 #include <nt2/include/functions/load.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 
-template < class T > 
+template < class T >
 void pb(const T & a, int N)
 {
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -48,17 +48,17 @@ void pb(const T & a, int N)
   //  int j = 0;
   for(int i = 0; i < N; ++i)
     {
-      std::cout << (ia&1); 
-      ia >>= 1; 
+      std::cout << (ia&1);
+      ia >>= 1;
     }
-  std::cout << std::endl; 
+  std::cout << std::endl;
 }
 
 NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::hmsb;
   using nt2::tag::hmsb_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -85,15 +85,15 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  NT2_SIMD_REAL_TYPES)
         nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;
         std::cout << "a0 " << a0 <<  " -> ";
-        pb(v, N); 
+        pb(v, N);
         for(nt2::uint32_t i = 0; i< N; ++i)
         {
           z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
         }
         NT2_TEST_EQUAL( v,ssr_t(z));
-        pb(z, N); 
+        pb(z, N);
       }
-    
+
   }
 } // end of test for floating_
 
@@ -101,7 +101,7 @@ NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::hmsb;
   using nt2::tag::hmsb_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -128,15 +128,15 @@ NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
         nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;
   std::cout << "a0 " << a0 <<  " -> ";
-  pb(v, N); 
+  pb(v, N);
         for(nt2::uint32_t i = 0; i< N; ++i)
         {
           z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
         }
         NT2_TEST_EQUAL( v,ssr_t(z));
-        pb(z, N); 
+        pb(z, N);
       }
-    
+
   }
 } // end of test for signed_int_
 
@@ -144,7 +144,7 @@ NT2_TEST_CASE_TPL ( hmsb_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::hmsb;
   using nt2::tag::hmsb_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -171,14 +171,14 @@ NT2_TEST_CASE_TPL ( hmsb_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
   nt2::int32_t z = 0;
         nt2::uint32_t N = cardinal_of<n_t>::value;
   std::cout << "a0 " << a0 <<  " -> ";
-  pb(v, N); 
+  pb(v, N);
         for(nt2::uint32_t i = 0; i< N; ++i)
         {
           z |= nt2::bits(a0[i]) >> (sizeof(iT)*CHAR_BIT - 1) << i; //(N-i-1);
         }
         NT2_TEST_EQUAL( v,ssr_t(z));
-        pb(z, N); 
+        pb(z, N);
       }
-    
+
   }
 } // end of test for unsigned_int_

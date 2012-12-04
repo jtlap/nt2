@@ -25,12 +25,12 @@ namespace nt2 { namespace details
 
     std::size_t ibound  = ext[ext.size()-1];
     value_type out = neutral(nt2::meta::as_<value_type>());
-      
+
     for(std::size_t i = 0, k=0; i < ibound; ++i, k+=obound)
     {
         out = bop(out, nt2::run(in, k + p, meta::as_<value_type>()));
     }
-    
+
     return out;
   }
 } }

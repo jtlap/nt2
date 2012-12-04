@@ -27,7 +27,7 @@
 #endif
 
 #ifdef BOOST_WINDOWS_API
-    //  REPARSE_DATA_BUFFER related definitions are found in ntifs.h, which is part of the 
+    //  REPARSE_DATA_BUFFER related definitions are found in ntifs.h, which is part of the
     //  Windows Device Driver Kit. Since that's inconvenient, the definitions are provided
     //  here. See http://msdn.microsoft.com/en-us/library/ms791514.aspx
 

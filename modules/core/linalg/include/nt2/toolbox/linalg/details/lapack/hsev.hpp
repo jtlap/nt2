@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_LINALG_DETAILS_LAPACK_HSEV_HPP_INCLUDED
 #include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
-#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/scalar/max.hpp>
 //    **  purpose
 //     **  =======
 //     **
@@ -58,7 +58,7 @@
 //     **          > 0:  if info = i, the algorithm failed to converge; i
 //     **                off-diagonal elements of an intermediate tridiagonal
 //     **                form did not converge to zero.
-    
+
 namespace nt2 { namespace details
 {
   extern "C"
@@ -74,9 +74,9 @@ namespace nt2 { namespace details
                             const nt2_la_int* lwork, nt2_la_int* info);
     void NT2_F77NAME(ssyev)(const char* jobz, const char* uplo, const nt2_la_int* n,
                             float* a, const nt2_la_int* lda, float* w, float* work,
-                            const nt2_la_int* lwork, nt2_la_int* info);      
+                            const nt2_la_int* lwork, nt2_la_int* info);
   }
-  
+
 #define NT2_HEEV(NAME, T, TBASE)                \
   inline void hsev(const char* jobz,            \
                    const char* uplo,            \
@@ -112,13 +112,13 @@ namespace nt2 { namespace details
            ws, info, w);                        \
     }                                           \
     /**/
-  
+
   NT2_HEEV(cheev, std::complex<float>, float)
     NT2_HEEV(zheev, std::complex<double>, double)
-    
+
 #undef NT2_HEEV
-    
-    
+
+
 #define NT2_SYEV(NAME, T)                       \
     inline void hsev(const char* jobz,          \
                      const char* uplo,          \
@@ -152,13 +152,13 @@ namespace nt2 { namespace details
              ws, info, w);                              \
       }                                                 \
       /**/
-    
+
     NT2_SYEV(ssyev, float)
       NT2_SYEV(dsyev, double)
-      
+
 #undef NT2_SYEV
-      
-} }  
+
+} }
 #endif
 
 // /////////////////////////////////////////////////////////////////////////////

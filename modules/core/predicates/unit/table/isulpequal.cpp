@@ -30,9 +30,9 @@ NT2_TEST_CASE( fundamental_isulpequal )
   NT2_TEST( nt2::isulpequal(1.f, 1.f) );
 
   NT2_TEST( !nt2::isulpequal('r', 'e') );
-  NT2_TEST( !nt2::isulpequal(int8_t('r'), int8_t('e'))); 
+  NT2_TEST( !nt2::isulpequal(int8_t('r'), int8_t('e')));
   NT2_TEST( !nt2::isulpequal(int('r'), int('e')));
-  NT2_TEST( !nt2::isulpequal((short)(32750), (short)(32763))); 
+  NT2_TEST( !nt2::isulpequal((short)(32750), (short)(32763)));
   NT2_TEST( !nt2::isulpequal(1, 2)   );
   NT2_TEST( !nt2::isulpequal(1., 2.)  );
   NT2_TEST( !nt2::isulpequal(1.f, 2.0f) );

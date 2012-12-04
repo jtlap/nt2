@@ -30,7 +30,7 @@ namespace nt2
                            const nt2_la_int* lda, const double* anorm, double* rcond,
                            nt2_la_complex* work, double* rwork, nt2_la_int* info);
     }
-     
+
 #define NT2_GECON(NAME, T)                      \
     inline void gecon(const char* norm,         \
                       const nt2_la_int* n,      \
@@ -57,10 +57,10 @@ namespace nt2
       workspace<T> w;                                               \
       gecon(norm, n, a, lda, anorm, rcond, info, w);                \
     }                                                               \
-        
+
     NT2_GECON(sgecon, float)
     NT2_GECON(dgecon, double)
-      
+
 #undef NT2_GECON
 #define NT2_GECON(NAME, T, TBASE)               \
     inline void gecon(const char* norm,         \
@@ -88,10 +88,10 @@ namespace nt2
       workspace<T> w;                                               \
       gecon(norm, n, a, lda, anorm, rcond, info, w);                \
     }                                                               \
-        
+
     NT2_GECON(cgecon, std::complex<float>, float)
     NT2_GECON(zgecon, std::complex<double>, double)
-      
+
 #undef NT2_GECON
       }
 }

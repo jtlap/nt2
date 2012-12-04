@@ -12,7 +12,7 @@
 // cover test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/nextafter.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -34,7 +34,7 @@
 
 NT2_TEST_CASE_TPL ( nextafter_float_2_0,  (float))
 {
-  
+
   using nt2::nextafter;
   using nt2::tag::nextafter_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -44,9 +44,9 @@ NT2_TEST_CASE_TPL ( nextafter_float_2_0,  (float))
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -66,13 +66,13 @@ NT2_TEST_CASE_TPL ( nextafter_float_2_0,  (float))
                   << std::endl;
         NT2_TEST_EQUAL( nt2::nextafter(a0,a1),::nextafterf(a0,a1));
      }
-     
+
    }
 } // end of test for float
 
 NT2_TEST_CASE_TPL ( nextafter_double_2_0,  (double))
 {
-  
+
   using nt2::nextafter;
   using nt2::tag::nextafter_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -82,9 +82,9 @@ NT2_TEST_CASE_TPL ( nextafter_double_2_0,  (double))
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -104,13 +104,13 @@ NT2_TEST_CASE_TPL ( nextafter_double_2_0,  (double))
                   << std::endl;
         NT2_TEST_EQUAL( nt2::nextafter(a0,a1),::nextafter(a0,a1));
      }
-     
+
    }
 } // end of test for double
 
 NT2_TEST_CASE_TPL ( nextafter_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::nextafter;
   using nt2::tag::nextafter_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -120,9 +120,9 @@ NT2_TEST_CASE_TPL ( nextafter_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -142,13 +142,13 @@ NT2_TEST_CASE_TPL ( nextafter_signed_int__2_0,  NT2_INTEGRAL_SIGNED_TYPES)
                   << std::endl;
         NT2_TEST_EQUAL( nt2::nextafter(a0,a1),(a1 == a0) ? a0 : (a1 > a0) ? a0+nt2::One<T>() : a0-nt2::One<T>());
      }
-     
+
    }
 } // end of test for signed_int_
 
 NT2_TEST_CASE_TPL ( nextafter_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::nextafter;
   using nt2::tag::nextafter_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -158,9 +158,9 @@ NT2_TEST_CASE_TPL ( nextafter_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -180,6 +180,6 @@ NT2_TEST_CASE_TPL ( nextafter_unsigned_int__2_0,  NT2_UNSIGNED_TYPES)
                   << std::endl;
         NT2_TEST_EQUAL( nt2::nextafter(a0,a1),(a1 == a0) ? a0 : (a1 > a0) ? a0+nt2::One<T>() : a0-nt2::One<T>());
      }
-     
+
    }
 } // end of test for unsigned_int_

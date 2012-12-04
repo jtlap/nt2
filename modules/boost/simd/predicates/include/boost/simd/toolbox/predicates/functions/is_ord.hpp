@@ -22,12 +22,12 @@
  * Returns True<result_type>() if neither a0 and a1 is nan.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_ord.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,9 +41,9 @@
  *
  * \param a0 the first parameter of is_ord
  * \param a1 the second parameter of is_ord
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -54,13 +54,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_ord_ of functor is_ord 
+     * \brief Define the tag is_ord_ of functor is_ord
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_ord_ : ext::elementwise_<is_ord_> { typedef ext::elementwise_<is_ord_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/hmsb.hpp>
 #include <nt2/include/functions/bits.hpp>
 #include <nt2/include/functions/shri.hpp>
@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL ( hmsb_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::hmsb;
   using boost::simd::tag::hmsb_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( hmsb_signed_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_SIGNED_TYPES
 {
   using boost::simd::hmsb;
   using boost::simd::tag::hmsb_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -86,7 +86,7 @@ NT2_TEST_CASE_TPL ( hmsb_unsigned_int__1_0,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::hmsb;
   using boost::simd::tag::hmsb_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/cos.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -36,7 +36,7 @@ extern "C" {extern long double cephes_cosl(long double);}
 
 NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::cos;
   using nt2::tag::cos_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -46,9 +46,9 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(cos(-nt2::Pi<T>()), nt2::Mone<r_t>(), 0.5);
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( cos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::cos;
   using nt2::tag::cos_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -75,9 +75,9 @@ NT2_TEST_CASE_TPL ( cos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(cos(nt2::Zero<T>()), nt2::One<r_t>(), 0.5);
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( cos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( cos_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::cos;
   using nt2::tag::cos_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -95,9 +95,9 @@ NT2_TEST_CASE_TPL ( cos_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
 
   // specific values tests
@@ -106,7 +106,7 @@ NT2_TEST_CASE_TPL ( cos_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE ( cos_special)
 {
-  
+
   using nt2::cos;
   using nt2::tag::cos_;
 
@@ -114,10 +114,10 @@ NT2_TEST_CASE ( cos_special)
   NT2_TEST_ULP_EQUAL(cos(10000000000000000000000.0), 0.523214785395138945497594473385, 0.5);
   NT2_TEST_ULP_EQUAL(cos(1.0e22f),0.679061337095050972195448991733f, 0.5);
   NT2_TEST_ULP_EQUAL(cos(9999999778196308361216.0f),0.679061337095050972195448991733f, 0.5);
-  std::cout << "Note that these results are due to the fact that 1.0e22f is 9999999778196308361216," << std::endl; 
+  std::cout << "Note that these results are due to the fact that 1.0e22f is 9999999778196308361216," << std::endl;
   std::cout << " not 10000000000000000000000, alas!" << std::endl;
-  std::cout << " The next result is the kahan worst case for which one need128 bits of2/pi"; 
+  std::cout << " The next result is the kahan worst case for which one need128 bits of2/pi";
   NT2_TEST_ULP_EQUAL(cos(5.31937264832654141671e+255), -0.000000000000000000468716592425462761112258280196, 0.5);
-  
+
 } // end of test for signed_int_
 

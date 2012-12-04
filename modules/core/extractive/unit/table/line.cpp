@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL( line, (float)(double))//NT2_TYPES )
         y(i,j) = k++;
 
   NT2_DISPLAY(y);
- 
+
 //   //  y =  nt2::cat(3, y, y);
 //   NT2_DISPLAY(y);
 //   std::cout << "-----------------------" << std::endl;
@@ -67,31 +67,31 @@ NT2_TEST_CASE_TPL( line, (float)(double))//NT2_TYPES )
 //   std::cout << "-----------------------" << std::endl;
 //   NT2_DISPLAY(nt2::line(y, 3, 3));
 
-  std::cout << "size(y)" << size(y) << std::endl; 
-  
-  std::cout << "nbline(y, 1)" << nt2::nblines(y, 1) << std::endl; 
+  std::cout << "size(y)" << size(y) << std::endl;
+
+  std::cout << "nbline(y, 1)" << nt2::nblines(y, 1) << std::endl;
   for(size_t k=0;k<nt2::nblines(y, 1);++k)
     {
-      std::cout << "column " << k << std::endl; 
+      std::cout << "column " << k << std::endl;
       NT2_DISPLAY(nt2::squeeze(nt2::line(y, k, 1)));
       NT2_DISPLAY(y(_, k+1)(_));
-      NT2_DISPLAY(nt2::line(y, k, 1)(_)); 
-      NT2_TEST(isequal(nt2::line(y, k, 1)(_), y(_, k+1)(_))); 
+      NT2_DISPLAY(nt2::line(y, k, 1)(_));
+      NT2_TEST(isequal(nt2::line(y, k, 1)(_), y(_, k+1)(_)));
     }
   for(size_t k=0;k<nt2::nblines(y, 2);++k)
     {
-      std::cout << "row " << k << std::endl; 
+      std::cout << "row " << k << std::endl;
       NT2_DISPLAY(nt2::squeeze(nt2::line(y, k, 2)));
       NT2_DISPLAY(y(k+1, _)(_));
-      NT2_DISPLAY(nt2::line(y, k, 2)(_)); 
-      NT2_TEST(isequal(nt2::line(y, k, 2)(_), y(k+1, _)(_))); 
+      NT2_DISPLAY(nt2::line(y, k, 2)(_));
+      NT2_TEST(isequal(nt2::line(y, k, 2)(_), y(k+1, _)(_)));
    }
   for(size_t k=0;k<nt2::nblines(y, 3);++k)
     {
-      std::cout << "depth " << k << std::endl; 
+      std::cout << "depth " << k << std::endl;
       NT2_DISPLAY(nt2::squeeze(nt2::line(y, k, 3)));
-      NT2_DISPLAY(y(k+1)); 
-      NT2_TEST(isequal(nt2::line(y, k, 3)(_), y(k+1))); 
+      NT2_DISPLAY(y(k+1));
+      NT2_TEST(isequal(nt2::line(y, k, 3)(_), y(k+1)));
     }
 
 }

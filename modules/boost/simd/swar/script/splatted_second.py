@@ -9,7 +9,7 @@
          'rturn' : {
              'default' : 'T',
             },
-         'special' : ['swar'],  
+         'special' : ['swar'],
          'simd_types' : ['real_'],
          'type_defs' : [],
          'types' : ['real_'],
@@ -63,7 +63,7 @@
                 },
              'scalar_simul' :{
                     'default' : [
-                        "        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++)",      
+                        "        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++)",
                         "        {",
                         "           NT2_TEST_EQUAL(v[i],a0[1]);",
                         "        }",

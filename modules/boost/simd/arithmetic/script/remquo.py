@@ -35,7 +35,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 01/12/2010',
-             'included' : 
+             'included' :
                 ['#include <boost/fusion/tuple.hpp>',
                  '#include <boost/simd/include/functions/remainder.hpp>',
                  '#include <boost/simd/include/functions/idivround.hpp>'],

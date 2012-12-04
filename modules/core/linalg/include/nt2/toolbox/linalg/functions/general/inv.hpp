@@ -27,10 +27,10 @@ namespace nt2{ namespace ext
     {
       out.resize(in.extent());
       bool warn = choice(in, N());
-      choice(in, N()); 
-      out = boost::proto::child_c<0>(in); 
+      choice(in, N());
+      out = boost::proto::child_c<0>(in);
       out = nt2::details::lu_result<A0>(out).inv(warn);
-      return out; 
+      return out;
     }
   private :
     static bool choice(const A1& in, boost::mpl::long_<1> const &){return true; }

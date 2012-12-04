@@ -1,5 +1,5 @@
 #include <iostream>
-#include <nt2/sdk/details/type_id.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 
   template<class T>
   struct print
@@ -24,12 +24,12 @@
  for(int y=1;y<=d1;++y)
   {
     for(int x=1;x<=d0;++x)
-    {    
+    {
       boost::array<int,2> p = {{x,y}};
-      std::cout << (boost::proto::value(b).data())(p) << " ";       
+      std::cout << (boost::proto::value(b).data())(p) << " ";
     }
     std::cout << "\n";
-  } 
+  }
 */
 
 
@@ -38,14 +38,14 @@
 template< class T
         , bool Enable = boost::simd::
                         meta::is_vectorizable<T,BOOST_SIMD_DEFAULT_EXTENSION>::value
-        > 
+        >
 struct evaluation_type
 {
   typedef nt2::meta::as_<T> type;
 };
 
-template<class T> 
-struct  evaluation_type<T, true> 
+template<class T>
+struct  evaluation_type<T, true>
 {
   typedef typename boost::simd::meta::
           vector_of<T, boost::simd::meta::native_cardinal<T>::value>::type base;
@@ -57,11 +57,11 @@ struct foo { int i; int j; };
 int main()
 {
   using nt2::container::table;
-    
+
 #if 0
   int iter, d0,d1;
   std::cin >> iter >> d0 >> d1;
-  
+
   std::cout << "std::cos applied on linear std::vector:\n";
   {
     std::vector<double> cc;
@@ -109,11 +109,11 @@ int main()
     for(int y=1;y<=d1;++y)
     {
       for(int x=1;x<=d0;++x)
-      {    
-        boost::array<int,2> p = {{x,y}}; 
+      {
+        boost::array<int,2> p = {{x,y}};
         (boost::proto::value(a).data())(p) = 0;
       }
-    } 
+    }
 
     for(int i=0;i<iter;++i)
     {
@@ -121,7 +121,7 @@ int main()
       b = nt2::cos(a);
       cc.push_back(nt2::ctoc(false)/(1.*d0*d1));
     }
-    
+
     std::sort(cc.begin(),cc.end());
     std::cout << cc[cc.size()/2 - 1] << " c/elements\n";
   }

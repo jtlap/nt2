@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/shri.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/twopower.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( shri_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::shri;
   using boost::simd::tag::shri_;
   typedef T r_type;
@@ -38,9 +38,9 @@ NT2_TEST_CASE_TPL ( shri_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(shri(T(2),1), boost::simd::One<T>());

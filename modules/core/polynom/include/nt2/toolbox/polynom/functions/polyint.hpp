@@ -19,7 +19,7 @@
  *
  **/
 namespace nt2 { namespace tag
-  {         
+  {
     struct polyint_: ext::elementwise_<polyint_> { typedef ext::elementwise_<polyint_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::polyint_,polyint, 1)

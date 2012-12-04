@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/reduction/include/functions/compare_greater_equal.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/all.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::compare_greater_equal;
   using boost::simd::tag::compare_greater_equal_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(compare_greater_equal(boost::simd::Inf<T>(), boost::simd::Inf<T>()), r_t(true));
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::compare_greater_equal;
   using boost::simd::tag::compare_greater_equal_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -62,9 +62,9 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  BOOST_SIMD_INTEGRAL_
   typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(compare_greater_equal(boost::simd::Mone<T>(),boost::simd::Zero<T>()), r_t(false));
@@ -75,7 +75,7 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_signed_int__2_0,  BOOST_SIMD_INTEGRAL_
 
 NT2_TEST_CASE_TPL ( compare_greater_equal_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::compare_greater_equal;
   using boost::simd::tag::compare_greater_equal_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -85,9 +85,9 @@ NT2_TEST_CASE_TPL ( compare_greater_equal_unsigned_int__2_0,  BOOST_SIMD_UNSIGNE
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::simd::meta::as_logical<T>::type wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(compare_greater_equal(boost::simd::One<T>(), boost::simd::One<T>()), r_t(true));

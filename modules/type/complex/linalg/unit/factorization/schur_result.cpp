@@ -35,12 +35,12 @@ NT2_TEST_CASE_TPL(schur_result_2b, NT2_REAL_TYPES)
 {
   using nt2::_;
   using nt2::tag::factorization::schur_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef nt2::table<cT, nt2::_2D> t_t;
   t_t c = nt2::ones(2, 2, nt2::meta::as_<cT>());
-  c(3) = -c(3); 
+  c(3) = -c(3);
   nt2::details::schur_result<t_t> f(c,'V','N','N');
-//  t_t zz =  nt2::mtimes(c, c); 
+//  t_t zz =  nt2::mtimes(c, c);
 
    nt2::display("c     ", c);
 //   nt2::display("values", f.values());
@@ -50,6 +50,6 @@ NT2_TEST_CASE_TPL(schur_result_2b, NT2_REAL_TYPES)
    nt2::display("t    ", t);
    t_t zz =  nt2::mtimes(nt2::mtimes(z, t), nt2::trans(nt2::conj(z)));
    nt2::display("zz    ", zz);
-   NT2_TEST(isulpequal(zz, c, T(16.0)));   
+   NT2_TEST(isulpequal(zz, c, T(16.0)));
 }
 

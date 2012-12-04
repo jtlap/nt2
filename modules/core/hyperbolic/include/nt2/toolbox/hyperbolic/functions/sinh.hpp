@@ -22,12 +22,12 @@
  * hyperbolic sine: \f$\frac{e^{a_0}-e^{-a_0}}2\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sinh.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of sinh
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sinh_ of functor sinh 
+     * \brief Define the tag sinh_ of functor sinh
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct sinh_ : ext::elementwise_<sinh_> { typedef ext::elementwise_<sinh_> parent; };

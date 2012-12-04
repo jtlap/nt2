@@ -23,12 +23,12 @@
  * which is the integer nearest to the entry
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/round.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,24 +41,25 @@
  * \endcode
  *
  * \param a0 the unique parameter of round
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag round_ of functor round 
+     * \brief Define the tag round_ of functor round
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct round_ : ext::elementwise_<round_> { typedef ext::elementwise_<round_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round_, round, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::round_, round2even, 1)
 } }
 
 #endif

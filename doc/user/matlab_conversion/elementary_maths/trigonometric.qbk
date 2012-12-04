@@ -1,9 +1,9 @@
 [section Trigonometric and hyperbolic]
 
-All trigonometric function defined in __MATLAB__ are supported for real 
+All trigonometric function defined in __MATLAB__ are supported for real
 and complex inputs, and some more are defined in __NT2__ (see ???)
 
-[table:id  Trigonometric and hyperbolic, direct and inverse         
+[table:id  Trigonometric and hyperbolic, direct and inverse
 [[__MATLAB__  ][ __NT2__             ][ Description                         ]]
 [[`acos   `][`acos   `][Inverse cosine; result in radians       ]]
 [[`acosd  `][`acosd  `][Inverse cosine; result in degrees       ]]
@@ -43,6 +43,6 @@ and complex inputs, and some more are defined in __NT2__ (see ???)
 [[`tan    `][`tan    `][Tangent of argument in radians          ]]
 [[`tand   `][`tand   `][Tangent of argument in degrees          ]]
 [[`tanh   `][`tanh   `][Hyperbolic tangent                      ]]
-]        
+]
 
-[endsect] 
+[endsect]

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/swar/include/functions/reverse.hpp>
 #include <boost/simd/toolbox/swar/include/functions/arith.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( reverse_real__2_0, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::reverse;
   using boost::simd::tag::reverse_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -43,10 +43,10 @@ NT2_TEST_CASE_TPL ( reverse_real__2_0, BOOST_SIMD_SIMD_TYPES)
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
-  std::size_t n = vT::static_size-1; 
+  std::size_t n = vT::static_size-1;
   // specific values tests
   T s =  0;
-  T h = 1; 
+  T h = 1;
   std::cout << boost::simd::arith<vT>(s, h) << std::endl;
   std::cout << reverse(boost::simd::arith<vT>(s, h)) << std::endl;
   for(std::size_t i=0; i < vT::static_size;++i)

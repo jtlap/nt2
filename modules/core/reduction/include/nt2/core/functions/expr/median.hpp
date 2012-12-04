@@ -45,7 +45,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& dim) const
     {
-      tab_t sa0 = nt2::sort(a0, 'a', dim);
+      tab_t sa0 = nt2::sort(a0, dim, 'a');
       size_t idx = nt2::size(a0, dim);
       size_t mid = idx >> 1;
       if (is_odd(idx))

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/include/functions/pow2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,7 +24,7 @@
 
 NT2_TEST_CASE_TPL ( pow2_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using nt2::pow2;
   using nt2::tag::pow2_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -35,9 +35,9 @@ NT2_TEST_CASE_TPL ( pow2_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   NT2_TEST_EQUAL(pow2(nt2::Inf<T>(),  2), nt2::Inf<r_t>());
   NT2_TEST_EQUAL(pow2(nt2::Minf<T>(), 2), nt2::Minf<r_t>());
   NT2_TEST_EQUAL(pow2(nt2::Mone<T>(), 2), -nt2::Four<r_t>());

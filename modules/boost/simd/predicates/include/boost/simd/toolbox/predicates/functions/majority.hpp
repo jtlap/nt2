@@ -22,12 +22,12 @@
  * Returns True<result_type>() if at least two inputs are not zero else False<result_type>().
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/majority.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,9 +42,9 @@
  * \param a0 the first parameter of majority
  * \param a1 the second parameter of majority
  * \param a2 the third parameter of majority
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -55,13 +55,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag majority_ of functor majority 
+     * \brief Define the tag majority_ of functor majority
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct majority_ : ext::elementwise_<majority_> { typedef ext::elementwise_<majority_> parent; };

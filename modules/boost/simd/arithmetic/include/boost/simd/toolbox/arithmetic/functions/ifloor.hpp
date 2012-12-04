@@ -23,12 +23,12 @@
  * The value returned is the greatest integer less or equal than the entry
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ifloor.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ifloor
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ifloor_ of functor ifloor 
+     * \brief Define the tag ifloor_ of functor ifloor
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct ifloor_ : ext::elementwise_<ifloor_> { typedef ext::elementwise_<ifloor_> parent; };

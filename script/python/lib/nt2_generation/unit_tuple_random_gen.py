@@ -54,7 +54,7 @@ class Random_tuple_test_gen(Base_gen) :
         d = dl['unit']["random_tuple_test"]
         r = self.bg.create_unit_txt_part( Random_tuple_test_gen.Random_test_body,self.__prepare,dl,typ)
         return r
-    
+
     def __prepare(self,s,typ,d) :
         df = d["functor"]
         arity = df["arity"]
@@ -63,7 +63,7 @@ class Random_tuple_test_gen(Base_gen) :
         s=re.sub("\$plural\$", "s" if arity>1 else "",s)
         du = d["unit"]
         ret_arity = int(d["functor"].get("ret_arity","0"))
-        dur= du["random_tuple_test"]  
+        dur= du["random_tuple_test"]
         dura = dur["alternate_call"]
         m = re.match("( *)\$buffers_creation\$.*",s)
         if m :
@@ -72,7 +72,7 @@ class Random_tuple_test_gen(Base_gen) :
             s = []
             tpdefs = d["functor"].get("type_defs",None)
             if tpdefs is not None :
-                for l in tpdefs : s.append( beg+l) 
+                for l in tpdefs : s.append( beg+l)
             for i in xrange(0, arity) :
                 j = min(i,len(actual_ranges)-1)
                 rg0 =  actual_ranges[j][0]
@@ -112,7 +112,7 @@ class Random_tuple_test_gen(Base_gen) :
                 s=re.sub("\$alternate_call\$" ,dura.get(typ,dura["default"]),s)
                 s=re.sub("\$call_param\$",call_param,s)
         return s
-    
+
     def __get_typ(self,i,d) :
         dd = d.get("call_types",None)
         if dd is None :

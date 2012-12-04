@@ -10,7 +10,7 @@
             },
          'simd_types' : ['real_'],
          'special' : ['ieee'],
-         'tpl'   : '<boost::simd::tag::Pi>',   
+         'tpl'   : '<boost::simd::tag::Pi>',
          'type_defs' : [],
          'types' : ['real_','signed_int_'],
         },

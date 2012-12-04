@@ -12,7 +12,7 @@
 // unit test behavior of polynom components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// 
+///
 #include <nt2/include/functions/polyfit.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/polyval.hpp>
@@ -31,7 +31,7 @@
 
 NT2_TEST_CASE_TPL ( polyfit_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::polyfit;
   using nt2::tag::polyfit_;
   typedef std::complex<T> cT;
@@ -43,65 +43,73 @@ NT2_TEST_CASE_TPL ( polyfit_real__1_0,  NT2_REAL_TYPES)
   NT2_DISPLAY(p);
   NT2_DISPLAY(nt2::polyfit(x, y));
   nt2::table<cT> p1 =nt2::polyfit(x, y);
-  NT2_DISPLAY(p1); 
+  NT2_DISPLAY(p1);
   NT2_DISPLAY(nt2::polyval(p1, x));
-  NT2_DISPLAY(y); 
+  NT2_DISPLAY(y);
   NT2_TEST(nt2::isulpequal(nt2::polyval(p1, x), y, 0.5));
-  
+
   NT2_DISPLAY(polyfit(x, y, 2));
   nt2::table<cT> p2 =polyfit(x, y, 2);
-  NT2_DISPLAY(p2); 
+  NT2_DISPLAY(p2);
   NT2_DISPLAY(nt2::polyval(p2, x));
-  NT2_DISPLAY(y); 
+  NT2_DISPLAY(y);
   NT2_TEST(nt2::isulpequal(nt2::polyval(p2, x), y, 0.5));
-  
+
   nt2::table<cT> r;
   T df, normr;
-  nt2::table<cT> mu; 
+  nt2::table<cT> mu;
   nt2::tie(p, r, df, normr, mu) = nt2::polyfit(x, y);
   NT2_DISPLAY(p);
-  NT2_DISPLAY(r);  
+  NT2_DISPLAY(r);
   NT2_DISPLAY(df);
   NT2_DISPLAY(normr);
   NT2_DISPLAY(mu);
   NT2_DISPLAY(polyval(p, (x-mu(1))/mu(2)));
-  NT2_DISPLAY(y); 
+  NT2_DISPLAY(y);
   NT2_TEST(nt2::isulpequal(nt2::polyval(p, (x-mu(1))/mu(2)), y, T(5.0)));
-  
- 
+
+
 
   //////////////////////////////////////////////////////
   // TODO This does not work s being a structure defined in polyfit.hpp
   //   nt2::polyfit_infos<T> s;
   //   nt2::tie(p, s) = polyfit(x, y);
-  //   NT2_DISPLAY(p); 
-  //   NT2_DISPLAY(s.r); 
+  //   NT2_DISPLAY(p);
+  //   NT2_DISPLAY(s.r);
   //   NT2_DISPLAY(s.df);
   //    NT2_DISPLAY(s.normr);
   //////////////////////////////////////////////////////
-  
+
 } // end of test for floating_
 
 
 NT2_TEST_CASE_TPL ( polyfit_real__4_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::polyfit;
   using nt2::tag::polyfit_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   cT a [] = {0.0, 1.0, 2.0, 3.0,  4.0,  5.0};
   cT b [] = {0.0, 0.8, 0.9, 0.1, -0.8, -1.0};
+  cT c [] = {0.087037037037037245923, -0.81349206349206493183, 1.6931216931216956922, -0.039682539682541172199 };
   nt2::table<cT> x(nt2::of_size(1,6));
   nt2::table<cT> y(nt2::of_size(1,6));
-  
+  nt2::table<cT> zz(nt2::of_size(1,4)); //, c+0, c+4); DOESS NOT WORK TODO
+
  for(int i=0; i < 6; ++i)
    {
      x(i+1) = cT(a[i]);
-     y(i+1) = cT(b[i]); 
+     y(i+1) = cT(b[i]);
    }
+ for(int i=0; i < 4; ++i)
+   {
+     zz(i+1) = cT(c[i]);
+   }
+
   NT2_DISPLAY(x);
   NT2_DISPLAY(y);
   nt2::table<cT> z = polyfit(x, y, 3);
-   NT2_DISPLAY(z);  
+  NT2_DISPLAY(z);
+  NT2_TEST_ULP_EQUAL(z, zz, 500);
 } // end of test for floating_
 

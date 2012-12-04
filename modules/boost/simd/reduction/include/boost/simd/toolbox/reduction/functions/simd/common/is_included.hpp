@@ -22,13 +22,13 @@ namespace boost { namespace simd { namespace ext
                               ((simd_<arithmetic_<A0>,X>))
                             )
   {
-    typedef typename meta::scalar_of<A0>::type sA0; 
+    typedef typename meta::scalar_of<A0>::type sA0;
     typedef typename meta::as_logical<sA0>::type result_type;
     inline result_type operator()(A0 const& a0,A0 const& a1) const
     {
       return simd::all(eq(b_or(a0, a1), a1));
     }
   };
-  
+
 } } }
 #endif

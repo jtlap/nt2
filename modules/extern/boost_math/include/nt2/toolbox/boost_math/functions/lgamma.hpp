@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/lgamma.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of lgamma
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -57,13 +57,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag lgamma_ of functor lgamma 
+     * \brief Define the tag lgamma_ of functor lgamma
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct lgamma_ : ext::elementwise_<lgamma_> { typedef ext::elementwise_<lgamma_> parent; };
@@ -72,7 +72,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/lgamma.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/lgamma.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/lgamma.hpp>
 
 #endif
 

@@ -26,12 +26,12 @@
  * this can be a bit costly
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/correct_fma.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,19 +46,19 @@
  * \param a0 the first parameter of correct_fma
  * \param a1 the second parameter of correct_fma
  * \param a2 the third parameter of correct_fma
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag correct_fma_ of functor correct_fma 
+     * \brief Define the tag correct_fma_ of functor correct_fma
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct correct_fma_ : ext::elementwise_<correct_fma_> { typedef ext::elementwise_<correct_fma_> parent; };

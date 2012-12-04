@@ -19,7 +19,7 @@ namespace boost { namespace simd { namespace meta
    typedef int_c type;
    typedef Type   value_type;
    operator value_type() const { return Value; }
- }; 
+ };
 } } }
 
 #endif

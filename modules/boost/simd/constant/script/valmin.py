@@ -8,14 +8,14 @@
                            "\\\\arg int64 -9223372036854775808, uint64 0,"
                            "\\\\arg float \\\\f$-\infty\\\\f$, double \\\\f$-\infty\\\\f$,"],
          'return' : ["type T value"],
-         'type_dependant' : True,   
-         'template' : True,   
+         'type_dependant' : True,
+         'template' : True,
          'module' : 'boost',
-         'special' : ['constant'],   
+         'special' : ['constant'],
          'arity' : '0',
          'call_types' : [],
          'ret_arity' : '0',
-         'tpl' : '<T>',   
+         'tpl' : '<T>',
          'rturn' : {
              'default' : 'T',
             },

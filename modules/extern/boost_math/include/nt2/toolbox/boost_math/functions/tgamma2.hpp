@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/tgamma2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  *
  * \param a0 the first parameter of tgamma2
  * \param a1 the second parameter of tgamma2
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag tgamma2_ of functor tgamma2 
+     * \brief Define the tag tgamma2_ of functor tgamma2
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct tgamma2_ : ext::elementwise_<tgamma2_> { typedef ext::elementwise_<tgamma2_> parent; };
@@ -73,7 +73,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/tgamma2.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/tgamma2.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/tgamma2.hpp>
 
 #endif
 

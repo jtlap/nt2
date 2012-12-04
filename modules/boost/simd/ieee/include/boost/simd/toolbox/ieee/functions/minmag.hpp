@@ -22,12 +22,12 @@
  * Returns the input value which have the least absolute value.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/minmag.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of minmag
  * \param a1 the second parameter of minmag
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag minmag_ of functor minmag 
+     * \brief Define the tag minmag_ of functor minmag
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct minmag_ : ext::elementwise_<minmag_> { typedef ext::elementwise_<minmag_> parent; };

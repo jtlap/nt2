@@ -22,14 +22,14 @@
  * conjugate of the entry (identity for reals).
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/conj.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg conjugate
- * 
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of conj
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag conj_ of functor conj 
+     * \brief Define the tag conj_ of functor conj
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct conj_ : ext::elementwise_<conj_> { typedef ext::elementwise_<conj_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/realsqrt.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( realsqrt_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::realsqrt;
   using nt2::tag::realsqrt_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -61,5 +61,5 @@ NT2_TEST_CASE_TPL ( realsqrt_real__1_0,  NT2_SIMD_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(realsqrt(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(realsqrt(nt2::One<vT>())[0], nt2::One<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(realsqrt(nt2::Zero<vT>())[0], nt2::Zero<sr_t>(), 0);
-  NT2_TEST_ASSERT(   realsqrt(nt2::Mone<vT>())); 
+  NT2_TEST_ASSERT(   realsqrt(nt2::Mone<vT>()));
 } // end of test for floating_

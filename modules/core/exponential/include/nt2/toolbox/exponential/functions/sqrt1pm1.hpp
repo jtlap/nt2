@@ -24,12 +24,12 @@
  * result is accurate even for small a0
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sqrt1pm1.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of sqrt1pm1
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sqrt1pm1_ of functor sqrt1pm1 
+     * \brief Define the tag sqrt1pm1_ of functor sqrt1pm1
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct sqrt1pm1_ : ext::elementwise_<sqrt1pm1_> { typedef ext::elementwise_<sqrt1pm1_> parent; };

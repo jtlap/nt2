@@ -24,12 +24,12 @@
  * \f[ E_a_0(a_1)=\int_0^\infty rac{e^{-a_1t)}{t^a_0}dt\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/expni.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  *
  * \param a0 the first parameter of expni, must be scalar integer
  * \param a1 the second parameter of expni, must be non negative
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag expni_ of functor expni 
+     * \brief Define the tag expni_ of functor expni
      *        in namespace nt2::tag for toolbox euler
     **/
     struct expni_ : ext::elementwise_<expni_> { typedef ext::elementwise_<expni_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of bessel components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 16/02/2011
-/// 
+///
 #include <nt2/toolbox/bessel/include/functions/y0.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_y0l(long double);}
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( y0_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::y0;
   using nt2::tag::y0_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

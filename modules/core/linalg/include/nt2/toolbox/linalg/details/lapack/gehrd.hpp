@@ -13,11 +13,11 @@
 
 /*! \file gehrd_itf.hh
     (excerpt adapted from xgehrd.f file commentaries)
-    
+
     DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
-    
+
     BASE TYPE can mean respectively float, double, float, double
-    
+
     In some cases only two of these types types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
@@ -138,7 +138,7 @@ namespace nt2
                                nt2_la_complex* a, const nt2_la_int* lda, nt2_la_complex* tau,
                                nt2_la_complex* work, const nt2_la_int* lwork, nt2_la_int* info);
     }
-     
+
 #define NT2_GEHRD(NAME, T)                      \
   inline void gehrd(                            \
                     const nt2_la_int* n,        \
@@ -175,7 +175,7 @@ namespace nt2
           info, w);                             \
   }                                             \
         /**/
-    
+
     NT2_GEHRD(sgehrd, float)
     NT2_GEHRD(dgehrd, double)
 

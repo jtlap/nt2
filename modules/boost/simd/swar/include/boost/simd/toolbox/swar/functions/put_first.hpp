@@ -24,12 +24,12 @@
  * the other elements are not modified.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/put_first.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,9 +43,9 @@
  *
  * \param a0 the first parameter of put_first
  * \param a1 the second parameter of put_first
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -57,13 +57,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag put_first_ of functor put_first 
+     * \brief Define the tag put_first_ of functor put_first
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct put_first_ : ext::unspecified_<put_first_> { typedef ext::unspecified_<put_first_> parent; };

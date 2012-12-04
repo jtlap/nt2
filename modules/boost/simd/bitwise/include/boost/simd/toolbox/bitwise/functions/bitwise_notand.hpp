@@ -24,14 +24,14 @@
  * the result type is the one of the first operand
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/bitwise_notand.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg b_notand
- * 
+ *
  * \synopsis
  *
  * \code
@@ -45,19 +45,19 @@
  *
  * \param a0 the first parameter of bitwise_notand
  * \param a1 the second parameter of bitwise_notand
- * 
+ *
  * \return a value of the type of the first parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag bitwise_notand_ of functor bitwise_notand 
+     * \brief Define the tag bitwise_notand_ of functor bitwise_notand
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct bitwise_notand_ : ext::elementwise_<bitwise_notand_> { typedef ext::elementwise_<bitwise_notand_> parent; };

@@ -25,12 +25,12 @@
  * Bits are numbered starting at one (the least significant bit).
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ffs.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ffs
- * 
+ *
  * \return always returns an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ffs_ of functor ffs 
+     * \brief Define the tag ffs_ of functor ffs
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct ffs_ : ext::elementwise_<ffs_> { typedef ext::elementwise_<ffs_> parent; };

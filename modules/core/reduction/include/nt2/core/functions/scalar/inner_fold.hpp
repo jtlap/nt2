@@ -25,12 +25,12 @@ namespace nt2 { namespace details
 
     std::size_t ibound  = boost::fusion::at_c<0>(ext);
     value_type out = neutral(nt2::meta::as_<value_type>());
-      
+
     for(std::size_t i = 0; i < ibound; ++i)
     {
         out = bop(out, nt2::run(in, i+p, meta::as_<value_type>()));
     }
-    
+
     return out;
   }
 } }
@@ -67,7 +67,7 @@ namespace nt2 { namespace ext
     }
 
     };
-    
+
   } }
 
 #endif

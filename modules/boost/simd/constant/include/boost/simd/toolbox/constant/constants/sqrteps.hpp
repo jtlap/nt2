@@ -31,12 +31,12 @@
  * types it does not represent the same mathematical number.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sqrteps.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,12 +48,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Sqrteps
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -61,7 +61,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Sqrteps of functor Sqrteps 
+     * \brief Define the tag Sqrteps of functor Sqrteps
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrteps, double, 1

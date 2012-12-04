@@ -24,12 +24,12 @@
  * Constant Twoto31 = \f$2^{-10}\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/twoto31.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Twoto31
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Twoto31 of functor Twoto31 
+     * \brief Define the tag Twoto31 of functor Twoto31
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Twoto31, double, (1 << 31)

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/is_less_equal.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( is_less_equal_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::is_less_equal;
   using boost::simd::tag::is_less_equal_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( is_less_equal_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_less_equal;
   using boost::simd::tag::is_less_equal_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

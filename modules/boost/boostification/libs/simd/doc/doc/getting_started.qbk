@@ -32,12 +32,12 @@ What this snippet is doing is :
 
 * Construct packs of integers, a pack is a representation of a SIMD register.
 * Initialiaze them from integers (this operation is implicit here but its named
-  "splat"). 
+  "splat").
 * Do some operations on it, here adding two vectors and multiplying by a scalar.
 * Display the resulting vector, boost.simd provides the needed operator<<
   overload.
 
-As you see it, boost.simd makes SIMD operations as easy as their scalar 
+As you see it, boost.simd makes SIMD operations as easy as their scalar
 counterparts without having to worry about things like platform type, SIMD
 instruction sets supported etc.
 

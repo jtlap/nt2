@@ -24,11 +24,11 @@
  * return the real part of a complex
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/real.hpp>
  * \endcode
- * 
+ *
  * \synopsis
  *
  * \code
@@ -41,13 +41,13 @@
  * \endcode
  *
  * \param a0 the first parameter of real
- * 
+ *
  * \return a real value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the input vectors' elements
  * \par
- *  
+ *
 **/
 
 namespace nt2
@@ -55,7 +55,7 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag real_ of functor real 
+     * \brief Define the tag real_ of functor real
      *        in namespace nt2::tag for toolbox complex
     **/
     struct real_ : ext::elementwise_<real_> { typedef ext::elementwise_<real_> parent; };

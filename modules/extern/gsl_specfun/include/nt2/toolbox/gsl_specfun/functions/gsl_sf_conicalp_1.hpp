@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/gsl_specfun/include/functions/gsl_sf_conicalp_1.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  *
  * \param a0 the first parameter of gsl_sf_conicalp_1
  * \param a1 the second parameter of gsl_sf_conicalp_1
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -61,13 +61,13 @@
  * gsl_specfun library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace gsl_specfun { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gsl_sf_conicalp_1_ of functor gsl_sf_conicalp_1 
+     * \brief Define the tag gsl_sf_conicalp_1_ of functor gsl_sf_conicalp_1
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
     struct gsl_sf_conicalp_1_ : ext::elementwise_<gsl_sf_conicalp_1_> { typedef ext::elementwise_<gsl_sf_conicalp_1_> parent; };
@@ -76,7 +76,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
   } }
 
 #include <nt2/toolbox/gsl_specfun/functions/scalar/gsl_sf_conicalp_1.hpp>
-// #include <nt2/toolbox/gsl_specfun/functions/simd/all/gsl_sf_conicalP_1.hpp> 
+// #include <nt2/toolbox/gsl_specfun/functions/simd/all/gsl_sf_conicalP_1.hpp>
 
 #endif
 

@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_PLUS_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_PLUS_HPP_INCLUDED
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
                         );
     }
   };
-  
+
   // complex/real
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
                         );
     }
   };
-  
+
   // complex/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
                         );
     }
   };
-  
+
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > >)
@@ -90,7 +90,7 @@ namespace nt2 { namespace ext
                         );
     }
   };
-  
+
   // imaginary/real
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
@@ -105,7 +105,7 @@ namespace nt2 { namespace ext
                         );
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
                               (generic_< arithmetic_<A1> >)
@@ -119,7 +119,7 @@ namespace nt2 { namespace ext
                         );
     }
   };
-  
+
   // imaginary/imaginary
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > >)
@@ -132,7 +132,7 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(nt2::imag(a0) + nt2::imag(a1));
     }
   };
-  
+
   // dry/complex
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_< arithmetic_<A0> > >)
@@ -146,7 +146,7 @@ namespace nt2 { namespace ext
       return result_type(nt2::real(a1)+nt2::real(a0), nt2::imag(a1));
     }
   };
-  
+
   // complex/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< complex_< arithmetic_<A0> > > )
@@ -174,7 +174,7 @@ namespace nt2 { namespace ext
       return result_type(nt2::real(a0), nt2::imag(a1));
     }
   };
-  
+
   // imaginary/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< imaginary_< arithmetic_<A0> > > )
@@ -188,7 +188,7 @@ namespace nt2 { namespace ext
       return result_type(nt2::real(a1), nt2::imag(a0));
     }
   };
-  
+
   // dry/arithmetic
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< dry_< arithmetic_<A0> > >)
@@ -201,12 +201,12 @@ namespace nt2 { namespace ext
       return result_type(nt2::real(a0)+a1);
     }
   };
-  
+
   // arithmetic/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)(A1)
                             , (generic_< arithmetic_<A0> >)
                               (generic_< dry_< arithmetic_<A1> > >)
-                              
+
                             )
   {
     typedef A1 result_type;
@@ -215,12 +215,12 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(nt2::real(a1)+a0);
     }
   };
-  
+
   // dry/dry
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::plus_, tag::cpu_, (A0)
                             , (generic_< dry_< arithmetic_<A0> > >)
                               (generic_< dry_< arithmetic_<A0> > >)
-                              
+
                             )
   {
     typedef A0 result_type;
@@ -228,8 +228,8 @@ namespace nt2 { namespace ext
     {
       return bitwise_cast<result_type>(nt2::real(a0)+nt2::real(a1));
     }
-  };  
-  
+  };
+
 } }
 
 #endif

@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_SSE_AVX_ADDS_HPP_INCLUDED
@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
       svtype a11 = _mm256_extractf128_si256(a1, 1);
       svtype r1 = adds(a01,a11);
       that = _mm256_insertf128_si256(that, r1, 1);
-      return that; 
+      return that;
     }
   };
  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::adds_, boost::simd::tag::avx_
@@ -59,9 +59,9 @@ namespace boost { namespace simd { namespace ext
       svtype a11 = _mm256_extractf128_si256(a1, 1);
       svtype r1 = adds(a01,a11);
       that = _mm256_insertf128_si256(that, r1, 1);
-      return that; 
+      return that;
     }
-  };  
+  };
 } } }
 
 #endif

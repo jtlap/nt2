@@ -26,54 +26,54 @@
 #include <nt2/core/container/table/table.hpp>
 
 namespace nt2 { namespace details
-{                
+{
   template<class T,  typename FLOAT = typename T::value_type >
   class nelder_impl
   {
-    // sum(fvec^2) is minimized.  
+    // sum(fvec^2) is minimized.
   public :
-    
+
     typedef FLOAT                                     float_t;
 //    typedef typename meta::as_logical<float_t>::type                 bool_t;
-    typedef ptrdiff_t bool_t; 
-    typedef T                                         array_t; 
+    typedef ptrdiff_t bool_t;
+    typedef T                                         array_t;
     typedef nt2::container::table<FLOAT>              table_t;
     typedef nt2::container::table<bool_t>            btable_t;
-    typedef details::optimization_settings<float_t>     otype; 
+    typedef details::optimization_settings<float_t>     otype;
     nelder_impl() : reqmin(Eps<float_t>()),
                     ynewlo(Nan<float_t>()),
-                    konvge(10), 
+                    konvge(10),
                     icount(0),
-                    numres(0), 
+                    numres(0),
                     ifault(-1) {}
     ~nelder_impl() {}
-    
+
     template < class FUNC, class S>
     void optimize( const FUNC& crit,
                    T &start,                //unkowns init values
                    const S & steps,   //unkowns initial step values
-                   const otype & o);        //options  
-       
+                   const otype & o);        //options
+
     size_t          nbiteration()  const { return icount;            }
     float_t         lasteval()     const { return ynewlo;            }
     bool            convok()       const { return ifault == 0;       }
-    
+
   private :
     float_t                                          reqmin;
-    float_t                                          ynewlo; 
+    float_t                                          ynewlo;
     size_t                           konvge, icount, numres;
     ptrdiff_t                                        ifault;
-  }; 
-   
+  };
+
   template<typename T, typename FLOAT>
-  template < class FUNC, class S> 
+  template < class FUNC, class S>
   void nelder_impl<T, FLOAT>::optimize( const FUNC& fn,
                                         T &start,
                                         const S & step,
                                         const otype& o)
   {
     float_t                     ccoeff, ecoeff, eps, rcoeff;
-    size_t n = numel(start); 
+    size_t n = numel(start);
     icount = 0;
     numres = 0;
     ifault = 0;
@@ -82,7 +82,7 @@ namespace nt2 { namespace details
     eps   =  float_t(0.001);
     rcoeff = One<float_t>();
     reqmin = o.absolute_tolerance;
-    size_t kcount = o.maximum_iterations; 
+    size_t kcount = o.maximum_iterations;
     ptrdiff_t jcount = konvge;
     float_t dn = n;
     size_t nn = n + 1;
@@ -92,45 +92,45 @@ namespace nt2 { namespace details
     table_t p(nt2::of_size(n, nn));
     table_t xmin = start;
     table_t y(nt2::of_size(1, nn));
-    
-//    table_t pbar; 
-//    table_t p2star; 
+
+//    table_t pbar;
+//    table_t p2star;
     for(;;)
     {
-      p(nt2::_, nn) = start; 
+      p(nt2::_, nn) = start;
       y(nn) = fn ( start );
       ++icount;
       for(size_t j = 1; j <=  n; ++j)
       {
         float_t x = start(j);
         start(j) += step(j) * del;
-        p(_, j) = nt2::colvect(start); 
+        p(_, j) = nt2::colvect(start);
         y(j) = fn ( start );
         ++icount;
         start(j) = x;
       }
-     
+
 // %  The simplex construction is complete.
 // %
 // %  Find highest and lowest y values.  ynewlo = y(ihi) indicates
 // %  the vertex of the simplex to be replaced.
-      
+
       size_t ilo;
-      float_t ylo =  globalmin(y, ilo); 
+      float_t ylo =  globalmin(y, ilo);
       for(;;)// %  Inner loop.
       {
-        if ( kcount <= icount )  break; 
+        if ( kcount <= icount )  break;
         size_t ihi = 1;
-        ynewlo =  globalmax(y, ihi); 
-        
+        ynewlo =  globalmax(y, ihi);
+
 // %  calculate pbar, the centroid of the simplex vertices
 // %  excepting the vertex with y value ynewlo.
 
         table_t pbar =  (sum(p, 2) - p(_,ihi))/dn;
 
 // %  Reflection through the centroid.
-        
-        table_t pstar = pbar + rcoeff*(pbar-p(_, ihi)); 
+
+        table_t pstar = pbar + rcoeff*(pbar-p(_, ihi));
         float_t ystar = fn ( pstar );
         ++icount;
 // %  Successful reflection, so extension.
@@ -141,12 +141,12 @@ namespace nt2 { namespace details
           ++icount;
           if ( ystar < y2star )// %  Check extension.
           {
-            p(_, ihi) = pstar; 
+            p(_, ihi) = pstar;
             y(ihi) = ystar;
           }                    // %  Retain extension or contraction.
           else
           {
-            p(_, ihi) = p2star; 
+            p(_, ihi) = p2star;
             y(ihi) = y2star;
           }
         }
@@ -155,7 +155,7 @@ namespace nt2 { namespace details
           size_t l = inbtrue(lt(ystar, y));
           if ( l > 1 )
           {
-             p(_, ihi) = pstar; 
+             p(_, ihi) = pstar;
             y(ihi) = ystar;
           }
           else if ( l == 0 )  //%  Contraction on the Y(IHI) side of the centroid.
@@ -175,12 +175,12 @@ namespace nt2 { namespace details
                 y(j) = fn ( xmin );
                 ++icount;
               }
-              float_t ylo = globalmin(y, ilo); 
+              float_t ylo = globalmin(y, ilo);
               continue;
             }
             else // Retain contraction.
             {
-              p(_, ihi) = p2star; 
+              p(_, ihi) = p2star;
               y(ihi) = y2star;
             }
           }
@@ -188,7 +188,7 @@ namespace nt2 { namespace details
           {
             table_t p2star = pbar + ccoeff * ( pstar - pbar );
             float_t y2star = fn ( p2star );
-            ++icount; 
+            ++icount;
             if ( y2star <= ystar ) //%  Retain reflection?
             {
               p(_,ihi) = p2star;
@@ -207,21 +207,21 @@ namespace nt2 { namespace details
           ilo = ihi;
         }
         --jcount;
-        if (jcount > 0) continue; 
+        if (jcount > 0) continue;
         if ( icount <= kcount )  //%  Check to see if minimum reached.
         {
           jcount = konvge;
-          float_t z =  nt2::global(nt2::functor<nt2::tag::asum2_>(), nt2::center(y)); 
-          if ( z <= rq ) break; 
+          float_t z =  nt2::global(nt2::functor<nt2::tag::asum2_>(), nt2::center(y));
+          if ( z <= rq ) break;
         }
       }
 // %  Factorial tests to check that YNEWLO is a local minimum.
-      xmin = p(_, ilo); 
+      xmin = p(_, ilo);
       ynewlo = y(ilo);
       if ( kcount < icount )
       {
         ifault = 2;
-        break; 
+        break;
       }
       ifault = 0;
       for(size_t i = 1; i <= n; ++i)
@@ -233,7 +233,7 @@ namespace nt2 { namespace details
         if ( z < ynewlo )
         {
           ifault = 2;
-          break; 
+          break;
         }
         xmin(i) -= del + del;
         z = fn ( xmin );
@@ -241,19 +241,19 @@ namespace nt2 { namespace details
         if ( z < ynewlo )
         {
           ifault = 2;
-          break; 
+          break;
         }
         xmin(i) += del;
       }
-      if ( ifault == 0 )  break; 
-      
+      if ( ifault == 0 )  break;
+
 //%  Restart the procedure.
-      start =  nt2::rowvect(xmin); 
+      start =  nt2::rowvect(xmin);
       del = eps;
-      ++numres; 
+      ++numres;
     }
-    
-    return; 
+
+    return;
   }
 } }
 

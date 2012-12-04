@@ -19,7 +19,7 @@ namespace nt2
       {
 
         typedef typename meta::as_integer<A0, signed>::type     int_type;
-        typedef typename meta::scalar_of<A0>::type                 stype; 
+        typedef typename meta::scalar_of<A0>::type                 stype;
         typedef typename A0::native_type                            A0_n;
         typedef typename int_type::native_type                     iA0_n;
 
@@ -39,26 +39,26 @@ namespace nt2
         {
           const A0 z = z_n;
           const A0 zz = sqr(z);
-          return horner< NT2_HORNER_COEFF_T(stype, 6, (0x3c19c53b, 
-                                                     0x3b4c779c, 
-                                                     0x3cc821b5, 
-                                                     0x3d5ac5c9, 
-                                                     0x3e0896dd, 
+          return horner< NT2_HORNER_COEFF_T(stype, 6, (0x3c19c53b,
+                                                     0x3b4c779c,
+                                                     0x3cc821b5,
+                                                     0x3d5ac5c9,
+                                                     0x3e0896dd,
                                                      0x3eaaaa6f))>(zz)*zz*z+z;
         }
         static inline A0_n tan_eval(const A0_n z_n,/* const A0&,*/  const iA0_n n_n)
         {
           const int_type n = n_n;
           const A0 z = z_n;
-          A0 y = base_tancot_eval(z); 
-          return sel(is_equal(n, One<int_type>()),y,-rec(y)); 
+          A0 y = base_tancot_eval(z);
+          return sel(is_equal(n, One<int_type>()),y,-rec(y));
         }
         static inline A0_n cot_eval(const A0_n z_n,/* const A0&,*/  const iA0_n n_n)
         {
           const int_type n = n_n;
           const A0 z = z_n;
-          A0 y = base_tancot_eval(z); 
-          return sel(is_equal(n, One<int_type>()),rec(y),-y); 
+          A0 y = base_tancot_eval(z);
+          return sel(is_equal(n, One<int_type>()),rec(y),-y);
         }
       };
     }

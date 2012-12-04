@@ -23,7 +23,7 @@
 
 NT2_TEST_CASE_TPL( colvect2, NT2_TYPES)
 {
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   nt2::table<cT> r;
   nt2::table<cT, nt2::_2D> y( nt2::of_size(4,4) );
   for(int j=1;j<=4;j++)

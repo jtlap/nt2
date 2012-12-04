@@ -1,5 +1,5 @@
 /*******************************************************************************
- *         Copyright 2003-2012 LASMEA UMR 6602 CNRS/U.B.P 
+ *         Copyright 2003-2012 LASMEA UMR 6602 CNRS/U.B.P
  *         Copyright 2009-2012 LRI    UMR 8623 CNRS/Univ Paris Sud XI
  *
  *          Distributed under the Boost Software License, Version 1.0.
@@ -116,7 +116,7 @@ namespace nt2
                                const nt2_la_complex* tau, nt2_la_complex* c, const nt2_la_int* ldc,
                                nt2_la_complex* work, const nt2_la_int* lwork, nt2_la_int* info);
     }
-    
+
 #define NT2_MQR(NAME, T)                          \
   inline void mqr(const char* side,               \
                   const char* trans,              \
@@ -163,7 +163,7 @@ namespace nt2
         m, n, k,                                  \
         a, lda, tau, c, ldc, info, w);            \
   }                                               \
-        
+
     NT2_MQR(sormqr, float)
     NT2_MQR(dormqr, double)
 

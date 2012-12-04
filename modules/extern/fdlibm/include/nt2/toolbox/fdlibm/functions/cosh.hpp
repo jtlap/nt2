@@ -23,12 +23,12 @@
  * library fdlibm.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/fdlibm/include/functions/cosh.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of cosh
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -60,13 +60,13 @@
  * fdlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace fdlibm { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cosh_ of functor cosh 
+     * \brief Define the tag cosh_ of functor cosh
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct cosh_ : ext::elementwise_<cosh_> { typedef ext::elementwise_<cosh_> parent; };
@@ -75,7 +75,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
 
 #include <nt2/toolbox/fdlibm/functions/scalar/cosh.hpp>
-// #include <nt2/toolbox/fdlibm/functions/simd/all/cosh.hpp> 
+// #include <nt2/toolbox/fdlibm/functions/simd/all/cosh.hpp>
 
 #endif
 

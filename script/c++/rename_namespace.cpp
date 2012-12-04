@@ -27,7 +27,7 @@ struct namespace_grammar : qi::grammar<file_iterator, std::string()>
     namespace_grammar(bool debug_) : base_type(root), debug(debug_)
     {
         using namespace qi::labels;
-        
+
         root
             =   (   ns > root           )   [ _val = _1 + _2 ]
             |   (   qi::attr_cast<std::string>(
@@ -35,7 +35,7 @@ struct namespace_grammar : qi::grammar<file_iterator, std::string()>
                     ) >  root           )   [ _val = _1 + _2 ]
             |   (   qi::eoi             )   [ _val = std::string() ]
         ;
-        
+
         ns
             =   (   qi::lit("namespace")
                     >> qi::omit[+space]
@@ -49,18 +49,18 @@ struct namespace_grammar : qi::grammar<file_iterator, std::string()>
                     _val = "namespace boost { namespace dispatch" + _1 + "{" + _2 + "} }"
                 ]
             ;
-            
+
         data
             =   (   qi::char_("{") >> data >> qi::char_("}")  >  data   )
             |   (   +(  qi::char_ - qi::char_("{}") ) > data            )
             |   qi::eps
         ;
-        
+
         #define DEBUG_NODE(r)                                              \
         r.name(#r);                                                        \
         if(debug)                                                          \
             qi::debug(r);                                                  \
-        
+
         DEBUG_NODE(root)
         DEBUG_NODE(ns)
         DEBUG_NODE(data)
@@ -69,7 +69,7 @@ struct namespace_grammar : qi::grammar<file_iterator, std::string()>
     qi::rule<file_iterator, std::string()> data;
     qi::rule<file_iterator, std::string()> ns;
     qi::rule<file_iterator, std::string()> root;
-    
+
     bool debug;
 };
 
@@ -93,13 +93,13 @@ int main(int argc, char* argv[])
                 ++pos;
         }
     }
-    
+
     if(pos >= argc)
     {
         std::cerr << "No file argument" << std::endl;
         return 1;
     }
-    
+
 #ifdef USE_SETRLIMIT
     struct rlimit limit = { RLIM_INFINITY, RLIM_INFINITY };
     if(setrlimit(RLIMIT_STACK, &limit) < 0)
@@ -108,26 +108,26 @@ int main(int argc, char* argv[])
         return 1;
     }
 #endif
-    
+
     std::fstream f(argv[pos]);
     if(!f)
     {
         std::cerr << "File " << argv[pos] << " could not be opened" << std::endl;
         return 1;
     }
-    
+
     if(display)
         std::cout << argv[pos] << ": parsing..." << std::endl;
-    
+
     std::stringstream ss;
     ss << f.rdbuf();
     std::string buf = ss.str();
-    
+
     std::string::iterator it = buf.begin();
-    
+
     std::string file;
     bool b = qi::parse(it, buf.end(), namespace_grammar(debug), file);
-    
+
     if(!b)
     {
         std::cerr << argv[pos] << ": failed to parse" << std::endl;
@@ -140,10 +140,10 @@ int main(int argc, char* argv[])
         std::cerr << "File " << argv[pos] << " could not be opened" << std::endl;
         return 1;
     }
-    
+
     if(display)
         std::cout << argv[pos] << ": parse successful" << std::endl;
-    
+
     f << file;
     return 0;
 }

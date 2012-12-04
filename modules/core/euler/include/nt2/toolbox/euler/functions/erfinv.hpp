@@ -23,12 +23,12 @@
  * inverse of erf
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/erfinv.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of erfinv
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag erfinv_ of functor erfinv 
+     * \brief Define the tag erfinv_ of functor erfinv
      *        in namespace nt2::tag for toolbox euler
     **/
     struct erfinv_ : ext::elementwise_<erfinv_> { typedef ext::elementwise_<erfinv_> parent; };

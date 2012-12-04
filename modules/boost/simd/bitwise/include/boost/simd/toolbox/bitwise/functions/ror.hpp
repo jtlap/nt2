@@ -23,12 +23,12 @@
  * by the absolute value of second entry.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ror.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  *
  * \param a0 the first parameter of ror
  * \param a1 the second parameter of ror, must be an integer value
- * 
+ *
  * \return returns a value of the type of the first parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ror_ of functor ror 
+     * \brief Define the tag ror_ of functor ror
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct ror_ : ext::elementwise_<ror_> { typedef ext::elementwise_<ror_> parent; };

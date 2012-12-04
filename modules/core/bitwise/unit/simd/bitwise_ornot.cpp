@@ -12,7 +12,7 @@
 // unit test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/bitwise/include/functions/bitwise_ornot.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( bitwise_ornot_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::bitwise_ornot;
   using nt2::tag::bitwise_ornot_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( bitwise_ornot_integer__2_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::bitwise_ornot;
   using nt2::tag::bitwise_ornot_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

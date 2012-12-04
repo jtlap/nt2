@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_GROUP_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_GROUP_HPP_INCLUDED
@@ -38,10 +38,10 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(group(nt2::real(a0), group(nt2::imag(a0)))); 
+      return result_type(group(nt2::real(a0), group(nt2::imag(a0))));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
                           (A0)(X),
                           (boost::mpl::not_< boost::is_same<A0, typename dispatch::meta::downgrade<A0>::type> >),
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(group(nt2::imag(a0), nt2::imag(a1))); 
+      return result_type(group(nt2::imag(a0), nt2::imag(a1)));
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::group_, tag::cpu_,
@@ -65,8 +65,8 @@ namespace nt2 { namespace ext
     typedef typename boost::dispatch::meta::downgrade<A0>::type result_type;
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      return result_type(group(nt2::real(a0), nt2::real(a1))); 
+      return result_type(group(nt2::real(a0), nt2::real(a1)));
     }
-  };    
+  };
 } }
 #endif

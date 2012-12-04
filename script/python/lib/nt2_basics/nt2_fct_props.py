@@ -43,10 +43,10 @@ class Nt2_fct_props(Nt2_tb_props) :
         self.__fct_ret_arity = self.__read_ret_arity()
 ##        self.__fct_dict = self.__read_fct_info_dict()
 
-   
+
     def get_fct_name(self) : return self.__fct_name
     def get_fct_text(self) : return read(self.get_fct_impl_path(self.__mode)) ## submode must be also used here
-    def get_fct_def_text(self) : return read(self.get_fct_def_path()) 
+    def get_fct_def_text(self) : return read(self.get_fct_def_path())
     def get_fct_dict_list(self,verbose=False) :
         s = self.__read_fct_info_dict(verbose)
         return s if isinstance(s,list) else [s]
@@ -75,13 +75,13 @@ class Nt2_fct_props(Nt2_tb_props) :
         return self.__get_striped_returns(self.get_fct_text())
     def get_fct_types(self) :
         return Nt2_fct_internals.get_calls(self.get_fct_text()).keys()
-    
+
  #       return "typename typedef boost::result_of<nt2::meta::floating(T)>::type"    ##TO DO
     def get_fct_call_types(self) : return []  ##TO DO
     def get_fct_type_defs(self) : return []   ##TO DO
 
 
-        
+
     def is_subsidiary(self,*modes) :
         path = self.get_fct_impl_path(list(modes))
         if not exist(path) : return True
@@ -106,9 +106,9 @@ class Nt2_fct_props(Nt2_tb_props) :
         return bool(re.search('/// Revised by ',s))
 
 ## ################################################################
-## private section    
+## private section
 ## ################################################################
-    
+
     def __read_fct_info_dict(self,verbose = False) :
         p = self.get_fct_doc_path()
 ##        print("p = %s" % p)
@@ -141,7 +141,7 @@ class Nt2_fct_props(Nt2_tb_props) :
                     if m :
                         arities.append(int(m.groups()[0]))
         return arities
- 
+
     def __read_ret_arity(self) :
         p = self.get_fct_impl_path('scalar')
         if exist(p) :
@@ -149,8 +149,8 @@ class Nt2_fct_props(Nt2_tb_props) :
             return '2' if re.search('boost::fusion',s) else '0'
         else :
             return '0'
-        
-    @classmethod 
+
+    @classmethod
     def __get_striped_returns(self,txt, typ='.*') :
         d1 = Nt2_fct_internals.get_returns(txt,typ)
         d = {}
@@ -165,7 +165,7 @@ class Nt2_fct_props(Nt2_tb_props) :
             else :
                 d[t]= 'T'
         return d
-  
+
 
 if __name__ == "__main__" :
     nfp = Nt2_fct_props("ieee","successor")
@@ -182,10 +182,10 @@ if __name__ == "__main__" :
     print(nfp.get_fct_arities())
     print(nfp.get_fct_ret_arity())
 ##    PrettyPrinter().pprint(nfp.get_fct_returns())  ## broken
-##    print(nfp.get_fct_call_types())                ## broken 
+##    print(nfp.get_fct_call_types())                ## broken
     print(nfp.is_subsidiary('simd','sse','sse2'))
     print(nfp.is_subsidiary('simd','sse','sse4.1'))
     print(nfp.is_empty('simd','sse','sse4.1'))
     print(nfp.is_unimplemented())
     print(nfp.is_already_revised())
-    
+

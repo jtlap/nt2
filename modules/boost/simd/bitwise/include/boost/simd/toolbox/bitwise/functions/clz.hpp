@@ -22,12 +22,12 @@
  * The function counts the number of leading zeros
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/clz.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of clz
- * 
+ *
  * \return always returns an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag clz_ of functor clz 
+     * \brief Define the tag clz_ of functor clz
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct clz_ : ext::elementwise_<clz_> { typedef ext::elementwise_<clz_> parent; };

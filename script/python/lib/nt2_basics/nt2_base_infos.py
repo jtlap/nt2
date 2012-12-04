@@ -37,7 +37,7 @@ class Nt2_base_infos(object) :
         self.__toolbox_list = self.__mk_toolbox_list()
         self.__implanted_simd_archis = self.__find_implanted_simd_archis()
         self.__implanted_scalar_archis = self.__find_implanted_scalar_archis()
-        
+
     def get_nt2_path(self) : return self.__nt2_path
     def get_author(self) : return self.__author
     def get_toolboxes_path(self) : return  os.path.join(self.get_nt2_path(),'modules')
@@ -57,7 +57,7 @@ class Nt2_base_infos(object) :
         r +="\nimplanted archis are %s "  % self.get_implanted_archis()
         r +="\ntoolboxes list is"
         for t in self.get_toolbox_list() :
-           r += "\n  "+t 
+           r += "\n  "+t
         r +="\ncurrent <<signature>> is %s " % self.get_author()
         return r
 
@@ -96,7 +96,7 @@ class Nt2_base_infos(object) :
             abort if the path does not contain /nt2/
         """
         d = os.environ.get("NT2_DIR","")
-        if len(d) : 
+        if len(d) :
             return d
         else :
             d = sys.path[0]
@@ -121,7 +121,7 @@ class Nt2_base_infos(object) :
     def get_author(cls) : # TO DO something for zindows
         s = os.environ['HOME']
         return os.path.split(s)[1]
-   
+
 if __name__ == "__main__" :
 ##    os.environ["NT2_DIR"] ="/home/jt/DevC++/dev_lasmea/github/modular/modular/"
     nbi = Nt2_base_infos()

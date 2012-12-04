@@ -12,7 +12,7 @@ __copyright__ = "Copyleft (c) 2010 Jean-thierry Lapreste"
 __license__   = "Python"
 
 __all__ = ['show']
-           
+
 import string
 
 def show(l,empty="input list is empty "):
@@ -36,5 +36,5 @@ if __name__ == "__main__":
     print "------"
     show(l,"")
     print "------"
-     
-    
+
+

@@ -108,7 +108,7 @@ namespace boost { namespace dispatch { namespace meta
   // dispatch_call finds the proper call overload for evaluating a given
   // functor over a set of types on a given site
   //==============================================================================
-  template<class Sig, class Site> struct dispatch_call; 
+  template<class Sig, class Site> struct dispatch_call;
   BOOST_PP_REPEAT(BOOST_PP_INC(BOOST_DISPATCH_MAX_ARITY),BOOST_DISPATCH_DISPATCH_CALL,~)
 
 } } }

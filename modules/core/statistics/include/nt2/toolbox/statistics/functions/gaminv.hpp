@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
     typedef typename  boost::proto::result_of::child_c<Expr&,1>
     ::value_type::extent_type                     ext2_t;
     typedef typename utility::result_of::max_extent<ext2_t, ext1_t, ext0_t>::type     result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       return utility::max_extent(nt2::extent(boost::proto::child_c<0>(e)),
@@ -100,13 +100,13 @@ namespace nt2 { namespace ext
                         nt2::extent(boost::proto::child_c<2>(e)));
     }
   };
-  
-  
+
+
   template<class Domain, class Expr>
   struct  size_of<tag::gaminv_,Domain,1,Expr>
     : meta::size_as<Expr,0>
   {};
-  
+
   template<class Domain, int N, class Expr>
   struct  value_type<tag::gaminv_,Domain,N,Expr>
     : meta::value_as<Expr,0>

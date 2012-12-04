@@ -1,10 +1,10 @@
-//============================================================================== 
-// Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II 
-// Copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI 
-// 
-// Distributed under the Boost Software License, Version 1.0.  
-// See accompanying file LICENSE.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt 
+//==============================================================================
+// Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+// Copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI
+//
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_PUT_FIRST_HPP_INCLUDED
 #define NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_PUT_FIRST_HPP_INCLUDED
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(put_first(nt2::real(a0), a1), put_first(nt2::imag(a0), a1)); 
+      return result_type(put_first(nt2::real(a0), a1), put_first(nt2::imag(a0), a1));
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::put_first_, tag::cpu_
@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(put_first(nt2::imag(a0), a1)); 
+      return result_type(put_first(nt2::imag(a0), a1));
     }
   };
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::put_first_, tag::cpu_
@@ -54,9 +54,9 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return result_type(put_first(nt2::real(a0), a1)); 
+      return result_type(put_first(nt2::real(a0), a1));
     }
-  };  
+  };
 } }
 
 

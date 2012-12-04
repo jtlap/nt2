@@ -31,7 +31,7 @@ template <class T, class S> nt2::table<T> make_matrix( const S * ptr, int nl, in
   for(int i = 1; i <= nl; ++i)
     for(int j = 1; j <= nc; ++j)
       a(i, j) = *p++;
-  return a; 
+  return a;
 }
 
 NT2_TEST_CASE_TPL(rref, NT2_REAL_TYPES)
@@ -67,12 +67,12 @@ NT2_TEST_CASE_TPL(rref, NT2_REAL_TYPES)
   //         }
   //     }
   result_type f = nt2::factorization::rref(a, T(-1));
-  
+
   NT2_DISPLAY(a);
-  NT2_DISPLAY(res);  
+  NT2_DISPLAY(res);
   t_t r = f.rref();
   NT2_DISPLAY(r);
-  NT2_TEST(isulpequal(r, res, 2.0)); 
+  NT2_TEST(isulpequal(r, res, 2.0));
   //   k = 0;
   //   for(int i=1; i <= 4; ++i)
   //     {

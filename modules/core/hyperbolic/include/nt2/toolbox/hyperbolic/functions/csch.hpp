@@ -22,12 +22,12 @@
  * hyperbolic cosecant: \f$rac1{\sinh(a_0)}\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/csch.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of csch
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag csch_ of functor csch 
+     * \brief Define the tag csch_ of functor csch
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct csch_ : ext::elementwise_<csch_> { typedef ext::elementwise_<csch_> parent; };

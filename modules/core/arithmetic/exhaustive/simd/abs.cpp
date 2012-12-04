@@ -53,7 +53,7 @@ int main(){
       }
   std::cout << "exhaustive test for " << std::endl;
   std::cout << " nt2::abs versus std::abs " << std::endl;
-  std::cout << " in simd mode and float type" << std::endl; 
+  std::cout << " in simd mode and float type" << std::endl;
   std::cout << std::endl;
   for(nt2::uint32_t i = 0; i < M; i++)
     std::cout << i/2.0 << " -> " << histo[i] << std::endl;

@@ -22,12 +22,12 @@
  * \f$a_0 \gt a_1+a_2*\max(|a_0|,|a1|)\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fuzzy_definitely_greater.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,9 +42,9 @@
  * \param a0 the first parameter of fuzzy_definitely_greater
  * \param a1 the second parameter of fuzzy_definitely_greater
  * \param a2 the third parameter of fuzzy_definitely_greater
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -55,13 +55,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fuzzy_definitely_greater_ of functor fuzzy_definitely_greater 
+     * \brief Define the tag fuzzy_definitely_greater_ of functor fuzzy_definitely_greater
      *        in namespace nt2::tag for toolbox fuzzy
     **/
     struct fuzzy_definitely_greater_ : ext::elementwise_<fuzzy_definitely_greater_> { typedef ext::elementwise_<fuzzy_definitely_greater_> parent; };

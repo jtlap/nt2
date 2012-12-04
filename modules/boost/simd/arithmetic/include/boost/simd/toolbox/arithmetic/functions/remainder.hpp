@@ -28,14 +28,14 @@
  * a0-divround(a0,a1)*a1
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/remainder.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg drem
- * 
+ *
  * \synopsis
  *
  * \code
@@ -49,19 +49,19 @@
  *
  * \param a0 the first parameter of remainder
  * \param a1 the second parameter of remainder
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag remainder_ of functor remainder 
+     * \brief Define the tag remainder_ of functor remainder
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct remainder_ : ext::elementwise_<remainder_> { typedef ext::elementwise_<remainder_> parent; };

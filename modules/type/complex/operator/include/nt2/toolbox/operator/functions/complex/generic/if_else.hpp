@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMPLEX_GENERIC_IF_ELSE_HPP_INCLUDED
 #define NT2_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMPLEX_GENERIC_IF_ELSE_HPP_INCLUDED
@@ -37,7 +37,7 @@ namespace nt2 { namespace ext
                          if_else(a0, nt2::imag(a1), nt2::imag(a2)));
     }
   };
-  
+
   //complex/complex 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)
                             , (generic_< fundamental_<A0> >)
@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
       return bitwise_cast<result_type>(if_else(a0, nt2::imag(a1), nt2::imag(a2)));
     }
   };
-  
+
   //imaginary/imaginary 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)
                             , (generic_< fundamental_<A0> >)
@@ -79,7 +79,7 @@ namespace nt2 { namespace ext
       return if_else(is_nez(a0), a1, a2 );
     }
   };
-  
+
   //complex/imaginary 1 -3
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< logical_<A0> >)
@@ -94,7 +94,7 @@ namespace nt2 { namespace ext
       return if_else(a0, a1, result_type(Zero<rtype>(), nt2::imag(a2)));
     }
   };
-  
+
   //complex/imaginary 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< fundamental_<A0> >)
@@ -123,7 +123,7 @@ namespace nt2 { namespace ext
       return if_else(a0, result_type(Zero<rtype>(), nt2::imag(a1)), a2);
     }
   };
-  
+
   //imaginary/complex/ 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< fundamental_<A0> >)
@@ -166,7 +166,7 @@ namespace nt2 { namespace ext
       return if_else(is_nez(a0), a1, a2);
     }
   };
-  
+
   //dry/complex 1 -6
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< logical_<A0> >)
@@ -180,7 +180,7 @@ namespace nt2 { namespace ext
       return if_else(a0, result_type(nt2::real(a1)), a2);
     }
   };
-  
+
   //dry/complex 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< fundamental_<A0> >)
@@ -208,7 +208,7 @@ namespace nt2 { namespace ext
       return if_else(a0, a1, result_type(nt2::real(a2)));
     }
   };
-  
+
   //complex/dry/ 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< fundamental_<A0> >)
@@ -230,14 +230,14 @@ namespace nt2 { namespace ext
                               (generic_< imaginary_< arithmetic_<A2> > >)
                             )
   {
-    typedef typename meta::as_real<A2>::type rtype; 
+    typedef typename meta::as_real<A2>::type rtype;
     typedef typename meta::as_complex<rtype>::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
       return if_else(a0, result_type(nt2::real(a1)), result_type(Zero<rtype>(), nt2::imag(a2)));
     }
   };
-  
+
   //dry/imaginary 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< fundamental_<A0> >)
@@ -245,7 +245,7 @@ namespace nt2 { namespace ext
                               (generic_< imaginary_< arithmetic_<A2> > >)
                             )
   {
-    typedef typename meta::as_real<A2>::type rtype; 
+    typedef typename meta::as_real<A2>::type rtype;
     typedef typename meta::as_complex<rtype>::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
@@ -260,14 +260,14 @@ namespace nt2 { namespace ext
                               (generic_< dry_< arithmetic_<A2> > >)
                             )
   {
-    typedef typename meta::as_real<A1>::type rtype; 
+    typedef typename meta::as_real<A1>::type rtype;
     typedef typename meta::as_complex<rtype>::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
       return if_else(a0, result_type(Zero<rtype>(), nt2::imag(a1)), result_type(nt2::real(a2)));
     }
   };
-  
+
   //imaginary/dry/ 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< fundamental_<A0> >)
@@ -275,7 +275,7 @@ namespace nt2 { namespace ext
                               (generic_< dry_< arithmetic_<A2> > >)
                             )
   {
-    typedef typename meta::as_real<A1>::type rtype; 
+    typedef typename meta::as_real<A1>::type rtype;
     typedef typename meta::as_complex<rtype>::type result_type;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&a2) const
     {
@@ -310,7 +310,7 @@ namespace nt2 { namespace ext
       return if_else(is_nez(a0), a1, a2);
     }
   };
-  
+
   //arithmetic/complex 1
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< logical_<A0> >)
@@ -324,7 +324,7 @@ namespace nt2 { namespace ext
       return if_else(a0, result_type(a1), a2);
     }
   };
-  
+
   //arithmetic/complex 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< fundamental_<A0> >)
@@ -338,7 +338,7 @@ namespace nt2 { namespace ext
       return if_else(is_nez(a0), a1, a2);
     }
   };
-    
+
   //arithmetic/imaginary 1
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< logical_<A0> >)
@@ -352,7 +352,7 @@ namespace nt2 { namespace ext
       return if_else(a0, result_type(a1), result_type(Zero<A1>(), nt2::imag(a2)));
     }
   };
-  
+
   //arithmetic/imaginary 2
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< fundamental_<A0> >)
@@ -367,7 +367,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  
+
   //dry/arithmetic/   1
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< logical_<A0> >)
@@ -395,7 +395,7 @@ namespace nt2 { namespace ext
       return if_else(is_nez(a0), a1, a2);
     }
   };
-  
+
   //complex/arithmetic/   1
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< logical_<A0> >)
@@ -423,7 +423,7 @@ namespace nt2 { namespace ext
       return if_else(is_nez(a0), a1, a2);
     }
   };
-  
+
   //imaginary/arithmetic/   1
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)(A2)
                             , (generic_< logical_<A0> >)
@@ -451,8 +451,8 @@ namespace nt2 { namespace ext
       return if_else(is_nez(a0), a1, a2);
     }
   };
-  
-  
+
+
 } }
 
 #endif

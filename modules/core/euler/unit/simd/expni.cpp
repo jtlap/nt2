@@ -12,7 +12,7 @@
 // unit test behavior of euler components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/expni.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 extern "C" double cephes_expn(int,double);
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( expni_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::expni;
   using nt2::tag::expni_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

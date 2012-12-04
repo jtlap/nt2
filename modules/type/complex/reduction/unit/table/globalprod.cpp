@@ -13,7 +13,7 @@
 #include <nt2/include/functions/complexify.hpp>
 
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/constants/true.hpp> 
+#include <nt2/include/constants/true.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
@@ -27,8 +27,8 @@ NT2_TEST_CASE_TPL( globalprod, NT2_REAL_TYPES )
   typedef std::complex<T> cT;
   nt2::table<cT> a = nt2::reshape(nt2::complexify(nt2::_(T(1), T(4))), 2, 2);
   NT2_TEST_EQUAL( nt2::globalprod(a), cT(24));
-  NT2_TEST_EQUAL( nt2::globalprod(cT(1)), cT(1)); 
-  a(2, 2) = cT(0); 
+  NT2_TEST_EQUAL( nt2::globalprod(cT(1)), cT(1));
+  a(2, 2) = cT(0);
   NT2_TEST_EQUAL( nt2::globalprod(a), cT(0));
   NT2_TEST_EQUAL( nt2::globalprod(cT(0)), cT(0));
 }

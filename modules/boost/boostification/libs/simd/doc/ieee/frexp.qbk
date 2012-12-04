@@ -1,8 +1,8 @@
 [section frexp]
 
 [h5 Description]
-This functor acts similarly as the standard `frexp` function returning two values a mantissa and an exponent, 
-except that integer type of the exponent is given as `as_integer<T>::type` where T is the type of the input. 
+This functor acts similarly as the standard `frexp` function returning two values a mantissa and an exponent,
+except that integer type of the exponent is given as `as_integer<T>::type` where T is the type of the input.
 
 That is `nt2::int32_t` for `float` and `nt2::int64_t` for `double`
 

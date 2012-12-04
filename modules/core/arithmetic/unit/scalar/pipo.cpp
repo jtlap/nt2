@@ -8,5 +8,5 @@ template < > int pip(const int & a){return 4*a; }
 int main(){
   std::cout << pip(1) << std::endl;
   std::cout << pip(1.0) << std::endl;
-  return 0; 
+  return 0;
 }

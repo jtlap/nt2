@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace ext
       result_type that;
       const std::size_t       n = meta::cardinal_of<A0>::value;
       const std::size_t  middle = meta::cardinal_of<A0>::value/2;
-      for(std::size_t i=middle;i<n;++i) 
+      for(std::size_t i=middle;i<n;++i)
       {
         that[i] = that[i-middle] = a0[i];
       }

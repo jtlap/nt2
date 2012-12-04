@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/pow2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( pow2_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::pow2;
   using nt2::tag::pow2_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -56,7 +56,7 @@ NT2_TEST_CASE_TPL ( pow2_real__1_0,  NT2_SIMD_REAL_TYPES)
 
   for(unsigned int i = 0; i < cardinal_of<vT>::value; ++i)
     {
-      std::cout << i << std::endl; 
+      std::cout << i << std::endl;
       NT2_TEST_EQUAL( nt2::pow2( boost::simd::One<vT>()
                                  , boost::simd::Two<ivT>()
                                  )[i]
@@ -71,5 +71,5 @@ NT2_TEST_CASE_TPL ( pow2_real__1_0,  NT2_SIMD_REAL_TYPES)
    NT2_TEST_ULP_EQUAL(pow2(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0);
    NT2_TEST_ULP_EQUAL(pow2(nt2::One<vT>())[0], nt2::Two<sr_t>(), 0);
    NT2_TEST_ULP_EQUAL(pow2(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0);
-   NT2_TEST_ULP_EQUAL(pow2(nt2::Mone<vT>())[0], nt2::Half<sr_t>(), 0);; 
+   NT2_TEST_ULP_EQUAL(pow2(nt2::Mone<vT>())[0], nt2::Half<sr_t>(), 0);;
 } // end of test for floating_

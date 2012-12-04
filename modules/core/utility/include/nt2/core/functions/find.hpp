@@ -66,31 +66,31 @@ namespace nt2 { namespace ext
   {
     typedef nt2::_1D result_type;
     typedef typename boost::proto::result_of::child_c<Expr&,0>::type c0_t;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       c0_t a0 = boost::proto::child_c<0>(e);
       ptrdiff_t k = boost::proto::value(boost::proto::child_c<1>(e));
-      BOOST_ASSERT_MSG(k > 0, "Error using find: second argument must be a positive scalar integer."); 
+      BOOST_ASSERT_MSG(k > 0, "Error using find: second argument must be a positive scalar integer.");
       ptrdiff_t n =ptrdiff_t(nt2::nbtrue(nt2::colvect(a0))(1));
-      return (k > 0)? nt2::min(k, n) : 0; 
+      return (k > 0)? nt2::min(k, n) : 0;
     }
-    
+
   };
-  
+
   template<class Domain, class Expr>
   struct  size_of<tag::find_,Domain,1,Expr>
     : meta::size_as<Expr,0>
   {
     typedef nt2::_1D result_type;
     typedef typename boost::proto::result_of::child_c<Expr&,0>::type c0_t;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       c0_t a0 = boost::proto::child_c<0>(e);
       return result_type(ptrdiff_t(nt2::nbtrue(nt2::colvect(a0))(1)));
     }
-    
+
   };
 
   template<class Domain, int N, class Expr>
@@ -101,9 +101,9 @@ namespace nt2 { namespace ext
   };
 
 
-  
+
 } }
-    
+
 
 
 #endif

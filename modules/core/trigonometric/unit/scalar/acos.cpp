@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/acos.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -36,7 +36,7 @@ extern "C" {extern long double cephes_acosl(long double);}
 
 NT2_TEST_CASE_TPL ( acos_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::acos;
   using nt2::tag::acos_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -46,9 +46,9 @@ NT2_TEST_CASE_TPL ( acos_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acos(nt2::Half<T>()), nt2::Pi<r_t>()/3, 0);
@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( acos_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( acos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::acos;
   using nt2::tag::acos_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -73,9 +73,9 @@ NT2_TEST_CASE_TPL ( acos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acos(nt2::One<T>()), nt2::Zero<r_t>(), 0);
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( acos_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( acos_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::acos;
   using nt2::tag::acos_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -94,9 +94,9 @@ NT2_TEST_CASE_TPL ( acos_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(acos(nt2::Mone<T>()), nt2::Pi<r_t>(), 0);

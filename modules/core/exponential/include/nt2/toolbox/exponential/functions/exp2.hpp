@@ -24,12 +24,12 @@
  * provisions are made for otaining a flint result from a flint input
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/exp2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of exp2
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag exp2_ of functor exp2 
+     * \brief Define the tag exp2_ of functor exp2
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct exp2_ : ext::elementwise_<exp2_> { typedef ext::elementwise_<exp2_> parent; };

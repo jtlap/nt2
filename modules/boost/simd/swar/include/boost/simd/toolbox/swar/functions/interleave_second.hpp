@@ -19,15 +19,15 @@
  * \defgroup boost_simd_swar_interleave_second interleave_second
  *
  * \par Description
- * Compute 
+ * Compute
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/interleave_second.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -37,7 +37,7 @@
  *   typename boost::dispatch::meta::call<tag::interleave_second_(A0 const&,A1 const&)
  *                                       >::type
  *   interleave_second(A0 const& a0,A1 const& a1);
- *    
+ *
  *   template<class A0,class A1> inline
  *   A0 interleave_second(A0 const& a0,A1 const& a1);
  * }
@@ -45,9 +45,9 @@
  *
  * \param a0 the second parameter of interleave_second
  * \param a1 the second parameter of interleave_second
- * 
- * \return 
- *  
+ *
+ * \return
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -59,24 +59,24 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag interleave_second_ of functor interleave_second 
+     * \brief Define the tag interleave_second_ of functor interleave_second
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct interleave_second_ 
-    : ext::unspecified_<interleave_second_> 
-    { 
+    struct interleave_second_
+    : ext::unspecified_<interleave_second_>
+    {
       typedef ext::unspecified_<interleave_second_> parent;
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::interleave_second_, interleave_second, 2)
-  
+
 } }
 
 #endif

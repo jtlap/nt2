@@ -22,12 +22,12 @@
  * return the greatest of the two entries
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/max.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of max
  * \param a1 the second parameter of max
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag max_ of functor max 
+     * \brief Define the tag max_ of functor max
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct max_ : ext::elementwise_<max_> { typedef ext::elementwise_<max_> parent; };

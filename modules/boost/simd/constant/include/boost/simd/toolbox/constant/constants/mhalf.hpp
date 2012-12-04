@@ -24,12 +24,12 @@
  * Constant Mhalf = -\f$\frac12\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mhalf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Mhalf
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Mhalf of functor Mhalf 
+     * \brief Define the tag Mhalf of functor Mhalf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Mhalf, double, 0

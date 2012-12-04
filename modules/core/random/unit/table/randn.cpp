@@ -50,6 +50,7 @@ NT2_TEST_CASE( rand_nd_untyped )
 
   nt2::table<double> x4 = nt2::randn(4,4,2,2);
   ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 1, x4(i) );
+  NT2_TEST_COMPLETE("rand_nd_untyped");
 }
 
 NT2_TEST_CASE_TPL( rand_nd_typed, NT2_REAL_TYPES )
@@ -65,6 +66,7 @@ NT2_TEST_CASE_TPL( rand_nd_typed, NT2_REAL_TYPES )
 
   nt2::table<T> x4 = nt2::randn(4,4,2,2, nt2::meta::as_<T>() );
   ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( T(1), x4(i) );
+  NT2_TEST_COMPLETE("rand_nd_typed");
 }
 
 NT2_TEST_CASE( rand_of_size )
@@ -77,6 +79,7 @@ NT2_TEST_CASE( rand_of_size )
 
   nt2::table<double> x4 = nt2::randn(nt2::of_size(4,4,2,2) );
   ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 1, x4(i) );
+  NT2_TEST_COMPLETE("rand_of_size");
 }
 
 NT2_TEST_CASE_TPL( rand_typed_of_size, NT2_REAL_TYPES )
@@ -89,6 +92,7 @@ NT2_TEST_CASE_TPL( rand_typed_of_size, NT2_REAL_TYPES )
 
   nt2::table<T> x4 = nt2::randn(nt2::of_size(4,4,2,2), nt2::meta::as_<T>() );
   ////for(int i=1;i<=64;++i) NT2_TEST_EQUAL( T(1), x4(i) );
+  NT2_TEST_COMPLETE("rand_typed_of_size");
 }
 
 NT2_TEST_CASE( rand_expr )

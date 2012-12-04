@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/include/functions/acos.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,10 +33,10 @@
 
 NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::cos;
   using nt2::tag::cos_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<acos_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -44,9 +44,9 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -86,7 +86,7 @@ NT2_TEST_CASE_TPL ( cos_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), -nt2::Mone<T>())),cT(nt2::Nan <T>(), -nt2::Nan<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), -nt2::Inf<T>())),  cT(nt2::Inf <T>(), -nt2::Minf<T>()), 0.75);
   NT2_TEST_ULP_EQUAL(nt2::acos(cT(nt2::Nan  <T>(), -nt2::Nan<T>())),  cT(nt2::Nan <T>(), -nt2::Nan<T>()), 0.75);
-   
+
  } // end of test for floating_
 
 // cacos(conj(z)) = conj(cacos(z)).

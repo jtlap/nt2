@@ -12,7 +12,7 @@
 // unit test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/bitwise/include/functions/hi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/meta/downgrade.hpp>
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::hi;
   using nt2::tag::hi_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;
@@ -67,7 +67,7 @@ NT2_TEST_CASE_TPL ( hi_sintgt_8__1_0,  NT2_SIMD_SIGNED_INT_GT_8_TYPES)
 {
   using nt2::hi;
   using nt2::tag::hi_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::as_integer<T,unsigned>::type ir_t;

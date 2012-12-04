@@ -22,12 +22,12 @@
  * hyperbolic sine argument: \f$\log(a_0+\sqrt{a_0^2+1})\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/asinh.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of asinh
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag asinh_ of functor asinh 
+     * \brief Define the tag asinh_ of functor asinh
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct asinh_ : ext::elementwise_<asinh_> { typedef ext::elementwise_<asinh_> parent; };

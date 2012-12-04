@@ -23,12 +23,12 @@
  *  properly compute \$\log (\exp (\logx) - \exp (\logy))\$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/logspace_sub.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,17 +41,17 @@
  * \endcode
  *
  * \return a value of the same type as the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag logspace_sub_ of functor logspace_sub 
+     * \brief Define the tag logspace_sub_ of functor logspace_sub
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct logspace_sub_ : ext::elementwise_<logspace_sub_> { typedef ext::elementwise_<logspace_sub_> parent; };

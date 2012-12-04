@@ -22,12 +22,12 @@
  * cotangent of angle in degree.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cotd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cotd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cotd_ of functor cotd 
+     * \brief Define the tag cotd_ of functor cotd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cotd_ : ext::elementwise_<cotd_> { typedef ext::elementwise_<cotd_> parent; };

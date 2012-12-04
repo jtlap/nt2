@@ -12,7 +12,7 @@
 // unit test behavior of predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/predicates/include/functions/is_gez.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( is_gez_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::is_gez;
   using nt2::tag::is_gez_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -70,7 +70,7 @@ NT2_TEST_CASE_TPL ( is_gez_signed_int__1_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::is_gez;
   using nt2::tag::is_gez_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -94,7 +94,7 @@ NT2_TEST_CASE_TPL ( is_gez_unsigned_int__1_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::is_gez;
   using nt2::tag::is_gez_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

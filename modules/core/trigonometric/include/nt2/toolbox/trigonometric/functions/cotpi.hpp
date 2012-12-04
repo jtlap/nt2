@@ -22,12 +22,12 @@
  * cotangent of angle in \f$\pi\f$ multiples: \f$\cot(\pi a_0)\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cotpi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cotpi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cotpi_ of functor cotpi 
+     * \brief Define the tag cotpi_ of functor cotpi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cotpi_ : ext::elementwise_<cotpi_> { typedef ext::elementwise_<cotpi_> parent; };

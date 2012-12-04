@@ -23,12 +23,12 @@
  * which is the greatest integer less or equal to the entry
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/floor.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of floor
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag floor_ of functor floor 
+     * \brief Define the tag floor_ of functor floor
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct floor_ : ext::elementwise_<floor_> { typedef ext::elementwise_<floor_> parent; };

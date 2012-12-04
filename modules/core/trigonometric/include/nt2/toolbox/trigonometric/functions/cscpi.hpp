@@ -22,12 +22,12 @@
  * cosecant of angle in \f$\pi\f$ multiples: \f$\cot(\pi a_0)\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cscpi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cscpi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cscpi_ of functor cscpi 
+     * \brief Define the tag cscpi_ of functor cscpi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct cscpi_ : ext::elementwise_<cscpi_> { typedef ext::elementwise_<cscpi_> parent; };

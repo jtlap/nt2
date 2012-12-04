@@ -62,7 +62,7 @@ NT2_TEST_CASE_TPL ( cscd_real__1_0,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(nt2::cscd(cT(0, 1)),nt2::rec(nt2::sind(cT(0.0, 1.0))), 2);
   NT2_TEST_ULP_EQUAL(nt2::cscd(cT(0, 2)),nt2::rec(nt2::sind(cT(0.0, 2.0))), 2);
   NT2_TEST_ULP_EQUAL(nt2::cscd(cT(2, 0)),nt2::rec(nt2::sind(cT(2.0, 0.0))), 2);
-  
+
   const int N = 20;
   cT inputs[N] =
     { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
@@ -71,18 +71,18 @@ NT2_TEST_CASE_TPL ( cscd_real__1_0,  NT2_REAL_TYPES)
       cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
       cT(nt2::Zero<T>(),nt2::_180 <T>()), cT(nt2::Inf<T>(),nt2::_180 <T>()), cT(nt2::Minf<T>(),nt2::_180 <T>()), cT(nt2::Nan<T>(),nt2::_180 <T>()),
     };
-   
+
   NT2_TEST_ULP_EQUAL(nt2::cscd(-inputs[0]), cT(nt2::Nan<T>(),nt2::Nan<T>()) , 3.5);
   NT2_TEST_EQUAL(nt2::cscd(cT(0.0, 0.0)), cT(nt2::Nan<T>(),nt2::Nan<T>()));
   NT2_TEST_EQUAL(nt2::cscd(cT(-0.0, 0.0)), cT(nt2::Nan<T>(),nt2::Nan<T>()));
   NT2_TEST_EQUAL(nt2::cscd(cT(-0.0,-0.0)), cT(nt2::Nan<T>(),nt2::Nan<T>()));
-  NT2_TEST_EQUAL(nt2::cscd(cT( 0.0,-0.0)), cT(nt2::Nan<T>(),nt2::Nan<T>()));  
+  NT2_TEST_EQUAL(nt2::cscd(cT( 0.0,-0.0)), cT(nt2::Nan<T>(),nt2::Nan<T>()));
   for(int i=1; i < N; i++)
     {
-      std::cout << "i = " << i << " -> " << inputs[i] << std::endl; 
+      std::cout << "i = " << i << " -> " << inputs[i] << std::endl;
       NT2_TEST_ULP_EQUAL(nt2::cscd(-inputs[i]), -nt2::cscd(inputs[i]), 3.5);
       NT2_TEST_ULP_EQUAL(nt2::cscd(inputs[i]), nt2::rec(nt2::sind(inputs[i])), 3);
     }
 } // end of test for floating_
 
-  
+

@@ -12,7 +12,7 @@
 // unit test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/any.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0, NT2_SIMD_REAL_TYPES)
 {
   using nt2::any;
   using nt2::tag::any_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0, NT2_SIMD_REAL_TYPES)
   typedef typename nt2::meta::call<any_(vT)>::type r_t;
   typedef typename nt2::meta::call<any_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef std::complex<T>                         cT; 
+  typedef std::complex<T>                         cT;
   typedef native<cT ,ext_t>                      vcT;
   typedef typename nt2::meta::as_imaginary<vT>::type  viT;
   typedef typename nt2::meta::as_dry<vT>::type        vdT;

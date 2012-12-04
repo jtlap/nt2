@@ -6,7 +6,7 @@
                           "toward zero to an integer."
                           "\par",
                           "if one prefer: if a1 is zero returns a0, else return",
-                          "a0-divfix(a0,a1)*a1"],   
+                          "a0-divfix(a0,a1)*a1"],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

@@ -14,6 +14,6 @@
 namespace nt2 { namespace meta
 {
   using boost::simd::meta::make_type;
-} } 
+} }
 
 #endif

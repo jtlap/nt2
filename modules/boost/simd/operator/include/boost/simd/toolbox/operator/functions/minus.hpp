@@ -24,14 +24,14 @@
  * Infix notation can be used with operator '-'
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/minus.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg sub
- * 
+ *
  * \synopsis
  *
  * \code
@@ -45,13 +45,13 @@
  *
  * \param a0 the first parameter of minus
  * \param a1 the second parameter of minus
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -59,7 +59,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag minus_ of functor minus 
+     * \brief Define the tag minus_ of functor minus
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct minus_ : ext::elementwise_<minus_> { typedef ext::elementwise_<minus_> parent; };

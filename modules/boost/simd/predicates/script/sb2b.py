@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['converts signed boolean to bool.'],   
+         'description' : ['converts signed boolean to bool.'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

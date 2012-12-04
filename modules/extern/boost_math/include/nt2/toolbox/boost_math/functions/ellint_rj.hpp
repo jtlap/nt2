@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/ellint_rj.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,9 +48,9 @@
  * \param a1 the second parameter of ellint_rj
  * \param a2 the third parameter of ellint_rj
  * \param a3 the fourth parameter of ellint_rj
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -60,13 +60,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ellint_rj_ of functor ellint_rj 
+     * \brief Define the tag ellint_rj_ of functor ellint_rj
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct ellint_rj_ : ext::elementwise_<ellint_rj_> { typedef ext::elementwise_<ellint_rj_> parent; };
@@ -75,7 +75,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/ellint_rj.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/ellint_rj.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/ellint_rj.hpp>
 
 #endif
 

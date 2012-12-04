@@ -27,12 +27,12 @@
  * Be conscious that all sufficiently great floating points values are flint...
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_flint.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of is_flint
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_flint_ of functor is_flint 
+     * \brief Define the tag is_flint_ of functor is_flint
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_flint_ : ext::elementwise_<is_flint_> { typedef ext::elementwise_<is_flint_> parent; };

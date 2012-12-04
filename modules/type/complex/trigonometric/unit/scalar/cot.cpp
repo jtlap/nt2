@@ -12,7 +12,7 @@
 // unit test behavior of cot  components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/include/functions/cot.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/rec.hpp>
@@ -36,10 +36,10 @@
 
 NT2_TEST_CASE_TPL ( cot_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::cot;
   using nt2::tag::cot_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<cot_(cT)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
@@ -47,9 +47,9 @@ NT2_TEST_CASE_TPL ( cot_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2:: meta::as_complex<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

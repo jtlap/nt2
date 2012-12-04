@@ -28,14 +28,14 @@
  **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag inv_ of functor inv
      *        in namespace nt2::tag for toolbox algebra
     **/
     struct inv_ :  ext::unspecified_<inv_> { typedef ext::unspecified_<inv_> parent; };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::inv_, inv, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::inv_, inv, 2)
 }
@@ -43,7 +43,7 @@ namespace nt2 { namespace tag
 namespace nt2 { namespace ext
 {
   template<class Domain, class Expr,  int N> //N == 1 only
-  struct  size_of<tag::inv_, Domain, N, Expr> 
+  struct  size_of<tag::inv_, Domain, N, Expr>
   {
     typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type  c0_t;
     typedef typename c0_t::extent_type                               result_type;
@@ -52,7 +52,7 @@ namespace nt2 { namespace ext
       result_type sizee = boost::proto::child_c<0>(e).extent();
       BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(e)),
                        "inverse of non square matrix expression requested");
-      return sizee; 
+      return sizee;
     }
   };
 

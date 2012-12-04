@@ -15,7 +15,7 @@
 #include <nt2/include/functions/simd/rem_pio2.hpp>
 #include <nt2/include/functions/simd/toint.hpp>
 #include <nt2/include/functions/simd/inrad.hpp>
-#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/is_odd.hpp>
 #include <nt2/include/functions/simd/is_not_less.hpp>
 #include <nt2/include/functions/simd/is_not_greater.hpp>
@@ -199,7 +199,7 @@ namespace nt2
         static inline int_type reduce(const typename A0::native_type x_n, A0& xr, A0& xc)
         {
           const A0 x = x_n;
-          A0 xi = round2even(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
+          A0 xi = round(x*single_constant<A0,0x3c360b61>()); //  1.111111111111111e-02f
           A0 x2 = x - xi * _90<A0>();//90.0f
           xr =  x2*single_constant<A0,0x3c8efa35>(); //0.0174532925199432957692f
           xc = Zero<A0>();
@@ -220,7 +220,7 @@ namespace nt2
         static inline int_type reduce(const typename A0::native_type x_n,  A0& xr, A0&xc)
         {
           const A0 x = x_n;
-          A0 xi = round2even(x*Two<A0>());
+          A0 xi = round(x*Two<A0>());
           A0 x2 = x - xi * Half<A0>();
           xr = x2*Pi<A0>();
           xc = Zero<A0>();

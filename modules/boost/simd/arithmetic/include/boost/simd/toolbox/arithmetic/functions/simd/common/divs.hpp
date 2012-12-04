@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_DIVS_HPP_INCLUDED
@@ -41,7 +41,7 @@ namespace boost { namespace simd { namespace ext
       return a0/a1;
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::divs_, tag::cpu_, (A0)(X)
                             , ((simd_<uint_<A0>,X>))
                               ((simd_<uint_<A0>,X>))
@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename meta::as_logical<A0>::type bA0;
       const bA0 iseqza1 = is_eqz(a1);
-      const A0 aa1 = a1+if_else_zero(iseqza1, One<A0>()); 
+      const A0 aa1 = a1+if_else_zero(iseqza1, One<A0>());
       const A0 r1 = a0/aa1; //a1!= 0
       const A0 r2 = select(is_eqz(a0),Zero<A0>(),Valmax<A0>());
       return select(iseqza1, r2, r1);
@@ -71,7 +71,7 @@ namespace boost { namespace simd { namespace ext
       typedef typename meta::as_logical<A0>::type bA0;
       const bA0 iseqza1 = is_eqz(a1);
       const A0 c = select(logical_and(eq(a0,Valmin<A0>()),eq(a1, Mone<A0>())), One<A0>(), Zero<A0>());
-      const A0 aa1 = a1+if_else_zero(iseqza1, One<A0>()); 
+      const A0 aa1 = a1+if_else_zero(iseqza1, One<A0>());
       const A0 r1 = (a0+c)/aa1; //a1!= 0
       const A0 v2 = select(is_ltz(a0),Valmin<A0>(),Valmax<A0>());
       const A0 r2 = select(is_eqz(a0),Zero<A0>(),v2); //a1 == 0

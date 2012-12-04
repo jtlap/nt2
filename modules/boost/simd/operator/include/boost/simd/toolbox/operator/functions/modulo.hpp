@@ -25,12 +25,12 @@
  * Does not work for floating point entries.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/modulo.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,13 +44,13 @@
  *
  * \param a0 the first parameter of modulo
  * \param a1 the second parameter of modulo
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -58,7 +58,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag modulo_ of functor modulo 
+     * \brief Define the tag modulo_ of functor modulo
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct modulo_ : ext::elementwise_<modulo_> { typedef ext::elementwise_<modulo_> parent; };

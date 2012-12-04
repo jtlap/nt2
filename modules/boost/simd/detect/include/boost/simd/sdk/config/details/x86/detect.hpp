@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace config { namespace details
   inline bool detect(tag::sse2_ const&)
   {
     if(get_vendor() == intel || get_vendor() == amd)
-      return x86_detection(26,0x00000001,4); 
+      return x86_detection(26,0x00000001,4);
     else return false;
   }
 
@@ -85,8 +85,8 @@ namespace boost { namespace simd { namespace config { namespace details
   inline bool detect(tag::avx_ const&)
   {
     if(get_vendor() == intel || get_vendor() == amd)
-    { 
-      if(x86_detection(28,0x00000001,3) && x86_detection(27,0x00000001,3)) 
+    {
+      if(x86_detection(28,0x00000001,3) && x86_detection(27,0x00000001,3))
         return true;
       else return false;
     }
@@ -96,8 +96,8 @@ namespace boost { namespace simd { namespace config { namespace details
   inline bool detect(tag::fma4_ const&)
   {
     if(get_vendor() == amd)
-    { 
-      if(x86_detection(16,0x80000001,3) && x86_detection(27,0x00000001,3)) 
+    {
+      if(x86_detection(16,0x80000001,3) && x86_detection(27,0x00000001,3))
         return true;
       else return false;
     }
@@ -108,7 +108,7 @@ namespace boost { namespace simd { namespace config { namespace details
   {
     if(get_vendor() == amd)
     {
-      if(x86_detection(11,0x80000001,3) && x86_detection(27,0x00000001,3)) 
+      if(x86_detection(11,0x80000001,3) && x86_detection(27,0x00000001,3))
         return true;
       else return false;
     }

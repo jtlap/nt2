@@ -21,7 +21,7 @@
 namespace nt2
 {
   namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag impower_ of functor impower
      *        in namespace nt2::tag for toolbox algebra
@@ -41,9 +41,9 @@ namespace nt2
    *
    * @return a matrix containing a0^a1
    **/
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::impower_, impower, 2)
-    
+
 }
 
 namespace nt2 { namespace ext
@@ -57,9 +57,9 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       BOOST_ASSERT_MSG((issquare(boost::proto::child_c<0>(e))),
-                       "impower needs a square matrix expression and a scalar integer"); 
+                       "impower needs a square matrix expression and a scalar integer");
 
-      return nt2::extent(boost::proto::child_c<0>(e)); 
+      return nt2::extent(boost::proto::child_c<0>(e));
     }
   };
 

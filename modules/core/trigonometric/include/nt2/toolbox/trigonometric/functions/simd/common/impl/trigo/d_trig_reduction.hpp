@@ -152,7 +152,7 @@ namespace nt2
         static inline int_type reduce(const typename A0::native_type x_n, A0& xr, A0& xc)
         {
           const A0 x = x_n;
-          A0 xi = round2even(x*double_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02 1/90
+          A0 xi = round(x*double_constant<A0,0x3f86c16c16c16c17ll>());//1.111111111111111e-02 1/90
           A0 x2 = x - xi * _90<A0>();
           xr =  x2*double_constant<A0,0x3f91df46a2529d39ll>();//0.0174532925199432957692
           xc = Zero<A0>();
@@ -172,7 +172,7 @@ namespace nt2
         static inline int_type reduce(const typename A0::native_type x_n,  A0& xr, A0&xc)
         {
           const A0 x = x_n;
-          A0 xi = round2even(x*Two<A0>());
+          A0 xi = round(x*Two<A0>());
           A0 x2 = x - xi * Half<A0>();
           xr = x2*Pi<A0>();
           xc = Zero<A0>();

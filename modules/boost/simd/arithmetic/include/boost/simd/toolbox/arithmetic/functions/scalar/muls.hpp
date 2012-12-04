@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MULS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_MULS_HPP_INCLUDED
@@ -31,9 +31,9 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename dispatch::meta::upgrade<A0>::type utype; 
+      typedef typename dispatch::meta::upgrade<A0>::type utype;
       utype res = utype(a0)*utype(a1);
-      return static_cast<A0>(res) | genmask(static_cast<A0>(res >> sizeof(A0)*8));       
+      return static_cast<A0>(res) | genmask(static_cast<A0>(res >> sizeof(A0)*8));
     }
   };
 
@@ -59,17 +59,17 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      if (a1 == 0 || a0 == 0) return Zero<A0>(); 
+      if (a1 == 0 || a0 == 0) return Zero<A0>();
       if (a1 >= a0)
       {
         A0 z = Valmax<A0>()/a1;
         if (z < a0)
           return  Valmax<A0>();
         else
-          return a0*a1; 
+          return a0*a1;
       }
       else
-        return muls(a1, a0); 
+        return muls(a1, a0);
     }
   };
 
@@ -92,10 +92,10 @@ namespace boost { namespace simd { namespace ext
         if (z < aa0)
           return sign ? Valmin<result_type>():Valmax<result_type>();
         else
-          return a0*a1; 
+          return a0*a1;
       }
       else
-        return muls(a1, a0); 
+        return muls(a1, a0);
     }
   };
 } } }

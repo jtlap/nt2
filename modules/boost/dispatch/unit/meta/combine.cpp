@@ -23,7 +23,7 @@ NT2_TEST_CASE(combine)
 {
   using boost::dispatch::meta::combine;
   using boost::mpl::_;
-  
+
   NT2_TEST_EXPR_TYPE((combine<a0, a0>::type()), _, a0);
   NT2_TEST_EXPR_TYPE((combine<a0, a1>::type()), _, a1);
   NT2_TEST_EXPR_TYPE((combine<a0, b0<a0> >::type()), _, b0<a0> );
@@ -34,7 +34,7 @@ NT2_TEST_CASE(combine)
   NT2_TEST_EXPR_TYPE((combine<a0, c0< b1<a0> > >::type()), _, c0<b1<a0> > );
   NT2_TEST_EXPR_TYPE((combine<a0, c1< b0<a0> > >::type()), _, c1<b0<a0> > );
   NT2_TEST_EXPR_TYPE((combine<a0, c1< b1<a0> > >::type()), _, c1<b1<a0> > );
-  
+
   NT2_TEST_EXPR_TYPE((combine<b0<a0>, a0>::type()), _, b0<a0>);
   NT2_TEST_EXPR_TYPE((combine<b0<a0>, a1>::type()), _, b0<a1>);
   NT2_TEST_EXPR_TYPE((combine<b0<a0>, b0<a0> >::type()), _, b0<a0> );
@@ -45,7 +45,7 @@ NT2_TEST_CASE(combine)
   NT2_TEST_EXPR_TYPE((combine<b0<a0>, c0< b1<a0> > >::type()), _, c0<b0<a0> > );
   NT2_TEST_EXPR_TYPE((combine<b0<a0>, c1< b0<a0> > >::type()), _, c1<b0<a0> > );
   NT2_TEST_EXPR_TYPE((combine<b0<a0>, c1< b1<a0> > >::type()), _, c1<b0<a0> > );
-  
+
   NT2_TEST_EXPR_TYPE((combine<c0<b0<a0> >, a0>::type()), _, c0<b0<a0> >);
   NT2_TEST_EXPR_TYPE((combine<c0<b0<a0> >, a1>::type()), _, c0<b0<a1> >);
   NT2_TEST_EXPR_TYPE((combine<c0<b0<a0> >, b0<a0> >::type()), _, c0<b0<a0> > );

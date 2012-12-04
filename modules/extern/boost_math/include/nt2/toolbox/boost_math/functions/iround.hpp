@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/iround.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of iround
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -57,13 +57,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag iround_ of functor iround 
+     * \brief Define the tag iround_ of functor iround
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct iround_ : ext::elementwise_<iround_> { typedef ext::elementwise_<iround_> parent; };
@@ -72,7 +72,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/iround.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/iround.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/iround.hpp>
 
 #endif
 

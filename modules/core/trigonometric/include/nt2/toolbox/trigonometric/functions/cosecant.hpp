@@ -22,12 +22,12 @@
  * cosecant.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cosecant.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cosecant
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cosecant_ of functor cosecant 
+     * \brief Define the tag cosecant_ of functor cosecant
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct cosecant_ : ext::elementwise_< cosecant_<T> > { typedef ext::elementwise_< cosecant_<T> > parent; };

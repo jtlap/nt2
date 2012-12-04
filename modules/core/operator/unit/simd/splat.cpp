@@ -12,7 +12,7 @@
 // unit test behavior of operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/operator/include/functions/splat.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( splat_real__1_0,  NT2_REAL_TYPES)
 {
 //   using nt2::splat;
 //   using nt2::tag::splat_;
-//   using nt2::load; 
+//   using nt2::load;
 //   using boost::simd::native;
 //   using nt2::meta::cardinal_of;
 //   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

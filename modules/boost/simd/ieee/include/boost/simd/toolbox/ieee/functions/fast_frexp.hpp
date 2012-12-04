@@ -31,12 +31,12 @@
  * As demonstrated in the synopsis this function can be called in various ways.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_frexp.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -58,26 +58,26 @@
  * \param a0 the first parameter of fast_frexp
  * \param a1 the second parameter of fast_frexp, if not present, the function return a boost::fusion sequence
  * \param a2 the third parameter of fast_frexp, if present will contain the mantissa of a0
- * 
+ *
  * \return with one parameter the returned result is a fusion sequence of the two results, with two parameters the returned result is the mantissa, with three parameters the returned result is always 0
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_frexp_ of functor fast_frexp 
+     * \brief Define the tag fast_frexp_ of functor fast_frexp
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct fast_frexp_ : ext::elementwise_<fast_frexp_> { typedef ext::elementwise_<fast_frexp_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::fast_frexp_, fast_frexp, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fast_frexp_, fast_frexp,(A0 const&)(A1&)(A2&),3)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fast_frexp_, fast_frexp,(A0 const&)(A1&),2) 
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION_TPL(tag::fast_frexp_, fast_frexp,(A0 const&)(A1&),2)
 } }
 
 #endif

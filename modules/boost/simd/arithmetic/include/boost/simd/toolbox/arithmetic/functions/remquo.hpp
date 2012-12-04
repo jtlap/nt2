@@ -25,12 +25,12 @@
  * As demonstrated in the synopsis this function can be called in various ways.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/remquo.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -51,19 +51,19 @@
  *
  * \param a0 the first parameter of remquo
  * \param a1 the second parameter of remquo
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag remquo_ of functor remquo 
+     * \brief Define the tag remquo_ of functor remquo
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct remquo_ : ext::elementwise_<remquo_> { typedef ext::elementwise_<remquo_> parent; };

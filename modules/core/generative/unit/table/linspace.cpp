@@ -95,9 +95,9 @@ NT2_TEST_CASE_TPL( linspace_best, (double)(float) )
   typedef as_<n_t>                      target_type;
   typedef T r_t;
   nt2::table<T> z = nt2::linspace(T(-1), T(1), 257);
-  NT2_DISPLAY(z); 
+  NT2_DISPLAY(z);
   for(size_t i = 0; i < 257; ++i)
     {
-      NT2_TEST_EQUAL(z(i+1), T(-1)+T(i)/128); 
+      NT2_TEST_EQUAL(z(i+1), T(-1)+T(i)/128);
     }
 }

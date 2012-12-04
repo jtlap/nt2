@@ -12,7 +12,7 @@
 // cover test behavior of crlibm components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 02/03/2011
-/// 
+///
 #include <nt2/toolbox/crlibm/include/functions/exp_rz.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -38,9 +38,9 @@ NT2_TEST_CASE_TPL ( exp_rz_double_1_0,  (double))
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -73,9 +73,9 @@ NT2_TEST_CASE_TPL ( exp_rz_float_1_0,  (float))
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

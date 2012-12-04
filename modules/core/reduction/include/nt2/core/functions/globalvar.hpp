@@ -46,12 +46,12 @@ namespace nt2 { namespace ext
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::globalvar_, tag::cpu_
                               , (A0)(A1)
                             , (unspecified_<A0>)
-                              (scalar_<integer_<A1> > ) 
+                              (scalar_<integer_<A1> > )
                             )
   {
     typedef typename meta::call<tag::global_( nt2::functor<tag::var_>
                                             , const A0&
-                                            , const A1&  
+                                            , const A1&
                                             )>::type                result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
@@ -72,7 +72,7 @@ namespace nt2 { namespace ext
     {
        return global(nt2::functor<tag::var_>(), a0);
     }
-  };  
+  };
 } }
 
 #endif

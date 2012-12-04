@@ -23,12 +23,12 @@
  *  or by the max and the min if the third is zero.The function returns a value indicating if anything has changed
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/comparator.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -38,7 +38,7 @@
  *   typename boost::dispatch::meta::call<tag::comparator_(A0 const&,A0 const&,A1 const&)
  *                                       >::type
  *   comparator(A0 const& a0,A0 const& a1,A1 const& a2);
- *    
+ *
  *   template<class A0,class A1> inline
  *   bool comparator(A0 const& a0,A0 const& a1,A1& a2,A0& a3,A0& a4);
  * }
@@ -49,9 +49,9 @@
  * \param a2 the third parameter of comparator, a scalar integer value
  * \param a3 the fourth parameter of comparator, min or max of a0 and a1, according a2 is non zero
  * \param a4 the fith parameter of comparator, max or min of a0 and a1, according a2 is non zero
- * 
+ *
  * \return a bool value or a fusion vector of the bool and the two other results
- *  
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -63,16 +63,16 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   struct ascending_ {};
   struct descending_{};
   namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag comparator_ of functor comparator 
+     * \brief Define the tag comparator_ of functor comparator
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct comparator_ : ext::unspecified_<comparator_> { typedef ext::unspecified_<comparator_> parent; };

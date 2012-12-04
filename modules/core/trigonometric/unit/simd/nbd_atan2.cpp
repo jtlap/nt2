@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/nbd_atan2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( nbd_atan2_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::nbd_atan2;
   using nt2::tag::nbd_atan2_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( nbd_atan2_int_convert__2_0,  NT2_SIMD_INT_CONVERT_TYPES)
 {
   using nt2::nbd_atan2;
   using nt2::tag::nbd_atan2_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -96,7 +96,7 @@ NT2_TEST_CASE_TPL ( nbd_atan2_uint_convert__2_0,  NT2_SIMD_UINT_CONVERT_TYPES)
 {
   using nt2::nbd_atan2;
   using nt2::tag::nbd_atan2_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

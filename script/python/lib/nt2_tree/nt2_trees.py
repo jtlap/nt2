@@ -44,7 +44,7 @@ class Nt2_trees() :
         Src = {
             "name"      : "src",
             "existence" : "modules",
-            "files"     : {"CMakeLists.txt" : "cmakelist3" }, 
+            "files"     : {"CMakeLists.txt" : "cmakelist3" },
             }
         return Src
 
@@ -68,7 +68,7 @@ class Nt2_trees() :
                 }
             }
         return Tests
-    
+
 
     @classmethod
     def get_Doc(cls) :
@@ -102,7 +102,7 @@ class Nt2_trees() :
             }
         return Scripts
 
-        
+
     @classmethod
     def get_module_tree(cls,recurse,tb_name) :
         Module_tree = {
@@ -122,12 +122,12 @@ class Nt2_trees() :
                 }
             }
         return Module_tree
-    
+
     @classmethod
     def get_Sys_modules(cls,recurse,tb_name) :
 #        print ("recurse %s"%recurse)
         if recurse > 1 :
-            recurse -= 1 
+            recurse -= 1
             Sys_modules = {
                 "name" :"sys_modules",
                 "childs"    : {
@@ -142,7 +142,7 @@ class Nt2_trees() :
                     "polynomial":    cls.get_module_tree(recurse,"polynomial"),
                     "predicate":     cls.get_module_tree(recurse,"predicate"),
                     "reduction":     cls.get_module_tree(recurse,"reduction"),
-                    "swar":          cls.get_module_tree(recurse,"swar"), 
+                    "swar":          cls.get_module_tree(recurse,"swar"),
                     "trigonometric": cls.get_module_tree(recurse,"trigonometric"),
                     },
                 }
@@ -155,7 +155,7 @@ class Nt2_trees() :
 ##                    }
                 }
         return Sys_modules
-            
+
     @classmethod
     def get_Include(cls,recurse,tb_name) :
         Include = {
@@ -175,7 +175,7 @@ class Nt2_trees() :
                 }
             }
         return Include
-    
+
     @classmethod
     def get_Modules(cls) :
         Modules = {
@@ -183,17 +183,17 @@ class Nt2_trees() :
             "childs"    : cls.get_Sys_modules(),
             }
         return Modules
-    
+
     @classmethod
     def get_Nt2_tree(cls) :
         Nt2_tree = {
             "name": "nt2",
             "childs" : {
-                'build':    None ,  
+                'build':    None ,
                 'cmake':    None ,
                 'doc':      cls.get_Doc(),
                 'modules':  cls.get_Sys_modules(2,"nt2"),
-                'sandbox':  None ,    
+                'sandbox':  None ,
                 'script':   cls.get_Scripts(),
                 },
             "files" : {
@@ -203,8 +203,8 @@ class Nt2_trees() :
                 }
             }
         return Nt2_tree
-      
-        
+
+
     @classmethod
     def print_nt2_dev_pathes(self, d, name) :
         level=1
@@ -228,6 +228,6 @@ class Nt2_trees() :
                                 print_next(d2,level+1)
         print_next(d,level)
 if __name__ == "__main__" :
-    Nt2_trees.print_nt2_dev_pathes(Nt2_trees.get_Nt2_tree(),"nt2") 
-    Nt2_trees.print_nt2_dev_pathes(Nt2_trees.get_module_tree(1,"zorglub"),"zorglub") 
+    Nt2_trees.print_nt2_dev_pathes(Nt2_trees.get_Nt2_tree(),"nt2")
+    Nt2_trees.print_nt2_dev_pathes(Nt2_trees.get_module_tree(1,"zorglub"),"zorglub")
 

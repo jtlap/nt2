@@ -3,13 +3,13 @@
      'functor' : {
          'description' : [ "Constant $Fct$ = 5"],
          'return' : ["type T value"],
-         'template' : True,   
+         'template' : True,
          'module' : 'boost',
-         'special' : ['constant'],   
+         'special' : ['constant'],
          'arity' : '0',
          'call_types' : [],
          'ret_arity' : '0',
-         'tpl' : '<T>',   
+         'tpl' : '<T>',
          'rturn' : {
              'default' : 'T',
             },

@@ -25,12 +25,12 @@
  * the two
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/meanof.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  *
  * \param a0 the first parameter of meanof
  * \param a1 the second parameter of meanof
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag meanof_ of functor meanof 
+     * \brief Define the tag meanof_ of functor meanof
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct meanof_ : ext::elementwise_<meanof_> { typedef ext::elementwise_<meanof_> parent; };

@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/sinhc_pi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of sinhc_pi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -57,13 +57,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag sinhc_pi_ of functor sinhc_pi 
+     * \brief Define the tag sinhc_pi_ of functor sinhc_pi
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct sinhc_pi_ : ext::elementwise_<sinhc_pi_> { typedef ext::elementwise_<sinhc_pi_> parent; };
@@ -72,7 +72,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/sinhc_pi.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/sinhc_pi.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/sinhc_pi.hpp>
 
 #endif
 

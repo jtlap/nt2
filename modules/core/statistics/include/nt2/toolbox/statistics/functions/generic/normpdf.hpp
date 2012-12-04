@@ -26,37 +26,37 @@ namespace nt2 { namespace ext
                               , (generic_< floating_<A0> >)
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return nt2::exp(Mhalf<A0>()*nt2::sqr(a0))*Invsqrt_2pi<A0>();
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normpdf_, tag::cpu_
                               , (A0)(A1)
                               , (generic_<floating_<A0> > )
                               (generic_<floating_<A1> >)
                               )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
         return nt2::exp(Mhalf<A0>()*nt2::sqr(a0-a1))*Invsqrt_2pi<A0>();
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::normpdf_, tag::cpu_
                             , (A0)(A1)(A2)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
-                              (generic_< floating_<A2> >)  
+                              (generic_< floating_<A2> >)
                             )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(a2)), "sigma(s) must be positive"); 
+      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(a2)), "sigma(s) must be positive");
       return nt2::exp(Mhalf<A0>()*nt2::sqr((a0-a1)/a2))*Invsqrt_2pi<A0>();
     }
   };

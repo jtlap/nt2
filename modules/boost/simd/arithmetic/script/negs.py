@@ -13,7 +13,7 @@
          'type_defs' : [],
          'notes' : [],
          'types' : ['real_', 'signed_int_'],
-         'simd_types' : ['real_', 'signed_int_'],     
+         'simd_types' : ['real_', 'signed_int_'],
         },
      'info' : 'manually modified',
      'unit' : {
@@ -39,7 +39,7 @@
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                  'boost::simd::Valmax<T>()' : 'boost::simd::Valmin<T>()',
                  'boost::simd::Valmin<T>()' : 'boost::simd::Valmax<T>()',
-                 'T(100)':'T(-100)',   
+                 'T(100)':'T(-100)',
                 },
              'signed_int_' : {
                  'boost::simd::Mone<T>()' : 'boost::simd::One<T>()',
@@ -47,7 +47,7 @@
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
                  'boost::simd::Valmax<T>()' : '-boost::simd::Valmax<T>()',
                  'boost::simd::Valmin<T>()' : 'boost::simd::Valmax<T>()',
-                 'T(100)':'T(-100)',   
+                 'T(100)':'T(-100)',
                 },
             },
          'verif_test' : {
@@ -56,7 +56,7 @@
                 },
              'property_value' : {
                  'signed_int_' : ['(a0>boost::simd::Valmin<T>() ? -a0 : boost::simd::Valmax<T>())'],
-                 'real_'       :  ['-a0'],   
+                 'real_'       :  ['-a0'],
                 },
              'ulp_thresh' : {
                  'default' : ['0'],

@@ -12,11 +12,11 @@
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 /*! \file gels_itf.hh
     (excerpt adapted from xgels.f file commentaries)
-    
+
     DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
-    
+
     BASE TYPE can mean respectively float, double, float, double
-    
+
     In some cases only two of these types types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
@@ -129,7 +129,7 @@ namespace nt2
   namespace details
   {
 
-    
+
 #define NT2_GELS(NAME, T)                       \
     inline void gels(const char* trans,         \
                      const nt2_la_int* m,       \
@@ -168,12 +168,12 @@ namespace nt2
            a, lda, b, ldb,                      \
            info, w);                            \
     }                                           \
-        
+
     NT2_GELS(sgels, float)
     NT2_GELS(dgels, double)
     NT2_GELS(cgels, std::complex<float>)
     NT2_GELS(zgels, std::complex<double>)
-      
+
 #undef NT2_GELS
   }
 }

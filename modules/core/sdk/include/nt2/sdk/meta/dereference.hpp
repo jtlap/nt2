@@ -16,25 +16,25 @@
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace details
 {
-  template<typename Container, std::size_t Level> 
+  template<typename Container, std::size_t Level>
   struct dereference_container
   {
     typedef typename Container::value_type  base;
-    typedef typename dereference_container<base,Level-1>::type type;  
+    typedef typename dereference_container<base,Level-1>::type type;
   };
 
-  template<typename Container, std::size_t Level> 
+  template<typename Container, std::size_t Level>
   struct dereference_container<Container&,Level>
   {
     typedef typename Container::reference  base;
     typedef typename dereference_container<base,Level-1>::type type;
   };
 
-  template<typename Container, std::size_t Level> 
+  template<typename Container, std::size_t Level>
   struct dereference_container<Container const&,Level>
   {
     typedef typename Container::const_reference  base;
-    typedef typename dereference_container<base,Level-1>::type type;  
+    typedef typename dereference_container<base,Level-1>::type type;
   };
 
   template<typename Container>
@@ -53,7 +53,7 @@ namespace nt2 { namespace details
 ////////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace meta
 {
-  template<typename Buffer, std::size_t Level> 
+  template<typename Buffer, std::size_t Level>
   struct  dereference_
         : details::dereference_container<Buffer,Level>
   {};

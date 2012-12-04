@@ -32,6 +32,8 @@ NT2_TEST_CASE_TPL( stream, NT2_TYPES )
   std::cout << "ones(4,4)\n";
   std::cout << x << "\n";
   std::cout << "\n";
+
+  NT2_TEST_COMPLETE("stream test complete");
 }
 
 NT2_TEST_CASE_TPL( disp, NT2_TYPES )
@@ -55,6 +57,8 @@ NT2_TEST_CASE_TPL( disp, NT2_TYPES )
   disp("ones(4,4)\n");
   disp( x );
   disp("\n");
+
+  NT2_TEST_COMPLETE("disp test complete");
 }
 
 NT2_TEST_CASE_TPL( display, NT2_TYPES )
@@ -85,5 +89,5 @@ NT2_TEST_CASE_TPL( display, NT2_TYPES )
   display( "x", x );
   std::cout << "\n";
 
-  NT2_TEST_COMPLETE("disp test complete");
+  NT2_TEST_COMPLETE("display test complete");
 }

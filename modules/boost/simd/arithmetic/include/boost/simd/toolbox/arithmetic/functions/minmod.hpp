@@ -23,12 +23,12 @@
  *  if they have the same sign, otherwise 0
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/minmod.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  *
  * \param a0 the first parameter of minmod
  * \param a1 the second parameter of minmod
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag minmod_ of functor minmod 
+     * \brief Define the tag minmod_ of functor minmod
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct minmod_ : ext::elementwise_<minmod_> { typedef ext::elementwise_<minmod_> parent; };

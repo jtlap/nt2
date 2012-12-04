@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
     typedef typename base_t::value_type                                    value_t;
     typedef typename meta::as_real<value_t>::type                         bvalue_t;
     typedef typename base_t::settings_type                              settings_t;
-    typedef details::lsq_lse_solve_result< table<value_t,settings_t> > result_type;
+    typedef details::lsq_lse_solve_result< container::table<value_t,settings_t> > result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a,
                                              A1 const& b,

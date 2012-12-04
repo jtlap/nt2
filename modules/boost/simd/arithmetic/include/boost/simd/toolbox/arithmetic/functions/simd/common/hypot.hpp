@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_HYPOT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SIMD_COMMON_HYPOT_HPP_INCLUDED
@@ -90,7 +90,7 @@ namespace boost { namespace simd { namespace ext
       static inline int_type M1(){ return boost::simd::integral_constant<int_type, 0xffffffff00000000ll>();};
     };
 
-    typedef typename dispatch::meta::as_floating<A0>::type result_type; 
+    typedef typename dispatch::meta::as_floating<A0>::type result_type;
 
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
@@ -100,12 +100,12 @@ namespace boost { namespace simd { namespace ext
       itype e =  exponent(boost::simd::max(i, r));
       return  if_else( logical_or(logical_and(is_nan(a0), is_inf(a1)),
                                   logical_and(is_nan(a1), is_inf(a0))),
-                       Inf<result_type>(), 
+                       Inf<result_type>(),
                        ldexp(sqrt(sqr(ldexp(r, -e))+sqr(ldexp(i, -e))), e)
                        );
-//       typedef typename meta::as_logical<A0>::type bA0; 
+//       typedef typename meta::as_logical<A0>::type bA0;
 //       typedef typename dispatch::meta::as_integer<A0, signed>::type int_type;
-//       typedef typename meta::as_logical<int_type>::type bint_type; 
+//       typedef typename meta::as_logical<int_type>::type bint_type;
 //       typedef hypot_ctnts<A0, int_type> cts;
 //       A0 x =  boost::simd::abs(a0);
 //       A0 y =  boost::simd::abs(a1);

@@ -26,13 +26,13 @@ NT2_TEST_CASE_TPL( globalmin, NT2_REAL_TYPES )
 {
   typedef std::complex<T> cT;
   nt2::table<cT> a = nt2::reshape(nt2::complexify(nt2::_(T(101), T(109))), 3, 3);
-  a = a+nt2::I<cT>()*a; 
+  a = a+nt2::I<cT>()*a;
   NT2_TEST_EQUAL( nt2::globalmin(a), cT(101, 101));
-  NT2_TEST_EQUAL( nt2::globalmin(T(1)), cT(1)); 
-  a(3, 1) = cT(27); 
+  NT2_TEST_EQUAL( nt2::globalmin(T(1)), cT(1));
+  a(3, 1) = cT(27);
   NT2_TEST_EQUAL( nt2::globalmin(a), cT(27));
-  int32_t i; 
-  NT2_TEST_EQUAL( nt2::globalmin(a, i), cT(27)); 
-  NT2_TEST( i == 3);               
+  int32_t i;
+  NT2_TEST_EQUAL( nt2::globalmin(a, i), cT(27));
+  NT2_TEST( i == 3);
 }
 

@@ -22,12 +22,12 @@
  * Cubic root: \f$\sqrt[3]{a_0}\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cbrt.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of cbrt
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cbrt_ of functor cbrt 
+     * \brief Define the tag cbrt_ of functor cbrt
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct cbrt_ : ext::elementwise_<cbrt_> { typedef ext::elementwise_<cbrt_> parent; };

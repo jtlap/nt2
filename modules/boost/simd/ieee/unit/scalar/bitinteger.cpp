@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/bitinteger.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/bitfloating.hpp>
@@ -27,7 +27,7 @@
 
 NT2_TEST_CASE_TPL ( bitinteger_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::bitinteger;
   using boost::simd::tag::bitinteger_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -38,8 +38,8 @@ NT2_TEST_CASE_TPL ( bitinteger_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_integer<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
 } // end of test for floating_

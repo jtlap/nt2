@@ -3,8 +3,8 @@
 [variablelist Elementaryoperations
 [[accumarray ][Construct array with accumulation             TODO    ]]
 [[arrayfun   ][Apply function to each element of array       TODO    ]]
-[[bsxfun     ][Apply element-by-element binary operation to 
-               two arrays with singleton expansion enabled  -> `bsxfun`   
+[[bsxfun     ][Apply element-by-element binary operation to
+               two arrays with singleton expansion enabled  -> `bsxfun`
 
                see also has `tsxfun`, `sx` and `expand_to`                 ]]
 [[cast       ][Cast variable to different data type         -> `cast`     ]]
@@ -13,21 +13,21 @@
 [[cumsum     ][Cumulative sum                               -> `cumsum`   ]]
 [[dot        ][Vector dot product                           -> `dot`      ]]
 [[idivide    ][Integer division with rounding option         TODO
-           
+
                __NT2__ has individual functions `idivfloor`,
                `idivceil`, `idivfix` and `idivround`                          ]]
 [[kron       ][Kronecker tensor product                      TODO             ]]
 [[prod       ][Product of array elements                    -> `prod`         ]]
 [[sum        ][Sum of array elements                        -> `sum`          ]]
-[[tril       ][Lower triangular part of matrix              -> `tril`   
+[[tril       ][Lower triangular part of matrix              -> `tril`
 
               see also tri1l                                                  ]]
-[[triu       ][Upper triangular part of matrix              -> `triu`      
-               
+[[triu       ][Upper triangular part of matrix              -> `triu`
+
               see also tri1u                                                  ]]
-]                                                                                                       
-[endsect]                                                                                               
-                                                                                                        
-                                                                                                        
-                                                                                                        
-                                                                                                        
+]
+[endsect]
+
+
+
+

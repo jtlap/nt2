@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
         ||   ( (nz == 0)
                && (boost::fusion::at_c<0>(ex) == 1
                    ||boost::fusion::at_c<1>(ex) == 1)
-               ); 
+               );
         }
   };
 } }

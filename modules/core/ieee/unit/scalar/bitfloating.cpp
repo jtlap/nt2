@@ -12,7 +12,7 @@
 // unit test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/bitfloating.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/bitinteger.hpp>
@@ -35,7 +35,7 @@
 
 NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  NT2_INT_CONVERT_TYPES)
 {
-  
+
   using nt2::bitfloating;
   using nt2::tag::bitfloating_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  NT2_INT_CONVERT_TYPES)
   typedef typename nt2::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  NT2_INT_CONVERT_TYPES)
 
 NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  NT2_UINT_CONVERT_TYPES)
 {
-  
+
   using nt2::bitfloating;
   using nt2::tag::bitfloating_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -65,9 +65,9 @@ NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  NT2_UINT_CONVERT_TYPES)
   typedef typename nt2::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

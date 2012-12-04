@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/erfc_inv.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of erfc_inv
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -57,13 +57,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag erfc_inv_ of functor erfc_inv 
+     * \brief Define the tag erfc_inv_ of functor erfc_inv
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct erfc_inv_ : ext::elementwise_<erfc_inv_> { typedef ext::elementwise_<erfc_inv_> parent; };
@@ -72,7 +72,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/erfc_inv.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/erfc_inv.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/erfc_inv.hpp>
 
 #endif
 

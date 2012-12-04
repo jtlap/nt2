@@ -25,10 +25,10 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0) const
     {
-      typedef typename nt2::meta::scalar_of<A0>::type sA0; 
-      //      if(nt2::meta::is_real<sA0>::type::value)  return true;  
+      typedef typename nt2::meta::scalar_of<A0>::type sA0;
+      //      if(nt2::meta::is_real<sA0>::type::value)  return true;
       if(nt2::all(nt2::is_real(a0(_)))(1))      return true;
-      return false; 
+      return false;
 
     }
   };

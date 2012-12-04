@@ -26,14 +26,14 @@
  * produces Valmax
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/divs.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg rdivide
- * 
+ *
  * \synopsis
  *
  * \code
@@ -47,26 +47,26 @@
  *
  * \param a0 the first parameter of divs
  * \param a1 the second parameter of divs
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag divs_ of functor divs 
+     * \brief Define the tag divs_ of functor divs
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct divs_ : ext::elementwise_<divs_> { typedef ext::elementwise_<divs_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, divs, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, saturated_div, 2) 
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, saturated_div, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::divs_, rdivide, 2)
 
   template<class A0, class A1>

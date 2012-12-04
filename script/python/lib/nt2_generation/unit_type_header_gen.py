@@ -63,7 +63,7 @@ class Type_header_test_gen() :
             "  std::cout << std::endl; ",
             "  double ulpd;",
             "  ulpd=0.0;",
-            "  boost::dispatch::ignore_unused(ulpd);"    
+            "  boost::dispatch::ignore_unused(ulpd);"
             "",
             ],
         "simd" :
@@ -74,10 +74,10 @@ class Type_header_test_gen() :
             "  using nt2::$tb_style_base$$fct_name_repl$;",
             "  using nt2::$tb_style_base$tag::$fct_name$_;",
             "  using nt2::load; ",
-            "  using boost::simd::native;", 
+            "  using boost::simd::native;",
             "  using nt2::meta::cardinal_of;",
             "  $type_defs$",
-            "  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;",         
+            "  typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;",
             "  typedef typename nt2::meta::upgrade<T>::type   u_t;",
             "  typedef native<T,ext_t>                        n_t;",
             "  typedef n_t                                     vT;",
@@ -88,7 +88,7 @@ class Type_header_test_gen() :
             "  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;",
             "  double ulpd;",
             "  ulpd=0.0;",
-            "  boost::dispatch::ignore_unused(ulpd);"    
+            "  boost::dispatch::ignore_unused(ulpd);"
             "",
             ]
         },
@@ -116,7 +116,7 @@ class Type_header_test_gen() :
             "  std::cout << std::endl; ",
             "  double ulpd;",
             "  ulpd=0.0;",
-            "  boost::dispatch::ignore_unused(ulpd);"    
+            "  boost::dispatch::ignore_unused(ulpd);"
             "",
             ],
         "simd" :
@@ -127,10 +127,10 @@ class Type_header_test_gen() :
             "  using boost::simd::$tb_style_base$$fct_name_repl$;",
             "  using boost::simd::$tb_style_base$tag::$fct_name$_;",
             "  using boost::simd::load; ",
-            "  using boost::simd::native;", 
+            "  using boost::simd::native;",
             "  using boost::simd::meta::cardinal_of;",
             "  $type_defs$",
-            "  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;",         
+            "  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;",
             "  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;",
             "  typedef native<T,ext_t>                        n_t;",
             "  typedef n_t                                     vT;",
@@ -141,28 +141,28 @@ class Type_header_test_gen() :
             "  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;",
             "  double ulpd;",
             "  ulpd=0.0;",
-            "  boost::dispatch::ignore_unused(ulpd);"    
+            "  boost::dispatch::ignore_unused(ulpd);"
             "",
             ]
         },
       }
-   
+
     Type_Footer   = [ "} // end of test for $type$"]
     Macros_dict = {
        "fundamental_" : "NT2_TYPES(bool)",
        "arithmetic_"  : "NT2_TYPES",
        "real_"        : "NT2_REAL_TYPES",
        "real_convert_": "NT2_REAL_CONVERTIBLE_TYPES",
-       "int_convert_" : "NT2_INT_CONVERT_TYPES", 
-       "uint_convert_": "NT2_UINT_CONVERT_TYPES",  
+       "int_convert_" : "NT2_INT_CONVERT_TYPES",
+       "uint_convert_": "NT2_UINT_CONVERT_TYPES",
        "unsigned_"    : "NT2_UNSIGNED_TYPES",
-       "unsigned_int_": "NT2_UNSIGNED_TYPES", 
-       "signed_int_"  : "NT2_INTEGRAL_SIGNED_TYPES",  
-       "integer_"     : "NT2_INTEGRAL_TYPES",  
+       "unsigned_int_": "NT2_UNSIGNED_TYPES",
+       "signed_int_"  : "NT2_INTEGRAL_SIGNED_TYPES",
+       "integer_"     : "NT2_INTEGRAL_TYPES",
        "signed_"      : "NT2_SIGNED_TYPES",
        "int64_"       : "NT2_INT_64_TYPES",
        "int32_"       : "NT2_INT_32_TYPES",
-       "int16_"       : "NT2_INT_16_TYPES", 
+       "int16_"       : "NT2_INT_16_TYPES",
        "int8_"        : "NT2_INT_8_TYPES",
        "groupable_"   : "NT2_GROUPABLE_TYPES",
        "splitable_"   : "NT2_SPLITABLE_TYPES",
@@ -183,7 +183,7 @@ class Type_header_test_gen() :
         if self.__module != 'boost' : self.__module = 'default'
         self.__gen_beg = self.__create_beg_txt(d,typ)
         self.__gen_end = self.__create_end_txt(d,typ)
-       
+
     def get_gen_beg(self) : return  self.__gen_beg
     def get_gen_end(self) : return  self.__gen_end
 
@@ -204,8 +204,8 @@ class Type_header_test_gen() :
             r = re.sub("NT2_(.*?)TYPES","NT2_SIMD_\\1TYPES",r)
             r = re.sub("(bool)","",r)
 ##        print("r = %s"%r)
-        if self.__module == 'boost' : r = re.sub("NT2","BOOST_SIMD",r)  
-        return r    
+        if self.__module == 'boost' : r = re.sub("NT2","BOOST_SIMD",r)
+        return r
 
     def __get_call_types(self,d) :
         df = d.get("functor", self.Default_df)
@@ -219,7 +219,7 @@ class Type_header_test_gen() :
             r = ','.join(dd)
         if self.bg.get_fct_name()[-1]=='i' or d["functor"].get("scalar_ints",False) :
             r = re.sub("ivT","iT",r)
-        return r    
+        return r
 
     def __get_scall_types(self,d) :
         df = d.get("functor", self.Default_df)
@@ -230,7 +230,7 @@ class Type_header_test_gen() :
         else :
             r = ','.join(dd)
         return r
-    
+
     def __get_special(self,d) :
         df = d.get("functor", self.Default_df)
         if not df : return ""
@@ -245,7 +245,7 @@ class Type_header_test_gen() :
         if special[0] == "crlibm" and not( name[-3:] in ['_rd','_rn','_ru','_rz']) :
             return "<rn>"
         else :
-            return df.get("tpl","") 
+            return df.get("tpl","")
 
     def __prepare(self,s,typ,d,i=None) :
         df = d.get("functor", self.Default_df)
@@ -266,7 +266,7 @@ class Type_header_test_gen() :
         s=re.sub("\$arity\$"   ,str(df.get("arity","1")),s)
         s=re.sub("\$rank\$"   ,str(self.__rank),s)
         s=re.sub("\$call_type\$", self.__get_call_types(d),s)
-        s=re.sub("\$scall_type\$", self.__get_scall_types(d),s)     
+        s=re.sub("\$scall_type\$", self.__get_scall_types(d),s)
         s=re.sub("\$rturn\$", df.get("rturn").get(typ,df["rturn"]["default"]),s)
         m = re.match("( *)\$type_defs\$.*",s)
         if m :
@@ -291,7 +291,7 @@ class Type_header_test_gen() :
                 r = ""
             return r
         return s
-    
+
 if __name__ == "__main__" :
     from pprint        import PrettyPrinter
     from unit_base_gen import Base_gen

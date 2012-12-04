@@ -9,7 +9,7 @@ saturate the parameter for values of type T.
   else if (a0 <  Valmin<T>())
      return Valmin<T>();
   else
-     return a0;`` 
+     return a0;``
 
 [h5 Synopsis]
     namespace boost { namespace simd

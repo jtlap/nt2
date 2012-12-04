@@ -12,7 +12,7 @@
 // cover test behavior of predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/predicates/include/functions/is_positive.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( is_positive_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::is_positive;
   using nt2::tag::is_positive_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -65,12 +65,12 @@ NT2_TEST_CASE_TPL ( is_positive_real__1_0,  NT2_SIMD_REAL_TYPES)
     for(nt2::uint32_t j = 0; j < NR;j+=cardinal_of<n_t>::value)
     {
       vT a0 = load<vT>(&tab_a0[0],j);
-      std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;  
+      std::cout << "vT   " << nt2::type_id < vT  > () << std::endl;
       std::cout << "id1  " << nt2::type_id < r_t > () << std::endl;
-        
+
       r_t v = is_positive(a0);
       for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
       NT2_TEST_EQUAL( v[i],ssr_t(nt2::is_positive (a0[i])));
-    }    
+    }
   }
 } // end of test for floating_

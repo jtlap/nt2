@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL ( caurnd_real__2_0,  NT2_REAL_TYPES)
     nt2::table<T> l =  nt2::ones(5, 1, nt2::meta::as_<T>());
     NT2_DISPLAY(m);
     NT2_DISPLAY(l);
-    
+
     nt2::table<T> g =  caurnd(m, l, 5, 3);
     NT2_DISPLAY(g);
     nt2::table<T> h =  caurnd(m, l);

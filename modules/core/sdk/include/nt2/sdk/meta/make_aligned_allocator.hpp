@@ -28,7 +28,7 @@ namespace nt2 {  namespace details
   {
     typedef typename Allocator::value_type value_type;
     typedef boost::simd::memory::allocator_adaptor<value_type,Allocator> type;
-  };  
+  };
 } }
 
 namespace nt2 {  namespace meta

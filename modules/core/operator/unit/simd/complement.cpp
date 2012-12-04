@@ -12,7 +12,7 @@
 // unit test behavior of operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/operator/include/functions/complement.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/shli.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( complement_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::complement;
   using nt2::tag::complement_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( complement_integer__1_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::complement;
   using nt2::tag::complement_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

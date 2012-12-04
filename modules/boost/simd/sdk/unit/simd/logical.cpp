@@ -12,7 +12,7 @@
 // unit test behavior of logical<T> in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 
-#include <nt2/sdk/unit/tests.hpp> 
+#include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL ( as_logical_simd, BOOST_SIMD_SIMD_TYPES )
   using boost::simd::meta::as_logical;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  
+
   NT2_TEST( (is_same< native<logical<T>,ext_t>, typename as_logical< native<T,ext_t> >::type >::value ));
   NT2_TEST( (is_same< native<logical<T>,ext_t>, typename as_logical< native<logical<T>,ext_t> >::type >::value ));
 }
@@ -80,7 +80,7 @@ NT2_TEST_CASE_TPL ( logical_real, BOOST_SIMD_REAL_TYPES )
 
   logical<T> val_false( T(0) );
   NT2_TEST_EQUAL( bool(val_false), false );
-  
+
   logical<T> val_mzero( T(-0.) );
   NT2_TEST_EQUAL( bool(val_mzero), false );
 
@@ -95,14 +95,14 @@ NT2_TEST_CASE_TPL ( logical_simd, BOOST_SIMD_SIMD_TYPES )
   using boost::simd::logical;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  
+
   native< logical<T>, ext_t > bool_true;
   bool_true = boost::simd::is_true(boost::simd::splat< native<T, ext_t > >(1));
-  
+
   for( std::size_t i=0; i < bool_true.size(); ++i ) NT2_TEST( !!bool_true[i] );
 
   bool_true = boost::simd::is_true(boost::simd::splat< native<T, ext_t > >(0));
-  
+
   for( std::size_t i=0; i < bool_true.size(); ++i ) NT2_TEST( !bool_true[i] );
 }
 
@@ -160,8 +160,8 @@ NT2_TEST_CASE_TPL ( logical_hierarchy_of, BOOST_SIMD_TYPES )
   using boost::dispatch::meta::hierarchy_of;
 
   NT2_TEST((is_same < scalar_< logical_< logical<T> > >
-                    , typename hierarchy_of< logical<T> >::type 
-                    >::value 
+                    , typename hierarchy_of< logical<T> >::type
+                    >::value
           ));
 }
 
@@ -177,7 +177,7 @@ NT2_TEST_CASE_TPL ( logical_hierarchy_of_simd, BOOST_SIMD_SIMD_TYPES )
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
   NT2_TEST((is_same < simd_< logical_< native< logical<T>, ext_t> >, ext_t>
-                    , typename hierarchy_of< native< logical<T>, ext_t> >::type 
-                    >::value 
+                    , typename hierarchy_of< native< logical<T>, ext_t> >::type
+                    >::value
           ));
 }

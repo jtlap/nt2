@@ -23,12 +23,12 @@
  * in the same type as the entry
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/reversebits.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of reversebits
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag reversebits_ of functor reversebits 
+     * \brief Define the tag reversebits_ of functor reversebits
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct reversebits_ : ext::elementwise_<reversebits_> { typedef ext::elementwise_<reversebits_> parent; };

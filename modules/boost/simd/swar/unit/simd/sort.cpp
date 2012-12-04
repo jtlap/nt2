@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/swar/include/functions/sort.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( sort_gt_16__1_0,  BOOST_SIMD_SIMD_GT16_TYPES)
 {
   using boost::simd::sort;
   using boost::simd::tag::sort_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

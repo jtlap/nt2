@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/tgamma_ratio.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  *
  * \param a0 the first parameter of tgamma_ratio
  * \param a1 the second parameter of tgamma_ratio
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag tgamma_ratio_ of functor tgamma_ratio 
+     * \brief Define the tag tgamma_ratio_ of functor tgamma_ratio
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct tgamma_ratio_ : ext::elementwise_<tgamma_ratio_> { typedef ext::elementwise_<tgamma_ratio_> parent; };
@@ -73,7 +73,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/tgamma_ratio.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/tgamma_ratio.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/tgamma_ratio.hpp>
 
 #endif
 

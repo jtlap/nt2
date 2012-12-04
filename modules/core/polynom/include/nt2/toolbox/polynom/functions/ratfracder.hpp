@@ -28,35 +28,35 @@
  *
  **/
 namespace nt2 { namespace tag
-  {         
+  {
     struct ratfracder_ : ext::tieable_<ratfracder_> { typedef ext::tieable_<ratfracder_> parent; };
   }
 
   NT2_FUNCTION_IMPLEMENTATION(tag::ratfracder_, ratfracder, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::ratfracder_, ratfracder, 2)
 }
- 
+
  namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
   struct  size_of<tag::ratfracder_,Domain,1,Expr>
   {
     typedef _2D result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       _2D sizee;
       sizee[0] = 1;
       size_t na = nt2::numel(boost::proto::value(boost::proto::child_c<0>(e)));
       sizee[1] = na ? na-1u :0; ;
-      return sizee; 
+      return sizee;
     }
   };
   template<class Domain, class Expr>
   struct  size_of<tag::ratfracder_,Domain,2,Expr>
   {
     typedef _2D result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       _2D sizee;
@@ -64,7 +64,7 @@ namespace nt2 { namespace tag
       size_t na = nt2::numel(boost::proto::value(boost::proto::child_c<0>(e)));
       size_t nb = nt2::numel(boost::proto::value(boost::proto::child_c<1>(e)));
       sizee[1] = std::max(std::max(na+nb ? na+nb-1u : 0u,na),nb);
-      sizee[1] = sizee[1] ? sizee[1]-1u : 0; 
+      sizee[1] = sizee[1] ? sizee[1]-1u : 0;
       return sizee;
     }
   };

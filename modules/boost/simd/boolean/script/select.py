@@ -40,7 +40,7 @@
             },
          'verif_test' : {
              'property_call' : {
-                 'simd_special' : 'boost::simd::select(boost::simd::is_nez(a0),a1,a2)', 
+                 'simd_special' : 'boost::simd::select(boost::simd::is_nez(a0),a1,a2)',
                  'default' : ['boost::simd::select(boost::simd::is_nez(a0),a1,a2)'],
                 },
              'property_value' : {

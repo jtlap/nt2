@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// 
+///
 /// for integer values meanof does not,coincide with (a0+a1)/2 by at most one unit.
 #include <boost/simd/toolbox/arithmetic/include/functions/meanof.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
@@ -25,7 +25,7 @@
 
 NT2_TEST_CASE_TPL ( meanof_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::meanof;
   using boost::simd::tag::meanof_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -36,9 +36,9 @@ NT2_TEST_CASE_TPL ( meanof_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(meanof(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<T>(), 0);
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL ( meanof_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( meanof_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::meanof;
   using boost::simd::tag::meanof_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -69,9 +69,9 @@ NT2_TEST_CASE_TPL ( meanof_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(meanof(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Mone<T>(), 0);
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( meanof_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( meanof_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::meanof;
   using boost::simd::tag::meanof_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -96,9 +96,9 @@ NT2_TEST_CASE_TPL ( meanof_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(meanof(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<T>(), 0);

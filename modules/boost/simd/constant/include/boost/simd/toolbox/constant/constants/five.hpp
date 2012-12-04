@@ -24,12 +24,12 @@
  * Constant Five = 5
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/five.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Five
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Five of functor Five 
+     * \brief Define the tag Five of functor Five
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER(Five,int,5,0x40a00000UL,0x4014000000000000ULL);

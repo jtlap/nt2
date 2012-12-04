@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/logspace_add.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -35,7 +35,7 @@
 
 NT2_TEST_CASE_TPL ( logspace_add_real__2_1,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::logspace_add;
   using nt2::tag::logspace_add_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,7 +45,7 @@ NT2_TEST_CASE_TPL ( logspace_add_real__2_1,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   double ulpd;
   ulpd=0.0;
@@ -54,8 +54,8 @@ NT2_TEST_CASE_TPL ( logspace_add_real__2_1,  NT2_REAL_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Inf<T>(),nt2::Inf<T>()), nt2::Inf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Inf<T>(),nt2::Zero<T>()), nt2::Inf<sr_t>(), 0);
-  NT2_TEST_ULP_EQUAL(logspace_add(nt2::Minf<T>(),nt2::Zero<T>()), nt2::Zero<sr_t>(), 0);    
-  NT2_TEST_ULP_EQUAL(logspace_add(nt2::Inf<T>(),nt2::Nan <T>()), nt2::Nan<sr_t>(), 0);    
+  NT2_TEST_ULP_EQUAL(logspace_add(nt2::Minf<T>(),nt2::Zero<T>()), nt2::Zero<sr_t>(), 0);
+  NT2_TEST_ULP_EQUAL(logspace_add(nt2::Inf<T>(),nt2::Nan <T>()), nt2::Nan<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Minf<T>(),nt2::Minf<T>()), nt2::Minf<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Mone<T>(),nt2::Mone<T>()), nt2::Mone<sr_t>()+nt2::Log_2<sr_t>(), 0);
   NT2_TEST_ULP_EQUAL(logspace_add(nt2::Nan<T>(),nt2::Nan<T>()), nt2::Nan<sr_t>(), 0);

@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/exp2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::exp2;
   using nt2::tag::exp2_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   #include <nt2/include/functions/sqr.hpp>

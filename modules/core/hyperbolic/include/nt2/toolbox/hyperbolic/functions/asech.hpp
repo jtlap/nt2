@@ -22,12 +22,12 @@
  * hyperbolic secant argument \f$\mathop{\textrm{acosh}}(1/a_0)\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/asech.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of asech
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag asech_ of functor asech 
+     * \brief Define the tag asech_ of functor asech
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct asech_ : ext::elementwise_<asech_> { typedef ext::elementwise_<asech_> parent; };

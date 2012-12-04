@@ -12,7 +12,7 @@
 // unit test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/splat.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 
@@ -26,7 +26,7 @@
 //COMMENTED
 NT2_TEST_CASE_TPL ( splat_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::splat;
   using boost::simd::tag::splat_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -35,11 +35,11 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
-  
+
   //   // specific values tests
   //   NT2_TEST_EQUAL(splat(boost::simd::One<T>()), boost::simd::One<r_t>());
   //   NT2_TEST_EQUAL(splat(boost::simd::One<T>(),boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 // NT2_TEST_CASE_TPL ( splat_real__1_0,  BOOST_SIMD_REAL_TYPES)
 // {
-  
+
 //   using boost::simd::splat;
 //   using boost::simd::tag::splat_;
 //   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -57,9 +57,9 @@ NT2_TEST_CASE_TPL ( splat_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 //   typedef T wished_r_t;
 
 
-//   // return type conformity test 
+//   // return type conformity test
 //   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-//   std::cout << std::endl; 
+//   std::cout << std::endl;
 
 //   // specific values tests
 //   NT2_TEST_EQUAL(splat(boost::simd::Inf<T>()), boost::simd::Inf<r_t>());

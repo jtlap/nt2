@@ -22,12 +22,12 @@
  * hyperbolic cosecant argument \f$\mathop{\textrm{asinh}}(1/a_0)\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/acsch.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of acsch
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag acsch_ of functor acsch 
+     * \brief Define the tag acsch_ of functor acsch
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct acsch_ : ext::elementwise_<acsch_> { typedef ext::elementwise_<acsch_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/minimum.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( minimum_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::minimum;
   using nt2::tag::minimum_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef typename nt2::meta::scalar_of<T>::type sT;

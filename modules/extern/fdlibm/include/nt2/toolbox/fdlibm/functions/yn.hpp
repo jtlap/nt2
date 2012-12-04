@@ -23,12 +23,12 @@
  * library fdlibm.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/fdlibm/include/functions/yn.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  *
  * \param a0 the first parameter of yn
  * \param a1 the second parameter of yn
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -61,13 +61,13 @@
  * fdlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace fdlibm { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag yn_ of functor yn 
+     * \brief Define the tag yn_ of functor yn
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct yn_ : ext::elementwise_<yn_> { typedef ext::elementwise_<yn_> parent; };
@@ -76,7 +76,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
 
 #include <nt2/toolbox/fdlibm/functions/scalar/yn.hpp>
-// #include <nt2/toolbox/fdlibm/functions/simd/all/yn.hpp> 
+// #include <nt2/toolbox/fdlibm/functions/simd/all/yn.hpp>
 
 #endif
 

@@ -18,9 +18,9 @@
 NT2_TEST_CASE( single_ )
 {
   using boost::simd::meta::single_;
-  
+
   single_<0x3F800000UL>          one_fc;
   float  one_f = 1.f;
-  
+
   NT2_TEST_EQUAL( one_f, float(one_fc)  );
 }

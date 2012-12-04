@@ -12,13 +12,13 @@
 #include <nt2/include/functor.hpp>
 
 namespace nt2 { namespace tag
-  {         
+  {
     struct hermite_ : ext::elementwise_<hermite_> { typedef ext::elementwise_<hermite_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::hermite_, hermite, 2)
 }
- 
- 
+
+
 #endif
 
 // modified by jt the 25/12/2010

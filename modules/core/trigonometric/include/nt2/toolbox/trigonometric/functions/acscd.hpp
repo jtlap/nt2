@@ -22,12 +22,12 @@
  * inverse cosecant in degree.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/acscd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of acscd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag acscd_ of functor acscd 
+     * \brief Define the tag acscd_ of functor acscd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acscd_ : ext::elementwise_<acscd_> { typedef ext::elementwise_<acscd_> parent; };

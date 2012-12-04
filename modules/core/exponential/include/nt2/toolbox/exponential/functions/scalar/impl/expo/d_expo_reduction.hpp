@@ -1,16 +1,16 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_D_EXPO_REDUCTION_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_D_EXPO_REDUCTION_HPP_INCLUDED
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
-#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/sqr.hpp>
 #include <nt2/include/functions/simd/is_greater_equal.hpp>
 #include <nt2/include/functions/simd/is_less_equal.hpp>
@@ -23,7 +23,7 @@ namespace nt2
     {
       template < class A0> struct exp_reduction < A0, natural_tag, double>
       {
-    typedef typename meta::as_logical<A0>::type bA0; 
+    typedef typename meta::as_logical<A0>::type bA0;
         static inline bA0 isgemaxlog(const A0 & a0)
         {
           return ge(a0,double_constant<A0,0x4086232bdd7abcd2ll>());
@@ -36,7 +36,7 @@ namespace nt2
 
         static inline A0 reduce(const A0& a0, A0& hi, A0& lo, A0& x)
         {
-          A0 k  = round2even(Invlog_2<A0>()*a0);
+          A0 k  = round(Invlog_2<A0>()*a0);
           hi    = a0 - k * double_constant<A0,0x3fe62e42fee00000ll>();
           lo    =      k * double_constant<A0,0x3dea39ef35793c76ll>();
           x     = hi-lo;
@@ -58,7 +58,7 @@ namespace nt2
 
       template < class A0 > struct exp_reduction < A0, two_tag, double>
       {
-    typedef typename meta::as_logical<A0>::type bA0; 
+    typedef typename meta::as_logical<A0>::type bA0;
         static inline bA0 isgemaxlog(const A0 & a0)
         {
           return ge(a0,double_constant<A0,0x408ff80000000000ll>());
@@ -71,7 +71,7 @@ namespace nt2
 
         static inline A0 reduce(const A0& a0, const A0&, const A0&, A0& x)
         {
-          A0 k = round2even(a0);
+          A0 k = round(a0);
           x = (a0 - k)*Log_2<A0>();
           return k;
         }
@@ -93,7 +93,7 @@ namespace nt2
 
       template < class A0 > struct exp_reduction < A0, ten_tag, double>
       {
-    typedef typename meta::as_logical<A0>::type bA0; 
+    typedef typename meta::as_logical<A0>::type bA0;
         static inline bA0 isgemaxlog(const A0 & a0)
         {
           return ge(a0,double_constant<A0,0x40734413509f79fell>());
@@ -106,7 +106,7 @@ namespace nt2
 
         static inline A0 reduce(const A0& a0, A0&, A0&, A0& x)
         {
-          A0 k  = round2even(double_constant<A0,0x400a934f0979a372ll>()*a0);
+          A0 k  = round(double_constant<A0,0x400a934f0979a372ll>()*a0);
           x     = a0-k*double_constant<A0,0x3fd3440000000000ll>();
           x    -=  k*double_constant<A0,0x3ed3509f79fef312ll>();
           return k;

@@ -22,12 +22,12 @@
  * return the smallest of the two entries
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/min.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of min
  * \param a1 the second parameter of min
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag min_ of functor min 
+     * \brief Define the tag min_ of functor min
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct min_ : ext::elementwise_<min_> { typedef ext::elementwise_<min_> parent; };

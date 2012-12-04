@@ -12,7 +12,7 @@
 // unit test behavior of euler components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/toolbox/euler/include/functions/erf.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_erfl(long double);}
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( erf_real__1_0,  NT2_REAL_TYPES)
 //   T a = nt2::Eight<T>()*(nt2::Pi<T>()-nt2::Three<T>())/(nt2::Three<T>()*nt2::Pi<T>()*(nt2::Four<T>()-nt2::Pi<T>()));
 //      std::cout << std::setprecision(20) << a << std::endl;
 //      std::cout << nt2::Four<T>()/nt2::Pi<T>()<< std::endl;
-  
+
   using nt2::erf;
   using nt2::tag::erf_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -52,9 +52,9 @@ NT2_TEST_CASE_TPL ( erf_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(erf(nt2::Inf<T>()), nt2::One<r_t>(), 10);

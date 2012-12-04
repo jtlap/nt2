@@ -28,14 +28,14 @@ NT2_TEST_CASE(properties)
   using nt2::imaginary;
   using std::complex;
   using boost::mpl::_;
-  
+
   imaginary<double> im;
   NT2_TEST_EXPR_TYPE(im, scalar_of<_>, imaginary<double>);
   NT2_TEST_EXPR_TYPE(im, real_of<_>, double);
   NT2_TEST_EXPR_TYPE(im, as_real<_>, double);
   NT2_TEST_EXPR_TYPE(im, as_imaginary<_>, imaginary<double>);
   NT2_TEST_EXPR_TYPE(im, as_complex<_>, complex<double>);
-  
+
   complex<double> c;
   NT2_TEST_EXPR_TYPE(c, scalar_of<_>, complex<double>);
   NT2_TEST_EXPR_TYPE(c, real_of<_>, double);
@@ -53,14 +53,14 @@ NT2_TEST_CASE(properties_simd)
   using boost::mpl::_;
   using boost::simd::native;
   typedef BOOST_SIMD_DEFAULT_EXTENSION ext_t;
-  
+
   native<imaginary<double>, ext_t> im;
   NT2_TEST_EXPR_TYPE(im, scalar_of<_>, imaginary<double>);
   NT2_TEST_EXPR_TYPE(im, real_of<_>, double);
   NT2_TEST_EXPR_TYPE(im, as_real<_>, (native<double, ext_t>));
   NT2_TEST_EXPR_TYPE(im, as_imaginary<_>, (native<imaginary<double>, ext_t>));
   NT2_TEST_EXPR_TYPE(im, as_complex<_>, (native<complex<double>, ext_t>));
-  
+
   native<complex<double>, ext_t> c;
   NT2_TEST_EXPR_TYPE(c, scalar_of<_>, complex<double>);
   NT2_TEST_EXPR_TYPE(c, real_of<_>, double);

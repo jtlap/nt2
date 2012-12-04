@@ -11,7 +11,7 @@
 
 #include <nt2/include/functions/lsq_lse_solve.hpp>
 #include <nt2/toolbox/linalg/details/lapack/gglse.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/height.hpp>
@@ -28,12 +28,12 @@ namespace nt2 {namespace details
     typedef typename base_t::value_type                type_t;
     typedef typename base_t::index_type               index_t;
     typedef typename meta::as_real<type_t>::type      rtype_t;
-    typedef nt2::table<type_t,nt2::matlab_index_>      ftab_t;
-    typedef nt2::table<rtype_t,nt2::matlab_index_>    fbtab_t;
-    typedef nt2::table<nt2_la_int,nt2::matlab_index_> fitab_t;
-    typedef nt2::table<type_t,index_t>                  tab_t;
-    typedef nt2::table<rtype_t,index_t>                rtab_t;
-    typedef nt2::table<nt2_la_int,index_t>             itab_t;
+    typedef nt2::container::table<type_t,nt2::matlab_index_>      ftab_t;
+    typedef nt2::container::table<rtype_t,nt2::matlab_index_>    fbtab_t;
+    typedef nt2::container::table<nt2_la_int,nt2::matlab_index_> fitab_t;
+    typedef nt2::container::table<type_t,index_t>                  tab_t;
+    typedef nt2::container::table<rtype_t,index_t>                rtab_t;
+    typedef nt2::container::table<nt2_la_int,index_t>             itab_t;
     typedef A                                             a_t;
     typedef B                                             b_t;
     typedef C                                             c_t;

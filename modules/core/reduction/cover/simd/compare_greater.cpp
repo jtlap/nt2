@@ -12,7 +12,7 @@
 // cover test behavior of operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/reduction/include/functions/compare_greater.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( compare_greater_real__2_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::compare_greater;
   using nt2::tag::compare_greater_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( compare_greater_real__2_0,  NT2_SIMD_REAL_TYPES)
         }
         NT2_TEST_EQUAL( v,sr_t(z));
       }
-    
+
   }
 } // end of test for floating_
 
@@ -84,7 +84,7 @@ NT2_TEST_CASE_TPL ( compare_greater_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_T
 {
   using nt2::compare_greater;
   using nt2::tag::compare_greater_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -118,7 +118,7 @@ NT2_TEST_CASE_TPL ( compare_greater_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_T
         }
         NT2_TEST_EQUAL( v,sr_t(z));
       }
-    
+
   }
 } // end of test for signed_int_
 
@@ -126,7 +126,7 @@ NT2_TEST_CASE_TPL ( compare_greater_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::compare_greater;
   using nt2::tag::compare_greater_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -160,6 +160,6 @@ NT2_TEST_CASE_TPL ( compare_greater_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
         }
         NT2_TEST_EQUAL( v,sr_t(z));
       }
-    
+
   }
 } // end of test for unsigned_int_

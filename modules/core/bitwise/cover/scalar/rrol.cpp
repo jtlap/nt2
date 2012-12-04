@@ -12,7 +12,7 @@
 // cover test behavior of bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/bitwise/include/functions/rrol.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -34,7 +34,7 @@
 
 NT2_TEST_CASE_TPL ( rrol_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
-  
+
   using nt2::rrol;
   using nt2::tag::rrol_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -44,9 +44,9 @@ NT2_TEST_CASE_TPL ( rrol_integer__2_0,  NT2_INTEGRAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -66,6 +66,6 @@ NT2_TEST_CASE_TPL ( rrol_integer__2_0,  NT2_INTEGRAL_TYPES)
                   << std::endl;
         NT2_TEST_EQUAL( nt2::rrol(a0,a1),nt2::rrol(a0,a1));
      }
-     
+
    }
 } // end of test for integer_

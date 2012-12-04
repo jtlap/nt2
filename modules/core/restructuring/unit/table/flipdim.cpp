@@ -117,11 +117,11 @@ NT2_TEST_CASE_TPL( flipflip, NT2_TYPES )
 
   NT2_TEST(nt2::isequal( x,  nt2::flipdim(y, 1)));
   NT2_TEST(nt2::isequal( y,  nt2::flipdim(x, 1)));
-  
+
   x = nt2::flipdim(y, 2);
   display("x", x);
 
   NT2_TEST( nt2::isequal( x,  nt2::flipdim(y, 2)));
   NT2_TEST( nt2::isequal( y,  nt2::flipdim(x, 2)));
-  
+
 }

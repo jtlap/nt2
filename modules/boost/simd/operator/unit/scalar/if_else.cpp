@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/if_else.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,7 +24,7 @@
 
 NT2_TEST_CASE_TPL ( if_else_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::if_else;
   using boost::simd::tag::if_else_;
   using boost::simd::logical;
@@ -36,9 +36,9 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(if_else( boost::simd::True< boost::simd::logical<T> >(), boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<r_t>());
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( if_else_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 NT2_TEST_CASE_TPL ( if_else_real__3_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::if_else;
   using boost::simd::tag::if_else_;
   using boost::simd::logical;
@@ -60,9 +60,9 @@ NT2_TEST_CASE_TPL ( if_else_real__3_0,  BOOST_SIMD_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(if_else( boost::simd::True< boost::simd::logical<T> >(), boost::simd::Nan<T>(), boost::simd::Nan<T>()), boost::simd::Nan<r_t>());

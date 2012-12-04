@@ -30,7 +30,9 @@ NT2_TEST_CASE_TPL( putalong_scalar, (float)(double))//NT2_TYPES )
 {
   nt2::table<T> x = nt2::putalong(T(42), 1);  NT2_DISPLAY( x );
   x = nt2::putalong(T(42),1);  NT2_DISPLAY( x );
+  NT2_TEST_EQUAL(x, T(42));
   x = nt2::putalong(T(42),2);  NT2_DISPLAY( x );
+  NT2_TEST_EQUAL(x, T(42));
 
 }
 
@@ -48,14 +50,14 @@ NT2_TEST_CASE_TPL( putalong, (float)(double))//NT2_TYPES )
 
   sy = nt2::putalong(y, 1);
   display(sy);
-  NT2_TEST(isequal(sy, reshape(y, nt2::of_size(numel(y), 1)))); 
+  NT2_TEST_EQUAL(sy, reshape(y, nt2::of_size(numel(y), 1)));
   sy = nt2::putalong(y, 2);
-  NT2_TEST(isequal(sy, reshape(y, nt2::of_size(1, numel(y))))); 
+  NT2_TEST_EQUAL(sy, reshape(y, nt2::of_size(1, numel(y))));
   display(sy);
   sy = nt2::putalong(y, 3);
-  NT2_TEST(isequal(sy, reshape(y, nt2::of_size(1, 1, numel(y))))); 
+  NT2_TEST_EQUAL(sy, reshape(y, nt2::of_size(1, 1, numel(y))));
   display(sy);
-                 
+
 
 
 }

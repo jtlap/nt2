@@ -33,7 +33,7 @@ sys.path.pop(0)
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_basics"))
 from nt2_tb_props                    import Nt2_tb_props
 from nt2_fct_props                   import Nt2_fct_props
-from nt2_modules                     import Nt2_modules 
+from nt2_modules                     import Nt2_modules
 sys.path.pop(0)
 
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_generation"))
@@ -70,7 +70,7 @@ def write_bench(tb_name,fct_name,mode,s,check=False,backup=True) :
         shutil.copy(p,pi)
     print "writing to %s"%p
     write(p,s,check)
- 
+
 def create_bench(tb_name, fct_list=None,
                 modes=('scalar','simd'),
                 show=True,
@@ -87,7 +87,7 @@ def create_bench(tb_name, fct_list=None,
         fcts = [fct_list]
     else :
         fcts = fct_list
-    if  isinstance(modes,str ) : modes = [modes]    
+    if  isinstance(modes,str ) : modes = [modes]
     for fct in fcts :
         for mode in modes :
 ##            print("fct=%s,mode=%s"%(fct,mode))
@@ -101,7 +101,7 @@ def create_bench(tb_name, fct_list=None,
                 if show :
                     print("%s showing text of %s.cpp for %s-test"% (just,fct,mode))
                     print("<"+"="*40)
-                    PrettyPrinter().pprint(r)            
+                    PrettyPrinter().pprint(r)
                     print("="*40+">")
                 if write_files :
                     print("writing text of %s.cpp for %s-test"% (fct,mode))
@@ -109,7 +109,7 @@ def create_bench(tb_name, fct_list=None,
                                check=check_on_write,
                                backup=backup_on_write)
 
-        
+
 if __name__ == "__main__" :
     tb_name = "bitwise"
     fcts = Nt2_tb_props(tb_name).get_fcts_list()

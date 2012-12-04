@@ -21,7 +21,7 @@
  *    from the singular value decomposition.  that is,  a*z has negligible
  *    elements, size(z,2) is the nullity of a,
  *    and transconj(z)*z = eye(size(transconj(z)*z)).
- * 
+ *
  *    null(a, tol) changes the tolerance to which a*z is considered null
  *    the default is eps(w(1)) where w(1) is the smalest singular vale of
  *    a
@@ -29,14 +29,14 @@
  **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag null_ of functor null
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct null_ :  tag::formal_ { typedef tag::formal_ parent; }; 
+    struct null_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::null_, null, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::null_, null, 2)
 

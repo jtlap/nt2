@@ -23,19 +23,19 @@ namespace nt2
     namespace internal
     {
       template < class A0,
-		 class style, 
+		 class style,
 		 class base_A0 = typename meta::scalar_of<A0>::type >
       struct trig_evaluation{
 //   	static inline A0 cos_eval(const A0&, const A0&, const A0&)
 // 	{
-//        nt2::assert("you cannot be here"); 
-// 	  exit(1); 
-// 	}       
+//        nt2::assert("you cannot be here");
+// 	  exit(1);
+// 	}
 //   	static inline A0 sin_eval(const A0&, const A0&, const A0&)
 // 	{
-//        nt2::assert("you cannot be here"); 
-// 	  exit(1); 
-// 	}       
+//        nt2::assert("you cannot be here");
+// 	  exit(1);
+// 	}
       };
 
       // This class exposes the public static members:
@@ -44,7 +44,7 @@ namespace nt2
       // tan_eval
       // which evaluate a polynomial approximation of each standard trigonometric
       // functions in the range [pi/4, -pi/4]
-      
+
 
       template < class A0> struct trig_evaluation < A0,  tag::not_simd_type, float>
       {
@@ -62,25 +62,25 @@ namespace nt2
 	static inline A0 base_tan_eval(const A0& z)
 	{
 	  const A0 zz = sqr(z);
-	  A0 y = horner< NT2_HORNER_COEFF_T(A0, 6, (0x3c19c53b, 
-						     0x3b4c779c, 
-						     0x3cc821b5, 
-						     0x3d5ac5c9, 
-						     0x3e0896dd, 
+	  A0 y = horner< NT2_HORNER_COEFF_T(A0, 6, (0x3c19c53b,
+						     0x3b4c779c,
+						     0x3cc821b5,
+						     0x3d5ac5c9,
+						     0x3e0896dd,
 						     0x3eaaaa6f))>(zz)*zz*z+z;
-	  return y; 
+	  return y;
 	}
 	static inline A0 tan_eval(const A0& z, const A0&,  const int n )
 	{
-	  const A0 y = base_tan_eval(z); 
-	  if (n == 1) return y;  else return -rec(y); 
+	  const A0 y = base_tan_eval(z);
+	  if (n == 1) return y;  else return -rec(y);
 	}
 	static inline A0 cot_eval(const A0& z, const A0&,  const int n )
 	{
-	  const A0 y = base_tan_eval(z); 
-	  if (n == 1) return rec(y);  else return -y; 
+	  const A0 y = base_tan_eval(z);
+	  if (n == 1) return rec(y);  else return -y;
 	}
-      };      
+      };
     }
   }
 }

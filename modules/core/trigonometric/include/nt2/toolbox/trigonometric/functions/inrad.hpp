@@ -22,12 +22,12 @@
  * convert degree to radian.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/inrad.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of inrad
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag inrad_ of functor inrad 
+     * \brief Define the tag inrad_ of functor inrad
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct inrad_ : ext::elementwise_<inrad_> { typedef ext::elementwise_<inrad_> parent; };

@@ -48,8 +48,8 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL_REPEAT(2)
     {
-      BOOST_ASSERT_MSG( !(a0 <  0) || is_flint(a1),"realpow cannot produce complex result." ); 
-      return  pow(a0, a1); 
+      BOOST_ASSERT_MSG( !(a0 <  0) || is_flint(a1),"realpow cannot produce complex result." );
+      return  pow(a0, a1);
     }
   };
 } }

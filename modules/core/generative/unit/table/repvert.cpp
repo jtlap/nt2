@@ -11,6 +11,7 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/repvert.hpp>
+#include <nt2/include/functions/vertcat.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/isequal.hpp>
@@ -28,28 +29,32 @@ NT2_TEST_CASE( repvert_size )
   NT2_DISPLAY(a);
   b = repvert(a,  2);
   NT2_DISPLAY(b);
+  NT2_TEST_EQUAL(b, vertcat(a, a));
   a = nt2::cif(nt2::of_size(1, 7), nt2::meta::as_<float>());
   NT2_DISPLAY(a);
   b = repvert(a,  2);
+  NT2_TEST_EQUAL(b, vertcat(a, a));
   NT2_DISPLAY(b);
   a = nt2::cif(nt2::of_size(7, 7), nt2::meta::as_<float>());
   NT2_DISPLAY(a);
   b = repvert(a,  2);
   NT2_DISPLAY(b);
+  NT2_TEST_EQUAL(b, vertcat(a, a));
 }
 NT2_TEST_CASE( repvert_ )
 {
   using nt2::_;
-  using nt2::end_; 
+  using nt2::end_;
   nt2::table<float> a = nt2::rif(nt2::of_size(7, 1), nt2::meta::as_<float>()), b;
   b = repvert(a,  2);
-  NT2_TEST(nt2::isequal(b,  repvert(a,  2)));
-  NT2_TEST(nt2::isequal(b(_(1u, size(a, 1)), _), a));
-  NT2_TEST(nt2::isequal(b(_(size(a, 1)+1, end_), _), a)); 
+  NT2_TEST_EQUAL(b,  repvert(a,  2));
+  NT2_TEST_EQUAL(b(_(1u, size(a, 1)), _), a);
+  NT2_TEST_EQUAL(b(_(size(a, 1)+1, end_), _), a);
   a = nt2::cif(nt2::of_size(7, 7), nt2::meta::as_<float>());
   b = repvert(a,  2);
-  NT2_TEST(nt2::isequal(b,  repvert(a,  2)));
-  NT2_TEST(nt2::isequal(b(_(1u, size(a, 1)), _), a));
-  NT2_TEST(nt2::isequal(b(_(size(a, 1)+1, end_), _), a)); 
- 
+  NT2_TEST_EQUAL(b,  repvert(a,  2));
+  NT2_TEST_EQUAL(b(_(1u, size(a, 1)), _), a);
+  NT2_TEST_EQUAL(b(_(size(a, 1)+1, end_), _), a);
+
 }
+

@@ -23,19 +23,19 @@
 #include <nt2/include/constants/half.hpp>
 #include <nt2/table.hpp>
 
-struct ffp 
+struct ffp
 {
   template < class Tab > inline
   typename Tab::value_type operator()(const Tab & x ) const
   {
-    typedef typename Tab::value_type value_type; 
+    typedef typename Tab::value_type value_type;
     return nt2::globalsum((nt2::sqr(x)-value_type(3))*x)+value_type(4);
   }
 };
 
 template<class Tab > typename Tab::value_type f1(const Tab & x )
 {
-    typedef typename Tab::value_type value_type; 
+    typedef typename Tab::value_type value_type;
   return nt2::globalsum((nt2::sqr(x)-value_type(3))*x)+value_type(4);
 }
 
@@ -43,34 +43,34 @@ NT2_TEST_CASE_TPL( hjmin_function_ptr, NT2_REAL_TYPES )
 {
   using nt2::hjmin;
    using nt2::optimization::output;
-  typedef nt2::table<T> tab_t; 
+  typedef nt2::table<T> tab_t;
   tab_t x0 = nt2::zeros(nt2::of_size(1, 3), nt2::meta::as_<T>());
   tab_t h = nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>())*nt2::Half<T>();
-  tab_t r = nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>()); 
+  tab_t r = nt2::ones (nt2::of_size(1, 3), nt2::meta::as_<T>());
   output<tab_t,T> res = hjmin(&f1<tab_t>, x0, h);
 
   std::cout << "Minimum : f(" << res.minimum << ") = " << res.value
             << " after " << res.iterations_count <<  " iterations\n";
 
   NT2_TEST(res.successful);
-  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Sqrteps<T>()); 
+  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Sqrteps<T>());
 }
 
 NT2_TEST_CASE_TPL( hjmin_functor, NT2_REAL_TYPES )
 {
   using nt2::hjmin;
    using nt2::optimization::output;
-  typedef nt2::table<T> tab_t; 
+  typedef nt2::table<T> tab_t;
   tab_t x0 = nt2::zeros(nt2::of_size(1, 2), nt2::meta::as_<T>());
   tab_t h = nt2::ones (nt2::of_size(1, 2), nt2::meta::as_<T>())*nt2::Half<T>();
-  tab_t r = nt2::ones (nt2::of_size(1, 2), nt2::meta::as_<T>()); 
+  tab_t r = nt2::ones (nt2::of_size(1, 2), nt2::meta::as_<T>());
   output<tab_t,T> res = hjmin(ffp(), x0, h);
 
   std::cout << "Minimum : f(" << res.minimum << ") = " << res.value
             << " after " << res.iterations_count <<  " iterations\n";
 
   NT2_TEST(res.successful);
-  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Sqrteps<T>()); 
+  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::abs(res.minimum()-r)), nt2::Sqrteps<T>());
 }
 
 // NT2_TEST_CASE_TPL( hjmin_function, (double)(float) )
@@ -178,17 +178,17 @@ NT2_TEST_CASE_TPL( hjmin_functor, NT2_REAL_TYPES )
 // }
 
 // double f1(const matrix < double >& x )       {
-//      return x*x*x-3*x+4; 
+//      return x*x*x-3*x+4;
 // }
-  
+
 // int main(int argc, char* argv[])
 // {
 //   ffp fff;
 //   matrix < double >  b =  0.5*ones(1);
 //   matrix < double >  h =  ones(1);
-//   hjmin < matrix < double > > hjm; 
-//   cout << hjm.optimize(fff, b, h) << endl; ; 
+//   hjmin < matrix < double > > hjm;
+//   cout << hjm.optimize(fff, b, h) << endl; ;
 //   cout << b << endl;
-//   cout << "minimum " << hjm.optimize(fff, b, h) <<  " au point " <<  b << " en " << hjm.getNbIteration() <<  " iterations" << endl; 
+//   cout << "minimum " << hjm.optimize(fff, b, h) <<  " au point " <<  b << " en " << hjm.getNbIteration() <<  " iterations" << endl;
 
 // }

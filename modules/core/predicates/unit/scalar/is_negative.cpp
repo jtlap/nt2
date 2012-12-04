@@ -12,7 +12,7 @@
 // unit test behavior of predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/predicates/include/functions/is_negative.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -36,7 +36,7 @@
 
 NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::is_negative;
   using nt2::tag::is_negative_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -46,9 +46,9 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_negative((-nt2::Zero<T>())), nt2::True<r_t>());
@@ -66,7 +66,7 @@ NT2_TEST_CASE_TPL ( is_negative_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( is_negative_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::is_negative;
   using nt2::tag::is_negative_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -76,9 +76,9 @@ NT2_TEST_CASE_TPL ( is_negative_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_negative(nt2::Mone<T>()), nt2::True<r_t>());
@@ -89,7 +89,7 @@ NT2_TEST_CASE_TPL ( is_negative_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( is_negative_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::is_negative;
   using nt2::tag::is_negative_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -99,9 +99,9 @@ NT2_TEST_CASE_TPL ( is_negative_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_negative(nt2::One<T>()), nt2::False<r_t>());

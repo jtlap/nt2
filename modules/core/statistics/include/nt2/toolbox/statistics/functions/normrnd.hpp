@@ -32,12 +32,12 @@
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/normrnd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,13 +48,13 @@
  *     normrnd(const A1 &m, const A2 & sig, ... dimension(s));
  * }
  * \endcode
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag normrnd_ of functor normrnd 
+     * \brief Define the tag normrnd_ of functor normrnd
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct normrnd_ : ext::unspecified_<normrnd_> { typedef ext::unspecified_<normrnd_> parent; };

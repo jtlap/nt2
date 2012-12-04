@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/include/functions/sinh.hpp>
 #include <nt2/include/functions/sin.hpp>
 #include <nt2/include/functions/mul_i.hpp>
@@ -36,36 +36,36 @@
 
 NT2_TEST_CASE_TPL ( sinh_real__1_0,  (double))//NT2_REAL_TYPES)
 {
-  
+
   using nt2::sinh;
   using nt2::tag::sinh_;
   typedef std::complex<T> cT;
-  typedef cT r_t; 
+  typedef cT r_t;
   double ulpd;
   ulpd=0.0;
-  const int N = 20; 
+  const int N = 20;
   cT inputs[N] =
     { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
       cT(nt2::Zero<T>(),nt2::Inf<T>()), cT(nt2::Inf<T>(),nt2::Inf<T>()), cT(nt2::Minf<T>(),nt2::Inf<T>()), cT(nt2::Nan<T>(),nt2::Inf<T>()),
       cT(nt2::Zero<T>(),nt2::Minf<T>()),cT(nt2::Inf<T>(),nt2::Minf<T>()),cT(nt2::Minf<T>(),nt2::Minf<T>()),cT(nt2::Nan<T>(),nt2::Minf<T>()),
       cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Zero<T>(),nt2::Pi <T>()), cT(nt2::Inf<T>(),nt2::Pi <T>()), cT(nt2::Minf<T>(),nt2::Pi <T>()), cT(nt2::Nan<T>(),nt2::Pi <T>()),  
-    }; 
+      cT(nt2::Zero<T>(),nt2::Pi <T>()), cT(nt2::Inf<T>(),nt2::Pi <T>()), cT(nt2::Minf<T>(),nt2::Pi <T>()), cT(nt2::Nan<T>(),nt2::Pi <T>()),
+    };
 
-  cT results[N] = 
+  cT results[N] =
     { cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Inf<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Zero<T>()),cT(nt2::Nan<T>(),nt2::Zero<T>()),
       cT(nt2::Zero<T>(),nt2::Nan<T>()),cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
       cT(nt2::Zero<T>(),nt2::Nan<T>()),cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()), cT(nt2::Nan<T>(),nt2::Nan<T>()),
       cT(nt2::Zero<T>(),nt2::Nan<T>()), cT(nt2::Inf<T>(),nt2::Nan<T>()), cT(nt2::Minf<T>(),nt2::Nan<T>()),cT(nt2::Nan<T>(),nt2::Nan<T>()),
-      cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Inf<T>()),cT(nt2::Inf<T>(),nt2::Inf<T>()),cT(nt2::Nan<T>(),nt2::Nan <T>()),  
-    }; 
+      cT(nt2::Zero<T>(),nt2::Zero<T>()),cT(nt2::Minf<T>(),nt2::Inf<T>()),cT(nt2::Inf<T>(),nt2::Inf<T>()),cT(nt2::Nan<T>(),nt2::Nan <T>()),
+    };
 
   for(int i=0; i < N; i++)
    {
-     std::cout << "input = " << inputs[i] << " -> " << results[i] << std::endl; 
-     NT2_TEST_ULP_EQUAL(nt2::sinh(inputs[i]), results[i], 1); 
-     //     NT2_TEST_ULP_EQUAL(nt2::sinh(inputs[i]), nt2::mul_minus_i(nt2::sin(nt2::mul_i(inputs[i]))), 1); 
-     NT2_TEST_ULP_EQUAL(nt2::sinh(-inputs[i]), -results[i], 1); 
+     std::cout << "input = " << inputs[i] << " -> " << results[i] << std::endl;
+     NT2_TEST_ULP_EQUAL(nt2::sinh(inputs[i]), results[i], 1);
+     //     NT2_TEST_ULP_EQUAL(nt2::sinh(inputs[i]), nt2::mul_minus_i(nt2::sin(nt2::mul_i(inputs[i]))), 1);
+     NT2_TEST_ULP_EQUAL(nt2::sinh(-inputs[i]), -results[i], 1);
    }
 
 } // end of test for floating_

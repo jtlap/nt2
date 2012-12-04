@@ -24,12 +24,12 @@
  * Constant Ten = 10
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ten.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Ten
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Ten of functor Ten 
+     * \brief Define the tag Ten of functor Ten
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Ten, int, 10

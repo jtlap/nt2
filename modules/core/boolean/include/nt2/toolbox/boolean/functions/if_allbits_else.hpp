@@ -18,18 +18,18 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Bring the tag if_allbits_else_ of functor if_allbits_else 
+     * \brief Bring the tag if_allbits_else_ of functor if_allbits_else
      *        in namespace nt2::tag for toolbox nt2.boolean
     **/
     using boost::simd::tag::if_allbits_else_;
   }
 
   using boost::simd::if_allbits_else;
-  using boost::simd::ifnot_else_allbits; 
-  using boost::simd::ifnotelseallbits; 
-  using boost::simd::ifnanelse; 
-  using boost::simd::ifnot_else_nan; 
-  using boost::simd::ifnotelsenan; 
+  using boost::simd::ifnot_else_allbits;
+  using boost::simd::ifnotelseallbits;
+  using boost::simd::ifnanelse;
+  using boost::simd::ifnot_else_nan;
+  using boost::simd::ifnotelsenan;
 }
 #endif
 

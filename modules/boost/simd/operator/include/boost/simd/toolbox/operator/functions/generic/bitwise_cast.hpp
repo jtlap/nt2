@@ -27,13 +27,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A1::type const& result_type;
-   
+
     BOOST_MPL_ASSERT_MSG
     ( (sizeof(A0) == sizeof(typename A1::type))
     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
     , (A0&,typename A1::type&)
     );
-      
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       return reinterpret_cast<result_type>(a0);
@@ -49,13 +49,13 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A1::type result_type;
-   
+
     BOOST_MPL_ASSERT_MSG
     ( (sizeof(A0) == sizeof(typename A1::type))
     , BOOST_SIMD_TARGET_IS_NOT_SAME_SIZE_AS_SOURCE_IN_BITWISE_CAST
     , (A0&,typename A1::type&)
     );
-      
+
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
     {
       result_type that;
@@ -63,7 +63,7 @@ namespace boost { namespace simd { namespace ext
       return that;
     }
   };
-  
+
   BOOST_DISPATCH_REGISTER_TO_IF((boost)(simd)(ext), boost::simd::tag::bitwise_cast_, tag::cpu_, (A0)(A1)
                             , (is_same<A0, typename A1::type>)
                             , (generic_< unspecified_<A0> >)

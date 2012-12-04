@@ -18,10 +18,10 @@
 NT2_TEST_CASE( real_c )
 {
   using boost::simd::meta::real_c;
-  
+
   real_c< boost::simd::uint32_t, 0x3F800000UL>          one_fc;
   real_c< boost::simd::uint64_t, 0x3FF0000000000000ULL> one_dc;
-  
+
   float  one_f = 1.f;
   double one_d = 1.;
 

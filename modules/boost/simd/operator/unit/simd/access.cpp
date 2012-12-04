@@ -29,14 +29,14 @@
 NT2_TEST_CASE_TPL(unaligned_load, BOOST_SIMD_SIMD_TYPES )
 {
   using boost::simd::load;
-  using boost::simd::unaligned_load; 
+  using boost::simd::unaligned_load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
 
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>             n_t;
   static const std::size_t card = cardinal_of<n_t>::value;
-  
+
   T data[3*card];
   for(std::size_t i=0;i<3*card;++i)
     data[i] = T(1+i);
@@ -180,11 +180,11 @@ NT2_TEST_CASE_TPL(store, BOOST_SIMD_SIMD_TYPES )
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef native<T,ext_t>             n_t;
   static const std::size_t card = cardinal_of<n_t>::value;
-  
+
   BOOST_SIMD_ALIGNED_TYPE(T) data[3*card];
   for(std::size_t i=0;i<card;++i)
     data[i] = T(1+i);
-  std::cout << ((nt2::int64_t)(&data[0]))%32 << std::endl; 
+  std::cout << ((nt2::int64_t)(&data[0]))%32 << std::endl;
   n_t v = load<n_t>(&data[0],0);
   store(v,&data[0],card);
 
@@ -213,7 +213,7 @@ NT2_TEST_CASE_TPL(unaligned_store, BOOST_SIMD_SIMD_TYPES )
    typedef native<T,ext_t>             n_t;
 
    static const std::size_t card = cardinal_of<n_t>::value;
-   
+
    T data[2*card];
    for(std::size_t i=0;i<card;++i)
      data[i] = T(1+i);

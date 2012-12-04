@@ -2,7 +2,7 @@
     {
      'functor' : {
          'description' : ['return the \c truncation of the operands real division'
-                          'in the corresponding integer type'],  
+                          'in the corresponding integer type'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],
@@ -34,7 +34,7 @@
              'real_' : {
                  'T(4),T(3)' : 'T(1)',
                  'T(4),T(0)' : 'boost::simd::Valmax<r_t>()',
-                 'T(-4),T(0)' : 'boost::simd::Valmin<r_t>()',   
+                 'T(-4),T(0)' : 'boost::simd::Valmin<r_t>()',
                  'boost::simd::Inf<T>()' : 'boost::simd::Nan<r_t>()',
                  'boost::simd::Minf<T>()' : 'boost::simd::Nan<r_t>()',
                  'boost::simd::Mone<T>()' : 'boost::simd::One<r_t>()',
@@ -47,13 +47,13 @@
                  'boost::simd::Mone<T>()' : 'boost::simd::One<T>()',
                  'boost::simd::One<T>()' : 'boost::simd::One<T>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
-                 'boost::simd::Zero<T>()' : 'boost::simd::Nan<T>()',  
+                 'boost::simd::Zero<T>()' : 'boost::simd::Nan<T>()',
                 },
              'unsigned_int_' : {
                  'T(4),T(3)' : 'T(1)',
                  'boost::simd::One<T>()' : 'boost::simd::One<T>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<T>()',
-                 'boost::simd::Zero<T>()' : 'boost::simd::Nan<T>()',  
+                 'boost::simd::Zero<T>()' : 'boost::simd::Nan<T>()',
                  },
             },
          'verif_test' : {

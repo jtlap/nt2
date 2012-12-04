@@ -98,10 +98,10 @@ NT2_TEST_CASE( repnum_nd_untyped )
 {
   nt2::table<double> x0 = nt2::repnum(11.5, nt2::of_size(64, 1));
   for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, double(x0(i)) );
-  
+
   nt2::table<double> x1 = nt2::repnum(11.5, nt2::of_size(1, 64));
   for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, double(x1(i)) );
-   
+
   nt2::table<double> x2 = nt2::repnum(11.5,nt2::of_size(8,8));
   for(int i=1;i<=64;++i) NT2_TEST_EQUAL( 11.5, double(x2(i)) );
 

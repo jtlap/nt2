@@ -24,12 +24,12 @@
  * <tt>std::memcpy(a1 + a2, &a0, sizeof a0);</tt>
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/store.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,16 +44,16 @@
  * \param a0 the object to store
  * \param a1 the base address
  * \param a2 offset to store at
- * 
+ *
  * \return a0
- *  
+ *
 **/
 
 namespace boost { namespace simd
 {
   namespace tag { struct store_ : ext::elementwise_<store_> { typedef ext::elementwise_<store_> parent; }; }
     /*!
-     * \brief Define the tag store_ of functor store 
+     * \brief Define the tag store_ of functor store
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
   template<class A0, class A1, class A2>
@@ -63,7 +63,7 @@ namespace boost { namespace simd
   {
     return typename boost::dispatch::make_functor<tag::store_, A0>::type()(a0, a1, a2);
   }
-  
+
   template<class A0, class A1>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta::call<tag::store_(A0 const&, A1 const&, int const&)>::type
@@ -71,7 +71,7 @@ namespace boost { namespace simd
   {
     return typename boost::dispatch::make_functor<tag::store_, A0>::type()(a0, a1, 0);
   }
-  
+
 } }
 
 #endif

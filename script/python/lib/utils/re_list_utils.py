@@ -15,7 +15,7 @@ import re
 
 
 def sub_list(pattern, repl, stringlist, count=0):
-    "apply re.sub to all elements of a list" 
+    "apply re.sub to all elements of a list"
     outlist=[]
     if type(pattern) is str :
       pattern = re.compile(pattern)
@@ -24,7 +24,7 @@ def sub_list(pattern, repl, stringlist, count=0):
     return outlist
 
 ##def search_list(pattern, stringlist, flags=None):
-##    "apply re.search to all elements of a list" 
+##    "apply re.search to all elements of a list"
 ##    outlist=[]
 ##    if type(pattern) is str :
 ##      pattern = re.compile(pattern)
@@ -33,7 +33,7 @@ def sub_list(pattern, repl, stringlist, count=0):
 ##    return outlist
 
 def sub_if_match_list(start, pattern, repl, stringlist, count=0, flags=None):
-    "apply re.sub to all elements of a list that begin with start" 
+    "apply re.sub to all elements of a list that begin with start"
     outlist=[]
     if type(pattern) is str : pattern = re.compile(pattern)
     if type(start) is str : start = re.compile(start)
@@ -72,4 +72,4 @@ if __name__ == "__main__":
         ]
     l=sub_if_match_list(" *##", "\*", "#", inner_text)
     show(l)
-   
+

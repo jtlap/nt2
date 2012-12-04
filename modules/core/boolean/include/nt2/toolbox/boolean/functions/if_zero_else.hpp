@@ -18,16 +18,16 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Bring the tag if_zero_else_ of functor if_zero_else 
+     * \brief Bring the tag if_zero_else_ of functor if_zero_else
      *        in namespace nt2::tag for toolbox nt2.boolean
     **/
     using boost::simd::tag::if_zero_else_;
   }
 
   using boost::simd::if_zero_else;
-  using boost::simd::ifzeroelse; 
+  using boost::simd::ifzeroelse;
   using boost::simd::ifnot_else_zero;
-  using boost::simd::ifnotelsezero; 
+  using boost::simd::ifnotelsezero;
 }
 #endif
 

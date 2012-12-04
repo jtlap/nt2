@@ -27,12 +27,12 @@
  * the result type is the same.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/bitwise_select.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -47,19 +47,19 @@
  * \param a0 the first parameter of bitwise_select
  * \param a1 the second parameter of bitwise_select
  * \param a2 the third parameter of bitwise_select
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag bitwise_select_ of functor bitwise_select 
+     * \brief Define the tag bitwise_select_ of functor bitwise_select
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct bitwise_select_ : ext::elementwise_<bitwise_select_> { typedef ext::elementwise_<bitwise_select_> parent; };

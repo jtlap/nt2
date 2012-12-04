@@ -23,14 +23,14 @@
  * saturated in the interval defined by the common arguments type bounds
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/subs.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg satrated_sub
- * 
+ *
  * \synopsis
  *
  * \code
@@ -44,20 +44,20 @@
  *
  * \param a0 the first parameter of subs
  * \param a1 the second parameter of subs
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag subs_ of functor subs 
+     * \brief Define the tag subs_ of functor subs
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct subs_ : ext::elementwise_<subs_> { typedef ext::elementwise_<subs_> parent; };

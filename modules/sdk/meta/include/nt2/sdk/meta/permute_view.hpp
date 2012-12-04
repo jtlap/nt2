@@ -14,11 +14,11 @@
 
 namespace nt2 { namespace tag { struct permute_ {}; } }
 
-namespace nt2 
-{ 
+namespace nt2
+{
   //============================================================================
-  /*! permute_view_ gives an other view of a sequence. 
-   * 
+  /*! permute_view_ gives an other view of a sequence.
+   *
    * \tparam Sequence     Sequence to change the view
    * \tparam Permutation  metafunction with rules of the view
    **/
@@ -42,14 +42,14 @@ namespace nt2
 
     template <typename Seq, typename Permutation>
     permute_view<Seq,Permutation> permute(Seq const& seq)
-    { 
+    {
       permute_view<Seq,Permutation> that(seq);
       return that;
     }
 
     template <typename Seq, typename Permutation>
     permute_view<Seq const&,Permutation> permute(Seq const& seq)
-    { 
+    {
       permute_view<Seq const &,Permutation> that(seq);
       return that;
     }

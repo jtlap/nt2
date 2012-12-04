@@ -34,8 +34,8 @@ namespace nt2 { namespace details
 //    typedef typename meta::as_logical<float_t>::type                 bool_t;
     typedef ptrdiff_t bool_t;
     typedef T                         array_t;
-    typedef nt2::table<FLOAT>         table_t;
-    typedef nt2::table<bool_t>       btable_t;
+    typedef nt2::container::table<FLOAT>         table_t;
+    typedef nt2::container::table<bool_t>       btable_t;
     typedef details::optimization_settings<float_t>   otype;
     lev_impl() : iterdone(0), pa(0), pia(0), opt(0){}
     ~lev_impl() {}

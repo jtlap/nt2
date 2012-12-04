@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_SQRT1PM1_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_SQRT1PM1_HPP_INCLUDED
@@ -26,11 +26,11 @@ namespace nt2 { namespace ext
     typedef typename meta::as_complex<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<result_type>::type rtype; 
+      typedef typename meta::as_real<result_type>::type rtype;
       result_type tmp = nt2::sqrt(oneplus(a0));
       return if_else(lt(nt2::abs(a0), Half<rtype>()),
                      nt2::divides(a0, oneplus(tmp)),
-                     minusone(tmp)); 
+                     minusone(tmp));
     }
   };
 } }

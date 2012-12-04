@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/logspace_sub.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -38,7 +38,7 @@ NT2_TEST_CASE_TPL ( logspace_sub_real__2_1,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::logspace_sub;
   using nt2::tag::logspace_sub_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;

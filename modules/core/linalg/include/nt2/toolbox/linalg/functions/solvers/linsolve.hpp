@@ -62,7 +62,7 @@
 //       result_type that(a, b);
 //       return that;
 //     }
-//   };  
+//   };
 // //   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::factorization::linsolve_, tag::cpu_
 // //                               , (A0)(A1)(A2)
 // //                               , ((ast_<A0, nt2::container::domain>))
@@ -112,7 +112,7 @@
 // //       result_type that(a, b, opts);
 // //       return that;
 // //     }
-// //   };  
+// //   };
 
 // } }
 

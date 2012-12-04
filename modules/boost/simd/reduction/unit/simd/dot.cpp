@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/reduction/include/functions/dot.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( dot_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::dot;
   using boost::simd::tag::dot_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef T scalar;

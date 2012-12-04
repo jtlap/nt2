@@ -3,13 +3,13 @@
      'functor' : {
          'description' : [ "Constant $Fct$ = \\\\f$ \\\\frac{\sqrt2}2\\\\f$"],
          'return' : ["type T value"],
-         'template' : True,   
+         'template' : True,
          'module' : 'boost',
-         'special' : ['constant'],   
+         'special' : ['constant'],
          'arity' : '0',
          'call_types' : [],
          'ret_arity' : '0',
-         'tpl' : '<T>',   
+         'tpl' : '<T>',
          'rturn' : {
              'default' : 'T',
             },

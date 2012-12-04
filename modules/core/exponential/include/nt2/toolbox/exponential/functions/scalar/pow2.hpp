@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
     {
       return nt2::ldexp(One<A0>(), a0);
     }
-  };    
+  };
 } }
 
 

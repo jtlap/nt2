@@ -24,14 +24,14 @@
  * Due to existence of nan, this is not equivalent to \c not(is_greater(a0,a1))
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_not_greater.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg is_ngt
- * 
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  *
  * \param a0 the first parameter of is_not_greater
  * \param a1 the second parameter of is_not_greater
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_not_greater_ of functor is_not_greater 
+     * \brief Define the tag is_not_greater_ of functor is_not_greater
      *        in namespace boost::simd::tag for toolbox boost.simd.predicates
     **/
     struct is_not_greater_ : ext::elementwise_<is_not_greater_> { typedef ext::elementwise_<is_not_greater_> parent; };

@@ -12,59 +12,35 @@
 // unit test behavior of boost.simd.ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/bitfloating.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
-#include <boost/simd/include/functions/bitinteger.hpp>
-
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
-#include <boost/simd/sdk/memory/is_aligned.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
-#include <boost/simd/include/functions/load.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
+#include <boost/simd/sdk/meta/scalar_of.hpp>
 
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL ( bitfloating_int_convert__1_0,  BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
+NT2_TEST_CASE_TPL ( bitfloating_integer_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES BOOST_SIMD_SIMD_INT_CONVERT_TYPES)
 {
   using boost::simd::bitfloating;
   using boost::simd::tag::bitfloating_;
-  using boost::simd::load; 
   using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;
   typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
+  typedef typename boost::dispatch::meta::as_floating<T>::type fT;
+  typedef native<fT,ext_t>                       fvT;
   typedef typename boost::dispatch::meta::call<bitfloating_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
 
-} // end of test for int_convert_
+  NT2_TEST_TYPE_IS(r_t, fvT);
 
-NT2_TEST_CASE_TPL ( bitfloating_uint_convert__1_0,  BOOST_SIMD_SIMD_UINT_CONVERT_TYPES)
-{
-  using boost::simd::bitfloating;
-  using boost::simd::tag::bitfloating_;
-  using boost::simd::load; 
-  using boost::simd::native;
-  using boost::simd::meta::cardinal_of;
-  typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<bitfloating_(vT)>::type r_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
-  typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  NT2_TEST_EQUAL(bitfloating(boost::simd::Mone<vT>())[0]  ,bitfloating(boost::simd::Mone<T>())  ); 
-  NT2_TEST_EQUAL(bitfloating(boost::simd::One<vT>() )[0]   ,bitfloating(boost::simd::One<T>())   );
-  NT2_TEST_EQUAL(bitfloating(boost::simd::Valmax<vT>())[0],bitfloating(boost::simd::Valmax<T>())); 
-  NT2_TEST_EQUAL(bitfloating(boost::simd::Valmin<vT>())[0],bitfloating(boost::simd::Valmin<T>())); 
-  NT2_TEST_EQUAL(bitfloating(boost::simd::Zero<vT>())[0]  ,bitfloating(boost::simd::Zero<T>())  );  
-} // end of test for uint_convert_
+  NT2_TEST_EQUAL(bitfloating(boost::simd::Mone<vT>())[0]  ,bitfloating(boost::simd::Mone<T>())  );
+  NT2_TEST_EQUAL(bitfloating(boost::simd::One<vT>() )[0]  ,bitfloating(boost::simd::One<T>())   );
+  NT2_TEST_EQUAL(bitfloating(boost::simd::Valmax<vT>())[0],bitfloating(boost::simd::Valmax<T>()));
+  NT2_TEST_EQUAL(bitfloating(boost::simd::Valmin<vT>())[0],bitfloating(boost::simd::Valmin<T>()));
+  NT2_TEST_EQUAL(bitfloating(boost::simd::Zero<vT>())[0]  ,bitfloating(boost::simd::Zero<T>())  );
+} // end of test for integer_convert_

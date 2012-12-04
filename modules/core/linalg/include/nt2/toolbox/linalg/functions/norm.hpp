@@ -21,33 +21,33 @@
  * Elementary Least square
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/norm.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
- * \param a the matrix or vector expression a 
+ * \param a the matrix or vector expression a
  *
  * \param type of norm required
- * 
+ *
  * \par Notes
  *   Call the dedicated lapack routines available on the target.
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag norm_ of functor norm
      *        in namespace nt2::tag for toolbox algebra
     **/
     struct norm_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::norm_, norm, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::norm_, norm, 1)
 

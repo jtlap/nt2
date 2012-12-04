@@ -12,7 +12,7 @@
 // cover test behavior of ieee components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/next.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::next;
   using nt2::tag::next_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -72,6 +72,6 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  NT2_SIMD_REAL_TYPES)
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::next (a0[i])));
         }
       }
-    
+
   }
 } // end of test for floating_

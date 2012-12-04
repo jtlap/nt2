@@ -23,12 +23,12 @@
  * minusone(a) is always less or equal to a.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/minusone.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of minusone
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag minusone_ of functor minusone 
+     * \brief Define the tag minusone_ of functor minusone
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct minusone_ : ext::elementwise_<minusone_> { typedef ext::elementwise_<minusone_> parent; };

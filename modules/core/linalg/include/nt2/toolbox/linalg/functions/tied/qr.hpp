@@ -33,21 +33,21 @@ namespace nt2 { namespace ext
             call< nt2::tag::
                   factorization::qr_(child0,char,nt2::details::in_place_)
                 >::type                                             fact_t;
-    
+
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       // Copy data in output first
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
-      char nop = (N1::value < 3) ? 'N':  'P'; ; 
+      char nop = (N1::value < 3) ? 'N':  'P'; ;
       // Factorize in place
       fact_t f = factorization::qr(boost::proto::child_c<0>(a1),nop, in_place_);
-      //      char ch =  choice(a0, N0()); 
+      //      char ch =  choice(a0, N0());
       decomp(f, a1, N1());
     }
 
   private:
     struct matrix_{};
-    struct vector_{}; 
+    struct vector_{};
     //==========================================================================
     // INTERNAL ONLY
     // get 'Vector',  'Matrix'
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     char choice(A0 const &, boost::mpl::long_<1> const &) const
     {
-      return 'M'; 
+      return 'M';
     }
 
     BOOST_FORCEINLINE
@@ -63,8 +63,8 @@ namespace nt2 { namespace ext
     {
       return boost::proto::value(boost::proto::child_c<1>(a0));
     }
-    
-   
+
+
     //==========================================================================
     // INTERNAL ONLY
     // fill the args out
@@ -86,11 +86,11 @@ namespace nt2 { namespace ext
     void decomp(fact_t & f, A1 & a1, boost::mpl::long_<3> const&) const
     {
       typedef typename boost::proto::result_of::child_c<A1&, 2>::type tab_type;
-      typedef typename meta::strip<tab_type>::type type; 
-      typedef typename type::value_type value_type; 
+      typedef typename meta::strip<tab_type>::type type;
+      typedef typename type::value_type value_type;
       boost::proto::child_c<0>(a1) = f.q();
       boost::proto::child_c<1>(a1) = f.r();
-      perm<A1, fact_t, value_type>::get(a1, f);   
+      perm<A1, fact_t, value_type>::get(a1, f);
     }
 
     template <class B1,  class B2, class B3 = typename B2::type_t> struct perm
@@ -100,8 +100,8 @@ namespace nt2 { namespace ext
       {
         boost::proto::child_c<2>(a1) = f.p();
       }
-    }; 
-      
+    };
+
     template <class B1,  class B2> struct perm < B1, B2, typename B2::itype_t>
     {
       BOOST_FORCEINLINE
@@ -109,7 +109,7 @@ namespace nt2 { namespace ext
       {
         boost::proto::child_c<2>(a1) = f.jp();
       }
-    }; 
+    };
   };
 } }
 

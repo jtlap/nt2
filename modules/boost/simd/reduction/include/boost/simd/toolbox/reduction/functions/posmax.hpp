@@ -22,12 +22,12 @@
  * Returns the index of the first occurence of greatest element of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/posmax.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of posmax
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,13 +53,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag posmax_ of functor posmax 
+     * \brief Define the tag posmax_ of functor posmax
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct posmax_ : ext::unspecified_<posmax_> { typedef ext::unspecified_<posmax_> parent; };

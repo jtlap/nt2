@@ -18,34 +18,34 @@
 
 namespace nt2 { namespace ext
 {
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gampdf_, tag::cpu_
                               , (A0)(A1)
                               , (generic_<floating_<A0> > )
                               (generic_<floating_<A1> >)
                               )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        BOOST_ASSERT_MSG(nt2::globalall(is_gtz(a1)), "shape must be strictly positive"); 
+        BOOST_ASSERT_MSG(nt2::globalall(is_gtz(a1)), "shape must be strictly positive");
         // the following formula must be worked out for accuracy
         return  nt2::exp( oneminus(a1)*nt2::log(a0)-a0-nt2::gammaln(a1)
-                         
+
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::gampdf_, tag::cpu_
                             , (A0)(A1)(A2)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
-                              (generic_< floating_<A2> >)  
+                              (generic_< floating_<A2> >)
                             )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
     {
-      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(a2)), "scale) must be positive"); 
+      BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gez(a2)), "scale) must be positive");
       return nt2::gampdf(a0/a2, a1)/a2;
     }
   };
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
 //     z = z(k);
 //     a = a(k)-1;
 //     b = b(k);
-    
+
 //     i = a<0;
 //     y(k(i)) = f(z(i),a(i)+1) .* exp(log(a(i)+1)-log(z(i))) ./ b(i);
 //     y(k(~i)) = f(z(~i),a(~i)) ./ b(~i);
@@ -109,8 +109,8 @@ namespace nt2 { namespace ext
 // %
 // %    For "x/np" not close to 1:
 // %        bd0(x,np) = np*f(x/np) where f(e)=e*log(e)+1-e
-// %    For "x/np" close to 1: 
-// %         The function is calculated using the formula in Equation 5.2. 
+// %    For "x/np" close to 1:
+// %         The function is calculated using the formula in Equation 5.2.
 
 // %   Copyright 2010 The MathWorks, Inc.
 // %   $Revision: 1.1.6.2 $
@@ -174,7 +174,7 @@ namespace nt2 { namespace ext
 //      1.534264097200273e-01;...
 //      8.106146679532726e-02;...
 //      5.481412105191765e-02;...
-//      4.134069595540929e-02;... 
+//      4.134069595540929e-02;...
 //      3.316287351993629e-02;...
 //      2.767792568499834e-02;...
 //      2.374616365629750e-02;...

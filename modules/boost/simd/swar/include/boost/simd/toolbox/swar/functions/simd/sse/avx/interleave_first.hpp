@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_INTERLEAVE_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_AVX_INTERLEAVE_FIRST_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_AVX_SUPPORT
- 
+
 #include <boost/simd/toolbox/swar/functions/interleave_first.hpp>
 #include <boost/simd/include/functions/bitwise_cast.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
@@ -31,9 +31,9 @@ namespace boost { namespace simd { namespace ext
     {
       typedef simd::native<double, boost::simd::tag::avx_ >       dtype;
       result_type that0 = details::perm2<0, 0>(a0, a0);
-      that0 = details::shuffle_pairs<0, 1, 1, 3>(that0, that0); 
+      that0 = details::shuffle_pairs<0, 1, 1, 3>(that0, that0);
       result_type that1 = details::perm2<0, 0>(a1, a1);
-      that1 = details::shuffle_pairs<0, 1, 1, 3>(that1, that1); 
+      that1 = details::shuffle_pairs<0, 1, 1, 3>(that1, that1);
       return _mm256_unpacklo_ps(that0,that1);
     }
   };
@@ -50,9 +50,9 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(__m256d const a0, __m256d const a1) const
     {
       result_type that0 = _mm256_permute2f128_pd(a0, a0, 0);
-      that0 = details::shuffle<0, 1, 1, 3>(that0, that0);  
+      that0 = details::shuffle<0, 1, 1, 3>(that0, that0);
       result_type that1 = _mm256_permute2f128_pd(a1, a1, 0);
-      that1 = details::shuffle<0, 1, 1, 3>(that1, that1); 
+      that1 = details::shuffle<0, 1, 1, 3>(that1, that1);
       return _mm256_unpacklo_pd(that0,that1);
     }
   };
@@ -69,7 +69,7 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(__m256i const a0, __m256i const a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return  bitwise_cast<result_type>(interleave_first(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return  bitwise_cast<result_type>(interleave_first(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1)));
     }
   };
 
@@ -85,10 +85,10 @@ namespace boost { namespace simd { namespace ext
     result_type operator()(A0 const a0, A1 const a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
-      return bitwise_cast<result_type>(interleave_first(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1))); 
+      return bitwise_cast<result_type>(interleave_first(bitwise_cast<ftype>(a0), bitwise_cast<ftype>(a1)));
     }
   };
-    
+
 } } }
 
 #endif

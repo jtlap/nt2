@@ -27,12 +27,12 @@
  * means rouding to nearest
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/crlibm/include/functions/pow_rn.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -49,9 +49,9 @@
  *
  * \param a0 the first parameter of pow_rn
  * \param a1 the second parameter of pow_rn
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -65,13 +65,13 @@
  * crlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-     * \brief Define the tag pow_rn_ of functor pow_rn 
+     * \brief Define the tag pow_rn_ of functor pow_rn
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct pow_rn_ : ext::elementwise_<pow_rn_> { typedef ext::elementwise_<pow_rn_> parent; };

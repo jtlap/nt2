@@ -24,11 +24,11 @@
  * return a complex constructed from the parameter(s)
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/tocomplex.hpp>
  * \endcode
- * 
+ *
  * \synopsis
  *
  * \code
@@ -45,13 +45,13 @@
  *
  * \param a0 the first parameter of tocomplex
  * \param a1 the second parameter of tocomplex
- * 
+ *
  * \return a real value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the input vectors' elements
  * \par
- *  
+ *
 **/
 
 namespace nt2
@@ -59,7 +59,7 @@ namespace nt2
   namespace tag
   {
     /*!
-     * \brief Define the tag tocomplex_ of functor tocomplex 
+     * \brief Define the tag tocomplex_ of functor tocomplex
      *        in namespace nt2::tag for toolbox complex
     **/
     struct tocomplex_ : ext::elementwise_<tocomplex_> { typedef ext::elementwise_<tocomplex_> parent; };

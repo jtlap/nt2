@@ -17,9 +17,9 @@
 //////////////////////////////////////////////////////////////////////////////
 // Test behavior of gsl_specfun component gsl_sf_choose using NT2_TEST_CASE
 //////////////////////////////////////////////////////////////////////////////
-//NT2_TEST_CASE_TPL ( gsl_specfun,  (double)(nt2::uint64_t)(nt2::int64_t) 
-//                          (float)(nt2::uint32_t)(nt2::int32_t)  
-//                          (nt2::uint16_t)(nt2::int16_t)         
+//NT2_TEST_CASE_TPL ( gsl_specfun,  (double)(nt2::uint64_t)(nt2::int64_t)
+//                          (float)(nt2::uint32_t)(nt2::int32_t)
+//                          (nt2::uint16_t)(nt2::int16_t)
 //                          (nt2::uint8_t)(nt2::int8_t)
 //                          (bool)
 //                  )

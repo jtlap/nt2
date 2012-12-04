@@ -45,7 +45,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef bool result_type;
 
-    inline result_type operator()(A0 const& a0, A1 const&)const 
+    inline result_type operator()(A0 const& a0, A1 const&)const
     {
       return !(a0 & (A1::value-1) );
     }

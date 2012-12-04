@@ -29,13 +29,13 @@ namespace boost { namespace simd {  namespace meta
     //==========================================================================
     /*
      * Alignment done on a non-power of two boundary
-     */    
+     */
     //==========================================================================
     BOOST_MPL_ASSERT_MSG
     ( (meta::is_power_of_2_c<N>::value)
     , BOOST_SIMD_INVALID_ALIGNMENT_VALUE
     , (boost::mpl::int_<N>)
-    );      
+    );
   };
 
   //////////////////////////////////////////////////////////////////////////////

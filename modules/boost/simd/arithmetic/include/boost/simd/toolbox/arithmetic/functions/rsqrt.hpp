@@ -23,12 +23,12 @@
  * of the square root of the entry
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rsqrt.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of rsqrt
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rsqrt_ of functor rsqrt 
+     * \brief Define the tag rsqrt_ of functor rsqrt
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct rsqrt_ : ext::elementwise_<rsqrt_> { typedef ext::elementwise_<rsqrt_> parent; };

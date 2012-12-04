@@ -74,7 +74,7 @@ class Global_header_gen() :
             "#include <boost/dispatch/details/ignore_unused.hpp>"
             ]
         }
-    
+
     Simd_template =  {
         'default' : [
             "#include <nt2/sdk/meta/cardinal_of.hpp>",
@@ -88,32 +88,32 @@ class Global_header_gen() :
         'boost' : [
             "#include <boost/simd/sdk/memory/is_aligned.hpp>",
             "#include <boost/simd/sdk/memory/aligned_type.hpp>",
-            "#include <boost/simd/include/functions/load.hpp>",           
+            "#include <boost/simd/include/functions/load.hpp>",
             "#include <boost/simd/toolbox/constant/constant.hpp>",
             "#include <boost/dispatch/details/ignore_unused.hpp>"
             ]
         }
     Cover_Template = {
-        'default' : "#include <nt2/include/functions/max.hpp>",         
+        'default' : "#include <nt2/include/functions/max.hpp>",
         'boost'   : "#include <boost/simd/include/functions/max.hpp>",
         }
     No_ulp_Template = {
-        'default' : "#include <nt2/include/functions/ulpdist.hpp>",         
-        'boost'   : "#include <boost/simd/include/functions/ulpdist.hpp>", 
+        'default' : "#include <nt2/include/functions/ulpdist.hpp>",
+        'boost'   : "#include <boost/simd/include/functions/ulpdist.hpp>",
         }
     Default_dug = {
         'first_stamp' : 'modified by ??? the ???',
-        'no_default_includes' : False,  
+        'no_default_includes' : False,
         'notes' : ["this is a default generation"],
         }
-    
+
     def __init__(self,base_gen,part,stampit=False) :
         self.stampit = stampit
         self.part = part
         self.bg   = base_gen
         self.mode = self.bg.get_fct_mode()
         self.__gen_result = self.__create_unit_txt()
-        
+
     def get_gen_result(self) :
         return  self.__gen_result
 
@@ -142,13 +142,13 @@ class Global_header_gen() :
                         r.append(Global_header_gen.Cover_Template[self.__module])
                     return r
         return r
-    
+
     def add_includes(self,r,dl) :
 ##        print ("part = %s"%self.part)
         include_src = ['included']
         if self.mode == 'simd':
             include_src.extend(['simd_included'])
-        else :   
+        else :
             include_src.extend(['scalar_included'])
         if self.part == 'cover':
             include_src.extend(['cover_included'])
@@ -200,10 +200,10 @@ class Global_header_gen() :
                 seen[item] = 1
                 result.append(item)
             return result
-        if len(dl)>1 : r=uniquer(r)    
-        return r    
+        if len(dl)>1 : r=uniquer(r)
+        return r
 
-        
+
     def __create_unit_txt(self) :
         dl = self.bg.get_fct_dict_list()
         if isinstance(dl,dict ) : dl = [dl]

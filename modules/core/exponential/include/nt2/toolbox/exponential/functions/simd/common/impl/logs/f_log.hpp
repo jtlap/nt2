@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMMON_IMPL_LOGS_F_LOG_HPP_INCLUDED
@@ -67,8 +67,8 @@ namespace nt2
           A0 z  = x + y;
           A0 y1 = a0-rec(abs(a0));// trick to reduce selection testing
           A0 y2 = madd(single_constant<A0, 0x3f318000>(), fe, z);
-          y2 = if_nan_else(logical_or(is_ltz(a0), is_nan(a0)), y2); 
-          return seladd(is_inf(y1), y2, y1); 
+          y2 = if_nan_else(logical_or(is_ltz(a0), is_nan(a0)), y2);
+          return seladd(is_inf(y1), y2, y1);
         }
 
         static inline A0 log2(const A0& a0)

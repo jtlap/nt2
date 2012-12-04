@@ -28,12 +28,12 @@
  * types it does not represent the same mathematical number.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fact_10.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,12 +45,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Fact_10
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -58,7 +58,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Fact_10 of functor Fact_10 
+     * \brief Define the tag Fact_10 of functor Fact_10
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER(Fact_10,int,3628800,0x4a5d7c00, 0x414baf8000000000ll)

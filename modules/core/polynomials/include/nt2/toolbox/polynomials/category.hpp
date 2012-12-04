@@ -25,7 +25,7 @@ namespace nt2 {
 //   {
 //     typedef typename meta::category_of<A0>::type::tag type;
 //   };
-  
+
 //   template<class Info, class A0,class A1>struct
 //   categorize<functors::polevl_,Info,A0,A1> :
 //   categorize<functors::tchebeval_,Info,A0,A1>{};
@@ -33,7 +33,7 @@ namespace nt2 {
 //   template<class Info, class A0,class A1>struct
 //   categorize<functors::plevl_,Info,A0,A1> :
 //   categorize<functors::tchebeval_,Info,A0,A1>{};
-  
+
 // }
 }
 

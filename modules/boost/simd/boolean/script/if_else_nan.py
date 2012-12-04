@@ -3,7 +3,7 @@
      'functor' : {
          'description' : ['The function conditionnaly to a0 returns a1 or nan,',
                           'or more exactly the value of type A1 with all bits set'],
-         'return' : ['always of the type of the second parameter'],   
+         'return' : ['always of the type of the second parameter'],
          'module' : 'boolean',
          'arity' : '2',
          'call_types' : [],

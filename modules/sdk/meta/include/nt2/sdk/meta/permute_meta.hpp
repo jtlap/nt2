@@ -59,13 +59,13 @@ namespace boost { namespace fusion { namespace extension
       typedef typename boost::mpl::apply<perm_type,size_type,Index>::type index_type;
       typedef typename boost::fusion::result_of::at_c<seq_type,index_type::value>::type type;
 
-      static type call(Sequence& seq) 
-      { 
-        return at_c<index_type::value>(seq.seq); 
+      static type call(Sequence& seq)
+      {
+        return at_c<index_type::value>(seq.seq);
       }
     };
-  };  
-  
+  };
+
   template<> struct value_at_impl<nt2::tag::permute_>
   {
     template<class Sequence, class Index>
@@ -87,8 +87,8 @@ namespace boost { namespace fusion { namespace extension
     template<typename Sequence, typename Index, typename SO> struct apply
     {
       typedef boost::simd::at_iterator<Sequence, 0> type;
-      static type call(Sequence& seq)  
-      { 
+      static type call(Sequence& seq)
+      {
         return type(seq);
       }
     };
@@ -104,8 +104,8 @@ namespace boost { namespace fusion { namespace extension
     {
             typedef typename boost::fusion::result_of::size<Sequence>::type size_type;
             typedef boost::simd::at_iterator<Sequence, size_type::value> type;
-      static type call(Sequence& seq) 
-      { 
+      static type call(Sequence& seq)
+      {
         return type(seq);
       }
     };

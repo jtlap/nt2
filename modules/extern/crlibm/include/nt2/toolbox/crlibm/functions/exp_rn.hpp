@@ -10,7 +10,7 @@
  * \file
 **/
 #ifndef NT2_TOOLBOX_CRLIBM_FUNCTIONS_EXP_RN_HPP_INCLUDED
-#define NT2_TOOLBOX_CRLIBM_FUNCTIONS_EXP_RN_HPP_INCLUDED 
+#define NT2_TOOLBOX_CRLIBM_FUNCTIONS_EXP_RN_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/specific/interface.hpp>
@@ -27,12 +27,12 @@
  * means rouding to nearest
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/crlibm/include/functions/exp_rn.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -48,9 +48,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of exp_rn
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -64,13 +64,13 @@
  * crlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace crlibm { namespace tag
   {
     /*!
-     * \brief Define the tag exp_rn_ of functor exp_rn 
+     * \brief Define the tag exp_rn_ of functor exp_rn
      *        in namespace nt2::crlibm::tag for toolbox crlibm
     **/
     struct exp_rn_ : ext::elementwise_<exp_rn_> { typedef ext::elementwise_<exp_rn_> parent; };

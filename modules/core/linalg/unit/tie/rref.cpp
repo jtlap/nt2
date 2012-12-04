@@ -49,12 +49,12 @@ NT2_TEST_CASE_TPL ( rref, NT2_REAL_TYPES)
   nt2::tie(rref) = nt2::rref(a);
   NT2_DISPLAY(rref);
   it_t jb;
-  
+
   nt2::tie(rref, jb) = nt2::rref(a);
   NT2_DISPLAY(rref);
   NT2_DISPLAY(jb);
-  NT2_TEST(nt2::isulpequal(rref(nt2::_(1, nt2::numel(jb)), jb), nt2::eye(nt2::numel(jb), nt2::meta::as_<T>()))); 
-  
+  NT2_TEST(nt2::isulpequal(rref(nt2::_(1, nt2::numel(jb)), jb), nt2::eye(nt2::numel(jb), nt2::meta::as_<T>())));
+
 }
 
 

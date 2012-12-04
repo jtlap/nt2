@@ -10,8 +10,8 @@
 #define NT2_SDK_UNIT_DETAILS_TEST_FUNC_HPP_INCLUDED
 
 #include <nt2/sdk/unit/stats.hpp>
-#include <nt2/sdk/unit/details/through_volatile.hpp>
 #include <nt2/include/functions/isequaln.hpp>
+#include <nt2/include/functions/display.hpp>
 #include <boost/dispatch/meta/terminal_of.hpp>
 #include <iostream>
 
@@ -59,31 +59,32 @@ namespace nt2
 
 /// INTERNAL ONLY
 /// Helpers for building implementation fo some predicate based tests
-#define NT2_MAKE_TEST_FUNC(NAME,OP,COP)                                   \
-template<class T, class U>                                                \
-inline void NAME( char const* x1, char const* x2                          \
-                , int line, char const * fn                               \
-                , T const & t, U const & u                                \
-                )                                                         \
-{                                                                         \
-  nt2::unit::test_count()++;                                              \
-  if( nt2::details::eval( t OP u ) )                                      \
-  {                                                                       \
-    std::cout << " * Test `"                                              \
-              << x1 << " " << #OP << " " << x2                            \
-              << "` **passed**."                                          \
-              << " (" << line << ")"                                      \
-              << std::endl;                                               \
-  }                                                                       \
-  else                                                                    \
-  {                                                                       \
-    std::cout << " * Test `"<< x1 << " "<< #OP << " " << x2               \
-              << "` **failed** in function " << fn << " (" << line << ")" \
-              << ":  '" << t << " "<< #COP << " " << u << "'"             \
-              << std::endl;                                               \
-    ++nt2::unit::error_count();                                           \
-  }                                                                       \
-}                                                                         \
+#define NT2_MAKE_TEST_FUNC(NAME,OP,COP)                                        \
+template<class T, class U>                                                     \
+inline void NAME( char const* x1, char const* x2                               \
+                , int line, char const * fn                                    \
+                , T const & t, U const & u                                     \
+                )                                                              \
+{                                                                              \
+  nt2::unit::test_count()++;                                                   \
+  if( nt2::details::eval( t OP u ) )                                           \
+  {                                                                            \
+    std::cout << " * Test `"                                                   \
+              << x1 << " " << #OP << " " << x2                                 \
+              << "` **passed**."                                               \
+              << " (" << line << ")"                                           \
+              << std::endl;                                                    \
+  }                                                                            \
+  else                                                                         \
+  {                                                                            \
+    std::cout << " * Test `"<< x1 << " "<< #OP << " " << x2                    \
+              << "` **failed** in function " << fn << " (" << line << ")\n";   \
+    nt2::display(x1, t);                                                       \
+    nt2::display(x2, u);                                                       \
+    std::cout << std::flush;                                                   \
+    ++nt2::unit::error_count();                                                \
+  }                                                                            \
+}                                                                              \
 /**/
 
 namespace nt2 { namespace details
@@ -115,9 +116,10 @@ namespace nt2 { namespace details
     else
     {
       std::cout << " * Test `"<< x1 << " == " << x2
-                << "` **failed** in function " << fn << " (" << line << ")"
-                << ":  '" << t << " != " << u << "'"
-                << std::endl;
+                << "` **failed** in function " << fn << " (" << line << ")\n";
+      nt2::display(x1, t);
+      nt2::display(x2, u);
+      std::cout << std::flush;
       ++nt2::unit::error_count();
     }
   }

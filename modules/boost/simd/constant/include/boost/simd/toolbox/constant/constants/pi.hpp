@@ -25,12 +25,12 @@
  * ... in normal temperature and pressure conditions.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/pi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,12 +42,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Pi
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -55,7 +55,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Pi of functor Pi 
+     * \brief Define the tag Pi of functor Pi
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Pi, double, 3

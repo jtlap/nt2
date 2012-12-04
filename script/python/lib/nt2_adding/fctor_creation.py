@@ -47,9 +47,9 @@ import re
             raise SystemExit
         self.__fct_actions = Functor.Fct_actions if actions is None else actions
         self.ext='.hpp'
-        
+
     def get_fct_actions(self) : return self.__fct_actions
-        
+
     def add_functor(self,fct_name,fct_arity=1) :
         "adding a new functor"
         self.read_style()
@@ -69,13 +69,13 @@ import re
             "\$self.name\$"                 : fct_name,
             "\$self.arity\$"                : str(fct_arity),
             "\$self.class_list\$"           : strlist("class A%d"),
-            "\$self.const_type_list\$"      : strlist("A0",0), 
-            "\$self.const_class_list\$"     : strlist("class A0",0), 
+            "\$self.const_type_list\$"      : strlist("A0",0),
+            "\$self.const_class_list\$"     : strlist("class A0",0),
             "\$self.type_list\$"            : strlist("A%d"),
             "\$self.parm_list\$"            : strlist("a%d"),
             "\$self.parm_list_j\$"          : strlist("a%d[j]"),
             "\$self.const_type_T_list\$"    : strlist("T",0),
-            "\$self.const_type_n_t_list\$"  : strlist("n_t",0), 
+            "\$self.const_type_n_t_list\$"  : strlist("n_t",0),
             "\$self.gl_list\$"              : strlist("//    n_t a%d = load<n_t>(&data[0],%d);",2,"\n"),
             "\$self.call_list\$"            : strlist("const A%d& a%d",2),
             "\$self.const_type_call_list\$" : strlist("const A0& a%d",1),
@@ -125,22 +125,22 @@ import re
             h = Headers(rel_path,fct_name,inner=inner_text,comment=comment)
             # print "fct_name_path %s" % fct_name_path
             h.write_header2(fct_name_path,flag=flag,check=check)
-         
+
     def dda(self,fct_name,acts,subs_dict,action_data,check=True) :
         """remove a file: reverse of add"""
         fname = action_data["file"].replace('$fct_name$',fct_name)
         fct_name_path = os.path.abspath(os.path.join(self.get_tb_abs_path(),acts,fname))
-        os.remove(fct_name_path)  
+        os.remove(fct_name_path)
 
     def mdy(self,fct_name,acts,subs_dict,action_data,check=True) :
         """modify a file, inserting a line"""
         fname = action_data["file"].replace('$root_name$',self.get_tb_name())
         file2modify = os.path.join(self.get_tb_abs_path(),acts,fname)
-        
+
         text = read(file2modify)
         subs_dict["\$self.tb_pathfnt2\$"]=self.get_tb_pathfnt2()
         subs_dict["\$fct_name\$"]=fct_name
-        line2add = self.__treat(action_data["l2ad"], subs_dict) 
+        line2add = self.__treat(action_data["l2ad"], subs_dict)
         token = action_data["tokn"]
         test, text = self.__add_line(text, line2add, token)
         if test :
@@ -161,7 +161,7 @@ import re
         text = read(file2modify)
         subs_dict["\$self.tb_pathfnt2\$"]=self.get_tb_pathfnt2()
         subs_dict["\$fct_name\$"]=fct_name
-        line2rmv = self.__treat(action_data["l2ad"], subs_dict) 
+        line2rmv = self.__treat(action_data["l2ad"], subs_dict)
         test, text = self.__rmv_line(text, line2rmv)
         if test :
             self.logger.info(
@@ -175,11 +175,11 @@ import re
 
 
 
-                
+
     def hie(self,fct_name,acts,subs_dict,action_data,check=True) :
         """create an include hierarchy for simd"""
         fname = action_data["file"].replace('$fct_name$',fct_name)
-        path = os.path.join(self.get_tb_abs_path(),acts) 
+        path = os.path.join(self.get_tb_abs_path(),acts)
         hierarchy = action_data["hier"]
         cmmt = action_data["cmmt"]
         head = action_data["head"]
@@ -191,15 +191,15 @@ import re
             rpath = os.path.join(relpath,base)
             h = Headers(rpath,fct_name, inner=inner_text)
             h.write_header2(file,flag='full',check=check)
-             
+
     def eih(self,fct_name,acts,subs_dict,action_data,check=True) :
         """delete an include hierarchy for simd(reverse of hie)"""
-        path = os.path.join(self.get_tb_abs_path(),acts) 
+        path = os.path.join(self.get_tb_abs_path(),acts)
         hierarchy = action_data["hier"]
         for base, prev in hierarchy.Variants.items() :
             file = os.path.join(path,base,fct_name+'.hpp')
             os.remove(file)
-            
+
     def __treat(self,s, subs_dict) :
         """__treat substitutes all $self.<id>$ chains in the
            string s with the value of the variable self.<id> if it
@@ -207,15 +207,15 @@ import re
         if type(s) is str :
             for k,v in subs_dict.items() :
                 s = re.sub(k,str(v),s)
-            return s        
+            return s
         elif type(s) is list :
             self.tb_name = self.get_tb_name()
-            l= [] 
+            l= []
             for ss in s :
                 l.append(self.__treat(ss, subs_dict))
             del self.tb_name
             return l
-        
+
     def __add_line(self,text, line2add, token) :
         pattern = re.compile(line2add)
         def find_index(p) :

@@ -36,9 +36,9 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
   b(_, 1) = b(_, 3);
   NT2_DISPLAY(b);
   nt2::display("b bis     ", b);
-  for(size_t i=1; i <= 4; i++) b(i, 1) = b(i, 3); 
+  for(size_t i=1; i <= 4; i++) b(i, 1) = b(i, 3);
   nt2::display("b ter     ", b);
-  t_t bb = b; 
+  t_t bb = b;
 
   nt2::details::svd_result<t_t> f(b,'A','A');
 
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL(svd_result, NT2_REAL_TYPES)
   t_t w  = f.w();
   nt2::display("w    ", w);
   NT2_TEST(nt2::isulpequal(nt2::mtimes(u, nt2::mtimes(w, vt)), bb, T(16.0)));
-  std::cout << nt2::globalmax(nt2::ulpdist(nt2::mtimes(u, nt2::mtimes(w, vt)), b)) << std::endl; 
+  std::cout << nt2::globalmax(nt2::ulpdist(nt2::mtimes(u, nt2::mtimes(w, vt)), b)) << std::endl;
   t_t sg = f.singular();
   nt2::display("sg   ", sg);
   t_t nul = f.null();

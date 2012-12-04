@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['returns the number of non zero elements of the input SIMD vector.'],   
+         'description' : ['returns the number of non zero elements of the input SIMD vector.'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -10,7 +10,7 @@
              'default' : 'typename boost::dispatch::meta::as_integer<sT>::type',
             },
          'simd_types' : ['real_'],
-         'special' : ['reduction'],  
+         'special' : ['reduction'],
          'type_defs' : ['typedef typename boost::dispatch::meta::scalar_of<T>::type sT;'],
          'types' : ['real_'],
         },

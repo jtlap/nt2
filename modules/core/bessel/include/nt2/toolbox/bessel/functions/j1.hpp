@@ -22,12 +22,12 @@
  * Bessel function of the first kind of order 1.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/j1.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of j1
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag j1_ of functor j1 
+     * \brief Define the tag j1_ of functor j1
      *        in namespace nt2::tag for toolbox bessel
     **/
     struct j1_ : ext::elementwise_<j1_> { typedef ext::elementwise_<j1_> parent; };

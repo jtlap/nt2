@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/oneminus.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -25,7 +25,7 @@
 
 NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using nt2::oneminus;
   using nt2::tag::oneminus_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -39,13 +39,13 @@ NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename nt2::meta::as_dry<T>::type dT;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 //   double ulpd;
 //   ulpd=0.0;
 
-  
+
   // specific values tests
   NT2_TEST_EQUAL(oneminus(cT(nt2::Inf<T>(), nt2::Inf<T>())) , cT(-nt2::Inf<T>(),nt2::Minf<T>()));
   NT2_TEST_EQUAL(oneminus(cT(nt2::Minf<T>(),nt2::Minf<T>())), cT(-nt2::Minf<T>(),nt2::Inf<T>()));
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( oneminus_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(oneminus(cT(nt2::Nan<T>(), nt2::Nan<T>())), cT(nt2::Nan<T>(),nt2::Nan<T>()));
   NT2_TEST_EQUAL(oneminus(cT(nt2::One<T>(), nt2::One<T>())), cT(nt2::Zero<T>(),nt2::Mone<T>()));
   NT2_TEST_EQUAL(oneminus(cT(nt2::Zero<T>(),nt2::Zero<T>())),  cT(nt2::One<T>(),nt2::Zero<T>()));
-  
+
   NT2_TEST_EQUAL(oneminus(nt2::Inf<cT>()),  -nt2::Inf<cT>());
   NT2_TEST_EQUAL(oneminus(nt2::Minf<cT>()), -nt2::Minf<cT>());
   NT2_TEST_EQUAL(oneminus(nt2::Mone<cT>()), nt2::Two<cT>());

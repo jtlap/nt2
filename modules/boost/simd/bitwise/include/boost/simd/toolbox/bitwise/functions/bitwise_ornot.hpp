@@ -26,14 +26,14 @@
  * the result type is the one of the first operand
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/bitwise_ornot.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg b_ornot
- * 
+ *
  * \synopsis
  *
  * \code
@@ -47,19 +47,19 @@
  *
  * \param a0 the first parameter of bitwise_ornot
  * \param a1 the second parameter of bitwise_ornot
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag bitwise_ornot_ of functor bitwise_ornot 
+     * \brief Define the tag bitwise_ornot_ of functor bitwise_ornot
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct bitwise_ornot_ : ext::elementwise_<bitwise_ornot_> { typedef ext::elementwise_<bitwise_ornot_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of combinatorial components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// 
+///
 #include <nt2/toolbox/combinatorial/include/functions/rat.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/min.hpp>
@@ -36,18 +36,18 @@
 
 NT2_TEST_CASE_TPL ( rat_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::rat;
   using nt2::tag::rat_;
 
   // specific values tests
   T n, d;
   rat(T(1.5), n, d);
-  std::cout << "n " << n << " d " <<  d <<  std::endl; 
+  std::cout << "n " << n << " d " <<  d <<  std::endl;
   NT2_TEST_ULP_EQUAL(n, T(3), 0);
   NT2_TEST_ULP_EQUAL(d, T(2), 0);
   rat(T(3.14159), n, d);
-  std::cout << "n " << n << " d " <<  d <<  std::endl; 
+  std::cout << "n " << n << " d " <<  d <<  std::endl;
   NT2_TEST_ULP_EQUAL(n, T(355), 0);
   NT2_TEST_ULP_EQUAL(d, T(113), 0);
 } // end of test for floating_

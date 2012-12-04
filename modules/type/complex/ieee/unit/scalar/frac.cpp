@@ -12,7 +12,7 @@
 // unit test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/frac.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/unary_minus.hpp>
@@ -34,16 +34,16 @@
 
 NT2_TEST_CASE_TPL ( frac_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::frac;
   using nt2::tag::frac_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::call<frac_(cT)>::type r_t;
   typedef cT wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(frac(nt2::Inf<cT>()  ), nt2::Nan<r_t>());
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( frac_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(frac(nt2::Nan<cT>()  ), nt2::Nan<r_t>());
   NT2_TEST_EQUAL(frac(nt2::One<cT>()  ), nt2::Zero<r_t>());
   NT2_TEST_EQUAL(frac(nt2::Zero<cT>() ), nt2::Zero<r_t>());
-  
+
   NT2_TEST_EQUAL(frac(cT(1.5, 2.25)), cT(0.5, 0.25));
-  NT2_TEST_ULP_EQUAL(frac(cT(1.5, 2.3)), cT(0.5, 0.3), 2); 
+  NT2_TEST_ULP_EQUAL(frac(cT(1.5, 2.3)), cT(0.5, 0.3), 2);
 } // end of test for floating_

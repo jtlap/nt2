@@ -48,7 +48,7 @@
 //   t_t t = f.t();
 //   nt2::display("t    ", t);
 //   t_t zz =  mtimes(nt2::mtimes(z, t), nt2::trans(z));
-//   NT2_TEST(isulpequal(zz, b, T(16.0)));   
+//   NT2_TEST(isulpequal(zz, b, T(16.0)));
 // }
 
 
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL(schur_result_2, NT2_REAL_TYPES)
   using nt2::tag::factorization::schur_;
   typedef nt2::table<T, nt2::_2D> t_t;
   t_t c = nt2::ones(2, 2, nt2::meta::as_<T>());
-  c(3) = -c(3); 
+  c(3) = -c(3);
   nt2::details::schur_result<t_t> f(c,'V','N','N');
 
    nt2::display("c     ", c);
@@ -68,6 +68,6 @@ NT2_TEST_CASE_TPL(schur_result_2, NT2_REAL_TYPES)
    t_t t = f.t();
    nt2::display("t    ", t);
    t_t zz =  nt2::mtimes(nt2::mtimes(z, t), nt2::trans(z));
-   NT2_TEST(isulpequal(zz, c, T(16.0)));   
+   NT2_TEST(isulpequal(zz, c, T(16.0)));
 }
 

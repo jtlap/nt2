@@ -26,6 +26,8 @@ NT2_TEST_CASE(cache_size)
   std::cout << "Cache L1     size : " << nt2::config::cache_size(L1) << " Kbytes" << std::endl;
   std::cout << "Cache L2     size : " << nt2::config::cache_size(L2) << " Kbytes" << std::endl;
   std::cout << "Cache L3     size : " << nt2::config::cache_size(L3) << " Kbytes" << std::endl;
+
+  NT2_TEST_COMPLETE("Cache size test complete");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -38,18 +40,22 @@ NT2_TEST_CASE(cache_line_size)
   std::cout << "Cache L1     size : " << nt2::config::cache_line_size(L1) << " bytes" << std::endl;
   std::cout << "Cache L2     size : " << nt2::config::cache_line_size(L2) << " bytes" << std::endl;
   std::cout << "Cache L3     size : " << nt2::config::cache_line_size(L3) << " bytes" << std::endl;
+
+  NT2_TEST_COMPLETE("Cache line size test complete");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
 // Test has_cache and display the result
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(as_cache)
+NT2_TEST_CASE(has_cache)
 {
   std::cout << "Cache L1Code available : " << std::boolalpha << nt2::config::has_cache(L1Code) << std::endl;
   std::cout << "Cache L1Data available : " << std::boolalpha << nt2::config::has_cache(L1Data) << std::endl;
   std::cout << "Cache L1     available : " << std::boolalpha << nt2::config::has_cache(L1) << std::endl;
   std::cout << "Cache L2     available : " << std::boolalpha << nt2::config::has_cache(L2) << std::endl;
   std::cout << "Cache L3     available : " << std::boolalpha << nt2::config::has_cache(L3) << std::endl;
+
+  NT2_TEST_COMPLETE("Has cache test complete");
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -68,5 +74,5 @@ NT2_TEST_CASE(top_cache)
   std::cout << " Top L2 : " << nt2::config::top_cache_line_size(L2) << std::endl;
   std::cout << " Top L1 : " << nt2::config::top_cache_line_size(L1) << std::endl;
 
-  NT2_TEST_COMPLETE("Cache test complete");
+  NT2_TEST_COMPLETE("Top cache test complete");
 }

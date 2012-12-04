@@ -18,37 +18,37 @@
  * Elementary Least square
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/trace.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
- * \param a the matrix a 
+ * \param a the matrix a
  *
  * \param p the norm in which trace is computed
  *          p can be 1, 2 inf or 'fro'
- * 
+ *
  * \par Notes
  *   Call the dedicated lapack routines available on the target.
  * \par
- *  
+ *
 **/
 //==============================================================================
 // trace actual class forward declaration
 //==============================================================================
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag trace_ of functor trace
      *        in namespace nt2::tag for toolbox algebra
     **/
     struct cond_ :  tag::formal_ { typedef tag::formal_ parent; };
   }
-  
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cond_, cond, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::cond_, cond, 2)
 }

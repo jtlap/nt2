@@ -35,27 +35,27 @@ namespace nt2{ namespace ext
   {
     typedef typename boost::proto::result_of::child_c<A1&,0>::type        In0;
     typedef typename boost::proto::result_of::child_c<A1&,1>::type        In1;
-    typedef typename A1::value_type                                value_type; 
+    typedef typename A1::value_type                                value_type;
     typedef A0&                                                   result_type;
     result_type operator()(A0& out, const A1& in) const
     {
       In0 & a = boost::proto::child_c<0>(in);
-      In1 & b = boost::proto::child_c<1>(in);  
-      BOOST_ASSERT_MSG(nt2::isvector(a)&&nt2::isvector(b), "a0 and a1 must be vectors."); 
+      In1 & b = boost::proto::child_c<1>(in);
+      BOOST_ASSERT_MSG(nt2::isvector(a)&&nt2::isvector(b), "a0 and a1 must be vectors.");
       size_t na =  nt2::numel(a);
       size_t nb =  nt2::numel(b);
-      out.resize(extent(in)); 
+      out.resize(extent(in));
       if (nt2::isempty(a) || nt2::isempty(b))
         out =  nt2::zeros(extent(in));
       else
       {
         out = nt2::eye(na+nb ? na+nb-1u : 0u, meta::as_<value_type>());
         for(size_t i=1; i <= na; i++){
-          out(nt2::_(i, (i-1)+nb), i) = colvect(b);  
-        } 
+          out(nt2::_(i, (i-1)+nb), i) = colvect(b);
+        }
         out = rowvect(mtimes(out,  catv(colvect(a), zeros(nb ? nb-1u :0u, 1, meta::as_<value_type>()))));
       }
-      return out; 
+      return out;
     }
   };
 } }

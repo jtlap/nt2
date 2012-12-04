@@ -21,18 +21,18 @@
  *
  * \par Description
  * return the logical negation of the parameter,
- * i.e. True or False of the entry type according that 
+ * i.e. True or False of the entry type according that
  * the input is zero or non zero
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/logical_not.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg l_not
- * 
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of logical_not
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,7 +58,7 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -66,7 +66,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag logical_not_ of functor logical_not 
+     * \brief Define the tag logical_not_ of functor logical_not
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct logical_not_ : ext::elementwise_<logical_not_> { typedef ext::elementwise_<logical_not_> parent; };

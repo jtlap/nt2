@@ -21,7 +21,7 @@
 #include <nt2/include/functions/simd/minusone.hpp>
 #include <nt2/include/functions/simd/if_else.hpp>
 #include <nt2/include/functions/simd/minusone.hpp>
-#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/fast_toint.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
 #include <nt2/include/functions/simd/oneplus.hpp>
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
     {
       typedef typename meta::as_integer<A0>::type int_type;
       typedef typename meta::scalar_of<A0>::type sA0;
-      A0 k =  round2even(double_constant<A0, 0x3ff71547652b82fell>()*a0);
+      A0 k =  round(double_constant<A0, 0x3ff71547652b82fell>()*a0);
       int_type ki =  fast_toint(-k);
       A0 hi = a0 - k* double_constant<A0, 0x3fe62e42fee00000ll>(); //ln2HI;
       A0 lo = k*double_constant<A0, 0x3dea39ef35793c76ll>(); //ln2LO;

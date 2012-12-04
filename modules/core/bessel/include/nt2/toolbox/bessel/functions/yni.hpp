@@ -22,12 +22,12 @@
  * Modified Bessel function of the first kind of order n.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/yni.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of yni, a scalar integer: the order of the bessel function
  * \param a1 the second parameter of yni
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag yni_ of functor yni 
+     * \brief Define the tag yni_ of functor yni
      *        in namespace nt2::tag for toolbox bessel
     **/
     struct yni_ : ext::elementwise_<yni_> { typedef ext::elementwise_<yni_> parent; };

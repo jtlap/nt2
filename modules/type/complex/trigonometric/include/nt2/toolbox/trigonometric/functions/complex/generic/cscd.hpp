@@ -25,8 +25,8 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return if_else(is_eqz(a0),
-                     Cnan<result_type>(), 
-                     rec(nt2::sind(a0)));     
+                     Cnan<result_type>(),
+                     rec(nt2::sind(a0)));
     }
   };
 

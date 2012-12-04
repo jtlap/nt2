@@ -24,12 +24,12 @@
  * This function never returns zero (zero is considered positive).
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/signnz.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of signnz
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag signnz_ of functor signnz 
+     * \brief Define the tag signnz_ of functor signnz
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct signnz_ : ext::elementwise_<signnz_> { typedef ext::elementwise_<signnz_> parent; };

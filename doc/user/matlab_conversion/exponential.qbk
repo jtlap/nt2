@@ -1,14 +1,14 @@
 [section Exponential]
 
 NT2  supports the Matlab schemes for exponential functions.
-peculiarly  `reallog`, `realpow`, `realsqrt`. 
+peculiarly  `reallog`, `realpow`, `realsqrt`.
 
 However there is a diiference between NT2 and Matlab: these functions
 
-# Do not compile for non real type parameters (including dry) 
+# Do not compile for non real type parameters (including dry)
 # Assert in the case of the parameters are of real type but do not allow a computation in real arithmetic.
 
-On the other side, for  `log`, `pow`, `sqrt` and the other standard functions, 
+On the other side, for  `log`, `pow`, `sqrt` and the other standard functions,
 results in NT2 also depend of the types they are fed in.
 
 # On complex types as `dry`, `imaginary` or `complex` they are computed using complex arithmetic,
@@ -16,7 +16,7 @@ results in NT2 also depend of the types they are fed in.
 
 To resume:
 
-# With `double` or `float` inputs elements, they act as the real prefixed Matlab 
+# With `double` or `float` inputs elements, they act as the real prefixed Matlab
 functions, but do not stop execution: for instance `sqrt(-1.0)` returns `Nan<double>()` value.
 # With complex (dry or imaginary) inputs elements, they act as complex field functions.
 For instance `sqrt(dry<double>(-1.0))` returns `I<double>()` value.
@@ -43,15 +43,15 @@ For instance `sqrt(dry<double>(-1.0))` returns `I<double>()` value.
 
                pow2 as in Matlab discard the imaginary part when called with 2 parameters. ]]
 [[power     ][Power                                                                           ]]
-[[reallog   ][Natural logarithm for non negative real arrays which asserts on negative elements. 
+[[reallog   ][Natural logarithm for non negative real arrays which asserts on negative elements.
 
               In NT2 you can use log on real inputs providing Nan values on negatives elements.]]
-[[realpow   ][Array power for real-only output. In Nt2 you can use use pow on real inputs, to get nan 
+[[realpow   ][Array power for real-only output. In Nt2 you can use use pow on real inputs, to get nan
               value if the result is not real.                ]]
-[[realsqrt  ][Square root for nonnegative real arrays which asserts on negative elements. 
+[[realsqrt  ][Square root for nonnegative real arrays which asserts on negative elements.
 
               In Nt2 use sqrt on real inputs providing Nan values on negatives elements.      ]]
 [[sqrt      ][Square root                                                                     ]]
 ]
-                                                                                       
-[endsect]                                                                                    
+
+[endsect]

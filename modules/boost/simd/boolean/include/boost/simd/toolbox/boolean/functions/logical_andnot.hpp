@@ -24,14 +24,14 @@
  * the result type is logical type associated to the first parameter
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/logical_andnot.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg l_andnot
- * 
+ *
  * \synopsis
  *
  * \code
@@ -45,15 +45,15 @@
  *
  * \param a0 the first parameter of logical_andnot
  * \param a1 the second parameter of logical_andnot
- * 
+ *
  * \return a value of the logical type associated to the first parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
  * This is a logical operation. Such operations return logical types.
  * You are invited to consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -61,7 +61,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag logical_andnot_ of functor logical_andnot 
+     * \brief Define the tag logical_andnot_ of functor logical_andnot
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct logical_andnot_ : ext::elementwise_<logical_andnot_> { typedef ext::elementwise_<logical_andnot_> parent; };

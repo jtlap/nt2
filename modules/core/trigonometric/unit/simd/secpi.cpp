@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/secpi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -41,7 +41,7 @@ NT2_TEST_CASE_TPL ( secpi_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::secpi;
   using nt2::tag::secpi_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

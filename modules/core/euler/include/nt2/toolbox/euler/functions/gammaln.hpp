@@ -22,12 +22,12 @@
  * Natural logarithm of the absolute value of the Gamma function
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/gammaln.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of gammaln
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gammaln_ of functor gammaln 
+     * \brief Define the tag gammaln_ of functor gammaln
      *        in namespace nt2::tag for toolbox euler
     **/
     struct gammaln_ : ext::elementwise_<gammaln_> { typedef ext::elementwise_<gammaln_> parent; };

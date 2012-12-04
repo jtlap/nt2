@@ -12,7 +12,7 @@
 // cover test behavior of bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/boolean/include/functions/if_else.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -42,7 +42,7 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::select;
   using nt2::tag::select_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -72,11 +72,11 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
         r_t v = nt2::select(nt2::is_nez(a0),a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (a0[i],a1[i],a2[i])));
         }
       }
-    
+
   }
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(-1));
@@ -91,11 +91,11 @@ NT2_TEST_CASE_TPL ( select_real__3_0,  NT2_SIMD_REAL_TYPES)
         r_t v = nt2::select(nt2::is_nez(a0),a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (a0[i],a1[i],a2[i])));
         }
       }
-    
+
   }
 } // end of test for floating_
 
@@ -103,7 +103,7 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
 {
   using nt2::select;
   using nt2::tag::select_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -133,11 +133,11 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
         r_t v = nt2::select(nt2::is_nez(a0),a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (a0[i],a1[i],a2[i])));
         }
       }
-    
+
   }
   {
     NT2_CREATE_BUF(tab_a0,T, NR, T(-1), T(-1));
@@ -152,10 +152,10 @@ NT2_TEST_CASE_TPL ( select_integer__3_0,  NT2_SIMD_INTEGRAL_TYPES)
         r_t v = nt2::select(nt2::is_nez(a0),a1,a2);
         for(nt2::uint32_t i = 0; i< cardinal_of<n_t>::value; i++)
         {
-          
+
           NT2_TEST_EQUAL( v[i],ssr_t(nt2::select (a0[i],a1[i],a2[i])));
         }
       }
-    
+
   }
 } // end of test for integer_

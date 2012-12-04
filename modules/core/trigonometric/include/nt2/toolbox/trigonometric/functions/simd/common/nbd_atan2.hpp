@@ -77,7 +77,7 @@ namespace nt2 { namespace ext
       A0 a1 = a1_n;
       A0 z = impl::invtrig_base<result_type,radian_tag, tag::simd_type>::kernel_atan(a0/a1);
       z = sel(is_gtz(a1), z, Pi<A0>()-z)*signnz(a0);
-      return sel(is_eqz(a0), sel(is_ltz(a1), Pi<A0>(), Zero<A0>()), z); 
+      return sel(is_eqz(a0), sel(is_ltz(a1), Pi<A0>(), Zero<A0>()), z);
     }
   };
 } }

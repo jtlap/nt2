@@ -125,7 +125,7 @@ struct table_generator
 struct tables_domain;
 template<int N> struct table_domain;
 struct matrix_domain;
-struct vector_domain; 
+struct vector_domain;
 
 template<typename Expr>
 struct tables_expression
@@ -190,13 +190,13 @@ struct vector_expression
 struct tables_domain : proto::domain<proto::generator<tables_expression>, _ > {};
 
 template<int N>
-struct table_domain 
+struct table_domain
      : proto::domain<table_generator<N,table_expression>, _, table_domain<N> > {};
 
-struct matrix_domain 
+struct matrix_domain
 : proto::domain<proto::generator<matrix_expression>, _, table_domain<2> > {};
 
-struct vector_domain 
+struct vector_domain
 : proto::domain<proto::generator<vector_expression>, _, table_domain<1> > {};
 
 

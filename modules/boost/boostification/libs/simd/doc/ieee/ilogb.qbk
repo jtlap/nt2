@@ -1,8 +1,8 @@
 [section ilogb]
 
 [h5 Description]
-returns the exponent part of the parameter. Formally, the return value is the integral part of 
-logr|x| as a signed integral value, for non-zero x, where r is the radix of the machine's 
+returns the exponent part of the parameter. Formally, the return value is the integral part of
+logr|x| as a signed integral value, for non-zero x, where r is the radix of the machine's
 floating point arithmetic (2 up to now for all).
 
 [h5 Synopsis]

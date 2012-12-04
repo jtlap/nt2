@@ -20,7 +20,7 @@
 NT2_TEST_CASE( value_is_not_container )
 {
   using nt2::meta::is_container;
-  
+
   NT2_TEST( !is_container<float       >::value );
   NT2_TEST( !is_container<float&      >::value );
   NT2_TEST( !is_container<float const >::value );
@@ -40,7 +40,7 @@ namespace nt2 { namespace meta
 NT2_TEST_CASE( container_is_container )
 {
   using nt2::meta::is_container;
-  
+
   NT2_TEST( is_container<some_container       >::value );
   NT2_TEST( is_container<some_container&      >::value );
   NT2_TEST( is_container<some_container const >::value );

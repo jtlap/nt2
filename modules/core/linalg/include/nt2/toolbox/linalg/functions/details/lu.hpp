@@ -177,23 +177,23 @@ namespace nt2 { namespace details
     //==========================================================================
     // Return u part of the decomposition
     //==========================================================================
-    typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type                       u_T2;
+    typedef typename meta::call < tag::colon_(ptrdiff_t, ptrdiff_t)>::type                   u_T2;
     typedef typename meta::call < tag::function_(tab_t, u_T2, nt2::container::colon_)>::type u_T0;
     typedef typename meta::call < tag::triu_(u_T0)>::type                                u_result;
     u_result u() const
     {
-      int32_t mm =  std::min(n_, m_);
+      ptrdiff_t mm =  std::min(n_, m_);
       return nt2::triu(lu_(_(1, mm),_));
     }
     //==========================================================================
     // Return l part of the decomposition
     //==========================================================================
-    typedef typename meta::call < tag::colon_(int32_t, int32_t)>::type                        l_T2;
+    typedef typename meta::call < tag::colon_(ptrdiff_t, ptrdiff_t)>::type                    l_T2;
     typedef typename meta::call < tag::function_(tab_t, nt2::container::colon_, l_T2)>::type  l_T0;
-    typedef typename meta::call < tag::tri1l_(l_T0)>::type                               l_result;
+    typedef typename meta::call < tag::tri1l_(l_T0)>::type                                l_result;
     l_result l() const
     {
-      int32_t mm =  std::min(n_, m_);
+      ptrdiff_t mm =  std::min(n_, m_);
       return nt2::tri1l(lu_(_,_(1, mm)));
     }
 

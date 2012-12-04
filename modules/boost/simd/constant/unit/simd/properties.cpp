@@ -14,7 +14,7 @@
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/as_unsigned.hpp>
-   
+
 #ifdef BOOST_MSVC
   #pragma warning(disable: 4146) // unary minus applied to unsigned
 #endif

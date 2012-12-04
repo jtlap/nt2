@@ -2,7 +2,7 @@
     {
      'functor' : {
          'description' : ['Returns True<result_type>() if a0 is not greater or equal to a1 else returns False<result_type>().','\par',
-                          'Due to existence of nan, this is not equivalent to \c not(is_greater_equal(a0,a1))'],   
+                          'Due to existence of nan, this is not equivalent to \c not(is_greater_equal(a0,a1))'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

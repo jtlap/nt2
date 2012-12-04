@@ -19,7 +19,7 @@
 #include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
      * \brief Define the tag expm_ of functor expm
      *        in namespace nt2::tag for toolbox algebra
@@ -41,8 +41,8 @@ namespace nt2 { namespace tag
    *
    * @return a matrix containing e^a1
    **/
-  
-  
+
+
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::expm_, expm, 1)
 
 }
@@ -56,10 +56,10 @@ namespace nt2 { namespace ext
     typedef typename c0_t::extent_type                               result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(e)), 
-                       "expm needs a square matrix expression"); 
+      BOOST_ASSERT_MSG(issquare(boost::proto::child_c<0>(e)),
+                       "expm needs a square matrix expression");
 
-      return nt2::extent(boost::proto::child_c<0>(e)); 
+      return nt2::extent(boost::proto::child_c<0>(e));
     }
   };
 

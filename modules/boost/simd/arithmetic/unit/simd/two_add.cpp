@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <boost/simd/toolbox/arithmetic/include/functions/two_add.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( two_add_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::two_add;
   using boost::simd::tag::two_add_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

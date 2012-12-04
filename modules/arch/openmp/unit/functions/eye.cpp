@@ -63,7 +63,7 @@ NT2_TEST_CASE_TPL( eye_value_type, NT2_TYPES )
   NT2_TEST_EQUAL( nt2::size( nt2::eye(nt2::of_size(1,4)), 2 ), 4u );
 
  }
- 
+
  NT2_TEST_CASE( eye_nd_untyped )
  {
    nt2::table<double> x1 = nt2::eye(8);
@@ -107,7 +107,7 @@ NT2_TEST_CASE_TPL( eye_typed_expr, NT2_TYPES )
 {
   nt2::table<int> t(nt2::of_size(1, 2) );
   t(1) = 3;
-  t(2) = 4; 
+  t(2) = 4;
   nt2::table<T> x1 = nt2::eye( t, nt2::meta::as_<T>() );
   for(int i=1;i<=3;++i) for(int j=1;j<=4;++j) NT2_TEST_EQUAL( T(i == j), T(x1(i, j)));
   nt2::table<int> a( nt2::of_size(4,5) );

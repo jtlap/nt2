@@ -23,12 +23,12 @@
  * by the absolute value of second entry.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/rol.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  *
  * \param a0 the first parameter of rol
  * \param a1 the second parameter of rol, must be an integer value
- * 
+ *
  * \return returns a value of the type of the first parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag rol_ of functor rol 
+     * \brief Define the tag rol_ of functor rol
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct rol_ : ext::elementwise_<rol_> { typedef ext::elementwise_<rol_> parent; };

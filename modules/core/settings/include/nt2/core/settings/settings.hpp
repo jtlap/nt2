@@ -51,7 +51,7 @@ namespace nt2 { namespace meta
   /**/
 
   BOOST_PP_REPEAT_FROM_TO(2,NT2_META_MAX_OPTIONS_NB,M0,~)
-  
+
   #undef M0
 } }
 

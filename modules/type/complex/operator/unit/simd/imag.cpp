@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 28/11/2010
-/// 
+///
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/imag.hpp>
@@ -51,19 +51,19 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::native;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef std::complex<T>                              cT; 
+  typedef std::complex<T>                              cT;
   typedef native<T ,ext_t>                             vT;
   typedef native<cT ,ext_t>                           vcT;
-  typedef typename nt2::meta::as_imaginary<T>::type   ciT; 
+  typedef typename nt2::meta::as_imaginary<T>::type   ciT;
   typedef native<ciT ,ext_t>                         vciT;
-  typedef typename nt2::meta::as_dry<T>::type          dT; 
-  typedef native<dT ,ext_t>                           vdT; 
+  typedef typename nt2::meta::as_dry<T>::type          dT;
+  typedef native<dT ,ext_t>                           vdT;
   double ulpd;
   ulpd=0.0;
 
   // specific values tests
   {
-    typedef vT r_t; 
+    typedef vT r_t;
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::splat<vcT>(cT(-1.1, -1.6)))[0],T(-1.6), 0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Inf<vcT>())[0], nt2::Zero<T>(),0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Minf<vcT>())[0], nt2::Zero<T>(),0);
@@ -71,11 +71,11 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Nan<vcT>())[0], nt2::Zero<T>(),0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::One<vcT>())[0], nt2::Zero<T>(),0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Zero<vcT>())[0], nt2::Zero<T>(),0);
-  }  
+  }
   {
-    typedef vT r_t; 
+    typedef vT r_t;
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::splat<vciT>(ciT(-1.1)))[0], T(-1.1),0);
-    NT2_TEST_ULP_EQUAL(nt2::imag(nt2::splat<vciT>(ciT(1.1)))[0],  T(1.1),0);   
+    NT2_TEST_ULP_EQUAL(nt2::imag(nt2::splat<vciT>(ciT(1.1)))[0],  T(1.1),0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Inf<vciT>())[0], nt2::Inf<T>(),0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Minf<vciT>())[0],nt2::Minf<T>(),0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Mone<vciT>())[0],nt2::Mone<T>(),0);
@@ -84,9 +84,9 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Zero<vciT>())[0], nt2::Zero<T>(),0);
   }
   {
-    typedef vT r_t; 
+    typedef vT r_t;
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::splat<vdT>(dT(-1.1)))[0], nt2::Zero<T>(),0);
-    NT2_TEST_ULP_EQUAL(nt2::imag(nt2::splat<vdT>(dT(1.1)))[0],  nt2::Zero<T>(),0); 
+    NT2_TEST_ULP_EQUAL(nt2::imag(nt2::splat<vdT>(dT(1.1)))[0],  nt2::Zero<T>(),0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Inf<vdT>())[0], nt2::Zero<T>(),0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Minf<vdT>())[0], nt2::Zero<T>(),0);
     NT2_TEST_ULP_EQUAL(nt2::imag(nt2::Mone<vdT>())[0], nt2::Zero<T>(),0);

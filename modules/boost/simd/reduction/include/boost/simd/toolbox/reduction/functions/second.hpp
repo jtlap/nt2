@@ -24,12 +24,12 @@
  * In scalar mode returns the first element!
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/second.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,9 +42,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of second
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -55,13 +55,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag second_ of functor second 
+     * \brief Define the tag second_ of functor second
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct second_ : ext::unspecified_<second_> { typedef ext::unspecified_<second_> parent; };

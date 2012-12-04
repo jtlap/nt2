@@ -28,12 +28,12 @@
  * SIMD vector types
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/split.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of split
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -60,13 +60,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag split_ of functor split 
+     * \brief Define the tag split_ of functor split
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct split_ : ext::elementwise_<split_> { typedef ext::elementwise_<split_> parent; };

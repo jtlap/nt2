@@ -38,7 +38,7 @@ namespace boost { namespace dispatch { namespace details
                                         is_signed<T>::value
                                       >
   {};
-  
+
 }
 
 namespace meta

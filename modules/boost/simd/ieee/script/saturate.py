@@ -3,7 +3,7 @@
      'functor' : {
          'description' :['saturate the value a0 in the template parameter type T,',
                          'but the value returned is of type A0'],
-         'template' : True,   
+         'template' : True,
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -13,7 +13,7 @@
             },
          'simd_types' : ['unsigned_int_'],
          'special' : ['ieee'],
-         'tpl'   : '<uint16_t>',   
+         'tpl'   : '<uint16_t>',
          'type_defs' : [],
          'types' : ['unsigned_int_'],
         },

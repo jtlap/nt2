@@ -25,12 +25,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/double_factorial.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of double_factorial
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag double_factorial_ of functor double_factorial 
+     * \brief Define the tag double_factorial_ of functor double_factorial
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     template <class T> struct double_factorial_ : ext::elementwise_< double_factorial_<T> > { typedef ext::elementwise_< double_factorial_<T> > parent; };

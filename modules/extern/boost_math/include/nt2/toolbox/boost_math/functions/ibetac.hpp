@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/ibetac.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -47,9 +47,9 @@
  * \param a0 the first parameter of ibetac
  * \param a1 the second parameter of ibetac
  * \param a2 the third parameter of ibetac
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -59,13 +59,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ibetac_ of functor ibetac 
+     * \brief Define the tag ibetac_ of functor ibetac
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct ibetac_ : ext::elementwise_<ibetac_> { typedef ext::elementwise_<ibetac_> parent; };
@@ -74,7 +74,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/ibetac.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/ibetac.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/ibetac.hpp>
 
 #endif
 

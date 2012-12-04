@@ -24,12 +24,12 @@
  * Constant Oneo_10 = 1/10
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/oneo_10.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Oneo_10
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,11 +54,11 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Oneo_10 of functor Oneo_10 
+     * \brief Define the tag Oneo_10 of functor Oneo_10
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Oneo_10, int, 0
-                                , 0x3dcccccd, 0x3fb999999999999all 
+                                , 0x3dcccccd, 0x3fb999999999999all
                                 );
   }
 

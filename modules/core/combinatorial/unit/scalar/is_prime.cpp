@@ -12,7 +12,7 @@
 // unit test behavior of combinatorial components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// 
+///
 #include <nt2/toolbox/combinatorial/include/functions/is_prime.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/min.hpp>
@@ -38,10 +38,10 @@
 
 NT2_TEST_CASE_TPL ( is_prime_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::is_prime;
   using nt2::tag::is_prime_;
- 
+
   // specific values tests
   NT2_TEST(!is_prime(nt2::Eight<T>()));
   NT2_TEST(is_prime(nt2::Seven<T>()));
@@ -52,36 +52,36 @@ NT2_TEST_CASE_TPL ( is_prime_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( is_prime_integer__1_0,  NT2_INTEGRAL_TYPES)
 {
-  
+
   using nt2::is_prime;
   using nt2::tag::is_prime_;
   NT2_TEST(!is_prime(nt2::Eight<T>()));
   NT2_TEST(is_prime(nt2::Seven<T>()));
-  NT2_TEST(is_prime(nt2::Two<T>())); 
+  NT2_TEST(is_prime(nt2::Two<T>()));
   NT2_TEST(!is_prime(nt2::One<T>()));
  } // end of test for integer_
-           
+
 NT2_TEST_CASE_TPL ( is_prime_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
-  
+
   using nt2::is_prime;
   using nt2::tag::is_prime_;
-  nt2::table<T> p =  nt2::primes(T(8)); 
+  nt2::table<T> p =  nt2::primes(T(8));
   NT2_TEST(!is_prime(nt2::Eight<T>(), p));
   NT2_TEST(is_prime(nt2::Seven<T>(), p));
-  NT2_TEST(is_prime(nt2::Two<T>(), p)); 
+  NT2_TEST(is_prime(nt2::Two<T>(), p));
   NT2_TEST(!is_prime(nt2::One<T>(), p));
  } // end of test for integer_
 
 NT2_TEST_CASE_TPL ( is_prime_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::is_prime;
   using nt2::tag::is_prime_;
-  nt2::table<uint32_t> p =  nt2::primes(uint32_t(8)); 
+  nt2::table<uint32_t> p =  nt2::primes(uint32_t(8));
   NT2_TEST(!is_prime(nt2::Eight<T>(), p));
   NT2_TEST(is_prime(nt2::Seven<T>(), p));
-  NT2_TEST(is_prime(nt2::Two<T>(), p)); 
+  NT2_TEST(is_prime(nt2::Two<T>(), p));
   NT2_TEST(!is_prime(nt2::One<T>(), p));
   NT2_TEST_ASSERT(is_prime(nt2::Mone<T>()));
 } // end of test for integer_

@@ -25,12 +25,12 @@
  * \arg if a1 is even and a0 negative the result is nan
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/nthroot.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  *
  * \param a0 the first parameter of nthroot
  * \param a1 the second parameter of nthroot, must be of integer type
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag nthroot_ of functor nthroot 
+     * \brief Define the tag nthroot_ of functor nthroot
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct nthroot_ : ext::elementwise_<nthroot_> { typedef ext::elementwise_<nthroot_> parent; };

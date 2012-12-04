@@ -22,12 +22,12 @@
  * cosine of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_cosd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of fast_cosd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_cosd_ of functor fast_cosd 
+     * \brief Define the tag fast_cosd_ of functor fast_cosd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_cosd_ : ext::elementwise_<fast_cosd_> { typedef ext::elementwise_<fast_cosd_> parent; };

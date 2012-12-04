@@ -10,30 +10,30 @@
 #define NT2_CORE_SETTINGS_FORWARD_STORAGE_DURATION_HPP_INCLUDED
 
 
-namespace nt2 
-{ 
+namespace nt2
+{
   //============================================================================
-   /*! Default storage duration settings. Current container will use dynamic 
+   /*! Default storage duration settings. Current container will use dynamic
     *  allocation for handling its data.
    **/
   //============================================================================
   struct dynamic_;
 
   //============================================================================
-   /*! Current container will use a stack allocated memory block for handling 
+   /*! Current container will use a stack allocated memory block for handling
     *  its data
    **/
   //============================================================================
   struct automatic_;
 
-  namespace tag 
-  { 
+  namespace tag
+  {
     //==========================================================================
     /*!
      * Option tag for storage_duration options
      **/
     //==========================================================================
-    struct storage_duration_ {}; 
+    struct storage_duration_ {};
   }
 
 }

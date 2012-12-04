@@ -35,7 +35,7 @@ from nt2_archis_struct       import Nt2_archis_struct
 sys.path.pop(0)
 
 def populate_actions() :
-    actions={}    
+    actions={}
     actions[os.path.join('..','..','include','functions')] = {
     'add' : {
         'name'    :'$fct_name$.hpp',   # direct include file for fct
@@ -47,9 +47,9 @@ def populate_actions() :
         "file_name" : "$tb_name$.hpp",
         "line_2add" : "#include <$self.tb_pathfnt2$/include/$fct_name$.hpp>",
         "token"     : "//<\include>",
-        },            
+        },
     }
-    
+
     actions[os.path.join("bench","scalar")] = {
     'add'   : {
         "file_name" : "$fct_name$.cpp",
@@ -104,8 +104,8 @@ def populate_actions() :
         "tokn" : "SET\( SOURCES",
         },
     },
-    
-    actions[os.path.join("doc","source")] = {  
+
+    actions[os.path.join("doc","source")] = {
     "add"   : {
         "file" : "$fct_name$.rst",
         "tmpl" : "mk_doc.tpl",
@@ -114,7 +114,7 @@ def populate_actions() :
         },
     },
 
-    actions[os.path.join("doc","source")] = {  
+    actions[os.path.join("doc","source")] = {
     "add"   : {
         "file" : "$fct_name$.py",
         "tmpl" : "mk_doc.py",
@@ -122,7 +122,7 @@ def populate_actions() :
         "head" : 'inner'
         },
     },
-    #actions.update(Archis.Required_fcts_actions)            
+    #actions.update(Archis.Required_fcts_actions)
     return actions
 
 
@@ -152,7 +152,7 @@ class Nt2_tb_struct(Nt2_archis_struct) :
         '..'        : ["$tb_name$.hpp"],
         'function'  : "archis",
         }
-    
+
     Required_fcts_files = {
         os.path.join('..','..','include','functions') : ['$fct_name$.hpp'],
         'function': "archis",
@@ -162,16 +162,16 @@ class Nt2_tb_struct(Nt2_archis_struct) :
         'include' : ["$fct_name$.hpp"],
         }
     Subkeys = ['\$tb_name\$','\$fct_name\$']
-    
+
     Functions_actions = populate_actions()
-    
+
     """
     get_nt2_rel_tb_path(to) : return the relative path to 'function', 'bench', 'unit', 'doc', 'src', 'include'
                               according the string value (class method)
-                              
-    get_rel_tb_tree()       : return the list of needed subdirectories in a toolbox  (class method)                        
+
+    get_rel_tb_tree()       : return the list of needed subdirectories in a toolbox  (class method)
     """
-    
+
     def __init__(self) :
         pass
         #        Nt2_tb_struct.Functions_actions = populate_actions()
@@ -179,7 +179,7 @@ class Nt2_tb_struct(Nt2_archis_struct) :
     @classmethod
     def __get_tb_from_md_path(cls,tb_name) :
         return os.path.join("include","nt2","toolbox",tb_name)
-    
+
     @classmethod
     def get_rel_tb_unique_files(cls,tb_name) :
         l = []
@@ -198,14 +198,14 @@ class Nt2_tb_struct(Nt2_archis_struct) :
                         f = re.sub('\$tb_name\$',tb_name,f)
                     df = os.path.normpath(os.path.join(cls.Secundary,tb_name,d,f))
                     l.append(df)
-        return l         
-            
+        return l
+
     @classmethod
     def get_rel_tb_fcts_files(cls,tb_name,fct_name) :
         l = []
         for d in cls.Required_fcts_files.keys() :
             if d == "function" :
-               l.append(os.path.join(cls.__get_tb_from_md_path(tb_name),d,fct_name+'.hpp')) 
+               l.append(os.path.join(cls.__get_tb_from_md_path(tb_name),d,fct_name+'.hpp'))
                tags = cls.get_rel_archis_tree()
                for tag in tags :
                   df = os.path.join(cls.__get_tb_from_md_path(tb_name),d,tag,fct_name+'.hpp')
@@ -215,11 +215,11 @@ class Nt2_tb_struct(Nt2_archis_struct) :
                     if '$' in f :
                         f = re.sub('\$fct_name\$',fct_name,f)
                         f = re.sub('\$tb_name\$',tb_name,f)
-                    df = os.path.join(d,f)    
+                    df = os.path.join(d,f)
                     l.append(df)
 ##                    print("%s, %s -> %s" % (d,f,df))
-        return l         
-                
+        return l
+
     @classmethod
     def get_previous_rel_path(cls,tag) :
         if re.match('scalar',tag) :
@@ -229,8 +229,8 @@ class Nt2_tb_struct(Nt2_archis_struct) :
             d,f = os.path.split(d)
         archi =  Nt2_tb_struct.get_archi(f)
         return os.path.join("simd",archi.get_previous_path(tag))
-         
-    
+
+
     @classmethod
     def get_nt2_rel_tb_path(cls, tb_name, to = '') :
         return os.path.join('nt2/toolbox/',tb_name,cls.grtp(to))
@@ -251,7 +251,7 @@ class Nt2_tb_struct(Nt2_archis_struct) :
             return list(flatten(z))
 
 
-    @classmethod    
+    @classmethod
     def grtp(cls, to = '',mode='') :
         """ return realative path from the toolbox to 'to' and 'mode'
         to can be 'function', 'bench', 'unit', 'doc', 'src', 'include'
@@ -262,26 +262,26 @@ class Nt2_tb_struct(Nt2_archis_struct) :
         return os.path.join(to,mode)
 
 
-    
+
     #######################################################################################
     ## private methods
     #######################################################################################
-    
 
-        
-    @classmethod    
+
+
+    @classmethod
     def rxp(cls, s) :
         return string.replace('$','\$',s)
-    @classmethod    
+    @classmethod
     def strip(cls, s, c) :
         return string.replace('c','',s)
-    
-    @classmethod    
+
+    @classmethod
     def substitute(cls, f) :
         for s in cls.Subkeys :
             return string.replace(f,'\$',s)
 
-    
+
 
 if __name__ == "__main__" :
 ##    PrettyPrinter().pprint(Nt2_tb_struct.get_rel_tb_tree_list("zorglub"))

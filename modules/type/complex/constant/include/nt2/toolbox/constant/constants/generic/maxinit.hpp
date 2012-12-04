@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
     {
       return Zero<result_type>();
     }
-  };  
+  };
 } }
 
 #endif

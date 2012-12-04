@@ -23,12 +23,12 @@
  * those of a0 in reverse order
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/reverse.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,9 +41,9 @@
  * \endcode
  *
  * \param a0 the  parameter of reverse
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -55,13 +55,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag reverse_ of functor reverse 
+     * \brief Define the tag reverse_ of functor reverse
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
     struct reverse_ : ext::unspecified_<reverse_> { typedef ext::unspecified_<reverse_> parent; };

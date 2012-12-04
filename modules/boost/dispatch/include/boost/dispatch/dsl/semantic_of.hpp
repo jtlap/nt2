@@ -40,31 +40,31 @@ namespace meta
    : details::semantic_of<Expr>
   {
   };
-  
+
   template<class Expr>
   struct semantic_of<const Expr, typename enable_if_c<Expr::proto_arity_c == 0>::type>
     : add_const<typename semantic_of<Expr>::type>
   {
   };
-  
+
   template<class Expr>
   struct semantic_of<const Expr, typename disable_if_c<Expr::proto_arity_c == 0>::type>
     : semantic_of<Expr>
   {
   };
-  
+
   template<class Expr>
   struct semantic_of<Expr&, typename enable_if_c<Expr::proto_arity_c == 0>::type>
     : add_reference<typename semantic_of<Expr>::type>
   {
   };
-  
+
   template<class Expr>
   struct semantic_of<Expr&, typename disable_if_c<Expr::proto_arity_c == 0>::type>
     : semantic_of<Expr>
   {
   };
-  
+
 } } }
 
 #endif

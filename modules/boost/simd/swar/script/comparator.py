@@ -3,7 +3,7 @@
      'functor' : {
          'description' :['Compute the min and the max of the first two inputs if the third non zero,',
                          ' or by the max and the min if the third is zero.'
-                         'The function returns a value indicating if anything has changed',    
+                         'The function returns a value indicating if anything has changed',
                            ],
             'return' :[ 'a bool value or a fusion vector of the bool and the two other results'],
             'param_2':['a scalar integer value'],
@@ -26,9 +26,9 @@
          'rturn' : {
              'default' : 'boost::fusion::tuple<T,T,bool>',
             },
-         'scalar_ints': 'True',   
+         'scalar_ints': 'True',
          'simd_types' : ['real_'],
-         'special' : ['swar'],  
+         'special' : ['swar'],
          'type_defs' : [],
          'types' : ['real_'],
         },

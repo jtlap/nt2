@@ -22,12 +22,12 @@
  * hyperbolic cotangent argument \f$\frac12\frac{a_0^2+1}{a_0^2-1}\f$
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/acoth.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of acoth
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag acoth_ of functor acoth 
+     * \brief Define the tag acoth_ of functor acoth
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct acoth_ : ext::elementwise_<acoth_> { typedef ext::elementwise_<acoth_> parent; };

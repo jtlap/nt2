@@ -24,7 +24,7 @@ namespace nt2 { namespace container
   {
     typedef details::block_extent<Bases,Sizes>                extent_parent;
     typedef details::block_data<Type,heap_(Allocator),Extend> data_parent;
-        
+
     ////////////////////////////////////////////////////////////////////////////
     // block is a RandonAccessSequence
     ////////////////////////////////////////////////////////////////////////////

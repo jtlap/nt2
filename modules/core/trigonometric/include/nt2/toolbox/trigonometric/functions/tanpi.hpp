@@ -22,12 +22,12 @@
  * tangent of angle in \f$\pi\f$ multiples: \f$\tan(\pi a_0)\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/tanpi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of tanpi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag tanpi_ of functor tanpi 
+     * \brief Define the tag tanpi_ of functor tanpi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct tanpi_ : ext::elementwise_<tanpi_> { typedef ext::elementwise_<tanpi_> parent; };

@@ -47,6 +47,6 @@ NT2_TEST_CASE_TPL(svd_solve_result, NT2_REAL_TYPES)
   nt2::display("x", f.x());
   nt2::display("residuals ", f.residuals());
   t_t z = nt2::mtimes(a, f.x());
-  NT2_DISPLAY(z); 
+  NT2_DISPLAY(z);
   NT2_TEST(nt2::isulpequal(z, c, T(1.0)));
  }

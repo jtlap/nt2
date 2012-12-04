@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/bitwise_notand.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( bitwise_notand_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::bitwise_notand;
   using boost::simd::tag::bitwise_notand_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( bitwise_notand_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES
 {
   using boost::simd::bitwise_notand;
   using boost::simd::tag::bitwise_notand_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

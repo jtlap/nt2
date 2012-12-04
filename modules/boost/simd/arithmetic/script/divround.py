@@ -2,7 +2,7 @@
     {
      'functor' : {
          'description' : ['return the \c round of the operands real division'
-                          'in the input type'],  
+                          'in the input type'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

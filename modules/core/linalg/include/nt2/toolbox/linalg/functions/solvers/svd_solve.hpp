@@ -26,7 +26,7 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::strip<A0>::type                              base_t;
     typedef typename base_t::value_type                                value_t;
-    typedef typename meta::as_real<value_t>::type                     bvalue_t; 
+    typedef typename meta::as_real<value_t>::type                     bvalue_t;
     typedef typename base_t::settings_type                          settings_t;
     typedef details::svd_solve_result< table<value_t,settings_t> > result_type;
 
@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
       return that;
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::solvers::svd_solve_, tag::cpu_
                               , (A0)(A1)(IP)
                               , ((ast_<A0, nt2::container::domain>))
@@ -49,12 +49,12 @@ namespace nt2 { namespace ext
   {
     typedef typename meta::strip<A0>::type                              base_t;
     typedef typename base_t::value_type                                value_t;
-    typedef typename meta::as_real<value_t>::type                     bvalue_t; 
+    typedef typename meta::as_real<value_t>::type                     bvalue_t;
     typedef details::svd_solve_result<A0&>                         result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0& a,
                                              A1 const& b,
-                                             IP const&) 
+                                             IP const&)
     {
       BOOST_ASSERT_MSG(ofsameheight(a, b),
                        "a and b have different heights");

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <boost/simd/toolbox/arithmetic/include/functions/minmod.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -24,7 +24,7 @@
 
 NT2_TEST_CASE_TPL ( minmod_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::minmod;
   using boost::simd::tag::minmod_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -35,9 +35,9 @@ NT2_TEST_CASE_TPL ( minmod_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(minmod(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<T>(), 0);
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL ( minmod_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( minmod_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::minmod;
   using boost::simd::tag::minmod_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -61,9 +61,9 @@ NT2_TEST_CASE_TPL ( minmod_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   // specific values tests
   NT2_TEST_ULP_EQUAL(minmod(boost::simd::One<T>(), boost::simd::One<T>()), boost::simd::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(minmod(boost::simd::Zero<T>(), boost::simd::Zero<T>()), boost::simd::Zero<T>(), 0);
@@ -71,7 +71,7 @@ NT2_TEST_CASE_TPL ( minmod_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( minmod_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::minmod;
   using boost::simd::tag::minmod_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -82,9 +82,9 @@ NT2_TEST_CASE_TPL ( minmod_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(minmod(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::Mone<T>(), 0);

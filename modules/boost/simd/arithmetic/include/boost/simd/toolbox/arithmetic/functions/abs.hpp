@@ -28,14 +28,14 @@
  * input parameter to a larger type before taking the abs value.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/abs.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg modulus
- * 
+ *
  * \synopsis
  *
  * \code
@@ -48,19 +48,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of abs
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag abs_ of functor abs 
+     * \brief Define the tag abs_ of functor abs
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct abs_ : ext::elementwise_<abs_> { typedef ext::elementwise_<abs_> parent; };

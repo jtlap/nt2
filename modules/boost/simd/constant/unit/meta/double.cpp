@@ -18,9 +18,9 @@
 NT2_TEST_CASE( double_ )
 {
   using boost::simd::meta::double_;
-  
+
   double_<0x3FF0000000000000ULL>          one_dc;
   double one_d = 1.;
-  
+
   NT2_TEST_EQUAL( one_d, double(one_dc)  );
 }

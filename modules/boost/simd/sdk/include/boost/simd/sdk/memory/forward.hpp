@@ -20,7 +20,7 @@ namespace boost { namespace simd {  namespace memory
   allocate ( std::size_t nbytes
            , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
            );
-           
+
   template<class Allocator>
   typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer, byte* >::type
   allocate( Allocator& alloc
@@ -47,14 +47,14 @@ namespace boost { namespace simd {  namespace memory
             , std::size_t obytes
             , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
             );
-                          
+
   template<class Allocator>
   typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer, byte* >::type
   reallocate( Allocator& a
             ,  byte* ptr
             , std::size_t nbytes
             , std::size_t obytes
-            , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT 
+            , std::size_t align = BOOST_SIMD_CONFIG_ALIGNMENT
             );
 } } }
 

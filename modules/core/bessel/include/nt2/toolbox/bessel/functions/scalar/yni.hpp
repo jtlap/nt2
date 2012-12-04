@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_YNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_YNI_HPP_INCLUDED
@@ -58,8 +58,8 @@ namespace nt2 { namespace ext
     typedef A1 result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      if (is_inf(a1)) return Zero<result_type>(); 
-      if (is_eqz(a1)) return Minf<result_type>(); 
+      if (is_inf(a1)) return Zero<result_type>();
+      if (is_eqz(a1)) return Minf<result_type>();
     #ifdef BOOST_SIMD_HAS__YN
       return ::_yn(a0, a1);
     #elif defined(BOOST_SIMD_HAS_YN)
@@ -89,19 +89,19 @@ namespace nt2 { namespace ext
     {
       typedef A1 result_type;
       if (is_ltz(a1)||is_nan(a1)) return Nan<result_type>();
-      if (is_inf(a1)) return Zero<result_type>(); 
-      if (is_eqz(a1)) return Minf<result_type>(); 
+      if (is_inf(a1)) return Zero<result_type>();
+      if (is_eqz(a1)) return Minf<result_type>();
       result_type x = a1;
-      const int32_t n1 = nt2::abs(a0);
+      const size_t n1 = nt2::abs(a0);
       result_type sign = (a0<0)?nt2::cospi(n1):1;
-      if( n1 == 0 ) return( sign * nt2::y0(x) );
-      if( n1 == 1 ) return( sign * nt2::y1(x) );
+      if( n1 == 0u ) return( sign * nt2::y0(x) );
+      if( n1 == 1u ) return( sign * nt2::y1(x) );
       //      result_type an1 = n1;
       /* forward recurrence on n */
 
       result_type anm2 = nt2::y0(x);
       result_type anm1 = nt2::y1(x);
-      int32_t k = 1;
+      size_t k = 1;
       result_type r = result_type(k << 1);
       result_type xinv = rec(x);
       result_type an;

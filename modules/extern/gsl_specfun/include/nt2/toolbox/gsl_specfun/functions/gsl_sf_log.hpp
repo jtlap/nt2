@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/gsl_specfun/include/functions/gsl_sf_log.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,9 +43,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of gsl_sf_log
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -60,13 +60,13 @@
  * gsl_specfun library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace gsl_specfun { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gsl_sf_log_ of functor gsl_sf_log 
+     * \brief Define the tag gsl_sf_log_ of functor gsl_sf_log
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
     struct gsl_sf_log_ : ext::elementwise_<gsl_sf_log_> { typedef ext::elementwise_<gsl_sf_log_> parent; };
@@ -75,7 +75,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
   } }
 
 #include <nt2/toolbox/gsl_specfun/functions/scalar/gsl_sf_log.hpp>
-// #include <nt2/toolbox/gsl_specfun/functions/simd/all/gsl_sf_log.hpp> 
+// #include <nt2/toolbox/gsl_specfun/functions/simd/all/gsl_sf_log.hpp>
 
 #endif
 

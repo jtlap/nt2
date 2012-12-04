@@ -76,8 +76,8 @@ namespace boost { namespace simd
 
   template<class T,class A0, class A1> BOOST_FORCEINLINE
   typename  boost::dispatch::meta::
-            call<tag::enumerate_( A0 const&, 
-                                  A1 const&, 
+            call<tag::enumerate_( A0 const&,
+                                  A1 const&,
                                   boost::dispatch::meta::as_<T>
                                 )
                             >::type
@@ -85,7 +85,7 @@ namespace boost { namespace simd
   {
     typename boost::dispatch::make_functor<tag::enumerate_, A0>::type callee;
     return callee(a0,a1,boost::dispatch::meta::as_<T>());
-  }  
+  }
 } }
 
 #endif

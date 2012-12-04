@@ -25,7 +25,7 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_FORCE_INLINE
     result_type operator()(const A0& a0, const A1& a1) const
     {
-      return height(a0) == height(a1); 
+      return height(a0) == height(a1);
     }
   };
 

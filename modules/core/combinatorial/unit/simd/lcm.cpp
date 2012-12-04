@@ -12,7 +12,7 @@
 // unit test behavior of combinatorial components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 30/11/2010
-/// 
+///
 #include <nt2/toolbox/combinatorial/include/functions/lcm.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -38,7 +38,7 @@
 // {
 //   using nt2::lcm;
 //   using nt2::tag::lcm_;
-//   using nt2::load; 
+//   using nt2::load;
 //   using boost::simd::native;
 //   using nt2::meta::cardinal_of;
 //   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -72,7 +72,7 @@ NT2_TEST_CASE_TPL ( lcm_unsigned_int__2_0,  NT2_SIMD_UNSIGNED_TYPES)
 {
   using nt2::lcm;
   using nt2::tag::lcm_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -97,7 +97,7 @@ NT2_TEST_CASE_TPL ( lcm_signed_int__2_0,  NT2_SIMD_INTEGRAL_SIGNED_TYPES)
 {
   using nt2::lcm;
   using nt2::tag::lcm_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

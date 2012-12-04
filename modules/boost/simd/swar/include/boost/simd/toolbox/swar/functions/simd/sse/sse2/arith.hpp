@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
       return _mm_set_pd(1.0,0.0);
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::arith_
                                       , boost::simd::tag::sse2_
                                       , (T)

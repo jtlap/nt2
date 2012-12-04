@@ -24,12 +24,12 @@
  * $0^0$ returns 1
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/powi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  *
  * \param a0 the first parameter of powi
  * \param a1 the second parameter of powi, must be of scalar integer type
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag powi_ of functor powi 
+     * \brief Define the tag powi_ of functor powi
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct powi_ : ext::elementwise_<powi_> { typedef ext::elementwise_<powi_> parent; };

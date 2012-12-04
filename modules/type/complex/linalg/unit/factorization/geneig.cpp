@@ -31,8 +31,8 @@ NT2_TEST_CASE_TPL(geneig2, NT2_REAL_TYPES)
 {
   using nt2::tag::factorization::geneig_;
   typedef typename nt2::meta::as_integer<T, signed>::type itype_t;
-  typedef std::complex<T> cT; 
-  typedef nt2::table<cT, nt2::_2D > ct_t; 
+  typedef std::complex<T> cT;
+  typedef nt2::table<cT, nt2::_2D > ct_t;
   typedef nt2::table<T, nt2::_2D> t_t;
   typedef nt2::table<itype_t, nt2::_2D> it_t;
   typedef typename nt2::meta::call<geneig_(ct_t const&, ct_t const&, char, char, char)>::type result_type;
@@ -58,7 +58,7 @@ NT2_TEST_CASE_TPL(geneig2, NT2_REAL_TYPES)
   ct_t t = f.t();
   nt2::display("t    ", t);
 //   //   (A,B) = ( (VSL)*S*(VSR)**T, (VSL)*T*(VSR)**T )
-  NT2_TEST(nt2::isulpequal(a, nt2::mtimes(vsl, nt2::mtimes(s, nt2::trans(vsr))), T(10.0))); 
-  NT2_TEST(nt2::isulpequal(b, nt2::mtimes(vsl, nt2::mtimes(t, nt2::trans(vsr))), T(10.0))); 
+  NT2_TEST(nt2::isulpequal(a, nt2::mtimes(vsl, nt2::mtimes(s, nt2::trans(vsr))), T(10.0)));
+  NT2_TEST(nt2::isulpequal(b, nt2::mtimes(vsl, nt2::mtimes(t, nt2::trans(vsr))), T(10.0)));
 
 }

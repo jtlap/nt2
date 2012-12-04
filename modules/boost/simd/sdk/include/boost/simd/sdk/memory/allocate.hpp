@@ -20,7 +20,7 @@
 namespace boost { namespace simd {  namespace memory
 {
   //============================================================================
-  /*! 
+  /*!
    * Allocate a raw buffer of aligned bytes using the current system aligned
    * memory allocation procedure. Dependign on OS and compiler, allocating
    * aligned memory may be done through a system call or by using pointer
@@ -34,11 +34,11 @@ namespace boost { namespace simd {  namespace memory
    * allocation fails, it returns a null pointer and throw a \c std::bad_alloc
    * exception.
    *
-   **/ 
+   **/
   //============================================================================
-  inline byte* 
+  inline byte*
   allocate ( std::size_t nbytes
-           , std::size_t align 
+           , std::size_t align
            )
   {
     void *result;
@@ -84,8 +84,8 @@ namespace boost { namespace simd {  namespace memory
   }
 
   //==============================================================================
-  /*! 
-   * Allocate a raw buffer of aligned bytes using an \c Allocator. 
+  /*!
+   * Allocate a raw buffer of aligned bytes using an \c Allocator.
    *
    * \param alloc  The \c Allocator to use for performing allocation
    * \param nbytes Number of bytes to allocate.
@@ -95,7 +95,7 @@ namespace boost { namespace simd {  namespace memory
    * \return A pointer to an aligned memory block of \c nbytes bytes. If the
    * allocation fails, this function may throw a \c std::bad_alloc exception.
    *
-   **/ 
+   **/
   //==============================================================================
   template<class Allocator>
   typename boost::dispatch::meta::enable_if_type< typename Allocator::pointer, byte* >::type
@@ -107,7 +107,7 @@ namespace boost { namespace simd {  namespace memory
     typedef typename Allocator::value_type value_type;
     BOOST_STATIC_CONSTANT(std::size_t, size = sizeof(value_type) );
     const std::size_t fix   = ~(std::size_t(align-1));
-    
+
     // How many elements are needed ot store proper number of bytes
     const std::size_t nelems  = align_on<size>(nbytes+align+sizeof(void*))
                               / sizeof(value_type);

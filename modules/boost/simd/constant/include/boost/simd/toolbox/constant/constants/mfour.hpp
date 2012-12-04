@@ -24,12 +24,12 @@
  * Constant Mfour = -4
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mfour.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Mfour
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Mfour of functor Mfour 
+     * \brief Define the tag Mfour of functor Mfour
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Mfour, int, -4

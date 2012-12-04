@@ -18,13 +18,12 @@
 #include <nt2/include/functions/orth.hpp>
 #include <nt2/include/functions/norm.hpp>
 #include <nt2/include/constants/mone.hpp>
-#include <nt2/table.hpp>
 
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::orth_, tag::cpu_,
-                                       (A0)(A1), 
+                                       (A0)(A1),
                                        ((ast_<A0, nt2::container::domain>))
                                        (scalar_<floating_<A1> > )
                                        )
@@ -32,18 +31,18 @@ namespace nt2 { namespace ext
     BOOST_DISPATCH_RETURNS(2, (const A0& a0, const A1 epsi),
                            (nt2::factorization::svd<A0>(a0, 'O', 'N').orth(epsi))
                            )
-  }; 
+  };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::orth_, tag::cpu_,
-                                     (A0), 
+                                     (A0),
                                      ((ast_<A0, nt2::container::domain>))
                                      )
   {
-    typedef typename A0::value_type               value_type; 
+    typedef typename A0::value_type               value_type;
     BOOST_DISPATCH_RETURNS(1, (const A0& a0),
                            (nt2::factorization::svd<A0>(a0, 'O', 'N').orth(Mone<value_type>()))
                            )
-  }; 
+  };
 
 } }
 

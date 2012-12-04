@@ -22,12 +22,12 @@
  * hyperbolic cosine argument: \f$\log(a_0+\sqrt{a_0^2-1})\f$.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/acosh.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of acosh
- * 
+ *
  * \return nan for a0 less than one
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag acosh_ of functor acosh 
+     * \brief Define the tag acosh_ of functor acosh
      *        in namespace nt2::tag for toolbox hyperbolic
     **/
     struct acosh_ : ext::elementwise_<acosh_> { typedef ext::elementwise_<acosh_> parent; };

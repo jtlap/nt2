@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ADDS_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_ADDS_HPP_INCLUDED
@@ -30,7 +30,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename dispatch::meta::upgrade<A0>::type utype; 
+      typedef typename dispatch::meta::upgrade<A0>::type utype;
       return static_cast<A0>(boost::simd::saturate<A0>(utype(a0)+utype(a1)));
     }
   };
@@ -43,7 +43,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
-      typedef typename dispatch::meta::upgrade<A0>::type utype; 
+      typedef typename dispatch::meta::upgrade<A0>::type utype;
       return static_cast<A0>(boost::simd::min(utype(boost::simd::Valmax<A0>()), utype(a0+a1)));
     }
   };
@@ -57,7 +57,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
       typedef typename dispatch::meta::as_unsigned<A0>::type utype;
-        
+
       bool gtza0 = is_gtz(a0);
       bool gtza1 = is_gtz(a1);
       A0 a0pa1 = A0(utype(a0)+utype(a1));

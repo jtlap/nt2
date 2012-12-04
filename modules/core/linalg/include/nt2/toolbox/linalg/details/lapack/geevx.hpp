@@ -86,7 +86,7 @@
 // *  A       (input/output) COMPLEX array, dimension (LDA,N)
 // *          On entry, the N-by-N matrix A.
 // *          On exit, A has been overwritten.  If JOBVL = 'V' or
-// *          JOBVR = 'V', A contains the Schur form of the balanced 
+// *          JOBVR = 'V', A contains the Schur form of the balanced
 // *          version of the matrix A.
 // *
 // *  LDA     (input) INTEGER
@@ -212,7 +212,7 @@ namespace nt2
                                double* rconde, double* rcondv,
                                nt2_la_complex* work, const nt2_la_int* lwork, double* rwork, nt2_la_int* info);
     }
-    
+
 #define NT2_GEEVX(NAME, T)                                      \
     inline void geevx(const char* balanc,                       \
                       const char* jobvl,                        \
@@ -288,7 +288,7 @@ namespace nt2
     NT2_GEEVX(dgeevx, double)
 
 #undef NT2_GEEVX
-      
+
 #define NT2_GEEVX(NAME, T, TBASE)                               \
       inline void geevx(const char* balanc,                     \
                         const char* jobvl,                      \
@@ -352,7 +352,7 @@ namespace nt2
                   ilo, ihi, scale, abnrm, rconde,               \
                   rcondv, info, w);                             \
           }                                                     \
-        /**/         
+        /**/
     NT2_GEEVX(cgeevx, std::complex<float>, float)
     NT2_GEEVX(zgeevx, std::complex<double>, double)
 

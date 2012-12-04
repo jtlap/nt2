@@ -13,6 +13,8 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/chol.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/tie.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
@@ -72,7 +74,7 @@ NT2_TEST_CASE_TPL ( chol_lower2, NT2_REAL_TYPES)
   a = nt2::chol(b, nt2::lower_);
   //  NT2_DISPLAY(chol(b, nt2::lower_));
   NT2_DISPLAY(a);
-
+  NT2_TEST_ULP_EQUAL(b, nt2::mtimes(a, nt2::trans(a)), 0.5);
   table_t u = nt2::ones(4, 9, nt2::meta::as_<T>());
   NT2_DISPLAY(u);
 
@@ -85,6 +87,9 @@ NT2_TEST_CASE_TPL ( chol_lower2, NT2_REAL_TYPES)
 
   b = nt2::zeros(4, 4, nt2::meta::as_<T>());
   b(1,1) = 1;
-  a = nt2::chol(b, nt2::lower_);
+  size_t p = 999;
+  nt2::tie(a, p)= nt2::chol(b, nt2::lower_);
   NT2_DISPLAY(a);
+  NT2_TEST_EQUAL(a, nt2::ones(1, 1, nt2::meta::as_<T>()));
+  NT2_TEST_EQUAL(p, 2u);
 }

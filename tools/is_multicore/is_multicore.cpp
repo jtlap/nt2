@@ -5,7 +5,7 @@
 int get_byte(int reg, int pos)
 {
   const int dec = pos * 8;
-  return ((reg & (0x000000FF << dec)) >> dec); 
+  return ((reg & (0x000000FF << dec)) >> dec);
 }
 
 int  get_range(int reg, int begin, int end)
@@ -27,12 +27,12 @@ int get_logical_cores()
 {
   int regs[4];
   boost::simd::config::x86::cpuid(regs, 0x00000000);
-  if(boost::simd::config::get_vendor() == boost::simd::config::intel) 
+  if(boost::simd::config::get_vendor() == boost::simd::config::intel)
   {
     boost::simd::config::x86::cpuidex(regs, 0x0000000B, 0x00000001);
     return get_range(regs[1], 0, 16);
   }
-  else if(boost::simd::config::get_vendor() == boost::simd::config::amd) 
+  else if(boost::simd::config::get_vendor() == boost::simd::config::amd)
   {
     boost::simd::config::x86::cpuid(regs, 0x00000001);
     return (get_range(regs[1], 16, 24));
@@ -48,16 +48,16 @@ int get_physical_cores()
 {
   int regs[4];
   boost::simd::config::x86::cpuid(regs, 0x00000000);
-  if(boost::simd::config::get_vendor() == boost::simd::config::intel) 
-  { 
-    return (get_logical_cores()/get_threads()); 
+  if(boost::simd::config::get_vendor() == boost::simd::config::intel)
+  {
+    return (get_logical_cores()/get_threads());
   }
-  else if(boost::simd::config::get_vendor() == boost::simd::config::amd) 
+  else if(boost::simd::config::get_vendor() == boost::simd::config::amd)
   {
     boost::simd::config::x86::cpuid(regs, 0x80000008);
     return (get_byte(regs[2], 0) + 1);
   }
-  else return -1; 
+  else return -1;
 }
 
 

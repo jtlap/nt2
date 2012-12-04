@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/plus.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( plus_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::plus;
   using boost::simd::tag::plus_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -54,7 +54,7 @@ NT2_TEST_CASE_TPL ( plus_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::plus;
   using boost::simd::tag::plus_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -71,5 +71,5 @@ NT2_TEST_CASE_TPL ( plus_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(plus(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::Two<sr_t>());
   NT2_TEST_EQUAL(plus(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(plus(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-  std::cout << plus(boost::simd::One<vT>(), boost::simd::One<vT>()) << std::endl; 
+  std::cout << plus(boost::simd::One<vT>(), boost::simd::One<vT>()) << std::endl;
 } // end of test for integer_

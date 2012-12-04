@@ -16,7 +16,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/minf.hpp>   
+#include <nt2/include/constants/minf.hpp>
 
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,10 +25,10 @@
 
 NT2_TEST_CASE_TPL(normest, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
-  using nt2::normest; 
+  typedef T r_t;
+  using nt2::normest;
   using nt2::tag::normest_;
 
-  nt2::table<T> n = nt2::ones(10, 10, nt2::meta::as_<T>()); 
+  nt2::table<T> n = nt2::ones(10, 10, nt2::meta::as_<T>());
   NT2_TEST_ULP_EQUAL(normest(n, T(1.0e-6)), nt2::Ten<T>(), 0.5);
 }

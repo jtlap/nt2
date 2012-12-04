@@ -39,7 +39,7 @@ namespace nt2 { namespace ext
     {
       return nt2::abs(a);
     }
-  };  
+  };
 } }
 
 #endif

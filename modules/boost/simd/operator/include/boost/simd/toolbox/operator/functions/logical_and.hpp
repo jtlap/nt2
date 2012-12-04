@@ -26,14 +26,14 @@
  * Infix notation can be used with operator '&&'
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/logical_and.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg l_and
- * 
+ *
  * \synopsis
  *
  * \code
@@ -47,9 +47,9 @@
  *
  * \param a0 the first parameter of logical_and
  * \param a1 the second parameter of logical_and
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -60,7 +60,7 @@
  * a 'signed boolean' type. This means that in this case True has all its bits
  * sets to one. This is to facilitate masking operations. You are invited to
  * consult the rationale.
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -68,7 +68,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag logical_and_ of functor logical_and 
+     * \brief Define the tag logical_and_ of functor logical_and
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct logical_and_ : ext::elementwise_<logical_and_> { typedef ext::elementwise_<logical_and_> parent; };

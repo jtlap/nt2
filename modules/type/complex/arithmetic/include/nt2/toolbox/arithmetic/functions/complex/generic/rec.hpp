@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_REC_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_REC_HPP_INCLUDED
@@ -39,17 +39,17 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      typedef typename meta::as_real<result_type>::type rtype; 
-      typedef typename meta::as_integer<rtype>::type itype; 
+      typedef typename meta::as_real<result_type>::type rtype;
+      typedef typename meta::as_integer<rtype>::type itype;
       rtype rr =  nt2::abs(nt2::real(a0));
       rtype ii =  nt2::abs(nt2::imag(a0));
       itype e =  -if_else(lt(rr, ii), exponent(ii), exponent(rr));
-      A0 aa0 =  nt2::ldexp(a0, e); 
+      A0 aa0 =  nt2::ldexp(a0, e);
       rtype denom =  sqr_abs(aa0);
       A0 num = conj(aa0);
       A0 r =  ldexp(num/denom, e);
       r = if_else(is_eqz(denom), result_type(copysign(Inf<rtype>(), nt2::real(a0)), Zero<rtype>()), r);
-      if (nt2::all(is_finite(a0))) return r; 
+      if (nt2::all(is_finite(a0))) return r;
       r = if_else(is_inf(a0),  result_type(rec(copysign(denom, nt2::real(a0))), Zero<rtype>()), r);
       r = if_else(is_imag(a0), result_type(Zero<rtype>(), nt2::imag(r)), r);
       r = if_else(is_real(a0), result_type(nt2::real(r)), r);
@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(-nt2::rec(nt2::imag(a0))); 
+      return bitwise_cast<result_type>(-nt2::rec(nt2::imag(a0)));
     }
   };
 
@@ -75,10 +75,10 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return bitwise_cast<result_type>(nt2::rec(nt2::real(a0))); 
+      return bitwise_cast<result_type>(nt2::rec(nt2::real(a0)));
     }
   };
-  
+
 } }
 
 #endif

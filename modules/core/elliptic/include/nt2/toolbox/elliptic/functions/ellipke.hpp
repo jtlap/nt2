@@ -29,12 +29,12 @@
  * the function also be called as indicated in the synopsis: ellipke(m,tol,k,e)
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ellipke.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,7 +44,7 @@
  *   typename boost::dispatch::meta::call<tag::ellipke_(A0 const&,A0 const&)
  *                                       >::type
  *   ellipke(A0 const& m,A0 const& tol=Eps<A0>());
- *    
+ *
  *   template<class A0> inline
  *   int ellipke(A0 const& m,A0 const& tol,A0& k,A0&e);
  * }
@@ -54,20 +54,20 @@
  * \param a1 the second parameter of ellipke, optional tolerance
  * \param a2 the third parameter of ellipke, if present, first kind result
  * \param a3 the fourth parameter of ellipke, if present, second kind result
- * 
+ *
  * \return depends of the parameter number
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 {
   namespace tag
   {
     /*!
-     * \brief Define the tag ellipke_ of functor ellipke 
+     * \brief Define the tag ellipke_ of functor ellipke
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellipke_ : ext::elementwise_<ellipke_> { typedef ext::elementwise_<ellipke_> parent; };

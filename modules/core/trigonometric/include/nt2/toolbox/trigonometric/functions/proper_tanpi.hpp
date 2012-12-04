@@ -25,12 +25,12 @@
  * and  proper_tanpi(-0.5) is -inf
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/proper_tanpi.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of proper_tanpi
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag proper_tanpi_ of functor proper_tanpi 
+     * \brief Define the tag proper_tanpi_ of functor proper_tanpi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct proper_tanpi_ : ext::elementwise_<proper_tanpi_> { typedef ext::elementwise_<proper_tanpi_> parent; };

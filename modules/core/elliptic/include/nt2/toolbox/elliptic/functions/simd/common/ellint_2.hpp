@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLINT_2_HPP_INCLUDED
 #define NT2_TOOLBOX_ELLIPTIC_FUNCTIONS_SIMD_COMMON_ELLINT_2_HPP_INCLUDED
@@ -75,7 +75,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       return map(functor<tag::ellint_2_>(), a0);
-      // broken TO DO      
+      // broken TO DO
 //       typedef typename meta::scalar_of<A0>::type sA0;
 //       A0 x = nt2::abs(a0);
 //       const A0 a = nt2::sqrt(oneminus(x));

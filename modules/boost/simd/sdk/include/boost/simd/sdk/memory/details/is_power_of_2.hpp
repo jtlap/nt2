@@ -37,7 +37,7 @@ namespace boost { namespace simd { namespace ext
                                    )
   {
     typedef bool result_type;
-    inline result_type operator()(A0 const&)const 
+    inline result_type operator()(A0 const&)const
     {
       return boost::simd::meta::is_power_of_2<A0>::value;
     }

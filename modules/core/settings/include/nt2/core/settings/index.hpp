@@ -12,8 +12,8 @@
 #include <nt2/core/settings/forward/index.hpp>
 #include <nt2/core/settings/option.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
   namespace meta
   {
     //==========================================================================
@@ -25,10 +25,10 @@ namespace nt2
     struct option < index_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>
                   , tag::index_, Default
                   >
-    {    
+    {
       typedef index_<BOOST_PP_ENUM_PARAMS(NT2_MAX_DIMENSIONS,I)>  type;
     };
-  }   
+  }
 }
 
 #endif

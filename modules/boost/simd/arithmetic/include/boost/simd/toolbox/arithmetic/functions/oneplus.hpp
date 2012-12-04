@@ -23,12 +23,12 @@
  * oneplus(a) is always greater or equal to a.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/oneplus.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of oneplus
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag oneplus_ of functor oneplus 
+     * \brief Define the tag oneplus_ of functor oneplus
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct oneplus_ : ext::elementwise_<oneplus_> { typedef ext::elementwise_<oneplus_> parent; };

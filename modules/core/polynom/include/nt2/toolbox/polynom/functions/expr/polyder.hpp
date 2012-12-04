@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_POLYDER_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_POLYDER_HPP_INCLUDED
@@ -31,7 +31,7 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type value_type;
     typedef typename nt2::meta::call<nt2::tag::colon_(value_type, value_type, value_type)>::type T0;
     typedef typename nt2::meta::call<nt2::tag::colon_(size_t, size_t)>::type                     T1;
-    typedef typename nt2::meta::call<nt2::tag::function_(const A0&, size_t, T1)>::type           T2;     
+    typedef typename nt2::meta::call<nt2::tag::function_(const A0&, size_t, T1)>::type           T2;
     typedef typename nt2::meta::call<nt2::tag::multiplies_(T2, T0)>::type               result_type;
     NT2_FUNCTOR_CALL(1)
     {
@@ -50,8 +50,8 @@ namespace nt2 { namespace ext
   {
 
     typedef typename A0::value_type value_type;
-    typedef typename nt2::meta::call<nt2::tag::conv_(const A0&,  const A1&)>::type  T0; 
-    typedef typename nt2::meta::call<nt2::tag::polyder_(T0)>::type result_type; 
+    typedef typename nt2::meta::call<nt2::tag::conv_(const A0&,  const A1&)>::type  T0;
+    typedef typename nt2::meta::call<nt2::tag::polyder_(T0)>::type result_type;
     NT2_FUNCTOR_CALL(2)
     {
       return nt2::polyder(nt2::conv(a0, a1));

@@ -5,7 +5,7 @@
                           "The return value is a0-n*a1, where n is the value a0/a1, rounded to -inf."
                           "\par",
                           "if one prefer: if a1 is zero returns a0, else return",
-                          "a0-divfloor(a0,a1)*a1"],   
+                          "a0-divfloor(a0,a1)*a1"],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

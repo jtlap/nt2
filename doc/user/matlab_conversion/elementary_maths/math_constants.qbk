@@ -6,19 +6,19 @@ We urge to use __NT2__ constants whereever possible, they all begin with an uppe
 and need a type and are called as nullary template functions.
 
 In the following table `T` is the current data type and the __MATLAB__ defult corresponds to `double`.
- 
-[table:id Mathematical constants      
-[[__MATLAB__  ][ __NT2__             ][ Description                         ]]  
+
+[table:id Mathematical constants
+[[__MATLAB__  ][ __NT2__             ][ Description                         ]]
 [[`eps      `][ `Eps<T>()        `][Floating-point relative accuracy                   ]]
 [[`i        `][ `I<T>()          `][Imaginary unit                                     ]]
 [[`Inf      `][ `Inf<T>()        `][Infinity                                           ]]
 [[`intmax   `][ `Valmax<T>()     `][Largest value of specified integer type            ]]
 [[`intmin   `][ `Valmin<T>()     `][Smallest value of specified integer type           ]]
-[[`j        `][ `I<T>()          `][Imaginary unit                                     ]]     
+[[`j        `][ `I<T>()          `][Imaginary unit                                     ]]
 [[`NaN      `][ `Nan<T>()        `][Not-a-Number                                       ]]
 [[`pi       `][ `Pi<T>()         `][Ratio of circle's circumference to its diameter    ]]
 [[`realmax  `][ `Valmax<T>()     `][Largest positive floating-point number             ]]
 [[`realmin  `][ `Valmin<T>()     `][Smallest positive normalized floating-point number ]]
 ]
 
-[endsect] 
+[endsect]

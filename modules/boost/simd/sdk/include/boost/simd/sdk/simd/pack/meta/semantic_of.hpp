@@ -29,7 +29,7 @@ namespace boost { namespace dispatch { namespace meta
   {
     typedef typename simd::pack<Type, Cardinal>::data_type type;
   };
-  
+
 } } }
 
 #endif

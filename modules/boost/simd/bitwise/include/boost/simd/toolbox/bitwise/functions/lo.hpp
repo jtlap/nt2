@@ -23,12 +23,12 @@
  * as an integer of the same size as the input.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/lo.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of lo
- * 
+ *
  * \return always returns an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag lo_ of functor lo 
+     * \brief Define the tag lo_ of functor lo
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct lo_ : ext::elementwise_<lo_> { typedef ext::elementwise_<lo_> parent; };

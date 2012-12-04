@@ -16,7 +16,7 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/ten.hpp>
 #include <nt2/include/constants/inf.hpp>
-#include <nt2/include/constants/minf.hpp>   
+#include <nt2/include/constants/minf.hpp>
 
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/unit/tests.hpp>
@@ -25,14 +25,14 @@
 
 NT2_TEST_CASE_TPL(norm, NT2_REAL_TYPES)
 {
-  typedef T r_t; 
-  using nt2::norm; 
+  typedef T r_t;
+  using nt2::norm;
   using nt2::tag::norm_;
-  nt2::table<T> n = nt2::ones(10, 1, nt2::meta::as_<T>()); 
+  nt2::table<T> n = nt2::ones(10, 1, nt2::meta::as_<T>());
   NT2_TEST_ULP_EQUAL(norm(n, 1), nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(norm(n, 2), nt2::sqrt(nt2::Ten<T>()), 0);
-  NT2_TEST_ULP_EQUAL(norm(n)   , nt2::sqrt(nt2::Ten<T>()), 0);  
-  NT2_TEST_ULP_EQUAL(norm(n, 3), nt2::pow(nt2::Ten<T>(), 1/T(3)), 0); 
+  NT2_TEST_ULP_EQUAL(norm(n)   , nt2::sqrt(nt2::Ten<T>()), 0);
+  NT2_TEST_ULP_EQUAL(norm(n, 3), nt2::pow(nt2::Ten<T>(), 1/T(3)), 0);
   NT2_TEST_ULP_EQUAL(norm(n, nt2::Inf<T>()), nt2::One<T>(), 0);
   NT2_TEST_ULP_EQUAL(norm(n, nt2::Minf<T>()), nt2::One<T>(), 0);
 
@@ -52,5 +52,5 @@ NT2_TEST_CASE_TPL(norm, NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(norm(a+a, '1'), 2*nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(norm(a+a, 'f'), 2*nt2::Ten<T>(), 0);
   NT2_TEST_ULP_EQUAL(norm(a+a, "fro"), 2*nt2::Ten<T>(), 0);
-  
+
 }

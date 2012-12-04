@@ -12,7 +12,7 @@
 // unit test behavior of exponential components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 08/12/2010
-/// 
+///
 #include <nt2/toolbox/exponential/include/functions/reallog.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,7 +33,7 @@
 
 NT2_TEST_CASE_TPL ( reallog_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::reallog;
   using nt2::tag::reallog_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -43,21 +43,21 @@ NT2_TEST_CASE_TPL ( reallog_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
    NT2_TEST_ULP_EQUAL(reallog(nt2::Inf<T>()), nt2::Inf<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(reallog(nt2::Nan<T>()), nt2::Nan<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(reallog(nt2::One<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(reallog(nt2::Zero<T>()), nt2::Minf<r_t>(), 0);
-  NT2_TEST_ASSERT(   reallog(nt2::Mone<T>()));  
+  NT2_TEST_ASSERT(   reallog(nt2::Mone<T>()));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( reallog_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::reallog;
   using nt2::tag::reallog_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -67,9 +67,9 @@ NT2_TEST_CASE_TPL ( reallog_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -81,7 +81,7 @@ NT2_TEST_CASE_TPL ( reallog_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( reallog_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::reallog;
   using nt2::tag::reallog_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -91,9 +91,9 @@ NT2_TEST_CASE_TPL ( reallog_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -101,5 +101,5 @@ NT2_TEST_CASE_TPL ( reallog_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   // specific values tests
   NT2_TEST_ULP_EQUAL(reallog(nt2::One<T>()), nt2::Zero<r_t>(), 0);
   NT2_TEST_ULP_EQUAL(reallog(nt2::Zero<T>()), nt2::Minf<r_t>(), 0);
-  NT2_TEST_ASSERT(   reallog(nt2::Mone<T>())); 
+  NT2_TEST_ASSERT(   reallog(nt2::Mone<T>()));
 } // end of test for signed_int_

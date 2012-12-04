@@ -22,12 +22,12 @@
  * tangent of the angle in degree, in the interval \f$[-45, 45]\f$, nan outside.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fast_tand.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of fast_tand
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag fast_tand_ of functor fast_tand 
+     * \brief Define the tag fast_tand_ of functor fast_tand
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct fast_tand_ : ext::elementwise_<fast_tand_> { typedef ext::elementwise_<fast_tand_> parent; };

@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/reversebits.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( reversebits_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::reversebits;
   using boost::simd::tag::reversebits_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

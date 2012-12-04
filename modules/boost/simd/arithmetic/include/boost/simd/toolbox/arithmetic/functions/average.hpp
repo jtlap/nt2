@@ -25,12 +25,12 @@
  * the two
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/average.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,19 +44,19 @@
  *
  * \param a0 the first parameter of average
  * \param a1 the second parameter of average
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag average_ of functor average 
+     * \brief Define the tag average_ of functor average
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct average_ : ext::elementwise_<average_> { typedef ext::elementwise_<average_> parent; };

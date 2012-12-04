@@ -26,12 +26,12 @@
  * \f[C_n^p = \frac{n!}{p!(n-p)!}\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/cnp.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,19 +45,19 @@
  *
  * \param a0 the first parameter of cnp
  * \param a1 the second parameter of cnp
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag cnp_ of functor cnp 
+     * \brief Define the tag cnp_ of functor cnp
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct cnp_ : ext::elementwise_<cnp_> { typedef ext::elementwise_<cnp_> parent; };

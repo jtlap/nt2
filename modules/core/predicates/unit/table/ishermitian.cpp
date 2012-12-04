@@ -31,7 +31,7 @@ NT2_TEST_CASE( table_ishermitian )
    {
      for(std::ptrdiff_t j=1; j <= 3; j++)
        {
-         a(i, j) = float(i+j); 
+         a(i, j) = float(i+j);
        }
    }
   for(std::ptrdiff_t i=1; i <= 3; i++)

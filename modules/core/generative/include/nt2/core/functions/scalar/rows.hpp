@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::rows<T> >
       ,  meta::as_<T>
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n, A0 const& m, T const& start) const
     {
       return boost::proto::make_expr< nt2::tag::rows_
@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
             );
     }
   };
-  
+
   //============================================================================
   // Generates rows from fusion sequence + types (support of_size calls)
   //============================================================================
@@ -106,7 +106,7 @@ namespace nt2 { namespace ext
 //                             ,  meta::as_<T>()
 //                           );
 //     }
-//   };    
+//   };
 } }
 
 #endif

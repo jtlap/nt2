@@ -24,8 +24,8 @@ NT2_TEST_CASE_TPL( globalall, NT2_TYPES )
 {
   nt2::table<T> a = nt2::reshape(nt2::_(T(1), T(9)), 3, 3);
   NT2_TEST_EQUAL( nt2::globalall(a), true);
-  NT2_TEST_EQUAL( nt2::globalall(T(1)), true); 
-  a(3, 3) = T(0); 
+  NT2_TEST_EQUAL( nt2::globalall(T(1)), true);
+  a(3, 3) = T(0);
   NT2_TEST_EQUAL( nt2::globalall(a), false);
   NT2_TEST_EQUAL( nt2::globalall(T(0)), false);
   NT2_TEST_EQUAL( nt2::globalall(nt2::is_gtz(T(0))), false);

@@ -25,7 +25,7 @@ namespace boost { namespace simd { namespace ext
       return _mm_setzero_ps();
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( simd::tag::Zero, boost::simd::tag::sse2_, (A0)
                                     , ((target_< simd_< double_<A0>, boost::simd::tag::sse_> >))
                                     )

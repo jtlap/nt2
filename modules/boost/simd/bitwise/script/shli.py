@@ -4,7 +4,7 @@
          'description' : ['The function returns the first entry logically shifted left',
                           'by the absolute value of second entry.'],
          'param_1' : ['must be a scalar integer value'],
-         'return'  : ['returns a value of the type of the first parameter'],   
+         'return'  : ['returns a value of the type of the first parameter'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],

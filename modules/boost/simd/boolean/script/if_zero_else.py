@@ -2,7 +2,7 @@
     {
      'functor' : {
          'description' : ['The function conditionnaly to a0 returns zero or a1'],
-         'return' : ['always of the type of the second parameter'],   
+         'return' : ['always of the type of the second parameter'],
          'module' : 'boolean',
          'arity' : '2',
          'call_types' : [],

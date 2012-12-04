@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/predicates/include/functions/is_not_finite.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( is_not_finite_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using nt2::is_not_finite;
   using nt2::tag::is_not_finite_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -35,12 +35,12 @@ NT2_TEST_CASE_TPL ( is_not_finite_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef nt2::logical<T> wished_r_t;
-  typedef std::complex<T> cT; 
-  typedef nt2::imaginary<T> ciT; 
+  typedef std::complex<T> cT;
+  typedef nt2::imaginary<T> ciT;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -59,9 +59,9 @@ NT2_TEST_CASE_TPL ( is_not_finite_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(is_not_finite(cT(0, 0)), r_t(false));
   NT2_TEST_EQUAL(is_not_finite(cT(1, 0))    , r_t(false));
   NT2_TEST_EQUAL(is_not_finite(cT(0, 2)), r_t(false));
-  NT2_TEST_EQUAL(is_not_finite(cT(0, 1))   , r_t(false)); 
-  NT2_TEST_EQUAL(is_not_finite(ciT(1))     , r_t(false)); 
-  NT2_TEST_EQUAL(is_not_finite(ciT(0))     , r_t(false)); 
+  NT2_TEST_EQUAL(is_not_finite(cT(0, 1))   , r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(ciT(1))     , r_t(false));
+  NT2_TEST_EQUAL(is_not_finite(ciT(0))     , r_t(false));
   NT2_TEST_EQUAL(is_not_finite(cT(T(0), nt2::Inf<T>())),  r_t(true));
   NT2_TEST_EQUAL(is_not_finite(cT(T(0), nt2::Minf<T>())), r_t(true));
   NT2_TEST_EQUAL(is_not_finite(cT(T(0), nt2::Nan<T>())),  r_t(true));

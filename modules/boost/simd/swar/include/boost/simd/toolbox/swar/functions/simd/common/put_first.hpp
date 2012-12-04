@@ -1,10 +1,10 @@
-//============================================================================== 
-// Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II 
-// Copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI 
-// 
-// Distributed under the Boost Software License, Version 1.0.  
-// See accompanying file LICENSE.txt or copy at 
-// http://www.boost.org/LICENSE_1_0.txt 
+//==============================================================================
+// Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+// Copyright 2009 - 2011 LRI UMR 8623 CNRS/Univ Paris Sud XI
+//
+// Distributed under the Boost Software License, Version 1.0.
+// See accompanying file LICENSE.txt or copy at
+// http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_PUT_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_PUT_FIRST_HPP_INCLUDED
@@ -31,12 +31,12 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(2)
     {
       typedef typename meta::scalar_of<A0>::type sA0;
-      
+
       BOOST_SIMD_ALIGNED_TYPE(sA0) tmp[boost::simd::meta::cardinal_of<A0>::value];
       tmp[0] = a0[a1];
       for(A1 i = 1; i != A1(boost::simd::meta::cardinal_of<A0>::value); ++i)
         tmp[i] = a0[i];
-      
+
       return load<A0>(&tmp[0], 0);
     }
   };

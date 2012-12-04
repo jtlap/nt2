@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_CUMSUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_CUMSUM_HPP_INCLUDED
@@ -29,37 +29,37 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::bitwise_cast<sint>(a0);
-      sint tmp1 = _mm_slli_si128(tmp,1); 
+      sint tmp1 = _mm_slli_si128(tmp,1);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,2); 
+      tmp1 = _mm_slli_si128(tmp,2);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,3); 
+      tmp1 = _mm_slli_si128(tmp,3);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,4); 
+      tmp1 = _mm_slli_si128(tmp,4);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,5); 
+      tmp1 = _mm_slli_si128(tmp,5);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,6); 
+      tmp1 = _mm_slli_si128(tmp,6);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,7); 
+      tmp1 = _mm_slli_si128(tmp,7);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,8); 
+      tmp1 = _mm_slli_si128(tmp,8);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,9); 
+      tmp1 = _mm_slli_si128(tmp,9);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,10); 
+      tmp1 = _mm_slli_si128(tmp,10);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,11); 
+      tmp1 = _mm_slli_si128(tmp,11);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,12); 
+      tmp1 = _mm_slli_si128(tmp,12);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,13); 
+      tmp1 = _mm_slli_si128(tmp,13);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,14); 
+      tmp1 = _mm_slli_si128(tmp,14);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp, 15); 
+      tmp1 = _mm_slli_si128(tmp, 15);
       a += simd::bitwise_cast<A0>(tmp1);
-      return a; 
+      return a;
     }
   };
 
@@ -77,8 +77,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
       typedef typename dispatch::meta::as_integer<A0>::type sint;
-      sint tmp = simd::bitwise_cast<sint>(a0); 
-      sint tmp1 = _mm_slli_si128(tmp,8); 
+      sint tmp = simd::bitwise_cast<sint>(a0);
+      sint tmp1 = _mm_slli_si128(tmp,8);
       return a0+simd::bitwise_cast<A0>(tmp1);
     }
   };
@@ -98,20 +98,20 @@ namespace boost { namespace simd { namespace ext
     {
       typedef typename dispatch::meta::as_integer<A0>::type sint;
       A0 a = a0;
-      sint tmp = simd::bitwise_cast<sint>(a0); 
-      sint tmp1 = _mm_slli_si128(tmp,2); 
+      sint tmp = simd::bitwise_cast<sint>(a0);
+      sint tmp1 = _mm_slli_si128(tmp,2);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,4); 
+      tmp1 = _mm_slli_si128(tmp,4);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp, 6); 
+      tmp1 = _mm_slli_si128(tmp, 6);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,8); 
+      tmp1 = _mm_slli_si128(tmp,8);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,10); 
+      tmp1 = _mm_slli_si128(tmp,10);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,12); 
+      tmp1 = _mm_slli_si128(tmp,12);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp,14); 
+      tmp1 = _mm_slli_si128(tmp,14);
       return a+simd::bitwise_cast<A0>(tmp1);
     }
   };
@@ -132,11 +132,11 @@ namespace boost { namespace simd { namespace ext
       typedef typename dispatch::meta::as_integer<A0>::type sint;
       A0 a = a0;
       sint tmp = simd::bitwise_cast<sint>(a0);
-      sint tmp1 = _mm_slli_si128(tmp, 4); 
+      sint tmp1 = _mm_slli_si128(tmp, 4);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp, 8); 
+      tmp1 = _mm_slli_si128(tmp, 8);
       a = a+simd::bitwise_cast<A0>(tmp1);
-      tmp1 = _mm_slli_si128(tmp, 12); 
+      tmp1 = _mm_slli_si128(tmp, 12);
       return a+simd::bitwise_cast<A0>(tmp1);
     }
   };

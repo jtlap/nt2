@@ -33,7 +33,7 @@ sys.path.pop(0)
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_basics"))
 from nt2_tb_props                    import Nt2_tb_props
 from nt2_fct_props                   import Nt2_fct_props
-from nt2_modules                     import Nt2_modules 
+from nt2_modules                     import Nt2_modules
 sys.path.pop(0)
 
 sys.path.insert(0,os.path.join(os.path.dirname(os.path.realpath(__file__)),'..',"nt2_generation"))
@@ -73,7 +73,7 @@ def write_exhaustive(tb_name,fct_name,mode,s,check=False,backup=True) :
     p1 = os.path.join(os.path.split(p)[0],'CMakeLists.txt')
     addline=Add_line(p1,fct_name)
     addline.update_file("SET\( *SOURCES")
- 
+
 def create_exhaustive(tb_name,
                       fct_names,
                       modes = ['simd'],
@@ -95,7 +95,7 @@ def create_exhaustive(tb_name,
             if show :
                 print("%s showing text of %s.cpp for %s-test"% (just,fct_name,mode))
                 print("<"+"="*40)
-                PrettyPrinter().pprint(r)            
+                PrettyPrinter().pprint(r)
                 print("="*40+">")
             if write_files :
                 print("writing text of %s.cpp for %s-test"% (fct_name,mode))
@@ -103,9 +103,9 @@ def create_exhaustive(tb_name,
                                  check=check_on_write,
                                  backup=backup_on_write)
 
-        
+
 if __name__ == "__main__" :
     tb_name = "trigonometric"
     fct_name = 'sin'
-    mode = 'simd' 
+    mode = 'simd'
     create_exhaustive(tb_name,fct_name,write_files='False')

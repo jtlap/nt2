@@ -10,28 +10,28 @@
 #define NT2_CORE_SETTINGS_FORWARD_ALLOCATOR_HPP_INCLUDED
 
 
-namespace nt2 
-{ 
+namespace nt2
+{
   //============================================================================
   /*! allocator_<A> defines a custom allocator to be used by the container.
-   * 
+   *
    * \tparam Allocator Allocator type to be used by current container
    **/
   //============================================================================
-  template<class Allocator> 
-  struct allocator_ 
+  template<class Allocator>
+  struct allocator_
   {
     typedef Allocator type;
-  }; 
+  };
 
-  namespace tag 
-  { 
+  namespace tag
+  {
     //==========================================================================
     /*!
      * Option tag for allocator options
      **/
     //==========================================================================
-    struct allocator_ {}; 
+    struct allocator_ {};
   }
 
 }

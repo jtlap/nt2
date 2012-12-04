@@ -18,8 +18,8 @@ namespace nt2
   {
     namespace internal
     {
-      
-      class standard_tag{}; 
+
+      class standard_tag{};
       template <class tag > struct fallback
       {
 	template < class T > static inline T cos(T x){return std::cos(x); }
@@ -28,12 +28,12 @@ namespace nt2
 	//     functor<standard::cospi_> _cospi;
 	//     functor<standard::sinpi_> _sinpi;
 	//     functor<standard::tanpi_> _tanpi;
-      }; 
+      };
 
-#ifndef FALLBACK_TAG      
-#define FALLBACK_TAG standard_tag 
+#ifndef FALLBACK_TAG
+#define FALLBACK_TAG standard_tag
 #endif
-      
+
     }
   }
 }

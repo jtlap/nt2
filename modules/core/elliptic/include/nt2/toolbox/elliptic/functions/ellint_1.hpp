@@ -24,12 +24,12 @@
  * \f[K(a_0) = \int_0^{\pi/2} \sqrt{1-a_0^2\sin^2 t} dt\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ellint_1.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ellint_1
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ellint_1_ of functor ellint_1 
+     * \brief Define the tag ellint_1_ of functor ellint_1
      *        in namespace nt2::tag for toolbox elliptic
     **/
     struct ellint_1_ : ext::elementwise_<ellint_1_> { typedef ext::elementwise_<ellint_1_> parent; };

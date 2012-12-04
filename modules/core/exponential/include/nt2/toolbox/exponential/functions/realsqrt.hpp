@@ -22,12 +22,12 @@
  *  sqrt function which asserts if called with non real positive values.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/realsqrt.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of realsqrt
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag realsqrt_ of functor realsqrt 
+     * \brief Define the tag realsqrt_ of functor realsqrt
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct realsqrt_ : ext::elementwise_<realsqrt_> { typedef ext::elementwise_<realsqrt_> parent; };

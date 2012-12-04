@@ -28,13 +28,13 @@ NT2_TEST_CASE_TPL( nanasum2_scalar, NT2_REAL_TYPES )
   typedef std::complex<T> cT;
   T x = nt2::nanasum2(cT(42));
   NT2_TEST_EQUAL( x, T(1764) );
-  
+
   x = nt2::nanasum2(cT(42),1);
   NT2_TEST_EQUAL( x, T(1764) );
-  
+
   x = nt2::nanasum2(cT(42),0);
   NT2_TEST_EQUAL( x, T(1764) );
-  
+
   x = nt2::nanasum2(cT(nt2::Nan<T>()),0);
   NT2_TEST_EQUAL( x, nt2::Zero<T>() );
 }
@@ -101,12 +101,12 @@ NT2_TEST_CASE_TPL( nanasum2_2, NT2_REAL_TYPES )
   y(2, 3) = nt2::Nan<T>();
   display("y", y);
   sy2 = nt2::nanasum2(y);
-  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y)));
   sy2 = nt2::nanasum2(y, 1);
-  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y, 1))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y, 1)));
   sy2 = nt2::nanasum2(y, 2);
-  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y, 2))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y, 2)));
   sy2 = nt2::nanasum2(y, 3);
-  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y, 3))); 
+  NT2_TEST(nt2::isequal(sy2, nt2::nanasum2(y, 3)));
 
 }

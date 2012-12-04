@@ -2,7 +2,7 @@
   [quickbook 1.5]
 ]
 
-[section Overview] 
+[section Overview]
 
 There are principaly two kinds of people using NT2
 
@@ -10,7 +10,7 @@ Those who know Matlab concepts
 
 Those coming from straight C/C++
 
-For each kind we propose 
+For each kind we propose
 
 # A catalog of equivalence between what can be done in Matlab (respectively C/C+ and what can be used in NT2,
 # A pack of do and don't in order to get better performance out of the written code.

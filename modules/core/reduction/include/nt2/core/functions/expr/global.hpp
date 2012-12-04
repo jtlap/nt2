@@ -46,7 +46,7 @@ namespace nt2 { namespace ext
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
                               ((ast_<A1, nt2::container::domain>))
-                              (unspecified_<A2>)                              
+                              (unspecified_<A2>)
                               )
   {
     typedef typename A1::value_type                               value_type;
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
                               (A0)(A1)(A2),
                               (unspecified_<A0>)
                               (generic_<unspecified_<A1> > )
-                              (unspecified_<A2>)                    
+                              (unspecified_<A2>)
                               )
   {
     typedef typename meta::result_of<A0 const(const A1&, const A2&)>::type result_type;
@@ -68,7 +68,7 @@ namespace nt2 { namespace ext
     {
       return a0(a1, a2);
     }
-  };  
+  };
 } }
 
 #endif

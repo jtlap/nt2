@@ -22,12 +22,12 @@
  * The function return unsigned integer value which has the same bits of the input
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/bits.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of bits
- * 
+ *
  * \return an unsigned integer
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag bits_ of functor bits 
+     * \brief Define the tag bits_ of functor bits
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct bits_ : ext::elementwise_<bits_> { typedef ext::elementwise_<bits_> parent; };

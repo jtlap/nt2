@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.boolean components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/boolean/include/functions/seladd.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
@@ -26,10 +26,10 @@
 
 NT2_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::seladd;
   using boost::simd::tag::seladd_;
-  using boost::simd::logical; 
+  using boost::simd::logical;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<seladd_(logical<T>,T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
@@ -38,9 +38,9 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(seladd(logical<T>(T(0)),T(1),T(2)), T(1));
@@ -53,10 +53,10 @@ NT2_TEST_CASE_TPL ( seladd_real__3_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::seladd;
   using boost::simd::tag::seladd_;
-  using boost::simd::logical; 
+  using boost::simd::logical;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<seladd_(logical<T>,T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
@@ -65,9 +65,9 @@ NT2_TEST_CASE_TPL ( seladd_integer__3_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(seladd(logical<T>(T(-1)),T(1),T(2)), T(3));

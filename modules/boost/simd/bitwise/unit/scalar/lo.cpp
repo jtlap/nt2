@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.bitwise components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/bitwise/include/functions/lo.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/dispatch/meta/downgrade.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( lo_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::lo;
   using boost::simd::tag::lo_;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
@@ -40,9 +40,9 @@ NT2_TEST_CASE_TPL ( lo_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef dtype wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::Nan<T>()), boost::simd::Mone<dtype>());
@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( lo_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( lo_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
 {
-  
+
   using boost::simd::lo;
   using boost::simd::tag::lo_;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
@@ -66,9 +66,9 @@ NT2_TEST_CASE_TPL ( lo_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
   typedef dtype wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::One<T>()), boost::simd::One<dtype>());
@@ -77,7 +77,7 @@ NT2_TEST_CASE_TPL ( lo_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
 
 NT2_TEST_CASE_TPL ( lo_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
 {
-  
+
   using boost::simd::lo;
   using boost::simd::tag::lo_;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
@@ -91,9 +91,9 @@ NT2_TEST_CASE_TPL ( lo_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
   typedef dtype wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::One<T>()), boost::simd::One<dtype>());
   NT2_TEST_EQUAL(lo(boost::simd::Zero<T>()), boost::simd::Zero<dtype>());
@@ -101,7 +101,7 @@ NT2_TEST_CASE_TPL ( lo_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
 
 NT2_TEST_CASE_TPL ( lo_int16__1_0,  BOOST_SIMD_INT_16_TYPES)
 {
-  
+
   using boost::simd::lo;
   using boost::simd::tag::lo_;
   typedef typename boost::dispatch::meta::as_integer<T,unsigned>::type ir_t;
@@ -115,9 +115,9 @@ NT2_TEST_CASE_TPL ( lo_int16__1_0,  BOOST_SIMD_INT_16_TYPES)
   typedef dtype wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(lo(boost::simd::One<T>()), boost::simd::One<dtype>());

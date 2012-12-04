@@ -39,7 +39,7 @@ namespace nt2 { namespace details
                     , uplo_(uplo)
                     , that_(of_size(0, 1))
     {
-      BOOST_ASSERT_MSG(issquare(values_), "matrix must be square"); 
+      BOOST_ASSERT_MSG(issquare(values_), "matrix must be square");
       nt2::details::potrf ( &uplo_, &height_
                           , values_.raw(), &leading_, &info_
                           );
@@ -52,7 +52,7 @@ namespace nt2 { namespace details
       leading_  = src.leading_;
       info_     = src.info_;
       uplo_     = src.uplo_;
-      that_     = src.that_; 
+      that_     = src.that_;
       return *this;
     }
 
@@ -71,7 +71,7 @@ namespace nt2 { namespace details
         result_type that_;
         if(uplo_ == 'U')  that_ = nt2::triu(values_);
         else              that_ = nt2::tril(values_);
-        
+
         if(info_ > 0) that_ = nt2::expand(that_, info_-1, info_-1 );
       }
       return that_;
@@ -155,13 +155,13 @@ namespace nt2 { namespace details
     {
       nt2_la_int nrhs = nt2::size(b, 2);
       nt2_la_int ldb  = b.leading_size();
-      nt2_la_int info; 
+      nt2_la_int info;
       nt2::details::potrs ( &uplo_, &height_, &nrhs
                           , values_.raw(), &leading_
                           , b.raw(), &ldb
                           , &info
                           );
-      return info; 
+      return info;
     }
 
     private:

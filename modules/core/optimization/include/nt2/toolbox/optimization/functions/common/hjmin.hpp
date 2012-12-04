@@ -29,37 +29,37 @@ namespace nt2 { namespace details
     typedef nt2::container::table<float_t>      table_t;
     typedef FUNC                                 func_t;
     typedef fpoint<T,float_t,func_t>             self_t;
-    
+
     matrix_t& x;                                // A point in the function's domain.
     float_t fval;                               // Function value at the point.
     const func_t & fproc;                       // Procedure to compute that value
-    const bool free_x_on_destructing;           // The flag telling if this fpoint 
+    const bool free_x_on_destructing;           // The flag telling if this fpoint
                                                 // "owns" x, and has to dispose of
                                                 // its dynamic memory on destruction.
-      
-      
+
+
   public:
-    template < class M > 
+    template < class M >
     fpoint(M& b, const func_t & f)
       : x(b),
         fproc(f),
         free_x_on_destructing(false)
     {
-      fval = f(b); 
+      fval = f(b);
     }
-    
+
     ~fpoint(){
       if( free_x_on_destructing ) delete &x;
     };
-    
+
     float_t f() const { return fval; }
-    
+
     fpoint(const fpoint& fp) :
-      x(*(new matrix_t(fp.x))), 
+      x(*(new matrix_t(fp.x))),
       fval(fp.fval),
       fproc(fp.fproc),
       free_x_on_destructing(true){}
-    
+
     fpoint& operator = (const fpoint& fp){{
         if (&fp != this){
           x = fp.x;
@@ -68,31 +68,31 @@ namespace nt2 { namespace details
         return *this;
       }
     };
-    
+
     float_t fiddle_around(const matrix_t& h);
     // Examine the function in the
     // neighborhood of the current point.
     // h defines the radius of the region
-    
+
     // Proceed in the direction the function
     // seems to decline
-    template < class FPOINT > 
+    template < class FPOINT >
     friend void update_in_direction(FPOINT & from, FPOINT & to);
-    
+
     // Decide whether the region embracing
     // the local min is small enough
     bool isstep_relatively_small(const matrix_t& h, const float_t tau)
     {
       for(ptrdiff_t i=nt2::first_index<1>(nt2::colvect(x)); i <= nt2::last_index<1>(nt2::colvect(x)) ; ++i)
         {
-          if (float_t(h(i)) >= float_t(tau*(One<float_t>()+nt2::abs(x(i))))) return false; 
+          if (float_t(h(i)) >= float_t(tau*(One<float_t>()+nt2::abs(x(i))))) return false;
         }
       return true;
-      //TODO nt2::all(h < tau*(One<float_t>()+nt2::abs(x))); 
+      //TODO nt2::all(h < tau*(One<float_t>()+nt2::abs(x)));
     }
   };
 
-  
+
   /*
    * Examine the function f in the vicinity of the current point x
    * by making tentative steps fro/back along each coordinate.
@@ -102,40 +102,40 @@ namespace nt2 { namespace details
    * the region.
    *
    */
-  template < class T, class FLOAT, class FUNC  > 
+  template < class T, class FLOAT, class FUNC  >
   FLOAT fpoint<T, FLOAT, FUNC >::fiddle_around(const matrix_t& h)
   {
     // Perform a step along each coordinate
     for(ptrdiff_t i = nt2::first_index<1>(nt2::colvect(x)); i <= nt2::last_index<1>(nt2::colvect(x)); ++i)
-      { 
-        const float_t hi = h(i); 
+      {
+        const float_t hi = h(i);
         const float_t xi_old = x(i);          // Old value of x[i]
         float_t fnew;
         x(i) = xi_old + hi;
-        fnew = fproc(x); 
+        fnew = fproc(x);
         if ( fnew < fval )// Step caused f to decrease, OK
           {
-            fval = fnew; return fval;  
+            fval = fnew; return fval;
           }
         x(i) = xi_old - hi;
-        fnew = fproc(x);  
+        fnew = fproc(x);
         if (fnew < fval )// Step caused f to decrease, OK
           {
-            fval = fnew; return fval; 
+            fval = fnew; return fval;
           }
         x(i) = xi_old; // No function decline has been found along this coord, back up
       }
     return fval;
-  }                                                
-  
+  }
+
   // Proceed in the direction the function
   // seems to decline
   // to_new = (to - from) + to
   // from = to (before modification)
-  template < class FPOINT  > 
+  template < class FPOINT  >
   void update_in_direction(FPOINT& from, FPOINT& to)
   {
-    typedef typename FPOINT::float_t float_t; 
+    typedef typename FPOINT::float_t float_t;
     for(ptrdiff_t i = nt2::first_index<1>(nt2::colvect(from.x)); i <= nt2::last_index<1>(nt2::colvect(from.x)); ++i)
       {
         const float_t t = to.x(i);
@@ -143,7 +143,7 @@ namespace nt2 { namespace details
         from.x(i) = t;
       }
     from.fval = to.fval;
-    to.fval = to.fproc(to.x); 
+    to.fval = to.fproc(to.x);
   }
 } }
 
@@ -153,9 +153,9 @@ namespace nt2 { namespace ext
                               , (F)(A)(H)(O)
                             , (unspecified_< F >)
                               ((ast_< A, nt2::container::domain>))
-                              ((ast_< H, nt2::container::domain>))   
+                              ((ast_< H, nt2::container::domain>))
                               (unspecified_<O>)
-    ) 
+    )
   {
     typedef typename A::value_type                                  value_type;
     typedef typename meta::as_real<value_type>::type                 real_type;
@@ -165,7 +165,7 @@ namespace nt2 { namespace ext
 
     result_type operator()(F crit, A const& aa, H const& hh, O const& o)
     {
-      step_reduce_factor = Oneo_10<value_type>(); 
+      step_reduce_factor = Oneo_10<value_type>();
       iterdone = 0;
       tab_t a = aa;
       tab_t h = hh;
@@ -185,7 +185,7 @@ namespace nt2 { namespace ext
         }
         else                                                          // Function didn't fall significantly
         {                                                           // upon wandering around pbas
-          h = h*step_reduce_factor; 
+          h = h*step_reduce_factor;
           if( pbase.isstep_relatively_small(h,tau) )
           {
             valmin = pmin.f();
@@ -194,7 +194,7 @@ namespace nt2 { namespace ext
           }
         }
       }
-      BOOST_ASSERT_MSG(false, "hjmin was not convergent"); 
+      BOOST_ASSERT_MSG(false, "hjmin was not convergent");
       // We didn't converged -- add message for this
       result_type that = {a,pmin.f(),iterdone,false};
       return that;
@@ -202,7 +202,7 @@ namespace nt2 { namespace ext
 
   private:
     real_type step_reduce_factor;
-    size_t              iterdone; 
+    size_t              iterdone;
     value_type            valmin;
   };
 
@@ -210,7 +210,7 @@ namespace nt2 { namespace ext
                               , (F)(A)(H)(O)
                             , (unspecified_< F >)
                               ((ast_< A, nt2::container::domain>))
-                              (scalar_ < unspecified_ < H > > )   
+                              (scalar_ < unspecified_ < H > > )
                               (unspecified_<O>)
                             )
   {
@@ -220,6 +220,6 @@ namespace nt2 { namespace ext
     {
       return hjmin(f, aa, nt2::repnum(h0, size_t(1), nt2::numel(aa)), o);
     }
-  };  
+  };
 } }
 #endif

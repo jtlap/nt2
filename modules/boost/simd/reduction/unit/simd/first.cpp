@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/reduction/include/functions/first.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL ( first_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::first;
   using boost::simd::tag::first_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::scalar_of<T>::type sT;
@@ -50,13 +50,13 @@ NT2_TEST_CASE_TPL ( first_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(first(boost::simd::Nan<vT>()), boost::simd::Nan<sr_t>());
   NT2_TEST_EQUAL(first(boost::simd::One<vT>()), boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(first(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(first(boost::simd::Ten <vT>()), boost::simd::Ten <sr_t>());  
+  NT2_TEST_EQUAL(first(boost::simd::Ten <vT>()), boost::simd::Ten <sr_t>());
 } // end of test for floating_
 NT2_TEST_CASE_TPL ( first_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)//(int32_t))
 {
   using boost::simd::first;
   using boost::simd::tag::first_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::scalar_of<T>::type sT;
@@ -73,5 +73,5 @@ NT2_TEST_CASE_TPL ( first_int__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)//(int32_t))
   // specific values tests
   NT2_TEST_EQUAL(first(boost::simd::One<vT>()), boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(first(boost::simd::Zero<vT>()), boost::simd::Zero<sr_t>());
-  NT2_TEST_EQUAL(first(boost::simd::Ten <vT>()), boost::simd::Ten <sr_t>());  
+  NT2_TEST_EQUAL(first(boost::simd::Ten <vT>()), boost::simd::Ten <sr_t>());
 } // end of test for floating_

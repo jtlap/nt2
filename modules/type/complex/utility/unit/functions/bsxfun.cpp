@@ -27,7 +27,7 @@
 
 NT2_TEST_CASE_TPL( bsxfunc, NT2_REAL_TYPES)
 {
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   nt2::table<cT> a = nt2::rif(nt2::of_size(8, 1), nt2::meta::as_<cT>()),
                      m, c, d;
    NT2_DISPLAY(a);

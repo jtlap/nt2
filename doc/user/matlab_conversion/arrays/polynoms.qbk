@@ -1,7 +1,7 @@
 [section Polynoms]
 
 
-[table:id Polynoms 
+[table:id Polynoms
 [[__MATLAB__  ][ __NT2__  ][ Description                                                             ]]
 [[`conv      `][`conv    `][ Convolution and polynomial multiplication                               ]]
 [[`deconv    `][`deconv  `][ Deconvolution and polynomial division                                   ]]
@@ -19,14 +19,14 @@
 
 
 Polynomials
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+
+
+
+
+
+
+
+
+
+
+

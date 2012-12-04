@@ -26,14 +26,14 @@
  * Infix notation can be used with operator '>>'
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/shift_right.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg shr
- * 
+ *
  * \synopsis
  *
  * \code
@@ -47,13 +47,13 @@
  *
  * \param a0 the first parameter of shift_right
  * \param a1 the second parameter of shift_right, must be integer
- * 
+ *
  * \return a value of the type of the first parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -61,7 +61,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag shift_right_ of functor shift_right 
+     * \brief Define the tag shift_right_ of functor shift_right
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct shift_right_ : ext::elementwise_<shift_right_> { typedef ext::elementwise_<shift_right_> parent; };

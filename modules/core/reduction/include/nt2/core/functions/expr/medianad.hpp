@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/medianad.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/center.hpp>
+#include <nt2/include/functions/expand_to.hpp>
 #include <nt2/include/functions/median.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
@@ -38,12 +38,19 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A1> > )
                             )
   {
-    typedef typename meta::call<tag::center_(A0 const&, A1 const &)>::type T0;
-    typedef typename meta::call<tag::abs_(T0)>::type                      T1;
-    typedef typename meta::call<tag::median_(T1)>::type          result_type;
+    typedef typename meta::call<tag::median_(A0 const&, A1 const&)>::type          T0;
+    typedef typename meta::call<tag::extent_(A0 const&)>::type                     E0;
+    typedef typename meta::call<tag::expand_to_(T0, E0)>::type                    T0b;
+    typedef typename meta::call<tag::minus_(A0 const &, T0b)>::type                T1;
+    typedef typename meta::call<tag::abs_(T1)>::type                               T2;
+    typedef typename meta::call<tag::median_(T2, A1 const&)>::type        result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& dim) const
     {
-      return nt2::median(nt2::abs(nt2::center(a0, dim)), dim);
+      BOOST_AUTO_TPL(t0, nt2::median(a0, dim));
+      BOOST_AUTO_TPL(t1, a0 - nt2::expand_to(t0, extent(a0)));
+      BOOST_AUTO_TPL(t2, nt2::abs(t1));
+      BOOST_AUTO_TPL(t3,nt2::median(t2, dim));
+      return t3;
     }
   };
 } }

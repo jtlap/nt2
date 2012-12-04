@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_NTHROOT_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_NTHROOT_HPP_INCLUDED
@@ -59,11 +59,11 @@ namespace nt2 { namespace ext
       typedef typename boost::dispatch::meta::as_floating<A0>::type type;
       if (!a1) return One<type>();
       if (!a0) return Zero<type>();
-      bool is_ltza0 = is_ltz(a0); 
-      if (!is_odd(a1) && is_ltza0) return Nan<type>(); 
-      if (is_inf(a0)) return a0; 
+      bool is_ltza0 = is_ltz(a0);
+      if (!is_odd(a1) && is_ltza0) return Nan<type>();
+      if (is_inf(a0)) return a0;
       type aa1 = type(a1);
-      type x = nt2::abs(a0); 
+      type x = nt2::abs(a0);
       type y = nt2::pow(x,rec(aa1));
       // Correct numerical errors (since, e.g., 64^(1/3) is not exactly 4)
       // by one iteration of Newton's method

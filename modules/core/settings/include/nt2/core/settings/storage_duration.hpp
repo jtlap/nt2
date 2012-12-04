@@ -12,8 +12,8 @@
 #include <nt2/core/settings/option.hpp>
 #include <nt2/core/settings/forward/storage_duration.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
 
   namespace meta
   {
@@ -28,7 +28,7 @@ namespace nt2
     {
       typedef automatic_ type;
     };
-  } 
+  }
 }
 
 #include <nt2/core/settings/details/storage_duration.hpp>

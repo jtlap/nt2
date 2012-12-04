@@ -23,12 +23,12 @@
  * \f[\Psi(a_0) = \frac{\Gamma^\prime(a_0)}{\Gamma(a_0}\f]
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/digamma.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of digamma
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag digamma_ of functor digamma 
+     * \brief Define the tag digamma_ of functor digamma
      *        in namespace nt2::tag for toolbox euler
     **/
     struct digamma_ : ext::elementwise_<digamma_> { typedef ext::elementwise_<digamma_> parent; };

@@ -22,12 +22,12 @@
  * The function return the integer part of log2 of the argument
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ilog2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of ilog2
- * 
+ *
  * \return always returns an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ilog2_ of functor ilog2 
+     * \brief Define the tag ilog2_ of functor ilog2
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct ilog2_ : ext::elementwise_<ilog2_> { typedef ext::elementwise_<ilog2_> parent; };

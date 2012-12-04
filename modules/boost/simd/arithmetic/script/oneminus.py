@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ["returns the saturated \f$1-a_0\f$"],   
+         'description' : ["returns the saturated \f$1-a_0\f$"],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],

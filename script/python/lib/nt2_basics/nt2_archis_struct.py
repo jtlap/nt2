@@ -13,10 +13,10 @@ from __future__         import print_function
 """Tools for defining nt2 supported simd architectures
    Currently defined are
     scalar : no simd
-    sse    : 
+    sse    :
     vmx
     common
-   class Archi  define  
+   class Archi  define
      supported()    : list of supported tags
      arbo(tag)      : directory hierarchy of supported tags within nt2
      submodes(tag)  : submodes associated with a tag
@@ -50,7 +50,7 @@ class Swar(object) :
 
     @classmethod
     def get_variants(cls) : return cls.Variants
-    
+
     @classmethod
     def get_mode(cls) : return cls.Mode
 
@@ -76,7 +76,7 @@ class Swar(object) :
             return os.path.join(l[0],l[1])
         else :
             return l[0]
-    
+
     @classmethod
     def get_rel_tree(cls) :
         """
@@ -85,8 +85,8 @@ class Swar(object) :
         of a functor
         """
         return sorted([ os.path.join(cls.Mode,cls.Tag,l) for l in cls.Variants.keys()])
-            
-   
+
+
 
 class Scalar(Swar) :
     """hierarchy of scalar implementations:
@@ -94,7 +94,7 @@ class Scalar(Swar) :
     Tag = ""
     def __init__(self) : Swar.__init__(self)
 
-    
+
 class Sse(Swar) :
     """hierarchy of sse implementations"""
     Tag = "sse"
@@ -128,7 +128,7 @@ class Common(Swar) :
     Mode = "simd"
     Tag  = "common"
     def __init__(self) :  Swar.__init__(self)
- 
+
 class Nt2_archis_struct(object) :
  #   Supported = [ "scalar","sse", "vmx", "common"]
     Archs = { "scalar"  : Scalar,
@@ -163,7 +163,7 @@ class Nt2_archis_struct(object) :
         return 'Supported archis are\n    '+'\n    '.join(Nt2_archis_struct.get_supported_archis_tags())
     def __repr__(self) :
         return self.__str__()
-    
+
 if __name__ == "__main__":
     pp = PrettyPrinter()
     pp.pprint(" Swar variants   %s " % Swar().get_variants())

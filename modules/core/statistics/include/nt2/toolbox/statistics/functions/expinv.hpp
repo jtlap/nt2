@@ -98,7 +98,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       return utility::max_extent(nt2::extent(boost::proto::child_c<0>(e)),
-                        nt2::extent(boost::proto::child_c<1>(e))); 
+                        nt2::extent(boost::proto::child_c<1>(e)));
     }
   };
 

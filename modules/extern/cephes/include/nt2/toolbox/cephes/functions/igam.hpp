@@ -23,12 +23,12 @@
  * library cephes.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/cephes/include/functions/igam.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  *
  * \param a0 the first parameter of igam
  * \param a1 the second parameter of igam
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -64,13 +64,13 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
- *  
+ *
 **/
 
 namespace nt2 { namespace cephes { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag igam_ of functor igam 
+     * \brief Define the tag igam_ of functor igam
      *        in namespace nt2::cephes::tag for toolbox cephes
     **/
     struct igam_ : ext::elementwise_<igam_> { typedef ext::elementwise_<igam_> parent; };
@@ -79,7 +79,7 @@ namespace nt2 { namespace cephes { namespace tag
   } }
 
 #include <nt2/toolbox/cephes/functions/scalar/igam.hpp>
-// #include <nt2/toolbox/cephes/functions/simd/all/igam.hpp> 
+// #include <nt2/toolbox/cephes/functions/simd/all/igam.hpp>
 
 #endif
 

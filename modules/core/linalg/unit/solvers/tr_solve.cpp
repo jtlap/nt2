@@ -41,5 +41,5 @@ NT2_TEST_CASE_TPL(tr_solve_result, NT2_REAL_TYPES)
   result_type f = nt2::solvers::tr_solve(a, b, 'L', 'N', 'N');
 
    nt2::display("values", f.x());
-   NT2_TEST(nt2::isulpequal(b, mtimes(nt2::tril(a), f.x()), T(2.0)));     
+   NT2_TEST(nt2::isulpequal(b, mtimes(nt2::tril(a), f.x()), T(2.0)));
 }

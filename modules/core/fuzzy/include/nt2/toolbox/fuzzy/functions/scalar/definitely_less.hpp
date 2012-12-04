@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_DEFINITELY_LESS_HPP_INCLUDED
 #define NT2_TOOLBOX_FUZZY_FUNCTIONS_SCALAR_DEFINITELY_LESS_HPP_INCLUDED
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    inline result_type operator()(const A0 & a0,const A0 & a1, const A2 & a2) 
+    inline result_type operator()(const A0 & a0,const A0 & a1, const A2 & a2)
     {
       return result_type(a0 < nt2::subs(a1, nt2::abs(a2)));
     }
@@ -53,7 +53,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    inline result_type operator()(const A0 & a0,const A0 & a1, const A2 & a2) 
+    inline result_type operator()(const A0 & a0,const A0 & a1, const A2 & a2)
     {
       if (logical_and(is_finite(a0), result_type(a1 == Inf<A0>()))) return True<result_type>();
       if (logical_and(is_finite(a1), result_type(a0 == Minf<A0>()))) return True<result_type>();

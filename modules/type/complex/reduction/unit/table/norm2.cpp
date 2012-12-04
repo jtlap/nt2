@@ -20,21 +20,21 @@
 
 NT2_TEST_CASE_TPL( norm2_scalar, (float)(double))//NT2_TYPES )
 {
-  typedef std::complex<T>  cT; 
+  typedef std::complex<T>  cT;
   T x = nt2::norm2(cT(42));
   NT2_TEST_EQUAL( x, nt2::abs(T(42)) );
-  
+
   x = nt2::norm2(cT(42),1);
   NT2_TEST_EQUAL( x, nt2::abs(T(42)) );
-  
+
   x = nt2::norm2(cT(42),0);
   NT2_TEST_EQUAL( x, nt2::abs(T(42)) );
-  
+
 }
 
 NT2_TEST_CASE_TPL( norm2, (float)(double))//NT2_TYPES )
 {
-  typedef std::complex<T>  cT; 
+  typedef std::complex<T>  cT;
    using nt2::_;
   nt2::table<cT> y( nt2::of_size(5,3) );
   nt2::table<T> sy( nt2::of_size(1,3) );

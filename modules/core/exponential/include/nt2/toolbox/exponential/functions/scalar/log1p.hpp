@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOG1P_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_LOG1P_HPP_INCLUDED
@@ -55,13 +55,13 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(1)
     {
       typedef result_type type;
-      if (nt2::abs(a0) < Eps<A0>()) return a0; 
+      if (nt2::abs(a0) < Eps<A0>()) return a0;
       if (a0 < Mone<A0>())   return Nan<A0>();
       if (a0 == Inf<A0>())   return Inf<A0>();
       volatile type u = oneplus(a0);
-      type uu = u; 
+      type uu = u;
       volatile type t =(minusone(uu)-a0);
-      type v = u; 
+      type v = u;
       type r =nt2::log(v);
       if (t)
         return r*(a0/minusone(v)); //-t/u; /* cancels errors with IEEE arithmetic */

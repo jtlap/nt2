@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/asecd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of asecd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag asecd_ of functor asecd 
+     * \brief Define the tag asecd_ of functor asecd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct asecd_ : ext::elementwise_<asecd_> { typedef ext::elementwise_<asecd_> parent; };

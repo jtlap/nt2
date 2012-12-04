@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_JNI_HPP_INCLUDED
 #define NT2_TOOLBOX_BESSEL_FUNCTIONS_SCALAR_JNI_HPP_INCLUDED
@@ -82,7 +82,7 @@ namespace nt2 { namespace ext
     NT2_FUNCTOR_CALL(2)
     {
       result_type x = a1;
-      const int32_t n1 = nt2::abs(a0);
+      const size_t n1 = nt2::abs(a0);
       result_type sign = a0<Zero<A0>()?cospi(n1):One<A0>();
       if( n1 == 0 )
         return( sign * nt2::j0(x) );
@@ -92,7 +92,7 @@ namespace nt2 { namespace ext
         return mul(sign, (mul(Two<result_type>(), nt2::j1(x) / x)  -  nt2::j0(x)) );
 
       /* continued fraction */
-      int k = 24;
+      ptrdiff_t k = 24;
       result_type pk = Two<result_type>()*(result_type(n1) + result_type(k));
       result_type ans = pk;
       result_type xk = sqr(x);

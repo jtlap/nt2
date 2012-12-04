@@ -23,12 +23,12 @@
  * Be warned that for unsigned types the result is always 0 or 1!
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/oneminus.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of oneminus
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag oneminus_ of functor oneminus 
+     * \brief Define the tag oneminus_ of functor oneminus
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct oneminus_ : ext::elementwise_<oneminus_> { typedef ext::elementwise_<oneminus_> parent; };

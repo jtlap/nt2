@@ -17,9 +17,6 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/isempty.hpp>
-#include <nt2/table.hpp>
-
-
 
 namespace nt2 { namespace ext
 {
@@ -54,7 +51,7 @@ namespace nt2 { namespace ext
           for (size_t k = 1;  k <= n-m+1;  ++k)
           {
             result_type q = nt2::combs(v(nt2::_(k+1, n)),m-1);
-            result_type tmp = nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<int32_t>()),k), q);
+            result_type tmp = nt2::cath(v(nt2::ones(size(q,1),1, meta::as_<ptrdiff_t>()),k), q);
             if (isempty(p))
               p =  tmp;
             else

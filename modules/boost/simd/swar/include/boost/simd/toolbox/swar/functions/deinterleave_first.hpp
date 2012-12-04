@@ -19,15 +19,15 @@
  * \defgroup boost_simd_swar_deinterleave_first deinterleave_first
  *
  * \par Description
- * Compute 
+ * Compute
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/deinterleave_first.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -37,7 +37,7 @@
  *   typename boost::dispatch::meta::call<tag::deinterleave_first_(A0 const&,A1 const&)
  *                                       >::type
  *   deinterleave_first(A0 const& a0,A1 const& a1);
- *    
+ *
  *   template<class A0,class A1> inline
  *   A0 deinterleave_first(A0 const& a0,A1 const& a1);
  * }
@@ -45,9 +45,9 @@
  *
  * \param a0 the first parameter of deinterleave_first
  * \param a1 the second parameter of deinterleave_first
- * 
- * \return 
- *  
+ *
+ * \return
+ *
  * \par Notes
  * \par
  * This is a swar operation. As such it has not real interest outside
@@ -59,24 +59,24 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag deinterleave_first_ of functor deinterleave_first 
+     * \brief Define the tag deinterleave_first_ of functor deinterleave_first
      *        in namespace boost::simd::tag for toolbox boost.simd.swar
     **/
-    struct deinterleave_first_ 
-    : ext::unspecified_<deinterleave_first_> 
-    { 
+    struct deinterleave_first_
+    : ext::unspecified_<deinterleave_first_>
+    {
       typedef ext::unspecified_<deinterleave_first_> parent;
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::deinterleave_first_, deinterleave_first, 2)
-  
+
 } }
 
 #endif

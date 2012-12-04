@@ -37,12 +37,12 @@
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/unifcdf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -57,16 +57,16 @@
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag unifcdf_ of functor unifcdf 
+     * \brief Define the tag unifcdf_ of functor unifcdf
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct unifcdf_ : ext::elementwise_<unifcdf_> { typedef ext::elementwise_<unifcdf_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::unifcdf_, unifcdf, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::unifcdf_, unifcdf, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::unifcdf_, unifcdf, 3)  
+  NT2_FUNCTION_IMPLEMENTATION(tag::unifcdf_, unifcdf, 3)
 }
 
 #endif

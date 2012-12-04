@@ -52,7 +52,7 @@ class Guard :
         if guard_begin is None :
             self.__guard_begin = Guard.begin_text_template
         else :
-            self.__guard_begin = guard_begin 
+            self.__guard_begin = guard_begin
         if guard_end is None :
             self.__guard_end = Guard.end_text_template
         else :
@@ -69,10 +69,10 @@ class Guard :
 
     def mk_total_path(self) :
         return os.path.join(self.__path,self.__name + self.__ext)
-    
+
     def mk_guard_path(self) :
         return os.path.join(self.__orig_path, self.__name + self.__ext)
-    
+
     def mk_guard(self) :
         """create a file guard in two parts"""
         path = self.mk_guard_path().upper()

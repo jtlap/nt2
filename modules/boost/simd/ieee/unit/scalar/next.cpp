@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/next.hpp>
 #include <boost/simd/include/functions/successor.hpp>
 #include <boost/simd/include/constants/eps_related.hpp>
@@ -27,7 +27,7 @@
 
 NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::next;
   using boost::simd::tag::next_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -38,9 +38,9 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
 
   // specific values tests
@@ -55,7 +55,7 @@ NT2_TEST_CASE_TPL ( next_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::next;
   using boost::simd::tag::next_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -66,9 +66,9 @@ NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(next(boost::simd::One<T>()), boost::simd::Two<r_t>());
@@ -78,7 +78,7 @@ NT2_TEST_CASE_TPL ( next_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( next_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::next;
   using boost::simd::tag::next_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -89,9 +89,9 @@ NT2_TEST_CASE_TPL ( next_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(next(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());

@@ -12,29 +12,29 @@
 #include <boost/cstdint.hpp>
 #include <boost/mpl/string.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
   //============================================================================
   /*! id_ gives a container with a 32bits ID, either numerical or by using
    *  multi-byte character. This ID is usable to allow deeper compile-time
    * analysis and optimization.
-   * 
+   *
    * \tparam ID 32 byte multi-bytes character unique identifier
    **/
   //============================================================================
-  template<boost::uint32_t ID> struct id_ 
+  template<boost::uint32_t ID> struct id_
   {
     typedef boost::mpl::string<ID> type;
-  }; 
-  
-  namespace tag 
-  { 
+  };
+
+  namespace tag
+  {
     //==========================================================================
     /*!
      * Option tag for id options
      **/
     //==========================================================================
-    struct id_ {}; 
+    struct id_ {};
   }
 
 }

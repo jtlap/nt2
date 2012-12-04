@@ -22,15 +22,15 @@
  * convert an entry to integer by truncation.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/toint.hpp>
  * \endcode
- * 
- * \par Aliases 
+ *
+ * \par Aliases
  * \arg ifix
  * \arg itrunc
- * 
+ *
  * \synopsis
  *
  * \code
@@ -43,19 +43,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of toint
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag toint_ of functor toint 
+     * \brief Define the tag toint_ of functor toint
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct toint_ : ext::elementwise_<toint_> { typedef ext::elementwise_<toint_> parent; };

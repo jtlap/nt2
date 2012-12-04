@@ -25,7 +25,7 @@
 
 NT2_TEST_CASE_TPL( asum1_scalar, (float)(double))//NT2_TYPES )
 {
-  typedef std::complex<T>  cT; 
+  typedef std::complex<T>  cT;
   T x = nt2::asum1(cT(42));
   NT2_TEST_EQUAL( x, T(42) );
 
@@ -39,7 +39,7 @@ NT2_TEST_CASE_TPL( asum1_scalar, (float)(double))//NT2_TYPES )
 
 NT2_TEST_CASE_TPL( asum1, NT2_REAL_TYPES )
 {
-  typedef std::complex<T>  cT; 
+  typedef std::complex<T>  cT;
   using nt2::_;
   nt2::table<cT> y( nt2::of_size(5,3) );
   nt2::table<T> sy( nt2::of_size(1,3) );

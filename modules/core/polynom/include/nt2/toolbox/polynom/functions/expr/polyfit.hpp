@@ -24,13 +24,7 @@
 #include <nt2/include/functions/stdev.hpp>
 #include <nt2/include/functions/mean.hpp>
 #include <nt2/core/container/table/table.hpp>
-//#include <nt2/include/functions/scalar/fma.hpp>
-//#include <nt2/include/functions/isempty.hpp>
-//#include <nt2/include/constants/zero.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 {
 
   template < class T> struct polyfit_infos
@@ -96,21 +90,18 @@ namespace nt2 {
       }
 
     private:
-      BOOST_FORCEINLINE
-        int32_t lval(A0& a0, boost::mpl::long_<3> const &) const
+      BOOST_FORCEINLINE size_t lval(A0& a0, boost::mpl::long_<3> const &) const
       {
         return size_t(boost::proto::child_c<2>(a0))+1;
       }
-      template < class T >
-        BOOST_FORCEINLINE
-        int32_t lval(A0& a0, T const &) const
+      template < class T > BOOST_FORCEINLINE size_t lval(A0& a0, T const &) const
       {
         return nt2::numel(boost::proto::child_c<0>(a0));
       }
 
       BOOST_FORCEINLINE
         void polcoefs(A1& a1, x_type const & x, y_type const &y,
-                      const int32_t & l, boost::mpl::long_<1> const &) const
+                      const size_t & l, boost::mpl::long_<1> const &) const
       {
         BOOST_AUTO_TPL(p, boost::proto::child_c<0>(a1));
         BOOST_AUTO_TPL(vnd, nt2::vandermonde(nt2::colvect(x), l));
@@ -139,9 +130,6 @@ namespace nt2 {
         void polcoefs(A1 &a1, x_type const & x, y_type const &y,
                       const size_t & l, boost::mpl::long_<4> const &) const
       {
-//         typedef typename boost::proto::result_of::child_c<A1&,1>::type       r_type;
-//         typedef typename boost::proto::result_of::child_c<A1&,2>::type       df_type;
-//         typedef typename boost::proto::result_of::child_c<A1&,3>::type       nr_type;
         BOOST_AUTO_TPL(p, boost::proto::child_c<0>(a1));
         BOOST_AUTO_TPL(r, boost::proto::child_c<1>(a1));
         BOOST_AUTO_TPL(df, boost::proto::child_c<2>(a1));
@@ -162,13 +150,8 @@ namespace nt2 {
         void polcoefs(A1 &a1, x_type const & x, y_type const &y,
                       const size_t & l, boost::mpl::long_<5> const &) const
       {
-//         typedef typename boost::proto::result_of::child_c<A1&,1>::type       r_type;
-//         typedef typename boost::proto::result_of::child_c<A1&,2>::type       df_type;
-//         typedef typename boost::proto::result_of::child_c<A1&,3>::type       nr_type;
-//         typedef typename boost::proto::result_of::child_c<A1&,4>::type       mu_type;
         BOOST_AUTO_TPL(mu, boost::proto::child_c<4>(a1));
         mu.resize(nt2::of_size(1, 2));
-//        NT2_DISPLAY(nt2::colvect(x));
         BOOST_AUTO_TPL(mm, nt2::mean(nt2::colvect(x))(1));
         BOOST_AUTO_TPL(ss, nt2::stdev(nt2::colvect(x))(1));
         mu(1) = mm;

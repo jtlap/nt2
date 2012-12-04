@@ -34,8 +34,8 @@ namespace nt2 {  namespace tag
    * variances for each column, and sqrt(diag(cov(x))) is a vector
    * of standard deviations.
    * cov(x,y), where x and y are matrices with the same number of elements,
-   * is equivalent to cov(horzcat(x(_) y(_))). 
-   * 
+   * is equivalent to cov(horzcat(x(_) y(_))).
+   *
    * cov(x) or cov(x,y) normalizes by (n-1) if n>1, where n is the number of
    * observations.  this makes cov(x) the best unbiased estimate of the
    * covariance matrix if the observations are from a normal distribution.

@@ -32,8 +32,8 @@ from nt2_tb_props                    import Nt2_tb_props
 from nt2_fct_props                   import Nt2_fct_props
 from unit_base_gen                   import Base_gen
 from unit_global_header_gen          import Global_header_gen
-from unit_type_header_gen            import Type_header_test_gen 
-from unit_specific_values_gen        import Specific_values_test_gen 
+from unit_type_header_gen            import Type_header_test_gen
+from unit_specific_values_gen        import Specific_values_test_gen
 from unit_random_verif_gen           import Random_verif_test_gen
 sys.path.pop(0)
 sys.path.pop(0)
@@ -74,7 +74,7 @@ def write_unit(tb_name,fct_name,mode,s,check=False) :
     print "write to %s"%p
   ##  write(p,s,check=check,verbose=True)
 
-    
+
 if __name__ == "__main__" :
     tb_name = "trigonometric"
     fcts = Nt2_tb_props(tb_name).get_fcts_list()

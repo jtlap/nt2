@@ -24,12 +24,12 @@
  * Constant Zero = 0
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/zero.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Zero
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Zero of functor Zero 
+     * \brief Define the tag Zero of functor Zero
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Zero, int , 0, 0, 0 );

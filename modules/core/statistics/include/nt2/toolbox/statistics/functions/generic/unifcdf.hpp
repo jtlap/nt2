@@ -22,7 +22,6 @@
 #include <nt2/include/functions/is_nan.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -33,7 +32,7 @@ namespace nt2 { namespace ext
                               , (generic_< floating_<A0> >)
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
         return nt2::if_zero_else(nt2::is_ltz(a0),
@@ -41,18 +40,18 @@ namespace nt2 { namespace ext
                                               a0,
                                               One<A0>()
                                               )
-                                 ); 
+                                 );
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::unifcdf_, tag::cpu_
                               , (A0)(A1)(A2)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
-                              (generic_< floating_<A2> >)  
+                              (generic_< floating_<A2> >)
                               )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(3)
       {
         BOOST_AUTO_TPL(z, a2-a1);
@@ -63,7 +62,7 @@ namespace nt2 { namespace ext
                                                                    One<A0>()
                                                                    )
                                                       )
-                                    ); 
+                                    );
       }
   };
 

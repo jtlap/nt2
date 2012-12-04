@@ -12,7 +12,7 @@
 // unit test behavior of statistics components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/include/functions/expcdf.hpp>
 #include <nt2/include/functions/bsxfun.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
@@ -28,11 +28,11 @@
 
 NT2_TEST_CASE_TPL ( expcdf_1,  (float))//NT2_REAL_TYPES)
 {
-  
+
   using nt2::expcdf;
   using nt2::tag::expcdf_;
-  using nt2::_; 
-  
+  using nt2::_;
+
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(expcdf(nt2::Nan<T>()), nt2::Nan<T>(), 0);
@@ -42,17 +42,17 @@ NT2_TEST_CASE_TPL ( expcdf_1,  (float))//NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(expcdf(nt2::Minf<T>()), nt2::Zero<T>(), 0);
 
   nt2::table<T> a = _(T(-5), T(1), T(5));
-  NT2_DISPLAY(a); 
-  NT2_DISPLAY(expcdf(a)); 
+  NT2_DISPLAY(a);
+  NT2_DISPLAY(expcdf(a));
 } // end of test for floating_
- 
+
 NT2_TEST_CASE_TPL ( expcdf_2,  (float))//NT2_REAL_TYPES)
 {
-  
+
   using nt2::expcdf;
   using nt2::tag::expcdf_;
-  using nt2::_; 
-  
+  using nt2::_;
+
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(expcdf(nt2::Nan<T>(), nt2::One<T>()), nt2::Nan<T>(), 0);
@@ -62,10 +62,10 @@ NT2_TEST_CASE_TPL ( expcdf_2,  (float))//NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(expcdf(nt2::Minf<T>(), nt2::One<T>()), nt2::Zero<T>(), 0);
 
   nt2::table<T> a = _(T(-5), T(1), T(5));
-  nt2::table<T> r, plo, pup; 
+  nt2::table<T> r, plo, pup;
   NT2_DISPLAY(a);
-  NT2_DISPLAY(expcdf(a)); 
-  NT2_DISPLAY(expcdf(a,a+T(10))); 
+  NT2_DISPLAY(expcdf(a));
+  NT2_DISPLAY(expcdf(a,a+T(10)));
   NT2_DISPLAY(expcdf(a, nt2::Two<T>()));
   NT2_DISPLAY(expcdf(nt2::One<T>(), a+T(10)));
   nt2::tie(r, plo, pup) = nt2::expcdf(a, nt2::ones(size(a), nt2::meta::as_<T>()), T(0.5), T(0.05));
@@ -78,6 +78,6 @@ NT2_TEST_CASE_TPL ( expcdf_2,  (float))//NT2_REAL_TYPES)
   NT2_DISPLAY(r);
   NT2_DISPLAY(plo);
   NT2_DISPLAY(pup);
-   
+
 } // end of test for floating_
- 
+

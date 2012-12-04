@@ -12,7 +12,7 @@
 // unit test behavior of combinatorial components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// 
+///
 #include <nt2/toolbox/combinatorial/include/functions/combs.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/min.hpp>
@@ -47,17 +47,17 @@
 
 NT2_TEST_CASE_TPL ( combs_integer__1_0, NT2_REAL_TYPES)
 {
-  
+
   using nt2::combs;
   using nt2::tag::combs_;
- 
+
    nt2::table<T, nt2::_2D> a =  combs(nt2::_(T(1), T(5)), 3);
    NT2_DISPLAY(a);
    nt2::table<T, nt2::_2D> b =  combs(nt2::_(T(1), T(5)), 5);
-   NT2_DISPLAY(b);   
-   NT2_TEST(nt2::isequal(b,nt2::_(T(1), T(5)) )); 
+   NT2_DISPLAY(b);
+   NT2_TEST(nt2::isequal(b,nt2::_(T(1), T(5)) ));
    nt2::table<T, nt2::_2D> c =  combs(nt2::_(T(1), T(5)), 1);
-   NT2_DISPLAY(c);   
-   NT2_TEST(nt2::isequal(c,nt2::colvect(nt2::_(T(1), T(5))))); 
+   NT2_DISPLAY(c);
+   NT2_TEST(nt2::isequal(c,nt2::colvect(nt2::_(T(1), T(5)))));
 
-} 
+}

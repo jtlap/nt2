@@ -24,12 +24,12 @@
  * provisions are made for otaining correct results for large a0
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/expx2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of expx2
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag expx2_ of functor expx2 
+     * \brief Define the tag expx2_ of functor expx2
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct expx2_ : ext::elementwise_<expx2_> { typedef ext::elementwise_<expx2_> parent; };

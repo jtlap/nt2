@@ -28,12 +28,12 @@
  * \par
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/caucdf.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,20 +44,20 @@
  *     caucdf(const A0 & a0, const A1 & median, const A2 & scale);
  * }
  * \endcode
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag caucdf_ of functor caucdf 
+     * \brief Define the tag caucdf_ of functor caucdf
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct caucdf_ : ext::elementwise_<caucdf_> { typedef ext::elementwise_<caucdf_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::caucdf_, caucdf, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::caucdf_, caucdf, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::caucdf_, caucdf, 3)  
+  NT2_FUNCTION_IMPLEMENTATION(tag::caucdf_, caucdf, 3)
 }
 
 #endif

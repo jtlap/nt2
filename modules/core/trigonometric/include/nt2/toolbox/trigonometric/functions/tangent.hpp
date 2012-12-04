@@ -22,12 +22,12 @@
  * tangent.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/tangent.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of tangent
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag tangent_ of functor tangent 
+     * \brief Define the tag tangent_ of functor tangent
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct tangent_ : ext::elementwise_< tangent_<T> > { typedef ext::elementwise_< tangent_<T> > parent; };

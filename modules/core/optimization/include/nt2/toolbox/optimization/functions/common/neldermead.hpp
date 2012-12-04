@@ -31,24 +31,24 @@ namespace nt2 { namespace ext
                               , (F)(A)(H)(O)
                             , (unspecified_< F >)
                               ((ast_< A, nt2::container::domain>))
-                              ((ast_< H, nt2::container::domain>))   
+                              ((ast_< H, nt2::container::domain>))
                               (unspecified_<O>)
-    ) 
+    )
   {
     typedef typename A::value_type                                  value_type;
     typedef typename meta::as_real<value_type>::type                 real_type;
     typedef typename meta::as_logical<value_type>::type                 l_type;
     typedef nt2::container::table<value_type>                            tab_t;
     typedef nt2::container::table<real_type>                            rtab_t;
-    typedef nt2::container::table<ptrdiff_t>                            ltab_t;  
+    typedef nt2::container::table<ptrdiff_t>                            ltab_t;
     typedef optimization::output<tab_t,real_type>       result_type;
 
     result_type operator()(F crit, A const& init, H const& w, O const& o)
     {
       details::nelder_impl<tab_t> nelder;
       tab_t a = init;
-      nelder.optimize(crit, a, w, o); 
-//      BOOST_ASSERT_MSG(nelder.convok(), "neldermead was not convergent"); 
+      nelder.optimize(crit, a, w, o);
+//      BOOST_ASSERT_MSG(nelder.convok(), "neldermead was not convergent");
       // We didn't converged -- add message for this
       result_type that = {a,nelder.lasteval(),nelder.nbiteration(),nelder.convok()};
       return that;
@@ -59,7 +59,7 @@ namespace nt2 { namespace ext
                               , (F)(A)(H)(O)
                             , (unspecified_< F >)
                               ((ast_< A, nt2::container::domain>))
-                              (scalar_ < unspecified_ < H > > )   
+                              (scalar_ < unspecified_ < H > > )
                               (unspecified_<O>)
                             )
   {
@@ -71,6 +71,6 @@ namespace nt2 { namespace ext
       typedef typename meta::as_logical<value_type>::type                 l_type;
       return neldermead(f, init, nt2::repnum(value_type(step), size_t(1), nt2::numel(init)), o);
     }
-  };  
+  };
 } }
 #endif

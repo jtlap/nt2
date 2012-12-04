@@ -45,7 +45,7 @@ namespace filesystem
             get_next_entry();
         }
     #endif // OS API
-    
+
         ~directory_iterator()
         {
             #ifdef BOOST_WINDOWS_API
@@ -54,15 +54,15 @@ namespace filesystem
                 ::closedir( p_dir_ );
             #endif // OS API
         }
-    
+
         char const * operator* () const { return p_current_entry_name_; }
-    
+
         directory_iterator & operator++()
         {
             get_next_entry();
             return *this;
         }
-    
+
     private:
         void skip_dots()
         {
@@ -86,13 +86,13 @@ namespace filesystem
                 p_current_entry_name_ = p_entry ? p_entry->d_name : NULL;
                 bool const failed( !p_entry && errno );
             #endif // OS API
-    
+
             if ( failed )
                 BOOST_THROW_EXCEPTION( std::runtime_error( "Error reading a directory" ) );
 
             skip_dots();
         }
-    
+
         #ifdef BOOST_WINDOWS_API
             HANDLE          const handle_;
             WIN32_FIND_DATA       state_ ;

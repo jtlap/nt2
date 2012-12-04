@@ -12,17 +12,17 @@
 #include <nt2/include/functions/scalar/rank.hpp>
 #include <nt2/include/functions/scalar/svd.hpp>
 
-namespace nt2{ namespace ext 
+namespace nt2{ namespace ext
 {
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rank_, tag::cpu_,
                                 (A0)
                                 ,((ast_<A0, nt2::container::domain>))
                                 )
   {
-    typedef size_t result_type; 
+    typedef size_t result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::details::svd_result<A0>(a0, 'N', 'N').rank(); 
+      return nt2::details::svd_result<A0>(a0, 'N', 'N').rank();
     }
   };
     NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rank_, tag::cpu_,
@@ -31,10 +31,10 @@ namespace nt2{ namespace ext
                                 (scalar_<floating_<A1 > >)
                                 )
   {
-    typedef size_t result_type; 
+    typedef size_t result_type;
     NT2_FUNCTOR_CALL(2)
     {
-      return nt2::details::svd_result<A0>(a0, 'N', 'N').rank(a1); 
+      return nt2::details::svd_result<A0>(a0, 'N', 'N').rank(a1);
     }
   };
 

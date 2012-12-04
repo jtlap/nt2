@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
     std::cerr << "usage: " << argv[0] << " <instruction_set>" << std::endl;
     return 1;
   }
-  
+
   for(std::size_t i=0; i!=sizeof data/sizeof *data; ++i)
   {
     if(!std::strcmp(argv[1], data[i].name))
@@ -47,7 +47,7 @@ int main(int argc, char* argv[])
       return !b;
     }
   }
-      
+
   std::cerr << argv[1] << ": unknown instruction set" << std::endl;
   return 1;
 }

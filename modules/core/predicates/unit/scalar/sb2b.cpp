@@ -12,7 +12,7 @@
 // unit test behavior of predicates components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/predicates/include/functions/sb2b.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -35,7 +35,7 @@
 
 NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::sb2b;
   using nt2::tag::sb2b_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(sb2b(-nt2::Zero<T>()), nt2::Zero<r_t>());
@@ -65,7 +65,7 @@ NT2_TEST_CASE_TPL ( sb2b_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( sb2b_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::sb2b;
   using nt2::tag::sb2b_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -75,9 +75,9 @@ NT2_TEST_CASE_TPL ( sb2b_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(sb2b(nt2::Mone<T>()), nt2::One<r_t>());
@@ -88,7 +88,7 @@ NT2_TEST_CASE_TPL ( sb2b_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( sb2b_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::sb2b;
   using nt2::tag::sb2b_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -98,9 +98,9 @@ NT2_TEST_CASE_TPL ( sb2b_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(sb2b(nt2::One<T>()), nt2::One<r_t>());

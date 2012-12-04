@@ -29,12 +29,12 @@
  *   this function is provided for Matlab compatibility
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/pow2.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,13 +46,13 @@
  * }
  * \endcode
  *
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag pow2_ of functor pow2 
+     * \brief Define the tag pow2_ of functor pow2
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct pow2_ : ext::elementwise_<pow2_> { typedef ext::elementwise_<pow2_> parent; };

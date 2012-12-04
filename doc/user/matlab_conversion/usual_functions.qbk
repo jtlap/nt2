@@ -8,29 +8,29 @@ We will find here a catlogue of main __MATLAB__ mathematical functions and the e
 
 2) else we will give hints on how to replace the __MATLAB__ call
 
-] 
+]
 
 We, don't have the whole Matlab core but a good part of it.
 
-Almost all standard library function are supported and can be applied in an elementwise way 
+Almost all standard library function are supported and can be applied in an elementwise way
 directly on matricial expressions, just as in Matlab.
 
 We support complex arithmetic, but real and complex types are not the same.
 We have 3 (template) complex types than can be mixed in order to always use (best) complex
-arithmetic, and can also be mixed with a scalar one (see complex rationale). 
+arithmetic, and can also be mixed with a scalar one (see complex rationale).
 [endsect]
 
 
 [include arrays/operators.qbk]
 [include elementary_maths/math_constants.qbk]
 
-We can distinguish nullary, unary, binary and ternary operators/functions, but as ternary 
+We can distinguish nullary, unary, binary and ternary operators/functions, but as ternary
 opertors do not exist in Matlab, we will not speak of them in this section see ???.
 
 
 [section Elementary Mathematics]
 
-All these functions are "elementwise", they act as well on a scalar a table of scalars on an 
+All these functions are "elementwise", they act as well on a scalar a table of scalars on an
 array expression of such, by mapping the usual function on each element.
 
 

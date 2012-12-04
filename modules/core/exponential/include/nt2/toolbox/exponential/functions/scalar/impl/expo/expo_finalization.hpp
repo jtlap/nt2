@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_EXPO_FINALIZATION_HPP_INCLUDED
 #define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SCALAR_IMPL_EXPO_EXPO_FINALIZATION_HPP_INCLUDED
@@ -15,7 +15,7 @@
 #include <nt2/include/functions/simd/is_gtz.hpp>
 #include <nt2/include/functions/simd/genmask.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
-#include <nt2/include/functions/simd/round2even.hpp>
+#include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 
 namespace nt2
@@ -55,7 +55,7 @@ namespace nt2
           A0 y = oneminus(((-(x*c)/(Two<A0>()-c))-x));
           y = fast_ldexp(y, fast_toint(k));
           // adjust for 2^n n flint
-          return  select(logical_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
+          return  select(logical_and(is_gtz(a0), is_flint(a0)),  round(y), y);
         }
       };
 
@@ -67,7 +67,7 @@ namespace nt2
         {
           A0 y = fast_ldexp(c, fast_toint(k));
           //adjust for 10^n n flint
-          return  if_else(l_and(is_gtz(a0), is_flint(a0)),  round2even(y), y);
+          return  if_else(l_and(is_gtz(a0), is_flint(a0)),  round(y), y);
         }
       };
 

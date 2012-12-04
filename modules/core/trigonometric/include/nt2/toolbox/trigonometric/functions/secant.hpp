@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/secant.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of secant
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag secant_ of functor secant 
+     * \brief Define the tag secant_ of functor secant
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     template <class T> struct secant_ : ext::elementwise_< secant_<T> > { typedef ext::elementwise_< secant_<T> > parent; };

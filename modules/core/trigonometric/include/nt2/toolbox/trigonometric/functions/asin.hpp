@@ -22,12 +22,12 @@
  * inverse sine.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/asin.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of asin
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag asin_ of functor asin 
+     * \brief Define the tag asin_ of functor asin
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct asin_ : ext::elementwise_<asin_> { typedef ext::elementwise_<asin_> parent; };

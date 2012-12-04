@@ -25,13 +25,13 @@ namespace boost { namespace simd { namespace meta
                             , T const&
                             >::type
   make_type();
-  
+
   template<class T>
   typename boost::enable_if< boost::is_reference<T>
                            , T
                            >::type
   make_type();
-  
+
 #else
 
   template<class T>

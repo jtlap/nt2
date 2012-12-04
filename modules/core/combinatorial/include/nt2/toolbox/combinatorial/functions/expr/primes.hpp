@@ -26,15 +26,15 @@ namespace nt2 { namespace ext
                       (scalar_ < integer_<A0> > )
                       )
   {
-    typedef nt2::container::table<A0>  result_type; 
+    typedef nt2::container::table<A0>  result_type;
     inline result_type operator()(A0 const& n) const
     {
       if (n < 2)
         return zeros(1,0,meta::as_<A0>());
-      
-      result_type p = _(One<A0>(), Two<A0>(), n); 
+
+      result_type p = _(One<A0>(), Two<A0>(), n);
       size_t q = length(p);
-      size_t l = isqrt(n); 
+      size_t l = isqrt(n);
       p(1) = Two<A0>();
       for (size_t k = 3; k <= l; k+= 2)
         {

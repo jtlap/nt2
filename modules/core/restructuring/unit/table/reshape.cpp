@@ -134,8 +134,8 @@ NT2_TEST_CASE_TPL( reshape_expr, (float) )
     for(int j=1;j<=2;j++)
       for(int i=1;i<=2;i++)
         NT2_TEST_EQUAL( r4(i,j,k,l) , y(i+2*(j-1),k+2*(l-1)) );
-      
-  
+
+
   r3 = nt2::reshape(y, nt2::size( nt2::ones(2,2,4) ) );
 
   NT2_TEST_EQUAL( nt2::ndims(r3)  , 3u );

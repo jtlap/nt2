@@ -22,12 +22,12 @@
  * returns true if all vector elements have all or no bit sets.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_simd_logical.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of is_simd_logical
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,18 +53,18 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_simd_logical_ of functor is_simd_logical 
+     * \brief Define the tag is_simd_logical_ of functor is_simd_logical
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
-    struct is_simd_logical_ : ext::unspecified_<is_simd_logical_> 
-    { 
-      typedef ext::unspecified_<is_simd_logical_> parent; 
+    struct is_simd_logical_ : ext::unspecified_<is_simd_logical_>
+    {
+      typedef ext::unspecified_<is_simd_logical_> parent;
     };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_simd_logical_, is_simd_logical, 1)

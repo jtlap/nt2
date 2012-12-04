@@ -24,12 +24,12 @@
  * Constant Mnine= -9
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mnine.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Mnine
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Mnine of functor Mnine 
+     * \brief Define the tag Mnine of functor Mnine
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Mnine , int, -9

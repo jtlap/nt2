@@ -25,12 +25,12 @@
  * The call is transfered to the standard C++ library function std::floor
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/standard/include/functions/floor.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -46,9 +46,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of floor
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -58,13 +58,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace standard { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag floor_ of functor floor 
+     * \brief Define the tag floor_ of functor floor
      *        in namespace nt2::standard::tag for toolbox standard
     **/
     struct floor_ : ext::elementwise_<floor_> { typedef ext::elementwise_<floor_> parent; };
@@ -73,7 +73,7 @@ namespace nt2 { namespace standard { namespace tag
   } }
 
 #include <nt2/toolbox/standard/functions/scalar/floor.hpp>
-// #include <nt2/toolbox/standard/functions/simd/all/floor.hpp> 
+// #include <nt2/toolbox/standard/functions/simd/all/floor.hpp>
 
 #endif
 

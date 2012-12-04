@@ -28,13 +28,13 @@ namespace nt2 { namespace ext
                               (A0),
                               ((ast_<A0, nt2::container::domain>)) )
   {
-    typedef typename meta::call < tag::trapz_(A0 const&, size_t)>::type result_type; 
+    typedef typename meta::call < tag::trapz_(A0 const&, size_t)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
-      return nt2::trapz(a0, nt2::firstnonsingleton(a0)); 
+      return nt2::trapz(a0, nt2::firstnonsingleton(a0));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trapz_, tag::cpu_,
                               (A0)(A1),
                               ((ast_<A0, nt2::container::domain>))
@@ -42,17 +42,17 @@ namespace nt2 { namespace ext
                               )
   {
     typedef typename A0::value_type value_type;
-    typedef typename meta::as_real<value_type>::type real_type; 
+    typedef typename meta::as_real<value_type>::type real_type;
     typedef typename meta::call < tag::adjfun_(nt2::functor<tag::plus_>, A0 const&, const A1&)>::type T2;
-    typedef typename meta::call < tag::sum_(T2,const A1&)>::type T3; 
-    typedef typename meta::call < tag::multiplies_(real_type, T3)>::type result_type; 
+    typedef typename meta::call < tag::sum_(T2,const A1&)>::type T3;
+    typedef typename meta::call < tag::multiplies_(real_type, T3)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1) const
     {
-      BOOST_AUTO_TPL(tmp, nt2::adjfun(nt2::functor<nt2::tag::plus_>(), a0, a1 )); 
-      return nt2::multiplies(Half<real_type>(), nt2::sum(tmp, a1)); 
+      BOOST_AUTO_TPL(tmp, nt2::adjfun(nt2::functor<nt2::tag::plus_>(), a0, a1 ));
+      return nt2::multiplies(Half<real_type>(), nt2::sum(tmp, a1));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::trapz_, tag::cpu_,
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain>))
@@ -73,10 +73,10 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& a1, const A2& a2) const
     {
       BOOST_AUTO_TPL(tmp1, nt2::adjfun(functor<nt2::tag::plus_>(), a1, a2 ));
-      BOOST_AUTO_TPL(tmp2, nt2::putalong(a0, a2)); 
-      BOOST_AUTO_TPL(tmp3, nt2::diff(tmp2, size_t(1), a2)); 
-      BOOST_AUTO_TPL(tmp4, nt2::expand_to(tmp3, extent(tmp1))); 
-      BOOST_AUTO_TPL(tmp5, nt2::dot(tmp4,tmp1,a2)); 
+      BOOST_AUTO_TPL(tmp2, nt2::putalong(a0, a2));
+      BOOST_AUTO_TPL(tmp3, nt2::diff(tmp2, size_t(1), a2));
+      BOOST_AUTO_TPL(tmp4, nt2::expand_to(tmp3, extent(tmp1)));
+      BOOST_AUTO_TPL(tmp5, nt2::dot(tmp4,tmp1,a2));
       return nt2::multiplies(Half<real_type>(), tmp5);
 
     }
@@ -88,12 +88,12 @@ namespace nt2 { namespace ext
                               ((ast_<A1, nt2::container::domain>))
     )
   {
-    typedef typename meta::call < tag::trapz_(A0 const&, A1 const&)>::type result_type; 
+    typedef typename meta::call < tag::trapz_(A0 const&, A1 const&)>::type result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1) const
     {
-      return nt2::trapz(a0, a1, nt2::firstnonsingleton(a0)); 
+      return nt2::trapz(a0, a1, nt2::firstnonsingleton(a0));
     }
-  }; 
+  };
 } }
 
 #endif

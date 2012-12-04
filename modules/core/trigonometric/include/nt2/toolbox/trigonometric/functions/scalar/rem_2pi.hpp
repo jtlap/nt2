@@ -12,7 +12,7 @@
 #include <nt2/toolbox/trigonometric/functions/rem_2pi.hpp>
 #include <nt2/include/functions/scalar/rem_pio2.hpp>
 #include <nt2/include/functions/scalar/rem_pio2_medium.hpp>
-#include <nt2/include/functions/scalar/round2even.hpp>
+#include <nt2/include/functions/scalar/round.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/inf.hpp>
@@ -135,7 +135,7 @@ namespace nt2 { namespace ext
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        A0 xi =  nt2::round2even(x*Inv2pi<A0>());
+        A0 xi =  nt2::round(x*Inv2pi<A0>());
         xr = x-xi*Pix2_1<A0>();
         xr -= xi*Pix2_2<A0>();
         xr -= xi*Pix2_3<A0>();

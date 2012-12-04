@@ -21,22 +21,22 @@
  * \par Description
  *   combs(n,k) where n and k are non-negative integers returns n!/k!(n-k)!.
  *   this is the number of combinations of n things taken k at a time.
- *   when a coefficient is large, a warning will be produced indicating 
- *   possible inexact results. in such cases, the result is only accurate 
+ *   when a coefficient is large, a warning will be produced indicating
+ *   possible inexact results. in such cases, the result is only accurate
  *   to 15 digits for double-precision inputs, or 8 digits for single-precision
  *   inputs.
  *
- *   combs(v,k) where v is a vector of length n, produces a matrix 
- *   with n!/k!(n-k)! rows and k columns. each row of the result has k of 
- *   the elements in the vector v. this syntax is only practical for 
+ *   combs(v,k) where v is a vector of length n, produces a matrix
+ *   with n!/k!(n-k)! rows and k columns. each row of the result has k of
+ *   the elements in the vector v. this syntax is only practical for
  *   situations where n is less than about 15.
  *
- * 
+ *
  * \code
  * #include <nt2/include/functions/combs.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -50,19 +50,19 @@
  *
  * \param a0 the first parameter of combs
  * \param a1 the second parameter of combs
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag combs_ of functor combs 
+     * \brief Define the tag combs_ of functor combs
      *        in namespace nt2::tag for toolbox combinatorial
     **/
     struct combs_ : ext::elementwise_<combs_> { typedef ext::elementwise_<combs_> parent; };

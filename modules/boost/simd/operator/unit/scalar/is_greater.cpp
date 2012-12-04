@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/is_greater.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::is_greater;
   using boost::simd::tag::is_greater_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_greater(boost::simd::One<T>(), boost::simd::One<T>()), r_t(false));
@@ -49,7 +49,7 @@ NT2_TEST_CASE_TPL ( is_greater_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 NT2_TEST_CASE_TPL ( is_greater_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::is_greater;
   using boost::simd::tag::is_greater_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -60,9 +60,9 @@ NT2_TEST_CASE_TPL ( is_greater_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_greater(boost::simd::Inf<T>(), boost::simd::Inf<T>()), r_t(false));

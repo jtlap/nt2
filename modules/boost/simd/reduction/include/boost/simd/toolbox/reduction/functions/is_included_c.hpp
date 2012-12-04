@@ -23,14 +23,14 @@
  * true is only if all bits set in a0 are not set in a1
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/is_included_c.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg testz
- * 
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  *
  * \param a0 the first parameter of is_included_c
  * \param a1 the second parameter of is_included_c
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -57,20 +57,20 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag is_included_c_ of functor is_included_c 
+     * \brief Define the tag is_included_c_ of functor is_included_c
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct is_included_c_ : ext::unspecified_<is_included_c_> { typedef ext::unspecified_<is_included_c_> parent; };
   }
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, is_included_c, 2)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, testz, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, are_disjoint, 2) 
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::is_included_c_, are_disjoint, 2)
 } }
 
 #endif

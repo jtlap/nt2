@@ -15,7 +15,7 @@
 #include <nt2/include/functions/is_nez.hpp>
 #include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/constants/one.hpp>
- 
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -54,7 +54,7 @@ NT2_TEST_CASE( find )
                      U(29)
           };
   U bo[] = { 1, 3, 4, 5};
-  U co[] = { 24, 25, 27, 29}; 
+  U co[] = { 24, 25, 27, 29};
   table<T, nt2::shared_> in2(of_size(3, 5, 2), nt2::share(&in[0], in + sizeof in/sizeof *in));
   table<U, nt2::shared_> c(of_size(sizeof out/sizeof *out), nt2::share(&out[0], out + sizeof out/sizeof *out));
   table<U, nt2::shared_> bo2(of_size(4, 1), nt2::share(&bo[0], bo + sizeof bo/sizeof *bo));
@@ -62,22 +62,22 @@ NT2_TEST_CASE( find )
 
   table<T> a = in2, v;
   table<U> b = find(a), e, f;
-  NT2_TEST(isequal(b, c)); 
+  NT2_TEST(isequal(b, c));
   NT2_DISPLAY(b);
   b =  find(a, 4);
-  NT2_TEST(isequal(b, bo2)); 
+  NT2_TEST(isequal(b, bo2));
   NT2_DISPLAY(b);
 
-  b =  find(a, 4, false); 
-  NT2_TEST(isequal(b, co2)); 
+  b =  find(a, 4, false);
+  NT2_TEST(isequal(b, co2));
   NT2_DISPLAY(b);
-  
+
    nt2::tie(e, f) = find(a);
-   NT2_DISPLAY(e); 
-   NT2_DISPLAY(f); 
-  
+   NT2_DISPLAY(e);
+   NT2_DISPLAY(f);
+
    nt2::tie(e, f, v) = find(a);
-   NT2_DISPLAY(e); 
+   NT2_DISPLAY(e);
    NT2_DISPLAY(f);
    NT2_DISPLAY(v);
 

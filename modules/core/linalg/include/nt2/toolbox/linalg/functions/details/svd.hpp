@@ -33,6 +33,8 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/mone.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
@@ -104,12 +106,12 @@ namespace nt2 { namespace details
     typedef typename source_t::index_type                    index_t;
     typedef typename meta::as_real<type_t>::type              base_t;
     typedef T                                                 data_t;
-    typedef nt2::table<type_t,nt2::_2D>                        tab_t;
-    typedef nt2::table<base_t,nt2::_2D>                       btab_t;
-    typedef nt2::table<itype_t,nt2::_2D>                      itab_t;
+    typedef nt2::container::table<type_t,nt2::_2D>             tab_t;
+    typedef nt2::container::table<base_t,nt2::_2D>            btab_t;
+    typedef nt2::container::table<itype_t,nt2::_2D>           itab_t;
     typedef nt2::details::workspace<type_t>              workspace_t;
-    typedef nt2::table<nt2_la_int,nt2::_2D>                   ibuf_t;
-    typedef nt2::table<type_t,index_t>                   result_type;
+    typedef nt2::container::table<nt2_la_int,nt2::_2D>        ibuf_t;
+    typedef nt2::container::table<type_t,index_t>        result_type;
 
     template<class Input>
     svd_result ( Input& xpr, char jobu, char jobvt)
@@ -297,12 +299,12 @@ namespace nt2 { namespace details
     //==========================================================================
     // image space basis up to epsi
     //==========================================================================
-//     typedef typename meta::call<tag::colon_(int32_t, int32_t)>::type T1;
+//     typedef typename meta::call<tag::colon_(size_t, size_t)>::type T1;
 //     typedef typename meta::call<tag::function_(tab_t, container::colon_, T1)>::type T2;
       tab_t orth(base_t epsi =  -1)const
       {
-        int32_t r = rank(epsi);
-        return u()(_, _(1, r));
+        size_t r = rank(epsi);
+        return u()(_, _(One<size_t>(), r));
       }
 
       tab_t zerosolve()const

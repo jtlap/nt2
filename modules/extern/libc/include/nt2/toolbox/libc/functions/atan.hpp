@@ -23,12 +23,12 @@
  * library libc.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/libc/include/functions/atan.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of atan
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -63,13 +63,13 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
- *  
+ *
 **/
 
 namespace nt2 { namespace libc { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag atan_ of functor atan 
+     * \brief Define the tag atan_ of functor atan
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct atan_ : ext::elementwise_<atan_> { typedef ext::elementwise_<atan_> parent; };
@@ -78,7 +78,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
 
 #include <nt2/toolbox/libc/functions/scalar/atan.hpp>
-// #include <nt2/toolbox/libc/functions/simd/all/atan.hpp> 
+// #include <nt2/toolbox/libc/functions/simd/all/atan.hpp>
 
 #endif
 

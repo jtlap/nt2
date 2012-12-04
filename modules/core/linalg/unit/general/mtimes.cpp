@@ -148,9 +148,9 @@ NT2_TEST_CASE( mtimes_vector_vector )
 
   T r0 = nt2::mtimes(a0, a1);
   NT2_TEST_EQUAL(r0, 140);
-  
+
   T r1[] = {  1,  2,  3,  4,  5,  6,  7,
-              2,  4,  6,  8, 10, 12, 14, 
+              2,  4,  6,  8, 10, 12, 14,
               3,  6,  9, 12, 15, 18, 21,
               4,  8, 12, 16, 20, 24, 28,
               5, 10, 15, 20, 25, 30, 35,
@@ -170,17 +170,17 @@ NT2_TEST_CASE( mtimes_aliasing )
   using nt2::_;
 
   nt2::table<T> a0 = nt2::rif(3, 3), a1, b;
-  display("a0", a0); 
+  display("a0", a0);
   a1 = a0;
   b =  nt2::mtimes(a0, a1);
   a0=  nt2::mtimes(a0, a1);
-  
+
   NT2_TEST(isequal(a0, b));
 
-  a0 = a1; 
-  a0 =  nt2::mtimes(a0, a0); 
+  a0 = a1;
+  a0 =  nt2::mtimes(a0, a0);
   NT2_TEST(isequal(a0, b));
-  display("a0", a0); 
+  display("a0", a0);
 }
 NT2_TEST_CASE( mtimes_aliasing_2 )
 {
@@ -188,14 +188,14 @@ NT2_TEST_CASE( mtimes_aliasing_2 )
   using nt2::_;
 
   nt2::table<T> a0 = nt2::rif(3, 3), a1 = nt2::rif(3, 2), b;
-  display("a0", a0); 
-  display("a1", a1); 
+  display("a0", a0);
+  display("a1", a1);
   b =  nt2::mtimes(a0, a1);
   a0=  nt2::mtimes(a0, a1);
-  
+
   NT2_TEST(isequal(a0, b));
 
-  display("a0", a0); 
+  display("a0", a0);
 }
 NT2_TEST_CASE_TPL( mtimes_aliasing_3, NT2_REAL_TYPES)
 {
@@ -204,13 +204,13 @@ NT2_TEST_CASE_TPL( mtimes_aliasing_3, NT2_REAL_TYPES)
 
   nt2::table<T> a0 = nt2::rif(3, 1, nt2::meta::as_<T>()),
                 a1 = nt2::cif(1, 3, nt2::meta::as_<T>()), b;
-  display("a0", a0); 
-  display("a1", a1); 
+  display("a0", a0);
+  display("a1", a1);
   b =  nt2::mtimes(a0, a1);
   a0=  nt2::mtimes(a0, a1);
-  
+
   NT2_TEST(isequal(a0, b));
 
-  NT2_DISPLAY(b); 
-  display("a0", a0); 
+  NT2_DISPLAY(b);
+  display("a0", a0);
 }

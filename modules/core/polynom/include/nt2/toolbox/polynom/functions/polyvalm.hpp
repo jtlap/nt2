@@ -21,20 +21,20 @@
 // in decreasing degrees order
 
 namespace nt2 { namespace tag
-  {         
+  {
     struct polyvalm_ : ext::unspecified_<polyvalm_> { typedef ext::unspecified_<polyvalm_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::polyvalm_, polyvalm, 2)
- 
+
 }
- 
+
  namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::polyvalm_,Domain,N,Expr>
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,1>::value_type::extent_type result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       return boost::proto::child_c<1>(e).extent();

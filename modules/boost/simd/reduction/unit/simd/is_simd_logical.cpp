@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/reduction/include/functions/is_simd_logical.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( is_simd_logical_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::is_simd_logical;
   using boost::simd::tag::is_simd_logical_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL ( is_simd_logical_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<is_simd_logical_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::simd::logical<T> vsr_t; 
+  typedef boost::simd::logical<T> vsr_t;
 
   // specific values tests
   NT2_TEST_EQUAL(is_simd_logical(-boost::simd::Nan<vT>()), vsr_t(false));

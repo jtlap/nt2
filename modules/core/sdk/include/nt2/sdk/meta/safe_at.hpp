@@ -41,7 +41,7 @@ namespace nt2 { namespace meta
   {
     return boost::fusion::at_c<N>(t);
   }
-  
+
   template<int N, class T> BOOST_FORCEINLINE
   typename boost::disable_if_c
   < (0 <= N && N < boost::fusion::result_of::size<T>::type::value)

@@ -22,30 +22,30 @@
 
 namespace nt2 { namespace ext
 {
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exppdf_, tag::cpu_
                               , (A0)
                               , (generic_< floating_<A0> >)
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
       {
-        return nt2::if_zero_else(nt2::is_ltz(a0), nt2::exp(-a0)); 
+        return nt2::if_zero_else(nt2::is_ltz(a0), nt2::exp(-a0));
       }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::exppdf_, tag::cpu_
                               , (A0)(A1)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
                               )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2)
       {
-        BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gtz(a1)), "mu parameter must be positive"); 
-        return nt2::if_zero_else(nt2::is_ltz(a0), a1*nt2::exp(-a0*a1)); 
+        BOOST_ASSERT_MSG(nt2::globalall(nt2::is_gtz(a1)), "mu parameter must be positive");
+        return nt2::if_zero_else(nt2::is_ltz(a0), a1*nt2::exp(-a0*a1));
       }
   };
 

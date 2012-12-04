@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <boost/simd/toolbox/arithmetic/include/functions/sqr.hpp>
 #include <boost/simd/include/functions/mul.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
@@ -25,7 +25,7 @@
 
 NT2_TEST_CASE_TPL ( sqr_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::sqr;
   using boost::simd::tag::sqr_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -36,9 +36,9 @@ NT2_TEST_CASE_TPL ( sqr_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -54,8 +54,8 @@ NT2_TEST_CASE_TPL ( sqr_real__1_0,  BOOST_SIMD_REAL_TYPES)
     {
       for(T j =-5; j < T(5); j+= T(0.5))
         {
-          std::cout << i << "+i*(" << j << ") -> " << nt2::sqrt(cT(i, j)) << std::endl; 
-          NT2_TEST_ULP_EQUAL(nt2::sqr(cT(i, j)), nt2::mul(cT(i, j),cT(i, j)) , 10); 
+          std::cout << i << "+i*(" << j << ") -> " << nt2::sqrt(cT(i, j)) << std::endl;
+          NT2_TEST_ULP_EQUAL(nt2::sqr(cT(i, j)), nt2::mul(cT(i, j),cT(i, j)) , 10);
         }
     }
 } // end of test for floating_

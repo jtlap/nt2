@@ -24,12 +24,12 @@
  * this bit is the only bit set.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/firstbitset.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,19 +42,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of firstbitset
- * 
+ *
  * \return always returns an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag firstbitset_ of functor firstbitset 
+     * \brief Define the tag firstbitset_ of functor firstbitset
      *        in namespace boost::simd::tag for toolbox boost.simd.bitwise
     **/
     struct firstbitset_ : ext::elementwise_<firstbitset_> { typedef ext::elementwise_<firstbitset_> parent; };

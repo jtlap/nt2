@@ -12,7 +12,7 @@
 // unit test behavior of standard components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
-/// 
+///
 #include <nt2/toolbox/standard/include/functions/sqrt.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/sqrt.hpp>
@@ -35,7 +35,7 @@
 
 NT2_TEST_CASE_TPL ( sqrt_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::standard::sqrt;
   using nt2::standard::tag::sqrt_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( sqrt_real__1_0,  NT2_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
 
 } // end of test for floating_

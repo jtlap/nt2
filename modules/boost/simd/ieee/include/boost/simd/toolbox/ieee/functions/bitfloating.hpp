@@ -27,12 +27,12 @@
  * the integer sign (it is the converse of bitinteger)
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/bitfloating.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,19 +45,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of bitfloating
- * 
+ *
  * \return always a floating point value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag bitfloating_ of functor bitfloating 
+     * \brief Define the tag bitfloating_ of functor bitfloating
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct bitfloating_ : ext::elementwise_<bitfloating_> { typedef ext::elementwise_<bitfloating_> parent; };

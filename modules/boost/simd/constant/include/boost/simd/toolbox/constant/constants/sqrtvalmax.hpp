@@ -25,12 +25,12 @@
  * i.e. 2.225073858507201e-308 for double and  1.1754944e-38 for float
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/sqrtvalmax.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -42,12 +42,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Sqrtvalmax
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -55,7 +55,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Sqrtvalmax of functor Sqrtvalmax 
+     * \brief Define the tag Sqrtvalmax of functor Sqrtvalmax
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Sqrtvalmax , double, 1

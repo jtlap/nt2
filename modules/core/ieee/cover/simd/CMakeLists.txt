@@ -17,7 +17,6 @@ SET( SOURCES
   sign.cpp
   sbits.cpp
   saturate.cpp
-  round2even.cpp
   prev.cpp
   predecessor.cpp
   nextpow2.cpp

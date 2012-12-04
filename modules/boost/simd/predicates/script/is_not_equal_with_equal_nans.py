@@ -2,7 +2,7 @@
     {
      'functor' : {
          'description' : ['Returns True<result_type>() if a0 and a1 are not equal else False<result_type>().',
-                          'nans are considered equal'],   
+                          'nans are considered equal'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : [],

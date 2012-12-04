@@ -21,7 +21,7 @@
 // in decreasing degrees order
 
 namespace nt2 { namespace tag
-  {         
+  {
     struct polyval_ : ext::tieable_<polyval_> { typedef ext::tieable_<polyval_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::polyval_, polyval, 2)
@@ -29,14 +29,14 @@ namespace nt2 { namespace tag
     NT2_FUNCTION_IMPLEMENTATION(tag::polyval_, polyval, 5)
     NT2_FUNCTION_IMPLEMENTATION(tag::polyval_, polyval, 6)
 }
- 
+
  namespace nt2 { namespace ext
 {
   template<class Domain, int N, class Expr>
   struct  size_of<tag::polyval_,Domain,N,Expr>
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,1>::value_type::extent_type result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       return boost::proto::child_c<1>(e).extent();

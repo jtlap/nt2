@@ -11,11 +11,11 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/tsxfun.hpp>
-#include <nt2/include/functions/bsxfun.hpp>   
+#include <nt2/include/functions/bsxfun.hpp>
 #include <nt2/include/functions/rif.hpp>
 #include <nt2/include/functions/cif.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/mean.hpp> 
+#include <nt2/include/functions/mean.hpp>
 #include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/reshape.hpp>
 #include <nt2/include/functions/fma.hpp>
@@ -31,23 +31,15 @@ NT2_TEST_CASE_TPL( tsxfun_1, NT2_TYPES)
 {
   nt2::table<T> a = nt2::rif(nt2::of_size(3, 1), nt2::meta::as_<T>()),
     b = nt2::cif(nt2::of_size(1, 3), nt2::meta::as_<T>()),
-    c = nt2::ones(3, 3, nt2::meta::as_<T>()), 
+    c = nt2::ones(3, 3, nt2::meta::as_<T>()),
     d, e;
   NT2_DISPLAY(a);
   NT2_DISPLAY(b);
   NT2_DISPLAY(c);
+
   d = nt2::bsxfun(nt2::functor<nt2::tag::plus_>(), nt2::bsxfun(nt2::functor<nt2::tag::multiplies_>(), a, b), c);
-  NT2_DISPLAY(d);
-  e = tsxfun(nt2::functor<nt2::tag::fma_>(),  a, b, c);
-  NT2_DISPLAY(e);
-  NT2_TEST(isequal(e, d)); 
-//   for(unsigned int i=1; i <= length(a); i++)
-//    {
-//      for(unsigned int j=1; j <= length(a); j++)
-//        {
-//          NT2_TEST_EQUAL(e(i, j), d(i, j)); 
-//        }
-//    }
+  e = tsxfun(nt2::functor<nt2::tag::fma_>(), a, b, c);
+  NT2_TEST_EQUAL(e, d);
 }
 
 
@@ -59,8 +51,9 @@ NT2_TEST_CASE_TPL( tsxfun_4, NT2_TYPES)
   NT2_DISPLAY(a);
   NT2_DISPLAY(b);
   NT2_DISPLAY(c);
-  nt2::functor<nt2::tag::fma_> f;
-  nt2::table<T> d = nt2::tsxfun(f,  a, b, c);
-  NT2_DISPLAY(d);
+
+  nt2::table<T> d = nt2::bsxfun(nt2::functor<nt2::tag::plus_>(), nt2::bsxfun(nt2::functor<nt2::tag::multiplies_>(), a, b), c);
+  nt2::table<T> e = tsxfun(nt2::functor<nt2::tag::fma_>(), a, b, c);
+  NT2_TEST_EQUAL(e, d);
 
 }

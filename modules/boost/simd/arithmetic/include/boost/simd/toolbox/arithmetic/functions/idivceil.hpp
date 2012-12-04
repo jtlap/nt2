@@ -22,12 +22,12 @@
  * return the \c ceil of the operands real divisionin the corresponding integer type
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/idivceil.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of idivceil
  * \param a1 the second parameter of idivceil
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag idivceil_ of functor idivceil 
+     * \brief Define the tag idivceil_ of functor idivceil
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct idivceil_ : ext::elementwise_<idivceil_> { typedef ext::elementwise_<idivceil_> parent; };

@@ -36,8 +36,8 @@ from nt2_fct_props                   import Nt2_fct_props
 from pprint                          import PrettyPrinter
 from unit_base_gen                   import Base_gen
 from unit_global_header_gen          import Global_header_gen
-from unit_type_header_gen            import Type_header_test_gen 
-from unit_specific_values_gen        import Specific_values_test_gen 
+from unit_type_header_gen            import Type_header_test_gen
+from unit_specific_values_gen        import Specific_values_test_gen
 from unit_random_verif_gen           import Random_verif_test_gen
 from nt2_tb_struct                   import Nt2_tb_struct
 from nt2_archis_struct               import Nt2_archis_struct
@@ -83,12 +83,12 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         self.fct_dict = self.read_fct_info_dict(False)
         self.unique_files = self.get_rel_tb_unique_files(tb_name)
         self.no_simd = no_simd
-        
+
     def add_files(self) :
         for fil in self.fct_files :
-            if fil[:6]=='../../': 
+            if fil[:6]=='../../':
                 self.create_include('../../include',fil)
-            else :    
+            else :
                 for pattern in self.Required_tree :
                     if  pattern ==fil[0:len(pattern)] :
                         print("--->%s ## %s"%('create_'+pattern,fil))
@@ -121,7 +121,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
             txt = "  %s.cpp"%fct_name
             done, new_txt = self.insert_after("SET\( SOURCES",txt_orig,txt)
             if not done :
-                print("Warning : line\n  %s\nis already in CMakelist.txt file"%txt ) 
+                print("Warning : line\n  %s\nis already in CMakelist.txt file"%txt )
             else :
                 self.finalize(path,new_txt,"update")
 
@@ -138,7 +138,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         txt = "#include <nt2/toolbox/%s/include/%s.hpp>"%(tb_name,fct_name)
         done, new_txt = self.insert_after("//<include>",txt_orig,txt)
         if not done :
-            print("Warning : line\n  %s\nis already in include file"%txt ) 
+            print("Warning : line\n  %s\nis already in include file"%txt )
         else :
             self.finalize(path,new_txt,"update")
 
@@ -160,10 +160,10 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         else :
             done = False
         print("done = %s"%done)
-        if done :    
+        if done :
             new_txt = Headers(self.get_nt2_rel_tb_path(self.get_tb_name())+fil[:-4],"",inner=txt).txt()
             self.finalize(path,new_txt,option)
-        
+
     def create_function(self,pattern,fil,option="create") :
         """ create functor def, scalar skel or simd arbo
         according to the pattern
@@ -181,7 +181,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
             print("------------->%s"%"gen_scalar")
             self.gen_scalar(fil,option)
 
- 
+
     def create_doc(self,pattern,fil,option="create") :
         if fil[-3:] == '.py' :
             pass
@@ -190,7 +190,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         print(fil)
         print(pattern)
         self.finalize(fil,"","do nothing")
-        
+
     def create_unit(self,pattern,fil,option="create") :
         """ create the unit tests for scalar
         (and simd version)
@@ -250,7 +250,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         if d1 :
             pass
         else :
-            d1 = { "arity"  : int(d["functor"]["arity"]), 
+            d1 = { "arity"  : int(d["functor"]["arity"]),
                    "ranges" : d["unit"]["ranges"],
                    "types"  : d["functor"]['types'],
                    "type_defs": d["functor"]['type_defs'],
@@ -288,7 +288,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
                         param=""
                         for j,rge in enumerate(rgen) :
                             param += tpl%(prefix+calls[j],rge[0],rge[1])
-                        r.append(call%param)    
+                        r.append(call%param)
                     r += ["}"]
         else :
             pass
@@ -296,7 +296,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         h = Headers(os.path.join(self.get_nt2_rel_tb_path(tb_name),'bench',mode),
                     name,inner=txt,guard_begin=[],guard_end=[]).txt()
         return h
-         
+
     def gen_def(self,fil,option="create") :
         """ auxilliary of create_function
         create the functor definition file
@@ -317,12 +317,12 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
             "",
             "namespace nt2 {"+ namespacebrak,
             "  namespace tag",
-            "  {",	       
+            "  {",	
             "    struct %s_ {};" % name,
             "  }",
             "  NT2_FUNCTION_IMPLEMENTATION(%stag::%s_, %s, %s)" % (namespacecolon2,name,name,arity),
             "}",
-            "", 
+            "",
             "#include <nt2/toolbox/%s/function/scalar/%s.hpp>" % (tb_name,name),
             "#include NT2_%s_INCLUDE(%s.hpp) "% (tb_name.upper(),name),
             "",
@@ -457,7 +457,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         for i in range(1,arity) :
             s += tpl % (n*(i,))
         return s
-    
+
     def insert_after(self,token, txt, line2add) :
         """ insertion of a line after a line
         containing a token in a list of lines
@@ -492,25 +492,25 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
                 self.update(path,txt)
                 if verbose : print("file\n  %s\nis now updated"%path)
             else :
-                if verbose : print("file\n  %s\n does not exist"%path)           
+                if verbose : print("file\n  %s\n does not exist"%path)
         else :
             if verbose : print("I do not know what to do with: \n  %s\nplease help me!"%path)
         print("----------------------")
-         
-    
+
+
     def create(self,path,txt) :
         """ file path does not exist on entry
         is created on exit
         """
         write(path,txt,False)
-            
+
     def update(self,path,txt) :
         """ file path does exist on entry
         is upated on exit, old version is in path+'~' file
         """
         shutil.move(path,path+'~')
         write(path,txt,False)
-        
+
 ##def add_functor_skel(tb_name,fct_name) :
 ##    bg = Base_gen(tb_name,fct_name,'scalar')
 ##    dl = bg.get_fct_dict_list(verbose=False)
@@ -524,13 +524,13 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
 ##        pass
 
 
-    
+
 if __name__ == "__main__" :
     tb_name = "combinatorial"
     fcts = ["pipo"]
     for fct_name in fcts :
         print fct_name
         afs = Add_functor_skel(tb_name,fct_name,no_simd=False)
-        afs.add_files() 
+        afs.add_files()
 
-    
+

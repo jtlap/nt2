@@ -77,7 +77,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
 
     inline result_type operator()(const A0& a0, const A1& a1, const A2& a2) const
-    { 
+    {
       static const int N = fusion::result_of::size<A1>::type::value;
       meta::iterate<N>( details::storer< boost::simd::tag::store_
                                        , A0

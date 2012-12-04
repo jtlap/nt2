@@ -22,12 +22,12 @@
  * inverse cosecant.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/acsc.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of acsc
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag acsc_ of functor acsc 
+     * \brief Define the tag acsc_ of functor acsc
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct acsc_ : ext::elementwise_<acsc_> { typedef ext::elementwise_<acsc_> parent; };

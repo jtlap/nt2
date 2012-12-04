@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/reduction/include/functions/any.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -33,7 +33,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::any;
   using boost::simd::tag::any_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( any_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<any_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::simd::logical<T> vsr_t; 
+  typedef boost::simd::logical<T> vsr_t;
 
   // specific values tests
   NT2_TEST_EQUAL(boost::simd::any(boost::simd::Inf<vT>()), vsr_t(true));
@@ -61,7 +61,7 @@ NT2_TEST_CASE_TPL ( any_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
 {
   using boost::simd::any;
   using boost::simd::tag::any_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -74,7 +74,7 @@ NT2_TEST_CASE_TPL ( any_integer__1_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<any_(vT)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef boost::simd::logical<T> vsr_t; 
+  typedef boost::simd::logical<T> vsr_t;
 
   // specific values tests
   NT2_TEST_EQUAL(boost::simd::any(boost::simd::One<vT>()), vsr_t(true));

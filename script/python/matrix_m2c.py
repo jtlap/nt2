@@ -67,7 +67,7 @@ def main():
     sys.stdout.write("{\n")
     for i in range(rows):
       sys.stdout.write("  { ")
-      
+
       for j in range(cols):
         for k in range(maxlen[j]-len(tab[j][i])):
           sys.stdout.write(' ')

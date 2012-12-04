@@ -94,8 +94,8 @@ namespace nt2{ namespace ext
       r.resize(extent(a));
       typedef typename A0::index_type       index_type;
       typedef table<value_type, index_type> result_type;
-      bool is_ltz_b = is_ltz(b); 
-      if(is_ltz(b)) b = -b; 
+      bool is_ltz_b = is_ltz(b);
+      if(is_ltz(b)) b = -b;
       value_type m = nt2::trunc(b);
       value_type f = b-m;
       result_type q, t;
@@ -103,7 +103,7 @@ namespace nt2{ namespace ext
       if (false && isdiagonal(t))
         {
           t = nt2::from_diag(nt2::pow(diag_of(t), m));
-          if(is_ltz_b) t = nt2::inv(t);        
+          if(is_ltz_b) t = nt2::inv(t);
           r = nt2::mtimes(q, nt2::mtimes(t, nt2::trans(nt2::conj(q))));
           return;
         }
@@ -126,7 +126,7 @@ namespace nt2{ namespace ext
             }
           if(!f)
             {
-              if(is_ltz_b) r = nt2::inv(r); 
+              if(is_ltz_b) r = nt2::inv(r);
               return;
             }
           else
@@ -145,7 +145,7 @@ namespace nt2{ namespace ext
                 }
             }
           r= nt2::mtimes(r, rf);
-          if(is_ltz_b) r = nt2::inv(r); 
+          if(is_ltz_b) r = nt2::inv(r);
         }
     }
   };

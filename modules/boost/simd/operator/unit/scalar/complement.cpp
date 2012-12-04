@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/complement.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/shli.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( complement_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::complement;
   using boost::simd::tag::complement_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( complement_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(complement(boost::simd::Nan<T>()), boost::simd::Zero<r_t>());
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( complement_real__1_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( complement_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::complement;
   using boost::simd::tag::complement_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -59,9 +59,9 @@ NT2_TEST_CASE_TPL ( complement_integer__1_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(complement(boost::simd::One<T>()), boost::simd::shli(boost::simd::Mone<r_t>(),1));

@@ -24,12 +24,12 @@
  * Constant Fact_5 120
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/fact_5.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Fact_5
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Fact_5 of functor Fact_5 
+     * \brief Define the tag Fact_5 of functor Fact_5
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER(Fact_5,int,120, 0x42f00000,0x405e000000000000ll)

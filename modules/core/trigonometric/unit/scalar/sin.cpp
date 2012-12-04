@@ -12,7 +12,7 @@
 // unit test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/sin.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
@@ -36,7 +36,7 @@ extern "C" {extern long double cephes_sinl(long double);}
 
 NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::sin;
   using nt2::tag::sin_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -46,9 +46,9 @@ NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(sin(-nt2::Pi<T>()/T(2)), nt2::Mone<r_t>(), 0.5);
@@ -64,7 +64,7 @@ NT2_TEST_CASE_TPL ( sin_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( sin_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::sin;
   using nt2::tag::sin_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -74,9 +74,9 @@ NT2_TEST_CASE_TPL ( sin_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
 
   // specific values tests
@@ -85,7 +85,7 @@ NT2_TEST_CASE_TPL ( sin_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( sin_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::sin;
   using nt2::tag::sin_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -95,9 +95,9 @@ NT2_TEST_CASE_TPL ( sin_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(sin(nt2::Zero<T>()), nt2::Zero<r_t>(), 0.5);
@@ -106,7 +106,7 @@ NT2_TEST_CASE_TPL ( sin_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 
 NT2_TEST_CASE ( sin_special)
 {
-  
+
   using nt2::sin;
   using nt2::tag::sin_;
 
@@ -114,9 +114,9 @@ NT2_TEST_CASE ( sin_special)
   NT2_TEST_ULP_EQUAL(sin(10000000000000000000000.0), -0.852200849767188801772705893753, 0.5);
   NT2_TEST_ULP_EQUAL(sin(1.0e22f),-0.734081535296101525955768907693f, 0.5);
   NT2_TEST_ULP_EQUAL(sin(9999999778196308361216.0f),-0.734081535296101525955768907693f, 0.5);
-  std::cout << "Note that these results are due to the fact that 1.0e22f is 9999999778196308361216," << std::endl; 
+  std::cout << "Note that these results are due to the fact that 1.0e22f is 9999999778196308361216," << std::endl;
   std::cout << " not 10000000000000000000000, alas!" << std::endl;
-  std::cout << " The next result is the kahan worst case for which one need ~128 bits of 2/pi"<< std::endl; 
+  std::cout << " The next result is the kahan worst case for which one need ~128 bits of 2/pi"<< std::endl;
   NT2_TEST_ULP_EQUAL(sin(5.31937264832654141671e+255), 0.999999999999999999999999999999999999890152377992531312498043, 0.5);
-  
+
 } // end of test for signed_int_

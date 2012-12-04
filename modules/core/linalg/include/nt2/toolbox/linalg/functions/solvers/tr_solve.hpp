@@ -33,11 +33,11 @@ namespace nt2 { namespace ext
     typedef typename meta::strip<A0>::type                              base_t;
     typedef typename base_t::value_type                                value_t;
     typedef typename base_t::settings_type                          settings_t;
-    typedef details::tr_solve_result< table<value_t,settings_t> >  result_type;
+    typedef details::tr_solve_result< container::table<value_t,settings_t> >  result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a,
                                              A1 const& b,
-                                             A2 const & uplo, 
-                                             A3 const & trans, 
+                                             A2 const & uplo,
+                                             A3 const & trans,
                                              A4 const & diag) const
     {
       BOOST_ASSERT_MSG((ofsameheight(a, b)&&(trans == 'N'))||((size(a, 2) == size(b, 1))&&(trans != 'N')),
@@ -61,8 +61,8 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()  (A0& a,
                                                A1& b,
                                                A2 const & uplo,
-                                               A3 const & trans, 
-                                               A4 const & diag,  
+                                               A3 const & trans,
+                                               A4 const & diag,
                                                IP const &) const
     {
       BOOST_ASSERT_MSG((ofsameheight(a, b)&&(trans == 'N'))||((size(a, 2) == size(b, 1))&&(trans != 'N')),

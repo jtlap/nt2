@@ -12,7 +12,7 @@
 // cover test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/atanpi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -39,7 +39,7 @@ static const long double long_pi = 3.141592653589793238462643383279502884197l;
 
 NT2_TEST_CASE_TPL ( atanpi_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::atanpi;
   using nt2::tag::atanpi_;
 
@@ -50,9 +50,9 @@ NT2_TEST_CASE_TPL ( atanpi_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( atanpi_real__1_0,  NT2_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( atanpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 {
-  
+
   using nt2::atanpi;
   using nt2::tag::atanpi_;
 
@@ -87,9 +87,9 @@ NT2_TEST_CASE_TPL ( atanpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 
@@ -97,7 +97,7 @@ NT2_TEST_CASE_TPL ( atanpi_unsigned_int__1_0,  NT2_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( atanpi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using nt2::atanpi;
   using nt2::tag::atanpi_;
 
@@ -108,9 +108,9 @@ NT2_TEST_CASE_TPL ( atanpi_signed_int__1_0,  NT2_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

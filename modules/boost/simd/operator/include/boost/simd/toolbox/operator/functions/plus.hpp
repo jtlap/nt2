@@ -24,14 +24,14 @@
  * Infix notation can be used with operator '+'
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/plus.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg add
- * 
+ *
  * \synopsis
  *
  * \code
@@ -45,13 +45,13 @@
  *
  * \param a0 the first parameter of plus
  * \param a1 the second parameter of plus
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -59,7 +59,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag plus_ of functor plus 
+     * \brief Define the tag plus_ of functor plus
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct plus_ : ext::elementwise_<plus_> { typedef ext::elementwise_<plus_> parent; };

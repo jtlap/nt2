@@ -19,16 +19,16 @@ namespace nt2
   template<class T>
   struct BOOST_SIMD_MAY_ALIAS imaginary
   {
-    typedef typename meta::as_complex<T>::type c_type; 
+    typedef typename meta::as_complex<T>::type c_type;
     typedef T type;
     T value;
-    
+
     imaginary() {}
     explicit imaginary(T const& value_) : value(value_){ }
     //    operator c_type () const {return c_type(Zero<type>(), value); }
     bool operator == (const imaginary<T>&a) const{return value == a.value; }
     bool operator != (const imaginary<T>&a) const{return value != a.value; }
-    
+
     T&       operator()()       { return value; }
     T const& operator()() const { return value; }
   };
@@ -41,7 +41,7 @@ namespace nt2
   {
      return os << "( _ , " << v() << ")";
   }
-} 
+}
 
 namespace boost { namespace simd
 {
@@ -51,15 +51,15 @@ namespace boost { namespace simd
   {
     typedef boost::simd::native<std::complex<T>, Ext> cvtype;
     const std::size_t size = meta::cardinal_of<boost::simd::native<T, Ext> >::value;
-    os << "{"; 
+    os << "{";
     for(std::size_t i = 0;  i < size; ++i)
       {
         os << v[i] << ((i+1 == size) ? "}" :", ");
       }
-    return os; 
+    return os;
   }
 } }
-  
+
 
 
 #endif

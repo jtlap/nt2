@@ -22,12 +22,12 @@
  * secant of the angle in degree.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/secd.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of secd
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag secd_ of functor secd 
+     * \brief Define the tag secd_ of functor secd
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct secd_ : ext::elementwise_<secd_> { typedef ext::elementwise_<secd_> parent; };

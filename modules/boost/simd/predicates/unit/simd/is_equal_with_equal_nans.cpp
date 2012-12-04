@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <boost/simd/toolbox/predicates/include/functions/is_equal_with_equal_nans.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -31,7 +31,7 @@ NT2_TEST_CASE_TPL ( is_equal_with_equal_nans_real__2_0,  BOOST_SIMD_SIMD_REAL_TY
 {
   using boost::simd::is_equal_with_equal_nans;
   using boost::simd::tag::is_equal_with_equal_nans_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;

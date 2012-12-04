@@ -12,7 +12,7 @@
 // unit test behavior of fdlibm components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 03/03/2011
-/// 
+///
 #include <nt2/toolbox/fdlibm/include/functions/remainder.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/remainder.hpp>
@@ -35,7 +35,7 @@
 
 NT2_TEST_CASE_TPL ( remainder_double_2_0,  (double))
 {
-  
+
   using nt2::fdlibm::remainder;
   using nt2::fdlibm::tag::remainder_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( remainder_double_2_0,  (double))
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

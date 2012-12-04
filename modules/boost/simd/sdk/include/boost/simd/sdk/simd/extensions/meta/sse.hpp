@@ -46,19 +46,19 @@ namespace boost { namespace simd { namespace meta
   {
     typedef __m128 type;
   };
-  
+
   template<>
   struct as_simd<double, tag::sse_>
   {
     typedef __m128d type;
   };
-  
+
   template<class T>
   struct as_simd<T, tag::sse_, typename enable_if< is_integral<T> >::type>
   {
     typedef __m128i type;
   };
-  
+
   template<class T>
   struct as_simd<logical<T>, tag::sse_>
     : as_simd<T, tag::sse_>

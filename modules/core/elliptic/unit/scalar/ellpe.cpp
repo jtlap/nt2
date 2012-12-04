@@ -12,7 +12,7 @@
 // unit test behavior of elliptic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/elliptic/include/functions/ellpe.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_ellpel(long double);}
@@ -35,7 +35,7 @@ extern "C" {long double cephes_ellpel(long double);}
 
 NT2_TEST_CASE_TPL ( ellpe_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::ellpe;
   using nt2::tag::ellpe_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( ellpe_real__1_0,  NT2_REAL_TYPES)
   typedef typename boost::dispatch::meta::as_floating<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

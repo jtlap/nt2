@@ -12,7 +12,7 @@
 // unit test behavior of fdlibm components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 03/03/2011
-/// 
+///
 #include <nt2/toolbox/fdlibm/include/functions/modf.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -37,7 +37,7 @@
 
 NT2_TEST_CASE_TPL ( modf_double_1_0,  (double))
 {
-  
+
   using nt2::fdlibm::modf;
   using nt2::fdlibm::tag::modf_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -47,9 +47,9 @@ NT2_TEST_CASE_TPL ( modf_double_1_0,  (double))
   typedef boost::fusion::vector<T,T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

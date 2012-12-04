@@ -22,12 +22,12 @@
  * Natural logarithm function.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/log.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of log
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag log_ of functor log 
+     * \brief Define the tag log_ of functor log
      *        in namespace nt2::tag for toolbox exponential
     **/
     struct log_ : ext::elementwise_<log_> { typedef ext::elementwise_<log_> parent; };

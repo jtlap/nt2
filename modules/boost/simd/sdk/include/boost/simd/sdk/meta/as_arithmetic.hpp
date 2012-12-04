@@ -26,7 +26,7 @@ namespace boost { namespace simd { namespace details
    : mpl::apply1<F, T>
   {
   };
-  
+
   template<class T, class F>
   struct as_arithmetic< logical<T>, F >
    : mpl::apply1<F, T>

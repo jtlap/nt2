@@ -97,13 +97,13 @@ namespace nt2 { namespace ext
   struct  size_of<tag::geneig_,Domain,N,Expr>
   {
     typedef _2D result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
       result_type sizee;
       sizee[0] = 1;
-      sizee[1] = numel(boost::proto::child_c<0>(e)); 
-      return sizee; 
+      sizee[1] = numel(boost::proto::child_c<0>(e));
+      return sizee;
     }
   };
 
@@ -112,7 +112,7 @@ namespace nt2 { namespace ext
   {
     typedef typename  boost::proto::result_of
                ::child_c<Expr&,0>::value_type::value_type  intype;
-    typedef typename meta::as_complex<intype>::type type; 
+    typedef typename meta::as_complex<intype>::type type;
   };
 } }
 

@@ -12,7 +12,7 @@
 // unit test behavior of swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 24/02/2011
-/// 
+///
 #include <boost/simd/toolbox/swar/include/functions/split.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -32,7 +32,7 @@ NT2_TEST_CASE_TPL ( split_lt_64__1_0, BOOST_SIMD_SIMD_SPLITABLE_TYPES)
 {
   using boost::simd::split;
   using boost::simd::tag::split_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
@@ -46,17 +46,17 @@ NT2_TEST_CASE_TPL ( split_lt_64__1_0, BOOST_SIMD_SIMD_SPLITABLE_TYPES)
   typedef typename boost::dispatch::meta::call<split_(T)>::type sr_t;
   typedef typename boost::dispatch::meta::scalar_of<r_t>::type ssr_t;
 
-  vT a = boost::simd::One<vT>(); 
+  vT a = boost::simd::One<vT>();
   vu_t a1, a2;
-  split(a, a1, a2); 
+  split(a, a1, a2);
   std::cout << a << std::endl;
   std::cout << a1<< std::endl;
-  std::cout << a2<< std::endl; 
+  std::cout << a2<< std::endl;
 
   // specific values tests
   typedef typename boost::dispatch::meta::strip<typename boost::fusion::result_of::at_c<r_t,0>::type>::type r_t0;
   typedef typename boost::dispatch::meta::strip<typename boost::fusion::result_of::at_c<r_t,1>::type>::type r_t1;
-  std::cout << nt2::type_id <r_t0>() << std::endl; 
+  std::cout << nt2::type_id <r_t0>() << std::endl;
   {
     r_t res = split(boost::simd::One<vT>());
      NT2_TEST_EQUAL( boost::fusion::get<0>(res), boost::simd::One<r_t0>());

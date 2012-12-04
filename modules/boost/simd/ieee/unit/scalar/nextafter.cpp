@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <boost/simd/toolbox/ieee/include/functions/nextafter.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,8 +33,8 @@ NT2_TEST_CASE_TPL ( nextafter_real__2_0,  (float))
   typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
-  
-  // return type conformity test 
+
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   NT2_TEST_EQUAL(nextafter(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(nextafter(boost::simd::Minf<T>(), boost::simd::One<T>()), boost::simd::Valmin<r_t>());
@@ -46,7 +46,7 @@ NT2_TEST_CASE_TPL ( nextafter_real__2_0,  (float))
 } // end of test for floating_
 NT2_TEST_CASE_TPL ( nextafter_real__2_0d,  (double))
 {
-  
+
   using boost::simd::nextafter;
   using boost::simd::tag::nextafter_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( nextafter_real__2_0d,  (double))
   typedef T wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   NT2_TEST_EQUAL(nextafter(boost::simd::Inf<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(nextafter(boost::simd::Minf<T>(), boost::simd::One<T>()), boost::simd::Valmin<r_t>());
@@ -66,5 +66,5 @@ NT2_TEST_CASE_TPL ( nextafter_real__2_0d,  (double))
   NT2_TEST_EQUAL(nextafter(boost::simd::One<T>(), boost::simd::Inf<T>()), boost::simd::One<r_t>()+boost::simd::Eps<r_t>());
   NT2_TEST_EQUAL(nextafter(boost::simd::Valmax<T>(), boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(nextafter(boost::simd::Zero<T>(), boost::simd::One<T>()), boost::simd::Bitincrement<T>());
-  
+
 } // end of test for floating_

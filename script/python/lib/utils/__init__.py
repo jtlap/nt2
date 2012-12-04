@@ -1,6 +1,6 @@
 #! /usr/bin/env python
 # -*- coding: iso-8859-15  -*-
-"""Init file for utilities 
+"""Init file for utilities
 """
 
 __author__    = "Lapreste Jean-thierry (lapreste@univ-bpclermont.fr)"

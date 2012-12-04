@@ -23,14 +23,14 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/comma.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg then
- * 
+ *
  * \synopsis
  *
  * \code
@@ -44,13 +44,13 @@
  *
  * \param a0 the first parameter of comma
  * \param a1 the second parameter of comma
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -58,7 +58,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag comma_ of functor comma 
+     * \brief Define the tag comma_ of functor comma
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct comma_ : ext::elementwise_<comma_> { typedef ext::elementwise_<comma_> parent; };

@@ -37,7 +37,7 @@ namespace boost { namespace simd
                       , "Invalid alignment boundary. You tried to align an "
                         "address or a value on a non-power of 2 boundary."
                       );
-      
+
       typename boost::dispatch::make_functor<tag::align_on_, A0>::type callee;
       return callee(a0,a1);
     }
@@ -52,15 +52,15 @@ namespace boost { namespace simd
     {
       //==========================================================================
       /*
-       * Invalid alignment boundary. You tried to align an address or a value 
+       * Invalid alignment boundary. You tried to align an address or a value
        * on a non-power of 2 boundary.
-       */    
+       */
       //==========================================================================
       BOOST_MPL_ASSERT_MSG
-      ( meta::is_power_of_2_c<N>::value 
+      ( meta::is_power_of_2_c<N>::value
       , INVALID_ALIGNMENT_BOUNDARY
       , (boost::mpl::int_<N>)
-      );              
+      );
 
       typename boost::dispatch::make_functor<tag::align_on_, A0>::type callee;
       return callee(a0,boost::mpl::int_<N>());

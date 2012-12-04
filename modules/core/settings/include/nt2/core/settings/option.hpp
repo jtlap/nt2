@@ -11,7 +11,7 @@
 
 /*!
  * \file
- * \brief Defines NT2 container option base system 
+ * \brief Defines NT2 container option base system
  **/
 
 #include <boost/mpl/assert.hpp>
@@ -19,7 +19,7 @@
 //==============================================================================
 /*!
  * Defines the maximum number of options that can be passed to a composite
- * settings. This macro can be set by users if needed. 
+ * settings. This macro can be set by users if needed.
  **/
 //==============================================================================
 #ifndef NT2_META_MAX_OPTIONS_NB
@@ -27,24 +27,24 @@
 #endif
 
 namespace nt2 { namespace meta
-{  
+{
   //============================================================================
   /*!
    * Extract an option value from a given type or type groups, returning a given
    * default option if none is found.
-   * 
+   *
    * \tparam Type Settings type to introspect
    * \tparam Option Option tag to be retrieved
    * \tparam Default If no Option is found, use this option as a source
    **/
   //============================================================================
-  template<class Type, class Option, class Default = void> 
+  template<class Type, class Option, class Default = void>
   struct  option : option<Default,Option>
   {};
 
   struct no_such_option {};
 
-  template<class Option> struct  option<void,Option, void> 
+  template<class Option> struct  option<void,Option, void>
   {
     typedef no_such_option type;
   };

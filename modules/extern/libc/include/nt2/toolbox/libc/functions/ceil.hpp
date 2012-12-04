@@ -23,12 +23,12 @@
  * library libc.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/libc/include/functions/ceil.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of ceil
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -63,13 +63,13 @@
  * generally terminated by and extra 'f',
  * this is not the case for the nt2 version which dispatch to
  * the correct function according to the inputs types.
- *  
+ *
 **/
 
 namespace nt2 { namespace libc { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ceil_ of functor ceil 
+     * \brief Define the tag ceil_ of functor ceil
      *        in namespace nt2::libc::tag for toolbox libc
     **/
     struct ceil_ : ext::elementwise_<ceil_> { typedef ext::elementwise_<ceil_> parent; };
@@ -78,7 +78,7 @@ namespace nt2 { namespace libc { namespace tag
   } }
 
 #include <nt2/toolbox/libc/functions/scalar/ceil.hpp>
-// #include <nt2/toolbox/libc/functions/simd/all/ceil.hpp> 
+// #include <nt2/toolbox/libc/functions/simd/all/ceil.hpp>
 
 #endif
 

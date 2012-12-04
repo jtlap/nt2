@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SINCOSD_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SCALAR_SINCOSD_HPP_INCLUDED
@@ -23,12 +23,12 @@ namespace nt2 { namespace ext
 			     (scalar_ < floating_<A1> >)
 			     )
   {
-    typedef int result_type;    
+    typedef int result_type;
     inline int operator()(A0 const& a0,A1 & a1,A1 & a2) const
     {
       a1 = impl::trig_base <A1,degree_tag,
 	               tag::not_simd_type>::sincosa(A1(a0),a2);
-      return 0; 
+      return 0;
     }
   };
 
@@ -38,7 +38,7 @@ namespace nt2 { namespace ext
 			     (scalar_ < floating_<A1> >)
 			     )
   {
-    typedef A1 result_type;    
+    typedef A1 result_type;
     inline A1 operator()(A0 const& a0,A1 & a2) const
     {
       return impl::trig_base <A1,degree_tag,
@@ -55,7 +55,7 @@ namespace nt2 { namespace ext
   {
       typedef typename boost::dispatch::meta::as_floating<A0>::type         etype;
       typedef boost::fusion::tuple<etype, etype>                   result_type;
-    
+
     NT2_FUNCTOR_CALL(1)
     {
       return sincosd(etype(a0));
@@ -74,10 +74,10 @@ namespace nt2 { namespace ext
   {
       typedef typename meta::strip<A0>::type           etype;
       typedef boost::fusion::tuple<etype, etype> result_type;
-    
+
     NT2_FUNCTOR_CALL(1)
     {
-      result_type res; 
+      result_type res;
       boost::fusion::at_c<0>(res) = impl::trig_base < A0,degree_tag
                       , tag::not_simd_type
                       >::sincosa( a0

@@ -12,7 +12,7 @@
 // unit test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 04/12/2010
-/// 
+///
 #include <nt2/toolbox/ieee/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,16 +33,16 @@
 
 NT2_TEST_CASE_TPL ( ulpdist_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::ulpdist;
   using nt2::tag::ulpdist_;
-  typedef std::complex<T> cT; 
+  typedef std::complex<T> cT;
   typedef typename nt2::meta::call<ulpdist_(cT, cT)>::type r_t;
   typedef T wished_r_t;
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(ulpdist(nt2::Inf<cT>(), nt2::Inf<cT>()), nt2::Zero<r_t>());

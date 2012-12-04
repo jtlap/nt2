@@ -24,12 +24,12 @@
  * library boost_math.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/boost_math/include/functions/expint.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of expint
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -57,13 +57,13 @@
  * Remenber that SIMD implementation is therefore merely
  * mapping the scalar function to each SIMD vectors elements
  * and will not provide acceleration, but ease.
- *  
+ *
 **/
 
 namespace nt2 { namespace boost_math { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag expint_ of functor expint 
+     * \brief Define the tag expint_ of functor expint
      *        in namespace nt2::boost_math::tag for toolbox boost_math
     **/
     struct expint_ : ext::elementwise_<expint_> { typedef ext::elementwise_<expint_> parent; };
@@ -75,7 +75,7 @@ namespace nt2 { namespace boost_math { namespace tag
   } }
 
 #include <nt2/toolbox/boost_math/functions/scalar/expint.hpp>
-// #include <nt2/toolbox/boost_math/functions/simd/all/expint.hpp> 
+// #include <nt2/toolbox/boost_math/functions/simd/all/expint.hpp>
 
 #endif
 

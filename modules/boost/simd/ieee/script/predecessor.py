@@ -2,9 +2,9 @@
     {
      'functor' : {
          'description' : ['With one parameter it is equivalent to \c prev',
-                          'It is in the type \c A0, the greatest  \c A0 elementwise strictly less than  \c a0.','\par',   
+                          'It is in the type \c A0, the greatest  \c A0 elementwise strictly less than  \c a0.','\par',
                           'With two parameters, the second is an integer value  \c n',
-                          'and the result is equivalent to applying \c prev \c abs(n) times to  \c a0.'],   
+                          'and the result is equivalent to applying \c prev \c abs(n) times to  \c a0.'],
           'special_synopsis' : [
                 "template<class A0> inline",
                 "A0 predecessor(A0 const& a0);",
@@ -44,7 +44,7 @@
                 },
              'real_' : {
                  'boost::simd::Inf<T>()' : 'boost::simd::Valmax<r_t>()',
-                 'boost::simd::Valmin<T>()' : 'boost::simd::Minf<r_t>()',   
+                 'boost::simd::Valmin<T>()' : 'boost::simd::Minf<r_t>()',
                  'boost::simd::Minf<T>()' : 'boost::simd::Minf<r_t>()',
                  'boost::simd::Mone<T>()' : 'boost::simd::Mone<r_t>()-boost::simd::Eps<r_t>()',
                  'boost::simd::Nan<T>()' : 'boost::simd::Nan<r_t>()',
@@ -55,12 +55,12 @@
                  'boost::simd::Mone<T>()' : '-boost::simd::Two<r_t>()',
                  'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Mone<r_t>()',
-                 'boost::simd::Valmin<T>()' : 'boost::simd::Valmin<r_t>()',   
+                 'boost::simd::Valmin<T>()' : 'boost::simd::Valmin<r_t>()',
                 },
              'unsigned_int_' : {
                  'boost::simd::One<T>()' : 'boost::simd::Zero<r_t>()',
                  'boost::simd::Zero<T>()' : 'boost::simd::Zero<r_t>()',
-                 'boost::simd::Valmin<T>()' : 'boost::simd::Valmin<r_t>()',   
+                 'boost::simd::Valmin<T>()' : 'boost::simd::Valmin<r_t>()',
                 },
             },
          'verif_test' : {

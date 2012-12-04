@@ -13,11 +13,11 @@
 
 /*! \file gelsy_itf.hh
     (excerpt adapted from xgelsy.f file commentaries)
-    
+
     DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
-    
+
     BASE TYPE can mean respectively float, double, float, double
-    
+
     In some cases only two of these types types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
@@ -152,7 +152,7 @@ namespace nt2
                                nt2_la_int* jpvt, const double* rcond, nt2_la_int* rank,
                                nt2_la_complex* work, const nt2_la_int* lwork, double* rwork, nt2_la_int* info);
     }
-    
+
 
   /////////////////////////////////////////////////////////////////////////
   // (excerpt adapted from sgelsy.f)
@@ -221,7 +221,7 @@ namespace nt2
           jpvt, rcond,                          \
           rank, info, w);                       \
   }                                             \
-      
+
     NT2_GELSY(sgelsy, float)
     NT2_GELSY(dgelsy, double)
 

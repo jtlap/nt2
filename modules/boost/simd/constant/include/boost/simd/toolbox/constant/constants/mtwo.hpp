@@ -24,12 +24,12 @@
  * Constant Mtwo = -2
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/mtwo.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Mtwo
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Mtwo of functor Mtwo 
+     * \brief Define the tag Mtwo of functor Mtwo
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Mtwo, int, -2

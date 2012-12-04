@@ -23,12 +23,12 @@
  * library fdlibm.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/fdlibm/include/functions/remainder.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  *
  * \param a0 the first parameter of remainder
  * \param a1 the second parameter of remainder
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -61,13 +61,13 @@
  * fdlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace fdlibm { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag remainder_ of functor remainder 
+     * \brief Define the tag remainder_ of functor remainder
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct remainder_ : ext::elementwise_<remainder_> { typedef ext::elementwise_<remainder_> parent; };
@@ -76,7 +76,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
 
 #include <nt2/toolbox/fdlibm/functions/scalar/remainder.hpp>
-// #include <nt2/toolbox/fdlibm/functions/simd/all/remainder.hpp> 
+// #include <nt2/toolbox/fdlibm/functions/simd/all/remainder.hpp>
 
 #endif
 

@@ -12,7 +12,7 @@
 // unit test behavior of combinatorial components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 07/03/2011
-/// 
+///
 #include <nt2/toolbox/combinatorial/include/functions/factor.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/min.hpp>
@@ -42,36 +42,36 @@
 
 NT2_TEST_CASE_TPL ( factor_integer__1_0, NT2_INTEGRAL_TYPES)
 {
-  
+
   using nt2::factor;
   using nt2::tag::factor_;
 
   T p[] = {3, 5};
-  nt2::table<T> myp = factor(T(15)); 
+  nt2::table<T> myp = factor(T(15));
   // specific values tests
-  
+
   for(size_t i=1; i <= nt2::length(myp); ++i)
     {
-      NT2_TEST_EQUAL(p[i-1], myp(i)); 
+      NT2_TEST_EQUAL(p[i-1], myp(i));
     }
-  myp = factor(T(15*3*2)); 
+  myp = factor(T(15*3*2));
   // specific values tests
   T p1[] = {2, 3, 3, 5};
   NT2_DISPLAY(myp);
-  
+
   for(size_t i=1; i <= nt2::length(myp); ++i)
     {
-      std::cout << i << std::endl; 
-      NT2_TEST_EQUAL(p1[i-1], myp(i)); 
+      std::cout << i << std::endl;
+      NT2_TEST_EQUAL(p1[i-1], myp(i));
     }
-  
-} 
+
+}
 
 NT2_TEST_CASE_TPL ( factor_integer__2_0, (int8_t))
 {
   using nt2::factor;
   using nt2::tag::factor_;
 
- NT2_TEST_ASSERT(factor(T(15*3*2*2))); 
-  
-} 
+ NT2_TEST_ASSERT(factor(T(15*3*2*2)));
+
+}

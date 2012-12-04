@@ -71,7 +71,7 @@ namespace nt2 { namespace ext
 
     result_type operator()(Expr& e) const
     {
-      std::size_t dim = nt2::firstnonsingleton(boost::proto::child_c<1>(e)); 
+      std::size_t dim = nt2::firstnonsingleton(boost::proto::child_c<1>(e));
       result_type sizee = boost::proto::child_c<0>(e).extent();
       sizee[dim-1] = numel(boost::proto::child_c<1>(e));
       return sizee;

@@ -21,7 +21,7 @@ namespace nt2 { namespace ext
                               ((ast_<A0, nt2::container::domain>))(scalar_<integer_<A1> >)
                               )
   {
-    typedef typename A0::extent_type            ext_t; 
+    typedef typename A0::extent_type            ext_t;
     typedef typename meta::call<tag::reshape_(const A0&, ext_t) >::type
       result_type;
 
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
       ext_t ext;
       for(size_t i=0; i < ext.size(); ++i) ext[i] = 1;
       ext[a1-1] = nt2::numel(a0);
-      return nt2::reshape(a0, ext); 
+      return nt2::reshape(a0, ext);
     }
   };
 

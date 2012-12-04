@@ -24,12 +24,12 @@
  * Constant Eight = 8
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/eight.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,12 +41,12 @@
  * }
  * \endcode
  *
- * 
+ *
  * \param T template parameter of Eight
- * 
+ *
  * \return type T value
- *  
- *  
+ *
+ *
 **/
 
 namespace boost { namespace simd
@@ -54,7 +54,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Eight of functor Eight 
+     * \brief Define the tag Eight of functor Eight
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER(Eight,int,8,0x41000000UL,0x4020000000000000ULL);

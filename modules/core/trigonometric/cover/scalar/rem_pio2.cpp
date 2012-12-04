@@ -12,7 +12,7 @@
 // cover test behavior of trigonometric components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
-/// 
+///
 #include <nt2/toolbox/trigonometric/include/functions/rem_pio2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
@@ -38,7 +38,7 @@ extern "C" {extern long double cephes_cosl(long double);}
 
 NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::rem_pio2;
   using nt2::tag::rem_pio2_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -48,9 +48,9 @@ NT2_TEST_CASE_TPL ( rem_pio2_real__1_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::call<rem_pio2_(T)>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   double ulpd;
   ulpd=0.0;
 

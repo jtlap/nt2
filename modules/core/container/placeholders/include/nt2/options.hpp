@@ -24,7 +24,7 @@ namespace nt2
     struct case1_     {};
     struct case2_     {};
     struct case3_     {};
-    
+
   }
 
   // Lower/upper

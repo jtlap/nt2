@@ -23,12 +23,12 @@
  * library fdlibm.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/fdlibm/include/functions/isnan.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -44,9 +44,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of isnan
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -60,13 +60,13 @@
  * fdlibm library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace fdlibm { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag isnan_ of functor isnan 
+     * \brief Define the tag isnan_ of functor isnan
      *        in namespace nt2::fdlibm::tag for toolbox fdlibm
     **/
     struct isnan_ : ext::elementwise_<isnan_> { typedef ext::elementwise_<isnan_> parent; };
@@ -75,7 +75,7 @@ namespace nt2 { namespace fdlibm { namespace tag
   } }
 
 #include <nt2/toolbox/fdlibm/functions/scalar/isnan.hpp>
-// #include <nt2/toolbox/fdlibm/functions/simd/all/isnan.hpp> 
+// #include <nt2/toolbox/fdlibm/functions/simd/all/isnan.hpp>
 
 #endif
 

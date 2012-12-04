@@ -31,7 +31,7 @@ namespace boost { namespace simd { namespace ext
       return details::perm2<0, 0>(a0, a0);
     }
   };
-  
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::repeat_lower_half_
                                    , boost::simd::tag::avx_
                                    , (A0)
@@ -58,7 +58,7 @@ namespace boost { namespace simd { namespace ext
     {
       return  details::perm2<0, 0>(a0, a0);
     }
-  };   
+  };
 } } }
 
 #endif

@@ -6,11 +6,11 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_CORE_SETTINGS_FORWARD_SHARING_HPP_INCLUDED 
-#define NT2_CORE_SETTINGS_FORWARD_SHARING_HPP_INCLUDED 
+#ifndef NT2_CORE_SETTINGS_FORWARD_SHARING_HPP_INCLUDED
+#define NT2_CORE_SETTINGS_FORWARD_SHARING_HPP_INCLUDED
 
-namespace nt2 
-{ 
+namespace nt2
+{
   //============================================================================
   /*!
    * shared_ indicates the current container will reuse existing memory as its
@@ -18,22 +18,22 @@ namespace nt2
    **/
   //============================================================================
   struct shared_;
-  
+
   //============================================================================
   /*!
    * owned_ indicates the current container will allocates its own memory.
    **/
   //============================================================================
   struct owned_;
-  
-  namespace tag 
-  { 
+
+  namespace tag
+  {
     //==========================================================================
     /*!
      * Option tag for sharing options
      **/
     //==========================================================================
-    struct sharing_ {}; 
+    struct sharing_ {};
   }
 
 

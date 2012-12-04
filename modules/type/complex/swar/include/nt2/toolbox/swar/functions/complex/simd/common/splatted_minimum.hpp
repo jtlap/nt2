@@ -53,6 +53,6 @@ namespace nt2 { namespace ext
       return splat<A0>(minimum(a0));
     }
   };
-   
+
 } }
 #endif

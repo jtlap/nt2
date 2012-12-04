@@ -1,10 +1,10 @@
 //==============================================================================
-//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II         
-//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI         
-//                                                                              
-//          Distributed under the Boost Software License, Version 1.0.          
-//                 See accompanying file LICENSE.txt or copy at                 
-//                     http://www.boost.org/LICENSE_1_0.txt                     
+//         Copyright 2003 - 2011 LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2011 LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//
+//          Distributed under the Boost Software License, Version 1.0.
+//                 See accompanying file LICENSE.txt or copy at
+//                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_DECONV_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_DECONV_HPP_INCLUDED
@@ -37,17 +37,17 @@ namespace nt2 { namespace ext
   {
     typedef void                                                    result_type;
     typedef typename boost::proto::result_of::child_c<A1&,0>::type       q_type;
-    typedef typename boost::proto::result_of::child_c<A0&,0>::type       a_type; 
-    typedef typename boost::proto::result_of::child_c<A0&,1>::type       b_type; 
-    typedef typename A0::value_type                                  value_type; 
-    
+    typedef typename boost::proto::result_of::child_c<A0&,0>::type       a_type;
+    typedef typename boost::proto::result_of::child_c<A0&,1>::type       b_type;
+    typedef typename A0::value_type                                  value_type;
+
     BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
     {
       val(a0, a1, N1());
     }
-    
+
   private:
-    
+
 //     template < class T > BOOST_FORCEINLINE
 //       void val(A0& a0, A1& a1,
 //                boost::mpl::long_<1> const &, const T&) const
@@ -55,9 +55,9 @@ namespace nt2 { namespace ext
 //       p_type & p = boost::proto::child_c<0>(a0);
 //       x_type & x = boost::proto::child_c<1>(a0);
 //       v_type & v = boost::proto::child_c<0>(a1);
-//       compute_val(p, x, v); 
+//       compute_val(p, x, v);
 //     }
-    
+
     BOOST_FORCEINLINE
       void val(A0& a0, A1& a1,
                boost::mpl::long_<2> const &) const
@@ -66,29 +66,29 @@ namespace nt2 { namespace ext
       a_type & a = boost::proto::child_c<0>(a0);
       b_type & b = boost::proto::child_c<1>(a0);
       size_t na =  nt2::numel(a);
-      size_t nb =  nt2::numel(b); 
+      size_t nb =  nt2::numel(b);
       q_type & q = boost::proto::child_c<0>(a1);
       r_type & r = boost::proto::child_c<1>(a1);
       if(na < nb)
       {
-        q = nt2::zeros(1, 0); 
+        q = nt2::zeros(1, 0);
         r = b;
       }
       else
       {
-        size_t nq =  na+1-nb; 
-        nt2::table<value_type, nt2::_2D> m =   nt2::eye(numel(a),meta::as_<value_type>());
+        size_t nq =  na+1-nb;
+        nt2::container::table<value_type, nt2::_2D> m =   nt2::eye(numel(a),meta::as_<value_type>());
         for(size_t i=1; i <= nq; ++i)
         {
-          m(nt2::_(i, (i-1)+nb), i) = colvect(b);  
-        } 
-        nt2::table<value_type, nt2::_2D> bb; //, aa = colvect(a);
-        bb = nt2::linsolve(m, colvect(a)); 
-        q = rowvect(bb)(nt2::_(1, nq));
-        r = rowvect(bb)(nt2::_(nq+1, nt2::end_)); 
-      }    
-    } 
-  };  
+          m(nt2::_(i, (i-1)+nb), i) = nt2::colvect(b);
+        }
+        nt2::container::table<value_type, nt2::_2D> bb; //, aa = colvect(a);
+        bb = nt2::linsolve(m, nt2::colvect(a));
+        q = nt2::rowvect(bb)(nt2::_(1, nq));
+        r = nt2::rowvect(bb)(nt2::_(nq+1, nt2::end_));
+      }
+    }
+  };
 } }
 
 

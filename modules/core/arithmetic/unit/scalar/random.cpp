@@ -12,7 +12,7 @@
 // unit test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <nt2/toolbox/arithmetic/include/functions/random.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -33,7 +33,7 @@
 
 NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::random;
   using nt2::tag::random_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -43,7 +43,7 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_REAL_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
 
   for(int i=0; i < 10; i++)
@@ -51,7 +51,7 @@ NT2_TEST_CASE_TPL ( random_real__2_0,  NT2_REAL_TYPES)
       NT2_TEST_LESSER(random(T(2), T(3)), T(3));
       NT2_TEST_GREATER(random(T(2), T(3)), T(2));
     }
-  
-  
+
+
 } // end of test for floating_
 

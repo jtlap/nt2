@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::ric >
       ,  meta::as_<double>
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n, A0 const& m) const
     {
       return boost::proto::make_expr< nt2::tag::ric_
@@ -60,7 +60,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::ric >
       ,  meta::as_<double>
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n) const
     {
      return boost::proto::make_expr< nt2::tag::ric_
@@ -88,7 +88,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::ric >
       , T
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n, A0 const& m, T const& ) const
     {
       return boost::proto::make_expr< nt2::tag::ric_
@@ -115,7 +115,7 @@ namespace nt2 { namespace ext
       , box< nt2::details::ric >
       , T
       >::type             result_type;
-    
+
     BOOST_FORCEINLINE result_type operator()(A0 const& n, T const& ) const
     {
      return boost::proto::make_expr< nt2::tag::ric_
@@ -184,7 +184,7 @@ namespace nt2 { namespace ext
                             , T()
                           );
     }
-  };  
+  };
 } }
 
 #endif

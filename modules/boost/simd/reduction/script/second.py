@@ -11,7 +11,7 @@
              'default' : 'sT',
             },
          'simd_types' : ['real_'],
-         'special' : ['reduction'],  
+         'special' : ['reduction'],
          'type_defs' : ['typedef typename boost::dispatch::meta::scalar_of<T>::type sT;'],
          'types' : ['integer_'],
         },
@@ -58,7 +58,7 @@
                     'default' : [
                         "        NT2_TEST_EQUAL( v,a0[1]);",
                             ]
-               },                 
+               },
             },
         },
     },

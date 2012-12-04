@@ -13,8 +13,8 @@
 #include <boost/mpl/placeholders.hpp>
 #include <nt2/core/settings/option.hpp>
 
-namespace nt2 
-{ 
+namespace nt2
+{
   namespace meta
   {
     //==========================================================================
@@ -25,7 +25,7 @@ namespace nt2
     {
       typedef allocator_<Allocator> type;
     };
-  } 
+  }
 }
 
 #endif

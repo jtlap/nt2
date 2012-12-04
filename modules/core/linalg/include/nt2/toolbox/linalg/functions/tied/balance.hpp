@@ -40,7 +40,7 @@ namespace nt2 { namespace ext
       // Copy data in output first
       boost::proto::child_c<0>(a1) = boost::proto::child_c<0>(a0);
       // Retrieve the Balance/Scale options
-      char job =  choice(a0, N0()); 
+      char job =  choice(a0, N0());
 
       // Factorize in place
       fact_t f = factorization::balance(boost::proto::child_c<0>(a1),job,in_place_);
@@ -50,21 +50,21 @@ namespace nt2 { namespace ext
     private:
     //==========================================================================
     // INTERNAL ONLY
-    // get 'B',  'S'("noperm") 
+    // get 'B',  'S'("noperm")
     //==========================================================================
     BOOST_FORCEINLINE
     char choice(A0 const &, boost::mpl::long_<1> const &) const
     {
-      return 'B'; 
+      return 'B';
     }
 
     BOOST_FORCEINLINE
     char choice(A0 const & a0, boost::mpl::long_<2> const &) const
     {
-      //       bool opt = strcmp(boost::proto::value(boost::proto::child_c<1>(a0)), "noperm") == 0; 
+      //       bool opt = strcmp(boost::proto::value(boost::proto::child_c<1>(a0)), "noperm") == 0;
       //       BOOST_ASSERT_MSG( opt, "Error using balance: Second argument must be \"noperm\".");
       //       return opt ? 'S':'B';
-      return boost::proto::value(boost::proto::child_c<1>(a0)); 
+      return boost::proto::value(boost::proto::child_c<1>(a0));
     }
     //==========================================================================
     // INTERNAL ONLY
@@ -86,7 +86,7 @@ namespace nt2 { namespace ext
     void decomp(fact_t & f, A1 & a1, boost::mpl::long_<3> const&) const
     {
       boost::proto::child_c<0>(a1) = f.scale();
-      boost::proto::child_c<1>(a1) = f.ipiv(); 
+      boost::proto::child_c<1>(a1) = f.ipiv();
       boost::proto::child_c<2>(a1) = f.balanced();
     }
   };

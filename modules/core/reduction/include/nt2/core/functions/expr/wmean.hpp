@@ -16,7 +16,7 @@
 #include <nt2/include/functions/bsxfun.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/rec.hpp>
- 
+
 
 namespace nt2 { namespace ext
 {
@@ -29,15 +29,15 @@ namespace nt2 { namespace ext
     typedef typename A1::value_type value_type;
     typedef typename meta::call < tag::bsxfun_(nt2::functor<tag::multiplies_>, const A0&, const A1&)>::type T1;
     typedef typename meta::call < tag::sum_(T1 const&)>::type T2;
-    typedef typename meta::call < tag::multiplies_(value_type, T2)>::type result_type; 
+    typedef typename meta::call < tag::multiplies_(value_type, T2)>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& w) const
     {
-      value_type f =  nt2::rec(nt2::globalsum(w)); 
+      value_type f =  nt2::rec(nt2::globalsum(w));
       return nt2::multiplies(f, nt2::sum(nt2::bsxfun(nt2::functor<tag::multiplies_>(), a0, w)));
     }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::wmean_, tag::cpu_,
                               (A0)(A1)(A2),
                               ((ast_<A0, nt2::container::domain>))
@@ -48,11 +48,11 @@ namespace nt2 { namespace ext
     typedef typename A1::value_type value_type;
     typedef typename meta::call < tag::bsxfun_(nt2::functor<tag::multiplies_>, const A0&, const A1&)>::type T1;
     typedef typename meta::call < tag::sum_(T1 const&, A2 const&)>::type T2;
-    typedef typename meta::call < tag::multiplies_(value_type, T2)>::type result_type; 
+    typedef typename meta::call < tag::multiplies_(value_type, T2)>::type result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, const A1& w, const A2& dim) const
     {
-      value_type f =  nt2::rec(nt2::globalsum(w)); 
+      value_type f =  nt2::rec(nt2::globalsum(w));
       return nt2::multiplies(f, nt2::sum(nt2::bsxfun(nt2::functor<tag::multiplies_>(), a0, w), dim));
     }
   };

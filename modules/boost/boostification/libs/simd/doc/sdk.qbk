@@ -1,7 +1,7 @@
 [section SDK]
 
 [section pack]
-`pack` is the basic building brick of the boost.simd framework. It provides an abstraction of a 
+`pack` is the basic building brick of the boost.simd framework. It provides an abstraction of a
 SIMD register and provides software emulation in case no such registers exist on the machine.
 
 Here is the forward declaration of the `pack<>` class template :
@@ -25,7 +25,7 @@ the SIMD registers and the size of the type stored, that is following the formul
 
 `BOOST_SIMD_BYTES` being the size of the SIMD registers in bytes.
 
-In case the specified cardinal doesn't fit in a SIMD register, `pack<>` falls back to a software 
+In case the specified cardinal doesn't fit in a SIMD register, `pack<>` falls back to a software
 implementation based on a `boost::array<Type, Cardinal>`.
 
 As a convenience the `pack<>` class can be constructed from a `Type` value, so we can write :
@@ -88,7 +88,7 @@ The `end` function also takes a range and returns a `boost::simd::iterator<>` po
 before the end of the range. Similarly another version of this function exists taking a cardinal.
 
 Those functions are accessible by including :
-   
+
    #include <boost/simd/sdk/simd/begin.hpp>
    #include <boost/simd/sdk/simd/end.hpp>
 

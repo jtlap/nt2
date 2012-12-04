@@ -22,12 +22,12 @@
  * TODO Put description here
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/toolbox/gsl_specfun/include/functions/gsl_sf_legendre_plm.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -45,9 +45,9 @@
  * \param a0 the first parameter of gsl_sf_legendre_plm
  * \param a1 the second parameter of gsl_sf_legendre_plm
  * \param a2 the third parameter of gsl_sf_legendre_plm
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
@@ -62,13 +62,13 @@
  * gsl_specfun library defines functions for double entries only.
  * Nevertheless, they can be called with float entries under nt2 calls
  * to return float outputs.
- *  
+ *
 **/
 
 namespace nt2 { namespace gsl_specfun { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag gsl_sf_legendre_plm_ of functor gsl_sf_legendre_plm 
+     * \brief Define the tag gsl_sf_legendre_plm_ of functor gsl_sf_legendre_plm
      *        in namespace nt2::gsl_specfun::tag for toolbox gsl_specfun
     **/
     struct gsl_sf_legendre_plm_ : ext::elementwise_<gsl_sf_legendre_plm_> { typedef ext::elementwise_<gsl_sf_legendre_plm_> parent; };
@@ -77,7 +77,7 @@ namespace nt2 { namespace gsl_specfun { namespace tag
   } }
 
 #include <nt2/toolbox/gsl_specfun/functions/scalar/gsl_sf_legendre_plm.hpp>
-// #include <nt2/toolbox/gsl_specfun/functions/simd/all/gsl_sf_legendre_Plm.hpp> 
+// #include <nt2/toolbox/gsl_specfun/functions/simd/all/gsl_sf_legendre_Plm.hpp>
 
 #endif
 

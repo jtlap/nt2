@@ -36,5 +36,5 @@ NT2_TEST_CASE_TPL(full_lu_solve_result, NT2_REAL_TYPES)
   nt2::details::full_lu_solve_result<t_t> f(a, b, 'N');
 
   nt2::display("values", f.x());
-  NT2_TEST(nt2::isulpequal(b, mtimes(a, f.x()))); 
+  NT2_TEST(nt2::isulpequal(b, mtimes(a, f.x())));
  }

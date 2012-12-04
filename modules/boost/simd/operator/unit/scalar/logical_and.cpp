@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <boost/simd/toolbox/operator/include/functions/logical_and.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
@@ -25,7 +25,7 @@
 
 NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 {
-  
+
   using boost::simd::logical_and;
   using boost::simd::tag::logical_and_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -36,9 +36,9 @@ NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef typename boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(logical_and(boost::simd::One<T>(), boost::simd::One<T>()), r_t(true));
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL ( logical_and_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
 
 NT2_TEST_CASE_TPL ( logical_and_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::logical_and;
   using boost::simd::tag::logical_and_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -59,9 +59,9 @@ NT2_TEST_CASE_TPL ( logical_and_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::simd::logical<T> wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(logical_and(boost::simd::Inf<T>(), boost::simd::Inf<T>()), r_t(true));

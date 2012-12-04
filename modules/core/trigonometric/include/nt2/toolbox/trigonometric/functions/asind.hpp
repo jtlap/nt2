@@ -22,12 +22,12 @@
  * inverse sine in degree.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/asind.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,19 +40,19 @@
  * \endcode
  *
  * \param a0 the unique parameter of asind
- * 
+ *
  * \return a value of the same type as the parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace nt2 { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag asind_ of functor asind 
+     * \brief Define the tag asind_ of functor asind
      *        in namespace nt2::tag for toolbox trigonometric
     **/
     struct asind_ : ext::elementwise_<asind_> { typedef ext::elementwise_<asind_> parent; };

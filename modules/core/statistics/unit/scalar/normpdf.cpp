@@ -12,7 +12,7 @@
 // unit test behavior of statistics components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 22/02/2011
-/// 
+///
 #include <nt2/include/functions/normpdf.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -25,11 +25,11 @@
 
 NT2_TEST_CASE_TPL ( normpdf_1,  (float)(double))//NT2_REAL_TYPES)
 {
-  
+
   using nt2::normpdf;
   using nt2::tag::normpdf_;
-  using nt2::_; 
-  
+  using nt2::_;
+
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(normpdf(nt2::Nan<T>()), nt2::Nan<T>(), 0.5);
@@ -40,17 +40,17 @@ NT2_TEST_CASE_TPL ( normpdf_1,  (float)(double))//NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(normpdf(nt2::Minf<T>()), nt2::Zero<T>(), 0.5);
 
   nt2::table<T> a = _(T(-5), T(1), T(5));
-  NT2_DISPLAY(a); 
-  NT2_DISPLAY(normpdf(a)); 
+  NT2_DISPLAY(a);
+  NT2_DISPLAY(normpdf(a));
 } // end of test for floating_
- 
+
 NT2_TEST_CASE_TPL ( normpdf_2,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::normpdf;
   using nt2::tag::normpdf_;
-  using nt2::_; 
-  
+  using nt2::_;
+
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(normpdf(nt2::Nan<T>(), nt2::One<T>()), nt2::Nan<T>(), 0.5);
@@ -60,12 +60,12 @@ NT2_TEST_CASE_TPL ( normpdf_2,  NT2_REAL_TYPES)
   NT2_TEST_ULP_EQUAL(normpdf(nt2::Minf<T>(), nt2::One<T>()), nt2::Zero<T>(), 0.5);
 
   nt2::table<T> a = _(T(-5), T(1), T(5));
-  NT2_DISPLAY(a); 
+  NT2_DISPLAY(a);
   NT2_DISPLAY(normpdf(a, nt2::One<T>()));
   a = nt2::reshape(_(T(1), T(16)), 4, 4);
 //   NT2_DISPLAY(normpdf(a, a(_, 1)));
 //   NT2_DISPLAY(normpdf(a, a(1, _)));
   NT2_DISPLAY(normpdf(a, a));
-  NT2_DISPLAY(normpdf(a, a, nt2::abs(a))); 
+  NT2_DISPLAY(normpdf(a, a, nt2::abs(a)));
 } // end of test for floating_
- 
+

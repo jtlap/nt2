@@ -9,8 +9,8 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_FULL_LU_SOLVE_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_DETAILS_FULL_LU_SOLVE_HPP_INCLUDED
 
-#include <nt2/toolbox/linalg/details/lapack/gesvx.hpp>   
-#include <nt2/table.hpp>
+#include <nt2/toolbox/linalg/details/lapack/gesvx.hpp>
+#include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/height.hpp>
 #include <nt2/include/functions/width.hpp>
 #include <nt2/sdk/error/warning.hpp>
@@ -25,13 +25,13 @@ namespace nt2 { namespace details
     typedef typename meta::strip<A>::type               strip_t;
     typedef typename strip_t::value_type                 type_t;
     typedef typename strip_t::index_type                index_t;
-    typedef typename meta::as_real<type_t>::type        btype_t; 
-    typedef nt2::table<type_t,nt2::_2D>                  ftab_t;
-    typedef nt2::table<btype_t,nt2::_2D>                fbtab_t;
-    typedef nt2::table<nt2_la_int,nt2::_2D>             fitab_t;
-    typedef nt2::table<type_t,index_t>                    tab_t;
-    typedef nt2::table<btype_t,index_t>                  btab_t;
-    typedef nt2::table<nt2_la_int,index_t>               itab_t;
+    typedef typename meta::as_real<type_t>::type        btype_t;
+    typedef nt2::container::table<type_t,nt2::_2D>                  ftab_t;
+    typedef nt2::container::table<btype_t,nt2::_2D>                fbtab_t;
+    typedef nt2::container::table<nt2_la_int,nt2::_2D>             fitab_t;
+    typedef nt2::container::table<type_t,index_t>                    tab_t;
+    typedef nt2::container::table<btype_t,index_t>                  btab_t;
+    typedef nt2::container::table<nt2_la_int,index_t>               itab_t;
     typedef A                                           data1_t;
     typedef B                                           data2_t;
     ////////////////////////////////////////////////////////////////////////////
@@ -39,7 +39,7 @@ namespace nt2 { namespace details
     //  A is            N x N
     //  B is            N x nrhs
     ////////////////////////////////////////////////////////////////////////////
-    template < class Input1,  class Input2 > 
+    template < class Input1,  class Input2 >
     full_lu_solve_result(Input1& a, Input2& b, const char & trans)
       :
       a_(a)
@@ -59,10 +59,10 @@ namespace nt2 { namespace details
       char fact = 'N';
       char equed = 'N';
       nt2_la_int ldaf = af_.leading_size();
-      nt2_la_int ldx  = x_.leading_size(); 
+      nt2_la_int ldx  = x_.leading_size();
       nt2::details::gesvx (&fact, &trans, &n_, &nrhs_, a_.raw(), &lda_,
                           af_.raw(), &ldaf, ipiv_.raw(), &equed,
-                          r_.raw(), c_.raw(), 
+                          r_.raw(), c_.raw(),
                           b_.raw(), &ldb_,
                           x_.raw(), &ldx, &rcond_,
                           ferr_.raw(), berr_.raw(), &info_);
@@ -81,7 +81,7 @@ namespace nt2 { namespace details
     nt2_la_int          lda_;
     nt2_la_int          ldb_;
     nt2_la_int            n_;
-    nt2_la_int         nrhs_; 
+    nt2_la_int         nrhs_;
     ftab_t                x_;
     fitab_t            ipiv_;
     nt2_la_int         info_;
@@ -90,8 +90,8 @@ namespace nt2 { namespace details
     fbtab_t            berr_;
     fbtab_t               r_;
     fbtab_t               c_;
-    btype_t           rcond_; 
-  };  
+    btype_t           rcond_;
+  };
 } }
 
 

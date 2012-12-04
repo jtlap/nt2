@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL(downgrade_native, BOOST_SIMD_SIMD_TYPES)
   typedef native<T,ext_t>             native_t;
   typedef typename downgrade<T>::type   base_t;
 
-  native_t a0; 
+  native_t a0;
   NT2_TEST_EXPR_TYPE( a0, downgrade<_>, (native<base_t,ext_t>) );
 }
 
@@ -48,7 +48,7 @@ NT2_TEST_CASE_TPL(downgrade_logical_native, BOOST_SIMD_SIMD_TYPES)
   typedef native<logical<T>,ext_t>      native_t;
   typedef typename downgrade<T>::type   base_t;
 
-  native_t a0; 
+  native_t a0;
   NT2_TEST_EXPR_TYPE( a0, downgrade<_>, (native<logical<base_t>,ext_t>) );
 }
 

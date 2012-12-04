@@ -22,12 +22,12 @@
  * return the \c round of the operands real divisionin the corresponding integer type
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/idivround.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -41,19 +41,19 @@
  *
  * \param a0 the first parameter of idivround
  * \param a1 the second parameter of idivround
- * 
+ *
  * \return an integer value
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag idivround_ of functor idivround 
+     * \brief Define the tag idivround_ of functor idivround
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct idivround_ : ext::elementwise_<idivround_> { typedef ext::elementwise_<idivround_> parent; };

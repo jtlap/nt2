@@ -41,9 +41,9 @@ NT2_TEST_CASE_TPL(inv_1, NT2_REAL_TYPES)
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>()), nn;
-  nn = n; 
+  nn = n;
   n(1, 1) = nt2::Eps<T>()*nt2::Half<T>();
-  nn(1, 1) = nt2::rec(n(1, 1)); 
+  nn(1, 1) = nt2::rec(n(1, 1));
   nt2::table<T> invn = nt2::inv(n);
   NT2_DISPLAY(n);
   NT2_DISPLAY(invn);
@@ -63,9 +63,9 @@ NT2_TEST_CASE_TPL(inv_nowarn, NT2_REAL_TYPES)
   using nt2::inv;
   using nt2::tag::inv_;
   nt2::table<T> n = nt2::eye(10, 10, nt2::meta::as_<T>()), nn;
-  nn = n; 
+  nn = n;
   n(1, 1) = nt2::Eps<T>()*nt2::Half<T>();
-  nn(1, 1) = nt2::rec(n(1, 1)); 
+  nn(1, 1) = nt2::rec(n(1, 1));
   nt2::table<T> invn = nt2::inv(n, false);
   NT2_DISPLAY(n);
   NT2_DISPLAY(invn);

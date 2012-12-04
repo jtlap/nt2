@@ -12,7 +12,7 @@
 // unit test behavior of operator components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 18/02/2011
-/// 
+///
 #include <nt2/toolbox/operator/include/functions/is_not_equal.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -35,7 +35,7 @@
 
 NT2_TEST_CASE_TPL ( is_not_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
 {
-  
+
   using nt2::is_not_equal;
   using nt2::tag::is_not_equal_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -45,9 +45,9 @@ NT2_TEST_CASE_TPL ( is_not_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   // specific values tests
   NT2_TEST_EQUAL(is_not_equal(nt2::Mone<T>(), nt2::Mone<T>()), ssr_t(false));
   NT2_TEST_EQUAL(is_not_equal(nt2::One<T>(), nt2::One<T>()), ssr_t(false));
@@ -57,7 +57,7 @@ NT2_TEST_CASE_TPL ( is_not_equal_integer__2_0,  NT2_INTEGRAL_TYPES)
 
 NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  NT2_REAL_TYPES)
 {
-  
+
   using nt2::is_not_equal;
   using nt2::tag::is_not_equal_;
   typedef typename nt2::meta::as_integer<T>::type iT;
@@ -67,9 +67,9 @@ NT2_TEST_CASE_TPL ( is_not_equal_real__2_0,  NT2_REAL_TYPES)
   typedef typename nt2::meta::as_logical<T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_EQUAL(is_not_equal(nt2::Inf<T>(), nt2::Inf<T>()), ssr_t(false));

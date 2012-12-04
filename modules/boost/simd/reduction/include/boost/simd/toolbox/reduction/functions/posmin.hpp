@@ -22,12 +22,12 @@
  * Returns the index of the first occurence of least element of the SIMD vector
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/posmin.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -40,9 +40,9 @@
  * \endcode
  *
  * \param a0 the unique parameter of posmin
- * 
+ *
  * \return always a scalar value
- *  
+ *
  * \par Notes
  * \par
  * This is a reduction operation. As such it has not real interest outside
@@ -53,13 +53,13 @@
  * \par
  * If usable and used in scalar mode, it reduces to the operation as acting
  * on a one element vector.
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag posmin_ of functor posmin 
+     * \brief Define the tag posmin_ of functor posmin
      *        in namespace boost::simd::tag for toolbox boost.simd.reduction
     **/
     struct posmin_ : ext::unspecified_<posmin_> { typedef ext::unspecified_<posmin_> parent; };

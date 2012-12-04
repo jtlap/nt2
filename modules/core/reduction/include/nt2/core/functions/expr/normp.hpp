@@ -23,14 +23,14 @@ namespace nt2 { namespace ext
                               (scalar_<arithmetic_<A1> > )
                               )
   {
-    typedef typename meta::as_real<typename A0::value_type>::type value_type; 
+    typedef typename meta::as_real<typename A0::value_type>::type value_type;
     typedef typename meta::call<tag::pow_(typename meta::call<tag::asump_(A0 const&, A1 const&)>::type,
                                           value_type) >::type
       result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& p) const
     {
-      value_type one_o_p = nt2::rec(value_type(p)); 
+      value_type one_o_p = nt2::rec(value_type(p));
       return nt2::pow(nt2::asump(a0, p), one_o_p);
     }
   };
@@ -41,7 +41,7 @@ namespace nt2 { namespace ext
                               (scalar_<integer_<A2> > )
                               )
   {
-    typedef typename meta::as_real<typename A0::value_type>::type value_type; 
+    typedef typename meta::as_real<typename A0::value_type>::type value_type;
     typedef typename meta::call<tag::pow_(typename meta::call<tag::asump_(A0 const&, A1 const&,
                                                                           A2 const ) >::type ,
                                 value_type)>::type
@@ -49,7 +49,7 @@ namespace nt2 { namespace ext
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& p, A2 const& n) const
     {
-      value_type one_o_p = nt2::rec(value_type(p)); 
+      value_type one_o_p = nt2::rec(value_type(p));
       return nt2::pow(nt2::asump(a0, p, n), one_o_p);
     }
   };

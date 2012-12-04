@@ -21,36 +21,36 @@ namespace nt2 { namespace ext
                               , (generic_< floating_<A0> >)
                               )
   {
-    typedef A0 result_type; 
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(1) { return Half<A0>()+nt2::atanpi(a0); }
   };
-  
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caucdf_, tag::cpu_
                               , (A0)(A1)
                               , (generic_<floating_<A0> > )
                               (generic_<floating_<A1> >)
                               )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(2) {  return nt2::caucdf(a0-a1); }
   };
-  
-  
-  
+
+
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::caucdf_, tag::cpu_
                               , (A0)(A1)(A2)
                               , (generic_< floating_<A0> >)
                               (generic_< floating_<A1> >)
-                              (generic_< floating_<A2> >)  
+                              (generic_< floating_<A2> >)
                               )
   {
-    typedef A0 result_type;     
+    typedef A0 result_type;
     NT2_FUNCTOR_CALL(3) {
-      BOOST_ASSERT_MSG(nt2::globalall(is_gtz(a2)), "scale parameter must be positive"); 
+      BOOST_ASSERT_MSG(nt2::globalall(is_gtz(a2)), "scale parameter must be positive");
       return nt2::caucdf((a0-a1)/a2);
     }
   };
-  
+
 } }
-  
+
 #endif

@@ -17,7 +17,7 @@ useful in those case. SIMD is one possible way to execute arbitrary operations
 simultaneously on data. Alas SIMD coding is a really low level features and
 isn't really generic, mainly because SIMD instructions vary from one
 architecture to another and even between processor models. Add to this
-alignement issues, and this partially explains why SIMD is not widely used. 
+alignement issues, and this partially explains why SIMD is not widely used.
 Boost.simd eases SIMD development by abstracting those low level details behind
 a domain-specific embedded language.
 

@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['Returns the distance to the nearest (distinct) element of the same type.'],   
+         'description' : ['Returns the distance to the nearest (distinct) element of the same type.'],
          'module' : 'boost',
          'arity' : '1',
          'call_types' : [],
@@ -17,7 +17,7 @@
      'unit' : {
          'global_header' : {
              'first_stamp' : 'modified by jt the 04/12/2010',
-             'included' : 
+             'included' :
                 ['#include <boost/simd/include/functions/min.hpp>',
                  '#include <boost/simd/include/functions/next.hpp>',
                  '#include <boost/simd/include/functions/prev.hpp>'],

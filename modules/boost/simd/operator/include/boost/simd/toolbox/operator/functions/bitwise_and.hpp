@@ -28,14 +28,14 @@
  * operand is floating point because of C++ limitations.
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/bitwise_and.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg b_and
- * 
+ *
  * \synopsis
  *
  * \code
@@ -49,13 +49,13 @@
  *
  * \param a0 the first parameter of bitwise_and
  * \param a1 the second parameter of bitwise_and
- * 
+ *
  * \return a value of the type of the first parameter
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd
@@ -63,7 +63,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag bitwise_and_ of functor bitwise_and 
+     * \brief Define the tag bitwise_and_ of functor bitwise_and
      *        in namespace boost::simd::tag for toolbox boost.simd.operator
     **/
     struct bitwise_and_ : ext::elementwise_<bitwise_and_> { typedef ext::elementwise_<bitwise_and_> parent; };

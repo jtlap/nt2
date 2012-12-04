@@ -12,7 +12,7 @@
 // unit test behavior of predicates components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 21/02/2011
-/// 
+///
 #include <nt2/toolbox/predicates/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
@@ -40,7 +40,7 @@ NT2_TEST_CASE_TPL ( is_ltz_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
   using nt2::is_ltz;
   using nt2::tag::is_ltz_;
-  using nt2::load; 
+  using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;

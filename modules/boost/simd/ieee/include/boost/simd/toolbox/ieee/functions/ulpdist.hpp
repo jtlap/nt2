@@ -33,7 +33,7 @@
  * representations.
  * The method is the following:
  * \par
- * Properly normalize the two numbers by the same factor in a way that 
+ * Properly normalize the two numbers by the same factor in a way that
  * the largest of the two numbers exponents will be brought to zero
  * Return the absolute difference of these normalized numbers
  * divided by the rounding error Eps
@@ -42,7 +42,7 @@
  * floating number, the exponent of which is 0 and the mantissa is all zeros
  * but a 1 in the last digit (it is not hard coded that way however).
  * This means 2^-23 for floats and 2^-52 for double
- * \arg For instance if two floating numbers (of same type) have an ulpdist of 
+ * \arg For instance if two floating numbers (of same type) have an ulpdist of
  * zero that means that their floating representation are identical.
  * \arg Generally equality up to 0.5 ulp is the best that one can wish beyond
  * strict equality.
@@ -56,16 +56,16 @@
  * \arg  \c ulpdist(1.0,1+Eps\<double\>())==0.5
  * \arg  \c ulpdist(1.0,1+Eps\<double\>()/2)==0.0
  * \arg  \c ulpdist(1.0,1-Eps\<double\>()/2)==0.25
- * \arg  \c ulpdist(1.0,1-Eps\<double\>())==0.5 
+ * \arg  \c ulpdist(1.0,1-Eps\<double\>())==0.5
  * \arg  \c ulpdist(double(Pi\<float\>()),Pi\<double\>())==9.84293e+07
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/ulpdist.hpp>
  * \endcode
- * 
- * 
+ *
+ *
  * \synopsis
  *
  * \code
@@ -79,19 +79,19 @@
  *
  * \param a0 the first parameter of ulpdist
  * \param a1 the second parameter of ulpdist
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd { namespace tag
-  {         
+  {
     /*!
-     * \brief Define the tag ulpdist_ of functor ulpdist 
+     * \brief Define the tag ulpdist_ of functor ulpdist
      *        in namespace boost::simd::tag for toolbox boost.simd.ieee
     **/
     struct ulpdist_ : ext::elementwise_<ulpdist_> { typedef ext::elementwise_<ulpdist_> parent; };

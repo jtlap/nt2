@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <boost/simd/toolbox/arithmetic/include/functions/two_prod.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -30,7 +30,7 @@ NT2_TEST_CASE_TPL ( two_prod_real__2_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using boost::simd::two_prod;
   using boost::simd::tag::two_prod_;
-  using boost::simd::load; 
+  using boost::simd::load;
   using boost::simd::native;
   using boost::simd::meta::cardinal_of;
   typedef typename boost::dispatch::meta::as_floating<T,T>::type r0_t;

@@ -1,7 +1,7 @@
 [ ## this file was manually modified by jt
     {
      'functor' : {
-         'description' : ['shuffles the elements of a1 using indices in a2'],  
+         'description' : ['shuffles the elements of a1 using indices in a2'],
          'module' : 'boost',
          'arity' : '2',
          'call_types' : ['T', 'iT'],
@@ -9,7 +9,7 @@
          'rturn' : {
              'default' : 'T',
             },
-         'special' : ['swar'],  
+         'special' : ['swar'],
          'type_defs' : [],
          'types' : ['real_', 'integer_'],
         },
@@ -60,7 +60,7 @@
                 },
              'scalar_simul' :{
                     'default' : [
-                        "        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++)",      
+                        "        for(uint32_t i=0; i<cardinal_of<n_t>::value; i++)",
                         "        {",
                         "           NT2_TEST_EQUAL(v[i],a0[a1[i]]);",
                         "        }",

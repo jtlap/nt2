@@ -12,7 +12,7 @@
 // unit test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 01/12/2010
-/// 
+///
 #include <boost/simd/toolbox/arithmetic/include/functions/divfix.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/toint.hpp>
@@ -26,7 +26,7 @@
 
 NT2_TEST_CASE_TPL ( divfix_real__2_0,  BOOST_SIMD_REAL_TYPES)
 {
-  
+
   using boost::simd::divfix;
   using boost::simd::tag::divfix_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -37,9 +37,9 @@ NT2_TEST_CASE_TPL ( divfix_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divfix(T(4),T(3)), T(1), 0);
@@ -53,7 +53,7 @@ NT2_TEST_CASE_TPL ( divfix_real__2_0,  BOOST_SIMD_REAL_TYPES)
 
 NT2_TEST_CASE_TPL ( divfix_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 {
-  
+
   using boost::simd::divfix;
   using boost::simd::tag::divfix_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -64,9 +64,9 @@ NT2_TEST_CASE_TPL ( divfix_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(divfix(T(4),T(3)), T(1), 0);
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL ( divfix_unsigned_int__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
 
 NT2_TEST_CASE_TPL ( divfix_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 {
-  
+
   using boost::simd::divfix;
   using boost::simd::tag::divfix_;
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
@@ -87,9 +87,9 @@ NT2_TEST_CASE_TPL ( divfix_signed_int__2_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
   typedef typename boost::common_type<T,T>::type wished_r_t;
 
 
-  // return type conformity test 
+  // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl; 
+  std::cout << std::endl;
   // specific values tests
   NT2_TEST_ULP_EQUAL(divfix(T(4),T(3)), T(1), 0);
   NT2_TEST_ULP_EQUAL(divfix(boost::simd::Mone<T>(), boost::simd::Mone<T>()), boost::simd::One<T>(), 0);

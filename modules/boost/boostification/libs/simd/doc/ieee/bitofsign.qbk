@@ -1,10 +1,10 @@
 [section bitofsign]
 
 [h5 Description]
-This functor returns a mask of bits constitued of the bit of sign  (vector SIMD) 
+This functor returns a mask of bits constitued of the bit of sign  (vector SIMD)
 value of the  (vector SIMD) value input.
 
-The bit of sign of a scalar is always the most significant bit of the value, but 
+The bit of sign of a scalar is always the most significant bit of the value, but
 its use is different if the values are floating or integer.
 
 [h5 Synopsis]

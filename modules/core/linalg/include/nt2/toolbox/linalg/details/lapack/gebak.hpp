@@ -13,11 +13,11 @@
 
 /*! \file gebak_itf.hh
     (excerpt adapted from xgebak.f file commentaries)
-    
+
     DATA TYPE can mean float, double, std::complex<float>, std::complex<double>
-    
+
     BASE TYPE can mean respectively float, double, float, double
-    
+
     In some cases only two of these types types are available
     the two real or the two std::complex ones.
     CAPITALIZED PARAMETERS are FORTRAN parameters who are not used directly
@@ -97,7 +97,7 @@ namespace nt2
                                const nt2_la_int* ilo, const nt2_la_int* ihi, const double* scale, const nt2_la_int* m,
                                nt2_la_complex* v, const nt2_la_int* ldv, nt2_la_int* info);
     }
-    
+
 #define NT2_GEBAK(NAME, T)                      \
   inline void gebak(const char* job,            \
                     const char* side,           \
@@ -134,12 +134,12 @@ namespace nt2
           info, w);                             \
   }                                             \
         /**/
-    
+
     NT2_GEBAK(sgebak, float)
     NT2_GEBAK(dgebak, double)
 
 #undef NT2_GEBAK
-      
+
 #define NT2_GEBAK(NAME, T, TBASE)               \
   inline void gebak(const char* job,            \
                     const char* side,           \
@@ -176,10 +176,10 @@ namespace nt2
           info, w);                             \
   }                                             \
           /**/
-      
+
     NT2_GEBAK(cgebak, std::complex<float>, float)
     NT2_GEBAK(zgebak, std::complex<double>, double)
-      
+
 #undef NT2_GEBAK
       } }
 

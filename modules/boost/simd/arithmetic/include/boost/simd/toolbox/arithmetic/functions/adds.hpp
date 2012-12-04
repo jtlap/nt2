@@ -23,14 +23,14 @@
  * saturated in the interval defined by the common arguments type bounds
  *
  * \par Header file
- * 
+ *
  * \code
  * #include <nt2/include/functions/adds.hpp>
  * \endcode
- * 
- * \par Alias 
+ *
+ * \par Alias
  * \arg saturated_add
- * 
+ *
  * \synopsis
  *
  * \code
@@ -44,20 +44,20 @@
  *
  * \param a0 the first parameter of adds
  * \param a1 the second parameter of adds
- * 
+ *
  * \return a value of the common type of the parameters
- *  
+ *
  * \par Notes
  * In SIMD mode, this function acts elementwise on the inputs vectors elements
  * \par
- *  
+ *
 **/
 
 namespace boost { namespace simd {
   namespace tag
   {
     /*!
-     * \brief Define the tag adds_ of functor adds 
+     * \brief Define the tag adds_ of functor adds
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
     struct adds_ : ext::elementwise_<adds_> { typedef ext::elementwise_<adds_> parent; };
