@@ -259,49 +259,49 @@ namespace boost { namespace simd
                                         , sel<A,B,false,false> const&) const
       {
         return details::shuffle<(A>B?A-2:A),(A>B?B-2:B)>((A>B?b:a),(A>B?a:b));
-      } 
+      }
 
       BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
                                         , sel<0,2,false,false> const&) const
       {
         return _mm_unpacklo_epi64(a, b);
-      } 
+      }
 
       BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
                                         , sel<1,2,false,false> const&) const
       {
         return details::shuffle<2,3,0,1>(a,b);
-      }      
+      }
 
       BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
                                         , sel<0,3,false,false> const&) const
       {
         return details::shuffle<0,1,2,3>(a,b);
-      } 
+      }
 
       BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
                                         , sel<1,3,false,false> const&) const
       {
         return _mm_unpackhi_epi64(a, b);
-      }      
+      }
 
       BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
                                         , sel<2,0,false,false> const&) const
       {
         return _mm_unpacklo_epi64(b, a);
-      } 
+      }
 
       BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
                                         , sel<2,1,false,false> const&) const
       {
         return details::shuffle<0,1,2,3>(b,a);
-      }      
+      }
 
       BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
                                         , sel<3,0,false,false> const&) const
       {
         return details::shuffle<2,3,0,1>(b,a);
-      } 
+      }
 
       BOOST_FORCEINLINE result_type eval( __m128i const a, __m128i const b
                                         , sel<3,1,false,false> const&) const
@@ -329,11 +329,12 @@ namespace boost { namespace simd
 
       template< int I0,int I1,int I2,int I3
               , bool Some0 = (I0==-1) || (I1==-1) || (I2==-1) || (I3==-1)
+              , int  Num0  = (I0==-1?1:0)+(I1==-1?1:0)+(I2==-1?1:0)+(I3==-1?1:0)
               >
       struct sel
       {};
 
-      BOOST_FORCEINLINE result_type 
+      BOOST_FORCEINLINE result_type
       operator()(A0 const& a0, A0 const& a1, P const&) const
       {
         typedef typename boost::mpl::apply< permutation_t
@@ -357,7 +358,7 @@ namespace boost { namespace simd
       }
 
       BOOST_FORCEINLINE result_type eval( A0 const& a0, A0 const&
-                                        , sel<0,1,2,3> const&) const
+                                        , sel<0,1,2,3,false,0> const&) const
       {
         return a0;
       }
@@ -380,10 +381,9 @@ namespace boost { namespace simd
                       , sel<I0,I1,I2,I3,true> const&) const
       {
         typedef typename dispatch::meta::as_integer<A0,unsigned>::type i_t;
-
         // Mask the shuffled equivalent
         return  simd::bitwise_and
-                ( eval( a0, a1, sel<I0<0?0:I0,I1<0?1:I1,I2<0?2:I2,I3<0?3:I3>() )
+                ( eval( a0, a1, sel<I0<0?-2:I0,I1<0?-2:I1,I2<0?-2:I2,I3<0?-2:I3>() )
                 , simd::make<i_t> ( -int(I0>=0), -int(I1>=0)
                                   , -int(I2>=0), -int(I3>=0)
                                   )
@@ -392,16 +392,16 @@ namespace boost { namespace simd
 
       template<int I0,int I1> BOOST_FORCEINLINE
       result_type eval( A0 const& a0, A0 const& a1
-                      , sel<I0,I1,-1,-1,true> const&) const
+                      , sel<I0,I1,-1,-1,true,2> const&) const
       {
         return details::shuffle<(I0&3), (I1&3),2,3>(a0,Zero<result_type>());
       }
 
       template<int I2,int I3> BOOST_FORCEINLINE
       result_type eval( A0 const& a0, A0 const& a1
-                      , sel<-1,-1,I2,I3,true> const&) const
+                      , sel<-1,-1,I2,I3,true,2> const&) const
       {
-        return details::shuffle<0, 1, (I2&3), (I3&3)>(Zero<result_type>(), a0);
+        return details::shuffle<0, 1, (I2&3), (I3&3)>(Zero<result_type>(), a1);
       }
 
       BOOST_FORCEINLINE
