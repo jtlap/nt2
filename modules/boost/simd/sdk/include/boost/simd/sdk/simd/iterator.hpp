@@ -59,16 +59,6 @@ namespace boost { namespace simd
 
     input_iterator() : input_iterator::iterator_adaptor_(0) {}
 
-    explicit input_iterator(strip_t* p)
-    : input_iterator::iterator_adaptor_(reinterpret_cast<iterator>(p))
-    {
-      BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(p,sizeof(native_type))
-      , "The constructor of iterator<T,C> has been called on a pointer"
-        "which alignment is not compatible with current SIMD extension."
-      );
-    }
-
     explicit input_iterator(const strip_t* p)
     : input_iterator::
       iterator_adaptor_(reinterpret_cast<const_iterator>(p))
@@ -108,47 +98,39 @@ namespace boost { namespace simd
 // iterators for input_iterator.
 ////////////////////////////////////////////////////////////////////////////////
   template<class Iterator>
-  input_iterator<typename dispatch::meta::
-                 strip<typename boost::pointee<Iterator>::type>::type>
+  input_iterator<typename std::iterator_traits<Iterator>::value_type>
   input_begin(Iterator p)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
-    typedef typename dispatch::meta::strip<value_type>::type value_type_t;
-    value_type* tmp = &(*p);
-    return input_iterator<value_type_t>(tmp);
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
+    value_type const* tmp = &(*p);
+    return input_iterator<value_type>(tmp);
   }
 
   template<class Iterator, std::size_t C>
-  input_iterator<typename dispatch::meta::
-                 strip<typename boost::pointee<Iterator>::type>::type,C>
+  input_iterator<typename std::iterator_traits<Iterator>::value_type,C>
   input_begin(Iterator p)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
-    typedef typename dispatch::meta::strip<value_type>::type value_type_t;
-    value_type* tmp = &(*p);
-    return input_iterator<value_type_t,C>(tmp);
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
+    value_type const* tmp = &(*p);
+    return input_iterator<value_type,C>(tmp);
   }
 
   template<class Iterator>
-  input_iterator<typename dispatch::meta::
-                 strip<typename boost::pointee<Iterator>::type>::type>
+  input_iterator<typename std::iterator_traits<Iterator>::value_type>
   input_end(Iterator p)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
-    typedef typename dispatch::meta::strip<value_type>::type value_type_t;
-    value_type* tmp = &(*(p-1));
-    return input_iterator<value_type_t>(tmp+1);
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
+    value_type const* tmp = &(*(p-1));
+    return input_iterator<value_type>(tmp+1);
   }
 
   template<class Iterator, std::size_t C>
-  input_iterator<typename dispatch::meta::
-                 strip<typename boost::pointee<Iterator>::type>::type,C>
+  input_iterator<typename std::iterator_traits<Iterator>::value_type,C>
   input_end(Iterator p)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
-    typedef typename dispatch::meta::strip<value_type>::type value_type_t;
-    value_type* tmp = &(*(p-1));
-    return input_iterator<value_type_t,C>(tmp+1);
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
+    value_type const* tmp = &(*(p-1));
+    return input_iterator<value_type,C>(tmp+1);
   }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -231,39 +213,39 @@ namespace boost { namespace simd
 // iterators for output_iterator.
 ////////////////////////////////////////////////////////////////////////////////
   template<class Iterator>
-  output_iterator<typename boost::pointee<Iterator>::type>
+  output_iterator<typename std::iterator_traits<Iterator>::value_type>
   output_begin(Iterator p)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
     value_type* tmp = &(*p);
-    return output_iterator<typename boost::pointee<Iterator>::type>(tmp);
+    return output_iterator<value_type>(tmp);
   }
 
   template<class Iterator, std::size_t C>
-  output_iterator<typename boost::pointee<Iterator>::type,C>
+  output_iterator<typename std::iterator_traits<Iterator>::value_type,C>
   output_begin(Iterator p)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
     value_type* tmp = &(*p);
-    return output_iterator<typename boost::pointee<Iterator>::type,C>(tmp);
+    return output_iterator<value_type,C>(tmp);
   }
 
   template<class Iterator>
-  output_iterator<typename boost::pointee<Iterator>::type>
+  output_iterator<typename std::iterator_traits<Iterator>::value_type>
   output_end(Iterator p)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
     value_type* tmp = &(*(p-1));
-    return output_iterator<typename boost::pointee<Iterator>::type>(tmp+1);
+    return output_iterator<value_type>(tmp+1);
   }
 
   template<class Iterator, std::size_t C>
-  output_iterator<typename boost::pointee<Iterator>::type,C>
+  output_iterator<typename std::iterator_traits<Iterator>::value_type,C>
   output_end(Iterator p)
   {
-    typedef typename boost::pointee<Iterator>::type value_type;
+    typedef typename std::iterator_traits<Iterator>::value_type value_type;
     value_type* tmp = &(*(p-1));
-    return output_iterator<typename boost::pointee<Iterator>::type,C>(tmp+1);
+    return output_iterator<value_type,C>(tmp+1);
   }
 
 } }
