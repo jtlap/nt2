@@ -61,7 +61,7 @@ namespace boost { namespace simd
      * \brief Define the tag Nbexponentbits of functor Nbexponentbits
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Nbexponentbits : ext::constant_<Nbexponentbits>
+    struct Nbexponentbits : ext::pure_constant_<Nbexponentbits>
     {
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c<typename Target::type,0> {};

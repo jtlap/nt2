@@ -14,9 +14,9 @@ SET( SOURCES
   cols.cpp
   eye.cpp
   falses.cpp
+  fill_pattern.cpp
   freqspace.cpp
   freqspace1.cpp
-  freqspace2.cpp
   indices.cpp
   infs.cpp
   linspace.cpp

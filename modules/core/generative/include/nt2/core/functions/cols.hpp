@@ -19,7 +19,6 @@
 #include <nt2/core/functions/details/cols.hpp>
 #include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <nt2/core/functions/details/generative_preprocessor.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -32,9 +31,10 @@ namespace nt2
     /*!
       @brief Tag for cols functor
      **/
-    struct cols_ : ext::generative_<cols_>
+    struct cols_ : ext::state_constant_<cols_>
     {
-      typedef ext::generative_<cols_> parent;
+      typedef ext::state_constant_<cols_> parent;
+      typedef double                      default_type;
     };
   }
 
@@ -60,11 +60,6 @@ namespace nt2 { namespace ext
   struct  size_of<tag::cols_,Domain,N,Expr>
         : meta::generative_size<Expr>
   {};
-} }
-
-namespace nt2 { namespace ext
-{
-  NT2_PP_MAKE_GENERATIVE( cols, (nt2::tag::cols_,nt2::tag::cols_) )
 } }
 
 #endif

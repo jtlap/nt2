@@ -10,12 +10,9 @@
 #define NT2_CORE_FUNCTIONS_RAND_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/include/constants/nan.hpp>
-#include <nt2/sdk/meta/generative_hierarchy.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
 #include <nt2/core/container/dsl/generative.hpp>
-#include <nt2/core/functions/details/generative_preprocessor.hpp>
 
 #include <nt2/sdk/parameters.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -30,7 +27,8 @@ namespace nt2
      **/
     struct rand_ : ext::unspecified_<rand_>
     {
-      typedef ext::unspecified_<rand_> parent;
+      typedef ext::unspecified_<rand_>  parent;
+      typedef double                    default_type;
     };
   }
 
@@ -47,18 +45,15 @@ namespace nt2 { namespace ext
 {
   template<class Domain, class Expr, int N>
   struct  value_type<tag::rand_,Domain,N,Expr>
-        : meta::generative_value<Expr>
-  {};
+  {
+    typedef typename boost::proto::result_of::child_c<Expr&,1>::type        c_t;
+    typedef typename boost::proto::result_of::value<c_t>::value_type::type  type;
+  };
 
   template<class Domain, class Expr, int N>
   struct  size_of<tag::rand_,Domain,N,Expr>
         : meta::generative_size<Expr>
   {};
-} }
-
-namespace nt2 { namespace ext
-{
-  NT2_PP_MAKE_GENERATIVE( rand, (nt2::tag::rand_,nt2::tag::Nan) )
 } }
 
 #endif

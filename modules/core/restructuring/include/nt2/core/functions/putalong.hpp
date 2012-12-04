@@ -11,53 +11,6 @@
 
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup core
- * \defgroup core putalong
- *
- * \par Description
- * Returns the sum of absolute values of the elements matrix along the selected direction,
- * i.e. the 1-norm putalong(a0, n))
- * by default n is the first non-singleton dimension of a0
- *
- * \alias norm1,  asum
- *
- * \par Header file
- *
- * \code
- * #include <nt2/include/functions/putalong.hpp>
- * \endcode
- *
- *
- * \synopsis
- *
- * \code
- * namespace boost::simd
- * {
- *   template <class A0>
- *     meta::call<tag::putalong_(A0)>::type
- *     putalong(const A0 & a0);
- * }
- * \endcode
- *
- * \param a0 the unique parameter of putalong
- *
- * \return always a scalar value
- *
- * \par Notes
- * \par
- * This is a reduction operation. As such it has not real interest outside
- * SIMD mode.
- * \par
- * Such an operation always has a scalar result which translate a property
- * of the whole SIMD vector.
- * \par
- * If usable and used in scalar mode, it reduces to the operation as acting
- * on a one element vector.
- *
-**/
-
-
 namespace nt2
 {
   namespace tag
@@ -68,16 +21,7 @@ namespace nt2
     };
   }
 
-  //============================================================================
-  /*!
-   * sum of absolute squares of a table
-   *
-   * \param xpr  table
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::putalong_       , putalong, 2)
-
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::putalong_, putalong, 2)
 }
-
 
 #endif

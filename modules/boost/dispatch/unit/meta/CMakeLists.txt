@@ -24,6 +24,7 @@ SET( SOURCES
     is_signed.cpp
     make_integer.cpp
     make_floating.cpp
+    mpl.cpp
     scalar_of.cpp
     sign_of.cpp
     strip.cpp

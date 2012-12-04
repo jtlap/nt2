@@ -29,9 +29,10 @@ namespace boost { namespace simd { namespace ext
   // By default we splat the constant contained into the extarcted value from
   // the Tag over a given Target.
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( constant_<Tag>, tag::cpu_, (Tag)(A0)
-                                   , ((target_< scalar_< arithmetic_<A0> > >))
-                                   )
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( pure_constant_<Tag>, tag::cpu_
+                                    , (Tag)(A0)
+                                    , ((target_< scalar_< arithmetic_<A0> > >))
+                                    )
   {
     typedef typename A0::type                                     base_type;
     typedef typename dispatch::meta::property_of<base_type>::type disp_type;
@@ -50,7 +51,8 @@ namespace boost { namespace simd { namespace ext
   // splat from the Tag/Target bit pattern immediate, if not we add a bitwise
   // cast
   //============================================================================
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( constant_<Tag>, tag::cpu_, (Tag)(A0)(X)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( pure_constant_<Tag>, tag::cpu_
+                                    , (Tag)(A0)(X)
                                     , ((target_< simd_< arithmetic_<A0>,X> >))
                                     )
   {
@@ -67,12 +69,12 @@ namespace boost { namespace simd { namespace ext
                                                                     pattern_type;
       typedef boost::simd::native<pattern_type,X>                   tmp_type;
 
-      return bitwise_cast<result_type> ( boost::simd::
-                                        splat<tmp_type>( pattern_type(value_type::value) )
-                                      );
+      return  bitwise_cast<result_type>
+              ( boost::simd::
+                splat<tmp_type>( pattern_type(value_type::value) )
+              );
     }
   };
-
 } } }
 
 #endif

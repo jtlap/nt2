@@ -1,6 +1,7 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2012   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2012   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2011 - 2012   MetaScale SAS
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -9,55 +10,46 @@
 #ifndef NT2_CORE_FUNCTIONS_DETAILS_ROWS_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_DETAILS_ROWS_HPP_INCLUDED
 
-#include <nt2/include/functions/splat.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
-#include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/simd/splat.hpp>
+#include <nt2/include/functions/simd/enumerate.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
+#include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace tag { struct rows_; } }
+
+namespace nt2 { namespace meta
 {
-  //============================================================================
-  // cols actual functor
-  //============================================================================
-  template<class T>
-  struct rows
+  /// INTERNAL ONLY
+  /// Functor used to generate rows values
+  template<class Base> struct constant_<nt2::tag::rows_, Base>
   {
-    rows()                : start_(T())  {}
-    rows(const T & start) : start_(start){}
+    typedef Base                                          result_type;
 
-    template<class Pos, class Size, class Target>
-    typename Target::type
-    operator()(Pos const& p, Size const&sz, Target const& ) const
+    constant_()                   : start_(Base())  {}
+    constant_(const Base & start) : start_(start)   {}
+
+    template<class Pos, class Size,class Target>
+    BOOST_FORCEINLINE typename Target::type
+    operator()(Pos const& p, Size const&sz, Target const&) const
     {
       typedef typename Target::type                 type;
       typedef typename meta::as_index<type>::type i_t;
 
-      return splat<type>( ind2sub(sz,enumerate<i_t>(p))[0] - 1) + start_ ;
+      return splat<type>( as_subscript(sz,enumerate<i_t>(p))[0]) + start_ ;
     }
 
-    private :
-    T start_;
-  };
-
-  template<class T, class T1>
-  struct rows_scaled
-  {
-    rows_scaled() : start_(T()), fact_(One<T1>())  {}
-    rows_scaled(const T & start, const T1 & f)  : start_(start), fact_(f)  {}
-
-    template<class Pos, class Size, class Target>
-    typename Target::type
-    operator()(Pos const& p, Size const&sz, Target const& ) const
+    template<class Pos,class Target>
+    BOOST_FORCEINLINE typename Target::type
+    operator()(Pos const& p, _0D const&sz, Target const&) const
     {
       typedef typename Target::type                 type;
       typedef typename meta::as_index<type>::type i_t;
-
-      return fact_*splat<type>(ind2sub(sz,enumerate<i_t>(p))[0] - 1) + start_;
+      return splat<type>(start_);
     }
 
     private :
-    T start_;
-    T fact_;
+    Base start_;
   };
 } }
 

@@ -21,9 +21,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct  repnum_ : ext::generative_<repnum_>
+    struct  repnum_ : ext::state_constant_<repnum_>
     {
-      typedef ext::generative_<repnum_> parent;
+      typedef ext::state_constant_<repnum_> parent;
     };
   }
 
@@ -33,7 +33,6 @@ namespace nt2
 
   BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
   #undef M0
-
 }
 
 namespace nt2 { namespace ext

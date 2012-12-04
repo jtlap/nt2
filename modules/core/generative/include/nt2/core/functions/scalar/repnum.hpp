@@ -11,118 +11,72 @@
 
 #include <nt2/core/functions/repnum.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/of_size.hpp>
-#include <nt2/core/functions/details/generative_preprocessor.hpp>
+#include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/core/functions/details/repnum.hpp>
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_
+                            , (A0)(Seq)
+                            , (scalar_<unspecified_<A0> >)
+                              (fusion_sequence_<Seq>)
+                            )
+  {
+    typedef typename boost::remove_const<Seq>::type     size_type;
+    typedef meta::constant_<nt2::tag::repnum_,A0>       constant_t;
+    typedef meta::as_<typename constant_t::result_type> target_t;
+    typedef typename  boost::proto::result_of
+                    ::make_expr < nt2::tag::repnum_
+                                , container::domain
+                                , box<size_type>
+                                , box<constant_t>
+                                , target_t
+                                >::type                     result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, Seq const& s) const
+    {
+      return  boost::proto
+            ::make_expr < nt2::tag::repnum_
+                        , container::domain
+                        > ( boxify(s)
+                          , boxify(constant_t(a0))
+                          , target_t()
+                          );
+    }
+  };
+
   //============================================================================
   // Generates repnum from scalar + N size value
   //============================================================================
   #define M2(z,n,t) (BOOST_PP_CAT(A,n))
   #define M1(z,n,t) (scalar_< integer_<BOOST_PP_CAT(A,n)> >)
 
-  #define M0(z,n,t)                                                           \
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_                    \
-                            , (A0)                                            \
-                              BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M2,~) \
-                            , (scalar_<unspecified_<A0> > )                   \
-                              BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M1,~) \
-                            )                                                 \
-  {                                                                           \
-    typedef BOOST_PP_CAT(_,BOOST_PP_CAT(n,D)) sizes_t;                        \
-    typedef typename  boost::proto::                                          \
-             result_of::make_expr< nt2::tag::repnum_                          \
-                                          , container::domain                 \
-                                          , box<sizes_t>                      \
-                                          , box<nt2::details::repnum<A0> >    \
-                                          , meta::as_<A0>                     \
-             >::type   result_type;                                           \
-                                                                              \
-    BOOST_FORCEINLINE result_type                                             \
-    operator()(BOOST_PP_ENUM_BINARY_PARAMS(BOOST_PP_INC(n),A,const& a)) const \
-    {                                                                         \
-      sizes_t sizee(BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(n),a));         \
-      return  boost::proto::                                                  \
-        make_expr < nt2::tag::repnum_                                         \
-        , container::domain                                                   \
-        > (  boxify(sizee),                                                   \
-             boxify(nt2::details::repnum<A0>(a0)),                            \
-             meta::as_<A0>() );                                               \
-    }                                                                         \
-  };                                                                          \
+  #define M0(z,n,t)                                                             \
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_                      \
+                            , BOOST_PP_REPEAT(BOOST_PP_INC(n),M2,~)             \
+                            , (scalar_<unspecified_<A0> > )                     \
+                              BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M1,~)   \
+                            )                                                   \
+  {                                                                             \
+   BOOST_DISPATCH_RETURNS( BOOST_PP_INC(n)                                      \
+                          , ( BOOST_PP_ENUM_BINARY_PARAMS ( BOOST_PP_INC(n)     \
+                                                          , const A,& a         \
+                                                          )                     \
+                            )                                                   \
+                          , (nt2::repnum                                        \
+                            ( a0, nt2::as_size                                  \
+                              (BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(n),a)) \
+                            )                                                   \
+                            )                                                   \
+                          )                                                     \
+  };                                                                            \
   /**/
 
-  BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)
 
   #undef M2
   #undef M1
   #undef M0
-
-  //============================================================================
-  // Generates repnum from the value and one integer
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<unspecified_<A0> >)
-                              (scalar_<integer_<A1> >)
-                            )
-  {
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::repnum_,
-      container::domain,
-      box<_2D>,
-      box<nt2::details::repnum<A0> >,
-      meta::as_<A0>
-      >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(const A0& a0, A1 const& a1) const
-    {
-      return  boost::proto::
-        make_expr < nt2::tag::repnum_
-        , container::domain
-        > (
-           boxify(_2D(a1, a1)),
-           boxify(nt2::details::repnum<A0>(a0)),
-           meta::as_<A0>()
-           );
-    }
-  };
-
-  //============================================================================
-  // Generates repnum from fusion sequence (support of_size calls)
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_,
-                              (A0)(Seq),
-                              (scalar_<unspecified_<A0> >)
-                              (fusion_sequence_<Seq>)
-                            )
-  {
-    typedef typename meta::strip<Seq>::type seq_t;
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::repnum_,
-      container::domain,
-      box<seq_t>,
-      box<nt2::details::repnum<A0> >,
-      meta::as_<A0>
-      >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(const A0& a0, Seq const& seq) const
-    {
-      return  boost::proto::
-        make_expr < nt2::tag::repnum_
-        , container::domain
-        > (
-           boxify(seq),
-           boxify(nt2::details::repnum<A0>(a0)),
-           meta::as_<A0>()
-           );
-    }
-  };
-
-
 } }
 
 #endif

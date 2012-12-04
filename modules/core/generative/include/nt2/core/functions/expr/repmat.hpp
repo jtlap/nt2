@@ -10,11 +10,8 @@
 #define NT2_CORE_FUNCTIONS_EXPR_REPMAT_HPP_INCLUDED
 
 #include <nt2/core/functions/repmat.hpp>
-#include <nt2/core/utility/box.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/of_size.hpp>
-#include <nt2/include/functions/isrow.hpp>
-#include <nt2/include/functions/length.hpp>
+#include <nt2/core/include/functions/as_size.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -27,22 +24,22 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A1>)
                             )
   {
-    typedef typename boost::remove_const<A1>::type sizes_t;
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::repmat_
-                                          , container::domain
-                                          , A0 const&
-                                          , box<sizes_t>
-                                          >::type             result_type;
+    typedef typename boost::remove_const<A1>::type     size_type;
+    typedef typename  boost::proto::result_of
+                    ::make_expr < nt2::tag::repmat_
+                                , container::domain
+                                , box<size_type>
+                                , A0 const&
+                                >::type                     result_type;
 
-    BOOST_FORCEINLINE
-    result_type operator()( A0 const& a0, A1 const& a1 ) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& s) const
     {
-      return  boost::proto::
-              make_expr<nt2::tag::repmat_, container::domain>
-              ( boost::cref(a0)
-              , boxify(a1)
-              );
+      return  boost::proto
+            ::make_expr < nt2::tag::repmat_
+                        , container::domain
+                        > ( boxify(s)
+                          , boost::cref(a0)
+                          );
     }
   };
 
@@ -55,90 +52,43 @@ namespace nt2 { namespace ext
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef typename boost::remove_const<A1>::type sizes_t;
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::repmat_
-                                          , container::domain
-                                          , A0 const&
-                                          , box<of_size_max>
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE
-    result_type operator()( A0 const& a0, A1 const& a1 ) const
-    {
-      BOOST_ASSERT_MSG
-      ( nt2::isrow(a1)
-      , "Error using repmat: Size vector must be a row vector."
-      );
-
-      of_size_max sizee;
-      std::size_t sz = std::min(of_size_max::size(),nt2::length(a1));
-      nt2::memory::cast_copy(a1.raw(), a1.raw()+sz, &sizee[0]);
-
-      return  boost::proto::
-              make_expr<nt2::tag::repmat_, container::domain>
-              ( boost::cref(a0)
-              , boxify(sizee)
-              );
-    }
+   BOOST_DISPATCH_RETURNS( 2, ( const A0& a0, const A1& a1)
+                          , (nt2::repmat( a0, nt2::as_size(a1)))
+                         )
   };
 
   //============================================================================
-  // Generates from an expression and a single size
+  // Generates repnum from scalar + N size value
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_
-                            , (A0)(A1)
-                            , ((ast_<A0, nt2::container::domain>))
-                              (scalar_< arithmetic_<A1> >)
-                            )
-  {
-    typedef typename boost::remove_const<A1>::type sizes_t;
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::repmat_
-                                          , container::domain
-                                          , A0 const&
-                                          , box<_2D>
-                                          >::type             result_type;
+  #define M2(z,n,t) (BOOST_PP_CAT(A,n))
+  #define M1(z,n,t) (scalar_< integer_<BOOST_PP_CAT(A,n)> >)
 
-    BOOST_FORCEINLINE
-    result_type operator()( A0 const& a0, A1 const& a1 ) const
-    {
-      return  boost::proto::
-              make_expr<nt2::tag::repmat_, container::domain>
-              ( boost::cref(a0)
-              , boxify(_2D(a1,a1))
-              );
-    }
-  };
+  #define M0(z,n,t)                                                             \
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_                      \
+                            , BOOST_PP_REPEAT(BOOST_PP_INC(n),M2,~)             \
+                            , ((ast_<A0, nt2::container::domain>))              \
+                              BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(n),M1,~)   \
+                            )                                                   \
+  {                                                                             \
+   BOOST_DISPATCH_RETURNS( BOOST_PP_INC(n)                                      \
+                          , ( BOOST_PP_ENUM_BINARY_PARAMS ( BOOST_PP_INC(n)     \
+                                                          , const A,& a         \
+                                                          )                     \
+                            )                                                   \
+                          , (nt2::repmat                                        \
+                            ( a0, nt2::as_size                                  \
+                              (BOOST_PP_ENUM_SHIFTED_PARAMS(BOOST_PP_INC(n),a)) \
+                            )                                                   \
+                            )                                                   \
+                          )                                                     \
+  };                                                                            \
+  /**/
 
-  //============================================================================
-  // Generates from an expression and two sizes
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repmat_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , ((ast_<A0, nt2::container::domain>))
-                              (scalar_< arithmetic_<A1> >)
-                              (scalar_< arithmetic_<A2> >)
-                            )
-  {
-    typedef typename boost::remove_const<A1>::type sizes_t;
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::repmat_
-                                          , container::domain
-                                          , A0 const&
-                                          , box<_2D>
-                                          >::type             result_type;
+  BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(BOOST_PP_INC(NT2_MAX_DIMENSIONS)),M0,~)
 
-    BOOST_FORCEINLINE
-    result_type operator()( A0 const& a0, A1 const& a1, A2 const& a2 ) const
-    {
-      return  boost::proto::
-              make_expr<nt2::tag::repmat_, container::domain>
-              ( boost::cref(a0)
-              , boxify(_2D(a1,a2))
-              );
-    }
-  };
+  #undef M2
+  #undef M1
+  #undef M0
 } }
 
 #endif

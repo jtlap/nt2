@@ -65,7 +65,7 @@ namespace boost { namespace simd
      * \brief Define the tag Minf of functor Minf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Minf : ext::constant_<Minf>
+    struct Minf : ext::pure_constant_<Minf>
     {
       typedef double default_type;
       template<class Target, class Dummy=void>

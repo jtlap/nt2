@@ -10,19 +10,12 @@
 #define NT2_CORE_FUNCTIONS_EXPR_RESHAPE_HPP_INCLUDED
 
 #include <nt2/core/functions/reshape.hpp>
-
-#include <nt2/sdk/memory/copy.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
-#include <nt2/include/functions/length.hpp>
-#include <nt2/core/utility/of_size/predef.hpp>
-#include <nt2/sdk/meta/make_dependent.hpp>
+#include <nt2/include/functions/as_size.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Generates linearize_ from expression + of_size
-  //============================================================================
+  /// INTERNAL ONLY : reshape from expression + of_size
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::reshape_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
@@ -51,38 +44,16 @@ namespace nt2 { namespace ext
     }
   };
 
-  //============================================================================
-  // Generates linearize_ from expression + expression containing size
-  //============================================================================
+  /// INTERNAL ONLY : reshape from expression + size(...)
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::reshape_, tag::cpu_
                             , (A0)(A1)
                             , ((ast_<A0, nt2::container::domain>))
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::reshape_
-                                          , container::domain
-                                          , A0 &
-                                          , box<of_size_max>
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0& a0, A1 const& a1) const
-    {
-      typename meta::make_dependent<of_size_max, A0>::type sizee;
-      std::size_t sz = std::min(of_size_max::size(),nt2::length(a1));
-      nt2::memory::copy(a1.raw(), a1.raw()+sz, &sizee[0]);
-
-      BOOST_ASSERT_MSG
-      ( nt2::numel(a0) == nt2::numel(sizee)
-      , "To RESHAPE the number of elements must not change."
-      );
-
-      return  boost::proto::
-              make_expr < nt2::tag::reshape_
-                        , container::domain
-                        > ( boost::reference_wrapper<A0>(a0), boxify(sizee) );
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& a1)
+                          , (nt2::reshape(a0, nt2::as_size(a1)))
+                          )
   };
 } }
 

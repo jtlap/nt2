@@ -216,7 +216,7 @@ namespace nt2
                       , "Size mismatch at of_size construction"
                       );
 
-      nt2::memory::copy(b, b+msz, &data_[0]);
+      nt2::memory::cast_copy(b, b+msz, &data_[0]);
       for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
     }
 

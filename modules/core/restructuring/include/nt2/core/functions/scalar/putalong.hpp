@@ -11,14 +11,12 @@
 
 #include <nt2/core/functions/putalong.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/include/functions/reshape.hpp>
-#include <nt2/include/functions/numel.hpp>
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::putalong_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<unspecified_<A0> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::putalong_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_<unspecified_<A0> >)
                               (scalar_<integer_<A1> >)
                             )
   {
@@ -29,7 +27,6 @@ namespace nt2 { namespace ext
       return a0;
     }
   };
-
 } }
 
 #endif

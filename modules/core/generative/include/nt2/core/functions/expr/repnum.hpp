@@ -10,54 +10,20 @@
 #define NT2_CORE_FUNCTIONS_EXPR_REPNUM_HPP_INCLUDED
 
 #include <nt2/core/functions/repnum.hpp>
-#include <nt2/include/functions/isrow.hpp>
-#include <nt2/include/functions/length.hpp>
-#include <nt2/core/functions/details/repnum.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/utility/box.hpp>
-#include <nt2/core/utility/of_size.hpp>
-#include <nt2/sdk/memory/copy.hpp>
-#include <boost/assert.hpp>
-#include <iterator>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Generates repnum from expression (support size(a) + type calls)
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_,
-                              (A0)(A1),
-                              (scalar_<unspecified_<A0> > )
+  /// INTERNAL ONLY
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repnum_, tag::cpu_
+                            , (A0)(A1)
+                            , (scalar_< unspecified_<A0> >)
                               ((ast_<A1, nt2::container::domain>))
                             )
   {
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::repnum_
-                                          , container::domain
-                                          , box<of_size_max>
-                                          , box<nt2::details::repnum<A0> >
-                                          , meta::as_<A0>
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const& a1) const
-    {
-      // Expression must be a row vector
-      BOOST_ASSERT_MSG
-      ( nt2::isrow(a1)
-      , "Error using repnum: Size vector must be a row vector."
-      );
-
-      of_size_max sizee;
-      std::size_t sz = std::min(of_size_max::size(),nt2::length(a1));
-      nt2::memory::copy(a1.raw(), a1.raw()+sz, &sizee[0]);
-
-      return boost::proto::make_expr< nt2::tag::repnum_
-                                    , container::domain
-                                    >( boxify(sizee),
-                                       boxify(nt2::details::repnum<A0>(a0)),
-                                       meta::as_<A0>()
-                                     );
-    }
+   BOOST_DISPATCH_RETURNS( 2, ( const A0& a0, const A1& a1)
+                          , (nt2::repnum( a0, nt2::as_size(a1)))
+                          )
   };
 } }
 

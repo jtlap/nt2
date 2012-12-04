@@ -28,7 +28,7 @@ namespace nt2{ namespace ext
     typedef typename A0::value_type                                                          value_type;
     typedef typename nt2::meta::call<nt2::tag::reduce_(const A0&)>::type                            TA0;
     typedef typename nt2::meta::call<nt2::tag::reduce_(const A1&)>::type                            TA1;
-    typedef typename nt2::meta::call<nt2::tag::zeros_(size_t, size_t, meta::as_<value_type>)>::type   S;
+    typedef typename nt2::meta::call<nt2::tag::Zero(size_t, size_t, meta::as_<value_type>)>::type     S;
     typedef typename nt2::meta::call<nt2::tag::horzcat_(S, TA0)>::type                               T0;
     typedef typename nt2::meta::call<nt2::tag::horzcat_(S, TA1)>::type                               T1;
     typedef typename nt2::meta::call<nt2::tag::plus_(T0, T1)>::type                                  T2;

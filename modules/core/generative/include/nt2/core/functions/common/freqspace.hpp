@@ -11,22 +11,31 @@
 
 #include <nt2/core/functions/freqspace.hpp>
 #include <nt2/include/functions/freqspace1.hpp>
-#include <nt2/include/functions/freqspace2.hpp>
+#include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/tie.hpp>
+#include <nt2/include/functions/scalar/floor.hpp>
+#include <nt2/include/functions/scalar/rec.hpp>
+#include <nt2/include/constants/half.hpp>
 #include <nt2/options.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // This version of freqspace is called whenever a tie(...) = freqspace(...) is captured
-  // before assign is resolved. As a tieable function, freqspace retrieves rhs/lhs
-  // pair as inputs
+  // This version of freqspace is called whenever a tie(...) = freqspace(...) is
+  // captured before assign is resolved. As a tieable function, freqspace
+  // retrieves rhs/lhs pair as inputs
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::freqspace_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
-                              , ((node_<A0, nt2::tag::freqspace_, N0, nt2::container::domain>))
-                                ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
+                              , ((node_ < A0, nt2::tag::freqspace_
+                                        , N0, nt2::container::domain
+                                        >
+                                ))
+                                ((node_ < A1, nt2::tag::tie_
+                                        , N1, nt2::container::domain
+                                        >
+                                ))
                             )
   {
     typedef void                                                    result_type;
@@ -53,22 +62,39 @@ namespace nt2 { namespace ext
     }
 
     private:
-    BOOST_FORCEINLINE
-      void compute(A1 & a1, int m, int, bool whole, bool /*meshgrid*/, boost::mpl::long_<1> const&) const
+    BOOST_FORCEINLINE void compute( A1 & a1, int m, int, bool whole
+                                  , bool, boost::mpl::long_<1> const&
+                                  ) const
     {
       if (whole)
-        boost::proto::child_c<0>(a1) = freqspace1(m, nt2::whole_, meta::as_<value_t>());
+        boost::proto
+             ::child_c<0>(a1) = freqspace1(m,nt2::whole_,meta::as_<value_t>());
       else
         boost::proto::child_c<0>(a1) = freqspace1(m, meta::as_<value_t>());
     }
-    void compute(A1 & a1, int m, int n, bool/* whole*/, bool meshgrid, boost::mpl::long_<2> const&) const
+
+    void compute( A1 & a1, int m, int n, bool
+                , bool /*meshgrid*/, boost::mpl::long_<2> const&
+                ) const
     {
-      if (meshgrid)
-        boost::fusion::tie(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1))
-          = freqspace2(m,n, meta::as_<value_t>());
-      else
-        boost::fusion::tie(boost::proto::child_c<0>(a1), boost::proto::child_c<1>(a1))
-          = freqspace2(m,n, meta::as_<value_t>()); //, nt2::meshgrid_);
+      value_t hvm = m*nt2::Half<value_t>();
+      value_t hvn = n*nt2::Half<value_t>();
+      value_t hm = nt2::rec(hvm);
+      value_t hn = nt2::rec(hvn);
+      value_t lm = -nt2::floor(hvm)*hm;
+      value_t ln = -nt2::floor(hvn)*hn;
+
+      // TODO: implement support for meshgrid option
+      //if (meshgrid)
+      // {
+      boost::proto::child_c<0>(a1) = nt2::_(ln, hn, value_t(1)-value_t(2)/n);
+      boost::proto::child_c<1>(a1) = nt2::_(lm, hm, value_t(1)-value_t(1)/m);
+      // }
+      // else
+      // {
+      //   boost::proto::child_c<0>(a1) = ??;
+      //   boost::proto::child_c<1>(a1) = ??;
+      // }
     }
 
     BOOST_FORCEINLINE  //[f]       = freqspace(n)
@@ -82,16 +108,16 @@ namespace nt2 { namespace ext
     }
 
     BOOST_FORCEINLINE  //[f1, f2]       = freqspace(n)
-      void getmn(A0 const &a0, int &m,  int& n, bool&, bool&,
-                 boost::mpl::long_<3> const &,    //number of inputs
-                 boost::mpl::long_<2> const &
-                 ) const//number of outputs
+    void getmn(A0 const &a0, int &m,  int& n, bool&, bool&
+              , boost::mpl::long_<3> const &    //number of inputs
+              , boost::mpl::long_<2> const &
+              ) const//number of outputs
     {
       typedef typename boost::proto::result_of::child_c<A0&,1>::type child1;
       typedef typename boost::proto::result_of::value<child1>::type  type_t;
       typedef typename meta::is_scalar<type_t>::type               choice_t;
-      m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0, choice_t());
-      n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1, choice_t());
+      m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0,choice_t());
+      n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1,choice_t());
     }
 
     template < class T > static int getval(const T & a0, int,
@@ -114,10 +140,10 @@ namespace nt2 { namespace ext
     }
 
     BOOST_FORCEINLINE //[f,g]       = freqspace(n, whole_)
-      void getmn( A0 const &a0, int &m,  int& n, bool &whole, bool&
-                , boost::mpl::long_<4> const &  //number of inputs
-                , boost::mpl::long_<2> const &  //number of outputs
-                ) const
+    void getmn( A0 const &a0, int &m,  int& n, bool &whole, bool&
+              , boost::mpl::long_<4> const &  //number of inputs
+              , boost::mpl::long_<2> const &  //number of outputs
+              ) const
     {
       m = int(boost::proto::value(boost::proto::child_c<1>(a0)));
       n = 0;
@@ -125,32 +151,34 @@ namespace nt2 { namespace ext
     }
 
     template < class Dummy >
-      BOOST_FORCEINLINE // [f1, f2]  = freqspace([m, n])
-      void getmn(A0 const &a0, int &m,  int& n, bool&, bool&,
-                 boost::mpl::long_<3> const &,//number of inputs
-                 boost::mpl::long_<2> const &,//number of outputs
-                 Dummy()) const
+    BOOST_FORCEINLINE // [f1, f2]  = freqspace([m, n])
+    void getmn( A0 const &a0, int &m,  int& n, bool&, bool&
+              , boost::mpl::long_<3> const &  //number of inputs
+              , boost::mpl::long_<2> const &  //number of outputs
+              , Dummy()
+              ) const
     {
       typedef typename boost::proto::result_of::child_c<A0&,1>::type child1;
       typedef typename boost::proto::result_of::value<child1>::type  type_t;
       typedef typename meta::is_scalar<type_t>::type               choice_t;
-       m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0, choice_t());
-       n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1, choice_t());
+      m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0,choice_t());
+      n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1,choice_t());
     }
 
     template < class Dummy >
-      BOOST_FORCEINLINE // [f1, f2]  = freqspace([m, n], meshgrid_)
-      void getmn(A0 const &a0, int &m,  int& n, bool&, bool& meshgrid,
-                 boost::mpl::long_<4> const &,//number of inputs
-                 boost::mpl::long_<2> const &,//number of outputs
-                 Dummy()) const
+    BOOST_FORCEINLINE // [f1, f2]  = freqspace([m, n], meshgrid_)
+    void getmn( A0 const &a0, int &m,  int& n, bool&, bool& meshgrid
+              , boost::mpl::long_<4> const &  //number of inputs
+              , boost::mpl::long_<2> const &  //number of outputs
+              , Dummy()
+              ) const
     {
       typedef typename boost::proto::result_of::child_c<A0&,1>::type child1;
       typedef typename boost::proto::result_of::value<child1>::type  type_t;
       typedef typename meta::is_scalar<type_t>::type               choice_t;
-       m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0, choice_t());
-       n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1, choice_t());
-       meshgrid = true;
+      m = getval(boost::proto::value(boost::proto::child_c<1>(a0)),0,choice_t());
+      n = getval(boost::proto::value(boost::proto::child_c<1>(a0)),1,choice_t());
+      meshgrid = true;
     }
   };
 } }

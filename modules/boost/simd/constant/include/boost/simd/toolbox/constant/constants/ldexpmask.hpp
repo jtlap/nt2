@@ -64,7 +64,7 @@ namespace boost { namespace simd
      * \brief Define the tag Ldexpmask of functor Ldexpmask
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Ldexpmask : ext::constant_<Ldexpmask>
+    struct Ldexpmask : ext::pure_constant_<Ldexpmask>
     {
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c<typename Target::type,0> {};

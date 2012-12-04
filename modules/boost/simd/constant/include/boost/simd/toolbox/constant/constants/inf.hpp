@@ -67,8 +67,9 @@ namespace boost { namespace simd
      * \brief Define the tag Inf of functor Inf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Inf : ext::constant_<Inf>
+    struct Inf : ext::pure_constant_<Inf>
     {
+      typedef ext::pure_constant_<Inf> parent;
       typedef double default_type;
       template<class Target, class Dummy=void>
       struct apply : meta::make_dependent<Valmax, Dummy>::type::template apply<Target,Dummy> {};

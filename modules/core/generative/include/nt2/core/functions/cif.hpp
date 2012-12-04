@@ -17,25 +17,27 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/core/functions/details/cif.hpp>
-#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <nt2/core/functions/details/generative_preprocessor.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
+#include <nt2/core/functions/common/generative.hpp>
 
 #include <nt2/sdk/parameters.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 namespace nt2
 {
   namespace tag
   {
     /*!
-      @brief Tag for cif functor
-     **/
-    struct cif_ : ext::generative_<cif_>
-    {
-      typedef ext::generative_<cif_> parent;
-    };
+      @brief Define the cif function tag
+
+      Define a hierarchizable Tag representing the cif function in generic
+      contexts.
+    **/
+    BOOST_SIMD_CONSTANT_REGISTER( cif_, double
+                                , 1, 0x3f800000UL, 0x3ff0000000000000ULL
+                                );
   }
 
   #define M0(z,n,t)                                   \
@@ -60,11 +62,6 @@ namespace nt2 { namespace ext
   struct  size_of<tag::cif_,Domain,N,Expr>
         : meta::generative_size<Expr>
   {};
-} }
-
-namespace nt2 { namespace ext
-{
-  NT2_PP_MAKE_GENERATIVE( cif, (nt2::tag::cif_,nt2::tag::cif_) )
 } }
 
 #endif

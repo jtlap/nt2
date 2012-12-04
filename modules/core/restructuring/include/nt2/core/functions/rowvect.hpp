@@ -46,8 +46,11 @@ namespace nt2 { namespace ext
   template<class Domain, int N, class Expr>
   struct size_of<nt2::tag::rowvect_,Domain,N,Expr>
   {
-    //TODO: Handle static size
-    typedef _2D result_type;
+    typedef typename boost::proto::result_of
+                          ::child_c<Expr&, 0>::value_type::extent_type ext_t;
+    typedef typename meta::call<tag::numel_(ext_t const&)>::type num;
+
+    typedef of_size_< 1, mpl_value<num>::value > result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
@@ -57,7 +60,7 @@ namespace nt2 { namespace ext
 
   template<class Domain, int N, class Expr>
   struct  value_type<nt2::tag::rowvect_,Domain,N,Expr>
-        : meta::reshaping_value<Expr>
+        : meta::value_as<Expr,0>
   {};
 } }
 
