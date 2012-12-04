@@ -30,9 +30,9 @@ namespace nt2
   namespace tag
   {
     /*!
-      @brief Define the cic function tag
+      @brief Define the cif function tag
 
-      Define a hierarchizable Tag representing the cic function in generic
+      Define a hierarchizable Tag representing the cif function in generic
       contexts.
     **/
     BOOST_SIMD_CONSTANT_REGISTER( cif_, double

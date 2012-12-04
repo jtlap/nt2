@@ -27,7 +27,7 @@ namespace boost { namespace dispatch
     };
 
     template<class T>
-    struct nth_hierarchy<T,0> : nt2::meta::hierarchy_of<T>
+    struct nth_hierarchy<T,0> : boost::dispatch::meta::hierarchy_of<T>
     {};
   }
 

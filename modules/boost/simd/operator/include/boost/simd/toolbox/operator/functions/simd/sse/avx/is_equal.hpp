@@ -15,25 +15,6 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_equal_
-                                    , boost::simd::tag::avx_
-                                    , (A0)
-                                    , ((simd_<logical_<A0>,boost::simd::tag::avx_>))
-                                      ((simd_<logical_<A0>,boost::simd::tag::avx_>))
-                                    )
-  {
-    typedef A0                                                result_type;
-    typedef typename meta::as_arithmetic<A0>::type            base_t;
-    typedef typename dispatch::meta::as_integer<base_t>::type cast_t;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
-    {
-      return bitwise_cast<A0> ( eq( bitwise_cast<cast_t>(a0)
-                                  , bitwise_cast<cast_t>(a1)
-                                  )
-                              );
-    }
-  };
-
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_equal_, boost::simd::tag::avx_
                             , (A0)
                             , ((simd_<double_<A0>,boost::simd::tag::avx_>))

@@ -11,6 +11,7 @@
 #include <boost/simd/toolbox/arithmetic/functions/max.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/constants/nan.hpp>
+#include <boost/mpl/max.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -59,13 +60,11 @@ namespace boost { namespace simd { namespace ext
                                       (mpl_integral_< scalar_< fundamental_<A1> > >)
                                     )
   {
-    typedef typename  boost::
-                      common_type < typename A0::value_type
-                                  , typename A1::value_type
-                                  >::type result_type;
+    typedef typename  boost::mpl::max<A0,A1>::type result_type;
+
     BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const&) const
     {
-      return (A0::value > A1::value) ? A0::value : A1::value;
+      return result_type();
     }
   };
 
