@@ -30,7 +30,11 @@
   #endif
 
   #if defined(BOOST_SIMD_ARCH) || defined(DOXYGEN_ONLY)
-    #define BOOST_SIMD_ARCH_ALIGNMENT 16
+    #if defined(_WIN32) && !defined(_WIN64)
+      #define BOOST_SIMD_ARCH_ALIGNMENT 4
+    #else
+      #define BOOST_SIMD_ARCH_ALIGNMENT 16
+    #endif
   #endif
 
 #endif

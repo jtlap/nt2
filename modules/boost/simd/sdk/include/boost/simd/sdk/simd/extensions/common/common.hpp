@@ -28,17 +28,6 @@
 
 #endif
 
-#define BOOST_SIMD_CONFIG_ALIGNMENT BOOST_SIMD_BYTES
-
-////////////////////////////////////////////////////////////////////////////////
-// On g++ before 4.3 and MSVC, alignment can't be more than 16
-////////////////////////////////////////////////////////////////////////////////
-#if (BOOST_WORKAROUND(__GNUC__, == 4) && BOOST_WORKAROUND(__GNUC_MINOR__, < 3)) \
- || defined(BOOST_MSVC)
-  #undef  BOOST_SIMD_CONFIG_ALIGNMENT
-  #define BOOST_SIMD_CONFIG_ALIGNMENT 16
-#endif
-
 #include <boost/simd/sdk/memory/aligned_array.hpp>
 
 #endif
