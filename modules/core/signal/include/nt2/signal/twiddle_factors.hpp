@@ -60,7 +60,7 @@ struct twiddles_interleaved;
 /*
 {
     typedef
-        BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT )
+        BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT )
         boost::array<twiddle_pair<T> const, fft_size / data_vector_size>
     factors_t;
     static factors_t const factors;
@@ -462,7 +462,7 @@ struct real_twiddles
 {
     static float const * BOOST_DISPATCH_RESTRICT factors() { return factors_.begin(); }
 
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) detail::twiddle<static_cosine, N, N, Stride, T> factors_t;
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) detail::twiddle<static_cosine, N, N, Stride, T> factors_t;
     static factors_t const factors_;
 };
 
@@ -474,7 +474,7 @@ struct imag_twiddles
 {
     static float const * BOOST_DISPATCH_RESTRICT factors() { return factors_.begin(); }
 
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) detail::twiddle<static_sine, N, N, Stride, T> factors_t;
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) detail::twiddle<static_sine, N, N, Stride, T> factors_t;
     static factors_t const factors_;
 };
 
@@ -507,7 +507,7 @@ template <typename T>                                                           
 struct twiddles<fft_size, stride, T>                                                       \
 {                                                                                          \
     static std::size_t const data_vector_size = twiddle_pair<T>::vector_t::static_size;    \
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT )                               \
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT )                             \
     boost::array                                                                           \
     <                                                                                      \
         twiddle_pair<T> const,                                                             \

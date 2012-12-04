@@ -85,8 +85,8 @@ namespace
     #else //...zzz...cardinal-must-be-4 limitation...
         typedef float T;
     #endif // BOOST_SIMD_HAS_LRB_SUPPORT || BOOST_SIMD_HAS_AVX_SUPPORT
-    typedef boost::simd::memory::aligned_array<T, N, BOOST_SIMD_ARCH_ALIGNMENT> aligned_array;
-    typedef boost::simd::memory::aligned_array<T, N/2 + 1, BOOST_SIMD_ARCH_ALIGNMENT> aligned_half_complex_array;
+    typedef boost::simd::memory::aligned_array<T, N, BOOST_SIMD_CONFIG_ALIGNMENT> aligned_array;
+    typedef boost::simd::memory::aligned_array<T, N/2 + 1, BOOST_SIMD_CONFIG_ALIGNMENT> aligned_half_complex_array;
     typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;
 
     void randomize( aligned_array & data )
