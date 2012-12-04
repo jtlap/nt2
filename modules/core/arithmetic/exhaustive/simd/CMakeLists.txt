@@ -1,4 +1,4 @@
-e##############################################################################
+##############################################################################
 ###   Copyright 2003 and onward LASMEA UMR 6602 CNRS/U.B.P Clermont-Ferrand
 ###   Copyright 2009 and onward LRI    UMR 8623 CNRS/Univ Paris Sud XI
 ###
