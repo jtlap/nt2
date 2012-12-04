@@ -55,7 +55,8 @@ namespace boost { namespace dispatch { namespace meta
 
     static false_type call(...);
 
-    static const bool value = sizeof( call(typename meta::hierarchy_of<T>::type()) ) == sizeof(true_type);
+    typedef typename meta::hierarchy_of<T>::type hierarchy;
+    static const bool value = sizeof( call( hierarchy() ) ) == sizeof(true_type);
     typedef boost::mpl::bool_<value> type;
   };
 } } }
