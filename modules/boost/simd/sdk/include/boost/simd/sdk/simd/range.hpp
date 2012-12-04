@@ -15,6 +15,7 @@
 #include <boost/dispatch/meta/result_of.hpp>
 #include <boost/dispatch/meta/is_iterator.hpp>
 #include <boost/range/iterator_range.hpp>
+#include <boost/type_traits/remove_reference.hpp>
 #include <boost/mpl/if.hpp>
 
 namespace boost { namespace simd
@@ -33,21 +34,27 @@ namespace boost { namespace simd
       template<class This, class Type, class Cardinal>
       struct result<This(Type,Cardinal)>
       {
-        typedef
-        boost::iterator_range < simd::input_iterator< typename Type::value_type
-                                                    , Cardinal::value
-                                                    >
-                              >  type;
+        typedef boost::
+        iterator_range <simd::
+                        input_iterator<typename boost::
+                                       remove_reference<Type>::type::value_type
+                                      ,boost::
+                                       remove_reference<Cardinal>::type::value
+                                      >
+                       >  type;
       };
 
       template<class This, class Type>
       struct result<This(Type)>
       {
         typedef typename boost::mpl::
-                if_< dispatch::meta::is_iterator<Type>
-                   , typename Type::value_type
+                if_< dispatch::meta::
+                     is_iterator<typename boost::remove_reference<Type>::type>
+                   , typename boost::remove_reference<Type>::type::value_type
                    , typename boost::
-                     iterator_value<typename Type::const_iterator>::type
+                     iterator_value<typename boost::
+                                    remove_reference<Type>::type::const_iterator
+                                   >::type
                    >::type value_type;
 
         typedef typename
