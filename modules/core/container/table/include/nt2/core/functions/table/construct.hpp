@@ -134,8 +134,8 @@ namespace nt2 { namespace ext
                                       >
                               ))
                               (fusion_sequence_<A1>)
-                              (iterator_< scalar_< arithmetic_<A2> > >)
-                              (iterator_< scalar_< arithmetic_<A3> > >)
+                              (iterator_< scalar_< unspecified_<A2> > >)
+                              (iterator_< scalar_< unspecified_<A3> > >)
                             )
   {
     typedef void result_type;
