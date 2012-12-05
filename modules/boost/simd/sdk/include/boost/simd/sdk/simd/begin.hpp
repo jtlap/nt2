@@ -40,12 +40,11 @@ namespace boost { namespace simd
       typename result<begin(Range,Cardinal)>::type
       operator()(Range const& rng, Cardinal const&) const
       {
-        using boost::simd::memory::align_on;
         typedef typename Range::const_iterator                it_type;
         typedef typename boost::iterator_value<it_type>::type type;
 
         typename result<begin(Range,Cardinal)>::type
-        that(align_on<Cardinal::value*sizeof(type)>(&(*(boost::begin(rng)))));
+        that(align_on(&(*(boost::begin(rng))), Cardinal::value*sizeof(type)));
         return that;
       }
 

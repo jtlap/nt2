@@ -28,7 +28,7 @@ class foo
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(overload_new_delete)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   foo* ptr = new foo;
 
@@ -43,7 +43,7 @@ NT2_TEST_CASE(overload_new_delete)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(overload_new_delete_array)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   foo* ptr = new foo[5];
 

@@ -22,6 +22,7 @@
 #include <boost/mpl/not.hpp>
 #include <boost/mpl/or.hpp>
 #include <boost/proto/tags.hpp>
+#include <boost/proto/traits.hpp>
 #include <boost/proto/proto_fwd.hpp>
 
 #define BOOST_SIMD_OVERLOAD_UNARY_OP(Tag, Op)                                  \

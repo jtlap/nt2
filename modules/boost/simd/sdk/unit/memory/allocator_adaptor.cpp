@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(vector, BOOST_SIMD_TYPES)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   typedef std::allocator<float> base;
   typedef boost::simd::memory::allocator_adaptor<T,base> alloc;

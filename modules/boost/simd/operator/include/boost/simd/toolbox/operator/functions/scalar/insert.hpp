@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_SCALAR_INSERT_HPP_INCLUDED
 
 #include <boost/simd/toolbox/operator/functions/insert.hpp>
+#include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -29,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1+a2,sizeof(result_type))
+      ( boost::simd::is_aligned(a1+a2,sizeof(result_type))
       , "stream has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );
@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1+a2,sizeof(result_type))
+      ( boost::simd::is_aligned(a1+a2,sizeof(result_type))
       , "stream has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );
@@ -79,7 +79,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1+a2,sizeof(result_type))
+      ( boost::simd::is_aligned(a1+a2,sizeof(result_type))
       , "stream has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );

@@ -24,9 +24,7 @@ namespace boost { namespace simd {  namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<std::size_t V, std::size_t N = BOOST_SIMD_CONFIG_ALIGNMENT>
   struct align_on_c
-       : boost::mpl::integral_c< std::size_t
-                               , (V+N-1) & ~(N-1)
-                               >
+       : boost::mpl::integral_c<std::size_t, (V+N-1) & ~(N-1) >
   {
     //==========================================================================
     /*
@@ -46,9 +44,13 @@ namespace boost { namespace simd {  namespace meta
   //////////////////////////////////////////////////////////////////////////////
   template<class V, class N = boost::mpl::size_t<BOOST_SIMD_CONFIG_ALIGNMENT> >
   struct align_on
-       : boost::mpl::integral_c< typename V::value_type,
-                                 typename V::value_type(align_on_c<std::size_t(V::value), std::size_t(N::value)>::value)
-                               >
+       :  boost::mpl::
+          integral_c< typename V::value_type
+                    , typename V::value_type(align_on_c < std::size_t(V::value)
+                                                        , std::size_t(N::value)
+                                                        >::value
+                                            )
+                    >
   {};
 } } }
 

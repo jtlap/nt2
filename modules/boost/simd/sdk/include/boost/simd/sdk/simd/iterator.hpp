@@ -64,7 +64,7 @@ namespace boost { namespace simd
       iterator_adaptor_(reinterpret_cast<const_iterator>(p))
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(p,sizeof(native_type))
+      ( boost::simd::is_aligned(p,sizeof(native_type))
       , "The constructor of iterator<T,C> has been called on a pointer"
         "which alignment is not compatible with current SIMD extension."
       );
@@ -158,18 +158,17 @@ namespace boost { namespace simd
 
   public:
 
-    typedef typename dispatch::meta::strip<T>::type   strip_t;
-    typedef pack<strip_t,C>                         pack_type;
-    typedef typename pack<strip_t,C>::data_type   native_type;
-    typedef native_type*                             iterator;
+    typedef pack<T,C> pack_type;
+    typedef typename pack<T,C>::data_type native_;
+    typedef typename native_::native_type native_type;
 
     output_iterator() : output_iterator::iterator_adaptor_(0) {}
 
-    explicit output_iterator(strip_t* p)
-      : output_iterator::iterator_adaptor_(reinterpret_cast<iterator>(p))
+    explicit output_iterator(T* p)
+      : output_iterator::iterator_adaptor_(reinterpret_cast<native_*>(p))
     {
       BOOST_ASSERT_MSG
-        ( boost::simd::memory::is_aligned(p,sizeof(native_type))
+        ( boost::simd::is_aligned(p,sizeof(native_type))
         , "The constructor of iterator<T,C> has been called on a pointer"
           "which alignment is not compatible with current SIMD extension."
         );

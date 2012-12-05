@@ -1,7 +1,7 @@
 #include <iostream>
 #include <boost/simd/sdk/memory/align_on.hpp>
 
-using boost::simd::memory::align_on;
+using boost::simd::align_on;
 
 int main()
 {

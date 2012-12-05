@@ -21,7 +21,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE_TPL(vector, BOOST_SIMD_TYPES)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
   std::vector<T, boost::simd::memory::allocator<T> > p(5);
 
   NT2_TEST( is_aligned( &p[0] ) );

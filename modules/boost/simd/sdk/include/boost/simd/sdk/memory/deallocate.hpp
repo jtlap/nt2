@@ -80,8 +80,7 @@ namespace boost { namespace simd {  namespace memory
     typedef typename Allocator::value_type value_type;
     BOOST_STATIC_CONSTANT(std::size_t, size = sizeof(value_type) );
 
-
-    std::size_t nelems = align_on<size>(nbytes+align+sizeof(void*))/sizeof(size);
+    std::size_t nelems = align_on(nbytes+align+sizeof(void*),size)/sizeof(size);
 
     void* p = reinterpret_cast<void**>(ptr)[- 1];
     alloc.deallocate(reinterpret_cast<typename Allocator::pointer>(p),nelems);

@@ -34,8 +34,8 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
-     && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
+      ( boost::simd::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+     && boost::simd::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         " is not aligned on the simd vector size.");
       return unaligned_load<typename A2::type>(a0, a1);
@@ -58,8 +58,8 @@ namespace boost { namespace simd { namespace ext
                                   const A2&, const A3&) const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
-     && boost::simd::memory::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
+      ( boost::simd::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+     && boost::simd::is_aligned(a0+a1,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         "is not aligned on the simd vector size.");
       return unaligned_load<typename A2::type, A3::value>(a0, a1);
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+      ( boost::simd::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         "is not aligned on the simd vector size.");
       return unaligned_load<typename A2::type>(a0, a1);
@@ -103,7 +103,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&) const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
+      ( boost::simd::is_aligned(a0,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to load with a pointer that"
         "is not aligned on the simd vector size.");
       return unaligned_load<typename A2::type>(a0, a1);

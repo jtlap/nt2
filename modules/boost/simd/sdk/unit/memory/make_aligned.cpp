@@ -19,7 +19,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(make_aligned)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   BOOST_SIMD_ALIGNED_TYPE(double       ) ad;
   BOOST_SIMD_ALIGNED_TYPE(float        ) af;
@@ -51,7 +51,7 @@ NT2_TEST_CASE(make_aligned)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(make_aligned_array)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   BOOST_SIMD_ALIGNED_TYPE(double       ) ad[3];
   BOOST_SIMD_ALIGNED_TYPE(float        ) af[3];

@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0+a1,sizeof(result_type))
+      ( boost::simd::is_aligned(a0+a1,sizeof(result_type))
       , "load has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );
@@ -55,7 +55,7 @@ namespace boost { namespace simd { namespace ext
                                   const A2&)const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0+a1,sizeof(result_type))
+      ( boost::simd::is_aligned(a0+a1,sizeof(result_type))
       , "load has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );
@@ -76,7 +76,7 @@ namespace boost { namespace simd { namespace ext
                                   const A2&)const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0+a1,sizeof(result_type))
+      ( boost::simd::is_aligned(a0+a1,sizeof(result_type))
       , "load has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );

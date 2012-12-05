@@ -6,8 +6,9 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "boost::simd::memory::is_power_of_2"
+#define NT2_UNIT_MODULE "boost::simd::is_power_of_2"
 
+#include <boost/simd/sdk/memory/is_power_of_2.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 
 #include <boost/mpl/int.hpp>
@@ -18,6 +19,28 @@
 // Test the meta::is_power_of_2 version on int_
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(is_power_of_2)
+{
+  using boost::simd::is_power_of_2;
+
+  NT2_TEST(!is_power_of_2(0x00) );
+  NT2_TEST( is_power_of_2(0x01) );
+  NT2_TEST( is_power_of_2(0x02) );
+  NT2_TEST(!is_power_of_2(0x03) );
+  NT2_TEST( is_power_of_2(0x04) );
+  NT2_TEST(!is_power_of_2(0x05) );
+  NT2_TEST(!is_power_of_2(0x06) );
+  NT2_TEST(!is_power_of_2(0x07) );
+  NT2_TEST( is_power_of_2(0x08) );
+  NT2_TEST( is_power_of_2(0x10) );
+  NT2_TEST( is_power_of_2(0x20) );
+  NT2_TEST( is_power_of_2(0x40) );
+  NT2_TEST( is_power_of_2(0x80) );
+  NT2_TEST(!is_power_of_2(1337) );
+}
+////////////////////////////////////////////////////////////////////////////////
+// Test the meta::is_power_of_2 version on int_
+////////////////////////////////////////////////////////////////////////////////
+NT2_TEST_CASE(meta_is_power_of_2)
 {
   using boost::simd::meta::is_power_of_2;
   using boost::mpl::int_;
@@ -41,7 +64,7 @@ NT2_TEST_CASE(is_power_of_2)
 ////////////////////////////////////////////////////////////////////////////////
 // Test the meta::is_power_of_2 version on integer
 ////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(is_power_of_2_c)
+NT2_TEST_CASE(meta_is_power_of_2_c)
 {
   using boost::simd::meta::is_power_of_2_c;
 
