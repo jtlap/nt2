@@ -39,7 +39,9 @@ namespace boost { namespace simd { namespace ext
     {
     #ifdef BOOST_SIMD_HAS_COPYSIGN
       return ::copysign(a0, a1);
-    #elif defined(BOOST_SIMD_HAS__COPYSIGN)
+    // _copysign appears to be bogus for a1 = -0 in old MSVCRT
+    #elif defined(BOOST_SIMD_HAS__COPYSIGN) && !defined(__MSVCRT__)
+      #warning _copysign
       return ::_copysign(a0, a1);
     #else
       return boost::math::copysign(a0, a1);
