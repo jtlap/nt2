@@ -80,7 +80,7 @@ namespace
     } // namespace constants
 
     static std::size_t const N = constants::test_dft_size;
-    #if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
+    #if 0 //defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
         typedef double T;
     #else //...zzz...cardinal-must-be-4 limitation...
         typedef float T;
