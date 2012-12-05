@@ -52,7 +52,7 @@ namespace boost { namespace simd { namespace ext
       #ifndef BOOST_SIMD_NO_NANS
       return is_nan(a0) ? a0 : b_or(One<A0>(), b_and(Signmask<A0>(), a0));
       #else
-      return b_or(One<A0>(), b_and(Signmask<A0>(), a0);
+      return b_or(One<A0>(), b_and(Signmask<A0>(), a0));
       #endif
     }
   };
