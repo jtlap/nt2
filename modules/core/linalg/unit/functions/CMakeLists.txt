@@ -10,6 +10,8 @@
 SET( SOURCES
      cauchy.cpp
      vandermonde.cpp
+     chebspec.cpp
+     chebvand.cpp
    )
 
 nt2_module_add_tests(core.linalg.functions.unit ${SOURCES})
