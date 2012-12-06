@@ -54,7 +54,7 @@ namespace boost { namespace simd { namespace ext
       static const bool check = fusion::result_of::size<A0>::value == fusion::result_of::size<A1>::value;
       BOOST_MPL_ASSERT_MSG( check
                           , BOOST_SIMD_INSERT_FUSION_SEQUENCE_SIZE_MISMATCH
-                          , (A0, A1)
+                          , (A0&, A1&)
                           );
 
       static const int N = fusion::result_of::size<A0>::type::value;
