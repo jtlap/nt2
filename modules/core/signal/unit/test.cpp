@@ -73,7 +73,7 @@ namespace
         ///                                   (24.07.2012.) (Domagoj Saric)
 
         static unsigned int const maximum_allowed_complex_nt2_ulpd   = 1030;
-#ifdef BOOST_SIMD_ARCH_X86
+#if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_HAS_FMA4_SUPPORT)
         static unsigned int const maximum_allowed_real_nt2_ulpd      =  580;
 #else
         static unsigned int const maximum_allowed_real_nt2_ulpd      = 1290;
