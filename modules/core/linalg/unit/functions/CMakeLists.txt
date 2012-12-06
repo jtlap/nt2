@@ -10,6 +10,7 @@
 SET( SOURCES
      cauchy.cpp
      chow.cpp
+     circul.cpp
      vandermonde.cpp
      chebspec.cpp
      chebvand.cpp
