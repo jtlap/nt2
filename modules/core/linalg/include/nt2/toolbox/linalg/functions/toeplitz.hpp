@@ -8,7 +8,11 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_TOEPLITZ_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_TOEPLITZ_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/include/functions/numel.hpp>
 
 /*!
  * \ingroup algebra
@@ -81,9 +85,8 @@ namespace nt2 { namespace ext
   template <class Domain, class Expr,  int N>
   struct value_type < tag::toeplitz_, Domain,N,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::type      t_type;
-    typedef typename meta::strip<t_type>::type                         tmp1_type;
-    typedef typename tmp1_type::value_type                                  type;
+    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type child0;
+    typedef typename child0::value_type                                    type;
   };
 } }
 #endif
