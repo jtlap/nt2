@@ -49,7 +49,7 @@ namespace nt2 { namespace tag
 
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::chow_, chow, 1)
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::chow_, chow, 2)
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::chow_, chow, 3)
+
   template < class T > container::table<T> chow(size_t n)
   {
     return nt2::chow(n, T(1), T(0), meta::as_<T>());
