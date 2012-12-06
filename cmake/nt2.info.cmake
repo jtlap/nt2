@@ -29,7 +29,7 @@ STRING(TOLOWER ${CMAKE_SYSTEM_PROCESSOR} NT2_SYSTEM_PROCESSOR)
 # ARM processor
 ################################################################################
 IF(NT2_SYSTEM_PROCESSOR MATCHES "arm")
-  SET(NT2_ARCH "ARM")
+  SET(NT2_ARCH "arm")
   SET(NT2_ARCH_ARM 1)
 ################################################################################
 # x86 family processor, 64-bits
