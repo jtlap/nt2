@@ -12,6 +12,7 @@ SET( SOURCES
      vandermonde.cpp
      chebspec.cpp
      chebvand.cpp
+     toeplitz.cpp
    )
 
 nt2_module_add_tests(core.linalg.functions.unit ${SOURCES})

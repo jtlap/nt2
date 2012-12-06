@@ -39,13 +39,7 @@
  * #include <nt2/include/functions/chebvand.hpp>
  * \endcode
  *
- *
- * \synopsis
- *
- * \param n order of the matrix output
- *
- *
-**/
+ **/
 //==============================================================================
 // chebvand actual class forward declaration
 //==============================================================================

@@ -96,8 +96,6 @@ namespace nt2 { namespace ext
           , T()
           , boxify(sizee)
           );
-      //result_type r = nt2::chebspec(a0, a1);
-      //return r;
     }
 
   };
@@ -153,7 +151,6 @@ namespace nt2 { namespace ext
       d(n+1) = Two<V>();
       BOOST_AUTO_TPL(c1, mtimes(d, nt2::rowvect(nt2::rec(d))));
       BOOST_AUTO_TPL(c2, nt2::sx(nt2::tag::minus_(), x, nt2::rowvect(x)));
-      //   BOOST_AUTO_TPL(c2, c2t + nt2::eye(n+1,n+1, T()));
       c = c1/c2;
       //  Now fix diagonal and signs.
       c(1) = (nt2::Two<V>()*nt2::sqr(n)+nt2::One<V>())/nt2::Six<V>();
