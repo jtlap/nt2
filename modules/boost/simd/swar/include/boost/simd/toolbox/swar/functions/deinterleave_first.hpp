@@ -12,6 +12,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_DEINTERLEAVE_FIRST_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_DEINTERLEAVE_FIRST_HPP_INCLUDED
 
+#include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
