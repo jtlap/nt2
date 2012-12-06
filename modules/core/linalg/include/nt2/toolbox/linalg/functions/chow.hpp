@@ -8,7 +8,11 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_CHOW_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_CHOW_HPP_INCLUDED
+
 #include <nt2/include/functor.hpp>
+#include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/include/functions/numel.hpp>
 
 /*!
  * \ingroup algebra
@@ -55,7 +59,7 @@ namespace nt2 { namespace tag
 namespace nt2 { namespace ext
 {
   template<class Domain, class Expr,  int N>
-  struct  size_of<tag::chow_, Domain, N, Expr>
+  struct size_of<tag::chow_, Domain, N, Expr>
   {
     typedef _2D                               result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -67,14 +71,13 @@ namespace nt2 { namespace ext
     }
   };
 
-
   template <class Domain, class Expr, int N>
   struct value_type < tag::chow_, Domain,N,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&,1>::type      tmp_type;
-    typedef typename meta::strip<tmp_type>::type                         tmp1_type;
-    typedef typename boost::dispatch::meta::semantic_of<tmp1_type >::type     type;
+    typedef typename boost::proto::result_of::child_c<Expr&,1>::value_type child0;
+    typedef typename child0::value_type type;
   };
+
   template <class Domain, class Expr>
   struct value_type < tag::chow_, Domain,1,Expr>
   {

@@ -8,6 +8,8 @@
  ******************************************************************************/
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_FUNCTIONS_GALLERY_CHOW_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_FUNCTIONS_GALLERY_CHOW_HPP_INCLUDED
+
+#include <nt2/toolbox/linalg/functions/chow.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/colon.hpp>
@@ -16,9 +18,8 @@
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/cons.hpp>
-#include <nt2/include/functions/toeplitz.hpp>
 #include <nt2/include/constants/one.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 
 namespace nt2{ namespace ext
 {
@@ -124,7 +125,7 @@ namespace nt2{ namespace ext
       NT2_DISPLAY(expo);
       BOOST_AUTO_TPL(z1, nt2::pow(alpha, expo));
       NT2_DISPLAY(z1);
-      table<value_type> q = nt2::toeplitz(z1,z2);
+      container::table<value_type> q = nt2::toeplitz(z1,z2);
       NT2_DISPLAY(q);
       q = q+delta*nt2::eye(n, nt2::meta::as_<value_type>());
       NT2_DISPLAY(q);
