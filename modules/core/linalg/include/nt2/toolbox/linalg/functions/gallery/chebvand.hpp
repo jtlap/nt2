@@ -15,6 +15,7 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/numel.hpp>
+#include <nt2/sdk/meta/is_target.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
@@ -221,7 +222,7 @@ namespace nt2 { namespace ext
     typedef typename boost::proto::result_of::child_c<A1&,2>::type            p_type;
     typedef typename meta::strip<p_type>::type                             tmp1_type;
     typedef typename boost::dispatch::meta::semantic_of<tmp1_type>::type   tmp2_type;
-    typedef typename details::is_target<tmp2_type>::type                    choice_type;
+    typedef typename meta::is_target<tmp2_type>::type                    choice_type;
     result_type operator()(A0& out, const A1& in) const
     {
       size_t m =  boost::proto::child_c<0>(in);

@@ -21,13 +21,12 @@
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/indices.hpp>
 #include <nt2/include/functions/linesstride.hpp>
+#include <nt2/sdk/meta/is_target.hpp>
 #include <string>
 #include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace ext
 {
-  template < class T > struct is_target : boost::mpl::false_{};
-  template < class T > struct is_target < meta::as_<T> > :  boost::mpl::true_{};
   //============================================================================
   // This version of sort is called whenever a tie(...) = sort(...) is captured
   // before assign is resolved. As a tieable function, sort retrieves rhs/lhs
@@ -57,7 +56,7 @@ namespace nt2 { namespace ext
       //retrieve options
       choice(a0, up, dim, N0());
       // compute the sorted result
-      compute(a0, a1, up,  dim, N0(), N1(), typename is_target<child0>::type() );
+      compute(a0, a1, up,  dim, N0(), N1(), typename meta::is_target<child0>::type() );
     }
 
   private:

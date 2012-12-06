@@ -9,6 +9,7 @@
 
 SET( SOURCES
      cauchy.cpp
+     chow.cpp
      vandermonde.cpp
      chebspec.cpp
      chebvand.cpp

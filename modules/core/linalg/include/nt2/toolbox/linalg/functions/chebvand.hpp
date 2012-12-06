@@ -70,11 +70,6 @@ namespace nt2 { namespace tag
 
 namespace nt2 { namespace ext
 {
-  namespace details
-  {
-  template < class T > struct is_target : boost::mpl::false_{};
-  template < class T > struct is_target < meta::as_<T> > :  boost::mpl::true_{};
-  }
   template<class Domain, class Expr,  int N>
   struct  size_of<tag::chebvand_, Domain, N, Expr>
   {
