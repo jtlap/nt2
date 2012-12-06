@@ -153,7 +153,7 @@ NT2_TEST_CASE_TPL( colon_real_step, NT2_REAL_TYPES )
 
   nt2::table<T> yd = _(T(1),T(-0.3),T(0));
   NT2_TEST_EQUAL( yd.extent(), nt2::of_size(1,4) );
-  NT2_TEST_ULP_EQUAL( yd, ref, 0.5 );
+  NT2_TEST_ULP_EQUAL( yd, ref, 2 );
 
   ref.resize(nt2::of_size(1,6));
   for(int i=1;i<=6;++i) ref(i) = T(0.5);

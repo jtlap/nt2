@@ -55,8 +55,8 @@ NT2_TEST_CASE_TPL( var, (float)(double))//NT2_TYPES )
   cy =  center(y, 1);
   sy =  asum2(cy, 1)/T(nt2::size(y, 1)-1);
   sy2 = nt2::var(y, 0, 1);
-  NT2_TEST_ULP_EQUAL(sy, sy2, 0.5);
-  NT2_TEST_ULP_EQUAL(sy,  nt2::var(y, 0, 1), 0.5);
+  NT2_TEST_ULP_EQUAL(sy, sy2, 1.5);
+  NT2_TEST_ULP_EQUAL(sy,  nt2::var(y, 0, 1), 1.5);
 
 
   std::cout << "---------------- nt2::var(y, 0, 3)" << std::endl;
