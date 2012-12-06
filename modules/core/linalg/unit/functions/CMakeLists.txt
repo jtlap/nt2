@@ -11,6 +11,7 @@ SET( SOURCES
      cauchy.cpp
      chow.cpp
      circul.cpp
+     clement.cpp
      vandermonde.cpp
      chebspec.cpp
      chebvand.cpp

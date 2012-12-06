@@ -17,26 +17,19 @@
  * \defgroup algebra_circul circul
  *
  * \par Description
- * circul matrix (singular toeplitz lower hessenberg matrix).
- *    a = circul(n,alpha,delta,as_<T>()) returns a such that
- *       a = h(alpha) + delta*eye, where h(i,j) = alpha^(i-j+1).
- *    h(alpha) has p = floor(n/2) zero eigenvalues, the rest being
- *    4*alpha*cos( k*pi/(n+2) )^2, k=_(1, n-p).
- *    defaults: alpha = 1, delta = 0.
- *    If alpha and delta are omited then T must be there else
- *    T can be omitted and the result is in the alpha type.
- *    If T is present the element type of the result is T
+ *    c = circul(v) is the circulant matrix whose first row is v.
+ *    a circulant matrix has the property that each row is obtained
+ *    from the previous one by cyclically permuting the entries one step
+ *    forward. it is a special toeplitz matrix in which the diagonals
+ *    "wrap round". if v is a scalar, then c = circul(_(1, v)).
  *
- *  One can also pass T using the templated circul<T>(...) syntax
+ *    the eigensystem of c (n-by-n) is known explicitly. if t is an nth
+ *    root of unity, then the inner product of v with w = cath(1 t t^2 ... t^(n-1))
+ *    is an eigenvalue of c, and w(_(n, -1, 1)) is an eigenvector of c.
  *
- *    references:
- *    [1] T. S. Circul, A class of Hessenberg matrices with known eigenvalues
- *        and inverses, SIAM Review, 11 (1969), pp. 391-395.
- *    [2] G. Fairweather, On the eigenvalues and eigenvectors of a class of
- *        Hessenberg matrices, SIAM Review, 13 (1971), pp. 220-221.
- *    [3] I. Singh, G. Poole and T. Boullion, A class of Hessenberg matrices
- *        with known pseudoinverse and Drazin inverse, Math. Comp., 29 (1975),
- *        pp. 615-619.
+ *    Reference:
+ *    P. J. Davis, Circulant Matrices, John Wiley, 1977.
+ *
  *
  * \par Header file
  *
