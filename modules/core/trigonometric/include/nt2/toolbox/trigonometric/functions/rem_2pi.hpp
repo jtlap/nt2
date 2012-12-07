@@ -19,18 +19,11 @@
  * \defgroup trigonometric_rem_2pi rem_2pi
  *
  * \par Description
- * compute the remainder modulo \f$2*pi\f$.
+ * compute the remainder modulo \f$2*\pi\f$.
  * \par
- * This is the always accurate super costly version.
- * This function is mainly for internal purposes
- * \par
- * The reduction of the argument modulo \f$2*pi\f$ is generally
- * the most difficult part of trigonometric evaluations.
- * The accurate algorithm is over costly and implies the knowledge
- * of a few hundred \f$pi\f$ decimals
- * some simpler algorithms
- * can be used, but the precision is only insured on smaller intervals.
- *
+ * the result is in \f[$-\pi, \pi]\f$. If the input
+ * is near pi the output can be pi or -pi depending
+ * on register disponibility if extended arithmetic is used.
  * \par Header file
  *
  * \code
