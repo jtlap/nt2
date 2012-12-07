@@ -9,13 +9,15 @@
 
 SET( SOURCES
      cauchy.cpp
+     chebspec.cpp
+     chebvand.cpp
      chow.cpp
      circul.cpp
      clement.cpp
-     vandermonde.cpp
-     chebspec.cpp
-     chebvand.cpp
+     hilb.cpp
+     invhilb.cpp
      toeplitz.cpp
+     vandermonde.cpp
    )
 
 nt2_module_add_tests(core.linalg.functions.unit ${SOURCES})
