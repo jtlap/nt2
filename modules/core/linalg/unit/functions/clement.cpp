@@ -31,11 +31,19 @@ NT2_TEST_CASE_TPL ( clement, NT2_REAL_TYPES)
                                               T(0),             nt2::Sqrt_2<T>(), T(0),
                                               nt2::Sqrt_2<T>(), T(0),             nt2::Sqrt_2<T>(),
                                               T(0),             nt2::Sqrt_2<T>(), T(0)),
-                                            nt2::of_size(3, 3)));
-   nt2::table<T> v = nt2::clement(3, 0, nt2::meta::as_<T>());
+                                             nt2::of_size(3, 3)));
+  nt2::table<T> u1 = nt2::clement(3, 0, nt2::meta::as_<T>());
+  nt2::table<T> u2=  nt2::clement<T>(3, 0);
+  nt2::table<T> u3=  nt2::cast<T>(nt2::clement(3, 0));
   nt2::table<T> v1=  nt2::clement(3, 1,nt2::meta::as_<T>());
-  NT2_TEST_ULP_EQUAL(v, t30, 0.5);
+  nt2::table<T> v2=  nt2::clement<T>(3, 1);
+  nt2::table<T> v3=  nt2::cast<T>(nt2::clement(3, 1));
+  NT2_TEST_ULP_EQUAL(u1, t30, 0.5);
+  NT2_TEST_ULP_EQUAL(u2, t30, 0.5);
+  NT2_TEST_ULP_EQUAL(u3, t30, 0.5);
   NT2_TEST_ULP_EQUAL(v1, t31, 0.5);
+  NT2_TEST_ULP_EQUAL(v2, t31, 0.5);
+  NT2_TEST_ULP_EQUAL(v3, t31, 0.5);
 
 }
 

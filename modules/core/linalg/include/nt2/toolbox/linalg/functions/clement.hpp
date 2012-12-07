@@ -97,7 +97,10 @@ namespace nt2 { namespace ext
   template <class Domain, class Expr, int N>
   struct value_type < tag::clement_, Domain,N,Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&,0>::value_type   type;
+    typedef typename  boost::proto::result_of::child_c<Expr&,2>::type      tmp_type;
+    typedef typename  meta::strip<tmp_type>::type                         tmp1_type;
+    typedef typename  boost::dispatch::meta::semantic_of<tmp1_type>::type tmp2_type;
+    typedef typename  tmp2_type::type                                          type;
   };
 } }
 #endif

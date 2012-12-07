@@ -94,20 +94,20 @@ namespace nt2 { namespace ext
       result_of::make_expr< nt2::tag::clement_
       , container::domain
       , size_t
-      , A1
+      , size_t
       , meta::as_<double>
       , box<_2D>
       >::type             result_type;
 
     BOOST_FORCEINLINE result_type operator()(A0 const& a0,
-                                             A1 const&) const
+                                             A1 const& a1) const
     {
       _2D sizee;
       sizee[0] = sizee[1] = a0;
       return  boost::proto::
         make_expr<nt2::tag::clement_, container::domain>
         ( size_t(a0)
-          , A1()
+          , size_t(a1)
           , meta::as_<double>()
           , boxify(sizee)
           );
