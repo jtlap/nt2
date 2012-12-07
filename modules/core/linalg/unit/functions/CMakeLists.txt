@@ -16,6 +16,7 @@ SET( SOURCES
      clement.cpp
      hilb.cpp
      invhilb.cpp
+     magic.cpp
      toeplitz.cpp
      vandermonde.cpp
    )

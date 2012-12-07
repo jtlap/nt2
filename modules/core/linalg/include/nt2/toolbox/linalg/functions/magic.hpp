@@ -6,59 +6,55 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_INVHILB_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_INVHILB_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_MAGIC_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_MAGIC_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/core/container/table/table.hpp>
 
 /*!
  * \ingroup algebra
- * \defgroup algebra_invhilb invhilb
+ * \defgroup algebra_magic magic
  *
  * \par Description
- *   invhilb(n) is the inverse of the n by n matrix with elements
- *   1/(i+j-1), which is a famous example of a badly conditioned
- *   matrix.  the result is exact for  n  less than about 15.
+ *   magic(n) is an n-by-n matrix constructed from the integers
+ *   1 through n^2 with equal row, column, and diagonal sums.
+ *   produces valid magic squares for all n > 0 except n = 2.
  *
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/invhilb.hpp>
+ * #include <nt2/include/functions/magic.hpp>
  * \endcode
  *
- *
- * \synopsis
- *
- * \param n order of the matrix output
  *
  *
 **/
 //==============================================================================
-// invhilb actual class forward declaration
+// magic actual class forward declaration
 //==============================================================================
 
 namespace nt2 { namespace tag
   {
     /*!
-     * \brief Define the tag invhilb_ of functor invhilb
+     * \brief Define the tag magic_ of functor magic
      *        in namespace nt2::tag for toolbox algebra
     **/
-    struct invhilb_ : ext::unspecified_<invhilb_> { typedef ext::unspecified_<invhilb_> parent; };
+    struct magic_ : ext::unspecified_<magic_> { typedef ext::unspecified_<magic_> parent; };
   }
 
-  NT2_FUNCTION_IMPLEMENTATION(tag::invhilb_, invhilb, 1)
-  NT2_FUNCTION_IMPLEMENTATION(tag::invhilb_, invhilb, 2)
-  template < class T> container::table<T> invhilb(size_t n)
+  NT2_FUNCTION_IMPLEMENTATION(tag::magic_, magic, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::magic_, magic, 2)
+  template < class T> container::table<T> magic(size_t n)
   {
-    return nt2::invhilb(n, meta::as_<T>());
+    return nt2::magic(n, meta::as_<T>());
   }
 }
 
 namespace nt2 { namespace ext
 {
   template<class Domain, class Expr,  int N>
-  struct  size_of<tag::invhilb_, Domain, N, Expr>
+  struct  size_of<tag::magic_, Domain, N, Expr>
   {
     typedef _2D                               result_type;
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
@@ -71,7 +67,7 @@ namespace nt2 { namespace ext
   };
 
   template <class Domain, class Expr,  int N>
-  struct value_type < tag::invhilb_, Domain,N,Expr>
+  struct value_type < tag::magic_, Domain,N,Expr>
   {
     typedef typename  boost::proto::result_of::child_c<Expr&,1>::type      tmp_type;
     typedef typename  meta::strip<tmp_type>::type                         tmp1_type;
