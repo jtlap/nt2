@@ -34,8 +34,8 @@ NT2_TEST_CASE_TPL ( norminv_1,  (float)(double))//NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(norminv(nt2::Nan<T>()), nt2::Nan<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(norminv(T(0.841344746068542948585232545632)), nt2::One<T>(), 2.75);
-  NT2_TEST_ULP_EQUAL(norminv(T(0.158655253931457051414767454368)), nt2::Mone<T>(), 5.5);
+  NT2_TEST_ULP_EQUAL(norminv(T(0.841344746068542948585232545632)), nt2::One<T>(), 3);
+  NT2_TEST_ULP_EQUAL(norminv(T(0.158655253931457051414767454368)), nt2::Mone<T>(), 6.5);
   NT2_TEST_ULP_EQUAL(norminv(nt2::Zero<T>()), nt2::Minf<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(norminv(nt2::One<T>()), nt2::Inf<T>(), 0.5);
 
@@ -54,8 +54,8 @@ NT2_TEST_CASE_TPL ( norminv_2,  NT2_REAL_TYPES)
 
   // specific values tests
   NT2_TEST_ULP_EQUAL(norminv(nt2::Nan<T>(), nt2::One<T>()), nt2::Nan<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(norminv(T(0.841344746068542948585232545632), nt2::One<T>()), nt2::Two<T>(), 2.75);
-  NT2_TEST_ULP_EQUAL(norminv(T(0.158655253931457051414767454368), nt2::One<T>()), nt2::Zero<T>(), 5.5);
+  NT2_TEST_ULP_EQUAL(norminv(T(0.841344746068542948585232545632), nt2::One<T>()), nt2::Two<T>(), 3);
+  NT2_TEST_ULP_EQUAL(norminv(T(0.158655253931457051414767454368), nt2::One<T>()), nt2::Zero<T>(), 6.5);
   NT2_TEST_ULP_EQUAL(norminv(nt2::One<T>(), nt2::One<T>()), nt2::Inf<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(norminv(nt2::Zero<T>(), nt2::One<T>()), nt2::Minf<T>(), 0.5);
 

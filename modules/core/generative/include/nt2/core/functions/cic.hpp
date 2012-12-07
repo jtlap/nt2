@@ -17,25 +17,25 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/core/functions/details/cic.hpp>
-#include <nt2/core/container/dsl/generative.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
-#include <nt2/core/functions/details/generative_preprocessor.hpp>
+#include <nt2/core/container/dsl/generative.hpp>
+#include <nt2/core/functions/common/generative.hpp>
 
 #include <nt2/sdk/parameters.hpp>
-#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
+#include <boost/preprocessor/repetition/repeat_from_to.hpp>
 
 namespace nt2
 {
   namespace tag
   {
     /*!
-      @brief Tag for cic functor
-     **/
-    struct cic_ : ext::generative_<cic_>
-    {
-      typedef ext::generative_<cic_> parent;
-    };
+      @brief Define the cic function tag
+
+      Define a hierarchizable Tag representing the cic function in generic
+      contexts.
+    **/
+    BOOST_SIMD_CONSTANT_REGISTER( cic_, double , 0, 0, 0 );
   }
 
   #define M0(z,n,t)                                   \
@@ -60,11 +60,6 @@ namespace nt2 { namespace ext
   struct  size_of<tag::cic_,Domain,N,Expr>
         : meta::generative_size<Expr>
   {};
-} }
-
-namespace nt2 { namespace ext
-{
-  NT2_PP_MAKE_GENERATIVE( cic, (nt2::tag::cic_,nt2::tag::cic_) )
 } }
 
 #endif

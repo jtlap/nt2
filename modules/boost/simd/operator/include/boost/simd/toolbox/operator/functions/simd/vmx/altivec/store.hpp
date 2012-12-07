@@ -17,7 +17,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/operator/functions/store.hpp>
 #include <boost/simd/toolbox/operator/functions/simd/details/char_helper.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
+#include <boost/simd/sdk/memory/iterator.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/assert.hpp>
 
@@ -34,8 +34,8 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1,BOOST_SIMD_CONFIG_ALIGNMENT)
-     && boost::simd::memory::is_aligned(a1+a2,BOOST_SIMD_CONFIG_ALIGNMENT)
+      ( boost::simd::is_aligned(a1,BOOST_SIMD_CONFIG_ALIGNMENT)
+     && boost::simd::is_aligned(a1+a2,BOOST_SIMD_CONFIG_ALIGNMENT)
       , "Unaligned memory location. You tried to store with a pointer that"
         " is not aligned on the simd vector size.");
       vec_st(a0.data_, a2*sizeof(*a1), char_helper(a1));

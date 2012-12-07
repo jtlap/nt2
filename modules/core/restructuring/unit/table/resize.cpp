@@ -11,68 +11,99 @@
 #include <nt2/table.hpp>
 #include <nt2/include/functions/resize.hpp>
 #include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/ndims.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
 
-NT2_TEST_CASE_TPL( resize_ofsize, (float) )
+NT2_TEST_CASE_TPL( of_size, NT2_TYPES )
 {
-  nt2::table<T> r;
-  nt2::table<T, nt2::_2D> y( nt2::of_size(4,4) );
+  nt2::table<T> y, ref;
 
-  for(int j=1;j<=4;j++)
-    for(int i=1;i<=4;i++)
-      y(i,j) = T(i + 10*j);
-  for(int i=1;i<=4;i++)
-    {
-    for(int j=1;j<=4;j++)
-      std::cout << y(i,j) << "\t";
-    std::cout << std::endl;
-    }
-  std::cout << std::endl;
-  std::cout << std::endl;
+  nt2::table<T> x( nt2::of_size(4,4) );
+  for(int i=1;i<=16;i++)  x(i) = T(i);
 
-  r = nt2::resize(y, nt2::of_size(2,2) );
+  ref.resize( nt2::of_size(2,2) );
+  for(int i=1;i<=4;i++)  ref(i) = x(i);
 
-  for(int i=1;i<=2;i++)
-    {
-    for(int j=1;j<=2;j++)
-      std::cout << r(i,j) << "\t";
-    std::cout << std::endl;
-    }
-  std::cout << std::endl;
-  std::cout << std::endl;
+  y = nt2::resize(x, nt2::of_size(2,2) );
 
-  r = nt2::resize(y, nt2::of_size(5,5) );
-    for(int i=1;i<=5;i++)
-    {
-    for(int j=1;j<=5;j++)
-      std::cout << r(i,j) << "\t";
-    std::cout << std::endl;
-    }
-  std::cout << std::endl;
-  std::cout << std::endl;
+  NT2_TEST_EQUAL(ref, y);
 
-   r = nt2::resize(y, nt2::of_size(6,5) );
+  ref.resize( nt2::of_size(6,6) );
+  for(int i=1;i<=16;i++)  ref(i) = x(i);
+  for(int i=17;i<=36;i++)  ref(i) = T(0);
 
-  for(int i=1;i<=6;i++)
-    {
-    for(int j=1;j<=5;j++)
-      std::cout << r(i,j) << "\t";
-    std::cout << std::endl;
-    }
-  std::cout << std::endl;
-  std::cout << std::endl;
+  y = nt2::resize(x, nt2::of_size(6,6) );
 
-  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,2,2)), nt2::of_size(2,2 ));
-  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,5,5)), nt2::of_size(5,5 ));
-  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,6,5)), nt2::of_size(6,5 ));
-  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,nt2::of_size(2,2))), nt2::of_size(2,2 ));
-  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,nt2::of_size(5,5))), nt2::of_size(5,5 ));
-  NT2_TEST_EQUAL( nt2::extent(nt2::resize(y,nt2::of_size(6,5))), nt2::of_size(6,5 ));
+  NT2_TEST_EQUAL(ref, y);
+}
 
+NT2_TEST_CASE_TPL( size, NT2_TYPES )
+{
+  nt2::table<T> y, ref;
+
+  nt2::table<T> x( nt2::of_size(4,4) );
+  for(int i=1;i<=16;i++)  x(i) = T(i);
+
+  ref.resize( nt2::of_size(2,2) );
+  for(int i=1;i<=4;i++)  ref(i) = x(i);
+
+  y = nt2::resize(x, nt2::size(ref) );
+
+  NT2_TEST_EQUAL(ref, y);
+
+  ref.resize( nt2::of_size(6,6) );
+  for(int i=1;i<=16;i++)  ref(i) = x(i);
+  for(int i=17;i<=36;i++)  ref(i) = T(0);
+
+  y = nt2::resize(x, nt2::size(ref) );
+
+  NT2_TEST_EQUAL(ref, y);
+
+  ref.resize( nt2::of_size(2,2,2) );
+  for(int i=1;i<=8;i++)  ref(i) = x(i);
+
+  y = nt2::resize(x, nt2::size(ref) );
+  NT2_TEST_EQUAL(ref, y);
+
+  ref.resize( nt2::of_size(2,2,2,2) );
+  for(int i=1;i<=16;i++)  ref(i) = x(i);
+
+  y = nt2::resize(x, nt2::size(ref));
+  NT2_TEST_EQUAL(ref, y);
+}
+
+NT2_TEST_CASE_TPL( scalar, NT2_TYPES )
+{
+  nt2::table<T> y, ref;
+
+  nt2::table<T> x( nt2::of_size(4,4) );
+  for(int i=1;i<=16;i++)  x(i) = T(i);
+
+  ref.resize( nt2::of_size(2,2) );
+  for(int i=1;i<=4;i++)  ref(i) = x(i);
+
+  y = nt2::resize(x, 2 );
+
+  NT2_TEST_EQUAL(ref, y);
+
+  ref.resize( nt2::of_size(6,6) );
+  for(int i=1;i<=16;i++)  ref(i) = x(i);
+  for(int i=17;i<=36;i++)  ref(i) = T(0);
+
+  y = nt2::resize(x, 6, 6 );
+
+  NT2_TEST_EQUAL(ref, y);
+
+  ref.resize( nt2::of_size(2,2,2) );
+  for(int i=1;i<=8;i++)  ref(i) = x(i);
+
+  y = nt2::resize(x, 2, 2, 2 );
+  NT2_TEST_EQUAL(ref, y);
+
+  ref.resize( nt2::of_size(2,2,2,2) );
+  for(int i=1;i<=16;i++)  ref(i) = x(i);
+
+  y = nt2::resize(x, 2, 2, 2, 2 );
+  NT2_TEST_EQUAL(ref, y);
 }

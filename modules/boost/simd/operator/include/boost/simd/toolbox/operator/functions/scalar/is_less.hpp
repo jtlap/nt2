@@ -22,6 +22,48 @@ namespace boost { namespace simd { namespace ext
     typedef typename meta::as_logical<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2) { return result_type(a0 < a1); }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (scalar_< fundamental_<A0> >)
+                                      (mpl_integral_< scalar_< fundamental_<A1> > >)
+                                    )
+  {
+    typedef typename meta::as_logical<A0>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 a0, A1 const&) const
+    {
+      return result_type(a0 < A1::value);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (mpl_integral_< scalar_< fundamental_<A0> > >)
+                                      (scalar_< fundamental_<A1> >)
+                                    )
+  {
+    typedef typename meta::as_logical<A1>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const&, A1 a1) const
+    {
+      return result_type(A0::value < a1);
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::is_less_, tag::cpu_
+                                    , (A0)
+                                    , (mpl_integral_< scalar_< fundamental_<A0> > >)
+                                      (mpl_integral_< scalar_< fundamental_<A0> > >)
+                                    )
+  {
+    typedef typename meta::as_logical<typename A0::value_type>::type result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const&, A0 const&) const
+    {
+      return result_type(false);
+    }
+  };
 } } }
 
 #endif

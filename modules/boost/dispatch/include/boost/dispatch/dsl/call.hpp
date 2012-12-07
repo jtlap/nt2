@@ -80,18 +80,20 @@ namespace meta
 #define M3(z,n,t) (unspecified_<BOOST_PP_CAT(A,n)>)
 #define M4(z,n,t) boost::reference_wrapper<A##n>(a##n)
 
-#define M5(z,n,t)                                                              \
-BOOST_DISPATCH_REGISTER_TO_IF((boost)(dispatch)(meta), Func, tag::formal_      \
-                      , (Func)BOOST_PP_REPEAT(n,M2,~)                          \
-                      , (mpl::and_< mpl::not_< is_formal<Func> >               \
-                                  , any< boost::proto::is_expr<boost::mpl::_>  \
-                                       , BOOST_PP_ENUM_PARAMS(n,A)             \
-                                       >                                       \
-                                  >                                            \
-                          )                                                    \
-                      , BOOST_PP_REPEAT(n,M3,~)                                \
-                      , (implement<Func(tag::ast_), tag::formal_>)             \
-                      )                                                        \
+#define M5(z,n,t)                                                               \
+BOOST_DISPATCH_REGISTER_TO_IF ( (boost)(dispatch)(meta), unspecified_<Func>     \
+                              , tag::formal_                                    \
+                              , (Func)BOOST_PP_REPEAT(n,M2,~)                   \
+                              , (mpl::and_< mpl::not_< is_formal<Func> >        \
+                                          , any < boost::proto::                \
+                                                  is_expr<boost::mpl::_>        \
+                                                , BOOST_PP_ENUM_PARAMS(n,A)     \
+                                                >                               \
+                                          >                                     \
+                          )                                                     \
+                      , BOOST_PP_REPEAT(n,M3,~)                                 \
+                      , (implement<Func(tag::ast_), tag::formal_>)              \
+                      )                                                         \
 /**/
 
 #define M0(z,n,t)                                                              \
@@ -154,4 +156,3 @@ namespace boost { namespace dispatch { namespace meta
 #endif
 
 #endif
-

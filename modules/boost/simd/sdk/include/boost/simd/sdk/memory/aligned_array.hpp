@@ -10,7 +10,6 @@
 #define BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_HPP_INCLUDED
 
 #include <boost/simd/sdk/memory/aligned_on.hpp>
-#include <boost/simd/sdk/memory/parameters.hpp>
 #include <boost/simd/sdk/memory/aligned_array_fwd.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 
@@ -25,13 +24,6 @@ namespace boost { namespace simd
 {
   namespace memory
   {
-    template<std::size_t N>
-    struct max_alignment
-    {
-      typedef std::size_t type;
-      static type const value = (N < BOOST_SIMD_CONFIG_ALIGNMENT) ? N : BOOST_SIMD_CONFIG_ALIGNMENT;
-    };
-
     template<class T, std::size_t N, std::size_t Align>
     struct aligned_array_data
     {
@@ -54,7 +46,7 @@ namespace boost { namespace simd
     template<class T, std::size_t N, std::size_t Align>
     struct aligned_array
     {
-      aligned_array_data<T, N, (Align ? Align : BOOST_SIMD_CONFIG_ALIGNMENT)> data_;
+      aligned_array_data<T, N, Align> data_;
 
       typedef T              value_type;
       typedef T*             iterator;

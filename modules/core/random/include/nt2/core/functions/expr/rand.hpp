@@ -10,32 +10,35 @@
 #define NT2_CORE_FUNCTIONS_EXPR_RAND_HPP_INCLUDED
 
 #include <nt2/core/functions/rand.hpp>
-#include <nt2/core/utility/randstream.hpp>
+#include <nt2/core/include/functions/as_size.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // rand evaluation
-  //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                            , (A0)(A1)
-                            , ((ast_<A0, nt2::container::domain>))
-                              ((node_<A1,nt2::tag::rand_,boost::mpl::long_<3> ,nt2::container::domain>))
+  /// INTERNAL ONLY
+  /// size(...)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rand_, tag::cpu_
+                            , (A0)
+                            , ((ast_< A0, nt2::container::domain >))
                             )
   {
-    typedef A0& result_type;
-
-    result_type operator()(A0& a0, A1& a1) const
-    {
-      // Setup lhs memory using size informations from rhs
-      a0.resize( boost::proto::value(boost::proto::child_c<0>(a1)) );
-
-      // Forward to current random_stream and fill the data
-      current_randstream->rand(a0.raw(),0,nt2::numel(a0));
-
-      return a0;
-    }
+    BOOST_DISPATCH_RETURNS(1, (A0 const& a0)
+                          , nt2::rand(nt2::as_size(a0))
+                          )
   };
+
+  /// INTERNAL ONLY
+  /// size(...) + target
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rand_, tag::cpu_
+                            , (A0)(T)
+                            , ((ast_< A0, nt2::container::domain >))
+                              (target_< scalar_< unspecified_<T> > >)
+                            )
+  {
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, T const& tgt)
+                          , (nt2::rand(nt2::as_size(a0),tgt))
+                          )
+  };
+
 } }
 
 #endif

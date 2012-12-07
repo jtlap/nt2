@@ -34,6 +34,30 @@ namespace boost { namespace simd { namespace ext
       return result_type();
     }
   };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
+                            , (scalar_< arithmetic_<A0> >)
+                              (mpl_integral_< scalar_< arithmetic_<A1> > >)
+                            )
+  {
+    typedef A0 result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const&) const
+    {
+      return a0*A1::value;
+    }
+  };
+
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::multiplies_, tag::cpu_, (A0)(A1)
+                            , (mpl_integral_< scalar_< arithmetic_<A0> > >)
+                              (scalar_< arithmetic_<A1> >)
+                            )
+  {
+    typedef A1 result_type;
+    BOOST_FORCEINLINE result_type operator()(A0 const&, A1 const& a1) const
+    {
+      return a1*A0::value;
+    }
+  };
 } } }
 
 #endif

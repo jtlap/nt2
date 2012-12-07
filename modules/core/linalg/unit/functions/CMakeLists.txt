@@ -9,6 +9,14 @@
 
 SET( SOURCES
      cauchy.cpp
+     chebspec.cpp
+     chebvand.cpp
+     chow.cpp
+     circul.cpp
+     clement.cpp
+     hilb.cpp
+     invhilb.cpp
+     toeplitz.cpp
      vandermonde.cpp
    )
 

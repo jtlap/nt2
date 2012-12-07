@@ -21,13 +21,12 @@
 #include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/functions/indices.hpp>
 #include <nt2/include/functions/linesstride.hpp>
+#include <nt2/sdk/meta/is_target.hpp>
 #include <string>
 #include <boost/mpl/bool.hpp>
 
 namespace nt2 { namespace ext
 {
-  template < class T > struct is_target : boost::mpl::false_{};
-  template < class T > struct is_target < meta::as_<T> > :  boost::mpl::true_{};
   //============================================================================
   // This version of sort is called whenever a tie(...) = sort(...) is captured
   // before assign is resolved. As a tieable function, sort retrieves rhs/lhs
@@ -57,7 +56,7 @@ namespace nt2 { namespace ext
       //retrieve options
       choice(a0, up, dim, N0());
       // compute the sorted result
-      compute(a0, a1, up,  dim, N0(), N1(), typename is_target<child0>::type() );
+      compute(a0, a1, up,  dim, N0(), N1(), typename meta::is_target<child0>::type() );
     }
 
   private:
@@ -233,7 +232,7 @@ namespace nt2 { namespace ext
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
       const i_type base = ind_type::value-1;
-      idx =  nt2::indices(size(res), dim, meta::as_<i_type>())+base;
+      idx =  nt2::indices(size(res), nt2::over(dim), meta::as_<i_type>())+base;
 
       size_t h = nt2::size(res, dim);
       if (h <= 1) return;
@@ -262,7 +261,7 @@ namespace nt2 { namespace ext
       typedef typename boost::mpl::at_c< typename T::index_type::type, 0>::type  ind_type;
       // here 0 has to be replaced by min(dim-1, size(index_type)),  but dim-1 is run-time
       // and I dont know how to simpy take the ith element of the index_type
-      idx =  nt2::indices(size(res), dim, meta::as_<i_type>())-One<i_type>();
+      idx =  nt2::indices(size(res), nt2::over(dim), meta::as_<i_type>())-One<i_type>();
       //base 0 here for indexing the raw array
 
       size_t h = nt2::size(res, dim);

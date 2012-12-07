@@ -19,7 +19,7 @@
 
 /*!
  * \ingroup boost_simd_constant
- * \defgroup boost_simd_constant_real_splat Real_splat
+ * \defgroup boost_simd_pure_constant_real_splat Real_splat
  *
  * \par Description
  * TODO Put description here
@@ -59,7 +59,7 @@ namespace boost { namespace simd
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     template<boost::simd::uint32_t F,boost::simd::uint64_t D>
-    struct Realpattern : ext::constant_< Realpattern<F, D> >
+    struct Realpattern : ext::pure_constant_< Realpattern<F, D> >
     {
       template<class Target, class Dummy=void>
       struct apply {};

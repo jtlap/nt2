@@ -14,7 +14,7 @@
 #include <nt2/dsl/functions/terminal.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/core/container/table/category.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
+#include <boost/simd/sdk/memory/iterator.hpp>
 #include <nt2/sdk/memory/copy.hpp>
 
 namespace nt2 { namespace ext
@@ -134,8 +134,8 @@ namespace nt2 { namespace ext
                                       >
                               ))
                               (fusion_sequence_<A1>)
-                              (iterator_< scalar_< arithmetic_<A2> > >)
-                              (iterator_< scalar_< arithmetic_<A3> > >)
+                              (iterator_< scalar_< unspecified_<A2> > >)
+                              (iterator_< scalar_< unspecified_<A3> > >)
                             )
   {
     typedef void result_type;

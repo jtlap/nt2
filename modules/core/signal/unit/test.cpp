@@ -73,20 +73,24 @@ namespace
         ///                                   (24.07.2012.) (Domagoj Saric)
 
         static unsigned int const maximum_allowed_complex_nt2_ulpd   = 1030;
+#if defined(BOOST_SIMD_ARCH_X86) && !defined(BOOST_SIMD_HAS_FMA4_SUPPORT)
         static unsigned int const maximum_allowed_real_nt2_ulpd      =  580;
+#else
+        static unsigned int const maximum_allowed_real_nt2_ulpd      = 1290;
+#endif
 
         static unsigned int const maximum_allowed_complex_apple_ulpd = 1290;
         static unsigned int const maximum_allowed_real_apple_ulpd    =  770;
     } // namespace constants
 
     static std::size_t const N = constants::test_dft_size;
-    #if defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
+    #if 0 //defined( BOOST_SIMD_HAS_LRB_SUPPORT ) || defined( BOOST_SIMD_HAS_AVX_SUPPORT )
         typedef double T;
     #else //...zzz...cardinal-must-be-4 limitation...
         typedef float T;
     #endif // BOOST_SIMD_HAS_LRB_SUPPORT || BOOST_SIMD_HAS_AVX_SUPPORT
-    typedef boost::simd::memory::aligned_array<T, N, BOOST_SIMD_ARCH_ALIGNMENT> aligned_array;
-    typedef boost::simd::memory::aligned_array<T, N/2 + 1, BOOST_SIMD_ARCH_ALIGNMENT> aligned_half_complex_array;
+    typedef boost::simd::memory::aligned_array<T, N, BOOST_SIMD_CONFIG_ALIGNMENT> aligned_array;
+    typedef boost::simd::memory::aligned_array<T, N/2 + 1, BOOST_SIMD_CONFIG_ALIGNMENT> aligned_half_complex_array;
     typedef nt2::static_fft<constants::minimum_dft_size, constants::maximum_dft_size, T> FFT;
 
     void randomize( aligned_array & data )

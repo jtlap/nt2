@@ -35,7 +35,7 @@ namespace nt2 { namespace ext
     typedef typename nt2::meta::call<nt2::tag::rowvect_(const A0&)>::type                           S;
     typedef typename nt2::meta::call<nt2::tag::reduce_(S)>::type                                   T0;
     typedef meta::as_<value_type>                                                                  T1;
-    typedef typename nt2::meta::call<nt2::tag::ones_(size_t, size_t, T1)>::type                    T2;
+    typedef typename nt2::meta::call<nt2::tag::One(size_t, size_t, T1)>::type                      T2;
     typedef typename nt2::meta::call<nt2::tag::from_diag_(T2, ptrdiff_t)>::type                    T3;
     typedef typename nt2::meta::call<nt2::tag::colon_(size_t, size_t)>::type                       T4;
     typedef typename nt2::meta::call<nt2::tag::function_(T0, T4)>::type                            T5;

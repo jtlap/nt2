@@ -26,9 +26,9 @@ namespace nt2
     /*!
       @brief Tag for the functor
     **/
-    struct freqspace1_ : ext::generative_<freqspace1_>
+    struct freqspace1_ : tag::formal_
     {
-      typedef ext::generative_<freqspace1_> parent;
+      typedef tag::formal_ parent;
     };
   }
 
@@ -47,18 +47,5 @@ namespace nt2
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::freqspace1_, freqspace1, 2)
   NT2_FUNCTION_IMPLEMENTATION(nt2::tag::freqspace1_, freqspace1, 1)
 }
-
-namespace nt2 { namespace ext
-{
-  template<class Domain, class Expr, int N>
-  struct  value_type<tag::freqspace1_,Domain,N,Expr>
-        : meta::generative_value<Expr>
-  {};
-
-  template<class Domain, class Expr, int N>
-  struct  size_of<tag::freqspace1_,Domain,N,Expr>
-        : meta::generative_size<Expr>
-  {};
-} }
 
 #endif

@@ -19,6 +19,11 @@ namespace nt2 { namespace ext
 {
   /// INTERNAL ONLY
   template<class Domain, int N, class Expr>
+  struct  value_type<nt2::tag::colvect_,Domain,N,Expr>
+        : meta::value_as<Expr,0> {};
+
+  /// INTERNAL ONLY
+  template<class Domain, int N, class Expr>
   struct size_of<nt2::tag::colvect_,Domain,N,Expr>
   {
     typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type::extent_type ext_t;

@@ -17,6 +17,9 @@
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/print.hpp>
 #include <boost/simd/include/functions/simd/map.hpp>
+#include <boost/mpl/not.hpp>
+#include <boost/dispatch/meta/any.hpp>
+#include <boost/proto/traits.hpp>
 
 #ifdef BOOST_SIMD_LOG_MAP
 namespace boost { namespace simd { namespace details
@@ -49,11 +52,21 @@ namespace boost { namespace simd { namespace details
 #define M0(z,n,t) (A##n)
 #define M1(z,n,t) (unspecified_<A##n>)
 
-#define M2(z,n,t)                                                              \
-BOOST_SIMD_REGISTER_DISPATCH ( elementwise_<Tag> , tag::formal_                \
-                             , (Tag)BOOST_PP_REPEAT(n,M0,~)                    \
-                             , BOOST_PP_REPEAT(n,M1,~)                         \
-                             )                                                 \
+#define M2(z,n,t)                                                             \
+BOOST_SIMD_REGISTER_DISPATCH_IF( elementwise_<Tag> , tag::formal_             \
+                             , (Tag)BOOST_PP_REPEAT(n,M0,~)                   \
+                             , (mpl::not_< any <  mpl::or_                    \
+                                                  < boost::proto::            \
+                                                    is_expr<mpl::_>           \
+                                                  , boost::dispatch::         \
+                                                    meta::is_proxy<mpl::_>    \
+                                                  >                           \
+                                               , BOOST_PP_ENUM_PARAMS(n,A)    \
+                                               >                              \
+                                          >                                   \
+                                )                                             \
+                             , BOOST_PP_REPEAT(n,M1,~)                        \
+                             )                                                \
 /**/
 
 namespace boost { namespace simd { namespace ext

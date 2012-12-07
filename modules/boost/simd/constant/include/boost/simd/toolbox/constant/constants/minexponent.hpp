@@ -57,7 +57,7 @@ namespace boost { namespace simd
      * \brief Define the tag Minexponent of functor Minexponent
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Minexponent : ext::constant_<Minexponent>
+    struct Minexponent : ext::pure_constant_<Minexponent>
     {
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c<typename Target::type,0> {};

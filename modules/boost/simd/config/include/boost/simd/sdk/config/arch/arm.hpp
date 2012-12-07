@@ -14,7 +14,7 @@
   #if     defined(__arm__)     || defined(_ARM) ||  defined(DOXYGEN_ONLY)
     #define BOOST_SIMD_ARCH_ARM
     #define BOOST_SIMD_ARCH "ARM"
-    #define BOOST_SIMD_ARCH_ALIGNMENT 16
+    #define BOOST_SIMD_ARCH_ALIGNMENT 8
   #endif
 
 #endif

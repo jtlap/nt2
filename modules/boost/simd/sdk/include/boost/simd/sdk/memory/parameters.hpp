@@ -9,6 +9,10 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_PARAMETERS_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_PARAMETERS_HPP_INCLUDED
 
+// defines BOOST_SIMD_ARCH_ALIGNMENT
+#include <boost/simd/sdk/config/arch.hpp>
+
 #include <boost/simd/sdk/simd/extensions.hpp>
+#define BOOST_SIMD_CONFIG_ALIGNMENT BOOST_SIMD_BYTES
 
 #endif

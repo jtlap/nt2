@@ -16,8 +16,10 @@
  */
 
 #include <nt2/core/settings/size.hpp>
+#include <nt2/core/utility/of_size/mpl_value.hpp>
 #include <boost/utility/enable_if.hpp>
-#include <boost/type_traits/is_integral.hpp>
+#include <nt2/sdk/meta/is_iterator.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/repetition/enum_binary_params.hpp>
 
@@ -46,7 +48,7 @@ namespace nt2
   template<class ...Dims> _nD of_size(Dims const& d...);
   #endif
 
-  _0D inline of_size() { return _0D(); }
+  _0D BOOST_FORCEINLINE  of_size() { return _0D(); }
 
   #define   BOOST_PP_FILENAME_1 "nt2/core/functions/of_size.hpp"
   #define   BOOST_PP_ITERATION_LIMITS (1, NT2_MAX_DIMENSIONS)
@@ -77,11 +79,11 @@ namespace nt2
    * \endcode
    */
   //============================================================================
-  template<class Iterator> inline
+  template<class Iterator> BOOST_FORCEINLINE
   typename boost::
-           disable_if< boost::is_integral<Iterator>
-                     , BOOST_PP_CAT(BOOST_PP_CAT(_,NT2_MAX_DIMENSIONS),D)
-                     >::type
+           enable_if< meta::is_iterator<Iterator>
+                    , BOOST_PP_CAT(BOOST_PP_CAT(_,NT2_MAX_DIMENSIONS),D)
+                    >::type
   of_size(Iterator const& begin, Iterator const& end)
   {
     BOOST_PP_CAT(BOOST_PP_CAT(_,NT2_MAX_DIMENSIONS),D) that(begin,end);
@@ -93,16 +95,17 @@ namespace nt2
 
 #else
 #define N BOOST_PP_ITERATION()
+#define M0(z,n,t) nt2::mpl_value<D##n>::value
 
-  template<BOOST_PP_ENUM_PARAMS(N,class D)> inline
-  BOOST_PP_CAT(BOOST_PP_CAT(_,N),D)
+  template<BOOST_PP_ENUM_PARAMS(N,class D)>
+  BOOST_FORCEINLINE of_size_<BOOST_PP_ENUM(N,M0,~)>
   of_size(BOOST_PP_ENUM_BINARY_PARAMS(N,const D, &d))
   {
-    BOOST_PP_CAT(BOOST_PP_CAT(_,N),D) that(BOOST_PP_ENUM_PARAMS(N,d));
-
+    of_size_<BOOST_PP_ENUM(N,M0,~)> that(BOOST_PP_ENUM_PARAMS(N,d));
     return that;
   }
 
+#undef M0
 #undef N
 
 #endif

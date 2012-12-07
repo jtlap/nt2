@@ -11,7 +11,7 @@
 
 #include <nt2/core/functions/construct.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
+#include <boost/simd/sdk/memory/iterator.hpp>
 #include <boost/dispatch/meta/fusion.hpp>
 
 namespace nt2 { namespace ext

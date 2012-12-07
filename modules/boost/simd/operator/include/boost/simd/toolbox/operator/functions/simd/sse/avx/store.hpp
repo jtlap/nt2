@@ -15,7 +15,7 @@
 // TODO : Make them work properly with ContiguousRandomAccessIterator
 //==============================================================================
 #include <boost/simd/toolbox/operator/functions/store.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
+#include <boost/simd/sdk/memory/iterator.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/assert.hpp>
@@ -34,7 +34,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1+a2,sizeof(result_type))
+      ( boost::simd::is_aligned(a1+a2,sizeof(result_type))
       , "store has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );
@@ -59,7 +59,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1+a2,sizeof(result_type))
+      ( boost::simd::is_aligned(a1+a2,sizeof(result_type))
       , "store has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );
@@ -84,7 +84,7 @@ namespace boost { namespace simd { namespace ext
     BOOST_SIMD_FUNCTOR_CALL(3)
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a1+a2,sizeof(result_type))
+      ( boost::simd::is_aligned(a1+a2,sizeof(result_type))
       , "store has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );

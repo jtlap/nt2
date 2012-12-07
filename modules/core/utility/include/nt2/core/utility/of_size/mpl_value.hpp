@@ -11,7 +11,7 @@
 
 #include <nt2/sdk/meta/strip.hpp>
 #include <boost/mpl/int.hpp>
-#include <boost/type_traits/is_class.hpp>
+#include <boost/dispatch/meta/mpl.hpp>
 
 namespace nt2
 {
@@ -25,8 +25,8 @@ namespace nt2
   template<class T>
   struct mpl_value < T
                    , typename boost::
-                     enable_if < boost::
-                                 is_class< typename meta::strip<T>::type >
+                     enable_if < boost::dispatch::details::
+                                 is_mpl_integral< typename meta::strip<T>::type >
                                >::type
                    >
     : meta::strip<T>::type
@@ -46,9 +46,9 @@ namespace nt2
   template<class T>
   struct mpl_value_type< T
                        , typename boost::
-                         enable_if < boost::
-                                     is_class< typename meta::strip<T>::type >
-                                   >::type
+                         enable_if< boost::dispatch::details::
+                                    is_mpl_integral<typename meta::strip<T>::type>
+                                  >::type
                         >
   {
     // Case for non mpl::void_ basically

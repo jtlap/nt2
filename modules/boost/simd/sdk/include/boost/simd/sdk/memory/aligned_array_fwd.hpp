@@ -9,13 +9,12 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_FWD_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_ALIGNED_ARRAY_FWD_HPP_INCLUDED
 
+#include <boost/simd/sdk/config/arch.hpp>
+
 namespace boost { namespace simd { namespace memory
 {
-  template<class T, std::size_t N, std::size_t Align = 0>
+  template<class T, std::size_t N, std::size_t Align = BOOST_SIMD_ARCH_ALIGNMENT>
   struct aligned_array;
-
-  template<std::size_t N>
-  struct max_alignment;
 } } }
 
 #endif

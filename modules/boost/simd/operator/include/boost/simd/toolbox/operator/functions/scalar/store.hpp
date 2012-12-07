@@ -13,7 +13,7 @@
 #include <boost/simd/toolbox/operator/functions/simd/common/details/details_load_store.hpp>
 #include <boost/simd/sdk/meta/iterate.hpp>
 #include <boost/dispatch/meta/mpl.hpp>
-#include <boost/simd/sdk/memory/details/category.hpp>
+#include <boost/simd/sdk/memory/iterator.hpp>
 #include <boost/dispatch/functor/preprocessor/call.hpp>
 
 namespace boost { namespace simd { namespace ext

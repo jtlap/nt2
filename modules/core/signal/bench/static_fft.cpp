@@ -58,8 +58,8 @@ namespace bench
         static T const test_data_range_maximum = +1;
     } // namespace constants
 
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, constants::maximum_dft_size      > aligned_array;
-    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_ARCH_ALIGNMENT ) boost::array<T, constants::maximum_dft_size/2 + 1> aligned_half_complex_array;
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) boost::array<T, constants::maximum_dft_size      > aligned_array;
+    typedef BOOST_SIMD_ALIGN_ON( BOOST_SIMD_CONFIG_ALIGNMENT ) boost::array<T, constants::maximum_dft_size/2 + 1> aligned_half_complex_array;
 
     typedef std::vector<T, boost::simd::memory::allocator<T> > dynamic_aligned_array;
 

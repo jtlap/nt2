@@ -15,7 +15,7 @@ IF(WIN32)
   SET(NT2_OS_WINDOWS 1)
 ELSEIF(APPLE)
   SET(NT2_OS "Mac OS X")
-  SET(NT2_OS_MAC_OS 1) 
+  SET(NT2_OS_MAC_OS 1)
 ELSEIF(UNIX)
   SET(NT2_OS "POSIX")
   SET(NT2_OS_UNIX 1)
@@ -23,49 +23,34 @@ ELSE()
   SET(NT2_OS "Unknown")
 ENDIF()
 
+STRING(TOLOWER ${CMAKE_SYSTEM_PROCESSOR} NT2_SYSTEM_PROCESSOR)
+
 ################################################################################
 # ARM processor
 ################################################################################
-IF(CMAKE_SYSTEM_PROCESSOR MATCHES "arm*")
-  SET(NT2_ARCH "ARM")
+IF(NT2_SYSTEM_PROCESSOR MATCHES "arm")
+  SET(NT2_ARCH "arm")
   SET(NT2_ARCH_ARM 1)
 ################################################################################
 # x86 family processor, 64-bits
 ################################################################################
-ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "amd64*")
-  SET(NT2_ARCH "amd64")
+ELSEIF(NT2_SYSTEM_PROCESSOR MATCHES "amd64|x86|i[3-9]86")
+  SET(NT2_ARCH "i686")
   SET(NT2_ARCH_X86 1)
-  SET(NT2_ARCH_X86_64 1)
-  SET(NT2_ARCH_AMD 1)
-  SET(NT2_ARCH_AMD64 1)
-ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64*")
-  SET(NT2_ARCH "x86_64")
-  SET(NT2_ARCH_X86 1)
-  SET(NT2_ARCH_X86_64 1)
-################################################################################
-# x86 family processor
-################################################################################
-ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "amd*")
-  SET(NT2_ARCH "amd")
-  SET(NT2_ARCH_X86 1)
-  SET(NT2_ARCH_AMD 1)
-ELSEIF(  CMAKE_SYSTEM_PROCESSOR MATCHES "i[3-9]86*"
-      OR CMAKE_SYSTEM_PROCESSOR MATCHES "x86*"
-      )
-  SET(NT2_ARCH "x86")
-  SET(NT2_ARCH_X86 1)
+  IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    SET(NT2_ARCH "x86_64")
+    SET(NT2_ARCH_X86_64 1)
+  ENDIF()
 ################################################################################
 # Power PC processor
 ################################################################################
-ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "ppc64*")
-  SET(NT2_ARCH "PowerPC 64")
+ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "ppc|powerpc")
+  SET(NT2_ARCH "powerpc")
   SET(NT2_ARCH_POWERPC 1)
-  SET(NT2_ARCH_POWERPC_64 1)
-ELSEIF(CMAKE_SYSTEM_PROCESSOR MATCHES "powerpc*")
-  SET(NT2_ARCH "PowerPC")
-  SET(NT2_ARCH_POWERPC 1)
-ELSE()
-  SET(NT2_ARCH "Unknown")
+  IF(CMAKE_SIZEOF_VOID_P EQUAL 8)
+    SET(NT2_ARCH "ppc64")
+    SET(NT2_ARCH_POWERPC_64 1)
+  ENDIF()
 ENDIF()
 
 IF(${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")

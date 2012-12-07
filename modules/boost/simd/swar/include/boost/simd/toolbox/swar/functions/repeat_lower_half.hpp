@@ -12,7 +12,9 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_REPEAT_LOWER_HALF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_REPEAT_LOWER_HALF_HPP_INCLUDED
 
+#include <boost/simd/include/simd.hpp>
 #include <boost/dispatch/include/functor.hpp>
+
 
 /*!
  * \ingroup boost_simd_swar

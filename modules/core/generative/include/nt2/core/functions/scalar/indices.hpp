@@ -11,198 +11,152 @@
 
 #include <nt2/core/functions/indices.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/details/indices.hpp>
-#include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/of_size.hpp>
+#include <nt2/sdk/meta/constant_adaptor.hpp>
+#include <nt2/core/include/functions/as_size.hpp>
 
 namespace nt2 {  namespace ext
 {
   /// INTERNAL ONLY
+  /// Along only returns a scalar
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< integer_<A0> >)
-                              (scalar_< integer_<A0> >)
-                              (target_< unspecified_<A1> >)
-                              (scalar_< integer_<A2> >)
+                            , (A0)
+                            , ((array_< scalar_< integer_<A0> >,2>))
                             )
   {
-    typedef meta::constant_<nt2::tag::indices_,double> constant_t;
-    typedef typename  boost::proto::result_of::
-                      make_expr < nt2::tag::indices_
-                                , container::domain
-                                , box<_2D>
-                                , box<constant_t>
-                                , meta::as_<double>
-                                >::type             result_type;
+    typedef double result_type;
 
-    BOOST_FORCEINLINE
-    result_type operator()(A0 const& n, A0 const& m, const A1 &, const A2& dim) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& s) const
     {
-      return boost::proto::make_expr< nt2::tag::indices_
-                                    , container::domain
-                                    > ( boxify(of_size(n,m))
-                                      , boxify(constant_t(dim))
-                                      , meta::as_<double>()
-                                      );
+      return static_cast<double>(s[1]);
+    }
+  };
+
+  /// INTERNAL ONLY
+  /// Along only returns a scalar wityh a given target type
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
+                            , (A0)(T)
+                            , ((array_< scalar_< integer_<A0> >,2>))
+                              (target_< unspecified_<T> >)
+                            )
+  {
+    typedef typename T::type  result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0 const& s, T const&) const
+    {
+      return static_cast<typename T::type>(s[1]);
     }
   };
 
   /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                            , (A0)(A1)(A2)
-                            , (scalar_< integer_<A0> >)
-                              (target_< unspecified_<A1> >)
-                              (scalar_< integer_<A2> >)
+                            , (A0)(A1)
+                            , (fusion_sequence_<A0>)
+                              ((array_< scalar_< integer_<A1> >,2>))
                             )
   {
-    typedef meta::constant_<nt2::tag::indices_,double> constant_t;
-    typedef typename  boost::proto::result_of::
-                      make_expr < nt2::tag::indices_
+    typedef typename boost::remove_const<A0>::type          size_type;
+    typedef meta::constant_<nt2::tag::indices_,double>      constant_t;
+    typedef meta::as_<constant_t::result_type>              target_t;
+    typedef typename  boost::proto::result_of
+                    ::make_expr < nt2::tag::indices_
                                 , container::domain
-                                , box<_2D>
+                                , box<size_type>
                                 , box<constant_t>
-                                , meta::as_<double>
-                                >::type               result_type;
+                                , target_t
+                                >::type                     result_type;
 
-    BOOST_FORCEINLINE
-    result_type operator()(A0 const& n, const A1 &, const A2& dim) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& s) const
     {
-      return boost::proto::make_expr< nt2::tag::indices_
-                                    , container::domain
-                                    > ( boxify(of_size(n,n))
-                                      , boxify(constant_t(dim))
-                                      , meta::as_<double>()
-                                      );
-    }
-  };
-
-  /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                            , (A0)(A1)(A2)(T)
-                            , (scalar_< integer_<A0> >)
-                              (scalar_< integer_<A0> >)
-                              (target_< unspecified_<A1> >)
-                              (scalar_< integer_<A2> >)
-                              (target_< scalar_< unspecified_<T> > >)
-                            )
-  {
-    typedef typename T::type                                    value_t;
-    typedef meta::constant_<nt2::tag::indices_,value_t>  constant_t;
-    typedef typename  boost::proto::result_of::
-                      make_expr < nt2::tag::indices_
-                                , container::domain
-                                , box<_2D>
-                                , box<constant_t>
-                                , T
-                                >::type             result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& n, A0 const& m, const A1&, const A2& d, T const& tgt) const
-    {
-      return boost::proto::make_expr< nt2::tag::indices_
-                                    , container::domain
-                                    > ( boxify(of_size(n,m))
-                                      , boxify(constant_t(d))
-                                      , tgt
-                                      );
-    }
-  };
-
-  /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                              , (A0)(A1)(A2)(T)
-                              , (scalar_< integer_<A0> >)
-                                (target_< unspecified_<A1> >)
-                                (scalar_< integer_<A2> >)
-                                (target_< scalar_< unspecified_<T> > >)
-                              )
-  {
-    typedef typename T::type                                    value_t;
-    typedef meta::constant_<nt2::tag::indices_,value_t>  constant_t;
-
-    typedef typename  boost::proto::result_of::
-                      make_expr < nt2::tag::indices_
-                                , container::domain
-                                , box<_2D>
-                                , box<constant_t>
-                                , T
-                                >::type             result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& n, const A1 &, const A2& dim, T const& tgt) const
-    {
-     return boost::proto::make_expr< nt2::tag::indices_
-                                    , container::domain
-                                    > ( boxify(of_size(n,n))
-                                      , boxify(constant_t(dim))
-                                      , tgt
-                                      );
-    }
-  };
-
-  /// INTERNAL ONLY
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                              , (Seq)(A2)
-                              , (fusion_sequence_<Seq>)
-                                (scalar_< integer_<A2> >)
-                            )
-  {
-    typedef typename meta::strip<Seq>::type seq_t;
-    typedef meta::constant_<nt2::tag::indices_,double>  constant_t;
-    typedef typename  boost::proto::result_of::
-                      make_expr < nt2::tag::indices_
-                                , container::domain
-                                , box<seq_t>
-                                , box<constant_t>
-                                , meta::as_<double>
-                                >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(Seq const& seq, const A2& dim) const
-    {
-      return  boost::proto::
-              make_expr < nt2::tag::indices_
+      return  boost::proto
+            ::make_expr < nt2::tag::indices_
                         , container::domain
-                        > ( boxify(seq)
-                          , boxify(constant_t(dim))
-                          , meta::as_<double>()
+                        > ( boxify(a0)
+                          , boxify(constant_t(s[0],s[1]))
+                          , target_t()
                           );
     }
   };
 
-  //============================================================================
-  // Generates indices from fusion sequence + types (support of_size calls)
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_
-                            , (Seq)(A1)(T)
-                            , (fusion_sequence_<Seq>)
-                              (scalar_<integer_<A1> >)
+                            , (A0)(A1)(T)
+                            , (fusion_sequence_<A0>)
+                              ((array_< scalar_< integer_<A1> >,2>))
                               (target_< scalar_< unspecified_<T> > >)
                             )
   {
-    typedef typename meta::strip<Seq>::type seq_t;
-    typedef typename T::type                                    value_t;
-    typedef meta::constant_<nt2::tag::indices_,value_t>  constant_t;
-
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::indices_
-                                          , container::domain
-                                          , box<seq_t>
-                                          , box<constant_t>
-                                          , T
-                                          >::type             result_type;
+    typedef typename boost::remove_const<A0>::type                size_type;
+    typedef meta::constant_<nt2::tag::indices_,typename T::type>  constant_t;
+    typedef meta::as_<typename constant_t::result_type>           target_t;
+    typedef typename  boost::proto::result_of
+                    ::make_expr < nt2::tag::indices_
+                                , container::domain
+                                , box<size_type>
+                                , box<constant_t>
+                                , target_t
+                                >::type                     result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(Seq const& seq, const A1& dim, T const& tgt) const
+    operator()(A0 const& a0, A1 const& s, T const&) const
     {
-      return  boost::proto::
-              make_expr<  nt2::tag::indices_
+      return  boost::proto
+            ::make_expr < nt2::tag::indices_
                         , container::domain
-                        > ( boxify(seq)
-                          , boxify(constant_t(dim))
-                          , tgt
+                        > ( boxify(a0)
+                          , boxify(constant_t(s[0],s[1]))
+                          , target_t()
                           );
     }
   };
+
+
+  #define M2(z,n,t) (BOOST_PP_CAT(A,n))
+  #define M1(z,n,t) (scalar_< arithmetic_<BOOST_PP_CAT(A,n)> >)
+
+  #define M0(z,n,t)                                                             \
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_                     \
+                            , BOOST_PP_REPEAT(n,M2,~)(X)                        \
+                            , BOOST_PP_REPEAT(n,M1,~)                           \
+                              ((array_< scalar_< integer_<X> >,2>))             \
+                            )                                                   \
+  {                                                                             \
+    BOOST_DISPATCH_RETURNS( BOOST_PP_INC(n)                                     \
+                          , ( BOOST_PP_ENUM_BINARY_PARAMS(n,const A,& a)        \
+                            , X const& x                                        \
+                            )                                                   \
+                          , (nt2::indices                                       \
+                                  ( nt2::as_size(BOOST_PP_ENUM_PARAMS(n,a))     \
+                                  , x                                           \
+                                  )                                             \
+                            )                                                   \
+                          )                                                     \
+  };                                                                            \
+                                                                                \
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::indices_, tag::cpu_                     \
+                            , BOOST_PP_REPEAT(n,M2,~)(X)(T)                     \
+                            , BOOST_PP_REPEAT(n,M1,~)                           \
+                              ((array_< scalar_< integer_<X> >,2>))             \
+                              (target_< scalar_< unspecified_<T> > >)           \
+                            )                                                   \
+  {                                                                             \
+    BOOST_DISPATCH_RETURNS( BOOST_PP_ADD(n,2)                                   \
+                          , ( BOOST_PP_ENUM_BINARY_PARAMS(n,const A,& a)        \
+                            , X const& x, T const& tgt                          \
+                            )                                                   \
+                          , (nt2::indices                                       \
+                                  ( nt2::as_size(BOOST_PP_ENUM_PARAMS(n,a))     \
+                                  , x, tgt                                      \
+                                  )                                             \
+                            )                                                   \
+                          )                                                     \
+  };                                                                            \
+  /**/
+
+  BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
+
+  #undef M0
+  #undef M1
+  #undef M2
 } }
 
 #endif

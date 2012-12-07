@@ -10,24 +10,25 @@
 #define NT2_CORE_FUNCTIONS_DETAILS_REPNUM_HPP_INCLUDED
 
 #include <nt2/include/functions/splat.hpp>
+#include <nt2/sdk/meta/constant_adaptor.hpp>
 
-namespace nt2 { namespace details
+namespace nt2 { namespace tag { struct repnum_; }}
+
+namespace nt2 { namespace meta
 {
-  //============================================================================
-  // repnum actual functor
-  //============================================================================
-  template < class T >
-  struct repnum
+  template<class T>
+  struct constant_<tag::repnum_,T>
   {
-    repnum() {}
-    repnum(const T& val)  : val_(val) {}
+    typedef T result_type;
+
+    constant_ () {}
+    constant_(const T& val)  : val_(val) {}
 
     template<class Pos, class Size, class Target>
     BOOST_FORCEINLINE typename Target::type
     operator()(Pos const& , Size const&, Target const& ) const
     {
-      typedef typename Target::type type;
-      return nt2::splat<type>(val_);
+      return nt2::splat<typename Target::type>(val_);
     }
 
     private:

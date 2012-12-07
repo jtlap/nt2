@@ -30,6 +30,7 @@ namespace nt2 { namespace meta
    **/
   template<class Functor, class Base> struct constant_
   {
+    typedef typename Functor::default_type                      default_type;
     typedef typename boost::dispatch::make_functor<Functor,Base>::type f_t;
     typedef typename meta::call<Functor(meta::as_<Base>)>::type   result_type;
 

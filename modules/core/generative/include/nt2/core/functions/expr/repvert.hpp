@@ -16,9 +16,9 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates repvert from 1 expression
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repvert_, tag::cpu_,
-                              (A0),
-                              ((ast_<A0, nt2::container::domain>))
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repvert_, tag::cpu_
+                            , (A0)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef A0 result_type;
@@ -31,24 +31,18 @@ namespace nt2 { namespace ext
   //============================================================================
   // Generates linearize_ from expression and integer
   //============================================================================
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repvert_, tag::cpu_,
-                              (A0)(A1),
-                              ((ast_<A0, nt2::container::domain>))(scalar_<integer_<A1> >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::repvert_, tag::cpu_
+                            , (A0)(A1)
+                            , ((ast_<A0, nt2::container::domain>))
+                              (scalar_<integer_<A1> >)
                             )
   {
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::repvert_
-                                          , container::domain
-                                          , A0 const&
-                                          , A1
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0,A1 const& n) const
-    {
-      return boost::proto::make_expr< nt2::tag::repvert_
-                                    , container::domain
-                                    > (boost::cref(a0),n);
-    }
+    BOOST_DISPATCH_RETURNS(2, (A0 const& a0, A1 const& n)
+                          , (boost::proto::make_expr< nt2::tag::repvert_
+                                                    , container::domain
+                                                    > (boost::cref(a0), n)
+                            )
+                          )
   };
 } }
 

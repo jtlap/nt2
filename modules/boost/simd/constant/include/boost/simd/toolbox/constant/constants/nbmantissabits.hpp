@@ -61,7 +61,7 @@ namespace boost { namespace simd
      * \brief Define the tag Nbmantissabits of functor Nbmantissabits
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Nbmantissabits : ext::constant_<Nbmantissabits>
+    struct Nbmantissabits : ext::pure_constant_<Nbmantissabits>
     {
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c < typename Target::type

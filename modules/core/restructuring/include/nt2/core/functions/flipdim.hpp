@@ -40,7 +40,6 @@ namespace nt2
 
     Return an expression which values along a given dimension are in reverse
     order of the input.
-
     @param  a0 Expression to flip
     @param  a1 Dimension to flip around
     @return the flipped expression

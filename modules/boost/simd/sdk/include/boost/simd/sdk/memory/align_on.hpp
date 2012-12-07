@@ -9,67 +9,46 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 
+#include <cstddef>
 #include <boost/assert.hpp>
-#include <boost/mpl/assert.hpp>
-#include <boost/dispatch/functor/functor.hpp>
+#include <boost/config.hpp>
+#include <boost/simd/sdk/memory/parameters.hpp>
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
-#include <boost/dispatch/functor/preprocessor/function.hpp>
 
 namespace boost { namespace simd
 {
-  namespace tag { struct align_on_ : dispatch::meta::unspecified_<align_on_> {}; }
+  /*!
+    @brief Align value and address on an arbitrary alignment boundary
 
-  namespace memory
+    @param value Value to align
+    @param alignment Alignment boundary
+  **/
+  BOOST_FORCEINLINE std::size_t align_on(std::size_t value, std::size_t align)
   {
-    ////////////////////////////////////////////////////////////////////////////
-    // align_on(a0) aligns a0 on the default alignement value
-    ////////////////////////////////////////////////////////////////////////////
-    BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::align_on_, align_on, 1);
+    BOOST_ASSERT_MSG( boost::simd::is_power_of_2(align)
+                    , "Invalid alignment boundary. You tried to align an "
+                      "address or a value on a non-power of 2 boundary."
+                    );
 
-    ////////////////////////////////////////////////////////////////////////////
-    // align_on(a0,a1) aligns a0 on the first address multiple of a1
-    ////////////////////////////////////////////////////////////////////////////
-    template<class A0, class A1> inline
-    typename boost::dispatch::meta::call<tag::align_on_(A0 const&, A1 const&)>::type
-    align_on(A0 const& a0, A1 const& a1)
-    {
-      BOOST_ASSERT_MSG( is_power_of_2(a1)
-                      , "Invalid alignment boundary. You tried to align an "
-                        "address or a value on a non-power of 2 boundary."
-                      );
+    return (value+align-1) & ~(align-1);
+  }
 
-      typename boost::dispatch::make_functor<tag::align_on_, A0>::type callee;
-      return callee(a0,a1);
-    }
+  /*! @overload **/
+  template<class T> BOOST_FORCEINLINE T* align_on(T* ptr, std::size_t align)
+  {
+    std::size_t v = reinterpret_cast<std::size_t>(ptr);
+    return reinterpret_cast<T*>(boost::simd::align_on(v,align));
+  }
 
-    ////////////////////////////////////////////////////////////////////////////
-    // align_on<N>(a0) aligns a0 on the first address multiple of N
-    ////////////////////////////////////////////////////////////////////////////
-    template<std::size_t N,class A0> inline
-    typename boost::dispatch::meta::
-    call<tag::align_on_(A0 const&,boost::mpl::int_<N> const&)>::type
-    align_on(A0 const& a0)
-    {
-      //==========================================================================
-      /*
-       * Invalid alignment boundary. You tried to align an address or a value
-       * on a non-power of 2 boundary.
-       */
-      //==========================================================================
-      BOOST_MPL_ASSERT_MSG
-      ( meta::is_power_of_2_c<N>::value
-      , INVALID_ALIGNMENT_BOUNDARY
-      , (boost::mpl::int_<N>)
-      );
+  /*!
+    @brief Align value and address on default alignment boundary
 
-      typename boost::dispatch::make_functor<tag::align_on_, A0>::type callee;
-      return callee(a0,boost::mpl::int_<N>());
-    }
+    @param value Value to align
+  **/
+  template<class T> BOOST_FORCEINLINE T align_on(T value)
+  {
+    return boost::simd::align_on(value,BOOST_SIMD_CONFIG_ALIGNMENT);
   }
 } }
-
-BOOST_DISPATCH_DEFAULT_SITE_FOR( boost::simd::tag::align_on_ )
-
-#include <boost/simd/sdk/memory/details/align_on.hpp>
 
 #endif

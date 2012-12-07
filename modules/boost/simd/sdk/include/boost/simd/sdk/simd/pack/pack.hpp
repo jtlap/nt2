@@ -117,7 +117,7 @@ namespace boost { namespace simd
       value_type* p = &(*i);
 
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(p,sizeof(data_type))
+      ( boost::simd::is_aligned(p,sizeof(data_type))
       , "The constructor of pack<T,C> has been called on a iterator"
         "which alignment is not compatible with current SIMD extension."
       );

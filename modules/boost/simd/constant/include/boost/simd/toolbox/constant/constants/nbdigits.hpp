@@ -61,7 +61,7 @@ namespace boost { namespace simd
      * \brief Define the tag Nbdigits of functor Nbdigits
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Nbdigits : ext::constant_<Nbdigits>
+    struct Nbdigits : ext::pure_constant_<Nbdigits>
     {
       template<class Target, class Dummy=void>
       struct  apply : meta::int_c <typename Target::type,0> {};

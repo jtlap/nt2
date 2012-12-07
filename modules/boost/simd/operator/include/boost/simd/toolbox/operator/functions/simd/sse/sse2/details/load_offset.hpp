@@ -50,7 +50,7 @@ namespace boost { namespace simd { namespace ext
                                   const A2&, const A3&)const
     {
       BOOST_ASSERT_MSG
-      ( boost::simd::memory::is_aligned(a0+a1,sizeof(result_type))
+      ( boost::simd::is_aligned(a0+a1,sizeof(result_type))
       , "load has been called on a pointer which alignment is not "
         "compatible with current SIMD extension."
       );

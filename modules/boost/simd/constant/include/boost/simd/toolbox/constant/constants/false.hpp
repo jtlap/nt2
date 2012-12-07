@@ -58,10 +58,10 @@ namespace boost { namespace simd
      * \brief Define the tag False of functor False
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct False : ext::constant_<False>
+    struct False : ext::pure_constant_<False>
     {
       typedef logical<double> default_type;
-      typedef ext::constant_<False> parent;
+      typedef ext::pure_constant_<False> parent;
     };
   }
 

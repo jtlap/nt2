@@ -18,6 +18,7 @@
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/pi.hpp>
+#include <nt2/include/constants/threeeps.hpp>
 #include <nt2/include/constants/twopi.hpp>
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/include/constants/inv2pi.hpp>
@@ -64,7 +65,7 @@ namespace nt2 { namespace ext
     {
       nt2::int32_t n = rem_pio2(a0, xr, xc);
       xr = xr+n*Pio_2<A0>();
-      xr = (xr > Pi<A0>()) ? xr-Twopi<A0>():xr;
+      xr = (xr > Pi<A0>()+Threeeps<A0>()) ? xr-Twopi<A0>():(xr > Pi<A0>() ? Pi<A0>() : xr);
     }
 
   };

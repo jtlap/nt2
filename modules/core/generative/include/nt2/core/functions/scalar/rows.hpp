@@ -11,102 +11,83 @@
 
 #include <nt2/core/functions/rows.hpp>
 #include <nt2/core/container/dsl.hpp>
-#include <nt2/core/functions/rows.hpp>
-#include <nt2/core/functions/details/rows.hpp>
 #include <nt2/core/utility/box.hpp>
-#include <nt2/core/functions/of_size.hpp>
+#include <nt2/core/functions/details/rows.hpp>
+#include <nt2/core/include/functions/as_size.hpp>
 
 namespace nt2 { namespace ext
 {
-  //============================================================================
-  // Generates rows from a pair of integers
-  //============================================================================
+  #define M2(z,n,t) (BOOST_PP_CAT(A,n))
+  #define M1(z,n,t) (scalar_< arithmetic_<BOOST_PP_CAT(A,n)> >)
+
+  #define M0(z,n,t)                                                             \
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rows_, tag::cpu_                        \
+                            , BOOST_PP_REPEAT(n,M2,~)(T)                        \
+                            , BOOST_PP_REPEAT(n,M1,~)                           \
+                              (scalar_< unspecified_<T> >)                      \
+                            )                                                   \
+  {                                                                             \
+    BOOST_DISPATCH_RETURNS( BOOST_PP_INC(n)                                     \
+                          , ( BOOST_PP_ENUM_BINARY_PARAMS(n,const A,& a)        \
+                            , T const& s                                        \
+                            )                                                   \
+                          , (nt2::rows( nt2::as_size(BOOST_PP_ENUM_PARAMS(n,a)) \
+                                      , s                                       \
+                                      )                                         \
+                            )                                                   \
+                          )                                                     \
+  };                                                                            \
+  /**/
+
+  BOOST_PP_REPEAT_FROM_TO(1, BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
+
+  #undef M0
+  #undef M1
+  #undef M2
+
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rows_, tag::cpu_
-                            , (A0)(T)
-                            , (scalar_< integer_<A0> >)
-                              (scalar_< integer_<A0> >)
-                              (scalar_< arithmetic_<T> >)
+                            , (T)
+                            , (scalar_< unspecified_<T> >)
                             )
   {
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::rows_
-      , container::domain
-      , box<_2D>
-      , box< nt2::details::rows<T> >
-      ,  meta::as_<T>
-      >::type             result_type;
+    typedef T result_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& n, A0 const& m, T const& start) const
+    BOOST_FORCEINLINE result_type operator()(T const& s) const
     {
-      return boost::proto::make_expr< nt2::tag::rows_
-        , container::domain
-        > ( boxify(of_size(n,m))
-            , boxify(nt2::details::rows<T>(start))
-            ,   meta::as_<T>()
-            );
+      return s;
     }
   };
 
-  //============================================================================
-  // Generates rows from fusion sequence + types (support of_size calls)
-  //============================================================================
+  /// INTERNAL ONLY
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rows_, tag::cpu_
-                            , (Seq)(T)
-                            , (fusion_sequence_<Seq>)
+                            , (A0)(T)
+                            , (fusion_sequence_<A0>)
                               (scalar_< arithmetic_<T> >)
                             )
   {
-    typedef typename meta::strip<Seq>::type seq_t;
-    typedef typename  boost::proto::
-      result_of::make_expr< nt2::tag::rows_
-      , container::domain
-      , box<seq_t>
-      , box<nt2::details::rows<T> >
-      , meta::as_<T>
-      >::type             result_type;
+    typedef typename boost::remove_const<A0>::type          size_type;
+    typedef meta::constant_<nt2::tag::rows_,T>              constant_t;
+    typedef meta::as_<typename constant_t::result_type>     target_t;
+    typedef typename  boost::proto::result_of
+                    ::make_expr < nt2::tag::rows_
+                                , container::domain
+                                , box<size_type>
+                                , box<constant_t>
+                                , target_t
+                                >::type                     result_type;
 
-    BOOST_FORCEINLINE result_type operator()(Seq const& seq, T const& start) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, T const& s) const
     {
-      return  boost::proto::
-              make_expr<  nt2::tag::rows_
+      return  boost::proto
+            ::make_expr < nt2::tag::rows_
                         , container::domain
-                        > ( boxify(seq)
-                          , boxify(nt2::details::rows<T>(start))
-                            ,  meta::as_<T>()
+                        > ( boxify(a0)
+                          , boxify(constant_t(s))
+                          , target_t()
                           );
     }
   };
-
-  //============================================================================
-  // Generates rows from fusion sequence + types (support of_size calls)
-  //============================================================================
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::rows_scaled_, tag::cpu_
-//                               , (Seq)(T)(T1)
-//                             , (fusion_sequence_<Seq>)
-//                               (scalar_< arithmetic_<T> >)
-//                               (scalar_< arithmetic_<T1> >)
-//                             )
-//   {
-//     typedef typename meta::strip<Seq>::type seq_t;
-//     typedef typename  boost::proto::
-//       result_of::make_expr< nt2::tag::rows_scaled_
-//       , container::domain
-//       , box<seq_t>
-//       , box<nt2::details::rows_scaled<T, T1> >
-//       , meta::as_<T>
-//       >::type             result_type;
-
-//     BOOST_FORCEINLINE result_type operator()(Seq const& seq, T const& start, T1 const & h) const
-//     {
-//       return  boost::proto::
-//               make_expr<  nt2::tag::rows_scaled_
-//                         , container::domain
-//                         > ( boxify(seq)
-//                           , boxify(nt2::details::rows_scaled<T, T1>(start, h))
-//                             ,  meta::as_<T>()
-//                           );
-//     }
-//   };
 } }
 
 #endif

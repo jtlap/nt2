@@ -71,7 +71,7 @@ namespace nt2 { namespace tag
      *        in namespace nt2::tag for toolbox statistics
     **/
     struct norminv_ : ext::tieable_<norminv_> { typedef ext::tieable_<norminv_> parent; };
-    struct norminv0_ : ext::elementwise_<norminv0_> { typedef ext::elementwise_<norminv_> parent; };
+    struct norminv0_ : ext::elementwise_<norminv0_> { typedef ext::elementwise_<norminv0_> parent; };
   }
   NT2_FUNCTION_IMPLEMENTATION(tag::norminv0_, norminv, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::norminv0_, norminv, 2)

@@ -28,7 +28,9 @@ namespace nt2 { namespace memory
   class composite_iterator
         : public boost::
           iterator_facade < composite_iterator<P,V,R>
-                          , V, boost::random_access_traversal_tag, R
+                          , V, std::random_access_iterator_tag
+                            // boost::random_access_traversal_tag
+                          , R
                           >
   {
     private:
@@ -85,7 +87,7 @@ namespace nt2 { namespace memory
       std::ptrdiff_t n_;
       adv(std::ptrdiff_t n) : n_(n) {}
       template<class T>
-      BOOST_FORCEINLINE void operator()(T& t) const { t + n_; }
+      BOOST_FORCEINLINE void operator()(T& t) const { t += n_; }
     };
 
     struct derefer
@@ -122,7 +124,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     // Implement distance for RandomAccessIterator interface
     //==========================================================================
-    std::ptrdiff_t distance_to(composite_iterator const& z)
+    std::ptrdiff_t distance_to(composite_iterator const& z) const
     {
       return std::distance( boost::fusion::at_c<0>(composites_)
                           , boost::fusion::at_c<0>(z.composites_)

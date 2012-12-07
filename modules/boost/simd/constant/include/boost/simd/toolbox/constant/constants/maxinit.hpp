@@ -71,7 +71,7 @@ namespace boost { namespace simd
      * \brief Define the tag Maxinit of functor Maxinit
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Maxinit : ext::constant_<Maxinit>
+    struct Maxinit : ext::pure_constant_<Maxinit>
     {
       typedef double default_type;
       template<class Target, class Dummy=void>

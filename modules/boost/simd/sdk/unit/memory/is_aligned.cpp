@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "boost::simd::memory::is_aligned"
+#define NT2_UNIT_MODULE "boost::simd::is_aligned"
 
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/meta/is_aligned.hpp>
@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(is_aligned_int_default)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   NT2_TEST( is_aligned(0x00)                    );
   NT2_TEST( !is_aligned(BOOST_SIMD_CONFIG_ALIGNMENT-1) );
@@ -32,7 +32,7 @@ NT2_TEST_CASE(is_aligned_int_default)
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(is_aligned_int)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   NT2_TEST( is_aligned(0x00,0x01) );
   NT2_TEST( is_aligned(0x00,0x02) );
@@ -61,44 +61,11 @@ NT2_TEST_CASE(is_aligned_int)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test the is_aligned version on integer/meta
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(is_aligned_int_meta_int)
-{
-  using boost::simd::memory::is_aligned;
-
-  NT2_TEST( is_aligned<0x01>(0x00) );
-  NT2_TEST( is_aligned<0x02>(0x00) );
-  NT2_TEST( is_aligned<0x04>(0x00) );
-  NT2_TEST( is_aligned<0x08>(0x00) );
-  NT2_TEST( is_aligned<0x10>(0x00) );
-  NT2_TEST( is_aligned<0x20>(0x00) );
-  NT2_TEST( is_aligned<0x40>(0x00) );
-  NT2_TEST( is_aligned<0x80>(0x00) );
-
-  NT2_TEST( !is_aligned<0x02>(0x01) );
-  NT2_TEST( !is_aligned<0x04>(0x03) );
-  NT2_TEST( !is_aligned<0x08>(0x07) );
-  NT2_TEST( !is_aligned<0x10>(0x0F) );
-  NT2_TEST( !is_aligned<0x20>(0x1F) );
-  NT2_TEST( !is_aligned<0x40>(0x33) );
-  NT2_TEST( !is_aligned<0x80>(0x7C) );
-
-  NT2_TEST( is_aligned<0x02>(0x02) );
-  NT2_TEST( is_aligned<0x04>(0x04) );
-  NT2_TEST( is_aligned<0x08>(0x08) );
-  NT2_TEST( is_aligned<0x10>(0x10) );
-  NT2_TEST( is_aligned<0x20>(0x20) );
-  NT2_TEST( is_aligned<0x40>(0x40) );
-  NT2_TEST( is_aligned<0x80>(0x80) );
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // Test the is_aligned version on pointer
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(is_aligned_ptr)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   void* null_  = reinterpret_cast<void*>(0);
   void* exact_ = reinterpret_cast<void*>(0xABCD8000);
@@ -131,48 +98,11 @@ NT2_TEST_CASE(is_aligned_ptr)
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-// Test the is_aligned version on pointer/meta int
-////////////////////////////////////////////////////////////////////////////////
-NT2_TEST_CASE(is_aligned_ptr_meta)
-{
-  using boost::simd::memory::is_aligned;
-
-  void* null_  = reinterpret_cast<void*>(0);
-  void* exact_ = reinterpret_cast<void*>(0xABCD8000);
-  void* under_ = reinterpret_cast<void*>(0xABCD7FFF);
-
-  NT2_TEST( is_aligned<0x01>(null_) );
-  NT2_TEST( is_aligned<0x02>(null_) );
-  NT2_TEST( is_aligned<0x04>(null_) );
-  NT2_TEST( is_aligned<0x08>(null_) );
-  NT2_TEST( is_aligned<0x10>(null_) );
-  NT2_TEST( is_aligned<0x20>(null_) );
-  NT2_TEST( is_aligned<0x40>(null_) );
-  NT2_TEST( is_aligned<0x80>(null_) );
-
-  NT2_TEST( !is_aligned<0x02>(under_) );
-  NT2_TEST( !is_aligned<0x04>(under_) );
-  NT2_TEST( !is_aligned<0x08>(under_) );
-  NT2_TEST( !is_aligned<0x10>(under_) );
-  NT2_TEST( !is_aligned<0x20>(under_) );
-  NT2_TEST( !is_aligned<0x40>(under_) );
-  NT2_TEST( !is_aligned<0x80>(under_) );
-
-  NT2_TEST( is_aligned<0x02>(exact_) );
-  NT2_TEST( is_aligned<0x04>(exact_) );
-  NT2_TEST( is_aligned<0x08>(exact_) );
-  NT2_TEST( is_aligned<0x10>(exact_) );
-  NT2_TEST( is_aligned<0x20>(exact_) );
-  NT2_TEST( is_aligned<0x40>(exact_) );
-  NT2_TEST( is_aligned<0x80>(exact_) );
-}
-
-////////////////////////////////////////////////////////////////////////////////
 // Test the is_aligned default version on pointer
 ////////////////////////////////////////////////////////////////////////////////
 NT2_TEST_CASE(is_aligned_ptr_default)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   void* null_  = reinterpret_cast<void*>(0);
   void* exact_ = reinterpret_cast<void*>(0xABCD * BOOST_SIMD_CONFIG_ALIGNMENT);
@@ -186,7 +116,7 @@ NT2_TEST_CASE(is_aligned_ptr_default)
 #if defined(_MSC_VER) || defined(__GNUC__)
 NT2_TEST_CASE(is_aligned_restrict)
 {
-  using boost::simd::memory::is_aligned;
+  using boost::simd::is_aligned;
 
   int * __restrict p = 0;
   NT2_TEST( is_aligned(p) );

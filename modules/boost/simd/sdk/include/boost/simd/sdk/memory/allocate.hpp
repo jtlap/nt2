@@ -109,7 +109,7 @@ namespace boost { namespace simd {  namespace memory
     const std::size_t fix   = ~(std::size_t(align-1));
 
     // How many elements are needed ot store proper number of bytes
-    const std::size_t nelems  = align_on<size>(nbytes+align+sizeof(void*))
+    const std::size_t nelems  = align_on(nbytes+align+sizeof(void*),size)
                               / sizeof(value_type);
 
     void *base = alloc.allocate(nelems);

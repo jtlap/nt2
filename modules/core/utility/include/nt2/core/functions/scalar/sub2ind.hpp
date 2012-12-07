@@ -50,7 +50,8 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A1>)
                             )
   {
-    typedef typename sequence_value<A1>::type               type;
+    typedef typename sequence_value<A1>::type               base;
+    typedef typename mpl_value_type<base>::type             type;
     typedef typename meta::as_unsigned<type>::type          result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
@@ -121,15 +122,16 @@ namespace nt2 { namespace ext
                               (fusion_sequence_<A2>)
                             )
   {
-    typedef typename sequence_value<A1>::type               type;
+    typedef typename sequence_value<A1>::type               base;
+    typedef typename mpl_value_type<base>::type             type;
     typedef typename meta::as_unsigned<type>::type          result_type;
 
     BOOST_DISPATCH_FORCE_INLINE result_type
-    operator()(const A0& size, const A1& pos, const A2& base) const
+    operator()(const A0& size, const A1& pos, const A2& b) const
     {
       typedef typename boost::fusion::result_of::size<A1>::type dims;
       return bitwise_cast<result_type>(
-             eval ( size,pos,base
+             eval ( size,pos,b
                   , boost::mpl::int_<0>()
                   , boost::mpl::int_<dims::value-1>()
                   )

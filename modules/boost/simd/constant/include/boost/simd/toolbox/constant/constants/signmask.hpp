@@ -63,7 +63,7 @@ namespace boost { namespace simd
      * \brief Define the tag Signmask of functor Signmask
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
-    struct Signmask : ext::constant_<Signmask>
+    struct Signmask : ext::pure_constant_<Signmask>
     {
       template<class Target, class Dummy=void>
       struct apply : meta::int_c<typename Target::type,0> {};
