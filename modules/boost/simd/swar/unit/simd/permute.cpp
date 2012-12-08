@@ -30,9 +30,9 @@ struct mirror_
   template<class Index, class Cardinal>
   struct apply
        : boost::mpl::
-         int_ < Index::value < boost::mpl::int_<Cardinal::value/2>::value
+         int_ < (Cardinal::value/2 > Index::value)
               ? Index::value
-              : (boost::mpl::int_<Cardinal::value>::value - 1 - Index::value)
+              : (Cardinal::value - 1 - Index::value)
               >
   {};
 };
@@ -118,7 +118,7 @@ struct low0_upshuffled_
 {
   template<class Index, class Cardinal>
   struct apply : boost::mpl
-               ::int_< (Index::value < boost::mpl::int_<Cardinal::value/2>::value)
+               ::int_< (boost::mpl::int_<Cardinal::value/2>::value > Index::value)
                      ? Index::value
                      : -1
                      > {};
@@ -128,7 +128,7 @@ struct lowshuffled_up0_
 {
   template<class Index, class Cardinal>
   struct apply : boost::mpl
-               ::int_< (Index::value < boost::mpl::int_<Cardinal::value/2>::value)
+               ::int_< ( boost::mpl::int_<Cardinal::value/2>::value > Index::value)
                      ? -1
                      : Index::value
                      > {};
