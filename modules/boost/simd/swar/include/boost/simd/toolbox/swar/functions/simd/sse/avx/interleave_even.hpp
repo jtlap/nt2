@@ -78,7 +78,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const a0, A1 const a1) const
+    result_type operator()(A0 const& a0, A1 const& a1) const
     {
       typedef typename boost::dispatch::meta::as_floating<A0>::type  ftype;
       return bitwise_cast<result_type>
