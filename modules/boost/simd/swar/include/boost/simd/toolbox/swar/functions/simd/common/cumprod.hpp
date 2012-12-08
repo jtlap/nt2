@@ -10,17 +10,10 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_CUMPROD_HPP_INCLUDED
 
 #include <boost/simd/toolbox/swar/functions/cumprod.hpp>
-#include <boost/simd/include/functions/simd/load.hpp>
-#include <boost/simd/include/functions/simd/store.hpp>
-#include <boost/simd/sdk/memory/aligned_type.hpp>
+#include <boost/simd/include/functions/simd/insert.hpp>
+#include <boost/simd/include/functions/simd/extract.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
-#include <boost/simd/sdk/meta/scalar_of.hpp>
 
-#include <algorithm>
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::cumprod_, tag::cpu_
@@ -31,15 +24,12 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef typename meta::scalar_of<A0>::type stype;
-      static const size_t size = boost::simd::meta::cardinal_of<A0>::value;
-      BOOST_SIMD_ALIGNED_TYPE(stype) tmp[size];
-      boost::simd::store(a0, &tmp[0], 0);
-      for(size_t i=1; i!=size; ++i) tmp[i] *= tmp[i-1];
-      return boost::simd::load<A0>(&tmp[0], 0);
+      result_type that = a0;
+      for(size_t i=1; i!=meta::cardinal_of<A0>::value; ++i)
+        that[i] *= that[i-1];
+      return that;
     }
   };
 } } }
-
 
 #endif

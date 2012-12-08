@@ -9,21 +9,20 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_CUMPROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_CUMPROD_HPP_INCLUDED
 
+#include <boost/simd/toolbox/functions/cumprod.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::cumprod_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< unspecified_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-    { return a0; }
+    {
+      return a0;
+    }
   };
 } } }
 
