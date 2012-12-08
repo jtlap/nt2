@@ -9,7 +9,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_CUMPROD_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_CUMPROD_HPP_INCLUDED
 
-#include <boost/simd/toolbox/functions/cumprod.hpp>
+#include <boost/simd/toolbox/swar/functions/cumprod.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
