@@ -9,6 +9,7 @@
 
 SET( SOURCES
   cumsum.cpp
+  cumprod.cpp
   sort.cpp
 # List of simd test files for toolbox swar
    )

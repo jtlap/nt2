@@ -12,6 +12,7 @@ SET( SOURCES
   arith.cpp
   comparator.cpp
   cumsum.cpp
+  cumprod.cpp
   enumerate.cpp
   group.cpp
   lookup.cpp
