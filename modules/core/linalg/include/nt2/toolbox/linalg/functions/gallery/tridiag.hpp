@@ -13,7 +13,6 @@
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/from_diag.hpp>
 #include <nt2/include/functions/repnum.hpp>
-#include <nt2/include/functions/cif.hpp>
 
 namespace nt2{ namespace ext
 {
