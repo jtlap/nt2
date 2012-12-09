@@ -16,13 +16,20 @@
 
 struct identity_
 {
-  template<class Index, class Cardinal> struct apply : Index {};
+  template<class Index, class Cardinal>
+  struct apply : Index
+  {
+  };
 };
 
 struct reverse_
 {
   template<class Index, class Cardinal>
-  struct apply : boost::mpl::int_<Cardinal::value - Index::value - 1> {};
+  struct apply
+       : boost::mpl::
+         int_<Cardinal::value - Index::value - 1>
+  {
+  };
 };
 
 struct mirror_
@@ -30,14 +37,14 @@ struct mirror_
   template<class Index, class Cardinal>
   struct apply
        : boost::mpl::
-         int_ < (Cardinal::value/2 > Index::value)
-              ? Index::value
-              : (Cardinal::value - 1 - Index::value)
+         int_ < !(Cardinal::value/2 <= Index::value)
+                ? Index::value
+                : (Cardinal::value - 1 - Index::value)
               >
   {};
 };
 
-template<int N>
+template<unsigned int N>
 struct bcast_
 {
   template<class Index, class Cardinal>
@@ -55,20 +62,31 @@ struct bcast_
 
 struct null_
 {
-  template<class Index, class Cardinal> struct apply : boost::mpl::int_<-1> {};
+  template<class Index, class Cardinal>
+  struct apply
+       : boost::mpl::int_<-1>
+  {
+  };
 };
 
 struct half_null_
 {
   template<class Index, class Cardinal>
-  struct apply : boost::mpl::int_< Index::value % 2 ? Index::value/2 : -1> {};
+  struct apply
+       : boost::mpl::
+         int_< Index::value % 2 ? Index::value/2 : -1 >
+  {
+  };
 };
 
 struct random_
 {
   template<class Index, class Cardinal>
-  struct apply  : boost::mpl
-                ::int_< (Index::value * 3 + 1) % Cardinal::value > {};
+  struct apply
+       : boost::mpl::
+         int_< (Index::value * 3 + 1) % Cardinal::value >
+  {
+  };
 };
 
 NT2_TEST_CASE_TPL ( permute, BOOST_SIMD_SIMD_TYPES)
@@ -117,21 +135,27 @@ NT2_TEST_CASE_TPL ( permute, BOOST_SIMD_SIMD_TYPES)
 struct low0_upshuffled_
 {
   template<class Index, class Cardinal>
-  struct apply : boost::mpl
-               ::int_< (boost::mpl::int_<Cardinal::value/2>::value > Index::value)
-                     ? Index::value
-                     : -1
-                     > {};
+  struct apply
+       : boost::mpl::
+         int_< !(Cardinal::value/2 <= Index::value)
+               ? Index::value
+               : -1
+             >
+  {
+  };
 };
 
 struct lowshuffled_up0_
 {
   template<class Index, class Cardinal>
-  struct apply : boost::mpl
-               ::int_< ( boost::mpl::int_<Cardinal::value/2>::value > Index::value)
-                     ? -1
-                     : Index::value
-                     > {};
+  struct apply
+       : boost::mpl::
+         int_< !(Cardinal::value/2 <= Index::value)
+               ? -1
+               : Index::value
+             >
+  {
+  };
 };
 
 NT2_TEST_CASE_TPL( permute_optim, (float)(int32_t)(uint32_t) )
