@@ -15,6 +15,7 @@ SET( SOURCES
   chow.cpp
   circul.cpp
   clement.cpp
+  compar.cpp
   hilb.cpp
   invhilb.cpp
   magic.cpp
