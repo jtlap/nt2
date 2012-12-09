@@ -17,6 +17,7 @@ SET( SOURCES
      hilb.cpp
      invhilb.cpp
      magic.cpp
+     pascal.cpp
      toeplitz.cpp
      tridiag.cpp
      vandermonde.cpp
