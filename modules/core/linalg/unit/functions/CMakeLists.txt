@@ -8,19 +8,20 @@
 ##############################################################################
 
 SET( SOURCES
-     cauchy.cpp
-     chebspec.cpp
-     chebvand.cpp
-     chow.cpp
-     circul.cpp
-     clement.cpp
-     hilb.cpp
-     invhilb.cpp
-     magic.cpp
-     pascal.cpp
-     toeplitz.cpp
-     tridiag.cpp
-     vandermonde.cpp
-   )
+  binomial.cpp
+  cauchy.cpp
+  chebspec.cpp
+  chebvand.cpp
+  chow.cpp
+  circul.cpp
+  clement.cpp
+  hilb.cpp
+  invhilb.cpp
+  magic.cpp
+  pascal.cpp
+  toeplitz.cpp
+  tridiag.cpp
+  vandermonde.cpp
+  )
 
 nt2_module_add_tests(core.linalg.functions.unit ${SOURCES})
