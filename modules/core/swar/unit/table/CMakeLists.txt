@@ -10,6 +10,7 @@
 SET( SOURCES
   cumsum.cpp
   cumprod.cpp
+  cumtrapz.cpp
   sort.cpp
 # List of simd test files for toolbox swar
    )
