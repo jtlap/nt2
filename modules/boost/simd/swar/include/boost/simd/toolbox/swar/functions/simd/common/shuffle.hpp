@@ -20,11 +20,11 @@ namespace boost { namespace simd { namespace ext
                                         (target_< unspecified_<P> >)
                                       )
   {
-    typedef A0                              result_type;
-    typedef typename P::type                permutation_t;
-    typedef meta::cardinal_of<result_type>  card_t;
+    typedef A0                                                  result_type;
+    typedef typename P::type                                  permutation_t;
+    typedef boost::mpl::int_<meta::cardinal_of<result_type>::value>  card_t;
 
-    result_type operator()(A0 const& a0, P const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, P const&) const
     {
       result_type that;
       eval(a0, that, boost::mpl::int_<card_t::value-1>());
@@ -32,14 +32,15 @@ namespace boost { namespace simd { namespace ext
     }
 
     template<class N>
-    void eval(A0 const& a0, result_type& that, N const&) const
+    BOOST_FORCEINLINE void eval(A0 const& a0, result_type& that, N const&) const
     {
       typedef typename boost::mpl::apply<permutation_t,N,card_t>::type idx_t;
       that[N::value] = (idx_t::value >= 0) ? a0[ idx_t::value ] : 0;
       eval(a0,that,boost::mpl::int_<N::value-1>());
     }
 
-    void eval(A0 const& a0, result_type& that, boost::mpl::int_<-1> const&) const
+    BOOST_FORCEINLINE void
+    eval(A0 const&, result_type&, boost::mpl::int_<-1> const&) const
     {}
   };
 
@@ -50,27 +51,31 @@ namespace boost { namespace simd { namespace ext
                                       (target_< unspecified_<P> >)
                                     )
   {
-    typedef A0                              result_type;
-    typedef typename P::type                permutation_t;
-    typedef meta::cardinal_of<result_type>  card_t;
+    typedef A0                                                  result_type;
+    typedef typename P::type                                  permutation_t;
+    typedef boost::mpl::int_<meta::cardinal_of<result_type>::value>  card_t;
 
-    result_type operator()(A0 const& a0, A1 const& a1, P const&) const
+    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A1 const& a1, P const&) const
     {
       result_type that;
       eval(a0, a1, that, boost::mpl::int_<card_t::value-1>());
       return that;
     }
 
-    template<class N>
+    template<class N> BOOST_FORCEINLINE
     void eval(A0 const& a0, A1 const& a1, result_type& that, N const&) const
     {
       typedef typename boost::mpl::apply<permutation_t,N,card_t>::type idx_t;
       static const int card = card_t::value;
-      that[N::value]=(idx_t::value<0)?0:((idx_t::value<card)?a0[idx_t::value]:a1[idx_t::value-card]);
+      that[N::value]  = (idx_t::value<0)?0:((idx_t::value<card)
+                      ? a0[idx_t::value]
+                      : a1[idx_t::value-card]);
+
       eval(a0,a1,that,boost::mpl::int_<N::value-1>());
     }
 
-    void eval(A0 const& a0, A1 const& a1, result_type& that, boost::mpl::int_<-1> const&) const
+    BOOST_FORCEINLINE void
+    eval(A0 const&, A1 const&, result_type&, boost::mpl::int_<-1> const&) const
     {}
   };
 } } }

@@ -70,11 +70,11 @@ namespace boost { namespace simd { namespace ext
     typedef meta::cardinal_of<result_type>         card_t;
     typedef mpl::vector<>                          empty_t;
     typedef typename mpl::copy< mpl::range_c<int,0,card_t::value>
-                              , mpl::back_inserter<empty_t> 
+                              , mpl::back_inserter<empty_t>
                               >::type range_t;
 
     typedef typename mpl::transform< range_t
-                                   , mpl::apply_wrap2< typename 
+                                   , mpl::apply_wrap2< typename
                                                        permutation_t::type
                                                      , mpl::_1
                                                      , card_t
@@ -82,32 +82,27 @@ namespace boost { namespace simd { namespace ext
                                    >::type result_t;
 
     template<std::size_t I>
-    struct mask_t
-    {
-      static const 
-      char value =  mpl::if_< mpl::equal_to< typename 
-                                             mpl::
-                                             at< result_t
-                                               , mpl::size_t<I/sizeof(scalar_t)> 
-                                               >::type
-                                           , mpl::int_<-1> 
-                                           >
-                            , mpl::char_<0x00>
-                            , mpl::char_<0xFF>
-                            >::type::value; 
-    };
+    struct  mask_t
+          : mpl::char_< mpl::at_c < result_t
+                                  , I/sizeof(scalar_t)
+                                  >::type::value == -1
+                      ? 0x00 : 0xFF
+                      >
+    {};
 
     template<bool B> struct selector {};
 
-    BOOST_FORCEINLINE result_type operator()(A0 const& a0, A0 const& a1, P const&) const
+    BOOST_FORCEINLINE result_type
+    operator()(A0 const& a0, A0 const& a1, P const&) const
     {
       return eval( a0
                  , a1
-                 , selector< dispatch::meta::any_seq< mpl::equal_to< mpl::_1
-                                                                   , mpl::int_<-1>
-                                                                   >
+                 , selector< dispatch::meta::any_seq< mpl::equal_to
+                                                      < mpl::_1
+                                                      , mpl::int_<-1>
+                                                      >
                                                    , result_t
-                                                   >::type::value 
+                                                   >::type::value
                               >()
                  );
     }
@@ -118,7 +113,7 @@ namespace boost { namespace simd { namespace ext
       result_type that = vec_perm( a0()
                                  , a1()
                                  , details::permute<P,card_t::value>::call()
-                                 ); 
+                                 );
       return that;
     }
 
@@ -141,8 +136,8 @@ namespace boost { namespace simd { namespace ext
                                                             >::call()
                                           )
                                 , bitwise_cast<A0>(mask)()
-                                ); 
-      return that; 
+                                );
+      return that;
     }
   };
 } } }
