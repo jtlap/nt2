@@ -178,7 +178,7 @@ namespace boost { namespace simd
     BOOST_FORCEINLINE
     typename output_iterator::difference_type distance_to(output_iterator const& other) const
     {
-      return (other.base() - this->base()) / typename input_iterator::difference_type(C);
+      return (other.base() - this->base()) / typename output_iterator::difference_type(C);
     }
   };
 
