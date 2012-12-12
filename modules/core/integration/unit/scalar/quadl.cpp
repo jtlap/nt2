@@ -6,10 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 optimize toolbox - quad"
+#define NT2_UNIT_MODULE "nt2 optimize toolbox - quadl"
 
 #include <iostream>
-#include <nt2/include/functions/quad.hpp>
+#include <nt2/include/functions/quadl.hpp>
 #include <nt2/toolbox/optimization/output.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
@@ -28,7 +28,6 @@
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/eps.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/table.hpp>
 struct f
@@ -41,22 +40,16 @@ struct f
 };
 
 
-NT2_TEST_CASE_TPL( quad_functor, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL( quadl_functor, NT2_REAL_TYPES )
 {
-  using nt2::quad;
+  using nt2::quadl;
   using nt2::options;
   using nt2::optimization::output;
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5));
   NT2_DISPLAY(x);
-  //output<tab_t,T>
-  BOOST_AUTO_TPL(res, quad<T>(f(), x));
-//                                  ,
-//                                   options [ nt2::iterations_ = 100,
-//                                             nt2::tolerance::absolute_ = T(0.001)
-//                                     ]);
-
+  BOOST_AUTO_TPL(res, quadl<T>(f(), x));
    std::cout << "Integrals:" << res.integrals << ") = " << res.errors
              << " after " << res.eval_count <<  " evaluations\n";
 
@@ -65,9 +58,9 @@ NT2_TEST_CASE_TPL( quad_functor, NT2_REAL_TYPES )
 
 }
 
-NT2_TEST_CASE_TPL( quad_tag, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL( quadl_tag, NT2_REAL_TYPES )
 {
-  using nt2::quad;
+  using nt2::quadl;
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
@@ -75,22 +68,17 @@ NT2_TEST_CASE_TPL( quad_tag, NT2_REAL_TYPES )
   tab_t x = nt2::_(T(0), T(5));
   NT2_DISPLAY(x);
   //output<tab_t,T>
-  BOOST_AUTO_TPL(res, quad<T>(nt2::functor<nt2::tag::exp_>(), x));
-//                                  ,
-//                                   options [ nt2::iterations_ = 100,
-//                                             nt2::tolerance::absolute_ = T(0.001)
-//                                     ]);
+  BOOST_AUTO_TPL(res, quadl<T>(nt2::functor<nt2::tag::exp_>(), x));
+  std::cout << "Integrals: " << res.integrals << " with " << res.errors
+            << " after " << res.eval_count <<  " evaluations\n";
 
-   std::cout << "Integrals: " << res.integrals << " with " << res.errors
-             << " after " << res.eval_count <<  " evaluations\n";
-
-   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::expm1(x))), nt2::Sqrteps<T>());
+  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::expm1(x))), nt2::Sqrteps<T>());
 
 
 }
-NT2_TEST_CASE_TPL( quad_tag_reverse, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL( quadl_tag_reverse, NT2_REAL_TYPES )
 {
-  using nt2::quad;
+  using nt2::quadl;
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
@@ -98,12 +86,7 @@ NT2_TEST_CASE_TPL( quad_tag_reverse, NT2_REAL_TYPES )
   tab_t x = nt2::_(T(5), T(-1), T(0));
   NT2_DISPLAY(x);
   //output<tab_t,T>
-  BOOST_AUTO_TPL(res, quad<T>(nt2::functor<nt2::tag::exp_>(), x));
-//                                  ,
-//                                   options [ nt2::iterations_ = 100,
-//                                             nt2::tolerance::absolute_ = T(0.001)
-//                                     ]);
-
+  BOOST_AUTO_TPL(res, quadl<T>(nt2::functor<nt2::tag::exp_>(), x));
   std::cout << "Integrals: " << res.integrals << " with " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
 
@@ -112,22 +95,17 @@ NT2_TEST_CASE_TPL( quad_tag_reverse, NT2_REAL_TYPES )
 
 }
 
-NT2_TEST_CASE_TPL( quad_2, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL( quadl_2, NT2_REAL_TYPES )
 {
-  using nt2::quad;
+  using nt2::quadl;
   using nt2::options;
   using nt2::integration::output;
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
-   tab_t x = nt2::_(T(0), T(5), T(5));
+  tab_t x = nt2::_(T(0), T(5), T(5));
   NT2_DISPLAY(x);
 
-  BOOST_AUTO_TPL(res, quad<T>(nt2::functor<nt2::tag::exp_>(), T(0), T(5)));
-//                                  ,
-//                                   options [ nt2::iterations_ = 100,
-//                                             nt2::tolerance::absolute_ = T(0.001)
-//                                     ]);
-
+  BOOST_AUTO_TPL(res, quadl<T>(nt2::functor<nt2::tag::exp_>(), T(0), T(5)));
   std::cout << "Integrals: " << res.integrals << " with " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
 
@@ -135,3 +113,4 @@ NT2_TEST_CASE_TPL( quad_2, NT2_REAL_TYPES )
 
 
 }
+
