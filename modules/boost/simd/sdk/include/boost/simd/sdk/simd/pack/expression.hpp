@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/pack/domain.hpp>
 #include <boost/simd/include/functions/evaluate.hpp>
 #include <boost/simd/include/functions/assign.hpp>
+#include <boost/dispatch/meta/terminal_of.hpp>
 #include <boost/proto/extends.hpp>
 #include <boost/type_traits/is_base_of.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -52,7 +53,7 @@ namespace boost { namespace simd
 
     // Conversion operator forces evaluation
     BOOST_DISPATCH_FORCE_INLINE
-    operator ResultType() const
+    operator typename dispatch::meta::terminal_of<ResultType>::type() const
     {
       return boost::simd::evaluate(*this);
     }

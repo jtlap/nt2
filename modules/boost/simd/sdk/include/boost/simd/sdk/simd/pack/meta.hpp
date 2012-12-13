@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/pack/meta/value_of.hpp>
 #include <boost/simd/sdk/simd/pack/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/simd/pack/meta/semantic_of.hpp>
+#include <boost/simd/sdk/simd/pack/meta/terminal_of.hpp>
 #include <boost/simd/sdk/simd/pack/meta/upgrade.hpp>
 #include <boost/simd/sdk/simd/pack/meta/downgrade.hpp>
 
