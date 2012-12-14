@@ -10,12 +10,12 @@
 
 SET( SOURCES
     saturate_at.cpp
-  ulpdist.cpp
+#  ulpdist.cpp
   ulp.cpp
   successor.cpp
   signnz.cpp
   sign.cpp
-  sbits.cpp
+#  sbits.cpp
   saturate.cpp
   prev.cpp
   predecessor.cpp

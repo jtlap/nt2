@@ -10,9 +10,9 @@
 
 SET( SOURCES
   isqrt.cpp
-  two_split.cpp
-  two_prod.cpp
-  two_add.cpp
+#  two_split.cpp
+#  two_prod.cpp
+#  two_add.cpp
   trunc.cpp
   toint.cpp
   tofloat.cpp
@@ -25,7 +25,7 @@ SET( SOURCES
   remainder.cpp
   rem.cpp
   rec.cpp
-  random.cpp
+#  random.cpp
   oneplus.cpp
   oneminus.cpp
   negs.cpp
@@ -53,7 +53,7 @@ SET( SOURCES
   divfix.cpp
   divceil.cpp
   dist.cpp
-  correct_fma.cpp
+#  correct_fma.cpp
   ceil.cpp
   average.cpp
   arg.cpp
