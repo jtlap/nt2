@@ -64,9 +64,16 @@ namespace boost { namespace simd
      * \brief Define the tag Nan of functor Nan
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
+    #ifdef BOOST_SIMD_NO_NANS
+    BOOST_SIMD_CONSTANT_REGISTER( Nan, double, 0
+                                , 0x0, 0x0ULL
+                                );
+
+    #else
     BOOST_SIMD_CONSTANT_REGISTER( Nan, double, 0
                                 , 0xFFFFFFFF, 0xFFFFFFFFFFFFFFFFULL
                                 );
+    #endif
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Nan, Nan)
