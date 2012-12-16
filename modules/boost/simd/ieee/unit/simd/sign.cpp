@@ -52,7 +52,7 @@ NT2_TEST_CASE_TPL ( sign_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 } // end of test for floating_
 
 
-NT2_TEST_CASE_TPL ( sign_real__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
+NT2_TEST_CASE_TPL ( sign_unsigned,  BOOST_SIMD_SIMD_UNSIGNED_TYPES)
 {
   using boost::simd::sign;
   using boost::simd::tag::sign_;
@@ -75,7 +75,7 @@ NT2_TEST_CASE_TPL ( sign_real__2_0,  BOOST_SIMD_UNSIGNED_TYPES)
   NT2_TEST_EQUAL(sign(boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
 } //
 
-NT2_TEST_CASE_TPL ( sign_real__3_0,  BOOST_SIMD_SIGNED_TYPES)
+NT2_TEST_CASE_TPL ( sign_signed,  BOOST_SIMD_SIMD_SIGNED_TYPES)
 {
   using boost::simd::sign;
   using boost::simd::tag::sign_;
