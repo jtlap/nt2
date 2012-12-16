@@ -262,8 +262,7 @@ namespace nt2 { namespace container
 
     BOOST_FORCEINLINE expression& operator=(expression const& xpr)
     {
-      proto_base() = xpr.proto_base();
-      size_ = expression_size<sizes_t>(proto_base(), xpr);
+      nt2::evaluate( nt2::assign(*this, xpr) );
       return *this;
     }
 
