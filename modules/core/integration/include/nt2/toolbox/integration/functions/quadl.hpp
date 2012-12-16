@@ -16,7 +16,7 @@
 
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/option/options.hpp>
-#include <nt2/toolbox/optimization/options.hpp>
+#include <nt2/toolbox/integration/options.hpp>
 #include <nt2/include/functions/horzcat.hpp>
 
 namespace nt2
@@ -47,7 +47,7 @@ namespace nt2
   typename boost::dispatch::meta
                 ::call<tag::quadl_( F
                                   , X
-                                  , details::optimization_settings<T> const&
+                                  , details::integration_settings<T> const&
                                   )
                       >::type
   quadl(F f, X x)
@@ -55,7 +55,7 @@ namespace nt2
     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
     return callee ( f
                   ,x
-                  , details::optimization_settings<T>()
+                  , details::integration_settings<T>()
                   );
   }
 
@@ -64,7 +64,7 @@ namespace nt2
   typename boost::dispatch::meta
                 ::call<tag::quadl_( F
                                   , X
-                                  , details::optimization_settings<T> const&
+                                  , details::integration_settings<T> const&
                                   )
                   >::type
   quadl(F f, X x, nt2::details::option_expr<Xpr> const& opt)
@@ -72,7 +72,7 @@ namespace nt2
     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
     return callee ( f
                     , x
-                    , details::optimization_settings<Xpr>(opt)
+                    , details::integration_settings<Xpr>(opt)
       );
   }
 
@@ -82,7 +82,7 @@ namespace nt2
                 ::call<tag::quadl_( F
                                    , typename boost::dispatch::meta
                                           ::call<tag::horzcat_(A, B)>::type
-                                   , details::optimization_settings<T> const&
+                                   , details::integration_settings<T> const&
     )
                   >::type
   quadl(F f, A a, B b)
@@ -90,7 +90,7 @@ namespace nt2
     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
     return callee ( f
                     , nt2::cath(static_cast <T>(a),static_cast <T>(b)),
-                    details::optimization_settings<T>()
+                    details::integration_settings<T>()
                   );
   }
 
@@ -100,7 +100,7 @@ namespace nt2
                 ::call<tag::quadl_( F
                                    , typename boost::dispatch::meta
                                          ::call<tag::horzcat_(A, B)>::type
-                                   , details::optimization_settings<Xpr> const&
+                                   , details::integration_settings<Xpr> const&
                          )
                       >::type
   quadl(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
@@ -108,7 +108,7 @@ namespace nt2
     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
     return callee ( f
                     , nt2::cath(static_cast<T>(a), static_cast<T>(b))
-                    , details::optimization_settings<Xpr>(opt)
+                    , details::integration_settings<Xpr>(opt)
                   );
   }
 }

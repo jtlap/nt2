@@ -6,11 +6,13 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_UNIT_MODULE "nt2 optimize toolbox - quad"
+#define NT2_UNIT_MODULE "nt2 integration toolbox - quad"
 
 #include <iostream>
+#include <nt2/sdk/timing/tic.hpp>
 #include <nt2/include/functions/quad.hpp>
-#include <nt2/toolbox/optimization/output.hpp>
+#include <nt2/toolbox/integration/output.hpp>
+#include <nt2/toolbox/integration/options.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -45,13 +47,15 @@ NT2_TEST_CASE_TPL( quad_functor, NT2_REAL_TYPES )
 {
   using nt2::quad;
   using nt2::options;
-  using nt2::optimization::output;
+  using nt2::integration::output;
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5));
   NT2_DISPLAY(x);
   //output<tab_t,T>
+  nt2::tic();
   BOOST_AUTO_TPL(res, quad<T>(f(), x));
+  nt2::toc();
 //                                  ,
 //                                   options [ nt2::iterations_ = 100,
 //                                             nt2::tolerance::absolute_ = T(0.001)
@@ -122,12 +126,13 @@ NT2_TEST_CASE_TPL( quad_2, NT2_REAL_TYPES )
    tab_t x = nt2::_(T(0), T(5), T(5));
   NT2_DISPLAY(x);
 
-  BOOST_AUTO_TPL(res, quad<T>(nt2::functor<nt2::tag::exp_>(), T(0), T(5)));
-//                                  ,
-//                                   options [ nt2::iterations_ = 100,
-//                                             nt2::tolerance::absolute_ = T(0.001)
-//                                     ]);
-
+  nt2::tic();
+  BOOST_AUTO_TPL(res, quad<T>(nt2::functor<nt2::tag::exp_>(), T(0), T(5)
+                              ,
+                              options [ nt2::iterations_ = 100,
+                                        nt2::tolerance::absolute_ = T(1.0e-6)
+                                ]));
+  nt2::toc();
   std::cout << "Integrals: " << res.integrals << " with " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
 

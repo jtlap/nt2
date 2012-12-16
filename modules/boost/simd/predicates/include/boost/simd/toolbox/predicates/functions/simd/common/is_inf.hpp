@@ -11,7 +11,7 @@
 #include <boost/simd/toolbox/predicates/functions/is_inf.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/false.hpp>
-#include <boost/simd/include/constants/infinites.hpp>
+#include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>
 
@@ -31,7 +31,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
+    #ifdef BOOST_SIMD_NO_INFINITIES
+    inline result_type operator()(const A0&)const { return False<result_type>(); }
+    #else
     BOOST_SIMD_FUNCTOR_CALL(1) { return boost::simd::is_equal(abs(a0),boost::simd::Inf<A0>()); }
+    #endif
   };
 } } }
 

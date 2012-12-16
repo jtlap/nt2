@@ -6,25 +6,27 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_ONEO_180_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_CONSTANTS_ONEO_180_HPP_INCLUDED
 /*!
  * \file
 **/
-#include <boost/simd/sdk/constant/constant.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_C180_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_C180_HPP_INCLUDED
+
+#include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
+#include <boost/simd/sdk/constant/constant.hpp>
 
 /*!
- * \ingroup trigo_constant
- * \defgroup trigo_constant_oneo_180 oneo_180
+ * \ingroup boost_simd_constant
+ * \defgroup boost_simd_constant_c180 c180
  *
  * \par Description
- * Constant Oneo_180 : \f$\frac1{180}\f$.
+ * Constant c180 = 180
  *
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/oneo_180.hpp>
+ * #include <nt2/include/functions/c180.hpp>
  * \endcode
  *
  *
@@ -34,30 +36,36 @@
  * namespace boost::simd
  * {
  *   template <class T,class A0>
- *     meta::call<tag::_oneo_180_(A0)>::type
- *     Oneo_180();
+ *     meta::call<tag::c180_(A0)>::type
+ *     C180();
  * }
  * \endcode
  *
  *
- * \param T template parameter of Oneo_180
+ * \param T template parameter of C180
  *
  * \return type T value
  *
  *
 **/
 
-namespace nt2
+namespace boost { namespace simd
 {
   namespace tag
   {
-    BOOST_SIMD_CONSTANT_REGISTER( Oneo_180, double
-                                , 0, 0x3bb60b61
-                                , 0x3f76c16c16c16c17ll
+    /*!
+     * \brief Define the tag c180 of functor c180
+     *        in namespace boost::simd::tag for toolbox boost.simd.constant
+    **/
+    BOOST_SIMD_CONSTANT_REGISTER( C180, int, 0
+                                 , 0x43340000, 0x4066800000000000ll
                                 );
   }
 
-  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Oneo_180, Oneo_180);
-}
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::C180, C180)
+} }
+
+#include <boost/simd/sdk/constant/common.hpp>
 
 #endif
+

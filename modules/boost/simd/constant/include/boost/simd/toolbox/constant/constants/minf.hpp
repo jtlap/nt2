@@ -59,12 +59,46 @@ namespace boost { namespace simd
 {
   namespace tag
   {
-    struct Valmin;
 
     /*!
      * \brief Define the tag Minf of functor Minf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
+    #ifdef BOOST_SIMD_NO_INFINITIES
+    // This code is duplicate of Valmin it must be amended
+    //    BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Valmin, Minf)
+    struct Minf : ext::pure_constant_<Minf>
+    {
+      typedef double default_type;
+      template<class Target, class Dummy=void>
+      struct  apply
+            : meta::int_c < typename Target::type, 0> {};
+    };
+
+    template<class T, class Dummy>
+    struct  Minf::apply<boost::dispatch::meta::single_<T>,Dummy>
+          : meta::single_<0xFF7FFFFFUL> {};
+
+    template<class T, class Dummy>
+    struct  Minf::apply<boost::dispatch::meta::double_<T>,Dummy>
+          : meta::double_<0xFFEFFFFFFFFFFFFFULL> {};
+
+    template<class T, class Dummy>
+    struct  Minf::apply<boost::dispatch::meta::int8_<T>,Dummy>
+          : meta::int_c<boost::simd::int8_t,boost::simd::int8_t(-128)> {};
+
+    template<class T, class Dummy>
+    struct  Minf::apply<boost::dispatch::meta::int16_<T>,Dummy>
+          : meta::int_c<boost::simd::int16_t,boost::simd::int16_t(-32768)> {};
+
+    template<class T, class Dummy>
+    struct  Minf::apply<boost::dispatch::meta::int32_<T>,Dummy>
+    : meta::int_c < boost::simd::int32_t
+                  , boost::simd::int32_t(-boost::simd::uint32_t(2147483648UL))
+                  >
+    {};
+    #else
+    struct Valmin;
     struct Minf : ext::pure_constant_<Minf>
     {
       typedef double default_type;
@@ -79,6 +113,7 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Minf::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0xFFF0000000000000ULL> {};
+    #endif
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Minf, Minf)

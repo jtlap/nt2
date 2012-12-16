@@ -15,6 +15,8 @@
 #include <boost/simd/include/functions/simd/is_gtz.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/functions/simd/negate.hpp>
+#include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/if_one_else_zero.hpp>
 #include <boost/simd/include/constants/one.hpp>
 
 namespace boost { namespace simd { namespace ext
@@ -25,21 +27,23 @@ namespace boost { namespace simd { namespace ext
                       )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
+     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return is_ltz(a0)-is_gtz(a0);
+      typedef typename meta::scalar_of<A0>::type sA0;
+      return shrai(a0, sizeof(sA0)*8-1)-shrai(-a0, sizeof(sA0)*8-1);
     }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::sign_, tag::cpu_,
-                       (A0)(X),
-                       ((simd_<unsigned_<A0>,X>))
-                      )
+                                    (A0)(X),
+                                    ((simd_<unsigned_<A0>,X>))
+    )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return -is_nez(a0);
+      typedef typename meta::scalar_of<A0>::type sA0;
+      return if_one_else_zero(a0); //shri(-a0, sizeof(sA0)*8-1);
     }
   };
 
@@ -56,7 +60,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
+      #ifdef BOOST_SIMD_NO_NANS
+      return boost::simd::negate(One<A0>(),a0);
+      #else
       return seladd(is_nan(a0),boost::simd::negate(One<A0>(),a0),a0);
+      #endif
     }
   };
 } } }
