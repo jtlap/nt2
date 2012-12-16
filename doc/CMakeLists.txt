@@ -7,7 +7,7 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-set(dependencies)
+include(nt2.doc)
 
 set(MANUAL_SRC
   nt2.qbk
@@ -30,7 +30,7 @@ set(MANUAL_SRC
       dev/faq.qbk
     appendix.qbk
       appendix/authors.qbk
-      appendix/licence.qbk
+      appendix/license.qbk
       appendix/bibliography.qbk
       appendix/acknowledgement.qbk
    )
