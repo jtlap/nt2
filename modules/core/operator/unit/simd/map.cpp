@@ -14,21 +14,25 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/toolbox/operator/include/functions/map.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
+#include <nt2/include/functions/bitwise_cast.hpp>
 #include <nt2/include/functions/unary_plus.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/functions/if_else.hpp>
-
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/constants/false.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/allbits.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/dispatch/functor/meta/call.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/dispatch/meta/strip.hpp>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 
 NT2_TEST_CASE_TPL ( map_integer__2_0,  BOOST_SIMD_SIMD_TYPES)
 {
@@ -54,14 +58,50 @@ NT2_TEST_CASE_TPL ( map_integer__2_0,  BOOST_SIMD_SIMD_TYPES)
   NT2_TEST_TYPE_IS(tr_t, nT);
 
   // specific values tests
-  NT2_TEST_EQUAL(map(uni_f(),nt2::One<nT>()), nt2::One<ur_t>());
-  NT2_TEST_EQUAL(map(uni_f(),nt2::One<nT>()), nt2::One<ur_t>());
-  NT2_TEST_EQUAL(map(uni_f(),nt2::One<nT>()), nt2::One<ur_t>());
+  NT2_TEST_EQUAL(map(uni_f(), nt2::One<nT>()), nt2::One<ur_t>());
+  NT2_TEST_EQUAL(map(uni_f(), nt2::One<nT>()), nt2::One<ur_t>());
+  NT2_TEST_EQUAL(map(uni_f(), nt2::One<nT>()), nt2::One<ur_t>());
 
-  NT2_TEST_EQUAL(map(bin_f(),nt2::One<nT>(), nt2::One<nT>()), nt2::Two<br_t>());
-  NT2_TEST_EQUAL(map(bin_f(),nt2::One<nT>(), nt2::One<nT>()), nt2::Two<br_t>());
-  NT2_TEST_EQUAL(map(bin_f(),nt2::One<nT>(), nt2::One<nT>()), nt2::Two<br_t>());
+  NT2_TEST_EQUAL(map(bin_f(), nt2::One<nT>(), nt2::One<nT>()), nt2::Two<br_t>());
+  NT2_TEST_EQUAL(map(bin_f(), nt2::One<nT>(), nt2::One<nT>()), nt2::Two<br_t>());
+  NT2_TEST_EQUAL(map(bin_f(), nt2::One<nT>(), nt2::One<nT>()), nt2::Two<br_t>());
 
-  NT2_TEST_EQUAL(map(tri_f(),nt2::Zero<nT>(),nt2::One<nT>(), nt2::Two<nT>()), nt2::Two<br_t>());
-  NT2_TEST_EQUAL(map(tri_f(),nt2::One<nT>(),nt2::One<nT>(), nt2::Two<nT>()), nt2::One<br_t>());
+  NT2_TEST_EQUAL(map(tri_f(), nt2::Zero<nT>(),nt2::One<nT>(), nt2::Two<nT>()), nt2::Two<br_t>());
+  NT2_TEST_EQUAL(map(tri_f(), nt2::One<nT>(), nt2::One<nT>(), nt2::Two<nT>()), nt2::One<br_t>());
+}
+
+struct logical_f
+{
+  template<class Sig>
+  struct result;
+
+  template<class This, class A0>
+  struct result<This(A0)>
+  {
+    typedef typename boost::dispatch::meta::strip<A0>::type A0_;
+    typedef boost::simd::logical<A0_> type;
+  };
+
+  template<class A0>
+  typename result<logical_f(A0 const&)>::type operator()(A0 const& a0) const
+  {
+    return boost::simd::logical<A0>(true);
+  }
+};
+
+NT2_TEST_CASE_TPL ( map_logical, (float)(nt2::int32_t)(nt2::uint32_t) )
+{
+  using boost::simd::logical;
+  using boost::simd::native;
+  using boost::simd::map;
+  using boost::simd::bitwise_cast;
+  using boost::simd::Allbits;
+  using boost::mpl::_;
+  typedef native<T, BOOST_SIMD_DEFAULT_EXTENSION> in_type;
+  typedef native<logical<T>, BOOST_SIMD_DEFAULT_EXTENSION> out_type;
+  typedef native<typename boost::dispatch::meta::as_integer<T, unsigned>::type, BOOST_SIMD_DEFAULT_EXTENSION> mask_type;
+
+  in_type a;
+  NT2_TEST_EXPR_TYPE( map(logical_f(), a), _, out_type );
+  NT2_TEST_EQUAL( bitwise_cast<mask_type>( map(logical_f(), a) ), Allbits<mask_type>() );
 }
