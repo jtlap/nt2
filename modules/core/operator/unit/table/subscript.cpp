@@ -543,3 +543,17 @@ NT2_TEST_CASE_TPL( raw_begin_end_subscript, (float)(double) )
                     , (16-i) + 10*(5-j) + 100*(4-k) + 1000*(3-l)
                     );
 }
+
+NT2_TEST_CASE_TPL( index_assign, (double) )
+{
+  nt2::table<T> z1 = nt2::_(T(1), T(12));
+  nt2::table<T> z2 = nt2::_(T(3), T(4));
+  nt2::table<int> i1 = nt2::_(1, 2);
+  nt2::table<int> i2 = nt2::_(11, 12);
+
+  z1(i1) = z1(i2) = z2;
+  NT2_TEST_EQUAL(  z1(1), T(3) );
+  NT2_TEST_EQUAL(  z1(2), T(4) );
+  NT2_TEST_EQUAL( z1(11), T(3) );
+  NT2_TEST_EQUAL( z1(12), T(4) );
+}
