@@ -67,26 +67,3 @@ NT2_TEST_CASE_TPL( meanad, NT2_REAL_TYPES )
   sz = nt2::mean(nt2::abs(y(_)));
   NT2_TEST_ULP_EQUAL(sy(1), sz(1), 0.5);
 }
-
-NT2_TEST_CASE_TPL( meanad_2, NT2_REAL_TYPES )
-{
-  using nt2::_;
-  nt2::table<T> y( nt2::of_size(5,3) ), y0( nt2::of_size(5,3) );
-  nt2::table<T> sy( nt2::of_size(1,3) );
-  nt2::table<T> sz( nt2::of_size(1,3) );
-
-
-  for(size_t j=1;j<=size(y, 2);j++)
-    for(size_t i=1;i<=size(y, 1);i++)
-      y0(i,j) = T(i) - T(j);
-
-  sy = nt2::meanad(y0);
-  NT2_TEST_ULP_EQUAL(nt2::meanad(y0), sy, 0.5);
-  sy = nt2::meanad(y0, 1);
-  NT2_TEST_ULP_EQUAL(nt2::meanad(y0, 1), sy, 0.5);
-  sy = nt2::meanad(y0, 2);
-  NT2_TEST_ULP_EQUAL(nt2::meanad(y0, 2), sy, 0.5);
-  sy = nt2::meanad(y0, 3);
-  NT2_TEST_ULP_EQUAL(nt2::meanad(y0, 3), sy, 0.5);
-
-}
