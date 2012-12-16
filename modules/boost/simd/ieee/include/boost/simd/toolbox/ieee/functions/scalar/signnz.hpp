@@ -8,12 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGNNZ_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGNNZ_HPP_INCLUDED
+
 #include <boost/simd/toolbox/ieee/functions/signnz.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_or.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -25,7 +27,6 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-//      return (a0 >= 0) - (a0 < 0); //is_gez(a0)-is_ltz(a0);
       return (a0>>(sizeof(A0)*8-2)) | 1;
     }
   };
@@ -36,7 +37,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    inline result_type operator()(A0 const &) const
+    result_type operator()(A0 const&) const
     {
       return One<A0>();
     }
