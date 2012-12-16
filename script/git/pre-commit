@@ -65,7 +65,7 @@ fi
 no_newline=
 for i in `git diff --cached --name-only`
 do
-  if [ -e $i ] && [ $(tail -n 1 $i | wc --lines | tr -d ' ') != 1 ]
+  if [ -e $i ] && [ $(tail -n 1 $i | wc -l | tr -d ' ') != 1 ]
   then
     no_newline=$no_newline$i$'\n'
   fi
