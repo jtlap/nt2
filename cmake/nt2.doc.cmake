@@ -24,7 +24,7 @@ find_path(DOCBOOK_DTD_DIR docbookx.dtd /usr/share/xml/docbook/schema/dtd/4.2)
 include(CMakeParseArguments OPTIONAL RESULT_VARIABLE CMakeParseArguments_FOUND)
 
 # Report any missing components and setup NT2_DOCUMENTATION_ENABLED as needed
-set(NT2_DOCUMENTATION_ENABLED 1)
+set(NT2_DOCUMENTATION_ENABLED 1 CACHE BOOL "Whether to build NT2 documentation")
 foreach(arg NT2_SOURCE_ROOT NT2_BINARY_DIR
             DOXYGEN_EXECUTABLE DOXYGEN_DOT_EXECUTABLE
             XSLTPROC_EXECUTABLE QUICKBOOK_EXECUTABLE
@@ -33,7 +33,7 @@ foreach(arg NT2_SOURCE_ROOT NT2_BINARY_DIR
        )
   if(NOT ${arg})
     message(STATUS "[nt2.doc] ${arg} not found, documentation disabled")
-    set(NT2_DOCUMENTATION_ENABLED 0)
+    set(NT2_DOCUMENTATION_ENABLED 0 CACHE BOOL "Whether to build NT2 documentation" FORCE)
     return()
   endif()
 endforeach()
@@ -135,15 +135,27 @@ macro(nt2_doc_doxygen file)
     file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen)
   endif()
 
+  get_directory_property(INCLUDE_DIRECTORIES INCLUDE_DIRECTORIES)
+  set(DXY_PATH)
+  foreach(include ${INCLUDE_DIRECTORIES})
+    if(EXISTS ${include} OR ${include} MATCHES ${NT2_BINARY_DIR})
+      set(DXY_PATH "${DXY_PATH}INCLUDE_PATH += ${include}\n")
+    endif()
+  endforeach()
+  string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
+
   file(READ ${absolute} DOXYGEN_CONTENT)
   # Add proper BOOST path to this Doxygen for PP purpose
   set(DXY_PP     "SEARCH_INCLUDES=YES\nENABLE_PREPROCESSING=YES\nMACRO_EXPANSION=YES\n")
   set(DXY_PDEF   "PREDEFINED=NT2_DOXYGEN_ONLY\n")
-  set(DXY_PATH   "INCLUDE_PATH += ${Boost_INCLUDE_DIR}\n")
+  set(DXY_EX)
+  if(EXISTS ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/examples)
+    set(DXY_EX     "EXAMPLE_PATH = ${NT2_${NT2_CURRENT_MODULE_U}_ROOT}/examples\n")
+  endif()
   set(DXY_TARGET "GENERATE_LATEX=NO\nGENERATE_HTML=NO\nGENERATE_XML=YES\n")
   set(DXY_XML    "XML_OUTPUT = ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen\n")
   set(DOXYGEN_CONTENT
-      "${DOXYGEN_CONTENT}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_TARGET}${DXY_XML}"
+      "${DOXYGEN_CONTENT}${DXY_EX}${DXY_PATH}${DXY_PP}${DXY_PDEF}${DXY_TARGET}${DXY_XML}"
      )
 
   file(WRITE ${CMAKE_CURRENT_BINARY_DIR}/${file}.doxygen/doxyfile ${DOXYGEN_CONTENT})
@@ -238,7 +250,6 @@ macro(nt2_module_doc module)
   nt2_module_target_parent(${module}.boostbook)
 
   if(NOT NT2_SOURCE_DIR)
-    message(STATUS "wtf????")
     nt2_doc_boostbook(${module})
     nt2_doc_html(${NT2_BINARY_DIR}/doc ${module})
     add_custom_target(doc
