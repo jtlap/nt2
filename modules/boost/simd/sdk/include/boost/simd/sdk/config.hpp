@@ -14,10 +14,6 @@
 #define BOOST_SIMD_NO_NANS
 #endif
 
-#if defined(__FAST_MATH__) && !defined(BOOST_SIMD_NO_INVALIDS)
-#define BOOST_SIMD_NO_INVALIDS
-#endif
-
 #if defined(__FAST_MATH__) && !defined(BOOST_SIMD_NO_MINUSZERO)
 #define BOOST_SIMD_NO_MINUSZERO
 #endif
@@ -28,6 +24,13 @@
 
 #if defined(__FAST_MATH__) && !defined(BOOST_SIMD_NO_DENORMALS)
 #define BOOST_SIMD_NO_DENORMALS
+#endif
+
+#if defined(BOOST_SIMD_NO_NANS) && defined(BOOST_SIMD_NO_INFINITIES) && !defined(BOOST_SIMD_NO_INVALIDS)
+#define BOOST_SIMD_NO_INVALIDS
+#elif defined(BOOST_SIMD_NO_INVALIDS)
+#define BOOST_SIMD_NO_NANS
+#define BOOST_SIMD_NO_INFINITIES
 #endif
 
 #endif
