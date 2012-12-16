@@ -166,9 +166,7 @@ add_custom_target(stage
 ################################################################################
 # Setup documentation after all modules have been downloaded
 ################################################################################
-if(NT2_DOCUMENTATION_ENABLED)
-  add_subdirectory(doc)
-endif()
+add_subdirectory(doc)
 
 ################################################################################
 # Ensure all tools get set up

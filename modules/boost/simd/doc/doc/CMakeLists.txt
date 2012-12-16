@@ -7,6 +7,8 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(nt2.doc)
+
 nt2_module_doc( boost.simd.doc
                 simd.qbk
               )

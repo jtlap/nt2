@@ -7,4 +7,5 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(nt2.doc)
 nt2_module_doc(unit manual.qbk reference.doxyfile)
