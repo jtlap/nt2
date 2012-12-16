@@ -594,6 +594,7 @@ function(nt2_find)
   endif()
 
   find_file(NT2_USE_FILE UseNT2.cmake PATHS ${NT2_MODULE_PATH})
+  mark_as_advanced(NT2_USE_FILE)
 
   if(NT2_FIND_REQUIRED AND NOT NT2_FOUND)
     message(FATAL_ERROR "NT2 was not found")
