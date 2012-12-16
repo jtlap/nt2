@@ -8,6 +8,9 @@
 ################################################################################
 
 include(nt2.doc)
+if(NOT NT2_DOCUMENTATION_ENABLED)
+  return()
+endif()
 
 set(MANUAL_SRC
   nt2.qbk

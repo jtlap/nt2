@@ -8,4 +8,8 @@
 ################################################################################
 
 include(nt2.doc)
+if(NOT NT2_DOCUMENTATION_ENABLED)
+  return()
+endif()
+
 nt2_module_doc(trigonometric manual.qbk reference.doxyfile)
