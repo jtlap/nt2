@@ -23,7 +23,7 @@
  * The two-argument function nbd_atan2 is a variation of the arctangent function.
  * BE WARNED
  * nbd stands for "no bounds": atan2 is suposed to be faster than atan2 at the price that
- * values for -inf °inf and nan are erroneous !
+ * values for -inf, inf and nan are erroneous !
  *
  * \par
  * For any real arguments a0 and a1 not both equal to zero, nbd_atan2(a0, a1)
