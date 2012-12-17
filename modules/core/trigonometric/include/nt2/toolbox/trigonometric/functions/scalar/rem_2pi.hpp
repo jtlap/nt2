@@ -65,7 +65,7 @@ namespace nt2 { namespace ext
     {
       ptrdiff_t n = rem_pio2(a0, xr, xc);
       xr = xr+n*Pio_2<A0>();
-      xr = (xr > Pi<A0>()+Threeeps<A0>()) ? xr-Twopi<A0>():(xr > Pi<A0>() ? Pi<A0>() : xr);
+      xr = (xr > Pi<A0>()) ? xr-Twopi<A0>() : xr;
     }
 
   };
@@ -150,7 +150,7 @@ namespace nt2 { namespace ext
       {
         ptrdiff_t n = rem_pio2_medium(x, xr, xc);
         xr += n*Pio_2<A0>();
-        xr = (xr > Pi<A0>()+Threeeps<A0>()) ? xr-Twopi<A0>():(xr > Pi<A0>() ? Pi<A0>() : xr);
+        xr = (xr > Pi<A0>()) ? xr-Twopi<A0>() : xr;
       }
     };
   };
