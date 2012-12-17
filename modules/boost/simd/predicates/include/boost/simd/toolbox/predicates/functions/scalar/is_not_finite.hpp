@@ -12,7 +12,7 @@
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/constants/false.hpp>
-//TODO this is an alias of is_invalid
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

@@ -12,7 +12,7 @@
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/constants/true.hpp>
-//TODO alias of is_not_finite
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

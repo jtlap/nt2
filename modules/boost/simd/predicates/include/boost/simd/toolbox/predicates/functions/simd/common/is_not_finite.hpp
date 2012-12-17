@@ -11,7 +11,7 @@
 #include <boost/simd/toolbox/predicates/functions/is_not_finite.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
-
+#include <boost/simd/sdk/config.hpp>
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION(boost::simd::tag::is_not_finite_, tag::cpu_,

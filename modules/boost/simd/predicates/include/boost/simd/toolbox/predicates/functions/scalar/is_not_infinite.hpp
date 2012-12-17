@@ -13,7 +13,7 @@
 #include <boost/simd/include/functions/scalar/abs.hpp>
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-
+#include <boost/simd/sdk/config.hpp>
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_not_infinite_, tag::cpu_

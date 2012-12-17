@@ -14,7 +14,7 @@
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-
+#include <boost/simd/sdk/config.hpp>
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::is_inf_, tag::cpu_
