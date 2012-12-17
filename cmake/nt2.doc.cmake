@@ -25,6 +25,9 @@ include(CMakeParseArguments OPTIONAL RESULT_VARIABLE CMakeParseArguments_FOUND)
 
 # Report any missing components and setup NT2_DOCUMENTATION_ENABLED as needed
 set(NT2_DOCUMENTATION_ENABLED 1 CACHE BOOL "Whether to build NT2 documentation")
+if(not NT2_DOCUMENTATION_ENABLED)
+  return()
+endif()
 foreach(arg NT2_SOURCE_ROOT NT2_BINARY_DIR
             DOXYGEN_EXECUTABLE DOXYGEN_DOT_EXECUTABLE
             XSLTPROC_EXECUTABLE QUICKBOOK_EXECUTABLE
