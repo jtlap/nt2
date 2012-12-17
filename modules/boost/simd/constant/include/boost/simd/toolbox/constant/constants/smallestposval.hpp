@@ -55,7 +55,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Smallestposval of functor Sqrtsmallestposval
+     * \brief Define the tag Smallestposval of functor Smallestposval
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Smallestposval , double, 1
