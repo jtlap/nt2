@@ -64,7 +64,7 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE
     result_type operator()(Functor const& f, A0 const& a0, Along const& d) const
     {
-      std::size_t along = d - 1u;
+      std::size_t along = d-1;
       return boost::proto::make_expr< nt2::tag::adjfun_
                                     , container::domain
                                     >

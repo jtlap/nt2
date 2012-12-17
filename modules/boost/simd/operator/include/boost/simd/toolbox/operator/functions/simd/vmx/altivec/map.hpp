@@ -11,6 +11,10 @@
 #ifdef BOOST_SIMD_HAS_VMX_SUPPORT
 
 #include <boost/simd/toolbox/operator/functions/map.hpp>
+#include <boost/simd/include/functions/scalar/genmask.hpp>
+#include <boost/simd/include/functions/scalar/bitwise_cast.hpp>
+#include <boost/dispatch/meta/as_integer.hpp>
+
 #include <boost/simd/sdk/simd/category.hpp>
 #include <boost/dispatch/details/parameters.hpp>
 #include <boost/preprocessor/tuple/elem.hpp>
@@ -24,10 +28,26 @@
 // vector cardinal and function arity.
 ////////////////////////////////////////////////////////////////////////////////
 
+namespace boost { namespace simd { namespace details
+{
+  /* Need to convert logical<T> to integer bitmasks for {}-initilization */
+  template<class T>
+  T const& logical_mask(T const& t)
+  {
+    return t;
+  }
+
+  template<class T>
+  typename dispatch::meta::as_integer<T>::type logical_mask(logical<T> const& t)
+  {
+    return bitwise_cast<typename dispatch::meta::as_integer<T>::type>(genmask(t));
+  }
+} } }
+
 #define M6(z,n,t) typename meta::scalar_of<BOOST_PP_CAT(A,BOOST_PP_INC(n))>::type
 #define M5(z,n,t) (A##n)
 #define M4(z,n,t) BOOST_PP_CAT(a,BOOST_PP_INC(n))[t]
-#define M3(z,n,t) a0(BOOST_PP_ENUM(t,M4,n))
+#define M3(z,n,t) details::logical_mask(a0(BOOST_PP_ENUM(t,M4,n)))
 #define M2(z,n,t) ((simd_< BOOST_PP_TUPLE_ELEM(2,0,t) <BOOST_PP_CAT(A, BOOST_PP_INC(n))>, boost::simd::tag::altivec_>))
 
 #define M0(z,n,t)                                                             \
@@ -58,7 +78,7 @@ namespace boost { namespace simd { namespace ext                              \
 BOOST_PP_REPEAT_FROM_TO(1,BOOST_DISPATCH_MAX_ARITY,M0, (T,C) ) \
 /**/
 
-BOOST_SIMD_MAP_CALL(single_  ,  4 )
+BOOST_SIMD_MAP_CALL(single_ ,  4 )
 BOOST_SIMD_MAP_CALL(ints32_ ,  4 )
 BOOST_SIMD_MAP_CALL(ints16_ ,  8 )
 BOOST_SIMD_MAP_CALL(ints8_  , 16 )

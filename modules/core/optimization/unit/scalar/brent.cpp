@@ -143,8 +143,10 @@ NT2_TEST_CASE_TPL( brent_option, (double)(float) )
             << " after "      << res.iterations_count   <<  " iterations\n";
 
   NT2_TEST(res.successful);
-  NT2_TEST_LESSER_EQUAL(nt2::abs(res.minimum - 1.f), 1e-3);
+  NT2_TEST_LESSER_EQUAL(nt2::abs(res.minimum - 1.f), 1e-3 );
+  NT2_TEST_LESSER_EQUAL(res.iterations_count       , 10u  );
 
   res = brent<T>( f1, 0,0.5,2, options [ nt2::iterations_ = 1 ] );
   NT2_TEST(!res.successful);
+  NT2_TEST_GREATER(res.iterations_count       , 1u );
 }

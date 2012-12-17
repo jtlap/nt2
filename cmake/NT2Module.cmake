@@ -241,9 +241,7 @@ macro(nt2_module_main module)
     endif()
   endif()
 
-  if(NT2_DOCUMENTATION_ENABLED)
-    nt2_module_dir(doc)
-  endif()
+  nt2_module_dir(doc)
 
   if(PROJECT_NAME STREQUAL "NT2_${NT2_CURRENT_MODULE_U}")
     nt2_postconfigure_run()
@@ -783,8 +781,6 @@ endmacro()
 
 # initialize the post-configuration system
 macro(nt2_postconfigure_init)
-
-  include(nt2.doc)
 
   define_property(GLOBAL PROPERTY NT2_POSTCONFIGURE_INITED
                   BRIEF_DOCS "Whether nt2_postconfigure_init has already been called"

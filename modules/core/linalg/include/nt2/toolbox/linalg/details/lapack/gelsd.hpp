@@ -174,7 +174,7 @@ namespace nt2 { namespace details
       return 10*maxnm + 2*maxnm*smlsiz + 8*m*nl + 3*smlsiz*nrsh +  (smlsiz+1)*(smlsiz+1);
     }
   };
-#if 0
+#ifndef NT2_LAPACK_3_2_WORKAROUND
   /**/
   #define NT2_GELSD(NAME, T)                    \
   inline void gelsd(const nt2_la_int* m,        \
@@ -285,7 +285,7 @@ namespace nt2 { namespace details
 
 #undef NT2_GELSD
 
-#if 0
+#ifndef NT2_LAPACK_3_2_WORKAROUND
   #define NT2_GELSD(NAME, T, TBASE)             \
   inline void gelsd(const nt2_la_int* m,        \
                     const nt2_la_int* n,        \

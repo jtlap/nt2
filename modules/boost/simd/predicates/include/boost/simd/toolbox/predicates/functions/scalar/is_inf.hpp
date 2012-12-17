@@ -8,12 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_INF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_INF_HPP_INCLUDED
+
 #include <boost/simd/toolbox/predicates/functions/is_inf.hpp>
 #include <boost/simd/include/functions/scalar/abs.hpp>
-#include <boost/simd/include/functions/scalar/compare_equal.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -23,7 +24,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    inline result_type operator()(A0 const&)const
+    inline result_type operator()(A0 const&) const
     {
       return boost::simd::False<result_type>();
     }
@@ -36,7 +37,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::as_logical<A0>::type result_type;
     #ifdef BOOST_SIMD_NO_INFINITIES
-    inline result_type operator()(const A0&)const { return False<result_type>(); }
+    inline result_type operator()(const A0&) const { return False<result_type>(); }
     #else
     BOOST_SIMD_FUNCTOR_CALL(1) { return result_type(boost::simd::abs(a0) == boost::simd::Inf<A0>());}
     #endif

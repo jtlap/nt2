@@ -12,6 +12,7 @@
 #include <boost/simd/toolbox/predicates/functions/is_not_nan.hpp>
 #include <boost/simd/include/constants/true.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -34,7 +35,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef typename meta::as_logical<A0>::type result_type;
     #ifdef BOOST_SIMD_NO_NANS
-    inline result_type operator()(const A0&)const { return True<result_type>(); }
+    inline result_type operator()(const A0&) const { return True<result_type>(); }
     #else
     BOOST_SIMD_FUNCTOR_CALL(1) { return result_type(a0 == a0); }
     #endif
