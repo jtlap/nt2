@@ -35,11 +35,11 @@ namespace nt2 { namespace details
   template<class V> class quad_impl
   {
   public :
-    typedef V                                       value_t;
-    typedef typename meta::as_real<value_t>::type    real_t;
-    typedef details::integration_settings<real_t>       o_t;
-    typedef container::table<value_t>                 tab_t;
-    typedef container::table<real_t>                 rtab_t;
+    typedef V                                             value_t;
+    typedef typename meta::as_real<value_t>::type          real_t;
+    typedef details::integration_settings<real_t, tag::quad_> o_t;
+    typedef container::table<value_t>                       tab_t;
+    typedef container::table<real_t>                       rtab_t;
 
     quad_impl() :   err_(Nan<real_t>()),
                     fcnt_(0),
@@ -83,10 +83,11 @@ namespace nt2 { namespace details
 
     void init( const o_t & o)
     {
-      tol_ = o.absolute_tolerance*nt2::C180<real_t>();
+      o.display_options();
+      tol_ = o.abstol*nt2::C180<real_t>();
       warn_ = 0;
       fcnt_ = 0;
-      maxfcnt_ = Valmax<size_t>();
+      maxfcnt_ = o.maxfunccnt;
       ifault_ =  -1;
       err_ = nt2::Inf<real_t>();
     }
@@ -172,20 +173,21 @@ namespace nt2 { namespace ext
                               (unspecified_<O>)
     )
   {
-    typedef typename X::value_type                                  value_type;
-    typedef typename meta::as_real<value_type>::type                 real_type;
-    typedef typename meta::as_logical<value_type>::type                 l_type;
-    typedef nt2::container::table<value_type>                            tab_t;
-    typedef nt2::container::table<real_type>                            rtab_t;
-    typedef nt2::container::table<ptrdiff_t>                            ltab_t;
-    typedef nt2::integration::output<tab_t,real_type>              result_type;
-    typedef details::integration_settings<real_type>                     otype;
+     typedef typename X::value_type                                  value_type;
+     typedef typename meta::as_real<value_type>::type                 real_type;
+     typedef nt2::container::table<value_type>                            tab_t;
+     typedef nt2::integration::output<tab_t,real_type>              result_type;
+//     typedef typename meta::as_logical<value_type>::type                 l_type;
+//     typedef nt2::container::table<real_type>                            rtab_t;
+//     typedef nt2::container::table<ptrdiff_t>                            ltab_t;
+//     typedef details::integration_settings<real_type>                     otype;
 
     result_type operator()(F f, X const& x, O const& o)
     {
       details::quad_impl<value_type> q;
       q.compute(f, x, o);
       result_type that = {q.result(), q.lasterror(),q.nbeval(),q.ok()};
+      o.display_options();
       return that;
     }
   };

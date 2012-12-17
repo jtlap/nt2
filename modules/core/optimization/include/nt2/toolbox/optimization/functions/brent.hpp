@@ -71,6 +71,7 @@ namespace nt2
                       >::type
   brent(F f, X x0, L low, U up, nt2::details::option_expr<Xpr> const& opt)
   {
+
     typename boost::dispatch::make_functor<tag::brent_, F>::type callee;
     return callee ( f
                   , static_cast<T>(x0)

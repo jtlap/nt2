@@ -129,14 +129,16 @@ NT2_TEST_CASE_TPL( quad_2, NT2_REAL_TYPES )
   nt2::tic();
   BOOST_AUTO_TPL(res, quad<T>(nt2::functor<nt2::tag::exp_>(), T(0), T(5)
                               ,
-                              options [ nt2::iterations_ = 100,
-                                        nt2::tolerance::absolute_ = T(1.0e-6)
+                              options [
+                                        nt2::tolerance::maxintvcnt_ = size_t(10),
+                                        nt2::tolerance::abstol_ = T(1.0e-2),
+                                        nt2::tolerance::reltol_ = T(1.0e-4), nt2::tolerance::maxfunccnt_ = size_t(100)
                                 ]));
   nt2::toc();
   std::cout << "Integrals: " << res.integrals << " with " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
 
-  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, expm1(x))), nt2::Sqrteps<T>());
+  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, expm1(x))), T(1.0e-2));
 
 
 }
