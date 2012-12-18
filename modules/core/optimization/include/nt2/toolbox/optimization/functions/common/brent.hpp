@@ -35,7 +35,6 @@ namespace nt2 { namespace ext
 
     result_type operator()(F f, T const& x0, T const& l, T const& u, O const& o)
     {
-      o.display_options();
       // Iterations count
       std::size_t iter;
 

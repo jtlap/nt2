@@ -68,13 +68,6 @@ namespace nt2 { namespace details
         , relative_tolerance(x(nt2::tolerance::relative_, nt2::Sqrteps<T>() ))
         , residual_tolerance(x(nt2::tolerance::residual_, nt2::Sqrteps<T>() ))
     {}
-    void display_options() const
-    {
-      std::cout << "maximum_iterations "<< maximum_iterations << std::endl;
-      std::cout << "absolute_tolerance "<< absolute_tolerance << std::endl;
-      std::cout << "relative_tolerance "<< relative_tolerance << std::endl;
-      std::cout << "residual_tolerance "<< residual_tolerance << std::endl;
-    }
 
     std::size_t   maximum_iterations;
     value_type    absolute_tolerance;

@@ -83,7 +83,7 @@ namespace nt2 { namespace details
 
     void init( const o_t & o)
     {
-      o.display_options();
+//      o.display_options();
       tol_ = o.abstol*nt2::C180<real_t>();
       warn_ = 0;
       fcnt_ = 0;
@@ -187,7 +187,7 @@ namespace nt2 { namespace ext
       details::quad_impl<value_type> q;
       q.compute(f, x, o);
       result_type that = {q.result(), q.lasterror(),q.nbeval(),q.ok()};
-      o.display_options();
+//      o.display_options();
       return that;
     }
   };

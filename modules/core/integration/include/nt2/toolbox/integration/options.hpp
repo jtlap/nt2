@@ -13,7 +13,7 @@
 #include <nt2/sdk/option/options.hpp>
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
-#include <nt2/table.hpp>
+#include <nt2/core/container/table/table.hpp>
 namespace nt2
 {
   /**
@@ -24,6 +24,19 @@ namespace nt2
    * Named parameter for passing number of function evaluation to iterative algortihms
    **/
 //  NT2_REGISTER_PARAMETERS(evaluations_);
+  namespace range
+  {
+    /**
+     * Named parameter for passing absolute tolerance to iterative algorithms
+     **/
+    NT2_REGISTER_PARAMETERS(waypoints_);
+
+    /**
+     * Named parameter for passing relative tolerance to iterative algorithms
+     **/
+    NT2_REGISTER_PARAMETERS(singulars_);
+  }
+
 
   namespace tolerance
   {
@@ -36,10 +49,10 @@ namespace nt2
      * Named parameter for passing relative tolerance to iterative algorithms
      **/
     NT2_REGISTER_PARAMETERS(reltol_);
-//   }
+  }
 
-//   namespace limits
-//   {
+  namespace limits
+  {
     /**
      * Named parameter for passing absolute tolerance to iterative algorithms
      **/
@@ -53,11 +66,18 @@ namespace nt2
 
   template<typename T, typename TAG = void> struct integ_params
   {
-    typedef T value_type;
-    static value_type abstol() { return nt2::Sqrteps<value_type>(); }
-    static value_type reltol() { return nt2::Sqrteps<value_type>(); }
-    static std::size_t maxfunccnt() { return 10000; }
-    static std::size_t maxintvcnt() { return   650; }
+
+    typedef T                                                  value_type;
+    typedef typename meta::as_real<T>::type                     real_type;
+    typedef typename meta::as_logical<real_type>                bool_type;
+    typedef container::table<value_type>                         tab_type;
+    typedef container::table<bool>                              btab_type;
+    static value_type abstol()      { return nt2::Sqrteps<value_type>(); }
+    static value_type reltol()      { return nt2::Sqrteps<value_type>(); }
+    static std::size_t maxfunccnt() { return 10000;                      }
+    static std::size_t maxintvcnt() { return   650;                      }
+    static tab_type waypoints()     { return tab_type(of_size(1, 0));    }
+    static btab_type singular()     { return btab_type(of_size(1, 0));   }
   };
 
   // integ params for complex < T >  are those of T.
@@ -75,46 +95,54 @@ namespace nt2 { namespace details
   // options pack expressions
   template<typename T, typename TAG = void> struct integration_settings
   {
-    typedef typename meta::as_real<T>::type real_type;
-    typedef T value_type;
-    typedef nt2::integ_params<value_type, TAG>               ip;
+    typedef T                                                  value_type;
+    typedef typename meta::as_real<T>::type                     real_type;
+    typedef typename meta::as_logical<real_type>                bool_type;
+    typedef container::table<value_type>                         tab_type;
+    typedef container::table<bool>                              btab_type;
+    typedef nt2::integ_params<value_type, TAG>                         ip;
 
     integration_settings ( std::size_t    mfc = ip::maxfunccnt()
                            ,  std::size_t mic = ip::maxintvcnt()
                            , value_type at    = ip::abstol()
                            , value_type rt    = ip::reltol()
+                           , tab_type    wpt  = ip::waypoints()
+                           , btab_type   sgt  = ip::singulars()
       )
       : maxfunccnt(mfc)
       , maxintvcnt(mic)
       , abstol(at)
       , reltol(rt)
+      , waypoints(wpt)
+      , singulars (sgt)
     {}
 
     template<class Expr>
     integration_settings ( nt2::details::option_expr<Expr> const& x)
-      : maxfunccnt(x(nt2::tolerance::maxfunccnt_, ip::maxfunccnt() ))
-      , maxintvcnt(x(nt2::tolerance::maxintvcnt_, ip::maxintvcnt() ))
+      : maxfunccnt(x(nt2::limits::maxfunccnt_, ip::maxfunccnt() ))
+      , maxintvcnt(x(nt2::limits::maxintvcnt_, ip::maxintvcnt() ))
       , abstol    (x(nt2::tolerance::abstol_,  ip::abstol()     ))
       , reltol    (x(nt2::tolerance::reltol_,  ip::reltol()     ))
+      , waypoints (x(nt2::range::waypoints_,   ip::waypoints()  ))
+      , singulars (x(nt2::range::singulars_,   ip::singulars()  ))
 
-    {
-      std::cout << "icitte" << std::endl;
-      std::cout << "ip::maxfunccnt() " << ip::maxfunccnt()<< std::endl;
-      std::cout << "ip::maxintvcnt() " << ip::maxintvcnt()<< std::endl;
-      std::cout << "ip::abstol()     " << ip::abstol()    << std::endl;
-      std::cout << "ip::reltol()     " << ip::reltol()    << std::endl;
-    }
+    {}
     void display_options() const
     {
       std::cout << "maxfunccnt "<< maxfunccnt << std::endl;
       std::cout << "maxintvcnt "<< maxintvcnt << std::endl;
       std::cout << "    abstol "<<     abstol << std::endl;
       std::cout << "    reltol "<<     reltol << std::endl;
+      std::cout << " waypoints "<<  waypoints << std::endl;
+      std::cout << " singulars "<<  singulars << std::endl;
+
     }
     std::size_t      maxfunccnt;
     std::size_t      maxintvcnt;
     value_type           abstol;
     value_type           reltol;
+    tab_type          waypoints;
+    btab_type         singulars;
   };
 } }
 
