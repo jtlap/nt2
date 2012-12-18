@@ -11,6 +11,9 @@
 #include <nt2/core/settings/storage_order.hpp>
 #include <nt2/sdk/meta/permute_view.hpp>
 
+#include <boost/array.hpp>
+#include <boost/fusion/adapted/array.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>

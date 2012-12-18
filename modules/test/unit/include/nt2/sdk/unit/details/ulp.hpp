@@ -10,6 +10,8 @@
 #ifndef NT2_SDK_UNIT_DETAILS_ULP_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_ULP_HPP_INCLUDED
 
+#include <nt2/sdk/unit/details/is_sequence.hpp>
+
 #include <algorithm>
 #include <nt2/sdk/unit/config.hpp>
 #include <boost/dispatch/attributes.hpp>
@@ -18,10 +20,22 @@
 
 namespace nt2 { namespace details
 {
+
+  template<class A,class B>
+  BOOST_FORCEINLINE
+  typename smallest_impl<A,B>::type max_ulps(A a, B b )
+  {
+    typename smallest_impl<A,B>::type va(a),vb(b);
+    return (va < vb) ? (vb-va) : (va-vb);
+  }
+
   double max_ulps(double a, double b);
   float  max_ulps(float  a, float  b);
 
-  template<class A, class B, class Enable=void>
+  template< class A, class B
+          , bool IsASeq=nt2::details::is_sequence<A>::value
+          , bool IsBSeq=nt2::details::is_sequence<B>::value
+          >
   struct max_ulp_
   {
     typedef typename smallest_impl<A,B>::type result_type;
@@ -34,11 +48,7 @@ namespace nt2 { namespace details
   };
 
   template<class A, class B>
-  struct  max_ulp_
-          < A, B
-          , typename  boost::dispatch::meta::
-                      enable_if_type<typename A::const_iterator>::type
-          >
+  struct max_ulp_< A, B, true,true>
   {
     typedef typename smallest_impl< typename A::value_type
                                   , typename B::value_type
@@ -60,6 +70,60 @@ namespace nt2 { namespace details
                       );
         ab++;
         bb++;
+      }
+
+      return res;
+    }
+  };
+
+  template<class A, class B>
+  struct max_ulp_< A, B, true, false>
+  {
+    typedef typename smallest_impl< typename A::value_type
+                                  , B
+                                  >::type                         result_type;
+    BOOST_FORCEINLINE result_type operator()(A const& a, A const& b) const
+    {
+      result_type res = 0;
+
+      typename A::const_iterator ab = a.begin();
+      typename A::const_iterator ae = a.end();
+
+      while(ab != ae)
+      {
+        res = std::max( res
+                      , max_ulp_< typename A::value_type
+                                , typename B::value_type
+                                >()(*ab,b)
+                      );
+        ab++;
+      }
+
+      return res;
+    }
+  };
+
+  template<class A, class B>
+  struct max_ulp_< A, B, false, true>
+  {
+    typedef typename smallest_impl< A
+                                  , typename B::value_type
+                                  >::type                         result_type;
+    BOOST_FORCEINLINE result_type operator()(A const& a, A const& b) const
+    {
+      result_type res = 0;
+
+      typename B::const_iterator ab = b.begin();
+      typename B::const_iterator ae = b.end();
+
+      while(ab != ae)
+      {
+        res = std::max( res
+                      , max_ulp_< typename A::value_type
+                                , typename B::value_type
+                                >()(a,*ab)
+                      );
+        ab++;
       }
 
       return res;

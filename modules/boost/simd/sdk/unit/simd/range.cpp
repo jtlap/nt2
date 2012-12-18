@@ -13,6 +13,7 @@
 #include <boost/simd/sdk/simd/range.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/include/functions/plus.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/range/numeric.hpp>
 #include <boost/range/algorithm/copy.hpp>

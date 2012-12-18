@@ -21,6 +21,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests.hpp>
+
 NT2_TEST_CASE_TPL( dot_scalar, NT2_REAL_TYPES )
 {
   typedef std::complex<T>  cT;
@@ -32,7 +33,6 @@ NT2_TEST_CASE_TPL( dot_scalar, NT2_REAL_TYPES )
 
   x = nt2::dot(cT(42), cT(42),2);
   NT2_TEST_EQUAL( x, nt2::sqr_abs(T(42)) );
-
 }
 
 NT2_TEST_CASE_TPL( dot, NT2_REAL_TYPES )
@@ -79,7 +79,4 @@ NT2_TEST_CASE_TPL( dot, NT2_REAL_TYPES )
   display(sy);
   display(sz);
   NT2_TEST_EQUAL(sy(1), sz(1));
-
-
 }
-

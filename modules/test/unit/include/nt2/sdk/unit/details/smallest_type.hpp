@@ -10,6 +10,7 @@
 #ifndef NT2_SDK_UNIT_DETAILS_SMALLEST_TYPE_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_SMALLEST_TYPE_HPP_INCLUDED
 
+#include <boost/mpl/if.hpp>
 #include <boost/dispatch/meta/primitive_of.hpp>
 
 namespace nt2 { namespace details
@@ -20,28 +21,9 @@ namespace nt2 { namespace details
           , class pT = typename boost::dispatch::meta::primitive_of<T>::type
           , class pU = typename boost::dispatch::meta::primitive_of<U>::type
           >
-  struct smallest_impl
-  {
-    typedef T type;
-  };
-
-  template<class T, class U>
-  struct smallest_impl<T, U, double, float>
-  {
-    typedef U type;
-  };
-
-  template<class T, class U>
-  struct smallest_impl<T, U, long double, float>
-  {
-    typedef U type;
-  };
-
-  template<class T, class U>
-  struct smallest_impl<T, U, long double, double>
-  {
-    typedef U type;
-  };
+  struct  smallest_impl
+        : boost::mpl::if_c <(sizeof(pT) <= sizeof(pU)), T , U >
+  {};
 
   /// INTERNAL ONLY
   /// Cast a value toward the smallest type comaptible with T and U for

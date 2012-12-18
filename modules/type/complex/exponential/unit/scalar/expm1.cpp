@@ -50,11 +50,11 @@ NT2_TEST_CASE_TPL ( expm1_real__1_0,  NT2_REAL_TYPES)
   {
     typedef dT r_t;
     // specific values tests
-    NT2_TEST_ULP_EQUAL(expm1(nt2::Inf<cT>()), dT(nt2::Inf<T>()), 1.0);
-    NT2_TEST_ULP_EQUAL(expm1(nt2::Minf<cT>()), dT(nt2::Mone<T>()), 1.0);
-    NT2_TEST_ULP_EQUAL(expm1(nt2::Mone<cT>()), dT(nt2::One<T>()/nt2::Exp_1<T>()-nt2::One<T>()), 1.0);
-    NT2_TEST_ULP_EQUAL(expm1(nt2::Nan<cT>()), dT(nt2::Nan<T>()), 1.0);
-    NT2_TEST_ULP_EQUAL(expm1(nt2::One<cT>()), dT(nt2::Exp_1<T>()-nt2::One<T>()), 1.0);
-    NT2_TEST_ULP_EQUAL(expm1(nt2::Zero<cT>()), dT(nt2::Zero<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Inf<cT>()), cT(nt2::Inf<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Minf<cT>()), cT(nt2::Mone<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Mone<cT>()), cT(nt2::One<T>()/nt2::Exp_1<T>()-nt2::One<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Nan<cT>()), cT(nt2::Nan<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::One<cT>()), cT(nt2::Exp_1<T>()-nt2::One<T>()), 1.0);
+    NT2_TEST_ULP_EQUAL(expm1(nt2::Zero<cT>()), cT(nt2::Zero<T>()), 1.0);
   } // end of test for floating_
 }

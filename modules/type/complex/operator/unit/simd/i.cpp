@@ -15,6 +15,7 @@
 ///
 #include <nt2/include/functions/bitwise_cast.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -65,8 +66,7 @@ NT2_TEST_CASE_TPL ( abs_cplx__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
     std::cout << nt2::I<vciT>() << std::endl;
     std::cout << nt2::I<vcT >() << std::endl;
     NT2_TEST_EQUAL(nt2::I<vciT>(), nt2::One<vciT>());
-    NT2_TEST_EQUAL(nt2::I<vcT>(),  nt2::One<vciT>());
-
+    NT2_TEST_EQUAL(nt2::I<vcT>(),  vcT(nt2::Zero<vT>(),nt2::One<vT>()));
   }
 
 } // end of test for floating_

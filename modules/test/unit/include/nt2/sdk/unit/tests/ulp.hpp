@@ -18,6 +18,7 @@
 #include <iomanip>
 #include <iostream>
 #include <nt2/sdk/unit/stats.hpp>
+#include <nt2/sdk/unit/details/eval.hpp>
 #include <nt2/sdk/unit/details/ulp.hpp>
 #include <boost/current_function.hpp>
 
@@ -34,7 +35,8 @@
 do                                                                \
 {                                                                 \
   nt2::unit::test_count()++;                                      \
-  double ulpd = nt2::unit::max_ulp(A, B);                         \
+  double ulpd = nt2::unit::max_ulp( nt2::unit::eval(A)            \
+                                  , nt2::unit::eval(B));          \
   if( ulpd <= N )                                                 \
   {                                                               \
     ::nt2::unit::pass("max(ulpdist(" #A ", " #B ")) <= " #N);     \

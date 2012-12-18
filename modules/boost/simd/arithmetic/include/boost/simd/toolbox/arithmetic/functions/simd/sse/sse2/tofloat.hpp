@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/simd/make.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/is_ltz.hpp>
 #include <boost/simd/include/functions/simd/bitwise_notand.hpp>
 #include <boost/simd/include/constants/twoto31.hpp>

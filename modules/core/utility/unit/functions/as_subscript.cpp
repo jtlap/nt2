@@ -11,6 +11,9 @@
 #include <nt2/core/utility/as_subscript.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/arith.hpp>
+#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 
 #include <boost/array.hpp>
 #include <boost/fusion/include/make_vector.hpp>

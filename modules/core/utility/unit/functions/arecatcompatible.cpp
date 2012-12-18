@@ -8,6 +8,7 @@
  ******************************************************************************/
 #define NT2_UNIT_MODULE "nt2::arecatcompatible function"
 
+#include <iostream>
 #include <nt2/include/functions/arecatcompatible.hpp>
 #include <nt2/include/functions/ones.hpp>
 

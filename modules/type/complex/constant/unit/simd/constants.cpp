@@ -13,8 +13,9 @@
 //////////////////////////////////////////////////////////////////////////////
 /// created by jt the 13/01/2012
 ///
-#include <nt2/include/constants/one.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/i.hpp>
 #include <nt2/include/functions/real.hpp>

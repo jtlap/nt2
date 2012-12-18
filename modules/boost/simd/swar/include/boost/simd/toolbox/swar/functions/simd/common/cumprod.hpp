@@ -12,6 +12,7 @@
 #include <boost/simd/toolbox/swar/functions/cumprod.hpp>
 #include <boost/simd/include/functions/simd/insert.hpp>
 #include <boost/simd/include/functions/simd/extract.hpp>
+#include <boost/simd/include/functions/simd/multiplies.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext

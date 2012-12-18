@@ -14,6 +14,7 @@
 #include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
+#include <boost/simd/include/functions/simd/unary_minus.hpp>
 #include <boost/simd/include/functions/simd/if_else_zero.hpp>
 #include <boost/simd/sdk/meta/as_logical.hpp>
 

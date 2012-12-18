@@ -72,5 +72,4 @@ NT2_TEST_CASE_TPL ( plus_integer__2_0,  BOOST_SIMD_SIMD_INTEGRAL_TYPES)
   NT2_TEST_EQUAL(plus(boost::simd::One<vT>(), boost::simd::One<vT>())[0], boost::simd::Two<sr_t>());
   NT2_TEST_EQUAL(plus(boost::simd::One<vT>(),boost::simd::Zero<vT>())[0], boost::simd::One<sr_t>());
   NT2_TEST_EQUAL(plus(boost::simd::Zero<vT>(), boost::simd::Zero<vT>())[0], boost::simd::Zero<sr_t>());
-  std::cout << plus(boost::simd::One<vT>(), boost::simd::One<vT>()) << std::endl;
 } // end of test for integer_

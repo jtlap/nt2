@@ -20,6 +20,7 @@
 #include <boost/simd/include/constants/two.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

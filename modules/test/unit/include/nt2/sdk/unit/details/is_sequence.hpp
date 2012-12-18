@@ -7,13 +7,25 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TEST_UNIT_TESTS_HPP_INCLUDED
-#define NT2_TEST_UNIT_TESTS_HPP_INCLUDED
+#ifndef NT2_SDK_UNIT_DETAILS_IS_SEQUENCE_HPP_INCLUDED
+#define NT2_SDK_UNIT_DETAILS_IS_SEQUENCE_HPP_INCLUDED
 
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
+#include <boost/mpl/bool.hpp>
+#include <boost/dispatch/meta/enable_if_type.hpp>
+
+namespace nt2 { namespace details
+{
+  template<class A, class IsSeq=void>
+  struct is_sequence : boost::mpl::false_
+  {};
+
+  template<class A>
+  struct  is_sequence
+          < A
+          , typename  boost::dispatch::meta::
+                      enable_if_type<typename A::const_iterator>::type
+          > : boost::mpl::true_
+  {};
+} }
 
 #endif

@@ -15,6 +15,7 @@
 ///
 #include <nt2/toolbox/reduction/include/functions/posmin.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/arith.hpp>
 #include <nt2/sdk/simd/logical.hpp>
