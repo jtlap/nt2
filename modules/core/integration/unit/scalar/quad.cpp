@@ -132,7 +132,8 @@ NT2_TEST_CASE_TPL( quad_2, NT2_REAL_TYPES )
                               options [
                                         nt2::tolerance::maxintvcnt_ = size_t(10),
                                         nt2::tolerance::abstol_ = T(1.0e-2),
-                                        nt2::tolerance::reltol_ = T(1.0e-4), nt2::tolerance::maxfunccnt_ = size_t(100)
+                                        nt2::tolerance::reltol_ = T(1.0e-4),
+                                        nt2::tolerance::maxfunccnt_ = size_t(100)
                                 ]));
   nt2::toc();
   std::cout << "Integrals: " << res.integrals << " with " << res.errors

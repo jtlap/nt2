@@ -40,7 +40,7 @@ namespace nt2 { namespace details
     typedef V                                       value_t;
     typedef typename meta::as_real<value_t>::type    real_t;
     typedef real_t                                        T;
-    typedef details::integration_settings<real_t>      o_t;
+    typedef details::integration_settings<real_t, tag::quadl_>      o_t;
     typedef container::table<value_t>                 tab_t;
     typedef container::table<real_t>                 rtab_t;
 
@@ -98,7 +98,7 @@ namespace nt2 { namespace details
     }
     void init( const o_t & o)
     {
-      tol_ = o.absolute_tolerance;
+      tol_ = o.abstol;
       warn_ = 0;
       fcnt_ = 0;
       maxfcnt_ = Valmax<size_t>();
@@ -204,7 +204,7 @@ namespace nt2 { namespace ext
     typedef nt2::container::table<real_type>                            rtab_t;
     typedef nt2::container::table<ptrdiff_t>                            ltab_t;
     typedef nt2::integration::output<tab_t,real_type>              result_type;
-    typedef details::integration_settings<real_type>                    otype;
+    typedef details::integration_settings<real_type, tag::quadl_>        otype;
 
     result_type operator()(F f, X const& x, O const& o)
     {
