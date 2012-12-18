@@ -53,13 +53,13 @@ namespace boost { namespace simd
     : expression< typename
                   proto::terminal< typename
                                    meta::vector_of< Type
-                                                  , boost::mpl::size_t<Cardinal>::value
+                                                  , Cardinal
                                                   >::type
                                  >::type
                  , typename
                    meta::vector_of< Type
-                                  , boost::mpl::size_t<Cardinal>::value
-                                  >::type&
+                                  , Cardinal
+                                  >::type
                  >
   {
     typedef Type                   value_type;
@@ -67,7 +67,7 @@ namespace boost { namespace simd
     typedef value_type const& const_reference;
 
     typedef typename
-    meta::vector_of<Type, boost::mpl::size_t<Cardinal>::value>::type data_type;
+    meta::vector_of<Type, Cardinal>::type data_type;
     typedef typename proto::terminal<data_type>::type       expr_type;
 
     typedef typename data_type::iterator       iterator;
@@ -76,13 +76,13 @@ namespace boost { namespace simd
     typedef expression< typename
                         proto::terminal< typename
                                          meta::vector_of< Type
-                                                        , boost::mpl::size_t<Cardinal>::value
+                                                        , Cardinal
                                                         >::type
                                        >::type
                       , typename
                         meta::vector_of< Type
-                                       , boost::mpl::size_t<Cardinal>::value
-                                       >::type&
+                                       , Cardinal
+                                       >::type
                       > parent;
 
     //==========================================================================
