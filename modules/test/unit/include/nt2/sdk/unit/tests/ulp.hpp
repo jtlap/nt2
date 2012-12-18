@@ -36,7 +36,8 @@ do                                                                \
 {                                                                 \
   nt2::unit::test_count()++;                                      \
   double ulpd = nt2::unit::max_ulp( nt2::unit::eval(A)            \
-                                  , nt2::unit::eval(B));          \
+                                  , nt2::unit::eval(B)            \
+                                  );                              \
   if( ulpd <= N )                                                 \
   {                                                               \
     ::nt2::unit::pass("max(ulpdist(" #A ", " #B ")) <= " #N);     \

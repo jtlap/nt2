@@ -11,8 +11,8 @@
 #include <boost/simd/toolbox/swar/include/functions/shuffle.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
-#include <boost/simd/sdk/simd/meta/vector_of.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 
@@ -97,7 +97,7 @@ NT2_TEST_CASE_TPL ( shuffle, BOOST_SIMD_SIMD_TYPES)
   hnull = shuffle<half_null_>(origin);
   NT2_TEST_EQUAL(hnull,reference);
 
-  NT2_TEST_EQUAL( shuffle<null_>(origin), nt2::Zero<vT>());
+  NT2_TEST_EQUAL( shuffle<null_>(origin), boost::simd::Zero<vT>());
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = origin[i<vT::static_size/2 ? i : vT::static_size - i -1];
@@ -179,7 +179,7 @@ NT2_TEST_CASE_TPL( shuffle_index2, BOOST_SIMD_SIMD_TYPES)
   shuffled = shuffle<1,0>(origin);
   NT2_TEST_EQUAL(shuffled,reference);
 
-  NT2_TEST_EQUAL( (shuffle<-1,-1>(origin)), nt2::Zero<vT>());
+  NT2_TEST_EQUAL( (shuffle<-1,-1>(origin)), boost::simd::Zero<vT>());
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = origin[i<vT::static_size/2 ? i : vT::static_size - i -1];
@@ -213,7 +213,7 @@ NT2_TEST_CASE_TPL( shuffle_index4, BOOST_SIMD_SIMD_TYPES)
   shuffled = shuffle<3,2,1,0>(origin);
   NT2_TEST_EQUAL(shuffled,reference);
 
-  NT2_TEST_EQUAL( (shuffle<-1,-1,-1,-1>(origin)), nt2::Zero<vT>());
+  NT2_TEST_EQUAL( (shuffle<-1,-1,-1,-1>(origin)), boost::simd::Zero<vT>());
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = origin[i<vT::static_size/2 ? i : vT::static_size - i -1];
@@ -247,7 +247,7 @@ NT2_TEST_CASE_TPL( shuffle_index8, BOOST_SIMD_SIMD_TYPES)
   shuffled = shuffle<7,6,5,4,3,2,1,0>(origin);
   NT2_TEST_EQUAL(shuffled,reference);
 
-  NT2_TEST_EQUAL( (shuffle<-1,-1,-1,-1,-1,-1,-1,-1>(origin)), nt2::Zero<vT>());
+  NT2_TEST_EQUAL( (shuffle<-1,-1,-1,-1,-1,-1,-1,-1>(origin)), boost::simd::Zero<vT>());
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = origin[i<vT::static_size/2 ? i : vT::static_size - i -1];
@@ -282,7 +282,7 @@ NT2_TEST_CASE_TPL( shuffle_index16, BOOST_SIMD_SIMD_TYPES)
   NT2_TEST_EQUAL(shuffled,reference);
 
   NT2_TEST_EQUAL( (shuffle<-1,-1,-1,-1,-1,-1,-1,-1
-                          ,-1,-1,-1,-1,-1,-1,-1,-1>(origin)), nt2::Zero<vT>());
+                          ,-1,-1,-1,-1,-1,-1,-1,-1>(origin)), boost::simd::Zero<vT>());
 
   for(std::size_t i=0; i < vT::static_size;++i)
     reference[i] = origin[i<vT::static_size/2 ? i : vT::static_size - i -1];

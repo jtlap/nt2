@@ -26,7 +26,7 @@ namespace nt2 { namespace details
   {};
 
   /// INTERNAL ONLY
-  /// Cast a value toward the smallest type comaptible with T and U for
+  /// Cast a value toward the smallest type compatible with T and U for
   /// proper ULP comparisons
   template<class T, class U>
   typename smallest_impl<T, U>::type
@@ -36,13 +36,13 @@ namespace nt2 { namespace details
   }
 
   /// INTERNAL ONLY
-  /// Cast a value toward the smallest type comaptible with T and U for
+  /// Cast a value toward the smallest type compatible with T and U for
   /// proper ULP comparisons
   template<class T, class U>
-  typename smallest_impl<U, T>::type
+  typename smallest_impl<T, U>::type
   smallest_b(T const&, U const& b)
   {
-    return typename smallest_impl<U, T>::type(b);
+    return typename smallest_impl<T, U>::type(b);
   }
 } }
 

@@ -13,9 +13,11 @@
 
 namespace nt2 { namespace details
 {
-  test_suite::~test_suite() {}
+  NT2_TEST_UNIT_DECL test_suite::test_suite(unit_test const* t_) : tests(t_) {}
 
-  void test_suite::report() const
+  NT2_TEST_UNIT_DECL test_suite::~test_suite() {}
+
+  NT2_TEST_UNIT_DECL void test_suite::report() const
   {
     int t = nt2::unit::test_count();
     int e = nt2::unit::error_count();
@@ -27,7 +29,7 @@ namespace nt2 { namespace details
           );
   }
 
-  void test_suite::process() const
+  NT2_TEST_UNIT_DECL void test_suite::process() const
   {
     if(tests) tests->process();
     report();

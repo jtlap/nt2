@@ -12,8 +12,13 @@ include(NT2Module)
 nt2_module_source_setup(test.benchmark)
 
 set(SOURCES
-    tick.cpp
+    base_experiment.cpp
     suite.cpp
+    priority.cpp
+    prng.cpp
+    median.cpp
+    overheads.cpp
+    perform_benchmark.cpp
    )
 
 if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)

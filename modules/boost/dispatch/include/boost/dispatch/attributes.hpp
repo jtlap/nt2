@@ -90,6 +90,28 @@
 #define BOOST_DISPATCH_NO_RESTRICT_REFERENCES
 #endif
 
+#if defined(_MSC_VER)
+#define BOOST_DISPATCH_NOTHROW  __declspec( nothrow )
+#elif defined(__GNUC__)
+#define BOOST_DISPATCH_NOTHROW __attribute__(( nothrow ))
+#else
+#define BOOST_DISPATCH_NOTHROW
+#endif
+
+#if defined(_MSC_VER)
+#define BOOST_DISPATCH_OVERRIDE override
+#elif defined(__GNUC__)
+#define BOOST_DISPATCH_OVERRIDE
+#else
+#define BOOST_DISPATCH_OVERRIDE
+#endif
+
+#if defined(_MSC_VER)
+#define BOOST_DISPATCH_NOVTABLE __declspec( novtable )
+#else
+#define BOOST_DISPATCH_NOVTABLE
+#endif
+
 #endif
 
 #endif

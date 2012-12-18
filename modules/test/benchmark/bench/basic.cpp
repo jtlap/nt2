@@ -7,30 +7,68 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
+#include <cmath>
+#include <vector>
 #include <nt2/sdk/bench/benchmark.hpp>
 
-NT2_EXPERIMENT(some_test, second)
+template<typename T> NT2_EXPERIMENT(cosinus)
 {
   public:
-  some_test (std::size_t n, double d = 2.5)
-            : NT2_EXPERIMENT_CTOR( some_test, second, d ), a(n), b(n)
+  cosinus ( std::size_t n, double d )
+            : NT2_EXPRIMENT_CTOR(n,d,"cycles/elements")
+            , size(n)
   {}
 
-  void call() const
+  virtual void run() const
   {
-    for(std::size_t i=0;i<size();++i) a[i] = b[i] + b[i]*b[i];
+    for(int i=0;i<size;++i) y[i] = std::cos(x[i]);
   }
 
-  void reset() const {}
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return r.first/size;
+  }
 
-  std::size_t size() const { return a.size(); }
+  virtual void reset() const
+  {
+    x.resize(size);
+    y.resize(size);
+    nt2::roll(x,-3.14159/2.,3.14159/2);
+    nt2::roll(y,-3.14159/2.,3.14159/2);
+  }
 
   private:
-  mutable std::vector<float> a,b;
+  int       size;
+  mutable   std::vector<T> x,y;
 };
 
-some_test const some_test_bench2(100);
-some_test const some_test_bench3(1000);
-some_test const some_test_bench4(10000);
-some_test const some_test_bench5(100000);
-some_test const some_test_bench6(1000000);
+NT2_EXPERIMENT(empty)
+{
+  public:
+  empty (std::size_t n, double d = 1)
+            : NT2_EXPRIMENT_CTOR(n,d,"cycles/elements"), size(n)
+  {}
+
+  virtual void run() const {}
+  virtual double compute(nt2::benchmark_result_t const& r) const
+  {
+    return r.first / size;
+  }
+
+  private:
+  std::size_t size;
+};
+
+/*
+  empty is an empty test, it shoudl return 0 cycles/elements
+*/
+NT2_RUN_EXPERIMENT(empty)(1);
+NT2_RUN_EXPERIMENT(empty)(1000);
+
+/*
+ Simple scalar AXPY benchmark to see if we catch cache misses
+*/
+NT2_RUN_EXPERIMENT_TPL( cosinus
+                      , (float)(double)
+                      , (256,3)
+                      );

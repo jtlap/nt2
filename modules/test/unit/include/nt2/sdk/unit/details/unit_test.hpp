@@ -10,22 +10,24 @@
 #ifndef NT2_SDK_UNIT_DETAILS_UNIT_TEST_HPP_INCLUDED
 #define NT2_SDK_UNIT_DETAILS_UNIT_TEST_HPP_INCLUDED
 
+#include <nt2/sdk/unit/config.hpp>
+
 namespace nt2 { namespace details
 {
   struct test_suite;
 
-  /// INTERNAL ONLY - RAII class for registering a test into a test suite
-  struct unit_test
+  struct BOOST_SYMBOL_VISIBLE unit_test
   {
     typedef void (*ptr_fun_t)();
 
+    NT2_TEST_UNIT_DECL
     unit_test (test_suite const* s = 0, ptr_fun_t c = 0, const char* n = 0);
 
-    virtual ~unit_test();
+    virtual NT2_TEST_UNIT_DECL ~unit_test();
 
-    virtual   void    process() const;
-    unit_test const*  link(unit_test const* n)  const;
-    void              advance() const;
+    NT2_TEST_UNIT_DECL virtual   void    process() const;
+    NT2_TEST_UNIT_DECL unit_test const*  link(unit_test const* n)  const;
+    NT2_TEST_UNIT_DECL void              advance() const;
 
             ptr_fun_t         call;
             const char*       name;

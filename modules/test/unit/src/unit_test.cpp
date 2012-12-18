@@ -14,15 +14,16 @@
 
 namespace nt2 { namespace details
 {
+  NT2_TEST_UNIT_DECL
   unit_test::unit_test (test_suite const* s, ptr_fun_t c, const char* n)
             : call(c), name(n)
   {
     if(s) next = s->link(this);
   }
 
-  unit_test::~unit_test() {}
+  NT2_TEST_UNIT_DECL unit_test::~unit_test() {}
 
-  void unit_test::process() const
+  NT2_TEST_UNIT_DECL void unit_test::process() const
   {
     if(name)
     {
@@ -48,6 +49,7 @@ namespace nt2 { namespace details
     advance();
   }
 
+  NT2_TEST_UNIT_DECL
   unit_test const* unit_test::link(unit_test const* n) const
   {
     if(next != 0 )  return next->link(n);
@@ -55,7 +57,7 @@ namespace nt2 { namespace details
     return 0;
   }
 
-  void unit_test::advance() const
+  NT2_TEST_UNIT_DECL void unit_test::advance() const
   {
     if(next) next->process();
   }

@@ -15,7 +15,7 @@
 
 #if    (defined(__GNUC__)     || defined(__ICC)        )      \
     && defined(BOOST_SIMD_ARCH_X86)
-namespace nt2 { namespace details
+namespace nt2
 {
   // INTERNAL ONLY
   // Read cycles counter using rdtsc
@@ -30,11 +30,11 @@ namespace nt2 { namespace details
                   | ( static_cast<cycles_t>(hi)<<32 );
     return that;
   }
-} }
+}
 #elif defined(BOOST_MSVC)
 #include <intrin.h>
 
-namespace nt2 { namespace details
+namespace nt2
 {
   // INTERNAL ONLY
   // Read cycles counter using rdtsc
@@ -57,11 +57,11 @@ namespace nt2 { namespace details
       ::_ReadWriteBarrier();
       return result;
   }
-} }
+}
 #elif  (defined(__GNUC__)      && defined(BOOST_SIMD_ARCH_POWERPC)) \
     || (defined(__MWERKS__)    && defined(macintosh) )              \
     || (defined(__IBM_GCC_ASM) && defined(BOOST_SIMD_ARCH_POWERPC))
-namespace nt2 { namespace details
+namespace nt2
 {
   // INTERNAL ONLY
   // Read cycles counter using mftbu on PowerPC
@@ -78,13 +78,13 @@ namespace nt2 { namespace details
 
     return (cycles_t)((((boost::uint64_t)tbu0) << 32) | tbl);
   }
-} }
+}
 
 #elif !defined(_WIN32)
 #include <nt2/sdk/timing/now.hpp>
 #include <sys/times.h>
 
-namespace nt2 { namespace details
+namespace nt2
 {
   // INTERNAL ONLY
   // Read cycles counter using an approximation of the frequency
@@ -92,7 +92,7 @@ namespace nt2 { namespace details
   {
     details::now_in_seconds() * sysconf(_SC_CLK_TCK);
   }
-} }
+}
 
 #endif
 #endif

@@ -20,7 +20,7 @@
 
 #if defined( _MSC_VER )
 
-    #define BOOST_NOTHROW_NOALIAS __declspec( nothrow noalias )
+    #define BOOST_DISPATCH_NOTHROW_NOALIAS __declspec( nothrow noalias )
     #define BOOST_FASTCALL __fastcall
     #define BOOST_UNREACHABLE_CODE()  BOOST_ASSERT_MSG( false    , "This code should not be reached." ); __assume( false     )
     #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken."               ); __assume( condition )
@@ -31,7 +31,7 @@
     /// strict to mimic the MSVC 'noalias' attribute (which allows first level
     /// indirections).
     ///                                       (09.07.2012.) (Domagoj Saric)
-    #define BOOST_NOTHROW_NOALIAS __attribute__(( nothrow ))
+    #define BOOST_DISPATCH_NOTHROW_NOALIAS __attribute__(( nothrow ))
     #if defined( BOOST_SIMD_ARCH_X86 ) && !defined( BOOST_SIMD_ARCH_X86_64 )
         #if defined( __clang__ )
             #define BOOST_FASTCALL __attribute__(( regparm( 3 ) ))
@@ -56,7 +56,7 @@
 
 #else
 
-    #define BOOST_NOTHROW_NOALIAS
+    #define BOOST_DISPATCH_NOTHROW_NOALIAS
     #define BOOST_FASTCALL
     #define BOOST_UNREACHABLE_CODE()  BOOST_ASSERT_MSG( false    , "This code should not be reached." )
     #define BOOST_ASSUME( condition ) BOOST_ASSERT_MSG( condition, "Assumption broken."               )
@@ -2356,7 +2356,7 @@ namespace detail
         typedef typename Context::parameter0_t parameter0_t;
         typedef typename Context::parameter1_t parameter1_t;
 
-        BOOST_NOTHROW_NOALIAS
+        BOOST_DISPATCH_NOTHROW_NOALIAS
         static void BOOST_FASTCALL apply( parameter0_t const param0, parameter1_t const param1 )
         {
             apply( param0, param1, typename Decimation::first_step () );
@@ -2364,7 +2364,7 @@ namespace detail
         }
 
     private:
-        BOOST_NOTHROW_NOALIAS BOOST_FORCEINLINE
+        BOOST_DISPATCH_NOTHROW_NOALIAS BOOST_FORCEINLINE
         static void BOOST_FASTCALL apply( parameter0_t const param0, parameter1_t const param1, step_decimation const & )
         {
             Context const context( param0, param1, N );
@@ -2375,7 +2375,7 @@ namespace detail
             upper::apply( context.upper_second_parameter0(), context.upper_second_parameter1() );
         }
 
-        BOOST_NOTHROW_NOALIAS BOOST_FORCEINLINE
+        BOOST_DISPATCH_NOTHROW_NOALIAS BOOST_FORCEINLINE
         static void BOOST_FASTCALL apply( typename Context::parameter0_t const param0, typename Context::parameter1_t const param1, step_butterfly const & )
         {
             butterfly_loop<Decimation, Context>
@@ -2400,7 +2400,7 @@ namespace detail
     public:
         static unsigned const N = 8;
 
-        BOOST_NOTHROW_NOALIAS
+        BOOST_DISPATCH_NOTHROW_NOALIAS
         static void BOOST_FASTCALL apply( typename Context::parameter0_t const param0, typename Context::parameter1_t const param1 )
         {
             typedef typename Context::vector_t vector_t;
@@ -2428,7 +2428,7 @@ namespace detail
 
         typedef dif Decimation;
 
-        BOOST_NOTHROW_NOALIAS
+        BOOST_DISPATCH_NOTHROW_NOALIAS
         static void BOOST_FASTCALL apply( typename Context::parameter0_t const p_reals, typename Context::parameter1_t const p_imags )
         {
             typedef typename Context::vector_t vector_t;
@@ -2535,7 +2535,7 @@ namespace detail
 
         typedef dit Decimation;
 
-        BOOST_NOTHROW_NOALIAS
+        BOOST_DISPATCH_NOTHROW_NOALIAS
         static void BOOST_FASTCALL apply( typename Context::parameter0_t const p_reals, typename Context::parameter1_t const p_imags )
         {
             typedef typename Context::vector_t vector_t;

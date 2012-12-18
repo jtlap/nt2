@@ -13,6 +13,7 @@
 #include <nt2/toolbox/linalg/details/blas/mm.hpp>
 #include <nt2/include/functions/multiplies.hpp>
 #include <nt2/include/functions/ndims.hpp>
+#include <nt2/include/functions/value.hpp>
 #include <nt2/core/container/dsl/size.hpp>
 #include <nt2/core/container/table/category.hpp>
 #include <boost/proto/traits.hpp>
@@ -168,22 +169,6 @@ namespace nt2 { namespace ext
     }
   };
 
-  template<class T>
-  typename boost::disable_if< boost::proto::is_expr<T>, T&>::type
-  value(T& t)
-  {
-    return t;
-  }
-
-  template<class Expr>
-  typename boost::lazy_enable_if< boost::proto::is_expr<Expr>,
-                                  boost::proto::result_of::value<Expr&>
-                                >::type
-  value(Expr& expr)
-  {
-    return boost::proto::value(expr);
-  }
-
   // run_assign
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(A1)
@@ -200,8 +185,7 @@ namespace nt2 { namespace ext
       typename meta::call<tag::run_(typename boost::proto::result_of::child_c<A1&, 0>::type)>::type child0 = nt2::run(boost::proto::child_c<0>(a1));
       typename meta::call<tag::run_(typename boost::proto::result_of::child_c<A1&, 1>::type)>::type child1 = nt2::run(boost::proto::child_c<1>(a1));
       typename meta::call<tag::run_(A0&)>::type result = nt2::run(a0);
-      //      std::cout << size(result) << std::endl;
-      //      std::cout << a0.extent()<< std::endl;
+
       value_type alpha = One<value_type>();
       value_type beta = Zero<value_type>();
       nt2_la_int m = at_c<0>(child0.extent());
@@ -210,10 +194,10 @@ namespace nt2 { namespace ext
       nt2_la_int lda = at_c<0>(child0.extent());
       nt2_la_int ldb = at_c<0>(child1.extent());
       nt2_la_int ldc = at_c<0>(a1.extent());
+
       if(    ( raw(value(result)) >= child0.raw()+numel(child0) || raw(value(result))+numel(result) <  child0.raw())&&
              ( raw(value(result)) >= child1.raw()+numel(child0) || raw(value(result))+numel(result) <  child1.raw()))
       {
-        //      std::cout << "icitte" << std::endl;
         a0.resize(a1.extent());
         nt2::details::
         gemm( "N", "N"
@@ -228,12 +212,10 @@ namespace nt2 { namespace ext
       }
       else
       {
-        //      std::cout << "latte" << std::endl;
         // overlapping of input and output data is possible
         // so we provide space for result and put back in a0
         nt2::container::table<value_type> tmp(a1.extent());
-        //std::cout << size(tmp) << std::endl;
-        //tmp.resize(a1.extent());
+
         nt2::details::
         gemm( "N", "N"
             , &m, &n, &k
@@ -243,11 +225,9 @@ namespace nt2 { namespace ext
             , &beta
             , tmp.raw(), &ldc
             );
-        //        NT2_DISPLAY(tmp);
+
         a0 = tmp;
-        //        NT2_DISPLAY(result);
       }
-      //     NT2_DISPLAY(a0);
       return a0;
     }
   };

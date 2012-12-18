@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/scalar/bitwise_notand.hpp>
 #include <boost/simd/include/functions/scalar/bitwise_and.hpp>
 #include <boost/simd/include/functions/scalar/shri.hpp>
+#include <boost/simd/include/functions/scalar/minus.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>
 #include <boost/simd/include/constants/nbmantissabits.hpp>
 #include <boost/dispatch/meta/adapted_traits.hpp>
@@ -25,7 +26,7 @@ namespace boost { namespace simd { namespace ext
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)
                             , (scalar_< double_<A0> >)
                               (scalar_< double_<A0> >)
-                                     (scalar_< int64_<A2> >)
+                              (scalar_< int64_<A2> >)
     )
   {
     typedef int result_type;
@@ -52,10 +53,6 @@ namespace boost { namespace simd { namespace ext
         if (r1 > me) {r1 = 0; r0+= a0;}
         return 0;
       }
-//       boost::simd::int32_t aa2 = 0;
-//       a1 = ::frexp(a0, &aa2);
-//       a2 =  aa2;
-//       return 0;
     }
   };
 
@@ -70,10 +67,6 @@ namespace boost { namespace simd { namespace ext
       A0 a1;
       frexp(a0, a1, a2);
       return a1;
-//       boost::simd::int32_t aa2;
-//       A0 aa1 = ::frexp(a0, &aa2);
-//       a2 =  aa2;
-//       return aa1;
     }
   };
 
@@ -89,17 +82,6 @@ namespace boost { namespace simd { namespace ext
       result_type res;
       frexp(a0, boost::fusion::at_c<0>(res), boost::fusion::at_c<1>(res));
       return res;
-//       result_type res;
-//       if (is_inf(a0))
-//       {
-//         boost::fusion::at_c<0>(res) = a0;
-//         boost::fusion::at_c<1>(res) = 0;
-//         return res;
-//       }
-//       boost::simd::int32_t r1t;
-//       boost::fusion::at_c<0>(res) = ::frexp(a0, &r1t);
-//       boost::fusion::at_c<1>(res) = r1t;
-//       return res;
     }
   };
 
@@ -132,56 +114,9 @@ namespace boost { namespace simd { namespace ext
         r0 = b_or(x,n2);                                     // insert exponent+1 in x
         if (r1 > me) {r1 = 0; r0+= a0;}
         return 0;
-        //       if (is_inf(a0))
-        //       {
-        //         a2 = 0;
-        //         a1 = a0;
-        //       }
-        //       else
-        //         a1 = ::frexpf(a0, &a2);
-        //       return 0;
       }
     }
   };
-
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)(A2)
-//                             , (scalar_< single_<A0> >)
-//                               (scalar_< int32_<A2> >)
-//                             )
-//   {
-//     typedef A0 result_type;
-//     inline result_type operator()(A0 const& a0,A2 & a2) const
-//     {
-//       if (is_inf(a0))
-//       {
-//         a2 = 0;
-//         return a0;
-//       }
-//       return ::frexpf(a0, &a2);
-//     }
-//   };
-
-
-//   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::frexp_, tag::cpu_, (A0)
-//                             , (scalar_< single_<A0> >)
-//                             )
-//   {
-//     typedef typename boost::dispatch::meta::as_floating<A0>::type mantissa;
-//     typedef typename dispatch::meta::as_integer<A0,signed>::type                   exponent;
-//     typedef boost::fusion::vector<mantissa,exponent>                            result_type;
-//     BOOST_SIMD_FUNCTOR_CALL(1)
-//     {
-//       result_type res;
-//       if (is_inf(a0))
-//       {
-//         boost::fusion::at_c<0>(res) = a0;
-//         boost::fusion::at_c<1>(res) = 0;
-//         return res;
-//       }
-//       boost::fusion::at_c<0>(res) = ::frexpf(a0, &boost::fusion::at_c<1>(res));
-//       return res;
-//     }
-//   };
 } } }
 
 #endif

@@ -26,7 +26,7 @@ namespace nt2 { namespace details
   struct second_based_timer
   {
     NT2_SDK_TIMING_DECL static        void    Print(const double& val);
-                        static inline double  Time() { return details::now_in_seconds(); }
+                        static inline double  Time() { return now(); }
   };
 
   // INTERNAL ONLY

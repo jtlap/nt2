@@ -7,12 +7,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#define NT2_BENCH_MODULE "nt2 signal processing with Boost.SIMD - test"
-
 #include <nt2/signal/static_fft.hpp>
 
-#include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/perform_benchmark.hpp>
+#include <nt2/sdk/bench/experiment.hpp>
+#include <nt2/sdk/bench/perform_benchmark.hpp>
+#include <nt2/sdk/bench/details/overheads.hpp>
 
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <boost/simd/include/functions/scalar/ilog2.hpp>
@@ -32,6 +31,7 @@
 
 
 #include <cstdlib>
+#include <cstdio>
 #include <vector>
 
 namespace bench
@@ -66,7 +66,7 @@ namespace bench
     public:
         reproducible_random_data_provider()
         {
-            nt2::details::prng_reset();
+            nt2::prng_reset();
             randomize( real_data_ );
             randomize( imag_data_ );
         }
@@ -86,7 +86,7 @@ namespace bench
     private:
         void randomize( aligned_array & data )
         {
-            nt2::details::prng_fill( real_data_, constants::test_data_range_minimum, constants::test_data_range_maximum );
+           nt2::roll( real_data_, constants::test_data_range_minimum, constants::test_data_range_maximum );
         }
 
     private:
@@ -94,10 +94,10 @@ namespace bench
         aligned_array imag_data_;
     } random_data;
 
-    class complex_fft_test : public nt2::unit::benchmark_t
+    NT2_EXPERIMENT(complex_fft_test)
     {
     public:
-        BOOST_NOTHROW void reset() BOOST_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void reset() BOOST_DISPATCH_OVERRIDE
         {
             random_data.fill_with_real_data( real_data_ );
             random_data.fill_with_imag_data( imag_data_ );
@@ -113,9 +113,8 @@ namespace bench
 
     protected:
         complex_fft_test( std::size_t const length )
-            :
-            real_data_( length ),
-            imag_data_( length )
+            : real_data_( length )
+            , imag_data_( length )
         {
             reset();
         }
@@ -132,18 +131,18 @@ namespace bench
     {
         test_fft_forward( std::size_t const length ) : complex_fft_test( length ) {}
 
-        BOOST_NOTHROW void run() const BOOST_OVERRIDE { FFT::forward_transform( &real_data_[ 0 ], &imag_data_[ 0 ], size() ); }
+        BOOST_DISPATCH_NOTHROW void run() const BOOST_DISPATCH_OVERRIDE { FFT::forward_transform( &real_data_[ 0 ], &imag_data_[ 0 ], size() ); }
     };
 
     struct test_fft_inverse : complex_fft_test
     {
         test_fft_inverse( std::size_t const length ) : complex_fft_test( length ) {}
 
-        BOOST_NOTHROW void run() const BOOST_OVERRIDE { FFT::inverse_transform( &real_data_[ 0 ], &imag_data_[ 0 ], size() ); }
+        BOOST_DISPATCH_NOTHROW void run() const BOOST_DISPATCH_OVERRIDE { FFT::inverse_transform( &real_data_[ 0 ], &imag_data_[ 0 ], size() ); }
     };
 
 
-    class real_fft_test : public nt2::unit::benchmark_t
+    NT2_EXPERIMENT(real_fft_test)
     {
     public:
         std::size_t size            () const { return real_time_data_.size(); }
@@ -151,10 +150,9 @@ namespace bench
 
     protected:
         real_fft_test( std::size_t const length )
-            :
-            real_time_data_     ( length         ),
-            real_frequency_data_( length / 2 + 1 ),
-            imag_frequency_data_( length / 2 + 1 )
+            : real_time_data_     ( length         )
+            , real_frequency_data_( length / 2 + 1 )
+            , imag_frequency_data_( length / 2 + 1 )
         {}
 
         ~real_fft_test() {}
@@ -180,7 +178,7 @@ namespace bench
             random_data.fill_with_real_data( real_time_data_ );
         }
 
-        BOOST_NOTHROW void run() const BOOST_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void run() const BOOST_DISPATCH_OVERRIDE
         {
             FFT::real_forward_transform( &real_time_data_[ 0 ], &real_frequency_data_[ 0 ], &imag_frequency_data_[ 0 ], size() );
         }
@@ -191,12 +189,12 @@ namespace bench
     {
         test_fft_real_inverse( std::size_t const length ) : real_fft_test( length ) { reset(); }
 
-        BOOST_NOTHROW void run() const BOOST_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void run() const BOOST_DISPATCH_OVERRIDE
         {
             FFT::real_inverse_transform( &real_frequency_data_[ 0 ], &imag_frequency_data_[ 0 ], &real_time_data_[ 0 ], size() );
         }
 
-        BOOST_NOTHROW void reset() BOOST_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void reset() BOOST_DISPATCH_OVERRIDE
         {
             /// \note FFT::real_inverse_transform destroys input data so it has
             /// to be regenerated.
@@ -240,7 +238,7 @@ namespace bench
     public:
         apple_complex_fft_test( std::size_t const length ) : apple_fft_test( length ), complex_fft_test( length ) {}
 
-        BOOST_NOTHROW void run() const BOOST_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void run() const BOOST_DISPATCH_OVERRIDE
         {
             DSPSplitComplex complex_data( split_data() );
             ::vDSP_fft_zip( instance(), &complex_data, 1, log2length(), direction );
@@ -274,7 +272,7 @@ namespace bench
     public:
         apple_real_forward_fft_test( std::size_t const length ) : apple_real_fft_test( length ) { random_data.fill_with_real_data( real_time_data_ ); }
 
-        BOOST_NOTHROW void run() const BOOST_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void run() const BOOST_DISPATCH_OVERRIDE
         {
             DSPSplitComplex split_real_data( split_data() );
             vDSP_ctoz    ( reinterpret_cast<DSPComplex const *>( &real_time_data_[ 0 ] ), 2, &split_real_data, 1, size() / 2 );
@@ -288,14 +286,14 @@ namespace bench
     public:
         apple_real_inverse_fft_test( std::size_t const length ) : apple_real_fft_test( length ) { reset(); }
 
-        BOOST_NOTHROW void run() const BOOST_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void run() const BOOST_DISPATCH_OVERRIDE
         {
             DSPSplitComplex split_real_data( split_data() );
             vDSP_fft_zrip( instance(), &split_real_data, 1, log2length(), FFT_INVERSE );
             vDSP_ztoc    ( &split_real_data, 1, reinterpret_cast<DSPComplex *>( &real_time_data_[ 0 ] ), 2, size() / 2 );
         }
 
-        BOOST_NOTHROW void reset() BOOST_OVERRIDE
+        BOOST_DISPATCH_NOTHROW void reset() BOOST_DISPATCH_OVERRIDE
         {
             random_data.fill_with_real_data( real_frequency_data_ );
             random_data.fill_with_imag_data( imag_frequency_data_ );
@@ -306,21 +304,18 @@ namespace bench
     template <class Benchmark>
     void do_perform_benchmark( char const * const benchmark_name, std::size_t const length )
     {
-        typedef nt2::details::cycles_t           cycles_t          ;
-        typedef nt2::details::microseconds_t     microseconds_t    ;
-        typedef nt2::unit   ::benchmark_result_t benchmark_result_t;
+        typedef nt2::cycles_t           cycles_t          ;
+        typedef nt2::microseconds_t     microseconds_t    ;
+        typedef nt2::benchmark_result_t benchmark_result_t;
 
         double const benchmark_run_time( 0.6 );
 
-        std::printf( "%s (%u):\t\t", benchmark_name, static_cast<unsigned int>( length ) );
+        printf( "%s (%u):\t\t", benchmark_name, static_cast<unsigned int>( length ) );
 
         Benchmark benchmark( length );
-        cycles_t  benchmark_result_c;
-        seconds_t benchmark_result_s;
-        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, benchmark_result_c );
-        nt2::unit::perform_benchmark( benchmark, benchmark_run_time, benchmark_result_s );
+        benchmark_result_t const benchmark_result( nt2::perform_benchmark( benchmark, benchmark_run_time ) );
 
-        std::printf
+        printf
         (
             "%.2f cycles/value,\t %.2f microseconds/array\n",
             static_cast<double>( benchmark_result.first ) / benchmark.number_of_values(),
@@ -352,9 +347,7 @@ namespace bench
     }
 } // namespace bench
 
-
-//...zzz...nt2 bechmark framework broken...extern "C" int main( int /*argc*/, char * /*argv*/[] )
-NT2_TEST_CASE( test_fft )
+extern "C" int main( int /*argc*/, char * /*argv*/[] )
 {
     {
         using namespace nt2::details;
@@ -364,9 +357,9 @@ NT2_TEST_CASE( test_fft )
             "\n\tnow() + read_cycles() + virtual run() in nanoseconds %.3f"
             "\n\tread_cycles() + virtual run() in cycles %d"
             "\n",
-            to_microseconds( now_plus_read_cycles_plus_virtual_overhead_in_time_quantums ) * 1000,
-                             read_cycles_plus_virtual_overhead_in_cycles
-        );
+            nt2::to_microseconds( quantums_overhead ) * 1000,
+                                  cycles_overhead
+                                );
     }
 
 #if !defined( BOOST_NO_EXCEPTIONS ) || defined( _MSC_VER )
@@ -388,6 +381,5 @@ NT2_TEST_CASE( test_fft )
     }
 #else
     bench::do_test();
-#endif // _DEBUG
+#endif // _DEBUG*/
 }
-
