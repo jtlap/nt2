@@ -165,6 +165,15 @@ namespace boost { namespace simd
     BOOST_PP_SEQ_FOR_EACH(M1, ~, BOOST_SIMD_CARDINALS)
     #undef M1
 
+    //==========================================================================
+    // Constructor from expression -> evaluate using parent operator=
+    //==========================================================================
+    template<class T>
+    pack(T const& t, typename T::proto_is_expr_* = 0)
+    {
+      static_cast<parent&>(*this) = t;
+    }
+
     using parent::operator=;
 
     reference        operator[](std::size_t i)
