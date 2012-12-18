@@ -74,13 +74,19 @@ struct logical_f
   struct result<This(A0)>
   {
     typedef typename boost::dispatch::meta::strip<A0>::type A0_;
-    typedef boost::simd::logical<A0_> type;
+    typedef typename boost::simd::meta::as_logical<A0_>::type type;
   };
 
   template<class A0>
   typename result<logical_f(A0 const&)>::type operator()(A0 const& a0) const
   {
     return boost::simd::logical<A0>(true);
+  }
+
+  template<class A0, class X>
+  typename result<logical_f(boost::simd::native<A0, X> const&)>::type operator()(boost::simd::native<A0, X> const& a0) const
+  {
+    return boost::simd::map(*this, a0);
   }
 };
 
