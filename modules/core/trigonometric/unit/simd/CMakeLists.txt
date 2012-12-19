@@ -76,6 +76,8 @@ SET( SOURCES
   acot.cpp
   acosd.cpp
   acos.cpp
+  sinc.cpp
+  sinpic.cpp
 # List of simd test files for toolbox trigonometric
    )
 

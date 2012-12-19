@@ -77,6 +77,8 @@ SET( SOURCES
   acot.cpp
   acosd.cpp
   acos.cpp
+  sinc.cpp
+  sinpic.cpp
 # List of scalar test files for toolbox trigonometric
    )
 
