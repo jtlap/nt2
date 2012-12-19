@@ -38,7 +38,7 @@ Val accumulate(It begin, It end, Val const& val_)
 template<class Range, class Val>
 Val accumulate(Range const& range, Val const& val)
 {
-  return accumulate(boost::begin(range), boost::end(range), val);
+  return ::accumulate(boost::begin(range), boost::end(range), val);
 }
 
 NT2_TEST_CASE_TPL(input_range_interface, BOOST_SIMD_SIMD_TYPES)
