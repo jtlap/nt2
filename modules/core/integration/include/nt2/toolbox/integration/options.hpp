@@ -27,14 +27,19 @@ namespace nt2
   namespace range
   {
     /**
-     * Named parameter for passing absolute tolerance to iterative algorithms
+     * Named parameter for passing intermediate points
      **/
     NT2_REGISTER_PARAMETERS(waypoints_);
 
     /**
-     * Named parameter for passing relative tolerance to iterative algorithms
+     * Named parameter for passing singularity of first point
      **/
-    NT2_REGISTER_PARAMETERS(singulars_);
+    NT2_REGISTER_PARAMETERS(singular_a_);
+
+    /**
+     * Named parameter for passing singularity of last point
+     **/
+    NT2_REGISTER_PARAMETERS(singular_b_);
   }
 
 
@@ -77,7 +82,8 @@ namespace nt2
     static std::size_t maxfunccnt() { return 10000;                      }
     static std::size_t maxintvcnt() { return   650;                      }
     static tab_type waypoints()     { return tab_type(of_size(1, 0));    }
-    static btab_type singular()     { return btab_type(of_size(1, 0));   }
+    static bool singular_a()        { return false;                      }
+    static bool singular_b()        { return false;                      }
   };
 
   // integ params for complex < T >  are those of T.
@@ -106,15 +112,21 @@ namespace nt2 { namespace details
                            ,  std::size_t mic = ip::maxintvcnt()
                            , value_type at    = ip::abstol()
                            , value_type rt    = ip::reltol()
+<<<<<<< Updated upstream
                            , tab_type const&   wpt  = ip::waypoints()
-                           , btab_type  const& sgt  = ip::singulars()
+=======
+                           , tab_type    wpt  = ip::waypoints()
+>>>>>>> Stashed changes
+                           , btab_type   sga  = ip::singular_a()
+                           , btab_type   sgb  = ip::singular_b()
       )
       : maxfunccnt(mfc)
       , maxintvcnt(mic)
       , abstol(at)
       , reltol(rt)
       , waypoints(wpt)
-      , singulars (sgt)
+      , singular_a(sga)
+      , singular_b(sgb)
     {}
 
     template<class Expr>
@@ -124,17 +136,19 @@ namespace nt2 { namespace details
       , abstol    (x(nt2::tolerance::abstol_,  ip::abstol()     ))
       , reltol    (x(nt2::tolerance::reltol_,  ip::reltol()     ))
       , waypoints (x(nt2::range::waypoints_,   ip::waypoints()  ))
-      , singulars (x(nt2::range::singulars_,   ip::singulars()  ))
+      , singular_a(x(nt2::range::singular_a_,  ip::singular_a() ))
+      , singular_b(x(nt2::range::singular_b_,  ip::singular_b() ))
 
     {}
     void display_options() const
     {
-      std::cout << "maxfunccnt "<< maxfunccnt << std::endl;
-      std::cout << "maxintvcnt "<< maxintvcnt << std::endl;
-      std::cout << "    abstol "<<     abstol << std::endl;
-      std::cout << "    reltol "<<     reltol << std::endl;
-      std::cout << " waypoints "<<  waypoints << std::endl;
-      std::cout << " singulars "<<  singulars << std::endl;
+      std::cout << "maxfunccnt  "<< maxfunccnt << std::endl;
+      std::cout << "maxintvcnt  "<< maxintvcnt << std::endl;
+      std::cout << "    abstol  "<<     abstol << std::endl;
+      std::cout << "    reltol  "<<     reltol << std::endl;
+      std::cout << " waypoints  "<<  waypoints << std::endl;
+      std::cout << " singular_a "<<  singular_a<< std::endl;
+      std::cout << " singular_b "<<  singular_b<< std::endl;
 
     }
     std::size_t      maxfunccnt;
@@ -142,7 +156,8 @@ namespace nt2 { namespace details
     value_type           abstol;
     value_type           reltol;
     tab_type          waypoints;
-    btab_type         singulars;
+    bool             singular_a;
+    bool             singular_b;
   };
 } }
 

@@ -40,7 +40,8 @@ namespace nt2
     static value_type       abstol(){return 1.0e-6; }
     static value_type       reltol(){return Nan<double>(); } //unused by quad
     static tab_type      waypoints(){ return tab_type(of_size(1, 0));    }
-    static btab_type     singulars(){ return btab_type(of_size(1, 0));   }
+    static std::size_t  singular_a(){ return 0;                          }
+    static std::size_t  singular_b(){ return 0;                          }
   };
   template<> struct integ_params<float, tag::quad_>
   {
@@ -54,7 +55,8 @@ namespace nt2
     static value_type       abstol(){return 1.0e-3; }
     static value_type       reltol(){return Nan<double>(); } //unused by quad
     static tab_type      waypoints(){ return tab_type(of_size(1, 0));    }
-    static btab_type     singulars(){ return btab_type(of_size(1, 0));   }
+    static std::size_t  singular_a(){ return 0;                          }
+    static std::size_t  singular_b(){ return 0;                          }
   };
   //============================================================================
   /*!
@@ -70,38 +72,38 @@ namespace nt2
    * notifying success of the whole process.
    */
   //============================================================================
-//   template<class T,class F, class X> BOOST_FORCEINLINE
-//   typename boost::dispatch::meta
-//                 ::call<tag::quad_( F
-//                                   , X
-//                                    , details::integration_settings<T, tag::quad_> const&
-//                                   )
-//                       >::type
-//   quad(F f, X x)
-//   {
-//     typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
-//     return callee ( f
-//                   ,x
-//                   , details::integration_settings<T, tag::quad_>()
-//                   );
-//   }
+  template<class T,class F, class X> BOOST_FORCEINLINE
+  typename boost::dispatch::meta
+                ::call<tag::quad_( F
+                                  , X
+                                   , details::integration_settings<T, tag::quad_> const&
+                                  )
+                      >::type
+  quad(F f, X x)
+  {
+    typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
+    return callee ( f
+                  ,x
+                  , details::integration_settings<T, tag::quad_>()
+                  );
+  }
 
-//   template<class T,class F, class X, class Xpr>
-//   BOOST_FORCEINLINE
-//   typename boost::dispatch::meta
-//                 ::call<tag::quad_( F
-//                                   , X
-//                                   , details::integration_settings<T, tag::quad_> const&
-//                                   )
-//                   >::type
-//   quad(F f, X x, nt2::details::option_expr<Xpr> const& opt)
-//   {
-//     typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
-//     return callee ( f
-//                     , x
-//                     , details::integration_settings<T, tag::quad_>(opt)
-//       );
-//   }
+  template<class T,class F, class X, class Xpr>
+  BOOST_FORCEINLINE
+  typename boost::dispatch::meta
+                ::call<tag::quad_( F
+                                  , X
+                                  , details::integration_settings<T, tag::quad_> const&
+                                  )
+                  >::type
+  quad(F f, X x, nt2::details::option_expr<Xpr> const& opt)
+  {
+    typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
+    return callee ( f
+                    , x
+                    , details::integration_settings<T, tag::quad_>(opt)
+      );
+  }
 
 
   template<class T,class F, class A, class B> BOOST_FORCEINLINE

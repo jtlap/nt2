@@ -22,6 +22,7 @@
 #include <nt2/include/functions/diff.hpp>
 #include <nt2/include/functions/cons.hpp>
 #include <nt2/include/functions/is_gez.hpp>
+#include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/fast_ldexp.hpp>
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/abs.hpp>
@@ -40,6 +41,7 @@ namespace nt2 { namespace details
     typedef details::integration_settings<real_t, tag::quad_> o_t;
     typedef container::table<value_t>                       tab_t;
     typedef container::table<real_t>                       rtab_t;
+    typedef container::table<bool>                         btab_t;
 
     quad_impl() :   err_(Nan<real_t>()),
                     fcnt_(0),
@@ -59,28 +61,39 @@ namespace nt2 { namespace details
     {
       init(o);
       real_t tmptol = tol_;
-      BOOST_AUTO_TPL(dif, nt2::diff(nt2::rowvect(x))/(x(end_)-x(begin_)));
+      tol_/= (x(end_)-x(begin_));
+      BOOST_AUTO_TPL(dif, nt2::diff(nt2::rowvect(x)));
       //      BOOST_ASSERT_MSG(globalall(is_gez(dif)), "Using quad abscissae must be in increasing order");
       size_t l = numel(dif);
       res_.resize(extent(x));
       res_(1) = nt2::Zero<value_t>();
-      for(size_t i=1; i <= l; ++i)
+      tol_ = tmptol*dif(1);
+      res_(2) = compute<true>(f, x(1), x(2));
+      for(size_t i=2; i < l; ++i)
       {
         tol_ = tmptol*dif(i);
-        res_(i+1) = res_(i)+compute(f, x(i), x(i+1));
+        res_(i+1) = res_(i)+compute<false>(f, x(i), x(i+1));
       }
+      if (l >= 2)
+      {
+        tol_ = tmptol*dif(l);
+        res_(l) = res_(l-1)+compute<true>(f, x(l-1), x(l));
+      }
+
       tol_ = tmptol;
     }
    private :
     real_t         err_;
     size_t        fcnt_;
     size_t     maxfcnt_;
+    bool    singular_a_;
+    bool    singular_b_;
     size_t        warn_;
     ptrdiff_t   ifault_;
     real_t         tol_;
     tab_t          res_;
     real_t        hmin_;
-
+    rtab_t        wpts_;
     void init( const o_t & o)
     {
 //      o.display_options();
@@ -89,28 +102,41 @@ namespace nt2 { namespace details
       fcnt_ = 0;
       maxfcnt_ = o.maxfunccnt;
       ifault_ =  -1;
-      err_ = nt2::Inf<real_t>();
+      err_ = nt2::Zero<real_t>();
+      singular_a_ = o.singular_a;
+      singular_b_ = o.singular_b;
     }
 
+    template < class FUNC, int IND, bool test = true> struct fudge
+    {
+      void operator ()(const  FUNC & f, tab_t&y, size_t& fcnt, const bool & singular, const real_t& x, const real_t& shift)
+      {
+        size_t i =  IND;
+        if ((singular) && nt2::is_invalid(y(i)))// Fudge to avoid infinities.
+        {
+          y(i) = f(x+shift); ++fcnt;
+        }
+      }
+    };
 
-    template < class FUNC >
+    template < class FUNC, int IND> struct fudge < FUNC, IND, false>
+    {
+      void operator ()(const  FUNC &, tab_t&, size_t& , const bool &, const real_t&, const real_t&) {}
+    };
+
+    template <bool test, class FUNC>
     value_t compute(const  FUNC &f, const real_t& a, const real_t& b)
     {
       real_t d =  b-a;
       real_t e = nt2::eps(d);
+      real_t s = e*sign(d);
       real_t h = real_t(0.13579)*d;
       real_t cx[] = {a, a+h, a+2*h, nt2::average(a, b), b-2*h, b-h, b};
       rtab_t x(nt2::of_size(1, 7), &cx[0], &cx[7]);
       tab_t y = f(x);
       fcnt_ = 7;
-      if (nt2::is_inf(y(1)))// Fudge endpoints to avoid infinities.
-      {
-        y(1) = f(a+e); fcnt_++;
-      }
-      if (nt2::is_inf(y(7)))
-      {
-        y(7) = f(b-e); fcnt_++;
-      }
+      fudge<FUNC,1,test>()(f, y, fcnt_, singular_a_, a,  s); // Fudge a to avoid infinities.
+      fudge<FUNC,7,test>()(f, y, fcnt_, singular_b_, b, -s); // Fudge b to avoid infinities.
       // Call the recursive core integrator.
       hmin_ = nt2::fast_ldexp(e, -10); // e/1024
       return // estimate divided by 180
@@ -149,9 +175,11 @@ namespace nt2 { namespace details
       {
         setwarn(3); return q;
       }
-      err_ = nt2::abs(h*q2 - q);  // Check accuracy of integral over this subinterval.
-      if (err_ <= tol_) //tol has been multiplied by 180
+      // Check accuracy of integral over this subinterval.
+      real_t curerr;
+      if ((curerr = nt2::abs(h*q2 - q)) <= tol_*nt2::abs(h)) //tol has been multiplied by 180
       {
+        err_+= curerr;
         return q;
       }
       else// Subdivide into two subintervals.
