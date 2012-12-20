@@ -6,9 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINPIC_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINPIC_HPP_INCLUDED
-#include <nt2/toolbox/trigonometric/functions/sinpic.hpp>
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCPI_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SIMD_COMMON_SINCPI_HPP_INCLUDED
+#include <nt2/toolbox/trigonometric/functions/sincpi.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/include/functions/simd/sinpi.hpp>
 #include <nt2/include/functions/simd/abs.hpp>
@@ -23,7 +23,7 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpic_, boost::simd::tag::simd_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sincpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<arithmetic_<A0>,X>))
                             )
@@ -33,14 +33,14 @@ namespace nt2 { namespace ext
 
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::sinpic(tofloat(a0));
+      return nt2::sincpi(tofloat(a0));
     }
   };
 } }
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sinpic_, boost::simd::tag::simd_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::sincpi_, boost::simd::tag::simd_
                             , (A0)(X)
                             , ((simd_<floating_<A0>,X>))
                             )

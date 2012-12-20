@@ -6,14 +6,14 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - sinpic/simd Mode"
+#define NT2_UNIT_MODULE "nt2 trigonometric toolbox - sincpi/simd Mode"
 
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of trigonometric components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 11/02/2011
 ///
-#include <nt2/toolbox/trigonometric/include/functions/sinpic.hpp>
+#include <nt2/toolbox/trigonometric/include/functions/sincpi.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <boost/type_traits/is_same.hpp>
@@ -35,10 +35,10 @@
 #include <nt2/include/functions/load.hpp>
 
 
-NT2_TEST_CASE_TPL ( sinpic_real__1_0,  NT2_SIMD_REAL_TYPES)
+NT2_TEST_CASE_TPL ( sincpi_real__1_0,  NT2_SIMD_REAL_TYPES)
 {
-  using nt2::sinpic;
-  using nt2::tag::sinpic_;
+  using nt2::sincpi;
+  using nt2::tag::sincpi_;
   using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
@@ -48,19 +48,19 @@ NT2_TEST_CASE_TPL ( sinpic_real__1_0,  NT2_SIMD_REAL_TYPES)
   typedef n_t                                     vT;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef native<iT,ext_t>                       ivT;
-  typedef typename nt2::meta::call<sinpic_(vT)>::type r_t;
-  typedef typename nt2::meta::call<sinpic_(T)>::type sr_t;
+  typedef typename nt2::meta::call<sincpi_(vT)>::type r_t;
+  typedef typename nt2::meta::call<sincpi_(T)>::type sr_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
 
   // specific values tests
-  NT2_TEST_ULP_EQUAL(sinpic(-nt2::Quarter<vT>())[0], nt2::Sqrt_2o_2<sr_t>()*T(4)/nt2::Pi<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sinpic(nt2::Half<vT>())[0], nt2::Two<sr_t>()/nt2::Pi<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sinpic(nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sinpic(nt2::Mhalf<vT>())[0], nt2::Two<sr_t>()/nt2::Pi<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sinpic(nt2::Minf<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sinpic(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sinpic(nt2::One<vT>())[0], nt2::Zero<sr_t>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sinpic(nt2::Quarter<vT>())[0], nt2::Sqrt_2o_2<sr_t>()*T(4)/nt2::Pi<T>(), 0.5);
-  NT2_TEST_ULP_EQUAL(sinpic(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(-nt2::Quarter<vT>())[0], nt2::Sqrt_2o_2<sr_t>()*T(4)/nt2::Pi<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Half<vT>())[0], nt2::Two<sr_t>()/nt2::Pi<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Inf<vT>())[0], nt2::Zero<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Mhalf<vT>())[0], nt2::Two<sr_t>()/nt2::Pi<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Minf<vT>())[0], nt2::Zero<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Nan<vT>())[0], nt2::Nan<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::One<vT>())[0], nt2::Zero<sr_t>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Quarter<vT>())[0], nt2::Sqrt_2o_2<sr_t>()*T(4)/nt2::Pi<T>(), 0.5);
+  NT2_TEST_ULP_EQUAL(sincpi(nt2::Zero<vT>())[0], nt2::One<sr_t>(), 0.5);
 } // end of test for floating_
 

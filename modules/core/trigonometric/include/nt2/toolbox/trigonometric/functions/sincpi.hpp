@@ -9,22 +9,22 @@
 /*!
  * \file
 **/
-#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINPIC_HPP_INCLUDED
-#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINPIC_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINCPI_HPP_INCLUDED
+#define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_SINCPI_HPP_INCLUDED
 #include <nt2/include/simd.hpp>
 #include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup trigonometric
- * \defgroup trigonometric_sinpic sinpic
+ * \defgroup trigonometric_sincpi sincpi
  *
  * \par Description
- * sinpice
+ * sinus cardinal sin(pi*x)/(pi*x)
  *
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/sinpic.hpp>
+ * #include <nt2/include/functions/sincpi.hpp>
  * \endcode
  *
  *
@@ -34,12 +34,12 @@
  * namespace nt2
  * {
  *   template <class A0>
- *     meta::call<tag::sinpic_(A0)>::type
- *     sinpic(const A0 & a0);
+ *     meta::call<tag::sincpi_(A0)>::type
+ *     sincpi(const A0 & a0);
  * }
  * \endcode
  *
- * \param a0 the unique parameter of sinpic
+ * \param a0 the unique parameter of sincpi
  *
  * \return a value of the same type as the parameter
  *
@@ -52,12 +52,12 @@
 namespace nt2 { namespace tag
   {
     /*!
-     * \brief Define the tag sinpic_ of functor sinpic
+     * \brief Define the tag sincpi_ of functor sincpi
      *        in namespace nt2::tag for toolbox trigonometric
     **/
-    struct sinpic_ : ext::elementwise_<sinpic_> { typedef ext::elementwise_<sinpic_> parent; };
+    struct sincpi_ : ext::elementwise_<sincpi_> { typedef ext::elementwise_<sincpi_> parent; };
   }
-  NT2_FUNCTION_IMPLEMENTATION(tag::sinpic_, sinpic, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::sincpi_, sincpi, 1)
 }
 
 #endif
