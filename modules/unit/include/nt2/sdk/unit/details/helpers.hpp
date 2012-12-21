@@ -29,7 +29,7 @@ namespace nt2
     static inline T call(X mn, Y mx)
     {
       // mn is supposed less than mx
-      double r1 = ((double)rand()/RAND_MAX);
+      double r1 = ((double)::rand()/RAND_MAX);
       if(mx == 0)
       {
         return nt2::splat<T>(r1*mn);
@@ -41,7 +41,7 @@ namespace nt2
       else
       {
         double fac =  0.5*nt2::abs(double(mn)/double(mx));
-        double r2 = ((double)rand()/RAND_MAX);
+        double r2 = ((double)::rand()/RAND_MAX);
         return nt2::splat<T>((r1 > fac) ? r2*mn : r2*mx);
       }
     }
@@ -52,7 +52,7 @@ namespace nt2
   {
     static inline T call(X mn, Y mx)
     {
-      double r = ((double)rand()/RAND_MAX)*(mx-mn) + mn;
+      double r = ((double)::rand()/RAND_MAX)*(mx-mn) + mn;
       return nt2::splat<T>(r);
     }
   };
@@ -71,8 +71,8 @@ namespace nt2
   {
     static inline T call()
     {
-      double r1 = ((double)rand()/RAND_MAX);
-      double r2 = ((double)rand()/RAND_MAX);
+      double r1 = ((double)::rand()/RAND_MAX);
+      double r2 = ((double)::rand()/RAND_MAX);
       return nt2::splat<T>((r1 > 0.5) ? r2*nt2::Valmin<T>() : r2*nt2::Valmax<T>());
     }
   };
@@ -82,7 +82,7 @@ namespace nt2
   {
     static inline T call()
     {
-      double r1 = ((double)rand()/RAND_MAX);
+      double r1 = ((double)::rand()/RAND_MAX);
       return nt2::splat<T>(r1*nt2::Valmax<T>());
     }
   };

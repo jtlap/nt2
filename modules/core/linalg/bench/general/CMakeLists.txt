@@ -6,6 +6,11 @@
 ###                 See accompanying file LICENSE.txt or copy at
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
-nt2_module_use_modules(unit core.utility)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(general)
+
+SET( SOURCES
+      mtimes.cpp
+      aliased_mtimes.cpp
+      transatimesb.cpp
+   )
+
+nt2_module_add_tests(core.linalg.general.bench ${SOURCES})
