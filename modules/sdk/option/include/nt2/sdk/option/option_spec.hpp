@@ -66,7 +66,8 @@ namespace nt2 { namespace details
       : boost::proto::when<
           boost::proto::assign<
               option_term
-            , boost::proto::terminal<boost::proto::_>
+            //  , boost::proto::terminal<boost::proto::_>
+            ,  boost::proto::_
           >
         , get_value(boost::proto::_right)
       >

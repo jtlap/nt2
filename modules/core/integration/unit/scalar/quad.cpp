@@ -61,15 +61,71 @@ NT2_TEST_CASE_TPL( quad_functor, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5), T(5));
+  tab_t x0= nt2::_(T(0), T(5), T(5));
   NT2_DISPLAY(x);
   //output<tab_t,T>
   nt2::tic();
-  BOOST_AUTO_TPL(res, quad<T>(f(), T(0), T(5), options [ nt2::tolerance::abstol_ = T(1.0e-5)]));
+  BOOST_AUTO_TPL(res, quad<T>(f(), T(0), T(5), options [ nt2::tolerance::abstol_ = T(1.0e-5), nt2::range::waypoints_ =x])); //nt2::_(T(0), T(5), T(5)) ]));
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
 
   NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::sqr(x)*nt2::Half<T>())), T(1.0e-5));
+}
+
+NT2_TEST_CASE_TPL( quad_functorc, NT2_REAL_TYPES )
+{
+  using nt2::quad;
+  using nt2::options;
+  using nt2::integration::output;
+  typedef nt2::table<T> tab_t;
+  typedef typename nt2::meta::as_logical<T>::type lT;
+  tab_t x = nt2::_(T(0), T(5), T(5));
+  tab_t x0= nt2::_(T(0), T(5), T(5));
+  NT2_DISPLAY(x);
+  //output<tab_t,T>
+  nt2::tic();
+  BOOST_AUTO_TPL(res, quad<T>(f(), T(0), T(5), options [ nt2::tolerance::abstol_ = T(1.0e-5), nt2::range::waypoints_ = nt2::_(T(0), T(1), T(5)) ]));
+  nt2::toc();
+  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
+            << " after " << res.eval_count <<  " evaluations\n";
+
+  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::sqr(x)*nt2::Half<T>())), T(1.0e-5));
+}
+
+NT2_TEST_CASE_TPL( quad_functorb, NT2_REAL_TYPES )
+{
+  using nt2::quad;
+  using nt2::options;
+  using nt2::integration::output;
+  typedef nt2::table<T> tab_t;
+  typedef typename nt2::meta::as_logical<T>::type lT;
+  tab_t x = nt2::_(T(0), T(5), T(5));
+  NT2_DISPLAY(x);
+  //output<tab_t,T>
+  nt2::tic();
+  BOOST_AUTO_TPL(res, quad<T>(f(), x, options [ nt2::tolerance::abstol_ = T(1.0e-5)])); //nt2::_(T(0), T(5), T(5)) ]));
+  nt2::toc();
+  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
+            << " after " << res.eval_count <<  " evaluations\n";
+
+  NT2_TEST_LESSER_EQUAL(nt2::globalmax(nt2::dist(res.integrals, nt2::sqr(x)*nt2::Half<T>())), T(1.0e-5));
+}
+
+NT2_TEST_CASE_TPL( quad_functor0, NT2_REAL_TYPES )
+{
+  using nt2::quad;
+  using nt2::options;
+  using nt2::integration::output;
+  typedef nt2::table<T> tab_t;
+  tab_t x = nt2::_(T(0), T(1), T(1));
+  nt2::tic();
+  output<tab_t,T>res =  quad<T>(g(), x, options [ nt2::tolerance::abstol_ = T(1.0e-8), nt2::range::singular_a_ = true, nt2::range::singular_b_ = true]);
+  nt2::toc();
+  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
+            << " after " << res.eval_count <<  " evaluations\n";
+
+  NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(2), -nt2::log(T(2))), T(1.0e-7));
 
 
 }

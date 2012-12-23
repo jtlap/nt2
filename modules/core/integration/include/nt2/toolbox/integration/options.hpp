@@ -109,14 +109,10 @@ namespace nt2 { namespace details
     typedef nt2::integ_params<value_type, TAG>                         ip;
 
     integration_settings ( std::size_t    mfc = ip::maxfunccnt()
-                           ,  std::size_t mic = ip::maxintvcnt()
+                           , std::size_t mic = ip::maxintvcnt()
                            , value_type at    = ip::abstol()
                            , value_type rt    = ip::reltol()
-<<<<<<< Updated upstream
-                           , tab_type const&   wpt  = ip::waypoints()
-=======
-                           , tab_type    wpt  = ip::waypoints()
->>>>>>> Stashed changes
+                           , tab_type const& wpt  = ip::waypoints()
                            , btab_type   sga  = ip::singular_a()
                            , btab_type   sgb  = ip::singular_b()
       )

@@ -59,63 +59,61 @@ namespace nt2
    * notifying success of the whole process.
    */
   //============================================================================
-  template<class T,class F, class X> BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quadl_( F
-                                  , X
-                                  , details::integration_settings<T> const&
-                                  )
-                      >::type
-  quadl(F f, X x)
-  {
-    typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
-    return callee ( f
-                  ,x
-                  , details::integration_settings<T, tag::quadl_>()
-                  );
-  }
+//   template<class T,class F, class X> BOOST_FORCEINLINE
+//   typename boost::dispatch::meta
+//                 ::call<tag::quadl_( F
+//                                   , X
+//                                   , details::integration_settings<T> const&
+//                                   )
+//                       >::type
+//   quadl(F f, X x)
+//   {
+//     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
+//     return callee ( f
+//                   ,x
+//                   , details::integration_settings<T, tag::quadl_>()
+//                   );
+//   }
 
-  template<class T,class F, class X, class Xpr>
-  BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quadl_( F
-                                  , X
-                                  , details::integration_settings<T, tag::quadl_> const&
-                                  )
-                  >::type
-  quadl(F f, X x, nt2::details::option_expr<Xpr> const& opt)
-  {
-    typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
-    return callee ( f
-                    , x
-                    , details::integration_settings<T, tag::quadl_>(opt)
-      );
-  }
+//   template<class T,class F, class X, class Xpr>
+//   BOOST_FORCEINLINE
+//   typename boost::dispatch::meta
+//                 ::call<tag::quadl_( F
+//                                   , X
+//                                   , details::integration_settings<T, tag::quadl_> const&
+//                                   )
+//                   >::type
+//   quadl(F f, X x, nt2::details::option_expr<Xpr> const& opt)
+//   {
+//     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
+//     return callee ( f
+//                     , x
+//                     , details::integration_settings<T, tag::quadl_>(opt)
+//       );
+//   }
 
 
   template<class T,class F, class A, class B> BOOST_FORCEINLINE
   typename boost::dispatch::meta
                 ::call<tag::quadl_( F
-                                   , typename boost::dispatch::meta
-                                          ::call<tag::horzcat_(A, B)>::type
+                                   , T, T
                                    , details::integration_settings<T, tag::quadl_> const&
     )
                   >::type
   quadl(F f, A a, B b)
   {
-    typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
+     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
     return callee ( f
-                    , nt2::cath(static_cast <T>(a),static_cast <T>(b)),
+                    , static_cast <T>(a), static_cast <T>(b),
                     details::integration_settings<T, tag::quadl_>()
-                  );
+                   );
   }
 
   template<class T,class F, class A, class B, class Xpr>
   BOOST_FORCEINLINE
   typename boost::dispatch::meta
                 ::call<tag::quadl_( F
-                                   , typename boost::dispatch::meta
-                                         ::call<tag::horzcat_(A, B)>::type
+                                   , T, T
                                    , details::integration_settings<T, tag::quadl_> const&
                          )
                       >::type
@@ -123,7 +121,7 @@ namespace nt2
   {
     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
     return callee ( f
-                    , nt2::cath(static_cast<T>(a), static_cast<T>(b))
+                    , static_cast<T>(a), static_cast<T>(b)
                     , details::integration_settings<T, tag::quadl_>(opt)
                   );
   }

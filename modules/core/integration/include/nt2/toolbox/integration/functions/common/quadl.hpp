@@ -40,7 +40,7 @@ namespace nt2 { namespace details
     typedef V                                       value_t;
     typedef typename meta::as_real<value_t>::type    real_t;
     typedef real_t                                        T;
-    typedef details::integration_settings<real_t, tag::quadl_>      o_t;
+    typedef details::integration_settings<value_t, tag::quadl_>      o_t;
     typedef container::table<value_t>                 tab_t;
     typedef container::table<real_t>                 rtab_t;
 
@@ -57,24 +57,25 @@ namespace nt2 { namespace details
     const tab_t & result() const { return res_;              }
     void setwarn(size_t w)       { if(w > warn_) warn_ =  w; }
 
-    template < class FUNC, class X>
-    void compute( const FUNC& f, const X & x, const o_t & o)
+    template < class FUNC, class A,  class B, class O>
+    void compute( const FUNC& f, const value_t & a, real_t b, const O & o)
     {
-      init(o);
-      real_t tmptol = tol_;
-      BOOST_AUTO_TPL(dif, nt2::diff(nt2::rowvect(x))/(x(end_)-x(begin_)));
-      //      BOOST_ASSERT_MSG(globalall(is_gez(dif)), "Using quadl abscissae must be in increasing order");
-      size_t l = numel(dif);
-      res_.resize(extent(x));
-      res_(1) = nt2::Zero<value_t>();
-      for(size_t i=1; i <= l; ++i)
-      {
-        tol_ = tmptol*dif(i);
-        res_(i+1) = res_(i)+compute(f, x(i), x(i+1));
-      }
-      tol_ = tmptol;
+//       init(o, a, b);
+//       real_t tmptol = tol_;
+//       BOOST_AUTO_TPL(dif, nt2::diff(wpts_/(b-a)));
+//       //      BOOST_ASSERT_MSG(globalall(is_gez(dif)), "Using quadl abscissae must be in increasing order");
+//       size_t l = numel(dif);
+//       res_.resize(extent(wpts_));
+//       res_(1) = nt2::Zero<value_t>();
+//       for(size_t i=1; i <= l; ++i)
+//       {
+//         tol_ = tmptol*dif(i);
+//         res_(i+1) = res_(i)+compute(f, wpts_(i), wpts_(i+1));
+//       }
+//       tol_ = tmptol;
     }
    private :
+    real_t       a_, b_;
     real_t         err_;
     size_t        fcnt_;
     size_t     maxfcnt_;
@@ -84,6 +85,7 @@ namespace nt2 { namespace details
     real_t        hmin_;
     real_t        c245_;
     real_t       c1470_;
+    rtab_t        wpts_;
     static const rtab_t& lobatto()
     {
       static const T cl[] = {T(1),T(5),T(5),T(1)};
@@ -96,9 +98,10 @@ namespace nt2 { namespace details
       static const rtab_t k(of_size(1, 7), &ck[0], &ck[7]);
       return k;
     }
-    void init( const o_t & o)
+    void init( const o_t & o, const real_t& a,  const real_t& b)
     {
       tol_ = o.abstol;
+      wpts_ = prepare_waypoints(o, a, b);
       warn_ = 0;
       fcnt_ = 0;
       maxfcnt_ = Valmax<size_t>();
@@ -107,6 +110,20 @@ namespace nt2 { namespace details
       c1470_ = 1470; // 245*6
     }
 
+    void prepare_waypoints(o_t const &o, value_t, const real_t& a,  const real_t& b)
+    {
+      if (isempty(o.waypoints))
+      {
+        wpts_ = nt2::cons(a, b);
+      }
+      else
+      {
+        if(a != o.waypoints(begin_) && b!=o.waypoints(end_) ) wpts_ =  nt2::cath(a, nt2::rowvect(o.waypoints), b);
+        else if (a != o.waypoints(begin_))  wpts_ =  nt2::cath(a, nt2::rowvect(o.waypoints));
+        else if (b != o.waypoints(end_))  wpts_ =  nt2::cath(nt2::rowvect(o.waypoints), b);
+        else  wpts_ = nt2::rowvect(o.waypoints);
+      }
+    }
 
     template < class FUNC >
     value_t compute(const  FUNC &f, const real_t& a, const real_t& b)

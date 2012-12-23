@@ -6,10 +6,10 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_INTEGRATION_FUNCTIONS_COMMON_QUAD_HPP_INCLUDED
-#define NT2_TOOLBOX_INTEGRATION_FUNCTIONS_COMMON_QUAD_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_INTEGRATION_FUNCTIONS_COMMON_INTEG_HPP_INCLUDED
+#define NT2_TOOLBOX_INTEGRATION_FUNCTIONS_COMMON_INTEG_HPP_INCLUDED
 
-#include <nt2/toolbox/integration/functions/quad.hpp>
+#include <nt2/toolbox/integration/functions/integ.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/four.hpp>
@@ -30,26 +30,27 @@
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/toolbox/integration/output.hpp>
 #include <nt2/toolbox/integration/options.hpp>
+#include <nt2/table.hpp>
 
 namespace nt2 { namespace details
 {
-  template<class V> class quad_impl
+  template<class V> class integ_impl
   {
   public :
     typedef V                                             value_t;
     typedef typename meta::as_real<value_t>::type          real_t;
-    typedef details::integration_settings<real_t, tag::quad_> o_t;
+    typedef details::integration_settings<real_t, tag::integ_> o_t;
     typedef container::table<value_t>                       tab_t;
     typedef container::table<real_t>                       rtab_t;
     typedef container::table<bool>                         btab_t;
 
-    quad_impl() :   err_(Nan<real_t>()),
+    integ_impl() :   err_(Nan<real_t>()),
                     fcnt_(0),
                     maxfcnt_(Valmax<size_t>()),
                     warn_(0),
                     ifault_(-1),
                     res_(){}
-    ~quad_impl() {}
+    ~integ_impl() {}
 
     size_t nbeval()        const { return fcnt_;                   }
     real_t lasterror()     const { return err_*Oneo_180<real_t>(); }
@@ -61,23 +62,23 @@ namespace nt2 { namespace details
     {
       init(o, x);
       real_t tmptol = tol_;
-      tol_/= (x(end_)-x(begin_));
-      BOOST_AUTO_TPL(dif, nt2::diff(nt2::rowvect(x)));
-      //      BOOST_ASSERT_MSG(globalall(is_gez(dif)), "Using quad abscissae must be in increasing order");
+      tol_/= nt2::abs(wpts_(end_)-wpts_(begin_));
+      BOOST_AUTO_TPL(dif, nt2::abs(nt2::diff(nt2::rowvect(wpts_))));
+      //      BOOST_ASSERT_MSG(globalall(is_gez(dif)), "Using integ abscissae must be in increasing order");
       size_t l = numel(dif);
-      res_.resize(extent(x));
+      res_.resize(extent(wpts_));
       res_(1) = nt2::Zero<value_t>();
       tol_ = tmptol*dif(1);
-      res_(2) = compute<true>(f, x(1), x(2));
+      res_(2) = compute<true>(f, wpts_(1), wpts_(2));
       for(size_t i=2; i < l; ++i)
       {
         tol_ = tmptol*dif(i);
-        res_(i+1) = res_(i)+compute<false>(f, x(i), x(i+1));
+        res_(i+1) = res_(i)+compute<false>(f, wpts_(i), wpts_(i+1));
       }
       if (l >= 2)
       {
         tol_ = tmptol*dif(l);
-        res_(l) = res_(l-1)+compute<true>(f, x(l-1), x(l));
+        res_(l+1) = res_(l)+compute<true>(f, wpts_(l), wpts_(l+1));
       }
 
       tol_ = tmptol;
@@ -129,6 +130,9 @@ namespace nt2 { namespace details
       {
         wpts_ = x;
       }
+      NT2_DISPLAY(" ================================ ");
+      NT2_DISPLAY(x);
+      NT2_DISPLAY(wpts_);
     }
 
     template < class FUNC, int IND, bool test = true> struct fudge
@@ -164,13 +168,13 @@ namespace nt2 { namespace details
       // Call the recursive core integrator.
       hmin_ = nt2::fast_ldexp(e, -10); // e/1024
       return // estimate divided by 180
-        (quadstep(f,x(1),x(3),y(1),y(2),y(3)) +
-         quadstep(f,x(3),x(5),y(3),y(4),y(5)) +
-         quadstep(f,x(5),x(7),y(5),y(6),y(7)))*nt2::Oneo_180<real_t>();
+        (integstep(f,x(1),x(3),y(1),y(2),y(3)) +
+         integstep(f,x(3),x(5),y(3),y(4),y(5)) +
+         integstep(f,x(5),x(7),y(5),y(6),y(7)))*nt2::Oneo_180<real_t>();
     }
 
     template < class FUNC >
-    value_t quadstep(const FUNC & f, const real_t & a,  const real_t & b,
+    value_t integstep(const FUNC & f, const real_t & a,  const real_t & b,
                                    const value_t &fa, const value_t &fc,const value_t& fb)
     {
       // Evaluate integrand twice in interior of subinterval [a,b].
@@ -208,7 +212,7 @@ namespace nt2 { namespace details
       }
       else// Subdivide into two subintervals.
       {
-        return  quadstep(f,a,c,fa,fd,fc)+quadstep(f,c,b,fc,fe,fb);
+        return  integstep(f,a,c,fa,fd,fc)+integstep(f,c,b,fc,fe,fb);
       }
     }
 
@@ -218,7 +222,7 @@ namespace nt2 { namespace details
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::quad_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::integ_, tag::cpu_
                               , (F)(X)(O)
                               , (unspecified_< F >)
                               ((ast_<X, nt2::container::domain>))
@@ -229,14 +233,10 @@ namespace nt2 { namespace ext
      typedef typename meta::as_real<value_type>::type                 real_type;
      typedef nt2::container::table<value_type>                            tab_t;
      typedef nt2::integration::output<tab_t,real_type>              result_type;
-//     typedef typename meta::as_logical<value_type>::type                 l_type;
-//     typedef nt2::container::table<real_type>                            rtab_t;
-//     typedef nt2::container::table<ptrdiff_t>                            ltab_t;
-//     typedef details::integration_settings<real_type>                     otype;
 
     result_type operator()(F f, X const& x, O const& o)
     {
-      details::quad_impl<value_type> q;
+      details::integ_impl<value_type> q;
       q.compute(f, x, o);
       result_type that = {q.result(), q.lasterror(),q.nbeval(),q.ok()};
 //      o.display_options();

@@ -18,7 +18,8 @@
 #include <nt2/sdk/option/options.hpp>
 #include <nt2/toolbox/integration/options.hpp>
 #include <nt2/include/functions/horzcat.hpp>
-
+#include <nt2/include/functions/cons.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 namespace nt2
 {
   namespace tag
@@ -82,6 +83,7 @@ namespace nt2
   quad(F f, X x)
   {
     typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
+    std::cout << nt2::type_id<callee>()  << std::endl;
     return callee ( f
                   ,x
                   , details::integration_settings<T, tag::quad_>()
@@ -99,6 +101,7 @@ namespace nt2
   quad(F f, X x, nt2::details::option_expr<Xpr> const& opt)
   {
     typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
+    std::cout << nt2::type_id<callee>()  << std::endl;
     return callee ( f
                     , x
                     , details::integration_settings<T, tag::quad_>(opt)
@@ -110,14 +113,15 @@ namespace nt2
   typename boost::dispatch::meta
                 ::call<tag::quad_( F
                                    , typename boost::dispatch::meta
-                                          ::call<tag::horzcat_(A, B)>::type
+                                          ::call<tag::horzcat_(T, T)>::type
                                    , details::integration_settings<T, tag::quad_> const&
     )
                   >::type
   quad(F f, A a, B b)
   {
     typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
-    return callee ( f
+    std::cout << nt2::type_id<callee>()  << std::endl;
+      return callee ( f
                     , nt2::cath(static_cast <T>(a),static_cast <T>(b)),
                     details::integration_settings<T, tag::quad_>()
                   );
@@ -128,14 +132,15 @@ namespace nt2
   typename boost::dispatch::meta
                 ::call<tag::quad_( F
                                    , typename boost::dispatch::meta
-                                         ::call<tag::horzcat_(A, B)>::type
+                                         ::call<tag::horzcat_(T, T)>::type
                                    , details::integration_settings<T, tag::quad_> const&
                          )
                       >::type
   quad(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
   {
     typename boost::dispatch::make_functor<tag::quad_, F>::type callee;
-    return callee ( f
+    std::cout << nt2::type_id<callee>()  << std::endl;
+     return callee ( f
                     , nt2::cath(static_cast<T>(a), static_cast<T>(b))
                     , details::integration_settings<T, tag::quad_>(opt)
                   );
