@@ -8,7 +8,8 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_FMA_HPP_INCLUDED
 #define NT2_TOOLBOX_ARITHMETIC_FUNCTIONS_COMPLEX_GENERIC_FMA_HPP_INCLUDED
-#include <nt2/toolbox/arithmetic/functions/fma.hpp>
+//#include <nt2/toolbox/arithmetic/functions/fma.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/hypot.hpp>
@@ -161,7 +162,7 @@ namespace nt2 { namespace ext
     typedef A0 result_type;
     NT2_FUNCTOR_CALL_REPEAT(3)
     {
-      return result_type(fma(a1, nt2::real(a2), nt2::real(a0)),
+      return result_type(fma(a1, nt2::real(a2), nt2::real(a0)),  //why real(a1) ???
                          fma(a1, nt2::imag(a2), nt2::imag(a0)));
     }
   };

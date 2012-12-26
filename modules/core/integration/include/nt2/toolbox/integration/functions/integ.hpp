@@ -23,37 +23,24 @@ namespace nt2
     {
       typedef ext::unspecified_<integ_> parent;
     };
+
+    // definition  of abstol constant for integ method
+    BOOST_SIMD_CONSTANT_REGISTER( Integabstol, double
+                                  , 0, 0x3a83126f             //1.0e-3
+                                  , 0x3eb0c6f7a0b5ed8dll      //1.0e-6
+      );
   }
-  template<> struct integ_params<double, tag::integ_>
+
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Integabstol, Integabstol);
+
+  // specialization of abstol for integ method
+  template<class T, class V> struct integ_params<T, V, tag::integ_>
+  : integ_params<T, V, void>
   {
-    typedef double                                             value_type;
-    typedef double                                              real_type;
-    typedef typename meta::as_logical<real_type>                bool_type;
-    typedef container::table<value_type>                         tab_type;
-    typedef container::table<bool>                              btab_type;
-    static std::size_t  maxfunccnt(){return 10001; }
-    static std::size_t  maxintvcnt(){return 0; }             //unused by integ
-    static value_type       abstol(){return 1.0e-6; }
-    static value_type       reltol(){return Nan<double>(); } //unused by integ
-    static tab_type      waypoints(){ return tab_type(of_size(1, 0));    }
-    static std::size_t  singular_a(){ return 0;                          }
-    static std::size_t  singular_b(){ return 0;                          }
+    typedef typename nt2::integ_params<T, V, void>::real_type real_type;
+    static real_type        abstol(){return Integabstol<real_type>(); }
   };
-  template<> struct integ_params<float, tag::integ_>
-  {
-    typedef float                                              value_type;
-    typedef float                                               real_type;
-    typedef typename meta::as_logical<real_type>                bool_type;
-    typedef container::table<value_type>                         tab_type;
-    typedef container::table<bool>                              btab_type;
-    static std::size_t  maxfunccnt(){return 10001; }
-    static std::size_t  maxintvcnt(){return 0; }             //unused by integ
-    static value_type       abstol(){return 1.0e-3; }
-    static value_type       reltol(){return Nan<double>(); } //unused by integ
-    static tab_type      waypoints(){ return tab_type(of_size(1, 0));    }
-    static std::size_t  singular_a(){ return 0;                          }
-    static std::size_t  singular_b(){ return 0;                          }
-  };
+
   //============================================================================
   /*!
    * Apply integ algorithm to integrate a function over a real interval
@@ -70,32 +57,32 @@ namespace nt2
   //============================================================================
 
 
-  template<class T,class F, class X> BOOST_FORCEINLINE
-  typename integration_call<T, F, tag::integ_, X>::result_type
+  template<class T, class V, class F, class X> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::integ_, X>::result_type
   integ(F f, X x)
   {
-    return integ_call<T, tag::integ_>(f, x);
+    return integ_call<T, V, tag::integ_>(f, x);
   }
 
-  template<class T,class F, class X, class Xpr> BOOST_FORCEINLINE
-  typename integration_call<T, F, tag::integ_, X>::result_type
+  template<class T, class V, class F, class X, class Xpr> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::integ_, X>::result_type
   integ(F f, X x, nt2::details::option_expr<Xpr> const& opt)
   {
-    return integ_call<T, tag::integ_>(f, x, opt);
+    return integ_call<T, V, tag::integ_>(f, x, opt);
   }
 
-  template<class T,class F, class A, class B> BOOST_FORCEINLINE
-  typename integration_call<T, F, tag::integ_, typename xtype<T>::type>::result_type
+  template<class T, class V, class F, class A, class B> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::integ_, typename xtype<T>::type>::result_type
   integ(F f, A a, B b)
   {
-    return integ_call<T, tag::integ_>(f, a, b);
+    return integ_call<T, V, tag::integ_>(f, a, b);
   }
 
-  template<class T,class F, class A,  class B, class Xpr> BOOST_FORCEINLINE
-  typename integration_call<T, F, tag::integ_, typename xtype<T>::type>::result_type
+  template<class T, class V, class F, class A,  class B, class Xpr> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::integ_, typename xtype<T>::type>::result_type
   integ(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
   {
-    return integ_call<T, tag::integ_>(f, a, b, opt);
+    return integ_call<T, V, tag::integ_>(f, a, b, opt);
   }
 
 

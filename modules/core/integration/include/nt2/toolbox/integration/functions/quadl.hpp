@@ -13,11 +13,7 @@
  * \file
  * \brief Defines and implements the nt2::quadl function
  */
-
-#include <nt2/include/functor.hpp>
-#include <nt2/sdk/option/options.hpp>
-#include <nt2/toolbox/integration/options.hpp>
-#include <nt2/include/functions/horzcat.hpp>
+#include <nt2/toolbox/integration/interface.hpp>
 
 namespace nt2
 {
@@ -27,22 +23,19 @@ namespace nt2
     {
       typedef ext::unspecified_<quadl_> parent;
     };
-  }
-  template<> struct integ_params<double, tag::quadl_>
+    // definition  of abstol constant for integ method
+    BOOST_SIMD_CONSTANT_REGISTER( Quadlabstol, double
+                                  , 0, 0x3a83126f             //1.0e-3
+                                  , 0x3eb0c6f7a0b5ed8dll      //1.0e-6
+      );
+   }
+
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Quadlabstol, Quadlabstol);
+  template<class T,  class V> struct integ_params<T, V, tag::quadl_>
+  : integ_params<T, V, void>
   {
-    typedef double value_type;
-    static std::size_t  maxfunccnt(){return 10001; }
-    static std::size_t  maxintvcnt(){return 0; }//unused by quad
-    static value_type       abstol(){return 1.0e-6; }
-    static value_type       reltol(){return Nan<double>(); } //unused by quad
-  };
-  template<> struct integ_params<float, tag::quadl_>
-  {
-    typedef float value_type;
-    static std::size_t  maxfunccnt(){return 10001; }
-    static std::size_t  maxintvcnt(){return 0; }//unused by quad
-    static value_type       abstol(){return 1.0e-3; }
-    static value_type       reltol(){return Nan<double>(); } //unused by quad
+    typedef typename nt2::integ_params<T, V, void>::real_type real_type;
+    static real_type        abstol(){return Quadlabstol<T>(); }
   };
 
   //============================================================================
@@ -59,72 +52,35 @@ namespace nt2
    * notifying success of the whole process.
    */
   //============================================================================
-//   template<class T,class F, class X> BOOST_FORCEINLINE
-//   typename boost::dispatch::meta
-//                 ::call<tag::quadl_( F
-//                                   , X
-//                                   , details::integration_settings<T> const&
-//                                   )
-//                       >::type
-//   quadl(F f, X x)
-//   {
-//     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
-//     return callee ( f
-//                   ,x
-//                   , details::integration_settings<T, tag::quadl_>()
-//                   );
-//   }
 
-//   template<class T,class F, class X, class Xpr>
-//   BOOST_FORCEINLINE
-//   typename boost::dispatch::meta
-//                 ::call<tag::quadl_( F
-//                                   , X
-//                                   , details::integration_settings<T, tag::quadl_> const&
-//                                   )
-//                   >::type
-//   quadl(F f, X x, nt2::details::option_expr<Xpr> const& opt)
-//   {
-//     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
-//     return callee ( f
-//                     , x
-//                     , details::integration_settings<T, tag::quadl_>(opt)
-//       );
-//   }
+  template<class T, class V, class F, class X> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::quadl_, X>::result_type
+  quadl(F f, X x)
+  {
+    return integ_call<T, V, tag::quadl_>(f, x);
+  }
 
+  template<class T, class V, class F, class X, class Xpr> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::quadl_, X>::result_type
+  quadl(F f, X x, nt2::details::option_expr<Xpr> const& opt)
+  {
+    return integ_call<T, V, tag::quadl_>(f, x, opt);
+  }
 
-  template<class T,class F, class A, class B> BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quadl_( F
-                                   , T, T
-                                   , details::integration_settings<T, tag::quadl_> const&
-    )
-                  >::type
+  template<class T, class V, class F, class A, class B> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::quadl_, typename xtype<T>::type>::result_type
   quadl(F f, A a, B b)
   {
-     typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
-    return callee ( f
-                    , static_cast <T>(a), static_cast <T>(b),
-                    details::integration_settings<T, tag::quadl_>()
-                   );
+    return integ_call<T, V, tag::quadl_>(f, a, b);
   }
 
-  template<class T,class F, class A, class B, class Xpr>
-  BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quadl_( F
-                                   , T, T
-                                   , details::integration_settings<T, tag::quadl_> const&
-                         )
-                      >::type
+  template<class T, class V, class F, class A,  class B, class Xpr> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::quadl_, typename xtype<T>::type>::result_type
   quadl(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
   {
-    typename boost::dispatch::make_functor<tag::quadl_, F>::type callee;
-    return callee ( f
-                    , static_cast<T>(a), static_cast<T>(b)
-                    , details::integration_settings<T, tag::quadl_>(opt)
-                  );
+    return integ_call<T, V, tag::quadl_>(f, a, b, opt);
   }
+
 }
 
 #endif

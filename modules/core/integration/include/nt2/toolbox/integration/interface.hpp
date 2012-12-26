@@ -22,11 +22,12 @@
 
 namespace nt2
 {
-  template<class T,class F, class TAG, class X> struct integration_call
+  template<class T, class V, class F, class TAG, class X> struct integration_call
   {
-    typedef T value_type;
-    typedef T input_type;
-    typedef typename details::integration_settings<T, TAG>                       settings_type;
+    typedef V                                                                       value_type;
+    typedef T                                                                       input_type;
+    typedef typename meta::as_real<T>::type                                          real_type;
+    typedef typename details::integration_settings<T,V,TAG>                      settings_type;
     typedef typename boost::dispatch::meta::call<TAG(F,X,settings_type )>::type    result_type;
 
     static result_type integ_call(F f, X x)
@@ -49,36 +50,36 @@ namespace nt2
 
 //////////////////////////////////////////////////////////////////////////////
 
-  template<class T, class TAG, class F, class X> BOOST_FORCEINLINE
-  typename integration_call<T, F, TAG, X>::result_type
+  template<class T, class V, class TAG, class F, class X> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, TAG, X>::result_type
   integ_call(F f, X x)
   {
-    return integration_call<T, F, TAG, X >::integ_call(f, x);
+    return integration_call<T, V, F, TAG, X >::integ_call(f, x);
   }
 
-  template<class T, class TAG, class F, class X, class Xpr>
+  template<class T, class V, class TAG, class F, class X, class Xpr>
   BOOST_FORCEINLINE
-  typename integration_call<T, F, TAG, X>::result_type
+  typename integration_call<T, V, F, TAG, X>::result_type
   integ_call(F f, X x, nt2::details::option_expr<Xpr> const& opt)
   {
-    return integration_call<T, F, TAG, X >::integ_call(f, x, opt);
+    return integration_call<T, V, F, TAG, X >::integ_call(f, x, opt);
   }
 
-  template<class T, class TAG, class F, class A, class B>
+  template<class T, class V, class TAG, class F, class A, class B>
   BOOST_FORCEINLINE
-  typename integration_call<T, F, TAG, typename xtype<T>::type>::result_type
+  typename integration_call<T, V, F, TAG, typename xtype<T>::type>::result_type
   integ_call(F f, A a, B b)
   {
-    return integration_call<T, F, TAG, typename xtype<T>::type>::
+    return integration_call<T, V, F, TAG, typename xtype<T>::type>::
       integ_call(f, nt2::cath(static_cast<T>(a), static_cast<T>(b)));
   }
 
-  template<class T, class TAG, class F, class A,  class B, class Xpr>
+  template<class T, class V, class TAG, class F, class A,  class B, class Xpr>
   BOOST_FORCEINLINE
-  typename integration_call<T, F, TAG, typename xtype<T>::type>::result_type
+  typename integration_call<T, V, F, TAG, typename xtype<T>::type>::result_type
   integ_call(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
   {
-    return integration_call<T, F, TAG, typename xtype<T>::type>::
+    return integration_call<T, V, F, TAG, typename xtype<T>::type>::
       integ_call(f, nt2::cath(static_cast<T>(a), static_cast<T>(b)), opt);
   }
 }
