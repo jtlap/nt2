@@ -33,6 +33,7 @@
 #include <nt2/include/functions/dist.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/dot.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/eps.hpp>
@@ -110,44 +111,53 @@ NT2_TEST_CASE_TPL( integ_cplx_out, NT2_REAL_TYPES )
   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(1), nt2::Two<cT>()), nt2::Quadlabstol<T>());
 }
 
-// NT2_TEST_CASE_TPL( integ_cplx_inout, NT2_REAL_TYPES )
-// {
-//   using nt2::quadl;
-//   using nt2::options;
-//   using nt2::integration::output;
-//   typedef typename nt2::meta::as_complex<T>::type cT;
-//   typedef nt2::table<cT> tab_t;
-//   cT cx[] = { std::complex<T>(0, 0), std::complex<T>(1, 1),std::complex<T>(1, -1),std::complex<T>(0, 0)};
-//   tab_t x(nt2::of_size(1, 4), &cx[0], &cx[4]);
-//   nt2::tic();
-//   BOOST_AUTO_TPL(res, (quadl<cT, cT>(k(), x)));
-//   nt2::toc();
-//   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-//             << " after " << res.eval_count <<  " evaluations\n";
-//   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::begin_), std::complex<T>(0, -nt2::Pi<T>())), nt2::Quadlabstol<T>());
-// }
+NT2_TEST_CASE_TPL( integ_cplx_inout, NT2_REAL_TYPES )
+{
+  using nt2::quadl;
+  using nt2::options;
+  using nt2::integration::output;
+  typedef typename nt2::meta::as_complex<T>::type cT;
+  typedef nt2::table<cT> tab_t;
+  cT cx[] = { cT(0, 0), cT(1, 1),cT(1, -1),cT(0, 0)};
+  tab_t x(nt2::of_size(1, 4), &cx[0], &cx[4]);
+  nt2::tic();
+  BOOST_AUTO_TPL(res, (quadl<cT, cT>(k(), x)));
+  nt2::toc();
+  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
+            << " after " << res.eval_count <<  " evaluations and cvce is "<< res.successful << "\n";
+  NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::end_), std::complex<T>(0, -nt2::Pi<T>())), nt2::Quadlabstol<T>());
+}
 
-// NT2_TEST_CASE_TPL( integ_cplx_inout2, NT2_REAL_TYPES )
-// {
-//   using nt2::quadl;
-//   using nt2::options;
-//   using nt2::integration::output;
-//   typedef typename nt2::meta::as_complex<T>::type cT;
-//   typedef nt2::table<cT> tab_t;
-//   cT cx[] = { std::complex<T>(0, 0), std::complex<T>(1, 1),std::complex<T>(1, -1),std::complex<T>(0, 0)};
-//   tab_t x(nt2::of_size(1, 4), &cx[0], &cx[4]);
-//   nt2::tic();
-//   BOOST_AUTO_TPL(res, (quadl<cT, cT>(k(), std::complex<T>(0, 0), std::complex<T>(0, 0),
-//                                      options[nt2::range::waypoints_ =x,
-//                                              nt2::range::return_waypoints_ = true,
-//                                              nt2::tolerance::abstol_ = nt2::Sqrteps<T>(),
-//                                              nt2::range::singular_a_ = true
-//                                        ] )));
-//   nt2::toc();
-//   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
-//             << " after " << res.eval_count <<  " evaluations\n";
-//   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::end_), std::complex<T>(0, -nt2::Pi<T>())), nt2::Quadlabstol<T>());
-// }
+NT2_TEST_CASE_TPL( integ_cplx_inout2, NT2_REAL_TYPES )
+{
+  using nt2::quadl;
+  using nt2::options;
+  using nt2::integration::output;
+  typedef typename nt2::meta::as_complex<T>::type cT;
+  typedef nt2::table<cT> tab_t;
+  cT cx[] = { std::complex<T>(0, 0), std::complex<T>(1, 1),std::complex<T>(1, -1),std::complex<T>(0, 0)};
+  tab_t x(nt2::of_size(1, 4), &cx[0], &cx[4]);
+  nt2::tic();
+  BOOST_AUTO_TPL(res, (quadl<cT, cT>(k(), std::complex<T>(0, 0), std::complex<T>(0, 0),
+                                     options[nt2::range::waypoints_ =x,
+                                             nt2::range::return_waypoints_ = true,
+                                             nt2::tolerance::abstol_ = nt2::Sqrteps<T>(),
+                                             nt2::range::singular_a_ = true
+                                       ] )));
+  nt2::toc();
+  std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
+            << " after " << res.eval_count <<  " evaluations and cvce is "<< res.successful << "\n";
+  NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::end_), std::complex<T>(0, -nt2::Pi<T>())),  nt2::Sqrteps<T>());
+}
+
+
+
+
+
+
+
+
+
 
 NT2_TEST_CASE_TPL( integ_functor_, NT2_REAL_TYPES )
 {
@@ -239,8 +249,7 @@ NT2_TEST_CASE_TPL( integ_functor0, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   tab_t x = nt2::_(T(0), T(1), T(1));
   nt2::tic();
-  output<tab_t,T> res =  (quadl<T, T>(g(), x, options [ nt2::tolerance::abstol_ = T(1.0e-8),
-                                                       nt2::range::singular_a_ = true,
+  output<tab_t,T> res =  (quadl<T, T>(g(), x, options [nt2::range::singular_a_ = true,
                                                        nt2::range::singular_b_ = true]));
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
@@ -311,6 +320,32 @@ NT2_TEST_CASE_TPL( integ_tag_reverse, NT2_REAL_TYPES )
 }
 
 
+//  NT2_TEST_CASE_TPL(fma_pb, NT2_REAL_TYPES )
+// {
+
+//   typedef typename nt2::meta::as_complex<T>::type cT;
+//   typedef nt2::table<cT> tab_t;
+//   cT cx[] = { std::complex<T>(0, 0), std::complex<T>(1, 1),std::complex<T>(1, -1),std::complex<T>(0, 0)};
+//   tab_t x(nt2::of_size(1, 4), &cx[0], &cx[4]);
+//   T c =  T(2);
+//   T t =  T(3);
+//   NT2_DISPLAY(x);
+//   tab_t  y = t+c*x;
+
+//  }
 
 
+// NT2_TEST_CASE_TPL(dot, NT2_REAL_TYPES )
+// {
+
+//   typedef typename nt2::meta::as_complex<T>::type cT;
+//   typedef nt2::table<cT> tab_t;
+//   typedef nt2::table< T> rtab_t;
+//   cT cx[] = { std::complex<T>(0, 3), std::complex<T>(1, 1),std::complex<T>(1, 2),std::complex<T>(0, 5)};
+//   tab_t x(nt2::of_size(1, 4), &cx[0], &cx[4]);
+//   rtab_t w(nt2::ones<T>(1, 4));
+//   NT2_DISPLAY(nt2::dot(x, w));
+//   NT2_DISPLAY(nt2::dot(w, x));
+
+// }
 

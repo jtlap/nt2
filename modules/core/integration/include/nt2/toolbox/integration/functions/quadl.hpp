@@ -35,7 +35,7 @@ namespace nt2
   : integ_params<T, V, void>
   {
     typedef typename nt2::integ_params<T, V, void>::real_type real_type;
-    static real_type        abstol(){return Quadlabstol<T>(); }
+    static real_type        abstol(){return Quadlabstol<real_type>(); }
   };
 
   //============================================================================

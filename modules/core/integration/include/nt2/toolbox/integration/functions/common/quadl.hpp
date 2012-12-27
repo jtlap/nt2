@@ -27,13 +27,14 @@
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/dot.hpp>
+#include <nt2/include/functions/globalsum.hpp>
 #include <nt2/include/functions/globalasum1.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/toolbox/integration/output.hpp>
 #include <nt2/toolbox/integration/options.hpp>
 #include <nt2/toolbox/integration/waypoints.hpp>
 #include <nt2/toolbox/integration/fudge.hpp>
-#include <nt2/table.hpp>
+//#include <nt2/table.hpp>
 
 namespace nt2 { namespace details
 {
@@ -65,8 +66,8 @@ namespace nt2 { namespace details
     template < class FUNC, class X>
     void compute( const FUNC& f, const X & x, const o_t & o)
     {
-      init(o, x);
       real_t tmptol = tol_;
+      init(o, x);
       BOOST_AUTO_TPL(dif, nt2::abs(nt2::diff(nt2::rowvect(wpts_))));
       real_t tol1= tol_/nt2::globalasum1(dif);
       size_t l = numel(dif);
@@ -84,8 +85,6 @@ namespace nt2 { namespace details
         tol_ = tol1*dif(l);
         res_(l+1) = res_(l)+compute<true>(f, wpts_(l), wpts_(l+1));
       }
-      NT2_DISPLAY(12);
-
       tol_ = tmptol;
       if (!o.return_waypoints)
       {
@@ -107,52 +106,6 @@ namespace nt2 { namespace details
     itab_t        wpts_;
     real_t       c1470_;
     real_t        c245_;
-
-//     template < class X >
-//     void prepare_waypoints(o_t const &o, const X& x)
-//     {
-//       BOOST_ASSERT_MSG(isempty(o.waypoints) || (numel(x) == 2), "Choose x or waypoints,  not both");
-//       if (isempty(o.waypoints))
-//       {
-//         wpts_ = nt2::rowvect(x);
-//       }
-//       else if (numel(x) == 2)
-//       {
-// //         input_t a = x(begin_), b = x(end_);
-// //         BOOST_AUTO_TPL(w, nt2::cath(nt2::cath(x(begin_), nt2::rowvect(o.waypoints)), x(end_)));
-// //         BOOST_AUTO_TPL(d, nt2::is_nez(nt2::cath(nt2::One<input_t>(), nt2::diff(w))));
-// //         wpts_ = wpts_(d);
-//         input_t a = x(begin_), b = x(end_);
-//         if(a != o.waypoints(begin_) && b!=o.waypoints(end_) )
-//           wpts_ =  nt2::cath(nt2::cath(a, nt2::rowvect(o.waypoints)), b);
-//         else if (a != o.waypoints(begin_))  wpts_ =  nt2::cath(a, nt2::rowvect(o.waypoints));
-//         else if (b != o.waypoints(end_))  wpts_ =  nt2::cath(nt2::rowvect(o.waypoints), b);
-//         else wpts_ = nt2::rowvect(o.waypoints);
-//       }
-//       else
-//       {
-//         wpts_ = nt2::rowvect(o.waypoints);
-//       }
-//     }
-
-//     template < class FUNC, int IND, bool test = true> struct fudge
-//     {
-//       void operator ()(const  FUNC & f, vtab_t&y, size_t& fcnt, const bool & singular,
-//                        const input_t& x, const input_t& shift)
-//       {
-//         size_t i =  IND;
-//         if ((singular) && nt2::is_invalid(y(i)))// Fudge to avoid nans or infinities.
-//         {
-//           y(i) = f(x+shift); ++fcnt;
-//         }
-//       }
-//     };
-
-//     template < class FUNC, int IND> struct fudge < FUNC, IND, false>
-//     {
-//       void operator ()(const  FUNC &, vtab_t&, size_t& , const bool &,
-//                        const input_t&, const input_t&) {}
-//     };
 
   private:
     static const rtab_t& lobatto()
@@ -179,7 +132,8 @@ namespace nt2 { namespace details
     template < class X >
     void init( const o_t & o, const X&x)
     {
-      o.display_options();
+//      o.display_options();
+      std::cout << o.abstol << std::endl;
       details::prepare_waypoints(o, x, wpts_);
       warn_ = 0;
       fcnt_ = 0;
@@ -189,7 +143,7 @@ namespace nt2 { namespace details
       singular_b_ = o.singular_b;
       c245_ = 245;
       c1470_ = 1470; // 245*6
-      tol_ = o.abstol*c1470_;
+      tol_ = o.abstol;
      }
 
 
@@ -201,33 +155,33 @@ namespace nt2 { namespace details
       input_t d =  b-a;
       real_t e = nt2::eps(nt2::abs(d));
       input_t c = nt2::average(a, b);
-      input_t h = d*Half<input_t>();
+      input_t h = d*Half<real_t>();
       input_t se = e*sign(d);
       const real_t cs[] = {real_t(.942882415695480), nt2::Sqrt_2o_3<real_t>(),
                            real_t(.641853342345781),
                            nt2::Sqrt_1o_5<real_t>(), real_t(.236383199662150)};
       rtab_t s(nt2::of_size(1, 5), &cs[0], &cs[5]);
-      itab_t x = nt2::cath(nt2::cath(nt2::cath(nt2::cath(a, c-h*s), c), c+h*nt2::fliplr(s)), b);
+      itab_t z = h*s;
+      itab_t x = nt2::cath(nt2::cath(nt2::cath(nt2::cath(a, c-z), c), c+nt2::fliplr(z)), b);
       vtab_t  y = f(x);
       fcnt_ = 13;
       fudge1::fdg(f, y, fcnt_, singular_a_, a,  se); // Fudge a to avoid infinities.
       fudge13::fdg(f, y, fcnt_, singular_b_, b, -se); // Fudge b to avoid infinities.
       // Call the recursive core integrator.
       // Increase tolerance if refinement appears to be effective.
-      value_t Q1 = h*nt2::dot(lobatto(),y(nt2::_(1,4,13)))*c245_;
-      value_t Q2 = h*nt2::dot(kronrod(), y(nt2::_(1,2,13)));
+      value_t Q1 = h*nt2::globalsum(lobatto()*y(nt2::_(1,4,13)))*c245_;
+      value_t Q2 = h*nt2::globalsum(kronrod()*y(nt2::_(1,2,13)));
       const real_t cs1[] = {real_t(.0158271919734802),real_t(.094273840218850),real_t(.155071987336585),
                             real_t(.188821573960182),real_t(.199773405226859),real_t(.224926465333340)};
       rtab_t s1(nt2::of_size(1, 6), &cs1[0], &cs1[6]);
-      rtab_t w = cath(cath(s1, real_t(.242611071901408)), fliplr(s1));
-      value_t Q0 = h*nt2::dot(w, y)*c1470_;
+      rtab_t w = nt2::cath(nt2::cath(s1, real_t(.242611071901408)), nt2::fliplr(s1));
+      value_t Q0 = h*nt2::globalsum(w*y)*c1470_;
       real_t r = nt2::abs((Q2-Q0)/(Q1-Q0+nt2::Smallestposval<real_t>()));
       if (r > 0 && r < 1) tol_ /= r;
       tol_*= c1470_;
       // Call the recursive core integrator.
       hmin_ = fast_ldexp(e, -10); //e/1024
-      return quadlstep(f, a,b,y(1),y(13))/c1470_;
-
+      return quadlstep(f,a,b,y(1),y(13))/c1470_;
     }
 
     template < class FUNC >
@@ -238,23 +192,24 @@ namespace nt2 { namespace details
       //  Evaluate integrand five times in interior of subinterval [a,b].
       input_t d = b-a;
       input_t c = nt2::average(a, b);
-      input_t h = d*Half<input_t>();
+      input_t h = d*Half<real_t>();
       if (abs(h) < hmin_ || c == a || c == b ) //Minimum step size reached; singularity possible.
       {
         setwarn(1); return h*(fa+fb);
       }
-      itab_t x = c+h*c1();
+      itab_t x = h*c1();
+      x = c+x;
       vtab_t y = f(x);
       fcnt_ += 5;
       if (fcnt_ > maxfcnt_){ setwarn(2); return h*(fa+fb); }    // Maximum function count exceeded; singularity likely.
       itab_t x1 = nt2::cath(nt2::cath(a, x), b);  x = x1;
       vtab_t y1 = nt2::cath(nt2::cath(fa, y), fb);y = y1;
-      value_t Q1 = h*nt2::dot(lobatto(), y(_(1, 2, 7)))*c245_; // Four point Lobatto quadrature times 1470.
-      value_t Q = h*nt2::dot(kronrod(), y);                    // Seven point Kronrod refinement times 1470.
+      value_t Q1 = h*nt2::globalsum(lobatto()*y(_(1, 2, 7)))*c245_; // Four point Lobatto quadrature times 1470.
+      value_t Q = h*nt2::globalsum(kronrod()*y);                    // Seven point Kronrod refinement times 1470.
       if (nt2::is_invalid(Q)) { setwarn(3); return Q; }        // Infinite or Not-a-Number function value encountered.
       //  Check accuracy of integral over this subinterval.
-      real_t curerr;
-      if ((curerr = nt2::abs(Q1 - Q)) <= tol_*nt2::abs(d))
+      real_t curerr = nt2::abs(Q1 - Q);
+      if (curerr <= tol_*nt2::abs(h))
       {
         err_+= curerr;
         setwarn(0);  return Q;
@@ -267,8 +222,8 @@ namespace nt2 { namespace details
         {
           Q += quadlstep(f, x(k), x(k+1), y(k), y(k+1));
         }
+        return Q;
       }
-      return Q;
     };
   };
 } }
