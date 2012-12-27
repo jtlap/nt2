@@ -31,6 +31,8 @@
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/toolbox/integration/output.hpp>
 #include <nt2/toolbox/integration/options.hpp>
+#include <nt2/toolbox/integration/waypoints.hpp>
+#include <nt2/toolbox/integration/fudge.hpp>
 #include <nt2/table.hpp>
 
 namespace nt2 { namespace details
@@ -106,51 +108,51 @@ namespace nt2 { namespace details
     real_t       c1470_;
     real_t        c245_;
 
-    template < class X >
-    void prepare_waypoints(o_t const &o, const X& x)
-    {
-      BOOST_ASSERT_MSG(isempty(o.waypoints) || (numel(x) == 2), "Choose x or waypoints,  not both");
-      if (isempty(o.waypoints))
-      {
-        wpts_ = nt2::rowvect(x);
-      }
-      else if (numel(x) == 2)
-      {
+//     template < class X >
+//     void prepare_waypoints(o_t const &o, const X& x)
+//     {
+//       BOOST_ASSERT_MSG(isempty(o.waypoints) || (numel(x) == 2), "Choose x or waypoints,  not both");
+//       if (isempty(o.waypoints))
+//       {
+//         wpts_ = nt2::rowvect(x);
+//       }
+//       else if (numel(x) == 2)
+//       {
+// //         input_t a = x(begin_), b = x(end_);
+// //         BOOST_AUTO_TPL(w, nt2::cath(nt2::cath(x(begin_), nt2::rowvect(o.waypoints)), x(end_)));
+// //         BOOST_AUTO_TPL(d, nt2::is_nez(nt2::cath(nt2::One<input_t>(), nt2::diff(w))));
+// //         wpts_ = wpts_(d);
 //         input_t a = x(begin_), b = x(end_);
-//         BOOST_AUTO_TPL(w, nt2::cath(nt2::cath(x(begin_), nt2::rowvect(o.waypoints)), x(end_)));
-//         BOOST_AUTO_TPL(d, nt2::is_nez(nt2::cath(nt2::One<input_t>(), nt2::diff(w))));
-//         wpts_ = wpts_(d);
-        input_t a = x(begin_), b = x(end_);
-        if(a != o.waypoints(begin_) && b!=o.waypoints(end_) )
-          wpts_ =  nt2::cath(nt2::cath(a, nt2::rowvect(o.waypoints)), b);
-        else if (a != o.waypoints(begin_))  wpts_ =  nt2::cath(a, nt2::rowvect(o.waypoints));
-        else if (b != o.waypoints(end_))  wpts_ =  nt2::cath(nt2::rowvect(o.waypoints), b);
-        else wpts_ = nt2::rowvect(o.waypoints);
-      }
-      else
-      {
-        wpts_ = nt2::rowvect(o.waypoints);
-      }
-    }
+//         if(a != o.waypoints(begin_) && b!=o.waypoints(end_) )
+//           wpts_ =  nt2::cath(nt2::cath(a, nt2::rowvect(o.waypoints)), b);
+//         else if (a != o.waypoints(begin_))  wpts_ =  nt2::cath(a, nt2::rowvect(o.waypoints));
+//         else if (b != o.waypoints(end_))  wpts_ =  nt2::cath(nt2::rowvect(o.waypoints), b);
+//         else wpts_ = nt2::rowvect(o.waypoints);
+//       }
+//       else
+//       {
+//         wpts_ = nt2::rowvect(o.waypoints);
+//       }
+//     }
 
-    template < class FUNC, int IND, bool test = true> struct fudge
-    {
-      void operator ()(const  FUNC & f, vtab_t&y, size_t& fcnt, const bool & singular,
-                       const input_t& x, const input_t& shift)
-      {
-        size_t i =  IND;
-        if ((singular) && nt2::is_invalid(y(i)))// Fudge to avoid nans or infinities.
-        {
-          y(i) = f(x+shift); ++fcnt;
-        }
-      }
-    };
+//     template < class FUNC, int IND, bool test = true> struct fudge
+//     {
+//       void operator ()(const  FUNC & f, vtab_t&y, size_t& fcnt, const bool & singular,
+//                        const input_t& x, const input_t& shift)
+//       {
+//         size_t i =  IND;
+//         if ((singular) && nt2::is_invalid(y(i)))// Fudge to avoid nans or infinities.
+//         {
+//           y(i) = f(x+shift); ++fcnt;
+//         }
+//       }
+//     };
 
-    template < class FUNC, int IND> struct fudge < FUNC, IND, false>
-    {
-      void operator ()(const  FUNC &, vtab_t&, size_t& , const bool &,
-                       const input_t&, const input_t&) {}
-    };
+//     template < class FUNC, int IND> struct fudge < FUNC, IND, false>
+//     {
+//       void operator ()(const  FUNC &, vtab_t&, size_t& , const bool &,
+//                        const input_t&, const input_t&) {}
+//     };
 
   private:
     static const rtab_t& lobatto()
@@ -178,7 +180,7 @@ namespace nt2 { namespace details
     void init( const o_t & o, const X&x)
     {
       o.display_options();
-      prepare_waypoints(o, x);
+      details::prepare_waypoints(o, x, wpts_);
       warn_ = 0;
       fcnt_ = 0;
       maxfcnt_ = o.maxfunccnt;
@@ -194,6 +196,8 @@ namespace nt2 { namespace details
     template <bool test,  class FUNC >
     value_t compute(const  FUNC &f, const input_t& a, const input_t& b)
     {
+      typedef typename details::fudge<FUNC,1,vtab_t,input_t,test> fudge1;
+      typedef typename details::fudge<FUNC,13,vtab_t,input_t,test> fudge13;
       input_t d =  b-a;
       real_t e = nt2::eps(nt2::abs(d));
       input_t c = nt2::average(a, b);
@@ -206,8 +210,8 @@ namespace nt2 { namespace details
       itab_t x = nt2::cath(nt2::cath(nt2::cath(nt2::cath(a, c-h*s), c), c+h*nt2::fliplr(s)), b);
       vtab_t  y = f(x);
       fcnt_ = 13;
-      fudge<FUNC,1,test>()(f, y, fcnt_, singular_a_, a,  se); // Fudge a to avoid infinities.
-      fudge<FUNC,13,test>()(f, y, fcnt_, singular_b_, b, -se); // Fudge b to avoid infinities.
+      fudge1::fdg(f, y, fcnt_, singular_a_, a,  se); // Fudge a to avoid infinities.
+      fudge13::fdg(f, y, fcnt_, singular_b_, b, -se); // Fudge b to avoid infinities.
       // Call the recursive core integrator.
       // Increase tolerance if refinement appears to be effective.
       value_t Q1 = h*nt2::dot(lobatto(),y(nt2::_(1,4,13)))*c245_;
@@ -239,10 +243,6 @@ namespace nt2 { namespace details
       {
         setwarn(1); return h*(fa+fb);
       }
-//       real_t alpha = nt2::Sqrt_2o_3<real_t>();
-//       real_t beta = nt2::Sqrt_1o_5<real_t>();
-//       real_t cx[] = {-alpha, -beta, Zero<real_t>(), beta, alpha};
-//       rtab_t x(of_size(1, 5), &cx[0], &cx[5]);
       itab_t x = c+h*c1();
       vtab_t y = f(x);
       fcnt_ += 5;
