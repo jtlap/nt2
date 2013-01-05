@@ -11,7 +11,7 @@
 **/
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_ELLINT3_RD_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_ELLINT3_RD_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
 #include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/ellint_3.hpp>
 

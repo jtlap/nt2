@@ -9,7 +9,7 @@
 #ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_INV_HPP_INCLUDED
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_INV_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <boost/simd/include/simd.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <nt2/sdk/memory/container.hpp>
 #include <nt2/sdk/meta/size_as.hpp>

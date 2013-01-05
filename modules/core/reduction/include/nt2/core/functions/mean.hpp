@@ -10,7 +10,7 @@
 #ifndef NT2_CORE_FUNCTIONS_MEAN_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_MEAN_HPP_INCLUDED
 
-#include <boost/simd/include/simd.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!

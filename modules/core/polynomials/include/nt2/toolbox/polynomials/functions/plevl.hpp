@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #ifndef NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_PLEVL_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOMIALS_FUNCTIONS_PLEVL_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
 #include <nt2/include/functor.hpp>
 // plevl(x, p)
 // This compute the evaluation of a polynomial p of degree N at x

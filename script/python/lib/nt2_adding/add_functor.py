@@ -311,7 +311,7 @@ class Add_functor_skel(Base_gen,Nt2_tb_struct) :
         namespacecolon2 = "" if sys=='sys' else namespace+'::'
         namespacebrak   = "" if sys=='sys' else namespace+' {'
         txt = [
-            "#include <nt2/include/simd.hpp>",
+            "#include <nt2/include/functor.hpp>",
             "#include <nt2/include/functor.hpp>",
             "#include <nt2/toolbox/%s/include.hpp>" % tb_name,
             "",
