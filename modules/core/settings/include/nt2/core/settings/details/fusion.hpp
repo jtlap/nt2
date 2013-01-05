@@ -43,20 +43,20 @@ namespace nt2 { namespace details
   void copy(InB const& inb, InE const& inE, Out const& out, boost::mpl::false_)
   {
     *out = *inb;
-    return copy(boost::fusion::next(inb), inE, boost::next(out));
+    return details::copy(boost::fusion::next(inb), inE, boost::next(out));
   }
 
   template<class InB, class InE, class Out> BOOST_FORCEINLINE
   void copy(InB const& inb, InE const& inE, Out const& out)
   {
     typename boost::fusion::result_of::equal_to<InB, InE>::type eq;
-    return copy(inb, inE, out, eq);
+    return details::copy(inb, inE, out, eq);
   }
 
   template<class Src, class Dst> BOOST_FORCEINLINE
   void copy(Src const& src, Dst const& dst)
   {
-    return copy(boost::fusion::begin(src), boost::fusion::end(src), dst);
+    return details::copy(boost::fusion::begin(src), boost::fusion::end(src), dst);
   }
 
   template<class InB, class InE, class Value> BOOST_FORCEINLINE
@@ -74,20 +74,20 @@ namespace nt2 { namespace details
                       )
   {
     BOOST_ASSERT_MSG(InE(*inb) == value, "Incompatible size in of_size conversion");
-    return check_all_equal(boost::fusion::next(inb), inE, value);
+    return details::check_all_equal(boost::fusion::next(inb), inE, value);
   }
 
   template<class InB, class InE, class Value> BOOST_FORCEINLINE
   void check_all_equal(InB const& inb, InE const& inE, Value const& value)
   {
     typename boost::fusion::result_of::equal_to<InB, InE>::type eq;
-    return check_all_equal(inb, inE, value, eq);
+    return details::check_all_equal(inb, inE, value, eq);
   }
 
   template<class Src, class Value> BOOST_FORCEINLINE
   void check_all_equal(Src const& src, Value const& value)
   {
-    check_all_equal(boost::fusion::begin(src), boost::fusion::end(src), value);
+    details::check_all_equal(boost::fusion::begin(src), boost::fusion::end(src), value);
   }
 
   namespace result_of
