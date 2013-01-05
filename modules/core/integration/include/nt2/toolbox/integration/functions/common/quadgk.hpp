@@ -10,180 +10,454 @@
 #define NT2_TOOLBOX_INTEGRATION_FUNCTIONS_COMMON_QUADGK_HPP_INCLUDED
 
 #include <nt2/toolbox/integration/functions/quadgk.hpp>
-#include <nt2/include/constants/nan.hpp>
-#include <nt2/include/constants/zero.hpp>
-#include <nt2/include/constants/two.hpp>
-#include <nt2/include/constants/four.hpp>
-#include <nt2/include/constants/valmax.hpp>
-#include <nt2/include/constants/sqrt_1o_5.hpp>
-#include <nt2/include/constants/sqrt_2o_3.hpp>
-#include <nt2/include/functions/rowvect.hpp>
-#include <nt2/include/functions/eps.hpp>
-#include <nt2/include/functions/diff.hpp>
-#include <nt2/include/functions/cons.hpp>
-#include <nt2/include/functions/fliplr.hpp>
-#include <nt2/include/functions/is_gez.hpp>
-#include <nt2/include/functions/fast_ldexp.hpp>
-#include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/dot.hpp>
-#include <nt2/include/functions/globalall.hpp>
-#include <nt2/core/container/table/table.hpp>
 #include <nt2/toolbox/integration/output.hpp>
 #include <nt2/toolbox/integration/options.hpp>
+#include <nt2/toolbox/integration/waypoints.hpp>
+#include <nt2/toolbox/integration/fudge.hpp>
+#include <nt2/toolbox/integration/order.hpp>
+#include <nt2/toolbox/integration/split.hpp>
+#include <nt2/toolbox/integration/midparea.hpp>
+#include <nt2/toolbox/integration/transforms.hpp>
 
+#include <nt2/include/constants/half.hpp>
+#include <nt2/include/constants/hundred.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/two.hpp>
+#include <nt2/include/constants/zero.hpp>
+
+
+#include <nt2/include/functions/abs.hpp>
+#include <nt2/include/functions/asin.hpp>
+#include <nt2/include/functions/asinh.hpp>
+#include <nt2/include/functions/average.hpp>
+#include <nt2/include/functions/cast.hpp>
+#include <nt2/include/functions/diff.hpp>
+#include <nt2/include/functions/fliplr.hpp>
+#include <nt2/include/functions/flipud.hpp>
+#include <nt2/include/functions/globalsum.hpp>
+#include <nt2/include/functions/isempty.hpp>
+#include <nt2/include/functions/is_finite.hpp>
+#include <nt2/include/functions/is_inf.hpp>
+#include <nt2/include/functions/is_not_finite.hpp>
+#include <nt2/include/functions/linspace.hpp>
+#include <nt2/include/functions/logical_not.hpp>
+#include <nt2/include/functions/max.hpp>
+#include <nt2/include/functions/mean.hpp>
+#include <nt2/include/functions/mtimes.hpp>
+#include <nt2/include/functions/negif.hpp>
+#include <nt2/include/functions/norm.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/rowvect.hpp>
+#include <nt2/include/functions/size.hpp>
+#include <nt2/include/functions/sin.hpp>
+#include <nt2/include/functions/sx.hpp>
+#include <nt2/include/functions/tanh.hpp>
+#include <nt2/include/functions/vertcat.hpp>
+#include <nt2/include/functions/zeros.hpp>
+
+#include <nt2/core/container/table/table.hpp>
+
+#include <boost/mpl/bool.hpp>
+
+#include <nt2/table.hpp>
+#include <iomanip>
+#include <nt2/sdk/meta/type_id.hpp>
 namespace nt2 { namespace details
 {
-  template<class V> class quadgk_impl
+  template<class T, class V> class quadgk_impl
   {
   public :
-    typedef V                                       value_t;
-    typedef typename meta::as_real<value_t>::type    real_t;
-    typedef real_t                                        T;
-    typedef details::integration_settings<real_t, tag::quadgk_>      o_t;
-    typedef container::table<value_t>                 tab_t;
-    typedef container::table<real_t>                 rtab_t;
+    typedef T                                              input_t;
+    typedef typename meta::as_logical<input_t>::type          bi_t;
+    typedef V                                              value_t;
+    typedef typename meta::as_real<value_t>::type           real_t;
+    typedef details::integration_settings<T, V, tag::quadgk_>  o_t;
+    typedef container::table<value_t>                       vtab_t;
+    typedef container::table<input_t>                       itab_t;
+    typedef container::table<real_t>                        rtab_t;
+    typedef container::table<bool>                          btab_t;
+    typedef container::table<bi_t>                         bitab_t;
+    typedef typename boost::is_same<input_t,real_t>::type   input_is_real_t;
 
-    quadgk_impl() :  err_(Nan<real_t>()),
+    quadgk_impl() :  errbnd_(Nan<real_t>()),
                      fcnt_(0),
                      maxfcnt_(Valmax<size_t>()),
                      warn_(0),
                      res_(){}
     ~quadgk_impl() {}
 
-    size_t nbeval()        const { return fcnt_;             }
-    real_t lasterror()     const { return err_/c1470_;       }
-    bool   ok()            const { return warn_ == 0;        }
-    const tab_t & result() const { return res_;              }
-    void setwarn(size_t w)       { if(w > warn_) warn_ =  w; }
+    size_t nbeval()         const { return fcnt_;             }
+    real_t lasterror()      const { return errbnd_;           }
+    bool   ok()             const { return warn_ == 0;        }
+    const vtab_t & result() const { return res_;              }
+    void setwarn(size_t w)        { if(w > warn_) warn_ =  w; }
 
     template < class FUNC, class X>
-    void compute( const FUNC& f, const X & x, const o_t & o)
+    void compute( const FUNC& f, const X & x, const o_t & o,
+                  const boost::mpl::false_ & choice) // cplx path integration
     {
-      init(o);
-      real_t tmptol = tol_;
-      BOOST_AUTO_TPL(dif, nt2::diff(nt2::rowvect(x))/(x(end_)-x(begin_)));
-      //      BOOST_ASSERT_MSG(globalall(is_gez(dif)), "Using quadgk abscissae must be in increasing order");
-      size_t l = numel(dif);
-      res_.resize(extent(x));
-      res_(1) = nt2::Zero<value_t>();
-      for(size_t i=1; i <= l; ++i)
-      {
-        tol_ = tmptol*dif(i);
-        res_(i+1) = res_(i)+compute(f, x(i), x(i+1));
-      }
-      tol_ = tmptol;
+      init(o, x,  choice);
+      vadapt(f, choice);
     }
-   private :
-    real_t         err_;
+    template < class FUNC, class X>
+    void compute( const FUNC& f, const X & x, const o_t & o,
+                  const boost::mpl::true_ & choice) // real interval integration
+    {
+      init(o, x, choice);
+//      NT2_DISPLAY("real----");
+      if (a_ == b_) //quick return
+      {
+        res_ = details::midparea<value_t>(f, tinterval_(begin_), tinterval_(end_));
+        errbnd_ = nt2::abs(res_);
+        return;
+      }
+      adjust_and_call(f);
+      //      res_ = nt2::negif(reversedir_, res_);
+    }
+  private :
+    real_t      errbnd_;
     size_t        fcnt_;
     size_t     maxfcnt_;
+    size_t  maxintvcnt_;
     size_t        warn_;
-    real_t         tol_;
-    tab_t          res_;
+    real_t      abstol_;
+    real_t      reltol_;
+    vtab_t         res_;
     real_t        hmin_;
-    real_t        c245_;
-    real_t       c1470_;
-    static const rtab_t& lobatto()
+    bool    reversedir_;
+    itab_t   tinterval_; //original points
+    itab_t    interval_; //transformed points,  to reduce integration to a subinterval of [-1, 1]
+    input_t      a_, b_;
+    bool firstfunceval_;
+    static const size_t minintervalcount_ = 10; // Minimum number subintervals to start.
+
+//  Gauss-Kronrod (7,15) pair. Use symmetry in defining nodes and weights.
+    static const itab_t& nodes()
     {
-      static const T cl[] = {T(1),T(5),T(5),T(1)};
-      static const rtab_t l(of_size(1, 4), &cl[0], &cl[4]);
-      return l;
+      static const input_t gk[] = {
+        input_t(0.2077849550078985), input_t(0.4058451513773972), input_t(0.5860872354676911),
+        input_t(0.7415311855993944), input_t(0.8648644233597691), input_t(0.9491079123427585),
+        input_t(0.9914553711208126)};
+      static const itab_t k(of_size(7, 1), &gk[0], &gk[7]);
+      static const itab_t k15 =  nt2::catv(nt2::catv(-flipud(k), nt2::Zero<real_t>()),k);
+      return k15;
     }
-    static const rtab_t& kronrod()
+
+    static const vtab_t& wt()
     {
-      static const T ck[] = {T(77),T(432),T(625),T(672),T(625),T(432),T(77)};
-      static const rtab_t k(of_size(1, 7), &ck[0], &ck[7]);
-      return k;
+      static const value_t pwt[] = {
+        value_t(0.2044329400752989), value_t(0.1903505780647854), value_t(0.1690047266392679),
+        value_t(0.1406532597155259), value_t(0.1047900103222502), value_t(0.06309209262997855),
+        value_t(0.02293532201052922) };
+      static const vtab_t wt(of_size(1, 7), &pwt[0], &pwt[7]);
+      static const vtab_t wt15 = nt2::cath(nt2::cath(fliplr(wt),value_t(0.2094821410847278)),wt);
+      return wt15;
     }
-    void init( const o_t & o)
+
+    static const vtab_t& ewt()
     {
-      tol_ = o.abstol;
+      static const value_t pwt7[] = {
+        value_t(0),value_t(0.3818300505051189),value_t(0),value_t(0.2797053914892767),
+        value_t(0),value_t(0.1294849661688697),value_t(0)
+      };
+      static const vtab_t wt7(of_size(1, 7), &pwt7[0], &pwt7[7]);
+      static const vtab_t ewt15 = wt()-nt2::cath(nt2::cath(fliplr(wt7),real_t(0.4179591836734694)),wt7);
+      return ewt15;
+    }
+
+    template < class X >
+    void init( const o_t & o, const X& x, const boost::mpl::false_ & )
+    {
+//      NT2_DISPLAY("cplx abscissae");
+      details::prepare_waypoints(o, x, tinterval_);
+      a_ = tinterval_(begin_);
+      b_ = tinterval_(end_);
+//      NT2_DISPLAY(tinterval_);
+      abstol_ = o.abstol;
+      reltol_ = o.reltol;
       warn_ = 0;
       fcnt_ = 0;
       maxfcnt_ = Valmax<size_t>();
-      err_ = nt2::Inf<real_t>();
-      c245_ = 245;
-      c1470_ = 1470; // 245*6
+      maxintvcnt_ = o.maxintvcnt;
+      errbnd_ = nt2::Inf<real_t>();
     }
 
-
-    template < class FUNC >
-    value_t compute(const  FUNC &f, const real_t& a, const real_t& b)
+    template < class X >
+    void init( const o_t & o, const X& x, const boost::mpl::true_ & )//real path integration
     {
-      real_t e = eps(b-a);
-      real_t c = nt2::average(a, b);
-      real_t h = nt2::average(b, -a);
-      const real_t cs[] = {T(.942882415695480), nt2::Sqrt_2o_3<T>(),
-                           T(.641853342345781),
-                           nt2::Sqrt_1o_5<T>(), T(.236383199662150)};
-      rtab_t s(nt2::of_size(1, 5), &cs[0], &cs[5]);
-      rtab_t x = nt2::cath(nt2::cath(nt2::cath(nt2::cath(a, c-h*s), c), c+h*nt2::fliplr(s)), b);
-      tab_t  y = f(x);
-      fcnt_ += 13;
-      if (nt2::is_inf(y(1)))  { y(1)  = f(a+e); ++fcnt_; }     // Fudge endpoints to avoid infinities.
-      if (nt2::is_inf(y(13))) { y(13) = f(b-e); ++fcnt_; }
-      // Call the recursive core integrator.
-      // Increase tolerance if refinement appears to be effective.
-      value_t Q1 = h*nt2::dot(lobatto(),y(nt2::_(1,4,13)))*c245_;
-      value_t Q2 = h*nt2::dot(kronrod(), y(nt2::_(1,2,13)));
-      const real_t cs1[] = {T(.0158271919734802),T(.094273840218850),T(.155071987336585),
-                            T(.188821573960182),T(.199773405226859),T(.224926465333340)};
-      rtab_t s1(nt2::of_size(1, 6), &cs1[0], &cs1[6]);
-      rtab_t w = cath(cath(s1, T(.242611071901408)), fliplr(s1));
-      value_t Q0 = h*nt2::dot(w, y)*c1470_;
-      real_t r = nt2::abs((Q2-Q0)/(Q1-Q0+nt2::Smallestposval<real_t>()));
-      if (r > 0 && r < 1) tol_ /= r;
-      tol_*= c1470_;
-      // Call the recursive core integrator.
-      hmin_ = fast_ldexp(e, -10); //e/1024
-      return quadgkstep(f, a,b,y(1),y(13))/c1470_;
-
+      details::prepare_waypoints(o, x, tinterval_);
+      reversedir_ = details::order_points(tinterval_, true);
+      a_ = tinterval_(begin_);
+      b_ = tinterval_(end_);
+      abstol_ = o.abstol;
+      reltol_ = o.reltol;
+      warn_ = 0;
+      fcnt_ = 0;
+      maxfcnt_ = Valmax<size_t>();
+      maxintvcnt_ = o.maxintvcnt;
+      errbnd_ = nt2::Inf<real_t>();
+      firstfunceval_ = true;
     }
 
     template < class FUNC >
-    value_t quadgkstep(const FUNC & f, const real_t & a,  const real_t & b,
-                      const value_t &fa, const value_t& fb)
+    inline bool check(FUNC f, bool t, size_t w, const value_t& q)
     {
-      //  recursive core routine for function quadgk.
-      // maxfcnt = 10000;
+      if (t)
+      {
+        fcnt_ = f.fcnt();
+        res_ = q;
+        setwarn(w);
+      }
+      return t;
+    }
 
-      //  Evaluate integrand five times in interior of subinterval [a,b].
-      real_t c = nt2::average(a, b);
-      real_t h = nt2::average(b, - a);
-      if (abs(h) < hmin_ || c == a || c == b ) //Minimum step size reached; singularity possible.
+    template < class FUNC >
+    void vadapt(FUNC f, const boost::mpl::true_ &) //real path integration
+    {
+      std::cout << std::setprecision(15) << std::scientific << std::endl;
+      real_t pathlen;
+      itab_t tmp;
+      details::split(interval_, minintervalcount_, tmp, pathlen);
+      interval_ = tmp;
+      if (pathlen == 0)
       {
-        setwarn(1); return h*(fa+fb);
+        res_ = details::midparea<value_t>(f, interval_(begin_), interval_(end_));
+        errbnd_ =  nt2::abs(res_);
+        return;
       }
-      real_t alpha = nt2::Sqrt_2o_3<T>();
-      real_t beta = nt2::Sqrt_1o_5<T>();
-      T cx[] = {-alpha, -beta, Zero<T>(), beta, alpha};
-      rtab_t x(of_size(1, 5), &cx[0], &cx[5]);
-      x = c+h*x;
-      tab_t y = f(x);
-      fcnt_ += 5;
-      if (fcnt_ > maxfcnt_){ setwarn(2); return h*(fa+fb); }    // Maximum function count exceeded; singularity likely.
-      rtab_t x1 = nt2::cath(nt2::cath(a, x), b); x = x1;
-      tab_t y1 = nt2::cath(nt2::cath(fa, y), fb);y =  y1;
-      value_t Q1 = h*nt2::dot(lobatto(), y(_(1, 2, 7)))*c245_; // Four point Lobatto quadrature times 1470.
-      value_t Q = h*nt2::dot(kronrod(), y);                    // Seven point Kronrod refinement times 1470.
-      if (nt2::is_invalid(Q)) { setwarn(3); return Q; }        // Infinite or Not-a-Number function value encountered.
-      //  Check accuracy of integral over this subinterval.
-      if ((err_ = nt2::abs(Q1 - Q)) <= tol_)
+      // Initialize array of subintervals of [a,b].
+      itab_t subs = nt2::catv(interval_(nt2::_(begin_, end_-1)),
+                              interval_(nt2::_(begin_+1, end_)));
+      // Initialize partial sums.
+      value_t q_ok = nt2::Zero<value_t>();
+      value_t err_ok = nt2::Zero<value_t>();
+      // Initialize main loop
+      while (true)
       {
-        setwarn(0);  return Q;
+        // subs contains subintervals of [a,b] where the integral is not
+        // sufficiently accurate. The first row of SUBS holds the left end
+        // points and the second row, the corresponding right endpoints.
+        itab_t midpt = nt2::mean(subs);             // midpoints of the subintervals
+        itab_t halfh = diff(subs)*Half<input_t>();  // half the lengths of the subintervals
+
+        itab_t x = nt2::rowvect(nt2::sx(nt2::tag::plus_(),nt2::mtimes(nodes(), halfh),midpt));
+        //        BOOST_AUTO_TPL(fx, f(x));
+        vtab_t fx = f(x);
+        // Quit if mesh points are too close.
+        if (f.tooclose()) break;
+        fx.resize(nt2::of_size(nt2::numel(wt()), numel(fx)/numel(wt())));
+        // Quantities for subintervals.
+        vtab_t qsubs = nt2::mtimes(wt(), fx)*halfh;
+        vtab_t errsubs = nt2::mtimes(ewt(), fx)* halfh;
+        // Calculate current values of q and tol.
+        value_t q = nt2::globalsum(qsubs) + q_ok;
+        real_t  tol = max(abstol_,reltol_*nt2::abs(q));
+        // Locate subintervals where the approximate integrals are
+        // sufficiently accurate and use them to update the partial
+        // error sum.
+        bitab_t ff= nt2::le(nt2::abs(errsubs), (Two<real_t>()*tol/pathlen)*halfh);
+        bitab_t notff = nt2::logical_not(ff); //nt2::gt(nt2::abs(errsubs), (Two<real_t>()*tol/pathlen)*halfh);
+        err_ok += nt2::globalsum(errsubs(ff));
+        // Remove errsubs entries for subintervals with accurate
+        // approximations.
+        vtab_t errsubs1 = nt2::rowvect(errsubs(notff)); errsubs =  errsubs1; //ALIASING CAN BE AVOIDED PERHAPS
+        // The approximate error bound is constructed by adding the
+        // approximate error bounds for the subintervals with accurate
+        // approximations to the 1-norm of the approximate error bounds
+        // for the remaining subintervals.  This guards against
+        // excessive cancellation of the errors of the remaining
+        // subintervals.
+        errbnd_ = nt2::abs(err_ok) + nt2::norm(errsubs,1);
+        // Check for nonfinites.
+        if (check(f, is_not_finite(q) && is_finite(errbnd_), 3, q)) break; // Infinite or Not-a-Number value encountered.
+        if (check(f, errbnd_ <= tol, 0, q)) break;                         // tolerance reached: convergence
+        if (check(f, f.fcnt() > maxfcnt_, 5, q)) break;                    // Max evaluation number reached
+        // Remove subintervals with accurate approximations.
+        itab_t subs_tmp = subs(nt2::_, notff); subs = subs_tmp;
+        if (check(f, nt2::isempty(subs), 0, q)) break;                     // All subs got required precision
+        // Update the partial sum for the integral.
+        q_ok +=  nt2::globalsum(qsubs(ff));
+        // Split the remaining subintervals in half. Quit if splitting
+        // results in too many subintervals.
+        size_t nsubs = 2*nt2::size(subs,2);
+        if (check(f, nsubs > maxintvcnt_, 2, q)) break;//Reached the limit on the maximum number of intervals in use.
+        itab_t midpt1 = nt2::rowvect(midpt(notff)); midpt = midpt1;
+        itab_t z = catv(catv(catv(subs(begin_,nt2::_),midpt),midpt),subs(end_,nt2::_));
+        subs = reshape(z,2,numel(z)/2);
       }
-      else //     % Subdivide into six subintervals.
+    }
+
+    template < class F >
+    inline void adjust_and_call(const  F &f)
+    {
+      bool fina = nt2::is_finite(a_);
+      bool finb = nt2::is_finite(b_);
+      if(fina && finb)
       {
-        setwarn(0);
-        Q = Zero<value_t>();
-        for(size_t k = 1; k <= 6; ++k)
+        if (nt2::numel(tinterval_) > 2)
         {
-          Q += quadgkstep(f, x(k), x(k+1), y(k), y(k+1));
+          // Analytical transformation suggested by K.L. Metlov:
+          BOOST_AUTO_TPL(alpha, Two<real_t>()*nt2::sin(nt2::asin((a_+b_- Two<real_t>()*tinterval_(nt2::_(begin_+1, end_-1)))/(a_ - b_))/Three<real_t>() ));
+          interval_ = nt2::cath(nt2::cath(nt2::Mone<input_t>(), alpha), nt2::One<input_t>());
         }
+        else
+        {
+          interval_ = nt2::linspace(nt2::Mone<input_t>(), nt2::One<input_t>(), 2);
+        }
+//        NT2_DISPLAY("case f1");
+        vadapt(details::f1<F, input_t, rtab_t, vtab_t>(f, a_, b_), boost::mpl::true_());
       }
-      return Q;
-    };
+       else
+       {
+         bool infb = nt2::is_inf(b_);
+         if (fina && infb)
+         {
+ //          NT2_DISPLAY("case f2");
+           if  (nt2::numel(tinterval_) > 2)
+           {
+             BOOST_AUTO_TPL(alpha, nt2::sqrt(tinterval_(2, end_-1) - a_));
+             interval_ = nt2::cath(nt2::cath(nt2::Zero<input_t>(), alpha/oneplus(alpha)),nt2::One<input_t>());
+           }
+           else
+             interval_ = nt2::linspace(nt2::Zero<input_t>(), nt2::One<input_t>(), 2);
+           vadapt(details::f2<F, input_t, rtab_t, vtab_t>(f, a_), boost::mpl::true_());
+         }
+         else
+         {
+           bool infa = nt2::is_inf(a_);
+           if (infa && finb)
+           {
+             NT2_DISPLAY("case f3");
+             if  (nt2::numel(tinterval_) > 2)
+             {
+               BOOST_AUTO_TPL(alpha, nt2::sqrt(b_-tinterval_(2, end_-1)));
+               interval_ = nt2::cath(nt2::cath(nt2::Mone<input_t>(), -alpha/oneplus(alpha)),nt2::Zero<input_t>());
+             }
+             else
+               interval_ = nt2::linspace(nt2::Mone<input_t>(), nt2::Zero<input_t>(), 2);
+             vadapt(details::f3<F, input_t, rtab_t, vtab_t>(f, b_), boost::mpl::true_());
+           }
+           else if (infa && infb)
+           {
+             NT2_DISPLAY("case f4");
+             if  (nt2::numel(tinterval_) > 2)
+             {
+               BOOST_AUTO_TPL(alpha, nt2::tanh(nt2::asinh(Two<input_t>()*tinterval_(2, end_-1))*Half<input_t>()));
+               interval_ = nt2::cath(nt2::cath(nt2::Mone<input_t>(), alpha), nt2::One<input_t>());
+             }
+             else
+               interval_ = nt2::linspace(nt2::Mone<input_t>(), nt2::One<input_t>(), 2);
+             vadapt(details::f4<F, input_t, rtab_t, vtab_t>(f), boost::mpl::true_());
+           }
+           else //is_nan(a) || is_nan(b)
+           {
+             res_ = midparea<value_t>(f, a_, b_);
+             errbnd_ = nt2::abs(res_);
+             fcnt_ = 1;
+           }
+         }
+      }
+    }
+
+    template < class FUNC >
+    value_t vadapt(const  FUNC &f, const boost::mpl::false_ &)
+    {
+      NT2_DISPLAY("cplx abscissae");
+//       real_t pathlen;
+//       itab_t tmp;
+//       details::split(tinterval_, minintervalcount_, tmp, pathlen);
+//       tinterval_ = tmp;
+//       if (pathlen == 0)
+//       {
+//         value_t q = details::midparea<value_t>(f, tinterval_(begin_), tinterval_(end_));
+//         errbnd_ =  nt2::abs(q);
+//         return q;
+//       }
+//       // Initialize array of subintervals of [a,b].
+//       NT2_DISPLAY(tinterval_);
+//       itab_t subs = nt2::catv(tinterval_(nt2::_(begin_, end_-1)),
+//                               tinterval_(nt2::_(begin_+1, end_)));
+//       NT2_DISPLAY(subs);
+//       // Initialize partial sums.
+//       size_t q_ok = 0;
+//       size_t err_ok = 0;
+//       // Initialize main loop
+//       while (true)
+//       {
+//         // subs contains subintervals of [a,b] where the integral is not
+//         // sufficiently accurate. The first row of SUBS holds the left end
+//         // points and the second row, the corresponding right endpoints.
+//         itab_t midpt = nt2::mean(subs);             // midpoints of the subintervals
+//         itab_t halfh = diff(subs)*Half<input_t>();  // half the lengths of the subintervals
+//         itab_t x = sx(nt2::tag::plus_(),mtimes(nodes(), halfh),midpt);
+//         NT2_DISPLAY(nodes());
+//         NT2_DISPLAY(halfh);
+//         NT2_DISPLAY(mtimes(nodes(), halfh));
+//         NT2_DISPLAY(midpt);
+
+// //             x = reshape(x,1,[]);   // function f expects a row vector
+// //             [fx,too_close] = f(x);
+// //             // Quit if mesh points are too close.
+// //             if too_close
+// //                 break
+// //             end
+// //             fx = reshape(fx,numel(WT),[]);
+// //             // Quantities for subintervals.
+// //             qsubs = (WT*fx) .* halfh;
+// //             errsubs = (EWT*fx) .* halfh;
+// //             // Calculate current values of q and tol.
+// //             q = sum(qsubs) + q_ok;
+// //             tol = max(ATOL,RTOL*abs(q));
+// //             // Locate subintervals where the approximate integrals are
+// //             // sufficiently accurate and use them to update the partial
+// //             // error sum.
+// //             ndx = find(abs(errsubs) <= (2*tol/pathlen)*halfh);
+// //             err_ok = err_ok + sum(errsubs(ndx));
+// //             // Remove errsubs entries for subintervals with accurate
+// //             // approximations.
+// //             errsubs(ndx) = [];
+// //             // The approximate error bound is constructed by adding the
+// //             // approximate error bounds for the subintervals with accurate
+// //             // approximations to the 1-norm of the approximate error bounds
+// //             // for the remaining subintervals.  This guards against
+// //             // excessive cancellation of the errors of the remaining
+// //             // subintervals.
+// //             errbnd = abs(err_ok) + norm(errsubs,1);
+// //             // Check for nonfinites.
+// //             if ~(isfinite(q) && isfinite(errbnd))
+// //                 warning('MATLAB:quadgk:NonFiniteValue', ...
+// //                     'Infinite or Not-a-Number value encountered.');
+// //                 break
+// //             end
+// //             // Test for convergence.
+// //             if errbnd <= tol
+// //                 break
+// //             end
+// //             // Remove subintervals with accurate approximations.
+// //             subs(:,ndx) = [];
+// //             if isempty(subs)
+// //                 break
+// //             end
+// //             // Update the partial sum for the integral.
+// //             q_ok = q_ok + sum(qsubs(ndx));
+// //             // Split the remaining subintervals in half. Quit if splitting
+// //             // results in too many subintervals.
+// //             nsubs = 2*size(subs,2);
+// //             if nsubs > MAXINTERVALCOUNT
+// // //                 warning('MATLAB:quadgk:MaxIntervalCountReached', ...
+// // //                     ['Reached the limit on the maximum number of intervals in use.\n', ...
+// // //                     'Approximate bound on error is%9.1e. The integral may not exist, or\n', ...
+// // //                     'it may be difficult to approximate numerically. Increase MaxIntervalCount\n', ...
+// // //                     'to %d to enable QUADGK to continue for another iteration.'], ...
+// // //                     errbnd,nsubs);
+// //                 break
+// //             end
+// //             midpt(ndx) = []; // Remove unneeded midpoints.
+// //             subs = reshape([subs(1,:); midpt; midpt; subs(2,:)],2,[]);
+// //         end
+      return nt2::Zero<value_t>();
+    }
   };
 } }
 
@@ -197,19 +471,17 @@ namespace nt2 { namespace ext
                               (unspecified_<O>)
     )
   {
-    typedef typename X::value_type                                  value_type;
-    typedef typename meta::as_real<value_type>::type                 real_type;
-    typedef typename meta::as_logical<value_type>::type                 l_type;
-    typedef nt2::container::table<value_type>                            tab_t;
-    typedef nt2::container::table<real_type>                            rtab_t;
-    typedef nt2::container::table<ptrdiff_t>                            ltab_t;
-    typedef nt2::integration::output<tab_t,real_type>              result_type;
-    typedef details::integration_settings<real_type, tag::quadgk_>        otype;
+    typedef typename O::value_type                                   value_type;
+    typedef typename O::input_type                                   input_type;
+    typedef typename meta::as_real<value_type>::type                  real_type;
+    typedef nt2::container::table<value_type>                            vtab_t;
+    typedef nt2::integration::output<vtab_t,real_type>              result_type;
+    typedef typename boost::is_same<input_type,real_type>::type input_is_real_t;
 
     result_type operator()(F f, X const& x, O const& o)
     {
-      details::quadgk_impl<value_type> q;
-      q.compute(f, x, o);
+      details::quadgk_impl<input_type, value_type> q;
+      q.compute(f, x, o, input_is_real_t());
       result_type that = {q.result(), q.lasterror(),q.nbeval(),q.ok()};
       return that;
     }

@@ -12,5 +12,5 @@ SET ( NT2_CORE.INTEGRATION_DEPENDENCIES_EXTRA  sdk.option
                                                core.boolean        core.constant
                                                core.ieee           core.operator
                                                core.predicates     core.reduction
-                                               core.utility
+                                               core.utility        core.linalg
     )

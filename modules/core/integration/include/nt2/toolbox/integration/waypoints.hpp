@@ -12,13 +12,15 @@
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/horzcat.hpp>
+#include <nt2/include/functions/sort.hpp>
 
 namespace nt2
 {
   namespace details
   {
+
     template < class O, class X,  class W>
-    void prepare_waypoints(O const &o, const X& x, W& wpts)
+    inline void prepare_waypoints(O const &o, const X& x, W& wpts)
     {
       typedef typename X::value_type itype;
       BOOST_ASSERT_MSG(isempty(o.waypoints) || (numel(x) == 2), "Choose x or waypoints,  not both");
@@ -38,6 +40,7 @@ namespace nt2
         else if (a != o.waypoints(begin_))  wpts =  nt2::cath(a, nt2::rowvect(o.waypoints));
         else if (b != o.waypoints(end_))  wpts =  nt2::cath(nt2::rowvect(o.waypoints), b);
         else wpts = nt2::rowvect(o.waypoints);
+
       }
       else
       {

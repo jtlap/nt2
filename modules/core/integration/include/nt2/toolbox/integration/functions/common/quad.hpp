@@ -108,52 +108,6 @@ namespace nt2 { namespace details
     real_t        hmin_;
     itab_t        wpts_;
 
-//     template < class X >
-//     void prepare_waypoints(o_t const &o, const X& x)
-//     {
-//       BOOST_ASSERT_MSG(isempty(o.waypoints) || (numel(x) == 2), "Choose x or waypoints,  not both");
-//       if (isempty(o.waypoints))
-//       {
-//         wpts_ = nt2::rowvect(x);
-//       }
-//       else if (numel(x) == 2)
-//       {
-// //         input_t a = x(begin_), b = x(end_);
-// //         BOOST_AUTO_TPL(w, nt2::cath(nt2::cath(x(begin_), nt2::rowvect(o.waypoints)), x(end_)));
-// //         BOOST_AUTO_TPL(d, nt2::is_nez(nt2::cath(nt2::One<input_t>(), nt2::diff(w))));
-// //         wpts_ = wpts_(d);
-//         input_t a = x(begin_), b = x(end_);
-//         if(a != o.waypoints(begin_) && b!=o.waypoints(end_) )
-//           wpts_ =  nt2::cath(nt2::cath(a, nt2::rowvect(o.waypoints)), b);
-//         else if (a != o.waypoints(begin_))  wpts_ =  nt2::cath(a, nt2::rowvect(o.waypoints));
-//         else if (b != o.waypoints(end_))  wpts_ =  nt2::cath(nt2::rowvect(o.waypoints), b);
-//         else wpts_ = nt2::rowvect(o.waypoints);
-//       }
-//       else
-//       {
-//         wpts_ = nt2::rowvect(o.waypoints);
-//       }
-//     }
-
-//     template < class FUNC, int IND, bool test = true> struct fudge
-//     {
-//       void operator ()(const  FUNC & f, vtab_t&y, size_t& fcnt, const bool & singular,
-//                        const input_t& x, const input_t& shift)
-//       {
-//         size_t i =  IND;
-//         if ((singular) && nt2::is_invalid(y(i)))// Fudge to avoid nans or infinities.
-//         {
-//           y(i) = f(x+shift); ++fcnt;
-//         }
-//       }
-//     };
-
-//     template < class FUNC, int IND> struct fudge < FUNC, IND, false>
-//     {
-//       void operator ()(const  FUNC &, vtab_t&, size_t& , const bool &,
-//                        const input_t&, const input_t&) {}
-//     };
-
   private:
     template < class X >
     void init( const o_t & o, const X&x)
@@ -252,11 +206,11 @@ namespace nt2 { namespace ext
                               (unspecified_<O>)
     )
   {
-     typedef typename O::value_type                                  value_type;
-     typedef typename O::input_type                                  input_type;
-     typedef typename meta::as_real<value_type>::type                 real_type;
-     typedef nt2::container::table<value_type>                           vtab_t;
-     typedef nt2::integration::output<vtab_t,real_type>             result_type;
+    typedef typename O::value_type                                  value_type;
+    typedef typename O::input_type                                  input_type;
+    typedef typename meta::as_real<value_type>::type                 real_type;
+    typedef nt2::container::table<value_type>                           vtab_t;
+    typedef nt2::integration::output<vtab_t,real_type>             result_type;
 
     result_type operator()(F f, X const& x, O const& o)
     {

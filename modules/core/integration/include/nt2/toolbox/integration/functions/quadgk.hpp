@@ -13,11 +13,7 @@
  * \file
  * \brief Defines and implements the nt2::quadgk function
  */
-
-#include <nt2/include/functor.hpp>
-#include <nt2/sdk/option/options.hpp>
-#include <nt2/toolbox/integration/options.hpp>
-#include <nt2/include/functions/horzcat.hpp>
+#include <nt2/toolbox/integration/interface.hpp>
 
 namespace nt2
 {
@@ -27,22 +23,27 @@ namespace nt2
     {
       typedef ext::unspecified_<quadgk_> parent;
     };
+    // definition  of abstol constant for quadgk method
+    BOOST_SIMD_CONSTANT_REGISTER( Quadgkabstol, double
+                                  , 0, 0x3727c5ac             //1.0e-5
+                                  , 0x3ddb7cdfd9d7bdbbll      //1.0e-10
+      );
+    // definition  of reltol constant for quadgk method
+    BOOST_SIMD_CONSTANT_REGISTER( Quadgkreltol, double
+                                  , 0, 0x38d1b717             //1.0e-4
+                                  , 0x3eb0c6f7a0b5ed8dll      //1.0e-6
+      );
   }
-  template<> struct integ_params<double, tag::quadgk_>
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Quadgkabstol, Quadgkabstol);
+  BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Quadgkreltol, Quadgkreltol);
+
+  // specialization of abstol for quadgk method
+  template<class T, class V> struct integ_params<T, V, tag::quadgk_>
+  : integ_params<T, V, void>
   {
-    typedef double value_type;
-    static std::size_t  maxfunccnt(){return 10001; }
-    static std::size_t  maxintvcnt(){return 0; }//unused by quad
-    static value_type       abstol(){return 1.0e-10; }
-    static value_type       reltol(){return 1.0e-6; }
-  };
-  template<> struct integ_params<float, tag::quadgk_>
-  {
-    typedef float value_type;
-    static std::size_t  maxfunccnt(){return 10001; }
-    static std::size_t  maxintvcnt(){return 0; }//unused by quad
-    static value_type       abstol(){return 1.0e-5; }
-    static value_type       reltol(){return N.0e-4; }
+    typedef typename nt2::integ_params<T, V, void>::real_type real_type;
+    static real_type        abstol(){return Quadgkabstol<real_type>(); }
+    static real_type        reltol(){return Quadgkreltol<real_type>(); }
   };
 
   //============================================================================
@@ -59,74 +60,34 @@ namespace nt2
    * notifying success of the whole process.
    */
   //============================================================================
-  template<class T,class F, class X> BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quadgk_( F
-                                  , X
-                                  , details::integration_settings<T> const&
-                                  )
-                      >::type
+  template<class T, class V, class F, class X> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::quadgk_, X>::result_type
   quadgk(F f, X x)
   {
-    typename boost::dispatch::make_functor<tag::quadgk_, F>::type callee;
-    return callee ( f
-                  ,x
-                  , details::integration_settings<T, tag::quadgk_>()
-                  );
+    return integ_call<T, V, tag::quadgk_>(f, x);
   }
 
-  template<class T,class F, class X, class Xpr>
-  BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quadgk_( F
-                                  , X
-                                  , details::integration_settings<T, tag::quadgk_> const&
-                                  )
-                  >::type
+  template<class T, class V, class F, class X, class Xpr> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::quadgk_, X>::result_type
   quadgk(F f, X x, nt2::details::option_expr<Xpr> const& opt)
   {
-    typename boost::dispatch::make_functor<tag::quadgk_, F>::type callee;
-    return callee ( f
-                    , x
-                    , details::integration_settings<T, tag::quadgk_>(opt)
-      );
+    return integ_call<T, V, tag::quadgk_>(f, x, opt);
   }
 
-
-  template<class T,class F, class A, class B> BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quadgk_( F
-                                   , typename boost::dispatch::meta
-                                          ::call<tag::horzcat_(A, B)>::type
-                                   , details::integration_settings<T, tag::quadgk_> const&
-    )
-                  >::type
+  template<class T, class V, class F, class A, class B> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::quadgk_, typename xtype<T>::type>::result_type
   quadgk(F f, A a, B b)
   {
-    typename boost::dispatch::make_functor<tag::quadgk_, F>::type callee;
-    return callee ( f
-                    , nt2::cath(static_cast <T>(a),static_cast <T>(b)),
-                    details::integration_settings<T, tag::quadgk_>()
-                  );
+    return integ_call<T, V, tag::quadgk_>(f, a, b);
   }
 
-  template<class T,class F, class A, class B, class Xpr>
-  BOOST_FORCEINLINE
-  typename boost::dispatch::meta
-                ::call<tag::quadgk_( F
-                                   , typename boost::dispatch::meta
-                                         ::call<tag::horzcat_(A, B)>::type
-                                   , details::integration_settings<T, tag::quadgk_> const&
-                         )
-                      >::type
+  template<class T, class V, class F, class A,  class B, class Xpr> BOOST_FORCEINLINE
+  typename integration_call<T, V, F, tag::quadgk_, typename xtype<T>::type>::result_type
   quadgk(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
   {
-    typename boost::dispatch::make_functor<tag::quadgk_, F>::type callee;
-    return callee ( f
-                    , nt2::cath(static_cast<T>(a), static_cast<T>(b))
-                    , details::integration_settings<T, tag::quadgk_>(opt)
-                  );
+    return integ_call<T, V, tag::quadgk_>(f, a, b, opt);
   }
+
 }
 
 #endif

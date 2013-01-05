@@ -10,7 +10,7 @@
 SET( SOURCES
   quad.cpp
   quadl.cpp
-  integ.cpp
+  quadgk.cpp
   # List of scalar test files for toolbox interpol
    )
 
