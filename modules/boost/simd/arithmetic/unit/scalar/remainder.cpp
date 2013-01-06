@@ -18,6 +18,7 @@
 /// rounded to the nearest integer.  If the absolute value of x-n*y is 0.5,
 /// n is chosen to be even. The drem() function does precisely the same thing.
 #include <boost/simd/toolbox/arithmetic/include/functions/remainder.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/idivround.hpp>
 

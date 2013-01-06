@@ -14,6 +14,7 @@
 /// created by jt the 30/11/2010
 ///
 #include <nt2/toolbox/arithmetic/include/functions/negs.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/standard/include/functions/abs.hpp>

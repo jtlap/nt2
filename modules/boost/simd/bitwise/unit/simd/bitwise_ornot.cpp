@@ -14,6 +14,7 @@
 /// created  by jt the 18/02/2011
 ///
 #include <boost/simd/toolbox/bitwise/include/functions/bitwise_ornot.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

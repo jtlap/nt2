@@ -3,6 +3,7 @@
 //        versus nt2::standard::ceil(a0) with float elements
 ////////////////////////////////////////////////////////////////////////
 #include <nt2/include/functions/ceil.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/splat.hpp>

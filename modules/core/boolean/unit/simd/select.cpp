@@ -14,6 +14,7 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/toolbox/boolean/include/functions/select.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/toolbox/predicates/include/functions/is_nez.hpp>
 
 #include <boost/type_traits/is_same.hpp>

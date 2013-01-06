@@ -12,6 +12,7 @@
 // Test behavior of reduction components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/include/functions/load.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

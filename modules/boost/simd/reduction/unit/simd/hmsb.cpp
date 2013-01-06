@@ -14,6 +14,7 @@
 /// created  by jt the 24/02/2011
 ///
 #include <boost/simd/toolbox/reduction/include/functions/hmsb.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/bits.hpp>
 #include <boost/simd/include/functions/shri.hpp>
 

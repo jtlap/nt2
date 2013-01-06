@@ -3,7 +3,7 @@
 ]
 
 [#appendix]
-[xinclude appendix/licence.xml]
+[xinclude appendix/license.xml]
 [xinclude appendix/authors.xml]
 [xinclude appendix/bibliography.xml]
 [xinclude appendix/acknowledgement.xml]

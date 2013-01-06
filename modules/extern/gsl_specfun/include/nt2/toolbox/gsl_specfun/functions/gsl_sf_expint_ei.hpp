@@ -11,7 +11,7 @@
 **/
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_GSL_SF_EXPINT_EI_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_GSL_SF_EXPINT_EI_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
 #include <nt2/include/functor.hpp>
 
 /*!

@@ -12,7 +12,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MAXLEFTSHIFT_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MAXLEFTSHIFT_HPP_INCLUDED
 
-#include <boost/simd/include/simd.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>

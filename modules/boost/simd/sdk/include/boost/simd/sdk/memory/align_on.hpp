@@ -9,11 +9,11 @@
 #ifndef BOOST_SIMD_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 #define BOOST_SIMD_SDK_MEMORY_ALIGN_ON_HPP_INCLUDED
 
-#include <cstddef>
-#include <boost/assert.hpp>
-#include <boost/config.hpp>
 #include <boost/simd/sdk/memory/parameters.hpp>
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
+#include <boost/dispatch/attributes.hpp>
+#include <boost/assert.hpp>
+#include <cstddef>
 
 namespace boost { namespace simd
 {

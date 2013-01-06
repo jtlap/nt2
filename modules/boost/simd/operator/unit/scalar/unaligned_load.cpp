@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 operator toolbox - unaligned_load/scalar Mode"
 
 #include <boost/simd/include/functions/unaligned_load.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/fusion/include/at_c.hpp>
 #include <boost/fusion/include/make_vector.hpp>
 #include <boost/fusion/include/vector.hpp>

@@ -15,8 +15,4 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/native_tuple.hpp>
 
-// workaround for missing includes
-// TODO: move to boost/simd/include/functor.hpp?
-#include <boost/simd/sdk/functor/preprocessor/call.hpp>
-
 #endif

@@ -9,10 +9,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLATTED_MINIMUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLATTED_MINIMUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
 #include <boost/simd/toolbox/swar/functions/splatted_minimum.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
 #include <boost/simd/include/functions/simd/min.hpp>
 #include <boost/simd/include/functions/simd/minimum.hpp>
+#include <boost/simd/include/functions/simd/splat.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
+#include <boost/dispatch/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type A0 is int16_
@@ -29,7 +32,8 @@ namespace boost { namespace simd { namespace ext
 
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef simd::native<float, boost::simd::tag::sse_> ftype;
+      typedef typename meta::make_dependent<float, A0>::type float_t;
+      typedef simd::native<float_t, boost::simd::tag::sse_> ftype;
       A0 min1 = _mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2));
          min1 = _mm_shufflelo_epi16(min1, _MM_SHUFFLE(1, 0, 3, 2));
          min1 = min(a0, min1);

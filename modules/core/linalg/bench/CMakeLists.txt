@@ -8,3 +8,4 @@
 ##############################################################################
 nt2_module_use_modules(unit core.utility)
 ADD_SUBDIRECTORY(scalar)
+ADD_SUBDIRECTORY(general)

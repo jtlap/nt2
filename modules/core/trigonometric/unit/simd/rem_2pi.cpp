@@ -14,6 +14,7 @@
 /// created  by jt the 11/02/2011
 ///
 #include <nt2/toolbox/trigonometric/include/functions/rem_2pi.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

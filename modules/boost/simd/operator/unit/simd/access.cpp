@@ -9,7 +9,6 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::load and store SIMD"
 
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/simd/include/functions/unaligned_load.hpp>
 #include <boost/simd/include/functions/unaligned_store.hpp>

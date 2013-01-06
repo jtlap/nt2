@@ -11,6 +11,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <nt2/toolbox/trigonometric/include/atan.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/toolbox/ieee/include/successor.hpp>
 #include <nt2/toolbox/ieee/include/ulpdist.hpp>
 #include <nt2/toolbox/operator/include/splat.hpp>

@@ -12,6 +12,7 @@
 // timing Test behavior of hyperbolic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/hyperbolic/include/functions/asech1m.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

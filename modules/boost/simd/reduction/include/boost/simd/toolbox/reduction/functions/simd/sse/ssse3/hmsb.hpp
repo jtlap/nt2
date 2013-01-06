@@ -9,8 +9,10 @@
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_HMSB_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SIMD_SSE_SSSE3_HMSB_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSSE3_SUPPORT
+
 #include <boost/simd/toolbox/reduction/functions/hmsb.hpp>
 #include <boost/simd/include/functions/simd/make.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,7 +24,8 @@ namespace boost { namespace simd { namespace ext
     typedef uint32_t result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      typedef native<int8_t, boost::simd::tag::sse_> type8;
+      typedef typename meta::make_dependent<int8_t, A0>::type int8;
+      typedef native<int8, boost::simd::tag::sse_> type8;
       const type8 mask =  make<type8>( 0x1,0x3,0x5,0x7,0x9,0xB,0xD,0xF,
                                        0x80,0x80,0x80,0x80,0x80,0x80,0x80,0x80
 

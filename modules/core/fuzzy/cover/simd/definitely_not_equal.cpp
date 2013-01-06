@@ -14,6 +14,7 @@
 /// created  by jt the 04/03/2011
 ///
 #include <nt2/toolbox/fuzzy/include/functions/definitely_not_equal.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/sdk/simd/logical.hpp>

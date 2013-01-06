@@ -14,6 +14,7 @@
 /// created by jt the 04/12/2010
 ///
 #include <boost/simd/toolbox/bitwise/include/functions/ctz.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/include/functions/ilogb.hpp>
 #include <boost/simd/include/functions/abs.hpp>

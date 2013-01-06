@@ -10,6 +10,7 @@
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMMON_REVERSE_HPP_INCLUDED
 
 #include <boost/simd/toolbox/swar/functions/reverse.hpp>
+#include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

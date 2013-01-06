@@ -12,7 +12,7 @@
 #include <nt2/toolbox/fuzzy/functions/fuzzy_definitely_less.hpp>
 #include <nt2/include/functions/scalar/max.hpp>
 #include <nt2/include/functions/scalar/abs.hpp>
-
+#include <nt2/sdk/meta/as_logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is fundamental_

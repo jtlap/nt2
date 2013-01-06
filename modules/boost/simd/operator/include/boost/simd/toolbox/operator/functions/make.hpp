@@ -11,7 +11,7 @@
 **/
 #ifndef BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_MAKE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_OPERATOR_FUNCTIONS_MAKE_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
 #include <boost/dispatch/meta/as.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
