@@ -10,8 +10,10 @@
 #define BOOST_SIMD_INCLUDE_FUNCTOR_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/simd/extensions.hpp>
 #include <boost/simd/sdk/simd/native_fwd.hpp>
 #include <boost/simd/sdk/simd/category.hpp>
+#include <boost/dispatch/functor/functor.hpp>
 #include <boost/simd/sdk/functor/preprocessor/call.hpp>
 
 #endif
