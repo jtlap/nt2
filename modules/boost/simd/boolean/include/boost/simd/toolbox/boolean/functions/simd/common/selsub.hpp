@@ -23,8 +23,8 @@ namespace boost { namespace simd { namespace ext
                                                         >
                                   )
                                 , ((simd_<logical_<A0>,X>))
-                                  ((simd_<arithmetic_<A1>,X>))
-                                  ((simd_<arithmetic_<A1>,X>))
+                                  ((simd_<unspecified_<A1>,X>))
+                                  ((simd_<unspecified_<A1>,X>))
                                 )
   {
     typedef A1 result_type;

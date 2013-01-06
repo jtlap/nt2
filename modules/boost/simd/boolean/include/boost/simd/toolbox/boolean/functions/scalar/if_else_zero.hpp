@@ -24,7 +24,7 @@ namespace boost { namespace simd { namespace ext
       { return a0 ? a1 :Zero<result_type>(); }
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::if_else_zero_, tag::cpu_, (A0)(A1)
-                            , (scalar_< fundamental_<A0> >)
+                            , (scalar_< unspecified_<A0> >)
                               (scalar_< unspecified_<A1> >)
                             )
   {
