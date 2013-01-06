@@ -17,7 +17,7 @@ namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
                             , (A0)(X)
-                            , ((simd_<fundamental_<A0>,X>))
+                            , ((simd_<unspecified_<A0>,X>))
                             )
   {
     typedef typename meta::scalar_of<A0>::type result_type;
@@ -33,7 +33,7 @@ namespace boost { namespace simd { namespace ext
   };
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::nbtrue_, tag::cpu_
                                      , (A0)(A1)(X)
-                                     , ((simd_<fundamental_<A0>,X>))
+                                     , ((simd_<unspecified_<A0>,X>))
                                        (scalar_< integer_<A1> > )
                                      )
   {
