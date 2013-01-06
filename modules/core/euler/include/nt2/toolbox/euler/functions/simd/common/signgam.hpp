@@ -20,7 +20,7 @@
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 #include <nt2/include/functions/simd/is_nan.hpp>
-#include <nt2/include/functions/simd/ie_equal.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/constants/digits.hpp>
 #include <nt2/sdk/meta/as_logical.hpp>
 
