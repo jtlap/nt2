@@ -77,6 +77,29 @@ namespace nt2
     }
 
     template < class FUNC, class INPUT, class RTAB, class VTAB>
+    struct f0
+    {
+      typedef INPUT                         input_t;
+      typedef RTAB                           rtab_t;
+      typedef typename rtab_t::value_type    real_t;
+      typedef VTAB                           vtab_t;
+      f0(const FUNC & f, const input_t& a, const input_t& b) :
+        f_(f), a_(a), b_(b), firstfunceval_(true), fcnt_(0){};
+      template < class X > inline
+      vtab_t operator()(const X& t)
+      {
+        return evalfun<rtab_t, vtab_t>(f_, t, tooclose_, firstfunceval_, fcnt_);
+      }
+      bool tooclose() const {return tooclose_; }
+      size_t   fcnt() const {return fcnt_; }
+      FUNC             f_;
+      input_t      a_, b_;
+      bool      tooclose_;
+      bool firstfunceval_;
+      size_t        fcnt_;
+    };
+
+    template < class FUNC, class INPUT, class RTAB, class VTAB>
     struct f1
     {
       typedef INPUT                         input_t;

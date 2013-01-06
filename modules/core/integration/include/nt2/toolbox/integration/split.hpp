@@ -10,12 +10,12 @@
 #define NT2_TOOLBOX_INTEGRATION_SPLIT_HPP_INCLUDED
 #include <nt2/include/functions/diff.hpp>
 #include <nt2/include/functions/abs.hpp>
-#include <nt2/include/functions/asum1.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/oneplus.hpp>
 #include <nt2/include/functions/ceil.hpp>
 #include <nt2/include/functions/findi.hpp>
 #include <nt2/include/functions/find.hpp>
+#include <nt2/include/functions/globalasum1.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/colon.hpp>
 #include <nt2/include/functions/horzcat.hpp>
@@ -47,17 +47,19 @@ namespace nt2
       typedef typename meta::as_logical<itype_t>             btype_t;
       typedef typename meta::as_integer<itype_t, signed>    iitype_t;
       typedef typename container::table<itype_t>              itab_t;
-      typedef typename container::table<L>                    ltab_t;
-      itab_t absdx = nt2::abs(nt2::diff(x));
-      pathlen = nt2::asum1(absdx);
+      typedef typename meta::as_real<itype_t>::type          rtype_t;
+      typedef typename container::table<rtype_t>              rtab_t;
+      typedef typename container::table<ptrdiff_t>            ptab_t;
+      rtab_t absdx = nt2::abs(nt2::diff(x));
+      pathlen = nt2::globalasum1(absdx);
       xx = x;
       if (pathlen > 0)
       {
-        L udelta = minsubs/pathlen;
-        ltab_t tmp_nnew =  nt2::minusone(nt2::ceil(absdx*udelta));
-//        BOOST_AUTO_TPL(tmp_nnew, nt2::minusone(nt2::ceil(absdx*udelta)));
-        nt2::container::table<ptrdiff_t> idxnew = nt2::rowvect(nt2::findi(is_gtz(tmp_nnew)));
-        ltab_t nnew = tmp_nnew(idxnew);
+        rtype_t udelta = minsubs/pathlen;
+        rtab_t tmp_nnew =  nt2::minusone(nt2::ceil(absdx*udelta));
+        //BOOST_AUTO_TPL(tmp_nnew, nt2::minusone(nt2::ceil(absdx*udelta)));
+        ptab_t idxnew = nt2::rowvect(nt2::find(is_gtz(tmp_nnew)));
+        rtab_t nnew = tmp_nnew(idxnew);
         for (size_t j = nt2::numel(idxnew); j >= 1; --j)
         {
           ptrdiff_t k = idxnew(j);
