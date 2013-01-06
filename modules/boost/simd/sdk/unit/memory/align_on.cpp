@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::align_on"
 
 #include <boost/simd/sdk/memory/align_on.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/meta/align_on.hpp>
 
 #include <boost/mpl/int.hpp>

@@ -12,6 +12,7 @@
 // timing Test behavior of elliptic components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/elliptic/include/functions/ellint_1.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::transform"
 
 #include <boost/simd/sdk/simd/iterator.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/transform.hpp>
 #include <boost/simd/sdk/simd/meta/unroll.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>

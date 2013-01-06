@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::is_power_of_2"
 
 #include <boost/simd/sdk/memory/is_power_of_2.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/meta/is_power_of_2.hpp>
 
 #include <boost/mpl/int.hpp>

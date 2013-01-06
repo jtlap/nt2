@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::meta float"
 
 #include <nt2/sdk/unit/module.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/meta/float.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 

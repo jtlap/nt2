@@ -14,6 +14,7 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/include/functions/abs.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/real.hpp>

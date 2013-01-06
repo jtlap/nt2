@@ -15,6 +15,7 @@
 /// modified by jt the 06/04/2011
 
 #include <nt2/include/functions/load.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

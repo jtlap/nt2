@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::stream"
 
 #include <boost/simd/include/functions/stream.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/config/types.hpp>
 #include <boost/simd/sdk/config/type_lists.hpp>
 #include <nt2/sdk/unit/module.hpp>

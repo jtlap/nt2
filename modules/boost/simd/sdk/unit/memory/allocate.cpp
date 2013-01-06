@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::allocate and related functions"
 
 #include <boost/simd/sdk/memory/allocate.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/deallocate.hpp>
 #include <boost/simd/sdk/memory/reallocate.hpp>

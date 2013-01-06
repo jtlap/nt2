@@ -1,4 +1,5 @@
 #include <iostream>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/config/os.hpp>
 
 int main()

@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 boost.simd.swar toolbox - permute/simd Mode"
 
 #include <boost/simd/toolbox/swar/include/functions/permute.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/constants/zero.hpp>
 #include <boost/simd/include/constants/valmax.hpp>
 #include <nt2/sdk/unit/tests.hpp>

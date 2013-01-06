@@ -1,4 +1,5 @@
 #include <iostream>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 
 using boost::simd::is_aligned;

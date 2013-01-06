@@ -14,6 +14,7 @@
 /// created by jt the 28/11/2010
 ///
 #include <nt2/include/functions/bitwise_cast.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <nt2/include/functions/real.hpp>
 #include <nt2/include/functions/real.hpp>

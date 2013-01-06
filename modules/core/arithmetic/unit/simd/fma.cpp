@@ -14,6 +14,7 @@
 /// created by jt the 01/12/2010
 ///
 #include <nt2/toolbox/arithmetic/include/functions/fma.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

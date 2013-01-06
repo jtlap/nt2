@@ -12,6 +12,7 @@
 // timing Test behavior of boost.simd.arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/arithmetic/include/functions/max.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

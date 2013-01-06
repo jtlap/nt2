@@ -10,6 +10,7 @@
 
 #include <nt2/sdk/complex/complex.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>

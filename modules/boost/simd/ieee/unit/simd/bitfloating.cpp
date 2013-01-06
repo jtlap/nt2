@@ -14,6 +14,7 @@
 /// created by jt the 04/12/2010
 ///
 #include <boost/simd/toolbox/ieee/include/functions/bitfloating.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/toolbox/constant/constant.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>

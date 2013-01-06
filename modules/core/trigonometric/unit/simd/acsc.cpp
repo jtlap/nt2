@@ -15,6 +15,7 @@
 ///
 /// asin(1/a0)
 #include <nt2/toolbox/trigonometric/include/functions/acsc.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_asinl(long double);}

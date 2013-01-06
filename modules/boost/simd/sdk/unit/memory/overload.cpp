@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::memory based aligned new/delete overload"
 
 #include <boost/simd/sdk/memory/overload.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 
 #include <nt2/sdk/unit/module.hpp>

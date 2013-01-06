@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::make_aligned"
 
 #include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <nt2/sdk/unit/module.hpp>
