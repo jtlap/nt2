@@ -219,13 +219,16 @@ namespace nt2 { namespace details
     }
 
     template < class FUNC >
-    void vadapt(FUNC f) //real path integration
+    void vadapt(FUNC f)
     {
-      std::cout << "vadapt real path" << std::setprecision(15) << std::scientific << std::endl;
+//      std::cout << std::setprecision(15) << std::scientific << std::endl;
       real_t pathlen;
       itab_t tmp;
+      NT2_DISPLAY(interval_);
       details::split(interval_, minintervalcount_, tmp, pathlen);
       interval_ = tmp;
+      NT2_DISPLAY(interval_);
+      NT2_DISPLAY(pathlen);
       if (pathlen == 0)
       {
         res_ = details::midparea<value_t>(f, interval_(begin_), interval_(end_));
@@ -265,7 +268,7 @@ namespace nt2 { namespace details
         // sufficiently accurate and use them to update the partial
         // error sum.
         bitab_t ff= nt2::le(nt2::abs(errsubs), (Two<real_t>()*tol/pathlen)*nt2::abs(halfh));
-        bitab_t notff = nt2::logical_not(ff); //nt2::gt(nt2::abs(errsubs), (Two<real_t>()*tol/pathlen)*halfh);
+        bitab_t notff = nt2::logical_not(ff);
         err_ok += nt2::globalsum(errsubs(ff));
         // Remove errsubs entries for subintervals with accurate
         // approximations.
@@ -294,7 +297,6 @@ namespace nt2 { namespace details
         itab_t z = catv(catv(catv(subs(begin_,nt2::_),midpt),midpt),subs(end_,nt2::_));
         subs = reshape(z,2,numel(z)/2);
 //         std::cout << " inbtrue(notff) " <<  nt2::inbtrue(notff)<< std::endl;
-        std::cout << " nsubs "<< nsubs << std::endl;
       }
     }
 
