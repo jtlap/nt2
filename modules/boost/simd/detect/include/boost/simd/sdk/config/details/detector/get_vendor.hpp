@@ -6,12 +6,11 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_X86_GET_VENDOR_HPP_INCLUDED
-#define BOOST_SIMD_SDK_CONFIG_DETAILS_X86_GET_VENDOR_HPP_INCLUDED
+#ifndef BOOST_SIMD_SDK_CONFIG_DETAILS_DETECTOR_GET_VENDOR_HPP_INCLUDED
+#define BOOST_SIMD_SDK_CONFIG_DETAILS_DETECTOR_GET_VENDOR_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch/x86.hpp>
 #ifdef BOOST_SIMD_ARCH_X86
-#include <boost/simd/sdk/config/details/impl/vendors.hpp>
 #include <boost/simd/sdk/config/details/detector/cpuid.hpp>
 #include <cstring>
 
@@ -23,8 +22,14 @@
 #define BOOST_SIMD_VENDOR_INTEL "GenuineIntel"
 #define BOOST_SIMD_VENDOR_AMD   "AuthenticAMD"
 
-namespace boost { namespace simd { namespace config
+namespace boost { namespace simd { namespace config { namespace x86
 {
+  enum vendor
+  {
+    intel,
+    amd
+  };
+
   inline static bool str_match(const int abcd[4], const char* vendor)
   {
     return ( !std::memcmp(abcd + 1, vendor,     4)
@@ -41,7 +46,7 @@ namespace boost { namespace simd { namespace config
     else if( str_match(regs_x86, BOOST_SIMD_VENDOR_AMD) ) return amd;
     else return -1;
   }
-} } }
+} } } }
 
 #endif
 

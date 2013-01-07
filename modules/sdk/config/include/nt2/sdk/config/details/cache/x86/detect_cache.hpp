@@ -13,7 +13,7 @@
 
 #ifdef BOOST_SIMD_ARCH_X86
 #include <boost/simd/sdk/config/details/detector/cpuid.hpp>
-#include <boost/simd/sdk/config/details/get_vendor.hpp>
+#include <boost/simd/sdk/config/details/detector/get_vendor.hpp>
 #include <boost/assert.hpp>
 
 namespace nt2{ namespace config{ namespace details{
@@ -33,9 +33,9 @@ namespace nt2{ namespace config{ namespace details{
     int cache_ecx = 0;
     int type;
 
-    switch(boost::simd::config::get_vendor())
+    switch(boost::simd::config::x86::get_vendor())
     {
-    case boost::simd::config::intel :
+    case boost::simd::config::x86::intel :
 
       do{
         boost::simd::config::x86::cpuidex(regs, 0x00000004, cache_ecx);
@@ -67,7 +67,7 @@ namespace nt2{ namespace config{ namespace details{
 
       break;
 
-    case boost::simd::config::amd :
+    case boost::simd::config::x86::amd :
 
       boost::simd::config::x86::cpuidex(regs,0x80000005,0);
       cache_line_sizes_[0] = regs[2] & 0x000000FF;
