@@ -12,7 +12,7 @@
 #include <nt2/include/functions/is_finite.hpp>
 #include <nt2/include/functions/is_not_finite.hpp>
 #include <nt2/include/constants/half.hpp>
-#include <nt2/include/functions/cons.hpp>
+
 namespace nt2
 {
   namespace details
@@ -26,7 +26,6 @@ namespace nt2
       // order quadrature formula, this function is only used to return
       // nan or zero of the appropriate class when a == b, is_nan(a), or
       // is_nan(b).
-    NT2_DISPLAY("midparea----");
       X x = nt2::average(a, b);
       if (is_finite(a) && is_finite(b) && is_not_finite(x))
       {

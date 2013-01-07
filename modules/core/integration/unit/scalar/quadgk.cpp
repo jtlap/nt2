@@ -146,7 +146,7 @@ struct l
 //   NT2_TEST(res.successful);
 // }
 
-NT2_TEST_CASE_TPL( quadgk_cplx_inout, (double) )
+NT2_TEST_CASE_TPL( quadgk_cplx_inout, NT2_REAL_TYPES)
 {
   using nt2::quadgk;
   using nt2::options;

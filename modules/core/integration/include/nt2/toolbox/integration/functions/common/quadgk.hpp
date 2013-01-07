@@ -54,17 +54,10 @@
 #include <nt2/include/functions/tanh.hpp>
 #include <nt2/include/functions/vertcat.hpp>
 #include <nt2/include/functions/zeros.hpp>
-
 #include <nt2/core/container/table/table.hpp>
 
 #include <boost/mpl/bool.hpp>
 
-#include <nt2/table.hpp>
-#include <iomanip>
-#include <nt2/sdk/meta/type_id.hpp>
-
-#include <nt2/include/functions/inbtrue.hpp>
-#include <nt2/include/functions/if_one_else_zero.hpp>
 
 namespace nt2 { namespace details
 {
@@ -224,11 +217,8 @@ namespace nt2 { namespace details
 //      std::cout << std::setprecision(15) << std::scientific << std::endl;
       real_t pathlen;
       itab_t tmp;
-      NT2_DISPLAY(interval_);
       details::split(interval_, minintervalcount_, tmp, pathlen);
       interval_ = tmp;
-      NT2_DISPLAY(interval_);
-      NT2_DISPLAY(pathlen);
       if (pathlen == 0)
       {
         res_ = details::midparea<value_t>(f, interval_(begin_), interval_(end_));
@@ -340,7 +330,7 @@ namespace nt2 { namespace details
           bool infa = nt2::is_inf(a_);
           if (infa && finb)
           {
-            NT2_DISPLAY("case f3");
+//            NT2_DISPLAY("case f3");
             if  (nt2::numel(tinterval_) > 2)
             {
               BOOST_AUTO_TPL(alpha, nt2::sqrt(b_-tinterval_(2, end_-1)));
@@ -352,7 +342,7 @@ namespace nt2 { namespace details
           }
           else if (infa && infb)
           {
-            NT2_DISPLAY("case f4");
+//            NT2_DISPLAY("case f4");
             if  (nt2::numel(tinterval_) > 2)
             {
               BOOST_AUTO_TPL(alpha, nt2::tanh(nt2::asinh(Two<input_t>()*tinterval_(2, end_-1))*Half<input_t>()));
@@ -364,6 +354,7 @@ namespace nt2 { namespace details
           }
           else //is_nan(a) || is_nan(b)
           {
+//            NT2_DISPLAY("case else");
             res_ = midparea<value_t>(f, a_, b_);
             errbnd_ = nt2::abs(res_);
             fcnt_ = 1;

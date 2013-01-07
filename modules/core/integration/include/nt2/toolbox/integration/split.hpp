@@ -25,7 +25,6 @@
 #include <nt2/include/functions/repnum.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/core/container/table/table.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2
 {
@@ -50,11 +49,9 @@ namespace nt2
       typedef typename meta::as_real<itype_t>::type          rtype_t;
       typedef typename container::table<rtype_t>              rtab_t;
       typedef typename container::table<ptrdiff_t>            ptab_t;
-      NT2_DISPLAY("in split");
       rtab_t absdx = nt2::abs(nt2::diff(x));
       pathlen = nt2::globalasum1(absdx);
       xx = x;
-      NT2_DISPLAY(xx);
       if (pathlen > 0)
       {
         rtype_t udelta = minsubs/pathlen;
@@ -62,24 +59,13 @@ namespace nt2
         //BOOST_AUTO_TPL(tmp_nnew, nt2::minusone(nt2::ceil(absdx*udelta)));
         ptab_t idxnew = nt2::rowvect(nt2::find(is_gtz(tmp_nnew)));
         rtab_t nnew = tmp_nnew(idxnew);
-        NT2_DISPLAY(nnew);
-        NT2_DISPLAY(idxnew);
-        NT2_DISPLAY(tmp_nnew);
         for (size_t j = nt2::numel(idxnew); j >= 1; --j)
         {
-          NT2_DISPLAY(j);
           ptrdiff_t k = idxnew(j);
-          NT2_DISPLAY(k);
           rtype_t nnj = nnew(j);
           //Calculate new points.
-          NT2_DISPLAY(x(k));
-          NT2_DISPLAY(x(k+1));
-          NT2_DISPLAY(x(k+1)-x(k));
-          NT2_DISPLAY(nt2::_(One<rtype_t>(), nnj)/oneplus(nnj));
-          NT2_DISPLAY((nt2::_(One<rtype_t>(), nnj)/oneplus(nnj))*(x(k+1)-x(k)));
           itab_t  newpts =  x(k)+(nt2::_(One<rtype_t>(), nnj)/oneplus(nnj))*(x(k+1)-x(k));
           //          newpts = newpts+x(k);
-          NT2_DISPLAY(newpts);
           // Insert the new points.
           itab_t xx1 = nt2::cath(nt2::cath(xx(nt2::_(begin_, k)),newpts),xx(nt2::_(k+1, end_)));
           xx =  xx1;

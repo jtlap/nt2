@@ -18,6 +18,7 @@
 #include <nt2/include/functions/average.hpp>
 #include <nt2/include/functions/find.hpp>
 #include <nt2/include/functions/isempty.hpp>
+#include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/oneminus.hpp>
