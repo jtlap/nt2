@@ -10,10 +10,11 @@
 #define BOOST_SIMD_SDK_CONFIG_DETAILS_X86_DETECT_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch/x86.hpp>
+
+#ifdef BOOST_SIMD_ARCH_X86
 #include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
 #include <boost/simd/sdk/config/details/detector/get_vendor.hpp>
 #include <boost/simd/sdk/config/details/detector/cpuid.hpp>
-
 
 /*!
  *\file detect.hpp
@@ -117,4 +118,5 @@ namespace boost { namespace simd { namespace config { namespace details
 
 } } } }
 
+#endif
 #endif
