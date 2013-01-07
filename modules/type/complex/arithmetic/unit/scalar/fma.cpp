@@ -52,3 +52,99 @@ NT2_TEST_CASE_TPL ( fma_real__3_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST_EQUAL(fma(cT(nt2::Zero<T>()), cT(nt2::Zero<T>()), cT(nt2::Zero<T>())), cT(nt2::Zero<T>()));
 } // end of test for floating_
 
+
+NT2_TEST_CASE_TPL ( fma_various,  BOOST_SIMD_REAL_TYPES)
+{
+
+  using nt2::fma;
+  using nt2::tag::fma_;
+  typedef std::complex<T> cT;
+  typedef typename nt2::meta::as_dry<T>::type dT;
+  typedef typename nt2::meta::as_imaginary<T>::type iT;
+
+  // specific values tests
+
+  std::cout << "0\n";
+  NT2_TEST_EQUAL(fma(T(2), T(3), T(4)), T(10));
+  NT2_TEST_EQUAL(fma(cT(2), cT(3), cT(4)), cT(10));
+  NT2_TEST_EQUAL(    cT(2)*cT(3)+cT(4), cT(10));
+  std::cout << "1\n";
+  NT2_TEST_EQUAL(fma(cT(2), cT(3), iT(4)), cT(6, 4));
+  NT2_TEST_EQUAL(fma(cT(2), cT(3), cT(0, 4)), cT(6, 4));
+  NT2_TEST_EQUAL(    cT(2)*cT(3)+cT(0, 4), cT(6, 4));
+  std::cout << "2\n";
+  NT2_TEST_EQUAL(fma(cT(2), iT(3), cT(4)), cT(4, 6));
+  NT2_TEST_EQUAL(fma(cT(2), cT(0, 3), cT(4)), cT(4, 6));
+  NT2_TEST_EQUAL((cT(2)*cT(0, 3)+cT(4)), cT(4, 6));
+  std::cout << "3\n";
+  NT2_TEST_EQUAL(fma(iT(2), cT(3), cT(4)), cT(4, 6));
+  NT2_TEST_EQUAL(fma(cT(0, 2), cT(3), cT(4)), cT(4, 6));
+  NT2_TEST_EQUAL((cT(0, 2)* cT(3)+cT(4)), cT(4, 6));
+  std::cout << "4\n";
+  NT2_TEST_EQUAL(fma(cT(2), iT(3), iT(4)), cT(0, 10));
+  NT2_TEST_EQUAL(fma(cT(2), cT(0, 3), cT(0, 4)), cT(0, 10));
+  NT2_TEST_EQUAL((cT(2)* cT(0, 3)+ cT(0, 4)), cT(0, 10));
+  std::cout << "5\n";
+  NT2_TEST_EQUAL(fma(iT(2), iT(3), cT(4, 5)), cT(-2, 5));
+  NT2_TEST_EQUAL(fma(cT(0, 2), cT(0, 3), cT(4, 5)), cT(-2, 5));
+  NT2_TEST_EQUAL((cT(0, 2)* cT(0, 3)+ cT(4, 5)), cT(-2, 5));
+  std::cout << "6\n";
+  NT2_TEST_EQUAL(fma(iT(2), cT(3, 5), iT(4)), cT(-10, 10));
+  NT2_TEST_EQUAL(fma(cT(0, 2), cT(3, 5), cT(0, 4)), cT(-10, 10));
+  NT2_TEST_EQUAL((cT(0, 2)* cT(3, 5)+ cT(0, 4)), cT(-10, 10));
+  std::cout << "7\n";
+  NT2_TEST_EQUAL(fma(iT(2), iT(3),iT(4)), cT(-6, 4));
+  NT2_TEST_EQUAL(fma(cT(0, 2), cT(0, 3), cT(0, 4)), cT(-6, 4));
+  NT2_TEST_EQUAL((cT(0, 2)*cT(0, 3)+cT(0, 4)), cT(-6, 4));
+  std::cout << "8\n";
+  NT2_TEST_EQUAL(fma(T(2), cT(5, 3),cT(6, 4)), cT(16, 10));
+  NT2_TEST_EQUAL(fma(cT(2), cT(5, 3), cT(6, 4)), cT(16, 10));
+  NT2_TEST_EQUAL((cT(2)*cT(5, 3)+cT(6, 4)), cT(16, 10));
+  std::cout << "9\n";
+  NT2_TEST_EQUAL(fma(T(2), cT(5, 3),cT(6, 4)), cT(16, 10));
+  NT2_TEST_EQUAL(fma(cT(2), cT(5, 3), cT(6, 4)), cT(16, 10));
+  NT2_TEST_EQUAL((cT(2)*cT(5, 3)+cT(6, 4)), cT(16, 10));
+  std::cout << "10\n";
+  NT2_TEST_EQUAL(fma(cT(2, 3), cT(5, 3),T(6)), cT(7, 21));
+  NT2_TEST_EQUAL(fma(cT(2, 3), cT(5, 3), cT(6)), cT(7, 21));
+  NT2_TEST_EQUAL((cT(2, 3)*cT(5, 3)+cT(6)), cT(7, 21));
+  std::cout << "11\n";
+  NT2_TEST_EQUAL(fma(cT(2, 3), T(5),T(6)), cT(16, 15));
+  NT2_TEST_EQUAL(fma(cT(2, 3), cT(5), cT(6)), cT(16, 15));
+  NT2_TEST_EQUAL((cT(2, 3)*cT(5)+cT(6)), cT(16, 15));
+  std::cout << "12\n";
+  NT2_TEST_EQUAL(fma(T(2), cT(5, 3),T(6)), cT(16, 6));
+  NT2_TEST_EQUAL(fma(cT(2), cT(5, 3), cT(6)), cT(16, 6));
+  NT2_TEST_EQUAL((cT(2)*cT(5, 3)+cT(6)), cT(16, 6));
+  std::cout << "13\n";
+  NT2_TEST_EQUAL(fma(T(2), T(5),cT(6, 2)), cT(16, 2));
+  NT2_TEST_EQUAL(fma(cT(2), cT(5), cT(6, 2)), cT(16, 2));
+  NT2_TEST_EQUAL((cT(2)*cT(5)+cT(6, 2)), cT(16, 2));
+  std::cout << "14\n";
+  NT2_TEST_EQUAL(fma(T(2), iT(5),cT(6, 2)), cT(6, 12));
+  NT2_TEST_EQUAL(fma(cT(2), cT(0, 5), cT(6, 2)), cT(6, 12));
+  NT2_TEST_EQUAL((cT(2)*cT(0, 5)+cT(6, 2)), cT(6, 12));
+  std::cout << "15\n";
+  NT2_TEST_EQUAL(fma(T(2), cT(2, 5),iT(2)), cT(4, 12));
+  NT2_TEST_EQUAL(fma(cT(2), cT(2, 5), cT(0, 2)), cT(4, 12));
+  NT2_TEST_EQUAL((cT(2)*cT(2, 5)+cT(0, 2)), cT(4, 12));
+  std::cout << "16\n";
+  NT2_TEST_EQUAL(fma(cT(2, 5), iT(5),T(2)), cT(-23, 10));
+  NT2_TEST_EQUAL(fma(cT(2, 5), cT(0, 5), cT(2)), cT(-23, 10));
+  NT2_TEST_EQUAL((cT(2, 5)*cT(0, 5)+cT(2)), cT(-23, 10));
+  std::cout << "17\n";
+  NT2_TEST_EQUAL(fma(iT(5), cT(2, 5),T(2)), cT(-23, 10));
+  NT2_TEST_EQUAL(fma(cT(0, 5), cT(2, 5), cT(2)), cT(-23, 10));
+  NT2_TEST_EQUAL((cT(0, 5)*cT(2, 5)+cT(2)), cT(-23, 10));
+  std::cout << "18\n";
+  NT2_TEST_EQUAL(fma(cT(2, 5), T(3),iT(2)), cT(6, 17));
+  NT2_TEST_EQUAL(fma(cT(2, 5), cT(3, 0), cT(0, 2)), cT(6, 17));
+  NT2_TEST_EQUAL((cT(2, 5)*cT(3, 0)+cT(0, 2)), cT(6, 17));
+  std::cout << "19\n";
+  NT2_TEST_EQUAL(fma(iT(5), T(3),cT(6, 2)), cT(6, 17));
+  NT2_TEST_EQUAL(fma(cT(0, 5), cT(3), cT(6, 2)), cT(6, 17));
+  NT2_TEST_EQUAL((cT(0, 5)*cT(3, 0)+cT(6, 2)), cT(6, 17));
+
+
+
+} // end of test for floating_
