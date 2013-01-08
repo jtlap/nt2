@@ -11,6 +11,7 @@ include(NT2Module)
 nt2_module_source_setup(boost.simd.config)
 
 nt2_module_postconfigure(gather_includes --ignore details --ignore impl
+                                         --name tags.hpp
                                          boost/simd/sdk/simd/extensions/meta
                                          --out boost/simd/sdk/simd/extensions/meta
                         )
