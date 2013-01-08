@@ -168,6 +168,8 @@ namespace nt2 { namespace ext
                                    , is_vectorizable_scalar< boost::mpl::_2 >
                                    >
                  >::type type;
+
+    static const bool value = type::value;
   };
 
 
