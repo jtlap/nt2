@@ -128,11 +128,11 @@ NT2_TEST_CASE( vectorizable )
   typedef float T;
 
   nt2::table<T> a;
-  vectorizable_0( a(_, _(1, 16), _(mpl::int_<1>(), mpl::int_<16>()), 1) );
-  vectorizable_1( a(_, _, _, _(mpl::int_<1>(), mpl::int_<7>())) );
-  vectorizable_2( a(_, _) );
-  vectorizable_3( a(_, 1, 2) );
-  vectorizable_4( a(1, _) );
+  vectorizable_0( (a+a)(_, _(1, 16), _(mpl::int_<1>(), mpl::int_<16>()), 1) );
+  vectorizable_1( (a+a)(_, _, _, _(mpl::int_<1>(), mpl::int_<7>())) );
+  vectorizable_2( (a+a)(_, _) );
+  vectorizable_3( (a+a)(_, 1, 2) );
+  vectorizable_4( (a+a)(1, _) );
 }
 
 NT2_TEST_CASE( dimensions )
