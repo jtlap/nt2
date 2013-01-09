@@ -26,64 +26,27 @@
 
 NT2_TEST_CASE_TPL ( norminv_1,  (float)(double))//NT2_REAL_TYPES)
 {
-
   using nt2::norminv;
   using nt2::tag::norminv_;
   using nt2::_;
-
-
   // specific values tests
   NT2_TEST_ULP_EQUAL(norminv(nt2::Nan<T>()), nt2::Nan<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(norminv(T(0.841344746068542948585232545632)), nt2::One<T>(), 3);
   NT2_TEST_ULP_EQUAL(norminv(T(0.158655253931457051414767454368)), nt2::Mone<T>(), 6.5);
   NT2_TEST_ULP_EQUAL(norminv(nt2::Zero<T>()), nt2::Minf<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(norminv(nt2::One<T>()), nt2::Inf<T>(), 0.5);
-
-  nt2::table<T> a = _(T(0), T(1), T(5))/T(5);
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(norminv(a));
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( norminv_2,  NT2_REAL_TYPES)
 {
-
   using nt2::norminv;
   using nt2::tag::norminv_;
   using nt2::_;
-
-
   // specific values tests
   NT2_TEST_ULP_EQUAL(norminv(nt2::Nan<T>(), nt2::One<T>()), nt2::Nan<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(norminv(T(0.841344746068542948585232545632), nt2::One<T>()), nt2::Two<T>(), 3);
   NT2_TEST_ULP_EQUAL(norminv(T(0.158655253931457051414767454368), nt2::One<T>()), nt2::Zero<T>(), 6.5);
   NT2_TEST_ULP_EQUAL(norminv(nt2::One<T>(), nt2::One<T>()), nt2::Inf<T>(), 0.5);
   NT2_TEST_ULP_EQUAL(norminv(nt2::Zero<T>(), nt2::One<T>()), nt2::Minf<T>(), 0.5);
-
-  nt2::table<T> a = _(T(-1), T(1), T(11))/T(10);
-  NT2_DISPLAY(a);
-  NT2_DISPLAY(norminv(a));
-  NT2_DISPLAY(norminv(a, nt2::Zero<T>()));
-  NT2_DISPLAY(norminv(a, nt2::Zero<T>(), nt2::One<T>()));
-  //  a = nt2::reshape(_(T(1), T(16)), 4, 4);
-  //   NT2_DISPLAY(norminv(a, a(_, 1)));
-  //   NT2_DISPLAY(norminv(a, a(1, _)));
-  NT2_DISPLAY(norminv(a, a));
-  NT2_DISPLAY(norminv(a, a, nt2::abs(a)+nt2::One<T>()));
-  NT2_DISPLAY(norminv(a, a, T(2)));
-  //   NT2_DISPLAY(norminv(a, a(_, 1), T(2)));
-  nt2::table<T> r, plo, pup;
-  nt2::table<T> cov = nt2::eye(2, nt2::meta::as_<T>());
-  nt2::tie(r, plo, pup) = nt2::norminv(a, nt2::ones(size(a), nt2::meta::as_<T>()), T(1), cov, T(0.05));
-  NT2_DISPLAY(r);
-  NT2_DISPLAY(plo);
-  NT2_DISPLAY(pup);
-  r =  nt2::norminv(a, nt2::ones(size(a), nt2::meta::as_<T>()), T(1), cov, T(0.05));
-  NT2_DISPLAY(r);
-  nt2::tie(r, plo, pup) = nt2::norminv(a, T(0), T(1), cov, T(0.05));
-  NT2_DISPLAY(r);
-  NT2_DISPLAY(plo);
-  NT2_DISPLAY(pup);
-
-
 } // end of test for floating_
 
