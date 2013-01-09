@@ -146,7 +146,7 @@ namespace nt2 { namespace ext
                                   value(boost::proto::child_c<0>(i)).lower(b,s)
                                 , p
                                 , meta::as_<result_type>()
-                                );
+                                ) - b;
     }
   };
 
@@ -177,7 +177,7 @@ namespace nt2 { namespace ext
                           , boost::proto::value(boost::proto::child_c<1>(i))
                           , p
                           , meta::as_<result_type>()
-                          );
+                          ) - b;
     }
   };
 } }
