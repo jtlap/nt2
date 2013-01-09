@@ -18,6 +18,7 @@
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/logical_and.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 
