@@ -112,9 +112,9 @@ namespace nt2 { namespace ext
 
       // Get the linear position from the transformed subscript and evaluate
       return nt2::run( boost::proto::child_c<0>(expr)
-                     , as_index( boost::proto::child_c<0>(expr).extent()
-                               , trs
-                               )
+                     , nt2::as_index( boost::proto::child_c<0>(expr).extent()
+                                    , trs
+                                    )
                      , data
                      );
     }
