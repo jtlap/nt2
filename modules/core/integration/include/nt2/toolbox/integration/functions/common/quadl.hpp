@@ -237,15 +237,17 @@ namespace nt2 { namespace ext
                               (unspecified_<O>)
     )
   {
-     typedef typename O::value_type                                  value_type;
-     typedef typename O::input_type                                  input_type;
-     typedef typename meta::as_real<value_type>::type                 real_type;
-     typedef nt2::container::table<value_type>                           vtab_t;
-     typedef nt2::integration::output<vtab_t,real_type>             result_type;
+    typedef typename O::value_t                                             value_t;
+    typedef typename O::input_t                                             input_t;
+    typedef typename O::real_t                                               real_t;
+    typedef typename O::result_t                                           result_t;
+    typedef typename O::restab_t                                           restab_t;
+    typedef typename boost::is_same<input_t,real_t>::type           input_is_real_t;
+    typedef nt2::integration::output<restab_t,real_t>                   result_type;
 
     result_type operator()(F f, X const& x, O const& o)
     {
-      details::quadl_impl<input_type, value_type> q;
+      details::quadl_impl<input_t, value_t> q;
       q.compute(f, x, o);
       result_type that = {q.result(), q.lasterror(),q.nbeval(),q.ok()};
 //      o.display_options();

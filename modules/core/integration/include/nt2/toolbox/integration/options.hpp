@@ -14,6 +14,8 @@
 #include <nt2/sdk/meta/as_real.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/complex/meta/is_complex.hpp>
+
 namespace nt2
 {
   /**
@@ -79,19 +81,19 @@ namespace nt2
   template<typename T, typename V, typename TAG = void> struct integ_params
   {
 
-    typedef V                                                  value_type;
-    typedef T                                                  input_type;
-    typedef typename meta::as_real<T>::type                     real_type;
-    typedef typename meta::as_logical<real_type>                bool_type;
-    typedef container::table<value_type>                        vtab_type;
-    typedef container::table<input_type>                        itab_type;
-    typedef container::table<real_type>                         rtab_type;
-    typedef container::table<bool>                              btab_type;
-    static real_type abstol()       { return nt2::Sqrteps<real_type>();  }
-    static real_type reltol()       { return nt2::Sqrteps<real_type>();  }
+    typedef V                                                            value_t;
+    typedef T                                                            input_t;
+    typedef typename meta::as_real<T>::type                               real_t;
+    typedef typename meta::as_logical<real_t>                             bool_t;
+    typedef container::table<value_t>                                     vtab_t;
+    typedef container::table<input_t>                                     itab_t;
+    typedef container::table<real_t>                                      rtab_t;
+    typedef container::table<bool>                                        btab_t;
+    static real_t abstol()          { return nt2::Sqrteps<real_t>();     }
+    static real_t reltol()          { return nt2::Sqrteps<real_t>();     }
     static std::size_t maxfunccnt() { return 10000;                      }
     static std::size_t maxintvcnt() { return   650;                      }
-    static itab_type waypoints()    { return itab_type(of_size(1, 0));   }
+    static itab_t waypoints()       { return itab_t(of_size(1, 0));      }
     static bool singular_a()        { return false;                      }
     static bool singular_b()        { return false;                      }
     static bool return_waypoints()  { return false;                      }
@@ -112,20 +114,23 @@ namespace nt2 { namespace details
   // options pack expressions
   template<typename T, typename V, typename TAG = void> struct integration_settings
   {
-    typedef V                                                  value_type;
-    typedef T                                                  input_type;
-    typedef typename meta::as_real<T>::type                     real_type;
-    typedef typename meta::as_logical<real_type>                bool_type;
-    typedef container::table<value_type>                        vtab_type;
-    typedef container::table<input_type>                        itab_type;
-    typedef container::table<real_type>                         rtab_type;
-    typedef nt2::integ_params<input_type, value_type, TAG>             ip;
+    typedef V                                                            value_t;
+    typedef T                                                            input_t;
+    typedef typename meta::as_real<T>::type                               real_t;
+    typedef typename meta::as_logical<real_t>                             bool_t;
+    typedef container::table<value_t>                                     vtab_t;
+    typedef container::table<input_t>                                     itab_t;
+    typedef container::table<real_t>                                      rtab_t;
+    typedef nt2::integ_params<input_t, value_t, TAG>                          ip;
+    typedef typename meta::is_complex<value_t>::type                 v_is_cplx_t;
+    typedef typename boost::mpl::if_<v_is_cplx_t,value_t,input_t>::type result_t;
+    typedef container::table<result_t>                                  restab_t;
 
     integration_settings ( std::size_t        mfc = ip::maxfunccnt()
                            , std::size_t      mic = ip::maxintvcnt()
-                           , real_type         at = ip::abstol()
-                           , real_type         rt = ip::reltol()
-                           , itab_type const& wpt = ip::waypoints()
+                           , real_t            at = ip::abstol()
+                           , real_t            rt = ip::reltol()
+                           , itab_t const&    wpt = ip::waypoints()
                            , bool             sga = ip::singular_a()
                            , bool             sgb = ip::singular_b()
                            , bool             rwp = ip::return_waypoints()
@@ -166,9 +171,9 @@ namespace nt2 { namespace details
     }
     std::size_t      maxfunccnt;
     std::size_t      maxintvcnt;
-    real_type            abstol;
-    real_type            reltol;
-    itab_type         waypoints;
+    real_t               abstol;
+    real_t               reltol;
+    itab_t            waypoints;
     bool             singular_a;
     bool             singular_b;
     bool       return_waypoints;

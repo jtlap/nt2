@@ -16,10 +16,11 @@ namespace nt2 { namespace integration
 {
   template<typename T, typename R> struct output
   {
-    T           integrals;
-    R           errors;
+    T            integrals;
+    R               errors;
     std::size_t eval_count;
     bool        successful;
+    ptrdiff_t      warning;
   };
 } }
 
@@ -31,6 +32,7 @@ BOOST_FUSION_ADAPT_TPL_STRUCT
   (R          , errors)
   (std::size_t, eval_count)
   (bool       , successful)
+  (ptrdiff_t ,  warning   )
 );
 
 #endif

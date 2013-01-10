@@ -37,8 +37,8 @@ namespace nt2
   template<class T, class V> struct integ_params<T, V, tag::quad_>
   : integ_params<T, V, void>
   {
-    typedef typename nt2::integ_params<T, V, void>::real_type real_type;
-    static real_type        abstol(){return Quadabstol<real_type>(); }
+    typedef typename nt2::integ_params<T, V, void>::real_t real_t;
+    static real_t        abstol(){return Quadabstol<real_t>(); }
   };
 
   //============================================================================
@@ -57,31 +57,31 @@ namespace nt2
 
 
   template<class T, class V, class F, class X> BOOST_FORCEINLINE
-  typename integration_call<T, V, F, tag::quad_, X>::result_type
+  typename details::integration_call<T, V, F, tag::quad_, X>::result_type
   quad(F f, X x)
   {
-    return integ_call<T, V, tag::quad_>(f, x);
+    return details::integ_call<T, V, tag::quad_>(f, x);
   }
 
   template<class T, class V, class F, class X, class Xpr> BOOST_FORCEINLINE
-  typename integration_call<T, V, F, tag::quad_, X>::result_type
+  typename details::integration_call<T, V, F, tag::quad_, X>::result_type
   quad(F f, X x, nt2::details::option_expr<Xpr> const& opt)
   {
-    return integ_call<T, V, tag::quad_>(f, x, opt);
+    return details::integ_call<T, V, tag::quad_>(f, x, opt);
   }
 
   template<class T, class V, class F, class A, class B> BOOST_FORCEINLINE
-  typename integration_call<T, V, F, tag::quad_, typename xtype<T>::type>::result_type
+  typename details::integration_call<T, V, F, tag::quad_, typename details::xtype<T>::type>::result_type
   quad(F f, A a, B b)
   {
-    return integ_call<T, V, tag::quad_>(f, a, b);
+    return details::integ_call<T, V, tag::quad_>(f, a, b);
   }
 
   template<class T, class V, class F, class A,  class B, class Xpr> BOOST_FORCEINLINE
-  typename integration_call<T, V, F, tag::quad_, typename xtype<T>::type>::result_type
+  typename details::integration_call<T, V, F, tag::quad_, typename details::xtype<T>::type>::result_type
   quad(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
   {
-    return integ_call<T, V, tag::quad_>(f, a, b, opt);
+    return details::integ_call<T, V, tag::quad_>(f, a, b, opt);
   }
 
 

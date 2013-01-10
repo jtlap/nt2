@@ -9,35 +9,32 @@
 #ifndef NT2_TOOLBOX_INTEGRATION_MIDPAREA_HPP_INCLUDED
 #define NT2_TOOLBOX_INTEGRATION_MIDPAREA_HPP_INCLUDED
 #include <nt2/include/functions/average.hpp>
-#include <nt2/include/functions/is_finite.hpp>
-#include <nt2/include/functions/is_not_finite.hpp>
+#include <nt2/include/functions/fma.hpp>
 #include <nt2/include/constants/half.hpp>
-
+#include <nt2/sdk/meta/type_id.hpp>
+#include <nt2/table.hpp>
 namespace nt2
 {
   namespace details
   {
 
-    template < class V, class F, class X>
-    inline V
+    template < class R, class V, class F, class X>
+    inline R
     midparea( F f, const X& a, const X& b)
     {
+      typedef typename meta::as_real<X>::type real_t;
       // Return q = (b-a)*f((a+b)/2). Although formally correct as a low
       // order quadrature formula, this function is only used to return
       // nan or zero of the appropriate class when a == b, is_nan(a), or
       // is_nan(b).
-      X x = nt2::average(a, b);
-      if (is_finite(a) && is_finite(b) && is_not_finite(x))
-      {
-        // Treat overflow, e.g. when finite a and b > realmax/2
-        x = (a*nt2::Half<X>()) + (b*nt2::Half<X>());
-      }
-      container::table<X> xx = x;
+      X tmp = nt2::multiplies(b, nt2::Half<real_t>());
+      X x = nt2::fma(a, nt2::Half<real_t>(), tmp);
+      container::table<X> xx(x);
       V fx = f(xx);
-//         if (is_notfinite(fx))
-//             warning("Infinite or Not-a-Number value encountered.");
-      return (b-a)*fx;
-    }
+// //         if (is_notfinite(fx))
+// //             warning("Infinite or Not-a-Number value encountered.");
+      return fx; //nt2::multiplies((b-a), f(x));
+  }
   }
 }
 
