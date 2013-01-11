@@ -306,7 +306,6 @@ macro(nt2_module_add_library libname)
     endif()
 
     set_property(TARGET ${target} PROPERTY COMPILE_FLAGS ${FLAGS})
-    set_property(TARGET ${target} PROPERTY LINK_FLAGS ${FLAGS})
   endforeach()
 
   if(PROJECT_NAME MATCHES "^NT2")
