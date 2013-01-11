@@ -65,8 +65,5 @@ NT2_TEST_CASE_TPL ( if_allbits_else_real__2_0,  NT2_REAL_TYPES)
   NT2_TEST_EQUAL(if_allbits_else(nt2::Nan<cT>(), cT(1)) ,  nt2::Cnan<cT>());
   NT2_TEST_EQUAL(if_allbits_else(nt2::Allbits<cT>(), cT(1)),  nt2::Cnan<cT>());
   NT2_TEST_EQUAL(if_allbits_else(nt2::Zero<cT>(), cT(1)),  cT(1));
-
-
-
 } // end of test for floating_
 
