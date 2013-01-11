@@ -61,6 +61,7 @@ SET( SOURCES
   average.cpp
   abs.cpp
   toint.cpp
+  touint.cpp
   tofloat.cpp
 # List of simd test files for toolbox arithmetic
    )
