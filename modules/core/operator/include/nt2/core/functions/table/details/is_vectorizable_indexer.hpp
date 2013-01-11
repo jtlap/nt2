@@ -24,6 +24,7 @@
 #include <boost/mpl/find_if.hpp>
 #include <boost/mpl/not.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -41,7 +42,7 @@ namespace nt2 { namespace ext
 
   template<class T>
   struct is_vectorizable_scalar
-       : boost::mpl::bool_< T::extent_type::static_size == 0u >
+       : boost::mpl::bool_< T::extent_type::static_size == 0u && !boost::is_same<typename T::proto_tag, nt2::tag::relative_colon_>::value>
   {
   };
 
