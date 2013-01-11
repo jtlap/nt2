@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_INBTRUE_HPP_INCLUDED
-#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_INBTRUE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_SIMD_COMMON_INBTRUE_HPP_INCLUDED
+#define NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_SIMD_COMMON_INBTRUE_HPP_INCLUDED
 #include <nt2/toolbox/reduction/functions/inbtrue.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
@@ -19,9 +19,9 @@
 
 namespace nt2 { namespace ext
 {
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inbtrue_, tag::cpu_, (A0)
-                            , (generic_< complex_< arithmetic_<A0> > >)
-                            )
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::inbtrue_, tag::cpu_, (A0)(X)
+                              , ((simd_< complex_< arithmetic_<A0> > , X>))
+    )
   {
     typedef std::size_t result_type;
     NT2_FUNCTOR_CALL(1)

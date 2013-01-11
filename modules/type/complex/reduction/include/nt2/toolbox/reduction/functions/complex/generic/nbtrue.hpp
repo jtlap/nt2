@@ -8,13 +8,13 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_NBTRUE_HPP_INCLUDED
 #define NT2_TOOLBOX_REDUCTION_FUNCTIONS_COMPLEX_GENERIC_NBTRUE_HPP_INCLUDED
-#include <nt2/toolbox/reduction/functions/nbtrue.hpp>
+#include <nt2/include/functions/nbtrue.hpp>
 #include <nt2/include/functions/imag.hpp>
 #include <nt2/include/functions/real.hpp>
-#include <nt2/include/functions/is_nez.hpp>
+#include <nt2/include/functions/if_one_else_zero.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_real.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
+// #include <nt2/sdk/complex/meta/as_real.hpp>
+// #include <nt2/sdk/complex/meta/as_dry.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -22,34 +22,47 @@ namespace nt2 { namespace ext
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef ptrdiff_t result_type;
+    typedef typename meta::as_real<A0>::type result_type;
     NT2_FUNCTOR_CALL(1)
     {
-      return nt2::nbtrue(is_nez(a0));
+      return nt2::nbtrue(if_one_else_zero(a0));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_, (A0)
-                            , (generic_< imaginary_< arithmetic_<A0> > >)
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_, (A0)(A1)
+                            , (generic_< complex_< arithmetic_<A0> > >)
+                              (scalar_< integer_<A1> > )
                             )
   {
-    typedef ptrdiff_t result_type;
-    NT2_FUNCTOR_CALL(1)
+    typedef typename meta::as_real<A0>::type result_type;
+    inline result_type operator()(A0 const & a0, A1 const &) const
     {
-      return nt2::nbtrue(is_nez(a0));
+      return nt2::nbtrue(if_one_else_zero(a0));
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_, (A0)
-                            , (generic_< dry_< arithmetic_<A0> > >)
-                            )
-  {
-    typedef ptrdiff_t result_type;
-    NT2_FUNCTOR_CALL(1)
-    {
-      return nt2::nbtrue(is_nez(nt2::real(a0)));
-    }
-  };
+
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_, (A0)
+//                             , (generic_< imaginary_< arithmetic_<A0> > >)
+//                             )
+//   {
+//     typedef meta::as_real<A0>::type result_type;
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return nt2::nbtrue(is_nez(a0));
+//     }
+//   };
+
+//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::nbtrue_, tag::cpu_, (A0)
+//                             , (generic_< dry_< arithmetic_<A0> > >)
+//                             )
+//   {
+//     typedef meta::as_real<A0>::type result_type;
+//     NT2_FUNCTOR_CALL(1)
+//     {
+//       return nt2::nbtrue(is_nez(nt2::real(a0)));
+//     }
+//   };
 
 } }
 
