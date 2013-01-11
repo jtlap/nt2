@@ -24,6 +24,21 @@
 namespace nt2 { namespace ext
 {
   //complex/complex 1 -1
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)
+                            , (generic_< complex_< arithmetic_<A0> > >)
+                              (generic_< complex_< arithmetic_<A0> > >)
+                              (generic_< complex_< arithmetic_<A0> > >)
+                            )
+  {
+    typedef A0 result_type;
+    inline result_type operator()(const A0& a0, const A0& a1, const A0&a2) const
+    {
+      return result_type(if_else(is_nez(a0), nt2::real(a1), nt2::real(a2)),
+                         if_else(is_nez(a0), nt2::imag(a1), nt2::imag(a2)));
+    }
+  };
+
+  //complex/complex 1 -1
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::if_else_, tag::cpu_, (A0)(A1)
                             , (generic_< logical_<A0> >)
                               (generic_< complex_< arithmetic_<A1> > >)
