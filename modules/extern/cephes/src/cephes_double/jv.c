@@ -61,7 +61,7 @@ extern int cephes_airy ( double, double *, double *, double *, double * );
 extern double fabs ( double );
 extern double cephes_floor ( double );
 extern double cephes_frexp ( double, int * );
-extern double cephes_polevl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
 extern double cephes_j0 ( double );
 extern double cephes_j1 ( double );
 extern double cephes_sqrt ( double );

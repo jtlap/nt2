@@ -175,7 +175,7 @@ c->i = q/y;
    Caution, a `short' is assumed to be 16 bits wide.  */
 
 void cephes_cmovl( a, b )
-void *a, *b;
+short *a, *b;
 {
 register short *pa, *pb;
 int i;
@@ -221,7 +221,7 @@ a->i = -a->i;
  * then
  *
  *       a = sqrt( x**2 + y**2 ).
- * 
+ *
  * Overflow and underflow are avoided by testing the magnitudes
  * of x and y before squaring.  If either is outside half of
  * the floating point full scale range, both are rescaled.
@@ -313,7 +313,7 @@ e = (ex + ey) >> 1;
 /* Rescale so mean is about 1 */
 x = cephes_ldexpl( re, -e );
 y = cephes_ldexpl( im, -e );
-		
+
 /* Hypotenuse of the right triangle */
 b = cephes_sqrtl( x * x  +  y * y );
 

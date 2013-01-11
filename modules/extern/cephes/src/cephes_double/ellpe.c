@@ -174,7 +174,7 @@ static unsigned short Q[] = {
 #endif
 
 #ifdef ANSIPROT
-extern double cephes_polevl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
 extern double cephes_log ( double );
 #else
 double cephes_polevl(), cephes_log();

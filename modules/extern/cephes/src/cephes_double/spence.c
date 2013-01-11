@@ -142,7 +142,7 @@ static unsigned short B[32] = {
 #ifdef ANSIPROT
 extern double fabs ( double );
 extern double cephes_log ( double );
-extern double cephes_polevl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
 #else
 double fabs(), cephes_log(), cephes_polevl();
 #endif

@@ -499,8 +499,8 @@ extern double cephes_floor ( double );
 extern double cephes_gamma ( double );
 extern double cephes_pow ( double, double );
 extern double cephes_exp ( double );
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 double cephes_zetac ( double );
 #else
 double cephes_sin(), cephes_floor(), cephes_gamma(), cephes_pow(), cephes_exp();

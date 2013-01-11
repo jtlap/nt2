@@ -90,8 +90,8 @@ static double PI180 = 1.74532925199432957692E-2;
 static double lossth = 1.0e14;
 
 #ifdef ANSIPROT
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 extern double cephes_floor ( double );
 extern double cephes_ldexp ( double, int );
 static double tancot( double, int );

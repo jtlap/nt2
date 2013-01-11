@@ -351,7 +351,7 @@ static unsigned short B[] = {
 
 /*							i1.c	*/
 #ifdef ANSIPROT
-extern double cephes_chbevl ( double, void *, int );
+extern double cephes_chbevl ( double, double *, int );
 extern double cephes_exp ( double );
 extern double cephes_sqrt ( double );
 extern double fabs ( double );

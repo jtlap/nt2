@@ -503,7 +503,7 @@ static unsigned short C2[] = {
 extern double cephes_log ( double );
 extern double cephes_exp ( double );
 extern double fabs ( double );
-extern double cephes_chbevl ( double, void *, int );
+extern double cephes_chbevl ( double, double *, int );
 #else
 double cephes_log(), cephes_exp(), fabs(), cephes_chbevl();
 #endif

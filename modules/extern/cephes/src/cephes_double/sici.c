@@ -579,8 +579,8 @@ static unsigned short GD8[] = {
 extern double cephes_log ( double );
 extern double cephes_sin ( double );
 extern double cephes_cos ( double );
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 #else
 double cephes_log(), cephes_sin(), cephes_cos(), cephes_polevl(), cephes_p1evl();
 #endif

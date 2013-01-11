@@ -342,11 +342,11 @@ static unsigned short CD[20] = {
 #endif
 
 #ifdef ANSIPROT
-extern double cephes_chbevl ( double, void *, int );
+extern double cephes_chbevl ( double, double *, int );
 extern double cephes_sqrt ( double );
 extern double fabs ( double );
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 #else
 double cephes_chbevl(), cephes_sqrt(), fabs(), cephes_polevl(), cephes_p1evl();
 #endif

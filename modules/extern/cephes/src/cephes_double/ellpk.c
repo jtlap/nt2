@@ -94,8 +94,8 @@ static double Q[] =
 static double C1 = 1.3862943611198906188E0; /* cephes_log(4) */
 
 #ifdef ANSIPROT
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 extern double cephes_log ( double );
 #else
 double cephes_polevl(), cephes_p1evl(), cephes_log();

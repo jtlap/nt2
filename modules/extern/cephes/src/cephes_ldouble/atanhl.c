@@ -101,8 +101,8 @@ extern long double MAXNUML;
 #ifdef ANSIPROT
 extern long double cephes_fabsl ( long double );
 extern long double cephes_logl ( long double );
-extern long double cephes_polevll ( long double, void *, int );
-extern long double cephes_p1evll ( long double, void *, int );
+extern long double cephes_polevll ( long double, long double *, int );
+extern long double cephes_p1evll ( long double, long double *, int );
 #else
 long double cephes_fabsl(), cephes_logl(), cephes_polevll(), cephes_p1evll();
 #endif

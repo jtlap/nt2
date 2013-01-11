@@ -97,8 +97,8 @@ static unsigned short Q[] = {
 #ifdef ANSIPROT
 extern double fabs ( double );
 extern double cephes_exp ( double );
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 #else
 double fabs(), cephes_exp(), cephes_polevl(), cephes_p1evl();
 #endif

@@ -153,8 +153,8 @@ static long TP8A[] = {0x3ffd0000,0xd413cccf,0xe7799211};
 #endif
 
 #ifdef ANSIPROT
-extern long double cephes_polevll ( long double, void *, int );
-extern long double cephes_p1evll ( long double, void *, int );
+extern long double cephes_polevll ( long double, long double *, int );
+extern long double cephes_p1evll ( long double, long double *, int );
 extern long double cephes_fabsl ( long double );
 extern int cephes_signbitl ( long double );
 extern int cephes_isnanl ( long double );
