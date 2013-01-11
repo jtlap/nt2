@@ -43,8 +43,8 @@ Copyright 1999 by Stephen L. Moshier
 #ifdef ANSIPROT
 extern double cephes_log ( double );
 extern double cephes_exp ( double );
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 #else
 extern double cephes_log(), cephes_exp(), cephes_polevl(), cephes_p1evl();
 #endif

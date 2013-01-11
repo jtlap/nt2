@@ -254,7 +254,9 @@ endmacro()
 macro(nt2_module_add_library libname)
   string(TOUPPER ${NT2_CURRENT_MODULE} NT2_CURRENT_MODULE_U)
 
-  get_property(TARGET_SUPPORTS_SHARED_LIBS GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS)
+  if(NOT DEFINED TARGET_SUPPORTS_SHARED_LIBS)
+    get_property(TARGET_SUPPORTS_SHARED_LIBS GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS)
+  endif()
 
   if(TARGET_SUPPORTS_SHARED_LIBS)
     set(targets ${libname} ${libname}_static)
@@ -304,7 +306,6 @@ macro(nt2_module_add_library libname)
     endif()
 
     set_property(TARGET ${target} PROPERTY COMPILE_FLAGS ${FLAGS})
-    set_property(TARGET ${target} PROPERTY LINK_FLAGS ${FLAGS})
   endforeach()
 
   if(PROJECT_NAME MATCHES "^NT2")

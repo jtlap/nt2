@@ -63,7 +63,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#if ANSIPROT
+#ifdef ANSIPROT
 void cephes_polclr ( double *, int );
 void cephes_polmov ( double *, int, double * );
 void cephes_polmul ( double *, int, double *, int, double * );
@@ -247,7 +247,7 @@ for( i=0; i<=nc; i++ )
 
 
 
- 
+
 /* c = b + a.
  */
 void cephes_poladd( a, na, b, nb, c )

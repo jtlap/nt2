@@ -1,5 +1,5 @@
 #include <boost/simd/sdk/config/details/detector/cpuid.hpp>
-#include <boost/simd/sdk/config/details/get_vendor.hpp>
+#include <boost/simd/sdk/config/details/detector/get_vendor.hpp>
 #include <cassert>
 
 int get_byte(int reg, int pos)
@@ -27,12 +27,12 @@ int get_logical_cores()
 {
   int regs[4];
   boost::simd::config::x86::cpuid(regs, 0x00000000);
-  if(boost::simd::config::get_vendor() == boost::simd::config::intel)
+  if(boost::simd::config::x86::get_vendor() == boost::simd::config::x86::intel)
   {
     boost::simd::config::x86::cpuidex(regs, 0x0000000B, 0x00000001);
     return get_range(regs[1], 0, 16);
   }
-  else if(boost::simd::config::get_vendor() == boost::simd::config::amd)
+  else if(boost::simd::config::x86::get_vendor() == boost::simd::config::x86::amd)
   {
     boost::simd::config::x86::cpuid(regs, 0x00000001);
     return (get_range(regs[1], 16, 24));
@@ -48,11 +48,11 @@ int get_physical_cores()
 {
   int regs[4];
   boost::simd::config::x86::cpuid(regs, 0x00000000);
-  if(boost::simd::config::get_vendor() == boost::simd::config::intel)
+  if(boost::simd::config::x86::get_vendor() == boost::simd::config::x86::intel)
   {
     return (get_logical_cores()/get_threads());
   }
-  else if(boost::simd::config::get_vendor() == boost::simd::config::amd)
+  else if(boost::simd::config::x86::get_vendor() == boost::simd::config::x86::amd)
   {
     boost::simd::config::x86::cpuid(regs, 0x80000008);
     return (get_byte(regs[2], 0) + 1);

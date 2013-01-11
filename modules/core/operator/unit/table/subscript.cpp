@@ -66,7 +66,57 @@ void vectorizable_1(T const&)
   NT2_TEST(( !nt2::ext::is_vectorizable_indexer<idx3, Cardinal>::value ));
 
   NT2_TEST(( nt2::ext::is_vectorizable_indexers<aggregate, Data>::type::value ));
+}
 
+template<class T>
+void vectorizable_2(T const&)
+{
+  typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
+  typedef boost::dispatch::meta::as_< boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
+  typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
+
+  typedef typename boost::proto::result_of::child_c<aggregate, 0>::value_type idx0;
+  NT2_TEST(( nt2::ext::is_vectorizable_indexer<idx0, Cardinal>::value ));
+
+  typedef typename boost::proto::result_of::child_c<aggregate, 1>::value_type idx1;
+  NT2_TEST(( nt2::ext::is_vectorizable_indexer<idx1, Cardinal>::value ));
+
+  NT2_TEST(( nt2::ext::is_vectorizable_indexers<aggregate, Data>::type::value ));
+}
+
+template<class T>
+void vectorizable_3(T const&)
+{
+  typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
+  typedef boost::dispatch::meta::as_< boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
+  typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
+
+  typedef typename boost::proto::result_of::child_c<aggregate, 0>::value_type idx0;
+  NT2_TEST(( nt2::ext::is_vectorizable_indexer<idx0, Cardinal>::value ));
+
+  typedef typename boost::proto::result_of::child_c<aggregate, 1>::value_type idx1;
+  NT2_TEST(( !nt2::ext::is_vectorizable_indexer<idx1, Cardinal>::value ));
+
+  typedef typename boost::proto::result_of::child_c<aggregate, 2>::value_type idx2;
+  NT2_TEST(( !nt2::ext::is_vectorizable_indexer<idx2, Cardinal>::value ));
+
+  NT2_TEST(( nt2::ext::is_vectorizable_indexers<aggregate, Data>::type::value ));
+}
+
+template<class T>
+void vectorizable_4(T const&)
+{
+  typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
+  typedef boost::dispatch::meta::as_< boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
+  typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
+
+  typedef typename boost::proto::result_of::child_c<aggregate, 0>::value_type idx0;
+  NT2_TEST(( nt2::ext::is_vectorizable_indexer<idx0, boost::mpl::size_t<1> >::value ));
+
+  typedef typename boost::proto::result_of::child_c<aggregate, 1>::value_type idx1;
+  NT2_TEST(( !nt2::ext::is_vectorizable_scalar<idx1>::value ));
+
+  NT2_TEST(( !nt2::ext::is_vectorizable_indexers<aggregate, Data>::type::value ));
 }
 
 NT2_TEST_CASE( vectorizable )
@@ -78,8 +128,11 @@ NT2_TEST_CASE( vectorizable )
   typedef float T;
 
   nt2::table<T> a;
-  vectorizable_0( a(_, _(1, 16), _(mpl::int_<1>(), mpl::int_<16>()), 1) );
-  vectorizable_1( a(_, _, _, _(mpl::int_<1>(), mpl::int_<7>())) );
+  vectorizable_0( (a+a)(_, _(1, 16), _(mpl::int_<1>(), mpl::int_<16>()), 1) );
+  vectorizable_1( (a+a)(_, _, _, _(mpl::int_<1>(), mpl::int_<7>())) );
+  vectorizable_2( (a+a)(_, _) );
+  vectorizable_3( (a+a)(_, 1, 2) );
+  vectorizable_4( (a+a)(1, _) );
 }
 
 NT2_TEST_CASE( dimensions )

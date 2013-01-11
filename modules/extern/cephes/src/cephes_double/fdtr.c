@@ -189,7 +189,7 @@ return( cephes_incbet( 0.5*b, 0.5*a, w ) );
 
 double cephes_fdtr( ia, ib, x )
 int ia, ib;
-double x;
+int x;
 {
 double a, b, w;
 

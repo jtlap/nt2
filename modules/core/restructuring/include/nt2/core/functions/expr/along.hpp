@@ -13,13 +13,12 @@
 #include <nt2/include/functions/firstnonsingleton.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/enumerate.hpp>
-#include <nt2/include/functions/sub2ind.hpp>
-#include <nt2/include/functions/ind2sub.hpp>
+#include <nt2/core/utility/as_subscript.hpp>
+#include <nt2/core/utility/as_index.hpp>
 #include <nt2/include/functions/relative_index.hpp>
 #include <nt2/core/container/dsl/generator.hpp>
 #include <nt2/core/functions/table/details/reindex.hpp>
 #include <nt2/core/utility/of_size.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
 #include <boost/array.hpp>
 
 namespace nt2 { namespace ext
@@ -72,8 +71,7 @@ namespace nt2 { namespace ext
                             )
   {
     typedef typename details::as_integer_target<Data>::type   i_t;
-    typedef typename meta::as_signed<i_t>::type               si_t;
-    typedef boost::array<si_t, A0::extent_type::static_size>  pos_type;
+    typedef boost::array<i_t, A0::extent_type::static_size>   pos_type;
 
     typedef typename boost::proto::result_of::
                      child_c<A0&, 0>::value_type              child0;
@@ -85,17 +83,17 @@ namespace nt2 { namespace ext
 
     result_type operator()(A0& a0, State const& state, Data const& data) const
     {
-      pos_type p = ind2sub(a0.extent(), nt2::enumerate<i_t>(state));
+      pos_type p = as_subscript(a0.extent(), nt2::enumerate<i_t>(state));
       std::size_t i = boost::proto::value(boost::proto::child_c<2>(a0));
       if(i <= pos_type::static_size)
         p[i-1] = relative_index( boost::proto::child_c<1>(a0)
-                               , std::ptrdiff_t(1)
+                               , std::ptrdiff_t(1) // FIXME
                                , a0.extent()[i-1]
                                , p[i-1]
-                               , boost::dispatch::meta::as_<si_t>()
+                               , boost::dispatch::meta::as_<i_t>()
                                );
       return nt2::run ( boost::proto::child_c<0>(a0)
-                      , sub2ind(boost::proto::child_c<0>(a0).extent(), p)
+                      , as_index(boost::proto::child_c<0>(a0).extent(), p)
                       , data
                       );
     }

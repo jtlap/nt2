@@ -120,7 +120,7 @@ static long sc2[] = {0x3feb0000,0xbfbe8e7b,0xcd5e4f1e};
 
 extern long double LOG2EL, MAXLOGL, MINLOGL, MAXNUML;
 #ifdef ANSIPROT
-extern long double cephes_polevll ( long double, void *, int );
+extern long double cephes_polevll ( long double, long double *, int );
 extern long double cephes_floorl ( long double );
 extern long double cephes_ldexpl ( long double, int );
 extern int cephes_isnanl ( long double );

@@ -207,8 +207,8 @@ static short B4[48] = {
 
 #ifdef ANSIPROT
 extern double cephes_spence ( double );
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 extern double cephes_zetac ( double );
 extern double cephes_pow ( double, double );
 extern double cephes_powi ( double, int );
