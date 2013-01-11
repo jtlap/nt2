@@ -16,6 +16,10 @@
 #include <boost/simd/include/constants/valmax.hpp>
 #include <boost/simd/include/constants/valmin.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/functions/scalar/oneplus.hpp>
+#include <boost/simd/include/functions/is_ngt.hpp>
+#include <boost/simd/include/functions/scalar/is_lez.hpp>
+#include <boost/simd/include/functions/scalar/is_gez.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -37,17 +41,34 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touint_, tag::cpu_
+                            , (A0)
+                            , ((scalar_<signed_<A0> > ))
+                            )
+  {
+    typedef typename dispatch::meta::as_integer<A0, unsigned>::type result_type;
+    BOOST_FORCEINLINE
+    result_type
+    operator()(A0 const& a0) const
+    {
+      return if_else_zero(is_gez(a0), bitwise_cast<result_type>(a0));
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touint_, tag::cpu_, (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
+    typedef typename dispatch::meta::as_integer<A0>::type si_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      if (boost::simd::is_nan(a0))       return Zero<result_type>();
-      if (a0 == boost::simd::Inf<A0>())  return boost::simd::Valmax<result_type>();
-      if (a0 == boost::simd::Minf<A0>())  return boost::simd::Valmin<result_type>();
-      return result_type(a0);
+      if (is_lez(a0)) return Zero<result_type>();
+      if (is_ngt(a0,tofloat(Valmax<si_type>())))
+        return bitwise_cast<result_type>(toint(a0));
+      else
+        return bitwise_cast<result_type>(toint(a0-tofloat(Valmax<si_type>())))+oneplus(bitwise_cast<result_type>(Valmax<si_type>()));
+
     }
   };
 } } }
