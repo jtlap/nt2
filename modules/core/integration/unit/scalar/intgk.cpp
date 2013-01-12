@@ -59,12 +59,13 @@
 struct f1
 {
   template < class X > inline
-  nt2::container::table<typename X::value_type>
+  typename nt2::meta::call<nt2::tag::sin_(X)>::type
   operator()(const X & x ) const
   {
     return nt2::sin(x); //nt2::if_else_zero(x, x*nt2::sin(rec(x)));
   }
 };
+
 struct f
 {
   template < class X > inline
@@ -125,21 +126,23 @@ struct l
 
 
 
-// NT2_TEST_CASE_TPL( intgk_functor_, NT2_REAL_TYPES )
-// {
-//   using nt2::intgk;
-//   using nt2::options;
-//   using nt2::integration::output;
-//   typedef typename nt2::meta::as_logical<T>::type lT;
-//   typedef typename nt2::meta::as_complex<T>::type cT;
-
-//   nt2::tic();
-//   BOOST_AUTO_TPL(res, (intgk<cT, T>(f(), cT(0), cT(nt2::Pi<T>()))));
-//   nt2::toc();
-//   NT2_TEST(res.successful);
-//   std::cout << "Integrals:" << res.integrals<< " with error " << res.errors
-//              << " after " << res.eval_count <<  " evaluations\n";
-// }
+NT2_TEST_CASE_TPL( intgk_functor_, NT2_REAL_TYPES )
+{
+  using nt2::intgk;
+  using nt2::options;
+  using nt2::integration::output;
+  typedef typename nt2::meta::as_logical<T>::type lT;
+  typedef typename nt2::meta::as_complex<T>::type cT;
+//  typedef typename nt2::meta::result_of<f1(cT)>::type     value_t;
+//  typedef BOOST_TYPEOF_TPL(f1()(cT())) value_t;
+//  NT2_DISPLAY(nt2::type_id<value_t>());
+  nt2::tic();
+  BOOST_AUTO_TPL(res, (intgk(f1(), cT(0), cT(nt2::Pi<T>()))));
+  nt2::toc();
+  NT2_TEST(res.successful);
+  std::cout << "Integrals:" << res.integrals<< " with error " << res.errors
+             << " after " << res.eval_count <<  " evaluations\n";
+}
 // NT2_TEST_CASE_TPL( intgk_functor_r, NT2_REAL_TYPES )
 // {
 //   using nt2::intgk;
@@ -250,22 +253,22 @@ struct l
 
 
 
-NT2_TEST_CASE_TPL( intgk_functorb, NT2_REAL_TYPES )
-{
-  using nt2::intgk;
-  using nt2::options;
-  using nt2::integration::output;
-  typedef nt2::table<T> tab_t;
-  typedef typename nt2::meta::as_logical<T>::type lT;
-  nt2::tic();
-  BOOST_AUTO_TPL(res, (intgk<T, T>(f1(), T(0), T(1), options [ nt2::tolerance::abstol_ = T(1.0e-5)])));
-  nt2::toc();
-  std::cout << "Integrals:" << res.integrals << " with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
+// NT2_TEST_CASE_TPL( intgk_functorb, NT2_REAL_TYPES )
+// {
+//   using nt2::intgk;
+//   using nt2::options;
+//   using nt2::integration::output;
+//   typedef nt2::table<T> tab_t;
+//   typedef typename nt2::meta::as_logical<T>::type lT;
+//   nt2::tic();
+//   BOOST_AUTO_TPL(res, (intgk<T, T>(f1(), T(0), T(1), options [ nt2::tolerance::abstol_ = T(1.0e-5)])));
+//   nt2::toc();
+//   std::cout << "Integrals:" << res.integrals << " with error " << res.errors
+//             << " after " << res.eval_count <<  " evaluations\n";
 
-  NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::end_), nt2::oneminus(nt2::cos(T(1)))), T(1.0e-5));
-  NT2_TEST(res.successful);
-}
+//   NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::end_), nt2::oneminus(nt2::cos(T(1)))), T(1.0e-5));
+//   NT2_TEST(res.successful);
+// }
 
 // NT2_TEST_CASE_TPL( intgk_functor0, NT2_REAL_TYPES )
 // {

@@ -53,32 +53,36 @@ namespace nt2
    */
   //============================================================================
 
-  template<class T, class V, class F, class X> BOOST_FORCEINLINE
-  typename details::integration_call<T, V, F, tag::quadl_, X>::result_type
+
+
+  template<class F, class X> BOOST_FORCEINLINE
+  typename details::integration<F, X, tag::quadl_>::result_type
   quadl(F f, X x)
   {
-    return details::integ_call<T, V, tag::quadl_>(f, x);
+    return details::integration<F, X, tag::quadl_>::call(f, x);
   }
 
-  template<class T, class V, class F, class X, class Xpr> BOOST_FORCEINLINE
-  typename details::integration_call<T, V, F, tag::quadl_, X>::result_type
+  template<class F, class X, class Xpr> BOOST_FORCEINLINE
+  typename details::integration<F, X, tag::quadl_>::result_type
   quadl(F f, X x, nt2::details::option_expr<Xpr> const& opt)
   {
-    return details::integ_call<T, V, tag::quadl_>(f, x, opt);
+    return details::integration<F, X, tag::quadl_>::call(f, x, opt);
   }
 
-  template<class T, class V, class F, class A, class B> BOOST_FORCEINLINE
-  typename details::integration_call<T, V, F, tag::quadl_, typename details::xtype<T>::type>::result_type
-  quadl(F f, A a, B b)
+  template<class F, class A> BOOST_FORCEINLINE
+  typename details::integration<F, typename details::h2_t<A>::ab_t, tag::quadl_>::result_type
+  quadl(F f, A a, A b)
   {
-    return details::integ_call<T, V, tag::quadl_>(f, a, b);
+    typedef typename details::h2_t<A>::ab_t ab_t;
+    return details::integration<F, ab_t, tag::quadl_>::call(f, nt2::cath(a, b));
   }
 
-  template<class T, class V, class F, class A,  class B, class Xpr> BOOST_FORCEINLINE
-  typename details::integration_call<T, V, F, tag::quadl_, typename details::xtype<T>::type>::result_type
-  quadl(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
+  template<class F, class A, class Xpr> BOOST_FORCEINLINE
+  typename details::integration<F, typename details::h2_t<A>::ab_t, tag::quadl_>::result_type
+  quadl(F f, A a, A b, nt2::details::option_expr<Xpr> const& opt)
   {
-    return details::integ_call<T, V, tag::quadl_>(f, a, b, opt);
+    typedef typename details::h2_t<A>::ab_t ab_t;
+    return details::integration<F, ab_t, tag::quadl_>::call(f, nt2::cath(a, b), opt);
   }
 
 }

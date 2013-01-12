@@ -17,12 +17,9 @@
 #include <nt2/toolbox/integration/order.hpp>
 #include <nt2/toolbox/integration/split.hpp>
 #include <nt2/toolbox/integration/midparea.hpp>
-#include <nt2/toolbox/integration/transforms.hpp>
+#include <nt2/toolbox/integration/int_transforms.hpp>
 
 #include <nt2/include/constants/half.hpp>
-#include <nt2/include/constants/hundred.hpp>
-#include <nt2/include/constants/mone.hpp>
-#include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/constants/zero.hpp>
 
@@ -53,8 +50,8 @@
 #include <nt2/include/functions/sx.hpp>
 #include <nt2/include/functions/tanh.hpp>
 #include <nt2/include/functions/vertcat.hpp>
-#include <nt2/include/functions/zeros.hpp>
 #include <nt2/core/container/table/table.hpp>
+#include <nt2/sdk/complex/meta/is_complex.hpp>
 
 #include <boost/mpl/bool.hpp>
 #include <nt2/table.hpp>
@@ -64,17 +61,20 @@ namespace nt2 { namespace details
   template<class T, class V> class quadgk_impl
   {
   public :
-    typedef T                                              input_t;
-    typedef typename meta::as_logical<input_t>::type          bi_t;
-    typedef V                                              value_t;
-    typedef typename meta::as_real<value_t>::type           real_t;
-    typedef details::integration_settings<T, V, tag::quadgk_>  o_t;
-    typedef container::table<value_t>                       vtab_t;
-    typedef container::table<input_t>                       itab_t;
-    typedef container::table<real_t>                        rtab_t;
-    typedef container::table<bool>                          btab_t;
-    typedef container::table<bi_t>                         bitab_t;
-    typedef typename boost::is_same<input_t,real_t>::type   input_is_real_t;
+    typedef T                                                                input_t;
+    typedef typename meta::as_logical<input_t>::type                            bi_t;
+    typedef V                                                                value_t;
+    typedef typename meta::is_complex<value_t>::type                     v_is_cplx_t;
+    typedef typename boost::mpl::if_<v_is_cplx_t,value_t,input_t>::type     result_t;
+    typedef typename meta::as_real<value_t>::type                             real_t;
+    typedef details::integration_settings<T, V, tag::quadgk_>                     o_t;
+    typedef container::table<value_t>                                         vtab_t;
+    typedef container::table<input_t>                                         itab_t;
+    typedef container::table<real_t>                                          rtab_t;
+    typedef container::table<result_t>                                      restab_t;
+//    typedef container::table<bool>                                            btab_t;
+    typedef container::table<bi_t>                                           bitab_t;
+//    typedef typename boost::is_same<input_t,real_t>::type            input_is_real_t;
 
     quadgk_impl() :  errbnd_(Nan<real_t>()),
                      fcnt_(0),
@@ -83,19 +83,22 @@ namespace nt2 { namespace details
                      res_(){}
     ~quadgk_impl() {}
 
-    size_t nbeval()         const { return fcnt_;             }
-    real_t lasterror()      const { return errbnd_;           }
-    bool   ok()             const { return warn_ == 0;        }
-    const vtab_t & result() const { return res_;              }
-    void setwarn(size_t w)        { if(w > warn_) warn_ =  w; }
+    size_t nbeval()           const { return fcnt_;             }
+    real_t lasterror()        const { return errbnd_;           }
+    bool   ok()               const { return warn_ == 0;        }
+    const restab_t & result() const { return res_;              }
+    void setwarn(size_t w)          { if(w > warn_) warn_ =  w; }
 
     template < class FUNC, class X>
     void compute( const FUNC& f, const X & x, const o_t & o,
                   const boost::mpl::false_ & choice) // cplx path integration
     {
       init(o, x,  choice);
+      NT2_DISPLAY(a_);
+      NT2_DISPLAY(b_);
+      NT2_DISPLAY(tinterval_);
       interval_ = tinterval_;
-      vadapt(details::f0<FUNC, input_t, rtab_t, vtab_t>(f, a_, b_));
+      vadapt(transform<FUNC, details::f0, input_t, value_t>(f, a_, b_, interval_));
     }
 
     template < class FUNC, class X>
@@ -105,10 +108,11 @@ namespace nt2 { namespace details
       init(o, x, choice);
       if (a_ == b_) //quick return
       {
-        res_ = details::midparea<value_t>(f, tinterval_(begin_), tinterval_(end_));
+        res_ = details::midparea<result_t, value_t>(f, tinterval_(begin_), tinterval_(end_));
         errbnd_ = nt2::abs(res_);
         return;
       }
+      interval_ = tinterval_;
       adjust_and_call(f);
       if(reversedir_) res_ = -res_;
     }
@@ -120,7 +124,7 @@ namespace nt2 { namespace details
     size_t        warn_;
     real_t      abstol_;
     real_t      reltol_;
-    vtab_t         res_;
+    restab_t       res_;
     real_t        hmin_;
     bool    reversedir_;
     itab_t   tinterval_; //original points
@@ -197,7 +201,7 @@ namespace nt2 { namespace details
     }
 
     template < class FUNC >
-    inline bool check(FUNC f, bool t, size_t w, const value_t& q)
+    inline bool check(FUNC f, bool t, size_t w, const result_t& q)
     {
       if (t)
       {
@@ -210,20 +214,21 @@ namespace nt2 { namespace details
       }
       return t;
     }
-
     template < class FUNC >
     void vadapt(FUNC f)
     {
+      NT2_DISPLAY("vadapt");
 //      std::cout << std::setprecision(15) << std::scientific << std::endl;
       real_t pathlen;
       itab_t tmp;
       NT2_DISPLAY(interval_);
-      details::split(interval_, minintervalcount_, tmp, pathlen);
+      NT2_DISPLAY(f.interval_);
+      details::split(f.interval_, minintervalcount_, tmp, pathlen);
       NT2_DISPLAY(tmp);
       interval_ = tmp;
       if (pathlen == 0)
       {
-        res_ = details::midparea<value_t>(f, interval_(begin_), interval_(end_));
+        res_ = details::midparea<result_t, value_t>(f, f.interval_(begin_), f.interval_(end_));
         errbnd_ =  nt2::abs(res_);
         return;
       }
@@ -231,8 +236,8 @@ namespace nt2 { namespace details
       itab_t subs = nt2::catv(interval_(nt2::_(begin_, end_-1)),
                               interval_(nt2::_(begin_+1, end_)));
       // Initialize partial sums.
-      value_t q_ok = nt2::Zero<value_t>();
-      value_t err_ok = nt2::Zero<value_t>();
+      result_t q_ok = nt2::Zero<result_t>();
+      result_t err_ok = nt2::Zero<result_t>();
       // Initialize main loop
       nb_ = 0;
       while (true)
@@ -250,10 +255,10 @@ namespace nt2 { namespace details
         // Quit if mesh points are too close.
         fx.resize(nt2::of_size(nt2::numel(wt()), numel(fx)/numel(wt())));
         // Quantities for subintervals.
-        vtab_t qsubs = nt2::mtimes(wt(), fx)*halfh;
-        vtab_t errsubs = nt2::mtimes(ewt(), fx)* halfh;
+        restab_t qsubs = nt2::mtimes(wt(), fx)*halfh;
+        restab_t errsubs = nt2::mtimes(ewt(), fx)* halfh;
         // Calculate current values of q and tol.
-        value_t q = nt2::globalsum(qsubs) + q_ok;
+        result_t q = nt2::globalsum(qsubs) + q_ok;
         if (check(f, f.tooclose(), 6, q)) break;
         real_t  tol = max(abstol_,reltol_*nt2::abs(q));
         // Locate subintervals where the approximate integrals are
@@ -264,14 +269,14 @@ namespace nt2 { namespace details
         err_ok += nt2::globalsum(errsubs(ff));
         // Remove errsubs entries for subintervals with accurate
         // approximations.
-        vtab_t errsubs1 = nt2::rowvect(errsubs(notff)); errsubs =  errsubs1; //ALIASING CAN BE AVOIDED PERHAPS
+        restab_t errsubs1 = nt2::rowvect(errsubs(notff)); errsubs =  errsubs1; //ALIASING CAN BE AVOIDED PERHAPS
         // The approximate error bound is constructed by adding the
         // approximate error bounds for the subintervals with accurate
         // approximations to the 1-norm of the approximate error bounds
         // for the remaining subintervals.  This guards against
         // excessive cancellation of the errors of the remaining
         // subintervals.
-        errbnd_ = nt2::abs(err_ok) + nt2::norm(errsubs,1);
+        errbnd_ = nt2::abs(err_ok) + nt2::norm(errsubs, 1);
         // Check for nonfinites.
         if (check(f, is_not_finite(q) && is_finite(errbnd_), 3, q)) break; // Infinite or Not-a-Number value encountered.
         if (check(f, errbnd_ <= tol, 0, q)) break;                         // tolerance reached: convergence
@@ -295,69 +300,34 @@ namespace nt2 { namespace details
     template < class F >
     inline void adjust_and_call(const  F &f)
     {
+      NT2_DISPLAY("adjust_and_call");
       bool fina = nt2::is_finite(a_);
       bool finb = nt2::is_finite(b_);
       if(fina && finb)
-      {
-        if (nt2::numel(tinterval_) > 2)
-        {
-          // Analytical transformation suggested by K.L. Metlov:
-          BOOST_AUTO_TPL(alpha, Two<real_t>()*nt2::sin(nt2::asin((a_+b_- Two<real_t>()*tinterval_(nt2::_(begin_+1, end_-1)))/(a_ - b_))/Three<real_t>() ));
-          interval_ = nt2::cath(nt2::cath(nt2::Mone<input_t>(), alpha), nt2::One<input_t>());
-        }
-        else
-        {
-          interval_ = nt2::linspace(nt2::Mone<input_t>(), nt2::One<input_t>(), 2);
-        }
-//        NT2_DISPLAY("case f1");
-        vadapt(details::f1<F, input_t, rtab_t, vtab_t>(f, a_, b_));
+      { NT2_DISPLAY("fina && finb");
+        vadapt(transform<F, details::f1, input_t, value_t>(f, a_, b_, interval_));
       }
       else
       {
         bool infb = nt2::is_inf(b_);
         if (fina && infb)
         {
-          //          NT2_DISPLAY("case f2");
-          if  (nt2::numel(tinterval_) > 2)
-          {
-            BOOST_AUTO_TPL(alpha, nt2::sqrt(tinterval_(2, end_-1) - a_));
-            interval_ = nt2::cath(nt2::cath(nt2::Zero<input_t>(), alpha/oneplus(alpha)),nt2::One<input_t>());
-          }
-          else
-            interval_ = nt2::linspace(nt2::Zero<input_t>(), nt2::One<input_t>(), 2);
-          vadapt(details::f2<F, input_t, rtab_t, vtab_t>(f, a_));
+          vadapt(transform<F, details::f2, input_t, value_t>(f, a_, b_, interval_));
         }
         else
         {
           bool infa = nt2::is_inf(a_);
           if (infa && finb)
           {
-//            NT2_DISPLAY("case f3");
-            if  (nt2::numel(tinterval_) > 2)
-            {
-              BOOST_AUTO_TPL(alpha, nt2::sqrt(b_-tinterval_(2, end_-1)));
-              interval_ = nt2::cath(nt2::cath(nt2::Mone<input_t>(), -alpha/oneplus(alpha)),nt2::Zero<input_t>());
-            }
-            else
-              interval_ = nt2::linspace(nt2::Mone<input_t>(), nt2::Zero<input_t>(), 2);
-            vadapt(details::f3<F, input_t, rtab_t, vtab_t>(f, b_));
+            vadapt(transform<F, details::f3, input_t, value_t>(f, a_, b_, interval_));
           }
           else if (infa && infb)
           {
-//            NT2_DISPLAY("case f4");
-            if  (nt2::numel(tinterval_) > 2)
-            {
-              BOOST_AUTO_TPL(alpha, nt2::tanh(nt2::asinh(Two<input_t>()*tinterval_(2, end_-1))*Half<input_t>()));
-              interval_ = nt2::cath(nt2::cath(nt2::Mone<input_t>(), alpha), nt2::One<input_t>());
-            }
-            else
-              interval_ = nt2::linspace(nt2::Mone<input_t>(), nt2::One<input_t>(), 2);
-            vadapt(details::f4<F, input_t, rtab_t, vtab_t>(f));
+            vadapt(transform<F, details::f4, input_t, value_t>(f, a_, b_, interval_));
           }
           else //is_nan(a) || is_nan(b)
           {
-//            NT2_DISPLAY("case else");
-            res_ = midparea<value_t>(f, a_, b_);
+            res_ = midparea<result_t, value_t>(f, a_, b_);
             errbnd_ = nt2::abs(res_);
             fcnt_ = 1;
           }
@@ -374,21 +344,22 @@ namespace nt2 { namespace ext
                                               , (F)(X)(O)
                                               , (unspecified_< F >)
                                               ((ast_<X, nt2::container::domain>))
-                              (unspecified_<O>)
+                                              (unspecified_<O>)
     )
   {
-    typedef typename O::value_type                                   value_type;
-    typedef typename O::input_type                                   input_type;
-    typedef typename meta::as_real<value_type>::type                  real_type;
-    typedef nt2::container::table<value_type>                            vtab_t;
-    typedef nt2::integration::output<vtab_t,real_type>              result_type;
-    typedef typename boost::is_same<input_type,real_type>::type input_is_real_t;
+    typedef typename O::value_t                                             value_t;
+    typedef typename O::input_t                                             input_t;
+    typedef typename O::real_t                                               real_t;
+    typedef typename O::result_t                                           result_t;
+    typedef typename O::restab_t                                           restab_t;
+    typedef typename boost::is_same<input_t,real_t>::type           input_is_real_t;
+    typedef nt2::integration::output<restab_t,real_t>                   result_type;
 
     result_type operator()(F f, X const& x, O const& o)
     {
-      details::quadgk_impl<input_type, value_type> q;
+      details::quadgk_impl<input_t, value_t> q;
       q.compute(f, x, o, input_is_real_t());
-      result_type that = {q.result(), q.lasterror(),q.nbeval(),q.ok()};
+      result_type that =  {q.result(), q.lasterror(),q.nbeval(),q.ok()};
       return that;
     }
   };

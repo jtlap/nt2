@@ -92,8 +92,8 @@ namespace nt2 { namespace details
         res_(begin_) = res_(end_);
         res_.resize(nt2::of_size(1, 1));
       }
-      NT2_DISPLAY(o.return_waypoints);
-      NT2_DISPLAY(res_);
+//       NT2_DISPLAY(o.return_waypoints);
+//       NT2_DISPLAY(res_);
     }
    private :
     real_t         err_;
@@ -112,7 +112,7 @@ namespace nt2 { namespace details
     template < class X >
     void init( const o_t & o, const X&x)
     {
-      o.display_options();
+      //      o.display_options();
       details::prepare_waypoints(o, x, wpts_);
       warn_ = 0;
       fcnt_ = 0;

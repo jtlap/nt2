@@ -13,7 +13,7 @@
 #include <nt2/include/functions/quadgk.hpp>
 #include <nt2/toolbox/integration/output.hpp>
 #include <nt2/toolbox/integration/options.hpp>
-#include <nt2/toolbox/integration/transforms.hpp>
+#include <nt2/toolbox/integration/int_transforms.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/fusion/tuple.hpp>
@@ -44,6 +44,7 @@
 #include <nt2/include/functions/horzcat.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/fliplr.hpp>
+#include <nt2/include/functions/real.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/include/constants/eps.hpp>
 #include <nt2/include/constants/sqrteps.hpp>
@@ -55,15 +56,26 @@
 #include <nt2/include/constants/pio_2.hpp>
 #include <nt2/table.hpp>
 
-struct f
+struct f1
 {
   template < class X > inline
-  //  typename nt2::meta::call<nt2::tag::exp_(const X&)>::type
   nt2::container::table<typename X::value_type>
   operator()(const X & x ) const
   {
     return nt2::sin(x); //nt2::if_else_zero(x, x*nt2::sin(rec(x)));
   }
+};
+struct f
+{
+  template < class X > inline
+  //  typename nt2::meta::call<nt2::tag::exp_(const X&)>::type
+  nt2::container::table< typename nt2::meta::as_real<typename X::value_type >::type >
+  operator()(const X & x ) const
+  {
+    return nt2::real(nt2::sin(x)); //nt2::if_else_zero(x, x*nt2::sin(rec(x)));
+  }
+
+
 };
 
 struct ff
@@ -111,23 +123,23 @@ struct l
   }
 };
 
-// typedef std::complex<double> value_t;
-// typedef nt2::table<value_t> vtab_t;
-NT2_TEST_CASE_TPL( intgk_functor_, NT2_REAL_TYPES )
+
+
+NT2_TEST_CASE_TPL( quadgk_functor_, NT2_REAL_TYPES )
 {
   using nt2::quadgk;
   using nt2::options;
   using nt2::integration::output;
   typedef typename nt2::meta::as_logical<T>::type lT;
   typedef typename nt2::meta::as_complex<T>::type cT;
+
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<cT, cT>(f(), cT(0), cT(nt2::Pi<T>())))); //, options [nt2::range::waypoints_ = nt2::linspace(T(0), T(1), 5)])));
+  BOOST_AUTO_TPL(res, (quadgk<cT, T>(f(), cT(0), cT(nt2::Pi<T>()))));
   nt2::toc();
   NT2_TEST(res.successful);
-  std::cout << "Integrals:" << res.integrals(nt2::end_) << ") with error " << res.errors
-            << " after " << res.eval_count <<  " evaluations\n";
+  std::cout << "Integrals:" << res.integrals<< " with error " << res.errors
+             << " after " << res.eval_count <<  " evaluations\n";
 }
-
 NT2_TEST_CASE_TPL( quadgk_functor_r, NT2_REAL_TYPES )
 {
   using nt2::quadgk;
@@ -139,10 +151,9 @@ NT2_TEST_CASE_TPL( quadgk_functor_r, NT2_REAL_TYPES )
   BOOST_AUTO_TPL(res, (quadgk<T, T>(f1(), T(0), nt2::Pi<T>()))); //, options [nt2::range::waypoints_ = nt2::linspace(T(0), T(1), 5)])));
   nt2::toc();
   NT2_TEST(res.successful);
-  std::cout << "Integrals:" << res.integrals(nt2::end_) << ") with error " << res.errors
+  std::cout << "Integrals:" << res.integrals << " with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
 }
-
 NT2_TEST_CASE_TPL( quadgk_cplx_out, NT2_REAL_TYPES )
 {
   using nt2::quadgk;
@@ -226,7 +237,7 @@ NT2_TEST_CASE_TPL( quadgk_functor_cplx, NT2_REAL_TYPES )
 
   //output<tab_t,T>
  nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<cT, cT>(f(), cT(0), cT(0), options [nt2::range::waypoints_ = x])));
+  BOOST_AUTO_TPL(res, (quadgk<cT, cT>(f1(), cT(0), cT(0), options [nt2::range::waypoints_ = x])));
 
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << " with error " << res.errors
@@ -247,7 +258,7 @@ NT2_TEST_CASE_TPL( quadgk_functorb, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<T, T>(f(), T(0), T(1), options [ nt2::tolerance::abstol_ = T(1.0e-5)])));
+  BOOST_AUTO_TPL(res, (quadgk<T, T>(f1(), T(0), T(1), options [ nt2::tolerance::abstol_ = T(1.0e-5)])));
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << " with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";

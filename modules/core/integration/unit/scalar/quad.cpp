@@ -139,7 +139,7 @@ NT2_TEST_CASE_TPL( quad_cplx_inout2, NT2_REAL_TYPES )
   cT cx[] = { std::complex<T>(0, 0), std::complex<T>(1, 1),std::complex<T>(1, -1),std::complex<T>(0, 0)};
   tab_t x(nt2::of_size(1, 4), &cx[0], &cx[4]);
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quad<cT, cT>(k(), std::complex<T>(0, 0), std::complex<T>(0, 0),
+  BOOST_AUTO_TPL(res, (quad(k(), std::complex<T>(0, 0), std::complex<T>(0, 0),
                                      options[nt2::range::waypoints_ =x,
                                              nt2::range::return_waypoints_ = true//,
 //                                             nt2::tolerance::abstol_ = nt2::Sqrteps<T>(),
