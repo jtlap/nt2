@@ -59,20 +59,18 @@
 struct f1
 {
   template < class X > inline
-  nt2::container::table<typename X::value_type>
-  operator()(const X & x ) const
+  X operator()(const X & x ) const
   {
-    return nt2::sin(x); //nt2::if_else_zero(x, x*nt2::sin(rec(x)));
+    return nt2::sin(x);
   }
 };
 struct f
 {
   template < class X > inline
-  //  typename nt2::meta::call<nt2::tag::exp_(const X&)>::type
-  nt2::container::table< typename nt2::meta::as_real<typename X::value_type >::type >
+  typename nt2::meta::as_real<X>::type
   operator()(const X & x ) const
   {
-    return nt2::real(nt2::sin(x)); //nt2::if_else_zero(x, x*nt2::sin(rec(x)));
+    return nt2::real(nt2::sin(x));
   }
 
 
@@ -81,9 +79,7 @@ struct f
 struct ff
 {
   template < class X > inline
-  //  typename nt2::meta::call<nt2::tag::exp_(const X&)>::type
-  nt2::container::table<typename X::value_type>
-  operator()(const X & x ) const
+  X operator()(const X & x ) const
   {
     return nt2::exp(-sqr(x))*nt2::sqr(nt2::log(x));
   }
@@ -91,7 +87,7 @@ struct ff
 struct g
 {
   template < class X > inline
-  nt2::container::table<typename X::value_type> operator()(const X & x ) const
+  X operator()(const X & x ) const
   {
     return nt2::oneminus(x)/nt2::log(x);
   }
@@ -100,32 +96,57 @@ struct g
 struct h
 {
   template < class X> inline
-  //  typename nt2::meta::as_complex<X>::type
-  nt2::container::table<std::complex<typename X::value_type > > operator()(const X & x ) const
+  typename nt2::meta::as_complex<X>::type
+  operator()(const X & x ) const
   {
     return nt2::exp(nt2::mul_i(x));
   }
 };
 struct k
 {
-  template < class X> inline  nt2::container::table<typename X::value_type>
-  operator()(const X & x ) const
+  template < class X>
+  X  operator()(const X & x ) const
   {
     return nt2::rec(nt2::minusone(x+x));
   }
 };
 struct l
 {
-  template < class X> inline  nt2::container::table<typename X::value_type>
-  operator()(const X & x ) const
+  template < class X> inline
+  X operator()(const X & x ) const
   {
-    return nt2::One<double >()+nt2::exp(nt2::mul_i(x)); //nt2::rec(x+x+nt2::I<typename X::value_type>());
+    return nt2::One<double >()+nt2::exp(nt2::mul_i(x));
+  }
+};
+struct m
+{
+  template < class X> inline
+  X operator()(const X & x ) const
+  {
+    return nt2::exp(-x);
+  }
+};
+struct n
+{
+  template < class X> inline
+  X operator()(const X & x ) const
+  {
+    return nt2::exp(x);
+  }
+};
+
+struct o
+{
+  template < class X> inline
+  X operator()(const X & x ) const
+  {
+    typedef typename nt2::meta::scalar_of<X>::type S;
+    return nt2::exp(-x*x)*nt2::Two<S>()/nt2::sqrt(nt2::Pi<S>());
   }
 };
 
 
-
-NT2_TEST_CASE_TPL( quadgk_functor_, NT2_REAL_TYPES )
+NT2_TEST_CASE_TPL( quadgk_functor__, NT2_REAL_TYPES )
 {
   using nt2::quadgk;
   using nt2::options;
@@ -134,12 +155,59 @@ NT2_TEST_CASE_TPL( quadgk_functor_, NT2_REAL_TYPES )
   typedef typename nt2::meta::as_complex<T>::type cT;
 
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<cT, T>(f(), cT(0), cT(nt2::Pi<T>()))));
+  BOOST_AUTO_TPL(res, (quadgk(f(), cT(0), cT(nt2::Pi<T>()))));
   nt2::toc();
   NT2_TEST(res.successful);
   std::cout << "Integrals:" << res.integrals<< " with error " << res.errors
              << " after " << res.eval_count <<  " evaluations\n";
 }
+
+NT2_TEST_CASE_TPL( quadgk_functor_fina_infb, NT2_REAL_TYPES )
+{
+  using nt2::quadgk;
+  using nt2::options;
+  using nt2::integration::output;
+  typedef typename nt2::meta::as_logical<T>::type lT;
+  typedef typename nt2::meta::as_complex<T>::type cT;
+
+  nt2::tic();
+  BOOST_AUTO_TPL(res, (quadgk(m(), T(0), nt2::Inf<T>())));
+  nt2::toc();
+  NT2_TEST(res.successful);
+  std::cout << "Integrals:" << res.integrals<< " with error " << res.errors
+             << " after " << res.eval_count <<  " evaluations\n";
+}
+NT2_TEST_CASE_TPL( quadgk_functor_infa_finb, NT2_REAL_TYPES )
+{
+  using nt2::quadgk;
+  using nt2::options;
+  using nt2::integration::output;
+  typedef typename nt2::meta::as_logical<T>::type lT;
+  typedef typename nt2::meta::as_complex<T>::type cT;
+
+  nt2::tic();
+  BOOST_AUTO_TPL(res, (quadgk(n(), nt2::Minf<T>(), T(0))));
+  nt2::toc();
+  NT2_TEST(res.successful);
+  std::cout << "Integrals:" << res.integrals<< " with error " << res.errors
+             << " after " << res.eval_count <<  " evaluations\n";
+}
+NT2_TEST_CASE_TPL( quadgk_functor_infa_infb, NT2_REAL_TYPES )
+{
+  using nt2::quadgk;
+  using nt2::options;
+  using nt2::integration::output;
+  typedef typename nt2::meta::as_logical<T>::type lT;
+  typedef typename nt2::meta::as_complex<T>::type cT;
+
+  nt2::tic();
+  BOOST_AUTO_TPL(res, (quadgk(o(), nt2::Minf<T>(), nt2::Inf<T>())));
+  nt2::toc();
+  NT2_TEST(res.successful);
+  std::cout << "Integrals:" << res.integrals<< " with error " << res.errors
+             << " after " << res.eval_count <<  " evaluations\n";
+}
+
 NT2_TEST_CASE_TPL( quadgk_functor_r, NT2_REAL_TYPES )
 {
   using nt2::quadgk;
@@ -148,7 +216,7 @@ NT2_TEST_CASE_TPL( quadgk_functor_r, NT2_REAL_TYPES )
   typedef typename nt2::meta::as_logical<T>::type lT;
   typedef typename nt2::meta::as_complex<T>::type cT;
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<T, T>(f1(), T(0), nt2::Pi<T>()))); //, options [nt2::range::waypoints_ = nt2::linspace(T(0), T(1), 5)])));
+  BOOST_AUTO_TPL(res, (quadgk(f1(), T(0), nt2::Pi<T>()))); //, options [nt2::range::waypoints_ = nt2::linspace(T(0), T(1), 5)])));
   nt2::toc();
   NT2_TEST(res.successful);
   std::cout << "Integrals:" << res.integrals << " with error " << res.errors
@@ -163,7 +231,7 @@ NT2_TEST_CASE_TPL( quadgk_cplx_out, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   tab_t x =  nt2::linspace(-nt2::Pio_2<T>(), nt2::Pio_2<T>(), 2);
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<T, cT>(h(), nt2::Pio_2<T>(), -nt2::Pio_2<T>())));
+  BOOST_AUTO_TPL(res, (quadgk(h(), nt2::Pio_2<T>(), -nt2::Pio_2<T>())));
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
@@ -180,7 +248,7 @@ NT2_TEST_CASE_TPL( quadgk_cplx_inout, NT2_REAL_TYPES)
   cT cx[] = {std::complex<T>(1, 1),std::complex<T>(1, -1)};
   tab_t x(nt2::of_size(1, 2), &cx[0], &cx[2]);
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<cT, cT>(k(), cT(0, 0), cT(0, 0), options[nt2::range::waypoints_ =x])));
+  BOOST_AUTO_TPL(res, (quadgk(k(), cT(0, 0), cT(0, 0), options[nt2::range::waypoints_ =x])));
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << " with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
@@ -198,7 +266,7 @@ NT2_TEST_CASE_TPL( quadgk_cplx_inout1, (double))//NT2_REAL_TYPES )
   cT cx[] = {std::complex<T>(1, 1),std::complex<T>(1, -1)};
   tab_t x(nt2::of_size(1, 2), &cx[0], &cx[2]);
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<cT, cT>(l(), cT(0, -1), cT(0, 1)))); //, options[nt2::range::waypoints_ =x])));
+  BOOST_AUTO_TPL(res, (quadgk(l(), cT(0, -1), cT(0, 1)))); //, options[nt2::range::waypoints_ =x])));
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
@@ -215,7 +283,7 @@ NT2_TEST_CASE_TPL( quadgk_cplx_inout2, NT2_REAL_TYPES )
   cT cx[] = { std::complex<T>(0, 0), std::complex<T>(1, 1),std::complex<T>(1, -1),std::complex<T>(0, 0)};
   tab_t x(nt2::of_size(1, 4), &cx[0], &cx[4]);
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<cT, cT>(k(), std::complex<T>(0, 0), std::complex<T>(0, 0),
+  BOOST_AUTO_TPL(res, (quadgk(k(), std::complex<T>(0, 0), std::complex<T>(0, 0),
                                       options[nt2::range::waypoints_ =x
                                         ] )));
   nt2::toc();
@@ -237,7 +305,7 @@ NT2_TEST_CASE_TPL( quadgk_functor_cplx, NT2_REAL_TYPES )
 
   //output<tab_t,T>
  nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<cT, cT>(f1(), cT(0), cT(0), options [nt2::range::waypoints_ = x])));
+  BOOST_AUTO_TPL(res, (quadgk(f1(), cT(0), cT(0), options [nt2::range::waypoints_ = x])));
 
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << " with error " << res.errors
@@ -258,7 +326,7 @@ NT2_TEST_CASE_TPL( quadgk_functorb, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   typedef typename nt2::meta::as_logical<T>::type lT;
   nt2::tic();
-  BOOST_AUTO_TPL(res, (quadgk<T, T>(f1(), T(0), T(1), options [ nt2::tolerance::abstol_ = T(1.0e-5)])));
+  BOOST_AUTO_TPL(res, (quadgk(f1(), T(0), T(1), options [ nt2::tolerance::abstol_ = T(1.0e-5)])));
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << " with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
@@ -275,7 +343,7 @@ NT2_TEST_CASE_TPL( quadgk_functor0, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   tab_t x = nt2::_(T(0), T(1), T(1));
   nt2::tic();
-  output<tab_t,T> res =  (quadgk<T, T>(g(), x, options [ nt2::tolerance::abstol_ = T(1.0e-6)]));
+  output<tab_t,T> res =  (quadgk(g(), x, options [ nt2::tolerance::abstol_ = T(1.0e-6)]));
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << " with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
@@ -295,7 +363,7 @@ NT2_TEST_CASE_TPL( quadgk_tag, NT2_REAL_TYPES )
   typedef typename nt2::meta::as_logical<T>::type lT;
   tab_t x = nt2::_(T(0), T(5));
   NT2_DISPLAY(x);
-  BOOST_AUTO_TPL(res, (quadgk<T, T>(nt2::functor<nt2::tag::exp_>(), x)));
+  BOOST_AUTO_TPL(res, (quadgk(nt2::functor<nt2::tag::exp_>(), x)));
   std::cout << "Integrals: " << res.integrals << " with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
   NT2_TEST(res.successful);
@@ -311,7 +379,7 @@ NT2_TEST_CASE_TPL( quadgk_tag_r, NT2_REAL_TYPES )
   tab_t x = nt2::_(T(5), T(-1), T(4));
   NT2_DISPLAY(x);
   //output<tab_t,T>
-  BOOST_AUTO_TPL(res, (quadgk<T, T>(nt2::functor<nt2::tag::exp_>(), T(5), T(4))));
+  BOOST_AUTO_TPL(res, (quadgk(nt2::functor<nt2::tag::exp_>(), T(5), T(4))));
   std::cout << "Integrals: " << res.integrals << " with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
   NT2_TEST(res.successful);
@@ -327,7 +395,7 @@ NT2_TEST_CASE_TPL( quadgk_tag_reverse, NT2_REAL_TYPES )
   tab_t x = nt2::_(T(5), T(-1), T(0));
   NT2_DISPLAY(x);
   //output<tab_t,T>
-  BOOST_AUTO_TPL(res, (quadgk<T, T>(nt2::functor<nt2::tag::exp_>(), x)));
+  BOOST_AUTO_TPL(res, (quadgk(nt2::functor<nt2::tag::exp_>(), x)));
   std::cout << "Integrals: " << res.integrals << " with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
   NT2_TEST(res.successful);

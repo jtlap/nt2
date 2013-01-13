@@ -67,14 +67,12 @@ namespace nt2 { namespace details
     typedef typename meta::is_complex<value_t>::type                     v_is_cplx_t;
     typedef typename boost::mpl::if_<v_is_cplx_t,value_t,input_t>::type     result_t;
     typedef typename meta::as_real<value_t>::type                             real_t;
-    typedef details::integration_settings<T, V, tag::quadgk_>                     o_t;
+    typedef details::integration_settings<T, V, tag::quadgk_>                    o_t;
     typedef container::table<value_t>                                         vtab_t;
     typedef container::table<input_t>                                         itab_t;
     typedef container::table<real_t>                                          rtab_t;
     typedef container::table<result_t>                                      restab_t;
-//    typedef container::table<bool>                                            btab_t;
     typedef container::table<bi_t>                                           bitab_t;
-//    typedef typename boost::is_same<input_t,real_t>::type            input_is_real_t;
 
     quadgk_impl() :  errbnd_(Nan<real_t>()),
                      fcnt_(0),
@@ -94,11 +92,8 @@ namespace nt2 { namespace details
                   const boost::mpl::false_ & choice) // cplx path integration
     {
       init(o, x,  choice);
-      NT2_DISPLAY(a_);
-      NT2_DISPLAY(b_);
-      NT2_DISPLAY(tinterval_);
       interval_ = tinterval_;
-      vadapt(transform<FUNC, details::f0, input_t, value_t>(f, a_, b_, interval_));
+      vadapt(transform<FUNC, details::no_transform, input_t, value_t>(f, a_, b_, interval_));
     }
 
     template < class FUNC, class X>
@@ -108,8 +103,10 @@ namespace nt2 { namespace details
       init(o, x, choice);
       if (a_ == b_) //quick return
       {
-        res_ = details::midparea<result_t, value_t>(f, tinterval_(begin_), tinterval_(end_));
-        errbnd_ = nt2::abs(res_);
+        result_t r = nt2::multiplies(f(a_), Zero<input_t>());
+          //result_t r = details::midparea<result_t, value_t>(f, tinterval_(begin_), tinterval_(end_));
+        res_ = r;
+        errbnd_ = nt2::abs(r);
         return;
       }
       interval_ = tinterval_;
@@ -228,8 +225,13 @@ namespace nt2 { namespace details
       interval_ = tmp;
       if (pathlen == 0)
       {
-        res_ = details::midparea<result_t, value_t>(f, f.interval_(begin_), f.interval_(end_));
-        errbnd_ =  nt2::abs(res_);
+        input_t tmp =  nt2::multiplies(f.interval_(end_), nt2::Half<real_t>());
+        input_t xx =  nt2::fma(f.interval_(begin_), nt2::Half<real_t>(), tmp);
+        input_t d = (f.interval_(end_)-f.interval_(begin_));
+
+        result_t r = nt2::multiplies(f(xx), d); //details::midparea<result_t, value_t>(f, f.interval_(begin_), f.interval_(end_));
+        res_ = r;
+        errbnd_ =  nt2::abs(r);
         return;
       }
       // Initialize array of subintervals of [a,b].
@@ -305,30 +307,30 @@ namespace nt2 { namespace details
       bool finb = nt2::is_finite(b_);
       if(fina && finb)
       { NT2_DISPLAY("fina && finb");
-        vadapt(transform<F, details::f1, input_t, value_t>(f, a_, b_, interval_));
+        vadapt(transform<F, details::fina_finb, input_t, value_t>(f, a_, b_, interval_));
       }
       else
       {
         bool infb = nt2::is_inf(b_);
         if (fina && infb)
         {
-          vadapt(transform<F, details::f2, input_t, value_t>(f, a_, b_, interval_));
+          vadapt(transform<F, details::fina_infb, input_t, value_t>(f, a_, b_, interval_));
         }
         else
         {
           bool infa = nt2::is_inf(a_);
           if (infa && finb)
           {
-            vadapt(transform<F, details::f3, input_t, value_t>(f, a_, b_, interval_));
+            vadapt(transform<F, details::infa_finb, input_t, value_t>(f, a_, b_, interval_));
           }
           else if (infa && infb)
           {
-            vadapt(transform<F, details::f4, input_t, value_t>(f, a_, b_, interval_));
+            vadapt(transform<F, details::infa_infb, input_t, value_t>(f, a_, b_, interval_));
           }
           else //is_nan(a) || is_nan(b)
           {
-            res_ = midparea<result_t, value_t>(f, a_, b_);
-            errbnd_ = nt2::abs(res_);
+            result_t r = Nan<result_t>();
+            errbnd_ = nt2::abs(r);
             fcnt_ = 1;
           }
         }

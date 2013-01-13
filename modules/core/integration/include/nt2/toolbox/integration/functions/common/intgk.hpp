@@ -98,7 +98,7 @@ namespace nt2 { namespace details
       NT2_DISPLAY(b_);
       NT2_DISPLAY(tinterval_);
       interval_ = tinterval_;
-      vadapt(transform<FUNC, details::f0, input_t, value_t>(f, a_, b_, interval_));
+      vadapt(transform<FUNC, details::no_transform, input_t, value_t>(f, a_, b_, interval_));
     }
 
     template < class FUNC, class X>
@@ -305,25 +305,25 @@ namespace nt2 { namespace details
       bool finb = nt2::is_finite(b_);
       if(fina && finb)
       { NT2_DISPLAY("fina && finb");
-        vadapt(transform<F, details::f1, input_t, value_t>(f, a_, b_, interval_));
+        vadapt(transform<F, details::fina_finb, input_t, value_t>(f, a_, b_, interval_));
       }
       else
       {
         bool infb = nt2::is_inf(b_);
         if (fina && infb)
         {
-          vadapt(transform<F, details::f2, input_t, value_t>(f, a_, b_, interval_));
+          vadapt(transform<F, details::fina_infb, input_t, value_t>(f, a_, b_, interval_));
         }
         else
         {
           bool infa = nt2::is_inf(a_);
           if (infa && finb)
           {
-            vadapt(transform<F, details::f3, input_t, value_t>(f, a_, b_, interval_));
+            vadapt(transform<F, details::infa_finb, input_t, value_t>(f, a_, b_, interval_));
           }
           else if (infa && infb)
           {
-            vadapt(transform<F, details::f4, input_t, value_t>(f, a_, b_, interval_));
+            vadapt(transform<F, details::infa_infb, input_t, value_t>(f, a_, b_, interval_));
           }
           else //is_nan(a) || is_nan(b)
           {

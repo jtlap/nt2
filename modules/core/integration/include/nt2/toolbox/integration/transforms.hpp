@@ -78,13 +78,13 @@ namespace nt2
     }
 
     template < class FUNC, class INPUT, class RTAB, class VTAB>
-    struct f0
+    struct no_transform
     {
       typedef INPUT                         input_t;
       typedef RTAB                           rtab_t;
       typedef typename rtab_t::value_type    real_t;
       typedef VTAB                           vtab_t;
-      f0(const FUNC & f, const input_t& a, const input_t& b) :
+      no_transform(const FUNC & f, const input_t& a, const input_t& b) :
         f_(f), a_(a), b_(b), firstfunceval_(true), fcnt_(0){};
       template < class X > inline
       vtab_t operator()(const X& t)
@@ -101,13 +101,13 @@ namespace nt2
     };
 
     template < class FUNC, class INPUT, class RTAB, class VTAB>
-    struct f1
+    struct fina_finb
     {
       typedef INPUT                         input_t;
       typedef RTAB                           rtab_t;
       typedef typename rtab_t::value_type    real_t;
       typedef VTAB                           vtab_t;
-      f1(const FUNC & f, const input_t& a, const input_t& b) :
+      fina_finb(const FUNC & f, const input_t& a, const input_t& b) :
         f_(f), a_(a), b_(b), firstfunceval_(true), fcnt_(0){};
       template < class X > inline
       vtab_t operator()(const X& t)
@@ -119,6 +119,7 @@ namespace nt2
           return real_t(0.75)*(b_-a_)*y*(nt2::oneminus(nt2::sqr(t)));
         else
           return y;
+        return z;
       }
       bool tooclose() const {return tooclose_; }
       size_t   fcnt() const {return fcnt_; }
@@ -131,7 +132,7 @@ namespace nt2
 
 // %--------------------------------------------------------------------------
 
-//     function [y,too_close] = f2(t)
+//     function [y,too_close] = fina_infb(t)
 //         % Transform to weaken singularity at left end: [a,Inf) -> [0,Inf).
 //         % Then transform to finite interval: [0,Inf) -> [0,1].
 //         tt = t ./ (1 - t);
@@ -140,16 +141,16 @@ namespace nt2
 //         if ~too_close
 //             y =  2*tt .* y ./ (1 - t).^2;
 //         end
-//     end % f2
+//     end % fina_infb
 
     template < class FUNC, class INPUT, class RTAB, class VTAB>
-    struct f2
+    struct fina_infb
     {
       typedef INPUT                         input_t;
       typedef RTAB                           rtab_t;
       typedef typename rtab_t::value_type    real_t;
       typedef VTAB                           vtab_t;
-      f2(const FUNC & f, const input_t& a) :
+      fina_infb(const FUNC & f, const input_t& a) :
         f_(f), a_(a), firstfunceval_(true), fcnt_(0){};
       template < class X > inline
       vtab_t operator()(const X& t)
@@ -175,7 +176,7 @@ namespace nt2
 
 // %--------------------------------------------------------------------------
 
-//     function [y,too_close] = f3(t)
+//     function [y,too_close] = infa_finb(t)
 //         % Transform to weaken singularity at right end: (-Inf,b] -> (-Inf,b].
 //         % Then transform to finite interval: (-Inf,b] -> (-1,0].
 //         tt = t ./ (1 + t);
@@ -184,15 +185,15 @@ namespace nt2
 //         if ~too_close
 //             y = -2*tt .* y ./ (1 + t).^2;
 //         end
-//     end % f3
+//     end % infa_finb
     template < class FUNC, class INPUT, class RTAB, class VTAB>
-    struct f3
+    struct infa_finb
     {
       typedef INPUT                         input_t;
       typedef RTAB                           rtab_t;
       typedef typename rtab_t::value_type    real_t;
       typedef VTAB                           vtab_t;
-      f3(const FUNC & f, const input_t& b) :
+      infa_finb(const FUNC & f, const input_t& b) :
         f_(f), b_(b), firstfunceval_(true), fcnt_(0){};
       template < class X > inline
       vtab_t operator()(const X& t)
@@ -218,22 +219,22 @@ namespace nt2
 
 // %--------------------------------------------------------------------------
 
-//     function [y,too_close] = f4(t)
+//     function [y,too_close] = infa_infb(t)
 //         % Transform to finite interval: (-Inf,Inf) -> (-1,1).
 //         tt = t ./ (1 - t.^2);
 //         [y,too_close] = evalFun(tt);
 //         if ~too_close
 //             y = y .* (1 + t.^2) ./ (1 - t.^2).^2;
 //         end
-//     end % f4
+//     end % infa_infb
     template < class FUNC, class INPUT, class RTAB, class VTAB>
-    struct f4
+    struct infa_infb
     {
       typedef INPUT                         input_t;
       typedef RTAB                           rtab_t;
       typedef typename rtab_t::value_type    real_t;
       typedef VTAB                           vtab_t;
-      f4(const FUNC & f) :
+      infa_infb(const FUNC & f) :
         f_(f), firstfunceval_(true), fcnt_(0){};
       template < class X > inline
       vtab_t operator()(const X& t)

@@ -104,17 +104,11 @@ namespace nt2
       transform(const FUNC & f, const input_t& a, const input_t& b, const T& tinterv)
         : trans_t(f, a, b, tinterv)
       {};
-//       template < class X > inline
-//       vtab_t operator()(const X& t) { return trans_(t); }
-//       const input_t &           a() { return trans_.a_; }
-//       const input_t &           b() { return trans_.b_; }
-//       const itab_t  &    interval() { return trans_.interval_; }
-//       trans_t trans_;
     };
 
 
     template < class FUNC, class INPUT, class VALUE>
-    struct f0
+    struct no_transform
     {
       typedef INPUT                                 input_t;
       typedef VALUE                                 value_t;
@@ -123,7 +117,7 @@ namespace nt2
       typedef typename container::table<value_t>     vtab_t;
       typedef typename container::table<input_t>     itab_t;
       template < class T > inline
-      f0(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
+      no_transform(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
         f_(f), a_(a), b_(b),firstfunceval_(true), fcnt_(0)
       {
         bounds_from(interv);
@@ -150,7 +144,7 @@ namespace nt2
     };
 
     template < class FUNC, class INPUT, class VALUE>
-    struct f1
+    struct fina_finb
     {
       typedef INPUT                                 input_t;
       typedef VALUE                                 value_t;
@@ -159,7 +153,7 @@ namespace nt2
       typedef typename container::table<value_t>     vtab_t;
       typedef typename container::table<input_t>     itab_t;
       template < class T > inline
-      f1(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
+      fina_finb(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
         f_(f), a_(a), b_(b), firstfunceval_(true), fcnt_(0)
       {
         bounds_from(interv);
@@ -182,12 +176,10 @@ namespace nt2
       vtab_t operator()(const X& t)
       {
         // Transform to weaken singularities at both ends: [a,b] -> [-1,1]
-        BOOST_AUTO_TPL(tt, nt2::Quarter<real_t>()*(b_-a_)*t*(nt2::Three<real_t>() - nt2::sqr(t)) + nt2::average(a_, b_));
-        BOOST_AUTO_TPL(y, (evalfun<rtab_t, vtab_t>(f_, tt, tooclose_, firstfunceval_, fcnt_)));
-        if (!tooclose_)
-          return real_t(0.75)*(b_-a_)*y*(nt2::oneminus(nt2::sqr(t)));
-        else
-          return y;
+        itab_t tt =  nt2::Quarter<real_t>()*(b_-a_)*t*(nt2::Three<real_t>() - nt2::sqr(t)) + nt2::average(a_, b_);
+        vtab_t y =  evalfun<rtab_t, vtab_t>(f_, tt, tooclose_, firstfunceval_, fcnt_);
+        if (!tooclose_) y *= real_t(0.75)*(b_-a_)*(nt2::oneminus(nt2::sqr(t)));
+        return y;
       }
       bool tooclose() const {return tooclose_; }
       size_t   fcnt() const {return fcnt_; }
@@ -201,7 +193,7 @@ namespace nt2
 
 // %--------------------------------------------------------------------------
 
-//     function [y,too_close] = f2(t)
+//     function [y,too_close] = fina_infb(t)
 //         % Transform to weaken singularity at left end: [a,Inf) -> [0,Inf).
 //         % Then transform to finite interval: [0,Inf) -> [0,1].
 //         tt = t ./ (1 - t);
@@ -210,10 +202,10 @@ namespace nt2
 //         if ~too_close
 //             y =  2*tt .* y ./ (1 - t).^2;
 //         end
-//     end % f2
+//     end % fina_infb
 
     template < class FUNC, class INPUT, class VALUE>
-    struct f2
+    struct fina_infb
     {
       typedef INPUT                                 input_t;
       typedef VALUE                                 value_t;
@@ -222,7 +214,7 @@ namespace nt2
       typedef typename container::table<value_t>     vtab_t;
       typedef typename container::table<input_t>     itab_t;
       template < class T > inline
-      f2(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
+      fina_infb(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
         f_(f), a_(a), b_(b), firstfunceval_(true), fcnt_(0)
       {
         bounds_from(interv);
@@ -243,13 +235,11 @@ namespace nt2
       {
         // Transform to weaken singularity at left end: [a,Inf) -> [0,Inf).
         // Then transform to finite interval: [0,Inf) -> [0,1].
-        BOOST_AUTO_TPL(tt, t/oneminus(t));
-        BOOST_AUTO_TPL(t2t, a_+ sqr(tt));
-        BOOST_AUTO_TPL(y, (evalfun<rtab_t, vtab_t>(f_, t2t, tooclose_, firstfunceval_, fcnt_)));
-        if (!tooclose_)
-          return Two<real_t>()*tt*y/nt2::sqr(nt2::oneminus(t));
-        else
-          return y;
+        itab_t tt = t/nt2::oneminus(t);
+        itab_t t2t = a_+ nt2::sqr(tt);
+        vtab_t y =  evalfun<rtab_t, vtab_t>(f_, t2t, tooclose_, firstfunceval_, fcnt_);
+        if (!tooclose_) y *= Two<real_t>()*tt/nt2::sqr(nt2::oneminus(t));
+        return y;
       }
       bool tooclose() const {return tooclose_; }
       size_t   fcnt() const {return fcnt_; }
@@ -264,7 +254,7 @@ namespace nt2
 
 // %--------------------------------------------------------------------------
 
-//     function [y,too_close] = f3(t)
+//     function [y,too_close] = infa_finb(t)
 //         % Transform to weaken singularity at right end: (-Inf,b] -> (-Inf,b].
 //         % Then transform to finite interval: (-Inf,b] -> (-1,0].
 //         tt = t ./ (1 + t);
@@ -273,9 +263,9 @@ namespace nt2
 //         if ~too_close
 //             y = -2*tt .* y ./ (1 + t).^2;
 //         end
-//     end % f3
+//     end % infa_finb
     template < class FUNC, class INPUT, class VALUE>
-    struct f3
+    struct infa_finb
     {
       typedef INPUT                                 input_t;
       typedef VALUE                                 value_t;
@@ -284,7 +274,7 @@ namespace nt2
       typedef typename container::table<value_t>     vtab_t;
       typedef typename container::table<input_t>     itab_t;
       template < class T > inline
-      f3(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
+      infa_finb(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
         f_(f), a_(a), b_(b), firstfunceval_(true), fcnt_(0)
       {
         bounds_from(interv);
@@ -305,13 +295,11 @@ namespace nt2
       {
         // Transform to weaken singularity at left end:  (-Inf,b] -> (-Inf,b].
         // Then transform to finite interval: (-Inf,b] -> (-1,0].
-        BOOST_AUTO_TPL(tt, t/oneplus(t));
-        BOOST_AUTO_TPL(t2t, b_- sqr(tt));
-        BOOST_AUTO_TPL(y, (evalfun<rtab_t, vtab_t>(f_, t2t, tooclose_, firstfunceval_, fcnt_)));
-        if (!tooclose_)
-          return Mtwo<real_t>()*tt*y/nt2::sqr(nt2::oneplus(t));
-        else
-          return y;
+        itab_t tt = t/nt2::oneplus(t);
+        itab_t t2t = b_- nt2::sqr(tt);
+        vtab_t y = evalfun<rtab_t, vtab_t>(f_, t2t, tooclose_, firstfunceval_, fcnt_);
+        if (!tooclose_) y *= Mtwo<real_t>()*tt/nt2::sqr(nt2::oneplus(t));
+        return y;
       }
       bool tooclose() const {return tooclose_; }
       size_t   fcnt() const {return fcnt_; }
@@ -325,16 +313,16 @@ namespace nt2
 
 // %--------------------------------------------------------------------------
 
-//     function [y,too_close] = f4(t)
+//     function [y,too_close] = infa_infb(t)
 //         % Transform to finite interval: (-Inf,Inf) -> (-1,1).
 //         tt = t ./ (1 - t.^2);
 //         [y,too_close] = evalFun(tt);
 //         if ~too_close
 //             y = y .* (1 + t.^2) ./ (1 - t.^2).^2;
 //         end
-//     end % f4
+//     end % infa_infb
     template < class FUNC, class INPUT, class VALUE>
-    struct f4
+    struct infa_infb
     {
       typedef INPUT                                 input_t;
       typedef VALUE                                 value_t;
@@ -343,7 +331,7 @@ namespace nt2
       typedef typename container::table<value_t>     vtab_t;
       typedef typename container::table<input_t>     itab_t;
       template < class T > inline
-      f4(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
+      infa_infb(const FUNC & f, const input_t& a, const input_t& b, const T & interv) :
         f_(f), a_(a), b_(b), firstfunceval_(true), fcnt_(0)
       {
         bounds_from(interv);
@@ -364,11 +352,10 @@ namespace nt2
       {
         // Transform to weaken singularity at left end:  (-Inf,b] -> (-Inf,b].
         // Then transform to finite interval: (-Inf,b] -> (-1,0].
-        BOOST_AUTO_TPL(tt, t/oneminus(nt2::sqr(t)));
-        BOOST_AUTO_TPL(y, (evalfun<rtab_t, vtab_t>(f_, tt, tooclose_, firstfunceval_, fcnt_)));
+        itab_t tt =  t/oneminus(nt2::sqr(t));
+        vtab_t y = evalfun<rtab_t, vtab_t>(f_, tt, tooclose_, firstfunceval_, fcnt_);
         if (!tooclose_)
-          return y*nt2::oneplus(nt2::sqr(t))/nt2::sqr(oneminus(nt2::sqr(t)));
-        else
+          return y *= nt2::oneplus(nt2::sqr(t))/nt2::sqr(oneminus(nt2::sqr(t)));
           return y;
       }
       bool tooclose() const {return tooclose_; }

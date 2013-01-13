@@ -132,7 +132,6 @@ namespace nt2 { namespace details
     template < class X >
     void init( const o_t & o, const X&x)
     {
-      std::cout << o.abstol << std::endl;
       details::prepare_waypoints(o, x, wpts_);
       warn_ = 0;
       fcnt_ = 0;
