@@ -118,8 +118,8 @@ struct roll_binary_test_4
     T ref, res;
     ref[0] = (I0 == -1) ? 0 : ((I0<4)?a[I0]:b[I0-4]);
     ref[1] = (I1 == -1) ? 0 : ((I1<4)?a[I1]:b[I1-4]);
-    ref[2] = (I2 == -1) ? 0 : ((I0<4)?a[I2]:b[I2-4]);
-    ref[3] = (I3 == -1) ? 0 : ((I0<4)?a[I3]:b[I3-4]);
+    ref[2] = (I2 == -1) ? 0 : ((I2<4)?a[I2]:b[I2-4]);
+    ref[3] = (I3 == -1) ? 0 : ((I3<4)?a[I3]:b[I3-4]);
     res = shuffle<I0,I1,I2,I3>(a,b);
     NT2_TEST_EQUAL(res,ref);
     roll_binary_test_4<T,I0+1,I1,I2,I3>::call(a,b);
