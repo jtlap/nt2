@@ -166,7 +166,7 @@ static long P3[] = {0x3fc80000,0x8d313198,0xa2e03707};
 static long double lossth = 5.49755813888e11L; /* 2^39 */
 extern long double PIO4L;
 #ifdef ANSIPROT
-extern long double cephes_polevll ( long double, void *, int );
+extern long double cephes_polevll ( long double, long double *, int );
 extern long double cephes_floorl ( long double );
 extern long double cephes_ldexpl ( long double, int );
 extern int cephes_isnanl ( long double );

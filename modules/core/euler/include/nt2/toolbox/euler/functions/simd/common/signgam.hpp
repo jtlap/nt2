@@ -8,10 +8,8 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_SIGNGAM_HPP_INCLUDED
 #define NT2_TOOLBOX_EULER_FUNCTIONS_SIMD_COMMON_SIGNGAM_HPP_INCLUDED
+
 #include <nt2/toolbox/euler/functions/signgam.hpp>
-#include <nt2/sdk/meta/adapted_traits.hpp>
-#include <nt2/include/constants/digits.hpp>
-#include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/is_lez.hpp>
 #include <nt2/include/functions/simd/is_flint.hpp>
 #include <nt2/include/functions/simd/selsub.hpp>
@@ -21,8 +19,10 @@
 #include <nt2/include/functions/simd/if_else_zero.hpp>
 #include <nt2/include/functions/simd/logical_or.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
-
-
+#include <nt2/include/functions/simd/is_nan.hpp>
+#include <nt2/include/functions/simd/is_equal.hpp>
+#include <nt2/include/constants/digits.hpp>
+#include <nt2/sdk/meta/as_logical.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
 // Implementation when type  is arithmetic_
@@ -36,14 +36,15 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-     typedef typename meta::as_logical<A0>::type bA0;
-     bA0 leza0 =  is_lez(a0);
-     return if_nan_else(logical_or(logical_or(is_nan(a0),eq(a0,Minf<A0>())),
-                             logical_and(leza0,is_flint(a0))),
-                        selsub(leza0,One<A0>(),if_else_zero(is_odd(floor(a0)), Mtwo<A0>()))
+    {
+      typedef typename meta::as_logical<A0>::type bA0;
+      bA0 leza0 = is_lez(a0);
+      return if_nan_else( logical_or( logical_or(is_nan(a0), eq(a0,Minf<A0>()))
+                                    , logical_and(leza0, is_flint(a0))
+                                    )
+                        , selsub(leza0, One<A0>(), if_else_zero(is_odd(floor(a0)), Mtwo<A0>()))
                         );
-      }
+    }
 
   };
 } }

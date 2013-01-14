@@ -120,7 +120,7 @@ extern long double NANL;
 #ifdef ANSIPROT
 extern long double cephes_logl ( long double );
 extern long double cephes_sqrtl ( long double );
-extern long double cephes_polevll ( long double, void *, int );
+extern long double cephes_polevll ( long double, long double *, int );
 extern int cephes_isnanl ( long double );
 #else
 long double cephes_logl(), cephes_sqrtl(), cephes_polevll(), cephes_isnanl();

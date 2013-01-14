@@ -3,6 +3,7 @@
 //        versus a0>=0 ? 0 : nt2::Pi<r_t>() with float elements
 ////////////////////////////////////////////////////////////////////////
 #include <nt2/include/functions/arg.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/splat.hpp>

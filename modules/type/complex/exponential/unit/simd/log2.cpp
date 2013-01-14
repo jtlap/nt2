@@ -14,6 +14,7 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/include/functions/log2.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/atan2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/extract.hpp>

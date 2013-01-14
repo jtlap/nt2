@@ -14,6 +14,7 @@
 /// created  by jt the 21/02/2011
 ///
 #include <nt2/toolbox/elliptic/include/functions/ellipke.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 extern "C" {long double cephes_ellikl(long double,long double);}

@@ -63,9 +63,9 @@ namespace nt2 { namespace ext
     typedef void result_type;
     inline result_type operator()(A0 const& a0, A0 & xr, A0& xc) const
     {
-      nt2::int32_t n = rem_pio2(a0, xr, xc);
+      ptrdiff_t n = rem_pio2(a0, xr, xc);
       xr = xr+n*Pio_2<A0>();
-      xr = (xr > Pi<A0>()+Threeeps<A0>()) ? xr-Twopi<A0>():(xr > Pi<A0>() ? Pi<A0>() : xr);
+      xr = (xr > Pi<A0>()) ? xr-Twopi<A0>() : xr;
     }
 
   };
@@ -89,7 +89,7 @@ namespace nt2 { namespace ext
         xr = Nan<A0>();
         return;
       }
-      nt2::int32_t n = rem_pio2(a0, xr, xc);
+      ptrdiff_t n = rem_pio2(a0, xr, xc);
       xr = xr+n*Pio_2<A0>();
       xr = (xr > Pi<A0>()) ? xr-Twopi<A0>():xr;
     }
@@ -148,9 +148,9 @@ namespace nt2 { namespace ext
     {
       static inline result_type rem(A0 const& x, A0 & xr, A0& xc)
       {
-        nt2::int32_t n = rem_pio2_medium(x, xr, xc);
-        A0 volatile xr_ = xr+n*Pio_2<A0>();
-        xr = (xr_ > Pi<A0>()) ? xr_-Twopi<A0>():xr_;
+        ptrdiff_t n = rem_pio2_medium(x, xr, xc);
+        xr += n*Pio_2<A0>();
+        xr = (xr > Pi<A0>()) ? xr-Twopi<A0>() : xr;
       }
     };
   };

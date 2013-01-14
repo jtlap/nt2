@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2 operator toolbox - load/simd Mode"
 
 #include <iostream>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/load.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>

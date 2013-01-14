@@ -14,6 +14,7 @@
 /// created  by jt the 18/02/2011
 ///
 #include <boost/simd/toolbox/boolean/include/functions/seladd.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/toolbox/predicates/include/functions/is_nez.hpp>
 

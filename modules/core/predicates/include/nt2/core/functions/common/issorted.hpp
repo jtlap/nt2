@@ -11,6 +11,7 @@
 
 #include <nt2/core/functions/issorted.hpp>
 #include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/globalall.hpp>
 #include <nt2/include/functions/is_ngtz.hpp>
 #include <nt2/include/functions/is_nltz.hpp>
 #include <nt2/include/functions/diff.hpp>
@@ -76,10 +77,9 @@ namespace nt2 { namespace ext
       result_type operator()(const A0& a0) const
     {
       typedef typename A0::value_type value_type;
-      int32_t dim =  nt2::firstnonsingleton(a0);
-      bool res =  nt2::all(nt2::all(is_nltz(diff(a0, dim)))(_))(1);
-      if (res) return true;
-      return  nt2::all(nt2::all(is_ngtz(diff(a0, dim)))(_))(1);
+      size_t dim =  nt2::firstnonsingleton(a0);
+      bool res =  nt2::globalall(nt2::all(is_nltz(diff(a0, dim))));
+      return res || nt2::globalall(nt2::all(is_ngtz(diff(a0, dim))));
     }
   };
 
@@ -95,9 +95,8 @@ namespace nt2 { namespace ext
       result_type operator()(const A0& a0, const A1& dim) const
     {
       typedef typename A0::value_type value_type;
-      bool res =  nt2::all(nt2::all(is_nltz(diff(a0, dim)))(_))(1);
-      if (res) return true;
-      return  nt2::all(nt2::all(is_ngtz(diff(a0, dim)))(_))(1);
+      bool res =  nt2::globalall(nt2::all(is_nltz(diff(a0, dim))));
+      return  res || nt2::globalall(nt2::all(is_ngtz(diff(a0, dim))));
     }
   };
 
@@ -113,7 +112,7 @@ namespace nt2 { namespace ext
       result_type operator()(const A0& a0, const A1& up) const
     {
       typedef typename A0::value_type value_type;
-      int32_t dim =  nt2::firstnonsingleton(a0);
+      size_t dim =  nt2::firstnonsingleton(a0);
       return issorted(a0, dim, up);
     }
   };
@@ -131,7 +130,7 @@ namespace nt2 { namespace ext
     {
       typedef typename A0::value_type value_type;
       value_type sgn = up ? One<value_type>() : Mone<value_type>();
-      return nt2::all(nt2::all(is_nltz(diff(a0, dim)*sgn))(_))(1);
+      return nt2::globalall(nt2::all(is_nltz(diff(a0, dim)*sgn)));
     }
   };
 

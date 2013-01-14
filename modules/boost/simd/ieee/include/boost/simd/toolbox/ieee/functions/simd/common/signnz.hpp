@@ -14,9 +14,10 @@
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
-#include <boost/simd/include/functions/simd/genmask.hpp>
+#include <boost/simd/include/functions/simd/shrai.hpp>
 #include <boost/simd/include/constants/one.hpp>
 #include <boost/simd/include/constants/signmask.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -28,7 +29,7 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(1)
     {
-      return genmask(is_ltz(a0))-genmask(is_gez(a0)); // here True is -1 False 0 !
+      return b_or(shrai(a0, (sizeof(A0)*8-2)), One<A0>());
     }
   };
 
@@ -38,7 +39,7 @@ namespace boost { namespace simd { namespace ext
                         )
   {
     typedef A0 result_type;
-    inline result_type operator()(const A0&)const
+    inline result_type operator()(const A0&) const
     {
       return One<A0>();
     }

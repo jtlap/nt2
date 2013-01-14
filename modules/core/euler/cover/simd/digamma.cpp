@@ -14,6 +14,7 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/toolbox/euler/include/functions/digamma.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>

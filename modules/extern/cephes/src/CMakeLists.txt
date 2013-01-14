@@ -25,6 +25,10 @@ elseif(NT2_ARCH_POWERPC)
   add_definitions(-DMIEEE)
 endif()
 
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
+  add_definitions(-fvisibility=hidden)
+endif()
+
 add_subdirectory(cephes_single)
 add_subdirectory(cephes_double)
 

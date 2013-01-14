@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::aligned_array"
 
 #include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/aligned_array.hpp>
 #include <boost/mpl/size_t.hpp>
 #include <nt2/sdk/unit/module.hpp>

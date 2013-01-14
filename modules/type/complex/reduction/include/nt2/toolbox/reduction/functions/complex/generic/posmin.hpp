@@ -29,14 +29,14 @@ namespace nt2 { namespace ext
                             , (generic_< complex_< arithmetic_<A0> > >)
                             )
   {
-    typedef nt2::int32_t result_type;
+    typedef ptrdiff_t result_type;
     NT2_FUNCTOR_CALL(1)
     {
       typedef typename meta::as_real<A0>::type rtype;
       typedef typename meta::scalar_of<rtype>::type stype;
       typedef typename meta::as_logical<rtype>::type ltype;
       rtype absa0 = nt2::abs(a0);
-      nt2::int32_t tmp = posmin(absa0);
+      ptrdiff_t tmp = posmin(absa0);
       ltype test = eq(absa0, absa0[tmp]);
       if (inbtrue(test) > 1)
       {
@@ -51,7 +51,7 @@ namespace nt2 { namespace ext
                               , (generic_< imaginary_< arithmetic_<A0> > >)
     )
   {
-    typedef nt2::int32_t result_type;
+    typedef ptrdiff_t result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return posmin(nt2::abs(a0));
@@ -62,7 +62,7 @@ namespace nt2 { namespace ext
                               , (generic_< dry_< arithmetic_<A0> > >)
     )
   {
-    typedef nt2::int32_t result_type;
+    typedef ptrdiff_t result_type;
     NT2_FUNCTOR_CALL(1)
     {
       return posmin(nt2::abs(a0));

@@ -8,10 +8,12 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_FINITE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NOT_FINITE_HPP_INCLUDED
+
 #include <boost/simd/toolbox/predicates/functions/is_not_finite.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
+#include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
-//TODO this is an alias of is_invalid
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -21,7 +23,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    inline result_type operator()(A0 const&)const
+    inline result_type operator()(A0 const&) const
     {
       return boost::simd::False<result_type>();
     }
@@ -33,10 +35,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return boost::simd::is_nan(a0-a0);
-    }
+    #ifdef BOOST_SIMD_NO_INFINITIES
+    inline result_type operator()(const A0&) const { return False<result_type>(); }
+    #else
+    BOOST_SIMD_FUNCTOR_CALL(1) { return boost::simd::is_nan(a0-a0); }
+    #endif
   };
 } } }
 

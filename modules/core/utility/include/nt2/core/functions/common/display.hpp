@@ -9,8 +9,9 @@
 #ifndef NT2_CORE_FUNCTIONS_COMMON_DISPLAY_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_COMMON_DISPLAY_HPP_INCLUDED
 
-#include <iostream>
 #include <nt2/sdk/meta/type_id.hpp>
+#include <boost/simd/sdk/simd/io.hpp>
+#include <iostream>
 
 namespace nt2 { namespace ext
 {

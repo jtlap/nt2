@@ -66,14 +66,14 @@ NT2_TEST_CASE_TPL( linspace, NT2_REAL_TYPES )
 
   nt2::table<T> x = nt2::linspace(T(0),T(1));
   NT2_TEST_EQUAL( x.extent(), nt2::of_size(1,100) );
-  NT2_TEST_ULP_EQUAL( x, ref, 1 );
+  NT2_TEST_ULP_EQUAL( x, ref, 15 );
 
   for(int i=1;i<=100;++i)
     ref(i) = T(1) + (T(-1)/99)*(i-1);
 
   nt2::table<T> xr = nt2::linspace(T(1),T(0));
   NT2_TEST_EQUAL( xr.extent(), nt2::of_size(1,100) );
-  NT2_TEST_ULP_EQUAL( xr, ref, 1 );
+  NT2_TEST_ULP_EQUAL( xr, ref, 15 );
 }
 
 NT2_TEST_CASE_TPL( linspace_with_size, NT2_REAL_TYPES )

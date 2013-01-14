@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NAN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SCALAR_IS_NAN_HPP_INCLUDED
+
 #include <boost/simd/toolbox/predicates/functions/is_nan.hpp>
 #include <boost/simd/include/constants/false.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -32,10 +34,11 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename meta::as_logical<A0>::type result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1)
-    {
-      return result_type(a0 != a0);
-    }
+    #ifdef BOOST_SIMD_NO_NANS
+    inline result_type operator()(const A0&) const { return False<result_type>(); }
+    #else
+    BOOST_SIMD_FUNCTOR_CALL(1) { return result_type(a0 != a0);}
+    #endif
   };
 } } }
 

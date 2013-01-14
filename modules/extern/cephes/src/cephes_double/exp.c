@@ -79,8 +79,8 @@ static double C1 = 6.93145751953125E-1;
 static double C2 = 1.42860682030941723212E-6;
 
 #ifdef ANSIPROT
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 extern double cephes_floor ( double );
 extern double cephes_ldexp ( double, int );
 extern int isnan ( double );

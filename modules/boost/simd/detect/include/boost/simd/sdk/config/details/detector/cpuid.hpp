@@ -22,7 +22,8 @@
 #include <intrin.h>
 #endif
 
-namespace boost { namespace simd { namespace config{ namespace x86 {
+namespace boost { namespace simd { namespace config { namespace x86
+{
 
   inline void cpuid(int CPUInfo[4],int InfoType)
   {

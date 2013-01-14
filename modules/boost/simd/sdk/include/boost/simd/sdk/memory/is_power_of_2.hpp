@@ -14,7 +14,7 @@
   @brief Defines the boost::simd::is_power_of_2 function
 **/
 
-#include <boost/config.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace boost { namespace simd
 {

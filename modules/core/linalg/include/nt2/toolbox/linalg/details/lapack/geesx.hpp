@@ -273,7 +273,7 @@ namespace nt2
 // Also using the hint given in the doc of geesx is not sufficient for insuring
 // a correct call yo gehrd.
 
-#if 0
+#ifndef NT2_LAPACK_3_2_WORKAROUND
     /**/
 #define NT2_GEESX(NAME, T, TBASE)                                \
     inline void geesx(const char* jobvs,                         \
@@ -384,7 +384,7 @@ namespace nt2
 
 #undef NT2_GEESX
 
-#if 0
+#ifndef NT2_LAPACK_3_2_WORKAROUND
 #define NT2_GEESX(NAME, T)                                              \
       inline void geesx(const char* jobvs,                              \
                         const char* sort,                               \

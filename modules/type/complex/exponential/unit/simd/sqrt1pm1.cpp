@@ -14,6 +14,7 @@
 /// created by jt the 01/12/2010
 ///
 #include <nt2/include/functions/sqrt1pm1.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/atan2.hpp>
 #include <nt2/include/functions/ulpdist.hpp>

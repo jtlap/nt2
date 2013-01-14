@@ -3,6 +3,7 @@
 //        versus std::abs with float elements
 ////////////////////////////////////////////////////////////////////////
 #include <nt2/include/functions/abs.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/splat.hpp>

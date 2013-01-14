@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "nt2::constants real"
 
 #include <nt2/include/constants/real.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 

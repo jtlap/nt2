@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 ///
 #include <nt2/toolbox/arithmetic/include/functions/tofloat.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/toolbox/constant/constant.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>

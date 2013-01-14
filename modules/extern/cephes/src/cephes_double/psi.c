@@ -112,7 +112,7 @@ static unsigned short A[] = {
 extern double cephes_floor ( double );
 extern double cephes_log ( double );
 extern double cephes_tan ( double );
-extern double cephes_polevl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
 #else
 double cephes_floor(), cephes_log(), cephes_tan(), cephes_polevl();
 #endif

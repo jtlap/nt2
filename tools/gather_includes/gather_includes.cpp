@@ -69,7 +69,7 @@ struct depth_compare
 typedef std::set<std::string, depth_compare> FileSet;
 typedef std::map<std::string, FileSet      > Files  ;
 
-void find_files_recursive_worker( Files & files, std::string const & path, std::set<std::string> const & ignore, int max )
+void find_files_recursive_worker( Files & files, std::string const & path, std::set<std::string> const & ignore, const char* name, int max )
 {
     if(max == 0)
         return;
@@ -86,7 +86,8 @@ void find_files_recursive_worker( Files & files, std::string const & path, std::
 
         if(fs::extension(entry_name) == ".hpp")
         {
-            files[ entry_name ].insert( cwd_relative_path + '/' + entry_name );
+            if(!name || !strcmp(name, *current_dir))
+                files[ entry_name ].insert( cwd_relative_path + '/' + entry_name );
         }
         else if( ignore.find(entry_name) == ignore.end() )
         {
@@ -95,7 +96,7 @@ void find_files_recursive_worker( Files & files, std::string const & path, std::
             int ec;
             fs::current_path( entry_name, ec );
             if ( !ec )
-                find_files_recursive_worker( files, path, ignore, max-1 );
+                find_files_recursive_worker( files, path, ignore, name, max-1 );
         }
     }
 }
@@ -107,6 +108,7 @@ void find_files
     std::vector<std::string> const & paths,
     std::set<std::string>    const & ignore,
     std::string              const & source_dir,
+    const char*                      name,
     int                              max
 )
 {
@@ -124,7 +126,7 @@ void find_files
         if( ec )
             continue;
 
-        find_files_recursive_worker( files, absolute_path, ignore, max );
+        find_files_recursive_worker( files, absolute_path, ignore, name, max );
     }
 }
 
@@ -171,6 +173,7 @@ int main(int argc, char* argv[])
         std::vector<std::string> paths;
         std::set<std::string>    ignore;
         std::string              binary_path;
+        const char*              name = NULL;
         int                      write = 0;
         int                      max = -1;
 
@@ -196,6 +199,13 @@ int main(int argc, char* argv[])
             if(!std::strcmp(argv[i], "--max") && i != argc-1)
             {
                 max = strtol(argv[i+1], NULL, 10);
+                ++i;
+                continue;
+            }
+
+            if(!std::strcmp(argv[i], "--name") && i != argc-1)
+            {
+                name = argv[i+1];
                 ++i;
                 continue;
             }
@@ -260,7 +270,7 @@ int main(int argc, char* argv[])
             if(regular_file)
                 files[ fs::filename( path ) ].insert( path );
             else
-                find_files( files, paths, ignore, path, max );
+                find_files( files, paths, ignore, path, name, max );
 
             max = -1;
         }

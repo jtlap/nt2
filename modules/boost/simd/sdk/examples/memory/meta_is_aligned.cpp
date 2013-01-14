@@ -1,4 +1,5 @@
 #include <boost/mpl/int.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/mpl/assert.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 

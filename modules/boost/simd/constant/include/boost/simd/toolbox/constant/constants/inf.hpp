@@ -12,12 +12,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_INF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_INF_HPP_INCLUDED
 
-#include <boost/simd/include/simd.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 /*!
  * \ingroup boost_simd_constant
@@ -67,6 +68,9 @@ namespace boost { namespace simd
      * \brief Define the tag Inf of functor Inf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
+    #ifdef BOOST_SIMD_NO_INFINITIES
+    typedef Valmax Inf;
+    #else
     struct Inf : ext::pure_constant_<Inf>
     {
       typedef ext::pure_constant_<Inf> parent;
@@ -82,13 +86,13 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Inf::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0x7FF0000000000000ULL> {};
+    #endif
   }
-
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Inf, Inf)
+
 } }
 
 #include <boost/simd/toolbox/constant/include/constants/valmax.hpp>
-
 #include <boost/simd/sdk/constant/common.hpp>
 
 #endif

@@ -14,6 +14,7 @@
 /// created by jt the 28/11/2010
 ///
 #include <boost/simd/include/functions/dist.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

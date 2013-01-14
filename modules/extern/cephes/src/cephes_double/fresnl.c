@@ -449,8 +449,8 @@ static unsigned short gd[44] = {
 extern double fabs ( double );
 extern double cephes_cos ( double );
 extern double cephes_sin ( double );
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 #else
 double fabs(), cephes_cos(), cephes_sin(), cephes_polevl(), cephes_p1evl();
 #endif

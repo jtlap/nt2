@@ -11,21 +11,21 @@
 SET( SOURCES
   unary_plus.cpp
   unary_minus.cpp
-  store.cpp
-  splat.cpp
+#  store.cpp
+#  splat.cpp
   shift_right.cpp
   shift_left.cpp
   plus.cpp
   multiplies.cpp
   modulo.cpp
   minus.cpp
-  map.cpp
-  make.cpp
+#  map.cpp
+#  make.cpp
   logical_or.cpp
   logical_not.cpp
   logical_and.cpp
-  load.cpp
-  if_else.cpp
+#  load.cpp
+#  if_else.cpp
   divides.cpp
   complement.cpp
   is_not_equal.cpp

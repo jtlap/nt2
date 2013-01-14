@@ -14,6 +14,7 @@
 /// created  by jt the 24/02/2011
 ///
 #include <nt2/toolbox/swar/include/functions/split.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 

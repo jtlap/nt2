@@ -9,21 +9,20 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_CUMSUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SCALAR_CUMSUM_HPP_INCLUDED
 
+#include <boost/simd/toolbox/swar/functions/cumsum.hpp>
 
-
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type  is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace boost { namespace simd { namespace ext
 {
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::cumsum_, tag::cpu_
-                            , (A0)
-                            , (scalar_< arithmetic_<A0> >)
-                            )
+                                   , (A0)
+                                   , (scalar_< unspecified_<A0> >)
+                                   )
   {
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
-    { return a0; }
+    {
+      return a0;
+    }
   };
 } } }
 

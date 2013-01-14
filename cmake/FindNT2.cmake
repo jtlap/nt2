@@ -345,6 +345,10 @@ function(nt2_find_module COMPONENT)
     return()
   endif()
 
+  if(NOT DEFINED TARGET_SUPPORTS_SHARED_LIBS)
+    get_property(TARGET_SUPPORTS_SHARED_LIBS GLOBAL PROPERTY TARGET_SUPPORTS_SHARED_LIBS)
+  endif()
+
   # TODO: make sure the topological sort here is needed
   set(EXTRA ${NT2_${COMPONENT_U}_DEPENDENCIES_EXTRA})
   topological_sort_u(EXTRA "NT2_" "_DEPENDENCIES_EXTRA")
@@ -369,6 +373,17 @@ function(nt2_find_module COMPONENT)
 
       set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${extra_U}_COMPILE_FLAGS}")
       set(NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${extra_U}_LINK_FLAGS}")
+
+      # dynamic linking
+      # TODO: detect whether we're using dynamic version of lib or not
+      if(TARGET_SUPPORTS_SHARED_LIBS AND NT2_${extra_U}_LIBRARIES)
+        if(${extra_U} MATCHES "^boost\\.")
+          string(REPLACE "." "_" macro_name ${extra_U})
+        else()
+          string(REPLACE "." "_" macro_name "NT2_${extra_U}")
+        endif()
+        set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} -D${macro_name}_DYN_LINK")
+      endif()
     endif()
   endforeach()
 
@@ -382,6 +397,17 @@ function(nt2_find_module COMPONENT)
     set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${extra_U}_DEPENDENCIES_COMPILE_FLAGS} ${NT2_${extra_U}_COMPILE_FLAGS}")
     set(NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${extra_U}_DEPENDENCIES_LINK_FLAGS} ${NT2_${extra_U}_LINK_FLAGS}")
   endforeach()
+
+  # dynamic linking
+  # TODO: detect whether we're using dynamic version of lib or not
+  if(TARGET_SUPPORTS_SHARED_LIBS AND NT2_${COMPONENT_U}_LIBRARIES)
+    if(${COMPONENT_U} MATCHES "^boost\\.")
+      string(REPLACE "." "_" macro_name ${COMPONENT_U})
+    else()
+      string(REPLACE "." "_" macro_name "NT2_${COMPONENT_U}")
+    endif()
+    set(NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS "${NT2_${COMPONENT_U}_DEPENDENCIES_COMPILE_FLAGS} -D${macro_name}_DYN_LINK")
+  endif()
 
   # Add self
   set(INCLUDE_DIR ${NT2_${COMPONENT_U}_DEPENDENCIES_INCLUDE_DIR} ${NT2_${COMPONENT_U}_INCLUDE_ROOT})
@@ -594,6 +620,7 @@ function(nt2_find)
   endif()
 
   find_file(NT2_USE_FILE UseNT2.cmake PATHS ${NT2_MODULE_PATH})
+  mark_as_advanced(NT2_USE_FILE)
 
   if(NT2_FIND_REQUIRED AND NOT NT2_FOUND)
     message(FATAL_ERROR "NT2 was not found")

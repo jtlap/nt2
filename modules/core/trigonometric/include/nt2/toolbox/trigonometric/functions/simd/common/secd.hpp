@@ -13,6 +13,8 @@
 #include <nt2/sdk/simd/meta/is_real_convertible.hpp>
 #include <nt2/sdk/meta/strip.hpp>
 #include <nt2/include/functions/simd/secpi.hpp>
+#include <nt2/include/constants/oneo_180.hpp>
+
 
 
 

@@ -16,6 +16,7 @@
 /// created  by jt the 21/02/2011
 ///
 #include <nt2/include/functions/is_nez.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 

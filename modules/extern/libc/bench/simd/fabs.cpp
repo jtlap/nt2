@@ -7,6 +7,7 @@
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/libc/include/functions/fabs.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <cmath>
 

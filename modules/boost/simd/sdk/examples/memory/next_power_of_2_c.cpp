@@ -1,4 +1,5 @@
 #include <boost/cstdint.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/mpl/int.hpp>
 #include <boost/mpl/comparison.hpp>
 #include <boost/mpl/assert.hpp>

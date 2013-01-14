@@ -12,6 +12,7 @@
 // timing Test behavior of boost.simd.swar components in simd mode
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/swar/include/functions/group.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/benchmark.hpp>
 #include <nt2/sdk/unit/bench_includes.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>

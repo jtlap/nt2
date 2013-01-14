@@ -12,7 +12,7 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SMALLESTPOSVAL_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_SMALLESTPOSVAL_HPP_INCLUDED
 
-#include <boost/simd/include/simd.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/simd/sdk/constant/register.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 
@@ -37,13 +37,13 @@
  * namespace boost::simd
  * {
  *   template <class T,class A0>
- *     meta::call<tag::sqrtsmallestposval_(A0)>::type
+ *     meta::call<tag::smallestposval_(A0)>::type
  *     Sqrtsmallestposval();
  * }
  * \endcode
  *
  *
- * \param T template parameter of Sqrtsmallestposval
+ * \param T template parameter of Smallestposval
  *
  * \return type T value
  *
@@ -55,7 +55,7 @@ namespace boost { namespace simd
   namespace tag
   {
     /*!
-     * \brief Define the tag Sqrtsmallestposval of functor Sqrtsmallestposval
+     * \brief Define the tag Smallestposval of functor Smallestposval
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
     BOOST_SIMD_CONSTANT_REGISTER( Smallestposval , double, 1

@@ -105,8 +105,8 @@ static long Q[] = {
 
 extern long double MAXNUML;
 #ifdef ANSIPROT
-extern long double cephes_polevll ( long double, void *, int );
-extern long double cephes_p1evll ( long double, void *, int );
+extern long double cephes_polevll ( long double, long double *, int );
+extern long double cephes_p1evll ( long double, long double *, int );
 extern long double cephes_floorl ( long double );
 extern long double cephes_ldexpl ( long double, int );
 extern int cephes_isnanl ( long double );

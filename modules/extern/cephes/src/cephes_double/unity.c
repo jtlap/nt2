@@ -15,8 +15,8 @@
 extern int isnan (double);
 extern int isfinite (double);
 extern double cephes_log ( double );
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 extern double cephes_exp ( double );
 extern double cephes_cos ( double );
 #else

@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::meta::cardinal_of"
 
 #include <boost/simd/sdk/config/types.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 
 #include <nt2/sdk/unit/module.hpp>

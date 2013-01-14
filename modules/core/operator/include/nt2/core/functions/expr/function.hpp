@@ -13,6 +13,7 @@
 #include <nt2/include/functions/aggregate.hpp>
 #include <nt2/include/functions/globalfind.hpp>
 #include <nt2/include/functions/colvect.hpp>
+#include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/container/colon/category.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
@@ -39,8 +40,8 @@ namespace nt2 { namespace ext
   template<class A0, class T, class Dummy = void>
   struct function_find
   {
-    typedef T const& type;
-    static type call(A0&, T const& t)
+    typedef T type;
+    static T const& call(A0&, T const& t)
     {
       return t;
     }
@@ -58,41 +59,66 @@ namespace nt2 { namespace ext
     }
   };
 
+  template<class A0, class I, bool B = A0::proto_arity_c == 0 && is_contiguous_indexers<I>::value>
+  struct function_impl
+  {
+    typedef typename nt2::make_size<I::proto_arity_c>::type    size_type;
+    typedef typename boost::proto::result_of::
+                     make_expr < nt2::tag::function_
+                               , container::domain
+                               , A0&
+                               , I
+                               , box<size_type>
+                               >::type                              type;
+
+    static type call(A0& a0, I const& indices)
+    {
+      size_type compact(a0.extent());
+      return boost::proto::make_expr<tag::function_,container::domain>
+                                    ( boost::reference_wrapper<A0>(a0)
+                                    , indices
+                                    , nt2::boxify(compact)
+                                    );
+    }
+  };
+
+#if 0
+  template<class A0, class I>
+  struct function_impl<A0, I, true>
+  {
+    typedef A0 type;
+
+    static type call(A0& a0, I const& indices)
+    {
+      return a0;
+    }
+  };
+#endif
+
 #define M1(z,n,t) (I##n)
 #define M2(z,n,t) (unspecified_<I##n>)
-#define M3(z,n,t) typename function_find<A0, I##n>::type
+#define M3(z,n,t) typename nt2::ext::function_find<A0, I##n>::type
 #define M4(z,n,t) function_find<A0, I##n>::call(a0, i##n)
 
-#define M0(z,n,t)                                                             \
-NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                    \
-                          , (A0)BOOST_PP_REPEAT(n,M1,~)                       \
-                          , ((ast_<A0, nt2::container::domain>))BOOST_PP_REPEAT(n,M2,~)                 \
-                          )                                                   \
-{                                                                             \
-  typedef typename meta::                                                     \
-          call< tag::aggregate_(BOOST_PP_ENUM(n, M3, ~))                      \
-              >::type                                             indices;    \
-  typedef typename nt2::make_size<n>::type                      size_type;    \
-                                                                              \
-  typedef typename  boost::proto::result_of::                                 \
-                    make_expr < nt2::tag::function_                           \
-                              , container::domain                             \
-                              , A0&                                           \
-                              , indices                                       \
-                              , box<size_type>                                \
-                              >::type                           result_type;  \
-                                                                              \
-  BOOST_FORCEINLINE result_type                                               \
-  operator()(A0& a0, BOOST_PP_ENUM_BINARY_PARAMS(n,const I,& i) ) const       \
-  {                                                                           \
-    size_type compact(a0.extent());                                           \
-    return boost::proto::make_expr<tag::function_,container::domain>          \
-                                  ( boost::reference_wrapper<A0>(a0)          \
-                                  , nt2::aggregate(BOOST_PP_ENUM(n,M4,~))     \
-                                  , nt2::boxify(compact)                      \
-                                  );                                          \
-  }                                                                           \
-};                                                                            \
+#define M0(z,n,t)                                                                                  \
+NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_                                         \
+                          , (A0)BOOST_PP_REPEAT(n,M1,~)                                            \
+                          , ((ast_<A0, nt2::container::domain>))BOOST_PP_REPEAT(n,M2,~)            \
+                          )                                                                        \
+{                                                                                                  \
+  typedef typename meta::                                                                          \
+          call< tag::aggregate_(BOOST_PP_ENUM(n, M3, ~))                                           \
+              >::type                                             indices;                         \
+                                                                                                   \
+  typedef function_impl<A0, indices> impl;                                                         \
+  typedef typename impl::type result_type;                                                         \
+                                                                                                   \
+  BOOST_FORCEINLINE result_type                                                                    \
+  operator()(A0& a0, BOOST_PP_ENUM_BINARY_PARAMS(n,const I,& i) ) const                            \
+  {                                                                                                \
+    return impl::call(a0, nt2::aggregate(BOOST_PP_ENUM(n,M4,~)));                                  \
+  }                                                                                                \
+};                                                                                                 \
 /**/
 
   BOOST_PP_REPEAT_FROM_TO(1,BOOST_PP_INC(NT2_MAX_DIMENSIONS),M0,~)

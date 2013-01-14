@@ -9,9 +9,11 @@
 #ifndef BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLATTED_MAXIMUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_SWAR_FUNCTIONS_SIMD_SSE_SSE2_SPLATTED_MAXIMUM_HPP_INCLUDED
 #ifdef BOOST_SIMD_HAS_SSE2_SUPPORT
+
 #include <boost/simd/toolbox/swar/functions/splatted_maximum.hpp>
 #include <boost/simd/include/functions/simd/max.hpp>
 #include <boost/simd/include/functions/simd/maximum.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/dispatch/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////
@@ -28,7 +30,8 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      typedef simd::native<float, boost::simd::tag::sse_> ftype;
+      typedef typename meta::make_dependent<float, A0>::type float_t;
+      typedef simd::native<float_t, boost::simd::tag::sse_> ftype;
       A0 max1 = _mm_shufflehi_epi16(a0  , _MM_SHUFFLE(1, 0, 3, 2));
          max1 = _mm_shufflelo_epi16(max1, _MM_SHUFFLE(1, 0, 3, 2));
          max1 = max(a0, max1);

@@ -38,8 +38,7 @@ namespace nt2
       template<class This,class T> struct result<This(T)> : meta::strip<T> {};
 
       template<class T> inline
-      typename meta::result_of<static_horner_(T)>::type
-      operator()(T const& x) const
+      T operator()(T const& x) const
       {
         static_horner_<N-1,typename boost::mpl::pop_back<Seq>::type> callee;
         return fma( x
@@ -55,8 +54,7 @@ namespace nt2
       template<class This,class T> struct result<This(T)> : meta::strip<T> {};
 
       template<class T> inline
-      typename meta::result_of<static_horner_(T)>::type
-      operator()(T const& ) const
+      T operator()(T const& ) const
       {
         return Const<T, boost::mpl::at_c<Seq,0>::type::value >();
       }

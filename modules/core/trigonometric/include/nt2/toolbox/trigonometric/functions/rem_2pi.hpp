@@ -11,7 +11,7 @@
 **/
 #ifndef NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_REM_2PI_HPP_INCLUDED
 #define NT2_TOOLBOX_TRIGONOMETRIC_FUNCTIONS_REM_2PI_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
 #include <nt2/include/functor.hpp>
 
 /*!
@@ -21,7 +21,7 @@
  * \par Description
  * compute the remainder modulo \f$2*\pi\f$.
  * \par
- * the result is in \f[$-\pi, \pi]\f$. If the input
+ * the result is in \f$[-\pi, \pi]\f$. If the input
  * is near pi the output can be pi or -pi depending
  * on register disponibility if extended arithmetic is used.
  * \par Header file

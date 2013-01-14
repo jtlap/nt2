@@ -15,18 +15,51 @@
 #include <nt2/core/utility/of_size.hpp>
 #include <nt2/sdk/meta/cardinal_of.hpp>
 #include <nt2/sdk/meta/as.hpp>
-#include <boost/fusion/include/as_vector.hpp>
-#include <boost/mpl/push_back.hpp>
 #include <boost/mpl/placeholders.hpp>
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/fold.hpp>
 #include <boost/mpl/bool.hpp>
 #include <boost/mpl/size_t.hpp>
-#include <boost/mpl/back.hpp>
+#include <boost/mpl/end.hpp>
+#include <boost/mpl/find_if.hpp>
+#include <boost/mpl/not.hpp>
 #include <boost/utility/enable_if.hpp>
+#include <boost/type_traits/is_same.hpp>
 
 namespace nt2 { namespace ext
 {
+  template<class It, class End>
+  struct mpl_safe_next
+       : boost::mpl::next<It>
+  {
+  };
+
+  template<class It>
+  struct mpl_safe_next<It, It>
+  {
+    typedef It type;
+  };
+
+  template<class T>
+  struct is_vectorizable_scalar
+       : boost::mpl::bool_< T::extent_type::static_size == 0u && !boost::is_same<typename T::proto_tag, nt2::tag::relative_colon_>::value>
+  {
+  };
+
+  template<>
+  struct is_vectorizable_scalar< nt2::container::
+                                 expression< boost::proto::
+                                             basic_expr< boost::proto::tag::terminal
+                                                       , boost::proto::term<nt2::container::colon_>
+                                                       , 0l
+                                                       >
+                                           , nt2::container::colon_
+                                           >
+                               >
+       : boost::mpl::false_
+  {
+  };
+
   template<class Id, class Cardinal, class Enable = void>
   struct is_vectorizable_indexer_impl
        : boost::mpl::false_
@@ -91,7 +124,7 @@ namespace nt2 { namespace ext
     >
   , Cardinal
   >
-    : boost::mpl::bool_< !(std::size_t(N < 0 ? -N : N) % Cardinal::value) >
+    : boost::mpl::bool_< Cardinal::value && !(std::size_t(N < 0 ? -N : N) % Cardinal::value) >
   {
   };
 
@@ -111,18 +144,45 @@ namespace nt2 { namespace ext
   {
   };
 
+  template<class Children, class Cardinal>
+  struct is_vectorizable_indexers_impl
+  {
+    typedef typename boost::mpl::end<Children>::type seq_end;
+
+    typedef typename boost::mpl::
+            find_if< Children
+                   , boost::mpl::not_< is_vectorizable_indexer< boost::mpl::_1, Cardinal > >
+                   >::type it;
+
+    typedef typename boost::mpl::
+            fold < boost::mpl::iterator_range< it, typename mpl_safe_next<it, seq_end>::type >
+                 , boost::mpl::true_
+                 , boost::mpl::and_< boost::mpl::_1
+                                   , is_vectorizable_indexer< boost::mpl::_2, boost::mpl::size_t<1> >
+                                   >
+                 >::type init;
+
+    typedef typename boost::mpl::
+            fold < boost::mpl::iterator_range< typename mpl_safe_next<it, seq_end>::type, seq_end >
+                 , init
+                 , boost::mpl::and_< boost::mpl::_1
+                                   , is_vectorizable_scalar< boost::mpl::_2 >
+                                   >
+                 >::type type;
+
+    static const bool value = type::value;
+  };
+
+
   template<class Children, class Data>
   struct is_vectorizable_indexers
-       : boost::mpl::
-         and_< boost::mpl::
-               fold < typename boost::mpl::pop_back< typename boost::fusion::result_of::as_vector<Children>::type >::type
-                    , boost::mpl::true_
-                    , boost::mpl::and_< boost::mpl::_1
-                                      , is_vectorizable_indexer< boost::mpl::_2, typename meta::cardinal_of<typename meta::target_value<Data>::type>::type >
-                                      >
-                    >
-             , is_vectorizable_indexer< typename boost::mpl::back<Children>::type, boost::mpl::size_t<1u> >
-             >
+       : is_vectorizable_indexers_impl<Children, typename meta::cardinal_of<typename meta::target_value<Data>::type>::type>
+  {
+  };
+
+  template<class Children>
+  struct is_contiguous_indexers
+       : is_vectorizable_indexers_impl<Children, boost::mpl::size_t<0> >
   {
   };
 } }

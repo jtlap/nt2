@@ -11,7 +11,7 @@
 **/
 #ifndef BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SUM_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_REDUCTION_FUNCTIONS_SUM_HPP_INCLUDED
-#include <boost/simd/include/simd.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/operator/functions/plus.hpp>
 #include <boost/simd/toolbox/constant/constants/zero.hpp>

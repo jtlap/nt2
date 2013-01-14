@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::next_power_of_2"
 
 #include <boost/simd/sdk/memory/meta/next_power_of_2.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 
 #include <boost/mpl/int.hpp>
 #include <nt2/sdk/unit/module.hpp>

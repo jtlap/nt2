@@ -201,8 +201,8 @@ static long LG10EB[] = {0xbffb0000,0x86909d5b,0x235e39ab};
 #ifdef ANSIPROT
 extern long double cephes_frexpl ( long double, int * );
 extern long double cephes_ldexpl ( long double, int );
-extern long double cephes_polevll ( long double, void *, int );
-extern long double cephes_p1evll ( long double, void *, int );
+extern long double cephes_polevll ( long double, long double *, int );
+extern long double cephes_p1evll ( long double, long double *, int );
 extern int cephes_isnanl ( long double );
 #else
 long double cephes_frexpl(), cephes_ldexpl(), cephes_polevll(), cephes_p1evll(), cephes_isnanl();

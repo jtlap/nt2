@@ -18,11 +18,7 @@ INLINE_INFO            = YES
 INTERNAL_DOCS          = NO
 INPUT                  = ../include/nt2/toolbox/trigonometric/functions
 INPUT                 += ../include/nt2/toolbox/trigonometric/constants
-EXAMPLE_PATH           =
 FULL_PATH_NAMES        = NO
 INHERIT_DOCS           = NO
 RECURSIVE              = NO
 ALIASES                = "usage=@par Usage:"
-INCLUDE_PATH           = ../../boost/dispatch/include/
-INCLUDE_PATH          += ../../sdk/functor/include/
-INCLUDE_PATH          += ../../boost/simd/constant/include/

@@ -12,12 +12,13 @@
 #ifndef BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MINF_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_CONSTANT_CONSTANTS_MINF_HPP_INCLUDED
 
-#include <boost/simd/include/simd.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/simd/sdk/meta/float.hpp>
 #include <boost/simd/sdk/meta/int_c.hpp>
 #include <boost/simd/sdk/meta/double.hpp>
 #include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 /*!
  * \ingroup boost_simd_constant
@@ -65,6 +66,9 @@ namespace boost { namespace simd
      * \brief Define the tag Minf of functor Minf
      *        in namespace boost::simd::tag for toolbox boost.simd.constant
     **/
+    #ifdef BOOST_SIMD_NO_INFINITIES
+    typedef Valmin Minf;
+    #else
     struct Minf : ext::pure_constant_<Minf>
     {
       typedef double default_type;
@@ -79,13 +83,13 @@ namespace boost { namespace simd
     template<class T, class Dummy>
     struct  Minf::apply<boost::dispatch::meta::double_<T>,Dummy>
           : meta::double_<0xFFF0000000000000ULL> {};
+    #endif
   }
 
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(boost::simd::tag::Minf, Minf)
 } }
 
 #include <boost/simd/toolbox/constant/include/constants/valmin.hpp>
-
 #include <boost/simd/sdk/constant/common.hpp>
 
 #endif

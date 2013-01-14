@@ -15,6 +15,7 @@
 #include <nt2/sdk/complex/meta/as_real.hpp>
 #include <nt2/sdk/complex/meta/real_of.hpp>
 #include <nt2/sdk/meta/scalar_of.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 
 #include <nt2/sdk/unit/tests/basic.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>

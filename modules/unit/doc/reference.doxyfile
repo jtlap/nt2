@@ -18,7 +18,6 @@ HIDE_SCOPE_NAMES       = YES
 INLINE_INFO            = YES
 INTERNAL_DOCS          = NO
 INPUT                  = ../include/nt2/sdk/unit/ ../include/nt2/sdk/unit/tests
-EXAMPLE_PATH           = ../examples/
 FULL_PATH_NAMES        = NO
 INHERIT_DOCS           = NO
 SEARCH_INCLUDES        = YES
