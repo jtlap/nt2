@@ -27,7 +27,8 @@ struct size_of
 template<class T>
 void vectorizable_0(T const&)
 {
-  typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
+  typedef typename boost::proto::result_of::child_c<T, 1>::value_type index;
+  typedef typename boost::proto::result_of::child_c<index, 0>::value_type aggregate;
   typedef boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> Data;
   typedef typename nt2::meta::cardinal_of<Data>::type Cardinal;
 
@@ -49,7 +50,8 @@ void vectorizable_0(T const&)
 template<class T>
 void vectorizable_1(T const&)
 {
-  typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
+  typedef typename boost::proto::result_of::child_c<T, 1>::value_type index;
+  typedef typename boost::proto::result_of::child_c<index, 0>::value_type aggregate;
   typedef boost::dispatch::meta::as_< boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
   typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
 
@@ -71,7 +73,8 @@ void vectorizable_1(T const&)
 template<class T>
 void vectorizable_2(T const&)
 {
-  typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
+  typedef typename boost::proto::result_of::child_c<T, 1>::value_type index;
+  typedef typename boost::proto::result_of::child_c<index, 0>::value_type aggregate;
   typedef boost::dispatch::meta::as_< boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
   typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
 
@@ -87,7 +90,8 @@ void vectorizable_2(T const&)
 template<class T>
 void vectorizable_3(T const&)
 {
-  typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
+  typedef typename boost::proto::result_of::child_c<T, 1>::value_type index;
+  typedef typename boost::proto::result_of::child_c<index, 0>::value_type aggregate;
   typedef boost::dispatch::meta::as_< boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
   typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
 
@@ -106,7 +110,8 @@ void vectorizable_3(T const&)
 template<class T>
 void vectorizable_4(T const&)
 {
-  typedef typename boost::proto::result_of::child_c<T, 1>::value_type aggregate;
+  typedef typename boost::proto::result_of::child_c<T, 1>::value_type index;
+  typedef typename boost::proto::result_of::child_c<index, 0>::value_type aggregate;
   typedef boost::dispatch::meta::as_< boost::simd::native<float, BOOST_SIMD_DEFAULT_EXTENSION> > Data;
   typedef typename nt2::meta::cardinal_of<typename boost::dispatch::meta::target_value<Data>::type>::type Cardinal;
 

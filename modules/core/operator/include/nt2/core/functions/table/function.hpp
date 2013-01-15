@@ -11,17 +11,8 @@
 
 #include <nt2/core/functions/function.hpp>
 #include <nt2/include/functions/run.hpp>
-#include <nt2/core/utility/as_subscript.hpp>
-#include <nt2/core/utility/as_index.hpp>
-#include <nt2/include/functions/enumerate.hpp>
-#include <nt2/core/functions/table/details/reindex.hpp>
 #include <nt2/core/functions/table/details/function_size.hpp>
 #include <nt2/core/functions/table/details/function_value_type.hpp>
-#include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
-#include <nt2/core/utility/of_size.hpp>
-#include <boost/fusion/include/zip_view.hpp>
-#include <boost/fusion/include/transform_view.hpp>
-#include <boost/mpl/if.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -36,51 +27,15 @@ namespace nt2 { namespace ext
                               (unspecified_<Data>)
                             )
   {
-    // Get the indexed expression
-    typedef typename boost::proto::result_of::
-                     child_c<Expr&, 0>::value_type            child0;
-    typedef typename boost::proto::result_of::
-                     child_c<Expr&, 2>::value_type            child2;
-
-    // ... and its base index types
-    typedef typename child0::index_type::type                 index_type;
-    typedef typename boost::proto::result_of::
-            value<child2>::value_type                         size_type;
-
-    // Get the indexing expression pack
-    typedef typename boost::proto::result_of::
-                     child_c<Expr&, 1>::value_type            childN;
-
-    // ... and computes its number of indexes
-    static const long arity = childN::proto_arity_c;
-
-    // Compute a type able to hold the position we look for
-    typedef typename boost::mpl::
-            if_< typename is_vectorizable_indexers<childN, Data>::type
-               , State
-               , typename details::as_integer_target<Data>::type
-               >::type                                         i_t;
-    typedef boost::array<i_t, arity>                         pos_type;
-
-    // Once set, we build a type with evaluation targets
-    typedef boost::array< boost::dispatch::meta::as_<i_t>
-                        , arity
-                        >                                     target_type;
-
-    // We use a zip_view for passign all those informations to relative_index
-    typedef boost::fusion::vector< childN const&
-                                 , index_type const&
-                                 , size_type const&
-                                 , pos_type const&
-                                 , target_type const&
-                                 >                            seq;
-
-    typedef boost::fusion::zip_view<seq>                      zipped;
-    typedef boost::fusion::
-            transform_view<zipped const, details::reindex>    transformed;
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type child0;
+    typedef typename boost::proto::result_of::child_c<Expr&, 1>::type child1;
 
     typedef typename meta::call< tag::run_( child0
-                                          , i_t
+                                          , typename meta::call< tag::run_ ( child1
+                                                                           , State const&
+                                                                           , Data const&
+                                                                           )
+                                                               >::type
                                           , Data const&
                                           )
                                >::type                        result_type;
@@ -88,33 +43,11 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type
     operator()(Expr& expr, State const& state, Data const& data) const
     {
-      // Compute base index of the source expression
-      index_type indexes;
-      target_type targets;
-
-      // Grab the destination subscript
-      pos_type pos = as_subscript( typename make_size<arity>::type(expr.extent())
-                                 , nt2::enumerate<i_t>(state)
-                                 );
-
-      // Apply index_t to each subscript value
-      transformed trs = boost::fusion::
-                        transform( zipped
-                                   ( seq( boost::proto::child_c<1>(expr)
-                                        , indexes
-                                        , boost::proto::value(boost::proto::child_c<2>(expr))
-                                        , pos
-                                        , targets
-                                        )
-                                   )
-                                 , details::reindex()
-                                 );
-
-      // Get the linear position from the transformed subscript and evaluate
       return nt2::run( boost::proto::child_c<0>(expr)
-                     , nt2::as_index( boost::proto::child_c<0>(expr).extent()
-                                    , trs
-                                    )
+                     , nt2::run( boost::proto::child_c<1>(expr)
+                               , state
+                               , data
+                               )
                      , data
                      );
     }

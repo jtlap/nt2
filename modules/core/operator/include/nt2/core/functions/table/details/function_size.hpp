@@ -10,46 +10,24 @@
 #define NT2_CORE_FUNCTIONS_TABLE_DETAILS_FUNCTION_SIZE_HPP_INCLUDED
 
 #include <nt2/core/functions/function.hpp>
+#include <nt2/core/functions/function_index.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
-#include <nt2/core/functions/table/details/make_size.hpp>
-#include <boost/dispatch/meta/strip.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Size of a function call node is depends of the indexers
+  // Size of a function call node depends of the indexers
   //============================================================================
   template<class Expr, class Domain, int N>
   struct size_of<tag::function_, Domain, N, Expr>
   {
-    typedef typename boost::proto::result_of
-                          ::child_c<Expr&, 0>::type           referee;
-    typedef typename meta::strip<referee>::type::indexes_type indexes_type;
+    typedef typename boost::proto::result_of::child_c<Expr&, 1>::value_type child1;
+    typedef size_of<tag::function_index_, Domain, N, child1 const> impl;
+    typedef typename impl::result_type result_type;
 
-    typedef typename boost::proto::result_of
-                          ::child_c<Expr&, 1>::type           indices;
-
-    typedef typename boost::proto::result_of
-                          ::child_c<Expr&, 2>::type           reldims;
-
-    typedef typename boost::proto::result_of
-                          ::value<reldims>::type              dims;
-
-    typedef details::make_size< meta::strip<dims>::type::static_size
-                              , Domain
-                              , referee
-                              , dims
-                              , indexes_type, indices
-                              >                                   impl;
-    typedef typename impl::result_type                            result_type;
-
-    BOOST_DISPATCH_FORCE_INLINE result_type operator()(Expr& e) const
+    BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
-      return impl() ( boost::proto::child_c<0>(e)
-                    , boost::proto::value(boost::proto::child_c<2>(e))
-                    , boost::proto::child_c<0>(e).indexes()
-                    , boost::proto::child_c<1>(e)
-                    );
+      return impl()(boost::proto::child_c<1>(e));
     }
   };
 
