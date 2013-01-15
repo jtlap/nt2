@@ -10,6 +10,7 @@
 #define NT2_CORE_FUNCTIONS_EXPR_FUNCTION_HPP_INCLUDED
 
 #include <nt2/core/functions/function.hpp>
+#include <nt2/include/functions/function_index.hpp>
 #include <nt2/include/functions/aggregate.hpp>
 #include <nt2/include/functions/globalfind.hpp>
 #include <nt2/include/functions/colvect.hpp>
@@ -62,22 +63,18 @@ namespace nt2 { namespace ext
   template<class A0, class I, bool B = A0::proto_arity_c == 0 && is_contiguous_indexers<I>::value>
   struct function_impl
   {
-    typedef typename nt2::make_size<I::proto_arity_c>::type    size_type;
     typedef typename boost::proto::result_of::
-                     make_expr < nt2::tag::function_
-                               , container::domain
-                               , A0&
-                               , I
-                               , box<size_type>
-                               >::type                              type;
+            make_expr < nt2::tag::function_
+                      , container::domain
+                      , A0&
+                      , typename meta::call< tag::function_index_( I const&, typename A0::extent_type, meta::as_<typename A0::indexes_type>)>::type
+                      >::type type;
 
     static type call(A0& a0, I const& indices)
     {
-      size_type compact(a0.extent());
       return boost::proto::make_expr<tag::function_,container::domain>
                                     ( boost::reference_wrapper<A0>(a0)
-                                    , indices
-                                    , nt2::boxify(compact)
+                                    , function_index(indices, a0.extent(), meta::as_<typename A0::indexes_type>())
                                     );
     }
   };

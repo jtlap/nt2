@@ -6,30 +6,22 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_TABLE_DETAILS_FUNCTION_VALUE_TYPE_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_TABLE_DETAILS_FUNCTION_VALUE_TYPE_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_TABLE_DETAILS_FUNCTION_INDEX_VALUE_TYPE_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_TABLE_DETAILS_FUNCTION_INDEX_VALUE_TYPE_HPP_INCLUDED
 
-#include <nt2/core/functions/function.hpp>
+#include <nt2/core/functions/function_index.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
-#include <boost/dispatch/meta/scalar_of.hpp>
-#include <boost/dispatch/dsl/semantic_of.hpp>
-#include <boost/proto/traits.hpp>
 
 namespace nt2 { namespace ext
 {
   //============================================================================
-  // Extension of value_type to handle function call nodes
+  // Extension of value_type to handle function_index call nodes
   // The returned value is the value_type of the leftmost children of the node
   //============================================================================
   template<class Expr, class Domain, int N>
-  struct value_type<tag::function_, Domain, N, Expr>
+  struct value_type<tag::function_index_, Domain, N, Expr>
   {
-    typedef typename boost::proto::result_of::child_c<Expr&, 0>::type   child0;
-
-    typedef typename boost::dispatch::meta::
-            scalar_of < typename boost::dispatch::meta::
-                        semantic_of<child0>::type
-                      >::type                                           type;
+    typedef std::size_t type;
   };
 } }
 
