@@ -80,6 +80,18 @@ namespace nt2 { namespace ext
   };
 
   // _(a, b)
+  template<std::size_t N, std::size_t Cardinal>
+  struct is_multiple_of
+    : boost::mpl::bool_< !(N % Cardinal) >
+  {
+  };
+
+  template<std::size_t N>
+  struct is_multiple_of<N, 0>
+       : boost::mpl::false_
+  {
+  };
+
   template<class T, std::ptrdiff_t N, class Cardinal>
   struct is_vectorizable_indexer<
     nt2::container::expression<
@@ -124,7 +136,7 @@ namespace nt2 { namespace ext
     >
   , Cardinal
   >
-    : boost::mpl::bool_< Cardinal::value && !(std::size_t(N < 0 ? -N : N) % Cardinal::value) >
+    : is_multiple_of<std::size_t(N < 0 ? -N : N), Cardinal::value>
   {
   };
 
