@@ -15,6 +15,7 @@
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
 #include <boost/simd/include/functions/scalar/is_inf.hpp>
 #include <boost/simd/include/functions/scalar/ldexp.hpp>
+#include <boost/simd/include/functions/scalar/fma.hpp>
 #include <boost/simd/include/constants/eps.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/nan.hpp>
@@ -47,13 +48,18 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+#if !defined(BOOST_SIMD_NO_NANS) && !defined(BOOST_SIMD_NO_INFINITIES)
       A0 x =  boost::simd::abs(a0);
       A0 y =  boost::simd::abs(a1);
       if (boost::simd::is_inf(x+y)) return Inf<float>();
-      if (boost::simd::is_nan(x+y)) return Nan<float>();
+      if (boost::simd::is_inf(x)) return Inf<float>();
+      if (boost::simd::is_inf(y)) return Inf<float>();
       if (y > x) std::swap(x, y);
       if (x*Eps<A0>() >=  y) return x;
       return x*boost::simd::sqrt(One<A0>()+boost::simd::sqr(y/x));
+#else
+      return boost::simd::sqrt(boost::simd::fma(a0, a0, a1*a1));
+#endif
     }
   };
 
@@ -66,10 +72,14 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL_REPEAT(2)
     {
+#if !defined(BOOST_SIMD_NO_NANS) && !defined(BOOST_SIMD_NO_INFINITIES)
       // flibc do that in ::fast_hypotf(a0, a1) in asm with no more speed!
       // proper impl as for double is 30% slower
-      return static_cast<result_type>(boost::simd::sqrt(boost::simd::sqr(static_cast<double>(a0))+
-                                                        boost::simd::sqr(static_cast<double>(a1))));
+      return static_cast<result_type>(boost::simd::sqrt(fma(static_cast<double>(a0), static_cast<double>(a0),
+                                                            boost::simd::sqr(static_cast<double>(a1)))));
+#else
+      return boost::simd::sqrt(boost::simd::fma(a0, a0, a1*a1));
+#endif
     }
   };
 } } }
