@@ -11,13 +11,18 @@
 
 #include <nt2/sdk/meta/is_colon.hpp>
 #include <nt2/core/settings/size.hpp>
-#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
 #include <nt2/include/functions/relative_size.hpp>
 #include <nt2/include/functions/ndims.hpp>
+#include <nt2/include/functions/of_size.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
+#include <boost/mpl/if.hpp>
+#include <boost/mpl/or.hpp>
+#include <boost/mpl/and.hpp>
+#include <boost/mpl/at.hpp>
+#include <boost/mpl/bool.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -33,69 +38,86 @@ namespace nt2 { namespace details
           , class Children
           >
   struct make_size;
-
-  #define M1(z,n,t)                                                     \
-  mpl_value                                                             \
-  < typename meta::                                                     \
-    call< tag::relative_size_                                           \
-        ( typename  boost::proto::result_of::child_c<Children, n>::type \
-        , typename  boost::fusion::result_of::                          \
-                    at_c<Sizes, n>::type                                \
-        , typename  boost::fusion::result_of::                          \
-                    at_c<Bases, n>::type                                \
-        )                                                               \
-        >::type                                                         \
-  >::value                                                              \
+                                                                                                   \
+  #define M1(z,n,t)                                                                                \
+  mpl_value                                                                                        \
+  < typename meta::                                                                                \
+    call< tag::relative_size_                                                                      \
+        ( typename  boost::proto::result_of::child_c<Children, n>::type                            \
+        , typename  boost::fusion::result_of::                                                     \
+                    at_c<typename meta::strip<Sizes>::type, n>::type                               \
+        , typename  boost::fusion::result_of::                                                     \
+                    at_c<typename meta::strip<Bases>::type, n>::type                               \
+        )                                                                                          \
+        >::type                                                                                    \
+  >::value                                                                                         \
   /**/
 
-  #define M2(z,n,t)                                                 \
-  that[n] = nt2::relative_size( boost::proto::child_c<n>(children)  \
-                              , boost::fusion::at_c<n>(sz)          \
-                              , boost::fusion::at_c<n>(bs)          \
-                              );                                    \
+  #define M2(z,n,t)                                                                                \
+  that[n] = nt2::relative_size( boost::proto::child_c<n>(children)                                 \
+                              , boost::fusion::at_c<n>(sz)                                         \
+                              , boost::fusion::at_c<n>(bs)                                         \
+                              );                                                                   \
   /**/
 
-  #define M3(z,n,t)                                                 \
-  template<class Dummy>                                             \
-  struct impl<n, Dummy>                                             \
-  {                                                                 \
-    BOOST_FORCEINLINE                                               \
-    static result_type call(Sizes const& sz, Bases const& bs, Children const& children) \
-    {                                                               \
-      result_type that;                                             \
-      BOOST_PP_REPEAT(n, M2, t)                                     \
-      return that;                                                  \
-    }                                                               \
-  };                                                                \
+  #define M3(z,n,t)                                                                                \
+  template<class Dummy>                                                                            \
+  struct impl<n, Dummy>                                                                            \
+  {                                                                                                \
+    BOOST_FORCEINLINE                                                                              \
+    static result_type call(Sizes const& sz, Bases const& bs, Children const& children)            \
+    {                                                                                              \
+      result_type that;                                                                            \
+      BOOST_PP_REPEAT(n, M2, t)                                                                    \
+      return that;                                                                                 \
+    }                                                                                              \
+  };                                                                                               \
   /**/
 
-  #define M0(z,n,t)                                                     \
-  template< class Domain                                                \
-          , class Shape, class Sizes, class Bases                       \
-          , class Children                                              \
-          >                                                             \
-  struct make_size<n, Domain, Shape, Sizes, Bases, Children>            \
-  {                                                                     \
-    typedef of_size_<BOOST_PP_ENUM(n, M1, n)> result_type;              \
-                                                                        \
-    template<int N, class Dummy = void>                                 \
-    struct impl {};                                                     \
-                                                                        \
-    BOOST_PP_REPEAT(BOOST_PP_INC(n), M3, n)                             \
-                                                                        \
-    BOOST_FORCEINLINE result_type                                       \
-    operator()(Shape const&, Sizes const& s, Bases const& b, Children const& children) const \
-    {                                                                   \
-      return impl<result_type::static_size>::call(s, b, children);      \
-    }                                                                   \
-  };                                                                    \
+  #define M0(z,n,t)                                                                                \
+  template< class Domain                                                                           \
+          , class Shape, class Sizes, class Bases                                                  \
+          , class Children                                                                         \
+          >                                                                                        \
+  struct make_size<n, Domain, Shape, Sizes, Bases, Children>                                       \
+  {                                                                                                \
+    typedef of_size_<BOOST_PP_ENUM(n, M1, n)> result_type;                                         \
+                                                                                                   \
+    template<int N, class Dummy = void>                                                            \
+    struct impl {};                                                                                \
+                                                                                                   \
+    BOOST_PP_REPEAT(BOOST_PP_INC(n), M3, n)                                                        \
+                                                                                                   \
+    BOOST_FORCEINLINE result_type                                                                  \
+    operator()(Shape const&, Sizes const& s, Bases const& b, Children const& children) const       \
+    {                                                                                              \
+      return impl<result_type::static_size>::call(s, b, children);                                 \
+    }                                                                                              \
+  };                                                                                               \
   /**/
 
-  BOOST_PP_REPEAT_FROM_TO(2,BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
+  BOOST_PP_REPEAT_FROM_TO(2, BOOST_PP_INC(NT2_MAX_DIMENSIONS), M0, ~)
   #undef M0
   #undef M1
   #undef M2
   #undef M3
+
+  template<class Seq>
+  struct is_definitely_not_vector
+  {
+    static const std::ptrdiff_t v1 = boost::mpl::at_c<typename Seq::values_type, 1>::type::value;
+    static const bool value = v1 != 1 && v1 != -1;
+    typedef boost::mpl::bool_<value> type;
+  };
+
+  template<class Seq>
+  struct is_definitely_vector
+  {
+    static const std::ptrdiff_t v0 = boost::mpl::at_c<typename Seq::values_type, 0>::type::value;
+    static const std::size_t n = Seq::static_size;
+    static const bool value = n == 1u || (n == 2u && v0 == 1);
+    typedef boost::mpl::bool_<value> type;
+  };
 
   template< class Domain
           , class Shape, class Sizes, class Bases
@@ -103,76 +125,41 @@ namespace nt2 { namespace details
           >
   struct make_size<1, Domain, Shape, Sizes, Bases, Children>
   {
-    typedef typename boost::proto::result_of::child_c<Children, 0>::value_type  idx_t;
+    typedef typename boost::proto::result_of::child_c<Children&, 0>::value_type::extent_type idx0_sz;
+    static const std::size_t shape_min = Shape::static_size > 2u ? 2u : Shape::static_size;
+    static const std::size_t size_max = idx0_sz::static_size > shape_min ? idx0_sz::static_size : shape_min;
+    typedef typename nt2::make_size<size_max>::type size_max_type;
 
-    template<bool B, class Dummy = void>
-    struct apply {};
-
-    // Case of colon indexer - make 1D
-    template<class Dummy>
-    struct apply<true, Dummy>
-    {
-      typedef typename meta::call<tag::numel_(Sizes const&)>::type num;
-      typedef of_size_< mpl_value<num>::value > result_type;
-
-      BOOST_FORCEINLINE result_type
-      operator()(Shape const&, Children const&, Sizes const& sz, Bases const&) const
-      {
-        return result_type(numel(sz));
-      }
-    };
-
-    // Case of non-colon indexer
-    template<class Dummy>
-    struct apply<false, Dummy>
-    {
-      typedef typename boost::proto::tag_of<idx_t>::type              tag_t;
-      typedef typename idx_t::extent_type                             shape_t;
-      typedef typename boost::mpl::if_< boost::is_same< tag_t
-                                                      , tag::relative_colon_
-                                                      >
-                                      , _2D
-                                      , shape_t
-                                      >::type                       result_type;
-
-      template<class S, class B>
-      BOOST_FORCEINLINE result_type
-      operator()(Shape const& i, Children const& c, S const& s, B const& b) const
-      {
-        return eval(i, c, s, b, tag_t());
-      }
-
-      // If non-colon and not relative colon, keep the shape
-      template<class S, class B, class Tag>
-      BOOST_FORCEINLINE result_type
-      eval(Shape const&, Children const& c, S const&, B const&, Tag) const
-      {
-        return boost::proto::child_c<0>(c).extent();
-      }
-
-      // If relative colon, return a _2D size with proper size w/r to indexed
-      template<class S, class B>
-      BOOST_FORCEINLINE result_type
-      eval(Shape const& i, Children const& c, Sizes const& s, Bases const& b, tag::relative_colon_) const
-      {
-        bool        is1D  = nt2::ndims(i) == 1;
-        std::size_t nelem = nt2::relative_size(boost::proto::child_c<0>(c),s,b);
-        result_type that( (is1D ? nelem : 1u), (is1D ? 1u : nelem));
-        return that;
-      }
-    };
-
-    typedef apply< meta::is_colon<idx_t>::value > impl;
-    typedef typename impl::result_type            result_type;
+    typedef typename boost::mpl::
+            if_< boost::mpl::and_< is_definitely_vector<Shape>, is_definitely_vector<idx0_sz> >
+               , typename boost::mpl::if_c< Shape::static_size == 1u, nt2::of_size_<-1>, nt2::of_size_<1, -1> >::type
+               , typename boost::mpl::
+                 if_< boost::mpl::or_< is_definitely_not_vector<Shape>, is_definitely_not_vector<idx0_sz> >
+                    , idx0_sz
+                    , size_max_type
+                    >::type
+               >::type result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(Shape const& i, Sizes const& s, Bases const& b, Children const& children) const
+    operator()(Shape const& shp, Sizes const& sz, Bases const& bs, Children const& children) const
     {
-      return impl() ( i
-                    , children
-                    , boost::fusion::at_c<0>(s)
-                    , boost::fusion::at_c<0>(b)
-                    );
+      std::size_t s = nt2::relative_size( boost::proto::child_c<0>(children)
+                                        , boost::fusion::at_c<0>(sz)
+                                        , boost::fusion::at_c<0>(bs)
+                                        );
+
+      idx0_sz const& idx0 = boost::proto::child_c<0>(children).extent();
+      std::size_t n = nt2::ndims(shp);
+      std::size_t m = nt2::ndims(idx0);
+
+      bool idx0_vector = m == 1u || ( m == 2u && boost::fusion::at_c<0>(idx0) == 1u);
+      if(idx0_vector && n == 1u) // column vector
+        return nt2::of_size(s);
+
+      if(idx0_vector && n == 2u && boost::fusion::at_c<0>(shp) == 1u) // row vector
+        return nt2::of_size(1u, s);
+
+      return boost::proto::child_c<0>(children).extent();
     }
   };
 } }
