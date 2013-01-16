@@ -94,7 +94,7 @@ namespace nt2 { namespace details
     }
   };
 
-  /// This is an ad hoc solutio, - To be fixed
+  /// This is an ad hoc solution - To be fixed
   template<class A0, class A1>
   BOOST_FORCEINLINE
   typename boost::proto::result_of

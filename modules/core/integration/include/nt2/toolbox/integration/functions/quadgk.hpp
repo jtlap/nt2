@@ -37,13 +37,16 @@ namespace nt2
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Quadgkabstol, Quadgkabstol);
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Quadgkreltol, Quadgkreltol);
 
-  // specialization of abstol for quadgk method
+  // specialization of abstol/reltol for quadgk method
   template<class T, class V> struct integ_params<T, V, tag::quadgk_>
   : integ_params<T, V, void>
   {
     typedef typename nt2::integ_params<T, V, void>::real_t real_t;
-    static real_t        abstol(){return Quadgkabstol<real_t>(); }
-    static real_t        reltol(){return Quadgkreltol<real_t>(); }
+    static real_t           abstol(){return Quadgkabstol<real_t>(); }
+    static real_t           reltol(){return Quadgkreltol<real_t>(); }
+    static bool enabled_singular_a(){ return false;                 }
+    static bool enabled_singular_b(){ return false;                 }
+
   };
 
   //============================================================================

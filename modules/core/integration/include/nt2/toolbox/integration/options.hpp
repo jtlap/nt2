@@ -89,14 +89,24 @@ namespace nt2
     typedef container::table<input_t>                                     itab_t;
     typedef container::table<real_t>                                      rtab_t;
     typedef container::table<bool>                                        btab_t;
-    static real_t abstol()          { return nt2::Sqrteps<real_t>();     }
-    static real_t reltol()          { return nt2::Sqrteps<real_t>();     }
-    static std::size_t maxfunccnt() { return 10000;                      }
-    static std::size_t maxintvcnt() { return   650;                      }
-    static itab_t waypoints()       { return itab_t(of_size(1, 0));      }
-    static bool singular_a()        { return false;                      }
-    static bool singular_b()        { return false;                      }
-    static bool return_waypoints()  { return false;                      }
+    static real_t      abstol()            { return nt2::Sqrteps<real_t>();     }
+    static real_t      reltol()            { return nt2::Sqrteps<real_t>();     }
+    static std::size_t maxfunccnt()        { return 10000;                      }
+    static std::size_t maxintvcnt()        { return   650;                      }
+    static itab_t      waypoints()         { return itab_t(of_size(1, 0));      }
+    static bool        singular_a()        { return false;                      }
+    static bool        singular_b()        { return false;                      }
+    static bool        return_waypoints()  { return false;                      }
+
+    static bool enabled_abstol()           { return true;                       }
+    static bool enabled_reltol()           { return true;                       }
+    static bool enabled_maxfunccnt()       { return true;                       }
+    static bool enabled_maxintvcnt()       { return true;                       }
+    static bool enabled_waypoints()        { return true;                       }
+    static bool enabled_singular_a()       { return true;                       }
+    static bool enabled_singular_b()       { return true;                       }
+    static bool enabled_return_waypoints() { return true;                       }
+
   };
 
 //   // integ params for complex < T >  are those of T.
@@ -122,6 +132,7 @@ namespace nt2 { namespace details
     typedef container::table<input_t>                                     itab_t;
     typedef container::table<real_t>                                      rtab_t;
     typedef nt2::integ_params<input_t, value_t, TAG>                          ip;
+    typedef nt2::integ_params<input_t, value_t>                              ip0;
     typedef typename meta::is_complex<value_t>::type                 v_is_cplx_t;
     typedef typename boost::mpl::if_<v_is_cplx_t,value_t,input_t>::type result_t;
     typedef container::table<result_t>                                  restab_t;
@@ -159,15 +170,14 @@ namespace nt2 { namespace details
     {}
     void display_options() const
     {
-      std::cout << "maxfunccnt "<< maxfunccnt << std::endl;
-      std::cout << "maxintvcnt "<< maxintvcnt << std::endl;
-      std::cout << "    abstol "<<     abstol << std::endl;
-      std::cout << "    reltol "<<     reltol << std::endl;
-      std::cout << " waypoints "<< waypoints  << std::endl;
-      std::cout << "singular_a "<< singular_a << std::endl;
-      std::cout << "singular_b "<< singular_b << std::endl;
-      std::cout << "returnwp   "<< return_waypoints << std::endl;
-
+      if(ip::enabled_maxfunccnt())       std::cout << "maxfunccnt "<< maxfunccnt << std::endl;
+      if(ip::enabled_maxintvcnt())       std::cout << "maxintvcnt "<< maxintvcnt << std::endl;
+      if(ip::enabled_abstol()    )       std::cout << "    abstol "<<     abstol << std::endl;
+      if(ip::enabled_reltol()    )       std::cout << "    reltol "<<     reltol << std::endl;
+      if(ip::enabled_waypoints() )       std::cout << " waypoints "<< waypoints  << std::endl;
+      if(ip::enabled_singular_a())       std::cout << "singular_a "<< singular_a << std::endl;
+      if(ip::enabled_singular_b())       std::cout << "singular_b "<< singular_b << std::endl;
+      if(ip::enabled_return_waypoints()) std::cout << "returnwp   "<< return_waypoints << std::endl;
     }
     std::size_t      maxfunccnt;
     std::size_t      maxintvcnt;
