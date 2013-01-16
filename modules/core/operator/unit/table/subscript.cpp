@@ -230,6 +230,64 @@ NT2_TEST_CASE( dimensions )
                     );
 }
 
+NT2_TEST_CASE( dimensions_vector )
+{
+  using nt2::_;
+  namespace mpl = boost::mpl;
+  using nt2::of_size_;
+  using nt2::of_size;
+  typedef double T;
+
+  nt2::table<T, nt2::_4D> a(of_size(5, 5));
+  nt2::table<T, nt2::_4D> ac(of_size(5));
+  nt2::table<T, nt2::_4D> ar(of_size(1, 5));
+  nt2::table<T, nt2::_1D> b(of_size(5));
+  nt2::table<T, nt2::of_size_<1, -1> > c(of_size(1, 5));
+
+  NT2_TEST_EXPR_TYPE( a(a)
+                    , size_of<mpl::_>
+                    , nt2::_4D
+                    );
+  NT2_TEST_EQUAL( a(a).extent(),   of_size(5, 5) );
+  NT2_TEST_EQUAL( a(ac).extent(),  of_size(5)    );
+  NT2_TEST_EQUAL( a(ar).extent(),  of_size(1, 5) );
+  NT2_TEST_EQUAL( ac(a).extent(),  of_size(5, 5) );
+  NT2_TEST_EQUAL( ac(ac).extent(), of_size(5)    );
+  NT2_TEST_EQUAL( ac(ar).extent(), of_size(5)    );
+  NT2_TEST_EQUAL( ar(a).extent(),  of_size(5, 5) );
+  NT2_TEST_EQUAL( ar(ac).extent(), of_size(1, 5) );
+  NT2_TEST_EQUAL( ar(ar).extent(), of_size(1, 5) );
+
+  NT2_TEST_EXPR_TYPE( a(b)
+                    , size_of<mpl::_>
+                    , nt2::_2D
+                    );
+  NT2_TEST_EXPR_TYPE( b(a)
+                    , size_of<mpl::_>
+                    , nt2::_4D
+                    );
+  NT2_TEST_EXPR_TYPE( b(c)
+                    , size_of<mpl::_>
+                    , nt2::_1D
+                    );
+  NT2_TEST_EXPR_TYPE( b(b)
+                    , size_of<mpl::_>
+                    , nt2::_1D
+                    );
+  NT2_TEST_EXPR_TYPE( c(a)
+                    , size_of<mpl::_>
+                    , nt2::_4D
+                    );
+  NT2_TEST_EXPR_TYPE( c(b)
+                    , size_of<mpl::_>
+                    , (nt2::of_size_<1, -1>)
+                    );
+  NT2_TEST_EXPR_TYPE( c(c)
+                    , size_of<mpl::_>
+                    , (nt2::of_size_<1, -1>)
+                    );
+}
+
 NT2_TEST_CASE( integral_subscript )
 {
   using nt2::table;
