@@ -13,9 +13,12 @@
 #include <nt2/include/functions/function_index.hpp>
 #include <nt2/include/functions/aggregate.hpp>
 #include <nt2/include/functions/globalfind.hpp>
+#include <nt2/include/functions/run.hpp>
+#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/core/functions/table/details/is_vectorizable_indexer.hpp>
 #include <nt2/core/utility/box.hpp>
+#include <nt2/core/utility/share.hpp>
 #include <nt2/core/container/colon/category.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
@@ -67,7 +70,12 @@ namespace nt2 { namespace ext
             make_expr < nt2::tag::function_
                       , container::domain
                       , A0&
-                      , typename meta::call< tag::function_index_( I const&, typename A0::extent_type, meta::as_<typename A0::indexes_type>)>::type
+                      , typename meta::
+                        call< tag::function_index_( I const&
+                                                  , typename A0::extent_type
+                                                  , meta::as_<typename A0::indexes_type>
+                                                  )
+                            >::type
                       >::type type;
 
     static type call(A0& a0, I const& indices)
@@ -79,18 +87,30 @@ namespace nt2 { namespace ext
     }
   };
 
-#if 0
   template<class A0, class I>
   struct function_impl<A0, I, true>
   {
-    typedef A0 type;
+    typedef typename meta::
+            call< tag::function_index_( I const&
+                                      , typename A0::extent_type
+                                      , meta::as_<typename A0::indexes_type>
+                                      )
+                >::type Idx;
+
+    typedef nt2::container::
+            table< typename A0::value_type
+                 , nt2::settings(typename A0::settings_type, typename Idx::extent_type, nt2::shared_)
+                 > type;
 
     static type call(A0& a0, I const& indices)
     {
-      return a0;
+      Idx idx = nt2::function_index(indices, a0.extent(), meta::as_<typename A0::indexes_type>());
+      std::size_t b = nt2::run(idx, 0u, meta::as_<std::size_t>());
+      std::size_t e = nt2::run(idx, nt2::numel(idx.extent())-1u, meta::as_<std::size_t>())+1u;
+      typename A0::value_type* p = const_cast<typename A0::value_type*>(a0.raw());
+      return type(idx.extent(), nt2::share(p+b, p+e));
     }
   };
-#endif
 
 #define M1(z,n,t) (I##n)
 #define M2(z,n,t) (unspecified_<I##n>)
