@@ -6,13 +6,10 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef BOOST_SIMD_INCLUDE_SIMD_HPP_INCLUDED
-#define BOOST_SIMD_INCLUDE_SIMD_HPP_INCLUDED
+#ifndef BOOST_SIMD_INCLUDE_PACK_HPP_INCLUDED
+#define BOOST_SIMD_INCLUDE_PACK_HPP_INCLUDED
 
-#include <boost/simd/sdk/config/types.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
-#include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/sdk/simd/native_tuple.hpp>
+#include <boost/simd/include/native.hpp>
+#include <boost/simd/sdk/simd/pack.hpp>
 
 #endif

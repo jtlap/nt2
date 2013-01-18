@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
                             , (generic_< arithmetic_<A0> >)
                             )
   {
-    typedef A0 const& result_type;
+    typedef A0 result_type;
     BOOST_FORCEINLINE result_type operator()(A0 const& a0) const
     {
       return a0;
