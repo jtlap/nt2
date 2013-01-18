@@ -9,12 +9,13 @@
 #ifndef NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 #define NT2_CORE_CONTAINER_COLON_COLON_HPP_INCLUDED
 
-#include <nt2/sdk/meta/as.hpp>
 #include <nt2/include/functions/colon.hpp>
-#include <boost/dispatch/meta/hierarchy_of.hpp>
+#include <boost/dispatch/attributes.hpp>
 
 namespace nt2 { namespace container
 {
+  template<bool isEnd> struct extremum;
+
   //==========================================================================
   // colon_ is an helper class that handles the _ placeholders behavior
   //==========================================================================
@@ -24,14 +25,22 @@ namespace nt2 { namespace container
     template<class T> colon_ const& operator=(T const&) const { return *this; }
 
     // _() as []
-    meta::call<nt2::tag::colon_(double, double)>::type operator()() const
+    BOOST_FORCEINLINE  meta::call<nt2::tag::colon_(double, double)>::type
+    operator()() const
     {
       return nt2::colon(1.,0.);
     }
 
+    // _(begin_, end_) is _
+    BOOST_FORCEINLINE colon_ const&
+    operator()(extremum<false> const&, extremum<true> const&) const
+    {
+      return *this;
+    }
+
     // colon as a:b
     template<class Begin, class End>
-    typename meta::call<nt2::tag::colon_(Begin,End)>::type
+    BOOST_FORCEINLINE typename meta::call<nt2::tag::colon_(Begin,End)>::type
     operator()(Begin b, End e) const
     {
       return nt2::colon(b,e);
@@ -39,8 +48,8 @@ namespace nt2 { namespace container
 
     // colon as a:s:b
     template<class Begin, class Step, class End>
-    typename meta::call<nt2::tag::colon_(Begin,Step,End)>::type
-    operator()(Begin  b, Step s, End e) const
+    BOOST_FORCEINLINE typename meta::call<nt2::tag::colon_(Begin,Step,End)>::type
+    operator()(Begin b, Step s, End e) const
     {
       return nt2::colon(b,s,e);
     }
