@@ -10,6 +10,7 @@
 SET( SOURCES
   cast.cpp
   subscript.cpp
+  erase.cpp
   )
 
 nt2_module_add_tests(core.operator.table.unit ${SOURCES})
