@@ -12,6 +12,7 @@
 
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/core/utility/of_size.hpp>
 
 #ifdef NT2_DONT_USE_PREPROCESSED_FILES
 #include <boost/preprocessor/repetition/repeat.hpp>
@@ -55,6 +56,20 @@ cons(BOOST_PP_ENUM_PARAMS(N, T const& a))
          table<T, nt2::settings(nt2::of_size_<N>, nt2::automatic_)>
   (
     nt2::of_size(N)
+  , &data[0]
+  , &data[0] + N
+  );
+}
+
+template<class T>
+nt2::container::table<T, nt2::automatic_)>
+cons(nt2::of_size_max const& sz, BOOST_PP_ENUM_PARAMS(N, T const& a))
+{
+  T const data[] = { BOOST_PP_ENUM_PARAMS(N, a) };
+  return nt2::container::
+         table<T, nt2::settings(nt2::of_size_<N>, nt2::automatic_)>
+  (
+    sz
   , &data[0]
   , &data[0] + N
   );
