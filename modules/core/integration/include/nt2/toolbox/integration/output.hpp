@@ -20,7 +20,7 @@ namespace nt2 { namespace integration
     R               errors;
     std::size_t eval_count;
     bool        successful;
-    ptrdiff_t      warning;
+    size_t         warning;
   };
 } }
 
@@ -32,7 +32,7 @@ BOOST_FUSION_ADAPT_TPL_STRUCT
   (R          , errors)
   (std::size_t, eval_count)
   (bool       , successful)
-  (ptrdiff_t ,  warning   )
+  (size_t     , warning)
 );
 
 #endif
