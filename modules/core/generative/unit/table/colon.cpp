@@ -162,12 +162,3 @@ NT2_TEST_CASE_TPL( colon_real_step, NT2_REAL_TYPES )
   NT2_TEST_EQUAL( zd.extent(), nt2::of_size(1,6) );
   NT2_TEST_ULP_EQUAL( zd, ref, 0.5 );
 }
-
-NT2_TEST_CASE( colon_begin_end )
-{
-  using nt2::_;
-  using nt2::begin_;
-  using nt2::end_;
-  namespace mpl = boost::mpl;
-  NT2_TEST_EXPR_TYPE( _(begin_, end_), mpl::identity<mpl::_>, nt2::container::colon_ );
-}
