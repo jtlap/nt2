@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMPLEX_GENERIC_IF_ELSE_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_SIMD_COMPLEX_GENERIC_IF_ELSE_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IF_ELSE_HPP_INCLUDED
+#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IF_ELSE_HPP_INCLUDED
 
 #include <nt2/toolbox/operator/functions/if_else.hpp>
 #include <nt2/include/functions/if_else.hpp>

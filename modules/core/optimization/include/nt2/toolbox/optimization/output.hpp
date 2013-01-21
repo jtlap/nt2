@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPTIMIZATION_OUTPUTS_HPP_INCLUDED
-#define NT2_TOOLBOX_OPTIMIZATION_OUTPUTS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_OPTIMIZATION_OUTPUT_HPP_INCLUDED
+#define NT2_TOOLBOX_OPTIMIZATION_OUTPUT_HPP_INCLUDED
 
 #include <cstddef>
 #include <boost/fusion/adapted/struct/adapt_struct.hpp>

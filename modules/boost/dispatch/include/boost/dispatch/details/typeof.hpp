@@ -6,9 +6,10 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_DISPATCH_TYPEOF
+#ifndef BOOST_DISPATCH_DETAILS_TYPEOF
+#define BOOST_DISPATCH_DETAILS_TYPEOF
 
-/*!
+ /*!
  * \file
  * \brief Defines a platform agnostic \c decltype macro.
  */

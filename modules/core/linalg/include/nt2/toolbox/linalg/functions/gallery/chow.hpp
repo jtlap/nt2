@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_FUNCTIONS_GALLERY_CHOW_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_FUNCTIONS_GALLERY_CHOW_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_CHOW_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_CHOW_HPP_INCLUDED
 
 #include <nt2/toolbox/linalg/functions/chow.hpp>
 #include <nt2/include/functions/eye.hpp>

@@ -9,8 +9,8 @@
 /*!
  * \file
 **/
-#ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_IDXY_BILINEAR_HPP_INCLUDED
-#define NT2_TOOLBOX_STATISTICS_FUNCTIONS_IDXY_BILINEAR_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_INTERPOL_FUNCTIONS_IDXY_BILINEAR_HPP_INCLUDED
+#define NT2_TOOLBOX_INTERPOL_FUNCTIONS_IDXY_BILINEAR_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>
