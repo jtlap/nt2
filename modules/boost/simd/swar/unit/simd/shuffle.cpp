@@ -46,7 +46,7 @@ struct mirror_
   {};
 };
 
-template<unsigned int N>
+template<std::size_t N>
 struct bcast_
 {
   template<class Index, class Cardinal>
