@@ -10,10 +10,11 @@
 #define BOOST_SIMD_SDK_CONFIG_DETAILS_X86_DETECT_HPP_INCLUDED
 
 #include <boost/simd/sdk/config/arch/x86.hpp>
-#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
-#include <boost/simd/sdk/config/details/get_vendor.hpp>
-#include <boost/simd/sdk/config/details/detector/cpuid.hpp>
 
+#ifdef BOOST_SIMD_ARCH_X86
+#include <boost/simd/sdk/simd/extensions/meta/tags.hpp>
+#include <boost/simd/sdk/config/details/detector/get_vendor.hpp>
+#include <boost/simd/sdk/config/details/detector/cpuid.hpp>
 
 /*!
  *\file detect.hpp
@@ -35,56 +36,56 @@ namespace boost { namespace simd { namespace config { namespace details
 
   inline bool detect(tag::sse_ const&)
   {
-    if(get_vendor() == intel || get_vendor() == amd)
+    if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(25,0x00000001,4);
     else return false;
   }
 
   inline bool detect(tag::sse2_ const&)
   {
-    if(get_vendor() == intel || get_vendor() == amd)
+    if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(26,0x00000001,4);
     else return false;
   }
 
   inline bool detect(tag::sse3_ const&)
   {
-    if(get_vendor() == intel || get_vendor() == amd)
+    if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(0,0x00000001,3);
     else return false;
   }
 
   inline bool detect(tag::ssse3_ const&)
   {
-    if(get_vendor() == intel || get_vendor() == amd)
+    if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(9,0x00000001,3);
     else return false;
   }
 
   inline bool detect(tag::sse4a_ const&)
   {
-    if(get_vendor() == amd)
+    if (x86::get_vendor() == x86::amd)
       return x86_detection(6,0x80000001,3);
     else return false;
   }
 
   inline bool detect(tag::sse4_1_ const&)
   {
-    if(get_vendor() == intel || get_vendor() == amd)
+    if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(19,0x00000001,3);
     else return false;
   }
 
   inline bool detect(tag::sse4_2_ const&)
   {
-    if(get_vendor() == intel || get_vendor() == amd)
+    if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
       return x86_detection(20,0x00000001,3);
     else return false;
   }
 
   inline bool detect(tag::avx_ const&)
   {
-    if(get_vendor() == intel || get_vendor() == amd)
+    if (x86::get_vendor() == x86::intel || x86::get_vendor() == x86::amd)
     {
       if(x86_detection(28,0x00000001,3) && x86_detection(27,0x00000001,3))
         return true;
@@ -95,7 +96,7 @@ namespace boost { namespace simd { namespace config { namespace details
 
   inline bool detect(tag::fma4_ const&)
   {
-    if(get_vendor() == amd)
+    if (x86::get_vendor() == x86::amd)
     {
       if(x86_detection(16,0x80000001,3) && x86_detection(27,0x00000001,3))
         return true;
@@ -106,7 +107,7 @@ namespace boost { namespace simd { namespace config { namespace details
 
   inline bool detect(tag::xop_ const&)
   {
-    if(get_vendor() == amd)
+    if (x86::get_vendor() == x86::amd)
     {
       if(x86_detection(11,0x80000001,3) && x86_detection(27,0x00000001,3))
         return true;
@@ -117,4 +118,5 @@ namespace boost { namespace simd { namespace config { namespace details
 
 } } } }
 
+#endif
 #endif

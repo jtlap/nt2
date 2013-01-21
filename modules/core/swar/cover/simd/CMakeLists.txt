@@ -16,7 +16,7 @@ SET( SOURCES
   splatted_minimum.cpp
   splatted_maximum.cpp
   splatted_first.cpp
-  sort.cpp
+#  sort.cpp
   put_first.cpp
   lookup.cpp
   group.cpp

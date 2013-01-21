@@ -11,7 +11,7 @@
 **/
 #ifndef NT2_TOOLBOX_LIBC_FUNCTIONS_CEIL_HPP_INCLUDED
 #define NT2_TOOLBOX_LIBC_FUNCTIONS_CEIL_HPP_INCLUDED
-#include <nt2/include/simd.hpp>
+#include <nt2/include/functor.hpp>
 #include <nt2/include/functor.hpp>
 
 /*!

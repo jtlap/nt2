@@ -73,7 +73,7 @@ namespace boost { namespace simd { namespace ext
   {
     typedef A0 result_type;
 
-    result_type operator()(A0 const a0, A1 const a1) const
+    result_type operator()(A0 const& a0, A1 const& a1) const
     {
       return _mm_unpackhi_epi64(a0,a1);
     }

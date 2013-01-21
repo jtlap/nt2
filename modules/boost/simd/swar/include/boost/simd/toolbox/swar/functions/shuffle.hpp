@@ -13,11 +13,11 @@
   @file
 **/
 
-#include <boost/simd/include/simd.hpp>
 #include <boost/simd/sdk/simd/preprocessor/repeat.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 #include <boost/simd/toolbox/swar/functions/details/random_permute.hpp>
-#include <boost/simd/sdk/simd/extensions.hpp>
+#include <boost/dispatch/meta/as.hpp>
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/repetition/enum_params.hpp>
 #include <boost/preprocessor/cat.hpp>

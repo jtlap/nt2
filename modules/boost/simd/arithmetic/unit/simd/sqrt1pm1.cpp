@@ -14,6 +14,7 @@
 /// created by jt the 01/12/2010
 /// modified by jt the 06/04/2011
 #include <boost/simd/sdk/memory/is_aligned.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/aligned_type.hpp>
 #include <boost/simd/include/functions/load.hpp>
 #include <boost/type_traits/is_same.hpp>

@@ -22,8 +22,11 @@
 #include <nt2/include/functions/simd/is_equal.hpp>
 #include <nt2/include/functions/simd/is_greater_equal.hpp>
 #include <nt2/include/constants/digits.hpp>
-#include <nt2/toolbox/hyperbolic/functions/scalar/constants.hpp>
-#include <nt2/include/constants/eps_related.hpp>
+#include <nt2/include/constants/oneo_6.hpp>
+#include <nt2/include/constants/moneo_6.hpp>
+#include <nt2/include/constants/oneo_120.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/fourthrooteps.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

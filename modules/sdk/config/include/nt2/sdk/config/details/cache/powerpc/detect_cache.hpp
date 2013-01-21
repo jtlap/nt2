@@ -12,11 +12,10 @@
 #include <boost/simd/sdk/config/arch.hpp>
 
 #ifdef BOOST_SIMD_ARCH_POWERPC
-#include <boost/simd/sdk/config/details/get_vendor.hpp>
 #include <boost/assert.hpp>
 
-namespace nt2{ namespace config{ namespace details{
-
+namespace nt2{ namespace config{ namespace details
+{
   template<class Seq>
   inline void detect_cache(Seq& cache_sizes_, Seq& cache_line_sizes_)
   {

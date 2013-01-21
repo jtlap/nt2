@@ -6,7 +6,7 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#define NT2_UNIT_MODULE "nt2::sum1 function"
+#define NT2_UNIT_MODULE "nt2::medianad function"
 
 #include <nt2/table.hpp>
 #include <nt2/include/functions/medianad.hpp>
@@ -15,7 +15,6 @@
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/firstnonsingleton.hpp>
-#include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/constants/half.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
@@ -52,38 +51,11 @@ NT2_TEST_CASE_TPL( medianad, NT2_REAL_TYPES )
   NT2_TEST_EQUAL(sy2, r1);
 
   sy2 = nt2::medianad(y, 2);
-  display("sy2", sy2);
   NT2_TEST_EQUAL(sy2, r2);
   sy2 = nt2::medianad(y, 3);
-  display("sy2", sy2);
   NT2_TEST_EQUAL(sy2, nt2::zeros(4, 3, nt2::meta::as_<T>()));
 
   sy2 = nt2::medianad(y, 4);
-  display("sy2", sy2);
   NT2_TEST_EQUAL(sy2, nt2::zeros(4, 3, nt2::meta::as_<T>()));
 
 }
-
-// NT2_TEST_CASE_TPL( medianad_2, NT2_TYPES )
-// {
-//   nt2::table<T> y( nt2::of_size(4,3,3) );
-//   nt2::table<T> sy2;
-
-//   int k = 0;
-//   for(int l=1;l<=3;l++)
-//     for(int j=1;j<=3;j++)
-//       for(int i=1;i<=4;i++)
-//         y(i,j,l) = ++k;
-//   sy2 = nt2::medianad(y);
-//   NT2_TEST(nt2::isequal(sy2,medianad(y)));
-//   sy2 = nt2::medianad(y, 1);
-//   NT2_TEST(nt2::isequal(sy2,medianad(y, 1)));
-//   sy2 = nt2::medianad(y, 2);
-//   NT2_TEST(nt2::isequal(sy2,medianad(y, 2)));
-//   sy2 = nt2::medianad(y, 3);
-//   NT2_TEST(nt2::isequal(sy2,medianad(y, 3)));
-//   sy2 = nt2::medianad(y, 4);
-//   NT2_TEST(nt2::isequal(sy2,medianad(y, 4)));
-
-
-//}

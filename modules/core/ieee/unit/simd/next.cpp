@@ -14,6 +14,7 @@
 /// created by jt the 04/12/2010
 ///
 #include <nt2/toolbox/ieee/include/functions/next.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/constants/eps_related.hpp>
 

@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::range SIMD"
 
 #include <boost/simd/sdk/simd/pack.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/range.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <boost/simd/include/functions/load.hpp>
@@ -25,6 +26,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Test boost::simd::input_range
 ////////////////////////////////////////////////////////////////////////////////
+
+template<class It, class Val>
+Val accumulate(It begin, It end, Val const& val_)
+{
+  Val val = val_;
+  for(; begin != end; ++begin)
+    val = (Val)(val + *begin);
+  return val;
+}
+
+template<class Range, class Val>
+Val accumulate(Range const& range, Val const& val)
+{
+  return ::accumulate(boost::begin(range), boost::end(range), val);
+}
+
 NT2_TEST_CASE_TPL(input_range_interface, BOOST_SIMD_SIMD_TYPES)
 {
   std::vector<T,boost::simd::memory::allocator<T> > v(1024);
@@ -36,7 +53,7 @@ NT2_TEST_CASE_TPL(input_range_interface, BOOST_SIMD_SIMD_TYPES)
   p_t x,z;
   T r;
   z = boost::simd::Zero<p_t>();
-  x = boost::accumulate(boost::simd::range(v),z);
-  r = std::accumulate(x.begin(),x.end(),T(0.0));
+  x = ::accumulate(boost::simd::range(v),z);
+  r = ::accumulate(x.begin(),x.end(),T(0.0));
   NT2_TEST_EQUAL(r,std::accumulate(v.begin(),v.end(),T(0.0)));
 }

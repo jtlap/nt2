@@ -14,6 +14,7 @@
 /// created  by jt the 24/02/2011
 ///
 #include <boost/simd/toolbox/swar/include/functions/reverse.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/toolbox/swar/include/functions/arith.hpp>
 #include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>

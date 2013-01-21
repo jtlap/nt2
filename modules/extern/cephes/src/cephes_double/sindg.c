@@ -101,7 +101,7 @@ static double lossth = 1.0e14;
 
 
 #ifdef ANSIPROT
-extern double cephes_polevl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
 extern double cephes_floor ( double );
 extern double cephes_ldexp ( double, int );
 #else

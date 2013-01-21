@@ -26,4 +26,11 @@
 #define BOOST_SIMD_NO_DENORMALS
 #endif
 
+#if defined(BOOST_SIMD_NO_NANS) && defined(BOOST_SIMD_NO_INFINITIES) && !defined(BOOST_SIMD_NO_INVALIDS)
+#define BOOST_SIMD_NO_INVALIDS
+#elif defined(BOOST_SIMD_NO_INVALIDS)
+#define BOOST_SIMD_NO_NANS
+#define BOOST_SIMD_NO_INFINITIES
+#endif
+
 #endif

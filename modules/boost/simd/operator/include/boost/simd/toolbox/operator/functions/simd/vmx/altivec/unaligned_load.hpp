@@ -13,6 +13,7 @@
 #include <boost/simd/toolbox/operator/functions/unaligned_load.hpp>
 #include <boost/simd/toolbox/operator/functions/simd/details/char_helper.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
+#include <boost/simd/sdk/meta/make_dependent.hpp>
 #include <iterator>
 
 namespace boost { namespace simd { namespace ext
@@ -25,7 +26,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A2::type result_type;
-    typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
+    typedef native<typename meta::make_dependent<boost::simd::uint8_t, A0>::type, boost::simd::tag::altivec_> n_t;
     inline result_type operator()(const A0& a0, const A1& a1, const A2&)const
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A0>::value_type);
@@ -44,7 +45,7 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef typename A1::type result_type;
-    typedef native<boost::simd::uint8_t, boost::simd::tag::altivec_> n_t;
+    typedef native<typename meta::make_dependent<boost::simd::uint8_t, A0>::type, boost::simd::tag::altivec_> n_t;
     inline result_type operator()(const A0& a0, const A1&)const
     {
       static std::size_t sz   = sizeof(typename std::iterator_traits<A0>::value_type);

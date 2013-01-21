@@ -130,9 +130,16 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator ()(Expr& e) const
     {
       result_type that = nt2::extent(boost::proto::child_c<0>(e));
+      std::size_t along = boost::proto::child_c<1>(e);
 
       // If non-0 dimension along chosen direction, decrements it
-      if(that[boost::proto::child_c<1>(e)]) that[boost::proto::child_c<1>(e)]--;
+      if(along >= result_type::static_size)
+      {
+        if(result_type::static_size > 0)
+            that[result_type::static_size-1] = 0;
+      }
+      else if(that[along])
+        --that[along];
 
       return that;
     }

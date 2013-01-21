@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::memory::allocator"
 
 #include <boost/simd/sdk/memory/allocator.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/memory/is_aligned.hpp>
 
 #include <vector>

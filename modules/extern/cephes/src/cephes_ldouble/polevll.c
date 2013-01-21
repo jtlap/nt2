@@ -148,7 +148,7 @@ long double NEGZEROL = 0.0L;
  */
 long double cephes_polevll( x, p, n )
 long double x;
-void *p;
+long double *p;
 int n;
 {
 register long double y;
@@ -170,7 +170,7 @@ return(y);
  */
 long double cephes_p1evll( x, p, n )
 long double x;
-void *p;
+long double *p;
 int n;
 {
 register long double y;

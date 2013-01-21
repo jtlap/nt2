@@ -13,6 +13,7 @@
 //////////////////////////////////////////////////////////////////////////////
 
 #include <boost/simd/toolbox/ieee/include/functions/saturate_at.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

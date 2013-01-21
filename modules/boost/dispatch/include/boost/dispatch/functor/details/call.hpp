@@ -9,6 +9,7 @@
 #ifndef BOOST_DISPATCH_FUNCTOR_DETAILS_CALL_HPP_INCLUDED
 #define BOOST_DISPATCH_FUNCTOR_DETAILS_CALL_HPP_INCLUDED
 
+#include <boost/dispatch/functor/forward.hpp>
 #include <boost/mpl/assert.hpp>
 
 // Forward declare the unknown_ tag

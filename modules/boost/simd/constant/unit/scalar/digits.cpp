@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::constants digits"
 
 #include <boost/simd/include/constants/digits.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 

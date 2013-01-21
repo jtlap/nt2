@@ -109,8 +109,8 @@ static double DP3 =   2.69515142907905952645E-15;
 /* static double lossth = 1.073741824e9; */
 
 #ifdef ANSIPROT
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 extern double cephes_floor ( double );
 extern double cephes_ldexp ( double, int );
 extern int isnan ( double );

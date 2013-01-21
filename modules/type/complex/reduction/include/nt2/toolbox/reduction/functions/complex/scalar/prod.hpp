@@ -26,9 +26,9 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-        return a0;
-      }
+    {
+      return a0;
+    }
   };
 
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::prod_, tag::cpu_, (A0)
@@ -37,9 +37,9 @@ namespace nt2 { namespace ext
   {
     typedef A0 result_type;
     NT2_FUNCTOR_CALL(1)
-      {
-        return a0;
-      }
+    {
+      return a0;
+    }
   };
 
 } }

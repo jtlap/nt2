@@ -2,6 +2,7 @@
 // exhaustive test in simd mode for functor nt2::sin
 ////////////////////////////////////////////////////////////////////////
 #include <nt2/include/functions/sin.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 
 #include <nt2/include/functions/iround.hpp>
 #include <nt2/include/functions/load.hpp>

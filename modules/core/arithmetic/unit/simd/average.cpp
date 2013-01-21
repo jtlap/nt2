@@ -15,6 +15,7 @@
 ///
 /// for integer values average does not coincide with (a0+a1)/2 by at most one unit.
 #include <nt2/toolbox/arithmetic/include/functions/average.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/round.hpp>
 

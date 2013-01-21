@@ -105,8 +105,8 @@ namespace boost { namespace simd { namespace ext
                                             , boost::simd::meta::cardinal_of<A2>
                                             >
                               )
-                            , ((simd_< fundamental_<A0>, X >))
-                              (iterator_< scalar_< fundamental_<A1> > >)
+                            , ((simd_< unspecified_<A0>, X >))
+                              (iterator_< scalar_< unspecified_<A1> > >)
                               ((simd_< integer_<A2>, Y >))
                             )
   {
@@ -125,7 +125,7 @@ namespace boost { namespace simd { namespace ext
                                    , (A0)(A1)(A2)(X)
                                    , ((simd_< fusion_sequence_<A0>, X >))
                                      (fusion_sequence_<A1>)
-                                     (scalar_< integer_<A2> >)
+                                     (generic_< integer_<A2> >)
                                    )
   {
     typedef A0 result_type;

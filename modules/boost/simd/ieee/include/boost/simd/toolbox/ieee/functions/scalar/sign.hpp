@@ -8,11 +8,13 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGN_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SIGN_HPP_INCLUDED
+
 #include <boost/simd/toolbox/ieee/functions/sign.hpp>
 #include <boost/simd/include/functions/scalar/is_ltz.hpp>
 #include <boost/simd/include/functions/scalar/is_gtz.hpp>
 #include <boost/simd/include/functions/scalar/is_nan.hpp>
-#include <boost/simd/include/functions/scalar/is_nez.hpp>
+#include <boost/simd/include/functions/scalar/shrai.hpp>
+#include <boost/simd/sdk/config.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -22,7 +24,10 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return bool(is_gtz(a0))-bool(is_ltz(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return shrai(a0, (sizeof(A0)*8-1)) - shrai(-a0, (sizeof(A0)*8-1));
+    }
   };
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sign_, tag::cpu_
@@ -31,8 +36,12 @@ namespace boost { namespace simd { namespace ext
                             )
   {
     typedef A0 result_type;
-    BOOST_SIMD_FUNCTOR_CALL(1) { return bool(is_nez(a0)); }
+    BOOST_SIMD_FUNCTOR_CALL(1)
+    {
+      return !!a0;
+    }
   };
+
 
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::sign_, tag::cpu_
                             , (A0)
@@ -42,7 +51,11 @@ namespace boost { namespace simd { namespace ext
     typedef A0 result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
+      #ifdef BOOST_SIMD_NO_NANS
+      return bool(is_gtz(a0))-bool(is_ltz(a0));
+      #else
       return is_nan(a0) ? a0 : bool(is_gtz(a0))-bool(is_ltz(a0));
+      #endif
     }
   };
 } } }

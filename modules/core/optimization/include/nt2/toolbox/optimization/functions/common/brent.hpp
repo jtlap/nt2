@@ -48,7 +48,6 @@ namespace nt2 { namespace ext
       T fx, fw, fv;
       fw = fv = fx = f(x);
 
-
       // Starts iterating ...
       for(iter=1;iter<=o.maximum_iterations;++iter)
       {

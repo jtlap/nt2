@@ -1,5 +1,5 @@
 #include <iostream>
-#include <nt2/include/simd.hpp>
+#include <nt2/include/native.hpp>
 
 using namespace std;
 using namespace nt2;

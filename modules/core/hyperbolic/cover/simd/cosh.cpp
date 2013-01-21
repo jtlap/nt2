@@ -14,6 +14,7 @@
 /// created  by jt the 20/02/2011
 ///
 #include <nt2/toolbox/hyperbolic/include/functions/cosh.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/exponential/constants.hpp>

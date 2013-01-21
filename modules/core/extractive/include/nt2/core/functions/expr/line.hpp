@@ -11,6 +11,8 @@
 #define NT2_CORE_FUNCTIONS_EXPR_LINE_HPP_INCLUDED
 
 #include <nt2/core/functions/line.hpp>
+#include <nt2/include/functions/ind2sub.hpp>
+#include <nt2/include/functions/sub2ind.hpp>
 #include <nt2/core/container/dsl.hpp>
 #include <nt2/include/functions/linesstride.hpp>
 

@@ -152,7 +152,7 @@ static long Q[36] = {
 #endif
 
 #ifdef ANSIPROT
-extern long double cephes_polevll ( long double, void *, int );
+extern long double cephes_polevll ( long double, long double *, int );
 extern long double cephes_logl ( long double );
 #else
 long double cephes_polevll(), cephes_logl();

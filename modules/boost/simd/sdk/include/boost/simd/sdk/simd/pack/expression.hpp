@@ -14,6 +14,8 @@
 #include <boost/simd/include/functions/evaluate.hpp>
 #include <boost/simd/include/functions/assign.hpp>
 #include <boost/proto/extends.hpp>
+#include <boost/type_traits/is_base_of.hpp>
+#include <boost/utility/enable_if.hpp>
 
 namespace boost { namespace simd
 {
@@ -37,7 +39,10 @@ namespace boost { namespace simd
 
     template<class Xpr>
     BOOST_DISPATCH_FORCE_INLINE
-    expression& operator=(Xpr const& xpr)
+    typename boost::disable_if< boost::is_base_of<expression, Xpr>
+                              , expression&
+                              >::type
+    operator=(Xpr const& xpr)
     {
       boost::simd::evaluate(
         boost::simd::assign(*this, xpr)

@@ -11,7 +11,6 @@
 
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/fusion/sequence/io/out.hpp>
-#include <complex>
 
 namespace boost { namespace simd
 {

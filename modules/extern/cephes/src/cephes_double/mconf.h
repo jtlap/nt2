@@ -19,7 +19,7 @@
  * The file also includes a conditional assembly definition
  * for the type of computer arithmetic (IEEE, DEC, Motorola
  * IEEE, or UNKnown).
- * 
+ *
  * For Digital Equipment PDP-11 and VAX computers, certain
  * IBM systems, and others that use numbers with a 56-bit
  * significand, the symbol DEC should be defined.  In this
@@ -192,10 +192,9 @@ typedef struct
 #define ANSIC 1
 
 /* Get ANSI function prototypes, if you want them. */
-#if 1
-/* #ifdef __STDC__ */
-#define ANSIPROT 1
-int cephes_mtherr ( char *, int );
+#if defined(__STDC__) || defined(ANSIC)
+#define ANSIPROT
+#include "protos.h"
 #else
 int cephes_mtherr();
 #endif

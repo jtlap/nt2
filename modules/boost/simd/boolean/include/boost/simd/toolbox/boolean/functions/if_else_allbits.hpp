@@ -11,7 +11,7 @@
 /*!
  * \file
 **/
-#include <boost/simd/include/simd.hpp>
+#include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!

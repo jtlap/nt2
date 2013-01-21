@@ -14,6 +14,7 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/toolbox/euler/include/functions/gammaln.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_gammal(long double);}
 extern "C" {long double cephes_logl  (long double);}

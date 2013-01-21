@@ -826,8 +826,8 @@ static unsigned short APGD[40] = {
 extern double fabs ( double );
 extern double cephes_exp ( double );
 extern double cephes_sqrt ( double );
-extern double cephes_polevl ( double, void *, int );
-extern double cephes_p1evl ( double, void *, int );
+extern double cephes_polevl ( double, double *, int );
+extern double cephes_p1evl ( double, double *, int );
 extern double cephes_sin ( double );
 extern double cephes_cos ( double );
 #else

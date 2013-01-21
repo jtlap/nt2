@@ -9,6 +9,7 @@
 #define NT2_UNIT_MODULE "boost::simd::shifted_iterator"
 
 #include <boost/simd/sdk/simd/shifted_iterator.hpp>
+#include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/pack.hpp>
 #include <boost/simd/sdk/meta/cardinal_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>

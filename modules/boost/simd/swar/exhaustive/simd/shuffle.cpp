@@ -14,7 +14,7 @@
 #include <nt2/sdk/unit/module.hpp>
 #include "roll_test.hpp"
 
-NT2_TEST_CASE_TPL( shuffle_index2_1arg, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL( shuffle_index2_1arg, (double))
 {
   using boost::simd::native;
   using boost::simd::meta::vector_of;
@@ -29,7 +29,7 @@ NT2_TEST_CASE_TPL( shuffle_index2_1arg, BOOST_SIMD_SIMD_TYPES)
   roll_unary_test_2<vT,-1,-1>::call(origin1);
 }
 
-NT2_TEST_CASE_TPL( shuffle_index4_1arg, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL( shuffle_index4_1arg, (float)(int))
 {
   using boost::simd::native;
   using boost::simd::meta::vector_of;
@@ -44,7 +44,7 @@ NT2_TEST_CASE_TPL( shuffle_index4_1arg, BOOST_SIMD_SIMD_TYPES)
   roll_unary_test_4<vT,-1,-1,-1,-1>::call(origin1);
 }
 
-NT2_TEST_CASE_TPL( shuffle_index2_2arg, BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL( shuffle_index2_2arg, (double))
 {
   using boost::simd::native;
   using boost::simd::meta::vector_of;
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL( shuffle_index2_2arg, BOOST_SIMD_SIMD_TYPES)
   roll_binary_test_2<vT,-1,-1>::call(origin1,origin2);
 }
 
-NT2_TEST_CASE_TPL( shuffle_index4_2arg, (float))//BOOST_SIMD_SIMD_TYPES)
+NT2_TEST_CASE_TPL( shuffle_index4_2arg, (float)(int))
 {
   using boost::simd::native;
   using boost::simd::meta::vector_of;
@@ -73,5 +73,6 @@ NT2_TEST_CASE_TPL( shuffle_index4_2arg, (float))//BOOST_SIMD_SIMD_TYPES)
     origin1[i] = T(65+i);
     origin2[i] = T(i);
   }
+
   roll_binary_test_4<vT,-1,-1,-1,-1>::call(origin1,origin2);
 }

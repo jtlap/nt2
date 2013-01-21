@@ -8,9 +8,11 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_GENMASK_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_BITWISE_FUNCTIONS_SCALAR_GENMASK_HPP_INCLUDED
+
 #include <boost/simd/toolbox/bitwise/functions/genmask.hpp>
 #include <boost/simd/include/constants/allbits.hpp>
 #include <boost/simd/include/constants/zero.hpp>
+#include <boost/simd/sdk/meta/as_arithmetic.hpp>
 
 namespace boost { namespace simd { namespace ext
 {
@@ -18,10 +20,10 @@ namespace boost { namespace simd { namespace ext
                             , (scalar_< fundamental_<A0> >)
                             )
   {
-    typedef A0 result_type;
+    typedef typename meta::as_arithmetic<A0>::type result_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return a0 ? Allbits<A0>():Zero<A0>();
+      return a0 ? Allbits<result_type>() : Zero<result_type>();
     }
   };
 } } }

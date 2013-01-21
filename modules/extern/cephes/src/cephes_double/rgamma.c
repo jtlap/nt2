@@ -137,7 +137,7 @@ static unsigned short R[] = {
 static char name[] = "rgamma";
 
 #ifdef ANSIPROT
-extern double cephes_chbevl ( double, void *, int );
+extern double cephes_chbevl ( double, double *, int );
 extern double cephes_exp ( double );
 extern double cephes_log ( double );
 extern double cephes_sin ( double );

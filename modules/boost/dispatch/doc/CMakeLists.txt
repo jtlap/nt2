@@ -7,6 +7,11 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
+include(nt2.doc)
+if(NOT NT2_DOCUMENTATION_ENABLED)
+  return()
+endif()
+
 nt2_module_doc( boost.dispatch
                 dispatch.qbk
                 reference.doxyfile
