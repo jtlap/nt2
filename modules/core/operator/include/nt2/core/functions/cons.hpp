@@ -62,12 +62,12 @@ cons(BOOST_PP_ENUM_PARAMS(N, T const& a))
 }
 
 template<class T>
-nt2::container::table<T, nt2::automatic_)>
+nt2::container::table<T>
 cons(nt2::of_size_max const& sz, BOOST_PP_ENUM_PARAMS(N, T const& a))
 {
   T const data[] = { BOOST_PP_ENUM_PARAMS(N, a) };
   return nt2::container::
-         table<T, nt2::settings(nt2::of_size_<N>, nt2::automatic_)>
+         table<T>
   (
     sz
   , &data[0]
