@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_INTEGRATION_FUNCTIONS_INTEG_HPP_INCLUDED
-#define NT2_TOOLBOX_INTEGRATION_FUNCTIONS_INTEG_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_INTEGRATION_FUNCTIONS_INTEGRAL_HPP_INCLUDED
+#define NT2_TOOLBOX_INTEGRATION_FUNCTIONS_INTEGRAL_HPP_INCLUDED
 
 /*!
  * \file
@@ -19,9 +19,9 @@ namespace nt2
 {
   namespace tag
   {
-    struct integ_ : ext::unspecified_<integ_>
+    struct integral_ : ext::unspecified_<integral_>
     {
-      typedef ext::unspecified_<integ_> parent;
+      typedef ext::unspecified_<integral_> parent;
     };
 
     // definition  of abstol constant for integ method
@@ -34,10 +34,10 @@ namespace nt2
   BOOST_SIMD_CONSTANT_IMPLEMENTATION(tag::Integabstol, Integabstol);
 
   // specialization of abstol for integ method
-  template<class T, class V> struct integ_params<T, V, tag::integ_>
-  : integ_params<T, V, void>
+  template<class T, class V> struct integral_params<T, V, tag::integral_>
+  : integral_params<T, V, void>
   {
-    typedef typename nt2::integ_params<T, V, void>::real_type real_type;
+    typedef typename nt2::integral_params<T, V, void>::real_type real_type;
     static real_type        abstol(){return Integabstol<real_type>(); }
   };
 
@@ -58,31 +58,31 @@ namespace nt2
 
 
   template<class T, class V, class F, class X> BOOST_FORCEINLINE
-  typename integration_call<T, V, F, tag::integ_, X>::result_type
+  typename integration_call<T, V, F, tag::integral_, X>::result_type
   integ(F f, X x)
   {
-    return integ_call<T, V, tag::integ_>(f, x);
+    return integral_call<T, V, tag::integral_>(f, x);
   }
 
   template<class T, class V, class F, class X, class Xpr> BOOST_FORCEINLINE
-  typename integration_call<T, V, F, tag::integ_, X>::result_type
+  typename integration_call<T, V, F, tag::integral_, X>::result_type
   integ(F f, X x, nt2::details::option_expr<Xpr> const& opt)
   {
-    return integ_call<T, V, tag::integ_>(f, x, opt);
+    return integral_call<T, V, tag::integral_>(f, x, opt);
   }
 
   template<class T, class V, class F, class A, class B> BOOST_FORCEINLINE
-  typename integration_call<T, V, F, tag::integ_, typename xtype<T>::type>::result_type
+  typename integration_call<T, V, F, tag::integral_, typename xtype<T>::type>::result_type
   integ(F f, A a, B b)
   {
-    return integ_call<T, V, tag::integ_>(f, a, b);
+    return integral_call<T, V, tag::integral_>(f, a, b);
   }
 
   template<class T, class V, class F, class A,  class B, class Xpr> BOOST_FORCEINLINE
-  typename integration_call<T, V, F, tag::integ_, typename xtype<T>::type>::result_type
+  typename integration_call<T, V, F, tag::integral_, typename xtype<T>::type>::result_type
   integ(F f, A a, B b, nt2::details::option_expr<Xpr> const& opt)
   {
-    return integ_call<T, V, tag::integ_>(f, a, b, opt);
+    return integral_call<T, V, tag::integral_>(f, a, b, opt);
   }
 
 
