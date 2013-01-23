@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_SDK_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
-#define NT2_CORE_SDK_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
+#ifndef NT2_SDK_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
+#define NT2_SDK_MEMORY_COMPOSITE_REFERENCE_HPP_INCLUDED
 
 #include <nt2/sdk/meta/container_traits.hpp>
 #include <boost/simd/sdk/functor/proxy.hpp>
