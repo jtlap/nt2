@@ -7,6 +7,4 @@
 #                     http://www.boost.org/LICENSE_1_0.txt
 ################################################################################
 
-include(nt2.blas)
-
-SET (NT2_TYPE.COMPLEX.POLYNOM_DEPENDENCIES_EXTRA sdk.functor core.polynom type.complex.sdk core.linalg)
+SET(NT2_TYPE.COMPLEX.POLYNOM_DEPENDENCIES_EXTRA sdk.functor core.polynom type.complex.sdk core.linalg)
