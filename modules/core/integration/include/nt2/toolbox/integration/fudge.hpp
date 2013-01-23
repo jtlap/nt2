@@ -28,6 +28,19 @@ namespace nt2
       }
     };
 
+    template < class FUNC, class VT, class INPUT>
+    struct fudge < FUNC, 0, VT, INPUT, true >
+    {
+      static void fdg(const  FUNC & f, VT&y, size_t& fcnt, const bool & singular,
+                      const INPUT& x, const INPUT& shift)
+      {
+        if ((singular) && nt2::is_invalid(y(end_)))// Fudge to avoid nans or infinities.
+        {
+          y(end_) = f(x+shift); ++fcnt;
+        }
+      }
+    };
+
     template < class FUNC, int IND, class VT, class INPUT>
     struct fudge < FUNC, IND, VT, INPUT, false>
     {

@@ -52,12 +52,12 @@ namespace nt2
   namespace tolerance
   {
     /**
-     * Named parameter for passing absolute tolerance to iterative algorithms
+     * Named parameter for passing absolute tolerance
      **/
     NT2_REGISTER_PARAMETERS(abstol_);
 
     /**
-     * Named parameter for passing relative tolerance to iterative algorithms
+     * Named parameter for passing relative tolerance
      **/
     NT2_REGISTER_PARAMETERS(reltol_);
   }
@@ -65,14 +65,24 @@ namespace nt2
   namespace limits
   {
     /**
-     * Named parameter for passing absolute tolerance to iterative algorithms
+     * Named parameter for passing maximal interval count
      **/
     NT2_REGISTER_PARAMETERS(maxintvcnt_);
 
     /**
-     * Named parameter for passing relative tolerance to iterative algorithms
+     * Named parameter for passing maximum function count
      **/
     NT2_REGISTER_PARAMETERS(maxfunccnt_);
+
+    /**
+     * Named parameter for passing maximum iteration steps
+     **/
+    NT2_REGISTER_PARAMETERS(maxstep_);
+
+    /**
+     * Named parameter for passing the number of point to extrapolate from
+     **/
+    NT2_REGISTER_PARAMETERS(nbextrap_);
   }
 
   // Integ params are the global default parameters for all integrtion routines
@@ -93,6 +103,8 @@ namespace nt2
     static real_t      reltol()            { return nt2::Sqrteps<real_t>();     }
     static std::size_t maxfunccnt()        { return 10000;                      }
     static std::size_t maxintvcnt()        { return   650;                      }
+    static std::size_t nbextrap()          { return     5;                      }
+    static std::size_t maxstep()           { return    10;                      }
     static itab_t      waypoints()         { return itab_t(of_size(1, 0));      }
     static bool        singular_a()        { return false;                      }
     static bool        singular_b()        { return false;                      }
@@ -106,6 +118,8 @@ namespace nt2
     static bool enabled_singular_a()       { return true;                       }
     static bool enabled_singular_b()       { return true;                       }
     static bool enabled_return_waypoints() { return true;                       }
+    static bool enabled_nbextrap()         { return true;                       }
+    static bool enabled_maxstep()          { return true;                       }
 
   };
 
@@ -139,6 +153,8 @@ namespace nt2 { namespace details
 
     integration_settings ( std::size_t        mfc = ip::maxfunccnt()
                            , std::size_t      mic = ip::maxintvcnt()
+                           , std::size_t      msp = ip::maxstep()
+                           , std::size_t      nbx = ip::nbextrap()
                            , real_t            at = ip::abstol()
                            , real_t            rt = ip::reltol()
                            , itab_t const&    wpt = ip::waypoints()
@@ -148,6 +164,8 @@ namespace nt2 { namespace details
       )
       : maxfunccnt(mfc)
       , maxintvcnt(mic)
+      , maxstep(msp)
+      , nbextrap(nbx)
       , abstol(at)
       , reltol(rt)
       , waypoints(wpt)
@@ -160,6 +178,8 @@ namespace nt2 { namespace details
     integration_settings ( nt2::details::option_expr<Expr> const& x)
       : maxfunccnt(x(nt2::limits::maxfunccnt_, ip::maxfunccnt() ))
       , maxintvcnt(x(nt2::limits::maxintvcnt_, ip::maxintvcnt() ))
+      , maxstep   (x(nt2::limits::maxstep_,    ip::maxstep()    ))
+      , nbextrap  (x(nt2::limits::nbextrap_,   ip::nbextrap()   ))
       , abstol    (x(nt2::tolerance::abstol_,  ip::abstol()     ))
       , reltol    (x(nt2::tolerance::reltol_,  ip::reltol()     ))
       , waypoints (x(nt2::range::waypoints_,   ip::waypoints()  ))
@@ -172,6 +192,8 @@ namespace nt2 { namespace details
     {
       if(ip::enabled_maxfunccnt())       std::cout << "maxfunccnt "<< maxfunccnt << std::endl;
       if(ip::enabled_maxintvcnt())       std::cout << "maxintvcnt "<< maxintvcnt << std::endl;
+      if(ip::enabled_maxstep())          std::cout << "   maxstep "<<    maxstep << std::endl;
+      if(ip::enabled_nbextrap())         std::cout << "  nbextrap "<<   nbextrap << std::endl;
       if(ip::enabled_abstol()    )       std::cout << "    abstol "<<     abstol << std::endl;
       if(ip::enabled_reltol()    )       std::cout << "    reltol "<<     reltol << std::endl;
       if(ip::enabled_waypoints() )       std::cout << " waypoints "<< waypoints  << std::endl;
@@ -181,12 +203,15 @@ namespace nt2 { namespace details
     }
     std::size_t      maxfunccnt;
     std::size_t      maxintvcnt;
+    std::size_t         maxstep;
+    std::size_t        nbextrap;
     real_t               abstol;
     real_t               reltol;
     itab_t            waypoints;
     bool             singular_a;
     bool             singular_b;
     bool       return_waypoints;
+
   };
 } }
 

@@ -8,10 +8,12 @@
 ##############################################################################
 
 SET( SOURCES
+  mtc.cpp
+  primitive.cpp
   quad.cpp
   quadl.cpp
   quadgk.cpp
-  primitive.cpp
+  romberg.cpp
   # List of scalar test files for toolbox interpol
    )
 
