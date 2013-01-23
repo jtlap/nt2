@@ -8,7 +8,7 @@
 ##############################################################################
 
 SET( SOURCES
-  permute.cpp
+  shuffle.cpp
   arith.cpp
   comparator.cpp
   cumsum.cpp
@@ -34,6 +34,7 @@ SET( SOURCES
   interleave_second.cpp
   repeat_lower_half.cpp
   repeat_upper_half.cpp
+  #shuffle_meta.cpp
 # List of simd test files for toolbox swar
    )
 
