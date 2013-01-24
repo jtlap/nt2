@@ -16,8 +16,11 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/fifteen.hpp>
 #include <nt2/include/constants/valmax.hpp>
+#include <nt2/include/constants/three.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/globalasum1.hpp>
+#include <nt2/include/functions/globalmean.hpp>
+#include <nt2/include/functions/globalstdev.hpp>
 #include <nt2/include/functions/eps.hpp>
 #include <nt2/include/functions/diff.hpp>
 #include <nt2/include/functions/cons.hpp>
@@ -34,6 +37,7 @@
 #include <nt2/toolbox/integration/options.hpp>
 #include <nt2/toolbox/integration/waypoints.hpp>
 #include <nt2/toolbox/integration/fudge.hpp>
+#include <nt2/table.hpp>
 
 namespace nt2 { namespace details
 {
@@ -43,7 +47,7 @@ namespace nt2 { namespace details
     typedef T                                              input_t;
     typedef V                                              value_t;
     typedef typename meta::as_real<value_t>::type           real_t;
-    typedef details::integration_settings<T, V, tag::mtc_>   o_t;
+    typedef details::integration_settings<T, V, tag::mtc_>     o_t;
     typedef container::table<value_t>                       vtab_t;
     typedef container::table<input_t>                       itab_t;
     typedef container::table<real_t>                        rtab_t;
@@ -51,90 +55,63 @@ namespace nt2 { namespace details
 
     mtc_impl() :   err_(Nan<real_t>()),
                     fcnt_(0),
-                    maxfcnt_(Valmax<size_t>()),
-                    warn_(0),
-                    ifault_(-1),
                     res_(){}
     ~mtc_impl() {}
 
-    size_t nbeval()        const { return fcnt_;                   }
-    real_t lasterror()     const { return err_;                    }
-    bool   ok()            const { return warn_ == 0;              }
-    const vtab_t & result()const { return res_;                    }
-    void setwarn(size_t w)       { if(w > warn_) warn_ =  w;       }
-    size_t  warn()         const { return warn_;                   }
+    size_t    nbeval()  const { return fcnt_; }
+    real_t lasterror()  const { return err_;   }
+    bool          ok()  const { return true;   }
+    value_t   result()  const { return res_;   }
+    size_t      warn()  const { return 0;      }
 
     template < class FUNC, class X>
     void compute( const FUNC& f, const X & ranges, const o_t & o)
     {
-      init(o); //, ranges);
-      NT2_ASSERT_MSG(size(ranges, 2) == 2, "ranges must be a nx2 expression");
-      res_ =  compute<true>(f, ranges);
-//       real_t tmptol = tol_;
-//       BOOST_AUTO_TPL(dif, nt2::abs(nt2::diff(nt2::rowvect(wpts_))));
-//       real_t tol1= tol_/nt2::globalasum1(dif);
-//       size_t l = numel(dif);
-//       res_.resize(extent(wpts_));
-//       res_(1) = nt2::Zero<value_t>();
-//       tol_ = tol1*dif(1);
-//       res_(2) = compute<true>(f, wpts_(1), wpts_(2));
-//       for(size_t i=2; i < l; ++i)
-//       {
-//         tol_ = tol1*dif(i);
-//         res_(i+1) = res_(i)+compute<false>(f, wpts_(i), wpts_(i+1));
-//       }
-//       if (l >= 2)
-//       {
-//         tol_ = tol1*dif(l);
-//         res_(l+1) = res_(l)+compute<true>(f, wpts_(l), wpts_(l+1));
-//       }
-
-//       tol_ = tmptol;
-//       if (!o.return_waypoints)
-//       {
-//         res_(begin_) = res_(end_);
-//         res_.resize(nt2::of_size(1, 1));
-//       }
-//       NT2_DISPLAY(o.return_waypoints);
-//       NT2_DISPLAY(res_);
+      init(o, ranges);
+      itab_t facts =  ranges(nt2::_,begin_+1, nt2::_)-ranges(nt2::_,begin_, nt2::_);
+      itab_t vols = nt2::prod(facts);
+      input_t total_vol = globalasum1(vols);
+      itab_t coefs = real_t(maxfunccnt_)*nt2::abs(vols)*nt2::rec(total_vol);
+      BOOST_ASSERT_MSG(size(ranges, 2) == 2, "ranges must be a nx2xm expression");
+      size_t l = size(ranges, 3);
+      res_ = nt2::Zero<value_t>();
+      for(size_t i=1; i <= l; ++i)
+      {
+        nbpts_ = coefs(i);
+        res_ += compute(f, ranges(nt2::_,nt2::_,i), vols(i), facts(i));
+        fcnt_+= nbpts_;
+      }
     }
    private :
     real_t         err_;
+    size_t  maxfunccnt_;
     size_t        fcnt_;
-    size_t     maxfcnt_;
-    bool    singular_a_;
-    bool    singular_b_;
-    size_t        warn_;
-    ptrdiff_t   ifault_;
-    real_t         tol_;
-    vtab_t         res_;
-    real_t        hmin_;
-    real_t      thresh_;
-    itab_t        wpts_;
-    size_t  maxintvcnt_;
+    value_t        res_;
     size_t       nbpts_;
+    bool   compute_err_;
+
   private:
     template < class X >
-    void init( const o_t & o) //, const X&x)
+    inline void init( const o_t & o, const X&ranges)
     {
-      //      o.display_options();
-//      details::prepare_waypoints(o, x, wpts_);
-      warn_ = 0;
-      fcnt_ = 0;
-      maxfcnt_ = o.maxfunccnt;
-      tol_ = o.abstol;
-      nbpts_ = 10000;
+      maxfunccnt_ = o.maxfunccnt;
+      compute_err_ = o.compute_error;
+      if (compute_err_) err_ = nt2::Zero<real_t>();
     }
 
     template <class FUNC, class X>
-    value_t compute(const  FUNC &f, const X&ranges)
+    value_t compute(const  FUNC &f, const X&ranges, const input_t & vol,  input_t fact)
     {
-      size_t n =  size(ranges, 1);
-      BOOST_AUTO_TPL(fact, ranges(nt2::_,begin_+1)-ranges(nt2::_,begin_));
-      input_t vol = nt2::globalprod(fact);
-      BOOST_AUTO_TPL(z, f(nt2::expand_to(ranges(nt2::_, begin_), n, nbpts_))+ mul(rand(n, nbpts_), nt2::expand_to(fact, n, nbpts_)));
-      res_ =  vol*globalMean(z);
-      err_ =  vol*globalstdev(z)/nt2::sqrt(nbpts_);
+      size_t n = size(ranges, 1);
+      BOOST_AUTO_TPL(r1, ranges(nt2::_, begin_));
+      BOOST_AUTO_TPL(r1ex, nt2::expand_to(r1,   nt2::of_size(n, nbpts_)));
+      BOOST_AUTO_TPL(r2ex, nt2::expand_to(fact, nt2::of_size(n, nbpts_)));
+      BOOST_AUTO_TPL(rnd,  nt2::rand(nt2::of_size(n, nbpts_), nt2::meta::as_<real_t>()));
+      BOOST_AUTO_TPL(x, nt2::fma(rnd, r2ex, r1ex));
+      BOOST_AUTO_TPL(z, f(x));
+      if (compute_err_)
+        err_ += nt2::Three<real_t>()*vol*nt2::real(nt2::globalstdev(z))/nt2::sqrt(nbpts_);
+      return vol*nt2::globalmean(z);
     }
   };
 } }

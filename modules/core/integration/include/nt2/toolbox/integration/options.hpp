@@ -60,6 +60,10 @@ namespace nt2
      * Named parameter for passing relative tolerance
      **/
     NT2_REGISTER_PARAMETERS(reltol_);
+    /**
+     * Named parameter for enabling error estimation
+     **/
+    NT2_REGISTER_PARAMETERS(compute_error_);
   }
 
   namespace limits
@@ -109,6 +113,7 @@ namespace nt2
     static bool        singular_a()        { return false;                      }
     static bool        singular_b()        { return false;                      }
     static bool        return_waypoints()  { return false;                      }
+    static bool        compute_error()     { return true;                       }
 
     static bool enabled_abstol()           { return true;                       }
     static bool enabled_reltol()           { return true;                       }
@@ -120,6 +125,8 @@ namespace nt2
     static bool enabled_return_waypoints() { return true;                       }
     static bool enabled_nbextrap()         { return true;                       }
     static bool enabled_maxstep()          { return true;                       }
+    static bool enabled_compute_error()    { return true;                       }
+
 
   };
 
@@ -161,6 +168,7 @@ namespace nt2 { namespace details
                            , bool             sga = ip::singular_a()
                            , bool             sgb = ip::singular_b()
                            , bool             rwp = ip::return_waypoints()
+                           , bool             cpe = ip::compute_error()
       )
       : maxfunccnt(mfc)
       , maxintvcnt(mic)
@@ -172,6 +180,7 @@ namespace nt2 { namespace details
       , singular_a(sga)
       , singular_b(sgb)
       , return_waypoints(rwp)
+      , compute_error(cpe)
     {}
 
     template<class Expr>
@@ -186,20 +195,22 @@ namespace nt2 { namespace details
       , singular_a(x(nt2::range::singular_a_,  ip::singular_a() ))
       , singular_b(x(nt2::range::singular_b_,  ip::singular_b() ))
       , return_waypoints(x(nt2::range::return_waypoints_,  ip::return_waypoints() ))
+      , compute_error(x(nt2::tolerance::compute_error_, ip::compute_error() ))
 
     {}
     void display_options() const
     {
-      if(ip::enabled_maxfunccnt())       std::cout << "maxfunccnt "<< maxfunccnt << std::endl;
-      if(ip::enabled_maxintvcnt())       std::cout << "maxintvcnt "<< maxintvcnt << std::endl;
-      if(ip::enabled_maxstep())          std::cout << "   maxstep "<<    maxstep << std::endl;
-      if(ip::enabled_nbextrap())         std::cout << "  nbextrap "<<   nbextrap << std::endl;
-      if(ip::enabled_abstol()    )       std::cout << "    abstol "<<     abstol << std::endl;
-      if(ip::enabled_reltol()    )       std::cout << "    reltol "<<     reltol << std::endl;
-      if(ip::enabled_waypoints() )       std::cout << " waypoints "<< waypoints  << std::endl;
-      if(ip::enabled_singular_a())       std::cout << "singular_a "<< singular_a << std::endl;
-      if(ip::enabled_singular_b())       std::cout << "singular_b "<< singular_b << std::endl;
-      if(ip::enabled_return_waypoints()) std::cout << "returnwp   "<< return_waypoints << std::endl;
+      if(ip::enabled_maxfunccnt())       std::cout << "maxfunccnt "      << maxfunccnt       << std::endl;
+      if(ip::enabled_maxintvcnt())       std::cout << "maxintvcnt "      << maxintvcnt       << std::endl;
+      if(ip::enabled_maxstep())          std::cout << "   maxstep "      <<    maxstep       << std::endl;
+      if(ip::enabled_nbextrap())         std::cout << "  nbextrap "      <<   nbextrap       << std::endl;
+      if(ip::enabled_abstol()    )       std::cout << "    abstol "      <<     abstol       << std::endl;
+      if(ip::enabled_reltol()    )       std::cout << "    reltol "      <<     reltol       << std::endl;
+      if(ip::enabled_waypoints() )       std::cout << " waypoints "      << waypoints        << std::endl;
+      if(ip::enabled_singular_a())       std::cout << "singular_a "      << singular_a       << std::endl;
+      if(ip::enabled_singular_b())       std::cout << "singular_b "      << singular_b       << std::endl;
+      if(ip::enabled_return_waypoints()) std::cout << "returnwp   "      << return_waypoints << std::endl;
+      if(ip::enabled_compute_error())    std::cout << "compute_error "   << compute_error    << std::endl;
     }
     std::size_t      maxfunccnt;
     std::size_t      maxintvcnt;
@@ -211,6 +222,7 @@ namespace nt2 { namespace details
     bool             singular_a;
     bool             singular_b;
     bool       return_waypoints;
+    bool          compute_error;
 
   };
 } }
