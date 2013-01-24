@@ -1,6 +1,6 @@
 //==============================================================================
-//         Copyright 2003 - 2011   LASMEA UMR 6602 CNRS/Univ. Clermont II
-//         Copyright 2009 - 2011   LRI    UMR 8623 CNRS/Univ Paris Sud XI
+//         Copyright 2003 - 2013   LASMEA UMR 6602 CNRS/Univ. Clermont II
+//         Copyright 2009 - 2013   LRI    UMR 8623 CNRS/Univ Paris Sud XI
 //
 //          Distributed under the Boost Software License, Version 1.0.
 //                 See accompanying file LICENSE.txt or copy at
@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_CORE_FUNCTIONS_TBB_TRANSFORM_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TBB_TRANSFORM_HPP_INCLUDED
+#if defined(NT2_USE_TBB)
 
 #include <nt2/core/functions/transform.hpp>
 #include <nt2/include/functions/numel.hpp>
@@ -120,4 +121,5 @@ namespace nt2 { namespace ext
   };
 } }
 
+#endif
 #endif

@@ -27,7 +27,7 @@ NT2_TEST_CASE( sum_1D )
   typedef double T;
   using nt2::_;
 
-  std::size_t M = 19;
+  std::size_t M = 133;
 
   table<T> r, r1;
   table<T> a(of_size(M));
@@ -49,8 +49,8 @@ NT2_TEST_CASE( sum_1D )
   //     NT2_TEST_EQUAL(r(i), a(i));
   // }
 
-  // r = sum(a+b);
-  // NT2_TEST_EQUAL(r(1),2*M) ;
+  r = sum(a+b);
+  NT2_TEST_EQUAL(r(1),2*M) ;
 
   // r = sum(a(nt2::_));
   // NT2_TEST_EQUAL(r(1),M) ;
