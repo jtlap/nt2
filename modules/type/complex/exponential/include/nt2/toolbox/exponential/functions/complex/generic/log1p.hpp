@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_LOG1P_HPP_INCLUDED
-#define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_LOG1P_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_LOG1P_HPP_INCLUDED
+#define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_LOG1P_HPP_INCLUDED
 
 #include <nt2/toolbox/exponential/functions/log1p.hpp>
 #include <nt2/include/functions/log1p.hpp>

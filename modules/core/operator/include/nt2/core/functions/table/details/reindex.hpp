@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_CORE_FUNCTIONS_DETAILS_REINDEX_HPP_INCLUDED
-#define NT2_CORE_FUNCTIONS_DETAILS_REINDEX_HPP_INCLUDED
+#ifndef NT2_CORE_FUNCTIONS_TABLE_DETAILS_REINDEX_HPP_INCLUDED
+#define NT2_CORE_FUNCTIONS_TABLE_DETAILS_REINDEX_HPP_INCLUDED
 
 #include <boost/fusion/include/at.hpp>
 #include <boost/simd/sdk/meta/as_arithmetic.hpp>

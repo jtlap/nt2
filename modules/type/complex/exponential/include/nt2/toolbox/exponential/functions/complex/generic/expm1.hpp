@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
-#define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_SIMD_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
+#define NT2_TOOLBOX_EXPONENTIAL_FUNCTIONS_COMPLEX_GENERIC_EXPM1_HPP_INCLUDED
 #include <nt2/toolbox/exponential/functions/expm1.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 #include <nt2/include/constants/mtwo.hpp>

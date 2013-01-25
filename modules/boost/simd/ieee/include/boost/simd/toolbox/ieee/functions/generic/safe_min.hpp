@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SAFE_MIN_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_SCALAR_SAFE_MIN_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_GENERIC_SAFE_MIN_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_IEEE_FUNCTIONS_GENERIC_SAFE_MIN_HPP_INCLUDED
 
 #include <boost/simd/toolbox/ieee/functions/safe_min.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>

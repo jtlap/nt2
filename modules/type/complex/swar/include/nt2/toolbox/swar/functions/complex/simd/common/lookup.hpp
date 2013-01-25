@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_LOOKUP_HPP_INCLUDED
-#define NT2_TOOLBOX_SWAR_FUNCTIONS_SIMD_COMPLEX_COMMON_LOOKUP_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_LOOKUP_HPP_INCLUDED
+#define NT2_TOOLBOX_SWAR_FUNCTIONS_COMPLEX_SIMD_COMMON_LOOKUP_HPP_INCLUDED
 #include <nt2/toolbox/swar/functions/lookup.hpp>
 #include <nt2/include/functions/load.hpp>
 #include <nt2/include/functions/store.hpp>

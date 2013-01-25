@@ -39,6 +39,7 @@ namespace nt2
   {
     typedef typename nt2::integ_params<T, V, void>::real_t real_t;
     static real_t        abstol(){return Quadabstol<real_t>(); }
+    static size_t    maxintvcnt(){return 512; }
   };
 
   //============================================================================
@@ -52,6 +53,39 @@ namespace nt2
    * \return  a tuple containing the results of the integration, the last error value,
    * the number of required function evaluation and a boolean
    * notifying success of the whole process.
+   *
+   *    q = quad(fun,a,b) tries to approximate the integral of scalar-valued
+   *    function fun from a to b to within a default error of nt2::Quadabstol<real_t>()
+   *    where real_t can be float (1.0e-3) or double (1.0e-6) using recursive
+   *    adaptive simpson quadrature. fun is a function handle. the function
+   *    y=fun(x) should accept a vector argument x and return a vector result
+   *    y, the integrand evaluated at each element of x.
+   *
+   * This routine mimics matlab quad, but has some behavioural differences.
+   * including options passing and obtaining results
+   *
+   * 1 -When matlab subdivides the initial interval [a, b] each subinterval is
+   *    given the same tolerance as the initial one which can not insure a total
+   *    result with the correct tolerance.
+   *    Th nt2 quad function uses a tolerance proportional to the length on such
+   *    cases in order the sum of all the partial errors stays above the global
+   *    absolute error tolerance.
+   *    As this can bring to needlessly bring to too small intervals a theshhold
+   *    depending of the maximum of subdivision allowed (maxintvcnt_) is used.
+   *
+   * 2- a and b can be singular for f,  but contrarily to matlab, there is no
+   *    automatic detection and the options singular_a_ and singular_b_ are by
+   *    default set to false
+   *
+   * 3- as in matlab on can give way points through the computation must go
+   *    a and b are always added (but never duplicated)
+   *    the way points mustn't be singular and in proper order
+   *    if the option return_waypoints is set to true the result is a vector of
+   *    cumulated integrals from a to wi. Peculiarly result(begin_) is 0 and
+   *    result(end_) is the integral from a to b.
+   *
+   * 4- the abscissae can be complex and the integral a path integral through the
+   *    lines following the way points in their given order.
    */
   //============================================================================
 

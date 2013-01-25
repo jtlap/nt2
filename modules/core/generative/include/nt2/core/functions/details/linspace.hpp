@@ -13,7 +13,9 @@
 #include <nt2/include/functions/fma.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/enumerate.hpp>
+#include <nt2/include/functions/minusone.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
+
 
 namespace nt2 { namespace tag { struct linspace_; }}
 
@@ -25,10 +27,11 @@ namespace nt2 { namespace meta
   template<class T>
   struct constant_<tag::linspace_,T>
   {
-    typedef T                                          result_type;
+    typedef T                                           result_type;
+    typedef typename meta::scalar_of<result_type>::type   real_type;
     constant_() {}
     constant_( T const& l, T const& u, std::size_t n )
-            : n_(n-1), lower_(l), step_((u-l)/(n-1)), upper_(u)
+      : n_(nt2::minusone(n)), lower_(l), step_((u-l)/real_type(nt2::minusone(n))), upper_(u)
     {}
 
     template<class Pos, class Size, class Target>

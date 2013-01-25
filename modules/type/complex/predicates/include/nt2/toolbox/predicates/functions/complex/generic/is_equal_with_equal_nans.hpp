@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
+#define NT2_TOOLBOX_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_EQUAL_WITH_EQUAL_NANS_HPP_INCLUDED
 #include <nt2/toolbox/predicates/functions/is_equal_with_equal_nans.hpp>
 #include <nt2/include/functions/is_equal_with_equal_nans.hpp>
 #include <nt2/include/functions/logical_and.hpp>

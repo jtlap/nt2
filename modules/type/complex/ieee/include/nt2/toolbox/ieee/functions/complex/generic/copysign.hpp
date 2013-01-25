@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_IEEE_FUNCTIONS_GENERIC_COPYSIGN_HPP_INCLUDED
-#define NT2_TOOLBOX_IEEE_FUNCTIONS_GENERIC_COPYSIGN_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_COPYSIGN_HPP_INCLUDED
+#define NT2_TOOLBOX_IEEE_FUNCTIONS_COMPLEX_GENERIC_COPYSIGN_HPP_INCLUDED
 #include <nt2/toolbox/ieee/functions/copysign.hpp>
 #include <nt2/include/functions/copysign.hpp>
 #include <nt2/include/functions/imag.hpp>

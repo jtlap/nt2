@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_LINALG_DETAILS_LAPACK_QRF_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_DETAILS_LAPACK_QRF_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_DETAILS_LAPACK_GEQRF_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_DETAILS_LAPACK_GEQRF_HPP_INCLUDED
 #include <nt2/toolbox/linalg/details/utility/f77_wrapper.hpp>
 #include <nt2/toolbox/linalg/details/utility/workspace.hpp>
 // its a mix or orgqr and ungqr

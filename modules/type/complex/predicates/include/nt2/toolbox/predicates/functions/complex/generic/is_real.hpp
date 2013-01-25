@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_REAL_HPP_INCLUDED
-#define NT2_TOOLBOX_OPERATOR_FUNCTIONS_COMPLEX_GENERIC_IS_REAL_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_REAL_HPP_INCLUDED
+#define NT2_TOOLBOX_PREDICATES_FUNCTIONS_COMPLEX_GENERIC_IS_REAL_HPP_INCLUDED
 
 #include <nt2/toolbox/predicates/functions/is_real.hpp>
 #include <nt2/include/functions/imag.hpp>

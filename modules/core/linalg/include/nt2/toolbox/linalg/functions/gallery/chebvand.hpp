@@ -6,8 +6,8 @@
  *                 See accompanying file LICENSE.txt or copy at
  *                     http://www.boost.org/LICENSE_1_0.txt
  ******************************************************************************/
-#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_FUNCTIONS_GALLERY_CHEBVAND_HPP_INCLUDED
-#define NT2_TOOLBOX_LINALG_FUNCTIONS_FUNCTIONS_GALLERY_CHEBVAND_HPP_INCLUDED
+#ifndef NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_CHEBVAND_HPP_INCLUDED
+#define NT2_TOOLBOX_LINALG_FUNCTIONS_GALLERY_CHEBVAND_HPP_INCLUDED
 #include <nt2/toolbox/linalg/functions/chebvand.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/linspace.hpp>

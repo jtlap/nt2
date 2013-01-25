@@ -227,14 +227,14 @@ NT2_TEST_CASE_TPL( quad_functor0, NT2_REAL_TYPES )
   typedef nt2::table<T> tab_t;
   tab_t x = nt2::_(T(0), T(1), T(1));
   nt2::tic();
-  output<tab_t,T> res =  (quad(g(), x, options [ nt2::tolerance::abstol_ = T(1.0e-8),
+  output<tab_t,T> res =  (quad(g(), x, options [ //nt2::tolerance::abstol_ = T(1.0e-8),
                                                        nt2::range::singular_a_ = true,
                                                        nt2::range::singular_b_ = true]));
   nt2::toc();
   std::cout << "Integrals:" << res.integrals << ") with error " << res.errors
             << " after " << res.eval_count <<  " evaluations\n";
 
-  NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::end_), -nt2::log(T(2))), T(1.0e-7));
+  NT2_TEST_LESSER_EQUAL(nt2::dist(res.integrals(nt2::end_), -nt2::log(T(2))), nt2::Quadabstol<T>());
 
 
 }

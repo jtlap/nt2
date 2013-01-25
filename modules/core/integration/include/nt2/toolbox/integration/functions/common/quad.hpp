@@ -33,7 +33,6 @@
 #include <nt2/toolbox/integration/options.hpp>
 #include <nt2/toolbox/integration/waypoints.hpp>
 #include <nt2/toolbox/integration/fudge.hpp>
-#include <nt2/table.hpp>
 
 namespace nt2 { namespace details
 {
@@ -60,8 +59,9 @@ namespace nt2 { namespace details
     size_t nbeval()        const { return fcnt_;                   }
     real_t lasterror()     const { return err_*Oneo_180<real_t>(); }
     bool   ok()            const { return warn_ == 0;              }
-    const vtab_t & result() const { return res_;                   }
+    const vtab_t & result()const { return res_;                    }
     void setwarn(size_t w)       { if(w > warn_) warn_ =  w;       }
+    size_t  warn()         const { return warn_;                   }
 
     template < class FUNC, class X>
     void compute( const FUNC& f, const X & x, const o_t & o)
@@ -106,8 +106,10 @@ namespace nt2 { namespace details
     real_t         tol_;
     vtab_t         res_;
     real_t        hmin_;
+    real_t      thresh_;
     itab_t        wpts_;
-
+    int              i_;
+    size_t  maxintvcnt_;
   private:
     template < class X >
     void init( const o_t & o, const X&x)
@@ -122,6 +124,8 @@ namespace nt2 { namespace details
       singular_a_ = o.singular_a;
       singular_b_ = o.singular_b;
       tol_ = o.abstol*nt2::C180<real_t>();
+      maxintvcnt_ = o.maxintvcnt;
+      i_ = 0;
     }
 
     template <bool test, class FUNC>
@@ -130,7 +134,8 @@ namespace nt2 { namespace details
       typedef typename details::fudge<FUNC,1,vtab_t,input_t,test> fudge1;
       typedef typename details::fudge<FUNC,7,vtab_t,input_t,test> fudge7;
       input_t d =  b-a;
-      real_t e = nt2::eps(nt2::abs(d));
+      real_t  ad = nt2::abs(d);
+      real_t e = nt2::eps(ad);
       input_t s = e*sign(d);
       input_t h = real_t(0.13579)*d;
       input_t cx[] = {a, a+h, a+nt2::Two<real_t>()*h, nt2::average(a, b), b-nt2::Two<real_t>()*h, b-h, b};
@@ -141,6 +146,7 @@ namespace nt2 { namespace details
       fudge7::fdg(f, y, fcnt_, singular_b_, b, -s); // Fudge b to avoid infinities.
       // Call the recursive core integrator.
       hmin_ = nt2::fast_ldexp(e, -10); // e/1024
+      thresh_ = ad/maxintvcnt_;
       return // estimate divided by 180
         (quadstep(f,x(1),x(3),y(1),y(2),y(3)) +
          quadstep(f,x(3),x(5),y(3),y(4),y(5)) +
@@ -175,6 +181,7 @@ namespace nt2 { namespace details
       value_t q02 = (fa+nt2::Four<real_t>()*fd+nt2::Two<real_t>()*fc+nt2::Four<real_t>()*fe+fb);  // Five point double Simpson's rule times 12
       value_t q2  = nt2::Fifteen<real_t>()*q02; //integral estimate times 180
       value_t q =h*(q2+(q02-q1)); // One step of Romberg extrapolation  times 180
+
       if (is_invalid(q))// Infinite or Not-a-Number function value encountered.
       {
         setwarn(3); return q;
@@ -182,7 +189,7 @@ namespace nt2 { namespace details
       // Check accuracy of integral over this subinterval.
       real_t curerr;
 
-      if ((curerr = nt2::abs(h*q2 - q)) <= tol_*nt2::abs(h)) //tol has been multiplied by 180
+      if ((curerr = nt2::abs(h*q2 - q)) <= tol_*nt2::max(nt2::abs(h), thresh_)) //tol has been multiplied by 180
       {
         err_+= curerr;
         return q;
@@ -218,7 +225,8 @@ namespace nt2 { namespace ext
     {
       details::quad_impl<input_t, value_t> q;
       q.compute(f, x, o);
-      result_type that = {q.result(), q.lasterror(),q.nbeval(),q.ok()};
+      result_type that = {q.result(), q.lasterror(),q.nbeval(),q.ok(), q.warn()};
+      //      NT2_DISPLAY(q.warn());
 //      o.display_options();
       return that;
     }

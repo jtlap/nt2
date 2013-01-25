@@ -6,8 +6,8 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef NT2_SDK_CONFIG_DETAILS_CACHE_CACHE_EXCEPTION_HPP_INCLUDED
-#define NT2_SDK_CONFIG_DETAILS_CACHE_CACHE_EXCEPTION_HPP_INCLUDED
+#ifndef NT2_SDK_CONFIG_DETAILS_CACHE_EXCEPTION_HPP_INCLUDED
+#define NT2_SDK_CONFIG_DETAILS_CACHE_EXCEPTION_HPP_INCLUDED
 
 /*
  * cache_exception.hpp
