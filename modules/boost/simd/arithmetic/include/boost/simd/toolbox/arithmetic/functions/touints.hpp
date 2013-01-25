@@ -19,7 +19,7 @@
  * \defgroup boost_simd_arithmetic_touints touints
  *
  * \par Description
- * convert an entry to unsigned integer by truncation.
+ * convert an entry to unsigned integer by saturated truncation.
  *
  * \par Header file
  *
