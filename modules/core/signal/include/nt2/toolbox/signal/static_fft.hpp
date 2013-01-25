@@ -63,7 +63,7 @@
 
 #endif
 
-#include <nt2/signal/twiddle_factors.hpp>
+#include <nt2/toolbox/signal/details/twiddle_factors.hpp>
 
 #include <boost/simd/sdk/config/arch.hpp>
 #include <boost/simd/sdk/memory/prefetch.hpp>

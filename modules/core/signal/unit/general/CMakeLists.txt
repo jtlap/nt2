@@ -8,5 +8,13 @@
 ##############################################################################
 
 nt2_module_use_modules(unit)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(general)
+
+if(APPLE)
+  nt2_module_use_link_flags(-framework Accelerate)
+endif()
+
+set( SOURCES
+     static_fft.cpp
+   )
+
+nt2_module_add_tests(core.signal.general.unit ${SOURCES})

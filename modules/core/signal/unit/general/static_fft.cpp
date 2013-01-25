@@ -9,7 +9,7 @@
 //==============================================================================
 #define NT2_UNIT_MODULE "nt2 signal processing - test"
 
-#include <nt2/signal/static_fft.hpp>
+#include <nt2/toolbox/signal/static_fft.hpp>
 
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
