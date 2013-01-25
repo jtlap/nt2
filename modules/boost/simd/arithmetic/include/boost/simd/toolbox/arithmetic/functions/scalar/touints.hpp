@@ -6,9 +6,9 @@
 //                 See accompanying file LICENSE.txt or copy at
 //                     http://www.boost.org/LICENSE_1_0.txt
 //==============================================================================
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOUINT_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOUINT_HPP_INCLUDED
-#include <boost/simd/toolbox/arithmetic/functions/touint.hpp>
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOUINTS_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_SCALAR_TOUINTS_HPP_INCLUDED
+#include <boost/simd/toolbox/arithmetic/functions/touints.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <boost/simd/include/constants/inf.hpp>
 #include <boost/simd/include/constants/minf.hpp>
@@ -24,7 +24,7 @@
 
 namespace boost { namespace simd { namespace ext
 {
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touint_, tag::cpu_ , (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touints_, tag::cpu_ , (A0)
                             , (scalar_< integer_<A0> >)
                             )
   {
@@ -42,7 +42,7 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touint_, tag::cpu_
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touints_, tag::cpu_
                             , (A0)
                             , ((scalar_<signed_<A0> > ))
                             )
@@ -52,24 +52,23 @@ namespace boost { namespace simd { namespace ext
     result_type
     operator()(A0 const& a0) const
     {
-      return a0; //if_else_zero(is_gez(a0), bitwise_cast<result_type>(a0));
+      return if_else_zero(is_gez(a0), bitwise_cast<result_type>(a0));
     }
   };
 
-  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touint_, tag::cpu_, (A0)
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION( boost::simd::tag::touints_, tag::cpu_, (A0)
                             , (scalar_< floating_<A0> >)
                             )
   {
     typedef typename dispatch::meta::as_integer<A0, unsigned> ::type result_type;
-//    typedef typename dispatch::meta::as_integer<A0>::type si_type;
+    typedef typename dispatch::meta::as_integer<A0>::type si_type;
     BOOST_SIMD_FUNCTOR_CALL(1)
     {
-      return result_type(a0);
-//       if (is_lez(a0)||is_nan(a0)) return Zero<result_type>();
-//       if (is_ngt(a0,tofloat(Valmax<result_type>())))
-//         return result_type(a0);
-//       else
-//         return Valmax<result_type>();
+      if (is_lez(a0)||is_nan(a0)) return Zero<result_type>();
+      if (is_ngt(a0,tofloat(Valmax<result_type>())))
+        return result_type(a0);
+      else
+        return Valmax<result_type>();
 //       if (is_ngt(a0,tofloat(Valmax<si_type>())))
 //         return bitwise_cast<result_type>(toint(a0));
 //       else

@@ -9,14 +9,14 @@
 /*!
  * \file
 **/
-#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_TOUINT_HPP_INCLUDED
-#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_TOUINT_HPP_INCLUDED
+#ifndef BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_TOUINTS_HPP_INCLUDED
+#define BOOST_SIMD_TOOLBOX_ARITHMETIC_FUNCTIONS_TOUINTS_HPP_INCLUDED
 #include <boost/simd/include/functor.hpp>
 #include <boost/dispatch/include/functor.hpp>
 
 /*!
  * \ingroup boost_simd_arithmetic
- * \defgroup boost_simd_arithmetic_touint touint
+ * \defgroup boost_simd_arithmetic_touints touints
  *
  * \par Description
  * convert an entry to unsigned integer by truncation.
@@ -24,7 +24,7 @@
  * \par Header file
  *
  * \code
- * #include <nt2/include/functions/touint.hpp>
+ * #include <nt2/include/functions/touints.hpp>
  * \endcode
  *
  * \synopsis
@@ -33,12 +33,12 @@
  * namespace boost::simd
  * {
  *   template <class A0>
- *     meta::call<tag::touint_(A0)>::type
- *     touint(const A0 & a0);
+ *     meta::call<tag::touints_(A0)>::type
+ *     touints(const A0 & a0);
  * }
  * \endcode
  *
- * \param a0 the unique parameter of touint
+ * \param a0 the unique parameter of touints
  *
  * \return a value of the same type as the parameter
  *
@@ -51,12 +51,12 @@
 namespace boost { namespace simd { namespace tag
   {
     /*!
-     * \brief Define the tag touint_ of functor touint
+     * \brief Define the tag touints_ of functor touints
      *        in namespace boost::simd::tag for toolbox boost.simd.arithmetic
     **/
-    struct touint_ : ext::elementwise_<touint_> { typedef ext::elementwise_<touint_> parent; };
+    struct touints_ : ext::elementwise_<touints_> { typedef ext::elementwise_<touints_> parent; };
   }
-  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touint_, touint, 1)
+  BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::touints_, touints, 1)
 } }
 
 #endif

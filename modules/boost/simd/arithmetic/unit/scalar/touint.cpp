@@ -40,12 +40,19 @@ NT2_TEST_CASE_TPL ( touint_real__1_0,  BOOST_SIMD_REAL_TYPES)
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   std::cout << std::endl;
   // specific values tests
-  NT2_TEST_EQUAL(touint(boost::simd::Inf<T>()), boost::simd::Inf<r_t>());
+  NT2_TEST_EQUAL(touint(boost::simd::Inf<T>()) , boost::simd::Inf<r_t>());
   NT2_TEST_EQUAL(touint(boost::simd::Minf<T>()), boost::simd::Zero<r_t>());
   NT2_TEST_EQUAL(touint(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(touint(boost::simd::Nan<T>()), boost::simd::Zero<r_t>());
-  NT2_TEST_EQUAL(touint(boost::simd::One<T>()), boost::simd::One<r_t>());
+  NT2_TEST_EQUAL(touint(boost::simd::Nan<T>()) , boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(touint(boost::simd::One<T>()) , boost::simd::One<r_t>());
   NT2_TEST_EQUAL(touint(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
+  wished_r_t z;
+  z =boost::simd::Inf<T>() ; NT2_DISPLAY(boost::simd::Inf<T>() ); NT2_DISPLAY(z);
+  z =boost::simd::Minf<T>(); NT2_DISPLAY(boost::simd::Minf<T>()); NT2_DISPLAY(z);
+  z =boost::simd::Mone<T>(); NT2_DISPLAY(boost::simd::Mone<T>()); NT2_DISPLAY(z);
+  z =boost::simd::Nan<T>() ; NT2_DISPLAY(boost::simd::Nan<T>() ); NT2_DISPLAY(z);
+  z =boost::simd::One<T>() ; NT2_DISPLAY(boost::simd::One<T>() ); NT2_DISPLAY(z);
+  z =boost::simd::Zero<T>(); NT2_DISPLAY(boost::simd::Zero<T>()); NT2_DISPLAY(z);
 } // end of test for floating_
 
 NT2_TEST_CASE_TPL ( touint_unsigned_int__1_0,  BOOST_SIMD_UNSIGNED_TYPES)
@@ -89,7 +96,7 @@ NT2_TEST_CASE_TPL ( touint_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYPES)
 
 
   // specific values tests
-  NT2_TEST_EQUAL(touint(boost::simd::Mone<T>()), boost::simd::Zero<r_t>());
+  NT2_TEST_EQUAL(touint(boost::simd::Mone<T>()), boost::simd::Valmax<r_t>());
   NT2_TEST_EQUAL(touint(boost::simd::One<T>()), boost::simd::One<r_t>());
   NT2_TEST_EQUAL(touint(boost::simd::Zero<T>()), boost::simd::Zero<r_t>());
 } // end of test for signed_int_
