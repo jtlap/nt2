@@ -9,7 +9,6 @@
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_ROOTS_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_ROOTS_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/size_as.hpp>
 #include <nt2/sdk/meta/value_as.hpp>
 #include <nt2/core/container/dsl/size.hpp>

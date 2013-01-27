@@ -13,7 +13,6 @@
 #define NT2_TOOLBOX_STATISTICS_FUNCTIONS_UNIFRND_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 #include <nt2/sdk/meta/constant_adaptor.hpp>
 #include <nt2/sdk/meta/generative_hierarchy.hpp>
 #include <nt2/include/functor.hpp>

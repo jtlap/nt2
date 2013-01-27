@@ -12,7 +12,6 @@
 #ifndef NT2_TOOLBOX_CRLIBM_FUNCTIONS_SIN_HPP_INCLUDED
 #define NT2_TOOLBOX_CRLIBM_FUNCTIONS_SIN_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 #include <nt2/toolbox/crlibm/specific/interface.hpp>
 
 /*!

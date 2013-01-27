@@ -12,7 +12,6 @@
 #ifndef NT2_TOOLBOX_STATISTICS_FUNCTIONS_CAUINV_HPP_INCLUDED
 #define NT2_TOOLBOX_STATISTICS_FUNCTIONS_CAUINV_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup statistics

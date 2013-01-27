@@ -12,7 +12,6 @@
 #ifndef NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COTH_HPP_INCLUDED
 #define NT2_TOOLBOX_HYPERBOLIC_FUNCTIONS_COTH_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup hyperbolic

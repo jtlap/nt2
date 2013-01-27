@@ -13,7 +13,6 @@
 #define NT2_TOOLBOX_EULER_FUNCTIONS_BETA_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup euler
