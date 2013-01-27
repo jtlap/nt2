@@ -11,30 +11,19 @@
 //////////////////////////////////////////////////////////////////////////////
 // unit test behavior of ieee components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
-/// created by jt the 04/12/2010
-///
+
 #include <nt2/toolbox/ieee/include/functions/frexp.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <boost/fusion/tuple.hpp>
-#include <nt2/include/functions/mantissa.hpp>
-#include <nt2/include/functions/exponent.hpp>
-#include <nt2/include/functions/linspace.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/half.hpp>
+#include <boost/fusion/include/vector.hpp>
 
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
-#include <nt2/sdk/meta/as_floating.hpp>
-#include <nt2/sdk/meta/as_signed.hpp>
-#include <nt2/sdk/meta/upgrade.hpp>
-#include <nt2/sdk/meta/downgrade.hpp>
-#include <nt2/sdk/meta/scalar_of.hpp>
-#include <boost/dispatch/meta/as_floating.hpp>
-#include <boost/type_traits/common_type.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/table.hpp>
+#include <nt2/sdk/unit/tests/basic.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 
 NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_REAL_TYPES)
 {
@@ -43,18 +32,15 @@ NT2_TEST_CASE_TPL ( frexp_real__1_0,  NT2_REAL_TYPES)
   using nt2::tag::frexp_;
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<frexp_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename nt2::meta::upgrade<T>::type u_t;
   typedef boost::fusion::vector<T,typename nt2::meta::as_integer<T,signed>::type> wished_r_t;
-
 
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   // return type conformity test
 
   iT e;
-  T m = frexp(boost::simd::One<T>(), e);
-  NT2_TEST_EQUAL(m, boost::simd::Half<T>());
+  T m = frexp(nt2::One<T>(), e);
+  NT2_TEST_EQUAL(m, nt2::Half<T>());
   NT2_TEST_EQUAL(e, 1);
 } // end of test for floating_
 
