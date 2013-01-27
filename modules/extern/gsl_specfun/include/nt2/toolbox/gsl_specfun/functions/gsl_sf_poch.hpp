@@ -12,7 +12,6 @@
 #ifndef NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_GSL_SF_POCH_HPP_INCLUDED
 #define NT2_TOOLBOX_GSL_SPECFUN_FUNCTIONS_GSL_SF_POCH_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 
 /*!
  * \ingroup gsl_specfun

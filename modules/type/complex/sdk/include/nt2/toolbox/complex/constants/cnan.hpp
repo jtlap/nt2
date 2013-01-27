@@ -13,7 +13,6 @@
 #define NT2_TOOLBOX_COMPLEX_CONSTANTS_CNAN_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 #include <nt2/sdk/complex/imaginary.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <complex>

@@ -10,7 +10,6 @@
 #define NT2_TOOLBOX_LINALG_FUNCTIONS_ROT90_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 
 #include <nt2/include/functions/is_odd.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>

@@ -12,7 +12,6 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SPHERICAL_HARMONIC_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_SPHERICAL_HARMONIC_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/spherical_harmonic.hpp>
 
 /*!

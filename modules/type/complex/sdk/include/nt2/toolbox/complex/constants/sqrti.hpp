@@ -13,7 +13,6 @@
 #define NT2_TOOLBOX_COMPLEX_CONSTANTS_SQRTI_HPP_INCLUDED
 
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 #include <boost/simd/sdk/constant/constant.hpp>
 #include <complex>
 

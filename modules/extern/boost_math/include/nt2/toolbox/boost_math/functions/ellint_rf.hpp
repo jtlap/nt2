@@ -12,7 +12,6 @@
 #ifndef NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_ELLINT_RF_HPP_INCLUDED
 #define NT2_TOOLBOX_BOOST_MATH_FUNCTIONS_ELLINT_RF_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
-#include <nt2/include/functor.hpp>
 #include <boost/math/special_functions/ellint_rf.hpp>
 
 /*!
