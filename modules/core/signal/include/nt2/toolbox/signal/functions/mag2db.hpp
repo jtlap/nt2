@@ -13,24 +13,18 @@
 #define NT2_TOOLBOX_SIGNAL_FUNCTIONS_MAG2DB_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup signal
- * \defgroupsignal_mag2db mag2db
- *
-**/
-
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
-    /*!
-     * \brief Define the tag mag2db_ of functor mag2db
-     *        in namespace nt2::tag for toolbox signal
-    **/
-    struct mag2db_ : ext::elementwise_<mag2db_> { typedef ext::elementwise_<mag2db_> parent; };
+    struct mag2db_ : ext::elementwise_<mag2db_>
+    {
+      typedef ext::elementwise_<mag2db_> parent;
+    };
   }
+
   NT2_FUNCTION_IMPLEMENTATION(tag::mag2db_, mag2db, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::mag2db_, mag2db, 2)
 }
-
-
 
 #endif

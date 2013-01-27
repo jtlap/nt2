@@ -9,6 +9,10 @@
 
 SET( SOURCES
   db.cpp
+  pow2db.cpp
+  mag2db.cpp
+  db2pow.cpp
+  db2mag.cpp
 # List of scalar test files for toolbox polynomials
    )
 

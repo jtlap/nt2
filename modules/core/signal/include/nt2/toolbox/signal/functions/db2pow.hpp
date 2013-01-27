@@ -13,28 +13,22 @@
 #define NT2_TOOLBOX_SIGNAL_FUNCTIONS_DB2POW_HPP_INCLUDED
 #include <nt2/include/functor.hpp>
 
-/*!
- * \ingroup signal
- * \defgroupsignal_db2pow db2pow
- *
-**/
-
-namespace nt2 { namespace tag
+namespace nt2
+{
+  namespace tag
   {
     /*!
      * \brief Define the tag db2pow_ of functor db2pow
      *        in namespace nt2::tag for toolbox signal
     **/
-    struct db2pow_ : ext::elementwise_<db2pow_> { typedef ext::elementwise_<db2pow_> parent; };
+    struct db2pow_ : ext::elementwise_<db2pow_>
+    {
+      typedef ext::elementwise_<db2pow_> parent;
+    };
   }
+
   NT2_FUNCTION_IMPLEMENTATION(tag::db2pow_, db2pow, 1)
   NT2_FUNCTION_IMPLEMENTATION(tag::db2pow_, db2pow, 2)
 }
 
-
-
 #endif
-
-// /////////////////////////////////////////////////////////////////////////////
-// End of db2pow.hpp
-// /////////////////////////////////////////////////////////////////////////////
