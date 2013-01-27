@@ -16,6 +16,8 @@ SET( SOURCES
   circul.cpp
   clement.cpp
   compar.cpp
+  hadamard.cpp
+  hankel.cpp
   hilb.cpp
   invhilb.cpp
   magic.cpp

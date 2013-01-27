@@ -51,6 +51,8 @@ namespace nt2 { namespace tag
 
   NT2_FUNCTION_IMPLEMENTATION(tag::vandermonde_, vandermonde, 2)
   NT2_FUNCTION_IMPLEMENTATION(tag::vandermonde_, vandermonde, 1)
+  NT2_FUNCTION_IMPLEMENTATION(tag::vandermonde_, vander, 2)
+  NT2_FUNCTION_IMPLEMENTATION(tag::vandermonde_, vander, 1)
 }
 
 #endif
