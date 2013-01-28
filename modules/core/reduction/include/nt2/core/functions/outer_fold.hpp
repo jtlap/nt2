@@ -18,11 +18,17 @@
 
 namespace nt2
 {
-  namespace tag { struct outer_fold_ : ext::unspecified_<outer_fold_> { typedef ext::unspecified_<outer_fold_> parent; }; }
+  namespace tag
+  {
+    struct outer_fold_ : ext::unspecified_<outer_fold_>
+    {
+      typedef ext::unspecified_<outer_fold_> parent;
+    };
+  }
 
   //============================================================================
   /*!
-   * Folds elements of \c a1 along outer dimension, possibly in parallel, and store
+   * Folds elements of \c a1 along inner dimension, possibly in parallel, and store
    * the result in \c a0.
    *
    * \param a0 Expression to store result in

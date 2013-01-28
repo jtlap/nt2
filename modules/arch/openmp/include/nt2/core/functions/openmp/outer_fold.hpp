@@ -30,17 +30,17 @@ namespace nt2 { namespace ext
   // Generates outer_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION_IF( nt2::tag::outer_fold_, nt2::tag::openmp_<Site>
-                               , (A0)(S0)(A1)(A2)(A3)(A4)(Site)
+                               , (A0)(S0)(T0)(N0)(A1)(A2)(A3)(A4)(Site)
                                , (boost::simd::meta::is_vectorizable<typename A0::value_type, BOOST_SIMD_DEFAULT_EXTENSION>)
                                , ((expr_< table_< unspecified_<A0>, S0 >
-                                        , nt2::tag::terminal_
-                                        , boost::mpl::long_<0>
+                                        , T0
+                                        , N0
                                         >
                                  ))
-                                 ((ast_< A1, nt2::container::domain>))
-                                 (unspecified_<A2>)
-                                 (unspecified_<A3>)
-                                 (unspecified_<A4>)
+                                ((ast_< A1, nt2::container::domain>))
+                                (unspecified_<A2>)
+                                (unspecified_<A3>)
+                                (unspecified_<A4>)
                                )
   {
     typedef void                                                              result_type;
@@ -48,52 +48,50 @@ namespace nt2 { namespace ext
     typedef typename boost::remove_reference<A1>::type::extent_type           extent_type;
     typedef boost::simd::native<value_type,BOOST_SIMD_DEFAULT_EXTENSION>      target_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const&) const
     {
       extent_type ext = in.extent();
       static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
-      std::size_t ibound = ext[ext.size()-1];
-
-      //std::size_t numel  = nt2::numel(boost::fusion::pop_back(ext));
-
-      // Workaround to have nt2::numel(boost::fusion::pop_back(ext));
-      std::size_t numel  = 1;
-      for(std::size_t m = 0; m!= ext.size()-1 ; ++m)
-        numel*=ext[m];
-
-      std::size_t obound =  (numel);
+      std::size_t ibound  = boost::fusion::at_c<0>(ext);
+      std::size_t mbound =  boost::fusion::at_c<1>(ext);
+      std::ptrdiff_t obound = boost::fusion::at_c<2>(ext);
+      std::size_t id;
 
       std::size_t cache_line_size = nt2::config::top_cache_line_size(2); // in byte
       std::size_t nb_vec = cache_line_size/(sizeof(value_type)*N);
       std::size_t cache_bound = (nb_vec)*N;
-      std::ptrdiff_t bound = ((numel)/cache_bound) * cache_bound;
+      std::size_t bound = ((ibound)/cache_bound) * cache_bound;
 
-      if(numel >= cache_bound){
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
 #endif
-      #pragma omp parallel
-      {
-        #pragma omp for schedule(static)
-        for(std::ptrdiff_t j = 0; j < bound; j+=cache_bound)
-        {
-          //Initialise
-          for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N)
-            nt2::run(out, id, neutral(nt2::meta::as_<target_type>()));
 
+#pragma omp parallel
+      {
+#pragma omp for schedule(static) private(id)
+        for(std::ptrdiff_t o = 0; o < obound; ++o)
+        {
+          std::size_t o_ = o*ibound;
 #ifndef BOOST_NO_EXCEPTIONS
           try
           {
 #endif
-            for(std::size_t i = 0, l = 0; i < ibound; ++i, l+=obound )
+            for(std::size_t i = 0; i < bound; i+=cache_bound)
             {
-              for(std::size_t k = 0, id = j; k < nb_vec; ++k, id+=N)
+              id = i+o_;
+
+              for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
+                nt2::run(out, k_, neutral(nt2::meta::as_<target_type>()));
+
+              for(std::size_t m = 0; m < mbound; ++m)
               {
-                nt2::run(out, id,
-                         bop( nt2::run(out, id, meta::as_<target_type>())
-                            , nt2::run(in, id+l, meta::as_<target_type>())
-                            )
-                        );
+                std::size_t m_ = m*ibound;
+                for (std::size_t k = 0, k_ = id; k < nb_vec; ++k, k_+=N)
+                  nt2::run( out, k_
+                          , bop( nt2::run(out, k_, meta::as_<target_type>())
+                               , nt2::run(in, k_+m_, meta::as_<target_type>())
+                               )
+                          );
               }
             }
 #ifndef BOOST_NO_EXCEPTIONS
@@ -104,55 +102,37 @@ namespace nt2 { namespace ext
             exception = boost::current_exception();
           }
 #endif
-        }
-
-      }
-
-#ifndef BOOST_NO_EXCEPTIONS
-      if(exception)
-        boost::rethrow_exception(exception);
-#endif
-
-        // scalar part
-        for(std::size_t j = bound; j < obound; ++j)
-        {
-          nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
-          for(std::size_t i = 0, k = 0; i < ibound; ++i, k+=obound)
+          // scalar part
+          for(std::size_t i = bound; i < ibound; ++i)
           {
-            nt2::run( out, j,
-                      bop( nt2::run(out, j, meta::as_<value_type>())
-                         , nt2::run(in, j+k, meta::as_<value_type>())
-                         )
-                    );
+            id = i+o_;
+            nt2::run(out, id, neutral(nt2::meta::as_<value_type>()));
+            for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
+            {
+              nt2::run( out, id
+                      , bop( nt2::run(out, id,meta::as_<value_type>())
+                           , nt2::run(in, id+m_,meta::as_<value_type>())
+                           )
+                      );
+            }
           }
         }
+#ifndef BOOST_NO_EXCEPTIONS
+        if(exception)
+          boost::rethrow_exception(exception);
+#endif
       }
-
-      else {
-        for(std::size_t j = 0; j < obound; ++j){
-          nt2::run(out, j, neutral(nt2::meta::as_<value_type>()));
-          for(std::size_t i = 0, k = 0; i < ibound; ++i, k+=obound){
-            nt2::run(out, j,
-                     bop(nt2::run(out, j,meta::as_<value_type>())
-                         , nt2::run(in, j+k, meta::as_<value_type>())));
-          }
-        }
-      }
-
     }
   };
 
-  } }
+} }
 #else
-//==============================================================================
-// openMP + noSIMD
-//==============================================================================
-
 namespace nt2 { namespace details
 {
   template <class X, class N, class B, class U>
   BOOST_FORCEINLINE typename X::value_type
-  outer_fold_step(X const& in, const std::size_t& p, const std::size_t& obound, N const& neutral, B const& bop, U const& uop);
+  outer_fold_step(X const& in, const std::size_t& p, const std::size_t& mbound, N const& neutral, B const& bop, U const& uop);
+
 }}
 
 namespace nt2 { namespace ext
@@ -161,7 +141,7 @@ namespace nt2 { namespace ext
   // Generates outer_fold
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::outer_fold_, nt2::tag::openmp_<Site>
-                              , (A0)(A1)(A2)(A3)(A4)(Site)
+                            , (A0)(A1)(A2)(A3)(A4)(Site)
                             , ((ast_< A0, nt2::container::domain>))
                               ((ast_< A1, nt2::container::domain>))
                               (unspecified_<A2>)
@@ -176,12 +156,12 @@ namespace nt2 { namespace ext
     BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
     {
       extent_type ext = in.extent();
-      const std::size_t chunk = config::top_cache_line_size()/sizeof(value_type);
-      std::size_t numel  = 1;
-      for(std::size_t m = 0; m!= ext.size()-1 ; ++m)
-        numel*=ext[m];
 
-      std::ptrdiff_t obound = numel;//nt2::numel(boost::fusion::pop_back(ext));
+      std::size_t ibound = boost::fusion::at_c<0>(ext);
+      std::size_t mbound = boost::fusion::at_c<1>(ext);
+      std::ptrdiff_t obound = boost::fusion::at_c<2>(ext);
+      std::size_t id;
+      const std::size_t chunk = config::top_cache_line_size()/sizeof(value_type);
 
 #ifndef BOOST_NO_EXCEPTIONS
       boost::exception_ptr exception;
@@ -190,13 +170,18 @@ namespace nt2 { namespace ext
       // - static schedule is set on using cache line sized chunks to limit
       // effects of false sharing.
 #pragma omp parallel for schedule(static,chunk)
-      for(std::ptrdiff_t j = 0; j < obound; ++j)
+      for(std::ptrdiff_t o = 0; o < obound; ++o)
       {
+        std::size_t o_ = o*ibound;
 #ifndef BOOST_NO_EXCEPTIONS
         try
         {
 #endif
-          nt2::run(out, j, details::outer_fold_step(in, j, obound, neutral, bop, uop));
+          for(std::size_t i = 0; i < ibound; ++i)
+          {
+            id = i+o_;
+            nt2::run(out, id, details::outer_fold_step(in,id,mbound,neutral,bop,uop));
+          }
 #ifndef BOOST_NO_EXCEPTIONS
         }
         catch(...)
@@ -209,9 +194,7 @@ namespace nt2 { namespace ext
       if(exception)
         boost::rethrow_exception(exception);
 #endif
-
     }
-
   };
 
 } }

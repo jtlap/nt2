@@ -44,8 +44,7 @@ namespace nt2 { namespace ext
       std::size_t bound  = boost::fusion::at_c<0>(ext);
       std::size_t ibound = (boost::fusion::at_c<0>(ext)/N) * N;
       std::size_t obound = nt2::numel(boost::fusion::pop_front(ext));
-      target_type vec_out ;
-
+      target_type vec_out;
 
       for(std::size_t j = 0, k = 0; j < obound; ++j, k+=bound)
       {
@@ -58,9 +57,11 @@ namespace nt2 { namespace ext
         nt2::run(out, j, uop(vec_out));
 
         for(std::size_t i = ibound; i < bound; ++i)
-          nt2::run(out, j
-                   , bop(nt2::run(out, j, meta::as_<value_type>())
-                         , nt2::run(in, i+k, meta::as_<value_type>())));
+          nt2::run( out, j
+                  , bop( nt2::run(out, j, meta::as_<value_type>())
+                       , nt2::run(in, i+k, meta::as_<value_type>())
+                       )
+                  );
 
       }
     }
