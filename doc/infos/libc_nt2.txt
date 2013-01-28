@@ -1,0 +1,107 @@
+libc                   |          nt2                           |      note
+----------------------------------------------------------------------------------------------------------------------
+acosf,  acos           |          acos                          |
+acoshf, acosh          |          acosh                         |
+asinf,  asin           |          asin                          |
+asinhf, asinh          |          asinh                         |
+atanf,  atan           |          atan                          |
+atanhf, atanh          |          atanh                         |
+atan2f, atan2          |          atan2                         |
+cabsf,  cabs           |          abs                           |
+cacosf, cacos          |          acos                          |
+cacoshf, cacosh        |          acosh                         |
+cargf, carg            |          arg                           |
+casinf, casin          |          asin                          |
+casinhf, casinh        |          asinh                         |
+catanf, catan          |          atan                          |
+catanhf, catanh        |          atanh                         |
+cbrtf, cbrt            |          cbrt                          |
+ccosf, ccos            |          cos                           |
+ccoshf, ccosh          |          cosh                          |
+ceilf, ceil            |          ceil                          |
+cexpf, cexp            |          exp                           |
+cimagf, cimag          |          imag                          |
+clogf, clog            |          log                           |
+clog10f, clog10        |          log10                         |
+conjf, conj            |          conj                          |
+copysignf, copysign    |          copysign                      |
+cosf, cos              |          cos                           |
+coshf, cosh            |          cosh                          |
+cpowf, cpow            |          pow                           |
+cprojf, cproj          |                   proj TODO            |
+crealf,creal           |          real                          |
+csinf, csin            |          sin                           |
+csinhf, csinh          |          sinh                          |
+csqrtf, csqrt          |          sqr                           |
+ctanf, ctan            |          tan                           |
+ctanhf, ctanh          |          tanh                          |
+erff, erf              |          erf                           |
+erfcf, erfc            |          erfc                          |
+expf, exp              |          exp                           |
+exp10f, exp10          |          exp10                         |
+exp2f, exp2            |          exp2                          |
+expm1f, expm1          |          expm1                         |
+fabsf, fabs            |          abs                           |
+fdimf, fdim            |          fdim                          |
+floorf, floor          |          floor                         |
+fmaf, fma              |          fma                           |
+fmaxf, fmax            |          fmax                          |
+fminf, fmin            |          fmin                          |
+fmodf, fmod            |          fmod                          |
+frexpf, frexp          |          frexp                         |
+gammaf, gamma          |          gamma                         |
+hypotf, hypot          |          hypot                         |
+ilogbf, ilogb          |          ilogb                         |
+j0f, j0                |          j0                            |
+j1f, j1                |          j1                            |
+jnf, jn                |          jn                            |
+lgammaf, lgamma        |          gammaln                       |
+lrintf, lrint          |          iround                        |
+logf, log              |          log                           |
+log10f, log10          |          log10                         |
+log1pf, log1p          |          log1p                         |
+log2f, log2            |          log2                          |
+logbf, logb            |          log2                          |
+lroundf, lround        |          iround                        |
+modff, modf,           |          modf                          |
+nearbyintf, nearbyint  |          round                         |
+nextafterf, nextafter  |          nextafter                     |
+nexttowardf, nexttoward|                      nexttoward TODO   |
+powf, pow              |          pow                           |
+remainderf, remainder  |          remainder                     |
+remquof, remquo        |          remquo                        |
+rintf, rint            |          round                         |
+roundf, round          |          round                         |
+scalbf, scalb          |          ldexp                         |
+scalbnf, scalbn        |          ldexp                         |
+scalblnf, scalbln      |          ldexp                         |
+sinf, sin              |          sin                           |
+sincosf, sincos        |          sincos                        |
+sinhf, sinh            |          sinh                          |
+sqrtf, sqrt            |          sqrt                          |
+tanf, tan              |          tan                           |
+tanhf, tanh            |          tanh                          |
+tgammaf, tgamma        |          gamma                         |
+truncf, trunc          |          trunc                         |
+y0f, y0                |          y0                            |
+y1f, y1                |          y1                            |
+ynf, yn                |          yn                            |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

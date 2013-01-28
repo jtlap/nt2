@@ -1,0 +1,63 @@
+Global information
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Nonlinear Numerical Methods
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Ordinary Differential Equations        Solve stiff and nonstiff differential equations, define the problem, set solver options, evaluate solution               NOTHING
+Delay Differential Equations           Solve delay differential equations with constant and general delays,set solver options, evaluate solution                NOTHING
+Boundary Value Problems                Solve boundary value problems for ordinary differential equations, set solver options, evaluate solution                 NOTHING
+Partial Differential Equations         Solve initial-boundary value problems for parabolic-elliptic PDEs, evaluate solution                                     NOTHING
+Optimization                           Find minimum of single and multivariable functions, solve nonnegative least-squares constraint problem
+Numerical Integration (Quadrature)     Evaluate Simpson, Lobatto, and vectorized quadratures, evaluate double and triple integrals
+
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Optimization
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+dsearchn            |  dsearchn   TODO                    |     N-D nearest point search                                          |
+fminbnd             |  fminbnd    TODO                    |     Find minimum of single-variable function on fixed interval        |  brent available
+fminsearch          |  fminsearch TODO                    |     Mminimum of unconstrained multivariable function derivative-free  |  nedler-mead available
+fzero               |  fzero      TODO                    |     Find root of continuous function of one variable                  |  brent can be used with abs(f)
+lsqnonneg           |  lsqnonneg  TODO                    |     Solve nonnegative least-squares constraints problem               |
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Numerical Integration
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+dblquad             |  dblquad    TODO                    |     Numerically evaluate double integral over rectangle               |
+integral            |  integral   TODO                    |     Numerically evaluate integral                                     |
+integral2           |  integral2  TODO                    |     Numerically evaluate double integral                              |
+integral3           |  integral3  TODO                    |     Numerically evaluate triple integral                              |
+quad                |  quad                               |     Numerically evaluate integral, adaptive Simpson quadrature        |   core/integre
+quad2d              |  quad2d                             |     Numerically evaluate double integral over planar region           |   core/integre
+quadgk              |  quadgk                             |     Numerically evaluate integral,adaptive Gauss-Kronrod quadrature   |   core/integre
+quadl               |  quadl                              |     Numerically evaluate integral, adaptive Lobatto quadrature        |   core/integre
+quadv               |  quadv      TODO                    |     Vectorized quadrature                                             |
+triplequad          |  triplequad TODO                    |     Numerically evaluate triple integral                              |
+
+
+============================================================================================================================================================
+============================================================================================================================================================
+
+============================================================================================================================================================
+TODO list for Non linear
+============================================================================================================================================================
+Ordinary Differential Equations         NOTHING DONE
+Delay Differential Equations            NOTHING DONE
+Boundary Value Problems                 NOTHING DONE
+Partial Differential Equations          NOTHING DONE
+dsearchn            |  dsearchn   TODO                    |     N-D nearest point search                                          |
+fminbnd             |  fminbnd    TODO                    |     Find minimum of single-variable function on fixed interval        |  brent available
+fminsearch          |  fminsearch TODO                    |     Mminimum of unconstrained multivariable function derivative-free  |  nedler-mead available
+fzero               |  fzero      TODO                    |     Find root of continuous function of one variable                  |  brent can be used with abs(f)
+lsqnonneg           |  lsqnonneg  TODO                    |     Solve nonnegative least-squares constraints problem               |
+dsearchn            |  dsearchn   TODO                    |     N-D nearest point search                                          |
+dblquad             |  dblquad    TODO                    |     Numerically evaluate double integral over rectangle               |
+integral            |  integral   TODO                    |     Numerically evaluate integral                                     |
+integral2           |  integral2  TODO                    |     Numerically evaluate double integral                              |
+integral3           |  integral3  TODO                    |     Numerically evaluate triple integral                              |
+quadv               |  quadv      TODO                    |     Vectorized quadrature                                             |
+triplequad          |  triplequad TODO                    |     Numerically evaluate triple integral                              |
+============================================================================================================================================================
+============================================================================================================================================================
