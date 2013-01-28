@@ -58,14 +58,32 @@ namespace nt2
     return &t;
   }
 
+  template<class T>
+  T const* raw(T const& t)
+  {
+    return &t;
+  }
+
   template<class Container>
   typename memory::container_ref<Container>::pointer raw(memory::container_ref<Container> const& c)
   {
     return c.raw();
   }
 
+  template<class Container>
+  typename memory::container_ref<Container>::pointer raw(memory::container_ref<Container>& c)
+  {
+    return c.raw();
+  }
+
   template<class Container, bool Own>
   typename memory::container_shared_ref<Container, Own>::pointer raw(memory::container_shared_ref<Container, Own> const& c)
+  {
+    return c.raw();
+  }
+
+  template<class Container, bool Own>
+  typename memory::container_shared_ref<Container, Own>::pointer raw(memory::container_shared_ref<Container, Own>& c)
   {
     return c.raw();
   }
