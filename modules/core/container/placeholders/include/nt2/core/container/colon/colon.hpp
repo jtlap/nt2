@@ -24,9 +24,16 @@ namespace nt2 { namespace container
     template<class T> colon_ const& operator=(T const&) const { return *this; }
 
     // _() as []
-    meta::call<nt2::tag::colon_(double, double)>::type operator()() const
+    boost::proto::result_of::
+    make_expr< nt2::tag::empty_colon_, container::domain
+             , box< of_size_<0> >
+             , box< meta::constant_<nt2::tag::unity_colon_, double> >
+             , meta::as_<double>
+             >::type
+    operator()() const
     {
-      return nt2::colon(1.,0.);
+      return boost::proto::make_expr< nt2::tag::empty_colon_, container::domain >
+            ( boxify(of_size_<0>()), boxify(meta::constant_<nt2::tag::unity_colon_, double>(1.)), meta::as_<double>() );
     }
 
     // colon as a:b

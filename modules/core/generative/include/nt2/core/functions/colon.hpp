@@ -30,6 +30,12 @@ namespace nt2
     };
 
     /// INTERNAL ONLY
+    struct empty_colon_ : colon_
+    {
+      typedef colon_ parent;
+    };
+
+    /// INTERNAL ONLY
     struct relative_colon_ : ext::elementwise_<relative_colon_>
     {
       typedef ext::elementwise_<relative_colon_> parent;
@@ -50,6 +56,15 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   template<class Domain, class Expr, int N>
   struct  size_of<tag::colon_,Domain,N,Expr>
+        : meta::generative_size<Expr> {};
+
+  template<class Domain, class Expr, int N>
+  struct  value_type<tag::empty_colon_,Domain,N,Expr>
+        : meta::generative_value<Expr> {};
+
+  /// INTERNAL ONLY
+  template<class Domain, class Expr, int N>
+  struct  size_of<tag::empty_colon_,Domain,N,Expr>
         : meta::generative_size<Expr> {};
 
   /// INTERNAL ONLY
