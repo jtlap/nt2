@@ -1,3 +1,17 @@
+28/01/2012 : In nt2 80 functions of the libc math functions are defined, can be used elementwise
+and use simd acceleration in these cases.
+All C99 complex functions are implemented except cproj
+
+The main differences are that
+0) C++ overload allows to give a unique name for all the different input types
+1) the long double are not supported
+2) when returning integer values the integers are of same memory size as the input floats
+   so we do not have all the round variants.
+
+
+2 functions are lacking for now cproj and nexttoward, but they will be.
+
+
 libc                   |          nt2                           |      note
 ----------------------------------------------------------------------------------------------------------------------
 acosf,  acos           |          acos                          |
