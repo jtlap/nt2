@@ -7,7 +7,9 @@
 ###                     http://www.boost.org/LICENSE_1_0.txt
 ##############################################################################
 
-nt2_module_use_modules(unit core.bitwise)
-ADD_SUBDIRECTORY(scalar)
-ADD_SUBDIRECTORY(simd)
-ADD_SUBDIRECTORY(table)
+set(SOURCES
+    frexp.cpp
+   )
+
+nt2_module_use_modules(core.container.table)
+nt2_module_add_tests(core.ieee.table.unit ${SOURCES})
