@@ -14,10 +14,8 @@
 #include <nt2/include/functions/of_size.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/include/functions/transform.hpp>
-#include <nt2/include/functions/fold.hpp>
 #include <nt2/include/functions/inner_fold.hpp>
 #include <nt2/include/functions/outer_fold.hpp>
-#include <nt2/include/functions/partial_fold.hpp>
 #include <nt2/include/functions/inner_scan.hpp>
 #include <nt2/include/functions/outer_scan.hpp>
 #include <nt2/include/functions/reshape.hpp>
@@ -75,12 +73,12 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // Reductions operations go to fold
-  // Note that Matlab reduction functions has a f(x,i) and a f(x,i) form
-  // that we handle by having a relative child_c calls
+  // Reductions operations go to inner/outer fold
+  // Note that MATLAB reduction functions have a f(x) and a f(x,i) form
+  // that we handle with reduction_dim
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                              , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
+                            , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
                             , ((node_<A0, elementwise_<T0>, N0, nt2::container::domain>))
                               ((node_<A1, reduction_<T1,O1,Neutral1>, N1 , nt2::container::domain>))
                             )
@@ -100,23 +98,21 @@ namespace nt2 { namespace ext
       std::size_t dim = nt2::ndims(ext);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
-#if 0
-      if((red - 1 < ext.size() && ext[red-1] == 1) || ext.size() < red)
-        return nt2::run_assign(a0, input);
-#endif
+      std::size_t inner = red-1 < ext.size() ? ext[red-1] : 1;
 
-      if(dim == 1 && red == 1)
-      {
-        nt2::run( a0, 0u
-                , nt2::fold( input
-                           , typename nt2::make_functor<Neutral1, A0>::type()
-                           , typename nt2::make_functor<O1, A0>::type()
-                           , typename nt2::make_functor<T1, A0>::type()
-                           )
-                );
+      std::size_t lo = std::accumulate( ext.begin()
+                                      , ext.begin()+std::min(red-1, dim)
+                                      , std::size_t(1)
+                                      , std::multiplies<std::size_t>()
+                                      );
 
-      }
-      else if(red == 1)
+      std::size_t hi = std::accumulate( ext.begin()+std::min(red, dim)
+                                      , ext.begin()+dim
+                                      , std::size_t(1)
+                                      , std::multiplies<std::size_t>()
+                                      );
+
+      if(red == 1)
       {
         nt2::inner_fold( a0
                        , input
@@ -125,39 +121,14 @@ namespace nt2 { namespace ext
                        , typename nt2::make_functor<T1, A0>::type()
                        );
       }
-#if 0
-      else if(red == ext.size())
+      else
       {
-        nt2::outer_fold( a0
-                       , input
+        nt2::outer_fold( reshape(a0, of_size(lo, hi))
+                       , reshape(input, of_size(lo, inner, hi))
                        , typename nt2::make_functor<Neutral1, A0>::type()
                        , typename nt2::make_functor<O1, A0>::type()
                        , typename nt2::make_functor<T1, A0>::type()
                        );
-      }
-#endif
-      else
-      {
-        std::size_t inner = red-1 < ext.size() ? ext[red-1] : 1;
-
-        std::size_t lo = std::accumulate( ext.begin()
-                                        , ext.begin()+std::min(red-1, dim)
-                                        , std::size_t(1)
-                                        , std::multiplies<std::size_t>()
-                                        );
-
-        std::size_t hi = std::accumulate( ext.begin()+std::min(red, dim)
-                                        , ext.begin()+dim
-                                        , std::size_t(1)
-                                        , std::multiplies<std::size_t>()
-                                        );
-
-        nt2::partial_fold( reshape(a0, of_size(lo, hi))
-                         , reshape(input, of_size(lo, inner, hi))
-                         , typename nt2::make_functor<Neutral1, A0>::type()
-                         , typename nt2::make_functor<O1, A0>::type()
-                         , typename nt2::make_functor<T1, A0>::type()
-                         );
       }
 
       return a0;
@@ -175,12 +146,12 @@ namespace nt2 { namespace ext
   };
 
   //============================================================================
-  // Cumulative operations go to scan
-  // Note that Matlab reduction functions has a f(x,i) and a f(x,i) form
-  // that we handle by having a relative child_c calls
+  // Cumulative operations go to inner/outer scan
+  // Note that MATLAB reduction functions have a f(x) and a f(x,i) form
+  // that we handle with reduction_dim
   //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
-                              , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
+                            , (A0)(T0)(N0)(A1)(T1)(O1)(Neutral1)(N1)
                             , ((node_<A0, elementwise_<T0>, N0, nt2::container::domain>))
                               ((node_<A1, cumulative_<T1,O1,Neutral1>, N1 , nt2::container::domain>))
                             )
@@ -200,10 +171,19 @@ namespace nt2 { namespace ext
       std::size_t dim = nt2::ndims(ext);
       std::size_t red = reduction_dim(a1, boost::mpl::bool_<!(boost::proto::arity_of<A1>::value <= 1)>());
 
-#if 0
-      if((red - 1 < ext.size() && ext[red-1] == 1) || ext.size() < red)
-        return nt2::run_assign(a0, input);
-#endif
+      std::size_t inner = red-1 < ext.size() ? ext[red-1] : 1;
+
+      std::size_t lo = std::accumulate( ext.begin()
+                                      , ext.begin()+std::min(red-1, dim)
+                                      , std::size_t(1)
+                                      , std::multiplies<std::size_t>()
+                                      );
+
+      std::size_t hi = std::accumulate( ext.begin()+std::min(red, dim)
+                                      , ext.begin()+dim
+                                      , std::size_t(1)
+                                      , std::multiplies<std::size_t>()
+                                      );
 
       if(red == 1)
       {
@@ -216,20 +196,6 @@ namespace nt2 { namespace ext
       }
       else
       {
-        std::size_t inner = red-1 < ext.size() ? ext[red-1] : 1;
-
-        std::size_t lo = std::accumulate( ext.begin()
-                                        , ext.begin()+std::min(red-1, dim)
-                                        , std::size_t(1)
-                                        , std::multiplies<std::size_t>()
-                                        );
-
-        std::size_t hi = std::accumulate( ext.begin()+std::min(red, dim)
-                                        , ext.begin()+dim
-                                        , std::size_t(1)
-                                        , std::multiplies<std::size_t>()
-                                        );
-
         nt2::outer_scan( reshape(a0, of_size(lo, inner, hi))
                          , reshape(input, of_size(lo, inner, hi))
                          , typename nt2::make_functor<Neutral1, A0>::type()

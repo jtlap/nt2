@@ -10,31 +10,29 @@
 #define NT2_CORE_FUNCTIONS_SCALAR_OUTER_FOLD_HPP_INCLUDED
 
 #include <nt2/core/functions/outer_fold.hpp>
-#include <boost/fusion/include/pop_back.hpp>
+#include <boost/fusion/include/pop_front.hpp>
 #include <nt2/include/functions/scalar/numel.hpp>
 
 namespace nt2 { namespace details
 {
   template <class X, class N, class B, class U>
   BOOST_FORCEINLINE typename X::value_type
-  outer_fold_step(X const& in, const std::size_t& p, const std::size_t& obound, N const& neutral, B const& bop, U const& uop)
+  outer_fold_step(X const& in, const std::size_t& p, const std::size_t& mbound, N const& neutral, B const& bop, U const&)
   {
     typedef typename X::value_type   value_type;
     typedef typename X::extent_type  extent_type;
     extent_type ext = in.extent();
 
-    std::size_t ibound  = ext[ext.size()-1];
+    std::size_t ibound  = boost::fusion::at_c<0>(ext);
     value_type out = neutral(nt2::meta::as_<value_type>());
 
-    for(std::size_t i = 0, k=0; i < ibound; ++i, k+=obound)
+    for(std::size_t m = 0, m_ = 0; m < mbound; ++m, m_+=ibound)
     {
-        out = bop(out, nt2::run(in, k + p, meta::as_<value_type>()));
+      out = bop(out, nt2::run(in, m_+p, meta::as_<value_type>()));
     }
-
     return out;
   }
 } }
-
 
 namespace nt2 { namespace ext
 {
@@ -53,24 +51,28 @@ namespace nt2 { namespace ext
     typedef typename A0::value_type                                            value_type;
     typedef typename boost::remove_reference<A1>::type::extent_type            extent_type;
 
-    BOOST_FORCEINLINE result_type operator()(A0& out, A1& in, A2 const& neutral, A3 const& bop, A4 const& uop) const
+    BOOST_FORCEINLINE result_type
+    operator()( A0& out, A1& in , A2 const& neutral
+              , A3 const& bop   , A4 const& uop
+              ) const
     {
       extent_type ext = in.extent();
 
-      std::size_t numel  = 1;
-      for(std::size_t m = 0; m!= ext.size()-1 ; ++m)
-        numel*=ext[m];
+      std::size_t ibound  = boost::fusion::at_c<0>(ext);
+      std::size_t mbound =  boost::fusion::at_c<1>(ext);
+      std::size_t obound =  boost::fusion::at_c<2>(ext);
+      std::size_t id;
 
-      std::size_t obound = numel;//nt2::numel(boost::fusion::pop_back(ext));
-
-      for(std::size_t j = 0; j < obound; ++j)
+      for(std::size_t o = 0, o_ = 0; o < obound; ++o, o_+=ibound)
       {
-          nt2::run(out, j, details::outer_fold_step(in, j, obound, neutral, bop, uop));
+        for(std::size_t i = 0; i < ibound; ++i)
+        {
+          id = i+o_;
+          nt2::run(out, id, details::outer_fold_step(in,id,mbound,neutral,bop,uop));
+        }
       }
     }
-
   };
-
 } }
 
 #endif
