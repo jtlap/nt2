@@ -61,6 +61,10 @@ NT2_TEST_CASE( erase_function )
   nt2::erase(a, nt2::aggregate(_, 1, _));
   NT2_TEST_EQUAL(a, c);
 
+  a = b;
+  a(_, 1, _) = _();
+  NT2_TEST_EQUAL(a, c);
+
   a = c;
   nt2::erase(a, nt2::aggregate(1, 1, 1));
   NT2_TEST_EQUAL(a, nt2::cons<T>(of_size(1, 11), 14, 11, 15, 12, 16, 18, 22, 19, 23, 20, 24));

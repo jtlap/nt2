@@ -10,7 +10,9 @@
 #define NT2_CORE_FUNCTIONS_EXPR_FUNCTION_HPP_INCLUDED
 
 #include <nt2/core/functions/function.hpp>
+#include <nt2/toolbox/operator/functions/assign.hpp>
 #include <nt2/include/functions/function_index.hpp>
+#include <nt2/include/functions/erase.hpp>
 #include <nt2/include/functions/aggregate.hpp>
 #include <nt2/include/functions/globalfind.hpp>
 #include <nt2/include/functions/run.hpp>
@@ -31,6 +33,21 @@
 
 namespace nt2 { namespace ext
 {
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::assign_, tag::cpu_
+                            , (A0)(N0)(I0)
+                            , ((node_<A0, nt2::tag::function_, N0, nt2::container::domain>))
+                              ((node_<I0, nt2::tag::empty_colon_, boost::mpl::long_<3>, nt2::container::domain>))
+                            )
+  {
+    typedef A0& result_type;
+
+    result_type operator()(A0& a0, I0& i0) const
+    {
+      nt2::erase(boost::proto::child_c<0>(a0), boost::proto::child_c<0>(boost::proto::child_c<1>(a0)));
+      return a0;
+    }
+  };
+
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::function_, tag::cpu_
                             , (A0)(I0)
                             , ((ast_<A0, nt2::container::domain>))(colon_<I0>)
