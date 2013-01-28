@@ -1,0 +1,149 @@
+Global information
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Elementary Math
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Trigonometric           Trigonometric functions with results in radians or degrees
+Exponential             Exponential, logarithm, power, and  root functions
+Complex                 Numbers with real and imaginary components, phase angles
+Rounding and Remainder  Rounding, modulus, and remainder
+Discrete Math           Prime factors, factorials, permutations, rational fractions, least common multiple, greatest common divisor
+
+
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Trigonometric
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+acos                |  acos                               |     Inverse cosine; result in radians                                 |      core/trigonometric
+acosd               |  acosd                              |     Inverse cosine; result in degrees                                 |      core/trigonometric
+acosh               |  acosh                              |     Inverse hyperbolic cosine                                         |      core/hyperbolic
+acot                |  acot                               |     Inverse cotangent; result in radians                              |      core/trigonometric
+acotd               |  acotd                              |     Inverse cotangent; result in degrees                              |      core/trigonometric
+acoth               |  acoth                              |     Inverse hyperbolic cotangent                                      |      core/hyperbolic
+acsc                |  acsc                               |     Inverse cosecant; result in radians                               |      core/trigonometric
+acscd               |  acscd                              |     Inverse cosecant; result in degrees                               |      core/trigonometric
+acsch               |  acsch                              |     Inverse hyperbolic cosecant                                       |      core/hyperbolic
+asec                |  asec                               |     Inverse secant; result in radians                                 |      core/trigonometric
+asecd               |  asecd                              |     Inverse secant; result in degrees                                 |      core/trigonometric
+asech               |  asech                              |     Inverse hyperbolic secant                                         |      core/hyperbolic
+asin                |  asin                               |     Inverse sine; result in radians                                   |      core/trigonometric
+asind               |  asind                              |     Inverse sine; result in degrees                                   |      core/trigonometric
+asinh               |  asinh                              |     Inverse hyperbolic sine                                           |      core/hyperbolic
+atan                |  atan                               |     Inverse tangent; result in radians                                |      core/trigonometric
+atan2               |  atan2                              |     Four-quadrant inverse tangent                                     |      core/trigonometric
+atan2d              |  atan2d                             |     Four-quadrant inverse tangent; result in degrees                  |      core/trigonometric
+atand               |  atand                              |     Inverse tangent; result in degrees                                |      core/trigonometric
+atanh               |  atanh                              |     Inverse hyperbolic tangent                                        |      core/hyperbolic
+cos                 |  cos                                |     Cosine of argument in radians                                     |      core/trigonometric
+cosd                |  cosd                               |     Cosine of argument in degrees                                     |      core/trigonometric
+cosh                |  cosh                               |     Hyperbolic cosine                                                 |      core/hyperbolic
+cot                 |  cot                                |     Cotangent of argument in radians                                  |      core/trigonometric
+cotd                |  cotd                               |     Cotangent of argument in degrees                                  |      core/trigonometric
+coth                |  coth                               |     Hyperbolic cotangent                                              |      core/hyperbolic
+csc                 |  csc                                |     Cosecant of argument in radians                                   |      core/trigonometric
+cscd                |  cscd                               |     Cosecant of argument in degrees                                   |      core/trigonometric
+csch                |  csch                               |     Hyperbolic cosecant                                               |      core/hyperbolic
+hypot               |  hypot                              |     Square root of sum of squares                                     |      core/arithmetic
+sec                 |  sec                                |     Secant of argument in radians                                     |      core/trigonometric
+secd                |  secd                               |     Secant of argument in degrees                                     |      core/trigonometric
+sech                |  sech                               |     Hyperbolic secant                                                 |      core/hyperbolic
+
+
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Exponential
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+exp                 |  exp                                |     Exponential                                                       |      core/exponential
+expm1               |  expm1                              |     Compute exp(x)-1 accurately for small values of x                 |      core/exponential
+log                 |  log                                |     Natural logarithm                                                 |      core/exponential
+log10               |  log10                              |     Common (base 10) logarithm                                        |      core/exponential
+log1p               |  log1p                              |     Compute log(1+x) accurately for small values of x                 |      core/exponential
+log2                |  log2, frexp                        |     Base 2 logarithm and dissect into exponent and mantissa           |      core/exponential
+nextpow2            |  nextpow2                           |     Next higher power of 2                                            |      core/exponential
+nthroot             |  nthroot                            |     Real nth root of real numbers                                     |      core/exponential
+pow2                |  pow2, exp2, ldexp                  |     Base 2 power and scale floating-point numbers                     |      core/exponential
+power               |  pow, power                         |     Array power                                                       |      core/exponential
+reallog             |  reallog                            |     Natural logarithm for nonnegative real arrays                     |      core/exponential
+realpow             |  realpow                            |     Array power for real-only output                                  |      core/exponential
+realsqrt            |  realsqrt                           |     Square root for nonnegative real arrays                           |      core/exponential
+sqrt                |  sqrt                               |     Square root                                                       |      core/arithmetic
+
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Complex
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+abs                 |  abs                                |     Absolute value and complex magnitude                              |      core/arithmetic
+angle               |  angle, arg                         |     Phase angle                                                       |      core/arithmetic
+complex             |  complexify TOVERIFY                |     Construct complex data from real and imaginary components         |      type/complex
+conj                |  conj                               |     Complex conjugate                                                 |      core/arithmetic
+cplxpair            |  cplxpair TODO                      |     Sort complex numbers into complex conjugate pairs                 |
+i                   |  I<T>()                             |     Imaginary unit (for type T)                                       |      type/complex
+imag                |  imag                               |     Imaginary part of complex number                                  |      type/complex
+isreal              |  isreal                             |     Check if all arrays elemnt are real                               |      core/predicates
+j                   |  TODO                               |     Imaginary unit                                                    |
+real                |  real                               |     Real part of complex number                                       |      type/complex
+sign                |  sign                               |     Signum function                                                   |      core/arithmetic
+unwrap              |  unwrap TODO                        |     Correct phase angles to produce smoother phase plots              |
+
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Rounding and Remainder
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+abs                 |  abs                                |     Absolute value and complex magnitude                              |      core/arithmetic
+ceil                |  ceil                               |     Round toward positive infinity                                    |      core/arithmetic
+fix                 |  trunc, fix                         |     Round toward zero                                                 |      core/arithmetic
+floor               |  floor                              |     Round toward negative infinity                                    |      core/arithmetic
+mod                 |  mod                                |     Modulus after division                                            |      core/arithmetic
+rem                 |  rem                                |     Remainder after division                                          |      core/arithmetic
+round               |  round                              |     Round to nearest integer                                          |      core/arithmetic
+
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Discrete Math
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+factor              |  factor                             |     Prime factors                                                     |      core/combinatorial
+factorial           |  factorial                          |     Factorial function                                                |      core/combinatorial
+gcd                 |  gcd                                |     Greatest common divisor                                           |      core/combinatorial
+isprime             |  is_prime                           |     Array elements that are prime numbers                             |      core/combinatorial
+lcm ime             |  lcm                                |     Least common multiple                                             |      core/combinatorial
+nchoosek            |  nchoosek  TODO, cnp                |     Binomial coefficient or all combinations                          |      core/combinatorial
+perms               |  perms  TODO                        |     All possible permutations                                         |
+primes              |  primes                             |     Generate list of prime numbers                                    |      core/combinatorial
+rat                 |  rat                                |     Rational fraction approximation                                   |      core/combinatorial
+rats                |  NOT IMPLEMENTED                    |     Rational fraction approximation                                   |
+
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Polynomials
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+conv                |  conv                               |     Convolution and polynomial multiplication                         |      core/polynom
+deconv              |  deconv                             |     Deconvolution and polynomial division                             |      core/polynom
+polyder             |  polyder                            |     Polynomial derivative                                             |      core/polynom
+polyfit             |  polyfit                            |     Polynomial curve fitting                                          |      core/polynom
+polyint             |  polyint                            |     Integrate polynomial analytically                                 |      core/polynom
+polyval             |  polyval                            |     Polynomial evaluation                                             |      core/polynom
+polyvalm            |  polyvalm                           |     Matrix polynomial evaluation                                      |      core/polynom
+residue             |  residue TODO                       |     Convert between partial fraction expansion and poly coefficients  |
+roots               |  roots                              |     Polynomial roots                                                  |      core/polynom
+
+
+============================================================================================================================================================
+============================================================================================================================================================
+
+============================================================================================================================================================
+TODO list for Elementary Math
+============================================================================================================================================================
+cplxpair            |  cplxpair TODO                      |     Sort complex numbers into complex conjugate pairs                 |
+j                   |  TODO                               |     Imaginary unit                                                    |
+unwrap              |  unwrap TODO                        |     Correct phase angles to produce smoother phase plots              |
+nchoosek            |  nchoosek  TODO                     |     Binomial coefficient or all combinations                          |
+perms               |  perms  TODO                        |     All possible permutations                                         |
+residue             |  residue TODO                       |     Convert between partial fraction expansion and poly coefficients  |
+============================================================================================================================================================
+============================================================================================================================================================

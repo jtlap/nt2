@@ -1,0 +1,53 @@
+Global information
+
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Special Functions
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+airy                |  airy       TODO                    |     Airy functions                                                    |
+besselh             |  besselh    TODO                    |     Bessel function of third kind (Hankel function)                   |
+besseli             |  besseli    TODO                    |     Modified Bessel function of first kind                            | i0, i1, ini are available for real inputs
+besselj             |  besselj    TODO                    |     Bessel function of first kind                                     | j0, j1, jni are available for real inputs
+besselk             |  besselk    TODO                    |     Modified Bessel function of second kind                           |
+bessely             |  bessely    TODO                    |     Bessel function of second kind                                    | y0, y1, yni are available for real inputs
+beta                |  beta                               |     Beta function                                                     | core/euler   real inputs
+betainc             |  betainc    TODO                    |     Incomplete beta function                                          |
+betaincinv          |  betaincinv TODO                    |     Beta inverse cumulative distribution function                     |
+betaln              |  betaln     TODO                    |     Logarithm of beta function                                        |
+ellipj              |  ellipj     TODO                    |     Jacobi elliptic functions                                         | a bunch of elliptic function are available
+ellipke             |  ellipke    TODO                    |     Complete elliptic integrals of first and second kind              | but do not know exact correspondance
+erf                 |  erf                                |     Error function                                                    | core/euler
+erfc                |  erfc                               |     Complementary error function                                      | core/euler
+erfcinv             |  erfcinv                            |     Inverse complementary error function                              | core/euler
+erfcx               |  erfcx     TODO                     |     Scaled complementary error function                               |
+erfinv              |  erfinv                             |     Inverse error function                                            | core/euler
+expint              |  expint    TODO                     |     Exponential integral                                              | core/euler
+gamma               |  gamma                              |     Gamma function                                                    | core/euler
+gammainc            |  gammainc                           |     Incomplete gamma function                                         | core/euler
+gammaincinv         |  gammaincinv                        |     Inverse incomplete gamma function                                 | core/euler
+gammaln             |  gammaln                            |     Logarithm of gamma function                                       | core/euler
+legendre            |  legendre                           |     Associated Legendre functions                                     | core/polynomials (not sure it's the same)
+
+
+
+============================================================================================================================================================
+============================================================================================================================================================
+============================================================================================================================================================
+TODO list for Special Functions
+============================================================================================================================================================
+airy                |  airy       TODO                    |     Airy functions                                                    |
+besselh             |  besselh    TODO                    |     Bessel function of third kind (Hankel function)                   |
+besseli             |  besseli    TODO                    |     Modified Bessel function of first kind                            | i0, i1, ini are available for real inputs
+besselj             |  besselj    TODO                    |     Bessel function of first kind                                     | j0, j1, jni are available for real inputs
+besselk             |  besselk    TODO                    |     Modified Bessel function of second kind                           |
+bessely             |  bessely    TODO                    |     Bessel function of second kind                                    | y0, y1, yni are available for real inputs
+betainc             |  betainc    TODO                    |     Incomplete beta function                                          |
+betaincinv          |  betaincinv TODO                    |     Beta inverse cumulative distribution function                     |
+betaln              |  betaln     TODO                    |     Logarithm of beta function                                        |
+ellipj              |  ellipj     TODO                    |     Jacobi elliptic functions                                         | a bunch of elliptic function are available
+ellipke             |  ellipke    TODO                    |     Complete elliptic integrals of first and second kind              | but do not know exact correspondance
+erfcx               |  erfcx     TODO                     |     Scaled complementary error function                               |
+expint              |  expint    TODO                     |     Exponential integral                                              | core/euler
+============================================================================================================================================================
+============================================================================================================================================================

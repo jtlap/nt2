@@ -1,0 +1,86 @@
+Global information
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Interpolation and Computational Geometry
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Interpolation               Data interpolation, data gridding, polynomial evaluation, nearest point search
+Delaunay Triangulation      Delaunay triangulation, triangular surface and mesh plots
+Convex Hull                 Plot convex hull, plotting functions
+Voronoi Diagrams            Plot Voronoi diagram, patch graphics  object, plotting functions
+Domain Generation           Generate arrays for 3-D plots, or for N-D functions and interpolation
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Interpolation
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+dsearchn            |  dsearchn TODO                      |     N-D nearest point search                                          |
+griddata            |  griddata  TODO                     |     Interpolate scattered data                                        |
+griddatan           |  griddatan TODO                     |     Data gridding and hypersurface fitting (dimension >= 2)           |
+griddedInterpolant  |  griddedInterpolant TODO            |     Interpolant for gridded data                                      |
+interp1             |  interp1                            |     1-D data interpolation (table lookup)                             |     core/interpol
+interp2             |  interp2  TODO                      |     2-D data interpolation (table lookup)                             |
+interp3             |  interp3  TODO                      |     3-D data interpolation (table lookup)                             |
+interpft            |  interpft TODO                      |     1-D interpolation using FFT method                                |
+interpn             |  interpn  TODO                      |     N-D data interpolation (table lookup)                             |
+meshgrid            |  meshgrid TODO                      |     Rectangular grid in 2-D and 3-D space                             |
+mkpp                |  mkpp     TODO                      |     Make piecewise polynomial                                         |
+ndgrid              |  ndgrid   TODO                      |     Rectangular grid in N-D space                                     |
+padecoef            |  padecoef TODO                      |     Padé approximation of time delays                                 |
+pchip               |  pchip                              |     Piecewise Cubic Hermite Interpolating Polynomial (PCHIP)          |     core/interpol
+ppval               |  ppval                              |     Evaluate piecewise polynomial                                     |     core/interpol
+spline              |  spline                             |     Cubic spline data interpolation                                   |     core/interpol
+TriScatteredInterp  |  TriScatteredInterp TODO            |     Interpolate scattered data                                        |
+tsearchn            |  tsearchn TODO                      |     N-D closest simplex search                                        |
+unmkpp              |  unmkpp   TODO                      |     Piecewise polynomial details                                      |
+
+Matlab              |                nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Delaunay Triangulation, convex jull, voronoï diagrams, Cartesian Coordinate System Conversion
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cart2pol            |  cart2pol  TODO                     |     Transform Cartesian coordinates to polar or cylindrical           |
+cart2sph            |  cart2sph  TODO                     |     Transform Cartesian coordinates to spherical                      |
+convhulln           |  convhulln TODO                     |     N-D convex hull                                                   |
+delaunay            |  delaunay  TODO                     |     Delaunay triangulation                                            |
+delaunayn           |  delaunayn TODO                     |     N-D Delaunay triangulation                                        |
+trimesh             |  trimesh   TODO                     |     Triangular mesh plot                                              |
+patch               |  patch     TODO                     |     Create one or more filled polygons                                |
+pol2cart            |  pol2cart  TODO                     |     Transform polar or cylindrical coordinates to Cartesian           |
+sph2cart            |  sph2cart  TODO                     |     Transform spherical coordinates to Cartesian                      |
+voronoi             |  voronoi   TODO                     |     Voronoi diagram                                                   |
+voronoin            |  voronoin  TODO                     |     N-D Voronoi diagram                                               |
+
+
+============================================================================================================================================================
+============================================================================================================================================================
+
+============================================================================================================================================================
+TODO list for Interpolation
+============================================================================================================================================================
+dsearchn            |  dsearchn TODO                      |     N-D nearest point search                                          |
+griddata            |  griddata  TODO                     |     Interpolate scattered data                                        |
+griddatan           |  griddatan TODO                     |     Data gridding and hypersurface fitting (dimension >= 2)           |
+griddedInterpolant  |  griddedInterpolant TODO            |     Interpolant for gridded data                                      |
+interp2             |  interp2  TODO                      |     2-D data interpolation (table lookup)                             |
+interp3             |  interp3  TODO                      |     3-D data interpolation (table lookup)                             |
+interpft            |  interpft TODO                      |     1-D interpolation using FFT method                                |
+interpn             |  interpn  TODO                      |     N-D data interpolation (table lookup)                             |
+meshgrid            |  meshgrid TODO                      |     Rectangular grid in 2-D and 3-D space                             |
+mkpp                |  mkpp     TODO                      |     Make piecewise polynomial                                         |
+ndgrid              |  ndgrid   TODO                      |     Rectangular grid in N-D space                                     |
+padecoef            |  padecoef TODO                      |     Padé approximation of time delays                                 |
+TriScatteredInterp  |  TriScatteredInterp TODO            |     Interpolate scattered data                                        |
+tsearchn            |  tsearchn TODO                      |     N-D closest simplex search                                        |
+unmkpp              |  unmkpp   TODO                      |     Piecewise polynomial details                                      |
+cart2pol            |  cart2pol  TODO                     |     Transform Cartesian coordinates to polar or cylindrical           |
+cart2sph            |  cart2sph  TODO                     |     Transform Cartesian coordinates to spherical                      |
+convhulln           |  convhulln TODO                     |     N-D convex hull                                                   |
+delaunay            |  delaunay  TODO                     |     Delaunay triangulation                                            |
+delaunayn           |  delaunayn TODO                     |     N-D Delaunay triangulation                                        |
+trimesh             |  trimesh   TODO                     |     Triangular mesh plot                                              |
+patch               |  patch     TODO                     |     Create one or more filled polygons                                |
+pol2cart            |  pol2cart  TODO                     |     Transform polar or cylindrical coordinates to Cartesian           |
+sph2cart            |  sph2cart  TODO                     |     Transform spherical coordinates to Cartesian                      |
+voronoi             |  voronoi   TODO                     |     Voronoi diagram                                                   |
+voronoin            |  voronoin  TODO                     |     N-D Voronoi diagram                                               |
+============================================================================================================================================================
+============================================================================================================================================================

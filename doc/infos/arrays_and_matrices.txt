@@ -1,0 +1,223 @@
+Global information
+
+nt2 tends to provide an interface as possible similar to Matlab(TM) in a C++ library.
+
+- Matlab is an interpreted language with dynamic typing
+- C++ is a compiled language with static typing
+
+functions used to determine/test the type in Matlab can either be inapropriate (and so not implemented in nt2)
+or provided as compile time functions called meta-functions (designed by ending <>.
+
+nt2 predicates can differ in names with Matlab one, they generally begin by "is" or "is_".
+
+1) The presence of the underline indicates the result is a logical expression which is the elementwise
+   result of the application of the predicate to each input element
+2) The lack of the underline indicates the function will return an unique logical result which is a
+   property of the global expression
+
+Function Reference
+
+Arrays and Matrices
+
+Basic Information              Display array contents, get array
+                               information, determine array type
+
+Operators                      Arithmetic operators
+
+Elementary Matrices and Arrays Create elementary arrays of different
+                               types, generate arrays for plotting,
+                               array indexing, etc.
+
+Array Operations               Operate on array content, apply
+                               function to each array element, find
+                               cumulative product or sum, etc.
+
+Array Manipulation             Create, sort, rotate, permute,
+                               reshape, and shift array contents
+
+Specialized Matrices           Create Hadamard, Companion,
+                               Hankel, Vandermonde, Pascal
+                               matrices, etc.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Arrays and Matrices
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+Matlab              |                Nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Basic Information  : Display array contents, get array information, determine array type
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+disp                |  NT2_DISPLAY, disp(string,value)    |     Display text or array                                             |  NT2_DISPLAY is a macro
+iscolumn            |  iscolumn                           |     Determine whether input is column vector                          |  core/predicates
+isempty             |  isempty                            |     Determine whether array is empty                                  |  core/predicates
+isequal             |  isequal                            |     Test arrays for equality                                          |  core/predicates
+isequaln            |  isequaln                           |     Test arrays for equality, treating NaN values as equal            |  core/predicates
+isfinite            |  is_finite                          |     Array elements that are finite                                    |  core/predicates
+isfloat             |  is_floating_point<>                |     Determine if input is floating-point array                        |  meta-function
+isinf               |  is_inf                             |     Array elements that are infinite                                  |  core/predicates
+isinteger           |  is_integral<>                      |     Determine if input is integer array                               |  meta-function
+islogical           |  is_logical<>                       |     Determine if input is logical array                               |  meta-function
+ismatrix            |  ismatrix                           |     Determine whether input is matrix                                 |  core/predicates
+isnan               |  is_nan                             |     Array elements that are NaN                                       |  core/predicates
+isnumeric           |                                     |     Determine if input is numeric array                               |  unrelevant
+isrow               |  isrow                              |     Determine whether input is row vector                             |  core/predicates
+isscalar            |  isscalar                           |     Determine whether input is scalar                                 |  core/predicates
+issparse            |                                     |     Determine whether input is sparse                                 |  still not implemented
+isvector            |  isvector                           |     Determine whether input is vector                                 |  core/predicates
+length              |  length                             |     Length of vector or largest array  dimension                      |  core/utility
+max                 |  max, maximum                       |     Largest elements in array                                         |  core/arithmetic(1)
+min                 |  min, minimum                       |     Smallest elements in array                                        |  core/arithmetic(1)
+ndims               |  ndims                              |     Number of array dimensions                                        |  core/utility
+numel               |  numel                              |     Number of elements in array or subscripted array expression       |  core/utility
+size                |  size                               |     Array dimensions                                                  |  core/utility
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+(1) max (and min) conforms to matlab semantics max(a) being maximum elements column-wise but max(a,b) being elementwise max between a(i) and b(i). This implies
+    that max(a,2) is elementwise comparison of a elements to value 2. max(a,_(),2) give row-wise maximum elements in a. In nt2 this can also be done using maximum(a,2).
+
+Matlab              |                Nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Operators :  + - * / \ ^ -F¢ Matrix and array arithmetic-A
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ctranspose          |                                     |     Complex conjugate transpose                                       |  todo
+minus               |  sub                                |     Minus                                                             |  core/operator
+mpower              |  mpower                             |     Matrix power                                                      |  core/algebra
+plus                |  plus                               |     Plus                                                              |  core/operator
+times               |  multiplies                         |     Array multiply                                                    |  core/operator
+transpose           |  trans                              |     Transpose                                                         |  core/restructuring
+uminus              |  uminus                             |     Unary minus                                                       |  core/operator
+uplus               |  uplus                              |     Unary plus                                                        |  core/operator
++                   |  +                                  |     Addition                                                          |  core/operator
++                   |  +                                  |     Unary plus                                                        |  core/operator
+-                   |  -                                  |     Subtraction                                                       |  core/operator
+-                   |  -                                  |     Unary minus                                                       |  core/operator
+*                   |  mtimes                             |     Matrix multiplication                                             |  core/algebra
+^                   |  mpower                             |     Matrix power                                                      |  core/algebra
+\                   |  linsolve                           |     Backslash or left matrix divide                                   |  core/algebra
+/                   |  linsolve                           |     Slash or right matrix divide                                      |  core/algebra
+'                   |  trans(conj())                      |     Conjugated transpose                                              |  core/algebra
+.'                  |  trans                              |     Nonconjugated transpose                                           |  core/algebra
+.*                  |  *                                  |     Array multiplication (element-wise)                               |  core/operator
+.^                  |  pow                                |     Array power (element-wise)                                        |  core/exponential
+.\                  |  ldivide, ldiv                      |     Left array divide (element-wise)                                  |  core/arithmetic
+./                  |  rdivide, rdiv                      |     Right array divide (element-wise)                                 |  core/arithmetic
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+Matlab              |                Nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Elementary Matrices and Arrays
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+blkdiag             | blkdiag                             |  Construct block diagonal matrix from input arguments                 |  core/restructuring
+colon (:)           | colon (_)                           |  Create vectors, array subscripting,                                  |  core/generative(1)
+diag                | from_diag, diag_of                  |  Diagonal matrices and diagonals of matrix                            |  core/restructuring
+eye                 | eye                                 |  Identity matrixes                                                    |  core/generative
+freqspace           | freqspace                           |  Frequency spacing for frequency response                             |  core/generative
+ind2sub             | ind2sub                             |  Subscripts from linear index                                         |  core/utility
+linspace            | linspace                            |  Generate linearly spaced vectors                                     |  core/generative
+logspace            | logspace, pispace                   |  Generate logarithmically spaced vectors                              |  core/generative
+ndgrid              | ndgrid TODO                         |  Rectangular grid in N-D space                                        |
+ones                | ones                                |  Create array of all ones                                             |  core/generative
+rand                | rand                                |  Uniformly distributed pseudorandom numbers                           |  core/random
+randi               | randi TODO                          |  Uniformly distributed pseudorandom integers                          |
+randn               | randn                               |  Normally distributed pseudorandom numbers                            |  core/random
+RandStream          | randstream                          |  Random number stream                                                 |  core/random
+rng                 | rng   TODO                          |  Control random number generation                                     |
+sub2ind             | sub2ind                             |  Convert subscripts to linear indices                                 |  core/utility
+zeros               | zeros                               |  Create array of all zeros                                            |  core/generative
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+(1) colon or _ has a functionnal syntax: _(a,h,b) or colon(a,h,b) is equivalent to Matlab a:h:b
+
+
+
+Matlab              |                Nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Array Operations : see also Linear Algebra and Elementary Math for other array operations.
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+accumarray          | accumarray TODO                     |  Construct array with accumulation                                    |
+arrayfun            |                                     |  Apply function to each element of array                              |  not relevant
+bsxfun              | bsxfun,sx,tsxfun,expand_to          |  Apply elt-wise operation to two arrays with singleton expansion      |  core/utility
+cast                | cast                                |  Cast variable to different data type                                 |  core/operator
+cross               | cross  TODO                         |  Vector cross product                                                 |
+cumprod             | cumprod                             |  Cumulative product                                                   |  core/swar
+cumsum              | cumsum                              |  Cumulative sum                                                       |  core/swar
+dot                 | dot                                 |  Vector dot product                                                   |  core/reduction
+idivide             | idivide                             |  Integer division with rounding option                                |  core/arithmetic
+kron                | kron     TODO                       |  Kronecker tensor product                                             |
+prod                | prod, globalprod                    |  Product of array elements                                            |  core/reduction
+sum                 | sum, globalsum                      |  Sum of array elements                                                |  core/reduction
+surfnorm            | surfnorm TODO                       |  Compute 3-D surface normals                                          |
+tril                | tril,tri1l                          |  Lower triangular part of matrix                                      |  core/extractive
+triu                | triu,tri1u                          |  Upper triangular part of matrix                                      |  core/extractive
+
+
+Matlab              |                Nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Array Manipulation
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+cat                 | cat,horzcat,vertcat                 | Concatenate arrays along specified dimension                          |  core/restructuring
+circshift           | circshift     TODO                  | Shift array circularly                                                |
+end                 | end_                                | Indicate last array index                                             |  core/container/extremum(1)
+flipdim             | flipdim                             | Flip array along specified dimension                                  |  core/restructuring
+fliplr              | fliplr                              | Flip matrix left to right                                             |  core/restructuring
+flipud              | flipud                              | Flip matrix up to down                                                |  core/restructuring
+horzcat             | horzcat                             | Concatenate arrays horizontally                                       |  core/restructuring
+inline              |                                     | Construct inline object                                               |  not relevant
+ipermute            | ipermute TODO                       | Inverse permute dimensions of N-D array                               |
+permute             | permute  TODO                       | Rearrange dimensions of N-D array                                     |
+repmat              | repmat                              | Replicate and tile array                                              |  core/generative
+reshape             | reshape                             | Reshape array                                                         |  core/restructuring
+rot90               | rot90                               | Rotate matrix 90 degrees                                              |  core/linalg
+shiftdim            | shiftdim TODO                       | Shift dimensions                                                      |
+sort                | sort                                | Sort array elements in ascending or descending order                  |  core/swar
+sortrows            | sortrows TODO                       | Sort rows in ascending order                                          |
+squeeze             | squeeze                             | Remove singleton dimensions                                           |  core/restructuring
+vectorize           |                                     | Vectorize expression                                                  |  not relevant
+vertcat             | vertcat                             | Concatenate arrays vertically                                         |  core/restructuring
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+(1) nt2 has also begin_ as initial index is defaulted to but not bound to 1 as in Matlab
+
+Matlab              |                Nt2                  |                   Description                                         |      note
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Specialized Matrices
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+compan              | compan                              | Companion matrix                                                      |  core/polynom
+gallery             | TODO (some are done)                | Test matrices                                                         |
+hadamard            | TODO                                | Hadamard matrix                                                       |
+hankel              | TODO                                | Hankel matrix                                                         |
+hilb                | hilb                                | Hilbert matrix                                                        |  core/linalg/gallery
+invhilb             | invhilb                             | Inverse of Hilbert matrix                                             |  core/linalg/gallery
+magic               | magic                               | Magic square                                                          |  core/linalg/gallery
+pascal              | pascal                              | Pascal matrix                                                         |  core/linalg/gallery
+rosser              | rosser                              | Classic symmetric eigenvalue test problem                             |  core/linalg/gallery
+toeplitz            | toeplitz                            | Toeplitz matrix                                                       |  core/linalg/gallery
+vander              | vander, vandermonde                 | Vandermonde matrix                                                    |  core/linalg/gallery
+wilkinson           | wilkinson                           | Wilkinson's eigenvalue test matrix                                    |  core/linalg/gallery
+
+============================================================================================================================================================
+TODO list for Arrays and Matrices
+============================================================================================================================================================
+ndgrid              | ndgrid TODO                         |  Rectangular grid in N-D space                                        |
+randi               | randi TODO                          |  Uniformly distributed pseudorandom integers                          |
+rng                 | rng   TODO                          |  Control random number generation                                     |
+accumarray          | accumarray TODO                     |  Construct array with accumulation                                    |
+cross               | cross  TODO                         |  Vector cross product                                                 |
+kron                | kron     TODO                       |  Kronecker tensor product                                             |
+surfnorm            | surfnorm TODO                       |  Compute 3-D surface normals                                          |
+circshift           | circshift     TODO                  | Shift array circularly                                                |
+ipermute            | ipermute TODO                       | Inverse permute dimensions of N-D array                               |
+permute             | permute  TODO                       | Rearrange dimensions of N-D array                                     |
+shiftdim            | shiftdim TODO                       | Shift dimensions                                                      |
+sortrows            | sortrows TODO                       | Sort rows in ascending order                                          |
+gallery             | TODO (some are done)                | Test matrices                                                         |
+hadamard            | TODO                                | Hadamard matrix                                                       |
+hankel              | TODO                                | Hankel matrix                                                         |
+============================================================================================================================================================
+============================================================================================================================================================
