@@ -43,6 +43,23 @@ namespace boost { namespace simd { namespace ext
     }
   };
 
+  // TODO: rationalize
+  // needed for fusion::vector2<float&, int&> = fusion::vector2<float, int>
+  BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::assign_, tag::cpu_
+                                    , (A0)(A1)
+                                    , (unspecified_<A0>)
+                                      (unspecified_<A1>)
+                                    )
+  {
+    typedef A0& result_type;
+
+    BOOST_DISPATCH_FORCE_INLINE
+    result_type operator()(A0& a0, const A0& a1) const
+    {
+      return a0 = a1;
+    }
+  };
+
   BOOST_SIMD_FUNCTOR_IMPLEMENTATION ( boost::simd::tag::assign_, tag::cpu_
                                     , (A0)(A1)
                                     , (proxy_<A0>)

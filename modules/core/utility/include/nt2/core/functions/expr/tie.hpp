@@ -32,6 +32,23 @@ namespace nt2 { namespace ext
     }
   };
 
+  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
+                            , (A0)(N0)(State)(Data)
+                            , ((node_<A0, nt2::tag::tie_, N0, nt2::container::domain>))
+                              (generic_< integer_<State> >)
+                              (fusion_sequence_<Data>)
+                            )
+  {
+    typedef A0& result_type;
+
+    BOOST_FORCEINLINE result_type operator()(A0& a0, State const& state, Data const& data) const
+    {
+      nt2::run(boost::proto::child_c<0>(a0), state, boost::fusion::at_c<0>(data));
+      nt2::run(boost::proto::child_c<1>(a0), state, boost::fusion::at_c<1>(data));
+      return a0;
+    }
+  };
+
   //============================================================================
   // Call function for tie(...) = tieable_func(...)
   //============================================================================

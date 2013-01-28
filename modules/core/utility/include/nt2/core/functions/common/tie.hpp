@@ -13,8 +13,30 @@
 #include <boost/mpl/assert.hpp>
 #include <nt2/include/functions/assign.hpp>
 
+#include <boost/fusion/include/vector.hpp>
+
+namespace boost { namespace dispatch { namespace meta
+{
+  template<class A0, class A1>
+  struct value_of< boost::fusion::vector2<A0, A1> >
+  {
+    typedef boost::fusion::vector2< typename value_of<A0>::type, typename value_of<A1>::type > type;
+  };
+} } }
+
 namespace nt2 { namespace ext
 {
+  template<class Domain, int N, class Expr>
+  struct resize<tag::tie_, Domain, N, Expr>
+  {
+    template<class Sz>
+    BOOST_FORCEINLINE void operator()(Expr& x, Sz const& sz)
+    {
+      boost::proto::child_c<0>(x).resize(sz);
+      boost::proto::child_c<1>(x).resize(sz);
+    }
+  };
+
   // semantic of assigning a value to a fusion sequence is assumed to always
   // be valid if assigning the first element is
   // TODO: make nodes specify their semantic per output arity?
@@ -29,6 +51,7 @@ namespace nt2 { namespace ext
     typedef typename meta::call<tag::assign_(first_scalar, A1 const&)>::type result_type;
   };
 
+#if 0
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_assign_, tag::cpu_
                             , (A0)(N0)(A1)
                             , ((node_<A0, nt2::tag::tie_, N0, nt2::container::domain>))
@@ -52,6 +75,7 @@ namespace nt2 { namespace ext
       return a0;
     }
   };
+#endif
 } }
 
 #endif

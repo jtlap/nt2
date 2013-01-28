@@ -68,10 +68,12 @@ namespace nt2 { namespace ext
   template<class Domain, int N, class Expr>
   struct  size_of<nt2::tag::tie_,Domain,N,Expr>
   {
-    typedef of_size_<1> result_type;
-    BOOST_FORCEINLINE result_type operator()(Expr&) const
+    typedef typename boost::proto::result_of::child_c<Expr&, 0>::value_type child0;
+    typedef typename child0::extent_type const& result_type;
+
+    BOOST_FORCEINLINE result_type operator()(Expr& expr) const
     {
-      return result_type();
+      return boost::proto::child_c<0>(expr).extent();
     }
   };
 } }
