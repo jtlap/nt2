@@ -24,6 +24,7 @@ set( SOURCES
   average.cpp
   min.cpp
   max.cpp
+  proj.cpp
   rec.cpp
    )
 
