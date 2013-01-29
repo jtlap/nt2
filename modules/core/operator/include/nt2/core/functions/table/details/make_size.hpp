@@ -15,6 +15,7 @@
 #include <nt2/include/functions/relative_size.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/sdk/meta/safe_at.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
 #include <boost/fusion/include/at_c.hpp>
@@ -105,17 +106,16 @@ namespace nt2 { namespace details
   template<class Seq>
   struct is_definitely_not_vector
   {
-    static const std::ptrdiff_t v1 = boost::mpl::at_c<typename Seq::values_type, 1>::type::value;
-    static const bool value = v1 != 1 && v1 != -1;
+    static const std::size_t n = Seq::static_size;
+    static const bool value = n > 1 && meta::mpl_safe_at_c<typename Seq::values_type, 1, boost::mpl::long_<1> >::type::value != -1;
     typedef boost::mpl::bool_<value> type;
   };
 
   template<class Seq>
   struct is_definitely_vector
   {
-    static const std::ptrdiff_t v0 = boost::mpl::at_c<typename Seq::values_type, 0>::type::value;
     static const std::size_t n = Seq::static_size;
-    static const bool value = n == 1u || (n == 2u && v0 == 1);
+    static const bool value = n <= 1u || (n == 2u && meta::mpl_safe_at_c<typename Seq::values_type, 0, boost::mpl::long_<1> >::type::value == 1);
     typedef boost::mpl::bool_<value> type;
   };
 
