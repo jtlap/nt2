@@ -18,6 +18,9 @@ struct node2 {};
 template<class T, class N0, class N1, class N2>
 struct node3 {};
 
+template<class T, class N0, class N1, class N2, class N3>
+struct node4 {};
+
 template<class Tag, class Expr, int N>
 struct as_node_impl;
 
@@ -57,6 +60,16 @@ struct as_node_impl<Tag, Expr, 3>
   typedef node3<Tag, typename as_node< typename boost::proto::result_of::child_c<Expr, 0>::type >::type
                    , typename as_node< typename boost::proto::result_of::child_c<Expr, 1>::type >::type
                    , typename as_node< typename boost::proto::result_of::child_c<Expr, 2>::type >::type
+               > type;
+};
+
+template<class Tag, class Expr>
+struct as_node_impl<Tag, Expr, 4>
+{
+  typedef node4<Tag, typename as_node< typename boost::proto::result_of::child_c<Expr, 0>::type >::type
+                   , typename as_node< typename boost::proto::result_of::child_c<Expr, 1>::type >::type
+                   , typename as_node< typename boost::proto::result_of::child_c<Expr, 2>::type >::type
+                   , typename as_node< typename boost::proto::result_of::child_c<Expr, 3>::type >::type
                > type;
 };
 
