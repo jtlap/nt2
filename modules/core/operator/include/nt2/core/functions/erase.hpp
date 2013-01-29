@@ -64,13 +64,13 @@ namespace nt2
   template<class A, class Idx>
   void erase(A& a, Idx const& idx)
   {
-    erase_impl<Idx::proto_arity_c>(a, nt2::function_index(idx, a.extent(), meta::as_<typename A::indexes_type>()));
+    nt2::erase_impl<Idx::proto_arity_c>(a, nt2::function_index(idx, a.extent(), meta::as_<typename A::indexes_type>()));
   }
 
   template<class A, class Idx>
   void erase(A& a, Idx const& idx, std::size_t dim)
   {
-    erase_impl<NT2_MAX_DIMENSIONS>(a, nt2::along_index(idx, dim, a.extent()));
+    nt2::erase_impl<NT2_MAX_DIMENSIONS>(a, nt2::along_index(idx, dim, a.extent()));
   }
 }
 
