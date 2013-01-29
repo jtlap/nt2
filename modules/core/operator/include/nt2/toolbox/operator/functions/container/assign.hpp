@@ -56,7 +56,7 @@ namespace nt2 { namespace ext
     template<class A0, class A1, class Dummy>
     struct select
     {
-      typedef typename boost::mpl::if_c< A0::static_status,A0,A1>::type type;
+      typedef typename boost::mpl::if_c< A0::static_status, A0, A1 >::type type;
 
       BOOST_FORCEINLINE type operator()(A0 const& a0, A1 const& a1) const
       {
@@ -85,10 +85,8 @@ namespace nt2 { namespace ext
     typedef typename child0::extent_type            size0_t;
     typedef typename child1::extent_type            size1_t;
 
-    typedef select< typename meta::strip<size0_t>::type
-                  , typename meta::strip<size1_t>::type
-                  >                                       impl;
-    typedef typename impl::type                           result_type;
+    typedef select<size0_t, size1_t>                impl;
+    typedef typename impl::type                     result_type;
 
     BOOST_FORCEINLINE result_type operator()(Expr& e) const
     {
