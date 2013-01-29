@@ -10,15 +10,13 @@
 #define NT2_CORE_FUNCTIONS_COMMON_ISINTEGER_HPP_INCLUDED
 
 #include <nt2/core/functions/isinteger.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/extent.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
 
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::isinteger_, tag::cpu_
                             , (A0)
-                            , (unspecified_<A0>)
+                            , ((ast_<A0, nt2::container::domain>))
                             )
   {
     typedef bool result_type;

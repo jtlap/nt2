@@ -12,7 +12,7 @@
 #include <nt2/core/functions/ismatrix.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
+#include <boost/fusion/include/at.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -30,7 +30,7 @@ namespace nt2 { namespace ext
       std::size_t nz = nt2::numel(ex);
       // 4x0x1x1 is matrix but I do not know if 4x0x4x1 is ?!
       return (nz == 0) ||((nz > 0)
-                          &&  (meta::safe_at_c<0>(ex)*meta::safe_at_c<1>(ex) == nz));
+                          &&  (boost::fusion::at_c<0>(ex)*boost::fusion::at_c<1>(ex) == nz));
     }
   };
 } }

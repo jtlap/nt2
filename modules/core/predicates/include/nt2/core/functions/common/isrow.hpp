@@ -12,7 +12,7 @@
 #include <nt2/core/functions/isrow.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/extent.hpp>
-#include <nt2/sdk/meta/safe_at.hpp>
+#include <boost/fusion/include/at.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -30,10 +30,10 @@ namespace nt2 { namespace ext
       extent_t ex = nt2::extent(a0);
       std::size_t nz = nt2::numel(ex);
       if (nz)
-        return meta::safe_at_c<1>(ex) == nz;
+        return boost::fusion::at_c<1>(ex) == nz;
       else
         {
-          if (meta::safe_at_c<0>(ex) !=  1) return false;
+          if (boost::fusion::at_c<0>(ex) !=  1) return false;
           for(size_t i=2; i < ex.size(); ++i)
             {
               if (ex[i] !=  1u) return false;

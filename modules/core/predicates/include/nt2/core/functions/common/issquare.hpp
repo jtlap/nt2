@@ -11,6 +11,8 @@
 
 #include <nt2/core/functions/issquare.hpp>
 #include <nt2/include/functions/ismatrix.hpp>
+#include <nt2/include/functions/extent.hpp>
+#include <boost/fusion/include/at.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -27,7 +29,7 @@ namespace nt2 { namespace ext
       //std::size_t nz = nt2::numel(ex);
 
       return  ismatrix(a0)
-          &&  (meta::safe_at_c<0>(ex) == meta::safe_at_c<1>(ex));
+          &&  (boost::fusion::at_c<0>(ex) == boost::fusion::at_c<1>(ex));
     }
   };
 } }
