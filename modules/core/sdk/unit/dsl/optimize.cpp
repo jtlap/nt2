@@ -28,12 +28,16 @@ NT2_TEST_CASE( function )
 
   NT2_TEST_EXPR_TYPE( nt2::optimize( a0(a1) )
                     , as_node<_>
-                    , ( node3 < boost::proto::tag::function
+                    , ( node2 < boost::proto::tag::function
                               , boost::proto::tag::terminal
-                              , node1 < nt2::tag::aggregate_
-                                      , boost::proto::tag::terminal
-                                      >
-                              , boost::simd::tag::box_
+                              , node4< nt2::tag::function_index_
+                                     , node1 < nt2::tag::aggregate_
+                                             , boost::proto::tag::terminal
+                                             >
+                                     , boost::simd::tag::box_
+                                     , boost::simd::tag::box_
+                                     , boost::simd::tag::box_
+                                     >
                               >
                       )
                     )
