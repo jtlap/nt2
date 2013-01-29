@@ -16,6 +16,7 @@ SET( SOURCES
   circul.cpp
   clement.cpp
   compar.cpp
+  dorr.cpp
   hadamard.cpp
   hankel.cpp
   hilb.cpp
