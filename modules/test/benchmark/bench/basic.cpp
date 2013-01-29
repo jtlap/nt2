@@ -26,7 +26,7 @@ template<typename T> NT2_EXPERIMENT(cosinus)
 
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return r.first/size;
+    return r.first/double(size);
   }
 
   virtual void reset() const
@@ -52,7 +52,7 @@ NT2_EXPERIMENT(empty)
   virtual void run() const {}
   virtual double compute(nt2::benchmark_result_t const& r) const
   {
-    return r.first / size;
+    return r.first / double(size);
   }
 
   private:

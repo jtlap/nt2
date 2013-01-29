@@ -14,6 +14,7 @@
 #include <nt2/sdk/bench/perform_benchmark.hpp>
 #include <nt2/sdk/timing/now.hpp>
 #include <vector>
+#include <cstdio>
 
 namespace nt2
 {
@@ -31,9 +32,9 @@ namespace nt2
       time_quantum_t const total_duration( to_timequantums( d * 1000000 ) );
       time_quantum_t       duration      (0);
 
+      test.reset();
       while ( duration < total_duration )
       {
-        test.reset();
         /// \todo Consider flushing the CPU cache(s) here (the pipeline
         /// presumably gets flushed this loop's code).
         ///                                   (05.11.2012.) (Domagoj Saric)
@@ -51,6 +52,8 @@ namespace nt2
 
         individual_measurement_cycles       .push_back( burned_cycles );
         individual_measurement_time_quantums.push_back( elapsed_time  );
+
+       // test.reset();
       }
 
       return intermediate_result_t( median(individual_measurement_cycles)
@@ -73,4 +76,3 @@ namespace nt2
             );
   }
 }
-

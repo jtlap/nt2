@@ -29,14 +29,14 @@ namespace nt2
       NT2_TEST_BENCHMARK_DECL base_experiment();
 
       NT2_TEST_BENCHMARK_DECL
-      base_experiment ( std::size_t sz, double dur
+      base_experiment ( double dur
+                      , const std::string& i
                       , const std::string& n
                       , const std::string& u
                       , test_suite const* x
                       );
 
-      NT2_TEST_BENCHMARK_DECL
-      void preprocess(std::size_t sz) const;
+      NT2_TEST_BENCHMARK_DECL void process() const;
 
       virtual BOOST_DISPATCH_NOTHROW
       void    run() const = 0;
@@ -47,14 +47,12 @@ namespace nt2
       virtual BOOST_DISPATCH_NOTHROW
       void    reset() const {}
 
-      NT2_TEST_BENCHMARK_DECL void process() const;
-
       using unit_test::advance;
 
       protected:
       std::size_t size;
       double      duration;
-      std::string name, unit;
+      std::string name, unit, info;
     };
   }
 }

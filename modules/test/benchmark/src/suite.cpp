@@ -25,7 +25,7 @@ namespace nt2 { namespace details
   {
     std::cout << std::setiosflags(std::ios::fixed)
               << std::setw(40) << std::left   << "[Benchmark]"
-              << std::setw(10) << std::right  << "[Size]"
+              << std::setw(10) << std::left   << "[Info]"
               << std::setw(20) << std::right  << "[Result]"
               << std::endl;
 

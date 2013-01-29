@@ -22,28 +22,21 @@ namespace nt2 { namespace details
   base_experiment::base_experiment() : unit_test(0,0,0) {}
 
   NT2_TEST_BENCHMARK_DECL
-  base_experiment::base_experiment( std::size_t sz
-                                  , double d
+  base_experiment::base_experiment( double d
+                                  , const std::string& i
                                   , const std::string& n
                                   , const std::string& u
                                   , test_suite const* x
                                   )
-                  : unit_test(x,0,0), size(sz), duration(d), name(n), unit(u)
+                  : unit_test(x,0,0), duration(d), name(n), unit(u), info(i)
   {}
-
-  /// Benchmark process
-  NT2_TEST_BENCHMARK_DECL
-  void base_experiment::preprocess(std::size_t sz) const
-  {
-    std::cout << std::setiosflags(std::ios::fixed)
-              << std::setw(40) << std::left   << name
-              << std::setw(10) << std::right  << sz;
-  }
-
   /// Benchmark process
   NT2_TEST_BENCHMARK_DECL void base_experiment::process() const
   {
-    preprocess(size);
+    std::cout << std::setiosflags(std::ios::fixed)
+              << std::setw(40) << std::left   << name
+              << std::setw(10) << std::left  << info
+              << std::flush;
 
     benchmark_result_t r = perform_benchmark(*this,duration);
 
