@@ -3,13 +3,14 @@ and use simd acceleration in these cases.
 All C99 complex functions are implemented except cproj
 
 The main differences are that
-0) C++ overload allows to give a unique name for all the different input types
-1) the long double are not supported
-2) when returning integer values the integers are of same memory size as the input floats
+1) C++ overload allows to give a unique name for all the different input types
+2) the long double are not supported
+3) when returning integer values the integers are of same memory size as the input floats
    so we do not have all the round variants.
 
 
-2 functions are lacking for now cproj and nexttoward, but they will be.
+nexttoward is not implemented as its second parameter is always of type long double
+and its behaviour similar to nextafter.
 
 
 libc                   |          nt2                           |      note
@@ -42,7 +43,7 @@ copysignf, copysign    |          copysign                      |
 cosf, cos              |          cos                           |
 coshf, cosh            |          cosh                          |
 cpowf, cpow            |          pow                           |
-cprojf, cproj          |                   proj TODO            |
+cprojf, cproj          |          proj                          |
 crealf,creal           |          real                          |
 csinf, csin            |          sin                           |
 csinhf, csinh          |          sinh                          |
@@ -69,6 +70,7 @@ ilogbf, ilogb          |          ilogb                         |
 j0f, j0                |          j0                            |
 j1f, j1                |          j1                            |
 jnf, jn                |          jn                            |
+ldexpf, ldexp          |          ldexp                         |
 lgammaf, lgamma        |          gammaln                       |
 lrintf, lrint          |          iround                        |
 logf, log              |          log                           |
@@ -80,7 +82,6 @@ lroundf, lround        |          iround                        |
 modff, modf,           |          modf                          |
 nearbyintf, nearbyint  |          round                         |
 nextafterf, nextafter  |          nextafter                     |
-nexttowardf, nexttoward|                      nexttoward TODO   |
 powf, pow              |          pow                           |
 remainderf, remainder  |          remainder                     |
 remquof, remquo        |          remquo                        |
