@@ -42,7 +42,7 @@ namespace nt2 { namespace ext
 
   template<class T>
   struct is_vectorizable_scalar
-       : boost::mpl::bool_< T::extent_type::static_size == 0u && !boost::is_same<typename T::proto_tag, nt2::tag::relative_colon_>::value>
+       : boost::mpl::bool_< T::extent_type::static_size == 0u >
   {
   };
 
@@ -74,7 +74,7 @@ namespace nt2 { namespace ext
 
   // scalar
   template<class Id>
-  struct is_vectorizable_indexer_impl< Id, boost::mpl::size_t<1u>, typename boost::enable_if_c< Id::extent_type::static_size == 0u && !boost::is_same<typename Id::proto_tag, nt2::tag::relative_colon_>::value >::type >
+  struct is_vectorizable_indexer_impl< Id, boost::mpl::size_t<1u>, typename boost::enable_if_c< Id::extent_type::static_size == 0u >::type >
        : boost::mpl::true_
   {
   };
