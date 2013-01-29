@@ -198,16 +198,15 @@ namespace nt2 { namespace ext
       value_t h = nt2::rec(np1);
       size_t m = ifloor(np1*nt2::Half<value_t>());
       value_t term = -theta/nt2::sqr(h);
-      c = nt2::zeros(n, 1, meta::as_<value_t>());
-      d = nt2::zeros(n, 1, meta::as_<value_t>());
-      e = nt2::zeros(n, 1, meta::as_<value_t>());
-      BOOST_AUTO_TPL(p, (nt2::repnum(Half<value_t>(), n, 1)-nt2::colvect(_(value_t(1), value_t(n))*h))/h);
-      c(_(1, m)) = nt2::repnum(term, m, 1);
-      e(_(1, m)) = c(_(1, m)) - p(_(1, m));
-      d(_(1, m)) = -(c(_(1, m)) + e(_(1, m)));
-      e(_(m+1, n)) = nt2::repnum(term,n-m, 1);
-      c(_(m+1, n)) = e(_(m+1, n)) + p(_(m+1, n));
-      d(_(m+1, n)) = -(c(_(m+1, n)) + e(_(m+1, n)));
+      BOOST_AUTO_TPL(p, (Half<value_t>()-nt2::colvect(_(value_t(1), value_t(n))*h))/h);
+      BOOST_AUTO_TPL(i, _(1, m));
+      c(i) = term;
+      e(i) = c(i) - p(i);
+      d(i) = -(c(i) + e(i));
+      BOOST_AUTO_TPL(j, _(m+1, n));
+      e(j) = term;
+      c(j) = e(j) + p(j);
+      d(j) = -(c(j) + e(j));
       c = c(_(2, n));
       e.resize(of_size(n-1, 1));
     }
