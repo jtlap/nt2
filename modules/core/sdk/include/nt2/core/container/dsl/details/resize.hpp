@@ -17,6 +17,11 @@
 #include <boost/mpl/assert.hpp>
 #include <boost/assert.hpp>
 
+// FIXME
+#include <nt2/core/settings/option.hpp>
+#include <nt2/core/settings/forward/sharing.hpp>
+#include <boost/type_traits/is_same.hpp>
+
 namespace nt2 { namespace ext
 {
   //============================================================================
@@ -50,6 +55,14 @@ namespace nt2 { namespace ext
     template<class Sz>
     BOOST_FORCEINLINE void operator()(Expr& x, Sz const& sz, boost::mpl::true_)
     {
+      // FIXME: how to deal with resize on shared tables properly?
+      if(boost::is_same< typename meta::
+                         option< typename Expr::settings_type
+                               , nt2::tag::sharing_
+                               >::type
+                       , nt2::shared_
+                       >::value)
+        return;
       boost::proto::value(x).resize(sz);
     }
 
