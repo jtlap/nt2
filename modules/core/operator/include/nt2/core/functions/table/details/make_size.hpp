@@ -15,6 +15,7 @@
 #include <nt2/include/functions/relative_size.hpp>
 #include <nt2/include/functions/ndims.hpp>
 #include <nt2/include/functions/of_size.hpp>
+#include <nt2/core/functions/colon.hpp>
 #include <nt2/sdk/meta/safe_at.hpp>
 #include <boost/fusion/adapted/mpl.hpp>
 #include <boost/fusion/include/mpl.hpp>
@@ -24,6 +25,7 @@
 #include <boost/mpl/and.hpp>
 #include <boost/mpl/at.hpp>
 #include <boost/mpl/bool.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/preprocessor/repetition/enum.hpp>
 #include <boost/preprocessor/repetition/repeat.hpp>
 #include <boost/preprocessor/repetition/repeat_from_to.hpp>
@@ -157,6 +159,10 @@ namespace nt2 { namespace details
         return nt2::of_size(s);
 
       if(idx0_vector && n == 2u && boost::fusion::at_c<0>(shp) == 1u) // row vector
+        return nt2::of_size(1u, s);
+
+      // cannot use size of relative colon directly
+      if(boost::is_same<typename Children::proto_child0::proto_tag, nt2::tag::relative_colon_>::value)
         return nt2::of_size(1u, s);
 
       return boost::proto::child_c<0>(children).extent();
