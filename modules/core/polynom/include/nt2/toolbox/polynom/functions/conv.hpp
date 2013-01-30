@@ -40,7 +40,7 @@ namespace nt2 {  namespace tag
    *             numel(c) is max(numel(a)-max(0,numel(b)-1),0).
    **/
   NT2_FUNCTION_IMPLEMENTATION(tag::conv_, conv, 2)
-  NT2_FUNCTION_IMPLEMENTATION(tag::conv_, conv, 3)
+//   NT2_FUNCTION_IMPLEMENTATION(tag::conv_, conv, 3)
 
 }
 
