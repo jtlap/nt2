@@ -14,10 +14,13 @@
 #include <nt2/sdk/memory/local_ptr.hpp>
 #include <nt2/sdk/memory/construct.hpp>
 #include <nt2/sdk/memory/adapted/buffer.hpp>
+#include <nt2/sdk/memory/fixed_allocator.hpp>
+#include <boost/type_traits/is_same.hpp>
 #include <boost/detail/iterator.hpp>
 #include <boost/assert.hpp>
 #include <boost/swap.hpp>
 #include <cstddef>
+
 
 namespace nt2 { namespace memory
 {
@@ -81,7 +84,8 @@ namespace nt2 { namespace memory
                                 , deleter(n,get_allocator())
                                 );
 
-      nt2::memory::default_construct(that.get(),that.get() + n,get_allocator());
+      if(!boost::is_same< Allocator, fixed_allocator<T> >::value)
+        nt2::memory::default_construct(that.get(),that.get() + n,get_allocator());
 
       begin_ = that.release();
       end_ = capacity_ = begin_ + n;
@@ -139,7 +143,8 @@ namespace nt2 { namespace memory
     {
       if(is_initialized() && begin_)
       {
-        nt2::memory::destruct(begin_,end_,get_allocator());
+        if(!boost::is_same< Allocator, fixed_allocator<T> >::value)
+          nt2::memory::destruct(begin_,end_,get_allocator());
         allocator_type::deallocate(begin_,capacity());
       }
     }
@@ -166,10 +171,13 @@ namespace nt2 { namespace memory
         return;
       }
 
-      if(sz < size())
-        nt2::memory::destruct(begin_ + sz, end_, get_allocator());
-      else
-        nt2::memory::default_construct(end_, begin_ + sz, get_allocator());
+      if(!boost::is_same< Allocator, fixed_allocator<T> >::value)
+      {
+        if(sz < size())
+          nt2::memory::destruct(begin_ + sz, end_, get_allocator());
+        else
+          nt2::memory::default_construct(end_, begin_ + sz, get_allocator());
+      }
 
       end_ = begin_ + sz;
     }
