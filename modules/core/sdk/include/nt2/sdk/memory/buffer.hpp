@@ -21,7 +21,6 @@
 #include <boost/swap.hpp>
 #include <cstddef>
 
-
 namespace nt2 { namespace memory
 {
   //============================================================================
