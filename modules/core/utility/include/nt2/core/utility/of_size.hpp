@@ -164,8 +164,8 @@ namespace nt2
     //==========================================================================
     of_size_()
     {
-      data_[0] = (D0 < 0 ) ? 0 : D0;
-      default_(boost::mpl::size_t<static_size-1>());
+      data_[0] = (D0 < 0) ? 0u : D0;
+      default_(boost::mpl::size_t<static_size-1>(), boost::mpl::size_t<((D0 < 0) ? 1u : 0u)>());
     }
 
     //==========================================================================
@@ -325,15 +325,16 @@ namespace nt2
     template<class T, class N>
     inline void fill(T, N const&, boost::mpl::false_ const&) {}
 
-    template<std::size_t N>
-    inline void default_(boost::mpl::size_t<N> const&)
+    template<std::size_t N, std::size_t D>
+    inline void default_(boost::mpl::size_t<N> const&, boost::mpl::size_t<D> const&)
     {
       typedef typename boost::mpl::at_c<values_type,N>::type value;
-      data_[N] = (value::value < 0) ? 1U : value::value;
-      default_(boost::mpl::size_t<N-1>());
+      data_[N] = (value::value < 0) ? D : value::value;
+      default_(boost::mpl::size_t<N-1u>(), boost::mpl::size_t<((value::value < 0) ? 1u : D)>());
     }
 
-    inline void default_(boost::mpl::size_t<0> const&) {}
+    template<std::size_t D>
+    inline void default_(boost::mpl::size_t<0> const&, boost::mpl::size_t<D> const&) {}
   };
 
   //============================================================================
