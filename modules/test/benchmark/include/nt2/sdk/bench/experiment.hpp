@@ -28,8 +28,8 @@ class Type : public nt2::details::base_experiment \
 /*!
  @brief Definition of an Experiment Constructor
 **/
-#define NT2_EXPRIMENT_CTOR(Info, Duration, Unit)                \
-nt2::details::base_experiment ( (Duration), (Info)              \
+#define NT2_EXPRIMENT_CTOR(Duration, Unit)                      \
+nt2::details::base_experiment ( (Duration)                      \
                               , ::nt2::type_id(*this)           \
                               , Unit                            \
                               , &nt2::details::main_bench_suite \

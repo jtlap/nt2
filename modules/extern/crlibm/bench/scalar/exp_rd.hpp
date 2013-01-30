@@ -7,7 +7,7 @@
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/crlibm/include/functions/sin_rz.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
 #include <cmath>
 
 

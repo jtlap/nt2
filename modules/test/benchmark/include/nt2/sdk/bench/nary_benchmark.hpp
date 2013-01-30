@@ -14,6 +14,7 @@
 #define NT2_SDK_BENCH_NARY_BENCHMARK_HPP_INCLUDED
 
 #include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/meta/type_id.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
 #include <boost/simd/sdk/memory/allocator.hpp>
 #include <boost/simd/include/functions/load.hpp>
@@ -55,7 +56,7 @@ typedef boost::simd::memory                                           \
 , BOOST_PP_CAT(type,n) BOOST_PP_CAT(mx,n) \
 
 #define M3(z,n,t)                           \
-  BOOST_PP_CAT(rmin,n)(BOOST_PP_CAT(mx,n))  \
+  BOOST_PP_CAT(rmin,n)(BOOST_PP_CAT(mn,n))  \
 , BOOST_PP_CAT(rmax,n)(BOOST_PP_CAT(mx,n))  \
 /**/
 
@@ -77,6 +78,12 @@ BOOST_PP_CAT(in,n).resize(size);                                          \
 nt2::roll(BOOST_PP_CAT(in,n),BOOST_PP_CAT(rmin,n), BOOST_PP_CAT(rmax,n)); \
 /**/
 
+#define M8(z,n,t)                           \
+os << "("; print(BOOST_PP_CAT(rmin,n),os);  \
+os << ","; print(BOOST_PP_CAT(rmax,n),os);  \
+os << ") ";                                 \
+/**/
+
 namespace nt2 { namespace unit
 {
   template< typename Function
@@ -90,29 +97,29 @@ namespace nt2 { namespace unit
     BOOST_PP_REPEAT(N, M1, ~)
 
     typedef typename boost::dispatch::meta
-            ::result_of<Function(BOOST_PP_ENUM_PARAMS(N,T))>::type      vout_t;
+            ::result_of<Function(BOOST_PP_ENUM_PARAMS(N,T))>::type      v_t;
 
     typedef typename boost::dispatch::meta
             ::result_of<Function(BOOST_PP_ENUM_PARAMS(N,type))>::type   out_t;
 
-    nary_benchmark( BOOST_PP_ENUM(N,M2,~)
-                  , std::string const& info
-                  , std::string const& name
-                  )
-              : details::base_experiment( 3., info, name
-                                        ,"cycles/elements"
-                                        , &nt2::details::main_bench_suite
-                                        )
-              , size(256)
-              , BOOST_PP_ENUM(N,M3,~)
-              {}
+    typedef typename Function::tag_type     tag_type;
+    typedef typename Function::context_type context_type;
+
+    nary_benchmark( BOOST_PP_ENUM(N,M2,~) )
+        : details::base_experiment
+          ( 3. , type_id<tag_type(BOOST_PP_ENUM_PARAMS(N,T),context_type)>()
+          ,"cycles/value", &nt2::details::main_bench_suite
+          )
+        , size(1024), BOOST_PP_ENUM(N,M3,~)
+    {
+      out.resize(size);
+      BOOST_PP_REPEAT(N, M7, ~)
+    }
 
     virtual void run() const
     {
-      for ( std::size_t i=0
-          ; i < size
-          ; i += boost::simd::meta::cardinal_of<vout_t>::value
-          )
+      static const std::size_t s = boost::simd::meta::cardinal_of<v_t>::value;
+      for ( std::size_t i=0; i < size; i += s)
       {
         boost::simd::store( func(BOOST_PP_ENUM(N,M4,~))
                           , &out[0], i
@@ -120,18 +127,19 @@ namespace nt2 { namespace unit
       }
     }
 
+    virtual void info(std::ostream& os) const { BOOST_PP_REPEAT(N, M8, ~) }
+
     virtual double compute(nt2::benchmark_result_t const& r) const
     {
       return r.first/double(size);
     }
 
-    virtual void reset() const
+    private:
+    template<class X> void print(X const& x, std::ostream& os) const
     {
-      out.resize(size);
-      BOOST_PP_REPEAT(N, M7, ~)
+      os << (sizeof(X)==1 ? int(x) : x);
     }
 
-    private:
     std::size_t                                                         size;
     Function                                                            func;
     mutable std::vector<out_t, boost::simd::memory::allocator<out_t> >  out;
@@ -140,6 +148,7 @@ namespace nt2 { namespace unit
   };
 } }
 
+#undef M8
 #undef M7
 #undef M6
 #undef M5

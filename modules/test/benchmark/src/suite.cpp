@@ -23,14 +23,12 @@ namespace nt2 { namespace details
   NT2_TEST_BENCHMARK_DECL void benchmark_suite::report() const {}
   NT2_TEST_BENCHMARK_DECL void benchmark_suite::process() const
   {
-    std::cout << std::setiosflags(std::ios::fixed)
-              << std::setw(40) << std::left   << "[Benchmark]"
-              << std::setw(10) << std::left   << "[Info]"
-              << std::setw(20) << std::right  << "[Result]"
+    std::cout << "[Benchmark]\n";
+
+    std::cout <<  "-------------------------------------------"
+                  "-------------------------------------------"
               << std::endl;
 
-    std::cout <<  "--------------------------------------------"
-                  "------------------------------------------\n";
     test_suite::process();
   }
 } }

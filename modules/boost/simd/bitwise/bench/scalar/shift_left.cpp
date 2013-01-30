@@ -8,7 +8,7 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/bitwise/include/functions/shift_left.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
 #include <cmath>
 
 

@@ -8,7 +8,7 @@
  ******************************************************************************/
 #include <nt2/include/functor.hpp>
 #include <nt2/include/functions/logical_not.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
 
 ////////////////////////////////////////////////////////////////////////////////
 // Runtime benchmark for functor<logical_not_>

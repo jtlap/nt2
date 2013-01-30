@@ -12,8 +12,8 @@
 // timing Test behavior of arithmetic components in scalar mode
 //////////////////////////////////////////////////////////////////////////////
 #include <nt2/toolbox/arithmetic/include/functions/rem.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/timing.hpp>
 #include <boost/dispatch/meta/as_integer.hpp>
 #include <cmath>
 

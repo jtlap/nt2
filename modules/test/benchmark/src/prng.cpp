@@ -10,6 +10,10 @@
 //==============================================================================
 #include <nt2/sdk/bench/config.hpp>
 #include <nt2/sdk/bench/details/prng.hpp>
+#include <nt2/sdk/config/type_lists.hpp>
+
+#include <boost/simd/sdk/config/types.hpp>
+#include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/foreach.hpp>
 
 // \note std::rand() does not produce portably reproducible numbers so we
@@ -21,6 +25,7 @@
 //                                           (12.10.2012.) (Domagoj Saric)
 #include <boost/random/linear_congruential.hpp>
 #include <boost/random/uniform_real_distribution.hpp>
+#include <boost/random/uniform_int.hpp>
 #include <boost/range/iterator_range_core.hpp>
 
 namespace nt2
@@ -29,27 +34,41 @@ namespace nt2
   {
     static boost::random::rand48 prng_singleton;
 
-    template <typename T>
-    BOOST_DISPATCH_NOTHROW
-    void prng_fill_impl ( boost::iterator_range<T*> const data
-                        , T const minimum
-                        , T const maximum
-                        )
+    template <typename T, typename D> BOOST_DISPATCH_NOTHROW
+    void prng_fill_step ( boost::iterator_range<T*> const data, D& dist )
     {
-      boost::random::uniform_real_distribution<T> const dist(minimum, maximum);
-
       BOOST_FOREACH( T & scalar, data )
         scalar = dist( prng_singleton );
     }
 
-    template NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW
-    void prng_fill_impl( boost::iterator_range<int*>    , int   , int     );
+    template<typename T>
+    NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW
+    void prng_fill_impl( boost::iterator_range<T*> data , T mn, T mx)
+    {
+      boost::random::uniform_real_distribution<T> dist(mn, mx);
+      prng_fill_step(data,dist);
+    }
+
+    #define M0(r,d,elem)                                              \
+    template<> NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW         \
+    void prng_fill_impl ( boost::iterator_range<elem*> const data     \
+                        , elem mn, elem mx                            \
+                        )                                             \
+    {                                                                 \
+      boost::random::uniform_int_distribution<elem> const g(mn, mx);  \
+      prng_fill_step(data,g);                                         \
+    }                                                                 \
+    /**/
+
+    BOOST_PP_SEQ_FOR_EACH(M0,~,NT2_INTEGRAL_TYPES)
+
+    #undef M0
 
     template NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW
-    void prng_fill_impl( boost::iterator_range<float*>  , float , float   );
+    void prng_fill_impl( boost::iterator_range<float*>, float, float);
 
     template NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW
-    void prng_fill_impl( boost::iterator_range<double*> , double, double  );
+    void prng_fill_impl( boost::iterator_range<double*>, double, double);
   }
 
   NT2_TEST_BENCHMARK_DECL BOOST_DISPATCH_NOTHROW void prng_reset()

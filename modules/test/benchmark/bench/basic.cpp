@@ -15,7 +15,7 @@ template<typename T> NT2_EXPERIMENT(cosinus)
 {
   public:
   cosinus ( std::size_t n, double d )
-            : NT2_EXPRIMENT_CTOR(n,d,"cycles/elements")
+            : NT2_EXPRIMENT_CTOR(d,"cycles/elements")
             , size(n)
   {}
 
@@ -28,6 +28,8 @@ template<typename T> NT2_EXPERIMENT(cosinus)
   {
     return r.first/double(size);
   }
+
+  virtual void info(std::ostream& os) const { os << size; }
 
   virtual void reset() const
   {
@@ -46,7 +48,7 @@ NT2_EXPERIMENT(empty)
 {
   public:
   empty (std::size_t n, double d = 1)
-            : NT2_EXPRIMENT_CTOR(n,d,"cycles/elements"), size(n)
+            : NT2_EXPRIMENT_CTOR(d,"cycles/elements"), size(n)
   {}
 
   virtual void run() const {}

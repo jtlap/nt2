@@ -14,7 +14,6 @@
 #include <nt2/sdk/bench/perform_benchmark.hpp>
 #include <nt2/sdk/timing/now.hpp>
 #include <vector>
-#include <cstdio>
 
 namespace nt2
 {
@@ -53,7 +52,7 @@ namespace nt2
         individual_measurement_cycles       .push_back( burned_cycles );
         individual_measurement_time_quantums.push_back( elapsed_time  );
 
-       // test.reset();
+        test.reset();
       }
 
       return intermediate_result_t( median(individual_measurement_cycles)

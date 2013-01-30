@@ -13,8 +13,8 @@
 //////////////////////////////////////////////////////////////////////////////
 #include <boost/simd/toolbox/arithmetic/include/functions/sqrt1pm1.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/sdk/unit/benchmark.hpp>
-#include <nt2/sdk/unit/bench_includes.hpp>
+#include <nt2/sdk/bench/benchmark.hpp>
+#include <nt2/sdk/bench/timing.hpp>
 #include <cmath>
 typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
