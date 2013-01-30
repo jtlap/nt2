@@ -16,6 +16,7 @@ SET( SOURCES
   circul.cpp
   clement.cpp
   compar.cpp
+  condex.cpp
   dorr.cpp
   hadamard.cpp
   hankel.cpp
@@ -25,6 +26,7 @@ SET( SOURCES
   pascal.cpp
   toeplitz.cpp
   tridiag.cpp
+  triw.cpp
   vandermonde.cpp
   )
 
