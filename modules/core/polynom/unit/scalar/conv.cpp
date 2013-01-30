@@ -34,11 +34,13 @@ NT2_TEST_CASE_TPL ( conv_real__1_0,  NT2_REAL_TYPES)
   using nt2::tag::conv_;
   nt2::table<T> a =  nt2::_(T(1), T(4));
   nt2::table<T> b =  nt2::_(T(1), T(3));
+   NT2_DISPLAY(a);
+   NT2_DISPLAY(b);
   nt2::table<T> c(nt2::of_size(1, 0));
   T aab[] = { 1, 4, 10, 16, 17, 12};
   nt2::table<T> ab(nt2::of_size(1, 6), &aab[0], &aab[6]);
-   NT2_DISPLAY(conv(a, b));
    NT2_DISPLAY(ab);
+   NT2_DISPLAY(conv(a, b));
    NT2_TEST(nt2::isequal(ab,conv(a, b)));
    NT2_DISPLAY(conv(a, c));
    NT2_DISPLAY(conv(c, b));
