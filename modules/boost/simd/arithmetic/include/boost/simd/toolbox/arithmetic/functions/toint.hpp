@@ -65,6 +65,6 @@ namespace boost { namespace simd { namespace tag
   BOOST_DISPATCH_FUNCTION_IMPLEMENTATION(tag::toint_, itrunc, 1)
 } }
 
-#endif
+#include <boost/simd/toolbox/operator/specific/common.hpp>
 
-// modified by jt the 25/12/2010
+#endif
