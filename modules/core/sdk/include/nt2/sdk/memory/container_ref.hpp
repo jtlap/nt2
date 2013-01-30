@@ -188,7 +188,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE bool is_safe(size_type p) const { return base_->is_safe(p); }
 
-    private:
+  private:
     Container*                  base_;
     mutable pointer             ptr;
   };

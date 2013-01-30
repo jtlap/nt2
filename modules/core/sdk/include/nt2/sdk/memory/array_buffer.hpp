@@ -42,10 +42,10 @@ namespace nt2 {  namespace memory
   //============================================================================
   template<class T, class Size> class array_buffer
   {
-    private:
+  private:
     BOOST_SIMD_ALIGNED_TYPE(T) elems[Size::value ? Size::value : 1u];
 
-    public:
+  public:
     struct allocator_type {};
     typedef T                                     value_type;
     typedef T&                                    reference;

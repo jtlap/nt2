@@ -194,7 +194,7 @@ namespace nt2 { namespace memory
 
     boost::shared_ptr<Container> base() const { return base_; }
 
-    private:
+  private:
     boost::shared_ptr<Container>   base_;
     mutable pointer                ptr;
   };

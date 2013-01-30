@@ -31,7 +31,7 @@ namespace nt2 { namespace memory
   template<class T, class Allocator>
   class buffer : private Allocator
   {
-    public:
+  public:
     //==========================================================================
     // Container types
     //==========================================================================
@@ -56,7 +56,7 @@ namespace nt2 { namespace memory
           , begin_(&dummy_), end_(&dummy_), capacity_(&dummy_)
     {}
 
-    private:
+  private:
     //==========================================================================
     // Local helper for constructor dealing with memory
     //==========================================================================
@@ -69,7 +69,7 @@ namespace nt2 { namespace memory
       void operator()(pointer ptr) { alloc_.deallocate(ptr,size_); }
     };
 
-    public:
+  public:
     //==========================================================================
     // Size constructor
     //==========================================================================
@@ -300,7 +300,7 @@ namespace nt2 { namespace memory
       return !p || p < size();
     }
 
-    private:
+  private:
 
     inline bool is_initialized() const { return begin_ != &dummy_; }
 

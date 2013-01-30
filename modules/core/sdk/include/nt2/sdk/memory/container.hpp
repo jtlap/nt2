@@ -40,7 +40,7 @@ namespace nt2 { namespace memory
   //============================================================================
   template<class T, class S> class container
   {
-    public:
+  public:
     //==========================================================================
     // Find out how to normalize this container settings
     //  - if no semantic is given, we infers it behaves as a simple table.
@@ -337,7 +337,7 @@ namespace nt2 { namespace memory
     //==========================================================================
     BOOST_FORCEINLINE bool is_safe(size_type p) const { return data_.is_safe(p); }
 
-    protected:
+  protected:
     //==========================================================================
     // Initialization of inner data_ and sizes_
     // Note that the number of non-zero (nnz) is delegated to the storage scheme
@@ -383,7 +383,7 @@ namespace nt2 { namespace memory
                       );
     }
 
-    private:
+  private:
     buffer_t                    data_;
     extent_type                 sizes_;
     mutable specific_data_type  specific_;
