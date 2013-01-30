@@ -15,7 +15,6 @@
 ///
 #include <boost/simd/toolbox/ieee/include/functions/modf.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/trunc.hpp>
 #include <boost/simd/include/functions/frac.hpp>

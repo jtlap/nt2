@@ -14,7 +14,6 @@
 /// created  by jt the 21/02/2011
 ///
 #include <nt2/toolbox/elliptic/include/functions/ellint_1.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/math/special_functions.hpp>
 
 #include <boost/type_traits/is_same.hpp>

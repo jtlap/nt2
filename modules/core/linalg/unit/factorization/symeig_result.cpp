@@ -19,7 +19,6 @@
 #include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/include/functions/trans.hpp>
 #include <nt2/include/functions/globalmax.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/triu.hpp>
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/sdk/unit/tests.hpp>

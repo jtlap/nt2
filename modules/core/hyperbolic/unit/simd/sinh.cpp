@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/hyperbolic/include/functions/sinh.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/exponential/constants.hpp>
 extern "C" { long double cephes_sinhl(long double); }
 

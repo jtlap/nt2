@@ -14,7 +14,6 @@
 /// created  by jt the 06/03/2011
 ///
 #include <nt2/toolbox/standard/include/functions/frexp.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/mantissa.hpp>

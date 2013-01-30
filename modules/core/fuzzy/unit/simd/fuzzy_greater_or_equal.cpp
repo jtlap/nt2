@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/fuzzy/include/functions/fuzzy_greater_or_equal.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>

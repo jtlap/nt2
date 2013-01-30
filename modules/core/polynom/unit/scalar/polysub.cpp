@@ -15,7 +15,6 @@
 ///
 #include <nt2/include/functions/polysub.hpp>
 #include <nt2/include/functions/conv.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/isequal.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

@@ -15,7 +15,6 @@
 ///
 #include <nt2/include/functions/expcdf.hpp>
 #include <nt2/include/functions/bsxfun.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/is_ltz.hpp>
 #include <nt2/include/functions/ones.hpp>

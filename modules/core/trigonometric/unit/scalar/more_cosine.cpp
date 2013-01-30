@@ -20,7 +20,6 @@
 #include <nt2/toolbox/trigonometric/include/functions/cos.hpp>
 #include <nt2/toolbox/trigonometric/include/functions/sincos.hpp>
 #include <nt2/toolbox/trigonometric/include/functions/rem_pio2_medium.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/successor.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/min.hpp>

@@ -14,7 +14,6 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/toolbox/euler/include/functions/erfinv.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/toolbox/boost_math/include/functions/erf_inv.hpp>
 #include <boost/type_traits/is_same.hpp>

@@ -17,7 +17,6 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/include/functions/exp.hpp>
 #include <nt2/include/functions/atan2.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/extract.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>

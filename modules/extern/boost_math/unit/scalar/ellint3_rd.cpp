@@ -14,7 +14,6 @@
 /// created  by jt the 07/03/2011
 ///
 #include <nt2/toolbox/boost_math/include/functions/ellint3_rd.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>

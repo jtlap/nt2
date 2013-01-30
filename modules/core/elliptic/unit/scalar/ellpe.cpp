@@ -14,7 +14,6 @@
 /// created  by jt the 21/02/2011
 ///
 #include <nt2/toolbox/elliptic/include/functions/ellpe.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_ellpel(long double);}
 
 #include <boost/type_traits/is_same.hpp>

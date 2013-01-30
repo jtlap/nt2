@@ -14,7 +14,6 @@
 /// created  by jt the 02/03/2011
 ///
 #include <nt2/toolbox/crlibm/include/functions/expm1_rd.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/expm1.hpp>
 
 #include <boost/type_traits/is_same.hpp>

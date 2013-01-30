@@ -17,7 +17,6 @@
 ///
 #include <nt2/include/functions/is_invalid.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>

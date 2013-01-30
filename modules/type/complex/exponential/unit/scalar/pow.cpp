@@ -14,7 +14,6 @@
 /// created by jt the 08/12/2010
 ///
 #include <nt2/toolbox/exponential/include/functions/pow.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

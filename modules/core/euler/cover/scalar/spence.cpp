@@ -14,7 +14,6 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/toolbox/euler/include/functions/spence.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>

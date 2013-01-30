@@ -14,7 +14,6 @@
 /// created by jt the 01/12/2010
 ///
 #include <nt2/include/functions/idivide.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/ceil.hpp>
 #include <nt2/include/functions/toint.hpp>
 

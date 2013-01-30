@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/ieee/include/functions/frexp.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/mantissa.hpp>
 #include <nt2/include/functions/exponent.hpp>

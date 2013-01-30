@@ -14,7 +14,6 @@
 /// created  by jt the 04/03/2011
 ///
 #include <nt2/toolbox/fuzzy/include/functions/fuzzy_definitely_less.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 

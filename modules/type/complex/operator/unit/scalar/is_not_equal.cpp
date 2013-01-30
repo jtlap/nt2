@@ -14,7 +14,6 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/toolbox/operator/include/functions/is_not_equal.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>

@@ -16,7 +16,6 @@
 #include <boost/simd/toolbox/swar/include/functions/split.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/dispatch/meta/strip.hpp>
 #include <boost/type_traits/is_same.hpp>

@@ -15,7 +15,6 @@
 ///
 #include <nt2/include/functions/caurnd.hpp>
 #include <nt2/include/functions/rand.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/linspace.hpp>

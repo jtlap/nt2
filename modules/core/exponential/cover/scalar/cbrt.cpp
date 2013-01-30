@@ -14,7 +14,6 @@
 /// created by jt the 08/12/2010
 ///
 #include <nt2/toolbox/exponential/include/functions/cbrt.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/sqr.hpp>
 extern "C" { long double cephes_cbrtl(long double);}

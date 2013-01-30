@@ -14,7 +14,6 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/include/constants/sqrti.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 #include <boost/type_traits/is_same.hpp>

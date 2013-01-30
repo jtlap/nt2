@@ -14,7 +14,6 @@
 /// created  by jt the 07/03/2011
 ///
 #include <nt2/toolbox/boost_math/include/functions/log1p.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/log1p.hpp>
 

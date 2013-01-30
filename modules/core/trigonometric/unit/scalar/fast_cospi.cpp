@@ -14,7 +14,6 @@
 /// created  by jt the 11/02/2011
 ///
 #include <nt2/toolbox/trigonometric/include/functions/fast_cospi.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_cosl(long double);}
 

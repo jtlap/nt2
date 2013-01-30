@@ -16,7 +16,6 @@
 #include <nt2/toolbox/swar/include/functions/comparator.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/include/functions/all.hpp>
 #include <nt2/include/functions/max.hpp>

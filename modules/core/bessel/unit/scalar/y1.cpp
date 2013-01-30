@@ -14,7 +14,6 @@
 /// created  by jt the 16/02/2011
 ///
 #include <nt2/toolbox/bessel/include/functions/y1.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_y1l(long double);}
 
 #include <boost/type_traits/is_same.hpp>

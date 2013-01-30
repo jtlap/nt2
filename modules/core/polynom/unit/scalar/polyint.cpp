@@ -15,7 +15,6 @@
 ///
 #include <nt2/include/functions/polyder.hpp>
 #include <nt2/include/functions/polyint.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/isequal.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <boost/type_traits/is_same.hpp>

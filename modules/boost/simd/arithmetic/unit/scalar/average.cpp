@@ -16,7 +16,6 @@
 /// for integer values average does not,coincide with (a0+a1)/2 by at most one unit.
 #include <boost/simd/toolbox/arithmetic/include/functions/average.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>

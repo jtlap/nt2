@@ -14,7 +14,6 @@
 /// created  by jt the 06/03/2011
 ///
 #include <nt2/include/functions/roots.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/ones.hpp>

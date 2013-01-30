@@ -17,7 +17,6 @@
 #include <nt2/include/constants/two.hpp>
 #include <nt2/include/functions/rec.hpp>
 #include <nt2/include/functions/ones.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>

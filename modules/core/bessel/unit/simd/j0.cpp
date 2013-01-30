@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/bessel/include/functions/j0.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 extern "C" {long double cephes_j0l(long double);}
 
 #include <boost/type_traits/is_same.hpp>

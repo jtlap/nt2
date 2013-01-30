@@ -14,7 +14,6 @@
 /// created  by jt the 11/02/2011
 ///
 #include <nt2/toolbox/trigonometric/include/functions/rem_pio2_cephes.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>

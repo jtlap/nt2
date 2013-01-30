@@ -14,7 +14,6 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/include/functions/unifrnd.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/is_greater_equal.hpp>
 #include <nt2/include/functions/globalall.hpp>

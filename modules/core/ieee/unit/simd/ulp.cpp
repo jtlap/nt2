@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/ieee/include/functions/ulp.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/next.hpp>
 #include <nt2/include/functions/prev.hpp>

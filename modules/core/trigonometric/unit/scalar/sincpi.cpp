@@ -14,7 +14,6 @@
 /// created  by jt the 11/02/2011
 ///
 #include <nt2/toolbox/trigonometric/include/functions/sincpi.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/sinpi.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <boost/type_traits/is_same.hpp>

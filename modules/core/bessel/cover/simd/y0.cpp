@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/bessel/include/functions/y0.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 extern "C" {long double cephes_y0l(long double);}
 

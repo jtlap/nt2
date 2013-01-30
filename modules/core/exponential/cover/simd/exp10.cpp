@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/exponential/include/functions/exp10.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 #include <nt2/include/functions/log10.hpp>
 extern "C" { long double cephes_exp10l(long double); }

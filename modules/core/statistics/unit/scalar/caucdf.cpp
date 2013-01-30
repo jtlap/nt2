@@ -14,7 +14,6 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/include/functions/caucdf.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/isulpequal.hpp>
 #include <nt2/include/functions/cauinv.hpp>
 #include <nt2/sdk/unit/tests.hpp>

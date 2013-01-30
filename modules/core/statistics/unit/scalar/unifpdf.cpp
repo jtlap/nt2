@@ -14,7 +14,6 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/include/functions/unifpdf.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/zeros.hpp>
 #include <nt2/include/functions/linspace.hpp>

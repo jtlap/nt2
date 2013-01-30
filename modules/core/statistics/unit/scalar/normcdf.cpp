@@ -14,7 +14,6 @@
 /// created  by jt the 22/02/2011
 ///
 #include <nt2/include/functions/normcdf.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/eye.hpp>
 #include <nt2/include/functions/ones.hpp>
 #include <nt2/include/functions/abs.hpp>

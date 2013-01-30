@@ -14,15 +14,16 @@
 /// created by jt the 30/11/2010
 ///
 #include <nt2/toolbox/combinatorial/include/functions/gcd.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/ulp.hpp>
-#include <nt2/sdk/unit/module.hpp>
 #include <nt2/include/constants/zero.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/nan.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/mone.hpp>
 #include <nt2/include/constants/minf.hpp>
+
+#include <nt2/sdk/unit/module.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL ( gcd_real__2_0,  NT2_REAL_TYPES)
 {

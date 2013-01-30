@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/ieee/include/functions/exponent.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/ilogb.hpp>
 #include <nt2/include/functions/abs.hpp>
 

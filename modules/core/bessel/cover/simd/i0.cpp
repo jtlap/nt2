@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/bessel/include/functions/i0.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/max.hpp>
 extern "C" {double cephes_i0( double);}
 

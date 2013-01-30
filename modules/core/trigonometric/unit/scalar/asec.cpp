@@ -15,7 +15,6 @@
 ///
 /// acos(1/a0)
 #include <nt2/toolbox/trigonometric/include/functions/asec.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 extern "C" {extern long double cephes_acosl(long double);}
 

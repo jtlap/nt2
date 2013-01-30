@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/euler/include/functions/erfc.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 
 extern "C" {long double cephes_erfcl(long double);}
 

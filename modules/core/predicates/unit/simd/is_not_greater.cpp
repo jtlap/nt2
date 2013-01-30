@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/predicates/include/functions/is_not_greater.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>

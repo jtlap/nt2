@@ -14,7 +14,6 @@
 /// created  by jt the 18/02/2011
 ///
 #include <nt2/include/functions/if_else_allbits.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/constants/cnan.hpp>
 #include <nt2/include/constants/true.hpp>
 #include <nt2/include/constants/false.hpp>

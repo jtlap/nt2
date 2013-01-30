@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/trigonometric/include/functions/fast_cotd.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/toolbox/trigonometric/constants.hpp>
 #include <nt2/include/functions/cotd.hpp>
 

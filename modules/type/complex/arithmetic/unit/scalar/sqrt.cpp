@@ -14,7 +14,6 @@
 /// created by jt the 30/11/2010
 ///
 #include <nt2/toolbox/arithmetic/include/functions/sqrt.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/pure.hpp>
 #include <nt2/include/functions/plus.hpp>
 #include <nt2/include/constants/i.hpp>

@@ -14,7 +14,6 @@
 /// created  by jt the 21/02/2011
 ///
 #include <nt2/toolbox/predicates/include/functions/is_not_equal_with_equal_nans.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
 #include <boost/type_traits/is_same.hpp>

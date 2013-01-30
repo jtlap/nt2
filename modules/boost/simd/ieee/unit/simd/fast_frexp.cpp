@@ -16,7 +16,6 @@
 #include <boost/simd/toolbox/ieee/include/functions/fast_frexp.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
 #include <boost/simd/sdk/simd/io.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/fusion/tuple.hpp>
 #include <boost/simd/include/functions/mantissa.hpp>

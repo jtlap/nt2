@@ -15,7 +15,6 @@
 ///
 #include <nt2/toolbox/arithmetic/include/functions/idivfloor.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/floor.hpp>
 #include <nt2/include/functions/toint.hpp>
 

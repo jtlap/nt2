@@ -20,7 +20,6 @@
 #include <nt2/sdk/unit/module.hpp>
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/constants/infinites.hpp>
-#include <boost/simd/include/functions/ulpdist.hpp>
 #include <boost/simd/toolbox/arithmetic/include/functions/sqrt1pm1.hpp>
 
 NT2_TEST_CASE_TPL ( sqrt1pm1_real__1_0,  BOOST_SIMD_REAL_TYPES)
