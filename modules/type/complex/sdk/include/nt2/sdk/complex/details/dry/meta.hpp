@@ -15,6 +15,9 @@
 #include <boost/dispatch/meta/property_of.hpp>
 #include <boost/dispatch/meta/hierarchy_of.hpp>
 #include <boost/dispatch/meta/scalar_of.hpp>
+#include <boost/type_traits/has_trivial_copy.hpp>
+#include <boost/type_traits/has_trivial_constructor.hpp>
+#include <boost/type_traits/has_trivial_destructor.hpp>
 #include <boost/mpl/bool.hpp>
 
 namespace nt2
@@ -82,5 +85,26 @@ namespace boost { namespace simd
   {
   };
 } }
+
+namespace boost
+{
+  template<class T>
+  struct has_trivial_copy< nt2::dry<T> >
+       : boost::mpl::true_
+  {
+  };
+
+  template<class T>
+  struct has_trivial_default_constructor< nt2::dry<T> >
+       : boost::mpl::true_
+  {
+  };
+
+  template<class T>
+  struct has_trivial_destructor< nt2::dry<T> >
+       : boost::mpl::true_
+  {
+  };
+}
 
 #endif
