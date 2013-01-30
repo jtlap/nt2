@@ -7,7 +7,7 @@
     circul      Circulant matrix.                                                     | done
     clement     Clement matrix -- tridiagonal with zero diagonal entries.             | done
     compar      Comparison matrices.                                                  | done
-    condex      Counter-examples to matrix condition number estimators.
+    condex      Counter-examples to matrix condition number estimators.               | done
     cycol       Matrix whose columns repeat cyclically.
     dorr        Dorr matrix -- diagonally dominant, ill-conditioned, tridiagonal.     | done
                 (One or three output arguments, sparse)
@@ -60,7 +60,7 @@
     toeppd      Symmetric positive definite Toeplitz matrix.
     toeppen     Pentadiagonal Toeplitz matrix (sparse).
     tridiag     Tridiagonal matrix (sparse).
-    triw        Upper triangular matrix discussed by Wilkinson and others.
+    triw        Upper triangular matrix discussed by Wilkinson and others.            | done
     uniformdata Array of arbitrary data from standard uniform distribution
     wathen      Wathen matrix -- a finite element matrix (sparse, random entries).
     wilk        Various specific matrices devised/discussed by Wilkinson.
