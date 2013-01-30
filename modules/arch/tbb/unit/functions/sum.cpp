@@ -40,8 +40,8 @@ NT2_TEST_CASE( sum_1D )
   r = sum(a);
   NT2_TEST_EQUAL(r(1),M) ;
 
-  // r1 = sum(a,1);
-  // NT2_TEST_EQUAL(r(1), r1(1)) ;
+  r1 = sum(a,1);
+  NT2_TEST_EQUAL(r(1), r1(1)) ;
 
   // for(int j = 2; j <= NT2_MAX_DIMENSIONS; ++j){
   //   r = sum(a,j);

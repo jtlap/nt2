@@ -92,7 +92,6 @@ namespace nt2 {
         std::ptrdiff_t aligned_bound = (boost::fusion::at_c<0>(ext)/N) * N;
         aligned_bound    -= aligned_bound%tbb::task_scheduler_init::default_num_threads();
         std::size_t grain = aligned_bound/tbb::task_scheduler_init::default_num_threads();
-
         result_type out = neutral(nt2::meta::as_<result_type>());
         details::apply_bop<A1,A3,target_type> abop(neutral(nt2::meta::as_<target_type>()),in,bop);
 
