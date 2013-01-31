@@ -62,9 +62,7 @@ namespace nt2 { namespace ext
       sizee[1] = numel(b);
       sizee[1] = sizee[1] ? 2*sizee[1]-1:0;
       d.resize(sizee);
-      table<value_type, nt2::_2D> dd = nt2::conv(b, b);
-//       NT2_DISPLAY(nt2::conv(b, b));
-      NT2_DISPLAY(dd);
+      nt2::container::table<value_type, nt2::_2D> dd = nt2::conv(b, b);
       d = dd;
     }
     BOOST_FORCEINLINE
