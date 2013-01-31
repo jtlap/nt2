@@ -171,7 +171,7 @@ if( y > 0.13533528323661269189 )
 	{
 	y = y - 0.5;
 	y2 = y * y;
-	x = y + y * (y2 * cephes_polevl( y2, P0, 4)/cephes_p1evl( y2, Q0, 8 ));
+	x = y + y * (y2 * cephes_polevl( y2, (double*)P0, 4)/cephes_p1evl( y2, (double*)Q0, 8 ));
 	x = x * s2pi; 
 	return(x);
 	}
@@ -181,9 +181,9 @@ x0 = x - cephes_log(x)/x;
 
 z = 1.0/x;
 if( x < 8.0 ) /* y > cephes_exp(-32) = 1.2664165549e-14 */
-	x1 = z * cephes_polevl( z, P1, 8 )/cephes_p1evl( z, Q1, 8 );
+	x1 = z * cephes_polevl( z, (double*)P1, 8 )/cephes_p1evl( z, (double*)Q1, 8 );
 else
-	x1 = z * cephes_polevl( z, P2, 8 )/cephes_p1evl( z, Q2, 8 );
+	x1 = z * cephes_polevl( z, (double*)P2, 8 )/cephes_p1evl( z, (double*)Q2, 8 );
 x = x0 - x1;
 if( code != 0 )
 	x = -x;

@@ -182,8 +182,8 @@ x -= px * LG102B;
  * 10**x = 1 + 2x P(x**2)/( Q(x**2) - P(x**2) )
  */
 xx = x * x;
-px = x * cephes_polevll( xx, P, 3 );
-x =  px/( cephes_p1evll( xx, Q, 4 ) - px );
+px = x * cephes_polevll( xx, (long double*)P, 3 );
+x =  px/( cephes_p1evll( xx, (long double*)Q, 4 ) - px );
 x = 1.0L + cephes_ldexpl( x, 1 );
 
 /* multiply by power of 2 */

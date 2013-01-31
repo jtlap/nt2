@@ -215,7 +215,7 @@ else
 
 /* rational form in x**2 */
 z = x * x;
-y = y + ( cephes_polevll( z, P, 4 ) / cephes_p1evll( z, Q, 5 ) ) * z * x + x;
+y = y + ( cephes_polevll( z, (long double*)P, 4 ) / cephes_p1evll( z, (long double*)Q, 5 ) ) * z * x + x;
 
 if( sign < 0 )
 	y = -y;

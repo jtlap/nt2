@@ -62,7 +62,7 @@ z = 1.0 + x;
 if( (z < SQRTH) || (z > SQRT2) )
 	return( cephes_log(z) );
 z = x*x;
-z = -0.5 * z + x * ( z * cephes_polevl( x, LP, 6 ) / cephes_p1evl( x, LQ, 6 ) );
+z = -0.5 * z + x * ( z * cephes_polevl( x, (double*)LP, 6 ) / cephes_p1evl( x, (double*)LQ, 6 ) );
 return (x + z);
 }
 
@@ -104,8 +104,8 @@ if( x == -INFINITY )
 if( (x < -0.5) || (x > 0.5) )
 	return( cephes_exp(x) - 1.0 );
 xx = x * x;
-r = x * cephes_polevl( xx, EP, 2 );
-r = r/( cephes_polevl( xx, EQ, 3 ) - r );
+r = x * cephes_polevl( xx, (double*)EP, 2 );
+r = r/( cephes_polevl( xx, (double*)EQ, 3 ) - r );
 return (r + r);
 }
 

@@ -206,7 +206,7 @@ else
 	flag = 0;
 	}
 
-p = zz * cephes_polevll( zz, P, 5)/cephes_p1evll( zz, Q, 5);
+p = zz * cephes_polevll( zz, (long double*)P, 5)/cephes_p1evll( zz, (long double*)Q, 5);
 z = z * p + z;
 if( flag != 0 )
 	{

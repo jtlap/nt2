@@ -691,15 +691,15 @@ cephes_airy( t, &ai, &aip, &bi, &bip );
 /* polynomials in expansion */
 u[0] = 1.0;
 zzi = 1.0/zz;
-u[1] = cephes_polevl( zzi, P1, 1 )/sz;
-u[2] = cephes_polevl( zzi, P2, 2 )/zz;
-u[3] = cephes_polevl( zzi, P3, 3 )/(sz*zz);
+u[1] = cephes_polevl( zzi, (double*)P1, 1 )/sz;
+u[2] = cephes_polevl( zzi, (double*)P2, 2 )/zz;
+u[3] = cephes_polevl( zzi, (double*)P3, 3 )/(sz*zz);
 pp = zz*zz;
-u[4] = cephes_polevl( zzi, P4, 4 )/pp;
-u[5] = cephes_polevl( zzi, P5, 5 )/(pp*sz);
+u[4] = cephes_polevl( zzi, (double*)P4, 4 )/pp;
+u[5] = cephes_polevl( zzi, (double*)P5, 5 )/(pp*sz);
 pp *= zz;
-u[6] = cephes_polevl( zzi, P6, 6 )/pp;
-u[7] = cephes_polevl( zzi, P7, 7 )/(pp*sz);
+u[6] = cephes_polevl( zzi, (double*)P6, 6 )/pp;
+u[7] = cephes_polevl( zzi, (double*)P7, 7 )/(pp*sz);
 
 #if DEBUG
 for( k=0; k<=7; k++ )
@@ -846,13 +846,13 @@ zz = z * z;
 z3 = zz * z;
 F[0] = 1.0;
 F[1] = -z/5.0;
-F[2] = cephes_polevl( z3, PF2, 1 ) * zz;
-F[3] = cephes_polevl( z3, PF3, 2 );
-F[4] = cephes_polevl( z3, PF4, 3 ) * z;
+F[2] = cephes_polevl( z3, (double*)PF2, 1 ) * zz;
+F[3] = cephes_polevl( z3, (double*)PF3, 2 );
+F[4] = cephes_polevl( z3, (double*)PF4, 3 ) * z;
 G[0] = 0.3 * zz;
-G[1] = cephes_polevl( z3, PG1, 1 );
-G[2] = cephes_polevl( z3, PG2, 2 ) * z;
-G[3] = cephes_polevl( z3, PG3, 2 ) * zz;
+G[1] = cephes_polevl( z3, (double*)PG1, 1 );
+G[2] = cephes_polevl( z3, (double*)PG2, 2 ) * z;
+G[3] = cephes_polevl( z3, (double*)PG3, 2 ) * zz;
 #if DEBUG
 for( k=0; k<=4; k++ )
 	printf( "F[%d] = %.5E\n", k, F[k] );

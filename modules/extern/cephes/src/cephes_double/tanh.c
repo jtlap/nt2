@@ -133,7 +133,7 @@ else
 	if( x == 0.0 )
 	  return(x);
 	s = x * x;
-	z = cephes_polevl( s, P, 2 )/cephes_p1evl(s, Q, 3);
+	z = cephes_polevl( s, (double*)P, 2 )/cephes_p1evl(s, (double*)Q, 3);
 	z = x * s * z;
 	z = x + z;
 	}

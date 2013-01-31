@@ -299,11 +299,11 @@ if( x <= 0.0 )
 if( x <= 2.0 )
 	{
 	y = x * x - 2.0;
-	y = cephes_chbevl( y, A, 10 ) - cephes_log( 0.5 * x ) * cephes_i0(x);
+	y = cephes_chbevl( y, (double*)A, 10 ) - cephes_log( 0.5 * x ) * cephes_i0(x);
 	return( y );
 	}
 z = 8.0/x - 2.0;
-y = cephes_exp(-x) * cephes_chbevl( z, B, 25 ) / cephes_sqrt(x);
+y = cephes_exp(-x) * cephes_chbevl( z, (double*)B, 25 ) / cephes_sqrt(x);
 return(y);
 }
 
@@ -324,10 +324,10 @@ if( x <= 0.0 )
 if( x <= 2.0 )
 	{
 	y = x * x - 2.0;
-	y = cephes_chbevl( y, A, 10 ) - cephes_log( 0.5 * x ) * cephes_i0(x);
+	y = cephes_chbevl( y, (double*)A, 10 ) - cephes_log( 0.5 * x ) * cephes_i0(x);
 	return( y * cephes_exp(x) );
 	}
 
-y = cephes_chbevl( 8.0/x - 2.0, B, 25 ) / cephes_sqrt(x);
+y = cephes_chbevl( 8.0/x - 2.0, (double*)B, 25 ) / cephes_sqrt(x);
 return(y);
 }

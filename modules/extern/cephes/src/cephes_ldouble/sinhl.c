@@ -146,5 +146,5 @@ if( a > 1.0L )
 	}
 
 a *= a;
-return( x + x * a * (cephes_polevll(a,P,3)/cephes_polevll(a,Q,4)) );
+return( x + x * a * (cephes_polevll(a,(long double*)P,3)/cephes_polevll(a,(long double*)Q,4)) );
 }

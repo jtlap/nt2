@@ -136,8 +136,8 @@ x -= px * C2;
  * e**x = 1 + 2x P(x**2)/( Q(x**2) - P(x**2) )
  */
 xx = x * x;
-px = x * cephes_polevl( xx, P, 2 );
-x =  px/( cephes_polevl( xx, Q, 3 ) - px );
+px = x * cephes_polevl( xx, (double*)P, 2 );
+x =  px/( cephes_polevl( xx, (double*)Q, 3 ) - px );
 x = 1.0 + 2.0 * x;
 
 /* multiply by power of 2 */

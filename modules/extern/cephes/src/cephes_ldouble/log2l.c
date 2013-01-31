@@ -262,7 +262,7 @@ else
 	}
 x = z / y;
 z = x*x;
-y = x * ( z * cephes_polevll( z, R, 3 ) / cephes_p1evll( z, S, 3 ) );
+y = x * ( z * cephes_polevll( z, (long double*)R, 3 ) / cephes_p1evll( z, (long double*)S, 3 ) );
 goto done;
 }
 
@@ -279,7 +279,7 @@ else
 	x = x - 1.0L;
 	}
 z = x*x;
-y = x * ( z * cephes_polevll( x, P, 6 ) / cephes_p1evll( x, Q, 7 ) );
+y = x * ( z * cephes_polevll( x, (long double*)P, 6 ) / cephes_p1evll( x, (long double*)Q, 7 ) );
 y = y - cephes_ldexpl( z, -1 );   /* -0.5x^2 + ... */
 
 done:

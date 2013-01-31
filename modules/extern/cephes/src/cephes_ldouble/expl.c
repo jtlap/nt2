@@ -174,8 +174,8 @@ x -= px * C2;
  * e**x =  1 + 2x P(x**2)/( Q(x**2) - P(x**2) )
  */
 xx = x * x;
-px = x * cephes_polevll( xx, P, 2 );
-x =  px/( cephes_polevll( xx, Q, 3 ) - px );
+px = x * cephes_polevll( xx, (long double*)P, 2 );
+x =  px/( cephes_polevll( xx, (long double*)Q, 3 ) - px );
 x = 1.0L + cephes_ldexpl( x, 1 );
 
 x = cephes_ldexpl( x, n );

@@ -625,8 +625,8 @@ if( x > 4.0 )
 	goto asympt;
 
 z = x * x;
-s = x * cephes_polevl( z, SN, 5 ) / cephes_polevl( z, SD, 5 );
-c = z * cephes_polevl( z, CN, 5 ) / cephes_polevl( z, CD, 5 );
+s = x * cephes_polevl( z, (double*)SN, 5 ) / cephes_polevl( z, (double*)SD, 5 );
+c = z * cephes_polevl( z, (double*)CN, 5 ) / cephes_polevl( z, (double*)CD, 5 );
 
 if( sign )
 	s = -s;
@@ -658,13 +658,13 @@ c = cephes_cos(x);
 z = 1.0/(x*x);
 if( x < 8.0 )
 	{
-	f = cephes_polevl( z, FN4, 6 ) / (x * cephes_p1evl( z, FD4, 7 ));
-	g = z * cephes_polevl( z, GN4, 7 ) / cephes_p1evl( z, GD4, 7 );
+	f = cephes_polevl( z, (double*)FN4, 6 ) / (x * cephes_p1evl( z, (double*)FD4, 7 ));
+	g = z * cephes_polevl( z, (double*)GN4, 7 ) / cephes_p1evl( z, (double*)GD4, 7 );
 	}
 else
 	{
-	f = cephes_polevl( z, FN8, 8 ) / (x * cephes_p1evl( z, FD8, 8 ));
-	g = z * cephes_polevl( z, GN8, 8 ) / cephes_p1evl( z, GD8, 9 );
+	f = cephes_polevl( z, (double*)FN8, 8 ) / (x * cephes_p1evl( z, (double*)FD8, 8 ));
+	g = z * cephes_polevl( z, (double*)GN8, 8 ) / cephes_p1evl( z, (double*)GD8, 9 );
 	}
 *si = PIO2 - f * c - g * s;
 if( sign )

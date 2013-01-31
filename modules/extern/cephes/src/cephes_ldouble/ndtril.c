@@ -395,7 +395,7 @@ if( y > 0.13533528323661269189L )
 	{
 	y = y - 0.5L;
 	y2 = y * y;
-	x = y + y * (y2 * cephes_polevll( y2, P0, 7 )/cephes_p1evll( y2, Q0, 7 ));
+	x = y + y * (y2 * cephes_polevll( y2, (long double*)P0, 7 )/cephes_p1evll( y2, (long double*)Q0, 7 ));
 	x = x * s2pi; 
 	return(x);
 	}
@@ -404,11 +404,11 @@ x = cephes_sqrtl( -2.0L * cephes_logl(y) );
 x0 = x - cephes_logl(x)/x;
 z = 1.0L/x;
 if( x < 8.0L )
-	x1 = z * cephes_polevll( z, P1, 9 )/cephes_p1evll( z, Q1, 9 );
+	x1 = z * cephes_polevll( z, (long double*)P1, 9 )/cephes_p1evll( z, (long double*)Q1, 9 );
 else if( x < 32.0L )
-	x1 = z * cephes_polevll( z, P2, 7 )/cephes_p1evll( z, Q2, 7 );
+	x1 = z * cephes_polevll( z, (long double*)P2, 7 )/cephes_p1evll( z, (long double*)Q2, 7 );
 else
-	x1 = z * cephes_polevll( z, P3, 7 )/cephes_p1evll( z, Q3, 7 );
+	x1 = z * cephes_polevll( z, (long double*)P3, 7 )/cephes_p1evll( z, (long double*)Q3, 7 );
 x = x0 - x1;
 if( code != 0 )
 	x = -x;

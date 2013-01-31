@@ -148,7 +148,7 @@ if( z < 1.0e-7 )
 if( z < 0.5 )
 	{
 	z = x * x;
-	s = x   +  x * z * (cephes_polevl(z, P, 4) / cephes_p1evl(z, Q, 5));
+	s = x   +  x * z * (cephes_polevl(z, (double*)P, 4) / cephes_p1evl(z, (double*)Q, 5));
 	return(s);
 	}
 

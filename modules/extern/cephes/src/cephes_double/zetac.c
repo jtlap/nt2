@@ -553,7 +553,7 @@ if( w == x )
 if( x < 1.0 )
 	{
 	w = 1.0 - x;
-	a = cephes_polevl( x, R, 5 ) / ( w * cephes_p1evl( x, S, 5 ));
+	a = cephes_polevl( x, (double*)R, 5 ) / ( w * cephes_p1evl( x, (double*)S, 5 ));
 	return( a );
 	}
 
@@ -567,14 +567,14 @@ if( x <= 10.0 )
 	{
 	b = cephes_pow( 2.0, x ) * (x - 1.0);
 	w = 1.0/x;
-	s = (x * cephes_polevl( w, P, 8 )) / (b * cephes_p1evl( w, Q, 8 ));
+	s = (x * cephes_polevl( w, (double*)P, 8 )) / (b * cephes_p1evl( w, (double*)Q, 8 ));
 	return( s );
 	}
 
 if( x <= 50.0 )
 	{
 	b = cephes_pow( 2.0, -x );
-	w = cephes_polevl( x, A, 10 ) / cephes_p1evl( x, B, 10 );
+	w = cephes_polevl( x, (double*)A, 10 ) / cephes_p1evl( x, (double*)B, 10 );
 	w = cephes_exp(w) + b;
 	return(w);
 	}

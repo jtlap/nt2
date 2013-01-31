@@ -233,7 +233,7 @@ else
 
 /* rational form */
 z = x*x;
-y = x * ( z * cephes_polevl( x, P, 6 ) / cephes_p1evl( x, Q, 6 ) );
+y = x * ( z * cephes_polevl( x, (double*)P, 6 ) / cephes_p1evl( x, (double*)Q, 6 ) );
 y = y - cephes_ldexp( z, -1 );   /*  y - 0.5 * x**2  */
 
 /* multiply log of fraction by cephes_log10(e)

@@ -183,7 +183,7 @@ while( s < 10.0 )
 if( s < 1.0e17 )
 	{
 	z = 1.0/(s * s);
-	y = z * cephes_polevl( z, A, 6 );
+	y = z * cephes_polevl( z, (double*)A, 6 );
 	}
 else
 	y = 0.0;

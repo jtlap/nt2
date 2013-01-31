@@ -466,13 +466,13 @@ z = cephes_exp(z);
 #endif
 if( x < 8.0 )
 	{
-	p = cephes_polevl( x, P, 8 );
-	q = cephes_p1evl( x, Q, 8 );
+	p = cephes_polevl( x, (double*)P, 8 );
+	q = cephes_p1evl( x, (double*)Q, 8 );
 	}
 else
 	{
-	p = cephes_polevl( x, R, 5 );
-	q = cephes_p1evl( x, S, 6 );
+	p = cephes_polevl( x, (double*)R, 5 );
+	q = cephes_p1evl( x, (double*)S, 6 );
 	}
 y = (z * p)/q;
 
@@ -497,13 +497,13 @@ double p,q;
 
 if( x < 8.0 )
 	{
-	p = cephes_polevl( x, P, 8 );
-	q = cephes_p1evl( x, Q, 8 );
+	p = cephes_polevl( x, (double*)P, 8 );
+	q = cephes_p1evl( x, (double*)Q, 8 );
 	}
 else
 	{
-	p = cephes_polevl( x, R, 5 );
-	q = cephes_p1evl( x, S, 6 );
+	p = cephes_polevl( x, (double*)R, 5 );
+	q = cephes_p1evl( x, (double*)S, 6 );
 	}
 return (p/q);
 }
@@ -518,7 +518,7 @@ double y, z;
 if( fabs(x) > 1.0 )
 	return( 1.0 - cephes_erfc(x) );
 z = x * x;
-y = x * cephes_polevl( z, T, 4 ) / cephes_p1evl( z, U, 5 );
+y = x * cephes_polevl( z, (double*)T, 4 ) / cephes_p1evl( z, (double*)U, 5 );
 return( y );
 
 }

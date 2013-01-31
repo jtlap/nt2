@@ -153,7 +153,7 @@ if( x > 1.0e8 )
 z = x * x;
 if( x < 0.5 )
 	{
-	a = ( cephes_polevl(z, P, 4)/cephes_p1evl(z, Q, 4) ) * z;
+	a = ( cephes_polevl(z, (double*)P, 4)/cephes_p1evl(z, (double*)Q, 4) ) * z;
 	a = a * x  +  x;
 	if( sign < 0 )
 		a = -a;

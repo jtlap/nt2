@@ -144,5 +144,5 @@ if( a > 1.0 )
 	}
 
 a *= a;
-return( x + x * a * (cephes_polevl(a,P,3)/cephes_p1evl(a,Q,3)) );
+return( x + x * a * (cephes_polevl(a,(double*)P,3)/cephes_p1evl(a,(double*)Q,3)) );
 }

@@ -121,7 +121,7 @@ if( z >= 0.625L )
 else
 	{
 	s = x * x;
-	z = cephes_polevll( s, P, 3 )/cephes_p1evll(s, Q, 3);
+	z = cephes_polevll( s, (long double*)P, 3 )/cephes_p1evll(s, (long double*)Q, 3);
 	z = x * s * z;
 	z = x + z;
 	}

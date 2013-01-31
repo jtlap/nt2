@@ -204,6 +204,6 @@ if( w == 0.0 )		/* Nonpositive integer */
 if( w == 1.0 )		/* Other integer */
 	return( 1.0/z );
 
-y = w * ( 1.0 + cephes_chbevl( 4.0*w-2.0, R, 16 ) ) / z;
+y = w * ( 1.0 + cephes_chbevl( 4.0*w-2.0, (double*)R, 16 ) ) / z;
 return(y);
 }

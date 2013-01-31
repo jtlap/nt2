@@ -195,7 +195,7 @@ else
 
 x = z / y;
 z = x*x;
-y = x * ( z * cephes_polevl( z, R, 2 ) / cephes_p1evl( z, S, 3 ) );
+y = x * ( z * cephes_polevl( z, (double*)R, 2 ) / cephes_p1evl( z, (double*)S, 3 ) );
 goto ldone;
 }
 
@@ -215,9 +215,9 @@ else
 
 z = x*x;
 #if DEC
-y = x * ( z * cephes_polevl( x, P, 5 ) / cephes_p1evl( x, Q, 6 ) ) - cephes_ldexp( z, -1 );
+y = x * ( z * cephes_polevl( x, (double*)P, 5 ) / cephes_p1evl( x, (double*)Q, 6 ) ) - cephes_ldexp( z, -1 );
 #else
-y = x * ( z * cephes_polevl( x, P, 5 ) / cephes_p1evl( x, Q, 5 ) ) - cephes_ldexp( z, -1 );
+y = x * ( z * cephes_polevl( x, (double*)P, 5 ) / cephes_p1evl( x, (double*)Q, 5 ) ) - cephes_ldexp( z, -1 );
 #endif
 
 ldone:

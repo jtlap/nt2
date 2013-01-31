@@ -368,11 +368,11 @@ z = fabs(x);
 if( z <= 8.0 )
 	{
 	y = (z/2.0) - 2.0;
-	z = cephes_chbevl( y, A, 29 ) * z * cephes_exp(z);
+	z = cephes_chbevl( y, (double*)A, 29 ) * z * cephes_exp(z);
 	}
 else
 	{
-	z = cephes_exp(z) * cephes_chbevl( 32.0/z - 2.0, B, 25 ) / cephes_sqrt(z);
+	z = cephes_exp(z) * cephes_chbevl( 32.0/z - 2.0, (double*)B, 25 ) / cephes_sqrt(z);
 	}
 if( x < 0.0 )
 	z = -z;
@@ -390,11 +390,11 @@ z = fabs(x);
 if( z <= 8.0 )
 	{
 	y = (z/2.0) - 2.0;
-	z = cephes_chbevl( y, A, 29 ) * z;
+	z = cephes_chbevl( y, (double*)A, 29 ) * z;
 	}
 else
 	{
-	z = cephes_chbevl( 32.0/z - 2.0, B, 25 ) / cephes_sqrt(z);
+	z = cephes_chbevl( 32.0/z - 2.0, (double*)B, 25 ) / cephes_sqrt(z);
 	}
 if( x < 0.0 )
 	z = -z;

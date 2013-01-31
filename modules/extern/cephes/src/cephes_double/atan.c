@@ -230,7 +230,7 @@ else
 	x = (x-1.0)/(x+1.0);
 	}
 z = x * x;
-z = z * cephes_polevl( z, P, 4 ) / cephes_p1evl( z, Q, 5 );
+z = z * cephes_polevl( z, (double*)P, 4 ) / cephes_p1evl( z, (double*)Q, 5 );
 z = x * z + x;
 if( flag == 2 )
 	z += 0.5 * MOREBITS;

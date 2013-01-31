@@ -566,8 +566,8 @@ if( x < 18.0 )
 	{
 	a = (576.0/x - 52.0)/10.0;
 	k = cephes_exp(x) / x;
-	s = k * cephes_chbevl( a, S1, 22 );
-	c = k * cephes_chbevl( a, C1, 23 );
+	s = k * cephes_chbevl( a, (double*)S1, 22 );
+	c = k * cephes_chbevl( a, (double*)C1, 23 );
 	goto done;
 	}
 
@@ -575,8 +575,8 @@ if( x <= 88.0 )
 	{
 	a = (6336.0/x - 212.0)/70.0;
 	k = cephes_exp(x) / x;
-	s = k * cephes_chbevl( a, S2, 23 );
-	c = k * cephes_chbevl( a, C2, 24 );
+	s = k * cephes_chbevl( a, (double*)S2, 23 );
+	c = k * cephes_chbevl( a, (double*)C2, 24 );
 	goto done;
 	}
 else

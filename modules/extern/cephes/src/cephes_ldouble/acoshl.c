@@ -158,7 +158,7 @@ z = x - 1.0L;
 
 if( z < 0.5L )
 	{
-	a = cephes_sqrtl(2.0L*z) * (cephes_polevll(z, P, 5) / cephes_polevll(z, Q, 5) );
+	a = cephes_sqrtl(2.0L*z) * (cephes_polevll(z, (long double*)P, 5) / cephes_polevll(z, (long double*)Q, 5) );
 	return( a );
 	}
 
