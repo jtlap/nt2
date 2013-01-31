@@ -13,6 +13,7 @@
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/functions/assign.hpp>
 #include <nt2/sdk/meta/tieable_hierarchy.hpp>
+#include <boost/simd/sdk/meta/iterate.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -32,6 +33,10 @@ namespace nt2 { namespace ext
     }
   };
 
+  //============================================================================
+  // when storing a fusion sequence in a tie(...), run each element of the
+  // sequence in its output argument
+  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::run_, tag::cpu_
                             , (A0)(N0)(State)(Data)
                             , ((node_<A0, nt2::tag::tie_, N0, nt2::container::domain>))
@@ -41,10 +46,27 @@ namespace nt2 { namespace ext
   {
     typedef A0& result_type;
 
+    struct impl
+    {
+      BOOST_FORCEINLINE impl(A0& a0_, State const& state_, Data const& data_)
+                            : a0(a0_), state(state_), data(data_)
+      {
+      }
+
+      template<int I>
+      void operator()() const
+      {
+        nt2::run(boost::proto::child_c<I>(a0), state, boost::fusion::at_c<I>(data));
+      }
+
+      A0& a0;
+      State const& state;
+      Data const& data;
+    };
+
     BOOST_FORCEINLINE result_type operator()(A0& a0, State const& state, Data const& data) const
     {
-      nt2::run(boost::proto::child_c<0>(a0), state, boost::fusion::at_c<0>(data));
-      nt2::run(boost::proto::child_c<1>(a0), state, boost::fusion::at_c<1>(data));
+      boost::simd::meta::iterate<N0::value>(impl(a0, state, data));
       return a0;
     }
   };
