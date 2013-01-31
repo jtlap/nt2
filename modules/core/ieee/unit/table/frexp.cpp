@@ -37,4 +37,7 @@ NT2_TEST_CASE(frexp_table)
   }
   NT2_TEST_EQUAL(m, im);
   NT2_TEST_EQUAL(e, ie);
+
+  nt2::table<T> m2 = nt2::frexp(v);
+  NT2_TEST_EQUAL(m2, im);
 }
