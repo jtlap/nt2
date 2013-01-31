@@ -14,16 +14,12 @@
 #include <nt2/include/functions/reshape.hpp>
 
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/unit/tests/relation.hpp>
-#include <nt2/sdk/unit/tests/type_expr.hpp>
-#include <nt2/sdk/unit/tests/exceptions.hpp>
-#include <nt2/table.hpp>
+#include <nt2/sdk/unit/tests/ulp.hpp>
 
 NT2_TEST_CASE_TPL( globalvar, NT2_REAL_TYPES )
 {
   using nt2::_;
   using nt2::var;
   nt2::table<T> a = nt2::reshape(nt2::_(T(1), T(9)), 3, 3);
-  NT2_TEST_EQUAL( nt2::globalvar(a), var(a(_))(1));
+  NT2_TEST_ULP_EQUAL( nt2::globalvar(a), var(a(_))(1), 0.5 );
 }

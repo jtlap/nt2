@@ -69,5 +69,5 @@ NT2_TEST_CASE_TPL( meanad, NT2_REAL_TYPES )
   y =  center(y0(_));
   sy = nt2::meanad(y0(_));
   sz = nt2::mean(nt2::abs(y(_)));
-  NT2_TEST_EQUAL(sy(1), sz(1));
+  NT2_TEST_ULP_EQUAL(sy(1), sz(1), 0.5);
 }
