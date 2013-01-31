@@ -12,7 +12,6 @@
 #include <nt2/core/functions/tri1l.hpp>
 #include <nt2/include/functions/run.hpp>
 #include <nt2/include/constants/zero.hpp>
-#include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/if_else.hpp>
 #include <nt2/include/functions/enumerate.hpp>
 #include <nt2/include/functions/eq.hpp>
@@ -29,18 +28,9 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_ ( typename  boost::proto::result_of::
-                                            child_c<A0&, 0>::type
-                                , State&, Data&
-                                )
-                >::type                                        base_type;
-
-    typedef typename meta::strip<base_type>::type              result_type;
-    typedef typename meta::as_index<result_type>::type              i_t;
-    typedef typename meta::
-                     call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
+    typedef typename Data::type                                            result_type;
+    typedef typename meta::as_index<result_type>::type                      i_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,i_t)>::type          s_t;
     typedef typename s_t::value_type                                        sp_t;
 
     BOOST_FORCEINLINE result_type
@@ -72,18 +62,9 @@ namespace nt2 { namespace ext
                               ((unspecified_<Data>))
                             )
   {
-    typedef typename boost::dispatch::meta::
-            call<nt2::tag::run_ ( typename  boost::proto::result_of::
-                                            child_c<A0&, 0>::type
-                                , State&, Data&
-                                )
-                >::type                                        base_type;
-
-    typedef typename meta::strip<base_type>::type              result_type;
-    typedef typename meta::as_index<result_type>::type              i_t;
-    typedef typename meta::
-                     call<nt2::tag::enumerate_(State,meta::as_<i_t>)>::type p_t;
-    typedef typename meta::call<nt2::tag::ind2sub_(_2D,p_t)>::type          s_t;
+    typedef typename Data::type                                            result_type;
+    typedef typename meta::as_index<result_type>::type                      i_t;
+    typedef typename meta::call<nt2::tag::ind2sub_(_2D,i_t)>::type          s_t;
     typedef typename s_t::value_type                                        sp_t;
 
     BOOST_FORCEINLINE result_type
