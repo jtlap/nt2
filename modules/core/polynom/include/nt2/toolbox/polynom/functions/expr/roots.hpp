@@ -10,25 +10,15 @@
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_ROOTS_HPP_INCLUDED
 
 #include <nt2/toolbox/polynom/functions/roots.hpp>
-#include <boost/dispatch/functor/preprocessor/call.hpp>
-#include <nt2/include/functions/scalar/fma.hpp>
-#include <nt2/include/functions/isempty.hpp>
-#include <nt2/include/functions/eye.hpp>
-#include <nt2/include/functions/numel.hpp>
-#include <nt2/include/functions/size.hpp>
 #include <nt2/include/functions/zeros.hpp>
-#include <nt2/include/functions/issquare.hpp>
-#include <nt2/include/functions/rowvect.hpp>
-#include <nt2/include/functions/complexify.hpp>
 #include <nt2/include/functions/reduce.hpp>
-#include <nt2/include/functions/expand_to.hpp>
-#include <nt2/include/functions/from_diag.hpp>
-#include <nt2/include/functions/size.hpp>
-#include <nt2/include/functions/resize.hpp>
-#include <nt2/include/functions/compan.hpp>
-#include <nt2/include/functions/geneig.hpp>
-#include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/valuation.hpp>
+#include <nt2/include/functions/complexify.hpp>
+#include <nt2/include/functions/rowvect.hpp>
+#include <nt2/include/functions/compan.hpp>
+#include <nt2/include/functions/numel.hpp>
+#include <nt2/include/functions/geneig.hpp>
+#include <nt2/include/functions/eye.hpp>
 
 namespace nt2 { namespace ext
 {
