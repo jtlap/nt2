@@ -20,6 +20,7 @@
 #include <nt2/core/container/dsl/reshaping.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
 #include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 
 namespace nt2
 {

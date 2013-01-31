@@ -11,6 +11,10 @@
 
 #include <nt2/toolbox/polynom/functions/polyfit.hpp>
 #include <nt2/core/functions/tie.hpp>
+
+#include <nt2/core/container/table/table.hpp>
+
+#include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/vandermonde.hpp>
 #include <nt2/include/functions/colvect.hpp>
 #include <nt2/include/functions/rowvect.hpp>
@@ -23,7 +27,7 @@
 #include <nt2/include/functions/mtimes.hpp>
 #include <nt2/include/functions/stdev.hpp>
 #include <nt2/include/functions/mean.hpp>
-#include <nt2/core/container/table/table.hpp>
+#include <nt2/include/functions/minus.hpp>
 
 namespace nt2 {
 
@@ -41,27 +45,6 @@ namespace nt2 {
 
   namespace ext
   {
-//   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyfit_, tag::cpu_
-//                             , (A0)(A1)
-//                             , (unspecified_<A0>)(scalar_<floating_<A1> > )
-//                             )
-//   {
-
-//     typedef typename A0::value_type value_type;
-//     typedef A1 result_type;
-//     NT2_FUNCTOR_CALL(2)
-//     {
-//       if (isempty(a0)) return Zero<A1>();
-//       A1 ans = a0(1);
-//       for(size_t i = 2; i <= numel(a0); ++i)
-//       {
-//         ans = fma(ans, a1, a0(i));
-//       }
-//       return ans;
-//     }
-//   };
-
-
     //============================================================================
     // This version of balance is called whenever a tie(...) = balance(...) is captured
     // before assign is resolved. As a tieable function, balance retrieves rhs/lhs
@@ -73,18 +56,18 @@ namespace nt2 {
                                 ((node_<A1, nt2::tag::tie_ , N1, nt2::container::domain>))
                               )
     {
-      typedef void                                                          result_type;
+      typedef void                                                     result_type;
       typedef typename boost::proto::result_of::child_c<A1&,0>::value_type  p_type;
       typedef typename boost::proto::result_of::child_c<A0&,0>::value_type  x_type;
       typedef typename boost::proto::result_of::child_c<A0&,1>::value_type  y_type;
-      typedef typename p_type::value_type                                   value_type;
+      typedef typename p_type::value_type                               value_type;
       typedef polyfit_infos<value_type>                                     s_type;
 
       BOOST_FORCEINLINE result_type operator()( A0& a0, A1& a1 ) const
       {
         // Copy data in output first
-        x_type const & x = boost::proto::child_c<0>(a0);
-        y_type const & y = boost::proto::child_c<1>(a0);
+        x_type  x = boost::proto::child_c<0>(a0);
+        y_type  y = boost::proto::child_c<1>(a0);
         size_t l = lval(a0, N0());
         polcoefs(a1, x, y, l, N1());
       }
@@ -120,7 +103,7 @@ namespace nt2 {
         typedef typename nt2::meta::call<nt2::tag::factorization::qr_(vnd_t const&, char)>::type qr_type;
         qr_type res = nt2::factorization::qr(vnd, 'N');
         s.r = res.r();
-        nt2::rowvect(res.solve(colvect(y), p));
+        res.solve(colvect(y), p);
         p.resize(of_size(1u, numel(p)));
         s.df = nt2::subs(nt2::length(y), nt2::oneplus(l));
         s.normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, nt2::colvect(p)));
@@ -140,7 +123,7 @@ namespace nt2 {
         typedef typename nt2::meta::call<nt2::tag::factorization::qr_(vnd_t const&, char)>::type qr_type;
         qr_type res = nt2::factorization::qr(vnd, 'N');
         r = res.r();
-        nt2::rowvect(res.solve(colvect(y), p));
+        res.solve(colvect(y), p);
         p.resize(of_size(1u, numel(p)));
         df = nt2::subs(nt2::numel(y), l);
         normr = nt2::norm(colvect(y)-nt2::mtimes(vnd, nt2::colvect(p)));

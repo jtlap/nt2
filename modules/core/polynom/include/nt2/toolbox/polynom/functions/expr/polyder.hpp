@@ -17,9 +17,6 @@
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/functions/tie.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyder_, tag::cpu_
@@ -37,8 +34,8 @@ namespace nt2 { namespace ext
     {
       size_t na0 = nt2::numel(a0);
       na0 =  na0 ? na0-1u:0u;
-      return nt2::multiplies(a0(One<size_t>(), nt2::_(One<size_t>(), na0)),
-                             nt2::_(value_type(na0), Mone<value_type>(), One<value_type>()));
+      return nt2::multiplies(a0(One<size_t>(), nt2::_(nt2::One<size_t>(), na0)),
+                             nt2::_(value_type(na0), nt2::Mone<value_type>(), One<value_type>()));
     }
   };
 
