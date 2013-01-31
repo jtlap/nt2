@@ -1,23 +1,25 @@
-[section Tests Suite Definition]
-A __NT2__ test suite is a C++ source file including:
+[section Test Suite and Test Case]
+
+This section will give a short overview of the __NT2__ Unit Test definition
+rationale and go over the structure of a simple test.
+
+[section What's a Test Suite ?]
+A __NT2__ test suite is a set of at least one test case function.
+The smallest __NT2__ test is a C++ source file including:
 
 [import source/test.cpp]
 [test]
 
-After compiling and launching the test, you should end up with the following
-display:
-
-[import source/test.result.cpp]
-[test_result]
-
-Once defined, a __NT2__ test suite has to be populated with test cases.
-
 [endsect]
 
-[section Test Case Definition]
-Test cases can be defined either as:
+[section What's a Test Case ?]
+Test cases are function performing repeatable, minimal operations able to
+unambiguously capture a function or class behavior and assess its correctness.
 
-* a single test function with [macroref NT2_TEST_CASE]
+In __NT2__, a test case can be defined either as:
+
+* a single function defined by the [macroref NT2_TEST_CASE] macro. In this case,
+  the test function will be run and proceed to every tests it contains.
   [c++]
   ``
   #define NT2_MODULE "A sample test"
@@ -29,7 +31,6 @@ Test cases can be defined either as:
     std::cout << "nothing special here ..." << std::endl;
   }
   ``
-
 
 * a familly of functions generated from a template function and a list of types
   passed as a Boost.Preprocessor sequence via the [macroref NT2_TEST_CASE_TPL]
@@ -47,25 +48,41 @@ Test cases can be defined either as:
   }
   ``
 
-
 In both case, the test case name should be unique. Additionnaly, good testing
 practices recommend to have fine grain test case to simplify test management.
+
+After compiling and launching the test, you should end up with the following
+output:
+
+[import source/test.result.cpp]
+[test_result]
+
+The unit test output contains the name of the test actually run, its potential
+output adn a global coutn of the total number of tests performed, the number of
+passing tests and the number of failing tests.
+
+In this case, unsurprisingly, our empty test fails as we consider an empty test
+is probably an error in itself. __NT2__ enforces a [*no test is a failure] rule
+that applies at the test case level. Any test case with no actual testing will
+be considered as a failure. Every test functions then require at least one call to any
+[link unit_test_framework.test_suite_and_test_case.testing_macros Testing Macros].
 
 [endsect]
 
 [section Testing Macros]
-__NT2__ provides a set of macro for performing usual tests operations and
-reporting their success or failure to the test suite manager directly from
-within a test case.
+__NT2__ provides a set of macros to perform usual tests operations and reporting
+their success or failure to the test suite manager directly from within a test
+case.
 
 [heading Basic Tests]
 Those macros provide a way to test if an arbitrary expression evaluate to true
-or to force a test failure.
+or to force a test failure or success.
 
 They are accessible in the [headerref nt2/sdk/unit/tests/basic.hpp] file.
 
 * [macroref NT2_TEST]
 * [macroref NT2_TEST_ERROR]
+* [macroref NT2_TEST_COMPLETE]
 
 [heading Relationnal Tests]
 Relationnal tests compares the equality, inequality or ordering of values. Test
@@ -88,9 +105,11 @@ They are accessible in the [headerref nt2/sdk/unit/tests/relation.hpp] file.
 [heading Runtime Error Tests]
 Those tests check if a given expression exhibit a given runtime behavior with
 respect to exception or assertion triggers. Expression can be tested for being
-able to throw or trigger an assertion and for not throwing nor triggering any assertion.
-Those tests require the Unit Test to be compiled with exception support and with
-the option [macroref NT2_ASSERTS_AS_EXCEPTIONS] defined.
+able to throw or trigger an assertion and for not throwing nor triggering any
+assertion. Those tests require the Unit Test to be compiled with exception
+support and with the option [macroref NT2_ASSERTS_AS_EXCEPTIONS] defined
+[footnote If the __NT2__ CMake script is used, creating a target as a test
+will automatically set up the proper compilation flags.].
 
 They are accessible in the [headerref nt2/sdk/unit/tests/exceptions.hpp] file.
 
@@ -107,8 +126,76 @@ They are accessible in the [headerref nt2/sdk/unit/tests/type_expr.hpp] file.
 * [macroref NT2_TEST_TYPE_INFO  ]
 * [macroref NT2_TEST_TYPE_IS    ]
 
+Let's now complete our simple test by checking a very simple arithmetic axiom:
+
+[import source/test.simple.cpp]
+[test_simple]
+
+[endsect]
 [endsect]
 
-[section Example]
+[section Writing custom tests]
+[endsect]
+
+[section Rationale on precision testing]
+
+[Are these two floating computations results similar enough ?]
+
+This is maybe the most difficult question to answer when implementing and
+validating numerical algorithms. Various methods are often found in existing
+testing frameworks or are used by developers. But, in the same way floating-point
+arithmetic can be tricky, floating-point comparisons are even trickier.
+
+[important  In the rest of this section, we take for granted that the basic
+notions of floating-point computations and their related problems is known by
+the reader. If not, we strongly recommend having a deep look at
+[@http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html Goldberg's paper
+on the subject] or to [@http://floating-point-gui.de/ its simplified version].
+]
+
+[section Metric for precision measurement]
+The first thing people learn (and often they learn it the hard way) is that strict
+equality for floating points number is often meaningless or very hard to achieve.
+Once this state of fact is integrated, people often goes to use a simple absolute
+difference with an arbitrary threshold. If this method looks sound, it's easy to
+fold and may lead to false positive. The proper way to compare non-zero or non-invalid
+floating point numbers is to use the [*Unit in the Last Place] metric. In numerical
+analysis, unit in the last place [footnote or unit of least precision] (ULP) is
+the spacing between floating-point numbers, i.e., the value the least significant
+bit (LSB) represents if it is 1.
+
+For any floating point value x, if x exponent is equal to E, then ULP(x)
+is equal to = Epsilon x 2^E.
+
+The IEEE 754 specification -followed by all modern floating-point hardware-
+requires that the result of an elementary arithmetic operation (addition,
+subtraction, multiplication, division, and square root) be within 0.5 ULP of the
+mathematically exact result -that is, that it be the best possible result.
+Achieving 0.5-1 ULP for computationnaly complex functions like transcendental functions is what
+a proper numerical library should aim for, and that's what __NT2__ actually try
+to achieve.
+
+[endsect]
+
+[section Computing ULP Distance]
+The ULP distance (or =ulpdist=) is a way to compare floating-point numbers by
+estimating the number of significant bits between their respective representations.
+The full algorithm can be expressed in standard C++ in the following way:
+
+[import source/ulpdist.cpp]
+[ulpdist]
+
+Put in an other way, one can estimate the =ulpdist= between two floating point
+numbers as the number of representable floating points values between them. This
+estimation leads ot the following properties:
+
+* The =ulpdist= between =N= and =N+N*epsilon= is equal to =0.5=
+* The =ulpdist= between =N= and =N+N*epsilon/2= is equal to =0=
+* If a =double= is compared to the double representation of its single precision
+  conversion (they are exceptions as for fully representable reals), their
+ =ulpdist= will be around 2^26.5 (~10^8). For example, =ulpdist(double(Pi<float>()),Pi<double>())=
+ is equal to =9.84293e+07=
+
+[endsect]
 
 [endsect]

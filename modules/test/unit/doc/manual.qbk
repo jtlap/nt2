@@ -5,11 +5,16 @@
 [section Overview]
 As NT2 scope and coverage grows, the validation of NT2 API is critical
 and require specific testing facilities like beign able to report errors in
-type computation or numerical precision divergence.
-
-This module provides macros, classes and functions to setup, write and run unit
-tests for any NT2 module.
+type computation or numerical precision divergence. This module provides macros,
+classes and functions to setup, write and run unit tests for any NT2 module.
 [endsect]
+
+[h2 Dependencies]
+NT2.Test.Unit depends on the following components:
+
+* NT2 Configuration
+* NT2 Error Handling
+* NT2 SIMD SDK
 
 [include test.qbk]
 

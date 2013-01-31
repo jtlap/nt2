@@ -10,6 +10,11 @@
 #ifndef NT2_SDK_UNIT_MODULE_HPP_INCLUDED
 #define NT2_SDK_UNIT_MODULE_HPP_INCLUDED
 
+/*!
+  @file
+  @brief Main Unit test module header
+**/
+
 #include <nt2/sdk/config/types.hpp>
 #include <nt2/sdk/unit/test_case.hpp>
 #include <nt2/sdk/unit/details/suite.hpp>
@@ -24,10 +29,13 @@
 #define NT2_UNIT_MAIN_SUITE nt2::details::unit_tests
 #endif
 
-/// INTERNAL ONLY
-/// Embedded main for testing purpose. This function is used as an entry point
-/// for the current test. In normal mode, it's basically a main(). In driver
-/// mode, it is a unique symbol callable from the driver main().
+/*!
+  @brief Embedded main for testing purpose.
+
+  This function is used as an entry point for the current test.
+  In normal mode, it's basically a @c main(). In driver mode, it is a unique
+  symbol callable from the driver @c main().
+**/
 NT2_UNIT_MAIN_SPEC int NT2_UNIT_MAIN(int argc, char* argv[])
 {
   return nt2::details::unit_main(argc,argv,NT2_UNIT_MAIN_SUITE);

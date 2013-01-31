@@ -12,8 +12,8 @@ if(NOT NT2_DOCUMENTATION_ENABLED)
   return()
 endif()
 
-nt2_module_doc(test.unit manual.qbk reference.doxyfile)
+nt2_module_doc(test.benchmark manual.qbk reference.doxyfile)
 
-if(NOT IS_DIRECTORY ${NT2_BINARY_DIR}/doc/html/unit)
-  file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/unit)
+if(NOT IS_DIRECTORY ${NT2_BINARY_DIR}/doc/html/benchmark)
+  file(MAKE_DIRECTORY ${NT2_BINARY_DIR}/doc/html/benchmark)
 endif()

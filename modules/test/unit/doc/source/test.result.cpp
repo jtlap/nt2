@@ -1,13 +1,10 @@
 //[test_result
-[A sample test] /*<the test suite name>*/
-===============================================================
-
-Running: my_test_test /*<the test case name>*/
+Running: my_test_test
 ---------------------------------------------------------------
-
-/*<the test case output if any>*/
+----------------------------------------------------------------
+NO TEST REGISTERED -- FORCED FAILURE.
 
 Results:
 ----------------------------------------------------------------
-0 test - 0 pass - 0 fail./*<a summary of the tests success and failures>*/
+1 test - 0 pass - 1 fail.
 //]

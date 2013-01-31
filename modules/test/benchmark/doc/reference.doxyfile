@@ -17,7 +17,7 @@ HIDE_UNDOC_CLASSES     = YES
 HIDE_SCOPE_NAMES       = YES
 INLINE_INFO            = YES
 INTERNAL_DOCS          = NO
-INPUT                  = ../include/nt2/sdk/unit/ ../include/nt2/sdk/unit/tests
+INPUT                  = ../include/nt2/sdk/benchmark/
 FULL_PATH_NAMES        = NO
 INHERIT_DOCS           = NO
 SEARCH_INCLUDES        = YES
@@ -32,4 +32,4 @@ SKIP_FUNCTION_MACROS   = YES
 ################################################################################
 # Some useful aliases
 ################################################################################
-ALIASES   = "usage=@par Usage:"
+ALIASES   = "usage=\par Usage:"
