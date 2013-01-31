@@ -9,54 +9,48 @@
 #ifndef NT2_CORE_FUNCTIONS_TRIU_HPP_INCLUDED
 #define NT2_CORE_FUNCTIONS_TRIU_HPP_INCLUDED
 
-/*!
- * \file
- * \brief Defines and implements the nt2::triu function
- */
-
 #include <nt2/include/functor.hpp>
-#include <nt2/sdk/meta/size_as.hpp>
-#include <nt2/sdk/meta/value_as.hpp>
-#include <nt2/core/container/dsl/size.hpp>
-#include <nt2/core/container/dsl/value_type.hpp>
 
 namespace nt2
 {
   namespace tag
   {
+    /*!
+      @brief triu generic tag
+
+      Represents the triu function in generic contexts.
+
+      @par Models:
+      Hierarchy
+    **/
     struct triu_ : ext::elementwise_<triu_>
     {
+      /// @brief Parent hierarchy
       typedef ext::elementwise_<triu_> parent;
-    };
-
-    struct offset_triu_ : ext::elementwise_<offset_triu_>
-    {
-      typedef ext::elementwise_<offset_triu_>  parent;
     };
   }
 
-  //============================================================================
   /*!
-   * Upper triangular part of a 2D table.
-   *
-   * \param xpr 2D table (must verify is_matrix(a))
-   */
-  //============================================================================
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::triu_       , triu, 1)
-  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::offset_triu_, triu, 2)
+    @brief Apply a upper-triangular masking to an expression
+
+    Apply a mask on an expression that evaluates to 0 everywhere except on the
+    upper triangular part of @c a0.
+
+    @param a0 Expression to mask.
+  **/
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::triu_, triu, 1)
+
+
+  /*!
+    @brief Apply an offset upper-triangular masking to an expression
+
+    Apply a mask on an expression that evaluates to 0 everywhere except on the
+    upper triangular part of @c a0 and @c a1 subdiagonal.
+
+    @param a0 Expression to mask.
+    @param a1 Diagonal offset to the mask.
+  **/
+  NT2_FUNCTION_IMPLEMENTATION(nt2::tag::triu_, triu, 2)
 }
-
-namespace nt2 { namespace ext
-{
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::triu_,Domain,1,Expr>
-        : meta::size_as<Expr,0>
-  {};
-
-  template<class Domain, class Expr>
-  struct  size_of<nt2::tag::offset_triu_,Domain,2,Expr>
-        : meta::size_as<Expr,0>
-  {};
-} }
 
 #endif

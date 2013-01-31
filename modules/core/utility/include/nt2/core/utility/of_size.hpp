@@ -196,8 +196,8 @@ namespace nt2
       static const std::size_t msz = (osz < static_size) ? osz : static_size;
       details::copy(details::pop_back_c<osz - msz>(other),&data_[0]);
 
-      for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
-      data_[static_size-1] *= value_type(numel(details::pop_front_c<msz>(other)));
+      for(std::size_t i = msz; i != size(); ++i) data_[i] = 1u;
+      data_[size()-1] *= value_type(numel(details::pop_front_c<msz>(other)));
 
       BOOST_PP_REPEAT(NT2_MAX_DIMENSIONS,M2,M2DATA)
     }
@@ -215,7 +215,7 @@ namespace nt2
             )
     {
       const std::size_t osz = e - b;
-      const std::size_t msz = (osz < static_size) ? osz : static_size;
+      const std::size_t msz = (osz < size()) ? osz : size();
 
       BOOST_ASSERT_MSG( full_of_one(b,msz,e)
                       , "Construction of of_size from a Range failed because "
@@ -223,7 +223,7 @@ namespace nt2
                       );
 
       nt2::memory::cast_copy(b, b+msz, &data_[0]);
-      for(std::size_t i = msz; i != static_size; ++i) data_[i] = 1u;
+      for(std::size_t i = msz; i != size(); ++i) data_[i] = 1u;
     }
 
     //==========================================================================

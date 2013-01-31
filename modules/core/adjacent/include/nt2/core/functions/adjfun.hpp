@@ -158,8 +158,14 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   template<class Domain, class Expr, int N>
   struct  value_type<nt2::tag::adjfun_,Domain,N,Expr>
-        : meta::value_as<Expr,0>
-  {};
+  {
+    typedef typename  boost::proto::result_of::
+                      child_c<Expr&, 0>::value_type::value_type value_t;
+    typedef typename  boost::proto::result_of::
+                      child_c<Expr&, 2>::value_type::value_type func_t;
+    typedef typename  boost::dispatch::meta::
+                      result_of<func_t(value_t,value_t)>::type  type;
+  };
 } }
 
 #endif
