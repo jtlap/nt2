@@ -369,10 +369,10 @@ if( x < 0 )
 if( x <= 8.0 )
 	{
 	y = (x/2.0) - 2.0;
-	return( cephes_exp(x) * cephes_chbevl( y, A, 30 ) );
+	return( cephes_exp(x) * cephes_chbevl( y, (double*)A, 30 ) );
 	}
 
-return(  cephes_exp(x) * cephes_chbevl( 32.0/x - 2.0, B, 25 ) / cephes_sqrt(x) );
+return(  cephes_exp(x) * cephes_chbevl( 32.0/x - 2.0, (double*)B, 25 ) / cephes_sqrt(x) );
 
 }
 
@@ -389,9 +389,9 @@ if( x < 0 )
 if( x <= 8.0 )
 	{
 	y = (x/2.0) - 2.0;
-	return( cephes_chbevl( y, A, 30 ) );
+	return( cephes_chbevl( y, (double*)A, 30 ) );
 	}
 
-return(  cephes_chbevl( 32.0/x - 2.0, B, 25 ) / cephes_sqrt(x) );
+return(  cephes_chbevl( 32.0/x - 2.0, (double*)B, 25 ) / cephes_sqrt(x) );
 
 }

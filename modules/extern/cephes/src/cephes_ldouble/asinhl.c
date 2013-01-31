@@ -144,7 +144,7 @@ if( x > 1.0e10L )
 z = x * x;
 if( x < 0.5L )
 	{
-	a = ( cephes_polevll(z, P, 4)/cephes_p1evll(z, Q, 5) ) * z;
+	a = ( cephes_polevll(z, (long double*)P, 4)/cephes_p1evll(z, (long double*)Q, 5) ) * z;
 	a = a * x  +  x;
 	if( sign < 0 )
 		a = -a;

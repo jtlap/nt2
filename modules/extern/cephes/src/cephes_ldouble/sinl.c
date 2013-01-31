@@ -172,7 +172,7 @@ extern long double cephes_ldexpl ( long double, int );
 extern int cephes_isnanl ( long double );
 extern int cephes_isfinitel ( long double );
 #else
-long double cephes_polevll(), cephes_floorl(), cephes_ldexpl(), cephes_isnanl(), cephes_isfinitel();
+long double cephes_polevll(), (long double*)cephes_floorl(), cephes_ldexpl(), cephes_isnanl(), cephes_isfinitel();
 #endif
 #ifdef INFINITIES
 extern long double INFINITYL;
@@ -248,11 +248,11 @@ z = ((x - y * DP1) - y * DP2) - y * DP3;
 zz = z * z;
 if( (j==1) || (j==2) )
 	{
-	y = 1.0L - cephes_ldexpl(zz,-1) + zz * zz * cephes_polevll( zz, coscof, 6 );
+	y = 1.0L - cephes_ldexpl(zz,-1) + zz * zz * cephes_polevll( zz, (long double*)coscof, 6 );
 	}
 else
 	{
-	y = z  +  z * (zz * cephes_polevll( zz, sincof, 6 ));
+	y = z  +  z * (zz * cephes_polevll( zz, (long double*)sincof, 6 ));
 	}
 
 if(sign < 0)
@@ -328,11 +328,11 @@ z = ((x - y * DP1) - y * DP2) - y * DP3;
 zz = z * z;
 if( (j==1) || (j==2) )
 	{
-	y = z  +  z * (zz * cephes_polevll( zz, sincof, 6 ));
+	y = z  +  z * (zz * cephes_polevll( zz, (long double*)sincof, 6 ));
 	}
 else
 	{
-	y = 1.0L - cephes_ldexpl(zz,-1) + zz * zz * cephes_polevll( zz, coscof, 6 );
+	y = 1.0L - cephes_ldexpl(zz,-1) + zz * zz * cephes_polevll( zz, (long double*)coscof, 6 );
 	}
 
 if(sign < 0)

@@ -173,8 +173,8 @@ x = x - px;
  * where xx = x**2
  */
 xx = x * x;
-px = x * cephes_polevl( xx, P, 2 );
-x =  px / ( cephes_p1evl( xx, Q, 2 ) - px );
+px = x * cephes_polevl( xx, (double*)P, 2 );
+x =  px / ( cephes_p1evl( xx, (double*)Q, 2 ) - px );
 x = 1.0 + cephes_ldexp( x, 1 );
 
 /* scale by power of 2 */

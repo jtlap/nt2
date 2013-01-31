@@ -156,8 +156,8 @@ x = x - px;
  * where xx = x**2
  */
 xx = x * x;
-px = x * cephes_polevll( xx, P, 2 );
-x =  px / ( cephes_p1evll( xx, Q, 3 ) - px );
+px = x * cephes_polevll( xx, (long double*)P, 2 );
+x =  px / ( cephes_p1evll( xx, (long double*)Q, 3 ) - px );
 x = 1.0L + cephes_ldexpl( x, 1 );
 
 /* scale by power of 2 */

@@ -158,7 +158,7 @@ z = x - 1.0;
 
 if( z < 0.5 )
 	{
-	a = cephes_sqrt(z) * (cephes_polevl(z, P, 4) / cephes_p1evl(z, Q, 5) );
+	a = cephes_sqrt(z) * (cephes_polevl(z, (double*)P, 4) / cephes_p1evl(z, (double*)Q, 5) );
 	return( a );
 	}
 

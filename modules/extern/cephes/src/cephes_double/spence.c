@@ -190,7 +190,7 @@ else
 	w = x - 1.0;
 
  
-y = -w * cephes_polevl( w, A, 7) / cephes_polevl( w, B, 7 );
+y = -w * cephes_polevl( w, (double*)A, 7) / cephes_polevl( w, (double*)B, 7 );
 
 if( flag & 1 )
 	y = (PI * PI)/6.0  - cephes_log(x) * cephes_log(1.0-x) - y;

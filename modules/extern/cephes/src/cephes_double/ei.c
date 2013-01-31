@@ -1012,9 +1012,9 @@ double x;
                              -   n n!
                             n=1
   */
-      f = cephes_polevl(x,A,5) / cephes_p1evl(x,B,6);
-      /*      f = cephes_polevl(x,A,6) / cephes_p1evl(x,B,7); */
-      /*      f = cephes_polevl(x,A,8) / cephes_p1evl(x,B,9); */
+      f = cephes_polevl(x,(double*)A,5) / cephes_p1evl(x,(double*)B,6);
+      /*      f = cephes_polevl(x,(double*)A,6) / cephes_p1evl(x,(double*)B,7); */
+      /*      f = cephes_polevl(x,(double*)A,8) / cephes_p1evl(x,(double*)B,9); */
       return (EUL + cephes_log(x) + x * f);
     }
   else if (x < 4.0)
@@ -1026,37 +1026,37 @@ double x;
                                     x       x
   */
       w = 1.0/x;
-      f = cephes_polevl(w,A6,7) / cephes_p1evl(w,B6,7);
+      f = cephes_polevl(w,(double*)A6,7) / cephes_p1evl(w,(double*)B6,7);
       return (cephes_exp(x) * w * (1.0 + w * f));
     }
   else if (x < 8.0)
     {
       w = 1.0/x;
-      f = cephes_polevl(w,A5,7) / cephes_p1evl(w,B5,8);
+      f = cephes_polevl(w,(double*)A5,7) / cephes_p1evl(w,(double*)B5,8);
       return (cephes_exp(x) * w * (1.0 + w * f));
     }
   else if (x < 16.0)
     {
       w = 1.0/x;
-      f = cephes_polevl(w,A2,9) / cephes_p1evl(w,B2,9);
+      f = cephes_polevl(w,(double*)A2,9) / cephes_p1evl(w,(double*)B2,9);
       return (cephes_exp(x) * w * (1.0 + w * f));
     }
   else if (x < 32.0)
     {
       w = 1.0/x;
-      f = cephes_polevl(w,A4,7) / cephes_p1evl(w,B4,8);
+      f = cephes_polevl(w,(double*)A4,7) / cephes_p1evl(w,(double*)B4,8);
       return (cephes_exp(x) * w * (1.0 + w * f));
     }
   else if (x < 64.0)
     {
       w = 1.0/x;
-      f = cephes_polevl(w,A7,5) / cephes_p1evl(w,B7,5);
+      f = cephes_polevl(w,(double*)A7,5) / cephes_p1evl(w,(double*)B7,5);
       return (cephes_exp(x) * w * (1.0 + w * f));
     }
   else
     {
       w = 1.0/x;
-      f = cephes_polevl(w,A3,8) / cephes_p1evl(w,B3,9);
+      f = cephes_polevl(w,(double*)A3,8) / cephes_p1evl(w,(double*)B3,9);
       return (cephes_exp(x) * w * (1.0 + w * f));
     }
 }

@@ -191,5 +191,5 @@ if( (x <= 0.0) || (x > 1.0) )
 	cephes_mtherr( "ellpe", DOMAIN );
 	return( 0.0 );
 	}
-return( cephes_polevl(x,P,10) - cephes_log(x) * (x * cephes_polevl(x,Q,9)) );
+return( cephes_polevl(x,(double*)P,10) - cephes_log(x) * (x * cephes_polevl(x,(double*)Q,9)) );
 }

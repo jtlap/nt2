@@ -199,7 +199,7 @@ z = ((x - y * DP1) - y * DP2) - y * DP3;
 zz = z * z;
 
 if( zz > 1.0e-14 )
-	y = z  +  z * (zz * cephes_polevl( zz, P, 2 )/cephes_p1evl(zz, Q, 4));
+	y = z  +  z * (zz * cephes_polevl( zz, (double*)P, 2 )/cephes_p1evl(zz, (double*)Q, 4));
 else
 	y = z;
 	

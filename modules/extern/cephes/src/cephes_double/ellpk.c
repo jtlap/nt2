@@ -114,7 +114,7 @@ if( (x < 0.0) || (x > 1.0) )
 
 if( x > MACHEP )
 	{
-	return( cephes_polevl(x,P,10) - cephes_log(x) * cephes_polevl(x,Q,10) );
+	return( cephes_polevl(x,(double*)P,10) - cephes_log(x) * cephes_polevl(x,(double*)Q,10) );
 	}
 else
 	{

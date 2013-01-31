@@ -186,7 +186,7 @@ if( (x < 0.0L) || (x > 1.0L) )
 
 if( x > MACHEPL )
 	{
-	return( cephes_polevll(x,P,12) - cephes_logl(x) * cephes_polevll(x,Q,11) );
+	return( cephes_polevll(x,(long double*)P,12) - cephes_logl(x) * cephes_polevll(x,(long double*)Q,11) );
 	}
 else
 	{

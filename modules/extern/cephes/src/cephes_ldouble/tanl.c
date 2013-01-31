@@ -255,7 +255,7 @@ z = ((x - y * DP1) - y * DP2) - y * DP3;
 zz = z * z;
 
 if( zz > 1.0e-20L )
-	y = z  +  z * (zz * cephes_polevll( zz, P, 2 )/cephes_p1evll(zz, Q, 4));
+	y = z  +  z * (zz * cephes_polevll( zz, (long double*)P, 2 )/cephes_p1evll(zz, (long double*)Q, 4));
 else
 	y = z;
 	

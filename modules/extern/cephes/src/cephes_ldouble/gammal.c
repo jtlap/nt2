@@ -386,7 +386,7 @@ if( x > 1024.0L )
 		+ 8.33333333333333333333E-2L) * w
 		+ 1.0L;
 else
-	w = 1.0L + w * cephes_polevll( w, STIR, 8 );
+	w = 1.0L + w * cephes_polevll( w, (long double*)STIR, 8 );
 y = cephes_expl(x);
 if( x > MAXSTIR )
 	{ /* Avoid overflow in pow() */
@@ -497,8 +497,8 @@ if( x == 2.0L )
 	return(z);
 
 x -= 2.0L;
-p = cephes_polevll( x, P, 7 );
-q = cephes_polevll( x, Q, 8 );
+p = cephes_polevll( x, (long double*)P, 7 );
+q = cephes_polevll( x, (long double*)Q, 8 );
 z = z * p / q;
 if( z < 0 )
 	sgngaml = -1;
@@ -514,11 +514,11 @@ else
 	if( x < 0.0L )
 		{
 		x = -x;
-		q = z / (x * cephes_polevll( x, SN, 8 ));
+		q = z / (x * cephes_polevll( x, (long double*)SN, 8 ));
 		sgngaml = -1;
 		}
 	else
-		q = z / (x * cephes_polevll( x, S, 8 ));
+		q = z / (x * cephes_polevll( x, (long double*)S, 8 ));
 	}
 return q;
 }
@@ -723,7 +723,7 @@ if( x < 13.0L )
 	if( x == 2.0L )
 		return( cephes_logl(z) );
 	x = (nx - 2.0L) + f;
-	p = x * cephes_polevll( x, B, 6 ) / cephes_p1evll( x, C, 7);
+	p = x * cephes_polevll( x, (long double*)B, 6 ) / cephes_p1evll( x, (long double*)C, 7);
 	return( cephes_logl(z) + p );
 	}
 
@@ -742,7 +742,7 @@ q = ( x - 0.5L ) * cephes_logl(x) - x + LS2PI;
 if( x > 1.0e10L )
 	return(q);
 p = 1.0L/(x*x);
-q += cephes_polevll( p, A, 6 ) / x;
+q += cephes_polevll( p, (long double*)A, 6 ) / x;
 return( q );
 
 
@@ -752,10 +752,10 @@ if( x == 0.0L )
 if( x < 0.0L )
 	{
 	x = -x;
-	q = z / (x * cephes_polevll( x, SN, 8 ));
+	q = z / (x * cephes_polevll( x, (long double*)SN, 8 ));
 	}
 else
-	q = z / (x * cephes_polevll( x, S, 8 ));
+	q = z / (x * cephes_polevll( x, (long double*)S, 8 ));
 if( q < 0.0L )
 	{
 	sgngaml = -1;

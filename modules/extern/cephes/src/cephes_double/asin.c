@@ -279,7 +279,7 @@ if( a > 0.625 )
 	{
 	/* arcsin(1-x) = pi/2 - cephes_sqrt(2x)(1+R(x))  */
 	zz = 1.0 - a;
-	p = zz * cephes_polevl( zz, R, 4)/cephes_p1evl( zz, S, 4);
+	p = zz * cephes_polevl( zz, (double*)R, 4)/cephes_p1evl( zz, (double*)S, 4);
 	zz = cephes_sqrt(zz+zz);
 	z = PIO4 - zz;
 	zz = zz * p - MOREBITS;
@@ -293,7 +293,7 @@ else
 		return(x);
 		}
 	zz = a * a;
-	z = zz * cephes_polevl( zz, P, 5)/cephes_p1evl( zz, Q, 5);
+	z = zz * cephes_polevl( zz, (double*)P, 5)/cephes_p1evl( zz, (double*)Q, 5);
 	z = a * z + a;
 	}
 if( sign < 0 )

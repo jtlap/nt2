@@ -180,7 +180,7 @@ double x;
 double y, w, v;
 
 w = 1.0/x;
-w = 1.0 + w * cephes_polevl( w, STIR, 4 );
+w = 1.0 + w * cephes_polevl( w, (double*)STIR, 4 );
 y = cephes_exp(x);
 if( x > MAXSTIR )
 	{ /* Avoid overflow in cephes_pow() */
@@ -293,8 +293,8 @@ if( x == 2.0 )
 	return(z);
 
 x -= 2.0;
-p = cephes_polevl( x, P, 6 );
-q = cephes_polevl( x, Q, 7 );
+p = cephes_polevl( x, (double*)P, 6 );
+q = cephes_polevl( x, (double*)Q, 7 );
 return( z * p / q );
 
 small:
@@ -435,7 +435,7 @@ if( x < 13.0 )
 		return( cephes_log(z) );
 	p -= 2.0;
 	x = x + p;
-	p = x * cephes_polevl( x, B, 5 ) / cephes_p1evl( x, C, 6);
+	p = x * cephes_polevl( x, (double*)B, 5 ) / cephes_p1evl( x, (double*)C, 6);
 	return( cephes_log(z) + p );
 	}
 
@@ -460,6 +460,6 @@ if( x >= 1000.0 )
 		- 2.7777777777777777777778e-3) *p
 		+ 0.0833333333333333333333) / x;
 else
-	q += cephes_polevl( p, A, 4 ) / x;
+	q += cephes_polevl( p, (double*)A, 4 ) / x;
 return( q );
 }

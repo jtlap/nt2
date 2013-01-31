@@ -624,7 +624,7 @@ x /= douba(i);
  * log(1+v)  =  v  -  v**2/2  +  v**3 P(v) / Q(v)
  */
 z = x*x;
-w = x * ( z * cephes_polevll( x, P, 3 ) / cephes_p1evll( x, Q, 3 ) );
+w = x * ( z * cephes_polevll( x, (long double*)P, 3 ) / cephes_p1evll( x, (long double*)Q, 3 ) );
 w = w - cephes_ldexpl( z, -1 );   /*  w - 0.5 * z  */
 
 /* Convert to base 2 logarithm:
@@ -693,7 +693,7 @@ if( Hb > 0.0L )
  * Compute base 2 exponential of Hb,
  * where -0.0625 <= Hb <= 0.
  */
-z = Hb * cephes_polevll( Hb, R, 6 );  /*    z  =  2**Hb - 1    */
+z = Hb * cephes_polevll( Hb, (long double*)R, 6 );  /*    z  =  2**Hb - 1    */
 
 /* Express e/NXT as an integer plus a negative number of (1/NXT)ths.
  * Find lookup table entry for the fractional power of 2.

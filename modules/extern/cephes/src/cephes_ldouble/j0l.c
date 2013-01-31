@@ -307,7 +307,7 @@ extern long double cephes_sinl ( long double );
 extern long double cephes_logl ( long double );
 long double cephes_j0l ( long double );
 #else
-long double cephes_sqrtl(), cephes_fabsl(), cephes_polevll(), cephes_p1evll(), cephes_cosl(), cephes_sinl(), cephes_logl();
+long double cephes_sqrtl(), cephes_fabsl(), cephes_polevll(), (long double*)cephes_p1evll(), cephes_cosl(), cephes_sinl(), cephes_logl();
 long double cephes_j0l();
 #endif
 
@@ -320,16 +320,16 @@ xx = x * x;
 if( xx < 81.0L )
   {
     y = (xx - JZ1) * (xx - JZ2) * (xx -JZ3);
-    y *= cephes_polevll( xx, j0n, 7 ) / cephes_p1evll( xx, j0d, 8 );
+    y *= cephes_polevll( xx, (long double*)j0n, 7 ) / cephes_p1evll( xx, (long double*)j0d, 8 );
     return y;
   }
 
 y = cephes_fabsl(x);
 xx = 1.0/xx;
-phase = cephes_polevll( xx, phasen, 5 ) / cephes_p1evll( xx, phased, 6 );
+phase = cephes_polevll( xx, (long double*)phasen, 5 ) / cephes_p1evll( xx, (long double*)phased, 6 );
 
 z = 1.0/y;
-modulus = cephes_polevll( z, modulusn, 7 ) / cephes_p1evll( z, modulusd, 7 );
+modulus = cephes_polevll( z, (long double*)modulusn, 7 ) / cephes_p1evll( z, (long double*)modulusd, 7 );
 
 y = modulus * cephes_cosl( y -  PIO4L + z*phase) / cephes_sqrtl(y);
 return y;
@@ -519,22 +519,22 @@ if( xx < 81.0L )
     if( xx < 20.25L )
       {
 	y = TWOOPI * cephes_logl(x) * cephes_j0l(x);
-	y += cephes_polevll( xx, y0n, 7 ) / cephes_p1evll( xx, y0d, 7 );
+	y += cephes_polevll( xx, (long double*)y0n, 7 ) / cephes_p1evll( xx, (long double*)y0d, 7 );
       }
     else
       {
 	y = (x - Y0Z1)*(x - Y0Z2)*(x - Y0Z3)*(x - Y0Z4);
-	y *= cephes_polevll( x, y059n, 9 ) / cephes_p1evll( x, y059d, 9 );
+	y *= cephes_polevll( x, (long double*)y059n, 9 ) / cephes_p1evll( x, (long double*)y059d, 9 );
       }
     return y;
   }
 
 y = cephes_fabsl(x);
 xx = 1.0/xx;
-phase = cephes_polevll( xx, phasen, 5 ) / cephes_p1evll( xx, phased, 6 );
+phase = cephes_polevll( xx, (long double*)phasen, 5 ) / cephes_p1evll( xx, (long double*)phased, 6 );
 
 z = 1.0/y;
-modulus = cephes_polevll( z, modulusn, 7 ) / cephes_p1evll( z, modulusd, 7 );
+modulus = cephes_polevll( z, (long double*)modulusn, 7 ) / cephes_p1evll( z, (long double*)modulusd, 7 );
 
 y = modulus * cephes_sinl( y -  PIO4L + z*phase) / cephes_sqrtl(y);
 return y;

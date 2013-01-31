@@ -155,7 +155,7 @@ if( z < 1.0e-8L )
 if( z < 0.5L )
 	{
 	z = x * x;
-	s = x   +  x * z * (cephes_polevll(z, P, 5) / cephes_p1evll(z, Q, 5));
+	s = x   +  x * z * (cephes_polevll(z, (long double*)P, 5) / cephes_p1evll(z, (long double*)Q, 5));
 	return(s);
 	}
 

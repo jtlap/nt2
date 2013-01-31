@@ -860,15 +860,15 @@ if( x < -2.09 )
 	k = sqpii / t;
 	z = 1.0/zeta;
 	zz = z * z;
-	uf = 1.0 + zz * cephes_polevl( zz, AFN, 8 ) / cephes_p1evl( zz, AFD, 9 );
-	ug = z * cephes_polevl( zz, AGN, 10 ) / cephes_p1evl( zz, AGD, 10 );
+	uf = 1.0 + zz * cephes_polevl( zz, (double*)AFN, 8 ) / cephes_p1evl( zz, (double*)AFD, 9 );
+	ug = z * cephes_polevl( zz, (double*)AGN, 10 ) / cephes_p1evl( zz, (double*)AGD, 10 );
 	theta = zeta + 0.25 * PI;
 	f = cephes_sin( theta );
 	g = cephes_cos( theta );
 	*ai = k * (f * uf - g * ug);
 	*bi = k * (g * uf + f * ug);
-	uf = 1.0 + zz * cephes_polevl( zz, APFN, 8 ) / cephes_p1evl( zz, APFD, 9 );
-	ug = z * cephes_polevl( zz, APGN, 10 ) / cephes_p1evl( zz, APGD, 10 );
+	uf = 1.0 + zz * cephes_polevl( zz, (double*)APFN, 8 ) / cephes_p1evl( zz, (double*)APFD, 9 );
+	ug = z * cephes_polevl( zz, (double*)APGN, 10 ) / cephes_p1evl( zz, (double*)APGD, 10 );
 	k = sqpii * t;
 	*aip = -k * (g * uf + f * ug);
 	*bip = k * (f * uf - g * ug);
@@ -884,18 +884,18 @@ if( x >= 2.09 )	/* cephes_cbrt(9) */
 	t = cephes_sqrt(t);
 	k = 2.0 * t * g;
 	z = 1.0/zeta;
-	f = cephes_polevl( z, AN, 7 ) / cephes_polevl( z, AD, 7 );
+	f = cephes_polevl( z, (double*)AN, 7 ) / cephes_polevl( z, (double*)AD, 7 );
 	*ai = sqpii * f / k;
 	k = -0.5 * sqpii * t / g;
-	f = cephes_polevl( z, APN, 7 ) / cephes_polevl( z, APD, 7 );
+	f = cephes_polevl( z, (double*)APN, 7 ) / cephes_polevl( z, (double*)APD, 7 );
 	*aip = f * k;
 
 	if( x > 8.3203353 )	/* zeta > 16 */
 		{
-		f = z * cephes_polevl( z, BN16, 4 ) / cephes_p1evl( z, BD16, 5 );
+		f = z * cephes_polevl( z, (double*)BN16, 4 ) / cephes_p1evl( z, (double*)BD16, 5 );
 		k = sqpii * g;
 		*bi = k * (1.0 + f) / t;
-		f = z * cephes_polevl( z, BPPN, 4 ) / cephes_p1evl( z, BPPD, 5 );
+		f = z * cephes_polevl( z, (double*)BPPN, 4 ) / cephes_p1evl( z, (double*)BPPD, 5 );
 		*bip = k * t * (1.0 + f);
 		return(0);
 		}

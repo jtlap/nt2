@@ -169,5 +169,5 @@ if( (x <= 0.0L) || (x > 1.0L) )
 	cephes_mtherr( "ellpel", DOMAIN );
 	return( 0.0L );
 	}
-return( 1.0L + x * cephes_polevll(x,P,11) - cephes_logl(x) * (x * cephes_polevll(x,Q,11)) );
+return( 1.0L + x * cephes_polevll(x,(long double*)P,11) - cephes_logl(x) * (x * cephes_polevll(x,(long double*)Q,11)) );
 }

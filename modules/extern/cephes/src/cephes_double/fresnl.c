@@ -452,7 +452,7 @@ extern double cephes_sin ( double );
 extern double cephes_polevl ( double, double *, int );
 extern double cephes_p1evl ( double, double *, int );
 #else
-double fabs(), cephes_cos(), cephes_sin(), cephes_polevl(), cephes_p1evl();
+double fabs(), cephes_cos(), cephes_sin(), cephes_polevl(), (double*)cephes_p1evl();
 #endif
 extern double PI, PIO2, MACHEP;
 
@@ -467,8 +467,8 @@ x2 = x * x;
 if( x2 < 2.5625 )
 	{
 	t = x2 * x2;
-	ss = x * x2 * cephes_polevl( t, sn, 5)/cephes_p1evl( t, sd, 6 );
-	cc = x * cephes_polevl( t, cn, 5)/cephes_polevl(t, cd, 6 );
+	ss = x * x2 * cephes_polevl( t, (double*)sn, 5)/cephes_p1evl( t, (double*)sd, 6 );
+	cc = x * cephes_polevl( t, (double*)cn, 5)/cephes_polevl(t, (double*)cd, 6 );
 	goto done;
 	}
 
@@ -492,8 +492,8 @@ if( x > 36974.0 )
 	t = PI * x2;
 	u = 1.0/(t * t);
 	t = 1.0/t;
-	f = 1.0 - u * cephes_polevl( u, fn, 9)/cephes_p1evl(u, fd, 10);
-	g = t * cephes_polevl( u, gn, 10)/cephes_p1evl(u, gd, 11);
+	f = 1.0 - u * cephes_polevl( u, (double*)fn, 9)/cephes_p1evl(u, (double*)fd, 10);
+	g = t * cephes_polevl( u, (double*)gn, 10)/cephes_p1evl(u, (double*)gd, 11);
 
 	t = PIO2 * x2;
 	c = cephes_cos(t);

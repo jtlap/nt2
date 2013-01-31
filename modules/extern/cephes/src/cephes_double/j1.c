@@ -192,15 +192,15 @@ if( x < 0 )
 if( w <= 5.0 )
 	{
 	z = x * x;	
-	w = cephes_polevl( z, RP, 3 ) / cephes_p1evl( z, RQ, 8 );
+	w = cephes_polevl( z, (double*)RP, 3 ) / cephes_p1evl( z, (double*)RQ, 8 );
 	w = w * x * (z - Z1) * (z - Z2);
 	return( w );
 	}
 
 w = 5.0/x;
 z = w * w;
-p = cephes_polevl( z, PP, 6)/cephes_polevl( z, PQ, 6 );
-q = cephes_polevl( z, QP, 7)/cephes_p1evl( z, QQ, 7 );
+p = cephes_polevl( z, (double*)PP, 6)/cephes_polevl( z, (double*)PQ, 6 );
+q = cephes_polevl( z, (double*)QP, 7)/cephes_p1evl( z, (double*)QQ, 7 );
 xn = x - THPIO4;
 p = p * cephes_cos(xn) - w * q * cephes_sin(xn);
 return( p * SQ2OPI / cephes_sqrt(x) );
@@ -222,15 +222,15 @@ if( x <= 5.0 )
 		return( -MAXNUM );
 		}
 	z = x * x;
-	w = x * (cephes_polevl( z, YP, 5 ) / cephes_p1evl( z, YQ, 8 ));
+	w = x * (cephes_polevl( z, (double*)YP, 5 ) / cephes_p1evl( z, (double*)YQ, 8 ));
 	w += TWOOPI * ( cephes_j1(x) * cephes_log(x)  -  1.0/x );
 	return( w );
 	}
 
 w = 5.0/x;
 z = w * w;
-p = cephes_polevl( z, PP, 6)/cephes_polevl( z, PQ, 6 );
-q = cephes_polevl( z, QP, 7)/cephes_p1evl( z, QQ, 7 );
+p = cephes_polevl( z, (double*)PP, 6)/cephes_polevl( z, (double*)PQ, 6 );
+q = cephes_polevl( z, (double*)QP, 7)/cephes_p1evl( z, (double*)QQ, 7 );
 xn = x - THPIO4;
 p = p * cephes_sin(xn) + w * q * cephes_cos(xn);
 return( p * SQ2OPI / cephes_sqrt(x) );

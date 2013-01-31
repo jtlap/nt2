@@ -384,7 +384,7 @@ if (n == 4)
     if (x >= 0.875)
       {
 	u = 1.0 - x;
-	s = cephes_polevl(u, A4, 12) / cephes_p1evl(u, B4, 12);
+	s = cephes_polevl(u, (double*)A4, 12) / cephes_p1evl(u, (double*)B4, 12);
 	s =  s * u * u - 1.202056903159594285400 * u;
 	s +=  1.0823232337111381915160;
 	return s;

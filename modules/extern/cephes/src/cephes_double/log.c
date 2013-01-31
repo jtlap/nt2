@@ -298,7 +298,7 @@ x = z / y;
 
 /* rational form */
 z = x*x;
-z = x * ( z * cephes_polevl( z, R, 2 ) / cephes_p1evl( z, S, 3 ) );
+z = x * ( z * cephes_polevl( z, (double*)R, 2 ) / cephes_p1evl( z, (double*)S, 3 ) );
 y = e;
 z = z - y * 2.121944400546905827679e-4;
 z = z + x;
@@ -324,9 +324,9 @@ else
 /* rational form */
 z = x*x;
 #if DEC
-y = x * ( z * cephes_polevl( x, P, 5 ) / cephes_p1evl( x, Q, 6 ) );
+y = x * ( z * cephes_polevl( x, (double*)P, 5 ) / cephes_p1evl( x, (double*)Q, 6 ) );
 #else
-y = x * ( z * cephes_polevl( x, P, 5 ) / cephes_p1evl( x, Q, 5 ) );
+y = x * ( z * cephes_polevl( x, (double*)P, 5 ) / cephes_p1evl( x, (double*)Q, 5 ) );
 #endif
 if( e )
 	y = y - e * 2.121944400546905827679e-4;

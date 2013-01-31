@@ -369,7 +369,7 @@ if( xx < 0.0 )
 if( xx < 3.25 )
 {
 x = xx*xx;
-y = xx * cephes_polevl( x, AN, 9 )/cephes_polevl( x, AD, 10 );
+y = xx * cephes_polevl( x, (double*)AN, 9 )/cephes_polevl( x, (double*)AD, 10 );
 return( sign * y );
 }
 
@@ -378,7 +378,7 @@ x = 1.0/(xx*xx);
 
 if( xx < 6.25 )
 	{
-	y = 1.0/xx + x * cephes_polevl( x, BN, 10) / (cephes_p1evl( x, BD, 10) * xx);
+	y = 1.0/xx + x * cephes_polevl( x, (double*)BN, 10) / (cephes_p1evl( x, (double*)BD, 10) * xx);
 	return( sign * 0.5 * y );
 	}
 
@@ -387,6 +387,6 @@ if( xx > 1.0e9 )
 	return( (sign * 0.5)/xx );
 
 /* 6.25 to infinity */
-y = 1.0/xx + x * cephes_polevl( x, CN, 4) / (cephes_p1evl( x, CD, 5) * xx);
+y = 1.0/xx + x * cephes_polevl( x, (double*)CN, 4) / (cephes_p1evl( x, (double*)CD, 5) * xx);
 return( sign * 0.5 * y );
 }
