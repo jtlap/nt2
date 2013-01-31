@@ -10,7 +10,7 @@
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_CONV_HPP_INCLUDED
 
 #include <nt2/toolbox/polynom/functions/conv.hpp>
-#include <nt2/core/functions/run_assign.hpp>
+#include <nt2/dsl/functions/run.hpp>
 #include <nt2/core/container/table/table.hpp>
 #include <nt2/include/functions/numel.hpp>
 #include <nt2/include/functions/of_size.hpp>
