@@ -8,6 +8,7 @@
 //==============================================================================
 #ifndef NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_COMPAN_HPP_INCLUDED
 #define NT2_TOOLBOX_POLYNOM_FUNCTIONS_EXPR_COMPAN_HPP_INCLUDED
+
 #include <nt2/toolbox/polynom/functions/compan.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/reduce.hpp>
@@ -20,10 +21,10 @@
 #include <nt2/include/functions/reduce.hpp>
 #include <nt2/include/functions/rowvect.hpp>
 #include <nt2/include/functions/of_size.hpp>
-#include <nt2/include/functions/function.hpp>
-#include <nt2/include/functions/ones.hpp>
+#include <nt2/core/functions/function.hpp>
 #include <nt2/include/constants/one.hpp>
 #include <nt2/include/constants/two.hpp>
+#include <nt2/include/functions/ones.hpp>
 
 namespace nt2 { namespace ext
 {
@@ -43,7 +44,8 @@ namespace nt2 { namespace ext
     typedef typename nt2::meta::call<nt2::tag::function_(T0, T4)>::type                            T5;
     typedef typename nt2::meta::call<nt2::tag::divides_(T5, value_type)>::type                     T6;
     typedef typename nt2::meta::call<nt2::tag::function_(T3, T4, nt2::container::colon_)>::type    T7;
-    typedef typename nt2::meta::call<nt2::tag::vertcat_(T6, T7)>::type                    result_type;
+    typedef typename nt2::meta::call<nt2::tag::vertcat_(T6, T7)>::type                             T8;
+    typedef T8 result_type;
     NT2_FUNCTOR_CALL(1)
     {
       BOOST_ASSERT_MSG(isvector(a0), "Input argument must be a vector.");

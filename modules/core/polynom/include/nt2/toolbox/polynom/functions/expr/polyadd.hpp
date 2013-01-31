@@ -41,8 +41,8 @@ namespace nt2{ namespace ext
       size_t nb =  nt2::numel(bb);
       size_t n2 =  na > nb ? na-nb : 0;
       size_t n1 =  nb > na ? nb-na : 0;
-      BOOST_AUTO_TPL( aaa, cath(zeros(nt2::One<size_t>(), n1, meta::as_<value_type>()), aa));
-      BOOST_AUTO_TPL( bbb, cath(zeros(nt2::One<size_t>(), n2, meta::as_<value_type>()), bb));
+      BOOST_AUTO_TPL( aaa, nt2::cath(nt2::zeros(nt2::One<size_t>(), n1, meta::as_<value_type>()), aa));
+      BOOST_AUTO_TPL( bbb, nt2::cath(nt2::zeros(nt2::One<size_t>(), n2, meta::as_<value_type>()), bb));
       return nt2::reduce(nt2::plus(aaa, bbb));
     }
   };

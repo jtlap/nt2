@@ -17,6 +17,7 @@
 #include <nt2/include/functor.hpp>
 #include <nt2/core/container/dsl/reshaping.hpp>
 #include <nt2/sdk/meta/reshaping_hierarchy.hpp>
+#include <nt2/core/container/dsl/size.hpp>
 
 namespace nt2
 {

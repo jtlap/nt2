@@ -26,9 +26,6 @@
 #include <nt2/sdk/error/warning.hpp>
 #include <nt2/core/container/table/table.hpp>
 
-/////////////////////////////////////////////////////////////////////////////
-// Implementation when type A0 is arithmetic_
-/////////////////////////////////////////////////////////////////////////////
 namespace nt2 { namespace ext
 {
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyval_, tag::cpu_
@@ -54,11 +51,6 @@ namespace nt2 { namespace ext
   };
 
 
-  //============================================================================
-  // This version of balance is called whenever a tie(...) = balance(...) is captured
-  // before assign is resolved. As a tieable function, balance retrieves rhs/lhs
-  // pair as inputs
-  //============================================================================
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::polyval_, tag::cpu_
                               , (A0)(N0)(A1)(N1)
                               , ((node_<A0, nt2::tag::polyval_, N0, nt2::container::domain>))

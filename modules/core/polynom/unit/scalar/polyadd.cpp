@@ -6,27 +6,17 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 polynom toolbox - polyadd/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 polynom toolbox - polyadd/e"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of polynom components in scalar mode
+// unit test behavior of polynom components
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
 ///
 #include <nt2/include/functions/polyadd.hpp>
-#include <nt2/include/functions/conv.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
-#include <nt2/include/functions/isequal.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/table.hpp>
-
-#include <boost/array.hpp>
-
 
 NT2_TEST_CASE_TPL ( polyadd_real__1_0,  NT2_REAL_TYPES)
 {
@@ -45,8 +35,8 @@ NT2_TEST_CASE_TPL ( polyadd_real__1_0,  NT2_REAL_TYPES)
   NT2_DISPLAY(c);
   NT2_DISPLAY(polyadd(a, b));
   NT2_DISPLAY(polyadd(b, a));
-  NT2_TEST(nt2::isequal(d,polyadd(a, b)));
-  NT2_TEST(nt2::isequal(d,polyadd(b, a)));
+  NT2_TEST_EQUAL(d,polyadd(a, b));
+  NT2_TEST_EQUAL(d,polyadd(b, a));
 } // end of test for floating_
 
 

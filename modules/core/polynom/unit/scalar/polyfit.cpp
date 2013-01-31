@@ -6,30 +6,21 @@
 ///                 See accompanying file LICENSE.txt or copy at
 ///                     http://www.boost.org/LICENSE_1_0.txt
 //////////////////////////////////////////////////////////////////////////////
-#define NT2_UNIT_MODULE "nt2 polynom toolbox - polyfit/scalar Mode"
+#define NT2_UNIT_MODULE "nt2 polynom toolbox - polyfit"
 
 //////////////////////////////////////////////////////////////////////////////
-// unit test behavior of polynom components in scalar mode
+// unit test behavior of polynom components
 //////////////////////////////////////////////////////////////////////////////
 /// created  by jt the 06/03/2011
 ///
 #include <nt2/include/functions/polyfit.hpp>
-#include <nt2/include/functions/ulpdist.hpp>
 #include <nt2/include/functions/polyval.hpp>
-#include <nt2/include/functions/isulpequal.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/unit/tests.hpp>
 #include <nt2/sdk/unit/module.hpp>
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/basic.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/include/constants/real.hpp>
 #include <nt2/table.hpp>
 #include <nt2/include/functions/tie.hpp>
-
-#include <boost/array.hpp>
-
 
 NT2_TEST_CASE_TPL ( plevl_real__1_0,  NT2_REAL_TYPES)
 {
@@ -51,14 +42,14 @@ NT2_TEST_CASE_TPL ( plevl_real__1_0,  NT2_REAL_TYPES)
   NT2_DISPLAY(p1);
   NT2_DISPLAY(polyval(p1, x));
   NT2_DISPLAY(y);
-  NT2_TEST(nt2::isulpequal(polyval(p1, x), y, 0.5));
+  NT2_TEST_ULP_EQUAL(polyval(p1, x), y, 0.5);
 
   NT2_DISPLAY(polyfit(x, y, 2));
   nt2::table<T> p2 =polyfit(x, y, 2);
   NT2_DISPLAY(p2);
   NT2_DISPLAY(polyval(p2, x));
   NT2_DISPLAY(y);
-  NT2_TEST(nt2::isulpequal(polyval(p2, x), y, 0.5));
+  NT2_TEST_ULP_EQUAL(polyval(p2, x), y, 0.5);
 
   nt2::table<T> r;
   T df, normr;
