@@ -22,6 +22,9 @@
 #include <nt2/core/utility/box.hpp>
 #include <nt2/core/utility/share.hpp>
 #include <nt2/core/container/colon/category.hpp>
+#include <nt2/core/container/dsl/forward.hpp>
+#include <nt2/sdk/memory/container.hpp>
+#include <nt2/sdk/memory/container_shared_ref.hpp>
 #include <nt2/sdk/meta/as_index.hpp>
 #include <boost/simd/sdk/meta/is_logical.hpp>
 #include <boost/utility/enable_if.hpp>
@@ -114,10 +117,13 @@ namespace nt2 { namespace ext
                                       )
                 >::type Idx;
 
-    typedef nt2::container::
-            table< typename A0::value_type
-                 , nt2::settings(typename A0::settings_type, typename Idx::extent_type, nt2::shared_)
-                 > type;
+    typedef nt2::memory::
+            container< typename A0::value_type
+                     , nt2::settings(typename A0::settings_type, typename Idx::extent_type, nt2::shared_)
+                     > container;
+    typedef nt2::memory::container_shared_ref<container> container_ref;
+    typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref> > expr;
+    typedef nt2::container::expression<expr, container&> type;
 
     static type call(A0& a0, I const& indices)
     {
@@ -125,7 +131,8 @@ namespace nt2 { namespace ext
       std::size_t b = nt2::run(idx, 0u, meta::as_<std::size_t>());
       std::size_t e = nt2::run(idx, nt2::numel(idx.extent())-1u, meta::as_<std::size_t>())+1u;
       typename A0::value_type* p = const_cast<typename A0::value_type*>(a0.raw());
-      return type(idx.extent(), nt2::share(p+b, p+e));
+
+      return type(expr::make(container_ref(boost::make_shared<container>(idx.extent(), nt2::share(p+b, p+e)))));
     }
   };
 
