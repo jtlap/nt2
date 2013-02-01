@@ -35,8 +35,8 @@ NT2_TEST_CASE_TPL ( polyadd_real__1_0,  NT2_REAL_TYPES)
   NT2_DISPLAY(c);
   NT2_DISPLAY(polyadd(a, b));
   NT2_DISPLAY(polyadd(b, a));
-//   NT2_TEST_EQUAL(d,polyadd(a, b));
-//   NT2_TEST_EQUAL(d,polyadd(b, a));
+  NT2_TEST_EQUAL(d,polyadd(a, b));
+  NT2_TEST_EQUAL(d,polyadd(b, a));
 } // end of test for floating_
 
 
