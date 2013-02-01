@@ -121,9 +121,13 @@ namespace nt2 { namespace ext
             container< typename A0::value_type
                      , nt2::settings(typename A0::settings_type, typename Idx::extent_type, nt2::shared_)
                      > container;
+    typedef nt2::memory::
+            container< typename A0::value_type
+                     , nt2::settings(typename A0::settings_type, typename Idx::extent_type)
+                     > container_no_shared;
     typedef nt2::memory::container_shared_ref<container> container_ref;
     typedef boost::proto::basic_expr< boost::proto::tag::terminal, boost::proto::term<container_ref> > expr;
-    typedef nt2::container::expression<expr, container&> type;
+    typedef nt2::container::expression<expr, container_no_shared&> type;
 
     static type call(A0& a0, I const& indices)
     {
