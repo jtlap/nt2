@@ -39,9 +39,6 @@
  *  [3] D. Funaro, Computing the inverse of the Chebyshev collocation
  *      derivative, SIAM J. Sci. Stat. Comput., 9 (1988), pp. 1050-1057.
  *
- *  Nicholas J. Higham, Dec 1999.
- *  Copyright 1984-2002 The MathWorks, Inc.
- *
  * \par Header file
  *
  * \code
@@ -50,9 +47,6 @@
  *
  *
 **/
-//==============================================================================
-// chebspec actual class forward declaration
-//==============================================================================
 
 namespace nt2 { namespace tag
   {

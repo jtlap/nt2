@@ -18,7 +18,7 @@ SET( SOURCES
   compar.cpp
   condex.cpp
   dorr.cpp
-#  dramadah.cpp
+  dramadah.cpp
   fiedler.cpp
   hadamard.cpp
   hankel.cpp

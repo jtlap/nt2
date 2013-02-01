@@ -10,9 +10,9 @@
     condex      Counter-examples to matrix condition number estimators.               | done
     cycol       Matrix whose columns repeat cyclically.
     dorr        Dorr matrix -- diagonally dominant, ill-conditioned, tridiagonal.     | done
-                (One or three output arguments, sparse)
-    dramadah    Matrix of ones and zeroes whose inverse has large integer entries.
-    fiedler     Fiedler matrix -- symmetric.
+                (One or three output arguments, sparse)                               |
+    dramadah    Matrix of ones and zeroes whose inverse has large integer entries.    | done
+    fiedler     Fiedler matrix -- symmetric.                                          | done
     forsythe    Forsythe matrix -- a perturbed Jordan block.
     frank       Frank matrix -- ill-conditioned eigenvalues.
     gcdmat      GCD matrix.
