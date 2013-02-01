@@ -24,9 +24,9 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   /// Generates colon from a pair of [low,up]
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
-                              , (A0)(A1)
-                              , (scalar_< arithmetic_<A0> >)
-                                (scalar_< arithmetic_<A1> >)
+                            , (A0)(A1)
+                            , (scalar_< arithmetic_<A0> >)
+                              (scalar_< arithmetic_<A1> >)
                             )
   {
     typedef typename boost::common_type<A0,A1>::type          base_t;
@@ -56,10 +56,10 @@ namespace nt2 { namespace ext
   /// INTERNAL ONLY
   /// Generates colon from a pair of [low,up] (static)
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
-                              , (A0)(A1)
-                              , (mpl_integral_< scalar_< arithmetic_<A0> > >)
-                                (mpl_integral_< scalar_< arithmetic_<A1> > >)
-                            )
+                            , (A0)(A1)
+                            , (mpl_integral_< scalar_< arithmetic_<A0> > >)
+                              (mpl_integral_< scalar_< arithmetic_<A1> > >)
+                           )
   {
     static const std::size_t sz = (A1::value>=A0::value)
                                 ? std::size_t(A1::value-A0::value+1) : 0u;
@@ -91,60 +91,29 @@ namespace nt2 { namespace ext
   ///  Generates colon from a pair of [low,up] and a step
   /// Easy case : everything is signed integral
   NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
-                            , (A0)
-                            , (scalar_< int_<A0> >)
-                              (scalar_< int_<A0> >)
-                              (scalar_< int_<A0> >)
+                            , (A0)(A1)(A2)
+                            , (scalar_< integer_<A0> >)
+                              (scalar_< integer_<A1> >)
+                              (scalar_< integer_<A2> >)
                             )
   {
-    typedef meta::constant_<nt2::tag::colon_,A0> constant_t;
+    typedef typename boost::common_type<A0,A1,A2>::type                 base_t;
+    typedef meta::constant_<nt2::tag::colon_,base_t>                constant_t;
     typedef typename  boost::proto::
                       result_of::make_expr< nt2::tag::colon_
                                           , container::domain
                                           , box< of_size_<1, -1> >
                                           , box< constant_t >
-                                          , meta::as_<A0>
+                                          , meta::as_<base_t>
                                           >::type             result_type;
 
     BOOST_FORCEINLINE result_type
-    operator()(A0 const& l, A0 const& s, A0 const& u) const
+    operator()(A0 const& l, A1 const& s, A2 const& u) const
     {
       return  boost::proto::
               make_expr < nt2::tag::colon_
                         , container::domain
                         > ( boxify(of_size_<1,-1>(1,details::colon_size(l,s,u)))
-                          , boxify(constant_t(l,s))
-                          , meta::as_<A0>()
-                          );
-    }
-  };
-
-  /// INTERNAL ONLY
-  /// Generates colon from a pair of [low,up] and a step
-  /// Easy case : everything is unsigned integral
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::colon_, tag::cpu_
-                            , (A0)
-                            , (scalar_< uint_<A0> >)
-                              (scalar_< uint_<A0> >)
-                              (scalar_< uint_<A0> >)
-                            )
-  {
-    typedef meta::constant_<nt2::tag::colon_,A0> constant_t;
-    typedef typename  boost::proto::
-                      result_of::make_expr< nt2::tag::colon_
-                                          , container::domain
-                                          , box< of_size_<1, -1> >
-                                          , box< constant_t >
-                                          , meta::as_<A0>
-                                          >::type             result_type;
-
-    BOOST_FORCEINLINE result_type
-    operator()(A0 const& l, A0 const& s, A0 const& u) const
-    {
-      return  boost::proto::
-              make_expr < nt2::tag::colon_
-                        , container::domain
-                        > ( boxify(of_size_<1, -1>(1,details::colon_size(l,s,u)))
                           , boxify(constant_t(l,s))
                           , meta::as_<A0>()
                           );
@@ -182,7 +151,7 @@ namespace nt2 { namespace ext
                                     , container::domain
                                     > ( boxify(of_size_<1, -1>(1,n))
                                       , boxify(constant_t(l,s))
-                                      , meta::as_<A0>()
+                                      , meta::as_<base_t>()
                                       );
     }
 
