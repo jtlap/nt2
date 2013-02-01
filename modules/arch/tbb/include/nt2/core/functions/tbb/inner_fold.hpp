@@ -41,9 +41,7 @@ namespace nt2 {
                , std::size_t const& bound, std::size_t const& ibound)
       : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
       , bound_(bound), ibound_(ibound)
-      {
-        vec_out_ = neutral_(nt2::meta::as_<target_type>());
-      }
+      {}
 
       A0&                     out_;
       A1&                      in_;
@@ -52,7 +50,6 @@ namespace nt2 {
       A4                      uop_;
       std::size_t           bound_;
       std::size_t          ibound_;
-      mutable target_type vec_out_;
     };
 
     template<class A0, class A1, class A2, class A3, class A4, class Target, class Value>
@@ -71,18 +68,21 @@ namespace nt2 {
       void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
       {
         static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
+
+
         for(std::ptrdiff_t j = r.begin(); j < r.end(); ++j)
         {
           std::size_t k = j*parent::bound_;
-
+          target_type vec_out_ = neutral_(nt2::meta::as_<target_type>());
           nt2::run(parent::out_, j, neutral_(meta::as_<value_type>()));
 
           for(std::size_t i = 0; i < parent::ibound_; i+=N)
-            parent::vec_out_ = parent::bop_( parent::vec_out_
-                                           , nt2::run( parent::in_
-                                                     , i+k, meta::as_<target_type>()));
+            vec_out_ = parent::bop_( vec_out_
+                                   , nt2::run( parent::in_
+                                             , i+k, meta::as_<target_type>()));
 
-          nt2::run(parent::out_, j, parent::uop_(parent::vec_out_));
+
+          nt2::run(parent::out_, j, parent::uop_(vec_out_));
 
           for(std::size_t i = parent::ibound_; i < parent::bound_; ++i)
             nt2::run(parent::out_, j
