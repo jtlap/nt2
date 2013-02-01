@@ -39,16 +39,11 @@ namespace nt2 {
 
       apply_inner_reduce(A0& out, A1& in, A2 const& n, A3 const& bop, A4 const& uop
                , std::size_t const& bound, std::size_t const& ibound)
-      : out_(out), in_(in), neutral_(n), bop_(bop)
+      : out_(out), in_(in), neutral_(n), bop_(bop), uop_(uop)
       , bound_(bound), ibound_(ibound)
       {
         vec_out_ = neutral_(nt2::meta::as_<target_type>());
       }
-
-      apply_inner_reduce(apply_inner_reduce& src, tbb::split)
-      : out_(src.out_), in_(in_), neutral_(src.neutral_), bop_(src.bop_)
-      , uop_(src.uop_), bound_(src.bound_), ibound_(src.ibound_)
-      {}
 
       A0&                     out_;
       A1&                      in_;
@@ -73,10 +68,6 @@ namespace nt2 {
       : parent(out,in,n,bop,uop,bound,ibound)
       {}
 
-      inner_reduce_simd(inner_reduce_simd& src, tbb::split)
-      : parent(src)
-      {}
-
       void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
       {
         static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
@@ -88,19 +79,17 @@ namespace nt2 {
 
           for(std::size_t i = 0; i < parent::ibound_; i+=N)
             parent::vec_out_ = parent::bop_( parent::vec_out_
-                                   , nt2::run( parent::in_
-                                             , i+k, meta::as_<target_type>()));
+                                           , nt2::run( parent::in_
+                                                     , i+k, meta::as_<target_type>()));
 
           nt2::run(parent::out_, j, parent::uop_(parent::vec_out_));
 
           for(std::size_t i = parent::ibound_; i < parent::bound_; ++i)
             nt2::run(parent::out_, j
                      , parent::bop_( nt2::run(parent::out_, j, meta::as_<value_type>())
-                           , nt2::run(parent::in_, i+k, meta::as_<value_type>())));
+                                   , nt2::run(parent::in_, i+k, meta::as_<value_type>())));
         }
       }
-
-      void join(inner_reduce_simd& rhs) {}
     };
 
     template <class X, class N, class B, class U>
@@ -120,10 +109,6 @@ namespace nt2 {
       : parent(out,in,n,bop,uop,bound,ibound)
       {}
 
-      inner_reduce_scal(inner_reduce_scal& src, tbb::split)
-      : parent(src)
-      {}
-
       void operator()(tbb::blocked_range<std::ptrdiff_t> const& r) const
       {
         static const std::size_t N = boost::simd::meta::cardinal_of<target_type>::value;
@@ -140,8 +125,6 @@ namespace nt2 {
                   );
         }
       }
-
-      void join(inner_reduce_scal& rhs) {}
     };
   }
 
@@ -187,9 +170,9 @@ namespace nt2 {
         try
         {
 #endif
-          tbb::parallel_reduce( tbb::blocked_range<std::ptrdiff_t>(0,obound,grain)
-                              , ared
-                              );
+          tbb::parallel_for( tbb::blocked_range<std::ptrdiff_t>(0,obound,grain)
+                           , ared
+                           );
 
 #ifndef BOOST_NO_EXCEPTIONS
         }
@@ -211,11 +194,6 @@ namespace nt2 {
 //==============================================================================
 // tbb + noSIMD
 //==============================================================================
-namespace nt2 { namespace details
-{
-
- } }
-
 namespace nt2 { namespace ext
 {
 
@@ -250,9 +228,9 @@ namespace nt2 { namespace ext
       try
       {
 #endif
-        tbb::parallel_reduce( tbb::blocked_range<std::ptrdiff_t>(0,obound,grain)
-                            , ared
-                            );
+        tbb::parallel_for( tbb::blocked_range<std::ptrdiff_t>(0,obound,grain)
+                         , ared
+                         );
 #ifndef BOOST_NO_EXCEPTIONS
       }
       catch(...)
