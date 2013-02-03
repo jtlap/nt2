@@ -15,6 +15,7 @@ set( SOURCES
   conj.cpp
   dist.cpp
   floor.cpp
+  fma.cpp
   trunc.cpp
   round.cpp
   max.cpp
