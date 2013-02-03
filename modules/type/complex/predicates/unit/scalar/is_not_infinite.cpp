@@ -16,45 +16,34 @@
 #include <nt2/toolbox/predicates/include/functions/is_not_infinite.hpp>
 #include <boost/simd/sdk/simd/logical.hpp>
 
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
+#include <nt2/sdk/unit/tests/type_expr.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/mzero.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/toolbox/constant/common.hpp>
 
 NT2_TEST_CASE_TPL ( is_not_infinite_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-
   using nt2::is_not_infinite;
   using nt2::tag::is_not_infinite_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<is_not_infinite_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
-  typedef nt2::logical<T> wished_r_t;
   typedef std::complex<T> cT;
-  typedef nt2::imaginary<T> ciT;
-
+  typedef typename boost::dispatch::meta::call<is_not_infinite_(cT)>::type r_t;
 
   // return type conformity test
-  NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
-  std::cout << std::endl;
-  double ulpd;
-  ulpd=0.0;
-
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta::call<is_not_infinite_(cT)>::type, nt2::logical<T>);
 
   // specific values tests
-  NT2_TEST_EQUAL(is_not_infinite(-nt2::Zero<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_infinite(nt2::Half<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_infinite(nt2::Inf<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_infinite(nt2::Minf<T>()), r_t(false));
-  NT2_TEST_EQUAL(is_not_infinite(nt2::Mone<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_infinite(nt2::Nan<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_infinite(nt2::One<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_infinite(nt2::Quarter<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_infinite(nt2::Two<T>()), r_t(true));
-  NT2_TEST_EQUAL(is_not_infinite(nt2::Zero<T>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_infinite(nt2::Mzero<cT>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_infinite(nt2::Inf<cT>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_infinite(nt2::Minf<cT>()), r_t(false));
+  NT2_TEST_EQUAL(is_not_infinite(nt2::Nan<cT>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_infinite(nt2::One<cT>()), r_t(true));
+  NT2_TEST_EQUAL(is_not_infinite(nt2::Zero<cT>()), r_t(true));
 } // end of test for floating_
 

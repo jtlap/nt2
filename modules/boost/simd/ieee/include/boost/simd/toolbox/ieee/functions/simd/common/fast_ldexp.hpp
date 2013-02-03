@@ -16,6 +16,7 @@
 #include <boost/simd/include/constants/real.hpp>
 #include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/functions/simd/bitwise_andnot.hpp>
+#include <boost/simd/include/functions/simd/plus.hpp>
 #include <boost/simd/include/functions/simd/shli.hpp>
 
 /////////////////////////////////////////////////////////////////////////////

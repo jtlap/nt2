@@ -15,6 +15,7 @@
 ///
 #include <nt2/toolbox/exponential/include/functions/exp2.hpp>
 #include <boost/simd/sdk/simd/native.hpp>
+#include <nt2/include/functions/sqr.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
@@ -41,7 +42,7 @@ NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_SIMD_REAL_TYPES)
   using nt2::load;
   using boost::simd::native;
   using nt2::meta::cardinal_of;
-  #include <nt2/include/functions/sqr.hpp>
+
   typedef NT2_SIMD_DEFAULT_EXTENSION  ext_t;
   typedef typename nt2::meta::upgrade<T>::type   u_t;
   typedef native<T,ext_t>                        n_t;

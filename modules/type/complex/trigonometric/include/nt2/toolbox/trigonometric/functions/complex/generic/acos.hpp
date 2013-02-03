@@ -26,6 +26,7 @@
 #include <nt2/include/functions/logical_or.hpp>
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/functions/logical_andnot.hpp>
+#include <nt2/include/functions/logical_notand.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/is_less_equal.hpp>
 #include <nt2/include/functions/is_greater_equal.hpp>
@@ -45,7 +46,7 @@
 #include <nt2/include/functions/any.hpp>
 #include <nt2/include/functions/splat.hpp>
 #include <nt2/include/functions/negif.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/simd/all.hpp>
 #include <nt2/include/functions/safe_max.hpp>
 #include <nt2/include/functions/safe_min.hpp>
 

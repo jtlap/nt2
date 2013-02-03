@@ -34,7 +34,7 @@ NT2_TEST_CASE_TPL( unaligned_load,  BOOST_SIMD_SIMD_TYPES)
   NT2_TEST( (boost::is_same<vT,r_t>::value) );
 
   T data[ cardinal_of<vT>::value*3 ];
-  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = 1+i;
+  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = T(1+i);
 
   for(int i=0;i<3;++i)
   {
@@ -60,7 +60,7 @@ NT2_TEST_CASE_TPL( unaligned_load_offset,  BOOST_SIMD_SIMD_TYPES)
   NT2_TEST( (boost::is_same<vT,r_t>::value) );
 
   T data[ cardinal_of<vT>::value*3 ];
-  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = 1+i;
+  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = T(1+i);
 
   {
     r_t v = boost::simd::unaligned_load<vT>(&data[cardinal_of<vT>::value],-cardinal_of<vT>::value);
@@ -97,7 +97,7 @@ NT2_TEST_CASE_TPL( unaligned_load_suboffset,  BOOST_SIMD_SIMD_TYPES)
   NT2_TEST( (boost::is_same<vT,r_t>::value) );
 
   T data[ cardinal_of<vT>::value*3 ];
-  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = 1+i;
+  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = T(1+i);
 
   {
     r_t v = boost::simd::unaligned_load<vT,1>(&data[0]);
@@ -138,7 +138,7 @@ NT2_TEST_CASE_TPL( unaligned_load_gather, BOOST_SIMD_SIMD_TYPES)
   NT2_TEST( (boost::is_same<vT,r_t>::value) );
 
   T data[ cardinal_of<vT>::value*3 ];
-  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = 1+i;
+  for(size_t i=0;i<cardinal_of<vT>::value*3;++i) data[i] = T(1+i);
 
   viT index;
   for(size_t i=0;i<cardinal_of<viT>::value;++i)

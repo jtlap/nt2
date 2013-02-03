@@ -14,27 +14,21 @@
 /// created by jt the 30/11/2010
 ///
 #include <nt2/include/functions/proj.hpp>
-#include <nt2/include/constants/i.hpp>
-#include <boost/type_traits/is_same.hpp>
-#include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/mone.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/sdk/complex/dry.hpp>
+#include <nt2/sdk/complex/meta/as_imaginary.hpp>
+#include <nt2/toolbox/constant/common.hpp>
 
 NT2_TEST_CASE_TPL ( proj_real__1_0,  BOOST_SIMD_REAL_TYPES)
 {
-
   using nt2::proj;
   using nt2::tag::proj_;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef typename boost::dispatch::meta::call<proj_(T)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename std::complex<T> cT;
   typedef typename nt2::meta::as_imaginary<T>::type ciT;
-  typedef typename nt2::meta::as_dry<T>::type dT;
 
   // specific values tests
   NT2_TEST_EQUAL(nt2::proj(cT(1)), cT(1));

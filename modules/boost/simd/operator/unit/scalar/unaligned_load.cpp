@@ -95,7 +95,7 @@ NT2_TEST_CASE( unaligned_load_sequence )
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
   double d = 3.4;
-  float  f = 1.8;
+  float  f = 1.8f;
   char   c = 'a';
 
   boost::fusion::vector<double,float,char> v;
@@ -114,7 +114,7 @@ NT2_TEST_CASE( unaligned_load_pointer_of_sequence )
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
 
   double d = 3.4;
-  float  f = 1.8;
+  float  f = 1.8f;
   char   c = 'a';
 
   boost::fusion::vector<double,float,char> s(d,f,c);

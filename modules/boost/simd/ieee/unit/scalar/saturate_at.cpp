@@ -29,7 +29,6 @@ NT2_TEST_CASE_TPL ( saturate_at_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<saturate_at_<boost::simd::tag::Pi>(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -55,7 +54,6 @@ NT2_TEST_CASE_TPL ( saturate_at_signed_int__1_0,  BOOST_SIMD_INTEGRAL_SIGNED_TYP
   typedef typename boost::dispatch::meta::call<saturate_at_<boost::simd::tag::Pi>(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

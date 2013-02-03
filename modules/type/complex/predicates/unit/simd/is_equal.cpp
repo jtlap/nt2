@@ -19,54 +19,35 @@
 #include <boost/simd/sdk/simd/native.hpp>
 #include <nt2/sdk/simd/logical.hpp>
 
-#include <boost/type_traits/is_same.hpp>
 #include <boost/dispatch/functor/meta/call.hpp>
-#include <nt2/sdk/unit/tests.hpp>
+#include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/module.hpp>
-#include <nt2/sdk/memory/buffer.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/include/functions/load.hpp>
-#include <nt2/toolbox/constant/constant.hpp>
-#include <nt2/sdk/complex/complex.hpp>
-#include <nt2/sdk/complex/dry.hpp>
-#include <nt2/sdk/complex/imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_complex.hpp>
-#include <nt2/sdk/complex/meta/as_imaginary.hpp>
-#include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/constants/inf.hpp>
+#include <nt2/include/constants/nan.hpp>
+#include <nt2/include/constants/one.hpp>
+#include <nt2/include/constants/zero.hpp>
+#include <nt2/include/constants/minf.hpp>
+#include <nt2/include/constants/true.hpp>
+#include <nt2/include/constants/false.hpp>
+#include <nt2/toolbox/constant/common.hpp>
 
+#include <nt2/sdk/complex/complex.hpp>
 
 NT2_TEST_CASE_TPL ( is_equal_real__1_0,  BOOST_SIMD_SIMD_REAL_TYPES)
 {
   using nt2::is_equal;
   using nt2::tag::is_equal_;
-  using nt2::load;
   using boost::simd::native;
-  using nt2::meta::cardinal_of;
   typedef BOOST_SIMD_DEFAULT_EXTENSION  ext_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type   u_t;
-  typedef native<T,ext_t>                        n_t;
-  typedef n_t                                     vT;
-  typedef typename boost::dispatch::meta::as_integer<T>::type iT;
-  typedef native<iT,ext_t>                       ivT;
-  typedef typename boost::dispatch::meta::call<is_equal_(vT, vT)>::type r_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
-  typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;
-  typedef std::complex<T> cT;
-  typedef nt2::imaginary<T> ciT;
   typedef native<std::complex<T>, ext_t> cvT;
-  typedef native<nt2::imaginary<T>, ext_t > civT;
-  typedef native<nt2::dry<T>, ext_t > divT;
+  typedef typename boost::dispatch::meta::call<is_equal_(cvT, cvT)>::type r_t;
+  typedef typename nt2::meta::scalar_of<r_t>::type sr_t;
 
   // specific values tests
-  NT2_TEST_EQUAL(is_equal(nt2::Mzero<cvT>(), nt2::Mzero<cvT>())[0], nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal(nt2::Half<cvT>() , nt2::Half<cvT>())[0], nt2::True<sr_t>());
   NT2_TEST_EQUAL(is_equal(nt2::Inf<cvT>()  , nt2::Inf<cvT>())[0], nt2::True<sr_t>());
   NT2_TEST_EQUAL(is_equal(nt2::Minf<cvT>() , nt2::Minf<cvT>())[0], nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal(nt2::Mone<cvT>() , nt2::Mone<cvT>())[0], nt2::True<sr_t>());
   NT2_TEST_EQUAL(is_equal(nt2::Nan<cvT>()  , nt2::Nan<cvT>())[0], nt2::False<sr_t>());
   NT2_TEST_EQUAL(is_equal(nt2::One<cvT>()  , nt2::One<cvT>())[0], nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal(nt2::Quarter<cvT>() , nt2::Quarter<cvT>())[0], nt2::True<sr_t>());
-  NT2_TEST_EQUAL(is_equal(nt2::Two<cvT>()  , nt2::Two<cvT>())[0], nt2::True<sr_t>());
   NT2_TEST_EQUAL(is_equal(nt2::Zero<cvT>() , nt2::Zero<cvT>())[0], nt2::True<sr_t>());
 } // end of test for floating_
 

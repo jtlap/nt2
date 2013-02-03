@@ -24,7 +24,7 @@ NT2_TEST_CASE_TPL(constructor_from_begin_iterator, BOOST_SIMD_SIMD_TYPES )
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
 
   BOOST_SIMD_ALIGNED_TYPE(T) data[card];
-  for(size_t i=0; i<card; ++i) data[i] = i;
+  for(size_t i=0; i<card; ++i) data[i] = T(i);
 
   p_t p(&data[0]);
   for(size_t i=0;i<card;++i)
@@ -37,7 +37,7 @@ NT2_TEST_CASE_TPL(constructor_from_range, BOOST_SIMD_SIMD_TYPES )
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
   std::vector<T, boost::simd::memory::allocator<T> > data(card);
 
-  for(size_t i=0; i<card; ++i) data[i] = i;
+  for(size_t i=0; i<card; ++i) data[i] = T(i);
 
   p_t p(data.begin(),data.end());
   for(size_t i=0;i<card;++i)
@@ -50,7 +50,7 @@ NT2_TEST_CASE_TPL(constructor_copy, BOOST_SIMD_SIMD_TYPES )
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
   std::vector<T, boost::simd::memory::allocator<T> > data(card);
 
-  for(size_t i=0; i<card; ++i) data[i] = i;
+  for(size_t i=0; i<card; ++i) data[i] = T(i);
 
   p_t p(data.begin(),data.end());
   p_t copy(p);
@@ -76,7 +76,7 @@ NT2_TEST_CASE_TPL(range_interface, BOOST_SIMD_SIMD_TYPES )
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
   std::vector<T, boost::simd::memory::allocator<T> > data(card);
 
-  for(size_t i=0; i<card; ++i) data[i] = i;
+  for(size_t i=0; i<card; ++i) data[i] = T(i);
 
   p_t p(data.begin(),data.end());
 
@@ -92,7 +92,7 @@ NT2_TEST_CASE_TPL(pack_store, BOOST_SIMD_SIMD_TYPES )
   std::vector<T, boost::simd::memory::allocator<T> > data(card);
   std::vector<T, boost::simd::memory::allocator<T> > stored(card);
 
-  for(size_t i=0; i<card; ++i) data[i] = i;
+  for(size_t i=0; i<card; ++i) data[i] = T(i);
   p_t p(data.begin(),data.end());
   boost::simd::store(p,&stored[0],0);
 
@@ -107,7 +107,7 @@ NT2_TEST_CASE_TPL(pack_load, BOOST_SIMD_SIMD_TYPES )
   static const std::size_t card = boost::simd::meta::cardinal_of<p_t>::value;
   std::vector<T, boost::simd::memory::allocator<T> > data(card);
 
-  for(size_t i=0; i<card; ++i) data[i] = i;
+  for(size_t i=0; i<card; ++i) data[i] = T(i);
   p_t p;
   p = boost::simd::load<p_t>(&data[0],0);
 

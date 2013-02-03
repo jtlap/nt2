@@ -11,6 +11,17 @@
 
 #include <nt2/toolbox/hyperbolic/functions/atanh.hpp>
 #include <nt2/include/functions/is_nan.hpp>
+#include <nt2/include/functions/log.hpp>
+#include <nt2/include/functions/sqrt.hpp>
+#include <nt2/include/functions/minusone.hpp>
+#include <nt2/include/functions/logical_andnot.hpp>
+#include <nt2/include/functions/simd/all.hpp>
+#include <nt2/include/functions/none.hpp>
+#include <nt2/sdk/complex/meta/as_complex.hpp>
+#include <nt2/sdk/complex/meta/as_real.hpp>
+#include <nt2/sdk/complex/meta/as_dry.hpp>
+#include <nt2/include/functions/is_real.hpp>
+#include <nt2/include/functions/is_inf.hpp>
 #include <nt2/include/functions/is_invalid.hpp>
 #include <nt2/include/functions/is_real.hpp>
 #include <nt2/include/functions/log.hpp>

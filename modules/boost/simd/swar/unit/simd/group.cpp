@@ -152,9 +152,13 @@ NT2_TEST_CASE_TPL ( group_groupable__4_1,  (int32_t))
   // specific values tests
 
   size_t n = cardinal_of<vT>::value;
-  int32_t s = 32767 - n;
+  int32_t s = 32767 - int32_t(n);
   for(size_t i=0; i < cardinal_of<vT>::value; i++)
   {
-    NT2_TEST_EQUAL(group(boost::simd::enumerate<vT>(T(s)),  boost::simd::enumerate<vT>(T(s+n)))[i],  T(s+i));
+    NT2_TEST_EQUAL(group( boost::simd::enumerate<vT>(T(s))
+                        , boost::simd::enumerate<vT>(T(s+n))
+                        )[i]
+                  ,  T(s+i)
+                  );
   }
 } // end of test for groupable_

@@ -12,7 +12,7 @@
 #include <nt2/toolbox/swar/functions/comparator.hpp>
 #include <nt2/include/functions/min.hpp>
 #include <nt2/include/functions/max.hpp>
-#include <nt2/include/functions/any.hpp>
+#include <nt2/include/functions/simd/any.hpp>
 #include <nt2/include/functions/is_not_equal_with_equal_nans.hpp>
 #include <boost/fusion/include/vector.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>

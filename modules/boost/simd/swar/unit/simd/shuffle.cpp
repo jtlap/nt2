@@ -31,9 +31,9 @@ struct mirror_
 {
   template<class Index, class Cardinal>
   struct apply
-       : boost::mpl::int_ < (Cardinal::value/2 > Index::value)
-                          ? Index::value
-                          : (Cardinal::value - 1 - Index::value)
+       : boost::mpl::int_ < (Index::value >= Cardinal::value/2)
+                          ? (Cardinal::value - 1 - Index::value)
+                          : Index::value
                           >
   {};
 };
@@ -119,14 +119,16 @@ struct low0_upshuffled_
 {
   template<class Index, class Cardinal>
   struct apply  : boost::mpl
-                ::int_< (Cardinal::value/2 > Index::value) ? Index::value : -1 > {};
+                ::int_< (Index::value >= Cardinal::value/2) ? -1 : Index::value>
+  {};
 };
 
 struct lowshuffled_up0_
 {
   template<class Index, class Cardinal>
   struct apply  : boost::mpl
-                ::int_< (Cardinal::value/2 > Index::value) ? -1 : Index::value > {};
+                ::int_< (Index::value >= Cardinal::value/2) ? Index::value : -1>
+  {};
 };
 
 NT2_TEST_CASE_TPL( shuffle_optim, (float)(int32_t)(uint32_t) )
@@ -167,7 +169,7 @@ NT2_TEST_CASE_TPL( shuffle_index2, BOOST_SIMD_SIMD_TYPES)
   typedef typename vector_of<T,2>::type    vT;
 
   vT origin, reference;
-  vT id, shuffled, hnull, mirrored, bcasted,randed;
+  vT id, shuffled, mirrored, bcasted;
   for(std::size_t i=1; i < vT::static_size;++i) origin[i] = T(65+i);
   origin[0] = boost::simd::Valmax<T>();
 

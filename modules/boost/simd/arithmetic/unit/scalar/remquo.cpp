@@ -37,14 +37,12 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  (double))
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<remquo_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,typename boost::dispatch::meta::as_integer<T,signed>::type> wished_r_t;
 
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   iT n = 0;
-  int32_t n1;
-  T r, r1;
+  T r;
 
   remquo(boost::simd::Nan<double>(), T(1), r, n);
   NT2_TEST_EQUAL(r, boost::simd::Nan<double>());
@@ -56,6 +54,9 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0,  (double))
 #ifdef BOOST_SIMD_HAS_REMQUO
   T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   T b[9] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  int32_t n1;
+  T r1;
 
   for(int i=0; i < 10; ++i)
   {
@@ -78,14 +79,12 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0f,  (float))
   typedef typename boost::dispatch::meta::as_integer<T>::type iT;
   typedef typename boost::dispatch::meta::call<remquo_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::fusion::tuple<T,typename boost::dispatch::meta::as_integer<T,signed>::type> wished_r_t;
 
   // return type conformity test
   NT2_TEST( (boost::is_same < r_t, wished_r_t >::value) );
   iT n = 0;
-  int32_t n1;
-  T r, r1;
+  T r;
 
   remquo(boost::simd::Nan<float>(), T(1), r, n);
   NT2_TEST_EQUAL(r, boost::simd::Nan<float>());
@@ -97,6 +96,9 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0f,  (float))
 #ifdef BOOST_SIMD_HAS_REMQUO
   T a[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
   T b[9] = {2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+  int32_t n1;
+  T r1;
 
   for(int i=0; i < 10; ++i)
   {
@@ -111,6 +113,4 @@ NT2_TEST_CASE_TPL ( remquo_real__2_0f,  (float))
     }
   }
 #endif
-
-}// end
-
+}

@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/simd/bitwise_and.hpp>
 #include <boost/simd/include/functions/simd/logical_notand.hpp>
 #include <boost/simd/include/functions/simd/shri.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
 #include <boost/simd/include/functions/simd/seladd.hpp>
 #include <boost/simd/include/functions/simd/is_nez.hpp>
 #include <boost/simd/include/constants/maxexponent.hpp>

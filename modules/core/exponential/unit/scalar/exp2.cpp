@@ -16,6 +16,7 @@
 #include <nt2/toolbox/exponential/include/functions/exp2.hpp>
 #include <boost/type_traits/is_same.hpp>
 #include <nt2/sdk/functor/meta/call.hpp>
+#include <nt2/include/functions/sqr.hpp>
 #include <nt2/sdk/meta/as_integer.hpp>
 #include <nt2/sdk/meta/as_floating.hpp>
 #include <nt2/sdk/meta/as_signed.hpp>
@@ -35,7 +36,6 @@ NT2_TEST_CASE_TPL ( exp2_real__1_0,  NT2_REAL_TYPES)
 
   using nt2::exp2;
   using nt2::tag::exp2_;
-  #include <nt2/include/functions/sqr.hpp>
   typedef typename nt2::meta::as_integer<T>::type iT;
   typedef typename nt2::meta::call<exp2_(T)>::type r_t;
   typedef typename nt2::meta::scalar_of<r_t>::type ssr_t;

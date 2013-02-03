@@ -21,7 +21,7 @@
 #include <nt2/sdk/unit/tests/relation.hpp>
 #include <nt2/sdk/unit/tests/type_expr.hpp>
 
-NT2_TEST_CASE_TPL(simd, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(simd, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::native;
   using boost::simd::splat;
@@ -30,14 +30,19 @@ NT2_TEST_CASE_TPL(simd, BOOST_SIMD_TYPES)
 
   typedef native<T,BOOST_SIMD_DEFAULT_EXTENSION> native_t;
   NT2_TEST_TYPE_IS( typename boost::dispatch::meta
-                    ::call<value_(native_t)>::type
-                  , native_t
+                    ::call<value_(native_t&)>::type
+                  , native_t&
+                  );
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta
+                    ::call<value_(native_t const&)>::type
+                  , native_t const&
                   );
 
   NT2_TEST_EQUAL(value(splat<native_t>(42)), splat<native_t>(42));
 }
 
-NT2_TEST_CASE_TPL(logical, BOOST_SIMD_TYPES)
+NT2_TEST_CASE_TPL(logical, BOOST_SIMD_SIMD_TYPES)
 {
   using boost::simd::logical;
   using boost::simd::native;
@@ -47,8 +52,13 @@ NT2_TEST_CASE_TPL(logical, BOOST_SIMD_TYPES)
 
   typedef native<logical<T>,BOOST_SIMD_DEFAULT_EXTENSION> native_t;
   NT2_TEST_TYPE_IS( typename boost::dispatch::meta
-                    ::call<value_(native_t)>::type
-                  , native_t
+                    ::call<value_(native_t const&)>::type
+                  , native_t const&
+                  );
+
+  NT2_TEST_TYPE_IS( typename boost::dispatch::meta
+                    ::call<value_(native_t&)>::type
+                  , native_t&
                   );
 
   NT2_TEST_EQUAL(value(splat<native_t>(true)), splat<native_t>(true));

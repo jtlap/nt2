@@ -13,31 +13,7 @@
 #include <boost/dispatch/attributes.hpp>
 #include <boost/assert.hpp>
 
-//==============================================================================
-// gettimeofday systems
-//==============================================================================
-#if defined( BOOST_HAS_GETTIMEOFDAY )
-#include <sys/resource.h>
-#include <sys/time.h>
-
-namespace nt2
-{
-  static double const timer_ticks_per_microsecond( 1 );
-
-  NT2_SDK_TIMING_DECL time_quantum_t time_quantum()
-  {
-    /// \todo Investigate:
-    /// http://www.gamasutra.com/view/feature/171774/getting_high_precision_timing_on_.php
-    /// http://pubs.opengroup.org/onlinepubs/009695399/functions/clock_gettime.html
-    /// http://gruntthepeon.free.fr/blog/index.php/2011/05/30/56-clock_gettime-is-slow
-    ///                                     (18.10.2012.) (Domagoj Saric)
-    timeval tp;
-    BOOST_VERIFY( ::gettimeofday( &tp, NULL ) == 0 );
-    return static_cast<time_quantum_t>( tp.tv_sec ) * 1000000 + tp.tv_usec;
-  }
-}
-
-#elif defined(_WIN32) || defined(__WIN32__) || defined(WIN32)
+#if (defined(_WIN32) || defined(__WIN32__) || defined(WIN32))
 //==============================================================================
 // QueryPerformanceCounter systems
 //==============================================================================
@@ -68,18 +44,49 @@ namespace nt2
         /// http://support.microsoft.com/kb/274323 (http://bullet.googlecode.com/svn/tags/bullet-2.72-release/src/LinearMath/btQuickprof.h)
         /// http://www.virtualdub.org/blog/pivot/entry.php?id=106.
         ///                                   (18.10.2012.) (Domagoj Saric)
+        #ifdef __GNUC__
+        __asm__ ("" :::"memory" );
+        #else
         ::_ReadWriteBarrier();
+        #endif
         LARGE_INTEGER result;
         BOOST_VERIFY( ::QueryPerformanceCounter( &result ) );
+        #ifdef __GNUC__
+        __asm__ ("" :::"memory" );
+        #else
         ::_ReadWriteBarrier();
+        #endif
         return result.QuadPart;
     }
 }
 
-#else
+//==============================================================================
+// gettimeofday systems
+//==============================================================================
+#elif defined( BOOST_HAS_GETTIMEOFDAY )
+#include <sys/time.h>
+
+namespace nt2
+{
+  static double const timer_ticks_per_microsecond( 1 );
+
+  NT2_SDK_TIMING_DECL time_quantum_t time_quantum()
+  {
+    /// \todo Investigate:
+    /// http://www.gamasutra.com/view/feature/171774/getting_high_precision_timing_on_.php
+    /// http://pubs.opengroup.org/onlinepubs/009695399/functions/clock_gettime.html
+    /// http://gruntthepeon.free.fr/blog/index.php/2011/05/30/56-clock_gettime-is-slow
+    ///                                     (18.10.2012.) (Domagoj Saric)
+    timeval tp;
+    BOOST_VERIFY( ::gettimeofday( &tp, NULL ) == 0 );
+    return static_cast<time_quantum_t>( tp.tv_sec ) * 1000000 + tp.tv_usec;
+  }
+}
+
 //==============================================================================
 // Other systems
 //==============================================================================
+#else
 #include <ctime>
 
 namespace nt2

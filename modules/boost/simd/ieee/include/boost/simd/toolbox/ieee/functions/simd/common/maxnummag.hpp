@@ -13,6 +13,7 @@
 #include <boost/simd/include/functions/simd/if_else.hpp>
 #include <boost/simd/include/functions/simd/is_nan.hpp>
 #include <boost/simd/include/functions/simd/abs.hpp>
+#include <boost/simd/include/functions/simd/is_greater.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

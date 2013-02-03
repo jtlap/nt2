@@ -11,7 +11,7 @@
 #include <boost/assert.hpp>
 #include <boost/config.hpp>
 
-#if defined( BOOST_HAS_GETTIMEOFDAY )
+#if defined(__unix)
 #include <sys/time.h>
 #include <sys/resource.h>
 

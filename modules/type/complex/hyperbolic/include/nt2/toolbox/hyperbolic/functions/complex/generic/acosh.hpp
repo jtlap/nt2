@@ -13,7 +13,7 @@
 #include <nt2/include/functions/sqrt.hpp>
 #include <nt2/include/functions/minusone.hpp>
 #include <nt2/include/functions/logical_andnot.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/simd/all.hpp>
 #include <nt2/include/functions/none.hpp>
 #include <nt2/sdk/complex/meta/as_complex.hpp>
 #include <nt2/sdk/complex/meta/as_real.hpp>

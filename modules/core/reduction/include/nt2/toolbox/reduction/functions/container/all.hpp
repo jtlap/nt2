@@ -10,10 +10,10 @@
 #define NT2_TOOLBOX_REDUCTION_FUNCTIONS_CONTAINER_ALL_HPP_INCLUDED
 
 #include <nt2/toolbox/reduction/functions/all.hpp>
-#include <boost/simd/toolbox/reduction/functions/all.hpp>
-#include <nt2/core/container/dsl/reduction.hpp>
-#include <nt2/include/functions/is_nez.hpp>
 #include <nt2/core/container/dsl/size.hpp>
+#include <nt2/core/container/dsl/reduction.hpp>
+#include <nt2/core/container/dsl/value_type.hpp>
+#include <nt2/include/functions/is_nez.hpp>
 
 #include <nt2/include/functions/logical_and.hpp>
 #include <nt2/include/constants/true.hpp>
@@ -34,7 +34,7 @@ namespace nt2 { namespace ext
     }
   };
 
-  NT2_FUNCTOR_IMPLEMENTATION( nt2::tag::all_, tag::cpu_
+  NT2_FUNCTOR_IMPLEMENTATION( boost::simd::tag::all_, tag::cpu_
                             , (A0)(T)(N)(A1)
                             , ((expr_< generic_<arithmetic_<A0> >,T,N >))
                               (scalar_< integer_<A1> >)
@@ -50,21 +50,20 @@ namespace nt2 { namespace ext
   };
 } }
 
-
 namespace nt2 { namespace ext
 {
   template<class Domain, class Expr>
-  struct  size_of<boost::simd::tag::all_,Domain,1,Expr>
+  struct  size_of<nt2::tag::all_,Domain,1,Expr>
         : meta::reduction_size<Expr,1>
   {};
 
   template<class Domain, class Expr>
-  struct  size_of<boost::simd::tag::all_,Domain,2,Expr>
+  struct  size_of<nt2::tag::all_,Domain,2,Expr>
         : meta::reduction_size<Expr,2>
   {};
 
   template<class Domain, int N, class Expr>
-  struct  value_type<boost::simd::tag::all_,Domain,N,Expr>
+  struct  value_type<nt2::tag::all_,Domain,N,Expr>
         : meta::reduction_value<boost::simd::tag::all_,Expr>
   {};
 } }

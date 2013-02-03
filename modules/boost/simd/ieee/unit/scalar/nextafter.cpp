@@ -30,7 +30,6 @@ NT2_TEST_CASE_TPL ( nextafter_real__2_0,  (float))
   typedef typename boost::dispatch::meta::call<nextafter_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 
@@ -53,7 +52,6 @@ NT2_TEST_CASE_TPL ( nextafter_real__2_0d,  (double))
   typedef typename boost::dispatch::meta::call<nextafter_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef T wished_r_t;
 
 

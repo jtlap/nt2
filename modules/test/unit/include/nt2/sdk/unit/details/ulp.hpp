@@ -72,13 +72,13 @@ namespace nt2 { namespace details
     BOOST_FORCEINLINE
     result_type eval(A const& a, B const& b,boost::mpl::true_ const&) const
     {
-      return eval ( a , b, 0
+      return eval ( a , b, 0.
                   , typename boost::fusion::result_of::size<A>::type()
                   );
     }
 
-    BOOST_FORCEINLINE bool
-    eval(A const& a, B const& b, double z, boost::mpl::int_<1> const&) const
+    BOOST_FORCEINLINE result_type
+    eval(A const& a, B const& b, result_type z, boost::mpl::int_<1> const&) const
     {
       return std::max ( z
                       , max_ulps ( nt2::details
@@ -94,18 +94,18 @@ namespace nt2 { namespace details
     }
 
     template<class N>
-    BOOST_FORCEINLINE bool
-    eval(A const& a, B const& b, double z,N const&) const
+    BOOST_FORCEINLINE result_type
+    eval(A const& a, B const& b, result_type z,N const&) const
     {
       return eval ( a , b
                   , std::max( z
                             , max_ulps ( nt2::details::
-                                         smallest_a ( boost::fusion::at_c<0>(a)
-                                                    , boost::fusion::at_c<0>(b)
+                                         smallest_a ( boost::fusion::at_c<N::value-1>(a)
+                                                    , boost::fusion::at_c<N::value-1>(b)
                                                     )
                                         , nt2::details::
-                                          smallest_b( boost::fusion::at_c<0>(a)
-                                                    , boost::fusion::at_c<0>(b)
+                                          smallest_b( boost::fusion::at_c<N::value-1>(a)
+                                                    , boost::fusion::at_c<N::value-1>(b)
                                                     )
                                         )
                             )

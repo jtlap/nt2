@@ -32,7 +32,6 @@ NT2_TEST_CASE_TPL ( is_greater_equal_integer__2_0,  BOOST_SIMD_INTEGRAL_TYPES)
   typedef typename boost::dispatch::meta::call<is_greater_equal_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::simd::logical<T> wished_r_t;
 
 
@@ -55,7 +54,6 @@ NT2_TEST_CASE_TPL ( is_greater_equal_real__2_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<is_greater_equal_(T,T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef boost::simd::logical<T> wished_r_t;
 
 

@@ -8,13 +8,14 @@
 //==============================================================================
 #ifndef BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_POSITIVE_HPP_INCLUDED
 #define BOOST_SIMD_TOOLBOX_PREDICATES_FUNCTIONS_SIMD_COMMON_IS_POSITIVE_HPP_INCLUDED
+
 #include <boost/simd/toolbox/predicates/functions/is_positive.hpp>
-#include <boost/simd/include/functions/simd/is_gez.hpp>
 #include <boost/simd/include/functions/simd/is_equal.hpp>
+#include <boost/simd/include/functions/simd/is_gez.hpp>
 #include <boost/simd/include/functions/simd/bitofsign.hpp>
+#include <boost/simd/include/functions/simd/bitwise_or.hpp>
 #include <boost/simd/include/constants/one.hpp>
-#include <boost/simd/sdk/simd/logical.hpp>
-#include <boost/dispatch/meta/as_integer.hpp>
+#include <boost/simd/sdk/meta/as_logical.hpp>
 
 namespace boost { namespace simd { namespace ext
 {

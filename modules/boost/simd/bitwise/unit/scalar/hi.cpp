@@ -36,7 +36,6 @@ NT2_TEST_CASE_TPL ( hi_real__1_0,  BOOST_SIMD_REAL_TYPES)
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
 
@@ -61,7 +60,6 @@ NT2_TEST_CASE_TPL ( hi_int64__1_0,  BOOST_SIMD_INT_64_TYPES)
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
 
@@ -86,7 +84,6 @@ NT2_TEST_CASE_TPL ( hi_int32__1_0,  BOOST_SIMD_INT_32_TYPES)
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
 
@@ -111,7 +108,6 @@ NT2_TEST_CASE_TPL ( hi_int16__1_0,  BOOST_SIMD_INT_16_TYPES)
   typedef typename boost::dispatch::meta::call<hi_(T)>::type r_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type sr_t;
   typedef typename boost::simd::meta::scalar_of<r_t>::type ssr_t;
-  typedef typename boost::dispatch::meta::upgrade<T>::type u_t;
   typedef typename boost::dispatch::meta::downgrade<ir_t>::type wished_r_t;
 
 

@@ -15,6 +15,7 @@
 #include <nt2/include/functions/simd/is_gtz.hpp>
 #include <nt2/include/functions/simd/genmask.hpp>
 #include <nt2/include/functions/simd/oneminus.hpp>
+#include <nt2/include/functions/simd/divides.hpp>
 #include <nt2/include/functions/simd/round.hpp>
 #include <nt2/include/functions/simd/logical_and.hpp>
 

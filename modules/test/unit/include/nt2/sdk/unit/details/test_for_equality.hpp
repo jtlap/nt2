@@ -16,6 +16,7 @@
 #include <boost/fusion/include/is_sequence.hpp>
 #include <boost/fusion/include/size.hpp>
 #include <boost/fusion/include/at.hpp>
+#include <boost/detail/workaround.hpp>
 #include <algorithm>
 
 namespace nt2 { namespace details
@@ -99,7 +100,18 @@ namespace nt2 { namespace details
 
     BOOST_FORCEINLINE bool operator()(A const& a, B const& b) const
     {
-      return std::equal(a.begin(),a.end(),b.begin(),check_());
+#if BOOST_WORKAROUND(BOOST_MSVC, >= 1400) && BOOST_WORKAROUND(BOOST_MSVC, < 1600)
+      return stdext::unchecked_equal(a.begin(),a.end(),b.begin(),check_());
+#elif BOOST_WORKAROUND(BOOST_MSVC, > 1500)
+
+      return std::equal
+            ( a.begin(), a.end()
+            , stdext::make_unchecked_array_iterator(b.begin())
+            , check_()
+            );
+#else
+    return std::equal(a.begin(),a.end(),b.begin(),check_());
+#endif
     }
   };
 

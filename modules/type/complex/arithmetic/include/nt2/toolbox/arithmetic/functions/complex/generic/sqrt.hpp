@@ -24,7 +24,7 @@
 #include <nt2/include/functions/negif.hpp>
 #include <nt2/include/functions/abs.hpp>
 #include <nt2/include/functions/logical_andnot.hpp>
-#include <nt2/include/functions/all.hpp>
+#include <nt2/include/functions/simd/all.hpp>
 #include <nt2/include/constants/sqrt_2o_2.hpp>
 #include <nt2/include/constants/inf.hpp>
 #include <nt2/include/constants/half.hpp>
